@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['upnp_20library_0',['The UPnP Library',['../index.html',1,'']]]
+  ['software_20development_20kit_0',['The UPnP+™ Software Development Kit',['../index.html',1,'']]]
 ];

@@ -24,8 +24,8 @@
 */
 var NAVTREE =
 [
-  [ "UPnPlib", "index.html", [
-    [ "The UPnP Library", "index.html", "index" ],
+  [ "UPnPsdk", "index.html", [
+    [ "The UPnP+™ Software Development Kit", "index.html", "index" ],
     [ "Overview", "d2/d59/Overview.html", [
       [ "Overview", "d2/d59/Overview.html#overview", [
         [ "Parts 'Control Point' and 'UPnP Device'", "d2/d59/Overview.html#parts", null ],

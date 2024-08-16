@@ -3,7 +3,7 @@ var searchData=
   ['tail_0',['tail',['../de/dd1/LinkedList_8hpp.html#ad87fd5226e3d0ee0414c1fd4e44999de',1,'LinkedList']]],
   ['technical_20documentation_1',['2. Technical Documentation',['../index.html#autotoc_md2',1,'']]],
   ['text_2',['text',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#aeb8214b39749d9add1a8777008d982cb',1,'hostport_type']]],
-  ['the_20upnp_20library_3',['The UPnP Library',['../index.html',1,'']]],
+  ['the_20upnp_20™_20software_20development_20kit_3',['The UPnP+™ Software Development Kit',['../index.html',1,'']]],
   ['the_20upnpstring_20class_4',['The UpnpString Class',['../d1/d03/group__UpnpString.html',1,'']]],
   ['thread_5fidle_5ftime_5',['THREAD_IDLE_TIME',['../d8/dfd/config_8hpp.html#aa17f759d2425329a9eee292c09affde5',1,'config.hpp']]],
   ['thread_5flimit_6',['THREAD_LIMIT',['../d0/d19/ssdp__common_8hpp.html#ae69ccc5531313c2d6eb93eb454a27b2f',1,'ssdp_common.hpp']]],
@@ -73,7 +73,7 @@ var searchData=
   ['tpjobsetpriority_70',['tpjobsetpriority',['../d5/d91/ThreadPool_8hpp.html#a7317f4409e514c2c01e31c9f66fd7da5',1,'TPJobSetPriority(ThreadPoolJob *job, ThreadPriority priority):&#160;ThreadPool.cpp'],['../d8/d61/ThreadPool_8cpp.html#a7317f4409e514c2c01e31c9f66fd7da5',1,'TPJobSetPriority(ThreadPoolJob *job, ThreadPriority priority):&#160;ThreadPool.cpp']]],
   ['true_5frandom_71',['true_random',['../db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html#a495200f98fe9ffd4178f7128d44ebf8b',1,'anonymous_namespace{uuid.cpp}']]],
   ['ts_72',['ts',['../db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html#a3afe1887ce90da80b45278b21a81bd3d',1,'anonymous_namespace{uuid.cpp}::uuid_state']]],
-  ['type_73',['type',['../db/d86/group__upnplib-socket.html#autotoc_md15',1,'socket type'],['../dc/d6d/namespaceupnplib.html#ab28b46e87d7d69fdcace8eca7db3cb4d',1,'upnplib::Document_meta::type'],['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#ac20a8bda3795e43b035eb6253e4e1f14',1,'uri_type::type']]],
+  ['type_73',['type',['../db/d86/group__upnplib-socket.html#autotoc_md14',1,'socket type'],['../dc/d6d/namespaceupnplib.html#ab28b46e87d7d69fdcace8eca7db3cb4d',1,'upnplib::Document_meta::type'],['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#ac20a8bda3795e43b035eb6253e4e1f14',1,'uri_type::type']]],
   ['tz_5fdsttime_74',['tz_dsttime',['../d5/d91/ThreadPool_8hpp.html#a85259977aeb63b17e6ce94f19afdfd99',1,'timezone']]],
   ['tz_5fminuteswest_75',['tz_minuteswest',['../d5/d91/ThreadPool_8hpp.html#a3042f7eff6e1b980728def76b1fa0eb7',1,'timezone']]]
 ];
