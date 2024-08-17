@@ -1,13 +1,13 @@
 #ifndef UPNPLIB_INCLUDE_ADDRINFO_HPP
 #define UPNPLIB_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-22
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
  */
 
-#include <upnplib/netaddr.hpp>
+#include <UPnPsdk/netaddr.hpp>
 
 namespace upnplib {
 

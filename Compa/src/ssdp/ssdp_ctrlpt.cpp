@@ -6,7 +6,7 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-07-30
+ * Redistribution only with this Copyright remark. Last modified: 2024-08-17
  *
  * - Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
@@ -44,7 +44,7 @@
 #include <statcodes.hpp>
 #include <upnpapi.hpp>
 
-#include <upnplib/synclog.hpp>
+#include <UPnPsdk/synclog.hpp>
 #include <umock/sys_socket.hpp>
 #include <umock/pupnp_sock.hpp>
 

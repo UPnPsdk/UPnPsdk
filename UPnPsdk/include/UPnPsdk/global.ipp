@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-06-20
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 // There is no include guard '#ifndef ...' because this file shouln't be
 // included more than two times as given.
@@ -12,7 +12,7 @@
 // Due to the global nature of this header file additional #include statements
 // should be taken with great care. They are included in nearly all other
 // compile units.
-#include <upnplib/visibility.hpp>
+#include <UPnPsdk/visibility.hpp>
 /// \cond
 #include <string>
 

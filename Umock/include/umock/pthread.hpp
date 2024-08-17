@@ -1,9 +1,9 @@
 #ifndef MOCK_PTHREAD_HPP
 #define MOCK_PTHREAD_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-12-24
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include <upnplib/visibility.hpp>
+#include <UPnPsdk/visibility.hpp>
 #include "pthread.h" // To find pthreads4w don't use <pthread.h>
 
 namespace umock {

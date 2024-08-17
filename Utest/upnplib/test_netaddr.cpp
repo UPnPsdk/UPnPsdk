@@ -1,9 +1,9 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-03
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include <upnplib/netaddr.hpp>
+#include <UPnPsdk/netaddr.hpp>
 
-#include <upnplib/addrinfo.hpp>
+#include <UPnPsdk/addrinfo.hpp>
 #include <iostream>
 #include <utest/utest.hpp>
 

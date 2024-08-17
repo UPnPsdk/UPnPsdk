@@ -1,9 +1,9 @@
 #ifndef UTEST_TOOLS_WIN32_HPP
 #define UTEST_TOOLS_WIN32_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-10-20
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include <upnplib/visibility.hpp> // for UPNPLIB_API
+#include <UPnPsdk/visibility.hpp> // for UPNPLIB_API
 #include <winsock2.h>
 #include <iphlpapi.h> // must be after <winsock2.h>
 #include <iostream>

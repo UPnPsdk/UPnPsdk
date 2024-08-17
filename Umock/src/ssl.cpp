@@ -1,8 +1,8 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-12-27
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 #include <umock/ssl.hpp>
-#include <upnplib/port.hpp>
+#include <UPnPsdk/port.hpp>
 
 namespace umock {
 

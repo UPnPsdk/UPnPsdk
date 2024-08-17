@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-31
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 // Also Copyright by other contributor as noted below.
 /*!
  * \file
@@ -8,7 +8,7 @@
  */
 
 #include <UpnpActionRequest.hpp>
-#include <upnplib/port_sock.hpp>
+#include <UPnPsdk/port_sock.hpp>
 
 /// \cond
 #include <stdlib.h> /* for calloc(), free() */

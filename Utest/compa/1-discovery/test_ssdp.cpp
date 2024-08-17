@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-06-04
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -14,11 +14,11 @@
 
 #include <upnp.hpp> // for UPNP_E_* constants
 
-#include <upnplib/global.hpp>
+#include <UPnPsdk/global.hpp>
 #ifdef _MSC_VER
-#include <upnplib/synclog.hpp>
+#include <UPnPsdk/synclog.hpp>
 #endif
-#include <upnplib/upnptools.hpp> // for errStrEx
+#include <UPnPsdk/upnptools.hpp> // for errStrEx
 
 #include <utest/utest.hpp>
 #include <umock/sys_socket_mock.hpp>

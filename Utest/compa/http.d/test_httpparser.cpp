@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-03-04
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 #ifdef UPNPLIB_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/genlib/net/http/httpparser.cpp>
@@ -7,7 +7,7 @@
 #include <Compa/src/genlib/net/http/httpparser.cpp>
 #endif
 
-#include <upnplib/global.hpp>
+#include <UPnPsdk/global.hpp>
 
 #include <utest/utest.hpp>
 

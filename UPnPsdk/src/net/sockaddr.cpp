@@ -1,14 +1,14 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-01
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
  */
 
-#include <upnplib/sockaddr.hpp>
-#include <upnplib/global.hpp>
-#include <upnplib/synclog.hpp>
-#include <upnplib/netaddr.hpp>
+#include <UPnPsdk/sockaddr.hpp>
+#include <UPnPsdk/global.hpp>
+#include <UPnPsdk/synclog.hpp>
+#include <UPnPsdk/netaddr.hpp>
 #include <cstring>
 
 namespace upnplib {

@@ -1,8 +1,8 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-12-06
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include <upnplib/global.hpp>
-#include <upnplib/webserver.hpp>
+#include <UPnPsdk/global.hpp>
+#include <UPnPsdk/webserver.hpp>
 #include <gmock/gmock.h>
 
 namespace utest {

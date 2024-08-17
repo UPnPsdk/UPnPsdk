@@ -1,12 +1,12 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-04-11
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief Definations to manage the builtin Webserver
  */
 
-#include <upnplib/webserver.hpp>
-#include <upnplib/port.hpp>
+#include <UPnPsdk/webserver.hpp>
+#include <UPnPsdk/port.hpp>
 /// \cond
 #include <array>
 /// \endcond

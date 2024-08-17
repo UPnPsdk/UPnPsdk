@@ -1,12 +1,12 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-01-25
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief Free functions to parse IPv6 and host URLs. Not usable, work in
  * progess.
  */
 
-#include <upnplib/urlparser.hpp>
+#include <UPnPsdk/urlparser.hpp>
 
 #include <string> // needed for MSC_VER
 #include <iostream>

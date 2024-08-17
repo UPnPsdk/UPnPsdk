@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-01-24
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 #ifdef UPNPLIB_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpdebug.cpp>
@@ -8,9 +8,9 @@ FILE*& filed{fp}; // Other alias for variable fp
 #include <Compa/src/api/upnpdebug.cpp>
 #endif
 
-#include <upnplib/port.hpp>
-#include <upnplib/global.hpp>
-#include <upnplib/upnptools.hpp>
+#include <UPnPsdk/port.hpp>
+#include <UPnPsdk/global.hpp>
+#include <UPnPsdk/upnptools.hpp>
 
 #include <utest/utest.hpp>
 #include <umock/pthread_mock.hpp>

@@ -1,12 +1,12 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2022-12-03
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 // There is no include guard '#ifndef ...' because this file shouln't be
 // included more than two times as given.
 
 // winsock2.h is a Microsoft Windows library.
 
-#include "upnplib/visibility.hpp"
+#include "UPnPsdk/visibility.hpp"
 #include <winsock2.h>
 
 namespace umock {

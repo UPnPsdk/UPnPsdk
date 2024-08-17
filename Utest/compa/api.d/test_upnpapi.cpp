@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-02-28
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 #ifdef UPNPLIB_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -13,9 +13,9 @@
 
 #include <pupnp/upnpdebug.hpp> // for CLogging
 
-#include <upnplib/upnptools.hpp> // For upnplib only
-#include <upnplib/global.hpp>
-#include <upnplib/sockaddr.hpp>
+#include <UPnPsdk/upnptools.hpp> // For UPnPsdk only
+#include <UPnPsdk/global.hpp>
+#include <UPnPsdk/sockaddr.hpp>
 
 #include <utest/utest.hpp>
 #include <umock/sys_socket_mock.hpp>

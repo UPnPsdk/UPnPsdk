@@ -1,9 +1,9 @@
 #ifndef UMOCK_SYSINFO_HPP
 #define UMOCK_SYSINFO_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-12-26
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include "upnplib/visibility.hpp"
+#include "UPnPsdk/visibility.hpp"
 #include <ctime>
 #ifndef _WIN32
 #include <sys/utsname.h>

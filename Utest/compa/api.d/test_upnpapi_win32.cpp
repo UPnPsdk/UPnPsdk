@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-10-24
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -10,9 +10,9 @@
 #include <compa/src/api/upnpapi.cpp>
 #endif
 
-#include <upnplib/upnptools.hpp> // For upnplib only
-#include <upnplib/gtest_tools_win32.hpp>
-#include <upnplib/port.hpp>
+#include <UPnPsdk/upnptools.hpp> // For UPnPsdk only
+#include <UPnPsdk/gtest_tools_win32.hpp>
+#include <UPnPsdk/port.hpp>
 #include <umock/iphlpapi_mock.hpp>
 
 #include <utest/utest.hpp>

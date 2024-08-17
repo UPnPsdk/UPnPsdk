@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_SOCKET_HPP
 #define UPNPLIB_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-30
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -81,8 +81,8 @@
  *   Advanced Sockets Application Program Interface (API) for IPv6
  */
 
-#include <upnplib/sockaddr.hpp>
-#include <upnplib/synclog.hpp>
+#include <UPnPsdk/sockaddr.hpp>
+#include <UPnPsdk/synclog.hpp>
 /// \cond
 #include <mutex>
 #include <memory>

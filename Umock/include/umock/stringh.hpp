@@ -1,10 +1,10 @@
 #ifndef UMOCK_STRINGH_HPP
 #define UMOCK_STRINGH_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-12-23
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include <upnplib/global.hpp>
-#include <upnplib/visibility.hpp>
+#include <UPnPsdk/global.hpp>
+#include <UPnPsdk/visibility.hpp>
 #include <cstring>
 
 namespace umock {

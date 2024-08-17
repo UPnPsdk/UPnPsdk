@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-29
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -9,8 +9,8 @@
 #include <Compa/src/genlib/net/http/httpreadwrite.cpp>
 #endif
 
-#include <upnplib/global.hpp>
-#include <upnplib/sockaddr.hpp>
+#include <UPnPsdk/global.hpp>
+#include <UPnPsdk/sockaddr.hpp>
 
 #include <utest/utest.hpp>
 #include <umock/sys_socket_mock.hpp>

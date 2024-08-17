@@ -1,13 +1,13 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-30
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
  */
 
-#include <upnplib/socket.hpp>
+#include <UPnPsdk/socket.hpp>
 
-#include <upnplib/addrinfo.hpp>
+#include <UPnPsdk/addrinfo.hpp>
 #include <umock/sys_socket.hpp>
 #include <umock/stringh.hpp>
 #ifdef _MSC_VER

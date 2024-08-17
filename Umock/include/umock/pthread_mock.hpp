@@ -1,10 +1,10 @@
 #ifndef UMOCK_PTHREAD_MOCK_HPP
 #define UMOCK_PTHREAD_MOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-12-25
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 #include <umock/pthread.hpp>
-#include <upnplib/port.hpp>
+#include <UPnPsdk/port.hpp>
 #include <gmock/gmock.h>
 
 namespace umock {

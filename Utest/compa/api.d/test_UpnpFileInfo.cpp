@@ -1,9 +1,9 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-06-04
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 #include <UpnpFileInfo.hpp>
-#include <upnplib/sockaddr.hpp>
-#include <upnplib/synclog.hpp>
+#include <UPnPsdk/sockaddr.hpp>
+#include <UPnPsdk/synclog.hpp>
 
 #ifdef UPNPLIB_WITH_NATIVE_PUPNP
 #define NS

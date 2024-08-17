@@ -1,11 +1,11 @@
 #ifndef UMOCK_IPHLPAPI_HPP
 #define UMOCK_IPHLPAPI_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-12-23
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 // iphlpapi.h is a Microsoft Windows library.
 
-#include <upnplib/visibility.hpp>
+#include <UPnPsdk/visibility.hpp>
 #include <winsock2.h>
 #include <iphlpapi.h>
 

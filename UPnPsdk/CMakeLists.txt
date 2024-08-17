@@ -25,8 +25,8 @@ set(UPNPLIB_SOURCE_FILES
 )
 
 set(UPNPLIB_PUBLIC_HEADERS
-    include/upnplib/port_sock.hpp
-    include/upnplib/visibility.hpp
+    include/UPnPsdk/port_sock.hpp
+    include/UPnPsdk/visibility.hpp
 )
 
 set(UPNPLIB_INCLUDE_DIRECTORIES

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: r024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 // I test different address infos that we get from system function
 // ::getaddrinfo(). This function does not ensure always the same order of same
@@ -11,7 +11,7 @@
 // functions which need to be tested.
 #include <UPnPsdk/src/net/addrinfo.cpp>
 
-#include <upnplib/socket.hpp>
+#include <UPnPsdk/socket.hpp>
 #include <utest/utest.hpp>
 #include <umock/netdb_mock.hpp>
 

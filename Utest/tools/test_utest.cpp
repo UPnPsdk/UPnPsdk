@@ -1,8 +1,8 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-04-14
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include <upnplib/port.hpp> // needed for _MSC_VER
-#include <upnplib/sockaddr.hpp>
+#include <UPnPsdk/port.hpp> // needed for _MSC_VER
+#include <UPnPsdk/sockaddr.hpp>
 #include <utest/utest.hpp>
 
 namespace utest {

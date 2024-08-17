@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-01
+ * Redistribution only with this Copyright remark. Last modified: 2024-08-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -51,8 +51,8 @@
 #error "No or wrong config.hpp header file included."
 #endif
 
-#include <upnplib/global.hpp> // for TRACE
-#include <upnplib/synclog.hpp>
+#include <UPnPsdk/global.hpp> // for TRACE
+#include <UPnPsdk/synclog.hpp>
 #include <umock/sys_socket.hpp>
 #include <umock/winsock2.hpp>
 

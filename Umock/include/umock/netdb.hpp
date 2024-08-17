@@ -1,9 +1,9 @@
 #ifndef MOCK_NETDB_HPP
 #define MOCK_NETDB_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-12-23
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include <upnplib/visibility.hpp>
+#include <UPnPsdk/visibility.hpp>
 
 #ifdef _WIN32
 #include <ws2tcpip.h>

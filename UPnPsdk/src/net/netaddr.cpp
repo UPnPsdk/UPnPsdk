@@ -1,15 +1,15 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-03
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief Definition of the Netaddr class.
  */
 
-#include <upnplib/netaddr.hpp>
+#include <UPnPsdk/netaddr.hpp>
 
-#include <upnplib/global.hpp>
-#include <upnplib/addrinfo.hpp>
-#include <upnplib/synclog.hpp>
+#include <UPnPsdk/global.hpp>
+#include <UPnPsdk/addrinfo.hpp>
+#include <UPnPsdk/synclog.hpp>
 #include <umock/netdb.hpp>
 
 

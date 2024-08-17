@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-28
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -15,10 +15,10 @@
 
 #include <webserver.hpp>
 
-#include <upnplib/synclog.hpp>
-#include <upnplib/socket.hpp>
-#include <upnplib/sockaddr.hpp>
-#include <upnplib/upnptools.hpp> // for errStrEx
+#include <UPnPsdk/synclog.hpp>
+#include <UPnPsdk/socket.hpp>
+#include <UPnPsdk/sockaddr.hpp>
+#include <UPnPsdk/upnptools.hpp> // for errStrEx
 
 #include <pupnp/upnpdebug.hpp>
 #include <pupnp/threadpool_init.hpp>

@@ -1,15 +1,15 @@
 #ifndef UPNPLIB_NET_SOCKADDR_HPP
 #define UPNPLIB_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-02
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
  */
 
-#include <upnplib/visibility.hpp>
-#include <upnplib/port.hpp>
-#include <upnplib/port_sock.hpp>
+#include <UPnPsdk/visibility.hpp>
+#include <UPnPsdk/port.hpp>
+#include <UPnPsdk/port_sock.hpp>
 /// \cond
 #include <string>
 /// \endcond

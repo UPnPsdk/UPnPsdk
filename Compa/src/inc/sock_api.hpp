@@ -1,7 +1,7 @@
 #ifndef COMPA_SOCK_API_HPP
 #define COMPA_SOCK_API_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-03-10
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \ingroup compaAPI
@@ -9,7 +9,7 @@
  * \brief Declaring only application interface parts from sock.cpp
  */
 
-#include <upnplib/visibility.hpp>
+#include <UPnPsdk/visibility.hpp>
 
 #ifdef UPNP_ENABLE_OPEN_SSL
 #include <openssl/ssl.h>

@@ -1,9 +1,9 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-12-06
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 #include <list.hpp>
 
-#include <upnplib/global.hpp>
+#include <UPnPsdk/global.hpp>
 #include <utest/utest.hpp>
 
 namespace utest {

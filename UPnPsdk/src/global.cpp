@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-06-21
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief Global used flags, classes and emulated system functions.
@@ -11,9 +11,9 @@
  * function by the user.
  */
 
-#include <upnplib/global.ipp>
-#include <upnplib/port.hpp>
-#include <upnplib/port_sock.hpp>
+#include <UPnPsdk/global.ipp>
+#include <UPnPsdk/port.hpp>
+#include <UPnPsdk/port_sock.hpp>
 /// \cond
 #include <iostream>
 

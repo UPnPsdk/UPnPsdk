@@ -3,9 +3,9 @@
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
-#include <upnplib/global.hpp>
-#include <upnplib/sockaddr.hpp>
-#include <upnplib/socket.hpp>
+#include <UPnPsdk/global.hpp>
+#include <UPnPsdk/sockaddr.hpp>
+#include <UPnPsdk/socket.hpp>
 
 #include <utest/utest.hpp>
 

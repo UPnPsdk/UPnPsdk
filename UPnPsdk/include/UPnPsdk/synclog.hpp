@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_SYNCLOG_HPP
 #define UPNPLIB_SYNCLOG_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-04
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief Define macro for synced logging to the console for detailed info and
@@ -9,7 +9,7 @@
  */
 
 #include <cmake_vars.hpp>
-#include <upnplib/visibility.hpp>
+#include <UPnPsdk/visibility.hpp>
 /// \cond
 #include <string>
 #include <iostream>

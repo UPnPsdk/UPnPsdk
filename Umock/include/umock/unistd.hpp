@@ -1,10 +1,10 @@
 #ifndef UMOCK_UNISTD_HPP
 #define UMOCK_UNISTD_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-13
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include <upnplib/port_sock.hpp>
-#include <upnplib/visibility.hpp>
+#include <UPnPsdk/port_sock.hpp>
+#include <UPnPsdk/visibility.hpp>
 
 namespace umock {
 

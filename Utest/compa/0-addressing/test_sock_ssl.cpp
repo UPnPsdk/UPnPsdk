@@ -1,13 +1,13 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-30
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 #include <upnp.hpp>
 #include <sock.hpp>
 
-#include <upnplib/port.hpp>
-#include <upnplib/synclog.hpp>
-#include <upnplib/upnptools.hpp> // for errStrEx
-#include <upnplib/socket.hpp>
+#include <UPnPsdk/port.hpp>
+#include <UPnPsdk/synclog.hpp>
+#include <UPnPsdk/upnptools.hpp> // for errStrEx
+#include <UPnPsdk/socket.hpp>
 
 #include <openssl/err.h>
 #ifdef _WIN32

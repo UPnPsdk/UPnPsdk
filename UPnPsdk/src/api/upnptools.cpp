@@ -1,12 +1,12 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-01-25
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief General usable free function tools and helper
  */
 
-#include <upnplib/upnptools.hpp>
-#include <upnplib/messages.hpp>
+#include <UPnPsdk/upnptools.hpp>
+#include <UPnPsdk/messages.hpp>
 
 namespace {
 
