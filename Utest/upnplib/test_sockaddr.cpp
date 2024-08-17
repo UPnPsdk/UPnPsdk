@@ -1,7 +1,7 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-01
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include <Upnplib/src/net/sockaddr.cpp>
+#include <UPnPsdk/src/net/sockaddr.cpp>
 
 #include <upnplib/global.hpp>
 #include <upnplib/sockaddr.hpp>

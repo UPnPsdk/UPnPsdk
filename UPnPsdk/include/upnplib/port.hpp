@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_INCLUDE_PORT_HPP
 #define UPNPLIB_INCLUDE_PORT_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-03-04
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 /*!
  * \file
  * \brief Specifications to be portable between different platforms.
@@ -126,9 +126,6 @@
   #define ENABLE_MSVC_WARN
 #endif
 
-// clang-format on
-
-
 // This has been taken from removed Compa/src/inc/upnputil.hpp
 /* C specific */
 /* VC needs these in C++ mode too (do other compilers?) */
@@ -145,6 +142,8 @@
 #define strerror_r(a, b, c) (strerror_s((b), (c), (a)))
 #endif /* _WIN32 */
 #endif /* !defined(__cplusplus) || defined(UPNP_USE_MSVCPP) */
+
+// clang-format on
 
 /// \endcond
 #endif // UPNPLIB_INCLUDE_PORT_HPP

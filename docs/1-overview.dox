@@ -1,18 +1,18 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 /*!
-\page Overview
-\brief General information to the library, its structure and requirements
+\mainpage Overview
+\brief **The UPnP+™ Software Development Kit**\n
+General information to the SDK, its structure and requirements.
 <!-- \tableofcontents -->
-\section overview Overview
 ___
 
-\subsection parts Parts 'Control Point' and 'UPnP Device'
+\section parts Parts 'Control Point' and 'UPnP Device'
 
-The library has two parts, handling Control Points or UPnP Devices. They are largely independent of each other. You can compile both parts separately so you have a library that only handle Control Points or UPnP Devices. That make sense for installations that are only a Control Point or only a UPnP Device and is of particular interest for embedded devices. Of course you can also have both parts for hybrid applications.
+The SDK has two parts, handling Control Points or UPnP Devices. They are largely independent of each other. You can compile both parts separately so you have resulting libraries that only handle Control Points or UPnP Devices. That make sense for installations that are only a Control Point or only a UPnP Device and is of particular interest for embedded devices. Of course you can also have both parts for hybrid applications.
 
-\subsection overview_comp Main Components
+\section overview_comp Main Components
 
 The <b>S</b>oftware <b>D</b>evelopment <b>K</b>it contains some main components that are associated with a specific step of the <a href="UPnP-arch-DeviceArchitecture-v2.0-20200417.pdf">UPnP™ Device Architecture 2.0</a>.\n These components are:
 
@@ -28,11 +28,11 @@ The order shows the dependency. Each component depends on its predecessor. For e
 
 \note This order is an important implicit dependency. It is always expected that it is respected. No internal checks are made about this. The compiler will remind you if you forget it.
 
-\subsection noexcept Promise to throw "no exception"
+\section noexcept Promise to throw "no exception"
 
-There are several functions and methods that are specified to <a href="https://en.cppreference.com/w/cpp/language/noexcept_spec">**noexcept**</a>. This may not always be true with debugging or TRACE enabled because there we have extended use of std::string objects for output to std::cerr. Both may throw exceptions in rare cases like exceeding max. length of a std::string or error on memory allocation or modified output flags of the std::cerr output stream by the program using the library. The result of such an unexpected exception is the immediate termination of the program as specified for **noexcept**. But I assume that debugging or TRACE is only a temporary setting not used for production code and is under special observation by the developer so that he can evaluate these exceptions.
+There are several functions and methods that are specified to <a href="https://en.cppreference.com/w/cpp/language/noexcept_spec">noexcept</a>. This may not always be true with debugging or TRACE enabled because there we have extended use of std::string objects for output to std::cerr. Both may throw exceptions in rare cases like exceeding max. length of a std::string or error on memory allocation or modified output flags of the std::cerr output stream by the program using the SDK. The result of such an unexpected exception is the immediate termination of the program as specified for **noexcept**. But I assume that debugging or TRACE is only a temporary setting not used for production code and is under special observation by the developer so that he can evaluate these exceptions.
 
-\subsection overview_reuseaddr Socket option "reuse address"
+\section overview_reuseaddr Socket option "reuse address"
 
 There is an issue when a network connection unexpectedly dies. The port then has normaly to `TIME_WAIT` util it can use its old \glos{netaddr,netaddress} again. This may not be acceptable for certain server applications. So there is a socket option `SO_REUSEADDR` to immediately reuse a given netaddress, but with the risk of network errors and security issues. For more details have a look at <!--REF:-->[Bind: Address Already in Use](https://hea-www.harvard.edu/~fine/Tech/addrinuse.html).
 

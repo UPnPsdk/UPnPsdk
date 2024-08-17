@@ -25,19 +25,11 @@
 var NAVTREE =
 [
   [ "UPnPsdk", "index.html", [
-    [ "The UPnP+™ Software Development Kit", "index.html", "index" ],
-    [ "Overview", "d2/d59/Overview.html", [
-      [ "Overview", "d2/d59/Overview.html#overview", [
-        [ "Parts 'Control Point' and 'UPnP Device'", "d2/d59/Overview.html#parts", null ],
-        [ "Main Components", "d2/d59/Overview.html#overview_comp", null ],
-        [ "Promise to throw \"no exception\"", "d2/d59/Overview.html#noexcept", null ],
-        [ "Socket option \"reuse address\"", "d2/d59/Overview.html#overview_reuseaddr", null ]
-      ] ]
-    ] ],
+    [ "Overview", "index.html", "index" ],
     [ "Glossary", "d5/d67/Glossary.html", null ],
     [ "Todo List", "dd/da0/todo.html", null ],
     [ "Deprecated List", "da/d58/deprecated.html", null ],
-    [ "Topics", "topics.html", "topics" ],
+    [ "API and details", "topics.html", "topics" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -77,15 +69,15 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038",
-"d4/d6b/UpnpActionRequest_8cpp.html#a483a89f5b7c6cc5ff9ab8c7f7f5ee635",
-"d5/dfa/upnpdebug_8cpp.html#a9b02b558982f2aa57155dc5357991fa7",
-"d7/d47/UpnpActionRequest_8hpp.html#a191a8de85e1f23886ef6056a00f60970",
-"d8/dfd/config_8hpp.html#aaeff9873bdac38b8a8b03fcf1d36ac0b",
-"da/d1d/upnp_8hpp.html#a0eaf6db21b925b689d0c83a40415b22d",
-"db/d7d/global_8cpp_source.html",
-"dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658",
-"de/d27/group__SSDP-common__functions.html#gae3e29279280d276d05762d9dbeffe31d",
-"functions_vars_h.html"
+"d4/d6b/UpnpActionRequest_8cpp.html#a54025c80caa629009c0453c801ae8e17",
+"d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3",
+"d7/d47/UpnpActionRequest_8hpp.html#a3a14d67a5889ad92551997c2c882527f",
+"d8/dfd/config_8hpp.html#acdcc2658def159e8592746c7ded54778",
+"da/d1d/upnp_8hpp.html#a21e2f98505bf5d519851acf83c34f263",
+"db/d84/classupnplib_1_1CSocket__basic.html#a24406f0340da2352557ad1ea301410c5",
+"dc/dbe/parsetools_8cpp.html#a5622233915165bad17c1f8e5ded50469",
+"de/dd0/Compa_2src_2inc_2uri_8hpp.html#a13dbae9bff877a15f4d6b23c1f934638",
+"functions_vars_o.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

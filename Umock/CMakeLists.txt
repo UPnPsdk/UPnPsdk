@@ -1,12 +1,12 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-15
+# Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(../cmake/project-header.cmake)
 
 project(UMOCK VERSION 0004
         DESCRIPTION "UPnP library mocking subproject"
-        HOMEPAGE_URL "https://github.com/upnplib")
+        HOMEPAGE_URL "https://github.com/UPnPsdk")
 
 
 add_compile_definitions(
@@ -25,7 +25,8 @@ set(UMOCK_SOURCE_FILES
     src/sysinfo.cpp
     src/arpa_inet.cpp
     $<$<BOOL:${UPNPLIB_WITH_OPENSSL}>:src/ssl.cpp>
-    ${CMAKE_SOURCE_DIR}/Upnplib/src/global.cpp
+    # We need this variable to find the path before subdir UPnPsdk is scanned.
+    ${CMAKE_SOURCE_DIR}/UPnPsdk/src/global.cpp
     $<$<NOT:$<PLATFORM_ID:Windows>>:src/ifaddrs.cpp>
     $<$<NOT:$<PLATFORM_ID:Windows>>:src/net_if.cpp>
     $<$<PLATFORM_ID:Windows>:src/iphlpapi.cpp>
@@ -38,8 +39,8 @@ set(UMOCK_PUBLIC_HEADERS
 
 set(UMOCK_INCLUDE_DIRECTORIES
     PUBLIC ./include
-    # We need this variable to find the path before subdir Upnplib is scanned.
-    PUBLIC ${CMAKE_SOURCE_DIR}/Upnplib/include
+    # We need this variable to find the path before subdir UPnPsdk is scanned.
+    PUBLIC ${CMAKE_SOURCE_DIR}/UPnPsdk/include
     PUBLIC ${CMAKE_BINARY_DIR}/include
     # if pthreads4w isn't installed this path is empty. The linker doesn't
     # find "pthread.h" and falls back to look at <pthread.h>.

@@ -1,7 +1,7 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-01-23
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 
-#include <Upnplib/src/net/uri/urlparser.cpp>
+#include <UPnPsdk/src/net/uri/urlparser.cpp>
 
 #include <gmock/gmock.h>
 

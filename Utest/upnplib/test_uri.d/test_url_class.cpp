@@ -1,5 +1,5 @@
 // Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-01-23
+// Redistribution only with this Copyright remark. Last modified: 2024-08-17
 //
 // If you need more information how the Url class works you can temporary
 // uncomment #define DEBUG_URL and run the tests with
@@ -46,7 +46,7 @@ scheme                    path
 */
 // clang-format on
 
-#include <Upnplib/src/net/uri/url.cpp>
+#include <UPnPsdk/src/net/uri/url.cpp>
 
 #include <gmock/gmock.h>
 

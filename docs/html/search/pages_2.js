@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kit_0',['The UPnP+™ Software Development Kit',['../index.html',1,'']]]
+  ['list_0',['list',['../da/d58/deprecated.html',1,'Deprecated List'],['../dd/da0/todo.html',1,'Todo List']]]
 ];

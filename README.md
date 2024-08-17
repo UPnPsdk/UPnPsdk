@@ -1,11 +1,14 @@
 # The UPnP+™ Software Development Kit
-**Under development!**\n
+**Under development!**
 
 ## 1. Overview
-This is a fork of the <a href="https://github.com/pupnp/">Portable SDK for UPnP Devices (pupnp)</a> with the aim of a complete re-engeneering based on <a href="UPnP-arch-DeviceArchitecture-v2.0-20200417.pdf">UPnP™ Device Architecture 2.0</a>. The following general goals are in progress or planned:
+This is a fork of the <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices (pupnp)</a> with the aim of a complete re-engeneering based on
+<!-- <a href="https://openconnectivity.org/upnp-specs/UPnP-arch-DeviceArchitecture-v2.0-20200417.pdf">UPnP™ Device Architecture 2.0</a>. -->
+<a href="https://upnpsdk.github.io/UPnPsdk/UPnP-arch-DeviceArchitecture-v2.0-20200417.pdf">UPnP™ Device Architecture 2.0</a>
+The following general goals are in progress or planned:
 - Drop in compatibillity with the old pUPnP library
 - Continued optimization for embedded devices
-- Based on C++ instead of C
+- Based on C++ with exceptions instead of C
 - Object oriented programming
 - Unit-Test driven development
 - Integrating CMake for managing the code
@@ -13,9 +16,9 @@ This is a fork of the <a href="https://github.com/pupnp/">Portable SDK for UPnP 
 - Mandatory OpenSSL support
 
 ## 2. Technical Documentation
-Here you can find the [**Technical Documentation**](https://upnpsdk.github.io/UPnPsdk/).\n
-If you want to be compatible with the classic pUPnP library here you find the [Compatible API](\ref compaAPI).\n
-To use the new written object oriented part of the library here you find its [UPnPsdk API](\ref upnplibAPI).
+Here you can find the [Technical Documentation](https://upnpsdk.github.io/UPnPsdk/).<br/>
+If you want to be compatible with the classic pUPnP library here you find the <a href="https://upnpsdk.github.io/UPnPsdk/d9/d54/group__compaAPI.html">Compatible API</a>.
+To use the new written object oriented part of the library here you find its <a href="https://upnpsdk.github.io/UPnPsdk/d6/d14/group__upnplibAPI.html">UPnPsdk API</a>.
 
 ## 3. Version numbering
 We follow the [Semantic Versioning](https://semver.org/spec/v2.0.0.html#semantic-versioning-200). In short it defines
@@ -138,6 +141,6 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 - -D DEVEL=OFF          This enables some additional information for development. It preserves installation options that normaly will be deleted after Installation for Optimisation so you can examine them. These are mainly the installation directory from **pthread4w** and its temporary installation files even on a non MS Windows environment.
 -->
 
-<pre>\n
+<pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, \<Ingo\@Hoeft-online.de\>
-Redistribution only with this Copyright remark. Last modified: 2024-08-16</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-08-17</pre>
