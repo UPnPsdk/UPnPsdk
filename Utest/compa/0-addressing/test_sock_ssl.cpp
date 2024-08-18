@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 #include <upnp.hpp>
 #include <sock.hpp>
@@ -25,8 +25,8 @@ namespace utest {
 
 using ::testing::ExitedWithCode;
 
-using upnplib::CSocket;
-using upnplib::errStrEx;
+using UPnPsdk::CSocket;
+using UPnPsdk::errStrEx;
 
 
 // Helper Classes

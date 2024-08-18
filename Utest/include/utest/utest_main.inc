@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-10-25
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // Because this part of the main entry function uses gtest macros we have to
 // include it directly into the source of the test. These macros need to have
@@ -26,7 +26,7 @@ if (argc > 2) {
 if (argc == 2) {
     if ((strncmp(argv[1], "--upnplib_debug", 15) == 0) &&
         (strlen(argv[1]) == 15)) {
-        upnplib::g_dbug = true;
+        UPnPsdk::g_dbug = true;
     } else {
         std::cerr << usage_hint;
         goto finish;
@@ -35,8 +35,8 @@ if (argc == 2) {
 
 // If the debug flag wasn't set with the commandline option then check if it
 // shall be set with the environment variable.
-if (!upnplib::g_dbug)
-    upnplib::g_dbug = static_cast<bool>(std::getenv("UPNPLIB_DEBUG"));
+if (!UPnPsdk::g_dbug)
+    UPnPsdk::g_dbug = static_cast<bool>(std::getenv("UPNPLIB_DEBUG"));
 
 gtest_return_code = RUN_ALL_TESTS();
 #ifdef UPNPLIB_WITH_NATIVE_PUPNP

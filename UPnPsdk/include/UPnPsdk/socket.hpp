@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_SOCKET_HPP
 #define UPNPLIB_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -106,7 +106,7 @@
 #endif
 /// \endcond
 
-namespace upnplib {
+namespace UPnPsdk {
 
 /*!
  * \brief Get information from a raw network socket file descriptor
@@ -508,6 +508,6 @@ class UPNPLIB_API CSocketErr {
     int m_errno{}; // Cached error number
 };
 
-} // namespace upnplib
+} // namespace UPnPsdk
 
 #endif // UPNPLIB_SOCKET_HPP

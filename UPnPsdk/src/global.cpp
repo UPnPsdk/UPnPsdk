@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Global used flags, classes and emulated system functions.
@@ -33,7 +33,7 @@ char* strndup(const char* __string, size_t __n) {
 #endif
 /// \endcond
 
-namespace upnplib {
+namespace UPnPsdk {
 
 // SUPPRESS_MSVC_WARN_4273_NEXT_LINE // don't do that
 UPNPLIB_API bool g_dbug{false};
@@ -110,4 +110,4 @@ const CWSAStartup init_winsock;
 
 } // anonymous namespace
 
-} // namespace upnplib
+} // namespace UPnPsdk

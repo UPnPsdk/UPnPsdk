@@ -1,7 +1,7 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2022-06-13
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
-namespace upnplib {
+namespace UPnPsdk {
 
 void init_global_vars() {
     // initialize global variables with file scope for upnpapi.cpp
@@ -45,4 +45,4 @@ void init_global_vars() {
 #endif
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk

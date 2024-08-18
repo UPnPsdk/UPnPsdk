@@ -1,11 +1,11 @@
 var hierarchy =
 [
-    [ "upnplib::CAddrinfo", "da/dad/classupnplib_1_1CAddrinfo.html", null ],
-    [ "upnplib::CSigpipe_scoped", "d3/de4/classupnplib_1_1CSigpipe__scoped.html", null ],
-    [ "upnplib::CSocketErr", "d2/dd2/classupnplib_1_1CSocketErr.html", null ],
-    [ "upnplib::CUri", "dd/db5/classupnplib_1_1CUri.html", null ],
-    [ "upnplib::anonymous_namespace{global.cpp}::CWSAStartup", "de/d4a/classupnplib_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html", null ],
-    [ "upnplib::Document_meta", "dc/d6d/namespaceupnplib.html#d8/d3d/structupnplib_1_1Document__meta", null ],
+    [ "UPnPsdk::CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", null ],
+    [ "UPnPsdk::CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
+    [ "UPnPsdk::CSocketErr", "dd/d3a/classUPnPsdk_1_1CSocketErr.html", null ],
+    [ "UPnPsdk::CUri", "da/dcf/classUPnPsdk_1_1CUri.html", null ],
+    [ "UPnPsdk::anonymous_namespace{global.cpp}::CWSAStartup", "d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html", null ],
+    [ "UPnPsdk::Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", null ],
     [ "anonymous_namespace{upnptools.cpp}::ErrorString", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03.html#d9/d56/structanonymous__namespace_02upnptools_8cpp_03_1_1ErrorString", null ],
     [ "ErrorString", "d6/d13/Compa_2src_2api_2upnptools_8cpp.html#dc/dff/structErrorString", null ],
     [ "FreeList", "d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList", null ],
@@ -25,7 +25,7 @@ var hierarchy =
     [ "memptr", "d1/d10/membuffer_8hpp.html#d4/d89/structmemptr", null ],
     [ "MiniServerSockArray", "d3/d8b/miniserver_8hpp.html#d2/d37/structMiniServerSockArray", null ],
     [ "anonymous_namespace{miniserver.cpp}::mserv_request_t", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#dd/d1f/structanonymous__namespace_02miniserver_8cpp_03_1_1mserv__request__t", null ],
-    [ "upnplib::Netaddr", "d8/d44/classupnplib_1_1Netaddr.html", null ],
+    [ "UPnPsdk::Netaddr", "dd/d03/classUPnPsdk_1_1Netaddr.html", null ],
     [ "NOTIFY_THREAD_STRUCT", "d9/dd2/gena_8hpp.html#d5/d37/structNOTIFY__THREAD__STRUCT", null ],
     [ "s_GenlibClientSubscription", "dc/d2f/GenlibClientSubscription_8cpp.html#d7/d22/structs__GenlibClientSubscription", null ],
     [ "s_SSDPResultData", "d7/da5/group__SSDP-Data.html#d4/dcc/structs__SSDPResultData", null ],
@@ -45,16 +45,16 @@ var hierarchy =
     [ "service_info", "db/d74/service__table_8hpp.html#df/db2/structservice__info", null ],
     [ "service_table", "db/d74/service__table_8hpp.html#df/d30/structservice__table", null ],
     [ "anonymous_namespace{soap_device.cpp}::soap_devserv_t", "d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#d5/d88/structanonymous__namespace_02soap__device_8cpp_03_1_1soap__devserv__t", null ],
-    [ "upnplib::sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d6/d2c/unionupnplib_1_1sockaddr__t", null ],
+    [ "UPnPsdk::sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
     [ "SOCKINFO", "d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO", null ],
     [ "ssdp_thread_data", "d0/d19/ssdp__common_8hpp.html#dc/dfb/structssdp__thread__data", null ],
     [ "SsdpEvent", "d0/d19/ssdp__common_8hpp.html#d1/da6/structSsdpEvent", null ],
     [ "SsdpSearchArg", "da/db2/ssdp__ctrlpt_8hpp.html#d4/df8/structSsdpSearchArg", null ],
     [ "SsdpSearchExpArg", "d0/d19/ssdp__common_8hpp.html#d2/d52/structSsdpSearchExpArg", null ],
     [ "SsdpSearchReply", "d0/d19/ssdp__common_8hpp.html#df/dd8/structSsdpSearchReply", null ],
-    [ "upnplib::SSockaddr", "d1/dc2/structupnplib_1_1SSockaddr.html", [
-      [ "upnplib::CSocket_basic", "db/d84/classupnplib_1_1CSocket__basic.html", [
-        [ "upnplib::CSocket", "d8/d73/classupnplib_1_1CSocket.html", null ]
+    [ "UPnPsdk::SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", [
+      [ "UPnPsdk::CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html", [
+        [ "UPnPsdk::CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html", null ]
       ] ]
     ] ],
     [ "str_int_entry", "df/df3/strintmap_8hpp.html#d7/d2f/structstr__int__entry", null ],

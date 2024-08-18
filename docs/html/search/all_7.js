@@ -2,7 +2,7 @@ var searchData=
 [
   ['bad_5fcallback_0',['BAD_CALLBACK',['../d9/dd2/gena_8hpp.html#adb0ab1df3b872ebad7f8af33d1c8be5d',1,'gena.hpp']]],
   ['bad_5frequest_1',['BAD_REQUEST',['../d9/dd2/gena_8hpp.html#ad037b25feaa1b40af8a97d63526c82b0',1,'gena.hpp']]],
-  ['bind_2',['bind',['../d8/d73/classupnplib_1_1CSocket.html#a7548ff82d122192ae5ee7855b7dec846',1,'upnplib::CSocket']]],
+  ['bind_2',['bind',['../d3/d5d/classUPnPsdk_1_1CSocket.html#a7d8a000d07b38db55e1ff380d2e36024',1,'UPnPsdk::CSocket']]],
   ['buf_3',['buf',['../d1/d10/membuffer_8hpp.html#ae3089c9df96fc059185fec2d6bed61aa',1,'memptr::buf'],['../d1/d10/membuffer_8hpp.html#ac4c59c595502b1075ac517d9ea7b4743',1,'membuffer::buf']]],
   ['buff_4',['buff',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a98fecbccc6f6f29668e9c8bd86ec983b',1,'token']]],
   ['bufsize_5',['BUFSIZE',['../d0/d19/ssdp__common_8hpp.html#aeca034f67218340ecb2261a22c2f3dcd',1,'ssdp_common.hpp']]],

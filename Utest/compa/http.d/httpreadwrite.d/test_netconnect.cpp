@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -26,7 +26,7 @@ using ::testing::NotNull;
 using ::testing::Return;
 using ::testing::SetErrnoAndReturn;
 
-using ::upnplib::SSockaddr;
+using ::UPnPsdk::SSockaddr;
 
 
 // ######################################
@@ -78,7 +78,7 @@ TEST(CheckConnectAndWaitConnectionIp4TestSuite, real_connect) {
                   0)
             << ::strerror(errno);
     } else {
-        EXPECT_EQ(upnplib::Check_Connect_And_Wait_Connection(sockfd,
+        EXPECT_EQ(UPnPsdk::Check_Connect_And_Wait_Connection(sockfd,
                                                              connect_returned),
                   0)
             << ::strerror(errno);

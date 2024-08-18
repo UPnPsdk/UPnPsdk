@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_NET_URI_URLPARSER_HPP
 #define UPNPLIB_NET_URI_URLPARSER_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-01-25
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Free functions to parse IPv6 and host URLs. Not usable, work in
@@ -25,13 +25,13 @@
 #include <string_view>
 
 /// \cond
-namespace upnplib {
+namespace UPnPsdk {
 
 // IPv6 parser
 // ===========
 std::array<unsigned short, 8> ipv6_parser(std::string_view a_input);
 
-} // namespace upnplib
+} // namespace UPnPsdk
 /// \endcond
 
 #endif // UPNPLIB_NET_URI_URLPARSER_HPP

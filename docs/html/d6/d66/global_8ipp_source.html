@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>UPnPsdk: Upnplib/include/upnplib/global.ipp Source File</title>
+<title>UPnPsdk: UPnPsdk/include/UPnPsdk/global.ipp Source File</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="../../jquery.js"></script>
@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('d6/d66/global_8ipp_source.html','../..
 </div><!--header-->
 <div class="contents">
 <a href="../../d6/d66/global_8ipp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-06-20</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-08-18</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// There is no include guard &#39;#ifndef ...&#39; because this file shouln&#39;t be</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">// included more than two times as given.</span></div>
@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('d6/d66/global_8ipp_source.html','../..
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">// Due to the global nature of this header file additional #include statements</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">// should be taken with great care. They are included in nearly all other</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// compile units.</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/d21/visibility_8hpp.html">upnplib/visibility.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/d21/visibility_8hpp.html">UPnPsdk/visibility.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('d6/d66/global_8ipp_source.html','../..
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><a class="code hl_define" href="../../d0/d21/visibility_8hpp.html#a596de2c742b413e26eddc6d1751753c0">UPNPLIB_API</a> <span class="keywordtype">char</span>* strndup(<span class="keyword">const</span> <span class="keywordtype">char</span>* __string, <span class="keywordtype">size_t</span> __n);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dc/d6d/namespaceupnplib.html">upnplib</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a> {</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">// Global constants</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">// ================</span></div>
@@ -131,8 +131,8 @@ $(document).ready(function(){initNavTree('d6/d66/global_8ipp_source.html','../..
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view libinfo{</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="stringliteral">&quot;upnplib library version = under developement&quot;</span>};</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>} <span class="comment">// namespace upnplib</span></div>
-<div class="ttc" id="anamespaceupnplib_html"><div class="ttname"><a href="../../dc/d6d/namespaceupnplib.html">upnplib</a></div><div class="ttdoc">Reengineered Object Oriented UPnP+ program code.</div></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>} <span class="comment">// namespace UPnPsdk</span></div>
+<div class="ttc" id="anamespaceUPnPsdk_html"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a></div><div class="ttdoc">Reengineered Object Oriented UPnP+ program code.</div></div>
 <div class="ttc" id="avisibility_8hpp_html"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html">visibility.hpp</a></div><div class="ttdoc">Macros to support visibility of external symbols.</div></div>
 <div class="ttc" id="avisibility_8hpp_html_a596de2c742b413e26eddc6d1751753c0"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html#a596de2c742b413e26eddc6d1751753c0">UPNPLIB_API</a></div><div class="ttdeci">#define UPNPLIB_API</div><div class="ttdoc">Prefix to export symbol for external use.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d21/visibility_8hpp_source.html#l00061">visibility.hpp:61</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('d6/d66/global_8ipp_source.html','../..
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_676c01f5c5afcbac5294f5bfc98838d8.html">Upnplib</a></li><li class="navelem"><a class="el" href="../../dir_9331101444e2f85950a4eebcfa74b23b.html">include</a></li><li class="navelem"><a class="el" href="../../dir_80023e064d24958bf48d92ff505d1ef6.html">upnplib</a></li><li class="navelem"><a class="el" href="../../d6/d66/global_8ipp.html">global.ipp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_4de4b8cbe0377b085a450ae93e93d6a3.html">UPnPsdk</a></li><li class="navelem"><a class="el" href="../../dir_70447ec6a08c2483e633ae693596710f.html">include</a></li><li class="navelem"><a class="el" href="../../dir_6355b7681b27614fe17a18239640150b.html">UPnPsdk</a></li><li class="navelem"><a class="el" href="../../d6/d66/global_8ipp.html">global.ipp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

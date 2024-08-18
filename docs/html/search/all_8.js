@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['caddrinfo_0',['caddrinfo',['../da/dad/classupnplib_1_1CAddrinfo.html',1,'upnplib::CAddrinfo'],['../da/dad/classupnplib_1_1CAddrinfo.html#a20aeebd7ba762f9b3a19e3051e76bc68',1,'upnplib::CAddrinfo::CAddrinfo(std::string_view a_node, const int a_family=AF_UNSPEC, const int a_socktype=SOCK_STREAM, const int a_flags=0, const int a_protocol=0)'],['../da/dad/classupnplib_1_1CAddrinfo.html#ac2170a23c93c9c0a5ea5ae9fba38151b',1,'upnplib::CAddrinfo::CAddrinfo(std::string_view a_node, std::string_view a_service, const int a_family=AF_UNSPEC, const int a_socktype=SOCK_STREAM, const int a_flags=0, const int a_protocol=0)']]],
+  ['caddrinfo_0',['caddrinfo',['../d0/d44/classUPnPsdk_1_1CAddrinfo.html',1,'UPnPsdk::CAddrinfo'],['../d0/d44/classUPnPsdk_1_1CAddrinfo.html#aac3fed6cad1a63cf03e0745f29d89ffb',1,'UPnPsdk::CAddrinfo::CAddrinfo(std::string_view a_node, const int a_family=AF_UNSPEC, const int a_socktype=SOCK_STREAM, const int a_flags=0, const int a_protocol=0)'],['../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a73959edaef6545257c6c044b1077ae94',1,'UPnPsdk::CAddrinfo::CAddrinfo(std::string_view a_node, std::string_view a_service, const int a_family=AF_UNSPEC, const int a_socktype=SOCK_STREAM, const int a_flags=0, const int a_protocol=0)']]],
   ['calc_5falias_1',['calc_alias',['../df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#aaedb4c45d523c23d6d7fd382886a99a1',1,'anonymous_namespace{urlconfig.cpp}']]],
   ['calc_5fdescurl_2',['calc_descURL',['../df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a2ba70b2d33be0858aae4a1f4920b7423',1,'anonymous_namespace{urlconfig.cpp}']]],
   ['calculateeventtime_3',['CalculateEventTime',['../da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html#abe6357a7e5da57a153a5110fa4a94411',1,'anonymous_namespace{TimerThread.cpp}']]],
@@ -9,7 +9,7 @@ var searchData=
   ['callback_2ehpp_6',['Callback.hpp',['../df/da3/Callback_8hpp.html',1,'']]],
   ['callback_5fsuccess_7',['CALLBACK_SUCCESS',['../d9/dd2/gena_8hpp.html#a1f2faeb9f71adda4080840cac410458f',1,'gena.hpp']]],
   ['capacity_8',['capacity',['../d1/d10/membuffer_8hpp.html#a3308a1ce932faa00d6459f32842e8a8d',1,'membuffer']]],
-  ['catch_5ferror_9',['catch_error',['../d2/dd2/classupnplib_1_1CSocketErr.html#a8142e787e3e0f3e190b2541ebfc13ef3',1,'upnplib::CSocketErr']]],
+  ['catch_5ferror_9',['catch_error',['../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603',1,'UPnPsdk::CSocketErr']]],
   ['check_10',['CHECK',['../db/d37/uuid_8cpp.html#a5160f39dde06373d73542a71238beb78',1,'uuid.cpp']]],
   ['check_5fconnect_5fand_5fwait_5fconnection_11',['Check_Connect_And_Wait_Connection',['../d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a54d65a1040bec3ce5cd1653277714254',1,'anonymous_namespace{httpreadwrite.cpp}']]],
   ['check_5fsoap_5frequest_12',['check_soap_request',['../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#aa5042e5194d138c6794ed0d42407bf3c',1,'anonymous_namespace{soap_device.cpp}']]],
@@ -75,13 +75,13 @@ var searchData=
   ['createtimerevent_72',['CreateTimerEvent',['../da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html#a4fb13d9d98a7379fa022acc85709f4dd',1,'anonymous_namespace{TimerThread.cpp}']]],
   ['createworker_73',['CreateWorker',['../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#ac4a17fd416d9ffc3692f99834066d1c3',1,'anonymous_namespace{ThreadPool.cpp}']]],
   ['cs_74',['cs',['../db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html#a8d39e67a13045e6d4c4856a98b5c4b52',1,'anonymous_namespace{uuid.cpp}::uuid_state']]],
-  ['csigpipe_5fscoped_75',['CSigpipe_scoped',['../d3/de4/classupnplib_1_1CSigpipe__scoped.html',1,'upnplib']]],
-  ['csocket_76',['csocket',['../d8/d73/classupnplib_1_1CSocket.html#afb0a190da0318af5ac70a4a38347127e',1,'upnplib::CSocket::CSocket(CSocket &amp;&amp;)'],['../d8/d73/classupnplib_1_1CSocket.html#a1d2e3899543d9b4b3f203d4f62e3c541',1,'upnplib::CSocket::CSocket(sa_family_t a_family, int a_socktype)'],['../d8/d73/classupnplib_1_1CSocket.html#abea09f4baf9e720499481b69965c04c6',1,'upnplib::CSocket::CSocket()'],['../d8/d73/classupnplib_1_1CSocket.html',1,'upnplib::CSocket'],['../db/d86/group__upnplib-socket.html#autotoc_md0',1,'Specification for CSocket']]],
-  ['csocket_5fbasic_77',['csocket_basic',['../db/d84/classupnplib_1_1CSocket__basic.html#a4fdb4cb6e33b65d1f55497b8de1f27ca',1,'upnplib::CSocket_basic::CSocket_basic()'],['../db/d84/classupnplib_1_1CSocket__basic.html',1,'upnplib::CSocket_basic']]],
-  ['csocketerr_78',['CSocketErr',['../d2/dd2/classupnplib_1_1CSocketErr.html',1,'upnplib']]],
+  ['csigpipe_5fscoped_75',['CSigpipe_scoped',['../db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html',1,'UPnPsdk']]],
+  ['csocket_76',['csocket',['../d3/d5d/classUPnPsdk_1_1CSocket.html#a1932fc4b351967415d93a96d67b9c933',1,'UPnPsdk::CSocket::CSocket(CSocket &amp;&amp;)'],['../d3/d5d/classUPnPsdk_1_1CSocket.html#ae2414f0b1083fc8fdc30208273572fa6',1,'UPnPsdk::CSocket::CSocket(sa_family_t a_family, int a_socktype)'],['../d3/d5d/classUPnPsdk_1_1CSocket.html#a344fe194de361248e4add998b298a225',1,'UPnPsdk::CSocket::CSocket()'],['../d3/d5d/classUPnPsdk_1_1CSocket.html',1,'UPnPsdk::CSocket'],['../db/d86/group__upnplib-socket.html#autotoc_md0',1,'Specification for CSocket']]],
+  ['csocket_5fbasic_77',['csocket_basic',['../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a4e520f7e7786d3f22f50792db5cfc5dd',1,'UPnPsdk::CSocket_basic::CSocket_basic()'],['../d9/da5/classUPnPsdk_1_1CSocket__basic.html',1,'UPnPsdk::CSocket_basic']]],
+  ['csocketerr_78',['CSocketErr',['../dd/d3a/classUPnPsdk_1_1CSocketErr.html',1,'UPnPsdk']]],
   ['ct_79',['ct',['../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a2cba954de9db1db3d242bfc4c1a784bb',1,'anonymous_namespace{webserver.cpp}::xml_alias_t']]],
   ['ctime_80',['ctime',['../d9/dd2/gena_8hpp.html#ab42ecc9be49dc450417f157cf5f86652',1,'NOTIFY_THREAD_STRUCT']]],
-  ['curi_81',['curi',['../dd/db5/classupnplib_1_1CUri.html#aa0bd5796ad47818a282392e1cf7f7d7c',1,'upnplib::CUri::CUri()'],['../dd/db5/classupnplib_1_1CUri.html',1,'upnplib::CUri']]],
+  ['curi_81',['curi',['../da/dcf/classUPnPsdk_1_1CUri.html#a98f90c0e9f4656fad15ebd7213f7a849',1,'UPnPsdk::CUri::CUri()'],['../da/dcf/classUPnPsdk_1_1CUri.html',1,'UPnPsdk::CUri']]],
   ['cursor_82',['cursor',['../db/da7/httpparser_8hpp.html#ac1c73fcb21c8500bf51a076f5083f65f',1,'scanner_t']]],
-  ['cwsastartup_83',['CWSAStartup',['../de/d4a/classupnplib_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html',1,'upnplib::anonymous_namespace{global.cpp}']]]
+  ['cwsastartup_83',['CWSAStartup',['../d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html',1,'UPnPsdk::anonymous_namespace{global.cpp}']]]
 ];

@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_SYNCLOG_HPP
 #define UPNPLIB_SYNCLOG_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Define macro for synced logging to the console for detailed info and
@@ -17,9 +17,9 @@
 #include <syncstream>
 #endif
 
-namespace upnplib {
+namespace UPnPsdk {
 UPNPLIB_EXTERN bool g_dbug;
-} // namespace upnplib
+} // namespace UPnPsdk
 
 
 // clang-format off
@@ -56,14 +56,14 @@ UPNPLIB_EXTERN bool g_dbug;
 
 // This is intended to be used as:
 // throw(UPNPLIB_LOGEXCEPT + "MSG1nnn: exception message.\n");
-#define UPNPLIB_LOGEXCEPT "UPnPlib ["+::std::string(__PRETTY_FUNCTION__)+"] EXCEPTION "
+#define UPNPLIB_LOGEXCEPT "UPnPsdk ["+::std::string(__PRETTY_FUNCTION__)+"] EXCEPTION "
 
-#define UPNPLIB_LOG SYNC(std::cerr)<<"UPnPlib ["<<__PRETTY_FUNCTION__
+#define UPNPLIB_LOG SYNC(std::cerr)<<"UPnPsdk ["<<__PRETTY_FUNCTION__
 // Critical messages are always output.
 #define UPNPLIB_LOGCRIT UPNPLIB_LOG<<"] CRITICAL "
-#define UPNPLIB_LOGERR if(upnplib::g_dbug) UPNPLIB_LOG<<"] ERROR "
-#define UPNPLIB_LOGCATCH if(upnplib::g_dbug) UPNPLIB_LOG<<"] CATCH "
-#define UPNPLIB_LOGINFO if(upnplib::g_dbug) UPNPLIB_LOG<<"] INFO "
+#define UPNPLIB_LOGERR if(UPnPsdk::g_dbug) UPNPLIB_LOG<<"] ERROR "
+#define UPNPLIB_LOGCATCH if(UPnPsdk::g_dbug) UPNPLIB_LOG<<"] CATCH "
+#define UPNPLIB_LOGINFO if(UPnPsdk::g_dbug) UPNPLIB_LOG<<"] INFO "
 
 // clang-format on
 /// \endcond

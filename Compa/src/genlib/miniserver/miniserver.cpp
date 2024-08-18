@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2024-08-18
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -128,7 +128,7 @@ int host_header_is_numeric(
         strncmp(a_host_port, "0.0.0.0", 7) == 0)
         return 0;
 
-    upnplib::SSockaddr saddrObj;
+    UPnPsdk::SSockaddr saddrObj;
     try {
         saddrObj = std::string(a_host_port, a_host_port_len);
     } catch (const std::exception& e) {
@@ -152,7 +152,7 @@ int getNumericHostRedirection(
     size_t a_hp_size   ///< [in] size of the buffer.
 ) {
     TRACE("Executing getNumericHostRedirection()")
-    upnplib::CSocket_basic socketObj(a_socket);
+    UPnPsdk::CSocket_basic socketObj(a_socket);
     try {
         socketObj.load();
         std::string host_port = socketObj.netaddrp();
@@ -222,7 +222,7 @@ int dispatch_request(
         goto ExitFunction;
     }
     request = &hparser->msg;
-    if (upnplib::g_dbug) {
+    if (UPnPsdk::g_dbug) {
         getNumericHostRedirection(info->socket, host_port, sizeof host_port);
         UPNPLIB_LOGINFO "MSG1113: Redirect host_port=\"" << host_port << "\"\n";
     }
@@ -361,7 +361,7 @@ UPNP_INLINE void schedule_request_job(
     sockaddr* clientAddr) {
     TRACE("Executing schedule_request_job()")
     UPNPLIB_LOGINFO "MSG1042: Schedule request job to host "
-        << upnplib::to_netaddrp(
+        << UPnPsdk::to_netaddrp(
                reinterpret_cast<const sockaddr_storage*>(clientAddr))
         << " with socket " << connfd << ".\n";
 
@@ -427,7 +427,7 @@ void fdset_if_valid( //
         return;
     }
     // Check if socket is valid and bound
-    upnplib::CSocket_basic sockObj(a_sock);
+    UPnPsdk::CSocket_basic sockObj(a_sock);
     try {
         sockObj.load();
         if (sockObj.is_bound())
@@ -439,7 +439,7 @@ void fdset_if_valid( //
                 << a_sock << " not set to be monitored by ::select().\n";
 
     } catch (const std::exception& e) {
-        if (upnplib::g_dbug)
+        if (UPnPsdk::g_dbug)
             std::cerr << e.what();
         UPNPLIB_LOGCATCH "MSG1009: Invalid socket "
             << a_sock << " not set to be monitored by ::select().\n";
@@ -473,7 +473,7 @@ int web_server_accept(
     }
 
     SOCKET asock;
-    upnplib::sockaddr_t clientAddr;
+    UPnPsdk::sockaddr_t clientAddr;
     socklen_t clientLen = sizeof(clientAddr);
 
     // accept a network request connection
@@ -546,7 +546,7 @@ int receive_from_stopSock(
     if (!FD_ISSET(ssock, set))
         return 0; // Nothing to do for this socket
 
-    upnplib::sockaddr_t clientAddr{};
+    UPnPsdk::sockaddr_t clientAddr{};
     socklen_t clientLen{sizeof(clientAddr)}; // May be modified
 
     // The receive buffer is one byte greater with '\0' than the max receiving
@@ -760,7 +760,7 @@ int get_port(
     /*! [out] The port value if successful, otherwise, untouched. */
     uint16_t* port) {
     TRACE("Executing get_port(), calls system ::getsockname()")
-    upnplib::sockaddr_t sockinfo{};
+    UPnPsdk::sockaddr_t sockinfo{};
     socklen_t len(sizeof sockinfo); // May be modified by getsockname()
 
     if (umock::sys_socket_h.getsockname(sockfd, &sockinfo.sa, &len) == -1)
@@ -900,7 +900,7 @@ int get_miniserver_stopsock(
     TRACE("Executing get_miniserver_stopsock()");
     sockaddr_in stop_sockaddr;
 
-    upnplib::CSocketErr sockerrObj;
+    UPnPsdk::CSocketErr sockerrObj;
     SOCKET miniServerStopSock =
         umock::sys_socket_h.socket(AF_INET, SOCK_DGRAM, 0);
     if (miniServerStopSock == INVALID_SOCKET) {
@@ -1003,11 +1003,11 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
     InitMiniServerSockArray(miniSocket);
 
     // Instantiate socket objects and point to them in miniSocket
-    static upnplib::CSocket Sock6LlaObj(AF_INET6, SOCK_STREAM);
+    static UPnPsdk::CSocket Sock6LlaObj(AF_INET6, SOCK_STREAM);
     miniSocket->MiniSvrSock6LlaObj = &Sock6LlaObj;
-    static upnplib::CSocket Sock6UadObj(AF_INET6, SOCK_STREAM);
+    static UPnPsdk::CSocket Sock6UadObj(AF_INET6, SOCK_STREAM);
     miniSocket->MiniSvrSock6UadObj = &Sock6UadObj;
-    static upnplib::CSocket Sock4Obj(AF_INET, SOCK_STREAM);
+    static UPnPsdk::CSocket Sock4Obj(AF_INET, SOCK_STREAM);
     miniSocket->MiniSvrSock4Obj = &Sock4Obj;
 
 #ifdef COMPA_HAVE_WEBSERVER

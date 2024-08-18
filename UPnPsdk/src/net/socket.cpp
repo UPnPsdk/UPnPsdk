@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -14,7 +14,7 @@
 #include <umock/winsock2.hpp>
 #endif
 
-namespace upnplib {
+namespace UPnPsdk {
 
 namespace {
 
@@ -224,7 +224,7 @@ void CSocket_basic::m_get_addr_from_socket() const {
     // sockaddr structure from SSockaddr.
     socklen_t len = this->sizeof_ss(); // May be modified
     CSocketErr serrObj;
-    if (upnplib::getsockname(m_sfd, &this->sa, &len) != 0) {
+    if (UPnPsdk::getsockname(m_sfd, &this->sa, &len) != 0) {
         serrObj.catch_error();
         throw std::runtime_error(
             UPNPLIB_LOGEXCEPT + "MSG1001: Failed to get address from socket: " +
@@ -531,4 +531,4 @@ std::string CSocketErr::error_str() const {
     // return std::strerror(m_errno); // Alternative for Unix platforms
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk

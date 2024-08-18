@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Definition of the Netaddr class.
@@ -13,7 +13,7 @@
 #include <umock/netdb.hpp>
 
 
-namespace upnplib {
+namespace UPnPsdk {
 
 // Free function to check for a netaddress without port
 // ----------------------------------------------------
@@ -190,4 +190,4 @@ std::ostream& operator<<(std::ostream& os, Netaddr& nap) {
 }
 /// \endcond
 
-} // namespace upnplib
+} // namespace UPnPsdk

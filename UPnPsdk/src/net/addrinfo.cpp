@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -10,7 +10,7 @@
 #include <umock/netdb.hpp>
 #include <cstring>
 
-namespace upnplib {
+namespace UPnPsdk {
 
 // CAddrinfo class to wrap ::addrinfo() system calls
 // =================================================
@@ -128,7 +128,7 @@ void CAddrinfo::load() {
 
     // Correct weak hints
     // ------------------
-    // Always call upnplib::is_netaddr() with AF_UNSPEC (default argument) to
+    // Always call UPnPsdk::is_netaddr() with AF_UNSPEC (default argument) to
     // check all types. I always set AI_NUMERICHOST if it match, no matter what
     // 'a_family' was requested by the caller. But if AF_UNSPEC was requested,
     // the found address family will also be set.
@@ -316,4 +316,4 @@ bool CAddrinfo::get_next() noexcept {
     return true;
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk

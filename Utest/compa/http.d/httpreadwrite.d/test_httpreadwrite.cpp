@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -32,10 +32,10 @@ using ::testing::SetArgPointee;
 using ::testing::SetErrnoAndReturn;
 using ::testing::StrEq;
 
-using ::upnplib::CUri;
-using ::upnplib::Curi;
-using ::upnplib::errStr;
-using ::upnplib::errStrEx;
+using ::UPnPsdk::CUri;
+using ::UPnPsdk::Curi;
+using ::UPnPsdk::errStr;
+using ::UPnPsdk::errStrEx;
 
 
 // Pseudo call stack of some important functions to get an overview

@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_NET_URI_URL_HPP
 #define UPNPLIB_NET_URI_URL_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-01-25
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Declaration of the 'class Url'. Not usable, work in progess.
@@ -31,7 +31,7 @@
 #include <cstdint>
 
 /// \cond
-namespace upnplib {
+namespace UPnPsdk {
 
 // clang-format off
 /*!
@@ -145,7 +145,7 @@ class Url {
     void fsm_special_relative_or_authority();
 };
 
-} // namespace upnplib
+} // namespace UPnPsdk
 /// \endcond
 
 #endif // UPNPLIB_NET_URI_URL_HPP

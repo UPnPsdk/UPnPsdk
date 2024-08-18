@@ -164,5 +164,5 @@ var namespaces_dup =
     [ "anonymous_namespace{webserver.cpp}", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03" ],
     [ "compa", "d3/d02/namespacecompa.html", null ],
     [ "pupnp", "dc/d9a/namespacepupnp.html", null ],
-    [ "upnplib", "dc/d6d/namespaceupnplib.html", "dc/d6d/namespaceupnplib" ]
+    [ "UPnPsdk", "dd/d67/namespaceUPnPsdk.html", "dd/d67/namespaceUPnPsdk" ]
 ];

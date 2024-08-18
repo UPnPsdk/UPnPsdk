@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief General usable free function tools and helper
@@ -78,7 +78,7 @@ constexpr ErrorString ErrorMessages[] = {
 
 } // namespace
 
-namespace upnplib {
+namespace UPnPsdk {
 
 /*!
  * Search for the string name of an error number and return it.
@@ -121,4 +121,4 @@ const std::string errStrEx(const int error, const int success) {
            "), but not " + error_msg + "(" + std::to_string(error) + ").";
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk

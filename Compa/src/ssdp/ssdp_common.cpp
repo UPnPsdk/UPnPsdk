@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2024-08-18
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -216,7 +216,7 @@ inline int create_ssdp_sock_v4(
     sockaddr_in* ssdpAddr4 = (struct sockaddr_in*)&__ss;
     int ret = 0;
     in_addr addr;
-    upnplib::CSocketErr sockerrObj;
+    UPnPsdk::CSocketErr sockerrObj;
 
     *ssdpSock = umock::sys_socket_h.socket(AF_INET, SOCK_DGRAM, 0);
     if (*ssdpSock == INVALID_SOCKET) {

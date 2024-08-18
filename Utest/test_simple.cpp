@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // This tests only UPnPsdk code without using pupnp code or compa code. The only
 // used 'UPnPsdk' library does not provide it. So these tests belong to
@@ -13,7 +13,7 @@
 #include "pthread.h" // To find pthreads4w don't use <pthread.h>
 #include <gmock/gmock.h>
 
-namespace upnplib {
+namespace UPnPsdk {
 
 // simple mocked class
 // -------------------
@@ -88,7 +88,7 @@ TEST(simpleTestSuite, simple_upnplib_test) {
     EXPECT_EQ(errStr(0), "UPNP_E_SUCCESS(0)");
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk
 
 // main entry
 // ----------

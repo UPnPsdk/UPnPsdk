@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>UPnPsdk: Upnplib/include/upnplib/addrinfo.hpp Source File</title>
+<title>UPnPsdk: UPnPsdk/include/UPnPsdk/addrinfo.hpp Source File</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="../../jquery.js"></script>
@@ -103,20 +103,20 @@ $(document).ready(function(){initNavTree('d6/dbf/addrinfo_8hpp_source.html','../
 <a href="../../d6/dbf/addrinfo_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef UPNPLIB_INCLUDE_ADDRINFO_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define UPNPLIB_INCLUDE_ADDRINFO_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-07-22</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d2b/netaddr_8hpp.html">upnplib/netaddr.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-08-18</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d2b/netaddr_8hpp.html">UPnPsdk/netaddr.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dc/d6d/namespaceupnplib.html">upnplib</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a> {</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../da/dad/classupnplib_1_1CAddrinfo.html">   26</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d0/d21/visibility_8hpp.html#a596de2c742b413e26eddc6d1751753c0">UPNPLIB_API</a> <a class="code hl_class" href="../../da/dad/classupnplib_1_1CAddrinfo.html">CAddrinfo</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">   26</a></span><span class="keyword">class </span><a class="code hl_define" href="../../d0/d21/visibility_8hpp.html#a596de2c742b413e26eddc6d1751753c0">UPNPLIB_API</a> <a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a> {</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="../../da/dad/classupnplib_1_1CAddrinfo.html">CAddrinfo</a>(std::string_view a_node, std::string_view a_service,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a>(std::string_view a_node, std::string_view a_service,</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>              <span class="keyword">const</span> <span class="keywordtype">int</span> a_family = AF_UNSPEC,</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>              <span class="keyword">const</span> <span class="keywordtype">int</span> a_socktype = SOCK_STREAM, <span class="keyword">const</span> <span class="keywordtype">int</span> a_flags = 0,</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>              <span class="keyword">const</span> <span class="keywordtype">int</span> a_protocol = 0);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="../../da/dad/classupnplib_1_1CAddrinfo.html">CAddrinfo</a>(std::string_view a_node, <span class="keyword">const</span> <span class="keywordtype">int</span> a_family = AF_UNSPEC,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a>(std::string_view a_node, <span class="keyword">const</span> <span class="keywordtype">int</span> a_family = AF_UNSPEC,</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>              <span class="keyword">const</span> <span class="keywordtype">int</span> a_socktype = SOCK_STREAM, <span class="keyword">const</span> <span class="keywordtype">int</span> a_flags = 0,</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>              <span class="keyword">const</span> <span class="keywordtype">int</span> a_protocol = 0);</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
@@ -126,17 +126,17 @@ $(document).ready(function(){initNavTree('d6/dbf/addrinfo_8hpp_source.html','../
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">// Destructor</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="../../da/dad/classupnplib_1_1CAddrinfo.html">~CAddrinfo</a>();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">~CAddrinfo</a>();</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">// Copy constructor</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">// We cannot use the default copy constructor because there is also</span></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// allocated memory for the addrinfo structure to copy. We get segfaults</span></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// and program aborts. This class is not used to copy the object.</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="../../da/dad/classupnplib_1_1CAddrinfo.html">CAddrinfo</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../da/dad/classupnplib_1_1CAddrinfo.html">CAddrinfo</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a>&amp;) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">// Copy assignment operator</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">// Same as with the copy constructor.</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_class" href="../../da/dad/classupnplib_1_1CAddrinfo.html">CAddrinfo</a>&amp; operator=(<a class="code hl_class" href="../../da/dad/classupnplib_1_1CAddrinfo.html">CAddrinfo</a>) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a>&amp; operator=(<a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a>) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">void</span> load();</div>
@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('d6/dbf/addrinfo_8hpp_source.html','../
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="comment">// REF:_&lt;a_href=&quot;https://stackoverflow.com/a/8782794/5014688&quot;&gt;Overloading_member_access_operators_-&gt;,_.*&lt;/a&gt;</span></div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    ::addrinfo* operator-&gt;() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <a class="code hl_class" href="../../d8/d44/classupnplib_1_1Netaddr.html">Netaddr</a> netaddr() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <a class="code hl_class" href="../../dd/d03/classUPnPsdk_1_1Netaddr.html">Netaddr</a> netaddr() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordtype">bool</span> get_next() <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
@@ -173,12 +173,12 @@ $(document).ready(function(){initNavTree('d6/dbf/addrinfo_8hpp_source.html','../
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>};</div>
 </div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>} <span class="comment">// namespace upnplib</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>} <span class="comment">// namespace UPnPsdk</span></div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="preprocessor">#endif </span><span class="comment">// UPNPLIB_INCLUDE_ADDRINFO_HPP</span></div>
-<div class="ttc" id="aclassupnplib_1_1CAddrinfo_html"><div class="ttname"><a href="../../da/dad/classupnplib_1_1CAddrinfo.html">upnplib::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about a netaddress.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00026">addrinfo.hpp:26</a></div></div>
-<div class="ttc" id="aclassupnplib_1_1Netaddr_html"><div class="ttname"><a href="../../d8/d44/classupnplib_1_1Netaddr.html">upnplib::Netaddr</a></div><div class="ttdoc">Netaddress class to handle netaddresses.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d2b/netaddr_8hpp_source.html#l00071">netaddr.hpp:71</a></div></div>
-<div class="ttc" id="anamespaceupnplib_html"><div class="ttname"><a href="../../dc/d6d/namespaceupnplib.html">upnplib</a></div><div class="ttdoc">Reengineered Object Oriented UPnP+ program code.</div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">UPnPsdk::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about a netaddress.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00026">addrinfo.hpp:26</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1Netaddr_html"><div class="ttname"><a href="../../dd/d03/classUPnPsdk_1_1Netaddr.html">UPnPsdk::Netaddr</a></div><div class="ttdoc">Netaddress class to handle netaddresses.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d2b/netaddr_8hpp_source.html#l00071">netaddr.hpp:71</a></div></div>
+<div class="ttc" id="anamespaceUPnPsdk_html"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a></div><div class="ttdoc">Reengineered Object Oriented UPnP+ program code.</div></div>
 <div class="ttc" id="anetaddr_8hpp_html"><div class="ttname"><a href="../../d1/d2b/netaddr_8hpp.html">netaddr.hpp</a></div><div class="ttdoc">Declaration of the Netaddr class.</div></div>
 <div class="ttc" id="avisibility_8hpp_html_a596de2c742b413e26eddc6d1751753c0"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html#a596de2c742b413e26eddc6d1751753c0">UPNPLIB_API</a></div><div class="ttdeci">#define UPNPLIB_API</div><div class="ttdoc">Prefix to export symbol for external use.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d21/visibility_8hpp_source.html#l00061">visibility.hpp:61</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -186,7 +186,7 @@ $(document).ready(function(){initNavTree('d6/dbf/addrinfo_8hpp_source.html','../
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_676c01f5c5afcbac5294f5bfc98838d8.html">Upnplib</a></li><li class="navelem"><a class="el" href="../../dir_9331101444e2f85950a4eebcfa74b23b.html">include</a></li><li class="navelem"><a class="el" href="../../dir_80023e064d24958bf48d92ff505d1ef6.html">upnplib</a></li><li class="navelem"><a class="el" href="../../d6/dbf/addrinfo_8hpp.html">addrinfo.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_4de4b8cbe0377b085a450ae93e93d6a3.html">UPnPsdk</a></li><li class="navelem"><a class="el" href="../../dir_70447ec6a08c2483e633ae693596710f.html">include</a></li><li class="navelem"><a class="el" href="../../dir_6355b7681b27614fe17a18239640150b.html">UPnPsdk</a></li><li class="navelem"><a class="el" href="../../d6/dbf/addrinfo_8hpp.html">addrinfo.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

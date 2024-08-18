@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -31,8 +31,8 @@ using ::testing::SetArgPointee;
 
 using ::pupnp::CLogging;
 
-using ::upnplib::CIfaddr4;
-using ::upnplib::errStrEx;
+using ::UPnPsdk::CIfaddr4;
+using ::UPnPsdk::errStrEx;
 
 
 // UpnpApi Testsuite for IP4

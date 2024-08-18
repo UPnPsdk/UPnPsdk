@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // There is no include guard '#ifndef ...' because this file shouln't be
 // included more than two times as given.
@@ -23,7 +23,7 @@
 UPNPLIB_API char* strndup(const char* __string, size_t __n);
 #endif
 
-namespace upnplib {
+namespace UPnPsdk {
 
 // Global constants
 // ================
@@ -35,5 +35,5 @@ inline constexpr int g_response_timeout{30};
 inline constexpr std::string_view libinfo{
     "upnplib library version = under developement"};
 
-} // namespace upnplib
+} // namespace UPnPsdk
 /// \endcond

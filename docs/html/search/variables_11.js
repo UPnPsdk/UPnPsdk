@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['sa_0',['sa',['../d1/dc2/structupnplib_1_1SSockaddr.html#a1bc6251a80c5f9318b5308ea0052f4ef',1,'upnplib::SSockaddr']]],
+  ['sa_0',['sa',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7fb20663e898118cf58c34e3ad4bbf09',1,'UPnPsdk::SSockaddr']]],
   ['scanner_1',['scanner',['../db/da7/httpparser_8hpp.html#a8ee1d56dc0af6df7d8c7bbfefa55917a',1,'http_parser_t']]],
   ['schedpolicy_2',['schedPolicy',['../d5/d91/ThreadPool_8hpp.html#a6318eb6ed51404b2620790f99cd69c22',1,'ThreadPoolAttr']]],
   ['scheme_3',['scheme',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a1a077d64a99f2adae0508d7836f6cea6',1,'uri_type']]],
@@ -16,8 +16,8 @@ var searchData=
   ['setlogwascalled_13',['setlogwascalled',['../d5/dfa/upnpdebug_8cpp.html#aeabeb8d99f1c6c8a9ec7c36db16a14ff',1,'upnpdebug.cpp']]],
   ['shutdown_14',['shutdown',['../d5/d91/ThreadPool_8hpp.html#a45093fe249a5816ad25cc10536c48483',1,'ThreadPool::shutdown'],['../d0/d87/TimerThread_8hpp.html#ae09bc9978db365fd46e77eafd592abc7',1,'TimerThread::shutdown']]],
   ['sid_15',['sid',['../d9/dd2/gena_8hpp.html#a2cd56ffe5b429b065559139363ff7baa',1,'NOTIFY_THREAD_STRUCT::sid'],['../db/d74/service__table_8hpp.html#a73a4c05fab1040e56c77a04dda6bddfb',1,'subscription::sid']]],
-  ['sin_16',['sin',['../d1/dc2/structupnplib_1_1SSockaddr.html#a204c9706a0a0a957adc0a70801e81d11',1,'upnplib::SSockaddr']]],
-  ['sin6_17',['sin6',['../d1/dc2/structupnplib_1_1SSockaddr.html#ae55e06756ede97e0d368d9d347a05d6a',1,'upnplib::SSockaddr']]],
+  ['sin_16',['sin',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a12a001f2043f8c4ef1d45ec0f402e566',1,'UPnPsdk::SSockaddr']]],
+  ['sin6_17',['sin6',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8',1,'UPnPsdk::SSockaddr']]],
   ['size_18',['size',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a529190c733f35afb42d8963f9f3f65d2',1,'token::size'],['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a759205625ae6e46abea48458f2f1f936',1,'URL_list::size'],['../de/dd1/LinkedList_8hpp.html#a63ac6dd4463afe93d8106cac16ee3838',1,'LinkedList::size']]],
   ['size_5finc_19',['size_inc',['../d1/d10/membuffer_8hpp.html#a16d6035f7a46723eb66434778723dba8',1,'membuffer']]],
   ['sleepperiod_20',['SleepPeriod',['../d3/da9/upnpapi_8hpp.html#a554fb86ac430b5733711a3fd7c653e35',1,'Handle_Info']]],
@@ -35,7 +35,7 @@ var searchData=
   ['sreq_5fbad_5fhdr_5fformat_32',['SREQ_BAD_HDR_FORMAT',['../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#ab4f8983d963f1ee8f640ef5dfba8a7f6',1,'anonymous_namespace{soap_device.cpp}']]],
   ['sreq_5fhdr_5fnot_5ffound_33',['SREQ_HDR_NOT_FOUND',['../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a8051f342f34af8a939f8fa8f4b0f7d26',1,'anonymous_namespace{soap_device.cpp}']]],
   ['sreq_5fnot_5fextended_34',['SREQ_NOT_EXTENDED',['../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a8950c126858c87c85c4dc28996fab6b0',1,'anonymous_namespace{soap_device.cpp}']]],
-  ['ss_35',['ss',['../d1/dc2/structupnplib_1_1SSockaddr.html#a5b29bed63c23e462546178e4e76c974d',1,'upnplib::SSockaddr']]],
+  ['ss_35',['ss',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176',1,'UPnPsdk::SSockaddr']]],
   ['ssdpreqsock4_36',['ssdpReqSock4',['../d3/d8b/miniserver_8hpp.html#acff6745ddfe0e7334527c125b5e0786f',1,'MiniServerSockArray']]],
   ['ssdpreqsock6_37',['ssdpReqSock6',['../d3/d8b/miniserver_8hpp.html#ac7a0a466cde349e05375e88d0fff0013',1,'MiniServerSockArray']]],
   ['ssdpsearchlist_38',['SsdpSearchList',['../d3/da9/upnpapi_8hpp.html#ad0b542629bd1690491dcecbf344fdbf6',1,'Handle_Info']]],
@@ -54,5 +54,5 @@ var searchData=
   ['stopport_51',['stopPort',['../d3/d8b/miniserver_8hpp.html#a88d3137251e9970f3c5f49b4822eecfc',1,'MiniServerSockArray']]],
   ['subscriptionlist_52',['subscriptionList',['../db/d74/service__table_8hpp.html#a77da60bd560a0409a86a1b35001f2c69',1,'service_info']]],
   ['subsid_53',['SubsId',['../d3/da9/upnpapi_8hpp.html#a949f73a3784997f30068d82f00a6ac65',1,'UpnpNonblockParam']]],
-  ['subtype_54',['subtype',['../dc/d6d/namespaceupnplib.html#a46af4bf0bba66fea9883ef10b27b8000',1,'upnplib::Document_meta']]]
+  ['subtype_54',['subtype',['../dd/d67/namespaceUPnPsdk.html#a7da00f23e11db5e884ef88a8445067ea',1,'UPnPsdk::Document_meta']]]
 ];

@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // -----------------------------------------------------------------------------
 // This testsuite starts the sample TV Device with general command line
@@ -100,8 +100,8 @@ using ::pupnp::CLogging;
 
 using ::utest::CIfaddr4;
 
-using ::upnplib::errStrEx;
-using ::upnplib::SSockaddr;
+using ::UPnPsdk::errStrEx;
+using ::UPnPsdk::SSockaddr;
 
 
 class SampleTvDeviceFTestSuite : public ::testing::Test {

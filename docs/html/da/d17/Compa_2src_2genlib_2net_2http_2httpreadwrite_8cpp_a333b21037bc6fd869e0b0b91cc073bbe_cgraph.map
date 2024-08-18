@@ -1,18 +1,18 @@
 <map id="http_SendMessage" name="http_SendMessage">
 <area shape="rect" id="Node000001" title="Sends a message to the destination based on the format parameter." alt="" coords="5,77,140,102"/>
-<area shape="rect" id="Node000002" href="$d1/dc2/structupnplib_1_1SSockaddr.html#aa4e5becb3ad27b69d81d517cc66cc3e8" title="Get the assosiated netaddress with port." alt="" coords="188,5,323,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,74,184,47,186,52,111,79"/>
-<area shape="rect" id="Node000004" href="$d1/dc2/structupnplib_1_1SSockaddr.html#a776aae84b82e1268df7ef75b39a6f528" title="Get sizeof the Sockaddr Structure." alt="" coords="188,69,323,109"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="140,87,174,87,174,92,140,92"/>
-<area shape="rect" id="Node000005" href="$d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="213,134,298,159"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="115,100,202,127,201,132,113,105"/>
-<area shape="rect" id="Node000003" href="$d0/dd8/group__upnplib-addrmodul.html#gafd74ac6303ebfad050c64d52458125a8" title="Get the netaddress with port from a sockaddr structure." alt="" coords="393,13,531,38"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="323,23,379,23,379,28,323,28"/>
-<area shape="rect" id="Node000006" href="$db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#a2356245ef3089394fee85fd3f34be80f" title="Write to an SSL protected socket." alt="" coords="371,95,553,135"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="298,137,357,128,357,134,299,143"/>
-<area shape="rect" id="Node000008" href="$db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#a64de72048c9ed20f9673c4d9564d5457" title="Write to a not SSL protected socket." alt="" coords="381,159,543,214"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="299,152,368,166,367,171,298,157"/>
-<area shape="rect" id="Node000007" href="$d2/dd2/classupnplib_1_1CSocketErr.html#a8142e787e3e0f3e190b2541ebfc13ef3" title="Catch error for later use." alt="" coords="601,131,740,171"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="554,128,588,134,587,139,553,133"/>
-<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="543,170,587,162,588,168,544,175"/>
+<area shape="rect" id="Node000002" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6" title="Get the assosiated netaddress with port." alt="" coords="188,5,339,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,74,189,47,191,52,112,79"/>
+<area shape="rect" id="Node000004" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a54c724e63e5e7d8ddaec8a80f7450219" title="Get sizeof the Sockaddr Structure." alt="" coords="188,69,339,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="140,87,175,87,175,92,140,92"/>
+<area shape="rect" id="Node000005" href="$d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="221,134,306,159"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="117,100,208,127,207,133,115,105"/>
+<area shape="rect" id="Node000003" href="$d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997" title="Get the netaddress with port from a sockaddr structure." alt="" coords="401,13,555,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="339,23,387,23,387,28,339,28"/>
+<area shape="rect" id="Node000006" href="$db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#a2356245ef3089394fee85fd3f34be80f" title="Write to an SSL protected socket." alt="" coords="387,95,569,135"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="306,138,372,128,373,133,306,143"/>
+<area shape="rect" id="Node000008" href="$db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#a64de72048c9ed20f9673c4d9564d5457" title="Write to a not SSL protected socket." alt="" coords="397,159,559,214"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="307,152,384,166,383,172,306,157"/>
+<area shape="rect" id="Node000007" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="617,131,772,171"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="570,127,604,133,604,138,569,132"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="559,171,603,163,604,168,560,176"/>
 </map>

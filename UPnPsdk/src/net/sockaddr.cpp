@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -11,7 +11,7 @@
 #include <UPnPsdk/netaddr.hpp>
 #include <cstring>
 
-namespace upnplib {
+namespace UPnPsdk {
 
 namespace {
 
@@ -365,4 +365,4 @@ void SSockaddr::handle_ipv4(const std::string& a_addr_str) {
     ss.ss_family = AF_INET;
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk

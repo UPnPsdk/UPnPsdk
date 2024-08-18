@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// redistribution only with this copyright remark. last modified: 2024-08-17
+// redistribution only with this copyright remark. last modified: 2024-08-18
 
 // Helpful link for ip address structures:
 // https://stackoverflow.com/a/16010670/5014688
@@ -18,7 +18,7 @@ using ::testing::DoAll;
 using ::testing::Return;
 using ::testing::SetArgPointee;
 
-using ::upnplib::Curi;
+using ::UPnPsdk::Curi;
 
 
 namespace utest {

@@ -12,7 +12,7 @@ var searchData=
   ['totalthreads_9',['totalThreads',['../d5/d91/ThreadPool_8hpp.html#a9006a9aed64789d55ae05204bef862f7',1,'ThreadPool']]],
   ['tp_10',['tp',['../d0/d87/TimerThread_8hpp.html#abdf0a5b7de91a2897128674bc4ba6cac',1,'TimerThread']]],
   ['ts_11',['ts',['../db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html#a3afe1887ce90da80b45278b21a81bd3d',1,'anonymous_namespace{uuid.cpp}::uuid_state']]],
-  ['type_12',['type',['../dc/d6d/namespaceupnplib.html#ab28b46e87d7d69fdcace8eca7db3cb4d',1,'upnplib::Document_meta::type'],['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#ac20a8bda3795e43b035eb6253e4e1f14',1,'uri_type::type']]],
+  ['type_12',['type',['../dd/d67/namespaceUPnPsdk.html#a9681afa4b64e2afa067cea46a8026ac4',1,'UPnPsdk::Document_meta::type'],['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#ac20a8bda3795e43b035eb6253e4e1f14',1,'uri_type::type']]],
   ['tz_5fdsttime_13',['tz_dsttime',['../d5/d91/ThreadPool_8hpp.html#a85259977aeb63b17e6ce94f19afdfd99',1,'timezone']]],
   ['tz_5fminuteswest_14',['tz_minuteswest',['../d5/d91/ThreadPool_8hpp.html#a3042f7eff6e1b980728def76b1fa0eb7',1,'timezone']]]
 ];

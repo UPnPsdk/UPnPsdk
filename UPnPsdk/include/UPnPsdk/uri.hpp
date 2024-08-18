@@ -1,14 +1,14 @@
 #ifndef UPNPLIB_NET_URI_HPP
 #define UPNPLIB_NET_URI_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-01-25
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief C++ interface for the Uri module.
  */
 
 /// \cond
-namespace upnplib {
+namespace UPnPsdk {
 
 
 // Interface for the uri module
@@ -64,6 +64,6 @@ class Curi : Iuri {
 };
 // clang-format on
 
-} // namespace upnplib
+} // namespace UPnPsdk
 /// \endcond
 #endif // UPNPLIB_NET_URI_HPP

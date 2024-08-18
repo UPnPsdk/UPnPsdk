@@ -1,9 +1,9 @@
 <map id="anonymous_namespace{miniserver::cpp}::get_miniserver_stopsock" name="anonymous_namespace{miniserver::cpp}::get_miniserver_stopsock">
 <area shape="rect" id="Node000001" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="5,94,168,149"/>
-<area shape="rect" id="Node000002" href="$d2/dd2/classupnplib_1_1CSocketErr.html#a8142e787e3e0f3e190b2541ebfc13ef3" title="Catch error for later use." alt="" coords="234,5,373,45"/>
+<area shape="rect" id="Node000002" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="226,5,381,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,91,215,55,232,48,234,53,217,60,141,96"/>
-<area shape="rect" id="Node000003" href="$d2/dd2/classupnplib_1_1CSocketErr.html#ae8d893eda87328bf1e475378f6b8a8f4" title="Get human readable error description of the catched error." alt="" coords="234,69,373,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,107,220,99,221,104,169,112"/>
+<area shape="rect" id="Node000003" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="226,69,381,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,107,212,100,213,105,169,112"/>
 <area shape="rect" id="Node000004" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#aec7d02e7e42098f68ed2d85b931106df" title="Returns port to which socket, sockfd, is bound." alt="" coords="216,133,391,173"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="169,131,203,136,202,141,168,136"/>
 <area shape="rect" id="Node000005" href="$d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="259,198,347,223"/>

@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_NET_NETADDR_HPP
 #define UPNPLIB_NET_NETADDR_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Declaration of the Netaddr class
@@ -13,7 +13,7 @@
 #include <UPnPsdk/socket.hpp>
 #include <string>
 
-namespace upnplib {
+namespace UPnPsdk {
 
 // Free function to check for a netaddress without port
 // ----------------------------------------------------
@@ -154,6 +154,6 @@ class UPNPLIB_API Netaddr {
 UPNPLIB_API ::std::ostream& operator<<(::std::ostream& os, Netaddr& nap);
 /// \endcond
 
-} // namespace upnplib
+} // namespace UPnPsdk
 
 #endif // UPNPLIB_NET_NETADDR_HPP

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // Helpful link for ip address structures:
 // https://stackoverflow.com/q/76548580/5014688
@@ -21,7 +21,7 @@
 
 #include <fcntl.h>
 
-#define sockaddr_storage upnplib::sockaddr_t
+#define sockaddr_storage UPnPsdk::sockaddr_t
 #include <sock.hpp>
 
 namespace utest {
@@ -39,10 +39,10 @@ using ::testing::Return;
 using ::testing::StrictMock;
 using ::testing::no_adl::Conditional;
 
-using ::upnplib::errStr;
-using ::upnplib::errStrEx;
-using ::upnplib::g_dbug;
-using ::upnplib::SSockaddr;
+using ::UPnPsdk::errStr;
+using ::UPnPsdk::errStrEx;
+using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::SSockaddr;
 
 using ::pupnp::CLogging;
 
@@ -730,7 +730,7 @@ TEST_F(SockFDeathTest, sock_read_with_nullptr_to_timeout_value) {
         EXPECT_CALL(
             m_sys_socketObj,
             select(m_sockfd + 1, NotNull(), NotNull(), IsNull(),
-                   Field(&::timeval::tv_sec, Eq(upnplib::g_response_timeout))))
+                   Field(&::timeval::tv_sec, Eq(UPnPsdk::g_response_timeout))))
             // Consider timeout to be undefined after select() returns.
             .WillOnce(DoAll(StructSetToArg<4>(0xAA), Return(1)));
         // recv()

@@ -18,14 +18,14 @@ var searchData=
   ['service_5finfo_15',['service_info',['../db/d74/service__table_8hpp.html#df/db2/structservice__info',1,'']]],
   ['service_5ftable_16',['service_table',['../db/d74/service__table_8hpp.html#df/d30/structservice__table',1,'']]],
   ['soap_5fdevserv_5ft_17',['soap_devserv_t',['../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#d5/d88/structanonymous__namespace_02soap__device_8cpp_03_1_1soap__devserv__t',1,'anonymous_namespace{soap_device.cpp}']]],
-  ['sockaddr_5ft_18',['sockaddr_t',['../d0/dd8/group__upnplib-addrmodul.html#d6/d2c/unionupnplib_1_1sockaddr__t',1,'upnplib']]],
+  ['sockaddr_5ft_18',['sockaddr_t',['../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t',1,'UPnPsdk']]],
   ['sockinfo_19',['SOCKINFO',['../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO',1,'']]],
   ['ssdp_5fthread_5fdata_20',['ssdp_thread_data',['../d0/d19/ssdp__common_8hpp.html#dc/dfb/structssdp__thread__data',1,'']]],
   ['ssdpevent_21',['SsdpEvent',['../d0/d19/ssdp__common_8hpp.html#d1/da6/structSsdpEvent',1,'']]],
   ['ssdpsearcharg_22',['SsdpSearchArg',['../da/db2/ssdp__ctrlpt_8hpp.html#d4/df8/structSsdpSearchArg',1,'']]],
   ['ssdpsearchexparg_23',['SsdpSearchExpArg',['../d0/d19/ssdp__common_8hpp.html#d2/d52/structSsdpSearchExpArg',1,'']]],
   ['ssdpsearchreply_24',['SsdpSearchReply',['../d0/d19/ssdp__common_8hpp.html#df/dd8/structSsdpSearchReply',1,'']]],
-  ['ssockaddr_25',['SSockaddr',['../d1/dc2/structupnplib_1_1SSockaddr.html',1,'upnplib']]],
+  ['ssockaddr_25',['SSockaddr',['../dc/df7/structUPnPsdk_1_1SSockaddr.html',1,'UPnPsdk']]],
   ['str_5fint_5fentry_26',['str_int_entry',['../df/df3/strintmap_8hpp.html#d7/d2f/structstr__int__entry',1,'']]],
   ['subscription_27',['subscription',['../db/d74/service__table_8hpp.html#dd/dc7/structsubscription',1,'']]]
 ];

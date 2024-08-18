@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Free functions to parse IPv6 and host URLs. Not usable, work in
@@ -12,7 +12,7 @@
 #include <iostream>
 
 /// \cond
-namespace upnplib {
+namespace UPnPsdk {
 
 /// \brief Parse IPv6 URL
 // ======================
@@ -220,5 +220,5 @@ std::string host_parser(std::string_view a_input,
     return "dummy.final.parsed.host";
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk
 /// \endcond

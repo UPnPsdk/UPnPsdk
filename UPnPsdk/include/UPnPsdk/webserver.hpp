@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_WEBSERVER_HPP
 #define UPNPLIB_WEBSERVER_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Declarations to manage the builtin Webserver
@@ -12,7 +12,7 @@
 #include <string>
 /// \endcond
 
-namespace upnplib {
+namespace UPnPsdk {
 
 /*! \brief Mapping of file extension to content-type of document */
 struct Document_meta {
@@ -41,6 +41,6 @@ struct Document_meta {
 UPNPLIB_API const Document_meta* select_filetype( //
     std::string_view a_extension ///< [in] file extension
 );
-} // namespace upnplib
+} // namespace UPnPsdk
 
 #endif // UPNPLIB_WEBSERVER_HPP

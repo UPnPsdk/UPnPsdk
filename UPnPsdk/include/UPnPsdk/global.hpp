@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_GLOBAL_HPP
 #define UPNPLIB_GLOBAL_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Global used constants and variables.
@@ -12,7 +12,7 @@
 // compile units.
 #include <UPnPsdk/global.ipp>
 
-namespace upnplib {
+namespace UPnPsdk {
 
 // Global variables
 // ================
@@ -25,6 +25,6 @@ namespace upnplib {
  */
 UPNPLIB_EXTERN bool g_dbug;
 
-} // namespace upnplib
+} // namespace UPnPsdk
 
 #endif // UPNPLIB_GLOBAL_HPP

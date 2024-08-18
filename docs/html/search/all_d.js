@@ -52,7 +52,7 @@ var searchData=
   ['highjobq_49',['highJobQ',['../d5/d91/ThreadPool_8hpp.html#ab966bff7c412856901c72c1d020b887e',1,'ThreadPool']]],
   ['host_5fheader_5fis_5fnumeric_50',['host_header_is_numeric',['../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b',1,'anonymous_namespace{miniserver.cpp}']]],
   ['hostaddr_51',['HostAddr',['../d0/d19/ssdp__common_8hpp.html#a4c8888de2e3306793ff1bf211cf035a9',1,'SsdpEvent']]],
-  ['hostport_52',['hostport',['../dd/db5/classupnplib_1_1CUri.html#aac477637704d2107135ff0cac185f954',1,'upnplib::CUri::hostport'],['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a42091b526df14a334683376bba483bc7',1,'uri_type::hostport']]],
+  ['hostport_52',['hostport',['../da/dcf/classUPnPsdk_1_1CUri.html#ad06350e389e8c6d587eb223b49f0fd05',1,'UPnPsdk::CUri::hostport'],['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a42091b526df14a334683376bba483bc7',1,'uri_type::hostport']]],
   ['hostport_5ftype_53',['hostport_type',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#db/d73/structhostport__type',1,'']]],
   ['http_5fcalcresponseversion_54',['http_calcresponseversion',['../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e',1,'http_CalcResponseVersion(int request_major_vers, int request_minor_vers, int *response_major_vers, int *response_minor_vers):&#160;httpreadwrite.cpp'],['../de/ded/Compa_2src_2inc_2httpreadwrite_8hpp.html#a5d87c4e85f958f11c3009471743d4a4e',1,'http_CalcResponseVersion(int request_major_vers, int request_minor_vers, int *response_major_vers, int *response_minor_vers):&#160;httpreadwrite.cpp']]],
   ['http_5fcancelhttpget_55',['http_cancelhttpget',['../de/ded/Compa_2src_2inc_2httpreadwrite_8hpp.html#a4fee2574f1801c0221f4da7c596c4909',1,'http_CancelHttpGet(void *Handle):&#160;httpreadwrite.cpp'],['../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a51ec46d88b9514d6082c993ee7b9ccb0',1,'http_CancelHttpGet(void *Handle):&#160;httpreadwrite.cpp']]],
@@ -97,7 +97,7 @@ var searchData=
   ['httpmsg_5finit_94',['httpmsg_init',['../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a645d915a8230f48e1a62dee451fa9705',1,'anonymous_namespace{httpparser.cpp}']]],
   ['httpparser_2ecpp_95',['httpparser.cpp',['../dd/d1d/httpparser_8cpp.html',1,'']]],
   ['httpparser_2ehpp_96',['httpparser.hpp',['../db/da7/httpparser_8hpp.html',1,'']]],
-  ['httpreadwrite_2ecpp_97',['httpreadwrite.cpp',['../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html',1,'(Global Namespace)'],['../d4/dab/Upnplib_2src_2net_2http_2httpreadwrite_8cpp.html',1,'(Global Namespace)']]],
-  ['httpreadwrite_2ehpp_98',['httpreadwrite.hpp',['../de/ded/Compa_2src_2inc_2httpreadwrite_8hpp.html',1,'(Global Namespace)'],['../dd/dad/Upnplib_2include_2upnplib_2httpreadwrite_8hpp.html',1,'(Global Namespace)']]],
+  ['httpreadwrite_2ecpp_97',['httpreadwrite.cpp',['../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html',1,'(Global Namespace)'],['../dc/d3b/UPnPsdk_2src_2net_2http_2httpreadwrite_8cpp.html',1,'(Global Namespace)']]],
+  ['httpreadwrite_2ehpp_98',['httpreadwrite.hpp',['../de/ded/Compa_2src_2inc_2httpreadwrite_8hpp.html',1,'(Global Namespace)'],['../d0/d2e/UPnPsdk_2include_2UPnPsdk_2httpreadwrite_8hpp.html',1,'(Global Namespace)']]],
   ['htype_99',['HType',['../d3/da9/upnpapi_8hpp.html#a0766a939e21e69f56ebc884a2441bfcb',1,'Handle_Info']]]
 ];

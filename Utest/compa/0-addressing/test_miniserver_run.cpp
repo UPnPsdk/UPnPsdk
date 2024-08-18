@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -46,10 +46,10 @@ using ::testing::SetErrnoAndReturn;
 using ::testing::StartsWith;
 using ::testing::StrictMock;
 
-using ::upnplib::CSocket;
-using ::upnplib::errStrEx;
-using ::upnplib::g_dbug;
-using ::upnplib::SSockaddr;
+using ::UPnPsdk::CSocket;
+using ::UPnPsdk::errStrEx;
+using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::SSockaddr;
 
 using ::pupnp::CLogging;
 using ::pupnp::CThreadPoolInit;
@@ -1147,7 +1147,7 @@ TEST_F(RunMiniServerMockFTestSuite,
 
     // Mock system function ::getsockname() to fail with insufficient
     // resources. It is called here within the free function
-    // upnplib::getsockname().
+    // UPnPsdk::getsockname().
     EXPECT_CALL(m_sys_socketObj, getsockname(sockfd, _, _))
 #ifndef _MSC_VER
         .WillOnce(SetErrnoAndReturn(ENOBUFS, -1));
@@ -1176,7 +1176,7 @@ TEST_F(RunMiniServerMockFTestSuite,
             .WillOnce(Return(0));
 #ifdef _MSC_VER
         // ::WSAGetLastError() is called here within the free function
-        // upnplib::getsockname() and when throwing the error used by CSocket.
+        // UPnPsdk::getsockname() and when throwing the error used by CSocket.
         EXPECT_CALL(m_winsock2Obj, WSAGetLastError())
             .Times(2)
             .WillRepeatedly(Return(WSAENOBUFS));

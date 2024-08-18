@@ -103,9 +103,9 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <div class="textblock"><dl class="reflist">
 <dt>File <a class="el" href="../../de/d2c/A__general__TODO-list_8dox.html">A_general_TODO-list.dox</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a><ul>
-<li>Install UPnPlib libraries for use.</li>
-<li>Use of UPnPlib with sample program.</li>
-<li>Rename upnplib to UPnPsdk.</li>
+<li>Rename upnplib to <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a>.</li>
+<li>Install <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> libraries for use on Microsoft Windows.</li>
+<li>Use of <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> with sample program.</li>
 <li>Bugreport about gtest.dll crash.</li>
 <li>Create Unit Test for large file system support (issue #15).</li>
 <li>Remove Interface/ directory.</li>
@@ -169,21 +169,21 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <dt>Member <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#af2db1b68f4499e10273028ff48bbd99e">remove_escaped_chars</a>  (char *in, size_t *size)</dt>
 <dd><a class="anchor" id="_todo000018"></a>Optimize with prechecking the delimiter '%'.  </dd>
 <dt>Member <a class="el" href="../../d9/dd1/soap__ctrlpt_8cpp.html#a05e899b6e0c3bc1b2964ac01c37c15d7">SoapGetServiceVarStatus</a>  (char *action_url, DOMString var_name, DOMString *var_value)</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000023"></a>Returned error message IDs are ambiguous. Fix it. </p>
-<p class="enddd"><a class="anchor" id="_todo000026"></a>Verify the bug in the source code of this function with a unit test.  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000026"></a>Verify the bug in the source code of this function with a unit test. </p>
+<p class="enddd"><a class="anchor" id="_todo000023"></a>Returned error message IDs are ambiguous. Fix it.  </p>
 </dd>
 <dt>Struct <a class="el" href="../../d6/df0/sock_8hpp.html">SOCKINFO</a>  </dt>
 <dd><a class="anchor" id="_todo000024"></a>Cleanup constants: In &lt;sys/socket.h&gt; are defined SHUT_RD, SHUT_WR, SHUT_RDWR with 0, 1, 2, according to man 2 shutdown.  </dd>
-<dt>Member <a class="el" href="../../da/dad/classupnplib_1_1CAddrinfo.html#a5a9dc9b0ec4397230b37db8d792175b0">upnplib::CAddrinfo::load</a>  ()</dt>
-<dd><a class="anchor" id="_todo000003"></a>Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32.  </dd>
-<dt>Member <a class="el" href="../../d8/d73/classupnplib_1_1CSocket.html#a7548ff82d122192ae5ee7855b7dec846">upnplib::CSocket::bind</a>  (const std::string &amp;a_node, const std::string &amp;a_port, const int a_flags=0)</dt>
-<dd><a class="anchor" id="_todo000005"></a>Improve <a class="el" href="../../d2/dd2/classupnplib_1_1CSocketErr.html" title="Class for portable handling of network socket errors.">CSocketErr</a> for specific <a class="el" href="../../d8/d73/classupnplib_1_1CSocket.html#a7548ff82d122192ae5ee7855b7dec846" title="Bind socket to a local interface address.">bind()</a> error messages.  </dd>
-<dt>Member <a class="el" href="../../db/d84/classupnplib_1_1CSocket__basic.html#a41cf15ed4d81fb0f237d8a6b69f72d8a">upnplib::CSocket_basic::get_socktype</a>  () const</dt>
-<dd><a class="anchor" id="_todo000002"></a>Check if SOCK_UNDEF is also possible, maybe with an empty socket  </dd>
-<dt>Member <a class="el" href="../../dc/d6d/namespaceupnplib.html#a1b07641cbe43d7d273439a6c03cb1de4">upnplib::select_filetype</a>  (std::string_view a_extension)</dt>
-<dd><a class="anchor" id="_todo000004"></a>Rework to use reference instead of pointer and use exception.  </dd>
 <dt>Member <a class="el" href="../../d3/d57/group__UPnPTools.html#ga57ebb1ff5c0ddf5c3083a7f0d06ef2a3">UpnpResolveURL</a>  (const char *BaseURL, const char *RelURL, char *AbsURL)</dt>
 <dd><a class="anchor" id="_todo000008"></a>There is some unnecessary allocation and deallocation going on here because of the way <a class="el" href="../../d8/dd2/uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356" title="Resolves a relative url with a base url.">resolve_rel_url()</a> was originally written and used. In the future it would be nice to clean this up.  </dd>
+<dt>Member <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6">UPnPsdk::CAddrinfo::load</a>  ()</dt>
+<dd><a class="anchor" id="_todo000003"></a>Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32.  </dd>
+<dt>Member <a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7d8a000d07b38db55e1ff380d2e36024">UPnPsdk::CSocket::bind</a>  (const std::string &amp;a_node, const std::string &amp;a_port, const int a_flags=0)</dt>
+<dd><a class="anchor" id="_todo000005"></a>Improve <a class="el" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html" title="Class for portable handling of network socket errors.">CSocketErr</a> for specific <a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7d8a000d07b38db55e1ff380d2e36024" title="Bind socket to a local interface address.">bind()</a> error messages.  </dd>
+<dt>Member <a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a8b882b2ed7f1aa57c508f29041a8bd25">UPnPsdk::CSocket_basic::get_socktype</a>  () const</dt>
+<dd><a class="anchor" id="_todo000002"></a>Check if SOCK_UNDEF is also possible, maybe with an empty socket  </dd>
+<dt>Member <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7">UPnPsdk::select_filetype</a>  (std::string_view a_extension)</dt>
+<dd><a class="anchor" id="_todo000004"></a>Rework to use reference instead of pointer and use exception.  </dd>
 <dt>Module <a class="el" href="../../d1/d03/group__UpnpString.html">UpnpString</a>  </dt>
 <dd><a class="anchor" id="_todo000007"></a>Always alloc a minimum size like 64 bytes or so and when shrinking do not perform a new memory allocation. </dd>
 <dt>File <a class="el" href="../../db/d37/uuid_8cpp.html">uuid.cpp</a>  </dt>

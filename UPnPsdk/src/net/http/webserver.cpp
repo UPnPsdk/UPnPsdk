@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Definations to manage the builtin Webserver
@@ -20,7 +20,7 @@ namespace {
  * Because we use effective binary search on this table it must be sorted by
  * file extension.
  */
-const std::array<upnplib::Document_meta, 70> mediatype_list{
+const std::array<UPnPsdk::Document_meta, 70> mediatype_list{
     {// file-ext, media-type, media-subtype
      {"aif", "audio", "aiff"},
      {"aifc", "audio", "aiff"},
@@ -95,7 +95,7 @@ const std::array<upnplib::Document_meta, 70> mediatype_list{
 
 } // anonymous namespace
 
-namespace upnplib {
+namespace UPnPsdk {
 
 /// \todo Rework to use reference instead of pointer and use exception.
 const Document_meta* select_filetype(std::string_view a_extension) {
@@ -124,4 +124,4 @@ const Document_meta* select_filetype(std::string_view a_extension) {
     return nullptr;
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk

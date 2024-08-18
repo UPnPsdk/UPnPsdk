@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -46,10 +46,10 @@ using ::testing::SetArgPointee;
 using ::testing::SetErrnoAndReturn;
 using ::testing::StrictMock;
 
-using ::upnplib::CSocket_basic;
-using ::upnplib::errStrEx;
-using ::upnplib::g_dbug;
-using ::upnplib::SSockaddr;
+using ::UPnPsdk::CSocket_basic;
+using ::UPnPsdk::errStrEx;
+using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::SSockaddr;
 
 using ::pupnp::CLogging;
 using ::pupnp::CThreadPoolInit;
@@ -832,7 +832,7 @@ TEST_F(StartMiniServerMockFTestSuite,
 #else // new code
 
     // Instantiate a socket object and point to it in miniSocket().
-    upnplib::CSocket Sock4Obj(saddrObj.ss.ss_family, SOCK_STREAM);
+    UPnPsdk::CSocket Sock4Obj(saddrObj.ss.ss_family, SOCK_STREAM);
     miniSocket.MiniSvrSock4Obj = &Sock4Obj;
 
     // Mock socket object initialization
@@ -922,7 +922,7 @@ TEST_F(StartMiniServerMockFTestSuite,
 #else // new_code
 
     // Instantiate a socket object and point to it in miniSocket().
-    upnplib::CSocket Sock6LlaObj(saddrObj.ss.ss_family, SOCK_STREAM);
+    UPnPsdk::CSocket Sock6LlaObj(saddrObj.ss.ss_family, SOCK_STREAM);
     miniSocket.MiniSvrSock6LlaObj = &Sock6LlaObj;
 
     // Mock socket object initialization
@@ -1088,7 +1088,7 @@ TEST_F(StartMiniServerMockFTestSuite,
 
 #else // new code
       // Instantiate a socket object and point to it in miniSocket().
-    upnplib::CSocket Sock4Obj(AF_INET, SOCK_STREAM);
+    UPnPsdk::CSocket Sock4Obj(AF_INET, SOCK_STREAM);
     miniSocket.MiniSvrSock4Obj = &Sock4Obj;
 
 #ifdef _MSC_VER

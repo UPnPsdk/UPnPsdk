@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_HTTPREADWRITE_HPP
 #define UPNPLIB_HTTPREADWRITE_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-04-12
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Declaration of class Uri
@@ -9,7 +9,7 @@
 
 #include <string>
 
-namespace upnplib {
+namespace UPnPsdk {
 
 // ######################################
 // Interface for the httpreadwrite module
@@ -186,7 +186,7 @@ class Chttpreadwrite: Chttpreadwrite_old {
 
     // int http_OpenHttpConnection(const char* url_str, void** Handle, int timeout) override {
         // This is only prepaired so far and will be enabled if needed.
-        // return upnplib::http_OpenHttpConnection(url_str, Handle, timeout); }
+        // return UPnPsdk::http_OpenHttpConnection(url_str, Handle, timeout); }
         // return UPNP_E_INVALID_PARAM; }
 };
 // clang-format on
@@ -243,7 +243,7 @@ class CUri {
     CUri(std::string a_url_str);
 };
 
-} // namespace upnplib
+} // namespace UPnPsdk
 
 #endif // UPNPLIB_HTTPREADWRITE_HPP
 // vim: nowrap

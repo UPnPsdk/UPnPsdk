@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Definition of the 'class Url'. Not usable, work in progess.
@@ -74,7 +74,7 @@ std::string esc_url(std::string_view a_str) {
 
 } // namespace
 
-namespace upnplib {
+namespace UPnPsdk {
 
 
 // Url class methods
@@ -648,5 +648,5 @@ void Url::fsm_opaque_path() {
     m_state = STATE_NO_STATE;
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk
 /// \endcond

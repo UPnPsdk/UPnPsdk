@@ -1,7 +1,7 @@
 #ifndef _MSC_VER
 
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Definition of common used classes and free functions for network
@@ -12,7 +12,7 @@
 #include <UPnPsdk/synclog.hpp>
 
 /// \cond
-namespace upnplib {
+namespace UPnPsdk {
 
 CSigpipe_scoped::CSigpipe_scoped() {
     TRACE("Construct CSigpipe_scoped");
@@ -75,7 +75,7 @@ CSigpipe_scoped::~CSigpipe_scoped() {
     }
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk
 /// \endcond
 
 #endif

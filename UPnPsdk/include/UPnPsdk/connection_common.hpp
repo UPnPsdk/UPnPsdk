@@ -1,7 +1,7 @@
 #ifndef UPNPP_0_ADDRESSING_CONNECTION_HPP
 #define UPNPP_0_ADDRESSING_CONNECTION_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Declaration of common used classes and free functions for network
@@ -16,7 +16,7 @@
 /// \endcond
 
 
-namespace upnplib {
+namespace UPnPsdk {
 
 /*!
  * \ingroup upnplib-connection
@@ -51,10 +51,10 @@ class UPNPLIB_API CSigpipe_scoped {
     bool m_sigpipe_unblock;
 };
 
-} // namespace upnplib
+} // namespace UPnPsdk
 
 /// \cond
-#define UPNPLIB_SCOPED_NO_SIGPIPE upnplib::CSigpipe_scoped sigpipe;
+#define UPNPLIB_SCOPED_NO_SIGPIPE UPnPsdk::CSigpipe_scoped sigpipe;
 #else // #ifndef _MSC_VER
 // This will the ported program also compile on win32 without error.
 #define UPNPLIB_SCOPED_NO_SIGPIPE

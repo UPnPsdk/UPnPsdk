@@ -21,20 +21,20 @@ var annotated_dup =
     [ "anonymous_namespace{webserver.cpp}", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html", [
       [ "xml_alias_t", "d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html", "d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t" ]
     ] ],
-    [ "upnplib", "dc/d6d/namespaceupnplib.html", [
-      [ "anonymous_namespace{global.cpp}", "de/d7f/namespaceupnplib_1_1anonymous__namespace_02global_8cpp_03.html", [
-        [ "CWSAStartup", "de/d4a/classupnplib_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html", null ]
+    [ "UPnPsdk", "dd/d67/namespaceUPnPsdk.html", [
+      [ "anonymous_namespace{global.cpp}", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03.html", [
+        [ "CWSAStartup", "d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html", null ]
       ] ],
-      [ "CAddrinfo", "da/dad/classupnplib_1_1CAddrinfo.html", "da/dad/classupnplib_1_1CAddrinfo" ],
-      [ "CSigpipe_scoped", "d3/de4/classupnplib_1_1CSigpipe__scoped.html", null ],
-      [ "CSocket", "d8/d73/classupnplib_1_1CSocket.html", "d8/d73/classupnplib_1_1CSocket" ],
-      [ "CSocket_basic", "db/d84/classupnplib_1_1CSocket__basic.html", "db/d84/classupnplib_1_1CSocket__basic" ],
-      [ "CSocketErr", "d2/dd2/classupnplib_1_1CSocketErr.html", "d2/dd2/classupnplib_1_1CSocketErr" ],
-      [ "CUri", "dd/db5/classupnplib_1_1CUri.html", "dd/db5/classupnplib_1_1CUri" ],
-      [ "Document_meta", "dc/d6d/namespaceupnplib.html#d8/d3d/structupnplib_1_1Document__meta", "dc/d6d/namespaceupnplib_d8/d3d/structupnplib_1_1Document__meta_dup" ],
-      [ "Netaddr", "d8/d44/classupnplib_1_1Netaddr.html", "d8/d44/classupnplib_1_1Netaddr" ],
-      [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d6/d2c/unionupnplib_1_1sockaddr__t", null ],
-      [ "SSockaddr", "d1/dc2/structupnplib_1_1SSockaddr.html", "d1/dc2/structupnplib_1_1SSockaddr" ]
+      [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
+      [ "CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
+      [ "CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html", "d3/d5d/classUPnPsdk_1_1CSocket" ],
+      [ "CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html", "d9/da5/classUPnPsdk_1_1CSocket__basic" ],
+      [ "CSocketErr", "dd/d3a/classUPnPsdk_1_1CSocketErr.html", "dd/d3a/classUPnPsdk_1_1CSocketErr" ],
+      [ "CUri", "da/dcf/classUPnPsdk_1_1CUri.html", "da/dcf/classUPnPsdk_1_1CUri" ],
+      [ "Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", "dd/d67/namespaceUPnPsdk_db/dfe/structUPnPsdk_1_1Document__meta_dup" ],
+      [ "Netaddr", "dd/d03/classUPnPsdk_1_1Netaddr.html", "dd/d03/classUPnPsdk_1_1Netaddr" ],
+      [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
+      [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", "dc/df7/structUPnPsdk_1_1SSockaddr" ]
     ] ],
     [ "ErrorString", "d6/d13/Compa_2src_2api_2upnptools_8cpp.html#dc/dff/structErrorString", "d6/d13/Compa_2src_2api_2upnptools_8cpp_dc/dff/structErrorString" ],
     [ "FreeList", "d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList", null ],

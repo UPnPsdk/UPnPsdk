@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 #ifdef UPNPLIB_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpdebug.cpp>
@@ -24,7 +24,7 @@ using ::testing::SetErrnoAndReturn;
 using ::testing::StrEq;
 using ::testing::StrictMock;
 
-using ::upnplib::errStrEx;
+using ::UPnPsdk::errStrEx;
 
 
 // Interface for the upnpdebug module

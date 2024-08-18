@@ -1,5 +1,5 @@
 var netaddr_8cpp =
 [
-    [ "is_netaddr", "d5/dd7/netaddr_8cpp.html#ga8f3bd5579e056ae4b668789de4ef12b3", null ],
-    [ "is_numport", "d5/dd7/netaddr_8cpp.html#gae7d54669b7911d1af4deefefa508b5d2", null ]
+    [ "is_netaddr", "d5/dd7/netaddr_8cpp.html#gaab5fd951995d3ce8a5e49936b35cf536", null ],
+    [ "is_numport", "d5/dd7/netaddr_8cpp.html#ga51c40469ad33f63312aaac0301d757d0", null ]
 ];

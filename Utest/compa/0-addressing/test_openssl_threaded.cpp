@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 #include <cmake_vars.hpp>
 #include <UPnPsdk/global.hpp>
@@ -255,7 +255,7 @@ int SendPacket(const char* buf) {
 }
 
 int simple_TLS_client() {
-    upnplib::CSocketErr sockerrObj;
+    UPnPsdk::CSocketErr sockerrObj;
     const SOCKET s = socket(AF_INET, SOCK_STREAM, 0);
     if (s == INVALID_SOCKET) {
         sockerrObj.catch_error();

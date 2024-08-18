@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_INCLUDE_ADDRINFO_HPP
 #define UPNPLIB_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
@@ -9,7 +9,7 @@
 
 #include <UPnPsdk/netaddr.hpp>
 
-namespace upnplib {
+namespace UPnPsdk {
 
 /*!
  * \brief Get information from the operating system about a
@@ -185,6 +185,6 @@ normal_execution();
     void free_addrinfo() noexcept;
 };
 
-} // namespace upnplib
+} // namespace UPnPsdk
 
 #endif // UPNPLIB_INCLUDE_ADDRINFO_HPP

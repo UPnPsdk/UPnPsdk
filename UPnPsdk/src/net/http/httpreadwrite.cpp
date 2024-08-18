@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 /*!
  * \file
  * \brief Definition class Uri
@@ -8,7 +8,7 @@
 #include <UPnPsdk/httpreadwrite.hpp>
 #include <stdexcept>
 
-namespace upnplib {
+namespace UPnPsdk {
 
 CUri::CUri(std::string a_url_str) : url_str(a_url_str) {
     // Exception: no
@@ -36,4 +36,4 @@ CUri::CUri(std::string a_url_str) : url_str(a_url_str) {
     this->hostport = this->url_str.substr(start + 3, hostport_size);
 }
 
-} // namespace upnplib
+} // namespace UPnPsdk
