@@ -3,7 +3,7 @@
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/genlib/net/http/webserver.cpp>
 #else
 #include <Compa/src/genlib/net/http/webserver.cpp>
@@ -49,7 +49,7 @@ static UPNP_INLINE int is_valid_alias(); // Will become method is_valid().
 static void alias_release();             // Will become method release().
 #endif
 
-#ifndef UPNPLIB_WITH_NATIVE_PUPNP
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
 namespace {
 /*!
  * \brief Check for the validity of the XML object buffer.
@@ -76,7 +76,7 @@ using ::UPnPsdk::errStrEx;
 
 
 class CEnableTrace {
-#ifdef UPNPLIB_WITH_TRACE
+#ifdef UPnPsdk_WITH_TRACE
   public:
     CEnableTrace() { std::clog.clear(); }
     ~CEnableTrace() { std::clog.setstate(std::ios_base::failbit); }
@@ -240,7 +240,7 @@ TEST(WebServerDeathTest, set_root_dir_nullptr) {
 
 TEST(MediaListTestSuite, init) {
     if (old_code) {
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
         // Destroy gMediaTypeList to avoid side effects from other tests.
         memset(&gMediaTypeList, 0xAA, sizeof(gMediaTypeList));
 
@@ -266,7 +266,7 @@ TEST(MediaListTestSuite, init) {
 }
 
 TEST(MediaListTestSuite, search_extension) {
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Destroy gMediaTypeList to avoid side effects from other tests.
     memset(&gMediaTypeList, 0xAA, sizeof(gMediaTypeList));
     ::media_list_init();
@@ -298,7 +298,7 @@ TEST(MediaListTestSuite, search_extension) {
 }
 
 TEST(MediaListTestSuite, get_content_type) {
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Destroy gMediaTypeList to avoid side effects from other tests.
     memset(&gMediaTypeList, 0xAA, sizeof(gMediaTypeList));
     ::media_list_init();
@@ -333,7 +333,7 @@ TEST(MediaListTestSuite, get_content_type) {
 }
 
 TEST(MediaListDeathTest, get_content_type_with_no_filename) {
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Destroy gMediaTypeList to avoid side effects from other tests.
     memset(&gMediaTypeList, 0xAA, sizeof(gMediaTypeList));
 #endif
@@ -359,7 +359,7 @@ TEST(MediaListDeathTest, get_content_type_with_no_filename) {
 }
 
 TEST(MediaListDeathTest, get_content_type_with_no_fileinfo) {
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Destroy gMediaTypeList to avoid side effects from other tests.
     memset(&gMediaTypeList, 0xAA, sizeof(gMediaTypeList));
     ::media_list_init();
@@ -411,7 +411,7 @@ class XMLaliasFTestSuite : public ::testing::Test {
         while (is_valid_alias(&gAliasDoc)) {
             alias_release(&gAliasDoc);
         }
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
         memset(&::gAliasDoc, 0xAA, sizeof(::gAliasDoc));
 #endif
 
@@ -433,7 +433,7 @@ TEST(XMLaliasTestSuite, glob_alias_init_and_release) {
     // With new code the structure is initialized with its constructor, no
     // need to call an initialization function but we do it also for
     // compatibility.
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     memset(&::gAliasDoc, 0xAA, sizeof(::gAliasDoc));
 #else
     gAliasDoc.clear();

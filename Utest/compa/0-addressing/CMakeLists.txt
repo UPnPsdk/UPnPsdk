@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-06
+# Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 cmake_minimum_required(VERSION 3.18)
 include(../../../cmake/project-header.cmake)
@@ -43,7 +43,7 @@ endif()
 
 # sock_ssl
 #=========
-if(UPNPLIB_WITH_OPENSSL)
+if(UPnPsdk_WITH_OPENSSL)
     add_executable(test_sock_ssl-psh
         test_sock_ssl.cpp
     )

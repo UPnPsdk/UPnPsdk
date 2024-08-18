@@ -11,7 +11,7 @@
 
 // Include source code for testing. So we have also direct access to file local
 // scoped functions which need to be tested.
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 // #include <Pupnp/upnp/src/api/upnpapi.cpp> // only for StartMiniServer_real
 #include <Pupnp/upnp/src/genlib/miniserver/miniserver.cpp>
 #else
@@ -253,7 +253,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_no_ip_addr) {
         << errStrEx(ret_StartMiniServer, UPNP_E_OUTOF_SOCKET);
 }
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(StartMiniServerMockFTestSuite, start_miniserver_with_one_ipv4_addr) {
     std::strcpy(gIF_IPV4, "192.168.47.11");
     LOCAL_PORT_V4 = 50071;
@@ -349,7 +349,7 @@ TEST_F(StartMiniServerMockFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
         EXPECT_CALL(m_sys_socketObj, setsockopt(listen_sockfd, _, _, _, _))
             .WillOnce(Return(0));
 
-#ifndef UPNPLIB_WITH_NATIVE_PUPNP
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
         // Bind socket to an ip address for listening
         EXPECT_CALL(m_sys_socketObj, bind(listen_sockfd, _, _))
             .WillOnce(Return(0));
@@ -441,7 +441,7 @@ TEST_F(StartMiniServerMockFTestSuite,
         EXPECT_CALL(m_sys_socketObj, setsockopt(listen_sockfd, _, _, _, _))
             .WillOnce(Return(0));
 
-#ifndef UPNPLIB_WITH_NATIVE_PUPNP
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
         // Bind socket to an ip address for listening
         EXPECT_CALL(m_sys_socketObj, bind(listen_sockfd, _, _))
             .WillOnce(Return(0));
@@ -816,7 +816,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_CALL(m_sys_socketObj, socket(saddrObj.ss.ss_family, SOCK_STREAM, 0))
         .WillOnce(Return(sockfd));
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 
     // Bind socket to an ip address
     EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _)).WillOnce(Return(0));
@@ -900,7 +900,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_CALL(m_sys_socketObj, socket(saddrObj.ss.ss_family, SOCK_STREAM, 0))
         .WillOnce(Return(sockfd));
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 
     // Mock setsockopt()
     EXPECT_CALL(m_sys_socketObj, setsockopt(sockfd, _, _, _, _))
@@ -1068,7 +1068,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_CALL(m_sys_socketObj, socket(AF_INET, SOCK_STREAM, 0))
         .WillOnce(SetErrnoAndReturn(EINVAL, INVALID_SOCKET));
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Test Unit
     int ret_get_miniserver_sockets =
         get_miniserver_sockets(&miniSocket, 0, 0, 0);
@@ -1108,7 +1108,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     }
 }
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST(StartMiniServerTestSuite, init_socket_suff_successful) {
     // Set ip address and needed structure
     constexpr char text_addr[]{"2001:db8::3"};

@@ -1,13 +1,13 @@
 #ifndef UMOCK_PUPNP_MINISERVER_HPP
 #define UMOCK_PUPNP_MINISERVER_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-03-21
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 // This is a header only mocking include file. When included it is present
 // direct in the source code and can be used to mock static functions that are
 // hidden to the global context.
 
-#if UPNPLIB_WITH_NATIVE_PUPNP
+#if UPnPsdk_WITH_NATIVE_PUPNP
 static void RunMiniServer(MiniServerSockArray* miniSock);
 #else
 namespace {

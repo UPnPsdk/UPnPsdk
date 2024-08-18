@@ -63,7 +63,7 @@ class CWSAStartup {
         // TRACE2(this, " Construct CWSAStartup")
         // Due to MSVC_WARN_4273, I will not use TRACE2() with this global
         // linkage
-#ifdef UPNPLIB_WITH_TRACE
+#ifdef UPnPsdk_WITH_TRACE
         std::cout << "TRACE[Upnplib/src/global.cpp:" << __LINE__ << "] " << this
                   << " Construct CWSAStartup"
                   << "\n";
@@ -93,7 +93,7 @@ class CWSAStartup {
         // TRACE2(this, " Destruct CWSAStartup")
         // Due to MSVC_WARN_4273, I will not use TRACE2() with this global
         // linkage
-#ifdef UPNPLIB_WITH_TRACE
+#ifdef UPnPsdk_WITH_TRACE
         std::cout << "TRACE[Upnplib/src/global.cpp:" << __LINE__ << "] " << this
                   << " Destruct CWSAStartup"
                   << "\n";

@@ -7,7 +7,7 @@
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/genlib/miniserver/miniserver.cpp>
 #else
 #include <Compa/src/genlib/miniserver/miniserver.cpp>
@@ -934,7 +934,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_successful) {
                 accept(listen_sockfd, NotNull(), Pointee(ssObj.sizeof_ss())))
         .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa), Return(connected_sockfd)));
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Capture output to stderr
     CLogging logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
@@ -957,14 +957,14 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_successful) {
                 ContainsStdRegex("libupnp ThreadPoolAdd too many jobs: 0"));
 #endif
 
-#else // UPNPLIB_WITH_NATIVE_PUPNP
+#else // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
     int ret_web_server_accept = web_server_accept(listen_sockfd, set);
     EXPECT_EQ(ret_web_server_accept, UPNP_E_SUCCESS)
         << errStrEx(ret_web_server_accept, UPNP_E_SUCCESS);
 
-#endif // UPNPLIB_WITH_NATIVE_PUPNP
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_invalid_socket) {
@@ -973,7 +973,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_invalid_socket) {
     //         int  compa::web_server_accept().
     constexpr SOCKET listen_sockfd = INVALID_SOCKET;
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Capture output to stderr
     CLogging logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
@@ -986,7 +986,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_invalid_socket) {
     // Get captured output
     EXPECT_TRUE(captureObj.str().empty());
 
-#else // UPNPLIB_WITH_NATIVE_PUPNP
+#else // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
     fd_set set; // unused, only for reference
@@ -995,7 +995,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_invalid_socket) {
     EXPECT_EQ(ret_web_server_accept, UPNP_E_SOCKET_ERROR)
         << errStrEx(ret_web_server_accept, UPNP_E_SOCKET_ERROR);
 
-#endif // UPNPLIB_WITH_NATIVE_PUPNP
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(RunMiniServerMockFDeathTest, web_server_accept_with_invalid_set) {
@@ -1004,7 +1004,7 @@ TEST_F(RunMiniServerMockFDeathTest, web_server_accept_with_invalid_set) {
     //         int  compa::web_server_accept().
     constexpr SOCKET listen_sockfd{umock::sfd_base + 57};
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     std::cerr << CYEL "[ BUGFIX   ] " CRES << __LINE__
               << ": nullptr to socket select set must not segfault.\n";
     // There may be a multithreading test running before. Due to problems
@@ -1015,7 +1015,7 @@ TEST_F(RunMiniServerMockFDeathTest, web_server_accept_with_invalid_set) {
     GTEST_FLAG_SET(death_test_style, "threadsafe");
     EXPECT_DEATH(web_server_accept(listen_sockfd, nullptr), "");
 
-#else // UPNPLIB_WITH_NATIVE_PUPNP
+#else // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
     fd_set set; // unused, only for reference
@@ -1024,7 +1024,7 @@ TEST_F(RunMiniServerMockFDeathTest, web_server_accept_with_invalid_set) {
     EXPECT_EQ(ret_web_server_accept, UPNP_E_SOCKET_ERROR)
         << errStrEx(ret_web_server_accept, UPNP_E_SOCKET_ERROR);
 
-#endif // UPNPLIB_WITH_NATIVE_PUPNP
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_empty_set) {
@@ -1035,7 +1035,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_empty_set) {
     fd_set set;
     FD_ZERO(&set);
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Capture output to stderr
     CLogging logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
@@ -1048,14 +1048,14 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_empty_set) {
     // Get captured output
     EXPECT_TRUE(captureObj.str().empty());
 
-#else // UPNPLIB_WITH_NATIVE_PUPNP
+#else // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
     int ret_web_server_accept = web_server_accept(listen_sockfd, set);
     EXPECT_EQ(ret_web_server_accept, UPNP_E_SOCKET_ERROR)
         << errStrEx(ret_web_server_accept, UPNP_E_SOCKET_ERROR);
 
-#endif // UPNPLIB_WITH_NATIVE_PUPNP
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(RunMiniServerMockFTestSuite, web_server_accept_fails) {
@@ -1073,7 +1073,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_fails) {
                Pointee(static_cast<socklen_t>(sizeof(::sockaddr_storage)))))
         .WillOnce(SetErrnoAndReturn(EINVAL, INVALID_SOCKET));
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Capture output to stderr
     CLogging logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
@@ -1093,14 +1093,14 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_fails) {
     EXPECT_TRUE(captureObj.str().empty()); // Wrong!
 #endif
 
-#else // UPNPLIB_WITH_NATIVE_PUPNP
+#else // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
     int ret_web_server_accept = web_server_accept(listen_sockfd, set);
     EXPECT_EQ(ret_web_server_accept, UPNP_E_SOCKET_ACCEPT)
         << errStrEx(ret_web_server_accept, UPNP_E_SOCKET_ACCEPT);
 
-#endif // UPNPLIB_WITH_NATIVE_PUPNP
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(RunMiniServerMockFTestSuite, get_numeric_host_redirection) {
@@ -1537,7 +1537,7 @@ TEST_P(HeaderIsNumTest, host_header_is_numeric) {
     EXPECT_EQ(host_header_is_numeric(netaddr, netaddrlen), valid);
 }
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 // clang-format off
 INSTANTIATE_TEST_SUITE_P(
     // The netaddresses must not exceed 'buflen', see TEST_P(HeaderIsNumTest, ..
@@ -1625,7 +1625,7 @@ TEST(RunMiniServerTestSuite, set_gena_callback) {
     EXPECT_EQ(gGenaCallback, static_cast<MiniServerCallback>(nullptr));
 }
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST(RunMiniServerTestSuite, do_reinit) {
     // On reinit the socket file descriptor will be closed and a new file
     // descriptor is requested. Mostly it is the same but it is possible that

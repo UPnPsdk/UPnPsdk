@@ -291,7 +291,7 @@ TEST(SockaddrStorageTestSuite, copy_and_assign_structure) {
     saddr1 = "[2001:db8::1]:50001";
 
     // Test Unit copy
-    // With UPNPLIB_WITH_TRACE we do not see "Construct ..." because the
+    // With UPnPsdk_WITH_TRACE we do not see "Construct ..." because the
     // default copy constructor is used here.
     SSockaddr saddr2 = saddr1;
     EXPECT_EQ(saddr2.ss.ss_family, AF_INET6);

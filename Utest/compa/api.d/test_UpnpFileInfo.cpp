@@ -5,7 +5,7 @@
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/synclog.hpp>
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #define NS
 #else
 #define NS

@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-17
+# Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 cmake_minimum_required(VERSION 3.18)
 include(cmake/project-header.cmake)
@@ -20,24 +20,24 @@ enable_testing()
 #################################
 include(CMakeDependentOption)
 
-option(UPNPLIB_WITH_NATIVE_PUPNP "Build the library with old native PUPNP code." OFF)
-option(UPNPLIB_WITH_OPENSSL "SSL/TLS and Crypto support should always be ON if not restricted by law." ON)
-option(UPNPLIB_WITH_MINISERVER "Provide the miniserver for low level network communication." OFF)
-option(UPNPLIB_WITH_WEBSERVER "Provide a webserver." OFF)
-option(UPNPLIB_WITH_CTRLPT_SSDP "Providing control point functionality to manage a remote UPnP device." OFF)
-option(UPNPLIB_WITH_DEVICE_SSDP "Providing UPnP device functionality so remote control points can connect to it." OFF)
-option(UPNPLIB_WITH_OPTION_SSDP "Enable optional SSDP headers." OFF)
-option(UPNPLIB_WITH_CTRLPT_DESCRIPTION "Enable requesting from a control point for a devices UPnP description." OFF)
-option(UPNPLIB_WITH_DEVICE_DESCRIPTION "Enable responding from a device to a control points UPnP description request." OFF)
-option(UPNPLIB_WITH_CTRLPT_SOAP "Enable SOAP, the Simple Object Access Protocol." OFF)
-option(UPNPLIB_WITH_DEVICE_SOAP "Enable SOAP, the Simple Object Access Protocol." OFF)
-option(UPNPLIB_WITH_CTRLPT_GENA "Enable GENA, the General Event Notification Architecture." OFF)
-option(UPNPLIB_WITH_DEVICE_GENA "Enable GENA, the General Event Notification Architecture." OFF)
-option(UPNPLIB_WITH_IXML "Enable IXML script support." OFF)
-option(UPNPLIB_WITH_TOOLS "Make some not essential program features available like text for error numbers etc." OFF)
-option(UPNPLIB_WITH_SAMPLES "Provide sample programs device and control point." OFF)
-option(UPNPLIB_WITH_GOOGLETEST "Download and build Googletest." OFF)
-option(UPNPLIB_WITH_TRACE "Compile trace messages into the libraries for analizing program execution." OFF)
+option(UPnPsdk_WITH_NATIVE_PUPNP "Build the library with old native PUPNP code." OFF)
+option(UPnPsdk_WITH_OPENSSL "SSL/TLS and Crypto support should always be ON if not restricted by law." ON)
+option(UPnPsdk_WITH_MINISERVER "Provide the miniserver for low level network communication." OFF)
+option(UPnPsdk_WITH_WEBSERVER "Provide a webserver." OFF)
+option(UPnPsdk_WITH_CTRLPT_SSDP "Providing control point functionality to manage a remote UPnP device." OFF)
+option(UPnPsdk_WITH_DEVICE_SSDP "Providing UPnP device functionality so remote control points can connect to it." OFF)
+option(UPnPsdk_WITH_OPTION_SSDP "Enable optional SSDP headers." OFF)
+option(UPnPsdk_WITH_CTRLPT_DESCRIPTION "Enable requesting from a control point for a devices UPnP description." OFF)
+option(UPnPsdk_WITH_DEVICE_DESCRIPTION "Enable responding from a device to a control points UPnP description request." OFF)
+option(UPnPsdk_WITH_CTRLPT_SOAP "Enable SOAP, the Simple Object Access Protocol." OFF)
+option(UPnPsdk_WITH_DEVICE_SOAP "Enable SOAP, the Simple Object Access Protocol." OFF)
+option(UPnPsdk_WITH_CTRLPT_GENA "Enable GENA, the General Event Notification Architecture." OFF)
+option(UPnPsdk_WITH_DEVICE_GENA "Enable GENA, the General Event Notification Architecture." OFF)
+option(UPnPsdk_WITH_IXML "Enable IXML script support." OFF)
+option(UPnPsdk_WITH_TOOLS "Make some not essential program features available like text for error numbers etc." OFF)
+option(UPnPsdk_WITH_SAMPLES "Provide sample programs device and control point." OFF)
+option(UPnPsdk_WITH_GOOGLETEST "Download and build Googletest." OFF)
+option(UPnPsdk_WITH_TRACE "Compile trace messages into the libraries for analizing program execution." OFF)
 option(GTESTS_WITH_SHARED_LIBS "Build GOOGLETEST libraries shared. You should not disable this except you know what you doing." ON)
     # Because we link utests with shared and static libraries we need gtest/gmock
     # libraries that link together with both versions of other libraries. These are
@@ -52,10 +52,10 @@ option(GTESTS_WITH_SHARED_LIBS "Build GOOGLETEST libraries shared. You should no
     # This is not an option anymore. Blocking until data received is always
     # enabled.
 
-if(UPNPLIB_WITH_GOOGLETEST OR UPNPLIB_WITH_SAMPLES)
+if(UPnPsdk_WITH_GOOGLETEST OR UPnPsdk_WITH_SAMPLES)
     # It is important to have the old library available with the tests because
     # the new code is compared with it.
-    set (UPNPLIB_WITH_NATIVE_PUPNP ON CACHE BOOL
+    set (UPnPsdk_WITH_NATIVE_PUPNP ON CACHE BOOL
         "Build the library with old native PUPNP code." FORCE)
 endif()
 
@@ -71,7 +71,7 @@ option(PT4W_BUILD_TESTING "Build the time and space consuming test suite of pthr
 # Linux mocked functions segfault without it. So we must disable PThreads only
 # on MS Windows. The user can set gtest_disable_pthreads as he like.
 if(WIN32)
-    CMAKE_DEPENDENT_OPTION(gtest_disable_pthreads "Disable Googletest to use POSIX Threads" ON ${UPNPLIB_WITH_GOOGLETEST} ON)
+    CMAKE_DEPENDENT_OPTION(gtest_disable_pthreads "Disable Googletest to use POSIX Threads" ON ${UPnPsdk_WITH_GOOGLETEST} ON)
 endif()
 
 # TODO: Test this option to use the static pthreads4w
@@ -81,7 +81,7 @@ option(PTW32_STATIC_LIB "For using the static pthreads4w library" OFF)
 
 # General settings given to the program
 add_compile_definitions(
-    $<$<BOOL:${UPNPLIB_WITH_TOOLS}>:UPNP_HAVE_TOOLS>
+    $<$<BOOL:${UPnPsdk_WITH_TOOLS}>:UPNP_HAVE_TOOLS>
 )
 
 # Update pUPnP version number in README.md but only if it has changed.
@@ -163,7 +163,7 @@ add_compile_definitions(
 
         $<$<CXX_COMPILER_ID:MSVC>:UPNP_USE_MSVCPP>
         $<$<CXX_COMPILER_ID:MSVC>:FD_SETSIZE=1024>
-        $<$<BOOL:${UPNPLIB_WITH_TRACE}>:UPNPLIB_WITH_TRACE>
+        $<$<BOOL:${UPnPsdk_WITH_TRACE}>:UPnPsdk_WITH_TRACE>
 )
 add_compile_options(
         # Most compiler warnings enabled
@@ -187,7 +187,7 @@ add_compile_options(
         $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:GNU>>:-fstack-protector-all>
         $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:GNU>>:-fstack-protector-strong>
         # Next is only to suppress a warning for the TRACE macro.
-        #$<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<BOOL:${UPNPLIB_WITH_TRACE}>>:-Wno-string-plus-int>
+        #$<$<AND:$<CXX_COMPILER_ID:AppleClang>,$<BOOL:${UPnPsdk_WITH_TRACE}>>:-Wno-string-plus-int>
 
         #$<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-fanalyzer>
         #$<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wfatal-errors>
@@ -402,7 +402,7 @@ endif(WIN32)
 # Googletest                    #
 #################################
 # Download, configure and build
-if(UPNPLIB_WITH_GOOGLETEST)
+if(UPnPsdk_WITH_GOOGLETEST)
 
     # It may already included to install pthreads4w on WIN32
     if(NOT WIN32)
@@ -473,7 +473,7 @@ if(UPNPLIB_WITH_GOOGLETEST)
             endif()
         endif(BUILD_SHARED_LIBS)
 
-    else(WIN32) # AND UPNPLIB_WITH_GOOGLETEST
+    else(WIN32) # AND UPnPsdk_WITH_GOOGLETEST
 
         # This caches FETCHCONTENT_BASE_DIR (e.g. ${PROJECT_BINARY_DIR}/_deps)),
         # googletest_SOURCE_DIR, googletest_BINARY_DIR and googletest_POPULATED.
@@ -498,7 +498,7 @@ if(UPNPLIB_WITH_GOOGLETEST)
     message(DEBUG "  DEBUG: googletest_SOURCE_DIR is: ${googletest_SOURCE_DIR}")
     message(DEBUG "  DEBUG: googletest_BINARY_DIR is: ${googletest_BINARY_DIR}")
 
-endif(UPNPLIB_WITH_GOOGLETEST)
+endif(UPnPsdk_WITH_GOOGLETEST)
 
 
 #################################
@@ -508,7 +508,7 @@ endif(UPNPLIB_WITH_GOOGLETEST)
 # e.g. PUPNP_UPNP_SOURCE_DIR and PUPNP_UPNP_BINARY_DIR
 # For a successful one step configure the order is important.
 
-if(UPNPLIB_WITH_OPENSSL)
+if(UPnPsdk_WITH_OPENSSL)
     add_subdirectory(${PROJECT_SOURCE_DIR}/openssl)
 endif()
 add_subdirectory(${PROJECT_SOURCE_DIR}/Umock)
@@ -552,7 +552,7 @@ message(DEBUG "  DEBUG: CMAKE_SKIP_BUILD_RPATH is ..........: ${CMAKE_SKIP_BUILD
 message(DEBUG "  DEBUG: CMAKE_BUILD_WITH_INSTALL_RPATH is ..: ${CMAKE_BUILD_WITH_INSTALL_RPATH}")
 message(DEBUG "  DEBUG: CMAKE_INSTALL_RPATH_USE_LINK_PATH is: ${CMAKE_INSTALL_RPATH_USE_LINK_PATH}")
 message(DEBUG "  DEBUG: --")
-message(DEBUG "  DEBUG: UPNPLIB_WITH_OPENSSL = ${UPNPLIB_WITH_OPENSSL}")
+message(DEBUG "  DEBUG: UPnPsdk_WITH_OPENSSL = ${UPnPsdk_WITH_OPENSSL}")
 message(STATUS "Build type is ${CMAKE_BUILD_TYPE}")
 
 

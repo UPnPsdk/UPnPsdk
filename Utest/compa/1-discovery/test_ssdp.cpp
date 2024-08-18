@@ -5,7 +5,7 @@
 // functions which need to be tested.
 
 #include <Pupnp/upnp/src/ssdp/ssdp_server.cpp>
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #define NS
 #else
 #define NS ::compa

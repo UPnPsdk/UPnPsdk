@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-06
+# Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 cmake_minimum_required(VERSION 3.18)
 include(../../../cmake/project-header.cmake)
@@ -38,7 +38,7 @@ target_include_directories(test_membuffer-pst
     PRIVATE ${PUPNP_IXML_SOURCE_DIR}/inc
 )
 target_compile_definitions(test_membuffer-pst
-    PRIVATE UPNPLIB_WITH_NATIVE_PUPNP
+    PRIVATE UPnPsdk_WITH_NATIVE_PUPNP
 )
 target_link_libraries(test_membuffer-pst
     PRIVATE umock_static

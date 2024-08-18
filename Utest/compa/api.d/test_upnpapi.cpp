@@ -1,7 +1,7 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
 #else
 #include <Compa/src/api/upnpapi.cpp>
@@ -252,7 +252,7 @@ TEST_F(UpnpapiFTestSuite, WinsockInit) {
 TEST_F(UpnpapiFTestSuite, get_error_message) {
 #ifndef UPNP_HAVE_TOOLS
     std::cout
-        << "               Skipped: Option UPNPLIB_WITH_TOOLS not available.\n";
+        << "               Skipped: Option UPnPsdk_WITH_TOOLS not available.\n";
 #else
     EXPECT_STREQ(UpnpGetErrorMessage(0), "UPNP_E_SUCCESS");
     EXPECT_STREQ(UpnpGetErrorMessage(-121), "UPNP_E_INVALID_INTERFACE");

@@ -35,10 +35,10 @@ UPNPLIB_EXTERN bool g_dbug;
 
 // Trace messages
 // --------------
-#ifdef UPNPLIB_WITH_TRACE
+#ifdef UPnPsdk_WITH_TRACE
   #define TRACE(s) SYNC(std::cerr)<<"TRACE["<<(static_cast<const char*>(__FILE__) + UPNPLIB_PROJECT_PATH_LENGTH)<<":"<<__LINE__<<"] "<<(s)<<"\n";
   #define TRACE2(a, b) SYNC(std::cerr)<<"TRACE["<<(static_cast<const char*>(__FILE__) + UPNPLIB_PROJECT_PATH_LENGTH)<<":"<<__LINE__<<"] "<<(a)<<(b)<<"\n";
-#else // no UPNPLIB_WITH_TRACE
+#else // no UPnPsdk_WITH_TRACE
   #define TRACE(s)
   #define TRACE2(a, b)
 #endif

@@ -26,7 +26,7 @@ add_compile_definitions(
     # If linking with shared build gtest libs we need to tell it the compiler.
     # I have found a vague hint about the flag GTEST_LINKED_AS_SHARED_LIBRARY at
     # build/_deps/googletest-src/googletest/README.md
-    $<$<AND:$<BOOL:${UPNPLIB_WITH_GOOGLETEST}>,$<BOOL:${BUILD_SHARED_LIBS}>>:GTEST_LINKED_AS_SHARED_LIBRARY>
+    $<$<AND:$<BOOL:${UPnPsdk_WITH_GOOGLETEST}>,$<BOOL:${BUILD_SHARED_LIBS}>>:GTEST_LINKED_AS_SHARED_LIBRARY>
     $<$<PLATFORM_ID:Windows>:_CRT_NONSTDC_NO_DEPRECATE>
 )
 add_compile_options(
@@ -62,7 +62,7 @@ set(UTEST_SOURCE_FILES
     $<$<PLATFORM_ID:Windows>:${UMOCK_SOURCE_DIR}/src/iphlpapi_mock.cpp>
     $<$<NOT:$<PLATFORM_ID:Windows>>:${UMOCK_SOURCE_DIR}/src/ifaddrs_mock.cpp>
     $<$<NOT:$<PLATFORM_ID:Windows>>:${UMOCK_SOURCE_DIR}/src/net_if_mock.cpp>
-    $<$<BOOL:${UPNPLIB_WITH_OPENSSL}>:${UMOCK_SOURCE_DIR}/src/ssl_mock.cpp>
+    $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:${UMOCK_SOURCE_DIR}/src/ssl_mock.cpp>
 )
 
 add_library(utest_shared SHARED

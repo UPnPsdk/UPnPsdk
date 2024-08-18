@@ -6,7 +6,7 @@ std::clog << "DEBUG\! errno " << errno << " = ";
 perror(nullptr);
 
 
-#ifdef UPNPLIB_WITH_TRACE
+#ifdef UPnPsdk_WITH_TRACE
 // Disable TRACE if it is compiled in. We need to do it with instantiation of a
 // class to have it disabled before other classes with TRACE in its constructor
 // are instantiated. Enable on single tests with 'CEnableTrace' or for all tests

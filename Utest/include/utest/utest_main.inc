@@ -39,7 +39,7 @@ if (!UPnPsdk::g_dbug)
     UPnPsdk::g_dbug = static_cast<bool>(std::getenv("UPNPLIB_DEBUG"));
 
 gtest_return_code = RUN_ALL_TESTS();
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 std::cout << "[----------] Tested UPnPlib old code.\n\n";
 #else
 std::cout << "[----------] Tested UPnPlib new code.\n\n";

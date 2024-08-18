@@ -36,7 +36,7 @@ TEST(GeneralToolsTestSuite, debug_messages_successful) {
     EXPECT_EQ(captureOutObj.str(), "");
 
     // There is output to stderr if TRACE is compiled in.
-#ifdef UPNPLIB_WITH_TRACE
+#ifdef UPnPsdk_WITH_TRACE
     EXPECT_THAT(
         captureErrObj.str(),
         AnyOf("", ContainsStdRegex("TRACE\\[Utest[/|\\\\]UPnPsdk[/"

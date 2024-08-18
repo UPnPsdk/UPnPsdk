@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-15
+# Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(../../cmake/project-header.cmake)
@@ -16,23 +16,23 @@ project(PUPNP_UPNP VERSION 0030
 # These switches are all handled only in this configuration file.
 
 # Options selectable by user configuration
-set(PUPNP_DEF_GOOGLETEST ${UPNPLIB_WITH_GOOGLETEST})
-set(PUPNP_DEF_TOOLS YES) #${UPNPLIB_WITH_TOOLS})         # tools -> UPNP_ENABLE_HELPER_API_TOOLS
+set(PUPNP_DEF_GOOGLETEST ${UPnPsdk_WITH_GOOGLETEST})
+set(PUPNP_DEF_TOOLS YES) #${UPnPsdk_WITH_TOOLS})         # tools -> UPNP_ENABLE_HELPER_API_TOOLS
 set(PUPNP_DEF_CLIENT YES) #${UPNPLIB_WITH_CLIENT})       # client -> UPNP_ENABLE_CLIENT_API
 set(PUPNP_DEF_DEVICE YES) #${UPNPLIB_WITH_DEVICE})
-set(PUPNP_DEF_WEBSERVER YES) #${UPNPLIB_WITH_WEBSERVER}) # webserver -> UPNP_ENABLE_WEBSERVER
+set(PUPNP_DEF_WEBSERVER YES) #${UPnPsdk_WITH_WEBSERVER}) # webserver -> UPNP_ENABLE_WEBSERVER
                                                      #   only enabled with PUPNP_DEF_DEVICE
 set(PUPNP_DEF_OPTSSDP YES) #${UPNPLIB_WITH_OPTSSDP})     # optssdp -> UPNP_ENABLE_OPTIONAL_SSDP_HEADERS
 set(PUPNP_DEF_SOAP YES) #${UPNPLIB_WITH_SOAP})           # soap -> UPNP_ENABLE_SOAP
                                                      #   only enabled with PUPNP_DEF_WEBSERVER
 set(PUPNP_DEF_GENA YES) #${UPNPLIB_WITH_GENA})           # gena -> UPNP_ENABLE_GENA
                                                      #   compiles only with PUPNP_DEF_CLIENT and PUPNP_DEF_DEVICE
-set(PUPNP_DEF_OPENSSL ${UPNPLIB_WITH_OPENSSL})     # open_ssl -> UPNP_ENABLE_OPEN_SSL
+set(PUPNP_DEF_OPENSSL ${UPnPsdk_WITH_OPENSSL})     # open_ssl -> UPNP_ENABLE_OPEN_SSL
 set(PUPNP_DEF_BLOCKTCP NO) #${UPNPLIB_WITH_BLOCKTCP})   # blocking_tcp_connections -> UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS
-set(PUPNP_DEF_IXML YES) #${UPNPLIB_WITH_IXML})           # scriptsupport -> IXML_HAVE_SCRIPTSUPPORT
+set(PUPNP_DEF_IXML YES) #${UPnPsdk_WITH_IXML})           # scriptsupport -> IXML_HAVE_SCRIPTSUPPORT
 #set(PUPNP_DEF_UNSPECSVR NO)                        # unspecified_server -> UPNP_ENABLE_UNSPECIFIED_SERVER
 #set(PUPNP_DEF_REUSEADDR NO)                        # reuseaddr -> UPNP_MINISERVER_REUSEADDR
-if(UPNPLIB_WITH_SAMPLES)                             # all samples -> UPNP_BUILD_SAMPLES
+if(UPnPsdk_WITH_SAMPLES)                             # all samples -> UPNP_BUILD_SAMPLES
     set(PUPNP_DEF_SAMPLES YES) # To make it separate selectable don't set it direct
 endif()
 
@@ -237,7 +237,7 @@ if(NOT WIN32)
     )
     target_compile_definitions(pupnp_shared
         ${PUPNP_COMPILE_DEFINITIONS}
-        PUBLIC UPNPLIB_WITH_NATIVE_PUPNP
+        PUBLIC UPnPsdk_WITH_NATIVE_PUPNP
         PRIVATE UPNPLIB_EXPORTS
     )
     target_link_libraries(pupnp_shared
@@ -273,7 +273,7 @@ if(NOT WIN32)
     )
     target_compile_definitions(pupnp_static
         ${PUPNP_COMPILE_DEFINITIONS}
-        PUBLIC UPNPLIB_WITH_NATIVE_PUPNP
+        PUBLIC UPnPsdk_WITH_NATIVE_PUPNP
     )
     target_link_libraries(pupnp_static
         PUBLIC umock_static
@@ -302,7 +302,7 @@ else() # WIN32
     )
     target_compile_definitions(pupnp_shared
         ${PUPNP_COMPILE_DEFINITIONS}
-        PUBLIC UPNPLIB_WITH_NATIVE_PUPNP
+        PUBLIC UPnPsdk_WITH_NATIVE_PUPNP
         PRIVATE
             UPNPLIB_EXPORTS
             $<$<BOOL:${PUPNP_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
@@ -326,7 +326,7 @@ else() # WIN32
     )
     target_compile_definitions(pupnp_static
         ${PUPNP_COMPILE_DEFINITIONS}
-        PUBLIC UPNPLIB_WITH_NATIVE_PUPNP
+        PUBLIC UPnPsdk_WITH_NATIVE_PUPNP
         PRIVATE
             $<$<BOOL:${PUPNP_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )

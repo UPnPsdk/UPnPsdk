@@ -16,7 +16,7 @@
 
 #include <utest/utest.hpp>
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 UPNPLIB_EXTERN SSL_CTX* gSslCtx;
 #endif
 
@@ -34,7 +34,7 @@ using UPnPsdk::errStrEx;
 // I use these simple classes to ensure that we always free resources also in
 // case of aborted tests without extra error checking. --Ingo
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 // Provide the global SSL Context
 class CGsslCtx {
   public:

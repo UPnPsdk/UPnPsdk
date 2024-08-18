@@ -1,15 +1,15 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-01-14
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 #include <UpnpString.hpp>
-#if defined UPNPLIB_WITH_NATIVE_PUPNP && !defined PUPNP_UPNPSTRING_HPP
+#if defined UPnPsdk_WITH_NATIVE_PUPNP && !defined PUPNP_UPNPSTRING_HPP
 #error "Wrong UpnpString.hpp header file included for PUPNP"
 #endif
-#if !defined UPNPLIB_WITH_NATIVE_PUPNP && !defined COMPA_UPNPSTRING_HPP
+#if !defined UPnPsdk_WITH_NATIVE_PUPNP && !defined COMPA_UPNPSTRING_HPP
 #error "Wrong UpnpString.hpp header file included for COMPA"
 #endif
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #define NS
 #else
 #define NS

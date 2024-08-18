@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-17
+# Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(../cmake/project-header.cmake)
@@ -24,7 +24,7 @@ set(UMOCK_SOURCE_FILES
     src/unistd.cpp
     src/sysinfo.cpp
     src/arpa_inet.cpp
-    $<$<BOOL:${UPNPLIB_WITH_OPENSSL}>:src/ssl.cpp>
+    $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:src/ssl.cpp>
     # We need this variable to find the path before subdir UPnPsdk is scanned.
     ${CMAKE_SOURCE_DIR}/UPnPsdk/src/global.cpp
     $<$<NOT:$<PLATFORM_ID:Windows>>:src/ifaddrs.cpp>
@@ -64,7 +64,7 @@ target_compile_definitions(umock_shared
     PRIVATE UPNPLIB_EXPORTS
 )
 target_link_libraries(umock_shared
-    PUBLIC $<$<BOOL:${UPNPLIB_WITH_OPENSSL}>:upnplib_ssl>
+    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
     PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
@@ -98,7 +98,7 @@ target_include_directories(umock_static
     ${UMOCK_INCLUDE_DIRECTORIES}
 )
 target_link_libraries(umock_static
-    PUBLIC $<$<BOOL:${UPNPLIB_WITH_OPENSSL}>:upnplib_ssl>
+    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
     PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network

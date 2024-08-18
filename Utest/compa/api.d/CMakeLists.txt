@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-06
+# Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 cmake_minimum_required(VERSION 3.18)
 include(../../../cmake/project-header.cmake)
@@ -57,7 +57,7 @@ add_test(NAME ctest_upnpdebug-cst COMMAND test_upnpdebug-cst --gtest_shuffle
 
 # upnptools
 #==========
-if(UPNPLIB_WITH_TOOLS)
+if(UPnPsdk_WITH_TOOLS)
 add_executable(test_upnptools-psh
 #--------------------------------
         ./test_upnptools.cpp

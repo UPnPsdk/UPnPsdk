@@ -31,7 +31,7 @@ jobs:
     strategy:
       matrix:
         buildtype: [ 'Release', 'Debug' ]
-        googletest: [ '-D UPNPLIB_WITH_GOOGLETEST=ON', '-D UPNPLIB_WITH_GOOGLETEST=ON -D UPNPLIB_WITH_OPENSSL=OFF' ]
+        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON', '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
       fail-fast: false
 
     steps:
@@ -56,7 +56,7 @@ jobs:
         run: sudo cmake --install build
 
       # I do not use static Googletest libraries by default.
-      #- if: (matrix.googletest == '-D UPNPLIB_WITH_GOOGLETEST=ON -D UPNPLIB_WITH_OPENSSL=OFF')
+      #- if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF')
       #  name: Check gtest library files, static
       #  run: |
       #    ls ./build/lib/libgtest.a
@@ -64,7 +64,7 @@ jobs:
       #    ls ./build/lib/libgtest_main.a
       #    ls ./build/lib/libgmock_main.a
 
-      - if: (matrix.googletest == '-D UPNPLIB_WITH_GOOGLETEST=ON')
+      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON')
         name: Check gtest library files, shared
         run: |
           ls ./build/lib/libgtest.so
@@ -112,7 +112,7 @@ jobs:
       - name: Run gtests with debug output
         run: |
           cd ./build/Utest
-          UPNPLIB_DEBUG=true ctest --timeout 6 --output-on-failure
+          UPnPsdk_DEBUG=true ctest --timeout 6 --output-on-failure
 
 
   # Job: Configure, build and test MacOS
@@ -126,7 +126,7 @@ jobs:
     strategy:
       matrix:
         buildtype: [ 'Release', 'Debug' ]
-        googletest: [ '-D UPNPLIB_WITH_GOOGLETEST=ON', '-D UPNPLIB_WITH_GOOGLETEST=ON -D UPNPLIB_WITH_OPENSSL=OFF' ]
+        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON', '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
       fail-fast: false
 
     steps:
@@ -149,7 +149,7 @@ jobs:
         run: cmake --install build
 
       # I do not use static Googletest libraries by default.
-      #- if: (matrix.googletest == '-D UPNPLIB_WITH_GOOGLETEST=ON -D UPNPLIB_WITH_OPENSSL=OFF')
+      #- if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF')
       #  name: Check gtest library files, static
       #  run: |
       #    ls ./build/lib/libgtest.a
@@ -157,7 +157,7 @@ jobs:
       #    ls ./build/lib/libgtest_main.a
       #    ls ./build/lib/libgmock_main.a
 
-      - if: (matrix.googletest == '-D UPNPLIB_WITH_GOOGLETEST=ON')
+      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON')
         name: Check gtest library files, shared
         run: |
           ls ./build/lib/libgtest.dylib
@@ -190,7 +190,7 @@ jobs:
       - name: Run gtests with debug output
         run: |
           cd ./build/Utest
-          UPNPLIB_DEBUG=true ctest --timeout 6 --output-on-failure
+          UPnPsdk_DEBUG=true ctest --timeout 6 --output-on-failure
 
   # Job: Configure, build and test with Visual Studio
   #--------------------------------------------------
@@ -204,7 +204,7 @@ jobs:
       matrix:
         buildtype: [ 'Release', 'Debug' ]
         os: [ windows-2019, windows-2022 ]
-        googletest: [ '-D UPNPLIB_WITH_GOOGLETEST=ON', '-D UPNPLIB_WITH_GOOGLETEST=ON -D UPNPLIB_WITH_OPENSSL=OFF' ]
+        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON', '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
       fail-fast: false
 
     steps:
@@ -234,7 +234,7 @@ jobs:
           --log-level=DEBUG
           -A Win32 ${{matrix.googletest}}
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
-          -D UPNPLIB_WITH_OPENSSL=OFF
+          -D UPnPsdk_WITH_OPENSSL=OFF
           # We do not have a 32 bit OpenSSL library available.
 
       - if: matrix.os == 'windows-2022'
@@ -249,7 +249,7 @@ jobs:
       - name: Build
         run: cmake --build build --config ${{matrix.buildtype}}
 
-      - if: (matrix.googletest == '-D UPNPLIB_WITH_GOOGLETEST=ON -D UPNPLIB_WITH_OPENSSL=OFF')
+      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF')
         name: GTest link libraries build with Visual Studio
         run: |
           ls ./build/lib/${{matrix.buildtype}}/gtest.lib
@@ -257,7 +257,7 @@ jobs:
           ls ./build/lib/${{matrix.buildtype}}/gtest_main.lib
           ls ./build/lib/${{matrix.buildtype}}/gmock_main.lib
 
-      - if: (matrix.googletest == '-D UPNPLIB_WITH_GOOGLETEST=ON')
+      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON')
         name: GTest .dll libraries build with Visual Studio
         run: |
           ls ./build/bin/${{matrix.buildtype}}/gtest.dll
@@ -280,7 +280,7 @@ jobs:
 
       - name: Run gtests with debug output
         run: |
-          $env:UPNPLIB_DEBUG = "set"
+          $env:UPnPsdk_DEBUG = "set"
           cd ./build/Utest
           ctest -C ${{matrix.buildtype}} --timeout 9 --output-on-failure
 
@@ -297,7 +297,7 @@ jobs:
       matrix:
         buildtype: [ 'Release', 'Debug' ]
         os: [ windows-2019, windows-2022 ]
-        googletest: [ '-D UPNPLIB_WITH_GOOGLETEST=ON', '-D UPNPLIB_WITH_GOOGLETEST=ON -D UPNPLIB_WITH_OPENSSL=OFF' ]
+        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON', '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
       fail-fast: false
 
     steps:
@@ -327,7 +327,7 @@ jobs:
           --log-level=DEBUG
           -G "NMake Makefiles" ${{matrix.googletest}}
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
-          -D UPNPLIB_WITH_OPENSSL=OFF
+          -D UPnPsdk_WITH_OPENSSL=OFF
           # We do not have a 32 bit OpenSSL library available.
 
       - if: matrix.os == 'windows-2022'
@@ -343,7 +343,7 @@ jobs:
       - name: Build
         run: cmake --build build --config ${{matrix.buildtype}}
 
-      - if: (matrix.googletest == '-D UPNPLIB_WITH_GOOGLETEST=ON -D UPNPLIB_WITH_OPENSSL=OFF')
+      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF')
         name: GTest link libraries build with NMake
         run: |
           ls ./build/lib/gtest.lib
@@ -351,7 +351,7 @@ jobs:
           ls ./build/lib/gtest_main.lib
           ls ./build/lib/gmock_main.lib
 
-      - if: (matrix.googletest == '-D UPNPLIB_WITH_GOOGLETEST=ON')
+      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON')
         name: GTest .dll libraries build with NMake
         run: |
           ls ./build/bin/gtest.dll
@@ -374,7 +374,7 @@ jobs:
 
       - name: Run gtests with debug output
         run: |
-          $env:UPNPLIB_DEBUG = "set"
+          $env:UPnPsdk_DEBUG = "set"
           cd ./build/Utest
           ctest -C ${{matrix.buildtype}} --timeout 9 --output-on-failure
 
@@ -393,27 +393,27 @@ jobs:
         os: [ ubuntu-24.04, macos-13, windows-latest ]
         buildtype: [ 'Release', 'Debug' ]
         option: [ '',
-          '-DUPNPLIB_WITH_OPENSSL=OFF -DUPNPLIB_WITH_MINISERVER=OFF -DUPNPLIB_WITH_WEBSERVER=OFF -DUPNPLIB_WITH_CTRLPT_SSDP=OFF -DUPNPLIB_WITH_DEVICE_SSDP=OFF -DUPNPLIB_WITH_OPTION_SSDP=OFF -DUPNPLIB_WITH_CTRLPT_DESCRIPTION=OFF -DUPNPLIB_WITH_DEVICE_DESCRIPTION=OFF -DUPNPLIB_WITH_CTRLPT_SOAP=OFF -DUPNPLIB_WITH_DEVICE_SOAP=OFF -DUPNPLIB_WITH_CTRLPT_GENA=OFF -DUPNPLIB_WITH_DEVICE_GENA=OFF -DUPNPLIB_WITH_IXML=OFF -DUPNPLIB_WITH_TOOLS=OFF -DUPNPLIB_WITH_SAMPLES=OFF -DUPNPLIB_WITH_GOOGLETEST=OFF -DUPNPLIB_WITH_TRACE=OFF -DGTESTS_WITH_SHARED_LIBS=OFF',
-          '-DUPNPLIB_WITH_OPENSSL=ON',
-          '-DUPNPLIB_WITH_MINISERVER=ON',
-          '-DUPNPLIB_WITH_WEBSERVER=ON',
-          '-DUPNPLIB_WITH_CTRLPT_SSDP=ON',
-          '-DUPNPLIB_WITH_DEVICE_SSDP=ON',
-          '-DUPNPLIB_WITH_OPTION_SSDP=ON',
-          '-DUPNPLIB_WITH_CTRLPT_DESCRIPTION=ON',
-          '-DUPNPLIB_WITH_DEVICE_DESCRIPTION=ON',
-          '-DUPNPLIB_WITH_CTRLPT_SOAP=ON',
-          '-DUPNPLIB_WITH_DEVICE_SOAP=ON',
-          '-DUPNPLIB_WITH_CTRLPT_GENA=ON',
-          '-DUPNPLIB_WITH_DEVICE_GENA=ON',
-          '-DUPNPLIB_WITH_IXML=ON',
-          '-DUPNPLIB_WITH_TOOLS=ON',
-          '-DUPNPLIB_DEF_SAMPLES=ON -DUPNPLIB_DEF_DEVICE=ON',
-          '-DUPNPLIB_DEF_SAMPLES=ON -DUPNPLIB_DEF_CLIENT=ON',
-          '-DUPNPLIB_DEF_SAMPLES=ON -DUPNPLIB_DEF_COMBO=ON',
-          '-DUPNPLIB_WITH_SAMPLES=ON',
-          '-DUPNPLIB_WITH_TRACE=ON',
-          '-DUPNPLIB_WITH_OPENSSL=ON -DUPNPLIB_WITH_MINISERVER=ON -DUPNPLIB_WITH_WEBSERVER=ON -DUPNPLIB_WITH_CTRLPT_SSDP=ON -DUPNPLIB_WITH_DEVICE_SSDP=ON -DUPNPLIB_WITH_OPTION_SSDP=ON -DUPNPLIB_WITH_CTRLPT_DESCRIPTION=ON -DUPNPLIB_WITH_DEVICE_DESCRIPTION=ON -DUPNPLIB_WITH_CTRLPT_SOAP=ON -DUPNPLIB_WITH_DEVICE_SOAP=ON -DUPNPLIB_WITH_CTRLPT_GENA=ON -DUPNPLIB_WITH_DEVICE_GENA=ON -DUPNPLIB_WITH_IXML=ON -DUPNPLIB_WITH_TOOLS=ON -DUPNPLIB_WITH_SAMPLES=ON -DUPNPLIB_WITH_GOOGLETEST=ON -DUPNPLIB_WITH_TRACE=ON -DGTESTS_WITH_SHARED_LIBS=ON' ]
+          '-DUPnPsdk_WITH_OPENSSL=OFF -DUPnPsdk_WITH_MINISERVER=OFF -DUPnPsdk_WITH_WEBSERVER=OFF -DUPnPsdk_WITH_CTRLPT_SSDP=OFF -DUPnPsdk_WITH_DEVICE_SSDP=OFF -DUPnPsdk_WITH_OPTION_SSDP=OFF -DUPnPsdk_WITH_CTRLPT_DESCRIPTION=OFF -DUPnPsdk_WITH_DEVICE_DESCRIPTION=OFF -DUPnPsdk_WITH_CTRLPT_SOAP=OFF -DUPnPsdk_WITH_DEVICE_SOAP=OFF -DUPnPsdk_WITH_CTRLPT_GENA=OFF -DUPnPsdk_WITH_DEVICE_GENA=OFF -DUPnPsdk_WITH_IXML=OFF -DUPnPsdk_WITH_TOOLS=OFF -DUPnPsdk_WITH_SAMPLES=OFF -DUPnPsdk_WITH_GOOGLETEST=OFF -DUPnPsdk_WITH_TRACE=OFF -DGTESTS_WITH_SHARED_LIBS=OFF',
+          '-DUPnPsdk_WITH_OPENSSL=ON',
+          '-DUPnPsdk_WITH_MINISERVER=ON',
+          '-DUPnPsdk_WITH_WEBSERVER=ON',
+          '-DUPnPsdk_WITH_CTRLPT_SSDP=ON',
+          '-DUPnPsdk_WITH_DEVICE_SSDP=ON',
+          '-DUPnPsdk_WITH_OPTION_SSDP=ON',
+          '-DUPnPsdk_WITH_CTRLPT_DESCRIPTION=ON',
+          '-DUPnPsdk_WITH_DEVICE_DESCRIPTION=ON',
+          '-DUPnPsdk_WITH_CTRLPT_SOAP=ON',
+          '-DUPnPsdk_WITH_DEVICE_SOAP=ON',
+          '-DUPnPsdk_WITH_CTRLPT_GENA=ON',
+          '-DUPnPsdk_WITH_DEVICE_GENA=ON',
+          '-DUPnPsdk_WITH_IXML=ON',
+          '-DUPnPsdk_WITH_TOOLS=ON',
+          '-DUPnPsdk_DEF_SAMPLES=ON -DUPnPsdk_DEF_DEVICE=ON',
+          '-DUPnPsdk_DEF_SAMPLES=ON -DUPnPsdk_DEF_CLIENT=ON',
+          '-DUPnPsdk_DEF_SAMPLES=ON -DUPnPsdk_DEF_COMBO=ON',
+          '-DUPnPsdk_WITH_SAMPLES=ON',
+          '-DUPnPsdk_WITH_TRACE=ON',
+          '-DUPnPsdk_WITH_OPENSSL=ON -DUPnPsdk_WITH_MINISERVER=ON -DUPnPsdk_WITH_WEBSERVER=ON -DUPnPsdk_WITH_CTRLPT_SSDP=ON -DUPnPsdk_WITH_DEVICE_SSDP=ON -DUPnPsdk_WITH_OPTION_SSDP=ON -DUPnPsdk_WITH_CTRLPT_DESCRIPTION=ON -DUPnPsdk_WITH_DEVICE_DESCRIPTION=ON -DUPnPsdk_WITH_CTRLPT_SOAP=ON -DUPnPsdk_WITH_DEVICE_SOAP=ON -DUPnPsdk_WITH_CTRLPT_GENA=ON -DUPnPsdk_WITH_DEVICE_GENA=ON -DUPnPsdk_WITH_IXML=ON -DUPnPsdk_WITH_TOOLS=ON -DUPnPsdk_WITH_SAMPLES=ON -DUPnPsdk_WITH_GOOGLETEST=ON -DUPnPsdk_WITH_TRACE=ON -DGTESTS_WITH_SHARED_LIBS=ON' ]
       fail-fast: false
 
     steps:

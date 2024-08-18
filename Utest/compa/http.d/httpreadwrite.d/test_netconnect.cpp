@@ -3,7 +3,7 @@
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/genlib/net/http/httpreadwrite.cpp>
 #else
 #include <Compa/src/genlib/net/http/httpreadwrite.cpp>

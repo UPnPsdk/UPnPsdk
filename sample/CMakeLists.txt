@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-03-10
+# Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 cmake_minimum_required(VERSION 3.18)
 include(../cmake/project-header.cmake)
@@ -15,10 +15,10 @@ project(SAMPLE VERSION 0009
 
 # Options selectable by user configuration
 # To build all samples by default then use:
-# cmake -S . -B build -D UPNPLIB_WITH_SAMPLES=YES
+# cmake -S . -B build -D UPnPsdk_WITH_SAMPLES=YES
 # To build only a single sample for testing and internal use you can do e.g.:
 # cmake -S . -B build -D UPNPLIB_DEF_SAMPLES=YES -D UPNPLIB_DEF_SAMPLE_CLIENT=YES
-if(UPNPLIB_WITH_SAMPLES)
+if(UPnPsdk_WITH_SAMPLES)
     set(UPNPLIB_DEF_SAMPLE_DEVICE YES)
     set(UPNPLIB_DEF_SAMPLE_CLIENT YES)
     set(UPNPLIB_DEF_SAMPLE_COMBO YES)
@@ -105,7 +105,7 @@ IF(UPNPLIB_DEF_SAMPLE_DEVICE)
 ENDIF()
 
 
-if(UPNPLIB_WITH_NATIVE_PUPNP)
+if(UPnPsdk_WITH_NATIVE_PUPNP)
 add_executable(api_samples-psh
     api_samples.cpp
 )

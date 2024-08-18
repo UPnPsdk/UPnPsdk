@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_UTEST_HPP
 #define UPNPLIB_UTEST_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-18
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port.hpp>
@@ -19,7 +19,7 @@
 
 namespace utest {
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 constexpr bool old_code{true};
 #else
 constexpr bool old_code{false};

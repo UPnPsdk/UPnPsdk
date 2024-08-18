@@ -116,7 +116,7 @@ void* library_info(void*) {
     msg << "UPNP_HAVE_WEBSERVER     = no\n";
 #endif
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #ifdef UPNP_HAVE_SSDP
     msg << "UPNP_HAVE_SSDP          = yes\n";
 #else
@@ -130,7 +130,7 @@ void* library_info(void*) {
     msg << "UPNP_HAVE_OPTSSDP       = no\n";
 #endif
 
-#ifdef UPNPLIB_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #ifdef UPNP_HAVE_SOAP
     msg << "UPNP_HAVE_SOAP          = yes\n";
 #else
@@ -298,7 +298,7 @@ int main() {
     // ---------------------------------------------------------
     std::cout << "---- library information ---------\n"
               << ::libinfo() << std::endl; // Info from pupnp
-#ifndef UPNPLIB_WITH_NATIVE_PUPNP
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
     std::cout << libinfo() << std::endl; // Info from upnplib
 #endif
     std::cout << "UPNP_VERSION_STRING     = " << UPNP_VERSION_STRING << "\n"
