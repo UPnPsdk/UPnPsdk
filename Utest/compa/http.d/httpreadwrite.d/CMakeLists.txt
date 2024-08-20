@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-06
+# Redistribution only with this Copyright remark. Last modified: 2024-08-20
 
 cmake_minimum_required(VERSION 3.18)
 include(../../../../cmake/project-header.cmake)
@@ -70,7 +70,7 @@ target_link_libraries(test_httpreadwrite-pst
         utest_static
 )
 add_test(NAME ctest_httpreadwrite-pst COMMAND test_httpreadwrite-pst --gtest_shuffle
-    WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 add_executable(test_httpreadwrite-cst
@@ -87,7 +87,7 @@ target_link_libraries(test_httpreadwrite-cst
         utest_static
 )
 add_test(NAME ctest_httpreadwrite-cst COMMAND test_httpreadwrite-cst --gtest_shuffle
-    WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 
@@ -152,7 +152,7 @@ target_link_libraries(test_netconnect-pst
     PRIVATE utest_static
 )
 add_test(NAME ctest_netconnect-pst COMMAND test_netconnect-pst --gtest_shuffle
-    WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 add_executable(test_netconnect-cst
@@ -168,7 +168,7 @@ target_link_libraries(test_netconnect-cst
     PRIVATE utest_static
 )
 add_test(NAME ctest_netconnect-cst COMMAND test_netconnect-cst --gtest_shuffle
-    WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 
@@ -201,7 +201,7 @@ target_link_libraries(test_http_Download-pst
         utest_static
 )
 add_test(NAME ctest_http_Download-pst COMMAND test_http_Download-pst --gtest_shuffle
-    WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 add_executable(test_http_Download-cst
@@ -218,5 +218,5 @@ target_link_libraries(test_http_Download-cst
         utest_static
 )
 add_test(NAME ctest_http_Download-cst COMMAND test_http_Download-cst --gtest_shuffle
-    WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )

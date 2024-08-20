@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-18
+# Redistribution only with this Copyright remark. Last modified: 2024-08-20
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(../../cmake/project-header.cmake)
@@ -28,7 +28,7 @@ set(PUPNP_DEF_SOAP YES) #${UPNPLIB_WITH_SOAP})           # soap -> UPNP_ENABLE_S
 set(PUPNP_DEF_GENA YES) #${UPNPLIB_WITH_GENA})           # gena -> UPNP_ENABLE_GENA
                                                      #   compiles only with PUPNP_DEF_CLIENT and PUPNP_DEF_DEVICE
 set(PUPNP_DEF_OPENSSL ${UPnPsdk_WITH_OPENSSL})     # open_ssl -> UPNP_ENABLE_OPEN_SSL
-set(PUPNP_DEF_BLOCKTCP NO) #${UPNPLIB_WITH_BLOCKTCP})   # blocking_tcp_connections -> UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS
+set(PUPNP_DEF_BLOCKTCP NO) #${UPnPsdk_WITH_BLOCKTCP})   # blocking_tcp_connections -> UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS
 set(PUPNP_DEF_IXML YES) #${UPnPsdk_WITH_IXML})           # scriptsupport -> IXML_HAVE_SCRIPTSUPPORT
 #set(PUPNP_DEF_UNSPECSVR NO)                        # unspecified_server -> UPNP_ENABLE_UNSPECIFIED_SERVER
 #set(PUPNP_DEF_REUSEADDR NO)                        # reuseaddr -> UPNP_MINISERVER_REUSEADDR
@@ -238,7 +238,7 @@ if(NOT WIN32)
     target_compile_definitions(pupnp_shared
         ${PUPNP_COMPILE_DEFINITIONS}
         PUBLIC UPnPsdk_WITH_NATIVE_PUPNP
-        PRIVATE UPNPLIB_EXPORTS
+        PRIVATE UPnPsdk_EXPORTS
     )
     target_link_libraries(pupnp_shared
         PUBLIC
@@ -304,7 +304,7 @@ else() # WIN32
         ${PUPNP_COMPILE_DEFINITIONS}
         PUBLIC UPnPsdk_WITH_NATIVE_PUPNP
         PRIVATE
-            UPNPLIB_EXPORTS
+            UPnPsdk_EXPORTS
             $<$<BOOL:${PUPNP_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(pupnp_shared

@@ -2,9 +2,8 @@
 **Under development!**
 
 ## 1. Overview
-This is a fork of the <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices (pupnp)</a> with the aim of a complete re-engeneering based on
-<!-- <a href="https://openconnectivity.org/upnp-specs/UPnP-arch-DeviceArchitecture-v2.0-20200417.pdf">UPnP™ Device Architecture 2.0</a>. -->
-<a href="https://upnpsdk.github.io/UPnPsdk/UPnP-arch-DeviceArchitecture-v2.0-20200417.pdf">UPnP™ Device Architecture 2.0</a>
+This is a fork of the <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices (pupnp)</a> with the aim of a complete re-engeneering based on <!-- <a href="https://openconnectivity.org/upnp-specs/UPnP-arch-DeviceArchitecture-v2.0-20200417.pdf">UPnP™ Device Architecture 2.0</a>. --><a href="https://upnpsdk.github.io/UPnPsdk/UPnP-arch-DeviceArchitecture-v2.0-20200417.pdf">UPnP™ Device Architecture 2.0</a>.
+
 The following general goals are in progress or planned:
 - Suporting main Unix derivates (e.g. Debian/Ubuntu, macOS), MS Windows
 - Drop in compatibillity with the old pUPnP library
@@ -144,4 +143,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, \<Ingo\@Hoeft-online.de\>
-Redistribution only with this Copyright remark. Last modified: 2024-08-18</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-08-20</pre>

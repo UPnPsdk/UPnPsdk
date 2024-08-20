@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-18
+# Redistribution only with this Copyright remark. Last modified: 2024-08-20
 
 cmake_minimum_required(VERSION 3.18)
 include(cmake/project-header.cmake)
@@ -44,11 +44,11 @@ option(GTESTS_WITH_SHARED_LIBS "Build GOOGLETEST libraries shared. You should no
     # the shared gtest/gmock libraries. Next option is only available for testing
     # other combinations. It should be set to ON by default otherwise you may get
     # compiling errors if you do not know what you are doing.
-# option(UPNPLIB_WITH_UNSPECIFIED_SERVER "Set information in UPnP SERVER http request header to \"Unspecified\"". OFF)
+# option(UPnPsdk_WITH_UNSPECIFIED_SERVER "Set information in UPnP SERVER http request header to \"Unspecified\"". OFF)
     # This is an option to set to "Unspecified" the OS name, OS version, product
     # name and product version normally contained in the SERVER header of a
     # UPnP http request as this could be used by an attacker.
-# option(UPNPLIB_WITH_BLOCKTCP "Enable the TCP protocol stack to wait (blocking) until receiving an answer or timed out." ON)
+# option(UPnPsdk_WITH_BLOCKTCP "Enable the TCP protocol stack to wait (blocking) until receiving an answer or timed out." ON)
     # This is not an option anymore. Blocking until data received is always
     # enabled.
 
@@ -128,11 +128,9 @@ endif()
 # Check available library functions. We need that for later configuration.
 include(CheckCXXSymbolExists)
 
-# The option is contained in cmake/upnpconfig.hpp.cmake.
-check_cxx_symbol_exists(strnlen "cstring" UPNPLIB_HAVE_STRNLEN)
-
-# The option is contained in cmake/upnpconfig.hpp.cmake.
-check_cxx_symbol_exists(strndup "cstring" UPNPLIB_HAVE_STRNDUP)
+# Check if strnlen and strndup are provided by the operating system.
+check_cxx_symbol_exists(strnlen "cstring" UPnPsdk_HAVE_STRNLEN)
+check_cxx_symbol_exists(strndup "cstring" UPnPsdk_HAVE_STRNDUP)
 
 # Suffix on libraries having built with Debug information
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -145,14 +143,14 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
 # Provide length of the path of the projects base directory. We need this
 # mainly for the compile time short file name of Debug and TRACE messages.
-string(LENGTH "${CMAKE_SOURCE_DIR}/" UPNPLIB_PROJECT_PATH_LENGTH)
+string(LENGTH "${CMAKE_SOURCE_DIR}/" UPnPsdk_PROJECT_PATH_LENGTH)
 
 # Set general compile definitions and options
 #--------------------------------------------
 add_compile_definitions(
         # Having STRNLEN and STRNDUP are validated above. Give it to the program.
-        $<$<BOOL:${UPNPLIB_HAVE_STRNLEN}>:HAVE_STRNLEN>
-        $<$<BOOL:${UPNPLIB_HAVE_STRNDUP}>:HAVE_STRNDUP>
+        $<$<BOOL:${UPnPsdk_HAVE_STRNLEN}>:HAVE_STRNLEN>
+        $<$<BOOL:${UPnPsdk_HAVE_STRNDUP}>:HAVE_STRNDUP>
         # General define DEBUG if build type is "Debug". Manage setting NDEBUG
         # is done by cmake by default.
         $<$<CONFIG:Debug>:DEBUG>
@@ -211,15 +209,15 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 if(WIN32)
     if(CMAKE_GENERATOR STREQUAL "NMake Makefiles")
-        set(UPNPLIB_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+        set(UPnPsdk_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
     else()
-        set(UPNPLIB_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE})
+        set(UPnPsdk_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE})
     endif()
 else()
-    set(UPNPLIB_RUNTIME_OUTPUT_DIRECTORY "")
+    set(UPnPsdk_RUNTIME_OUTPUT_DIRECTORY "")
 endif()
 # Output with cmake option --log-level=DEBUG
-message(DEBUG "  DEBUG: UPNPLIB_RUNTIME_OUTPUT_DIRECTORY is: ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}")
+message(DEBUG "  DEBUG: UPnPsdk_RUNTIME_OUTPUT_DIRECTORY is: ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}")
 
 
 #################################

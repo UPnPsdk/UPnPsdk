@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-18
+# Redistribution only with this Copyright remark. Last modified: 2024-08-20
 
 cmake_minimum_required(VERSION 3.18)
 include(../cmake/project-header.cmake)
@@ -71,8 +71,8 @@ add_library(utest_shared SHARED
 )
 target_compile_definitions(utest_shared
     PRIVATE
-        UPNPLIB_SHARED
-        UPNPLIB_EXPORTS
+        UPnPsdk_SHARE
+        UPnPsdk_EXPORTS
 )
 target_link_libraries(utest_shared
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>      # winsock to support sockets
@@ -117,13 +117,13 @@ target_include_directories(test_utest-ush
     PRIVATE ${UPNPLIB_SOURCE_DIR}/include
 )
 target_compile_definitions(test_utest-ush
-    PRIVATE UPNPLIB_SHARED
+    PRIVATE UPnPsdk_SHARE
 )
 target_link_libraries(test_utest-ush
     PRIVATE utest_shared
 )
 add_test(NAME ctest_utest-ush COMMAND test_utest-ush --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 
@@ -136,13 +136,13 @@ target_include_directories(test_utest_platform-ush
     PRIVATE ${UPNPLIB_SOURCE_DIR}/include
 )
 target_compile_definitions(test_utest_platform-ush
-    PRIVATE UPNPLIB_SHARED
+    PRIVATE UPnPsdk_SHARE
 )
 target_link_libraries(test_utest_platform-ush
     PRIVATE utest_shared
 )
 add_test(NAME ctest_utest_platform-ush COMMAND test_utest_platform-ush --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 
@@ -153,10 +153,10 @@ add_executable(test_simple-ush
         test_simple.cpp
 )
 target_link_libraries(test_simple-ush
-    PRIVATE upnplib_shared
+    PRIVATE UPnPsdk_shared
 )
 add_test(NAME ctest_simple-ush COMMAND test_simple-ush --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 # Check also static build for this simple test
@@ -167,7 +167,7 @@ target_link_libraries(test_simple-ust
     PRIVATE upnplib_static
 )
 add_test(NAME ctest_simple-ust COMMAND test_simple-ust --gtest_shuffle
-    WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 
@@ -180,7 +180,7 @@ target_include_directories(test_template
     PRIVATE ${UPNPLIB_SOURCE_DIR}/include
 )
 add_test(NAME ctest_template COMMAND test_template --gtest_shuffle
-    WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 

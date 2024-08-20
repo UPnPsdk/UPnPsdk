@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_INCLUDE_VISIBILITY_HPP
 #define UPNPLIB_INCLUDE_VISIBILITY_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-01-18
+// Redistribution only with this Copyright remark. Last modified: 2024-01-20
 /*!
  * \file
  * \brief Macros to support visibility of external symbols.
@@ -10,7 +10,7 @@
  * on Linux with:\n
  * nm -C -D \<library\>,\n
  * on Microsoft Windows with e.g.:\n
- * dumpbin.exe /EXPORTS .\\build\\lib\\Release\\upnplib_shared.lib
+ * dumpbin.exe /EXPORTS .\\build\\lib\\Release\\UPnPsdk_shared.lib
  *
  * Reference: https://gcc.gnu.org/wiki/Visibility
  */
@@ -50,19 +50,19 @@
 // or DLL exports (or does nothing for static build) UPNPLIB_LOCAL is used for
 // non-api symbols.
 
-#ifdef UPNPLIB_SHARED // defined if UPNPLIB is compiled as a shared library
-  #ifdef UPNPLIB_EXPORTS // defined if we are building the UPNPLIB DLL (instead of using it)
+#ifdef UPnPsdk_SHARE // defined if UPNPLIB is compiled as a shared library
+  #ifdef UPnPsdk_EXPORTS // defined if we are building the UPNPLIB DLL (instead of using it)
     #define UPNPLIB_API UPNP_HELPER_DLL_EXPORT
   #else
     #define UPNPLIB_API UPNP_HELPER_DLL_IMPORT
-  #endif // UPNPLIB_EXPORTS
+  #endif // UPnPsdk_EXPORTS
   #define UPNPLIB_LOCAL UPNP_HELPER_DLL_LOCAL
-#else // UPNPLIB_SHARED is not defined: this means UPNPLIB is a static lib.
+#else // UPnPsdk_SHARE is not defined: this means UPNPLIB is a static lib.
   #define UPNPLIB_API
   #define UPNPLIB_LOCAL
-#endif // UPNPLIB_SHARED
+#endif // UPnPsdk_SHARE
 
-#if (defined _WIN32 || defined __CYGWIN__) && defined UPNPLIB_SHARED
+#if (defined _WIN32 || defined __CYGWIN__) && defined UPnPsdk_SHARE
   #define UPNPLIB_EXTERN __declspec(dllimport) extern
 #else
   #define UPNPLIB_EXTERN UPNPLIB_API extern

@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-18
+# Redistribution only with this Copyright remark. Last modified: 2024-08-20
 
 cmake_minimum_required(VERSION 3.18)
 include(../cmake/project-header.cmake)
@@ -28,8 +28,8 @@ set(COMPA_DEF_DEVICE_GENA ${UPnPsdk_WITH_DEVICE_GENA})
 set(COMPA_DEF_TOOLS ${UPnPsdk_WITH_TOOLS})         # tools -> UPNP_ENABLE_HELPER_API_TOOLS
 set(COMPA_DEF_IXML ${UPnPsdk_WITH_IXML})           # scriptsupport -> IXML_HAVE_SCRIPTSUPPORT
 set(COMPA_DEF_GOOGLETEST ${UPnPsdk_WITH_GOOGLETEST})
-#set(COMPA_DEF_BLOCKTCP ${UPNPLIB_WITH_BLOCKTCP})  # blocking_tcp_connections -> COMPA_ENABLE_BLOCKING_TCP_CONNECTIONS
-#set(COMPA_DEF_UNSPECSVR ${UPNPLIB_WITH_UNSPECIFIED_SERVER}) # unspecified_server -> UPNP_ENABLE_UNSPECIFIED_SERVER
+#set(COMPA_DEF_BLOCKTCP ${UPnPsdk_WITH_BLOCKTCP})  # blocking_tcp_connections -> COMPA_ENABLE_BLOCKING_TCP_CONNECTIONS
+#set(COMPA_DEF_UNSPECSVR ${UPnPsdk_WITH_UNSPECIFIED_SERVER}) # unspecified_server -> UPNP_ENABLE_UNSPECIFIED_SERVER
 #set(COMPA_DEF_REUSEADDR NO)                       # reuseaddr -> UPNP_MINISERVER_REUSEADDR
 if(UPnPsdk_WITH_SAMPLES)                           # all samples -> UPNP_BUILD_SAMPLES
     set(COMPA_DEF_SAMPLES YES) # To make it separate selectable don't set it direct
@@ -241,14 +241,14 @@ if(NOT WIN32)
     )
     target_compile_definitions(compa_shared
             ${COMPA_COMPILE_DEFINITIONS}
-        PRIVATE UPNPLIB_EXPORTS
+        PRIVATE UPnPsdk_EXPORTS
     )
     target_link_libraries(compa_shared
         PUBLIC
             umock_shared
             ixml_shared
         PRIVATE
-            upnplib_shared
+            UPnPsdk_shared
     )
 
     # Compa STatic library: suffix -cst
@@ -298,7 +298,7 @@ else() # WIN32
     target_compile_definitions(compa_shared
             ${COMPA_COMPILE_DEFINITIONS}
         PRIVATE
-            UPNPLIB_EXPORTS
+            UPnPsdk_EXPORTS
             $<$<BOOL:${COMPA_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(compa_shared
@@ -306,7 +306,7 @@ else() # WIN32
             umock_shared
             ixml_shared
         PRIVATE
-            upnplib_shared
+            UPnPsdk_shared
             # disable warning LNK4217: symbol 'symbol' defined in
             # 'filename_1.obj' is imported by 'filename_2.obj' in function
             # 'function'.

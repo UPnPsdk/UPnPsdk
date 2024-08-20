@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-15
+# Redistribution only with this Copyright remark. Last modified: 2024-08-20
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(../cmake/project-header.cmake)
@@ -41,30 +41,30 @@ if(NOT WIN32)
 
     # Upnplib SHared library: suffix -ush
     #------------------------------------
-    add_library(upnplib_shared SHARED
+    add_library(UPnPsdk_shared SHARED
             ${UPNPLIB_SOURCE_FILES}
     )
-    set_target_properties(upnplib_shared PROPERTIES
+    set_target_properties(UPnPsdk_shared PROPERTIES
             OUTPUT_NAME upnpsdk
     )
-    target_include_directories(upnplib_shared
+    target_include_directories(UPnPsdk_shared
             ${UPNPLIB_INCLUDE_DIRECTORIES}
     )
-    target_compile_definitions(upnplib_shared
+    target_compile_definitions(UPnPsdk_shared
         PRIVATE
-            UPNPLIB_EXPORTS
+            UPnPsdk_EXPORTS
             $<$<BOOL:${UPNPLIB_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
-    target_link_libraries(upnplib_shared
+    target_link_libraries(UPnPsdk_shared
         PUBLIC umock_shared
         INTERFACE ixml_shared
     )
-    target_sources(upnplib_shared
+    target_sources(UPnPsdk_shared
         INTERFACE FILE_SET upnplib_public_headers TYPE HEADERS
                   BASE_DIRS include
                   FILES ${UPNPLIB_PUBLIC_HEADERS}
     )
-    install(TARGETS upnplib_shared
+    install(TARGETS UPnPsdk_shared
         FILE_SET upnplib_public_headers
         DESTINATION include/upnp
     )
@@ -89,7 +89,7 @@ if(NOT WIN32)
         INTERFACE ixml_static
     )
 
-    install(TARGETS upnplib_shared upnplib_static)
+    install(TARGETS UPnPsdk_shared upnplib_static)
 
 else() # WIN32
 
@@ -98,21 +98,21 @@ else() # WIN32
 
     # WIN32 Upnplib SHared library: suffix -ush
     #------------------------------------------
-    add_library(upnplib_shared SHARED
+    add_library(UPnPsdk_shared SHARED
             ${UPNPLIB_SOURCE_FILES}
     )
-    set_target_properties(upnplib_shared PROPERTIES
+    set_target_properties(UPnPsdk_shared PROPERTIES
             OUTPUT_NAME upnpsdk
     )
-    target_include_directories(upnplib_shared
+    target_include_directories(UPnPsdk_shared
         ${UPNPLIB_INCLUDE_DIRECTORIES}
     )
-    target_compile_definitions(upnplib_shared
+    target_compile_definitions(UPnPsdk_shared
         PRIVATE
-            UPNPLIB_EXPORTS
+            UPnPsdk_EXPORTS
             $<$<BOOL:${UPNPLIB_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
-    target_link_libraries(upnplib_shared
+    target_link_libraries(UPnPsdk_shared
         PUBLIC umock_shared
     )
 
@@ -135,7 +135,7 @@ else() # WIN32
         PUBLIC umock_static
     )
 
-    install(TARGETS upnplib_shared upnplib_static)
+    install(TARGETS UPnPsdk_shared upnplib_static)
 
 
 endif() # WIN32

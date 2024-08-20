@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-06
+# Redistribution only with this Copyright remark. Last modified: 2024-08-20
 
 cmake_minimum_required(VERSION 3.18)
 include(../../../cmake/project-header.cmake)
@@ -19,7 +19,7 @@ target_include_directories(test_urlparser
     PRIVATE ${UPNPLIB_SOURCE_DIR}/include
 )
 add_test(NAME ctest_urlparser COMMAND test_urlparser --gtest_shuffle
-    WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 
@@ -38,6 +38,6 @@ target_include_directories(test_url_class
     PRIVATE ${UPNPLIB_SOURCE_DIR}/include
 )
 add_test(NAME ctest_url_class COMMAND test_url_class --gtest_shuffle
-    WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 endif()

@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-18
+# Redistribution only with this Copyright remark. Last modified: 2024-08-20
 
 cmake_minimum_required(VERSION 3.18)
 include(../../../cmake/project-header.cmake)
@@ -17,11 +17,11 @@ add_executable(test_sock-psh
 target_link_libraries(test_sock-psh
     PRIVATE
         pupnp_shared
-        upnplib_shared
+        UPnPsdk_shared
         utest_shared
 )
 add_test(NAME ctest_sock-psh COMMAND test_sock-psh --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 if(FALSE)
@@ -32,11 +32,11 @@ add_executable(test_sock-csh
 target_link_libraries(test_sock-csh
     PRIVATE
         compa_shared
-        upnplib_shared
+        UPnPsdk_shared
         utest_shared
 )
 add_test(NAME ctest_sock-csh COMMAND test_sock-csh --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 endif()
 
@@ -50,11 +50,11 @@ if(UPnPsdk_WITH_OPENSSL)
     target_link_libraries(test_sock_ssl-psh
         PRIVATE
             pupnp_shared
-            upnplib_shared
+            UPnPsdk_shared
             utest_shared
     )
     add_test(NAME ctest_sock_ssl-psh COMMAND test_sock_ssl-psh --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
     )
 
 if(FALSE)
@@ -65,11 +65,11 @@ if(FALSE)
     target_link_libraries(test_sock_ssl-csh
         PRIVATE
             compa_shared
-            upnplib_shared
+            UPnPsdk_shared
             utest_shared
     )
     add_test(NAME ctest_sock_ssl-csh COMMAND test_sock_ssl-csh --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
     )
 endif()
 
@@ -85,10 +85,10 @@ if(FALSE)
     )
     target_link_libraries(test_openssl_threaded-psh
         PRIVATE pupnp_shared
-        PRIVATE upnplib_shared
+        PRIVATE UPnPsdk_shared
     )
     add_test(NAME ctest_openssl_threaded-psh COMMAND test_openssl_threaded-psh --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
     )
 
     add_executable(test_openssl_threaded-csh
@@ -96,10 +96,10 @@ if(FALSE)
     )
     target_link_libraries(test_openssl_threaded-csh
         PRIVATE compa_shared
-        PRIVATE upnplib_shared
+        PRIVATE UPnPsdk_shared
     )
     add_test(NAME ctest_openssl_threaded-csh COMMAND test_openssl_threaded-csh --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
     )
 endif()
 endif()
@@ -132,7 +132,7 @@ target_link_libraries(test_miniserver-pst
         utest_static
 )
 add_test(NAME ctest_miniserver-pst COMMAND test_miniserver-pst --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 add_executable(test_miniserver-cst
@@ -149,7 +149,7 @@ target_link_libraries(test_miniserver-cst
         utest_static
 )
 add_test(NAME ctest_miniserver-cst COMMAND test_miniserver-cst --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 
@@ -178,11 +178,11 @@ target_compile_options(test_miniserver_run-psh
 target_link_libraries(test_miniserver_run-psh
     PRIVATE
         pupnp_shared
-        upnplib_shared
+        UPnPsdk_shared
         utest_shared
 )
 add_test(NAME ctest_miniserver_run-psh COMMAND test_miniserver_run-psh --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 add_executable(test_miniserver_run-cst
@@ -203,5 +203,5 @@ target_link_libraries(test_miniserver_run-cst
         utest_static
 )
 add_test(NAME ctest_miniserver_run-cst COMMAND test_miniserver_run-cst --gtest_shuffle
-        WORKING_DIRECTORY ${UPNPLIB_RUNTIME_OUTPUT_DIRECTORY}
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )

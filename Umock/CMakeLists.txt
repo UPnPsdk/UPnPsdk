@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-18
+# Redistribution only with this Copyright remark. Last modified: 2024-08-20
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(../cmake/project-header.cmake)
@@ -60,8 +60,8 @@ target_include_directories(umock_shared
     ${UMOCK_INCLUDE_DIRECTORIES}
 )
 target_compile_definitions(umock_shared
-    PUBLIC UPNPLIB_SHARED
-    PRIVATE UPNPLIB_EXPORTS
+    PUBLIC UPnPsdk_SHARE
+    PRIVATE UPnPsdk_EXPORTS
 )
 target_link_libraries(umock_shared
     PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>

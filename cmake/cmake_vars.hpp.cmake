@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_CMAKE_VARS_HPP
 #define UPNPLIB_CMAKE_VARS_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-06
+// Redistribution only with this Copyright remark. Last modified: 2024-08-20
 /*!
  * \file
  * \brief Defines symbols for the compiler that are provided by CMake.
@@ -23,7 +23,7 @@
  ***************************************************************************/
 // Path to the project directory and its length
 #cmakedefine CMAKE_SOURCE_DIR "${CMAKE_SOURCE_DIR}"
-#cmakedefine UPNPLIB_PROJECT_PATH_LENGTH ${UPNPLIB_PROJECT_PATH_LENGTH}
+#cmakedefine UPnPsdk_PROJECT_PATH_LENGTH ${UPnPsdk_PROJECT_PATH_LENGTH}
 // Path to the build directory of the project
 #cmakedefine CMAKE_BINARY_DIR "${CMAKE_BINARY_DIR}"
 // Path to sample source directory to access web subdirectory
