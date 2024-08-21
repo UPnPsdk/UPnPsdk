@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-20
+# Redistribution only with this Copyright remark. Last modified: 2024-08-21
 
 cmake_minimum_required(VERSION 3.18)
 include(cmake/project-header.cmake)
@@ -412,10 +412,10 @@ if(UPnPsdk_WITH_GOOGLETEST)
     FetchContent_Declare(
         googletest
         GIT_REPOSITORY    https://github.com/google/googletest.git
-        #GIT_TAG           origin/main
+        GIT_TAG           origin/main
         #GIT_TAG           release-1.11.0
-        #GIT_SHALLOW       ON # comment if using GIT_TAG hash below
-        GIT_TAG           ec7b38672c04c8af3cfb078214edf6751b841014
+        GIT_SHALLOW       ON # comment if using GIT_TAG hash below
+        #GIT_TAG           ec7b38672c04c8af3cfb078214edf6751b841014
         # Next commit crashes gtest.dll (shared library build enabled) on MS
         # Windows with build-type DEBUG.
         #GIT_TAG           d3a29ff624e0984a40a60dbc1f03ac74b8d03658

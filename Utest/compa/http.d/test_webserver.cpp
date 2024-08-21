@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-09-03
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -1040,21 +1040,18 @@ TEST_F(XMLaliasFTestSuite, set_alias_two_times) {
     EXPECT_EQ(*gAliasDoc.ct, 1);
 }
 
-TEST_F(XMLaliasFDeathTest, set_alias_three_times_with_same_content) {
+TEST_F(XMLaliasFDeathTest, set_alias_more_times_with_same_content) {
     const char alias_name[]{"valid_alias_name"}; // length = 16
     const char content[]{"Some valid content"};  // length = 18
 
     if (old_code) {
-        // The allocated alias_content is still valid after first setting the
-        // alias but will be freed with setting the alias document again, means
-        // overwrite it. Using the same unallocated content again results in
-        // undefined behaviour with segfault or "double free detected in tcache
-        // 2" at least after third settings. We have to do it all in an
-        // ASSERT_DEATH compound because that is executed in its own new
-        // process.
+        // Using the same unallocated content again results in undefined
+        // behaviour with segfault or "double free detected in tcache 2" or
+        // just hang with no return, but may also succeed.
         std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
                   << ": Set alias again to overwrite previous setting with "
                      "same content must not segfault.\n";
+#ifdef DEBUG
         // This expects segfault.
         ASSERT_DEATH(
             {
@@ -1064,12 +1061,36 @@ TEST_F(XMLaliasFDeathTest, set_alias_three_times_with_same_content) {
                 strcpy(alias_content, content);
                 ::web_server_set_alias(alias_name, alias_content,
                                        sizeof(content) - 1, 1);
+                // alias_content is freed by the Unit. Using it just again is
+                // undefined behavior but may succeed sometimes. I do not can
+                // test random succeeding or failing, so I have to clear the
+                // pointer for a defined test condition.
+                alias_content = nullptr;
                 ::web_server_set_alias(alias_name, alias_content,
                                        sizeof(content) - 1, 2);
-                ::web_server_set_alias(alias_name, alias_content,
-                                       sizeof(content) - 1, 3);
             },
             ".*");
+#else
+        // This expects NO abort.
+        ASSERT_EXIT(
+            {
+                // The content string must be allocated on the heap because it
+                // is freed by the unit.
+                char* alias_content = (char*)malloc(sizeof(content));
+                strcpy(alias_content, content);
+                ::web_server_set_alias(alias_name, alias_content,
+                                       sizeof(content) - 1, 1);
+                // alias_content is freed by the Unit. Using it just again is
+                // undefined behavior but may succeed sometimes. I do not can
+                // test random succeeding or failing, so I have to clear the
+                // pointer for a defined test condition.
+                alias_content = nullptr;
+                ::web_server_set_alias(alias_name, alias_content,
+                                       sizeof(content) - 1, 2);
+                exit(0);
+            },
+            ExitedWithCode(0), ".*");
+#endif
 
     } else {
 

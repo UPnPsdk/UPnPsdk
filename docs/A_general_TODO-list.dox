@@ -1,14 +1,13 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-08-21
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Rename upnplib to UPnPsdk.
+ * - Bugreport about gtest.dll crash.
  * - Install UPnPsdk libraries for use on Microsoft Windows.
  * - Use of UPnPsdk with sample program.
- * - Bugreport about gtest.dll crash.
  * - Create Unit Test for large file system support (issue #15).
  * - Remove Interface/ directory.
  * - Remove random port number generator.

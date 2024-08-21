@@ -53,7 +53,12 @@ These names are also the names of the CMake subprojects.
 -->
 
 ## 5. Build Instructions
-All project directory references are relative to the root directory of the project (CMAKE_SOURCE_DIR) that is by default UPnPsdk-project/ on your storage if you haven't renamed it. If in daubt with file access or with executing you should first ensure that you are in the projects root directory.
+You need to have `git` installed. Just clone this repository:
+
+    ~$ git clone https://github.com/UPnPsdk/UPnPsdk.git
+    ~$ cd UPnPsdk-project/
+
+You are now in the relative root directory of the program source tree. All project directory references are relative to the root directory (CMAKE_SOURCE_DIR) that is by default UPnPsdk-project/ if you haven't renamed it. If in daubt with file access or with executing you should first ensure that you are in the projects root directory.
 
 ### 5.1. Linux and MacOS build
 Be in the projects root directory. First configure then build:
@@ -143,4 +148,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, \<Ingo\@Hoeft-online.de\>
-Redistribution only with this Copyright remark. Last modified: 2024-08-20</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-08-21</pre>

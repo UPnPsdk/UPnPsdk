@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-09-03
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -1388,6 +1388,9 @@ TEST(RunMiniServerDeathTest, free_handle_request_arg_with_nullptr) {
     }
 }
 
+#if !defined _WIN32 || !defined DEBUG
+// MS Windows assert this with DEBUG enabled and blocks (does not return from)
+// free.
 TEST(RunMiniServerDeathTest, free_handle_request_arg_double_free) {
     // See note at previous test.
     GTEST_FLAG_SET(death_test_style, "threadsafe");
@@ -1406,6 +1409,7 @@ TEST(RunMiniServerDeathTest, free_handle_request_arg_double_free) {
         },
         "");
 }
+#endif
 
 TEST_F(RunMiniServerMockFTestSuite, handle_request_successful) {
     // This test depends on mocking of http_RecvMessage() with a correct request
