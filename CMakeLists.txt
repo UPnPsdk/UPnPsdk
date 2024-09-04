@@ -1,12 +1,12 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-21
+# Redistribution only with this Copyright remark. Last modified: 2024-09-04
 
 cmake_minimum_required(VERSION 3.18)
 include(cmake/project-header.cmake)
 
-project("UPnPlib-SDK" VERSION "0.1.0"
+project("UPnPsdk" VERSION "0.1.0"
                 DESCRIPTION "UPnP library"
-                HOMEPAGE_URL "https://github.com/upnplib")
+                HOMEPAGE_URL "https://github.com/UPnPsdk")
 
 set(PUPNP_VERSION "1.14.19")
 if(NOT PUPNP_VERSION MATCHES "^[0-9]+\\.[0-9]+\\.[0-9]+$")

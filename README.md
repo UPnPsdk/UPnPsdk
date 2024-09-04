@@ -55,10 +55,10 @@ These names are also the names of the CMake subprojects.
 ## 5. Build Instructions
 You need to have `git` installed. Just clone this repository:
 
-    ~$ git clone https://github.com/UPnPsdk/UPnPsdk.git
+    ~$ git clone https://github.com/UPnPsdk/UPnPsdk.git UPnPsdk-project/
     ~$ cd UPnPsdk-project/
 
-You are now in the relative root directory of the program source tree. All project directory references are relative to the root directory (CMAKE_SOURCE_DIR) that is by default UPnPsdk-project/ if you haven't renamed it. If in daubt with file access or with executing you should first ensure that you are in the projects root directory.
+You are now in the relative root directory of the program source tree. All project directory references are relative to its root directory (CMAKE_SOURCE_DIR) that is `UPnPsdk-project/` if you haven't used another directory name with the clone command above. If in daubt with file access or with executing you should first ensure that you are in the projects root directory.
 
 ### 5.1. Linux and MacOS build
 Be in the projects root directory. First configure then build:
@@ -96,7 +96,7 @@ To uninstall the include files and libraries as long as the build/ directory is 
 If you like you can backup the file <code>build/install_manifest.txt</code> for later uninstallation without build/ directory.
 
 ### 5.2. Microsoft Windows build
-The development of this UPnP Library has started on Linux. So for historical reasons it uses POSIX threads (pthreads) as specified by [The Open Group](http://get.posixcertified.ieee.org/certification_guide.html). Unfortunately Microsoft Windows does not support it so I have to use a third party library. I use the well known and well supported [pthreads4w library](https://sourceforge.net/p/pthreads4w). It will be downloaded on Microsoft Windows and compiled with building the project and should do out of the box. To build the UPnPsdk you need a Developer Command Prompt. How to install it is out of scope of this description. Microsoft has good documentation about it. For example this is the prompt I used (example, maybe outdated):
+The development of this UPnP Software Development Kit has started on Linux. So for historical reasons it uses POSIX threads (pthreads) as specified by [The Open Group](http://get.posixcertified.ieee.org/certification_guide.html). Unfortunately Microsoft Windows does not support it so I have to use a third party library. I use the well known and well supported [pthreads4w library](https://sourceforge.net/p/pthreads4w). It will be downloaded on Microsoft Windows and compiled with building the project and should do out of the box. To build the UPnPsdk you need a Developer Command Prompt. How to install it is out of scope of this description. Microsoft has good documentation about it. For example this is the prompt I used (example, maybe outdated):
 
     **********************************************************************
     ** Visual Studio 2019 Developer Command Prompt v16.9.5
@@ -148,4 +148,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, \<Ingo\@Hoeft-online.de\>
-Redistribution only with this Copyright remark. Last modified: 2024-08-21</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-09-05</pre>
