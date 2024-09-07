@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_UPNPGLOBAL_HPP
 #define UPNPLIB_UPNPGLOBAL_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-20
+// Redistribution only with this Copyright remark. Last modified: 2024-09-08
 // Taken from authors who haven't made a note.
 
 /*!
@@ -12,16 +12,17 @@
  */
 #include <cstddef>
 
-/* Following test is moved to cmake_vars.hpp.cmake
+#include <cmake_vars.hpp>
 #if defined UPNP_LARGEFILE_SENSITIVE && _FILE_OFFSET_BITS + 0 != 64
 #if defined __GNUC__
 #warning libupnp requires largefile mode - use AC_SYS_LARGEFILE
 #elif !defined _WIN32
 #error libupnp requires largefile mode - use AC_SYS_LARGEFILE
 #endif
-#endif */
-#include <cmake_vars.hpp>
+#endif
 
+// BUG! must be
+// #ifndef _WIN32 --Ingo
 #ifdef _WIN32
 /*
  * EXPORT_SPEC

@@ -34,7 +34,7 @@
   <td id="projectalign">
    <div id="projectname">UPnPsdk<span id="projectnumber">&#160;0.1</span>
    </div>
-   <div id="projectbrief">Universal Plug and Play +, Software Developement Kit</div>
+   <div id="projectbrief">Universal Plug and Play +, Software Development Kit</div>
   </td>
  </tr>
    <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
@@ -106,8 +106,13 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A general TODO-list. </p>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd><ul>
+<li>Rework apps/ and use it as Test for Large-file support.</li>
+<li>Rename <a class="el" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables.">global.hpp</a> to UPnPsdk.hpp and manage to initial #include it.</li>
 <li>Use of <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> with sample program.</li>
-<li>Create Unit Test for large file system support (issue #15).</li>
+<li>Optimize SDK installation. <br  />
+ - Use ixml only static compiled. <br  />
+ - Use umock only static compiled.</li>
+<li>Compile OpenSSL instead of using its external library.</li>
 <li>Remove Interface/ directory.</li>
 <li>Remove random port number generator.</li>
 <li>Eleminate static listing socket objects in miniserver.</li>
@@ -129,7 +134,6 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <li>Create gtests for web_server_callback.</li>
 <li>Check bugfix in pupnp/upnp/src/urlconfig/urlconfig.cpp with a gtest.</li>
 <li>Move pupnp/upnp/src/inc/sock.hpp:79:static UPNP_INLINE int <a class="el" href="../../d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from -1.">sock_close()</a> to <a class="el" href="../../d5/db2/miniserver_8cpp.html" title="Implements the functionality and utility functions used by the Miniserver module.">miniserver.cpp</a> and rework.</li>
-<li>Rework README.md.</li>
 <li>Create own Url class.</li>
 <li>Replace <a class="el" href="../../d5/d91/ThreadPool_8hpp.html#d0/d41/structThreadPool" title="A thread pool.">ThreadPool</a> and multithreading with C++ standard library functions. </li>
 </ul>

@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_INCLUDE_PORT_HPP
 #define UPNPLIB_INCLUDE_PORT_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-09-08
 /*!
  * \file
  * \brief Specifications to be portable between different platforms.
@@ -23,6 +23,16 @@
 #endif
 #if !defined(NDEBUG) && !defined(DEBUG)
   #error "Neither NDEBUG nor DEBUG is definded."
+#endif
+
+// Check that we have the correct bit size for Large-file support when this
+// header is included into an application that uses the SDK
+// ------------------------------------------------------------------------
+#ifdef UPNP_LARGEFILE_SENSITIVE
+#include <climits>
+static_assert(sizeof(off_t) * CHAR_BIT == 64,
+              "UPnPsdk has Large-file support on 32 bit architectures. "
+              "Application MUST provide LFS.");
 #endif
 
 // Header file for portable <unistd.h>
@@ -69,16 +79,6 @@
   // POSIX names for functions
   #define strcasecmp _stricmp
   #define strncasecmp strnicmp
-#endif
-
-// Some different format specifications for printf() and friends
-// -------------------------------------------------------------
-#ifdef _MSC_VER
-  #define PRIzu "lu"
-  #define PRIzx "lx"
-#else
-  #define PRIzu "zu"
-  #define PRIzx "zx"
 #endif
 
 // Macros to disable and enable compiler warnings

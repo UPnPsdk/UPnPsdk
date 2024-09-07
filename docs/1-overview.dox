@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-09-09
 
 /*!
 \mainpage Overview
@@ -42,7 +42,18 @@ A TIME_WAIT is not necessary if the remote control point closes the connection. 
 
 This is unclear on Microsoft Windows. **THERE WE HAVE AN IMPORTANT SECURITY ISSUE!**\n
 In the past Windows had a very bad network security on low level socket handling as documented at [Using SO_REUSEADDR and SO_EXCLUSIVEADDRUSE](https://learn.microsoft.com/en-us/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse). Microsoft has fixed this since Windows Server 2003. The network stack now behaves like it does by default on other platforms. Strangely, they call it advanced security, which is standard on other major operating systems. But this isn't done by default. The developer has to take this into account by using the socket option SO_EXCLUSIVEADDRUSE. I always set this option with constructing a socket object on a WIN32 platform.
+
+\section overview_lfs LFS: Large-File Support
+For embedded devices 32 bit architectures are still supported. Only for this architectures Large-file support is needed to handle files greater 2 GiB. We need this because we have to handle video files that may exceed this limit. **For targets with 64 bit architecture LFS is not relevant.**
+
+The problem is the access to files. The natural limit is given by the address structure. With 32 bit you can access max. 2 GiB, with 64 bit architectures you can access usually 256 terabytes for example with `fseek`. To handle large files with 32 bit you have to provide new functions, e.g. `fseek64`. Microsoft Windows is going this way and provides `fseek` and `_fseeki64`. POSIX is going an other way. It provides `fseeko()` and `ftello()` functions that are identical to `fseek()` and `ftell()`, respectively, except that the offset argument of `fseeko()` and the return value of `ftello()` is of type off_t instead of long. On some architectures, both off_t and long are 32-bit types, but defining `_FILE_OFFSET_BITS=64` as compile option will turn off_t into a 64-bit type. This way you can compile your code to use LFS or not without modifications.
+\note **UPnPsdk** always supports large files and the application using the SDK MUST also do it to avoid a program crash due to different pointer sizes. If you try to compile for a 32 bit application without LFS you will get a compile error telling you to enable LFS for your application.
+
+\b References:
+- Wikipedia [Large-file support](https://en.wikipedia.org/wiki/Large-file_support)
+- Summary of LFS preprocessor marcros [What is the difference between _LARGEFILE_SOURCE and _FILE_OFFSET_BITS=64?](https://stackoverflow.com/questions/14184031/what-is-the-difference-between-largefile-source-and-file-offset-bits-64)
+- Example for a test of Large-file [AC_SYS_LARGEFILE with CMake](https://stackoverflow.com/questions/61339678/ac-sys-largefile-with-cmake)
+- To understand the problems here are some [relevant issues](https://github.com/pupnp/pupnp/issues?q=largefile)
 */
-// clang-format on
 
 // vim: filetype=cpp

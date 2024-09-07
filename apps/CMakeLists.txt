@@ -1,8 +1,8 @@
 # Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2023-08-06
+# Redistribution only with this Copyright remark. Last modified: 2024-09-07
 
 cmake_minimum_required(VERSION 3.18)
-include(../cmake/project-header.cmake)
+include(UPnPsdk-ProjectHeader)
 
 project(APPS VERSION 0002
         DESCRIPTION "Applications using different UPnPlib libraries"

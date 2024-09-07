@@ -34,7 +34,7 @@
   <td id="projectalign">
    <div id="projectname">UPnPsdk<span id="projectnumber">&#160;0.1</span>
    </div>
-   <div id="projectbrief">Universal Plug and Play +, Software Developement Kit</div>
+   <div id="projectbrief">Universal Plug and Play +, Software Development Kit</div>
   </td>
  </tr>
    <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
@@ -135,7 +135,17 @@ Socket option "reuse address"</h1>
 <p>I don't set the option to immediately reuse an address of a local connected socket after the connection closed unexpectedly. Instead I respect the <code>TIME_WAIT</code>. For an immediate reconnection I use a new address. A new <a class="el" href="d5/d67/Glossary.html#glossary_netaddr">netaddress</a> is already given with a changed port so I just use the same ip address with another port. I always reset socket option <code>SO_REUSEADDR</code> with constructing a socket object on all platforms.</p>
 <p>A TIME_WAIT is not necessary if the remote control point closes the connection. Upnplib uses the protocol to signal the remote control point to shutdown the connection if it support it.</p>
 <p>This is unclear on Microsoft Windows. <b>THERE WE HAVE AN IMPORTANT SECURITY ISSUE!</b><br  />
-In the past Windows had a very bad network security on low level socket handling as documented at <a href="https://learn.microsoft.com/en-us/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse">Using SO_REUSEADDR and SO_EXCLUSIVEADDRUSE</a>. Microsoft has fixed this since Windows Server 2003. The network stack now behaves like it does by default on other platforms. Strangely, they call it advanced security, which is standard on other major operating systems. But this isn't done by default. The developer has to take this into account by using the socket option SO_EXCLUSIVEADDRUSE. I always set this option with constructing a socket object on a WIN32 platform. </p>
+In the past Windows had a very bad network security on low level socket handling as documented at <a href="https://learn.microsoft.com/en-us/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse">Using SO_REUSEADDR and SO_EXCLUSIVEADDRUSE</a>. Microsoft has fixed this since Windows Server 2003. The network stack now behaves like it does by default on other platforms. Strangely, they call it advanced security, which is standard on other major operating systems. But this isn't done by default. The developer has to take this into account by using the socket option SO_EXCLUSIVEADDRUSE. I always set this option with constructing a socket object on a WIN32 platform.</p>
+<h1><a class="anchor" id="overview_lfs"></a>
+LFS: Large-File Support</h1>
+<p>For embedded devices 32 bit architectures are still supported. Only for this architectures Large-file support is needed to handle files greater 2 GiB. We need this because we have to handle video files that may exceed this limit. <b>For targets with 64 bit architecture LFS is not relevant.</b></p>
+<p>The problem is the access to files. The natural limit is given by the address structure. With 32 bit you can access max. 2 GiB, with 64 bit architectures you can access usually 256 terabytes for example with <code>fseek</code>. To handle large files with 32 bit you have to provide new functions, e.g. <code>fseek64</code>. Microsoft Windows is going this way and provides <code>fseek</code> and <code>_fseeki64</code>. POSIX is going an other way. It provides <code>fseeko()</code> and <code>ftello()</code> functions that are identical to <code>fseek()</code> and <code>ftell()</code>, respectively, except that the offset argument of <code>fseeko()</code> and the return value of <code>ftello()</code> is of type off_t instead of long. On some architectures, both off_t and long are 32-bit types, but defining <code>_FILE_OFFSET_BITS=64</code> as compile option will turn off_t into a 64-bit type. This way you can compile your code to use LFS or not without modifications. </p><dl class="section note"><dt>Note</dt><dd><b><a class="el" href="dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a></b> always supports large files and the application using the SDK MUST also do it to avoid a program crash due to different pointer sizes. If you try to compile for a 32 bit application without LFS you will get a compile error telling you to enable LFS for your application.</dd></dl>
+<p><b>References:</b> </p><ul>
+<li>Wikipedia <a href="https://en.wikipedia.org/wiki/Large-file_support">Large-file support</a></li>
+<li>Summary of LFS preprocessor marcros <a href="https://stackoverflow.com/questions/14184031/what-is-the-difference-between-largefile-source-and-file-offset-bits-64">What is the difference between _LARGEFILE_SOURCE and _FILE_OFFSET_BITS=64?</a></li>
+<li>Example for a test of Large-file <a href="https://stackoverflow.com/questions/61339678/ac-sys-largefile-with-cmake">AC_SYS_LARGEFILE with CMake</a></li>
+<li>To understand the problems here are some <a href="https://github.com/pupnp/pupnp/issues?q=largefile">relevant issues</a> </li>
+</ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

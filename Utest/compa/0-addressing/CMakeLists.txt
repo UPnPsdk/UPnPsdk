@@ -1,8 +1,8 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-08-20
+# Redistribution only with this Copyright remark. Last modified: 2024-09-07
 
 cmake_minimum_required(VERSION 3.18)
-include(../../../cmake/project-header.cmake)
+include(UPnPsdk-ProjectHeader)
 
 project(UTEST_ADDRESSING VERSION 0011
         DESCRIPTION "Tests for UPnP Addressing pupnp and compatible code"

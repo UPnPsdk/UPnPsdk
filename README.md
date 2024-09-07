@@ -8,6 +8,7 @@ The following general goals are in progress or planned:
 - Suporting main Unix derivates (e.g. Debian/Ubuntu, macOS), MS Windows
 - Drop in compatibillity with the old pUPnP library
 - Continued optimization for embedded devices
+- Including support of 32 bit architectures
 - Based on C++ with exceptions instead of C
 - Object oriented programming
 - Unit-Test driven development

@@ -1,6 +1,6 @@
-// Compile with:
-// g++ -std=c++23 -Wall -Wpedantic -Wextra -Werror -oUpnpInit2 \
-//     -I/usr/local/include UpnpInit2.cpp -lupnpsdk-pupnp
+// Compile 32 bit architecture (-m32) with Large-file support (64 bit):
+/* g++ -std=c++23 -Wall -Wpedantic -Wextra -Werror -m32 -D_FILE_OFFSET_BITS=64 \
+       -I/usr/local/include/upnp UpnpInit2.cpp -oUpnpInit2 -lupnpsdk-pupnp */
 // Execute with:
 // LD_LIBRARY_PATH=/usr/local/lib ./UpnpInit2
 

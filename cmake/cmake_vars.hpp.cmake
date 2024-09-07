@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_CMAKE_VARS_HPP
 #define UPNPLIB_CMAKE_VARS_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-20
+// Redistribution only with this Copyright remark. Last modified: 2024-09-08
 /*!
  * \file
  * \brief Defines symbols for the compiler that are provided by CMake.
@@ -39,16 +39,9 @@
  * UPNPLIB_PROJECT configuration settings
  ***************************************************************************/
 /* Large file support
- * whether the system defaults to 32bit off_t but can do 64bit when requested
- * warning libupnp requires largefile mode - use AC_SYS_LARGEFILE */
-#cmakedefine UPNP_LARGEFILE_SENSITIVE
-#if defined UPNP_LARGEFILE_SENSITIVE && _FILE_OFFSET_BITS + 0 != 64
-#if defined __GNUC__
-#warning libupnp requires largefile mode - use AC_SYS_LARGEFILE
-#elif !defined _WIN32
-#error libupnp requires largefile mode - use AC_SYS_LARGEFILE
-#endif
-#endif
+ * whether the system defaults to 32bit off_t but can do 64bit for off_t with
+ * compile option _FILE_OFFSET_BITS=64 */
+#cmakedefine UPNP_LARGEFILE_SENSITIVE ${UPNP_LARGEFILE_SENSITIVE}
 
 /***************************************************************************
  * Other settings

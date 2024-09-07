@@ -1,12 +1,17 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-05
+// Redistribution only with this Copyright remark. Last modified: 2024-09-07
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
+ * - Rework apps/ and use it as Test for Large-file support.
+ * - Rename global.hpp to UPnPsdk.hpp and manage to initial \#include it.
  * - Use of UPnPsdk with sample program.
- * - Create Unit Test for large file system support (issue #15).
+ * - Optimize SDK installation.
+ *   \n - Use ixml only static compiled.
+ *   \n - Use umock only static compiled.
+ * - Compile OpenSSL instead of using its external library.
  * - Remove Interface/ directory.
  * - Remove random port number generator.
  * - Eleminate static listing socket objects in miniserver.
@@ -28,7 +33,6 @@
  * - Create gtests for web_server_callback.
  * - Check bugfix in pupnp/upnp/src/urlconfig/urlconfig.cpp with a gtest.
  * - Move pupnp/upnp/src/inc/sock.hpp:79:static UPNP_INLINE int sock_close() to miniserver.cpp and rework.
- * - Rework README.md.
  * - Create own Url class.
  * - Replace ThreadPool and multithreading with C++ standard library functions.
  */

@@ -1,11 +1,12 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-04
+# Redistribution only with this Copyright remark. Last modified: 2024-09-08
 
 cmake_minimum_required(VERSION 3.18)
-include(cmake/project-header.cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
+include(UPnPsdk-ProjectHeader)
 
 project("UPnPsdk" VERSION "0.1.0"
-                DESCRIPTION "UPnP library"
+                DESCRIPTION "UPnP Software Development Kit"
                 HOMEPAGE_URL "https://github.com/UPnPsdk")
 
 set(PUPNP_VERSION "1.14.19")
@@ -145,6 +146,19 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 # mainly for the compile time short file name of Debug and TRACE messages.
 string(LENGTH "${CMAKE_SOURCE_DIR}/" UPnPsdk_PROJECT_PATH_LENGTH)
 
+# Large-file-sensitivity on 32 bit architecture
+# Note: On Microsoft Windows 'off_t' is always long that would make it fix
+# 32-bit (even 64-bit Windows uses 32-bit for long). That means it is never
+# sensitive. We have explicit to use _fseeki64 and _ftelli64 to access large
+# files there.
+if(NOT MSVC)
+    include(CheckTypeSize)
+    check_type_size (off_t OFF_T_SIZE)
+    if (OFF_T_SIZE EQUAL 4) # This is given on a 32 bit architecture
+        set (UPNP_LARGEFILE_SENSITIVE 1 CACHE INTERNAL "whether the system defaults to 32bit off_t but can do 64bit when requested" FORCE)
+    endif()
+endif()
+
 # Set general compile definitions and options
 #--------------------------------------------
 add_compile_definitions(
@@ -154,6 +168,10 @@ add_compile_definitions(
         # General define DEBUG if build type is "Debug". Manage setting NDEBUG
         # is done by cmake by default.
         $<$<CONFIG:Debug>:DEBUG>
+
+        # Set Large-file support if 32 bit architecture is used.
+        $<$<BOOL:${UPNP_LARGEFILE_SENSITIVE}>:_FILE_OFFSET_BITS=64>
+
         # There are traditional min/max macros on MS Windows which conflict
         # with the C++ std::min|max functions. Following switch disable the
         # macros.
@@ -163,6 +181,7 @@ add_compile_definitions(
         $<$<CXX_COMPILER_ID:MSVC>:FD_SETSIZE=1024>
         $<$<BOOL:${UPnPsdk_WITH_TRACE}>:UPnPsdk_WITH_TRACE>
 )
+
 add_compile_options(
         # Most compiler warnings enabled
         $<$<CXX_COMPILER_ID:MSVC>:/W4>
@@ -190,6 +209,7 @@ add_compile_options(
         #$<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-fanalyzer>
         #$<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wfatal-errors>
 )
+
 if(DEFINED ENV{GITHUB_ACTIONS})
     add_compile_options(
         $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-unused-result>)
@@ -218,108 +238,6 @@ else()
 endif()
 # Output with cmake option --log-level=DEBUG
 message(DEBUG "  DEBUG: UPnPsdk_RUNTIME_OUTPUT_DIRECTORY is: ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}")
-
-
-#################################
-# Large-file-sensitivity        #
-#################################
-# TODO: Check large-file-sensitivity
-# [Add LFS flags to pkg-config? #89](https://github.com/pupnp/pupnp/issues/89)
-# Check for what CMAKE_REQUIRED_DEFINITIONS is needed
-# In the changelog I found this: (--Ingo)
-#
-#2011-01-16 Marcelo Roberto Jimenez <mroberto(at)users.sourceforge.net>
-#
-#    Define _FILE_OFFSET_BITS, _LARGEFILE_SOURCE and _LARGE_FILE_SOURCE in
-#    upnpconfig.hpp.
-#
-#    Make these definitions available to programs using the library.
-#    Thanks to Chandra Penke for pointing the problem.
-#
-#    Summary: Problem with large file support in pupnp build - ID: 3158969
-#    Submitted: Chandra ( inactiveneurons ) - 2011-01-15 16:17:02 BRST
-#    Details:
-#    First off, I apologize in advance for the length of this comment, it's
-#    the only way I could describe the problem accurately.
-#
-#    Secondly, a brief thanks (again). The company I'm working for has been
-#    using pupnp for a massively cross-platform project which involves iphone,
-#    osx, windows, linux x86, arm, and mips hosts. It's amazing how well it
-#    works, so kudos to the maintainers!
-#
-#    We came across a problem when compiling with the following tool-chain:
-#    http://www.codesourcery.com/sgpp/lite/mips/portal/release824. The
-#    problem is the following:
-#
-#    In configure.ac the following lines exist to enable large file support:
-#
-#    AC_DEFINE([_LARGE_FILE_SOURCE], [], [Large files support])
-#    AC_DEFINE([_FILE_OFFSET_BITS], [64], [File Offset size])
-#
-#    Which in turn result in the following #defines in autoconfig.h
-#    (now upnpconfig.hpp):
-#
-#    #define _LARGE_FILE_SOURCE /**/
-#    #define _FILE_OFFSET_BITS 64
-#
-#    However, this file is not exported as part of the upnp build. Therefore,
-#    while the entire library gets built with large file support, it's
-#    possible that dependent libraries which only rely on the include files
-#    may not use large file support.
-#
-#    In the particular case of the above tool-chain, the 'off_t' type is 8
-#    bytes when large file support is enabled, but only 4 bytes when it's
-#    not. As a result part our stack built on top of pupnp, which did not
-#    have large file support (because it did not use the above autoconf
-#    directives), was relying on 'a off_t' that was 4 bytes.
-#
-#    This caused, among many things, for the UpnpFileInfo struct to break.
-#    Since the struct is completely invisible outside of pupnp (because of
-#    some template macro magic), pupnp thought that 'FileLength' field was
-#    8 bytes, but the header setter/getter methods being used by dependent
-#    libraries thought that it was 4, which caused some erratic behavior
-#    when going through pupnp's webserver and HTTP client API.
-#
-#    We put in a temporary work around by adding the following preprocessor
-#    flags: -D_LARGE_FILE_SOURCE, -D_FILE_OFFSET_BITS=64 as part of our
-#    build process. However, it's a hack, and I was wondering if I'm missing
-#    something and there's a better way to approach this.
-#
-#    Thanks,
-#    Chandra
-
-include(CheckTypeSize)
-if (NOT HAVE_OFF_T_SIZE AND NOT MSVC)
-    check_type_size (off_t OFF_T_SIZE)
-    set (UPNP_LARGEFILE_SENSITIVE FALSE CACHE BOOL "whether the system defaults to 32bit off_t but can do 64bit when requested" FORCE)
-
-    if (OFF_T_SIZE EQUAL 8)
-        message (STATUS "System uses 64 bit, no flags needed")
-    else()
-        unset (HAVE_OFF_T_SIZE CACHE)
-        set (CMAKE_REQUIRED_DEFINITIONS -D_FILE_OFFSET_BITS=64)
-        check_type_size (off_t OFF_T_SIZE)
-
-        if (OFF_T_SIZE EQUAL 8)
-            message (STATUS "_FILE_OFFSET_BITS=64 needed")
-            set (UPNP_LARGEFILE_SENSITIVE TRUE CACHE BOOL "whether the system defaults to 32bit off_t but can do 64bit when requested" FORCE)
-            set (_FILE_OFFSET_BITS 64 CACHE BOOL "Number of bits in a file offset, on hosts where this is settable" FORCE)
-        else()
-            unset (HAVE_OFF_T_SIZE CACHE)
-            set (CMAKE_REQUIRED_DEFINITIONS -D_LARGE_FILES)
-            check_type_size (off_t OFF_T_SIZE)
-
-            if (OFF_T_SIZE EQUAL 8)
-                message (STATUS "_LARGE_FILES needed")
-                set (_LARGE_FILES TRUE CACHE BOOL "Define for large files, on AIX-style hosts." FORCE)
-                set (UPNP_LARGEFILE_SENSITIVE TRUE CACHE BOOL "whether the system defaults to 32bit off_t but can do 64bit when requested" FORCE)
-            endif()
-        endif()
-    endif()
-elseif (MSVC)
-    set (_LARGE_FILES TRUE CACHE BOOL "Define for large files, on AIX-style hosts." FORCE)
-    set (UPNP_LARGEFILE_SENSITIVE TRUE CACHE BOOL "whether the system defaults to 32bit off_t but can do 64bit when requested" FORCE)
-endif()
 
 
 ##########################################
@@ -500,7 +418,7 @@ endif(UPnPsdk_WITH_GOOGLETEST)
 
 
 #################################
-# UPnP subdirectories           #
+# UPnPsdk subdirectories        #
 #################################
 # This caches <subprojectname>_SOURCE_DIR and <subprojectname_BINARY_DIR
 # e.g. PUPNP_UPNP_SOURCE_DIR and PUPNP_UPNP_BINARY_DIR
