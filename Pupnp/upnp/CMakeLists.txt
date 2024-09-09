@@ -1,12 +1,12 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-07
+# Redistribution only with this Copyright remark. Last modified: 2024-09-09
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
 project(PUPNP_UPNP VERSION 0030
         DESCRIPTION "Binary build of the UPnP library core"
-        HOMEPAGE_URL "https://github.com/upnplib")
+        HOMEPAGE_URL "https://github.com/UPnPsdk")
 
 # This contains all settings to compile the library dynamically and static.
 #==========================================================================
@@ -188,6 +188,10 @@ set(PUPNP_PUBLIC_HEADERS
     inc/upnpdebug.h
     inc/upnpdebug.hpp
     ${CMAKE_BINARY_DIR}/include/cmake_vars.hpp
+    #ixml.h
+    #ixmldebug.h
+    #posix_overwrites.h
+    #upnpconfig.h
 )
 
 set(PUPNP_INCLUDE_DIRECTORIES

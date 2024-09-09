@@ -1,12 +1,12 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-07
+# Redistribution only with this Copyright remark. Last modified: 2024-09-09
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
 project(GTESTS_COMPA_UTIL VERSION 0001
                   DESCRIPTION "Tests for utilities and helper"
-                  HOMEPAGE_URL "https://github.com/upnplib")
+                  HOMEPAGE_URL "https://github.com/UPnPsdk")
 
 
 # list

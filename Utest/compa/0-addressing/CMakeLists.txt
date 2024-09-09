@@ -1,12 +1,12 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-07
+# Redistribution only with this Copyright remark. Last modified: 2024-09-09
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
 project(UTEST_ADDRESSING VERSION 0011
         DESCRIPTION "Tests for UPnP Addressing pupnp and compatible code"
-        HOMEPAGE_URL "https://github.com/upnplib")
+        HOMEPAGE_URL "https://github.com/UPnPsdk")
 
 
 # sock
