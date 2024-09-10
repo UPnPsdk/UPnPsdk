@@ -103,14 +103,18 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <div class="textblock"><dl class="reflist">
 <dt>File <a class="el" href="../../de/d2c/A__general__TODO-list_8dox.html">A_general_TODO-list.dox</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a><ul>
-<li>Rework apps/ and use it as Test for Large-file support.</li>
-<li>Rename <a class="el" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables.">global.hpp</a> to UPnPsdk.hpp and manage to initial #include it.</li>
-<li>Use of <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> with sample program.</li>
+<li>Create simple api-call functions (needed for next line).</li>
+<li>Test large-file support with Github Action.</li>
+<li>Fix limitation: compile 32 bit on 64 bit MS Windows isn't possible because pthreads4w only compile to host architecture (NMake Makefiles does not support platform specification).</li>
+<li>Fix limitation: MS Windows build with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.</li>
+<li>Enable ixml test suite.</li>
 <li>Optimize SDK installation. <br  />
  - Use ixml only static compiled. <br  />
  - Use umock only static compiled.</li>
 <li>Compile OpenSSL instead of using its external library.</li>
-<li>Remove Interface/ directory.</li>
+<li>Update installation description in ./README.md.</li>
+<li>Use of <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> installation with sample program.</li>
+<li>Remove Interface/ directory?</li>
 <li>Remove random port number generator.</li>
 <li>Eleminate static listing socket objects in miniserver.</li>
 <li>Create connection class.</li>

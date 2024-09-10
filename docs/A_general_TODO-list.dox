@@ -1,18 +1,23 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-07
+// Redistribution only with this Copyright remark. Last modified: 2024-09-12
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Rework apps/ and use it as Test for Large-file support.
- * - Rename global.hpp to UPnPsdk.hpp and manage to initial \#include it.
- * - Use of UPnPsdk with sample program.
+ * - Create simple api-call functions (needed for next line).
+ * - Test large-file support with Github Action.
+ * - Fix limitation: compile 32 bit on 64 bit MS Windows isn't possible because pthreads4w only compile to host architecture (NMake Makefiles does not support platform specification).
+ * - Fix limitation: Linux 32 bit build with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries.
+ * - Fix limitation: MS Windows build with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.
+ * - Enable ixml test suite.
  * - Optimize SDK installation.
  *   \n - Use ixml only static compiled.
  *   \n - Use umock only static compiled.
  * - Compile OpenSSL instead of using its external library.
- * - Remove Interface/ directory.
+ * - Update installation description in ./README.md.
+ * - Use of UPnPsdk installation with sample program.
+ * - Remove Interface/ directory?
  * - Remove random port number generator.
  * - Eleminate static listing socket objects in miniserver.
  * - Create connection class.

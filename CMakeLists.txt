@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-08
+# Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 cmake_minimum_required(VERSION 3.18)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -22,7 +22,8 @@ enable_testing()
 include(CMakeDependentOption)
 
 option(UPnPsdk_WITH_NATIVE_PUPNP "Build the library with old native PUPNP code." OFF)
-option(UPnPsdk_WITH_OPENSSL "SSL/TLS and Crypto support should always be ON if not restricted by law." ON)
+set(UPnPsdk_WITH_OPENSSL OFF CACHE INTERNAL "Temporary disabled as long as problems with prebuilt OpenSSL libraries persist.") # Implies FORCE
+#option(UPnPsdk_WITH_OPENSSL "SSL/TLS and Crypto support should always be ON if not restricted by law." ON)
 option(UPnPsdk_WITH_MINISERVER "Provide the miniserver for low level network communication." OFF)
 option(UPnPsdk_WITH_WEBSERVER "Provide a webserver." OFF)
 option(UPnPsdk_WITH_CTRLPT_SSDP "Providing control point functionality to manage a remote UPnP device." OFF)
@@ -36,7 +37,7 @@ option(UPnPsdk_WITH_CTRLPT_GENA "Enable GENA, the General Event Notification Arc
 option(UPnPsdk_WITH_DEVICE_GENA "Enable GENA, the General Event Notification Architecture." OFF)
 option(UPnPsdk_WITH_IXML "Enable IXML script support." OFF)
 option(UPnPsdk_WITH_TOOLS "Make some not essential program features available like text for error numbers etc." OFF)
-option(UPnPsdk_WITH_SAMPLES "Provide sample programs device and control point." OFF)
+option(UPnPsdk_WITH_SAMPLES "Provide sample programs UPnP device and control point." OFF)
 option(UPnPsdk_WITH_GOOGLETEST "Download and build Googletest." OFF)
 option(UPnPsdk_WITH_TRACE "Compile trace messages into the libraries for analizing program execution." OFF)
 option(GTESTS_WITH_SHARED_LIBS "Build GOOGLETEST libraries shared. You should not disable this except you know what you doing." ON)
@@ -53,11 +54,13 @@ option(GTESTS_WITH_SHARED_LIBS "Build GOOGLETEST libraries shared. You should no
     # This is not an option anymore. Blocking until data received is always
     # enabled.
 
-if(UPnPsdk_WITH_GOOGLETEST OR UPnPsdk_WITH_SAMPLES)
+if(UPnPsdk_WITH_GOOGLETEST)
     # It is important to have the old library available with the tests because
     # the new code is compared with it.
     set (UPnPsdk_WITH_NATIVE_PUPNP ON CACHE BOOL
         "Build the library with old native PUPNP code." FORCE)
+    set (UPnPsdk_WITH_SAMPLES ON CACHE BOOL
+         "Provide sample programs UPnP device and control point." FORCE)
 endif()
 
 if(GTESTS_WITH_SHARED_LIBS)
@@ -432,7 +435,9 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/UPnPsdk)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Pupnp)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Ixml)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Compa)
-add_subdirectory(${PROJECT_SOURCE_DIR}/sample)
+if (UPnPsdk_WITH_SAMPLES)
+    add_subdirectory(${PROJECT_SOURCE_DIR}/Sample)
+endif()
 #add_subdirectory(${PROJECT_SOURCE_DIR}/apps)
 if(googletest_POPULATED)
     add_subdirectory(${PROJECT_SOURCE_DIR}/Utest)
