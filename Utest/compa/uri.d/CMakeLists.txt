@@ -16,7 +16,7 @@ project(GTESTS_COMPA_URI VERSION 0003
 # conflicts. We must use static libraries.
 if(FALSE)
 # Direct linking with source files currently not used but having available for
-# reference. We link against the internal upnplib libraries (see below).
+# reference. We link against the internal UPnPsdk libraries (see below).
 add_executable(test_uri-pst
     ${PUPNP_UPNP_SOURCE_DIR}/src/global.cpp
     ${GTESTS_SOURCE_DIR}/tools/mockObj.cpp
@@ -46,11 +46,11 @@ add_test(NAME ctest_uri-pst COMMAND test_uri-pst --gtest_shuffle
 # conflicts. We must use static libraries.
 if(FALSE)
 # Direct linking with source files currently not used but having available for
-# reference. We link against the internal upnplib libraries (see below).
+# reference. We link against the internal UPnPsdk libraries (see below).
 add_executable(test_uri_parse-pst
     ${PUPNP_UPNP_SOURCE_DIR}/src/global.cpp
     ${GTESTS_SOURCE_DIR}/tools/mockObj.cpp
-    ${UPNPLIB_SOURCE_DIR}/src/api/upnptools.cpp
+    ${UPnPsdk_SOURCE_DIR}/src/api/upnptools.cpp
     ./test_uri_parse.cpp
 )
 endif()
@@ -64,7 +64,7 @@ target_include_directories(test_uri_parse-pst
 target_link_libraries(test_uri_parse-pst
     PRIVATE
         pupnp_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_uri_parse-pst COMMAND test_uri_parse-pst --gtest_shuffle

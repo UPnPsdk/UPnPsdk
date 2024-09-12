@@ -108,8 +108,10 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd><ul>
 <li>Create simple api-call functions (needed for next line).</li>
 <li>Test large-file support with Github Action.</li>
-<li>Fix limitation: compile 32 bit on 64 bit MS Windows isn't possible because pthreads4w only compile to host architecture (NMake Makefiles does not support platform specification).</li>
-<li>Fix limitation: MS Windows build with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.</li>
+<li>Create library info function that can be called with the API.</li>
+<li>Fix limitation: On Linux 64 bit building to 32 bit with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries.</li>
+<li>Fix limitation: On MS Windows 64 bit building with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.</li>
+<li>Fix limitation: On MS Windows 64 bit compile to 32 bit isn't possible because pthreads4w only compile to host architecture (NMake Makefiles does not support platform specification).</li>
 <li>Enable ixml test suite.</li>
 <li>Optimize SDK installation. <br  />
  - Use ixml only static compiled. <br  />

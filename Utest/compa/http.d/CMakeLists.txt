@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -35,7 +35,7 @@ target_compile_options(test_webserver-pst
 target_link_libraries(test_webserver-pst
         PRIVATE
             pupnp_static
-            upnplib_static
+            UPnPsdk_static
 )
 add_test(NAME ctest_webserver-pst COMMAND test_webserver-pst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -51,7 +51,7 @@ target_include_directories(test_webserver-cst
 target_link_libraries(test_webserver-cst
         PRIVATE
             compa_static
-            upnplib_static
+            UPnPsdk_static
 )
 add_test(NAME ctest_webserver-cst COMMAND test_webserver-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -65,7 +65,7 @@ add_test(NAME ctest_webserver-cst COMMAND test_webserver-cst --gtest_shuffle
 # conflicts. We must use static libraries.
 if(FALSE)
 # Direct linking with source files currently not used but having available for
-# reference. We link against the internal upnplib libraries (see below).
+# reference. We link against the internal UPnPsdk libraries (see below).
 add_executable(test_httpparser-pst
     ${PUPNP_UPNP_SOURCE_DIR}/src/global.cpp
     ./tools/mockObj.cpp
@@ -122,7 +122,7 @@ target_compile_definitions(test_httpparser-cst
 target_link_libraries(test_httpparser-cst
         PRIVATE
             compa_static
-            upnplib_static
+            UPnPsdk_static
 )
 add_test(NAME ctest_httpparser-cst COMMAND test_httpparser-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}

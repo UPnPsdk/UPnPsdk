@@ -5,13 +5,13 @@ cmake_minimum_required(VERSION 3.18)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
 include(UPnPsdk-ProjectHeader)
 
-project("UPnPsdk" VERSION "0.1.0"
+project("UPnPsdk" VERSION "0.2.0"
                 DESCRIPTION "UPnP Software Development Kit"
                 HOMEPAGE_URL "https://github.com/UPnPsdk")
 
-set(PUPNP_VERSION "1.14.19")
-if(NOT PUPNP_VERSION MATCHES "^[0-9]+\\.[0-9]+\\.[0-9]+$")
-    message(FATAL_ERROR "${PUPNP_VERSION} is not a valid pUPnP version number.")
+set(PUPNP_VERSION_STR "1.14.19")
+if(NOT PUPNP_VERSION_STR MATCHES "^[0-9]+\\.[0-9]+\\.[0-9]+$")
+    message(FATAL_ERROR "${PUPNP_VERSION_STR} is not a valid pUPnP version number.")
 endif()
 
 enable_testing()
@@ -22,8 +22,10 @@ enable_testing()
 include(CMakeDependentOption)
 
 option(UPnPsdk_WITH_NATIVE_PUPNP "Build the library with old native PUPNP code." OFF)
-set(UPnPsdk_WITH_OPENSSL OFF CACHE INTERNAL "Temporary disabled as long as problems with prebuilt OpenSSL libraries persist.") # Implies FORCE
-#option(UPnPsdk_WITH_OPENSSL "SSL/TLS and Crypto support should always be ON if not restricted by law." ON)
+option(UPnPsdk_WITH_OPENSSL "SSL/TLS and Crypto support should always be ON if not restricted by law." OFF)
+# if(UPnPsdk_WITH_OPENSSL AND CMAKE_CXX_FLAGS STREQUAL "-m32")
+#     message(FATAL_ERROR "OpenSSL temporary not available due to problems with outdated prebuilt libraries.")
+# endif()
 option(UPnPsdk_WITH_MINISERVER "Provide the miniserver for low level network communication." OFF)
 option(UPnPsdk_WITH_WEBSERVER "Provide a webserver." OFF)
 option(UPnPsdk_WITH_CTRLPT_SSDP "Providing control point functionality to manage a remote UPnP device." OFF)
@@ -89,13 +91,14 @@ add_compile_definitions(
 )
 
 # Update pUPnP version number in README.md but only if it has changed.
-if(NOT PUPNP_VERSION_STRING VERSION_EQUAL PUPNP_VERSION)
-    set(PUPNP_VERSION_STRING ${PUPNP_VERSION} CACHE INTERNAL
+if(NOT PUPNP_VERSION VERSION_EQUAL PUPNP_VERSION_STR)
+    set(PUPNP_VERSION ${PUPNP_VERSION_STR} CACHE INTERNAL
         "The current version of the forked pUPnP library.")  # Implies FORCE
-    message("-- PUPNP_VERSION_STRING set to \"${PUPNP_VERSION_STRING}\"")
+    message("-- PUPNP_VERSION set to \"${PUPNP_VERSION}\"")
+    # Show current pUPnP version in the README.md
     file(READ README.md FILE_CONTENTS)
     string(REGEX REPLACE "release-[0-9]+\.[0-9]+\.[0-9]+"
-           "release-${PUPNP_VERSION_STRING}" FILE_CONTENTS_OUT ${FILE_CONTENTS})
+           "release-${PUPNP_VERSION}" FILE_CONTENTS_OUT ${FILE_CONTENTS})
     file(WRITE README.md ${FILE_CONTENTS_OUT})
 endif()
 
@@ -438,7 +441,7 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/Compa)
 if (UPnPsdk_WITH_SAMPLES)
     add_subdirectory(${PROJECT_SOURCE_DIR}/Sample)
 endif()
-#add_subdirectory(${PROJECT_SOURCE_DIR}/apps)
+add_subdirectory(${PROJECT_SOURCE_DIR}/Apps)
 if(googletest_POPULATED)
     add_subdirectory(${PROJECT_SOURCE_DIR}/Utest)
 endif()

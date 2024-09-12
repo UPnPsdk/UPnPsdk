@@ -3,7 +3,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-20
+ * Redistribution only with this Copyright remark. Last modified: 2024-09-12
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -36,8 +36,7 @@
 #include <FreeList.hpp>
 #include <upnpdebug.hpp>
 #include <upnptools.hpp>
-#include <init.hpp>
-
+#include <UPnPsdk/global.hpp>
 /// \cond
 #include <iostream>
 #include <sstream>
@@ -297,19 +296,12 @@ int main() {
     // Check correct linking of the different internal libraries
     // ---------------------------------------------------------
     std::cout << "---- library information ---------\n"
-              << ::libinfo() << std::endl; // Info from pupnp
-#ifndef UPnPsdk_WITH_NATIVE_PUPNP
-    std::cout << libinfo() << std::endl; // Info from upnplib
-#endif
-    std::cout << "UPNP_VERSION_STRING     = " << UPNP_VERSION_STRING << "\n"
-              << "UPNP_VERSION_MAJOR      = " << UPNP_VERSION_MAJOR << "\n"
-              << "UPNP_VERSION_MINOR      = " << UPNP_VERSION_MINOR << "\n"
-              << "UPNP_VERSION_PATCH      = " << UPNP_VERSION_PATCH << "\n"
-              << "UPNP_VERSION            = " << UPNP_VERSION << "\n";
+              << "UPnPsdk_VERSION         = " << UPnPsdk_VERSION
+              << "\nPUPNP_VERSION           = " << PUPNP_VERSION;
 
     // Starting POSIX Threads
     // ----------------------
-    std::cout << "\n-- Starting POSIX Threads ..." << std::endl;
+    std::cout << "\n\n-- Starting POSIX Threads ..." << std::endl;
 
     pthread_t thread_info;
 

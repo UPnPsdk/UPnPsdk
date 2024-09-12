@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -128,7 +128,7 @@ target_compile_definitions(test_miniserver-pst
 target_link_libraries(test_miniserver-pst
     PRIVATE
         pupnp_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_miniserver-pst COMMAND test_miniserver-pst --gtest_shuffle
@@ -145,7 +145,7 @@ target_include_directories(test_miniserver-cst
 target_link_libraries(test_miniserver-cst
     PRIVATE
         compa_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_miniserver-cst COMMAND test_miniserver-cst --gtest_shuffle
@@ -199,7 +199,7 @@ target_compile_options(test_miniserver_run-cst
 target_link_libraries(test_miniserver_run-cst
     PRIVATE
         compa_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_miniserver_run-cst COMMAND test_miniserver_run-cst --gtest_shuffle

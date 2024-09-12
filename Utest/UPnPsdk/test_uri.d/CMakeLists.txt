@@ -1,10 +1,10 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
-project(GTESTS_UPNPLIB_URI VERSION 0003
+project(GTESTS_UPnPsdk_URI VERSION 0003
                   DESCRIPTION "Tests for the uri module and url class"
                   HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -16,7 +16,7 @@ add_executable(test_urlparser
 )
 target_include_directories(test_urlparser
     PRIVATE ${CMAKE_SOURCE_DIR}
-    PRIVATE ${UPNPLIB_SOURCE_DIR}/include
+    PRIVATE ${CMAKE_SOURCE_DIR}/UPnPsdk/include
 )
 add_test(NAME ctest_urlparser COMMAND test_urlparser --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -35,7 +35,7 @@ add_executable(test_url_class
 )
 target_include_directories(test_url_class
     PRIVATE ${CMAKE_SOURCE_DIR}
-    PRIVATE ${UPNPLIB_SOURCE_DIR}/include
+    PRIVATE ${CMAKE_SOURCE_DIR}/UPnPsdk/include
 )
 add_test(NAME ctest_url_class COMMAND test_url_class --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}

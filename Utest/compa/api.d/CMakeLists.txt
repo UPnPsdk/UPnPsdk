@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -30,7 +30,7 @@ target_compile_options(test_upnpdebug-pst
 target_link_libraries(test_upnpdebug-pst
     PRIVATE
         pupnp_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_upnpdebug-pst COMMAND test_upnpdebug-pst --gtest_shuffle
@@ -47,7 +47,7 @@ target_include_directories(test_upnpdebug-cst
 target_link_libraries(test_upnpdebug-cst
     PRIVATE
         compa_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_upnpdebug-cst COMMAND test_upnpdebug-cst --gtest_shuffle
@@ -168,7 +168,7 @@ add_test(NAME ctest_UpnpFileInfo-csh COMMAND test_UpnpFileInfo-csh --gtest_shuff
 # must use static libraries.
 if(FALSE)
 # Direct linking with source files currently not used but having available for
-# reference. We link against the internal upnplib libraries (see below).
+# reference. We link against the internal UPnPsdk libraries (see below).
 set(UPNP_UPNPAPI_SOURCE_FILES
     ${PUPNP_IXML_SOURCE_DIR}/src/attr.cpp
     ${PUPNP_IXML_SOURCE_DIR}/src/document.cpp
@@ -206,7 +206,7 @@ set(UPNP_UPNPAPI_SOURCE_FILES
     ${PUPNP_UPNP_SOURCE_DIR}/src/api/UpnpString.cpp
     $<$<CONFIG:Debug>:${PUPNP_UPNP_SOURCE_DIR}/src/api/upnpdebug.cpp>
 
-    ${UPNPLIB_SOURCE_DIR}/src/api/upnptools.cpp
+    ${UPnPsdk_SOURCE_DIR}/src/api/upnptools.cpp
 )
 endif()
 
@@ -235,7 +235,7 @@ target_compile_options(test_upnpapi-pst
 target_link_libraries(test_upnpapi-pst
     PRIVATE
         pupnp_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_upnpapi-pst COMMAND test_upnpapi-pst --gtest_shuffle
@@ -255,7 +255,7 @@ target_compile_definitions(test_upnpapi-cst
 target_link_libraries(test_upnpapi-cst
     PRIVATE
         compa_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_upnpapi-cst COMMAND test_upnpapi-cst --gtest_shuffle
@@ -281,7 +281,7 @@ target_compile_options(test_upnpapi_platform-pst
 target_link_libraries(test_upnpapi_platform-pst
     PRIVATE
         pupnp_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_upnpapi_platform-pst COMMAND test_upnpapi_platform-pst --gtest_shuffle
@@ -299,7 +299,7 @@ target_include_directories(test_upnpapi_platform-cst
 target_link_libraries(test_upnpapi_platform-cst
     PRIVATE
         compa_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_upnpapi_platform-cst COMMAND test_upnpapi_platform-cst --gtest_shuffle

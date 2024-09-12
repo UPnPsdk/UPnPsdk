@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 // There is no include guard '#ifndef ...' because this file shouln't be
 // included more than two times as given.
@@ -32,8 +32,10 @@ namespace UPnPsdk {
 inline constexpr int g_response_timeout{30};
 
 // Info message about the library
-inline constexpr std::string_view libinfo{
-    "upnplib library version = under developement"};
+// This is not the right place because I need to #include <cmake_vars.hpp>.
+// Needs rework.
+// inline constexpr std::string_view UPnPsdk_version{UPnPsdk_VERSION};
+// inline constexpr std::string_view PUPNP_version{PUPNP_VERSION};
 
 } // namespace UPnPsdk
 /// \endcond

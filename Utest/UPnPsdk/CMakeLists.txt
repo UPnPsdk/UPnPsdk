@@ -1,11 +1,11 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
-project(GTEST5_UPNPLIB VERSION 0003
-      DESCRIPTION "Tests for upnplib programs"
+project(GTEST5_UPnPsdk VERSION 0003
+      DESCRIPTION "Tests for UPnPsdk programs"
       HOMEPAGE_URL "https://github.com/UPnPsdk")
 
 
@@ -27,7 +27,7 @@ add_executable(test_upnptools-ust
     test_upnptools.cpp
 )
 target_link_libraries(test_upnptools-ust
-    PRIVATE upnplib_static
+    PRIVATE UPnPsdk_static
 )
 add_test(NAME ctest_upnptools-ust COMMAND test_upnptools-ust --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -40,7 +40,7 @@ add_executable(test_netaddr-ust
     test_netaddr.cpp
 )
 target_link_libraries(test_netaddr-ust
-    PRIVATE upnplib_static
+    PRIVATE UPnPsdk_static
     PRIVATE utest_static
 )
 add_test(NAME ctest_netaddr-ust COMMAND test_netaddr-ust --gtest_shuffle
@@ -57,7 +57,7 @@ target_include_directories(test_sockaddr-ust
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
 target_link_libraries(test_sockaddr-ust
-    PRIVATE upnplib_static
+    PRIVATE UPnPsdk_static
     PRIVATE utest_static
 )
 add_test(NAME ctest_sockaddr-ust COMMAND test_sockaddr-ust --gtest_shuffle
@@ -74,7 +74,7 @@ target_include_directories(test_addrinfo-ust
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
 target_link_libraries(test_addrinfo-ust
-    PRIVATE upnplib_static
+    PRIVATE UPnPsdk_static
     PRIVATE utest_static
 )
 add_test(NAME ctest_addrinfo-ust COMMAND test_addrinfo-ust --gtest_shuffle

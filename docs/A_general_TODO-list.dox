@@ -5,11 +5,12 @@
  * \brief A general TODO-list
  *
  * \todo
- * - Create simple api-call functions (needed for next line).
+ * - Construct UPnPsdk API and create simple api-call functions (needed for next line).
  * - Test large-file support with Github Action.
- * - Fix limitation: compile 32 bit on 64 bit MS Windows isn't possible because pthreads4w only compile to host architecture (NMake Makefiles does not support platform specification).
- * - Fix limitation: Linux 32 bit build with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries.
- * - Fix limitation: MS Windows build with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.
+ * - Create library info function that can be called with the API.
+ * - Fix limitation: On Linux 64 bit building to 32 bit with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries.
+ * - Fix limitation: On MS Windows 64 bit building with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.
+ * - Fix limitation: On MS Windows 64 bit compile to 32 bit isn't possible because pthreads4w only compile to host architecture (NMake Makefiles does not support platform specification).
  * - Enable ixml test suite.
  * - Optimize SDK installation.
  *   \n - Use ixml only static compiled.

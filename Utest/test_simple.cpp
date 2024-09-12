@@ -80,9 +80,9 @@ TEST(simpleTestSuite, simple_winsock_test) {
 }
 #endif
 
-TEST(simpleTestSuite, version_of_upnplib_library) {
-    EXPECT_EQ(libinfo, "upnplib library version = under developement");
-}
+// TEST(simpleTestSuite, version_of_upnplib_library) {
+//     EXPECT_EQ(libinfo, "upnplib library version = under developement");
+// }
 
 TEST(simpleTestSuite, simple_upnplib_test) {
     EXPECT_EQ(errStr(0), "UPNP_E_SUCCESS(0)");

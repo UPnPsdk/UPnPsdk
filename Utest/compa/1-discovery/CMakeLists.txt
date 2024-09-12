@@ -1,5 +1,5 @@
 # Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -31,7 +31,7 @@ target_compile_definitions(test_ssdp-pst
 target_link_libraries(test_ssdp-pst
     PRIVATE
         pupnp_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_ssdp-pst COMMAND test_ssdp-pst --gtest_shuffle
@@ -51,7 +51,7 @@ target_compile_definitions(test_ssdp-cst
 target_link_libraries(test_ssdp-cst
     PRIVATE
         compa_static
-        upnplib_static
+        UPnPsdk_static
 )
 add_test(NAME ctest_ssdp-cst COMMAND test_ssdp-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}

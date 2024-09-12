@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -16,7 +16,7 @@ project(GTESTS_COMPA_HTTP_HTTPREADWRITE VERSION 0001
 # conflicts. We must use static libraries.
 if(FALSE)
 # Direct linking with source files currently not used but having available for
-# reference. We link against the internal upnplib libraries (see below).
+# reference. We link against the internal UPnPsdk libraries (see below).
 add_executable(test_httpreadwrite
     ${PUPNP_UPNP_SOURCE_DIR}/src/global.cpp
     ${GTESTS_SOURCE_DIR}/tools/mockObj.cpp
@@ -40,7 +40,7 @@ add_executable(test_httpreadwrite
     ${PUPNP_UPNP_SOURCE_DIR}/src/api/UpnpString.cpp
     $<$<CONFIG:Debug>:${PUPNP_UPNP_SOURCE_DIR}/src/api/upnpdebug.cpp>
 
-    ${UPNPLIB_SOURCE_DIR}/src/api/upnptools.cpp
+    ${UPnPsdk_SOURCE_DIR}/src/api/upnptools.cpp
     ./test_httpreadwrite.cpp
 )
 endif()
@@ -66,7 +66,7 @@ target_compile_options(test_httpreadwrite-pst
 target_link_libraries(test_httpreadwrite-pst
     PRIVATE
         pupnp_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_httpreadwrite-pst COMMAND test_httpreadwrite-pst --gtest_shuffle
@@ -83,7 +83,7 @@ target_include_directories(test_httpreadwrite-cst
 target_link_libraries(test_httpreadwrite-cst
     PRIVATE
         compa_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_httpreadwrite-cst COMMAND test_httpreadwrite-cst --gtest_shuffle
@@ -102,7 +102,7 @@ add_test(NAME ctest_httpreadwrite-cst COMMAND test_httpreadwrite-cst --gtest_shu
 # conflicts. We must use static libraries.
 if(FALSE)
 # Direct linking with source files currently not used but having available for
-# reference. We link against the upnplib libraries (see below).
+# reference. We link against the UPnPsdk libraries (see below).
 add_executable(test_netconnect
     ${PUPNP_UPNP_SOURCE_DIR}/src/global.cpp
     ${GTESTS_SOURCE_DIR}/tools/mockObj.cpp
@@ -148,7 +148,7 @@ target_compile_options(test_netconnect-pst
 )
 target_link_libraries(test_netconnect-pst
     PRIVATE pupnp_static
-    PRIVATE upnplib_static
+    PRIVATE UPnPsdk_static
     PRIVATE utest_static
 )
 add_test(NAME ctest_netconnect-pst COMMAND test_netconnect-pst --gtest_shuffle
@@ -164,7 +164,7 @@ target_include_directories(test_netconnect-cst
 )
 target_link_libraries(test_netconnect-cst
     PRIVATE compa_static
-    PRIVATE upnplib_static
+    PRIVATE UPnPsdk_static
     PRIVATE utest_static
 )
 add_test(NAME ctest_netconnect-cst COMMAND test_netconnect-cst --gtest_shuffle
@@ -197,7 +197,7 @@ target_compile_options(test_http_Download-pst
 target_link_libraries(test_http_Download-pst
     PRIVATE
         pupnp_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_http_Download-pst COMMAND test_http_Download-pst --gtest_shuffle
@@ -214,7 +214,7 @@ target_include_directories(test_http_Download-cst
 target_link_libraries(test_http_Download-cst
     PRIVATE
         compa_static
-        upnplib_static
+        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_http_Download-cst COMMAND test_http_Download-cst --gtest_shuffle

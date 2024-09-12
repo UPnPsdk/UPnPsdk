@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_CMAKE_VARS_HPP
 #define UPNPLIB_CMAKE_VARS_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-08
+// Redistribution only with this Copyright remark. Last modified: 2024-09-12
 /*!
  * \file
  * \brief Defines symbols for the compiler that are provided by CMake.
@@ -33,7 +33,8 @@
  * Library version
  ***************************************************************************/
 /** The pUPnP library version the fork is based on, e.g. "1.14.19" */
-#cmakedefine PUPNP_VERSION_STRING "${PUPNP_VERSION_STRING}"
+#cmakedefine UPnPsdk_VERSION "${UPnPsdk_VERSION}"
+#cmakedefine PUPNP_VERSION "${PUPNP_VERSION}"
 
 /***************************************************************************
  * UPNPLIB_PROJECT configuration settings

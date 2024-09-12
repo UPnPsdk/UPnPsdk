@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -39,7 +39,7 @@ add_compile_options(
 )
 
 
-# Upnplib helper library for gtests
+# UPnPsdk helper library for gtests
 # =================================
 # We have version
 # utest for all operating systems,
@@ -114,7 +114,7 @@ add_executable(test_utest-ush
     tools/test_utest.cpp
 )
 target_include_directories(test_utest-ush
-    PRIVATE ${UPNPLIB_SOURCE_DIR}/include
+    PRIVATE ${CMAKE_SOURCE_DIR}/UPnPsdk/include
 )
 target_compile_definitions(test_utest-ush
     PRIVATE UPnPsdk_SHARE
@@ -133,7 +133,7 @@ add_executable(test_utest_platform-ush
     $<$<NOT:$<PLATFORM_ID:Windows>>:./tools/test_utest_unix.cpp>
 )
 target_include_directories(test_utest_platform-ush
-    PRIVATE ${UPNPLIB_SOURCE_DIR}/include
+    PRIVATE ${CMAKE_SOURCE_DIR}/UPnPsdk/include
 )
 target_compile_definitions(test_utest_platform-ush
     PRIVATE UPnPsdk_SHARE
@@ -164,7 +164,7 @@ add_executable(test_simple-ust
         test_simple.cpp
 )
 target_link_libraries(test_simple-ust
-    PRIVATE upnplib_static
+    PRIVATE UPnPsdk_static
 )
 add_test(NAME ctest_simple-ust COMMAND test_simple-ust --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -177,7 +177,7 @@ add_executable(test_template
         test_template.cpp
 )
 target_include_directories(test_template
-    PRIVATE ${UPNPLIB_SOURCE_DIR}/include
+    PRIVATE ${CMAKE_SOURCE_DIR}/UPnPsdk/include
 )
 add_test(NAME ctest_template COMMAND test_template --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}

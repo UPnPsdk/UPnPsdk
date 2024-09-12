@@ -361,10 +361,10 @@ void genaNotifyThread(
  * \note The header must be destroyed after with a call to free(), otherwise
  * there will be a memory leak.
  *
- * \return The constructed header.
+ * \return Pointer to the constructed header string.
  */
 char* AllocGenaHeaders(
-    /*! [in] The property set string. */
+    /*! [in] Pointer to the property set string. */
     const DOMString propertySet) {
     static const char* HEADER_LINE_1 =
         "CONTENT-TYPE: text/xml; charset=\"utf-8\"\r\n";

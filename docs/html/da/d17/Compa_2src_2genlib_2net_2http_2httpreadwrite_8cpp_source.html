@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('da/d17/Compa_2src_2genlib_2net_2http_2
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * All rights reserved.</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Copyright (c) 2012 France Telecom All rights reserved.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-09-10</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-09-12</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * modification, are permitted provided that the following conditions are met:</span></div>
@@ -1952,7 +1952,7 @@ $(document).ready(function(){initNavTree('da/d17/Compa_2src_2genlib_2net_2http_2
 <div class="line"><a id="l01878" name="l01878"></a><span class="lineno"> 1878</span><span class="preprocessor">#else </span><span class="comment">/* UPNP_ENABLE_UNSPECIFIED_SERVER */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l01879" name="l01879"></a><span class="lineno"> 1879</span><span class="preprocessor">#ifdef _WIN32</span></div>
 <div class="line"><a id="l01880" name="l01880"></a><span class="lineno"> 1880</span>    snprintf(info, infoSize,</div>
-<div class="line"><a id="l01881" name="l01881"></a><span class="lineno"> 1881</span>             <span class="stringliteral">&quot;UPnP/1.0, Portable SDK for UPnP devices/&quot;</span> PUPNP_VERSION_STRING</div>
+<div class="line"><a id="l01881" name="l01881"></a><span class="lineno"> 1881</span>             <span class="stringliteral">&quot;UPnP/1.0, Portable SDK for UPnP devices/&quot;</span> PUPNP_VERSION</div>
 <div class="line"><a id="l01882" name="l01882"></a><span class="lineno"> 1882</span>             <span class="stringliteral">&quot; on windows\r\n&quot;</span>);</div>
 <div class="line"><a id="l01883" name="l01883"></a><span class="lineno"> 1883</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l01884" name="l01884"></a><span class="lineno"> 1884</span>    <span class="keyword">struct </span>utsname sys_info;</div>
@@ -1961,11 +1961,11 @@ $(document).ready(function(){initNavTree('da/d17/Compa_2src_2genlib_2net_2http_2
 <div class="line"><a id="l01887" name="l01887"></a><span class="lineno"> 1887</span>    <span class="keywordflow">if</span> (ret_code == -1)</div>
 <div class="line"><a id="l01888" name="l01888"></a><span class="lineno"> 1888</span>        snprintf(info, infoSize,</div>
 <div class="line"><a id="l01889" name="l01889"></a><span class="lineno"> 1889</span>                 <span class="stringliteral">&quot;Unspecified, UPnP/1.0, Portable SDK for UPnP &quot;</span></div>
-<div class="line"><a id="l01890" name="l01890"></a><span class="lineno"> 1890</span>                 <span class="stringliteral">&quot;devices/&quot;</span> PUPNP_VERSION_STRING <span class="stringliteral">&quot;\r\n&quot;</span>);</div>
+<div class="line"><a id="l01890" name="l01890"></a><span class="lineno"> 1890</span>                 <span class="stringliteral">&quot;devices/&quot;</span> PUPNP_VERSION <span class="stringliteral">&quot;\r\n&quot;</span>);</div>
 <div class="line"><a id="l01891" name="l01891"></a><span class="lineno"> 1891</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l01892" name="l01892"></a><span class="lineno"> 1892</span>        snprintf(info, infoSize,</div>
 <div class="line"><a id="l01893" name="l01893"></a><span class="lineno"> 1893</span>                 <span class="stringliteral">&quot;%s/%s, UPnP/1.0, Portable SDK for UPnP &quot;</span></div>
-<div class="line"><a id="l01894" name="l01894"></a><span class="lineno"> 1894</span>                 <span class="stringliteral">&quot;devices/&quot;</span> PUPNP_VERSION_STRING <span class="stringliteral">&quot;\r\n&quot;</span>,</div>
+<div class="line"><a id="l01894" name="l01894"></a><span class="lineno"> 1894</span>                 <span class="stringliteral">&quot;devices/&quot;</span> PUPNP_VERSION <span class="stringliteral">&quot;\r\n&quot;</span>,</div>
 <div class="line"><a id="l01895" name="l01895"></a><span class="lineno"> 1895</span>                 sys_info.sysname, sys_info.release);</div>
 <div class="line"><a id="l01896" name="l01896"></a><span class="lineno"> 1896</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l01897" name="l01897"></a><span class="lineno"> 1897</span><span class="preprocessor">#endif </span><span class="comment">/* UPNP_ENABLE_UNSPECIFIED_SERVER */</span><span class="preprocessor"></span></div>

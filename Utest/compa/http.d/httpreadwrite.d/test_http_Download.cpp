@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -321,8 +321,7 @@ TEST_F(HttpBasicFTestSuite, make_message_format_S_successful) {
 
     EXPECT_THAT(m_request.buf,
                 MatchesStdRegex("SERVER: UPnP/1.0, Portable SDK for UPnP "
-                                "devices/" PUPNP_VERSION_STRING
-                                " ?on windows\r\n"));
+                                "devices/" PUPNP_VERSION " ?on windows\r\n"));
 
 #else
 
@@ -341,7 +340,7 @@ TEST_F(HttpBasicFTestSuite, make_message_format_S_successful) {
     EXPECT_EQ(http_MakeMessage(&m_request, 1, 1, "S"), 0);
 
     std::string result = "SERVER: Linux/5.10.0-20-amd64, UPnP/1.0, Portable "
-                         "SDK for UPnP devices/" PUPNP_VERSION_STRING "\r\n";
+                         "SDK for UPnP devices/" PUPNP_VERSION "\r\n";
     EXPECT_EQ(std::string(m_request.buf), result);
 #endif
 }
@@ -366,13 +365,12 @@ TEST_F(HttpBasicFTestSuite, make_message_format_U_successful) {
 #ifdef _WIN32
     EXPECT_THAT(m_request.buf,
                 MatchesStdRegex("USER-AGENT: UPnP/1.0, Portable SDK for UPnP "
-                                "devices/" PUPNP_VERSION_STRING
-                                " ?on windows\r\n"));
+                                "devices/" PUPNP_VERSION " ?on windows\r\n"));
 #else
     EXPECT_THAT(
         m_request.buf,
         MatchesStdRegex("USER-AGENT: .*/.*, UPnP/1.0, Portable SDK for UPnP "
-                        "devices/" PUPNP_VERSION_STRING "\r\n"));
+                        "devices/" PUPNP_VERSION "\r\n"));
 #endif
 }
 
@@ -419,22 +417,20 @@ TEST_F(HttpBasicFTestSuite, make_message_get_sdk_info_successful) {
 
 #ifdef _WIN32
     if (old_code) {
-        EXPECT_STREQ(
-            (char*)info,
-            "UPnP/1.0, Portable SDK for UPnP devices/" PUPNP_VERSION_STRING
-            "on windows\r\n"); // Wrong! There is a space missing
+        EXPECT_STREQ((char*)info,
+                     "UPnP/1.0, Portable SDK for UPnP devices/" PUPNP_VERSION
+                     "on windows\r\n"); // Wrong! There is a space missing
 
     } else {
 
-        EXPECT_STREQ(
-            (char*)info,
-            "UPnP/1.0, Portable SDK for UPnP devices/" PUPNP_VERSION_STRING
-            " on windows\r\n");
+        EXPECT_STREQ((char*)info,
+                     "UPnP/1.0, Portable SDK for UPnP devices/" PUPNP_VERSION
+                     " on windows\r\n");
     }
 #else
     EXPECT_THAT((char*)info,
                 MatchesStdRegex(".*/.*, UPnP/1.0, Portable SDK for UPnP "
-                                "devices/" PUPNP_VERSION_STRING "\r\n"));
+                                "devices/" PUPNP_VERSION "\r\n"));
 #endif
 }
 
@@ -472,7 +468,7 @@ TEST_F(HttpBasicFTestSuite, make_message_get_sdk_info_system_info_fails) {
 
         EXPECT_STREQ((char*)info,
                      "Unspecified, UPnP/1.0, Portable SDK for UPnP "
-                     "devices/" PUPNP_VERSION_STRING "\r\n");
+                     "devices/" PUPNP_VERSION "\r\n");
     }
 }
 #endif
