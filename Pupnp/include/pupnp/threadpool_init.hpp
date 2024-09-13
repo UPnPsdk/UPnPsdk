@@ -1,10 +1,10 @@
 #ifndef PUPNP_THREADPOOL_INIT_HPP
 #define PUPNP_THREADPOOL_INIT_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-09-13
 
 #include <ThreadPool.hpp>
-#include <UPnPsdk/visibility.hpp>
+#include <UpnpGlobal.hpp>
 
 namespace pupnp {
 
@@ -21,7 +21,7 @@ namespace pupnp {
 //                one thread running. With setting it to 0 it can be tested if
 //                the Unit under test will run in a thread. You will get an
 //                error message "to much jobs: 0".
-class UPNPLIB_API CThreadPoolInit {
+class EXPORT_SPEC CThreadPoolInit {
   public:
     CThreadPoolInit(::ThreadPool& a_threadpool, const bool a_shutdown = 0,
                     const int a_maxJobsTotal = DEFAULT_MAX_JOBS_TOTAL);

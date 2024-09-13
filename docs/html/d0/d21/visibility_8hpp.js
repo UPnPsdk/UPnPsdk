@@ -1,6 +1,6 @@
 var visibility_8hpp =
 [
-    [ "UPNPLIB_API", "d0/d21/visibility_8hpp.html#a596de2c742b413e26eddc6d1751753c0", null ],
-    [ "UPNPLIB_EXTERN", "d0/d21/visibility_8hpp.html#a72645054d319ce792dfd05ca41b3ef48", null ],
-    [ "UPNPLIB_LOCAL", "d0/d21/visibility_8hpp.html#a6b5b485b157613c8d3dab58a514c2427", null ]
+    [ "UPnPsdk_API", "d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98", null ],
+    [ "UPnPsdk_LOCAL", "d0/d21/visibility_8hpp.html#a30a6f5f66e8ddccccf7ff97c9b294494", null ],
+    [ "UPnPsdk_EXTERN", "d0/d21/visibility_8hpp.html#af50c37bbf2934be9d98742046a16304d", null ]
 ];

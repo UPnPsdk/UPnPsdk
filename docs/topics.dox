@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-07-17
+// Redistribution only with this Copyright remark. Last modified: 2024-09-13
 /*!
  * \file
  * \brief Definition of the documentation topics.
@@ -9,8 +9,10 @@
  */
 
 // Topics for the compatible library
-// ---------------------------------
+// =================================
 /*!
+ * <!-- Compatible API
+ * ------------------- -->
  * \defgroup compaAPI COMPATIBLE API
  * \brief Well defined Application Programming Interface of the **compatible**
  * part of the library.
@@ -29,8 +31,44 @@
  * supporting this. With starting a new software project it is strongly
  * recommended to only use the new object oriented **UPnPlib API**.
  *
+ * \defgroup compaAPI-Addressing Step 0: Addressing
+ * \ingroup compaAPI
+ * \copydoc compa-Addressing
  *
- * \defgroup compa compatible UPnP library
+ * \defgroup compaAPI-Discovery Step 1: Discovery
+ * \ingroup compaAPI
+ * \copydoc compa-Discovery
+ *
+ * \defgroup compaAPI-Description Step 2: Description
+ * \ingroup compaAPI
+ * \copydoc compa-Description
+ *
+ * \defgroup compaAPI-Control Step 3: Control
+ * \ingroup compaAPI
+ * \copydoc compa-Control
+ *
+ * \defgroup compaAPI-Eventing Step 4: Eventing
+ * \ingroup compaAPI
+ * \copydoc compa-Eventing
+ *
+ * \defgroup compaAPI-Presentation Step 5: Presentation
+ * \ingroup compaAPI
+ * \copydoc compa-Presentation
+ *
+ * \defgroup compaAPI-Operating General local operating
+ * \ingroup compaAPI
+ * \copydoc compa-Operating
+ *
+ * \defgroup compaAPI-Ctrlpt Control Point http API
+ * \ingroup compaAPI
+ *
+ * \defgroup compaAPI-WebServer Web Server API
+ * \ingroup compaAPI
+ *
+ *
+ * <!-- Compatible Software Development Kit
+ * ---------------------------------------- -->
+ * \defgroup compa compatible UPnP SDK
  * \brief Detailed documentation of this part of the library. Not of interest
  * for only using the SDK.
  *
@@ -159,7 +197,7 @@
  * control points listen to state changes in device(s).
  *
  *
- * \defgroup compa-Operating general local operating
+ * \defgroup compa-Operating General local operating
  * \ingroup compa
  * \brief Items for general local operating that is used for all UPnP Steps to
  * manage internal structures.

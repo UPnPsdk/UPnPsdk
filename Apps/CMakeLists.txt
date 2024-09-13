@@ -74,3 +74,23 @@ target_link_libraries(UPnPsdk-cst
         # default.
         $<$<NOT:$<PLATFORM_ID:Windows>>:${UPNP_PTHREADS_SHARED_LIBRARY}>
 )
+
+
+# Simple API calls to test the UPnPsdk application interface without Googletest
+# -----------------------------------------------------------------------------
+if(UPnPsdk_WITH_NATIVE_PUPNP)
+add_executable(api_calls-psh
+    src/api_calls.cpp
+)
+target_link_libraries(api_calls-psh
+    PRIVATE pupnp_shared
+)
+endif()
+
+add_executable(api_calls-csh
+    src/api_calls.cpp
+)
+target_link_libraries(api_calls-csh
+    PRIVATE compa_shared
+    PRIVATE UPnPsdk_shared
+)

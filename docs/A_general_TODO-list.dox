@@ -1,10 +1,11 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-12
+// Redistribution only with this Copyright remark. Last modified: 2024-09-18
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
+ * - Remove deprecated functions.
  * - Construct UPnPsdk API and create simple api-call functions (needed for next line).
  * - Test large-file support with Github Action.
  * - Create library info function that can be called with the API.

@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-12
+# Redistribution only with this Copyright remark. Last modified: 2024-09-17
 
 cmake_minimum_required(VERSION 3.18)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -150,7 +150,7 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
 # Provide length of the path of the projects base directory. We need this
 # mainly for the compile time short file name of Debug and TRACE messages.
-string(LENGTH "${CMAKE_SOURCE_DIR}/" UPnPsdk_PROJECT_PATH_LENGTH)
+string(LENGTH "${CMAKE_SOURCE_DIR}/" CMAKE_SOURCE_PATH_LENGTH)
 
 # Large-file-sensitivity on 32 bit architecture
 # Note: On Microsoft Windows 'off_t' is always long that would make it fix

@@ -1,5 +1,5 @@
 var sock__api_8hpp =
 [
-    [ "freeSslCtx", "d5/d0b/sock__api_8hpp.html#a5bde9ae1265da27b9e6a292198d62aaf", null ],
-    [ "UpnpInitSslContext", "d5/d0b/sock__api_8hpp.html#a1ef24b2be7398397bef4c9df8c42f8fc", null ]
+    [ "UpnpInitSslContext", "d9/d54/group__compaAPI.html#ga390881f2ae0cfdf7bdfb07522c2ace7b", null ],
+    [ "freeSslCtx", "d9/d54/group__compaAPI.html#ga0ab812577086c70ee6e5515dfbfc6b74", null ]
 ];

@@ -1080,8 +1080,6 @@ exit_function:
 #endif // COMPA_HAVE_DEVICE_DESCRIPTION
 
 #ifdef COMPA_HAVE_DEVICE_SSDP
-/* For compatibility also available as alias
-int UpnpRegisterRootDevice4() with same arguments */
 int UpnpRegisterRootDevice3(const char* const DescUrl, const Upnp_FunPtr Fun,
                             const void* const Cookie,
                             UpnpDevice_Handle* const Hnd,
@@ -1220,6 +1218,17 @@ exit_function:
     HandleUnlock();
 
     return retVal;
+}
+
+// Same as UpnpRegisterRootDevice3() but LowerDescUrl isn't optional here. This
+// function is deprecated. UpnpRegisterRootDevice3() should alwways be used.
+int UpnpRegisterRootDevice4(const char* const DescUrl, const Upnp_FunPtr Fun,
+                            const void* const Cookie,
+                            UpnpDevice_Handle* const Hnd,
+                            const int AddressFamily,
+                            const char* const LowerDescUrl) {
+    return UpnpRegisterRootDevice3(DescUrl, Fun, Cookie, Hnd, AddressFamily,
+                                   LowerDescUrl);
 }
 #endif /* COMPA_HAVE_DEVICE_SSDP */
 
@@ -3882,6 +3891,8 @@ int UpnpVirtualDir_set_CloseCallback(VDCallback_Close callback) {
     return ret;
 }
 
+#if 0
+// Not supported. This function was already deprecated in pupnp.
 int UpnpSetContentLength(UpnpClient_Handle Hnd, size_t contentLength) {
     int errCode = UPNP_E_SUCCESS;
     struct Handle_Info* HInfo = NULL;
@@ -3911,6 +3922,7 @@ int UpnpSetContentLength(UpnpClient_Handle Hnd, size_t contentLength) {
     HandleUnlock();
     return errCode;
 }
+#endif
 
 int UpnpSetMaxContentLength(size_t contentLength) {
     int errCode = UPNP_E_SUCCESS;

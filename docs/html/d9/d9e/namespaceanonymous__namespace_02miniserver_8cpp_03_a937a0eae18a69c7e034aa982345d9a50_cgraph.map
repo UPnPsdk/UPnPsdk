@@ -1,21 +1,21 @@
 <map id="anonymous_namespace{miniserver::cpp}::fdset_if_valid" name="anonymous_namespace{miniserver::cpp}::fdset_if_valid">
-<area shape="rect" id="Node000001" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="5,94,168,149"/>
-<area shape="rect" id="Node000002" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#ab00bb34ed936039b4dc840c3ec6cd1b6" title="Get status if socket is bound to a local netaddress." alt="" coords="216,69,391,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,107,202,102,203,107,169,112"/>
-<area shape="rect" id="Node000008" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor from the constructor into the object." alt="" coords="216,133,391,173"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="169,131,203,136,202,141,168,136"/>
-<area shape="rect" id="Node000003" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a552cda29b8977682e5b4dab84aec04cc" title="Get netaddress without port." alt="" coords="439,5,613,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="373,67,442,47,443,52,374,72"/>
-<area shape="rect" id="Node000005" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a0aa89aae4f0771baaaabb15aab495c3d" title="Get netaddress with port." alt="" coords="439,69,613,109"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="391,87,425,87,425,92,391,92"/>
-<area shape="rect" id="Node000004" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a15cdd6812fb1fd64d446021ea0236af5" title="Get the assosiated netaddress without port." alt="" coords="661,5,812,45"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="614,23,647,23,647,28,614,28"/>
-<area shape="rect" id="Node000006" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6" title="Get the assosiated netaddress with port." alt="" coords="661,69,812,109"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="614,87,647,87,647,92,614,92"/>
-<area shape="rect" id="Node000007" href="$d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997" title="Get the netaddress with port from a sockaddr structure." alt="" coords="860,77,1015,102"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="812,87,847,87,847,92,812,92"/>
-<area shape="rect" id="Node000009" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="449,133,603,173"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="391,151,435,151,435,156,391,156"/>
-<area shape="rect" id="Node000010" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="449,197,603,237"/>
-<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="374,171,443,191,442,196,373,176"/>
+<area shape="rect" id="Node000001" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="5,94,185,149"/>
+<area shape="rect" id="Node000002" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#ab00bb34ed936039b4dc840c3ec6cd1b6" title="Get status if socket is bound to a local netaddress." alt="" coords="233,69,413,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,106,220,101,220,106,186,111"/>
+<area shape="rect" id="Node000008" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor from the constructor into the object." alt="" coords="233,133,413,173"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="186,131,220,136,220,141,185,137"/>
+<area shape="rect" id="Node000003" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a552cda29b8977682e5b4dab84aec04cc" title="Get netaddress without port." alt="" coords="461,5,641,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="395,67,465,47,467,52,396,72"/>
+<area shape="rect" id="Node000005" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a0aa89aae4f0771baaaabb15aab495c3d" title="Get netaddress with port." alt="" coords="461,69,641,109"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="414,87,448,87,448,92,414,92"/>
+<area shape="rect" id="Node000004" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a15cdd6812fb1fd64d446021ea0236af5" title="Get the assosiated netaddress without port." alt="" coords="689,5,844,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="642,23,675,23,675,28,642,28"/>
+<area shape="rect" id="Node000006" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6" title="Get the assosiated netaddress with port." alt="" coords="689,69,844,109"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="642,87,675,87,675,92,642,92"/>
+<area shape="rect" id="Node000007" href="$d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997" title="Get the netaddress with port from a sockaddr structure." alt="" coords="892,77,1057,102"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="844,87,879,87,879,92,844,92"/>
+<area shape="rect" id="Node000009" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="473,133,630,173"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="414,151,459,151,459,156,414,156"/>
+<area shape="rect" id="Node000010" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="473,197,630,237"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="396,171,467,191,465,196,395,176"/>
 </map>

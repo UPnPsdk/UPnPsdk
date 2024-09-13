@@ -1,21 +1,21 @@
 <map id="UPnPsdk::CSocket::set_v6only" name="UPnPsdk::CSocket::set_v6only">
-<area shape="rect" id="Node000001" title="Set IPV6_V6ONLY." alt="" coords="5,101,168,141"/>
-<area shape="rect" id="Node000002" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="226,5,381,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,99,215,55,232,48,234,53,217,60,127,104"/>
-<area shape="rect" id="Node000003" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="226,69,381,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,107,212,100,213,105,169,112"/>
-<area shape="rect" id="Node000004" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad82ca20a5ca2ea42573034c251e821a6" title="Get socket address family." alt="" coords="216,133,391,173"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="169,131,203,136,202,141,168,136"/>
-<area shape="rect" id="Node000005" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#ab00bb34ed936039b4dc840c3ec6cd1b6" title="Get status if socket is bound to a local netaddress." alt="" coords="216,197,391,237"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="127,139,217,183,234,190,232,195,215,188,124,144"/>
-<area shape="rect" id="Node000006" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a552cda29b8977682e5b4dab84aec04cc" title="Get netaddress without port." alt="" coords="439,165,613,205"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="391,202,425,197,426,202,391,207"/>
-<area shape="rect" id="Node000008" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a0aa89aae4f0771baaaabb15aab495c3d" title="Get netaddress with port." alt="" coords="439,229,613,269"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="391,227,426,232,425,238,391,233"/>
-<area shape="rect" id="Node000007" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a15cdd6812fb1fd64d446021ea0236af5" title="Get the assosiated netaddress without port." alt="" coords="661,165,812,205"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="614,183,647,183,647,188,614,188"/>
-<area shape="rect" id="Node000009" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6" title="Get the assosiated netaddress with port." alt="" coords="661,229,812,269"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="614,247,647,247,647,252,614,252"/>
-<area shape="rect" id="Node000010" href="$d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997" title="Get the netaddress with port from a sockaddr structure." alt="" coords="860,237,1015,262"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="812,247,847,247,847,252,812,252"/>
+<area shape="rect" id="Node000001" title="Set IPV6_V6ONLY." alt="" coords="5,101,172,141"/>
+<area shape="rect" id="Node000002" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="231,5,389,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,99,219,55,236,48,238,53,221,60,129,104"/>
+<area shape="rect" id="Node000003" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="231,69,389,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,107,218,100,218,105,172,112"/>
+<area shape="rect" id="Node000004" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad82ca20a5ca2ea42573034c251e821a6" title="Get socket address family." alt="" coords="220,133,400,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="172,131,207,136,206,141,172,136"/>
+<area shape="rect" id="Node000005" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#ab00bb34ed936039b4dc840c3ec6cd1b6" title="Get status if socket is bound to a local netaddress." alt="" coords="220,197,400,237"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="129,139,221,183,238,190,236,195,219,188,127,144"/>
+<area shape="rect" id="Node000006" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a552cda29b8977682e5b4dab84aec04cc" title="Get netaddress without port." alt="" coords="448,165,628,205"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="400,202,434,197,435,202,401,207"/>
+<area shape="rect" id="Node000008" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a0aa89aae4f0771baaaabb15aab495c3d" title="Get netaddress with port." alt="" coords="448,229,628,269"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="401,227,435,232,434,237,400,233"/>
+<area shape="rect" id="Node000007" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a15cdd6812fb1fd64d446021ea0236af5" title="Get the assosiated netaddress without port." alt="" coords="676,165,831,205"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="628,183,662,183,662,188,628,188"/>
+<area shape="rect" id="Node000009" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6" title="Get the assosiated netaddress with port." alt="" coords="676,229,831,269"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="628,247,662,247,662,252,628,252"/>
+<area shape="rect" id="Node000010" href="$d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997" title="Get the netaddress with port from a sockaddr structure." alt="" coords="879,237,1044,262"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="831,247,865,247,865,252,831,252"/>
 </map>

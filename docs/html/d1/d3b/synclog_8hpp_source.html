@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('d1/d3b/synclog_8hpp_source.html','../.
 <a href="../../d1/d3b/synclog_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef UPNPLIB_SYNCLOG_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define UPNPLIB_SYNCLOG_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-08-18</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-09-17</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;cmake_vars.hpp&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/d21/visibility_8hpp.html">UPnPsdk/visibility.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string&gt;</span></div>
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('d1/d3b/synclog_8hpp_source.html','../.
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><a class="code hl_define" href="../../d0/d21/visibility_8hpp.html#a72645054d319ce792dfd05ca41b3ef48">UPNPLIB_EXTERN</a> <span class="keywordtype">bool</span> <a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#a38f59cc128722a0526046fb9b4eced5d">g_dbug</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>UPNPLIB_EXTERN <span class="keywordtype">bool</span> <a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#a38f59cc128722a0526046fb9b4eced5d">g_dbug</a>;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="comment">// namespace UPnPsdk</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
@@ -131,8 +131,8 @@ $(document).ready(function(){initNavTree('d1/d3b/synclog_8hpp_source.html','../.
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// Trace messages</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">// --------------</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#ifdef UPnPsdk_WITH_TRACE</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">  #define TRACE(s) SYNC(std::cerr)&lt;&lt;&quot;TRACE[&quot;&lt;&lt;(static_cast&lt;const char*&gt;(__FILE__) + UPnPsdk_PROJECT_PATH_LENGTH)&lt;&lt;&quot;:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;] &quot;&lt;&lt;(s)&lt;&lt;&quot;\n&quot;;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">  #define TRACE2(a, b) SYNC(std::cerr)&lt;&lt;&quot;TRACE[&quot;&lt;&lt;(static_cast&lt;const char*&gt;(__FILE__) + UPnPsdk_PROJECT_PATH_LENGTH)&lt;&lt;&quot;:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;] &quot;&lt;&lt;(a)&lt;&lt;(b)&lt;&lt;&quot;\n&quot;;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">  #define TRACE(s) SYNC(std::cerr)&lt;&lt;&quot;TRACE[&quot;&lt;&lt;(static_cast&lt;const char*&gt;(__FILE__) + CMAKE_SOURCE_PATH_LENGTH)&lt;&lt;&quot;:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;] &quot;&lt;&lt;(s)&lt;&lt;&quot;\n&quot;;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">  #define TRACE2(a, b) SYNC(std::cerr)&lt;&lt;&quot;TRACE[&quot;&lt;&lt;(static_cast&lt;const char*&gt;(__FILE__) + CMAKE_SOURCE_PATH_LENGTH)&lt;&lt;&quot;:&quot;&lt;&lt;__LINE__&lt;&lt;&quot;] &quot;&lt;&lt;(a)&lt;&lt;(b)&lt;&lt;&quot;\n&quot;;</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#else </span><span class="comment">// no UPnPsdk_WITH_TRACE</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">  #define TRACE(s)</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">  #define TRACE2(a, b)</span></div>
@@ -166,7 +166,6 @@ $(document).ready(function(){initNavTree('d1/d3b/synclog_8hpp_source.html','../.
 <div class="ttc" id="anamespaceUPnPsdk_html"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a></div><div class="ttdoc">Reengineered Object Oriented UPnP+ program code.</div></div>
 <div class="ttc" id="anamespaceUPnPsdk_html_a38f59cc128722a0526046fb9b4eced5d"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a38f59cc128722a0526046fb9b4eced5d">UPnPsdk::g_dbug</a></div><div class="ttdeci">UPNPLIB_EXTERN bool g_dbug</div><div class="ttdoc">Switch to enable verbose (debug) output.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d3a/global_8hpp_source.html#l00026">global.hpp:26</a></div></div>
 <div class="ttc" id="avisibility_8hpp_html"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html">visibility.hpp</a></div><div class="ttdoc">Macros to support visibility of external symbols.</div></div>
-<div class="ttc" id="avisibility_8hpp_html_a72645054d319ce792dfd05ca41b3ef48"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html#a72645054d319ce792dfd05ca41b3ef48">UPNPLIB_EXTERN</a></div><div class="ttdeci">#define UPNPLIB_EXTERN</div><div class="ttdoc">Prefix for a portable 'extern' declaration.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d21/visibility_8hpp_source.html#l00068">visibility.hpp:68</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

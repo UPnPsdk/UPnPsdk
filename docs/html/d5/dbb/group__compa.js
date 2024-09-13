@@ -6,5 +6,5 @@ var group__compa =
     [ "Step 3: Control", "d5/d20/group__compa-Control.html", null ],
     [ "Step 4: Eventing", "dd/ded/group__compa-Eventing.html", null ],
     [ "Step 5: Presentation", "db/d2b/group__compa-Presentation.html", null ],
-    [ "general local operating", "dc/df0/group__compa-Operating.html", "dc/df0/group__compa-Operating" ]
+    [ "General local operating", "dc/df0/group__compa-Operating.html", "dc/df0/group__compa-Operating" ]
 ];

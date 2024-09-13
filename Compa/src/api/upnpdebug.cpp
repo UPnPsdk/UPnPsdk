@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-20
+ * Redistribution only with this Copyright remark. Last modified: 2024-09-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -260,7 +260,7 @@ void UpnpPrintf(Upnp_LogLevel DLevel, Dbg_Module Module,
     if (DbgFileName) {
         // flush stdout to have a sequencial output with stderr on screen.
         fflush(stdout); // Don't mock this because we use it for debuging.
-        UpnpDisplayFileAndLine(filed, DbgFileName + UPnPsdk_PROJECT_PATH_LENGTH,
+        UpnpDisplayFileAndLine(filed, DbgFileName + CMAKE_SOURCE_PATH_LENGTH,
                                DbgLineNo, DLevel, Module);
         vfprintf(filed, FmtStr, ArgList);
         if (filed != nullptr && filed != stderr)

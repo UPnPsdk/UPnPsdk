@@ -1,7 +1,7 @@
-#ifndef UPNPLIB_UPNPGLOBAL_HPP
-#define UPNPLIB_UPNPGLOBAL_HPP
+#ifndef PUPNP_UPNPGLOBAL_HPP
+#define PUPNP_UPNPGLOBAL_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-08
+// Redistribution only with this Copyright remark. Last modified: 2024-09-12
 // Taken from authors who haven't made a note.
 
 /*!
@@ -158,34 +158,34 @@ typedef __int64 int64_t;
   #endif
 #endif
 
-// Now we use the generic helper definitions above to define UPNPLIB_API and
-// UPNPLIB_LOCAL. UPNPLIB_API is used for the public API symbols. It either DLL imports
-// or DLL exports (or does nothing for static build) UPNPLIB_LOCAL is used for
+// Now we use the generic helper definitions above to define UPnPsdk_API and
+// UPnPsdk_LOCAL. UPnPsdk_API is used for the public API symbols. It either DLL imports
+// or DLL exports (or does nothing for static build) UPnPsdk_LOCAL is used for
 // non-api symbols.
 
-#ifdef UPnPsdk_SHARE // defined if UPNPLIB is compiled as a shared library
-  #ifdef UPnPsdk_EXPORTS // defined if we are building the UPNPLIB DLL (instead of using it)
-    #define UPNPLIB_API UPNP_HELPER_DLL_EXPORT
+#ifdef UPnPsdk_SHARE // defined if UPnPsdk is compiled as a shared library
+  #ifdef UPnPsdk_EXPORTS // defined if we are building the UPnPsdk DLL (instead of using it)
+    #define UPnPsdk_API UPNP_HELPER_DLL_EXPORT
   #else
-    #define UPNPLIB_API UPNP_HELPER_DLL_IMPORT
+    #define UPnPsdk_API UPNP_HELPER_DLL_IMPORT
   #endif // UPnPsdk_EXPORTS
-  #define UPNPLIB_LOCAL UPNP_HELPER_DLL_LOCAL
-#else // UPnPsdk_SHARE is not defined: this means UPNPLIB is a static lib.
-  #define UPNPLIB_API
-  #define UPNPLIB_LOCAL
+  #define UPnPsdk_LOCAL UPNP_HELPER_DLL_LOCAL
+#else // UPnPsdk_SHARE is not defined: this means UPnPsdk is a static lib.
+  #define UPnPsdk_API
+  #define UPnPsdk_LOCAL
 #endif // UPnPsdk_SHARE
 
 #if (defined _WIN32 || defined __CYGWIN__) && defined UPnPsdk_SHARE
-  #define UPNPLIB_EXTERN __declspec(dllimport) extern
+  #define UPnPsdk_EXTERN __declspec(dllimport) extern
 #else
-  #define UPNPLIB_EXTERN UPNPLIB_API extern
+  #define UPnPsdk_EXTERN UPnPsdk_API extern
 #endif
 
 // Switch old pupnp definition to use new visibility support
-#define EXPORT_SPEC UPNPLIB_API
-#define EXPORT_SPEC_LOCAL UPNPLIB_LOCAL
-#define EXPORT_SPEC_EXTERN UPNPLIB_EXTERN
+#define EXPORT_SPEC UPnPsdk_API
+#define EXPORT_SPEC_LOCAL UPnPsdk_LOCAL
+#define EXPORT_SPEC_EXTERN UPnPsdk_EXTERN
 
 // clang-format on
 
-#endif /* UPNPLIB_UPNPGLOBAL_HPP */
+#endif /* PUPNP_UPNPGLOBAL_HPP */

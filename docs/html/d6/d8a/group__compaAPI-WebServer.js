@@ -1,0 +1,25 @@
+var group__compaAPI_WebServer =
+[
+    [ "UpnpWebFileHandle", "d6/d8a/group__compaAPI-WebServer.html#ga471951af73bc18b1d2d0ba612fb1ac9c", null ],
+    [ "VDCallback_GetInfo", "d6/d8a/group__compaAPI-WebServer.html#ga58459e7ff1a04a0edc2c2f4150af3598", null ],
+    [ "VDCallback_Open", "d6/d8a/group__compaAPI-WebServer.html#gad8e21bdc8ce0cc54ed0617e2e8d3c980", null ],
+    [ "VDCallback_Read", "d6/d8a/group__compaAPI-WebServer.html#gad6b951c9db01d9131472351875d7ae8f", null ],
+    [ "VDCallback_Write", "d6/d8a/group__compaAPI-WebServer.html#gacf683d01b3f8488a9335cf300fee1f3e", null ],
+    [ "VDCallback_Seek", "d6/d8a/group__compaAPI-WebServer.html#gaa02be327e73aedaac116d0a7c32bb51d", null ],
+    [ "VDCallback_Close", "d6/d8a/group__compaAPI-WebServer.html#ga123ac4f019e8bb8abd32d0ad016f16fb", null ],
+    [ "WebCallback_HostValidate", "d6/d8a/group__compaAPI-WebServer.html#ga85af9917367cc7cd316d6ca0a3b806c8", null ],
+    [ "UpnpSetWebServerRootDir", "d6/d8a/group__compaAPI-WebServer.html#ga5a6bb3d66f5808e0f1df5e69456c6627", null ],
+    [ "UpnpVirtualDir_set_GetInfoCallback", "d6/d8a/group__compaAPI-WebServer.html#gafc423a6dc3357b3c3d4c2161d45da28d", null ],
+    [ "UpnpVirtualDir_set_OpenCallback", "d6/d8a/group__compaAPI-WebServer.html#gad0218b4f6856ed5631636d7ce7a2c759", null ],
+    [ "UpnpVirtualDir_set_ReadCallback", "d6/d8a/group__compaAPI-WebServer.html#gab5c8cce7ba7d89d3d7976a151834beb9", null ],
+    [ "UpnpVirtualDir_set_WriteCallback", "d6/d8a/group__compaAPI-WebServer.html#ga73cdd06d30547440129d9f76fbba940d", null ],
+    [ "UpnpVirtualDir_set_SeekCallback", "d6/d8a/group__compaAPI-WebServer.html#ga53811e45e6803e8576d3b5e791090dd4", null ],
+    [ "UpnpVirtualDir_set_CloseCallback", "d6/d8a/group__compaAPI-WebServer.html#ga6c735b4fb0bd768d7ee7586d1b510202", null ],
+    [ "UpnpEnableWebserver", "d6/d8a/group__compaAPI-WebServer.html#ga5358122f5f0c0f03cb2d348a80e0ed63", null ],
+    [ "UpnpIsWebserverEnabled", "d6/d8a/group__compaAPI-WebServer.html#ga4c62bc79f31f2aca0bac6611b16696db", null ],
+    [ "UpnpSetHostValidateCallback", "d6/d8a/group__compaAPI-WebServer.html#ga8b40354186a77aac2f59ead5614f67e4", null ],
+    [ "UpnpSetAllowLiteralHostRedirection", "d6/d8a/group__compaAPI-WebServer.html#ga33e47f4b04a09a4c793e765950ffe61a", null ],
+    [ "UpnpAddVirtualDir", "d6/d8a/group__compaAPI-WebServer.html#ga36abf39fd3f35c8c039c7ad9c3ddbd12", null ],
+    [ "UpnpRemoveVirtualDir", "d6/d8a/group__compaAPI-WebServer.html#ga66dae67c7df78f8351b476995ecceb17", null ],
+    [ "UpnpRemoveAllVirtualDirs", "d6/d8a/group__compaAPI-WebServer.html#ga9ba87b7d316d19c2f0cc6680573134e1", null ]
+];

@@ -1,7 +1,7 @@
-#ifndef UPNPLIB_CMAKE_VARS_HPP
-#define UPNPLIB_CMAKE_VARS_HPP
+#ifndef UPnPsdk_CMAKE_VARS_HPP
+#define UPnPsdk_CMAKE_VARS_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-12
+// Redistribution only with this Copyright remark. Last modified: 2024-09-16
 /*!
  * \file
  * \brief Defines symbols for the compiler that are provided by CMake.
@@ -23,7 +23,7 @@
  ***************************************************************************/
 // Path to the project directory and its length
 #cmakedefine CMAKE_SOURCE_DIR "${CMAKE_SOURCE_DIR}"
-#cmakedefine UPnPsdk_PROJECT_PATH_LENGTH ${UPnPsdk_PROJECT_PATH_LENGTH}
+#cmakedefine CMAKE_SOURCE_PATH_LENGTH ${CMAKE_SOURCE_PATH_LENGTH}
 // Path to the build directory of the project
 #cmakedefine CMAKE_BINARY_DIR "${CMAKE_BINARY_DIR}"
 // Path to sample source directory to access web subdirectory
@@ -37,7 +37,7 @@
 #cmakedefine PUPNP_VERSION "${PUPNP_VERSION}"
 
 /***************************************************************************
- * UPNPLIB_PROJECT configuration settings
+ * UPnPsdk_PROJECT configuration settings
  ***************************************************************************/
 /* Large file support
  * whether the system defaults to 32bit off_t but can do 64bit for off_t with
@@ -51,5 +51,5 @@
 #cmakedefine PTW32_STATIC_LIB ${PTW32_STATIC_LIB}
 
 /// \endcond
-#endif // UPNPLIB_CMAKE_VARS_HPP
+#endif // UPnPsdk_CMAKE_VARS_HPP
 // vim: syntax=cpp

@@ -1,10 +1,9 @@
 #ifndef COMPA_SOCK_API_HPP
 #define COMPA_SOCK_API_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-09-13
 /*!
  * \file
- * \ingroup compaAPI
  * \ingroup compa-Addressing
  * \brief Declaring only application interface parts from sock.cpp
  */
@@ -14,6 +13,9 @@
 #ifdef UPNP_ENABLE_OPEN_SSL
 #include <openssl/ssl.h>
 #endif
+
+/*! @{
+ * \ingroup compaAPI */
 
 /*!
  * \brief Initializes the OpenSSL library, and the OpenSSL context.
@@ -27,7 +29,7 @@
  *   - UPNP_E_INIT_FAILED: The SDK initialization failed. Is OpenSSL available?
  */
 #ifdef UPNP_ENABLE_OPEN_SSL
-UPNPLIB_API int UpnpInitSslContext(
+UPnPsdk_API int UpnpInitSslContext(
     /*! This argument is ignored and only provided for compatibility. It can be
      * set to any value. The library is initialzed automatically. */
     int initOpenSslLib,
@@ -43,7 +45,9 @@ UPNPLIB_API int UpnpInitSslContext(
  * \note This method is only available if the library is compiled with OpenSSL
  * support.
  */
-UPNPLIB_API void freeSslCtx();
+UPnPsdk_API void freeSslCtx();
 #endif
+
+/// @} ingroup compaAPI
 
 #endif // COMPA_SOCK_API_HPP

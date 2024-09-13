@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-10
+# Redistribution only with this Copyright remark. Last modified: 2024-09-12
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -105,21 +105,3 @@ target_link_libraries(tv_device-csh
 )
 
 install(TARGETS tv_device-csh)
-
-
-if(UPnPsdk_WITH_NATIVE_PUPNP)
-add_executable(api_samples-psh
-    api_samples.cpp
-)
-target_link_libraries(api_samples-psh
-    PRIVATE pupnp_shared
-)
-endif()
-
-add_executable(api_samples-csh
-    api_samples.cpp
-)
-target_link_libraries(api_samples-csh
-    PRIVATE compa_shared
-    PRIVATE UPnPsdk_shared
-)

@@ -16,6 +16,10 @@ The following general goals are in progress or planned:
 - Focus on IPv6 support
 - Mandatory OpenSSL support
 
+## 2. Limitations
+- On the old <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices (pupnp)</a> already deprecated functions are not supported anymore.
+- Large-file support on 32 bit architectures is always enabled. Disabling **lfs** is not supported.
+
 ## 2. Technical Documentation
 Here you can find the [Technical Documentation](https://upnpsdk.github.io/UPnPsdk/).<br/>
 If you want to be compatible with the classic pUPnP library here you find the <a href="https://upnpsdk.github.io/UPnPsdk/d9/d54/group__compaAPI.html">Compatible API</a>.
@@ -149,4 +153,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, \<Ingo\@Hoeft-online.de\>
-Redistribution only with this Copyright remark. Last modified: 2024-09-05</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-09-18</pre>
