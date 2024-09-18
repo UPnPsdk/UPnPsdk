@@ -40,7 +40,7 @@ var upnpapi_8cpp =
     [ "get_server_addr6", "d4/d99/upnpapi_8cpp.html#ac8082ce18c1310b8c0c1c96ab424ed7e", null ],
     [ "UpnpSendAdvertisement", "d4/d99/upnpapi_8cpp.html#a9e7f15fd415e463b3c4f4c873ed56114", null ],
     [ "UpnpSendAdvertisementLowPower", "d4/d99/upnpapi_8cpp.html#a35b8096fd45fc632c6ac12a835d67f53", null ],
-    [ "UpnpSearchAsync", "dd/d48/group__compaAPI-Discovery.html#ga810abb461cd6402c903fac8976b9ff54", null ],
+    [ "UpnpSearchAsync", "dd/d48/group__compaAPI-Discovery.html#gacbc564f3c21415a8165d6882f5bc3189", null ],
     [ "UpnpSetMaxSubscriptions", "d4/d99/upnpapi_8cpp.html#a77573b5f4f8941d006fccad8ad96e15e", null ],
     [ "UpnpSetMaxSubscriptionTimeOut", "d4/d99/upnpapi_8cpp.html#a8ed82fbd763acd75fa1e906298799098", null ],
     [ "UpnpSubscribeAsync", "d4/d99/upnpapi_8cpp.html#aadb37732f8450dd78eb205842ff82a61", null ],

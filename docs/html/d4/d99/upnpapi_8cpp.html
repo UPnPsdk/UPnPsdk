@@ -376,9 +376,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a35b8096fd45fc632c6ac12a835d67f53" id="r_a35b8096fd45fc632c6ac12a835d67f53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a35b8096fd45fc632c6ac12a835d67f53">UpnpSendAdvertisementLowPower</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, int Exp, int PowerState, int SleepPeriod, int RegistrationState)</td></tr>
 <tr class="memdesc:a35b8096fd45fc632c6ac12a835d67f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends out the discovery announcements for all devices and services contained within one root device.  <br /></td></tr>
 <tr class="separator:a35b8096fd45fc632c6ac12a835d67f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga810abb461cd6402c903fac8976b9ff54" id="r_ga810abb461cd6402c903fac8976b9ff54"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d48/group__compaAPI-Discovery.html#ga810abb461cd6402c903fac8976b9ff54">UpnpSearchAsync</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, int Mx, const char *Target_const, const void *Cookie_const)</td></tr>
-<tr class="memdesc:ga810abb461cd6402c903fac8976b9ff54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for devices matching the given search target.  <br /></td></tr>
-<tr class="separator:ga810abb461cd6402c903fac8976b9ff54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbc564f3c21415a8165d6882f5bc3189" id="r_gacbc564f3c21415a8165d6882f5bc3189"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d48/group__compaAPI-Discovery.html#gacbc564f3c21415a8165d6882f5bc3189">UpnpSearchAsync</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, int Mx, const char *Target_const, const void *Cookie_const)</td></tr>
+<tr class="memdesc:gacbc564f3c21415a8165d6882f5bc3189"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for devices matching the given search target.  <br /></td></tr>
+<tr class="separator:gacbc564f3c21415a8165d6882f5bc3189"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77573b5f4f8941d006fccad8ad96e15e" id="r_a77573b5f4f8941d006fccad8ad96e15e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a77573b5f4f8941d006fccad8ad96e15e">UpnpSetMaxSubscriptions</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, int MaxSubscriptions)</td></tr>
 <tr class="memdesc:a77573b5f4f8941d006fccad8ad96e15e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum number of subscriptions accepted per service.  <br /></td></tr>
 <tr class="separator:a77573b5f4f8941d006fccad8ad96e15e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -3810,6 +3810,7 @@ Event</td>
 <p><b>UpnpUnRegisterClient</b>() is a synchronous call and generates no callbacks.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid control point handle. </li>
 </ul>
 </dd></dl>
@@ -4184,14 +4185,15 @@ Event</td>
 <p>This is a synchronous call.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid device handle. </li>
 <li><code>UPNP_E_OUTOF_MEMORY:</code> There are insufficient resources to send future advertisements. </li>
 </ul>
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Hnd</td><td>The device handle for which to send out the announcements.  </td></tr>
-    <tr><td class="paramname">Exp</td><td>The expiration age, in seconds, of the announcements. If the expiration age is less than 1 then the expiration age is set to <code>DEFAULT_MAXAGE</code>. If the expiration age is less than or equal to <code>AUTO_ADVERTISEMENT_TIME</code> * 2 then the expiration age is set to ( <code>AUTO_ADVERTISEMENT_TIME</code> + 1 ) * 2. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Hnd</td><td>The device handle for which to send out the announcements.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Exp</td><td>The expiration age, in seconds, of the announcements. If the expiration age is less than 1 then the expiration age is set to <code>DEFAULT_MAXAGE</code>. If the expiration age is less than or equal to <code>AUTO_ADVERTISEMENT_TIME</code> * 2 then the expiration age is set to ( <code>AUTO_ADVERTISEMENT_TIME</code> + 1 ) * 2. </td></tr>
   </table>
   </dd>
 </dl>
@@ -4407,17 +4409,18 @@ Event</td>
 <p>This function allow a device to specify the SSDP extensions defined by UPnP Low Power.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid device handle. </li>
 <li><code>UPNP_E_OUTOF_MEMORY:</code> There are insufficient resources to send future advertisements. </li>
 </ul>
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Hnd</td><td>The device handle for which to send out the announcements.  </td></tr>
-    <tr><td class="paramname">Exp</td><td>The expiration age, in seconds, of the announcements. If the expiration age is less than 1 then the expiration age is set to <code>DEFAULT_MAXAGE</code>. If the expiration age is less than or equal to <code>AUTO_ADVERTISEMENT_TIME</code> * 2 then the expiration age is set to ( <code>AUTO_ADVERTISEMENT_TIME</code> + 1 ) * 2.  </td></tr>
-    <tr><td class="paramname">PowerState</td><td>PowerState as defined by UPnP Low Power.  </td></tr>
-    <tr><td class="paramname">SleepPeriod</td><td>SleepPeriod as defined by UPnP Low Power.  </td></tr>
-    <tr><td class="paramname">RegistrationState</td><td>RegistrationState as defined by UPnP Low Power. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Hnd</td><td>The device handle for which to send out the announcements.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Exp</td><td>The expiration age, in seconds, of the announcements. If the expiration age is less than 1 then the expiration age is set to <code>DEFAULT_MAXAGE</code>. If the expiration age is less than or equal to <code>AUTO_ADVERTISEMENT_TIME</code> * 2 then the expiration age is set to ( <code>AUTO_ADVERTISEMENT_TIME</code> + 1 ) * 2.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">PowerState</td><td>PowerState as defined by UPnP Low Power.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SleepPeriod</td><td>SleepPeriod as defined by UPnP Low Power.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">RegistrationState</td><td>RegistrationState as defined by UPnP Low Power. </td></tr>
   </table>
   </dd>
 </dl>
@@ -11381,7 +11384,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <area shape="poly" title=" " alt="" coords="1595,1086,1587,1200,1569,1358,1555,1439,1538,1513,1517,1574,1491,1616,1463,1635,1460,1631,1487,1612,1512,1572,1533,1512,1550,1438,1564,1358,1582,1199,1590,1086"/>
 <area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html#a0466b3099133c9b31f308b7839f8b12b" title="Creates and send the search request for a specific URL." alt="" coords="1033,1763,1156,1788"/>
 <area shape="poly" title=" " alt="" coords="1597,1086,1595,1225,1582,1426,1569,1530,1550,1623,1525,1700,1509,1729,1491,1751,1467,1765,1432,1775,1342,1786,1243,1787,1156,1783,1156,1777,1243,1781,1342,1780,1431,1770,1464,1760,1488,1747,1505,1726,1520,1698,1545,1622,1564,1529,1576,1426,1589,1225,1592,1086"/>
-<area shape="rect" href="../../dd/d48/group__compaAPI-Discovery.html#ga810abb461cd6402c903fac8976b9ff54" title="Searches for devices matching the given search target." alt="" coords="783,1788,921,1813"/>
+<area shape="rect" href="../../dd/d48/group__compaAPI-Discovery.html#gacbc564f3c21415a8165d6882f5bc3189" title="Searches for devices matching the given search target." alt="" coords="783,1788,921,1813"/>
 <area shape="poly" title=" " alt="" coords="1597,1086,1597,1233,1593,1336,1585,1447,1573,1557,1554,1657,1527,1738,1510,1769,1491,1792,1472,1805,1448,1815,1387,1829,1313,1836,1230,1837,1061,1828,921,1813,922,1808,1061,1823,1230,1832,1312,1831,1386,1824,1447,1810,1470,1800,1488,1788,1506,1766,1522,1736,1549,1656,1567,1556,1580,1447,1588,1336,1591,1233,1592,1086"/>
 <area shape="rect" href="../../df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#af95b19cf8e8c70715878336869d721e0" title="Remove search Target from list and call client back." alt="" coords="1279,1683,1459,1737"/>
 <area shape="poly" title=" " alt="" coords="1596,1086,1588,1209,1571,1384,1557,1474,1540,1556,1518,1624,1505,1651,1491,1672,1477,1685,1460,1695,1458,1690,1474,1681,1487,1668,1501,1648,1513,1622,1535,1555,1552,1473,1566,1383,1583,1209,1590,1086"/>

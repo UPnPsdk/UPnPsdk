@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-18
+// Redistribution only with this Copyright remark. Last modified: 2024-09-19
 /*!
  * \file
  * \brief Simple calls of API functions to test conditional compile and linking.
@@ -117,7 +117,7 @@ int UpnpRegisterRootDevice([[maybe_unused]] bool execute = true) {
     UpnpDevice_Handle Cookie{-1};
     UpnpDevice_Handle Hnd{-1};
 
-    // Terminate with -1073741819 (0xC0000005): access violation.
+    // On MS Windows terminate with -1073741819 (0xC0000005): access violation.
     // int ret = ::UpnpRegisterRootDevice(nullptr, nullptr, nullptr, &Hnd);
     // or
     int ret = ::UpnpRegisterRootDevice(DescUrl, Fun, &Cookie, &Hnd);
@@ -144,7 +144,7 @@ int UpnpRegisterRootDevice2([[maybe_unused]] bool execute = true) {
     UpnpDevice_Handle Cookie{-1};
     UpnpDevice_Handle Hnd{-1};
 
-    // Terminate with -1073741819 (0xC0000005): access violation.
+    // On MS Windows terminate with -1073741819 (0xC0000005): access violation.
     // int ret = ::UpnpRegisterRootDevice2(static_cast<Upnp_DescType>(0),
     // nullptr, 0, 0, nullptr, nullptr, nullptr);
     // or
@@ -173,7 +173,7 @@ int UpnpRegisterRootDevice3([[maybe_unused]] bool execute = true) {
     UpnpDevice_Handle Cookie{-1};
     UpnpDevice_Handle Hnd{-1};
 
-    // Terminate with -1073741819 (0xC0000005): access violation.
+    // On MS Windows terminate with -1073741819 (0xC0000005): access violation.
     // int ret = ::UpnpRegisterRootDevice3(nullptr, nullptr, nullptr, nullptr,
     // AF_UNSPEC); or
     int ret = ::UpnpRegisterRootDevice3(DescUrl, Fun, &Cookie, &Hnd, AF_UNSPEC);
@@ -200,7 +200,7 @@ int UpnpRegisterRootDevice4([[maybe_unused]] bool execute = true) {
     UpnpDevice_Handle Cookie{-1};
     UpnpDevice_Handle Hnd{-1};
 
-    // Terminate with -1073741819 (0xC0000005): access violation.
+    // On MS Windows terminate with -1073741819 (0xC0000005): access violation.
     // int ret = ::UpnpRegisterRootDevice4(nullptr, nullptr, nullptr, nullptr,
     //                                     AF_UNSPEC, nullptr);
     // or
@@ -295,6 +295,60 @@ int UpnpSetMaxContentLength() {
 
 // Step 1: Discovery
 // -----------------
+int UpnpSearchAsync() {
+    constexpr char function_name[]{"UpnpSearchAsync()"};
+#if defined(UPNP_HAVE_CLIENT) || defined(COMPA_HAVE_CTRLPT_SSDP)
+    std::cerr << "Executing " << function_name << '\n';
+    // const char TvDeviceType[] = "urn:schemas-upnp-org:device:tvdevice:1";
+
+    int ret = ::UpnpSearchAsync(0, 0, nullptr, nullptr);
+    // int ret = ::UpnpSearchAsync(0, MIN_SEARCH_TIME, TvDeviceType, nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_SSDP not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpSendAdvertisement() {
+    constexpr char function_name[]{"UpnpSendAdvertisement()"};
+#if defined(UPNP_HAVE_DEVICE) || defined(COMPA_HAVE_DEVICE_SSDP)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpSendAdvertisement(0, 0);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_DEVICE_SSDP not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpSendAdvertisementLowPower() {
+    constexpr char function_name[]{"UpnpSendAdvertisementLowPower()"};
+#if defined(UPNP_HAVE_DEVICE) || defined(COMPA_HAVE_DEVICE_SSDP)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpSendAdvertisementLowPower(0, 0, 0, 0, 0);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_DEVICE_SSDP not enabled\n";
+#endif
+    return 0;
+}
+
+
 #if 0
 /// \brief Initialize OpenSSL context.
 int UpnpInitSslContext() {
@@ -345,6 +399,9 @@ int main() {
     ret += utest::UpnpSetMaxContentLength();
 
     // Step 1: Discovery
+    ret += utest::UpnpSearchAsync();
+    ret += utest::UpnpSendAdvertisement();
+    ret += utest::UpnpSendAdvertisementLowPower();
 
 
     // ret += utest::UpnpInitSslContext();

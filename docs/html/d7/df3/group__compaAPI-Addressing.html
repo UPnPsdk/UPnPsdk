@@ -207,8 +207,8 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">IfName</td><td>The interface name to use by the UPnP SDK operations. Examples: "eth0", "xl0", "Local Area Connection", <code>NULL</code> to use the first suitable interface.  </td></tr>
-    <tr><td class="paramname">DestPort</td><td>Local Port to listen for incoming connections. <code>NULL</code> will pick an arbitrary free port. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IfName</td><td>The interface name to use by the UPnP SDK operations. Examples: "eth0", "xl0", "Local Area Connection", a <code>nullptr</code> to use the first suitable interface.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">DestPort</td><td>Local Port to listen for incoming connections. <b>0</b> will pick an arbitrary free port. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2110,6 +2110,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 <p><b>UpnpUnRegisterClient</b>() is a synchronous call and generates no callbacks.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid control point handle. </li>
 </ul>
 </dd></dl>

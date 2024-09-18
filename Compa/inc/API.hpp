@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-09-18
+ * Redistribution only with this Copyright remark. Last modified: 2024-09-19
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -530,12 +530,12 @@ extern "C" {
  *             have a valid IPv4 or IPv6 addresss configured.
  */
 UPnPsdk_API int UpnpInit2(
-    /*! The interface name to use by the UPnP SDK operations.
-     * Examples: "eth0", "xl0", "Local Area Connection", \c NULL to
-     * use the first suitable interface. */
+    /*! [in] The interface name to use by the UPnP SDK operations. Examples:
+     * "eth0", "xl0", "Local Area Connection", a \c nullptr to use the first
+     * suitable interface. */
     const char* IfName,
-    /*!  Local Port to listen for incoming connections.
-     * \c NULL will pick an arbitrary free port. */
+    /*!  [in] Local Port to listen for incoming connections. **0** will pick
+     * an arbitrary free port. */
     unsigned short DestPort);
 
 /*!
@@ -957,6 +957,8 @@ UPnPsdk_API int UpnpRegisterClient(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control point
  *             handle.
  */
@@ -1011,12 +1013,11 @@ UPnPsdk_API int UpnpSetMaxContentLength(
 /*! @{
  * \ingroup compaAPI-Discovery */
 
-
 /*!
  * \brief Searches for devices matching the given search target.
  *
  * The function returns immediately and the SDK calls the default callback
- * function, registered during the \b UpnpRegisterClient call, for each
+ * function, registered during the UpnpRegisterClient() call, for each
  * matching root device, device, or service. The application specifies the
  * search type by the \b Target parameter.
  *
@@ -1031,22 +1032,24 @@ UPnPsdk_API int UpnpSetMaxContentLength(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
- *     \li \c UPNP_E_INVALID_PARAM: \b Target is \c NULL.
+ *     \li \c UPNP_E_INVALID_PARAM: \b Target is a \c nullptr.
  */
-UPNPLIB_API int UpnpSearchAsync(
-    /*! The handle of the client performing the search. */
+UPnPsdk_API int UpnpSearchAsync(
+    /*! [in] The handle of the client performing the search. */
     UpnpClient_Handle Hnd,
-    /*! The time, in seconds, to wait for responses. If the time is greater
-     * than \c MAX_SEARCH_TIME then the time is set to \c MAX_SEARCH_TIME.
-     * If the time is less than \c MIN_SEARCH_TIME then the time is set to
-     * \c MIN_SEARCH_TIME. */
+    /*! [in] The time, in seconds, to wait for responses. If the time is
+     * greater than \c MAX_SEARCH_TIME then the time is set to \c
+     * MAX_SEARCH_TIME. If the time is less than \c MIN_SEARCH_TIME then the
+     * time is set to \c MIN_SEARCH_TIME. */
     int Mx,
-    /*! The search target as defined in the UPnP Device Architecture v1.0
+    /*! [in] The search target as defined in the UPnP Device Architecture v1.0
      * specification. */
     const char* Target_const,
-    /*! The user data to pass when the callback function is invoked. */
+    /*! [in] The user data to pass when the callback function is invoked. */
     const void* Cookie_const);
 
 /*!
@@ -1059,19 +1062,21 @@ UPNPLIB_API int UpnpSearchAsync(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid
  *             device handle.
  *     \li \c UPNP_E_OUTOF_MEMORY: There are insufficient resources to
  *             send future advertisements.
  */
-UPNPLIB_API int UpnpSendAdvertisement(
-    /*! The device handle for which to send out the announcements. */
+UPnPsdk_API int UpnpSendAdvertisement(
+    /*! [in] The device handle for which to send out the announcements. */
     UpnpDevice_Handle Hnd,
-    /*! The expiration age, in seconds, of the announcements. If the
-     * expiration age is less than 1 then the expiration age is set to
-     * \c DEFAULT_MAXAGE. If the expiration age is less than or equal to
-     * \c AUTO_ADVERTISEMENT_TIME * 2 then the expiration age is set to
-     * ( \c AUTO_ADVERTISEMENT_TIME + 1 ) * 2. */
+    /*! [in] The expiration age, in seconds, of the announcements. If the
+     * expiration age is less than 1 then the expiration age is set to \c
+     * DEFAULT_MAXAGE. If the expiration age is less than or equal to \c
+     * AUTO_ADVERTISEMENT_TIME * 2 then the expiration age is set to ( \c
+     * AUTO_ADVERTISEMENT_TIME + 1 ) * 2. */
     int Exp);
 
 /*!
@@ -1087,25 +1092,27 @@ UPNPLIB_API int UpnpSendAdvertisement(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid
  *             device handle.
  *     \li \c UPNP_E_OUTOF_MEMORY: There are insufficient resources to
  *             send future advertisements.
  */
-UPNPLIB_API int UpnpSendAdvertisementLowPower(
-    /*! The device handle for which to send out the announcements. */
+UPnPsdk_API int UpnpSendAdvertisementLowPower(
+    /*! [in] The device handle for which to send out the announcements. */
     UpnpDevice_Handle Hnd,
-    /*! The expiration age, in seconds, of the announcements. If the
-     * expiration age is less than 1 then the expiration age is set to
-     * \c DEFAULT_MAXAGE. If the expiration age is less than or equal to
-     * \c AUTO_ADVERTISEMENT_TIME * 2 then the expiration age is set to
-     * ( \c AUTO_ADVERTISEMENT_TIME + 1 ) * 2. */
+    /*! [in] The expiration age, in seconds, of the announcements. If the
+     * expiration age is less than 1 then the expiration age is set to \c
+     * DEFAULT_MAXAGE. If the expiration age is less than or equal to \c
+     * AUTO_ADVERTISEMENT_TIME * 2 then the expiration age is set to ( \c
+     * AUTO_ADVERTISEMENT_TIME + 1 ) * 2. */
     int Exp,
-    /*! PowerState as defined by UPnP Low Power. */
+    /*! [in] PowerState as defined by UPnP Low Power. */
     int PowerState,
-    /*! SleepPeriod as defined by UPnP Low Power. */
+    /*! [in] SleepPeriod as defined by UPnP Low Power. */
     int SleepPeriod,
-    /*! RegistrationState as defined by UPnP Low Power. */
+    /*! [in] RegistrationState as defined by UPnP Low Power. */
     int RegistrationState);
 
 /// @} Step 1: Discovery
