@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2024-08-19
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -2733,6 +2733,7 @@ int UpnpSendActionExAsync(UpnpClient_Handle Hnd, const char* ActionURL_const,
     return UPNP_E_SUCCESS;
 }
 
+// Deprecated
 int UpnpGetServiceVarStatusAsync(UpnpClient_Handle Hnd,
                                  const char* ActionURL_const,
                                  const char* VarName_const, Upnp_FunPtr Fun,
@@ -2796,6 +2797,7 @@ int UpnpGetServiceVarStatusAsync(UpnpClient_Handle Hnd,
     return UPNP_E_SUCCESS;
 }
 
+// Deprecated
 int UpnpGetServiceVarStatus(UpnpClient_Handle Hnd, const char* ActionURL_const,
                             const char* VarName_const, DOMString* StVar) {
     struct Handle_Info* SInfo = NULL;
@@ -3891,8 +3893,7 @@ int UpnpVirtualDir_set_CloseCallback(VDCallback_Close callback) {
     return ret;
 }
 
-#if 0
-// Not supported. This function was already deprecated in pupnp.
+// Deprecated
 int UpnpSetContentLength(UpnpClient_Handle Hnd, size_t contentLength) {
     int errCode = UPNP_E_SUCCESS;
     struct Handle_Info* HInfo = NULL;
@@ -3922,7 +3923,6 @@ int UpnpSetContentLength(UpnpClient_Handle Hnd, size_t contentLength) {
     HandleUnlock();
     return errCode;
 }
-#endif
 
 int UpnpSetMaxContentLength(size_t contentLength) {
     int errCode = UPNP_E_SUCCESS;

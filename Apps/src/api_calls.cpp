@@ -175,7 +175,8 @@ int UpnpRegisterRootDevice3([[maybe_unused]] bool execute = true) {
 
     // On MS Windows terminate with -1073741819 (0xC0000005): access violation.
     // int ret = ::UpnpRegisterRootDevice3(nullptr, nullptr, nullptr, nullptr,
-    // AF_UNSPEC); or
+    //                                     AF_UNSPEC);
+    // or
     int ret = ::UpnpRegisterRootDevice3(DescUrl, Fun, &Cookie, &Hnd, AF_UNSPEC);
     if (ret != UPNP_E_FINISH) {
         std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
@@ -281,6 +282,24 @@ int UpnpUnRegisterClient() {
     return 0;
 }
 
+// Deprecated
+int UpnpSetContentLength(bool execute = true) {
+    constexpr char function_name[]{"UpnpSetContentLength()"};
+    if (!execute) {
+        std::cerr << "Skip " << function_name << " due to access violation\n";
+        return 0;
+    }
+    std::cerr << "Executing " << function_name << '\n';
+
+    // On MS Windows terminate with -1073741819 (0xC0000005): access violation.
+    int ret = ::UpnpSetContentLength(0, 0);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+    return 0;
+}
+
 int UpnpSetMaxContentLength() {
     constexpr char function_name[]{"UpnpSetMaxContentLength()"};
     std::cerr << "Executing " << function_name << '\n';
@@ -349,6 +368,116 @@ int UpnpSendAdvertisementLowPower() {
 }
 
 
+// Step 3: Control
+// ---------------
+// Deprecated
+int UpnpGetServiceVarStatus() {
+    constexpr char function_name[]{"UpnpGetServiceVarStatus()"};
+#if defined(UPNP_HAVE_SOAP) || defined(COMPA_HAVE_CTRLPT_SOAP)
+    std::cerr << "Executing " << function_name << '\n';
+    int ret = ::UpnpGetServiceVarStatus(0, nullptr, nullptr, nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_SOAP not enabled\n";
+#endif
+    return 0;
+}
+
+// Deprecated
+int UpnpGetServiceVarStatusAsync() {
+    constexpr char function_name[]{"UpnpGetServiceVarStatusAsync()"};
+#if defined(UPNP_HAVE_SOAP) || defined(COMPA_HAVE_CTRLPT_SOAP)
+    std::cerr << "Executing " << function_name << '\n';
+    int ret =
+        ::UpnpGetServiceVarStatusAsync(0, nullptr, nullptr, nullptr, nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_SOAP not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpSendAction() {
+    constexpr char function_name[]{"UpnpSendAction()"};
+#if defined(UPNP_HAVE_SOAP) || defined(COMPA_HAVE_CTRLPT_SOAP)
+    std::cerr << "Executing " << function_name << '\n';
+    IXML_Document* RespNodePtr{};
+
+    int ret =
+        ::UpnpSendAction(0, nullptr, nullptr, nullptr, nullptr, &RespNodePtr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_SOAP not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpSendActionEx() {
+    constexpr char function_name[]{"UpnpSendActionEx()"};
+#if defined(UPNP_HAVE_SOAP) || defined(COMPA_HAVE_CTRLPT_SOAP)
+    std::cerr << "Executing " << function_name << '\n';
+    IXML_Document* RespNodePtr{};
+
+    int ret = ::UpnpSendActionEx(0, nullptr, nullptr, nullptr, nullptr, nullptr,
+                                 &RespNodePtr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_SOAP not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpSendActionAsync() {
+    constexpr char function_name[]{"UpnpSendActionAsync()"};
+#if defined(UPNP_HAVE_SOAP) || defined(COMPA_HAVE_CTRLPT_SOAP)
+    std::cerr << "Executing " << function_name << '\n';
+    int ret = ::UpnpSendActionAsync(0, nullptr, nullptr, nullptr, nullptr,
+                                    nullptr, nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_SOAP not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpSendActionExAsync() {
+    constexpr char function_name[]{"UpnpSendActionExAsync()"};
+#if defined(UPNP_HAVE_SOAP) || defined(COMPA_HAVE_CTRLPT_SOAP)
+    std::cerr << "Executing " << function_name << '\n';
+    int ret = ::UpnpSendActionExAsync(0, nullptr, nullptr, nullptr, nullptr,
+                                      nullptr, nullptr, nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_SOAP not enabled\n";
+#endif
+    return 0;
+}
+
+
 #if 0
 /// \brief Initialize OpenSSL context.
 int UpnpInitSslContext() {
@@ -396,12 +525,25 @@ int main() {
     ret += utest::UpnpUnRegisterRootDeviceLowPower();
     ret += utest::UpnpRegisterClient();
     ret += utest::UpnpUnRegisterClient();
+#ifdef _MSC_VER
+    ret += utest::UpnpSetContentLength(false); // access violation
+#else
+    ret += utest::UpnpSetContentLength();
+#endif
     ret += utest::UpnpSetMaxContentLength();
 
     // Step 1: Discovery
     ret += utest::UpnpSearchAsync();
     ret += utest::UpnpSendAdvertisement();
     ret += utest::UpnpSendAdvertisementLowPower();
+
+    // Step 3: Control
+    ret += utest::UpnpGetServiceVarStatus();
+    ret += utest::UpnpGetServiceVarStatusAsync();
+    ret += utest::UpnpSendAction();
+    ret += utest::UpnpSendActionEx();
+    ret += utest::UpnpSendActionAsync();
+    ret += utest::UpnpSendActionExAsync();
 
 
     // ret += utest::UpnpInitSslContext();

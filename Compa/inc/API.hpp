@@ -967,9 +967,12 @@ UPnPsdk_API int UpnpUnRegisterClient(
     UpnpClient_Handle Hnd);
 
 /*!
- * \attention Not supported anymore. This function was already deprecated in
- * the <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices
- * (pupnp)</a>. Use UpnpSetMaxContentLength() instead.
+ * \brief Sets the content-length that the SDK will process on an incoming SOAP
+ * requests or responses.
+ *
+ * \deprecated Warning: The Handle argument provided here is not used, so the
+ * effect of this function is global to the SDK (= same as
+ * %UpnpSetMaxContentLength()). Use UpnpSetMaxContentLength() instead.
  */
 UPnPsdk_API int UpnpSetContentLength(
     /*! [in] The handle of the device instance for which the coincoming content
@@ -1146,8 +1149,7 @@ UPnPsdk_API int UpnpSendAdvertisementLowPower(
 /*!
  * \brief Queries the state of a state variable of a service on another device.
  *
- * \deprecated
- * <b>The use of this function is deprecated by the UPnP Forum</b>.
+ * \deprecated The use of this function is deprecated by the UPnP Forum.
  *
  * This is a synchronous call.
  *
@@ -1156,19 +1158,21 @@ UPnPsdk_API int UpnpSendAdvertisementLowPower(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
  *     \li \c UPNP_E_INVALID_URL: \b ActionUrl is not a valid URL.
  *     \li \c UPNP_E_INVALID_DESC: The XML document was not
  *             found or it does not contain a valid XML description.
  *     \li \c UPNP_E_INVALID_PARAM: \b StVarVal is not a valid
- *             pointer or \b VarName or \b ActionUrl is \c NULL.
+ *             pointer or \b VarName or \b ActionUrl is a \c nullptr.
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  *     \li \c UPNP_SOAP_E_INVALID_VAR: The given variable is invalid
  *             according to the device.
  */
-UPNPLIB_API int UpnpGetServiceVarStatus(
+UPnPsdk_API int UpnpGetServiceVarStatus(
     /*! [in] The handle of the control point. */
     UpnpClient_Handle Hnd,
     /*! [in] The URL of the service. */
@@ -1184,11 +1188,12 @@ UPNPLIB_API int UpnpGetServiceVarStatus(
  * \brief Queries the state of a variable of a service, generating a callback
  * when the operation is complete.
  *
- * \deprecated
- * <b>The use of this function is deprecated by the UPnP Forum</b>.
+ * \deprecated The use of this function is deprecated by the UPnP Forum.
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
  *     \li \c UPNP_E_INVALID_URL: The \b ActionUrl is not a valid URL.
@@ -1197,7 +1202,7 @@ UPNPLIB_API int UpnpGetServiceVarStatus(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpGetServiceVarStatusAsync(
+UPnPsdk_API int UpnpGetServiceVarStatusAsync(
     /*! [in] The handle of the control point. */
     UpnpClient_Handle Hnd,
     /*! [in] The URL of the service. */
@@ -1222,6 +1227,8 @@ UPNPLIB_API int UpnpGetServiceVarStatusAsync(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
  *     \li \c UPNP_E_INVALID_URL: \b ActionUrl is not a valid URL.
@@ -1234,14 +1241,14 @@ UPNPLIB_API int UpnpGetServiceVarStatusAsync(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpSendAction(
+UPnPsdk_API int UpnpSendAction(
     /*! [in] The handle of the control point sending the action. */
     UpnpClient_Handle Hnd,
     /*! [in] The action URL of the service. */
     const char* ActionURL_const,
     /*! [in] The type of the service. */
     const char* ServiceType_const,
-    /*! [in] This parameter is ignored and must be \c NULL. */
+    /*! [in] This parameter is ignored and must be a \c nullptr. */
     const char* DevUDN_const,
     /*! [in] The DOM document for the action. */
     IXML_Document* Action,
@@ -1254,12 +1261,14 @@ UPNPLIB_API int UpnpSendAction(
  *
  * This is a synchronous call that does not return until the action is complete.
  *
- * Note that a positive return value indicates a SOAP-protocol error code.
- * In this case,  the error description can be retrieved from \b RespNode.
- * A negative return value indicates an SDK error.
+ * Note that a positive return value indicates a SOAP-protocol error code. In
+ * this case, the error description can be retrieved from \b RespNode. A
+ * negative return value indicates an SDK error.
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
  *     \li \c UPNP_E_INVALID_URL: \b ActionUrl is not a valid URL.
@@ -1272,16 +1281,16 @@ UPNPLIB_API int UpnpSendAction(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpSendActionEx(
+UPnPsdk_API int UpnpSendActionEx(
     /*! [in] The handle of the control point sending the action. */
     UpnpClient_Handle Hnd,
     /*! [in] The action URL of the service. */
     const char* ActionURL_const,
     /*! [in] The type of the service. */
     const char* ServiceType_const,
-    /*! [in] This parameter is ignored and must be \c NULL. */
+    /*! [in] This parameter is ignored and must be a \c nullptr. */
     const char* DevUDN_const,
-    /*! [in] The DOM document for the SOAP header. This may be \c NULL if
+    /*! [in] The DOM document for the SOAP header. This may be a \c nullptr if
      * the header is not required. */
     IXML_Document* Header,
     /*! [in] The DOM document for the action. */
@@ -1294,31 +1303,33 @@ UPNPLIB_API int UpnpSendActionEx(
  * \brief Sends a message to change a state variable in a service, generating a
  * callback when the operation is complete.
  *
- * See \b UpnpSendAction for comments on positive return values. These
+ * See UpnpSendAction() for comments on positive return values. These
  * positive return values are sent in the event struct associated with the
  * \c UPNP_CONTROL_ACTION_COMPLETE event.
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
  *     \li \c UPNP_E_INVALID_URL: \b ActionUrl is an invalid URL.
  *     \li \c UPNP_E_INVALID_DEVICE: \b DevUDN is an invalid device.
  *     \li \c UPNP_E_INVALID_PARAM: Either \b Fun is not a valid
  *             callback function or \b ServiceType, \b Act, or
- *             \b ActionUrl is \c NULL.
+ *             \b ActionUrl is a \c nullptr.
  *     \li \c UPNP_E_INVALID_ACTION: This action is not valid.
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpSendActionAsync(
+UPnPsdk_API int UpnpSendActionAsync(
     /*! [in] The handle of the control point sending the action. */
     UpnpClient_Handle Hnd,
     /*! [in] The action URL of the service. */
     const char* ActionURL_const,
     /*! [in] The type of the service. */
     const char* ServiceType_const,
-    /*! [in] This parameter is ignored and must be \c NULL. */
+    /*! [in] This parameter is ignored and must be a \c nullptr. */
     const char* DevUDN_const,
     /*! [in] The DOM document for the action to perform on this device. */
     IXML_Document* Act,
@@ -1333,19 +1344,21 @@ UPNPLIB_API int UpnpSendActionAsync(
  * \brief Sends a message to change a state variable in a service, generating a
  * callback when the operation is complete.
  *
- * See \b UpnpSendAction for comments on positive return values. These
+ * See UpnpSendAction() for comments on positive return values. These
  * positive return values are sent in the event struct associated with the
  * \c UPNP_CONTROL_ACTION_COMPLETE event.
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
  *     \li \c UPNP_E_INVALID_URL: \b ActionUrl is an invalid URL.
  *     \li \c UPNP_E_INVALID_DEVICE: \b DevUDN is an invalid device.
  *     \li \c UPNP_E_INVALID_PARAM: Either \b Fun is not a valid
  *             callback function or \b ServiceType, \b Act, or
- *             \b ActionUrl is \c NULL.
+ *             \b ActionUrl is a \c nullptr.
  *     \li \c UPNP_E_INVALID_ACTION: This action is not valid.
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
@@ -1357,10 +1370,10 @@ UPNPLIB_API int UpnpSendActionExAsync(
     const char* ActionURL_const,
     /*! [in] The type of the service. */
     const char* ServiceType_const,
-    /*! [in] This parameter is ignored and must be \c NULL. */
+    /*! [in] This parameter is ignored and must be a \c nullptr. */
     const char* DevUDN_const,
-    /*! [in] The DOM document for the SOAP header. This may be \c NULL if
-     * the header is not required. */
+    /*! [in] The DOM document for the SOAP header. This may be a \c nullptr if
+       the header is not required. */
     IXML_Document* Header,
     /*! [in] The DOM document for the action to perform on this device. */
     IXML_Document* Act,

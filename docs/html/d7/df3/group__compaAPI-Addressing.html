@@ -153,6 +153,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 <tr class="memdesc:ga5e3377c94cafd5e301bf4c4464aa8084"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unregisters a control point application, unsubscribing all active subscriptions.  <br /></td></tr>
 <tr class="separator:ga5e3377c94cafd5e301bf4c4464aa8084"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7ee7690f653f67684d382d50df7d3aee" id="r_ga7ee7690f653f67684d382d50df7d3aee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga7ee7690f653f67684d382d50df7d3aee">UpnpSetContentLength</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, size_t contentLength)</td></tr>
+<tr class="memdesc:ga7ee7690f653f67684d382d50df7d3aee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the content-length that the SDK will process on an incoming SOAP requests or responses.  <br /></td></tr>
 <tr class="separator:ga7ee7690f653f67684d382d50df7d3aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf3db79c8a71d02fe63316a271927c2dd" id="r_gaf3db79c8a71d02fe63316a271927c2dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#gaf3db79c8a71d02fe63316a271927c2dd">UpnpSetMaxContentLength</a> (size_t contentLength)</td></tr>
 <tr class="memdesc:gaf3db79c8a71d02fe63316a271927c2dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum content-length that the SDK will process on an incoming SOAP requests or responses.  <br /></td></tr>
@@ -2317,7 +2318,9 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section attention"><dt>Attention</dt><dd>Not supported anymore. This function was already deprecated in the <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices (pupnp)</a>. Use <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#gaf3db79c8a71d02fe63316a271927c2dd" title="Sets the maximum content-length that the SDK will process on an incoming SOAP requests or responses.">UpnpSetMaxContentLength()</a> instead. </dd></dl>
+
+<p>Sets the content-length that the SDK will process on an incoming SOAP requests or responses. </p>
+<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>Warning: The Handle argument provided here is not used, so the effect of this function is global to the SDK (= same as UpnpSetMaxContentLength()). Use <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#gaf3db79c8a71d02fe63316a271927c2dd" title="Sets the maximum content-length that the SDK will process on an incoming SOAP requests or responses.">UpnpSetMaxContentLength()</a> instead. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">Hnd</td><td>The handle of the device instance for which the coincoming content length needs to be set.  </td></tr>
@@ -2325,6 +2328,26 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03897">3897</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d7/df3/group__compaAPI-Addressing_ga7ee7690f653f67684d382d50df7d3aee_cgraph.png" border="0" usemap="#ad7/df3/group__compaAPI-Addressing_ga7ee7690f653f67684d382d50df7d3aee_cgraph" alt=""/></div>
+<map name="ad7/df3/group__compaAPI-Addressing_ga7ee7690f653f67684d382d50df7d3aee_cgraph" id="ad7/df3/group__compaAPI-Addressing_ga7ee7690f653f67684d382d50df7d3aee_cgraph">
+<area shape="rect" title="Sets the content&#45;length that the SDK will process on an incoming SOAP requests or responses." alt="" coords="5,31,177,56"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="225,31,341,56"/>
+<area shape="poly" title=" " alt="" coords="177,41,212,41,212,46,177,46"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="389,31,480,56"/>
+<area shape="poly" title=" " alt="" coords="342,41,375,41,375,46,342,46"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="548,5,688,31"/>
+<area shape="poly" title=" " alt="" coords="480,34,534,27,535,32,481,40"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="528,55,708,80"/>
+<area shape="poly" title=" " alt="" coords="481,47,515,51,514,56,480,52"/>
+</map>
+</div>
 
 </div>
 </div>
