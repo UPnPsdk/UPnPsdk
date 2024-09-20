@@ -3,6 +3,10 @@
 /*!
  * \file
  * \brief Simple calls of API functions to test conditional compile and linking.
+ *
+ * Just calling every API function with default/empty arguments to ensure that
+ * it will link successful and that there are no different symbols used when
+ * linking with the pUPnP library and the compatible UPnPsdk.
  */
 
 #include <upnp.hpp>
@@ -695,10 +699,362 @@ int UpnpUnSubscribeAsync() {
 }
 
 
+// Control Point http API
+// ----------------------
+int UpnpDownloadUrlItem() {
+    constexpr char function_name[]{"UpnpDownloadUrlItem()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpDownloadUrlItem(nullptr, nullptr, nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpOpenHttpGet() {
+    constexpr char function_name[]{"UpnpOpenHttpGet()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpOpenHttpGet(nullptr, nullptr, nullptr, nullptr, nullptr, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpOpenHttpGetProxy() {
+    constexpr char function_name[]{"UpnpOpenHttpGetProxy()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpOpenHttpGetProxy(nullptr, nullptr, nullptr, nullptr,
+                                     nullptr, nullptr, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpOpenHttpGetEx() {
+    constexpr char function_name[]{"UpnpOpenHttpGetEx()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpOpenHttpGetEx(nullptr, nullptr, nullptr, nullptr, nullptr,
+                                  0, 0, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpReadHttpGet() {
+    constexpr char function_name[]{"UpnpReadHttpGet()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpReadHttpGet(nullptr, nullptr, nullptr, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpHttpGetProgress() {
+    constexpr char function_name[]{"UpnpHttpGetProgress()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpHttpGetProgress(nullptr, nullptr, nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpCancelHttpGet() {
+    constexpr char function_name[]{"UpnpCancelHttpGet()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpCancelHttpGet(nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpCloseHttpGet() {
+    constexpr char function_name[]{"UpnpCloseHttpGet()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpCloseHttpGet(nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpOpenHttpPost() {
+    constexpr char function_name[]{"UpnpOpenHttpPost()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpOpenHttpPost(nullptr, nullptr, nullptr, 0, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpWriteHttpPost() {
+    constexpr char function_name[]{"UpnpWriteHttpPost()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpWriteHttpPost(nullptr, nullptr, nullptr, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpCloseHttpPost() {
+    constexpr char function_name[]{"UpnpCloseHttpPost()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpCloseHttpPost(nullptr, nullptr, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpOpenHttpConnection() {
+    constexpr char function_name[]{"UpnpOpenHttpConnection()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpOpenHttpConnection(nullptr, nullptr, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpMakeHttpRequest() {
+    constexpr char function_name[]{"UpnpMakeHttpRequest()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpMakeHttpRequest(UPNP_HTTPMETHOD_DELETE, nullptr, nullptr,
+                                    nullptr, nullptr, 0, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpWriteHttpRequest() {
+    constexpr char function_name[]{"UpnpWriteHttpRequest()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpWriteHttpRequest(nullptr, nullptr, nullptr, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpEndHttpRequest() {
+    constexpr char function_name[]{"UpnpEndHttpRequest()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpEndHttpRequest(nullptr, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+struct UpnpString {
+    /* ! \brief Length of the string excluding terminating null byte ('\0'). */
+    size_t m_length;
+    /* ! \brief Pointer to a dynamically allocated area that holds the NULL
+     * terminated string. */
+    char* m_string;
+};
+
+int UpnpGetHttpResponse([[maybe_unused]] bool execute = true) {
+    constexpr char function_name[]{"UpnpGetHttpResponse()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    if (!execute) {
+        std::cerr << "Skip " << function_name
+                  << " due to Aborted: assertion failed.\n";
+        return 0;
+    }
+    std::cerr << "Executing " << function_name << '\n';
+    int handle{};
+    UpnpString headers{};
+    char* contentType;
+    int contentLength;
+    int httpStatus;
+
+    // parse_status_t parser_parse_responseline(http_parser_t*): Assertion
+    // `parser->position == POS_RESPONSE_LINE' failed.
+    int ret = ::UpnpGetHttpResponse(
+        &handle, reinterpret_cast<s_UpnpString*>(&headers), &contentType,
+        &contentLength, &httpStatus, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpReadHttpResponse() {
+    constexpr char function_name[]{"UpnpReadHttpResponse()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpReadHttpResponse(nullptr, nullptr, nullptr, 0);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpCloseHttpConnection() {
+    constexpr char function_name[]{"UpnpCloseHttpConnection()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpCloseHttpConnection(nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpDownloadXmlDoc() {
+    constexpr char function_name[]{"UpnpDownloadXmlDoc()"};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpDownloadXmlDoc(nullptr, nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+
 // \brief Initialize OpenSSL context and use freeSslCtx().
 int UpnpInitSslContext() {
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
     constexpr char function_name[]{"UpnpInitSslContext()"};
-#if defined(COMPA_HAVE_MINISERVER) && defined(UPNP_ENABLE_OPEN_SSL)
+#if defined(UPNP_ENABLE_OPEN_SSL)
     std::cerr << "Executing " << function_name << '\n';
 
     int ret = ::UpnpInitSslContext(1, TLS_method());
@@ -711,6 +1067,7 @@ int UpnpInitSslContext() {
     std::cerr << "Skip " << function_name
               << ": UPNP_ENABLE_OPEN_SSL not enabled\n";
 #endif
+#endif
     return 0;
 }
 
@@ -721,6 +1078,8 @@ int UpnpInitSslContext() {
 /// \brief Main entry
 int main() {
     int ret{};
+
+    ret += utest::UpnpInitSslContext();
 
     // Step 0: Addressing
     ret += utest::UpnpInit2();
@@ -780,9 +1139,30 @@ int main() {
     ret += utest::UpnpUnSubscribe();
     ret += utest::UpnpUnSubscribeAsync();
 
-    ret += utest::UpnpInitSslContext();
+    // Control Point http API
+    ret += utest::UpnpDownloadUrlItem();
+    ret += utest::UpnpOpenHttpGet();
+    ret += utest::UpnpOpenHttpGetProxy();
+    ret += utest::UpnpOpenHttpGetEx();
+    ret += utest::UpnpReadHttpGet();
+    ret += utest::UpnpHttpGetProgress();
+    ret += utest::UpnpCancelHttpGet();
+    ret += utest::UpnpCloseHttpGet();
+    ret += utest::UpnpOpenHttpPost();
+    ret += utest::UpnpWriteHttpPost();
+    ret += utest::UpnpCloseHttpPost();
+    ret += utest::UpnpOpenHttpConnection();
+    ret += utest::UpnpMakeHttpRequest();
+    ret += utest::UpnpWriteHttpRequest();
+    ret += utest::UpnpEndHttpRequest();
+    ret += utest::UpnpGetHttpResponse(false); // Aborted: assertion failed.
+    ret += utest::UpnpReadHttpResponse();
+    ret += utest::UpnpCloseHttpConnection();
+    ret += utest::UpnpDownloadXmlDoc();
+
 
     // returns number of failed tests.
+    std::cout << "return code " << ret << '\n';
     return ret;
 
     // clang-format off

@@ -24,7 +24,7 @@
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="970,181,649,83,650,78,972,176"/>
 <area shape="rect" id="Node000004" href="$d4/d99/upnpapi_8cpp.html#a32b6a961a76abcb37fcd7f6e3de10ee7" title="Sends and receives any pending data, closes the connection with the server, and frees memory allocate..." alt="" coords="293,5,441,31"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="530,54,429,33,430,28,532,49"/>
-<area shape="rect" id="Node000005" href="$d4/d99/upnpapi_8cpp.html#afca845cb73300ed7cbd96849c9ae137c" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection." alt="" coords="281,55,452,80"/>
+<area shape="rect" id="Node000005" href="$d4/d99/upnpapi_8cpp.html#afca845cb73300ed7cbd96849c9ae137c" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="281,55,452,80"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="509,70,452,70,452,65,509,65"/>
 <area shape="rect" id="Node000006" href="$d4/d99/upnpapi_8cpp.html#a14067069cf3e1f0dc9ac25867a4ca83d" title="Gets a file specified in a URL." alt="" coords="38,104,179,129"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="287,85,176,107,175,101,286,80"/>
@@ -93,7 +93,7 @@
 <area shape="poly" id="edge38_Node000074_Node000075" title=" " alt="" coords="774,270,648,231,649,226,776,265"/>
 <area shape="rect" id="Node000078" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="529,128,685,153"/>
 <area shape="poly" id="edge43_Node000074_Node000078" title=" " alt="" coords="799,266,691,192,629,156,632,151,693,188,802,262"/>
-<area shape="rect" id="Node000076" href="$d4/d99/upnpapi_8cpp.html#a534218b5a1c6cdcc1094a58449019882" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection." alt="" coords="281,153,453,179"/>
+<area shape="rect" id="Node000076" href="$d4/d99/upnpapi_8cpp.html#a534218b5a1c6cdcc1094a58449019882" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="281,153,453,179"/>
 <area shape="poly" id="edge39_Node000075_Node000076" title=" " alt="" coords="530,202,429,181,430,176,532,197"/>
 <area shape="rect" id="Node000077" href="$d4/d99/upnpapi_8cpp.html#a45850f990fe110e26f9b093a88e3e8a0" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th..." alt="" coords="293,203,440,228"/>
 <area shape="poly" id="edge42_Node000075_Node000077" title=" " alt="" coords="507,218,440,218,440,213,507,213"/>

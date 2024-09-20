@@ -1,5 +1,10 @@
 var NAVTREEINDEX9 =
 {
+"de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8":[4,1,1,1,5],
+"de/d27/group__SSDP-common__functions.html#ga62ab1e0cf1a64b52ce402504c7feab95":[4,1,1,1,10],
+"de/d27/group__SSDP-common__functions.html#ga6f360c6b4cce127d24d3cdf25caaee78":[4,1,1,1,8],
+"de/d27/group__SSDP-common__functions.html#ga75269399e8a3b97be6e0f2c2f2cace3d":[4,1,1,1,14],
+"de/d27/group__SSDP-common__functions.html#ga813e243c5a6ea133ef0803838244766b":[4,1,1,1,2],
 "de/d27/group__SSDP-common__functions.html#ga99424b09aff9e82571d74b982378e21a":[4,1,1,1,12],
 "de/d27/group__SSDP-common__functions.html#gab6a02ff5d292d91a527de5405d1ce82a":[4,1,1,1,6],
 "de/d27/group__SSDP-common__functions.html#gacf83eab7c7d8483f9c91d266bc465d9e":[4,1,1,1,13],
@@ -244,10 +249,5 @@ var NAVTREEINDEX9 =
 "functions_vars.html":[6,3,2],
 "functions_vars.html":[6,3,2,0],
 "functions_vars_b.html":[6,3,2,1],
-"functions_vars_c.html":[6,3,2,2],
-"functions_vars_d.html":[6,3,2,3],
-"functions_vars_e.html":[6,3,2,4],
-"functions_vars_f.html":[6,3,2,5],
-"functions_vars_g.html":[6,3,2,6],
-"functions_vars_h.html":[6,3,2,7]
+"functions_vars_c.html":[6,3,2,2]
 };

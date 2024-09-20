@@ -1932,7 +1932,7 @@ UPnPsdk_API int UpnpUnSubscribeAsync(
 /******************************************************************************
  ******************************************************************************
  *                                                                            *
- *                        C L I E N T - A P I                                 *
+ *                      C O N T R O L  P O I N T - A P I                      *
  *                                                                            *
  ******************************************************************************
  ******************************************************************************/
@@ -1943,11 +1943,11 @@ UPnPsdk_API int UpnpUnSubscribeAsync(
  * \brief Different HTTP methods.
  */
 enum Upnp_HttpMethod {
-    UPNP_HTTPMETHOD_PUT = 0,
-    UPNP_HTTPMETHOD_DELETE = 1,
-    UPNP_HTTPMETHOD_GET = 2,
-    UPNP_HTTPMETHOD_HEAD = 3,
-    UPNP_HTTPMETHOD_POST = 4
+    UPNP_HTTPMETHOD_PUT,    ///< PUT
+    UPNP_HTTPMETHOD_DELETE, ///< DELETE
+    UPNP_HTTPMETHOD_GET,    ///< GET
+    UPNP_HTTPMETHOD_HEAD,   ///< HEAD
+    UPNP_HTTPMETHOD_POST    ///< POST
 };
 
 /*!
@@ -1976,7 +1976,7 @@ enum Upnp_HttpMethod {
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPNPLIB_API int UpnpDownloadUrlItem(
+UPnPsdk_API int UpnpDownloadUrlItem(
     /*! [in] URL of an item to download. */
     const char* url,
     /*! [out] Buffer to store the downloaded item. */
@@ -2015,7 +2015,7 @@ UPNPLIB_API int UpnpDownloadUrlItem(
  *     \li \c UPNP_E_BAD_RESPONSE: A bad response was received from the
  *             remote server.
  */
-UPNPLIB_API int UpnpOpenHttpGet(
+UPnPsdk_API int UpnpOpenHttpGet(
     /*! [in] The URL of an item to get. */
     const char* url,
     /*! [in,out] A pointer to store the handle for this connection. */
@@ -2062,7 +2062,7 @@ UPNPLIB_API int UpnpOpenHttpGet(
  *     \li \c UPNP_E_BAD_RESPONSE: A bad response was received from the
  *         remote server.
  */
-UPNPLIB_API int UpnpOpenHttpGetProxy(
+UPnPsdk_API int UpnpOpenHttpGetProxy(
     /*! [in] The URL of an item to get. */
     const char* url,
     /*! [in] The URL of the proxy. */
@@ -2111,7 +2111,7 @@ UPNPLIB_API int UpnpOpenHttpGetProxy(
  *  \li \c UPNP_E_BAD_RESPONSE: A bad response was received from the
  *          remote server.
  */
-UPNPLIB_API int UpnpOpenHttpGetEx(
+UPnPsdk_API int UpnpOpenHttpGetEx(
     /*! [in] The URL of the item to get. */
     const char* url_str,
     /*! [in,out] A pointer to store the handle for this connection. */
@@ -2151,7 +2151,7 @@ UPNPLIB_API int UpnpOpenHttpGetEx(
  *        in handle value may provide additional information on the return
  *        value.
  */
-UPNPLIB_API int UpnpReadHttpGet(
+UPnPsdk_API int UpnpReadHttpGet(
     /*! [in] The token created by the call to \b UpnpOpenHttpGet. */
     void* Handle,
     /*! [in,out] The buffer to store the read item. */
@@ -2172,7 +2172,7 @@ UPNPLIB_API int UpnpReadHttpGet(
  *     \li \c UPNP_E_INVALID_PARAM: Either \b handle, \b length
  *      or \b total is not a valid pointer.
  */
-UPNPLIB_API int UpnpHttpGetProgress(
+UPnPsdk_API int UpnpHttpGetProgress(
     /*! [in] The token created by the call to \b UpnpOpenHttpGet. */
     void* Handle,
     /*! [out] The number of bytes received. */
@@ -2187,7 +2187,7 @@ UPNPLIB_API int UpnpHttpGetProgress(
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
  *      \li \c UPNP_E_INVALID_PARAM: \b handle is not a valid pointer.
  */
-UPNPLIB_API int UpnpCancelHttpGet(
+UPnPsdk_API int UpnpCancelHttpGet(
     /*! [in] The handle of the connection created by the call to
      * \b UpnpOpenHttpGet. */
     void* Handle);
@@ -2200,7 +2200,7 @@ UPNPLIB_API int UpnpCancelHttpGet(
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
  *      \li \c UPNP_E_INVALID_PARAM: \b handle is not a valid pointer.
  */
-UPNPLIB_API int UpnpCloseHttpGet(
+UPnPsdk_API int UpnpCloseHttpGet(
     /*! [in] The handle of the connection created by the call to
      * \b UpnpOpenHttpGet. */
     void* Handle);
@@ -2230,7 +2230,7 @@ UPNPLIB_API int UpnpCloseHttpGet(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPNPLIB_API int UpnpOpenHttpPost(
+UPnPsdk_API int UpnpOpenHttpPost(
     /*! [in] The URL in which to send the POST request. */
     const char* url,
     /*! [in,out] A pointer in which to store the handle for this connection.
@@ -2249,7 +2249,7 @@ UPNPLIB_API int UpnpOpenHttpPost(
 
 /*!
  * \brief Sends a request to a server to copy the contents of a buffer to the
- * URI specified in the \b UpnpOpenHttpPost call.
+ * URI specified in the UpnpOpenHttpPost() call.
  *
  *  \return An integer representing one of the following:
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2260,9 +2260,9 @@ UPNPLIB_API int UpnpOpenHttpPost(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPNPLIB_API int UpnpWriteHttpPost(
+UPnPsdk_API int UpnpWriteHttpPost(
     /*! [in] The handle of the connection created by the call to
-     * \b UpnpOpenHttpPost. */
+     * UpnpOpenHttpPost(). */
     void* handle,
     /*! [in] The buffer to be posted. */
     char* buf,
@@ -2275,7 +2275,7 @@ UPNPLIB_API int UpnpWriteHttpPost(
 
 /*!
  * \brief Sends and receives any pending data, closes the connection with the
- * server, and frees memory allocated during the \b UpnpOpenHttpPost call.
+ * server, and frees memory allocated during the UpnpOpenHttpPost() call.
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2286,9 +2286,9 @@ UPNPLIB_API int UpnpWriteHttpPost(
  *     \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *             allocated.
  */
-UPNPLIB_API int UpnpCloseHttpPost(
+UPnPsdk_API int UpnpCloseHttpPost(
     /*! [in] The handle of the connection to close, created by the call to
-     * \b UpnpOpenHttpPost. */
+     * UpnpOpenHttpPost(). */
     void* handle,
     /*! [in,out] A pointer to a buffer to store the final status of the
        connection. */
@@ -2321,7 +2321,7 @@ UPNPLIB_API int UpnpCloseHttpPost(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPNPLIB_API int UpnpOpenHttpConnection(
+UPnPsdk_API int UpnpOpenHttpConnection(
     /*! [in] The URL which contains the host, and the scheme to make the
        connection. */
     const char* url,
@@ -2336,11 +2336,11 @@ UPNPLIB_API int UpnpOpenHttpConnection(
 
 /*!
  * \brief Makes a HTTP request using a connection previously created by
- * \b UpnpOpenHttpConnection.
+ * UpnpOpenHttpConnection().
  *
  * \note Trying to make another request while a request is already being
  *processed results in undefined behavior. It's up to the user to end a previous
- * request by calling \b UpnpEndHttpRequest.
+ * request by calling UpnpEndHttpRequest().
  *
  *  \return An integer representing one of the following:
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2359,7 +2359,7 @@ UPNPLIB_API int UpnpOpenHttpConnection(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPNPLIB_API int UpnpMakeHttpRequest(
+UPnPsdk_API int UpnpMakeHttpRequest(
     /*! [in] The method to use to make the request. */
     Upnp_HttpMethod method,
     /*! [in] The URL to use to make the request. The URL should use the same
@@ -2386,9 +2386,9 @@ UPNPLIB_API int UpnpMakeHttpRequest(
     int timeout);
 
 /*!
- * \brief Writes the content of a HTTP request initiated by a \b
- * UpnpMakeHttpRequest call. The end of the content should be indicated by a
- * call to \b UpnpEndHttpRequest
+ * \brief Writes the content of a HTTP request initiated by a
+ * UpnpMakeHttpRequest() call. The end of the content should be indicated by a
+ * call to UpnpEndHttpRequest().
  *
  *  \return An integer representing one of the following:
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2399,9 +2399,9 @@ UPNPLIB_API int UpnpMakeHttpRequest(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPNPLIB_API int UpnpWriteHttpRequest(
+UPnPsdk_API int UpnpWriteHttpRequest(
     /*! [in] The handle of the connection created by the call to
-     * \b UpnpOpenHttpConnection. */
+     * UpnpOpenHttpConnection(). */
     void* handle,
     /*! [in] The buffer containing date to be written. */
     char* buf,
@@ -2414,7 +2414,7 @@ UPNPLIB_API int UpnpWriteHttpRequest(
 
 /*!
  * \brief Indicates the end of a HTTP request previously made by
- * \b UpnpMakeHttpRequest.
+ * UpnpMakeHttpRequest().
  *
  *  \return An integer representing one of the following:
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2430,7 +2430,7 @@ UPNPLIB_API int UpnpWriteHttpRequest(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPNPLIB_API int UpnpEndHttpRequest(
+UPnPsdk_API int UpnpEndHttpRequest(
     /*! [in] The handle to the connection. */
     void* handle,
     /*! [in] The time out value sent with the request during which a
@@ -2440,7 +2440,7 @@ UPNPLIB_API int UpnpEndHttpRequest(
 
 /*!
  * \brief Gets the response from the server using a connection previously
- * created by \b UpnpOpenHttpConnection
+ * created by UpnpOpenHttpConnection().
  *
  * \note Memory for \b contentType is only valid until the next call to the HTTP
  * API for the same connection.
@@ -2466,9 +2466,9 @@ UPNPLIB_API int UpnpEndHttpRequest(
  *     \li \c UPNP_E_BAD_RESPONSE: A bad response was received from the
  *             remote server.
  */
-UPNPLIB_API int UpnpGetHttpResponse(
+UPnPsdk_API int UpnpGetHttpResponse(
     /*! [in] The handle of the connection created by the call to
-     * \b UpnpOpenHttpConnection. */
+     * UpnpOpenHttpConnection(). */
     void* handle,
     /*! [in] Headers sent by the server for the response. If NULL then the
      * headers are not copied. */
@@ -2487,7 +2487,7 @@ UPNPLIB_API int UpnpGetHttpResponse(
 
 /*!
  * \brief Reads the content of a response using a connection previously created
- * by \b UpnpOpenHttpConnection.
+ * by UpnpOpenHttpConnection().
  *
  *  \return An integer representing one of the following:
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2503,9 +2503,9 @@ UPNPLIB_API int UpnpGetHttpResponse(
  *        in handle value may provide additional information on the return
  *        value.
  */
-UPNPLIB_API int UpnpReadHttpResponse(
+UPnPsdk_API int UpnpReadHttpResponse(
     /*! [in] The handle of the connection created by the call to
-     * \b UpnpOpenHttpConnection. */
+     * UpnpOpenHttpConnection(). */
     void* handle,
     /*! [in,out] The buffer to store the read item. */
     char* buf,
@@ -2518,7 +2518,7 @@ UPNPLIB_API int UpnpReadHttpResponse(
     int timeout);
 
 /*!
- * \brief Closes the connection created with \b UpnpOpenHttpConnection
+ * \brief Closes the connection created with UpnpOpenHttpConnection()
  * and frees any memory associated with the connection.
  *
  * \return An integer representing one of the following:
@@ -2529,9 +2529,9 @@ UPNPLIB_API int UpnpReadHttpResponse(
  *     \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *             allocated.
  */
-UPNPLIB_API int UpnpCloseHttpConnection(
+UPnPsdk_API int UpnpCloseHttpConnection(
     /*! [in] The handle of the connection to close, created by the call to
-     * \b UpnpOpenHttpPost. */
+     * UpnpOpenHttpPost(). */
     void* handle);
 
 /*!
@@ -2561,7 +2561,7 @@ UPNPLIB_API int UpnpCloseHttpConnection(
  *     \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *             allocated.
  */
-UPNPLIB_API int UpnpDownloadXmlDoc(
+UPnPsdk_API int UpnpDownloadXmlDoc(
     /*! [in] URL of the XML document. */
     const char* url,
     /*! [out] A pointer in which to store the XML document. */

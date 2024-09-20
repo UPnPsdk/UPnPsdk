@@ -10,7 +10,7 @@
 <area shape="poly" id="edge63_Node000002_Node000088" title=" " alt="" coords="1426,626,1261,1150,1256,1148,1421,625"/>
 <area shape="rect" id="Node000004" href="$d4/d99/upnpapi_8cpp.html#a32b6a961a76abcb37fcd7f6e3de10ee7" title="Sends and receives any pending data, closes the connection with the server, and frees memory allocate..." alt="" coords="692,5,840,31"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="987,113,934,78,868,44,834,33,835,28,870,40,936,73,990,108"/>
-<area shape="rect" id="Node000005" href="$d4/d99/upnpapi_8cpp.html#abf7220a78d77e61b8d3bcc3165cfa71b" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest." alt="" coords="685,185,847,211"/>
+<area shape="rect" id="Node000005" href="$d4/d99/upnpapi_8cpp.html#abf7220a78d77e61b8d3bcc3165cfa71b" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="685,185,847,211"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="957,150,816,188,815,183,956,145"/>
 <area shape="rect" id="Node000006" href="$d4/d99/upnpapi_8cpp.html#a14067069cf3e1f0dc9ac25867a4ca83d" title="Gets a file specified in a URL." alt="" coords="441,192,583,217"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="672,203,583,205,583,200,671,198"/>
@@ -42,7 +42,7 @@
 <area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="904,834,862,841,861,835,903,829"/>
 <area shape="rect" id="Node000011" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a4a107199de415d50f725a5c6a327c1be" title="Initilize the thread pool to handle a request, sets priority for the job and adds the job to the thre..." alt="" coords="409,816,615,871"/>
 <area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="657,851,615,850,615,844,657,846"/>
-<area shape="rect" id="Node000015" href="$d4/d99/upnpapi_8cpp.html#a534218b5a1c6cdcc1094a58449019882" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection." alt="" coords="680,363,852,388"/>
+<area shape="rect" id="Node000015" href="$d4/d99/upnpapi_8cpp.html#a534218b5a1c6cdcc1094a58449019882" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="680,363,852,388"/>
 <area shape="poly" id="edge12_Node000014_Node000015" title=" " alt="" coords="952,426,917,417,869,402,824,391,825,385,870,397,918,411,953,421"/>
 <area shape="rect" id="Node000016" href="$d4/d99/upnpapi_8cpp.html#a45850f990fe110e26f9b093a88e3e8a0" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th..." alt="" coords="693,412,839,437"/>
 <area shape="poly" id="edge15_Node000014_Node000016" title=" " alt="" coords="920,436,839,432,840,426,920,431"/>
@@ -112,6 +112,6 @@
 <area shape="poly" id="edge61_Node000087_Node000086" title=" " alt="" coords="909,301,855,287,857,282,911,296"/>
 <area shape="rect" id="Node000089" href="$d4/d99/upnpapi_8cpp.html#a6794b5f98e814417967fc8fe1c44c6f5" title="Sends a request to a server to copy the contents of a buffer to the URI specified in the UpnpOpenHttp..." alt="" coords="945,1149,1092,1175"/>
 <area shape="poly" id="edge64_Node000088_Node000089" title=" " alt="" coords="1154,1165,1092,1165,1092,1159,1154,1159"/>
-<area shape="rect" id="Node000090" href="$d4/d99/upnpapi_8cpp.html#accbd92c541367e88598a5126fa97b2fb" title="Writes the content of a HTTP request initiated by a UpnpMakeHttpRequest call. The end of the content ..." alt="" coords="933,1199,1105,1224"/>
+<area shape="rect" id="Node000090" href="$d4/d99/upnpapi_8cpp.html#accbd92c541367e88598a5126fa97b2fb" title="Writes the content of a HTTP request initiated by a UpnpMakeHttpRequest() call. The end of the conten..." alt="" coords="933,1199,1105,1224"/>
 <area shape="poly" id="edge65_Node000088_Node000090" title=" " alt="" coords="1179,1180,1081,1201,1079,1196,1178,1175"/>
 </map>

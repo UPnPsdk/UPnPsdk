@@ -437,10 +437,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a45850f990fe110e26f9b093a88e3e8a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes an HTTP POST request message, opens a connection to the server and sends the POST request to the server if the connection to the server succeeds.  <br /></td></tr>
 <tr class="separator:a45850f990fe110e26f9b093a88e3e8a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6794b5f98e814417967fc8fe1c44c6f5" id="r_a6794b5f98e814417967fc8fe1c44c6f5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a6794b5f98e814417967fc8fe1c44c6f5">UpnpWriteHttpPost</a> (void *handle, char *buf, size_t *size, int timeout)</td></tr>
-<tr class="memdesc:a6794b5f98e814417967fc8fe1c44c6f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a request to a server to copy the contents of a buffer to the URI specified in the <b>UpnpOpenHttpPost</b> call.  <br /></td></tr>
+<tr class="memdesc:a6794b5f98e814417967fc8fe1c44c6f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a request to a server to copy the contents of a buffer to the URI specified in the <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaf0fc75e9cbc5adbad2801d5b2026bee8" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th...">UpnpOpenHttpPost()</a> call.  <br /></td></tr>
 <tr class="separator:a6794b5f98e814417967fc8fe1c44c6f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32b6a961a76abcb37fcd7f6e3de10ee7" id="r_a32b6a961a76abcb37fcd7f6e3de10ee7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a32b6a961a76abcb37fcd7f6e3de10ee7">UpnpCloseHttpPost</a> (void *handle, int *httpStatus, int timeout)</td></tr>
-<tr class="memdesc:a32b6a961a76abcb37fcd7f6e3de10ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends and receives any pending data, closes the connection with the server, and frees memory allocated during the <b>UpnpOpenHttpPost</b> call.  <br /></td></tr>
+<tr class="memdesc:a32b6a961a76abcb37fcd7f6e3de10ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends and receives any pending data, closes the connection with the server, and frees memory allocated during the <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaf0fc75e9cbc5adbad2801d5b2026bee8" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th...">UpnpOpenHttpPost()</a> call.  <br /></td></tr>
 <tr class="separator:a32b6a961a76abcb37fcd7f6e3de10ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14067069cf3e1f0dc9ac25867a4ca83d" id="r_a14067069cf3e1f0dc9ac25867a4ca83d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a14067069cf3e1f0dc9ac25867a4ca83d">UpnpOpenHttpGet</a> (const char *url, void **handle, char **contentType, int *contentLength, int *httpStatus, int timeout)</td></tr>
 <tr class="memdesc:a14067069cf3e1f0dc9ac25867a4ca83d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a file specified in a URL.  <br /></td></tr>
@@ -467,22 +467,22 @@ Functions</h2></td></tr>
 <tr class="memdesc:af28645a07fa4c84254776136a8050db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a connection to the server.  <br /></td></tr>
 <tr class="separator:af28645a07fa4c84254776136a8050db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a534218b5a1c6cdcc1094a58449019882" id="r_a534218b5a1c6cdcc1094a58449019882"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a534218b5a1c6cdcc1094a58449019882">UpnpMakeHttpRequest</a> (<a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaa0996e7a171479ff7965ec1f9a98a79f">Upnp_HttpMethod</a> method, const char *url, void *handle, <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *headers, const char *contentType, int contentLength, int timeout)</td></tr>
-<tr class="memdesc:a534218b5a1c6cdcc1094a58449019882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes a HTTP request using a connection previously created by <b>UpnpOpenHttpConnection</b>.  <br /></td></tr>
+<tr class="memdesc:a534218b5a1c6cdcc1094a58449019882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes a HTTP request using a connection previously created by <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a>.  <br /></td></tr>
 <tr class="separator:a534218b5a1c6cdcc1094a58449019882"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accbd92c541367e88598a5126fa97b2fb" id="r_accbd92c541367e88598a5126fa97b2fb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#accbd92c541367e88598a5126fa97b2fb">UpnpWriteHttpRequest</a> (void *handle, char *buf, size_t *size, int timeout)</td></tr>
-<tr class="memdesc:accbd92c541367e88598a5126fa97b2fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the content of a HTTP request initiated by a <b>UpnpMakeHttpRequest</b> call. The end of the content should be indicated by a call to <b>UpnpEndHttpRequest</b>.  <br /></td></tr>
+<tr class="memdesc:accbd92c541367e88598a5126fa97b2fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the content of a HTTP request initiated by a <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#ga618f0d31de6451f9cdf212173dfba8f3" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection().">UpnpMakeHttpRequest()</a> call. The end of the content should be indicated by a call to <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaf71b7490ba50457bf24a3054882cd501" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest().">UpnpEndHttpRequest()</a>.  <br /></td></tr>
 <tr class="separator:accbd92c541367e88598a5126fa97b2fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf7220a78d77e61b8d3bcc3165cfa71b" id="r_abf7220a78d77e61b8d3bcc3165cfa71b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#abf7220a78d77e61b8d3bcc3165cfa71b">UpnpEndHttpRequest</a> (void *handle, int timeout)</td></tr>
-<tr class="memdesc:abf7220a78d77e61b8d3bcc3165cfa71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the end of a HTTP request previously made by <b>UpnpMakeHttpRequest</b>.  <br /></td></tr>
+<tr class="memdesc:abf7220a78d77e61b8d3bcc3165cfa71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates the end of a HTTP request previously made by <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#ga618f0d31de6451f9cdf212173dfba8f3" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection().">UpnpMakeHttpRequest()</a>.  <br /></td></tr>
 <tr class="separator:abf7220a78d77e61b8d3bcc3165cfa71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afca845cb73300ed7cbd96849c9ae137c" id="r_afca845cb73300ed7cbd96849c9ae137c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#afca845cb73300ed7cbd96849c9ae137c">UpnpGetHttpResponse</a> (void *handle, <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *headers, char **contentType, int *contentLength, int *httpStatus, int timeout)</td></tr>
-<tr class="memdesc:afca845cb73300ed7cbd96849c9ae137c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the response from the server using a connection previously created by <b>UpnpOpenHttpConnection</b>.  <br /></td></tr>
+<tr class="memdesc:afca845cb73300ed7cbd96849c9ae137c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the response from the server using a connection previously created by <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a>.  <br /></td></tr>
 <tr class="separator:afca845cb73300ed7cbd96849c9ae137c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4dbd1e1309d1b6d86c082ebf4c3a78d0" id="r_a4dbd1e1309d1b6d86c082ebf4c3a78d0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a4dbd1e1309d1b6d86c082ebf4c3a78d0">UpnpReadHttpResponse</a> (void *handle, char *buf, size_t *size, int timeout)</td></tr>
-<tr class="memdesc:a4dbd1e1309d1b6d86c082ebf4c3a78d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the content of a response using a connection previously created by <b>UpnpOpenHttpConnection</b>.  <br /></td></tr>
+<tr class="memdesc:a4dbd1e1309d1b6d86c082ebf4c3a78d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the content of a response using a connection previously created by <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a>.  <br /></td></tr>
 <tr class="separator:a4dbd1e1309d1b6d86c082ebf4c3a78d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a865d9b116a6028d1fd1f1ad2377dca35" id="r_a865d9b116a6028d1fd1f1ad2377dca35"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a865d9b116a6028d1fd1f1ad2377dca35">UpnpCloseHttpConnection</a> (void *handle)</td></tr>
-<tr class="memdesc:a865d9b116a6028d1fd1f1ad2377dca35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the connection created with <b>UpnpOpenHttpConnection</b> and frees any memory associated with the connection.  <br /></td></tr>
+<tr class="memdesc:a865d9b116a6028d1fd1f1ad2377dca35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the connection created with <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a> and frees any memory associated with the connection.  <br /></td></tr>
 <tr class="separator:a865d9b116a6028d1fd1f1ad2377dca35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a475c51dac06a22d937da76a5dbde80c6" id="r_a475c51dac06a22d937da76a5dbde80c6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a475c51dac06a22d937da76a5dbde80c6">UpnpDownloadUrlItem</a> (const char *url, char **outBuf, char *contentType)</td></tr>
 <tr class="memdesc:a475c51dac06a22d937da76a5dbde80c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Downloads a file specified in a URL.  <br /></td></tr>
@@ -7934,7 +7934,7 @@ Event</td>
       </table>
 </div><div class="memdoc">
 
-<p>Sends a request to a server to copy the contents of a buffer to the URI specified in the <b>UpnpOpenHttpPost</b> call. </p>
+<p>Sends a request to a server to copy the contents of a buffer to the URI specified in the <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaf0fc75e9cbc5adbad2801d5b2026bee8" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th...">UpnpOpenHttpPost()</a> call. </p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> Either <b>handle</b>, <b>buf</b> or <b>size</b> is not a valid pointer. </li>
@@ -7944,7 +7944,7 @@ Event</td>
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection created by the call to <b>UpnpOpenHttpPost</b>.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection created by the call to <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaf0fc75e9cbc5adbad2801d5b2026bee8" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th...">UpnpOpenHttpPost()</a>.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>The buffer to be posted.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>The size, in bytes of <b>buf</b>.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>A timeout value sent with the request during which a response is expected from the server, failing which, an error is reported. If value is negative, timeout is infinite. </td></tr>
@@ -8009,7 +8009,7 @@ Event</td>
       </table>
 </div><div class="memdoc">
 
-<p>Sends and receives any pending data, closes the connection with the server, and frees memory allocated during the <b>UpnpOpenHttpPost</b> call. </p>
+<p>Sends and receives any pending data, closes the connection with the server, and frees memory allocated during the <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaf0fc75e9cbc5adbad2801d5b2026bee8" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th...">UpnpOpenHttpPost()</a> call. </p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> Either <b>handle</b>, or <b>httpStatus</b> is not a valid pointer. </li>
@@ -8019,7 +8019,7 @@ Event</td>
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection to close, created by the call to <b>UpnpOpenHttpPost</b>.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection to close, created by the call to <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaf0fc75e9cbc5adbad2801d5b2026bee8" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th...">UpnpOpenHttpPost()</a>.  </td></tr>
     <tr><td class="paramdir">[in,out]</td><td class="paramname">httpStatus</td><td>A pointer to a buffer to store the final status of the connection.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>A time out value sent with the request during which a response is expected from the server, failing which, an error is reported. If value is negative, timeout is infinite. </td></tr>
   </table>
@@ -8244,11 +8244,11 @@ Event</td>
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a14067069cf3e1f0dc9ac25867a4ca83d_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a14067069cf3e1f0dc9ac25867a4ca83d_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a14067069cf3e1f0dc9ac25867a4ca83d_cgraph" id="ad4/d99/upnpapi_8cpp_a14067069cf3e1f0dc9ac25867a4ca83d_cgraph">
 <area shape="rect" title="Gets a file specified in a URL." alt="" coords="5,473,147,499"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#abf7220a78d77e61b8d3bcc3165cfa71b" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest." alt="" coords="209,448,371,473"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#abf7220a78d77e61b8d3bcc3165cfa71b" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="209,448,371,473"/>
 <area shape="poly" title=" " alt="" coords="147,475,195,469,196,474,147,480"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#afca845cb73300ed7cbd96849c9ae137c" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection." alt="" coords="205,737,375,763"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#afca845cb73300ed7cbd96849c9ae137c" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="205,737,375,763"/>
 <area shape="poly" title=" " alt="" coords="90,497,272,724,267,728,85,500"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a534218b5a1c6cdcc1094a58449019882" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection." alt="" coords="204,497,376,523"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a534218b5a1c6cdcc1094a58449019882" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="204,497,376,523"/>
 <area shape="poly" title=" " alt="" coords="147,491,191,496,190,502,147,497"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#af28645a07fa4c84254776136a8050db6" title="Opens a connection to the server." alt="" coords="195,399,385,424"/>
 <area shape="poly" title=" " alt="" coords="104,471,194,434,223,425,224,430,196,439,106,476"/>
@@ -8464,11 +8464,11 @@ Event</td>
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a5f069548a767baef4623774d7bb3ce9f_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a5f069548a767baef4623774d7bb3ce9f_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a5f069548a767baef4623774d7bb3ce9f_cgraph" id="ad4/d99/upnpapi_8cpp_a5f069548a767baef4623774d7bb3ce9f_cgraph">
 <area shape="rect" title="Gets a file specified in a URL through the specified proxy." alt="" coords="5,473,184,499"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#abf7220a78d77e61b8d3bcc3165cfa71b" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest." alt="" coords="247,448,408,473"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#abf7220a78d77e61b8d3bcc3165cfa71b" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="247,448,408,473"/>
 <area shape="poly" title=" " alt="" coords="184,474,233,468,234,474,185,479"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#afca845cb73300ed7cbd96849c9ae137c" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection." alt="" coords="242,737,413,763"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#afca845cb73300ed7cbd96849c9ae137c" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="242,737,413,763"/>
 <area shape="poly" title=" " alt="" coords="109,497,307,725,303,728,105,500"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a534218b5a1c6cdcc1094a58449019882" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection." alt="" coords="241,497,413,523"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a534218b5a1c6cdcc1094a58449019882" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="241,497,413,523"/>
 <area shape="poly" title=" " alt="" coords="185,493,228,497,227,502,184,498"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#af28645a07fa4c84254776136a8050db6" title="Opens a connection to the server." alt="" coords="232,399,423,424"/>
 <area shape="poly" title=" " alt="" coords="128,471,231,434,262,425,263,430,233,439,130,476"/>
@@ -8895,7 +8895,7 @@ Event</td>
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a016d21ff4d92fd6367469cf7f0d4e562_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a016d21ff4d92fd6367469cf7f0d4e562_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a016d21ff4d92fd6367469cf7f0d4e562_cgraph" id="ad4/d99/upnpapi_8cpp_a016d21ff4d92fd6367469cf7f0d4e562_cgraph">
 <area shape="rect" title="Closes the connection and frees memory that was allocated for the handle parameter." alt="" coords="5,176,148,201"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a865d9b116a6028d1fd1f1ad2377dca35" title="Closes the connection created with UpnpOpenHttpConnection and frees any memory associated with the co..." alt="" coords="196,176,389,201"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a865d9b116a6028d1fd1f1ad2377dca35" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="196,176,389,201"/>
 <area shape="poly" title=" " alt="" coords="148,186,182,186,182,191,148,191"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a23dee83362f8bda1551e1514e806d6bf" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="437,176,629,201"/>
 <area shape="poly" title=" " alt="" coords="389,186,424,186,424,191,389,191"/>
@@ -9369,8 +9369,8 @@ Note: In case of return values, the status code parameter of the passed in handl
       </table>
 </div><div class="memdoc">
 
-<p>Makes a HTTP request using a connection previously created by <b>UpnpOpenHttpConnection</b>. </p>
-<dl class="section note"><dt>Note</dt><dd>Trying to make another request while a request is already being processed results in undefined behavior. It's up to the user to end a previous request by calling <b>UpnpEndHttpRequest</b>.</dd></dl>
+<p>Makes a HTTP request using a connection previously created by <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a>. </p>
+<dl class="section note"><dt>Note</dt><dd>Trying to make another request while a request is already being processed results in undefined behavior. It's up to the user to end a previous request by calling <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaf71b7490ba50457bf24a3054882cd501" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest().">UpnpEndHttpRequest()</a>.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> Either <b>url</b>, <b>handle</b> or <b>contentType</b> is not a valid pointer. </li>
@@ -9403,7 +9403,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <div id="dynsection-70-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a534218b5a1c6cdcc1094a58449019882_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a534218b5a1c6cdcc1094a58449019882_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a534218b5a1c6cdcc1094a58449019882_cgraph" id="ad4/d99/upnpapi_8cpp_a534218b5a1c6cdcc1094a58449019882_cgraph">
-<area shape="rect" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection." alt="" coords="5,403,177,429"/>
+<area shape="rect" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="5,403,177,429"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ab8610e8aea3346f682ca91fe37b21bf8" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="225,403,396,429"/>
 <area shape="poly" title=" " alt="" coords="178,413,212,413,212,419,178,419"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="450,113,595,138"/>
@@ -9523,7 +9523,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <div id="dynsection-71-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a534218b5a1c6cdcc1094a58449019882_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a534218b5a1c6cdcc1094a58449019882_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a534218b5a1c6cdcc1094a58449019882_icgraph" id="ad4/d99/upnpapi_8cpp_a534218b5a1c6cdcc1094a58449019882_icgraph">
-<area shape="rect" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection." alt="" coords="232,31,404,56"/>
+<area shape="rect" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="232,31,404,56"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a14067069cf3e1f0dc9ac25867a4ca83d" title="Gets a file specified in a URL." alt="" coords="24,5,165,31"/>
 <area shape="poly" title=" " alt="" coords="218,35,165,29,166,23,219,29"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a5f069548a767baef4623774d7bb3ce9f" title="Gets a file specified in a URL through the specified proxy." alt="" coords="5,55,184,80"/>
@@ -9571,7 +9571,7 @@ Note: In case of return values, the status code parameter of the passed in handl
       </table>
 </div><div class="memdoc">
 
-<p>Writes the content of a HTTP request initiated by a <b>UpnpMakeHttpRequest</b> call. The end of the content should be indicated by a call to <b>UpnpEndHttpRequest</b>. </p>
+<p>Writes the content of a HTTP request initiated by a <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#ga618f0d31de6451f9cdf212173dfba8f3" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection().">UpnpMakeHttpRequest()</a> call. The end of the content should be indicated by a call to <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaf71b7490ba50457bf24a3054882cd501" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest().">UpnpEndHttpRequest()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> Either <b>handle</b>, <b>buf</b> or <b>size</b> is not a valid pointer. </li>
@@ -9581,7 +9581,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection created by the call to <b>UpnpOpenHttpConnection</b>.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection created by the call to <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a>.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>The buffer containing date to be written.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>The size, in bytes of <b>buf</b>.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>A timeout value sent with the request during which a response is expected from the server, failing which, an error is reported. If value is negative, timeout is infinite. </td></tr>
@@ -9597,7 +9597,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <div id="dynsection-72-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_accbd92c541367e88598a5126fa97b2fb_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_accbd92c541367e88598a5126fa97b2fb_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_accbd92c541367e88598a5126fa97b2fb_cgraph" id="ad4/d99/upnpapi_8cpp_accbd92c541367e88598a5126fa97b2fb_cgraph">
-<area shape="rect" title="Writes the content of a HTTP request initiated by a UpnpMakeHttpRequest call. The end of the content ..." alt="" coords="5,49,177,74"/>
+<area shape="rect" title="Writes the content of a HTTP request initiated by a UpnpMakeHttpRequest() call. The end of the conten..." alt="" coords="5,49,177,74"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a55e7bd2e48918bcaf6b101f174e0b355" title="Writes the content of a HTTP request initiated by a UpnpMakeHttpRequest() call. The end of the conten..." alt="" coords="225,49,396,74"/>
 <area shape="poly" title=" " alt="" coords="178,59,212,59,212,64,178,64"/>
 <area shape="rect" href="../../d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="444,49,536,74"/>
@@ -9640,7 +9640,7 @@ Note: In case of return values, the status code parameter of the passed in handl
       </table>
 </div><div class="memdoc">
 
-<p>Indicates the end of a HTTP request previously made by <b>UpnpMakeHttpRequest</b>. </p>
+<p>Indicates the end of a HTTP request previously made by <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#ga618f0d31de6451f9cdf212173dfba8f3" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection().">UpnpMakeHttpRequest()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> <b>handle</b> is not a valid pointer. </li>
@@ -9667,7 +9667,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <div id="dynsection-73-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_abf7220a78d77e61b8d3bcc3165cfa71b_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_abf7220a78d77e61b8d3bcc3165cfa71b_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_abf7220a78d77e61b8d3bcc3165cfa71b_cgraph" id="ad4/d99/upnpapi_8cpp_abf7220a78d77e61b8d3bcc3165cfa71b_cgraph">
-<area shape="rect" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest." alt="" coords="5,49,167,74"/>
+<area shape="rect" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="5,49,167,74"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a7da45a1ca164b06f2f3e971f89c9fa54" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="215,49,375,74"/>
 <area shape="poly" title=" " alt="" coords="167,59,201,59,201,64,167,64"/>
 <area shape="rect" href="../../d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="423,49,515,74"/>
@@ -9688,7 +9688,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <div id="dynsection-74-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_abf7220a78d77e61b8d3bcc3165cfa71b_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_abf7220a78d77e61b8d3bcc3165cfa71b_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_abf7220a78d77e61b8d3bcc3165cfa71b_icgraph" id="ad4/d99/upnpapi_8cpp_abf7220a78d77e61b8d3bcc3165cfa71b_icgraph">
-<area shape="rect" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest." alt="" coords="232,31,393,56"/>
+<area shape="rect" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="232,31,393,56"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a14067069cf3e1f0dc9ac25867a4ca83d" title="Gets a file specified in a URL." alt="" coords="24,5,165,31"/>
 <area shape="poly" title=" " alt="" coords="218,35,165,29,166,24,219,30"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a5f069548a767baef4623774d7bb3ce9f" title="Gets a file specified in a URL through the specified proxy." alt="" coords="5,55,184,80"/>
@@ -9748,7 +9748,7 @@ Note: In case of return values, the status code parameter of the passed in handl
       </table>
 </div><div class="memdoc">
 
-<p>Gets the response from the server using a connection previously created by <b>UpnpOpenHttpConnection</b>. </p>
+<p>Gets the response from the server using a connection previously created by <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a>. </p>
 <dl class="section note"><dt>Note</dt><dd>Memory for <b>contentType</b> is only valid until the next call to the HTTP API for the same connection.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
@@ -9766,7 +9766,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection created by the call to <b>UpnpOpenHttpConnection</b>.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection created by the call to <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a>.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">headers</td><td>Headers sent by the server for the response. If NULL then the headers are not copied.  </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">contentType</td><td>A buffer to store the media type of the item.  </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">contentLength</td><td>A pointer to store the length of the item.  </td></tr>
@@ -9784,7 +9784,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <div id="dynsection-75-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_afca845cb73300ed7cbd96849c9ae137c_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_afca845cb73300ed7cbd96849c9ae137c_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_afca845cb73300ed7cbd96849c9ae137c_cgraph" id="ad4/d99/upnpapi_8cpp_afca845cb73300ed7cbd96849c9ae137c_cgraph">
-<area shape="rect" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection." alt="" coords="5,669,176,694"/>
+<area shape="rect" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="5,669,176,694"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ab8095d987290dfdc4f151dc8e3d7c40f" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="224,669,393,694"/>
 <area shape="poly" title=" " alt="" coords="176,679,210,679,210,684,176,684"/>
 <area shape="rect" href="../../d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a553e7c0bea095f39accd1a5cde36c330" title="Dummy function. It do nothing since years. Do we need it?" alt="" coords="975,255,1155,310"/>
@@ -9909,7 +9909,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <div id="dynsection-76-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_afca845cb73300ed7cbd96849c9ae137c_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_afca845cb73300ed7cbd96849c9ae137c_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_afca845cb73300ed7cbd96849c9ae137c_icgraph" id="ad4/d99/upnpapi_8cpp_afca845cb73300ed7cbd96849c9ae137c_icgraph">
-<area shape="rect" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection." alt="" coords="232,31,403,56"/>
+<area shape="rect" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="232,31,403,56"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a14067069cf3e1f0dc9ac25867a4ca83d" title="Gets a file specified in a URL." alt="" coords="24,5,165,31"/>
 <area shape="poly" title=" " alt="" coords="218,35,165,29,166,23,218,29"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a5f069548a767baef4623774d7bb3ce9f" title="Gets a file specified in a URL through the specified proxy." alt="" coords="5,55,184,80"/>
@@ -9957,7 +9957,7 @@ Note: In case of return values, the status code parameter of the passed in handl
       </table>
 </div><div class="memdoc">
 
-<p>Reads the content of a response using a connection previously created by <b>UpnpOpenHttpConnection</b>. </p>
+<p>Reads the content of a response using a connection previously created by <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> Either <b>handle</b>, <b>buf</b> or <b>size</b> is not a valid pointer. </li>
@@ -9968,7 +9968,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 Note: In case of return values, the status code parameter of the passed in handle value may provide additional information on the return value. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection created by the call to <b>UpnpOpenHttpConnection</b>.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection created by the call to <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a>.  </td></tr>
     <tr><td class="paramdir">[in,out]</td><td class="paramname">buf</td><td>The buffer to store the read item.  </td></tr>
     <tr><td class="paramdir">[in,out]</td><td class="paramname">size</td><td>The size of the buffer to be read.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>The time out value sent with the request during which a response is expected from the server, failing which, an error is reported back to the user. If value is negative, timeout is infinite. </td></tr>
@@ -9984,7 +9984,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <div id="dynsection-77-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a4dbd1e1309d1b6d86c082ebf4c3a78d0_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a4dbd1e1309d1b6d86c082ebf4c3a78d0_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a4dbd1e1309d1b6d86c082ebf4c3a78d0_cgraph" id="ad4/d99/upnpapi_8cpp_a4dbd1e1309d1b6d86c082ebf4c3a78d0_cgraph">
-<area shape="rect" title="Reads the content of a response using a connection previously created by UpnpOpenHttpConnection." alt="" coords="5,710,185,736"/>
+<area shape="rect" title="Reads the content of a response using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="5,710,185,736"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a12907b819d45e67ef4d49600e80dfd7e" title="Reads the content of a response using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="233,710,412,736"/>
 <area shape="poly" title=" " alt="" coords="185,720,220,720,220,726,185,726"/>
 <area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="1137,201,1286,226"/>
@@ -10129,7 +10129,7 @@ Note: In case of return values, the status code parameter of the passed in handl
       </table>
 </div><div class="memdoc">
 
-<p>Closes the connection created with <b>UpnpOpenHttpConnection</b> and frees any memory associated with the connection. </p>
+<p>Closes the connection created with <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gae89578ea97f29b2c4590a89627a836fa" title="Opens a connection to the server.">UpnpOpenHttpConnection()</a> and frees any memory associated with the connection. </p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> <b>handle</b>, or is not a valid pointer. </li>
@@ -10139,7 +10139,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection to close, created by the call to <b>UpnpOpenHttpPost</b>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">handle</td><td>The handle of the connection to close, created by the call to <a class="el" href="../../d8/dc8/group__compaAPI-Ctrlpt.html#gaf0fc75e9cbc5adbad2801d5b2026bee8" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th...">UpnpOpenHttpPost()</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -10152,7 +10152,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <div id="dynsection-78-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a865d9b116a6028d1fd1f1ad2377dca35_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a865d9b116a6028d1fd1f1ad2377dca35_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a865d9b116a6028d1fd1f1ad2377dca35_cgraph" id="ad4/d99/upnpapi_8cpp_a865d9b116a6028d1fd1f1ad2377dca35_cgraph">
-<area shape="rect" title="Closes the connection created with UpnpOpenHttpConnection and frees any memory associated with the co..." alt="" coords="5,176,199,201"/>
+<area shape="rect" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="5,176,199,201"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a23dee83362f8bda1551e1514e806d6bf" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="247,176,439,201"/>
 <area shape="poly" title=" " alt="" coords="199,186,233,186,233,191,199,191"/>
 <area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aae19f051c772e39575e48ddb2615f6b5" title="Free memory allocated for the http message." alt="" coords="487,115,619,140"/>
@@ -10190,7 +10190,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <div id="dynsection-79-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a865d9b116a6028d1fd1f1ad2377dca35_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a865d9b116a6028d1fd1f1ad2377dca35_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a865d9b116a6028d1fd1f1ad2377dca35_icgraph" id="ad4/d99/upnpapi_8cpp_a865d9b116a6028d1fd1f1ad2377dca35_icgraph">
-<area shape="rect" title="Closes the connection created with UpnpOpenHttpConnection and frees any memory associated with the co..." alt="" coords="196,5,389,31"/>
+<area shape="rect" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="196,5,389,31"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a016d21ff4d92fd6367469cf7f0d4e562" title="Closes the connection and frees memory that was allocated for the handle parameter." alt="" coords="5,5,148,31"/>
 <area shape="poly" title=" " alt="" coords="182,21,148,21,148,15,182,15"/>
 </map>
