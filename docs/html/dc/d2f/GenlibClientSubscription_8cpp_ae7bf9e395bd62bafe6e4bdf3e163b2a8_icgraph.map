@@ -30,7 +30,7 @@
 <area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="1147,463,1204,468,1266,470,1330,464,1391,451,1435,431,1475,405,1532,355,1535,359,1478,409,1437,436,1393,456,1331,470,1267,475,1204,474,1147,468"/>
 <area shape="rect" id="Node000009" href="$d6/de3/gena__ctrlpt_8cpp.html#a8fa71879823e3dc936bac4847ca1fcc5" title="This function subscribes to a PublisherURL (also mentioned as EventURL in some places)." alt="" coords="759,392,876,418"/>
 <area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="930,428,876,418,877,413,931,423"/>
-<area shape="rect" id="Node000010" href="$d4/d99/upnpapi_8cpp.html#a0777bb16dfc74c68a8202e2d9169ebe5" title="Registers a control point to receive event notifications from another device." alt="" coords="543,392,661,418"/>
+<area shape="rect" id="Node000010" href="$d4/d99/upnpapi_8cpp.html#a0777bb16dfc74c68a8202e2d9169ebe5" title="Registers a control point to receive event notifications from a UPnP device." alt="" coords="543,392,661,418"/>
 <area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="745,408,662,408,662,402,745,402"/>
 <area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="755,391,650,363,651,358,756,386"/>
 <area shape="rect" id="Node000012" href="$d4/d99/upnpapi_8cpp.html#a8cd338e66ebab077fa1f0d9bb0bec183" title="Queries the state of a variable of a service, generating a callback when the operation is complete." alt="" coords="237,359,465,384"/>
@@ -41,7 +41,7 @@
 <area shape="poly" id="edge14_Node000011_Node000014" title=" " alt="" coords="576,328,526,288,496,267,464,250,433,239,434,234,466,245,499,263,530,283,579,323"/>
 <area shape="rect" id="Node000015" href="$d4/d99/upnpapi_8cpp.html#abd5f9f5ca2e83b67eb0dd421ffd030f9" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="5,335,189,360"/>
 <area shape="poly" id="edge16_Node000011_Node000015" title=" " alt="" coords="539,368,515,382,500,399,493,416,485,434,467,449,406,473,379,478,353,478,300,469,236,449,197,431,161,408,109,363,113,359,164,404,199,427,238,444,302,463,354,473,379,472,405,468,464,444,480,431,488,414,496,396,512,378,536,363"/>
-<area shape="rect" id="Node000016" href="$d4/d99/upnpapi_8cpp.html#aadb37732f8450dd78eb205842ff82a61" title="Performs the same operation as UpnpSubscribe, but returns immediately and calls the registered callba..." alt="" coords="272,260,431,286"/>
+<area shape="rect" id="Node000016" href="$d4/d99/upnpapi_8cpp.html#aadb37732f8450dd78eb205842ff82a61" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call..." alt="" coords="272,260,431,286"/>
 <area shape="poly" id="edge17_Node000011_Node000016" title=" " alt="" coords="557,332,465,300,420,288,421,283,466,295,559,327"/>
 <area shape="rect" id="Node000017" href="$d4/d99/upnpapi_8cpp.html#a6c8bd43f4e0357cdc04939ddd60b383c" title="Removes a subscription of a control point from a service previously subscribed to using UpnpSubscribe..." alt="" coords="263,310,439,335"/>
 <area shape="poly" id="edge18_Node000011_Node000017" title=" " alt="" coords="499,340,439,334,440,329,500,335"/>

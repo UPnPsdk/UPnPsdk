@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-09-19
+ * Redistribution only with this Copyright remark. Last modified: 2024-09-20
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1363,7 +1363,7 @@ UPnPsdk_API int UpnpSendActionAsync(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpSendActionExAsync(
+UPnPsdk_API int UpnpSendActionExAsync(
     /*! [in] The handle of the control point sending the action. */
     UpnpClient_Handle Hnd,
     /*! [in] The action URL of the service. */
@@ -1409,6 +1409,8 @@ UPNPLIB_API int UpnpSendActionExAsync(
  *
  * \return An integer representing one of the following:
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *      \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                            is not initialized.
  *      \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid device
  *              handle.
  *      \li \c UPNP_E_INVALID_SERVICE: The \b DevId/\b ServId
@@ -1421,7 +1423,7 @@ UPNPLIB_API int UpnpSendActionExAsync(
  *      \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *              complete this operation.
  */
-UPNPLIB_API int UpnpAcceptSubscription(
+UPnPsdk_API int UpnpAcceptSubscription(
     /*! [in] The handle of the device. */
     UpnpDevice_Handle Hnd,
     /*! [in] The device ID of the subdevice of the service generating the
@@ -1440,7 +1442,7 @@ UPNPLIB_API int UpnpAcceptSubscription(
     const Upnp_SID SubsId);
 
 /*!
- * \brief Similar to \b UpnpAcceptSubscription() except that it takes a DOM
+ * \brief Similar to UpnpAcceptSubscription() except that it takes a DOM
  * document for the variables to event rather than an array of strings.
  *
  * This function is sychronous and generates no callbacks.
@@ -1449,6 +1451,8 @@ UPNPLIB_API int UpnpAcceptSubscription(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid device
  *             handle.
  *     \li \c UPNP_E_INVALID_SERVICE: The \b DevId/\b ServId
@@ -1461,7 +1465,7 @@ UPNPLIB_API int UpnpAcceptSubscription(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpAcceptSubscriptionExt(
+UPnPsdk_API int UpnpAcceptSubscriptionExt(
     /*! [in] The handle of the device. */
     UpnpDevice_Handle Hnd,
     /*! [in] The device ID of the subdevice of the service generating the
@@ -1488,17 +1492,19 @@ UPNPLIB_API int UpnpAcceptSubscriptionExt(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid device
  *             handle.
- *     \li \c UPNP_E_INVALID_SERVICE: The \b DevId/\b ServId
+ *     \li \c UPNP_E_INVALID_SERVICE: The \b DevId/\b ServName
  *             pair refers to an invalid service.
  *     \li \c UPNP_E_INVALID_PARAM: Either \b VarName, \b NewVal,
- *              \b DevID, or \b ServID is not a valid pointer or
+ *              \b DevID, or \b ServName is not a valid pointer or
  *              \b cVariables is less than zero.
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpNotify(
+UPnPsdk_API int UpnpNotify(
     /*! [in] The handle to the device sending the event. */
     UpnpDevice_Handle Hnd,
     /*! [in] The device ID of the subdevice of the service generating the
@@ -1514,7 +1520,7 @@ UPNPLIB_API int UpnpNotify(
     int cVariables);
 
 /*!
- * \brief Similar to \b UpnpNotify except that it takes a DOM document for the
+ * \brief Similar to UpnpNotify() except that it takes a DOM document for the
  * event rather than an array of strings.
  *
  * This function is synchronous and generates no callbacks.
@@ -1524,17 +1530,18 @@ UPNPLIB_API int UpnpNotify(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid device
  *             handle.
- *     \li \c UPNP_E_INVALID_SERVICE: The \b DevId/\b ServId
+ *     \li \c UPNP_E_INVALID_SERVICE: The \b DevId/\b ServName
  *             pair refers to an invalid service.
- *     \li \c UPNP_E_INVALID_PARAM: Either \b VarName, \b NewVal,
- *              \b DevID, \b ServID, or \b PropSet
- *              is not a valid pointer or \b cVariables is less than zero.
+ *     \li \c UPNP_E_INVALID_PARAM: Either \b DevID, \b ServName, or \b PropSet
+ *             is not a valid pointer.
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpNotifyExt(
+UPnPsdk_API int UpnpNotifyExt(
     /*! [in] The handle to the device sending the event. */
     UpnpDevice_Handle Hnd,
     /*! [in] The device ID of the subdevice of the service generating the
@@ -1554,6 +1561,8 @@ UPNPLIB_API int UpnpNotifyExt(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
  *     \li \c UPNP_E_INVALID_PARAM: \b Timeout is not a valid pointer.
@@ -1575,7 +1584,7 @@ UPNPLIB_API int UpnpNotifyExt(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpRenewSubscription(
+UPnPsdk_API int UpnpRenewSubscription(
     /*! [in] The handle of the control point that is renewing the
        subscription. */
     UpnpClient_Handle Hnd,
@@ -1597,6 +1606,8 @@ UPNPLIB_API int UpnpRenewSubscription(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
  *     \li \c UPNP_E_INVALID_SID: The \b SubsId is not a valid
@@ -1632,7 +1643,7 @@ UPNPLIB_API int UpnpRenewSubscription(
  *             the subscription request (returned in the \b
  *             UpnpEventSubscribe.ErrCode field as part of the callback).
  */
-UPNPLIB_API int UpnpRenewSubscriptionAsync(
+UPnPsdk_API int UpnpRenewSubscriptionAsync(
     /*! [in] The handle of the control point that is renewing the
        subscription. */
     UpnpClient_Handle Hnd,
@@ -1658,10 +1669,12 @@ UPNPLIB_API int UpnpRenewSubscriptionAsync(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid device
  *             handle.
  */
-UPNPLIB_API int UpnpSetMaxSubscriptions(
+UPnPsdk_API int UpnpSetMaxSubscriptions(
     /*! The handle of the device for which the maximum number of
      * subscriptions is being set. */
     UpnpDevice_Handle Hnd,
@@ -1679,10 +1692,12 @@ UPNPLIB_API int UpnpSetMaxSubscriptions(
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid device
  *             handle.
  */
-UPNPLIB_API int UpnpSetMaxSubscriptionTimeOut(
+UPnPsdk_API int UpnpSetMaxSubscriptionTimeOut(
     /*! The handle of the device for which the maximum subscription
      * time-out is being set. */
     UpnpDevice_Handle Hnd,
@@ -1690,18 +1705,20 @@ UPNPLIB_API int UpnpSetMaxSubscriptionTimeOut(
     int MaxSubscriptionTimeOut);
 
 /*!
- * \brief Registers a control point to receive event notifications from another
- * device.
+ * \brief Registers a \glos{cp,control point} to receive event notifications
+ * from a \glos{upnpdev,UPnP device}.
  *
  * This operation is synchronous.
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
  *     \li \c UPNP_E_INVALID_URL: \b PublisherUrl is not a valid URL.
  *     \li \c UPNP_E_INVALID_PARAM: \b Timeout is not a valid pointer
- *             or \b SubsId or \b PublisherUrl is \c NULL.
+ *             or \b SubsId or \b PublisherUrl is a \c nullptr.
  *     \li \c UPNP_E_NETWORK_ERROR: A network error occured.
  *     \li \c UPNP_E_SOCKET_WRITE: An error or timeout occurred writing
  *             to a socket.
@@ -1718,7 +1735,7 @@ UPNPLIB_API int UpnpSetMaxSubscriptionTimeOut(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpSubscribe(
+UPnPsdk_API int UpnpSubscribe(
     /*! [in] The handle of the control point. */
     UpnpClient_Handle Hnd,
     /*! [in] The URL of the service to subscribe to. */
@@ -1731,18 +1748,20 @@ UPNPLIB_API int UpnpSubscribe(
     Upnp_SID SubsId);
 
 /*!
- * \brief Performs the same operation as \b UpnpSubscribe, but returns
+ * \brief Performs the same operation as UpnpSubscribe(), but returns
  * immediately and calls the registered callback function when the operation
  * is complete.
  *
  * Note that many of the error codes for this function are returned in
- * the \b UpnpEventSubscribe structure. In those cases, the function
+ * the s_UpnpEventSubscribe structure. In those cases, the function
  * returns \c UPNP_E_SUCCESS and the appropriate error code will
  * be in the <b>UpnpEventSubscribe.ErrCode</b> field in the \b Event
  * structure passed to the callback.
  *
  *  \return An integer representing one of the following:
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *      \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                            is not initialized.
  *      \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *              point handle.
  *      \li \c UPNP_E_INVALID_URL: The \b PublisherUrl is not a valid
@@ -1778,7 +1797,7 @@ UPNPLIB_API int UpnpSubscribe(
  *              the subscription request (returned in the \b
  *              UpnpEventSubscribe.ErrCode field as part of the callback).
  */
-UPNPLIB_API int UpnpSubscribeAsync(
+UPnPsdk_API int UpnpSubscribeAsync(
     /*! The handle of the control point that is subscribing. */
     UpnpClient_Handle Hnd,
     /*! The URL of the service to subscribe to. */
@@ -1793,12 +1812,14 @@ UPNPLIB_API int UpnpSubscribeAsync(
 
 /*!
  * \brief Removes the subscription of a control point from a service previously
- * subscribed to using \b UpnpSubscribe or \b UpnpSubscribeAsync.
+ * subscribed to using UpnpSubscribe() or UpnpSubscribeAsync().
  *
  * This is a synchronous call.
  *
  * \return An integer representing one of the following:
  *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *     \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *                           is not initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
  *             point handle.
  *     \li \c UPNP_E_INVALID_SID: The \b SubsId is not a valid
@@ -1820,7 +1841,7 @@ UPNPLIB_API int UpnpSubscribeAsync(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPNPLIB_API int UpnpUnSubscribe(
+UPnPsdk_API int UpnpUnSubscribe(
     /*! [in] The handle of the subscribed control point. */
     UpnpClient_Handle Hnd,
     /*! [in] The ID returned when the control point subscribed to the
@@ -1829,53 +1850,55 @@ UPNPLIB_API int UpnpUnSubscribe(
 
 /*!
  * \brief Removes a subscription of a control point from a service previously
- * subscribed to using \b UpnpSubscribe or \b UpnpSubscribeAsync, generating
+ * subscribed to using UpnpSubscribe() or UpnpSubscribeAsync(), generating
  * a callback when the operation is complete.
  *
  * Note that many of the error codes for this function are returned in
- * the \b UpnpEventSubscribe structure.  In those cases, the function
+ * the s_UpnpEventSubscribe structure.  In those cases, the function
  * returns \c UPNP_E_SUCCESS and the appropriate error code will
  * be in the <b>UpnpEventSubscribe.ErrCode</b> field in the \b Event
  * structure passed to the callback.
  *
  * \return An integer representing one of the following:
- *     \li \c UPNP_E_SUCCESS: The operation completed successfully.
- *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
- *             point handle.
- *     \li \c UPNP_E_INVALID_SID: The \b SubsId is not a valid SID.
- *     \li \c UPNP_E_INVALID_PARAM: \b Fun is not a valid callback
- *             function pointer.
- *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
- *             complete this operation.
- *     \li \c UPNP_E_NETWORK_ERROR: A network error occured (returned in
- *             the <b>UpnpEventSubscribe.ErrCode</b> field as part of the
- *             callback).
- *     \li \c UPNP_E_SOCKET_WRITE: An error or timeout occurred writing
- *             to a socket (returned in the <b>UpnpEventSubscribe.ErrCode</b>
- *             field as part of the callback).
- *     \li \c UPNP_E_SOCKET_READ: An error or timeout occurred reading
- *             from a socket (returned in the
- *             <b>UpnpEventSubscribe.ErrCode</b> field as part of the
- *             callback).
- *     \li \c UPNP_E_SOCKET_BIND: An error occurred binding the socket
- *             (returned in the <b>UpnpEventSubscribe.ErrCode</b> field as
- *             part of the callback).
- *     \li \c UPNP_E_SOCKET_CONNECT: An error occurred connecting to
- *      \b PublisherUrl (returned in the
- *      <b>UpnpEventSubscribe.ErrCode</b> field as part of the
- *      callback).
+ *  \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *  \li \c UPNP_E_FINISH: The SDK is already terminated or
+ *         is not initialized.
+ *  \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control
+ *          point handle.
+ *  \li \c UPNP_E_INVALID_SID: The \b SubsId is not a valid SID.
+ *  \li \c UPNP_E_INVALID_PARAM: \b Fun is not a valid callback
+ *          function pointer.
+ *  \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
+ *          complete this operation.
+ *  \li \c UPNP_E_NETWORK_ERROR: A network error occured (returned in
+ *          the <b>UpnpEventSubscribe.ErrCode</b> field as part of the
+ *          callback).
+ *  \li \c UPNP_E_SOCKET_WRITE: An error or timeout occurred writing
+ *          to a socket (returned in the <b>UpnpEventSubscribe.ErrCode</b>
+ *          field as part of the callback).
+ *  \li \c UPNP_E_SOCKET_READ: An error or timeout occurred reading
+ *          from a socket (returned in the
+ *          <b>UpnpEventSubscribe.ErrCode</b> field as part of the
+ *          callback).
+ *  \li \c UPNP_E_SOCKET_BIND: An error occurred binding the socket
+ *          (returned in the <b>UpnpEventSubscribe.ErrCode</b> field as
+ *          part of the callback).
+ *  \li \c UPNP_E_SOCKET_CONNECT: An error occurred connecting to
+ *          \b PublisherUrl (returned in the
+ *          <b>UpnpEventSubscribe.ErrCode</b> field as part of the
+ *          callback).
  *  \li \c  UPNP_E_OUTOF_SOCKET: An error occurred creating a socket
- *      (returned in the <b>UpnpEventSubscribe.ErrCode</b> field as part
- *      of the callback).
+ *          (returned in the <b>UpnpEventSubscribe.ErrCode</b> field as part
+ *          of the callback).
  *  \li \c UPNP_E_BAD_RESPONSE: An error occurred in response from the
- *      publisher (returned in the <b>UpnpEventSubscribe.ErrCode</b>
- *      field as part of the callback).
+ *          publisher (returned in the <b>UpnpEventSubscribe.ErrCode</b>
+ *          field as part of the callback).
  *  \li \c UPNP_E_UNSUBSCRIBE_UNACCEPTED: The publisher refused the
- *      subscription request (returned in the
- *      <b>UpnpEventSubscribe.ErrCode</b> field as part of the
- *      callback).
+ *          subscription request (returned in the
+ *          <b>UpnpEventSubscribe.ErrCode</b> field as part of the
+ *          callback).
  */
-UPNPLIB_API int UpnpUnSubscribeAsync(
+UPnPsdk_API int UpnpUnSubscribeAsync(
     /*! [in] The handle of the subscribed control point. */
     UpnpClient_Handle Hnd,
     /*! [in] The ID returned when the control point subscribed to the

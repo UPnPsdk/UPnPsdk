@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-19
+// Redistribution only with this Copyright remark. Last modified: 2024-09-20
 /*!
  * \file
  * \brief Simple calls of API functions to test conditional compile and linking.
@@ -478,20 +478,241 @@ int UpnpSendActionExAsync() {
 }
 
 
-#if 0
-/// \brief Initialize OpenSSL context.
-int UpnpInitSslContext() {
-#if defined(COMPA_HAVE_MINISERVER) && defined(UPNP_ENABLE_OPEN_SSL)
-    int ret = ::UpnpInitSslContext(1, TLS_method());
-    if (ret != UPNP_E_SUCCESS) {
-        std::cerr << "Unexpected: UpnpInitSslContext() == " << ret << "\n";
+// Step 4: Eventing
+// ----------------
+int UpnpAcceptSubscription() {
+    constexpr char function_name[]{"UpnpAcceptSubscription()"};
+#if defined(UPNP_HAVE_DEVICE) || defined(COMPA_HAVE_DEVICE_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+    const char* dummy{nullptr};
+    const Upnp_SID SubsId{};
+
+    int ret = ::UpnpAcceptSubscription(0, nullptr, nullptr, &dummy, &dummy, 0,
+                                       SubsId);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
         return 1;
     }
-    ::freeSslCtx();
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_DEVICE_GENA not enabled\n";
 #endif
     return 0;
 }
+
+int UpnpAcceptSubscriptionExt() {
+    constexpr char function_name[]{"UpnpAcceptSubscriptionExt()"};
+#if defined(UPNP_HAVE_DEVICE) || defined(COMPA_HAVE_DEVICE_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+    const Upnp_SID SubsId{};
+
+    int ret = ::UpnpAcceptSubscriptionExt(0, nullptr, nullptr, nullptr, SubsId);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_DEVICE_GENA not enabled\n";
 #endif
+    return 0;
+}
+
+int UpnpNotify() {
+    constexpr char function_name[]{"UpnpNotify()"};
+#if defined(UPNP_HAVE_DEVICE) || defined(COMPA_HAVE_DEVICE_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+    const char* dummy{nullptr};
+
+    int ret = ::UpnpNotify(0, nullptr, nullptr, &dummy, &dummy, 0);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_DEVICE_GENA not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpNotifyExt() {
+    constexpr char function_name[]{"UpnpNotifyExt()"};
+#if defined(UPNP_HAVE_DEVICE) || defined(COMPA_HAVE_DEVICE_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpNotifyExt(0, nullptr, nullptr, nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_DEVICE_GENA not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpRenewSubscription() {
+    constexpr char function_name[]{"UpnpRenewSubscription()"};
+#if defined(UPNP_HAVE_CLIENT) || defined(COMPA_HAVE_CTRLPT_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+    const Upnp_SID SubsId{};
+
+    int ret = ::UpnpRenewSubscription(0, nullptr, SubsId);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_GENA not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpRenewSubscriptionAsync() {
+    constexpr char function_name[]{"UpnpRenewSubscriptionAsync()"};
+#if defined(UPNP_HAVE_CLIENT) || defined(COMPA_HAVE_CTRLPT_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+    Upnp_SID SubsId{};
+
+    int ret = ::UpnpRenewSubscriptionAsync(0, 0, SubsId, Fun, nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_GENA not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpSetMaxSubscriptions() {
+    constexpr char function_name[]{"UpnpSetMaxSubscriptions()"};
+#if defined(UPNP_HAVE_DEVICE) || defined(COMPA_HAVE_DEVICE_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpSetMaxSubscriptions(0, 0);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_DEVICE_GENA not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpSetMaxSubscriptionTimeOut() {
+    constexpr char function_name[]{"UpnpSetMaxSubscriptionTimeOut()"};
+#if defined(UPNP_HAVE_DEVICE) || defined(COMPA_HAVE_DEVICE_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpSetMaxSubscriptionTimeOut(0, 0);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_DEVICE_GENA not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpSubscribe() {
+    constexpr char function_name[]{"UpnpSubscribe()"};
+#if defined(UPNP_HAVE_CLIENT) || defined(COMPA_HAVE_CTRLPT_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+    Upnp_SID SubsId{};
+
+    int ret = ::UpnpSubscribe(0, nullptr, nullptr, SubsId);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_GENA not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpSubscribeAsync() {
+    constexpr char function_name[]{"UpnpSubscribeAsync()"};
+#if defined(UPNP_HAVE_CLIENT) || defined(COMPA_HAVE_CTRLPT_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpSubscribeAsync(0, nullptr, 0, Fun, nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_GENA not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpUnSubscribe() {
+    constexpr char function_name[]{"UpnpUnSubscribe()"};
+#if defined(UPNP_HAVE_CLIENT) || defined(COMPA_HAVE_CTRLPT_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+    Upnp_SID SubsId{};
+
+    int ret = ::UpnpUnSubscribe(0, SubsId);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_GENA not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpUnSubscribeAsync() {
+    constexpr char function_name[]{"UpnpUnSubscribeAsync()"};
+#if defined(UPNP_HAVE_CLIENT) || defined(COMPA_HAVE_CTRLPT_GENA)
+    std::cerr << "Executing " << function_name << '\n';
+    Upnp_SID SubsId{};
+
+    int ret = ::UpnpUnSubscribeAsync(0, SubsId, Fun, nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_CTRLPT_GENA not enabled\n";
+#endif
+    return 0;
+}
+
+
+// \brief Initialize OpenSSL context and use freeSslCtx().
+int UpnpInitSslContext() {
+    constexpr char function_name[]{"UpnpInitSslContext()"};
+#if defined(COMPA_HAVE_MINISERVER) && defined(UPNP_ENABLE_OPEN_SSL)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpInitSslContext(1, TLS_method());
+    if (ret != UPNP_E_SUCCESS) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+    ::freeSslCtx();
+#else
+    std::cerr << "Skip " << function_name
+              << ": UPNP_ENABLE_OPEN_SSL not enabled\n";
+#endif
+    return 0;
+}
 
 } // anonymous namespace
 } // namespace utest
@@ -545,8 +766,21 @@ int main() {
     ret += utest::UpnpSendActionAsync();
     ret += utest::UpnpSendActionExAsync();
 
+    // Step 4: Eventing
+    ret += utest::UpnpAcceptSubscription();
+    ret += utest::UpnpAcceptSubscriptionExt();
+    ret += utest::UpnpNotify();
+    ret += utest::UpnpNotifyExt();
+    ret += utest::UpnpRenewSubscription();
+    ret += utest::UpnpRenewSubscriptionAsync();
+    ret += utest::UpnpSetMaxSubscriptions();
+    ret += utest::UpnpSetMaxSubscriptionTimeOut();
+    ret += utest::UpnpSubscribe();
+    ret += utest::UpnpSubscribeAsync();
+    ret += utest::UpnpUnSubscribe();
+    ret += utest::UpnpUnSubscribeAsync();
 
-    // ret += utest::UpnpInitSslContext();
+    ret += utest::UpnpInitSslContext();
 
     // returns number of failed tests.
     return ret;

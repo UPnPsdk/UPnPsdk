@@ -36,7 +36,7 @@
 <area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="918,381,875,377,876,371,919,376"/>
 <area shape="poly" id="edge11_Node000011_Node000009" title=" " alt="" coords="889,351,1191,320,1191,326,889,356"/>
 <area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="672,367,592,367,592,362,672,362"/>
-<area shape="rect" id="Node000013" href="$d4/d99/upnpapi_8cpp.html#a0777bb16dfc74c68a8202e2d9169ebe5" title="Registers a control point to receive event notifications from another device." alt="" coords="234,352,353,377"/>
+<area shape="rect" id="Node000013" href="$d4/d99/upnpapi_8cpp.html#a0777bb16dfc74c68a8202e2d9169ebe5" title="Registers a control point to receive event notifications from a UPnP device." alt="" coords="234,352,353,377"/>
 <area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="460,367,353,367,353,362,460,362"/>
 <area shape="poly" id="edge14_Node000012_Node000014" title=" " alt="" coords="497,347,314,237,317,232,500,342"/>
 <area shape="rect" id="Node000023" href="$d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="1201,581,1361,607"/>
@@ -103,7 +103,7 @@
 <area shape="poly" id="edge55_Node000050_Node000051" title=" " alt="" coords="934,778,839,796,838,791,933,773"/>
 <area shape="rect" id="Node000053" href="$dd/de6/gena__device_8cpp.html#aadf54fcafc02a512a76124ab8bf938f6" title="Similar to the genaInitNofity. The only difference is that it takes the xml document for the state ta..." alt="" coords="713,743,848,768"/>
 <area shape="poly" id="edge57_Node000050_Node000053" title=" " alt="" coords="934,758,848,758,848,753,934,753"/>
-<area shape="rect" id="Node000052" href="$d4/d07/group__compaAPI-Eventing.html#ga19f65dc15aaf56d2f9390c4d3b13a5c8" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi..." alt="" coords="443,792,623,817"/>
+<area shape="rect" id="Node000052" href="$d4/d07/group__compaAPI-Eventing.html#ga39884307c097d23a218d0cc03153f076" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi..." alt="" coords="443,792,623,817"/>
 <area shape="poly" id="edge56_Node000051_Node000052" title=" " alt="" coords="709,807,623,807,623,802,709,802"/>
 <area shape="rect" id="Node000056" href="$dd/de6/gena__device_8cpp.html#a3300ba366cae7db4f8c21b0119cdacd9" title="Sends a notification to all the subscribed control points." alt="" coords="725,693,836,719"/>
 <area shape="poly" id="edge59_Node000055_Node000056" title=" " alt="" coords="934,690,837,702,836,697,933,684"/>

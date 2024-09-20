@@ -51,7 +51,7 @@ var upnpapi_8cpp =
     [ "UpnpRenewSubscriptionAsync", "d4/d99/upnpapi_8cpp.html#a69d01558a5fdec26320b6ea9683f9d70", null ],
     [ "UpnpNotify", "d4/d99/upnpapi_8cpp.html#a889522712799600d91e157c50e8bcd38", null ],
     [ "UpnpNotifyExt", "d4/d99/upnpapi_8cpp.html#a2244040bbe493e66273b8b53a61a1959", null ],
-    [ "UpnpAcceptSubscription", "d4/d07/group__compaAPI-Eventing.html#ga19f65dc15aaf56d2f9390c4d3b13a5c8", null ],
+    [ "UpnpAcceptSubscription", "d4/d07/group__compaAPI-Eventing.html#ga39884307c097d23a218d0cc03153f076", null ],
     [ "UpnpAcceptSubscriptionExt", "d4/d99/upnpapi_8cpp.html#ab7f67326e349b9025ac62d0b8ae8ae43", null ],
     [ "UpnpSendAction", "d4/d99/upnpapi_8cpp.html#aacef79c530ba5401c5946cd64939ef70", null ],
     [ "UpnpSendActionEx", "d4/d99/upnpapi_8cpp.html#ae3bc939c3883bda96689903791b2c360", null ],

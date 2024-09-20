@@ -18,7 +18,7 @@
 <area shape="poly" id="edge45_Node000001_Node000024" title=" " alt="" coords="1347,579,1302,606,1249,631,1141,667,1029,695,917,716,806,732,605,749,452,754,452,748,604,744,805,727,916,711,1028,690,1140,662,1247,626,1300,601,1345,575"/>
 <area shape="rect" id="Node000025" href="$d4/d99/upnpapi_8cpp.html#abd5f9f5ca2e83b67eb0dd421ffd030f9" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="13,737,197,763"/>
 <area shape="poly" id="edge46_Node000001_Node000025" title=" " alt="" coords="1375,583,1364,639,1341,710,1325,747,1304,784,1279,817,1250,845,1204,878,1162,899,1122,913,1082,919,996,920,890,917,633,917,524,921,438,927,397,925,354,919,307,907,252,886,207,859,167,825,114,765,118,761,171,821,210,855,254,881,308,901,355,914,397,920,438,921,524,916,633,911,890,911,997,915,1082,914,1121,908,1160,895,1201,873,1246,841,1275,813,1300,781,1320,745,1336,708,1358,637,1370,582"/>
-<area shape="rect" id="Node000026" href="$d4/d99/upnpapi_8cpp.html#aadb37732f8450dd78eb205842ff82a61" title="Performs the same operation as UpnpSubscribe, but returns immediately and calls the registered callba..." alt="" coords="288,793,447,819"/>
+<area shape="rect" id="Node000026" href="$d4/d99/upnpapi_8cpp.html#aadb37732f8450dd78eb205842ff82a61" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call..." alt="" coords="288,793,447,819"/>
 <area shape="poly" id="edge51_Node000001_Node000026" title=" " alt="" coords="1363,583,1318,642,1286,673,1249,698,1198,723,1145,744,1034,778,921,802,808,816,701,822,603,824,447,817,447,811,603,818,701,817,808,810,920,796,1033,773,1143,739,1196,718,1247,693,1282,668,1314,638,1359,579"/>
 <area shape="rect" id="Node000027" href="$d4/d99/upnpapi_8cpp.html#a6c8bd43f4e0357cdc04939ddd60b383c" title="Removes a subscription of a control point from a service previously subscribed to using UpnpSubscribe..." alt="" coords="279,847,455,872"/>
 <area shape="poly" id="edge52_Node000001_Node000027" title=" " alt="" coords="1371,584,1356,627,1332,681,1296,735,1274,760,1250,780,1222,796,1186,809,1099,831,994,847,878,857,644,865,455,864,455,859,644,860,878,852,993,841,1098,826,1185,804,1219,791,1246,776,1271,756,1292,732,1327,679,1351,625,1366,582"/>
@@ -36,7 +36,7 @@
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1038,49,946,31,947,26,1039,44"/>
 <area shape="rect" id="Node000005" href="$dd/de6/gena__device_8cpp.html#aadf54fcafc02a512a76124ab8bf938f6" title="Similar to the genaInitNofity. The only difference is that it takes the xml document for the state ta..." alt="" coords="821,55,956,80"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="1039,69,956,70,956,64,1039,64"/>
-<area shape="rect" id="Node000004" href="$d4/d07/group__compaAPI-Eventing.html#ga19f65dc15aaf56d2f9390c4d3b13a5c8" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi..." alt="" coords="545,5,725,31"/>
+<area shape="rect" id="Node000004" href="$d4/d07/group__compaAPI-Eventing.html#ga39884307c097d23a218d0cc03153f076" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi..." alt="" coords="545,5,725,31"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="817,21,725,21,725,15,817,15"/>
 <area shape="rect" id="Node000006" href="$d4/d99/upnpapi_8cpp.html#ab7f67326e349b9025ac62d0b8ae8ae43" title="Similar to UpnpAcceptSubscription() except that it takes a DOM document for the variables to event ra..." alt="" coords="534,55,735,80"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="807,70,736,70,736,65,807,65"/>
@@ -46,7 +46,7 @@
 <area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="1039,157,955,165,954,160,1039,152"/>
 <area shape="rect" id="Node000009" href="$d4/d99/upnpapi_8cpp.html#a889522712799600d91e157c50e8bcd38" title="Sends out an event change notification to all control points subscribed to a particular service." alt="" coords="587,107,682,132"/>
 <area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="819,122,682,122,682,117,819,117"/>
-<area shape="rect" id="Node000011" href="$d4/d99/upnpapi_8cpp.html#a2244040bbe493e66273b8b53a61a1959" title="Similar to UpnpNotify except that it takes a DOM document for the event rather than an array of strin..." alt="" coords="577,156,693,181"/>
+<area shape="rect" id="Node000011" href="$d4/d99/upnpapi_8cpp.html#a2244040bbe493e66273b8b53a61a1959" title="Similar to UpnpNotify() except that it takes a DOM document for the event rather than an array of str..." alt="" coords="577,156,693,181"/>
 <area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="810,171,693,171,693,166,810,166"/>
 <area shape="rect" id="Node000013" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a02379f09474a96b3590cadd8ca82ecf1" title="Read data from the SSDP socket." alt="" coords="261,275,474,315"/>
 <area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="540,298,474,298,474,293,540,293"/>
@@ -74,7 +74,7 @@
 <area shape="poly" id="edge29_Node000021_Node000027" title=" " alt="" coords="536,684,531,688,517,705,510,722,508,758,505,795,498,814,483,832,457,849,454,844,480,828,493,811,500,794,502,758,505,721,513,702,527,684,532,680"/>
 <area shape="poly" id="edge26_Node000024_Node000025" title=" " alt="" coords="270,753,198,753,198,747,270,747"/>
 <area shape="poly" id="edge32_Node000028_Node000021" title=" " alt="" coords="816,665,723,665,723,659,816,659"/>
-<area shape="rect" id="Node000029" href="$d4/d99/upnpapi_8cpp.html#a0777bb16dfc74c68a8202e2d9169ebe5" title="Registers a control point to receive event notifications from another device." alt="" coords="575,699,694,724"/>
+<area shape="rect" id="Node000029" href="$d4/d99/upnpapi_8cpp.html#a0777bb16dfc74c68a8202e2d9169ebe5" title="Registers a control point to receive event notifications from a UPnP device." alt="" coords="575,699,694,724"/>
 <area shape="poly" id="edge31_Node000028_Node000029" title=" " alt="" coords="817,679,695,703,694,697,816,673"/>
 <area shape="rect" id="Node000031" href="$dd/d48/group__compaAPI-Discovery.html#gacbc564f3c21415a8165d6882f5bc3189" title="Searches for devices matching the given search target." alt="" coords="819,952,958,977"/>
 <area shape="poly" id="edge34_Node000030_Node000031" title=" " alt="" coords="1068,967,958,967,958,962,1068,962"/>

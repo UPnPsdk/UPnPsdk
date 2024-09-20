@@ -32,7 +32,7 @@
 <area shape="poly" id="edge31_Node000003_Node000028" title=" " alt="" coords="1353,351,1341,290,1317,209,1299,166,1277,124,1250,86,1218,52,1185,33,1188,28,1222,48,1254,82,1282,122,1304,164,1322,207,1346,288,1358,350"/>
 <area shape="rect" id="Node000029" href="$d4/d99/upnpapi_8cpp.html#abd5f9f5ca2e83b67eb0dd421ffd030f9" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="751,31,935,56"/>
 <area shape="poly" id="edge33_Node000003_Node000029" title=" " alt="" coords="1352,351,1339,296,1314,227,1296,190,1274,156,1249,124,1218,98,1198,87,1170,78,1097,63,1014,54,935,49,936,44,1015,49,1098,58,1171,72,1200,82,1222,93,1253,120,1279,152,1301,188,1319,224,1344,295,1357,350"/>
-<area shape="rect" id="Node000030" href="$d4/d99/upnpapi_8cpp.html#aadb37732f8450dd78eb205842ff82a61" title="Performs the same operation as UpnpSubscribe, but returns immediately and calls the registered callba..." alt="" coords="1027,568,1185,593"/>
+<area shape="rect" id="Node000030" href="$d4/d99/upnpapi_8cpp.html#aadb37732f8450dd78eb205842ff82a61" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call..." alt="" coords="1027,568,1185,593"/>
 <area shape="poly" id="edge34_Node000003_Node000030" title=" " alt="" coords="1348,403,1299,476,1263,517,1221,551,1179,570,1176,565,1219,546,1259,513,1295,473,1344,400"/>
 <area shape="rect" id="Node000031" href="$d4/d99/upnpapi_8cpp.html#a6c8bd43f4e0357cdc04939ddd60b383c" title="Removes a subscription of a control point from a service previously subscribed to using UpnpSubscribe..." alt="" coords="1018,617,1194,643"/>
 <area shape="poly" id="edge35_Node000003_Node000031" title=" " alt="" coords="1354,404,1337,449,1309,504,1271,561,1248,586,1221,608,1195,622,1193,617,1219,604,1244,582,1267,558,1305,502,1332,446,1349,402"/>
@@ -40,7 +40,7 @@
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="739,389,662,381,663,376,740,384"/>
 <area shape="rect" id="Node000007" href="$dd/de6/gena__device_8cpp.html#aadf54fcafc02a512a76124ab8bf938f6" title="Similar to the genaInitNofity. The only difference is that it takes the xml document for the state ta..." alt="" coords="537,409,672,435"/>
 <area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="740,410,673,418,672,412,740,405"/>
-<area shape="rect" id="Node000006" href="$d4/d07/group__compaAPI-Eventing.html#ga19f65dc15aaf56d2f9390c4d3b13a5c8" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi..." alt="" coords="270,360,450,385"/>
+<area shape="rect" id="Node000006" href="$d4/d07/group__compaAPI-Eventing.html#ga39884307c097d23a218d0cc03153f076" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi..." alt="" coords="270,360,450,385"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="534,375,450,375,450,370,534,370"/>
 <area shape="rect" id="Node000008" href="$d4/d99/upnpapi_8cpp.html#ab7f67326e349b9025ac62d0b8ae8ae43" title="Similar to UpnpAcceptSubscription() except that it takes a DOM document for the variables to event ra..." alt="" coords="259,409,461,435"/>
 <area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="524,425,461,425,461,419,524,419"/>
@@ -50,7 +50,7 @@
 <area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="740,526,670,534,670,528,739,521"/>
 <area shape="rect" id="Node000011" href="$d4/d99/upnpapi_8cpp.html#a889522712799600d91e157c50e8bcd38" title="Sends out an event change notification to all control points subscribed to a particular service." alt="" coords="313,476,407,501"/>
 <area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="536,491,408,491,408,486,536,486"/>
-<area shape="rect" id="Node000013" href="$d4/d99/upnpapi_8cpp.html#a2244040bbe493e66273b8b53a61a1959" title="Similar to UpnpNotify except that it takes a DOM document for the event rather than an array of strin..." alt="" coords="302,525,418,551"/>
+<area shape="rect" id="Node000013" href="$d4/d99/upnpapi_8cpp.html#a2244040bbe493e66273b8b53a61a1959" title="Similar to UpnpNotify() except that it takes a DOM document for the event rather than an array of str..." alt="" coords="302,525,418,551"/>
 <area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="526,541,418,541,418,535,526,535"/>
 <area shape="poly" id="edge14_Node000014_Node000004" title=" " alt="" coords="1002,441,933,422,934,417,1003,435"/>
 <area shape="poly" id="edge15_Node000014_Node000009" title=" " alt="" coords="1003,486,934,499,933,494,1002,481"/>

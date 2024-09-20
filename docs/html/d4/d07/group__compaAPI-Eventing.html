@@ -104,55 +104,55 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <p>Items to manage events with <b>GENA</b> the <em>General Event Notification Architecture</em>.    
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="memitem:ga19f65dc15aaf56d2f9390c4d3b13a5c8" id="r_ga19f65dc15aaf56d2f9390c4d3b13a5c8"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga19f65dc15aaf56d2f9390c4d3b13a5c8">UpnpAcceptSubscription</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, const char *DevID_const, const char *ServName_const, const char **VarName_const, const char **NewVal_const, int cVariables, const <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId)</td></tr>
-<tr class="memdesc:ga19f65dc15aaf56d2f9390c4d3b13a5c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accepts a subscription request and sends out the current state of the eventable variables for a service.  <br /></td></tr>
-<tr class="separator:ga19f65dc15aaf56d2f9390c4d3b13a5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3b2c7f236885b69bc295bdf89815a85c" id="r_ga3b2c7f236885b69bc295bdf89815a85c"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga3b2c7f236885b69bc295bdf89815a85c">UpnpAcceptSubscriptionExt</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, const char *DevID_const, const char *ServName_const, IXML_Document *PropSet, const <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId)</td></tr>
-<tr class="memdesc:ga3b2c7f236885b69bc295bdf89815a85c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <b><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga19f65dc15aaf56d2f9390c4d3b13a5c8" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi...">UpnpAcceptSubscription()</a></b> except that it takes a DOM document for the variables to event rather than an array of strings.  <br /></td></tr>
-<tr class="separator:ga3b2c7f236885b69bc295bdf89815a85c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa382d8cfd3bbf51d87a7c48e8b7922a0" id="r_gaa382d8cfd3bbf51d87a7c48e8b7922a0"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaa382d8cfd3bbf51d87a7c48e8b7922a0">UpnpNotify</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, const char *DevID_const, const char *ServName_const, const char **VarName_const, const char **NewVal_const, int cVariables)</td></tr>
-<tr class="memdesc:gaa382d8cfd3bbf51d87a7c48e8b7922a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends out an event change notification to all control points subscribed to a particular service.  <br /></td></tr>
-<tr class="separator:gaa382d8cfd3bbf51d87a7c48e8b7922a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8a8549e710ae266dec16b12c7d52481f" id="r_ga8a8549e710ae266dec16b12c7d52481f"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga8a8549e710ae266dec16b12c7d52481f">UpnpNotifyExt</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, const char *DevID_const, const char *ServName_const, IXML_Document *PropSet)</td></tr>
-<tr class="memdesc:ga8a8549e710ae266dec16b12c7d52481f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <b>UpnpNotify</b> except that it takes a DOM document for the event rather than an array of strings.  <br /></td></tr>
-<tr class="separator:ga8a8549e710ae266dec16b12c7d52481f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac056a1b0207211f171d416c09841035a" id="r_gac056a1b0207211f171d416c09841035a"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gac056a1b0207211f171d416c09841035a">UpnpRenewSubscription</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, int *TimeOut, const <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId)</td></tr>
-<tr class="memdesc:gac056a1b0207211f171d416c09841035a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renews a subscription that is about to expire.  <br /></td></tr>
-<tr class="separator:gac056a1b0207211f171d416c09841035a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae8107c940cbfaf250a350269ab6e5ec2" id="r_gae8107c940cbfaf250a350269ab6e5ec2"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gae8107c940cbfaf250a350269ab6e5ec2">UpnpRenewSubscriptionAsync</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, int TimeOut, <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId, <a class="el" href="../../df/da3/Callback_8hpp.html#a8671624da6b11009452bbda70803c663">Upnp_FunPtr</a> Fun, const void *Cookie_const)</td></tr>
-<tr class="memdesc:gae8107c940cbfaf250a350269ab6e5ec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renews a subscription that is about to expire, generating a callback when the operation is complete.  <br /></td></tr>
-<tr class="separator:gae8107c940cbfaf250a350269ab6e5ec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga81d7fc522d11ff07729f03ccc8d691fc" id="r_ga81d7fc522d11ff07729f03ccc8d691fc"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga81d7fc522d11ff07729f03ccc8d691fc">UpnpSetMaxSubscriptions</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, int MaxSubscriptions)</td></tr>
-<tr class="memdesc:ga81d7fc522d11ff07729f03ccc8d691fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum number of subscriptions accepted per service.  <br /></td></tr>
-<tr class="separator:ga81d7fc522d11ff07729f03ccc8d691fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf43ee2ca0367203a15d64c58c96fe9db" id="r_gaf43ee2ca0367203a15d64c58c96fe9db"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaf43ee2ca0367203a15d64c58c96fe9db">UpnpSetMaxSubscriptionTimeOut</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, int MaxSubscriptionTimeOut)</td></tr>
-<tr class="memdesc:gaf43ee2ca0367203a15d64c58c96fe9db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum time-out accepted for a subscription request or renewal.  <br /></td></tr>
-<tr class="separator:gaf43ee2ca0367203a15d64c58c96fe9db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8643061418e38b417d012f0c611acca" id="r_gaf8643061418e38b417d012f0c611acca"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaf8643061418e38b417d012f0c611acca">UpnpSubscribe</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, const char *EvtUrl_const, int *TimeOut, <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId)</td></tr>
-<tr class="memdesc:gaf8643061418e38b417d012f0c611acca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a control point to receive event notifications from another device.  <br /></td></tr>
-<tr class="separator:gaf8643061418e38b417d012f0c611acca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga23d9ee93b121e81947a925ac4494747d" id="r_ga23d9ee93b121e81947a925ac4494747d"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga23d9ee93b121e81947a925ac4494747d">UpnpSubscribeAsync</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, const char *EvtUrl_const, int TimeOut, <a class="el" href="../../df/da3/Callback_8hpp.html#a8671624da6b11009452bbda70803c663">Upnp_FunPtr</a> Fun, const void *Cookie_const)</td></tr>
-<tr class="memdesc:ga23d9ee93b121e81947a925ac4494747d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the same operation as <b>UpnpSubscribe</b>, but returns immediately and calls the registered callback function when the operation is complete.  <br /></td></tr>
-<tr class="separator:ga23d9ee93b121e81947a925ac4494747d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9d3403889bd10f4572a31019631139ab" id="r_ga9d3403889bd10f4572a31019631139ab"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga9d3403889bd10f4572a31019631139ab">UpnpUnSubscribe</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, const <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId)</td></tr>
-<tr class="memdesc:ga9d3403889bd10f4572a31019631139ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the subscription of a control point from a service previously subscribed to using <b>UpnpSubscribe</b> or <b>UpnpSubscribeAsync</b>.  <br /></td></tr>
-<tr class="separator:ga9d3403889bd10f4572a31019631139ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8fdb8f14e64789bed8dcd8048b41f6a0" id="r_ga8fdb8f14e64789bed8dcd8048b41f6a0"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga8fdb8f14e64789bed8dcd8048b41f6a0">UpnpUnSubscribeAsync</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId, <a class="el" href="../../df/da3/Callback_8hpp.html#a8671624da6b11009452bbda70803c663">Upnp_FunPtr</a> Fun, const void *Cookie_const)</td></tr>
-<tr class="memdesc:ga8fdb8f14e64789bed8dcd8048b41f6a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a subscription of a control point from a service previously subscribed to using <b>UpnpSubscribe</b> or <b>UpnpSubscribeAsync</b>, generating a callback when the operation is complete.  <br /></td></tr>
-<tr class="separator:ga8fdb8f14e64789bed8dcd8048b41f6a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39884307c097d23a218d0cc03153f076" id="r_ga39884307c097d23a218d0cc03153f076"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga39884307c097d23a218d0cc03153f076">UpnpAcceptSubscription</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, const char *DevID_const, const char *ServName_const, const char **VarName_const, const char **NewVal_const, int cVariables, const <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId)</td></tr>
+<tr class="memdesc:ga39884307c097d23a218d0cc03153f076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accepts a subscription request and sends out the current state of the eventable variables for a service.  <br /></td></tr>
+<tr class="separator:ga39884307c097d23a218d0cc03153f076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae7c8a4bd9d959b520805772bebe295b4" id="r_gae7c8a4bd9d959b520805772bebe295b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gae7c8a4bd9d959b520805772bebe295b4">UpnpAcceptSubscriptionExt</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, const char *DevID_const, const char *ServName_const, IXML_Document *PropSet, const <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId)</td></tr>
+<tr class="memdesc:gae7c8a4bd9d959b520805772bebe295b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga39884307c097d23a218d0cc03153f076" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi...">UpnpAcceptSubscription()</a> except that it takes a DOM document for the variables to event rather than an array of strings.  <br /></td></tr>
+<tr class="separator:gae7c8a4bd9d959b520805772bebe295b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacce0b83e89cd76cf5a7ff15bf7f5e2eb" id="r_gacce0b83e89cd76cf5a7ff15bf7f5e2eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gacce0b83e89cd76cf5a7ff15bf7f5e2eb">UpnpNotify</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, const char *DevID_const, const char *ServName_const, const char **VarName_const, const char **NewVal_const, int cVariables)</td></tr>
+<tr class="memdesc:gacce0b83e89cd76cf5a7ff15bf7f5e2eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends out an event change notification to all control points subscribed to a particular service.  <br /></td></tr>
+<tr class="separator:gacce0b83e89cd76cf5a7ff15bf7f5e2eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6af7284d0c1f7074035c8650d1a9651b" id="r_ga6af7284d0c1f7074035c8650d1a9651b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga6af7284d0c1f7074035c8650d1a9651b">UpnpNotifyExt</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, const char *DevID_const, const char *ServName_const, IXML_Document *PropSet)</td></tr>
+<tr class="memdesc:ga6af7284d0c1f7074035c8650d1a9651b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gacce0b83e89cd76cf5a7ff15bf7f5e2eb" title="Sends out an event change notification to all control points subscribed to a particular service.">UpnpNotify()</a> except that it takes a DOM document for the event rather than an array of strings.  <br /></td></tr>
+<tr class="separator:ga6af7284d0c1f7074035c8650d1a9651b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga432702f1729fb397dde196c851355bd2" id="r_ga432702f1729fb397dde196c851355bd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga432702f1729fb397dde196c851355bd2">UpnpRenewSubscription</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, int *TimeOut, const <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId)</td></tr>
+<tr class="memdesc:ga432702f1729fb397dde196c851355bd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renews a subscription that is about to expire.  <br /></td></tr>
+<tr class="separator:ga432702f1729fb397dde196c851355bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2c9bdc75962402684774c8efc4335f4f" id="r_ga2c9bdc75962402684774c8efc4335f4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga2c9bdc75962402684774c8efc4335f4f">UpnpRenewSubscriptionAsync</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, int TimeOut, <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId, <a class="el" href="../../df/da3/Callback_8hpp.html#a8671624da6b11009452bbda70803c663">Upnp_FunPtr</a> Fun, const void *Cookie_const)</td></tr>
+<tr class="memdesc:ga2c9bdc75962402684774c8efc4335f4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renews a subscription that is about to expire, generating a callback when the operation is complete.  <br /></td></tr>
+<tr class="separator:ga2c9bdc75962402684774c8efc4335f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf525dd4ce64cd2760caca2d2db7a2a41" id="r_gaf525dd4ce64cd2760caca2d2db7a2a41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaf525dd4ce64cd2760caca2d2db7a2a41">UpnpSetMaxSubscriptions</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, int MaxSubscriptions)</td></tr>
+<tr class="memdesc:gaf525dd4ce64cd2760caca2d2db7a2a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum number of subscriptions accepted per service.  <br /></td></tr>
+<tr class="separator:gaf525dd4ce64cd2760caca2d2db7a2a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4350fb532fc039a74ba6c7c5f1117669" id="r_ga4350fb532fc039a74ba6c7c5f1117669"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga4350fb532fc039a74ba6c7c5f1117669">UpnpSetMaxSubscriptionTimeOut</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> Hnd, int MaxSubscriptionTimeOut)</td></tr>
+<tr class="memdesc:ga4350fb532fc039a74ba6c7c5f1117669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum time-out accepted for a subscription request or renewal.  <br /></td></tr>
+<tr class="separator:ga4350fb532fc039a74ba6c7c5f1117669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec3120b0a0e24cdb58483b077ef1dcdf" id="r_gaec3120b0a0e24cdb58483b077ef1dcdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaec3120b0a0e24cdb58483b077ef1dcdf">UpnpSubscribe</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, const char *EvtUrl_const, int *TimeOut, <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId)</td></tr>
+<tr class="memdesc:gaec3120b0a0e24cdb58483b077ef1dcdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a <a class="el" href="../../d5/d67/Glossary.html#glossary_cp">control point</a> to receive event notifications from a <a class="el" href="../../d5/d67/Glossary.html#glossary_upnpdev">UPnP device</a>.  <br /></td></tr>
+<tr class="separator:gaec3120b0a0e24cdb58483b077ef1dcdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9b26944e92d3f59c09cbe560d3a06bed" id="r_ga9b26944e92d3f59c09cbe560d3a06bed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga9b26944e92d3f59c09cbe560d3a06bed">UpnpSubscribeAsync</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, const char *EvtUrl_const, int TimeOut, <a class="el" href="../../df/da3/Callback_8hpp.html#a8671624da6b11009452bbda70803c663">Upnp_FunPtr</a> Fun, const void *Cookie_const)</td></tr>
+<tr class="memdesc:ga9b26944e92d3f59c09cbe560d3a06bed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the same operation as <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaec3120b0a0e24cdb58483b077ef1dcdf" title="Registers a control point to receive event notifications from a UPnP device.">UpnpSubscribe()</a>, but returns immediately and calls the registered callback function when the operation is complete.  <br /></td></tr>
+<tr class="separator:ga9b26944e92d3f59c09cbe560d3a06bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga88b8e698c2d0600d22cf288a6b625c21" id="r_ga88b8e698c2d0600d22cf288a6b625c21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga88b8e698c2d0600d22cf288a6b625c21">UpnpUnSubscribe</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, const <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId)</td></tr>
+<tr class="memdesc:ga88b8e698c2d0600d22cf288a6b625c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the subscription of a control point from a service previously subscribed to using <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaec3120b0a0e24cdb58483b077ef1dcdf" title="Registers a control point to receive event notifications from a UPnP device.">UpnpSubscribe()</a> or <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga9b26944e92d3f59c09cbe560d3a06bed" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call...">UpnpSubscribeAsync()</a>.  <br /></td></tr>
+<tr class="separator:ga88b8e698c2d0600d22cf288a6b625c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae1515ebcabf3ded6af3bd789b243fdce" id="r_gae1515ebcabf3ded6af3bd789b243fdce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gae1515ebcabf3ded6af3bd789b243fdce">UpnpUnSubscribeAsync</a> (<a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> Hnd, <a class="el" href="../../d9/d8f/API_8hpp.html#a12b0c6df3254ac4a5c88aeb7e7c9dc90">Upnp_SID</a> SubsId, <a class="el" href="../../df/da3/Callback_8hpp.html#a8671624da6b11009452bbda70803c663">Upnp_FunPtr</a> Fun, const void *Cookie_const)</td></tr>
+<tr class="memdesc:gae1515ebcabf3ded6af3bd789b243fdce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a subscription of a control point from a service previously subscribed to using <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaec3120b0a0e24cdb58483b077ef1dcdf" title="Registers a control point to receive event notifications from a UPnP device.">UpnpSubscribe()</a> or <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga9b26944e92d3f59c09cbe560d3a06bed" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call...">UpnpSubscribeAsync()</a>, generating a callback when the operation is complete.  <br /></td></tr>
+<tr class="separator:gae1515ebcabf3ded6af3bd789b243fdce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Items to manage events with <b>GENA</b> the <em>General Event Notification Architecture</em>.   </p>
 <p>Eventing is Step 4 in UPnP networking. Eventing comes after addressing (Step 0) where devices get a network address, after discovery (Step 1) where control points find interesting device(s), and after description (Step 2) where control points learn about device capabilities. Eventing is intimately linked with control (Step 3) where control points send actions to devices. Through eventing, control points listen to state changes in device(s). Control and eventing are complementary to presentation (Step 5) where control points display a user interface provided by device(s).   </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga19f65dc15aaf56d2f9390c4d3b13a5c8" name="ga19f65dc15aaf56d2f9390c4d3b13a5c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga19f65dc15aaf56d2f9390c4d3b13a5c8">&#9670;&#160;</a></span>UpnpAcceptSubscription()</h2>
+<a id="ga39884307c097d23a218d0cc03153f076" name="ga39884307c097d23a218d0cc03153f076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga39884307c097d23a218d0cc03153f076">&#9670;&#160;</a></span>UpnpAcceptSubscription()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpAcceptSubscription </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpAcceptSubscription </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -207,6 +207,7 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <p>This function can be called during the execution of a callback function.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid device handle. </li>
 <li><code>UPNP_E_INVALID_SERVICE:</code> The <b>DevId/<b>ServId</b> pair</b> refers to an invalid service. </li>
 <li><code>UPNP_E_INVALID_SID:</code> The specified subscription ID is not valid. </li>
@@ -233,8 +234,8 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga19f65dc15aaf56d2f9390c4d3b13a5c8_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga19f65dc15aaf56d2f9390c4d3b13a5c8_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_ga19f65dc15aaf56d2f9390c4d3b13a5c8_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga19f65dc15aaf56d2f9390c4d3b13a5c8_cgraph">
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga39884307c097d23a218d0cc03153f076_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga39884307c097d23a218d0cc03153f076_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_ga39884307c097d23a218d0cc03153f076_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga39884307c097d23a218d0cc03153f076_cgraph">
 <area shape="rect" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi..." alt="" coords="5,1110,185,1136"/>
 <area shape="rect" href="../../dd/de6/gena__device_8cpp.html#afe08f0a722cafb84faa9def7850da596" title="Sends the intial state table dump to newly subscribed control point." alt="" coords="233,1110,348,1136"/>
 <area shape="poly" title=" " alt="" coords="186,1120,220,1120,220,1126,186,1126"/>
@@ -367,14 +368,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="ga3b2c7f236885b69bc295bdf89815a85c" name="ga3b2c7f236885b69bc295bdf89815a85c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3b2c7f236885b69bc295bdf89815a85c">&#9670;&#160;</a></span>UpnpAcceptSubscriptionExt()</h2>
+<a id="gae7c8a4bd9d959b520805772bebe295b4" name="gae7c8a4bd9d959b520805772bebe295b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae7c8a4bd9d959b520805772bebe295b4">&#9670;&#160;</a></span>UpnpAcceptSubscriptionExt()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpAcceptSubscriptionExt </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpAcceptSubscriptionExt </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -411,11 +412,12 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
       </table>
 </div><div class="memdoc">
 
-<p>Similar to <b><a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga19f65dc15aaf56d2f9390c4d3b13a5c8" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi...">UpnpAcceptSubscription()</a></b> except that it takes a DOM document for the variables to event rather than an array of strings. </p>
+<p>Similar to <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga39884307c097d23a218d0cc03153f076" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi...">UpnpAcceptSubscription()</a> except that it takes a DOM document for the variables to event rather than an array of strings. </p>
 <p>This function is sychronous and generates no callbacks.</p>
 <p>This function can be called during the execution of a callback function.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid device handle. </li>
 <li><code>UPNP_E_INVALID_SERVICE:</code> The <b>DevId/<b>ServId</b> pair</b> refers to an invalid service. </li>
 <li><code>UPNP_E_INVALID_SID:</code> The specified subscription ID is not valid. </li>
@@ -440,8 +442,8 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga3b2c7f236885b69bc295bdf89815a85c_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga3b2c7f236885b69bc295bdf89815a85c_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_ga3b2c7f236885b69bc295bdf89815a85c_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga3b2c7f236885b69bc295bdf89815a85c_cgraph">
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_gae7c8a4bd9d959b520805772bebe295b4_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_gae7c8a4bd9d959b520805772bebe295b4_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_gae7c8a4bd9d959b520805772bebe295b4_cgraph" id="ad4/d07/group__compaAPI-Eventing_gae7c8a4bd9d959b520805772bebe295b4_cgraph">
 <area shape="rect" title="Similar to UpnpAcceptSubscription() except that it takes a DOM document for the variables to event ra..." alt="" coords="5,209,207,234"/>
 <area shape="rect" href="../../dd/de6/gena__device_8cpp.html#aadf54fcafc02a512a76124ab8bf938f6" title="Similar to the genaInitNofity. The only difference is that it takes the xml document for the state ta..." alt="" coords="255,209,389,234"/>
 <area shape="poly" title=" " alt="" coords="207,219,241,219,241,224,207,224"/>
@@ -574,14 +576,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="gaa382d8cfd3bbf51d87a7c48e8b7922a0" name="gaa382d8cfd3bbf51d87a7c48e8b7922a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa382d8cfd3bbf51d87a7c48e8b7922a0">&#9670;&#160;</a></span>UpnpNotify()</h2>
+<a id="gacce0b83e89cd76cf5a7ff15bf7f5e2eb" name="gacce0b83e89cd76cf5a7ff15bf7f5e2eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacce0b83e89cd76cf5a7ff15bf7f5e2eb">&#9670;&#160;</a></span>UpnpNotify()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpNotify </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpNotify </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -629,9 +631,10 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <p>This function may be called during a callback function to send out a notification.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid device handle. </li>
-<li><code>UPNP_E_INVALID_SERVICE:</code> The <b>DevId/<b>ServId</b> pair</b> refers to an invalid service. </li>
-<li><code>UPNP_E_INVALID_PARAM:</code> Either <b>VarName</b>, <b>NewVal</b>, <b>DevID</b>, or <b>ServID</b> is not a valid pointer or <b>cVariables</b> is less than zero. </li>
+<li><code>UPNP_E_INVALID_SERVICE:</code> The <b>DevId/<b>ServName</b> pair</b> refers to an invalid service. </li>
+<li><code>UPNP_E_INVALID_PARAM:</code> Either <b>VarName</b>, <b>NewVal</b>, <b>DevID</b>, or <b>ServName</b> is not a valid pointer or <b>cVariables</b> is less than zero. </li>
 <li><code>UPNP_E_OUTOF_MEMORY:</code> Insufficient resources exist to complete this operation. </li>
 </ul>
 </dd></dl>
@@ -653,8 +656,8 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_gaa382d8cfd3bbf51d87a7c48e8b7922a0_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_gaa382d8cfd3bbf51d87a7c48e8b7922a0_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_gaa382d8cfd3bbf51d87a7c48e8b7922a0_cgraph" id="ad4/d07/group__compaAPI-Eventing_gaa382d8cfd3bbf51d87a7c48e8b7922a0_cgraph">
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_gacce0b83e89cd76cf5a7ff15bf7f5e2eb_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_gacce0b83e89cd76cf5a7ff15bf7f5e2eb_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_gacce0b83e89cd76cf5a7ff15bf7f5e2eb_cgraph" id="ad4/d07/group__compaAPI-Eventing_gacce0b83e89cd76cf5a7ff15bf7f5e2eb_cgraph">
 <area shape="rect" title="Sends out an event change notification to all control points subscribed to a particular service." alt="" coords="5,1492,100,1517"/>
 <area shape="rect" href="../../dd/de6/gena__device_8cpp.html#a3300ba366cae7db4f8c21b0119cdacd9" title="Sends a notification to all the subscribed control points." alt="" coords="148,1492,259,1517"/>
 <area shape="poly" title=" " alt="" coords="100,1502,134,1502,134,1507,100,1507"/>
@@ -793,14 +796,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="ga8a8549e710ae266dec16b12c7d52481f" name="ga8a8549e710ae266dec16b12c7d52481f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8a8549e710ae266dec16b12c7d52481f">&#9670;&#160;</a></span>UpnpNotifyExt()</h2>
+<a id="ga6af7284d0c1f7074035c8650d1a9651b" name="ga6af7284d0c1f7074035c8650d1a9651b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6af7284d0c1f7074035c8650d1a9651b">&#9670;&#160;</a></span>UpnpNotifyExt()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpNotifyExt </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpNotifyExt </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -831,14 +834,15 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
       </table>
 </div><div class="memdoc">
 
-<p>Similar to <b>UpnpNotify</b> except that it takes a DOM document for the event rather than an array of strings. </p>
+<p>Similar to <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gacce0b83e89cd76cf5a7ff15bf7f5e2eb" title="Sends out an event change notification to all control points subscribed to a particular service.">UpnpNotify()</a> except that it takes a DOM document for the event rather than an array of strings. </p>
 <p>This function is synchronous and generates no callbacks.</p>
 <p>This function may be called during a callback function to send out a notification.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid device handle. </li>
-<li><code>UPNP_E_INVALID_SERVICE:</code> The <b>DevId/<b>ServId</b> pair</b> refers to an invalid service. </li>
-<li><code>UPNP_E_INVALID_PARAM:</code> Either <b>VarName</b>, <b>NewVal</b>, <b>DevID</b>, <b>ServID</b>, or <b>PropSet</b> is not a valid pointer or <b>cVariables</b> is less than zero. </li>
+<li><code>UPNP_E_INVALID_SERVICE:</code> The <b>DevId/<b>ServName</b> pair</b> refers to an invalid service. </li>
+<li><code>UPNP_E_INVALID_PARAM:</code> Either <b>DevID</b>, <b>ServName</b>, or <b>PropSet</b> is not a valid pointer. </li>
 <li><code>UPNP_E_OUTOF_MEMORY:</code> Insufficient resources exist to complete this operation. </li>
 </ul>
 </dd></dl>
@@ -858,9 +862,9 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga8a8549e710ae266dec16b12c7d52481f_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga8a8549e710ae266dec16b12c7d52481f_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_ga8a8549e710ae266dec16b12c7d52481f_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga8a8549e710ae266dec16b12c7d52481f_cgraph">
-<area shape="rect" title="Similar to UpnpNotify except that it takes a DOM document for the event rather than an array of strin..." alt="" coords="5,43,121,69"/>
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga6af7284d0c1f7074035c8650d1a9651b_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga6af7284d0c1f7074035c8650d1a9651b_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_ga6af7284d0c1f7074035c8650d1a9651b_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga6af7284d0c1f7074035c8650d1a9651b_cgraph">
+<area shape="rect" title="Similar to UpnpNotify() except that it takes a DOM document for the event rather than an array of str..." alt="" coords="5,43,121,69"/>
 <area shape="rect" href="../../dd/de6/gena__device_8cpp.html#a8f2185f7e2ef6345535174b920c6e86b" title="Sends a notification to all the subscribed control points." alt="" coords="169,43,300,69"/>
 <area shape="poly" title=" " alt="" coords="122,53,156,53,156,59,122,59"/>
 <area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="1671,145,1762,170"/>
@@ -998,14 +1002,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="gac056a1b0207211f171d416c09841035a" name="gac056a1b0207211f171d416c09841035a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac056a1b0207211f171d416c09841035a">&#9670;&#160;</a></span>UpnpRenewSubscription()</h2>
+<a id="ga432702f1729fb397dde196c851355bd2" name="ga432702f1729fb397dde196c851355bd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga432702f1729fb397dde196c851355bd2">&#9670;&#160;</a></span>UpnpRenewSubscription()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpRenewSubscription </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpRenewSubscription </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -1034,6 +1038,7 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <p>This function is synchronous.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid control point handle. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> <b>Timeout</b> is not a valid pointer. </li>
 <li><code>UPNP_E_INVALID_SID:</code> The SID being passed to this function is not a valid subscription ID. </li>
@@ -1063,8 +1068,8 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_gac056a1b0207211f171d416c09841035a_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_gac056a1b0207211f171d416c09841035a_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_gac056a1b0207211f171d416c09841035a_cgraph" id="ad4/d07/group__compaAPI-Eventing_gac056a1b0207211f171d416c09841035a_cgraph">
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga432702f1729fb397dde196c851355bd2_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga432702f1729fb397dde196c851355bd2_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_ga432702f1729fb397dde196c851355bd2_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga432702f1729fb397dde196c851355bd2_cgraph">
 <area shape="rect" title="Renews a subscription that is about to expire." alt="" coords="5,984,185,1009"/>
 <area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="233,1060,412,1085"/>
 <area shape="poly" title=" " alt="" coords="135,1007,272,1053,270,1058,133,1012"/>
@@ -1217,14 +1222,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="gae8107c940cbfaf250a350269ab6e5ec2" name="gae8107c940cbfaf250a350269ab6e5ec2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae8107c940cbfaf250a350269ab6e5ec2">&#9670;&#160;</a></span>UpnpRenewSubscriptionAsync()</h2>
+<a id="ga2c9bdc75962402684774c8efc4335f4f" name="ga2c9bdc75962402684774c8efc4335f4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2c9bdc75962402684774c8efc4335f4f">&#9670;&#160;</a></span>UpnpRenewSubscriptionAsync()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpRenewSubscriptionAsync </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpRenewSubscriptionAsync </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -1265,6 +1270,7 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <p>Note that many of the error codes for this function are returned in the <b>UpnpEventSubscribe</b> structure. In those cases, the function returns <code>UPNP_E_SUCCESS</code> and the appropriate error code will be in the <b>UpnpEventSubscribe.ErrCode</b> field in the <b>Event</b> structure passed to the callback.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid control point handle. </li>
 <li><code>UPNP_E_INVALID_SID:</code> The <b>SubsId</b> is not a valid subscription ID. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> Either <b>Fun</b> is not a valid callback function pointer or <b>Timeout</b> is less than zero but is not <code>UPNP_INFINITE</code>. </li>
@@ -1296,8 +1302,8 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_gae8107c940cbfaf250a350269ab6e5ec2_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_gae8107c940cbfaf250a350269ab6e5ec2_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_gae8107c940cbfaf250a350269ab6e5ec2_cgraph" id="ad4/d07/group__compaAPI-Eventing_gae8107c940cbfaf250a350269ab6e5ec2_cgraph">
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga2c9bdc75962402684774c8efc4335f4f_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga2c9bdc75962402684774c8efc4335f4f_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_ga2c9bdc75962402684774c8efc4335f4f_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga2c9bdc75962402684774c8efc4335f4f_cgraph">
 <area shape="rect" title="Renews a subscription that is about to expire, generating a callback when the operation is complete." alt="" coords="5,380,224,405"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="845,513,961,539"/>
 <area shape="poly" title=" " alt="" coords="183,377,272,366,361,359,400,360,450,366,571,394,688,432,789,472,864,505,862,510,787,477,686,437,569,399,449,371,400,365,361,364,272,371,184,383"/>
@@ -1422,14 +1428,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="ga81d7fc522d11ff07729f03ccc8d691fc" name="ga81d7fc522d11ff07729f03ccc8d691fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga81d7fc522d11ff07729f03ccc8d691fc">&#9670;&#160;</a></span>UpnpSetMaxSubscriptions()</h2>
+<a id="gaf525dd4ce64cd2760caca2d2db7a2a41" name="gaf525dd4ce64cd2760caca2d2db7a2a41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf525dd4ce64cd2760caca2d2db7a2a41">&#9670;&#160;</a></span>UpnpSetMaxSubscriptions()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpSetMaxSubscriptions </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpSetMaxSubscriptions </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -1452,6 +1458,7 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <p>The default value accepts as many as system resources allow. If the number of current subscriptions for a service is greater than the requested value, the SDK accepts no new subscriptions or renewals, however, the SDK does not remove any current subscriptions.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid device handle. </li>
 </ul>
 </dd></dl>
@@ -1469,8 +1476,8 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga81d7fc522d11ff07729f03ccc8d691fc_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga81d7fc522d11ff07729f03ccc8d691fc_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_ga81d7fc522d11ff07729f03ccc8d691fc_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga81d7fc522d11ff07729f03ccc8d691fc_cgraph">
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_gaf525dd4ce64cd2760caca2d2db7a2a41_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_gaf525dd4ce64cd2760caca2d2db7a2a41_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_gaf525dd4ce64cd2760caca2d2db7a2a41_cgraph" id="ad4/d07/group__compaAPI-Eventing_gaf525dd4ce64cd2760caca2d2db7a2a41_cgraph">
 <area shape="rect" title="Sets the maximum number of subscriptions accepted per service." alt="" coords="5,31,197,56"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="245,5,361,31"/>
 <area shape="poly" title=" " alt="" coords="197,29,231,24,232,30,198,34"/>
@@ -1486,14 +1493,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="gaf43ee2ca0367203a15d64c58c96fe9db" name="gaf43ee2ca0367203a15d64c58c96fe9db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf43ee2ca0367203a15d64c58c96fe9db">&#9670;&#160;</a></span>UpnpSetMaxSubscriptionTimeOut()</h2>
+<a id="ga4350fb532fc039a74ba6c7c5f1117669" name="ga4350fb532fc039a74ba6c7c5f1117669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4350fb532fc039a74ba6c7c5f1117669">&#9670;&#160;</a></span>UpnpSetMaxSubscriptionTimeOut()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpSetMaxSubscriptionTimeOut </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpSetMaxSubscriptionTimeOut </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -1516,6 +1523,7 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <p>The default value accepts the time-out set by the control point. If a control point requests a subscription time-out less than or equal to the maximum, the SDK grants the value requested by the control point. If the time-out is greater, the SDK returns the maximum value.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid device handle. </li>
 </ul>
 </dd></dl>
@@ -1533,8 +1541,8 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-7-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_gaf43ee2ca0367203a15d64c58c96fe9db_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_gaf43ee2ca0367203a15d64c58c96fe9db_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_gaf43ee2ca0367203a15d64c58c96fe9db_cgraph" id="ad4/d07/group__compaAPI-Eventing_gaf43ee2ca0367203a15d64c58c96fe9db_cgraph">
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga4350fb532fc039a74ba6c7c5f1117669_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga4350fb532fc039a74ba6c7c5f1117669_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_ga4350fb532fc039a74ba6c7c5f1117669_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga4350fb532fc039a74ba6c7c5f1117669_cgraph">
 <area shape="rect" title="Sets the maximum time&#45;out accepted for a subscription request or renewal." alt="" coords="5,31,247,56"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="295,5,411,31"/>
 <area shape="poly" title=" " alt="" coords="240,28,281,23,282,29,240,33"/>
@@ -1550,14 +1558,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="gaf8643061418e38b417d012f0c611acca" name="gaf8643061418e38b417d012f0c611acca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf8643061418e38b417d012f0c611acca">&#9670;&#160;</a></span>UpnpSubscribe()</h2>
+<a id="gaec3120b0a0e24cdb58483b077ef1dcdf" name="gaec3120b0a0e24cdb58483b077ef1dcdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaec3120b0a0e24cdb58483b077ef1dcdf">&#9670;&#160;</a></span>UpnpSubscribe()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpSubscribe </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpSubscribe </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -1588,13 +1596,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
       </table>
 </div><div class="memdoc">
 
-<p>Registers a control point to receive event notifications from another device. </p>
+<p>Registers a <a class="el" href="../../d5/d67/Glossary.html#glossary_cp">control point</a> to receive event notifications from a <a class="el" href="../../d5/d67/Glossary.html#glossary_upnpdev">UPnP device</a>. </p>
 <p>This operation is synchronous.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid control point handle. </li>
 <li><code>UPNP_E_INVALID_URL:</code> <b>PublisherUrl</b> is not a valid URL. </li>
-<li><code>UPNP_E_INVALID_PARAM:</code> <b>Timeout</b> is not a valid pointer or <b>SubsId</b> or <b>PublisherUrl</b> is <code>NULL</code>. </li>
+<li><code>UPNP_E_INVALID_PARAM:</code> <b>Timeout</b> is not a valid pointer or <b>SubsId</b> or <b>PublisherUrl</b> is a <code>nullptr</code>. </li>
 <li><code>UPNP_E_NETWORK_ERROR:</code> A network error occured. </li>
 <li><code>UPNP_E_SOCKET_WRITE:</code> An error or timeout occurred writing to a socket. </li>
 <li><code>UPNP_E_SOCKET_READ:</code> An error or timeout occurred reading from a socket. </li>
@@ -1622,9 +1631,9 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-8-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_gaf8643061418e38b417d012f0c611acca_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_gaf8643061418e38b417d012f0c611acca_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_gaf8643061418e38b417d012f0c611acca_cgraph" id="ad4/d07/group__compaAPI-Eventing_gaf8643061418e38b417d012f0c611acca_cgraph">
-<area shape="rect" title="Registers a control point to receive event notifications from another device." alt="" coords="5,1250,124,1275"/>
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_gaec3120b0a0e24cdb58483b077ef1dcdf_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_gaec3120b0a0e24cdb58483b077ef1dcdf_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_gaec3120b0a0e24cdb58483b077ef1dcdf_cgraph" id="ad4/d07/group__compaAPI-Eventing_gaec3120b0a0e24cdb58483b077ef1dcdf_cgraph">
+<area shape="rect" title="Registers a control point to receive event notifications from a UPnP device." alt="" coords="5,1250,124,1275"/>
 <area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#a8fa71879823e3dc936bac4847ca1fcc5" title="This function subscribes to a PublisherURL (also mentioned as EventURL in some places)." alt="" coords="172,1250,289,1275"/>
 <area shape="poly" title=" " alt="" coords="124,1260,158,1260,158,1265,124,1265"/>
 <area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="1109,2230,1200,2255"/>
@@ -1763,14 +1772,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="ga23d9ee93b121e81947a925ac4494747d" name="ga23d9ee93b121e81947a925ac4494747d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga23d9ee93b121e81947a925ac4494747d">&#9670;&#160;</a></span>UpnpSubscribeAsync()</h2>
+<a id="ga9b26944e92d3f59c09cbe560d3a06bed" name="ga9b26944e92d3f59c09cbe560d3a06bed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9b26944e92d3f59c09cbe560d3a06bed">&#9670;&#160;</a></span>UpnpSubscribeAsync()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpSubscribeAsync </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpSubscribeAsync </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -1807,10 +1816,11 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
       </table>
 </div><div class="memdoc">
 
-<p>Performs the same operation as <b>UpnpSubscribe</b>, but returns immediately and calls the registered callback function when the operation is complete. </p>
-<p>Note that many of the error codes for this function are returned in the <b>UpnpEventSubscribe</b> structure. In those cases, the function returns <code>UPNP_E_SUCCESS</code> and the appropriate error code will be in the <b>UpnpEventSubscribe.ErrCode</b> field in the <b>Event</b> structure passed to the callback.</p>
+<p>Performs the same operation as <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaec3120b0a0e24cdb58483b077ef1dcdf" title="Registers a control point to receive event notifications from a UPnP device.">UpnpSubscribe()</a>, but returns immediately and calls the registered callback function when the operation is complete. </p>
+<p>Note that many of the error codes for this function are returned in the <a class="el" href="../../de/df3/UpnpEventSubscribe_8cpp.html#db/d57/structs__UpnpEventSubscribe" title="s_UpnpEventSubscribe">s_UpnpEventSubscribe</a> structure. In those cases, the function returns <code>UPNP_E_SUCCESS</code> and the appropriate error code will be in the <b>UpnpEventSubscribe.ErrCode</b> field in the <b>Event</b> structure passed to the callback.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid control point handle. </li>
 <li><code>UPNP_E_INVALID_URL:</code> The <b>PublisherUrl</b> is not a valid URL. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> Either <b>TimeOut</b> or <b>Fun</b> or <b>PublisherUrl</b> is not a valid pointer. </li>
@@ -1842,9 +1852,9 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-9-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga23d9ee93b121e81947a925ac4494747d_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga23d9ee93b121e81947a925ac4494747d_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_ga23d9ee93b121e81947a925ac4494747d_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga23d9ee93b121e81947a925ac4494747d_cgraph">
-<area shape="rect" title="Performs the same operation as UpnpSubscribe, but returns immediately and calls the registered callba..." alt="" coords="5,380,164,405"/>
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga9b26944e92d3f59c09cbe560d3a06bed_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga9b26944e92d3f59c09cbe560d3a06bed_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_ga9b26944e92d3f59c09cbe560d3a06bed_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga9b26944e92d3f59c09cbe560d3a06bed_cgraph">
+<area shape="rect" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call..." alt="" coords="5,380,164,405"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="785,513,901,539"/>
 <area shape="poly" title=" " alt="" coords="140,377,212,366,301,358,340,359,390,366,511,394,628,432,729,472,804,505,802,510,727,477,626,437,509,399,389,371,340,365,301,364,212,371,141,383"/>
 <area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="1011,513,1101,539"/>
@@ -1968,14 +1978,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="ga9d3403889bd10f4572a31019631139ab" name="ga9d3403889bd10f4572a31019631139ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9d3403889bd10f4572a31019631139ab">&#9670;&#160;</a></span>UpnpUnSubscribe()</h2>
+<a id="ga88b8e698c2d0600d22cf288a6b625c21" name="ga88b8e698c2d0600d22cf288a6b625c21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga88b8e698c2d0600d22cf288a6b625c21">&#9670;&#160;</a></span>UpnpUnSubscribe()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpUnSubscribe </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpUnSubscribe </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -1994,10 +2004,11 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
       </table>
 </div><div class="memdoc">
 
-<p>Removes the subscription of a control point from a service previously subscribed to using <b>UpnpSubscribe</b> or <b>UpnpSubscribeAsync</b>. </p>
+<p>Removes the subscription of a control point from a service previously subscribed to using <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaec3120b0a0e24cdb58483b077ef1dcdf" title="Registers a control point to receive event notifications from a UPnP device.">UpnpSubscribe()</a> or <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga9b26944e92d3f59c09cbe560d3a06bed" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call...">UpnpSubscribeAsync()</a>. </p>
 <p>This is a synchronous call.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid control point handle. </li>
 <li><code>UPNP_E_INVALID_SID:</code> The <b>SubsId</b> is not a valid subscription ID. </li>
 <li><code>UPNP_E_NETWORK_ERROR:</code> A network error occured. </li>
@@ -2025,8 +2036,8 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga9d3403889bd10f4572a31019631139ab_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga9d3403889bd10f4572a31019631139ab_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_ga9d3403889bd10f4572a31019631139ab_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga9d3403889bd10f4572a31019631139ab_cgraph">
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga88b8e698c2d0600d22cf288a6b625c21_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga88b8e698c2d0600d22cf288a6b625c21_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_ga88b8e698c2d0600d22cf288a6b625c21_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga88b8e698c2d0600d22cf288a6b625c21_cgraph">
 <area shape="rect" title="Removes the subscription of a control point from a service previously subscribed to using UpnpSubscri..." alt="" coords="5,1625,143,1651"/>
 <area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="191,1099,325,1124"/>
 <area shape="poly" title=" " alt="" coords="77,1624,245,1136,250,1138,82,1626"/>
@@ -2166,14 +2177,14 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 
 </div>
 </div>
-<a id="ga8fdb8f14e64789bed8dcd8048b41f6a0" name="ga8fdb8f14e64789bed8dcd8048b41f6a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8fdb8f14e64789bed8dcd8048b41f6a0">&#9670;&#160;</a></span>UpnpUnSubscribeAsync()</h2>
+<a id="gae1515ebcabf3ded6af3bd789b243fdce" name="gae1515ebcabf3ded6af3bd789b243fdce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae1515ebcabf3ded6af3bd789b243fdce">&#9670;&#160;</a></span>UpnpUnSubscribeAsync()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpUnSubscribeAsync </td>
+          <td class="memname"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int UpnpUnSubscribeAsync </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d9/d8f/API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a>&#160;</td>
           <td class="paramname"><em>Hnd</em>, </td>
@@ -2204,10 +2215,11 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
       </table>
 </div><div class="memdoc">
 
-<p>Removes a subscription of a control point from a service previously subscribed to using <b>UpnpSubscribe</b> or <b>UpnpSubscribeAsync</b>, generating a callback when the operation is complete. </p>
-<p>Note that many of the error codes for this function are returned in the <b>UpnpEventSubscribe</b> structure. In those cases, the function returns <code>UPNP_E_SUCCESS</code> and the appropriate error code will be in the <b>UpnpEventSubscribe.ErrCode</b> field in the <b>Event</b> structure passed to the callback.</p>
+<p>Removes a subscription of a control point from a service previously subscribed to using <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#gaec3120b0a0e24cdb58483b077ef1dcdf" title="Registers a control point to receive event notifications from a UPnP device.">UpnpSubscribe()</a> or <a class="el" href="../../d4/d07/group__compaAPI-Eventing.html#ga9b26944e92d3f59c09cbe560d3a06bed" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call...">UpnpSubscribeAsync()</a>, generating a callback when the operation is complete. </p>
+<p>Note that many of the error codes for this function are returned in the <a class="el" href="../../de/df3/UpnpEventSubscribe_8cpp.html#db/d57/structs__UpnpEventSubscribe" title="s_UpnpEventSubscribe">s_UpnpEventSubscribe</a> structure. In those cases, the function returns <code>UPNP_E_SUCCESS</code> and the appropriate error code will be in the <b>UpnpEventSubscribe.ErrCode</b> field in the <b>Event</b> structure passed to the callback.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>UPNP_E_SUCCESS:</code> The operation completed successfully. </li>
+<li><code>UPNP_E_FINISH:</code> The SDK is already terminated or is not initialized. </li>
 <li><code>UPNP_E_INVALID_HANDLE:</code> The handle is not a valid control point handle. </li>
 <li><code>UPNP_E_INVALID_SID:</code> The <b>SubsId</b> is not a valid SID. </li>
 <li><code>UPNP_E_INVALID_PARAM:</code> <b>Fun</b> is not a valid callback function pointer. </li>
@@ -2238,8 +2250,8 @@ $(document).ready(function(){initNavTree('d4/d07/group__compaAPI-Eventing.html',
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-11-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_ga8fdb8f14e64789bed8dcd8048b41f6a0_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_ga8fdb8f14e64789bed8dcd8048b41f6a0_cgraph" alt=""/></div>
-<map name="ad4/d07/group__compaAPI-Eventing_ga8fdb8f14e64789bed8dcd8048b41f6a0_cgraph" id="ad4/d07/group__compaAPI-Eventing_ga8fdb8f14e64789bed8dcd8048b41f6a0_cgraph">
+<div class="center"><img src="../../d4/d07/group__compaAPI-Eventing_gae1515ebcabf3ded6af3bd789b243fdce_cgraph.png" border="0" usemap="#ad4/d07/group__compaAPI-Eventing_gae1515ebcabf3ded6af3bd789b243fdce_cgraph" alt=""/></div>
+<map name="ad4/d07/group__compaAPI-Eventing_gae1515ebcabf3ded6af3bd789b243fdce_cgraph" id="ad4/d07/group__compaAPI-Eventing_gae1515ebcabf3ded6af3bd789b243fdce_cgraph">
 <area shape="rect" title="Removes a subscription of a control point from a service previously subscribed to using UpnpSubscribe..." alt="" coords="5,380,181,405"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="803,513,919,539"/>
 <area shape="poly" title=" " alt="" coords="152,377,206,368,270,362,339,360,407,366,528,394,645,432,747,472,821,505,819,510,745,477,643,437,527,399,406,371,338,365,270,367,206,374,152,383"/>
