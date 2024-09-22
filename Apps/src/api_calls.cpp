@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-20
+// Redistribution only with this Copyright remark. Last modified: 2024-09-22
 /*!
  * \file
  * \brief Simple calls of API functions to test conditional compile and linking.
@@ -1050,7 +1050,204 @@ int UpnpDownloadXmlDoc() {
 }
 
 
+// Web Server API
+// --------------
+int UpnpSetWebServerRootDir() {
+    constexpr char function_name[]{"UpnpSetWebServerRootDir()"};
+#if defined(UPNP_HAVE_WEBSERVER) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpSetWebServerRootDir(nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpVirtualDir_set_GetInfoCallback() {
+    constexpr char function_name[]{"UpnpVirtualDir_set_GetInfoCallback()"};
+#if defined(UPNP_HAVE_WEBSERVER) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpVirtualDir_set_GetInfoCallback(nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpVirtualDir_set_OpenCallback() {
+    constexpr char function_name[]{"UpnpVirtualDir_set_OpenCallback()"};
+#if defined(UPNP_HAVE_WEBSERVER) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpVirtualDir_set_OpenCallback(nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpVirtualDir_set_ReadCallback() {
+    constexpr char function_name[]{"UpnpVirtualDir_set_ReadCallback()"};
+#if defined(UPNP_HAVE_WEBSERVER) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpVirtualDir_set_ReadCallback(nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpVirtualDir_set_WriteCallback() {
+    constexpr char function_name[]{"UpnpVirtualDir_set_WriteCallback()"};
+#if defined(UPNP_HAVE_WEBSERVER) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpVirtualDir_set_WriteCallback(nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpVirtualDir_set_SeekCallback() {
+    constexpr char function_name[]{"UpnpVirtualDir_set_SeekCallback()"};
+#if defined(UPNP_HAVE_WEBSERVER) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpVirtualDir_set_SeekCallback(nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpVirtualDir_set_CloseCallback() {
+    constexpr char function_name[]{"UpnpVirtualDir_set_CloseCallback()"};
+#if defined(UPNP_HAVE_WEBSERVER) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpVirtualDir_set_CloseCallback(nullptr);
+    if (ret != UPNP_E_INVALID_PARAM) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpEnableWebserver() {
+    constexpr char function_name[]{"UpnpEnableWebserver()"};
+#if defined(UPNP_HAVE_WEBSERVER) || defined(COMPA_HAVE_WEBSERVER)
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpEnableWebserver(0);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+#else
+    std::cerr << "Skip " << function_name
+              << ": COMPA_HAVE_WEBSERVER not enabled\n";
+#endif
+    return 0;
+}
+
+int UpnpIsWebserverEnabled() {
+    constexpr char function_name[]{"UpnpIsWebserverEnabled()"};
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpIsWebserverEnabled();
+    if (ret != 0) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+    return 0;
+}
+
+int UpnpSetHostValidateCallback() {
+    constexpr char function_name[]{"UpnpSetHostValidateCallback()"};
+    std::cerr << "Executing " << function_name << '\n';
+    ::UpnpSetHostValidateCallback(nullptr, nullptr);
+    return 0;
+}
+
+int UpnpSetAllowLiteralHostRedirection() {
+    constexpr char function_name[]{"UpnpSetAllowLiteralHostRedirection()"};
+    std::cerr << "Executing " << function_name << '\n';
+    ::UpnpSetAllowLiteralHostRedirection(0);
+    return 0;
+}
+
+int UpnpAddVirtualDir() {
+    constexpr char function_name[]{"UpnpAddVirtualDir()"};
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpAddVirtualDir(nullptr, nullptr, nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+    return 0;
+}
+
+int UpnpRemoveVirtualDir() {
+    constexpr char function_name[]{"UpnpRemoveVirtualDir()"};
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpRemoveVirtualDir(nullptr);
+    if (ret != UPNP_E_FINISH) {
+        std::cerr << "Unexpected: ::" << function_name << " == " << ret << '\n';
+        return 1;
+    }
+    return 0;
+}
+
+int UpnpRemoveAllVirtualDirs() {
+    constexpr char function_name[]{"UpnpRemoveAllVirtualDirs()"};
+    std::cerr << "Executing " << function_name << '\n';
+    ::UpnpRemoveAllVirtualDirs();
+    return 0;
+}
+
+
 // \brief Initialize OpenSSL context and use freeSslCtx().
+// -------------------------------------------------------
 int UpnpInitSslContext() {
 #ifndef UPnPsdk_WITH_NATIVE_PUPNP
     constexpr char function_name[]{"UpnpInitSslContext()"};
@@ -1160,17 +1357,23 @@ int main() {
     ret += utest::UpnpCloseHttpConnection();
     ret += utest::UpnpDownloadXmlDoc();
 
+    // Web Server API
+    ret += utest::UpnpSetWebServerRootDir();
+    ret += utest::UpnpVirtualDir_set_GetInfoCallback();
+    ret += utest::UpnpVirtualDir_set_OpenCallback();
+    ret += utest::UpnpVirtualDir_set_ReadCallback();
+    ret += utest::UpnpVirtualDir_set_WriteCallback();
+    ret += utest::UpnpVirtualDir_set_SeekCallback();
+    ret += utest::UpnpVirtualDir_set_CloseCallback();
+    ret += utest::UpnpEnableWebserver();
+    ret += utest::UpnpIsWebserverEnabled();
+    ret += utest::UpnpSetHostValidateCallback();
+    ret += utest::UpnpSetAllowLiteralHostRedirection();
+    ret += utest::UpnpAddVirtualDir();
+    ret += utest::UpnpRemoveVirtualDir();
+    ret += utest::UpnpRemoveAllVirtualDirs();
 
     // returns number of failed tests.
     std::cout << "return code " << ret << '\n';
     return ret;
-
-    // clang-format off
-// #ifdef UPnPsdk_WITH_NATIVE_PUPNP
-//     std::cerr << "DEBUG! ret = " << ret << "\n";
-//     return 1;
-// #else
-//     return ret;
-// #endif
-    // clang-format on
 }

@@ -978,7 +978,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 
 <p>Registers one root- or logical-device object with the UPnP Library with additional description and get a handle for it. </p>
 <p>Similar to <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga20d89b8c353197dfcbd8f2c0798bffa5" title="Registers one root- or logical-device object with the UPnP Library to get a handle for it.">UpnpRegisterRootDevice()</a>, except that it also allows the description document to be specified as a file or a memory buffer. The description can also be configured to have the correct IP and port address.</p>
-<p>For the configuration to be functional, the internal web server MUST be present. In addition, the web server MUST be activated (using <a class="el" href="../../d6/d8a/group__compaAPI-WebServer.html#ga5a6bb3d66f5808e0f1df5e69456c6627" title="Sets the document root directory for the internal web server.">UpnpSetWebServerRootDir()</a>) before calling this function. The only condition where the web server can be absent is if the description document is specified as a URL and no configuration is required (i.e. <code>config_baseURL = 0</code>.)</p>
+<p>For the configuration to be functional, the internal web server MUST be present. In addition, the web server MUST be activated (using <a class="el" href="../../d6/d8a/group__compaAPI-WebServer.html#gaac7a3bc3a247258542b9346d093f43cc" title="Sets the document root directory for the internal web server.">UpnpSetWebServerRootDir()</a>) before calling this function. The only condition where the web server can be absent is if the description document is specified as a URL and no configuration is required (i.e. <code>config_baseURL = 0</code>.)</p>
 <p>This is a synchronous call and does not generate any callbacks. Callbacks can occur as soon as this function returns. A registered root device needs to be unregistered with <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga3e92f7324b8f57939ecfe3826ab54f3a" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),...">UpnpUnRegisterRootDevice()</a> after using.</p>
 <p>Examples of using the valid three different types of description documents: </p><pre class="fragment">1) Description specified as a URL:
       descriptionType == UPNPREG_URL_DESC
@@ -2329,7 +2329,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03897">3897</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03892">3892</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
@@ -2383,7 +2383,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03927">3927</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03922">3922</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>

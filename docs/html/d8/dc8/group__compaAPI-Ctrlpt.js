@@ -25,5 +25,5 @@ var group__compaAPI_Ctrlpt =
     [ "UpnpGetHttpResponse", "d8/dc8/group__compaAPI-Ctrlpt.html#ga62ce5195ee88d48e4d237b659aa2d340", null ],
     [ "UpnpReadHttpResponse", "d8/dc8/group__compaAPI-Ctrlpt.html#ga4409448def86e4fdcb7c0e0610c4cfaf", null ],
     [ "UpnpCloseHttpConnection", "d8/dc8/group__compaAPI-Ctrlpt.html#ga8e6e60f40c3f2ccb623beb912cb2a4db", null ],
-    [ "UpnpDownloadXmlDoc", "d8/dc8/group__compaAPI-Ctrlpt.html#gaa704d80f194d9aab9a6f59fe10463729", null ]
+    [ "UpnpDownloadXmlDoc", "d8/dc8/group__compaAPI-Ctrlpt.html#gad7fd3f4594c09e6217befd2fe27c1999", null ]
 ];

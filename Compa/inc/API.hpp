@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-09-20
+ * Redistribution only with this Copyright remark. Last modified: 2024-09-22
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -2594,7 +2594,7 @@ typedef int (*VDCallback_GetInfo)(
     /*! [out] Pointer to a structure to store the information on the file.
      */
     UpnpFileInfo* info,
-    /*! [in] The cookie associated with this VirtualDir */
+    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
     const void* cookie,
     /*! [out] The cookie associated with this request */
     const void** request_cookie);
@@ -2604,12 +2604,10 @@ typedef int (*VDCallback_GetInfo)(
  *
  * This directory is considered the root directory (i.e. "/") of the web server.
  *
- * The function is independent of whether the web server is enabled or
- * disabled. To select the root directory '/' of the filesystem then use
+ * The function is independent of whether the web server is enabled or disabled.
+ * To select the root directory '/' of the filesystem on the local storage to be
+ * also the websites virtual root directory then use
  * UpnpSetWebServerRootDir("//").
- *
- * \note This function is not available when the web server is not compiled
- *  into the UPnP Library.
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2617,19 +2615,21 @@ typedef int (*VDCallback_GetInfo)(
  *       \li \c UPNP_E_INVALID_PARAM: \b rootDir argument is not valid.
  *       \li \c UPNP_E_OUTOF_MEMORY: Resource for storing string not available.
  */
-UPNPLIB_API int UpnpSetWebServerRootDir(
-    /*! [in] Path of the root directory of the web server. */
+UPnPsdk_API int UpnpSetWebServerRootDir(
+    /*! [in] Path on the filesystem of the local storage to be the root
+     * directory of the web server. */
     const char* rootDir);
 
 /*!
- * \brief Sets the get_info callback function to be used to access a virtual
- * directory.
+ * \brief Sets the get_info callback function to be used to access a
+ * \glos{virtdir,virtual directory}.
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPNPLIB_API int UpnpVirtualDir_set_GetInfoCallback(VDCallback_GetInfo callback);
+UPnPsdk_API int UpnpVirtualDir_set_GetInfoCallback(VDCallback_GetInfo callback);
 
 /*!
  * \brief Open callback function prototype.
@@ -2640,20 +2640,21 @@ typedef UpnpWebFileHandle (*VDCallback_Open)(
     /*! [in] The mode in which to open the file.
      * Valid values are \c UPNP_READ or \c UPNP_WRITE. */
     enum UpnpOpenFileMode Mode,
-    /*! [in] The cookie associated with this VirtualDir */
+    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
     const void* cookie,
     /*! [in] The cookie associated with this request */
     const void* request_cookie);
 
 /*!
- * \brief Sets the open callback function to be used to access a virtual
- * directory.
+ * \brief Sets the open callback function to be used to access a
+ * \glos{virtdir,virtual directory}.
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPNPLIB_API int UpnpVirtualDir_set_OpenCallback(VDCallback_Open callback);
+UPnPsdk_API int UpnpVirtualDir_set_OpenCallback(VDCallback_Open callback);
 
 /*!
  * \brief Read callback function prototype.
@@ -2665,20 +2666,21 @@ typedef int (*VDCallback_Read)(
     char* buf,
     /*! [in] The size of the buffer (i.e. the number of bytes to read). */
     size_t buflen,
-    /*! [in] The cookie associated with this VirtualDir */
+    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
     const void* cookie,
     /*! [in] The cookie associated with this request */
     const void* request_cookie);
 
 /*!
- * \brief Sets the read callback function to be used to access a virtual
- * directory.
+ * \brief Sets the read callback function to be used to access a
+ * \glos{virtdir,virtual directory}.
  *
  *  \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPNPLIB_API int UpnpVirtualDir_set_ReadCallback(VDCallback_Read callback);
+UPnPsdk_API int UpnpVirtualDir_set_ReadCallback(VDCallback_Read callback);
 
 /*!
  * \brief Write callback function prototype.
@@ -2690,20 +2692,21 @@ typedef int (*VDCallback_Write)(
     char* buf,
     /*! [in] The number of bytes to write. */
     size_t buflen,
-    /*! [in] The cookie associated with this VirtualDir */
+    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
     const void* cookie,
     /*! [in] The cookie associated with this request */
     const void* request_cookie);
 
 /*!
- * \brief Sets the write callback function to be used to access a virtual
- * directory.
+ * \brief Sets the write callback function to be used to access a
+ * \glos{virtdir,virtual directory}.
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPNPLIB_API int UpnpVirtualDir_set_WriteCallback(VDCallback_Write callback);
+UPnPsdk_API int UpnpVirtualDir_set_WriteCallback(VDCallback_Write callback);
 
 /*!
  * \brief Seek callback function prototype.
@@ -2720,20 +2723,21 @@ typedef int (*VDCallback_Seek)(
      * move relative to the end of the file, or \c SEEK_SET to
      * specify an absolute offset. */
     int origin,
-    /*! [in] The cookie associated with this VirtualDir */
+    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
     const void* cookie,
     /*! [in] The cookie associated with this request */
     const void* request_cookie);
 
 /*!
- * \brief Sets the seek callback function to be used to access a virtual
- * directory.
+ * \brief Sets the seek callback function to be used to access a
+ * \glos{virtdir,virtual directory}.
  *
  *  \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPNPLIB_API int UpnpVirtualDir_set_SeekCallback(VDCallback_Seek callback);
+UPnPsdk_API int UpnpVirtualDir_set_SeekCallback(VDCallback_Seek callback);
 
 /*!
  * \brief Close callback function prototype.
@@ -2741,43 +2745,45 @@ UPNPLIB_API int UpnpVirtualDir_set_SeekCallback(VDCallback_Seek callback);
 typedef int (*VDCallback_Close)(
     /*! [in] The handle of the file to close. */
     UpnpWebFileHandle fileHnd,
-    /*! [in] The cookie associated with this VirtualDir */
+    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
     const void* cookie,
     /*! [in] The cookie associated with this request */
     const void* request_cookie);
 
 /*!
- * \brief Sets the close callback function to be used to access a virtual
- * directory.
+ * \brief Sets the close callback function to be used to access a
+ * \glos{virtdir,virtual directory}.
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPNPLIB_API int UpnpVirtualDir_set_CloseCallback(VDCallback_Close callback);
+UPnPsdk_API int UpnpVirtualDir_set_CloseCallback(VDCallback_Close callback);
 
 /*!
  * \brief Enables or disables the webserver.
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_FINISH: The library has not been initialized.
  *       \li \c UPNP_E_OUTOF_MEMORY: The web server could not be started due to
  *       an out-of-memory condition.
  *       \li \c UPNP_E_NO_WEB_SERVER: The internal web server has been compiled
  *       out so it can't be enabled or disabled.
  */
-UPNPLIB_API int UpnpEnableWebserver(
+UPnPsdk_API int UpnpEnableWebserver(
     /*! [in] \c 1 to enable, \c 0 to disable. */
     int enable);
 
 /*!
- * \brief Returns \c 1 if the webserver is enabled, or \c 0 if it is not.
+ * \brief Returns the status of the webserver.
  *
- *  \return An integer representing one of the following:
- *       \li \c 1: The webserver is enabled.
- *       \li \c 0: The webserver is not enabled
+ * \return An integer representing one of the following:
+ *  - 1: The webserver is enabled.
+ *  - 0: The webserver is not enabled.
  */
-UPNPLIB_API int UpnpIsWebserverEnabled();
+UPnPsdk_API int UpnpIsWebserverEnabled();
 
 /*!
  * \brief Callback for validating HTTP requests HOST header values.
@@ -2798,7 +2804,7 @@ typedef int (*WebCallback_HostValidate)(const char* hostname, void* cookie);
  * \param callback the host validating callback function or NULL.
  * \param cookie the chocolate you like.
  */
-UPNPLIB_API void UpnpSetHostValidateCallback(WebCallback_HostValidate callback,
+UPnPsdk_API void UpnpSetHostValidateCallback(WebCallback_HostValidate callback,
                                              void* cookie);
 
 /*!
@@ -2806,46 +2812,47 @@ UPNPLIB_API void UpnpSetHostValidateCallback(WebCallback_HostValidate callback,
  *
  * \param enable Zero to disable (default) non-zero to enable.
  */
-UPNPLIB_API void UpnpSetAllowLiteralHostRedirection(int enable);
+UPnPsdk_API void UpnpSetAllowLiteralHostRedirection(int enable);
 
 /*!
- * \brief Adds a virtual directory mapping.
+ * \brief Adds a \glos{virtdir,virtual directory} mapping.
  *
  * All webserver requests containing the given directory are read using
- * functions contained in a \b VirtualDirCallbacks structure registered
- * via \b UpnpSetVirtualDirCallbacks.
- *
- * \note This function is not available when the web server is not
- *  compiled into the UPnP Library.
+ * functions contained in a VirtualDirCallbacks structure registered
+ * via UpnpSetVirtualDirCallbacks().
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_FINISH: The library has not been initialized.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b dirName is not valid.
  */
-UPNPLIB_API int UpnpAddVirtualDir(
+UPnPsdk_API int UpnpAddVirtualDir(
     /*! [in] The name of the new directory mapping to add. */
     const char* newDirName,
-    /*! [in] The cookie to associated with this virtual directory */
+    /*! [in] The cookie to associated with this \glos{virtdir,virtual directory}
+     */
     const void* cookie,
-    /*! [out] The cookie previously associated, if mapping is already
-       present */
+    /*! [out] The cookie previously associated, if mapping is already present */
     const void** oldcookie);
 
 /*!
- * \brief Removes a virtual directory mapping made with \b UpnpAddVirtualDir.
+ * \brief Removes a \glos{virtdir,virtual directory} mapping made with
+ * UpnpAddVirtualDir().
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_FINISH: The library has not been initialized.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b dirName is not valid.
  */
-UPNPLIB_API int UpnpRemoveVirtualDir(
-    /*! [in] The name of the virtual directory mapping to remove. */
+UPnPsdk_API int UpnpRemoveVirtualDir(
+    /*! [in] The name of the \glos{virtdir,virtual directory} mapping to remove.
+     */
     const char* dirName);
 
 /*!
- * \brief Removes all virtual directory mappings.
+ * \brief Removes all \glos{virtdir,virtual directory} mappings.
  */
-UPNPLIB_API void UpnpRemoveAllVirtualDirs();
+UPnPsdk_API void UpnpRemoveAllVirtualDirs();
 
 /// @} Web Server API
 
