@@ -17,7 +17,7 @@ The following general goals are in progress or planned:
 - Mandatory OpenSSL support
 
 ## 2. Limitations
-- On the old <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices (pupnp)</a> already deprecated functions are not supported anymore. These are the functions `UpnpSetContentLength(), handle_query_variable(), UpnpGetServiceVarStatus(), UpnpGetServiceVarStatusAsync()`.
+<!-- - On the old <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices (pupnp)</a> already deprecated functions are not supported anymore. These are the functions `UpnpSetContentLength(), handle_query_variable(), UpnpGetServiceVarStatus(), UpnpGetServiceVarStatusAsync()`. -->
 - Large-file support on 32 bit architectures is always enabled. Disabling **lfs** is not supported.
 
 ## 2. Technical Documentation
@@ -153,4 +153,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, \<Ingo\@Hoeft-online.de\>
-Redistribution only with this Copyright remark. Last modified: 2024-09-l9</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-09-22</pre>

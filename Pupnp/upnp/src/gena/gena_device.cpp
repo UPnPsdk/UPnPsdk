@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-09-08
+ * Redistribution only with this Copyright remark. Last modified: 2024-09-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -411,8 +411,8 @@ static char* AllocGenaHeaders(
         goto ExitFunction;
     }
     rc = snprintf(headers, headers_size, "%s%s%" PRIzu "%s%s%s", HEADER_LINE_1,
-                  HEADER_LINE_2A, (unsigned long)strlen(propertySet) + 2,
-                  HEADER_LINE_2B, HEADER_LINE_3, HEADER_LINE_4);
+                  HEADER_LINE_2A, strlen(propertySet) + 2, HEADER_LINE_2B,
+                  HEADER_LINE_3, HEADER_LINE_4);
 
 ExitFunction:
     if (headers == NULL || rc < 0 || (unsigned int)rc >= headers_size) {

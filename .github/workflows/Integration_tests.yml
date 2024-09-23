@@ -43,7 +43,6 @@ jobs:
           cmake
           -S .
           -B build
-          --log-level=DEBUG
           -D CMAKE_C_COMPILER=gcc-14
           -D CMAKE_CXX_COMPILER=g++-14
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
@@ -138,7 +137,6 @@ jobs:
           cmake
           -S .
           -B build
-          --log-level=DEBUG
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
           ${{matrix.googletest}}
 
@@ -231,8 +229,8 @@ jobs:
           cmake
           -S .
           -B build
-          --log-level=DEBUG
-          -A Win32 ${{matrix.googletest}}
+          -A Win32
+          ${{matrix.googletest}}
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
           -D UPnPsdk_WITH_OPENSSL=OFF
           # We do not have a 32 bit OpenSSL library available.
@@ -242,8 +240,9 @@ jobs:
         run: >
           cmake
           -S .
-          -B build ${{matrix.googletest}}
-          --log-level=DEBUG
+          -B build
+          -A x64
+          ${{matrix.googletest}}
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
           -D CMAKE_GENERATOR_PLATFORM=x64
           # We need to specify x64 otherwise 32 bit are compiled even on a 64 bit host
@@ -326,7 +325,6 @@ jobs:
           cmake
           -S .
           -B build
-          --log-level=DEBUG
           -G "NMake Makefiles" ${{matrix.googletest}}
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
           -D UPnPsdk_WITH_OPENSSL=OFF
@@ -338,7 +336,6 @@ jobs:
           cmake
           -S .
           -B build
-          --log-level=DEBUG
           -G "NMake Makefiles" ${{matrix.googletest}}
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
           -D CMAKE_GENERATOR_PLATFORM=x64
@@ -437,7 +434,6 @@ jobs:
           cmake
           -S .
           -B build
-          --log-level=DEBUG
           -D CMAKE_C_COMPILER=gcc-14
           -D CMAKE_CXX_COMPILER=g++-14
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
@@ -450,7 +446,6 @@ jobs:
           cmake
           -S .
           -B build
-          --log-level=DEBUG
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
           ${{matrix.build_old}}
           ${{matrix.option}}
@@ -461,7 +456,7 @@ jobs:
           cmake
           -S .
           -B build
-          --log-level=DEBUG
+          -A x64
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
           ${{matrix.build_old}}
           ${{matrix.option}}
@@ -482,8 +477,92 @@ jobs:
           $PSNativeCommandUseErrorActionPreference = $true
           Set-PSDebug -Trace 1
           cmake --build build --config ${{matrix.buildtype}}
-          ls .\build\bin\${{matrix.buildtype}}
+          ls ./build/bin/${{matrix.buildtype}}
           $env:path += ";./build/bin/${{matrix.buildtype}}"
-          $env:prog_path = ".\build\bin\${{matrix.buildtype}}\api_calls-psh.exe"
+          $env:prog_path = "./build/bin/${{matrix.buildtype}}/api_calls-psh.exe"
           If (Test-Path -Path $env:prog_path) {& $env:prog_path}
-          .\build\bin\${{matrix.buildtype}}\api_calls-csh.exe
+          ./build/bin/${{matrix.buildtype}}/api_calls-csh.exe
+
+
+  # Job: Run 32 bit build tests
+  # ---------------------------
+  # This tests to compile for 32 bit architectures on a 64 bit host does not run.
+  # The 64 bit 'Linux' and 'macOS' runner does not provide 32 bit system
+  # libraries. Even installing 'g++-multilib' for 32 bit system libraries on
+  # 'Linux' does not help. The 'macOS' runner complains: "ld: symbol(s) not
+  # found for architecture i386".
+  # The 'Windows' runner compiles 'pthreads4w' to 64 bit but not as expected to
+  # 32 bit. This conflicts to the 32 bit UPnPsdk libraries. ToDo: this may be
+  # fixed.
+  # But all tests are successful running on 32 bit hosts as tested before.
+  build_32_bit_tests:
+    if: false
+    name: "32 bit build tests"
+    #needs: [ Build_with_Visual_Studio, Build_with_NMake ]
+    needs: [ Build_Ubuntu, Build_MacOS, Build_with_Visual_Studio ]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ ubuntu-24.04, macos-13, windows-latest ]
+        buildtype: [ 'Debug' ]
+        option: [ '-D UPnPsdk_WITH_NATIVE_PUPNP=ON -DUPnPsdk_WITH_OPENSSL=OFF -DUPnPsdk_WITH_MINISERVER=ON -DUPnPsdk_WITH_WEBSERVER=ON -DUPnPsdk_WITH_CTRLPT_SSDP=ON -DUPnPsdk_WITH_DEVICE_SSDP=ON -DUPnPsdk_WITH_OPTION_SSDP=ON -DUPnPsdk_WITH_CTRLPT_DESCRIPTION=ON -DUPnPsdk_WITH_DEVICE_DESCRIPTION=ON -DUPnPsdk_WITH_CTRLPT_SOAP=ON -DUPnPsdk_WITH_DEVICE_SOAP=ON -DUPnPsdk_WITH_CTRLPT_GENA=ON -DUPnPsdk_WITH_DEVICE_GENA=ON -DUPnPsdk_WITH_IXML=ON -DUPnPsdk_WITH_TOOLS=ON -DUPnPsdk_WITH_SAMPLES=ON -DUPnPsdk_WITH_GOOGLETEST=ON -DUPnPsdk_WITH_TRACE=ON -DGTESTS_WITH_SHARED_LIBS=ON' ]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - if: matrix.os == 'windows-latest'
+        # need developer command prompt
+        name: Use MS Windows 64 bit
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64
+
+      - if: runner.os == 'Linux'
+        name: Configure Linux
+        run: |
+          sudo apt install g++-multilib
+          cmake -S . -B build -D CMAKE_C_COMPILER=gcc-14 -D CMAKE_CXX_COMPILER=g++-14 -D CMAKE_C_FLAGS=-m32 -D CMAKE_CXX_FLAGS=-m32 -D CMAKE_BUILD_TYPE=${{matrix.buildtype}} ${{matrix.option}}
+
+      - if: runner.os == 'macOS'
+        name: Configure macOS
+        run: >
+          cmake
+          -S .
+          -B build
+          -D CMAKE_C_FLAGS=-m32
+          -D CMAKE_CXX_FLAGS=-m32
+          -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
+          ${{matrix.option}}
+
+      - if: runner.os == 'Windows'
+        name: Configure Windows
+        run: >
+          cmake
+          -S .
+          -B build
+          -A Win32
+          -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
+          ${{matrix.option}}
+
+      - if: runner.os != 'Windows'
+        name: Build not Windows
+        run: |
+          set -ev
+          cmake --build build/
+          ls -la build/bin/
+          if [ -x build/bin/api_calls-psh ]; then build/bin/api_calls-psh; else true; fi
+          ./build/bin/api_calls-csh
+
+      - if: runner.os == 'Windows'
+        name: Build Windows
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          Set-PSDebug -Trace 1
+          cmake --build build --config ${{matrix.buildtype}}
+          ls ./build/bin/${{matrix.buildtype}}
+          $env:path += ";./build/bin/${{matrix.buildtype}}"
+          $env:prog_path = "./build/bin/${{matrix.buildtype}}/api_calls-psh.exe"
+          If (Test-Path -Path $env:prog_path) {& $env:prog_path}
+          ./build/bin/${{matrix.buildtype}}/api_calls-csh.exe

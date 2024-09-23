@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPGLOBAL_HPP
 #define COMPA_UPNPGLOBAL_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-11
+// Redistribution only with this Copyright remark. Last modified: 2024-09-24
 // Taken from authors who haven't made a note.
 
 // Include file for backward compatibility with old ixml code.
@@ -17,21 +17,13 @@
 #define EXPORT_SPEC_LOCAL UPNPLIB_LOCAL
 #define EXPORT_SPEC_EXTERN UPNPLIB_EXTERN
 
-// clang-format off
-// Some different format specifications for printf() and friends
-// -------------------------------------------------------------
 // \brief Supply the PRIz* printf() macros.
 #ifdef _MSC_VER
-/* define some things the M$ VC++ doesn't know */
-  typedef __int64 int64_t;
-  #define PRIzd "ld"
-  #define PRIzu "lu"
-  #define PRIzx "lx"
-#else
-  #define PRIzd "zd"
-  #define PRIzu "zu"
-  #define PRIzx "zx"
+// define some things the M$ VC++ doesn't know
+typedef __int64 int64_t;
 #endif
-// clang-format on
+#define PRIzd "zd"
+#define PRIzu "zu"
+#define PRIzx "zx"
 
 #endif /* COMPA_UPNPGLOBAL_HPP */

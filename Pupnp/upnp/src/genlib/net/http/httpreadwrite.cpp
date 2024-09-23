@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-09-12
+ * Redistribution only with this Copyright remark. Last modified: 2024-09-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -585,7 +585,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                     /* Hex length for the chunk size. */
                     memset(Chunk_Header, 0, sizeof(Chunk_Header));
                     rc = snprintf(Chunk_Header, sizeof(Chunk_Header),
-                                  "%" PRIzx "\r\n", (unsigned long)num_read);
+                                  "%" PRIzx "\r\n", num_read);
                     if (rc < 0 || (unsigned int)rc >= sizeof(Chunk_Header)) {
                         RetVal = UPNP_E_INTERNAL_ERROR;
                         goto Cleanup_File;
@@ -1571,8 +1571,7 @@ int http_MakeMessage(membuffer* buf, int http_major_version,
         } else if (c == 'd') {
             /* integer */
             num = (size_t)va_arg(argp, int);
-            rc = snprintf(tempbuf, sizeof(tempbuf), "%" PRIzu,
-                          (unsigned long)num);
+            rc = snprintf(tempbuf, sizeof(tempbuf), "%" PRIzu, num);
             if (rc < 0 || (unsigned int)rc >= sizeof(tempbuf) ||
                 membuffer_append(buf, tempbuf, strlen(tempbuf)))
                 goto error_handler;

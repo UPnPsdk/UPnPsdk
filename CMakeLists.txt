@@ -1,11 +1,11 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-22
+# Redistribution only with this Copyright remark. Last modified: 2024-09-24
 
 cmake_minimum_required(VERSION 3.18)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
 include(UPnPsdk-ProjectHeader)
 
-project("UPnPsdk" VERSION "0.8.0"
+project("UPnPsdk" VERSION "0.9.0"
                 DESCRIPTION "UPnP Software Development Kit"
                 HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -23,9 +23,6 @@ include(CMakeDependentOption)
 
 option(UPnPsdk_WITH_NATIVE_PUPNP "Build the library with old native PUPNP code." OFF)
 option(UPnPsdk_WITH_OPENSSL "SSL/TLS and Crypto support should always be ON if not restricted by law." OFF)
-# if(UPnPsdk_WITH_OPENSSL AND CMAKE_CXX_FLAGS STREQUAL "-m32")
-#     message(FATAL_ERROR "OpenSSL temporary not available due to problems with outdated prebuilt libraries.")
-# endif()
 option(UPnPsdk_WITH_MINISERVER "Provide the miniserver for low level network communication." OFF)
 option(UPnPsdk_WITH_WEBSERVER "Provide a webserver." OFF)
 option(UPnPsdk_WITH_CTRLPT_SSDP "Providing control point functionality to manage a remote UPnP device." OFF)
@@ -42,19 +39,54 @@ option(UPnPsdk_WITH_TOOLS "Make some not essential program features available li
 option(UPnPsdk_WITH_SAMPLES "Provide sample programs UPnP device and control point." OFF)
 option(UPnPsdk_WITH_GOOGLETEST "Download and build Googletest." OFF)
 option(UPnPsdk_WITH_TRACE "Compile trace messages into the libraries for analizing program execution." OFF)
+# Because we link utests with shared and static libraries we need gtest/gmock
+# libraries that link together with both versions of other libraries. These are
+# the shared gtest/gmock libraries. Next option is only available for testing
+# other combinations. It should be set to ON by default otherwise you may get
+# compiling errors if you do not know what you are doing.
 option(GTESTS_WITH_SHARED_LIBS "Build GOOGLETEST libraries shared. You should not disable this except you know what you doing." ON)
-    # Because we link utests with shared and static libraries we need gtest/gmock
-    # libraries that link together with both versions of other libraries. These are
-    # the shared gtest/gmock libraries. Next option is only available for testing
-    # other combinations. It should be set to ON by default otherwise you may get
-    # compiling errors if you do not know what you are doing.
+# Next is an option to set to "Unspecified" the OS name, OS version, product
+# name and product version normally contained in the SERVER header of a UPnP
+# http request as this could be used by an attacker.
 # option(UPnPsdk_WITH_UNSPECIFIED_SERVER "Set information in UPnP SERVER http request header to \"Unspecified\"". OFF)
-    # This is an option to set to "Unspecified" the OS name, OS version, product
-    # name and product version normally contained in the SERVER header of a
-    # UPnP http request as this could be used by an attacker.
-# option(UPnPsdk_WITH_BLOCKTCP "Enable the TCP protocol stack to wait (blocking) until receiving an answer or timed out." ON)
-    # This is not an option anymore. Blocking until data received is always
-    # enabled.
+option(PT4W_BUILD_TESTING "Build the time and space consuming test suite of pthreads4w" OFF)
+
+
+#################################
+#  Manage 32 bit architecture   #
+#################################
+set(UPnPsdk_DEF_32BIT NO)
+if(MSVC)
+    if(NOT CMAKE_GENERATOR_PLATFORM OR "Win32" IN_LIST CMAKE_GENERATOR_PLATFORM)
+        set(UPnPsdk_DEF_32BIT YES)
+    endif()
+else()
+    if("-m32" IN_LIST CMAKE_CXX_FLAGS)
+        set(UPnPsdk_DEF_32BIT YES)
+    endif()
+endif()
+message(STATUS "Compile 32 bit architecture: ${UPnPsdk_DEF_32BIT}")
+
+if(UPnPsdk_DEF_32BIT)
+    #if(UPnPsdk_WITH_NATIVE_PUPNP)
+    #    message(FATAL_ERROR "UPnPsdk_WITH_NATIVE_PUPNP=ON: due to bugs 'pupnp' cannot be build for a 32 bit architecture here.")
+    #endif()
+    #if(UPnPsdk_WITH_GOOGLETEST)
+    #    message(FATAL_ERROR "UPnPsdk_WITH_GOOGLETEST=ON: Unit Tests need 'pupnp' that cannot be build for a 32 bit architecture.")
+    #endif()
+    if(UPnPsdk_WITH_OPENSSL)
+        message(FATAL_ERROR "UPnPsdk_WITH_OPENSSL=ON: temporary not available due to missing 32 bit OpenSSL libraries.")
+    endif()
+    # Large-file-sensitivity on 32 bit architecture
+    # Note: On Microsoft Windows 'off_t' is always long that would make it fix
+    # 32-bit (even 64-bit Windows uses 32-bit for long). That means it is never
+    # sensitive. We have explicit to use _fseeki64 and _ftelli64 to access
+    # large files there.
+    if(NOT MSVC)
+        set (UPNP_LARGEFILE_SENSITIVE 1 CACHE INTERNAL "whether the system defaults to 32bit off_t but can do 64bit when requested" FORCE)
+    endif()
+endif()
+
 
 if(UPnPsdk_WITH_GOOGLETEST)
     # It is important to have the old library available with the tests because
@@ -65,12 +97,12 @@ if(UPnPsdk_WITH_GOOGLETEST)
          "Provide sample programs UPnP device and control point." FORCE)
 endif()
 
+
 if(GTESTS_WITH_SHARED_LIBS)
     set (BUILD_SHARED_LIBS ON CACHE INTERNAL
         "This option belongs only to GOOGLETEST and build its libraries shared.")  # Implies FORCE
 endif()
 
-option(PT4W_BUILD_TESTING "Build the time and space consuming test suite of pthreads4w" OFF)
 # gtest_disable_pthreads is an option of the GoogleTest package set to OFF by
 # default so it always compiles with PThreads. This does not compiles on MS
 # Windows with pthreads4w. But we cannot disable pthreads by default because on
@@ -151,19 +183,6 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 # Provide length of the path of the projects base directory. We need this
 # mainly for the compile time short file name of Debug and TRACE messages.
 string(LENGTH "${CMAKE_SOURCE_DIR}/" CMAKE_SOURCE_PATH_LENGTH)
-
-# Large-file-sensitivity on 32 bit architecture
-# Note: On Microsoft Windows 'off_t' is always long that would make it fix
-# 32-bit (even 64-bit Windows uses 32-bit for long). That means it is never
-# sensitive. We have explicit to use _fseeki64 and _ftelli64 to access large
-# files there.
-if(NOT MSVC)
-    include(CheckTypeSize)
-    check_type_size (off_t OFF_T_SIZE)
-    if (OFF_T_SIZE EQUAL 4) # This is given on a 32 bit architecture
-        set (UPNP_LARGEFILE_SENSITIVE 1 CACHE INTERNAL "whether the system defaults to 32bit off_t but can do 64bit when requested" FORCE)
-    endif()
-endif()
 
 # Set general compile definitions and options
 #--------------------------------------------
