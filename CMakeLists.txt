@@ -1,11 +1,11 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-24
+# Redistribution only with this Copyright remark. Last modified: 2024-09-25
 
 cmake_minimum_required(VERSION 3.18)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
 include(UPnPsdk-ProjectHeader)
 
-project("UPnPsdk" VERSION "0.9.0"
+project("UPnPsdk" VERSION "0.10.0"
                 DESCRIPTION "UPnP Software Development Kit"
                 HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -19,8 +19,6 @@ enable_testing()
 #################################
 # Options                       #
 #################################
-include(CMakeDependentOption)
-
 option(UPnPsdk_WITH_NATIVE_PUPNP "Build the library with old native PUPNP code." OFF)
 option(UPnPsdk_WITH_OPENSSL "SSL/TLS and Crypto support should always be ON if not restricted by law." OFF)
 option(UPnPsdk_WITH_MINISERVER "Provide the miniserver for low level network communication." OFF)
@@ -48,7 +46,7 @@ option(GTESTS_WITH_SHARED_LIBS "Build GOOGLETEST libraries shared. You should no
 # Next is an option to set to "Unspecified" the OS name, OS version, product
 # name and product version normally contained in the SERVER header of a UPnP
 # http request as this could be used by an attacker.
-# option(UPnPsdk_WITH_UNSPECIFIED_SERVER "Set information in UPnP SERVER http request header to \"Unspecified\"". OFF)
+#option(UPnPsdk_WITH_UNSPECIFIED_SERVER "Set information in UPnP SERVER http request header to \"Unspecified\"". OFF)
 option(PT4W_BUILD_TESTING "Build the time and space consuming test suite of pthreads4w" OFF)
 
 
@@ -68,12 +66,6 @@ endif()
 message(STATUS "Compile 32 bit architecture: ${UPnPsdk_DEF_32BIT}")
 
 if(UPnPsdk_DEF_32BIT)
-    #if(UPnPsdk_WITH_NATIVE_PUPNP)
-    #    message(FATAL_ERROR "UPnPsdk_WITH_NATIVE_PUPNP=ON: due to bugs 'pupnp' cannot be build for a 32 bit architecture here.")
-    #endif()
-    #if(UPnPsdk_WITH_GOOGLETEST)
-    #    message(FATAL_ERROR "UPnPsdk_WITH_GOOGLETEST=ON: Unit Tests need 'pupnp' that cannot be build for a 32 bit architecture.")
-    #endif()
     if(UPnPsdk_WITH_OPENSSL)
         message(FATAL_ERROR "UPnPsdk_WITH_OPENSSL=ON: temporary not available due to missing 32 bit OpenSSL libraries.")
     endif()
@@ -88,41 +80,8 @@ if(UPnPsdk_DEF_32BIT)
 endif()
 
 
-if(UPnPsdk_WITH_GOOGLETEST)
-    # It is important to have the old library available with the tests because
-    # the new code is compared with it.
-    set (UPnPsdk_WITH_NATIVE_PUPNP ON CACHE BOOL
-        "Build the library with old native PUPNP code." FORCE)
-    set (UPnPsdk_WITH_SAMPLES ON CACHE BOOL
-         "Provide sample programs UPnP device and control point." FORCE)
-endif()
-
-
-if(GTESTS_WITH_SHARED_LIBS)
-    set (BUILD_SHARED_LIBS ON CACHE INTERNAL
-        "This option belongs only to GOOGLETEST and build its libraries shared.")  # Implies FORCE
-endif()
-
-# gtest_disable_pthreads is an option of the GoogleTest package set to OFF by
-# default so it always compiles with PThreads. This does not compiles on MS
-# Windows with pthreads4w. But we cannot disable pthreads by default because on
-# Linux mocked functions segfault without it. So we must disable PThreads only
-# on MS Windows. The user can set gtest_disable_pthreads as he like.
-if(WIN32)
-    CMAKE_DEPENDENT_OPTION(gtest_disable_pthreads "Disable Googletest to use POSIX Threads" ON ${UPnPsdk_WITH_GOOGLETEST} ON)
-endif()
-
-# TODO: Test this option to use the static pthreads4w
-# PTW32_STATIC_LIB - for using the static pthreads4W library
-# The option is contained in cmake/upnpconfig.hpp.cmake.
-option(PTW32_STATIC_LIB "For using the static pthreads4w library" OFF)
-
-# General settings given to the program
-add_compile_definitions(
-    $<$<BOOL:${UPnPsdk_WITH_TOOLS}>:UPNP_HAVE_TOOLS>
-)
-
 # Update pUPnP version number in README.md but only if it has changed.
+#=====================================================================
 if(NOT PUPNP_VERSION VERSION_EQUAL PUPNP_VERSION_STR)
     set(PUPNP_VERSION ${PUPNP_VERSION_STR} CACHE INTERNAL
         "The current version of the forked pUPnP library.")  # Implies FORCE
@@ -269,12 +228,19 @@ message(DEBUG "  DEBUG: UPnPsdk_RUNTIME_OUTPUT_DIRECTORY is: ${UPnPsdk_RUNTIME_O
 # POSIX Threads for Windows (pthreads4w) #
 ##########################################
 # This should be one of the first installations to have pthreads available.
+
 if(WIN32)
-    # This dependent project must use generator "NMake Makefiles" that may
-    # differ from default generator "Visual Studio *". So we cannot use
-    # add_directory() because this will also compile the dependent project
-    # with "Visual Studio *". We have to configure and build it in separate
+    # This dependent project must use generator "NMake Makefiles" that differs
+    # from default generator "Visual Studio *". NMake Makefiles does not
+    # support platform specification with CMake option '-A'. So we cannot use
+    # add_directory() because this will also compile the dependent project with
+    # "Visual Studio *". We have to configure and build it in separate
     # processes.
+
+    # PTW32_STATIC_LIB - for using the static pthreads4W library. I do that.
+    # The option is contained in cmake/upnpconfig.hpp.cmake but has no effect with
+    # the current implementation. Only for the completeness:
+    set(PTW32_STATIC_LIB ON CACHE BOOL "For using the static pthreads4w library" FORCE)
 
     include(FetchContent)
 
@@ -345,8 +311,26 @@ endif(WIN32)
 # Download, configure and build
 if(UPnPsdk_WITH_GOOGLETEST)
 
-    # It may already included to install pthreads4w on WIN32
-    if(NOT WIN32)
+    # It is important to have the old library available with the tests because
+    # the new code is compared with it.
+    set (UPnPsdk_WITH_NATIVE_PUPNP ON CACHE BOOL
+        "Build the library with old native PUPNP code." FORCE)
+    set (UPnPsdk_WITH_SAMPLES ON CACHE BOOL
+         "Provide sample programs UPnP device and control point." FORCE)
+
+    if(GTESTS_WITH_SHARED_LIBS)
+        set (BUILD_SHARED_LIBS ON CACHE INTERNAL
+            "This option belongs only to GOOGLETEST and build its libraries shared.")  # Implies FORCE
+    endif()
+
+    # gtest_disable_pthreads is an option of the GoogleTest package set to OFF
+    # by default so it always compiles with PThreads. This does not compiles on
+    # MS Windows with pthreads4w. So I must disable it there.
+    if(WIN32)
+        set(gtest_disable_pthreads ON CACHE BOOL "Disable uses of pthreads in gtest.")  # Implies FORCE
+
+    else()
+        #It may already included to install pthreads4w on WIN32
         include(FetchContent)
     endif()
 

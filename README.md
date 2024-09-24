@@ -66,12 +66,19 @@ You need to have `git` installed. Just clone this repository:
 You are now in the relative root directory of the program source tree. All project directory references are relative to its root directory (CMAKE_SOURCE_DIR) that is `UPnPsdk-project/` if you haven't used another directory name with the clone command above. If in daubt with file access or with executing you should first ensure that you are in the projects root directory.
 
 ### 5.1. Linux and MacOS build
-Be in the projects root directory. First configure then build:
+Be in the projects root directory. First configure:
 
     UPnPsdk-project$ cmake -S . -B build/
+
+If you want to compile for a 32 bit architecture on a 64 bit host do:
+
+    UPnPsdk-project$ cmake -S . -B build/ -D CMAKE_C_FLAGS=-m32 -D CMAKE_CXX_FLAGS=-m32
+
+Then build the project:
+
     UPnPsdk-project$ cmake --build build/
 
-To install the include files and libraries to /usr/local/include and /usr/local/lib
+To install the include files and libraries to `/usr/local/include` and `/usr/local/lib`
 
     UPnPsdk-project$ cmake --install build/
 
@@ -101,7 +108,7 @@ To uninstall the include files and libraries as long as the build/ directory is 
 If you like you can backup the file <code>build/install_manifest.txt</code> for later uninstallation without build/ directory.
 
 ### 5.2. Microsoft Windows build
-The development of this UPnP Software Development Kit has started on Linux. So for historical reasons it uses POSIX threads (pthreads) as specified by [The Open Group](http://get.posixcertified.ieee.org/certification_guide.html). Unfortunately Microsoft Windows does not support it so I have to use a third party library. I use the well known and well supported [pthreads4w library](https://sourceforge.net/p/pthreads4w). It will be downloaded on Microsoft Windows and compiled with building the project and should do out of the box. To build the UPnPsdk you need a Developer Command Prompt. How to install it is out of scope of this description. Microsoft has good documentation about it. For example this is the prompt I used (example, maybe outdated):
+The development of this UPnP Software Development Kit has started on Linux. So for historical reasons it uses POSIX threads (pthreads) as specified by [The Open Group](http://get.posixcertified.ieee.org/certification_guide.html). Unfortunately Microsoft Windows does not support it so we have to use a third party library. I use the well known and well supported [pthreads4w library](https://sourceforge.net/p/pthreads4w). It will be downloaded on Microsoft Windows and compiled with building the project and should do out of the box. To build the UPnPsdk you need a Developer Command Prompt. How to install it is out of scope of this description. Microsoft has good documentation about it. For example this is the prompt I used (example, maybe outdated):
 
     **********************************************************************
     ** Visual Studio 2019 Developer Command Prompt v16.9.5
@@ -118,7 +125,10 @@ First configure then build:
     PS C: UPnPsdk-project> cmake -S . -B build/
     PS C: UPnPsdk-project> cmake --build build/ --config Release
 
-After build don't forget to copy the needed `build/_deps/pthreads4w-build/pthread*.dll` library file to a location where your program can find it. Copying it to your programs directory or to the system directory `Windows\System32` will always do. Within the project development directory tree (default root UPnPsdk-project/) built programs and libraries find its dll files. There is nothing to do.
+ As shown above you have used the "**x64** Native Tools Command Prompt for VS 20xx" for the default 64 bit architecture. To compile for a 32 bit architecture you must use the "**x86** Native Tools Command Prompt for VS 20xx" and specify the architecture with option `-A Win32` to cmake as follows:
+
+    PS C: UPnPsdk-project> cmake -S . -B build/ -A Win32
+    PS C: UPnPsdk-project> cmake --build build/ --config Release
 
 To clean up a build just delete the build/ folder:
 
@@ -153,4 +163,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, \<Ingo\@Hoeft-online.de\>
-Redistribution only with this Copyright remark. Last modified: 2024-09-22</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-09-24</pre>

@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-12
+ * Redistribution only with this Copyright remark. Last modified: 2024-09-25
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -215,6 +215,8 @@ static inline int ithread_initialize_thread() {
     int ret = 0;
 
 #if defined(_WIN32) && defined(PTW32_STATIC_LIB)
+    // Due to build/_deps/pthreads4w-src/README.NONPORTABLE
+    // this function is currently a no-op.
     ret = !pthread_win32_thread_attach_np();
 #endif
 
