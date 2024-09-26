@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-18
+# Redistribution only with this Copyright remark. Last modified: 2024-09-26
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -173,6 +173,18 @@ set(COMPA_SOURCE_FILES
     # testing with init and shutdown following the RAII paradigm.
     ${PUPNP_SOURCE_DIR}/src/api/upnpdebug.cpp
     ${PUPNP_SOURCE_DIR}/src/threadpool_init.cpp
+
+    # ixml source files
+    ${PUPNP_SOURCE_DIR}/ixml/src/attr.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/document.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/element.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/ixml.cpp
+    $<$<CONFIG:Debug>:${PUPNP_SOURCE_DIR}/ixml/src/ixmldebug.cpp>
+    ${PUPNP_SOURCE_DIR}/ixml/src/ixmlmembuf.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/ixmlparser.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/namedNodeMap.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/node.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/nodeList.cpp
 )
 
 set(COMPA_INCLUDE_DIRECTORIES
@@ -181,7 +193,10 @@ set(COMPA_INCLUDE_DIRECTORIES
     PUBLIC src/threadutil
     PUBLIC ${PUPNP_SOURCE_DIR}/include
     PUBLIC ${CMAKE_SOURCE_DIR}/Interface/include
-    PRIVATE ${PUPNP_IXML_SOURCE_DIR}/inc
+
+    # ixml include directories
+    PUBLIC ${PUPNP_SOURCE_DIR}/ixml/inc
+    PRIVATE ${PUPNP_SOURCE_DIR}/ixml/src/inc
 )
 
 set(COMPA_COMPILE_DEFINITIONS
@@ -229,50 +244,44 @@ if(NOT WIN32)
         ${COMPA_SOURCE_FILES}
     )
     set_target_properties(compa_shared PROPERTIES
-            OUTPUT_NAME upnpsdk-compa
+        OUTPUT_NAME upnpsdk-compa
     )
     target_include_directories(compa_shared
         ${COMPA_INCLUDE_DIRECTORIES}
-        PUBLIC
-            # if we are not on WIN32 the linker finds empty "headers.h" and
-            # will not complain an error but will not use <headers.h> that
-            # isn't available.
-            inc/not_win32
+        # if we are not on WIN32 the linker finds empty "headers.h" and
+        # will not complain an error but will not use <headers.h> that
+        # isn't available.
+        PUBLIC inc/not_win32
     )
     target_compile_definitions(compa_shared
-            ${COMPA_COMPILE_DEFINITIONS}
+        ${COMPA_COMPILE_DEFINITIONS}
         PRIVATE UPnPsdk_EXPORTS
     )
     target_link_libraries(compa_shared
-        PUBLIC
-            umock_shared
-            ixml_shared
-        PRIVATE
-            UPnPsdk_shared
+        PUBLIC umock_shared
+        PRIVATE UPnPsdk_shared
     )
 
     # Compa STatic library: suffix -cst
     #----------------------------------
     add_library(compa_static STATIC
-            ${COMPA_SOURCE_FILES}
+        ${COMPA_SOURCE_FILES}
     )
     set_target_properties(compa_static PROPERTIES
-            OUTPUT_NAME upnpsdk-compa
+        OUTPUT_NAME upnpsdk-compa
     )
     target_include_directories(compa_static
         ${COMPA_INCLUDE_DIRECTORIES}
-        PUBLIC
-            # if we are not on WIN32 the linker finds empty "headers.h" and
-            # will not complain an error but will not use <headers.h> that
-            # isn't available.
-            inc/not_win32
+        # if we are not on WIN32 the linker finds empty "headers.h" and
+        # will not complain an error but will not use <headers.h> that
+        # isn't available.
+        PUBLIC inc/not_win32
     )
     target_compile_definitions(compa_static
-            ${COMPA_COMPILE_DEFINITIONS}
+        ${COMPA_COMPILE_DEFINITIONS}
     )
     target_link_libraries(compa_static
         PUBLIC umock_static
-        INTERFACE ixml_static
     )
 
     install(TARGETS compa_shared compa_static)
@@ -287,53 +296,47 @@ else() # WIN32
     # WIN32 Compa SHared library: -csh
     #---------------------------------
     add_library(compa_shared SHARED
-            ${COMPA_SOURCE_FILES}
+        ${COMPA_SOURCE_FILES}
     )
     set_target_properties(compa_shared PROPERTIES
-            OUTPUT_NAME upnpsdk-compa
+        OUTPUT_NAME upnpsdk-compa
     )
     target_include_directories(compa_shared
         ${COMPA_INCLUDE_DIRECTORIES}
     )
     target_compile_definitions(compa_shared
-            ${COMPA_COMPILE_DEFINITIONS}
-        PRIVATE
-            UPnPsdk_EXPORTS
-            $<$<BOOL:${COMPA_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
+        ${COMPA_COMPILE_DEFINITIONS}
+        PRIVATE UPnPsdk_EXPORTS
+        PRIVATE $<$<BOOL:${COMPA_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(compa_shared
-        PUBLIC
-            umock_shared
-            ixml_shared
-        PRIVATE
-            UPnPsdk_shared
-            # disable warning LNK4217: symbol 'symbol' defined in
-            # 'filename_1.obj' is imported by 'filename_2.obj' in function
-            # 'function'.
-            # This is why a source is included into a library and a test
-            # includes the source and also uses the library.
-            -ignore:4217
+        PUBLIC umock_shared
+        PRIVATE UPnPsdk_shared
+        # disable warning LNK4217: symbol 'symbol' defined in
+        # 'filename_1.obj' is imported by 'filename_2.obj' in function
+        # 'function'.
+        # This is why a source is included into a library and a test
+        # includes the source and also uses the library.
+        PRIVATE -ignore:4217
     )
 
     # WIN32 Compa STatic library: suffix -cst
     #----------------------------------------
     add_library(compa_static STATIC
-            ${COMPA_SOURCE_FILES}
+        ${COMPA_SOURCE_FILES}
     )
     set_target_properties(compa_static PROPERTIES
-            OUTPUT_NAME upnpsdk-compa-static
+        OUTPUT_NAME upnpsdk-compa-static
     )
     target_include_directories(compa_static
         ${COMPA_INCLUDE_DIRECTORIES}
     )
     target_compile_definitions(compa_static
-            ${COMPA_COMPILE_DEFINITIONS}
-        PRIVATE
-            $<$<BOOL:${COMPA_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
+        ${COMPA_COMPILE_DEFINITIONS}
+        PRIVATE $<$<BOOL:${COMPA_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(compa_static
         PUBLIC umock_static
-        INTERFACE ixml_static
     )
 
     install(TARGETS compa_shared compa_static)

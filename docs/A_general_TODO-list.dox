@@ -5,7 +5,9 @@
  * \brief A general TODO-list
  *
  * \todo
- * - Fix limitation: On MS Windows 64 bit compile to 32 bit isn't possible because pthreads4w only compile to host architecture (NMake Makefiles does not support platform specification).
+ * - Optimize SDK installation.
+ *   \n - Use ixml only static compiled.
+ *   \n - Use umock only static compiled.
  * - Build for ARM platforms.
  * - Provide IP-Address instead of interface name to UpnpInit2().
  * - Create Unit Test large-file support (https://gist.github.com/mortenpi/9745042)
@@ -13,11 +15,8 @@
  * - Compile OpenSSL instead of using its external library.
  *   \n - Fix limitation: On Linux 64 bit building to 32 bit with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries.
  *   \n - Fix limitation: On MS Windows 64 bit building with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.
+ * - \n - Test openssl.
  * - Enable ixml test suite.
- * - Optimize SDK installation.
- *   \n - Use ixml only static compiled.
- *   \n - Use umock only static compiled.
- * - Update installation description in ./README.md.
  * - Use of UPnPsdk installation with sample program.
  * - Remove Interface/ directory?
  * - Remove random port number generator.
@@ -29,7 +28,6 @@
  * - Create threaded simple_inet_server and simple_inet_client for testing.
  *   \n - Create no mocked tests for CSigpipe@sock.cpp, read and write data.
  *   \n - Fix openssl_threaded on win32.
- * - Test openssl.
  *   \n - Improve test_sock.cpp with ssl tests
  * - Rework test_httpreadwrite.cpp.
  * - Add AI_IDN and AI_CANONIDN support to CAddrinfo.

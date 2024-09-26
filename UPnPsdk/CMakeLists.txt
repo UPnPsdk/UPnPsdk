@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-11
+# Redistribution only with this Copyright remark. Last modified: 2024-09-26
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -42,22 +42,20 @@ if(NOT WIN32)
     # UPnPsdk SHared library: suffix -ush
     #------------------------------------
     add_library(UPnPsdk_shared SHARED
-            ${UPnPsdk_SOURCE_FILES}
+        ${UPnPsdk_SOURCE_FILES}
     )
     set_target_properties(UPnPsdk_shared PROPERTIES
-            OUTPUT_NAME upnpsdk
+        OUTPUT_NAME upnpsdk
     )
     target_include_directories(UPnPsdk_shared
-            ${UPnPsdk_INCLUDE_DIRECTORIES}
+        ${UPnPsdk_INCLUDE_DIRECTORIES}
     )
     target_compile_definitions(UPnPsdk_shared
-        PRIVATE
-            UPnPsdk_EXPORTS
-            $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
+        PRIVATE UPnPsdk_EXPORTS
+        PRIVATE $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(UPnPsdk_shared
         PUBLIC umock_shared
-        INTERFACE ixml_shared
     )
     target_sources(UPnPsdk_shared
         INTERFACE FILE_SET upnpsdk_public_headers TYPE HEADERS
@@ -72,21 +70,19 @@ if(NOT WIN32)
     # UPnPsdk STatic library: suffix -ust
     #------------------------------------
     add_library(UPnPsdk_static STATIC
-            ${UPnPsdk_SOURCE_FILES}
+        ${UPnPsdk_SOURCE_FILES}
     )
     set_target_properties(UPnPsdk_static PROPERTIES
-            OUTPUT_NAME upnpsdk
+        OUTPUT_NAME upnpsdk
     )
     target_include_directories(UPnPsdk_static
-            ${UPnPsdk_INCLUDE_DIRECTORIES}
+        ${UPnPsdk_INCLUDE_DIRECTORIES}
     )
     target_compile_definitions(UPnPsdk_static
-        PRIVATE
-            $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
+        PRIVATE $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(UPnPsdk_static
         PUBLIC umock_static
-        INTERFACE ixml_static
     )
 
     install(TARGETS UPnPsdk_shared UPnPsdk_static)
@@ -99,18 +95,17 @@ else() # WIN32
     # WIN32 UPnPsdk SHared library: suffix -ush
     #------------------------------------------
     add_library(UPnPsdk_shared SHARED
-            ${UPnPsdk_SOURCE_FILES}
+        ${UPnPsdk_SOURCE_FILES}
     )
     set_target_properties(UPnPsdk_shared PROPERTIES
-            OUTPUT_NAME UPnPsdk
+        OUTPUT_NAME UPnPsdk
     )
     target_include_directories(UPnPsdk_shared
         ${UPnPsdk_INCLUDE_DIRECTORIES}
     )
     target_compile_definitions(UPnPsdk_shared
-        PRIVATE
-            UPnPsdk_EXPORTS
-            $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
+        PRIVATE UPnPsdk_EXPORTS
+        PRIVATE $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(UPnPsdk_shared
         PUBLIC umock_shared
@@ -119,23 +114,21 @@ else() # WIN32
     # WIN32 UPnPsdk STatic library: suffix -ust
     #------------------------------------------
     add_library(UPnPsdk_static STATIC
-            ${UPnPsdk_SOURCE_FILES}
+        ${UPnPsdk_SOURCE_FILES}
     )
     set_target_properties(UPnPsdk_static PROPERTIES
-            OUTPUT_NAME UPnPsdk-static
+        OUTPUT_NAME UPnPsdk-static
     )
     target_include_directories(UPnPsdk_static
         ${UPnPsdk_INCLUDE_DIRECTORIES}
     )
     target_compile_definitions(UPnPsdk_static
-        PRIVATE
-            $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
+        PRIVATE $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(UPnPsdk_static
         PUBLIC umock_static
     )
 
     install(TARGETS UPnPsdk_shared UPnPsdk_static)
-
 
 endif() # WIN32

@@ -103,18 +103,19 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <div class="textblock"><dl class="reflist">
 <dt>File <a class="el" href="../../de/d2c/A__general__TODO-list_8dox.html">A_general_TODO-list.dox</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a><ul>
-<li>Provide IP-Address instead of interface name to <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>.</li>
-<li>Test large-file support with Github Action.</li>
-<li>Create library info function that can be called with the API.</li>
-<li>Fix limitation: On Linux 64 bit building to 32 bit with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries.</li>
-<li>Fix limitation: On MS Windows 64 bit building with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.</li>
-<li>Fix limitation: On MS Windows 64 bit compile to 32 bit isn't possible because pthreads4w only compile to host architecture (NMake Makefiles does not support platform specification).</li>
-<li>Enable ixml test suite.</li>
 <li>Optimize SDK installation. <br  />
  - Use ixml only static compiled. <br  />
  - Use umock only static compiled.</li>
-<li>Compile OpenSSL instead of using its external library.</li>
-<li>Update installation description in ./README.md.</li>
+<li>Build for ARM platforms.</li>
+<li>Provide IP-Address instead of interface name to <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>.</li>
+<li>Create Unit Test large-file support (<a href="https://gist.github.com/mortenpi/9745042">https://gist.github.com/mortenpi/9745042</a>)</li>
+<li>Create library info function that can be called with the API.</li>
+<li>Compile OpenSSL instead of using its external library. <br  />
+ - Fix limitation: On Linux 64 bit building to 32 bit with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries. <br  />
+ - Fix limitation: On MS Windows 64 bit building with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.</li>
+<li><br  />
+ - Test openssl.</li>
+<li>Enable ixml test suite.</li>
 <li>Use of <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> installation with sample program.</li>
 <li>Remove Interface/ directory?</li>
 <li>Remove random port number generator.</li>
@@ -125,8 +126,7 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <li>Remove a_service argument from CAddrinfo constructor.</li>
 <li>Create threaded simple_inet_server and simple_inet_client for testing. <br  />
  - Create no mocked tests for <a href="#" onclick="location.href='mai'+'lto:'+'CSi'+'gp'+'ipe'+'@s'+'ock'+'.c'+'pp'; return false;">CSigp<span class="obfuscator">.nosp@m.</span>ipe@<span class="obfuscator">.nosp@m.</span>sock.<span class="obfuscator">.nosp@m.</span>cpp</a>, read and write data. <br  />
- - Fix openssl_threaded on win32.</li>
-<li>Test openssl. <br  />
+ - Fix openssl_threaded on win32. <br  />
  - Improve test_sock.cpp with ssl tests</li>
 <li>Rework test_httpreadwrite.cpp.</li>
 <li>Add AI_IDN and AI_CANONIDN support to CAddrinfo.</li>

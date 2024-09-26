@@ -80,13 +80,11 @@ Then build the project:
 
 To install the include files and libraries to `/usr/local/include` and `/usr/local/lib`
 
-    UPnPsdk-project$ cmake --install build/
+    UPnPsdk-project$ sudo cmake --install build/
 
 For shared linked applications the dynamic link loader must know where to find e.g. <code>/usr/local/lib/libUPnPsdk.so</code>. It has a cache where it stores such paths. To update its cache with the info to the new installed shared library you can just execute one time for all subsequent calls of your application now and later even after a reboot
 
     ~$ ldconfig
-    ~$ yourUPnPapp1       # now
-    ~/local$ yourUPnPapp2 # next day
 
 If you do not like to modify your system environment you can instead prefix the call to your application with the hint
 
@@ -100,7 +98,7 @@ Of course you can also export the environment variable to the current volatile e
 
 This all doesn't matter if you link against the static libraries.
 
-To uninstall the include files and libraries as long as the build/ directory is available and clean up a build just do
+To uninstall the include files and libraries as long as the `build/` directory is available and clean up a build just do
 
     UPnPsdk-project$ sudo xargs rm < build/install_manifest.txt
     UPnPsdk-project$ rm -rf build/
@@ -163,4 +161,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, \<Ingo\@Hoeft-online.de\>
-Redistribution only with this Copyright remark. Last modified: 2024-09-24</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-09-26</pre>

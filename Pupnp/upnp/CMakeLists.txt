@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-09-26
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -188,10 +188,6 @@ set(PUPNP_PUBLIC_HEADERS
     inc/upnpdebug.h
     inc/upnpdebug.hpp
     ${CMAKE_BINARY_DIR}/include/cmake_vars.hpp
-    #ixml.h
-    #ixmldebug.h
-    #posix_overwrites.h
-    #upnpconfig.h
 )
 
 set(PUPNP_INCLUDE_DIRECTORIES
