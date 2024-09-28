@@ -1,7 +1,7 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-26
+# Redistribution only with this Copyright remark. Last modified: 2024-09-30
 
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
 project(COMPA VERSION 0008
@@ -187,6 +187,38 @@ set(COMPA_SOURCE_FILES
     ${PUPNP_SOURCE_DIR}/ixml/src/nodeList.cpp
 )
 
+# Installation
+set(COMPA_PUBLIC_HEADERS
+    inc/API.hpp
+    inc/Callback.hpp
+    inc/list.hpp
+    inc/upnp.h
+    inc/upnp.hpp
+    inc/UpnpActionComplete.hpp
+    inc/UpnpActionRequest.hpp
+    inc/UpnpDiscovery.hpp
+    inc/UpnpEvent.hpp
+    inc/UpnpEventSubscribe.hpp
+    inc/UpnpExtraHeaders.hpp
+    inc/UpnpFileInfo.hpp
+    inc/UpnpGlobal.hpp
+    #inc/UpnpInet.hpp
+    inc/UpnpIntTypes.hpp
+    inc/UpnpStateVarComplete.hpp
+    inc/UpnpStateVarRequest.hpp
+    #inc/UpnpStdInt.hpp
+    inc/UpnpString.hpp
+    inc/UpnpSubscriptionRequest.hpp
+    inc/UpnpUniStd.hpp
+    inc/upnptools.h
+    inc/upnptools.hpp
+    inc/ithread.h
+    inc/ithread.hpp
+    inc/upnpdebug.h
+    inc/upnpdebug.hpp
+    ${CMAKE_BINARY_DIR}/include/cmake_vars.hpp
+)
+
 set(COMPA_INCLUDE_DIRECTORIES
     PUBLIC inc
     PUBLIC src/inc
@@ -262,6 +294,20 @@ if(NOT WIN32)
         PRIVATE UPnPsdk_shared
     )
 
+    # Installation
+    target_sources(compa_shared
+        INTERFACE FILE_SET compa_public_headers TYPE HEADERS
+                  BASE_DIRS inc
+                            ${CMAKE_BINARY_DIR}/include
+                  FILES ${COMPA_PUBLIC_HEADERS}
+    )
+    install(TARGETS compa_shared
+        FILE_SET compa_public_headers
+            DESTINATION include/UPnPsdk
+            COMPONENT Development
+            EXCLUDE_FROM_ALL
+    )
+
     # Compa STatic library: suffix -cst
     #----------------------------------
     add_library(compa_static STATIC
@@ -284,7 +330,8 @@ if(NOT WIN32)
         PUBLIC umock_static
     )
 
-    install(TARGETS compa_shared compa_static)
+    # Installation
+    install(TARGETS compa_static)
 
 else() # WIN32
 
@@ -320,6 +367,20 @@ else() # WIN32
         PRIVATE -ignore:4217
     )
 
+    # Installation
+    target_sources(compa_shared
+        INTERFACE FILE_SET compa_public_headers TYPE HEADERS
+                  BASE_DIRS inc
+                            ${CMAKE_BINARY_DIR}/include
+                  FILES ${COMPA_PUBLIC_HEADERS}
+    )
+    install(TARGETS compa_shared
+        FILE_SET compa_public_headers
+            COMPONENT Development
+            EXCLUDE_FROM_ALL
+    )
+
+
     # WIN32 Compa STatic library: suffix -cst
     #----------------------------------------
     add_library(compa_static STATIC
@@ -339,7 +400,8 @@ else() # WIN32
         PUBLIC umock_static
     )
 
-    install(TARGETS compa_shared compa_static)
+    # Installation
+    install(TARGETS compa_static)
 
 endif() # WIN32
 

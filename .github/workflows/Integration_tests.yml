@@ -31,7 +31,8 @@ jobs:
     strategy:
       matrix:
         buildtype: [ 'Release', 'Debug' ]
-        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON', '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
+        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF',
+                      '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON' ]
       fail-fast: false
 
     steps:
@@ -63,7 +64,7 @@ jobs:
       #    ls ./build/lib/libgtest_main.a
       #    ls ./build/lib/libgmock_main.a
 
-      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON')
+      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON')
         name: Check gtest library files, shared
         run: |
           ls ./build/lib/libgtest.so
@@ -74,28 +75,24 @@ jobs:
       - if: matrix.buildtype != 'Debug'
         name: Verify if NO Debug info
         run: |
-          objdump -g /usr/local/lib/libixml.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-compa.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-mock.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-pupnp.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           ls /usr/local/lib/libixml.a
           ls /usr/local/lib/libupnpsdk-compa.a
-          ls /usr/local/lib/libupnpsdk-mock.a
           ls /usr/local/lib/libupnpsdk-pupnp.a
           ls /usr/local/lib/libupnpsdk.a
 
       - if: matrix.buildtype == 'Debug'
         name: Verify if Debug info
         run: |
-          objdump -g /usr/local/lib/libixml.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-compa.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-mock.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-pupnp.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           ls /usr/local/lib/libixml.a
           ls /usr/local/lib/libupnpsdk-compa.a
-          ls /usr/local/lib/libupnpsdk-mock.a
           ls /usr/local/lib/libupnpsdk-pupnp.a
           ls /usr/local/lib/libupnpsdk.a
 
@@ -125,7 +122,8 @@ jobs:
     strategy:
       matrix:
         buildtype: [ 'Release', 'Debug' ]
-        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON', '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
+        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON',
+                      '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
       fail-fast: false
 
     steps:
@@ -144,7 +142,7 @@ jobs:
         run: cmake --build build/
 
       - name: Install
-        run: cmake --install build
+        run: sudo cmake --install build/
 
       # I do not use static Googletest libraries by default.
       #- if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF')
@@ -155,7 +153,7 @@ jobs:
       #    ls ./build/lib/libgtest_main.a
       #    ls ./build/lib/libgmock_main.a
 
-      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON')
+      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON')
         name: Check gtest library files, shared
         run: |
           ls ./build/lib/libgtest.dylib
@@ -165,14 +163,12 @@ jobs:
 
       - name: Verify if libraries available
         run: |
-          ls /usr/local/lib/libixml.dylib
           ls /usr/local/lib/libupnpsdk-compa.dylib
           ls /usr/local/lib/libupnpsdk-mock.dylib
           ls /usr/local/lib/libupnpsdk-pupnp.dylib
           ls /usr/local/lib/libupnpsdk.dylib
           ls /usr/local/lib/libixml.a
           ls /usr/local/lib/libupnpsdk-compa.a
-          ls /usr/local/lib/libupnpsdk-mock.a
           ls /usr/local/lib/libupnpsdk-pupnp.a
           ls /usr/local/lib/libupnpsdk.a
 
@@ -202,7 +198,8 @@ jobs:
       matrix:
         buildtype: [ 'Release', 'Debug' ]
         os: [ windows-2019, windows-2022 ]
-        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON', '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
+        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON',
+                      '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
       fail-fast: false
 
     steps:
@@ -258,7 +255,7 @@ jobs:
           ls ./build/lib/${{matrix.buildtype}}/gtest_main.lib
           ls ./build/lib/${{matrix.buildtype}}/gmock_main.lib
 
-      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON')
+      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON')
         name: GTest .dll libraries build with Visual Studio
         run: |
           ls ./build/bin/${{matrix.buildtype}}/gtest.dll
@@ -298,7 +295,8 @@ jobs:
       matrix:
         buildtype: [ 'Release', 'Debug' ]
         os: [ windows-2019, windows-2022 ]
-        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON', '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
+        googletest: [ '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON',
+                      '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF' ]
       fail-fast: false
 
     steps:
@@ -352,7 +350,7 @@ jobs:
           ls ./build/lib/gtest_main.lib
           ls ./build/lib/gmock_main.lib
 
-      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON')
+      - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON')
         name: GTest .dll libraries build with NMake
         run: |
           ls ./build/bin/gtest.dll
@@ -466,9 +464,10 @@ jobs:
         run: |
           set -ev
           cmake --build build/
-          ls -la build/bin/
-          if [ -x build/bin/api_calls-psh ]; then build/bin/api_calls-psh; else true; fi
-          ./build/bin/api_calls-csh
+          sudo cmake --install build/
+          sudo cmake --install build/ --component Development
+          if [ -x /usr/local/bin/api_calls-psh ]; then /usr/local/bin/api_calls-psh; else true; fi
+          /usr/local/bin/api_calls-csh
 
       - if: runner.os == 'Windows'
         name: Build Windows
@@ -476,12 +475,12 @@ jobs:
           $ErrorActionPreference = 'Stop'
           $PSNativeCommandUseErrorActionPreference = $true
           Set-PSDebug -Trace 1
-          cmake --build build --config ${{matrix.buildtype}}
-          ls ./build/bin/${{matrix.buildtype}}
-          $env:path += ";./build/bin/${{matrix.buildtype}}"
-          $env:prog_path = "./build/bin/${{matrix.buildtype}}/api_calls-psh.exe"
+          cmake --build build/ --config ${{matrix.buildtype}}
+          cmake --install build/ --config ${{matrix.buildtype}}
+          cmake --install build/ --config ${{matrix.buildtype}} --component Development
+          $env:prog_path = "C:/Program Files/UPnPsdk/bin/api_calls-psh.exe"
           If (Test-Path -Path $env:prog_path) {& $env:prog_path}
-          ./build/bin/${{matrix.buildtype}}/api_calls-csh.exe
+          "C:/Program Files/UPnPsdk/bin/api_calls-csh.exe"
 
 
   # Job: Run 32 bit build tests

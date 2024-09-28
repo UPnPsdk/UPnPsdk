@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-26
+# Redistribution only with this Copyright remark. Last modified: 2024-09-29
 
 cmake_minimum_required(VERSION 3.18)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -55,7 +55,7 @@ option(PT4W_BUILD_TESTING "Build the time and space consuming test suite of pthr
 #################################
 set(UPnPsdk_DEF_32BIT NO)
 if(MSVC)
-    if(NOT CMAKE_GENERATOR_PLATFORM OR "Win32" IN_LIST CMAKE_GENERATOR_PLATFORM)
+    if("Win32" IN_LIST CMAKE_GENERATOR_PLATFORM)
         set(UPnPsdk_DEF_32BIT YES)
     endif()
 else()
@@ -101,6 +101,10 @@ endif()
 # See below on installing pthreads4w.
 set(UPNP_PTHREADS_SHARED_LIBRARY pthread CACHE INTERNAL "Name of the linkable shared library for POSIX threads")  # Implies FORCE
 set(UPNP_PTHREADS_STATIC_LIBRARY libpthread.a CACHE INTERNAL "Name of the linkable static library for POSIX threads")  # Implies FORCE
+# the RPATH to be stored in executable and libraries when installing that is by
+# default "/usr/local/lib"
+# REF: [RPATH-handling](https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling)
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 
 
 #################################

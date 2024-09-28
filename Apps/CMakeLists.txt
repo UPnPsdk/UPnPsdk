@@ -1,5 +1,5 @@
 # Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-12
+# Redistribution only with this Copyright remark. Last modified: 2024-09-28
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -85,6 +85,11 @@ add_executable(api_calls-psh
 target_link_libraries(api_calls-psh
     PRIVATE pupnp_shared
 )
+# Installation
+install(TARGETS api_calls-psh
+    COMPONENT Development
+    EXCLUDE_FROM_ALL
+)
 endif()
 
 add_executable(api_calls-csh
@@ -93,4 +98,27 @@ add_executable(api_calls-csh
 target_link_libraries(api_calls-csh
     PRIVATE compa_shared
     PRIVATE UPnPsdk_shared
+)
+
+#add_executable(api_calls-csh
+#    src/api_calls.cpp
+#)
+#target_include_directories(api_calls-csh
+#    PRIVATE ${COMPA_SOURCE_DIR}/inc
+#    PRIVATE ${COMPA_SOURCE_DIR}/src/inc
+#    PRIVATE ${CMAKE_SOURCE_DIR}/UPnPsdk/include
+#    PRIVATE ${PUPNP_SOURCE_DIR}/ixml/inc
+#)
+#find_library(COMPA_SHARED upnpsdk-compa)
+#find_library(UPNPSDK_SHARED upnpsdk
+#)
+#target_link_libraries(api_calls-csh
+#    PRIVATE "${COMPA_SHARED}"
+#    PRIVATE "${UPNPSDK_SHARED}"
+#)
+
+# Installation
+install(TARGETS api_calls-csh
+    COMPONENT Development
+    EXCLUDE_FROM_ALL
 )

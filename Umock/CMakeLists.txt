@@ -1,10 +1,10 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-25
+# Redistribution only with this Copyright remark. Last modified: 2024-09-28
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(UMOCK VERSION 0004
+project(UMOCK VERSION 0005
         DESCRIPTION "UPnP library mocking subproject"
         HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -31,10 +31,6 @@ set(UMOCK_SOURCE_FILES
     $<$<NOT:$<PLATFORM_ID:Windows>>:src/net_if.cpp>
     $<$<PLATFORM_ID:Windows>:src/iphlpapi.cpp>
     $<$<PLATFORM_ID:Windows>:src/winsock2.cpp>
-)
-
-set(UMOCK_PUBLIC_HEADERS
-    include/umock/unistd.hpp
 )
 
 set(UMOCK_INCLUDE_DIRECTORIES
@@ -77,14 +73,9 @@ target_link_libraries(umock_shared
     # sense to use shared libs.
     PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
 )
-target_sources(umock_shared
-    INTERFACE FILE_SET umock_public_headers TYPE HEADERS
-              BASE_DIRS include
-              FILES ${UMOCK_PUBLIC_HEADERS}
-)
+
+# Installation
 install(TARGETS umock_shared
-    FILE_SET umock_public_headers
-    DESTINATION include/upnp
 )
 
 # UMock STatic library: suffix -mst
@@ -113,5 +104,3 @@ target_link_libraries(umock_static
     INTERFACE
     $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
 )
-
-install(TARGETS umock_shared umock_static)

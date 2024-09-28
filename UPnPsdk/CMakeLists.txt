@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-26
+# Redistribution only with this Copyright remark. Last modified: 2024-09-27
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -24,6 +24,7 @@ set(UPnPsdk_SOURCE_FILES
     src/net/http/httpreadwrite.cpp
 )
 
+# Installation
 set(UPnPsdk_PUBLIC_HEADERS
     include/UPnPsdk/port_sock.hpp
     include/UPnPsdk/visibility.hpp
@@ -57,14 +58,18 @@ if(NOT WIN32)
     target_link_libraries(UPnPsdk_shared
         PUBLIC umock_shared
     )
+
+    # Installation
     target_sources(UPnPsdk_shared
         INTERFACE FILE_SET upnpsdk_public_headers TYPE HEADERS
                   BASE_DIRS include
                   FILES ${UPnPsdk_PUBLIC_HEADERS}
     )
     install(TARGETS UPnPsdk_shared
-        FILE_SET UPnPsdk_public_headers
-        DESTINATION include/upnp
+        FILE_SET upnpsdk_public_headers
+            DESTINATION include
+            COMPONENT Development
+            EXCLUDE_FROM_ALL
     )
 
     # UPnPsdk STatic library: suffix -ust
@@ -85,7 +90,8 @@ if(NOT WIN32)
         PUBLIC umock_static
     )
 
-    install(TARGETS UPnPsdk_shared UPnPsdk_static)
+    # Installation
+    install(TARGETS UPnPsdk_static)
 
 else() # WIN32
 
@@ -111,6 +117,10 @@ else() # WIN32
         PUBLIC umock_shared
     )
 
+    # Installation
+    install(TARGETS UPnPsdk_shared)
+
+
     # WIN32 UPnPsdk STatic library: suffix -ust
     #------------------------------------------
     add_library(UPnPsdk_static STATIC
@@ -129,6 +139,7 @@ else() # WIN32
         PUBLIC umock_static
     )
 
-    install(TARGETS UPnPsdk_shared UPnPsdk_static)
+    # Installation
+    install(TARGETS UPnPsdk_static)
 
 endif() # WIN32

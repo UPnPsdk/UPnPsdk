@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-26
+# Redistribution only with this Copyright remark. Last modified: 2024-09-29
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -160,35 +160,37 @@ set(PUPNP_SOURCE_FILES
     ../src/threadpool_init.cpp
 )
 
-set(PUPNP_PUBLIC_HEADERS
-    inc/Callback.hpp
-    inc/list.hpp
-    inc/upnp.h
-    inc/upnp.hpp
-    inc/UpnpActionComplete.hpp
-    inc/UpnpActionRequest.hpp
-    inc/UpnpDiscovery.hpp
-    inc/UpnpEvent.hpp
-    inc/UpnpEventSubscribe.hpp
-    inc/UpnpExtraHeaders.hpp
-    inc/UpnpFileInfo.hpp
-    inc/UpnpGlobal.hpp
-    inc/UpnpInet.hpp
-    inc/UpnpIntTypes.hpp
-    inc/UpnpStateVarComplete.hpp
-    inc/UpnpStateVarRequest.hpp
-    inc/UpnpStdInt.hpp
-    inc/UpnpString.hpp
-    inc/UpnpSubscriptionRequest.hpp
-    inc/UpnpUniStd.hpp
-    inc/upnptools.h
-    inc/upnptools.hpp
-    inc/ithread.h
-    inc/ithread.hpp
-    inc/upnpdebug.h
-    inc/upnpdebug.hpp
-    ${CMAKE_BINARY_DIR}/include/cmake_vars.hpp
-)
+# Installation
+# # Development with header files is not supported for 'pupnp'
+# set(PUPNP_PUBLIC_HEADERS
+#     inc/Callback.hpp
+#     inc/list.hpp
+#     inc/upnp.h
+#     inc/upnp.hpp
+#     inc/UpnpActionComplete.hpp
+#     inc/UpnpActionRequest.hpp
+#     inc/UpnpDiscovery.hpp
+#     inc/UpnpEvent.hpp
+#     inc/UpnpEventSubscribe.hpp
+#     inc/UpnpExtraHeaders.hpp
+#     inc/UpnpFileInfo.hpp
+#     inc/UpnpGlobal.hpp
+#     inc/UpnpInet.hpp
+#     inc/UpnpIntTypes.hpp
+#     inc/UpnpStateVarComplete.hpp
+#     inc/UpnpStateVarRequest.hpp
+#     inc/UpnpStdInt.hpp
+#     inc/UpnpString.hpp
+#     inc/UpnpSubscriptionRequest.hpp
+#     inc/UpnpUniStd.hpp
+#     inc/upnptools.h
+#     inc/upnptools.hpp
+#     inc/ithread.h
+#     inc/ithread.hpp
+#     inc/upnpdebug.h
+#     inc/upnpdebug.hpp
+#     ${CMAKE_BINARY_DIR}/include/cmake_vars.hpp
+# )
 
 set(PUPNP_INCLUDE_DIRECTORIES
     PUBLIC inc
@@ -245,16 +247,22 @@ if(NOT WIN32)
             umock_shared
             ixml_shared
     )
-    target_sources(pupnp_shared
-        INTERFACE FILE_SET pupnp_public_headers TYPE HEADERS
-                  BASE_DIRS inc
-                            ${CMAKE_BINARY_DIR}/include
-                  FILES ${PUPNP_PUBLIC_HEADERS}
-    )
-    install(TARGETS pupnp_shared
-        FILE_SET pupnp_public_headers
-        DESTINATION include/upnp
-    )
+
+    # Installation
+    install(TARGETS pupnp_shared)
+#    # Development with header files is not supported for 'pupnp'
+#    target_sources(pupnp_shared
+#        INTERFACE FILE_SET pupnp_public_headers TYPE HEADERS
+#                  BASE_DIRS inc
+#                            ${CMAKE_BINARY_DIR}/include
+#                  FILES ${PUPNP_PUBLIC_HEADERS}
+#    )
+#    install(TARGETS pupnp_shared
+#        FILE_SET pupnp_public_headers
+#            DESTINATION include/upnp
+#            COMPONENT Development
+#            EXCLUDE_FROM_ALL
+#    )
 
     # Pupnp STatic library: suffix -pst
     #----------------------------------
@@ -280,6 +288,7 @@ if(NOT WIN32)
         INTERFACE ixml_static
     )
 
+    # Installation
     install(TARGETS pupnp_static)
 
 else() # WIN32
@@ -313,6 +322,10 @@ else() # WIN32
             ixml_shared
     )
 
+    # Installation
+    install(TARGETS pupnp_shared)
+
+
     # WIN32 Pupnp STatic library: suffix -pst
     #----------------------------------------
     add_library(pupnp_static STATIC
@@ -335,7 +348,8 @@ else() # WIN32
         INTERFACE ixml_static
     )
 
-    install(TARGETS pupnp_shared pupnp_static)
+    # Installation
+    install(TARGETS pupnp_static)
 
 endif() # WIN32
 

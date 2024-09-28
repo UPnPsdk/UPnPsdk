@@ -18,6 +18,7 @@ The following general goals are in progress or planned:
 
 ## 2. Limitations
 <!-- - On the old <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices (pupnp)</a> already deprecated functions are not supported anymore. These are the functions `UpnpSetContentLength(), handle_query_variable(), UpnpGetServiceVarStatus(), UpnpGetServiceVarStatusAsync()`. -->
+- Development for old **pupnp** code is not supported. No header files for **pupnp** are provided, only for the **UPnPsdk**.
 - Large-file support on 32 bit architectures is always enabled. Disabling **lfs** is not supported.
 
 ## 2. Technical Documentation
@@ -58,12 +59,14 @@ These names are also the names of the CMake subprojects.
 -->
 
 ## 5. Build Instructions
-You need to have `git` installed. Just clone this repository:
+You need to have `git` installed. On Microsoft Windows you must "Enable symbolic links" when asked for "Configuring extra options" while running the <a href="https://git-scm.com/downloads/win">git installation program</a>. Then just clone this repository:
 
     ~$ git clone https://github.com/UPnPsdk/UPnPsdk.git UPnPsdk-project/
     ~$ cd UPnPsdk-project/
 
-You are now in the relative root directory of the program source tree. All project directory references are relative to its root directory (CMAKE_SOURCE_DIR) that is `UPnPsdk-project/` if you haven't used another directory name with the clone command above. If in daubt with file access or with executing you should first ensure that you are in the projects root directory.
+You are now in the relative root directory of the program source tree. On Microsoft Windows you should first provide symbolic links with `git config core.symlinks true` on the command line. More details and troubleshooting at <a href="https://stackoverflow.com/a/59761201/5014688">Git symbolic links in Windows</a>.
+
+All project directory references are relative to its root directory (CMAKE_SOURCE_DIR) that is `UPnPsdk-project/` if you haven't used another directory name with the clone command above. If in daubt with file access or with executing you should first ensure that you are in the projects root directory.
 
 ### 5.1. Linux and MacOS build
 Be in the projects root directory. First configure:
@@ -78,35 +81,41 @@ Then build the project:
 
     UPnPsdk-project$ cmake --build build/
 
-To install the include files and libraries to `/usr/local/include` and `/usr/local/lib`
+To install the libraries to `/usr/local/lib`
 
     UPnPsdk-project$ sudo cmake --install build/
 
-For shared linked applications the dynamic link loader must know where to find e.g. <code>/usr/local/lib/libUPnPsdk.so</code>. It has a cache where it stores such paths. To update its cache with the info to the new installed shared library you can just execute one time for all subsequent calls of your application now and later even after a reboot
+To install the test-executables and include-files for development to `/usr/local/bin` and `/usr/local/include/`
 
-    ~$ ldconfig
+    UPnPsdk-project$ sudo cmake --install build/ --component Development
 
-If you do not like to modify your system environment you can instead prefix the call to your application with the hint
+To uninstall all as long as the `build/` directory is available
 
-    ~$ LD_LIBRARY_PATH=/usr/local/lib yourUPnPapp1
+    UPnPsdk-project$ for f in build/install_manifest*.txt do cat $f && echo done | sudo xargs rm
 
-Of course you can also export the environment variable to the current volatile environment so you do not have to prefix every call in this environment.
+To uninstall only components:
 
-    ~$ export LD_LIBRARY_PATH=/usr/local/lib
-    ~$ yourUPnPapp1
-    ~$ yourUPnPapp2
-
-This all doesn't matter if you link against the static libraries.
-
-To uninstall the include files and libraries as long as the `build/` directory is available and clean up a build just do
-
+    # Uninstall libraries and executable
     UPnPsdk-project$ sudo xargs rm < build/install_manifest.txt
+
+    # Unistall Development components
+    UPnPsdk-project$ sudo xargs rm < build/install_manifest_Development.txt
+
+Remove all CMake configuration and build. Consider to backup the install manifest files before doing this.
+
     UPnPsdk-project$ rm -rf build/
 
-If you like you can backup the file <code>build/install_manifest.txt</code> for later uninstallation without build/ directory.
+Little helper:
+
+    UPnPsdk-project$ tree /usr/local
+
+    # Check the stored RPATH or RUNPATH needed to find the shared libraries, for example
+    UPnPsdk-project$ objdump -x /usr/local/bin/api_calls-csh | grep PATH
+
+If you like you can backup the files <code>build/install_manifest*.txt</code> for later uninstallation without build/ directory.
 
 ### 5.2. Microsoft Windows build
-The development of this UPnP Software Development Kit has started on Linux. So for historical reasons it uses POSIX threads (pthreads) as specified by [The Open Group](http://get.posixcertified.ieee.org/certification_guide.html). Unfortunately Microsoft Windows does not support it so we have to use a third party library. I use the well known and well supported [pthreads4w library](https://sourceforge.net/p/pthreads4w). It will be downloaded on Microsoft Windows and compiled with building the project and should do out of the box. To build the UPnPsdk you need a Developer Command Prompt. How to install it is out of scope of this description. Microsoft has good documentation about it. For example this is the prompt I used (example, maybe outdated):
+The development of this UPnP Software Development Kit has started on Linux. So for historical reasons it uses POSIX threads (pthreads) as specified by [The Open Group](http://get.posixcertified.ieee.org/certification_guide.html). Unfortunately Microsoft Windows does not support it so we have to use a third party library. I use the well known and well supported [pthreads4w library](https://sourceforge.net/p/pthreads4w). It will be downloaded on Microsoft Windows and compiled with building the project and should do out of the box. To build the UPnPsdk you need a Developer Command Prompt. How to install it is out of scope of this description. Microsoft has good documentation about it. You can find it at [Use the Microsoft C++ toolset from the command line](https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=msvc-170). For example this is the prompt I used (example, maybe outdated):
 
     **********************************************************************
     ** Visual Studio 2019 Developer Command Prompt v16.9.5
@@ -118,9 +127,9 @@ The development of this UPnP Software Development Kit has started on Linux. So f
     PowerShell 7.4.1
     PS C:\Users\ingo>
 
-First configure then build:
+First configure then build. Because CMake is confusing the architecture without hint it is important to always specify it with `-A x64` even if it's the default. Otherwise CMake will install the SDK with 64 bit architecture under `"C:\Program Files (x86)".
 
-    PS C: UPnPsdk-project> cmake -S . -B build/
+    PS C: UPnPsdk-project> cmake -S . -B build/ -A x64
     PS C: UPnPsdk-project> cmake --build build/ --config Release
 
  As shown above you have used the "**x64** Native Tools Command Prompt for VS 20xx" for the default 64 bit architecture. To compile for a 32 bit architecture you must use the "**x86** Native Tools Command Prompt for VS 20xx" and specify the architecture with option `-A Win32` to cmake as follows:
@@ -128,9 +137,35 @@ First configure then build:
     PS C: UPnPsdk-project> cmake -S . -B build/ -A Win32
     PS C: UPnPsdk-project> cmake --build build/ --config Release
 
-To clean up a build just delete the build/ folder:
+To install the SDK do:
 
-    PS C: UPnPsdk-project> rm -rf build/
+    PS C: UPnPsdk-project> cmake --install build/ --config Release
+
+To install the test-executables and include-files for development do:
+
+    PS C: UPnPsdk-project> cmake.exe --install build/ --config Release --component Development
+
+To uninstall the SDK do:
+
+    PS C: UPnPsdk-project> Remove-Item -Path "C:\Program Files\UPnPsdk\" -Recurse
+    PS C: UPnPsdk-project> Remove-Item -Path "C:\Program Files (x86)\UPnPsdk\" -Recurse
+
+To uninstall only components as long as the `build/` directory is available:
+
+    # Uninstall libraries and executable
+    PS C: UPnPsdk-project> Get-Content .\build\install_manifest.txt | %{Remove-Item -Path $_}
+
+    # Unistall Development components
+    PS C: UPnPsdk-project> Get-Content .\build\install_manifest_Development.txt | %{Remove-Item -Path $_}
+
+Remove all CMake configuration and build. Consider to backup the install manifest files before doing this.
+
+    PS C: UPnPsdk-project> Remove-Item -Path ".\build\" -Recurse -Force
+
+Little helper:
+
+    # Get the architecture (32 or 64 bit) from an executable or a library, for example:
+    PS C: UPnPsdk-project> dumpbin.exe -headers .\build\bin\Release\upnpsdk-compa.dll | Select-String -Pattern 'magic #'
 
 If you need more details about installation of POSIX threads on Microsoft Windows I have made an example at [github pthreadsWinLin](https://github.com/upnplib/pthreadsWinLin.git).
 
@@ -161,4 +196,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, \<Ingo\@Hoeft-online.de\>
-Redistribution only with this Copyright remark. Last modified: 2024-09-26</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-10-01</pre>
