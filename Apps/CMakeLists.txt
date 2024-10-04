@@ -1,5 +1,5 @@
 # Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-28
+# Redistribution only with this Copyright remark. Last modified: 2024-10-05
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -41,10 +41,13 @@ target_link_libraries(UPnPsdk-pst
 endif()
 
 
-if(FALSE)
 # TODO: create info function in the library and call that to avoid exporting private symbols.
 # Info executable linked with the compatible shared library
 # ---------------------------------------------------------
+# This does not compile without error because it needs exported symbols from
+# internal functions. But symbols from internal functions are not exported by
+# design.
+if(FALSE)
 add_executable(UPnPsdk-csh
         src/info_UPnPsdk.cpp
 )
@@ -52,8 +55,7 @@ set_target_properties(UPnPsdk-csh PROPERTIES
         OUTPUT_NAME info_compa-shared
 )
 target_link_libraries(UPnPsdk-csh
-    PRIVATE
-        compa_shared
+    PRIVATE compa_shared
 )
 endif()
 
@@ -66,13 +68,7 @@ set_target_properties(UPnPsdk-cst PROPERTIES
         OUTPUT_NAME info_compa-static
 )
 target_link_libraries(UPnPsdk-cst
-    PRIVATE
-        compa_static
-        UPnPsdk_static
-        # On Linux we cannot link with the static pthreads library because then
-        # we have also to link with a static libc that's not available by
-        # default.
-        $<$<NOT:$<PLATFORM_ID:Windows>>:${UPNP_PTHREADS_SHARED_LIBRARY}>
+    PRIVATE compa_static
 )
 
 
@@ -99,23 +95,6 @@ target_link_libraries(api_calls-csh
     PRIVATE compa_shared
     PRIVATE UPnPsdk_shared
 )
-
-#add_executable(api_calls-csh
-#    src/api_calls.cpp
-#)
-#target_include_directories(api_calls-csh
-#    PRIVATE ${COMPA_SOURCE_DIR}/inc
-#    PRIVATE ${COMPA_SOURCE_DIR}/src/inc
-#    PRIVATE ${CMAKE_SOURCE_DIR}/UPnPsdk/include
-#    PRIVATE ${PUPNP_SOURCE_DIR}/ixml/inc
-#)
-#find_library(COMPA_SHARED upnpsdk-compa)
-#find_library(UPNPSDK_SHARED upnpsdk
-#)
-#target_link_libraries(api_calls-csh
-#    PRIVATE "${COMPA_SHARED}"
-#    PRIVATE "${UPNPSDK_SHARED}"
-#)
 
 # Installation
 install(TARGETS api_calls-csh

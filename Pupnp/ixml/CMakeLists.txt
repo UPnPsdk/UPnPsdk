@@ -1,10 +1,10 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-28
+# Redistribution only with this Copyright remark. Last modified: 2024-10-04
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(PUPNP_IXML VERSION 0008
+project(PUPNP_IXML VERSION 0009
                    DESCRIPTION "IXML library"
                    HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -50,14 +50,12 @@ target_include_directories(ixml_shared
     ${IXML_INCLUDE_DIRECTORIES}
 )
 target_compile_definitions(ixml_shared
-    PRIVATE
-        UPnPsdk_SHARE
-        UPnPsdk_EXPORTS
+    PRIVATE UPnPsdk_EXPORTS
         $<$<BOOL:${script_support}>:IXML_HAVE_SCRIPTSUPPORT>
         $<$<CONFIG:Debug>:DEBUG>
 )
 target_link_libraries(ixml_shared
-    PRIVATE umock_shared
+    PRIVATE UPnPsdk_shared
 )
 
 # Installation
@@ -93,7 +91,7 @@ target_compile_definitions(ixml_static
         $<$<CONFIG:Debug>:DEBUG>
 )
 target_link_libraries(ixml_static
-    PRIVATE umock_static
+    PRIVATE UPnPsdk_static
 )
 
 # Installation

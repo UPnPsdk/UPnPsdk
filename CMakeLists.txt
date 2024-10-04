@@ -1,18 +1,22 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-29
+# Redistribution only with this Copyright remark. Last modified: 2024-10-05
 
 cmake_minimum_required(VERSION 3.18)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
 include(UPnPsdk-ProjectHeader)
 
-project("UPnPsdk" VERSION "0.11.0"
+project("UPnPsdk" VERSION "0.12.0"
                 DESCRIPTION "UPnP Software Development Kit"
                 HOMEPAGE_URL "https://github.com/UPnPsdk")
 
-set(PUPNP_VERSION_STR "1.14.19")
-if(NOT PUPNP_VERSION_STR MATCHES "^[0-9]+\\.[0-9]+\\.[0-9]+$")
-    message(FATAL_ERROR "${PUPNP_VERSION_STR} is not a valid pUPnP version number.")
+set(PUPNP_VERSION "1.14.19"
+    CACHE INTERNAL "The current version of the forked pUPnP library." FORCE)
+# Update pUPnP version number in README.md.
+if(NOT PUPNP_VERSION MATCHES "^[0-9]+\\.[0-9]+\\.[0-9]+$")
+    message(FATAL_ERROR "${PUPNP_VERSION} is not a valid pUPnP version number.")
 endif()
+configure_file(${PROJECT_SOURCE_DIR}/cmake/README.md.cmake ${PROJECT_SOURCE_DIR}/README.md NEWLINE_STYLE UNIX)
+message(STATUS "PUPNP_VERSION set to \"${PUPNP_VERSION}\"")
 
 enable_testing()
 
@@ -20,7 +24,7 @@ enable_testing()
 # Options                       #
 #################################
 option(UPnPsdk_WITH_NATIVE_PUPNP "Build the library with old native PUPNP code." OFF)
-option(UPnPsdk_WITH_OPENSSL "SSL/TLS and Crypto support should always be ON if not restricted by law." OFF)
+option(UPnPsdk_WITH_OPENSSL "SSL/TLS and Crypto support should always be ON if not restricted by law." ON)
 option(UPnPsdk_WITH_MINISERVER "Provide the miniserver for low level network communication." OFF)
 option(UPnPsdk_WITH_WEBSERVER "Provide a webserver." OFF)
 option(UPnPsdk_WITH_CTRLPT_SSDP "Providing control point functionality to manage a remote UPnP device." OFF)
@@ -80,20 +84,6 @@ if(UPnPsdk_DEF_32BIT)
 endif()
 
 
-# Update pUPnP version number in README.md but only if it has changed.
-#=====================================================================
-if(NOT PUPNP_VERSION VERSION_EQUAL PUPNP_VERSION_STR)
-    set(PUPNP_VERSION ${PUPNP_VERSION_STR} CACHE INTERNAL
-        "The current version of the forked pUPnP library.")  # Implies FORCE
-    message("-- PUPNP_VERSION set to \"${PUPNP_VERSION}\"")
-    # Show current pUPnP version in the README.md
-    file(READ README.md FILE_CONTENTS)
-    string(REGEX REPLACE "release-[0-9]+\.[0-9]+\.[0-9]+"
-           "release-${PUPNP_VERSION}" FILE_CONTENTS_OUT ${FILE_CONTENTS})
-    file(WRITE README.md ${FILE_CONTENTS_OUT})
-endif()
-
-
 #################################
 # Paths                         #
 #################################
@@ -105,6 +95,7 @@ set(UPNP_PTHREADS_STATIC_LIBRARY libpthread.a CACHE INTERNAL "Name of the linkab
 # default "/usr/local/lib"
 # REF: [RPATH-handling](https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+set(UMOCK_SOURCE_DIR "${CMAKE_SOURCE_DIR}/Umock")
 
 
 #################################
@@ -440,7 +431,6 @@ endif(UPnPsdk_WITH_GOOGLETEST)
 if(UPnPsdk_WITH_OPENSSL)
     add_subdirectory(${PROJECT_SOURCE_DIR}/openssl)
 endif()
-add_subdirectory(${PROJECT_SOURCE_DIR}/Umock)
 add_subdirectory(${PROJECT_SOURCE_DIR}/UPnPsdk)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Pupnp)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Ixml)

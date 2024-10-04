@@ -38,7 +38,7 @@ There is an issue when a network connection unexpectedly dies. The port then has
 
 I don't set the option to immediately reuse an address of a local connected socket after the connection closed unexpectedly. Instead I respect the `TIME_WAIT`. For an immediate reconnection I use a new address. A new \glos{netaddr,netaddress} is already given with a changed port so I just use the same ip address with another port. I always reset socket option `SO_REUSEADDR` with constructing a socket object on all platforms.
 
-A TIME_WAIT is not necessary if the remote control point closes the connection. Upnplib uses the protocol to signal the remote control point to shutdown the connection if it support it.
+A TIME_WAIT is not necessary if the remote control point closes the connection. UPnPsdk uses the protocol to signal the remote control point to shutdown the connection if it support it.
 
 This is unclear on Microsoft Windows. **THERE WE HAVE AN IMPORTANT SECURITY ISSUE!**\n
 In the past Windows had a very bad network security on low level socket handling as documented at [Using SO_REUSEADDR and SO_EXCLUSIVEADDRUSE](https://learn.microsoft.com/en-us/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse). Microsoft has fixed this since Windows Server 2003. The network stack now behaves like it does by default on other platforms. Strangely, they call it advanced security, which is standard on other major operating systems. But this isn't done by default. The developer has to take this into account by using the socket option SO_EXCLUSIVEADDRUSE. I always set this option with constructing a socket object on a WIN32 platform.
@@ -54,6 +54,61 @@ The problem is the access to files. The natural limit is given by the address st
 - Summary of LFS preprocessor marcros [What is the difference between _LARGEFILE_SOURCE and _FILE_OFFSET_BITS=64?](https://stackoverflow.com/questions/14184031/what-is-the-difference-between-largefile-source-and-file-offset-bits-64)
 - Example for a test of Large-file [AC_SYS_LARGEFILE with CMake](https://stackoverflow.com/questions/61339678/ac-sys-largefile-with-cmake)
 - To understand the problems here are some [relevant issues](https://github.com/pupnp/pupnp/issues?q=largefile)
+
+\section overview_visibility Visibility support
+Visibility Support provides a powerful optimization. I use it as described at the [GCC Wiki - Visibility](https://gcc.gnu.org/wiki/Visibility). It only belongs to shared libraries. Here in short the needed steps configured for this library:
+
+- Enable Visibility Support with CMake on the whole project:
+```
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+
+# or only on a target:
+set_target_properties(UPnPsdk_shared PROPERTIES
+CXX_VISIBILITY_PRESET hidden
+VISIBILITY_INLINES_HIDDEN ON)
+```<br/>
+
+- When building a shared library set its compile definitions to <code>UPnPsdk_SHARE</code> and <code>UPnPsdk_EXPORTS</code>. You should declare <code>UPnPsdk_SHARE</code> to be **PUBLIC**. With nested calls this is only needed for the first library if they are declared PUBLIC. CMake propagates the compile definition. With other combinations you have to respect CMakes propagation rules for PRIVATE, PUBLIC, INTERFACE and it may be necessary to also declare <code>UPnPsdk_SHARE</code> on following libraries and executables. In result every shared library and executable using it, must see <code>UPnPsdk_SHARE</code>. Never set <code>UPnPsdk_EXPORTS</code> to PUBLIC. This may see an executable target that should not export symbols.
+```
+add_library(UPnPsdk_shared SHARED
+        ${UPnPsdk_SOURCE_FILES})
+target_compile_definitions(UPnPsdk_shared
+        PUBLIC UPnPsdk_SHARE
+        PRIVATE UPnPsdk_EXPORTS)
+
+add_library(compa_shared SHARED
+        ${COMPA_SOURCE_FILES})
+target_compile_definitions(compa_shared
+        PRIVATE UPnPsdk_EXPORTS)
+target_link_libraries(compa_shared
+        PUBLIC UPnPsdk_shared)
+
+add_executable(api_calls-csh
+        ${API_CALLS_SOURCE_FILES})
+target_link_libraries(api_calls-csh
+        PRIVAT compa_shared)
+```
+But you need with:
+```
+target_link_libraries(compa_shared
+        PRIVATE UPnPsdk_shared)
+
+add_executable(api_calls-csh
+        ${API_CALLS_SOURCE_FILES})
+target_compile_definitions(api_calls-csh
+        PRIVATE UPnPsdk_SHARE)
+target_link_libraries(api_calls-csh
+        PRIVATE compa_shared)
+```<br/>
+- In your header files, wherever you want an interface or API made public outside the current Dynamic Shared Object, place <code>UPnPsdk_API</code> in struct, class and function declarations you wish to make public. You should not specify it in the definition of your source files. On Microsoft Windows Visual Studio it does not compile due to an error. You should never do it on templated or static functions because they are defined to be local.
+```
+UPnPsdk_API int PublicFreeFunc();
+class UPnPsdk_API PublicClass{};
+struct UPnPsdk_API PublicStruct{};
+```<br/>
+
+- For optimization with using <code>UPnPsdk_LOCAL</code> look at the [GCC Wiki - Visibility](https://gcc.gnu.org/wiki/Visibility). Usualy private member functions of a class are prefixed with <code>UPnPsdk_LOCAL</code>.
 */
 
 // vim: filetype=cpp

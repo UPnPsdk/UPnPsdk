@@ -1,11 +1,11 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-12
+# Redistribution only with this Copyright remark. Last modified: 2024-10-04
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
 # set the project name and version
-project(UTEST VERSION 0034
+project(UTEST VERSION 0035
               DESCRIPTION "Unit Tests using googletest"
               HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -70,14 +70,10 @@ add_library(utest_shared SHARED
     ${UTEST_SOURCE_FILES}
 )
 target_compile_definitions(utest_shared
-    PRIVATE
-        UPnPsdk_SHARE
-        UPnPsdk_EXPORTS
+    PRIVATE UPnPsdk_EXPORTS
 )
 target_link_libraries(utest_shared
-    PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>      # winsock to support sockets
-    INTERFACE $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network management tools
-    PRIVATE umock_shared;
+    PUBLIC UPnPsdk_shared;
 )
 
 add_library(utest_static STATIC
@@ -85,9 +81,7 @@ add_library(utest_static STATIC
     ${UTEST_SOURCE_FILES}
 )
 target_link_libraries(utest_static
-    PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>      # winsock to support sockets
-    INTERFACE $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network management tools
-    PRIVATE umock_static;
+    PUBLIC UPnPsdk_static;
 )
 
 

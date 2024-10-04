@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-12
+# Redistribution only with this Copyright remark. Last modified: 2024-10-05
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -100,9 +100,6 @@ add_test(NAME ctest_socket-ush COMMAND test_socket-ush --gtest_shuffle
 # =========
 add_executable(test_webserver-ush
     test_webserver.cpp
-)
-target_include_directories(test_webserver-ush
-    PRIVATE ${CMAKE_SOURCE_DIR}
 )
 target_link_libraries(test_webserver-ush
     PRIVATE UPnPsdk_shared

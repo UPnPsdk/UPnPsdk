@@ -76,7 +76,6 @@ jobs:
         name: Verify if NO Debug info
         run: |
           objdump -g /usr/local/lib/libupnpsdk-compa.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
-          objdump -g /usr/local/lib/libupnpsdk-mock.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-pupnp.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           ls /usr/local/lib/libixml.a
@@ -88,7 +87,6 @@ jobs:
         name: Verify if Debug info
         run: |
           objdump -g /usr/local/lib/libupnpsdk-compa.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
-          objdump -g /usr/local/lib/libupnpsdk-mock.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-pupnp.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           ls /usr/local/lib/libixml.a
@@ -164,7 +162,6 @@ jobs:
       - name: Verify if libraries available
         run: |
           ls /usr/local/lib/libupnpsdk-compa.dylib
-          ls /usr/local/lib/libupnpsdk-mock.dylib
           ls /usr/local/lib/libupnpsdk-pupnp.dylib
           ls /usr/local/lib/libupnpsdk.dylib
           ls /usr/local/lib/libixml.a
@@ -241,8 +238,6 @@ jobs:
           -A x64
           ${{matrix.googletest}}
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
-          -D CMAKE_GENERATOR_PLATFORM=x64
-          # We need to specify x64 otherwise 32 bit are compiled even on a 64 bit host
 
       - name: Build
         run: cmake --build build --config ${{matrix.buildtype}}
@@ -337,7 +332,7 @@ jobs:
           -G "NMake Makefiles" ${{matrix.googletest}}
           -D CMAKE_BUILD_TYPE=${{matrix.buildtype}}
           -D CMAKE_GENERATOR_PLATFORM=x64
-          # We need to specify x64 otherwise 32 bit are compiled even on a 64 bit host
+          # I cannot use option '-A x64' bcause NMake does not support it
 
       - name: Build
         run: cmake --build build --config ${{matrix.buildtype}}

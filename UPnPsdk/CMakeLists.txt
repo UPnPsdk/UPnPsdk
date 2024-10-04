@@ -1,10 +1,10 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-27
+# Redistribution only with this Copyright remark. Last modified: 2024-10-04
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(UPnPsdk VERSION 0012
+project(UPnPsdk VERSION 0013
         DESCRIPTION "UPnP library program"
         HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -14,6 +14,7 @@ add_compile_definitions(
 )
 
 set(UPnPsdk_SOURCE_FILES
+    src/global.cpp
     src/api/upnptools.cpp
     src/net/netaddr.cpp
     src/net/sockaddr.cpp
@@ -22,6 +23,22 @@ set(UPnPsdk_SOURCE_FILES
     src/net/connection_common.cpp
     src/net/http/webserver.cpp
     src/net/http/httpreadwrite.cpp
+
+    # Umock source files
+    ${UMOCK_SOURCE_DIR}/src/arpa_inet.cpp
+    $<$<NOT:$<PLATFORM_ID:Windows>>:${UMOCK_SOURCE_DIR}/src/ifaddrs.cpp>
+    $<$<PLATFORM_ID:Windows>:${UMOCK_SOURCE_DIR}/src/iphlpapi.cpp>
+    $<$<NOT:$<PLATFORM_ID:Windows>>:${UMOCK_SOURCE_DIR}/src/net_if.cpp>
+    ${UMOCK_SOURCE_DIR}/src/netdb.cpp
+    ${UMOCK_SOURCE_DIR}/src/pthread.cpp
+    $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:${UMOCK_SOURCE_DIR}/src/ssl.cpp>
+    ${UMOCK_SOURCE_DIR}/src/stdio.cpp
+    ${UMOCK_SOURCE_DIR}/src/stdlib.cpp
+    ${UMOCK_SOURCE_DIR}/src/stringh.cpp
+    ${UMOCK_SOURCE_DIR}/src/sys_socket.cpp
+    ${UMOCK_SOURCE_DIR}/src/sysinfo.cpp
+    ${UMOCK_SOURCE_DIR}/src/unistd.cpp
+    $<$<PLATFORM_ID:Windows>:${UMOCK_SOURCE_DIR}/src/winsock2.cpp>
 )
 
 # Installation
@@ -32,6 +49,12 @@ set(UPnPsdk_PUBLIC_HEADERS
 
 set(UPnPsdk_INCLUDE_DIRECTORIES
     PUBLIC include
+    PUBLIC ${UMOCK_SOURCE_DIR}/include
+    PUBLIC ${CMAKE_SOURCE_DIR}/UPnPsdk/include
+    PUBLIC ${CMAKE_BINARY_DIR}/include
+    # if pthreads4w isn't installed this path is empty. The linker doesn't
+    # find "pthread.h" and falls back to look at <pthread.h>.
+    PUBLIC ${pthreads4w_SOURCE_DIR} # needed for pthread.h
 )
 
 
@@ -52,11 +75,23 @@ if(NOT WIN32)
         ${UPnPsdk_INCLUDE_DIRECTORIES}
     )
     target_compile_definitions(UPnPsdk_shared
+        PUBLIC UPnPsdk_SHARE
         PRIVATE UPnPsdk_EXPORTS
         PRIVATE $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(UPnPsdk_shared
-        PUBLIC umock_shared
+        PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+        # In addition to pthreads we need some more system libraries on WIN32
+        PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
+        PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
+                                                  # management tools
+        # On MS Windows we link with the static pthreads4w library to avoid error
+        # prone managing access to its .dll file.
+        # On Unix platforms we cannot link with the static pthreads library because
+        # then we have also to link with a static libc that's not available by
+        # default. Pthreads on Unix are system wide available so it also makes
+        # sense to use shared libs.
+        PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
     )
 
     # Installation
@@ -87,7 +122,18 @@ if(NOT WIN32)
         PRIVATE $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(UPnPsdk_static
-        PUBLIC umock_static
+        PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+        # In addition to pthreads we need some more system libraries on WIN32
+        PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
+        PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
+                                                  # management tools
+        # On MS Windows we link with the static pthreads4w library to avoid error
+        # prone managing access to its .dll file.
+        # On Unix platforms we cannot link with the static pthreads library because
+        # then we have also to link with a static libc that's not available by
+        # default. Pthreads on Unix are system wide available so it also makes
+        # sense to use shared libs.
+        PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
     )
 
     # Installation
@@ -110,11 +156,30 @@ else() # WIN32
         ${UPnPsdk_INCLUDE_DIRECTORIES}
     )
     target_compile_definitions(UPnPsdk_shared
+        PUBLIC UPnPsdk_SHARE
         PRIVATE UPnPsdk_EXPORTS
         PRIVATE $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(UPnPsdk_shared
-        PUBLIC umock_shared
+        PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+        # In addition to pthreads we need some more system libraries on WIN32
+        PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
+        PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
+                                                  # management tools
+        # On MS Windows we link with the static pthreads4w library to avoid error
+        # prone managing access to its .dll file.
+        # On Unix platforms we cannot link with the static pthreads library because
+        # then we have also to link with a static libc that's not available by
+        # default. Pthreads on Unix are system wide available so it also makes
+        # sense to use shared libs.
+        PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
+        # disable warning LNK4217: symbol 'symbol' defined in
+        # 'filename_1.obj' is imported by 'filename_2.obj' in function
+        # 'function'.
+        # Importing and defining locally the same symbol.
+        # This is why a source is included into a library and a test
+        # includes the source and also uses the library.
+        PRIVATE -ignore:4217
     )
 
     # Installation
@@ -136,7 +201,18 @@ else() # WIN32
         PRIVATE $<$<BOOL:${UPnPsdk_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(UPnPsdk_static
-        PUBLIC umock_static
+        PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+        # In addition to pthreads we need some more system libraries on WIN32
+        PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
+        PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
+                                                  # management tools
+        # On MS Windows we link with the static pthreads4w library to avoid error
+        # prone managing access to its .dll file.
+        # On Unix platforms we cannot link with the static pthreads library because
+        # then we have also to link with a static libc that's not available by
+        # default. Pthreads on Unix are system wide available so it also makes
+        # sense to use shared libs.
+        PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
     )
 
     # Installation

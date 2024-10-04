@@ -1,12 +1,11 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-25
+// Redistribution only with this Copyright remark. Last modified: 2024-10-04
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
  * - Optimize SDK installation.
- *   \n - Use ixml only static compiled.
  *   \n - Use umock only static compiled.
  * - Build for ARM platforms.
  * - Provide IP-Address instead of interface name to UpnpInit2().

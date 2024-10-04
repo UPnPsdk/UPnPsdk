@@ -42,6 +42,7 @@
  */
 
 #include <ithread.hpp>
+#include <UPnPsdk/visibility.hpp>
 /// \cond
 #include <cerrno>
 /// \endcond

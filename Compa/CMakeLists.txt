@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-30
+# Redistribution only with this Copyright remark. Last modified: 2024-10-04
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -290,8 +290,7 @@ if(NOT WIN32)
         PRIVATE UPnPsdk_EXPORTS
     )
     target_link_libraries(compa_shared
-        PUBLIC umock_shared
-        PRIVATE UPnPsdk_shared
+        PUBLIC UPnPsdk_shared
     )
 
     # Installation
@@ -327,7 +326,7 @@ if(NOT WIN32)
         ${COMPA_COMPILE_DEFINITIONS}
     )
     target_link_libraries(compa_static
-        PUBLIC umock_static
+        PUBLIC UPnPsdk_static
     )
 
     # Installation
@@ -357,8 +356,7 @@ else() # WIN32
         PRIVATE $<$<BOOL:${COMPA_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(compa_shared
-        PUBLIC umock_shared
-        PRIVATE UPnPsdk_shared
+        PUBLIC UPnPsdk_shared
         # disable warning LNK4217: symbol 'symbol' defined in
         # 'filename_1.obj' is imported by 'filename_2.obj' in function
         # 'function'.
@@ -397,7 +395,7 @@ else() # WIN32
         PRIVATE $<$<BOOL:${COMPA_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
     )
     target_link_libraries(compa_static
-        PUBLIC umock_static
+        PUBLIC UPnPsdk_static
     )
 
     # Installation

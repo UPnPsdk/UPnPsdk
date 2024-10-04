@@ -1,10 +1,10 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-12
+# Redistribution only with this Copyright remark. Last modified: 2024-10-05
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
-project(SAMPLE VERSION 0010
+project(SAMPLE VERSION 0011
                DESCRIPTION "Simple sample to use the library"
                HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -101,7 +101,6 @@ add_executable (tv_device-csh
 )
 target_link_libraries(tv_device-csh
     PRIVATE compa_shared
-    PRIVATE UPnPsdk_shared
 )
 
 install(TARGETS tv_device-csh)

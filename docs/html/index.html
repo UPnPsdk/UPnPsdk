@@ -133,7 +133,7 @@ Promise to throw "no exception"</h1>
 Socket option "reuse address"</h1>
 <p>There is an issue when a network connection unexpectedly dies. The port then has normaly to <code>TIME_WAIT</code> util it can use its old <a class="el" href="d5/d67/Glossary.html#glossary_netaddr">netaddress</a> again. This may not be acceptable for certain server applications. So there is a socket option <code>SO_REUSEADDR</code> to immediately reuse a given netaddress, but with the risk of network errors and security issues. For more details have a look at <a href="https://hea-www.harvard.edu/~fine/Tech/addrinuse.html">Bind: Address Already in Use</a>.</p>
 <p>I don't set the option to immediately reuse an address of a local connected socket after the connection closed unexpectedly. Instead I respect the <code>TIME_WAIT</code>. For an immediate reconnection I use a new address. A new <a class="el" href="d5/d67/Glossary.html#glossary_netaddr">netaddress</a> is already given with a changed port so I just use the same ip address with another port. I always reset socket option <code>SO_REUSEADDR</code> with constructing a socket object on all platforms.</p>
-<p>A TIME_WAIT is not necessary if the remote control point closes the connection. Upnplib uses the protocol to signal the remote control point to shutdown the connection if it support it.</p>
+<p>A TIME_WAIT is not necessary if the remote control point closes the connection. <a class="el" href="dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> uses the protocol to signal the remote control point to shutdown the connection if it support it.</p>
 <p>This is unclear on Microsoft Windows. <b>THERE WE HAVE AN IMPORTANT SECURITY ISSUE!</b><br  />
 In the past Windows had a very bad network security on low level socket handling as documented at <a href="https://learn.microsoft.com/en-us/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse">Using SO_REUSEADDR and SO_EXCLUSIVEADDRUSE</a>. Microsoft has fixed this since Windows Server 2003. The network stack now behaves like it does by default on other platforms. Strangely, they call it advanced security, which is standard on other major operating systems. But this isn't done by default. The developer has to take this into account by using the socket option SO_EXCLUSIVEADDRUSE. I always set this option with constructing a socket object on a WIN32 platform.</p>
 <h1><a class="anchor" id="overview_lfs"></a>
@@ -144,7 +144,56 @@ LFS: Large-File Support</h1>
 <li>Wikipedia <a href="https://en.wikipedia.org/wiki/Large-file_support">Large-file support</a></li>
 <li>Summary of LFS preprocessor marcros <a href="https://stackoverflow.com/questions/14184031/what-is-the-difference-between-largefile-source-and-file-offset-bits-64">What is the difference between _LARGEFILE_SOURCE and _FILE_OFFSET_BITS=64?</a></li>
 <li>Example for a test of Large-file <a href="https://stackoverflow.com/questions/61339678/ac-sys-largefile-with-cmake">AC_SYS_LARGEFILE with CMake</a></li>
-<li>To understand the problems here are some <a href="https://github.com/pupnp/pupnp/issues?q=largefile">relevant issues</a> </li>
+<li>To understand the problems here are some <a href="https://github.com/pupnp/pupnp/issues?q=largefile">relevant issues</a></li>
+</ul>
+<h1><a class="anchor" id="overview_visibility"></a>
+Visibility support</h1>
+<p>Visibility Support provides a powerful optimization. I use it as described at the <a href="https://gcc.gnu.org/wiki/Visibility">GCC Wiki - Visibility</a>. It only belongs to shared libraries. Here in short the needed steps configured for this library:</p>
+<ul>
+<li>Enable Visibility Support with CMake on the whole project: <div class="fragment"><div class="line">set(CMAKE_CXX_VISIBILITY_PRESET hidden)</div>
+<div class="line">set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor"># or only on a target:</span></div>
+<div class="line">set_target_properties(UPnPsdk_shared PROPERTIES</div>
+<div class="line">CXX_VISIBILITY_PRESET hidden</div>
+<div class="line">VISIBILITY_INLINES_HIDDEN ON)</div>
+</div><!-- fragment --> <br  />
+</li>
+<li>When building a shared library set its compile definitions to <code>UPnPsdk_SHARE</code> and <code>UPnPsdk_EXPORTS</code>. You should declare <code>UPnPsdk_SHARE</code> to be <b>PUBLIC</b>. With nested calls this is only needed for the first library if they are declared PUBLIC. CMake propagates the compile definition. With other combinations you have to respect CMakes propagation rules for PRIVATE, PUBLIC, INTERFACE and it may be necessary to also declare <code>UPnPsdk_SHARE</code> on following libraries and executables. In result every shared library and executable using it, must see <code>UPnPsdk_SHARE</code>. Never set <code>UPnPsdk_EXPORTS</code> to PUBLIC. This may see an executable target that should not export symbols. <div class="fragment"><div class="line">add_library(UPnPsdk_shared SHARED</div>
+<div class="line">        ${UPnPsdk_SOURCE_FILES})</div>
+<div class="line">target_compile_definitions(UPnPsdk_shared</div>
+<div class="line">        PUBLIC UPnPsdk_SHARE</div>
+<div class="line">        PRIVATE UPnPsdk_EXPORTS)</div>
+<div class="line"> </div>
+<div class="line">add_library(compa_shared SHARED</div>
+<div class="line">        ${COMPA_SOURCE_FILES})</div>
+<div class="line">target_compile_definitions(compa_shared</div>
+<div class="line">        PRIVATE UPnPsdk_EXPORTS)</div>
+<div class="line">target_link_libraries(compa_shared</div>
+<div class="line">        PUBLIC UPnPsdk_shared)</div>
+<div class="line"> </div>
+<div class="line">add_executable(api_calls-csh</div>
+<div class="line">        ${API_CALLS_SOURCE_FILES})</div>
+<div class="line">target_link_libraries(api_calls-csh</div>
+<div class="line">        PRIVAT compa_shared)</div>
+</div><!-- fragment --> But you need with: <div class="fragment"><div class="line">target_link_libraries(compa_shared</div>
+<div class="line">        PRIVATE UPnPsdk_shared)</div>
+<div class="line"> </div>
+<div class="line">add_executable(api_calls-csh</div>
+<div class="line">        ${API_CALLS_SOURCE_FILES})</div>
+<div class="line">target_compile_definitions(api_calls-csh</div>
+<div class="line">        PRIVATE UPnPsdk_SHARE)</div>
+<div class="line">target_link_libraries(api_calls-csh</div>
+<div class="line">        PRIVATE compa_shared)</div>
+</div><!-- fragment --> <br  />
+</li>
+<li>In your header files, wherever you want an interface or API made public outside the current Dynamic Shared Object, place <code>UPnPsdk_API</code> in struct, class and function declarations you wish to make public. You should not specify it in the definition of your source files. On Microsoft Windows Visual Studio it does not compile due to an error. You should never do it on templated or static functions because they are defined to be local. <div class="fragment"><div class="line"><a class="code hl_define" href="d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> <span class="keywordtype">int</span> PublicFreeFunc();</div>
+<div class="line"><span class="keyword">class </span><a class="code hl_define" href="d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> PublicClass{};</div>
+<div class="line"><span class="keyword">struct </span><a class="code hl_define" href="d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> PublicStruct{};</div>
+<div class="ttc" id="avisibility_8hpp_html_a4d2eaa20d58e8671ac73f5fdcd45dd98"><div class="ttname"><a href="d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a></div><div class="ttdeci">#define UPnPsdk_API</div><div class="ttdoc">Prefix to export symbol for external use.</div><div class="ttdef"><b>Definition</b> <a href="d0/d21/visibility_8hpp_source.html#l00061">visibility.hpp:61</a></div></div>
+</div><!-- fragment --> <br  />
+</li>
+<li>For optimization with using <code>UPnPsdk_LOCAL</code> look at the <a href="https://gcc.gnu.org/wiki/Visibility">GCC Wiki - Visibility</a>. Usualy private member functions of a class are prefixed with <code>UPnPsdk_LOCAL</code>. </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-12
+# Redistribution only with this Copyright remark. Last modified: 2024-10-05
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -17,28 +17,23 @@ add_executable(test_sock-psh
 target_link_libraries(test_sock-psh
     PRIVATE
         pupnp_shared
-        UPnPsdk_shared
         utest_shared
 )
 add_test(NAME ctest_sock-psh COMMAND test_sock-psh --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
-if(FALSE)
-add_executable(test_sock-csh
+add_executable(test_sock-cst
         test_sock.cpp
-        ${COMPA_SOURCE_DIR}/src/genlib/net/sock.cpp
 )
-target_link_libraries(test_sock-csh
+target_link_libraries(test_sock-cst
     PRIVATE
-        compa_shared
-        UPnPsdk_shared
-        utest_shared
+        compa_static
+        utest_static
 )
-add_test(NAME ctest_sock-csh COMMAND test_sock-csh --gtest_shuffle
+add_test(NAME ctest_sock-cst COMMAND test_sock-cst --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
-endif()
 
 
 # sock_ssl
@@ -50,28 +45,23 @@ if(UPnPsdk_WITH_OPENSSL)
     target_link_libraries(test_sock_ssl-psh
         PRIVATE
             pupnp_shared
-            UPnPsdk_shared
             utest_shared
     )
     add_test(NAME ctest_sock_ssl-psh COMMAND test_sock_ssl-psh --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
     )
 
-if(FALSE)
-    add_executable(test_sock_ssl-csh
+    add_executable(test_sock_ssl-cst
         test_sock_ssl.cpp
-        ${COMPA_SOURCE_DIR}/src/genlib/net/sock.cpp
     )
-    target_link_libraries(test_sock_ssl-csh
+    target_link_libraries(test_sock_ssl-cst
         PRIVATE
-            compa_shared
-            UPnPsdk_shared
-            utest_shared
+            compa_static
+            utest_static
     )
-    add_test(NAME ctest_sock_ssl-csh COMMAND test_sock_ssl-csh --gtest_shuffle
+    add_test(NAME ctest_sock_ssl-cst COMMAND test_sock_ssl-cst --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
     )
-endif()
 
 
 # openssl_threaded
@@ -85,7 +75,6 @@ if(FALSE)
     )
     target_link_libraries(test_openssl_threaded-psh
         PRIVATE pupnp_shared
-        PRIVATE UPnPsdk_shared
     )
     add_test(NAME ctest_openssl_threaded-psh COMMAND test_openssl_threaded-psh --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -96,7 +85,6 @@ if(FALSE)
     )
     target_link_libraries(test_openssl_threaded-csh
         PRIVATE compa_shared
-        PRIVATE UPnPsdk_shared
     )
     add_test(NAME ctest_openssl_threaded-csh COMMAND test_openssl_threaded-csh --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -128,7 +116,6 @@ target_compile_definitions(test_miniserver-pst
 target_link_libraries(test_miniserver-pst
     PRIVATE
         pupnp_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_miniserver-pst COMMAND test_miniserver-pst --gtest_shuffle
@@ -145,7 +132,6 @@ target_include_directories(test_miniserver-cst
 target_link_libraries(test_miniserver-cst
     PRIVATE
         compa_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_miniserver-cst COMMAND test_miniserver-cst --gtest_shuffle
@@ -178,7 +164,6 @@ target_compile_options(test_miniserver_run-psh
 target_link_libraries(test_miniserver_run-psh
     PRIVATE
         pupnp_shared
-        UPnPsdk_shared
         utest_shared
 )
 add_test(NAME ctest_miniserver_run-psh COMMAND test_miniserver_run-psh --gtest_shuffle
@@ -199,7 +184,6 @@ target_compile_options(test_miniserver_run-cst
 target_link_libraries(test_miniserver_run-cst
     PRIVATE
         compa_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_miniserver_run-cst COMMAND test_miniserver_run-cst --gtest_shuffle

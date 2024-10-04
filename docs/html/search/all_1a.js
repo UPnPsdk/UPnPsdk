@@ -17,5 +17,6 @@ var searchData=
   ['virtualdircallback_14',['virtualdircallback',['../d4/d99/upnpapi_8cpp.html#a24983ed57bf9c82a82e0dc3daeaca538',1,'virtualDirCallback:&#160;upnpapi.cpp'],['../d3/da9/upnpapi_8hpp.html#a24983ed57bf9c82a82e0dc3daeaca538',1,'virtualDirCallback:&#160;upnpapi.cpp']]],
   ['virtualdircallbacks_15',['VirtualDirCallbacks',['../d6/d92/VirtualDir_8hpp.html#d1/d09/structVirtualDirCallbacks',1,'']]],
   ['virtualdirlist_16',['virtualDirList',['../d6/d92/VirtualDir_8hpp.html#ad7a936c7ad5e4ff04823408d18a77f25',1,'VirtualDir.hpp']]],
-  ['visibility_2ehpp_17',['visibility.hpp',['../d0/d21/visibility_8hpp.html',1,'']]]
+  ['visibility_20support_17',['Visibility support',['../index.html#overview_visibility',1,'']]],
+  ['visibility_2ehpp_18',['visibility.hpp',['../d0/d21/visibility_8hpp.html',1,'']]]
 ];

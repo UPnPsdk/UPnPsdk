@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-10-04
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -41,7 +41,6 @@ target_compile_definitions(test_membuffer-pst
     PRIVATE UPnPsdk_WITH_NATIVE_PUPNP
 )
 target_link_libraries(test_membuffer-pst
-    PRIVATE umock_static
     PRIVATE utest_static
 )
 add_test(NAME ctest_membuffer-pst COMMAND test_membuffer-pst --gtest_shuffle
