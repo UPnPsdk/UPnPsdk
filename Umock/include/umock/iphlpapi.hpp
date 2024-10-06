@@ -1,17 +1,16 @@
 #ifndef UMOCK_IPHLPAPI_HPP
 #define UMOCK_IPHLPAPI_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-10-08
 
 // iphlpapi.h is a Microsoft Windows library.
 
 #include <UPnPsdk/visibility.hpp>
-#include <winsock2.h>
-#include <iphlpapi.h>
+#include <UPnPsdk/port_sock.hpp>
 
 namespace umock {
 
-class UPNPLIB_API IphlpapiInterface {
+class UPnPsdk_API IphlpapiInterface {
   public:
     IphlpapiInterface();
     virtual ~IphlpapiInterface();
@@ -46,7 +45,7 @@ class IphlpapiReal : public IphlpapiInterface {
         EXPECT_CALL(ifaddrs_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPNPLIB_API Iphlpapi {
+class UPnPsdk_API Iphlpapi {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.
@@ -71,12 +70,12 @@ class UPNPLIB_API Iphlpapi {
     // objects of this class. With inline we do not need an extra definition
     // line outside the class. I also make the symbol hidden so the variable
     // cannot be accessed globaly with Iphlpapi::m_ptr_workerObj.
-    UPNPLIB_LOCAL static inline IphlpapiInterface* m_ptr_workerObj;
+    UPnPsdk_LOCAL static inline IphlpapiInterface* m_ptr_workerObj;
     IphlpapiInterface* m_ptr_oldObj{};
 };
 
 
-UPNPLIB_EXTERN Iphlpapi iphlpapi_h;
+UPnPsdk_EXTERN Iphlpapi iphlpapi_h;
 
 } // namespace umock
 

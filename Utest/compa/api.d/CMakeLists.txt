@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-12
+# Redistribution only with this Copyright remark. Last modified: 2024-10-07
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -206,7 +206,7 @@ set(UPNP_UPNPAPI_SOURCE_FILES
     ${PUPNP_UPNP_SOURCE_DIR}/src/api/UpnpString.cpp
     $<$<CONFIG:Debug>:${PUPNP_UPNP_SOURCE_DIR}/src/api/upnpdebug.cpp>
 
-    ${UPnPsdk_SOURCE_DIR}/src/api/upnptools.cpp
+    ${CMAKE_SOURCE_DIR}/UPnPsdk/src/api/upnptools.cpp
 )
 endif()
 

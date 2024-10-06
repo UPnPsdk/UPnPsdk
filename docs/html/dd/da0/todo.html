@@ -103,17 +103,17 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <div class="textblock"><dl class="reflist">
 <dt>File <a class="el" href="../../de/d2c/A__general__TODO-list_8dox.html">A_general_TODO-list.dox</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a><ul>
-<li>Optimize SDK installation. <br  />
- - Use umock only static compiled.</li>
+<li>Cleanup and optimize complete CMake build.</li>
+<li>Build, install and document ixml script support</li>
+<li>Create Github Action tests for installed SDK files.</li>
+<li>Compile api_calls from installed SDK.</li>
 <li>Build for ARM platforms.</li>
 <li>Provide IP-Address instead of interface name to <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>.</li>
 <li>Create Unit Test large-file support (<a href="https://gist.github.com/mortenpi/9745042">https://gist.github.com/mortenpi/9745042</a>)</li>
-<li>Create library info function that can be called with the API.</li>
+<li>Create library info function that can be called with the API. Improve tests for OpenSSL (test_sock.cpp, sock read_ssl, sock write_ssl).</li>
 <li>Compile OpenSSL instead of using its external library. <br  />
  - Fix limitation: On Linux 64 bit building to 32 bit with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries. <br  />
  - Fix limitation: On MS Windows 64 bit building with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.</li>
-<li><br  />
- - Test openssl.</li>
 <li>Enable ixml test suite.</li>
 <li>Use of <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> installation with sample program.</li>
 <li>Remove Interface/ directory?</li>
@@ -121,12 +121,10 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <li>Eleminate static listing socket objects in miniserver.</li>
 <li>Create connection class.</li>
 <li>Fix "time used" on sock_read and sock_write.</li>
-<li>Improve tests for sock read_ssl and sock write_ssl.</li>
 <li>Remove a_service argument from CAddrinfo constructor.</li>
 <li>Create threaded simple_inet_server and simple_inet_client for testing. <br  />
  - Create no mocked tests for <a href="#" onclick="location.href='mai'+'lto:'+'CSi'+'gp'+'ipe'+'@s'+'ock'+'.c'+'pp'; return false;">CSigp<span class="obfuscator">.nosp@m.</span>ipe@<span class="obfuscator">.nosp@m.</span>sock.<span class="obfuscator">.nosp@m.</span>cpp</a>, read and write data. <br  />
- - Fix openssl_threaded on win32. <br  />
- - Improve test_sock.cpp with ssl tests</li>
+ - Fix openssl_threaded on win32.</li>
 <li>Rework test_httpreadwrite.cpp.</li>
 <li>Add AI_IDN and AI_CANONIDN support to CAddrinfo.</li>
 <li>Improve test_http_Download.cpp, start with error conditions for <a class="el" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters.">http_MakeMessage()</a>.</li>
@@ -172,7 +170,7 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <dd><a class="anchor" id="_todo000019"></a>Check what function description is the right one. There was another found.  </dd>
 <dt>Member <a class="el" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a792af065e758a89de58061eadd9769ee">private_connect</a>  (const SOCKET sockfd, const sockaddr *const serv_addr, const socklen_t addrlen)</dt>
 <dd><a class="anchor" id="_todo000010"></a>Return more detailed error codes, e.g. with 'getsockopt()' valopt == 111: ECONNREFUSED "Connection refused" if there is a remote host but no server service listening.  </dd>
-<dt>Member <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#af2db1b68f4499e10273028ff48bbd99e">remove_escaped_chars</a>  (char *in, size_t *size)</dt>
+<dt>Member <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#ab8ba916f64d6777c584de7bb9459bd27">remove_escaped_chars</a>  (char *in, size_t *size)</dt>
 <dd><a class="anchor" id="_todo000018"></a>Optimize with prechecking the delimiter '%'.  </dd>
 <dt>Member <a class="el" href="../../d9/dd1/soap__ctrlpt_8cpp.html#a05e899b6e0c3bc1b2964ac01c37c15d7">SoapGetServiceVarStatus</a>  (char *action_url, DOMString var_name, DOMString *var_value)</dt>
 <dd><p class="startdd"><a class="anchor" id="_todo000026"></a>Verify the bug in the source code of this function with a unit test. </p>

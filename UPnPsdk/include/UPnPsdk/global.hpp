@@ -1,7 +1,7 @@
-#ifndef UPNPLIB_GLOBAL_HPP
-#define UPNPLIB_GLOBAL_HPP
+#ifndef UPnPsdk_GLOBAL_HPP
+#define UPnPsdk_GLOBAL_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-10-05
 /*!
  * \file
  * \brief Global used constants and variables.
@@ -23,8 +23,8 @@ namespace UPnPsdk {
  * with an environment variable but never modified by the production code. Only
  * Unit tests may toggle the switch under test.
  */
-UPNPLIB_EXTERN bool g_dbug;
+UPnPsdk_EXTERN bool g_dbug;
 
 } // namespace UPnPsdk
 
-#endif // UPNPLIB_GLOBAL_HPP
+#endif // UPnPsdk_GLOBAL_HPP

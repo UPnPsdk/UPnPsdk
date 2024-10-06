@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-12
+# Redistribution only with this Copyright remark. Last modified: 2024-10-07
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -14,36 +14,6 @@ project(GTESTS_COMPA_HTTP_HTTPREADWRITE VERSION 0001
 # Because we want to include the source file into the test to also test static
 # functions, we cannot use shared libraries due to symbol import/export
 # conflicts. We must use static libraries.
-if(FALSE)
-# Direct linking with source files currently not used but having available for
-# reference. We link against the internal UPnPsdk libraries (see below).
-add_executable(test_httpreadwrite
-    ${PUPNP_UPNP_SOURCE_DIR}/src/global.cpp
-    ${GTESTS_SOURCE_DIR}/tools/mockObj.cpp
-    $<$<BOOL:${WIN32}>:${GTESTS_SOURCE_DIR}/tools/mockObj_win32.cpp>
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/threadutil/FreeList.cpp
-    ${PUPNP_UPNP_SOURCE_DIR}/src/threadutil/LinkedList.cpp
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/net/sock.cpp
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/net/uri/uri.cpp
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/net/http/httpparser.cpp
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/net/http/statcodes.cpp
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/util/list.cpp
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/util/membuffer.cpp
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/util/strintmap.cpp
-
-    # ${PUPNP_UPNP_SOURCE_DIR}/src/api/UpnpExtraHeaders.c
-    ${PUPNP_UPNP_SOURCE_DIR}/src/api/UpnpString.cpp
-    $<$<CONFIG:Debug>:${PUPNP_UPNP_SOURCE_DIR}/src/api/upnpdebug.cpp>
-
-    ${UPnPsdk_SOURCE_DIR}/src/api/upnptools.cpp
-    ./test_httpreadwrite.cpp
-)
-endif()
 
 add_executable(test_httpreadwrite-pst
 #------------------------------------

@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-09
+# Redistribution only with this Copyright remark. Last modified: 2024-10-07
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -44,16 +44,6 @@ add_test(NAME ctest_uri-pst COMMAND test_uri-pst --gtest_shuffle
 # Because we want to include the source file into the test to also test static
 # functions, we cannot use shared libraries due to symbol import/export
 # conflicts. We must use static libraries.
-if(FALSE)
-# Direct linking with source files currently not used but having available for
-# reference. We link against the internal UPnPsdk libraries (see below).
-add_executable(test_uri_parse-pst
-    ${PUPNP_UPNP_SOURCE_DIR}/src/global.cpp
-    ${GTESTS_SOURCE_DIR}/tools/mockObj.cpp
-    ${UPnPsdk_SOURCE_DIR}/src/api/upnptools.cpp
-    ./test_uri_parse.cpp
-)
-endif()
 
 add_executable(test_uri_parse-pst
     ./test_uri_parse.cpp
@@ -64,7 +54,6 @@ target_include_directories(test_uri_parse-pst
 target_link_libraries(test_uri_parse-pst
     PRIVATE
         pupnp_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_uri_parse-pst COMMAND test_uri_parse-pst --gtest_shuffle

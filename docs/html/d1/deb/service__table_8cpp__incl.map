@@ -1,23 +1,24 @@
 <map id="Compa/src/genlib/service&#45;table/service_table.cpp" name="Compa/src/genlib/service&#45;table/service_table.cpp">
-<area shape="rect" id="Node000001" title="This file defines the functions for UPnP Services." alt="" coords="154,5,341,45"/>
-<area shape="rect" id="Node000002" href="$db/d74/service__table_8hpp.html" title="Manage the UPnP Services of a UPnP Device if available." alt="" coords="179,93,316,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,46,250,79,245,79,245,46"/>
-<area shape="rect" id="Node000003" href="$d8/dfd/config_8hpp.html" title="Main program configuration file." alt="" coords="5,167,95,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="217,121,96,164,94,159,215,116"/>
-<area shape="rect" id="Node000004" href="$de/dd1/LinkedList_8hpp.html" title="Manage a linked list (for internal use only)." alt="" coords="119,167,234,192"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="238,121,200,159,196,155,234,117"/>
-<area shape="rect" id="Node000008" href="$d8/d32/upnpdebug_8hpp.html" title="Manage Debug messages with levels &quot;critical&quot; to &quot;all&quot;." alt="" coords="258,167,381,192"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="261,117,300,155,296,159,257,121"/>
-<area shape="rect" id="Node000010" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="413,167,479,192"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="280,116,401,159,400,164,278,121"/>
-<area shape="rect" id="Node000005" href="$d8/d1c/FreeList_8hpp.html" title="Manage a free list (for internal use only)." alt="" coords="126,240,227,265"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="179,192,179,226,174,226,174,192"/>
-<area shape="rect" id="Node000006" href="$d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="129,313,225,339"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="179,266,179,300,174,300,174,266"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="135,387,219,412"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="179,339,179,373,174,373,174,339"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="265,240,347,265"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="320,193,313,227,308,226,315,192"/>
-<area shape="rect" id="Node000011" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="371,240,537,265"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="450,192,454,226,449,227,445,193"/>
+<area shape="rect" id="Node000001" title="This file defines the functions for UPnP Services." alt="" coords="147,5,317,45"/>
+<area shape="rect" id="Node000002" href="$db/d74/service__table_8hpp.html" title="Manage the UPnP Services of a UPnP Device if available." alt="" coords="170,93,294,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="235,46,235,79,229,79,229,46"/>
+<area shape="rect" id="Node000003" href="$d8/dfd/config_8hpp.html" title="Main program configuration file." alt="" coords="5,167,88,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="203,121,90,164,89,159,201,116"/>
+<area shape="rect" id="Node000004" href="$de/dd1/LinkedList_8hpp.html" title="Manage a linked list (for internal use only)." alt="" coords="112,167,219,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="223,121,187,158,184,155,219,117"/>
+<area shape="rect" id="Node000009" href="$d8/d32/upnpdebug_8hpp.html" title="Manage Debug messages with levels &quot;critical&quot; to &quot;all&quot;." alt="" coords="243,167,354,192"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="245,117,280,155,277,158,241,121"/>
+<area shape="rect" id="Node000011" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="360,240,421,265"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="284,116,328,134,349,148,367,165,384,194,391,225,386,226,379,196,363,168,346,152,325,139,282,121"/>
+<area shape="rect" id="Node000005" href="$d8/d1c/FreeList_8hpp.html" title="Manage a free list (for internal use only)." alt="" coords="130,240,225,265"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="170,192,176,226,170,227,165,193"/>
+<area shape="rect" id="Node000006" href="$d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="134,313,221,339"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="180,266,180,300,175,300,175,266"/>
+<area shape="rect" id="Node000008" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="279,313,433,339"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="207,263,315,306,313,311,205,268"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="139,387,215,412"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="180,339,180,373,175,373,175,339"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="261,240,336,265"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="301,192,301,226,296,226,296,192"/>
+<area shape="poly" id="edge11_Node000011_Node000008" title=" " alt="" coords="387,267,370,302,365,300,383,264"/>
 </map>

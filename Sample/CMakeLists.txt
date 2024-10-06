@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-05
+# Redistribution only with this Copyright remark. Last modified: 2024-10-09
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -10,11 +10,6 @@ project(SAMPLE VERSION 0011
 
 include_directories(
     common
-)
-
-add_compile_options(
-    # Default warning level
-    $<$<CXX_COMPILER_ID:MSVC>:/W1>
 )
 
 

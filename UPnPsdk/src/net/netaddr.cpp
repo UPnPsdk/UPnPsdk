@@ -7,7 +7,6 @@
 
 #include <UPnPsdk/netaddr.hpp>
 
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/addrinfo.hpp>
 #include <UPnPsdk/synclog.hpp>
 #include <umock/netdb.hpp>

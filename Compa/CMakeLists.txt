@@ -1,10 +1,10 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-04
+# Redistribution only with this Copyright remark. Last modified: 2024-10-08
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(COMPA VERSION 0008
+project(COMPA VERSION 0009
               DESCRIPTION "UPnPsdk compatible library subproject"
               HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -160,6 +160,19 @@ set(COMPA_SOURCE_FILES
     $<$<BOOL:${COMPA_DEF_DEVICE_GENA}>:src/gena/gena_device.cpp>
     $<$<BOOL:${COMPA_DEF_DEVICE_GENA}>:src/api/UpnpSubscriptionRequest.cpp>
 
+    # ixml
+    # -------------------------------------------------------------------------
+    ${PUPNP_SOURCE_DIR}/ixml/src/attr.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/document.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/element.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/ixml.cpp
+    $<$<CONFIG:Debug>:${PUPNP_SOURCE_DIR}/ixml/src/ixmldebug.cpp>
+    ${PUPNP_SOURCE_DIR}/ixml/src/ixmlmembuf.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/ixmlparser.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/namedNodeMap.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/node.cpp
+    ${PUPNP_SOURCE_DIR}/ixml/src/nodeList.cpp
+
     # Other sources (need rework)
     # -------------------------------------------------------------------------
     $<$<BOOL:${COMPA_DEF_TOOLS}>:src/api/upnptools.cpp>
@@ -173,18 +186,6 @@ set(COMPA_SOURCE_FILES
     # testing with init and shutdown following the RAII paradigm.
     ${PUPNP_SOURCE_DIR}/src/api/upnpdebug.cpp
     ${PUPNP_SOURCE_DIR}/src/threadpool_init.cpp
-
-    # ixml source files
-    ${PUPNP_SOURCE_DIR}/ixml/src/attr.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/document.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/element.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/ixml.cpp
-    $<$<CONFIG:Debug>:${PUPNP_SOURCE_DIR}/ixml/src/ixmldebug.cpp>
-    ${PUPNP_SOURCE_DIR}/ixml/src/ixmlmembuf.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/ixmlparser.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/namedNodeMap.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/node.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/nodeList.cpp
 )
 
 # Installation
@@ -268,139 +269,75 @@ set_source_files_properties(
 
 # Create libraries
 #=================
-if(NOT WIN32)
+# Link with POSIX Threads for Windows (pthreads4w)
+# Pthreads are not supported by MS Windows. So we have installed the
+# third party library pthreads4w.
 
-    # Compa SHared library: suffix -csh
-    #----------------------------------
-    add_library(compa_shared SHARED
-        ${COMPA_SOURCE_FILES}
-    )
-    set_target_properties(compa_shared PROPERTIES
-        OUTPUT_NAME upnpsdk-compa
-    )
-    target_include_directories(compa_shared
-        ${COMPA_INCLUDE_DIRECTORIES}
-        # if we are not on WIN32 the linker finds empty "headers.h" and
-        # will not complain an error but will not use <headers.h> that
-        # isn't available.
-        PUBLIC inc/not_win32
-    )
-    target_compile_definitions(compa_shared
-        ${COMPA_COMPILE_DEFINITIONS}
-        PRIVATE UPnPsdk_EXPORTS
-    )
-    target_link_libraries(compa_shared
-        PUBLIC UPnPsdk_shared
-    )
-
-    # Installation
-    target_sources(compa_shared
-        INTERFACE FILE_SET compa_public_headers TYPE HEADERS
-                  BASE_DIRS inc
-                            ${CMAKE_BINARY_DIR}/include
-                  FILES ${COMPA_PUBLIC_HEADERS}
-    )
-    install(TARGETS compa_shared
-        FILE_SET compa_public_headers
-            DESTINATION include/UPnPsdk
-            COMPONENT Development
-            EXCLUDE_FROM_ALL
-    )
-
-    # Compa STatic library: suffix -cst
-    #----------------------------------
-    add_library(compa_static STATIC
-        ${COMPA_SOURCE_FILES}
-    )
-    set_target_properties(compa_static PROPERTIES
-        OUTPUT_NAME upnpsdk-compa
-    )
-    target_include_directories(compa_static
-        ${COMPA_INCLUDE_DIRECTORIES}
-        # if we are not on WIN32 the linker finds empty "headers.h" and
-        # will not complain an error but will not use <headers.h> that
-        # isn't available.
-        PUBLIC inc/not_win32
-    )
-    target_compile_definitions(compa_static
-        ${COMPA_COMPILE_DEFINITIONS}
-    )
-    target_link_libraries(compa_static
-        PUBLIC UPnPsdk_static
-    )
-
-    # Installation
-    install(TARGETS compa_static)
-
-else() # WIN32
-
-    # Link with POSIX Threads for Windows (pthreads4w)
-    #=================================================
-    # Pthreads are not supported by MS Windows. So we have installed the
-    # third party library pthreads4w.
-
-    # WIN32 Compa SHared library: -csh
-    #---------------------------------
-    add_library(compa_shared SHARED
-        ${COMPA_SOURCE_FILES}
-    )
-    set_target_properties(compa_shared PROPERTIES
-        OUTPUT_NAME upnpsdk-compa
-    )
-    target_include_directories(compa_shared
-        ${COMPA_INCLUDE_DIRECTORIES}
-    )
-    target_compile_definitions(compa_shared
-        ${COMPA_COMPILE_DEFINITIONS}
-        PRIVATE UPnPsdk_EXPORTS
-        PRIVATE $<$<BOOL:${COMPA_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
-    )
-    target_link_libraries(compa_shared
-        PUBLIC UPnPsdk_shared
-        # disable warning LNK4217: symbol 'symbol' defined in
-        # 'filename_1.obj' is imported by 'filename_2.obj' in function
-        # 'function'.
-        # This is why a source is included into a library and a test
-        # includes the source and also uses the library.
-        PRIVATE -ignore:4217
-    )
-
-    # Installation
-    target_sources(compa_shared
-        INTERFACE FILE_SET compa_public_headers TYPE HEADERS
-                  BASE_DIRS inc
-                            ${CMAKE_BINARY_DIR}/include
-                  FILES ${COMPA_PUBLIC_HEADERS}
-    )
-    install(TARGETS compa_shared
-        FILE_SET compa_public_headers
-            COMPONENT Development
-            EXCLUDE_FROM_ALL
-    )
+# Compa SHared library: -csh
+#---------------------------
+add_library(compa_shared SHARED
+    ${COMPA_SOURCE_FILES}
+)
+set_target_properties(compa_shared PROPERTIES
+    OUTPUT_NAME upnpsdk-compa
+)
+target_include_directories(compa_shared
+    ${COMPA_INCLUDE_DIRECTORIES}
+)
+target_compile_definitions(compa_shared
+    ${COMPA_COMPILE_DEFINITIONS}
+    PRIVATE UPnPsdk_EXPORTS
+)
+target_link_libraries(compa_shared
+    PUBLIC UPnPsdk_shared
+    # On WIN32 disable warning LNK4217: symbol 'symbol' defined in
+    # 'filename_1.obj' is imported by 'filename_2.obj' in function
+    # 'function'.
+    # Importing and defining locally the same symbol.
+    # E.g. this is why a source is included into a library and a test
+    # includes the source and also uses the library. The solution to avoid
+    # the warning presented by Microsoft is to create an additional
+    # library. But that isn't acceptable here because the additional
+    # library must also given to the user. So I suppress this uncritical
+    # warning because I know what I do. --Ingo
+    PRIVATE $<$<CXX_COMPILER_ID:MSVC>:-ignore:4217>
+)
 
 
-    # WIN32 Compa STatic library: suffix -cst
-    #----------------------------------------
-    add_library(compa_static STATIC
-        ${COMPA_SOURCE_FILES}
-    )
-    set_target_properties(compa_static PROPERTIES
-        OUTPUT_NAME upnpsdk-compa-static
-    )
-    target_include_directories(compa_static
-        ${COMPA_INCLUDE_DIRECTORIES}
-    )
-    target_compile_definitions(compa_static
-        ${COMPA_COMPILE_DEFINITIONS}
-        PRIVATE $<$<BOOL:${COMPA_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
-    )
-    target_link_libraries(compa_static
-        PUBLIC UPnPsdk_static
-    )
+# Compa STatic library: suffix -cst
+#----------------------------------
+add_library(compa_static STATIC
+    ${COMPA_SOURCE_FILES}
+)
+set_target_properties(compa_static PROPERTIES
+    OUTPUT_NAME $<IF:$<PLATFORM_ID:Windows>,upnpsdk-compa-static,upnpsdk-compa>
+)
+target_include_directories(compa_static
+    ${COMPA_INCLUDE_DIRECTORIES}
+)
+target_compile_definitions(compa_static
+    ${COMPA_COMPILE_DEFINITIONS}
+)
+target_link_libraries(compa_static
+    PUBLIC UPnPsdk_static
+)
 
-    # Installation
-    install(TARGETS compa_static)
 
-endif() # WIN32
+# Installation
+# ============
+target_sources(compa_shared
+    INTERFACE FILE_SET compa_public_headers TYPE HEADERS
+              BASE_DIRS inc
+                        ${CMAKE_BINARY_DIR}/include
+              FILES ${COMPA_PUBLIC_HEADERS}
+)
+install(TARGETS compa_shared
+    FILE_SET compa_public_headers
+        DESTINATION $<IF:$<PLATFORM_ID:Windows>,include,include/UPnPsdk>
+        COMPONENT Development
+        EXCLUDE_FROM_ALL
+)
+
+install(TARGETS compa_static)
 
 # vim: nowrap

@@ -1,11 +1,11 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-05
+# Redistribution only with this Copyright remark. Last modified: 2024-10-06
 
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
 include(UPnPsdk-ProjectHeader)
 
-project("UPnPsdk" VERSION "0.12.0"
+project("UPnPsdk" VERSION "0.13.0"
                 DESCRIPTION "UPnP Software Development Kit"
                 HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -253,6 +253,7 @@ if(WIN32)
         # Fetch the content using previously declared details.
         # This caches pthreads4w_SOURCE_DIR, pthreads4w_BINARY_DIR and pthreads4w_POPULATED.
         FetchContent_Populate(pthreads4w)
+        #FetchContent_MakeAvailable(pthreads4w)
 
         execute_process(COMMAND cmake -S ${pthreads4w_SOURCE_DIR} -B ${pthreads4w_BINARY_DIR} -G "NMake Makefiles" -D CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -D BUILD_TESTING=${PT4W_BUILD_TESTING}
                         WORKING_DIRECTORY ${pthreads4w_SOURCE_DIR}
@@ -267,7 +268,8 @@ if(WIN32)
         message(CHECK_PASS "done")
         message(CHECK_START "Building POSIX Threads for Windows libraries")
 
-        if(PT4W_BUILD_TESTING)
+        cmake_language(GET_MESSAGE_LOG_LEVEL MSG_LOG_LEVEL)
+        if(MSG_LOG_LEVEL STREQUAL "DEBUG")
             set(PT4W_COMMAND COMMAND_ECHO)
             set(PT4W_COMMAND_OUTPUT "STDOUT")
         else()
@@ -291,7 +293,7 @@ if(WIN32)
 
         message(CHECK_PASS "done")
 
-    endif(NOT pthreads4w_POPULATED)
+    endif()
 
     # Output with cmake option --log-level=DEBUG
     message(DEBUG "  DEBUG: pthreads4w_SOURCE_DIR is: ${pthreads4w_SOURCE_DIR}")

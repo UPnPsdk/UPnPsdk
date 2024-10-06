@@ -44,7 +44,6 @@
 
 #include "UpnpGlobal.hpp" /* for EXPORT_SPEC */
 // #include "UpnpInet.hpp"
-#include "winsock2.h" // For different platforms: don't use <winsock2.h>
 
 #include <ctype.h>
 // #include <errno.h>

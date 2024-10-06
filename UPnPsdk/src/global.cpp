@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-10-05
 /*!
  * \file
  * \brief Global used flags, classes and emulated system functions.
@@ -36,7 +36,7 @@ char* strndup(const char* __string, size_t __n) {
 namespace UPnPsdk {
 
 // SUPPRESS_MSVC_WARN_4273_NEXT_LINE // don't do that
-UPNPLIB_API bool g_dbug{false};
+UPnPsdk_API bool g_dbug{false};
 
 
 namespace {
@@ -64,7 +64,7 @@ class CWSAStartup {
         // Due to MSVC_WARN_4273, I will not use TRACE2() with this global
         // linkage
 #ifdef UPnPsdk_WITH_TRACE
-        std::cout << "TRACE[Upnplib/src/global.cpp:" << __LINE__ << "] " << this
+        std::cout << "TRACE[UPnPsdk/src/global.cpp:" << __LINE__ << "] " << this
                   << " Construct CWSAStartup"
                   << "\n";
 #endif
@@ -73,7 +73,7 @@ class CWSAStartup {
         if (rc != 0) {
             // Prepare output string will not split its output on '<<' by output
             // from other threads. This important messaage should be unsplitted.
-            std::string msg{"UPnPlib [" + std::string(__FUNCTION__) +
+            std::string msg{"UPnPsdk [" + std::string(__FUNCTION__) +
                             "] CRITICAL MSG1003: Failed to initialize Windows "
                             "sockets, WSAStartup() returns (" +
                             std::to_string(rc) + ") \"" +
@@ -94,7 +94,7 @@ class CWSAStartup {
         // Due to MSVC_WARN_4273, I will not use TRACE2() with this global
         // linkage
 #ifdef UPnPsdk_WITH_TRACE
-        std::cout << "TRACE[Upnplib/src/global.cpp:" << __LINE__ << "] " << this
+        std::cout << "TRACE[UPnPsdk/src/global.cpp:" << __LINE__ << "] " << this
                   << " Destruct CWSAStartup"
                   << "\n";
 #endif

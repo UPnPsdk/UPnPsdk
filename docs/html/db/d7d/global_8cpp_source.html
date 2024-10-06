@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('db/d7d/global_8cpp_source.html','../..
 </div><!--header-->
 <div class="contents">
 <a href="../../db/d7d/global_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-08-18</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-10-05</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="../../d6/d66/global_8ipp.html">UPnPsdk/global.ipp</a>&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d42/port_8hpp.html">UPnPsdk/port.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="../../d8/d43/port__sock_8hpp.html">UPnPsdk/port_sock.hpp</a>&gt;</span></div>
@@ -125,7 +125,7 @@ $(document).ready(function(){initNavTree('db/d7d/global_8cpp_source.html','../..
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a> {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">// SUPPRESS_MSVC_WARN_4273_NEXT_LINE // don&#39;t do that</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>UPNPLIB_API <span class="keywordtype">bool</span> <a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#a38f59cc128722a0526046fb9b4eced5d">g_dbug</a>{<span class="keyword">false</span>};</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><a class="code hl_define" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> <span class="keywordtype">bool</span> <a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e">g_dbug</a>{<span class="keyword">false</span>};</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('db/d7d/global_8cpp_source.html','../..
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="comment">// Due to MSVC_WARN_4273, I will not use TRACE2() with this global</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="comment">// linkage</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#ifdef UPnPsdk_WITH_TRACE</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;TRACE[Upnplib/src/global.cpp:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; <span class="stringliteral">&quot;] &quot;</span> &lt;&lt; <span class="keyword">this</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;TRACE[UPnPsdk/src/global.cpp:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; <span class="stringliteral">&quot;] &quot;</span> &lt;&lt; <span class="keyword">this</span></div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                  &lt;&lt; <span class="stringliteral">&quot; Construct CWSAStartup&quot;</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                  &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif</span></div>
@@ -149,7 +149,7 @@ $(document).ready(function(){initNavTree('db/d7d/global_8cpp_source.html','../..
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">if</span> (rc != 0) {</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <span class="comment">// Prepare output string will not split its output on &#39;&lt;&lt;&#39; by output</span></div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="comment">// from other threads. This important messaage should be unsplitted.</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            std::string msg{<span class="stringliteral">&quot;UPnPlib [&quot;</span> + std::string(__FUNCTION__) +</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            std::string msg{<span class="stringliteral">&quot;UPnPsdk [&quot;</span> + std::string(__FUNCTION__) +</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                            <span class="stringliteral">&quot;] CRITICAL MSG1003: Failed to initialize Windows &quot;</span></div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                            <span class="stringliteral">&quot;sockets, WSAStartup() returns (&quot;</span> +</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                            std::to_string(rc) + <span class="stringliteral">&quot;) \&quot;&quot;</span> +</div>
@@ -168,7 +168,7 @@ $(document).ready(function(){initNavTree('db/d7d/global_8cpp_source.html','../..
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="comment">// Due to MSVC_WARN_4273, I will not use TRACE2() with this global</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="comment">// linkage</span></div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">#ifdef UPnPsdk_WITH_TRACE</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;TRACE[Upnplib/src/global.cpp:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; <span class="stringliteral">&quot;] &quot;</span> &lt;&lt; <span class="keyword">this</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;TRACE[UPnPsdk/src/global.cpp:&quot;</span> &lt;&lt; __LINE__ &lt;&lt; <span class="stringliteral">&quot;] &quot;</span> &lt;&lt; <span class="keyword">this</span></div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                  &lt;&lt; <span class="stringliteral">&quot; Destruct CWSAStartup&quot;</span></div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                  &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#endif</span></div>
@@ -189,9 +189,10 @@ $(document).ready(function(){initNavTree('db/d7d/global_8cpp_source.html','../..
 <div class="ttc" id="agroup__UpnpString_html_ga59dc6f9eb8e56e6ddcd5dfa2fbcfe9e5"><div class="ttname"><a href="../../d1/d03/group__UpnpString.html#ga59dc6f9eb8e56e6ddcd5dfa2fbcfe9e5">strnlen</a></div><div class="ttdeci">static size_t strnlen(const char *s, size_t n)</div><div class="ttdoc">strnlen() is a GNU extension and here provided for portability.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d4f/UpnpString_8cpp_source.html#l00040">UpnpString.cpp:40</a></div></div>
 <div class="ttc" id="agroup__upnplib-socket_html_ga61993e2691b1c99a50a317b8946eb32a"><div class="ttname"><a href="../../db/d86/group__upnplib-socket.html#ga61993e2691b1c99a50a317b8946eb32a">UPnPsdk::anonymous_namespace{global.cpp}::init_winsock</a></div><div class="ttdeci">const CWSAStartup init_winsock</div><div class="ttdoc">This object initialize and cleanup the Microsoft Windows Socket subsystem.</div><div class="ttdef"><b>Definition</b> <a href="../../db/d7d/global_8cpp_source.html#l00108">global.cpp:108</a></div></div>
 <div class="ttc" id="anamespaceUPnPsdk_html"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a></div><div class="ttdoc">Reengineered Object Oriented UPnP+ program code.</div></div>
-<div class="ttc" id="anamespaceUPnPsdk_html_a38f59cc128722a0526046fb9b4eced5d"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a38f59cc128722a0526046fb9b4eced5d">UPnPsdk::g_dbug</a></div><div class="ttdeci">UPNPLIB_EXTERN bool g_dbug</div><div class="ttdoc">Switch to enable verbose (debug) output.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d3a/global_8hpp_source.html#l00026">global.hpp:26</a></div></div>
+<div class="ttc" id="anamespaceUPnPsdk_html_ab17340cd1b9cdd9d070f057f3a14ee5e"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e">UPnPsdk::g_dbug</a></div><div class="ttdeci">UPnPsdk_EXTERN bool g_dbug</div><div class="ttdoc">Switch to enable verbose (debug) output.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d3a/global_8hpp_source.html#l00026">global.hpp:26</a></div></div>
 <div class="ttc" id="aport_8hpp_html"><div class="ttname"><a href="../../d1/d42/port_8hpp.html">port.hpp</a></div><div class="ttdoc">Specifications to be portable between different platforms.</div></div>
 <div class="ttc" id="aport__sock_8hpp_html"><div class="ttname"><a href="../../d8/d43/port__sock_8hpp.html">port_sock.hpp</a></div><div class="ttdoc">Specifications to be portable with sockets between different platforms.</div></div>
+<div class="ttc" id="avisibility_8hpp_html_a4d2eaa20d58e8671ac73f5fdcd45dd98"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a></div><div class="ttdeci">#define UPnPsdk_API</div><div class="ttdoc">Prefix to export symbol for external use.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d21/visibility_8hpp_source.html#l00061">visibility.hpp:61</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

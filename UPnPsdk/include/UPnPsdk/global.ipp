@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-12
+// Redistribution only with this Copyright remark. Last modified: 2024-10-05
 
 // There is no include guard '#ifndef ...' because this file shouln't be
 // included more than two times as given.
@@ -20,7 +20,7 @@
 // strndup() is a GNU extension.
 // -----------------------------
 #ifndef HAVE_STRNDUP
-UPNPLIB_API char* strndup(const char* __string, size_t __n);
+UPnPsdk_API char* strndup(const char* __string, size_t __n);
 #endif
 
 namespace UPnPsdk {

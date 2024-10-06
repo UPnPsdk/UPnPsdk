@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -40,8 +40,6 @@
 #include <UPnPsdk/visibility.hpp>
 
 /// \cond
-#include "winsock2.h" // For different platforms: don't use <winsock2.h>
-
 #include <cctype>
 #include <cstring>
 
@@ -130,7 +128,7 @@ struct URL_list {
  *   1 - if an escaped character was converted\n
  *   0 - otherwise
  */
-UPNPLIB_API int replace_escaped(
+UPnPsdk_API int replace_escaped(
     /*! [in,out] String of characters. */
     char* in,
     /// [in] Index at which to start checking the characters; must point to '%'.
@@ -150,7 +148,7 @@ UPNPLIB_API int replace_escaped(
  *  On success: HTTP_SUCCESS\n
  *  On error: UPNP_E_OUTOF_MEMORY - On Failure to allocate memory.
  */
-UPNPLIB_API int copy_URL_list(
+UPnPsdk_API int copy_URL_list(
     /*! [in] Source URL list. */
     URL_list* in,
     /*! [out] Destination URL list. */
@@ -162,7 +160,7 @@ UPNPLIB_API int copy_URL_list(
  * Frees the dynamically allocated members of of list. Does NOT free the
  * pointer to the list itself ( i.e. does NOT free(list)).
  */
-UPNPLIB_API void free_URL_list(
+UPnPsdk_API void free_URL_list(
     /*! [in] URL list object. */
     URL_list* list);
 
@@ -198,7 +196,7 @@ void print_token( //
  *  \li == 0, if string1 is identical to string2 .
  *  \li > 0, if string1 is greater than string2.
  */
-UPNPLIB_API int token_string_casecmp(
+UPnPsdk_API int token_string_casecmp(
     /*! [in] Token object whose buffer is to be compared. */
     token* in1,
     /*! [in] String of characters to compare with. */
@@ -212,7 +210,7 @@ UPNPLIB_API int token_string_casecmp(
  *  \li == 0, if string1 is identical to string2 .
  *  \li > 0, if string1 is greater than string2.
  */
-UPNPLIB_API int token_cmp(
+UPnPsdk_API int token_cmp(
     /*! [in] First token object whose buffer is to be compared. */
     token* in1,
     /*! [in] Second token object used for the comparison. */
@@ -227,7 +225,7 @@ UPNPLIB_API int token_cmp(
  *
  * \returns UPNP_E_SUCCESS.
  */
-UPNPLIB_API int remove_escaped_chars(
+UPnPsdk_API int remove_escaped_chars(
     /*! [in,out] String of characters to be modified. */
     char* in,
     /*! [in,out] Size limit for the number of characters. */
@@ -258,7 +256,7 @@ Examples:
  *  - UPNP_E_OUTOF_MEMORY - On failure to allocate memory.
  *  - UPNP_E_INVALID_URL - Failure to resolve URL.
  */
-UPNPLIB_API int remove_dots(
+UPnPsdk_API int remove_dots(
     /*! [in] String of characters from which "dots" have to be removed. */
     char* buf,
     /*! [in] Size limit for the number of characters. */
@@ -280,7 +278,7 @@ UPNPLIB_API int remove_dots(
  * \returns
  *  Pointer to a new with malloc dynamically allocated full URL or a \b nullptr.
  */
-UPNPLIB_API char* resolve_rel_url(
+UPnPsdk_API char* resolve_rel_url(
     /*! [in] Base URL. */
     char* base_url,
     /*! [in] Relative URL. */
@@ -301,7 +299,7 @@ UPNPLIB_API char* resolve_rel_url(
  *  On success: HTTP_SUCCESS\n
  *  On error: UPNP_E_INVALID_URL
  */
-UPNPLIB_API int parse_uri(
+UPnPsdk_API int parse_uri(
     /*! [in] Character string containing uri information to be parsed. */
     const char* in,
     /*! [in] Number of characters (strlen()) of the input string. */

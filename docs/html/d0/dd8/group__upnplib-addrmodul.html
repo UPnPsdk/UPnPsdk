@@ -236,7 +236,7 @@ sa</td>
 <div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gaab5fd951995d3ce8a5e49936b35cf536">is_netaddr</a>(<span class="stringliteral">&quot;[2001:db8::1]&quot;</span>) != AF_UNSPEC) { manage_given_netaddress(); }</div>
 <div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gaab5fd951995d3ce8a5e49936b35cf536">is_netaddr</a>(<span class="stringliteral">&quot;[2001:db8::1]&quot;</span>, AF_INET) == AF_INET) { <span class="comment">// nothing to do }</span></div>
 <div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gaab5fd951995d3ce8a5e49936b35cf536">is_netaddr</a>(<span class="stringliteral">&quot;[fe80::1%2]&quot;</span>) == AF_INET6) { manage_link_local_addr(); }</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_gaab5fd951995d3ce8a5e49936b35cf536"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gaab5fd951995d3ce8a5e49936b35cf536">UPnPsdk::is_netaddr</a></div><div class="ttdeci">sa_family_t is_netaddr(const std::string &amp;a_node, const int a_addr_family=AF_UNSPEC) noexcept</div><div class="ttdoc">Check for a netaddress and return its address family.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/dd7/netaddr_8cpp_source.html#l00024">netaddr.cpp:24</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_gaab5fd951995d3ce8a5e49936b35cf536"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gaab5fd951995d3ce8a5e49936b35cf536">UPnPsdk::is_netaddr</a></div><div class="ttdeci">sa_family_t is_netaddr(const std::string &amp;a_node, const int a_addr_family=AF_UNSPEC) noexcept</div><div class="ttdoc">Check for a netaddress and return its address family.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/dd7/netaddr_8cpp_source.html#l00023">netaddr.cpp:23</a></div></div>
 </div><!-- fragment --><p>Checks if a string is a netaddress without port and returns its address family.</p>
 <dl class="section return"><dt>Returns</dt><dd>On success: Address family AF_INET6 or AF_INET the address belongs to<br  />
  On error: AF_UNSPEC, the address is alphanumeric (maybe a DNS name?) </dd></dl>
@@ -248,7 +248,7 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dd7/netaddr_8cpp_source.html#l00024">24</a> of file <a class="el" href="../../d5/dd7/netaddr_8cpp_source.html">netaddr.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dd7/netaddr_8cpp_source.html#l00023">23</a> of file <a class="el" href="../../d5/dd7/netaddr_8cpp_source.html">netaddr.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -301,7 +301,7 @@ sa</td>
 <p>Check if a given string represents a port number. </p>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
 <div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0">is_numport</a>(<span class="stringliteral">&quot;55555&quot;</span>) == 0) { manage_given_port(); }</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga51c40469ad33f63312aaac0301d757d0"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0">UPnPsdk::is_numport</a></div><div class="ttdeci">int is_numport(const std::string &amp;a_port_str) noexcept</div><div class="ttdoc">Check if a given string represents a port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/dd7/netaddr_8cpp_source.html#l00093">netaddr.cpp:93</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga51c40469ad33f63312aaac0301d757d0"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0">UPnPsdk::is_numport</a></div><div class="ttdeci">int is_numport(const std::string &amp;a_port_str) noexcept</div><div class="ttdoc">Check if a given string represents a port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/dd7/netaddr_8cpp_source.html#l00092">netaddr.cpp:92</a></div></div>
 </div><!-- fragment --><p>Checks if the given string represents a numeric port number between 0 and 65535.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li><b>-1</b> if <em>a_port_str</em> isn't a numeric number, but it may be a valid service name (e.g. "https")</li>
@@ -310,7 +310,7 @@ sa</td>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/dd7/netaddr_8cpp_source.html#l00093">93</a> of file <a class="el" href="../../d5/dd7/netaddr_8cpp_source.html">netaddr.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/dd7/netaddr_8cpp_source.html#l00092">92</a> of file <a class="el" href="../../d5/dd7/netaddr_8cpp_source.html">netaddr.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">

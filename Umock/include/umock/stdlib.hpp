@@ -1,14 +1,14 @@
 #ifndef UMOCK_STDLIB_HPP
 #define UMOCK_STDLIB_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-10-07
 
 #include <UPnPsdk/visibility.hpp>
 #include <stdlib.h>
 
 namespace umock {
 
-class UPNPLIB_API StdlibInterface {
+class UPnPsdk_API StdlibInterface {
   public:
     StdlibInterface();
     virtual ~StdlibInterface();
@@ -44,7 +44,7 @@ class StdlibReal : public StdlibInterface {
         EXPECT_CALL(stdlib_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPNPLIB_API Stdlib {
+class UPnPsdk_API Stdlib {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.
@@ -69,12 +69,12 @@ class UPNPLIB_API Stdlib {
     // objects of this class. With inline we do not need an extra definition
     // line outside the class. I also make the symbol hidden so the variable
     // cannot be accessed globaly with Stdlib::m_ptr_workerObj. --Ingo
-    UPNPLIB_LOCAL static inline StdlibInterface* m_ptr_workerObj;
+    UPnPsdk_LOCAL static inline StdlibInterface* m_ptr_workerObj;
     StdlibInterface* m_ptr_oldObj{};
 };
 
 
-UPNPLIB_EXTERN Stdlib stdlib_h;
+UPnPsdk_EXTERN Stdlib stdlib_h;
 
 } // namespace umock
 

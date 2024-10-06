@@ -107,6 +107,7 @@ $(document).ready(function(){initNavTree('d8/d1c/FreeList_8hpp.html','../../'); 
 <p>Manage a free list (for internal use only).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d4/d0f/ithread_8hpp_source.html">ithread.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d0/d21/visibility_8hpp_source.html">UPnPsdk/visibility.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for FreeList.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -114,11 +115,13 @@ $(document).ready(function(){initNavTree('d8/d1c/FreeList_8hpp.html','../../'); 
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/de0/FreeList_8hpp__incl.png" border="0" usemap="#aCompa_2src_2threadutil_2FreeList_8hpp" alt=""/></div>
 <map name="aCompa_2src_2threadutil_2FreeList_8hpp" id="aCompa_2src_2threadutil_2FreeList_8hpp">
-<area shape="rect" title="Manage a free list (for internal use only)." alt="" coords="5,5,164,45"/>
-<area shape="rect" href="../../d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="37,93,133,119"/>
-<area shape="poly" title=" " alt="" coords="87,46,87,79,82,79,82,46"/>
-<area shape="rect" title=" " alt="" coords="43,167,127,192"/>
-<area shape="poly" title=" " alt="" coords="87,119,87,153,82,153,82,119"/>
+<area shape="rect" title="Manage a free list (for internal use only)." alt="" coords="49,5,192,45"/>
+<area shape="rect" href="../../d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="5,93,92,119"/>
+<area shape="poly" title=" " alt="" coords="105,47,71,85,67,81,101,44"/>
+<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="116,93,269,119"/>
+<area shape="poly" title=" " alt="" coords="140,44,175,81,171,85,136,47"/>
+<area shape="rect" title=" " alt="" coords="11,167,87,192"/>
+<area shape="poly" title=" " alt="" coords="51,119,51,153,46,153,46,119"/>
 </map>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -270,7 +273,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Free list node. points to next free item. </p>
 <p>Memory for node is borrowed from allocated items. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d1c/FreeList_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../d8/d1c/FreeList_8hpp_source.html">FreeList.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d1c/FreeList_8hpp_source.html#l00056">56</a> of file <a class="el" href="../../d8/d1c/FreeList_8hpp_source.html">FreeList.hpp</a>.</p>
 </div><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for FreeListNode:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -307,7 +310,7 @@ next</td>
 </div><div class="memdoc">
 <div class="textblock"><p>Stores head and size of free list, as well as mutex for protection. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d1c/FreeList_8hpp_source.html#l00063">63</a> of file <a class="el" href="../../d8/d1c/FreeList_8hpp_source.html">FreeList.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d1c/FreeList_8hpp_source.html#l00064">64</a> of file <a class="el" href="../../d8/d1c/FreeList_8hpp_source.html">FreeList.hpp</a>.</p>
 </div><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for FreeList:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">

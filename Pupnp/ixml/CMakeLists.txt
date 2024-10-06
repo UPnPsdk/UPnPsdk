@@ -1,10 +1,10 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-04
+# Redistribution only with this Copyright remark. Last modified: 2024-10-08
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(PUPNP_IXML VERSION 0009
+project(PUPNP_IXML VERSION 0010
                    DESCRIPTION "IXML library"
                    HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -20,15 +20,6 @@ set (IXML_SOURCES
     src/node.cpp
     src/nodeList.cpp
 )
-
-# Installation
-## Development with header files is not supported for 'pupnp'.
-# set(IXML_PUBLIC_HEADERS
-#     inc/ixml.h
-#     inc/ixml.hpp
-#     inc/posix_overwrites.h
-#     inc/posix_overwrites.hpp
-# )
 
 set (IXML_INCLUDE_DIRECTORIES
     PUBLIC inc
@@ -55,24 +46,8 @@ target_compile_definitions(ixml_shared
         $<$<CONFIG:Debug>:DEBUG>
 )
 target_link_libraries(ixml_shared
-    PRIVATE UPnPsdk_shared
+    PRIVATE UPnPsdk_shared   # for Umock
 )
-
-# Installation
-install(TARGETS ixml_shared
-)
-## Development with header files is not supported for 'pupnp'.
-# target_sources(ixml_shared
-#     INTERFACE FILE_SET ixml_public_headers TYPE HEADERS
-#               BASE_DIRS inc
-#               FILES ${IXML_PUBLIC_HEADERS}
-# )
-# install(TARGETS ixml_shared
-#     FILE_SET ixml_public_headers
-#         DESTINATION include/upnp
-#         COMPONENT Development
-#         EXCLUDE_FROM_ALL
-# )
 
 # ixml static library
 #--------------------
@@ -91,11 +66,13 @@ target_compile_definitions(ixml_static
         $<$<CONFIG:Debug>:DEBUG>
 )
 target_link_libraries(ixml_static
-    PRIVATE UPnPsdk_static
+    PRIVATE UPnPsdk_static   # for Umock
 )
 
 # Installation
-install(TARGETS ixml_static)
+# ------------
+install(TARGETS ixml_shared ixml_static)
+
 
 #if (BUILD_TESTING)
 #    add_subdirectory(./test)

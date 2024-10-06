@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-18
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -712,7 +712,7 @@ void TvCtrlPointAddDevice(IXML_Document* DescDoc, const char* location,
             }
             deviceNode->next = NULL;
             /* Insert the new device node in the list */
-            if ((tmpdevnode = GlobalDeviceList)) {
+            if ((tmpdevnode = GlobalDeviceList) != nullptr) {
                 while (tmpdevnode) {
                     if (tmpdevnode->next) {
                         tmpdevnode = tmpdevnode->next;
@@ -931,10 +931,7 @@ void TvCtrlPointHandleGetVar(const char* controlURL, const char* varName,
  *
  ********************************************************************************/
 int TvCtrlPointCallbackEventHandler(Upnp_EventType EventType, const void* Event,
-                                    void* Cookie) {
-    int errCode = 0;
-    (void)Cookie;
-
+                                    [[maybe_unused]] void* Cookie) {
     SampleUtil_PrintEvent(EventType, Event);
     switch (EventType) {
     /* SSDP Stuff */
@@ -1025,7 +1022,7 @@ int TvCtrlPointCallbackEventHandler(Upnp_EventType EventType, const void* Event,
     case UPNP_EVENT_RENEWAL_COMPLETE: {
         UpnpEventSubscribe* es_event = (UpnpEventSubscribe*)Event;
 
-        errCode = UpnpEventSubscribe_get_ErrCode(es_event);
+        int errCode = UpnpEventSubscribe_get_ErrCode(es_event);
         if (errCode != UPNP_E_SUCCESS) {
             SampleUtil_Print("Error in Event Subscribe Callback -- %d\n",
                              errCode);
@@ -1044,7 +1041,7 @@ int TvCtrlPointCallbackEventHandler(Upnp_EventType EventType, const void* Event,
         int TimeOut = default_timeout;
         Upnp_SID newSID;
 
-        errCode =
+        int errCode =
             UpnpSubscribe(ctrlpt_handle,
                           UpnpString_get_String(
                               UpnpEventSubscribe_get_PublisherUrl(es_event)),

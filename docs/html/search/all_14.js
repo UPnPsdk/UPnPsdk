@@ -11,7 +11,7 @@ var searchData=
   ['parse_5fstatus_5ft_8',['parse_status_t',['../db/da7/httpparser_8hpp.html#aaec739c6f0ff93b139062af2ba4b0f1d',1,'httpparser.hpp']]],
   ['parse_5fsuccess_9',['PARSE_SUCCESS',['../db/da7/httpparser_8hpp.html#aaec739c6f0ff93b139062af2ba4b0f1da9674022bcca440239f8c53bcbd4101a0',1,'httpparser.hpp']]],
   ['parse_5ftoken_10',['parse_token',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a13dbae9bff877a15f4d6b23c1f934638',1,'uri.hpp']]],
-  ['parse_5furi_11',['parse_uri',['../d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7',1,'parse_uri(const char *in, size_t max, uri_type *out):&#160;uri.cpp'],['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a8ec692b137a13bc0520e58292a6183b1',1,'parse_uri(const char *in, size_t max, uri_type *out):&#160;uri.cpp']]],
+  ['parse_5furi_11',['parse_uri',['../d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7',1,'parse_uri(const char *in, size_t max, uri_type *out):&#160;uri.cpp'],['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a9fafabef6f80378af5db145dbdcb0e18',1,'parse_uri(const char *in, size_t max, uri_type *out):&#160;uri.cpp']]],
   ['parse_5furic_12',['parse_uric',['../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658',1,'anonymous_namespace{uri.cpp}']]],
   ['parsedurls_13',['parsedURLs',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a4a7917e86eb7e65374d05e13ef98fa48',1,'URL_list']]],
   ['parser_14',['parser',['../d0/d19/ssdp__common_8hpp.html#a8d84d27e1d62d9b077913a14a6ad3c0b',1,'ssdp_thread_data']]],

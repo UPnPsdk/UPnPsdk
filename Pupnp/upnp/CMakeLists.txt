@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-04
+# Redistribution only with this Copyright remark. Last modified: 2024-10-08
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -18,14 +18,14 @@ project(PUPNP_UPNP VERSION 0031
 # Options selectable by user configuration
 set(PUPNP_DEF_GOOGLETEST ${UPnPsdk_WITH_GOOGLETEST})
 set(PUPNP_DEF_TOOLS YES) #${UPnPsdk_WITH_TOOLS})         # tools -> UPNP_ENABLE_HELPER_API_TOOLS
-set(PUPNP_DEF_CLIENT YES) #${UPNPLIB_WITH_CLIENT})       # client -> UPNP_ENABLE_CLIENT_API
-set(PUPNP_DEF_DEVICE YES) #${UPNPLIB_WITH_DEVICE})
+set(PUPNP_DEF_CLIENT YES) #${UPnPsdk_WITH_CLIENT})       # client -> UPNP_ENABLE_CLIENT_API
+set(PUPNP_DEF_DEVICE YES) #${UPnPsdk_WITH_DEVICE})
 set(PUPNP_DEF_WEBSERVER YES) #${UPnPsdk_WITH_WEBSERVER}) # webserver -> UPNP_ENABLE_WEBSERVER
                                                      #   only enabled with PUPNP_DEF_DEVICE
-set(PUPNP_DEF_OPTSSDP YES) #${UPNPLIB_WITH_OPTSSDP})     # optssdp -> UPNP_ENABLE_OPTIONAL_SSDP_HEADERS
-set(PUPNP_DEF_SOAP YES) #${UPNPLIB_WITH_SOAP})           # soap -> UPNP_ENABLE_SOAP
+set(PUPNP_DEF_OPTSSDP YES) #${UPnPsdk_WITH_OPTSSDP})     # optssdp -> UPNP_ENABLE_OPTIONAL_SSDP_HEADERS
+set(PUPNP_DEF_SOAP YES) #${UPnPsdk_WITH_SOAP})           # soap -> UPNP_ENABLE_SOAP
                                                      #   only enabled with PUPNP_DEF_WEBSERVER
-set(PUPNP_DEF_GENA YES) #${UPNPLIB_WITH_GENA})           # gena -> UPNP_ENABLE_GENA
+set(PUPNP_DEF_GENA YES) #${UPnPsdk_WITH_GENA})           # gena -> UPNP_ENABLE_GENA
                                                      #   compiles only with PUPNP_DEF_CLIENT and PUPNP_DEF_DEVICE
 set(PUPNP_DEF_OPENSSL ${UPnPsdk_WITH_OPENSSL})     # open_ssl -> UPNP_ENABLE_OPEN_SSL
 set(PUPNP_DEF_BLOCKTCP NO) #${UPnPsdk_WITH_BLOCKTCP})   # blocking_tcp_connections -> UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS
@@ -153,7 +153,7 @@ set(PUPNP_SOURCE_FILES
     # Helper classes added but not original old pupnp code. To separate them,
     # they are in a parent directory of the original code. They only
     # encapsulate old fuctions mainly for testing with init and shutdown
-    # following the RAII paradigm. They are assigned with the UPnPlib rules,
+    # following the RAII paradigm. They are assigned with the UPnPsdk rules,
     # e.g. throwing exceptions etc.
     ../src/api/upnpdebug.cpp
     ../src/threadpool_init.cpp
@@ -177,38 +177,6 @@ set(PUPNP_SOURCE_FILES
     ${UMOCK_SOURCE_DIR}/src/unistd.cpp
 )
 
-# Installation
-# # Development with header files is not supported for 'pupnp'
-# set(PUPNP_PUBLIC_HEADERS
-#     inc/Callback.hpp
-#     inc/list.hpp
-#     inc/upnp.h
-#     inc/upnp.hpp
-#     inc/UpnpActionComplete.hpp
-#     inc/UpnpActionRequest.hpp
-#     inc/UpnpDiscovery.hpp
-#     inc/UpnpEvent.hpp
-#     inc/UpnpEventSubscribe.hpp
-#     inc/UpnpExtraHeaders.hpp
-#     inc/UpnpFileInfo.hpp
-#     inc/UpnpGlobal.hpp
-#     inc/UpnpInet.hpp
-#     inc/UpnpIntTypes.hpp
-#     inc/UpnpStateVarComplete.hpp
-#     inc/UpnpStateVarRequest.hpp
-#     inc/UpnpStdInt.hpp
-#     inc/UpnpString.hpp
-#     inc/UpnpSubscriptionRequest.hpp
-#     inc/UpnpUniStd.hpp
-#     inc/upnptools.h
-#     inc/upnptools.hpp
-#     inc/ithread.h
-#     inc/ithread.hpp
-#     inc/upnpdebug.h
-#     inc/upnpdebug.hpp
-#     ${CMAKE_BINARY_DIR}/include/cmake_vars.hpp
-# )
-
 set(PUPNP_INCLUDE_DIRECTORIES
     PUBLIC inc
     PUBLIC src/inc
@@ -226,6 +194,7 @@ set(PUPNP_INCLUDE_DIRECTORIES
 
 set(PUPNP_COMPILE_DEFINITIONS
     PUBLIC
+        UPnPsdk_WITH_NATIVE_PUPNP
         UPNP_ENABLE_IPV6
         $<$<BOOL:${PUPNP_DEF_DEBUG}>:UPNP_HAVE_DEBUG>
         $<$<BOOL:${PUPNP_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
@@ -243,159 +212,87 @@ set(PUPNP_COMPILE_DEFINITIONS
 
 # Create libraries
 #=================
-if(NOT WIN32)
+# Link with POSIX Threads for Windows (pthreads4w):
+# Pthreads are not supported by MS Windows. So we have installed the
+# third party library pthreads4w.
 
-    # Pupnp SHared library: suffix -psh
-    #----------------------------------
-    add_library(pupnp_shared SHARED
-            ${PUPNP_SOURCE_FILES}
-    )
-    set_target_properties(pupnp_shared PROPERTIES
-            OUTPUT_NAME upnpsdk-pupnp
-    )
-    target_include_directories(pupnp_shared
-        ${PUPNP_INCLUDE_DIRECTORIES}
-        # if we are not on WIN32 the linker finds empty "headers.h" and will
-        # not complain an error but will not use <headers.h> that isn't available.
-        PUBLIC inc/not_win32
-    )
-    target_compile_definitions(pupnp_shared
-        ${PUPNP_COMPILE_DEFINITIONS}
-        PUBLIC UPnPsdk_WITH_NATIVE_PUPNP
-        PUBLIC UPnPsdk_SHARE
-        PRIVATE UPnPsdk_EXPORTS
-    )
-    target_link_libraries(pupnp_shared
-        PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
-        PUBLIC ixml_shared
-    )
-
-    # Installation
-    install(TARGETS pupnp_shared)
-#    # Development with header files is not supported for 'pupnp'
-#    target_sources(pupnp_shared
-#        INTERFACE FILE_SET pupnp_public_headers TYPE HEADERS
-#                  BASE_DIRS inc
-#                            ${CMAKE_BINARY_DIR}/include
-#                  FILES ${PUPNP_PUBLIC_HEADERS}
-#    )
-#    install(TARGETS pupnp_shared
-#        FILE_SET pupnp_public_headers
-#            DESTINATION include/upnp
-#            COMPONENT Development
-#            EXCLUDE_FROM_ALL
-#    )
-
-    # Pupnp STatic library: suffix -pst
-    #----------------------------------
-    add_library(pupnp_static STATIC
-            ${PUPNP_SOURCE_FILES}
-    )
-    set_target_properties(pupnp_static PROPERTIES
-            OUTPUT_NAME upnpsdk-pupnp
-    )
-    target_include_directories(pupnp_static
-        ${PUPNP_INCLUDE_DIRECTORIES}
-        # if we are not on WIN32 the linker finds empty "headers.h" and will
-        # not complain an error but will not use <headers.h> that isn't available.
-        PUBLIC inc/not_win32
-    )
-    target_compile_definitions(pupnp_static
-        ${PUPNP_COMPILE_DEFINITIONS}
-        PUBLIC UPnPsdk_WITH_NATIVE_PUPNP
-    )
-    target_link_libraries(pupnp_static
-        PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
-        INTERFACE ixml_static
-    )
-
-    # Installation
-    install(TARGETS pupnp_static)
-
-else() # WIN32
-
-    # Link with POSIX Threads for Windows (pthreads4w)
-    #=================================================
-    # Pthreads are not supported by MS Windows. So we have installed the
-    # third party library pthreads4w.
-
-    # WIN32 Pupnp SHared library: -psh
-    #---------------------------------
-    add_library(pupnp_shared SHARED
-            ${PUPNP_SOURCE_FILES}
-    )
-    set_target_properties(pupnp_shared PROPERTIES
-            OUTPUT_NAME upnpsdk-pupnp
-    )
-    target_include_directories(pupnp_shared
-        ${PUPNP_INCLUDE_DIRECTORIES}
-    )
-    target_compile_definitions(pupnp_shared
-        ${PUPNP_COMPILE_DEFINITIONS}
-        PUBLIC UPnPsdk_WITH_NATIVE_PUPNP
-        PUBLIC UPnPsdk_SHARE
-        PRIVATE UPnPsdk_EXPORTS
-        PRIVATE $<$<BOOL:${PUPNP_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
-    )
-    target_link_libraries(pupnp_shared
-        PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
-        PUBLIC ixml_shared
-        # In addition to pthreads we need some more system libraries on WIN32
-        PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
-        PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
-                                                  # management tools
-        # On MS Windows we link with the static pthreads4w library to avoid error
-        # prone managing access to its .dll file.
-        # On Unix platforms we cannot link with the static pthreads library because
-        # then we have also to link with a static libc that's not available by
-        # default. Pthreads on Unix are system wide available so it also makes
-        # sense to use shared libs.
-        PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
-    )
-    target_link_options(pupnp_shared
-        # Ignore warning LNK4217: importing and defining locally the same symbol
-        PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/IGNORE:4217>
-    )
-
-    # Installation
-    install(TARGETS pupnp_shared)
+# WIN32 Pupnp SHared library: -psh
+#---------------------------------
+add_library(pupnp_shared SHARED
+        ${PUPNP_SOURCE_FILES}
+)
+set_target_properties(pupnp_shared PROPERTIES
+        OUTPUT_NAME upnpsdk-pupnp
+)
+target_include_directories(pupnp_shared
+    ${PUPNP_INCLUDE_DIRECTORIES}
+)
+target_compile_definitions(pupnp_shared
+    ${PUPNP_COMPILE_DEFINITIONS}
+    PUBLIC UPnPsdk_SHARE
+    PRIVATE UPnPsdk_EXPORTS
+)
+target_link_libraries(pupnp_shared
+    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+    PUBLIC ixml_shared
+    # In addition to pthreads we need some more system libraries on WIN32
+    PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
+    PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
+                                              # management tools
+    # On MS Windows we link with the static pthreads4w library to avoid error
+    # prone managing access to its .dll file.
+    # On Unix platforms we cannot link with the static pthreads library because
+    # then we have also to link with a static libc that's not available by
+    # default. Pthreads on Unix are system wide available so it also makes
+    # sense to use shared libs.
+    PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
+    # On WIN32 disable warning LNK4217: symbol 'symbol' defined in
+    # 'filename_1.obj' is imported by 'filename_2.obj' in function
+    # 'function'.
+    # Importing and defining locally the same symbol.
+    # E.g. this is why a source is included into a library and a test
+    # includes the source and also uses the library. The solution to avoid
+    # the warning presented by Microsoft is to create an additional
+    # library. But that isn't acceptable here because the additional
+    # library must also given to the user. So I suppress this uncritical
+    # warning because I know what I do. --Ingo
+    PRIVATE $<$<CXX_COMPILER_ID:MSVC>:-ignore:4217>
+)
 
 
-    # WIN32 Pupnp STatic library: suffix -pst
-    #----------------------------------------
-    add_library(pupnp_static STATIC
-            ${PUPNP_SOURCE_FILES}
-    )
-    set_target_properties(pupnp_static PROPERTIES
-            OUTPUT_NAME upnpsdk-pupnp-static
-    )
-    target_include_directories(pupnp_static
-        ${PUPNP_INCLUDE_DIRECTORIES}
-    )
-    target_compile_definitions(pupnp_static
-        ${PUPNP_COMPILE_DEFINITIONS}
-        PUBLIC UPnPsdk_WITH_NATIVE_PUPNP
-        PRIVATE $<$<BOOL:${PUPNP_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
-    )
-    target_link_libraries(pupnp_static
-        PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
-        INTERFACE ixml_static
-        # In addition to pthreads we need some more system libraries on WIN32
-        PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
-        PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
-                                                  # management tools
-        # On MS Windows we link with the static pthreads4w library to avoid error
-        # prone managing access to its .dll file.
-        # On Unix platforms we cannot link with the static pthreads library because
-        # then we have also to link with a static libc that's not available by
-        # default. Pthreads on Unix are system wide available so it also makes
-        # sense to use shared libs.
-        PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
-    )
+# WIN32 Pupnp STatic library: suffix -pst
+#----------------------------------------
+add_library(pupnp_static STATIC
+    ${PUPNP_SOURCE_FILES}
+)
+set_target_properties(pupnp_static PROPERTIES
+    OUTPUT_NAME $<IF:$<PLATFORM_ID:Windows>,upnpsdk-pupnp-static,upnpsdk-pupnp>
+)
+target_include_directories(pupnp_static
+    ${PUPNP_INCLUDE_DIRECTORIES}
+)
+target_compile_definitions(pupnp_static
+    ${PUPNP_COMPILE_DEFINITIONS}
+)
+target_link_libraries(pupnp_static
+    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+    INTERFACE ixml_static
+    # In addition to pthreads we need some more system libraries on WIN32
+    PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
+    PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
+                                              # management tools
+    # On MS Windows we link with the static pthreads4w library to avoid error
+    # prone managing access to its .dll file.
+    # On Unix platforms we cannot link with the static pthreads library because
+    # then we have also to link with a static libc that's not available by
+    # default. Pthreads on Unix are system wide available so it also makes
+    # sense to use shared libs.
+    PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
+)
 
-    # Installation
-    install(TARGETS pupnp_static)
 
-endif() # WIN32
+# Installation
+# ============
+install(TARGETS pupnp_shared pupnp_static)
 
 # vim: nowrap

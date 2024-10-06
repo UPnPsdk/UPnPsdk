@@ -1,16 +1,16 @@
 #ifndef UTEST_TOOLS_WIN32_HPP
 #define UTEST_TOOLS_WIN32_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-10-08
 
-#include <UPnPsdk/visibility.hpp> // for UPNPLIB_API
+#include <UPnPsdk/visibility.hpp> // for UPnPsdk_API
 #include <winsock2.h>
 #include <iphlpapi.h> // must be after <winsock2.h>
 #include <iostream>
 
 namespace utest {
 
-class UPNPLIB_API CNetIf4
+class UPnPsdk_API CNetIf4
 // Object to manage and fill a network adapter structure. This is needed for
 // mocked network interfaces. References:
 // [GetAdaptersAddresses_function_(iphlpapi.h)]
@@ -55,13 +55,13 @@ class UPNPLIB_API CNetIf4
   private:
     // Structures needed to form the interface structure.
     // https://docs.microsoft.com/en-us/windows/win32/winsock/sockaddr-2
-    UPNPLIB_LOCAL ::sockaddr_in m_inaddr{};
+    UPnPsdk_LOCAL ::sockaddr_in m_inaddr{};
     // https://docs.microsoft.com/en-us/windows/win32/api/ws2def/ns-ws2def-socket_address
-    UPNPLIB_LOCAL ::SOCKET_ADDRESS m_saddr{};
+    UPnPsdk_LOCAL ::SOCKET_ADDRESS m_saddr{};
     // https://docs.microsoft.com/en-us/windows/win32/api/iptypes/ns-iptypes-ip_adapter_unicast_address_lh?redirectedfrom=MSDN
-    UPNPLIB_LOCAL ::IP_ADAPTER_UNICAST_ADDRESS m_uniaddr{};
+    UPnPsdk_LOCAL ::IP_ADAPTER_UNICAST_ADDRESS m_uniaddr{};
     // https://docs.microsoft.com/en-us/windows/win32/api/iptypes/ns-iptypes-ip_adapter_addresses_lh#see-also
-    UPNPLIB_LOCAL ::IP_ADAPTER_ADDRESSES m_adapts{};
+    UPnPsdk_LOCAL ::IP_ADAPTER_ADDRESSES m_adapts{};
 
     // On the adapter (net interface) structure we only have pointer to strings
     // so we need to save them here to be sure we do not get dangling pointer.
@@ -72,9 +72,9 @@ class UPNPLIB_API CNetIf4
     // include file for DisplayString but may not exceed 255 character
     // (http://www.net-snmp.org/docs/mibs/ucdavis.html#DisplayString). --Ingo
 #define DisplayString 255
-    UPNPLIB_LOCAL WCHAR m_FriendlyName[DisplayString]{
+    UPnPsdk_LOCAL WCHAR m_FriendlyName[DisplayString]{
         L"Loopback Pseudo-Interface 1"};
-    UPNPLIB_LOCAL WCHAR m_Description[DisplayString]{
+    UPnPsdk_LOCAL WCHAR m_Description[DisplayString]{
         L"Mocked Adapter for Unit testing"};
 };
 

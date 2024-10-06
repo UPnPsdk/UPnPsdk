@@ -1,13 +1,12 @@
 #ifndef UPNPLIB_NET_NETADDR_HPP
 #define UPNPLIB_NET_NETADDR_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-10-05
 /*!
  * \file
  * \brief Declaration of the Netaddr class
  */
 
-#include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port.hpp>
 #include <UPnPsdk/port_sock.hpp>
 #include <UPnPsdk/socket.hpp>

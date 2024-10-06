@@ -1,13 +1,13 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-10-08
 
 // There is no include guard '#ifndef ...' because this file shouln't be
 // included more than two times as given.
 
 // winsock2.h is a Microsoft Windows library.
 
-#include "UPnPsdk/visibility.hpp"
-#include <winsock2.h>
+#include <UPnPsdk/visibility.hpp>
+#include <UPnPsdk/port_sock.hpp>
 
 namespace umock {
 
@@ -41,7 +41,7 @@ class Winsock2Real : public Winsock2Interface {
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
 // clang-format on
-class UPNPLIB_API Winsock2 {
+class UPnPsdk_API Winsock2 {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.
@@ -63,7 +63,7 @@ class UPNPLIB_API Winsock2 {
     // objects of this class. With inline we do not need an extra definition
     // line outside the class. I also make the symbol hidden so the variable
     // cannot be accessed globaly with Winsock2::m_ptr_workerObj.
-    UPNPLIB_LOCAL static inline Winsock2Interface* m_ptr_workerObj;
+    UPnPsdk_LOCAL static inline Winsock2Interface* m_ptr_workerObj;
     Winsock2Interface* m_ptr_oldObj{};
 };
 

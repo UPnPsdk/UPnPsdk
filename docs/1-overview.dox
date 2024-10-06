@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-09
+// Redistribution only with this Copyright remark. Last modified: 2024-10-08
 
 /*!
 \mainpage Overview
@@ -56,7 +56,7 @@ The problem is the access to files. The natural limit is given by the address st
 - To understand the problems here are some [relevant issues](https://github.com/pupnp/pupnp/issues?q=largefile)
 
 \section overview_visibility Visibility support
-Visibility Support provides a powerful optimization. I use it as described at the [GCC Wiki - Visibility](https://gcc.gnu.org/wiki/Visibility). It only belongs to shared libraries. Here in short the needed steps configured for this library:
+Visibility Support provides a powerful optimization. I use it as described at the [GCC Wiki - Visibility](https://gcc.gnu.org/wiki/Visibility). It only belongs to shared libraries. Here in short the needed steps configured for this software development kit:
 
 - Enable Visibility Support with CMake on the whole project:
 ```

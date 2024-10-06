@@ -1,7 +1,7 @@
-#ifndef UPNPLIB_INCLUDE_PORT_SOCK_HPP
-#define UPNPLIB_INCLUDE_PORT_SOCK_HPP
+#ifndef UPnPsdk_INCLUDE_PORT_SOCK_HPP
+#define UPnPsdk_INCLUDE_PORT_SOCK_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-06-14
+// Redistribution only with this Copyright remark. Last modified: 2024-10-07
 /*!
  * \file
  * \brief Specifications to be portable with sockets between different
@@ -55,6 +55,7 @@
   // Posix has sa_family_t defined.
   // Posix has socklen_t defined.
   // Posix has in_port_t defined.
+  // Posix has in_addr_t defined.
 
   // socket() returns INVALID_SOCKET on win32 and is unsigned.
   #define INVALID_SOCKET (-1)
@@ -81,4 +82,4 @@
 // clang-format on
 
 /// \endcond
-#endif // UPNPLIB_INCLUDE_PORT_SOCK_HPP
+#endif // UPnPsdk_INCLUDE_PORT_SOCK_HPP

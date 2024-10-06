@@ -50,6 +50,6 @@ void Stdlib::free(void* ptr) { return m_ptr_workerObj->free(ptr); }
 // This will exist until program end.
 StdlibReal stdlib_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPNPLIB_API Stdlib stdlib_h(&stdlib_realObj);
+UPnPsdk_API Stdlib stdlib_h(&stdlib_realObj);
 
 } // namespace umock
