@@ -23,10 +23,10 @@ set (IXML_SOURCES
 
 set (IXML_INCLUDE_DIRECTORIES
     PUBLIC inc
-    PUBLIC src/inc
+    PRIVATE src/inc
     # Next variable is needed for one step configure. Don't use
     # PRIVATE ${PUPNP_UPNP_SOURCE_DIR}/inc
-    PUBLIC ${PUPNP_SOURCE_DIR}/upnp/inc
+    PRIVATE ${PUPNP_SOURCE_DIR}/upnp/inc
 )
 
 # ixml shared library
@@ -43,10 +43,9 @@ target_include_directories(ixml_shared
 target_compile_definitions(ixml_shared
     PRIVATE UPnPsdk_EXPORTS
     PRIVATE $<$<BOOL:${UPnPsdk_WITH_IXML_SCRIPT}>:IXML_HAVE_SCRIPTSUPPORT>
-    PRIVATE $<$<CONFIG:Debug>:DEBUG>
 )
 target_link_libraries(ixml_shared
-    PRIVATE UPnPsdk_shared   # for Umock
+    PUBLIC UPnPsdk_shared   # for Umock
 )
 
 # ixml static library
@@ -62,7 +61,6 @@ target_include_directories(ixml_static
 )
 target_compile_definitions(ixml_static
     PRIVATE $<$<BOOL:${UPnPsdk_WITH_IXML_SCRIPT}>:IXML_HAVE_SCRIPTSUPPORT>
-    PRIVATE $<$<CONFIG:Debug>:DEBUG>
 )
 target_link_libraries(ixml_static
     PRIVATE UPnPsdk_static   # for Umock
