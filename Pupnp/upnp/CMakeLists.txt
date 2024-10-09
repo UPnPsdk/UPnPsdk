@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-08
+# Redistribution only with this Copyright remark. Last modified: 2024-10-09
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -29,7 +29,7 @@ set(PUPNP_DEF_GENA YES) #${UPnPsdk_WITH_GENA})           # gena -> UPNP_ENABLE_G
                                                      #   compiles only with PUPNP_DEF_CLIENT and PUPNP_DEF_DEVICE
 set(PUPNP_DEF_OPENSSL ${UPnPsdk_WITH_OPENSSL})     # open_ssl -> UPNP_ENABLE_OPEN_SSL
 set(PUPNP_DEF_BLOCKTCP NO) #${UPnPsdk_WITH_BLOCKTCP})   # blocking_tcp_connections -> UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS
-set(PUPNP_DEF_IXML YES) #${UPnPsdk_WITH_IXML})           # scriptsupport -> IXML_HAVE_SCRIPTSUPPORT
+#set(PUPNP_DEF_IXML YES) #${UPnPsdk_WITH_IXML_SCRIPT})   # scriptsupport -> IXML_HAVE_SCRIPTSUPPORT
 #set(PUPNP_DEF_UNSPECSVR NO)                        # unspecified_server -> UPNP_ENABLE_UNSPECIFIED_SERVER
 #set(PUPNP_DEF_REUSEADDR NO)                        # reuseaddr -> UPNP_MINISERVER_REUSEADDR
 if(UPnPsdk_WITH_SAMPLES)                             # all samples -> UPNP_BUILD_SAMPLES
@@ -197,7 +197,7 @@ set(PUPNP_COMPILE_DEFINITIONS
         UPnPsdk_WITH_NATIVE_PUPNP
         UPNP_ENABLE_IPV6
         $<$<BOOL:${PUPNP_DEF_DEBUG}>:UPNP_HAVE_DEBUG>
-        $<$<BOOL:${PUPNP_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
+        #$<$<BOOL:${PUPNP_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
         $<$<BOOL:${PUPNP_DEF_TOOLS}>:UPNP_HAVE_TOOLS>
         $<$<BOOL:${PUPNP_DEF_WEBSERVER}>:UPNP_HAVE_WEBSERVER>
         $<$<BOOL:${PUPNP_DEF_SSDP}>:UPNP_HAVE_SSDP>

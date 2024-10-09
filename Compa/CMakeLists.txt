@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-08
+# Redistribution only with this Copyright remark. Last modified: 2024-10-09
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -26,7 +26,6 @@ set(COMPA_DEF_DEVICE_SOAP ${UPnPsdk_WITH_DEVICE_SOAP})
 set(COMPA_DEF_CTRLPT_GENA ${UPnPsdk_WITH_CTRLPT_GENA})
 set(COMPA_DEF_DEVICE_GENA ${UPnPsdk_WITH_DEVICE_GENA})
 set(COMPA_DEF_TOOLS ${UPnPsdk_WITH_TOOLS})         # tools -> UPNP_ENABLE_HELPER_API_TOOLS
-set(COMPA_DEF_IXML ${UPnPsdk_WITH_IXML})           # scriptsupport -> IXML_HAVE_SCRIPTSUPPORT
 set(COMPA_DEF_GOOGLETEST ${UPnPsdk_WITH_GOOGLETEST})
 #set(COMPA_DEF_BLOCKTCP ${UPnPsdk_WITH_BLOCKTCP})  # blocking_tcp_connections -> COMPA_ENABLE_BLOCKING_TCP_CONNECTIONS
 #set(COMPA_DEF_UNSPECSVR ${UPnPsdk_WITH_UNSPECIFIED_SERVER}) # unspecified_server -> UPNP_ENABLE_UNSPECIFIED_SERVER
@@ -254,7 +253,6 @@ set(COMPA_COMPILE_DEFINITIONS
         $<$<BOOL:${COMPA_DEF_CTRLPT_GENA}>:COMPA_HAVE_CTRLPT_GENA>
         $<$<BOOL:${COMPA_DEF_DEVICE_GENA}>:COMPA_HAVE_DEVICE_GENA>
 
-        $<$<BOOL:${COMPA_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
         $<$<BOOL:${COMPA_DEF_TOOLS}>:UPNP_HAVE_TOOLS>
         $<$<BOOL:${COMPA_DEF_DEBUG}>:UPNP_HAVE_DEBUG>
 )

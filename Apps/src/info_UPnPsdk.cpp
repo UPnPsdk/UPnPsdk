@@ -3,7 +3,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-09-16
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -89,12 +89,6 @@ void* library_info(void*) {
     msg << "UPNP_ENABLE_OPEN_SSL    = yes\n";
 #else
     msg << "UPNP_ENABLE_OPEN_SSL    = no\n";
-#endif
-
-#ifdef IXML_HAVE_SCRIPTSUPPORT
-    msg << "IXML_HAVE_SCRIPTSUPPORT = yes\n";
-#else
-    msg << "IXML_HAVE_SCRIPTSUPPORT = no\n";
 #endif
 
 #ifdef UPNP_HAVE_TOOLS
