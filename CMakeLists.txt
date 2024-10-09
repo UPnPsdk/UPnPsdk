@@ -1,11 +1,11 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-06
+# Redistribution only with this Copyright remark. Last modified: 2024-10-10
 
 cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
 include(UPnPsdk-ProjectHeader)
 
-project("UPnPsdk" VERSION "0.13.0"
+project("UPnPsdk" VERSION "0.14.0"
                 DESCRIPTION "UPnP Software Development Kit"
                 HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -36,7 +36,7 @@ option(UPnPsdk_WITH_CTRLPT_SOAP "Enable SOAP, the Simple Object Access Protocol.
 option(UPnPsdk_WITH_DEVICE_SOAP "Enable SOAP, the Simple Object Access Protocol." OFF)
 option(UPnPsdk_WITH_CTRLPT_GENA "Enable GENA, the General Event Notification Architecture." OFF)
 option(UPnPsdk_WITH_DEVICE_GENA "Enable GENA, the General Event Notification Architecture." OFF)
-option(UPnPsdk_WITH_IXML "Enable IXML script support." OFF)
+option(UPnPsdk_WITH_IXML_SCRIPT "Enable IXML script support." OFF)
 option(UPnPsdk_WITH_TOOLS "Make some not essential program features available like text for error numbers etc." OFF)
 option(UPnPsdk_WITH_SAMPLES "Provide sample programs UPnP device and control point." OFF)
 option(UPnPsdk_WITH_GOOGLETEST "Download and build Googletest." OFF)
@@ -96,6 +96,7 @@ set(UPNP_PTHREADS_STATIC_LIBRARY libpthread.a CACHE INTERNAL "Name of the linkab
 # REF: [RPATH-handling](https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 set(UMOCK_SOURCE_DIR "${CMAKE_SOURCE_DIR}/Umock")
+set(IXML_TESTDATA_DIR "${CMAKE_SOURCE_DIR}/Pupnp/ixml/test/testdata")
 
 
 #################################

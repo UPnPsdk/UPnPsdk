@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-07
+# Redistribution only with this Copyright remark. Last modified: 2024-10-09
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -178,8 +178,9 @@ add_test(NAME ctest_template COMMAND test_template --gtest_shuffle
 )
 
 
-add_subdirectory(./compa)
 add_subdirectory(./UPnPsdk)
+add_subdirectory(./compa)
+add_subdirectory(./ixml)
 if(NOT DEFINED ENV{GITHUB_ACTIONS})
     add_subdirectory(./sample)
 endif()
