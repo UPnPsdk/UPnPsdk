@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-09
+# Redistribution only with this Copyright remark. Last modified: 2024-10-10
 
 cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -96,7 +96,7 @@ set(UPNP_PTHREADS_STATIC_LIBRARY libpthread.a CACHE INTERNAL "Name of the linkab
 # REF: [RPATH-handling](https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 set(UMOCK_SOURCE_DIR "${CMAKE_SOURCE_DIR}/Umock")
-set(IXML_TESTDATA_DIR "${PUPNP_SOURCE_DIR}/ixml/test/testdata")
+set(IXML_TESTDATA_DIR "${CMAKE_SOURCE_DIR}/Pupnp/ixml/test/testdata")
 
 
 #################################

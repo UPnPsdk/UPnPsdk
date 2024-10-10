@@ -14,14 +14,20 @@ TEST(IxmlTestSuite, load_document_ex) {
     EXPECT_EQ(rc, IXML_SUCCESS);
 
     DOMString s = ixmlPrintDocument(doc);
-    std::cout << s;
     EXPECT_TRUE((s != nullptr) && (s[0] != '\0'));
+    if (s == nullptr || s[0] == '\0') {
+        ixmlDocument_free(doc);
+        GTEST_FAIL();
+    }
 
     // Skip trailing spaces
     char* p = s + strlen(s) - 1;
     while (isspace(*p) && p > s)
         p--;
     EXPECT_TRUE(*s == '<' && *p == '>');
+
+    ixmlFreeDOMString(s);
+    ixmlDocument_free(doc);
 }
 
 } // namespace utest
