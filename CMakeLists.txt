@@ -96,6 +96,7 @@ set(UPNP_PTHREADS_STATIC_LIBRARY libpthread.a CACHE INTERNAL "Name of the linkab
 # REF: [RPATH-handling](https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 set(UMOCK_SOURCE_DIR "${CMAKE_SOURCE_DIR}/Umock")
+set(IXML_TESTDATA_DIR "${PUPNP_SOURCE_DIR}/ixml/test/testdata")
 
 
 #################################

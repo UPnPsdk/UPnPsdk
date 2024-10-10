@@ -26,7 +26,8 @@ set (IXML_INCLUDE_DIRECTORIES
     PRIVATE src/inc
     # Next variable is needed for one step configure. Don't use
     # PRIVATE ${PUPNP_UPNP_SOURCE_DIR}/inc
-    PRIVATE ${PUPNP_SOURCE_DIR}/upnp/inc
+    PUBLIC ${PUPNP_SOURCE_DIR}/upnp/inc
+    INTERFACE ${CMAKE_BINARY_DIR}/include
 )
 
 # ixml shared library

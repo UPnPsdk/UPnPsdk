@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-08
+// Redistribution only with this Copyright remark. Last modified: 2024-10-10
 
 /*!
 \mainpage Overview
@@ -69,7 +69,7 @@ CXX_VISIBILITY_PRESET hidden
 VISIBILITY_INLINES_HIDDEN ON)
 ```<br/>
 
-- When building a shared library set its compile definitions to <code>UPnPsdk_SHARE</code> and <code>UPnPsdk_EXPORTS</code>. You should declare <code>UPnPsdk_SHARE</code> to be **PUBLIC**. With nested calls this is only needed for the first library if they are declared PUBLIC. CMake propagates the compile definition. With other combinations you have to respect CMakes propagation rules for PRIVATE, PUBLIC, INTERFACE and it may be necessary to also declare <code>UPnPsdk_SHARE</code> on following libraries and executables. In result every shared library and executable using it, must see <code>UPnPsdk_SHARE</code>. Never set <code>UPnPsdk_EXPORTS</code> to PUBLIC. This may see an executable target that should not export symbols.
+- When building a shared library set its compile definitions to <code>UPnPsdk_SHARE</code> and <code>UPnPsdk_EXPORTS</code>. You should declare <code>UPnPsdk_SHARE</code> to be **PUBLIC**. With nested use of libraries this is only needed for the first library. CMake propagates the compile definition. With other combinations you have to respect CMakes propagation rules for PRIVATE, PUBLIC, INTERFACE and it may be necessary to also declare <code>UPnPsdk_SHARE</code> on following libraries and executables. In result every shared library and executable using it, must see <code>UPnPsdk_SHARE</code>. Never set <code>UPnPsdk_EXPORTS</code> to PUBLIC. This may see an executable target that should not export symbols.
 ```
 add_library(UPnPsdk_shared SHARED
         ${UPnPsdk_SOURCE_FILES})
@@ -87,7 +87,7 @@ target_link_libraries(compa_shared
 add_executable(api_calls-csh
         ${API_CALLS_SOURCE_FILES})
 target_link_libraries(api_calls-csh
-        PRIVAT compa_shared)
+        PRIVATE compa_shared)
 ```
 But you need with:
 ```

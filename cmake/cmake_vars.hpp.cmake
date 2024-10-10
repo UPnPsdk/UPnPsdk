@@ -28,6 +28,8 @@
 #cmakedefine CMAKE_BINARY_DIR "${CMAKE_BINARY_DIR}"
 // Path to sample source directory to access web subdirectory
 #cmakedefine SAMPLE_SOURCE_DIR "${SAMPLE_SOURCE_DIR}"
+// Path to ixml source directory
+#cmakedefine IXML_TESTDATA_DIR "${IXML_TESTDATA_DIR}"
 
 /***************************************************************************
  * Library version

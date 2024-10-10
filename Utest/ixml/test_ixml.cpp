@@ -3,10 +3,26 @@
 
 #include <gmock/gmock.h>
 #include <UPnPsdk/global.hpp>
+#include <ixml.hpp>
 
 namespace utest {
 
-TEST(EmptyTestSuite, empty_gtest) {}
+TEST(IxmlTestSuite, load_document_ex) {
+    IXML_Document* doc{};
+
+    int rc = ixmlLoadDocumentEx(IXML_TESTDATA_DIR "/empty_attribute.xml", &doc);
+    EXPECT_EQ(rc, IXML_SUCCESS);
+
+    DOMString s = ixmlPrintDocument(doc);
+    std::cout << s;
+    EXPECT_TRUE((s != nullptr) && (s[0] != '\0'));
+
+    // Skip trailing spaces
+    char* p = s + strlen(s) - 1;
+    while (isspace(*p) && p > s)
+        p--;
+    EXPECT_TRUE(*s == '<' && *p == '>');
+}
 
 } // namespace utest
 
