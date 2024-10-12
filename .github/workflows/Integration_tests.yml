@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: jidicula/clang-format-action@v4.11.0
       with:
-        clang-format-version: '17'
+        clang-format-version: '18'
 
 
   # Job: Configure, build and test Ubuntu
@@ -25,7 +25,7 @@ jobs:
   Build_Ubuntu:
     if: true
     name: Test Ubuntu
-    needs: [ clang ]
+    #needs: [ clang ]
     runs-on: ubuntu-24.04
 
     strategy:
@@ -117,7 +117,7 @@ jobs:
   Build_MacOS:
     if: true
     name: Test MacOS
-    needs: [ clang ]
+    #needs: [ clang ]
     runs-on: macos-13
 
     strategy:
@@ -194,7 +194,7 @@ jobs:
   Build_with_Visual_Studio:
     if: true
     name: Test w/ VS
-    needs: [ clang ]
+    #needs: [ clang ]
     runs-on: ${{ matrix.os }}
 
     strategy:

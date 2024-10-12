@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-18
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -35,59 +35,72 @@
  * \brief String to integer and integer to string conversion functions.
  */
 
-#include <UPnPsdk/synclog.hpp>
 #include <strintmap.hpp>
-#include <membuffer.hpp>
+#include <UPnPsdk/synclog.hpp>
+#include <array>
 
+/// \brief Size of the temporary std::array() container that can hold all tables
+constexpr size_t container_size{33};
 
+/// \todo This complex and expensive interface wrapper must be removed.
 int map_str_to_int(const char* name, size_t name_len,
                    const str_int_entry* table, int num_entries,
                    int case_sensitive) {
     TRACE("Executing map_str_to_int()");
-    if (name == nullptr || table == nullptr)
+    // num_entries must not be negative due to unsigned type cast later.
+    if (name_len <= 0 || table == nullptr || num_entries <= 0)
         return -1;
 
-    int top, mid, bot;
-    int cmp;
-    memptr name_ptr;
-
-    name_ptr.buf = (char*)name;
-    name_ptr.length = name_len;
-
-    top = 0;
-    bot = num_entries - 1;
-
-    while (top <= bot) {
-        mid = (top + bot) / 2;
-        if (case_sensitive) {
-            /*cmp = strcmp( name, table[mid].name ); */
-            cmp = memptr_cmp(&name_ptr, table[mid].name);
-        } else {
-            /*cmp = strcasecmp( name, table[mid].name ); */
-            cmp = memptr_cmp_nocase(&name_ptr, table[mid].name);
-        }
-
-        if (cmp > 0) {
-            top = mid + 1; /* look below mid */
-        } else if (cmp < 0) {
-            bot = mid - 1; /* look above mid */
-        } else {           /* cmp == 0 */
-            return mid;    /* match; return table index */
-        }
+    // Create a std::array container from plain C array.
+    std::array<str_int_entry, container_size> tbl{};
+    if (tbl.size() < static_cast<size_t>(num_entries)) {
+        UPNPLIB_LOGCRIT "MSG1029: std::array container["
+            << tbl.size() << "] is to small, requested " << num_entries
+            << " entries. This program error MUST be fixed! Program is stable "
+               "but may have ignored runtime conditions.\n";
+        return -1;
+    }
+    size_t i{0};
+    for (; i < static_cast<size_t>(num_entries); i++) {
+        tbl[i] = table[i];
+    }
+    // Fill remaining entries with dummy values needed for binary search.
+    constexpr char str_zzzz[]{"ZZZZ"};
+    for (; i < tbl.size(); i++) {
+        tbl[i].name = str_zzzz;
+        tbl[i].id = INT_MIN + 8;
     }
 
-    return -1; /* header name not found */
+    return UPnPsdk::str_to_int(name, tbl, case_sensitive);
 }
 
+
+/// \todo This complex and expensive interface wrapper must be removed.
 int map_int_to_str(int id, const str_int_entry* table, int num_entries) {
     TRACE("Executing map_int_to_str()");
-    if (table == nullptr)
+    // num_entries must not be negative due to unsigned type cast later.
+    if (table == nullptr || num_entries <= 0)
         return -1;
 
-    for (int i = 0; i < num_entries; i++) {
-        if (table[i].id == id) {
-            return i;
-        }
+    // Create a std::array container from plain C array.
+    std::array<str_int_entry, container_size> tbl{};
+    if (tbl.size() < static_cast<size_t>(num_entries)) {
+        UPNPLIB_LOGCRIT "MSG1032: std::array container["
+            << tbl.size() << "] is to small, requested " << num_entries
+            << " entries. This program error MUST be fixed! Program is stable "
+               "but may have ignored runtime conditions.\n";
+        return -1;
     }
-    return -1;
+    size_t i{0};
+    for (; i < static_cast<size_t>(num_entries); i++) {
+        tbl[i] = table[i];
+    }
+    // Fill remaining entries with dummy values needed for binary search.
+    constexpr char str_zzzz[]{"ZZZZ"};
+    for (; i < tbl.size(); i++) {
+        tbl[i].name = str_zzzz;
+        tbl[i].id = INT_MIN + 8;
+    }
+
+    return UPnPsdk::int_to_str(id, tbl);
 }

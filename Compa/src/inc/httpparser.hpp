@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-02-14
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-11
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -152,10 +152,9 @@ enum http_method_t {
 /// @}
 
 // clang-format off
-/// \brief Assigns header-name id to its text representation.
-inline constexpr std::array<const str_int_entry, 35> Http_Header_Names {{
-    {"ACCEPT", HDR_ACCEPT},
-    {"ACCEPT-CHARSET", HDR_ACCEPT_CHARSET},
+/*! \brief Assigns header-name id to its text representation. */
+// This is prepared for binary search and must be sorted by header-name.
+inline constexpr std::array<const str_int_entry, 33> Http_Header_Names {{
     {"ACCEPT", HDR_ACCEPT},
     {"ACCEPT-CHARSET", HDR_ACCEPT_CHARSET},
     {"ACCEPT-ENCODING", HDR_ACCEPT_ENCODING},

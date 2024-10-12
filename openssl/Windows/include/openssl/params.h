@@ -19,13 +19,13 @@
 extern "C" {
 #endif
 
-#define OSSL_PARAM_UNMODIFIED ((size_t)-1)
+// clang-format off
+#define OSSL_PARAM_UNMODIFIED ((size_t) - 1)
 
-#define OSSL_PARAM_END                                                         \
-    { NULL, 0, NULL, 0, 0 }
+#define OSSL_PARAM_END {NULL, 0, NULL, 0, 0}
 
 #define OSSL_PARAM_DEFN(key, type, addr, sz)                                   \
-    { (key), (type), (addr), (sz), OSSL_PARAM_UNMODIFIED }
+    {(key), (type), (addr), (sz), OSSL_PARAM_UNMODIFIED}
 
 /* Basic parameter types without return sizes */
 #define OSSL_PARAM_int(key, addr)                                              \
@@ -66,6 +66,7 @@ extern "C" {
     OSSL_PARAM_DEFN((key), OSSL_PARAM_UTF8_PTR, (addr), sz)
 #define OSSL_PARAM_octet_ptr(key, addr, sz)                                    \
     OSSL_PARAM_DEFN((key), OSSL_PARAM_OCTET_PTR, (addr), sz)
+// clang-format on
 
 /* Search an OSSL_PARAM array for a matching name */
 OSSL_PARAM* OSSL_PARAM_locate(OSSL_PARAM* p, const char* key);

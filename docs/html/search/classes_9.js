@@ -13,7 +13,7 @@ var searchData=
   ['s_5fupnpstatevarrequest_10',['s_UpnpStateVarRequest',['../d3/d7b/UpnpStateVarRequest_8cpp.html#d1/de3/structs__UpnpStateVarRequest',1,'']]],
   ['s_5fupnpstring_11',['s_UpnpString',['../d1/d03/group__UpnpString.html#d8/dbb/structs__UpnpString',1,'']]],
   ['s_5fupnpsubscriptionrequest_12',['s_UpnpSubscriptionRequest',['../d4/d6b/UpnpSubscriptionRequest_8cpp.html#d0/dff/structs__UpnpSubscriptionRequest',1,'']]],
-  ['scanner_5ft_13',['scanner_t',['../db/da7/httpparser_8hpp.html#dc/d0a/structscanner__t',1,'']]],
+  ['scanner_5ft_13',['scanner_t',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#dc/d0a/structscanner__t',1,'']]],
   ['sendinstruction_14',['SendInstruction',['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#d0/d20/structSendInstruction',1,'']]],
   ['service_5finfo_15',['service_info',['../db/d74/service__table_8hpp.html#df/db2/structservice__info',1,'']]],
   ['service_5ftable_16',['service_table',['../db/d74/service__table_8hpp.html#df/d30/structservice__table',1,'']]],
@@ -26,6 +26,6 @@ var searchData=
   ['ssdpsearchexparg_23',['SsdpSearchExpArg',['../d0/d19/ssdp__common_8hpp.html#d2/d52/structSsdpSearchExpArg',1,'']]],
   ['ssdpsearchreply_24',['SsdpSearchReply',['../d0/d19/ssdp__common_8hpp.html#df/dd8/structSsdpSearchReply',1,'']]],
   ['ssockaddr_25',['SSockaddr',['../dc/df7/structUPnPsdk_1_1SSockaddr.html',1,'UPnPsdk']]],
-  ['str_5fint_5fentry_26',['str_int_entry',['../df/df3/strintmap_8hpp.html#d7/d2f/structstr__int__entry',1,'']]],
+  ['str_5fint_5fentry_26',['str_int_entry',['../dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry',1,'UPnPsdk']]],
   ['subscription_27',['subscription',['../db/d74/service__table_8hpp.html#dd/dc7/structsubscription',1,'']]]
 ];

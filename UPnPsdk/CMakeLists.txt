@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-09
+# Redistribution only with this Copyright remark. Last modified: 2024-10-18
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -49,6 +49,21 @@ set(UPnPsdk_INCLUDE_DIRECTORIES
 
 # UPnPsdk libraries
 #==================
+if(FALSE)
+add_library(UPnPsdk_object OBJECT
+    ${UPnPsdk_SOURCE_FILES}
+)
+target_include_directories(UPnPsdk_object
+    ${UPnPsdk_INCLUDE_DIRECTORIES}
+)
+target_compile_definitions(UPnPsdk_object
+    PUBLIC UPnPsdk_SHARE
+    PRIVATE UPnPsdk_EXPORTS
+)
+target_link_libraries(UPnPsdk_object
+    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+)
+endif()
 
 # UPnPsdk SHared library: suffix -ush
 #------------------------------------

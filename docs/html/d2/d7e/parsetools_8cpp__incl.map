@@ -1,24 +1,5 @@
 <map id="Compa/src/genlib/net/http/parsetools.cpp" name="Compa/src/genlib/net/http/parsetools.cpp">
-<area shape="rect" id="Node000001" title="Function to extract header information from an http message and match the data with XML data." alt="" coords="233,5,380,45"/>
-<area shape="rect" id="Node000002" href="$db/da7/httpparser_8hpp.html" title="Functions to parse UPnP messages like requests and responses." alt="" coords="254,93,359,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="309,46,309,79,304,79,304,46"/>
-<area shape="rect" id="Node000003" href="$de/dd1/LinkedList_8hpp.html" title="Manage a linked list (for internal use only)." alt="" coords="5,167,112,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="268,121,113,165,111,160,266,116"/>
-<area shape="rect" id="Node000008" href="$d1/d10/membuffer_8hpp.html" title="Manage blocks of dynamically allocated memory." alt="" coords="137,167,245,192"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="289,121,223,162,220,157,287,116"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="269,167,344,192"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="309,119,309,153,304,153,304,119"/>
-<area shape="rect" id="Node000010" href="$df/df3/strintmap_8hpp.html" title="String to integer and integer to string conversion functions." alt="" coords="368,167,469,192"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="326,116,390,157,387,161,323,121"/>
-<area shape="rect" id="Node000011" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="437,240,499,265"/>
-<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="360,107,392,113,426,123,458,140,484,165,490,180,491,197,483,228,478,227,486,196,485,182,479,168,455,144,424,128,391,118,359,112"/>
-<area shape="rect" id="Node000004" href="$d8/d1c/FreeList_8hpp.html" title="Manage a free list (for internal use only)." alt="" coords="163,240,258,265"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="84,190,175,232,173,237,82,194"/>
-<area shape="rect" id="Node000005" href="$d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="167,313,254,339"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="213,266,213,300,208,300,208,266"/>
-<area shape="rect" id="Node000007" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="354,313,507,339"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="247,263,383,307,382,312,245,268"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="173,387,249,412"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="213,339,213,373,208,373,208,339"/>
-<area shape="poly" id="edge11_Node000011_Node000007" title=" " alt="" coords="464,267,445,303,441,300,459,264"/>
+<area shape="rect" id="Node000001" title="Function to extract header information from an http message and match the data with XML data." alt="" coords="5,5,165,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="27,93,143,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,46,88,79,83,79,83,46"/>
 </map>

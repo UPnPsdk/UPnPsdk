@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-04-11
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -42,22 +42,19 @@
  * must be sorted by the key.
  */
 
+#include <UPnPsdk/strintmap.hpp>
 /// \cond
 #include <cstddef> // for size_t
-/// \endcond
 
-/// String to integer map entry.
-struct str_int_entry {
-    const char* name; ///< A value in string form.
-    const int id;     ///< Same value in integer form.
-};
+using str_int_entry = UPnPsdk::str_int_entry;
+/// \endcond
 
 /*!
  * \brief Match the given name with names from the entries in the table.
  *
  * \returns
  * On success: Zero based index (position) on the table of entries.\n
- * On failure: -1
+ * On failure: \b -1 means string not found
  */
 // Don't export function symbol; only used library intern.
 int map_str_to_int(
@@ -67,7 +64,8 @@ int map_str_to_int(
         table,         ///< [in] Table of entries that need to be matched.
     int num_entries,   /*!< [in] Number of entries in the table that need to be
                                  searched. */
-    int case_sensitive ///< [in] Whether search should be case sensitive or not.
+    int case_sensitive /*!< [in] \b 0 means no case sensitive search, **not 0**
+                                 means case sensitive search. */
 );
 
 /*!
@@ -76,7 +74,7 @@ int map_str_to_int(
  *
  * \returns
  * On success: Zero based index (position) on the table of entries.\n
- * On error: -1
+ * On failure: \b -1 means id not found
  */
 // Don't export function symbol; only used library intern.
 int map_int_to_str( //

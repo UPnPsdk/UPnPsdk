@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['name_0',['name',['../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a001ffd8c54e8022a32a4eafb033dfbdf',1,'anonymous_namespace{webserver.cpp}::xml_alias_t::name'],['../db/da7/httpparser_8hpp.html#a39ccc6b29221ffaf48476329eb43b00c',1,'http_header_t::name'],['../df/df3/strintmap_8hpp.html#ac80804b53fc557637ac4c77fdbc3532f',1,'str_int_entry::name']]],
-  ['name_5fbuf_1',['name_buf',['../db/da7/httpparser_8hpp.html#a785af325a54ed965881f17cf52c29f90',1,'http_header_t']]],
-  ['name_5fid_2',['name_id',['../db/da7/httpparser_8hpp.html#acd520c762356814ae21b9de9446f9397',1,'http_header_t']]],
-  ['name_5fsize_3',['NAME_SIZE',['../d9/d8f/API_8hpp.html#a834e9a379307f869a10f4da078be5786',1,'API.hpp']]],
+  ['name_0',['name',['../dd/d67/namespaceUPnPsdk.html#a6845b46c47d390c898d7d70571f31d74',1,'UPnPsdk::str_int_entry::name'],['../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a001ffd8c54e8022a32a4eafb033dfbdf',1,'anonymous_namespace{webserver.cpp}::xml_alias_t::name'],['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a39ccc6b29221ffaf48476329eb43b00c',1,'http_header_t::name']]],
+  ['name_5fbuf_1',['name_buf',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a785af325a54ed965881f17cf52c29f90',1,'http_header_t']]],
+  ['name_5fid_2',['name_id',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#acd520c762356814ae21b9de9446f9397',1,'http_header_t']]],
+  ['name_5fsize_3',['NAME_SIZE',['../d0/d5f/Compa_2inc_2API_8hpp.html#a834e9a379307f869a10f4da078be5786',1,'API.hpp']]],
   ['namecopy_4',['namecopy',['../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#aaff3151949d24586b6cd210fec3890b2',1,'anonymous_namespace{soap_device.cpp}']]],
   ['netaddr_5',['netaddr',['../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a552cda29b8977682e5b4dab84aec04cc',1,'UPnPsdk::CSocket_basic::netaddr()'],['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a15cdd6812fb1fd64d446021ea0236af5',1,'UPnPsdk::SSockaddr::netaddr()'],['../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a45256d468608a1963365bee860901d49',1,'UPnPsdk::CAddrinfo::netaddr()'],['../dd/d03/classUPnPsdk_1_1Netaddr.html',1,'UPnPsdk::Netaddr']]],
   ['netaddr_2ecpp_6',['netaddr.cpp',['../d5/dd7/netaddr_8cpp.html',1,'']]],

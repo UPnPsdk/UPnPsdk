@@ -1,35 +1,18 @@
 <map id="Compa/src/genlib/net/http/httpparser.cpp" name="Compa/src/genlib/net/http/httpparser.cpp">
-<area shape="rect" id="Node000001" title="Contains functions for scanner and parser for http messages." alt="" coords="437,5,584,45"/>
-<area shape="rect" id="Node000002" href="$db/da7/httpparser_8hpp.html" title="Functions to parse UPnP messages like requests and responses." alt="" coords="274,93,379,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="468,48,367,90,365,85,466,43"/>
-<area shape="rect" id="Node000012" href="$d9/df0/statcodes_8hpp.html" title="HTTP status codes." alt="" coords="465,240,569,265"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="520,45,533,93,539,143,535,192,527,227,522,226,529,192,533,143,528,94,515,46"/>
-<area shape="rect" id="Node000013" href="$d8/d32/upnpdebug_8hpp.html" title="Manage Debug messages with levels &quot;critical&quot; to &quot;all&quot;." alt="" coords="409,93,519,119"/>
-<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="502,47,480,83,476,80,497,44"/>
-<area shape="rect" id="Node000014" href="$d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="595,93,747,119"/>
-<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="550,43,636,85,634,90,548,48"/>
-<area shape="rect" id="Node000003" href="$de/dd1/LinkedList_8hpp.html" title="Manage a linked list (for internal use only)." alt="" coords="5,167,112,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="284,121,116,166,114,161,283,116"/>
-<area shape="rect" id="Node000008" href="$d1/d10/membuffer_8hpp.html" title="Manage blocks of dynamically allocated memory." alt="" coords="137,167,245,192"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="306,121,226,163,224,158,304,116"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="445,167,520,192"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="353,116,446,158,444,163,351,121"/>
-<area shape="rect" id="Node000010" href="$df/df3/strintmap_8hpp.html" title="String to integer and integer to string conversion functions." alt="" coords="269,167,371,192"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="328,119,325,153,320,153,323,119"/>
-<area shape="rect" id="Node000011" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="379,240,440,265"/>
-<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="342,117,364,138,385,165,399,196,407,226,402,227,394,198,380,168,360,141,339,121"/>
-<area shape="rect" id="Node000004" href="$d8/d1c/FreeList_8hpp.html" title="Manage a free list (for internal use only)." alt="" coords="239,240,334,265"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="96,189,237,233,236,238,95,195"/>
-<area shape="rect" id="Node000005" href="$d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="243,313,330,339"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="289,266,289,300,284,300,284,266"/>
-<area shape="rect" id="Node000007" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="398,313,551,339"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="318,263,432,306,430,311,316,268"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="249,387,325,412"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="289,339,289,373,284,373,284,339"/>
-<area shape="poly" id="edge11_Node000011_Node000007" title=" " alt="" coords="422,264,457,301,453,305,418,267"/>
-<area shape="poly" id="edge13_Node000012_Node000007" title=" " alt="" coords="513,267,491,303,486,300,508,264"/>
-<area shape="poly" id="edge15_Node000013_Node000009" title=" " alt="" coords="470,118,479,153,474,154,465,120"/>
-<area shape="poly" id="edge18_Node000014_Node000007" title=" " alt="" coords="666,120,637,168,623,196,614,220,603,242,583,267,552,292,519,310,517,305,549,287,579,263,599,240,609,218,618,194,632,165,661,118"/>
-<area shape="rect" id="Node000015" title=" " alt="" coords="646,167,765,192"/>
-<area shape="poly" id="edge17_Node000014_Node000015" title=" " alt="" coords="679,118,696,153,691,155,674,120"/>
+<area shape="rect" id="Node000001" title="Contains functions for scanner and parser for http messages." alt="" coords="198,5,358,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,121,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,48,108,91,107,86,226,43"/>
+<area shape="rect" id="Node000003" href="$d9/df0/statcodes_8hpp.html" title="HTTP status codes." alt="" coords="293,93,407,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="297,44,332,81,328,85,293,47"/>
+<area shape="rect" id="Node000005" href="$d8/d32/upnpdebug_8hpp.html" title="Manage Debug messages with levels &quot;critical&quot; to &quot;all&quot;." alt="" coords="146,93,269,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="263,47,229,85,225,81,259,44"/>
+<area shape="rect" id="Node000007" href="$d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="431,93,592,119"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="335,43,465,86,463,91,333,48"/>
+<area shape="rect" id="Node000004" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="270,167,435,192"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="353,119,354,153,349,153,348,119"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="163,167,246,192"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="210,119,208,153,203,153,204,119"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="487,121,392,163,390,159,485,116"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="459,167,587,192"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="516,119,522,153,516,154,511,119"/>
 </map>

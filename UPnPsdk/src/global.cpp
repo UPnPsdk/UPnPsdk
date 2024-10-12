@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-05
+// Redistribution only with this Copyright remark. Last modified: 2024-10-18
 /*!
  * \file
  * \brief Global used flags, classes and emulated system functions.
@@ -65,8 +65,7 @@ class CWSAStartup {
         // linkage
 #ifdef UPnPsdk_WITH_TRACE
         std::cout << "TRACE[UPnPsdk/src/global.cpp:" << __LINE__ << "] " << this
-                  << " Construct CWSAStartup"
-                  << "\n";
+                  << " Construct CWSAStartup\n";
 #endif
         WSADATA wsaData;
         int rc = ::WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -95,8 +94,7 @@ class CWSAStartup {
         // linkage
 #ifdef UPnPsdk_WITH_TRACE
         std::cout << "TRACE[UPnPsdk/src/global.cpp:" << __LINE__ << "] " << this
-                  << " Destruct CWSAStartup"
-                  << "\n";
+                  << " Destruct CWSAStartup" << "\n";
 #endif
         ::WSACleanup();
     }

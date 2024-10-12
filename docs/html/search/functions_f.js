@@ -77,7 +77,8 @@ var searchData=
   ['stopminiserver_74',['stopminiserver',['../d5/db2/miniserver_8cpp.html#ac0223038b7afa1e3ea3d7cec983ccc63',1,'StopMiniServer():&#160;miniserver.cpp'],['../d3/d8b/miniserver_8hpp.html#ac0223038b7afa1e3ea3d7cec983ccc63',1,'StopMiniServer():&#160;miniserver.cpp']]],
   ['str_75',['str',['../dd/d03/classUPnPsdk_1_1Netaddr.html#a04c52606b366f8f3fd7869b97d632415',1,'UPnPsdk::Netaddr']]],
   ['str_5falloc_76',['str_alloc',['../da/dd9/membuffer_8cpp.html#a37962f857cb3a490e8f21ca923352983',1,'str_alloc(const char *str, size_t str_len):&#160;membuffer.cpp'],['../d1/d10/membuffer_8hpp.html#a37962f857cb3a490e8f21ca923352983',1,'str_alloc(const char *str, size_t str_len):&#160;membuffer.cpp']]],
-  ['strnlen_77',['strnlen',['../d1/d03/group__UpnpString.html#ga59dc6f9eb8e56e6ddcd5dfa2fbcfe9e5',1,'UpnpString.cpp']]],
-  ['strstr_78',['StrStr',['../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ae8f4aa63ba4d6124a696e6f0b9e668a8',1,'anonymous_namespace{webserver.cpp}']]],
-  ['strtok_79',['StrTok',['../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#af4e671076beebc6b93701a786027262d',1,'anonymous_namespace{webserver.cpp}']]]
+  ['str_5fto_5fint_77',['str_to_int',['../dd/d67/namespaceUPnPsdk.html#a67f5d9d0cc6fa37ec7a1427490142c1b',1,'UPnPsdk']]],
+  ['strnlen_78',['strnlen',['../d1/d03/group__UpnpString.html#ga59dc6f9eb8e56e6ddcd5dfa2fbcfe9e5',1,'UpnpString.cpp']]],
+  ['strstr_79',['StrStr',['../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ae8f4aa63ba4d6124a696e6f0b9e668a8',1,'anonymous_namespace{webserver.cpp}']]],
+  ['strtok_80',['StrTok',['../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#af4e671076beebc6b93701a786027262d',1,'anonymous_namespace{webserver.cpp}']]]
 ];
