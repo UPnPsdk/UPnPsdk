@@ -57,7 +57,7 @@ var hierarchy =
         [ "UPnPsdk::CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html", null ]
       ] ]
     ] ],
-    [ "str_int_entry", "df/df3/strintmap_8hpp.html#d7/d2f/structstr__int__entry", null ],
+    [ "UPnPsdk::str_int_entry", "dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry", null ],
     [ "subscription", "db/d74/service__table_8hpp.html#dd/dc7/structsubscription", null ],
     [ "ThreadData", "d0/d19/ssdp__common_8hpp.html#de/d7d/structThreadData", null ],
     [ "ThreadPool", "d5/d91/ThreadPool_8hpp.html#d0/d41/structThreadPool", null ],

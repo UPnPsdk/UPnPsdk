@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-10-11
 
 #include <strintmap.hpp>
 #include <httpparser.hpp> // for HTTPMETHOD* constants
@@ -18,7 +18,7 @@ using ::testing::ExitedWithCode;
 
 class Istrintmap {
   public:
-    virtual ~Istrintmap() {}
+    virtual ~Istrintmap() = default;
 
     virtual int map_str_to_int(
         const char* name, size_t name_len, str_int_entry* table, int num_entries, int case_sensitive) = 0;
@@ -55,18 +55,15 @@ static str_int_entry Http_Method_Table[NUM_HTTP_METHODS] = {
     {"UNSUBSCRIBE", HTTPMETHOD_UNSUBSCRIBE}};
 
 
-class StrintmapTestSuite : public ::testing::Test {
-  protected:
-    Cstrintmap m_mapObj;
-};
+TEST(StrintmapTestSuite, map_str_to_int_get_boundaries) {
+    Cstrintmap mapObj;
 
-TEST_F(StrintmapTestSuite, map_str_to_int_get_boundaries) {
-    int idx = m_mapObj.map_str_to_int("DELETE", 6, Http_Method_Table,
-                                      NUM_HTTP_METHODS, 1);
+    int idx = mapObj.map_str_to_int("DELETE", 6, Http_Method_Table,
+                                    NUM_HTTP_METHODS, 1);
     EXPECT_EQ(idx, 0);
 
-    idx = m_mapObj.map_str_to_int("UNSUBSCRIBE", 11, Http_Method_Table,
-                                  NUM_HTTP_METHODS, 0);
+    idx = mapObj.map_str_to_int("UNSUBSCRIBE", 11, Http_Method_Table,
+                                NUM_HTTP_METHODS, 0);
     EXPECT_EQ(idx, 9);
 }
 
@@ -145,26 +142,41 @@ TEST(StrintmapDeathTest, map_str_to_int_with_zero_table_entries) {
     EXPECT_EQ(idx, -1);
 }
 
-TEST_F(StrintmapTestSuite, map_str_to_int_with_different_namestring_cases) {
-    EXPECT_EQ(m_mapObj.map_str_to_int("Notify", 6, Http_Method_Table,
-                                      NUM_HTTP_METHODS, -1),
+TEST(StrintmapTestSuite, map_str_to_int_with_different_namestring_cases) {
+    Cstrintmap mapObj;
+
+    EXPECT_EQ(mapObj.map_str_to_int("Notify", 6, Http_Method_Table,
+                                    NUM_HTTP_METHODS, -1),
               -1);
-    EXPECT_EQ(m_mapObj.map_str_to_int("Notify", 6, Http_Method_Table,
-                                      NUM_HTTP_METHODS, 0),
+    EXPECT_EQ(mapObj.map_str_to_int("Notify", 6, Http_Method_Table,
+                                    NUM_HTTP_METHODS, 0),
               5);
 }
 
-TEST_F(StrintmapTestSuite, map_int_to_str) {
-    int idx = m_mapObj.map_int_to_str(::HTTPMETHOD_NOTIFY, Http_Method_Table,
-                                      NUM_HTTP_METHODS);
-    EXPECT_EQ(idx, 5);
-    // ::std::cout << "DEBUG: name = " << Http_Method_Table[5].name << ", id = "
-    // << Http_Method_Table[5].id << ::std::endl;
+TEST(StrintmapTestSuite, map_str_to_int_with_different_name_length) {
+    Cstrintmap mapObj;
+
+    EXPECT_EQ(mapObj.map_str_to_int("M-Searc", 7, Http_Method_Table,
+                                    NUM_HTTP_METHODS, 0),
+              -1);
+    EXPECT_EQ(mapObj.map_str_to_int("M-SEARCHING", 11, Http_Method_Table,
+                                    NUM_HTTP_METHODS, 1),
+              -1);
 }
 
-TEST_F(StrintmapTestSuite, map_int_to_str_with_invalid_id) {
+TEST(StrintmapTestSuite, map_int_to_str) {
+    Cstrintmap mapObj;
+
+    int idx = mapObj.map_int_to_str(::HTTPMETHOD_NOTIFY, Http_Method_Table,
+                                    NUM_HTTP_METHODS);
+    EXPECT_EQ(idx, 5);
+}
+
+TEST(StrintmapTestSuite, map_int_to_str_with_invalid_id) {
+    Cstrintmap mapObj;
+
     int idx{};
-    idx = m_mapObj.map_int_to_str(65444, Http_Method_Table, NUM_HTTP_METHODS);
+    idx = mapObj.map_int_to_str(65444, Http_Method_Table, NUM_HTTP_METHODS);
     EXPECT_EQ(idx, -1);
 }
 
@@ -193,16 +205,19 @@ TEST(StrintmapDeathTest, map_int_to_str_with_nullptr_to_table) {
     }
 }
 
-TEST_F(StrintmapTestSuite, map_int_to_str_with_zero_table_entiries) {
+TEST(StrintmapTestSuite, map_int_to_str_with_zero_table_entiries) {
+    Cstrintmap mapObj;
+
     int idx{};
-    idx = m_mapObj.map_int_to_str(::HTTPMETHOD_NOTIFY, Http_Method_Table, 0);
+    idx = mapObj.map_int_to_str(::HTTPMETHOD_NOTIFY, Http_Method_Table, 0);
     EXPECT_EQ(idx, -1);
 }
 
-TEST_F(StrintmapTestSuite, map_int_to_str_with_oversized_table_entiries) {
+TEST(StrintmapTestSuite, map_int_to_str_with_oversized_table_entiries) {
+    Cstrintmap mapObj;
+
     int idx{};
-    idx =
-        m_mapObj.map_int_to_str(65444, Http_Method_Table, NUM_HTTP_METHODS + 1);
+    idx = mapObj.map_int_to_str(65444, Http_Method_Table, NUM_HTTP_METHODS + 1);
     EXPECT_EQ(idx, -1);
 }
 

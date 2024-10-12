@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['name_0',['name',['../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a001ffd8c54e8022a32a4eafb033dfbdf',1,'anonymous_namespace{webserver.cpp}::xml_alias_t::name'],['../db/da7/httpparser_8hpp.html#a39ccc6b29221ffaf48476329eb43b00c',1,'http_header_t::name'],['../df/df3/strintmap_8hpp.html#ac80804b53fc557637ac4c77fdbc3532f',1,'str_int_entry::name']]],
+  ['name_0',['name',['../dd/d67/namespaceUPnPsdk.html#a6845b46c47d390c898d7d70571f31d74',1,'UPnPsdk::str_int_entry::name'],['../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a001ffd8c54e8022a32a4eafb033dfbdf',1,'anonymous_namespace{webserver.cpp}::xml_alias_t::name'],['../db/da7/httpparser_8hpp.html#a39ccc6b29221ffaf48476329eb43b00c',1,'http_header_t::name']]],
   ['name_5fbuf_1',['name_buf',['../db/da7/httpparser_8hpp.html#a785af325a54ed965881f17cf52c29f90',1,'http_header_t']]],
   ['name_5fid_2',['name_id',['../db/da7/httpparser_8hpp.html#acd520c762356814ae21b9de9446f9397',1,'http_header_t']]],
   ['newval_3',['NewVal',['../d3/da9/upnpapi_8hpp.html#acace7e13a28e2f87d8bb2aea8d6335e7',1,'UpnpNonblockParam']]],

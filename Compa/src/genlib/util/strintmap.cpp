@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-11
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -35,59 +35,18 @@
  * \brief String to integer and integer to string conversion functions.
  */
 
-#include <UPnPsdk/synclog.hpp>
 #include <strintmap.hpp>
-#include <membuffer.hpp>
-
+#include <UPnPsdk/synclog.hpp>
 
 int map_str_to_int(const char* name, size_t name_len,
                    const str_int_entry* table, int num_entries,
                    int case_sensitive) {
     TRACE("Executing map_str_to_int()");
-    if (name == nullptr || table == nullptr)
-        return -1;
-
-    int top, mid, bot;
-    int cmp;
-    memptr name_ptr;
-
-    name_ptr.buf = (char*)name;
-    name_ptr.length = name_len;
-
-    top = 0;
-    bot = num_entries - 1;
-
-    while (top <= bot) {
-        mid = (top + bot) / 2;
-        if (case_sensitive) {
-            /*cmp = strcmp( name, table[mid].name ); */
-            cmp = memptr_cmp(&name_ptr, table[mid].name);
-        } else {
-            /*cmp = strcasecmp( name, table[mid].name ); */
-            cmp = memptr_cmp_nocase(&name_ptr, table[mid].name);
-        }
-
-        if (cmp > 0) {
-            top = mid + 1; /* look below mid */
-        } else if (cmp < 0) {
-            bot = mid - 1; /* look above mid */
-        } else {           /* cmp == 0 */
-            return mid;    /* match; return table index */
-        }
-    }
-
-    return -1; /* header name not found */
+    return UPnPsdk::str_to_int(name, name_len, table, num_entries,
+                               case_sensitive);
 }
 
 int map_int_to_str(int id, const str_int_entry* table, int num_entries) {
     TRACE("Executing map_int_to_str()");
-    if (table == nullptr)
-        return -1;
-
-    for (int i = 0; i < num_entries; i++) {
-        if (table[i].id == id) {
-            return i;
-        }
-    }
-    return -1;
+    return UPnPsdk::int_to_str(id, table, num_entries);
 }

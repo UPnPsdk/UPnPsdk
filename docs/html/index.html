@@ -159,7 +159,7 @@ Visibility support</h1>
 <div class="line">VISIBILITY_INLINES_HIDDEN ON)</div>
 </div><!-- fragment --> <br  />
 </li>
-<li>When building a shared library set its compile definitions to <code>UPnPsdk_SHARE</code> and <code>UPnPsdk_EXPORTS</code>. You should declare <code>UPnPsdk_SHARE</code> to be <b>PUBLIC</b>. With nested calls this is only needed for the first library if they are declared PUBLIC. CMake propagates the compile definition. With other combinations you have to respect CMakes propagation rules for PRIVATE, PUBLIC, INTERFACE and it may be necessary to also declare <code>UPnPsdk_SHARE</code> on following libraries and executables. In result every shared library and executable using it, must see <code>UPnPsdk_SHARE</code>. Never set <code>UPnPsdk_EXPORTS</code> to PUBLIC. This may see an executable target that should not export symbols. <div class="fragment"><div class="line">add_library(UPnPsdk_shared SHARED</div>
+<li>When building a shared library set its compile definitions to <code>UPnPsdk_SHARE</code> and <code>UPnPsdk_EXPORTS</code>. You should declare <code>UPnPsdk_SHARE</code> to be <b>PUBLIC</b>. With nested use of libraries this is only needed for the first library. CMake propagates the compile definition. With other combinations you have to respect CMakes propagation rules for PRIVATE, PUBLIC, INTERFACE and it may be necessary to also declare <code>UPnPsdk_SHARE</code> on following libraries and executables. In result every shared library and executable using it, must see <code>UPnPsdk_SHARE</code>. Never set <code>UPnPsdk_EXPORTS</code> to PUBLIC. This may see an executable target that should not export symbols. <div class="fragment"><div class="line">add_library(UPnPsdk_shared SHARED</div>
 <div class="line">        ${UPnPsdk_SOURCE_FILES})</div>
 <div class="line">target_compile_definitions(UPnPsdk_shared</div>
 <div class="line">        PUBLIC UPnPsdk_SHARE</div>
@@ -175,7 +175,7 @@ Visibility support</h1>
 <div class="line">add_executable(api_calls-csh</div>
 <div class="line">        ${API_CALLS_SOURCE_FILES})</div>
 <div class="line">target_link_libraries(api_calls-csh</div>
-<div class="line">        PRIVAT compa_shared)</div>
+<div class="line">        PRIVATE compa_shared)</div>
 </div><!-- fragment --> But you need with: <div class="fragment"><div class="line">target_link_libraries(compa_shared</div>
 <div class="line">        PRIVATE UPnPsdk_shared)</div>
 <div class="line"> </div>

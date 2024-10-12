@@ -26,6 +26,6 @@ var searchData=
   ['ssdpsearchexparg_23',['SsdpSearchExpArg',['../d0/d19/ssdp__common_8hpp.html#d2/d52/structSsdpSearchExpArg',1,'']]],
   ['ssdpsearchreply_24',['SsdpSearchReply',['../d0/d19/ssdp__common_8hpp.html#df/dd8/structSsdpSearchReply',1,'']]],
   ['ssockaddr_25',['SSockaddr',['../dc/df7/structUPnPsdk_1_1SSockaddr.html',1,'UPnPsdk']]],
-  ['str_5fint_5fentry_26',['str_int_entry',['../df/df3/strintmap_8hpp.html#d7/d2f/structstr__int__entry',1,'']]],
+  ['str_5fint_5fentry_26',['str_int_entry',['../dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry',1,'UPnPsdk']]],
   ['subscription_27',['subscription',['../db/d74/service__table_8hpp.html#dd/dc7/structsubscription',1,'']]]
 ];

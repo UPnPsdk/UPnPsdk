@@ -34,7 +34,8 @@ var annotated_dup =
       [ "Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", "dd/d67/namespaceUPnPsdk_db/dfe/structUPnPsdk_1_1Document__meta_dup" ],
       [ "Netaddr", "dd/d03/classUPnPsdk_1_1Netaddr.html", "dd/d03/classUPnPsdk_1_1Netaddr" ],
       [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
-      [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", "dc/df7/structUPnPsdk_1_1SSockaddr" ]
+      [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", "dc/df7/structUPnPsdk_1_1SSockaddr" ],
+      [ "str_int_entry", "dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry", "dd/d67/namespaceUPnPsdk_de/dd6/structUPnPsdk_1_1str__int__entry_dup" ]
     ] ],
     [ "ErrorString", "d6/d13/Compa_2src_2api_2upnptools_8cpp.html#dc/dff/structErrorString", "d6/d13/Compa_2src_2api_2upnptools_8cpp_dc/dff/structErrorString" ],
     [ "FreeList", "d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList", null ],
@@ -76,7 +77,6 @@ var annotated_dup =
     [ "SsdpSearchArg", "da/db2/ssdp__ctrlpt_8hpp.html#d4/df8/structSsdpSearchArg", "da/db2/ssdp__ctrlpt_8hpp_d4/df8/structSsdpSearchArg" ],
     [ "SsdpSearchExpArg", "d0/d19/ssdp__common_8hpp.html#d2/d52/structSsdpSearchExpArg", "d0/d19/ssdp__common_8hpp_d2/d52/structSsdpSearchExpArg" ],
     [ "SsdpSearchReply", "d0/d19/ssdp__common_8hpp.html#df/dd8/structSsdpSearchReply", "d0/d19/ssdp__common_8hpp_df/dd8/structSsdpSearchReply" ],
-    [ "str_int_entry", "df/df3/strintmap_8hpp.html#d7/d2f/structstr__int__entry", "df/df3/strintmap_8hpp_d7/d2f/structstr__int__entry" ],
     [ "subscription", "db/d74/service__table_8hpp.html#dd/dc7/structsubscription", "db/d74/service__table_8hpp_dd/dc7/structsubscription" ],
     [ "ThreadData", "d0/d19/ssdp__common_8hpp.html#de/d7d/structThreadData", "d0/d19/ssdp__common_8hpp_de/d7d/structThreadData" ],
     [ "ThreadPool", "d5/d91/ThreadPool_8hpp.html#d0/d41/structThreadPool", "d5/d91/ThreadPool_8hpp_d0/d41/structThreadPool" ],
