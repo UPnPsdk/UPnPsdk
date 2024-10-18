@@ -58,7 +58,7 @@ extern "C" {
 
 #define BIO_TYPE_NBIO_TEST (16 | BIO_TYPE_FILTER) /* server proxy BIO */
 #define BIO_TYPE_NULL_FILTER (17 | BIO_TYPE_FILTER)
-#define BIO_TYPE_BIO (19 | BIO_TYPE_SOURCE_SINK) /* half a BIO pair */
+#define BIO_TYPE_BIO (19 | BIO_TYPE_SOURCE_SINK)  /* half a BIO pair */
 #define BIO_TYPE_LINEBUFFER (20 | BIO_TYPE_FILTER)
 #define BIO_TYPE_DGRAM (21 | BIO_TYPE_SOURCE_SINK | BIO_TYPE_DESCRIPTOR)
 #define BIO_TYPE_ASN1 (22 | BIO_TYPE_FILTER)
@@ -104,12 +104,12 @@ extern "C" {
 /* dgram BIO stuff */
 #define BIO_CTRL_DGRAM_CONNECT 31 /* BIO dgram special */
 #define BIO_CTRL_DGRAM_SET_CONNECTED                                           \
-    32 /* allow for an externally connected                                    \
-        * socket to be passed in */
-#define BIO_CTRL_DGRAM_SET_RECV_TIMEOUT 33 /* setsockopt, essentially */
-#define BIO_CTRL_DGRAM_GET_RECV_TIMEOUT 34 /* getsockopt, essentially */
-#define BIO_CTRL_DGRAM_SET_SEND_TIMEOUT 35 /* setsockopt, essentially */
-#define BIO_CTRL_DGRAM_GET_SEND_TIMEOUT 36 /* getsockopt, essentially */
+    32                            /* allow for an externally connected         \
+                                   * socket to be passed in */
+#define BIO_CTRL_DGRAM_SET_RECV_TIMEOUT 33   /* setsockopt, essentially */
+#define BIO_CTRL_DGRAM_GET_RECV_TIMEOUT 34   /* getsockopt, essentially */
+#define BIO_CTRL_DGRAM_SET_SEND_TIMEOUT 35   /* setsockopt, essentially */
+#define BIO_CTRL_DGRAM_GET_SEND_TIMEOUT 36   /* getsockopt, essentially */
 
 #define BIO_CTRL_DGRAM_GET_RECV_TIMER_EXP 37 /* flag whether the last */
 #define BIO_CTRL_DGRAM_GET_SEND_TIMER_EXP 38 /* I/O operation timed out */
@@ -120,11 +120,11 @@ extern "C" {
 
 #define BIO_CTRL_DGRAM_QUERY_MTU 40 /* as kernel for current MTU */
 #define BIO_CTRL_DGRAM_GET_FALLBACK_MTU 47
-#define BIO_CTRL_DGRAM_GET_MTU 41 /* get cached value for MTU */
+#define BIO_CTRL_DGRAM_GET_MTU 41   /* get cached value for MTU */
 #define BIO_CTRL_DGRAM_SET_MTU                                                 \
-    42 /* set cached value for MTU.                                            \
-        * want to use this if asking                                           \
-        * the kernel fails */
+    42                              /* set cached value for MTU.               \
+                                     * want to use this if asking              \
+                                     * the kernel fails */
 
 #define BIO_CTRL_DGRAM_MTU_EXCEEDED                                            \
     43 /* check whether the MTU was                                            \

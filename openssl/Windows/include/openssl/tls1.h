@@ -58,9 +58,9 @@ extern "C" {
 
 #define TLS1_AD_DECRYPTION_FAILED 21
 #define TLS1_AD_RECORD_OVERFLOW 22
-#define TLS1_AD_UNKNOWN_CA 48    /* fatal */
-#define TLS1_AD_ACCESS_DENIED 49 /* fatal */
-#define TLS1_AD_DECODE_ERROR 50  /* fatal */
+#define TLS1_AD_UNKNOWN_CA 48             /* fatal */
+#define TLS1_AD_ACCESS_DENIED 49          /* fatal */
+#define TLS1_AD_DECODE_ERROR 50           /* fatal */
 #define TLS1_AD_DECRYPT_ERROR 51
 #define TLS1_AD_EXPORT_RESTRICTION 60     /* fatal */
 #define TLS1_AD_PROTOCOL_VERSION 70       /* fatal */

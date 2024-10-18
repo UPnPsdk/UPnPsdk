@@ -140,7 +140,7 @@ TEST_F(CreateSSDPsockReqV4FTestSuite, create_successful) {
     SOCKET sockfd{1001};  // mocked socket file descriptor
     const uint8_t ttl{4}; // The ip multicast ttl that is expected to set.
 
-    SOCKET ssdpSock; // buffer to get the socket fd
+    SOCKET ssdpSock;      // buffer to get the socket fd
 
     if (old_code) {
         std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__

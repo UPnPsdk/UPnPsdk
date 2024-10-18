@@ -47,4 +47,4 @@
 int has_xml_content_type( //
     http_message_t* hmsg  ///< [in] HTTP Message Object.
 );
-#endif /* COMPA_GENLIB_NET_HTTP_PARSETOOLS_HPP */
+#endif                    /* COMPA_GENLIB_NET_HTTP_PARSETOOLS_HPP */

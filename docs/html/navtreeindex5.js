@@ -1,7 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"d8/d32/upnpdebug_8hpp.html#ac9d220584af8668d158b172d81e956b8":[7,0,0,0,6,3],
-"d8/d32/upnpdebug_8hpp_source.html":[7,0,0,0,6],
 "d8/d43/port__sock_8hpp.html":[7,0,2,0,0,12],
 "d8/d43/port__sock_8hpp_source.html":[7,0,2,0,0,12],
 "d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html":[5,0,5],
@@ -249,5 +247,7 @@ var NAVTREEINDEX5 =
 "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa664303d9a0b13054c9c77545d2ce53f5":[5,0,6,1,2],
 "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872":[5,0,6,6],
 "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ae413745d69678061574e39ce1949af43":[5,0,6,20],
-"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#aec7d02e7e42098f68ed2d85b931106df":[5,0,6,14]
+"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#aec7d02e7e42098f68ed2d85b931106df":[5,0,6,14],
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html":[4,2,0,0],
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html":[4,3,0,1,0]
 };

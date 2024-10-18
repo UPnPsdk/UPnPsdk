@@ -1692,7 +1692,7 @@ int http_MakeMessage(membuffer* buf, int http_major_version,
             method = (http_method_t)va_arg(argp, int);
             method_str = method_to_str(method);
             url_str = (const char*)va_arg(argp, const char*);
-            num = (size_t)va_arg(argp, size_t); /* length of url_str */
+            num = (size_t)va_arg(argp, size_t);          /* length of url_str */
             if (http_MakeMessage(buf, http_major_version, http_minor_version,
                                  "ssbsdsdc", method_str, /* method */
                                  " ", url_str, num,      /* url */

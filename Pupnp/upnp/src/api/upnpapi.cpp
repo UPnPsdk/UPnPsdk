@@ -269,8 +269,8 @@ static void free_advertise_arg(job_arg* arg) {
     }
     free(arg);
 }
-#endif /* EXCLUDE_SSDP == 0 */
-#endif /* INCLUDE_DEVICE_APIS */
+#endif                /* EXCLUDE_SSDP == 0 */
+#endif                /* INCLUDE_DEVICE_APIS */
 
 #if EXCLUDE_SOAP == 0 // Needed to compile with warings as errors --Ingo
 #ifdef INCLUDE_CLIENT_APIS

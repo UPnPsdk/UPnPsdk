@@ -312,7 +312,7 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_select_fails_with_no_memory) {
         else
             EXPECT_EQ(captureObj.str(), ""); // Wrong!
 
-    } else { // New code
+    } else {                                 // New code
 
         EXPECT_THAT(captureObj.str(), HasSubstr("] CRITICAL MSG1021: "));
     }
@@ -351,7 +351,7 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_accept_fails) {
         // even if there is only one INVALID_SOCKET. Incrementing it by one
         // results in 0. To be portable we must not assume INVALID_SOCKET
         // to be -1. --Ingo
-        select_nfds = 0; // Wrong!
+        select_nfds = 0;      // Wrong!
 #endif
         shutdown_strlen = 25; // This is fixed given by the tested Unit
     } else {
@@ -957,7 +957,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_successful) {
                 ContainsStdRegex("libupnp ThreadPoolAdd too many jobs: 0"));
 #endif
 
-#else // UPnPsdk_WITH_NATIVE_PUPNP
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
     int ret_web_server_accept = web_server_accept(listen_sockfd, set);
@@ -986,7 +986,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_invalid_socket) {
     // Get captured output
     EXPECT_TRUE(captureObj.str().empty());
 
-#else // UPnPsdk_WITH_NATIVE_PUPNP
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
     fd_set set; // unused, only for reference
@@ -1015,7 +1015,7 @@ TEST_F(RunMiniServerMockFDeathTest, web_server_accept_with_invalid_set) {
     GTEST_FLAG_SET(death_test_style, "threadsafe");
     EXPECT_DEATH(web_server_accept(listen_sockfd, nullptr), "");
 
-#else // UPnPsdk_WITH_NATIVE_PUPNP
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
     fd_set set; // unused, only for reference
@@ -1048,7 +1048,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_empty_set) {
     // Get captured output
     EXPECT_TRUE(captureObj.str().empty());
 
-#else // UPnPsdk_WITH_NATIVE_PUPNP
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
     int ret_web_server_accept = web_server_accept(listen_sockfd, set);
@@ -1093,7 +1093,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_fails) {
     EXPECT_TRUE(captureObj.str().empty()); // Wrong!
 #endif
 
-#else // UPnPsdk_WITH_NATIVE_PUPNP
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
     int ret_web_server_accept = web_server_accept(listen_sockfd, set);

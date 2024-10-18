@@ -1186,9 +1186,9 @@ TEST_F(SocketMockFTestSuite, bind_to_address_fails) {
         ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1008: ")));
 }
 
-#if 0 // Don't enable next test permanent!
-      // It is very expensive and do not really test a Unit. It's only for
-      // humans to show whats going on.
+#if 0  // Don't enable next test permanent!
+       // It is very expensive and do not really test a Unit. It's only for
+       // humans to show whats going on.
 // On Microsoft Windows there is an issue with binding an address to a socket
 // in conjunction with the socket option SO_EXCLUSIVEADDRUSE that I use for
 // security reasons. Even on successful new opened socket file descriptors it

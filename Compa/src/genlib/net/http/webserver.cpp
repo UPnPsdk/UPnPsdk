@@ -188,7 +188,7 @@ struct xml_alias_t {
                 if (membuffer_assign_str(&tmp_name, "/") != 0)
                     break; /* error; out of mem */
             if (membuffer_append_str(&tmp_name, a_alias_name) != 0)
-                break; /* error */
+                break;     /* error */
             // a_alias_content_length must never exceed length of
             // a_alias_content.
             size_t content_len = strlen(a_alias_content);

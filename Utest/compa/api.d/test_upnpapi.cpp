@@ -11,7 +11,7 @@
 #include <upnptools.hpp> // For pupnp and compa
 #endif
 
-#include <pupnp/upnpdebug.hpp> // for CLogging
+#include <pupnp/upnpdebug.hpp>   // for CLogging
 
 #include <UPnPsdk/upnptools.hpp> // For UPnPsdk only
 #include <UPnPsdk/global.hpp>

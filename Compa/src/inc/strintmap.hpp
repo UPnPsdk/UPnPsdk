@@ -58,8 +58,8 @@ using str_int_entry = UPnPsdk::str_int_entry;
  */
 // Don't export function symbol; only used library intern.
 int map_str_to_int(
-    const char* name, ///< [in] String containing the name to be matched.
-    size_t name_len,  ///< [in] Size of the string to be matched.
+    const char* name,  ///< [in] String containing the name to be matched.
+    size_t name_len,   ///< [in] Size of the string to be matched.
     const str_int_entry*
         table,         ///< [in] Table of entries that need to be matched.
     int num_entries,   /*!< [in] Number of entries in the table that need to be

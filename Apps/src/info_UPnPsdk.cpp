@@ -245,14 +245,14 @@ void* check_upnpdebug(void*) {
            "due to re-engeneering issues.\n";
     return (void*)0;
 }
-#else // _WIN32
+#else  // _WIN32
 
 // Running in the production environment here. For extended testing look at
 // the Unit Tests.
 void* check_upnpdebug(void*) {
 #ifdef NDEBUG
     std::cout << "-> Module upnpdebug is disabled because NDEBUG is set.\n";
-#else // NDEBUG
+#else  // NDEBUG
     // This must be set before initialization
     ::UpnpSetLogLevel(UPNP_ALL);
 

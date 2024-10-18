@@ -5,7 +5,7 @@
 
 #include <UPnPsdk/visibility.hpp> // for UPnPsdk_API
 #include <winsock2.h>
-#include <iphlpapi.h> // must be after <winsock2.h>
+#include <iphlpapi.h>             // must be after <winsock2.h>
 #include <iostream>
 
 namespace utest {

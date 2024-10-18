@@ -121,7 +121,7 @@ TEST(TimerThreadNormalTestSuite, schedule_timer_thread) {
     ThreadPool tp{};         // Structure for a threadpool
     ThreadPoolStats stats{}; // Structure for the threadpool status
 
-    ThreadPoolJob TPJob{}; // Structure for a threadpool job
+    ThreadPoolJob TPJob{};   // Structure for a threadpool job
     // ThreadPoolJob removedJob{};
 
     CTimerThread tmObj{}; // TimerThread Object
@@ -177,7 +177,7 @@ TEST(TimerThreadNormalTestSuite, remove_timer_thread) {
     ThreadPool tp{};         // Structure for a threadpool
     ThreadPoolStats stats{}; // Structure for the threadpool status
 
-    ThreadPoolJob TPJob{}; // Structure for a threadpool job
+    ThreadPoolJob TPJob{};   // Structure for a threadpool job
     // ThreadPoolJob removedJob{};
 
     CTimerThread tmObj{}; // TimerThread Object

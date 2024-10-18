@@ -504,7 +504,7 @@ int MakeGetMessageEx(const char* url_str, membuffer* request, uri_type* url,
  */
 // Due to compatibility with Umock for Pupnp this has to be defined static.
 static int private_connect(
-    const SOCKET sockfd, ///< [in] Socket file descriptor.
+    const SOCKET sockfd,    ///< [in] Socket file descriptor.
     const sockaddr* const
         serv_addr,          ///< [in] Socket address of a remote network node.
     const socklen_t addrlen ///< [in] Size of the socket address.
@@ -1687,7 +1687,7 @@ int http_MakeMessage(membuffer* buf, int http_major_version,
             method = (http_method_t)va_arg(argp, int);
             method_str = method_to_str(method);
             url_str = (const char*)va_arg(argp, const char*);
-            num = (size_t)va_arg(argp, size_t); /* length of url_str */
+            num = (size_t)va_arg(argp, size_t);          /* length of url_str */
             if (http_MakeMessage(buf, http_major_version, http_minor_version,
                                  "ssbsdsdc", method_str, /* method */
                                  " ", url_str, num,      /* url */

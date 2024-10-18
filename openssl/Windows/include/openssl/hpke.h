@@ -33,17 +33,17 @@
  * If/when new IANA codepoints are added there are tables in
  * crypto/hpke/hpke_util.c that must also be updated.
  */
-#define OSSL_HPKE_KEM_ID_RESERVED 0x0000 /* not used */
-#define OSSL_HPKE_KEM_ID_P256 0x0010     /* NIST P-256 */
-#define OSSL_HPKE_KEM_ID_P384 0x0011     /* NIST P-384 */
-#define OSSL_HPKE_KEM_ID_P521 0x0012     /* NIST P-521 */
-#define OSSL_HPKE_KEM_ID_X25519 0x0020   /* Curve25519 */
-#define OSSL_HPKE_KEM_ID_X448 0x0021     /* Curve448 */
+#define OSSL_HPKE_KEM_ID_RESERVED 0x0000         /* not used */
+#define OSSL_HPKE_KEM_ID_P256 0x0010             /* NIST P-256 */
+#define OSSL_HPKE_KEM_ID_P384 0x0011             /* NIST P-384 */
+#define OSSL_HPKE_KEM_ID_P521 0x0012             /* NIST P-521 */
+#define OSSL_HPKE_KEM_ID_X25519 0x0020           /* Curve25519 */
+#define OSSL_HPKE_KEM_ID_X448 0x0021             /* Curve448 */
 
-#define OSSL_HPKE_KDF_ID_RESERVED 0x0000    /* not used */
-#define OSSL_HPKE_KDF_ID_HKDF_SHA256 0x0001 /* HKDF-SHA256 */
-#define OSSL_HPKE_KDF_ID_HKDF_SHA384 0x0002 /* HKDF-SHA384 */
-#define OSSL_HPKE_KDF_ID_HKDF_SHA512 0x0003 /* HKDF-SHA512 */
+#define OSSL_HPKE_KDF_ID_RESERVED 0x0000         /* not used */
+#define OSSL_HPKE_KDF_ID_HKDF_SHA256 0x0001      /* HKDF-SHA256 */
+#define OSSL_HPKE_KDF_ID_HKDF_SHA384 0x0002      /* HKDF-SHA384 */
+#define OSSL_HPKE_KDF_ID_HKDF_SHA512 0x0003      /* HKDF-SHA512 */
 
 #define OSSL_HPKE_AEAD_ID_RESERVED 0x0000        /* not used */
 #define OSSL_HPKE_AEAD_ID_AES_GCM_128 0x0001     /* AES-GCM-128 */

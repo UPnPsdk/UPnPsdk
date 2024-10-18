@@ -54,7 +54,7 @@
 // #include <sys/types.h>
 
 #ifdef _WIN32
-#else /* _WIN32 */
+#else  /* _WIN32 */
 // #include <syslog.h>
 #ifndef __APPLE__
 // #include <netinet/in_systm.h>

@@ -1580,7 +1580,7 @@ parse_status_t parser_get_entity_read_method(http_parser_t* parser) {
 
         default:; /* do nothing */
         }
-    } else /* response */
+    } else        /* response */
     {
         response_code = hmsg->status_code;
 

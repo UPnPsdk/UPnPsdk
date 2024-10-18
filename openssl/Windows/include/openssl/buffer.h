@@ -42,7 +42,7 @@ extern "C" {
 struct buf_mem_st {
     size_t length; /* current number of bytes */
     char* data;
-    size_t max; /* size of buffer */
+    size_t max;    /* size of buffer */
     unsigned long flags;
 };
 

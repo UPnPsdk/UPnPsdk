@@ -598,7 +598,7 @@ typedef struct x509_cinf_st X509_CINF;
 #define XN_FLAG_SEP_SPLUS_SPC (3 << 16)  /* ;+ spaced */
 #define XN_FLAG_SEP_MULTILINE (4 << 16)  /* One line per field */
 
-#define XN_FLAG_DN_REV (1 << 20) /* Reverse DN order */
+#define XN_FLAG_DN_REV (1 << 20)         /* Reverse DN order */
 
 /* How the field name is shown */
 
@@ -609,7 +609,7 @@ typedef struct x509_cinf_st X509_CINF;
 #define XN_FLAG_FN_OID (2 << 21)  /* Always use OIDs */
 #define XN_FLAG_FN_NONE (3 << 21) /* No field names */
 
-#define XN_FLAG_SPC_EQ (1 << 23) /* Put spaces round '=' */
+#define XN_FLAG_SPC_EQ (1 << 23)  /* Put spaces round '=' */
 
 /*
  * This determines if we dump fields we don't recognise: RFC2253 requires

@@ -28,8 +28,8 @@ class UPNPLIB_API CIfaddr4
     struct sockaddr_in m_ifa_netmask; // netmask
     struct sockaddr_in m_ifa_ifu; // broadcast addr or point-to-point dest addr
 
-    std::string m_Ifname;    // interface name
-    std::string m_Ifaddress; // interface ip address
+    std::string m_Ifname;         // interface name
+    std::string m_Ifaddress;      // interface ip address
 
     // clang-format off
     // the bitmask is the offset in the netmasks array.

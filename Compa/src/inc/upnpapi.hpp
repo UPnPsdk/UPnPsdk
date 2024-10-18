@@ -95,10 +95,10 @@ struct Handle_Info {
     int SleepPeriod;       ///< Sleep Period as defined by UPnP Low Power.
     int RegistrationState; ///< Registration State as defined by UPnP Low Power.
     IXML_Document*
-        DescDocument;          ///< Description parsed in terms of DOM document.
+        DescDocument;      ///< Description parsed in terms of DOM document.
     IXML_NodeList* DeviceList; ///< List of devices in the description document.
     IXML_NodeList*
-        ServiceList; ///< List of services in the description document.
+        ServiceList;      ///< List of services in the description document.
     service_table
         ServiceTable;     ///< Table holding subscriptions and URL information.
     int MaxSubscriptions; ///< ???

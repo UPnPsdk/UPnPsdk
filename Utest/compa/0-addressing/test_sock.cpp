@@ -498,7 +498,7 @@ TEST_F(SockNoSigPFTestSuite, sock_read_signal_catched) {
 
         EXPECT_EQ(ret_sock_read, UPNP_E_SOCKET_ERROR) // Wrong!
             << errStr(ret_sock_read);
-        EXPECT_STREQ(buffer, ""); // Wrong!
+        EXPECT_STREQ(buffer, "");                     // Wrong!
 
     } else {
 
@@ -844,7 +844,7 @@ TEST_F(SockNoSigP2FTestSuite, sock_write_ssl_successful) {
         << errStr(ret_sock_write);
     EXPECT_EQ(timeoutSecs, no_timeout); // Should not be modified.
 }
-#endif // UPNP_ENABLE_OPEN_SSL
+#endif                                  // UPNP_ENABLE_OPEN_SSL
 
 TEST_F(SockFTestSuite, sock_write_with_connection_error) {
     // select()
@@ -852,7 +852,7 @@ TEST_F(SockFTestSuite, sock_write_with_connection_error) {
                 select(m_sockfd + 1, _, NotNull(), IsNull(), NotNull()))
         .WillOnce(SetErrPtblAndReturn(ENOMEMP, SOCKET_ERROR));
 
-    char sent_msg[]{'\0'}; // This will not be sent.
+    char sent_msg[]{'\0'};    // This will not be sent.
     constexpr time_t timeout{5};
     int timeoutSecs{timeout}; // Will be set to used time by the Unit.
     ::SOCKINFO sockinfo;
@@ -939,8 +939,8 @@ TEST_F(SockFTestSuite, sock_write_with_empty_socket_info) {
 
     ::SOCKINFO sockinfo{}; // Empty socket info
     char sent_msg[1]{};
-    int timeoutSecs{-1}; // -1 Blocks indefinitely waiting for a socket
-                         // descriptor to become ready, but not with error.
+    int timeoutSecs{-1};   // -1 Blocks indefinitely waiting for a socket
+                           // descriptor to become ready, but not with error.
 
     // Test Unit
     int ret_sock_write =

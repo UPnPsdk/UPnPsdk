@@ -112,7 +112,7 @@ TEST(SockTestSuite, libssl_connection_error_handling) {
     // with the following.
     // BUT IT SHOULD NOT BE USED IN A LIBRARY! See note above.
 #ifndef _WIN32
-    signal(SIGPIPE, SIG_IGN); // SIGPIPE not defined on MS Windows
+    signal(SIGPIPE, SIG_IGN);        // SIGPIPE not defined on MS Windows
 #endif
     EXPECT_EQ(SSL_connect(ssl), -1); // error, underlaying socket no connection
     int err_no = errno;

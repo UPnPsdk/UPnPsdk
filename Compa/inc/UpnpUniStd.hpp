@@ -16,4 +16,4 @@
 /// \endcond
 #endif              /* _WIN32 */
 
-#endif /* COMPA_UPNPUNISTD_HPP */
+#endif              /* COMPA_UPNPUNISTD_HPP */

@@ -40,7 +40,7 @@
 
 /* Util to map from a string to an integer and vice versa */
 
-typedef struct /* str_int_entry */
+typedef struct        /* str_int_entry */
 {
     const char* name; /* a value in string form */
     int id;           /* same value in integer form */

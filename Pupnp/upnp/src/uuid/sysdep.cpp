@@ -91,7 +91,7 @@ void get_random_info(unsigned char seed[16]) {
     }
 };
 
-#else /* _WIN32 */
+#else  /* _WIN32 */
 
 void get_system_time(uuid_time_t* uuid_time) {
     struct timeval tp;

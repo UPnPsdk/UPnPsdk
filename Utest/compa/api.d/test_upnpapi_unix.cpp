@@ -10,7 +10,7 @@
 #include <compa/src/api/upnpapi.cpp>
 #endif
 
-#include <pupnp/upnpdebug.hpp> // for CLogging
+#include <pupnp/upnpdebug.hpp>   // for CLogging
 
 #include <UPnPsdk/upnptools.hpp> // For UPnPsdk only
 #include <UPnPsdk/gtest_tools_unix.hpp>

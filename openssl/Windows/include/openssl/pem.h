@@ -95,12 +95,12 @@ extern "C" {
 
 #ifdef OPENSSL_NO_STDIO
 
-#define IMPLEMENT_PEM_read_fp(name, type, str, asn1)  /**/
-#define IMPLEMENT_PEM_write_fp(name, type, str, asn1) /**/
+#define IMPLEMENT_PEM_read_fp(name, type, str, asn1)           /**/
+#define IMPLEMENT_PEM_write_fp(name, type, str, asn1)          /**/
 #ifndef OPENSSL_NO_DEPRECATED_3_0
-#define IMPLEMENT_PEM_write_fp_const(name, type, str, asn1) /**/
+#define IMPLEMENT_PEM_write_fp_const(name, type, str, asn1)    /**/
 #endif
-#define IMPLEMENT_PEM_write_cb_fp(name, type, str, asn1) /**/
+#define IMPLEMENT_PEM_write_cb_fp(name, type, str, asn1)       /**/
 #ifndef OPENSSL_NO_DEPRECATED_3_0
 #define IMPLEMENT_PEM_write_cb_fp_const(name, type, str, asn1) /**/
 #endif
@@ -211,10 +211,10 @@ extern "C" {
  */
 #if defined(OPENSSL_NO_STDIO)
 
-#define DECLARE_PEM_read_fp_attr(attr, name, type)     /**/
-#define DECLARE_PEM_read_fp_ex_attr(attr, name, type)  /**/
-#define DECLARE_PEM_write_fp_attr(attr, name, type)    /**/
-#define DECLARE_PEM_write_fp_ex_attr(attr, name, type) /**/
+#define DECLARE_PEM_read_fp_attr(attr, name, type)        /**/
+#define DECLARE_PEM_read_fp_ex_attr(attr, name, type)     /**/
+#define DECLARE_PEM_write_fp_attr(attr, name, type)       /**/
+#define DECLARE_PEM_write_fp_ex_attr(attr, name, type)    /**/
 #ifndef OPENSSL_NO_DEPRECATED_3_0
 #define DECLARE_PEM_write_fp_const_attr(attr, name, type) /**/
 #endif

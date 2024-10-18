@@ -10,6 +10,6 @@ PointerAlignment: Left
 SortIncludes: false
 #IndentPPDirectives: AfterHash
 MaxEmptyLinesToKeep: 2
-#AlignTrailingComments:
-#  Kind: Always
-#  OverEmptyLines: 1
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 1

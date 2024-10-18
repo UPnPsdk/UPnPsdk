@@ -180,8 +180,8 @@ class Curi_type_testurl {
 #endif
         path_type = ABS_PATH;
 
-        scheme.buff = m_url_str; // points to start of the scheme
-        scheme.size = 4;         // limits to "http"
+        scheme.buff = m_url_str;            // points to start of the scheme
+        scheme.size = 4;                    // limits to "http"
 
         hostport.text.buff = m_url_str + 7; // points to start of hostport
         hostport.text.size = 18;            // limits to "www.upnplib.net:80"
@@ -195,8 +195,8 @@ class Curi_type_testurl {
         pathquery.buff = m_url_str + 25; // points to start of pathquery
         pathquery.size = 21;             // limits to "/dest/path/?key=value"
 
-        fragment.buff = m_url_str + 47; // points to start of fragment
-        fragment.size = 8;              // limits to "fragment"
+        fragment.buff = m_url_str + 47;  // points to start of fragment
+        fragment.size = 8;               // limits to "fragment"
     }
 
     // getter
