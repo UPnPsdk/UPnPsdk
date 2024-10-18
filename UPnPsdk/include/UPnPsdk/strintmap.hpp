@@ -15,6 +15,7 @@
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/synclog.hpp>
+#include <UPnPsdk/port.hpp>
 /// \cond
 #include <cstddef> // for size_t
 #include <cstring>

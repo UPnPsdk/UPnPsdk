@@ -3,9 +3,9 @@
 
 #include <UPnPsdk/strintmap.hpp>
 #include <UPnPsdk/httpparser.hpp> // for HTTPMETHOD* constants
-
 #include <UPnPsdk/global.hpp>
 #include <utest/utest.hpp>
+#include <array> // MS Windows needs this
 
 namespace utest {
 
