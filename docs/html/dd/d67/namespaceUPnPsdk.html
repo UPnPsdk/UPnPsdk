@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('dd/d67/namespaceUPnPsdk.html','../../'
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">UPnPsdk Namespace Reference</div></div>
@@ -144,6 +145,41 @@ Classes</h2></td></tr>
 <tr class="memdesc:de/dd6/structUPnPsdk_1_1str__int__entry"><td class="mdescLeft">&#160;</td><td class="mdescRight">String to integer map entry.  <a href="../../dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry">More...</a><br /></td></tr>
 <tr class="separator:de/dd6/structUPnPsdk_1_1str__int__entry"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a23b37912820f828d4563a8b79a05323c" id="r_a23b37912820f828d4563a8b79a05323c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323c">Upnp_HttpMethod</a> { <br />
+&#160;&#160;<a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323ca46cde3748d475ae57539ba29c9c13bf0">UPNP_HTTPMETHOD_PUT</a>
+, <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323ca5222fd6c491dc9cc9702d35314c60864">UPNP_HTTPMETHOD_DELETE</a>
+, <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323ca6e4a5de988170adbab0f588a1ebf451a">UPNP_HTTPMETHOD_GET</a>
+, <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323caa908031d9a85985f606f360284aa2cff">UPNP_HTTPMETHOD_HEAD</a>
+, <br />
+&#160;&#160;<a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323ca6ba7f1e3f3bc898f937001c8c2cbcce7">UPNP_HTTPMETHOD_POST</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a23b37912820f828d4563a8b79a05323c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Different HTTP methods.  <a href="../../dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323c">More...</a><br /></td></tr>
+<tr class="separator:a23b37912820f828d4563a8b79a05323c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6e466635b99f8cfef274faaf8584f60" id="r_ae6e466635b99f8cfef274faaf8584f60"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60">http_method_t</a> { <br />
+&#160;&#160;<b>HTTPMETHOD_PUT</b> = UPNP_HTTPMETHOD_PUT
+, <b>HTTPMETHOD_DELETE</b> = UPNP_HTTPMETHOD_DELETE
+, <b>HTTPMETHOD_GET</b> = UPNP_HTTPMETHOD_GET
+, <b>HTTPMETHOD_HEAD</b> = UPNP_HTTPMETHOD_HEAD
+, <br />
+&#160;&#160;<b>HTTPMETHOD_POST</b> = UPNP_HTTPMETHOD_POST
+, <b>HTTPMETHOD_MPOST</b>
+, <b>HTTPMETHOD_SUBSCRIBE</b>
+, <b>HTTPMETHOD_UNSUBSCRIBE</b>
+, <br />
+&#160;&#160;<b>HTTPMETHOD_NOTIFY</b>
+, <b>HTTPMETHOD_MSEARCH</b>
+, <b>HTTPMETHOD_UNKNOWN</b>
+, <b>SOAPMETHOD_POST</b>
+, <br />
+&#160;&#160;<b>HTTPMETHOD_SIMPLEGET</b>
+<br />
+ }</td></tr>
+<tr class="memdesc:ae6e466635b99f8cfef274faaf8584f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method in a HTTP request.  <a href="../../dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60">More...</a><br /></td></tr>
+<tr class="separator:ae6e466635b99f8cfef274faaf8584f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gaab5fd951995d3ce8a5e49936b35cf536" id="r_gaab5fd951995d3ce8a5e49936b35cf536"><td class="memItemLeft" align="right" valign="top">sa_family_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#gaab5fd951995d3ce8a5e49936b35cf536">is_netaddr</a> (const std::string &amp;a_node, const int a_addr_family=AF_UNSPEC) noexcept</td></tr>
@@ -155,12 +191,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ga83167c3ec258d9164fe5e349d8041997" id="r_ga83167c3ec258d9164fe5e349d8041997"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997">to_netaddrp</a> (const ::sockaddr_storage *const a_sockaddr) noexcept</td></tr>
 <tr class="memdesc:ga83167c3ec258d9164fe5e349d8041997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a> with port from a sockaddr structure.  <br /></td></tr>
 <tr class="separator:ga83167c3ec258d9164fe5e349d8041997"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87265a72b4020d23accfb9b25657369a" id="r_a87265a72b4020d23accfb9b25657369a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a87265a72b4020d23accfb9b25657369a">str_to_int</a> (const char *name, size_t name_len, const <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry">str_int_entry</a> *table, int num_entries, int case_sensitive)</td></tr>
-<tr class="memdesc:a87265a72b4020d23accfb9b25657369a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Match the given name with names from the entries in the table.  <br /></td></tr>
-<tr class="separator:a87265a72b4020d23accfb9b25657369a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaab71557a618d96fdb3d45b7961c58fe" id="r_aaab71557a618d96fdb3d45b7961c58fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#aaab71557a618d96fdb3d45b7961c58fe">int_to_str</a> (int id, const <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry">str_int_entry</a> *table, int num_entries)</td></tr>
-<tr class="memdesc:aaab71557a618d96fdb3d45b7961c58fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index from the table where the id matches the entry from the table.  <br /></td></tr>
-<tr class="separator:aaab71557a618d96fdb3d45b7961c58fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67f5d9d0cc6fa37ec7a1427490142c1b" id="r_a67f5d9d0cc6fa37ec7a1427490142c1b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a67f5d9d0cc6fa37ec7a1427490142c1b"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a67f5d9d0cc6fa37ec7a1427490142c1b">str_to_int</a> (const char *name, const T &amp;table, bool case_sensitive=false)</td></tr>
+<tr class="memdesc:a67f5d9d0cc6fa37ec7a1427490142c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Match the given name with names from the entries in the table.  <br /></td></tr>
+<tr class="separator:a67f5d9d0cc6fa37ec7a1427490142c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77f51c6767191833e117e850d9ea4508" id="r_a77f51c6767191833e117e850d9ea4508"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a77f51c6767191833e117e850d9ea4508"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a77f51c6767191833e117e850d9ea4508">int_to_str</a> (int id, const T &amp;table)</td></tr>
+<tr class="memdesc:a77f51c6767191833e117e850d9ea4508"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index from the table where the id matches the entry from the table.  <br /></td></tr>
+<tr class="separator:a77f51c6767191833e117e850d9ea4508"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36a0f8484da5819dfa724a1f50b6b588" id="r_a36a0f8484da5819dfa724a1f50b6b588"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588">errStr</a> (int error)</td></tr>
 <tr class="memdesc:a36a0f8484da5819dfa724a1f50b6b588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get error name string.  <br /></td></tr>
 <tr class="separator:a36a0f8484da5819dfa724a1f50b6b588"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -231,7 +269,7 @@ file subtype </td></tr>
 </div><div class="memdoc">
 <div class="textblock"><p>String to integer map entry. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/df9/UPnPsdk_2include_2UPnPsdk_2strintmap_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../dc/df9/UPnPsdk_2include_2UPnPsdk_2strintmap_8hpp_source.html">strintmap.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/df9/UPnPsdk_2include_2UPnPsdk_2strintmap_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../dc/df9/UPnPsdk_2include_2UPnPsdk_2strintmap_8hpp_source.html">strintmap.hpp</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">
@@ -241,7 +279,7 @@ name</td>
 <td class="fielddoc">
 A value in string form. </td></tr>
 <tr><td class="fieldtype">
-<a id="a98c5b01f766c8ca7916a24c7804db48d" name="a98c5b01f766c8ca7916a24c7804db48d"></a>const int</td>
+<a id="a4ffd5f528af4472829230445b57c7976" name="a4ffd5f528af4472829230445b57c7976"></a>int</td>
 <td class="fieldname">
 id</td>
 <td class="fielddoc">
@@ -250,12 +288,64 @@ Same value in integer form. </td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a87265a72b4020d23accfb9b25657369a" name="a87265a72b4020d23accfb9b25657369a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87265a72b4020d23accfb9b25657369a">&#9670;&#160;</a></span>str_to_int()</h2>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a23b37912820f828d4563a8b79a05323c" name="a23b37912820f828d4563a8b79a05323c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23b37912820f828d4563a8b79a05323c">&#9670;&#160;</a></span>Upnp_HttpMethod</h2>
 
 <div class="memitem">
 <div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323c">UPnPsdk::Upnp_HttpMethod</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Different HTTP methods. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a23b37912820f828d4563a8b79a05323ca46cde3748d475ae57539ba29c9c13bf0" name="a23b37912820f828d4563a8b79a05323ca46cde3748d475ae57539ba29c9c13bf0"></a>UPNP_HTTPMETHOD_PUT&#160;</td><td class="fielddoc"><p>PUT. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a23b37912820f828d4563a8b79a05323ca5222fd6c491dc9cc9702d35314c60864" name="a23b37912820f828d4563a8b79a05323ca5222fd6c491dc9cc9702d35314c60864"></a>UPNP_HTTPMETHOD_DELETE&#160;</td><td class="fielddoc"><p>DELETE. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a23b37912820f828d4563a8b79a05323ca6e4a5de988170adbab0f588a1ebf451a" name="a23b37912820f828d4563a8b79a05323ca6e4a5de988170adbab0f588a1ebf451a"></a>UPNP_HTTPMETHOD_GET&#160;</td><td class="fielddoc"><p>GET. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a23b37912820f828d4563a8b79a05323caa908031d9a85985f606f360284aa2cff" name="a23b37912820f828d4563a8b79a05323caa908031d9a85985f606f360284aa2cff"></a>UPNP_HTTPMETHOD_HEAD&#160;</td><td class="fielddoc"><p>HEAD. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a23b37912820f828d4563a8b79a05323ca6ba7f1e3f3bc898f937001c8c2cbcce7" name="a23b37912820f828d4563a8b79a05323ca6ba7f1e3f3bc898f937001c8c2cbcce7"></a>UPNP_HTTPMETHOD_POST&#160;</td><td class="fielddoc"><p>POST. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="../../d9/d24/UPnPsdk_2include_2UPnPsdk_2API_8hpp_source.html#l00015">15</a> of file <a class="el" href="../../d9/d24/UPnPsdk_2include_2UPnPsdk_2API_8hpp_source.html">API.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae6e466635b99f8cfef274faaf8584f60" name="ae6e466635b99f8cfef274faaf8584f60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6e466635b99f8cfef274faaf8584f60">&#9670;&#160;</a></span>http_method_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60">UPnPsdk::http_method_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method in a HTTP request. </p>
+<dl class="section warning"><dt>Warning</dt><dd>The enum values of the standard HTTP method should match those of Upnp_HttpMethod enum defined in &lt;<a class="el" href="../../d9/d24/UPnPsdk_2include_2UPnPsdk_2API_8hpp.html" title="UPnPsdk API.">UPnPsdk/API.hpp</a>&gt; </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/da7/UPnPsdk_2include_2UPnPsdk_2httpparser_8hpp_source.html#l00018">18</a> of file <a class="el" href="../../d6/da7/UPnPsdk_2include_2UPnPsdk_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a67f5d9d0cc6fa37ec7a1427490142c1b" name="a67f5d9d0cc6fa37ec7a1427490142c1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67f5d9d0cc6fa37ec7a1427490142c1b">&#9670;&#160;</a></span>str_to_int()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">int UPnPsdk::str_to_int </td>
@@ -266,26 +356,14 @@ Same value in integer form. </td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>name_len</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry">str_int_entry</a> *&#160;</td>
+          <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>table</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>num_entries</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>case_sensitive</em>&#160;</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>case_sensitive</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -297,26 +375,24 @@ Same value in integer form. </td></tr>
 
 <p>Match the given name with names from the entries in the table. </p>
 <dl class="section return"><dt>Returns</dt><dd>On success: Zero based index (position) on the table of entries.<br  />
-On failure: -1 </dd></dl>
+On failure: <b>-1</b> means string not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>String containing the name to be matched.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">name_len</td><td>Size of the string to be matched.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">table</td><td>Table of entries that need to be matched.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">num_entries</td><td>Number of entries in the table that need to be searched.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">case_sensitive</td><td>Whether search should be case sensitive or not. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">case_sensitive</td><td>Whether search should be case sensitive or not. Default is not case sensitive search. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dfd/UPnPsdk_2src_2strintmap_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../d0/dfd/UPnPsdk_2src_2strintmap_8cpp_source.html">strintmap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/df9/UPnPsdk_2include_2UPnPsdk_2strintmap_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../dc/df9/UPnPsdk_2include_2UPnPsdk_2strintmap_8hpp_source.html">strintmap.hpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a87265a72b4020d23accfb9b25657369a_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a87265a72b4020d23accfb9b25657369a_icgraph" alt=""/></div>
-<map name="add/d67/namespaceUPnPsdk_a87265a72b4020d23accfb9b25657369a_icgraph" id="add/d67/namespaceUPnPsdk_a87265a72b4020d23accfb9b25657369a_icgraph">
+<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a67f5d9d0cc6fa37ec7a1427490142c1b_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a67f5d9d0cc6fa37ec7a1427490142c1b_icgraph" alt=""/></div>
+<map name="add/d67/namespaceUPnPsdk_a67f5d9d0cc6fa37ec7a1427490142c1b_icgraph" id="add/d67/namespaceUPnPsdk_a67f5d9d0cc6fa37ec7a1427490142c1b_icgraph">
 <area shape="rect" title="Match the given name with names from the entries in the table." alt="" coords="2429,211,2577,236"/>
 <area shape="rect" href="../../d4/d6c/Compa_2src_2genlib_2util_2strintmap_8cpp.html#a3d400a234d1f0486e70e22ce27070e46" title="Match the given name with names from the entries in the table." alt="" coords="2263,211,2381,236"/>
 <area shape="poly" title=" " alt="" coords="2416,226,2382,226,2382,221,2416,221"/>
@@ -425,11 +501,13 @@ On failure: -1 </dd></dl>
 
 </div>
 </div>
-<a id="aaab71557a618d96fdb3d45b7961c58fe" name="aaab71557a618d96fdb3d45b7961c58fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaab71557a618d96fdb3d45b7961c58fe">&#9670;&#160;</a></span>int_to_str()</h2>
+<a id="a77f51c6767191833e117e850d9ea4508" name="a77f51c6767191833e117e850d9ea4508"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77f51c6767191833e117e850d9ea4508">&#9670;&#160;</a></span>int_to_str()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">int UPnPsdk::int_to_str </td>
@@ -440,14 +518,8 @@ On failure: -1 </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry">str_int_entry</a> *&#160;</td>
-          <td class="paramname"><em>table</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>num_entries</em>&#160;</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>table</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -459,24 +531,23 @@ On failure: -1 </dd></dl>
 
 <p>Returns the index from the table where the id matches the entry from the table. </p>
 <dl class="section return"><dt>Returns</dt><dd>On success: Zero based index (position) on the table of entries.<br  />
-On error: -1 </dd></dl>
+On failure: <b>-1</b> means id not found </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>ID to be matched.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">table</td><td>Table of entries that need to be matched.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">num_entries</td><td>Number of entries in the table. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">table</td><td>Table of entries that need to be matched. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d0/dfd/UPnPsdk_2src_2strintmap_8cpp_source.html#l00083">83</a> of file <a class="el" href="../../d0/dfd/UPnPsdk_2src_2strintmap_8cpp_source.html">strintmap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/df9/UPnPsdk_2include_2UPnPsdk_2strintmap_8hpp_source.html#l00095">95</a> of file <a class="el" href="../../dc/df9/UPnPsdk_2include_2UPnPsdk_2strintmap_8hpp_source.html">strintmap.hpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_aaab71557a618d96fdb3d45b7961c58fe_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_aaab71557a618d96fdb3d45b7961c58fe_icgraph" alt=""/></div>
-<map name="add/d67/namespaceUPnPsdk_aaab71557a618d96fdb3d45b7961c58fe_icgraph" id="add/d67/namespaceUPnPsdk_aaab71557a618d96fdb3d45b7961c58fe_icgraph">
+<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a77f51c6767191833e117e850d9ea4508_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a77f51c6767191833e117e850d9ea4508_icgraph" alt=""/></div>
+<map name="add/d67/namespaceUPnPsdk_a77f51c6767191833e117e850d9ea4508_icgraph" id="add/d67/namespaceUPnPsdk_a77f51c6767191833e117e850d9ea4508_icgraph">
 <area shape="rect" title="Returns the index from the table where the id matches the entry from the table." alt="" coords="1487,880,1635,905"/>
 <area shape="rect" href="../../d4/d6c/Compa_2src_2genlib_2util_2strintmap_8cpp.html#a3451764616b6b8846efab5e787fe900a" title="Returns the index from the table where the id matches the entry from the table." alt="" coords="1320,880,1439,905"/>
 <area shape="poly" title=" " alt="" coords="1473,895,1439,895,1439,890,1473,890"/>

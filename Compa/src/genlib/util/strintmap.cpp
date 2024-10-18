@@ -39,6 +39,7 @@
 #include <UPnPsdk/synclog.hpp>
 #include <array>
 
+/// \brief Size of the temporary std::array() container that can hold all tables
 constexpr size_t container_size{33};
 
 /// \todo This complex and expensive interface wrapper must be removed.

@@ -125,10 +125,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a304797b455fb27f1075c0eee5a421a9f" id="r_a304797b455fb27f1075c0eee5a421a9f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a304797b455fb27f1075c0eee5a421a9f">add_man_header</a> (<a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *headers)</td></tr>
 <tr class="memdesc:a304797b455fb27f1075c0eee5a421a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds "MAN" field in the HTTP header.  <br /></td></tr>
 <tr class="separator:a304797b455fb27f1075c0eee5a421a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19db19e25ca9e8e52017abd97190db81" id="r_a19db19e25ca9e8e52017abd97190db81"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a19db19e25ca9e8e52017abd97190db81">soap_request_and_response</a> (<a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *request, <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *destination_url, <a class="el" href="../../db/da7/httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *response)</td></tr>
+<tr class="memitem:a19db19e25ca9e8e52017abd97190db81" id="r_a19db19e25ca9e8e52017abd97190db81"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a19db19e25ca9e8e52017abd97190db81">soap_request_and_response</a> (<a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *request, <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *destination_url, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *response)</td></tr>
 <tr class="memdesc:a19db19e25ca9e8e52017abd97190db81"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sends the control point's request to the device and receives a response from it.  <br /></td></tr>
 <tr class="separator:a19db19e25ca9e8e52017abd97190db81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02637d010040bd277464e3324aa697f4" id="r_a02637d010040bd277464e3324aa697f4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a02637d010040bd277464e3324aa697f4">get_response_value</a> (<a class="el" href="../../db/da7/httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *hmsg, int code, char *name, int *upnp_error_code, IXML_Node **action_value, DOMString *str_value)</td></tr>
+<tr class="memitem:a02637d010040bd277464e3324aa697f4" id="r_a02637d010040bd277464e3324aa697f4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a02637d010040bd277464e3324aa697f4">get_response_value</a> (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *hmsg, int code, char *name, int *upnp_error_code, IXML_Node **action_value, DOMString *str_value)</td></tr>
 <tr class="memdesc:a02637d010040bd277464e3324aa697f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles the response coming back from the device.  <br /></td></tr>
 <tr class="separator:a02637d010040bd277464e3324aa697f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -1096,7 +1096,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../db/da7/httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *&#160;</td>
           <td class="paramname"><em>response</em>&#160;</td>
         </tr>
         <tr>
@@ -1301,7 +1301,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">int anonymous_namespace{soap_ctrlpt.cpp}::get_response_value </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../db/da7/httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *&#160;</td>
           <td class="paramname"><em>hmsg</em>, </td>
         </tr>
         <tr>
