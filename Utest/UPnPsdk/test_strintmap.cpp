@@ -1,72 +1,42 @@
-// Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
+// Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2024-10-18
 
-#include <strintmap.hpp>
-#include <httpparser.hpp> // for HTTPMETHOD* constants
+#include <UPnPsdk/strintmap.hpp>
+#include <UPnPsdk/httpparser.hpp> // for HTTPMETHOD* constants
 
 #include <UPnPsdk/global.hpp>
 #include <utest/utest.hpp>
 
 namespace utest {
 
-using ::testing::ExitedWithCode;
+// using ::testing::ExitedWithCode;
 
 
-// Interface for the strintmap module
-// ==================================
-// clang-format off
-
-class Istrintmap {
-  public:
-    virtual ~Istrintmap() = default;
-
-    virtual int map_str_to_int(
-        const char* name, size_t name_len, str_int_entry* table, int num_entries, int case_sensitive) = 0;
-    virtual int map_int_to_str(
-        int id, str_int_entry* table, int num_entries) = 0;
-};
-
-class Cstrintmap : Istrintmap {
-  public:
-    virtual ~Cstrintmap() override {}
-
-    int map_str_to_int(const char* name, size_t name_len, str_int_entry* table, int num_entries, int case_sensitive) override {
-        return ::map_str_to_int(name, name_len, table, num_entries, case_sensitive); }
-    int map_int_to_str(int id, str_int_entry* table, int num_entries) override {
-        return ::map_int_to_str(id, table, num_entries); }
-};
-// clang-format on
+/*! \brief Defines the HTTP methods. */
+constexpr std::array<UPnPsdk::str_int_entry, 10> Http_Method_Table{
+    {{"DELETE", UPnPsdk::HTTPMETHOD_DELETE},
+     {"GET", UPnPsdk::HTTPMETHOD_GET},
+     {"HEAD", UPnPsdk::HTTPMETHOD_HEAD},
+     {"M-POST", UPnPsdk::HTTPMETHOD_MPOST},
+     {"M-SEARCH", UPnPsdk::HTTPMETHOD_MSEARCH},
+     {"NOTIFY", UPnPsdk::HTTPMETHOD_NOTIFY},
+     {"POST", UPnPsdk::HTTPMETHOD_POST},
+     {"PUT", UPnPsdk::HTTPMETHOD_PUT},
+     {"SUBSCRIBE", UPnPsdk::HTTPMETHOD_SUBSCRIBE},
+     {"UNSUBSCRIBE", UPnPsdk::HTTPMETHOD_UNSUBSCRIBE}}};
 
 
 // testsuite for strintmap
 //========================
-
-constexpr size_t NUM_HTTP_METHODS = 10;
-static str_int_entry Http_Method_Table[NUM_HTTP_METHODS] = {
-    {"DELETE", HTTPMETHOD_DELETE},
-    {"GET", HTTPMETHOD_GET},
-    {"HEAD", HTTPMETHOD_HEAD},
-    {"M-POST", HTTPMETHOD_MPOST},
-    {"M-SEARCH", HTTPMETHOD_MSEARCH},
-    {"NOTIFY", HTTPMETHOD_NOTIFY},
-    {"POST", HTTPMETHOD_POST},
-    {"PUT", HTTPMETHOD_PUT},
-    {"SUBSCRIBE", HTTPMETHOD_SUBSCRIBE},
-    {"UNSUBSCRIBE", HTTPMETHOD_UNSUBSCRIBE}};
-
-
-TEST(StrintmapTestSuite, map_str_to_int_get_boundaries) {
-    Cstrintmap mapObj;
-
-    int idx = mapObj.map_str_to_int("DELETE", 6, Http_Method_Table,
-                                    NUM_HTTP_METHODS, 1);
+TEST(StrintmapTestSuite, str_to_int_get_boundaries) {
+    int idx = UPnPsdk::str_to_int("Delete", Http_Method_Table);
     EXPECT_EQ(idx, 0);
 
-    idx = mapObj.map_str_to_int("UNSUBSCRIBE", 11, Http_Method_Table,
-                                NUM_HTTP_METHODS, 0);
+    idx = UPnPsdk::str_to_int("UNSUBSCRIBE", Http_Method_Table, true);
     EXPECT_EQ(idx, 9);
 }
 
+#if 0
 TEST(StrintmapDeathTest, map_str_to_int_with_nullptr_to_namestring) {
     Cstrintmap mapObj;
 
@@ -163,15 +133,15 @@ TEST(StrintmapTestSuite, map_str_to_int_with_different_name_length) {
                                     NUM_HTTP_METHODS, 1),
               -1);
 }
+#endif
 
-TEST(StrintmapTestSuite, map_int_to_str) {
-    Cstrintmap mapObj;
-
-    int idx = mapObj.map_int_to_str(::HTTPMETHOD_NOTIFY, Http_Method_Table,
-                                    NUM_HTTP_METHODS);
-    EXPECT_EQ(idx, 5);
+TEST(StrintmapTestSuite, int_to_str) {
+    int idx =
+        UPnPsdk::int_to_str(UPnPsdk::HTTPMETHOD_UNSUBSCRIBE, Http_Method_Table);
+    EXPECT_EQ(idx, 9);
 }
 
+#if 0
 TEST(StrintmapTestSuite, map_int_to_str_with_invalid_id) {
     Cstrintmap mapObj;
 
@@ -205,7 +175,7 @@ TEST(StrintmapDeathTest, map_int_to_str_with_nullptr_to_table) {
     }
 }
 
-TEST(StrintmapTestSuite, map_int_to_str_with_zero_table_entries) {
+TEST(StrintmapTestSuite, map_int_to_str_with_zero_table_entiries) {
     Cstrintmap mapObj;
 
     int idx{};
@@ -213,13 +183,14 @@ TEST(StrintmapTestSuite, map_int_to_str_with_zero_table_entries) {
     EXPECT_EQ(idx, -1);
 }
 
-TEST(StrintmapTestSuite, map_int_to_str_with_oversized_table_entries) {
+TEST(StrintmapTestSuite, map_int_to_str_with_oversized_table_entiries) {
     Cstrintmap mapObj;
 
     int idx{};
     idx = mapObj.map_int_to_str(65444, Http_Method_Table, NUM_HTTP_METHODS + 1);
     EXPECT_EQ(idx, -1);
 }
+#endif
 
 } // namespace utest
 

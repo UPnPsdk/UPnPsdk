@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-11
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-18
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -37,16 +37,69 @@
 
 #include <strintmap.hpp>
 #include <UPnPsdk/synclog.hpp>
+#include <array>
 
+constexpr size_t container_size{33};
+
+/// \todo This complex and expensive interface wrapper must be removed.
 int map_str_to_int(const char* name, size_t name_len,
                    const str_int_entry* table, int num_entries,
                    int case_sensitive) {
     TRACE("Executing map_str_to_int()");
-    return UPnPsdk::str_to_int(name, name_len, table, num_entries,
-                               case_sensitive);
+    // num_entries must not be negative due to unsigned type cast later.
+    if (name_len <= 0 || table == nullptr || num_entries <= 0)
+        return -1;
+
+    // Create a std::array container from plain C array.
+    std::array<str_int_entry, container_size> tbl{};
+    if (tbl.size() < static_cast<size_t>(num_entries)) {
+        UPNPLIB_LOGCRIT "MSG1029: std::array container["
+            << tbl.size() << "] is to small, requested " << num_entries
+            << " entries. This program error MUST be fixed! Program is stable "
+               "but may have ignored runtime conditions.\n";
+        return -1;
+    }
+    size_t i{0};
+    for (; i < static_cast<size_t>(num_entries); i++) {
+        tbl[i] = table[i];
+    }
+    // Fill remaining entries with dummy values needed for binary search.
+    constexpr char str_zzzz[]{"ZZZZ"};
+    for (; i < tbl.size(); i++) {
+        tbl[i].name = str_zzzz;
+        tbl[i].id = INT_MIN + 8;
+    }
+
+    return UPnPsdk::str_to_int(name, tbl, case_sensitive);
 }
 
+
+/// \todo This complex and expensive interface wrapper must be removed.
 int map_int_to_str(int id, const str_int_entry* table, int num_entries) {
     TRACE("Executing map_int_to_str()");
-    return UPnPsdk::int_to_str(id, table, num_entries);
+    // num_entries must not be negative due to unsigned type cast later.
+    if (table == nullptr || num_entries <= 0)
+        return -1;
+
+    // Create a std::array container from plain C array.
+    std::array<str_int_entry, container_size> tbl{};
+    if (tbl.size() < static_cast<size_t>(num_entries)) {
+        UPNPLIB_LOGCRIT "MSG1032: std::array container["
+            << tbl.size() << "] is to small, requested " << num_entries
+            << " entries. This program error MUST be fixed! Program is stable "
+               "but may have ignored runtime conditions.\n";
+        return -1;
+    }
+    size_t i{0};
+    for (; i < static_cast<size_t>(num_entries); i++) {
+        tbl[i] = table[i];
+    }
+    // Fill remaining entries with dummy values needed for binary search.
+    constexpr char str_zzzz[]{"ZZZZ"};
+    for (; i < tbl.size(); i++) {
+        tbl[i].name = str_zzzz;
+        tbl[i].id = INT_MIN + 8;
+    }
+
+    return UPnPsdk::int_to_str(id, tbl);
 }
