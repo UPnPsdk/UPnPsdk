@@ -35,7 +35,7 @@ struct str_int_entry {
  * \brief Match the given name with names from the entries in the table.
  * \returns
  * On success: Zero based index (position) on the table of entries.\n
- * On failure: -1
+ * On failure: \b -1 means string not found
  */
 // Don't export function symbol; only used library intern.
 template <typename T>
@@ -43,7 +43,8 @@ int str_to_int(
     const char* name, ///< [in] String containing the name to be matched.
     const T& table, ///< [in] Table of entries that need to be matched.
     bool case_sensitive =
-        false ///< [in] Whether search should be case sensitive or not.
+        false /*!< [in] Whether search should be case sensitive or not. Default
+                 is not case sensitive search. */
 ) {
     TRACE("Executing str_to_int()");
     if (name == nullptr || name[0] == '\0')
@@ -70,8 +71,8 @@ int str_to_int(
         } else if (mid > INT_MAX) {
             UPNPLIB_LOGCRIT "MSG1026: Index mid="
                 << mid
-                << "exceeds integer limit. This program error MUST be "
-                   "fixed! Program is stable but may have ignored runtime "
+                << "exceeds integer limit. This program error MUST be fixed! "
+                   "Program is stable but may have ignored runtime "
                    "conditions.\n";
             return -1; // guard for the following type cast
         } else {
@@ -85,10 +86,9 @@ int str_to_int(
 /*!
  * \brief Returns the index from the table where the id matches the entry from
  * the table.
- *
  * \returns
  * On success: Zero based index (position) on the table of entries.\n
- * On error: -1
+ * On failure: \b -1 means id not found
  */
 // Don't export function symbol; only used library intern.
 template <typename T>

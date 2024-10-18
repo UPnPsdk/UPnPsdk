@@ -65,8 +65,7 @@ class CWSAStartup {
         // linkage
 #ifdef UPnPsdk_WITH_TRACE
         std::cout << "TRACE[UPnPsdk/src/global.cpp:" << __LINE__ << "] " << this
-                  << " Construct CWSAStartup"
-                  << "\n";
+                  << " Construct CWSAStartup\n";
 #endif
         WSADATA wsaData;
         int rc = ::WSAStartup(MAKEWORD(2, 2), &wsaData);

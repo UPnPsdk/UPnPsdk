@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-10
+# Redistribution only with this Copyright remark. Last modified: 2024-10-18
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -19,7 +19,6 @@ set(UPnPsdk_SOURCE_FILES
     src/net/connection_common.cpp
     src/net/http/webserver.cpp
     src/net/http/httpreadwrite.cpp
-    src/strintmap.cpp
 
     # Umock source files
     ${UMOCK_SOURCE_DIR}/src/arpa_inet.cpp

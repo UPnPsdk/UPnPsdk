@@ -74,7 +74,7 @@ int map_str_to_int(
  *
  * \returns
  * On success: Zero based index (position) on the table of entries.\n
- * On error: -1
+ * On failure: \b -1 means id not found
  */
 // Don't export function symbol; only used library intern.
 int map_int_to_str( //
