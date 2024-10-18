@@ -9,7 +9,7 @@
 
 namespace utest {
 
-// using ::testing::ExitedWithCode;
+using ::testing::ExitedWithCode;
 
 
 /*! \brief Defines the HTTP methods. */
@@ -29,168 +29,53 @@ constexpr std::array<UPnPsdk::str_int_entry, 10> Http_Method_Table{
 // testsuite for strintmap
 //========================
 TEST(StrintmapTestSuite, str_to_int_get_boundaries) {
-    int idx = UPnPsdk::str_to_int("Delete", Http_Method_Table);
+    int idx = str_to_int("Delete", Http_Method_Table);
     EXPECT_EQ(idx, 0);
 
-    idx = UPnPsdk::str_to_int("UNSUBSCRIBE", Http_Method_Table, true);
+    idx = str_to_int("UNSUBSCRIBE", Http_Method_Table, true);
     EXPECT_EQ(idx, 9);
 }
 
-#if 0
-TEST(StrintmapDeathTest, map_str_to_int_with_nullptr_to_namestring) {
-    Cstrintmap mapObj;
-
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ]" CRES
-                  << " A nullptr to the namestring must not segfault.\n";
-        // This expects segfault.
-        EXPECT_DEATH(mapObj.map_str_to_int(nullptr, 6, Http_Method_Table,
-                                           NUM_HTTP_METHODS, 1),
-                     ".*");
-
-    } else {
-
-        // This expects NO segfault.
-        ASSERT_EXIT((mapObj.map_str_to_int(nullptr, 6, Http_Method_Table,
-                                           NUM_HTTP_METHODS, 1),
-                     exit(0)),
-                    ExitedWithCode(0), ".*");
-        int idx{};
-        idx = mapObj.map_str_to_int(nullptr, 6, Http_Method_Table,
-                                    NUM_HTTP_METHODS, 1);
-        EXPECT_EQ(idx, -1);
-    }
-}
-
-TEST(StrintmapDeathTest, map_str_to_int_with_zero_namestring_length) {
-    Cstrintmap mapObj;
-
-    // This expects NO segfault.
-    ASSERT_EXIT((mapObj.map_str_to_int("NOTIFY", 0, Http_Method_Table,
-                                       NUM_HTTP_METHODS, 1),
-                 exit(0)),
+TEST(StrintmapTestSuite, str_to_int_with_nullptr_to_namestring) {
+    ASSERT_EXIT((str_to_int(nullptr, Http_Method_Table, true), exit(0)),
                 ExitedWithCode(0), ".*");
     int idx{};
-    idx = mapObj.map_str_to_int("NOTIFY", 0, Http_Method_Table,
-                                NUM_HTTP_METHODS, 1);
+    idx = str_to_int(nullptr, Http_Method_Table, true);
     EXPECT_EQ(idx, -1);
 }
 
-TEST(StrintmapDeathTest, map_str_to_int_with_nullptr_to_table) {
-    Cstrintmap mapObj;
-
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ]" CRES
-                  << " A nullptr to a table must not segfault.\n";
-        // This expects segfault.
-        EXPECT_DEATH(
-            mapObj.map_str_to_int("NOTIFY", 6, nullptr, NUM_HTTP_METHODS, 1),
-            ".*");
-
-    } else {
-
-        // This expects NO segfault.
-        ASSERT_EXIT(
-            (mapObj.map_str_to_int("NOTIFY", 6, nullptr, NUM_HTTP_METHODS, 1),
-             exit(0)),
-            ExitedWithCode(0), ".*");
-        int idx{};
-        idx = mapObj.map_str_to_int("NOTIFY", 6, nullptr, NUM_HTTP_METHODS, 1);
-        EXPECT_EQ(idx, -1);
-    }
-}
-
-TEST(StrintmapDeathTest, map_str_to_int_with_zero_table_entries) {
-    Cstrintmap mapObj;
-
-    // This expects NO segfault.
-    ASSERT_EXIT(
-        (mapObj.map_str_to_int("NOTIFY", 6, Http_Method_Table, 0, 1), exit(0)),
-        ExitedWithCode(0), ".*");
+TEST(StrintmapTestSuite, str_to_int_with_empty_namestring) {
     int idx{};
-    idx = mapObj.map_str_to_int("NOTIFY", 6, Http_Method_Table, 0, 1);
+    idx = str_to_int("\0", Http_Method_Table);
+    EXPECT_EQ(idx, -1);
+    idx = 0;
+    idx = str_to_int("\0", Http_Method_Table, true);
     EXPECT_EQ(idx, -1);
 }
 
-TEST(StrintmapTestSuite, map_str_to_int_with_different_namestring_cases) {
-    Cstrintmap mapObj;
-
-    EXPECT_EQ(mapObj.map_str_to_int("Notify", 6, Http_Method_Table,
-                                    NUM_HTTP_METHODS, -1),
-              -1);
-    EXPECT_EQ(mapObj.map_str_to_int("Notify", 6, Http_Method_Table,
-                                    NUM_HTTP_METHODS, 0),
-              5);
+TEST(StrintmapTestSuite, str_to_int_with_different_namestring_cases) {
+    EXPECT_EQ(str_to_int("Notify", Http_Method_Table, true), -1);
+    EXPECT_EQ(str_to_int("Notify", Http_Method_Table, false), 5);
 }
 
-TEST(StrintmapTestSuite, map_str_to_int_with_different_name_length) {
-    Cstrintmap mapObj;
-
-    EXPECT_EQ(mapObj.map_str_to_int("M-Searc", 7, Http_Method_Table,
-                                    NUM_HTTP_METHODS, 0),
-              -1);
-    EXPECT_EQ(mapObj.map_str_to_int("M-SEARCHING", 11, Http_Method_Table,
-                                    NUM_HTTP_METHODS, 1),
-              -1);
+TEST(StrintmapTestSuite, str_to_int_with_different_name_length) {
+    EXPECT_EQ(str_to_int("M-Searc", Http_Method_Table), -1);
+    EXPECT_EQ(str_to_int("M-SEARCHING", Http_Method_Table, true), -1);
 }
-#endif
 
 TEST(StrintmapTestSuite, int_to_str) {
-    int idx =
-        UPnPsdk::int_to_str(UPnPsdk::HTTPMETHOD_UNSUBSCRIBE, Http_Method_Table);
+    int idx = int_to_str(UPnPsdk::HTTPMETHOD_UNSUBSCRIBE, Http_Method_Table);
     EXPECT_EQ(idx, 9);
 }
 
-#if 0
-TEST(StrintmapTestSuite, map_int_to_str_with_invalid_id) {
-    Cstrintmap mapObj;
-
+TEST(StrintmapTestSuite, int_to_str_with_invalid_id) {
     int idx{};
-    idx = mapObj.map_int_to_str(65444, Http_Method_Table, NUM_HTTP_METHODS);
+    idx = int_to_str(INT_MAX, Http_Method_Table);
+    EXPECT_EQ(idx, -1);
+    idx = 0;
+    idx = int_to_str(INT_MIN, Http_Method_Table);
     EXPECT_EQ(idx, -1);
 }
-
-TEST(StrintmapDeathTest, map_int_to_str_with_nullptr_to_table) {
-    Cstrintmap mapObj;
-
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ]" CRES
-                  << " A nullptr to a table must not segfault.\n";
-        // This expects segfault.
-        EXPECT_DEATH(mapObj.map_int_to_str(::HTTPMETHOD_NOTIFY, nullptr,
-                                           NUM_HTTP_METHODS),
-                     ".*");
-
-    } else {
-
-        // This expects NO segfault.
-        ASSERT_EXIT((mapObj.map_int_to_str(::HTTPMETHOD_NOTIFY, nullptr,
-                                           NUM_HTTP_METHODS),
-                     exit(0)),
-                    ExitedWithCode(0), ".*");
-        int idx{};
-        idx = mapObj.map_int_to_str(::HTTPMETHOD_NOTIFY, nullptr,
-                                    NUM_HTTP_METHODS);
-        EXPECT_EQ(idx, -1);
-    }
-}
-
-TEST(StrintmapTestSuite, map_int_to_str_with_zero_table_entiries) {
-    Cstrintmap mapObj;
-
-    int idx{};
-    idx = mapObj.map_int_to_str(::HTTPMETHOD_NOTIFY, Http_Method_Table, 0);
-    EXPECT_EQ(idx, -1);
-}
-
-TEST(StrintmapTestSuite, map_int_to_str_with_oversized_table_entiries) {
-    Cstrintmap mapObj;
-
-    int idx{};
-    idx = mapObj.map_int_to_str(65444, Http_Method_Table, NUM_HTTP_METHODS + 1);
-    EXPECT_EQ(idx, -1);
-}
-#endif
 
 } // namespace utest
 

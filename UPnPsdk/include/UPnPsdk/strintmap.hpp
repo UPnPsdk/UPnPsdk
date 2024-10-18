@@ -42,7 +42,7 @@ template <typename T>
 int str_to_int(
     const char* name, ///< [in] String containing the name to be matched.
     const T& table, ///< [in] Table of entries that need to be matched.
-    int case_sensitive =
+    bool case_sensitive =
         false ///< [in] Whether search should be case sensitive or not.
 ) {
     TRACE("Executing str_to_int()");
