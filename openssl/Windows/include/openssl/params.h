@@ -25,7 +25,6 @@ extern "C" {
 
 #define OSSL_PARAM_DEFN(key, type, addr, sz)                                   \
     {(key), (type), (addr), (sz), OSSL_PARAM_UNMODIFIED}
-
 /* Basic parameter types without return sizes */
 #define OSSL_PARAM_int(key, addr)                                              \
     OSSL_PARAM_DEFN((key), OSSL_PARAM_INTEGER, (addr), sizeof(int))

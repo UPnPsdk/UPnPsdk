@@ -1000,8 +1000,8 @@ TEST_F(SockNoSigPFTestSuite, sock_write_with_valid_buffer_but_0_byte_length) {
     // Test Unit
     int ret_sock_write = sock_write(&sockinfo, buffer, 0, &timeoutSecs);
     EXPECT_EQ(ret_sock_write, 0)
-        << "  # Should be sent number of bytes = 0"
-        << " but not " << errStr(ret_sock_write) << ".";
+        << "  # Should be sent number of bytes = 0 but not "
+        << errStr(ret_sock_write) << '.';
 }
 
 TEST(SockTestSuite, sock_make_blocking_and_sock_make_no_blocking) {
