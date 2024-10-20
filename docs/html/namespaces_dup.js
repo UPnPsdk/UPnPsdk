@@ -55,7 +55,7 @@ var namespaces_dup =
       [ "parser_parse_chunky_headers", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34", null ],
       [ "parser_parse_chunky_entity", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ac3546d1ed4487058f5b93ad4a25d5300", null ],
       [ "parser_parse_entity_until_close", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afcb84d0307a28d0eff5efde70048508a", null ],
-      [ "Http_Method_Table", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a62fd62617ef88ff3ecfd33535da5616a", null ]
+      [ "Http_Method_Table", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a10d3115e01bd0c718838c7eebac09012", null ]
     ] ],
     [ "anonymous_namespace{httpreadwrite.cpp}", "d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html", "d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03" ],
     [ "anonymous_namespace{LinkedList.cpp}", "d6/d93/namespaceanonymous__namespace_02LinkedList_8cpp_03.html", [

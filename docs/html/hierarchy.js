@@ -3,6 +3,7 @@ var hierarchy =
     [ "UPnPsdk::CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", null ],
     [ "UPnPsdk::CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
     [ "UPnPsdk::CSocketErr", "dd/d3a/classUPnPsdk_1_1CSocketErr.html", null ],
+    [ "UPnPsdk::CStrIntMap< T >", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", null ],
     [ "UPnPsdk::CUri", "da/dcf/classUPnPsdk_1_1CUri.html", null ],
     [ "UPnPsdk::anonymous_namespace{global.cpp}::CWSAStartup", "d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html", null ],
     [ "UPnPsdk::Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", null ],

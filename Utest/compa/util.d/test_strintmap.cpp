@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-18
+// Redistribution only with this Copyright remark. Last modified: 2024-10-20
 
 #include <strintmap.hpp>
 #include <httpparser.hpp> // for HTTPMETHOD* constants
@@ -40,26 +40,12 @@ TEST(StrintmapTestSuite, map_str_to_int_get_boundaries) {
 }
 
 TEST(StrintmapDeathTest, map_str_to_int_with_nullptr_to_namestring) {
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ]" CRES
-                  << " A nullptr to the namestring must not segfault.\n";
-        // This expects segfault.
-        EXPECT_DEATH(
-            map_str_to_int(nullptr, 6, Http_Method_Table, NUM_HTTP_METHODS, 1),
-            ".*");
-
-    } else {
-
-        // This expects NO segfault.
-        ASSERT_EXIT(
-            (map_str_to_int(nullptr, 6, Http_Method_Table, NUM_HTTP_METHODS, 1),
-             exit(0)),
-            ExitedWithCode(0), ".*");
-        int idx{};
-        idx =
-            map_str_to_int(nullptr, 6, Http_Method_Table, NUM_HTTP_METHODS, 1);
-        EXPECT_EQ(idx, -1);
-    }
+    std::cout << CYEL "[ BUGFIX   ]" CRES
+              << " A nullptr to the namestring must not segfault.\n";
+    // This expects segfault.
+    EXPECT_DEATH(
+        map_str_to_int(nullptr, 6, Http_Method_Table, NUM_HTTP_METHODS, 1),
+        ".*");
 }
 
 TEST(StrintmapTestSuite, map_str_to_int_with_empty_namestring) {
@@ -83,23 +69,11 @@ TEST(StrintmapDeathTest, map_str_to_int_with_zero_namestring_length) {
 }
 
 TEST(StrintmapDeathTest, map_str_to_int_with_nullptr_to_table) {
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ]" CRES
-                  << " A nullptr to a table must not segfault.\n";
-        // This expects segfault.
-        EXPECT_DEATH(map_str_to_int("NOTIFY", 6, nullptr, NUM_HTTP_METHODS, 1),
-                     ".*");
-
-    } else {
-
-        // This expects NO segfault.
-        ASSERT_EXIT((map_str_to_int("NOTIFY", 6, nullptr, NUM_HTTP_METHODS, 1),
-                     exit(0)),
-                    ExitedWithCode(0), ".*");
-        int idx{};
-        idx = map_str_to_int("NOTIFY", 6, nullptr, NUM_HTTP_METHODS, 1);
-        EXPECT_EQ(idx, -1);
-    }
+    std::cout << CYEL "[ BUGFIX   ]" CRES
+              << " A nullptr to a table must not segfault.\n";
+    // This expects segfault.
+    EXPECT_DEATH(map_str_to_int("NOTIFY", 6, nullptr, NUM_HTTP_METHODS, 1),
+                 ".*");
 }
 
 TEST(StrintmapDeathTest, map_str_to_int_with_zero_table_entries) {
@@ -141,25 +115,11 @@ TEST(StrintmapTestSuite, map_int_to_str_with_invalid_id) {
 }
 
 TEST(StrintmapDeathTest, map_int_to_str_with_nullptr_to_table) {
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ]" CRES
-                  << " A nullptr to a table must not segfault.\n";
-        // This expects segfault.
-        EXPECT_DEATH(
-            map_int_to_str(::HTTPMETHOD_NOTIFY, nullptr, NUM_HTTP_METHODS),
-            ".*");
-
-    } else {
-
-        // This expects NO segfault.
-        ASSERT_EXIT(
-            (map_int_to_str(::HTTPMETHOD_NOTIFY, nullptr, NUM_HTTP_METHODS),
-             exit(0)),
-            ExitedWithCode(0), ".*");
-        int idx{};
-        idx = map_int_to_str(::HTTPMETHOD_NOTIFY, nullptr, NUM_HTTP_METHODS);
-        EXPECT_EQ(idx, -1);
-    }
+    std::cout << CYEL "[ BUGFIX   ]" CRES
+              << " A nullptr to a table must not segfault.\n";
+    // This expects segfault.
+    EXPECT_DEATH(map_int_to_str(::HTTPMETHOD_NOTIFY, nullptr, NUM_HTTP_METHODS),
+                 ".*");
 }
 
 TEST(StrintmapTestSuite, map_int_to_str_with_zero_table_entries) {

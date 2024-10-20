@@ -1,9 +1,8 @@
 var strintmap_8hpp =
 [
-    [ "str_int_entry", "df/df3/strintmap_8hpp.html#d7/d2f/structstr__int__entry", [
-      [ "name", "df/df3/strintmap_8hpp.html#ac80804b53fc557637ac4c77fdbc3532f", null ],
-      [ "id", "df/df3/strintmap_8hpp.html#a1f451e6e2b2bafe2fab0edef0362f066", null ]
+    [ "UPnPsdk::str_int_entry", "dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry", [
+      [ "name", "dd/d67/namespaceUPnPsdk.html#a6845b46c47d390c898d7d70571f31d74", null ],
+      [ "id", "dd/d67/namespaceUPnPsdk.html#a4ffd5f528af4472829230445b57c7976", null ]
     ] ],
-    [ "map_str_to_int", "df/df3/strintmap_8hpp.html#a3d400a234d1f0486e70e22ce27070e46", null ],
-    [ "map_int_to_str", "df/df3/strintmap_8hpp.html#a3451764616b6b8846efab5e787fe900a", null ]
+    [ "UPnPsdk::CStrIntMap< T >", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", "d7/d1a/classUPnPsdk_1_1CStrIntMap" ]
 ];

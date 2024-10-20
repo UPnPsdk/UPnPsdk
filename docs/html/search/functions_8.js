@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['init_5ftable_0',['init_table',['../df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#aa8720c71e46ee6041f745bc51190be1a',1,'anonymous_namespace{statcodes.cpp}']]],
-  ['init_5ftables_1',['init_tables',['../df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#a67ec6f35b83046df716768cadc353e39',1,'anonymous_namespace{statcodes.cpp}']]],
-  ['initminiserversockarray_2',['InitMiniServerSockArray',['../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5d8a62e1d3813dc7cc3bcfca83d918a5',1,'anonymous_namespace{miniserver.cpp}']]],
-  ['int_5fto_5fstr_3',['int_to_str',['../dd/d67/namespaceUPnPsdk.html#a77f51c6767191833e117e850d9ea4508',1,'UPnPsdk']]],
+  ['index_5fof_0',['index_of',['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#ae6bbded737bfa2e3aaadf95bee615079',1,'UPnPsdk::CStrIntMap::index_of(const int a_id)'],['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#a6c512dfcfece21875e8342ba4f3abe80',1,'UPnPsdk::CStrIntMap::index_of(const char *a_name, bool a_case_sensitive=false)']]],
+  ['init_5ftable_1',['init_table',['../df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#aa8720c71e46ee6041f745bc51190be1a',1,'anonymous_namespace{statcodes.cpp}']]],
+  ['init_5ftables_2',['init_tables',['../df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#a67ec6f35b83046df716768cadc353e39',1,'anonymous_namespace{statcodes.cpp}']]],
+  ['initminiserversockarray_3',['InitMiniServerSockArray',['../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5d8a62e1d3813dc7cc3bcfca83d918a5',1,'anonymous_namespace{miniserver.cpp}']]],
   ['is_5fbound_4',['is_bound',['../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ab00bb34ed936039b4dc840c3ec6cd1b6',1,'UPnPsdk::CSocket_basic']]],
   ['is_5fcontrol_5fchar_5',['is_control_char',['../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366',1,'anonymous_namespace{httpparser.cpp}']]],
   ['is_5fend_5fpath_6',['is_end_path',['../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a3ee49f49a4ad5c7d3058bb6e67d5ff7f',1,'anonymous_namespace{uri.cpp}']]],

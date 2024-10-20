@@ -17,16 +17,16 @@
 <area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="154,311,216,311,216,317,154,317"/>
 <area shape="rect" id="Node000016" href="$dd/d1d/httpparser_8cpp.html#ae4883a78151ed4bbc5ceb797a5703402" title="A wrapper function that maps a method id to a method." alt="" coords="247,351,363,376"/>
 <area shape="poly" id="edge17_Node000001_Node000016" title=" " alt="" coords="139,324,234,345,233,350,137,329"/>
-<area shape="rect" id="Node000019" href="$d7/d3a/UpnpExtraHeaders_8cpp.html#a786a0c272065b81af91b9f4ea969eadf" title=" " alt="" coords="201,400,408,425"/>
-<area shape="poly" id="edge20_Node000001_Node000019" title=" " alt="" coords="99,324,145,355,202,385,227,394,225,399,200,390,142,359,96,329"/>
-<area shape="rect" id="Node000020" href="$d1/dd9/list_8cpp.html#aadf0be10df4c503872328aaff45aa52d" title="Return iterator pointing to the first list element, or UpnpListEnd(list) if the list is empty." alt="" coords="247,449,363,475"/>
-<area shape="poly" id="edge21_Node000001_Node000020" title=" " alt="" coords="92,325,135,379,167,409,203,434,234,448,232,452,200,439,163,413,131,382,88,329"/>
-<area shape="rect" id="Node000021" href="$d1/dd9/list_8cpp.html#a4b1675d58cb9f452893e6d6b7fbb83ae" title="Return end of list sentinel iterator (not an element)" alt="" coords="253,499,356,524"/>
-<area shape="poly" id="edge22_Node000001_Node000021" title=" " alt="" coords="88,326,103,358,128,401,161,446,203,484,241,501,239,505,200,488,157,450,123,404,99,360,83,328"/>
-<area shape="rect" id="Node000022" href="$d1/dd9/list_8cpp.html#af2f3774174347ff64890e2b3916d8b97" title="Return iterator pointing to element after pos, or end()" alt="" coords="249,548,360,573"/>
-<area shape="poly" id="edge23_Node000001_Node000022" title=" " alt="" coords="86,326,99,367,121,423,156,483,178,510,203,533,237,550,235,555,200,538,174,514,151,486,116,425,94,369,81,328"/>
-<area shape="rect" id="Node000023" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="259,597,350,623"/>
-<area shape="poly" id="edge24_Node000001_Node000023" title=" " alt="" coords="85,327,94,376,115,446,130,483,150,520,174,555,203,584,224,596,247,603,245,609,221,601,200,588,170,558,145,523,125,486,110,447,89,377,80,328"/>
+<area shape="rect" id="Node000018" href="$d7/d3a/UpnpExtraHeaders_8cpp.html#a786a0c272065b81af91b9f4ea969eadf" title=" " alt="" coords="201,400,408,425"/>
+<area shape="poly" id="edge19_Node000001_Node000018" title=" " alt="" coords="99,324,145,355,202,385,227,394,225,399,200,390,142,359,96,329"/>
+<area shape="rect" id="Node000019" href="$d1/dd9/list_8cpp.html#aadf0be10df4c503872328aaff45aa52d" title="Return iterator pointing to the first list element, or UpnpListEnd(list) if the list is empty." alt="" coords="247,449,363,475"/>
+<area shape="poly" id="edge20_Node000001_Node000019" title=" " alt="" coords="92,325,135,379,167,409,203,434,234,448,232,452,200,439,163,413,131,382,88,329"/>
+<area shape="rect" id="Node000020" href="$d1/dd9/list_8cpp.html#a4b1675d58cb9f452893e6d6b7fbb83ae" title="Return end of list sentinel iterator (not an element)" alt="" coords="253,499,356,524"/>
+<area shape="poly" id="edge21_Node000001_Node000020" title=" " alt="" coords="88,326,103,358,128,401,161,446,203,484,241,501,239,505,200,488,157,450,123,404,99,360,83,328"/>
+<area shape="rect" id="Node000021" href="$d1/dd9/list_8cpp.html#af2f3774174347ff64890e2b3916d8b97" title="Return iterator pointing to element after pos, or end()" alt="" coords="249,548,360,573"/>
+<area shape="poly" id="edge22_Node000001_Node000021" title=" " alt="" coords="86,326,98,367,121,424,155,484,177,511,203,534,237,551,234,556,200,539,174,515,151,487,116,426,93,369,81,328"/>
+<area shape="rect" id="Node000022" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="259,597,350,623"/>
+<area shape="poly" id="edge23_Node000001_Node000022" title=" " alt="" coords="85,327,94,376,115,446,130,483,150,520,174,555,203,584,224,596,247,603,245,609,221,601,200,588,170,558,145,523,125,486,110,447,89,377,80,328"/>
 <area shape="rect" id="Node000004" href="$d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="463,48,629,73"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="351,63,448,61,449,66,352,69"/>
 <area shape="rect" id="Node000006" href="$df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#a67ec6f35b83046df716768cadc353e39" title="Initializing tables with HTTP strings and different HTTP codes." alt="" coords="456,97,636,152"/>
@@ -40,14 +40,12 @@
 <area shape="poly" id="edge13_Node000012_Node000010" title=" " alt="" coords="391,251,463,241,464,246,392,256"/>
 <area shape="rect" id="Node000014" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="485,297,607,323"/>
 <area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="380,310,471,309,471,314,380,315"/>
-<area shape="rect" id="Node000015" href="$d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="684,281,905,336"/>
-<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="607,307,670,307,670,312,608,312"/>
-<area shape="rect" id="Node000017" href="$d6/d0f/strintmap_8cpp.html#a3451764616b6b8846efab5e787fe900a" title="Returns the index from the table where the id matches the entry from the table." alt="" coords="487,357,605,383"/>
-<area shape="poly" id="edge18_Node000016_Node000017" title=" " alt="" coords="363,362,473,365,473,371,363,368"/>
-<area shape="rect" id="Node000018" href="$dd/d67/namespaceUPnPsdk.html#a77f51c6767191833e117e850d9ea4508" title="Returns the index from the table where the id matches the entry from the table." alt="" coords="721,360,869,385"/>
-<area shape="poly" id="edge19_Node000017_Node000018" title=" " alt="" coords="606,368,707,369,707,374,606,373"/>
-<area shape="rect" id="Node000024" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="476,572,616,597"/>
-<area shape="poly" id="edge25_Node000023_Node000024" title=" " alt="" coords="350,603,462,591,462,596,351,608"/>
-<area shape="rect" id="Node000025" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="456,621,636,647"/>
-<area shape="poly" id="edge26_Node000023_Node000025" title=" " alt="" coords="351,612,442,621,442,626,350,617"/>
+<area shape="rect" id="Node000015" href="$d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="684,283,905,337"/>
+<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="608,307,670,307,670,313,608,313"/>
+<area shape="rect" id="Node000017" href="$d7/d1a/classUPnPsdk_1_1CStrIntMap.html#a6c512dfcfece21875e8342ba4f3abe80" title="Match the given name with names from the entries in the table." alt="" coords="467,347,625,387"/>
+<area shape="poly" id="edge18_Node000016_Node000017" title=" " alt="" coords="363,362,453,363,453,368,363,367"/>
+<area shape="rect" id="Node000023" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="476,572,616,597"/>
+<area shape="poly" id="edge24_Node000022_Node000023" title=" " alt="" coords="350,603,462,591,462,596,351,608"/>
+<area shape="rect" id="Node000024" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="456,621,636,647"/>
+<area shape="poly" id="edge25_Node000022_Node000024" title=" " alt="" coords="351,612,442,621,442,626,350,617"/>
 </map>

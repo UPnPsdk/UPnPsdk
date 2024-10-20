@@ -1,7 +1,7 @@
 #ifndef UPnPdsk_STRINTMAP_HPP
 #define UPnPdsk_STRINTMAP_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-18
+// Redistribution only with this Copyright remark. Last modified: 2024-10-20
 
 /*!
  * \file
@@ -13,7 +13,6 @@
  * must be sorted by the name-string.
  */
 
-#include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/synclog.hpp>
 #include <UPnPsdk/port.hpp>
 /// \cond
@@ -32,77 +31,99 @@ struct str_int_entry {
 };
 
 /*!
- * \brief Match the given name with names from the entries in the table.
- * \returns
- * On success: Zero based index (position) on the table of entries.\n
- * On failure: \b -1 means string not found
+ * \brief Table with C-strings mapped to an integer id.
  */
-// Don't export function symbol; only used library intern.
+// Don't export class symbol; only used library intern.
+template <typename T> //
+class CStrIntMap {
+  public:
+    /*! \brief Value returned on error or when an index on a container is not
+     * found.
+     * \details Although the definition uses -1, size_t is an unsigned integer
+     * type, and the value of npos is the largest \b positive value it can
+     * hold, due to signed-to-unsigned implicit conversion. This is a portable
+     * way to specify the largest value of any unsigned type. */
+    static constexpr size_t npos = size_t(-1);
+
+    /*! \brief Needs to know what table to use.
+     * \details A valid table is a std::array() container with entries like
+     * `{"GET", UPnPsdk::HTTPMETHOD_GET}` with (const char*)"GET" and
+     * (int)HTTPMETHOD_GET. Any C-String and integer is possible. Due to use
+     * of effective binary seach the entries must be sorted by the string
+     * names. */
+    CStrIntMap(T& a_table) : m_table(a_table) {}
+
+    /*! \brief Match the given name with names from the entries in the table.
+     * \returns
+     *  - On success: Zero based index (position) on the table of entries.\n
+     *  - On failure: CStrIntMap::npos means string not found */
+    size_t index_of(
+        /*! [in] String containing the name to be matched. */
+        const char* a_name,
+        /*! [in] Whether search should be case sensitive or not. Default is not
+           case sensitive search. */
+        bool a_case_sensitive = false);
+
+    /*! \brief Returns the index from the table where the id matches the entry
+     * from the table.
+     * \returns
+     *  - On success: Zero based index (position) on the table of entries.\n
+     *  - On failure: CStrIntMap::npos means id not found */
+    size_t index_of(
+        /// [in] ID to be matched.
+        const int a_id);
+
+  private:
+    T& m_table;
+};
+
 template <typename T>
-int str_to_int(
-    const char* name, ///< [in] String containing the name to be matched.
-    const T& table, ///< [in] Table of entries that need to be matched.
-    bool case_sensitive =
-        false /*!< [in] Whether search should be case sensitive or not. Default
-                 is not case sensitive search. */
-) {
-    TRACE("Executing str_to_int()");
-    if (name == nullptr || name[0] == '\0')
-        return -1;
+size_t CStrIntMap<T>::index_of(const char* a_name, bool a_case_sensitive) {
+    TRACE("Executing index_of(const char*)");
+    if (a_name == nullptr || a_name[0] == '\0')
+        return this->npos;
+
+    // Select library compare function outside the loop with a function pointer
+    // so we do not have to check on every loop for nothing.
+    int (*str_cmp)(const char*, const char*);
+    str_cmp = a_case_sensitive ? strcmp : strcasecmp;
 
     size_t top, mid, bot;
     int cmp;
 
     top = 0;
-    bot = table.size() - 1;
+    bot = m_table.size() - 1;
 
     while (top <= bot) {
         mid = (top + bot) / 2;
-        if (case_sensitive) {
-            cmp = strcmp(name, table[mid].name);
-        } else {
-            cmp = strcasecmp(name, table[mid].name);
-        }
-
+        cmp = str_cmp(a_name, m_table[mid].name);
         if (cmp > 0) {
             top = mid + 1; /* look below mid */
         } else if (cmp < 0) {
             bot = mid - 1; /* look above mid */
-        } else if (mid > INT_MAX) {
+        } else if (mid > INT_MAX) { // guard for the following type cast
             UPNPLIB_LOGCRIT "MSG1026: Index mid="
                 << mid
                 << "exceeds integer limit. This program error MUST be fixed! "
                    "Program is stable but may have ignored runtime "
                    "conditions.\n";
-            return -1; // guard for the following type cast
+            return this->npos;
         } else {
-            return static_cast<int>(mid); /* match, return table index.*/
+            return mid; /* match, return table index. */
         }
     }
-
-    return -1; /* header name not found */
+    return this->npos;
 }
 
-/*!
- * \brief Returns the index from the table where the id matches the entry from
- * the table.
- * \returns
- * On success: Zero based index (position) on the table of entries.\n
- * On failure: \b -1 means id not found
- */
-// Don't export function symbol; only used library intern.
-template <typename T>
-int int_to_str( //
-    int id, ///< [in] ID to be matched.
-    const T& table ///< [in] Table of entries that need to be matched.
-) {
-    TRACE("Executing int_to_str()");
-    for (size_t i{0}; i < table.size(); i++) {
-        if (table[i].id == id) {
-            return static_cast<int>(i);
+template <typename T> //
+size_t CStrIntMap<T>::index_of(int a_id) {
+    TRACE("Executing index_of(int)");
+    for (size_t i{0}; i < m_table.size(); i++) {
+        if (m_table[i].id == a_id) {
+            return i;
         }
     }
-    return -1;
+    return this->npos;
 }
 
 } // namespace UPnPsdk

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-20
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -70,22 +70,20 @@ enum token_type_t {
     TT_QUOTEDSTRING
 };
 
-/// \cond
-constexpr int NUM_HTTP_METHODS{11};
-/// \endcond
 /*! \brief Defines the HTTP methods. */
-str_int_entry Http_Method_Table[NUM_HTTP_METHODS] = {
-    {"DELETE", HTTPMETHOD_DELETE},
-    {"GET", HTTPMETHOD_GET},
-    {"HEAD", HTTPMETHOD_HEAD},
-    {"M-POST", HTTPMETHOD_MPOST},
-    {"M-SEARCH", HTTPMETHOD_MSEARCH},
-    {"NOTIFY", HTTPMETHOD_NOTIFY},
-    {"POST", HTTPMETHOD_POST},
-    {"SUBSCRIBE", HTTPMETHOD_SUBSCRIBE},
-    {"UNSUBSCRIBE", HTTPMETHOD_UNSUBSCRIBE},
-    {"POST", SOAPMETHOD_POST},
-    {"PUT", HTTPMETHOD_PUT}};
+// This is prepared for binary search and must be sorted by method-name.
+inline constexpr std::array<const UPnPsdk::str_int_entry, 11> Http_Method_Table{
+    {{"DELETE", HTTPMETHOD_DELETE},
+     {"GET", HTTPMETHOD_GET},
+     {"HEAD", HTTPMETHOD_HEAD},
+     {"M-POST", HTTPMETHOD_MPOST},
+     {"M-SEARCH", HTTPMETHOD_MSEARCH},
+     {"NOTIFY", HTTPMETHOD_NOTIFY},
+     {"POST", HTTPMETHOD_POST},
+     {"SUBSCRIBE", HTTPMETHOD_SUBSCRIBE},
+     {"UNSUBSCRIBE", HTTPMETHOD_UNSUBSCRIBE},
+     {"POST", SOAPMETHOD_POST},
+     {"PUT", HTTPMETHOD_PUT}}};
 
 /* *********************************************************************/
 /* ***********                 scanner                     *************/
@@ -949,7 +947,7 @@ parse_status_t parser_parse_requestline( //
     http_message_t* hmsg = &parser->msg;
     memptr method_str;
     memptr version_str;
-    int index;
+    size_t index;
     char save_char;
     int num_scanned;
     memptr url_str;
@@ -964,12 +962,15 @@ parse_status_t parser_parse_requestline( //
 
     status = match(&parser->scanner, "%s\t%S%w%c", &method_str, &url_str);
 
+    UPnPsdk::CStrIntMap http_method_table(Http_Method_Table);
     if (status == (parse_status_t)PARSE_OK) {
-
-        index = map_str_to_int(method_str.buf, method_str.length,
-                               Http_Method_Table, NUM_HTTP_METHODS, 1);
-
-        if (index < 0) {
+        index = http_method_table.index_of(method_str.buf, true);
+#if 0
+        index =
+            map_str_to_int(method_str.buf, method_str.length,
+                           &Http_Method_Table[0], Http_Method_Table.size(), 1);
+#endif
+        if (index == http_method_table.npos) {
             /* error; method not found */
             parser->http_error_code = HTTP_NOT_IMPLEMENTED;
             return PARSE_FAILURE;
@@ -1026,10 +1027,13 @@ parse_status_t parser_parse_requestline( //
     if (parse_uri(hmsg->urlbuf, url_str.length, &hmsg->uri) != HTTP_SUCCESS) {
         return PARSE_FAILURE;
     }
+#if 0
+    index = map_str_to_int(method_str.buf, method_str.length, &Http_Method_Table[0],
+                           Http_Method_Table.size(), 1);
+#endif
+    index = http_method_table.index_of(method_str.buf, true);
 
-    index = map_str_to_int(method_str.buf, method_str.length, Http_Method_Table,
-                           NUM_HTTP_METHODS, 1);
-    if (index < 0) {
+    if (index == http_method_table.npos) {
         /* error; method not found */
         parser->http_error_code = HTTP_NOT_IMPLEMENTED;
         return PARSE_FAILURE;
@@ -1430,7 +1434,7 @@ parse_status_t parser_parse_headers(http_parser_t* parser) {
     http_header_t* header;
     int header_id;
     int ret = 0;
-    int index;
+    size_t index;
     http_header_t* orig_header;
     char save_char;
     int ret2;
@@ -1473,20 +1477,19 @@ parse_status_t parser_parse_headers(http_parser_t* parser) {
         }
         /* add header */
         /* find header */
-        /// \todo map_str_to_int: fix type_cast array.size()
+#if 0
         index = map_str_to_int(token.buf, token.length, &Http_Header_Names[0],
-                               static_cast<int>(Http_Header_Names.size()), 0);
-        if (index >= 0) {
+                               Http_Header_Names.size(), 0);
+#endif
+        UPnPsdk::CStrIntMap http_header_names_table(Http_Header_Names);
+        index = http_header_names_table.index_of(token.buf);
+
+        if (index != http_header_names_table.npos) {
             /*Check if it is a soap header */
-            // No problem with type_cast to 'long unsigned int', index is
-            // checked to be >= 0.
-            if (Http_Header_Names[static_cast<size_t>(index)].id ==
-                HDR_SOAPACTION) {
+            if (Http_Header_Names[index].id == HDR_SOAPACTION) {
                 parser->msg.method = SOAPMETHOD_POST;
             }
-            // No problem with type_cast to 'long unsigned int', index is
-            // checked to be >= 0.
-            header_id = Http_Header_Names[static_cast<size_t>(index)].id;
+            header_id = Http_Header_Names[index].id;
             orig_header = httpmsg_find_hdr(&parser->msg, header_id, NULL);
         } else {
             header_id = HDR_UNKNOWN;
@@ -1799,13 +1802,17 @@ int raw_find_str(memptr* raw_value, const char* str) {
 }
 
 const char* method_to_str(http_method_t method) {
-    int index;
+#if 0
+    int index =
+        map_int_to_str(method, &Http_Method_Table[0], Http_Method_Table.size());
+#endif
+    UPnPsdk::CStrIntMap http_method_table(Http_Method_Table);
+    size_t index = http_method_table.index_of(method);
 
-    index = map_int_to_str(method, Http_Method_Table, NUM_HTTP_METHODS);
+    assert(index != http_method_table.npos);
 
-    assert(index != -1);
-
-    return index == -1 ? NULL : Http_Method_Table[index].name;
+    return index == http_method_table.npos ? NULL
+                                           : Http_Method_Table[index].name;
 }
 
 #ifdef DEBUG

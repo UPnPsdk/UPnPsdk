@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-18
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-20
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,7 @@
  *   - The SSDP sockets for discovery.
  */
 
-#include <miniserver.hpp>
+#include <miniserver.hpp> // Needed for one of the compile options
 
 #include <httpreadwrite.hpp>
 #include <ssdp_common.hpp>

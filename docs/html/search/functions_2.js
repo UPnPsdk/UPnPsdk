@@ -34,5 +34,6 @@ var searchData=
   ['createworker_31',['CreateWorker',['../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#ac4a17fd416d9ffc3692f99834066d1c3',1,'anonymous_namespace{ThreadPool.cpp}']]],
   ['csocket_32',['csocket',['../d3/d5d/classUPnPsdk_1_1CSocket.html#a344fe194de361248e4add998b298a225',1,'UPnPsdk::CSocket::CSocket()'],['../d3/d5d/classUPnPsdk_1_1CSocket.html#ae2414f0b1083fc8fdc30208273572fa6',1,'UPnPsdk::CSocket::CSocket(sa_family_t a_family, int a_socktype)'],['../d3/d5d/classUPnPsdk_1_1CSocket.html#a1932fc4b351967415d93a96d67b9c933',1,'UPnPsdk::CSocket::CSocket(CSocket &amp;&amp;)']]],
   ['csocket_5fbasic_33',['CSocket_basic',['../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a4e520f7e7786d3f22f50792db5cfc5dd',1,'UPnPsdk::CSocket_basic']]],
-  ['curi_34',['CUri',['../da/dcf/classUPnPsdk_1_1CUri.html#a98f90c0e9f4656fad15ebd7213f7a849',1,'UPnPsdk::CUri']]]
+  ['cstrintmap_34',['CStrIntMap',['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#acfd23143aba9e99d30cb127ce7eef4a1',1,'UPnPsdk::CStrIntMap']]],
+  ['curi_35',['CUri',['../da/dcf/classUPnPsdk_1_1CUri.html#a98f90c0e9f4656fad15ebd7213f7a849',1,'UPnPsdk::CUri']]]
 ];

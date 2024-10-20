@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-18
+// Redistribution only with this Copyright remark. Last modified: 2024-10-20
 
 #include <UPnPsdk/strintmap.hpp>
 #include <UPnPsdk/httpparser.hpp> // for HTTPMETHOD* constants
@@ -25,56 +25,59 @@ constexpr std::array<UPnPsdk::str_int_entry, 10> Http_Method_Table{
      {"SUBSCRIBE", UPnPsdk::HTTPMETHOD_SUBSCRIBE},
      {"UNSUBSCRIBE", UPnPsdk::HTTPMETHOD_UNSUBSCRIBE}}};
 
+UPnPsdk::CStrIntMap table(Http_Method_Table);
+
 
 // testsuite for strintmap
 //========================
-TEST(StrintmapTestSuite, str_to_int_get_boundaries) {
-    int idx = str_to_int("Delete", Http_Method_Table);
+
+TEST(StrintmapTestSuite, index_of_boundaries) {
+    size_t idx = table.index_of("Delete");
     EXPECT_EQ(idx, 0);
 
-    idx = str_to_int("UNSUBSCRIBE", Http_Method_Table, true);
+    idx = table.index_of("UNSUBSCRIBE", true);
     EXPECT_EQ(idx, 9);
 }
 
-TEST(StrintmapTestSuite, str_to_int_with_nullptr_to_namestring) {
-    ASSERT_EXIT((str_to_int(nullptr, Http_Method_Table, true), exit(0)),
-                ExitedWithCode(0), ".*");
-    int idx{};
-    idx = str_to_int(nullptr, Http_Method_Table, true);
-    EXPECT_EQ(idx, -1);
+TEST(StrintmapTestSuite, nullptr_to_namestring) {
+    ASSERT_EXIT((table.index_of(nullptr, true), exit(0)), ExitedWithCode(0),
+                ".*");
+    size_t idx{};
+    idx = table.index_of(nullptr, true);
+    EXPECT_EQ(idx, table.npos);
 }
 
-TEST(StrintmapTestSuite, str_to_int_with_empty_namestring) {
-    int idx{};
-    idx = str_to_int("\0", Http_Method_Table);
-    EXPECT_EQ(idx, -1);
+TEST(StrintmapTestSuite, empty_namestring) {
+    size_t idx{};
+    idx = table.index_of("\0");
+    EXPECT_EQ(idx, table.npos);
     idx = 0;
-    idx = str_to_int("\0", Http_Method_Table, true);
-    EXPECT_EQ(idx, -1);
+    idx = table.index_of("\0", true);
+    EXPECT_EQ(idx, table.npos);
 }
 
-TEST(StrintmapTestSuite, str_to_int_with_different_namestring_cases) {
-    EXPECT_EQ(str_to_int("Notify", Http_Method_Table, true), -1);
-    EXPECT_EQ(str_to_int("Notify", Http_Method_Table, false), 5);
+TEST(StrintmapTestSuite, different_namestring_cases) {
+    EXPECT_EQ(table.index_of("Notify", true), table.npos);
+    EXPECT_EQ(table.index_of("Notify", false), 5);
 }
 
-TEST(StrintmapTestSuite, str_to_int_with_different_name_length) {
-    EXPECT_EQ(str_to_int("M-Searc", Http_Method_Table), -1);
-    EXPECT_EQ(str_to_int("M-SEARCHING", Http_Method_Table, true), -1);
+TEST(StrintmapTestSuite, different_name_length) {
+    EXPECT_EQ(table.index_of("M-Searc"), table.npos);
+    EXPECT_EQ(table.index_of("M-SEARCHING", true), table.npos);
 }
 
 TEST(StrintmapTestSuite, int_to_str) {
-    int idx = int_to_str(UPnPsdk::HTTPMETHOD_UNSUBSCRIBE, Http_Method_Table);
+    size_t idx = table.index_of(UPnPsdk::HTTPMETHOD_UNSUBSCRIBE);
     EXPECT_EQ(idx, 9);
 }
 
 TEST(StrintmapTestSuite, int_to_str_with_invalid_id) {
-    int idx{};
-    idx = int_to_str(INT_MAX, Http_Method_Table);
-    EXPECT_EQ(idx, -1);
+    size_t idx{};
+    idx = table.index_of(INT_MAX);
+    EXPECT_EQ(idx, table.npos);
     idx = 0;
-    idx = int_to_str(INT_MIN, Http_Method_Table);
-    EXPECT_EQ(idx, -1);
+    idx = table.index_of(INT_MIN);
+    EXPECT_EQ(idx, table.npos);
 }
 
 } // namespace utest

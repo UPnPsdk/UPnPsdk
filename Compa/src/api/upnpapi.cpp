@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-09-22
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-20
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -41,7 +41,7 @@
 #include <upnpapi.hpp>
 
 #include <uuid.hpp>
-#include <miniserver.hpp>
+#include <miniserver.hpp> // Needed for one of the compile options
 #include <httpreadwrite.hpp>
 #include <ssdp_ctrlpt.hpp>
 #include <ssdp_device.hpp>

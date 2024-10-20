@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-04
+# Redistribution only with this Copyright remark. Last modified: 2024-10-20
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -57,15 +57,5 @@ target_link_libraries(test_strintmap-psh
     PRIVATE pupnp_shared
 )
 add_test(NAME ctest_strintmap-psh COMMAND test_strintmap-psh --gtest_shuffle
-    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
-)
-
-add_executable(test_strintmap-cst
-    test_strintmap.cpp
-)
-target_link_libraries(test_strintmap-cst
-    PRIVATE compa_static
-)
-add_test(NAME ctest_strintmap-cst COMMAND test_strintmap-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )

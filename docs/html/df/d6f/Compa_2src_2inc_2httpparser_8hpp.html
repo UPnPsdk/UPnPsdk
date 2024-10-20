@@ -111,8 +111,8 @@ $(document).ready(function(){initNavTree('df/d6f/Compa_2src_2inc_2httpparser_8hp
 <div class="textblock"><code>#include &lt;<a class="el" href="../../de/dd1/LinkedList_8hpp_source.html">LinkedList.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d1/d10/membuffer_8hpp_source.html">membuffer.hpp</a>&gt;</code><br />
 <code>#include &lt;upnp.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d8/d18/Compa_2src_2inc_2strintmap_8hpp_source.html">strintmap.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html">uri.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../df/df3/strintmap_8hpp_source.html">UPnPsdk/strintmap.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for httpparser.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -120,36 +120,33 @@ $(document).ready(function(){initNavTree('df/d6f/Compa_2src_2inc_2httpparser_8hp
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../db/dae/Compa_2src_2inc_2httpparser_8hpp__incl.png" border="0" usemap="#aCompa_2src_2inc_2httpparser_8hpp" alt=""/></div>
 <map name="aCompa_2src_2inc_2httpparser_8hpp" id="aCompa_2src_2inc_2httpparser_8hpp">
-<area shape="rect" title="Functions to parse UPnP messages like requests and responses." alt="" coords="181,5,393,31"/>
-<area shape="rect" href="../../de/dd1/LinkedList_8hpp.html" title="Manage a linked list (for internal use only)." alt="" coords="33,79,148,104"/>
-<area shape="poly" title=" " alt="" coords="256,33,136,76,135,71,254,28"/>
-<area shape="rect" href="../../d1/d10/membuffer_8hpp.html" title="Manage blocks of dynamically allocated memory." alt="" coords="367,79,489,104"/>
-<area shape="poly" title=" " alt="" coords="311,28,394,70,392,75,308,33"/>
-<area shape="rect" title=" " alt="" coords="513,79,596,104"/>
-<area shape="poly" title=" " alt="" coords="330,28,501,73,499,78,329,33"/>
-<area shape="rect" href="../../d8/d18/Compa_2src_2inc_2strintmap_8hpp.html" title="String to integer and integer to string conversion functions." alt="" coords="230,79,343,104"/>
-<area shape="poly" title=" " alt="" coords="289,31,289,65,284,65,284,31"/>
-<area shape="rect" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="159,152,225,177"/>
-<area shape="poly" title=" " alt="" coords="270,33,245,53,221,80,207,110,199,139,194,138,202,108,216,77,241,49,267,29"/>
-<area shape="rect" href="../../d8/d1c/FreeList_8hpp.html" title="Manage a free list (for internal use only)." alt="" coords="33,152,135,177"/>
-<area shape="poly" title=" " alt="" coords="92,105,89,139,84,138,87,104"/>
-<area shape="rect" href="../../d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="5,225,101,251"/>
-<area shape="poly" title=" " alt="" coords="81,179,66,214,61,212,76,177"/>
-<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="139,299,304,324"/>
-<area shape="poly" title=" " alt="" coords="97,176,203,287,199,291,93,180"/>
-<area shape="rect" title=" " alt="" coords="11,299,95,324"/>
-<area shape="poly" title=" " alt="" coords="56,251,56,285,51,285,51,251"/>
-<area shape="rect" href="../../dc/df9/UPnPsdk_2include_2UPnPsdk_2strintmap_8hpp.html" title="String to integer and integer to string conversion functions." alt="" coords="255,152,430,177"/>
-<area shape="poly" title=" " alt="" coords="298,103,327,140,323,143,294,106"/>
-<area shape="poly" title=" " alt="" coords="326,180,297,200,269,227,248,257,234,287,229,284,244,254,265,224,294,196,322,175"/>
-<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="439,225,601,251"/>
-<area shape="poly" title=" " alt="" coords="372,175,480,218,478,223,370,180"/>
-<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="278,225,415,251"/>
-<area shape="poly" title=" " alt="" coords="346,178,348,212,343,212,341,178"/>
-<area shape="poly" title=" " alt="" coords="473,253,284,298,282,293,471,248"/>
-<area shape="rect" title=" " alt="" coords="456,299,584,324"/>
-<area shape="poly" title=" " alt="" coords="523,251,523,285,517,285,517,251"/>
-<area shape="poly" title=" " alt="" coords="197,177,219,284,214,286,192,178"/>
+<area shape="rect" title="Functions to parse UPnP messages like requests and responses." alt="" coords="226,5,438,31"/>
+<area shape="rect" href="../../de/dd1/LinkedList_8hpp.html" title="Manage a linked list (for internal use only)." alt="" coords="5,79,120,104"/>
+<area shape="poly" title=" " alt="" coords="289,33,120,78,119,73,288,28"/>
+<area shape="rect" href="../../d1/d10/membuffer_8hpp.html" title="Manage blocks of dynamically allocated memory." alt="" coords="145,79,266,104"/>
+<area shape="poly" title=" " alt="" coords="313,33,239,74,237,69,310,28"/>
+<area shape="rect" title=" " alt="" coords="291,79,373,104"/>
+<area shape="poly" title=" " alt="" coords="335,31,335,65,329,65,329,31"/>
+<area shape="rect" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="275,152,341,177"/>
+<area shape="poly" title=" " alt="" coords="350,29,366,43,382,62,391,83,388,105,369,129,346,147,343,143,366,126,383,103,385,84,377,64,362,47,346,33"/>
+<area shape="rect" href="../../df/df3/strintmap_8hpp.html" title="String to integer and integer to string conversion functions." alt="" coords="449,79,623,104"/>
+<area shape="poly" title=" " alt="" coords="366,28,491,72,489,77,364,33"/>
+<area shape="rect" href="../../d8/d1c/FreeList_8hpp.html" title="Manage a free list (for internal use only)." alt="" coords="87,152,188,177"/>
+<area shape="poly" title=" " alt="" coords="76,102,117,141,113,144,73,106"/>
+<area shape="rect" href="../../d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="89,225,185,251"/>
+<area shape="poly" title=" " alt="" coords="140,178,140,212,135,212,135,178"/>
+<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="211,225,376,251"/>
+<area shape="poly" title=" " alt="" coords="163,175,256,217,254,222,161,180"/>
+<area shape="rect" title=" " alt="" coords="95,299,179,324"/>
+<area shape="poly" title=" " alt="" coords="140,251,140,285,135,285,135,251"/>
+<area shape="poly" title=" " alt="" coords="308,178,301,212,296,211,303,177"/>
+<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="369,152,530,177"/>
+<area shape="poly" title=" " alt="" coords="524,106,476,145,472,141,520,102"/>
+<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="554,152,691,177"/>
+<area shape="poly" title=" " alt="" coords="552,102,600,141,596,145,548,106"/>
+<area shape="poly" title=" " alt="" coords="425,180,332,222,330,217,423,175"/>
+<area shape="rect" title=" " alt="" coords="400,225,528,251"/>
+<area shape="poly" title=" " alt="" coords="454,177,461,211,456,212,449,178"/>
 </map>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -159,54 +156,52 @@ $(document).ready(function(){initNavTree('df/d6f/Compa_2src_2inc_2httpparser_8hp
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d9b/Compa_2src_2inc_2httpparser_8hpp__dep__incl.png" border="0" usemap="#aCompa_2src_2inc_2httpparser_8hppdep" alt=""/></div>
 <map name="aCompa_2src_2inc_2httpparser_8hppdep" id="aCompa_2src_2inc_2httpparser_8hppdep">
-<area shape="rect" title="Functions to parse UPnP messages like requests and responses." alt="" coords="1205,5,1417,31"/>
-<area shape="rect" href="../../d9/dd2/gena_8hpp.html" title="Manage Eventing with GENA, the General Event Notification Architecture." alt="" coords="1222,86,1401,111"/>
-<area shape="poly" title=" " alt="" coords="1314,44,1314,86,1309,86,1309,44"/>
-<area shape="rect" href="../../d2/d33/gena__device_8hpp.html" title="Handles subscriptions from a control point." alt="" coords="1425,79,1576,119"/>
-<area shape="poly" title=" " alt="" coords="1353,33,1456,76,1454,81,1351,38"/>
-<area shape="rect" href="../../de/ded/Compa_2src_2inc_2httpreadwrite_8hpp.html" title="Performs HTTP read and write messages." alt="" coords="1601,86,1835,111"/>
-<area shape="poly" title=" " alt="" coords="1384,31,1659,83,1658,89,1383,36"/>
-<area shape="rect" href="../../d3/d8b/miniserver_8hpp.html" title="Manage &quot;Step 0: Addressing&quot; of the UPnP+™ specification." alt="" coords="563,86,777,111"/>
-<area shape="poly" title=" " alt="" coords="1205,35,764,89,763,83,1204,30"/>
-<area shape="rect" href="../../d2/dd2/soap__device_8hpp.html" title="SOAP declarations for UPnP Devices using SOAP." alt="" coords="1074,167,1223,207"/>
-<area shape="poly" title=" " alt="" coords="1273,39,1241,57,1212,81,1194,102,1179,125,1158,168,1154,165,1175,122,1190,99,1208,77,1238,53,1270,34"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="1055,350,1253,375"/>
-<area shape="poly" title=" " alt="" coords="1307,125,1293,165,1274,208,1247,252,1216,292,1167,351,1163,348,1212,289,1242,249,1269,205,1288,163,1302,124"/>
-<area shape="rect" href="../../dc/d02/gena__callback2_8cpp.html" title="Callback function to handle incoming GENA requests." alt="" coords="1535,167,1698,207"/>
-<area shape="poly" title=" " alt="" coords="1366,113,1550,164,1549,169,1365,118"/>
-<area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html" title="Manage GENA control point." alt="" coords="1349,167,1511,207"/>
-<area shape="poly" title=" " alt="" coords="1340,117,1405,164,1402,169,1337,122"/>
+<area shape="rect" title="Functions to parse UPnP messages like requests and responses." alt="" coords="1099,5,1311,31"/>
+<area shape="rect" href="../../d9/dd2/gena_8hpp.html" title="Manage Eventing with GENA, the General Event Notification Architecture." alt="" coords="1115,86,1294,111"/>
+<area shape="poly" title=" " alt="" coords="1207,44,1207,86,1202,86,1202,44"/>
+<area shape="rect" href="../../d2/d33/gena__device_8hpp.html" title="Handles subscriptions from a control point." alt="" coords="1319,79,1469,119"/>
+<area shape="poly" title=" " alt="" coords="1246,33,1349,76,1347,81,1244,38"/>
+<area shape="rect" href="../../de/ded/Compa_2src_2inc_2httpreadwrite_8hpp.html" title="Performs HTTP read and write messages." alt="" coords="1494,86,1729,111"/>
+<area shape="poly" title=" " alt="" coords="1277,31,1553,83,1552,89,1276,36"/>
+<area shape="rect" href="../../d3/d8b/miniserver_8hpp.html" title="Manage &quot;Step 0: Addressing&quot; of the UPnP+™ specification." alt="" coords="729,86,944,111"/>
+<area shape="poly" title=" " alt="" coords="1138,36,891,89,890,83,1137,31"/>
+<area shape="rect" href="../../d2/dd2/soap__device_8hpp.html" title="SOAP declarations for UPnP Devices using SOAP." alt="" coords="967,167,1117,207"/>
+<area shape="poly" title=" " alt="" coords="1166,39,1134,57,1105,81,1088,102,1073,125,1052,168,1047,165,1068,122,1083,99,1101,77,1131,53,1163,34"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="987,350,1185,375"/>
+<area shape="poly" title=" " alt="" coords="1204,126,1187,204,1172,251,1151,296,1127,328,1102,351,1099,348,1123,324,1146,293,1167,249,1182,203,1199,124"/>
+<area shape="rect" href="../../dc/d02/gena__callback2_8cpp.html" title="Callback function to handle incoming GENA requests." alt="" coords="1429,167,1591,207"/>
+<area shape="poly" title=" " alt="" coords="1260,113,1443,164,1442,169,1258,118"/>
+<area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html" title="Manage GENA control point." alt="" coords="1242,167,1405,207"/>
+<area shape="poly" title=" " alt="" coords="1233,117,1299,164,1296,169,1230,122"/>
 <area shape="rect" href="../../dd/de6/gena__device_8cpp.html" title="Manage GENA Devices." alt="" coords="954,255,1117,295"/>
-<area shape="poly" title=" " alt="" coords="1302,125,1276,168,1258,190,1237,209,1209,227,1179,241,1118,261,1116,256,1177,236,1206,222,1234,205,1254,186,1272,165,1298,123"/>
-<area shape="poly" title=" " alt="" coords="1539,125,1593,164,1589,169,1536,129"/>
-<area shape="poly" title=" " alt="" coords="738,112,840,136,957,170,1062,209,1103,231,1131,253,1146,277,1154,304,1157,350,1152,350,1148,305,1141,279,1127,256,1100,235,1060,214,955,175,839,141,737,117"/>
+<area shape="poly" title=" " alt="" coords="1193,125,1166,166,1131,209,1100,235,1068,257,1065,252,1096,231,1127,205,1162,162,1189,122"/>
+<area shape="poly" title=" " alt="" coords="1432,125,1486,164,1483,169,1429,129"/>
+<area shape="rect" href="../../d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="557,167,705,207"/>
+<area shape="poly" title=" " alt="" coords="798,119,678,169,676,164,796,114"/>
+<area shape="rect" href="../../d9/d36/Compa_2src_2inc_2webserver_8hpp.html" title="Internal Web Server and functions to carry out operations of it." alt="" coords="730,174,943,199"/>
+<area shape="poly" title=" " alt="" coords="839,125,839,173,834,173,834,125"/>
+<area shape="poly" title=" " alt="" coords="720,204,954,254,953,259,719,210"/>
 <area shape="rect" href="../../d5/db2/miniserver_8cpp.html" title="Implements the functionality and utility functions used by the Miniserver module." alt="" coords="5,255,215,295"/>
-<area shape="poly" title=" " alt="" coords="645,122,585,169,561,191,534,209,490,226,451,237,383,246,314,248,226,257,215,259,215,254,226,252,313,243,383,241,450,232,488,221,531,204,558,187,582,165,642,118"/>
-<area shape="rect" href="../../d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="596,167,744,207"/>
-<area shape="poly" title=" " alt="" coords="673,125,673,166,667,166,667,125"/>
-<area shape="rect" href="../../d9/d36/Compa_2src_2inc_2webserver_8hpp.html" title="Internal Web Server and functions to carry out operations of it." alt="" coords="307,174,521,199"/>
-<area shape="poly" title=" " alt="" coords="623,118,449,176,448,171,622,113"/>
-<area shape="poly" title=" " alt="" coords="758,206,956,252,955,257,757,211"/>
-<area shape="poly" title=" " alt="" coords="583,208,577,209,402,234,226,257,215,259,215,254,226,252,401,229,576,204,582,203"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html" title="Internal Web Server and functions to carry out operations of it." alt="" coords="411,255,571,295"/>
-<area shape="poly" title=" " alt="" coords="620,215,532,257,529,252,617,210"/>
-<area shape="rect" href="../../da/db2/ssdp__ctrlpt_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="239,255,387,295"/>
-<area shape="poly" title=" " alt="" coords="583,211,388,258,387,253,582,206"/>
-<area shape="rect" href="../../da/df5/ssdp__device_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="596,255,744,295"/>
-<area shape="poly" title=" " alt="" coords="673,221,673,254,667,254,667,221"/>
+<area shape="poly" title=" " alt="" coords="544,205,215,259,215,254,543,200"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html" title="Internal Web Server and functions to carry out operations of it." alt="" coords="239,255,399,295"/>
+<area shape="poly" title=" " alt="" coords="550,213,388,257,387,252,549,208"/>
+<area shape="rect" href="../../da/db2/ssdp__ctrlpt_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="596,255,744,295"/>
+<area shape="poly" title=" " alt="" coords="648,218,664,253,659,256,643,220"/>
+<area shape="rect" href="../../da/df5/ssdp__device_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="424,255,572,295"/>
+<area shape="poly" title=" " alt="" coords="592,217,529,257,526,252,589,212"/>
 <area shape="rect" href="../../d6/d92/soap__device_8cpp.html" title="Items for UPnP devices to manage UPnP Control." alt="" coords="768,255,929,295"/>
-<area shape="poly" title=" " alt="" coords="723,210,811,252,808,257,720,215"/>
-<area shape="poly" title=" " alt="" coords="400,292,585,316,765,333,1055,354,1054,359,765,339,584,321,400,297"/>
-<area shape="rect" href="../../df/d13/ssdp__common_8cpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for common SSDP usage." alt="" coords="412,343,571,383"/>
-<area shape="poly" title=" " alt="" coords="365,298,453,340,451,345,363,303"/>
-<area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="229,343,388,383"/>
-<area shape="poly" title=" " alt="" coords="314,309,312,343,307,342,308,308"/>
-<area shape="poly" title=" " alt="" coords="758,292,1080,347,1079,353,757,298"/>
-<area shape="poly" title=" " alt="" coords="620,303,532,345,529,340,617,298"/>
-<area shape="rect" href="../../db/db9/ssdp__device_8cpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="595,343,753,383"/>
-<area shape="poly" title=" " alt="" coords="674,308,676,342,670,343,669,309"/>
-<area shape="poly" title=" " alt="" coords="1165,218,1175,254,1177,281,1173,308,1161,350,1156,349,1168,307,1171,281,1170,255,1160,220"/>
-<area shape="poly" title=" " alt="" coords="1070,213,915,257,914,252,1069,208"/>
+<area shape="poly" title=" " alt="" coords="693,209,802,252,800,257,691,214"/>
+<area shape="poly" title=" " alt="" coords="758,292,1029,347,1027,353,757,298"/>
+<area shape="rect" href="../../df/d13/ssdp__common_8cpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for common SSDP usage." alt="" coords="487,343,645,383"/>
+<area shape="poly" title=" " alt="" coords="638,306,591,345,587,340,635,302"/>
+<area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="669,343,828,383"/>
+<area shape="poly" title=" " alt="" coords="699,303,733,341,729,344,695,307"/>
+<area shape="poly" title=" " alt="" coords="586,292,804,325,987,348,986,353,804,331,585,298"/>
+<area shape="poly" title=" " alt="" coords="524,304,553,341,549,344,519,307"/>
+<area shape="rect" href="../../db/db9/ssdp__device_8cpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="304,343,463,383"/>
+<area shape="poly" title=" " alt="" coords="463,305,410,345,407,340,460,301"/>
+<area shape="poly" title=" " alt="" coords="1093,212,1115,230,1131,254,1136,281,1128,309,1114,333,1099,352,1095,348,1109,330,1123,306,1130,281,1126,256,1111,234,1090,216"/>
+<area shape="poly" title=" " alt="" coords="988,215,892,257,890,252,986,210"/>
 </map>
 </div>
 </div>
@@ -454,9 +449,9 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aaa47881083ab4dcedd80b73631fa6d4f" id="r_aaa47881083ab4dcedd80b73631fa6d4f"><td class="memItemLeft" align="right" valign="top">constexpr std::array&lt; const str_int_entry, 33 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aaa47881083ab4dcedd80b73631fa6d4f">Http_Header_Names</a></td></tr>
-<tr class="memdesc:aaa47881083ab4dcedd80b73631fa6d4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns header-name id to its text representation.  <br /></td></tr>
-<tr class="separator:aaa47881083ab4dcedd80b73631fa6d4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e5eff57be6f295224e9bc84f95b581f" id="r_a1e5eff57be6f295224e9bc84f95b581f"><td class="memItemLeft" align="right" valign="top">constexpr std::array&lt; const <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry">UPnPsdk::str_int_entry</a>, 33 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a1e5eff57be6f295224e9bc84f95b581f">Http_Header_Names</a></td></tr>
+<tr class="memdesc:a1e5eff57be6f295224e9bc84f95b581f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns header-name id to its text representation.  <br /></td></tr>
+<tr class="separator:a1e5eff57be6f295224e9bc84f95b581f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Functions to parse UPnP messages like requests and responses. </p>
@@ -476,7 +471,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <div class="textblock"><p>Structure of a scanner object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00075">75</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00076">76</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 </div><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for scanner_t:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -531,7 +526,7 @@ Completeness of 'msg'. <ul>
 </div><div class="memdoc">
 <div class="textblock"><p>Structure of an HTTP header object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00213">213</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00211">211</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 </div><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for http_header_t:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -589,7 +584,7 @@ name_buf</td>
 </div><div class="memdoc">
 <div class="textblock"><p>Structure of an HTTP message. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00225">225</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00223">223</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 </div><div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for http_message_t:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -724,7 +719,7 @@ storage for url string. </td></tr>
 </div><div class="memdoc">
 <div class="textblock"><p>Structure of an HTTP parser object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00274">274</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00272">272</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 </div><div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for http_parser_t:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -837,7 +832,7 @@ scanner</td>
 
 <p>Defines read method. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00057">57</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00058">58</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -855,7 +850,7 @@ scanner</td>
 
 <p>Defines read method. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00058">58</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -873,7 +868,7 @@ scanner</td>
 
 <p>Defines read method. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -891,7 +886,7 @@ scanner</td>
 
 <p>Defines read method. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00060">60</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00061">61</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -909,7 +904,7 @@ scanner</td>
 
 <p>Defines read method. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00061">61</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00062">62</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -927,7 +922,7 @@ scanner</td>
 
 <p>Defines read method. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00062">62</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00063">63</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -945,7 +940,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00110">110</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00111">111</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -963,7 +958,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00111">111</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00112">112</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -981,7 +976,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00112">112</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00113">113</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -999,7 +994,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00113">113</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00114">114</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1017,7 +1012,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00114">114</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00115">115</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1035,7 +1030,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00115">115</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00116">116</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1053,7 +1048,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00116">116</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00117">117</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1071,7 +1066,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00117">117</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00118">118</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1089,7 +1084,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00121">121</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00122">122</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1107,7 +1102,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00122">122</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00123">123</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1125,7 +1120,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00123">123</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00124">124</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1143,7 +1138,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00124">124</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00125">125</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1161,7 +1156,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00125">125</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00126">126</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1179,7 +1174,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00126">126</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00127">127</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1197,7 +1192,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00127">127</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00128">128</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1215,7 +1210,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00128">128</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00129">129</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1233,7 +1228,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00129">129</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00130">130</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1251,7 +1246,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00130">130</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00131">131</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1269,7 +1264,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00131">131</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00132">132</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1287,7 +1282,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00132">132</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00133">133</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1305,7 +1300,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00133">133</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00134">134</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1323,7 +1318,7 @@ scanner</td>
 
 <p>Type of a HTTP header. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00134">134</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00135">135</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1341,7 +1336,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00140">140</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00141">141</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1359,7 +1354,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00141">141</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00142">142</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1377,7 +1372,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00142">142</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00143">143</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1395,7 +1390,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00143">143</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00144">144</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1413,7 +1408,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00144">144</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00145">145</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1431,7 +1426,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00145">145</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00146">146</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1449,7 +1444,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00146">146</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00147">147</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1467,7 +1462,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00147">147</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00148">148</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1485,7 +1480,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00148">148</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00149">149</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1503,7 +1498,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00149">149</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00150">150</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1521,7 +1516,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00150">150</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00151">151</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1539,7 +1534,7 @@ scanner</td>
 
 <p>Header definition. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00151">151</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00152">152</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1570,7 +1565,7 @@ scanner</td>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00066">66</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00067">67</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1589,7 +1584,7 @@ scanner</td>
 <p>Method in a HTTP request. <b>For a Warning see</b> </p>
 <dl class="section warning"><dt>Warning</dt><dd>The enum values of the standard HTTP method should match those of Upnp_HttpMethod enum defined in Compa/inc/upnp.hpp </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00090">90</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00091">91</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1623,7 +1618,7 @@ scanner</td>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00195">195</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html#l00193">193</a> of file <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_source.html">httpparser.hpp</a>.</p>
 
 </div>
 </div>
@@ -1652,7 +1647,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01267">1267</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01271">1271</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -1846,7 +1841,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01280">1280</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01284">1284</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -2023,7 +2018,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01301">1301</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01305">1305</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -2193,7 +2188,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01677">1677</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01680">1680</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -2383,7 +2378,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01684">1684</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01687">1687</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -2569,7 +2564,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01693">1693</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01696">1696</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -2577,126 +2572,126 @@ scanner</td>
 <div id="dynsection-16-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_a4eff37cf0315cb3beccc9e9d03e834c7_cgraph.png" border="0" usemap="#adf/d6f/Compa_2src_2inc_2httpparser_8hpp_a4eff37cf0315cb3beccc9e9d03e834c7_cgraph" alt=""/></div>
 <map name="adf/d6f/Compa_2src_2inc_2httpparser_8hpp_a4eff37cf0315cb3beccc9e9d03e834c7_cgraph" id="adf/d6f/Compa_2src_2inc_2httpparser_8hpp_a4eff37cf0315cb3beccc9e9d03e834c7_cgraph">
-<area shape="rect" title="The parser function." alt="" coords="5,697,112,723"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a85f4a9679504a2f6a25cb53580fe81d7" title="Determines method to read entity." alt="" coords="160,585,311,611"/>
-<area shape="poly" title=" " alt="" coords="79,695,201,616,204,620,81,699"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="609,477,774,503"/>
-<area shape="poly" title=" " alt="" coords="64,696,100,636,163,550,204,505,250,463,302,427,358,400,409,384,451,380,494,386,546,399,581,412,613,430,666,466,663,471,611,434,578,417,545,405,493,391,451,385,410,389,360,404,304,431,254,467,208,509,167,554,105,639,69,699"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a01d7fab7d8ff4a83e2967633b0b282c8" title="Get HTTP Method, URL location and version information." alt="" coords="599,844,784,899"/>
-<area shape="poly" title=" " alt="" coords="73,721,110,755,135,773,161,788,214,808,270,825,383,849,492,863,585,868,585,874,491,868,383,854,269,830,213,813,159,792,132,778,107,759,70,725"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aa7dd58029632188085819da596eda0cc" title="Get HTTP Method, URL location and version information." alt="" coords="593,791,789,816"/>
-<area shape="poly" title=" " alt="" coords="95,720,211,758,284,778,359,793,472,803,580,805,579,810,472,809,358,798,283,783,209,763,93,725"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aae632d5cc945d012140dff733af29bd4" title="Determines method to read entity." alt="" coords="366,131,538,171"/>
-<area shape="poly" title=" " alt="" coords="240,584,433,182,438,185,245,586"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#af63731051c62f32e8aee032e269c9ff2" title="Read data in the chunks." alt="" coords="359,571,545,625"/>
-<area shape="poly" title=" " alt="" coords="311,595,346,595,346,601,311,601"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ac3546d1ed4487058f5b93ad4a25d5300" title="Read entity using chunked transfer encoding." alt="" coords="359,413,545,468"/>
-<area shape="poly" title=" " alt="" coords="245,583,291,534,323,505,357,478,367,472,370,477,360,483,326,509,295,538,249,587"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34" title="Read headers at the end of the chunked entity." alt="" coords="359,492,545,547"/>
-<area shape="poly" title=" " alt="" coords="271,583,362,549,364,554,272,588"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afcb84d0307a28d0eff5efde70048508a" title="Keep reading entity until the connection is closed." alt="" coords="359,649,545,704"/>
-<area shape="poly" title=" " alt="" coords="272,608,364,642,362,647,271,613"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8dc71c24f5c71f2544e715f0cbf9e511" title="Reads entity using content&#45;length." alt="" coords="359,728,545,783"/>
-<area shape="poly" title=" " alt="" coords="249,609,294,659,326,688,360,714,368,719,365,724,357,719,322,692,290,663,245,612"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="863,105,997,131"/>
-<area shape="poly" title=" " alt="" coords="538,143,849,121,849,126,538,148"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a6f102e766ab6d15cdd7c7c31d550903f" title="Find a substring from raw character string buffer." alt="" coords="641,5,742,31"/>
-<area shape="poly" title=" " alt="" coords="472,129,523,84,557,60,592,40,627,27,628,32,594,44,559,65,527,88,475,133"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#ab6f3362dea50f1228e5a6b7f99acc7ce" title="Converts raw character data to integer value." alt="" coords="646,55,737,80"/>
-<area shape="poly" title=" " alt="" coords="505,129,592,97,637,82,638,87,594,102,507,134"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a95b9f2d9c206cb56daa5b61001f5b320" title="Get pointer to next character in string." alt="" coords="594,156,789,211"/>
-<area shape="poly" title=" " alt="" coords="538,160,581,166,580,171,538,165"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="646,235,737,260"/>
-<area shape="poly" title=" " alt="" coords="489,169,538,195,594,220,633,232,632,237,592,224,536,200,487,174"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="1134,105,1206,131"/>
-<area shape="poly" title=" " alt="" coords="997,115,1120,115,1120,121,997,121"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="860,204,1000,229"/>
-<area shape="poly" title=" " alt="" coords="737,239,846,225,847,230,737,244"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="840,155,1020,180"/>
-<area shape="poly" title=" " alt="" coords="736,236,788,220,812,204,836,189,855,182,857,187,839,194,815,209,790,224,738,241"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5" title="Matches a variable parameter list and takes necessary actions based on the data type specified." alt="" coords="837,779,1023,819"/>
-<area shape="poly" title=" " alt="" coords="518,623,546,636,692,702,838,765,857,772,855,777,836,770,690,707,544,640,516,628"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aee72bc5a9c58a849f2e41503500a773d" title="Shrink the size of the buffer depending on the current size of the buffer and the input parameters...." alt="" coords="620,583,763,608"/>
-<area shape="poly" title=" " alt="" coords="545,594,606,594,606,599,545,600"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="1071,781,1269,821"/>
-<area shape="poly" title=" " alt="" coords="1023,797,1057,797,1057,803,1023,803"/>
-<area shape="rect" href="../../d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="1373,924,1456,949"/>
-<area shape="poly" title=" " alt="" coords="1208,818,1380,915,1377,920,1206,823"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14" title="Reads next token from the input stream." alt="" coords="1317,736,1512,791"/>
-<area shape="poly" title=" " alt="" coords="1269,783,1303,778,1304,783,1270,788"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="1575,917,1766,957"/>
-<area shape="poly" title=" " alt="" coords="1456,934,1562,934,1562,939,1456,939"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="1577,981,1765,1021"/>
-<area shape="poly" title=" " alt="" coords="1457,944,1577,975,1576,980,1455,949"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="1581,1045,1761,1085"/>
-<area shape="poly" title=" " alt="" coords="1433,947,1488,988,1561,1030,1578,1037,1576,1042,1559,1035,1485,992,1430,952"/>
-<area shape="rect" href="../../d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="1587,867,1754,892"/>
-<area shape="poly" title=" " alt="" coords="1456,925,1599,893,1600,898,1457,930"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366" title="Determines if the passed value is a control character." alt="" coords="1581,657,1761,712"/>
-<area shape="poly" title=" " alt="" coords="1503,733,1567,714,1569,719,1505,738"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a397ada9472b0ce782d9636144528c8cf" title="Determines if the passed value is permissible in token." alt="" coords="1581,736,1761,791"/>
-<area shape="poly" title=" " alt="" coords="1512,761,1567,761,1567,766,1512,766"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a119ec2e9ed02e25cb1dfd3cbba91ab0c" title="Determines if the passed value is a separator." alt="" coords="1829,769,2009,824"/>
-<area shape="poly" title=" " alt="" coords="1500,788,1560,801,1626,807,1693,809,1816,804,1816,810,1693,814,1626,812,1560,806,1499,793"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa8849fbe55dcefa7ab2465ea8aabd214" title="Determines if the passed value is permissible in qdtext." alt="" coords="1581,579,1761,633"/>
-<area shape="poly" title=" " alt="" coords="1442,734,1494,689,1559,644,1571,637,1574,642,1561,648,1497,693,1445,738"/>
-<area shape="poly" title=" " alt="" coords="1761,773,1816,780,1816,786,1760,778"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b" title="Increases or decreases buffer cap so that at least &#39;new_length&#39; bytes can be stored." alt="" coords="1337,629,1492,655"/>
-<area shape="poly" title=" " alt="" coords="763,597,1324,634,1323,639,763,603"/>
-<area shape="poly" title=" " alt="" coords="486,411,662,267,665,271,489,415"/>
-<area shape="poly" title=" " alt="" coords="522,466,547,478,571,496,595,513,623,524,650,529,698,531,722,533,745,538,768,550,791,570,809,594,817,619,819,644,817,669,815,693,816,717,823,741,839,766,843,769,839,773,835,769,818,744,811,718,809,693,811,668,813,644,812,620,804,597,787,573,765,554,743,543,721,538,698,536,649,534,622,529,592,518,567,501,544,483,520,470"/>
-<area shape="poly" title=" " alt="" coords="530,466,547,479,564,500,571,520,579,540,595,559,623,575,621,580,592,563,574,542,567,522,559,502,543,483,527,470"/>
-<area shape="poly" title=" " alt="" coords="540,544,638,576,637,581,538,549"/>
-<area shape="poly" title=" " alt="" coords="545,505,594,499,595,504,545,511"/>
-<area shape="poly" title=" " alt="" coords="696,476,736,391,787,272,798,233,802,201,811,171,835,140,848,131,851,135,839,144,816,173,807,202,803,234,792,274,741,393,701,478"/>
-<area shape="poly" title=" " alt="" coords="761,500,777,509,791,522,812,553,820,585,820,615,816,646,812,676,812,705,820,735,839,766,842,769,838,772,835,769,815,737,807,706,807,675,811,645,815,615,815,585,807,555,787,525,774,514,758,505"/>
-<area shape="poly" title=" " alt="" coords="730,500,790,522,1331,728,1329,733,788,527,728,505"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a203e4a83e2a55a4ae005374ef3bc98c0" title="Compares the header name with the header names stored in the linked list of messages." alt="" coords="851,329,1009,355"/>
-<area shape="poly" title=" " alt="" coords="702,475,756,422,794,391,836,365,854,357,856,362,839,370,797,396,760,426,706,479"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="884,379,976,404"/>
-<area shape="poly" title=" " alt="" coords="713,475,768,445,836,414,870,403,872,408,838,419,771,450,716,479"/>
-<area shape="rect" href="../../d6/d0f/strintmap_8cpp.html#a3d400a234d1f0486e70e22ce27070e46" title="Match the given name with names from the entries in the table." alt="" coords="871,729,989,755"/>
-<area shape="poly" title=" " alt="" coords="760,500,777,509,791,522,808,547,816,572,817,597,815,622,813,646,815,670,822,693,839,716,859,730,856,734,835,720,817,695,809,671,808,646,810,621,812,597,811,573,804,549,787,525,774,514,757,505"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="855,428,1005,453"/>
-<area shape="poly" title=" " alt="" coords="753,475,854,454,855,459,754,480"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ab76ad780ccbf0233d6e2b756b259fc53" title="Invokes function to appends data from a constant string to the buffer." alt="" coords="843,477,1017,503"/>
-<area shape="poly" title=" " alt="" coords="775,487,829,487,829,493,775,493"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aed25d99b33ce20bd0dd819f64252eb6f" title="Allocate memory to membuffer *m and copy the contents of the in parameter const void *buf." alt="" coords="859,680,1001,705"/>
-<area shape="poly" title=" " alt="" coords="753,500,773,509,791,521,809,543,818,563,825,585,839,608,871,642,902,669,899,673,867,646,835,612,821,587,813,565,805,545,788,525,770,514,751,505"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="1095,528,1245,553"/>
-<area shape="poly" title=" " alt="" coords="758,500,838,513,965,526,1081,534,1080,539,965,531,837,518,757,505"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1353,373,1476,399"/>
-<area shape="poly" title=" " alt="" coords="697,476,717,443,747,399,787,354,836,316,896,287,948,275,1070,267,1172,253,1216,254,1270,267,1309,286,1344,311,1396,361,1392,365,1340,315,1306,291,1268,273,1215,259,1172,258,1071,273,949,280,898,292,839,320,791,358,751,402,721,446,702,478"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a898216a354e8dd7089db150630862376" title="Returns the head of the list." alt="" coords="1131,281,1209,307"/>
-<area shape="poly" title=" " alt="" coords="994,327,1117,302,1118,307,995,332"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a83123d7868ce3aba2cf9d5c066fb7eb4" title="Returns the next item in the list." alt="" coords="1132,331,1208,356"/>
-<area shape="poly" title=" " alt="" coords="1010,340,1118,340,1118,346,1010,345"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a" title="Compares characters of 2 strings irrespective of the case for a specific count of bytes." alt="" coords="1089,380,1251,405"/>
-<area shape="poly" title=" " alt="" coords="992,352,1097,375,1096,380,991,357"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a8099505e5bec8749a64a0f2b1d3179c7" title="Adds a node before the specified node. Node gets added immediately before anode." alt="" coords="1113,429,1227,455"/>
-<area shape="poly" title=" " alt="" coords="977,398,1101,425,1100,430,976,404"/>
-<area shape="rect" href="../../dd/d67/namespaceUPnPsdk.html#a67f5d9d0cc6fa37ec7a1427490142c1b" title="Match the given name with names from the entries in the table." alt="" coords="1096,731,1244,756"/>
-<area shape="poly" title=" " alt="" coords="989,740,1082,740,1082,746,989,745"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ad2b10e589712efb648a8f86bfe3b5975" title="Allocates memory for the new data to be inserted. Does memory management by moving the data from the ..." alt="" coords="1101,479,1239,504"/>
-<area shape="poly" title=" " alt="" coords="992,451,1097,473,1096,478,991,456"/>
-<area shape="poly" title=" " alt="" coords="1239,502,1271,514,1308,538,1342,565,1395,617,1391,621,1339,569,1305,542,1268,519,1237,507"/>
-<area shape="poly" title=" " alt="" coords="1017,488,1087,488,1087,494,1017,493"/>
-<area shape="poly" title=" " alt="" coords="1002,684,1269,658,1323,651,1324,657,1270,663,1002,689"/>
-<area shape="poly" title=" " alt="" coords="950,678,1135,559,1138,563,953,682"/>
-<area shape="poly" title=" " alt="" coords="1241,525,1268,514,1305,490,1340,462,1392,408,1396,411,1343,466,1309,495,1271,519,1243,530"/>
-<area shape="rect" href="../../d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1560,359,1781,413"/>
-<area shape="poly" title=" " alt="" coords="1476,383,1546,383,1546,389,1476,389"/>
-<area shape="poly" title=" " alt="" coords="782,841,849,821,851,826,783,846"/>
-<area shape="poly" title=" " alt="" coords="780,896,838,909,985,926,1132,934,1262,937,1360,936,1360,941,1262,942,1131,940,985,931,837,914,779,901"/>
-<area shape="poly" title=" " alt="" coords="764,842,788,827,802,811,810,796,819,780,836,765,856,755,859,759,839,770,824,784,815,799,806,814,791,831,767,846"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a02f65bf2cf2f64de1d1d096f2adbf3fe" title="Skips blank lines at the start of a msg." alt="" coords="840,844,1020,899"/>
-<area shape="poly" title=" " alt="" coords="784,869,826,869,826,874,784,874"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a37962f857cb3a490e8f21ca923352983" title="Allocate memory and copy information from the input string to the newly allocated memory." alt="" coords="891,975,969,1000"/>
-<area shape="poly" title=" " alt="" coords="737,897,785,925,838,953,880,969,878,974,836,958,782,930,734,901"/>
-<area shape="poly" title=" " alt="" coords="1020,867,1139,856,1205,845,1269,830,1312,814,1353,795,1355,800,1314,819,1270,835,1206,851,1140,861,1020,872"/>
-<area shape="poly" title=" " alt="" coords="789,799,824,798,824,804,789,804"/>
-<area shape="poly" title=" " alt="" coords="709,788,764,753,836,716,860,707,861,712,838,720,767,757,712,793"/>
-<area shape="poly" title=" " alt="" coords="738,814,828,840,826,845,736,819"/>
+<area shape="rect" title="The parser function." alt="" coords="5,739,112,764"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a85f4a9679504a2f6a25cb53580fe81d7" title="Determines method to read entity." alt="" coords="160,627,311,652"/>
+<area shape="poly" title=" " alt="" coords="79,736,201,657,204,662,81,741"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="609,404,774,429"/>
+<area shape="poly" title=" " alt="" coords="65,737,101,679,165,594,206,550,252,507,303,470,358,441,417,422,479,411,539,406,595,406,595,412,540,412,479,416,418,427,360,446,305,474,255,511,209,553,169,598,106,682,69,740"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a01d7fab7d8ff4a83e2967633b0b282c8" title="Get HTTP Method, URL location and version information." alt="" coords="599,860,784,915"/>
+<area shape="poly" title=" " alt="" coords="73,762,110,797,134,815,161,829,214,848,270,863,384,882,492,890,585,891,585,896,492,895,383,887,269,868,213,853,159,834,132,819,107,801,70,766"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aa7dd58029632188085819da596eda0cc" title="Get HTTP Method, URL location and version information." alt="" coords="593,793,789,819"/>
+<area shape="poly" title=" " alt="" coords="94,761,210,800,284,820,359,834,452,842,545,834,628,819,629,825,546,839,452,847,358,839,282,825,208,805,92,767"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aae632d5cc945d012140dff733af29bd4" title="Determines method to read entity." alt="" coords="366,299,538,339"/>
+<area shape="poly" title=" " alt="" coords="242,625,289,547,356,442,424,349,429,352,361,445,294,549,247,628"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#af63731051c62f32e8aee032e269c9ff2" title="Read data in the chunks." alt="" coords="359,612,545,667"/>
+<area shape="poly" title=" " alt="" coords="311,637,346,637,346,642,311,642"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ac3546d1ed4487058f5b93ad4a25d5300" title="Read entity using chunked transfer encoding." alt="" coords="359,533,545,588"/>
+<area shape="poly" title=" " alt="" coords="271,624,362,590,364,595,272,629"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34" title="Read headers at the end of the chunked entity." alt="" coords="359,455,545,509"/>
+<area shape="poly" title=" " alt="" coords="245,625,291,575,323,546,357,520,367,514,370,518,360,524,326,550,295,579,249,628"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afcb84d0307a28d0eff5efde70048508a" title="Keep reading entity until the connection is closed." alt="" coords="359,691,545,745"/>
+<area shape="poly" title=" " alt="" coords="272,650,364,683,362,688,271,655"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8dc71c24f5c71f2544e715f0cbf9e511" title="Reads entity using content&#45;length." alt="" coords="359,769,545,824"/>
+<area shape="poly" title=" " alt="" coords="249,650,294,700,326,730,360,756,368,760,365,765,357,760,322,734,290,704,245,654"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="863,104,997,129"/>
+<area shape="poly" title=" " alt="" coords="538,312,608,305,682,294,746,280,770,270,788,260,800,246,807,232,811,202,815,170,822,154,836,139,848,130,852,134,839,143,827,157,820,171,817,202,812,234,805,249,791,264,772,275,747,285,683,300,609,310,538,317"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a6f102e766ab6d15cdd7c7c31d550903f" title="Find a substring from raw character string buffer." alt="" coords="641,175,742,200"/>
+<area shape="poly" title=" " alt="" coords="472,297,524,253,557,229,592,209,627,196,628,201,594,214,560,233,527,257,475,301"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#ab6f3362dea50f1228e5a6b7f99acc7ce" title="Converts raw character data to integer value." alt="" coords="646,224,737,249"/>
+<area shape="poly" title=" " alt="" coords="507,297,592,266,637,251,639,256,594,271,509,302"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a95b9f2d9c206cb56daa5b61001f5b320" title="Get pointer to next character in string." alt="" coords="594,325,789,380"/>
+<area shape="poly" title=" " alt="" coords="538,329,581,335,580,340,538,334"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="646,551,737,576"/>
+<area shape="poly" title=" " alt="" coords="475,338,670,539,666,542,471,342"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="1134,5,1206,31"/>
+<area shape="poly" title=" " alt="" coords="950,102,1003,71,1070,40,1120,25,1121,30,1072,44,1005,76,953,106"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="860,619,1000,644"/>
+<area shape="poly" title=" " alt="" coords="736,573,838,603,870,612,868,618,837,609,734,579"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="840,668,1020,693"/>
+<area shape="poly" title=" " alt="" coords="738,569,765,578,791,592,807,608,816,624,824,640,839,655,849,660,846,665,836,659,819,643,811,627,803,611,788,596,763,583,736,574"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5" title="Matches a variable parameter list and takes necessary actions based on the data type specified." alt="" coords="837,769,1023,809"/>
+<area shape="poly" title=" " alt="" coords="517,664,594,695,716,733,830,763,828,768,715,738,592,701,515,669"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aee72bc5a9c58a849f2e41503500a773d" title="Shrink the size of the buffer depending on the current size of the buffer and the input parameters...." alt="" coords="620,605,763,631"/>
+<area shape="poly" title=" " alt="" coords="545,628,606,623,606,628,545,634"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="1071,769,1269,809"/>
+<area shape="poly" title=" " alt="" coords="1023,786,1057,786,1057,791,1023,791"/>
+<area shape="rect" href="../../d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="1397,913,1480,939"/>
+<area shape="poly" title=" " alt="" coords="1212,807,1401,904,1399,909,1209,811"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14" title="Reads next token from the input stream." alt="" coords="1341,684,1536,739"/>
+<area shape="poly" title=" " alt="" coords="1239,766,1330,740,1331,745,1241,771"/>
+<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="1623,1021,1814,1061"/>
+<area shape="poly" title=" " alt="" coords="1464,936,1528,970,1609,1006,1630,1014,1628,1019,1607,1011,1526,975,1462,941"/>
+<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="1625,842,1813,882"/>
+<area shape="poly" title=" " alt="" coords="1480,914,1617,882,1618,888,1481,919"/>
+<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="1629,906,1809,946"/>
+<area shape="poly" title=" " alt="" coords="1480,923,1615,923,1615,929,1480,929"/>
+<area shape="rect" href="../../d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="1635,971,1802,996"/>
+<area shape="poly" title=" " alt="" coords="1481,932,1643,965,1642,971,1480,937"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366" title="Determines if the passed value is a control character." alt="" coords="1629,763,1809,817"/>
+<area shape="poly" title=" " alt="" coords="1537,736,1616,759,1615,764,1535,741"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a397ada9472b0ce782d9636144528c8cf" title="Determines if the passed value is permissible in token." alt="" coords="1629,605,1809,660"/>
+<area shape="poly" title=" " alt="" coords="1535,681,1615,659,1616,664,1537,687"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a119ec2e9ed02e25cb1dfd3cbba91ab0c" title="Determines if the passed value is a separator." alt="" coords="1877,573,2057,628"/>
+<area shape="poly" title=" " alt="" coords="1466,681,1527,632,1566,609,1607,591,1672,577,1740,572,1805,573,1864,579,1864,584,1805,579,1740,577,1673,582,1609,597,1568,614,1530,637,1470,686"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa8849fbe55dcefa7ab2465ea8aabd214" title="Determines if the passed value is permissible in qdtext." alt="" coords="1629,684,1809,739"/>
+<area shape="poly" title=" " alt="" coords="1536,709,1615,709,1615,714,1536,714"/>
+<area shape="poly" title=" " alt="" coords="1808,618,1864,611,1864,617,1809,624"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b" title="Increases or decreases buffer cap so that at least &#39;new_length&#39; bytes can be stored." alt="" coords="1361,455,1516,480"/>
+<area shape="poly" title=" " alt="" coords="739,628,765,639,791,653,806,667,815,681,823,693,839,704,888,720,928,724,970,717,1022,703,1083,684,1142,658,1254,598,1346,535,1410,487,1413,491,1349,540,1256,602,1144,663,1084,689,1023,709,971,722,929,729,886,725,836,708,820,697,810,684,802,671,788,657,763,644,737,633"/>
+<area shape="poly" title=" " alt="" coords="545,559,632,560,632,565,545,564"/>
+<area shape="poly" title=" " alt="" coords="524,586,547,599,571,621,581,631,595,641,622,655,647,663,692,672,737,681,763,690,791,704,806,715,816,726,825,737,839,748,861,760,859,765,836,752,821,740,812,729,802,719,788,708,760,694,736,686,691,677,646,668,620,660,592,646,577,635,567,624,544,603,522,590"/>
+<area shape="poly" title=" " alt="" coords="545,580,625,599,624,605,544,585"/>
+<area shape="poly" title=" " alt="" coords="528,507,547,520,563,538,571,555,579,571,595,587,615,598,613,603,592,591,575,574,566,557,558,541,544,524,525,512"/>
+<area shape="poly" title=" " alt="" coords="544,454,630,430,631,436,546,459"/>
+<area shape="poly" title=" " alt="" coords="773,402,787,391,808,360,816,330,816,299,811,267,806,235,805,203,814,171,835,139,848,128,852,133,839,142,819,173,811,204,811,235,816,266,821,298,822,330,813,363,791,395,776,406"/>
+<area shape="poly" title=" " alt="" coords="708,428,749,474,772,505,792,538,809,584,814,623,820,661,840,705,863,734,890,758,886,762,859,737,835,707,815,663,809,624,803,586,787,540,767,508,745,477,704,431"/>
+<area shape="poly" title=" " alt="" coords="715,427,770,457,838,489,889,506,930,515,971,524,1024,539,1209,610,1365,676,1363,681,1207,614,1022,545,970,529,929,521,888,511,836,494,768,462,713,432"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a203e4a83e2a55a4ae005374ef3bc98c0" title="Compares the header name with the header names stored in the linked list of messages." alt="" coords="851,203,1009,228"/>
+<area shape="poly" title=" " alt="" coords="772,402,788,391,801,374,809,357,812,321,814,283,821,264,835,245,853,232,857,236,839,249,826,267,819,285,817,321,814,358,806,377,791,395,775,406"/>
+<area shape="rect" href="../../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#a6c512dfcfece21875e8342ba4f3abe80" title="Match the given name with names from the entries in the table." alt="" coords="851,554,1009,594"/>
+<area shape="poly" title=" " alt="" coords="707,428,762,477,799,506,839,533,863,546,861,551,836,538,796,511,759,481,704,432"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="884,153,976,179"/>
+<area shape="poly" title=" " alt="" coords="773,402,787,391,805,367,813,342,813,317,811,292,808,266,809,240,817,214,835,188,851,176,869,169,871,174,854,181,839,192,822,216,814,241,814,266,816,291,819,317,818,343,810,369,791,395,776,406"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="855,355,1005,380"/>
+<area shape="poly" title=" " alt="" coords="753,401,854,380,855,385,754,407"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ab76ad780ccbf0233d6e2b756b259fc53" title="Invokes function to appends data from a constant string to the buffer." alt="" coords="843,404,1017,429"/>
+<area shape="poly" title=" " alt="" coords="775,414,829,414,829,419,775,419"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aed25d99b33ce20bd0dd819f64252eb6f" title="Allocate memory to membuffer *m and copy the contents of the in parameter const void *buf." alt="" coords="859,453,1001,479"/>
+<area shape="poly" title=" " alt="" coords="754,427,855,448,854,453,753,432"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="1095,304,1245,329"/>
+<area shape="poly" title=" " alt="" coords="763,401,788,390,802,379,811,366,820,353,836,341,897,319,962,308,1024,304,1081,305,1081,310,1024,309,962,313,899,325,839,346,824,356,815,369,806,382,791,395,765,406"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1377,279,1500,304"/>
+<area shape="poly" title=" " alt="" coords="768,402,788,391,798,381,804,370,810,347,817,325,824,314,836,304,878,287,935,275,1004,269,1080,267,1234,272,1364,281,1363,287,1234,277,1080,273,1004,275,936,281,879,292,839,308,828,317,821,327,815,349,809,372,802,384,791,395,771,406"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a898216a354e8dd7089db150630862376" title="Returns the head of the list." alt="" coords="1131,104,1209,129"/>
+<area shape="poly" title=" " alt="" coords="993,200,1021,188,1036,176,1044,164,1054,151,1069,138,1092,128,1116,121,1118,126,1094,133,1072,143,1058,154,1049,167,1039,180,1024,192,996,205"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a83123d7868ce3aba2cf9d5c066fb7eb4" title="Returns the next item in the list." alt="" coords="1132,153,1208,179"/>
+<area shape="poly" title=" " alt="" coords="992,200,1118,174,1119,179,993,205"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a" title="Compares characters of 2 strings irrespective of the case for a specific count of bytes." alt="" coords="1089,203,1251,228"/>
+<area shape="poly" title=" " alt="" coords="1010,213,1074,213,1074,218,1010,218"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a8099505e5bec8749a64a0f2b1d3179c7" title="Adds a node before the specified node. Node gets added immediately before anode." alt="" coords="1113,55,1227,80"/>
+<area shape="poly" title=" " alt="" coords="976,156,999,149,1021,138,1036,127,1044,114,1054,101,1069,89,1099,76,1101,81,1072,94,1058,105,1049,117,1039,130,1024,143,1001,154,977,161"/>
+<area shape="rect" href="../../d6/d93/namespaceanonymous__namespace_02LinkedList_8cpp_03.html#ad21845c4b35a0cd2530fea3c4b0b788f" title="Dynamically creates a list node." alt="" coords="1317,47,1560,87"/>
+<area shape="poly" title=" " alt="" coords="1227,65,1303,65,1303,70,1227,70"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ad2b10e589712efb648a8f86bfe3b5975" title="Allocates memory for the new data to be inserted. Does memory management by moving the data from the ..." alt="" coords="1101,404,1239,429"/>
+<area shape="poly" title=" " alt="" coords="993,377,1095,399,1094,404,992,383"/>
+<area shape="poly" title=" " alt="" coords="1239,427,1358,449,1357,455,1238,432"/>
+<area shape="poly" title=" " alt="" coords="1017,414,1087,414,1087,419,1017,419"/>
+<area shape="poly" title=" " alt="" coords="1002,464,1347,464,1347,470,1002,469"/>
+<area shape="poly" title=" " alt="" coords="996,451,1021,440,1036,429,1046,417,1069,391,1138,335,1142,339,1073,395,1050,421,1040,433,1024,444,999,456"/>
+<area shape="poly" title=" " alt="" coords="1245,307,1363,296,1364,301,1246,312"/>
+<area shape="rect" href="../../d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1608,264,1829,319"/>
+<area shape="poly" title=" " alt="" coords="1500,289,1594,289,1594,294,1500,294"/>
+<area shape="poly" title=" " alt="" coords="750,858,836,820,858,811,860,816,838,824,752,862"/>
+<area shape="poly" title=" " alt="" coords="784,894,838,898,1146,914,1383,922,1383,927,1146,919,837,903,784,899"/>
+<area shape="poly" title=" " alt="" coords="756,858,773,845,787,830,803,800,810,772,811,745,808,717,806,690,807,663,816,634,835,606,840,601,844,605,839,609,821,637,813,664,811,690,813,717,816,744,815,773,808,802,791,833,777,849,759,862"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a02f65bf2cf2f64de1d1d096f2adbf3fe" title="Skips blank lines at the start of a msg." alt="" coords="840,833,1020,888"/>
+<area shape="poly" title=" " alt="" coords="784,874,826,870,827,875,785,880"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a37962f857cb3a490e8f21ca923352983" title="Allocate memory and copy information from the input string to the newly allocated memory." alt="" coords="891,964,969,989"/>
+<area shape="poly" title=" " alt="" coords="761,912,838,942,879,957,877,962,836,947,759,917"/>
+<area shape="poly" title=" " alt="" coords="1002,831,1021,819,1035,802,1043,786,1052,769,1069,754,1132,727,1199,710,1266,702,1328,700,1328,706,1266,707,1200,715,1134,732,1072,759,1056,773,1048,788,1040,805,1024,823,1005,835"/>
+<area shape="poly" title=" " alt="" coords="789,796,824,794,824,799,790,802"/>
+<area shape="poly" title=" " alt="" coords="699,792,738,728,787,642,808,590,818,567,835,540,865,509,896,485,899,489,868,513,839,544,823,570,813,592,792,644,742,731,703,795"/>
+<area shape="poly" title=" " alt="" coords="748,816,827,834,826,840,747,821"/>
 </map>
 </div>
 <div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -2844,7 +2839,7 @@ scanner</td>
 <li>PARSE_FAILURE</li>
 </ul>
 </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000021">Todo:</a></b></dt><dd>Check what function description is the right one. There was another found. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000016">Todo:</a></b></dt><dd>Check what function description is the right one. There was another found. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">parser</td><td>HTTP Parser object. </td></tr>
@@ -2852,7 +2847,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01356">1356</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01360">1360</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -3073,8 +3068,7 @@ scanner</td>
 <li>PARSE_FAILURE</li>
 </ul>
 </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000022">Todo:</a></b></dt><dd>Check what function description is the right one. There was another found. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000009">Todo:</a></b></dt><dd>map_str_to_int: fix type_cast array.size() </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000017">Todo:</a></b></dt><dd>Check what function description is the right one. There was another found. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">parser</td><td>HTTP Parser object. </td></tr>
@@ -3082,7 +3076,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01423">1423</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01427">1427</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-20-summary" class="dynsummary" style="display:block;">
@@ -3091,16 +3085,16 @@ scanner</td>
 <div class="center"><img src="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_ae885549e0e5aaf2a07f09c011e006ba5_cgraph.png" border="0" usemap="#adf/d6f/Compa_2src_2inc_2httpparser_8hpp_ae885549e0e5aaf2a07f09c011e006ba5_cgraph" alt=""/></div>
 <map name="adf/d6f/Compa_2src_2inc_2httpparser_8hpp_ae885549e0e5aaf2a07f09c011e006ba5_cgraph" id="adf/d6f/Compa_2src_2inc_2httpparser_8hpp_ae885549e0e5aaf2a07f09c011e006ba5_cgraph">
 <area shape="rect" title="Get HTTP Method, URL location and version information." alt="" coords="5,579,171,604"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="244,231,379,256"/>
-<area shape="poly" title=" " alt="" coords="91,577,106,531,132,464,169,388,217,315,246,285,276,261,280,266,249,289,221,318,174,390,137,466,111,533,96,579"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a203e4a83e2a55a4ae005374ef3bc98c0" title="Compares the header name with the header names stored in the linked list of messages." alt="" coords="232,329,391,355"/>
-<area shape="poly" title=" " alt="" coords="92,577,136,492,173,437,217,388,239,371,263,358,265,363,242,376,220,392,177,441,141,494,97,580"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="265,403,357,428"/>
-<area shape="poly" title=" " alt="" coords="94,577,140,511,176,472,217,438,251,423,253,428,220,443,179,476,144,514,99,580"/>
-<area shape="rect" href="../../d6/d0f/strintmap_8cpp.html#a3d400a234d1f0486e70e22ce27070e46" title="Match the given name with names from the entries in the table." alt="" coords="252,453,371,479"/>
-<area shape="poly" title=" " alt="" coords="103,576,152,538,217,497,254,481,256,486,220,502,155,543,106,581"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5" title="Matches a variable parameter list and takes necessary actions based on the data type specified." alt="" coords="219,511,404,551"/>
-<area shape="poly" title=" " alt="" coords="135,576,223,552,224,557,137,581"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="244,275,379,300"/>
+<area shape="poly" title=" " alt="" coords="90,578,104,534,130,470,167,399,190,366,217,335,238,317,262,303,265,308,241,322,221,339,195,369,172,402,135,472,109,535,95,579"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a203e4a83e2a55a4ae005374ef3bc98c0" title="Compares the header name with the header names stored in the linked list of messages." alt="" coords="232,349,391,375"/>
+<area shape="poly" title=" " alt="" coords="91,578,106,540,132,488,169,433,192,407,217,385,228,378,231,383,220,389,195,411,173,436,137,490,111,542,96,579"/>
+<area shape="rect" href="../../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#a6c512dfcfece21875e8342ba4f3abe80" title="Match the given name with names from the entries in the table." alt="" coords="232,399,391,439"/>
+<area shape="poly" title=" " alt="" coords="96,577,143,516,178,481,217,449,227,443,230,448,220,454,181,485,147,520,100,580"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="265,464,357,489"/>
+<area shape="poly" title=" " alt="" coords="103,576,152,539,218,500,251,487,253,492,220,504,155,543,106,581"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5" title="Matches a variable parameter list and takes necessary actions based on the data type specified." alt="" coords="219,514,404,554"/>
+<area shape="poly" title=" " alt="" coords="138,576,219,555,221,560,139,581"/>
 <area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14" title="Reads next token from the input stream." alt="" coords="1003,491,1197,545"/>
 <area shape="poly" title=" " alt="" coords="171,593,404,614,523,634,676,660,754,670,827,675,891,673,940,662,979,641,1015,614,1045,584,1069,555,1073,558,1049,587,1018,618,982,646,942,667,891,678,827,680,753,675,675,665,522,639,404,619,171,599"/>
 <area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="237,679,386,704"/>
@@ -3113,39 +3107,37 @@ scanner</td>
 <area shape="poly" title=" " alt="" coords="97,603,113,637,139,682,175,727,196,746,220,762,279,786,342,799,405,803,462,801,462,806,405,808,342,804,278,791,217,767,193,751,171,730,134,685,108,639,92,605"/>
 <area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="759,804,881,829"/>
 <area shape="poly" title=" " alt="" coords="95,604,107,645,131,703,148,733,168,762,192,787,220,808,289,839,363,859,439,868,515,869,588,863,656,854,763,830,764,836,657,859,589,869,515,874,439,873,362,864,287,844,217,812,189,791,164,765,144,736,127,705,102,647,90,605"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="515,205,587,231"/>
-<area shape="poly" title=" " alt="" coords="378,234,501,221,502,226,379,239"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a898216a354e8dd7089db150630862376" title="Returns the head of the list." alt="" coords="512,255,591,280"/>
-<area shape="poly" title=" " alt="" coords="344,327,451,289,498,276,499,281,453,294,345,332"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a83123d7868ce3aba2cf9d5c066fb7eb4" title="Returns the next item in the list." alt="" coords="513,304,589,329"/>
-<area shape="poly" title=" " alt="" coords="391,331,499,319,500,325,391,336"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a" title="Compares characters of 2 strings irrespective of the case for a specific count of bytes." alt="" coords="470,353,633,379"/>
-<area shape="poly" title=" " alt="" coords="391,347,457,354,456,359,391,353"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a8099505e5bec8749a64a0f2b1d3179c7" title="Adds a node before the specified node. Node gets added immediately before anode." alt="" coords="495,403,608,428"/>
-<area shape="poly" title=" " alt="" coords="358,413,481,413,481,418,358,418"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="515,251,587,276"/>
+<area shape="poly" title=" " alt="" coords="379,278,501,266,502,271,379,283"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a898216a354e8dd7089db150630862376" title="Returns the head of the list." alt="" coords="512,399,591,424"/>
+<area shape="poly" title=" " alt="" coords="374,372,499,398,498,403,373,377"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a83123d7868ce3aba2cf9d5c066fb7eb4" title="Returns the next item in the list." alt="" coords="513,300,589,325"/>
+<area shape="poly" title=" " alt="" coords="373,347,499,321,500,326,374,352"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a" title="Compares characters of 2 strings irrespective of the case for a specific count of bytes." alt="" coords="470,349,633,375"/>
+<area shape="poly" title=" " alt="" coords="391,359,456,359,456,365,391,365"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a8099505e5bec8749a64a0f2b1d3179c7" title="Adds a node before the specified node. Node gets added immediately before anode." alt="" coords="495,448,608,473"/>
+<area shape="poly" title=" " alt="" coords="358,471,481,463,481,468,358,476"/>
 <area shape="rect" href="../../d6/d93/namespaceanonymous__namespace_02LinkedList_8cpp_03.html#ad21845c4b35a0cd2530fea3c4b0b788f" title="Dynamically creates a list node." alt="" coords="699,30,941,70"/>
-<area shape="poly" title=" " alt="" coords="607,409,630,402,649,388,670,358,680,328,681,298,678,268,674,237,673,204,679,170,696,134,726,100,762,75,765,79,730,104,701,137,685,171,679,204,680,236,684,267,687,298,685,329,675,360,653,392,632,406,609,415"/>
+<area shape="poly" title=" " alt="" coords="608,455,630,447,649,433,673,397,684,362,684,327,679,291,673,255,671,216,677,176,696,134,726,100,761,75,764,79,729,104,701,137,682,178,677,217,679,254,685,291,690,327,689,363,678,400,653,437,633,452,609,460"/>
 <area shape="rect" href="../../d7/d20/FreeList_8cpp.html#a63cf965052240dbc6fec792326bf6719" title="Allocates chunk of set size." alt="" coords="1047,5,1153,31"/>
 <area shape="poly" title=" " alt="" coords="941,34,1033,23,1034,28,942,39"/>
-<area shape="rect" href="../../dd/d67/namespaceUPnPsdk.html#a67f5d9d0cc6fa37ec7a1427490142c1b" title="Match the given name with names from the entries in the table." alt="" coords="477,452,625,477"/>
-<area shape="poly" title=" " alt="" coords="371,463,464,462,464,468,371,468"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="452,502,651,542"/>
-<area shape="poly" title=" " alt="" coords="404,525,438,524,439,529,404,530"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="452,498,651,538"/>
+<area shape="poly" title=" " alt="" coords="404,525,438,523,439,528,404,530"/>
 <area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afee60e57107525eaabc058d19ddcc5fe" title="Compares a character to the next char in the scanner." alt="" coords="710,434,930,474"/>
-<area shape="poly" title=" " alt="" coords="630,499,727,475,728,480,632,505"/>
+<area shape="poly" title=" " alt="" coords="635,495,722,475,723,480,637,501"/>
 <area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a5b3dfe007aad1e53c4fd62cc4e992b52" title="Matches an unsigned integer value in the input." alt="" coords="715,498,925,538"/>
-<area shape="poly" title=" " alt="" coords="651,518,701,517,702,522,651,523"/>
-<area shape="poly" title=" " alt="" coords="643,539,699,547,820,555,941,547,989,541,990,546,942,553,820,561,698,553,642,545"/>
+<area shape="poly" title=" " alt="" coords="651,515,702,515,702,521,651,521"/>
+<area shape="poly" title=" " alt="" coords="630,535,699,547,820,556,941,547,989,541,990,546,942,553,820,561,698,553,629,541"/>
 <area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa1d5aab18be103f845c04d36c5acd7e7" title="Match a string without whitespace or CRLF (S)" alt="" coords="727,355,913,409"/>
-<area shape="poly" title=" " alt="" coords="627,500,649,487,664,471,672,454,681,437,697,420,714,409,717,414,700,424,685,440,677,456,669,474,652,491,629,504"/>
+<area shape="poly" title=" " alt="" coords="626,496,649,483,664,468,672,452,681,436,697,420,713,410,716,415,700,424,685,439,677,455,668,471,652,487,629,500"/>
 <area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a3541fd5283453b838ee19e9cd757bd24" title="Matches a raw value in a the input." alt="" coords="727,197,913,252"/>
-<area shape="poly" title=" " alt="" coords="633,500,649,487,667,459,675,431,675,404,672,376,669,348,669,319,677,291,697,262,714,247,717,251,701,265,682,293,674,320,674,348,677,375,680,404,680,432,672,461,653,490,637,504"/>
+<area shape="poly" title=" " alt="" coords="633,496,649,483,667,456,674,428,675,401,672,374,669,346,669,318,678,290,697,262,714,247,717,251,701,265,682,292,675,319,674,346,677,374,680,401,680,429,672,458,653,486,637,500"/>
 <area shape="rect" href="../../d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="779,148,861,173"/>
-<area shape="poly" title=" " alt="" coords="634,500,649,487,662,468,672,449,679,411,677,373,670,335,662,297,661,259,671,221,681,202,697,183,712,171,729,163,765,156,766,161,730,168,714,176,701,187,686,205,675,223,666,259,668,296,675,334,682,372,685,411,677,450,667,470,653,490,637,504"/>
+<area shape="poly" title=" " alt="" coords="634,496,649,483,671,445,679,408,677,370,670,333,663,295,661,258,671,220,681,201,697,183,712,171,729,163,765,156,766,161,730,168,714,176,701,187,686,204,676,222,667,258,668,295,675,332,682,370,684,408,676,447,653,486,637,500"/>
 <area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa804ee20accda01aae4a8967b2ce9904" title="Reads data until end of line." alt="" coords="730,276,910,331"/>
-<area shape="poly" title=" " alt="" coords="632,500,649,487,662,469,669,451,672,415,675,378,682,359,697,340,716,325,719,330,701,344,687,362,680,379,677,415,674,453,667,472,653,491,635,504"/>
+<area shape="poly" title=" " alt="" coords="632,496,649,483,662,466,669,448,672,413,675,377,683,358,697,340,716,325,719,330,701,344,687,361,680,378,677,413,674,450,667,468,653,487,635,500"/>
 <area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8690442d05125c5459620ebf71b6000f" title="Skip linear whitespace." alt="" coords="720,613,920,653"/>
-<area shape="poly" title=" " alt="" coords="591,540,700,592,738,606,736,611,698,596,589,545"/>
+<area shape="poly" title=" " alt="" coords="589,536,640,564,700,592,738,606,736,611,698,596,638,568,586,540"/>
 <area shape="poly" title=" " alt="" coords="925,515,989,515,989,521,925,521"/>
 <area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366" title="Determines if the passed value is a control character." alt="" coords="1261,392,1441,447"/>
 <area shape="poly" title=" " alt="" coords="1170,488,1267,449,1269,454,1172,493"/>
@@ -3333,7 +3325,7 @@ scanner</td>
 <li>PARSE_COMPLETE &ndash; no more reading to do</li>
 </ul>
 </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000023">Todo:</a></b></dt><dd>Check what function description is the right one. There was another found. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000018">Todo:</a></b></dt><dd>Check what function description is the right one. There was another found. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">parser</td><td>HTTP Parser object. </td></tr>
@@ -3341,7 +3333,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01635">1635</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01638">1638</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-22-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-22-summary" class="dynsummary" style="display:block;">
@@ -3349,126 +3341,126 @@ scanner</td>
 <div id="dynsection-22-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_aa2001c56d3ad1bc1d89995338850ada4_cgraph.png" border="0" usemap="#adf/d6f/Compa_2src_2inc_2httpparser_8hpp_aa2001c56d3ad1bc1d89995338850ada4_cgraph" alt=""/></div>
 <map name="adf/d6f/Compa_2src_2inc_2httpparser_8hpp_aa2001c56d3ad1bc1d89995338850ada4_cgraph" id="adf/d6f/Compa_2src_2inc_2httpparser_8hpp_aa2001c56d3ad1bc1d89995338850ada4_cgraph">
-<area shape="rect" title="Determines method to read entity." alt="" coords="5,525,156,550"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aae632d5cc945d012140dff733af29bd4" title="Determines method to read entity." alt="" coords="445,348,617,388"/>
-<area shape="poly" title=" " alt="" coords="102,522,147,496,203,470,326,424,440,389,441,394,327,429,205,474,150,501,104,527"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#af63731051c62f32e8aee032e269c9ff2" title="Read data in the chunks." alt="" coords="439,557,624,611"/>
-<area shape="poly" title=" " alt="" coords="156,524,267,517,330,519,391,527,428,536,462,549,461,554,426,541,390,532,329,524,268,522,156,529"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ac3546d1ed4487058f5b93ad4a25d5300" title="Read entity using chunked transfer encoding." alt="" coords="439,426,624,481"/>
-<area shape="poly" title=" " alt="" coords="128,522,203,504,425,466,426,471,205,509,129,527"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34" title="Read headers at the end of the chunked entity." alt="" coords="205,542,390,597"/>
-<area shape="poly" title=" " alt="" coords="157,546,192,551,191,556,156,551"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afcb84d0307a28d0eff5efde70048508a" title="Keep reading entity until the connection is closed." alt="" coords="204,621,391,675"/>
-<area shape="poly" title=" " alt="" coords="104,548,205,606,219,612,217,617,203,610,101,552"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8dc71c24f5c71f2544e715f0cbf9e511" title="Reads entity using content&#45;length." alt="" coords="204,699,391,754"/>
-<area shape="poly" title=" " alt="" coords="92,549,135,612,168,651,206,685,213,690,210,694,202,689,164,654,131,616,87,552"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="697,429,832,454"/>
-<area shape="poly" title=" " alt="" coords="589,386,673,413,703,422,701,427,671,419,587,391"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a6f102e766ab6d15cdd7c7c31d550903f" title="Find a substring from raw character string buffer." alt="" coords="714,281,815,306"/>
-<area shape="poly" title=" " alt="" coords="584,345,671,315,700,306,702,312,673,320,585,350"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#ab6f3362dea50f1228e5a6b7f99acc7ce" title="Converts raw character data to integer value." alt="" coords="719,330,810,355"/>
-<area shape="poly" title=" " alt="" coords="618,356,706,346,706,352,618,361"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a95b9f2d9c206cb56daa5b61001f5b320" title="Get pointer to next character in string." alt="" coords="1433,227,1628,282"/>
-<area shape="poly" title=" " alt="" coords="553,346,604,305,637,284,671,266,800,215,854,200,905,190,1013,176,1152,163,1263,149,1312,151,1373,163,1419,184,1477,218,1474,222,1417,189,1371,168,1311,156,1263,155,1152,168,1014,181,906,195,855,205,802,220,673,270,639,288,607,309,556,350"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="719,379,810,405"/>
-<area shape="poly" title=" " alt="" coords="618,374,706,383,706,389,618,380"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="969,429,1041,454"/>
-<area shape="poly" title=" " alt="" coords="832,439,955,439,955,444,832,444"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="935,330,1075,355"/>
-<area shape="poly" title=" " alt="" coords="810,380,928,356,929,361,811,385"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="915,379,1095,405"/>
-<area shape="poly" title=" " alt="" coords="810,389,901,389,901,395,810,395"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5" title="Matches a variable parameter list and takes necessary actions based on the data type specified." alt="" coords="672,561,857,601"/>
-<area shape="poly" title=" " alt="" coords="624,580,658,580,658,585,625,586"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aee72bc5a9c58a849f2e41503500a773d" title="Shrink the size of the buffer depending on the current size of the buffer and the input parameters...." alt="" coords="693,509,836,534"/>
-<area shape="poly" title=" " alt="" coords="624,556,703,535,704,540,625,562"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="905,479,1104,519"/>
-<area shape="poly" title=" " alt="" coords="823,559,932,521,933,526,824,564"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afee60e57107525eaabc058d19ddcc5fe" title="Compares a character to the next char in the scanner." alt="" coords="1152,415,1372,455"/>
-<area shape="poly" title=" " alt="" coords="1085,476,1167,455,1169,461,1087,481"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a5b3dfe007aad1e53c4fd62cc4e992b52" title="Matches an unsigned integer value in the input." alt="" coords="1157,479,1367,519"/>
-<area shape="poly" title=" " alt="" coords="1104,496,1143,496,1143,501,1104,501"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14" title="Reads next token from the input stream." alt="" coords="1433,471,1628,526"/>
-<area shape="poly" title=" " alt="" coords="1083,516,1152,528,1262,536,1372,528,1420,521,1420,526,1372,533,1262,541,1152,533,1082,521"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa1d5aab18be103f845c04d36c5acd7e7" title="Match a string without whitespace or CRLF (S)" alt="" coords="1169,257,1355,311"/>
-<area shape="poly" title=" " alt="" coords="1085,476,1102,463,1115,446,1122,429,1125,394,1129,358,1136,339,1150,321,1156,315,1160,319,1154,324,1141,342,1134,359,1131,394,1127,430,1120,449,1106,467,1088,481"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a3541fd5283453b838ee19e9cd757bd24" title="Matches a raw value in a the input." alt="" coords="1169,335,1355,390"/>
-<area shape="poly" title=" " alt="" coords="1079,476,1102,463,1117,448,1126,433,1134,417,1150,401,1159,395,1162,399,1154,405,1139,420,1130,435,1122,451,1106,467,1082,481"/>
-<area shape="rect" href="../../d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="1221,77,1303,102"/>
-<area shape="poly" title=" " alt="" coords="1087,476,1102,464,1126,426,1136,391,1136,355,1131,320,1126,284,1124,246,1130,206,1150,164,1164,146,1181,130,1217,106,1220,111,1184,134,1168,149,1154,167,1135,208,1129,246,1131,283,1136,319,1141,355,1141,391,1131,429,1106,467,1091,480"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa804ee20accda01aae4a8967b2ce9904" title="Reads data until end of line." alt="" coords="1172,178,1352,233"/>
-<area shape="poly" title=" " alt="" coords="1087,476,1102,464,1120,436,1128,409,1128,382,1126,355,1123,328,1123,300,1131,271,1150,242,1159,234,1163,238,1154,246,1136,273,1129,300,1128,327,1131,355,1134,382,1133,410,1125,438,1106,467,1090,480"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8690442d05125c5459620ebf71b6000f" title="Skip linear whitespace." alt="" coords="1162,593,1362,633"/>
-<area shape="poly" title=" " alt="" coords="1043,516,1153,572,1188,586,1186,591,1151,577,1040,521"/>
-<area shape="poly" title=" " alt="" coords="1367,496,1419,496,1419,501,1367,501"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366" title="Determines if the passed value is a control character." alt="" coords="1689,359,1869,414"/>
-<area shape="poly" title=" " alt="" coords="1589,469,1688,423,1701,417,1703,422,1690,428,1591,474"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a397ada9472b0ce782d9636144528c8cf" title="Determines if the passed value is permissible in token." alt="" coords="1689,438,1869,493"/>
-<area shape="poly" title=" " alt="" coords="1628,483,1675,477,1676,482,1629,488"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a119ec2e9ed02e25cb1dfd3cbba91ab0c" title="Determines if the passed value is a separator." alt="" coords="1917,471,2097,526"/>
-<area shape="poly" title=" " alt="" coords="1628,500,1689,501,1869,501,1903,500,1904,506,1869,507,1689,507,1628,505"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa8849fbe55dcefa7ab2465ea8aabd214" title="Determines if the passed value is permissible in qdtext." alt="" coords="1689,569,1869,623"/>
-<area shape="poly" title=" " alt="" coords="1602,524,1697,561,1695,566,1600,529"/>
-<area shape="poly" title=" " alt="" coords="1870,476,1904,481,1904,486,1869,481"/>
-<area shape="poly" title=" " alt="" coords="1355,271,1419,264,1420,269,1355,277"/>
-<area shape="poly" title=" " alt="" coords="1354,309,1373,320,1414,352,1450,389,1506,458,1501,462,1446,392,1410,356,1371,325,1351,314"/>
-<area shape="poly" title=" " alt="" coords="1339,333,1371,320,1454,285,1456,290,1373,325,1340,338"/>
-<area shape="poly" title=" " alt="" coords="1345,388,1373,400,1429,430,1479,461,1476,466,1426,435,1371,405,1343,393"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="1435,5,1626,45"/>
-<area shape="poly" title=" " alt="" coords="1303,77,1432,46,1434,51,1304,82"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="1437,69,1625,109"/>
-<area shape="poly" title=" " alt="" coords="1304,87,1423,87,1423,92,1304,92"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="1441,133,1621,173"/>
-<area shape="poly" title=" " alt="" coords="1304,96,1434,128,1432,133,1303,102"/>
-<area shape="poly" title=" " alt="" coords="1353,219,1421,232,1420,237,1352,224"/>
-<area shape="poly" title=" " alt="" coords="1354,229,1374,242,1407,280,1445,338,1512,458,1507,461,1440,341,1403,283,1370,246,1351,233"/>
-<area shape="poly" title=" " alt="" coords="1323,591,1371,572,1463,530,1465,535,1373,577,1325,596"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b" title="Increases or decreases buffer cap so that at least &#39;new_length&#39; bytes can be stored." alt="" coords="1185,833,1339,858"/>
-<area shape="poly" title=" " alt="" coords="818,532,858,547,918,579,977,615,1086,693,1177,766,1239,821,1235,825,1173,770,1083,697,974,619,916,583,856,552,816,536"/>
-<area shape="poly" title=" " alt="" coords="623,426,671,413,706,404,707,410,673,419,625,431"/>
-<area shape="poly" title=" " alt="" coords="571,479,619,511,673,543,695,553,693,558,671,548,616,516,568,483"/>
-<area shape="poly" title=" " alt="" coords="625,478,708,502,706,507,624,483"/>
-<area shape="poly" title=" " alt="" coords="390,549,438,541,565,529,679,522,679,527,565,534,439,547,391,554"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="449,759,614,785"/>
-<area shape="poly" title=" " alt="" coords="374,594,392,606,432,640,466,678,517,746,513,749,462,681,428,644,389,610,371,599"/>
-<area shape="poly" title=" " alt="" coords="539,758,577,700,622,622,635,586,641,556,649,527,670,494,692,474,718,458,720,462,696,478,674,498,654,529,646,557,640,587,626,624,582,703,544,761"/>
-<area shape="poly" title=" " alt="" coords="540,758,592,696,629,659,670,625,702,605,704,610,674,629,633,663,596,700,544,761"/>
-<area shape="poly" title=" " alt="" coords="543,757,595,713,632,689,671,671,725,655,775,646,821,641,865,641,948,649,1025,664,1102,678,1183,683,1226,681,1271,674,1319,662,1371,643,1410,622,1445,594,1499,536,1503,539,1448,598,1413,626,1373,648,1321,667,1272,679,1226,686,1183,689,1102,683,1024,669,947,655,865,646,822,646,775,651,726,660,673,676,634,694,599,717,547,761"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a203e4a83e2a55a4ae005374ef3bc98c0" title="Compares the header name with the header names stored in the linked list of messages." alt="" coords="685,1059,844,1085"/>
-<area shape="poly" title=" " alt="" coords="540,784,557,826,586,886,625,953,674,1014,698,1034,724,1051,721,1055,695,1039,670,1018,621,956,581,889,552,828,535,786"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="719,686,811,711"/>
-<area shape="poly" title=" " alt="" coords="565,757,671,720,705,711,706,716,673,725,567,762"/>
-<area shape="rect" href="../../d6/d0f/strintmap_8cpp.html#a3d400a234d1f0486e70e22ce27070e46" title="Match the given name with names from the entries in the table." alt="" coords="705,735,824,761"/>
-<area shape="poly" title=" " alt="" coords="614,761,691,753,692,758,615,766"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="690,834,839,859"/>
-<area shape="poly" title=" " alt="" coords="566,782,673,820,699,828,698,833,671,825,564,787"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ab76ad780ccbf0233d6e2b756b259fc53" title="Invokes function to appends data from a constant string to the buffer." alt="" coords="678,785,851,810"/>
-<area shape="poly" title=" " alt="" coords="615,778,664,784,664,789,614,784"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aed25d99b33ce20bd0dd819f64252eb6f" title="Allocate memory to membuffer *m and copy the contents of the in parameter const void *buf." alt="" coords="693,883,836,909"/>
-<area shape="poly" title=" " alt="" coords="548,783,601,825,636,849,673,870,690,877,688,881,671,874,633,854,598,830,545,787"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="929,934,1080,959"/>
-<area shape="poly" title=" " alt="" coords="542,784,561,813,591,851,628,889,673,919,733,940,797,952,859,956,916,954,916,959,859,961,796,957,732,946,671,924,625,893,587,855,557,816,538,786"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1201,959,1323,985"/>
-<area shape="poly" title=" " alt="" coords="540,784,556,821,584,871,623,921,647,943,673,960,741,989,812,1007,886,1015,959,1017,1030,1013,1095,1005,1200,985,1201,991,1096,1011,1030,1018,959,1022,886,1021,811,1012,739,994,671,965,643,947,619,925,579,874,551,823,535,786"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a898216a354e8dd7089db150630862376" title="Returns the head of the list." alt="" coords="965,1085,1044,1110"/>
-<area shape="poly" title=" " alt="" coords="845,1078,952,1089,951,1094,844,1083"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a83123d7868ce3aba2cf9d5c066fb7eb4" title="Returns the next item in the list." alt="" coords="967,1134,1043,1159"/>
-<area shape="poly" title=" " alt="" coords="799,1082,906,1120,954,1133,953,1138,905,1125,797,1087"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a" title="Compares characters of 2 strings irrespective of the case for a specific count of bytes." alt="" coords="923,1035,1086,1061"/>
-<area shape="poly" title=" " alt="" coords="844,1061,909,1055,910,1060,845,1067"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a8099505e5bec8749a64a0f2b1d3179c7" title="Adds a node before the specified node. Node gets added immediately before anode." alt="" coords="948,734,1061,759"/>
-<area shape="poly" title=" " alt="" coords="812,705,935,730,934,735,811,710"/>
-<area shape="rect" href="../../dd/d67/namespaceUPnPsdk.html#a67f5d9d0cc6fa37ec7a1427490142c1b" title="Match the given name with names from the entries in the table." alt="" coords="931,783,1079,809"/>
-<area shape="poly" title=" " alt="" coords="825,757,928,778,926,783,824,762"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ad2b10e589712efb648a8f86bfe3b5975" title="Allocates memory for the new data to be inserted. Does memory management by moving the data from the ..." alt="" coords="935,833,1074,858"/>
-<area shape="poly" title=" " alt="" coords="840,844,922,843,922,848,840,849"/>
-<area shape="poly" title=" " alt="" coords="1074,843,1171,843,1171,848,1074,848"/>
-<area shape="poly" title=" " alt="" coords="830,807,928,827,927,833,828,813"/>
-<area shape="poly" title=" " alt="" coords="836,890,961,882,1104,868,1176,858,1177,863,1104,873,961,887,836,895"/>
-<area shape="poly" title=" " alt="" coords="826,906,931,929,930,934,825,911"/>
-<area shape="poly" title=" " alt="" coords="1080,951,1187,962,1187,967,1080,957"/>
-<area shape="rect" href="../../d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1420,945,1641,999"/>
-<area shape="poly" title=" " alt="" coords="1324,969,1406,969,1406,975,1324,975"/>
+<area shape="rect" title="Determines method to read entity." alt="" coords="5,493,156,518"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aae632d5cc945d012140dff733af29bd4" title="Determines method to read entity." alt="" coords="445,287,617,327"/>
+<area shape="poly" title=" " alt="" coords="98,490,145,460,203,427,333,371,451,329,453,334,335,376,205,432,148,464,101,495"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#af63731051c62f32e8aee032e269c9ff2" title="Read data in the chunks." alt="" coords="439,445,624,499"/>
+<area shape="poly" title=" " alt="" coords="156,497,425,477,425,482,157,502"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ac3546d1ed4487058f5b93ad4a25d5300" title="Read entity using chunked transfer encoding." alt="" coords="439,366,624,421"/>
+<area shape="poly" title=" " alt="" coords="125,490,203,468,424,414,426,420,205,473,126,495"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34" title="Read headers at the end of the chunked entity." alt="" coords="205,510,390,565"/>
+<area shape="poly" title=" " alt="" coords="157,514,192,519,191,524,156,519"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afcb84d0307a28d0eff5efde70048508a" title="Keep reading entity until the connection is closed." alt="" coords="204,589,391,643"/>
+<area shape="poly" title=" " alt="" coords="104,516,205,574,219,580,217,585,203,578,101,520"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8dc71c24f5c71f2544e715f0cbf9e511" title="Reads entity using content&#45;length." alt="" coords="204,667,391,722"/>
+<area shape="poly" title=" " alt="" coords="92,517,135,580,168,619,206,653,213,658,210,662,202,657,164,622,131,584,87,520"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="697,367,832,393"/>
+<area shape="poly" title=" " alt="" coords="589,324,673,352,703,361,701,366,671,357,587,329"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a6f102e766ab6d15cdd7c7c31d550903f" title="Find a substring from raw character string buffer." alt="" coords="714,269,815,294"/>
+<area shape="poly" title=" " alt="" coords="618,295,700,286,701,291,618,300"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#ab6f3362dea50f1228e5a6b7f99acc7ce" title="Converts raw character data to integer value." alt="" coords="719,98,810,123"/>
+<area shape="poly" title=" " alt="" coords="543,285,593,215,629,175,671,140,705,123,708,128,673,145,633,179,597,218,547,288"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a95b9f2d9c206cb56daa5b61001f5b320" title="Get pointer to next character in string." alt="" coords="1433,310,1628,365"/>
+<area shape="poly" title=" " alt="" coords="572,284,630,258,709,226,804,194,911,166,1025,147,1084,141,1143,140,1202,143,1261,151,1318,165,1373,184,1390,194,1400,206,1422,234,1490,298,1487,302,1418,238,1396,209,1387,198,1371,189,1316,170,1260,156,1202,148,1143,145,1085,147,1026,152,912,171,806,199,711,231,632,263,574,289"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="719,318,810,343"/>
+<area shape="poly" title=" " alt="" coords="618,313,706,322,706,327,618,318"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="969,367,1041,393"/>
+<area shape="poly" title=" " alt="" coords="832,377,955,377,955,383,832,383"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="935,269,1075,294"/>
+<area shape="poly" title=" " alt="" coords="810,319,928,294,929,299,811,324"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="915,318,1095,343"/>
+<area shape="poly" title=" " alt="" coords="810,328,901,328,901,333,810,333"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5" title="Matches a variable parameter list and takes necessary actions based on the data type specified." alt="" coords="672,467,857,507"/>
+<area shape="poly" title=" " alt="" coords="625,475,658,477,658,483,624,481"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aee72bc5a9c58a849f2e41503500a773d" title="Shrink the size of the buffer depending on the current size of the buffer and the input parameters...." alt="" coords="693,417,836,442"/>
+<area shape="poly" title=" " alt="" coords="624,452,681,442,682,447,625,458"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="905,423,1104,463"/>
+<area shape="poly" title=" " alt="" coords="857,467,891,461,892,466,858,472"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afee60e57107525eaabc058d19ddcc5fe" title="Compares a character to the next char in the scanner." alt="" coords="1152,199,1372,239"/>
+<area shape="poly" title=" " alt="" coords="1078,420,1102,402,1116,383,1122,364,1124,326,1127,288,1135,268,1150,249,1155,245,1158,249,1154,252,1140,271,1132,289,1130,327,1127,366,1120,386,1106,406,1081,425"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a5b3dfe007aad1e53c4fd62cc4e992b52" title="Matches an unsigned integer value in the input." alt="" coords="1157,500,1367,540"/>
+<area shape="poly" title=" " alt="" coords="1073,460,1182,493,1181,499,1071,465"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14" title="Reads next token from the input stream." alt="" coords="1433,493,1628,547"/>
+<area shape="poly" title=" " alt="" coords="1074,460,1106,479,1122,499,1129,518,1137,535,1153,550,1189,564,1226,573,1265,577,1304,577,1379,567,1446,549,1447,554,1380,572,1304,582,1264,583,1225,579,1187,570,1151,554,1132,538,1124,520,1117,501,1102,483,1071,465"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa1d5aab18be103f845c04d36c5acd7e7" title="Match a string without whitespace or CRLF (S)" alt="" coords="1169,342,1355,397"/>
+<area shape="poly" title=" " alt="" coords="1075,420,1155,397,1157,402,1076,425"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a3541fd5283453b838ee19e9cd757bd24" title="Matches a raw value in a the input." alt="" coords="1169,421,1355,475"/>
+<area shape="poly" title=" " alt="" coords="1104,442,1156,443,1156,448,1104,447"/>
+<area shape="rect" href="../../d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="1221,98,1303,123"/>
+<area shape="poly" title=" " alt="" coords="1079,420,1102,402,1120,375,1128,349,1130,324,1129,298,1128,244,1134,216,1150,185,1181,152,1218,128,1221,132,1185,156,1154,188,1139,217,1133,245,1134,298,1136,324,1133,350,1125,378,1106,406,1082,425"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa804ee20accda01aae4a8967b2ce9904" title="Reads data until end of line." alt="" coords="1172,263,1352,318"/>
+<area shape="poly" title=" " alt="" coords="1072,420,1102,402,1118,384,1125,365,1133,346,1150,327,1159,321,1162,325,1154,331,1138,349,1130,368,1122,387,1106,406,1075,425"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8690442d05125c5459620ebf71b6000f" title="Skip linear whitespace." alt="" coords="1162,615,1362,655"/>
+<area shape="poly" title=" " alt="" coords="1079,461,1106,479,1118,494,1125,509,1130,538,1136,567,1142,580,1154,594,1169,606,1166,610,1150,598,1138,583,1131,568,1125,539,1120,511,1113,497,1102,483,1076,465"/>
+<area shape="poly" title=" " alt="" coords="1367,517,1419,517,1419,523,1367,523"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366" title="Determines if the passed value is a control character." alt="" coords="1689,381,1869,435"/>
+<area shape="poly" title=" " alt="" coords="1589,490,1688,444,1701,438,1703,443,1690,449,1591,495"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a397ada9472b0ce782d9636144528c8cf" title="Determines if the passed value is permissible in token." alt="" coords="1689,459,1869,514"/>
+<area shape="poly" title=" " alt="" coords="1628,504,1675,498,1676,503,1629,510"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a119ec2e9ed02e25cb1dfd3cbba91ab0c" title="Determines if the passed value is a separator." alt="" coords="1917,493,2097,547"/>
+<area shape="poly" title=" " alt="" coords="1628,521,1689,523,1869,523,1903,522,1904,527,1869,528,1689,528,1628,526"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa8849fbe55dcefa7ab2465ea8aabd214" title="Determines if the passed value is permissible in qdtext." alt="" coords="1689,590,1869,645"/>
+<area shape="poly" title=" " alt="" coords="1602,545,1697,583,1695,588,1600,550"/>
+<area shape="poly" title=" " alt="" coords="1870,497,1904,502,1904,508,1869,502"/>
+<area shape="poly" title=" " alt="" coords="1355,356,1419,348,1420,353,1355,361"/>
+<area shape="poly" title=" " alt="" coords="1349,394,1373,406,1434,443,1487,482,1484,486,1431,447,1371,410,1347,399"/>
+<area shape="poly" title=" " alt="" coords="1339,418,1371,406,1457,368,1459,373,1373,410,1341,423"/>
+<area shape="poly" title=" " alt="" coords="1356,470,1420,488,1419,493,1354,475"/>
+<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="1435,120,1626,160"/>
+<area shape="poly" title=" " alt="" coords="1304,112,1422,125,1421,131,1303,118"/>
+<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="1437,184,1625,224"/>
+<area shape="poly" title=" " alt="" coords="1304,117,1373,140,1397,155,1421,170,1439,177,1437,182,1419,174,1395,160,1371,145,1303,122"/>
+<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="1441,5,1621,45"/>
+<area shape="poly" title=" " alt="" coords="1298,95,1419,55,1445,47,1447,52,1421,60,1300,100"/>
+<area shape="rect" href="../../d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="1447,70,1614,95"/>
+<area shape="poly" title=" " alt="" coords="1303,104,1433,90,1434,95,1304,109"/>
+<area shape="poly" title=" " alt="" coords="1353,304,1420,316,1420,321,1352,309"/>
+<area shape="poly" title=" " alt="" coords="1354,316,1374,327,1402,353,1437,393,1503,480,1499,483,1432,397,1398,357,1370,331,1351,320"/>
+<area shape="poly" title=" " alt="" coords="1323,612,1371,594,1463,551,1465,556,1373,598,1325,617"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b" title="Increases or decreases buffer cap so that at least &#39;new_length&#39; bytes can be stored." alt="" coords="1185,679,1339,705"/>
+<area shape="poly" title=" " alt="" coords="817,439,858,452,906,472,936,480,964,483,1012,485,1035,487,1058,493,1081,504,1106,523,1120,541,1128,560,1130,596,1133,632,1140,648,1154,665,1173,677,1170,682,1150,669,1136,651,1128,633,1125,596,1123,561,1116,544,1102,527,1078,509,1056,498,1034,492,1012,490,963,489,935,485,904,477,856,457,815,445"/>
+<area shape="poly" title=" " alt="" coords="623,365,671,352,705,343,707,348,673,357,625,370"/>
+<area shape="poly" title=" " alt="" coords="599,418,625,430,673,451,695,459,693,464,671,456,623,434,597,423"/>
+<area shape="poly" title=" " alt="" coords="625,405,680,414,679,419,624,410"/>
+<area shape="poly" title=" " alt="" coords="390,545,445,546,505,542,566,530,623,508,638,496,646,482,655,467,670,452,685,445,687,449,674,457,659,470,651,485,642,500,625,513,567,535,506,547,445,551,390,551"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="449,654,614,679"/>
+<area shape="poly" title=" " alt="" coords="369,562,392,574,452,609,503,644,500,648,449,614,389,578,366,567"/>
+<area shape="poly" title=" " alt="" coords="538,653,576,592,622,510,633,478,640,452,649,427,670,402,683,393,686,398,674,406,653,430,645,453,639,480,626,512,580,594,543,655"/>
+<area shape="poly" title=" " alt="" coords="539,652,590,588,628,550,670,516,681,510,683,515,674,521,631,554,594,592,544,655"/>
+<area shape="poly" title=" " alt="" coords="561,677,612,697,673,713,827,734,1027,748,1129,750,1225,745,1307,734,1342,725,1371,714,1395,700,1417,683,1456,642,1486,598,1509,559,1513,561,1491,601,1460,645,1420,687,1398,704,1373,718,1344,730,1308,739,1225,751,1129,755,1027,754,826,739,671,719,610,702,559,682"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a203e4a83e2a55a4ae005374ef3bc98c0" title="Compares the header name with the header names stored in the linked list of messages." alt="" coords="685,855,844,881"/>
+<area shape="poly" title=" " alt="" coords="545,678,598,738,634,775,674,810,728,846,726,851,670,814,630,779,594,741,541,681"/>
+<area shape="rect" href="../../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#a6c512dfcfece21875e8342ba4f3abe80" title="Match the given name with names from the entries in the table." alt="" coords="685,1029,844,1069"/>
+<area shape="poly" title=" " alt="" coords="537,679,547,737,571,825,589,874,612,922,640,968,674,1009,688,1020,685,1024,670,1013,636,971,607,925,584,876,566,827,542,739,532,680"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="719,531,811,557"/>
+<area shape="poly" title=" " alt="" coords="545,652,598,610,633,586,671,566,705,553,706,558,673,570,636,591,601,614,549,656"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="690,630,839,655"/>
+<area shape="poly" title=" " alt="" coords="614,655,676,649,676,654,615,661"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ab76ad780ccbf0233d6e2b756b259fc53" title="Invokes function to appends data from a constant string to the buffer." alt="" coords="678,581,851,606"/>
+<area shape="poly" title=" " alt="" coords="565,651,671,615,698,607,700,612,673,620,567,656"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aed25d99b33ce20bd0dd819f64252eb6f" title="Allocate memory to membuffer *m and copy the contents of the in parameter const void *buf." alt="" coords="693,679,836,705"/>
+<area shape="poly" title=" " alt="" coords="615,673,680,680,679,685,614,678"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="929,781,1080,806"/>
+<area shape="poly" title=" " alt="" coords="548,677,600,719,635,741,673,759,734,776,798,787,860,792,916,794,916,799,860,798,797,792,733,781,671,764,633,746,597,724,545,682"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1201,879,1323,905"/>
+<area shape="poly" title=" " alt="" coords="539,679,555,720,583,777,622,839,647,867,674,891,728,930,779,959,827,978,875,988,924,991,978,988,1103,964,1138,954,1172,940,1229,909,1231,914,1174,945,1140,959,1105,969,978,993,924,997,874,994,825,983,776,964,725,935,670,895,643,870,618,842,578,780,550,722,534,681"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a898216a354e8dd7089db150630862376" title="Returns the head of the list." alt="" coords="965,879,1044,905"/>
+<area shape="poly" title=" " alt="" coords="845,873,952,884,951,889,844,879"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a83123d7868ce3aba2cf9d5c066fb7eb4" title="Returns the next item in the list." alt="" coords="967,929,1043,954"/>
+<area shape="poly" title=" " alt="" coords="800,878,906,915,954,928,953,933,905,920,798,883"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a" title="Compares characters of 2 strings irrespective of the case for a specific count of bytes." alt="" coords="923,830,1086,855"/>
+<area shape="poly" title=" " alt="" coords="844,857,909,850,910,855,845,862"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a8099505e5bec8749a64a0f2b1d3179c7" title="Adds a node before the specified node. Node gets added immediately before anode." alt="" coords="948,538,1061,563"/>
+<area shape="poly" title=" " alt="" coords="811,543,934,546,934,551,811,548"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ad2b10e589712efb648a8f86bfe3b5975" title="Allocates memory for the new data to be inserted. Does memory management by moving the data from the ..." alt="" coords="935,629,1074,654"/>
+<area shape="poly" title=" " alt="" coords="840,640,922,639,922,644,840,645"/>
+<area shape="poly" title=" " alt="" coords="1071,652,1184,674,1183,679,1070,657"/>
+<area shape="poly" title=" " alt="" coords="830,603,928,623,927,629,828,609"/>
+<area shape="poly" title=" " alt="" coords="836,689,1171,689,1171,695,836,695"/>
+<area shape="poly" title=" " alt="" coords="797,702,962,773,960,778,795,707"/>
+<area shape="poly" title=" " alt="" coords="1067,803,1105,815,1170,842,1227,870,1224,875,1168,847,1103,820,1065,809"/>
+<area shape="rect" href="../../d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1420,865,1641,919"/>
+<area shape="poly" title=" " alt="" coords="1324,889,1406,889,1406,895,1324,895"/>
 </map>
 </div>
 <div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -3623,7 +3615,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01550">1550</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01553">1553</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-24-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-24-summary" class="dynsummary" style="display:block;">
@@ -3817,7 +3809,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01734">1734</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01737">1737</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-26" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-26-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-26-summary" class="dynsummary" style="display:block;">
@@ -3825,127 +3817,127 @@ scanner</td>
 <div id="dynsection-26-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_a94377ad173dc8fd327dcec217ec46544_cgraph.png" border="0" usemap="#adf/d6f/Compa_2src_2inc_2httpparser_8hpp_a94377ad173dc8fd327dcec217ec46544_cgraph" alt=""/></div>
 <map name="adf/d6f/Compa_2src_2inc_2httpparser_8hpp_a94377ad173dc8fd327dcec217ec46544_cgraph" id="adf/d6f/Compa_2src_2inc_2httpparser_8hpp_a94377ad173dc8fd327dcec217ec46544_cgraph">
-<area shape="rect" title="Append date to HTTP parser, and do the parsing." alt="" coords="5,315,124,340"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="1022,5,1171,31"/>
-<area shape="poly" title=" " alt="" coords="72,313,115,256,149,218,189,178,235,141,286,110,342,89,400,81,620,81,732,76,843,63,1026,31,1027,36,843,68,732,81,620,86,401,86,343,94,289,115,238,145,193,182,153,221,119,259,77,316"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a4eff37cf0315cb3beccc9e9d03e834c7" title="The parser function." alt="" coords="172,451,279,476"/>
-<area shape="poly" title=" " alt="" coords="83,338,201,440,197,444,79,342"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ad2b10e589712efb648a8f86bfe3b5975" title="Allocates memory for the new data to be inserted. Does memory management by moving the data from the ..." alt="" coords="1267,100,1406,125"/>
-<area shape="poly" title=" " alt="" coords="1131,28,1292,92,1290,97,1129,33"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b" title="Increases or decreases buffer cap so that at least &#39;new_length&#39; bytes can be stored." alt="" coords="1504,397,1659,423"/>
-<area shape="poly" title=" " alt="" coords="1408,119,1438,135,1459,158,1468,181,1475,206,1486,236,1568,384,1563,387,1482,238,1470,208,1463,183,1454,161,1434,139,1405,124"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a85f4a9679504a2f6a25cb53580fe81d7" title="Determines method to read entity." alt="" coords="327,451,477,476"/>
-<area shape="poly" title=" " alt="" coords="279,461,313,461,313,466,279,466"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="775,257,941,283"/>
-<area shape="poly" title=" " alt="" coords="235,449,277,403,343,340,384,307,428,277,475,250,524,229,563,219,602,215,681,218,754,232,812,250,811,255,753,238,681,224,602,220,564,224,526,234,477,254,431,281,387,312,347,344,281,407,239,452"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a01d7fab7d8ff4a83e2967633b0b282c8" title="Get HTTP Method, URL location and version information." alt="" coords="765,801,951,856"/>
-<area shape="poly" title=" " alt="" coords="232,476,243,512,261,563,290,617,308,643,328,665,375,703,427,734,482,760,540,780,652,807,752,821,751,826,651,813,538,785,480,765,425,739,372,707,325,669,304,646,285,620,257,565,237,514,227,477"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aa7dd58029632188085819da596eda0cc" title="Get HTTP Method, URL location and version information." alt="" coords="760,752,956,777"/>
-<area shape="poly" title=" " alt="" coords="241,475,285,516,352,574,435,635,480,663,526,688,581,709,638,727,747,749,746,754,637,732,579,714,524,692,478,668,432,640,349,578,281,520,238,478"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aae632d5cc945d012140dff733af29bd4" title="Determines method to read entity." alt="" coords="533,479,705,519"/>
-<area shape="poly" title=" " alt="" coords="478,473,520,480,519,485,477,478"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#af63731051c62f32e8aee032e269c9ff2" title="Read data in the chunks." alt="" coords="526,544,711,599"/>
-<area shape="poly" title=" " alt="" coords="426,474,527,529,541,536,539,541,524,534,423,478"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ac3546d1ed4487058f5b93ad4a25d5300" title="Read entity using chunked transfer encoding." alt="" coords="526,623,711,677"/>
-<area shape="poly" title=" " alt="" coords="413,475,457,538,489,576,527,609,533,613,530,618,524,613,486,579,452,541,409,478"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34" title="Read headers at the end of the chunked entity." alt="" coords="526,243,711,297"/>
-<area shape="poly" title=" " alt="" coords="408,449,452,383,485,344,524,308,531,302,534,307,527,312,489,347,456,387,413,452"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afcb84d0307a28d0eff5efde70048508a" title="Keep reading entity until the connection is closed." alt="" coords="525,321,712,376"/>
-<area shape="poly" title=" " alt="" coords="421,448,524,386,538,380,540,384,527,391,424,453"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8dc71c24f5c71f2544e715f0cbf9e511" title="Reads entity using content&#45;length." alt="" coords="525,400,712,455"/>
-<area shape="poly" title=" " alt="" coords="477,448,511,442,512,448,478,453"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="1029,499,1164,524"/>
-<area shape="poly" title=" " alt="" coords="694,477,710,465,721,453,727,439,731,412,737,384,745,371,759,360,810,333,835,326,858,323,882,326,906,332,958,360,972,373,980,387,985,418,988,448,994,463,1006,477,1025,491,1022,495,1002,481,990,466,983,450,980,418,975,389,968,376,954,364,904,337,881,331,858,329,836,331,812,338,761,364,749,375,742,386,737,413,732,441,725,455,714,469,697,481"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a6f102e766ab6d15cdd7c7c31d550903f" title="Find a substring from raw character string buffer." alt="" coords="807,373,909,399"/>
-<area shape="poly" title=" " alt="" coords="689,477,710,465,725,452,733,438,743,423,759,409,793,394,795,399,761,414,747,427,738,440,729,455,714,469,692,481"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#ab6f3362dea50f1228e5a6b7f99acc7ce" title="Converts raw character data to integer value." alt="" coords="813,423,903,448"/>
-<area shape="poly" title=" " alt="" coords="691,477,759,458,799,448,800,453,761,463,693,482"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a95b9f2d9c206cb56daa5b61001f5b320" title="Get pointer to next character in string." alt="" coords="761,472,955,527"/>
-<area shape="poly" title=" " alt="" coords="705,497,747,497,747,502,705,502"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="813,600,903,625"/>
-<area shape="poly" title=" " alt="" coords="690,517,714,531,729,545,738,560,747,574,761,586,800,602,798,607,759,591,742,577,733,563,725,549,710,535,687,522"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="1301,499,1373,524"/>
-<area shape="poly" title=" " alt="" coords="1164,509,1287,509,1287,514,1164,514"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="1027,600,1167,625"/>
-<area shape="poly" title=" " alt="" coords="904,610,1013,610,1013,615,904,615"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5" title="Matches a variable parameter list and takes necessary actions based on the data type specified." alt="" coords="1004,699,1189,739"/>
-<area shape="poly" title=" " alt="" coords="686,596,713,609,737,623,761,636,814,653,857,661,901,668,957,679,1010,693,1009,698,955,685,900,673,856,667,813,658,759,640,734,628,711,614,684,601"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aee72bc5a9c58a849f2e41503500a773d" title="Shrink the size of the buffer depending on the current size of the buffer and the input parameters...." alt="" coords="787,551,929,576"/>
-<area shape="poly" title=" " alt="" coords="711,566,773,564,773,569,712,571"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="1237,699,1436,739"/>
-<area shape="poly" title=" " alt="" coords="1189,717,1224,717,1224,722,1189,722"/>
-<area shape="rect" href="../../d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="1540,893,1623,919"/>
-<area shape="poly" title=" " alt="" coords="1366,738,1554,882,1551,887,1363,742"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14" title="Reads next token from the input stream." alt="" coords="1484,664,1679,719"/>
-<area shape="poly" title=" " alt="" coords="1436,705,1470,701,1471,707,1436,711"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="1742,822,1933,862"/>
-<area shape="poly" title=" " alt="" coords="1622,893,1743,863,1744,868,1623,898"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="1743,886,1931,926"/>
-<area shape="poly" title=" " alt="" coords="1623,903,1729,903,1729,909,1623,909"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="1747,950,1927,990"/>
-<area shape="poly" title=" " alt="" coords="1623,914,1744,944,1743,949,1622,919"/>
-<area shape="rect" href="../../d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="1754,1015,1921,1040"/>
-<area shape="poly" title=" " alt="" coords="1600,917,1654,958,1690,980,1728,1000,1752,1008,1750,1013,1726,1004,1687,985,1651,962,1596,921"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366" title="Determines if the passed value is a control character." alt="" coords="1747,533,1927,588"/>
-<area shape="poly" title=" " alt="" coords="1625,661,1725,605,1754,591,1757,596,1728,610,1628,666"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a397ada9472b0ce782d9636144528c8cf" title="Determines if the passed value is permissible in token." alt="" coords="1747,664,1927,719"/>
-<area shape="poly" title=" " alt="" coords="1679,689,1733,689,1733,694,1679,694"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a119ec2e9ed02e25cb1dfd3cbba91ab0c" title="Determines if the passed value is a separator." alt="" coords="1996,632,2176,687"/>
-<area shape="poly" title=" " alt="" coords="1669,661,1726,650,1793,644,1860,642,1983,647,1982,652,1860,648,1793,649,1727,655,1670,667"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa8849fbe55dcefa7ab2465ea8aabd214" title="Determines if the passed value is permissible in qdtext." alt="" coords="1747,743,1927,797"/>
-<area shape="poly" title=" " alt="" coords="1672,716,1735,736,1734,741,1670,721"/>
-<area shape="poly" title=" " alt="" coords="1927,677,1982,670,1983,675,1928,682"/>
-<area shape="poly" title=" " alt="" coords="930,572,1032,582,1160,584,1230,580,1300,571,1369,556,1435,534,1474,513,1508,486,1560,432,1564,435,1512,490,1476,518,1437,539,1370,561,1301,576,1230,586,1161,590,1032,587,929,577"/>
-<area shape="poly" title=" " alt="" coords="711,633,799,619,799,624,712,638"/>
-<area shape="poly" title=" " alt="" coords="712,670,760,679,879,696,991,708,990,713,879,702,760,685,711,675"/>
-<area shape="poly" title=" " alt="" coords="685,620,711,609,759,586,787,577,789,582,761,591,713,614,688,625"/>
-<area shape="poly" title=" " alt="" coords="701,295,714,308,732,339,740,369,740,398,736,427,733,455,734,483,742,510,762,537,776,548,773,552,758,541,737,512,729,484,728,455,731,427,734,398,734,370,728,341,710,312,697,299"/>
-<area shape="poly" title=" " alt="" coords="712,267,761,267,761,273,712,273"/>
-<area shape="poly" title=" " alt="" coords="864,256,927,148,967,88,1002,48,1027,34,1029,38,1006,52,972,91,932,150,869,259"/>
-<area shape="poly" title=" " alt="" coords="906,280,933,294,958,315,972,337,979,358,981,399,984,438,991,458,1006,477,1022,490,1019,494,1002,481,987,460,979,440,976,399,974,359,968,339,954,318,931,299,903,285"/>
-<area shape="poly" title=" " alt="" coords="881,281,921,313,942,336,958,361,976,408,981,452,979,493,973,531,968,569,969,607,980,645,1006,686,1009,688,1005,692,1002,689,976,647,964,608,963,569,968,531,974,492,976,452,971,409,954,363,938,339,918,317,878,285"/>
-<area shape="poly" title=" " alt="" coords="893,280,926,298,958,323,974,347,981,369,988,390,1006,409,1034,427,1062,440,1116,454,1167,455,1218,450,1269,445,1322,445,1377,456,1407,468,1438,485,1481,521,1517,565,1545,610,1566,650,1561,653,1541,613,1513,568,1477,525,1434,490,1405,473,1376,461,1321,450,1269,450,1218,455,1167,460,1115,459,1060,445,1032,432,1002,413,983,393,976,371,969,349,954,326,923,302,890,285"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a203e4a83e2a55a4ae005374ef3bc98c0" title="Compares the header name with the header names stored in the linked list of messages." alt="" coords="1017,252,1176,277"/>
-<area shape="poly" title=" " alt="" coords="941,265,1004,264,1004,269,941,271"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="1051,192,1143,217"/>
-<area shape="poly" title=" " alt="" coords="905,255,1037,218,1038,223,906,260"/>
-<area shape="rect" href="../../d6/d0f/strintmap_8cpp.html#a3d400a234d1f0486e70e22ce27070e46" title="Match the given name with names from the entries in the table." alt="" coords="1037,649,1156,675"/>
-<area shape="poly" title=" " alt="" coords="881,281,921,313,941,336,958,361,974,401,979,438,977,474,973,507,970,539,972,571,983,603,1006,636,1026,650,1023,655,1002,640,978,606,967,572,965,539,968,506,972,473,974,439,969,402,954,363,937,339,917,317,877,285"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ab76ad780ccbf0233d6e2b756b259fc53" title="Invokes function to appends data from a constant string to the buffer." alt="" coords="1010,119,1183,144"/>
-<area shape="poly" title=" " alt="" coords="877,255,1003,177,1057,148,1059,153,1005,182,880,259"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aed25d99b33ce20bd0dd819f64252eb6f" title="Allocate memory to membuffer *m and copy the contents of the in parameter const void *buf." alt="" coords="1025,373,1168,399"/>
-<area shape="poly" title=" " alt="" coords="889,280,957,314,1005,344,1052,366,1050,370,1003,348,955,319,886,285"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="1261,347,1412,372"/>
-<area shape="poly" title=" " alt="" coords="928,280,1255,342,1254,347,927,285"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1520,199,1643,224"/>
-<area shape="poly" title=" " alt="" coords="864,256,883,223,913,181,954,138,977,119,1003,104,1043,89,1095,78,1218,65,1343,67,1396,74,1437,85,1476,105,1512,132,1564,186,1560,190,1508,136,1474,110,1435,90,1395,79,1342,73,1219,71,1096,83,1044,94,1005,108,980,123,957,142,918,184,887,226,868,259"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a898216a354e8dd7089db150630862376" title="Returns the head of the list." alt="" coords="1297,297,1376,323"/>
-<area shape="poly" title=" " alt="" coords="1165,275,1284,298,1283,303,1164,280"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a83123d7868ce3aba2cf9d5c066fb7eb4" title="Returns the next item in the list." alt="" coords="1299,199,1375,224"/>
-<area shape="poly" title=" " alt="" coords="1154,249,1285,220,1286,225,1155,254"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a" title="Compares characters of 2 strings irrespective of the case for a specific count of bytes." alt="" coords="1255,248,1418,273"/>
-<area shape="poly" title=" " alt="" coords="1176,261,1241,260,1241,265,1176,266"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a8099505e5bec8749a64a0f2b1d3179c7" title="Adds a node before the specified node. Node gets added immediately before anode." alt="" coords="1280,149,1393,175"/>
-<area shape="poly" title=" " alt="" coords="1143,194,1266,172,1267,177,1144,199"/>
-<area shape="rect" href="../../dd/d67/namespaceUPnPsdk.html#a67f5d9d0cc6fa37ec7a1427490142c1b" title="Match the given name with names from the entries in the table." alt="" coords="1263,649,1411,675"/>
-<area shape="poly" title=" " alt="" coords="1156,659,1249,659,1249,665,1156,665"/>
-<area shape="poly" title=" " alt="" coords="1183,122,1253,116,1253,122,1184,127"/>
-<area shape="poly" title=" " alt="" coords="1168,387,1491,403,1490,408,1168,392"/>
-<area shape="poly" title=" " alt="" coords="1168,375,1248,367,1248,372,1169,381"/>
-<area shape="poly" title=" " alt="" coords="1407,344,1435,333,1472,310,1506,284,1558,232,1562,236,1509,288,1475,315,1437,338,1408,349"/>
-<area shape="rect" href="../../d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1727,184,1948,239"/>
-<area shape="poly" title=" " alt="" coords="1643,209,1713,209,1713,214,1643,214"/>
-<area shape="poly" title=" " alt="" coords="933,799,955,788,978,769,1003,750,1018,742,1021,747,1005,755,982,773,957,792,935,804"/>
-<area shape="poly" title=" " alt="" coords="923,854,963,867,1005,878,1151,899,1297,908,1428,909,1526,906,1526,912,1428,914,1297,913,1151,904,1003,883,962,872,922,859"/>
-<area shape="poly" title=" " alt="" coords="940,799,954,788,965,776,971,763,977,737,983,711,990,698,1002,685,1023,673,1026,677,1006,689,995,701,988,713,982,738,976,765,969,778,958,792,943,803"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a02f65bf2cf2f64de1d1d096f2adbf3fe" title="Skips blank lines at the start of a msg." alt="" coords="1007,764,1187,819"/>
-<area shape="poly" title=" " alt="" coords="950,812,993,805,994,810,951,817"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a37962f857cb3a490e8f21ca923352983" title="Allocate memory and copy information from the input string to the newly allocated memory." alt="" coords="1058,843,1135,868"/>
-<area shape="poly" title=" " alt="" coords="951,836,1044,847,1044,852,951,842"/>
-<area shape="poly" title=" " alt="" coords="1187,785,1306,773,1371,763,1435,749,1511,722,1513,727,1437,754,1372,768,1306,779,1187,790"/>
-<area shape="poly" title=" " alt="" coords="925,749,990,737,991,742,926,755"/>
-<area shape="poly" title=" " alt="" coords="870,750,910,702,954,637,970,596,976,562,984,527,1002,486,1034,442,1068,406,1072,410,1038,445,1006,489,989,529,982,563,975,597,958,639,915,705,874,753"/>
-<area shape="poly" title=" " alt="" coords="956,773,993,777,993,782,956,778"/>
+<area shape="rect" title="Append date to HTTP parser, and do the parsing." alt="" coords="5,644,124,669"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="1022,840,1171,865"/>
+<area shape="poly" title=" " alt="" coords="78,668,123,721,157,755,197,791,242,823,292,851,345,870,401,877,620,877,829,870,1008,858,1008,863,829,876,620,882,401,882,344,875,290,856,239,828,193,795,153,759,119,725,74,672"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a4eff37cf0315cb3beccc9e9d03e834c7" title="The parser function." alt="" coords="172,421,279,447"/>
+<area shape="poly" title=" " alt="" coords="73,642,205,457,209,460,78,645"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ad2b10e589712efb648a8f86bfe3b5975" title="Allocates memory for the new data to be inserted. Does memory management by moving the data from the ..." alt="" coords="1267,840,1406,865"/>
+<area shape="poly" title=" " alt="" coords="1172,850,1254,850,1254,855,1172,855"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b" title="Increases or decreases buffer cap so that at least &#39;new_length&#39; bytes can be stored." alt="" coords="1504,840,1659,865"/>
+<area shape="poly" title=" " alt="" coords="1406,850,1490,850,1490,855,1406,855"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a85f4a9679504a2f6a25cb53580fe81d7" title="Determines method to read entity." alt="" coords="327,565,477,591"/>
+<area shape="poly" title=" " alt="" coords="244,445,376,554,373,558,240,449"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="775,584,941,609"/>
+<area shape="poly" title=" " alt="" coords="279,423,365,414,475,411,535,415,596,423,656,437,713,457,754,481,790,511,820,543,842,571,838,574,816,546,786,515,751,485,711,462,654,442,595,428,535,420,475,417,365,419,279,428"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a01d7fab7d8ff4a83e2967633b0b282c8" title="Get HTTP Method, URL location and version information." alt="" coords="765,125,951,180"/>
+<area shape="poly" title=" " alt="" coords="237,419,275,384,325,346,434,289,548,242,657,204,751,176,753,181,659,209,550,247,437,294,328,351,278,388,241,423"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aa7dd58029632188085819da596eda0cc" title="Get HTTP Method, URL location and version information." alt="" coords="760,204,956,229"/>
+<area shape="poly" title=" " alt="" coords="257,419,466,338,611,287,759,238,787,230,788,235,761,243,612,292,468,343,259,424"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#aae632d5cc945d012140dff733af29bd4" title="Determines method to read entity." alt="" coords="533,357,705,397"/>
+<area shape="poly" title=" " alt="" coords="414,563,524,457,582,404,586,408,527,461,418,567"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#af63731051c62f32e8aee032e269c9ff2" title="Read data in the chunks." alt="" coords="526,472,711,527"/>
+<area shape="poly" title=" " alt="" coords="437,563,529,529,531,534,439,568"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ac3546d1ed4487058f5b93ad4a25d5300" title="Read entity using chunked transfer encoding." alt="" coords="526,787,711,841"/>
+<area shape="poly" title=" " alt="" coords="411,590,425,626,450,674,484,727,527,773,531,777,528,781,524,777,480,730,446,677,421,628,406,592"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34" title="Read headers at the end of the chunked entity." alt="" coords="526,551,711,605"/>
+<area shape="poly" title=" " alt="" coords="478,575,512,575,512,581,478,581"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afcb84d0307a28d0eff5efde70048508a" title="Keep reading entity until the connection is closed." alt="" coords="525,629,712,684"/>
+<area shape="poly" title=" " alt="" coords="439,588,531,622,529,627,437,593"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8dc71c24f5c71f2544e715f0cbf9e511" title="Reads entity using content&#45;length." alt="" coords="525,708,712,763"/>
+<area shape="poly" title=" " alt="" coords="416,589,461,639,492,668,527,694,534,699,532,704,524,699,489,672,457,643,412,592"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="1029,389,1164,415"/>
+<area shape="poly" title=" " alt="" coords="675,394,717,406,760,415,827,421,894,421,1015,412,1015,417,895,427,827,427,760,421,715,412,674,399"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a6f102e766ab6d15cdd7c7c31d550903f" title="Find a substring from raw character string buffer." alt="" coords="807,253,909,279"/>
+<area shape="poly" title=" " alt="" coords="646,354,697,320,759,288,793,276,795,281,761,292,699,325,649,359"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#ab6f3362dea50f1228e5a6b7f99acc7ce" title="Converts raw character data to integer value." alt="" coords="813,303,903,328"/>
+<area shape="poly" title=" " alt="" coords="693,354,759,337,799,327,800,332,761,342,695,359"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a95b9f2d9c206cb56daa5b61001f5b320" title="Get pointer to next character in string." alt="" coords="761,352,955,407"/>
+<area shape="poly" title=" " alt="" coords="705,375,747,375,747,381,705,380"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="813,809,903,835"/>
+<area shape="poly" title=" " alt="" coords="654,395,686,422,714,458,731,497,739,533,740,566,739,597,737,629,738,661,746,696,762,734,792,771,826,799,822,804,788,775,758,737,741,697,733,662,732,629,733,597,735,566,734,533,726,499,710,461,682,426,650,399"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="1301,389,1373,415"/>
+<area shape="poly" title=" " alt="" coords="1164,399,1287,399,1287,405,1164,405"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="1027,941,1167,967"/>
+<area shape="poly" title=" " alt="" coords="877,833,932,874,1005,920,1040,934,1038,939,1003,924,929,879,873,837"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="1007,991,1187,1016"/>
+<area shape="poly" title=" " alt="" coords="869,833,921,902,960,943,1005,977,1017,983,1015,988,1003,982,957,947,917,906,865,836"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5" title="Matches a variable parameter list and takes necessary actions based on the data type specified." alt="" coords="1004,325,1189,365"/>
+<area shape="poly" title=" " alt="" coords="711,486,830,462,894,442,955,416,969,406,978,396,988,385,1003,374,1015,368,1018,373,1005,379,992,389,982,400,972,410,957,420,896,447,832,467,712,492"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aee72bc5a9c58a849f2e41503500a773d" title="Shrink the size of the buffer depending on the current size of the buffer and the input parameters...." alt="" coords="787,697,929,723"/>
+<area shape="poly" title=" " alt="" coords="698,525,714,536,731,557,740,576,748,597,762,619,797,656,831,687,828,691,793,660,758,622,743,599,736,578,727,560,710,540,695,529"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="1237,274,1436,314"/>
+<area shape="poly" title=" " alt="" coords="1189,323,1228,314,1229,319,1190,328"/>
+<area shape="rect" href="../../d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="1540,129,1623,155"/>
+<area shape="poly" title=" " alt="" coords="1369,272,1547,160,1550,164,1372,276"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14" title="Reads next token from the input stream." alt="" coords="1484,327,1679,381"/>
+<area shape="poly" title=" " alt="" coords="1420,311,1471,324,1470,329,1418,317"/>
+<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="1742,55,1933,95"/>
+<area shape="poly" title=" " alt="" coords="1622,129,1746,96,1748,101,1623,134"/>
+<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="1743,119,1931,159"/>
+<area shape="poly" title=" " alt="" coords="1623,139,1729,138,1729,143,1623,144"/>
+<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="1747,183,1927,223"/>
+<area shape="poly" title=" " alt="" coords="1623,149,1741,178,1739,183,1622,154"/>
+<area shape="rect" href="../../d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="1754,5,1921,31"/>
+<area shape="poly" title=" " alt="" coords="1595,127,1650,85,1687,61,1726,41,1750,32,1752,37,1728,46,1689,66,1653,89,1599,131"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366" title="Determines if the passed value is a control character." alt="" coords="1747,327,1927,381"/>
+<area shape="poly" title=" " alt="" coords="1679,351,1733,351,1733,357,1679,357"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a397ada9472b0ce782d9636144528c8cf" title="Determines if the passed value is permissible in token." alt="" coords="1747,405,1927,460"/>
+<area shape="poly" title=" " alt="" coords="1672,379,1735,399,1734,404,1670,384"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a119ec2e9ed02e25cb1dfd3cbba91ab0c" title="Determines if the passed value is a separator." alt="" coords="1996,439,2176,493"/>
+<area shape="poly" title=" " alt="" coords="1608,380,1659,429,1692,452,1728,469,1792,485,1858,491,1923,489,1982,483,1983,489,1923,495,1858,496,1791,490,1726,474,1689,456,1656,433,1604,384"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa8849fbe55dcefa7ab2465ea8aabd214" title="Determines if the passed value is permissible in qdtext." alt="" coords="1747,248,1927,303"/>
+<area shape="poly" title=" " alt="" coords="1670,324,1734,304,1735,309,1672,329"/>
+<area shape="poly" title=" " alt="" coords="1928,442,1983,450,1982,455,1927,447"/>
+<area shape="poly" title=" " alt="" coords="878,721,916,753,958,796,972,820,979,841,987,860,1005,876,1039,892,1073,905,1146,921,1221,926,1296,922,1367,912,1432,898,1534,867,1535,872,1433,903,1368,917,1296,927,1221,931,1146,926,1072,910,1036,897,1003,880,983,863,974,843,967,822,954,800,913,757,874,725"/>
+<area shape="poly" title=" " alt="" coords="712,814,799,817,799,823,711,820"/>
+<area shape="poly" title=" " alt="" coords="698,784,710,774,726,748,734,723,735,698,734,674,732,649,733,623,741,597,758,570,782,547,806,534,830,527,855,524,905,515,929,504,954,484,965,471,971,457,977,430,983,403,990,389,1002,375,1008,370,1011,374,1006,379,995,392,988,405,982,431,976,459,970,473,958,488,932,508,906,520,856,529,832,533,808,539,785,552,762,573,746,599,738,624,737,649,739,673,741,698,739,724,731,750,714,777,702,788"/>
+<area shape="poly" title=" " alt="" coords="685,784,711,773,815,726,818,731,713,778,687,789"/>
+<area shape="poly" title=" " alt="" coords="690,603,713,614,776,651,829,687,826,691,774,656,711,619,688,608"/>
+<area shape="poly" title=" " alt="" coords="712,583,762,586,761,592,711,588"/>
+<area shape="poly" title=" " alt="" coords="879,607,919,640,958,685,974,721,979,753,986,783,993,798,1006,813,1032,832,1029,836,1002,817,989,801,981,785,974,754,969,722,954,687,915,644,876,612"/>
+<area shape="poly" title=" " alt="" coords="923,582,954,563,967,547,973,531,977,499,982,466,989,449,1002,432,1021,418,1024,423,1006,436,993,452,987,467,983,500,979,533,971,550,958,567,926,586"/>
+<area shape="poly" title=" " alt="" coords="926,582,954,563,970,540,977,517,979,494,978,471,978,424,985,399,1002,375,1006,371,1010,375,1006,378,990,402,983,424,983,471,984,494,983,518,975,542,958,567,929,586"/>
+<area shape="poly" title=" " alt="" coords="940,583,954,575,971,556,977,535,984,513,1002,493,1060,461,1113,444,1162,438,1211,439,1313,444,1370,439,1435,423,1480,406,1521,385,1524,390,1482,411,1437,429,1371,444,1313,449,1211,445,1163,444,1114,449,1062,466,1006,497,989,516,982,537,975,558,958,579,942,587"/>
+<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a203e4a83e2a55a4ae005374ef3bc98c0" title="Compares the header name with the header names stored in the linked list of messages." alt="" coords="1017,716,1176,741"/>
+<area shape="poly" title=" " alt="" coords="882,607,1005,678,1060,707,1057,712,1003,683,879,612"/>
+<area shape="rect" href="../../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#a6c512dfcfece21875e8342ba4f3abe80" title="Match the given name with names from the entries in the table." alt="" coords="1017,261,1176,301"/>
+<area shape="poly" title=" " alt="" coords="864,583,954,417,965,386,972,360,981,336,1002,311,1008,306,1011,310,1006,315,986,339,977,362,970,388,958,419,869,585"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="1051,643,1143,668"/>
+<area shape="poly" title=" " alt="" coords="911,607,1038,638,1037,644,910,612"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#ab76ad780ccbf0233d6e2b756b259fc53" title="Invokes function to appends data from a constant string to the buffer." alt="" coords="1010,777,1183,803"/>
+<area shape="poly" title=" " alt="" coords="877,607,915,641,958,684,972,704,981,721,990,736,1006,752,1037,770,1034,775,1002,756,986,739,976,723,967,707,954,688,911,645,873,611"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#aed25d99b33ce20bd0dd819f64252eb6f" title="Allocate memory to membuffer *m and copy the contents of the in parameter const void *buf." alt="" coords="1025,541,1168,567"/>
+<area shape="poly" title=" " alt="" coords="929,581,1011,567,1012,572,930,587"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="1261,491,1412,516"/>
+<area shape="poly" title=" " alt="" coords="907,581,955,562,978,544,988,534,1003,526,1065,508,1129,498,1191,494,1247,494,1247,500,1192,500,1130,504,1066,514,1005,531,991,539,981,548,957,567,909,586"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1520,541,1643,567"/>
+<area shape="poly" title=" " alt="" coords="941,590,1189,575,1506,556,1506,561,1189,581,941,595"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a898216a354e8dd7089db150630862376" title="Returns the head of the list." alt="" coords="1297,692,1376,717"/>
+<area shape="poly" title=" " alt="" coords="1176,718,1283,707,1284,713,1177,723"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a83123d7868ce3aba2cf9d5c066fb7eb4" title="Returns the next item in the list." alt="" coords="1299,741,1375,767"/>
+<area shape="poly" title=" " alt="" coords="1177,734,1285,746,1285,751,1176,740"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a" title="Compares characters of 2 strings irrespective of the case for a specific count of bytes." alt="" coords="1255,791,1418,816"/>
+<area shape="poly" title=" " alt="" coords="1131,739,1238,777,1266,785,1264,790,1237,782,1129,744"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a8099505e5bec8749a64a0f2b1d3179c7" title="Adds a node before the specified node. Node gets added immediately before anode." alt="" coords="1280,643,1393,668"/>
+<area shape="poly" title=" " alt="" coords="1143,653,1266,653,1266,658,1143,658"/>
+<area shape="poly" title=" " alt="" coords="1143,800,1238,826,1269,834,1268,839,1237,831,1142,805"/>
+<area shape="poly" title=" " alt="" coords="1168,552,1230,558,1300,570,1372,593,1406,609,1438,628,1464,649,1487,674,1526,728,1555,782,1573,826,1568,828,1550,784,1522,731,1483,677,1460,653,1434,632,1403,613,1370,598,1299,575,1229,563,1168,557"/>
+<area shape="poly" title=" " alt="" coords="1157,539,1262,516,1263,521,1158,544"/>
+<area shape="poly" title=" " alt="" coords="1400,514,1507,536,1506,541,1399,519"/>
+<area shape="rect" href="../../d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1727,536,1948,591"/>
+<area shape="poly" title=" " alt="" coords="1643,554,1713,556,1713,561,1643,559"/>
+<area shape="poly" title=" " alt="" coords="944,178,958,189,970,205,977,221,982,252,987,282,994,296,1006,311,1010,315,1007,319,1002,315,989,299,982,283,977,253,972,223,966,208,954,193,941,182"/>
+<area shape="poly" title=" " alt="" coords="951,149,1526,140,1526,145,951,154"/>
+<area shape="poly" title=" " alt="" coords="939,178,958,189,973,204,982,218,991,232,1006,245,1017,252,1015,257,1002,249,987,235,978,221,969,207,954,193,936,182"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a02f65bf2cf2f64de1d1d096f2adbf3fe" title="Skips blank lines at the start of a msg." alt="" coords="1007,181,1187,236"/>
+<area shape="poly" title=" " alt="" coords="952,172,994,182,993,187,950,177"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a37962f857cb3a490e8f21ca923352983" title="Allocate memory and copy information from the input string to the newly allocated memory." alt="" coords="1058,80,1135,105"/>
+<area shape="poly" title=" " alt="" coords="950,127,1044,103,1045,108,952,132"/>
+<area shape="poly" title=" " alt="" coords="1173,234,1191,247,1207,268,1214,288,1222,307,1239,324,1294,349,1353,362,1414,368,1470,367,1470,372,1413,373,1353,368,1292,354,1236,328,1217,310,1209,290,1203,270,1187,251,1170,238"/>
+<area shape="poly" title=" " alt="" coords="936,227,958,239,975,256,983,275,990,293,1006,311,1013,316,1010,320,1002,315,986,296,978,277,970,259,954,243,933,232"/>
+<area shape="poly" title=" " alt="" coords="942,227,958,239,976,261,986,283,991,305,992,327,992,373,997,398,1006,425,1041,482,1077,529,1072,532,1036,485,1002,427,992,399,987,373,987,327,986,306,981,285,972,264,954,243,939,232"/>
+<area shape="poly" title=" " alt="" coords="956,211,993,209,993,215,956,216"/>
 </map>
 </div>
 <div id="dynsection-27" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -4125,7 +4117,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01322">1322</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01326">1326</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-28" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-28-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-28-summary" class="dynsummary" style="display:block;">
@@ -4347,7 +4339,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01753">1753</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01756">1756</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-30" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-30-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-30-summary" class="dynsummary" style="display:block;">
@@ -4490,7 +4482,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01771">1771</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01774">1774</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-31" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-31-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-31-summary" class="dynsummary" style="display:block;">
@@ -4619,7 +4611,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01801">1801</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01804">1804</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-32" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-32-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-32-summary" class="dynsummary" style="display:block;">
@@ -4627,11 +4619,9 @@ scanner</td>
 <div id="dynsection-32-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp_a34ffcb549b62290faab9e8f46a030bdb_cgraph.png" border="0" usemap="#adf/d6f/Compa_2src_2inc_2httpparser_8hpp_a34ffcb549b62290faab9e8f46a030bdb_cgraph" alt=""/></div>
 <map name="adf/d6f/Compa_2src_2inc_2httpparser_8hpp_a34ffcb549b62290faab9e8f46a030bdb_cgraph" id="adf/d6f/Compa_2src_2inc_2httpparser_8hpp_a34ffcb549b62290faab9e8f46a030bdb_cgraph">
-<area shape="rect" title="A wrapper function that maps a method id to a method." alt="" coords="5,5,121,31"/>
-<area shape="rect" href="../../d6/d0f/strintmap_8cpp.html#a3451764616b6b8846efab5e787fe900a" title="Returns the index from the table where the id matches the entry from the table." alt="" coords="169,5,288,31"/>
-<area shape="poly" title=" " alt="" coords="122,15,155,15,155,21,122,21"/>
-<area shape="rect" href="../../dd/d67/namespaceUPnPsdk.html#a77f51c6767191833e117e850d9ea4508" title="Returns the index from the table where the id matches the entry from the table." alt="" coords="336,5,484,31"/>
-<area shape="poly" title=" " alt="" coords="288,15,322,15,322,21,288,21"/>
+<area shape="rect" title="A wrapper function that maps a method id to a method." alt="" coords="5,13,121,38"/>
+<area shape="rect" href="../../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#a6c512dfcfece21875e8342ba4f3abe80" title="Match the given name with names from the entries in the table." alt="" coords="169,5,328,45"/>
+<area shape="poly" title=" " alt="" coords="121,23,156,23,156,28,121,28"/>
 </map>
 </div>
 <div id="dynsection-33" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -4794,7 +4784,7 @@ scanner</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01812">1812</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html#l01819">1819</a> of file <a class="el" href="../../dd/d1d/httpparser_8cpp_source.html">httpparser.cpp</a>.</p>
 <div id="dynsection-34" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-34-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-34-summary" class="dynsummary" style="display:block;">
@@ -4939,8 +4929,8 @@ scanner</td>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="aaa47881083ab4dcedd80b73631fa6d4f" name="aaa47881083ab4dcedd80b73631fa6d4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa47881083ab4dcedd80b73631fa6d4f">&#9670;&#160;</a></span>Http_Header_Names</h2>
+<a id="a1e5eff57be6f295224e9bc84f95b581f" name="a1e5eff57be6f295224e9bc84f95b581f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e5eff57be6f295224e9bc84f95b581f">&#9670;&#160;</a></span>Http_Header_Names</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4949,7 +4939,7 @@ scanner</td>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::array&lt;const str_int_entry, 33&gt; Http_Header_Names</td>
+          <td class="memname">constexpr std::array&lt;const <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry">UPnPsdk::str_int_entry</a>, 33&gt; Http_Header_Names</td>
         </tr>
       </table>
   </td>

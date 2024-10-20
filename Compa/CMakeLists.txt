@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-09
+# Redistribution only with this Copyright remark. Last modified: 2024-10-20
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -93,7 +93,6 @@ endif()
 set(COMPA_SOURCE_FILES
     src/genlib/util/membuffer.cpp
     src/genlib/util/list.cpp
-    src/genlib/util/strintmap.cpp
     src/api/UpnpString.cpp
     src/genlib/net/sock.cpp
     src/api/upnpapi.cpp

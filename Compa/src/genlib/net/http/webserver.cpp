@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-18
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-20
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -831,7 +831,8 @@ int CheckOtherHTTPHeaders(
     http_header_t* header;
     ListNode* node;
     /*NNS: dlist_node* node; */
-    int index, RetCode = HTTP_OK;
+    size_t index;
+    int RetCode = HTTP_OK;
     char* TmpBuf;
     size_t TmpBufSize = LINE_SIZE;
 
@@ -842,10 +843,14 @@ int CheckOtherHTTPHeaders(
     while (node != NULL) {
         header = (http_header_t*)node->item;
         /* find header type. */
-        /// \todo map_str_to_int: fix type_cast array.size()
-        index = map_str_to_int((const char*)header->name.buf,
-                               header->name.length, &Http_Header_Names[0],
-                               static_cast<int>(Http_Header_Names.size()), 0);
+#if 0
+        index =
+            map_str_to_int((const char*)header->name.buf, header->name.length,
+                           &Http_Header_Names[0], Http_Header_Names.size(), 0);
+#endif
+        UPnPsdk::CStrIntMap http_header_names_table(Http_Header_Names);
+        index = http_header_names_table.index_of(header->name.buf);
+
         if (header->value.length >= TmpBufSize) {
             umock::stdlib_h.free(TmpBuf);
             TmpBufSize = header->value.length + 1;
@@ -855,10 +860,8 @@ int CheckOtherHTTPHeaders(
         }
         memcpy(TmpBuf, header->value.buf, header->value.length);
         TmpBuf[header->value.length] = '\0';
-        if (index >= 0) {
-            // No problem with type_cast to 'long unsigned int', index is
-            // checked to be >= 0.
-            switch (Http_Header_Names[static_cast<size_t>(index)].id) {
+        if (index != http_header_names_table.npos) {
+            switch (Http_Header_Names[index].id) {
             case HDR_TE: {
                 /* Request */
                 RespInstr->IsChunkActive = 1;
@@ -969,7 +972,7 @@ int ExtraHTTPHeaders(
     [[maybe_unused]] UpnpListHead* extraHeadersList) {
     http_header_t* header;
     ListNode* node;
-    int index;
+    size_t index;
     UpnpExtraHeaders* extraHeader;
     UpnpListHead* extraHeaderNode;
 
@@ -977,11 +980,15 @@ int ExtraHTTPHeaders(
     while (node != NULL) {
         header = (http_header_t*)node->item;
         /* find header type. */
-        /// \todo map_str_to_int: fix type_cast array.size()
+#if 0
         index = map_str_to_int((const char*)header->name.buf,
                                header->name.length, &Http_Header_Names[0],
-                               static_cast<int>(Http_Header_Names.size()), 0);
-        if (index < 0) {
+                               Http_Header_Names.size(), 0);
+#endif
+        UPnPsdk::CStrIntMap http_header_names_table(Http_Header_Names);
+        index = http_header_names_table.index_of(header->name.buf);
+
+        if (index == http_header_names_table.npos) {
             extraHeader = UpnpExtraHeaders_new();
             if (!extraHeader) {
                 FreeExtraHTTPHeaders(extraHeadersList);
