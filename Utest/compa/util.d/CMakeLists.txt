@@ -1,10 +1,10 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-20
+# Redistribution only with this Copyright remark. Last modified: 2024-10-22
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
-project(GTESTS_COMPA_UTIL VERSION 0001
+project(GTESTS_COMPA_UTIL VERSION 0002
                   DESCRIPTION "Tests for utilities and helper"
                   HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -15,8 +15,7 @@ add_executable(test_list-psh
         ./test_list.cpp
 )
 target_link_libraries(test_list-psh
-    PRIVATE
-        pupnp_shared
+    PRIVATE pupnp_shared
 )
 add_test(NAME ctest_list-psh COMMAND test_list-psh --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -41,6 +40,7 @@ target_compile_definitions(test_membuffer-pst
     PRIVATE UPnPsdk_WITH_NATIVE_PUPNP
 )
 target_link_libraries(test_membuffer-pst
+    PRIVATE UPnPsdk_static # Only for Umock
     PRIVATE utest_static
 )
 add_test(NAME ctest_membuffer-pst COMMAND test_membuffer-pst --gtest_shuffle

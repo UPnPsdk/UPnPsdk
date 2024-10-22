@@ -1,11 +1,11 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-09
+# Redistribution only with this Copyright remark. Last modified: 2024-10-22
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
 # set the project name and version
-project(UTEST VERSION 0035
+project(UTEST VERSION 0036
               DESCRIPTION "Unit Tests using googletest"
               HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -16,26 +16,27 @@ project(UTEST VERSION 0035
 # For old builds with direct build from source files look at git commit:
 # git show 741a85fbc88:gtests/CMakeLists.txt
 
-include_directories(${UTEST_SOURCE_DIR}/include
-)
-# To link googletest we need of course its libraries.
-# gmock libraries also contain gtest libraries.
-link_libraries(gmock gmock_main
+
+# General options for all targets in these project subdirectories.
+# ================================================================
+include_directories(
+    ${PROJECT_SOURCE_DIR}/include
 )
 add_compile_definitions(
     # If linking with shared build gtest libs we need to tell it the compiler.
-    # I have found a vague hint about the flag GTEST_LINKED_AS_SHARED_LIBRARY at
-    # build/_deps/googletest-src/googletest/README.md
+    # I have found a vague hint about the flag GTEST_LINKED_AS_SHARED_LIBRARY
+    # at build/_deps/googletest-src/googletest/README.md
     $<$<AND:$<BOOL:${UPnPsdk_WITH_GOOGLETEST}>,$<BOOL:${BUILD_SHARED_LIBS}>>:GTEST_LINKED_AS_SHARED_LIBRARY>
-    $<$<PLATFORM_ID:Windows>:_CRT_NONSTDC_NO_DEPRECATE>
 )
 add_compile_options(
     # disable warning C4702: unreachable code
     # This warning comes with many googletest macros EXPECT_*/ASSERT_* and is
     # false there. --Ingo
     $<$<CXX_COMPILER_ID:MSVC>:/wd4702>
-    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wconversion>
-    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wsign-conversion>
+)
+# To link googletest we need of course its libraries.
+# gmock libraries also contain gtest libraries.
+link_libraries(gmock gmock_main
 )
 
 
@@ -73,7 +74,7 @@ target_compile_definitions(utest_shared
     PRIVATE UPnPsdk_EXPORTS
 )
 target_link_libraries(utest_shared
-    PUBLIC UPnPsdk_shared;
+    PRIVATE UPnPsdk_shared;
 )
 
 add_library(utest_static STATIC
@@ -81,14 +82,10 @@ add_library(utest_static STATIC
     ${UTEST_SOURCE_FILES}
 )
 target_link_libraries(utest_static
-    PUBLIC UPnPsdk_static;
+    PRIVATE UPnPsdk_static;
 )
 
 
-#link_libraries(utest_shared utest_static
-#)
-
-#
 # Reset output directories to default means to use the subprojects directories.
 # This should be done after build of utest.
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "")
@@ -107,14 +104,9 @@ add_executable(test_utest-ush
 #----------------------------
     tools/test_utest.cpp
 )
-target_include_directories(test_utest-ush
-    PRIVATE ${CMAKE_SOURCE_DIR}/UPnPsdk/include
-)
-target_compile_definitions(test_utest-ush
-    PRIVATE UPnPsdk_SHARE
-)
 target_link_libraries(test_utest-ush
     PRIVATE utest_shared
+    PRIVATE UPnPsdk_shared # utest does not propagate UPnPsdk
 )
 add_test(NAME ctest_utest-ush COMMAND test_utest-ush --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -126,14 +118,9 @@ add_executable(test_utest_platform-ush
     $<$<PLATFORM_ID:Windows>:./tools/test_utest_win32.cpp>
     $<$<NOT:$<PLATFORM_ID:Windows>>:./tools/test_utest_unix.cpp>
 )
-target_include_directories(test_utest_platform-ush
-    PRIVATE ${CMAKE_SOURCE_DIR}/UPnPsdk/include
-)
-target_compile_definitions(test_utest_platform-ush
-    PRIVATE UPnPsdk_SHARE
-)
 target_link_libraries(test_utest_platform-ush
     PRIVATE utest_shared
+    PRIVATE UPnPsdk_shared # utest does not propagate UPnPsdk
 )
 add_test(NAME ctest_utest_platform-ush COMMAND test_utest_platform-ush --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -169,9 +156,6 @@ add_test(NAME ctest_simple-ust COMMAND test_simple-ust --gtest_shuffle
 #=========
 add_executable(test_template
         test_template.cpp
-)
-target_include_directories(test_template
-    PRIVATE ${CMAKE_SOURCE_DIR}/UPnPsdk/include
 )
 add_test(NAME ctest_template COMMAND test_template --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}

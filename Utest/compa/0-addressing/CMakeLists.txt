@@ -1,10 +1,10 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-05
+# Redistribution only with this Copyright remark. Last modified: 2024-10-22
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
-project(UTEST_ADDRESSING VERSION 0011
+project(UTEST_ADDRESSING VERSION 0012
         DESCRIPTION "Tests for UPnP Addressing pupnp and compatible code"
         HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -176,10 +176,6 @@ add_executable(test_miniserver_run-cst
 )
 target_include_directories(test_miniserver_run-cst
     PRIVATE ${CMAKE_SOURCE_DIR}
-)
-target_compile_options(test_miniserver_run-cst
-    # disable warning C4273: inconsistent dll linkage.
-    PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/wd4273>
 )
 target_link_libraries(test_miniserver_run-cst
     PRIVATE

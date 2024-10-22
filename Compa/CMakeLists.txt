@@ -1,10 +1,10 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-20
+# Redistribution only with this Copyright remark. Last modified: 2024-10-22
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(COMPA VERSION 0009
+project(COMPA VERSION 0010
               DESCRIPTION "UPnPsdk compatible library subproject"
               HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -256,11 +256,11 @@ set(COMPA_COMPILE_DEFINITIONS
         $<$<BOOL:${COMPA_DEF_DEBUG}>:UPNP_HAVE_DEBUG>
 )
 
+
 set_source_files_properties(
-        src/threadutil/ThreadPool.cpp
-        # disable warning C4244: 'argument': conversion from 'unsigned __int64'
-        # to 'unsigned int', possible loss of data
-    PROPERTIES COMPILE_OPTIONS $<$<CXX_COMPILER_ID:MSVC>:/wd4244>
+    src/ssdp/ssdp_device.cpp
+    PROPERTIES
+        COMPILE_OPTIONS $<$<CXX_COMPILER_ID:AppleClang>:-Wno-shorten-64-to-32>
 )
 
 

@@ -1,10 +1,10 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-09
+# Redistribution only with this Copyright remark. Last modified: 2024-10-22
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(PUPNP_UPNP VERSION 0031
+project(PUPNP_UPNP VERSION 0032
         DESCRIPTION "Binary build of the UPnP library core"
         HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -209,15 +209,21 @@ set(PUPNP_COMPILE_DEFINITIONS
         $<$<BOOL:${PUPNP_DEF_BLOCKTCP}>:UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS>
 )
 
+set_source_files_properties(
+    src/threadutil/ThreadPool.cpp
+    PROPERTIES
+        COMPILE_OPTIONS $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-conversion>
+)
+
 
 # Create libraries
 #=================
 # Link with POSIX Threads for Windows (pthreads4w):
-# Pthreads are not supported by MS Windows. So we have installed the
+# Pthreads are not supported by MS Windows. So I have installed the
 # third party library pthreads4w.
 
-# WIN32 Pupnp SHared library: -psh
-#---------------------------------
+# Pupnp SHared library: -psh
+#---------------------------
 add_library(pupnp_shared SHARED
         ${PUPNP_SOURCE_FILES}
 )
@@ -260,8 +266,8 @@ target_link_libraries(pupnp_shared
 )
 
 
-# WIN32 Pupnp STatic library: suffix -pst
-#----------------------------------------
+# Pupnp STatic library: suffix -pst
+#----------------------------------
 add_library(pupnp_static STATIC
     ${PUPNP_SOURCE_FILES}
 )

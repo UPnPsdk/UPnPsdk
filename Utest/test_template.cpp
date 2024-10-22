@@ -1,9 +1,8 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-10-24
+// Redistribution only with this Copyright remark. Last modified: 2024-10-21
 
 // This test should always run, reporting no failure
 
-#include <utest/utest.hpp>
 // #include <gtest/gtest.h>
 #include <gmock/gmock.h> // preferred because it contains also gtest.h
 
@@ -80,8 +79,12 @@ class EmptyFixtureTestSuite : public ::testing::Test {
 
 TEST_F(EmptyFixtureTestSuite, empty_gtest_with_fixture) {}
 
+
 // simple testsuite without fixtures
 //----------------------------------
+bool github_actions{true};
+bool old_code{true};
+
 TEST(EmptyTestSuite, skip_on_github_action) {
     if (github_actions)
         GTEST_SKIP() << "Test is skipped on Github Actions.";

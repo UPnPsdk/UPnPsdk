@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-10
+// Redistribution only with this Copyright remark. Last modified: 2024-10-21
 
 /*!
 \mainpage Overview
@@ -69,7 +69,9 @@ CXX_VISIBILITY_PRESET hidden
 VISIBILITY_INLINES_HIDDEN ON)
 ```<br/>
 
-- When building a shared library set its compile definitions to <code>UPnPsdk_SHARE</code> and <code>UPnPsdk_EXPORTS</code>. You should declare <code>UPnPsdk_SHARE</code> to be **PUBLIC**. With nested use of libraries this is only needed for the first library. CMake propagates the compile definition. With other combinations you have to respect CMakes propagation rules for PRIVATE, PUBLIC, INTERFACE and it may be necessary to also declare <code>UPnPsdk_SHARE</code> on following libraries and executables. In result every shared library and executable using it, must see <code>UPnPsdk_SHARE</code>. Never set <code>UPnPsdk_EXPORTS</code> to PUBLIC. This may see an executable target that should not export symbols.
+- When building a shared library set its compile definitions to <code>UPnPsdk_SHARE</code> and <code>UPnPsdk_EXPORTS</code>. You should declare <code>UPnPsdk_SHARE</code> to be **PUBLIC**. With nested use of libraries this is only needed for the first library. CMake propagates the compile definition. With other combinations you have to respect CMakes propagation rules for PRIVATE, PUBLIC, INTERFACE and it may be necessary to also declare <code>UPnPsdk_SHARE</code> on following libraries and executables. In result every shared library and executable using it, must see <code>UPnPsdk_SHARE</code>.
+
+Never set <code>UPnPsdk_EXPORTS</code> to PUBLIC. This may see an executable target that should not export symbols.
 ```
 add_library(UPnPsdk_shared SHARED
         ${UPnPsdk_SOURCE_FILES})

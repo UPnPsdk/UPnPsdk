@@ -145,10 +145,11 @@ size_t parse_uric(
     size_t max,
     /*! [out] Token object where the string of characters is copied. */
     token* out) {
-    size_t i = (size_t)0;
+    size_t i{};
 
     while (i < max &&
-           (is_unreserved(in[i]) || is_reserved(in[i]) ||
+           (is_unreserved((unsigned char)in[i]) ||
+            is_reserved((unsigned char)in[i]) ||
             ((i + (size_t)2 < max) &&
              is_escaped(reinterpret_cast<const unsigned char*>(&in[i]))))) {
         i++;

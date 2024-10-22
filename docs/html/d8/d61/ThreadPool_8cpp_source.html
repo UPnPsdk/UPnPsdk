@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * All rights reserved.</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Copyright (c) 2012 France Telecom All rights reserved.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-08-17</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-10-22</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * modification, are permitted provided that the following conditions are met:</span></div>
@@ -154,15 +154,15 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="../../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a09e7140e6d8041eccf860f635f4192b1">   74</a></span><span class="keywordtype">long</span> <a class="code hl_function" href="../../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a09e7140e6d8041eccf860f635f4192b1">DiffMillis</a>(timeval* time1, timeval* time2) {</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">double</span> temp = 0.0;</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    temp = time1-&gt;tv_sec - time2-&gt;tv_sec;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    temp = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(time1-&gt;tv_sec - time2-&gt;tv_sec);</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="comment">/* convert to milliseconds */</span></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    temp *= 1000.0;</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">/* convert microseconds to milliseconds and add to temp */</span></div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="comment">/* implicit flooring of unsigned long data type */</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    temp += (time1-&gt;tv_usec - time2-&gt;tv_usec) / 1000.0;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    temp += <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(time1-&gt;tv_usec - time2-&gt;tv_usec) / 1000.0;</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">return</span> temp;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span><span class="keyword">&gt;</span>(temp);</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
 </div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
@@ -195,7 +195,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_struct" href="../../d5/d91/ThreadPool_8hpp.html#d0/d41/structThreadPool">ThreadPool</a>* tp,</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordtype">long</span> diffTime) {</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a044d05ae7f7b5673f54da318e5438065">stats</a>.totalJobsLQ++;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a044d05ae7f7b5673f54da318e5438065">stats</a>.totalTimeLQ += diffTime;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a044d05ae7f7b5673f54da318e5438065">stats</a>.totalTimeLQ += <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(diffTime);</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
 </div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
@@ -204,7 +204,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <a class="code hl_struct" href="../../d5/d91/ThreadPool_8hpp.html#d0/d41/structThreadPool">ThreadPool</a>* tp,</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordtype">long</span> diffTime) {</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a044d05ae7f7b5673f54da318e5438065">stats</a>.totalJobsMQ++;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a044d05ae7f7b5673f54da318e5438065">stats</a>.totalTimeMQ += diffTime;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a044d05ae7f7b5673f54da318e5438065">stats</a>.totalTimeMQ += <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(diffTime);</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}</div>
 </div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
@@ -213,7 +213,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <a class="code hl_struct" href="../../d5/d91/ThreadPool_8hpp.html#d0/d41/structThreadPool">ThreadPool</a>* tp,</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keywordtype">long</span> diffTime) {</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a044d05ae7f7b5673f54da318e5438065">stats</a>.totalJobsHQ++;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a044d05ae7f7b5673f54da318e5438065">stats</a>.totalTimeHQ += diffTime;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a044d05ae7f7b5673f54da318e5438065">stats</a>.totalTimeHQ += <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(diffTime);</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>}</div>
 </div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>

@@ -1,10 +1,10 @@
 # Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-12
+# Redistribution only with this Copyright remark. Last modified: 2024-10-22
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
-project(GTESTS_COMPA_SSDP VERSION 0001
+project(GTESTS_COMPA_SSDP VERSION 0002
                   DESCRIPTION "Tests for the compa ssdp module"
                   HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -22,16 +22,9 @@ add_executable(test_ssdp-pst
 target_include_directories(test_ssdp-pst
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
-target_compile_definitions(test_ssdp-pst
-    PRIVATE
-        COMPA_HAVE_CTRLPT_SSDP
-        COMPA_HAVE_DEVICE_SSDP
-        UPNP_HAVE_SSDP
-)
 target_link_libraries(test_ssdp-pst
     PRIVATE
         pupnp_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_ssdp-pst COMMAND test_ssdp-pst --gtest_shuffle

@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-10
+# Redistribution only with this Copyright remark. Last modified: 2024-10-21
 
 cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -179,6 +179,8 @@ add_compile_options(
         $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Werror>
         $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wuninitialized>
         $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-dangling-else>
+        $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wconversion>
+        $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wsign-conversion>
         $<$<CXX_COMPILER_ID:GNU>:-Wno-format-truncation>
         $<$<CXX_COMPILER_ID:GNU>:-Wsuggest-override> # Only valid for C++/ObjC++ but not for C
         $<$<AND:$<CONFIG:Debug>,$<CXX_COMPILER_ID:GNU>>:-fstack-protector-all>

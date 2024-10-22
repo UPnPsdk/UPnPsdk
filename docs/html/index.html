@@ -159,7 +159,9 @@ Visibility support</h1>
 <div class="line">VISIBILITY_INLINES_HIDDEN ON)</div>
 </div><!-- fragment --> <br  />
 </li>
-<li>When building a shared library set its compile definitions to <code>UPnPsdk_SHARE</code> and <code>UPnPsdk_EXPORTS</code>. You should declare <code>UPnPsdk_SHARE</code> to be <b>PUBLIC</b>. With nested use of libraries this is only needed for the first library. CMake propagates the compile definition. With other combinations you have to respect CMakes propagation rules for PRIVATE, PUBLIC, INTERFACE and it may be necessary to also declare <code>UPnPsdk_SHARE</code> on following libraries and executables. In result every shared library and executable using it, must see <code>UPnPsdk_SHARE</code>. Never set <code>UPnPsdk_EXPORTS</code> to PUBLIC. This may see an executable target that should not export symbols. <div class="fragment"><div class="line">add_library(UPnPsdk_shared SHARED</div>
+<li>When building a shared library set its compile definitions to <code>UPnPsdk_SHARE</code> and <code>UPnPsdk_EXPORTS</code>. You should declare <code>UPnPsdk_SHARE</code> to be <b>PUBLIC</b>. With nested use of libraries this is only needed for the first library. CMake propagates the compile definition. With other combinations you have to respect CMakes propagation rules for PRIVATE, PUBLIC, INTERFACE and it may be necessary to also declare <code>UPnPsdk_SHARE</code> on following libraries and executables. In result every shared library and executable using it, must see <code>UPnPsdk_SHARE</code>.</li>
+</ul>
+<p>Never set <code>UPnPsdk_EXPORTS</code> to PUBLIC. This may see an executable target that should not export symbols. </p><div class="fragment"><div class="line">add_library(UPnPsdk_shared SHARED</div>
 <div class="line">        ${UPnPsdk_SOURCE_FILES})</div>
 <div class="line">target_compile_definitions(UPnPsdk_shared</div>
 <div class="line">        PUBLIC UPnPsdk_SHARE</div>
@@ -176,7 +178,7 @@ Visibility support</h1>
 <div class="line">        ${API_CALLS_SOURCE_FILES})</div>
 <div class="line">target_link_libraries(api_calls-csh</div>
 <div class="line">        PRIVATE compa_shared)</div>
-</div><!-- fragment --> But you need with: <div class="fragment"><div class="line">target_link_libraries(compa_shared</div>
+</div><!-- fragment --><p> But you need with: </p><div class="fragment"><div class="line">target_link_libraries(compa_shared</div>
 <div class="line">        PRIVATE UPnPsdk_shared)</div>
 <div class="line"> </div>
 <div class="line">add_executable(api_calls-csh</div>
@@ -185,8 +187,8 @@ Visibility support</h1>
 <div class="line">        PRIVATE UPnPsdk_SHARE)</div>
 <div class="line">target_link_libraries(api_calls-csh</div>
 <div class="line">        PRIVATE compa_shared)</div>
-</div><!-- fragment --> <br  />
-</li>
+</div><!-- fragment --><p> <br  />
+</p><ul>
 <li>In your header files, wherever you want an interface or API made public outside the current Dynamic Shared Object, place <code>UPnPsdk_API</code> in struct, class and function declarations you wish to make public. You should not specify it in the definition of your source files. On Microsoft Windows Visual Studio it does not compile due to an error. You should never do it on templated or static functions because they are defined to be local. <div class="fragment"><div class="line"><a class="code hl_define" href="d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> <span class="keywordtype">int</span> PublicFreeFunc();</div>
 <div class="line"><span class="keyword">class </span><a class="code hl_define" href="d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> PublicClass{};</div>
 <div class="line"><span class="keyword">struct </span><a class="code hl_define" href="d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> PublicStruct{};</div>

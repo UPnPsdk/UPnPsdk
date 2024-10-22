@@ -1,13 +1,13 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-10-22
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
 
-#ifdef UPNPLIB_WITH_NATIVE_UPNP
-#include <pupnp/upnp/src/api/upnpapi.cpp>
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+#include <Pupnp/upnp/src/api/upnpapi.cpp>
 #else
-#include <compa/src/api/upnpapi.cpp>
+#include <Compa/src/api/upnpapi.cpp>
 #endif
 
 #include <UPnPsdk/upnptools.hpp> // For UPnPsdk only

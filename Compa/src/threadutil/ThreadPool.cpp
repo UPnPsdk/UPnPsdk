@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-22
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -74,15 +74,15 @@ namespace {
 long DiffMillis(timeval* time1, timeval* time2) {
     double temp = 0.0;
 
-    temp = time1->tv_sec - time2->tv_sec;
+    temp = static_cast<double>(time1->tv_sec - time2->tv_sec);
     /* convert to milliseconds */
     temp *= 1000.0;
 
     /* convert microseconds to milliseconds and add to temp */
     /* implicit flooring of unsigned long data type */
-    temp += (time1->tv_usec - time2->tv_usec) / 1000.0;
+    temp += static_cast<double>(time1->tv_usec - time2->tv_usec) / 1000.0;
 
-    return temp;
+    return static_cast<long>(temp);
 }
 
 #if defined(STATS) || defined(DOXYGEN_RUN)
@@ -120,7 +120,7 @@ void StatsAccountLQ(
     /*! . */
     long diffTime) {
     tp->stats.totalJobsLQ++;
-    tp->stats.totalTimeLQ += diffTime;
+    tp->stats.totalTimeLQ += static_cast<double>(diffTime);
 }
 
 /*!
@@ -132,7 +132,7 @@ void StatsAccountMQ(
     /*! . */
     long diffTime) {
     tp->stats.totalJobsMQ++;
-    tp->stats.totalTimeMQ += diffTime;
+    tp->stats.totalTimeMQ += static_cast<double>(diffTime);
 }
 
 /*!
@@ -144,7 +144,7 @@ void StatsAccountHQ(
     /*! . */
     long diffTime) {
     tp->stats.totalJobsHQ++;
-    tp->stats.totalTimeHQ += diffTime;
+    tp->stats.totalTimeHQ += static_cast<double>(diffTime);
 }
 
 /*!

@@ -1,10 +1,10 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-07
+# Redistribution only with this Copyright remark. Last modified: 2024-10-22
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
-project(GTESTS_COMPA_URI VERSION 0003
+project(GTESTS_COMPA_URI VERSION 0004
                   DESCRIPTION "Tests for the uri module and url class"
                   HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -14,15 +14,6 @@ project(GTESTS_COMPA_URI VERSION 0003
 # Because we want to include the source file into the test to also test static
 # functions, we cannot use shared libraries due to symbol import/export
 # conflicts. We must use static libraries.
-if(FALSE)
-# Direct linking with source files currently not used but having available for
-# reference. We link against the internal UPnPsdk libraries (see below).
-add_executable(test_uri-pst
-    ${PUPNP_UPNP_SOURCE_DIR}/src/global.cpp
-    ${GTESTS_SOURCE_DIR}/tools/mockObj.cpp
-    ./test_uri.cpp
-)
-endif()
 
 add_executable(test_uri-pst
     ./test_uri.cpp

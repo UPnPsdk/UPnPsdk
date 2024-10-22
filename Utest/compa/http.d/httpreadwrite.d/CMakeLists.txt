@@ -1,10 +1,10 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-07
+# Redistribution only with this Copyright remark. Last modified: 2024-10-22
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
-project(GTESTS_COMPA_HTTP_HTTPREADWRITE VERSION 0001
+project(GTESTS_COMPA_HTTP_HTTPREADWRITE VERSION 0002
                   DESCRIPTION "Tests for the compa httpreadwrite module"
                   HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -36,7 +36,6 @@ target_compile_options(test_httpreadwrite-pst
 target_link_libraries(test_httpreadwrite-pst
     PRIVATE
         pupnp_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_httpreadwrite-pst COMMAND test_httpreadwrite-pst --gtest_shuffle
@@ -53,7 +52,6 @@ target_include_directories(test_httpreadwrite-cst
 target_link_libraries(test_httpreadwrite-cst
     PRIVATE
         compa_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_httpreadwrite-cst COMMAND test_httpreadwrite-cst --gtest_shuffle
@@ -70,35 +68,6 @@ add_test(NAME ctest_httpreadwrite-cst COMMAND test_httpreadwrite-cst --gtest_shu
 # Because we want to include the source file into the test to also test static
 # functions, we cannot use shared libraries due to symbol import/export
 # conflicts. We must use static libraries.
-if(FALSE)
-# Direct linking with source files currently not used but having available for
-# reference. We link against the UPnPsdk libraries (see below).
-add_executable(test_netconnect
-    ${PUPNP_UPNP_SOURCE_DIR}/src/global.cpp
-    ${GTESTS_SOURCE_DIR}/tools/mockObj.cpp
-    $<$<BOOL:${WIN32}>:${GTESTS_SOURCE_DIR}/tools/mockObj_win32.cpp>
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/threadutil/FreeList.cpp
-    ${PUPNP_UPNP_SOURCE_DIR}/src/threadutil/LinkedList.cpp
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/net/sock.cpp
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/net/uri/uri.cpp
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/net/http/httpparser.cpp
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/net/http/statcodes.cpp
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/util/list.cpp
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/util/membuffer.cpp
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/util/strintmap.cpp
-
-    ${PUPNP_UPNP_SOURCE_DIR}/src/api/UpnpString.cpp
-    $<$<CONFIG:Debug>:${PUPNP_UPNP_SOURCE_DIR}/src/api/upnpdebug.cpp>
-
-    test_httpreadwrite.d/test_netconnect.cpp
-)
-endif()
-
 add_executable(test_netconnect-pst
 #---------------------------------
     ./test_netconnect.cpp
@@ -118,7 +87,6 @@ target_compile_options(test_netconnect-pst
 )
 target_link_libraries(test_netconnect-pst
     PRIVATE pupnp_static
-    PRIVATE UPnPsdk_static
     PRIVATE utest_static
 )
 add_test(NAME ctest_netconnect-pst COMMAND test_netconnect-pst --gtest_shuffle
@@ -134,7 +102,6 @@ target_include_directories(test_netconnect-cst
 )
 target_link_libraries(test_netconnect-cst
     PRIVATE compa_static
-    PRIVATE UPnPsdk_static
     PRIVATE utest_static
 )
 add_test(NAME ctest_netconnect-cst COMMAND test_netconnect-cst --gtest_shuffle
@@ -167,7 +134,6 @@ target_compile_options(test_http_Download-pst
 target_link_libraries(test_http_Download-pst
     PRIVATE
         pupnp_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_http_Download-pst COMMAND test_http_Download-pst --gtest_shuffle
@@ -184,7 +150,6 @@ target_include_directories(test_http_Download-cst
 target_link_libraries(test_http_Download-cst
     PRIVATE
         compa_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_http_Download-cst COMMAND test_http_Download-cst --gtest_shuffle

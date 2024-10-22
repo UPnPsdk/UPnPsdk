@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-18
+# Redistribution only with this Copyright remark. Last modified: 2024-10-21
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -49,6 +49,7 @@ set(UPnPsdk_INCLUDE_DIRECTORIES
 
 # UPnPsdk libraries
 #==================
+# Have an object libray available for alternative testing.
 if(FALSE)
 add_library(UPnPsdk_object OBJECT
     ${UPnPsdk_SOURCE_FILES}
