@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-18
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -556,7 +556,8 @@ int sock_write(SOCKINFO* info, const char* buffer, size_t bufsize,
 }
 
 int sock_make_blocking(SOCKET sock) {
-// returns 0 if successful, else SOCKET_ERROR.
+    // returns 0 if successful, else SOCKET_ERROR.
+    TRACE("Executing sock_make_blocking()")
 #ifdef _WIN32
     u_long val = 0;
     // returns 0 if successful, else SOCKET_ERROR.
@@ -571,7 +572,8 @@ int sock_make_blocking(SOCKET sock) {
 }
 
 int sock_make_no_blocking(SOCKET sock) {
-// returns 0 if successful, else SOCKET_ERROR.
+    // returns 0 if successful, else SOCKET_ERROR.
+    TRACE("Executing sock_make_no_blocking()")
 #ifdef _WIN32
     u_long val = 1;
     // returns 0 if successful, else SOCKET_ERROR.

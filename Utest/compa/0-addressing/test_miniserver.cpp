@@ -135,12 +135,15 @@ class StartMiniServerFTestSuite : public ::testing::Test {
             logObj.enable(UPNP_ALL);
 
         // Clean up needed global environment
-        gIF_IPV4[0] = '\0';
-        gIF_IPV6[0] = '\0';
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        LOCAL_PORT_V4 = 0;
-        LOCAL_PORT_V6 = 0;
-        LOCAL_PORT_V6_ULA_GUA = 0;
+        memset(&gIF_NAME, 0, sizeof(gIF_NAME));
+        memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
+        memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
+        memset(&gIF_IPV6, 0, sizeof(gIF_IPV6));
+        gIF_IPV6_PREFIX_LENGTH = 0;
+        memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
+        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+        gIF_INDEX = unsigned(-1);
+        memset(&errno, 0xAA, sizeof(errno));
         gMServState = MSERV_IDLE;
     }
 };

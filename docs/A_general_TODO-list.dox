@@ -1,12 +1,12 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-22
+// Redistribution only with this Copyright remark. Last modified: 2024-10-25
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
  * - Cleanup and optimize complete CMake build.
- * - Rework Utest/compa/1-discovery/test_ssdp.cpp.
+ * - Rework Utest/compa/1-discovery/test_ssdp.cpp, mainy to fix get_ssdp_sockets() for IPv6,
  * - Rework Utest/compa/api.d/test_upnpapi_win32.cpp.
  * - Verify DEBUG flag Utest/ixml/CMakeLists.txt.
  * - Enable Utest/sample/CMakeLists.txt.

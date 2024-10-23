@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-23
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -197,8 +197,7 @@ int sock_write(
 
 /*!
  * \brief Make socket blocking.
- *
- * \return 0 if successful, -1 otherwise.
+ * \return 0 if successful, SOCKET_ERROR otherwise.
  */
 // Don't export function symbol; only used library intern.
 int sock_make_blocking(
@@ -207,8 +206,7 @@ int sock_make_blocking(
 
 /*!
  * \brief Make socket non-blocking.
- *
- * \return 0 if successful, -1 otherwise.
+ * \return 0 if successful, SOCKET_ERROR otherwise.
  */
 // Don't export function symbol; only used library intern.
 int sock_make_no_blocking(

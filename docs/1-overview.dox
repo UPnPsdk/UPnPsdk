@@ -110,7 +110,7 @@ class UPnPsdk_API PublicClass{};
 struct UPnPsdk_API PublicStruct{};
 ```<br/>
 
-- For optimization with using <code>UPnPsdk_LOCAL</code> look at the [GCC Wiki - Visibility](https://gcc.gnu.org/wiki/Visibility). Usualy private member functions of a class are prefixed with <code>UPnPsdk_LOCAL</code>.
+- For optimization with using <code>UPnPsdk_LOCAL</code> look at the [GCC Wiki - Visibility](https://gcc.gnu.org/wiki/Visibility). If you have a publicy visibile <code>class UPnPsdk_API PublicClass()</code> then all its member functions are also publicy visible. To keep them private you can prefix them with <code>UPnPsdk_LOCAL</code>.
 */
 
 // vim: filetype=cpp
