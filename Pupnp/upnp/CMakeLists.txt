@@ -209,12 +209,6 @@ set(PUPNP_COMPILE_DEFINITIONS
         $<$<BOOL:${PUPNP_DEF_BLOCKTCP}>:UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS>
 )
 
-set_source_files_properties(
-    src/threadutil/ThreadPool.cpp
-    PROPERTIES
-        COMPILE_OPTIONS $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wno-conversion>
-)
-
 
 # Create libraries
 #=================

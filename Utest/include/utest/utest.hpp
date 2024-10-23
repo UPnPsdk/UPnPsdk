@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_UTEST_HPP
 #define UPNPLIB_UTEST_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-10-23
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port.hpp>
@@ -43,7 +43,7 @@ const bool github_actions{static_cast<bool>(std::getenv("GITHUB_ACTIONS"))};
 // to capture all data. Write to a full buffer will be blocked. Then we do not
 // have any chance to read the pipe to free the buffer. Maybe it could be
 // managed with asynchronous mode on a pipe but that is far away from Posix
-// compatible handling. This deadlock is only a problem on MS Windows.
+// compatible handling. This possible deadlock is only a problem on MS Windows.
 //
 // If you run into a deadlock on MS Windows then increase the
 // 'm_pipebuffer_size'. --Ingo

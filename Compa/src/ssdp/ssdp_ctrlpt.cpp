@@ -6,7 +6,7 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-18
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-23
  *
  * - Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
@@ -729,8 +729,14 @@ int create_ssdp_sock_reqv4(
     umock::sys_socket_h.setsockopt(*ssdpReqSock, IPPROTO_IP, IP_MULTICAST_TTL,
                                    (const char*)&ttl, sizeof(ttl));
     /* just do it, regardless if fails or not. */
-    umock::pupnp_sock.sock_make_no_blocking(*ssdpReqSock);
+    int ret = umock::pupnp_sock.sock_make_no_blocking(*ssdpReqSock);
+    if (ret == SOCKET_ERROR)
+        // But at least give a critical error message.
+        UPNPLIB_LOGCRIT "MSG1029: SSDP Request Socket "
+            << *ssdpReqSock
+            << " failed to set \"no blocking\" but continue...\n";
 
+    /* Again, just do it, regardless if fails or not. */
     return UPNP_E_SUCCESS;
 }
 

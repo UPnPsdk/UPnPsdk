@@ -59,6 +59,7 @@
 #include <umock/winsock2.hpp>
 
 #include <stdio.h>
+#include <iostream> // DEBUG!
 
 #include "posix_overwrites.hpp"
 #define MAX_TIME_TOREAD 45
@@ -1171,6 +1172,7 @@ int get_ssdp_sockets(MiniServerSockArray* out) {
     int retVal;
 
 #ifdef INCLUDE_CLIENT_APIS
+    std::cerr << "DEBUG! Tracepoint1\n";
     out->ssdpReqSock4 = INVALID_SOCKET;
     out->ssdpReqSock6 = INVALID_SOCKET;
     /* Create the IPv4 socket for SSDP REQUESTS */
@@ -1184,6 +1186,7 @@ int get_ssdp_sockets(MiniServerSockArray* out) {
         out->ssdpReqSock4 = INVALID_SOCKET;
         /* Create the IPv6 socket for SSDP REQUESTS */
 #ifdef UPNP_ENABLE_IPV6
+    std::cerr << "DEBUG! Tracepoint2\n";
     if (strlen(gIF_IPV6) > (size_t)0) {
         retVal = create_ssdp_sock_reqv6(&out->ssdpReqSock6);
         if (retVal != UPNP_E_SUCCESS) {
@@ -1197,6 +1200,7 @@ int get_ssdp_sockets(MiniServerSockArray* out) {
 #endif /* IPv6 */
 #endif /* INCLUDE_CLIENT_APIS */
     /* Create the IPv4 socket for SSDP */
+    std::cerr << "DEBUG! Tracepoint3\n";
     if (strlen(gIF_IPV4) > (size_t)0) {
         retVal = create_ssdp_sock_v4(&out->ssdpSock4);
         if (retVal != UPNP_E_SUCCESS) {

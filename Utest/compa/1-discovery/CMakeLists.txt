@@ -31,22 +31,18 @@ add_test(NAME ctest_ssdp-pst COMMAND test_ssdp-pst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
-if(FALSE)
 add_executable(test_ssdp-cst
 #---------------------------
     ./test_ssdp.cpp
 )
-target_compile_definitions(test_ssdp-cst
-    PRIVATE
-        COMPA_HAVE_CTRLPT_SSDP
-        COMPA_HAVE_DEVICE_SSDP
+target_include_directories(test_ssdp-cst
+    PRIVATE ${CMAKE_SOURCE_DIR}
 )
 target_link_libraries(test_ssdp-cst
     PRIVATE
         compa_static
-        UPnPsdk_static
+        utest_static
 )
 add_test(NAME ctest_ssdp-cst COMMAND test_ssdp-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
-endif()
