@@ -229,7 +229,7 @@ TEST_F(SsdpMockFTestSuite, get_ssdp_sockets) {
                 setsockopt(sock6_reqest, SOL_SOCKET, SO_REUSEADDR, _, _))
         .WillOnce(Return(0));
 #endif
-#if (defined(BSD) && !defined(__GNU__)) || defined(__APPLE__)
+#if (defined(BSD) && !defined(__GNU__))
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sock6_reqest, SOL_SOCKET, SO_REUSEPORT, _, _))
         .WillOnce(Return(0));
