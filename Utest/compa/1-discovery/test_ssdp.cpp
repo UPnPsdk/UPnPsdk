@@ -247,15 +247,16 @@ TEST_F(SsdpMockFTestSuite, get_ssdp_sockets) {
                 setsockopt(sock6_bind, SOL_SOCKET, SO_REUSEPORT, _, _))
         .WillOnce(Return(0));
 #endif /* BSD, __APPLE__ */
-#if !defined(__APPLE__)
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sock6_bind, IPPROTO_IPV6, IPV6_V6ONLY, _, _))
+                // setsockopt(sock6_bind, 41, 27, _, _))
         .WillOnce(Return(0));
-#endif
     EXPECT_CALL(m_sys_socketObj, bind(sock6_bind, _, _)).WillOnce(Return(0));
+#if !defined(__APPLE__)
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sock6_bind, IPPROTO_IPV6, IPV6_JOIN_GROUP, _, _))
         .WillOnce(Return(0));
+#endif
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sock6_bind, SOL_SOCKET, SO_BROADCAST, _, _))
         .WillOnce(Return(0));
