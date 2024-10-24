@@ -252,14 +252,15 @@ TEST_F(SsdpMockFTestSuite, get_ssdp_sockets) {
                 // setsockopt(sock6_bind, 41, 27, _, _))
         .WillOnce(Return(0));
     EXPECT_CALL(m_sys_socketObj, bind(sock6_bind, _, _)).WillOnce(Return(0));
-#if !defined(__APPLE__)
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sock6_bind, IPPROTO_IPV6, IPV6_JOIN_GROUP, _, _))
+                // setsockopt(1004, 41, 12, 0x7ff7b9629ec8, 20)
         .WillOnce(Return(0));
-#endif
+#if !defined(__APPLE__)
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sock6_bind, SOL_SOCKET, SO_BROADCAST, _, _))
         .WillOnce(Return(0));
+#endif
 
     // Provide needed data.
     MiniServerSockArray mini_sock{};
