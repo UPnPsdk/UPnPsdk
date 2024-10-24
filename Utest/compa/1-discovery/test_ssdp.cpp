@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-23
+// Redistribution only with this Copyright remark. Last modified: 2024-10-24
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -221,15 +221,17 @@ TEST_F(SsdpMockFTestSuite, get_ssdp_sockets) {
     EXPECT_CALL(m_sys_socketObj, socket(AF_INET6, SOCK_DGRAM, 0))
         .WillOnce(Return(sock6_reqest))
         .WillOnce(Return(sock6_bind));
+#if !defined(__APPLE__)
     EXPECT_CALL(m_sys_socketObj, setsockopt(sock6_reqest, IPPROTO_IPV6,
                                             IPV6_MULTICAST_HOPS, _, _))
         .WillOnce(Return(0));
+#endif
 #ifdef UPNP_MINISERVER_REUSEADDR
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sock6_reqest, SOL_SOCKET, SO_REUSEADDR, _, _))
         .WillOnce(Return(0));
 #endif
-#if (defined(BSD) && !defined(__GNU__))
+#if (defined(BSD) && !defined(__GNU__)) || defined(__APPLE__)
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sock6_reqest, SOL_SOCKET, SO_REUSEPORT, _, _))
         .WillOnce(Return(0));
