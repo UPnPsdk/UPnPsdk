@@ -221,15 +221,15 @@ TEST_F(SsdpMockFTestSuite, get_ssdp_sockets) {
     EXPECT_CALL(m_sys_socketObj, socket(AF_INET6, SOCK_DGRAM, 0))
         .WillOnce(Return(sock6_reqest))
         .WillOnce(Return(sock6_bind));
-#if !defined(__APPLE__)
     EXPECT_CALL(m_sys_socketObj, setsockopt(sock6_reqest, IPPROTO_IPV6,
                                             IPV6_MULTICAST_HOPS, _, _))
         .WillOnce(Return(0));
-#endif
+#if !defined(__APPLE__)
 #ifdef UPNP_MINISERVER_REUSEADDR
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sock6_reqest, SOL_SOCKET, SO_REUSEADDR, _, _))
         .WillOnce(Return(0));
+#endif
 #endif
 #if (defined(BSD) && !defined(__GNU__)) || defined(__APPLE__)
     EXPECT_CALL(m_sys_socketObj,
