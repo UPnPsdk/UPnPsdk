@@ -1200,7 +1200,6 @@ int get_ssdp_sockets(MiniServerSockArray* out) {
 #endif /* IPv6 */
 #endif /* INCLUDE_CLIENT_APIS */
     /* Create the IPv4 socket for SSDP */
-    std::cerr << "DEBUG! Tracepoint3\n";
     if (strlen(gIF_IPV4) > (size_t)0) {
         retVal = create_ssdp_sock_v4(&out->ssdpSock4);
         if (retVal != UPNP_E_SUCCESS) {
@@ -1214,6 +1213,7 @@ int get_ssdp_sockets(MiniServerSockArray* out) {
         out->ssdpSock4 = INVALID_SOCKET;
 #ifdef UPNP_ENABLE_IPV6
     /* Create the IPv6 socket for SSDP */
+    std::cerr << "DEBUG! Tracepoint3\n";
     if (strlen(gIF_IPV6) > (size_t)0) {
         retVal = create_ssdp_sock_v6(&out->ssdpSock6);
         if (retVal != UPNP_E_SUCCESS) {

@@ -213,49 +213,50 @@ TEST_F(SsdpMockFTestSuite, set_socket_no_blocking_fails) {
 }
 
 TEST_F(SsdpMockFTestSuite, get_ssdp_sockets) {
-    SOCKET sockfd1{1003}; // mocked socket file descriptor
-    SOCKET sockfd2{1004}; // mocked socket file descriptor
+    SOCKET sock6_reqest{1003}; // mocked ssdp request socket
+    SOCKET sock6_bind{1004};   // mocked ssdp socket
 
-                          // { // begin scope InSequence
-    //     InSequence seq;
-
-    // Manage create_ssdp_sock_v6_ula_gua().
+    // Manage IPv6 ssdp request socket 'sock6_reqest'
+    // ----------------------------------------------
     EXPECT_CALL(m_sys_socketObj, socket(AF_INET6, SOCK_DGRAM, 0))
-        .WillOnce(Return(sockfd1))
-        .WillOnce(Return(sockfd2));
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd1, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, _, _))
+        .WillOnce(Return(sock6_reqest))
+        .WillOnce(Return(sock6_bind));
+    EXPECT_CALL(m_sys_socketObj, setsockopt(sock6_reqest, IPPROTO_IPV6,
+                                            IPV6_MULTICAST_HOPS, _, _))
         .WillOnce(Return(0));
+#ifdef UPNP_MINISERVER_REUSEADDR
     EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd1, SOL_SOCKET, SO_REUSEADDR, _, _))
+                setsockopt(sock6_reqest, SOL_SOCKET, SO_REUSEADDR, _, _))
         .WillOnce(Return(0));
+#endif
 #if (defined(BSD) && !defined(__GNU__)) || defined(__APPLE__)
     EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd1, SOL_SOCKET, SO_REUSEPORT, _, _))
+                setsockopt(sock6_reqest, SOL_SOCKET, SO_REUSEPORT, _, _))
         .WillOnce(Return(0));
 #endif /* BSD, __APPLE__ */
-    EXPECT_CALL(m_pupnpSockObj, sock_make_no_blocking(sockfd1))
+    EXPECT_CALL(m_pupnpSockObj, sock_make_no_blocking(sock6_reqest))
         .WillOnce(Return(0));
 
+    // Manage IPv6 ssdp socket 'sock6_bind'
+    // ------------------------------------
     EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd2, SOL_SOCKET, SO_REUSEADDR, _, _))
+                setsockopt(sock6_bind, SOL_SOCKET, SO_REUSEADDR, _, _))
         .WillOnce(Return(0));
 #if (defined(BSD) && !defined(__GNU__)) || defined(__APPLE__)
     EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd2, SOL_SOCKET, SO_REUSEPORT, _, _))
+                setsockopt(sock6_bind, SOL_SOCKET, SO_REUSEPORT, _, _))
         .WillOnce(Return(0));
 #endif /* BSD, __APPLE__ */
     EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd2, IPPROTO_IPV6, IPV6_V6ONLY, _, _))
+                setsockopt(sock6_bind, IPPROTO_IPV6, IPV6_V6ONLY, _, _))
         .WillOnce(Return(0));
-    EXPECT_CALL(m_sys_socketObj, bind(sockfd2, _, _)).WillOnce(Return(0));
+    EXPECT_CALL(m_sys_socketObj, bind(sock6_bind, _, _)).WillOnce(Return(0));
     EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd2, IPPROTO_IPV6, IPV6_JOIN_GROUP, _, _))
+                setsockopt(sock6_bind, IPPROTO_IPV6, IPV6_JOIN_GROUP, _, _))
         .WillOnce(Return(0));
     EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd2, SOL_SOCKET, SO_BROADCAST, _, _))
+                setsockopt(sock6_bind, SOL_SOCKET, SO_BROADCAST, _, _))
         .WillOnce(Return(0));
-    // } // end scope InSequence
 
     // Provide needed data.
     MiniServerSockArray mini_sock{};
