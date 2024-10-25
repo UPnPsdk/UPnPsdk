@@ -2,8 +2,8 @@
  *
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
- * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-02-25
+ * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-25
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -41,6 +41,7 @@
 #include "ixml.hpp"
 #include "ixmlmembuf.hpp"
 
+/// \cond
 /* Parser definitions */
 #define QUOT "&quot;"
 #define LT "&lt;"
@@ -49,13 +50,16 @@
 #define AMP "&amp;"
 #define ESC_HEX "&#x"
 #define ESC_DEC "&#"
+/// \endcond
 
+/// \brief IXML_NamespaceURI
 typedef struct _IXML_NamespaceURI {
     char* nsURI;
     char* prefix;
     struct _IXML_NamespaceURI* nextNsURI;
 } IXML_NamespaceURI;
 
+/// \brief IXML_ElementStack
 typedef struct _IXML_ElementStack {
     char* element;
     char* prefix;
@@ -64,8 +68,10 @@ typedef struct _IXML_ElementStack {
     struct _IXML_ElementStack* nextElement;
 } IXML_ElementStack;
 
+/// \brief PARSER_STATE
 typedef enum { eELEMENT, eATTRIBUTE, eCONTENT } PARSER_STATE;
 
+/// \brief Parser
 typedef struct _Parser {
     /*! Data buffer. */
     char* dataBuffer;
@@ -134,6 +140,7 @@ int Parser_LoadDocument(IXML_Document** retDoc, const char* xmlFile, int file);
 
 int Parser_setNodePrefixAndLocalName(IXML_Node* newIXML_NodeIXML_Attr);
 
+/// \brief ixmlAttr_init
 void ixmlAttr_init(IXML_Attr* attrNode);
 
 /*!

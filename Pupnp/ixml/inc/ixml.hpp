@@ -4,8 +4,8 @@
  *
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
- * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-13
+ * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-25
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,12 +32,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-
 /*!
  * \file
- *
  * \defgroup XMLAPI XML API
- *
  * @{
  */
 
@@ -209,7 +206,7 @@ typedef struct _IXML_NamedNodeMap {
     struct _IXML_NamedNodeMap* next;
 } IXML_NamedNodeMap;
 
-/* @} DOM Interfaces */
+/*! @} DOM Interfaces */
 
 /*!
  * \name Interface Node
@@ -588,7 +585,7 @@ EXPORT_SPEC void* ixmlNode_getCTag(
     /*! [in] The \b Node from which to get the tag. */
     IXML_Node* nodeptr);
 #endif
-/* @} Interface Node */
+/*! @} Interface Node */
 
 /*!
  * \name Interface Attr
@@ -610,7 +607,7 @@ EXPORT_SPEC void ixmlAttr_free(
     /*! The \b Attr node to free. */
     IXML_Attr* attrNode);
 
-/* @} Interface Attr */
+/*! @} Interface Attr */
 
 /*!
  * \name Interface CDATASection
@@ -640,7 +637,7 @@ EXPORT_SPEC void ixmlCDATASection_free(
     /*! The \b CDATASection node to free. */
     IXML_CDATASection* nodeptr);
 
-/* @} Interface CDATASection */
+/*! @} Interface CDATASection */
 
 /*!
  * \name Interface Document
@@ -1022,7 +1019,7 @@ EXPORT_SPEC int ixmlDocument_importNode(
     /*! [out] A pointer to a new \b Node owned by \b doc. */
     IXML_Node** rtNode);
 
-/* @} Interface Document */
+/*! @} Interface Document */
 
 /*!
  * \name Interface Element
@@ -1339,7 +1336,7 @@ EXPORT_SPEC void ixmlElement_free(
     /*! [in] The \b Element to free. */
     IXML_Element* element);
 
-/* @} Interface Element */
+/*! @} Interface Element */
 
 /*!
  * \name Interface NamedNodeMap
@@ -1463,7 +1460,7 @@ EXPORT_SPEC void ixmlNamedNodeMap_free(
     /*! [in] The \b NamedNodeMap to free. */
     IXML_NamedNodeMap* nnMap);
 
-/* @} Interface NodeMap */
+/*! @} Interface NodeMap */
 
 /*!
  * \name Interface NodeList
@@ -1508,7 +1505,7 @@ EXPORT_SPEC void ixmlNodeList_free(
     /*! [in] The \b NodeList to free.  */
     IXML_NodeList* nList);
 
-/* @} Interface NodeList */
+/*! @} Interface NodeList */
 
 /*!
  * \name IXML API
@@ -1715,12 +1712,12 @@ EXPORT_SPEC void ixmlFreeDOMString(
     /*! [in] The \b DOMString to free. */
     DOMString buf);
 
-/* @} IXML API */
+/*! @} IXML API */
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-/* @} XMLAPI XML API */
+/*! @} XMLAPI XML API */
 
 #endif /* UPNPLIB_IXML_HPP */

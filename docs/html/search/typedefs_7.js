@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['ssdpfunptr_0',['SsdpFunPtr',['../d0/d19/ssdp__common_8hpp.html#a90661b2cc071ea571b3c50dcbba973a7',1,'ssdp_common.hpp']]],
-  ['ssdpresultdata_1',['SSDPResultData',['../d7/da5/group__SSDP-Data.html#ga2ba3e04109fa0a28cd5e9cb55555cb8d',1,'SSDPResultData.hpp']]]
+  ['parser_0',['Parser',['../d0/d19/ixmlparser_8hpp.html#a3e16ad91ee0aeae3293a3908c21e501b',1,'ixmlparser.hpp']]],
+  ['parserfun_1',['ParserFun',['../d0/d19/ssdp__common_8hpp.html#a7c9c2e51a7657a90437daef0b850a7c0',1,'ssdp_common.hpp']]],
+  ['policytype_2',['PolicyType',['../d5/d91/ThreadPool_8hpp.html#abd3ecf9329246c92aa67d70c1be1174a',1,'ThreadPool.hpp']]]
 ];

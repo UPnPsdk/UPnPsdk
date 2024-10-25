@@ -4,10 +4,10 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,1163,108,1123,134,1067,172,1008,195,980,221,956,231,949,234,954,224,960,199,984,176,1011,139,1070,113,1125,98,1165"/>
 <area shape="rect" id="Node000003" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1" title="Main entry point into web server." alt="" coords="223,969,381,995"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="103,1162,275,1003,278,1006,107,1166"/>
-<area shape="rect" id="Node000138" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aba5685f22e83826b14771e59d0edbc05" title="Release memory allocated for the global web server root directory and the global XML document." alt="" coords="450,1719,603,1744"/>
-<area shape="poly" id="edge68_Node000001_Node000138" title=" " alt="" coords="98,1188,133,1274,163,1339,201,1411,247,1488,301,1564,362,1635,431,1697,455,1711,452,1716,428,1701,358,1639,297,1567,243,1491,196,1414,158,1341,128,1276,93,1190"/>
-<area shape="rect" id="Node000140" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4c6abf771128f8ea3976c9eccdb13e4f" title="Initilialize root directory for web server and different documents." alt="" coords="239,1784,365,1809"/>
-<area shape="poly" id="edge73_Node000001_Node000140" title=" " alt="" coords="98,1189,294,1770,289,1772,93,1190"/>
+<area shape="rect" id="Node000140" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aba5685f22e83826b14771e59d0edbc05" title="Release memory allocated for the global web server root directory and the global XML document." alt="" coords="450,1719,603,1744"/>
+<area shape="poly" id="edge68_Node000001_Node000140" title=" " alt="" coords="98,1188,133,1274,163,1339,201,1411,247,1488,301,1564,362,1635,431,1697,455,1711,452,1716,428,1701,358,1639,297,1567,243,1491,196,1414,158,1341,128,1276,93,1190"/>
+<area shape="rect" id="Node000142" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4c6abf771128f8ea3976c9eccdb13e4f" title="Initilialize root directory for web server and different documents." alt="" coords="239,1784,365,1809"/>
+<area shape="poly" id="edge73_Node000001_Node000142" title=" " alt="" coords="98,1189,294,1770,289,1772,93,1190"/>
 <area shape="rect" id="Node000004" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a54e6c7136fbfff4ed5b5e2e447d19446" title="Release the XML document referred to by the input parameter." alt="" coords="715,1537,895,1592"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="311,994,349,1083,382,1150,424,1226,474,1306,533,1385,599,1459,674,1522,704,1540,701,1544,670,1527,596,1462,529,1388,470,1309,419,1229,377,1153,344,1086,306,996"/>
 <area shape="rect" id="Node000006" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="731,376,879,401"/>
@@ -91,38 +91,38 @@
 <area shape="poly" id="edge45_Node000089_Node000097" title=" " alt="" coords="624,969,658,966,659,971,624,974"/>
 <area shape="rect" id="Node000098" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#aabc35282bb480b964b00d540e05bf4ff" title="Free extra HTTP headers." alt="" coords="987,925,1193,980"/>
 <area shape="poly" id="edge50_Node000089_Node000098" title=" " alt="" coords="624,986,772,990,856,988,938,982,973,977,974,982,939,987,856,993,772,995,624,991"/>
-<area shape="rect" id="Node000110" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ac3224e38376cac793566f1262dc17fbe" title="Compare file names." alt="" coords="703,1473,907,1513"/>
-<area shape="poly" id="edge51_Node000089_Node000110" title=" " alt="" coords="539,1009,674,1459,692,1472,689,1476,670,1462,534,1010"/>
-<area shape="rect" id="Node000115" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abfbf5675a51b2132037f22ca881c6aed" title="Get file information." alt="" coords="715,1199,895,1253"/>
-<area shape="poly" id="edge52_Node000089_Node000115" title=" " alt="" coords="544,1008,564,1046,594,1091,630,1137,674,1177,704,1195,701,1200,670,1181,626,1141,589,1095,560,1049,539,1011"/>
+<area shape="rect" id="Node000111" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ac3224e38376cac793566f1262dc17fbe" title="Compare file names." alt="" coords="703,1473,907,1513"/>
+<area shape="poly" id="edge51_Node000089_Node000111" title=" " alt="" coords="539,1009,674,1459,692,1472,689,1476,670,1462,534,1010"/>
+<area shape="rect" id="Node000116" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abfbf5675a51b2132037f22ca881c6aed" title="Get file information." alt="" coords="715,1199,895,1253"/>
+<area shape="poly" id="edge52_Node000089_Node000116" title=" " alt="" coords="544,1008,564,1046,594,1091,630,1137,674,1177,704,1195,701,1200,670,1181,626,1141,589,1095,560,1049,539,1011"/>
 <area shape="rect" id="Node000033" href="$dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="738,577,873,603"/>
 <area shape="poly" id="edge56_Node000089_Node000033" title=" " alt="" coords="527,954,537,884,560,791,579,742,603,694,633,650,670,612,696,597,723,589,725,594,698,602,674,616,637,653,607,697,583,744,565,793,542,885,533,955"/>
-<area shape="rect" id="Node000125" href="$d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a074baa084148665199a21a35990877f9" title="Returns if the XML object contains a valid XML document." alt="" coords="715,627,895,681"/>
-<area shape="poly" id="edge57_Node000089_Node000125" title=" " alt="" coords="531,954,547,899,574,828,615,755,640,721,670,692,701,673,704,677,674,696,644,725,619,758,579,831,552,900,537,955"/>
-<area shape="rect" id="Node000126" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abd83d3d8747ec78ab613fd949b02cb1c" title="Compares filePath with paths from the list of virtual directory lists." alt="" coords="710,705,901,760"/>
-<area shape="poly" id="edge58_Node000089_Node000126" title=" " alt="" coords="537,953,557,913,586,863,624,813,670,771,696,756,699,760,674,775,628,817,591,866,562,915,542,956"/>
-<area shape="rect" id="Node000127" href="$da/dd9/membuffer_8cpp.html#a6e41eb5e1e1635dfa932c5fbb2228133" title="Wrapper function for membuffer_assign()." alt="" coords="722,784,889,809"/>
-<area shape="poly" id="edge60_Node000089_Node000127" title=" " alt="" coords="542,953,594,885,630,849,671,820,708,805,710,810,673,824,633,853,598,888,547,956"/>
+<area shape="rect" id="Node000127" href="$d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a074baa084148665199a21a35990877f9" title="Returns if the XML object contains a valid XML document." alt="" coords="715,627,895,681"/>
+<area shape="poly" id="edge57_Node000089_Node000127" title=" " alt="" coords="531,954,547,899,574,828,615,755,640,721,670,692,701,673,704,677,674,696,644,725,619,758,579,831,552,900,537,955"/>
+<area shape="rect" id="Node000128" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abd83d3d8747ec78ab613fd949b02cb1c" title="Compares filePath with paths from the list of virtual directory lists." alt="" coords="710,705,901,760"/>
+<area shape="poly" id="edge58_Node000089_Node000128" title=" " alt="" coords="537,953,557,913,586,863,624,813,670,771,696,756,699,760,674,775,628,817,591,866,562,915,542,956"/>
+<area shape="rect" id="Node000129" href="$da/dd9/membuffer_8cpp.html#a6e41eb5e1e1635dfa932c5fbb2228133" title="Wrapper function for membuffer_assign()." alt="" coords="722,784,889,809"/>
+<area shape="poly" id="edge60_Node000089_Node000129" title=" " alt="" coords="542,953,594,885,630,849,671,820,708,805,710,810,673,824,633,853,598,888,547,956"/>
 <area shape="rect" id="Node000060" href="$da/dd9/membuffer_8cpp.html#aee72bc5a9c58a849f2e41503500a773d" title="Shrink the size of the buffer depending on the current size of the buffer and the input parameters...." alt="" coords="734,833,877,859"/>
 <area shape="poly" id="edge61_Node000089_Node000060" title=" " alt="" coords="554,952,606,909,637,887,671,869,720,853,722,858,673,874,640,892,609,913,557,956"/>
-<area shape="rect" id="Node000128" href="$d8/dd2/uri_8cpp.html#a259b5aed5805a1f66475a483a201f587" title="Removes &quot;.&quot;, and &quot;..&quot; from a path." alt="" coords="752,883,859,908"/>
-<area shape="poly" id="edge64_Node000089_Node000128" title=" " alt="" coords="583,952,671,918,738,902,739,908,673,923,585,957"/>
-<area shape="rect" id="Node000130" href="$d8/dd2/uri_8cpp.html#aae107675e9be7b49d54ec682d8ca6cda" title="Removes http escaped characters such as: &quot;%20&quot; and replaces them with their character representation." alt="" coords="718,1048,893,1073"/>
-<area shape="poly" id="edge65_Node000089_Node000130" title=" " alt="" coords="610,1007,673,1026,734,1042,733,1047,671,1031,608,1012"/>
-<area shape="rect" id="Node000132" href="$dd/da6/UpnpFileInfo_8cpp.html#adada5d9e2258c048a81b3b71973fad54" title=" " alt="" coords="729,1097,881,1123"/>
-<area shape="poly" id="edge66_Node000089_Node000132" title=" " alt="" coords="559,1007,610,1048,641,1067,673,1084,717,1097,715,1102,671,1088,638,1072,607,1052,556,1012"/>
+<area shape="rect" id="Node000130" href="$d8/dd2/uri_8cpp.html#a259b5aed5805a1f66475a483a201f587" title="Removes &quot;.&quot;, and &quot;..&quot; from a path." alt="" coords="752,883,859,908"/>
+<area shape="poly" id="edge64_Node000089_Node000130" title=" " alt="" coords="583,952,671,918,738,902,739,908,673,923,585,957"/>
+<area shape="rect" id="Node000132" href="$d8/dd2/uri_8cpp.html#aae107675e9be7b49d54ec682d8ca6cda" title="Removes http escaped characters such as: &quot;%20&quot; and replaces them with their character representation." alt="" coords="718,1048,893,1073"/>
+<area shape="poly" id="edge65_Node000089_Node000132" title=" " alt="" coords="610,1007,673,1026,734,1042,733,1047,671,1031,608,1012"/>
+<area shape="rect" id="Node000134" href="$dd/da6/UpnpFileInfo_8cpp.html#adada5d9e2258c048a81b3b71973fad54" title=" " alt="" coords="729,1097,881,1123"/>
+<area shape="poly" id="edge66_Node000089_Node000134" title=" " alt="" coords="559,1007,610,1048,641,1067,673,1084,717,1097,715,1102,671,1088,638,1072,607,1052,556,1012"/>
 <area shape="poly" id="edge49_Node000097_Node000025" title=" " alt="" coords="889,930,986,911,1120,896,1237,888,1238,893,1121,901,987,917,890,935"/>
 <area shape="poly" id="edge46_Node000097_Node000098" title=" " alt="" coords="939,950,973,950,973,955,939,955"/>
 <area shape="poly" id="edge47_Node000098_Node000024" title=" " alt="" coords="1125,923,1159,893,1191,858,1222,813,1250,766,1288,686,1293,689,1254,768,1227,816,1195,861,1163,897,1129,927"/>
 <area shape="poly" id="edge48_Node000098_Node000025" title=" " alt="" coords="1179,923,1247,902,1248,907,1181,928"/>
-<area shape="poly" id="edge53_Node000115_Node000013" title=" " alt="" coords="894,1207,917,1194,937,1178,958,1145,968,1113,969,1082,966,1051,962,1019,961,986,967,950,984,913,1015,878,1050,852,1053,856,1018,881,989,915,973,952,967,986,967,1019,971,1051,974,1082,973,1114,963,1147,941,1181,921,1199,897,1211"/>
-<area shape="poly" id="edge69_Node000138_Node000004" title=" " alt="" coords="548,1716,746,1597,748,1601,551,1721"/>
-<area shape="poly" id="edge72_Node000138_Node000018" title=" " alt="" coords="598,1716,1005,1642,1006,1648,599,1721"/>
-<area shape="rect" id="Node000139" href="$d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a29029bffc2a9680f4b946e77d569e323" title="Clear the XML object." alt="" coords="715,1769,895,1824"/>
-<area shape="poly" id="edge70_Node000138_Node000139" title=" " alt="" coords="582,1741,703,1770,701,1775,581,1747"/>
-<area shape="poly" id="edge71_Node000139_Node000018" title=" " alt="" coords="894,1767,937,1748,974,1725,1009,1699,1064,1650,1068,1654,1012,1703,977,1729,940,1752,897,1772"/>
-<area shape="poly" id="edge76_Node000140_Node000019" title=" " alt="" coords="335,1807,379,1822,430,1834,573,1856,685,1867,740,1866,797,1861,938,1834,988,1820,1038,1801,1132,1757,1213,1711,1271,1673,1274,1678,1216,1716,1135,1762,1040,1806,990,1825,939,1839,798,1866,740,1871,685,1872,572,1861,429,1839,378,1827,333,1812"/>
-<area shape="rect" id="Node000141" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a5229240cc873617a7f941eeb711f88a1" title="Initialize the global XML document. Allocate buffers for the XML document." alt="" coords="437,1769,617,1824"/>
-<area shape="poly" id="edge74_Node000140_Node000141" title=" " alt="" coords="365,1794,423,1794,423,1799,365,1799"/>
-<area shape="poly" id="edge75_Node000141_Node000139" title=" " alt="" coords="617,1794,702,1794,702,1799,617,1799"/>
+<area shape="poly" id="edge53_Node000116_Node000013" title=" " alt="" coords="894,1207,917,1194,937,1178,958,1145,968,1113,969,1082,966,1051,962,1019,961,986,967,950,984,913,1015,878,1050,852,1053,856,1018,881,989,915,973,952,967,986,967,1019,971,1051,974,1082,973,1114,963,1147,941,1181,921,1199,897,1211"/>
+<area shape="poly" id="edge69_Node000140_Node000004" title=" " alt="" coords="548,1716,746,1597,748,1601,551,1721"/>
+<area shape="poly" id="edge72_Node000140_Node000018" title=" " alt="" coords="598,1716,1005,1642,1006,1648,599,1721"/>
+<area shape="rect" id="Node000141" href="$d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a29029bffc2a9680f4b946e77d569e323" title="Clear the XML object." alt="" coords="715,1769,895,1824"/>
+<area shape="poly" id="edge70_Node000140_Node000141" title=" " alt="" coords="582,1741,703,1770,701,1775,581,1747"/>
+<area shape="poly" id="edge71_Node000141_Node000018" title=" " alt="" coords="894,1767,937,1748,974,1725,1009,1699,1064,1650,1068,1654,1012,1703,977,1729,940,1752,897,1772"/>
+<area shape="poly" id="edge76_Node000142_Node000019" title=" " alt="" coords="335,1807,379,1822,430,1834,573,1856,685,1867,740,1866,797,1861,938,1834,988,1820,1038,1801,1132,1757,1213,1711,1271,1673,1274,1678,1216,1716,1135,1762,1040,1806,990,1825,939,1839,798,1866,740,1871,685,1872,572,1861,429,1839,378,1827,333,1812"/>
+<area shape="rect" id="Node000143" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a5229240cc873617a7f941eeb711f88a1" title="Initialize the global XML document. Allocate buffers for the XML document." alt="" coords="437,1769,617,1824"/>
+<area shape="poly" id="edge74_Node000142_Node000143" title=" " alt="" coords="365,1794,423,1794,423,1799,365,1799"/>
+<area shape="poly" id="edge75_Node000143_Node000141" title=" " alt="" coords="617,1794,702,1794,702,1799,617,1799"/>
 </map>

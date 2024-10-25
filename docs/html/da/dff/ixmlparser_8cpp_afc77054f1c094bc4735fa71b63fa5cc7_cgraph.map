@@ -1,0 +1,49 @@
+<map id="Parser_getNextToken" name="Parser_getNextToken">
+<area shape="rect" id="Node000001" title="Return the length of next token in tokenBuff." alt="" coords="5,257,164,283"/>
+<area shape="rect" id="Node000002" href="$da/dff/ixmlparser_8cpp.html#a5d59957643934c19e8e073481602d561" title="Clear token buffer." alt="" coords="212,12,372,37"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,256,135,177,170,126,210,79,255,43,259,47,214,83,174,130,140,180,95,258"/>
+<area shape="rect" id="Node000005" href="$da/dff/ixmlparser_8cpp.html#a0ad517259df5536327c7a8a5b5881442" title="Copy string in src into xml parser token buffer." alt="" coords="223,257,361,283"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="165,267,210,267,210,273,165,273"/>
+<area shape="rect" id="Node000015" href="$da/dff/ixmlparser_8cpp.html#a0c924589364f613ca7ae13121debb896" title="In UTF&#45;8, characters are encoded using sequences of 1 to 6 octets. This functions will return a UTF&#45;8..." alt="" coords="687,55,822,80"/>
+<area shape="poly" id="edge25_Node000001_Node000015" title=" " alt="" coords="112,255,243,198,330,164,419,134,553,100,673,77,674,83,554,106,421,139,331,169,245,203,114,260"/>
+<area shape="rect" id="Node000017" href="$da/dff/ixmlparser_8cpp.html#a274a44d205dbdd1c866801636647d505" title="Check whether c (int) is in LetterTable or NameCharTable." alt="" coords="217,356,367,381"/>
+<area shape="poly" id="edge19_Node000001_Node000017" title=" " alt="" coords="113,280,252,347,250,352,111,285"/>
+<area shape="rect" id="Node000019" href="$da/dff/ixmlparser_8cpp.html#af5497d61b279d129e7720cafbc7eabdf" title="Skip comment, PI and white space." alt="" coords="229,479,355,504"/>
+<area shape="poly" id="edge21_Node000001_Node000019" title=" " alt="" coords="100,281,272,467,268,470,96,285"/>
+<area shape="rect" id="Node000003" href="$d1/d6a/ixmlmembuf_8cpp.html#a5925e1f1e8fc6290b68330bbf8369eb5" title="ixml_membuf clearing routine." alt="" coords="431,8,600,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="372,21,417,20,417,25,372,26"/>
+<area shape="rect" id="Node000004" href="$d1/d6a/ixmlmembuf_8cpp.html#aa80b5a0877ebd43d82924bb3a153bcf4" title="ixml_membuf initialization routine." alt="" coords="684,5,825,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="600,17,670,16,670,22,600,22"/>
+<area shape="rect" id="Node000006" href="$d6/d37/ixmldebug_8cpp.html#a39f4bb286e16f1bc5c1a34947b97f928" title="Prints the debug statement either on the standard output or log file along with the information from ..." alt="" coords="934,105,1021,131"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="351,255,420,242,485,234,542,230,638,228,733,220,787,209,850,190,903,165,947,137,950,141,906,170,852,195,788,214,734,225,638,233,542,235,486,239,420,247,352,260"/>
+<area shape="rect" id="Node000007" href="$da/dff/ixmlparser_8cpp.html#a1ce75189cf1958eebd9eda56fa65fb1c" title="Appends c to token buffer." alt="" coords="420,356,611,381"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="313,281,361,310,421,341,445,350,443,355,419,346,358,315,310,285"/>
+<area shape="rect" id="Node000011" href="$da/dff/ixmlparser_8cpp.html#a5c3878cac5b3d270fcab7f0137d27639" title="Appends string s to token buffer." alt="" coords="426,257,605,283"/>
+<area shape="poly" id="edge10_Node000005_Node000011" title=" " alt="" coords="361,267,413,267,413,273,361,273"/>
+<area shape="rect" id="Node000013" href="$da/dff/ixmlparser_8cpp.html#a48d67a03feb38470eda694417804de09" title="Returns next char value and its length." alt="" coords="455,149,575,175"/>
+<area shape="poly" id="edge13_Node000005_Node000013" title=" " alt="" coords="314,255,419,198,467,177,469,182,421,203,316,260"/>
+<area shape="rect" id="Node000016" href="$da/dff/ixmlparser_8cpp.html#a5865699cf24151fcb14522d2b3ad86cb" title="Encodes a character to its UTF&#45;8 character string, and return its length." alt="" coords="448,307,583,332"/>
+<area shape="poly" id="edge18_Node000005_Node000016" title=" " alt="" coords="351,280,444,301,443,306,350,285"/>
+<area shape="rect" id="Node000008" href="$d1/d6a/ixmlmembuf_8cpp.html#ad833eb46fc6cf244442ed6ddda32a446" title="Appends one byte to the designated ixml_membuffer." alt="" coords="671,343,839,368"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="611,361,657,358,657,363,611,366"/>
+<area shape="rect" id="Node000009" href="$d1/d6a/ixmlmembuf_8cpp.html#af0a38fca5ed84bba406f0d4aecd7969d" title=" " alt="" coords="899,305,1056,331"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="831,340,887,330,888,336,832,345"/>
+<area shape="rect" id="Node000010" href="$d1/d6a/ixmlmembuf_8cpp.html#ad0d7108000f904b63a8ec4bc7f318072" title="Increases or decreases buffer capacity so that at least &#39;new_length&#39; bytes can be stored." alt="" coords="1104,305,1277,331"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1057,315,1090,315,1090,321,1057,321"/>
+<area shape="rect" id="Node000012" href="$d1/d6a/ixmlmembuf_8cpp.html#aeb1d8d0424384e316e40f4d6c2d98c8b" title="Appends the contents of a NULL terminated string to the designated ixml_membuf." alt="" coords="659,281,851,307"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="605,276,645,280,645,286,605,282"/>
+<area shape="poly" id="edge12_Node000012_Node000009" title=" " alt="" coords="852,302,885,305,885,311,851,307"/>
+<area shape="poly" id="edge14_Node000013_Node000006" title=" " alt="" coords="575,151,658,141,920,119,920,124,659,146,576,156"/>
+<area shape="rect" id="Node000014" href="$da/dff/ixmlparser_8cpp.html#a511b15d269891d6cd81fa044ccbd1b51" title="see XML 1.0 (2nd Edition) 2.2." alt="" coords="687,156,823,181"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="576,161,673,164,673,169,576,166"/>
+<area shape="poly" id="edge16_Node000013_Node000015" title=" " alt="" coords="543,147,658,97,699,82,701,87,660,102,545,152"/>
+<area shape="poly" id="edge17_Node000015_Node000006" title=" " alt="" coords="812,78,921,103,920,108,811,83"/>
+<area shape="rect" id="Node000018" href="$da/dff/ixmlparser_8cpp.html#a12157cc4506fa0e6c4ff60b1b4d7e348" title="Will determine whether character c is in the table of tbl (either Letter table or NameChar table)." alt="" coords="437,405,593,431"/>
+<area shape="poly" id="edge20_Node000017_Node000018" title=" " alt="" coords="351,379,444,400,443,405,350,384"/>
+<area shape="rect" id="Node000020" href="$da/dff/ixmlparser_8cpp.html#affd8e655da7273451283eef06d03dd8b" title="Skips all characters in the string until it finds the skip key. Then it skips the skip key and return..." alt="" coords="435,455,595,480"/>
+<area shape="poly" id="edge22_Node000019_Node000020" title=" " alt="" coords="355,482,421,475,422,480,356,487"/>
+<area shape="rect" id="Node000021" href="$da/dff/ixmlparser_8cpp.html#accb6942a119c5f8b498fb220217d0699" title="Skips all characters in the string until it finds the skip key. Then it skips the skip key and return..." alt="" coords="448,504,583,529"/>
+<area shape="poly" id="edge23_Node000019_Node000021" title=" " alt="" coords="356,496,435,505,434,510,355,501"/>
+<area shape="rect" id="Node000022" href="$da/dff/ixmlparser_8cpp.html#a58c0bf5b0affb7aafd9ec24a75a5bb42" title="Skip white spaces." alt="" coords="425,553,605,579"/>
+<area shape="poly" id="edge24_Node000019_Node000022" title=" " alt="" coords="323,502,421,539,446,547,445,552,419,545,321,507"/>
+</map>

@@ -1,73 +1,79 @@
 <map id="anonymous_namespace{soap_ctrlpt::cpp}::dom_find_deep_node" name="anonymous_namespace{soap_ctrlpt::cpp}::dom_find_deep_node">
-<area shape="rect" id="Node000001" title="Searches for the node specifed by the last name in the &#39;name&#39; array." alt="" coords="5,85,185,140"/>
-<area shape="rect" id="Node000002" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a6962c73d5dca9f8577188bece68c806c" title="Compares &#39;name&#39; and node&#39;s name." alt="" coords="461,85,641,140"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,105,233,103,413,103,448,104,447,110,413,109,233,109,186,110"/>
-<area shape="rect" id="Node000031" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a7078c15558ea1b34edb5887718d7d21a" title="Goes thru each child of &#39;start_node&#39; looking for a node having the name &#39;node_name&#39;." alt="" coords="233,117,413,172"/>
-<area shape="poly" id="edge39_Node000001_Node000031" title=" " alt="" coords="186,123,220,128,220,133,185,128"/>
-<area shape="rect" id="Node000003" href="$dd/d1d/httpparser_8cpp.html#adb6f04b4682aae5e4690b672025b6856" title="Matches a variable parameter list with a string and takes actions based on the data type specified." alt="" coords="689,100,769,125"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="641,110,676,110,676,115,641,115"/>
-<area shape="rect" id="Node000004" href="$da/dd9/membuffer_8cpp.html#a4bd06d73513179f6154430fea704a265" title="Free existing memory in membuffer and assign the new buffer in its place." alt="" coords="857,71,1000,96"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="769,104,843,93,844,98,770,110"/>
-<area shape="rect" id="Node000006" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1392,20,1515,45"/>
-<area shape="poly" id="edge7_Node000003_Node000006" title=" " alt="" coords="745,98,776,76,816,57,892,38,970,24,1049,16,1126,12,1267,14,1379,21,1378,27,1267,19,1126,18,1049,21,971,30,893,43,818,62,779,80,748,102"/>
-<area shape="rect" id="Node000008" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a7291f055b4c8c2c7f50fb5ebe4599d01" title="Initialize scanner." alt="" coords="817,121,1040,161"/>
-<area shape="poly" id="edge8_Node000003_Node000008" title=" " alt="" coords="770,116,804,120,803,126,769,121"/>
-<area shape="rect" id="Node000009" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="829,330,1028,370"/>
-<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="743,124,904,318,900,321,739,127"/>
-<area shape="rect" id="Node000005" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="1123,71,1273,96"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1000,81,1109,81,1109,86,1000,86"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1263,68,1378,45,1379,50,1264,73"/>
-<area shape="rect" id="Node000007" href="$d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1599,5,1820,60"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1515,30,1585,30,1585,35,1515,35"/>
-<area shape="rect" id="Node000010" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afee60e57107525eaabc058d19ddcc5fe" title="Compares a character to the next char in the scanner." alt="" coords="1088,546,1308,586"/>
-<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="944,369,967,404,1000,448,1042,493,1090,532,1100,538,1097,543,1086,536,1038,497,996,452,963,407,940,372"/>
-<area shape="rect" id="Node000011" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a5b3dfe007aad1e53c4fd62cc4e992b52" title="Matches an unsigned integer value in the input." alt="" coords="1093,273,1303,313"/>
-<area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="1023,327,1089,313,1090,318,1024,333"/>
-<area shape="rect" id="Node000012" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14" title="Reads next token from the input stream." alt="" coords="1356,388,1551,443"/>
-<area shape="poly" id="edge36_Node000009_Node000012" title=" " alt="" coords="1028,349,1162,357,1308,374,1348,382,1347,387,1308,379,1161,362,1028,354"/>
-<area shape="rect" id="Node000017" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa1d5aab18be103f845c04d36c5acd7e7" title="Match a string without whitespace or CRLF (S)" alt="" coords="1105,467,1291,521"/>
-<area shape="poly" id="edge18_Node000009_Node000017" title=" " alt="" coords="958,368,1016,410,1089,453,1101,459,1099,464,1087,458,1014,414,955,373"/>
-<area shape="rect" id="Node000019" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a3541fd5283453b838ee19e9cd757bd24" title="Matches a raw value in a the input." alt="" coords="1105,388,1291,443"/>
-<area shape="poly" id="edge21_Node000009_Node000019" title=" " alt="" coords="1012,367,1093,387,1092,392,1011,373"/>
-<area shape="rect" id="Node000020" href="$d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="1157,159,1239,184"/>
-<area shape="poly" id="edge24_Node000009_Node000020" title=" " alt="" coords="943,328,1001,262,1041,225,1087,194,1114,183,1142,175,1144,180,1116,188,1089,199,1045,229,1005,265,947,331"/>
-<area shape="rect" id="Node000029" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa804ee20accda01aae4a8967b2ce9904" title="Reads data until end of line." alt="" coords="1108,611,1288,665"/>
-<area shape="poly" id="edge33_Node000009_Node000029" title=" " alt="" coords="940,369,960,415,992,476,1035,540,1061,570,1090,596,1098,602,1095,606,1086,600,1057,573,1031,543,987,479,955,418,935,371"/>
-<area shape="rect" id="Node000030" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8690442d05125c5459620ebf71b6000f" title="Skip linear whitespace." alt="" coords="1098,209,1298,249"/>
-<area shape="poly" id="edge37_Node000009_Node000030" title=" " alt="" coords="960,327,1018,293,1087,258,1107,251,1109,256,1089,263,1020,297,962,332"/>
-<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="1263,310,1309,329,1399,378,1397,383,1307,334,1261,315"/>
-<area shape="rect" id="Node000013" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366" title="Determines if the passed value is a control character." alt="" coords="1619,388,1799,443"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1551,413,1605,413,1605,418,1551,418"/>
-<area shape="rect" id="Node000014" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a397ada9472b0ce782d9636144528c8cf" title="Determines if the passed value is permissible in token." alt="" coords="1619,519,1799,573"/>
-<area shape="poly" id="edge14_Node000012_Node000014" title=" " alt="" coords="1530,441,1552,453,1576,475,1600,497,1623,510,1620,515,1597,501,1573,479,1549,457,1527,445"/>
-<area shape="rect" id="Node000015" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a119ec2e9ed02e25cb1dfd3cbba91ab0c" title="Determines if the passed value is a separator." alt="" coords="1868,485,2048,540"/>
-<area shape="poly" id="edge17_Node000012_Node000015" title=" " alt="" coords="1548,440,1599,453,1732,478,1855,497,1854,502,1731,483,1598,458,1547,445"/>
-<area shape="rect" id="Node000016" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa8849fbe55dcefa7ab2465ea8aabd214" title="Determines if the passed value is permissible in qdtext." alt="" coords="1619,309,1799,364"/>
-<area shape="poly" id="edge16_Node000012_Node000016" title=" " alt="" coords="1542,385,1606,366,1607,371,1544,390"/>
-<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="1799,531,1854,524,1855,529,1800,537"/>
-<area shape="poly" id="edge20_Node000017_Node000012" title=" " alt="" coords="1287,464,1350,444,1352,449,1288,469"/>
-<area shape="rect" id="Node000018" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a95b9f2d9c206cb56daa5b61001f5b320" title="Get pointer to next character in string." alt="" coords="1356,467,1551,521"/>
-<area shape="poly" id="edge19_Node000017_Node000018" title=" " alt="" coords="1291,491,1342,491,1342,497,1291,497"/>
-<area shape="poly" id="edge23_Node000019_Node000012" title=" " alt="" coords="1291,413,1342,413,1342,418,1291,418"/>
-<area shape="poly" id="edge22_Node000019_Node000018" title=" " alt="" coords="1288,440,1352,460,1350,465,1287,445"/>
-<area shape="rect" id="Node000021" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="1358,70,1549,110"/>
-<area shape="poly" id="edge25_Node000020_Node000021" title=" " alt="" coords="1238,156,1376,112,1377,117,1240,161"/>
-<area shape="rect" id="Node000022" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="1359,134,1547,174"/>
-<area shape="poly" id="edge26_Node000020_Node000022" title=" " alt="" coords="1239,166,1345,159,1346,164,1240,171"/>
-<area shape="rect" id="Node000023" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="1363,198,1543,238"/>
-<area shape="poly" id="edge27_Node000020_Node000023" title=" " alt="" coords="1240,176,1350,196,1349,202,1239,181"/>
-<area shape="rect" id="Node000028" href="$d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="1370,263,1537,288"/>
-<area shape="poly" id="edge32_Node000020_Node000028" title=" " alt="" coords="1240,172,1275,180,1309,194,1325,208,1334,222,1343,235,1357,248,1372,255,1370,260,1355,252,1339,239,1330,225,1321,211,1307,199,1273,185,1239,177"/>
-<area shape="rect" id="Node000024" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a4666c8d916f7397270c5cc93734482d3" title="Check that a char[3] sequence is ESCAPED." alt="" coords="1619,117,1799,157"/>
-<area shape="poly" id="edge28_Node000023_Node000024" title=" " alt="" coords="1515,195,1550,183,1598,166,1623,158,1625,163,1600,171,1552,189,1517,200"/>
-<area shape="rect" id="Node000025" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a72aa299b86ca4486b62de1ac2e11b649" title="Check for a RESERVED character." alt="" coords="1619,181,1799,221"/>
-<area shape="poly" id="edge29_Node000023_Node000025" title=" " alt="" coords="1543,209,1606,205,1606,210,1544,215"/>
-<area shape="rect" id="Node000026" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#abb4b2d5f48da8f6aaa405da333b3ab45" title="Check for an UNRESERVED character." alt="" coords="1617,245,1802,285"/>
-<area shape="poly" id="edge30_Node000023_Node000026" title=" " alt="" coords="1544,232,1603,243,1602,248,1543,237"/>
-<area shape="rect" id="Node000027" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a1425dfc37b98f61a0b49a36ac07660d1" title="Check for a MARK character." alt="" coords="1868,245,2048,285"/>
-<area shape="poly" id="edge31_Node000026_Node000027" title=" " alt="" coords="1802,262,1854,262,1854,267,1802,267"/>
-<area shape="poly" id="edge35_Node000029_Node000012" title=" " alt="" coords="1287,611,1306,596,1319,579,1326,562,1330,527,1333,491,1340,472,1354,454,1358,450,1362,453,1358,457,1345,475,1338,492,1335,527,1331,563,1324,581,1310,600,1290,615"/>
-<area shape="poly" id="edge34_Node000029_Node000018" title=" " alt="" coords="1281,608,1307,596,1360,563,1407,528,1411,532,1363,567,1309,600,1283,613"/>
-<area shape="poly" id="edge38_Node000030_Node000012" title=" " alt="" coords="1286,246,1309,258,1334,278,1363,308,1423,376,1419,379,1359,312,1330,282,1307,263,1283,251"/>
-<area shape="poly" id="edge40_Node000031_Node000002" title=" " alt="" coords="413,129,448,125,448,130,414,135"/>
+<area shape="rect" id="Node000001" title="Searches for the node specifed by the last name in the &#39;name&#39; array." alt="" coords="5,95,185,149"/>
+<area shape="rect" id="Node000002" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a6962c73d5dca9f8577188bece68c806c" title="Compares &#39;name&#39; and node&#39;s name." alt="" coords="465,61,645,116"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,113,451,93,452,99,186,118"/>
+<area shape="rect" id="Node000032" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a7078c15558ea1b34edb5887718d7d21a" title="Goes thru each child of &#39;start_node&#39; looking for a node having the name &#39;node_name&#39;." alt="" coords="233,127,413,181"/>
+<area shape="poly" id="edge40_Node000001_Node000032" title=" " alt="" coords="186,132,220,137,220,142,185,137"/>
+<area shape="rect" id="Node000003" href="$da/d8a/group__XMLAPI.html#ga0597d91f7834c1d86574d67f5c9b6565" title="Returns the name of the Node, depending on what type of Node it is, in a read&#45;only string." alt="" coords="697,51,884,76"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="646,76,683,72,684,77,646,82"/>
+<area shape="rect" id="Node000004" href="$dd/d1d/httpparser_8cpp.html#adb6f04b4682aae5e4690b672025b6856" title="Matches a variable parameter list with a string and takes actions based on the data type specified." alt="" coords="751,100,831,125"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="646,95,737,105,737,110,646,101"/>
+<area shape="rect" id="Node000005" href="$da/dd9/membuffer_8cpp.html#a4bd06d73513179f6154430fea704a265" title="Free existing memory in membuffer and assign the new buffer in its place." alt="" coords="972,71,1115,96"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="831,105,958,91,958,96,831,111"/>
+<area shape="rect" id="Node000007" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1507,20,1629,45"/>
+<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="830,103,883,86,906,71,916,63,931,57,1007,38,1085,24,1164,16,1241,12,1382,14,1493,21,1493,27,1382,19,1241,18,1164,22,1086,30,1008,43,933,62,919,68,909,75,885,91,832,108"/>
+<area shape="rect" id="Node000009" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a7291f055b4c8c2c7f50fb5ebe4599d01" title="Initialize scanner." alt="" coords="932,121,1155,161"/>
+<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="831,114,919,124,918,129,831,120"/>
+<area shape="rect" id="Node000010" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="944,330,1143,370"/>
+<area shape="poly" id="edge10_Node000004_Node000010" title=" " alt="" coords="807,123,1013,318,1009,322,804,127"/>
+<area shape="rect" id="Node000006" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="1237,71,1388,96"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1115,81,1223,81,1223,86,1115,86"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1377,68,1493,45,1494,50,1378,73"/>
+<area shape="rect" id="Node000008" href="$d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1713,5,1935,60"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="1629,30,1699,30,1699,35,1629,35"/>
+<area shape="rect" id="Node000011" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afee60e57107525eaabc058d19ddcc5fe" title="Compares a character to the next char in the scanner." alt="" coords="1203,546,1423,586"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="1059,369,1082,404,1115,448,1156,493,1204,532,1215,538,1212,543,1201,536,1153,497,1111,452,1078,407,1054,372"/>
+<area shape="rect" id="Node000012" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a5b3dfe007aad1e53c4fd62cc4e992b52" title="Matches an unsigned integer value in the input." alt="" coords="1208,273,1417,313"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="1137,327,1204,313,1205,318,1138,333"/>
+<area shape="rect" id="Node000013" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14" title="Reads next token from the input stream." alt="" coords="1471,388,1665,443"/>
+<area shape="poly" id="edge37_Node000010_Node000013" title=" " alt="" coords="1143,349,1276,357,1423,374,1463,382,1461,387,1422,379,1276,362,1143,354"/>
+<area shape="rect" id="Node000018" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa1d5aab18be103f845c04d36c5acd7e7" title="Match a string without whitespace or CRLF (S)" alt="" coords="1220,467,1405,521"/>
+<area shape="poly" id="edge19_Node000010_Node000018" title=" " alt="" coords="1072,368,1131,410,1204,453,1216,459,1214,464,1201,458,1128,414,1069,373"/>
+<area shape="rect" id="Node000020" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a3541fd5283453b838ee19e9cd757bd24" title="Matches a raw value in a the input." alt="" coords="1220,388,1405,443"/>
+<area shape="poly" id="edge22_Node000010_Node000020" title=" " alt="" coords="1127,367,1208,387,1206,392,1126,373"/>
+<area shape="rect" id="Node000021" href="$d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="1271,159,1354,184"/>
+<area shape="poly" id="edge25_Node000010_Node000021" title=" " alt="" coords="1058,328,1115,262,1156,225,1201,194,1229,183,1257,175,1258,180,1231,188,1204,199,1159,229,1119,265,1062,331"/>
+<area shape="rect" id="Node000030" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa804ee20accda01aae4a8967b2ce9904" title="Reads data until end of line." alt="" coords="1223,611,1403,665"/>
+<area shape="poly" id="edge34_Node000010_Node000030" title=" " alt="" coords="1055,369,1075,415,1107,476,1150,540,1176,570,1204,596,1213,602,1209,606,1201,600,1172,573,1146,543,1102,479,1070,418,1050,371"/>
+<area shape="rect" id="Node000031" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8690442d05125c5459620ebf71b6000f" title="Skip linear whitespace." alt="" coords="1213,209,1413,249"/>
+<area shape="poly" id="edge38_Node000010_Node000031" title=" " alt="" coords="1074,327,1132,293,1202,258,1221,251,1223,256,1204,263,1135,297,1077,332"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1378,310,1424,329,1514,378,1511,383,1422,334,1376,315"/>
+<area shape="rect" id="Node000014" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366" title="Determines if the passed value is a control character." alt="" coords="1734,388,1914,443"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="1665,413,1720,413,1720,418,1665,418"/>
+<area shape="rect" id="Node000015" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a397ada9472b0ce782d9636144528c8cf" title="Determines if the passed value is permissible in token." alt="" coords="1734,519,1914,573"/>
+<area shape="poly" id="edge15_Node000013_Node000015" title=" " alt="" coords="1644,441,1667,453,1691,475,1715,497,1737,510,1735,515,1712,501,1688,479,1664,457,1642,445"/>
+<area shape="rect" id="Node000016" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a119ec2e9ed02e25cb1dfd3cbba91ab0c" title="Determines if the passed value is a separator." alt="" coords="1983,485,2163,540"/>
+<area shape="poly" id="edge18_Node000013_Node000016" title=" " alt="" coords="1663,440,1714,453,1847,478,1969,497,1969,502,1846,483,1713,458,1661,445"/>
+<area shape="rect" id="Node000017" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa8849fbe55dcefa7ab2465ea8aabd214" title="Determines if the passed value is permissible in qdtext." alt="" coords="1734,309,1914,364"/>
+<area shape="poly" id="edge17_Node000013_Node000017" title=" " alt="" coords="1657,385,1721,366,1722,371,1658,390"/>
+<area shape="poly" id="edge16_Node000015_Node000016" title=" " alt="" coords="1914,531,1969,524,1970,529,1915,537"/>
+<area shape="poly" id="edge21_Node000018_Node000013" title=" " alt="" coords="1401,464,1465,444,1466,449,1403,469"/>
+<area shape="rect" id="Node000019" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a95b9f2d9c206cb56daa5b61001f5b320" title="Get pointer to next character in string." alt="" coords="1471,467,1665,521"/>
+<area shape="poly" id="edge20_Node000018_Node000019" title=" " alt="" coords="1406,491,1457,491,1457,497,1406,497"/>
+<area shape="poly" id="edge24_Node000020_Node000013" title=" " alt="" coords="1406,413,1457,413,1457,418,1406,418"/>
+<area shape="poly" id="edge23_Node000020_Node000019" title=" " alt="" coords="1403,440,1466,460,1465,465,1401,445"/>
+<area shape="rect" id="Node000022" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="1473,70,1663,110"/>
+<area shape="poly" id="edge26_Node000021_Node000022" title=" " alt="" coords="1353,156,1490,112,1492,117,1354,161"/>
+<area shape="rect" id="Node000023" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="1474,134,1662,174"/>
+<area shape="poly" id="edge27_Node000021_Node000023" title=" " alt="" coords="1354,166,1460,159,1460,164,1354,171"/>
+<area shape="rect" id="Node000024" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="1478,198,1658,238"/>
+<area shape="poly" id="edge28_Node000021_Node000024" title=" " alt="" coords="1355,176,1465,196,1464,202,1354,181"/>
+<area shape="rect" id="Node000029" href="$d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="1485,263,1651,288"/>
+<area shape="poly" id="edge33_Node000021_Node000029" title=" " alt="" coords="1355,172,1390,180,1424,194,1440,208,1449,222,1458,235,1472,248,1487,255,1485,260,1469,252,1454,239,1445,225,1436,211,1421,199,1388,185,1354,177"/>
+<area shape="rect" id="Node000025" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a4666c8d916f7397270c5cc93734482d3" title="Check that a char[3] sequence is ESCAPED." alt="" coords="1734,117,1914,157"/>
+<area shape="poly" id="edge29_Node000024_Node000025" title=" " alt="" coords="1629,195,1664,183,1712,166,1738,158,1739,163,1714,171,1666,189,1631,200"/>
+<area shape="rect" id="Node000026" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a72aa299b86ca4486b62de1ac2e11b649" title="Check for a RESERVED character." alt="" coords="1734,181,1914,221"/>
+<area shape="poly" id="edge30_Node000024_Node000026" title=" " alt="" coords="1658,209,1720,205,1721,210,1658,215"/>
+<area shape="rect" id="Node000027" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#abb4b2d5f48da8f6aaa405da333b3ab45" title="Check for an UNRESERVED character." alt="" coords="1731,245,1917,285"/>
+<area shape="poly" id="edge31_Node000024_Node000027" title=" " alt="" coords="1659,232,1718,243,1717,248,1658,237"/>
+<area shape="rect" id="Node000028" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a1425dfc37b98f61a0b49a36ac07660d1" title="Check for a MARK character." alt="" coords="1983,245,2163,285"/>
+<area shape="poly" id="edge32_Node000027_Node000028" title=" " alt="" coords="1917,262,1969,262,1969,267,1917,267"/>
+<area shape="poly" id="edge36_Node000030_Node000013" title=" " alt="" coords="1401,611,1421,596,1434,579,1441,562,1444,527,1448,491,1455,472,1469,454,1473,450,1476,453,1473,457,1460,475,1453,492,1450,527,1446,563,1439,581,1425,600,1405,615"/>
+<area shape="poly" id="edge35_Node000030_Node000019" title=" " alt="" coords="1395,608,1421,596,1475,563,1522,528,1525,532,1478,567,1424,600,1397,613"/>
+<area shape="poly" id="edge39_Node000031_Node000013" title=" " alt="" coords="1400,246,1424,258,1448,278,1478,308,1537,376,1533,379,1474,312,1445,282,1421,263,1398,251"/>
+<area shape="poly" id="edge41_Node000032_Node000002" title=" " alt="" coords="413,126,451,115,453,120,415,131"/>
+<area shape="rect" id="Node000033" href="$da/d8a/group__XMLAPI.html#ga5876c582a0b41143b5ea3101c7e1335f" title="Retrieves the first child Node of a Node." alt="" coords="468,189,643,215"/>
+<area shape="poly" id="edge42_Node000032_Node000033" title=" " alt="" coords="415,170,480,184,479,189,413,175"/>
+<area shape="rect" id="Node000034" href="$da/d8a/group__XMLAPI.html#gaf65398cf04478d94045396debf5ea6d6" title="Retrieves the sibling Node immediately following this Node." alt="" coords="461,140,649,165"/>
+<area shape="poly" id="edge43_Node000032_Node000034" title=" " alt="" coords="414,151,448,151,448,156,414,156"/>
 </map>

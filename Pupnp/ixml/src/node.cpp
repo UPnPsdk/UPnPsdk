@@ -3,8 +3,8 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
- * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-09-26
+ * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-25
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -223,7 +223,7 @@ static int ixmlNode_setNamespaceURI(
     return IXML_SUCCESS;
 }
 
-/*
+/*!
  * \brief Set the prefix of the node.
  */
 static int ixmlNode_setPrefix(
@@ -1229,7 +1229,7 @@ void ixmlNode_getElementsByTagName(IXML_Node* n, const char* tagname,
 }
 
 /*!
- * \brief
+ * \brief ixmlNode_getElementsByTagNameNSRecursive
  */
 static void ixmlNode_getElementsByTagNameNSRecursive(
     /*! [in] . */

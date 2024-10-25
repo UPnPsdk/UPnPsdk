@@ -946,7 +946,8 @@ WARN_LOGFILE           =
 INPUT                  = Pupnp/directory.dox \
                          docs \
                          UPnPsdk \
-                         Compa
+                         Compa \
+                         Pupnp/ixml
                          # sample/api_samples.cpp \
                          # sample/common/tv_device.hpp \
                          # sample/common/tv_device.cpp \

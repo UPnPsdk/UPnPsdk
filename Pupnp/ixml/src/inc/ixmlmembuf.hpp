@@ -3,8 +3,8 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
- * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-02-25
+ * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-25
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -43,10 +43,12 @@
 
 #include <stdlib.h> /* for size_t */
 
+/// \cond
 #define MINVAL(a, b) ((a) < (b) ? (a) : (b))
 #define MAXVAL(a, b) ((a) > (b) ? (a) : (b))
 
 #define MEMBUF_DEF_SIZE_INC 20u
+/// \endcond
 
 /*!
  * \brief The ixml_membuf type.

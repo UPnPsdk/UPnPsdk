@@ -1,115 +1,120 @@
 <map id="anonymous_namespace{soap_device::cpp}::handle_invoke_action" name="anonymous_namespace{soap_device::cpp}::handle_invoke_action">
-<area shape="rect" id="Node000001" title="Handles the SOAP action request." alt="" coords="5,1043,185,1097"/>
-<area shape="rect" id="Node000002" href="$dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="281,249,415,275"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,1042,104,889,126,664,144,547,167,441,196,353,213,318,231,292,248,279,266,270,269,274,250,283,235,296,217,321,201,355,172,442,149,548,132,664,109,889,100,1043"/>
-<area shape="rect" id="Node000004" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a06c8e12369d9db67a834d961dc914563" title="Sends the SOAP action response." alt="" coords="258,735,438,789"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="101,1042,116,991,143,926,181,859,204,828,232,800,244,791,247,795,235,804,208,831,185,862,147,928,121,993,106,1043"/>
-<area shape="rect" id="Node000027" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="1039,55,1130,80"/>
-<area shape="poly" id="edge63_Node000001_Node000027" title=" " alt="" coords="98,1042,112,973,137,879,176,776,201,725,231,678,277,629,361,556,593,368,831,188,923,124,980,89,1025,74,1027,79,982,94,926,128,834,193,596,372,364,560,281,633,235,681,206,728,181,778,142,881,117,975,103,1043"/>
-<area shape="rect" id="Node000038" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#af2aff493a97adf72193dc9ff26413171" title="Sends SOAP error response." alt="" coords="511,669,691,724"/>
-<area shape="poly" id="edge41_Node000001_Node000038" title=" " alt="" coords="95,1042,104,974,125,885,143,839,166,794,195,754,232,720,262,701,294,688,363,672,433,669,497,674,497,679,433,674,364,677,296,693,264,706,235,724,199,757,170,797,147,841,130,887,109,975,101,1043"/>
-<area shape="rect" id="Node000039" href="$d4/d6b/UpnpActionRequest_8cpp.html#a98278bcdb0fb6ed32563722b37f5a280" title=" " alt="" coords="249,815,447,840"/>
-<area shape="poly" id="edge42_Node000001_Node000039" title=" " alt="" coords="104,1041,121,999,148,947,185,894,207,871,232,850,243,843,246,848,235,855,211,875,189,898,153,949,126,1001,108,1043"/>
-<area shape="rect" id="Node000041" href="$d4/d6b/UpnpActionRequest_8cpp.html#a8c5e21ebbc7293513bf959c03cf25702" title=" " alt="" coords="259,865,437,905"/>
-<area shape="poly" id="edge44_Node000001_Node000041" title=" " alt="" coords="112,1041,161,977,194,943,232,914,245,907,247,912,235,919,198,947,165,981,116,1044"/>
-<area shape="rect" id="Node000042" href="$d4/d6b/UpnpActionRequest_8cpp.html#a2f40543eeecf79d2e35180dfc0ed3a9f" title=" " alt="" coords="259,929,437,969"/>
-<area shape="poly" id="edge45_Node000001_Node000042" title=" " alt="" coords="131,1040,178,1008,232,978,250,971,252,976,234,983,180,1013,134,1045"/>
-<area shape="rect" id="Node000043" href="$d4/d6b/UpnpActionRequest_8cpp.html#ac5edcd98abe3f28dd558369b2160e7c2" title=" " alt="" coords="259,993,437,1033"/>
-<area shape="poly" id="edge46_Node000001_Node000043" title=" " alt="" coords="185,1047,246,1033,247,1038,186,1052"/>
-<area shape="rect" id="Node000046" href="$d4/d6b/UpnpActionRequest_8cpp.html#ad6a29ab27d4fbec4fac2c0de5703bf5b" title=" " alt="" coords="256,1057,440,1083"/>
-<area shape="poly" id="edge49_Node000001_Node000046" title=" " alt="" coords="186,1067,242,1067,242,1073,186,1073"/>
-<area shape="rect" id="Node000048" href="$d4/d6b/UpnpActionRequest_8cpp.html#a2a0fe29a46f0206f9e14f0b159041811" title=" " alt="" coords="259,1107,437,1147"/>
-<area shape="poly" id="edge51_Node000001_Node000048" title=" " alt="" coords="186,1088,247,1102,246,1107,185,1093"/>
-<area shape="rect" id="Node000049" href="$d4/d6b/UpnpActionRequest_8cpp.html#a537b0bc20a1fc5ef50458975dfd53205" title=" " alt="" coords="259,1171,437,1211"/>
-<area shape="poly" id="edge52_Node000001_Node000049" title=" " alt="" coords="134,1095,180,1127,234,1157,252,1164,250,1169,232,1162,178,1132,131,1100"/>
-<area shape="rect" id="Node000050" href="$d4/d6b/UpnpActionRequest_8cpp.html#a4fb11e583e5379df82b1aee2e951ac87" title=" " alt="" coords="259,1235,437,1275"/>
-<area shape="poly" id="edge53_Node000001_Node000050" title=" " alt="" coords="116,1096,165,1159,198,1193,235,1221,248,1228,245,1233,232,1226,194,1197,161,1163,112,1099"/>
-<area shape="rect" id="Node000051" href="$d4/d6b/UpnpActionRequest_8cpp.html#a49f89a5494f7bf967316b35a5059e669" title=" " alt="" coords="259,1299,437,1339"/>
-<area shape="poly" id="edge54_Node000001_Node000051" title=" " alt="" coords="109,1097,127,1139,154,1190,190,1241,211,1265,235,1285,248,1294,245,1298,232,1289,208,1269,186,1245,149,1192,122,1141,104,1099"/>
-<area shape="rect" id="Node000052" href="$d4/d6b/UpnpActionRequest_8cpp.html#af6569d1b222d32e9b30c822812c7668e" title=" " alt="" coords="249,1363,447,1403"/>
-<area shape="poly" id="edge55_Node000001_Node000052" title=" " alt="" coords="105,1097,119,1150,144,1219,182,1289,207,1321,235,1349,241,1354,238,1358,232,1353,203,1325,178,1292,139,1221,114,1152,100,1098"/>
-<area shape="rect" id="Node000054" href="$d4/d6b/UpnpActionRequest_8cpp.html#ace47ff8a93948e25ec4013fe75d0849a" title=" " alt="" coords="249,1427,447,1467"/>
-<area shape="poly" id="edge57_Node000001_Node000054" title=" " alt="" coords="102,1097,113,1162,136,1247,153,1292,175,1337,202,1378,235,1413,240,1418,237,1422,231,1417,198,1381,170,1339,148,1295,130,1249,107,1163,97,1098"/>
-<area shape="rect" id="Node000055" href="$d4/d6b/UpnpActionRequest_8cpp.html#a7b15436c0fcfbf6699086ec36f733314" title=" " alt="" coords="249,1491,447,1531"/>
-<area shape="poly" id="edge59_Node000001_Node000055" title=" " alt="" coords="100,1097,107,1173,127,1275,144,1330,168,1384,198,1434,235,1477,240,1481,236,1485,231,1481,193,1437,163,1386,139,1332,122,1276,102,1173,95,1098"/>
-<area shape="rect" id="Node000056" href="$d4/d6b/UpnpActionRequest_8cpp.html#a595b92bb888f5663f043405c11b8136a" title=" " alt="" coords="233,1556,463,1581"/>
-<area shape="poly" id="edge61_Node000001_Node000056" title=" " alt="" coords="98,1098,101,1184,107,1242,117,1304,134,1369,159,1432,192,1491,235,1541,241,1547,238,1551,231,1545,188,1494,154,1434,129,1371,112,1305,101,1242,95,1185,93,1098"/>
-<area shape="rect" id="Node000003" href="$df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="565,249,637,275"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="416,259,551,259,551,265,416,265"/>
-<area shape="rect" id="Node000005" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e" title="Calculate HTTP response versions based on the request versions." alt="" coords="739,749,933,775"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="438,759,725,759,725,765,438,765"/>
-<area shape="rect" id="Node000006" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="762,425,910,451"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="389,732,803,456,805,461,392,737"/>
-<area shape="rect" id="Node000018" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="1009,699,1160,724"/>
-<area shape="poly" id="edge32_Node000004_Node000018" title=" " alt="" coords="439,786,543,808,604,816,669,822,736,822,803,817,869,805,932,784,947,774,956,761,965,747,980,734,997,726,999,731,983,739,969,751,960,764,951,777,935,788,871,810,804,822,736,828,668,827,603,822,542,813,438,791"/>
-<area shape="rect" id="Node000019" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1265,699,1387,724"/>
-<area shape="poly" id="edge33_Node000004_Node000019" title=" " alt="" coords="439,785,464,800,480,818,488,836,496,852,512,866,573,893,654,915,748,933,849,944,950,949,1044,946,1125,934,1159,925,1187,913,1212,896,1234,876,1271,828,1297,778,1314,736,1319,738,1302,780,1275,831,1238,880,1215,901,1189,918,1161,930,1127,939,1045,951,950,954,848,950,747,938,652,920,571,898,509,871,492,855,483,838,476,821,461,804,437,790"/>
-<area shape="poly" id="edge40_Node000004_Node000027" title=" " alt="" coords="369,733,430,660,509,576,615,470,666,429,737,386,767,374,794,369,843,366,866,365,888,360,909,349,931,330,951,300,959,271,958,241,954,211,950,181,950,150,958,120,979,89,1000,75,1025,67,1026,72,1003,80,983,93,963,122,955,151,955,180,959,210,964,241,964,271,956,302,935,333,912,353,889,365,866,370,843,372,794,374,768,379,740,391,669,434,618,474,513,580,434,664,373,736"/>
-<area shape="rect" id="Node000030" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="763,851,909,876"/>
-<area shape="poly" id="edge28_Node000004_Node000030" title=" " alt="" coords="435,787,464,800,488,815,512,829,572,845,635,855,750,863,750,868,634,860,571,850,510,834,485,820,461,804,433,792"/>
-<area shape="poly" id="edge34_Node000004_Node000038" title=" " alt="" coords="438,736,496,721,498,726,439,741"/>
-<area shape="poly" id="edge12_Node000006_Node000006" title=" " alt="" coords="798,427,790,417,794,407,810,401,836,399,869,403,882,412,878,416,867,407,836,404,811,406,797,411,795,416,802,423"/>
-<area shape="rect" id="Node000007" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a4c469cd11deee69c1f1d9ec77de66df9" title="Returns the server information for the operating system." alt="" coords="1032,153,1137,179"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="872,423,904,406,931,380,946,355,952,331,951,283,950,259,952,236,961,212,979,188,997,175,1018,168,1020,173,1000,180,983,192,966,214,957,237,955,259,956,283,957,331,950,357,935,384,907,410,875,428"/>
-<area shape="rect" id="Node000008" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a502852e9caf9d74374e83f8e9bf42acb" title="Validates URL." alt="" coords="1038,104,1131,129"/>
-<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="873,423,904,406,931,380,948,348,954,318,954,287,950,258,947,228,948,199,958,169,979,139,1000,124,1024,116,1025,122,1002,129,983,143,962,171,953,200,952,228,955,257,959,287,960,318,953,350,935,384,908,410,875,428"/>
-<area shape="rect" id="Node000010" href="$d0/d45/statcodes_8cpp.html#aef38182042fe8413586c1bd1d023d98e" title="Return the right status message based on the passed in int statusCode input parameter." alt="" coords="1011,203,1158,228"/>
-<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="870,423,903,405,931,380,943,362,949,344,952,308,956,273,965,255,980,237,997,225,1000,230,983,241,969,258,961,274,957,308,954,345,948,364,935,384,906,410,873,428"/>
-<area shape="rect" id="Node000013" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a62839c9e5e505c93e0f9eb71d1089594" title="Portable gmtime_r for Microsoft Windows." alt="" coords="1025,301,1144,327"/>
-<area shape="poly" id="edge11_Node000006_Node000013" title=" " alt="" coords="861,423,932,380,955,357,965,346,980,336,1011,323,1013,328,983,340,968,350,958,360,935,384,864,427"/>
-<area shape="rect" id="Node000014" href="$da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="1010,351,1159,376"/>
-<area shape="poly" id="edge13_Node000006_Node000014" title=" " alt="" coords="869,423,981,385,1010,377,1012,382,982,390,871,428"/>
-<area shape="rect" id="Node000017" href="$da/dd9/membuffer_8cpp.html#ab76ad780ccbf0233d6e2b756b259fc53" title="Invokes function to appends data from a constant string to the buffer." alt="" coords="998,252,1171,277"/>
-<area shape="poly" id="edge15_Node000006_Node000017" title=" " alt="" coords="868,423,901,405,931,380,947,356,953,333,961,309,980,287,987,282,990,286,983,291,965,312,958,334,952,358,935,384,903,409,870,428"/>
-<area shape="poly" id="edge17_Node000006_Node000018" title=" " alt="" coords="847,449,900,530,939,582,983,632,1018,663,1053,689,1050,693,1015,667,979,636,935,586,896,533,843,452"/>
-<area shape="rect" id="Node000021" href="$dd/d1d/httpparser_8cpp.html#ae4883a78151ed4bbc5ceb797a5703402" title="A wrapper function that maps a method id to a method." alt="" coords="1027,400,1143,425"/>
-<area shape="poly" id="edge20_Node000006_Node000021" title=" " alt="" coords="910,428,1013,417,1013,423,911,433"/>
-<area shape="rect" id="Node000023" href="$d7/d3a/UpnpExtraHeaders_8cpp.html#a786a0c272065b81af91b9f4ea969eadf" title=" " alt="" coords="981,449,1188,475"/>
-<area shape="poly" id="edge21_Node000006_Node000023" title=" " alt="" coords="911,442,968,448,967,453,910,448"/>
-<area shape="rect" id="Node000024" href="$d1/dd9/list_8cpp.html#aadf0be10df4c503872328aaff45aa52d" title="Return iterator pointing to the first list element, or UpnpListEnd(list) if the list is empty." alt="" coords="1027,499,1143,524"/>
-<area shape="poly" id="edge22_Node000006_Node000024" title=" " alt="" coords="874,448,982,483,1016,493,1015,498,981,489,872,453"/>
-<area shape="rect" id="Node000025" href="$d1/dd9/list_8cpp.html#a4b1675d58cb9f452893e6d6b7fbb83ae" title="Return end of list sentinel iterator (not an element)" alt="" coords="1033,548,1136,573"/>
-<area shape="poly" id="edge23_Node000006_Node000025" title=" " alt="" coords="854,449,908,490,944,513,982,533,1020,546,1019,551,980,538,942,518,905,494,851,453"/>
-<area shape="rect" id="Node000026" href="$d1/dd9/list_8cpp.html#af2f3774174347ff64890e2b3916d8b97" title="Return iterator pointing to element after pos, or end()" alt="" coords="1029,597,1140,623"/>
-<area shape="poly" id="edge24_Node000006_Node000026" title=" " alt="" coords="848,449,900,513,939,551,983,582,1017,596,1015,601,980,587,935,555,896,517,844,453"/>
-<area shape="poly" id="edge25_Node000006_Node000027" title=" " alt="" coords="874,423,905,406,931,380,951,342,957,304,955,268,949,233,944,197,944,162,954,126,979,89,1000,75,1025,67,1026,72,1003,79,983,93,959,128,949,162,949,197,954,232,960,268,962,305,956,343,935,384,908,410,876,428"/>
-<area shape="rect" id="Node000009" href="$d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="1243,104,1409,129"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1131,114,1229,114,1229,119,1131,119"/>
-<area shape="rect" id="Node000011" href="$df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#a67ec6f35b83046df716768cadc353e39" title="Initializing tables with HTTP strings and different HTTP codes." alt="" coords="1236,188,1416,243"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="1158,213,1222,213,1222,218,1158,218"/>
-<area shape="rect" id="Node000015" href="$da/dd9/membuffer_8cpp.html#ad2b10e589712efb648a8f86bfe3b5975" title="Allocates memory for the new data to be inserted. Does memory management by moving the data from the ..." alt="" coords="1257,309,1395,335"/>
-<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="1159,348,1243,333,1244,339,1160,353"/>
-<area shape="poly" id="edge16_Node000017_Node000015" title=" " alt="" coords="1141,275,1189,286,1260,303,1259,309,1187,291,1140,280"/>
-<area shape="poly" id="edge18_Node000018_Node000019" title=" " alt="" coords="1160,709,1251,709,1251,714,1160,714"/>
-<area shape="rect" id="Node000020" href="$d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1464,684,1685,739"/>
-<area shape="poly" id="edge19_Node000019_Node000020" title=" " alt="" coords="1388,709,1450,709,1450,714,1388,714"/>
-<area shape="rect" id="Node000028" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="1256,55,1396,80"/>
-<area shape="poly" id="edge26_Node000027_Node000028" title=" " alt="" coords="1130,65,1242,65,1242,70,1130,70"/>
-<area shape="rect" id="Node000029" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="1236,5,1416,31"/>
-<area shape="poly" id="edge27_Node000027_Node000029" title=" " alt="" coords="1130,56,1249,31,1250,36,1131,61"/>
-<area shape="rect" id="Node000031" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6" title="Get the assosiated netaddress with port." alt="" coords="1007,863,1162,903"/>
-<area shape="poly" id="edge29_Node000030_Node000031" title=" " alt="" coords="909,867,994,873,993,879,909,872"/>
-<area shape="rect" id="Node000033" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a54c724e63e5e7d8ddaec8a80f7450219" title="Get sizeof the Sockaddr Structure." alt="" coords="1007,749,1162,789"/>
-<area shape="poly" id="edge30_Node000030_Node000033" title=" " alt="" coords="882,848,932,829,956,814,980,798,997,791,999,796,983,803,959,818,935,834,884,853"/>
-<area shape="rect" id="Node000034" href="$d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="1039,813,1131,839"/>
-<area shape="poly" id="edge31_Node000030_Node000034" title=" " alt="" coords="909,850,1025,832,1026,837,910,855"/>
-<area shape="poly" id="edge35_Node000038_Node000005" title=" " alt="" coords="692,719,777,743,776,748,691,724"/>
-<area shape="poly" id="edge36_Node000038_Node000006" title=" " alt="" coords="625,667,812,460,816,463,629,671"/>
-<area shape="poly" id="edge38_Node000038_Node000018" title=" " alt="" coords="691,697,996,706,996,711,691,702"/>
-<area shape="poly" id="edge39_Node000038_Node000019" title=" " alt="" coords="691,686,917,676,1053,676,1188,683,1256,693,1256,699,1188,689,1052,681,917,681,691,692"/>
-<area shape="poly" id="edge37_Node000038_Node000030" title=" " alt="" coords="642,722,807,840,804,844,639,726"/>
-<area shape="rect" id="Node000040" href="$d1/d03/group__UpnpString.html#ga8877a4f1ad605a508a31942527f0ce9f" title="Destructor." alt="" coords="529,952,672,977"/>
-<area shape="poly" id="edge43_Node000039_Node000040" title=" " alt="" coords="441,838,464,851,482,870,490,891,497,911,512,931,534,944,531,949,509,935,492,914,485,893,478,873,461,855,438,843"/>
-<area shape="rect" id="Node000044" href="$d4/d6b/UpnpActionRequest_8cpp.html#a8c0774f53fd70d3de2ce2c3024b2c7a9" title=" " alt="" coords="511,1051,690,1091"/>
-<area shape="poly" id="edge47_Node000043_Node000044" title=" " alt="" coords="435,1030,501,1046,500,1051,434,1035"/>
-<area shape="rect" id="Node000045" href="$d1/d03/group__UpnpString.html#ga52a429bf778bf8c0a44a779d9446116c" title="Returns the pointer to char." alt="" coords="517,1001,684,1027"/>
-<area shape="poly" id="edge48_Node000043_Node000045" title=" " alt="" coords="437,1010,504,1011,504,1016,437,1016"/>
-<area shape="rect" id="Node000047" href="$d1/d03/group__UpnpString.html#gab66dcdfe778dd5e2e8d16e1131ef9ac1" title="Constructor." alt="" coords="537,1116,665,1141"/>
-<area shape="poly" id="edge50_Node000046_Node000047" title=" " alt="" coords="408,1080,463,1093,536,1110,534,1115,462,1098,406,1085"/>
-<area shape="rect" id="Node000053" href="$d1/d03/group__UpnpString.html#ga0db13228160adbc4e7ad7f52157f987e" title="Sets the string from a pointer to char." alt="" coords="517,1435,684,1460"/>
-<area shape="poly" id="edge56_Node000052_Node000053" title=" " alt="" coords="428,1401,537,1429,536,1434,427,1406"/>
-<area shape="poly" id="edge58_Node000054_Node000053" title=" " alt="" coords="447,1445,504,1445,504,1450,447,1450"/>
-<area shape="poly" id="edge60_Node000055_Node000053" title=" " alt="" coords="427,1489,536,1461,537,1466,428,1494"/>
-<area shape="rect" id="Node000057" href="$d1/d03/group__UpnpString.html#ga06963479e44d90a5de680861e2180e0b" title="Sets the string from a pointer to char using a maximum of N chars." alt="" coords="513,1556,689,1581"/>
-<area shape="poly" id="edge62_Node000056_Node000057" title=" " alt="" coords="463,1566,499,1566,499,1571,463,1571"/>
+<area shape="rect" id="Node000001" title="Handles the SOAP action request." alt="" coords="5,876,185,931"/>
+<area shape="rect" id="Node000002" href="$dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="281,5,415,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,876,101,709,122,460,139,332,162,213,193,115,211,77,231,48,247,35,266,26,268,30,250,39,235,52,216,80,198,117,168,214,144,332,127,461,107,709,100,876"/>
+<area shape="rect" id="Node000004" href="$da/d8a/group__XMLAPI.html#ga494d21f3d569462b1af7651b536fae83" title="Frees a Document object and all Nodes associated with it." alt="" coords="999,84,1150,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="96,876,108,743,134,553,152,456,174,367,200,293,215,265,231,243,271,205,314,173,360,146,409,123,460,105,513,90,620,71,726,64,826,64,915,71,989,79,988,85,915,76,826,70,726,69,621,77,514,95,462,110,411,128,362,151,317,178,274,209,235,246,220,268,205,296,179,368,157,457,139,554,114,744,101,876"/>
+<area shape="rect" id="Node000007" href="$da/d8a/group__XMLAPI.html#ga0367f3a7ce36cb9ff934caf7e0d4621d" title="Frees a DOMString." alt="" coords="526,383,675,408"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="97,875,108,809,131,719,149,671,171,624,198,579,231,539,262,511,296,488,369,450,444,423,512,406,513,411,446,428,371,455,299,492,265,516,235,543,203,582,176,626,154,673,136,721,113,810,102,876"/>
+<area shape="rect" id="Node000008" href="$da/d8a/group__XMLAPI.html#gafbbc01f76d56a8a7b4f539277b64a8ee" title="Parses an XML text buffer converting it into an IXML DOM representation." alt="" coords="277,257,419,283"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="94,875,99,780,105,715,117,642,134,565,158,488,190,412,231,343,264,310,302,286,305,291,268,314,235,346,195,415,163,489,139,567,122,643,111,715,104,780,99,876"/>
+<area shape="rect" id="Node000091" href="$da/d8a/group__XMLAPI.html#gaf71e11e801ca62f0d922dc10ea3fe6a6" title="Renders a Node and all sub&#45;elements into an XML text representation." alt="" coords="543,333,658,359"/>
+<area shape="poly" id="edge16_Node000001_Node000091" title=" " alt="" coords="94,876,100,796,120,685,137,625,161,566,192,511,231,461,264,433,300,410,339,391,380,376,459,356,529,347,530,352,460,362,381,381,341,396,303,415,267,438,235,465,196,514,166,569,142,627,125,686,106,796,100,876"/>
+<area shape="rect" id="Node000100" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a06c8e12369d9db67a834d961dc914563" title="Sends the SOAP action response." alt="" coords="258,553,438,608"/>
+<area shape="poly" id="edge25_Node000001_Node000100" title=" " alt="" coords="104,875,122,828,150,769,186,706,231,648,275,613,279,617,235,652,191,709,154,771,127,830,109,877"/>
+<area shape="rect" id="Node000123" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="1029,811,1120,836"/>
+<area shape="poly" id="edge68_Node000001_Node000123" title=" " alt="" coords="110,874,130,844,158,810,192,778,232,754,295,730,349,721,375,723,403,729,464,754,482,770,489,789,496,807,512,822,543,837,570,845,595,849,620,848,672,842,739,839,836,843,933,839,1015,830,1016,835,934,845,836,848,739,845,673,847,620,853,595,854,569,851,541,842,509,827,492,810,484,791,477,773,461,759,401,734,375,728,349,726,297,735,235,759,196,783,162,814,135,847,114,877"/>
+<area shape="rect" id="Node000134" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#af2aff493a97adf72193dc9ff26413171" title="Sends SOAP error response." alt="" coords="511,636,691,691"/>
+<area shape="poly" id="edge46_Node000001_Node000134" title=" " alt="" coords="105,875,124,836,151,791,187,747,232,710,296,681,365,664,434,655,497,653,497,659,434,661,366,669,298,686,235,715,191,750,156,794,129,839,110,877"/>
+<area shape="rect" id="Node000135" href="$d4/d6b/UpnpActionRequest_8cpp.html#a98278bcdb0fb6ed32563722b37f5a280" title=" " alt="" coords="249,769,447,795"/>
+<area shape="poly" id="edge47_Node000001_Node000135" title=" " alt="" coords="127,874,174,838,232,805,256,796,258,801,234,810,177,842,130,878"/>
+<area shape="rect" id="Node000137" href="$d4/d6b/UpnpActionRequest_8cpp.html#a8c5e21ebbc7293513bf959c03cf25702" title=" " alt="" coords="259,819,437,859"/>
+<area shape="poly" id="edge49_Node000001_Node000137" title=" " alt="" coords="185,878,255,860,256,865,186,883"/>
+<area shape="rect" id="Node000138" href="$d4/d6b/UpnpActionRequest_8cpp.html#a2f40543eeecf79d2e35180dfc0ed3a9f" title=" " alt="" coords="259,883,437,923"/>
+<area shape="poly" id="edge50_Node000001_Node000138" title=" " alt="" coords="186,901,245,901,245,906,186,906"/>
+<area shape="rect" id="Node000139" href="$d4/d6b/UpnpActionRequest_8cpp.html#ac5edcd98abe3f28dd558369b2160e7c2" title=" " alt="" coords="259,947,437,987"/>
+<area shape="poly" id="edge51_Node000001_Node000139" title=" " alt="" coords="186,923,256,941,255,947,185,929"/>
+<area shape="rect" id="Node000142" href="$d4/d6b/UpnpActionRequest_8cpp.html#ad6a29ab27d4fbec4fac2c0de5703bf5b" title=" " alt="" coords="256,1012,440,1037"/>
+<area shape="poly" id="edge54_Node000001_Node000142" title=" " alt="" coords="130,929,177,965,234,997,258,1006,256,1011,232,1002,174,969,127,933"/>
+<area shape="rect" id="Node000144" href="$d4/d6b/UpnpActionRequest_8cpp.html#a2a0fe29a46f0206f9e14f0b159041811" title=" " alt="" coords="259,1062,437,1102"/>
+<area shape="poly" id="edge56_Node000001_Node000144" title=" " alt="" coords="118,929,167,989,199,1020,235,1046,249,1054,246,1059,232,1051,195,1024,163,992,114,933"/>
+<area shape="rect" id="Node000145" href="$d4/d6b/UpnpActionRequest_8cpp.html#a537b0bc20a1fc5ef50458975dfd53205" title=" " alt="" coords="259,1126,437,1166"/>
+<area shape="poly" id="edge57_Node000001_Node000145" title=" " alt="" coords="109,930,128,971,155,1020,191,1070,235,1112,248,1120,245,1125,232,1116,187,1073,150,1023,123,973,105,932"/>
+<area shape="rect" id="Node000146" href="$d4/d6b/UpnpActionRequest_8cpp.html#a4fb11e583e5379df82b1aee2e951ac87" title=" " alt="" coords="259,1190,437,1230"/>
+<area shape="poly" id="edge58_Node000001_Node000146" title=" " alt="" coords="105,930,120,983,145,1049,183,1118,207,1149,235,1176,249,1185,246,1190,232,1180,203,1152,179,1121,140,1051,115,984,100,932"/>
+<area shape="rect" id="Node000147" href="$d4/d6b/UpnpActionRequest_8cpp.html#a49f89a5494f7bf967316b35a5059e669" title=" " alt="" coords="259,1254,437,1294"/>
+<area shape="poly" id="edge59_Node000001_Node000147" title=" " alt="" coords="102,930,113,994,136,1078,154,1122,176,1165,203,1205,235,1240,248,1250,245,1254,232,1244,198,1208,171,1168,149,1124,131,1079,108,995,97,931"/>
+<area shape="rect" id="Node000148" href="$d4/d6b/UpnpActionRequest_8cpp.html#af6569d1b222d32e9b30c822812c7668e" title=" " alt="" coords="249,1318,447,1358"/>
+<area shape="poly" id="edge60_Node000001_Node000148" title=" " alt="" coords="100,931,108,1005,128,1106,145,1159,168,1212,198,1261,235,1304,240,1308,236,1312,231,1308,194,1264,164,1215,140,1161,123,1107,102,1006,95,931"/>
+<area shape="rect" id="Node000150" href="$d4/d6b/UpnpActionRequest_8cpp.html#ace47ff8a93948e25ec4013fe75d0849a" title=" " alt="" coords="249,1382,447,1422"/>
+<area shape="poly" id="edge62_Node000001_Node000150" title=" " alt="" coords="99,931,102,1016,109,1072,120,1133,137,1197,161,1259,193,1317,235,1368,240,1372,236,1376,231,1372,189,1320,156,1261,132,1198,115,1134,104,1073,97,1016,93,931"/>
+<area shape="rect" id="Node000151" href="$d4/d6b/UpnpActionRequest_8cpp.html#a7b15436c0fcfbf6699086ec36f733314" title=" " alt="" coords="249,1446,447,1486"/>
+<area shape="poly" id="edge64_Node000001_Node000151" title=" " alt="" coords="103,930,119,1040,147,1191,165,1267,186,1337,210,1394,235,1432,240,1436,236,1440,231,1436,205,1396,181,1339,160,1269,142,1192,114,1041,97,931"/>
+<area shape="rect" id="Node000152" href="$d4/d6b/UpnpActionRequest_8cpp.html#a595b92bb888f5663f043405c11b8136a" title=" " alt="" coords="233,1511,463,1536"/>
+<area shape="poly" id="edge66_Node000001_Node000152" title=" " alt="" coords="102,930,115,1052,142,1223,160,1310,181,1389,207,1453,221,1478,235,1496,241,1501,237,1505,231,1500,216,1481,202,1456,176,1390,155,1311,136,1224,110,1053,96,931"/>
+<area shape="rect" id="Node000003" href="$df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="565,5,637,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="416,15,551,15,551,21,416,21"/>
+<area shape="rect" id="Node000005" href="$da/d8a/group__XMLAPI.html#gae1c5ee478a378b659a67d54675f82822" title="Frees a Node and all Nodes in its subtree." alt="" coords="1253,84,1371,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1150,94,1239,94,1239,99,1150,99"/>
+<area shape="rect" id="Node000006" href="$d7/d70/node_8cpp.html#a576b57d885a3f85ee34efdc9a160a3e3" title="Frees a node content." alt="" coords="1456,84,1648,109"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1371,94,1442,94,1442,99,1371,99"/>
+<area shape="rect" id="Node000009" href="$da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49" title="Parses a xml file and return the DOM tree." alt="" coords="517,208,684,233"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="413,255,521,233,522,239,414,260"/>
+<area shape="rect" id="Node000010" href="$da/dff/ixmlparser_8cpp.html#aebef9fd006a378376432c3da3c285aa2" title="Frees all temporary memory allocated by xmlparser." alt="" coords="1027,145,1122,171"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="665,205,738,193,887,174,1013,161,1014,166,887,179,739,198,666,211"/>
+<area shape="rect" id="Node000015" href="$da/dff/ixmlparser_8cpp.html#a0eacdafa9ca9fe872b050cac5b22ad1f" title="Initializes a xml parser." alt="" coords="791,208,881,233"/>
+<area shape="poly" id="edge10_Node000009_Node000015" title=" " alt="" coords="684,218,777,218,777,223,684,223"/>
+<area shape="rect" id="Node000016" href="$da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542" title="Parses the xml file and returns the DOM document tree." alt="" coords="750,107,922,132"/>
+<area shape="poly" id="edge12_Node000009_Node000016" title=" " alt="" coords="623,205,675,178,738,149,778,134,780,139,740,154,677,183,626,210"/>
+<area shape="rect" id="Node000090" href="$da/dff/ixmlparser_8cpp.html#a7a855e5df115b73a3f4555dc066e5dcc" title="Read a xml file or buffer contents into xml parser." alt="" coords="749,257,923,283"/>
+<area shape="poly" id="edge15_Node000009_Node000090" title=" " alt="" coords="662,231,762,252,761,257,661,236"/>
+<area shape="rect" id="Node000012" href="$d1/d6a/ixmlmembuf_8cpp.html#aa80b5a0877ebd43d82924bb3a153bcf4" title="ixml_membuf initialization routine." alt="" coords="1004,201,1145,227"/>
+<area shape="poly" id="edge11_Node000015_Node000012" title=" " alt="" coords="882,217,990,214,990,219,882,222"/>
+<area shape="poly" id="edge13_Node000016_Node000004" title=" " alt="" coords="922,108,986,102,986,108,923,114"/>
+<area shape="poly" id="edge14_Node000016_Node000010" title=" " alt="" coords="916,129,1014,146,1014,151,915,135"/>
+<area shape="poly" id="edge17_Node000091_Node000012" title=" " alt="" coords="659,346,718,345,789,337,863,321,898,308,932,292,947,279,955,265,964,250,980,236,991,230,994,234,983,240,968,254,960,268,951,283,935,296,900,313,864,326,790,342,719,350,659,351"/>
+<area shape="rect" id="Node000092" href="$d2/db9/ixml_8cpp.html#a57c5e6bece9155fa54ea918005d61197" title="Print a DOM tree." alt="" coords="767,359,905,384"/>
+<area shape="poly" id="edge18_Node000091_Node000092" title=" " alt="" coords="659,349,753,360,753,365,658,355"/>
+<area shape="rect" id="Node000093" href="$d2/db9/ixml_8cpp.html#ae98f05fad4229463cd9846143bac3dd0" title="Appends a string to a buffer, substituting some characters by escape sequences." alt="" coords="1004,352,1145,377"/>
+<area shape="poly" id="edge19_Node000092_Node000093" title=" " alt="" coords="906,367,991,364,991,370,906,372"/>
+<area shape="rect" id="Node000043" href="$d1/d6a/ixmlmembuf_8cpp.html#aeb1d8d0424384e316e40f4d6c2d98c8b" title="Appends the contents of a NULL terminated string to the designated ixml_membuf." alt="" coords="1216,327,1408,352"/>
+<area shape="poly" id="edge21_Node000092_Node000043" title=" " alt="" coords="882,356,930,345,981,337,1095,330,1203,331,1202,336,1095,335,982,342,931,350,884,361"/>
+<area shape="rect" id="Node000094" href="$da/d8a/group__XMLAPI.html#ga5876c582a0b41143b5ea3101c7e1335f" title="Retrieves the first child Node of a Node." alt="" coords="987,401,1162,427"/>
+<area shape="poly" id="edge22_Node000092_Node000094" title=" " alt="" coords="906,381,990,396,989,402,905,386"/>
+<area shape="rect" id="Node000095" href="$da/d8a/group__XMLAPI.html#ga0597d91f7834c1d86574d67f5c9b6565" title="Returns the name of the Node, depending on what type of Node it is, in a read&#45;only string." alt="" coords="981,451,1168,476"/>
+<area shape="poly" id="edge23_Node000092_Node000095" title=" " alt="" coords="863,382,917,408,982,436,1009,444,1007,449,980,440,915,413,861,387"/>
+<area shape="rect" id="Node000096" href="$da/d8a/group__XMLAPI.html#gacc2afa7a4ca95da4476eb8c59fa0761b" title="Retrieves the type of a Node. Note that not all possible return values are actually implemented." alt="" coords="986,251,1163,276"/>
+<area shape="poly" id="edge24_Node000092_Node000096" title=" " alt="" coords="888,356,932,337,946,326,955,316,965,304,980,293,1011,278,1013,283,983,298,969,308,959,319,950,330,935,342,890,361"/>
+<area shape="poly" id="edge20_Node000093_Node000043" title=" " alt="" coords="1145,354,1202,348,1203,354,1146,360"/>
+<area shape="poly" id="edge35_Node000100_Node000007" title=" " alt="" coords="374,551,444,480,509,425,539,410,541,415,512,430,448,484,378,555"/>
+<area shape="poly" id="edge36_Node000100_Node000091" title=" " alt="" coords="360,552,383,511,417,461,459,411,509,368,529,357,532,362,512,372,463,414,421,464,388,513,365,554"/>
+<area shape="rect" id="Node000101" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e" title="Calculate HTTP response versions based on the request versions." alt="" coords="739,584,933,609"/>
+<area shape="poly" id="edge26_Node000100_Node000101" title=" " alt="" coords="438,581,725,590,725,596,438,586"/>
+<area shape="rect" id="Node000102" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="762,760,910,785"/>
+<area shape="poly" id="edge27_Node000100_Node000102" title=" " alt="" coords="379,606,438,655,474,679,512,700,571,723,633,740,749,761,748,767,632,745,570,728,510,704,471,684,435,659,376,610"/>
+<area shape="rect" id="Node000114" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="999,635,1150,660"/>
+<area shape="poly" id="edge37_Node000100_Node000114" title=" " alt="" coords="438,557,510,543,630,518,725,495,771,490,820,491,873,500,934,520,973,540,1008,567,1058,622,1054,625,1004,571,970,544,932,524,872,505,819,496,771,495,726,500,631,523,511,549,439,562"/>
+<area shape="rect" id="Node000115" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1251,635,1373,660"/>
+<area shape="poly" id="edge38_Node000100_Node000115" title=" " alt="" coords="437,555,461,544,475,534,484,524,494,514,510,505,571,482,624,467,672,458,718,455,765,457,815,463,934,486,1036,514,1133,553,1217,592,1279,626,1276,630,1214,597,1131,557,1034,519,933,491,814,469,764,463,718,461,673,464,625,472,572,488,512,510,497,518,488,527,479,538,464,548,440,559"/>
+<area shape="poly" id="edge45_Node000100_Node000123" title=" " alt="" coords="375,607,452,696,489,737,512,757,576,786,645,807,715,821,785,830,915,834,1015,828,1016,833,915,839,785,835,714,827,644,812,574,791,509,762,486,740,448,700,370,610"/>
+<area shape="rect" id="Node000126" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="763,535,909,560"/>
+<area shape="poly" id="edge34_Node000100_Node000126" title=" " alt="" coords="438,572,749,551,750,556,439,577"/>
+<area shape="poly" id="edge39_Node000100_Node000134" title=" " alt="" coords="433,606,505,629,503,634,431,611"/>
+<area shape="poly" id="edge28_Node000102_Node000102" title=" " alt="" coords="798,762,790,752,794,742,810,736,836,733,869,737,882,747,878,751,867,742,836,739,811,741,797,746,795,751,802,758"/>
+<area shape="poly" id="edge29_Node000102_Node000114" title=" " alt="" coords="860,758,1036,664,1038,669,863,762"/>
+<area shape="poly" id="edge31_Node000102_Node000123" title=" " alt="" coords="897,783,1016,808,1015,814,896,788"/>
+<area shape="poly" id="edge30_Node000114_Node000115" title=" " alt="" coords="1150,645,1237,645,1237,650,1150,650"/>
+<area shape="rect" id="Node000124" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="1242,835,1382,860"/>
+<area shape="poly" id="edge32_Node000123_Node000124" title=" " alt="" coords="1120,825,1228,836,1228,842,1120,831"/>
+<area shape="rect" id="Node000125" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="1222,785,1402,811"/>
+<area shape="poly" id="edge33_Node000123_Node000125" title=" " alt="" coords="1120,816,1208,806,1208,812,1120,821"/>
+<area shape="poly" id="edge40_Node000134_Node000101" title=" " alt="" coords="691,635,776,611,778,616,692,640"/>
+<area shape="poly" id="edge41_Node000134_Node000102" title=" " alt="" coords="662,689,797,752,794,757,660,693"/>
+<area shape="poly" id="edge43_Node000134_Node000114" title=" " alt="" coords="691,658,986,648,986,653,691,663"/>
+<area shape="poly" id="edge44_Node000134_Node000115" title=" " alt="" coords="691,667,908,676,1038,675,1168,669,1237,659,1237,665,1168,674,1038,681,908,681,691,673"/>
+<area shape="poly" id="edge42_Node000134_Node000126" title=" " alt="" coords="634,634,681,600,738,569,757,561,759,566,740,574,684,605,637,638"/>
+<area shape="rect" id="Node000136" href="$d1/d03/group__UpnpString.html#ga8877a4f1ad605a508a31942527f0ce9f" title="Destructor." alt="" coords="529,905,672,931"/>
+<area shape="poly" id="edge48_Node000135_Node000136" title=" " alt="" coords="440,792,464,805,482,825,490,845,497,865,512,884,534,898,532,902,509,888,492,867,485,847,477,827,461,809,438,797"/>
+<area shape="rect" id="Node000140" href="$d4/d6b/UpnpActionRequest_8cpp.html#a8c0774f53fd70d3de2ce2c3024b2c7a9" title=" " alt="" coords="511,1005,690,1045"/>
+<area shape="poly" id="edge52_Node000139_Node000140" title=" " alt="" coords="437,985,499,999,498,1004,436,990"/>
+<area shape="rect" id="Node000141" href="$d1/d03/group__UpnpString.html#ga52a429bf778bf8c0a44a779d9446116c" title="Returns the pointer to char." alt="" coords="517,955,684,980"/>
+<area shape="poly" id="edge53_Node000139_Node000141" title=" " alt="" coords="437,965,504,965,504,970,437,970"/>
+<area shape="rect" id="Node000143" href="$d1/d03/group__UpnpString.html#gab66dcdfe778dd5e2e8d16e1131ef9ac1" title="Constructor." alt="" coords="537,1069,665,1095"/>
+<area shape="poly" id="edge55_Node000142_Node000143" title=" " alt="" coords="408,1035,463,1047,533,1064,531,1069,462,1053,406,1040"/>
+<area shape="rect" id="Node000149" href="$d1/d03/group__UpnpString.html#ga0db13228160adbc4e7ad7f52157f987e" title="Sets the string from a pointer to char." alt="" coords="517,1389,684,1415"/>
+<area shape="poly" id="edge61_Node000148_Node000149" title=" " alt="" coords="428,1355,537,1383,536,1388,427,1361"/>
+<area shape="poly" id="edge63_Node000150_Node000149" title=" " alt="" coords="447,1399,504,1399,504,1405,447,1405"/>
+<area shape="poly" id="edge65_Node000151_Node000149" title=" " alt="" coords="427,1443,536,1416,537,1421,428,1449"/>
+<area shape="rect" id="Node000153" href="$d1/d03/group__UpnpString.html#ga06963479e44d90a5de680861e2180e0b" title="Sets the string from a pointer to char using a maximum of N chars." alt="" coords="513,1511,689,1536"/>
+<area shape="poly" id="edge67_Node000152_Node000153" title=" " alt="" coords="463,1521,499,1521,499,1526,463,1526"/>
 </map>

@@ -1,0 +1,28 @@
+<map id="Parser_copyToken" name="Parser_copyToken">
+<area shape="rect" id="Node000001" title="Copy string in src into xml parser token buffer." alt="" coords="5,105,143,131"/>
+<area shape="rect" id="Node000002" href="$d6/d37/ixmldebug_8cpp.html#a39f4bb286e16f1bc5c1a34947b97f928" title="Prints the debug statement either on the standard output or log file along with the information from ..." alt="" coords="705,156,791,181"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,116,357,122,489,129,622,142,691,154,690,159,621,147,489,135,356,127,143,121"/>
+<area shape="rect" id="Node000003" href="$da/dff/ixmlparser_8cpp.html#a1ce75189cf1958eebd9eda56fa65fb1c" title="Appends c to token buffer." alt="" coords="191,5,381,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="90,103,133,71,190,40,208,32,210,37,192,44,136,76,93,107"/>
+<area shape="rect" id="Node000007" href="$da/dff/ixmlparser_8cpp.html#a5c3878cac5b3d270fcab7f0137d27639" title="Appends string s to token buffer." alt="" coords="197,55,375,80"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="128,103,219,81,220,86,129,108"/>
+<area shape="rect" id="Node000009" href="$da/dff/ixmlparser_8cpp.html#a48d67a03feb38470eda694417804de09" title="Returns next char value and its length." alt="" coords="226,156,346,181"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="129,128,220,150,219,155,128,133"/>
+<area shape="rect" id="Node000012" href="$da/dff/ixmlparser_8cpp.html#a5865699cf24151fcb14522d2b3ad86cb" title="Encodes a character to its UTF&#45;8 character string, and return its length." alt="" coords="219,205,353,231"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="93,129,136,160,192,192,210,199,208,204,190,196,133,165,90,133"/>
+<area shape="rect" id="Node000004" href="$d1/d6a/ixmlmembuf_8cpp.html#ad833eb46fc6cf244442ed6ddda32a446" title="Appends one byte to the designated ixml_membuffer." alt="" coords="441,5,609,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="382,15,427,15,427,21,382,21"/>
+<area shape="rect" id="Node000005" href="$d1/d6a/ixmlmembuf_8cpp.html#af0a38fca5ed84bba406f0d4aecd7969d" title=" " alt="" coords="669,31,827,56"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="610,25,656,30,656,36,610,30"/>
+<area shape="rect" id="Node000006" href="$d1/d6a/ixmlmembuf_8cpp.html#ad0d7108000f904b63a8ec4bc7f318072" title="Increases or decreases buffer capacity so that at least &#39;new_length&#39; bytes can be stored." alt="" coords="875,31,1048,56"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="827,41,861,41,861,46,827,46"/>
+<area shape="rect" id="Node000008" href="$d1/d6a/ixmlmembuf_8cpp.html#aeb1d8d0424384e316e40f4d6c2d98c8b" title="Appends the contents of a NULL terminated string to the designated ixml_membuf." alt="" coords="429,55,621,80"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="375,65,416,65,416,70,375,70"/>
+<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="622,54,655,51,656,56,622,60"/>
+<area shape="poly" id="edge10_Node000009_Node000002" title=" " alt="" coords="347,177,383,192,398,205,407,219,416,231,431,241,481,258,524,262,567,255,621,241,648,231,675,217,719,188,722,192,677,222,650,236,622,246,568,260,524,267,480,263,428,246,412,235,402,222,394,208,380,196,345,182"/>
+<area shape="rect" id="Node000010" href="$da/dff/ixmlparser_8cpp.html#a511b15d269891d6cd81fa044ccbd1b51" title="see XML 1.0 (2nd Edition) 2.2." alt="" coords="457,205,593,231"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="347,178,450,200,449,205,346,184"/>
+<area shape="rect" id="Node000011" href="$da/dff/ixmlparser_8cpp.html#a0c924589364f613ca7ae13121debb896" title="In UTF&#45;8, characters are encoded using sequences of 1 to 6 octets. This functions will return a UTF&#45;8..." alt="" coords="458,156,593,181"/>
+<area shape="poly" id="edge12_Node000009_Node000011" title=" " alt="" coords="346,166,444,166,444,171,346,171"/>
+<area shape="poly" id="edge13_Node000011_Node000002" title=" " alt="" coords="593,166,691,166,691,171,593,171"/>
+</map>

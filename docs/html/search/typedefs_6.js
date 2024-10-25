@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['parserfun_0',['ParserFun',['../d0/d19/ssdp__common_8hpp.html#a7c9c2e51a7657a90437daef0b850a7c0',1,'ssdp_common.hpp']]],
-  ['policytype_1',['PolicyType',['../d5/d91/ThreadPool_8hpp.html#abd3ecf9329246c92aa67d70c1be1174a',1,'ThreadPool.hpp']]]
+  ['nodeptr_0',['Nodeptr',['../da/d8a/group__XMLAPI.html#gaa5aaa339d06f98c7514ffa7f2aa2cfaa',1,'ixml.hpp']]],
+  ['notify_5fthread_5fstruct_1',['notify_thread_struct',['../d9/dd2/gena_8hpp.html#a05d519a30da1d0bef9ff4b9239f5f631',1,'gena.hpp']]]
 ];

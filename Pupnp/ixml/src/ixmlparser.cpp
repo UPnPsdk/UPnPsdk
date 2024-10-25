@@ -3,8 +3,8 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
- * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2023-09-08
+ * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-25
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -52,6 +52,7 @@
 
 #include "posix_overwrites.hpp"
 
+/// \cond
 static char g_error_char = '\0';
 #ifdef IXML_HAVE_SCRIPTSUPPORT
 static IXML_BeforeFreeNode_t Before_Free_callback;
@@ -79,13 +80,17 @@ static const char* CDEND = "]]>";
 static const char* DEC_NUMBERS = "0123456789";
 static const char* HEX_NUMBERS = "0123456789ABCDEFabcdef";
 static const char* UTF8_BOM = "\xef\xbb\xbf";
+/// \endcond
 
+/// \brief char_info
 typedef struct char_info {
     unsigned short l;
     unsigned short h;
 } char_info_t;
 
+/// \cond
 typedef char utf8char[8];
+/// \endcond
 
 /*!
  * \brief The letter table contains all characters in XML 1.0 plus ":", "_" and
@@ -1113,7 +1118,7 @@ static int Parser_processSTag(
 }
 
 /*!
- * \brief
+ * \brief Parser_skipPI
  */
 static int Parser_skipPI(
     /*! [in,out] The pointer to the skipped point. */

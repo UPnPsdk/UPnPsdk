@@ -5,10 +5,9 @@
  * \brief A general TODO-list
  *
  * \todo
- * - Cleanup and optimize complete CMake build.
+ * - Verify DEBUG flag Utest/ixml/CMakeLists.txt.
  * - Rework Utest/compa/1-discovery/test_ssdp.cpp, mainy to fix get_ssdp_sockets() for IPv6,
  * - Rework Utest/compa/api.d/test_upnpapi_win32.cpp.
- * - Verify DEBUG flag Utest/ixml/CMakeLists.txt.
  * - Enable Utest/sample/CMakeLists.txt.
  * - Create info function in the library and call that to avoid exporting private symbols.
  * - Build, install and document ixml script support.

@@ -1,36 +1,46 @@
 <map id="Handle_Info" name="Handle_Info">
-<area shape="rect" id="Node000001" title="Data to be stored in handle table for Handle Info." alt="" coords="242,688,342,713"/>
-<area shape="rect" id="Node000002" href="$db/d74/service__table_8hpp.html#df/d30/structservice__table" title="table of services" alt="" coords="107,600,216,625"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,637,179,650,188,662,214,678,243,688,241,693,212,683,185,666,174,653,167,639"/>
-<area shape="rect" id="Node000003" href="$db/d74/service__table_8hpp.html#df/db2/structservice__info" title="&#45;brief Service information" alt="" coords="85,483,187,508"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="144,521,161,599,156,601,139,522"/>
-<area shape="poly" id="edge16_Node000003_Node000003" title=" " alt="" coords="202,487,213,495,205,503,187,506,187,501,203,498,208,496,199,491"/>
-<area shape="rect" id="Node000004" href="$db/d74/service__table_8hpp.html#dd/dc7/structsubscription" title="device subscriptions" alt="" coords="85,395,187,420"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="139,434,139,482,133,482,133,434"/>
-<area shape="poly" id="edge15_Node000004_Node000004" title=" " alt="" coords="202,399,213,407,205,415,187,418,187,413,203,410,208,408,199,403"/>
-<area shape="rect" id="Node000005" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list" title="Represents a list of URLs as in the &quot;callback&quot; header of SUBSCRIBE message in GENA." alt="" coords="49,307,124,332"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="86,345,90,370,100,382,114,392,111,397,97,386,86,372,80,346"/>
-<area shape="rect" id="Node000006" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type" title="Represents a URI used in parse_uri and elsewhere." alt="" coords="49,202,124,227"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="89,241,89,306,84,306,84,241"/>
-<area shape="rect" id="Node000007" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken" title="Buffer used in parsinghttp messages, urls, etc. Generally this simply holds a pointer into a larger a..." alt="" coords="5,5,64,31"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="30,44,22,88,23,113,28,136,49,173,75,200,71,203,45,176,23,138,17,113,17,88,24,43"/>
-<area shape="rect" id="Node000008" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html#db/d73/structhostport__type" title="Represents a host port, e.g. &quot;127.127.0.1:80&quot;." alt="" coords="104,103,216,128"/>
-<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="62,37,147,100,143,105,59,41"/>
-<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="145,141,97,203,93,200,141,138"/>
-<area shape="rect" id="Node000009" href="$de/dd1/LinkedList_8hpp.html#de/d4b/structLinkedList" title="Linked list (no protection)." alt="" coords="186,307,273,332"/>
-<area shape="poly" id="edge20_Node000001_Node000009" title=" " alt="" coords="258,340,283,368,291,386,295,406,295,614,295,688,289,688,289,614,289,406,286,388,278,371,254,343"/>
-<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="212,344,183,373,154,397,150,392,180,369,208,340"/>
-<area shape="rect" id="Node000010" href="$de/dd1/LinkedList_8hpp.html#dd/d2d/structListNode" title="Linked list node. Stores generic item and pointers to next and prev." alt="" coords="159,202,238,227"/>
-<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="209,240,228,306,223,307,204,241"/>
-<area shape="poly" id="edge11_Node000010_Node000010" title=" " alt="" coords="252,205,261,208,265,215,256,223,239,226,238,221,254,219,259,214,257,212,251,210"/>
-<area shape="rect" id="Node000011" href="$d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList" title="Stores head and size of free list, as well as mutex for protection." alt="" coords="319,202,393,227"/>
-<area shape="poly" id="edge12_Node000009_Node000011" title=" " alt="" coords="333,238,245,309,242,304,329,234"/>
-<area shape="rect" id="Node000012" href="$d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode" title="Free list node. points to next free item." alt="" coords="303,103,409,128"/>
-<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="359,142,359,202,353,202,353,142"/>
-<area shape="poly" id="edge14_Node000012_Node000012" title=" " alt="" coords="424,105,432,109,436,116,428,125,410,128,409,123,425,120,431,115,429,113,422,110"/>
-<area shape="rect" id="Node000013" href="$dc/d2f/GenlibClientSubscription_8cpp.html#d7/d22/structs__GenlibClientSubscription" title="Genlib Client subscription." alt="" coords="353,600,549,625"/>
-<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="419,634,315,690,312,685,416,630"/>
-<area shape="poly" id="edge19_Node000013_Node000013" title=" " alt="" coords="563,605,575,613,567,620,549,623,548,617,565,615,570,613,561,610"/>
-<area shape="rect" id="Node000014" href="$d1/d03/group__UpnpString.html#d8/dbb/structs__UpnpString" title="Internal implementation of the class UpnpString." alt="" coords="419,483,527,508"/>
-<area shape="poly" id="edge18_Node000013_Node000014" title=" " alt="" coords="471,522,456,600,450,599,466,521"/>
+<area shape="rect" id="Node000001" title="Data to be stored in handle table for Handle Info." alt="" coords="312,751,412,776"/>
+<area shape="rect" id="Node000002" href="$da/d8a/group__XMLAPI.html#df/d76/struct__IXML__Document" title="Data structure representing the DOM Document." alt="" coords="5,395,140,420"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,434,44,472,29,520,23,572,26,598,34,623,56,658,86,687,121,709,160,727,201,740,241,749,312,758,311,763,240,754,200,745,159,732,119,714,83,691,52,661,29,625,20,599,17,572,23,519,39,470,57,431"/>
+<area shape="rect" id="Node000003" href="$da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node" title="Data structure common to all types of nodes." alt="" coords="71,507,173,532"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="69,433,71,458,88,484,108,504,105,508,83,487,66,460,64,434"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="154,497,170,485,183,472,188,459,184,445,164,428,140,418,142,413,167,424,188,443,193,459,187,475,174,489,158,502"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="188,507,196,511,200,520,192,530,174,534,173,529,189,526,195,519,193,515,186,512"/>
+<area shape="rect" id="Node000004" href="$da/d8a/group__XMLAPI.html#da/d0c/struct__IXML__NodeList" title="Data structure representing a list of nodes." alt="" coords="101,648,226,673"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="132,544,162,647,157,649,127,546"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="197,678,285,724,336,748,334,753,282,729,194,683"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="241,651,249,654,253,661,244,669,227,673,226,667,242,665,247,660,246,658,239,656"/>
+<area shape="rect" id="Node000005" href="$db/d74/service__table_8hpp.html#df/d30/structservice__table" title="table of services" alt="" coords="307,648,417,673"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="365,687,365,751,359,751,359,687"/>
+<area shape="rect" id="Node000006" href="$db/d74/service__table_8hpp.html#df/db2/structservice__info" title="&#45;brief Service information" alt="" coords="299,507,401,532"/>
+<area shape="poly" id="edge9_Node000005_Node000006" title=" " alt="" coords="355,545,364,648,358,648,349,546"/>
+<area shape="poly" id="edge23_Node000006_Node000006" title=" " alt="" coords="416,507,424,511,427,520,419,530,402,534,400,529,416,526,422,519,420,515,413,512"/>
+<area shape="rect" id="Node000007" href="$db/d74/service__table_8hpp.html#dd/dc7/structsubscription" title="device subscriptions" alt="" coords="299,395,401,420"/>
+<area shape="poly" id="edge10_Node000006_Node000007" title=" " alt="" coords="353,434,353,506,347,506,347,434"/>
+<area shape="poly" id="edge22_Node000007_Node000007" title=" " alt="" coords="416,399,427,407,419,415,401,418,401,413,417,410,422,408,413,403"/>
+<area shape="rect" id="Node000008" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list" title="Represents a list of URLs as in the &quot;callback&quot; header of SUBSCRIBE message in GENA." alt="" coords="263,307,338,332"/>
+<area shape="poly" id="edge11_Node000007_Node000008" title=" " alt="" coords="300,345,304,370,314,382,328,392,325,397,311,386,300,372,294,346"/>
+<area shape="rect" id="Node000009" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type" title="Represents a URI used in parse_uri and elsewhere." alt="" coords="263,202,338,227"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="303,241,303,306,298,306,298,241"/>
+<area shape="rect" id="Node000010" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken" title="Buffer used in parsinghttp messages, urls, etc. Generally this simply holds a pointer into a larger a..." alt="" coords="219,5,278,31"/>
+<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="244,44,236,88,237,113,242,136,263,173,289,200,285,203,259,176,237,138,231,113,231,88,238,43"/>
+<area shape="rect" id="Node000011" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html#db/d73/structhostport__type" title="Represents a host port, e.g. &quot;127.127.0.1:80&quot;." alt="" coords="318,103,430,128"/>
+<area shape="poly" id="edge15_Node000011_Node000010" title=" " alt="" coords="276,37,361,100,357,105,273,41"/>
+<area shape="poly" id="edge14_Node000009_Node000011" title=" " alt="" coords="359,141,311,203,307,200,355,138"/>
+<area shape="rect" id="Node000012" href="$de/dd1/LinkedList_8hpp.html#de/d4b/structLinkedList" title="Linked list (no protection)." alt="" coords="403,307,489,332"/>
+<area shape="poly" id="edge27_Node000001_Node000012" title=" " alt="" coords="473,340,497,369,505,387,509,406,509,662,506,680,499,696,475,722,443,740,409,753,407,748,440,736,471,717,494,693,501,678,503,662,503,406,500,388,493,371,469,343"/>
+<area shape="poly" id="edge16_Node000007_Node000012" title=" " alt="" coords="427,344,397,373,367,397,364,393,394,369,424,340"/>
+<area shape="rect" id="Node000013" href="$de/dd1/LinkedList_8hpp.html#dd/d2d/structListNode" title="Linked list node. Stores generic item and pointers to next and prev." alt="" coords="373,202,452,227"/>
+<area shape="poly" id="edge17_Node000012_Node000013" title=" " alt="" coords="423,240,445,306,440,307,418,241"/>
+<area shape="poly" id="edge18_Node000013_Node000013" title=" " alt="" coords="466,205,475,208,479,215,470,223,453,226,452,221,468,219,473,214,471,212,465,210"/>
+<area shape="rect" id="Node000014" href="$d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList" title="Stores head and size of free list, as well as mutex for protection." alt="" coords="533,202,607,227"/>
+<area shape="poly" id="edge19_Node000012_Node000014" title=" " alt="" coords="547,238,462,308,458,304,544,234"/>
+<area shape="rect" id="Node000015" href="$d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode" title="Free list node. points to next free item." alt="" coords="517,103,623,128"/>
+<area shape="poly" id="edge20_Node000014_Node000015" title=" " alt="" coords="573,142,573,202,567,202,567,142"/>
+<area shape="poly" id="edge21_Node000015_Node000015" title=" " alt="" coords="638,105,646,109,650,116,642,125,624,128,623,123,639,120,645,115,643,113,636,110"/>
+<area shape="rect" id="Node000016" href="$dc/d2f/GenlibClientSubscription_8cpp.html#d7/d22/structs__GenlibClientSubscription" title="Genlib Client subscription." alt="" coords="567,648,763,673"/>
+<area shape="poly" id="edge24_Node000001_Node000016" title=" " alt="" coords="633,682,583,706,526,729,467,745,413,757,412,751,466,740,524,724,581,701,631,677"/>
+<area shape="poly" id="edge26_Node000016_Node000016" title=" " alt="" coords="778,652,789,660,781,668,763,672,762,667,779,664,784,661,775,656"/>
+<area shape="rect" id="Node000017" href="$d1/d03/group__UpnpString.html#d8/dbb/structs__UpnpString" title="Internal implementation of the class UpnpString." alt="" coords="633,507,741,532"/>
+<area shape="poly" id="edge25_Node000016_Node000017" title=" " alt="" coords="686,546,669,648,664,647,681,545"/>
 </map>
