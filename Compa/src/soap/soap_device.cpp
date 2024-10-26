@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-02-23
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with ./pupnp source file on 2024-02-14, ver 1.14.18
+// Last compare with ./pupnp source file on 2024-10-26, ver 1.14.20
 /*!
  * \file
  * \brief Items for UPnP devices to manage UPnP Control.
@@ -599,9 +599,10 @@ inline int check_soapaction_hdr(
 
     /* check service type */
     if (value.buf[0] != '\"') {
-        goto error_handler;
+        serv_type = &value.buf[0];
+    } else {
+        serv_type = &value.buf[1];
     }
-    serv_type = &value.buf[1];
     col_pos1 = strrchr(serv_type, ':');
     if (NULL == col_pos1) {
         goto error_handler;

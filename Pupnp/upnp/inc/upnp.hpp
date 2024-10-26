@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-13
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,7 +33,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2024-08-13, ver 1.14.19
+// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
 
 /*!
  * \defgroup UPnPAPI UPnP API
@@ -2794,6 +2794,21 @@ EXPORT_SPEC void UpnpSetHostValidateCallback(WebCallback_HostValidate callback,
  * @param enable Zero to disable (default) non-zero to enable.
  */
 EXPORT_SPEC void UpnpSetAllowLiteralHostRedirection(int enable);
+
+/*!
+ * \brief Assign the Access-Control-Allow-Origin specfied by the input
+ * const char* cors_string parameter to the global CORS string
+ *
+ * \note This function is not available when the web server is not compiled
+ *  into the UPnP Library.
+ *
+ * \return An integer representing one of the following:
+ *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_INVALID_ARGUMENT: \b rootDir is an invalid directory.
+ */
+EXPORT_SPEC int UpnpSetWebServerCorsString(
+    /*! [in] String having the Access-Control-Allow-Origin string. */
+    const char* corsString);
 
 /*!
  * \brief Adds a virtual directory mapping.

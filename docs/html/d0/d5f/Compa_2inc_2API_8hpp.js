@@ -164,6 +164,7 @@ var Compa_2inc_2API_8hpp =
     [ "UpnpIsWebserverEnabled", "d6/d8a/group__compaAPI-WebServer.html#gaae2bdde0b0f4de37478ce017a8a8bfea", null ],
     [ "UpnpSetHostValidateCallback", "d6/d8a/group__compaAPI-WebServer.html#ga7bb3bf4391fcdb5c6c4e04feb43d344b", null ],
     [ "UpnpSetAllowLiteralHostRedirection", "d6/d8a/group__compaAPI-WebServer.html#gaf3058e850efc2c03f8e6eed40ad9fc0f", null ],
+    [ "UpnpSetWebServerCorsString", "d6/d8a/group__compaAPI-WebServer.html#gafc7d3ad4680552aa0e28843c447a461f", null ],
     [ "UpnpAddVirtualDir", "d6/d8a/group__compaAPI-WebServer.html#ga021f62237e46dc0d93a6a9e6fb7af3fc", null ],
     [ "UpnpRemoveVirtualDir", "d6/d8a/group__compaAPI-WebServer.html#ga748f9a04cfa54f81cb2d621c267549aa", null ],
     [ "UpnpRemoveAllVirtualDirs", "d6/d8a/group__compaAPI-WebServer.html#gaf3110bc380a7b87df15da477fa3c4fbb", null ],

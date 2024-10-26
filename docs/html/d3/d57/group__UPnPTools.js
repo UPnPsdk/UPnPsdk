@@ -1,5 +1,6 @@
 var group__UPnPTools =
 [
+    [ "UpnpSetMaxJobsTotal", "d3/d57/group__UPnPTools.html#ga167d5ca2e6d9036666703b7ce339d35f", null ],
     [ "UpnpGetErrorMessage", "d3/d57/group__UPnPTools.html#gae9d8b5118d3a88f678be2b05125fd137", null ],
     [ "UpnpResolveURL", "d3/d57/group__UPnPTools.html#ga57ebb1ff5c0ddf5c3083a7f0d06ef2a3", null ],
     [ "UpnpResolveURL2", "d3/d57/group__UPnPTools.html#ga03477b63ea460d397cfd61c67a5a7866", null ],

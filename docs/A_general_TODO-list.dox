@@ -1,16 +1,16 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-25
+// Redistribution only with this Copyright remark. Last modified: 2024-10-26
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Verify DEBUG flag Utest/ixml/CMakeLists.txt.
- * - Rework Utest/compa/1-discovery/test_ssdp.cpp, mainy to fix get_ssdp_sockets() for IPv6,
+ * - Update to pupnp 1.14.20.
+ * - Build, install and document ixml script support.
+ * - Rework Utest/compa/1-discovery/test_ssdp.cpp, mainly to fix get_ssdp_sockets() for IPv6.
  * - Rework Utest/compa/api.d/test_upnpapi_win32.cpp.
  * - Enable Utest/sample/CMakeLists.txt.
  * - Create info function in the library and call that to avoid exporting private symbols.
- * - Build, install and document ixml script support.
  * - Create Github Action tests for installed SDK files.
  * - Compile api_calls from installed SDK.
  * - Build for ARM platforms.

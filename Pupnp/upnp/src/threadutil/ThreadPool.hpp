@@ -3,8 +3,8 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
- * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-05-18
+ * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-
+// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
 #ifndef THREADPOOL_H
 #define THREADPOOL_H
 
@@ -39,29 +39,31 @@
  * \file
  */
 
+#include "FreeList.hpp"
 #include "LinkedList.hpp"
+// #include "UpnpGlobal.hpp" /* for UPNP_INLINE, UPNP_EXPORT_SPEC */
+#include "UpnpInet.hpp"
+#include "ithread.hpp"
+
+#include <errno.h>
 
 #ifdef _WIN32
 #include <time.h>
-#include "FreeList.hpp"
-#include "UpnpInet.hpp"
-#include "ithread.hpp"
-#include <errno.h>
 
 #ifndef _TIMEZONE_DEFINED
 struct timezone {
     int tz_minuteswest; /* minutes W of Greenwich */
     int tz_dsttime;     /* type of dst correction */
 };
-EXPORT_SPEC int gettimeofday(struct timeval* tv, struct timezone* tz);
 #endif
-#else                 // _WIN32
+int gettimeofday(struct timeval* tv, struct timezone* tz);
+#else                 /* _WIN32 */
 // #include <sys/param.h>
 #include <sys/time.h> /* for gettimeofday() */
 #if defined(__APPLE__) || defined(__NetBSD__)
 // #include <sys/resource.h> /* for setpriority() */
 #endif
-#endif // _WIN32
+#endif
 
 /*! Size of job free list */
 #define JOBFREELISTSIZE 100
@@ -110,6 +112,7 @@ typedef enum priority {
 
 /*! default max jobs used TPAttrInit */
 #define DEFAULT_MAX_JOBS_TOTAL 100
+extern int maxJobsTotal;
 
 /*!
  * \brief Statistics.
@@ -236,6 +239,14 @@ typedef struct THREADPOOL {
 } ThreadPool;
 
 /*!
+ * \brief Sets the maximum number of jobs in the thread pool.
+ *
+ * This option is intended for server applications to avoid an overflow of
+ * jobs when serving e.g. many web requests.
+ */
+void TPSetMaxJobsTotal(int mjt);
+
+/*!
  * \brief Initializes and starts ThreadPool. Must be called first and
  * only once for ThreadPool.
  *
@@ -246,7 +257,7 @@ typedef struct THREADPOOL {
  * \li \c INVALID_POLICY if schedPolicy can't be set.
  * \li \c EMAXTHREADS if minimum threads is greater than maximum threads.
  */
-EXPORT_SPEC int ThreadPoolInit(
+int ThreadPoolInit(
     /*! Must be valid, non null, pointer to ThreadPool. */
     ThreadPool* tp,
     /*! Can be null. if not null then attr contains the following fields:
@@ -290,7 +301,7 @@ EXPORT_SPEC int ThreadPoolAddPersistent(
  * \return
  * 	\li \c 0 on success, nonzero on failure.
  */
-EXPORT_SPEC int ThreadPoolGetAttr(
+int ThreadPoolGetAttr(
     /*! valid thread pool pointer. */
     ThreadPool* tp,
     /*! non null pointer to store attributes. */
@@ -304,7 +315,7 @@ EXPORT_SPEC int ThreadPoolGetAttr(
  * 	\li \c 0 on success, nonzero on failure.
  * 	\li \c INVALID_POLICY if policy can not be set.
  */
-EXPORT_SPEC int ThreadPoolSetAttr(
+int ThreadPoolSetAttr(
     /*! valid thread pool pointer. */
     ThreadPool* tp,
     /*! pointer to attributes, null sets attributes to default. */
@@ -333,7 +344,7 @@ EXPORT_SPEC int ThreadPoolAdd(
  * 	\li \c 0 on success, nonzero on failure.
  * 	\li \c INVALID_JOB_ID if job not found.
  */
-EXPORT_SPEC int ThreadPoolRemove(
+int ThreadPoolRemove(
     /*! valid thread pool pointer. */
     ThreadPool* tp,
     /*! id of job. */
@@ -347,7 +358,7 @@ EXPORT_SPEC int ThreadPoolRemove(
  *
  * \return 0 on success, nonzero on failure
  */
-EXPORT_SPEC int ThreadPoolShutdown(
+int ThreadPoolShutdown(
     /*! must be valid tp. */
     ThreadPool* tp);
 
@@ -394,7 +405,7 @@ EXPORT_SPEC int TPJobSetFreeFunction(
  *
  * \returns 0 if successful, otherwise EINVAL.
  */
-EXPORT_SPEC int TPAttrInit(
+int TPAttrInit(
     /*! must be valid thread pool attributes. */
     ThreadPoolAttr* attr);
 
@@ -403,7 +414,7 @@ EXPORT_SPEC int TPAttrInit(
  *
  * \returns 0 if successful, otherwise EINVAL.
  */
-EXPORT_SPEC int TPAttrSetMaxThreads(
+int TPAttrSetMaxThreads(
     /*! must be valid thread pool attributes. */
     ThreadPoolAttr* attr,
     /*! value to set. */
@@ -414,7 +425,7 @@ EXPORT_SPEC int TPAttrSetMaxThreads(
  *
  * \returns 0 if successful, otherwise EINVAL.
  */
-EXPORT_SPEC int TPAttrSetMinThreads(
+int TPAttrSetMinThreads(
     /*! must be valid thread pool attributes. */
     ThreadPoolAttr* attr,
     /*! value to set. */
@@ -425,7 +436,7 @@ EXPORT_SPEC int TPAttrSetMinThreads(
  *
  * \returns 0 if successful, otherwise EINVAL.
  */
-EXPORT_SPEC int TPAttrSetStackSize(
+int TPAttrSetStackSize(
     /*! must be valid thread pool attributes. */
     ThreadPoolAttr* attr,
     /*! value to set. */
@@ -436,7 +447,7 @@ EXPORT_SPEC int TPAttrSetStackSize(
  *
  * \returns 0 if successful, otherwise EINVAL.
  */
-EXPORT_SPEC int TPAttrSetIdleTime(
+int TPAttrSetIdleTime(
     /*! must be valid thread pool attributes. */
     ThreadPoolAttr* attr,
     /*! . */
@@ -447,7 +458,7 @@ EXPORT_SPEC int TPAttrSetIdleTime(
  *
  * \returns 0 if successful, otherwise EINVAL.
  */
-EXPORT_SPEC int TPAttrSetJobsPerThread(
+int TPAttrSetJobsPerThread(
     /*! must be valid thread pool attributes. */
     ThreadPoolAttr* attr,
     /*! number of jobs per thread to maintain. */
@@ -458,7 +469,7 @@ EXPORT_SPEC int TPAttrSetJobsPerThread(
  *
  * \returns 0 if successful, otherwise EINVAL.
  */
-EXPORT_SPEC int TPAttrSetStarvationTime(
+int TPAttrSetStarvationTime(
     /*! must be valid thread pool attributes. */
     ThreadPoolAttr* attr,
     /*! milliseconds. */
@@ -469,7 +480,7 @@ EXPORT_SPEC int TPAttrSetStarvationTime(
  *
  * \returns 0 if successful, otherwise EINVAL.
  */
-EXPORT_SPEC int TPAttrSetSchedPolicy(
+int TPAttrSetSchedPolicy(
     /*! must be valid thread pool attributes. */
     ThreadPoolAttr* attr,
     /*! must be a valid policy type. */
@@ -480,7 +491,7 @@ EXPORT_SPEC int TPAttrSetSchedPolicy(
  *
  * \returns 0 if successful, otherwise EINVAL.
  */
-EXPORT_SPEC int TPAttrSetMaxJobsTotal(
+int TPAttrSetMaxJobsTotal(
     /*! must be valid thread pool attributes. */
     ThreadPoolAttr* attr,
     /*! maximum number of jobs. */

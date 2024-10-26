@@ -1,7 +1,7 @@
 #ifndef PUPNP_THREADPOOL_HPP
 #define PUPNP_THREADPOOL_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-11-06
+// Redistribution only with this Copyright remark. Last modified: 2024-10-27
 
 #include <interface/ThreadPool.hpp>
 
@@ -68,8 +68,8 @@ class CThreadPool : public IThreadPool {
     int TPAttrSetSchedPolicy(ThreadPoolAttr* attr, PolicyType schedPolicy) override {
         return ::TPAttrSetSchedPolicy(attr, schedPolicy);
     }
-    int TPAttrSetMaxJobsTotal(ThreadPoolAttr* attr, int maxJobsTotal) override {
-        return ::TPAttrSetMaxJobsTotal(attr, maxJobsTotal);
+    int TPAttrSetMaxJobsTotal(ThreadPoolAttr* attr, int totalMaxJobs) override {
+        return ::TPAttrSetMaxJobsTotal(attr, totalMaxJobs);
     }
     void ThreadPoolPrintStats(ThreadPoolStats* stats) override {
         return ::ThreadPoolPrintStats(stats);

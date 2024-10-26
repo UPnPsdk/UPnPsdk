@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-22
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-27
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,6 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last compare with ./Pupnp source file on 2024-10-26, ver 1.14.20
 /*!
  * \file
  * \ingroup threadutil
@@ -1022,6 +1023,10 @@ int ThreadPoolShutdown(ThreadPool* tp) {
     return 0;
 }
 
+int maxJobsTotal = DEFAULT_MAX_JOBS_TOTAL;
+
+void TPSetMaxJobsTotal(int mjt) { maxJobsTotal = mjt; }
+
 int TPAttrInit(ThreadPoolAttr* attr) {
     if (!attr)
         return EINVAL;
@@ -1032,7 +1037,7 @@ int TPAttrInit(ThreadPoolAttr* attr) {
     attr->stackSize = DEFAULT_STACK_SIZE;
     attr->schedPolicy = DEFAULT_POLICY;
     attr->starvationTime = DEFAULT_STARVATION_TIME;
-    attr->maxJobsTotal = DEFAULT_MAX_JOBS_TOTAL;
+    attr->maxJobsTotal = maxJobsTotal;
 
     return 0;
 }
@@ -1126,10 +1131,10 @@ int TPAttrSetSchedPolicy(ThreadPoolAttr* attr, PolicyType schedPolicy) {
     return 0;
 }
 
-int TPAttrSetMaxJobsTotal(ThreadPoolAttr* attr, int maxJobsTotal) {
+int TPAttrSetMaxJobsTotal(ThreadPoolAttr* attr, int totalMaxJobs) {
     if (!attr)
         return EINVAL;
-    attr->maxJobsTotal = maxJobsTotal;
+    attr->maxJobsTotal = totalMaxJobs;
 
     return 0;
 }

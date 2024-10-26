@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('d3/d57/group__UPnPTools.html','../../'
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga167d5ca2e6d9036666703b7ce339d35f" id="r_ga167d5ca2e6d9036666703b7ce339d35f"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d57/group__UPnPTools.html#ga167d5ca2e6d9036666703b7ce339d35f">UpnpSetMaxJobsTotal</a> (int mjt)</td></tr>
+<tr class="memdesc:ga167d5ca2e6d9036666703b7ce339d35f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the maximum number of jobs in the internal thread pool.  <br /></td></tr>
+<tr class="separator:ga167d5ca2e6d9036666703b7ce339d35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae9d8b5118d3a88f678be2b05125fd137" id="r_gae9d8b5118d3a88f678be2b05125fd137"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d57/group__UPnPTools.html#gae9d8b5118d3a88f678be2b05125fd137">UpnpGetErrorMessage</a> (int errorcode)</td></tr>
 <tr class="memdesc:gae9d8b5118d3a88f678be2b05125fd137"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an SDK error code into a string error message suitable for display. The memory returned from this function should NOT be freed.  <br /></td></tr>
 <tr class="separator:gae9d8b5118d3a88f678be2b05125fd137"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,6 +143,41 @@ Functions</h2></td></tr>
 <p>Additional, optional utility API that can be helpful in writing applications. </p>
 <p>This additional API can be compiled out in order to save code size in the library. Refer to the file README for details. </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga167d5ca2e6d9036666703b7ce339d35f" name="ga167d5ca2e6d9036666703b7ce339d35f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga167d5ca2e6d9036666703b7ce339d35f">&#9670;&#160;</a></span>UpnpSetMaxJobsTotal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UPNPLIB_API void UpnpSetMaxJobsTotal </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mjt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the maximum number of jobs in the internal thread pool. </p>
+<p>This option is intended for server applications to avoid an overflow of jobs when serving e.g. many web requests. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00128">128</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d3/d57/group__UPnPTools_ga167d5ca2e6d9036666703b7ce339d35f_cgraph.png" border="0" usemap="#ad3/d57/group__UPnPTools_ga167d5ca2e6d9036666703b7ce339d35f_cgraph" alt=""/></div>
+<map name="ad3/d57/group__UPnPTools_ga167d5ca2e6d9036666703b7ce339d35f_cgraph" id="ad3/d57/group__UPnPTools_ga167d5ca2e6d9036666703b7ce339d35f_cgraph">
+<area shape="rect" title="Sets the maximum number of jobs in the internal thread pool." alt="" coords="5,5,168,31"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ad6858733211c24b4a972b22609f08173" title="Sets the maximum number of jobs in the thread pool." alt="" coords="216,5,361,31"/>
+<area shape="poly" title=" " alt="" coords="169,15,202,15,202,21,169,21"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="gae9d8b5118d3a88f678be2b05125fd137" name="gae9d8b5118d3a88f678be2b05125fd137"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gae9d8b5118d3a88f678be2b05125fd137">&#9670;&#160;</a></span>UpnpGetErrorMessage()</h2>
 
@@ -165,7 +203,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00114">114</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00116">116</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
 
 </div>
 </div>
@@ -220,12 +258,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00131">131</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00135">135</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d57/group__UPnPTools_ga57ebb1ff5c0ddf5c3083a7f0d06ef2a3_cgraph.png" border="0" usemap="#ad3/d57/group__UPnPTools_ga57ebb1ff5c0ddf5c3083a7f0d06ef2a3_cgraph" alt=""/></div>
 <map name="ad3/d57/group__UPnPTools_ga57ebb1ff5c0ddf5c3083a7f0d06ef2a3_cgraph" id="ad3/d57/group__UPnPTools_ga57ebb1ff5c0ddf5c3083a7f0d06ef2a3_cgraph">
 <area shape="rect" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="5,198,140,223"/>
@@ -308,12 +346,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00150">150</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00154">154</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d57/group__UPnPTools_ga03477b63ea460d397cfd61c67a5a7866_cgraph.png" border="0" usemap="#ad3/d57/group__UPnPTools_ga03477b63ea460d397cfd61c67a5a7866_cgraph" alt=""/></div>
 <map name="ad3/d57/group__UPnPTools_ga03477b63ea460d397cfd61c67a5a7866_cgraph" id="ad3/d57/group__UPnPTools_ga03477b63ea460d397cfd61c67a5a7866_cgraph">
 <area shape="rect" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="5,198,148,223"/>
@@ -405,12 +443,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00325">325</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00329">329</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d57/group__UPnPTools_ga230b1c85d742030d8adfca84572a3e4d_cgraph.png" border="0" usemap="#ad3/d57/group__UPnPTools_ga230b1c85d742030d8adfca84572a3e4d_cgraph" alt=""/></div>
 <map name="ad3/d57/group__UPnPTools_ga230b1c85d742030d8adfca84572a3e4d_cgraph" id="ad3/d57/group__UPnPTools_ga230b1c85d742030d8adfca84572a3e4d_cgraph">
 <area shape="rect" title="Creates an action request packet based on its input parameters (status variable name and value pair)." alt="" coords="5,674,137,699"/>
@@ -608,12 +646,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00337">337</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00341">341</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d57/group__UPnPTools_ga221f2dc32af51ff01a8d375468a9624d_cgraph.png" border="0" usemap="#ad3/d57/group__UPnPTools_ga221f2dc32af51ff01a8d375468a9624d_cgraph" alt=""/></div>
 <map name="ad3/d57/group__UPnPTools_ga221f2dc32af51ff01a8d375468a9624d_cgraph" id="ad3/d57/group__UPnPTools_ga221f2dc32af51ff01a8d375468a9624d_cgraph">
 <area shape="rect" title="Ceates an action response packet based on its output parameters (status variable name and value pair)..." alt="" coords="5,674,200,699"/>
@@ -816,12 +854,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00350">350</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00354">354</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d57/group__UPnPTools_gaecd324ad2ede6fa97a0fb77a67074468_cgraph.png" border="0" usemap="#ad3/d57/group__UPnPTools_gaecd324ad2ede6fa97a0fb77a67074468_cgraph" alt=""/></div>
 <map name="ad3/d57/group__UPnPTools_gaecd324ad2ede6fa97a0fb77a67074468_cgraph" id="ad3/d57/group__UPnPTools_gaecd324ad2ede6fa97a0fb77a67074468_cgraph">
 <area shape="rect" title="Adds the argument in the action request." alt="" coords="5,674,141,699"/>
@@ -1024,12 +1062,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00356">356</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00360">360</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d57/group__UPnPTools_ga6a5c02ae1eca518c8d6507eacd76a928_cgraph.png" border="0" usemap="#ad3/d57/group__UPnPTools_ga6a5c02ae1eca518c8d6507eacd76a928_cgraph" alt=""/></div>
 <map name="ad3/d57/group__UPnPTools_ga6a5c02ae1eca518c8d6507eacd76a928_cgraph" id="ad3/d57/group__UPnPTools_ga6a5c02ae1eca518c8d6507eacd76a928_cgraph">
 <area shape="rect" title="Creates an action response packet based on its output parameters (status variable name and value pair..." alt="" coords="5,674,204,699"/>
@@ -1212,12 +1250,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00363">363</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00367">367</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d57/group__UPnPTools_ga69a0a991a668c732c0a7f50261ffbd13_cgraph.png" border="0" usemap="#ad3/d57/group__UPnPTools_ga69a0a991a668c732c0a7f50261ffbd13_cgraph" alt=""/></div>
 <map name="ad3/d57/group__UPnPTools_ga69a0a991a668c732c0a7f50261ffbd13_cgraph" id="ad3/d57/group__UPnPTools_ga69a0a991a668c732c0a7f50261ffbd13_cgraph">
 <area shape="rect" title="Creates a property set message packet." alt="" coords="5,490,180,515"/>
@@ -1406,12 +1444,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00406">406</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html#l00410">410</a> of file <a class="el" href="../../d6/d13/Compa_2src_2api_2upnptools_8cpp_source.html">upnptools.cpp</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d57/group__UPnPTools_gae933908ded200771ae8dc9cb8d06d303_cgraph.png" border="0" usemap="#ad3/d57/group__UPnPTools_gae933908ded200771ae8dc9cb8d06d303_cgraph" alt=""/></div>
 <map name="ad3/d57/group__UPnPTools_gae933908ded200771ae8dc9cb8d06d303_cgraph" id="ad3/d57/group__UPnPTools_gae933908ded200771ae8dc9cb8d06d303_cgraph">
 <area shape="rect" title="Can be used when an application needs to transfer the status of many variables at once." alt="" coords="5,490,176,515"/>

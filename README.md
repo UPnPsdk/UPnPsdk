@@ -34,7 +34,7 @@ We follow the [Semantic Versioning](https://semver.org/spec/v2.0.0.html#semantic
 
 The UPnPsdk version starts with 0.1.0. Major version 0 means it's not a productive version but under development. Because we will use CMake to manage the code it can be seen as integral part of the project. The UPnPsdk version number will also reflect changes to the CMake configuration.
 
-This fork is based on [release-1.14.19](https://github.com/pupnp/pupnp/releases/tag/release-1.14.19) of the pupnp library.
+This fork is based on [release-1.14.20](https://github.com/pupnp/pupnp/releases/tag/release-1.14.20) of the pupnp library.
 
 ## 4. Milestones
 - Ongoing: create extensive Unit Tests without modification of the old source code

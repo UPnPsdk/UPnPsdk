@@ -49,6 +49,7 @@ var ThreadPool_8hpp =
       [ "HIGH_PRIORITY", "d5/d91/ThreadPool_8hpp.html#ac21de3041b361912460403d2649eaa0eacb1785f11dd02aa7f5d164fb314c594e", null ]
     ] ],
     [ "gettimeofday", "d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3", null ],
+    [ "TPSetMaxJobsTotal", "d5/d91/ThreadPool_8hpp.html#ad6858733211c24b4a972b22609f08173", null ],
     [ "ThreadPoolInit", "d5/d91/ThreadPool_8hpp.html#a03dbe83dda6a8fbe38a4a6c2f14edc7f", null ],
     [ "ThreadPoolAddPersistent", "d5/d91/ThreadPool_8hpp.html#aea9809ed39a504aecbbdc574b6998604", null ],
     [ "ThreadPoolGetAttr", "d5/d91/ThreadPool_8hpp.html#a2c2585b83c92813c4ae18aff3aaccdf9", null ],
@@ -67,7 +68,7 @@ var ThreadPool_8hpp =
     [ "TPAttrSetJobsPerThread", "d5/d91/ThreadPool_8hpp.html#aa0799659b0f17d6b3359f74717dbc1c2", null ],
     [ "TPAttrSetStarvationTime", "d5/d91/ThreadPool_8hpp.html#a5cb222e71ec4ce4c7dc9eeb8bc9669ed", null ],
     [ "TPAttrSetSchedPolicy", "d5/d91/ThreadPool_8hpp.html#ae0b1bbcc14de331771a107ce0808acd4", null ],
-    [ "TPAttrSetMaxJobsTotal", "d5/d91/ThreadPool_8hpp.html#a4087f888503552638800eed8eccd2cba", null ],
+    [ "TPAttrSetMaxJobsTotal", "d5/d91/ThreadPool_8hpp.html#a509f5a32ea35f69364265405ec1aa25f", null ],
     [ "ThreadPoolGetStats", "d5/d91/ThreadPool_8hpp.html#a9575d30ed041fc240cf373ea0f7f3515", null ],
     [ "ThreadPoolPrintStats", "d5/d91/ThreadPool_8hpp.html#a2d486ce0966ab7d9ae08d534bfa81b8e", null ],
     [ "DEFAULT_PRIORITY", "d5/d91/ThreadPool_8hpp.html#a3617443b12177e276714d6ef2f677bf7", null ],
@@ -78,5 +79,6 @@ var ThreadPool_8hpp =
     [ "DEFAULT_STARVATION_TIME", "d5/d91/ThreadPool_8hpp.html#a33630fdcc7bfe88c0bb4b01eabec6103", null ],
     [ "DEFAULT_IDLE_TIME", "d5/d91/ThreadPool_8hpp.html#a3b8b986f46e05738fab21d67adc8ad1e", null ],
     [ "DEFAULT_FREE_ROUTINE", "d5/d91/ThreadPool_8hpp.html#a128b1fb12800433f9096996b54a59599", null ],
-    [ "DEFAULT_MAX_JOBS_TOTAL", "d5/d91/ThreadPool_8hpp.html#a3c41c9f088f27a9d11d2ef1b4c6fac12", null ]
+    [ "DEFAULT_MAX_JOBS_TOTAL", "d5/d91/ThreadPool_8hpp.html#a3c41c9f088f27a9d11d2ef1b4c6fac12", null ],
+    [ "maxJobsTotal", "d5/d91/ThreadPool_8hpp.html#ae2e63739103ff0a127705bd920900455", null ]
 ];

@@ -10,15 +10,18 @@ var Compa_2src_2inc_2webserver_8hpp =
       [ "RangeOffset", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a3a544cfd9f1f45b5f35a16ae67f05978", null ],
       [ "ReadSendSize", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a7779491801eea9576d19957ea1e778ba", null ],
       [ "RecvWriteSize", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a6a055ef77fd2e151a6afc2306b6195dd", null ],
+      [ "CorsHeader", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a66acd36ae05b81470d109d4e754e1999", null ],
       [ "Cookie", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#ac1b0dd357897b6bdd84be8fb78585323", null ],
       [ "RequestCookie", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a7edd1d50cc56be53dddbf790b8fab0a2", null ]
     ] ],
     [ "X_USER_AGENT", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a29964a19653349235df7d05368523833", null ],
-    [ "web_server_init", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a73339545ff89681c9e25f6a2530dca5a", null ],
-    [ "web_server_set_alias", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#aaac6d0c5febac75b9b2c3e87771f463f", null ],
-    [ "web_server_set_root_dir", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#adcb96650917135bc87ed606615e14fe1", null ],
-    [ "web_server_callback", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a4b5b63cc67385aa179e72f9dcb137347", null ],
-    [ "SetHTTPGetCallback", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a4f98e891649f93434b1f44660c28f8cd", null ],
-    [ "web_server_destroy", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a3a85453d9bc830d2f1d9148c74ab5b0e", null ],
-    [ "gDocumentRootDir", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a27edf910202d9fb95a131e851cf2217d", null ]
+    [ "web_server_init", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a4c6abf771128f8ea3976c9eccdb13e4f", null ],
+    [ "web_server_set_alias", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#aa4514a73581ffd12c050da5ad4998da4", null ],
+    [ "web_server_set_root_dir", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a6d275509109519a4ab1be27105d7434b", null ],
+    [ "web_server_set_cors", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24", null ],
+    [ "web_server_callback", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1", null ],
+    [ "SetHTTPGetCallback", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a828e78f0b09f30dd0fb90d026524b236", null ],
+    [ "web_server_destroy", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#aba5685f22e83826b14771e59d0edbc05", null ],
+    [ "gDocumentRootDir", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a27edf910202d9fb95a131e851cf2217d", null ],
+    [ "gWebserverCorsString", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#ad8eda23bd204e17b51cbc9c09af19f91", null ]
 ];

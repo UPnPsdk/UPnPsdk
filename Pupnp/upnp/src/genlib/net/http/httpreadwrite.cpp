@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-09-24
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-25
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2024-08-01, ver 1.14.19
+// Last compare with pupnp original source file on 2024-10-25, ver 1.14.20
 
 /*!
  * \file
@@ -1542,8 +1542,20 @@ int http_MakeMessage(membuffer* buf, int http_major_version,
                 goto error_handler;
         } else if (c == 'K') {
             /* Add Chunky header */
-            if (membuffer_append(buf, "TRANSFER-ENCODING: chunked\r\n",
-                                 strlen("Transfer-Encoding: chunked\r\n")))
+            if (membuffer_append_str(buf, "TRANSFER-ENCODING: chunked\r\n"))
+                goto error_handler;
+        } else if (c == 'A') {
+            /* Add Access-Control-Allow-Origin header only if
+             * set by UpnpSetWebServerCorsString */
+            struct SendInstruction* RespInstr;
+            RespInstr =
+                (struct SendInstruction*)va_arg(argp, struct SendInstruction*);
+            assert(RespInstr);
+            if (RespInstr->CorsHeader &&
+                strcmp(static_cast<const char*>(RespInstr->CorsHeader), "") &&
+                http_MakeMessage(buf, http_major_version, http_minor_version,
+                                 "ssc", "Access-Control-Allow-Origin: ",
+                                 RespInstr->CorsHeader) != 0)
                 goto error_handler;
         } else if (c == 'G') {
             /* Add Range header */

@@ -2815,6 +2815,21 @@ UPnPsdk_API void UpnpSetHostValidateCallback(WebCallback_HostValidate callback,
 UPnPsdk_API void UpnpSetAllowLiteralHostRedirection(int enable);
 
 /*!
+ * \brief Assign the Access-Control-Allow-Origin specfied by the input
+ * const char* cors_string parameter to the global CORS string
+ *
+ * \note This function is not available when the web server is not compiled
+ *  into the UPnP Library.
+ *
+ * \return An integer representing one of the following:
+ *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
+ *       \li \c UPNP_E_INVALID_ARGUMENT: \b rootDir is an invalid directory.
+ */
+UPnPsdk_API int UpnpSetWebServerCorsString(
+    /*! [in] String having the Access-Control-Allow-Origin string. */
+    const char* corsString);
+
+/*!
  * \brief Adds a \glos{virtdir,virtual directory} mapping.
  *
  * All webserver requests containing the given directory are read using

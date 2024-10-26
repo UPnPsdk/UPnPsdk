@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2023-07-21
+ * Redistribution only with this Copyright remark. Last modified: 2023-10-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,7 +30,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2023-07-21, ver 1.14.17
+// Last compare with pupnp original source file on 2023-10-26, ver 1.14.20
 
 #ifndef UPNPLIB_GENLIB_NET_HTTP_WEBSERVER_HPP
 #define UPNPLIB_GENLIB_NET_HTTP_WEBSERVER_HPP
@@ -51,6 +51,8 @@ struct SendInstruction {
     off_t ReadSendSize;
     /*! Recv from the network and write into local file. */
     long RecvWriteSize;
+    /*! CorsHeader. */
+    const void* CorsHeader;
     /*! Cookie associated with the virtualDir. */
     const void* Cookie;
     /*! Cookie associated with the request. */
@@ -70,14 +72,14 @@ struct SendInstruction {
  * \li \c 0 - OK
  * \li \c UPNP_E_OUTOF_MEMORY
  */
-EXPORT_SPEC int web_server_init(void);
+int web_server_init(void);
 
 /*!
  * \brief Release memory allocated for the global web server root
  * directory and the global XML document. Resets the flag bWebServerState
  * to WEB_SERVER_DISABLED.
  */
-EXPORT_SPEC void web_server_destroy(void);
+void web_server_destroy(void);
 
 /*!
  * \brief Replaces current alias with the given alias. To remove the current
@@ -89,7 +91,7 @@ EXPORT_SPEC void web_server_destroy(void);
  * \li \c 0 - OK
  * \li \c UPNP_E_OUTOF_MEMORY
  */
-EXPORT_SPEC int web_server_set_alias(
+int web_server_set_alias(
     /*! [in] Webserver name of alias; created by caller and freed by caller
      * (doesn't even have to be malloc()d. */
     const char* alias_name,
@@ -109,15 +111,25 @@ EXPORT_SPEC int web_server_set_alias(
  *
  * \return Integer.
  */
-EXPORT_SPEC int web_server_set_root_dir(
+int web_server_set_root_dir(
     /*! [in] String having the root directory for the document. */
     const char* root_dir);
+
+/*!
+ * \brief Assign the Access-Control-Allow-Origin specfied by the input
+ * const char* cors_string parameterto the global CORS string
+ *
+ * \return Integer.
+ */
+int web_server_set_cors(
+    /*! [in] String having the Access-Control-Allow-Origin string. */
+    const char* cors_string);
 
 /*!
  * \brief Main entry point into web server; Handles HTTP GET and HEAD
  * requests.
  */
-EXPORT_SPEC void web_server_callback(
+void web_server_callback(
     /*! [in] . */
     http_parser_t* parser,
     /*! [in] . */

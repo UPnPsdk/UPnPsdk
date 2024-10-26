@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-04
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2022-12-09, ver 1.14.15
+// Last compare with ./Pupnp source file on 2024-10-26, ver 1.14.20
 /*!
  * \file
  * \brief Internal Web Server and functions to carry out operations of it.
@@ -43,6 +43,8 @@
 
 /*! Global variable. A local dir which serves as webserver root. */
 inline membuffer gDocumentRootDir;
+/*! Global variable. A string which is set in the header field. */
+inline membuffer gWebserverCorsString;
 
 /// \brief Send instruction
 struct SendInstruction {
@@ -60,6 +62,8 @@ struct SendInstruction {
     off_t ReadSendSize;
     /*! \brief Recv from the network and write into local file. */
     long RecvWriteSize;
+    /*! CorsHeader. */
+    const void* CorsHeader;
     /*! \brief Cookie associated with the virtualDir. */
     const void* Cookie;
     /*! \brief Cookie associated with the request. */
@@ -94,7 +98,7 @@ struct SendInstruction {
  * \li \c 0 - OK
  * \li \c UPNP_E_OUTOF_MEMORY
  */
-UPNPLIB_API int web_server_init();
+int web_server_init();
 
 /*!
  * \brief Replaces current alias with the given alias.
@@ -107,7 +111,7 @@ UPNPLIB_API int web_server_init();
  * \li \c UPNP_E_SUCCESS
  * \li \c UPNP_E_OUTOF_MEMORY
  */
-UPNPLIB_API int web_server_set_alias(
+int web_server_set_alias(
     /*! [in] Webserver name of alias; created by caller and freed by caller
      * (doesn't even have to be malloc()d. */
     const char* alias_name,
@@ -127,16 +131,26 @@ UPNPLIB_API int web_server_set_alias(
  *
  * \return Integer.
  */
-UPNPLIB_API int web_server_set_root_dir(
+int web_server_set_root_dir(
     /*! [in] String having the root directory for the document. */
     const char* root_dir);
+
+/*!
+ * \brief Assign the Access-Control-Allow-Origin specfied by the input
+ * const char* cors_string parameterto the global CORS string
+ *
+ * \return Integer.
+ */
+int web_server_set_cors(
+    /*! [in] String having the Access-Control-Allow-Origin string. */
+    const char* cors_string);
 
 /*!
  * \brief Main entry point into web server.
  *
  * Handles HTTP GET and HEAD requests.
  */
-UPNPLIB_API void web_server_callback(
+void web_server_callback(
     /*! [in] . */
     http_parser_t* parser,
     /*! [in] . */
@@ -147,7 +161,7 @@ UPNPLIB_API void web_server_callback(
 /*!
  * \brief Set HTTP Get Callback.
  */
-UPNPLIB_API void SetHTTPGetCallback(
+void SetHTTPGetCallback(
     /*! [in] HTTP Callback to be invoked. */
     MiniServerCallback callback);
 
@@ -157,6 +171,6 @@ UPNPLIB_API void SetHTTPGetCallback(
  *
  * Resets the flag bWebServerState to WEB_SERVER_DISABLED.
  */
-UPNPLIB_API void web_server_destroy();
+void web_server_destroy();
 
 #endif // COMPA_NET_HTTP_WEBSERVER_HPP

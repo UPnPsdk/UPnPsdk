@@ -1,0 +1,171 @@
+commit 47906a7d6fd6d80c5da36dd120c88982ca4a1204 (HEAD, tag: release-1.14.20)
+
+git switch branch-1.14.x
+git checkout release-1.14.20
+git whatchanged release-1.14.19^..release-1.14.20
+updated files marked with word "updated", "checked", or "deleted" at line end.
+==============================================================================
+
+commit 47906a7d6fd6d80c5da36dd120c88982ca4a1204 (HEAD, tag: release-1.14.20)
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Oct 7 18:35:47 2024 -0300
+
+    ChangeLog, README and gitignore
+
+:100644 100644 db5e53c5 c18d62be M	.gitignore
+:100644 100644 0c647b05 c21a68fc M	ChangeLog
+:100644 100644 1299be77 91f183d6 M	README.md
+
+commit 6b91193f9b338db7c65f96ef3df6974deb171790
+Author: Karlchen <k_straussberger@netzland.net>
+Date:   Thu Oct 3 22:12:20 2024 +0200
+
+    Allow setting MaxJobsTotal for ThreadPools
+
+    avoids ThreadPoolAdd too many jobs: 100
+    in cases where heavy load is expected
+
+:100644 100644 12953a54 13ca97d2 M	upnp/inc/upnptools.h updated
+:100644 100644 09bb7ac3 fe73bba8 M	upnp/src/api/upnpapi.c updated
+:100644 100644 5358eeba 3315f07b M	upnp/src/api/upnptools.c updated
+:100644 100644 b66ee93e b35d392b M	upnp/src/threadutil/ThreadPool.c updated
+:100644 100644 25f8febf e7292e52 M	upnp/src/threadutil/ThreadPool.h updated
+
+commit 923decee802c608795882a26573dd66a66e51403
+Author: Vollstrecker <werner@vollstreckernet.de>
+Date:   Thu Oct 3 09:50:03 2024 +0200
+
+    ixml has it's own version
+
+:100644 100644 3d45031c 693dbc78 M	UPNP.cmake.in
+
+commit a797db77abce24f8b4d231785b3b53fd3571fb52
+Author: Karlchen <k_straussberger@netzland.net>
+Date:   Tue Jul 9 08:06:03 2024 +0200
+
+    Headers do not have to be quoted
+
+    Found when using https://play.google.com/store/apps/details?id=com.tjjang.upnptool
+
+:100644 100644 63de2f91 d1d99c64 M	upnp/src/soap/soap_device.c updated
+
+commit 403c44fd89e13d42f451516ac52d4368f4926f44
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Tue Jul 9 16:57:33 2024 -0300
+
+    libtool: Update library numbers, new API added
+
+:100644 100644 188777bb a9ce12a8 M	configure.ac
+
+commit 26727cc3bd67e8754612012eacaf12ab9d3b7751
+Author: Karlchen <k_straussberger@netzland.net>
+Date:   Tue Jul 9 16:32:37 2024 +0200
+
+    Implement new API call
+
+:100644 100644 590acbc7 09bb7ac3 M	upnp/src/api/upnpapi.c updated
+
+commit c88ccc848a220b352b2f963406efa0f7cde857f6
+Author: Karlchen <k_straussberger@netzland.net>
+Date:   Tue Jul 9 16:31:45 2024 +0200
+
+    Implement setting allow-origin in header
+
+:100644 100644 a258f03b cc7df2d6 M	upnp/src/genlib/net/http/httpreadwrite.c checked
+:100644 100644 b0545aa9 62c9711f M	upnp/src/genlib/net/http/webserver.c updated
+
+commit c0c0407a5e28bc5046a9e6ab463e41d70417e833
+Author: Karlchen <k_straussberger@netzland.net>
+Date:   Tue Jul 9 16:29:25 2024 +0200
+
+    Add internal function
+
+:100644 100644 13818590 e400c8cc M	upnp/src/inc/webserver.h updated
+
+commit 434eb77ca3fedec368129422b29df9919fe21a61
+Author: Karlchen <k_straussberger@netzland.net>
+Date:   Tue Jul 9 16:26:55 2024 +0200
+
+    Add new API call
+
+:100644 100644 5faedc81 09722b40 M	upnp/inc/upnp.h updated
+
+commit 542c318acff73bf9be85b886a6e447bc473f57f2
+Author: Karlchen <k_straussberger@netzland.net>
+Date:   Tue Jul 9 08:11:17 2024 +0200
+
+    Add CORS header to avoid browser warnings
+
+    CORS warnings happen e.g. when using gerbera web ui with dns name
+
+:100644 100644 38968eb5 b0545aa9 M	upnp/src/genlib/net/http/webserver.c updated
+
+commit 155eb2a6dea9489e3d206bfe6ef6612cb93becc4
+Author: Rosen Penev <rosenp@gmail.com>
+Date:   Sat Jun 29 16:59:10 2024 -0700
+
+    fix 32-bit format warnings
+
+    Seems this PRIzu takes size_t, not unsigned long.
+
+    Signed-off-by: Rosen Penev <rosenp@gmail.com>
+
+:100644 100644 032e02da fe1ceba9 M	upnp/src/gena/gena_device.c checked
+:100644 100644 ae695d18 a258f03b M	upnp/src/genlib/net/http/httpreadwrite.c checked
+
+commit 70993c21f694475bf16dab45b55b5c66bdf15054
+Author: Rosen Penev <rosenp@gmail.com>
+Date:   Tue Jul 2 10:09:03 2024 -0700
+
+    fix formats under newer newer MSVC
+
+    They support size_t properly.
+
+    Signed-off-by: Rosen Penev <rosenp@gmail.com>
+
+:100644 100644 36845f9f b8863ddb M	upnp/inc/UpnpGlobal.h updated
+
+commit c2715cb8e8c3404adb12a0bf282fcddcf6c6da3d
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Apr 25 21:51:41 2024 -0300
+
+    Fix cmake redefinition warnings
+
+:100644 100644 00aaa45e 046578d7 M	upnp/inc/upnpconfig.h.cm
+
+commit 61b7944ca20c202a9d0e472409f9a0ce1a4df296
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Apr 25 19:35:33 2024 -0300
+
+    Better regex
+
+:100644 100644 045b90a5 621bd5e6 M	cmake/autoheader.cmake
+
+commit 9d261799e616cdc65ccefa06c6072e8158a302c5
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Apr 25 18:54:49 2024 -0300
+
+    Fixes broken cmake regex
+
+:100644 100644 df616225 045b90a5 M	cmake/autoheader.cmake
+
+commit fb90d0ca1954bd2abf33b004e55eeb50c07cbb62
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Apr 22 15:55:20 2024 -0300
+
+    Homekeeping for the next release
+
+:100644 100644 3170eba1 0c647b05 M	ChangeLog
+:100644 100644 a5d38d18 188777bb M	configure.ac
+:100644 100644 f406c61d 4082f752 M	docs/Doxyfile
+:100644 100644 12ccfc1d d7fc7b27 M	libupnp.spec
+
+commit 8881fa01b36e5043a492145f5ce6ba31a2dabf07 (tag: release-1.14.19)
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Apr 22 15:44:46 2024 -0300
+
+    ChangeLog, README.md and THANKS
+
+:100644 100644 be67cf85 3170eba1 M	ChangeLog
+:100644 100644 355062e1 1299be77 M	README.md
+:100644 100644 ceb2a780 b570932b M	THANKS

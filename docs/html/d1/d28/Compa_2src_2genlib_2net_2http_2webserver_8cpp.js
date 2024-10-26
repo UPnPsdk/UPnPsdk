@@ -30,6 +30,7 @@ var Compa_2src_2genlib_2net_2http_2webserver_8cpp =
     [ "web_server_init", "d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4c6abf771128f8ea3976c9eccdb13e4f", null ],
     [ "web_server_set_alias", "d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aa4514a73581ffd12c050da5ad4998da4", null ],
     [ "web_server_set_root_dir", "d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a6d275509109519a4ab1be27105d7434b", null ],
+    [ "web_server_set_cors", "d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24", null ],
     [ "web_server_callback", "d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1", null ],
     [ "SetHTTPGetCallback", "d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a828e78f0b09f30dd0fb90d026524b236", null ],
     [ "web_server_destroy", "d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aba5685f22e83826b14771e59d0edbc05", null ],

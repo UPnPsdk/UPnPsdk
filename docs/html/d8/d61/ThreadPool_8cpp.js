@@ -27,6 +27,7 @@ var ThreadPool_8cpp =
     [ "ThreadPoolGetAttr", "d8/d61/ThreadPool_8cpp.html#a2c2585b83c92813c4ae18aff3aaccdf9", null ],
     [ "ThreadPoolSetAttr", "d8/d61/ThreadPool_8cpp.html#a7c0e9ebe393a89c04d80e6a40c7affa6", null ],
     [ "ThreadPoolShutdown", "d8/d61/ThreadPool_8cpp.html#a281f138c93124463e1fbbbdf00caf21f", null ],
+    [ "TPSetMaxJobsTotal", "d8/d61/ThreadPool_8cpp.html#ad6858733211c24b4a972b22609f08173", null ],
     [ "TPAttrInit", "d8/d61/ThreadPool_8cpp.html#ac7dadbb7b20ca94bf746241c0962f8d1", null ],
     [ "TPJobInit", "d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3", null ],
     [ "TPJobSetPriority", "d8/d61/ThreadPool_8cpp.html#a7317f4409e514c2c01e31c9f66fd7da5", null ],
@@ -38,9 +39,10 @@ var ThreadPool_8cpp =
     [ "TPAttrSetJobsPerThread", "d8/d61/ThreadPool_8cpp.html#aa0799659b0f17d6b3359f74717dbc1c2", null ],
     [ "TPAttrSetStarvationTime", "d8/d61/ThreadPool_8cpp.html#a5cb222e71ec4ce4c7dc9eeb8bc9669ed", null ],
     [ "TPAttrSetSchedPolicy", "d8/d61/ThreadPool_8cpp.html#ae0b1bbcc14de331771a107ce0808acd4", null ],
-    [ "TPAttrSetMaxJobsTotal", "d8/d61/ThreadPool_8cpp.html#a4087f888503552638800eed8eccd2cba", null ],
+    [ "TPAttrSetMaxJobsTotal", "d8/d61/ThreadPool_8cpp.html#a509f5a32ea35f69364265405ec1aa25f", null ],
     [ "ThreadPoolPrintStats", "d8/d61/ThreadPool_8cpp.html#a2d486ce0966ab7d9ae08d534bfa81b8e", null ],
     [ "ThreadPoolGetStats", "d8/d61/ThreadPool_8cpp.html#a9575d30ed041fc240cf373ea0f7f3515", null ],
     [ "JOBFREELISTSIZE", "d8/d61/ThreadPool_8cpp.html#ada6473c58caab557b9611806bd1e3146", null ],
-    [ "INFINITE_THREADS", "d8/d61/ThreadPool_8cpp.html#aa760384ef34a7e1fbd9e08764a0b5dd8", null ]
+    [ "INFINITE_THREADS", "d8/d61/ThreadPool_8cpp.html#aa760384ef34a7e1fbd9e08764a0b5dd8", null ],
+    [ "maxJobsTotal", "d8/d61/ThreadPool_8cpp.html#ae2e63739103ff0a127705bd920900455", null ]
 ];

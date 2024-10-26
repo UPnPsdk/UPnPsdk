@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-27
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,6 +33,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last compare with ./Pupnp source file on 2024-10-26, ver 1.14.20
 /*!
  * \file
  * \ingroup threadutil
@@ -101,6 +102,8 @@ constexpr free_routine DEFAULT_FREE_ROUTINE{nullptr};
 
 /*! default max jobs used TPAttrInit */
 constexpr int DEFAULT_MAX_JOBS_TOTAL{100};
+/*! Specify how many jobs maximal can be used with the threadpool */
+extern int maxJobsTotal;
 
 /*!
  * \brief Statistics.
@@ -222,6 +225,14 @@ struct ThreadPool {
     /*! statistics */
     ThreadPoolStats stats;
 };
+
+/*!
+ * \brief Sets the maximum number of jobs in the thread pool.
+ *
+ * This option is intended for server applications to avoid an overflow of
+ * jobs when serving e.g. many web requests.
+ */
+void TPSetMaxJobsTotal(int mjt);
 
 /*!
  * \brief Initializes and starts ThreadPool.
@@ -512,7 +523,7 @@ int TPAttrSetMaxJobsTotal(
     /*! [in] Must be valid thread pool attributes. */
     ThreadPoolAttr* attr,
     /*! [in] Maximum number of jobs. */
-    int maxJobsTotal);
+    int totalMaxJobs);
 
 /*!
  * \brief Returns various statistics about the thread pool.

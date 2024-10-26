@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2023-07-24
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2023-07-24, ver 1.14.17
+// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
 
 #include <config.hpp> // for EXCLUDE_DOM
 /*!
@@ -42,6 +42,8 @@
 
 #include <upnp.hpp>
 #include <upnptools.hpp>
+
+#include <ThreadPool.hpp>
 
 #include <uri.hpp>
 
@@ -125,6 +127,8 @@ const char* UpnpGetErrorMessage(int rc) {
 
     return "Unknown error code";
 }
+
+void UpnpSetMaxJobsTotal(int mjt) { TPSetMaxJobsTotal(mjt); }
 
 /*!
  * \todo There is some unnecessary allocation and deallocation going on here

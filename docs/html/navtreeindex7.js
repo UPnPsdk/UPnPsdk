@@ -1,5 +1,11 @@
 var NAVTREEINDEX7 =
 {
+"da/d58/deprecated.html":[3],
+"da/d8a/SSDPResultDataCallback_8cpp.html":[4,1,1,12],
+"da/d8a/group__XMLAPI.html":[4,7],
+"da/d8a/group__XMLAPI.html#d4/d75/struct__IXML__CDATASection":[4,7,2],
+"da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node":[4,7,0],
+"da/d8a/group__XMLAPI.html#d8/de1/struct__IXML__ATTR":[4,7,4],
 "da/d8a/group__XMLAPI.html#da/d0c/struct__IXML__NodeList":[4,7,6],
 "da/d8a/group__XMLAPI.html#da/d75/struct__IXML__Text":[4,7,5],
 "da/d8a/group__XMLAPI.html#db/dfd/struct__IXML__NamedNodeMap":[4,7,7],
@@ -130,8 +136,8 @@ var NAVTREEINDEX7 =
 "da/dcf/classUPnPsdk_1_1CUri.html#a2d6069a50cbe1c8a5dc7cfd501695468":[6,0,7,7,1],
 "da/dcf/classUPnPsdk_1_1CUri.html#a98f90c0e9f4656fad15ebd7213f7a849":[5,0,24,9,0],
 "da/dcf/classUPnPsdk_1_1CUri.html#a98f90c0e9f4656fad15ebd7213f7a849":[6,0,7,7,0],
-"da/dcf/classUPnPsdk_1_1CUri.html#ad06350e389e8c6d587eb223b49f0fd05":[5,0,24,9,2],
 "da/dcf/classUPnPsdk_1_1CUri.html#ad06350e389e8c6d587eb223b49f0fd05":[6,0,7,7,2],
+"da/dcf/classUPnPsdk_1_1CUri.html#ad06350e389e8c6d587eb223b49f0fd05":[5,0,24,9,2],
 "da/dd9/membuffer_8cpp.html":[7,0,0,1,2,4,1],
 "da/dd9/membuffer_8cpp.html#a0ebdc3494e3cb774b96ee021f7ae6c3b":[7,0,0,1,2,4,1,1],
 "da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14":[7,0,0,1,2,4,1,6],
@@ -243,11 +249,5 @@ var NAVTREEINDEX7 =
 "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa804ee20accda01aae4a8967b2ce9904":[5,0,2,15],
 "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa8849fbe55dcefa7ab2465ea8aabd214":[5,0,2,5],
 "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14":[5,0,2,6],
-"da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366":[5,0,2,4],
-"da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ac3546d1ed4487058f5b93ad4a25d5300":[5,0,2,25],
-"da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e":[5,0,2,17],
-"da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#af63731051c62f32e8aee032e269c9ff2":[5,0,2,23],
-"da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afcb84d0307a28d0eff5efde70048508a":[5,0,2,26],
-"da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afdf0b2d4ea832f287ca5fb9aca2aff2d":[5,0,2,20],
-"da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afee60e57107525eaabc058d19ddcc5fe":[5,0,2,16]
+"da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366":[5,0,2,4]
 };

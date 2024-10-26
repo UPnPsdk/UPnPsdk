@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-22
+# Redistribution only with this Copyright remark. Last modified: 2024-10-26
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -43,13 +43,13 @@ add_test(NAME ctest_LinkedList-psh COMMAND test_LinkedList-psh --gtest_shuffle
 
 # ThreadPool
 #===========
-add_executable(test_ThreadPool-psh
+add_executable(test_ThreadPool-pst
         ./test_ThreadPool.cpp
 )
-target_link_libraries(test_ThreadPool-psh
-    PRIVATE pupnp_shared
+target_link_libraries(test_ThreadPool-pst
+    PRIVATE pupnp_static
 )
-add_test(NAME ctest_ThreadPool-psh COMMAND test_ThreadPool-psh --gtest_shuffle
+add_test(NAME ctest_ThreadPool-pst COMMAND test_ThreadPool-pst --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
@@ -60,13 +60,13 @@ add_test(NAME ctest_ThreadPool-psh COMMAND test_ThreadPool-psh --gtest_shuffle
 
 # TimerThread
 #============
-add_executable(test_TimerThread-psh
+add_executable(test_TimerThread-pst
         ./test_TimerThread.cpp
 )
-target_link_libraries(test_TimerThread-psh
-    PRIVATE pupnp_shared
+target_link_libraries(test_TimerThread-pst
+    PRIVATE pupnp_static
 )
-add_test(NAME ctest_TimerThread-psh COMMAND test_TimerThread-psh --gtest_shuffle
+add_test(NAME ctest_TimerThread-pst COMMAND test_TimerThread-pst --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 

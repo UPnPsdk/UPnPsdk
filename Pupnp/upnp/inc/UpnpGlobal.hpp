@@ -1,7 +1,7 @@
 #ifndef PUPNP_UPNPGLOBAL_HPP
 #define PUPNP_UPNPGLOBAL_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-24
+// Redistribution only with this Copyright remark. Last modified: 2024-10-26
 // Taken from authors who haven't made a note.
 
 /*!
@@ -51,14 +51,23 @@
  * PRIzu
  * PRIzx
  */
+// clang-format off
 #ifdef UPNP_USE_MSVCPP
-/* define some things the M$ VC++ doesn't know */
-#define UPNP_INLINE _inline
-typedef __int64 int64_t;
-#define PRIzd "ld"
-#define PRIzu "lu"
-#define PRIzx "lx"
+  #if _MSC_VER > 1900
+    #define UPNP_INLINE inline
+    #define PRIzd "zd"
+    #define PRIzu "zu"
+    #define PRIzx "zx"
+  #else
+    /* define some things the M$ VC++ doesn't know */
+    #define UPNP_INLINE _inline
+    typedef __int64 int64_t;
+    #define PRIzd "ld"
+    #define PRIzu "lu"
+    #define PRIzx "lx"
+  #endif
 #endif /* UPNP_USE_MSVCPP */
+// clang-format on
 
 #ifdef UPNP_USE_BCBPP
 /* define some things Borland Builder doesn't know */

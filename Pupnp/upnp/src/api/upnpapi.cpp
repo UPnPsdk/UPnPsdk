@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-01
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2024-08-01, ver 1.14.19
+// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
 
 /*!
  * \addtogroup UPnPAPI
@@ -199,6 +199,9 @@ static Handle_Info* HandleTable[NUM_HANDLE];
 
 /*! a local dir which serves as webserver root */
 extern membuffer gDocumentRootDir;
+
+/*! a string which is set in the header field */
+extern membuffer gWebserverCorsString;
 
 /*! Maximum content-length (in bytes) that the SDK will process on an incoming
  * packet. Content-Length exceeding this size will be not processed and
@@ -372,7 +375,7 @@ static int UpnpInitThreadPools(void) {
     TPAttrSetStackSize(&attr, THREAD_STACK_SIZE);
     TPAttrSetJobsPerThread(&attr, JOBS_PER_THREAD);
     TPAttrSetIdleTime(&attr, THREAD_IDLE_TIME);
-    TPAttrSetMaxJobsTotal(&attr, MAX_JOBS_TOTAL);
+    TPAttrSetMaxJobsTotal(&attr, maxJobsTotal);
 
     if (ThreadPoolInit(&gSendThreadPool, &attr) != UPNP_E_SUCCESS) {
         ret = UPNP_E_INIT_FAILED;
@@ -515,6 +518,7 @@ static int UpnpInitStartServers(
 
 #if EXCLUDE_WEB_SERVER == 0
     membuffer_init(&gDocumentRootDir);
+    membuffer_init(&gWebserverCorsString);
     retVal = UpnpEnableWebserver(WEB_SERVER_ENABLED);
     if (retVal != UPNP_E_SUCCESS) {
         UpnpFinish();
@@ -3693,6 +3697,18 @@ int UpnpSetWebServerRootDir(const char* rootDir) {
     membuffer_destroy(&gDocumentRootDir);
 
     return web_server_set_root_dir(rootDir);
+}
+
+int UpnpSetWebServerCorsString(const char* corsString) {
+    if (UpnpSdkInit == 0)
+        return UPNP_E_FINISH;
+    if ((corsString == NULL) || (strlen(corsString) == 0)) {
+        return UPNP_E_INVALID_PARAM;
+    }
+
+    membuffer_destroy(&gWebserverCorsString);
+
+    return web_server_set_cors(corsString);
 }
 #endif /* INTERNAL_WEB_SERVER */
 

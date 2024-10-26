@@ -4,8 +4,8 @@
  *
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
- * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft,  Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-13
+ * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2023-07-24, ver 1.14.17
+// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
 
 /*!
  * \file
@@ -51,9 +51,20 @@
 #include <ixml.hpp> /* for IXML_Document */
 // #include "upnpconfig.h" /* for UPNP_HAVE_TOOLS */
 
+/* Function declarations only if tools compiled into the library */
+#if UPNP_HAVE_TOOLS
+
 #ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
+#endif
+
+/*!
+ * \brief Sets the maximum number of jobs in the internal thread pool.
+ *
+ * This option is intended for server applications to avoid an overflow of
+ * jobs when serving e.g. many web requests.
+ */
+EXPORT_SPEC void UpnpSetMaxJobsTotal(int mjt);
 
 /*!
  * \brief Converts an SDK error code into a string error message suitable for
@@ -262,8 +273,10 @@ EXPORT_SPEC int UpnpAddToPropertySet(
 
 #ifdef __cplusplus
 }
-#endif /* __cplusplus */
+#endif
 
 /*! @} */
+
+#endif /* UPNP_HAVE_TOOLS */
 
 #endif /* PUPNP_UPNPTOOLS_HPP */

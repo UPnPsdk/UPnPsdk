@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-20
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2023-07-21, ver 1.14.17
+// Last compare with ./Pupnp source file on 2024-10-26, ver 1.14.20
 /*!
  * \file
  * \brief Internal Web Server and functions to carry out operations of it.
@@ -1218,6 +1218,8 @@ int process_request(
         /*          goto error_handler; */
         /*      } */
     }
+    RespInstr->CorsHeader =
+        (gWebserverCorsString.length > 0) ? gWebserverCorsString.buf : NULL;
     RespInstr->ReadSendSize = UpnpFileInfo_get_FileLength(finfo);
     /* Check other header field. */
     code = CheckOtherHTTPHeaders(req, RespInstr,
@@ -1255,7 +1257,7 @@ int process_request(
                 headers, resp_major, resp_minor,
                 "R"
                 "T"
-                "GKLD"
+                "GKLAD"
                 "s"
                 "tcS"
                 "Xc"
@@ -1264,6 +1266,7 @@ int process_request(
                 UpnpFileInfo_get_ContentType(finfo), /* content type */
                 RespInstr,                           /* range info */
                 RespInstr,                           /* language info */
+                RespInstr, /* Access-Control-Allow-Origin */
                 "LAST-MODIFIED: ", &aux_LastModified, X_USER_AGENT,
                 UpnpFileInfo_get_ExtraHeadersList(finfo)) != 0) {
             goto error_handler;
@@ -1275,7 +1278,7 @@ int process_request(
                 "R"
                 "N"
                 "T"
-                "GLD"
+                "GLAD"
                 "s"
                 "tcS"
                 "Xc"
@@ -1285,6 +1288,7 @@ int process_request(
                 UpnpFileInfo_get_ContentType(finfo), /* content type */
                 RespInstr,                           /* range info */
                 RespInstr,                           /* language info */
+                RespInstr, /* Access-Control-Allow-Origin */
                 "LAST-MODIFIED: ", &aux_LastModified, X_USER_AGENT,
                 UpnpFileInfo_get_ExtraHeadersList(finfo)) != 0) {
             goto error_handler;
@@ -1294,7 +1298,7 @@ int process_request(
         if (http_MakeMessage(
                 headers, resp_major, resp_minor,
                 "RK"
-                "TLD"
+                "TLAD"
                 "s"
                 "tcS"
                 "Xc"
@@ -1302,6 +1306,7 @@ int process_request(
                 HTTP_OK,                             /* status code */
                 UpnpFileInfo_get_ContentType(finfo), /* content type */
                 RespInstr,                           /* language info */
+                RespInstr, /* Access-Control-Allow-Origin */
                 "LAST-MODIFIED: ", &aux_LastModified, X_USER_AGENT,
                 UpnpFileInfo_get_ExtraHeadersList(finfo)) != 0) {
             goto error_handler;
@@ -1313,7 +1318,7 @@ int process_request(
                     headers, resp_major, resp_minor,
                     "R"
                     "N"
-                    "TLD"
+                    "TLAD"
                     "s"
                     "tcS"
                     "Xc"
@@ -1322,6 +1327,7 @@ int process_request(
                     RespInstr->ReadSendSize,             /* content length */
                     UpnpFileInfo_get_ContentType(finfo), /* content type */
                     RespInstr,                           /* language info */
+                    RespInstr, /* Access-Control-Allow-Origin */
                     "LAST-MODIFIED: ", &aux_LastModified, X_USER_AGENT,
                     UpnpFileInfo_get_ExtraHeadersList(finfo)) != 0) {
                 goto error_handler;
@@ -1330,7 +1336,7 @@ int process_request(
             if (http_MakeMessage(
                     headers, resp_major, resp_minor,
                     "R"
-                    "TLD"
+                    "TLAD"
                     "s"
                     "tcS"
                     "Xc"
@@ -1338,6 +1344,7 @@ int process_request(
                     HTTP_OK,                             /* status code */
                     UpnpFileInfo_get_ContentType(finfo), /* content type */
                     RespInstr,                           /* language info */
+                    RespInstr, /* Access-Control-Allow-Origin */
                     "LAST-MODIFIED: ", &aux_LastModified, X_USER_AGENT,
                     UpnpFileInfo_get_ExtraHeadersList(finfo)) != 0) {
                 goto error_handler;
@@ -1518,6 +1525,7 @@ int web_server_init() {
 
     if (bWebServerState == WEB_SERVER_DISABLED) {
         membuffer_init(&gDocumentRootDir);
+        membuffer_init(&gWebserverCorsString);
         glob_alias_init();
         pVirtualDirList = NULL;
 
@@ -1559,6 +1567,16 @@ int web_server_set_root_dir(const char* root_dir) {
         if (gDocumentRootDir.buf[index] == '/')
             membuffer_delete(&gDocumentRootDir, index, 1);
     }
+
+    return 0;
+}
+
+int web_server_set_cors(const char* cors_string) {
+    int ret;
+
+    ret = membuffer_assign_str(&gWebserverCorsString, cors_string);
+    if (ret != 0)
+        return ret;
 
     return 0;
 }
@@ -1638,6 +1656,7 @@ void SetHTTPGetCallback(MiniServerCallback callback) {
 void web_server_destroy() {
     if (bWebServerState == WEB_SERVER_ENABLED) {
         membuffer_destroy(&gDocumentRootDir);
+        membuffer_destroy(&gWebserverCorsString);
         alias_release(&gAliasDoc);
 
         pthread_mutex_lock(&gWebMutex);

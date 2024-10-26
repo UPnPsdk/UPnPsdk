@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-22
+# Redistribution only with this Copyright remark. Last modified: 2024-10-26
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -141,32 +141,19 @@ add_test(NAME ctest_miniserver-cst COMMAND test_miniserver-cst --gtest_shuffle
 
 # miniserver_run
 #===============
-# disable warning C4273: inconsistent dll linkage.
-# This warning on Microsoft Windows (MSVC) is because the source code is
-# included into the test code to be able to test static functions. The compiled
-# function in the link library is exported and it is also decorated to export
-# with the included code. That's the warning. Because I know what I'm doing, I
-# suppress it. It's not productive code. --Ingo
-add_executable(test_miniserver_run-psh
+add_executable(test_miniserver_run-pst
 #-------------------------------------
     test_miniserver_run.cpp
-    # Due to only library internal use of membuffer it doesn't export symbols.
-    # So we have to compile the test  with the membuffer source.
-    ${PUPNP_UPNP_SOURCE_DIR}/src/genlib/util/membuffer.cpp
 )
-target_include_directories(test_miniserver_run-psh
+target_include_directories(test_miniserver_run-pst
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
-target_compile_options(test_miniserver_run-psh
-    # disable warning C4273: inconsistent dll linkage.
-    PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/wd4273>
-)
-target_link_libraries(test_miniserver_run-psh
+target_link_libraries(test_miniserver_run-pst
     PRIVATE
-        pupnp_shared
-        utest_shared
+        pupnp_static
+        utest_static
 )
-add_test(NAME ctest_miniserver_run-psh COMMAND test_miniserver_run-psh --gtest_shuffle
+add_test(NAME ctest_miniserver_run-pst COMMAND test_miniserver_run-pst --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
