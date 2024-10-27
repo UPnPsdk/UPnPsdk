@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-25
+ * Redistribution only with this Copyright remark. Last modified: 2024-10-27
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,7 @@
 #include <stdlib.h> /* for free(), malloc() */
 #include <string.h>
 
-#include <umock/stdio.hpp>
+// #include <umock/stdio.hpp>
 
 #include "posix_overwrites.hpp"
 
@@ -2433,9 +2433,11 @@ static int Parser_readFileOrBuffer(
 
     if (file) {
 #ifdef _WIN32
-        umock::stdio_h.fopen_s(&xmlFilePtr, xmlFileName, "rb");
+        // umock::stdio_h.fopen_s(&xmlFilePtr, xmlFileName, "rb");
+        fopen_s(&xmlFilePtr, xmlFileName, "rb");
 #else
-        xmlFilePtr = umock::stdio_h.fopen(xmlFileName, "rb");
+        // xmlFilePtr = umock::stdio_h.fopen(xmlFileName, "rb");
+        xmlFilePtr = fopen(xmlFileName, "rb");
 #endif
         if (xmlFilePtr == NULL) {
             return IXML_NO_SUCH_FILE;
@@ -2443,22 +2445,27 @@ static int Parser_readFileOrBuffer(
             fseek(xmlFilePtr, 0, SEEK_END);
             fileSize = ftell(xmlFilePtr);
             if (fileSize <= 0) {
-                umock::stdio_h.fclose(xmlFilePtr);
+                // umock::stdio_h.fclose(xmlFilePtr);
+                fclose(xmlFilePtr);
                 return IXML_SYNTAX_ERR;
             }
 
             xmlParser->dataBuffer = (char*)malloc((size_t)fileSize + (size_t)1);
             if (xmlParser->dataBuffer == NULL) {
-                umock::stdio_h.fclose(xmlFilePtr);
+                // umock::stdio_h.fclose(xmlFilePtr);
+                fclose(xmlFilePtr);
                 return IXML_INSUFFICIENT_MEMORY;
             }
 
             fseek(xmlFilePtr, 0, SEEK_SET);
-            bytesRead = umock::stdio_h.fread(xmlParser->dataBuffer, (size_t)1,
-                                             (size_t)fileSize, xmlFilePtr);
+            // bytesRead = umock::stdio_h.fread(xmlParser->dataBuffer,
+            // (size_t)1,
+            bytesRead = fread(xmlParser->dataBuffer, (size_t)1,
+                              (size_t)fileSize, xmlFilePtr);
             /* append null */
             xmlParser->dataBuffer[bytesRead] = '\0';
-            umock::stdio_h.fclose(xmlFilePtr);
+            // umock::stdio_h.fclose(xmlFilePtr);
+            fclose(xmlFilePtr);
         }
     } else {
         xmlParser->dataBuffer = safe_strdup(xmlFileName);

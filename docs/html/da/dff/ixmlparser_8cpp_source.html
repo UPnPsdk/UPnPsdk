@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('da/dff/ixmlparser_8cpp_source.html','.
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * All rights reserved.</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Copyright (c) 2012 France Telecom All rights reserved.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-10-25</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-10-27</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * modification, are permitted provided that the following conditions are met:</span></div>
@@ -146,7 +146,7 @@ $(document).ready(function(){initNavTree('da/dff/ixmlparser_8cpp_source.html','.
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span> <span class="comment">/* for free(), malloc() */</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;umock/stdio.hpp&gt;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">// #include &lt;umock/stdio.hpp&gt;</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &quot;posix_overwrites.hpp&quot;</span></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
@@ -2337,141 +2337,148 @@ $(document).ready(function(){initNavTree('da/dff/ixmlparser_8cpp_source.html','.
 <div class="line"><a id="l02433" name="l02433"></a><span class="lineno"> 2433</span> </div>
 <div class="line"><a id="l02434" name="l02434"></a><span class="lineno"> 2434</span>    <span class="keywordflow">if</span> (file) {</div>
 <div class="line"><a id="l02435" name="l02435"></a><span class="lineno"> 2435</span><span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><a id="l02436" name="l02436"></a><span class="lineno"> 2436</span>        umock::stdio_h.fopen_s(&amp;xmlFilePtr, xmlFileName, <span class="stringliteral">&quot;rb&quot;</span>);</div>
-<div class="line"><a id="l02437" name="l02437"></a><span class="lineno"> 2437</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l02438" name="l02438"></a><span class="lineno"> 2438</span>        xmlFilePtr = umock::stdio_h.fopen(xmlFileName, <span class="stringliteral">&quot;rb&quot;</span>);</div>
-<div class="line"><a id="l02439" name="l02439"></a><span class="lineno"> 2439</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l02440" name="l02440"></a><span class="lineno"> 2440</span>        <span class="keywordflow">if</span> (xmlFilePtr == NULL) {</div>
-<div class="line"><a id="l02441" name="l02441"></a><span class="lineno"> 2441</span>            <span class="keywordflow">return</span> IXML_NO_SUCH_FILE;</div>
-<div class="line"><a id="l02442" name="l02442"></a><span class="lineno"> 2442</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l02443" name="l02443"></a><span class="lineno"> 2443</span>            fseek(xmlFilePtr, 0, SEEK_END);</div>
-<div class="line"><a id="l02444" name="l02444"></a><span class="lineno"> 2444</span>            fileSize = ftell(xmlFilePtr);</div>
-<div class="line"><a id="l02445" name="l02445"></a><span class="lineno"> 2445</span>            <span class="keywordflow">if</span> (fileSize &lt;= 0) {</div>
-<div class="line"><a id="l02446" name="l02446"></a><span class="lineno"> 2446</span>                umock::stdio_h.fclose(xmlFilePtr);</div>
-<div class="line"><a id="l02447" name="l02447"></a><span class="lineno"> 2447</span>                <span class="keywordflow">return</span> IXML_SYNTAX_ERR;</div>
-<div class="line"><a id="l02448" name="l02448"></a><span class="lineno"> 2448</span>            }</div>
-<div class="line"><a id="l02449" name="l02449"></a><span class="lineno"> 2449</span> </div>
-<div class="line"><a id="l02450" name="l02450"></a><span class="lineno"> 2450</span>            xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a> = (<span class="keywordtype">char</span>*)malloc((<span class="keywordtype">size_t</span>)fileSize + (size_t)1);</div>
-<div class="line"><a id="l02451" name="l02451"></a><span class="lineno"> 2451</span>            <span class="keywordflow">if</span> (xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a> == NULL) {</div>
-<div class="line"><a id="l02452" name="l02452"></a><span class="lineno"> 2452</span>                umock::stdio_h.fclose(xmlFilePtr);</div>
-<div class="line"><a id="l02453" name="l02453"></a><span class="lineno"> 2453</span>                <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
-<div class="line"><a id="l02454" name="l02454"></a><span class="lineno"> 2454</span>            }</div>
-<div class="line"><a id="l02455" name="l02455"></a><span class="lineno"> 2455</span> </div>
-<div class="line"><a id="l02456" name="l02456"></a><span class="lineno"> 2456</span>            fseek(xmlFilePtr, 0, SEEK_SET);</div>
-<div class="line"><a id="l02457" name="l02457"></a><span class="lineno"> 2457</span>            bytesRead = umock::stdio_h.fread(xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a>, (<span class="keywordtype">size_t</span>)1,</div>
-<div class="line"><a id="l02458" name="l02458"></a><span class="lineno"> 2458</span>                                             (<span class="keywordtype">size_t</span>)fileSize, xmlFilePtr);</div>
-<div class="line"><a id="l02459" name="l02459"></a><span class="lineno"> 2459</span>            <span class="comment">/* append null */</span></div>
-<div class="line"><a id="l02460" name="l02460"></a><span class="lineno"> 2460</span>            xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a>[bytesRead] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a id="l02461" name="l02461"></a><span class="lineno"> 2461</span>            umock::stdio_h.fclose(xmlFilePtr);</div>
-<div class="line"><a id="l02462" name="l02462"></a><span class="lineno"> 2462</span>        }</div>
-<div class="line"><a id="l02463" name="l02463"></a><span class="lineno"> 2463</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l02464" name="l02464"></a><span class="lineno"> 2464</span>        xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a> = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2">safe_strdup</a>(xmlFileName);</div>
-<div class="line"><a id="l02465" name="l02465"></a><span class="lineno"> 2465</span>        <span class="keywordflow">if</span> (xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a> == NULL) {</div>
-<div class="line"><a id="l02466" name="l02466"></a><span class="lineno"> 2466</span>            <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
-<div class="line"><a id="l02467" name="l02467"></a><span class="lineno"> 2467</span>        }</div>
-<div class="line"><a id="l02468" name="l02468"></a><span class="lineno"> 2468</span>    }</div>
-<div class="line"><a id="l02469" name="l02469"></a><span class="lineno"> 2469</span> </div>
-<div class="line"><a id="l02470" name="l02470"></a><span class="lineno"> 2470</span>    <span class="keywordflow">return</span> IXML_SUCCESS;</div>
-<div class="line"><a id="l02471" name="l02471"></a><span class="lineno"> 2471</span>}</div>
+<div class="line"><a id="l02436" name="l02436"></a><span class="lineno"> 2436</span>        <span class="comment">// umock::stdio_h.fopen_s(&amp;xmlFilePtr, xmlFileName, &quot;rb&quot;);</span></div>
+<div class="line"><a id="l02437" name="l02437"></a><span class="lineno"> 2437</span>        fopen_s(&amp;xmlFilePtr, xmlFileName, <span class="stringliteral">&quot;rb&quot;</span>);</div>
+<div class="line"><a id="l02438" name="l02438"></a><span class="lineno"> 2438</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l02439" name="l02439"></a><span class="lineno"> 2439</span>        <span class="comment">// xmlFilePtr = umock::stdio_h.fopen(xmlFileName, &quot;rb&quot;);</span></div>
+<div class="line"><a id="l02440" name="l02440"></a><span class="lineno"> 2440</span>        xmlFilePtr = fopen(xmlFileName, <span class="stringliteral">&quot;rb&quot;</span>);</div>
+<div class="line"><a id="l02441" name="l02441"></a><span class="lineno"> 2441</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l02442" name="l02442"></a><span class="lineno"> 2442</span>        <span class="keywordflow">if</span> (xmlFilePtr == NULL) {</div>
+<div class="line"><a id="l02443" name="l02443"></a><span class="lineno"> 2443</span>            <span class="keywordflow">return</span> IXML_NO_SUCH_FILE;</div>
+<div class="line"><a id="l02444" name="l02444"></a><span class="lineno"> 2444</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l02445" name="l02445"></a><span class="lineno"> 2445</span>            fseek(xmlFilePtr, 0, SEEK_END);</div>
+<div class="line"><a id="l02446" name="l02446"></a><span class="lineno"> 2446</span>            fileSize = ftell(xmlFilePtr);</div>
+<div class="line"><a id="l02447" name="l02447"></a><span class="lineno"> 2447</span>            <span class="keywordflow">if</span> (fileSize &lt;= 0) {</div>
+<div class="line"><a id="l02448" name="l02448"></a><span class="lineno"> 2448</span>                <span class="comment">// umock::stdio_h.fclose(xmlFilePtr);</span></div>
+<div class="line"><a id="l02449" name="l02449"></a><span class="lineno"> 2449</span>                fclose(xmlFilePtr);</div>
+<div class="line"><a id="l02450" name="l02450"></a><span class="lineno"> 2450</span>                <span class="keywordflow">return</span> IXML_SYNTAX_ERR;</div>
+<div class="line"><a id="l02451" name="l02451"></a><span class="lineno"> 2451</span>            }</div>
+<div class="line"><a id="l02452" name="l02452"></a><span class="lineno"> 2452</span> </div>
+<div class="line"><a id="l02453" name="l02453"></a><span class="lineno"> 2453</span>            xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a> = (<span class="keywordtype">char</span>*)malloc((<span class="keywordtype">size_t</span>)fileSize + (size_t)1);</div>
+<div class="line"><a id="l02454" name="l02454"></a><span class="lineno"> 2454</span>            <span class="keywordflow">if</span> (xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a> == NULL) {</div>
+<div class="line"><a id="l02455" name="l02455"></a><span class="lineno"> 2455</span>                <span class="comment">// umock::stdio_h.fclose(xmlFilePtr);</span></div>
+<div class="line"><a id="l02456" name="l02456"></a><span class="lineno"> 2456</span>                fclose(xmlFilePtr);</div>
+<div class="line"><a id="l02457" name="l02457"></a><span class="lineno"> 2457</span>                <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
+<div class="line"><a id="l02458" name="l02458"></a><span class="lineno"> 2458</span>            }</div>
+<div class="line"><a id="l02459" name="l02459"></a><span class="lineno"> 2459</span> </div>
+<div class="line"><a id="l02460" name="l02460"></a><span class="lineno"> 2460</span>            fseek(xmlFilePtr, 0, SEEK_SET);</div>
+<div class="line"><a id="l02461" name="l02461"></a><span class="lineno"> 2461</span>            <span class="comment">// bytesRead = umock::stdio_h.fread(xmlParser-&gt;dataBuffer,</span></div>
+<div class="line"><a id="l02462" name="l02462"></a><span class="lineno"> 2462</span>            <span class="comment">// (size_t)1,</span></div>
+<div class="line"><a id="l02463" name="l02463"></a><span class="lineno"> 2463</span>            bytesRead = fread(xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a>, (<span class="keywordtype">size_t</span>)1,</div>
+<div class="line"><a id="l02464" name="l02464"></a><span class="lineno"> 2464</span>                              (<span class="keywordtype">size_t</span>)fileSize, xmlFilePtr);</div>
+<div class="line"><a id="l02465" name="l02465"></a><span class="lineno"> 2465</span>            <span class="comment">/* append null */</span></div>
+<div class="line"><a id="l02466" name="l02466"></a><span class="lineno"> 2466</span>            xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a>[bytesRead] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l02467" name="l02467"></a><span class="lineno"> 2467</span>            <span class="comment">// umock::stdio_h.fclose(xmlFilePtr);</span></div>
+<div class="line"><a id="l02468" name="l02468"></a><span class="lineno"> 2468</span>            fclose(xmlFilePtr);</div>
+<div class="line"><a id="l02469" name="l02469"></a><span class="lineno"> 2469</span>        }</div>
+<div class="line"><a id="l02470" name="l02470"></a><span class="lineno"> 2470</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l02471" name="l02471"></a><span class="lineno"> 2471</span>        xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a> = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2">safe_strdup</a>(xmlFileName);</div>
+<div class="line"><a id="l02472" name="l02472"></a><span class="lineno"> 2472</span>        <span class="keywordflow">if</span> (xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a> == NULL) {</div>
+<div class="line"><a id="l02473" name="l02473"></a><span class="lineno"> 2473</span>            <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
+<div class="line"><a id="l02474" name="l02474"></a><span class="lineno"> 2474</span>        }</div>
+<div class="line"><a id="l02475" name="l02475"></a><span class="lineno"> 2475</span>    }</div>
+<div class="line"><a id="l02476" name="l02476"></a><span class="lineno"> 2476</span> </div>
+<div class="line"><a id="l02477" name="l02477"></a><span class="lineno"> 2477</span>    <span class="keywordflow">return</span> IXML_SUCCESS;</div>
+<div class="line"><a id="l02478" name="l02478"></a><span class="lineno"> 2478</span>}</div>
 </div>
-<div class="line"><a id="l02472" name="l02472"></a><span class="lineno"> 2472</span> </div>
-<div class="foldopen" id="foldopen02476" data-start="{" data-end="}">
-<div class="line"><a id="l02476" name="l02476"></a><span class="lineno"><a class="line" href="../../d0/d19/ixmlparser_8hpp.html#ad0f776f1ca8a8ea5153a8458ac378850"> 2476</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49">Parser_LoadDocument</a>(</div>
-<div class="line"><a id="l02478" name="l02478"></a><span class="lineno"> 2478</span>    <a class="code hl_struct" href="../../da/d8a/group__XMLAPI.html#df/d76/struct__IXML__Document">IXML_Document</a>** retDoc,</div>
-<div class="line"><a id="l02481" name="l02481"></a><span class="lineno"> 2481</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* xmlFileName,</div>
-<div class="line"><a id="l02484" name="l02484"></a><span class="lineno"> 2484</span>    <span class="keywordtype">int</span> file) {</div>
-<div class="line"><a id="l02485" name="l02485"></a><span class="lineno"> 2485</span>    <span class="keywordtype">int</span> rc = IXML_SUCCESS;</div>
-<div class="line"><a id="l02486" name="l02486"></a><span class="lineno"> 2486</span>    <a class="code hl_struct" href="../../d0/d19/ixmlparser_8hpp.html#d2/db3/struct__Parser">Parser</a>* xmlParser = NULL;</div>
-<div class="line"><a id="l02487" name="l02487"></a><span class="lineno"> 2487</span> </div>
-<div class="line"><a id="l02488" name="l02488"></a><span class="lineno"> 2488</span>    xmlParser = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a0eacdafa9ca9fe872b050cac5b22ad1f">Parser_init</a>();</div>
-<div class="line"><a id="l02489" name="l02489"></a><span class="lineno"> 2489</span>    <span class="keywordflow">if</span> (xmlParser == NULL) {</div>
-<div class="line"><a id="l02490" name="l02490"></a><span class="lineno"> 2490</span>        <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
-<div class="line"><a id="l02491" name="l02491"></a><span class="lineno"> 2491</span>    }</div>
-<div class="line"><a id="l02492" name="l02492"></a><span class="lineno"> 2492</span> </div>
-<div class="line"><a id="l02493" name="l02493"></a><span class="lineno"> 2493</span>    rc = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a7a855e5df115b73a3f4555dc066e5dcc">Parser_readFileOrBuffer</a>(xmlParser, xmlFileName, file);</div>
-<div class="line"><a id="l02494" name="l02494"></a><span class="lineno"> 2494</span>    <span class="keywordflow">if</span> (rc != IXML_SUCCESS) {</div>
-<div class="line"><a id="l02495" name="l02495"></a><span class="lineno"> 2495</span>        <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#aebef9fd006a378376432c3da3c285aa2">Parser_free</a>(xmlParser);</div>
-<div class="line"><a id="l02496" name="l02496"></a><span class="lineno"> 2496</span>        <span class="keywordflow">return</span> rc;</div>
-<div class="line"><a id="l02497" name="l02497"></a><span class="lineno"> 2497</span>    }</div>
-<div class="line"><a id="l02498" name="l02498"></a><span class="lineno"> 2498</span> </div>
-<div class="line"><a id="l02499" name="l02499"></a><span class="lineno"> 2499</span>    xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a4432f6d1e4490d967ef2a0ec3ee2b1a1">curPtr</a> = xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a>;</div>
-<div class="line"><a id="l02500" name="l02500"></a><span class="lineno"> 2500</span>    rc = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542">Parser_parseDocument</a>(retDoc, xmlParser);</div>
-<div class="line"><a id="l02501" name="l02501"></a><span class="lineno"> 2501</span>    <span class="keywordflow">return</span> rc;</div>
-<div class="line"><a id="l02502" name="l02502"></a><span class="lineno"> 2502</span>}</div>
+<div class="line"><a id="l02479" name="l02479"></a><span class="lineno"> 2479</span> </div>
+<div class="foldopen" id="foldopen02483" data-start="{" data-end="}">
+<div class="line"><a id="l02483" name="l02483"></a><span class="lineno"><a class="line" href="../../d0/d19/ixmlparser_8hpp.html#ad0f776f1ca8a8ea5153a8458ac378850"> 2483</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49">Parser_LoadDocument</a>(</div>
+<div class="line"><a id="l02485" name="l02485"></a><span class="lineno"> 2485</span>    <a class="code hl_struct" href="../../da/d8a/group__XMLAPI.html#df/d76/struct__IXML__Document">IXML_Document</a>** retDoc,</div>
+<div class="line"><a id="l02488" name="l02488"></a><span class="lineno"> 2488</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* xmlFileName,</div>
+<div class="line"><a id="l02491" name="l02491"></a><span class="lineno"> 2491</span>    <span class="keywordtype">int</span> file) {</div>
+<div class="line"><a id="l02492" name="l02492"></a><span class="lineno"> 2492</span>    <span class="keywordtype">int</span> rc = IXML_SUCCESS;</div>
+<div class="line"><a id="l02493" name="l02493"></a><span class="lineno"> 2493</span>    <a class="code hl_struct" href="../../d0/d19/ixmlparser_8hpp.html#d2/db3/struct__Parser">Parser</a>* xmlParser = NULL;</div>
+<div class="line"><a id="l02494" name="l02494"></a><span class="lineno"> 2494</span> </div>
+<div class="line"><a id="l02495" name="l02495"></a><span class="lineno"> 2495</span>    xmlParser = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a0eacdafa9ca9fe872b050cac5b22ad1f">Parser_init</a>();</div>
+<div class="line"><a id="l02496" name="l02496"></a><span class="lineno"> 2496</span>    <span class="keywordflow">if</span> (xmlParser == NULL) {</div>
+<div class="line"><a id="l02497" name="l02497"></a><span class="lineno"> 2497</span>        <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
+<div class="line"><a id="l02498" name="l02498"></a><span class="lineno"> 2498</span>    }</div>
+<div class="line"><a id="l02499" name="l02499"></a><span class="lineno"> 2499</span> </div>
+<div class="line"><a id="l02500" name="l02500"></a><span class="lineno"> 2500</span>    rc = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a7a855e5df115b73a3f4555dc066e5dcc">Parser_readFileOrBuffer</a>(xmlParser, xmlFileName, file);</div>
+<div class="line"><a id="l02501" name="l02501"></a><span class="lineno"> 2501</span>    <span class="keywordflow">if</span> (rc != IXML_SUCCESS) {</div>
+<div class="line"><a id="l02502" name="l02502"></a><span class="lineno"> 2502</span>        <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#aebef9fd006a378376432c3da3c285aa2">Parser_free</a>(xmlParser);</div>
+<div class="line"><a id="l02503" name="l02503"></a><span class="lineno"> 2503</span>        <span class="keywordflow">return</span> rc;</div>
+<div class="line"><a id="l02504" name="l02504"></a><span class="lineno"> 2504</span>    }</div>
+<div class="line"><a id="l02505" name="l02505"></a><span class="lineno"> 2505</span> </div>
+<div class="line"><a id="l02506" name="l02506"></a><span class="lineno"> 2506</span>    xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a4432f6d1e4490d967ef2a0ec3ee2b1a1">curPtr</a> = xmlParser-&gt;<a class="code hl_variable" href="../../d0/d19/ixmlparser_8hpp.html#a54f09c0aab0d47e1ec8777fadb7f4c5d">dataBuffer</a>;</div>
+<div class="line"><a id="l02507" name="l02507"></a><span class="lineno"> 2507</span>    rc = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542">Parser_parseDocument</a>(retDoc, xmlParser);</div>
+<div class="line"><a id="l02508" name="l02508"></a><span class="lineno"> 2508</span>    <span class="keywordflow">return</span> rc;</div>
+<div class="line"><a id="l02509" name="l02509"></a><span class="lineno"> 2509</span>}</div>
 </div>
-<div class="line"><a id="l02503" name="l02503"></a><span class="lineno"> 2503</span> </div>
-<div class="foldopen" id="foldopen02504" data-start="{" data-end="}">
-<div class="line"><a id="l02504" name="l02504"></a><span class="lineno"><a class="line" href="../../d0/d19/ixmlparser_8hpp.html#ab028bcdff363205be1db5130ccec6f21"> 2504</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a46a73d42b9c999a1298cff940f216cb7">Parser_freeNodeContent</a>(<a class="code hl_struct" href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">IXML_Node</a>* nodeptr) {</div>
-<div class="line"><a id="l02505" name="l02505"></a><span class="lineno"> 2505</span>    <span class="keywordflow">if</span> (nodeptr == NULL) {</div>
-<div class="line"><a id="l02506" name="l02506"></a><span class="lineno"> 2506</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l02507" name="l02507"></a><span class="lineno"> 2507</span>    }</div>
-<div class="line"><a id="l02508" name="l02508"></a><span class="lineno"> 2508</span> </div>
-<div class="line"><a id="l02509" name="l02509"></a><span class="lineno"> 2509</span>    <span class="keywordflow">if</span> (nodeptr-&gt;nodeName != NULL) {</div>
-<div class="line"><a id="l02510" name="l02510"></a><span class="lineno"> 2510</span>        free(nodeptr-&gt;nodeName);</div>
-<div class="line"><a id="l02511" name="l02511"></a><span class="lineno"> 2511</span>    }</div>
-<div class="line"><a id="l02512" name="l02512"></a><span class="lineno"> 2512</span> </div>
-<div class="line"><a id="l02513" name="l02513"></a><span class="lineno"> 2513</span>    <span class="keywordflow">if</span> (nodeptr-&gt;nodeValue != NULL) {</div>
-<div class="line"><a id="l02514" name="l02514"></a><span class="lineno"> 2514</span>        free(nodeptr-&gt;nodeValue);</div>
-<div class="line"><a id="l02515" name="l02515"></a><span class="lineno"> 2515</span>    }</div>
-<div class="line"><a id="l02516" name="l02516"></a><span class="lineno"> 2516</span> </div>
-<div class="line"><a id="l02517" name="l02517"></a><span class="lineno"> 2517</span>    <span class="keywordflow">if</span> (nodeptr-&gt;namespaceURI != NULL) {</div>
-<div class="line"><a id="l02518" name="l02518"></a><span class="lineno"> 2518</span>        free(nodeptr-&gt;namespaceURI);</div>
-<div class="line"><a id="l02519" name="l02519"></a><span class="lineno"> 2519</span>    }</div>
-<div class="line"><a id="l02520" name="l02520"></a><span class="lineno"> 2520</span> </div>
-<div class="line"><a id="l02521" name="l02521"></a><span class="lineno"> 2521</span>    <span class="keywordflow">if</span> (nodeptr-&gt;prefix != NULL) {</div>
-<div class="line"><a id="l02522" name="l02522"></a><span class="lineno"> 2522</span>        free(nodeptr-&gt;prefix);</div>
-<div class="line"><a id="l02523" name="l02523"></a><span class="lineno"> 2523</span>    }</div>
-<div class="line"><a id="l02524" name="l02524"></a><span class="lineno"> 2524</span> </div>
-<div class="line"><a id="l02525" name="l02525"></a><span class="lineno"> 2525</span>    <span class="keywordflow">if</span> (nodeptr-&gt;localName != NULL) {</div>
-<div class="line"><a id="l02526" name="l02526"></a><span class="lineno"> 2526</span>        free(nodeptr-&gt;localName);</div>
-<div class="line"><a id="l02527" name="l02527"></a><span class="lineno"> 2527</span>    }</div>
-<div class="line"><a id="l02528" name="l02528"></a><span class="lineno"> 2528</span>}</div>
+<div class="line"><a id="l02510" name="l02510"></a><span class="lineno"> 2510</span> </div>
+<div class="foldopen" id="foldopen02511" data-start="{" data-end="}">
+<div class="line"><a id="l02511" name="l02511"></a><span class="lineno"><a class="line" href="../../d0/d19/ixmlparser_8hpp.html#ab028bcdff363205be1db5130ccec6f21"> 2511</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a46a73d42b9c999a1298cff940f216cb7">Parser_freeNodeContent</a>(<a class="code hl_struct" href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">IXML_Node</a>* nodeptr) {</div>
+<div class="line"><a id="l02512" name="l02512"></a><span class="lineno"> 2512</span>    <span class="keywordflow">if</span> (nodeptr == NULL) {</div>
+<div class="line"><a id="l02513" name="l02513"></a><span class="lineno"> 2513</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l02514" name="l02514"></a><span class="lineno"> 2514</span>    }</div>
+<div class="line"><a id="l02515" name="l02515"></a><span class="lineno"> 2515</span> </div>
+<div class="line"><a id="l02516" name="l02516"></a><span class="lineno"> 2516</span>    <span class="keywordflow">if</span> (nodeptr-&gt;nodeName != NULL) {</div>
+<div class="line"><a id="l02517" name="l02517"></a><span class="lineno"> 2517</span>        free(nodeptr-&gt;nodeName);</div>
+<div class="line"><a id="l02518" name="l02518"></a><span class="lineno"> 2518</span>    }</div>
+<div class="line"><a id="l02519" name="l02519"></a><span class="lineno"> 2519</span> </div>
+<div class="line"><a id="l02520" name="l02520"></a><span class="lineno"> 2520</span>    <span class="keywordflow">if</span> (nodeptr-&gt;nodeValue != NULL) {</div>
+<div class="line"><a id="l02521" name="l02521"></a><span class="lineno"> 2521</span>        free(nodeptr-&gt;nodeValue);</div>
+<div class="line"><a id="l02522" name="l02522"></a><span class="lineno"> 2522</span>    }</div>
+<div class="line"><a id="l02523" name="l02523"></a><span class="lineno"> 2523</span> </div>
+<div class="line"><a id="l02524" name="l02524"></a><span class="lineno"> 2524</span>    <span class="keywordflow">if</span> (nodeptr-&gt;namespaceURI != NULL) {</div>
+<div class="line"><a id="l02525" name="l02525"></a><span class="lineno"> 2525</span>        free(nodeptr-&gt;namespaceURI);</div>
+<div class="line"><a id="l02526" name="l02526"></a><span class="lineno"> 2526</span>    }</div>
+<div class="line"><a id="l02527" name="l02527"></a><span class="lineno"> 2527</span> </div>
+<div class="line"><a id="l02528" name="l02528"></a><span class="lineno"> 2528</span>    <span class="keywordflow">if</span> (nodeptr-&gt;prefix != NULL) {</div>
+<div class="line"><a id="l02529" name="l02529"></a><span class="lineno"> 2529</span>        free(nodeptr-&gt;prefix);</div>
+<div class="line"><a id="l02530" name="l02530"></a><span class="lineno"> 2530</span>    }</div>
+<div class="line"><a id="l02531" name="l02531"></a><span class="lineno"> 2531</span> </div>
+<div class="line"><a id="l02532" name="l02532"></a><span class="lineno"> 2532</span>    <span class="keywordflow">if</span> (nodeptr-&gt;localName != NULL) {</div>
+<div class="line"><a id="l02533" name="l02533"></a><span class="lineno"> 2533</span>        free(nodeptr-&gt;localName);</div>
+<div class="line"><a id="l02534" name="l02534"></a><span class="lineno"> 2534</span>    }</div>
+<div class="line"><a id="l02535" name="l02535"></a><span class="lineno"> 2535</span>}</div>
 </div>
-<div class="line"><a id="l02529" name="l02529"></a><span class="lineno"> 2529</span> </div>
-<div class="foldopen" id="foldopen02534" data-start="{" data-end="}">
-<div class="line"><a id="l02534" name="l02534"></a><span class="lineno"><a class="line" href="../../d0/d19/ixmlparser_8hpp.html#aca80f047df2fd05bc84d5dd18330413b"> 2534</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a6e1c9514870fcaa4a581baf033eaa224">Parser_setNodePrefixAndLocalName</a>(</div>
-<div class="line"><a id="l02536" name="l02536"></a><span class="lineno"> 2536</span>    <a class="code hl_struct" href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">IXML_Node</a>* node) {</div>
-<div class="line"><a id="l02537" name="l02537"></a><span class="lineno"> 2537</span>    <span class="keywordtype">char</span>* pStrPrefix = NULL;</div>
-<div class="line"><a id="l02538" name="l02538"></a><span class="lineno"> 2538</span>    <span class="keywordtype">char</span>* pLocalName;</div>
-<div class="line"><a id="l02539" name="l02539"></a><span class="lineno"> 2539</span>    ptrdiff_t nPrefix;</div>
-<div class="line"><a id="l02540" name="l02540"></a><span class="lineno"> 2540</span> </div>
-<div class="line"><a id="l02541" name="l02541"></a><span class="lineno"> 2541</span>    assert(node != NULL);</div>
-<div class="line"><a id="l02542" name="l02542"></a><span class="lineno"> 2542</span>    <span class="keywordflow">if</span> (node == NULL) {</div>
-<div class="line"><a id="l02543" name="l02543"></a><span class="lineno"> 2543</span>        <span class="keywordflow">return</span> IXML_FAILED;</div>
-<div class="line"><a id="l02544" name="l02544"></a><span class="lineno"> 2544</span>    }</div>
-<div class="line"><a id="l02545" name="l02545"></a><span class="lineno"> 2545</span> </div>
-<div class="line"><a id="l02546" name="l02546"></a><span class="lineno"> 2546</span>    pStrPrefix = strchr(node-&gt;nodeName, <span class="charliteral">&#39;:&#39;</span>);</div>
-<div class="line"><a id="l02547" name="l02547"></a><span class="lineno"> 2547</span>    <span class="keywordflow">if</span> (pStrPrefix == NULL) {</div>
-<div class="line"><a id="l02548" name="l02548"></a><span class="lineno"> 2548</span>        node-&gt;prefix = NULL;</div>
-<div class="line"><a id="l02549" name="l02549"></a><span class="lineno"> 2549</span>        node-&gt;localName = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2">safe_strdup</a>(node-&gt;nodeName);</div>
-<div class="line"><a id="l02550" name="l02550"></a><span class="lineno"> 2550</span>        <span class="keywordflow">if</span> (node-&gt;localName == NULL) {</div>
-<div class="line"><a id="l02551" name="l02551"></a><span class="lineno"> 2551</span>            <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
-<div class="line"><a id="l02552" name="l02552"></a><span class="lineno"> 2552</span>        }</div>
-<div class="line"><a id="l02553" name="l02553"></a><span class="lineno"> 2553</span> </div>
-<div class="line"><a id="l02554" name="l02554"></a><span class="lineno"> 2554</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l02555" name="l02555"></a><span class="lineno"> 2555</span>        <span class="comment">/* fill in the local name and prefix */</span></div>
-<div class="line"><a id="l02556" name="l02556"></a><span class="lineno"> 2556</span>        pLocalName = (<span class="keywordtype">char</span>*)pStrPrefix + 1;</div>
-<div class="line"><a id="l02557" name="l02557"></a><span class="lineno"> 2557</span>        nPrefix = pStrPrefix - node-&gt;nodeName;</div>
-<div class="line"><a id="l02558" name="l02558"></a><span class="lineno"> 2558</span>        node-&gt;prefix = (<span class="keywordtype">char</span>*)malloc((<span class="keywordtype">size_t</span>)nPrefix + (size_t)1);</div>
-<div class="line"><a id="l02559" name="l02559"></a><span class="lineno"> 2559</span>        <span class="keywordflow">if</span> (!node-&gt;prefix) {</div>
-<div class="line"><a id="l02560" name="l02560"></a><span class="lineno"> 2560</span>            <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
-<div class="line"><a id="l02561" name="l02561"></a><span class="lineno"> 2561</span>        }</div>
-<div class="line"><a id="l02562" name="l02562"></a><span class="lineno"> 2562</span> </div>
-<div class="line"><a id="l02563" name="l02563"></a><span class="lineno"> 2563</span>        memset(node-&gt;prefix, 0, (<span class="keywordtype">size_t</span>)nPrefix + (<span class="keywordtype">size_t</span>)1);</div>
-<div class="line"><a id="l02564" name="l02564"></a><span class="lineno"> 2564</span>        strncpy(node-&gt;prefix, node-&gt;nodeName, (<span class="keywordtype">size_t</span>)nPrefix);</div>
-<div class="line"><a id="l02565" name="l02565"></a><span class="lineno"> 2565</span> </div>
-<div class="line"><a id="l02566" name="l02566"></a><span class="lineno"> 2566</span>        node-&gt;localName = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2">safe_strdup</a>(pLocalName);</div>
-<div class="line"><a id="l02567" name="l02567"></a><span class="lineno"> 2567</span>        <span class="keywordflow">if</span> (node-&gt;localName == NULL) {</div>
-<div class="line"><a id="l02568" name="l02568"></a><span class="lineno"> 2568</span>            free(node-&gt;prefix);</div>
-<div class="line"><a id="l02569" name="l02569"></a><span class="lineno"> 2569</span>            <span class="comment">/* no need to free really, main loop will frees it</span></div>
-<div class="line"><a id="l02570" name="l02570"></a><span class="lineno"> 2570</span><span class="comment">             * when return code is not success */</span></div>
-<div class="line"><a id="l02571" name="l02571"></a><span class="lineno"> 2571</span>            node-&gt;prefix = NULL;</div>
-<div class="line"><a id="l02572" name="l02572"></a><span class="lineno"> 2572</span>            <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
-<div class="line"><a id="l02573" name="l02573"></a><span class="lineno"> 2573</span>        }</div>
-<div class="line"><a id="l02574" name="l02574"></a><span class="lineno"> 2574</span>    }</div>
-<div class="line"><a id="l02575" name="l02575"></a><span class="lineno"> 2575</span> </div>
-<div class="line"><a id="l02576" name="l02576"></a><span class="lineno"> 2576</span>    <span class="keywordflow">return</span> IXML_SUCCESS;</div>
-<div class="line"><a id="l02577" name="l02577"></a><span class="lineno"> 2577</span>}</div>
+<div class="line"><a id="l02536" name="l02536"></a><span class="lineno"> 2536</span> </div>
+<div class="foldopen" id="foldopen02541" data-start="{" data-end="}">
+<div class="line"><a id="l02541" name="l02541"></a><span class="lineno"><a class="line" href="../../d0/d19/ixmlparser_8hpp.html#aca80f047df2fd05bc84d5dd18330413b"> 2541</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#a6e1c9514870fcaa4a581baf033eaa224">Parser_setNodePrefixAndLocalName</a>(</div>
+<div class="line"><a id="l02543" name="l02543"></a><span class="lineno"> 2543</span>    <a class="code hl_struct" href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">IXML_Node</a>* node) {</div>
+<div class="line"><a id="l02544" name="l02544"></a><span class="lineno"> 2544</span>    <span class="keywordtype">char</span>* pStrPrefix = NULL;</div>
+<div class="line"><a id="l02545" name="l02545"></a><span class="lineno"> 2545</span>    <span class="keywordtype">char</span>* pLocalName;</div>
+<div class="line"><a id="l02546" name="l02546"></a><span class="lineno"> 2546</span>    ptrdiff_t nPrefix;</div>
+<div class="line"><a id="l02547" name="l02547"></a><span class="lineno"> 2547</span> </div>
+<div class="line"><a id="l02548" name="l02548"></a><span class="lineno"> 2548</span>    assert(node != NULL);</div>
+<div class="line"><a id="l02549" name="l02549"></a><span class="lineno"> 2549</span>    <span class="keywordflow">if</span> (node == NULL) {</div>
+<div class="line"><a id="l02550" name="l02550"></a><span class="lineno"> 2550</span>        <span class="keywordflow">return</span> IXML_FAILED;</div>
+<div class="line"><a id="l02551" name="l02551"></a><span class="lineno"> 2551</span>    }</div>
+<div class="line"><a id="l02552" name="l02552"></a><span class="lineno"> 2552</span> </div>
+<div class="line"><a id="l02553" name="l02553"></a><span class="lineno"> 2553</span>    pStrPrefix = strchr(node-&gt;nodeName, <span class="charliteral">&#39;:&#39;</span>);</div>
+<div class="line"><a id="l02554" name="l02554"></a><span class="lineno"> 2554</span>    <span class="keywordflow">if</span> (pStrPrefix == NULL) {</div>
+<div class="line"><a id="l02555" name="l02555"></a><span class="lineno"> 2555</span>        node-&gt;prefix = NULL;</div>
+<div class="line"><a id="l02556" name="l02556"></a><span class="lineno"> 2556</span>        node-&gt;localName = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2">safe_strdup</a>(node-&gt;nodeName);</div>
+<div class="line"><a id="l02557" name="l02557"></a><span class="lineno"> 2557</span>        <span class="keywordflow">if</span> (node-&gt;localName == NULL) {</div>
+<div class="line"><a id="l02558" name="l02558"></a><span class="lineno"> 2558</span>            <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
+<div class="line"><a id="l02559" name="l02559"></a><span class="lineno"> 2559</span>        }</div>
+<div class="line"><a id="l02560" name="l02560"></a><span class="lineno"> 2560</span> </div>
+<div class="line"><a id="l02561" name="l02561"></a><span class="lineno"> 2561</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l02562" name="l02562"></a><span class="lineno"> 2562</span>        <span class="comment">/* fill in the local name and prefix */</span></div>
+<div class="line"><a id="l02563" name="l02563"></a><span class="lineno"> 2563</span>        pLocalName = (<span class="keywordtype">char</span>*)pStrPrefix + 1;</div>
+<div class="line"><a id="l02564" name="l02564"></a><span class="lineno"> 2564</span>        nPrefix = pStrPrefix - node-&gt;nodeName;</div>
+<div class="line"><a id="l02565" name="l02565"></a><span class="lineno"> 2565</span>        node-&gt;prefix = (<span class="keywordtype">char</span>*)malloc((<span class="keywordtype">size_t</span>)nPrefix + (size_t)1);</div>
+<div class="line"><a id="l02566" name="l02566"></a><span class="lineno"> 2566</span>        <span class="keywordflow">if</span> (!node-&gt;prefix) {</div>
+<div class="line"><a id="l02567" name="l02567"></a><span class="lineno"> 2567</span>            <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
+<div class="line"><a id="l02568" name="l02568"></a><span class="lineno"> 2568</span>        }</div>
+<div class="line"><a id="l02569" name="l02569"></a><span class="lineno"> 2569</span> </div>
+<div class="line"><a id="l02570" name="l02570"></a><span class="lineno"> 2570</span>        memset(node-&gt;prefix, 0, (<span class="keywordtype">size_t</span>)nPrefix + (<span class="keywordtype">size_t</span>)1);</div>
+<div class="line"><a id="l02571" name="l02571"></a><span class="lineno"> 2571</span>        strncpy(node-&gt;prefix, node-&gt;nodeName, (<span class="keywordtype">size_t</span>)nPrefix);</div>
+<div class="line"><a id="l02572" name="l02572"></a><span class="lineno"> 2572</span> </div>
+<div class="line"><a id="l02573" name="l02573"></a><span class="lineno"> 2573</span>        node-&gt;localName = <a class="code hl_function" href="../../da/dff/ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2">safe_strdup</a>(pLocalName);</div>
+<div class="line"><a id="l02574" name="l02574"></a><span class="lineno"> 2574</span>        <span class="keywordflow">if</span> (node-&gt;localName == NULL) {</div>
+<div class="line"><a id="l02575" name="l02575"></a><span class="lineno"> 2575</span>            free(node-&gt;prefix);</div>
+<div class="line"><a id="l02576" name="l02576"></a><span class="lineno"> 2576</span>            <span class="comment">/* no need to free really, main loop will frees it</span></div>
+<div class="line"><a id="l02577" name="l02577"></a><span class="lineno"> 2577</span><span class="comment">             * when return code is not success */</span></div>
+<div class="line"><a id="l02578" name="l02578"></a><span class="lineno"> 2578</span>            node-&gt;prefix = NULL;</div>
+<div class="line"><a id="l02579" name="l02579"></a><span class="lineno"> 2579</span>            <span class="keywordflow">return</span> IXML_INSUFFICIENT_MEMORY;</div>
+<div class="line"><a id="l02580" name="l02580"></a><span class="lineno"> 2580</span>        }</div>
+<div class="line"><a id="l02581" name="l02581"></a><span class="lineno"> 2581</span>    }</div>
+<div class="line"><a id="l02582" name="l02582"></a><span class="lineno"> 2582</span> </div>
+<div class="line"><a id="l02583" name="l02583"></a><span class="lineno"> 2583</span>    <span class="keywordflow">return</span> IXML_SUCCESS;</div>
+<div class="line"><a id="l02584" name="l02584"></a><span class="lineno"> 2584</span>}</div>
 </div>
 <div class="ttc" id="agroup__XMLAPI_html_d4/d75/struct__IXML__CDATASection"><div class="ttname"><a href="../../da/d8a/group__XMLAPI.html#d4/d75/struct__IXML__CDATASection">_IXML_CDATASection</a></div><div class="ttdoc">Data structure representing a CDATA section node.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d46/ixml_8hpp_source.html#l00165">ixml.hpp:165</a></div></div>
 <div class="ttc" id="agroup__XMLAPI_html_d7/d7d/struct__IXML__Node"><div class="ttname"><a href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">_IXML_Node</a></div><div class="ttdoc">Data structure common to all types of nodes.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d46/ixml_8hpp_source.html#l00135">ixml.hpp:135</a></div></div>
@@ -2508,13 +2515,13 @@ $(document).ready(function(){initNavTree('da/dff/ixmlparser_8cpp_source.html','.
 <div class="ttc" id="aixmlparser_8cpp_html_a1a4a23a8c694f26c59c2f1b24fef612d"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a1a4a23a8c694f26c59c2f1b24fef612d">Parser_getNextNode</a></div><div class="ttdeci">static int Parser_getNextNode(Parser *xmlParser, IXML_Node *node, int *bETag)</div><div class="ttdoc">Get the next node.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l01760">ixmlparser.cpp:1760</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a1ce75189cf1958eebd9eda56fa65fb1c"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a1ce75189cf1958eebd9eda56fa65fb1c">Parser_appendTokBufChar</a></div><div class="ttdeci">static int Parser_appendTokBufChar(Parser *xmlParser, char c)</div><div class="ttdoc">Appends c to token buffer.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l00805">ixmlparser.cpp:805</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a274a44d205dbdd1c866801636647d505"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a274a44d205dbdd1c866801636647d505">Parser_isNameChar</a></div><div class="ttdeci">static int Parser_isNameChar(int c, int bNameChar)</div><div class="ttdoc">Check whether c (int) is in LetterTable or NameCharTable.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l00659">ixmlparser.cpp:659</a></div></div>
-<div class="ttc" id="aixmlparser_8cpp_html_a2b2e1c2ae7acf39146efcff9457d2e49"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49">Parser_LoadDocument</a></div><div class="ttdeci">int Parser_LoadDocument(IXML_Document **retDoc, const char *xmlFileName, int file)</div><div class="ttdoc">Parses a xml file and return the DOM tree.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l02476">ixmlparser.cpp:2476</a></div></div>
+<div class="ttc" id="aixmlparser_8cpp_html_a2b2e1c2ae7acf39146efcff9457d2e49"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49">Parser_LoadDocument</a></div><div class="ttdeci">int Parser_LoadDocument(IXML_Document **retDoc, const char *xmlFileName, int file)</div><div class="ttdoc">Parses a xml file and return the DOM tree.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l02483">ixmlparser.cpp:2483</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a2f413615d184341a330872c09fb1fd22"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a2f413615d184341a330872c09fb1fd22">Parser_processSTag</a></div><div class="ttdeci">static int Parser_processSTag(Parser *xmlParser, IXML_Node *node)</div><div class="ttdoc">Processes the STag as defined by XML spec.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l01059">ixmlparser.cpp:1059</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a3bddddfb77b025f8886865a981c47c4a"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a3bddddfb77b025f8886865a981c47c4a">isDuplicateAttribute</a></div><div class="ttdeci">static int isDuplicateAttribute(Parser *xmlParser, IXML_Node *newAttrNode)</div><div class="ttdoc">Reports whether the new attribute is the same as an existing one.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l01928">ixmlparser.cpp:1928</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a3d99cae89051fd8809e841e3be8b0777"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a3d99cae89051fd8809e841e3be8b0777">Parser_isValidEndElement</a></div><div class="ttdeci">static int Parser_isValidEndElement(Parser *xmlParser, IXML_Node *newNode)</div><div class="ttdoc">Check if a new node-&gt;nodeName matches top of element stack.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l02163">ixmlparser.cpp:2163</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a41f4d864085c0cc345e6ba7516fc0d77"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a41f4d864085c0cc345e6ba7516fc0d77">Parser_processETag</a></div><div class="ttdeci">static int Parser_processETag(Parser *xmlParser, IXML_Node *node, int *bETag)</div><div class="ttdoc">Process ETag as defined by XML spec.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l01326">ixmlparser.cpp:1326</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a4239e004be8b9a58203f1a7b0488f678"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a4239e004be8b9a58203f1a7b0488f678">Parser_addNamespace</a></div><div class="ttdeci">static int Parser_addNamespace(Parser *xmlParser)</div><div class="ttdoc">Add a namespace definition.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l01439">ixmlparser.cpp:1439</a></div></div>
-<div class="ttc" id="aixmlparser_8cpp_html_a46a73d42b9c999a1298cff940f216cb7"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a46a73d42b9c999a1298cff940f216cb7">Parser_freeNodeContent</a></div><div class="ttdeci">void Parser_freeNodeContent(IXML_Node *nodeptr)</div><div class="ttdoc">Fees a node contents.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l02504">ixmlparser.cpp:2504</a></div></div>
+<div class="ttc" id="aixmlparser_8cpp_html_a46a73d42b9c999a1298cff940f216cb7"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a46a73d42b9c999a1298cff940f216cb7">Parser_freeNodeContent</a></div><div class="ttdeci">void Parser_freeNodeContent(IXML_Node *nodeptr)</div><div class="ttdoc">Fees a node contents.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l02511">ixmlparser.cpp:2511</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a48d67a03feb38470eda694417804de09"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a48d67a03feb38470eda694417804de09">Parser_getChar</a></div><div class="ttdeci">static int Parser_getChar(const char *src, ptrdiff_t *cLen)</div><div class="ttdoc">Returns next char value and its length.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l00689">ixmlparser.cpp:689</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a4f6287b141c7c264313f626237e36b12"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a4f6287b141c7c264313f626237e36b12">Parser_freeElementStackItem</a></div><div class="ttdeci">static void Parser_freeElementStackItem(IXML_ElementStack *pItem)</div><div class="ttdoc">Frees one ElementStack item.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l00249">ixmlparser.cpp:249</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a511b15d269891d6cd81fa044ccbd1b51"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a511b15d269891d6cd81fa044ccbd1b51">Parser_isXmlChar</a></div><div class="ttdeci">static int Parser_isXmlChar(int c)</div><div class="ttdoc">see XML 1.0 (2nd Edition) 2.2.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l00679">ixmlparser.cpp:679</a></div></div>
@@ -2526,7 +2533,7 @@ $(document).ready(function(){initNavTree('da/dff/ixmlparser_8cpp_source.html','.
 <div class="ttc" id="aixmlparser_8cpp_html_a6116f23c2b6e4a021870ad6b09f38500"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a6116f23c2b6e4a021870ad6b09f38500">Parser_ElementPrefixDefined</a></div><div class="ttdeci">static int Parser_ElementPrefixDefined(Parser *xmlParser, IXML_Node *newNode, char **nsURI)</div><div class="ttdoc">Decides whether element's prefix is already defined.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l01867">ixmlparser.cpp:1867</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a61bd1728e96bf602fa9a47ee3a11af62"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a61bd1728e96bf602fa9a47ee3a11af62">Parser_hasDefaultNamespace</a></div><div class="ttdeci">static int Parser_hasDefaultNamespace(Parser *xmlParser, char **nsURI)</div><div class="ttdoc">Decide whether the current element has default namespace.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l02062">ixmlparser.cpp:2062</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a6d77ded2429cef8aa8408b9824c657ad"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a6d77ded2429cef8aa8408b9824c657ad">Parser_processAttribute</a></div><div class="ttdeci">static int Parser_processAttribute(Parser *xmlParser, IXML_Node *node)</div><div class="ttdoc">Processes attribute.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l01606">ixmlparser.cpp:1606</a></div></div>
-<div class="ttc" id="aixmlparser_8cpp_html_a6e1c9514870fcaa4a581baf033eaa224"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a6e1c9514870fcaa4a581baf033eaa224">Parser_setNodePrefixAndLocalName</a></div><div class="ttdeci">int Parser_setNodePrefixAndLocalName(IXML_Node *node)</div><div class="ttdoc">Set the node prefix and localName as defined by the nodeName in the form of ns:name.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l02534">ixmlparser.cpp:2534</a></div></div>
+<div class="ttc" id="aixmlparser_8cpp_html_a6e1c9514870fcaa4a581baf033eaa224"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a6e1c9514870fcaa4a581baf033eaa224">Parser_setNodePrefixAndLocalName</a></div><div class="ttdeci">int Parser_setNodePrefixAndLocalName(IXML_Node *node)</div><div class="ttdoc">Set the node prefix and localName as defined by the nodeName in the form of ns:name.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l02541">ixmlparser.cpp:2541</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a728ef7ca31534bf4780fa831f92239b3"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a728ef7ca31534bf4780fa831f92239b3">Parser_pushElement</a></div><div class="ttdeci">static int Parser_pushElement(Parser *xmlParser, IXML_Node *newElement)</div><div class="ttdoc">Push a new element onto element stack.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l01992">ixmlparser.cpp:1992</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a763f8a85273f09dddc1f0d9d6b7f5fad"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a763f8a85273f09dddc1f0d9d6b7f5fad">Parser_getNameSpace</a></div><div class="ttdeci">static char * Parser_getNameSpace(Parser *xmlParser, const char *prefix)</div><div class="ttdoc">Unimplemented function.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l01412">ixmlparser.cpp:1412</a></div></div>
 <div class="ttc" id="aixmlparser_8cpp_html_a79e10a91f0ba4407a806dd423aab4b09"><div class="ttname"><a href="../../da/dff/ixmlparser_8cpp.html#a79e10a91f0ba4407a806dd423aab4b09">Parser_processAttributeName</a></div><div class="ttdeci">static int Parser_processAttributeName(IXML_Document *rootDoc, Parser *xmlParser, IXML_Node *newNode)</div><div class="ttdoc">Processes the attribute name.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dff/ixmlparser_8cpp_source.html#l01954">ixmlparser.cpp:1954</a></div></div>

@@ -1,7 +1,7 @@
 #ifndef PUPNP_UPNPGLOBAL_HPP
 #define PUPNP_UPNPGLOBAL_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-26
+// Redistribution only with this Copyright remark. Last modified: 2024-10-27
 // Taken from authors who haven't made a note.
 
 /*!
@@ -12,7 +12,6 @@
  */
 #include <cstddef>
 
-#include <cmake_vars.hpp>
 #if defined UPNP_LARGEFILE_SENSITIVE && _FILE_OFFSET_BITS + 0 != 64
 #if defined __GNUC__
 #warning libupnp requires largefile mode - use AC_SYS_LARGEFILE

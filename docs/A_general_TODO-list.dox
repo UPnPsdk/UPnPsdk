@@ -1,17 +1,16 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-26
+// Redistribution only with this Copyright remark. Last modified: 2024-10-27
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Update to pupnp 1.14.20.
- * - Build, install and document ixml script support.
+ * - Create Github Action tests for installed SDK files.
+ * - Test and document ixml script support.
  * - Rework Utest/compa/1-discovery/test_ssdp.cpp, mainly to fix get_ssdp_sockets() for IPv6.
  * - Rework Utest/compa/api.d/test_upnpapi_win32.cpp.
  * - Enable Utest/sample/CMakeLists.txt.
  * - Create info function in the library and call that to avoid exporting private symbols.
- * - Create Github Action tests for installed SDK files.
  * - Compile api_calls from installed SDK.
  * - Build for ARM platforms.
  * - Provide IP-Address instead of interface name to UpnpInit2().
@@ -21,7 +20,6 @@
  * - Compile OpenSSL instead of using its external library.
  *   \n - Fix limitation: On Linux 64 bit building to 32 bit with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries.
  *   \n - Fix limitation: On MS Windows 64 bit building with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.
- * - Enable ixml test suite.
  * - Use of UPnPsdk installation with sample program.
  * - Remove Interface/ directory?
  * - Remove random port number generator.

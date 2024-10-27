@@ -1,8 +1,9 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-09
+// Redistribution only with this Copyright remark. Last modified: 2024-10-29
 
 #include <gmock/gmock.h>
 #include <UPnPsdk/global.hpp>
+#include <cmake_vars.hpp>
 #include <ixml.hpp>
 
 namespace utest {
