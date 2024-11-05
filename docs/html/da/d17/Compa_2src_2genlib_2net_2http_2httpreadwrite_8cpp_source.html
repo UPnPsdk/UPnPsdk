@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('da/d17/Compa_2src_2genlib_2net_2http_2
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * All rights reserved.</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Copyright (c) 2012 France Telecom All rights reserved.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-10-26</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-11-05</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * modification, are permitted provided that the following conditions are met:</span></div>
@@ -599,7 +599,7 @@ $(document).ready(function(){initNavTree('da/d17/Compa_2src_2genlib_2net_2http_2
 <div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* temp_path = <span class="stringliteral">&quot;/&quot;</span>;</div>
 <div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span> </div>
 <div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    *fixed_url = *url;</div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span><span class="preprocessor">#ifdef UPNP_ENABLE_OPEN_SSL</span></div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span><span class="preprocessor">#ifdef UPnPsdk_HAVE_OPENSSL</span></div>
 <div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9">token_string_casecmp</a>(&amp;fixed_url-&gt;<a class="code hl_variable" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a1a077d64a99f2adae0508d7836f6cea6">scheme</a>, <span class="stringliteral">&quot;http&quot;</span>) != 0 &amp;&amp;</div>
 <div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>        <a class="code hl_function" href="../../d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9">token_string_casecmp</a>(&amp;fixed_url-&gt;<a class="code hl_variable" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a1a077d64a99f2adae0508d7836f6cea6">scheme</a>, <span class="stringliteral">&quot;https&quot;</span>) != 0) {</div>
 <div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../d4/d64/messages_8hpp.html#a927ec0930b75494259cad31dda8e3d7b">UPNP_E_INVALID_URL</a>;</div>
@@ -1228,7 +1228,7 @@ $(document).ready(function(){initNavTree('da/d17/Compa_2src_2genlib_2net_2http_2
 <div class="line"><a id="l01174" name="l01174"></a><span class="lineno"> 1174</span>        ret_code = <a class="code hl_define" href="../../d4/d64/messages_8hpp.html#a01908abe1b6ae0541eaa18ef67550432">UPNP_E_SOCKET_CONNECT</a>;</div>
 <div class="line"><a id="l01175" name="l01175"></a><span class="lineno"> 1175</span>        <span class="keywordflow">goto</span> errorHandler;</div>
 <div class="line"><a id="l01176" name="l01176"></a><span class="lineno"> 1176</span>    }</div>
-<div class="line"><a id="l01177" name="l01177"></a><span class="lineno"> 1177</span><span class="preprocessor">#ifdef UPNP_ENABLE_OPEN_SSL</span></div>
+<div class="line"><a id="l01177" name="l01177"></a><span class="lineno"> 1177</span><span class="preprocessor">#ifdef UPnPsdk_HAVE_OPENSSL</span></div>
 <div class="line"><a id="l01178" name="l01178"></a><span class="lineno"> 1178</span>    <span class="comment">/* For HTTPS connections start the TLS/SSL handshake. */</span></div>
 <div class="line"><a id="l01179" name="l01179"></a><span class="lineno"> 1179</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9">token_string_casecmp</a>(&amp;url.<a class="code hl_variable" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a1a077d64a99f2adae0508d7836f6cea6">scheme</a>, <span class="stringliteral">&quot;https&quot;</span>) == 0) {</div>
 <div class="line"><a id="l01180" name="l01180"></a><span class="lineno"> 1180</span>        ret_code = <a class="code hl_function" href="../../d5/d78/sock_8cpp.html#a1fef2439727a2dea9bdfec28d62e8a18">sock_ssl_connect</a>(&amp;handle-&gt;sock_info);</div>

@@ -81,7 +81,18 @@ getting a delay to re-use an ip address. I start with test port number 50000
     ~$ # Get used port numbers
     ~$ grep -Phor --include='*.[chi]*' '5\d\d\d\d' ./Utest | sort -n | uniq
 
+## Create self signed OpenSSL certificates for testing
+I use this command to create them with a validity of 10 years (-days 3650):
+
+    $ openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 3650 -nodes
+
+Decode the certificate to show its information:
+
+    $ openssl x509 -in cert.pem -noout -text
+
+The test environment expects the certificates in ${UTEST_SOURCE_DIR}.
+
 <br /><pre>
-// Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  &#60;Ingo&#64;Hoeft-online.de&#62;
-// Redistribution only with this Copyright remark. Last modified: 2024-04-21
+// Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, &#60;Ingo&#64;Hoeft-online.de&#62;
+// Redistribution only with this Copyright remark. Last modified: 2024-11-05
 </pre>

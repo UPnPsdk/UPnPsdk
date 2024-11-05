@@ -309,11 +309,8 @@ endif(WIN32)
 #################################
 # OpenSSL                       #
 #################################
-if(FALSE) #(UPnPsdk_WITH_OPENSSL)
+if(UPnPsdk_WITH_OPENSSL)
     find_package(OpenSSL REQUIRED)
-    add_compile_definitions(
-        $<$<BOOL:${OpenSSL_FOUND}>:UPnPsdk_HAVE_OPENSSL>
-    )
     # Output with cmake option --log-level=DEBUG
     message(DEBUG "  DEBUG: OPENSSL_INCLUDE_DIR is: ${OPENSSL_INCLUDE_DIR}")
 endif()
@@ -447,9 +444,6 @@ endif(UPnPsdk_WITH_GOOGLETEST)
 # e.g. PUPNP_UPNP_SOURCE_DIR and PUPNP_UPNP_BINARY_DIR
 # For a successful one step configure the order is important.
 
-if(UPnPsdk_WITH_OPENSSL)
-    add_subdirectory(${PROJECT_SOURCE_DIR}/openssl)
-endif()
 add_subdirectory(${PROJECT_SOURCE_DIR}/UPnPsdk)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Pupnp)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Ixml)

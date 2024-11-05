@@ -63,7 +63,7 @@ target_compile_definitions(UPnPsdk_object
     PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:UPnPsdk_HAVE_OPENSSL>
 )
 target_link_libraries(UPnPsdk_object
-    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:OpenSSL::SSL>
 )
 endif()
 
@@ -84,7 +84,7 @@ target_compile_definitions(UPnPsdk_shared
     PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:UPnPsdk_HAVE_OPENSSL>
 )
 target_link_libraries(UPnPsdk_shared
-    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:OpenSSL::SSL>
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
     PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
@@ -125,7 +125,7 @@ target_compile_definitions(UPnPsdk_static
     PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:UPnPsdk_HAVE_OPENSSL>
 )
 target_link_libraries(UPnPsdk_static
-    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:OpenSSL::SSL>
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
     PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network

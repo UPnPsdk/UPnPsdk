@@ -234,7 +234,7 @@ target_compile_definitions(pupnp_shared
     PRIVATE UPnPsdk_EXPORTS
 )
 target_link_libraries(pupnp_shared
-    PUBLIC $<$<BOOL:${PUPNP_DEF_OPENSSL}>:upnplib_ssl>
+    PUBLIC $<$<BOOL:${PUPNP_DEF_OPENSSL}>:OpenSSL::SSL>
     PUBLIC ixml_shared
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
@@ -276,7 +276,7 @@ target_compile_definitions(pupnp_static
     ${PUPNP_COMPILE_DEFINITIONS}
 )
 target_link_libraries(pupnp_static
-    PUBLIC $<$<BOOL:${PUPNP_DEF_OPENSSL}>:upnplib_ssl>
+    PUBLIC $<$<BOOL:${PUPNP_DEF_OPENSSL}>:OpenSSL::SSL>
     INTERFACE ixml_static
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
