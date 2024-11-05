@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-22
+# Redistribution only with this Copyright remark. Last modified: 2024-11-05
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -168,7 +168,7 @@ set(PUPNP_SOURCE_FILES
     ${UMOCK_SOURCE_DIR}/src/netdb.cpp
     ${UMOCK_SOURCE_DIR}/src/pthread.cpp
     ${UMOCK_SOURCE_DIR}/src/pupnp_sock.cpp
-    $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:${UMOCK_SOURCE_DIR}/src/ssl.cpp>
+    $<$<BOOL:${PUPNP_DEF_OPENSSL}>:${UMOCK_SOURCE_DIR}/src/ssl.cpp>
     ${UMOCK_SOURCE_DIR}/src/stdio.cpp
     ${UMOCK_SOURCE_DIR}/src/stdlib.cpp
     ${UMOCK_SOURCE_DIR}/src/stringh.cpp
@@ -197,6 +197,7 @@ set(PUPNP_COMPILE_DEFINITIONS
         UPnPsdk_WITH_NATIVE_PUPNP
         UPNP_ENABLE_IPV6
         $<$<BOOL:${PUPNP_DEF_DEBUG}>:UPNP_HAVE_DEBUG>
+        $<$<BOOL:${PUPNP_DEF_OPENSSL}>:UPNP_ENABLE_OPEN_SSL>
         #$<$<BOOL:${PUPNP_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
         $<$<BOOL:${PUPNP_DEF_TOOLS}>:UPNP_HAVE_TOOLS>
         $<$<BOOL:${PUPNP_DEF_WEBSERVER}>:UPNP_HAVE_WEBSERVER>
@@ -233,7 +234,7 @@ target_compile_definitions(pupnp_shared
     PRIVATE UPnPsdk_EXPORTS
 )
 target_link_libraries(pupnp_shared
-    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+    PUBLIC $<$<BOOL:${PUPNP_DEF_OPENSSL}>:upnplib_ssl>
     PUBLIC ixml_shared
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
@@ -275,7 +276,7 @@ target_compile_definitions(pupnp_static
     ${PUPNP_COMPILE_DEFINITIONS}
 )
 target_link_libraries(pupnp_static
-    PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:upnplib_ssl>
+    PUBLIC $<$<BOOL:${PUPNP_DEF_OPENSSL}>:upnplib_ssl>
     INTERFACE ixml_static
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets

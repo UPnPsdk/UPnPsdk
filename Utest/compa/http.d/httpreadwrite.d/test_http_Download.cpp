@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-12
+// Redistribution only with this Copyright remark. Last modified: 2024-11-05
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -280,7 +280,7 @@ TEST_F(HttpBasicFTestSuite, make_message_format_q_successful) {
     uri_type url;
     // I use an ip address. With a name a DNS server would be asked and that
     // fails with test conditions.
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
     constexpr char url_str[]{"https://192.168.192.170:443/path/dest/"
                              "?query=value#fragment"};
 #else
@@ -294,7 +294,7 @@ TEST_F(HttpBasicFTestSuite, make_message_format_q_successful) {
     ret_http_MakeMessage =
         http_MakeMessage(&m_request, 1, 1, "q", HTTPMETHOD_GET, &url);
     EXPECT_EQ(ret_http_MakeMessage, 0) << errStrEx(ret_http_MakeMessage, 0);
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
     EXPECT_STREQ(m_request.buf, "GET /path/dest/?query=value HTTP/1.1\r\nHOST: "
                                 "192.168.192.170:443\r\n");
 #else

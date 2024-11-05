@@ -1,0 +1,20 @@
+{
+  "version": 8,
+  "configurePresets": [
+    {
+      "name": "nmake",
+      "displayName": "NMake Config",
+      "description": "Default build using NMake Makefiles generator",
+      "generator": "NMake Makefiles",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": {
+          "type": "STRING", "value": "Release"
+        },
+        "PT4W_BUILD_TESTING": {
+          "type": "BOOL", "value": "OFF"
+        }
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 #ifndef COMPA_SOCK_API_HPP
 #define COMPA_SOCK_API_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-13
+// Redistribution only with this Copyright remark. Last modified: 2024-11-05
 /*!
  * \file
  * \ingroup compa-Addressing
@@ -10,7 +10,7 @@
 
 #include <UPnPsdk/visibility.hpp>
 
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 #include <openssl/ssl.h>
 #endif
 
@@ -28,7 +28,7 @@
  *   - UPNP_E_INIT: The SDK is already initialized.
  *   - UPNP_E_INIT_FAILED: The SDK initialization failed. Is OpenSSL available?
  */
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 UPnPsdk_API int UpnpInitSslContext(
     /*! This argument is ignored and only provided for compatibility. It can be
      * set to any value. The library is initialzed automatically. */

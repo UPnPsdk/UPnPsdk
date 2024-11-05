@@ -2404,6 +2404,7 @@ PREDEFINED             = DOXYGEN_RUN \
                          UPNP_HAVE_DEBUG \
                          UPNP_ENABLE_IPV6 \
                          UPNP_ENABLE_OPEN_SSL \
+                         UPnPsdk_HAVE_OPENSSL \
                          COMPA_HAVE_MINISERVER \
                          COMPA_HAVE_WEBSERVER \
                          COMPA_HAVE_CTRLPT_SSDP \

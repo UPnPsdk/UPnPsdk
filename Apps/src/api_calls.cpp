@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-22
+// Redistribution only with this Copyright remark. Last modified: 2024-11-05
 /*!
  * \file
  * \brief Simple calls of API functions to test conditional compile and linking.
@@ -1251,7 +1251,7 @@ int UpnpRemoveAllVirtualDirs() {
 int UpnpInitSslContext() {
 #ifndef UPnPsdk_WITH_NATIVE_PUPNP
     constexpr char function_name[]{"UpnpInitSslContext()"};
-#if defined(UPNP_ENABLE_OPEN_SSL)
+#if defined(UPnPsdk_HAVE_OPENSSL)
     std::cerr << "Executing " << function_name << '\n';
 
     int ret = ::UpnpInitSslContext(1, TLS_method());
@@ -1262,7 +1262,7 @@ int UpnpInitSslContext() {
     ::freeSslCtx();
 #else
     std::cerr << "Skip " << function_name
-              << ": UPNP_ENABLE_OPEN_SSL not enabled\n";
+              << ": UPnPsdk_HAVE_OPENSSL not enabled\n";
 #endif
 #endif
     return 0;

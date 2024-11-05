@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-23
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-05
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -46,7 +46,7 @@
 #include <UPnPsdk/port_sock.hpp> /* for SOCKET, netinet/in */
 #include <umock/unistd.hpp>
 
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 #include <openssl/ssl.h>
 #endif
 
@@ -67,7 +67,7 @@ struct SOCKINFO {
     SOCKET socket;
     /// Socket address of the remote node only filled in incoming requests.
     sockaddr_storage foreign_sockaddr;
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
     /// Information about an ssl connection only filled in incoming requests.
     SSL* ssl;
 #else
@@ -133,7 +133,7 @@ int sock_init_with_ip(
  * \li \c UPNP_E_SOCKET_ERROR
  */
 // Don't export function symbol; only used library intern.
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 int sock_ssl_connect(
     /*! [out] Socket Information Object. */
     SOCKINFO* info);

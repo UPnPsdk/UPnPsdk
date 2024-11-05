@@ -1,5 +1,5 @@
 # Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-09-07
+# Redistribution only with this Copyright remark. Last modified: 2024-11-05
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -18,9 +18,6 @@ if(NOT WIN32)
     target_include_directories(upnplib_crypto
         # We use the own build include files from the OpenSSL build on MS Windows
         INTERFACE ${PROJECT_SOURCE_DIR}/Windows/include
-    )
-    target_compile_definitions(upnplib_crypto
-        INTERFACE UPNP_ENABLE_OPEN_SSL
     )
     target_link_libraries(upnplib_crypto
         INTERFACE dl
@@ -48,9 +45,6 @@ else() # WIN32
     )
     target_include_directories(upnplib_crypto
         INTERFACE ${PROJECT_SOURCE_DIR}/${CMAKE_HOST_SYSTEM_NAME}/include
-    )
-    target_compile_definitions(upnplib_crypto
-        INTERFACE UPNP_ENABLE_OPEN_SSL
     )
 
     add_library(upnplib_ssl SHARED IMPORTED GLOBAL)

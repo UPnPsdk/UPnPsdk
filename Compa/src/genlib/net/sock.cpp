@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-24
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-05
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -57,7 +57,7 @@
 
 namespace {
 
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 /*! \brief Pointer to an SSL Context.
  *
  * Only this one is supported. With the given functions there is no way to use
@@ -251,7 +251,7 @@ int sock_write_unprotected(
 }
 
 
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 /*!
  * \brief Read from an SSL protected socket.
  *
@@ -467,7 +467,7 @@ int sock_init_with_ip(SOCKINFO* info, SOCKET sockfd,
     return UPNP_E_SUCCESS;
 }
 
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 int sock_ssl_connect(SOCKINFO* info) {
     TRACE("Executing sock_ssl_connect()");
     info->ssl = SSL_new(gSslCtx);
@@ -493,7 +493,7 @@ int sock_destroy(SOCKINFO* info, int ShutdownMethod) {
     int ret{UPNP_E_SUCCESS};
 
     if (info->socket != INVALID_SOCKET) {
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
         if (info->ssl) {
             SSL_shutdown(info->ssl);
             SSL_free(info->ssl);
@@ -528,7 +528,7 @@ int sock_read(SOCKINFO* info, char* buffer, size_t bufsize, int* timeoutSecs) {
     TRACE("Executing sock_read()")
     if (info == nullptr)
         return UPNP_E_SOCKET_ERROR;
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
     if (info->ssl)
         return sock_read_ssl(info, buffer /*read_buffer*/,
                              nullptr /*write_buffer*/, bufsize, timeoutSecs);
@@ -544,7 +544,7 @@ int sock_write(SOCKINFO* info, const char* buffer, size_t bufsize,
     TRACE("Executing sock_write()")
     if (info == nullptr)
         return UPNP_E_SOCKET_ERROR;
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
     if (info->ssl)
         return sock_write_ssl(info, nullptr /*read_buffer*/,
                               buffer /*write_buffer*/, bufsize, timeoutSecs);
@@ -587,7 +587,7 @@ int sock_make_no_blocking(SOCKET sock) {
 #endif /* _WIN32 */
 }
 
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 int UpnpInitSslContext([[maybe_unused]] int initOpenSslLib,
                        const SSL_METHOD* sslMethod) {
     if (gSslCtx)

@@ -1,8 +1,8 @@
-#ifdef UPNP_ENABLE_OPEN_SSL
+#if defined(UPnPsdk_HAVE_OPENSSL) || defined(UPNP_ENABLE_OPEN_SSL)
 #ifndef UMOCK_SSL_HPP
 #define UMOCK_SSL_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-11-05
 
 #include <UPnPsdk/visibility.hpp>
 #include <openssl/ssl.h>
@@ -74,4 +74,4 @@ UPNPLIB_EXTERN Ssl ssl_h;
 } // namespace umock
 
 #endif // UMOCK_SSL_HPP
-#endif // UPNP_ENABLE_OPEN_SSL
+#endif // UPnPsdk_HAVE_OPENSSL

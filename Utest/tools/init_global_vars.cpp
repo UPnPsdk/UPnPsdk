@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-05
 
 namespace UPnPsdk {
 
@@ -40,7 +40,7 @@ void init_global_vars() {
 #ifdef UPNP_HAVE_OPTSSDP
     strcpy(gUpnpSdkNLSuuid, "");
 #endif /* UPNP_HAVE_OPTSSDP */
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
     SSL_CTX* gSslCtx = nullptr;
 #endif
 }

@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-27
+# Redistribution only with this Copyright remark. Last modified: 2024-11-05
 
 cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -225,6 +225,7 @@ message(DEBUG "  DEBUG: UPnPsdk_RUNTIME_OUTPUT_DIRECTORY is: ${UPnPsdk_RUNTIME_O
 ##########################################
 # POSIX Threads for Windows (pthreads4w) #
 ##########################################
+# REF: [Install third party POSIX Threads for Windows](https://stackoverflow.com/q/69275376/5014688)
 # This should be one of the first installations to have pthreads available.
 
 if(WIN32)
@@ -256,7 +257,6 @@ if(WIN32)
         # Fetch the content using previously declared details.
         # This caches pthreads4w_SOURCE_DIR, pthreads4w_BINARY_DIR and pthreads4w_POPULATED.
         FetchContent_Populate(pthreads4w)
-        #FetchContent_MakeAvailable(pthreads4w)
 
         execute_process(COMMAND cmake -S ${pthreads4w_SOURCE_DIR} -B ${pthreads4w_BINARY_DIR} -G "NMake Makefiles" -D CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -D BUILD_TESTING=${PT4W_BUILD_TESTING}
                         WORKING_DIRECTORY ${pthreads4w_SOURCE_DIR}
@@ -271,6 +271,7 @@ if(WIN32)
         message(CHECK_PASS "done")
         message(CHECK_START "Building POSIX Threads for Windows libraries")
 
+        # Manage output for cmake option --log-level=DEBUG
         cmake_language(GET_MESSAGE_LOG_LEVEL MSG_LOG_LEVEL)
         if(MSG_LOG_LEVEL STREQUAL "DEBUG")
             set(PT4W_COMMAND COMMAND_ECHO)
@@ -303,6 +304,19 @@ if(WIN32)
     message(DEBUG "  DEBUG: pthreads4w_BINARY_DIR is: ${pthreads4w_BINARY_DIR}")
 
 endif(WIN32)
+
+
+#################################
+# OpenSSL                       #
+#################################
+if(FALSE) #(UPnPsdk_WITH_OPENSSL)
+    find_package(OpenSSL REQUIRED)
+    add_compile_definitions(
+        $<$<BOOL:${OpenSSL_FOUND}>:UPnPsdk_HAVE_OPENSSL>
+    )
+    # Output with cmake option --log-level=DEBUG
+    message(DEBUG "  DEBUG: OPENSSL_INCLUDE_DIR is: ${OPENSSL_INCLUDE_DIR}")
+endif()
 
 
 #################################
@@ -477,8 +491,7 @@ message(DEBUG "  DEBUG: CMAKE_INSTALL_RPATH is .............: ${CMAKE_INSTALL_RP
 message(DEBUG "  DEBUG: CMAKE_SKIP_BUILD_RPATH is ..........: ${CMAKE_SKIP_BUILD_RPATH}")
 message(DEBUG "  DEBUG: CMAKE_BUILD_WITH_INSTALL_RPATH is ..: ${CMAKE_BUILD_WITH_INSTALL_RPATH}")
 message(DEBUG "  DEBUG: CMAKE_INSTALL_RPATH_USE_LINK_PATH is: ${CMAKE_INSTALL_RPATH_USE_LINK_PATH}")
-message(DEBUG "  DEBUG: --")
-message(DEBUG "  DEBUG: UPnPsdk_WITH_OPENSSL = ${UPnPsdk_WITH_OPENSSL}")
+
 message(STATUS "Build type is ${CMAKE_BUILD_TYPE}")
 
 

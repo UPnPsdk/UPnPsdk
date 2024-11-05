@@ -106,20 +106,18 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A general TODO-list. </p>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd><ul>
-<li>Create Github Action tests for installed SDK files.</li>
+<li>Compile OpenSSL instead of using its external library. <br  />
+ - Fix limitation: On Linux 64 bit building to 32 bit with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries. <br  />
+ - Fix limitation: On MS Windows 64 bit building with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.</li>
+<li>Improve tests for OpenSSL (test_sock.cpp, sock read_ssl, sock write_ssl).</li>
+<li>Provide IP-Address instead of interface name to <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>.</li>
 <li>Test and document ixml script support.</li>
 <li>Rework Utest/compa/1-discovery/test_ssdp.cpp, mainly to fix <a class="el" href="../../de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation.">get_ssdp_sockets()</a> for IPv6.</li>
 <li>Rework Utest/compa/api.d/test_upnpapi_win32.cpp.</li>
 <li>Enable Utest/sample/CMakeLists.txt.</li>
-<li>Create info function in the library and call that to avoid exporting private symbols.</li>
-<li>Compile api_calls from installed SDK.</li>
 <li>Build for ARM platforms.</li>
-<li>Provide IP-Address instead of interface name to <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>.</li>
 <li>Create Unit Test large-file support (<a href="https://gist.github.com/mortenpi/9745042">https://gist.github.com/mortenpi/9745042</a>)</li>
-<li>Create library info function that can be called with the API. Improve tests for OpenSSL (test_sock.cpp, sock read_ssl, sock write_ssl).</li>
-<li>Compile OpenSSL instead of using its external library. <br  />
- - Fix limitation: On Linux 64 bit building to 32 bit with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries. <br  />
- - Fix limitation: On MS Windows 64 bit building with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.</li>
+<li>Create info function in the library to avoid exporting private symbols, callable on the API.</li>
 <li>Use of <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> installation with sample program.</li>
 <li>Remove Interface/ directory?</li>
 <li>Remove random port number generator.</li>

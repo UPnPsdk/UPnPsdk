@@ -3,7 +3,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-09
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-05
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -85,10 +85,10 @@ void* library_info(void*) {
     msg << "UPNP_HAVE_DEBUG         = no\n";
 #endif
 
-#ifdef UPNP_ENABLE_OPEN_SSL
-    msg << "UPNP_ENABLE_OPEN_SSL    = yes\n";
+#ifdef UPnPsdk_HAVE_OPENSSL
+    msg << "UPnPsdk_HAVE_OPENSSL    = yes\n";
 #else
-    msg << "UPNP_ENABLE_OPEN_SSL    = no\n";
+    msg << "UPnPsdk_HAVE_OPENSSL    = no\n";
 #endif
 
 #ifdef UPNP_HAVE_TOOLS

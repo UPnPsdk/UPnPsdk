@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-26
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-05
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -563,7 +563,7 @@ int http_FixUrl(uri_type* url, uri_type* fixed_url) {
     const char* temp_path = "/";
 
     *fixed_url = *url;
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
     if (token_string_casecmp(&fixed_url->scheme, "http") != 0 &&
         token_string_casecmp(&fixed_url->scheme, "https") != 0) {
         return UPNP_E_INVALID_URL;
@@ -1174,7 +1174,7 @@ int http_OpenHttpConnection(const char* url_str, void** Handle,
         ret_code = UPNP_E_SOCKET_CONNECT;
         goto errorHandler;
     }
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
     /* For HTTPS connections start the TLS/SSL handshake. */
     if (token_string_casecmp(&url.scheme, "https") == 0) {
         ret_code = sock_ssl_connect(&handle->sock_info);

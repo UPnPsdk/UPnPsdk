@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-05
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -587,7 +587,7 @@ TEST_F(OpenHttpConnectionIp4FTestSuite, get_socket_fails) {
     // Close connection
     // Will call socket_h->shutdown and unistd_h->close
     // Must not segfault with OpenSSL enabled, needs rework.
-#ifndef UPNP_ENABLE_OPEN_SSL
+#if !defined(UPnPsdk_HAVE_OPENSSL) && !defined(UPNP_ENABLE_OPEN_SSL)
     returned = http_CloseHttpConnection(phandle);
     EXPECT_EQ(returned, UPNP_E_SUCCESS) << errStrEx(returned, UPNP_E_SUCCESS);
 #endif
@@ -843,7 +843,7 @@ TEST(HttpFixUrl, check_http_FixStrUrl_successful) {
     if (github_actions)
         GTEST_SKIP() << "             known failing test on Github Actions";
 
-#ifdef UPNP_ENABLE_OPEN_SSL
+#if defined(UPnPsdk_HAVE_OPENSSL) || defined(UPNP_ENABLE_OPEN_SSL)
     constexpr char url_str[] =
         "https://user.name@upnplib.net:443/path/dest/?key=value#fragment";
 #else

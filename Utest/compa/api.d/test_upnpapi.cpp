@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-05
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -85,7 +85,7 @@ clang-format off
 
 
      UpnpFinish()
-     |#ifdef UPNP_ENABLE_OPEN_SSL
+     |#ifdef UPnPsdk_HAVE_OPENSSL
      |__ SSL_CTX_free()
      |#endif
      |__ if not UpnpSdkInit

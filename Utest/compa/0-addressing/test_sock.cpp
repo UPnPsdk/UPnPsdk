@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-05
 
 // Helpful link for ip address structures:
 // https://stackoverflow.com/q/76548580/5014688
@@ -63,7 +63,7 @@ class SockFTestSuite : public ::testing::Test {
 
     StrictMock<umock::UnistdMock> m_unistdObj;
     umock::Unistd unistd_injectObj = umock::Unistd(&m_unistdObj);
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
     StrictMock<umock::SslMock> m_sslObj;
     umock::Ssl ssl_injectObj = umock::Ssl(&m_sslObj);
 #endif
@@ -383,7 +383,7 @@ TEST_F(SockNoSigP2FTestSuite, sock_read_successful) {
         std::cout << "DEBUG: time used = " << timeoutSecs << ".\n";
 }
 
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 TEST_F(SockNoSigP2FTestSuite, sock_read_ssl_successful) {
     constexpr time_t timeout{5};
     // -1 Blocks indefinitely waiting for a socket descriptor to become ready.
@@ -433,7 +433,7 @@ TEST_F(SockNoSigP2FTestSuite, sock_read_ssl_successful) {
     EXPECT_STREQ(buffer, received_msg);
     EXPECT_GE(timeoutSecs, no_timeout);
 }
-#endif // UPNP_ENABLE_OPEN_SSL
+#endif // UPnPsdk_HAVE_OPENSSL
 
 TEST_F(SockFTestSuite, sock_read_with_connection_error) {
     // Provide needed environment.
@@ -798,7 +798,7 @@ TEST_F(SockNoSigP2FTestSuite, sock_write_successful) {
     EXPECT_EQ(timeoutSecs, no_timeout); // Should not be modified.
 }
 
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 TEST_F(SockNoSigP2FTestSuite, sock_write_ssl_successful) {
     constexpr time_t timeout{5};
     // -1 Blocks indefinitely waiting for a socket descriptor to become ready.
@@ -844,7 +844,7 @@ TEST_F(SockNoSigP2FTestSuite, sock_write_ssl_successful) {
         << errStr(ret_sock_write);
     EXPECT_EQ(timeoutSecs, no_timeout); // Should not be modified.
 }
-#endif                                  // UPNP_ENABLE_OPEN_SSL
+#endif                                  // UPnPsdk_HAVE_OPENSSL
 
 TEST_F(SockFTestSuite, sock_write_with_connection_error) {
     // select()
@@ -1048,7 +1048,7 @@ TEST(SockTestSuite, sock_make_blocking_and_sock_make_no_blocking) {
 #endif
 }
 
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
 TEST(SockTestSuite, sock_ssl_connect) {
     if (github_actions)
         GTEST_SKIP() << "             known failing test on Github Actions";

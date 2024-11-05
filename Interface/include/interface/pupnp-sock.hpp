@@ -1,7 +1,7 @@
 #ifndef INTERFACE_PUPNP_SOCK_HPP
 #define INTERFACE_PUPNP_SOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-09-13
+// Redistribution only with this Copyright remark. Last modified: 2024-11-05
 
 #include <sock.hpp>
 
@@ -17,7 +17,7 @@ class UPNPLIB_API SockInterface {
         SOCKINFO* info, SOCKET sockfd) = 0;
     virtual int sock_init_with_ip(
         SOCKINFO* info, SOCKET sockfd, struct sockaddr* foreign_sockaddr) = 0;
-#ifdef UPNP_ENABLE_OPEN_SSL
+#ifdef UPnPsdk_HAVE_OPENSSL
     virtual int sock_ssl_connect(
         SOCKINFO* info) = 0;
 #endif
