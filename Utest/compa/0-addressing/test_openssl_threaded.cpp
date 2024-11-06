@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-08
 
 #include <cmake_vars.hpp>
 #include <UPnPsdk/global.hpp>
@@ -91,13 +91,13 @@ SSL_CTX* create_context() {
 
 void configure_context(SSL_CTX* ctx) {
     /* Set the key and cert */
-    if (SSL_CTX_use_certificate_file(ctx, CMAKE_SOURCE_DIR "/utest/cert.pem",
+    if (SSL_CTX_use_certificate_file(ctx, CMAKE_SOURCE_DIR "/Utest/cert.pem",
                                      SSL_FILETYPE_PEM) <= 0) {
         ERR_print_errors_fp(stderr);
         exit(EXIT_FAILURE);
     }
 
-    if (SSL_CTX_use_PrivateKey_file(ctx, CMAKE_SOURCE_DIR "/utest/key.pem",
+    if (SSL_CTX_use_PrivateKey_file(ctx, CMAKE_SOURCE_DIR "/Utest/key.pem",
                                     SSL_FILETYPE_PEM) <= 0) {
         ERR_print_errors_fp(stderr);
         exit(EXIT_FAILURE);
@@ -105,28 +105,25 @@ void configure_context(SSL_CTX* ctx) {
 }
 
 void simple_TLS_server() {
-    TRACE("executing utest::simple_TLS_server()");
-
 #ifndef _WIN32
     /* Ignore broken pipe signals */
     // signal(SIGPIPE, SIG_IGN);
 #endif
 
-    SOCKET sock = create_socket(4433);
+    SOCKET sock = create_socket(5544);
     SSL_CTX* ctx = create_context();
     configure_context(ctx);
 
     /* Handle connections */
     while (1) {
-        TRACE("  simple_TLS_server: loop next connection");
         struct sockaddr_in addr;
         socklen_t len = sizeof(addr);
         SSL* ssl;
-        const char reply[] = "test\n";
+        constexpr char reply[] = "test";
 
         SOCKET client = accept(sock, (struct sockaddr*)&addr, &len);
         if (client == INVALID_SOCKET) {
-            TRACE("  simple_TLS_server: EXIT - socket connection not accepted");
+            UPNPLIB_LOGCRIT "MSG1069: EXIT - socket connection not accepted\n";
 #ifdef _WIN32
             std::clog << "[Server:" << __LINE__
                       << "] Error - socket accept: WSAGetLastError()="
@@ -135,28 +132,28 @@ void simple_TLS_server() {
 #endif
             exit(EXIT_FAILURE);
         }
-        TRACE("  simple_TLS_server: socket connection accepted");
+        UPNPLIB_LOGINFO "MSG1058: Server accepts respond from Client\n";
 
         ssl = SSL_new(ctx);
-        // Due to man SSL_set_fd the type cast (int) is no problem.
-        SSL_set_fd(ssl, (int)client);
+        // Due to man SSL_set_fd the type cast is no problem.
+        SSL_set_fd(ssl, static_cast<int>(client));
 
         if (SSL_accept(ssl) <= 0) {
             ERR_print_errors_fp(stderr);
         } else {
-            TRACE("  simple_TLS_server: SSL connection with socket accepted, "
-                  "send respond");
-            // type cast (int) is no problem because there is a small buffer
-            SSL_write(ssl, reply, (int)strlen(reply));
+            UPNPLIB_LOGINFO "MSG1059: Server sends respond to Client \""
+                << reply << "\"\n";
+            // type cast is no problem because there is a small buffer
+            SSL_write(ssl, reply, static_cast<int>(sizeof(reply) - 1));
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
 
         SSL_shutdown(ssl);
         SSL_free(ssl);
-        close((int)client);
+        CLOSE_SOCKET_P(client);
     }
 
-    close((int)sock);
+    CLOSE_SOCKET_P(sock);
     SSL_CTX_free(ctx);
 }
 
@@ -169,6 +166,9 @@ SSL* ssl_client;
 SOCKET sock;
 
 int SSL_error_print(const int a_line, const SSL* a_ssl, const int a_result) {
+    if (a_result > 0)
+        return SSL_ERROR_NONE;
+
     const int ssl_error = SSL_get_error(a_ssl, a_result);
     const int err_no = errno;
     switch (ssl_error) {
@@ -236,15 +236,12 @@ int SSL_error_print(const int a_line, const SSL* a_ssl, const int a_result) {
 }
 
 int RecvPacket() {
-    int len = 100;
-    char buf[1000000];
-    std::cout << "[Client] received:\n";
+    char buf[100]{};
     ERR_clear_error(); // must be empty to get correct SSL_get_error()
-    do {
-        len = SSL_read(ssl_client, buf, 100);
-        buf[len] = 0;
-        std::cout << std::string(buf);
-    } while (len > 0);
+    int len = SSL_read(ssl_client, buf, sizeof(buf));
+    // clang-format off
+    UPNPLIB_LOGINFO "MSG1032: Client received " << "\"" << buf << "\"\n";
+    // clang-format on
     return SSL_error_print(__LINE__, ssl_client, len);
 }
 
@@ -267,7 +264,7 @@ int simple_TLS_client() {
 
     constexpr addrinfo hints{{}, AF_INET, {}, {}, {}, {}, {}, {}};
     addrinfo* res{};
-    constexpr char service[]{"4433"};
+    constexpr char service[]{"5544"};
     int ret = getaddrinfo("localhost", service, &hints, &res);
     if (ret != 0) {
         std::clog << "[Client:" << __LINE__
@@ -316,7 +313,8 @@ int simple_TLS_client() {
         ERR_print_errors_fp(stderr);
         return -1;
     }
-    printf("[Client] SSL connection using %s\n", SSL_get_cipher(ssl_client));
+    UPNPLIB_LOGINFO "MSG1096: SSL connection using "
+        << SSL_get_cipher(ssl_client) << '\n';
 
     char request[] = "GET https://about.google/intl/en/ HTTP/1.1\r\n\r\n";
     if (SendPacket(request) != SSL_ERROR_NONE) {
@@ -324,7 +322,7 @@ int simple_TLS_client() {
                   << std::endl;
         return -1;
     }
-    if (RecvPacket() != SSL_ERROR_ZERO_RETURN) {
+    if (RecvPacket() != SSL_ERROR_NONE) {
         std::clog << "[Client:" << __LINE__ << "] Error - receive packet."
                   << std::endl;
         return -1;
@@ -342,7 +340,6 @@ int main(int argc, char** argv) {
     t1.detach();
     ::testing::InitGoogleMock(&argc, argv);
 #include "utest/utest_main.inc"
-    std::this_thread::sleep_for(std::chrono::milliseconds(250));
-    TRACE("Program end.");
+    UPNPLIB_LOGINFO "MSG1070: Program end.\n";
     return gtest_return_code; // managed in gtest_main.inc
 }

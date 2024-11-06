@@ -1,7 +1,7 @@
 #ifndef UMOCK_ARPA_INET_HPP
 #define UMOCK_ARPA_INET_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-11-07
 
 #include <UPnPsdk/port_sock.hpp>
 #include <UPnPsdk/visibility.hpp>
@@ -10,7 +10,7 @@ namespace umock {
 
 // clang-format off
 
-class UPNPLIB_API Arpa_inetInterface {
+class UPnPsdk_API Arpa_inetInterface {
   public:
     Arpa_inetInterface();
     virtual ~Arpa_inetInterface();
@@ -40,7 +40,7 @@ class Arpa_inetReal : public Arpa_inetInterface {
         EXPECT_CALL(arpa_inet_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPNPLIB_API Arpa_inet {
+class UPnPsdk_API Arpa_inet {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.
@@ -62,13 +62,13 @@ class UPNPLIB_API Arpa_inet {
     // objects of this class. With inline we do not need an extra definition
     // line outside the class. I also make the symbol hidden so the variable
     // cannot be accessed globaly with Arpa_inet::m_ptr_workerObj.
-    UPNPLIB_LOCAL static inline Arpa_inetInterface* m_ptr_workerObj;
+    UPnPsdk_LOCAL static inline Arpa_inetInterface* m_ptr_workerObj;
     Arpa_inetInterface* m_ptr_oldObj{};
 };
 // clang-format off
 
 
-UPNPLIB_EXTERN Arpa_inet arpa_inet_h;
+UPnPsdk_EXTERN Arpa_inet arpa_inet_h;
 
 } // namespace umock
 

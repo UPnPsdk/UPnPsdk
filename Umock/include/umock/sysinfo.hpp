@@ -1,7 +1,7 @@
 #ifndef UMOCK_SYSINFO_HPP
 #define UMOCK_SYSINFO_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-11-07
 
 #include "UPnPsdk/visibility.hpp"
 #include <ctime>
@@ -11,7 +11,7 @@
 
 namespace umock {
 
-class UPNPLIB_API SysinfoInterface {
+class UPnPsdk_API SysinfoInterface {
   public:
     SysinfoInterface();
     virtual ~SysinfoInterface();
@@ -47,7 +47,7 @@ class SysinfoReal : public SysinfoInterface {
         EXPECT_CALL(sysinfo_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPNPLIB_API Sysinfo {
+class UPnPsdk_API Sysinfo {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.
@@ -72,12 +72,12 @@ class UPNPLIB_API Sysinfo {
     // objects of this class. With inline we do not need an extra definition
     // line outside the class. I also make the symbol hidden so the variable
     // cannot be accessed globaly with Sysinfo::m_ptr_workerObj. --Ingo
-    UPNPLIB_LOCAL static inline SysinfoInterface* m_ptr_workerObj;
+    UPnPsdk_LOCAL static inline SysinfoInterface* m_ptr_workerObj;
     SysinfoInterface* m_ptr_oldObj{};
 };
 
 
-UPNPLIB_EXTERN Sysinfo sysinfo;
+UPnPsdk_EXTERN Sysinfo sysinfo;
 
 } // namespace umock
 

@@ -5,9 +5,6 @@
  * \brief A general TODO-list
  *
  * \todo
- * - Compile OpenSSL instead of using its external library.
- *   \n - Fix limitation: On Linux 64 bit building to 32 bit with OpenSSL fails due to 64 bit OpenSSL prebuilt libraries.
- *   \n - Fix limitation: On MS Windows 64 bit building with OpenSSL segfaults due to outdated OpenSSL prebuilt libraries.
  * - Improve tests for OpenSSL (test_sock.cpp, sock read_ssl, sock write_ssl).
  * - Provide IP-Address instead of interface name to UpnpInit2().
  * - Test and document ixml script support.

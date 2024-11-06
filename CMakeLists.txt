@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-11-05
+# Redistribution only with this Copyright remark. Last modified: 2024-11-06
 
 cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -310,6 +310,7 @@ endif(WIN32)
 # OpenSSL                       #
 #################################
 if(UPnPsdk_WITH_OPENSSL)
+    #set(OPENSSL_ROOT_DIR "C:/Program Files/OpenSSL-Win64")
     find_package(OpenSSL REQUIRED)
     # Output with cmake option --log-level=DEBUG
     message(DEBUG "  DEBUG: OPENSSL_INCLUDE_DIR is: ${OPENSSL_INCLUDE_DIR}")

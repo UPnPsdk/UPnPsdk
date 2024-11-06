@@ -1,14 +1,14 @@
 #ifndef MOCK_NET_IF_HPP
 #define MOCK_NET_IF_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-11-07
 
 #include <UPnPsdk/visibility.hpp>
 #include <net/if.h>
 
 namespace umock {
 
-class UPNPLIB_API Net_ifInterface {
+class UPnPsdk_API Net_ifInterface {
   public:
     Net_ifInterface();
     virtual ~Net_ifInterface();
@@ -38,7 +38,7 @@ class Net_ifReal : public Net_ifInterface {
         EXPECT_CALL(net_if_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPNPLIB_API Net_if {
+class UPnPsdk_API Net_if {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.
@@ -60,12 +60,12 @@ class UPNPLIB_API Net_if {
     // objects of this class. With inline we do not need an extra definition
     // line outside the class. I also make the symbol hidden so the variable
     // cannot be accessed globaly with Net_if::m_ptr_workerObj. --Ingo
-    UPNPLIB_LOCAL static inline Net_ifInterface* m_ptr_workerObj;
+    UPnPsdk_LOCAL static inline Net_ifInterface* m_ptr_workerObj;
     Net_ifInterface* m_ptr_oldObj{};
 };
 
 
-UPNPLIB_EXTERN Net_if net_if_h;
+UPnPsdk_EXTERN Net_if net_if_h;
 
 } // namespace umock
 

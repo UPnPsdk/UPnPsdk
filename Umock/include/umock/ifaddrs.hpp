@@ -1,14 +1,14 @@
 #ifndef UMOCK_IFADDRS_HPP
 #define UMOCK_IFADDRS_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-11-07
 
 #include <UPnPsdk/visibility.hpp>
 #include <ifaddrs.h>
 
 namespace umock {
 
-class UPNPLIB_API IfaddrsInterface {
+class UPnPsdk_API IfaddrsInterface {
   public:
     IfaddrsInterface();
     virtual ~IfaddrsInterface();
@@ -42,7 +42,7 @@ class IfaddrsReal : public IfaddrsInterface {
     } // End scope, mock objects are destructed, worker restored to default.
 */ //----------------------------------------------------------------------------
 // clang-format on
-class UPNPLIB_API Ifaddrs {
+class UPnPsdk_API Ifaddrs {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.
@@ -65,12 +65,12 @@ class UPNPLIB_API Ifaddrs {
     // objects of this class. With inline we do not need an extra definition
     // line outside the class. I also make the symbol hidden so the variable
     // cannot be accessed globaly with Ifaddrs::m_ptr_workerObj.
-    UPNPLIB_LOCAL static inline IfaddrsInterface* m_ptr_workerObj;
+    UPnPsdk_LOCAL static inline IfaddrsInterface* m_ptr_workerObj;
     IfaddrsInterface* m_ptr_oldObj{};
 };
 
 
-UPNPLIB_EXTERN Ifaddrs ifaddrs_h;
+UPnPsdk_EXTERN Ifaddrs ifaddrs_h;
 
 } // namespace umock
 

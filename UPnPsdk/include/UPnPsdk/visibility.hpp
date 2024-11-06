@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_INCLUDE_VISIBILITY_HPP
 #define UPnPsdk_INCLUDE_VISIBILITY_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-12
+// Redistribution only with this Copyright remark. Last modified: 2024-11-07
 /*!
  * \file
  * \brief Macros to support visibility of external symbols.
@@ -72,7 +72,6 @@
 // Switch old definition to renamed visibility support
 #define UPNPLIB_API UPnPsdk_API
 #define UPNPLIB_LOCAL UPnPsdk_LOCAL
-#define UPNPLIB_EXTERN UPnPsdk_EXTERN
 /// \endcond
 
 // clang-format on

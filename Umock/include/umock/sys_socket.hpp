@@ -1,7 +1,7 @@
 #ifndef UMOCK_SYS_SOCKET_HPP
 #define UMOCK_SYS_SOCKET_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-11-07
 
 #include <UPnPsdk/port.hpp>
 #include <UPnPsdk/port_sock.hpp>
@@ -9,7 +9,7 @@
 
 namespace umock {
 
-class UPNPLIB_API Sys_socketInterface {
+class UPnPsdk_API Sys_socketInterface {
   public:
     Sys_socketInterface();
     virtual ~Sys_socketInterface();
@@ -71,7 +71,7 @@ class Sys_socketReal : public Sys_socketInterface {
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
 // clang-format on
-class UPNPLIB_API Sys_socket {
+class UPnPsdk_API Sys_socket {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.
@@ -108,12 +108,12 @@ class UPNPLIB_API Sys_socket {
     // objects of this class. With inline we do not need an extra definition
     // line outside the class. I also make the symbol hidden so the variable
     // cannot be accessed globaly with Sys_socket::m_ptr_workerObj. --Ingo
-    UPNPLIB_LOCAL static inline Sys_socketInterface* m_ptr_workerObj;
+    UPnPsdk_LOCAL static inline Sys_socketInterface* m_ptr_workerObj;
     Sys_socketInterface* m_ptr_oldObj{};
 };
 
 
-UPNPLIB_EXTERN Sys_socket sys_socket_h;
+UPnPsdk_EXTERN Sys_socket sys_socket_h;
 
 } // namespace umock
 

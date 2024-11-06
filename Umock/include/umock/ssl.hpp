@@ -2,14 +2,14 @@
 #ifndef UMOCK_SSL_HPP
 #define UMOCK_SSL_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-05
+// Redistribution only with this Copyright remark. Last modified: 2024-11-07
 
 #include <UPnPsdk/visibility.hpp>
 #include <openssl/ssl.h>
 
 namespace umock {
 
-class UPNPLIB_API SslInterface {
+class UPnPsdk_API SslInterface {
   public:
     SslInterface();
     virtual ~SslInterface();
@@ -41,7 +41,7 @@ class SslReal : public SslInterface {
         EXPECT_CALL(ssl_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPNPLIB_API Ssl {
+class UPnPsdk_API Ssl {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.
@@ -64,12 +64,12 @@ class UPNPLIB_API Ssl {
     // objects of this class. With inline we do not need an extra definition
     // line outside the class. I also make the symbol hidden so the variable
     // cannot be accessed globaly with Ssl::m_ptr_workerObj. --Ingo
-    UPNPLIB_LOCAL static inline SslInterface* m_ptr_workerObj;
+    UPnPsdk_LOCAL static inline SslInterface* m_ptr_workerObj;
     SslInterface* m_ptr_oldObj{};
 };
 
 
-UPNPLIB_EXTERN Ssl ssl_h;
+UPnPsdk_EXTERN Ssl ssl_h;
 
 } // namespace umock
 

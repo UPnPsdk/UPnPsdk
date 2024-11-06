@@ -1,14 +1,14 @@
 #ifndef UMOCK_STDIO_HPP
 #define UMOCK_STDIO_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-11-07
 
 #include <UPnPsdk/visibility.hpp>
 #include <stdio.h>
 
 namespace umock {
 
-class UPNPLIB_API StdioInterface {
+class UPnPsdk_API StdioInterface {
   public:
     StdioInterface();
     virtual ~StdioInterface();
@@ -57,7 +57,7 @@ class StdioReal : public StdioInterface {
         EXPECT_CALL(stdio_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPNPLIB_API Stdio {
+class UPnPsdk_API Stdio {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.
@@ -89,12 +89,12 @@ class UPNPLIB_API Stdio {
     // objects of this class. With inline we do not need an extra definition
     // line outside the class. I also make the symbol hidden so the variable
     // cannot be accessed globaly with Stdio::m_ptr_workerObj.
-    UPNPLIB_LOCAL static inline StdioInterface* m_ptr_workerObj;
+    UPnPsdk_LOCAL static inline StdioInterface* m_ptr_workerObj;
     StdioInterface* m_ptr_oldObj{};
 };
 
 
-UPNPLIB_EXTERN Stdio stdio_h;
+UPnPsdk_EXTERN Stdio stdio_h;
 
 } // namespace umock
 

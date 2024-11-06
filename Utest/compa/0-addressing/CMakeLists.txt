@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-26
+# Redistribution only with this Copyright remark. Last modified: 2024-11-08
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -57,7 +57,7 @@ if(UPnPsdk_WITH_OPENSSL)
     target_link_libraries(test_sock_ssl-cst
         PRIVATE
             compa_static
-            utest_static
+            utest_shared
     )
     add_test(NAME ctest_sock_ssl-cst COMMAND test_sock_ssl-cst --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -66,10 +66,6 @@ if(UPnPsdk_WITH_OPENSSL)
 
 # openssl_threaded
 #=================
-if(FALSE)
-# TODO: Tests need to be improved not to need a delay to be usable as Unit
-# test. They also fail on WIN32 with Exception: Exit code 0xc0000409 means
-# STATUS_STACK_BUFFER_OVERRUN.
     add_executable(test_openssl_threaded-psh
         test_openssl_threaded.cpp
     )
@@ -80,16 +76,15 @@ if(FALSE)
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
     )
 
-    add_executable(test_openssl_threaded-csh
+    add_executable(test_openssl_threaded-ush
         test_openssl_threaded.cpp
     )
-    target_link_libraries(test_openssl_threaded-csh
-        PRIVATE compa_shared
+    target_link_libraries(test_openssl_threaded-ush
+        PRIVATE UPnPsdk_shared
     )
-    add_test(NAME ctest_openssl_threaded-csh COMMAND test_openssl_threaded-csh --gtest_shuffle
+    add_test(NAME ctest_openssl_threaded-ush COMMAND test_openssl_threaded-ush --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
     )
-endif()
 endif()
 
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-07
 
 #include <upnp.hpp>
 #include <sock.hpp>
@@ -17,7 +17,7 @@
 #include <utest/utest.hpp>
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
-UPNPLIB_EXTERN SSL_CTX* gSslCtx;
+UPnPsdk_EXTERN SSL_CTX* gSslCtx;
 #endif
 
 
