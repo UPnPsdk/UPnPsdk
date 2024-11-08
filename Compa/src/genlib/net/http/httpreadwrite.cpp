@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-05
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -538,7 +538,7 @@ static int private_connect(
         UPnPsdk::CSocketErr serrObj;
         if (umock::sys_socket_h.connect(sockfd, serv_addr, addrlen) != 0) {
             serrObj.catch_error();
-            UPNPLIB_LOGERR "MSG1020: failed to connect() socket("
+            UPnPsdk_LOGERR "MSG1020: failed to connect() socket("
                 << sockfd << "): " << serrObj.error_str() << "\n";
 
             return SOCKET_ERROR;
@@ -672,7 +672,7 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
             status = parser_append(parser, buf, (size_t)num_read);
             switch (status) {
             case PARSE_SUCCESS:
-                UPNPLIB_LOGINFO "MSG1031: <<< (RECVD) <<<\n"
+                UPnPsdk_LOGINFO "MSG1031: <<< (RECVD) <<<\n"
                     << parser->msg.msg.buf << "UPnPlib -----------------\n";
                 print_http_headers(&parser->msg);
                 if (g_maxContentLength > (size_t)0 &&
@@ -705,7 +705,7 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
             }
         } else if (num_read == 0) {
             if (ok_on_close) {
-                UPNPLIB_LOGINFO "MSG1047: <<< (RECVD) <<<\n"
+                UPnPsdk_LOGINFO "MSG1047: <<< (RECVD) <<<\n"
                     << parser->msg.msg.buf << "\n-----------------\n";
                 print_http_headers(&parser->msg);
                 line = __LINE__;
@@ -729,7 +729,7 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
 ExitFunction:
     free(buf);
     if (ret != UPNP_E_SUCCESS) {
-        UPNPLIB_LOGERR << "MSG1048: " << ret << " on line " << line
+        UPnPsdk_LOGERR << "MSG1048: " << ret << " on line " << line
                        << ", http_error_code = " << *http_error_code << ".\n";
     }
 
@@ -884,7 +884,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                 } else {
                     /* write data */
                     nw = sock_write(info, file_buf, num_read, TimeOut);
-                    UPNPLIB_LOGINFO "MSG1104: >>> (SENT) >>>\n"
+                    UPnPsdk_LOGINFO "MSG1104: >>> (SENT) >>>\n"
                         << std::string(file_buf, static_cast<size_t>(nw))
                         << "UPnPlib ------------\n";
                     /* Send error nothing we can do */
@@ -916,7 +916,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                         UPnPsdk::SSockaddr saObj;
                         memcpy(&saObj.ss, &info->foreign_sockaddr,
                                saObj.sizeof_ss());
-                        UPNPLIB_LOGINFO "MSG1105: >>> (SENT) >>> to \""
+                        UPnPsdk_LOGINFO "MSG1105: >>> (SENT) >>> to \""
                             << saObj.netaddrp() << "\"\n"
                             << std::string(buf, buf_length)
                             << "UPnPlib buf_length=" << buf_length
@@ -1014,7 +1014,7 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
 
     url_str_len = strlen(url_str);
     /*ret_code = parse_uri( (char*)url_str, url_str_len, &url ); */
-    UPNPLIB_LOGINFO "MSG1098: DOWNLOAD URL=\"" << url_str << "\".\n";
+    UPnPsdk_LOGINFO "MSG1098: DOWNLOAD URL=\"" << url_str << "\".\n";
     ret_code = http_FixStrUrl((char*)url_str, url_str_len, &url);
     if (ret_code != UPNP_E_SUCCESS) {
         return ret_code;
@@ -1025,7 +1025,7 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
     if (ret_code != UPNP_E_SUCCESS) {
         return ret_code;
     }
-    UPNPLIB_LOGINFO "MSG1099: HOSTNAME=\"" << hoststr
+    UPnPsdk_LOGINFO "MSG1099: HOSTNAME=\"" << hoststr
                                            << "\", Length=" << hostlen << "\n";
     ret_code = http_MakeMessage(&request, 1, 1,
                                 "Q"
@@ -1034,11 +1034,11 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
                                 HTTPMETHOD_GET, url.pathquery.buff,
                                 url.pathquery.size, "HOST: ", hoststr, hostlen);
     if (ret_code != 0) {
-        UPNPLIB_LOGINFO "MSG1100: HTTP Makemessage failed.\n";
+        UPnPsdk_LOGINFO "MSG1100: HTTP Makemessage failed.\n";
         membuffer_destroy(&request);
         return ret_code;
     }
-    UPNPLIB_LOGINFO "MSG1101: HTTP Buffer...\n"
+    UPnPsdk_LOGINFO "MSG1101: HTTP Buffer...\n"
         << request.buf << "UPnPlib ----------END--------\n";
     /* get doc msg */
     ret_code = http_RequestAndResponse(&url, request.buf, request.length,
@@ -1049,7 +1049,7 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
         membuffer_destroy(&request);
         return ret_code;
     }
-    UPNPLIB_LOGINFO "MSG1102: Response...\n";
+    UPnPsdk_LOGINFO "MSG1102: Response...\n";
     print_http_headers(&response.msg);
     /* optional content-type */
     if (content_type) {
@@ -1086,7 +1086,7 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
         assert(msg_length > *doc_length);
         assert(*document != NULL);
         if (msg_length <= *doc_length || *document == NULL)
-            UPNPLIB_LOGINFO "MSG1103: msg_length("
+            UPnPsdk_LOGINFO "MSG1103: msg_length("
                 << msg_length << ") <= *doc_length(" << *doc_length
                 << ") or document is NULL.\n";
     }

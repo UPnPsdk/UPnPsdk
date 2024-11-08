@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-08
 /*!
  * \file
  * \brief Definition of the Netaddr class.
@@ -69,7 +69,7 @@ sa_family_t is_netaddr(const std::string& a_node,
     if (rc != 0) {
         TRACE2("syscall ::freeaddrinfo() with res = ", res)
         umock::netdb_h.freeaddrinfo(res);
-        UPNPLIB_LOGINFO "MSG1116: syscall ::getaddrinfo(\""
+        UPnPsdk_LOGINFO "MSG1116: syscall ::getaddrinfo(\""
             << node.c_str() << "\", nullptr, " << &hints << ", " << &res
             << "), (" << rc << ") " << gai_strerror(rc) << '\n';
         return AF_UNSPEC;

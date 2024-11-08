@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-05
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -483,7 +483,7 @@ static int UpnpInitPreamble() {
 static int UpnpInitStartServers(
     /*! [in] Local Port to listen for incoming connections. */
     [[maybe_unused]] unsigned short DestPort) {
-    UPNPLIB_LOGINFO "MSG1061: Executing...\n";
+    UPnPsdk_LOGINFO "MSG1061: Executing...\n";
 
 #ifdef COMPA_HAVE_MINISERVER
     LOCAL_PORT_V4 = DestPort;
@@ -509,12 +509,12 @@ static int UpnpInitStartServers(
     }
 #endif
 
-    UPNPLIB_LOGINFO "MSG1066: Finished.\n";
+    UPnPsdk_LOGINFO "MSG1066: Finished.\n";
     return UPNP_E_SUCCESS;
 }
 
 int UpnpInit2(const char* IfName, unsigned short DestPort) {
-    UPNPLIB_LOGINFO "MSG1067: Executing with network interface=\""
+    UPnPsdk_LOGINFO "MSG1067: Executing with network interface=\""
         << IfName << "\", local port=" << DestPort << "...\n";
     int retVal;
 
@@ -1133,7 +1133,7 @@ int UpnpRegisterRootDevice3(const char* const DescUrl, const Upnp_FunPtr Fun,
     else
         strncpy(HInfo->LowerDescURL, LowerDescUrl,
                 sizeof(HInfo->LowerDescURL) - 1);
-    UPNPLIB_LOGINFO "MSG1050: Following Root Device URL will be used when "
+    UPnPsdk_LOGINFO "MSG1050: Following Root Device URL will be used when "
                     "answering to legacy control points: "
         << HInfo->LowerDescURL << ".\n";
     HInfo->Callback = Fun;
@@ -1159,9 +1159,9 @@ int UpnpRegisterRootDevice3(const char* const DescUrl, const Upnp_FunPtr Fun,
         FreeHandle(*Hnd);
         goto exit_function;
     }
-    UPNPLIB_LOGINFO
-    "MSG1051: UpnpRegisterRootDevice3(or 4): Valid Description\n"
-    "UpnpRegisterRootDevice3(or 4): DescURL = "
+    UPnPsdk_LOGINFO
+        "MSG1051: UpnpRegisterRootDevice3(or 4): Valid Description\n"
+        "UpnpRegisterRootDevice3(or 4): DescURL = "
         << HInfo->DescURL << ".\n";
 
     HInfo->DeviceList =
@@ -1172,7 +1172,7 @@ int UpnpRegisterRootDevice3(const char* const DescUrl, const Upnp_FunPtr Fun,
 #endif
         ixmlDocument_free(HInfo->DescDocument);
         FreeHandle(*Hnd);
-        UPNPLIB_LOGCRIT "MSG1052: UpnpRegisterRootDevice3(or 4): No devices "
+        UPnPsdk_LOGCRIT "MSG1052: UpnpRegisterRootDevice3(or 4): No devices "
                         "found for RootDevice.\n";
         retVal = UPNP_E_INVALID_DESC;
         goto exit_function;
@@ -1181,27 +1181,27 @@ int UpnpRegisterRootDevice3(const char* const DescUrl, const Upnp_FunPtr Fun,
     HInfo->ServiceList =
         ixmlDocument_getElementsByTagName(HInfo->DescDocument, "serviceList");
     if (!HInfo->ServiceList) {
-        UPNPLIB_LOGCRIT
-        "MSG1054: UpnpRegisterRootDevice3(or 4): No services found for "
-        "RootDevice.\n";
+        UPnPsdk_LOGCRIT
+            "MSG1054: UpnpRegisterRootDevice3(or 4): No services found for "
+            "RootDevice.\n";
     }
 
 #ifdef COMPA_HAVE_DEVICE_GENA
     /*
      * GENA SET UP
      */
-    UPNPLIB_LOGINFO "MSG1055: UpnpRegisterRootDevice3(or 4): Gena Check.\n";
+    UPnPsdk_LOGINFO "MSG1055: UpnpRegisterRootDevice3(or 4): Gena Check.\n";
     memset(&HInfo->ServiceTable, 0, sizeof(HInfo->ServiceTable));
     hasServiceTable = getServiceTable((IXML_Node*)HInfo->DescDocument,
                                       &HInfo->ServiceTable, HInfo->DescURL);
     if (hasServiceTable) {
-        UPNPLIB_LOGINFO
-        "MSG1056: UpnpRegisterRootDevice3(or 4): GENA Service Table\n"
-        "Here are the known services:\n";
+        UPnPsdk_LOGINFO
+            "MSG1056: UpnpRegisterRootDevice3(or 4): GENA Service Table\n"
+            "Here are the known services:\n";
         printServiceTable(&HInfo->ServiceTable, UPNP_ALL, API);
     } else {
-        UPNPLIB_LOGINFO
-        "\nMSG1062: UpnpRegisterRootDevice3(or 4): Empty service table\n";
+        UPnPsdk_LOGINFO
+            "\nMSG1062: UpnpRegisterRootDevice3(or 4): Empty service table\n";
     }
 #endif // COMPA_HAVE_CTRLPT_GENA || COMPA_HAVE_DEVICE_GENA
 
@@ -1216,9 +1216,9 @@ int UpnpRegisterRootDevice3(const char* const DescUrl, const Upnp_FunPtr Fun,
     retVal = UPNP_E_SUCCESS;
 
 exit_function:
-    UPNPLIB_LOGINFO
-    "MSG1064: Exiting UpnpRegisterRootDevice3(or 4), return value == " << retVal
-                                                                       << ".\n";
+    UPnPsdk_LOGINFO
+        "MSG1064: Exiting UpnpRegisterRootDevice3(or 4), return value == "
+        << retVal << ".\n";
     HandleUnlock();
 
     return retVal;
@@ -3352,7 +3352,7 @@ int UpnpGetIfInfo(const char* IfName) {
     }
 #endif // _WIN32
 
-    UPNPLIB_LOGINFO "MSG1060: Interface name=\""
+    UPnPsdk_LOGINFO "MSG1060: Interface name=\""
         << gIF_NAME << "\", index=" << gIF_INDEX << ", IPv4=\"" << gIF_IPV4
         << "\", IPv6=\"[" << gIF_IPV6 << "]\", ULA or GUA IPv6=\"["
         << gIF_IPV6_ULA_GUA << "]\".\n";

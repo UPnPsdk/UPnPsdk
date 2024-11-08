@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-18
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -208,7 +208,7 @@ void ssdp_event_handler_thread(
 inline int create_ssdp_sock_v4(
     /*! [out] SSDP IPv4 socket to be created. */
     SOCKET* ssdpSock) {
-    UPNPLIB_LOGINFO "MSG1075: Executing...\n";
+    UPnPsdk_LOGINFO "MSG1075: Executing...\n";
     int onOff;
     u_char ttl = (u_char)4;
     ip_mreq ssdpMcastAddr;
@@ -221,7 +221,7 @@ inline int create_ssdp_sock_v4(
     *ssdpSock = umock::sys_socket_h.socket(AF_INET, SOCK_DGRAM, 0);
     if (*ssdpSock == INVALID_SOCKET) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGCRIT "MSG1076: Error in socket(): " << sockerrObj.error_str()
+        UPnPsdk_LOGCRIT "MSG1076: Error in socket(): " << sockerrObj.error_str()
                                                        << ".\n";
         return UPNP_E_OUTOF_SOCKET;
     }
@@ -230,7 +230,7 @@ inline int create_ssdp_sock_v4(
                                          (char*)&onOff, sizeof(onOff));
     if (ret == -1) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGCRIT "MSG1077: Error in setsockopt() SO_REUSEADDR: "
+        UPnPsdk_LOGCRIT "MSG1077: Error in setsockopt() SO_REUSEADDR: "
             << sockerrObj.error_str() << ".\n";
         ret = UPNP_E_SOCKET_ERROR;
         goto error_handler;
@@ -241,7 +241,7 @@ inline int create_ssdp_sock_v4(
                                          (char*)&onOff, sizeof(onOff));
     if (ret == -1) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGCRIT "MSG1078: Error in setsockopt() SO_REUSEP: "
+        UPnPsdk_LOGCRIT "MSG1078: Error in setsockopt() SO_REUSEP: "
             << sockerrObj.error_str() << ".\n";
         ret = UPNP_E_SOCKET_ERROR;
         goto error_handler;
@@ -255,7 +255,7 @@ inline int create_ssdp_sock_v4(
                                    sizeof(*ssdpAddr4));
     if (ret == -1) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGCRIT "MSG1079: Error in bind(), addr="
+        UPnPsdk_LOGCRIT "MSG1079: Error in bind(), addr="
             << INADDR_ANY << ", port=" << SSDP_PORT << ": "
             << sockerrObj.error_str() << ".\n";
         ret = UPNP_E_SOCKET_BIND;
@@ -280,7 +280,7 @@ inline int create_ssdp_sock_v4(
         sizeof(struct ip_mreq));
     if (ret == -1) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGCRIT "MSG1080: Error in setsockopt() IP_ADD_MEMBERSHIP "
+        UPnPsdk_LOGCRIT "MSG1080: Error in setsockopt() IP_ADD_MEMBERSHIP "
                         "(join multicast group): "
             << sockerrObj.error_str() << ".\n";
         ret = UPNP_E_SOCKET_ERROR;
@@ -293,7 +293,7 @@ inline int create_ssdp_sock_v4(
                                          (char*)&addr, sizeof addr);
     if (ret == -1) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGINFO "MSG1081: Error in setsockopt() IP_MULTICAST_IF (set "
+        UPnPsdk_LOGINFO "MSG1081: Error in setsockopt() IP_MULTICAST_IF (set "
                         "multicast interface): "
             << sockerrObj.error_str() << ".\n";
         /* This is probably not a critical error, so let's continue. */
@@ -306,8 +306,8 @@ inline int create_ssdp_sock_v4(
                                          (char*)&onOff, sizeof(onOff));
     if (ret == -1) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGCRIT
-        "MSG1082: Error in setsockopt() SO_BROADCAST (set broadcast): "
+        UPnPsdk_LOGCRIT
+            "MSG1082: Error in setsockopt() SO_BROADCAST (set broadcast): "
             << sockerrObj.error_str() << ".\n";
         ret = UPNP_E_NETWORK_ERROR;
         goto error_handler;
@@ -337,7 +337,7 @@ error_handler:
 inline int create_ssdp_sock_v6(
     /*! [out] SSDP IPv6 socket to be created. */
     SOCKET* ssdpSock) {
-    UPNPLIB_LOGINFO "MSG1083: Executing...\n";
+    UPnPsdk_LOGINFO "MSG1083: Executing...\n";
     char errorBuffer[ERROR_BUFFER_LEN];
     ipv6_mreq ssdpMcastAddr;
     sockaddr_storage __ss;
@@ -472,7 +472,7 @@ error_handler:
 inline int create_ssdp_sock_v6_ula_gua(
     /*! [out] SSDP IPv6 socket to be created. */
     SOCKET* ssdpSock) {
-    UPNPLIB_LOGINFO "MSG1084: Executing...\n";
+    UPnPsdk_LOGINFO "MSG1084: Executing...\n";
     char errorBuffer[ERROR_BUFFER_LEN];
     ipv6_mreq ssdpMcastAddr;
     sockaddr_storage __ss;
@@ -776,7 +776,7 @@ int readFromSSDPSocket(SOCKET socket) {
 
 int get_ssdp_sockets(MiniServerSockArray* out) {
     int retVal;
-    UPNPLIB_LOGINFO "MSG1057: Executing...\n";
+    UPnPsdk_LOGINFO "MSG1057: Executing...\n";
 
 #ifdef COMPA_HAVE_CTRLPT_SSDP
     out->ssdpReqSock4 = INVALID_SOCKET;

@@ -6,7 +6,7 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-23
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-08
  *
  * - Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
@@ -715,14 +715,14 @@ int SearchByTarget(int Hnd, int Mx, char* St, void* Cookie) {
 int create_ssdp_sock_reqv4(
     /*! [out] SSDP IPv4 request socket to be created. */
     SOCKET* ssdpReqSock) {
-    UPNPLIB_LOGINFO "MSG1071: Executing...\n";
+    UPnPsdk_LOGINFO "MSG1071: Executing...\n";
     u_char ttl = 4;
 
     UPnPsdk::CSocketErr sockerrObj;
     *ssdpReqSock = umock::sys_socket_h.socket(AF_INET, SOCK_DGRAM, 0);
     if (*ssdpReqSock == INVALID_SOCKET) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGCRIT "MSG1072: Error in socket(): " << sockerrObj.error_str()
+        UPnPsdk_LOGCRIT "MSG1072: Error in socket(): " << sockerrObj.error_str()
                                                        << ".\n";
         return UPNP_E_OUTOF_SOCKET;
     }
@@ -732,7 +732,7 @@ int create_ssdp_sock_reqv4(
     int ret = umock::pupnp_sock.sock_make_no_blocking(*ssdpReqSock);
     if (ret == SOCKET_ERROR)
         // But at least give a critical error message.
-        UPNPLIB_LOGCRIT "MSG1029: SSDP Request Socket "
+        UPnPsdk_LOGCRIT "MSG1029: SSDP Request Socket "
             << *ssdpReqSock
             << " failed to set \"no blocking\" but continue...\n";
 
@@ -744,14 +744,14 @@ int create_ssdp_sock_reqv4(
 int create_ssdp_sock_reqv6(
     /*! [out] SSDP IPv6 request socket to be created. */
     SOCKET* ssdpReqSock) {
-    UPNPLIB_LOGINFO "MSG1073: Executing...\n";
+    UPnPsdk_LOGINFO "MSG1073: Executing...\n";
     char hops = 1;
 
     UPnPsdk::CSocketErr sockerrObj;
     *ssdpReqSock = umock::sys_socket_h.socket(AF_INET6, SOCK_DGRAM, 0);
     if (*ssdpReqSock == INVALID_SOCKET) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGCRIT "MSG1074: Error in socket(): " << sockerrObj.error_str()
+        UPnPsdk_LOGCRIT "MSG1074: Error in socket(): " << sockerrObj.error_str()
                                                        << ".\n";
         return UPNP_E_OUTOF_SOCKET;
     }

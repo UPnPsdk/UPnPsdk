@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-08
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -204,7 +204,7 @@ void CAddrinfo::load() {
 
     // Very helpful for debugging to see what is given to ::getaddrinfo()
     // clang-format off
-    UPNPLIB_LOGINFO << "MSG1111: syscall ::getaddrinfo(" << node_out
+    UPnPsdk_LOGINFO << "MSG1111: syscall ::getaddrinfo(" << node_out
         << ", " << "\"" << service << "\", "
         << &hints << ", " << &new_res
         << ") node=\"" << m_node << "\", "
@@ -234,7 +234,7 @@ void CAddrinfo::load() {
         // depends on extern available DNS server the error can occur
         // unexpectedly at any time. We have no influence on it but I will give
         // an extended error message.
-        throw std::runtime_error(UPNPLIB_LOGEXCEPT + "MSG1112: errid(" +
+        throw std::runtime_error(UPnPsdk_LOGEXCEPT + "MSG1112: errid(" +
              std::to_string(ret) + ")=\"" + ::gai_strerror(ret) + "\", " +
              ((hints.ai_family == AF_UNSPEC) ? "IPv?_" :
              ((hints.ai_family == AF_INET6) ? "IPv6_" : "IPv4_")) +
@@ -248,7 +248,7 @@ void CAddrinfo::load() {
 
     if (ret != 0) {
         throw std::invalid_argument(
-            UPNPLIB_LOGEXCEPT +
+            UPnPsdk_LOGEXCEPT +
             "MSG1037: Failed to get address information: errid(" +
             std::to_string(ret) + ")=\"" + ::gai_strerror(ret) + "\"\n");
     }

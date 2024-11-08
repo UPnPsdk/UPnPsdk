@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-11-08
 
 // Tools and helper classes to manage gtests
 // =========================================
@@ -29,7 +29,7 @@ CaptureStdOutErr::CaptureStdOutErr(int a_stdOutErrFd)
     if (this->stdOutErrFd != STDOUT_FILENO &&
         this->stdOutErrFd != STDERR_FILENO) {
         throw std::invalid_argument(
-            UPNPLIB_LOGEXCEPT +
+            UPnPsdk_LOGEXCEPT +
             "MSG0099: Only STDOUT_FILENO and STDERR_FILENO supported.");
     }
     // make a pipe
@@ -39,7 +39,7 @@ CaptureStdOutErr::CaptureStdOutErr(int a_stdOutErrFd)
     int rc = ::pipe(this->out_pipe);
 #endif
     if (rc != 0)
-        throw std::runtime_error(UPNPLIB_LOGEXCEPT +
+        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
                                  "MSG0098: Failed to create a pipe. " +
                                  std::strerror(errno) + '.');
 
@@ -49,7 +49,7 @@ CaptureStdOutErr::CaptureStdOutErr(int a_stdOutErrFd)
     rc = fcntl(this->out_pipe[0], F_SETFL, O_NONBLOCK);
     if (rc != 0)
         throw std::runtime_error(
-            UPNPLIB_LOGEXCEPT +
+            UPnPsdk_LOGEXCEPT +
             "MSG0097: Failed to set non blocking mode on reading the pipe. " +
             std::strerror(errno) + '.');
 #endif
@@ -59,7 +59,7 @@ CaptureStdOutErr::CaptureStdOutErr(int a_stdOutErrFd)
 
     if (this->orig_stdOutErrFd == -1)
         throw std::runtime_error(
-            UPNPLIB_LOGEXCEPT +
+            UPnPsdk_LOGEXCEPT +
             "MSG0096: Failed to duplicate a file descriptor. " +
             std::strerror(errno) + '.');
 }
@@ -83,7 +83,7 @@ void CaptureStdOutErr::start() {
     if (::dup2(this->out_pipe[1], this->current_stdOutErrFd) == -1)
 
         throw std::runtime_error(
-            UPNPLIB_LOGEXCEPT +
+            UPnPsdk_LOGEXCEPT +
             "MSG0095: Failed to duplicate a file descriptor. " +
             std::strerror(errno) + '.');
     m_strbuffer.clear();
@@ -117,7 +117,7 @@ std::string& CaptureStdOutErr::str() {
             if (::write(this->out_pipe[1], &nullbyte, 1) == -1)
 
                 throw std::runtime_error(
-                    UPNPLIB_LOGEXCEPT +
+                    UPnPsdk_LOGEXCEPT +
                     "MSG0094: Failed to write to the pipe. " +
                     std::strerror(errno) + '.');
 
@@ -144,12 +144,12 @@ std::string& CaptureStdOutErr::str() {
                     break;
                 else
                     throw std::runtime_error(
-                        UPNPLIB_LOGEXCEPT +
+                        UPnPsdk_LOGEXCEPT +
                         "MSG0093: Failed to read from pipe. " +
                         std::strerror(errno) + '.');
 
             case 0:
-                throw std::runtime_error(UPNPLIB_LOGEXCEPT +
+                throw std::runtime_error(UPnPsdk_LOGEXCEPT +
                                          "MSG0092: Read 0 byte from pipe. " +
                                          std::strerror(errno) + '.');
 
@@ -170,7 +170,7 @@ std::string& CaptureStdOutErr::str() {
         if (::dup2(this->orig_stdOutErrFd, this->current_stdOutErrFd) == -1)
 
             throw std::runtime_error(
-                UPNPLIB_LOGEXCEPT +
+                UPnPsdk_LOGEXCEPT +
                 "MSG0091: Failed to duplicate a file descriptor. " +
                 std::strerror(errno) + '.');
 
@@ -188,7 +188,7 @@ time_t file_mod_time(const std::string& a_pathname) {
 
     if (stat(a_pathname.c_str(), &result) == -1)
         throw std::invalid_argument(
-            UPNPLIB_LOGEXCEPT +
+            UPnPsdk_LOGEXCEPT +
             "MSG0090: Failed to get modification time of \"" + a_pathname +
             "\". " + std::strerror(errno) + '.');
 
@@ -214,7 +214,7 @@ void check_closed_fds(int a_from_fd, int a_to_fd) {
             // errno 88: "Socket operation on non-socket" means open fd -> error
 
             throw std::runtime_error(
-                UPNPLIB_LOGEXCEPT + "MSG0089: Found open file descriptor " +
+                UPnPsdk_LOGEXCEPT + "MSG0089: Found open file descriptor " +
                 std::to_string(i) + ". (" + std::to_string(errno) + ") " +
                 std::strerror(errno));
         }

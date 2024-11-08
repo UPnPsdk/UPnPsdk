@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-08
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -60,7 +60,7 @@ std::string to_netaddr(const ::sockaddr_storage* const a_sockaddr) noexcept {
         return std::string(addrbuf);
 
     default:
-        UPNPLIB_LOGERR "MSG1036: Unsupported address family "
+        UPnPsdk_LOGERR "MSG1036: Unsupported address family "
             << static_cast<int>(a_sockaddr->ss_family) << ".\n";
     }
     return "";
@@ -91,7 +91,7 @@ in_port_t to_port(const std::string& a_port_str) {
         return static_cast<in_port_t>(port);
     }
     throw std::invalid_argument(
-        UPNPLIB_LOGEXCEPT + "MSG1033: Failed to get port number for string \"" +
+        UPnPsdk_LOGEXCEPT + "MSG1033: Failed to get port number for string \"" +
         a_port_str + "\"");
 }
 
@@ -347,7 +347,7 @@ void SSockaddr::handle_ipv6(const std::string& a_addr_str) {
 
     int ret = ::inet_pton(AF_INET6, addr_str.c_str(), &sin6.sin6_addr);
     if (ret == 0) {
-        throw std::invalid_argument(UPNPLIB_LOGEXCEPT +
+        throw std::invalid_argument(UPnPsdk_LOGEXCEPT +
                                     "MSG1043: Invalid netaddress \"" +
                                     a_addr_str + "\".");
     }
@@ -358,7 +358,7 @@ void SSockaddr::handle_ipv4(const std::string& a_addr_str) {
     TRACE2(this, " Executing SSockaddr::handle_ipv4()")
     int ret = ::inet_pton(AF_INET, a_addr_str.c_str(), &sin.sin_addr);
     if (ret == 0) {
-        throw std::invalid_argument(UPNPLIB_LOGEXCEPT +
+        throw std::invalid_argument(UPnPsdk_LOGEXCEPT +
                                     "MSG1044: Invalid netaddress \"" +
                                     a_addr_str + "\".");
     }

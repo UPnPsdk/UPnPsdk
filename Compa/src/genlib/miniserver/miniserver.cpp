@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-20
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-08
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -132,7 +132,7 @@ int host_header_is_numeric(
     try {
         saddrObj = std::string(a_host_port, a_host_port_len);
     } catch (const std::exception& e) {
-        UPNPLIB_LOGCATCH "MSG1049: " << e.what() << "\n";
+        UPnPsdk_LOGCATCH "MSG1049: " << e.what() << "\n";
         return 0;
     }
     return 1;
@@ -211,7 +211,7 @@ int dispatch_request(
         callback = gGetCallback;
         host_validate_callback = gWebCallback_HostValidate;
         cookie = gWebCallback_HostValidateCookie;
-        UPNPLIB_LOGINFO "MSG1107: miniserver socket="
+        UPnPsdk_LOGINFO "MSG1107: miniserver socket="
             << info->socket << ": got WEB server msg.\n";
         break;
     default:
@@ -224,7 +224,7 @@ int dispatch_request(
     request = &hparser->msg;
     if (UPnPsdk::g_dbug) {
         getNumericHostRedirection(info->socket, host_port, sizeof host_port);
-        UPNPLIB_LOGINFO "MSG1113: Redirect host_port=\"" << host_port << "\"\n";
+        UPnPsdk_LOGINFO "MSG1113: Redirect host_port=\"" << host_port << "\"\n";
     }
     /* check HOST header for an IP number -- prevents DNS rebinding. */
     if (!httpmsg_find_hdr(request, HDR_HOST, &header)) {
@@ -303,7 +303,7 @@ void handle_request(
     mserv_request_t* request_in = (mserv_request_t*)args;
     SOCKET connfd = request_in->connfd;
 
-    UPNPLIB_LOGINFO "MSG1027: Miniserver socket "
+    UPnPsdk_LOGINFO "MSG1027: Miniserver socket "
         << connfd << ": READING request from client...\n";
     /* parser_request_init( &parser ); */ /* LEAK_FIX_MK */
     hmsg = &parser.msg;
@@ -322,7 +322,7 @@ void handle_request(
         goto error_handler;
     }
 
-    UPNPLIB_LOGINFO "MSG1106: miniserver socket=" << connfd
+    UPnPsdk_LOGINFO "MSG1106: miniserver socket=" << connfd
                                                   << ": PROCESSING...\n";
     /* dispatch */
     http_error_code = dispatch_request(&info, &parser);
@@ -360,7 +360,7 @@ UPNP_INLINE void schedule_request_job(
     /*! [in] Clients Address information. */
     sockaddr* clientAddr) {
     TRACE("Executing schedule_request_job()")
-    UPNPLIB_LOGINFO "MSG1042: Schedule request job to host "
+    UPnPsdk_LOGINFO "MSG1042: Schedule request job to host "
         << UPnPsdk::to_netaddrp(
                reinterpret_cast<const sockaddr_storage*>(clientAddr))
         << " with socket " << connfd << ".\n";
@@ -370,7 +370,7 @@ UPNP_INLINE void schedule_request_job(
         static_cast<mserv_request_t*>(std::malloc(sizeof(mserv_request_t)))};
 
     if (request == nullptr) {
-        UPNPLIB_LOGCRIT "MSG1024: Socket " << connfd << ": out of memory.\n";
+        UPnPsdk_LOGCRIT "MSG1024: Socket " << connfd << ": out of memory.\n";
         sock_close(connfd);
         return;
     }
@@ -382,7 +382,7 @@ UPNP_INLINE void schedule_request_job(
     TPJobSetFreeFunction(&job, free_handle_request_arg);
     TPJobSetPriority(&job, MED_PRIORITY);
     if (ThreadPoolAdd(&gMiniServerThreadPool, &job, NULL) != 0) {
-        UPNPLIB_LOGERR "MSG1025: Socket " << connfd
+        UPnPsdk_LOGERR "MSG1025: Socket " << connfd
                                           << ": cannot schedule request.\n";
         free(request);
         sock_close(connfd);
@@ -414,13 +414,13 @@ void fdset_if_valid( //
                      \p \::select(). The structure is modified as documented for
                      \p \::select(). */
 ) {
-    UPNPLIB_LOGINFO "MSG1086: Check sockfd=" << a_sock << ".\n";
+    UPnPsdk_LOGINFO "MSG1086: Check sockfd=" << a_sock << ".\n";
     if (a_sock == INVALID_SOCKET)
         // This is a defined state and we return silently.
         return;
 
     if (a_sock < 3 || a_sock >= FD_SETSIZE) {
-        UPNPLIB_LOGERR "MSG1005: "
+        UPnPsdk_LOGERR "MSG1005: "
             << (a_sock < 0 ? "Invalid" : "Prohibited") << " socket " << a_sock
             << " not set to be monitored by ::select()"
             << (a_sock >= 3 ? " because it violates FD_SETSIZE.\n" : ".\n");
@@ -435,13 +435,13 @@ void fdset_if_valid( //
             FD_SET(a_sock, a_set);
 
         else
-            UPNPLIB_LOGINFO "MSG1002: Unbound socket "
+            UPnPsdk_LOGINFO "MSG1002: Unbound socket "
                 << a_sock << " not set to be monitored by ::select().\n";
 
     } catch (const std::exception& e) {
         if (UPnPsdk::g_dbug)
             std::cerr << e.what();
-        UPNPLIB_LOGCATCH "MSG1009: Invalid socket "
+        UPnPsdk_LOGCATCH "MSG1009: Invalid socket "
             << a_sock << " not set to be monitored by ::select().\n";
     }
 }
@@ -467,7 +467,7 @@ int web_server_accept(
 #else
     TRACE("Executing web_server_accept()")
     if (lsock == INVALID_SOCKET || !FD_ISSET(lsock, &set)) {
-        UPNPLIB_LOGINFO "MSG1012: Socket("
+        UPnPsdk_LOGINFO "MSG1012: Socket("
             << lsock << ") invalid or not in file descriptor set.\n";
         return UPNP_E_SOCKET_ERROR;
     }
@@ -479,7 +479,7 @@ int web_server_accept(
     // accept a network request connection
     asock = umock::sys_socket_h.accept(lsock, &clientAddr.sa, &clientLen);
     if (asock == INVALID_SOCKET) {
-        UPNPLIB_LOGERR "MSG1022: Error in ::accept(): " << std::strerror(errno)
+        UPnPsdk_LOGERR "MSG1022: Error in ::accept(): " << std::strerror(errno)
                                                         << ".\n";
         return UPNP_E_SOCKET_ACCEPT;
     }
@@ -487,7 +487,7 @@ int web_server_accept(
     // Schedule a job to manage a UPnP request from a remote host.
     char buf_ntop[INET6_ADDRSTRLEN + 7];
     inet_ntop(AF_INET, &clientAddr.sin.sin_addr, buf_ntop, sizeof(buf_ntop));
-    UPNPLIB_LOGINFO "MSG1023: Connected to host "
+    UPnPsdk_LOGINFO "MSG1023: Connected to host "
         << buf_ntop << ":" << ntohs(clientAddr.sin.sin_port) << " with socket "
         << asock << ".\n";
     schedule_request_job(asock, &clientAddr.sa);
@@ -560,7 +560,7 @@ int receive_from_stopSock(
     if (byteReceived == SOCKET_ERROR ||
         inet_ntop(AF_INET, &clientAddr.sin.sin_addr, buf_ntop,
                   sizeof(buf_ntop)) == nullptr) {
-        UPNPLIB_LOGCRIT "MSG1038: Failed to receive data from socket "
+        UPnPsdk_LOGCRIT "MSG1038: Failed to receive data from socket "
             << ssock << ". Stop miniserver.\n";
         return 1;
     }
@@ -572,7 +572,7 @@ int receive_from_stopSock(
         char nullstr[]{"\\0"};
         if (byteReceived == 0 || receiveBuf[byteReceived - 1] != '\0')
             nullstr[0] = '\0';
-        UPNPLIB_LOGERR "MSG1039: Received \""
+        UPnPsdk_LOGERR "MSG1039: Received \""
             << receiveBuf << nullstr << "\" from " << buf_ntop << ":"
             << ntohs(clientAddr.sin.sin_port)
             << ", must be \"ShutDown\\0\" from 127.0.0.1:*. Don't "
@@ -580,7 +580,7 @@ int receive_from_stopSock(
         return 0;
     }
 
-    UPNPLIB_LOGINFO "MSG1040: On socket "
+    UPnPsdk_LOGINFO "MSG1040: On socket "
         << ssock << " received ordinary datagram \"" << receiveBuf
         << "\\0\" from " << buf_ntop << ":" << ntohs(clientAddr.sin.sin_port)
         << ". Stop miniserver.\n";
@@ -603,7 +603,7 @@ void RunMiniServer(
        different tasks like listen on a local interface for requests from
        control points or handle ssdp communication to a remote UPnP node. */
     MiniServerSockArray* miniSock) {
-    UPNPLIB_LOGINFO "MSG1085: Executing...\n";
+    UPnPsdk_LOGINFO "MSG1085: Executing...\n";
     fd_set expSet;
     fd_set rdSet;
     int stopSock = 0;
@@ -692,7 +692,7 @@ void RunMiniServer(
             }
             // All other errors EINVAL and ENOMEM are critical and cannot
             // continue run mininserver.
-            UPNPLIB_LOGCRIT "MSG1021: Error in ::select(): "
+            UPnPsdk_LOGCRIT "MSG1021: Error in ::select(): "
                 << std::strerror(errno) << ".\n";
             break;
         }
@@ -778,7 +778,7 @@ int get_port(
         // system error (errno etc.) is expected to be unmodified on return.
         return -1;
     }
-    UPNPLIB_LOGINFO "MSG1063: sockfd=" << sockfd << ", port=" << *port << ".\n";
+    UPnPsdk_LOGINFO "MSG1063: sockfd=" << sockfd << ", port=" << *port << ".\n";
 
     return 0;
 }
@@ -820,7 +820,7 @@ int get_miniserver_sockets(
        [UAD](\ref glossary_ipv6addr) connections. If **0** then a random port
        number is returned in ***out**. */
     in_port_t listen_port6UlaGua) {
-    UPNPLIB_LOGINFO "MSG1109: Executing with listen_port4="
+    UPnPsdk_LOGINFO "MSG1109: Executing with listen_port4="
         << listen_port4 << ", listen_port6=" << listen_port6
         << ", listen_port6UlaGua=" << listen_port6UlaGua << ".\n";
 
@@ -836,7 +836,7 @@ int get_miniserver_sockets(
             out->miniServerPort6 = out->MiniSvrSock6LlaObj->get_port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& e) {
-            UPNPLIB_LOGCATCH "MSG1110: catched next line...\n" << e.what();
+            UPnPsdk_LOGCATCH "MSG1110: catched next line...\n" << e.what();
         }
     }
 
@@ -855,7 +855,7 @@ int get_miniserver_sockets(
             out->miniServerPort6UlaGua = out->MiniSvrSock6UadObj->get_port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& e) {
-            UPNPLIB_LOGCATCH "MSG1117: catched next line...\n" << e.what();
+            UPnPsdk_LOGCATCH "MSG1117: catched next line...\n" << e.what();
         }
     }
 
@@ -869,11 +869,11 @@ int get_miniserver_sockets(
             out->miniServerPort4 = out->MiniSvrSock4Obj->get_port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& e) {
-            UPNPLIB_LOGCATCH "MSG1114: catched next line...\n" << e.what();
+            UPnPsdk_LOGCATCH "MSG1114: catched next line...\n" << e.what();
         }
     }
 
-    UPNPLIB_LOGINFO "MSG1065: Finished.\n";
+    UPnPsdk_LOGINFO "MSG1065: Finished.\n";
     return retval;
 }
 #endif /* COMPA_HAVE_WEBSERVER */
@@ -905,7 +905,7 @@ int get_miniserver_stopsock(
         umock::sys_socket_h.socket(AF_INET, SOCK_DGRAM, 0);
     if (miniServerStopSock == INVALID_SOCKET) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGCRIT "MSG1094: Error in socket(): " << sockerrObj.error_str()
+        UPnPsdk_LOGCRIT "MSG1094: Error in socket(): " << sockerrObj.error_str()
                                                        << "\n";
         return UPNP_E_OUTOF_SOCKET;
     }
@@ -918,7 +918,7 @@ int get_miniserver_stopsock(
         sizeof(stop_sockaddr));
     if (ret == SOCKET_ERROR) {
         sockerrObj.catch_error();
-        UPNPLIB_LOGCRIT "MSG1095: Error in binding localhost: "
+        UPnPsdk_LOGCRIT "MSG1095: Error in binding localhost: "
             << sockerrObj.error_str() << "\n";
         sock_close(miniServerStopSock);
         return UPNP_E_SOCKET_BIND;
@@ -931,7 +931,7 @@ int get_miniserver_stopsock(
     out->miniServerStopSock = miniServerStopSock;
     out->stopPort = miniStopSockPort;
 
-    UPNPLIB_LOGINFO "MSG1053: Bound stop socket="
+    UPnPsdk_LOGINFO "MSG1053: Bound stop socket="
         << miniServerStopSock << " to \"127.0.0.1:" << miniStopSockPort
         << "\".\n";
 
@@ -983,7 +983,7 @@ void SetGenaCallback(MiniServerCallback callback) {
 int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
                     [[maybe_unused]] in_port_t* listen_port6,
                     [[maybe_unused]] in_port_t* listen_port6UlaGua) {
-    UPNPLIB_LOGINFO "MSG1068: Executing...\n";
+    UPnPsdk_LOGINFO "MSG1068: Executing...\n";
     constexpr int max_count{10000};
     MiniServerSockArray* miniSocket;
     ThreadPoolJob job;
@@ -993,7 +993,7 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
 
     if (gMServState != MSERV_IDLE) {
         /* miniserver running. */
-        UPNPLIB_LOGERR "MSG1087: Cannot start. Miniserver is running.\n";
+        UPnPsdk_LOGERR "MSG1087: Cannot start. Miniserver is running.\n";
         return UPNP_E_INTERNAL_ERROR;
     }
     miniSocket = (MiniServerSockArray*)malloc(sizeof(MiniServerSockArray));

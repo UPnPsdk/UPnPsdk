@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-08
 
 #include <UPnPsdk/port.hpp>
 #include <UPnPsdk/global.hpp>
@@ -46,58 +46,58 @@ TEST(GeneralToolsTestSuite, debug_messages_successful) {
     EXPECT_EQ(captureErrObj.str(), "");
 #endif
 
-    // All UPNPLIB_LOG* messages are output to stderr.
+    // All UPnPsdk_LOG* messages are output to stderr.
     //
-    // UPNPLIB_LOGEXCEPT is a std::string with no dependency to the g_dbug
+    // UPnPsdk_LOGEXCEPT is a std::string with no dependency to the g_dbug
     // flag. It is intended to be used as 'throw' message. It may be catched
     // and output there depending on the g_dbug flag.
     g_dbug = false;
-    EXPECT_EQ(UPNPLIB_LOGEXCEPT + "MSG1022: this is an exception message.\n",
+    EXPECT_EQ(UPnPsdk_LOGEXCEPT + "MSG1022: this is an exception message.\n",
               pretty_function +
                   "EXCEPTION MSG1022: this is an exception message.\n");
 
-    // UPNPLIB_LOGCRIT is an output stream with no dependency to g_dbug flag.
+    // UPnPsdk_LOGCRIT is an output stream with no dependency to g_dbug flag.
     g_dbug = false;
     captureErrObj.start();
-    UPNPLIB_LOGCRIT << "MSG1023: this is a critical message.\n";
+    UPnPsdk_LOGCRIT << "MSG1023: this is a critical message.\n";
     EXPECT_EQ(captureErrObj.str(),
               pretty_function +
                   "CRITICAL MSG1023: this is a critical message.\n");
 
-    // UPNPLIB_LOGERR is an output stream depending on the g_dbug flag.
+    // UPnPsdk_LOGERR is an output stream depending on the g_dbug flag.
     g_dbug = true;
     captureErrObj.start();
-    UPNPLIB_LOGERR << "MSG1024: this is an error message.\n";
+    UPnPsdk_LOGERR << "MSG1024: this is an error message.\n";
     EXPECT_EQ(captureErrObj.str(),
               pretty_function + "ERROR MSG1024: this is an error message.\n");
 
     g_dbug = false;
     captureErrObj.start();
-    UPNPLIB_LOGERR << "MSG1025: this error message should not output.\n";
+    UPnPsdk_LOGERR << "MSG1025: this error message should not output.\n";
     EXPECT_EQ(captureErrObj.str(), "");
 
-    // UPNPLIB_LOGCATCH is an output stream depending on the g_dbug flag.
+    // UPnPsdk_LOGCATCH is an output stream depending on the g_dbug flag.
     g_dbug = true;
     captureErrObj.start();
-    UPNPLIB_LOGCATCH << "MSG1026: this is a catched message.\n";
+    UPnPsdk_LOGCATCH << "MSG1026: this is a catched message.\n";
     EXPECT_EQ(captureErrObj.str(),
               pretty_function + "CATCH MSG1026: this is a catched message.\n");
 
     g_dbug = false;
     captureErrObj.start();
-    UPNPLIB_LOGCATCH << "MSG1027: this catched message should not output.\n";
+    UPnPsdk_LOGCATCH << "MSG1027: this catched message should not output.\n";
     EXPECT_EQ(captureErrObj.str(), "");
 
-    // UPNPLIB_LOGINFO is an output stream depending on the g_dbug flag.
+    // UPnPsdk_LOGINFO is an output stream depending on the g_dbug flag.
     g_dbug = true;
     captureErrObj.start();
-    UPNPLIB_LOGINFO << "MSG1028: this is an info message.\n";
+    UPnPsdk_LOGINFO << "MSG1028: this is an info message.\n";
     EXPECT_EQ(captureErrObj.str(),
               pretty_function + "INFO MSG1028: this is an info message.\n");
 
     g_dbug = false;
     captureErrObj.start();
-    UPNPLIB_LOGINFO << "MSG1029: this info message should not output.\n";
+    UPnPsdk_LOGINFO << "MSG1029: this info message should not output.\n";
     EXPECT_EQ(captureErrObj.str(), "");
 }
 

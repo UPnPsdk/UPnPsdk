@@ -123,7 +123,7 @@ void simple_TLS_server() {
 
         SOCKET client = accept(sock, (struct sockaddr*)&addr, &len);
         if (client == INVALID_SOCKET) {
-            UPNPLIB_LOGCRIT "MSG1069: EXIT - socket connection not accepted\n";
+            UPnPsdk_LOGCRIT "MSG1069: EXIT - socket connection not accepted\n";
 #ifdef _WIN32
             std::clog << "[Server:" << __LINE__
                       << "] Error - socket accept: WSAGetLastError()="
@@ -132,7 +132,7 @@ void simple_TLS_server() {
 #endif
             exit(EXIT_FAILURE);
         }
-        UPNPLIB_LOGINFO "MSG1058: Server accepts respond from Client\n";
+        UPnPsdk_LOGINFO "MSG1058: Server accepts respond from Client\n";
 
         ssl = SSL_new(ctx);
         // Due to man SSL_set_fd the type cast is no problem.
@@ -141,7 +141,7 @@ void simple_TLS_server() {
         if (SSL_accept(ssl) <= 0) {
             ERR_print_errors_fp(stderr);
         } else {
-            UPNPLIB_LOGINFO "MSG1059: Server sends respond to Client \""
+            UPnPsdk_LOGINFO "MSG1059: Server sends respond to Client \""
                 << reply << "\"\n";
             // type cast is no problem because there is a small buffer
             SSL_write(ssl, reply, static_cast<int>(sizeof(reply) - 1));
@@ -240,7 +240,7 @@ int RecvPacket() {
     ERR_clear_error(); // must be empty to get correct SSL_get_error()
     int len = SSL_read(ssl_client, buf, sizeof(buf));
     // clang-format off
-    UPNPLIB_LOGINFO "MSG1032: Client received " << "\"" << buf << "\"\n";
+    UPnPsdk_LOGINFO "MSG1032: Client received " << "\"" << buf << "\"\n";
     // clang-format on
     return SSL_error_print(__LINE__, ssl_client, len);
 }
@@ -313,7 +313,7 @@ int simple_TLS_client() {
         ERR_print_errors_fp(stderr);
         return -1;
     }
-    UPNPLIB_LOGINFO "MSG1096: SSL connection using "
+    UPnPsdk_LOGINFO "MSG1096: SSL connection using "
         << SSL_get_cipher(ssl_client) << '\n';
 
     char request[] = "GET https://about.google/intl/en/ HTTP/1.1\r\n\r\n";
@@ -340,6 +340,6 @@ int main(int argc, char** argv) {
     t1.detach();
     ::testing::InitGoogleMock(&argc, argv);
 #include "utest/utest_main.inc"
-    UPNPLIB_LOGINFO "MSG1070: Program end.\n";
+    UPnPsdk_LOGINFO "MSG1070: Program end.\n";
     return gtest_return_code; // managed in gtest_main.inc
 }

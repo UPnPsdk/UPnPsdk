@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-11-08
 
 #include <pupnp/upnpdebug.hpp>
 
@@ -14,7 +14,7 @@ void CLogging::enable(Upnp_LogLevel a_loglevel) {
     UpnpSetLogLevel(a_loglevel);
     if (UpnpInitLog() != UPNP_E_SUCCESS) {
         throw std::runtime_error(
-            UPNPLIB_LOGEXCEPT + "MSG1041: Failed to initialize pupnp logging.");
+            UPnPsdk_LOGEXCEPT + "MSG1041: Failed to initialize pupnp logging.");
     }
 }
 
