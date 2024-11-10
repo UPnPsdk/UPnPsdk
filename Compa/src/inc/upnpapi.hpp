@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-04-22
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -280,12 +280,14 @@ typedef enum { WEB_SERVER_DISABLED, WEB_SERVER_ENABLED } WebServerState;
 #define E_HTTP_SYNTAX -6
 
 /*!
- * \brief Retrieve interface information and keep it in global variables.
- * If NULL, we'll find the first suitable interface for operation.
+ * \brief Retrieve network interface information and keep it in global
+ * variables.
  *
- * The interface must fulfill these requirements:
+ * If nullptr given, we'll find the first suitable network interface for
+ * operation.
+ *
+ * The network interface must fulfill these requirements:
  * \li Be UP.
- * \li Not be LOOPBACK.
  * \li Support MULTICAST.
  * \li Have a valid IPv4 or IPv6 address.
  *
@@ -300,7 +302,7 @@ typedef enum { WEB_SERVER_DISABLED, WEB_SERVER_ENABLED } WebServerState;
  */
 UPNPLIB_API int UpnpGetIfInfo(
     /*! [in] Interface name (can be NULL). */
-    const char* IfName);
+    const char* a_IFace);
 
 /// UpnpThreadDistribution
 void UpnpThreadDistribution(struct UpnpNonblockParam* Param);

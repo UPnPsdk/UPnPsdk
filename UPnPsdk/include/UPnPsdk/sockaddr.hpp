@@ -90,7 +90,7 @@ struct UPNPLIB_API SSockaddr {
 
     // Copy constructor
     /*! \brief Copy constructor, also needed for copy assignment operator.
-     * <-- ----------------------------------------------------------- -->
+     * <!-- ---------------------------------------------------------- -->
      * \code
      * // Usage e.g.:
      * SSockaddr saddr2 = saddr1; // saddr1 is an instantiated object.
@@ -102,7 +102,7 @@ struct UPNPLIB_API SSockaddr {
 
     // Copy assignment operator
     /*! \brief Copy assignment operator, needs user defined copy contructor
-     * <-- ------------------------------------------------------------ -->
+     * <!-- ----------------------------------------------------------- -->
      * \code
      * // Usage e.g.:
      * saddr2 = saddr1; // saddr? are two instantiated valid objects.

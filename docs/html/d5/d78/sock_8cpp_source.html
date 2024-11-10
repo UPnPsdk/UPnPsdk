@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('d5/d78/sock_8cpp_source.html','../../'
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * All rights reserved.</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Copyright (c) 2012 France Telecom All rights reserved.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-11-05</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-11-08</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * modification, are permitted provided that the following conditions are met:</span></div>
@@ -544,9 +544,9 @@ $(document).ready(function(){initNavTree('d5/d78/sock_8cpp_source.html','../../'
 <div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>                              sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>() + <span class="stringliteral">&quot;\&quot;.\n&quot;</span>;</div>
 <div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>            <span class="keywordflow">if</span> (sockerrObj == ENOTCONNP) {</div>
 <div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>                <span class="comment">// shutdown a not connected connection is not an error.</span></div>
-<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>                UPNPLIB_LOGINFO &lt;&lt; msg;</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>                UPnPsdk_LOGINFO &lt;&lt; msg;</div>
 <div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>                UPNPLIB_LOGERR &lt;&lt; msg;</div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>                UPnPsdk_LOGERR &lt;&lt; msg;</div>
 <div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>                ret = <a class="code hl_define" href="../../d4/d64/messages_8hpp.html#a13ac42d849e2add5f1a86cb6b5fee7ed">UPNP_E_SOCKET_ERROR</a>;</div>
 <div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>            }</div>
 <div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>        }</div>

@@ -142,6 +142,9 @@ var namespaces_dup =
       [ "AddWorker", "dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#af2c5c202798ffef6d50277b0ee80c155", null ]
     ] ],
     [ "anonymous_namespace{TimerThread.cpp}", "da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html", "da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03" ],
+    [ "anonymous_namespace{upnpapi.cpp}", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html", [
+      [ "GetIfInfo", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a1c751ef564d3fede875a9d44b0425170", null ]
+    ] ],
     [ "anonymous_namespace{upnptools.cpp}", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03.html", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03" ],
     [ "anonymous_namespace{uri.cpp}", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html", [
       [ "is_reserved", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a72aa299b86ca4486b62de1ac2e11b649", null ],

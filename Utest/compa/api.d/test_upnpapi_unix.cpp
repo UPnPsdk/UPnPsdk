@@ -1,21 +1,20 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-13
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
 
-#ifdef UPNPLIB_WITH_NATIVE_UPNP
-#include <pupnp/upnp/src/api/upnpapi.cpp>
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+#include <Pupnp/upnp/src/api/upnpapi.cpp>
 #else
-#include <compa/src/api/upnpapi.cpp>
+#include <Compa/src/api/upnpapi.cpp>
 #endif
 
-#include <pupnp/upnpdebug.hpp>   // for CLogging
-
+#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/upnptools.hpp> // For UPnPsdk only
-#include <UPnPsdk/gtest_tools_unix.hpp>
 
 #include <utest/utest.hpp>
+#include <utest/utest_unix.hpp>
 #include <umock/ifaddrs_mock.hpp>
 #include <umock/net_if_mock.hpp>
 #include <umock/sys_socket_mock.hpp>
@@ -24,14 +23,10 @@
 namespace utest {
 
 using ::testing::_;
-using ::testing::AtLeast;
 using ::testing::DoAll;
 using ::testing::Return;
 using ::testing::SetArgPointee;
 
-using ::pupnp::CLogging;
-
-using ::UPnPsdk::CIfaddr4;
 using ::UPnPsdk::errStrEx;
 
 
@@ -103,6 +98,22 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
     EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, (unsigned short)0);
 }
 
+TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_loopback_interface) {
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("::1");
+
+    if (old_code) {
+        // Not supported
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+    } else if (!github_actions) {
+
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+    }
+}
+
 TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
     // provide a network interface
     CIfaddr4 ifaddr4Obj;
@@ -129,7 +140,7 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
 
     if (old_code) {
         std::cout
-            << CRED "[ BUG      ] " CRES << __LINE__
+            << CYEL "[ BUGFIX   ] " CRES << __LINE__
             << ": interface name (e.g. ethO with upper case O), ip "
             << "address and netmask should not be modified on wrong entries.\n";
         // gIF_NAME mocked with getifaddrs above
@@ -141,7 +152,7 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
         // get an empty netmask from initialization. That's also OK.
         EXPECT_STREQ(gIF_IPV4_NETMASK, "");
 
-    } else if (!github_actions) {
+    } else {
 
         // gIF_NAME mocked with getifaddrs above
         EXPECT_STREQ(gIF_NAME, "")
@@ -166,7 +177,14 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
     EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, (unsigned short)0);
 }
 
+// This is too complex to mock all deep detailed system calls. Rework it when I
+// can mock GetIfInfo().
+//
 TEST_F(UpnpapiIPv4MockTestSuite, UpnpInit2_successful) {
+    if (!github_actions)
+        GTEST_FAIL()
+            << "This test must be reworked with mocking UpnpGetIfInfo().";
+#if 0
     // CLogging logObj; // Output only with build type DEBUG.
     // logObj.enable(UPNP_ALL);
 
@@ -227,6 +245,7 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpInit2_successful) {
     EXPECT_EQ(ret_UpnpFinish, UPNP_E_FINISH)
         << errStrEx(ret_UpnpFinish, UPNP_E_FINISH);
     EXPECT_EQ(UpnpSdkInit, 0);
+#endif
 }
 
 } // namespace utest

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-13
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
@@ -535,6 +535,30 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_port_string) {
                 HasSubstr("] ERROR MSG1036: Unsupported address family 1"));
     g_dbug = g_dbug_old;
 }
+
+#if 0
+// Test what is accepted by inet_pton() for information. I do not need to always
+// test it.
+TEST(SockaddrStorageTestSuite, test_pton) {
+    in_addr buf[sizeof(in_addr)];
+    in6_addr buf6[sizeof(in6_addr)];
+
+    EXPECT_EQ(inet_pton(AF_INET, "192.168.1.2", &buf), 1);
+    // Following are invalid
+    EXPECT_EQ(inet_pton(AF_INET, "192.168.1.2:50002", &buf), 0);
+    EXPECT_EQ(inet_pton(AF_INET, "192.168.1.2/24", &buf), 0);
+    EXPECT_EQ(inet_pton(AF_INET, "192.168.1.2/24:50002", &buf), 0);
+
+    EXPECT_EQ(inet_pton(AF_INET6, "2001:db8::1", &buf6), 1);
+    // Following are invalid
+    EXPECT_EQ(inet_pton(AF_INET6, "2001:db8::1/64", &buf6), 0);
+    EXPECT_EQ(inet_pton(AF_INET6, "2001:db8::1%eth0", &buf6), 0);
+    EXPECT_EQ(inet_pton(AF_INET6, "[2001:db8::1]", &buf6), 0);
+    EXPECT_EQ(inet_pton(AF_INET6, "[2001:db8::1]/64", &buf6), 0);
+    EXPECT_EQ(inet_pton(AF_INET6, "[2001:db8::1]%eth0", &buf6), 0);
+    EXPECT_EQ(inet_pton(AF_INET6, "[2001:db8::1]:50010", &buf6), 0);
+}
+#endif
 
 } // namespace utest
 

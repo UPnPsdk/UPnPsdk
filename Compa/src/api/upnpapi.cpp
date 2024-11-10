@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-08
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -49,7 +49,7 @@
 #include <soap_ctrlpt.hpp>
 
 #include <UPnPsdk/global.hpp>
-#include <UPnPsdk/synclog.hpp>
+#include <UPnPsdk/addrinfo.hpp>
 
 #ifdef _WIN32
 #include <UPnPsdk/port.hpp>
@@ -3051,17 +3051,17 @@ int UpnpDownloadXmlDoc(const char* url, IXML_Document** xmlDoc) {
  * \return The IPv6 prefix length.
  */
 #ifndef _WIN32
-static unsigned UpnpComputeIpv6PrefixLength(struct sockaddr_in6* Netmask) {
+static unsigned UpnpComputeIpv6PrefixLength(struct sockaddr_in6* a_Netmask) {
     unsigned prefix_length = 0;
     size_t i = 0;
 
-    if (Netmask == NULL) {
+    if (a_Netmask == nullptr) {
         return prefix_length;
     }
-    for (i = 0; i < sizeof(Netmask->sin6_addr); i++) {
-        while (Netmask->sin6_addr.s6_addr[i]) {
-            prefix_length += (Netmask->sin6_addr.s6_addr[i] & 0x01);
-            Netmask->sin6_addr.s6_addr[i] >>= 1;
+    for (i = 0; i < sizeof(a_Netmask->sin6_addr); i++) {
+        while (a_Netmask->sin6_addr.s6_addr[i]) {
+            prefix_length += (a_Netmask->sin6_addr.s6_addr[i] & 0x01);
+            a_Netmask->sin6_addr.s6_addr[i] >>= 1;
         }
     }
 
@@ -3069,7 +3069,24 @@ static unsigned UpnpComputeIpv6PrefixLength(struct sockaddr_in6* Netmask) {
 }
 #endif
 
-int UpnpGetIfInfo(const char* IfName) {
+namespace {
+
+/*!
+ * \brief Retrieve network interface information for a given interface name and
+ * keep it in global variables.
+ *
+ * If nullptr, we'll find the first suitable network interface for operation.
+ * We'll retrieve the following information from the interface:
+ * \li gIF_NAME -> Interface name (by input or found).
+ * \li gIF_IPV4 -> IPv4 address (if any).
+ * \li gIF_IPV6 -> IPv6 address (if any).
+ * \li gIF_IPV6_ULA_GUA -> ULA or GUA IPv6 address (if any)
+ * \li gIF_INDEX -> Interface index number.
+ *
+ * \return UPNP_E_SUCCESS on success.
+ */
+int GetIfInfo(const char* a_IfName) {
+    TRACE("Executing GetIfInfo()")
 #ifdef _WIN32
     /* ---------------------------------------------------- */
     /* WIN32 implementation will use the IpHlpAPI library.  */
@@ -3084,6 +3101,7 @@ int UpnpGetIfInfo(const char* IfName) {
     ULONG ret;
     int ifname_found = 0;
     int valid_addr_found = 0;
+    char IF_NAME[sizeof(gIF_NAME)]{};
 
     /* Get Adapters addresses required size. */
     ret = umock::iphlpapi_h.GetAdaptersAddresses(
@@ -3112,14 +3130,13 @@ int UpnpGetIfInfo(const char* IfName) {
         return UPNP_E_INIT;
     }
     /* Copy interface name, if it was provided. */
-    if (IfName != NULL) {
-        if (strlen(IfName) > sizeof(gIF_NAME)) {
+    if (a_IfName != nullptr) {
+        if (strlen(a_IfName) >= sizeof(IF_NAME)) {
             free(adapts);
             return UPNP_E_INVALID_INTERFACE;
         }
 
-        memset(gIF_NAME, 0, sizeof(gIF_NAME));
-        strncpy(gIF_NAME, IfName, sizeof(gIF_NAME) - 1);
+        strncpy(IF_NAME, a_IfName, sizeof(IF_NAME) - 1);
         ifname_found = 1;
     }
     for (adapts_item = adapts; adapts_item != NULL;
@@ -3138,8 +3155,8 @@ int UpnpGetIfInfo(const char* IfName) {
              * big changes (gIF_NAME to wchar string?).
              */
             size_t* s = NULL;
-            wcstombs_s(s, gIF_NAME, sizeof(gIF_NAME), adapts_item->FriendlyName,
-                       sizeof(gIF_NAME));
+            wcstombs_s(s, IF_NAME, sizeof(IF_NAME), adapts_item->FriendlyName,
+                       sizeof(IF_NAME));
             free(s);
 
             ifname_found = 1;
@@ -3158,7 +3175,7 @@ int UpnpGetIfInfo(const char* IfName) {
                        adapts_item->FriendlyName, sizeof(tmpIfName));
             free(s);
 
-            if (strncmp(gIF_NAME, tmpIfName, sizeof(gIF_NAME)) != 0) {
+            if (strncmp(IF_NAME, tmpIfName, sizeof(IF_NAME)) != 0) {
                 /* This is not the interface we're looking for.
                  */
                 continue;
@@ -3214,14 +3231,16 @@ int UpnpGetIfInfo(const char* IfName) {
                    "use.\n");
         return UPNP_E_INVALID_INTERFACE;
     }
+    memset(gIF_NAME, 0, sizeof(gIF_NAME));
+    strncpy(gIF_NAME, IF_NAME, sizeof(IF_NAME));
     inet_ntop(AF_INET, &v4_addr, gIF_IPV4, sizeof(gIF_IPV4));
     inet_ntop(AF_INET6, &v6_addr, gIF_IPV6, sizeof(gIF_IPV6));
 
-#else  // not _WIN32
+#else  // GetIfInfo() not _WIN32
 
     struct ifaddrs *ifap, *ifa;
-    struct in_addr v4_addr = {0};
-    struct in_addr v4_netmask = {0};
+    struct in_addr v4_addr {};
+    struct in_addr v4_netmask {};
     struct in6_addr v6_addr = IN6ADDR_ANY_INIT;
     struct in6_addr v6ulagua_addr = IN6ADDR_ANY_INIT;
     unsigned v6_prefix = 0;
@@ -3230,24 +3249,24 @@ int UpnpGetIfInfo(const char* IfName) {
     int valid_v4_addr_found = 0;
     int valid_v6_addr_found = 0;
     int valid_v6ulagua_addr_found = 0;
+    char IF_NAME[sizeof(gIF_NAME)]{};
 
     /* Copy interface name, if it was provided. */
-    if (IfName != NULL) {
-        if (strlen(IfName) > sizeof(gIF_NAME))
+    if (a_IfName != nullptr) {
+        if (strlen(a_IfName) >= sizeof(IF_NAME))
             return UPNP_E_INVALID_INTERFACE;
 
-        memset(gIF_NAME, 0, sizeof(gIF_NAME));
-        strncpy(gIF_NAME, IfName, sizeof(gIF_NAME) - 1);
+        strncpy(IF_NAME, a_IfName, sizeof(IF_NAME) - 1);
         ifname_found = 1;
     }
     /* Get system interface addresses. */
     if (umock::ifaddrs_h.getifaddrs(&ifap) != 0) {
-        UpnpPrintf(UPNP_CRITICAL, API, __FILE__, __LINE__,
-                   "getifaddrs failed to find list of addresses\n");
+        UPnPsdk_LOGCRIT
+            "MSG1118: getifaddrs failed to find list of addresses\n";
         return UPNP_E_INIT;
     }
     /* cycle through available interfaces and their addresses. */
-    for (ifa = ifap; ifa != NULL; ifa = ifa->ifa_next) {
+    for (ifa = ifap; ifa != nullptr; ifa = ifa->ifa_next) {
         /* Skip LOOPBACK interfaces, DOWN interfaces, */
         /* interfaces without address (e.g. bonded)*/
         /* and interfaces that don't support MULTICAST. */
@@ -3258,11 +3277,10 @@ int UpnpGetIfInfo(const char* IfName) {
         }
         if (ifname_found == 0) {
             /* We have found a valid interface name. Keep it. */
-            memset(gIF_NAME, 0, sizeof(gIF_NAME));
-            strncpy(gIF_NAME, ifa->ifa_name, sizeof(gIF_NAME) - 1);
+            strncpy(IF_NAME, ifa->ifa_name, sizeof(IF_NAME) - 1);
             ifname_found = 1;
         } else {
-            if (strncmp(gIF_NAME, ifa->ifa_name, sizeof(gIF_NAME)) != 0) {
+            if (strncmp(IF_NAME, ifa->ifa_name, sizeof(IF_NAME)) != 0) {
                 /* This is not the interface we're looking for.
                  */
                 continue;
@@ -3312,7 +3330,7 @@ int UpnpGetIfInfo(const char* IfName) {
             }
             break;
         default:
-            if (IfName == NULL && valid_v4_addr_found == 0 &&
+            if (a_IfName == nullptr && valid_v4_addr_found == 0 &&
                 valid_v6ulagua_addr_found == 0 && valid_v6_addr_found == 0) {
                 /* Address is not IPv4 or IPv6 and no valid
                  * address has  */
@@ -3328,9 +3346,8 @@ int UpnpGetIfInfo(const char* IfName) {
     if (ifname_found == 0 ||
         (valid_v4_addr_found == 0 && valid_v6_addr_found == 0 &&
          valid_v6ulagua_addr_found == 0)) {
-        UpnpPrintf(UPNP_CRITICAL, API, __FILE__, __LINE__,
-                   "Failed to find an adapter with valid IP addresses for "
-                   "use.\n");
+        UPnPsdk_LOGCRIT "MSG1097: Failed to find an adapter with valid IP "
+                        "addresses for use.\n";
         return UPNP_E_INVALID_INTERFACE;
     }
     if (valid_v4_addr_found) {
@@ -3338,6 +3355,8 @@ int UpnpGetIfInfo(const char* IfName) {
         inet_ntop(AF_INET, &v4_netmask, gIF_IPV4_NETMASK,
                   sizeof(gIF_IPV4_NETMASK));
     }
+    memset(gIF_NAME, 0, sizeof(gIF_NAME));
+    strncpy(gIF_NAME, IF_NAME, sizeof(gIF_NAME));
     gIF_INDEX = umock::net_if_h.if_nametoindex(gIF_NAME);
     if (!IN6_IS_ADDR_UNSPECIFIED(&v6_addr)) {
         if (valid_v6_addr_found) {
@@ -3358,6 +3377,22 @@ int UpnpGetIfInfo(const char* IfName) {
         << gIF_IPV6_ULA_GUA << "]\".\n";
 
     return UPNP_E_SUCCESS;
+}
+
+} // anonymous namespace
+
+int UpnpGetIfInfo(const char* a_IFace) {
+    UPnPsdk::CAddrinfo aiObj(a_IFace, AF_UNSPEC, SOCK_STREAM, AI_NUMERICHOST);
+    try {
+        aiObj.load();
+    } catch (const std::exception&) {
+        // a_IFace is not an IP address. Assume it is an interface name and call
+        // old code.
+        return GetIfInfo(a_IFace);
+    }
+
+    // Get needed information from given IP address for global variables.
+    return UPNP_E_INVALID_INTERFACE;
 }
 
 /*!

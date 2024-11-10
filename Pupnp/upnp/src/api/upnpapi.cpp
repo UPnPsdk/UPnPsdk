@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-26
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1524,7 +1524,7 @@ static int GetDescDocumentAndURL(Upnp_DescType descriptionType,
     int fd;
     size_t fileLen;
     size_t num_read;
-    time_t last_modified;
+    time_t last_modified{time(nullptr)};
     struct stat file_info;
     struct sockaddr_storage serverAddr;
     int rc = UPNP_E_SUCCESS;
@@ -1541,7 +1541,7 @@ static int GetDescDocumentAndURL(Upnp_DescType descriptionType,
         retVal = UpnpDownloadXmlDoc(description, xmlDoc);
         if (retVal != UPNP_E_SUCCESS)
             return retVal;
-        last_modified = time(NULL);
+        last_modified = time(nullptr);
     } else if (descriptionType == (enum Upnp_DescType_e)UPNPREG_FILENAME_DESC) {
         int ret = 0;
 
@@ -1595,7 +1595,7 @@ static int GetDescDocumentAndURL(Upnp_DescType descriptionType,
             return rc;
         }
     } else if (descriptionType == (enum Upnp_DescType_e)UPNPREG_BUF_DESC) {
-        last_modified = time(NULL);
+        last_modified = time(nullptr);
         rc = ixmlParseBufferEx(description, xmlDoc);
     } else {
         return UPNP_E_INVALID_PARAM;
@@ -3611,9 +3611,9 @@ GetDeviceHandleInfoForPath([[maybe_unused]] const char* path,
         case HND_DEVICE:
             if ((*HndInfo)->DeviceAf == AddressFamily) {
                 if ((*serv_info = FindServiceControlURLPath(
-                         &(*HndInfo)->ServiceTable, path)) ||
+                         &(*HndInfo)->ServiceTable, path)) != nullptr ||
                     (*serv_info = FindServiceEventURLPath(
-                         &(*HndInfo)->ServiceTable, path))) {
+                         &(*HndInfo)->ServiceTable, path)) != nullptr) {
                     return HND_DEVICE;
                 }
             }

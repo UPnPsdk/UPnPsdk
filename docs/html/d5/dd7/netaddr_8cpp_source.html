@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('d5/dd7/netaddr_8cpp_source.html','../.
 </div><!--header-->
 <div class="contents">
 <a href="../../d5/dd7/netaddr_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-08-18</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-11-08</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d2b/netaddr_8hpp.html">UPnPsdk/netaddr.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d6/dbf/addrinfo_8hpp.html">UPnPsdk/addrinfo.hpp</a>&gt;</span></div>
@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('d5/dd7/netaddr_8cpp_source.html','../.
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">if</span> (rc != 0) {</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        TRACE2(<span class="stringliteral">&quot;syscall ::freeaddrinfo() with res = &quot;</span>, res)</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        umock::netdb_h.freeaddrinfo(res);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        UPNPLIB_LOGINFO <span class="stringliteral">&quot;MSG1116: syscall ::getaddrinfo(\&quot;&quot;</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        UPnPsdk_LOGINFO <span class="stringliteral">&quot;MSG1116: syscall ::getaddrinfo(\&quot;&quot;</span></div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            &lt;&lt; node.c_str() &lt;&lt; <span class="stringliteral">&quot;\&quot;, nullptr, &quot;</span> &lt;&lt; &amp;hints &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; &amp;res</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            &lt;&lt; <span class="stringliteral">&quot;), (&quot;</span> &lt;&lt; rc &lt;&lt; <span class="stringliteral">&quot;) &quot;</span> &lt;&lt; gai_strerror(rc) &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">return</span> AF_UNSPEC;</div>

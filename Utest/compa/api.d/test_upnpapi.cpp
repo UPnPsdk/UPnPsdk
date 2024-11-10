@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-05
+// Redistribution only with this Copyright remark. Last modified: 2024-11-13
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -11,11 +11,11 @@
 #include <upnptools.hpp> // For pupnp and compa
 #endif
 
-#include <pupnp/upnpdebug.hpp>   // for CLogging
+#include <pupnp/upnpdebug.hpp> // for CLogging
 
-#include <UPnPsdk/upnptools.hpp> // For UPnPsdk only
+#include <UPnPsdk/upnptools.hpp>
 #include <UPnPsdk/global.hpp>
-#include <UPnPsdk/sockaddr.hpp>
+#include <UPnPsdk/addrinfo.hpp>
 
 #include <utest/utest.hpp>
 #include <umock/sys_socket_mock.hpp>
@@ -25,8 +25,8 @@
 
 namespace utest {
 
+using ::UPnPsdk::CAddrinfo;
 using ::UPnPsdk::errStrEx;
-using ::UPnPsdk::SSockaddr;
 
 using ::pupnp::CLogging;
 
@@ -126,7 +126,24 @@ clang-format on
 // ==================
 class UpnpapiFTestSuite : public ::testing::Test {
   protected:
+    CLogging logObj; // Output only with build type DEBUG.
+
+    // Constructor
     UpnpapiFTestSuite() {
+        if (UPnPsdk::g_dbug)
+            logObj.enable(UPNP_INFO);
+
+        // initialize needed global variables
+        std::fill(std::begin(gIF_NAME), std::end(gIF_NAME), 0);
+        std::fill(std::begin(gIF_IPV4), std::end(gIF_IPV4), 0);
+        std::fill(std::begin(gIF_IPV4_NETMASK), std::end(gIF_IPV4_NETMASK), 0);
+        std::fill(std::begin(gIF_IPV6), std::end(gIF_IPV6), 0);
+        gIF_IPV6_PREFIX_LENGTH = 0;
+        std::fill(std::begin(gIF_IPV6_ULA_GUA), std::end(gIF_IPV6_ULA_GUA), 0);
+        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+        gIF_INDEX = (unsigned)-1;
+        UpnpSdkInit = 0xAA;
+
         // Destroy global variables to avoid side effects.
         memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
         memset(&gUUIDMutex, 0xAA, sizeof(gUUIDMutex));
@@ -139,15 +156,11 @@ class UpnpapiFTestSuite : public ::testing::Test {
         memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
         memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
         memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
-        UpnpSdkInit = 0xAA;
     }
 };
 
 class UpnpapiMockFTestSuite : public UpnpapiFTestSuite {
   protected:
-    // Ip address structure
-    SSockaddr m_saddr;
-
     // clang-format off
     // Instantiate mocking objects.
     StrictMock<umock::PupnpSockMock> m_pupnpSockObj;
@@ -160,10 +173,134 @@ class UpnpapiMockFTestSuite : public UpnpapiFTestSuite {
     umock::Winsock2 winsock2_injectObj = umock::Winsock2(&m_winsock2Obj);
 #endif
     // clang-format on
-
-    UpnpapiMockFTestSuite() { m_saddr = "192.168.99.4:50010"; }
 };
 
+
+#if 0
+// This is to get the binary netorder ipv4 value from the IPv4 mapped IPv6
+// address to be used for inexpensive comparison. It's not a real test so I do
+// not need to always run it.
+//
+TEST(UpnpapiTestSuite, get_binary_ip) {
+    UPnPsdk::SSockaddr saObj;
+    in_addr* sin_addr =
+        reinterpret_cast<in_addr*>(&saObj.sin6.sin6_addr.s6_addr[12]);
+
+    saObj = "[::ffff:10.0.0.0]";
+    std::cout << "10.0.0.0        = " << ntohl(sin_addr->s_addr) << '\n';
+    saObj = "[::ffff:10.255.255.255]";
+    std::cout << "10.255.255.255  = " << ntohl(sin_addr->s_addr) << '\n';
+
+    saObj = "[::ffff:127.0.0.0]";
+    std::cout << "127.0.0.0       = " << ntohl(sin_addr->s_addr) << '\n';
+    saObj = "[::ffff:127.255.255.255]";
+    std::cout << "127.255.255.255 = " << ntohl(sin_addr->s_addr) << '\n';
+
+    saObj = "[::ffff:172.16.0.0]";
+    std::cout << "172.16.0.0      = " << ntohl(sin_addr->s_addr) << '\n';
+    saObj = "[::ffff:172.31.255.255]";
+    std::cout << "172.31.255.255  = " << ntohl(sin_addr->s_addr) << '\n';
+
+    saObj = "[::ffff:192.168.0.0]";
+    std::cout << "192.168.0.0     = " << ntohl(sin_addr->s_addr) << '\n';
+    saObj = "[::ffff:192.168.255.255]";
+    std::cout << "192.168.255.255 = " << ntohl(sin_addr->s_addr) << '\n';
+
+    char addrbuf[20]{};
+    inet_ntop(AF_INET, sin_addr, addrbuf, sizeof(addrbuf));
+    std::cout << "addrbuf = " << addrbuf << '\n';
+}
+#endif
+
+#ifndef _WIN32
+TEST(UpnpapiTestSuite, check_in6_is_addr_global) {
+    {
+        // Documentation- and test-address
+        CAddrinfo aiObj("[2001:db8::1]", AF_INET6);
+        aiObj.load();
+        in6_addr* sa6 =
+            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
+        EXPECT_TRUE(IN6_IS_ADDR_GLOBAL(sa6));
+    }
+    {
+        // Global Unique Address
+        CAddrinfo aiObj("[3003:d5:272c:c600:5054:ff:fe7f:c021]", AF_INET6);
+        aiObj.load();
+        in6_addr* sa6 =
+            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
+        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
+    }
+    {
+        // Link-local address
+        CAddrinfo aiObj("[fe80::1]", AF_INET6);
+        aiObj.load();
+        in6_addr* sa6 =
+            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
+        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
+    }
+
+    // starting with 00 is the reserved address block
+    {
+        // Address belongs to the reserved address block
+        CAddrinfo aiObj("[00ab::1]", AF_INET6);
+        aiObj.load();
+        in6_addr* sa6 =
+            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
+        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
+    }
+    {
+        // Unspecified Address, belongs to the reserved address block
+        CAddrinfo aiObj("[::]", AF_INET6);
+        aiObj.load();
+        in6_addr* sa6 =
+            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
+        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
+    }
+    {
+        // loopback address, belongs to the reserved address block
+        CAddrinfo aiObj("[::1]", AF_INET6);
+        aiObj.load();
+        in6_addr* sa6 =
+            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
+        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
+    }
+    {
+        // v4-mapped address, belongs to the reserved address block
+        CAddrinfo aiObj("[::ffff:142.250.185.99]", AF_INET6);
+        aiObj.load();
+        in6_addr* sa6 =
+            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
+        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
+    }
+    {
+        // IPv4-compatible embedded IPv6 address, belongs to the reserved
+        // address block
+        CAddrinfo aiObj("[::101.45.75.219]", AF_INET6);
+        aiObj.load();
+        in6_addr* sa6 =
+            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
+        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
+    }
+}
+#endif
+
+#if 0
+TEST_F(UpnpapiFTestSuite, UpnpInit2_iface_nullptr) {
+    // Test Unit
+    int ret_UpnpInit2 = UpnpInit2(nullptr, 0);
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+    EXPECT_STRNE(gIF_NAME, "");
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv6_addr_successful) {
+    // Test Unit
+    int ret_UpnpInit2 = UpnpInit2("[fe80::5054:ff:fe7f:c021]", 0);
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+    EXPECT_STREQ(gIF_NAME, "lo");
+}
+#endif
 
 TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
     // Test Unit
@@ -261,9 +398,6 @@ TEST_F(UpnpapiFTestSuite, get_error_message) {
 }
 
 TEST_F(UpnpapiFTestSuite, GetHandleInfo_successful) {
-    // CLogging logObj; // Output only with build type DEBUG.
-    // logObj.enable(UPNP_ALL);
-
     // Will be filled with a pointer to the requested client info.
     Handle_Info* hinfo_p{nullptr};
 
@@ -308,9 +442,6 @@ TEST_F(UpnpapiFTestSuite, GetHandleInfo_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, GetHandleInfo_with_nullptr_to_handle_table) {
-    // CLogging logObj; // Output only with build type DEBUG.
-    // logObj.enable(UPNP_ALL);
-
     // Initialize HandleTable bcause it only contains pointer.
     HandleTable[1] = nullptr;
 
@@ -325,9 +456,6 @@ TEST_F(UpnpapiFTestSuite, GetHandleInfo_with_nullptr_to_handle_table) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpFinish_successful) {
-    // CLogging logObj; // Output only with build type DEBUG.
-    // logObj.enable(UPNP_ALL);
-
     // Doing needed initializations. Otherwise we get segfaults with
     // UpnpFinish() due to uninitialized pointers.
     // Initialize SDK global mutexes.
@@ -493,8 +621,7 @@ int CallbackEventHandler(Upnp_EventType EventType, const void* Event,
 }
 
 TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
-    if (github_actions)
-        GTEST_SKIP() << "Need to test subroutines first.";
+    GTEST_SKIP() << "Need to test subroutines first.";
 
     constexpr char desc_doc_url[]{"http://192.168.99.4:50010/tvdevicedesc.xml"};
     constexpr SOCKET sockfd{umock::sfd_base + 45};
@@ -559,7 +686,6 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
 }
 
 #if 0
-
 TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
     // To be done
     int ret_GetFreeHandle = GetFreeHandle();

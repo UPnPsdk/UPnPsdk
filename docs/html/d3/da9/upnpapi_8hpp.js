@@ -77,7 +77,7 @@ var upnpapi_8hpp =
     [ "GetClientHandleInfo", "d3/da9/upnpapi_8hpp.html#a7819646de9638c6c3d6e4ddabbaeff88", null ],
     [ "GetDeviceHandleInfo", "d3/da9/upnpapi_8hpp.html#adaee5fa3d27700b98d3a7a6d0b71e5bf", null ],
     [ "GetDeviceHandleInfoForPath", "d3/da9/upnpapi_8hpp.html#a3874f9a5ad50e194f3c3c541d71c1ab7", null ],
-    [ "UpnpGetIfInfo", "d3/da9/upnpapi_8hpp.html#a8505e268739e9980a642b3acc18ef0a2", null ],
+    [ "UpnpGetIfInfo", "d3/da9/upnpapi_8hpp.html#a008833b8edea97b776c15f0440435972", null ],
     [ "UpnpThreadDistribution", "d3/da9/upnpapi_8hpp.html#a282c8419fef146b7170ee266159029e6", null ],
     [ "AutoAdvertise", "d3/da9/upnpapi_8hpp.html#abb1ab3d0ba145286005284d447110fce", null ],
     [ "PrintHandleInfo", "d3/da9/upnpapi_8hpp.html#a5a17761f7fc97c277b8385bdb989e6e5", null ],

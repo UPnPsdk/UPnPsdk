@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_INCLUDE_ADDRINFO_HPP
 #define UPNPLIB_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-12
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
@@ -16,13 +16,12 @@ namespace UPnPsdk {
  * [netaddress](\ref glossary_netaddr)
 <!-- ====================================================== -->
  * \ingroup upnplib-addrmodul
- *
- * This is a stripped version. It is only as snapshot to get information about
- * a netaddress. There is no need to copy the object. The last full featured
- * version with copy constructor, copy asignment operator, compare operator,
- * additional getter and its unit tests can be found at
- * Github commit e2ffc0c46a2d8f15390f2816e1a18782e500fd09
- * */
+ */
+// This is a stripped version. It is only as snapshot to get information about
+// a netaddress. There is no need to copy the object. The last full featured
+// version with copy constructor, copy asignment operator, compare operator,
+// additional getter and its unit tests can be found at Github commit
+// e2ffc0c46a2d8f15390f2816e1a18782e500fd09
 class UPNPLIB_API CAddrinfo {
   public:
     /*! \brief Constructor for getting an address information with service name
@@ -67,7 +66,7 @@ class UPNPLIB_API CAddrinfo {
     /*! \brief load address information from the operating system
      * \code
 // Usage e.g.:
-CAddrinfo ai("[2001:db8::1]", "50050", AF_INET6, SOCK_STREAM, AI_NUMERICHOST);
+CAddrinfo ai("[2001:db8::1]", "50050", AF_UNSPEC, SOCK_STREAM, AI_NUMERICHOST);
 // or
 CAddrinfo ai("[2001:db8::1]:50050");
 try {

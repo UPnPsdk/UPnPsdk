@@ -1,12 +1,17 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-04
+// Redistribution only with this Copyright remark. Last modified: 2024-11-11
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
+ * - Provide IP-Address instead of interface name to UpnpInit2() (https://datatracker.ietf.org/doc/html/rfc3484).
+ * - Make SDK IP Version - Independent (https://datatracker.ietf.org/doc/html/rfc4038)
+ * - Rework IPv6 support to use only IPv6 with IPv4-mapped IPv6 addresses (https://datatracker.ietf.org/doc/html/rfc4038)
+ * - Remove IN6_IS_ADDR_GLOBAL, should be checked by kernel or system library (https://datatracker.ietf.org/doc/html/rfc6890)
+ * - Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.
  * - Improve tests for OpenSSL (test_sock.cpp, sock read_ssl, sock write_ssl).
- * - Provide IP-Address instead of interface name to UpnpInit2().
+ * - Create no mocked tests for CSigpipe@sock.cpp, read and write data using UPnP-Device.
  * - Test and document ixml script support.
  * - Rework Utest/compa/1-discovery/test_ssdp.cpp, mainly to fix get_ssdp_sockets() for IPv6.
  * - Rework Utest/compa/api.d/test_upnpapi_win32.cpp.
@@ -21,9 +26,6 @@
  * - Create connection class.
  * - Fix "time used" on sock_read and sock_write.
  * - Remove a_service argument from CAddrinfo constructor.
- * - Create threaded simple_inet_server and simple_inet_client for testing.
- *   \n - Create no mocked tests for CSigpipe@sock.cpp, read and write data.
- *   \n - Fix openssl_threaded on win32.
  * - Rework test_httpreadwrite.cpp.
  * - Add AI_IDN and AI_CANONIDN support to CAddrinfo.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().

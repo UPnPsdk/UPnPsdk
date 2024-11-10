@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * All rights reserved.</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Copyright (C) 2011-2012 France Telecom All rights reserved.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-08-18</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-11-08</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * modification, are permitted provided that the following conditions are met:</span></div>
@@ -269,7 +269,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="foldopen" id="foldopen00208" data-start="{" data-end="}">
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a2a4b0ed4bade63f5a1bc68d8349e93bd">  208</a></span><span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a2a4b0ed4bade63f5a1bc68d8349e93bd">create_ssdp_sock_v4</a>(</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    SOCKET* ssdpSock) {</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    UPNPLIB_LOGINFO <span class="stringliteral">&quot;MSG1075: Executing...\n&quot;</span>;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    UPnPsdk_LOGINFO <span class="stringliteral">&quot;MSG1075: Executing...\n&quot;</span>;</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keywordtype">int</span> onOff;</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    u_char ttl = (u_char)4;</div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    ip_mreq ssdpMcastAddr;</div>
@@ -282,7 +282,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    *ssdpSock = umock::sys_socket_h.socket(AF_INET, SOCK_DGRAM, 0);</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">if</span> (*ssdpSock == INVALID_SOCKET) {</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        UPNPLIB_LOGCRIT <span class="stringliteral">&quot;MSG1076: Error in socket(): &quot;</span> &lt;&lt; sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>()</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        UPnPsdk_LOGCRIT <span class="stringliteral">&quot;MSG1076: Error in socket(): &quot;</span> &lt;&lt; sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>()</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                                                       &lt;&lt; <span class="stringliteral">&quot;.\n&quot;</span>;</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keywordflow">return</span> <a class="code hl_define" href="../../d4/d64/messages_8hpp.html#a8e8c5cd013dde8ab5003c9123dac7fd6">UPNP_E_OUTOF_SOCKET</a>;</div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    }</div>
@@ -291,7 +291,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                                         (<span class="keywordtype">char</span>*)&amp;onOff, <span class="keyword">sizeof</span>(onOff));</div>
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keywordflow">if</span> (ret == -1) {</div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        UPNPLIB_LOGCRIT <span class="stringliteral">&quot;MSG1077: Error in setsockopt() SO_REUSEADDR: &quot;</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        UPnPsdk_LOGCRIT <span class="stringliteral">&quot;MSG1077: Error in setsockopt() SO_REUSEADDR: &quot;</span></div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            &lt;&lt; sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>() &lt;&lt; <span class="stringliteral">&quot;.\n&quot;</span>;</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        ret = <a class="code hl_define" href="../../d4/d64/messages_8hpp.html#a13ac42d849e2add5f1a86cb6b5fee7ed">UPNP_E_SOCKET_ERROR</a>;</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <span class="keywordflow">goto</span> error_handler;</div>
@@ -302,7 +302,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                                         (<span class="keywordtype">char</span>*)&amp;onOff, <span class="keyword">sizeof</span>(onOff));</div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">if</span> (ret == -1) {</div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        UPNPLIB_LOGCRIT <span class="stringliteral">&quot;MSG1078: Error in setsockopt() SO_REUSEP: &quot;</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        UPnPsdk_LOGCRIT <span class="stringliteral">&quot;MSG1078: Error in setsockopt() SO_REUSEP: &quot;</span></div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            &lt;&lt; sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>() &lt;&lt; <span class="stringliteral">&quot;.\n&quot;</span>;</div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        ret = <a class="code hl_define" href="../../d4/d64/messages_8hpp.html#a13ac42d849e2add5f1a86cb6b5fee7ed">UPNP_E_SOCKET_ERROR</a>;</div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keywordflow">goto</span> error_handler;</div>
@@ -316,7 +316,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>                                   <span class="keyword">sizeof</span>(*ssdpAddr4));</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordflow">if</span> (ret == -1) {</div>
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        UPNPLIB_LOGCRIT <span class="stringliteral">&quot;MSG1079: Error in bind(), addr=&quot;</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        UPnPsdk_LOGCRIT <span class="stringliteral">&quot;MSG1079: Error in bind(), addr=&quot;</span></div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>            &lt;&lt; INADDR_ANY &lt;&lt; <span class="stringliteral">&quot;, port=&quot;</span> &lt;&lt; <a class="code hl_define" href="../../d0/d19/ssdp__common_8hpp.html#a0a3b7291b732fc6a286c6f0d1e796836">SSDP_PORT</a> &lt;&lt; <span class="stringliteral">&quot;: &quot;</span></div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            &lt;&lt; sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>() &lt;&lt; <span class="stringliteral">&quot;.\n&quot;</span>;</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        ret = <a class="code hl_define" href="../../d4/d64/messages_8hpp.html#a37e1ed9ec601680272718c72d08dce14">UPNP_E_SOCKET_BIND</a>;</div>
@@ -341,7 +341,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        <span class="keyword">sizeof</span>(<span class="keyword">struct</span> ip_mreq));</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <span class="keywordflow">if</span> (ret == -1) {</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        UPNPLIB_LOGCRIT <span class="stringliteral">&quot;MSG1080: Error in setsockopt() IP_ADD_MEMBERSHIP &quot;</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        UPnPsdk_LOGCRIT <span class="stringliteral">&quot;MSG1080: Error in setsockopt() IP_ADD_MEMBERSHIP &quot;</span></div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>                        <span class="stringliteral">&quot;(join multicast group): &quot;</span></div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            &lt;&lt; sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>() &lt;&lt; <span class="stringliteral">&quot;.\n&quot;</span>;</div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        ret = <a class="code hl_define" href="../../d4/d64/messages_8hpp.html#a13ac42d849e2add5f1a86cb6b5fee7ed">UPNP_E_SOCKET_ERROR</a>;</div>
@@ -354,7 +354,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>                                         (<span class="keywordtype">char</span>*)&amp;addr, <span class="keyword">sizeof</span> addr);</div>
 <div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordflow">if</span> (ret == -1) {</div>
 <div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        UPNPLIB_LOGINFO <span class="stringliteral">&quot;MSG1081: Error in setsockopt() IP_MULTICAST_IF (set &quot;</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        UPnPsdk_LOGINFO <span class="stringliteral">&quot;MSG1081: Error in setsockopt() IP_MULTICAST_IF (set &quot;</span></div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                        <span class="stringliteral">&quot;multicast interface): &quot;</span></div>
 <div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>            &lt;&lt; sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>() &lt;&lt; <span class="stringliteral">&quot;.\n&quot;</span>;</div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        <span class="comment">/* This is probably not a critical error, so let&#39;s continue. */</span></div>
@@ -367,8 +367,8 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>                                         (<span class="keywordtype">char</span>*)&amp;onOff, <span class="keyword">sizeof</span>(onOff));</div>
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <span class="keywordflow">if</span> (ret == -1) {</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        UPNPLIB_LOGCRIT</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        <span class="stringliteral">&quot;MSG1082: Error in setsockopt() SO_BROADCAST (set broadcast): &quot;</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        UPnPsdk_LOGCRIT</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>            <span class="stringliteral">&quot;MSG1082: Error in setsockopt() SO_BROADCAST (set broadcast): &quot;</span></div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>            &lt;&lt; sockerrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>() &lt;&lt; <span class="stringliteral">&quot;.\n&quot;</span>;</div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        ret = <a class="code hl_define" href="../../d4/d64/messages_8hpp.html#a36724295676f6ac6e6dc7f4cea014c3e">UPNP_E_NETWORK_ERROR</a>;</div>
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <span class="keywordflow">goto</span> error_handler;</div>
@@ -388,7 +388,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="foldopen" id="foldopen00337" data-start="{" data-end="}">
 <div class="line"><a id="l00337" name="l00337"></a><span class="lineno"><a class="line" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a1601c6dc5f20f27ea6736d391b5d362d">  337</a></span><span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a1601c6dc5f20f27ea6736d391b5d362d">create_ssdp_sock_v6</a>(</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    SOCKET* ssdpSock) {</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    UPNPLIB_LOGINFO <span class="stringliteral">&quot;MSG1083: Executing...\n&quot;</span>;</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    UPnPsdk_LOGINFO <span class="stringliteral">&quot;MSG1083: Executing...\n&quot;</span>;</div>
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keywordtype">char</span> errorBuffer[<a class="code hl_variable" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a52ec93cb72f4b1bab35fdca43c740ebd">ERROR_BUFFER_LEN</a>];</div>
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    ipv6_mreq ssdpMcastAddr;</div>
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    sockaddr_storage __ss;</div>
@@ -513,7 +513,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="foldopen" id="foldopen00472" data-start="{" data-end="}">
 <div class="line"><a id="l00472" name="l00472"></a><span class="lineno"><a class="line" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a9f671ce15fe28475cbd2fee7d4c89c26">  472</a></span><span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a9f671ce15fe28475cbd2fee7d4c89c26">create_ssdp_sock_v6_ula_gua</a>(</div>
 <div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>    SOCKET* ssdpSock) {</div>
-<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>    UPNPLIB_LOGINFO <span class="stringliteral">&quot;MSG1084: Executing...\n&quot;</span>;</div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>    UPnPsdk_LOGINFO <span class="stringliteral">&quot;MSG1084: Executing...\n&quot;</span>;</div>
 <div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>    <span class="keywordtype">char</span> errorBuffer[<a class="code hl_variable" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a52ec93cb72f4b1bab35fdca43c740ebd">ERROR_BUFFER_LEN</a>];</div>
 <div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>    ipv6_mreq ssdpMcastAddr;</div>
 <div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span>    sockaddr_storage __ss;</div>
@@ -827,7 +827,7 @@ $(document).ready(function(){initNavTree('df/d13/ssdp__common_8cpp_source.html',
 <div class="foldopen" id="foldopen00777" data-start="{" data-end="}">
 <div class="line"><a id="l00777" name="l00777"></a><span class="lineno"><a class="line" href="../../de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8">  777</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../df/d13/ssdp__common_8cpp.html#a60739b2f340e6bdeedcf8f282d9578c8">get_ssdp_sockets</a>(<a class="code hl_struct" href="../../d3/d8b/miniserver_8hpp.html#d2/d37/structMiniServerSockArray">MiniServerSockArray</a>* out) {</div>
 <div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>    <span class="keywordtype">int</span> retVal;</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>    UPNPLIB_LOGINFO <span class="stringliteral">&quot;MSG1057: Executing...\n&quot;</span>;</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>    UPnPsdk_LOGINFO <span class="stringliteral">&quot;MSG1057: Executing...\n&quot;</span>;</div>
 <div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span> </div>
 <div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span><span class="preprocessor">#ifdef COMPA_HAVE_CTRLPT_SSDP</span></div>
 <div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>    out-&gt;<a class="code hl_variable" href="../../d3/d8b/miniserver_8hpp.html#acff6745ddfe0e7334527c125b5e0786f">ssdpReqSock4</a> = INVALID_SOCKET;</div>

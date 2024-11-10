@@ -286,9 +286,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a3874f9a5ad50e194f3c3c541d71c1ab7" id="r_a3874f9a5ad50e194f3c3c541d71c1ab7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a2b57a2af79ca49c62e0994e4e5989e04">Upnp_Handle_Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a3874f9a5ad50e194f3c3c541d71c1ab7">GetDeviceHandleInfoForPath</a> (const char *path, int AddressFamily, int *device_handle_out, struct <a class="el" href="../../d3/da9/upnpapi_8hpp.html#d3/d84/structHandle__Info">Handle_Info</a> **HndInfo, <a class="el" href="../../db/d74/service__table_8hpp.html#df/db2/structservice__info">service_info</a> **serv_info)</td></tr>
 <tr class="memdesc:a3874f9a5ad50e194f3c3c541d71c1ab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the device handle and information of the first device of the address family specified, with a service having a controlURL or eventSubURL matching the path.  <br /></td></tr>
 <tr class="separator:a3874f9a5ad50e194f3c3c541d71c1ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8505e268739e9980a642b3acc18ef0a2" id="r_a8505e268739e9980a642b3acc18ef0a2"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a8505e268739e9980a642b3acc18ef0a2">UpnpGetIfInfo</a> (const char *IfName)</td></tr>
-<tr class="memdesc:a8505e268739e9980a642b3acc18ef0a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve interface information and keep it in global variables. If NULL, we'll find the first suitable interface for operation.  <br /></td></tr>
-<tr class="separator:a8505e268739e9980a642b3acc18ef0a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a008833b8edea97b776c15f0440435972" id="r_a008833b8edea97b776c15f0440435972"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a008833b8edea97b776c15f0440435972">UpnpGetIfInfo</a> (const char *a_IFace)</td></tr>
+<tr class="memdesc:a008833b8edea97b776c15f0440435972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve network interface information and keep it in global variables.  <br /></td></tr>
+<tr class="separator:a008833b8edea97b776c15f0440435972"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a282c8419fef146b7170ee266159029e6" id="r_a282c8419fef146b7170ee266159029e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a282c8419fef146b7170ee266159029e6">UpnpThreadDistribution</a> (struct <a class="el" href="../../d3/da9/upnpapi_8hpp.html#d8/db0/structUpnpNonblockParam">UpnpNonblockParam</a> *Param)</td></tr>
 <tr class="memdesc:a282c8419fef146b7170ee266159029e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">UpnpThreadDistribution.  <br /></td></tr>
 <tr class="separator:a282c8419fef146b7170ee266159029e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1033,7 +1033,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03567">3567</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03600">3600</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -1230,7 +1230,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03473">3473</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03506">3506</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -1340,7 +1340,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03493">3493</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03526">3526</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -1452,7 +1452,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03530">3530</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03563">3563</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -1529,8 +1529,8 @@ UpnpNonblockParam </td></tr>
 
 </div>
 </div>
-<a id="a8505e268739e9980a642b3acc18ef0a2" name="a8505e268739e9980a642b3acc18ef0a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8505e268739e9980a642b3acc18ef0a2">&#9670;&#160;</a></span>UpnpGetIfInfo()</h2>
+<a id="a008833b8edea97b776c15f0440435972" name="a008833b8edea97b776c15f0440435972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a008833b8edea97b776c15f0440435972">&#9670;&#160;</a></span>UpnpGetIfInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1539,16 +1539,16 @@ UpnpNonblockParam </td></tr>
           <td class="memname">UPNPLIB_API int UpnpGetIfInfo </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>IfName</em></td><td>)</td>
+          <td class="paramname"><em>a_IFace</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieve interface information and keep it in global variables. If NULL, we'll find the first suitable interface for operation. </p>
-<p>The interface must fulfill these requirements: </p><ul>
+<p>Retrieve network interface information and keep it in global variables. </p>
+<p>If nullptr given, we'll find the first suitable network interface for operation.</p>
+<p>The network interface must fulfill these requirements: </p><ul>
 <li>Be UP. </li>
-<li>Not be LOOPBACK. </li>
 <li>Support MULTICAST. </li>
 <li>Have a valid IPv4 or IPv6 address.</li>
 </ul>
@@ -1562,28 +1562,39 @@ UpnpNonblockParam </td></tr>
 <dl class="section return"><dt>Returns</dt><dd>UPNP_E_SUCCESS on success. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">IfName</td><td>Interface name (can be NULL). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_IFace</td><td>Interface name (can be NULL). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03072">3072</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03382">3382</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-12-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d3/da9/upnpapi_8hpp_a8505e268739e9980a642b3acc18ef0a2_cgraph.png" border="0" usemap="#ad3/da9/upnpapi_8hpp_a8505e268739e9980a642b3acc18ef0a2_cgraph" alt=""/></div>
-<map name="ad3/da9/upnpapi_8hpp_a8505e268739e9980a642b3acc18ef0a2_cgraph" id="ad3/da9/upnpapi_8hpp_a8505e268739e9980a642b3acc18ef0a2_cgraph">
-<area shape="rect" title="Retrieve interface information and keep it in global variables. If NULL, we&#39;ll find the first suitabl..." alt="" coords="5,31,119,56"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a2722e4ec9ac52e4572c134313a3239dd" title="Computes prefix length from IPv6 netmask." alt="" coords="167,5,391,31"/>
-<area shape="poly" title=" " alt="" coords="119,34,156,30,157,35,119,39"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="233,55,324,80"/>
-<area shape="poly" title=" " alt="" coords="119,47,220,58,219,64,119,52"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="459,29,599,55"/>
-<area shape="poly" title=" " alt="" coords="324,60,445,48,445,53,324,65"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="439,79,619,104"/>
-<area shape="poly" title=" " alt="" coords="324,69,425,79,425,84,324,74"/>
+<div class="center"><img src="../../d3/da9/upnpapi_8hpp_a008833b8edea97b776c15f0440435972_cgraph.png" border="0" usemap="#ad3/da9/upnpapi_8hpp_a008833b8edea97b776c15f0440435972_cgraph" alt=""/></div>
+<map name="ad3/da9/upnpapi_8hpp_a008833b8edea97b776c15f0440435972_cgraph" id="ad3/da9/upnpapi_8hpp_a008833b8edea97b776c15f0440435972_cgraph">
+<area shape="rect" title="Retrieve network interface information and keep it in global variables." alt="" coords="5,104,119,129"/>
+<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a1c751ef564d3fede875a9d44b0425170" title="Retrieve network interface information for a given interface name and keep it in global variables." alt="" coords="167,47,353,87"/>
+<area shape="poly" title=" " alt="" coords="113,101,166,88,167,93,114,107"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6" title="load address information from the operating system" alt="" coords="185,129,335,169"/>
+<area shape="poly" title=" " alt="" coords="119,123,171,132,171,137,118,128"/>
+<area shape="poly" title=" " alt="" coords="223,48,221,38,226,29,240,23,260,21,283,24,296,31,293,36,282,29,260,26,241,28,230,33,226,39,228,46"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a695569e720ad17f18c1a97c9b96dd636" title="Computes prefix length from IPv6 netmask." alt="" coords="401,5,625,31"/>
+<area shape="poly" title=" " alt="" coords="353,47,433,31,434,36,354,52"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="468,55,559,80"/>
+<area shape="poly" title=" " alt="" coords="354,65,454,65,454,70,354,70"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="693,31,833,56"/>
+<area shape="poly" title=" " alt="" coords="559,60,679,49,680,54,559,66"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="673,80,853,105"/>
+<area shape="poly" title=" " alt="" coords="559,69,660,80,659,85,559,75"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#gaab5fd951995d3ce8a5e49936b35cf536" title="Check for a netaddress and return its address family." alt="" coords="436,104,591,129"/>
+<area shape="poly" title=" " alt="" coords="335,137,422,125,423,131,336,142"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0" title="Check if a given string represents a port number." alt="" coords="433,153,593,179"/>
+<area shape="poly" title=" " alt="" coords="336,151,420,157,420,162,335,156"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997" title="Get the netaddress with port from a sockaddr structure." alt="" coords="431,203,596,228"/>
+<area shape="poly" title=" " alt="" coords="324,166,402,189,437,197,435,202,401,194,322,171"/>
 </map>
 </div>
 <div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -1591,9 +1602,9 @@ UpnpNonblockParam </td></tr>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-13-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d3/da9/upnpapi_8hpp_a8505e268739e9980a642b3acc18ef0a2_icgraph.png" border="0" usemap="#ad3/da9/upnpapi_8hpp_a8505e268739e9980a642b3acc18ef0a2_icgraph" alt=""/></div>
-<map name="ad3/da9/upnpapi_8hpp_a8505e268739e9980a642b3acc18ef0a2_icgraph" id="ad3/da9/upnpapi_8hpp_a8505e268739e9980a642b3acc18ef0a2_icgraph">
-<area shape="rect" title="Retrieve interface information and keep it in global variables. If NULL, we&#39;ll find the first suitabl..." alt="" coords="139,5,252,31"/>
+<div class="center"><img src="../../d3/da9/upnpapi_8hpp_a008833b8edea97b776c15f0440435972_icgraph.png" border="0" usemap="#ad3/da9/upnpapi_8hpp_a008833b8edea97b776c15f0440435972_icgraph" alt=""/></div>
+<map name="ad3/da9/upnpapi_8hpp_a008833b8edea97b776c15f0440435972_icgraph" id="ad3/da9/upnpapi_8hpp_a008833b8edea97b776c15f0440435972_icgraph">
+<area shape="rect" title="Retrieve network interface information and keep it in global variables." alt="" coords="139,5,252,31"/>
 <area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,5,91,31"/>
 <area shape="poly" title=" " alt="" coords="125,21,91,21,91,15,125,15"/>
 </map>
@@ -1620,7 +1631,7 @@ UpnpNonblockParam </td></tr>
 <p>UpnpThreadDistribution. </p>
 <p>UpnpThreadDistribution. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03367">3367</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03400">3400</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -1830,7 +1841,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03622">3622</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03655">3655</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -2023,7 +2034,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03597">3597</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03630">3630</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
