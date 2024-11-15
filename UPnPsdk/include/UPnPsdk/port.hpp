@@ -1,7 +1,7 @@
-#ifndef UPNPLIB_INCLUDE_PORT_HPP
-#define UPNPLIB_INCLUDE_PORT_HPP
+#ifndef UPnPsdk_INCLUDE_PORT_HPP
+#define UPnPsdk_INCLUDE_PORT_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-08
+// Redistribution only with this Copyright remark. Last modified: 2024-11-16
 /*!
  * \file
  * \brief Specifications to be portable between different platforms.
@@ -70,9 +70,9 @@ static_assert(sizeof(off_t) * CHAR_BIT == 64,
  * portable to these systems.
  */
 #ifdef __STRICT_ANSI__
-  #define UPNPLIB_INLINE __inline__
+  #define UPnPsdk_INLINE __inline__
 #else
-  #define UPNPLIB_INLINE inline
+  #define UPnPsdk_INLINE inline
 #endif
 
 #ifdef _MSC_VER
@@ -146,4 +146,4 @@ static_assert(sizeof(off_t) * CHAR_BIT == 64,
 // clang-format on
 
 /// \endcond
-#endif // UPNPLIB_INCLUDE_PORT_HPP
+#endif // UPnPsdk_INCLUDE_PORT_HPP

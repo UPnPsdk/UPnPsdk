@@ -26,6 +26,7 @@ var annotated_dup =
         [ "CWSAStartup", "d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html", null ]
       ] ],
       [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
+      [ "CIfaddrs", "d0/df3/classUPnPsdk_1_1CIfaddrs.html", "d0/df3/classUPnPsdk_1_1CIfaddrs" ],
       [ "CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
       [ "CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html", "d3/d5d/classUPnPsdk_1_1CSocket" ],
       [ "CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html", "d9/da5/classUPnPsdk_1_1CSocket__basic" ],

@@ -1,7 +1,7 @@
-#ifndef UPNPLIB_NET_SOCKADDR_HPP
-#define UPNPLIB_NET_SOCKADDR_HPP
+#ifndef UPnPsdk_NET_SOCKADDR_HPP
+#define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-14
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -44,7 +44,7 @@ union sockaddr_t {
  * std::cout << "netaddress is " << to_netaddrp(&saddr) << "\n";
  * \endcode
  */
-UPNPLIB_API std::string
+UPnPsdk_API std::string
 to_netaddrp(const ::sockaddr_storage* const a_sockaddr) noexcept;
 
 
@@ -63,7 +63,7 @@ std::cout << "netaddress of saObj is " << saObj.netaddr() << "\n";
  * This structure should be usable on a low level like the trival C `struct
  * ::%sockaddr_storage` but provides additional methods to manage its data.
  */
-struct UPNPLIB_API SSockaddr {
+struct UPnPsdk_API SSockaddr {
     /// Reference to sockaddr_storage struct
     sockaddr_storage& ss = m_sa_union.ss;
     /// Reference to sockaddr_in6 struct
@@ -201,10 +201,10 @@ struct UPNPLIB_API SSockaddr {
     SUPPRESS_MSVC_WARN_4251_NEXT_LINE
     std::string m_netaddrp; // For a netaddress with port
 
-    UPNPLIB_LOCAL void handle_ipv6(const std::string& a_addr_str);
-    UPNPLIB_LOCAL void handle_ipv4(const std::string& a_addr_str);
+    UPnPsdk_LOCAL void handle_ipv6(const std::string& a_addr_str);
+    UPnPsdk_LOCAL void handle_ipv4(const std::string& a_addr_str);
 };
 
 } // namespace UPnPsdk
 
-#endif // UPNPLIB_NET_SOCKADDR_HPP
+#endif // UPnPsdk_NET_SOCKADDR_HPP

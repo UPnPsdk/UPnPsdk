@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-11-12
+# Redistribution only with this Copyright remark. Last modified: 2024-11-16
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -30,7 +30,7 @@ target_compile_options(test_upnpdebug-pst
 target_link_libraries(test_upnpdebug-pst
     PRIVATE
         pupnp_static
-        utest_static
+        utest_shared
 )
 add_test(NAME ctest_upnpdebug-pst COMMAND test_upnpdebug-pst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -46,7 +46,7 @@ target_include_directories(test_upnpdebug-cst
 target_link_libraries(test_upnpdebug-cst
     PRIVATE
         compa_static
-        utest_static
+        utest_shared
 )
 add_test(NAME ctest_upnpdebug-cst COMMAND test_upnpdebug-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -81,18 +81,6 @@ add_test(NAME ctest_UpnpString-psh COMMAND test_UpnpString-psh --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
-add_executable(test_UpnpString-pst
-#---------------------------------
-    test_UpnpString.cpp
-)
-target_link_libraries(test_UpnpString-pst
-    PRIVATE pupnp_static
-    PRIVATE utest_static
-)
-add_test(NAME ctest_UpnpString-pst COMMAND test_UpnpString-pst --gtest_shuffle
-    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
-)
-
 add_executable(test_UpnpString-csh
 #---------------------------------
     test_UpnpString.cpp
@@ -103,18 +91,6 @@ target_link_libraries(test_UpnpString-csh
 )
 add_test(NAME ctest_UpnpString-csh COMMAND test_UpnpString-csh --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
-)
-
-add_executable(test_UpnpString-cst
-#---------------------------------
-    test_UpnpString.cpp
-)
-target_link_libraries(test_UpnpString-cst
-    PRIVATE compa_static
-    PRIVATE utest_static
-)
-add_test(NAME ctest_UpnpString-cst COMMAND test_UpnpString-cst --gtest_shuffle
-    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 
@@ -167,7 +143,7 @@ target_compile_options(test_upnpapi-pst
 target_link_libraries(test_upnpapi-pst
     PRIVATE
         pupnp_static
-        utest_static
+        utest_shared
 )
 add_test(NAME ctest_upnpapi-pst COMMAND test_upnpapi-pst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -183,7 +159,7 @@ target_include_directories(test_upnpapi-cst
 target_link_libraries(test_upnpapi-cst
     PRIVATE
         compa_static
-        utest_static
+        utest_shared
 )
 add_test(NAME ctest_upnpapi-cst COMMAND test_upnpapi-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -198,11 +174,10 @@ target_include_directories(test_upnpapi_platform-pst
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
 target_compile_options(test_upnpapi_platform-pst
-    PRIVATE
         # disable warning C4505: 'GetFreeHandle': unreferenced local function
         # has been removed This isn't used with WIN32 but on other platforms. I
         # won't modify pupnp code. --Ingo
-        $<$<CXX_COMPILER_ID:MSVC>:/wd4505>
+        PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/wd4505>
 )
 target_link_libraries(test_upnpapi_platform-pst
     PRIVATE
