@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SYNCLOG_HPP
 #define UPnPsdk_SYNCLOG_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-08
+// Redistribution only with this Copyright remark. Last modified: 2024-11-18
 /*!
  * \file
  * \brief Define macro for synced logging to the console for detailed info and
@@ -9,17 +9,13 @@
  */
 
 #include <cmake_vars.hpp>
-#include <UPnPsdk/visibility.hpp>
+#include <UPnPsdk/global.hpp>
 /// \cond
 #include <string>
 #include <iostream>
 #if !defined(_MSC_VER) && !defined(__APPLE__)
 #include <syncstream>
 #endif
-
-namespace UPnPsdk {
-UPnPsdk_EXTERN bool g_dbug;
-} // namespace UPnPsdk
 
 
 // clang-format off

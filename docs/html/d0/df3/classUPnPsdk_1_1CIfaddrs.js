@@ -1,8 +1,8 @@
 var classUPnPsdk_1_1CIfaddrs =
 [
-    [ "load", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#a9e3f7a89844083eb0f11de4fa6e850ee", null ],
-    [ "get_next", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#aebe9e596e49abf63f0bc5e9305461f2c", null ],
-    [ "name", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#a9bb7aef3cdcfbe7f98d0b6c2e881b7b4", null ],
-    [ "sockaddr", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#ae67c0c899a09ba589a7b09022681eee4", null ],
-    [ "socknetmask", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#ab3a6f51962a6f6f2e2e5f2edb30f0212", null ]
+    [ "load", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#a87c6a664013b63b926b1b6ad6cfc7534", null ],
+    [ "get_next", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#a01f1356c775d868f9bb31471907745a6", null ],
+    [ "name", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#a2760952bab717e09cc5a62165ab60a6c", null ],
+    [ "sockaddr", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#ab12947d2b8069b6893d15fe25adc9443", null ],
+    [ "socknetmask", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#a4254436d61a7b0b5aa831655d73abe65", null ]
 ];

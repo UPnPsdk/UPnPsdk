@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-16
+// Redistribution only with this Copyright remark. Last modified: 2024-11-18
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -12,7 +12,7 @@
 
 #include <UPnPsdk/global.hpp>
 #include <UPnPsdk/upnptools.hpp> // For UPnPsdk only
-#include <UPnPsdk/netifinfo.hpp>
+#include <UPnPsdk/netadapter_unix.hpp>
 
 #include <utest/utest.hpp>
 #include <utest/utest_unix.hpp>
@@ -250,8 +250,10 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpInit2_successful) {
 #endif
 }
 
-TEST(IfaddrsTestSuite, get_interface_address_info_successful) {
-    UPnPsdk::CIfaddrs ifaObj;
+TEST(NetadapterTestSuite, get_adapter_address_info_successful) {
+    UPnPsdk::CNetadapter netadapterObj;
+    UPnPsdk::INetadapter& ifaObj{netadapterObj};
+
     ifaObj.load();
     char addrStr[INET6_ADDRSTRLEN];
     char nmskStr[INET6_ADDRSTRLEN];

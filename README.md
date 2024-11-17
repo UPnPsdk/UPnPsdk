@@ -171,6 +171,10 @@ Little helper:
 
 If you need more details about installation of POSIX threads on Microsoft Windows I have made an example at [github pthreadsWinLin](https://github.com/upnplib/pthreadsWinLin.git).
 
+### 5.3 OpenSSL
+UPnPsdk uses [OpenSSL](https://www.openssl.org/) by default if it is supported by the underlaying operating system. You have always the option to [build OpenSSL from the sources](https://openssl-library.org/source/index.html). But nearly all distributions for Unix like platforms support OpenSSL out of the box or have it available in their program repositories ready to install. Unfortunately Microsoft Windows does not support OpenSSL. You may use the build-from-source option or you look for a third party that provide pre compiled binaries for installation. For example I use the [Win32/Win64 OpenSSL Installation](https://slproweb.com/products/Win32OpenSSL.html) from Shining Light Productions. With this installer I need to tell Windows where to find it after installation. The usual way is to add the program location to the PATH environment variable that would be in my case `"C:/Program Files/OpenSSL-Win64"`. Look for the right place on your system. This makes OpenSSL available on the whole system. But I prefer to modify the environment of the platform as less as possible. So I only use the option `"-D OPENSSL_ROOT_DIR"` that CMake understands, for example:
+
+    cmake -S . -B build -A x64 -D OPENSSL_ROOT_DIR="C:/Program Files/OpenSSL-Win64"
 <!--
 ### 5.3 Googletest build
 I strongly recommend to use shared gtest libraries for this project because there are situations where static and shared libraries are linked together. Using static linked Googletest libraries may fail then. If you know what you ar doing and you are able to manage possible linker errors you can try to use static built Googletest libraries.
@@ -198,4 +202,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo\@Hoeft-online.de>
-Redistribution only with this Copyright remark. Last modified: 2024-10-05</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-11-17</pre>

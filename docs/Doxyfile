@@ -2402,6 +2402,7 @@ INCLUDE_FILE_PATTERNS  =
 PREDEFINED             = DOXYGEN_RUN \
                          DEBUG \
                          UPNP_HAVE_DEBUG \
+                         _WIN32 \
                          UPNP_ENABLE_IPV6 \
                          UPNP_ENABLE_OPEN_SSL \
                          UPnPsdk_HAVE_OPENSSL \

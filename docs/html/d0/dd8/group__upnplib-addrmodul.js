@@ -8,12 +8,12 @@ var group__upnplib_addrmodul =
       [ "netaddr", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a45256d468608a1963365bee860901d49", null ],
       [ "get_next", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a", null ]
     ] ],
-    [ "UPnPsdk::CIfaddrs", "d0/df3/classUPnPsdk_1_1CIfaddrs.html", [
-      [ "load", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#a9e3f7a89844083eb0f11de4fa6e850ee", null ],
-      [ "get_next", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#aebe9e596e49abf63f0bc5e9305461f2c", null ],
-      [ "name", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#a9bb7aef3cdcfbe7f98d0b6c2e881b7b4", null ],
-      [ "sockaddr", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#ae67c0c899a09ba589a7b09022681eee4", null ],
-      [ "socknetmask", "d0/df3/classUPnPsdk_1_1CIfaddrs.html#ab3a6f51962a6f6f2e2e5f2edb30f0212", null ]
+    [ "UPnPsdk::INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", [
+      [ "load", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a1cec1b13d0a2a296c5dd35ee01e7f091", null ],
+      [ "get_next", "d6/d3e/classUPnPsdk_1_1INetadapter.html#ac9fa9dfc1f2b69ad57ba30b69bbf1914", null ],
+      [ "name", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a3d39079c1e95b80cfc47da504b19ea7a", null ],
+      [ "sockaddr", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a75e00249bb204f8b0d8947d63ce8b63a", null ],
+      [ "socknetmask", "d6/d3e/classUPnPsdk_1_1INetadapter.html#afb36f05793d21f36d9363542b9235b2e", null ]
     ] ],
     [ "UPnPsdk::Netaddr", "dd/d03/classUPnPsdk_1_1Netaddr.html", [
       [ "str", "dd/d03/classUPnPsdk_1_1Netaddr.html#a04c52606b366f8f3fd7869b97d632415", null ]

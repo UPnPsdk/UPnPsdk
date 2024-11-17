@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-11-16
+# Redistribution only with this Copyright remark. Last modified: 2024-11-17
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -17,9 +17,11 @@ set(UPnPsdk_SOURCE_FILES
     src/net/addrinfo.cpp
     src/net/socket.cpp
     src/net/connection_common.cpp
+    src/net/netadapter.cpp # C++ interface for the following 2 implementations
+    $<$<CXX_COMPILER_ID:MSVC>:src/net/netadapter_win32.cpp>
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:src/net/netadapter_unix.cpp>
     src/net/http/webserver.cpp
     src/net/http/httpreadwrite.cpp
-    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:src/net/netifinfo_unix.cpp>
 
     # Umock source files
     ${UMOCK_SOURCE_DIR}/src/arpa_inet.cpp
@@ -40,7 +42,6 @@ set(UPnPsdk_SOURCE_FILES
 
 set(UPnPsdk_INCLUDE_DIRECTORIES
     PUBLIC include
-    PUBLIC $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:${UPnPsdk_SOURCE_DIR}/include/unix>
     PUBLIC ${UMOCK_SOURCE_DIR}/include
     PUBLIC ${CMAKE_BINARY_DIR}/include
     # if pthreads4w isn't installed this path is empty. The linker doesn't

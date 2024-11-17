@@ -42,6 +42,7 @@ var ThreadPool_8cpp =
     [ "TPAttrSetMaxJobsTotal", "d8/d61/ThreadPool_8cpp.html#a509f5a32ea35f69364265405ec1aa25f", null ],
     [ "ThreadPoolPrintStats", "d8/d61/ThreadPool_8cpp.html#a2d486ce0966ab7d9ae08d534bfa81b8e", null ],
     [ "ThreadPoolGetStats", "d8/d61/ThreadPool_8cpp.html#a9575d30ed041fc240cf373ea0f7f3515", null ],
+    [ "gettimeofday", "d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3", null ],
     [ "JOBFREELISTSIZE", "d8/d61/ThreadPool_8cpp.html#ada6473c58caab557b9611806bd1e3146", null ],
     [ "INFINITE_THREADS", "d8/d61/ThreadPool_8cpp.html#aa760384ef34a7e1fbd9e08764a0b5dd8", null ],
     [ "maxJobsTotal", "d8/d61/ThreadPool_8cpp.html#ae2e63739103ff0a127705bd920900455", null ]

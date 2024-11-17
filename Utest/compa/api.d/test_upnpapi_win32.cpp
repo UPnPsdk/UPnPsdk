@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-13
+// Redistribution only with this Copyright remark. Last modified: 2024-11-18
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -12,6 +12,8 @@
 
 #include <UPnPsdk/global.hpp>
 #include <UPnPsdk/upnptools.hpp> // For UPnPsdk only
+#include <UPnPsdk/netadapter_win32.hpp>
+#include <UPnPsdk/sockaddr.hpp>
 
 #include <utest/utest.hpp>
 #include <utest/utest_win32.hpp>
@@ -252,6 +254,20 @@ TEST_F(UpnpapiIPv4MockTestSuite, initialize_default_UpnpInit2) {
         << errStrEx(ret_UpnpFinish, UPNP_E_FINISH);
     EXPECT_EQ(UpnpSdkInit, 0);
 #endif
+}
+
+TEST(AdaptersAddrTestSuite, get_adapter_address) {
+    // This object is only an empty skeleton that will be coded and
+    // improved.
+    UPnPsdk::CNetadapter netadapterObj;
+    UPnPsdk::INetadapter& nadObj{netadapterObj};
+
+    EXPECT_NO_THROW(nadObj.load());
+    EXPECT_FALSE(nadObj.get_next());
+    UPnPsdk::SSockaddr saObj = nadObj.sockaddr();
+    EXPECT_TRUE(saObj.netaddrp().empty());
+    saObj = nadObj.socknetmask();
+    EXPECT_TRUE(saObj.netaddrp().empty());
 }
 
 } // namespace utest

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-27
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-18
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1202,11 +1202,13 @@ int ThreadPoolGetStats(ThreadPool* tp, ThreadPoolStats* stats) {
 #endif /* STATS */
 
 #ifdef _WIN32
+/// \cond
 #if defined(_MSC_VER) || defined(_MSC_EXTENSIONS)
 #define DELTA_EPOCH_IN_MICROSECS 11644473600000000Ui64
 #else
 #define DELTA_EPOCH_IN_MICROSECS 11644473600000000ULL
 #endif
+/// \endcond
 
 int gettimeofday(struct timeval* tv, struct timezone* tz) {
     FILETIME ft;

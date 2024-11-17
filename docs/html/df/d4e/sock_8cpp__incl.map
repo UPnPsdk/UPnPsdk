@@ -1,40 +1,40 @@
 <map id="Compa/src/genlib/net/sock.cpp" name="Compa/src/genlib/net/sock.cpp">
-<area shape="rect" id="Node000001" title="Manage network sockets and connections." alt="" coords="418,5,578,45"/>
-<area shape="rect" id="Node000002" href="$d6/df0/sock_8hpp.html" title="Manage network sockets and connections." alt="" coords="529,101,609,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="516,44,552,88,548,91,512,47"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="633,101,715,126"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="538,43,640,92,637,97,535,48"/>
-<area shape="rect" id="Node000007" href="$d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="353,101,504,126"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="485,47,449,91,445,88,481,44"/>
-<area shape="rect" id="Node000010" href="$d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="5,255,167,280"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="418,36,344,44,266,56,197,74,170,84,152,95,124,128,106,168,96,208,90,241,85,241,90,207,101,166,120,126,148,91,168,79,195,68,264,51,343,39,417,30"/>
-<area shape="rect" id="Node000012" href="$dd/d74/connection__common_8hpp.html" title="Declaration of common used classes and free functions for network connections." alt="" coords="174,93,329,133"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="445,48,319,91,317,86,443,43"/>
-<area shape="rect" id="Node000013" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="149,181,303,207"/>
-<area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="418,34,345,41,269,53,204,71,180,82,164,95,159,104,158,113,165,134,180,153,200,171,196,175,177,157,160,136,152,114,154,102,160,92,177,78,202,66,268,48,344,36,418,29"/>
-<area shape="rect" id="Node000016" title=" " alt="" coords="740,101,909,126"/>
-<area shape="poly" id="edge20_Node000001_Node000016" title=" " alt="" coords="570,43,769,95,768,100,569,48"/>
-<area shape="rect" id="Node000017" title=" " alt="" coords="933,101,1049,126"/>
-<area shape="poly" id="edge21_Node000001_Node000017" title=" " alt="" coords="579,34,738,57,923,91,939,95,938,100,921,96,737,62,578,39"/>
-<area shape="rect" id="Node000003" href="$d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="529,328,704,353"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="574,126,614,313,609,315,569,127"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="605,181,743,207"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="586,124,649,171,646,175,583,128"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="767,181,874,207"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="600,123,621,131,768,175,766,180,620,136,598,129"/>
-<area shape="rect" id="Node000008" href="$d6/d66/global_8ipp.html" title="Global used constants, variables, functions and macros." alt="" coords="191,255,338,280"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="418,128,289,247,286,243,415,124"/>
-<area shape="rect" id="Node000009" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="178,328,343,353"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="267,280,265,315,259,314,261,280"/>
-<area shape="poly" id="edge11_Node000010_Node000009" title=" " alt="" coords="115,278,220,320,218,325,113,282"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="22,328,150,353"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="89,280,89,314,83,314,83,280"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="248,134,236,169,231,167,243,133"/>
-<area shape="poly" id="edge18_Node000013_Node000010" title=" " alt="" coords="205,209,122,251,120,246,202,204"/>
-<area shape="rect" id="Node000014" href="$d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="362,255,530,280"/>
-<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="262,204,398,248,397,253,261,209"/>
-<area shape="poly" id="edge17_Node000014_Node000003" title=" " alt="" coords="474,278,577,320,575,325,472,282"/>
-<area shape="poly" id="edge15_Node000014_Node000009" title=" " alt="" coords="417,283,304,325,303,321,415,278"/>
-<area shape="rect" id="Node000015" href="$d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="368,328,505,353"/>
-<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="447,281,443,315,437,314,442,280"/>
+<area shape="rect" id="Node000001" title="Manage network sockets and connections." alt="" coords="359,5,519,45"/>
+<area shape="rect" id="Node000002" href="$d6/df0/sock_8hpp.html" title="Manage network sockets and connections." alt="" coords="265,101,345,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="411,48,336,95,333,91,408,43"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="158,101,241,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="388,48,245,99,243,94,386,43"/>
+<area shape="rect" id="Node000007" href="$d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="44,328,195,353"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="359,29,271,39,222,48,172,63,125,83,81,109,44,142,15,183,9,202,10,221,16,240,28,258,59,292,92,318,88,322,55,296,23,261,12,242,4,222,4,201,10,180,40,138,78,104,122,78,171,58,220,43,270,33,359,24"/>
+<area shape="rect" id="Node000010" href="$d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="369,255,531,280"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="430,47,419,69,410,94,407,134,414,175,426,212,439,241,435,243,421,214,409,176,402,135,405,93,414,67,425,44"/>
+<area shape="rect" id="Node000012" href="$dd/d74/connection__common_8hpp.html" title="Declaration of common used classes and free functions for network connections." alt="" coords="419,93,574,133"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="454,44,479,80,474,83,450,47"/>
+<area shape="rect" id="Node000013" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="477,181,631,207"/>
+<area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="521,42,558,62,575,75,588,92,595,112,593,133,574,171,570,169,587,132,590,113,584,95,571,79,555,66,518,47"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="649,101,819,126"/>
+<area shape="poly" id="edge20_Node000001_Node000016" title=" " alt="" coords="505,43,682,94,681,99,503,48"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="843,101,959,126"/>
+<area shape="poly" id="edge21_Node000001_Node000017" title=" " alt="" coords="520,35,665,59,832,91,848,95,847,100,831,96,665,64,519,41"/>
+<area shape="rect" id="Node000003" href="$d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="219,328,393,353"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="308,126,309,181,309,314,304,314,303,181,302,127"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="25,181,163,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="275,129,139,179,137,174,273,124"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="187,181,294,207"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="297,128,261,172,257,169,293,124"/>
+<area shape="rect" id="Node000008" href="$d6/d66/global_8ipp.html" title="Global used constants, variables, functions and macros." alt="" coords="305,401,451,427"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="162,351,324,395,322,400,160,356"/>
+<area shape="rect" id="Node000009" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="350,475,515,500"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="389,425,418,462,413,465,385,429"/>
+<area shape="poly" id="edge11_Node000010_Node000007" title=" " alt="" coords="397,283,187,328,186,322,396,277"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="418,328,546,353"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="458,279,474,315,469,317,453,281"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="513,132,540,168,535,172,508,135"/>
+<area shape="poly" id="edge18_Node000013_Node000010" title=" " alt="" coords="539,209,480,249,477,244,536,204"/>
+<area shape="rect" id="Node000014" href="$d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="555,255,723,280"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="569,205,617,244,613,248,566,209"/>
+<area shape="poly" id="edge17_Node000014_Node000003" title=" " alt="" coords="586,283,374,328,373,322,585,277"/>
+<area shape="poly" id="edge15_Node000014_Node000009" title=" " alt="" coords="667,278,691,292,714,310,727,331,728,343,723,355,704,379,682,400,631,434,575,458,521,474,519,469,573,453,628,430,679,396,700,376,718,352,722,342,722,332,710,313,688,296,664,283"/>
+<area shape="rect" id="Node000015" href="$d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="571,328,708,353"/>
+<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="642,280,642,314,637,314,637,280"/>
 </map>

@@ -1,36 +1,38 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-16
+// Redistribution only with this Copyright remark. Last modified: 2024-11-18
 /*!
  * \file
- * \brief Manage information from the operating system about network interfaces.
+ * \brief Manage information from Unix like platforms about network adapters.
  */
 
-#include <UPnPsdk/netifinfo.hpp>
+#include <UPnPsdk/netadapter_unix.hpp>
 #include <UPnPsdk/synclog.hpp>
 #include <umock/ifaddrs.hpp>
+/// \cond
 #include <cstring>
 #include <net/if.h>
+/// \endcond
 
 namespace UPnPsdk {
 
-CIfaddrs::CIfaddrs(){
-    TRACE2(this, " Construct CIfaddrs()") //
+CNetadapter::CNetadapter(){
+    TRACE2(this, " Construct CNetadapter()") //
 }
 
-CIfaddrs::~CIfaddrs() {
-    TRACE2(this, " Destruct CIfaddrs()")
+CNetadapter::~CNetadapter() {
+    TRACE2(this, " Destruct CNetadapter()")
     this->free_ifaddrs();
 }
 
-void CIfaddrs::load() {
+void CNetadapter::load() {
     TRACE2(this, " Executing load()")
 
-    // Get system interface addresses.
+    // Get system adapters addresses.
     this->free_ifaddrs();
     if (umock::ifaddrs_h.getifaddrs(&m_ifa_first) != 0) {
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT +
-            "MSG1119: Failed to get information from the network interfaces: " +
+            "MSG1119: Failed to get information from the network adapters: " +
             std::string(std::strerror(errno)) + '\n');
     }
 
@@ -41,7 +43,7 @@ void CIfaddrs::load() {
     }
 }
 
-bool CIfaddrs::get_next() {
+bool CNetadapter::get_next() {
     TRACE2(this, " Executing get_next()")
     if (m_ifa_current == nullptr)
         return false;
@@ -55,7 +57,7 @@ bool CIfaddrs::get_next() {
     return false;
 }
 
-std::string CIfaddrs::name() const {
+std::string CNetadapter::name() const {
     TRACE2(this, " Executing name()")
     if (m_ifa_current == nullptr)
         return "";
@@ -65,7 +67,7 @@ std::string CIfaddrs::name() const {
 #if 0
 // I code IP Version-Independent, so this method is not provided.
 //
-sa_family_t CIfaddrs::in_family() { // noexcept
+sa_family_t CNetadapter::in_family() { // noexcept
     TRACE2(this, " Executing in_family()")
     if (m_ifa_current == nullptr)
         return AF_UNSPEC;
@@ -73,12 +75,12 @@ sa_family_t CIfaddrs::in_family() { // noexcept
 }
 #endif
 
-SSockaddr CIfaddrs::sockaddr() const {
+SSockaddr CNetadapter::sockaddr() const {
     // TRACE maybe not usable with chained output.
     TRACE2(this, " Executing sockaddr()")
     SSockaddr saddr;
     if (m_ifa_current != nullptr) {
-        // Copy address of interface
+        // Copy address of the network adapter
         memcpy(&saddr.ss,
                reinterpret_cast<sockaddr_storage*>(m_ifa_current->ifa_addr),
                sizeof(saddr.ss));
@@ -86,12 +88,12 @@ SSockaddr CIfaddrs::sockaddr() const {
     return saddr; // Return as copy
 }
 
-SSockaddr CIfaddrs::socknetmask() const {
+SSockaddr CNetadapter::socknetmask() const {
     // TRACE maybe not usable with chained output.
     TRACE2(this, " Executing socknetmask()")
     SSockaddr saddr;
     if (m_ifa_current != nullptr) {
-        // Copy netmask of interface
+        // Copy netmask of the network adapter
         memcpy(&saddr.ss,
                reinterpret_cast<sockaddr_storage*>(m_ifa_current->ifa_netmask),
                sizeof(saddr.ss));
@@ -103,7 +105,7 @@ SSockaddr CIfaddrs::socknetmask() const {
 // Private helper methods
 // ----------------------
 //
-void CIfaddrs::free_ifaddrs() noexcept {
+void CNetadapter::free_ifaddrs() noexcept {
     TRACE2(this, " Executing free_ifaddrs()")
     if (m_ifa_first != nullptr) {
         freeifaddrs(m_ifa_first);
@@ -112,7 +114,7 @@ void CIfaddrs::free_ifaddrs() noexcept {
     m_ifa_current = nullptr;
 }
 
-inline bool CIfaddrs::is_valid_if() const noexcept {
+inline bool CNetadapter::is_valid_if() const noexcept {
     // Accept IFF_LOOPBACK or up AF_INET6/AF_INET interfaces with address
     // (e.g. not bonded) and that support MULTICAST.
     if (m_ifa_current == nullptr || m_ifa_current->ifa_addr == nullptr)

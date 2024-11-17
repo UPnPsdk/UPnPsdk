@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * All rights reserved.</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Copyright (c) 2012 France Telecom All rights reserved.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-10-27</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-11-18</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * modification, are permitted provided that the following conditions are met:</span></div>
@@ -229,7 +229,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    assert(tp != NULL);</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    assert(job != NULL);</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <a class="code hl_function" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;now, NULL);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <a class="code hl_function" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;now, NULL);</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    diff = <a class="code hl_function" href="../../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a09e7140e6d8041eccf860f635f4192b1">DiffMillis</a>(&amp;now, &amp;job-&gt;requestTime);</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordflow">switch</span> (p) {</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">case</span> LOW_PRIORITY:</div>
@@ -252,7 +252,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    time_t* t) {</div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keyword">struct </span>timeval tv;</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <a class="code hl_function" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;tv, NULL);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <a class="code hl_function" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;tv, NULL);</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">if</span> (t)</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        *t = tv.tv_sec;</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
@@ -369,7 +369,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keywordtype">long</span> diffTime = 0;</div>
 <div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    <a class="code hl_struct" href="../../d5/d91/ThreadPool_8hpp.html#d8/d7a/structThreadPoolJob">ThreadPoolJob</a>* tempJob = NULL;</div>
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    <a class="code hl_function" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;now, NULL);</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    <a class="code hl_function" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;now, NULL);</div>
 <div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    <span class="keywordflow">while</span> (!done) {</div>
 <div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        <span class="keywordflow">if</span> (tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#af40f110b32c0b28822b0309d64bb2a42">medJobQ</a>.<a class="code hl_variable" href="../../de/dd1/LinkedList_8hpp.html#a63ac6dd4463afe93d8106cac16ee3838">size</a>) {</div>
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>            tempJob = (<a class="code hl_struct" href="../../d5/d91/ThreadPool_8hpp.html#d8/d7a/structThreadPoolJob">ThreadPoolJob</a>*)tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#af40f110b32c0b28822b0309d64bb2a42">medJobQ</a>.<a class="code hl_variable" href="../../de/dd1/LinkedList_8hpp.html#a0f0d68b92e72351e46aa0e693949c763">head</a>.next-&gt;item;</div>
@@ -408,7 +408,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    <span class="keywordtype">int</span> sec = relMillis / 1000;</div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keywordtype">int</span> milliSeconds = relMillis % 1000;</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span> </div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <a class="code hl_function" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;now, NULL);</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <a class="code hl_function" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;now, NULL);</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    time-&gt;tv_sec = now.tv_sec + sec;</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    time-&gt;tv_nsec = (now.tv_usec / 1000 + milliSeconds) * 1000000;</div>
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>}</div>
@@ -418,7 +418,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00390" name="l00390"></a><span class="lineno"><a class="line" href="../../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a4d62609d7a45ffdc340d241f061c014d">  390</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a4d62609d7a45ffdc340d241f061c014d">SetSeed</a>(<span class="keywordtype">void</span>) {</div>
 <div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    <span class="keyword">struct </span>timeval t;</div>
 <div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span> </div>
-<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    <a class="code hl_function" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;t, NULL);</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    <a class="code hl_function" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;t, NULL);</div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span><span class="preprocessor">#if defined(__PTW32_DLLPORT) </span><span class="comment">// pthreads4w on Microsoft Windows available.</span></div>
 <div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    srand(</div>
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>        (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)t.tv_usec +</div>
@@ -597,7 +597,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>    <span class="keywordflow">if</span> (newJob) {</div>
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>        *newJob = *job;</div>
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>        newJob-&gt;jobId = id;</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        <a class="code hl_function" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;newJob-&gt;requestTime, NULL);</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        <a class="code hl_function" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(&amp;newJob-&gt;requestTime, NULL);</div>
 <div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    }</div>
 <div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span> </div>
 <div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>    <span class="keywordflow">return</span> newJob;</div>
@@ -1239,49 +1239,51 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l01202" name="l01202"></a><span class="lineno"> 1202</span><span class="preprocessor">#endif </span><span class="comment">/* STATS */</span><span class="preprocessor"></span></div>
 <div class="line"><a id="l01203" name="l01203"></a><span class="lineno"> 1203</span> </div>
 <div class="line"><a id="l01204" name="l01204"></a><span class="lineno"> 1204</span><span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><a id="l01205" name="l01205"></a><span class="lineno"> 1205</span><span class="preprocessor">#if defined(_MSC_VER) || defined(_MSC_EXTENSIONS)</span></div>
-<div class="line"><a id="l01206" name="l01206"></a><span class="lineno"> 1206</span><span class="preprocessor">#define DELTA_EPOCH_IN_MICROSECS 11644473600000000Ui64</span></div>
-<div class="line"><a id="l01207" name="l01207"></a><span class="lineno"> 1207</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l01208" name="l01208"></a><span class="lineno"> 1208</span><span class="preprocessor">#define DELTA_EPOCH_IN_MICROSECS 11644473600000000ULL</span></div>
-<div class="line"><a id="l01209" name="l01209"></a><span class="lineno"> 1209</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l01210" name="l01210"></a><span class="lineno"> 1210</span> </div>
-<div class="line"><a id="l01211" name="l01211"></a><span class="lineno"> 1211</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(<span class="keyword">struct</span> timeval* tv, <span class="keyword">struct</span> <a class="code hl_struct" href="../../d5/d91/ThreadPool_8hpp.html#de/dc1/structtimezone">timezone</a>* tz) {</div>
-<div class="line"><a id="l01212" name="l01212"></a><span class="lineno"> 1212</span>    FILETIME ft;</div>
-<div class="line"><a id="l01213" name="l01213"></a><span class="lineno"> 1213</span>    <span class="keywordtype">unsigned</span> __int64 tmpres = 0;</div>
-<div class="line"><a id="l01214" name="l01214"></a><span class="lineno"> 1214</span>    <span class="keyword">static</span> <span class="keywordtype">int</span> tzflag;</div>
-<div class="line"><a id="l01215" name="l01215"></a><span class="lineno"> 1215</span> </div>
-<div class="line"><a id="l01216" name="l01216"></a><span class="lineno"> 1216</span>    <span class="keywordflow">if</span> (tv) {</div>
-<div class="line"><a id="l01217" name="l01217"></a><span class="lineno"> 1217</span>        GetSystemTimeAsFileTime(&amp;ft);</div>
-<div class="line"><a id="l01218" name="l01218"></a><span class="lineno"> 1218</span> </div>
-<div class="line"><a id="l01219" name="l01219"></a><span class="lineno"> 1219</span>        tmpres |= ft.dwHighDateTime;</div>
-<div class="line"><a id="l01220" name="l01220"></a><span class="lineno"> 1220</span>        tmpres &lt;&lt;= 32;</div>
-<div class="line"><a id="l01221" name="l01221"></a><span class="lineno"> 1221</span>        tmpres |= ft.dwLowDateTime;</div>
-<div class="line"><a id="l01222" name="l01222"></a><span class="lineno"> 1222</span> </div>
-<div class="line"><a id="l01223" name="l01223"></a><span class="lineno"> 1223</span>        <span class="comment">/*converting file time to unix epoch*/</span></div>
-<div class="line"><a id="l01224" name="l01224"></a><span class="lineno"> 1224</span>        tmpres /= 10; <span class="comment">/*convert into microseconds*/</span></div>
-<div class="line"><a id="l01225" name="l01225"></a><span class="lineno"> 1225</span>        tmpres -= DELTA_EPOCH_IN_MICROSECS;</div>
-<div class="line"><a id="l01226" name="l01226"></a><span class="lineno"> 1226</span>        tv-&gt;tv_sec = (long)(tmpres / 1000000UL);</div>
-<div class="line"><a id="l01227" name="l01227"></a><span class="lineno"> 1227</span>        tv-&gt;tv_usec = (long)(tmpres % 1000000UL);</div>
-<div class="line"><a id="l01228" name="l01228"></a><span class="lineno"> 1228</span>    }</div>
-<div class="line"><a id="l01229" name="l01229"></a><span class="lineno"> 1229</span>    <span class="keywordflow">if</span> (tz) {</div>
-<div class="line"><a id="l01230" name="l01230"></a><span class="lineno"> 1230</span>        <span class="keywordflow">if</span> (!tzflag) {</div>
-<div class="line"><a id="l01231" name="l01231"></a><span class="lineno"> 1231</span>            _tzset();</div>
-<div class="line"><a id="l01232" name="l01232"></a><span class="lineno"> 1232</span>            tzflag++;</div>
-<div class="line"><a id="l01233" name="l01233"></a><span class="lineno"> 1233</span>        }</div>
-<div class="line"><a id="l01234" name="l01234"></a><span class="lineno"> 1234</span><span class="preprocessor">#ifdef _UCRT</span></div>
-<div class="line"><a id="l01235" name="l01235"></a><span class="lineno"> 1235</span>        <span class="keywordtype">long</span> itz = 0;</div>
-<div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span>        _get_timezone(&amp;itz);</div>
-<div class="line"><a id="l01237" name="l01237"></a><span class="lineno"> 1237</span>        tz-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a3042f7eff6e1b980728def76b1fa0eb7">tz_minuteswest</a> = (int)(itz / 60);</div>
-<div class="line"><a id="l01238" name="l01238"></a><span class="lineno"> 1238</span>        _get_daylight(&amp;tz-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a85259977aeb63b17e6ce94f19afdfd99">tz_dsttime</a>);</div>
-<div class="line"><a id="l01239" name="l01239"></a><span class="lineno"> 1239</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l01240" name="l01240"></a><span class="lineno"> 1240</span>        tz-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a3042f7eff6e1b980728def76b1fa0eb7">tz_minuteswest</a> = _timezone / 60;</div>
-<div class="line"><a id="l01241" name="l01241"></a><span class="lineno"> 1241</span>        tz-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a85259977aeb63b17e6ce94f19afdfd99">tz_dsttime</a> = _daylight;</div>
-<div class="line"><a id="l01242" name="l01242"></a><span class="lineno"> 1242</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l01243" name="l01243"></a><span class="lineno"> 1243</span>    }</div>
-<div class="line"><a id="l01244" name="l01244"></a><span class="lineno"> 1244</span> </div>
-<div class="line"><a id="l01245" name="l01245"></a><span class="lineno"> 1245</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l01246" name="l01246"></a><span class="lineno"> 1246</span>}</div>
-<div class="line"><a id="l01247" name="l01247"></a><span class="lineno"> 1247</span><span class="preprocessor">#endif </span><span class="comment">/* _WIN32 */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l01206" name="l01206"></a><span class="lineno"> 1206</span><span class="preprocessor">#if defined(_MSC_VER) || defined(_MSC_EXTENSIONS)</span></div>
+<div class="line"><a id="l01207" name="l01207"></a><span class="lineno"> 1207</span><span class="preprocessor">#define DELTA_EPOCH_IN_MICROSECS 11644473600000000Ui64</span></div>
+<div class="line"><a id="l01208" name="l01208"></a><span class="lineno"> 1208</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l01209" name="l01209"></a><span class="lineno"> 1209</span><span class="preprocessor">#define DELTA_EPOCH_IN_MICROSECS 11644473600000000ULL</span></div>
+<div class="line"><a id="l01210" name="l01210"></a><span class="lineno"> 1210</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l01212" name="l01212"></a><span class="lineno"> 1212</span> </div>
+<div class="foldopen" id="foldopen01213" data-start="{" data-end="}">
+<div class="line"><a id="l01213" name="l01213"></a><span class="lineno"><a class="line" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3"> 1213</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a>(<span class="keyword">struct</span> timeval* tv, <span class="keyword">struct</span> <a class="code hl_struct" href="../../d5/d91/ThreadPool_8hpp.html#de/dc1/structtimezone">timezone</a>* tz) {</div>
+<div class="line"><a id="l01214" name="l01214"></a><span class="lineno"> 1214</span>    FILETIME ft;</div>
+<div class="line"><a id="l01215" name="l01215"></a><span class="lineno"> 1215</span>    <span class="keywordtype">unsigned</span> __int64 tmpres = 0;</div>
+<div class="line"><a id="l01216" name="l01216"></a><span class="lineno"> 1216</span>    <span class="keyword">static</span> <span class="keywordtype">int</span> tzflag;</div>
+<div class="line"><a id="l01217" name="l01217"></a><span class="lineno"> 1217</span> </div>
+<div class="line"><a id="l01218" name="l01218"></a><span class="lineno"> 1218</span>    <span class="keywordflow">if</span> (tv) {</div>
+<div class="line"><a id="l01219" name="l01219"></a><span class="lineno"> 1219</span>        GetSystemTimeAsFileTime(&amp;ft);</div>
+<div class="line"><a id="l01220" name="l01220"></a><span class="lineno"> 1220</span> </div>
+<div class="line"><a id="l01221" name="l01221"></a><span class="lineno"> 1221</span>        tmpres |= ft.dwHighDateTime;</div>
+<div class="line"><a id="l01222" name="l01222"></a><span class="lineno"> 1222</span>        tmpres &lt;&lt;= 32;</div>
+<div class="line"><a id="l01223" name="l01223"></a><span class="lineno"> 1223</span>        tmpres |= ft.dwLowDateTime;</div>
+<div class="line"><a id="l01224" name="l01224"></a><span class="lineno"> 1224</span> </div>
+<div class="line"><a id="l01225" name="l01225"></a><span class="lineno"> 1225</span>        <span class="comment">/*converting file time to unix epoch*/</span></div>
+<div class="line"><a id="l01226" name="l01226"></a><span class="lineno"> 1226</span>        tmpres /= 10; <span class="comment">/*convert into microseconds*/</span></div>
+<div class="line"><a id="l01227" name="l01227"></a><span class="lineno"> 1227</span>        tmpres -= DELTA_EPOCH_IN_MICROSECS;</div>
+<div class="line"><a id="l01228" name="l01228"></a><span class="lineno"> 1228</span>        tv-&gt;tv_sec = (long)(tmpres / 1000000UL);</div>
+<div class="line"><a id="l01229" name="l01229"></a><span class="lineno"> 1229</span>        tv-&gt;tv_usec = (long)(tmpres % 1000000UL);</div>
+<div class="line"><a id="l01230" name="l01230"></a><span class="lineno"> 1230</span>    }</div>
+<div class="line"><a id="l01231" name="l01231"></a><span class="lineno"> 1231</span>    <span class="keywordflow">if</span> (tz) {</div>
+<div class="line"><a id="l01232" name="l01232"></a><span class="lineno"> 1232</span>        <span class="keywordflow">if</span> (!tzflag) {</div>
+<div class="line"><a id="l01233" name="l01233"></a><span class="lineno"> 1233</span>            _tzset();</div>
+<div class="line"><a id="l01234" name="l01234"></a><span class="lineno"> 1234</span>            tzflag++;</div>
+<div class="line"><a id="l01235" name="l01235"></a><span class="lineno"> 1235</span>        }</div>
+<div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span><span class="preprocessor">#ifdef _UCRT</span></div>
+<div class="line"><a id="l01237" name="l01237"></a><span class="lineno"> 1237</span>        <span class="keywordtype">long</span> itz = 0;</div>
+<div class="line"><a id="l01238" name="l01238"></a><span class="lineno"> 1238</span>        _get_timezone(&amp;itz);</div>
+<div class="line"><a id="l01239" name="l01239"></a><span class="lineno"> 1239</span>        tz-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a3042f7eff6e1b980728def76b1fa0eb7">tz_minuteswest</a> = (int)(itz / 60);</div>
+<div class="line"><a id="l01240" name="l01240"></a><span class="lineno"> 1240</span>        _get_daylight(&amp;tz-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a85259977aeb63b17e6ce94f19afdfd99">tz_dsttime</a>);</div>
+<div class="line"><a id="l01241" name="l01241"></a><span class="lineno"> 1241</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l01242" name="l01242"></a><span class="lineno"> 1242</span>        tz-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a3042f7eff6e1b980728def76b1fa0eb7">tz_minuteswest</a> = _timezone / 60;</div>
+<div class="line"><a id="l01243" name="l01243"></a><span class="lineno"> 1243</span>        tz-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#a85259977aeb63b17e6ce94f19afdfd99">tz_dsttime</a> = _daylight;</div>
+<div class="line"><a id="l01244" name="l01244"></a><span class="lineno"> 1244</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l01245" name="l01245"></a><span class="lineno"> 1245</span>    }</div>
+<div class="line"><a id="l01246" name="l01246"></a><span class="lineno"> 1246</span> </div>
+<div class="line"><a id="l01247" name="l01247"></a><span class="lineno"> 1247</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l01248" name="l01248"></a><span class="lineno"> 1248</span>}</div>
+</div>
+<div class="line"><a id="l01249" name="l01249"></a><span class="lineno"> 1249</span><span class="preprocessor">#endif </span><span class="comment">/* _WIN32 */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aFreeList_8cpp_html_a2a1bcf0da31489886910109d5f45ee89"><div class="ttname"><a href="../../d7/d20/FreeList_8cpp.html#a2a1bcf0da31489886910109d5f45ee89">FreeListInit</a></div><div class="ttdeci">int FreeListInit(FreeList *free_list, size_t elementSize, int maxFreeListLength)</div><div class="ttdoc">Initializes Free List.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d20/FreeList_8cpp_source.html#l00050">FreeList.cpp:50</a></div></div>
 <div class="ttc" id="aFreeList_8cpp_html_a559c475ea4c5850cd427740512512df0"><div class="ttname"><a href="../../d7/d20/FreeList_8cpp.html#a559c475ea4c5850cd427740512512df0">FreeListFree</a></div><div class="ttdeci">int FreeListFree(FreeList *free_list, void *element)</div><div class="ttdoc">Returns an item to the Free List.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d20/FreeList_8cpp_source.html#l00083">FreeList.cpp:83</a></div></div>
 <div class="ttc" id="aFreeList_8cpp_html_a63cf965052240dbc6fec792326bf6719"><div class="ttname"><a href="../../d7/d20/FreeList_8cpp.html#a63cf965052240dbc6fec792326bf6719">FreeListAlloc</a></div><div class="ttdeci">void * FreeListAlloc(FreeList *free_list)</div><div class="ttdoc">Allocates chunk of set size.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d20/FreeList_8cpp_source.html#l00064">FreeList.cpp:64</a></div></div>
@@ -1315,6 +1317,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="ttc" id="aThreadPool_8cpp_html_a9575d30ed041fc240cf373ea0f7f3515"><div class="ttname"><a href="../../d8/d61/ThreadPool_8cpp.html#a9575d30ed041fc240cf373ea0f7f3515">ThreadPoolGetStats</a></div><div class="ttdeci">int ThreadPoolGetStats(ThreadPool *tp, ThreadPoolStats *stats)</div><div class="ttdoc">Returns various statistics about the thread pool.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d61/ThreadPool_8cpp_source.html#l01170">ThreadPool.cpp:1170</a></div></div>
 <div class="ttc" id="aThreadPool_8cpp_html_aa0799659b0f17d6b3359f74717dbc1c2"><div class="ttname"><a href="../../d8/d61/ThreadPool_8cpp.html#aa0799659b0f17d6b3359f74717dbc1c2">TPAttrSetJobsPerThread</a></div><div class="ttdeci">int TPAttrSetJobsPerThread(ThreadPoolAttr *attr, int jobsPerThread)</div><div class="ttdoc">Sets the jobs per thread ratio.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d61/ThreadPool_8cpp_source.html#l01110">ThreadPool.cpp:1110</a></div></div>
 <div class="ttc" id="aThreadPool_8cpp_html_aa760384ef34a7e1fbd9e08764a0b5dd8"><div class="ttname"><a href="../../d8/d61/ThreadPool_8cpp.html#aa760384ef34a7e1fbd9e08764a0b5dd8">INFINITE_THREADS</a></div><div class="ttdeci">constexpr int INFINITE_THREADS</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d61/ThreadPool_8cpp_source.html#l00058">ThreadPool.cpp:58</a></div></div>
+<div class="ttc" id="aThreadPool_8cpp_html_aaf2d0a99430a6d5253b8c395c30ca7e3"><div class="ttname"><a href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a></div><div class="ttdeci">int gettimeofday(struct timeval *tv, struct timezone *tz)</div><div class="ttdoc">Get time of day.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d61/ThreadPool_8cpp_source.html#l01213">ThreadPool.cpp:1213</a></div></div>
 <div class="ttc" id="aThreadPool_8cpp_html_ac7dadbb7b20ca94bf746241c0962f8d1"><div class="ttname"><a href="../../d8/d61/ThreadPool_8cpp.html#ac7dadbb7b20ca94bf746241c0962f8d1">TPAttrInit</a></div><div class="ttdeci">int TPAttrInit(ThreadPoolAttr *attr)</div><div class="ttdoc">Initializes thread pool attributes.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d61/ThreadPool_8cpp_source.html#l01030">ThreadPool.cpp:1030</a></div></div>
 <div class="ttc" id="aThreadPool_8cpp_html_ad6858733211c24b4a972b22609f08173"><div class="ttname"><a href="../../d8/d61/ThreadPool_8cpp.html#ad6858733211c24b4a972b22609f08173">TPSetMaxJobsTotal</a></div><div class="ttdeci">void TPSetMaxJobsTotal(int mjt)</div><div class="ttdoc">Sets the maximum number of jobs in the thread pool.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d61/ThreadPool_8cpp_source.html#l01028">ThreadPool.cpp:1028</a></div></div>
 <div class="ttc" id="aThreadPool_8cpp_html_ada6473c58caab557b9611806bd1e3146"><div class="ttname"><a href="../../d8/d61/ThreadPool_8cpp.html#ada6473c58caab557b9611806bd1e3146">JOBFREELISTSIZE</a></div><div class="ttdeci">constexpr int JOBFREELISTSIZE</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d61/ThreadPool_8cpp_source.html#l00056">ThreadPool.cpp:56</a></div></div>
@@ -1351,7 +1354,6 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="ttc" id="aThreadPool_8hpp_html_a85259977aeb63b17e6ce94f19afdfd99"><div class="ttname"><a href="../../d5/d91/ThreadPool_8hpp.html#a85259977aeb63b17e6ce94f19afdfd99">timezone::tz_dsttime</a></div><div class="ttdeci">int tz_dsttime</div><div class="ttdoc">Type of dst correction.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/ThreadPool_8hpp_source.html#l00056">ThreadPool.hpp:56</a></div></div>
 <div class="ttc" id="aThreadPool_8hpp_html_a9006a9aed64789d55ae05204bef862f7"><div class="ttname"><a href="../../d5/d91/ThreadPool_8hpp.html#a9006a9aed64789d55ae05204bef862f7">ThreadPool::totalThreads</a></div><div class="ttdeci">int totalThreads</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/ThreadPool_8hpp_source.html#l00206">ThreadPool.hpp:206</a></div></div>
 <div class="ttc" id="aThreadPool_8hpp_html_aae904a5672cfdf3fc23dca115592b5c2"><div class="ttname"><a href="../../d5/d91/ThreadPool_8hpp.html#aae904a5672cfdf3fc23dca115592b5c2">ThreadPool::persistentThreads</a></div><div class="ttdeci">int persistentThreads</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/ThreadPool_8hpp_source.html#l00212">ThreadPool.hpp:212</a></div></div>
-<div class="ttc" id="aThreadPool_8hpp_html_aaf2d0a99430a6d5253b8c395c30ca7e3"><div class="ttname"><a href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3">gettimeofday</a></div><div class="ttdeci">int gettimeofday(struct timeval *tv, struct timezone *tz)</div><div class="ttdoc">Get time of day.</div></div>
 <div class="ttc" id="aThreadPool_8hpp_html_ab692d2946ab218fa6039a9b5abf5f2b3"><div class="ttname"><a href="../../d5/d91/ThreadPool_8hpp.html#ab692d2946ab218fa6039a9b5abf5f2b3">ThreadPoolAttr::jobsPerThread</a></div><div class="ttdeci">int jobsPerThread</div><div class="ttdoc">Jobs per thread to maintain.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/ThreadPool_8hpp_source.html#l00139">ThreadPool.hpp:139</a></div></div>
 <div class="ttc" id="aThreadPool_8hpp_html_ab966bff7c412856901c72c1d020b887e"><div class="ttname"><a href="../../d5/d91/ThreadPool_8hpp.html#ab966bff7c412856901c72c1d020b887e">ThreadPool::highJobQ</a></div><div class="ttdeci">LinkedList highJobQ</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/ThreadPool_8hpp_source.html#l00220">ThreadPool.hpp:220</a></div></div>
 <div class="ttc" id="aThreadPool_8hpp_html_abd3ecf9329246c92aa67d70c1be1174a"><div class="ttname"><a href="../../d5/d91/ThreadPool_8hpp.html#abd3ecf9329246c92aa67d70c1be1174a">PolicyType</a></div><div class="ttdeci">int PolicyType</div><div class="ttdoc">Type of the thread policy.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d91/ThreadPool_8hpp_source.html#l00120">ThreadPool.hpp:120</a></div></div>

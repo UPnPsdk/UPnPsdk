@@ -111,7 +111,6 @@ $(document).ready(function(){initNavTree('d5/de9/sysdep_8hpp.html','../../'); in
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d4/d0f/ithread_8hpp_source.html">ithread.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d4/d0f/md5_8hpp_source.html">md5.hpp</a>&gt;</code><br />
-<code>#include &lt;sys/time.h&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for sysdep.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -119,13 +118,11 @@ $(document).ready(function(){initNavTree('d5/de9/sysdep_8hpp.html','../../'); in
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d0/d59/sysdep_8hpp__incl.png" border="0" usemap="#aCompa_2src_2inc_2sysdep_8hpp" alt=""/></div>
 <map name="aCompa_2src_2inc_2sysdep_8hpp" id="aCompa_2src_2inc_2sysdep_8hpp">
-<area shape="rect" title="Get some system dependent information." alt="" coords="69,5,261,31"/>
+<area shape="rect" title="Get some system dependent information." alt="" coords="13,5,205,31"/>
 <area shape="rect" href="../../d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="5,79,101,104"/>
-<area shape="poly" title=" " alt="" coords="149,33,85,73,82,69,146,28"/>
+<area shape="poly" title=" " alt="" coords="102,33,73,69,69,66,98,29"/>
 <area shape="rect" href="../../d4/d0f/md5_8hpp.html" title="This code implements the MD5 message&#45;digest algorithm." alt="" coords="126,79,205,104"/>
-<area shape="poly" title=" " alt="" coords="168,31,168,65,163,65,163,31"/>
-<area shape="rect" title=" " alt="" coords="229,79,320,104"/>
-<area shape="poly" title=" " alt="" coords="184,28,247,69,244,73,181,33"/>
+<area shape="poly" title=" " alt="" coords="121,29,150,66,146,69,116,33"/>
 <area shape="rect" title=" " alt="" coords="11,152,95,177"/>
 <area shape="poly" title=" " alt="" coords="56,104,56,138,51,138,51,104"/>
 <area shape="rect" title=" " alt="" coords="124,152,199,177"/>
@@ -322,20 +319,9 @@ node ID </td></tr>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d5/de9/sysdep_8hpp_a37b1e24ac7da974e63c5b4c54057870e_cgraph.png" border="0" usemap="#ad5/de9/sysdep_8hpp_a37b1e24ac7da974e63c5b4c54057870e_cgraph" alt=""/></div>
 <map name="ad5/de9/sysdep_8hpp_a37b1e24ac7da974e63c5b4c54057870e_cgraph" id="ad5/de9/sysdep_8hpp_a37b1e24ac7da974e63c5b4c54057870e_cgraph">
-<area shape="rect" title="System dependent call to get IEEE node identifier." alt="" coords="5,80,188,105"/>
-<area shape="rect" href="../../d6/d4b/sysdep_8cpp.html#a0608b6a88b9fe8140a7b486ef8aa0da6" title="Get random information." alt="" coords="236,80,368,105"/>
-<area shape="poly" title=" " alt="" coords="188,90,222,90,222,95,188,95"/>
-<area shape="rect" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="416,5,527,31"/>
-<area shape="poly" title=" " alt="" coords="330,77,415,40,428,34,430,39,417,44,333,82"/>
-<area shape="rect" href="../../d5/d96/md5_8cpp.html#aa8ada27433794b31a33902b8428b3b2f" title="MD5 Final." alt="" coords="430,55,513,80"/>
-<area shape="poly" title=" " alt="" coords="368,80,416,73,416,78,369,85"/>
-<area shape="rect" href="../../d5/d96/md5_8cpp.html#a605855522a01b4dd8b6dc51a9ac131b8" title="MD5 Update." alt="" coords="575,80,673,105"/>
-<area shape="poly" title=" " alt="" coords="368,90,561,90,561,95,368,95"/>
-<area shape="rect" href="../../d5/d96/md5_8cpp.html#acd7a26c7e6acb681ee336bfbc86e72bf" title="MD5 Initialisation." alt="" coords="435,156,508,181"/>
-<area shape="poly" title=" " alt="" coords="332,103,431,148,429,153,330,108"/>
-<area shape="poly" title=" " alt="" coords="513,71,561,80,561,85,512,77"/>
-<area shape="rect" href="../../d5/d96/md5_8cpp.html#a6abdf2643785d5f0fc3264b38fb9ce03" title="MD5 Transform." alt="" coords="721,80,839,105"/>
-<area shape="poly" title=" " alt="" coords="673,90,708,90,708,95,673,95"/>
+<area shape="rect" title="System dependent call to get IEEE node identifier." alt="" coords="5,5,188,31"/>
+<area shape="rect" href="../../d6/d4b/sysdep_8cpp.html#a0608b6a88b9fe8140a7b486ef8aa0da6" title="Get random information." alt="" coords="236,5,368,31"/>
+<area shape="poly" title=" " alt="" coords="188,15,222,15,222,21,188,21"/>
 </map>
 </div>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -400,24 +386,12 @@ node ID </td></tr>
 <p>System dependent call to get the current system time. </p>
 <p>Returned as 100ns ticks since Oct 15, 1582, but resolution may be less than 100ns. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d4b/sysdep_8cpp_source.html#l00086">86</a> of file <a class="el" href="../../d6/d4b/sysdep_8cpp_source.html">sysdep.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/d4b/sysdep_8cpp_source.html#l00057">57</a> of file <a class="el" href="../../d6/d4b/sysdep_8cpp_source.html">sysdep.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d5/de9/sysdep_8hpp_a6b9dabae04c2b47b7aacaf5d1741cbd3_cgraph.png" border="0" usemap="#ad5/de9/sysdep_8hpp_a6b9dabae04c2b47b7aacaf5d1741cbd3_cgraph" alt=""/></div>
-<map name="ad5/de9/sysdep_8hpp_a6b9dabae04c2b47b7aacaf5d1741cbd3_cgraph" id="ad5/de9/sysdep_8hpp_a6b9dabae04c2b47b7aacaf5d1741cbd3_cgraph">
-<area shape="rect" title="System dependent call to get the current system time." alt="" coords="5,5,140,31"/>
-<area shape="rect" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="188,5,299,31"/>
-<area shape="poly" title=" " alt="" coords="140,15,175,15,175,21,140,21"/>
-</map>
-</div>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d5/de9/sysdep_8hpp_a6b9dabae04c2b47b7aacaf5d1741cbd3_icgraph.png" border="0" usemap="#ad5/de9/sysdep_8hpp_a6b9dabae04c2b47b7aacaf5d1741cbd3_icgraph" alt=""/></div>
 <map name="ad5/de9/sysdep_8hpp_a6b9dabae04c2b47b7aacaf5d1741cbd3_icgraph" id="ad5/de9/sysdep_8hpp_a6b9dabae04c2b47b7aacaf5d1741cbd3_icgraph">
 <area shape="rect" title="System dependent call to get the current system time." alt="" coords="1395,70,1529,95"/>
@@ -478,34 +452,14 @@ node ID </td></tr>
 </div><div class="memdoc">
 
 <p>Get random information. </p>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000027">Todo:</a></b></dt><dd>Optimize function. &ndash;Ingo </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/d4b/sysdep_8cpp_source.html#l00097">97</a> of file <a class="el" href="../../d6/d4b/sysdep_8cpp_source.html">sysdep.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/d4b/sysdep_8cpp_source.html#l00074">74</a> of file <a class="el" href="../../d6/d4b/sysdep_8cpp_source.html">sysdep.cpp</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d5/de9/sysdep_8hpp_a0608b6a88b9fe8140a7b486ef8aa0da6_cgraph.png" border="0" usemap="#ad5/de9/sysdep_8hpp_a0608b6a88b9fe8140a7b486ef8aa0da6_cgraph" alt=""/></div>
-<map name="ad5/de9/sysdep_8hpp_a0608b6a88b9fe8140a7b486ef8aa0da6_cgraph" id="ad5/de9/sysdep_8hpp_a0608b6a88b9fe8140a7b486ef8aa0da6_cgraph">
-<area shape="rect" title="Get random information." alt="" coords="5,80,137,105"/>
-<area shape="rect" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="185,5,296,31"/>
-<area shape="poly" title=" " alt="" coords="100,77,184,40,197,34,200,39,186,44,102,82"/>
-<area shape="rect" href="../../d5/d96/md5_8cpp.html#aa8ada27433794b31a33902b8428b3b2f" title="MD5 Final." alt="" coords="199,55,282,80"/>
-<area shape="poly" title=" " alt="" coords="137,80,185,73,186,78,138,85"/>
-<area shape="rect" href="../../d5/d96/md5_8cpp.html#a605855522a01b4dd8b6dc51a9ac131b8" title="MD5 Update." alt="" coords="344,80,443,105"/>
-<area shape="poly" title=" " alt="" coords="138,90,330,90,330,95,138,95"/>
-<area shape="rect" href="../../d5/d96/md5_8cpp.html#acd7a26c7e6acb681ee336bfbc86e72bf" title="MD5 Initialisation." alt="" coords="204,156,277,181"/>
-<area shape="poly" title=" " alt="" coords="102,103,200,148,198,153,99,108"/>
-<area shape="poly" title=" " alt="" coords="283,71,331,80,330,85,282,77"/>
-<area shape="rect" href="../../d5/d96/md5_8cpp.html#a6abdf2643785d5f0fc3264b38fb9ce03" title="MD5 Transform." alt="" coords="491,80,608,105"/>
-<area shape="poly" title=" " alt="" coords="443,90,477,90,477,95,443,95"/>
-</map>
-</div>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d5/de9/sysdep_8hpp_a0608b6a88b9fe8140a7b486ef8aa0da6_icgraph.png" border="0" usemap="#ad5/de9/sysdep_8hpp_a0608b6a88b9fe8140a7b486ef8aa0da6_icgraph" alt=""/></div>
 <map name="ad5/de9/sysdep_8hpp_a0608b6a88b9fe8140a7b486ef8aa0da6_icgraph" id="ad5/de9/sysdep_8hpp_a0608b6a88b9fe8140a7b486ef8aa0da6_icgraph">
 <area shape="rect" title="Get random information." alt="" coords="1361,70,1493,95"/>

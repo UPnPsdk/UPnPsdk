@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('d4/d99/upnpapi_8cpp.html','../../'); i
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -118,8 +119,8 @@ $(document).ready(function(){initNavTree('d4/d99/upnpapi_8cpp.html','../../'); i
 <code>#include &lt;<a class="el" href="../../d9/de7/soap__ctrlpt_8hpp_source.html">soap_ctrlpt.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d9/d3a/global_8hpp_source.html">UPnPsdk/global.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">UPnPsdk/addrinfo.hpp</a>&gt;</code><br />
-<code>#include &lt;umock/ifaddrs.hpp&gt;</code><br />
-<code>#include &lt;umock/net_if.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d1/d42/port_8hpp_source.html">UPnPsdk/port.hpp</a>&gt;</code><br />
+<code>#include &lt;umock/iphlpapi.hpp&gt;</code><br />
 <code>#include &lt;umock/stdio.hpp&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d9/dd2/gena_8hpp_source.html">gena.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d5/d2e/urlconfig_8hpp_source.html">urlconfig.hpp</a>&gt;</code><br />
@@ -129,9 +130,6 @@ $(document).ready(function(){initNavTree('d4/d99/upnpapi_8cpp.html','../../'); i
 <code>#include &lt;csignal&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
-<code>#include &lt;ifaddrs.h&gt;</code><br />
-<code>#include &lt;sys/ioctl.h&gt;</code><br />
-<code>#include &lt;sys/types.h&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for upnpapi.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -139,118 +137,127 @@ $(document).ready(function(){initNavTree('d4/d99/upnpapi_8cpp.html','../../'); i
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/dad/upnpapi_8cpp__incl.png" border="0" usemap="#aCompa_2src_2api_2upnpapi_8cpp" alt=""/></div>
 <map name="aCompa_2src_2api_2upnpapi_8cpp" id="aCompa_2src_2api_2upnpapi_8cpp">
-<area shape="rect" title="Inititalize the compatible library before it can be used." alt="" coords="1469,5,1667,31"/>
-<area shape="rect" href="../../d3/da9/upnpapi_8hpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="395,152,498,177"/>
-<area shape="poly" title=" " alt="" coords="1468,24,1203,30,876,42,592,59,499,69,471,75,458,81,449,93,445,107,444,138,439,138,440,106,444,90,454,77,470,70,499,64,592,53,876,36,1203,25,1468,19"/>
-<area shape="rect" href="../../d7/db4/uuid_8hpp.html" title="Manage UUIDs." alt="" coords="185,79,263,104"/>
-<area shape="poly" title=" " alt="" coords="1468,25,982,44,663,61,339,81,278,87,277,82,338,76,662,55,982,39,1468,20"/>
-<area shape="rect" href="../../d3/d8b/miniserver_8hpp.html" title="Manage &quot;Step 0: Addressing&quot; of the UPnP+™ specification." alt="" coords="1013,225,1131,251"/>
-<area shape="poly" title=" " alt="" coords="1468,21,1366,24,1257,33,1162,51,1125,64,1101,81,1081,110,1071,145,1069,181,1071,211,1065,212,1063,181,1066,144,1076,108,1097,77,1123,60,1160,46,1257,28,1366,19,1468,16"/>
-<area shape="rect" title=" " alt="" coords="468,79,607,104"/>
-<area shape="poly" title=" " alt="" coords="1469,26,1097,46,862,61,626,81,621,82,620,77,625,76,862,56,1097,40,1468,21"/>
-<area shape="rect" href="../../da/db2/ssdp__ctrlpt_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="1110,79,1231,104"/>
-<area shape="poly" title=" " alt="" coords="1505,33,1246,79,1245,74,1504,28"/>
-<area shape="rect" href="../../da/df5/ssdp__device_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="1736,79,1867,104"/>
-<area shape="poly" title=" " alt="" coords="1606,28,1751,72,1750,77,1605,33"/>
-<area shape="rect" href="../../d2/dd2/soap__device_8hpp.html" title="SOAP declarations for UPnP Devices using SOAP." alt="" coords="649,225,780,251"/>
-<area shape="poly" title=" " alt="" coords="1469,24,1269,29,1032,39,824,56,751,68,709,81,684,100,668,122,662,147,668,176,679,197,693,214,689,218,674,200,663,178,657,146,663,119,680,97,707,76,749,62,823,51,1032,34,1269,24,1468,18"/>
-<area shape="rect" href="../../d9/de7/soap__ctrlpt_8hpp.html" title="SOAP declarations for Control Points using SOAP." alt="" coords="736,79,859,104"/>
-<area shape="poly" title=" " alt="" coords="1468,28,1204,49,873,81,872,76,1203,43,1468,23"/>
-<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="883,79,1034,104"/>
-<area shape="poly" title=" " alt="" coords="1469,33,1054,81,1048,82,1047,77,1053,76,1468,28"/>
-<area shape="rect" href="../../d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="1549,152,1715,177"/>
-<area shape="poly" title=" " alt="" coords="1668,22,1731,29,1794,40,1847,55,1867,65,1881,77,1892,97,1890,115,1876,129,1855,140,1796,155,1729,163,1729,157,1795,150,1853,135,1873,125,1885,113,1886,98,1877,80,1864,70,1845,60,1793,45,1730,34,1667,28"/>
-<area shape="rect" title=" " alt="" coords="1255,79,1398,104"/>
-<area shape="poly" title=" " alt="" coords="1530,33,1380,77,1378,72,1528,28"/>
-<area shape="rect" title=" " alt="" coords="1422,79,1557,104"/>
-<area shape="poly" title=" " alt="" coords="1557,33,1514,71,1510,68,1554,29"/>
-<area shape="rect" title=" " alt="" coords="1581,79,1712,104"/>
-<area shape="poly" title=" " alt="" coords="1582,29,1626,68,1622,71,1579,33"/>
-<area shape="rect" href="../../d9/dd2/gena_8hpp.html" title="Manage Eventing with GENA, the General Event Notification Architecture." alt="" coords="677,152,760,177"/>
-<area shape="poly" title=" " alt="" coords="1468,22,1270,24,1036,32,926,40,833,50,763,64,740,72,726,81,718,93,714,107,715,138,710,138,709,107,713,91,722,77,737,67,761,59,832,45,926,35,1036,27,1270,19,1468,16"/>
-<area shape="rect" href="../../d5/d2e/urlconfig_8hpp.html" title="Configure the full URL for the description document." alt="" coords="5,299,112,324"/>
-<area shape="poly" title=" " alt="" coords="1469,22,1211,26,890,35,736,42,601,52,499,65,463,73,440,81,420,95,408,111,385,153,371,182,364,207,354,230,332,253,255,273,126,299,125,294,254,268,329,248,349,227,359,205,366,180,380,151,403,108,416,91,437,76,461,68,498,60,601,47,736,37,890,30,1211,20,1469,17"/>
-<area shape="rect" title=" " alt="" coords="1941,79,2059,104"/>
-<area shape="poly" title=" " alt="" coords="1638,28,1928,76,1927,81,1637,33"/>
-<area shape="rect" title=" " alt="" coords="2083,79,2168,104"/>
-<area shape="poly" title=" " alt="" coords="1668,26,1850,46,2069,76,2069,81,1850,51,1667,31"/>
-<area shape="rect" title=" " alt="" coords="2192,79,2261,104"/>
-<area shape="poly" title=" " alt="" coords="1668,22,1897,40,2036,56,2179,76,2178,81,2036,61,1897,45,1667,27"/>
-<area shape="rect" title=" " alt="" coords="2286,79,2354,104"/>
-<area shape="poly" title=" " alt="" coords="1668,20,1937,37,2103,53,2273,76,2272,82,2103,59,1937,42,1668,26"/>
-<area shape="rect" title=" " alt="" coords="2378,79,2443,104"/>
-<area shape="poly" title=" " alt="" coords="1668,18,1803,23,1976,33,2168,50,2365,76,2364,81,2168,55,1975,38,1803,29,1668,24"/>
-<area shape="rect" title=" " alt="" coords="2468,79,2535,104"/>
-<area shape="poly" title=" " alt="" coords="1668,18,1818,22,2012,31,2231,48,2455,76,2454,81,2231,54,2012,36,1818,27,1667,23"/>
-<area shape="rect" title=" " alt="" coords="2559,79,2638,104"/>
-<area shape="poly" title=" " alt="" coords="1668,18,1832,22,2049,31,2295,49,2546,76,2545,81,2294,54,2049,37,1832,27,1667,23"/>
-<area shape="rect" title=" " alt="" coords="2663,79,2751,104"/>
-<area shape="poly" title=" " alt="" coords="1668,17,1849,21,2091,30,2367,48,2649,76,2648,81,2366,53,2091,35,1849,26,1668,23"/>
-<area shape="rect" title=" " alt="" coords="2775,79,2871,104"/>
-<area shape="poly" title=" " alt="" coords="1668,17,1866,20,2136,29,2445,47,2761,76,2761,81,2444,52,2135,34,1866,26,1667,22"/>
-<area shape="rect" href="../../d6/d92/VirtualDir_8hpp.html" title="Provide the Virtual Directory Callbacks structure." alt="" coords="137,299,247,324"/>
-<area shape="poly" title=" " alt="" coords="442,179,417,215,399,235,377,253,320,282,261,300,260,295,318,277,375,248,395,232,413,212,438,176"/>
-<area shape="rect" href="../../d9/d78/client__table_8hpp.html" title=" " alt="" coords="475,225,602,251"/>
-<area shape="poly" title=" " alt="" coords="463,175,515,215,511,219,460,179"/>
-<area shape="rect" title=" " alt="" coords="151,372,233,397"/>
-<area shape="poly" title=" " alt="" coords="195,324,195,358,189,358,189,324"/>
-<area shape="rect" href="../../d2/dad/GenlibClientSubscription_8hpp.html" title="Header file for GenlibClientSubscription methods." alt="" coords="433,299,644,324"/>
-<area shape="poly" title=" " alt="" coords="541,251,541,285,536,285,536,251"/>
-<area shape="rect" href="../../d0/d87/TimerThread_8hpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="668,299,801,324"/>
-<area shape="poly" title=" " alt="" coords="571,248,691,291,689,296,569,253"/>
-<area shape="rect" href="../../db/d74/service__table_8hpp.html" title="Manage the UPnP Services of a UPnP Device if available." alt="" coords="271,299,409,324"/>
-<area shape="poly" title=" " alt="" coords="508,253,386,296,385,291,506,248"/>
-<area shape="rect" href="../../de/dd1/LinkedList_8hpp.html" title="Manage a linked list (for internal use only)." alt="" coords="317,372,432,397"/>
-<area shape="poly" title=" " alt="" coords="348,323,365,358,361,361,343,326"/>
-<area shape="rect" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="491,372,557,397"/>
-<area shape="poly" title=" " alt="" coords="371,322,482,364,480,369,369,327"/>
-<area shape="rect" href="../../d5/de9/sysdep_8hpp.html" title="Get some system dependent information." alt="" coords="148,152,244,177"/>
-<area shape="poly" title=" " alt="" coords="222,105,208,140,203,138,217,103"/>
-<area shape="rect" href="../../d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="120,225,216,251"/>
-<area shape="poly" title=" " alt="" coords="194,179,180,214,175,212,189,177"/>
-<area shape="rect" href="../../d4/d0f/md5_8hpp.html" title="This code implements the MD5 message&#45;digest algorithm." alt="" coords="241,225,319,251"/>
-<area shape="poly" title=" " alt="" coords="211,175,257,214,254,218,208,179"/>
-<area shape="rect" title=" " alt="" coords="5,225,96,251"/>
-<area shape="poly" title=" " alt="" coords="174,180,88,222,85,217,171,175"/>
-<area shape="rect" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html" title="Functions to parse UPnP messages like requests and responses." alt="" coords="826,299,942,324"/>
-<area shape="poly" title=" " alt="" coords="1043,253,928,296,927,291,1041,248"/>
-<area shape="rect" href="../../d6/df0/sock_8hpp.html" title="Manage network sockets and connections." alt="" coords="1021,299,1101,324"/>
-<area shape="poly" title=" " alt="" coords="1073,251,1068,286,1062,285,1068,251"/>
-<area shape="rect" href="../../da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="1154,299,1307,324"/>
-<area shape="poly" title=" " alt="" coords="1099,248,1193,291,1191,295,1096,253"/>
-<area shape="poly" title=" " alt="" coords="826,325,814,327,560,353,306,375,247,380,247,375,305,369,559,348,813,321,825,320"/>
-<area shape="poly" title=" " alt="" coords="826,325,814,327,446,377,445,372,813,321,825,319"/>
-<area shape="poly" title=" " alt="" coords="827,327,571,377,570,372,826,321"/>
-<area shape="rect" href="../../d1/d10/membuffer_8hpp.html" title="Manage blocks of dynamically allocated memory." alt="" coords="651,372,773,397"/>
-<area shape="poly" title=" " alt="" coords="857,326,754,369,752,364,855,322"/>
-<area shape="rect" href="../../df/df3/strintmap_8hpp.html" title="String to integer and integer to string conversion functions." alt="" coords="797,372,971,397"/>
-<area shape="poly" title=" " alt="" coords="887,324,887,358,881,358,881,324"/>
-<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="1290,372,1465,397"/>
-<area shape="poly" title=" " alt="" coords="1102,319,1314,366,1313,372,1101,324"/>
-<area shape="rect" title=" " alt="" coords="1127,372,1265,397"/>
-<area shape="poly" title=" " alt="" coords="1084,322,1163,363,1161,368,1082,326"/>
-<area shape="rect" title=" " alt="" coords="996,372,1103,397"/>
-<area shape="poly" title=" " alt="" coords="1062,325,1056,359,1051,358,1057,324"/>
-<area shape="rect" href="../../d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="1109,152,1253,177"/>
-<area shape="poly" title=" " alt="" coords="1175,104,1180,138,1175,139,1170,105"/>
-<area shape="poly" title=" " alt="" coords="1165,180,1103,220,1100,215,1162,175"/>
-<area shape="poly" title=" " alt="" coords="1736,105,1724,107,1267,158,1266,152,1724,101,1736,100"/>
-<area shape="poly" title=" " alt="" coords="743,248,845,291,843,296,741,253"/>
-<area shape="poly" title=" " alt="" coords="771,248,1008,296,1007,302,770,253"/>
-<area shape="rect" href="../../d1/d46/ixml_8hpp.html" title=" " alt="" coords="785,152,863,177"/>
-<area shape="poly" title=" " alt="" coords="804,103,817,138,812,140,799,105"/>
-<area shape="rect" href="../../d6/d66/global_8ipp.html" title="Global used constants, variables, functions and macros." alt="" coords="888,152,1035,177"/>
-<area shape="poly" title=" " alt="" coords="962,104,963,138,958,139,956,104"/>
-<area shape="rect" href="../../d1/d2b/netaddr_8hpp.html" title="Declaration of the Netaddr class." alt="" coords="1297,225,1457,251"/>
-<area shape="poly" title=" " alt="" coords="1592,180,1432,224,1431,219,1590,175"/>
-<area shape="poly" title=" " alt="" coords="1380,251,1380,358,1375,358,1375,251"/>
-<area shape="poly" title=" " alt="" coords="1355,253,1268,295,1266,290,1353,248"/>
-<area shape="poly" title=" " alt="" coords="691,180,582,223,580,218,689,175"/>
-<area shape="poly" title=" " alt="" coords="735,175,794,223,864,287,860,291,790,227,732,180"/>
-<area shape="poly" title=" " alt="" coords="761,173,855,198,932,223,990,255,1038,288,1035,292,987,260,930,228,853,203,760,179"/>
-<area shape="rect" title=" " alt="" coords="855,225,919,251"/>
-<area shape="poly" title=" " alt="" coords="747,175,848,217,846,222,745,180"/>
-<area shape="poly" title=" " alt="" coords="81,322,159,363,157,368,79,326"/>
+<area shape="rect" title="Inititalize the compatible library before it can be used." alt="" coords="1333,5,1531,31"/>
+<area shape="rect" href="../../d3/da9/upnpapi_8hpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="729,152,831,177"/>
+<area shape="poly" title=" " alt="" coords="1333,23,1208,28,1068,37,940,54,890,66,852,81,834,93,819,109,795,141,790,138,814,105,831,89,849,76,888,61,939,49,1068,32,1208,22,1332,18"/>
+<area shape="rect" href="../../d7/db4/uuid_8hpp.html" title="Manage UUIDs." alt="" coords="1518,79,1597,104"/>
+<area shape="poly" title=" " alt="" coords="1453,28,1526,69,1524,74,1451,33"/>
+<area shape="rect" href="../../d3/d8b/miniserver_8hpp.html" title="Manage &quot;Step 0: Addressing&quot; of the UPnP+™ specification." alt="" coords="845,225,963,251"/>
+<area shape="poly" title=" " alt="" coords="1333,27,1076,46,965,62,927,71,907,81,897,94,890,110,885,145,889,181,898,212,892,213,884,182,880,145,885,108,892,91,904,77,925,66,964,56,1076,41,1332,21"/>
+<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="645,519,795,544"/>
+<area shape="poly" title=" " alt="" coords="1332,22,988,25,770,32,547,44,340,62,168,87,101,103,50,121,19,142,11,152,8,164,8,386,13,407,26,427,48,444,77,459,154,484,247,502,349,515,453,522,631,528,631,533,452,528,349,520,246,508,152,489,75,464,45,448,22,430,8,409,3,386,3,163,6,150,15,138,48,116,99,98,167,82,339,56,547,38,770,27,988,20,1332,16"/>
+<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="1301,445,1438,471"/>
+<area shape="poly" title=" " alt="" coords="1410,33,1383,52,1361,80,1358,98,1364,113,1376,130,1385,150,1383,150,1385,148,1388,160,1376,397,1374,432,1368,432,1371,397,1383,160,1384,153,1384,155,1381,154,1371,132,1360,116,1352,99,1356,78,1379,48,1407,29"/>
+<area shape="rect" title=" " alt="" coords="1621,79,1760,104"/>
+<area shape="poly" title=" " alt="" coords="1474,28,1636,72,1635,78,1473,33"/>
+<area shape="rect" href="../../da/db2/ssdp__ctrlpt_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="918,79,1039,104"/>
+<area shape="poly" title=" " alt="" coords="1360,33,1053,81,1053,76,1359,28"/>
+<area shape="rect" href="../../da/df5/ssdp__device_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="1064,79,1195,104"/>
+<area shape="poly" title=" " alt="" coords="1384,33,1192,78,1191,73,1383,28"/>
+<area shape="rect" href="../../d2/dd2/soap__device_8hpp.html" title="SOAP declarations for UPnP Devices using SOAP." alt="" coords="639,225,769,251"/>
+<area shape="poly" title=" " alt="" coords="1332,25,1201,32,1053,42,915,59,859,69,817,81,784,94,759,107,738,125,718,153,708,182,705,211,700,211,703,181,714,151,734,122,756,103,782,89,815,76,858,64,914,53,1052,37,1201,26,1332,20"/>
+<area shape="rect" href="../../d9/de7/soap__ctrlpt_8hpp.html" title="SOAP declarations for Control Points using SOAP." alt="" coords="1371,79,1493,104"/>
+<area shape="poly" title=" " alt="" coords="1435,31,1435,65,1429,65,1429,31"/>
+<area shape="rect" href="../../d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="1205,152,1371,177"/>
+<area shape="poly" title=" " alt="" coords="1393,33,1352,52,1333,65,1317,80,1301,109,1293,139,1288,137,1296,107,1313,77,1330,60,1350,47,1390,28"/>
+<area shape="rect" title=" " alt="" coords="1785,79,1935,104"/>
+<area shape="poly" title=" " alt="" coords="1501,28,1778,74,1777,79,1500,33"/>
+<area shape="rect" title=" " alt="" coords="1960,79,2091,104"/>
+<area shape="poly" title=" " alt="" coords="1532,27,1947,76,1946,81,1531,32"/>
+<area shape="rect" href="../../d9/dd2/gena_8hpp.html" title="Manage Eventing with GENA, the General Event Notification Architecture." alt="" coords="509,152,592,177"/>
+<area shape="poly" title=" " alt="" coords="1333,23,1171,28,980,38,801,55,728,67,673,81,645,94,618,110,574,144,571,140,615,106,642,89,671,76,727,61,800,49,980,32,1171,22,1332,18"/>
+<area shape="rect" href="../../d5/d2e/urlconfig_8hpp.html" title="Configure the full URL for the description document." alt="" coords="1075,152,1181,177"/>
+<area shape="poly" title=" " alt="" coords="1406,33,1297,81,1163,148,1160,143,1295,76,1404,28"/>
+<area shape="rect" title=" " alt="" coords="2115,79,2232,104"/>
+<area shape="poly" title=" " alt="" coords="1532,23,1786,43,2101,76,2100,81,1785,49,1531,29"/>
+<area shape="rect" title=" " alt="" coords="2256,79,2341,104"/>
+<area shape="poly" title=" " alt="" coords="1532,20,1845,36,2042,53,2243,76,2242,81,2041,58,1845,42,1532,25"/>
+<area shape="rect" title=" " alt="" coords="2365,79,2435,104"/>
+<area shape="poly" title=" " alt="" coords="1532,17,1687,21,1890,31,2118,48,2352,76,2351,81,2118,53,1889,36,1687,27,1531,23"/>
+<area shape="rect" title=" " alt="" coords="2459,79,2527,104"/>
+<area shape="poly" title=" " alt="" coords="1532,17,1702,19,1928,28,2184,46,2446,76,2445,82,2184,51,1928,33,1702,25,1532,22"/>
+<area shape="rect" title=" " alt="" coords="2551,79,2617,104"/>
+<area shape="poly" title=" " alt="" coords="1532,19,2040,39,2322,55,2538,76,2537,81,2322,61,2040,44,1532,25"/>
+<area shape="rect" title=" " alt="" coords="2641,79,2708,104"/>
+<area shape="poly" title=" " alt="" coords="1531,19,2083,38,2392,55,2524,65,2628,76,2627,82,2523,70,2392,60,2083,43,1531,24"/>
+<area shape="rect" href="../../d6/d92/VirtualDir_8hpp.html" title="Provide the Virtual Directory Callbacks structure." alt="" coords="851,299,962,324"/>
+<area shape="poly" title=" " alt="" coords="788,177,807,211,834,249,879,289,876,293,830,252,802,213,783,179"/>
+<area shape="rect" href="../../d9/d78/client__table_8hpp.html" title=" " alt="" coords="386,225,513,251"/>
+<area shape="poly" title=" " alt="" coords="729,180,517,225,516,220,728,174"/>
+<area shape="rect" title=" " alt="" coords="961,372,1044,397"/>
+<area shape="poly" title=" " alt="" coords="924,322,977,361,974,366,921,326"/>
+<area shape="rect" href="../../d2/dad/GenlibClientSubscription_8hpp.html" title="Header file for GenlibClientSubscription methods." alt="" coords="363,299,573,324"/>
+<area shape="poly" title=" " alt="" coords="455,250,464,285,459,286,450,252"/>
+<area shape="rect" href="../../d0/d87/TimerThread_8hpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="205,299,339,324"/>
+<area shape="poly" title=" " alt="" coords="422,253,314,296,312,291,420,248"/>
+<area shape="rect" href="../../db/d74/service__table_8hpp.html" title="Manage the UPnP Services of a UPnP Device if available." alt="" coords="43,299,181,324"/>
+<area shape="poly" title=" " alt="" coords="396,253,181,298,180,293,395,248"/>
+<area shape="rect" href="../../de/dd1/LinkedList_8hpp.html" title="Manage a linked list (for internal use only)." alt="" coords="133,372,248,397"/>
+<area shape="poly" title=" " alt="" coords="126,322,170,361,166,365,123,326"/>
+<area shape="rect" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="43,372,109,397"/>
+<area shape="poly" title=" " alt="" coords="108,326,90,361,86,358,104,323"/>
+<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="1037,665,1203,691"/>
+<area shape="poly" title=" " alt="" coords="106,395,374,494,568,558,769,615,902,643,1024,662,1023,667,901,648,767,620,566,563,373,499,104,400"/>
+<area shape="rect" href="../../d5/de9/sysdep_8hpp.html" title="Get some system dependent information." alt="" coords="1549,152,1645,177"/>
+<area shape="poly" title=" " alt="" coords="1566,103,1586,139,1582,141,1562,106"/>
+<area shape="rect" href="../../d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="1533,225,1629,251"/>
+<area shape="poly" title=" " alt="" coords="1597,178,1589,213,1584,212,1592,177"/>
+<area shape="rect" href="../../d4/d0f/md5_8hpp.html" title="This code implements the MD5 message&#45;digest algorithm." alt="" coords="1654,225,1733,251"/>
+<area shape="poly" title=" " alt="" coords="1614,175,1668,215,1665,219,1611,180"/>
+<area shape="rect" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html" title="Functions to parse UPnP messages like requests and responses." alt="" coords="598,299,714,324"/>
+<area shape="poly" title=" " alt="" coords="865,253,710,297,709,292,863,248"/>
+<area shape="rect" href="../../d6/df0/sock_8hpp.html" title="Manage network sockets and connections." alt="" coords="744,299,824,324"/>
+<area shape="poly" title=" " alt="" coords="886,253,817,294,814,289,883,248"/>
+<area shape="rect" href="../../da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="1039,299,1193,324"/>
+<area shape="poly" title=" " alt="" coords="939,248,1070,292,1068,297,937,253"/>
+<area shape="poly" title=" " alt="" coords="712,321,949,370,948,375,711,327"/>
+<area shape="poly" title=" " alt="" coords="598,325,586,327,262,374,261,369,585,321,597,319"/>
+<area shape="poly" title=" " alt="" coords="598,325,586,327,457,340,356,347,254,356,124,375,123,369,253,351,355,342,457,335,585,321,597,320"/>
+<area shape="rect" href="../../d1/d10/membuffer_8hpp.html" title="Manage blocks of dynamically allocated memory." alt="" coords="273,372,394,397"/>
+<area shape="poly" title=" " alt="" coords="605,327,399,372,398,366,604,321"/>
+<area shape="rect" href="../../df/df3/strintmap_8hpp.html" title="String to integer and integer to string conversion functions." alt="" coords="418,372,593,397"/>
+<area shape="poly" title=" " alt="" coords="633,326,544,368,541,364,631,322"/>
+<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="639,445,801,471"/>
+<area shape="poly" title=" " alt="" coords="541,395,673,438,671,443,539,400"/>
+<area shape="poly" title=" " alt="" coords="593,393,606,395,916,420,1227,443,1287,447,1287,453,1226,448,916,426,605,400,593,399"/>
+<area shape="poly" title=" " alt="" coords="723,471,723,505,717,505,717,471"/>
+<area shape="rect" href="../../d6/d66/global_8ipp.html" title="Global used constants, variables, functions and macros." alt="" coords="780,592,927,617"/>
+<area shape="poly" title=" " alt="" coords="743,542,821,583,818,588,740,546"/>
+<area shape="poly" title=" " alt="" coords="897,615,1064,659,1063,664,895,620"/>
+<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="1041,445,1215,471"/>
+<area shape="poly" title=" " alt="" coords="807,322,950,395,1015,419,1076,439,1074,444,1013,424,948,400,805,326"/>
+<area shape="rect" title=" " alt="" coords="617,372,756,397"/>
+<area shape="poly" title=" " alt="" coords="770,326,715,366,712,361,767,322"/>
+<area shape="rect" title=" " alt="" coords="780,372,887,397"/>
+<area shape="poly" title=" " alt="" coords="794,323,820,359,815,362,790,326"/>
+<area shape="poly" title=" " alt="" coords="1114,325,1093,362,1077,383,1057,400,1014,417,953,431,814,451,814,445,952,426,1013,412,1055,395,1074,379,1089,360,1109,323"/>
+<area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="1169,372,1337,397"/>
+<area shape="poly" title=" " alt="" coords="1139,322,1220,363,1218,368,1137,326"/>
+<area shape="poly" title=" " alt="" coords="1253,399,1229,472,1180,575,1136,655,1131,652,1175,572,1224,470,1248,397"/>
+<area shape="poly" title=" " alt="" coords="1273,395,1340,436,1337,440,1271,400"/>
+<area shape="poly" title=" " alt="" coords="1235,400,1162,441,1159,436,1232,395"/>
+<area shape="rect" href="../../d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="907,152,1051,177"/>
+<area shape="poly" title=" " alt="" coords="981,104,981,138,976,138,976,104"/>
+<area shape="poly" title=" " alt="" coords="969,179,928,218,924,214,965,175"/>
+<area shape="poly" title=" " alt="" coords="1106,106,1017,148,1015,144,1104,102"/>
+<area shape="poly" title=" " alt="" coords="698,253,674,289,669,286,694,250"/>
+<area shape="poly" title=" " alt="" coords="719,249,763,288,759,292,715,253"/>
+<area shape="rect" href="../../d1/d46/ixml_8hpp.html" title=" " alt="" coords="1446,152,1525,177"/>
+<area shape="poly" title=" " alt="" coords="1443,103,1471,140,1466,143,1439,106"/>
+<area shape="rect" href="../../d8/df6/UpnpGlobal_8hpp_source.html" title=" " alt="" coords="1351,519,1478,544"/>
+<area shape="poly" title=" " alt="" coords="1487,178,1483,310,1483,386,1478,421,1466,455,1434,509,1430,506,1461,453,1473,420,1477,386,1477,310,1482,177"/>
+<area shape="poly" title=" " alt="" coords="1399,546,1344,581,1273,620,1168,663,1166,658,1271,615,1341,576,1396,542"/>
+<area shape="rect" href="../../d1/d2b/netaddr_8hpp.html" title="Declaration of the Netaddr class." alt="" coords="1183,225,1343,251"/>
+<area shape="poly" title=" " alt="" coords="1286,179,1274,213,1269,212,1281,177"/>
+<area shape="poly" title=" " alt="" coords="1274,249,1312,300,1333,334,1352,371,1362,402,1368,431,1363,433,1357,403,1347,373,1329,337,1308,303,1270,253"/>
+<area shape="poly" title=" " alt="" coords="1258,252,1206,326,1181,349,1160,373,1145,403,1136,433,1131,431,1140,401,1155,371,1178,345,1202,322,1253,249"/>
+<area shape="poly" title=" " alt="" coords="1240,253,1153,295,1151,290,1238,248"/>
+<area shape="poly" title=" " alt="" coords="536,180,479,219,476,215,533,175"/>
+<area shape="poly" title=" " alt="" coords="556,177,566,211,585,249,605,271,627,289,624,293,601,275,580,252,561,213,551,179"/>
+<area shape="poly" title=" " alt="" coords="560,176,588,211,628,248,680,276,731,294,730,299,677,281,625,253,584,215,556,179"/>
+<area shape="rect" title=" " alt="" coords="297,225,361,251"/>
+<area shape="poly" title=" " alt="" coords="516,180,375,225,374,220,514,175"/>
+<area shape="poly" title=" " alt="" coords="1119,179,1075,229,1051,263,1029,300,1017,330,1010,359,1005,358,1012,328,1024,298,1046,260,1071,226,1115,176"/>
 </map>
 </div>
 </div>
@@ -264,6 +271,12 @@ Classes</h2></td></tr>
 <tr class="memitem:de/da3/structjob__arg_8advertise" id="r_de/da3/structjob__arg_8advertise"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#de/da3/structjob__arg_8advertise">job_arg.advertise</a></td></tr>
 <tr class="memdesc:de/da3/structjob__arg_8advertise"><td class="mdescLeft">&#160;</td><td class="mdescRight">advertise  <a href="../../d4/d99/upnpapi_8cpp.html#de/da3/structjob__arg_8advertise">More...</a><br /></td></tr>
 <tr class="separator:de/da3/structjob__arg_8advertise"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03" id="r_da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html">anonymous_namespace{upnpapi.cpp}</a></td></tr>
+<tr class="memdesc:da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes prefix length from IPv6 netmask. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -489,9 +502,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ac43a9ddbe8e1c8270f20565240d20563" id="r_ac43a9ddbe8e1c8270f20565240d20563"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#ac43a9ddbe8e1c8270f20565240d20563">UpnpDownloadXmlDoc</a> (const char *url, <a class="el" href="../../da/d8a/group__XMLAPI.html#ga5793edd7c508f16aacc76b640280ccfb">IXML_Document</a> **xmlDoc)</td></tr>
 <tr class="memdesc:ac43a9ddbe8e1c8270f20565240d20563"><td class="mdescLeft">&#160;</td><td class="mdescRight">Downloads an XML document specified in a URL.  <br /></td></tr>
 <tr class="separator:ac43a9ddbe8e1c8270f20565240d20563"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a695569e720ad17f18c1a97c9b96dd636" id="r_a695569e720ad17f18c1a97c9b96dd636"><td class="memItemLeft" align="right" valign="top">static unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a695569e720ad17f18c1a97c9b96dd636">UpnpComputeIpv6PrefixLength</a> (struct sockaddr_in6 *a_Netmask)</td></tr>
-<tr class="memdesc:a695569e720ad17f18c1a97c9b96dd636"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes prefix length from IPv6 netmask.  <br /></td></tr>
-<tr class="separator:a695569e720ad17f18c1a97c9b96dd636"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c751ef564d3fede875a9d44b0425170" id="r_a1c751ef564d3fede875a9d44b0425170"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a1c751ef564d3fede875a9d44b0425170">anonymous_namespace{upnpapi.cpp}::GetIfInfo</a> (const char *a_IfName)</td></tr>
 <tr class="memdesc:a1c751ef564d3fede875a9d44b0425170"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve network interface information for a given interface name and keep it in global variables.  <br /></td></tr>
 <tr class="separator:a1c751ef564d3fede875a9d44b0425170"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -4952,7 +4962,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="667,151,710,151,710,157,667,157"/>
 <area shape="rect" href="../../d7/d20/FreeList_8cpp.html#a63cf965052240dbc6fec792326bf6719" title="Allocates chunk of set size." alt="" coords="791,248,896,273"/>
 <area shape="poly" title=" " alt="" coords="677,238,778,250,777,255,676,243"/>
-<area shape="rect" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="788,199,899,224"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="788,199,899,224"/>
 <area shape="poly" title=" " alt="" coords="676,217,774,212,774,217,677,223"/>
 <area shape="rect" href="../../d7/d20/FreeList_8cpp.html#a559c475ea4c5850cd427740512512df0" title="Returns an item to the Free List." alt="" coords="793,20,894,45"/>
 <area shape="poly" title=" " alt="" coords="668,30,779,30,779,35,668,35"/>
@@ -5564,7 +5574,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="684,151,727,151,727,157,684,157"/>
 <area shape="rect" href="../../d7/d20/FreeList_8cpp.html#a63cf965052240dbc6fec792326bf6719" title="Allocates chunk of set size." alt="" coords="808,248,913,273"/>
 <area shape="poly" title=" " alt="" coords="694,238,795,250,794,255,693,243"/>
-<area shape="rect" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="805,199,916,224"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="805,199,916,224"/>
 <area shape="poly" title=" " alt="" coords="694,217,791,212,792,217,694,223"/>
 <area shape="rect" href="../../d7/d20/FreeList_8cpp.html#a559c475ea4c5850cd427740512512df0" title="Returns an item to the Free List." alt="" coords="810,20,911,45"/>
 <area shape="poly" title=" " alt="" coords="686,30,796,30,796,35,686,35"/>
@@ -5990,7 +6000,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="727,151,770,151,770,157,727,157"/>
 <area shape="rect" href="../../d7/d20/FreeList_8cpp.html#a63cf965052240dbc6fec792326bf6719" title="Allocates chunk of set size." alt="" coords="851,248,956,273"/>
 <area shape="poly" title=" " alt="" coords="737,238,838,250,837,255,736,243"/>
-<area shape="rect" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="848,199,959,224"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="848,199,959,224"/>
 <area shape="poly" title=" " alt="" coords="736,217,834,212,834,217,737,223"/>
 <area shape="rect" href="../../d7/d20/FreeList_8cpp.html#a559c475ea4c5850cd427740512512df0" title="Returns an item to the Free List." alt="" coords="853,20,954,45"/>
 <area shape="poly" title=" " alt="" coords="728,30,839,30,839,35,728,35"/>
@@ -6287,7 +6297,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="1220,1306,1263,1305,1263,1310,1220,1312"/>
 <area shape="rect" href="../../d7/d20/FreeList_8cpp.html#a63cf965052240dbc6fec792326bf6719" title="Allocates chunk of set size." alt="" coords="1344,1398,1449,1423"/>
 <area shape="poly" title=" " alt="" coords="1230,1392,1331,1402,1330,1407,1229,1398"/>
-<area shape="rect" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="1341,1349,1452,1374"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="1341,1349,1452,1374"/>
 <area shape="poly" title=" " alt="" coords="1230,1372,1327,1364,1328,1369,1230,1377"/>
 <area shape="poly" title=" " alt="" coords="2287,1369,2322,1363,2323,1368,2288,1374"/>
 <area shape="poly" title=" " alt="" coords="637,1071,699,1151,735,1193,764,1221,790,1235,788,1239,761,1225,731,1197,695,1154,633,1074"/>
@@ -7754,7 +7764,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="736,151,779,151,779,157,736,157"/>
 <area shape="rect" href="../../d7/d20/FreeList_8cpp.html#a63cf965052240dbc6fec792326bf6719" title="Allocates chunk of set size." alt="" coords="860,248,965,273"/>
 <area shape="poly" title=" " alt="" coords="746,238,847,250,846,255,745,243"/>
-<area shape="rect" href="../../d5/d91/ThreadPool_8hpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="857,199,968,224"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#aaf2d0a99430a6d5253b8c395c30ca7e3" title="Get time of day." alt="" coords="857,199,968,224"/>
 <area shape="poly" title=" " alt="" coords="746,217,843,212,844,217,746,223"/>
 <area shape="rect" href="../../d7/d20/FreeList_8cpp.html#a559c475ea4c5850cd427740512512df0" title="Returns an item to the Free List." alt="" coords="862,20,963,45"/>
 <area shape="poly" title=" " alt="" coords="738,30,848,30,848,35,738,35"/>
@@ -10748,54 +10758,6 @@ Note: In case of return values, the status code parameter of the passed in handl
 
 </div>
 </div>
-<a id="a695569e720ad17f18c1a97c9b96dd636" name="a695569e720ad17f18c1a97c9b96dd636"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a695569e720ad17f18c1a97c9b96dd636">&#9670;&#160;</a></span>UpnpComputeIpv6PrefixLength()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static unsigned UpnpComputeIpv6PrefixLength </td>
-          <td>(</td>
-          <td class="paramtype">struct sockaddr_in6 *&#160;</td>
-          <td class="paramname"><em>a_Netmask</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Computes prefix length from IPv6 netmask. </p>
-<dl class="section return"><dt>Returns</dt><dd>The IPv6 prefix length. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03054">3054</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-85" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-85-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-85-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-85-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d99/upnpapi_8cpp_a695569e720ad17f18c1a97c9b96dd636_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a695569e720ad17f18c1a97c9b96dd636_icgraph" alt=""/></div>
-<map name="ad4/d99/upnpapi_8cpp_a695569e720ad17f18c1a97c9b96dd636_icgraph" id="ad4/d99/upnpapi_8cpp_a695569e720ad17f18c1a97c9b96dd636_icgraph">
-<area shape="rect" title="Computes prefix length from IPv6 netmask." alt="" coords="535,37,759,62"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a1c751ef564d3fede875a9d44b0425170" title="Retrieve network interface information for a given interface name and keep it in global variables." alt="" coords="300,29,487,69"/>
-<area shape="poly" title=" " alt="" coords="521,52,487,52,487,47,521,47"/>
-<area shape="poly" title=" " alt="" coords="427,18,415,11,393,8,374,10,363,15,359,21,361,28,356,30,354,20,360,11,373,5,393,3,417,6,429,13"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a2ef1d667da6a9fb1403119d004277492" title="Retrieve network interface information and keep it in global variables." alt="" coords="139,37,252,62"/>
-<area shape="poly" title=" " alt="" coords="286,52,252,52,252,47,286,47"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,37,91,62"/>
-<area shape="poly" title=" " alt="" coords="125,52,91,52,91,47,125,47"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a2ef1d667da6a9fb1403119d004277492" name="a2ef1d667da6a9fb1403119d004277492"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ef1d667da6a9fb1403119d004277492">&#9670;&#160;</a></span>UpnpGetIfInfo()</h2>
 
@@ -10835,40 +10797,38 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03384">3384</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<div id="dynsection-85" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-85-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-85-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-85-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_cgraph" alt=""/></div>
+<map name="ad4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_cgraph" id="ad4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_cgraph">
+<area shape="rect" title="Retrieve network interface information and keep it in global variables." alt="" coords="5,79,119,104"/>
+<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a1c751ef564d3fede875a9d44b0425170" title="Retrieve network interface information for a given interface name and keep it in global variables." alt="" coords="167,31,353,71"/>
+<area shape="poly" title=" " alt="" coords="118,77,153,70,154,76,119,83"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6" title="load address information from the operating system" alt="" coords="185,103,335,143"/>
+<area shape="poly" title=" " alt="" coords="119,98,171,106,171,112,118,103"/>
+<area shape="poly" title=" " alt="" coords="223,32,221,22,226,13,240,7,260,5,283,8,296,15,293,20,282,13,260,10,241,12,230,17,226,23,228,30"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="439,29,529,55"/>
+<area shape="poly" title=" " alt="" coords="354,45,424,42,425,47,354,50"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="635,5,775,31"/>
+<area shape="poly" title=" " alt="" coords="529,34,621,24,621,30,530,40"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="615,55,795,80"/>
+<area shape="poly" title=" " alt="" coords="530,44,601,53,600,58,529,50"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#gaab5fd951995d3ce8a5e49936b35cf536" title="Check for a netaddress and return its address family." alt="" coords="407,79,561,104"/>
+<area shape="poly" title=" " alt="" coords="335,110,393,102,393,107,336,115"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0" title="Check if a given string represents a port number." alt="" coords="404,128,564,153"/>
+<area shape="poly" title=" " alt="" coords="336,126,390,131,390,136,335,132"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997" title="Get the netaddress with port from a sockaddr structure." alt="" coords="401,177,567,203"/>
+<area shape="poly" title=" " alt="" coords="328,141,402,163,427,171,425,176,401,169,326,146"/>
+</map>
+</div>
 <div id="dynsection-86" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-86-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+  <img id="dynsection-86-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-86-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-86-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_cgraph" alt=""/></div>
-<map name="ad4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_cgraph" id="ad4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_cgraph">
-<area shape="rect" title="Retrieve network interface information and keep it in global variables." alt="" coords="5,104,119,129"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a1c751ef564d3fede875a9d44b0425170" title="Retrieve network interface information for a given interface name and keep it in global variables." alt="" coords="167,47,353,87"/>
-<area shape="poly" title=" " alt="" coords="113,101,166,88,167,93,114,107"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6" title="load address information from the operating system" alt="" coords="185,129,335,169"/>
-<area shape="poly" title=" " alt="" coords="119,123,171,132,171,137,118,128"/>
-<area shape="poly" title=" " alt="" coords="223,48,221,38,226,29,240,23,260,21,283,24,296,31,293,36,282,29,260,26,241,28,230,33,226,39,228,46"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a695569e720ad17f18c1a97c9b96dd636" title="Computes prefix length from IPv6 netmask." alt="" coords="401,5,625,31"/>
-<area shape="poly" title=" " alt="" coords="353,47,433,31,434,36,354,52"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="468,55,559,80"/>
-<area shape="poly" title=" " alt="" coords="354,65,454,65,454,70,354,70"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="693,31,833,56"/>
-<area shape="poly" title=" " alt="" coords="559,60,679,49,680,54,559,66"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="673,80,853,105"/>
-<area shape="poly" title=" " alt="" coords="559,69,660,80,659,85,559,75"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#gaab5fd951995d3ce8a5e49936b35cf536" title="Check for a netaddress and return its address family." alt="" coords="436,104,591,129"/>
-<area shape="poly" title=" " alt="" coords="335,137,422,125,423,131,336,142"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0" title="Check if a given string represents a port number." alt="" coords="433,153,593,179"/>
-<area shape="poly" title=" " alt="" coords="336,151,420,157,420,162,335,156"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997" title="Get the netaddress with port from a sockaddr structure." alt="" coords="431,203,596,228"/>
-<area shape="poly" title=" " alt="" coords="324,166,402,189,437,197,435,202,401,194,322,171"/>
-</map>
-</div>
-<div id="dynsection-87" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-87-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-87-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-87-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_icgraph" id="ad4/d99/upnpapi_8cpp_a2ef1d667da6a9fb1403119d004277492_icgraph">
 <area shape="rect" title="Retrieve network interface information and keep it in global variables." alt="" coords="139,5,252,31"/>
@@ -10899,11 +10859,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 <p>UpnpThreadDistribution. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03402">3402</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-88" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-88-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-88-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-87" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-87-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-87-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-88-content" class="dyncontent" style="display:none;">
+<div id="dynsection-87-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a282c8419fef146b7170ee266159029e6_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a282c8419fef146b7170ee266159029e6_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a282c8419fef146b7170ee266159029e6_cgraph" id="ad4/d99/upnpapi_8cpp_a282c8419fef146b7170ee266159029e6_cgraph">
 <area shape="rect" title="Schedule async functions in threadpool." alt="" coords="5,2017,183,2043"/>
@@ -11058,11 +11018,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 <area shape="poly" title=" " alt="" coords="677,2210,740,2201,805,2182,867,2152,894,2132,918,2108,934,2083,949,2050,974,1966,993,1863,1007,1751,1023,1535,1028,1387,1033,1387,1028,1535,1012,1751,998,1864,979,1967,954,2052,939,2086,922,2112,898,2136,870,2157,807,2187,741,2206,678,2215"/>
 </map>
 </div>
-<div id="dynsection-89" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-89-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-89-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-88" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-88-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-88-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-89-content" class="dyncontent" style="display:none;">
+<div id="dynsection-88-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a282c8419fef146b7170ee266159029e6_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a282c8419fef146b7170ee266159029e6_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a282c8419fef146b7170ee266159029e6_icgraph" id="ad4/d99/upnpapi_8cpp_a282c8419fef146b7170ee266159029e6_icgraph">
 <area shape="rect" title="Schedule async functions in threadpool." alt="" coords="513,129,691,155"/>
@@ -11145,11 +11105,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03508">3508</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-90" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-90-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-90-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-89" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-89-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-89-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-90-content" class="dyncontent" style="display:none;">
+<div id="dynsection-89-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_af1c7fa6eff1380708c436bad3d4843d2_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_af1c7fa6eff1380708c436bad3d4843d2_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_af1c7fa6eff1380708c436bad3d4843d2_cgraph" id="ad4/d99/upnpapi_8cpp_af1c7fa6eff1380708c436bad3d4843d2_cgraph">
 <area shape="rect" title="Get client handle info." alt="" coords="5,31,160,56"/>
@@ -11163,11 +11123,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 <area shape="poly" title=" " alt="" coords="463,47,497,51,496,56,463,52"/>
 </map>
 </div>
-<div id="dynsection-91" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-91-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-91-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-90" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-90-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-90-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-91-content" class="dyncontent" style="display:none;">
+<div id="dynsection-90-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_af1c7fa6eff1380708c436bad3d4843d2_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_af1c7fa6eff1380708c436bad3d4843d2_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_af1c7fa6eff1380708c436bad3d4843d2_icgraph" id="ad4/d99/upnpapi_8cpp_af1c7fa6eff1380708c436bad3d4843d2_icgraph">
 <area shape="rect" title="Get client handle info." alt="" coords="1212,84,1367,109"/>
@@ -11255,11 +11215,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03528">3528</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-92" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-92-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-92-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-91" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-91-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-91-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-92-content" class="dyncontent" style="display:none;">
+<div id="dynsection-91-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_ab014d8c655f48d04fcc9ea7931a8f99c_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_ab014d8c655f48d04fcc9ea7931a8f99c_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_ab014d8c655f48d04fcc9ea7931a8f99c_cgraph" id="ad4/d99/upnpapi_8cpp_ab014d8c655f48d04fcc9ea7931a8f99c_cgraph">
 <area shape="rect" title="Retrieves the device handle and information of the first device of the address family specified...." alt="" coords="5,31,167,56"/>
@@ -11273,11 +11233,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 <area shape="poly" title=" " alt="" coords="470,47,504,51,503,56,469,52"/>
 </map>
 </div>
-<div id="dynsection-93" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-93-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-93-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-92" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-92-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-92-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-93-content" class="dyncontent" style="display:none;">
+<div id="dynsection-92-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_ab014d8c655f48d04fcc9ea7931a8f99c_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_ab014d8c655f48d04fcc9ea7931a8f99c_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_ab014d8c655f48d04fcc9ea7931a8f99c_icgraph" id="ad4/d99/upnpapi_8cpp_ab014d8c655f48d04fcc9ea7931a8f99c_icgraph">
 <area shape="rect" title="Retrieves the device handle and information of the first device of the address family specified...." alt="" coords="1175,108,1336,133"/>
@@ -11367,11 +11327,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03565">3565</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-94" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-94-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-94-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-93" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-93-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-93-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-94-content" class="dyncontent" style="display:none;">
+<div id="dynsection-93-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a67f191fc3d9877d0efef0af385d07ac9_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a67f191fc3d9877d0efef0af385d07ac9_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a67f191fc3d9877d0efef0af385d07ac9_cgraph" id="ad4/d99/upnpapi_8cpp_a67f191fc3d9877d0efef0af385d07ac9_cgraph">
 <area shape="rect" title="Retrieves the device handle and information of the first device of the address family specified,..." alt="" coords="5,191,215,217"/>
@@ -11411,11 +11371,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 <area shape="poly" title=" " alt="" coords="602,335,651,348,682,356,681,361,650,353,601,340"/>
 </map>
 </div>
-<div id="dynsection-95" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-95-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-95-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-94" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-94-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-94-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-95-content" class="dyncontent" style="display:none;">
+<div id="dynsection-94-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a67f191fc3d9877d0efef0af385d07ac9_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a67f191fc3d9877d0efef0af385d07ac9_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a67f191fc3d9877d0efef0af385d07ac9_icgraph" id="ad4/d99/upnpapi_8cpp_a67f191fc3d9877d0efef0af385d07ac9_icgraph">
 <area shape="rect" title="Retrieves the device handle and information of the first device of the address family specified,..." alt="" coords="783,109,992,134"/>
@@ -11480,11 +11440,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03602">3602</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-96" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-96-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-96-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-95" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-95-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-95-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-96-content" class="dyncontent" style="display:none;">
+<div id="dynsection-95-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a276f608a72d2b223bb429ba31c32f64b_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a276f608a72d2b223bb429ba31c32f64b_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a276f608a72d2b223bb429ba31c32f64b_cgraph" id="ad4/d99/upnpapi_8cpp_a276f608a72d2b223bb429ba31c32f64b_cgraph">
 <area shape="rect" title="Get handle information." alt="" coords="5,31,121,56"/>
@@ -11496,11 +11456,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 <area shape="poly" title=" " alt="" coords="261,47,295,51,294,56,260,52"/>
 </map>
 </div>
-<div id="dynsection-97" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-97-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-97-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-96" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-96-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-96-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-97-content" class="dyncontent" style="display:none;">
+<div id="dynsection-96-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a276f608a72d2b223bb429ba31c32f64b_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a276f608a72d2b223bb429ba31c32f64b_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a276f608a72d2b223bb429ba31c32f64b_icgraph" id="ad4/d99/upnpapi_8cpp_a276f608a72d2b223bb429ba31c32f64b_icgraph">
 <area shape="rect" title="Get handle information." alt="" coords="1537,1098,1653,1123"/>
@@ -11665,11 +11625,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03632">3632</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-98" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-98-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-98-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-97" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-97-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-97-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-98-content" class="dyncontent" style="display:none;">
+<div id="dynsection-97-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a5a17761f7fc97c277b8385bdb989e6e5_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a5a17761f7fc97c277b8385bdb989e6e5_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a5a17761f7fc97c277b8385bdb989e6e5_cgraph" id="ad4/d99/upnpapi_8cpp_a5a17761f7fc97c277b8385bdb989e6e5_cgraph">
 <area shape="rect" title="Print handle info." alt="" coords="5,31,128,56"/>
@@ -11709,11 +11669,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03657">3657</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-99" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-99-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-99-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-98" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-98-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-98-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-99-content" class="dyncontent" style="display:none;">
+<div id="dynsection-98-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_abb1ab3d0ba145286005284d447110fce_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_abb1ab3d0ba145286005284d447110fce_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_abb1ab3d0ba145286005284d447110fce_cgraph" id="ad4/d99/upnpapi_8cpp_abb1ab3d0ba145286005284d447110fce_cgraph">
 <area shape="rect" title="This function is a timer thread scheduled by UpnpSendAdvertisement to the send advetisement again." alt="" coords="5,36,120,62"/>
@@ -11858,11 +11818,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 <area shape="poly" title=" " alt="" coords="1023,1494,1185,1511,1184,1516,1022,1499"/>
 </map>
 </div>
-<div id="dynsection-100" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-100-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-100-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-99" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-99-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-99-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-100-content" class="dyncontent" style="display:none;">
+<div id="dynsection-99-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_abb1ab3d0ba145286005284d447110fce_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_abb1ab3d0ba145286005284d447110fce_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_abb1ab3d0ba145286005284d447110fce_icgraph" id="ad4/d99/upnpapi_8cpp_abb1ab3d0ba145286005284d447110fce_icgraph">
 <area shape="rect" title="This function is a timer thread scheduled by UpnpSendAdvertisement to the send advetisement again." alt="" coords="496,42,611,67"/>
@@ -11910,11 +11870,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03666">3666</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-101" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-101-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-101-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-100" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-100-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-100-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-101-content" class="dyncontent" style="display:none;">
+<div id="dynsection-100-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a85b808931b0ed4d1d37da686c031f9b3_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a85b808931b0ed4d1d37da686c031f9b3_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a85b808931b0ed4d1d37da686c031f9b3_cgraph" id="ad4/d99/upnpapi_8cpp_a85b808931b0ed4d1d37da686c031f9b3_cgraph">
 <area shape="rect" title="Sets the document root directory for the internal web server." alt="" coords="5,32,201,57"/>
@@ -11972,11 +11932,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03679">3679</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-102" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-102-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-102-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-101" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-101-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-101-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-102-content" class="dyncontent" style="display:none;">
+<div id="dynsection-101-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_af2bccdf7c1a33e2772c08ecb498980f3_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_af2bccdf7c1a33e2772c08ecb498980f3_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_af2bccdf7c1a33e2772c08ecb498980f3_cgraph" id="ad4/d99/upnpapi_8cpp_af2bccdf7c1a33e2772c08ecb498980f3_cgraph">
 <area shape="rect" title="Assign the Access&#45;Control&#45;Allow&#45;Origin specfied by the input const char* cors_string parameter to the..." alt="" coords="5,44,220,69"/>
@@ -12105,11 +12065,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 <p>Removes all <a class="el" href="../../d5/d67/Glossary.html#glossary_virtdir">virtual directory</a> mappings. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03813">3813</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-103" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-103-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-103-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-102" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-102-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-102-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-103-content" class="dyncontent" style="display:none;">
+<div id="dynsection-102-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_ac1faae99fb914af807e9537867a46935_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_ac1faae99fb914af807e9537867a46935_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_ac1faae99fb914af807e9537867a46935_icgraph" id="ad4/d99/upnpapi_8cpp_ac1faae99fb914af807e9537867a46935_icgraph">
 <area shape="rect" title="Removes all virtual directory mappings." alt="" coords="692,31,888,56"/>
@@ -12163,11 +12123,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03833">3833</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-104" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-104-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-104-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-103" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-103-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-103-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-104-content" class="dyncontent" style="display:none;">
+<div id="dynsection-103-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a3c6309a98eb5281fbbfa45644c06fc34_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a3c6309a98eb5281fbbfa45644c06fc34_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a3c6309a98eb5281fbbfa45644c06fc34_cgraph" id="ad4/d99/upnpapi_8cpp_a3c6309a98eb5281fbbfa45644c06fc34_cgraph">
 <area shape="rect" title="Enables or disables the webserver." alt="" coords="5,1164,175,1189"/>
@@ -12298,11 +12258,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 <area shape="poly" title=" " alt="" coords="617,1794,702,1794,702,1799,617,1799"/>
 </map>
 </div>
-<div id="dynsection-105" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-105-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-105-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-104" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-104-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-104-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-105-content" class="dyncontent" style="display:none;">
+<div id="dynsection-104-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a3c6309a98eb5281fbbfa45644c06fc34_icgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a3c6309a98eb5281fbbfa45644c06fc34_icgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a3c6309a98eb5281fbbfa45644c06fc34_icgraph" id="ad4/d99/upnpapi_8cpp_a3c6309a98eb5281fbbfa45644c06fc34_icgraph">
 <area shape="rect" title="Enables or disables the webserver." alt="" coords="344,5,513,31"/>
@@ -12613,11 +12573,11 @@ Note: In case of return values, the status code parameter of the passed in handl
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03943">3943</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
-<div id="dynsection-106" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-106-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-106-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-105" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-105-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-105-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-106-content" class="dyncontent" style="display:none;">
+<div id="dynsection-105-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d99/upnpapi_8cpp_a9ad7dd3b0efbad2ef220bee812f94fc5_cgraph.png" border="0" usemap="#ad4/d99/upnpapi_8cpp_a9ad7dd3b0efbad2ef220bee812f94fc5_cgraph" alt=""/></div>
 <map name="ad4/d99/upnpapi_8cpp_a9ad7dd3b0efbad2ef220bee812f94fc5_cgraph" id="ad4/d99/upnpapi_8cpp_a9ad7dd3b0efbad2ef220bee812f94fc5_cgraph">
 <area shape="rect" title="Sets the content&#45;length that the SDK will process on an incoming SOAP requests or responses." alt="" coords="5,31,177,56"/>

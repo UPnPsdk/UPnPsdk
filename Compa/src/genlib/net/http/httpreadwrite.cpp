@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-08
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-18
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -55,15 +55,11 @@
 #include <cassert>
 #include <cstdarg>
 #include <cstring>
-/// \endcond
 
 #ifdef _WIN32
-/// \cond
 #include <malloc.h>
-/// \endcond
 #define fseeko fseek
 #else /* _WIN32 */
-/// \cond
 #include <sys/utsname.h>
 // fseeko is not supported on 32-bit Android older than API 24:
 // https://android.googlesource.com/platform/bionic/+/main/docs/32-bit-abi.md
@@ -71,8 +67,8 @@
     (!defined(__USE_FILE_OFFSET64) || __ANDROID_API__ < 24)
 #define fseeko fseek
 #endif
-/// \endcond
 #endif /* _WIN32 */
+/// \endcond
 
 #include <umock/pupnp_sock.hpp>
 #include <umock/pupnp_httprw.hpp>

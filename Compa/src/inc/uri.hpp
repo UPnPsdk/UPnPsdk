@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-08
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-18
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -46,13 +46,13 @@
 #ifndef _WIN32
 #include <netdb.h> /* for struct addrinfo */
 #endif
-/// \endcond
 
 #ifdef _WIN32
 #define strncasecmp strnicmp
 #else
 /* Other systems have strncasecmp */
 #endif
+/// \endcond
 
 /// Yet another success code.
 inline constexpr int HTTP_SUCCESS{1};

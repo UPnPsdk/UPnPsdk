@@ -1,21 +1,25 @@
 <map id="UPnPsdk/src/net/connection_common.cpp" name="UPnPsdk/src/net/connection_common.cpp">
-<area shape="rect" id="Node000001" title="Definition of common used classes and free functions for network connections." alt="" coords="290,5,493,45"/>
-<area shape="rect" id="Node000002" href="$dd/d74/connection__common_8hpp.html" title="Declaration of common used classes and free functions for network connections." alt="" coords="257,93,411,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="381,47,357,83,352,80,376,44"/>
-<area shape="rect" id="Node000008" href="$d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="368,255,529,280"/>
-<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="405,45,426,93,443,173,450,241,445,241,438,174,421,94,400,47"/>
-<area shape="rect" id="Node000003" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="257,181,411,207"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="337,134,337,167,331,167,331,134"/>
-<area shape="rect" id="Node000004" href="$d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="173,255,341,280"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="323,209,281,247,278,243,320,205"/>
-<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="354,204,420,245,417,250,351,209"/>
-<area shape="rect" id="Node000005" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="366,328,531,353"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="288,278,405,320,403,325,287,283"/>
-<area shape="rect" id="Node000006" href="$d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="5,328,143,353"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="228,283,118,325,116,320,226,278"/>
-<area shape="rect" id="Node000007" href="$d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="167,328,341,353"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="259,280,258,315,252,314,254,280"/>
-<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="451,280,451,314,446,314,446,280"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="555,328,683,353"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="477,278,580,320,578,325,475,282"/>
+<area shape="rect" id="Node000001" title="Definition of common used classes and free functions for network connections." alt="" coords="337,5,540,45"/>
+<area shape="rect" id="Node000002" href="$dd/d74/connection__common_8hpp.html" title="Declaration of common used classes and free functions for network connections." alt="" coords="304,93,459,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="428,47,404,83,399,80,424,44"/>
+<area shape="rect" id="Node000008" href="$d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="415,255,577,280"/>
+<area shape="poly" id="edge12_Node000001_Node000008" title=" " alt="" coords="452,45,473,93,490,173,497,241,492,241,485,174,468,94,447,47"/>
+<area shape="rect" id="Node000003" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="305,181,458,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,134,384,167,379,167,379,134"/>
+<area shape="rect" id="Node000004" href="$d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="140,255,308,280"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="357,209,263,251,261,247,355,204"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="401,204,467,245,464,250,398,209"/>
+<area shape="rect" id="Node000005" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="5,475,171,500"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="141,281,96,299,77,312,61,330,53,345,49,362,51,398,62,432,76,461,71,464,57,434,46,399,44,361,48,343,56,326,73,308,93,294,139,276"/>
+<area shape="rect" id="Node000006" href="$d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="71,328,209,353"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="212,282,166,321,163,317,209,278"/>
+<area shape="rect" id="Node000007" href="$d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="233,328,407,353"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="241,278,295,317,292,322,238,282"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="432,328,560,353"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="499,280,499,314,493,314,493,280"/>
+<area shape="rect" id="Node000010" href="$d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="585,328,735,353"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="523,278,622,320,620,325,521,282"/>
+<area shape="rect" id="Node000011" href="$d6/d66/global_8ipp.html" title="Global used constants, variables, functions and macros." alt="" coords="328,401,475,427"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="619,356,457,400,456,395,618,351"/>
+<area shape="poly" id="edge11_Node000011_Node000005" title=" " alt="" coords="352,429,153,474,151,469,350,424"/>
 </map>

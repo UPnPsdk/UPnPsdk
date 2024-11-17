@@ -6,7 +6,7 @@
  * All rights reserved.
  *
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-02-02
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-18
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
@@ -37,6 +37,7 @@
  * \brief Unix-specific network utilities.
  */
 
+/// \cond
 #ifdef _WIN32
 #include <errno.h>
 
@@ -49,5 +50,6 @@ typedef uint16_t in_port_t;
 #include <sys/time.h>
 #include <sys/wait.h>
 #endif
+/// \endcond
 
 #endif /* COMPA_GENLIB_NET_UNIXUTIL_HPP */

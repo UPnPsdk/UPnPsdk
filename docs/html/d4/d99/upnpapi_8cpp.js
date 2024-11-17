@@ -78,7 +78,6 @@ var upnpapi_8cpp =
     [ "UpnpCloseHttpConnection", "d4/d99/upnpapi_8cpp.html#a865d9b116a6028d1fd1f1ad2377dca35", null ],
     [ "UpnpDownloadUrlItem", "d4/d99/upnpapi_8cpp.html#a475c51dac06a22d937da76a5dbde80c6", null ],
     [ "UpnpDownloadXmlDoc", "d4/d99/upnpapi_8cpp.html#ac43a9ddbe8e1c8270f20565240d20563", null ],
-    [ "UpnpComputeIpv6PrefixLength", "d4/d99/upnpapi_8cpp.html#a695569e720ad17f18c1a97c9b96dd636", null ],
     [ "GetIfInfo", "d4/d99/upnpapi_8cpp.html#a1c751ef564d3fede875a9d44b0425170", null ],
     [ "UpnpGetIfInfo", "d4/d99/upnpapi_8cpp.html#a2ef1d667da6a9fb1403119d004277492", null ],
     [ "UpnpThreadDistribution", "d4/d99/upnpapi_8cpp.html#a282c8419fef146b7170ee266159029e6", null ],
