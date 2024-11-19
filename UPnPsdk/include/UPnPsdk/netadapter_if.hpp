@@ -45,12 +45,6 @@ namespace UPnPsdk {
  */
 class INetadapter {
   public:
-    // Constructor
-    INetadapter();
-
-    // Destructor
-    virtual ~INetadapter();
-
     /*! \name Setter
      * *************
      * @{ */

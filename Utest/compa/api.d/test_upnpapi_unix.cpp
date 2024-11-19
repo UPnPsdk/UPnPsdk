@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-19
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -11,8 +11,7 @@
 #endif
 
 #include <UPnPsdk/global.hpp>
-#include <UPnPsdk/upnptools.hpp> // For UPnPsdk only
-#include <UPnPsdk/netadapter_unix.hpp>
+#include <UPnPsdk/upnptools.hpp> // For ErrStrEx
 
 #include <utest/utest.hpp>
 #include <utest/utest_unix.hpp>
@@ -24,7 +23,6 @@
 namespace utest {
 
 using ::testing::_;
-using ::testing::AnyOf;
 using ::testing::DoAll;
 using ::testing::Return;
 using ::testing::SetArgPointee;
@@ -248,36 +246,6 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpInit2_successful) {
         << errStrEx(ret_UpnpFinish, UPNP_E_FINISH);
     EXPECT_EQ(UpnpSdkInit, 0);
 #endif
-}
-
-TEST(NetadapterTestSuite, get_adapter_address_info_successful) {
-    UPnPsdk::CNetadapter netadapterObj;
-    UPnPsdk::INetadapter& ifaObj{netadapterObj};
-
-    ifaObj.load();
-    char addrStr[INET6_ADDRSTRLEN];
-    char nmskStr[INET6_ADDRSTRLEN];
-    char servStr[NI_MAXSERV];
-
-    UPnPsdk::SSockaddr saddrObj;
-    do {
-        ASSERT_FALSE(ifaObj.name().empty());
-        saddrObj = ifaObj.sockaddr();
-        ASSERT_THAT(saddrObj.ss.ss_family, AnyOf(AF_INET6, AF_INET));
-        ASSERT_EQ(getnameinfo(&saddrObj.sa, sizeof(saddrObj.ss), addrStr,
-                              sizeof(addrStr), servStr, sizeof(servStr),
-                              NI_NUMERICHOST),
-                  0);
-        UPnPsdk::SSockaddr snetmask = ifaObj.socknetmask();
-        ASSERT_EQ(getnameinfo(&snetmask.sa, sizeof(snetmask.ss), nmskStr,
-                              sizeof(nmskStr), nullptr, 0, NI_NUMERICHOST),
-                  0);
-        // // To see resolved iface names set first NI_NUMERICHOST above to 0.
-        // std::cout << "DEBUG! \"" << ifaObj.name() << "\" address = " <<
-        // addrStr
-        //           << "(" << saddrObj.netaddr() << "), netmask = " << nmskStr
-        //           << ", service = " << servStr << '\n';
-    } while (ifaObj.get_next());
 }
 
 } // namespace utest

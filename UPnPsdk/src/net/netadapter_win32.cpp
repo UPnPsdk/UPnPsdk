@@ -1,11 +1,11 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-19
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
  */
 
-#include <UPnPsdk/netadapter_win32.hpp>
+#include <UPnPsdk/netadapter.hpp>
 #include <UPnPsdk/synclog.hpp>
 
 

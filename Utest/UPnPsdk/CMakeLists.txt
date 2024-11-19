@@ -1,10 +1,10 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-22
+# Redistribution only with this Copyright remark. Last modified: 2024-11-19
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
-project(GTEST5_UPnPsdk VERSION 0004
+project(GTEST5_UPnPsdk VERSION 0005
       DESCRIPTION "Tests for UPnPsdk programs"
       HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -131,6 +131,19 @@ target_link_libraries(test_strintmap-ush
     PRIVATE UPnPsdk_shared
 )
 add_test(NAME ctest_strintmap-ush COMMAND test_strintmap-ush --gtest_shuffle
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
+)
+
+
+# netadapter
+# ==========
+add_executable(test_netadapter-ush
+    test_netadapter.cpp
+)
+target_link_libraries(test_netadapter-ush
+    PRIVATE UPnPsdk_shared
+)
+add_test(NAME ctest_netadapter-ush COMMAND test_netadapter-ush --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 

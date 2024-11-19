@@ -1,13 +1,13 @@
 #ifndef UPnPsdk_WIN32_NETIFINFO_HPP
 #define UPnPsdk_WIN32_NETIFINFO_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-19
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
  */
 
-#include <UPnPsdk/netadapter.hpp>
+#include <UPnPsdk/netadapter_if.hpp>
 
 
 namespace UPnPsdk {
@@ -17,13 +17,23 @@ namespace UPnPsdk {
  *
  * For details look at INetadapter
  */
-class CNetadapter : public INetadapter {
+class UPnPsdk_API CNetadapter : public INetadapter {
   public:
     // Constructor
     CNetadapter();
 
     // Destructor
     virtual ~CNetadapter();
+
+    // Copy constructor
+    // We cannot use the default copy constructor because there is also
+    // allocated memory for the ifaddrs structure to copy. We get segfaults
+    // and program aborts. This class is not used to copy the object.
+    CNetadapter(const CNetadapter&) = delete;
+
+    // Copy assignment operator
+    // Same as with the copy constructor.
+    CNetadapter& operator=(CNetadapter) = delete;
 
     /*! \name Setter
      * *************
