@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-23
 /*!
  * \file
  * \brief Manage information from different platforms about network adapters.
@@ -25,16 +25,16 @@ namespace UPnPsdk {
  * \ingroup upnplib-addrmodul
  * \code
  * // Usage (polymorphism) e.g.:
- * CNetadapter netadapterObj; // Instantiate object
+ * CNetadapter netadapterObj;          // Instantiate object
  * INetadapter& nadObj{netadapterObj}; // reference C++ interface
  * try {
  *     nadObj.load();
  * } catch(xcp) { handle_error(); };
- * SSockaddr saddrObj;
+ * SSockaddr saObj;
  * do {
  *     std::cout << "adapter name is " << nadObj.name() << '\n';
- *     saddrObj = nadObj.sockaddr();
- *     std::cout << "adapter address is " << saddrObj.netaddr() << '\n';
+ *     saObj = nadObj.sockaddr();
+ *     std::cout << "adapter address is " << saObj.netaddr() << '\n';
  * } while (nadObj.get_next());
  * \endcode
  *

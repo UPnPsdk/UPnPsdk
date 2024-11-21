@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_UNIX_NETIFINFO_HPP
 #define UPnPsdk_UNIX_NETIFINFO_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-19
+// Redistribution only with this Copyright remark. Last modified: 2024-11-21
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -54,7 +54,12 @@ class UPnPsdk_API CNetadapter : public INetadapter {
     /// @} Getter
 
   private:
+    // Pointer to the first network adapter structure. This pointer must not be
+    // modified because it is needed to free the allocated memory space for the
+    // adapter list.
     ifaddrs* m_ifa_first{nullptr};
+
+    // Pointer to the current network adapter in work.
     ifaddrs* m_ifa_current{nullptr};
 
     void free_ifaddrs() noexcept;

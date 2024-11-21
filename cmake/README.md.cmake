@@ -1,3 +1,9 @@
+<!--
+!!! ATTENTION !!!
+Don't edit file README.md. It will be overwritten by cmake/README.md.cmake and
+your work is lost on next CMake configuration. Only edit cmake/README.md.cmake.
+
+-->
 # The UPnP+™ Software Development Kit
 **Under development!**
 
@@ -21,12 +27,12 @@ The following general goals are in progress or planned:
 - Development for old **pupnp** code is not supported. No header files for **pupnp** are provided, only for the **UPnPsdk**.
 - Large-file support on 32 bit architectures is always enabled. Disabling **lfs** is not supported.
 
-## 2. Technical Documentation
+## 3. Technical Documentation
 Here you can find the [Technical Documentation](https://upnpsdk.github.io/UPnPsdk/).<br/>
 If you want to be compatible with the classic pUPnP library here you find the <a href="https://upnpsdk.github.io/UPnPsdk/d9/d54/group__compaAPI.html">Compatible API</a>.
 To use the new written object oriented part of the library here you find its <a href="https://upnpsdk.github.io/UPnPsdk/d6/d14/group__upnplibAPI.html">UPnPsdk API</a>.
 
-## 3. Version numbering
+## 4. Version numbering
 We follow the [Semantic Versioning](https://semver.org/spec/v2.0.0.html#semantic-versioning-200). In short it defines
 - MAJOR version when you make incompatible API changes,
 - MINOR version when you add or modify functionality in a backwards compatible manner, and
@@ -36,7 +42,7 @@ The UPnPsdk version starts with 0.1.0. Major version 0 means it's not a producti
 
 This fork is based on [release-$CACHE{PUPNP_VERSION}](https://github.com/pupnp/pupnp/releases/tag/release-$CACHE{PUPNP_VERSION}) of the pupnp library.
 
-## 4. Milestones
+## 5. Milestones
 - Ongoing: create extensive Unit Tests without modification of the old source code
 - Ongoing: define C++ interfaces for the API
 - Ongoing: change old C program to C++ objects but preserve drop in compatibility
@@ -58,7 +64,7 @@ This fork is based on [release-$CACHE{PUPNP_VERSION}](https://github.com/pupnp/p
 These names are also the names of the CMake subprojects.
 -->
 
-## 5. Build Instructions
+## 6. Build Instructions
 You need to have `git` installed. On Microsoft Windows you must "Enable symbolic links" when asked for "Configuring extra options" while running the <a href="https://git-scm.com/downloads/win">git installation program</a>. Then just clone this repository:
 
     ~$ git clone https://github.com/UPnPsdk/UPnPsdk.git UPnPsdk-project/
@@ -68,7 +74,7 @@ You are now in the relative root directory of the program source tree. On Micros
 
 All project directory references are relative to its root directory (CMAKE_SOURCE_DIR) that is `UPnPsdk-project/` if you haven't used another directory name with the clone command above. If in daubt with file access or with executing you should first ensure that you are in the projects root directory.
 
-### 5.1. Linux and MacOS build
+### 6.1. Linux and MacOS build
 Be in the projects root directory. First configure:
 
     UPnPsdk-project$ cmake -S . -B build/
@@ -114,7 +120,7 @@ Little helper:
 
 If you like you can backup the files <code>build/install_manifest*.txt</code> for later uninstallation without build/ directory.
 
-### 5.2. Microsoft Windows build
+### 6.2. Microsoft Windows build
 The development of this UPnP Software Development Kit has started on Linux. So for historical reasons it uses POSIX threads (pthreads) as specified by [The Open Group](http://get.posixcertified.ieee.org/certification_guide.html). Unfortunately Microsoft Windows does not support it so we have to use a third party library. I use the well known and well supported [pthreads4w library](https://sourceforge.net/p/pthreads4w). It will be downloaded on Microsoft Windows and compiled with building the project and should do out of the box.
 
 To build the UPnPsdk you need a Developer Command Prompt. How to install it is out of scope of this description. Microsoft has good documentation about it. You can find it at [Use the Microsoft C++ toolset from the command line](https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=msvc-170). For example this is the prompt I used (example, maybe outdated):
@@ -171,7 +177,7 @@ Little helper:
 
 If you need more details about installation of POSIX threads on Microsoft Windows I have made an example at [github pthreadsWinLin](https://github.com/upnplib/pthreadsWinLin.git).
 
-### 5.3 OpenSSL
+### 6.3 OpenSSL
 UPnPsdk uses [OpenSSL](https://www.openssl.org/) by default if it is supported by the underlaying operating system. You have always the option to [build OpenSSL from the sources](https://openssl-library.org/source/index.html). But nearly all distributions for Unix like platforms support OpenSSL out of the box or have it available in their program repositories ready to install. Unfortunately Microsoft Windows does not support OpenSSL. You may use the build-from-source option or you look for a third party that provide pre compiled binaries for installation. For example I use the [Win32/Win64 OpenSSL Installation](https://slproweb.com/products/Win32OpenSSL.html) from Shining Light Productions. With this installer I need to tell Windows where to find it after installation. The usual way is to add the program location to the PATH environment variable that would be in my case `"C:/Program Files/OpenSSL-Win64"`. Look for the right place on your system. This makes OpenSSL available on the whole system. But I prefer to modify the environment of the platform as less as possible. So I only use the option `"-D OPENSSL_ROOT_DIR"` that CMake understands, for example:
 
     cmake -S . -B build -A x64 -D OPENSSL_ROOT_DIR="C:/Program Files/OpenSSL-Win64"
@@ -203,4 +209,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo\@Hoeft-online.de>
-Redistribution only with this Copyright remark. Last modified: 2024-11-19</pre>
+Redistribution only with this Copyright remark. Last modified: 2024-11-20</pre>

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-19
+// Redistribution only with this Copyright remark. Last modified: 2024-11-23
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -219,7 +219,7 @@ TEST_F(UpnpapiIPv4MockTestSuite, initialize_default_UpnpInit2) {
         .WillOnce(DoAll(SetArgPointee<3>(*adapts), Return(ERROR_SUCCESS)));
 
     // Initialize capturing of the stderr output
-    CaptureStdOutErr captureObj(STDERR_FILENO);
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
 
     // Test Unit

@@ -166,7 +166,7 @@ $(document).ready(function(){initNavTree('dc/db4/netadapter__unix_8cpp_source.ht
 </div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#if 0</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">// I code IP Version-Independent, so this method is not provided.</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">// Due to RFC4038 I code IP Version-Independent, so this method is not provided.</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">//</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>sa_family_t CNetadapter::in_family() { <span class="comment">// noexcept</span></div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing in_family()&quot;</span>)</div>
@@ -180,14 +180,14 @@ $(document).ready(function(){initNavTree('dc/db4/netadapter__unix_8cpp_source.ht
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a3b73ef751eadba5a8f78253cbcf9418f">   78</a></span><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> <a class="code hl_function" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a3b73ef751eadba5a8f78253cbcf9418f">CNetadapter::sockaddr</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment">// TRACE maybe not usable with chained output.</span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing sockaddr()&quot;</span>)</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saddr;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saddrObj;</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">if</span> (m_ifa_current != <span class="keyword">nullptr</span>) {</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="comment">// Copy address of the network adapter</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        memcpy(&amp;saddr.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>,</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        memcpy(&amp;saddrObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>,</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>               <span class="keyword">reinterpret_cast&lt;</span>sockaddr_storage*<span class="keyword">&gt;</span>(m_ifa_current-&gt;ifa_addr),</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>               <span class="keyword">sizeof</span>(saddr.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>));</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>               <span class="keyword">sizeof</span>(saddrObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>));</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">return</span> saddr; <span class="comment">// Return as copy</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">return</span> saddrObj; <span class="comment">// Return as copy</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
 </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
@@ -195,14 +195,14 @@ $(document).ready(function(){initNavTree('dc/db4/netadapter__unix_8cpp_source.ht
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#aa0d29b7cc77b44a468f411f8ba4e329e">   91</a></span><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> <a class="code hl_function" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#aa0d29b7cc77b44a468f411f8ba4e329e">CNetadapter::socknetmask</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="comment">// TRACE maybe not usable with chained output.</span></div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing socknetmask()&quot;</span>)</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saddr;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saddrObj;</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">if</span> (m_ifa_current != <span class="keyword">nullptr</span>) {</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="comment">// Copy netmask of the network adapter</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        memcpy(&amp;saddr.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>,</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        memcpy(&amp;saddrObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>,</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>               <span class="keyword">reinterpret_cast&lt;</span>sockaddr_storage*<span class="keyword">&gt;</span>(m_ifa_current-&gt;ifa_netmask),</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>               <span class="keyword">sizeof</span>(saddr.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>));</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>               <span class="keyword">sizeof</span>(saddrObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>));</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">return</span> saddr; <span class="comment">// Return as copy</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">return</span> saddrObj; <span class="comment">// Return as copy</span></div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
 </div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>

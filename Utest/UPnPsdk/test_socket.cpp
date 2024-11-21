@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-23
 
 #include <UPnPsdk/global.hpp>
 #include <UPnPsdk/socket.hpp>
@@ -250,7 +250,7 @@ TEST(SocketBasicTestSuite, instantiate_socket_af_unix_sock_stream) {
     EXPECT_FALSE(sockObj.is_reuse_addr());
 
     bool g_dbug_old = g_dbug;
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     g_dbug = false;
     captureObj.start();
     EXPECT_EQ(sockObj.netaddr(), "");
@@ -878,7 +878,7 @@ TEST(SocketTestSuite, get_addr_str_invalid_address_family) {
 
     // Test Unit
     bool g_dbug_old = g_dbug;
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     g_dbug = false;
     captureObj.start();
     EXPECT_EQ(sockObj.netaddr(), "");

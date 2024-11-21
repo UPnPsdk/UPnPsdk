@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-11-16
+# Redistribution only with this Copyright remark. Last modified: 2024-11-20
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -16,7 +16,7 @@ project(GTESTS_COMPA_API VERSION 0003
 # must use static libraries.
 add_executable(test_upnpdebug-pst
 #--------------------------------
-        ./test_upnpdebug.cpp
+        test_upnpdebug.cpp
 )
 target_include_directories(test_upnpdebug-pst
     PRIVATE ${CMAKE_SOURCE_DIR}
@@ -38,7 +38,7 @@ add_test(NAME ctest_upnpdebug-pst COMMAND test_upnpdebug-pst --gtest_shuffle
 
 add_executable(test_upnpdebug-cst
 #--------------------------------
-        ./test_upnpdebug.cpp
+        test_upnpdebug.cpp
 )
 target_include_directories(test_upnpdebug-cst
     PRIVATE ${CMAKE_SOURCE_DIR}
@@ -57,7 +57,7 @@ add_test(NAME ctest_upnpdebug-cst COMMAND test_upnpdebug-cst --gtest_shuffle
 #==========
 add_executable(test_upnptools-psh
 #--------------------------------
-        ./test_upnptools.cpp
+        test_upnptools.cpp
 )
 target_link_libraries(test_upnptools-psh
     PRIVATE pupnp_shared
@@ -98,7 +98,7 @@ add_test(NAME ctest_UpnpString-csh COMMAND test_UpnpString-csh --gtest_shuffle
 #=============
 add_executable(test_UpnpFileInfo-psh
 #-----------------------------------
-    ./test_UpnpFileInfo.cpp
+    test_UpnpFileInfo.cpp
 )
 target_link_libraries(test_UpnpFileInfo-psh
     PRIVATE pupnp_shared
@@ -109,7 +109,7 @@ add_test(NAME ctest_UpnpFileInfo-psh COMMAND test_UpnpFileInfo-psh --gtest_shuff
 
 add_executable(test_UpnpFileInfo-csh
 #-----------------------------------
-    ./test_UpnpFileInfo.cpp
+    test_UpnpFileInfo.cpp
     ${COMPA_SOURCE_DIR}/src/genlib/util/list.cpp
 )
 target_link_libraries(test_UpnpFileInfo-csh
@@ -128,7 +128,7 @@ add_test(NAME ctest_UpnpFileInfo-csh COMMAND test_UpnpFileInfo-csh --gtest_shuff
 # must use static libraries.
 add_executable(test_upnpapi-pst
 #------------------------------
-    ./test_upnpapi.cpp
+    test_upnpapi.cpp
 )
 target_include_directories(test_upnpapi-pst
     PRIVATE ${CMAKE_SOURCE_DIR}
@@ -151,7 +151,7 @@ add_test(NAME ctest_upnpapi-pst COMMAND test_upnpapi-pst --gtest_shuffle
 
 add_executable(test_upnpapi-cst
 #------------------------------
-    ./test_upnpapi.cpp
+    test_upnpapi.cpp
 )
 target_include_directories(test_upnpapi-cst
     PRIVATE ${CMAKE_SOURCE_DIR}

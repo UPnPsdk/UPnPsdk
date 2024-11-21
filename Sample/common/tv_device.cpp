@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-09
+ * Redistribution only with this Copyright remark. Last modified: 2024-11-23
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1398,7 +1398,7 @@ int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
     // return UPNP_E_SUCCESS; // DEBUG: Uncomment for existing unit test.
 
     SampleUtil_Print("RootDevice Registered, initializing State Table ...\n");
-    // return UPNP_E_INTERNAL_ERROR; // DEBUG!
+    // return UPNP_E_INTERNAL_ERROR; // DEBUG:
     TvDeviceStateTableInit(desc_doc_url);
     SampleUtil_Print("State Table Initialized.\n");
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-07
+// Redistribution only with this Copyright remark. Last modified: 2024-11-23
 
 #include <upnp.hpp>
 #include <sock.hpp>
@@ -136,7 +136,7 @@ TEST(SockTestSuite, libssl_connection_error_handling) {
 #endif
 
     // There are no errors reported from ssl
-    CaptureStdOutErr stdErr(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr stdErr(UPnPsdk::log_fileno);
     stdErr.start();
     ERR_print_errors_fp(stderr);
     EXPECT_EQ(stdErr.str(), "");

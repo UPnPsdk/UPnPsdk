@@ -148,16 +148,16 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manage information from different platforms about network adapters. </p>
 <div class="fragment"><div class="line"><span class="comment">// Usage (polymorphism) e.g.:</span></div>
-<div class="line"><a class="code hl_class" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">CNetadapter</a> netadapterObj; <span class="comment">// Instantiate object</span></div>
+<div class="line"><a class="code hl_class" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">CNetadapter</a> netadapterObj;          <span class="comment">// Instantiate object</span></div>
 <div class="line"><a class="code hl_class" href="../../d6/d3e/classUPnPsdk_1_1INetadapter.html">INetadapter</a>&amp; nadObj{netadapterObj}; <span class="comment">// reference C++ interface</span></div>
 <div class="line"><span class="keywordflow">try</span> {</div>
 <div class="line">    nadObj.<a class="code hl_function" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab8fbe2431258e685469cb9f52f8d9d09">load</a>();</div>
 <div class="line">} <span class="keywordflow">catch</span>(xcp) { handle_error(); };</div>
-<div class="line">SSockaddr saddrObj;</div>
+<div class="line">SSockaddr saObj;</div>
 <div class="line"><span class="keywordflow">do</span> {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;adapter name is &quot;</span> &lt;&lt; nadObj.name() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line">    saddrObj = nadObj.sockaddr();</div>
-<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;adapter address is &quot;</span> &lt;&lt; saddrObj.netaddr() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line">    saObj = nadObj.sockaddr();</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;adapter address is &quot;</span> &lt;&lt; saObj.netaddr() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">} <span class="keywordflow">while</span> (nadObj.get_next());</div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">UPnPsdk::CNetadapter</a></div><div class="ttdoc">Manage information from Unix like platforms about network adapters.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/de3/unix_2UPnPsdk_2netadapter_8hpp_source.html#l00023">netadapter.hpp:23</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_ab8fbe2431258e685469cb9f52f8d9d09"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab8fbe2431258e685469cb9f52f8d9d09">UPnPsdk::CNetadapter::load</a></div><div class="ttdeci">void load() override</div><div class="ttdoc">Load object with local network adapter information from operating system.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/db4/netadapter__unix_8cpp_source.html#l00027">netadapter_unix.cpp:27</a></div></div>

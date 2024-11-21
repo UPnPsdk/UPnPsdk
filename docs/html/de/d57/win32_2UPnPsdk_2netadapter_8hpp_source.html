@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('de/d57/win32_2UPnPsdk_2netadapter_8hpp
 <a href="../../de/d57/win32_2UPnPsdk_2netadapter_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef UPnPsdk_WIN32_NETIFINFO_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define UPnPsdk_WIN32_NETIFINFO_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-11-19</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-11-22</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d9/d8b/netadapter__if_8hpp.html">UPnPsdk/netadapter_if.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
@@ -133,11 +133,27 @@ $(document).ready(function(){initNavTree('de/d57/win32_2UPnPsdk_2netadapter_8hpp
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a49e9507739b7420d9733c1e53e79c7a0">   48</a></span>    std::string <a class="code hl_function" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a49e9507739b7420d9733c1e53e79c7a0">name</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a3b73ef751eadba5a8f78253cbcf9418f">   49</a></span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> <a class="code hl_function" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a3b73ef751eadba5a8f78253cbcf9418f">sockaddr</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#aa0d29b7cc77b44a468f411f8ba4e329e">   50</a></span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> <a class="code hl_function" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#aa0d29b7cc77b44a468f411f8ba4e329e">socknetmask</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace UPnPsdk</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#endif </span><span class="comment">// UPnPsdk_WIN32_NETIFINFO_HPP</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// Pointer to the first network adapter structure. This pointer must not be</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// modified because it is needed to free the allocated memory space for the</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// adapter list.</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    ::PIP_ADAPTER_ADDRESSES m_adapt_first{<span class="keyword">nullptr</span>};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">// Pointer to the current network adapter in work. It will be set to Next</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// when its IP addresses are parsed.</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    ::PIP_ADAPTER_ADDRESSES m_adapt_current{<span class="keyword">nullptr</span>};</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="comment">// Pointer to the current IP address in work of a network adapter. It will</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="comment">// be set to Next by parsing the address list.</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    ::PIP_ADAPTER_UNICAST_ADDRESS_LH m_unicastaddr_current{<span class="keyword">nullptr</span>};</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">void</span> free_adaptaddrs() noexcept;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>} <span class="comment">// namespace UPnPsdk</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#endif </span><span class="comment">// UPnPsdk_WIN32_NETIFINFO_HPP</span></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_a3b73ef751eadba5a8f78253cbcf9418f"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a3b73ef751eadba5a8f78253cbcf9418f">UPnPsdk::CNetadapter::sockaddr</a></div><div class="ttdeci">SSockaddr sockaddr() const override</div><div class="ttdoc">Get socket address Object from current selected list entry.</div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_a49e9507739b7420d9733c1e53e79c7a0"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a49e9507739b7420d9733c1e53e79c7a0">UPnPsdk::CNetadapter::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">Get network adapter name from current selected list entry.</div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_a7e1ec7d023efe29d172f1cc6f4308c11"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a7e1ec7d023efe29d172f1cc6f4308c11">UPnPsdk::CNetadapter::get_next</a></div><div class="ttdeci">bool get_next() override</div><div class="ttdoc">Get next entry from loaded network adapter list.</div></div>

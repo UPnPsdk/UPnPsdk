@@ -65,7 +65,7 @@ std::string CNetadapter::name() const {
 }
 
 #if 0
-// I code IP Version-Independent, so this method is not provided.
+// Due to RFC4038 I code IP Version-Independent, so this method is not provided.
 //
 sa_family_t CNetadapter::in_family() { // noexcept
     TRACE2(this, " Executing in_family()")
@@ -78,27 +78,27 @@ sa_family_t CNetadapter::in_family() { // noexcept
 SSockaddr CNetadapter::sockaddr() const {
     // TRACE maybe not usable with chained output.
     TRACE2(this, " Executing sockaddr()")
-    SSockaddr saddr;
+    SSockaddr saddrObj;
     if (m_ifa_current != nullptr) {
         // Copy address of the network adapter
-        memcpy(&saddr.ss,
+        memcpy(&saddrObj.ss,
                reinterpret_cast<sockaddr_storage*>(m_ifa_current->ifa_addr),
-               sizeof(saddr.ss));
+               sizeof(saddrObj.ss));
     }
-    return saddr; // Return as copy
+    return saddrObj; // Return as copy
 }
 
 SSockaddr CNetadapter::socknetmask() const {
     // TRACE maybe not usable with chained output.
     TRACE2(this, " Executing socknetmask()")
-    SSockaddr saddr;
+    SSockaddr saddrObj;
     if (m_ifa_current != nullptr) {
         // Copy netmask of the network adapter
-        memcpy(&saddr.ss,
+        memcpy(&saddrObj.ss,
                reinterpret_cast<sockaddr_storage*>(m_ifa_current->ifa_netmask),
-               sizeof(saddr.ss));
+               sizeof(saddrObj.ss));
     }
-    return saddr; // Return as copy
+    return saddrObj; // Return as copy
 }
 
 

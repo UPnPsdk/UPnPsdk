@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-13
+// Redistribution only with this Copyright remark. Last modified: 2024-11-23
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
@@ -482,7 +482,7 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
 
     saddr.ss.ss_family = AF_UNIX;
     bool g_dbug_old = g_dbug;
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     g_dbug = false;
     captureObj.start();
     EXPECT_EQ(to_netaddr(&saddr.ss), "");
@@ -523,7 +523,7 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_port_string) {
 
     saddr.ss.ss_family = AF_UNIX;
     bool g_dbug_old = g_dbug;
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     g_dbug = false;
     captureObj.start();
     EXPECT_EQ(to_netaddrp(&saddr.ss), "");

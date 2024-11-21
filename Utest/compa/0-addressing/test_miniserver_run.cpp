@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-03
+// Redistribution only with this Copyright remark. Last modified: 2024-11-23
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -291,7 +291,7 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_select_fails_with_no_memory) {
     }
 
     // Capture output to stderr
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
 
     // Test Unit
@@ -443,7 +443,7 @@ TEST_F(RunMiniServerMockFTestSuite, fdset_if_valid_fails) {
 
     // Capture output to stderr
     bool dbug_old = g_dbug;
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
 
     if (old_code) {
 
@@ -633,7 +633,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_not_selected) {
     // This should not call recvfrom() and is guarded by StrictMock<>.
 
     // Capture output to stderr
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     bool dbug_old = g_dbug;
 
     // Test Unit should silently nothing have received.
@@ -840,7 +840,7 @@ TEST_F(RunMiniServerMockFTestSuite, ssdp_read_successful) {
                         Return((SSIZEP_T)sizeof(ssdpdata_str))));
 
     // Capture output to stderr
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
 
     // Test Unit
@@ -896,7 +896,7 @@ TEST_F(RunMiniServerMockFTestSuite, ssdp_read_fails) {
         .WillOnce(SetErrnoAndReturn(EINVAL, SOCKET_ERROR));
 
     // Capture output to stderr
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
 
     // Test Unit
@@ -938,7 +938,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_successful) {
     // Capture output to stderr
     CLogging logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
 
     // Test Unit
@@ -977,7 +977,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_invalid_socket) {
     // Capture output to stderr
     CLogging logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
 
     // Test Unit
@@ -1039,7 +1039,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_empty_set) {
     // Capture output to stderr
     CLogging logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
 
     // Test Unit
@@ -1077,7 +1077,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_fails) {
     // Capture output to stderr
     CLogging logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
 
     // Test Unit
@@ -1158,7 +1158,7 @@ TEST_F(RunMiniServerMockFTestSuite,
 #endif
 
     // Capture output to stderr
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
 
     // Test Unit
@@ -1210,7 +1210,7 @@ TEST_F(RunMiniServerMockFTestSuite,
             .WillOnce(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
 
         // Capture output to stderr
-        CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+        CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
         captureObj.start();
 
         // Test Unit
@@ -1242,7 +1242,7 @@ TEST_F(RunMiniServerMockFTestSuite,
             .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
 
         // Capture output to stderr
-        CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+        CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
         bool g_dbug_old = g_dbug;
 
         // Test Unit
@@ -1290,7 +1290,7 @@ TEST(RunMiniServerTestSuite, schedule_request_job) {
     // Capture output to stderr
     CLogging logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
-    CaptureStdOutErr captureObj(STDERR_FILENO); // or STDOUT_FILENO
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
 
     // Test Unit

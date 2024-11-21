@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-11-23
 
 #include <UPnPsdk/netaddr.hpp>
 
@@ -26,7 +26,7 @@ TEST(NetaddrTestSuite, netaddr_successful) {
     Netaddr napObj = aiObj.netaddr();
     EXPECT_EQ(napObj.str(), "[2001:db8::1]:61234");
 
-    // CaptureStdOutErr captureObj(STDOUT_FILENO); // or STDERR_FILENO
+    // CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     // captureObj.start();
 
     // Test Unit output stream
