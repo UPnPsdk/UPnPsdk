@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('d7/def/sockaddr_8cpp.html','../../'); 
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">UPnPsdk/sockaddr.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d9/d3a/global_8hpp_source.html">UPnPsdk/global.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d1/d3b/synclog_8hpp_source.html">UPnPsdk/synclog.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d1/d2b/netaddr_8hpp_source.html">UPnPsdk/netaddr.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">UPnPsdk/addrinfo.hpp</a>&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for sockaddr.cpp:</div>
@@ -118,37 +118,34 @@ $(document).ready(function(){initNavTree('d7/def/sockaddr_8cpp.html','../../'); 
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d5d/sockaddr_8cpp__incl.png" border="0" usemap="#aUPnPsdk_2src_2net_2sockaddr_8cpp" alt=""/></div>
 <map name="aUPnPsdk_2src_2net_2sockaddr_8cpp" id="aUPnPsdk_2src_2net_2sockaddr_8cpp">
-<area shape="rect" title="Definition of the Sockaddr class and some free helper functions." alt="" coords="165,5,380,31"/>
-<area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="302,225,470,251"/>
-<area shape="poly" title=" " alt="" coords="274,31,275,96,283,137,300,176,321,199,347,217,344,221,318,203,296,179,278,139,270,97,269,31"/>
-<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="5,299,156,324"/>
-<area shape="poly" title=" " alt="" coords="262,33,188,109,144,165,106,227,94,256,87,286,82,284,89,255,101,224,139,162,184,106,258,29"/>
-<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="116,225,277,251"/>
-<area shape="poly" title=" " alt="" coords="271,32,208,213,203,211,266,30"/>
-<area shape="rect" href="../../d1/d2b/netaddr_8hpp.html" title="Declaration of the Netaddr class." alt="" coords="366,79,526,104"/>
-<area shape="poly" title=" " alt="" coords="302,28,406,71,404,76,300,33"/>
-<area shape="rect" title=" " alt="" coords="550,79,617,104"/>
-<area shape="poly" title=" " alt="" coords="326,28,537,76,536,81,325,33"/>
-<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="133,445,298,471"/>
-<area shape="poly" title=" " alt="" coords="379,253,323,326,235,436,231,433,319,322,375,249"/>
-<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="388,299,525,324"/>
-<area shape="poly" title=" " alt="" coords="400,249,438,287,434,291,396,253"/>
-<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="551,299,725,324"/>
-<area shape="poly" title=" " alt="" coords="427,248,585,292,583,297,426,253"/>
-<area shape="rect" href="../../d6/d66/global_8ipp.html" title="Global used constants, variables, functions and macros." alt="" coords="87,372,234,397"/>
-<area shape="poly" title=" " alt="" coords="95,322,139,361,136,365,92,326"/>
-<area shape="poly" title=" " alt="" coords="172,396,200,433,196,436,168,399"/>
-<area shape="poly" title=" " alt="" coords="179,253,113,294,110,289,177,248"/>
-<area shape="rect" title=" " alt="" coords="181,299,309,324"/>
-<area shape="poly" title=" " alt="" coords="207,250,232,286,227,289,202,253"/>
-<area shape="poly" title=" " alt="" coords="456,103,468,125,478,151,489,201,485,251,472,287,467,286,479,250,484,201,473,153,463,127,451,106"/>
-<area shape="poly" title=" " alt="" coords="527,101,574,119,596,133,615,150,633,183,642,219,645,255,644,285,639,285,640,255,637,220,628,185,611,154,593,137,572,123,525,106"/>
-<area shape="rect" href="../../da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="311,152,464,177"/>
-<area shape="poly" title=" " alt="" coords="438,106,407,143,403,140,434,103"/>
-<area shape="rect" title=" " alt="" coords="542,152,601,177"/>
-<area shape="poly" title=" " alt="" coords="467,102,540,143,538,147,465,106"/>
-<area shape="poly" title=" " alt="" coords="390,178,389,212,384,212,384,178"/>
-<area shape="poly" title=" " alt="" coords="358,180,242,223,240,218,356,175"/>
+<area shape="rect" title="Definition of the Sockaddr class and some free helper functions." alt="" coords="353,5,568,31"/>
+<area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="377,79,545,104"/>
+<area shape="poly" title=" " alt="" coords="463,31,463,65,458,65,458,31"/>
+<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="5,152,156,177"/>
+<area shape="poly" title=" " alt="" coords="353,25,304,31,252,42,201,58,153,81,120,110,96,142,91,139,116,106,150,76,199,53,251,37,303,26,353,20"/>
+<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="164,79,325,104"/>
+<area shape="poly" title=" " alt="" coords="427,33,293,77,292,72,425,28"/>
+<area shape="rect" href="../../d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="569,79,734,104"/>
+<area shape="poly" title=" " alt="" coords="492,28,608,71,606,76,490,33"/>
+<area shape="rect" title=" " alt="" coords="758,79,825,104"/>
+<area shape="poly" title=" " alt="" coords="519,28,745,76,744,81,518,33"/>
+<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="263,299,429,324"/>
+<area shape="poly" title=" " alt="" coords="434,106,401,125,386,138,374,153,358,186,350,222,347,285,341,285,345,221,353,185,369,151,382,135,398,121,431,102"/>
+<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="583,152,720,177"/>
+<area shape="poly" title=" " alt="" coords="492,102,608,144,606,149,490,107"/>
+<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="384,152,559,177"/>
+<area shape="poly" title=" " alt="" coords="465,104,470,138,465,139,460,105"/>
+<area shape="rect" href="../../d6/d66/global_8ipp.html" title="Global used constants, variables, functions and macros." alt="" coords="85,225,231,251"/>
+<area shape="poly" title=" " alt="" coords="95,175,137,214,133,218,91,179"/>
+<area shape="poly" title=" " alt="" coords="189,248,303,291,302,296,187,253"/>
+<area shape="poly" title=" " alt="" coords="219,106,121,149,119,144,217,102"/>
+<area shape="rect" title=" " alt="" coords="181,152,309,177"/>
+<area shape="poly" title=" " alt="" coords="247,104,247,138,242,138,242,104"/>
+<area shape="poly" title=" " alt="" coords="726,101,768,113,804,128,817,138,824,150,825,164,817,179,793,201,757,221,711,239,659,254,547,281,442,299,442,294,546,275,658,249,709,234,754,216,790,197,813,176,820,163,819,152,813,142,801,133,766,118,724,107"/>
+<area shape="poly" title=" " alt="" coords="654,104,654,138,649,138,649,104"/>
+<area shape="poly" title=" " alt="" coords="623,107,514,149,512,144,621,102"/>
+<area shape="rect" title=" " alt="" coords="745,152,803,177"/>
+<area shape="poly" title=" " alt="" coords="672,102,744,143,741,147,670,106"/>
 </map>
 </div>
 </div>

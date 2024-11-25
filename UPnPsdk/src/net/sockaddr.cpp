@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-08
+// Redistribution only with this Copyright remark. Last modified: 2024-11-29
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -8,7 +8,6 @@
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/global.hpp>
 #include <UPnPsdk/synclog.hpp>
-#include <UPnPsdk/netaddr.hpp>
 #include <cstring>
 
 namespace UPnPsdk {
@@ -158,6 +157,33 @@ bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
 }
 
 } // anonymous namespace
+
+
+// Free function to check if a string is a valid port number
+// ---------------------------------------------------------
+int is_numport(const std::string& a_port_str) noexcept {
+    TRACE("Executing is_numport() with port=\"" + a_port_str + "\"")
+
+    // Only non empty strings. I have to check this to avoid exception.
+    if (a_port_str.empty())
+        return -1;
+
+    // Now we check if the string are all digit characters
+    for (char ch : a_port_str) {
+        if (!std::isdigit(static_cast<unsigned char>(ch)))
+            return -1;
+    }
+
+    // Only strings with max. 5 char may be valid (uint16_t has max. 65535)
+    if (a_port_str.length() > 5)
+        return 1;
+
+    // Valid positive number but is it within the port range (uint16_t)?
+    // stoi may throw std::invalid_argument if no conversion could be
+    // performed or std::out_of_range. But with the prechecked number string
+    // this should never be thrown.
+    return (std::stoi(a_port_str) <= 65535) ? 0 : 1;
+}
 
 
 // Free function to get the address string with port from a sockaddr structure
@@ -364,5 +390,14 @@ void SSockaddr::handle_ipv4(const std::string& a_addr_str) {
     }
     ss.ss_family = AF_INET;
 }
+
+/// \cond
+// Getter of the netaddress to output stream
+// -----------------------------------------
+std::ostream& operator<<(std::ostream& os, SSockaddr& saddr) {
+    os << saddr.netaddrp();
+    return os;
+}
+/// \endcond
 
 } // namespace UPnPsdk

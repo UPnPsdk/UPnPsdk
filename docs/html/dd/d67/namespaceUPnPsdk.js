@@ -1,5 +1,8 @@
 var namespaceUPnPsdk =
 [
+    [ "anonymous_namespace{addrinfo.cpp}", "d4/d95/namespaceUPnPsdk_1_1anonymous__namespace_02addrinfo_8cpp_03.html", [
+      [ "is_netaddr", "d0/dd8/group__upnplib-addrmodul.html#ga76c078aa318c21d4b490c529e1abba5d", null ]
+    ] ],
     [ "anonymous_namespace{global.cpp}", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03.html", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03" ],
     [ "anonymous_namespace{netadapter_win32.cpp}", "d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html", [
       [ "bitnum_to_netmask", "d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html#a81650637c3cc2fe6e9c523d5cfe4c067", null ]
@@ -22,7 +25,6 @@ var namespaceUPnPsdk =
     [ "CUri", "da/dcf/classUPnPsdk_1_1CUri.html", "da/dcf/classUPnPsdk_1_1CUri" ],
     [ "Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", "dd/d67/namespaceUPnPsdk_db/dfe/structUPnPsdk_1_1Document__meta_dup" ],
     [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", "d6/d3e/classUPnPsdk_1_1INetadapter" ],
-    [ "Netaddr", "dd/d03/classUPnPsdk_1_1Netaddr.html", "dd/d03/classUPnPsdk_1_1Netaddr" ],
     [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
     [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", "dc/df7/structUPnPsdk_1_1SSockaddr" ],
     [ "str_int_entry", "dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry", "dd/d67/namespaceUPnPsdk_de/dd6/structUPnPsdk_1_1str__int__entry_dup" ],
@@ -48,9 +50,9 @@ var namespaceUPnPsdk =
       [ "SOAPMETHOD_POST", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60af36f6651a84f4a8ff85fa2cecc25505c", null ],
       [ "HTTPMETHOD_SIMPLEGET", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60ad9d286da9f9dc214d6ec88ab465d42f2", null ]
     ] ],
-    [ "is_netaddr", "d0/dd8/group__upnplib-addrmodul.html#gaab5fd951995d3ce8a5e49936b35cf536", null ],
     [ "is_numport", "d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0", null ],
     [ "to_netaddrp", "d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997", null ],
+    [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga97def93cf54b1e9cd5a59c4c9c0dca55", null ],
     [ "errStr", "dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588", null ],
     [ "errStrEx", "dd/d67/namespaceUPnPsdk.html#a6fe628907cafd576019aa9d1e3d88b87", null ],
     [ "select_filetype", "dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7", null ],

@@ -35,7 +35,6 @@ var annotated_dup =
       [ "CUri", "da/dcf/classUPnPsdk_1_1CUri.html", "da/dcf/classUPnPsdk_1_1CUri" ],
       [ "Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", "dd/d67/namespaceUPnPsdk_db/dfe/structUPnPsdk_1_1Document__meta_dup" ],
       [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", "d6/d3e/classUPnPsdk_1_1INetadapter" ],
-      [ "Netaddr", "dd/d03/classUPnPsdk_1_1Netaddr.html", "dd/d03/classUPnPsdk_1_1Netaddr" ],
       [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
       [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", "dc/df7/structUPnPsdk_1_1SSockaddr" ],
       [ "str_int_entry", "dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry", "dd/d67/namespaceUPnPsdk_de/dd6/structUPnPsdk_1_1str__int__entry_dup" ]

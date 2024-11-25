@@ -1,16 +1,116 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-08
+// Redistribution only with this Copyright remark. Last modified: 2024-11-28
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
  */
 
 #include <UPnPsdk/addrinfo.hpp>
+#include <UPnPsdk/synclog.hpp>
+#include <UPnPsdk/sockaddr.hpp>
 
 #include <umock/netdb.hpp>
 #include <cstring>
 
 namespace UPnPsdk {
+
+namespace {
+
+// Free function to check for a netaddress without port
+// ----------------------------------------------------
+/*! \brief Check for a [netaddress](\ref glossary_netaddr) and return its
+ * address family
+ * \ingroup upnplib-addrmodul
+ * \code
+ * // Usage e.g.:
+ * if (is_netaddr("[2001:db8::1]") != AF_UNSPEC) { manage_given_netaddress(); }
+ * if (is_netaddr("[2001:db8::1]", AF_INET) == AF_INET) { // nothing to do }
+ * if (is_netaddr("[fe80::1%2]") == AF_INET6) { manage_link_local_addr(); }
+ * \endcode
+ *
+ * Checks if a string is a netaddress without port and returns its address
+ * family.
+ *
+ * \returns
+ *  On success: Address family AF_INET6 or AF_INET the address belongs to\n
+ *  On error: AF_UNSPEC, the address is alphanumeric (maybe a DNS name?)
+ */
+// I use the system function ::getaddrinfo() to check if the node string is
+// acceptable. Using ::getaddrinfo() is needed to cover all special address
+// features like scope id for link local addresses, Internationalized Domain
+// Names, and so on.
+sa_family_t is_netaddr(
+    /// [in] string to check for a netaddress.
+    const std::string& a_node,
+    /// [in] optional: AF_INET6 or AF_INET to preset the address family to look
+    /// for.
+    const int a_addr_family = AF_UNSPEC) noexcept {
+    // clang-format off
+    TRACE("Executing is_netaddr(\"" + a_node + "\", " +
+          (a_addr_family == AF_INET6 ? "AF_INET6" :
+          (a_addr_family == AF_INET ? "AF_INET" :
+          (a_addr_family == AF_UNSPEC ? "AF_UNSPEC" :
+          std::to_string(a_addr_family)))) + ")")
+    // clang-format on
+
+    // The shortest numeric netaddress string is "[::]".
+    if (a_node.size() < 4) { // noexcept
+        return AF_UNSPEC;
+    }
+
+    // Provide resources for ::getaddrinfo()
+    // AI_NUMERICHOST ensures that only numeric addresses accepted.
+    std::string node;
+    ::addrinfo hints{};
+    hints.ai_flags = AI_NUMERICHOST;
+    hints.ai_family = a_addr_family;
+    ::addrinfo* res{nullptr};
+
+    // Check for ipv6 addresses and remove surounding brackets for
+    // ::getaddrinfo().
+    // front() and back() have undefined behavior with an empty string. Here
+    // its size() is at least 4. Substr() throws exception out of range if pos
+    // > size(). All this means that we cannot get an exception here.
+    if (a_node.front() == '[' && a_node.back() == ']' &&
+        (a_addr_family == AF_UNSPEC || a_addr_family == AF_INET6)) {
+        node = a_node.substr(1, a_node.length() - 2);
+        hints.ai_family = AF_INET6;
+
+    } else if (a_node.find_first_of(":") != std::string::npos) {
+        // Ipv6 addresses are already checked and here are only ipv4 addresses
+        // and URL names possible. Both are not valid if they contain a colon.
+        // find_first_of() does not throw an exception.
+        return AF_UNSPEC;
+
+    } else {
+        node = a_node;
+    }
+
+    // Call ::getaddrinfo() to check the remaining node string.
+    int rc = umock::netdb_h.getaddrinfo(node.c_str(), nullptr, &hints, &res);
+    TRACE2("syscall ::getaddrinfo() with res = ", res)
+    if (rc != 0) {
+        TRACE2("syscall ::freeaddrinfo() with res = ", res)
+        umock::netdb_h.freeaddrinfo(res);
+        UPnPsdk_LOGINFO "MSG1116: syscall ::getaddrinfo(\""
+            << node.c_str() << "\", nullptr, " << &hints << ", " << &res
+            << "), (" << rc << ") " << gai_strerror(rc) << '\n';
+        return AF_UNSPEC;
+    }
+
+    int af_family = res->ai_family;
+    TRACE2("syscall ::freeaddrinfo() with res = ", res)
+    umock::netdb_h.freeaddrinfo(res);
+    // Guard different types on different platforms (win32); need to cast to
+    // af_family (unsigned short).
+    if (af_family < 0 || af_family > 65535) {
+        return AF_UNSPEC;
+    }
+    return static_cast<sa_family_t>(af_family);
+}
+
+} // anonymous namespace
+
 
 // CAddrinfo class to wrap ::addrinfo() system calls
 // =================================================
@@ -286,6 +386,7 @@ void CAddrinfo::load() {
     m_res_current = new_res;
 }
 
+#if 0
 // Getter for the assosiated netaddress with port
 // ----------------------------------------------
 // e.g. "[2001:db8::2]:50001" or "192.168.254.253:50001".
@@ -302,6 +403,7 @@ Netaddr CAddrinfo::netaddr() const noexcept {
 
     return netaddr; // Return as copy
 }
+#endif
 
 // Getter for the next available address information
 // -------------------------------------------------

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-23
+// Redistribution only with this Copyright remark. Last modified: 2024-11-29
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
@@ -17,6 +17,7 @@ using ::testing::ThrowsMessage;
 
 using ::UPnPsdk::CSocket;
 using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::is_numport;
 using ::UPnPsdk::sockaddrcmp;
 using ::UPnPsdk::SSockaddr;
 using ::UPnPsdk::to_netaddr;
@@ -397,6 +398,34 @@ TEST(SockaddrStorageTestSuite, sizeof_saddr_get_successful) {
     EXPECT_EQ(saddr.sizeof_saddr(), static_cast<socklen_t>(0));
 }
 
+TEST(SockaddrStorageTestSuite, output_netaddr_to_ostream) {
+    UPnPsdk::SSockaddr saObj;
+    CaptureStdOutErr captoutObj(STDOUT_FILENO);
+
+    // Test Unit output stream
+    saObj = "[2001:db8::1]:61234";
+    captoutObj.start();
+    std::cout << std::flush << saObj << std::endl;
+    EXPECT_THAT(captoutObj.str(), EndsWith("[2001:db8::1]:61234\n"));
+
+    saObj = "[2001:db8::2]";
+    captoutObj.start();
+    std::cout << std::flush << saObj << std::endl;
+    EXPECT_THAT(captoutObj.str(), EndsWith("[2001:db8::2]:61234\n"));
+
+    CaptureStdOutErr capterrObj(STDERR_FILENO);
+
+    saObj = "[2001:db8::3]:49999";
+    capterrObj.start();
+    std::cerr << saObj << std::endl;
+    EXPECT_THAT(capterrObj.str(), EndsWith("[2001:db8::3]:49999\n"));
+
+    saObj = "[2001:db8::4]";
+    capterrObj.start();
+    std::cerr << saObj << std::endl;
+    EXPECT_THAT(capterrObj.str(), EndsWith("[2001:db8::4]:49999\n"));
+}
+
 TEST(ToPortTestSuite, str_to_port) {
     EXPECT_EQ(to_port("123"), 123);
     EXPECT_EQ(to_port("00456"), 456);
@@ -559,6 +588,19 @@ TEST(SockaddrStorageTestSuite, test_pton) {
     EXPECT_EQ(inet_pton(AF_INET6, "[2001:db8::1]:50010", &buf6), 0);
 }
 #endif
+
+TEST(NetaddrTestSuite, is_numport) {
+    EXPECT_EQ(is_numport(""), -1);
+    EXPECT_EQ(is_numport("X"), -1);
+    EXPECT_EQ(is_numport("-1"), -1);
+    EXPECT_EQ(is_numport("-0"), -1);
+    EXPECT_EQ(is_numport("0"), 0);
+    EXPECT_EQ(is_numport("65535"), 0);
+    EXPECT_EQ(is_numport("65536"), 1);
+    EXPECT_EQ(is_numport("6553X"), -1);
+    EXPECT_EQ(is_numport("65535Y"), -1);
+    EXPECT_EQ(is_numport("http"), -1);
+}
 
 } // namespace utest
 

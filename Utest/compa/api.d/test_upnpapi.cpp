@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-13
+// Redistribution only with this Copyright remark. Last modified: 2024-11-29
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -126,13 +126,20 @@ clang-format on
 // ==================
 class UpnpapiFTestSuite : public ::testing::Test {
   protected:
+// Old code UpnpInitLog() does not understand the object logObj and crashes
+// with an exeption if g_dbug is enabled. I cannot use Clogging when testing
+// UpnpInitLog().
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
     CLogging logObj; // Output only with build type DEBUG.
 
     // Constructor
     UpnpapiFTestSuite() {
         if (UPnPsdk::g_dbug)
             logObj.enable(UPNP_INFO);
-
+#else
+    // Constructor
+    UpnpapiFTestSuite() {
+#endif
         // initialize needed global variables
         std::fill(std::begin(gIF_NAME), std::end(gIF_NAME), 0);
         std::fill(std::begin(gIF_IPV4), std::end(gIF_IPV4), 0);

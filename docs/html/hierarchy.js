@@ -43,7 +43,6 @@ var hierarchy =
     [ "memptr", "d1/d10/membuffer_8hpp.html#d4/d89/structmemptr", null ],
     [ "MiniServerSockArray", "d3/d8b/miniserver_8hpp.html#d2/d37/structMiniServerSockArray", null ],
     [ "anonymous_namespace{miniserver.cpp}::mserv_request_t", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#dd/d1f/structanonymous__namespace_02miniserver_8cpp_03_1_1mserv__request__t", null ],
-    [ "UPnPsdk::Netaddr", "dd/d03/classUPnPsdk_1_1Netaddr.html", null ],
     [ "NOTIFY_THREAD_STRUCT", "d9/dd2/gena_8hpp.html#d5/d37/structNOTIFY__THREAD__STRUCT", null ],
     [ "s_GenlibClientSubscription", "dc/d2f/GenlibClientSubscription_8cpp.html#d7/d22/structs__GenlibClientSubscription", null ],
     [ "s_SSDPResultData", "d7/da5/group__SSDP-Data.html#d4/dcc/structs__SSDPResultData", null ],

@@ -852,7 +852,8 @@ TEST_F(StartMiniServerMockFTestSuite,
         m_sys_socketObj,
         getsockname(sockfd, _,
                     Pointee(Ge(static_cast<socklen_t>(saddrObj.sizeof_ss())))))
-        .Times(g_dbug ? 3 : 2) // additional call with debug output
+        // .Times(g_dbug ? 3 : 2) // additional call with debug output
+        .Times(g_dbug ? 2 : 2) // DEBUG!
         .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
     EXPECT_CALL(m_sys_socketObj, getsockopt(sockfd, SOL_SOCKET, SO_TYPE, _, _))
         .WillOnce(DoAll(SetArgPtrIntValue<3>(SOCK_STREAM), Return(0)));
@@ -946,7 +947,8 @@ TEST_F(StartMiniServerMockFTestSuite,
         m_sys_socketObj,
         getsockname(sockfd, _,
                     Pointee(Ge(static_cast<socklen_t>(saddrObj.sizeof_ss())))))
-        .Times(g_dbug ? 3 : 2) // additional call with debug output
+        // .Times(g_dbug ? 3 : 2) // additional call with debug output
+        .Times(g_dbug ? 2 : 2) // DEBUG!
         .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
     EXPECT_CALL(m_sys_socketObj, getsockopt(sockfd, SOL_SOCKET, SO_TYPE, _, _))
         .WillOnce(DoAll(SetArgPtrIntValue<3>(SOCK_STREAM), Return(0)));

@@ -1,13 +1,17 @@
 #ifndef UPNPLIB_INCLUDE_ADDRINFO_HPP
 #define UPNPLIB_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-12
+// Redistribution only with this Copyright remark. Last modified: 2024-11-28
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
  */
 
-#include <UPnPsdk/netaddr.hpp>
+#include <UPnPsdk/visibility.hpp>
+#include <UPnPsdk/port.hpp>
+#include <UPnPsdk/port_sock.hpp>
+#include <string>
+
 
 namespace UPnPsdk {
 
@@ -126,19 +130,6 @@ normal_execution();
     // REF:_<a_href="https://stackoverflow.com/a/8782794/5014688">Overloading_member_access_operators_->,_.*</a>
     ::addrinfo* operator->() const noexcept;
 
-    /*! \brief Get the assosiated [netaddress](\ref glossary_netaddr)
-     * \code
-     * // Usage e.g.:
-     * CAddrinfo aiObj("localhost", "50001", AF_UNSPEC, SOCK_STREAM);
-     * try {
-     *     aiObj.load();
-     * } catch (xcp) { handle_error(); }
-     * std::string netaddrp = aiObj.netaddr().str();
-     * if (netaddrp == "[::1]:50001") { manage_ipv6_interface();
-     * } else if (netaddrp == "127.0.0.1:50001") { manage_ipv4_interface(); }
-     * \endcode */
-    Netaddr netaddr() const noexcept;
-
     /*! \brief Get next available address information
      * \code
      * // Usage e.g.:
@@ -148,8 +139,7 @@ normal_execution();
      * } catch (xcp) { handle_error(); }
      * do {
      *     int af = aiObj->ai_family;
-     *     Netaddr netaddrObj = aiObj.netaddr();
-     *     std::cout << "AF=" << af << ", " << netaddrObj.str() << "\n";
+     *     std::cout << "AF=" << af << "\n";
      * } while (aiObj.get_next()) { // handle next addrinfo
      * \endcode
      *

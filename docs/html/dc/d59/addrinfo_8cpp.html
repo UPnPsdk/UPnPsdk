@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp.html','../../'); 
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">addrinfo.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -106,6 +107,8 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp.html','../../'); 
 <p>Definition of the Addrinfo class and free helper functions.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">UPnPsdk/addrinfo.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d1/d3b/synclog_8hpp_source.html">UPnPsdk/synclog.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">UPnPsdk/sockaddr.hpp</a>&gt;</code><br />
 <code>#include &lt;umock/netdb.hpp&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -115,38 +118,35 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp.html','../../'); 
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d6/d7b/addrinfo_8cpp__incl.png" border="0" usemap="#aUPnPsdk_2src_2net_2addrinfo_8cpp" alt=""/></div>
 <map name="aUPnPsdk_2src_2net_2addrinfo_8cpp" id="aUPnPsdk_2src_2net_2addrinfo_8cpp">
-<area shape="rect" title="Definition of the Addrinfo class and free helper functions." alt="" coords="579,5,791,31"/>
-<area shape="rect" href="../../d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="427,79,593,104"/>
-<area shape="poly" title=" " alt="" coords="658,33,552,76,550,71,656,28"/>
-<area shape="rect" title=" " alt="" coords="617,79,752,104"/>
-<area shape="poly" title=" " alt="" coords="687,31,687,65,682,65,682,31"/>
-<area shape="rect" title=" " alt="" coords="777,79,843,104"/>
-<area shape="poly" title=" " alt="" coords="706,28,779,69,776,74,703,33"/>
-<area shape="rect" href="../../d1/d2b/netaddr_8hpp.html" title="Declaration of the Netaddr class." alt="" coords="430,152,590,177"/>
-<area shape="poly" title=" " alt="" coords="513,104,513,138,507,138,507,104"/>
-<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="333,372,471,397"/>
-<area shape="poly" title=" " alt="" coords="501,179,458,229,435,263,416,300,408,330,405,359,400,358,403,329,412,298,431,260,454,226,496,176"/>
-<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="547,372,721,397"/>
-<area shape="poly" title=" " alt="" coords="522,176,563,227,608,297,630,358,625,359,604,300,559,230,518,179"/>
-<area shape="rect" href="../../da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="197,225,351,251"/>
-<area shape="poly" title=" " alt="" coords="473,180,326,224,325,219,471,175"/>
-<area shape="rect" title=" " alt="" coords="669,225,727,251"/>
-<area shape="poly" title=" " alt="" coords="541,175,657,218,655,223,539,180"/>
-<area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="426,299,594,324"/>
-<area shape="poly" title=" " alt="" coords="313,248,459,292,458,297,311,253"/>
-<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="164,299,325,324"/>
-<area shape="poly" title=" " alt="" coords="272,252,257,287,252,285,267,250"/>
-<area shape="poly" title=" " alt="" coords="494,326,433,367,430,362,491,322"/>
-<area shape="poly" title=" " alt="" coords="531,322,603,363,601,367,529,326"/>
-<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="211,519,377,544"/>
-<area shape="poly" title=" " alt="" coords="511,325,504,359,496,380,485,399,451,437,411,469,370,495,334,515,331,510,367,491,408,465,447,433,481,396,492,378,499,358,506,324"/>
-<area shape="rect" title=" " alt="" coords="181,372,309,397"/>
-<area shape="poly" title=" " alt="" coords="247,324,247,358,242,358,242,324"/>
-<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="5,372,156,397"/>
-<area shape="poly" title=" " alt="" coords="219,326,121,369,119,364,217,322"/>
-<area shape="rect" href="../../d6/d66/global_8ipp.html" title="Global used constants, variables, functions and macros." alt="" coords="166,445,313,471"/>
-<area shape="poly" title=" " alt="" coords="107,395,202,437,200,442,105,400"/>
-<area shape="poly" title=" " alt="" coords="250,469,279,506,275,509,246,473"/>
+<area shape="rect" title="Definition of the Addrinfo class and free helper functions." alt="" coords="532,5,744,31"/>
+<area shape="rect" href="../../d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="555,79,721,104"/>
+<area shape="poly" title=" " alt="" coords="641,31,641,65,635,65,635,31"/>
+<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="164,79,325,104"/>
+<area shape="poly" title=" " alt="" coords="575,33,322,79,321,74,574,28"/>
+<area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="363,79,531,104"/>
+<area shape="poly" title=" " alt="" coords="608,33,492,76,490,71,606,28"/>
+<area shape="rect" title=" " alt="" coords="745,79,880,104"/>
+<area shape="poly" title=" " alt="" coords="667,28,772,71,770,76,665,33"/>
+<area shape="rect" title=" " alt="" coords="905,79,971,104"/>
+<area shape="poly" title=" " alt="" coords="688,28,892,76,891,81,687,33"/>
+<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="263,299,429,324"/>
+<area shape="poly" title=" " alt="" coords="722,101,766,112,803,127,817,137,824,149,825,164,817,179,793,201,757,221,711,239,659,254,547,281,442,299,442,294,546,275,658,249,709,234,754,216,790,197,813,176,820,162,819,151,813,141,801,132,765,117,720,106"/>
+<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="384,152,521,177"/>
+<area shape="poly" title=" " alt="" coords="609,107,496,149,495,145,607,102"/>
+<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="545,152,720,177"/>
+<area shape="poly" title=" " alt="" coords="640,105,637,139,632,138,634,104"/>
+<area shape="rect" title=" " alt="" coords="745,152,803,177"/>
+<area shape="poly" title=" " alt="" coords="661,102,741,143,739,148,659,106"/>
+<area shape="rect" title=" " alt="" coords="181,152,309,177"/>
+<area shape="poly" title=" " alt="" coords="247,104,247,138,242,138,242,104"/>
+<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="5,152,156,177"/>
+<area shape="poly" title=" " alt="" coords="219,106,121,149,119,144,217,102"/>
+<area shape="rect" href="../../d6/d66/global_8ipp.html" title="Global used constants, variables, functions and macros." alt="" coords="85,225,231,251"/>
+<area shape="poly" title=" " alt="" coords="95,175,137,214,133,218,91,179"/>
+<area shape="poly" title=" " alt="" coords="189,248,303,291,302,296,187,253"/>
+<area shape="poly" title=" " alt="" coords="426,106,398,126,374,153,359,187,351,222,347,285,342,285,346,221,354,185,369,151,394,122,423,102"/>
+<area shape="poly" title=" " alt="" coords="451,104,453,138,448,139,446,105"/>
+<area shape="poly" title=" " alt="" coords="478,102,591,145,589,149,476,107"/>
 </map>
 </div>
 </div>
@@ -157,6 +157,15 @@ Namespaces</h2></td></tr>
 <tr class="memitem:dd/d67/namespaceUPnPsdk" id="r_dd/d67/namespaceUPnPsdk"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a></td></tr>
 <tr class="memdesc:dd/d67/namespaceUPnPsdk"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reengineered Object Oriented UPnP+ program code. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga76c078aa318c21d4b490c529e1abba5d" id="r_ga76c078aa318c21d4b490c529e1abba5d"><td class="memItemLeft" align="right" valign="top">sa_family_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga76c078aa318c21d4b490c529e1abba5d">UPnPsdk::anonymous_namespace{addrinfo.cpp}::is_netaddr</a> (const std::string &amp;a_node, const int a_addr_family=AF_UNSPEC) noexcept</td></tr>
+<tr class="memdesc:ga76c078aa318c21d4b490c529e1abba5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for a <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a> and return its address family.  <br /></td></tr>
+<tr class="separator:ga76c078aa318c21d4b490c529e1abba5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga51c40469ad33f63312aaac0301d757d0" id="r_ga51c40469ad33f63312aaac0301d757d0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0">UPnPsdk::is_numport</a> (const std::string &amp;a_port_str) noexcept</td></tr>
+<tr class="memdesc:ga51c40469ad33f63312aaac0301d757d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given string represents a port number.  <br /></td></tr>
+<tr class="separator:ga51c40469ad33f63312aaac0301d757d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Definition of the Addrinfo class and free helper functions. </p>

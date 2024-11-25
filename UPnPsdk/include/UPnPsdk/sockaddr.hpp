@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-14
+// Redistribution only with this Copyright remark. Last modified: 2024-11-28
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -31,6 +31,27 @@ union sockaddr_t {
     ::sockaddr_in sin;
     ::sockaddr sa;
 };
+
+
+// Free function to check if a string is a valid port number
+// ---------------------------------------------------------
+/*! \brief Check if a given string represents a port number
+ * \ingroup upnplib-addrmodul
+ * \code
+ * // Usage e.g.:
+ * if (is_numport("55555") == 0) { manage_given_port(); }
+ * \endcode
+ *
+ * Checks if the given string represents a numeric port number between 0 and
+ * 65535.
+ *
+ * \returns
+ *  - **-1** if *a_port_str* isn't a numeric number, but it may be a valid
+ *           service name (e.g. "https")
+ *  - **0** if *a_port_str* is a valid numeric port number between 0 and 65535
+ *  - **1** if *a_port_str* is an invalid numeric port number > 65535
+ */
+int is_numport(const std::string& a_port_str) noexcept;
 
 
 // Free function to get the address string with port from a sockaddr structure
@@ -126,8 +147,31 @@ struct UPnPsdk_API SSockaddr {
      * saObj = "192.168.1.1:50001";
      *  \endcode
      * An empty netaddress "" clears the address storage.
-     * \exception std::invalid_argument Invalid netaddress */
-    void operator=(const std::string& a_addr_str);
+     * \exception std::invalid_argument Invalid netaddress
+     *
+     * Assign rules are:\n
+     * a netaddress consists of two parts, ip address and port. A netaddress
+     * has always a port. With an invalid ip address the whole netaddress is
+     * unspecified and results to "". Valid special cases are these well
+     * defined unspecified addresses:
+\verbatim
+"[::]"          results to  "[::]:0"
+"[::]:"         results to  "[::]:0"
+"[::]:0"        results to  "[::]:0"
+"[::]:65535"    results to  "[::]:65535" // port 0 to 65535
+"0.0.0.0"       results to  "0.0.0.0:0"
+"0.0.0.0:"      results to  "0.0.0.0:0"
+"0.0.0.0:0"     results to  "0.0.0.0:0"
+"0.0.0.0:65535" results to  "0.0.0.0:65535" // port 0 to 65535
+\endverbatim
+     * A valid address with an invalid port results to port 0, for example\n
+\verbatim
+"[2001:db8::51]:98765" results to "[2001:db8::51]:0"
+\endverbatim
+    */
+    void operator=(
+        /// [in] String with a possible netaddress
+        const std::string& a_addr_str); // noexept?
 
 
     // Assignment operator to set a port
@@ -204,6 +248,19 @@ struct UPnPsdk_API SSockaddr {
     UPnPsdk_LOCAL void handle_ipv6(const std::string& a_addr_str);
     UPnPsdk_LOCAL void handle_ipv4(const std::string& a_addr_str);
 };
+
+// Getter of the netaddress to output stream
+// -----------------------------------------
+/*! \brief output the [netaddress](\ref glossary_netaddr)
+ * \ingroup upnplib-addrmodul
+ * \code
+ * // Usage e.g.:
+ * SSockaddr saObj;
+ * saObj = "[2001:db8::1]:56789";
+ * std::cout << saObj << "\n"; // output "[2001:db8::1]:56789"
+ * \endcode
+ */
+UPNPLIB_API ::std::ostream& operator<<(::std::ostream& os, SSockaddr& saddr);
 
 } // namespace UPnPsdk
 

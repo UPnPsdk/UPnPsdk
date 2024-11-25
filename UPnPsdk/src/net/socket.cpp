@@ -431,10 +431,11 @@ void CSocket::bind(const std::string& a_node, const std::string& a_port,
     int ret = umock::sys_socket_h.bind(m_sfd, ai->ai_addr,
                                        static_cast<socklen_t>(ai->ai_addrlen));
 
-    UPnPsdk_LOGINFO << "MSG1115: syscall ::bind(" << m_sfd << ", "
-                    << ai->ai_addr << ", " << ai->ai_addrlen << ") Using \""
-                    << ai.netaddr().str() << "\". Get "
-                    << (ret != 0 ? "ERROR" : this->netaddrp()) << "\n";
+    UPnPsdk_LOGINFO << "MSG1115: error bind address to socket.\n"; // DEBUG!
+    // UPnPsdk_LOGINFO << "MSG1115: syscall ::bind(" << m_sfd << ", "
+    //                 << ai->ai_addr << ", " << ai->ai_addrlen << ") Using \""
+    //                 << ai.netaddr().str() << "\". Get "
+    //                 << (ret != 0 ? "ERROR" : this->netaddrp()) << "\n";
     if (ret != 0) {
         serrObj.catch_error();
         throw std::runtime_error(

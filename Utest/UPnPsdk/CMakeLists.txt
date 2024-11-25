@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-11-23
+# Redistribution only with this Copyright remark. Last modified: 2024-11-29
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -31,19 +31,6 @@ target_link_libraries(test_upnptools-ust
 )
 add_test(NAME ctest_upnptools-ust COMMAND test_upnptools-ust --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
-)
-
-
-# netaddr
-# =======
-add_executable(test_netaddr-ust
-    test_netaddr.cpp
-)
-target_link_libraries(test_netaddr-ust
-    PRIVATE UPnPsdk_static
-)
-add_test(NAME ctest_netaddr-ust COMMAND test_netaddr-ust --gtest_shuffle
-        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 
