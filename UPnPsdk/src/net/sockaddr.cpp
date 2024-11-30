@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-29
+// Redistribution only with this Copyright remark. Last modified: 2024-12-01
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -66,35 +66,6 @@ std::string to_netaddr(const ::sockaddr_storage* const a_sockaddr) noexcept {
 }
 
 
-// Free function to get the port number from a string
-// --------------------------------------------------
-/*! \brief Get the port number from a string
- * \ingroup upnplib-addrmodul
- * \code
- * ~$ // Usage e.g.:
- * ~$ in_port_t port = to_port("55555");
- * \endcode
- *
- * Checks if the given string represents a numeric value between 0 and 65535.
- * \returns
- *  On success: Value of the port number, an empty string returns 0.
- * \exception std::invalid_argument Invalid port number
- */
-in_port_t to_port(const std::string& a_port_str) {
-    TRACE("Executing SSockaddr::this->to_port() with port=\"" + a_port_str +
-          "\"")
-    if (a_port_str.empty())
-        return 0;
-    if (is_numport(a_port_str) == 0) {
-        int port = std::stoi(a_port_str);
-        return static_cast<in_port_t>(port);
-    }
-    throw std::invalid_argument(
-        UPnPsdk_LOGEXCEPT + "MSG1033: Failed to get port number for string \"" +
-        a_port_str + "\"");
-}
-
-
 // Free function to logical compare two sockaddr structures
 // --------------------------------------------------------
 /*! \brief logical compare two sockaddr structures
@@ -109,8 +80,8 @@ in_port_t to_port(const std::string& a_port_str) {
  */
 bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
                  const ::sockaddr_storage* a_ss2) noexcept {
-    // To have a logical equal socket address we compare the address family, the
-    // ip address and the port.
+    // To have a logical equal socket address we compare the address family,
+    // the ip address, the port and the scope.
     // Throws no exception.
     if (a_ss1 == nullptr && a_ss2 == nullptr)
         return true;
@@ -124,30 +95,33 @@ bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
         break;
 
     case AF_INET6: {
-        // We compare ipv6 addresses which are stored in a 16 byte array
+        // I compare ipv6 addresses which are stored in a 16 byte array
         // (unsigned char s6_addr[16]). So we have to use memcmp() for
         // comparison.
-        const unsigned char* const s6_addr1 =
-            reinterpret_cast<const ::sockaddr_in6*>(a_ss1)->sin6_addr.s6_addr;
-        const unsigned char* const s6_addr2 =
-            reinterpret_cast<const ::sockaddr_in6*>(a_ss2)->sin6_addr.s6_addr;
+        const ::sockaddr_in6* const s6_addr1 =
+            reinterpret_cast<const ::sockaddr_in6*>(a_ss1);
+        const ::sockaddr_in6* const s6_addr2 =
+            reinterpret_cast<const ::sockaddr_in6*>(a_ss2);
 
         if (a_ss2->ss_family != AF_INET6 ||
-            ::memcmp(s6_addr1, s6_addr2, sizeof(in6_addr)) != 0 ||
-            reinterpret_cast<const ::sockaddr_in6*>(a_ss1)->sin6_port !=
-                reinterpret_cast<const ::sockaddr_in6*>(a_ss2)->sin6_port)
+            ::memcmp(&s6_addr1->sin6_addr, &s6_addr2->sin6_addr,
+                     sizeof(in6_addr)) != 0 ||
+            s6_addr1->sin6_port != s6_addr2->sin6_port ||
+            s6_addr1->sin6_scope_id != s6_addr2->sin6_scope_id)
             return false;
     } break;
 
-    case AF_INET:
+    case AF_INET: {
+        const ::sockaddr_in* const s_addr1 =
+            reinterpret_cast<const ::sockaddr_in*>(a_ss1);
+        const ::sockaddr_in* const s_addr2 =
+            reinterpret_cast<const ::sockaddr_in*>(a_ss2);
+
         if (a_ss2->ss_family != AF_INET ||
-            reinterpret_cast<const ::sockaddr_in*>(a_ss1)->sin_addr.s_addr !=
-                reinterpret_cast<const ::sockaddr_in*>(a_ss2)
-                    ->sin_addr.s_addr ||
-            reinterpret_cast<const ::sockaddr_in*>(a_ss1)->sin_port !=
-                reinterpret_cast<const ::sockaddr_in*>(a_ss2)->sin_port)
+            s_addr1->sin_addr.s_addr != s_addr2->sin_addr.s_addr ||
+            s_addr1->sin_port != s_addr2->sin_port)
             return false;
-        break;
+    } break;
 
     default:
         return false;
@@ -159,30 +133,59 @@ bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
 } // anonymous namespace
 
 
-// Free function to check if a string is a valid port number
-// ---------------------------------------------------------
-int is_numport(const std::string& a_port_str) noexcept {
-    TRACE("Executing is_numport() with port=\"" + a_port_str + "\"")
+// Free function to get the port number from a string
+// --------------------------------------------------
+in_port_t to_port(const std::string& a_port_str) {
+    TRACE("Executing to_port() with port=\"" + a_port_str + "\"")
+    bool nonzero{false};
+    int port;
 
-    // Only non empty strings. I have to check this to avoid exception.
+    // Only non empty strings. I have to check this to avoid stoi() exception
+    // below.
     if (a_port_str.empty())
-        return -1;
+        // An empty port string is defined to be the unknown port 0.
+        return 0;
 
     // Now we check if the string are all digit characters
     for (char ch : a_port_str) {
-        if (!std::isdigit(static_cast<unsigned char>(ch)))
-            return -1;
+        if (!std::isdigit(static_cast<unsigned char>(ch))) {
+            goto exit_fail;
+        } else if (ch != '0') {
+            nonzero = true;
+        }
     }
 
-    // Only strings with max. 5 char may be valid (uint16_t has max. 65535)
-    if (a_port_str.length() > 5)
-        return 1;
+    // Only strings with max. 5 char may be valid (uint16_t has max. 65535).
+    if (a_port_str.length() > 5) {
+        if (nonzero)
+            goto exit_overrun; // value valid but more than 5 char.
+        else
+            goto exit_fail; // string is all zero with more than 5 char.
+    }
 
     // Valid positive number but is it within the port range (uint16_t)?
-    // stoi may throw std::invalid_argument if no conversion could be
+    // stoi() may throw std::invalid_argument if no conversion could be
     // performed or std::out_of_range. But with the prechecked number string
     // this should never be thrown.
-    return (std::stoi(a_port_str) <= 65535) ? 0 : 1;
+    port = std::stoi(a_port_str);
+    if (port > 65535)
+        goto exit_overrun;
+
+    // Type cast from int is no problem because the port value is checked to be
+    // 0..65535 so it always fit into in_port_t(uint16_t).
+    return static_cast<in_port_t>(port);
+
+
+// Both following exceptions are derived from std::logic_error() so that can be
+// used to catch any of them.
+exit_overrun:
+    throw std::out_of_range(UPnPsdk_LOGEXCEPT +
+                            "MSG1127: Valid number string \"" + a_port_str +
+                            "\" is out of port range 0..65535.");
+exit_fail:
+    throw std::invalid_argument(
+        UPnPsdk_LOGEXCEPT + "MSG1128: Failed to get port number for string \"" +
+        a_port_str + "\".");
 }
 
 

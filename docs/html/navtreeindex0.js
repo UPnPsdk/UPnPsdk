@@ -236,11 +236,10 @@ var NAVTREEINDEX0 =
 "d0/dc4/group__SSDP-device__functions.html#gae54b8393bd5d949c0859f443dc48e4c1":[4,1,1,2,6],
 "d0/dd8/group__upnplib-addrmodul.html":[4,3,0,0],
 "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t":[4,3,0,0,2],
-"d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0":[4,3,0,0,4],
-"d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07":[4,3,0,0,10],
+"d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07":[4,3,0,0,9],
 "d0/dd8/group__upnplib-addrmodul.html#ga76c078aa318c21d4b490c529e1abba5d":[4,3,0,0,7],
-"d0/dd8/group__upnplib-addrmodul.html#ga7b0e037bac0df99a8862f9ef804a9002":[4,3,0,0,9],
 "d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997":[4,3,0,0,5],
+"d0/dd8/group__upnplib-addrmodul.html#ga933b89160fdfe1e4bb074cc2794854f8":[4,3,0,0,4],
 "d0/dd8/group__upnplib-addrmodul.html#ga97def93cf54b1e9cd5a59c4c9c0dca55":[4,3,0,0,6],
 "d0/dd8/group__upnplib-addrmodul.html#gae22636544a6b0316ac259851d4c483d1":[4,3,0,0,8],
 "d0/dea/group__Description-ctrlpt.html":[4,1,2,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX0 =
 "d1/d03/group__UpnpString.html#acea9de7fd993715cd9b2c99854bed2f6":[4,5,0,0],
 "d1/d03/group__UpnpString.html#d8/dbb/structs__UpnpString":[4,5,0],
 "d1/d03/group__UpnpString.html#ga04a9bde6f73e0b38ef037b0b61776d87":[4,5,4],
-"d1/d03/group__UpnpString.html#ga06963479e44d90a5de680861e2180e0b":[4,5,10]
+"d1/d03/group__UpnpString.html#ga06963479e44d90a5de680861e2180e0b":[4,5,10],
+"d1/d03/group__UpnpString.html#ga0db13228160adbc4e7ad7f52157f987e":[4,5,9]
 };

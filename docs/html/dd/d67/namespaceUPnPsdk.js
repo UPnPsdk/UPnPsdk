@@ -9,7 +9,6 @@ var namespaceUPnPsdk =
     ] ],
     [ "anonymous_namespace{sockaddr.cpp}", "d7/d77/namespaceUPnPsdk_1_1anonymous__namespace_02sockaddr_8cpp_03.html", [
       [ "to_netaddr", "d0/dd8/group__upnplib-addrmodul.html#gae22636544a6b0316ac259851d4c483d1", null ],
-      [ "to_port", "d0/dd8/group__upnplib-addrmodul.html#ga7b0e037bac0df99a8862f9ef804a9002", null ],
       [ "sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ]
     ] ],
     [ "anonymous_namespace{socket.cpp}", "d4/d77/namespaceUPnPsdk_1_1anonymous__namespace_02socket_8cpp_03.html", [
@@ -50,7 +49,7 @@ var namespaceUPnPsdk =
       [ "SOAPMETHOD_POST", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60af36f6651a84f4a8ff85fa2cecc25505c", null ],
       [ "HTTPMETHOD_SIMPLEGET", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60ad9d286da9f9dc214d6ec88ab465d42f2", null ]
     ] ],
-    [ "is_numport", "d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0", null ],
+    [ "to_port", "d0/dd8/group__upnplib-addrmodul.html#ga933b89160fdfe1e4bb074cc2794854f8", null ],
     [ "to_netaddrp", "d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997", null ],
     [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga97def93cf54b1e9cd5a59c4c9c0dca55", null ],
     [ "errStr", "dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588", null ],

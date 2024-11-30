@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-28
+// Redistribution only with this Copyright remark. Last modified: 2024-12-01
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -33,25 +33,36 @@ union sockaddr_t {
 };
 
 
-// Free function to check if a string is a valid port number
-// ---------------------------------------------------------
-/*! \brief Check if a given string represents a port number
+// Free function to get the port number from a string
+// --------------------------------------------------
+/*! \brief Get the port number from a string
  * \ingroup upnplib-addrmodul
  * \code
  * // Usage e.g.:
- * if (is_numport("55555") == 0) { manage_given_port(); }
+ * in_port_t port;
+ * try { port = to_port(service);
+ *     // do normal things.
+ * } catch (const std::out_of_range& e) {
+ *     // manage error: service number too big.
+ * } catch (const std::invalid_argument& e) {
+ *     // manage error or alphanumeric service name, e.g. "http".
+ * }
  * \endcode
  *
- * Checks if the given string represents a numeric port number between 0 and
- * 65535.
- *
+ * Checks if the given string represents a numeric value between 0 and 65535.
  * \returns
- *  - **-1** if *a_port_str* isn't a numeric number, but it may be a valid
- *           service name (e.g. "https")
- *  - **0** if *a_port_str* is a valid numeric port number between 0 and 65535
- *  - **1** if *a_port_str* is an invalid numeric port number > 65535
+ *  On success: Value of the port number, an empty string returns 0.
+ *
+ * \exception std::out_of_range A valid number was given but it is not in the
+ * range 0..65535.
+ * \exception std::invalid_argument Invalid number string but may be a valid
+ * alphanumeric service name like "http".
+ * \exception std::logic_error Both exceptions above are derived from this one.
+ * If you only want to catch any error you can use this one.
  */
-int is_numport(const std::string& a_port_str) noexcept;
+in_port_t to_port(
+    /// [in] String that shall be converted to a numeric port number.
+    const std::string& a_port_str);
 
 
 // Free function to get the address string with port from a sockaddr structure

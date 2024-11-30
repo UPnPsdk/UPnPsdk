@@ -136,7 +136,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Get information from the operating system about a <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html#l00049">49</a> of file <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">addrinfo.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">addrinfo.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a73959edaef6545257c6c044b1077ae94" name="a73959edaef6545257c6c044b1077ae94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73959edaef6545257c6c044b1077ae94">&#9670;&#160;</a></span>CAddrinfo() <span class="overload">[1/2]</span></h2>
@@ -191,7 +191,7 @@ Public Member Functions</h2></td></tr>
 <p>Constructor for getting an address information with service name. </p>
 <p>The service name can also be a port number string, e.g. "http" or "80" </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00149">149</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00123">123</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
 
 </div>
 </div>
@@ -241,7 +241,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Constructor for getting an address information from only a netaddress. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00159">159</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00133">133</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
 
 </div>
 </div>
@@ -272,7 +272,7 @@ Public Member Functions</h2></td></tr>
 <div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::invalid_argument&amp; e) { handle_other_error();</div>
 <div class="line">}</div>
 <div class="line">normal_execution();</div>
-<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">UPnPsdk::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about a netaddress.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00049">addrinfo.hpp:49</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">UPnPsdk::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about a netaddress.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00029">addrinfo.hpp:29</a></div></div>
 </div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>It is important to careful check the error situation because loading information depends on the real environment that we cannot control. Name resolution may fail because to be unspecified, DNS server may be temporary down, etc.</dd></dl>
 <p>Usually this setter is called one time after constructing the object. This gets an address information from the operating system that may also use its internal name resolver inclusive contacting external DNS server. If you use the flag <b>AI_NUMERICHOST</b> with the constructor then a possible expensive name resolution to DNS server is suppressed.</p>
 <p>Because always the same cached hints given with the constructor are used we also get the same information but with new allocated memory. So it doesn't make much sense to call it more than one time, but doesn't hurt except waste of resources.</p>
@@ -286,7 +286,7 @@ Public Member Functions</h2></td></tr>
 <p>Provides strong exception guarantee. It should be noted that are different error messages returned by different platforms. </p>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo:</a></b></dt><dd>Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00246">246</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00220">220</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -295,10 +295,10 @@ Public Member Functions</h2></td></tr>
 <div class="center"><img src="../../d0/d44/classUPnPsdk_1_1CAddrinfo_acb0d1b20ebbdfd755484d62b111c7cc6_cgraph.png" border="0" usemap="#ad0/d44/classUPnPsdk_1_1CAddrinfo_acb0d1b20ebbdfd755484d62b111c7cc6_cgraph" alt=""/></div>
 <map name="ad0/d44/classUPnPsdk_1_1CAddrinfo_acb0d1b20ebbdfd755484d62b111c7cc6_cgraph" id="ad0/d44/classUPnPsdk_1_1CAddrinfo_acb0d1b20ebbdfd755484d62b111c7cc6_cgraph">
 <area shape="rect" title="load address information from the operating system" alt="" coords="5,23,156,63"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga51c40469ad33f63312aaac0301d757d0" title="Check if a given string represents a port number." alt="" coords="207,5,367,31"/>
-<area shape="poly" title=" " alt="" coords="156,31,192,27,193,32,157,37"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997" title="Get the netaddress with port from a sockaddr structure." alt="" coords="204,55,369,80"/>
-<area shape="poly" title=" " alt="" coords="157,49,191,54,190,59,156,55"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997" title="Get the netaddress with port from a sockaddr structure." alt="" coords="204,5,369,31"/>
+<area shape="poly" title=" " alt="" coords="156,31,190,27,191,32,157,37"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga933b89160fdfe1e4bb074cc2794854f8" title="Get the port number from a string." alt="" coords="220,55,353,80"/>
+<area shape="poly" title=" " alt="" coords="157,49,206,55,206,61,156,55"/>
 </map>
 </div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -360,7 +360,7 @@ Public Member Functions</h2></td></tr>
 <div class="line"><span class="keywordflow">if</span> (aiObj-&gt;ai_family == AF_INET6) { handle_ipv6(); };</div>
 </div><!-- fragment --><p>The operating system returns the information in a structure that you can read to get all details. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00240">240</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00214">214</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
 
 </div>
 </div>
@@ -400,7 +400,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- fragment --><p>If more than one address information is available this is used to switch to the next addrinfo that is used to get its information with the object. </p><dl class="section return"><dt>Returns</dt><dd><b>true</b> if address information is available<br  />
  <b>false</b> otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00436">436</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00391">391</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
 
 </div>
 </div>
