@@ -65,21 +65,6 @@ in_port_t to_port(
     const std::string& a_port_str);
 
 
-// Free function to get the address string with port from a sockaddr structure
-// ---------------------------------------------------------------------------
-/*! \brief Get the [netaddress](\ref glossary_netaddr) with port from a sockaddr
- * structure
- * \ingroup upnplib-addrmodul
- * \code
- * // Usage e.g.:
- * ::sockaddr_storage saddr{};
- * std::cout << "netaddress is " << to_netaddrp(&saddr) << "\n";
- * \endcode
- */
-UPnPsdk_API std::string
-to_netaddrp(const ::sockaddr_storage* const a_sockaddr) noexcept;
-
-
 /*!
  * \brief Trivial ::%sockaddr structures enhanced with methods
  * <!--   ==================================================== -->

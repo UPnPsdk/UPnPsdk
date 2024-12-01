@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-23
+// Redistribution only with this Copyright remark. Last modified: 2024-12-02
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -1269,7 +1269,7 @@ TEST_F(RunMiniServerMockFTestSuite,
         g_dbug = g_dbug_old;
         // Get captured output
         EXPECT_THAT(captureObj.str(),
-                    HasSubstr("] ERROR MSG1036: Unsupported address family 1"));
+                    HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
         EXPECT_TRUE(ret_getNumericHostRedirection); // Doesn't matter because it
                                                     // is never used.
         EXPECT_STREQ(host_port, ""); // Set to an unknown netaddress.

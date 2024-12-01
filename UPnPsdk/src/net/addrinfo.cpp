@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-01
+// Redistribution only with this Copyright remark. Last modified: 2024-12-02
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -298,28 +298,36 @@ void CAddrinfo::load() {
     // syscall ::getaddrinfo() with prepared arguments
     // -----------------------------------------------
     ::addrinfo* new_res{nullptr}; // Result from ::getaddrinfo()
-    int ret =
+    const int ret =
         umock::netdb_h.getaddrinfo(c_node, service.c_str(), &hints, &new_res);
     TRACE2("syscall ::getaddrinfo() with new_res = ", new_res)
 
-    // Very helpful for debugging to see what is given to ::getaddrinfo()
-    // clang-format off
-    UPnPsdk_LOGINFO << "MSG1111: syscall ::getaddrinfo(" << node_out
-        << ", " << "\"" << service << "\", "
-        << &hints << ", " << &new_res
-        << ") node=\"" << m_node << "\", "
-        << (hints.ai_flags & AI_NUMERICHOST ? "AI_NUMERICHOST, " : "")
-        << (hints.ai_flags & AI_NUMERICSERV ? "AI_NUMERICSERV, " : "")
-        << (hints.ai_flags & AI_PASSIVE ? "AI_PASSIVE, " : "")
-        << (hints.ai_family == AF_INET6 ? "AF_INET6" :
-                (hints.ai_family == AF_INET ? "AF_INET" :
-                    (hints.ai_family == AF_UNSPEC ? "AF_UNSPEC" :
-                        "hints.ai_family=" + std::to_string(hints.ai_family))))
-        << (ret != 0
-            ? ". Get GAI_ERROR(" + std::to_string(ret) + ")"
-            : ". Get first \"" + to_netaddrp(reinterpret_cast
-              <const sockaddr_storage*>(new_res->ai_addr)) + "\"") << " (maybe more)\n";
-
+    if (g_dbug) {
+        // Very helpful for debugging to see what is given to ::getaddrinfo()
+        char addrStr[INET6_ADDRSTRLEN]{};
+        char servStr[NI_MAXSERV]{};
+        if (ret == 0)
+            ::getnameinfo(new_res->ai_addr,
+                          static_cast<socklen_t>(new_res->ai_addrlen), addrStr,
+                          sizeof(addrStr), servStr, sizeof(servStr),
+                          NI_NUMERICHOST | NI_NUMERICSERV);
+        // clang-format off
+        UPnPsdk_LOGINFO << "MSG1111: syscall ::getaddrinfo(" << node_out
+            << ", " << "\"" << service << "\", "
+            << &hints << ", " << &new_res
+            << ") node=\"" << m_node << "\", "
+            << (hints.ai_flags & AI_NUMERICHOST ? "AI_NUMERICHOST, " : "")
+            << (hints.ai_flags & AI_NUMERICSERV ? "AI_NUMERICSERV, " : "")
+            << (hints.ai_flags & AI_PASSIVE ? "AI_PASSIVE, " : "")
+            << (hints.ai_family == AF_INET6 ? "AF_INET6" :
+                    (hints.ai_family == AF_INET ? "AF_INET" :
+                        (hints.ai_family == AF_UNSPEC ? "AF_UNSPEC" :
+                            "hints.ai_family=" + std::to_string(hints.ai_family))))
+            << (ret != 0
+                ? ". Get GAI_ERROR(" + std::to_string(ret) + ")"
+                : ". Get first \"" + std::string(addrStr) + "\", port "
+                  + std::string(servStr)) << " (maybe more)\n";
+    }
     if (ret == EAI_SERVICE    /* Servname not supported for ai_socktype */
         || ret == EAI_NONAME  /* Node or service not known */
         || ret == EAI_AGAIN   /* The name server returned a temporary failure indication, try again later */

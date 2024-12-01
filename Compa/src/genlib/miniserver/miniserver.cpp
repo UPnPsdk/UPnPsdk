@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-08
+ * Redistribution only with this Copyright remark. Last modified: 2024-12-01
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -360,11 +360,16 @@ UPNP_INLINE void schedule_request_job(
     /*! [in] Clients Address information. */
     sockaddr* clientAddr) {
     TRACE("Executing schedule_request_job()")
-    UPnPsdk_LOGINFO "MSG1042: Schedule request job to host "
-        << UPnPsdk::to_netaddrp(
-               reinterpret_cast<const sockaddr_storage*>(clientAddr))
-        << " with socket " << connfd << ".\n";
-
+    if (UPnPsdk::g_dbug) {
+        char addrStr[INET6_ADDRSTRLEN];
+        char servStr[NI_MAXSERV];
+        ::getnameinfo(clientAddr, sizeof(::sockaddr_storage), addrStr,
+                      sizeof(addrStr), servStr, sizeof(servStr),
+                      NI_NUMERICHOST | NI_NUMERICSERV);
+        UPnPsdk_LOGINFO "MSG1042: Schedule request job to host \""
+            << addrStr << "\", port " << servStr << ", with socket " << connfd
+            << ".\n";
+    }
     ThreadPoolJob job{};
     mserv_request_t* request{
         static_cast<mserv_request_t*>(std::malloc(sizeof(mserv_request_t)))};

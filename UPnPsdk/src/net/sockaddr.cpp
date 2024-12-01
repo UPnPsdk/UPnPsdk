@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-01
+// Redistribution only with this Copyright remark. Last modified: 2024-12-02
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -22,47 +22,75 @@ namespace {
  * \code
  * // Usage e.g.:
  * ::sockaddr_storage saddr{};
- * std::cout << "netaddress is " << to_netaddr(&saddr) << "\n";
+ * std::cout << "netaddress is " << to_netaddr(saddr) << "\n";
  * \endcode
  */
-std::string to_netaddr(const ::sockaddr_storage* const a_sockaddr) noexcept {
+std::string to_netaddr(const ::sockaddr_storage& a_sockaddr) noexcept {
     // TRACE("Executing to_netaddr()") // not usable in chained output.
-    char addrbuf[INET6_ADDRSTRLEN]{};
 
-    switch (a_sockaddr->ss_family) {
+    // Accept nameinfo only for supported address families.
+    switch (a_sockaddr.ss_family) {
+    case AF_INET6:
+    case AF_INET:
+        break;
     case AF_UNSPEC:
         return "";
-
-    // There is no need to test the return value of ::inet_ntop() because its
-    // two possible errors are implicit managed by this code.
-    case AF_INET6: {
-        const ::sockaddr_in6* sin6 =
-            reinterpret_cast<const ::sockaddr_in6*>(a_sockaddr);
-        ::inet_ntop(AF_INET6, sin6->sin6_addr.s6_addr, addrbuf,
-                    sizeof(addrbuf));
-        // Next throws 'std::length_error' if the length of the constructed
-        // string would exceed max_size(). This should never happen with given
-        // length of addrbuf.
-        if (sin6->sin6_scope_id > 0)
-            return '[' + std::string(addrbuf) + '%' +
-                   std::to_string(sin6->sin6_scope_id) + ']';
-        return '[' + std::string(addrbuf) + ']';
-    }
-    case AF_INET:
-        ::inet_ntop(AF_INET,
-                    &reinterpret_cast<const ::sockaddr_in*>(a_sockaddr)
-                         ->sin_addr.s_addr,
-                    addrbuf, sizeof(addrbuf));
-        // Next throws 'std::length_error' if the length of the constructed
-        // string would exceed max_size(). This should never happen with given
-        // length of addrbuf.
-        return std::string(addrbuf);
-
     default:
-        UPnPsdk_LOGERR "MSG1036: Unsupported address family "
-            << static_cast<int>(a_sockaddr->ss_family) << ".\n";
+        UPnPsdk_LOGERR "MSG1129: Unsupported address family "
+            << std::to_string(a_sockaddr.ss_family)
+            << ". Continue with empty netaddress \"\".\n";
+        return "";
     }
-    return "";
+
+    char addrStr[INET6_ADDRSTRLEN]{};
+    int ret = ::getnameinfo(reinterpret_cast<const sockaddr*>(&a_sockaddr),
+                            sizeof(a_sockaddr), addrStr, sizeof(addrStr),
+                            nullptr, 0, NI_NUMERICHOST);
+    if (ret != 0) {
+        UPnPsdk_LOGERR "MSG1036: Failed to get netaddress with address family "
+            << std::to_string(a_sockaddr.ss_family) << ": "
+            << ::gai_strerror(ret)
+            << ". Continue with empty netaddress \"\".\n";
+        return "";
+    }
+
+    // Next throws 'std::length_error' if the length of the constructed
+    // std::string would exceed max_size(). This should never happen with given
+    // lengths of addrStr (promise noexcept).
+    if (a_sockaddr.ss_family == AF_INET6)
+        return '[' + std::string(addrStr) + ']';
+
+    return std::string(addrStr);
+}
+
+
+// Free function to get the address string with port from a sockaddr structure
+// ---------------------------------------------------------------------------
+/*! \brief Get the [netaddress](\ref glossary_netaddr) with port from a sockaddr
+ * structure
+ * \ingroup upnplib-addrmodul
+ * \code
+ * // Usage e.g.:
+ * ::sockaddr_storage saddr{};
+ * std::cout << "netaddress is " << to_netaddrp(saddr) << "\n";
+ * \endcode
+ */
+std::string to_netaddrp(const ::sockaddr_storage& a_sockaddr) noexcept {
+    // TRACE("Executing to_addrport_str()") // not usable in chained output.
+    //
+    // sin_port and sin6_port are on the same memory location (union of the
+    // structures) so I can use it for AF_INET and AF_INET6.
+    // 'std::to_string()' may throw 'std::bad_alloc' from the std::string
+    // constructor. It is a fatal error that violates the promise to noexcept
+    // and immediately terminates the propgram. This is intentional because the
+    // error cannot be handled.
+    std::string netaddr{to_netaddr(a_sockaddr)}; // noexcept, has limited length
+    return netaddr.empty()
+               ? ""
+               : netaddr + ":" +
+                     std::to_string(ntohs(
+                         reinterpret_cast<const ::sockaddr_in6*>(&a_sockaddr)
+                             ->sin6_port));
 }
 
 
@@ -189,27 +217,6 @@ exit_fail:
 }
 
 
-// Free function to get the address string with port from a sockaddr structure
-// ---------------------------------------------------------------------------
-std::string to_netaddrp(const ::sockaddr_storage* const a_sockaddr) noexcept {
-    // TRACE("Executing to_addrport_str()") // not usable in chained output.
-    //
-    // sin_port and sin6_port are on the same memory location (union of the
-    // structures) so I can use it for AF_INET and AF_INET6.
-    // 'std::to_string()' may throw 'std::bad_alloc' from the std::string
-    // constructor. It is a fatal error that violates the promise to noexcpt
-    // and immediately terminates the propgram. This is intentional because the
-    // error cannot be handled.
-    return (a_sockaddr->ss_family != AF_INET6 &&
-            a_sockaddr->ss_family != AF_INET)
-               ? to_netaddr(a_sockaddr) // let it handle the error.
-               : to_netaddr(a_sockaddr) + ":" +
-                     std::to_string(ntohs(
-                         reinterpret_cast<const ::sockaddr_in6*>(a_sockaddr)
-                             ->sin6_port));
-}
-
-
 // Specialized sockaddr_structure
 // ==============================
 // Constructor
@@ -318,7 +325,7 @@ const std::string& SSockaddr::netaddr() {
     //
     // It is important to have the string available as long as the object lives,
     // otherwise you may get dangling pointer, e.g. with getting .c_str().
-    m_netaddr = to_netaddr(&ss);
+    m_netaddr = to_netaddr(ss);
     return m_netaddr;
 }
 
@@ -331,7 +338,7 @@ const std::string& SSockaddr::netaddrp() {
     //
     // It is important to have the string available as long as the object lives,
     // otherwise you may get dangling pointer, e.g. with getting .c_str().
-    m_netaddrp = to_netaddrp(&ss);
+    m_netaddrp = to_netaddrp(ss);
     return m_netaddrp;
 }
 

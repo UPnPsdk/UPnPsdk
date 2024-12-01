@@ -35,14 +35,14 @@ TEST(NetadapterTestSuite, get_adapters_info_successful) {
         saddrObj = nadObj.sockaddr();
         ASSERT_THAT(saddrObj.ss.ss_family, AnyOf(AF_INET6, AF_INET));
         // Check valid ip address
-        ASSERT_EQ(getnameinfo(&saddrObj.sa, sizeof(saddrObj.ss), addrStr,
-                              sizeof(addrStr), servStr, sizeof(servStr),
-                              NI_NUMERICHOST),
+        ASSERT_EQ(::getnameinfo(&saddrObj.sa, sizeof(saddrObj.ss), addrStr,
+                                sizeof(addrStr), servStr, sizeof(servStr),
+                                NI_NUMERICHOST),
                   0);
         snmskObj = nadObj.socknetmask();
         // Check valid netmask
-        ASSERT_EQ(getnameinfo(&snmskObj.sa, sizeof(snmskObj.ss), nmskStr,
-                              sizeof(nmskStr), nullptr, 0, NI_NUMERICHOST),
+        ASSERT_EQ(::getnameinfo(&snmskObj.sa, sizeof(snmskObj.ss), nmskStr,
+                                sizeof(nmskStr), nullptr, 0, NI_NUMERICHOST),
                   0);
 #if 0
         // To show resolved iface names set first NI_NUMERICHOST above to 0.

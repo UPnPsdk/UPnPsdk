@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp_source.html','../
 </div><!--header-->
 <div class="contents">
 <a href="../../dc/d59/addrinfo_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-12-01</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-12-02</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="../../d6/dbf/addrinfo_8hpp.html">UPnPsdk/addrinfo.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d3b/synclog_8hpp.html">UPnPsdk/synclog.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d7/d1b/sockaddr_8hpp.html">UPnPsdk/sockaddr.hpp</a>&gt;</span></div>
@@ -382,119 +382,127 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp_source.html','../
 <div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="comment">// syscall ::getaddrinfo() with prepared arguments</span></div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <span class="comment">// -----------------------------------------------</span></div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    ::addrinfo* new_res{<span class="keyword">nullptr</span>}; <span class="comment">// Result from ::getaddrinfo()</span></div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="keywordtype">int</span> ret =</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> ret =</div>
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        umock::netdb_h.getaddrinfo(c_node, service.c_str(), &amp;hints, &amp;new_res);</div>
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    TRACE2(<span class="stringliteral">&quot;syscall ::getaddrinfo() with new_res = &quot;</span>, new_res)</div>
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="comment">// Very helpful for debugging to see what is given to ::getaddrinfo()</span></div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="comment">// clang-format off</span></div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    UPnPsdk_LOGINFO &lt;&lt; <span class="stringliteral">&quot;MSG1111: syscall ::getaddrinfo(&quot;</span> &lt;&lt; node_out</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; service &lt;&lt; <span class="stringliteral">&quot;\&quot;, &quot;</span></div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        &lt;&lt; &amp;hints &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; &amp;new_res</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        &lt;&lt; <span class="stringliteral">&quot;) node=\&quot;&quot;</span> &lt;&lt; m_node &lt;&lt; <span class="stringliteral">&quot;\&quot;, &quot;</span></div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        &lt;&lt; (hints.ai_flags &amp; AI_NUMERICHOST ? <span class="stringliteral">&quot;AI_NUMERICHOST, &quot;</span> : <span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        &lt;&lt; (hints.ai_flags &amp; AI_NUMERICSERV ? <span class="stringliteral">&quot;AI_NUMERICSERV, &quot;</span> : <span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        &lt;&lt; (hints.ai_flags &amp; AI_PASSIVE ? <span class="stringliteral">&quot;AI_PASSIVE, &quot;</span> : <span class="stringliteral">&quot;&quot;</span>)</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        &lt;&lt; (hints.ai_family == AF_INET6 ? <span class="stringliteral">&quot;AF_INET6&quot;</span> :</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>                (hints.ai_family == AF_INET ? <span class="stringliteral">&quot;AF_INET&quot;</span> :</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>                    (hints.ai_family == AF_UNSPEC ? <span class="stringliteral">&quot;AF_UNSPEC&quot;</span> :</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>                        <span class="stringliteral">&quot;hints.ai_family=&quot;</span> + std::to_string(hints.ai_family))))</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        &lt;&lt; (ret != 0</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>            ? <span class="stringliteral">&quot;. Get GAI_ERROR(&quot;</span> + std::to_string(ret) + <span class="stringliteral">&quot;)&quot;</span></div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            : <span class="stringliteral">&quot;. Get first \&quot;&quot;</span> + <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997">to_netaddrp</a>(reinterpret_cast</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>              &lt;<span class="keyword">const</span> sockaddr_storage*&gt;(new_res-&gt;ai_addr)) + <span class="stringliteral">&quot;\&quot;&quot;</span>) &lt;&lt; <span class="stringliteral">&quot; (maybe more)\n&quot;</span>;</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">if</span> (ret == EAI_SERVICE    <span class="comment">/* Servname not supported for ai_socktype */</span></div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        || ret == EAI_NONAME  <span class="comment">/* Node or service not known */</span></div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        || ret == EAI_AGAIN   <span class="comment">/* The name server returned a temporary failure indication, try again later */</span></div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>#ifndef _MSC_VER</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        || ret == EAI_ADDRFAMILY <span class="comment">/* Address family for NAME not supported */</span></div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>#endif</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        || ret == EAI_NODATA)  <span class="comment">/* No address associated with hostname */</span> {</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        <span class="comment">// Error numbers definded in netdb.h.</span></div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        <span class="comment">// Maybe an alphanumeric node name that cannot be resolved (e.g. by</span></div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        <span class="comment">// DNS)? Anyway, the user has to decide what to do. Because this</span></div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        <span class="comment">// depends on extern available DNS server the error can occur</span></div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        <span class="comment">// unexpectedly at any time. We have no influence on it but I will give</span></div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        <span class="comment">// an extended error message.</span></div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        <span class="keywordflow">throw</span> std::runtime_error(UPnPsdk_LOGEXCEPT + <span class="stringliteral">&quot;MSG1112: errid(&quot;</span> +</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>             std::to_string(ret) + <span class="stringliteral">&quot;)=\&quot;&quot;</span> + ::gai_strerror(ret) + <span class="stringliteral">&quot;\&quot;, &quot;</span> +</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>             ((hints.ai_family == AF_UNSPEC) ? <span class="stringliteral">&quot;IPv?_&quot;</span> :</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>             ((hints.ai_family == AF_INET6) ? <span class="stringliteral">&quot;IPv6_&quot;</span> : <span class="stringliteral">&quot;IPv4_&quot;</span>)) +</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>             ((hints.ai_flags &amp; AI_NUMERICHOST) ? <span class="stringliteral">&quot;numeric_host=\&quot;&quot;</span> : <span class="stringliteral">&quot;alphanum_name=\&quot;&quot;</span>) +</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>              node + <span class="stringliteral">&quot;\&quot;, service=\&quot;&quot;</span> +</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>              service + <span class="stringliteral">&quot;\&quot;&quot;</span> +</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>             ((hints.ai_flags &amp; AI_PASSIVE) ? <span class="stringliteral">&quot;, passive_listen&quot;</span> : <span class="stringliteral">&quot;&quot;</span>) +</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>             ((hints.ai_flags &amp; AI_NUMERICHOST) ? <span class="stringliteral">&quot;&quot;</span> : <span class="stringliteral">&quot;, (maybe DNS query temporary failed?)&quot;</span>));</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    }</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="comment">// clang-format on</span></div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span> </div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    <span class="keywordflow">if</span> (ret != 0) {</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        <span class="keywordflow">throw</span> std::invalid_argument(</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>            UPnPsdk_LOGEXCEPT +</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>            <span class="stringliteral">&quot;MSG1037: Failed to get address information: errid(&quot;</span> +</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>            std::to_string(ret) + <span class="stringliteral">&quot;)=\&quot;&quot;</span> + ::gai_strerror(ret) + <span class="stringliteral">&quot;\&quot;\n&quot;</span>);</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e">g_dbug</a>) {</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        <span class="comment">// Very helpful for debugging to see what is given to ::getaddrinfo()</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        <span class="keywordtype">char</span> addrStr[INET6_ADDRSTRLEN]{};</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        <span class="keywordtype">char</span> servStr[NI_MAXSERV]{};</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        <span class="keywordflow">if</span> (ret == 0)</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>            ::getnameinfo(new_res-&gt;ai_addr,</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>                          <span class="keyword">static_cast&lt;</span>socklen_t<span class="keyword">&gt;</span>(new_res-&gt;ai_addrlen), addrStr,</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>                          <span class="keyword">sizeof</span>(addrStr), servStr, <span class="keyword">sizeof</span>(servStr),</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                          NI_NUMERICHOST | NI_NUMERICSERV);</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        <span class="comment">// clang-format off</span></div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        UPnPsdk_LOGINFO &lt;&lt; <span class="stringliteral">&quot;MSG1111: syscall ::getaddrinfo(&quot;</span> &lt;&lt; node_out</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>            &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span> &lt;&lt; service &lt;&lt; <span class="stringliteral">&quot;\&quot;, &quot;</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>            &lt;&lt; &amp;hints &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; &amp;new_res</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>            &lt;&lt; <span class="stringliteral">&quot;) node=\&quot;&quot;</span> &lt;&lt; m_node &lt;&lt; <span class="stringliteral">&quot;\&quot;, &quot;</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>            &lt;&lt; (hints.ai_flags &amp; AI_NUMERICHOST ? <span class="stringliteral">&quot;AI_NUMERICHOST, &quot;</span> : <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            &lt;&lt; (hints.ai_flags &amp; AI_NUMERICSERV ? <span class="stringliteral">&quot;AI_NUMERICSERV, &quot;</span> : <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>            &lt;&lt; (hints.ai_flags &amp; AI_PASSIVE ? <span class="stringliteral">&quot;AI_PASSIVE, &quot;</span> : <span class="stringliteral">&quot;&quot;</span>)</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>            &lt;&lt; (hints.ai_family == AF_INET6 ? <span class="stringliteral">&quot;AF_INET6&quot;</span> :</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>                    (hints.ai_family == AF_INET ? <span class="stringliteral">&quot;AF_INET&quot;</span> :</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>                        (hints.ai_family == AF_UNSPEC ? <span class="stringliteral">&quot;AF_UNSPEC&quot;</span> :</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>                            <span class="stringliteral">&quot;hints.ai_family=&quot;</span> + std::to_string(hints.ai_family))))</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>            &lt;&lt; (ret != 0</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>                ? <span class="stringliteral">&quot;. Get GAI_ERROR(&quot;</span> + std::to_string(ret) + <span class="stringliteral">&quot;)&quot;</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>                : <span class="stringliteral">&quot;. Get first \&quot;&quot;</span> + std::string(addrStr) + <span class="stringliteral">&quot;\&quot;, port &quot;</span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>                  + std::string(servStr)) &lt;&lt; <span class="stringliteral">&quot; (maybe more)\n&quot;</span>;</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    }</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keywordflow">if</span> (ret == EAI_SERVICE    <span class="comment">/* Servname not supported for ai_socktype */</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        || ret == EAI_NONAME  <span class="comment">/* Node or service not known */</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        || ret == EAI_AGAIN   <span class="comment">/* The name server returned a temporary failure indication, try again later */</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>#ifndef _MSC_VER</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        || ret == EAI_ADDRFAMILY <span class="comment">/* Address family for NAME not supported */</span></div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>#endif</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>        || ret == EAI_NODATA)  <span class="comment">/* No address associated with hostname */</span> {</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>        <span class="comment">// Error numbers definded in netdb.h.</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        <span class="comment">// Maybe an alphanumeric node name that cannot be resolved (e.g. by</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        <span class="comment">// DNS)? Anyway, the user has to decide what to do. Because this</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        <span class="comment">// depends on extern available DNS server the error can occur</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        <span class="comment">// unexpectedly at any time. We have no influence on it but I will give</span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        <span class="comment">// an extended error message.</span></div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>        <span class="keywordflow">throw</span> std::runtime_error(UPnPsdk_LOGEXCEPT + <span class="stringliteral">&quot;MSG1112: errid(&quot;</span> +</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>             std::to_string(ret) + <span class="stringliteral">&quot;)=\&quot;&quot;</span> + ::gai_strerror(ret) + <span class="stringliteral">&quot;\&quot;, &quot;</span> +</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>             ((hints.ai_family == AF_UNSPEC) ? <span class="stringliteral">&quot;IPv?_&quot;</span> :</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>             ((hints.ai_family == AF_INET6) ? <span class="stringliteral">&quot;IPv6_&quot;</span> : <span class="stringliteral">&quot;IPv4_&quot;</span>)) +</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>             ((hints.ai_flags &amp; AI_NUMERICHOST) ? <span class="stringliteral">&quot;numeric_host=\&quot;&quot;</span> : <span class="stringliteral">&quot;alphanum_name=\&quot;&quot;</span>) +</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>              node + <span class="stringliteral">&quot;\&quot;, service=\&quot;&quot;</span> +</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>              service + <span class="stringliteral">&quot;\&quot;&quot;</span> +</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>             ((hints.ai_flags &amp; AI_PASSIVE) ? <span class="stringliteral">&quot;, passive_listen&quot;</span> : <span class="stringliteral">&quot;&quot;</span>) +</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>             ((hints.ai_flags &amp; AI_NUMERICHOST) ? <span class="stringliteral">&quot;&quot;</span> : <span class="stringliteral">&quot;, (maybe DNS query temporary failed?)&quot;</span>));</div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    }</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    <span class="keywordflow">for</span> (::addrinfo* res{new_res}; res != <span class="keyword">nullptr</span>; res = res-&gt;ai_next) {</div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        <span class="comment">// First ai_socktype is different on platforms: man getsockaddr says</span></div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        <span class="comment">// &quot;Specifying 0 in hints.ai_socktype indicates that socket addresses</span></div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>        <span class="comment">// of any type can be returned&quot;. Linux returns SOCK_STREAM first, MacOS</span></div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>        <span class="comment">// returns SOCK_DGRAM first and win32 returns 0.</span></div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        <span class="comment">// if (hints.ai_socktype == 0)</span></div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        <span class="comment">//     res-&gt;ai_socktype = 0;</span></div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        <span class="comment">//</span></div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        <span class="comment">// Different on platforms: Ubuntu &amp; MacOS return protocol number, win32</span></div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        <span class="comment">// returns 0. I just return what was used to call ::getaddrinfo().</span></div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        res-&gt;ai_protocol = hints.ai_protocol;</div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        <span class="comment">//</span></div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        <span class="comment">// Different on platforms: Ubuntu returns set flags, MacOS &amp; win32</span></div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        <span class="comment">// return 0. I just return what was used to call ::getaddrinfo().</span></div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        res-&gt;ai_flags = hints.ai_flags;</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    }</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    <span class="comment">// Man getaddrinfo says: &quot;If service is NULL, then the port number of the</span></div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <span class="comment">// returned socket addresses will be left uninitialized.&quot; The service is</span></div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    <span class="comment">// never set to NULL so we always have a defined service/portnumber.</span></div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    <span class="comment">// if (service.empty())</span></div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="comment">//     // port for AF_INET6 is also valid for AF_INET</span></div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    <span class="comment">//     reinterpret_cast&lt;sockaddr_in6*&gt;(new_res-&gt;ai_addr)-&gt;sin6_port = 0;</span></div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <span class="comment">// If load() is called the second time then m_res still points to the</span></div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    <span class="comment">// previous allocated memory. To avoid a memory leak it must be freed</span></div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="comment">// before pointing to the new allocated memory.</span></div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    this-&gt;free_addrinfo();</div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    <span class="comment">// finaly point to the new address information from the operating</span></div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    <span class="comment">// system.</span></div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    m_res = new_res;</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    m_res_current = new_res;</div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>}</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="comment">// clang-format on</span></div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="keywordflow">if</span> (ret != 0) {</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        <span class="keywordflow">throw</span> std::invalid_argument(</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>            UPnPsdk_LOGEXCEPT +</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>            <span class="stringliteral">&quot;MSG1037: Failed to get address information: errid(&quot;</span> +</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>            std::to_string(ret) + <span class="stringliteral">&quot;)=\&quot;&quot;</span> + ::gai_strerror(ret) + <span class="stringliteral">&quot;\&quot;\n&quot;</span>);</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    }</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <span class="keywordflow">for</span> (::addrinfo* res{new_res}; res != <span class="keyword">nullptr</span>; res = res-&gt;ai_next) {</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        <span class="comment">// First ai_socktype is different on platforms: man getsockaddr says</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        <span class="comment">// &quot;Specifying 0 in hints.ai_socktype indicates that socket addresses</span></div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        <span class="comment">// of any type can be returned&quot;. Linux returns SOCK_STREAM first, MacOS</span></div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        <span class="comment">// returns SOCK_DGRAM first and win32 returns 0.</span></div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        <span class="comment">// if (hints.ai_socktype == 0)</span></div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        <span class="comment">//     res-&gt;ai_socktype = 0;</span></div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        <span class="comment">//</span></div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        <span class="comment">// Different on platforms: Ubuntu &amp; MacOS return protocol number, win32</span></div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>        <span class="comment">// returns 0. I just return what was used to call ::getaddrinfo().</span></div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>        res-&gt;ai_protocol = hints.ai_protocol;</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>        <span class="comment">//</span></div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>        <span class="comment">// Different on platforms: Ubuntu returns set flags, MacOS &amp; win32</span></div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        <span class="comment">// return 0. I just return what was used to call ::getaddrinfo().</span></div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        res-&gt;ai_flags = hints.ai_flags;</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    }</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    <span class="comment">// Man getaddrinfo says: &quot;If service is NULL, then the port number of the</span></div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="comment">// returned socket addresses will be left uninitialized.&quot; The service is</span></div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="comment">// never set to NULL so we always have a defined service/portnumber.</span></div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    <span class="comment">// if (service.empty())</span></div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    <span class="comment">//     // port for AF_INET6 is also valid for AF_INET</span></div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <span class="comment">//     reinterpret_cast&lt;sockaddr_in6*&gt;(new_res-&gt;ai_addr)-&gt;sin6_port = 0;</span></div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span> </div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    <span class="comment">// If load() is called the second time then m_res still points to the</span></div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    <span class="comment">// previous allocated memory. To avoid a memory leak it must be freed</span></div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    <span class="comment">// before pointing to the new allocated memory.</span></div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>    this-&gt;free_addrinfo();</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    <span class="comment">// finaly point to the new address information from the operating</span></div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>    <span class="comment">// system.</span></div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    m_res = new_res;</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    m_res_current = new_res;</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>}</div>
 </div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
-<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span><span class="comment">// Getter for the next available address information</span></div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span><span class="comment">// -------------------------------------------------</span></div>
-<div class="foldopen" id="foldopen00391" data-start="{" data-end="}">
-<div class="line"><a id="l00391" name="l00391"></a><span class="lineno"><a class="line" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a">  391</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a">CAddrinfo::get_next</a>() noexcept {</div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>    <span class="keywordflow">if</span> (m_res_current-&gt;ai_next == <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>        <span class="comment">// It doesn&#39;t matter if already pointing to m_hints. m_hints-&gt;ai_next is</span></div>
-<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>        <span class="comment">// also nullptr.</span></div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>        m_res_current = &amp;m_hints;</div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    }</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>    m_res_current = m_res_current-&gt;ai_next;</div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>}</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span> </div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span><span class="comment">// Getter for the next available address information</span></div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span><span class="comment">// -------------------------------------------------</span></div>
+<div class="foldopen" id="foldopen00399" data-start="{" data-end="}">
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno"><a class="line" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a">  399</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a">CAddrinfo::get_next</a>() noexcept {</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>    <span class="keywordflow">if</span> (m_res_current-&gt;ai_next == <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>        <span class="comment">// It doesn&#39;t matter if already pointing to m_hints. m_hints-&gt;ai_next is</span></div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>        <span class="comment">// also nullptr.</span></div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>        m_res_current = &amp;m_hints;</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>    }</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>    m_res_current = m_res_current-&gt;ai_next;</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>}</div>
 </div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span> </div>
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>} <span class="comment">// namespace UPnPsdk</span></div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span> </div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>} <span class="comment">// namespace UPnPsdk</span></div>
 <div class="ttc" id="aaddrinfo_8hpp_html"><div class="ttname"><a href="../../d6/dbf/addrinfo_8hpp.html">addrinfo.hpp</a></div><div class="ttdoc">Declaration of the Addrinfo class.</div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html_a4ef20d60145718451d128aeea321903a"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a">UPnPsdk::CAddrinfo::get_next</a></div><div class="ttdeci">bool get_next() noexcept</div><div class="ttdoc">Get next available address information.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d59/addrinfo_8cpp_source.html#l00391">addrinfo.cpp:391</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html_a4ef20d60145718451d128aeea321903a"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a">UPnPsdk::CAddrinfo::get_next</a></div><div class="ttdeci">bool get_next() noexcept</div><div class="ttdoc">Get next available address information.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d59/addrinfo_8cpp_source.html#l00399">addrinfo.cpp:399</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html_a73959edaef6545257c6c044b1077ae94"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a73959edaef6545257c6c044b1077ae94">UPnPsdk::CAddrinfo::CAddrinfo</a></div><div class="ttdeci">CAddrinfo(std::string_view a_node, std::string_view a_service, const int a_family=AF_UNSPEC, const int a_socktype=SOCK_STREAM, const int a_flags=0, const int a_protocol=0)</div><div class="ttdoc">Constructor for getting an address information with service name.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d59/addrinfo_8cpp_source.html#l00123">addrinfo.cpp:123</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html_a913d6cfa21e6b78fed48c6c50468a385"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a913d6cfa21e6b78fed48c6c50468a385">UPnPsdk::CAddrinfo::operator-&gt;</a></div><div class="ttdeci">::addrinfo * operator-&gt;() const noexcept</div><div class="ttdoc">Read access to members of the addrinfo structure</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d59/addrinfo_8cpp_source.html#l00214">addrinfo.cpp:214</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html_acb0d1b20ebbdfd755484d62b111c7cc6"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6">UPnPsdk::CAddrinfo::load</a></div><div class="ttdeci">void load()</div><div class="ttdoc">load address information from the operating system</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d59/addrinfo_8cpp_source.html#l00220">addrinfo.cpp:220</a></div></div>
 <div class="ttc" id="agroup__upnplib-addrmodul_html_ga76c078aa318c21d4b490c529e1abba5d"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga76c078aa318c21d4b490c529e1abba5d">UPnPsdk::anonymous_namespace{addrinfo.cpp}::is_netaddr</a></div><div class="ttdeci">sa_family_t is_netaddr(const std::string &amp;a_node, const int a_addr_family=AF_UNSPEC) noexcept</div><div class="ttdoc">Check for a netaddress and return its address family.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d59/addrinfo_8cpp_source.html#l00042">addrinfo.cpp:42</a></div></div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga83167c3ec258d9164fe5e349d8041997"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga83167c3ec258d9164fe5e349d8041997">UPnPsdk::to_netaddrp</a></div><div class="ttdeci">UPnPsdk_API std::string to_netaddrp(const ::sockaddr_storage *const a_sockaddr) noexcept</div><div class="ttdoc">Get the netaddress with port from a sockaddr structure.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00194">sockaddr.cpp:194</a></div></div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga933b89160fdfe1e4bb074cc2794854f8"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga933b89160fdfe1e4bb074cc2794854f8">UPnPsdk::to_port</a></div><div class="ttdeci">in_port_t to_port(const std::string &amp;a_port_str)</div><div class="ttdoc">Get the port number from a string.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00138">sockaddr.cpp:138</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga933b89160fdfe1e4bb074cc2794854f8"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga933b89160fdfe1e4bb074cc2794854f8">UPnPsdk::to_port</a></div><div class="ttdeci">in_port_t to_port(const std::string &amp;a_port_str)</div><div class="ttdoc">Get the port number from a string.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00166">sockaddr.cpp:166</a></div></div>
 <div class="ttc" id="anamespaceUPnPsdk_html"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a></div><div class="ttdoc">Reengineered Object Oriented UPnP+ program code.</div></div>
+<div class="ttc" id="anamespaceUPnPsdk_html_ab17340cd1b9cdd9d070f057f3a14ee5e"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e">UPnPsdk::g_dbug</a></div><div class="ttdeci">UPnPsdk_EXTERN bool g_dbug</div><div class="ttdoc">Switch to enable verbose (debug) output.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d3a/global_8hpp_source.html#l00026">global.hpp:26</a></div></div>
 <div class="ttc" id="asockaddr_8hpp_html"><div class="ttname"><a href="../../d7/d1b/sockaddr_8hpp.html">sockaddr.hpp</a></div><div class="ttdoc">Declaration of the Sockaddr class and some free helper functions.</div></div>
 <div class="ttc" id="asynclog_8hpp_html"><div class="ttname"><a href="../../d1/d3b/synclog_8hpp.html">synclog.hpp</a></div><div class="ttdoc">Define macro for synced logging to the console for detailed info and debug.</div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-01
+// Redistribution only with this Copyright remark. Last modified: 2024-12-02
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
@@ -428,79 +428,90 @@ TEST(SockaddrStorageTestSuite, output_netaddr_to_ostream) {
 TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
     SSockaddr saddr;
 
-    EXPECT_EQ(to_netaddr(&saddr.ss), "");
+    EXPECT_EQ(to_netaddr(saddr.ss), "");
 
     saddr.ss.ss_family = AF_UNSPEC;
-    EXPECT_EQ(to_netaddr(&saddr.ss), "");
+    EXPECT_EQ(to_netaddr(saddr.ss), "");
 
     saddr.ss.ss_family = AF_INET6;
-    EXPECT_EQ(to_netaddr(&saddr.ss), "[::]");
+    EXPECT_EQ(to_netaddr(saddr.ss), "[::]");
 
     saddr.ss.ss_family = AF_INET;
-    EXPECT_EQ(to_netaddr(&saddr.ss), "0.0.0.0");
+    EXPECT_EQ(to_netaddr(saddr.ss), "0.0.0.0");
 
     saddr = "[2001:db8::4]";
-    EXPECT_EQ(to_netaddr(&saddr.ss), "[2001:db8::4]");
+    EXPECT_EQ(to_netaddr(saddr.ss), "[2001:db8::4]");
 
     // saddr = "[fe80:db8::5%1]";
-    // EXPECT_EQ(to_netaddr(&saddr.ss), "[fe80:db8::5%1]");
+    // EXPECT_EQ(to_netaddr(saddr.ss), "[fe80:db8::5%1]");
 
     saddr = "192.168.88.99";
-    EXPECT_EQ(to_netaddr(&saddr.ss), "192.168.88.99");
+    EXPECT_EQ(to_netaddr(saddr.ss), "192.168.88.99");
 
-    saddr.ss.ss_family = AF_UNIX;
     bool g_dbug_old = g_dbug;
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
+    saddr.ss.ss_family = AF_UNIX;
     g_dbug = false;
     captureObj.start();
-    EXPECT_EQ(to_netaddr(&saddr.ss), "");
+    EXPECT_EQ(to_netaddr(saddr.ss), "");
     EXPECT_EQ(captureObj.str(), "");
     g_dbug = true;
     captureObj.start();
-    EXPECT_EQ(to_netaddr(&saddr.ss), "");
+    EXPECT_EQ(to_netaddr(saddr.ss), "");
     EXPECT_THAT(captureObj.str(),
-                HasSubstr("] ERROR MSG1036: Unsupported address family 1"));
+                HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
+
+    saddr.ss.ss_family = 255;
+    g_dbug = false;
+    captureObj.start();
+    EXPECT_EQ(to_netaddr(saddr.ss), "");
+    EXPECT_EQ(captureObj.str(), "");
+    g_dbug = true;
+    captureObj.start();
+    EXPECT_EQ(to_netaddr(saddr.ss), "");
+    EXPECT_THAT(captureObj.str(),
+                HasSubstr("] ERROR MSG1129: Unsupported address family 255"));
     g_dbug = g_dbug_old;
 }
 
 TEST(ToAddrStrTestSuite, sockaddr_to_address_port_string) {
     SSockaddr saddr;
 
-    EXPECT_EQ(to_netaddrp(&saddr.ss), "");
+    EXPECT_EQ(to_netaddrp(saddr.ss), "");
 
     saddr.ss.ss_family = AF_UNSPEC;
-    EXPECT_EQ(to_netaddrp(&saddr.ss), "");
+    EXPECT_EQ(to_netaddrp(saddr.ss), "");
 
     saddr.ss.ss_family = AF_INET6;
-    EXPECT_EQ(to_netaddrp(&saddr.ss), "[::]:0");
+    EXPECT_EQ(to_netaddrp(saddr.ss), "[::]:0");
 
     saddr.ss.ss_family = AF_INET;
-    EXPECT_EQ(to_netaddrp(&saddr.ss), "0.0.0.0:0");
+    EXPECT_EQ(to_netaddrp(saddr.ss), "0.0.0.0:0");
 
     saddr = "[2001:db8::4]";
-    EXPECT_EQ(to_netaddrp(&saddr.ss), "[2001:db8::4]:0");
+    EXPECT_EQ(to_netaddrp(saddr.ss), "[2001:db8::4]:0");
 
     saddr = "192.168.88.100";
-    EXPECT_EQ(to_netaddrp(&saddr.ss), "192.168.88.100:0");
+    EXPECT_EQ(to_netaddrp(saddr.ss), "192.168.88.100:0");
 
     saddr = "[2001:db8::5]:56789";
-    EXPECT_EQ(to_netaddrp(&saddr.ss), "[2001:db8::5]:56789");
+    EXPECT_EQ(to_netaddrp(saddr.ss), "[2001:db8::5]:56789");
 
     saddr = "192.168.88.101:54321";
-    EXPECT_EQ(to_netaddrp(&saddr.ss), "192.168.88.101:54321");
+    EXPECT_EQ(to_netaddrp(saddr.ss), "192.168.88.101:54321");
 
     saddr.ss.ss_family = AF_UNIX;
     bool g_dbug_old = g_dbug;
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     g_dbug = false;
     captureObj.start();
-    EXPECT_EQ(to_netaddrp(&saddr.ss), "");
+    EXPECT_EQ(to_netaddrp(saddr.ss), "");
     EXPECT_EQ(captureObj.str(), "");
     g_dbug = true;
     captureObj.start();
-    EXPECT_EQ(to_netaddrp(&saddr.ss), "");
+    EXPECT_EQ(to_netaddrp(saddr.ss), "");
     EXPECT_THAT(captureObj.str(),
-                HasSubstr("] ERROR MSG1036: Unsupported address family 1"));
+                HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
     g_dbug = g_dbug_old;
 }
 

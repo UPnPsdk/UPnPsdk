@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-23
+// Redistribution only with this Copyright remark. Last modified: 2024-12-02
 
 #include <UPnPsdk/global.hpp>
 #include <UPnPsdk/socket.hpp>
@@ -263,7 +263,7 @@ TEST(SocketBasicTestSuite, instantiate_socket_af_unix_sock_stream) {
     captureObj.start();
     EXPECT_EQ(sockObj.netaddr(), "");
     EXPECT_THAT(captureObj.str(),
-                HasSubstr("] ERROR MSG1036: Unsupported address family 1"));
+                HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
     g_dbug = g_dbug_old;
 
     CLOSE_SOCKET_P(sfd);
@@ -891,7 +891,7 @@ TEST(SocketTestSuite, get_addr_str_invalid_address_family) {
     captureObj.start();
     EXPECT_EQ(sockObj.netaddr(), "");
     EXPECT_THAT(captureObj.str(),
-                EndsWith("] ERROR MSG1036: Unsupported address family 255.\n"));
+                HasSubstr("] ERROR MSG1129: Unsupported address family 255"));
 
     g_dbug = false;
     captureObj.start();
@@ -903,7 +903,7 @@ TEST(SocketTestSuite, get_addr_str_invalid_address_family) {
     captureObj.start();
     EXPECT_EQ(sockObj.netaddrp(), "");
     EXPECT_THAT(captureObj.str(),
-                EndsWith("] ERROR MSG1036: Unsupported address family 255.\n"));
+                HasSubstr("] ERROR MSG1129: Unsupported address family 255"));
     g_dbug = g_dbug_old;
 }
 

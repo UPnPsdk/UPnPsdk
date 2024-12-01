@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-29
+// Redistribution only with this Copyright remark. Last modified: 2024-12-01
 
 // I test different address infos that we get from system function
 // ::getaddrinfo(). This function does not ensure always the same order of same
@@ -30,7 +30,6 @@ using ::UPnPsdk::is_netaddr;
 
 using ::UPnPsdk::CAddrinfo;
 using ::UPnPsdk::SSockaddr;
-using ::UPnPsdk::to_netaddrp;
 
 // Alternative proof of runtime select of the platform instead of conditional
 // compiling.
