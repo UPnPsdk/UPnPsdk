@@ -1549,6 +1549,7 @@ INSTANTIATE_TEST_SUITE_P(
     ::testing::Values(
                       // std::make_tuple("", false), // This randomly segfaults.
                       // Next conditions must be false. They are Wrong!
+                      std::make_tuple("::", false),
                       std::make_tuple("[::]", true),
                       std::make_tuple("[::]:0", true),
                       std::make_tuple("[::]:50016", true),
@@ -1564,6 +1565,7 @@ INSTANTIATE_TEST_SUITE_P(
     HeaderIsNumNewCode, HeaderIsNumTest,
     ::testing::Values(
                       std::make_tuple("", false), // segfaults fixed.
+                      std::make_tuple("::", true),
                       std::make_tuple("[::]", false),
                       std::make_tuple("[::]:0", false),
                       std::make_tuple("[::]:50016", false),
@@ -1571,7 +1573,7 @@ INSTANTIATE_TEST_SUITE_P(
                       std::make_tuple("0.0.0.0:0", false),
                       std::make_tuple("0.0.0.0:50046", false),
                       // The highest valid port number is 65535.
-                      std::make_tuple("192.168.88.91:65536", false)
+                      std::make_tuple("192.168.88.92:65536", false)
                       ));
 #endif
 INSTANTIATE_TEST_SUITE_P(
@@ -1585,7 +1587,6 @@ INSTANTIATE_TEST_SUITE_P(
                       std::make_tuple(".", false),
                       std::make_tuple(".:", false),
                       std::make_tuple(":.", false),
-                      std::make_tuple("::", false),
                       std::make_tuple(":::", false),
                       std::make_tuple("[::", false),
                       std::make_tuple("::]", false),

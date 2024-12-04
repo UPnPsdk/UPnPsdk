@@ -48,10 +48,11 @@ union sockaddr_t {
  *     // manage error or alphanumeric service name, e.g. "http".
  * }
  * \endcode
- *
  * Checks if the given string represents a numeric value between 0 and 65535.
  * \returns
- *  On success: Value of the port number, an empty string returns 0.
+ *  On success: Value of the port number in host byte order, so ypu can use it
+ * in your application without conversion. If you want to store it in a netaddr
+ * structure you must use <b>::%htons()</b>. An empty input string returns 0.
  *
  * \exception std::out_of_range A valid number was given but it is not in the
  * range 0..65535.

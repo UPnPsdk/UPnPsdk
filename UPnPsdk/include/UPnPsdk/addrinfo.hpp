@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_INCLUDE_ADDRINFO_HPP
 #define UPNPLIB_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-28
+// Redistribution only with this Copyright remark. Last modified: 2024-12-05
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
@@ -151,6 +151,9 @@ normal_execution();
     bool get_next() noexcept;
     /// @} Getter
 
+    /// \brief Get netaddress with port from current selcted address information
+    std::string netaddrp() noexcept;
+
   private:
     // Cache the hints that are given with the constructor by the user, so we
     // can always get identical address information from the operating system.
@@ -164,10 +167,11 @@ normal_execution();
     // ::getaddrinfo(). This pointer must be freed. That is done with the
     // destructor. It is initialized to point to the hints so there is never a
     // dangling pointer that may segfault. Pointing to the hints means there is
-    // no information available.
+    // no information available, e.g.
+    // if (m_res == &m_hints) { // do nothing }
     ::addrinfo* m_res{&m_hints};
     // This points to the current used address info. If more than one address
-    // info is available it is selected with this->get_next().
+    // info is available it is modified with this->get_next().
     ::addrinfo* m_res_current{&m_hints};
 
     // Private method to free allocated memory for address information.

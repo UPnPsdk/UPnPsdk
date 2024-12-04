@@ -5,7 +5,8 @@ var group__upnplib_addrmodul =
       [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#aac3fed6cad1a63cf03e0745f29d89ffb", null ],
       [ "load", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6", null ],
       [ "operator->", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a913d6cfa21e6b78fed48c6c50468a385", null ],
-      [ "get_next", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a", null ]
+      [ "get_next", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a", null ],
+      [ "netaddrp", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a9d8977414d20354d50a2aad950cf2e32", null ]
     ] ],
     [ "UPnPsdk::INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", [
       [ "load", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a1cec1b13d0a2a296c5dd35ee01e7f091", null ],

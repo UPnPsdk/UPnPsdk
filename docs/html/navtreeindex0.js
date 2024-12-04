@@ -116,6 +116,7 @@ var NAVTREEINDEX0 =
 "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a":[4,3,0,0,0,4],
 "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a73959edaef6545257c6c044b1077ae94":[4,3,0,0,0,0],
 "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a913d6cfa21e6b78fed48c6c50468a385":[4,3,0,0,0,3],
+"d0/d44/classUPnPsdk_1_1CAddrinfo.html#a9d8977414d20354d50a2aad950cf2e32":[4,3,0,0,0,5],
 "d0/d44/classUPnPsdk_1_1CAddrinfo.html#aac3fed6cad1a63cf03e0745f29d89ffb":[4,3,0,0,0,1],
 "d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6":[4,3,0,0,0,2],
 "d0/d45/statcodes_8cpp.html":[7,0,0,1,2,2,0,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "d1/d03/group__UpnpString.html#acea9de7fd993715cd9b2c99854bed2f6":[4,5,0,0],
 "d1/d03/group__UpnpString.html#d8/dbb/structs__UpnpString":[4,5,0],
 "d1/d03/group__UpnpString.html#ga04a9bde6f73e0b38ef037b0b61776d87":[4,5,4],
-"d1/d03/group__UpnpString.html#ga06963479e44d90a5de680861e2180e0b":[4,5,10],
-"d1/d03/group__UpnpString.html#ga0db13228160adbc4e7ad7f52157f987e":[4,5,9]
+"d1/d03/group__UpnpString.html#ga06963479e44d90a5de680861e2180e0b":[4,5,10]
 };

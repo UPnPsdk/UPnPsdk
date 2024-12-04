@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-01
+// Redistribution only with this Copyright remark. Last modified: 2024-12-06
 
 // I test different address infos that we get from system function
 // ::getaddrinfo(). This function does not ensure always the same order of same
@@ -49,6 +49,21 @@ Co co = Co::msc;
 #else
 Co co = Co::unknown;
 #endif
+
+
+class AddrinfoMockFTestSuite : public ::testing::Test {
+  protected:
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> m_netdbObj;
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&m_netdbObj);
+
+    // Constructor
+    AddrinfoMockFTestSuite() {
+        ON_CALL(m_netdbObj, getaddrinfo(_, _, _, _))
+            .WillByDefault(Return(EAI_FAMILY));
+    }
+};
 
 
 class NetaddrAssignTest
@@ -144,21 +159,6 @@ INSTANTIATE_TEST_SUITE_P(
 // clang-format on
 
 
-class AddrinfoMockFTestSuite : public ::testing::Test {
-  protected:
-    // Instantiate mocking object.
-    StrictMock<umock::NetdbMock> m_netdbObj;
-    // Inject the mocking object into the tested code.
-    umock::Netdb netdb_injectObj = umock::Netdb(&m_netdbObj);
-
-    // Constructor
-    AddrinfoMockFTestSuite() {
-        ON_CALL(m_netdbObj, getaddrinfo(_, _, _, _))
-            .WillByDefault(Return(EAI_FAMILY));
-    }
-};
-
-
 TEST(AddrinfoTestSuite, query_ipv6_addrinfo_successful) {
     CAddrinfo ai1("[2001:db8::8%2]");
 
@@ -189,10 +189,11 @@ TEST(AddrinfoTestSuite, query_ipv6_addrinfo_successful) {
 }
 
 TEST_F(AddrinfoMockFTestSuite, query_ipv6_addrinfo_successful) {
-    SSockaddr saddr;
-    saddr = "[2001:db8::9]";
+    UPnPsdk::sockaddr_t saddr{};
+    saddr.ss.ss_family = AF_INET6;
 
     ::addrinfo res;
+
     res.ai_flags = AI_NUMERICHOST;
     res.ai_family = AF_INET6;
     res.ai_socktype = SOCK_STREAM;
@@ -228,19 +229,25 @@ TEST_F(AddrinfoMockFTestSuite, query_addrinfo_url_with_service_successful) {
     ::addrinfo res2;
     res2.ai_family = AF_INET6;
 
-    SSockaddr saddr;
-    saddr = "[2001:db8::10]:443";
-
     ::addrinfo res3;
+    UPnPsdk::sockaddr_t ss{};
     res3.ai_flags = 0;
     res3.ai_family = AF_UNSPEC;
     res3.ai_socktype = SOCK_STREAM;
     res3.ai_protocol = 0;
-    res3.ai_addrlen = sizeof(saddr.sin6);
-    res3.ai_addr = &saddr.sa;
+    res3.ai_addrlen = sizeof(ss.sin6);
+    res3.ai_addr = &ss.sa;
     res3.ai_canonname = nullptr;
     res3.ai_next = nullptr;
 
+    // Mock assign saObj = ...
+    EXPECT_CALL(m_netdbObj,
+                getaddrinfo(Pointee(*"2001:db8::10"), Pointee(*"443"),
+                            AllOf(Field(&addrinfo::ai_family, AF_UNSPEC),
+                                  Field(&addrinfo::ai_flags,
+                                        AI_NUMERICHOST | AI_NUMERICSERV)),
+                            _))
+        .WillOnce(DoAll(SetArgPointee<3>(&res3), Return(0)));
     // Mock 'is_netaddr()'.
     EXPECT_CALL(m_netdbObj,
                 getaddrinfo(Pointee(*"www.example.com"), nullptr,
@@ -255,7 +262,10 @@ TEST_F(AddrinfoMockFTestSuite, query_addrinfo_url_with_service_successful) {
                             _))
         .WillOnce(DoAll(SetArgPointee<3>(&res3), Return(0)));
     // Mock 'freeaddrinfo()'
-    EXPECT_CALL(m_netdbObj, freeaddrinfo(_)).Times(3);
+    EXPECT_CALL(m_netdbObj, freeaddrinfo(_)).Times(4);
+
+    SSockaddr saObj;
+    saObj = "[2001:db8::10]:443";
 
     // Test Unit
     CAddrinfo ai("www.example.com:https");
@@ -266,7 +276,7 @@ TEST_F(AddrinfoMockFTestSuite, query_addrinfo_url_with_service_successful) {
     EXPECT_EQ(ai->ai_protocol, 0);
     EXPECT_EQ(ai->ai_flags, 0);
     EXPECT_EQ(ai->ai_addrlen, 28);
-    EXPECT_EQ(ai->ai_addr, &saddr.sa);
+    EXPECT_EQ(ai->ai_addr, &ss.sa);
     EXPECT_EQ(ai->ai_canonname, nullptr);
     EXPECT_EQ(ai->ai_next, nullptr);
     // EXPECT_EQ(ai.netaddr().str(), "[2001:db8::10]:443");
@@ -1399,7 +1409,7 @@ TEST(AddrinfoTestSuite, load_uad_with_scope_id) {
 #endif
 }
 
-TEST(NetaddrTestSuite, is_numeric_node) {
+TEST(AddrinfoTestSuite, is_numeric_node) {
     // Free function 'is_netaddr()' checks only the netaddress without port.
     EXPECT_EQ(is_netaddr("[2001:db8::41]", AF_INET6), AF_INET6);
     EXPECT_EQ(is_netaddr("[2001:db8::42]", AF_INET), AF_UNSPEC);
@@ -1448,6 +1458,28 @@ TEST(NetaddrTestSuite, is_numeric_node) {
     EXPECT_EQ(is_netaddr("[2001:db8::4%6]", AF_INET6), AF_INET6);
     EXPECT_EQ(is_netaddr("[::1%2]", AF_INET6), AF_INET6);
     EXPECT_EQ(is_netaddr("[::%2]"), AF_INET6);
+}
+
+TEST(AddrinfoTestSuite, get_netaddrp) {
+    CAddrinfo ai1("[fe80::1%1]:50001");
+    ASSERT_NO_THROW(ai1.load());
+    // Test Unit
+    EXPECT_THAT(ai1.netaddrp(),
+                AnyOf("[fe80::1%lo]:50001", "[fe80::1%lo0]:50001",
+                      "[fe80::1%1]:50001"));
+
+    CAddrinfo ai2("127.0.0.1:50002");
+    ASSERT_NO_THROW(ai2.load());
+    // Test Unit
+    EXPECT_EQ(ai2.netaddrp(), "127.0.0.1:50002");
+
+    ai2->ai_family = AF_UNSPEC;
+    // Test Unit
+    EXPECT_EQ(ai2.netaddrp(), ":50002");
+
+    ai2->ai_family = AF_UNIX;
+    // Test Unit
+    EXPECT_EQ(ai2.netaddrp(), "");
 }
 
 } // namespace utest

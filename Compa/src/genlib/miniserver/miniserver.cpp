@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-12-01
+ * Redistribution only with this Copyright remark. Last modified: 2024-12-05
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -118,7 +118,6 @@ MiniServerCallback gGenaCallback{nullptr};
  *
  * An empty netaddress or an unspecified one ("[::]", "0.0.0.0") is not valid.
  */
-// No unit test needed. It's tested with SSockaddr.
 int host_header_is_numeric(
     char* a_host_port,     ///< network address
     size_t a_host_port_len ///< length of a_host_port excl. terminating '\0'.

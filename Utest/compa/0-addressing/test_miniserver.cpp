@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-12-06
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -852,8 +852,7 @@ TEST_F(StartMiniServerMockFTestSuite,
         m_sys_socketObj,
         getsockname(sockfd, _,
                     Pointee(Ge(static_cast<socklen_t>(saddrObj.sizeof_ss())))))
-        // .Times(g_dbug ? 3 : 2) // additional call with debug output
-        .Times(g_dbug ? 2 : 2) // DEBUG!
+        .Times(g_dbug ? 3 : 2) // additional call with debug output
         .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
     EXPECT_CALL(m_sys_socketObj, getsockopt(sockfd, SOL_SOCKET, SO_TYPE, _, _))
         .WillOnce(DoAll(SetArgPtrIntValue<3>(SOCK_STREAM), Return(0)));
@@ -947,8 +946,7 @@ TEST_F(StartMiniServerMockFTestSuite,
         m_sys_socketObj,
         getsockname(sockfd, _,
                     Pointee(Ge(static_cast<socklen_t>(saddrObj.sizeof_ss())))))
-        // .Times(g_dbug ? 3 : 2) // additional call with debug output
-        .Times(g_dbug ? 2 : 2) // DEBUG!
+        .Times(g_dbug ? 3 : 2) // additional call with debug output
         .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
     EXPECT_CALL(m_sys_socketObj, getsockopt(sockfd, SOL_SOCKET, SO_TYPE, _, _))
         .WillOnce(DoAll(SetArgPtrIntValue<3>(SOCK_STREAM), Return(0)));

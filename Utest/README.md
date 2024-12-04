@@ -55,7 +55,7 @@ number, no matter what it is meaning. By default the message numbers start with
 message numbers with:
 
     ~$ # Get used error message numbers
-    ~$ grep -Pnor --color=never --exclude-dir={build,html,} --include='*.[chi]*' '...MSG\d\d\d\d...' | sort -t: -k3.4
+    ~$ grep -Pnor --color=never --exclude-dir={build,html,} --include='*.[chi]*' '...MSG\d\d\d\d...' | sort -t: -k3.4 | grep -v ^Utest/
 
 To avoid conflicts with double used socket file descriptors (sfd) on tests I
 always use a new one. To have a simple search pattern I define a constant
@@ -94,5 +94,5 @@ The test environment expects the certificates in ${UTEST_SOURCE_DIR}.
 
 <br /><pre>
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, &#60;Ingo&#64;Hoeft-online.de&#62;
-// Redistribution only with this Copyright remark. Last modified: 2024-11-05
+// Redistribution only with this Copyright remark. Last modified: 2024-12-05
 </pre>

@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-02
+// Redistribution only with this Copyright remark. Last modified: 2024-12-06
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -405,6 +405,40 @@ bool CAddrinfo::get_next() noexcept {
     }
     m_res_current = m_res_current->ai_next;
     return true;
+}
+
+// Get netaddress with port from current selcted address information
+// -----------------------------------------------------------------
+std::string CAddrinfo::netaddrp() noexcept {
+    if (m_res == &m_hints)
+        return "";
+
+    char addrStr[INET6_ADDRSTRLEN];
+    char servStr[NI_MAXSERV];
+    int ret = ::getnameinfo(m_res_current->ai_addr,
+                            static_cast<socklen_t>(m_res_current->ai_addrlen),
+                            addrStr, static_cast<socklen_t>(sizeof(addrStr)),
+                            servStr, static_cast<socklen_t>(sizeof(servStr)),
+                            NI_NUMERICHOST | NI_NUMERICSERV);
+    if (ret != 0) {
+        UPnPsdk_LOGERR "MSG1032: Failed to get name information: "
+            << gai_strerror(ret) << ". Continue with empty netaddress \"\".\n";
+        return "";
+    }
+
+    switch (m_res_current->ai_family) {
+    case AF_INET6:
+        return "[" + std::string(addrStr) + "]:" + std::string(servStr);
+    case AF_INET:
+        return std::string(addrStr) + ":" + std::string(servStr);
+    case AF_UNSPEC:
+        return ":" + std::string(servStr);
+    }
+
+    UPnPsdk_LOGERR "MSG1033: Unsupported address family "
+        << m_res_current->ai_family
+        << ". Continue with empty netaddress \"\".\n";
+    return "";
 }
 
 } // namespace UPnPsdk

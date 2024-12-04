@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-02
+// Redistribution only with this Copyright remark. Last modified: 2024-12-06
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
@@ -11,11 +11,11 @@
 
 namespace utest {
 
+using ::testing::AnyOf;
 using ::testing::EndsWith;
 using ::testing::HasSubstr;
 using ::testing::ThrowsMessage;
 
-using ::UPnPsdk::CSocket;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::sockaddrcmp;
 using ::UPnPsdk::SSockaddr;
@@ -86,7 +86,7 @@ TEST(SockaddrStorageTestSuite, pattern_for_checking_bind) {
 
     EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
     EXPECT_EQ(saddr.netaddr(), "");
-    EXPECT_EQ(saddr.netaddrp(), "");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
     EXPECT_EQ(saddr.get_port(), 0);
 
     saddr.ss.ss_family = AF_INET6;
@@ -100,13 +100,59 @@ TEST(SockaddrStorageTestSuite, pattern_for_checking_bind) {
     EXPECT_EQ(saddr.get_port(), 0);
 }
 
+TEST(SockaddrStorageTestSuite, set_sockaddr_structure_check_pattern) {
+    SSockaddr saObj;
+    saObj = "[2001:db8::1]:50001";
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::1]:50001");
+    saObj = "[2001:db8::2]";
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::2]:50001");
+    saObj = "[2001:db8::3]:";
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::3]:0");
+    saObj = ":50002";
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::3]:50002");
+    saObj = "50003";
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::3]:50003");
+    saObj = "127.0.0.4:50004";
+    EXPECT_EQ(saObj.netaddrp(), "127.0.0.4:50004");
+    saObj = "127.0.0.5";
+    EXPECT_EQ(saObj.netaddrp(), "127.0.0.5:50004");
+    saObj = "127.0.0.6:";
+    EXPECT_EQ(saObj.netaddrp(), "127.0.0.6:0");
+    saObj = ":50005";
+    EXPECT_EQ(saObj.netaddrp(), "127.0.0.6:50005");
+    saObj = "50006";
+    EXPECT_EQ(saObj.netaddrp(), "127.0.0.6:50006");
+    saObj = "2001:db8::7";
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::7]:50006");
+
+    // If the scope id on Unix like platforms matches a real interface then its
+    // name is returned instead of the number, e.g. "%lo" instead of "%1".
+    // Microsoft Windows always returns the number. For this test I use high
+    // number scope ids so always numbers are returned.
+    saObj = "[fe80::8%1]:50008";
+    EXPECT_THAT(saObj.netaddrp(),
+                AnyOf("[fe80::8%1]:50008", "[fe80::8%lo]:50008",
+                      "[fe80::8%lo0]:50008"));
+    saObj = "[fe80::a%1]";
+    EXPECT_THAT(saObj.netaddrp(),
+                AnyOf("[fe80::a%1]:50008", "[fe80::a%lo]:50008",
+                      "[fe80::a%lo0]:50008"));
+    saObj = "fe80::b%1";
+    EXPECT_THAT(saObj.netaddrp(),
+                AnyOf("[fe80::b%1]:50008", "[fe80::b%lo]:50008",
+                      "[fe80::b%lo0]:50008"));
+    saObj = "[fe80::9%1]:";
+    EXPECT_THAT(saObj.netaddrp(),
+                AnyOf("[fe80::9%1]:0", "[fe80::9%lo]:0", "[fe80::9%lo0]:0"));
+}
+
 TEST(SockaddrStorageTestSuite, set_address_and_port_successful) {
     SSockaddr saddr;
 
     saddr = "";
     EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
     EXPECT_EQ(saddr.netaddr(), "");
-    EXPECT_EQ(saddr.netaddrp(), "");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
     EXPECT_EQ(saddr.get_port(), 0);
 
     // Setting address and port in two steps
@@ -159,39 +205,53 @@ TEST(SockaddrStorageTestSuite, set_address_and_port_successful) {
 TEST(SockaddrStorageTestSuite, set_address_and_port_fail) {
     SSockaddr saddr;
 
-    // Throws only with AF_UNSPEC that is also 0.
-    saddr.ss.ss_family = AF_UNSPEC;
-    EXPECT_THAT([&saddr]() { saddr = ":50070"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] EXCEPTION MSG1044: Invalid netaddress \"\".")));
+    EXPECT_THAT([&saddr]() { saddr = "[2001:db8::5]:65536"; },
+                ThrowsMessage<std::out_of_range>(
+                    EndsWith("] EXCEPTION MSG1127: Valid number string "
+                             "\"65536\" is out of port range 0..65535.")));
 
-    // This does not compile with error
-    // ‘short unsigned int’ changes value from ‘65536’ to ‘0’.
-    // EXPECT_THAT([&saddr]() { saddr = 65536; },
-    //             ThrowsMessage<std::invalid_argument>(
-    //             EndsWith("] EXCEPTION MSG1044: Invalid netaddress \"\".")));
+    EXPECT_THAT([&saddr]() { saddr = ":65536"; },
+                ThrowsMessage<std::out_of_range>(
+                    EndsWith("] EXCEPTION MSG1127: Valid number string "
+                             "\"65536\" is out of port range 0..65535.")));
+
+    EXPECT_THAT([&saddr]() { saddr = "65536"; },
+                ThrowsMessage<std::out_of_range>(
+                    EndsWith("] EXCEPTION MSG1127: Valid number string "
+                             "\"65536\" is out of port range 0..65535.")));
+
+    EXPECT_THAT([&saddr]() { saddr = "127.0.0.1:65536"; },
+                ThrowsMessage<std::out_of_range>(
+                    EndsWith("] EXCEPTION MSG1127: Valid number string "
+                             "\"65536\" is out of port range 0..65535.")));
 
     EXPECT_THAT([&saddr]() { saddr = ":"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] EXCEPTION MSG1044: Invalid netaddress \"\".")));
+                ThrowsMessage<std::invalid_argument>(EndsWith(
+                    "] EXCEPTION MSG1043: Invalid netaddress \":\".")));
 
     EXPECT_THAT([&saddr]() { saddr = "garbage"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] EXCEPTION MSG1128: Failed to get port number "
-                             "for string \"garbage\".")));
+                ThrowsMessage<std::invalid_argument>(EndsWith(
+                    "] EXCEPTION MSG1043: Invalid netaddress \"garbage\".")));
 
     EXPECT_THAT(
         [&saddr]() { saddr = "[2001::db8::1]"; },
         ThrowsMessage<std::invalid_argument>(EndsWith(
             "] EXCEPTION MSG1043: Invalid netaddress \"[2001::db8::1]\".")));
 
-    EXPECT_THAT([&saddr]() { saddr = "2001:db8::1]"; },
-                ThrowsMessage<std::invalid_argument>(EndsWith(
-                    "] EXCEPTION MSG1044: Invalid netaddress \"2001\".")));
+    EXPECT_THAT(
+        [&saddr]() { saddr = "2001:db8::1]"; },
+        ThrowsMessage<std::invalid_argument>(EndsWith(
+            "] EXCEPTION MSG1043: Invalid netaddress \"2001:db8::1]\".")));
 
-    EXPECT_THROW({ saddr = "[2001:db8::2"; }, std::out_of_range);
+    EXPECT_THAT(
+        [&saddr]() { saddr = "[2001:db8::2"; },
+        ThrowsMessage<std::invalid_argument>(EndsWith(
+            "] EXCEPTION MSG1043: Invalid netaddress \"[2001:db8::2\".")));
 
-    EXPECT_THROW({ saddr = "[2001:db8::3]50003"; }, std::out_of_range);
+    EXPECT_THAT([&saddr]() { saddr = "[2001:db8::3]50003"; },
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] EXCEPTION MSG1043: Invalid netaddress "
+                             "\"[2001:db8::3]50003\".")));
 
     EXPECT_THAT(
         [&saddr]() { saddr = "[2001:db8::35003]"; },
@@ -201,12 +261,12 @@ TEST(SockaddrStorageTestSuite, set_address_and_port_fail) {
     EXPECT_THAT(
         [&saddr]() { saddr = "192.168.66.67."; },
         ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1044: Invalid netaddress \"192.168.66.67.\".")));
+            "] EXCEPTION MSG1043: Invalid netaddress \"192.168.66.67.\".")));
 
     EXPECT_THAT(
         [&saddr]() { saddr = "192.168.66.67z"; },
         ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1044: Invalid netaddress \"192.168.66.67z\".")));
+            "] EXCEPTION MSG1043: Invalid netaddress \"192.168.66.67z\".")));
 }
 
 TEST(SockaddrCmpTestSuite, compare_equal_ipv6_sockaddrs_successful) {
@@ -442,8 +502,10 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
     saddr = "[2001:db8::4]";
     EXPECT_EQ(to_netaddr(saddr.ss), "[2001:db8::4]");
 
-    // saddr = "[fe80:db8::5%1]";
-    // EXPECT_EQ(to_netaddr(saddr.ss), "[fe80:db8::5%1]");
+    if (!github_actions) {
+        saddr = "[fe80:db8::5%21]";
+        EXPECT_EQ(to_netaddr(saddr.ss), "[fe80:db8::5%21]");
+    }
 
     saddr = "192.168.88.99";
     EXPECT_EQ(to_netaddr(saddr.ss), "192.168.88.99");
@@ -477,10 +539,10 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
 TEST(ToAddrStrTestSuite, sockaddr_to_address_port_string) {
     SSockaddr saddr;
 
-    EXPECT_EQ(to_netaddrp(saddr.ss), "");
+    EXPECT_EQ(to_netaddrp(saddr.ss), ":0");
 
     saddr.ss.ss_family = AF_UNSPEC;
-    EXPECT_EQ(to_netaddrp(saddr.ss), "");
+    EXPECT_EQ(to_netaddrp(saddr.ss), ":0");
 
     saddr.ss.ss_family = AF_INET6;
     EXPECT_EQ(to_netaddrp(saddr.ss), "[::]:0");

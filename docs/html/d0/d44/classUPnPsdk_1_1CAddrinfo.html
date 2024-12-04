@@ -117,6 +117,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aac3fed6cad1a63cf03e0745f29d89ffb" id="r_aac3fed6cad1a63cf03e0745f29d89ffb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#aac3fed6cad1a63cf03e0745f29d89ffb">CAddrinfo</a> (std::string_view a_node, const int a_family=AF_UNSPEC, const int a_socktype=SOCK_STREAM, const int a_flags=0, const int a_protocol=0)</td></tr>
 <tr class="memdesc:aac3fed6cad1a63cf03e0745f29d89ffb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for getting an address information from only a netaddress.  <br /></td></tr>
 <tr class="separator:aac3fed6cad1a63cf03e0745f29d89ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d8977414d20354d50a2aad950cf2e32" id="r_a9d8977414d20354d50a2aad950cf2e32"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a9d8977414d20354d50a2aad950cf2e32">netaddrp</a> () noexcept</td></tr>
+<tr class="memdesc:a9d8977414d20354d50a2aad950cf2e32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get netaddress with port from current selcted address information.  <br /></td></tr>
+<tr class="separator:a9d8977414d20354d50a2aad950cf2e32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Setter</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><hr  />
  </div></td></tr>
@@ -399,6 +402,55 @@ Public Member Functions</h2></td></tr>
  <b>false</b> otherwise </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00399">399</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9d8977414d20354d50a2aad950cf2e32" name="a9d8977414d20354d50a2aad950cf2e32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d8977414d20354d50a2aad950cf2e32">&#9670;&#160;</a></span>netaddrp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string UPnPsdk::CAddrinfo::netaddrp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get netaddress with port from current selcted address information. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00412">412</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d0/d44/classUPnPsdk_1_1CAddrinfo_a9d8977414d20354d50a2aad950cf2e32_icgraph.png" border="0" usemap="#ad0/d44/classUPnPsdk_1_1CAddrinfo_a9d8977414d20354d50a2aad950cf2e32_icgraph" alt=""/></div>
+<map name="ad0/d44/classUPnPsdk_1_1CAddrinfo_a9d8977414d20354d50a2aad950cf2e32_icgraph" id="ad0/d44/classUPnPsdk_1_1CAddrinfo_a9d8977414d20354d50a2aad950cf2e32_icgraph">
+<area shape="rect" title="Get netaddress with port from current selcted address information." alt="" coords="965,13,1116,53"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7d8a000d07b38db55e1ff380d2e36024" title="Bind socket to a local interface address." alt="" coords="743,20,917,45"/>
+<area shape="poly" title=" " alt="" coords="951,35,917,35,917,30,951,30"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="515,5,695,60"/>
+<area shape="poly" title=" " alt="" coords="729,35,695,35,695,30,729,30"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="344,20,467,45"/>
+<area shape="poly" title=" " alt="" coords="501,35,467,35,467,30,501,30"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="139,20,296,45"/>
+<area shape="poly" title=" " alt="" coords="330,35,296,35,296,30,330,30"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,20,91,45"/>
+<area shape="poly" title=" " alt="" coords="125,35,91,35,91,30,125,30"/>
+</map>
+</div>
 
 </div>
 </div>
