@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-05
+// Redistribution only with this Copyright remark. Last modified: 2024-12-07
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -167,23 +167,25 @@ bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
 } // anonymous namespace
 
 
-// Free function to get the port number from a string
-// --------------------------------------------------
-in_port_t to_port(const std::string& a_port_str) {
+// Free function to check if a string is a valid port number
+// ---------------------------------------------------------
+int to_port(const std::string& a_port_str,
+            in_port_t* const a_port_num) noexcept {
     TRACE("Executing to_port() with port=\"" + a_port_str + "\"")
-    bool nonzero{false};
-    int port;
 
     // Only non empty strings. I have to check this to avoid stoi() exception
     // below.
-    if (a_port_str.empty())
-        // An empty port string is defined to be the unknown port 0.
+    if (a_port_str.empty()) {
+        if (a_port_num != nullptr)
+            *a_port_num = 0;
         return 0;
+    }
 
     // Now we check if the string are all digit characters
+    bool nonzero{false};
     for (char ch : a_port_str) {
         if (!std::isdigit(static_cast<unsigned char>(ch))) {
-            goto exit_fail;
+            return -1;
         } else if (ch != '0') {
             nonzero = true;
         }
@@ -192,34 +194,25 @@ in_port_t to_port(const std::string& a_port_str) {
     // Only strings with max. 5 char may be valid (uint16_t has max. 65535).
     if (a_port_str.length() > 5) {
         if (nonzero)
-            goto exit_overrun; // value valid but more than 5 char.
+            return 1; // value valid but more than 5 char.
         else
-            goto exit_fail; // string is all zero with more than 5 char.
+            return -1; // string is all zero with more than 5 char.
     }
 
     // Valid positive number but is it within the port range (uint16_t)?
-    // stoi() may throw std::invalid_argument if no conversion could be
+    // stoi may throw std::invalid_argument if no conversion could be
     // performed or std::out_of_range. But with the prechecked number string
     // this should never be thrown.
-    port = std::stoi(a_port_str);
-    if (port > 65535)
-        goto exit_overrun;
+    int port = std::stoi(a_port_str);
+    if (port > 65535) {
+        return 1;
+    } else if (a_port_num != nullptr) {
+        // Type cast is no problem because the port value is checked to be
+        // 0..65635 so it always fit into in_port_t(uint16_t).
+        *a_port_num = static_cast<in_port_t>(port);
+    }
 
-    // Type cast from int is no problem because the port value is checked to be
-    // 0..65535 so it always fit into in_port_t(uint16_t).
-    return static_cast<in_port_t>(port);
-
-
-// Both following exceptions are derived from std::logic_error() so that can be
-// used to catch any of them.
-exit_overrun:
-    throw std::out_of_range(UPnPsdk_LOGEXCEPT +
-                            "MSG1127: Valid number string \"" + a_port_str +
-                            "\" is out of port range 0..65535.");
-exit_fail:
-    throw std::invalid_argument(
-        UPnPsdk_LOGEXCEPT + "MSG1128: Failed to get port number for string \"" +
-        a_port_str + "\".");
+    return 0;
 }
 
 
@@ -274,7 +267,7 @@ SSockaddr& SSockaddr::operator=(SSockaddr that) {
 //                  Starting with ':' and is port
 //               :50002
 //                  Containing '.'
-//               127.0.0.4:50004
+//               127.0.0.4:50003
 //               127.0.0.5:
 //               127.0.0.6
 //                  Is port
@@ -305,18 +298,25 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
             serv_str = a_addr_str.substr(pos + 2); // Get port string
         } else {
             addr_str = a_addr_str; // Get IP address
+            // Don't modify old port setting, recover it.
             serv_str = std::to_string(ntohs(m_sa_union.sin6.sin6_port));
         }
 
     } else if (a_addr_str.front() == ':') {
         // Starting with ':' and is port
-        try {
-            in_port_t port = to_port(a_addr_str.substr(1));
+        in_port_t port{};
+        switch (to_port(a_addr_str.substr(1), &port)) {
+        case -1:
+            // No port, try next
+            addr_str = a_addr_str;
+            break;
+        case 0:
             // Only service given, set only port.
             m_sa_union.sin6.sin6_port = htons(port);
             return;
-        } catch (const std::invalid_argument&) {
-            addr_str = a_addr_str;
+        case 1:
+            // Value not in range 0..65535
+            goto exit_overrun;
         }
     } else if (a_addr_str.find_first_of('.') != std::string::npos) {
         // Containing '.'
@@ -325,43 +325,61 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
             serv_str = a_addr_str.substr(pos + 1); // Get port string
         } else {
             addr_str = a_addr_str;
+            // Don't modify old port setting, recover it.
             serv_str = std::to_string(ntohs(m_sa_union.sin6.sin6_port));
         }
     } else {
         // Is port
-        try {
-            in_port_t port = to_port(a_addr_str);
+        in_port_t port{};
+        switch (to_port(a_addr_str, &port)) {
+        case -1:
+            // Remaining
+            addr_str = a_addr_str;
+            // Don't modify old port setting, recover it.
+            serv_str = std::to_string(ntohs(m_sa_union.sin6.sin6_port));
+            break;
+        case 0:
             // Only service given, set only port.
             m_sa_union.sin6.sin6_port = htons(port);
             return;
-        } catch (const std::invalid_argument&) {
-            // Remaining
-            addr_str = a_addr_str;
-            serv_str = std::to_string(ntohs(m_sa_union.sin6.sin6_port));
+        case 1:
+            // Value not in range 0..65535
+            goto exit_overrun;
         }
     }
     // std::cout << "DEBUG: addr_str \"" << addr_str << "\", serv_str \""
     //           << serv_str << "\"\n";
 
     // Check for valid port. ::getaddrinfo accepts invalid ports > 65535.
-    to_port(serv_str); // Will throw an exception.
+    switch (to_port(serv_str)) {
+    case -1:
+        goto exit_fail;
+    case 0:
+        break;
+    case 1:
+        goto exit_overrun;
+    }
 
-    // remove surounding brackets if any, shortest possible netaddress is "[::]"
-    if (addr_str.length() >= 4 && addr_str.front() == '[' &&
-        addr_str.back() == ']')
-        addr_str = addr_str.substr(1, addr_str.length() - 2);
+    { // Block needed to avoid error: "goto label crosses initialization"
+        // remove surounding brackets if any, shortest possible netaddress is
+        // "[::]"
+        if (addr_str.length() >= 4 && addr_str.front() == '[' &&
+            addr_str.back() == ']')
+            addr_str = addr_str.substr(1, addr_str.length() - 2);
+        // Provide resources for ::getaddrinfo()
+        // ai_flags ensure that only numeric values are accepted.
+        ::addrinfo hints{};
+        hints.ai_flags = AI_NUMERICHOST | AI_NUMERICSERV;
+        hints.ai_family = AF_UNSPEC;
+        ::addrinfo* res{nullptr};
 
-    // Provide resources for ::getaddrinfo()
-    // ai_flags ensure that only numeric values are accepted.
-    ::addrinfo hints{};
-    hints.ai_flags = AI_NUMERICHOST | AI_NUMERICSERV;
-    hints.ai_family = AF_UNSPEC;
-    ::addrinfo* res{nullptr};
-
-    // Call ::getaddrinfo() to check the ip address string.
-    int ret = umock::netdb_h.getaddrinfo(addr_str.c_str(), serv_str.c_str(),
-                                         &hints, &res);
-    if (ret == 0) {
+        // Call ::getaddrinfo() to check the ip address string.
+        int ret = umock::netdb_h.getaddrinfo(addr_str.c_str(), serv_str.c_str(),
+                                             &hints, &res);
+        if (ret != 0) {
+            umock::netdb_h.freeaddrinfo(res);
+            goto exit_fail;
+        } else {
 #if 0
         // Helpful for debugging, takes some time for typing.
         for (::addrinfo* pres = res; pres != nullptr; pres = pres->ai_next) {
@@ -373,15 +391,24 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
                       << this->netaddrp() << "\"\n";
         }
 #else
-        ::memcpy(&m_sa_union, res->ai_addr, sizeof(m_sa_union));
+            ::memcpy(&m_sa_union, res->ai_addr, sizeof(m_sa_union));
 #endif
-        umock::netdb_h.freeaddrinfo(res);
-    } else {
-        umock::netdb_h.freeaddrinfo(res);
-        throw std::invalid_argument(UPnPsdk_LOGEXCEPT +
-                                    "MSG1043: Invalid netaddress \"" +
-                                    a_addr_str + "\".");
+            umock::netdb_h.freeaddrinfo(res);
+        }
     }
+
+    return;
+
+// Both following exceptions are derived from std::logic_error() so that can be
+// used to catch any of them.
+exit_overrun:
+    throw std::out_of_range(UPnPsdk_LOGEXCEPT +
+                            "MSG1127: Number string from \"" + a_addr_str +
+                            "\" for port is out of range 0..65535.");
+exit_fail:
+    throw std::invalid_argument(UPnPsdk_LOGEXCEPT +
+                                "MSG1043: Invalid netaddress \"" + a_addr_str +
+                                "\".");
 }
 
 // Assignment operator= to set socket port from an integer,

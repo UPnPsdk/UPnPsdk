@@ -124,9 +124,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga933b89160fdfe1e4bb074cc2794854f8" id="r_ga933b89160fdfe1e4bb074cc2794854f8"><td class="memItemLeft" align="right" valign="top">in_port_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga933b89160fdfe1e4bb074cc2794854f8">UPnPsdk::to_port</a> (const std::string &amp;a_port_str)</td></tr>
-<tr class="memdesc:ga933b89160fdfe1e4bb074cc2794854f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the port number from a string.  <br /></td></tr>
-<tr class="separator:ga933b89160fdfe1e4bb074cc2794854f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga15c85fb426d891e4a6c2f3258a8edfc5" id="r_ga15c85fb426d891e4a6c2f3258a8edfc5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga15c85fb426d891e4a6c2f3258a8edfc5">UPnPsdk::to_port</a> (const std::string &amp;a_port_str, in_port_t *const a_port_num=nullptr) noexcept</td></tr>
+<tr class="memdesc:ga15c85fb426d891e4a6c2f3258a8edfc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to check if a string has a valid port number appended.  <br /></td></tr>
+<tr class="separator:ga15c85fb426d891e4a6c2f3258a8edfc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga97def93cf54b1e9cd5a59c4c9c0dca55" id="r_ga97def93cf54b1e9cd5a59c4c9c0dca55"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API::std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga97def93cf54b1e9cd5a59c4c9c0dca55">UPnPsdk::operator&lt;&lt;</a> (::std::ostream &amp;os, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;saddr)</td></tr>
 <tr class="memdesc:ga97def93cf54b1e9cd5a59c4c9c0dca55"><td class="mdescLeft">&#160;</td><td class="mdescRight">output the <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a>  <br /></td></tr>
 <tr class="separator:ga97def93cf54b1e9cd5a59c4c9c0dca55"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -197,45 +197,69 @@ sa</td>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga933b89160fdfe1e4bb074cc2794854f8" name="ga933b89160fdfe1e4bb074cc2794854f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga933b89160fdfe1e4bb074cc2794854f8">&#9670;&#160;</a></span>to_port()</h2>
+<a id="ga15c85fb426d891e4a6c2f3258a8edfc5" name="ga15c85fb426d891e4a6c2f3258a8edfc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga15c85fb426d891e4a6c2f3258a8edfc5">&#9670;&#160;</a></span>to_port()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">in_port_t UPnPsdk::to_port </td>
+          <td class="memname">int UPnPsdk::to_port </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>a_port_str</em></td><td>)</td>
+          <td class="paramname"><em>a_port_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">in_port_t *const&#160;</td>
+          <td class="paramname"><em>a_port_num</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Get the port number from a string. </p>
+<p>Free function to check if a string has a valid port number appended. </p>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
-<div class="line">in_port_t port;</div>
-<div class="line"><span class="keywordflow">try</span> { port = <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga933b89160fdfe1e4bb074cc2794854f8">to_port</a>(service);</div>
-<div class="line">    <span class="comment">// do normal things.</span></div>
-<div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::out_of_range&amp; e) {</div>
-<div class="line">    <span class="comment">// manage error: service number too big.</span></div>
-<div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::invalid_argument&amp; e) {</div>
-<div class="line">    <span class="comment">// manage error or alphanumeric service name, e.g. &quot;http&quot;.</span></div>
-<div class="line">}</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga933b89160fdfe1e4bb074cc2794854f8"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga933b89160fdfe1e4bb074cc2794854f8">UPnPsdk::to_port</a></div><div class="ttdeci">in_port_t to_port(const std::string &amp;a_port_str)</div><div class="ttdoc">Get the port number from a string.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00172">sockaddr.cpp:172</a></div></div>
-</div><!-- fragment --><p> Checks if the given string represents a numeric value between 0 and 65535. </p><dl class="section return"><dt>Returns</dt><dd>On success: Value of the port number in host byte order, so ypu can use it in your application without conversion. If you want to store it in a netaddr structure you must use <b>::htons()</b>. An empty input string returns 0.</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>A valid number was given but it is not in the range 0..65535. </td></tr>
-    <tr><td class="paramname">std::invalid_argument</td><td>Invalid number string but may be a valid alphanumeric service name like "http". </td></tr>
-    <tr><td class="paramname">std::logic_error</td><td>Both exceptions above are derived from this one. If you only want to catch any error you can use this one. </td></tr>
-  </table>
-  </dd>
-</dl>
+<div class="line">in_port_t port{};</div>
+<div class="line"><span class="keywordflow">switch</span> (<a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga15c85fb426d891e4a6c2f3258a8edfc5">to_port</a>(<span class="stringliteral">&quot;65535&quot;</span>, &amp;port) {</div>
+<div class="line"><span class="keywordflow">case</span> -1:</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Invalid port number string.\n&quot;</span>;</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="keywordflow">case</span> 0:</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Valid port number: &quot;</span> &lt;&lt; std::to_string(port) &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="keywordflow">case</span> 1:</div>
+<div class="line">    std::cout &lt;&lt; Valid number but out of scope 0..65535 <span class="keywordflow">for</span> ports.\n<span class="stringliteral">&quot;;</span></div>
+<div class="line"><span class="stringliteral">    break;</span></div>
+<div class="line"><span class="stringliteral">}</span></div>
+<div class="line"><span class="stringliteral"></span> </div>
+<div class="line"><span class="stringliteral">if (to_port(&quot;</span>65536<span class="stringliteral">&quot;) != 0) { // do nothing with port }</span></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga15c85fb426d891e4a6c2f3258a8edfc5"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga15c85fb426d891e4a6c2f3258a8edfc5">UPnPsdk::to_port</a></div><div class="ttdeci">int to_port(const std::string &amp;a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string has a valid port number appended.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00172">sockaddr.cpp:172</a></div></div>
+</div><!-- fragment --><p> Splits an available port number from a string representing a numeric address string.</p>
+<dl class="section return"><dt>Returns</dt><dd>On success: <b>0</b><br  />
+ A numeric port number in host byte order is returned in <b>a_port_num</b>, so ypu can use it in your application without conversion. If you want to store it in a netaddr structure you must use <b>::htons()</b>. An empty input string returns 0.<br  />
+ On error:<ul>
+<li><b>-1</b> A valid port number was not found, not all numeric character, but may be a valid alphanumeric service name like "http".</li>
+<li>&#160;<b>1</b> Valid numeric value found but out of scope, not in range 0..65535. </li>
+</ul>
+</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_port_str</td><td>String that shall be converted to a numeric port number. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_port_str</td><td>String that may have a port name or number appended, delimited by ':', or not.  </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">a_port_num</td><td>Optional: if given, pointer to a variable that will be filled with the port number in host byte order. </td></tr>
   </table>
   </dd>
 </dl>
@@ -246,9 +270,9 @@ sa</td>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga933b89160fdfe1e4bb074cc2794854f8_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga933b89160fdfe1e4bb074cc2794854f8_icgraph" alt=""/></div>
-<map name="ad0/dd8/group__upnplib-addrmodul_ga933b89160fdfe1e4bb074cc2794854f8_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga933b89160fdfe1e4bb074cc2794854f8_icgraph">
-<area shape="rect" title="Get the port number from a string." alt="" coords="1168,83,1301,108"/>
+<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga15c85fb426d891e4a6c2f3258a8edfc5_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga15c85fb426d891e4a6c2f3258a8edfc5_icgraph" alt=""/></div>
+<map name="ad0/dd8/group__upnplib-addrmodul_ga15c85fb426d891e4a6c2f3258a8edfc5_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga15c85fb426d891e4a6c2f3258a8edfc5_icgraph">
+<area shape="rect" title="Free function to check if a string has a valid port number appended." alt="" coords="1168,83,1301,108"/>
 <area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6" title="load address information from the operating system" alt="" coords="967,43,1118,83"/>
 <area shape="poly" title=" " alt="" coords="1154,85,1118,79,1119,73,1155,79"/>
 <area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1f9d157e611b5cda3903b0497728c7c6" title="Set socket address from a netaddress." alt="" coords="965,107,1120,147"/>
@@ -302,7 +326,7 @@ sa</td>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
 <div class="line">saObj = <span class="stringliteral">&quot;[2001:db8::1]:56789&quot;</span>;</div>
 <div class="line">std::cout &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; <span class="comment">// output &quot;[2001:db8::1]:56789&quot;</span></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00084">sockaddr.hpp:84</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00095">sockaddr.hpp:95</a></div></div>
 </div><!-- fragment --> 
 </div>
 </div>

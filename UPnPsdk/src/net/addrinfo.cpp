@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-06
+// Redistribution only with this Copyright remark. Last modified: 2024-12-07
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -275,20 +275,24 @@ void CAddrinfo::load() {
     // ------------------
     // I have to do this because ::getaddrinfo() does not detect wrong port
     // numbers >65535. It silently overruns to port number 0, 1, 2...
-    try {
-        to_port(m_service);
+    switch (to_port(m_service)) {
+    case -1:
+        // Any alphanumeric port name
+        service = m_service;
+        break;
+    case 0:
         // Valid numeric port number
         service = m_service;
         hints.ai_flags |= AI_NUMERICSERV;
-
-    } catch (const std::out_of_range&) {
+        break;
+    case 1:
         // Valid numeric port number > 65535
         service = m_service + "(invalid)";
         hints.ai_flags |= AI_NUMERICSERV;
-
-    } catch (const std::invalid_argument&) {
-        // Any alphanumeric port name
-        service = m_service;
+        break;
+    default:
+        // When crash, then controlled to get the location.
+        std::terminate();
     }
     if (service.empty()) {
         service = "0";
