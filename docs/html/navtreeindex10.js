@@ -1,5 +1,7 @@
 var NAVTREEINDEX10 =
 {
+"de/d27/group__SSDP-common__functions.html#ga75269399e8a3b97be6e0f2c2f2cace3d":[4,1,1,1,14],
+"de/d27/group__SSDP-common__functions.html#ga813e243c5a6ea133ef0803838244766b":[4,1,1,1,2],
 "de/d27/group__SSDP-common__functions.html#ga99424b09aff9e82571d74b982378e21a":[4,1,1,1,12],
 "de/d27/group__SSDP-common__functions.html#gab6a02ff5d292d91a527de5405d1ce82a":[4,1,1,1,6],
 "de/d27/group__SSDP-common__functions.html#gacf83eab7c7d8483f9c91d266bc465d9e":[4,1,1,1,13],
@@ -247,7 +249,5 @@ var NAVTREEINDEX10 =
 "df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html":[5,0,12],
 "df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#a29a6e33aa5991ff87ce127c2ee40fbed":[5,0,12,2],
 "df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#aa7a82c9afa80493d3f392e2e7003a606":[5,0,12,1],
-"df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#ae815d4edb19407d383527e148a99b682":[5,0,12,0],
-"df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#af95b19cf8e8c70715878336869d721e0":[5,0,12,3],
-"df/d7c/namedNodeMap_8cpp.html":[7,0,1,0,1,8]
+"df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#ae815d4edb19407d383527e148a99b682":[5,0,12,0]
 };

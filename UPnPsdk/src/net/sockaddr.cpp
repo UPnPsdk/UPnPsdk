@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-07
+// Redistribution only with this Copyright remark. Last modified: 2024-12-11
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -173,6 +173,15 @@ int to_port(const std::string& a_port_str,
             in_port_t* const a_port_num) noexcept {
     TRACE("Executing to_port() with port=\"" + a_port_str + "\"")
 
+    // // Trim input string.
+    // std::string port_str;
+    // auto start = a_port_str.find_first_not_of(" \t");
+    // // Avoid exception with program terminate if all spaces/tabs.
+    // if (start != a_port_str.npos) {
+    //     auto end = a_port_str.find_last_not_of(" \t");
+    //     port_str = a_port_str.substr(start, (end - start) + 1);
+    // }
+
     // Only non empty strings. I have to check this to avoid stoi() exception
     // below.
     if (a_port_str.empty()) {
@@ -181,7 +190,7 @@ int to_port(const std::string& a_port_str,
         return 0;
     }
 
-    // Now we check if the string are all digit characters
+    // Now I check if the string are all digit characters
     bool nonzero{false};
     for (char ch : a_port_str) {
         if (!std::isdigit(static_cast<unsigned char>(ch))) {
@@ -215,6 +224,142 @@ int to_port(const std::string& a_port_str,
     return 0;
 }
 
+
+/*! \brief Free function to split inet address and port(service) */
+// ----------------------------------------------------------------
+// For port conversion:
+// Don't use '::htons' (with colons) instead of 'htons', MacOS don't like it.
+// 'sin6_port' is also 'sin_port' due to union.
+//
+// Unique pattern recognition, port delimiter is always ':'
+//                  Starting with '['
+// Pattern e.g.: [2001:db8::1]:50001
+//               [2001:db8::2]:
+//               [2001:db8::3]
+//                  Starting with ':' and is port
+//               :50002
+//                  Containing '.'
+//               127.0.0.4:50003
+//               127.0.0.5:
+//               127.0.0.6
+//                  Is port
+//               50004
+//                  Remaining
+//               2001:db8::7
+void split_addr_port(const std::string& a_addr_str, std::string& a_addr,
+                     std::string& a_serv) {
+    TRACE("Executing split_addr_port()")
+    // Special cases
+    if (a_addr_str.empty()) {
+        // An empty address string clears address/port.
+        a_addr.clear();
+        a_serv.clear();
+        return;
+    }
+    if (a_addr_str == "::") {
+        a_addr = "::";
+        a_serv = '0';
+        return;
+    }
+    if (a_addr_str == "::1") {
+        a_addr = "::1";
+        a_serv = '0';
+        return;
+    }
+
+    std::string addr_str;
+    std::string serv_str;
+
+    size_t pos{};
+    if (a_addr_str.length() < 2) {
+        // The shortest possible ip address is "::". This helps to avoid string
+        // exceptions 'out_of_range'.
+        addr_str = a_addr_str; // Give it back as (possible) address.
+
+    } else if (a_addr_str.front() == '[') {
+        // Starting with '[', split address if required
+        if ((pos = a_addr_str.find("]:")) != std::string::npos) {
+            addr_str = a_addr_str.substr(0, pos + 1); // Get IP address
+            serv_str = a_addr_str.substr(pos + 2); // Get port string
+            if (serv_str.empty())
+                serv_str = '0';
+        } else {
+            addr_str = a_addr_str; // Get IP address
+        }
+
+    } else if (a_addr_str.front() == ':') {
+        // Starting with ':' and is port
+        in_port_t port{};
+        switch (to_port(a_addr_str.substr(1), &port)) {
+        case -1:
+            // No numeric port, check for alphanum port.
+            serv_str = a_addr_str.substr(1);
+            break;
+        case 0:
+            // Only port given, set only port.
+            serv_str = std::to_string(port);
+            break;
+        case 1:
+            // Value not in range 0..65535.
+            goto exit_overrun;
+        }
+    } else if (a_addr_str.find_first_of('.') != std::string::npos) {
+        // Containing '.'
+        if ((pos = a_addr_str.find_last_of(':')) != std::string::npos) {
+            addr_str = a_addr_str.substr(0, pos); // Get IP address
+            serv_str = a_addr_str.substr(pos + 1); // Get port string
+            if (serv_str.empty())
+                serv_str = '0';
+        } else {
+            // No port, set only address.
+            addr_str = a_addr_str;
+        }
+    } else {
+        // Is port
+        in_port_t port{};
+        switch (to_port(a_addr_str, &port)) {
+        case -1:
+            // Remaining
+            // is either only numeric address, or any alphanumeric identifier.
+            addr_str = a_addr_str;
+            break;
+        case 0:
+            // Only port given, set only port.
+            serv_str = std::to_string(port);
+            break;
+        case 1:
+            // Value not in range 0..65535
+            goto exit_overrun;
+        }
+    }
+    // std::cout << "DEBUG: addr_str \"" << addr_str << "\", serv_str \""
+    //           << serv_str << "\"\n";
+
+    // Check for valid port. ::getaddrinfo accepts invalid ports > 65535.
+    switch (to_port(serv_str)) {
+    case -1:
+    case 0:
+        break;
+    case 1:
+        goto exit_overrun;
+    }
+
+    // remove surounding brackets if any, shortest possible netaddress is
+    // "[::]"
+    if (addr_str.length() >= 4 && addr_str.front() == '[' &&
+        addr_str.back() == ']')
+        a_addr = addr_str.substr(1, addr_str.length() - 2);
+    else
+        a_addr = addr_str;
+    a_serv = serv_str;
+
+    return;
+
+exit_overrun:
+    throw std::out_of_range(UPnPsdk_LOGEXCEPT +
+                            "MSG1127: Number string from \"" + a_addr_str +
+                            "\" for port is out of range 0..65535.");
+}
 
 // Specialized sockaddr_structure
 // ==============================
@@ -255,117 +400,24 @@ SSockaddr& SSockaddr::operator=(SSockaddr that) {
 
 // Assignment operator= to set socket address from string.
 // -------------------------------------------------------
-// For port conversion:
-// Don't use '::htons' (with colons) instead of 'htons', MacOS don't like it.
-// 'sin6_port' is also 'sin_port' due to union.
-//
-// Unique pattern recognition, port delimiter is always ':'
-//                  Starting with '['
-// Pattern e.g.: [2001:db8::1]:50001
-//               [2001:db8::2]:
-//               [2001:db8::3]
-//                  Starting with ':' and is port
-//               :50002
-//                  Containing '.'
-//               127.0.0.4:50003
-//               127.0.0.5:
-//               127.0.0.6
-//                  Is port
-//               50004
-//                  Remaining
-//               2001:db8::7
 void SSockaddr::operator=(const std::string& a_addr_str) {
     TRACE2(this, " Executing SSockaddr::operator=(" + a_addr_str + ")")
-    // An empty address string clears the address storage.
-    if (a_addr_str.empty()) {
-        ::memset(&m_sa_union, 0, sizeof(m_sa_union));
+    std::string ai_addr_str;
+    std::string ai_port_str;
+
+    // Throws exception std::out_of_range().
+    split_addr_port(a_addr_str, ai_addr_str, ai_port_str);
+
+    // With an empty address string only set the port.
+    if (ai_addr_str.empty()) {
+        in_port_t port;
+        if (to_port(ai_port_str, &port) != 0)
+            goto exit_fail;
+        m_sa_union.sin6.sin6_port = htons(port);
         return;
     }
 
-    std::string addr_str;
-    std::string serv_str;
-
-    size_t pos{};
-    if (a_addr_str.length() < 2) {
-        // The shortest possible ip address is "::". This helps to avoid string
-        // exceptions 'out_of_range'.
-        addr_str = a_addr_str; // ::getaddrinfo() shall look what to do.
-
-    } else if (a_addr_str.front() == '[') {
-        // Starting with '[', split address if required
-        if ((pos = a_addr_str.find("]:")) != std::string::npos) {
-            addr_str = a_addr_str.substr(0, pos + 1); // Get IP address
-            serv_str = a_addr_str.substr(pos + 2); // Get port string
-        } else {
-            addr_str = a_addr_str; // Get IP address
-            // Don't modify old port setting, recover it.
-            serv_str = std::to_string(ntohs(m_sa_union.sin6.sin6_port));
-        }
-
-    } else if (a_addr_str.front() == ':') {
-        // Starting with ':' and is port
-        in_port_t port{};
-        switch (to_port(a_addr_str.substr(1), &port)) {
-        case -1:
-            // No port, try next
-            addr_str = a_addr_str;
-            break;
-        case 0:
-            // Only service given, set only port.
-            m_sa_union.sin6.sin6_port = htons(port);
-            return;
-        case 1:
-            // Value not in range 0..65535
-            goto exit_overrun;
-        }
-    } else if (a_addr_str.find_first_of('.') != std::string::npos) {
-        // Containing '.'
-        if ((pos = a_addr_str.find_last_of(':')) != std::string::npos) {
-            addr_str = a_addr_str.substr(0, pos); // Get IP address
-            serv_str = a_addr_str.substr(pos + 1); // Get port string
-        } else {
-            addr_str = a_addr_str;
-            // Don't modify old port setting, recover it.
-            serv_str = std::to_string(ntohs(m_sa_union.sin6.sin6_port));
-        }
-    } else {
-        // Is port
-        in_port_t port{};
-        switch (to_port(a_addr_str, &port)) {
-        case -1:
-            // Remaining
-            addr_str = a_addr_str;
-            // Don't modify old port setting, recover it.
-            serv_str = std::to_string(ntohs(m_sa_union.sin6.sin6_port));
-            break;
-        case 0:
-            // Only service given, set only port.
-            m_sa_union.sin6.sin6_port = htons(port);
-            return;
-        case 1:
-            // Value not in range 0..65535
-            goto exit_overrun;
-        }
-    }
-    // std::cout << "DEBUG: addr_str \"" << addr_str << "\", serv_str \""
-    //           << serv_str << "\"\n";
-
-    // Check for valid port. ::getaddrinfo accepts invalid ports > 65535.
-    switch (to_port(serv_str)) {
-    case -1:
-        goto exit_fail;
-    case 0:
-        break;
-    case 1:
-        goto exit_overrun;
-    }
-
-    { // Block needed to avoid error: "goto label crosses initialization"
-        // remove surounding brackets if any, shortest possible netaddress is
-        // "[::]"
-        if (addr_str.length() >= 4 && addr_str.front() == '[' &&
-            addr_str.back() == ']')
-            addr_str = addr_str.substr(1, addr_str.length() - 2);
+    { // Block needed to avoid error: "goto label crosses initialization".
         // Provide resources for ::getaddrinfo()
         // ai_flags ensure that only numeric values are accepted.
         ::addrinfo hints{};
@@ -374,8 +426,8 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
         ::addrinfo* res{nullptr};
 
         // Call ::getaddrinfo() to check the ip address string.
-        int ret = umock::netdb_h.getaddrinfo(addr_str.c_str(), serv_str.c_str(),
-                                             &hints, &res);
+        int ret = umock::netdb_h.getaddrinfo(ai_addr_str.c_str(),
+                                             ai_port_str.c_str(), &hints, &res);
         if (ret != 0) {
             umock::netdb_h.freeaddrinfo(res);
             goto exit_fail;
@@ -391,20 +443,21 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
                       << this->netaddrp() << "\"\n";
         }
 #else
-            ::memcpy(&m_sa_union, res->ai_addr, sizeof(m_sa_union));
+            if (ai_port_str.empty()) {
+                // Preserve old port
+                in_port_t port = m_sa_union.sin6.sin6_port;
+                ::memcpy(&m_sa_union, res->ai_addr, sizeof(m_sa_union));
+                m_sa_union.sin6.sin6_port = port;
+            } else {
+                ::memcpy(&m_sa_union, res->ai_addr, sizeof(m_sa_union));
+            }
 #endif
             umock::netdb_h.freeaddrinfo(res);
         }
+
+        return;
     }
 
-    return;
-
-// Both following exceptions are derived from std::logic_error() so that can be
-// used to catch any of them.
-exit_overrun:
-    throw std::out_of_range(UPnPsdk_LOGEXCEPT +
-                            "MSG1127: Number string from \"" + a_addr_str +
-                            "\" for port is out of range 0..65535.");
 exit_fail:
     throw std::invalid_argument(UPnPsdk_LOGEXCEPT +
                                 "MSG1043: Invalid netaddress \"" + a_addr_str +
@@ -480,34 +533,6 @@ socklen_t SSockaddr::sizeof_saddr() const {
     default:
         return 0;
     }
-}
-
-
-// private member functions
-// ------------------------
-void SSockaddr::handle_ipv6(const std::string& a_addr_str) {
-    TRACE2(this, " Executing SSockaddr::handle_ipv6()")
-    // remove surounding brackets
-    std::string addr_str = a_addr_str.substr(1, a_addr_str.length() - 2);
-
-    int ret = ::inet_pton(AF_INET6, addr_str.c_str(), &sin6.sin6_addr);
-    if (ret == 0) {
-        throw std::invalid_argument(UPnPsdk_LOGEXCEPT +
-                                    "MSG1043: Invalid netaddress \"" +
-                                    a_addr_str + "\".");
-    }
-    ss.ss_family = AF_INET6;
-}
-
-void SSockaddr::handle_ipv4(const std::string& a_addr_str) {
-    TRACE2(this, " Executing SSockaddr::handle_ipv4()")
-    int ret = ::inet_pton(AF_INET, a_addr_str.c_str(), &sin.sin_addr);
-    if (ret == 0) {
-        throw std::invalid_argument(UPnPsdk_LOGEXCEPT +
-                                    "MSG1044: Invalid netaddress \"" +
-                                    a_addr_str + "\".");
-    }
-    ss.ss_family = AF_INET;
 }
 
 /// \cond

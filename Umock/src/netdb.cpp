@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-12-11
 
 #include <umock/netdb.hpp>
 #include <UPnPsdk/port.hpp>
@@ -19,6 +19,21 @@ int NetdbReal::getaddrinfo(const char* node, const char* service,
 void NetdbReal::freeaddrinfo(struct addrinfo* res) {
     return ::freeaddrinfo(res);
 }
+#ifndef _MSC_VER
+servent* NetdbReal::getservent() { return ::getservent(); }
+
+servent* NetdbReal::getservbyname(const char* name, const char* proto) {
+    return ::getservbyname(name, proto);
+}
+
+servent* NetdbReal::getservbyport(int port, const char* proto) {
+    return ::getservbyport(port, proto);
+}
+
+void NetdbReal::setservent(int stayopen) { return ::setservent(stayopen); }
+
+void NetdbReal::endservent() { return ::endservent(); }
+#endif
 
 // This constructor is used to inject the pointer to the real function.
 Netdb::Netdb(NetdbReal* a_ptr_realObj) {
@@ -43,6 +58,24 @@ int Netdb::getaddrinfo(const char* node, const char* service,
 void Netdb::freeaddrinfo(struct addrinfo* res) {
     return m_ptr_workerObj->freeaddrinfo(res);
 }
+
+#ifndef _MSC_VER
+servent* Netdb::getservent() { return m_ptr_workerObj->getservent(); }
+
+servent* Netdb::getservbyname(const char* name, const char* proto) {
+    return m_ptr_workerObj->getservbyname(name, proto);
+}
+
+servent* Netdb::getservbyport(int port, const char* proto) {
+    return m_ptr_workerObj->getservbyport(port, proto);
+}
+
+void Netdb::setservent(int stayopen) {
+    return m_ptr_workerObj->setservent(stayopen);
+}
+
+void Netdb::endservent() { return m_ptr_workerObj->endservent(); }
+#endif
 
 // On program start create an object and inject pointer to the real function.
 // This will exist until program end.

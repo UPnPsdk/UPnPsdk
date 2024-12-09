@@ -1,7 +1,7 @@
 #ifndef UMOCK_NETDB_MOCK_HPP
 #define UMOCK_NETDB_MOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-12-11
 
 #include <umock/netdb.hpp>
 #include <UPnPsdk/port.hpp>
@@ -19,6 +19,15 @@ class UPNPLIB_API NetdbMock : public NetdbInterface {
                  const struct addrinfo* hints, struct addrinfo** res),
                 (override));
     MOCK_METHOD(void, freeaddrinfo, (struct addrinfo * res), (override));
+#ifndef _MSC_VER
+    MOCK_METHOD(servent*, getservent, (), (override));
+    MOCK_METHOD(servent*, getservbyname, (const char* name, const char* proto),
+                (override));
+    MOCK_METHOD(servent*, getservbyport, (int port, const char* proto),
+                (override));
+    MOCK_METHOD(void, setservent, (int stayopen), (override));
+    MOCK_METHOD(void, endservent, (), (override));
+#endif
     ENABLE_MSVC_WARN
 };
 

@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-07
+// Redistribution only with this Copyright remark. Last modified: 2024-12-09
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -33,8 +33,8 @@ union sockaddr_t {
 };
 
 
-/*! \brief Free function to check if a string has a valid port number appended
-<!-- --------------------------------------------------------------------- -->
+/*! \brief Free function to check if a string represents a valid port number
+<!-- ------------------------------------------------------------------- -->
  * \ingroup upnplib-addrmodul
  * \code
  * // Usage e.g.:
@@ -53,27 +53,22 @@ union sockaddr_t {
  *
  * if (to_port("65536") != 0) { // do nothing with port }
  * \endcode
- * Splits an available port number from a string representing a numeric address
- * string.
- *
  * \returns
  *   On success: **0**\n
- *      A numeric port number in host byte order is returned in **a_port_num**,
+ *      A binary port number in host byte order is returned in **a_port_num**,
  *      so ypu can use it in your application without conversion. If you want
  *      to store it in a netaddr structure you must use <b>::%htons()</b>. An
  *      empty input string returns 0.\n
  *   On error:
- *   - **-1** A valid port number was not found, not all numeric character, but
- *            may be a valid alphanumeric service name like "http".
+ *   - **-1** A valid port number was not found.
  *   - &nbsp;**1** Valid numeric value found but out of scope, not in range
  *                 0..65535.
  */
 int to_port( //
-    /*! [in] String that may have a port name or number appended, delimited by
-     *       ':', or not. */
+    /*! [in] String that may represent a port number. */
     const std::string& a_port_str,
     /*! [in,out] Optional: if given, pointer to a variable that will be filled
-     *           with the port number in host byte order. */
+     *           with the binary port number in host byte order. */
     in_port_t* const a_port_num = nullptr) noexcept;
 
 
@@ -252,9 +247,6 @@ struct UPnPsdk_API SSockaddr {
     std::string m_netaddr; // For a netaddress without port
     SUPPRESS_MSVC_WARN_4251_NEXT_LINE
     std::string m_netaddrp; // For a netaddress with port
-
-    UPnPsdk_LOCAL void handle_ipv6(const std::string& a_addr_str);
-    UPnPsdk_LOCAL void handle_ipv4(const std::string& a_addr_str);
 };
 
 // Getter of the netaddress to output stream

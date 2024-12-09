@@ -55,5 +55,6 @@ var namespaceUPnPsdk =
     [ "errStr", "dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588", null ],
     [ "errStrEx", "dd/d67/namespaceUPnPsdk.html#a6fe628907cafd576019aa9d1e3d88b87", null ],
     [ "select_filetype", "dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7", null ],
+    [ "split_addr_port", "dd/d67/namespaceUPnPsdk.html#a5ba9b68e7f75b3239270fc5956931e30", null ],
     [ "g_dbug", "dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e", null ]
 ];

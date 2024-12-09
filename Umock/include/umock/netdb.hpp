@@ -1,7 +1,7 @@
 #ifndef MOCK_NETDB_HPP
 #define MOCK_NETDB_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-07
+// Redistribution only with this Copyright remark. Last modified: 2024-12-11
 
 #include <UPnPsdk/visibility.hpp>
 
@@ -21,6 +21,13 @@ class UPnPsdk_API NetdbInterface {
                             const struct addrinfo* hints,
                             struct addrinfo** res) = 0;
     virtual void freeaddrinfo(struct addrinfo* res) = 0;
+#ifndef _MSC_VER
+    virtual servent* getservent() = 0;
+    virtual servent* getservbyname(const char* name, const char* proto) = 0;
+    virtual servent* getservbyport(int port, const char* proto) = 0;
+    virtual void setservent(int stayopen) = 0;
+    virtual void endservent() = 0;
+#endif
 };
 
 //
@@ -34,6 +41,13 @@ class NetdbReal : public NetdbInterface {
                     const struct addrinfo* hints,
                     struct addrinfo** res) override;
     void freeaddrinfo(struct addrinfo* res) override;
+#ifndef _MSC_VER
+    servent* getservent() override;
+    servent* getservbyname(const char* name, const char* proto) override;
+    servent* getservbyport(int port, const char* proto) override;
+    void setservent(int stayopen) override;
+    void endservent() override;
+#endif
 };
 
 //
@@ -65,6 +79,13 @@ class UPnPsdk_API Netdb {
                             const struct addrinfo* hints,
                             struct addrinfo** res);
     virtual void freeaddrinfo(struct addrinfo* res);
+#ifndef _MSC_VER
+    virtual servent* getservent();
+    virtual servent* getservbyname(const char* name, const char* proto);
+    virtual servent* getservbyport(int port, const char* proto);
+    virtual void setservent(int stayopen);
+    virtual void endservent();
+#endif
 
   private:
     // Next variable must be static. Please note that a static member variable
