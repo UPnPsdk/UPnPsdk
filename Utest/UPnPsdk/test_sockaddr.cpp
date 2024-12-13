@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-11
+// Redistribution only with this Copyright remark. Last modified: 2024-12-17
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
@@ -158,7 +158,7 @@ TEST(SockaddrStorageTestSuite, modify_address_and_port_successful) {
     // Check that a failing call does not modify old settings.
     EXPECT_THAT(
         [&saddr]() { saddr = "65536"; },
-        ThrowsMessage<std::out_of_range>(HasSubstr("] EXCEPTION MSG1127: ")));
+        ThrowsMessage<std::range_error>(HasSubstr("] EXCEPTION MSG1127: ")));
     EXPECT_EQ(saddr.ss.ss_family, AF_INET);
     EXPECT_EQ(saddr.netaddr(), "192.168.47.48");
     EXPECT_EQ(saddr.netaddrp(), "192.168.47.48:65535");
@@ -212,17 +212,17 @@ TEST(SockaddrStorageTestSuite, set_address_and_port_fail) {
     SSockaddr saddr;
 
     EXPECT_THAT([&saddr]() { saddr = ":65536"; },
-                ThrowsMessage<std::out_of_range>(
+                ThrowsMessage<std::range_error>(
                     EndsWith("] EXCEPTION MSG1127: Number string from "
                              "\":65536\" for port is out of range 0..65535.")));
 
     EXPECT_THAT([&saddr]() { saddr = "65536"; },
-                ThrowsMessage<std::out_of_range>(
+                ThrowsMessage<std::range_error>(
                     EndsWith("] EXCEPTION MSG1127: Number string from "
                              "\"65536\" for port is out of range 0..65535.")));
 
     EXPECT_THAT([&saddr]() { saddr = "127.0.0.1:65536"; },
-                ThrowsMessage<std::out_of_range>(EndsWith(
+                ThrowsMessage<std::range_error>(EndsWith(
                     "] EXCEPTION MSG1127: Number string from "
                     "\"127.0.0.1:65536\" for port is out of range 0..65535.")));
 
@@ -268,6 +268,21 @@ TEST(SockaddrStorageTestSuite, set_address_and_port_fail) {
         [&saddr]() { saddr = "192.168.66.67z"; },
         ThrowsMessage<std::invalid_argument>(EndsWith(
             "] EXCEPTION MSG1043: Invalid netaddress \"192.168.66.67z\".")));
+
+    EXPECT_THAT(
+        [&saddr]() { saddr = "[192.168.66.67]"; },
+        ThrowsMessage<std::invalid_argument>(EndsWith(
+            "] EXCEPTION MSG1043: Invalid netaddress \"[192.168.66.67]\".")));
+
+    EXPECT_THAT(
+        [&saddr]() { saddr = "[192.168.66.68]:"; },
+        ThrowsMessage<std::invalid_argument>(EndsWith(
+            "] EXCEPTION MSG1043: Invalid netaddress \"[192.168.66.68]:\".")));
+
+    EXPECT_THAT([&saddr]() { saddr = "[192.168.66.68]:50044"; },
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] EXCEPTION MSG1043: Invalid netaddress "
+                             "\"[192.168.66.68]:50044\".")));
 }
 
 TEST(SockaddrCmpTestSuite, compare_equal_ipv6_sockaddrs_successful) {
@@ -661,82 +676,62 @@ TEST(SockaddrStorageTestSuite, string_to_port_test_only) {
     EXPECT_EQ(to_port("http"), -1);
 }
 
-TEST(SockaddrStorageTestSuite, split_addr_port) {
-    std::string addr_str;
-    std::string port_str;
 
-    split_addr_port("[2001:db8::1]:50001", addr_str, port_str);
-    EXPECT_EQ(addr_str, "2001:db8::1");
-    EXPECT_EQ(port_str, "50001");
+std::string m_addr_str;
+std::string m_port_str;
 
-    split_addr_port("[2001:db8::2]:", addr_str, port_str);
-    EXPECT_EQ(addr_str, "2001:db8::2");
-    EXPECT_EQ(port_str, "0");
+class SplitAddrPortTest
+    : public ::testing::TestWithParam<std::tuple<
+          // IP address to split   IP address only    port
+          const std::string, const std::string, const std::string>> {};
 
-    split_addr_port("[2001:db8::2]", addr_str, port_str);
-    EXPECT_EQ(addr_str, "2001:db8::2");
-    EXPECT_EQ(port_str, "");
+TEST_P(SplitAddrPortTest, split_address_and_port) {
+    // Get parameter
+    const std::tuple params = GetParam();
 
-    split_addr_port(":50002", addr_str, port_str);
-    EXPECT_EQ(addr_str, "");
-    EXPECT_EQ(port_str, "50002");
-
-    split_addr_port("127.0.0.4:50003", addr_str, port_str);
-    EXPECT_EQ(addr_str, "127.0.0.4");
-    EXPECT_EQ(port_str, "50003");
-
-    split_addr_port("127.0.0.5:", addr_str, port_str);
-    EXPECT_EQ(addr_str, "127.0.0.5");
-    EXPECT_EQ(port_str, "0");
-
-    split_addr_port("127.0.0.6", addr_str, port_str);
-    EXPECT_EQ(addr_str, "127.0.0.6");
-    EXPECT_EQ(port_str, "");
-
-    split_addr_port("50004", addr_str, port_str);
-    EXPECT_EQ(addr_str, "");
-    EXPECT_EQ(port_str, "50004");
-
-    split_addr_port("2001:db8::7", addr_str, port_str);
-    EXPECT_EQ(addr_str, "2001:db8::7");
-    EXPECT_EQ(port_str, "");
-
-    split_addr_port("example.com:https", addr_str, port_str);
-    EXPECT_EQ(addr_str, "example.com");
-    EXPECT_EQ(port_str, "https");
-
-    split_addr_port("example.com:", addr_str, port_str);
-    EXPECT_EQ(addr_str, "example.com");
-    EXPECT_EQ(port_str, "0");
-
-    split_addr_port("example.com", addr_str, port_str);
-    EXPECT_EQ(addr_str, "example.com");
-    EXPECT_EQ(port_str, "");
-
-    split_addr_port(":https", addr_str, port_str);
-    EXPECT_EQ(addr_str, "");
-    EXPECT_EQ(port_str, "https");
-
-    split_addr_port("https", addr_str, port_str);
-    EXPECT_EQ(addr_str, "https");
-    EXPECT_EQ(port_str, "");
-
-    split_addr_port("", addr_str, port_str);
-    EXPECT_EQ(addr_str, "");
-    EXPECT_EQ(port_str, "");
-
-    split_addr_port("    ", addr_str, port_str);
-    EXPECT_EQ(addr_str, "    ");
-    EXPECT_EQ(port_str, "");
-
-    split_addr_port("::", addr_str, port_str);
-    EXPECT_EQ(addr_str, "::");
-    EXPECT_EQ(port_str, "0");
-
-    split_addr_port("::1", addr_str, port_str);
-    EXPECT_EQ(addr_str, "::1");
-    EXPECT_EQ(port_str, "0");
+    split_addr_port(std::get<0>(params), m_addr_str, m_port_str);
+    EXPECT_EQ(m_addr_str, std::get<1>(params));
+    EXPECT_EQ(m_port_str, std::get<2>(params));
 }
+
+// clang-format off
+INSTANTIATE_TEST_SUITE_P(SplitAddrPort, SplitAddrPortTest, ::testing::Values(
+    std::make_tuple("[2001:db8::1]:50001", "2001:db8::1", "50001"),
+    std::make_tuple("[2001:dB8::2]:", "2001:dB8::2", "0"),
+    std::make_tuple("[2001:db8::2]", "2001:db8::2", ""),
+    std::make_tuple(":50002", "", "50002"),
+    std::make_tuple("127.0.0.4:50003", "127.0.0.4", "50003"),
+    std::make_tuple("127.0.0.5:", "127.0.0.5", "0"),
+    std::make_tuple("127.0.0.6", "127.0.0.6", ""),
+    std::make_tuple("50004", "", "50004"),
+    std::make_tuple("2001:db8::7", "2001:db8::7", ""),
+    std::make_tuple("example.COM:50005", "example.COM", "50005"),
+    std::make_tuple("example.com:httPS", "example.com", "httPS"),
+    std::make_tuple("example.com:", "example.com", "0"),
+    std::make_tuple("example.com", "example.com", ""),
+    std::make_tuple("localhost:50006", "localhost", "50006"),
+    std::make_tuple("localhost:https", "localhost", "https"),
+    std::make_tuple("localhost:", "localhost", "0"),
+    std::make_tuple("localhost", "localhost", ""),
+    std::make_tuple("[localhost]", "[localhost]", ""),
+    std::make_tuple("[localhost]:", "[localhost]", "0"),
+    std::make_tuple("[localhost]:50007", "[localhost]", "50007"),
+    std::make_tuple(":https", "", "https"),
+    std::make_tuple("https", "https", ""),
+    std::make_tuple("", "", ""),
+    std::make_tuple("   ", "   ", ""),
+    std::make_tuple("::", "::", ""),
+    std::make_tuple("[::]", "::", ""),
+    std::make_tuple("[::]:", "::", "0"),
+    std::make_tuple("[::]:0", "::", "0"),
+    std::make_tuple("::1", "::1", ""),
+    std::make_tuple("[::1]", "::1", ""),
+    std::make_tuple("[::1]:", "::1", "0"),
+    std::make_tuple("[::1]:0", "::1", "0"),
+    std::make_tuple("[::1].4", "[::1].4", ""),
+    std::make_tuple("[::FFff:142.250.185.99]:50008", "::FFff:142.250.185.99", "50008")
+));
+// clang-format on
 
 } // namespace utest
 

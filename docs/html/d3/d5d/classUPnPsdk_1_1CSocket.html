@@ -530,7 +530,7 @@ Public Member Functions</h2></td></tr>
 <div class="line">sockObj.bind(<span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;51593&quot;</span>); <span class="comment">// uses &quot;[::1]:51593&quot; or &quot;127.0.0.1:51593&quot;</span></div>
 </div><!-- fragment --><p>With protocol family PF_INET6 I internally always set IPV6_V6ONLY to true to be portable with same behavior on all platforms. This is default on Unix platforms when binding the address and cannot be modified. MacOS does not modify IPV6_V6ONLY with binding. On Microsoft Windows IPV6_V6ONLY is already set by default.</p>
 <p>There is additional information at <a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a90513b6a7a35f5f619f475d57d618647" title="Set IPV6_V6ONLY.">set_v6only()</a> </p>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000005">Todo:</a></b></dt><dd>Improve <a class="el" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html" title="Class for portable handling of network socket errors.">CSocketErr</a> for specific <a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7d8a000d07b38db55e1ff380d2e36024" title="Bind socket to a local interface address.">bind()</a> error messages. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000006">Todo:</a></b></dt><dd>Improve <a class="el" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html" title="Class for portable handling of network socket errors.">CSocketErr</a> for specific <a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7d8a000d07b38db55e1ff380d2e36024" title="Bind socket to a local interface address.">bind()</a> error messages. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_node</td><td>local interface address  </td></tr>
@@ -548,27 +548,27 @@ Public Member Functions</h2></td></tr>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d5d/classUPnPsdk_1_1CSocket_a7d8a000d07b38db55e1ff380d2e36024_cgraph.png" border="0" usemap="#ad3/d5d/classUPnPsdk_1_1CSocket_a7d8a000d07b38db55e1ff380d2e36024_cgraph" alt=""/></div>
 <map name="ad3/d5d/classUPnPsdk_1_1CSocket_a7d8a000d07b38db55e1ff380d2e36024_cgraph" id="ad3/d5d/classUPnPsdk_1_1CSocket_a7d8a000d07b38db55e1ff380d2e36024_cgraph">
-<area shape="rect" title="Bind socket to a local interface address." alt="" coords="5,170,180,196"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="456,14,613,54"/>
-<area shape="poly" title=" " alt="" coords="98,169,115,138,143,98,181,58,203,41,227,27,280,10,336,3,392,4,442,10,442,15,391,10,337,9,281,15,229,32,206,45,184,62,148,101,120,141,103,172"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="456,106,613,146"/>
-<area shape="poly" title=" " alt="" coords="180,177,289,170,408,155,450,146,451,152,408,160,289,175,180,183"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad82ca20a5ca2ea42573034c251e821a6" title="Get socket address family." alt="" coords="228,106,408,146"/>
-<area shape="poly" title=" " alt="" coords="143,168,225,147,226,152,144,173"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a8b882b2ed7f1aa57c508f29041a8bd25" title="Get the socket type SOCK_STREAM or SOCK_DGRAM." alt="" coords="228,42,408,82"/>
-<area shape="poly" title=" " alt="" coords="109,168,160,131,227,91,241,85,244,89,229,96,163,136,112,172"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6" title="load address information from the operating system" alt="" coords="243,220,393,260"/>
-<area shape="poly" title=" " alt="" coords="144,193,230,215,229,220,143,198"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a9d8977414d20354d50a2aad950cf2e32" title="Get netaddress with port from current selcted address information." alt="" coords="243,284,393,324"/>
-<area shape="poly" title=" " alt="" coords="112,194,163,230,229,270,244,277,241,281,227,275,160,235,109,198"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a0aa89aae4f0771baaaabb15aab495c3d" title="Get netaddress with port." alt="" coords="228,348,408,388"/>
-<area shape="poly" title=" " alt="" coords="104,195,152,261,188,300,230,334,239,340,236,344,226,339,184,304,148,264,100,198"/>
-<area shape="poly" title=" " alt="" coords="408,47,442,43,443,48,409,53"/>
-<area shape="poly" title=" " alt="" coords="387,79,454,99,453,104,386,84"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga15c85fb426d891e4a6c2f3258a8edfc5" title="Free function to check if a string represents a valid port number." alt="" coords="468,228,601,253"/>
-<area shape="poly" title=" " alt="" coords="394,238,454,238,454,243,394,243"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6" title="Get the assosiated netaddress with port." alt="" coords="457,348,612,388"/>
-<area shape="poly" title=" " alt="" coords="408,366,444,366,444,371,408,371"/>
+<area shape="rect" title="Bind socket to a local interface address." alt="" coords="5,171,180,197"/>
+<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="469,15,627,55"/>
+<area shape="poly" title=" " alt="" coords="98,170,115,139,143,99,181,59,203,42,227,28,284,10,344,3,402,5,456,11,455,16,402,10,344,9,285,16,229,33,206,46,184,63,148,102,120,142,103,173"/>
+<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="469,107,627,147"/>
+<area shape="poly" title=" " alt="" coords="180,178,289,170,408,156,456,147,457,152,408,161,289,176,180,183"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad82ca20a5ca2ea42573034c251e821a6" title="Get socket address family." alt="" coords="228,107,408,147"/>
+<area shape="poly" title=" " alt="" coords="143,169,225,148,226,153,144,174"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a8b882b2ed7f1aa57c508f29041a8bd25" title="Get the socket type SOCK_STREAM or SOCK_DGRAM." alt="" coords="228,43,408,83"/>
+<area shape="poly" title=" " alt="" coords="109,169,160,132,227,92,241,86,244,90,229,97,163,137,112,173"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6" title="load address information from the operating system" alt="" coords="243,221,393,261"/>
+<area shape="poly" title=" " alt="" coords="144,194,230,216,229,222,143,199"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a9d8977414d20354d50a2aad950cf2e32" title="Get netaddress with port from current selcted address information." alt="" coords="243,285,393,325"/>
+<area shape="poly" title=" " alt="" coords="112,195,163,232,229,271,244,278,241,283,227,276,160,236,109,199"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a0aa89aae4f0771baaaabb15aab495c3d" title="Get netaddress with port." alt="" coords="228,349,408,389"/>
+<area shape="poly" title=" " alt="" coords="104,196,152,262,188,301,230,335,239,341,236,346,226,340,184,305,148,265,100,199"/>
+<area shape="poly" title=" " alt="" coords="408,49,455,43,456,49,409,54"/>
+<area shape="poly" title=" " alt="" coords="391,80,463,101,462,106,390,85"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30" title="Free function to split inet address and port(service)" alt="" coords="456,229,640,254"/>
+<area shape="poly" title=" " alt="" coords="394,239,442,239,442,244,394,244"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6" title="Get the assosiated netaddress with port." alt="" coords="471,349,625,389"/>
+<area shape="poly" title=" " alt="" coords="409,367,457,367,457,372,409,372"/>
 </map>
 </div>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">

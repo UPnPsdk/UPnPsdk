@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-29
+// Redistribution only with this Copyright remark. Last modified: 2024-12-15
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -216,78 +216,6 @@ TEST(UpnpapiTestSuite, get_binary_ip) {
     char addrbuf[20]{};
     inet_ntop(AF_INET, sin_addr, addrbuf, sizeof(addrbuf));
     std::cout << "addrbuf = " << addrbuf << '\n';
-}
-#endif
-
-#ifndef _WIN32
-TEST(UpnpapiTestSuite, check_in6_is_addr_global) {
-    {
-        // Documentation- and test-address
-        CAddrinfo aiObj("[2001:db8::1]", AF_INET6);
-        aiObj.load();
-        in6_addr* sa6 =
-            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
-        EXPECT_TRUE(IN6_IS_ADDR_GLOBAL(sa6));
-    }
-    {
-        // Global Unique Address
-        CAddrinfo aiObj("[3003:d5:272c:c600:5054:ff:fe7f:c021]", AF_INET6);
-        aiObj.load();
-        in6_addr* sa6 =
-            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
-        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
-    }
-    {
-        // Link-local address
-        CAddrinfo aiObj("[fe80::1]", AF_INET6);
-        aiObj.load();
-        in6_addr* sa6 =
-            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
-        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
-    }
-
-    // starting with 00 is the reserved address block
-    {
-        // Address belongs to the reserved address block
-        CAddrinfo aiObj("[00ab::1]", AF_INET6);
-        aiObj.load();
-        in6_addr* sa6 =
-            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
-        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
-    }
-    {
-        // Unspecified Address, belongs to the reserved address block
-        CAddrinfo aiObj("[::]", AF_INET6);
-        aiObj.load();
-        in6_addr* sa6 =
-            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
-        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
-    }
-    {
-        // loopback address, belongs to the reserved address block
-        CAddrinfo aiObj("[::1]", AF_INET6);
-        aiObj.load();
-        in6_addr* sa6 =
-            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
-        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
-    }
-    {
-        // v4-mapped address, belongs to the reserved address block
-        CAddrinfo aiObj("[::ffff:142.250.185.99]", AF_INET6);
-        aiObj.load();
-        in6_addr* sa6 =
-            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
-        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
-    }
-    {
-        // IPv4-compatible embedded IPv6 address, belongs to the reserved
-        // address block
-        CAddrinfo aiObj("[::101.45.75.219]", AF_INET6);
-        aiObj.load();
-        in6_addr* sa6 =
-            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
-        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
-    }
 }
 #endif
 

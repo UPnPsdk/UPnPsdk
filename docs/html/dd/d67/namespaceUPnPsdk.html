@@ -188,9 +188,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga15c85fb426d891e4a6c2f3258a8edfc5" id="r_ga15c85fb426d891e4a6c2f3258a8edfc5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga15c85fb426d891e4a6c2f3258a8edfc5">to_port</a> (const std::string &amp;a_port_str, in_port_t *const a_port_num=nullptr) noexcept</td></tr>
-<tr class="memdesc:ga15c85fb426d891e4a6c2f3258a8edfc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to check if a string represents a valid port number.  <br /></td></tr>
-<tr class="separator:ga15c85fb426d891e4a6c2f3258a8edfc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ba9b68e7f75b3239270fc5956931e30" id="r_ga5ba9b68e7f75b3239270fc5956931e30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30">split_addr_port</a> (const std::string &amp;a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</td></tr>
+<tr class="memdesc:ga5ba9b68e7f75b3239270fc5956931e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to split inet address and port(service)  <br /></td></tr>
+<tr class="separator:ga5ba9b68e7f75b3239270fc5956931e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga97def93cf54b1e9cd5a59c4c9c0dca55" id="r_ga97def93cf54b1e9cd5a59c4c9c0dca55"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API::std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga97def93cf54b1e9cd5a59c4c9c0dca55">operator&lt;&lt;</a> (::std::ostream &amp;os, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;saddr)</td></tr>
 <tr class="memdesc:ga97def93cf54b1e9cd5a59c4c9c0dca55"><td class="mdescLeft">&#160;</td><td class="mdescRight">output the <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a>  <br /></td></tr>
 <tr class="separator:ga97def93cf54b1e9cd5a59c4c9c0dca55"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,9 +203,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ab75e516bfffb3c259ea43971e3533ba7" id="r_ab75e516bfffb3c259ea43971e3533ba7"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API const <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta">Document_meta</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7">select_filetype</a> (std::string_view a_extension)</td></tr>
 <tr class="memdesc:ab75e516bfffb3c259ea43971e3533ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Based on the extension, returns the content type and content subtype.  <br /></td></tr>
 <tr class="separator:ab75e516bfffb3c259ea43971e3533ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ba9b68e7f75b3239270fc5956931e30" id="r_a5ba9b68e7f75b3239270fc5956931e30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a5ba9b68e7f75b3239270fc5956931e30">split_addr_port</a> (const std::string &amp;a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</td></tr>
-<tr class="memdesc:a5ba9b68e7f75b3239270fc5956931e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to split inet address and port(service)  <br /></td></tr>
-<tr class="separator:a5ba9b68e7f75b3239270fc5956931e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -215,6 +212,8 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Reengineered Object Oriented UPnP+ program code. </p>
+<p>cond</p>
+<p>endcond </p>
 </div><hr/><h2 class="groupheader">Class Documentation</h2>
 <a name="db/dfe/structUPnPsdk_1_1Document__meta" id="db/dfe/structUPnPsdk_1_1Document__meta"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#db/dfe/structUPnPsdk_1_1Document__meta">&#9670;&#160;</a></span>UPnPsdk::Document_meta</h2>
@@ -442,7 +441,7 @@ Same value in integer form. </td></tr>
 <li><code>nullptr</code> if file extension was not known</li>
 </ul>
 </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Rework to use reference instead of pointer and use exception. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000005">Todo:</a></b></dt><dd>Rework to use reference instead of pointer and use exception. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_extension</td><td>file extension </td></tr>
@@ -475,68 +474,6 @@ Same value in integer form. </td></tr>
 <area shape="poly" title=" " alt="" coords="330,35,296,35,296,30,330,30"/>
 <area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,20,91,45"/>
 <area shape="poly" title=" " alt="" coords="125,35,91,35,91,30,125,30"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a5ba9b68e7f75b3239270fc5956931e30" name="a5ba9b68e7f75b3239270fc5956931e30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ba9b68e7f75b3239270fc5956931e30">&#9670;&#160;</a></span>split_addr_port()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UPnPsdk::split_addr_port </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>a_addr_str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>a_addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>a_serv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Free function to split inet address and port(service) </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00249">249</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a5ba9b68e7f75b3239270fc5956931e30_cgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a5ba9b68e7f75b3239270fc5956931e30_cgraph" alt=""/></div>
-<map name="add/d67/namespaceUPnPsdk_a5ba9b68e7f75b3239270fc5956931e30_cgraph" id="add/d67/namespaceUPnPsdk_a5ba9b68e7f75b3239270fc5956931e30_cgraph">
-<area shape="rect" title="Free function to split inet address and port(service)" alt="" coords="5,5,189,31"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga15c85fb426d891e4a6c2f3258a8edfc5" title="Free function to check if a string represents a valid port number." alt="" coords="237,5,371,31"/>
-<area shape="poly" title=" " alt="" coords="190,15,223,15,223,21,190,21"/>
-</map>
-</div>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a5ba9b68e7f75b3239270fc5956931e30_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a5ba9b68e7f75b3239270fc5956931e30_icgraph" alt=""/></div>
-<map name="add/d67/namespaceUPnPsdk_a5ba9b68e7f75b3239270fc5956931e30_icgraph" id="add/d67/namespaceUPnPsdk_a5ba9b68e7f75b3239270fc5956931e30_icgraph">
-<area shape="rect" title="Free function to split inet address and port(service)" alt="" coords="208,13,392,38"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1f9d157e611b5cda3903b0497728c7c6" title="Set socket address from a netaddress." alt="" coords="5,5,160,45"/>
-<area shape="poly" title=" " alt="" coords="194,28,160,28,160,23,194,23"/>
 </map>
 </div>
 

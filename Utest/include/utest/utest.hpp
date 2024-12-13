@@ -1,10 +1,11 @@
 #ifndef UPNPLIB_UTEST_HPP
 #define UPNPLIB_UTEST_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-23
+// Redistribution only with this Copyright remark. Last modified: 2024-12-15
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port.hpp>
+#include <UPnPsdk/synclog.hpp>
 
 #include <regex>
 #include <cstring>
@@ -52,6 +53,7 @@ const bool github_actions{static_cast<bool>(std::getenv("GITHUB_ACTIONS"))};
 // Accessing the captured string will stop captureing.
 // Typical usage is:
 /*
+    CaptureStdOutErr stderrObj; // Will use default UPnPsdk::log_fileno
     CaptureStdOutErr stderrObj(STDERR_FILENO); // or STDOUT_FILENO
     stderrObj.start();
     std::cerr << "Hello"; // or any other output from within functions
@@ -71,7 +73,7 @@ const bool github_actions{static_cast<bool>(std::getenv("GITHUB_ACTIONS"))};
 
 class UPNPLIB_API CaptureStdOutErr {
   public:
-    CaptureStdOutErr(int a_fileno);
+    CaptureStdOutErr(int a_fileno = UPnPsdk::log_fileno);
     virtual ~CaptureStdOutErr();
     void start();
     std::string& str();

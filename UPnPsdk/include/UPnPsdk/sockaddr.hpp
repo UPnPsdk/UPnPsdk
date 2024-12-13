@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-09
+// Redistribution only with this Copyright remark. Last modified: 2024-12-18
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -33,43 +33,39 @@ union sockaddr_t {
 };
 
 
-/*! \brief Free function to check if a string represents a valid port number
-<!-- ------------------------------------------------------------------- -->
+/*!
+ * \brief Free function to split inet address and port(service)
+ * <!-- --------------------------------------------------- -->
  * \ingroup upnplib-addrmodul
  * \code
- * // Usage e.g.:
- * in_port_t port{};
- * switch (to_port("65535", &port) {
- * case -1:
- *     std::cout << "Invalid port number string.\n";
- *     break;
- * case 0:
- *     std::cout << "Valid port number: " << std::to_string(port) << '\n';
- *     break;
- * case 1:
- *     std::cout << Valid number but out of scope 0..65535 for ports.\n";
- *     break;
- * }
- *
- * if (to_port("65536") != 0) { // do nothing with port }
+ * // Usage e.g., not a complete list:
+ * std::string addr, serv;
+ * split_addr_port("[2001:db8::1]:50001", addr, serv);
+ * split_addr_port("2001:DB8::1", addr, serv);
+ * split_addr_port("127.0.0.1:0", addr, serv);
+ * split_addr_port("127.0.0.1", addr, serv);
+ * split_addr_port(":50002", addr, serv);
+ * split_addr_port("example.COM:50003", addr, serv);
+ * split_addr_port("example.com:HTTPS", addr, serv);
+ * split_addr_port("[::FFff:142.250.185.99]:ssh", addr, serv);
  * \endcode
- * \returns
- *   On success: **0**\n
- *      A binary port number in host byte order is returned in **a_port_num**,
- *      so ypu can use it in your application without conversion. If you want
- *      to store it in a netaddr structure you must use <b>::%htons()</b>. An
- *      empty input string returns 0.\n
- *   On error:
- *   - **-1** A valid port number was not found.
- *   - &nbsp;**1** Valid numeric value found but out of scope, not in range
- *                 0..65535.
- */
-int to_port( //
-    /*! [in] String that may represent a port number. */
-    const std::string& a_port_str,
-    /*! [in,out] Optional: if given, pointer to a variable that will be filled
-     *           with the binary port number in host byte order. */
-    in_port_t* const a_port_num = nullptr) noexcept;
+ *
+ * This is a function for special use to prepare input for system call
+ * ::%getaddrinfo(). Its results returned in \b a_addr and \b a_serv are only
+ * useful for ::%getaddrinfo() and are not meant for general usage. For example
+ * returned IPv6 addresses never have brackets because ::%getaddrinfo() does not
+ * accept them, port numbers are limited to 65535 because ::%getaddrinfo()
+ * accepts also greater numbers with overrun to 65535 + 1 = 0.
+ * */
+void split_addr_port( //
+    /*! [in] Any string. If it can be interpreted as an ip-address or -name
+     * with or without port number or name, its parts will be retured. */
+    const std::string& a_addr_str,
+    /*! [in,out] Reference of a string that will be filled with the ip address
+       part. This can also be a alphanumeric name like "example.com" */
+    std::string& a_addr,
+    /// [in,out] Reference of a string that will be filled with the port part.
+    std::string& a_serv);
 
 
 /*!

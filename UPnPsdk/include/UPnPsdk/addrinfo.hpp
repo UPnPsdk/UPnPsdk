@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_INCLUDE_ADDRINFO_HPP
 #define UPNPLIB_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-05
+// Redistribution only with this Copyright remark. Last modified: 2024-12-17
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
@@ -10,6 +10,7 @@
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port.hpp>
 #include <UPnPsdk/port_sock.hpp>
+#include <UPnPsdk/sockaddr.hpp>
 #include <string>
 
 
@@ -154,12 +155,20 @@ normal_execution();
     /// \brief Get netaddress with port from current selcted address information
     std::string netaddrp() noexcept;
 
+    /// \brief Get the socket address from current selcted address information
+    void sockaddr( //
+        /*! [in,out] Reference to a socket address structure that will be
+         * filled with the address information. If no information is available
+         * (at least 'this->get_first' wasn't called) the structure is
+         * untouched. */
+        SSockaddr& a_saddr);
+
   private:
     // Cache the hints that are given with the constructor by the user, so we
     // can always get identical address information from the operating system.
     DISABLE_MSVC_WARN_4251
-    std::string m_node;
-    std::string m_service;
+    const std::string m_node;
+    const std::string m_service;
     ENABLE_MSVC_WARN
     addrinfo m_hints{};
 

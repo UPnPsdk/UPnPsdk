@@ -5,5 +5,6 @@ var classUPnPsdk_1_1CAddrinfo =
     [ "load", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6", null ],
     [ "operator->", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a913d6cfa21e6b78fed48c6c50468a385", null ],
     [ "get_next", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a", null ],
-    [ "netaddrp", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a9d8977414d20354d50a2aad950cf2e32", null ]
+    [ "netaddrp", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a9d8977414d20354d50a2aad950cf2e32", null ],
+    [ "sockaddr", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342", null ]
 ];

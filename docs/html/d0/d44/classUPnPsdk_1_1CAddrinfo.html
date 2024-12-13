@@ -120,6 +120,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9d8977414d20354d50a2aad950cf2e32" id="r_a9d8977414d20354d50a2aad950cf2e32"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a9d8977414d20354d50a2aad950cf2e32">netaddrp</a> () noexcept</td></tr>
 <tr class="memdesc:a9d8977414d20354d50a2aad950cf2e32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get netaddress with port from current selcted address information.  <br /></td></tr>
 <tr class="separator:a9d8977414d20354d50a2aad950cf2e32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afce4785f8d0fb6fe5a84e3145664e342" id="r_afce4785f8d0fb6fe5a84e3145664e342"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342">sockaddr</a> (<a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddr)</td></tr>
+<tr class="memdesc:afce4785f8d0fb6fe5a84e3145664e342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the socket address from current selcted address information.  <br /></td></tr>
+<tr class="separator:afce4785f8d0fb6fe5a84e3145664e342"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Setter</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><hr  />
  </div></td></tr>
@@ -139,7 +142,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Get information from the operating system about a <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">addrinfo.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">addrinfo.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a73959edaef6545257c6c044b1077ae94" name="a73959edaef6545257c6c044b1077ae94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73959edaef6545257c6c044b1077ae94">&#9670;&#160;</a></span>CAddrinfo() <span class="overload">[1/2]</span></h2>
@@ -194,7 +197,7 @@ Public Member Functions</h2></td></tr>
 <p>Constructor for getting an address information with service name. </p>
 <p>The service name can also be a port number string, e.g. "http" or "80" </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00123">123</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00028">28</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
 
 </div>
 </div>
@@ -244,7 +247,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Constructor for getting an address information from only a netaddress. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00133">133</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00038">38</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
 
 </div>
 </div>
@@ -275,7 +278,7 @@ Public Member Functions</h2></td></tr>
 <div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::invalid_argument&amp; e) { handle_other_error();</div>
 <div class="line">}</div>
 <div class="line">normal_execution();</div>
-<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">UPnPsdk::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about a netaddress.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00029">addrinfo.hpp:29</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">UPnPsdk::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about a netaddress.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00030">addrinfo.hpp:30</a></div></div>
 </div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>It is important to careful check the error situation because loading information depends on the real environment that we cannot control. Name resolution may fail because to be unspecified, DNS server may be temporary down, etc.</dd></dl>
 <p>Usually this setter is called one time after constructing the object. This gets an address information from the operating system that may also use its internal name resolver inclusive contacting external DNS server. If you use the flag <b>AI_NUMERICHOST</b> with the constructor then a possible expensive name resolution to DNS server is suppressed.</p>
 <p>Because always the same cached hints given with the constructor are used we also get the same information but with new allocated memory. So it doesn't make much sense to call it more than one time, but doesn't hurt except waste of resources.</p>
@@ -288,8 +291,9 @@ Public Member Functions</h2></td></tr>
 </dl>
 <p>Provides strong exception guarantee. It should be noted that are different error messages returned by different platforms. </p>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo:</a></b></dt><dd>Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00220">220</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00092">92</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -298,7 +302,7 @@ Public Member Functions</h2></td></tr>
 <div class="center"><img src="../../d0/d44/classUPnPsdk_1_1CAddrinfo_acb0d1b20ebbdfd755484d62b111c7cc6_cgraph.png" border="0" usemap="#ad0/d44/classUPnPsdk_1_1CAddrinfo_acb0d1b20ebbdfd755484d62b111c7cc6_cgraph" alt=""/></div>
 <map name="ad0/d44/classUPnPsdk_1_1CAddrinfo_acb0d1b20ebbdfd755484d62b111c7cc6_cgraph" id="ad0/d44/classUPnPsdk_1_1CAddrinfo_acb0d1b20ebbdfd755484d62b111c7cc6_cgraph">
 <area shape="rect" title="load address information from the operating system" alt="" coords="5,5,156,45"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga15c85fb426d891e4a6c2f3258a8edfc5" title="Free function to check if a string represents a valid port number." alt="" coords="204,13,337,38"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30" title="Free function to split inet address and port(service)" alt="" coords="204,13,388,38"/>
 <area shape="poly" title=" " alt="" coords="156,23,190,23,190,28,156,28"/>
 </map>
 </div>
@@ -361,7 +365,7 @@ Public Member Functions</h2></td></tr>
 <div class="line"><span class="keywordflow">if</span> (aiObj-&gt;ai_family == AF_INET6) { handle_ipv6(); };</div>
 </div><!-- fragment --><p>The operating system returns the information in a structure that you can read to get all details. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00214">214</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00086">86</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
 
 </div>
 </div>
@@ -401,7 +405,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- fragment --><p>If more than one address information is available this is used to switch to the next addrinfo that is used to get its information with the object. </p><dl class="section return"><dt>Returns</dt><dd><b>true</b> if address information is available<br  />
  <b>false</b> otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00403">403</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00199">199</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
 
 </div>
 </div>
@@ -430,7 +434,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Get netaddress with port from current selcted address information. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00416">416</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00213">213</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -454,9 +458,38 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="afce4785f8d0fb6fe5a84e3145664e342" name="afce4785f8d0fb6fe5a84e3145664e342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afce4785f8d0fb6fe5a84e3145664e342">&#9670;&#160;</a></span>sockaddr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UPnPsdk::CAddrinfo::sockaddr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;&#160;</td>
+          <td class="paramname"><em>a_saddr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the socket address from current selcted address information. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">a_saddr</td><td>Reference to a socket address structure that will be filled with the address information. If no information is available (at least 'this-&gt;get_first' wasn't called) the structure is untouched. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00248">248</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>UPnPsdk/include/UPnPsdk/<a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">addrinfo.hpp</a></li>
-<li>UPnPsdk/src/net/<a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a></li>
+<li>UPnPsdk/src/net/<a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a></li>
+<li>UPnPsdk/src/net/<a class="el" href="../../dd/d6e/addrinfo__old_8cpp_source.html">addrinfo_old.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
