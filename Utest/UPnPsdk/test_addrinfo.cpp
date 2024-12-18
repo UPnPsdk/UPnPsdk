@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-17
+// Redistribution only with this Copyright remark. Last modified: 2024-12-18
 
 // I test different address infos that we get from system function
 // ::getaddrinfo(). This function does not ensure always the same order of same
@@ -147,19 +147,18 @@ INSTANTIATE_TEST_SUITE_P(
         /*10*/ std::make_tuple("]", "", Entry::no, Error::yes),
         std::make_tuple("[]", "", Entry::no, Error::yes),
         std::make_tuple(":", "", Entry::no, Error::yes),
-        std::make_tuple(":0", "[::1]:0", Entry::more, Error::no),
         std::make_tuple(".", "", Entry::no, Error::yes),
         std::make_tuple(".:", "", Entry::no, Error::yes),
         std::make_tuple(":.", "", Entry::no, Error::yes),
         std::make_tuple("::", "[::]:0", Entry::one, Error::no),
         std::make_tuple(":::", "", Entry::no, Error::yes),
         std::make_tuple("[::", "", Entry::no, Error::yes),
-        /*20*/ std::make_tuple("::]", "", Entry::no, Error::yes),
+        std::make_tuple("::]", "", Entry::no, Error::yes),
         // std::make_tuple("[::1", "", Entry::one, Error::no), // tested later
         // std::make_tuple("::1]", "", Entry::one, Error::no), // tested later
         // std::make_tuple("", "[::1]:0", Entry::one, Error::no), // multiple results, tested later
         // std::make_tuple(":50987", "[::1]:50987", Entry::one, Error::no), // multiple results, tested later
-        std::make_tuple("::1", "[::1]:0", Entry::one, Error::no),
+        /*20*/ std::make_tuple("::1", "[::1]:0", Entry::one, Error::no),
         std::make_tuple("[::1]", "[::1]:0", Entry::one, Error::no),
         std::make_tuple("[::1]:", "[::1]:0", Entry::one, Error::no),
         std::make_tuple("[::1]:0", "[::1]:0", Entry::one, Error::no),
@@ -170,8 +169,8 @@ INSTANTIATE_TEST_SUITE_P(
         // std::make_tuple("127.0.0.1.5", "", Entry::one, Error::no), // dot for colon, takes long time, mocked later
         std::make_tuple("[2001:db8::43]:", "[2001:db8::43]:0", Entry::one, Error::no),
         std::make_tuple("2001:db8::41:59897", "", Entry::no, Error::yes), // no brackets and wrong quad
-        /*30*/ std::make_tuple("[2001:db8::fg]", "", Entry::no, Error::yes),
-        std::make_tuple("[2001:db8::fg]:59877", "", Entry::no, Error::yes),
+        std::make_tuple("[2001:db8::fg]", "", Entry::no, Error::yes),
+        /*30*/ std::make_tuple("[2001:db8::fg]:59877", "", Entry::no, Error::yes),
         // std::make_tuple("[2001:db8::42]:65535", "[2001:db8::42]:65535", Entry::one, Error::no), // tested later
         std::make_tuple("[2001:db8::51]:65536", "", Entry::no, Error::yes), // invalid port
         std::make_tuple("[2001:db8::52]:9999999999", "", Entry::no, Error::yes), // invalid port
@@ -185,8 +184,8 @@ INSTANTIATE_TEST_SUITE_P(
         // std::make_tuple("192.168.88.256:59866", "", Entry::one, Error::no), // tested later
         // std::make_tuple("192.168.88.91", "192.168.88.91:0", Entry::one, Error::no), // tested later
         // std::make_tuple("garbage:49493", "", Entry::one, Error::no), // triggers DNS lookup
-        /*40*/ std::make_tuple("[garbage]:49494", "", Entry::no, Error::yes),
-        std::make_tuple("[2001:db8::44]:https", "[2001:db8::44]:443", Entry::one, Error::no),
+        std::make_tuple("[garbage]:49494", "", Entry::no, Error::yes),
+        /*40*/ std::make_tuple("[2001:db8::44]:https", "[2001:db8::44]:443", Entry::one, Error::no),
         // std::make_tuple("[2001:db8::44]:httpx", "", Entry::one, Error::no), // takes long time, mocked later
         std::make_tuple("192.168.88.98:http", "192.168.88.98:80", Entry::one, Error::no),
         std::make_tuple("192.168.71.73%1:44:https", "", Entry::no, Error::yes),

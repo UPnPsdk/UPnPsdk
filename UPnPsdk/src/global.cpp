@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-18
+// Redistribution only with this Copyright remark. Last modified: 2024-12-18
 /*!
  * \file
  * \brief Global used flags, classes and emulated system functions.
@@ -70,14 +70,24 @@ class CWSAStartup {
         WSADATA wsaData;
         int rc = ::WSAStartup(MAKEWORD(2, 2), &wsaData);
         if (rc != 0) {
-            // Prepare output string will not split its output on '<<' by output
-            // from other threads. This important messaage should be unsplitted.
-            std::string msg{"UPnPsdk [" + std::string(__FUNCTION__) +
-                            "] CRITICAL MSG1003: Failed to initialize Windows "
-                            "sockets, WSAStartup() returns (" +
-                            std::to_string(rc) + ") \"" +
-                            std::system_category().message(rc) + "\"\n"};
-            std::cerr << msg;
+            throw std::runtime_error(UPnPsdk_LOGEXCEPT +
+                                     "MSG1003: Failed to initialize Windows "
+                                     "Sockets, WSAStartup() returns (" +
+                                     std::to_string(rc) + ") \"" +
+                                     std::system_category().message(rc) + "\"");
+        }
+        /* Confirm that the WinSock DLL supports 2.2. Note that if the DLL
+         * supports versions greater than 2.2 in addition to 2.2, it will still
+         * return 2.2 in wVersion since that is the version we requested. */
+        if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2) {
+            /* Tell the user that we could not find a usable WinSock DLL. */
+            WSACleanup();
+            throw std::runtime_error(UPnPsdk_LOGEXCEPT +
+                                     "MSG1131: Windows Sockets DLL must "
+                                     "support version 2.2 but it has " +
+                                     std::to_string(HIBYTE(wsaData.wVersion)) +
+                                     "." +
+                                     std::to_string(LOBYTE(wsaData.wVersion)));
         }
     }
 
