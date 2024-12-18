@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SYNCLOG_HPP
 #define UPnPsdk_SYNCLOG_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-23
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 /*!
  * \file
  * \brief Define macro for synced logging to the console for detailed info and
@@ -13,7 +13,7 @@
 /// \cond
 #include <string>
 #include <iostream>
-#if !defined(_MSC_VER) && !defined(__APPLE__)
+#ifndef __APPLE__
 #include <syncstream>
 #endif
 
@@ -23,7 +23,7 @@ namespace UPnPsdk {
 
 // Usage: SYNC(std::cout) << "Message\n";
 // Usage: SYNC(std::cerr) << "Error\n";
-#if defined(_MSC_VER) || defined(__APPLE__)
+#ifdef __APPLE__
   #define SYNC(s) (s)
 #else
   #define SYNC(s) std::osyncstream((s))

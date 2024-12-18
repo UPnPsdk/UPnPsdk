@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-06
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -19,7 +19,6 @@
 #include <Compa/src/genlib/miniserver/miniserver.cpp>
 #endif
 
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/upnptools.hpp> // for errStrEx
 #include <UPnPsdk/addrinfo.hpp>
 #include <UPnPsdk/socket.hpp>

@@ -41,7 +41,6 @@
  */
 
 #include <httpreadwrite.hpp>
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/synclog.hpp>
 #include <UPnPsdk/sockaddr.hpp>
 

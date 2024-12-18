@@ -1,12 +1,11 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-23
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 
 #ifdef _WIN32
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
 #include <UPnPsdk/sockaddr.hpp>
 #endif
 
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/netadapter.hpp>
 #include <utest/utest.hpp>
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-18
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 /*!
  * \file
  * \brief Global used flags, classes and emulated system functions.
@@ -12,7 +12,6 @@
  */
 
 #include <UPnPsdk/global.ipp>
-#include <UPnPsdk/port.hpp>
 #include <UPnPsdk/port_sock.hpp>
 /// \cond
 #include <iostream>
@@ -67,17 +66,31 @@ class CWSAStartup {
         std::cout << "TRACE[UPnPsdk/src/global.cpp:" << __LINE__ << "] " << this
                   << " Construct CWSAStartup\n";
 #endif
-        WSADATA wsaData;
+        ::WSADATA wsaData;
         int rc = ::WSAStartup(MAKEWORD(2, 2), &wsaData);
         if (rc != 0) {
-            // Prepare output string will not split its output on '<<' by output
-            // from other threads. This important messaage should be unsplitted.
-            std::string msg{"UPnPsdk [" + std::string(__FUNCTION__) +
-                            "] CRITICAL MSG1003: Failed to initialize Windows "
-                            "sockets, WSAStartup() returns (" +
-                            std::to_string(rc) + ") \"" +
-                            std::system_category().message(rc) + "\"\n"};
-            std::cerr << msg;
+            std::string err_str = "UPnPsdk [" + std::string(__FUNCTION__) +
+                                  "] FATAL MSG1003: Failed to initialize "
+                                  "Windows Sockets, WSAStartup() returns (" +
+                                  std::to_string(rc) + ") \"" +
+                                  std::system_category().message(rc) + "\"\n";
+            std::cerr << err_str;
+            exit(EXIT_FAILURE);
+        }
+        /* Confirm that the WinSock DLL supports 2.2. Note that if the DLL
+         * supports versions greater than 2.2 in addition to 2.2, it will still
+         * return 2.2 in wVersion since that is the version we requested. */
+        if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2) {
+            /* Tell the user that we could not find a usable WinSock DLL. */
+            ::WSACleanup();
+            std::string err_str =
+                "UPnPsdk [" + std::string(__FUNCTION__) +
+                "] FATAL MSG1131: Windows Sockets DLL must "
+                "support version 2.2 but it has " +
+                std::to_string(HIBYTE(wsaData.wVersion)) + "." +
+                std::to_string(LOBYTE(wsaData.wVersion)) + "\n";
+            std::cerr << err_str;
+            exit(EXIT_FAILURE);
         }
     }
 
@@ -93,8 +106,11 @@ class CWSAStartup {
         // Due to MSVC_WARN_4273, I will not use TRACE2() with this global
         // linkage
 #ifdef UPnPsdk_WITH_TRACE
+        // clang-format off
         std::cout << "TRACE[UPnPsdk/src/global.cpp:" << __LINE__ << "] " << this
-                  << " Destruct CWSAStartup" << "\n";
+                  << " Destruct CWSAStartup"
+                  << "\n";
+        // clang-format on
 #endif
         ::WSACleanup();
     }

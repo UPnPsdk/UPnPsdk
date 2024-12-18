@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-15
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -14,7 +14,6 @@
 #include <pupnp/upnpdebug.hpp> // for CLogging
 
 #include <UPnPsdk/upnptools.hpp>
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/addrinfo.hpp>
 
 #include <utest/utest.hpp>
@@ -48,7 +47,6 @@ clang-format off
      UpnpInit2()
 03)  |__ ithread_mutex_lock()
 03)  |__ UpnpInitPreamble()
-04)  |   |__ WinsockInit() - only on _WIN32
 05)  |   |__ UpnpInitLog()
      |   |__ UpnpInitMutexes()
 03)  |   |__ Initialize_handle_list
@@ -76,7 +74,6 @@ clang-format off
      |__ ithread_mutex_unlock()
 
 03) TEST(UpnpapiTestSuite, UpnpInitPreamble)
-04) TEST(UpnpapiTestSuite, WinsockInit)
 05) Tested with ./test_upnpdebug.cpp
 11) Tested with ./test_TimerThread.cpp
 13) Tested with ./test_upnpapi_win32.cpp
@@ -184,42 +181,6 @@ class UpnpapiMockFTestSuite : public UpnpapiFTestSuite {
 
 
 #if 0
-// This is to get the binary netorder ipv4 value from the IPv4 mapped IPv6
-// address to be used for inexpensive comparison. It's not a real test so I do
-// not need to always run it.
-//
-TEST(UpnpapiTestSuite, get_binary_ip) {
-    UPnPsdk::SSockaddr saObj;
-    in_addr* sin_addr =
-        reinterpret_cast<in_addr*>(&saObj.sin6.sin6_addr.s6_addr[12]);
-
-    saObj = "[::ffff:10.0.0.0]";
-    std::cout << "10.0.0.0        = " << ntohl(sin_addr->s_addr) << '\n';
-    saObj = "[::ffff:10.255.255.255]";
-    std::cout << "10.255.255.255  = " << ntohl(sin_addr->s_addr) << '\n';
-
-    saObj = "[::ffff:127.0.0.0]";
-    std::cout << "127.0.0.0       = " << ntohl(sin_addr->s_addr) << '\n';
-    saObj = "[::ffff:127.255.255.255]";
-    std::cout << "127.255.255.255 = " << ntohl(sin_addr->s_addr) << '\n';
-
-    saObj = "[::ffff:172.16.0.0]";
-    std::cout << "172.16.0.0      = " << ntohl(sin_addr->s_addr) << '\n';
-    saObj = "[::ffff:172.31.255.255]";
-    std::cout << "172.31.255.255  = " << ntohl(sin_addr->s_addr) << '\n';
-
-    saObj = "[::ffff:192.168.0.0]";
-    std::cout << "192.168.0.0     = " << ntohl(sin_addr->s_addr) << '\n';
-    saObj = "[::ffff:192.168.255.255]";
-    std::cout << "192.168.255.255 = " << ntohl(sin_addr->s_addr) << '\n';
-
-    char addrbuf[20]{};
-    inet_ntop(AF_INET, sin_addr, addrbuf, sizeof(addrbuf));
-    std::cout << "addrbuf = " << addrbuf << '\n';
-}
-#endif
-
-#if 0
 TEST_F(UpnpapiFTestSuite, UpnpInit2_iface_nullptr) {
     // Test Unit
     int ret_UpnpInit2 = UpnpInit2(nullptr, 0);
@@ -311,14 +272,6 @@ TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
         << errStrEx(ret_UpnpFinish, UPNP_E_SUCCESS);
 
     EXPECT_EQ(UpnpSdkInit, 0);
-}
-
-TEST_F(UpnpapiFTestSuite, WinsockInit) {
-    // This Unit only aplies to Microsoft Windows but does not do anything on
-    // Unix and should always return UPNP_E_SUCCESS on Unix.
-    int ret_WinsockInit = WinsockInit();
-    EXPECT_EQ(ret_WinsockInit, UPNP_E_SUCCESS)
-        << errStrEx(ret_WinsockInit, UPNP_E_SUCCESS);
 }
 
 TEST_F(UpnpapiFTestSuite, get_error_message) {
