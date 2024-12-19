@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-18
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 /*!
  * \file
  * \brief Global used flags, classes and emulated system functions.
@@ -106,9 +106,11 @@ class CWSAStartup {
         // Due to MSVC_WARN_4273, I will not use TRACE2() with this global
         // linkage
 #ifdef UPnPsdk_WITH_TRACE
+        // clang-format off
         std::cout << "TRACE[UPnPsdk/src/global.cpp:" << __LINE__ << "] " << this
                   << " Destruct CWSAStartup"
                   << "\n";
+        // clang-format on
 #endif
         ::WSACleanup();
     }
