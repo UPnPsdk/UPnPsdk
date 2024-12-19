@@ -86,11 +86,11 @@ void CAddrinfo::free_addrinfo() noexcept {
 ::addrinfo* CAddrinfo::operator->() const noexcept { return m_res_current; }
 
 
-// Setter to load an addrinfo from the operating system to the object
-// ------------------------------------------------------------------
+// Getter for the first entry of an address info from the operating system
+// -----------------------------------------------------------------------
 // Get address information with cached hints.
-void CAddrinfo::load() {
-    TRACE2(this, " Executing CAddrinfo::load()")
+void CAddrinfo::get_first() {
+    TRACE2(this, " Executing CAddrinfo::get_first()")
 
     std::string node, service;
     if (m_service.empty()) {
@@ -183,9 +183,9 @@ void CAddrinfo::load() {
         res->ai_flags = m_hints.ai_flags;
     }
 
-    // If load() is called the second time then m_res still points to the
-    // previous allocated memory. To avoid a memory leak it must be freed
-    // before pointing to the new allocated memory.
+    // If get_first() is called the second time then m_res still points to the
+    // previous allocated memory. To avoid a memory leak it must be freed before
+    // pointing to the new allocated memory.
     this->free_addrinfo();
     // finaly point to the new address information from the operating
     // system.

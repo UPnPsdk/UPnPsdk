@@ -10,7 +10,6 @@ var upnpapi_8cpp =
     [ "IN6_IS_ADDR_ULA", "d4/d99/upnpapi_8cpp.html#a9dd7c394529caa29a98958354f269d31", null ],
     [ "free_advertise_arg", "d4/d99/upnpapi_8cpp.html#ad1ea8e065c7bee700fb8a248b5b0d3cb", null ],
     [ "free_action_arg", "d4/d99/upnpapi_8cpp.html#a3eea359891d4e865553b3e94b893a71c", null ],
-    [ "WinsockInit", "d4/d99/upnpapi_8cpp.html#afa9a02a6a9dc20f16c191c563c61f53d", null ],
     [ "UpnpInitMutexes", "d4/d99/upnpapi_8cpp.html#a7855376cc412564ea0b12b867e11e3a7", null ],
     [ "UpnpInitThreadPools", "d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca", null ],
     [ "UpnpInitPreamble", "d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0", null ],

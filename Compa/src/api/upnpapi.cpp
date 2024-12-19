@@ -3339,7 +3339,7 @@ int GetIfInfo(const char* a_IfName) {
 int UpnpGetIfInfo(const char* a_IFace) {
     UPnPsdk::CAddrinfo aiObj(a_IFace, AF_UNSPEC, SOCK_STREAM, AI_NUMERICHOST);
     try {
-        aiObj.load();
+        aiObj.get_first();
     } catch (const std::exception&) {
         // a_IFace is not an IP address. Assume it is an interface name and call
         // old code.

@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-18
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -256,7 +256,7 @@ struct UPnPsdk_API SSockaddr {
  * std::cout << saObj << "\n"; // output "[2001:db8::1]:56789"
  * \endcode
  */
-UPNPLIB_API ::std::ostream& operator<<(::std::ostream& os, SSockaddr& saddr);
+UPnPsdk_API ::std::ostream& operator<<(::std::ostream& os, SSockaddr& saddr);
 
 } // namespace UPnPsdk
 

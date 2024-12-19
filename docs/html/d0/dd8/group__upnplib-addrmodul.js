@@ -3,8 +3,8 @@ var group__upnplib_addrmodul =
     [ "UPnPsdk::CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", [
       [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a73959edaef6545257c6c044b1077ae94", null ],
       [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#aac3fed6cad1a63cf03e0745f29d89ffb", null ],
-      [ "load", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#acb0d1b20ebbdfd755484d62b111c7cc6", null ],
       [ "operator->", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a913d6cfa21e6b78fed48c6c50468a385", null ],
+      [ "get_first", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a39fe42ce5ff2f457a80683275ad3dd0a", null ],
       [ "get_next", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a", null ],
       [ "netaddrp", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a9d8977414d20354d50a2aad950cf2e32", null ],
       [ "sockaddr", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342", null ]
@@ -34,8 +34,7 @@ var group__upnplib_addrmodul =
       [ "sa", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a7fb20663e898118cf58c34e3ad4bbf09", null ]
     ] ],
     [ "UPnPsdk::split_addr_port", "d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30", null ],
-    [ "UPnPsdk::operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga97def93cf54b1e9cd5a59c4c9c0dca55", null ],
-    [ "UPnPsdk::anonymous_namespace{addrinfo_old.cpp}::is_netaddr", "d0/dd8/group__upnplib-addrmodul.html#ga2cc8f86236e252d4ca8f4f3019cef9c6", null ],
+    [ "UPnPsdk::operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],
     [ "UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_netaddr", "d0/dd8/group__upnplib-addrmodul.html#ga7682566c7f9f0f6f7439657ca618114f", null ],
     [ "UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_netaddrp", "d0/dd8/group__upnplib-addrmodul.html#ga3567b69c4ffb4ad72bf13049e2433d14", null ],
     [ "UPnPsdk::anonymous_namespace{sockaddr.cpp}::sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ],
