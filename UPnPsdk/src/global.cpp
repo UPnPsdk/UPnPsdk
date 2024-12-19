@@ -12,7 +12,6 @@
  */
 
 #include <UPnPsdk/global.ipp>
-#include <UPnPsdk/port.hpp>
 #include <UPnPsdk/port_sock.hpp>
 /// \cond
 #include <iostream>
@@ -67,27 +66,31 @@ class CWSAStartup {
         std::cout << "TRACE[UPnPsdk/src/global.cpp:" << __LINE__ << "] " << this
                   << " Construct CWSAStartup\n";
 #endif
-        WSADATA wsaData;
+        ::WSADATA wsaData;
         int rc = ::WSAStartup(MAKEWORD(2, 2), &wsaData);
         if (rc != 0) {
-            throw std::runtime_error(UPnPsdk_LOGEXCEPT +
-                                     "MSG1003: Failed to initialize Windows "
-                                     "Sockets, WSAStartup() returns (" +
-                                     std::to_string(rc) + ") \"" +
-                                     std::system_category().message(rc) + "\"");
+            std::string err_str = "UPnPsdk [" + std::string(__FUNCTION__) +
+                                  "] FATAL MSG1003: Failed to initialize "
+                                  "Windows Sockets, WSAStartup() returns (" +
+                                  std::to_string(rc) + ") \"" +
+                                  std::system_category().message(rc) + "\"\n";
+            std::cerr << err_str;
+            exit(EXIT_FAILURE);
         }
         /* Confirm that the WinSock DLL supports 2.2. Note that if the DLL
          * supports versions greater than 2.2 in addition to 2.2, it will still
          * return 2.2 in wVersion since that is the version we requested. */
         if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2) {
             /* Tell the user that we could not find a usable WinSock DLL. */
-            WSACleanup();
-            throw std::runtime_error(UPnPsdk_LOGEXCEPT +
-                                     "MSG1131: Windows Sockets DLL must "
-                                     "support version 2.2 but it has " +
-                                     std::to_string(HIBYTE(wsaData.wVersion)) +
-                                     "." +
-                                     std::to_string(LOBYTE(wsaData.wVersion)));
+            ::WSACleanup();
+            std::string err_str =
+                "UPnPsdk [" + std::string(__FUNCTION__) +
+                "] FATAL MSG1131: Windows Sockets DLL must "
+                "support version 2.2 but it has " +
+                std::to_string(HIBYTE(wsaData.wVersion)) + "." +
+                std::to_string(LOBYTE(wsaData.wVersion)) + "\n";
+            std::cerr << err_str;
+            exit(EXIT_FAILURE);
         }
     }
 
@@ -104,7 +107,8 @@ class CWSAStartup {
         // linkage
 #ifdef UPnPsdk_WITH_TRACE
         std::cout << "TRACE[UPnPsdk/src/global.cpp:" << __LINE__ << "] " << this
-                  << " Destruct CWSAStartup" << "\n";
+                  << " Destruct CWSAStartup"
+                  << "\n";
 #endif
         ::WSACleanup();
     }

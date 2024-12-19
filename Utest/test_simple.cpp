@@ -1,11 +1,10 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 
 // This tests only UPnPsdk code without using pupnp code or compa code. The only
 // used 'UPnPsdk' library does not provide it. So these tests belong to
 // namespace UPnPsdk.
 
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/messages.hpp>
 #include <UPnPsdk/upnptools.hpp>
 #include <UPnPsdk/sockaddr.hpp>

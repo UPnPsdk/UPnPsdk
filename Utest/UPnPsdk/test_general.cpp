@@ -1,8 +1,6 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-08
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 
-#include <UPnPsdk/port.hpp>
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/synclog.hpp>
 #include <utest/utest.hpp>
 

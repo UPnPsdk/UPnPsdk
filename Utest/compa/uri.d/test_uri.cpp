@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// redistribution only with this copyright remark. last modified: 2024-08-18
+// redistribution only with this copyright remark. last modified: 2024-12-19
 
 // Helpful link for ip address structures:
 // https://stackoverflow.com/a/16010670/5014688
@@ -8,7 +8,6 @@
 // functions which need to be tested.
 #include <Pupnp/upnp/src/genlib/net/uri/uri.cpp>
 
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/uri.hpp>
 #include <utest/utest.hpp>
 #include <umock/netdb_mock.hpp>

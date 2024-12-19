@@ -1,9 +1,8 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-17
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/socket.hpp>
 
@@ -618,6 +617,42 @@ TEST(SockaddrStorageTestSuite, test_pton) {
     EXPECT_EQ(inet_pton(AF_INET6, "[2001:db8::1]/64", &buf6), 0);
     EXPECT_EQ(inet_pton(AF_INET6, "[2001:db8::1]%eth0", &buf6), 0);
     EXPECT_EQ(inet_pton(AF_INET6, "[2001:db8::1]:50010", &buf6), 0);
+}
+#endif
+
+#if 0
+// This is to get the binary netorder ipv4 value from the IPv4 mapped IPv6
+// address to be used for inexpensive comparison. It's not a real test so I do
+// not need to always run it.
+//
+TEST(UpnpapiTestSuite, get_binary_ip) {
+    UPnPsdk::SSockaddr saObj;
+    in_addr* sin_addr =
+        reinterpret_cast<in_addr*>(&saObj.sin6.sin6_addr.s6_addr[12]);
+
+    saObj = "[::ffff:10.0.0.0]";
+    std::cout << "10.0.0.0        = " << ntohl(sin_addr->s_addr) << '\n';
+    saObj = "[::ffff:10.255.255.255]";
+    std::cout << "10.255.255.255  = " << ntohl(sin_addr->s_addr) << '\n';
+
+    saObj = "[::ffff:127.0.0.0]";
+    std::cout << "127.0.0.0       = " << ntohl(sin_addr->s_addr) << '\n';
+    saObj = "[::ffff:127.255.255.255]";
+    std::cout << "127.255.255.255 = " << ntohl(sin_addr->s_addr) << '\n';
+
+    saObj = "[::ffff:172.16.0.0]";
+    std::cout << "172.16.0.0      = " << ntohl(sin_addr->s_addr) << '\n';
+    saObj = "[::ffff:172.31.255.255]";
+    std::cout << "172.31.255.255  = " << ntohl(sin_addr->s_addr) << '\n';
+
+    saObj = "[::ffff:192.168.0.0]";
+    std::cout << "192.168.0.0     = " << ntohl(sin_addr->s_addr) << '\n';
+    saObj = "[::ffff:192.168.255.255]";
+    std::cout << "192.168.255.255 = " << ntohl(sin_addr->s_addr) << '\n';
+
+    char addrbuf[20]{};
+    inet_ntop(AF_INET, sin_addr, addrbuf, sizeof(addrbuf));
+    std::cout << "addrbuf = " << addrbuf << '\n';
 }
 #endif
 

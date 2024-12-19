@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-13
+ * Redistribution only with this Copyright remark. Last modified: 2024-12-19
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,6 @@
 #include <soap_device.hpp>
 #include <soap_ctrlpt.hpp>
 
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/addrinfo.hpp>
 
 #ifdef _WIN32
@@ -288,45 +287,6 @@ static void free_action_arg(job_arg* arg) {
 #endif
 
 /*!
- * \brief (Windows Only) Initializes the Windows Winsock library.
- *
- * \return UPNP_E_SUCCESS on success, UPNP_E_INIT_FAILED on failure.
- */
-static int WinsockInit() {
-    int retVal = UPNP_E_SUCCESS;
-#ifdef _WIN32
-    TRACE("Executing WinsockInit()")
-    WORD wVersionRequested;
-    WSADATA wsaData;
-    int err;
-
-    wVersionRequested = MAKEWORD(2, 2);
-    err = WSAStartup(wVersionRequested, &wsaData);
-    if (err != 0) {
-        /* Tell the user that we could not find a usable */
-        /* WinSock DLL.                                  */
-        retVal = UPNP_E_INIT_FAILED;
-        goto exit_function;
-    }
-    /* Confirm that the WinSock DLL supports 2.2.
-     * Note that if the DLL supports versions greater
-     * than 2.2 in addition to 2.2, it will still return
-     * 2.2 in wVersion since that is the version we
-     * requested. */
-    if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2) {
-        /* Tell the user that we could not find a usable
-         * WinSock DLL. */
-        WSACleanup();
-        retVal = UPNP_E_INIT_FAILED;
-        goto exit_function;
-    }
-    /* The WinSock DLL is acceptable. Proceed. */
-exit_function:
-#endif
-    return retVal;
-}
-
-/*!
  * \brief Initializes the global mutexes used by the UPnP SDK.
  *
  * \return UPNP_E_SUCCESS on success or UPNP_E_INIT_FAILED if a mutex could not
@@ -411,11 +371,6 @@ static int UpnpInitPreamble() {
     TRACE("Executing UpnpInitPreamble()")
     int retVal = UPNP_E_SUCCESS;
     int i;
-
-    retVal = WinsockInit();
-    if (retVal != UPNP_E_SUCCESS) {
-        return retVal;
-    }
 
     /* needed by SSDP or other parts. */
     srand((unsigned int)time(NULL));

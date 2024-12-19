@@ -9,7 +9,6 @@ FILE*& filed{fp}; // Other alias for variable fp
 #endif
 
 #include <UPnPsdk/port.hpp>
-#include <UPnPsdk/global.hpp>
 #include <UPnPsdk/upnptools.hpp>
 
 #include <utest/utest.hpp>

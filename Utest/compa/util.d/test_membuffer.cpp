@@ -1,9 +1,8 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 
 #include <Pupnp/upnp/src/genlib/util/membuffer.cpp>
 
-#include <UPnPsdk/global.hpp>
 #include <utest/utest.hpp>
 #include <umock/stdlib_mock.hpp>
 

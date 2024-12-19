@@ -1,10 +1,8 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-20
+// Redistribution only with this Copyright remark. Last modified: 2024-12-19
 
 #include <strintmap.hpp>
 #include <httpparser.hpp> // for HTTPMETHOD* constants
-
-#include <UPnPsdk/global.hpp>
 #include <utest/utest.hpp>
 
 namespace utest {
