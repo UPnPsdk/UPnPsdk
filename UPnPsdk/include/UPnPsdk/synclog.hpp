@@ -13,7 +13,9 @@
 /// \cond
 #include <string>
 #include <iostream>
+#ifndef __APPLE__
 #include <syncstream>
+#endif
 
 namespace UPnPsdk {
 
@@ -21,7 +23,11 @@ namespace UPnPsdk {
 
 // Usage: SYNC(std::cout) << "Message\n";
 // Usage: SYNC(std::cerr) << "Error\n";
-#define SYNC(s) std::osyncstream((s))
+#ifdef __APPLE__
+  #define SYNC(s) (s)
+#else
+  #define SYNC(s) std::osyncstream((s))
+#endif
 
 
 // Trace messages
