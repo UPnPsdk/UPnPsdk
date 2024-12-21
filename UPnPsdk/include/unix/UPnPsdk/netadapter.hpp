@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_UNIX_NETIFINFO_HPP
 #define UPnPsdk_UNIX_NETIFINFO_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-21
+// Redistribution only with this Copyright remark. Last modified: 2024-12-21
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -18,7 +18,7 @@ namespace UPnPsdk {
 /*!
  * \brief Manage information from Unix like platforms about network adapters.
  *
- * For details look at INetadapter
+ * For details look at UPnPsdk::INetadapter
  */
 class UPnPsdk_API CNetadapter : public INetadapter {
   public:
@@ -28,30 +28,25 @@ class UPnPsdk_API CNetadapter : public INetadapter {
     // Destructor
     virtual ~CNetadapter();
 
+    /// \cond
     // Copy constructor
     // We cannot use the default copy constructor because there is also
     // allocated memory for the ifaddrs structure to copy. We get segfaults
-    // and program aborts. This class is not used to copy the object.
+    // and program aborts. This class is not usable to copy the object.
     CNetadapter(const CNetadapter&) = delete;
 
     // Copy assignment operator
     // Same as with the copy constructor.
     CNetadapter& operator=(CNetadapter) = delete;
+    /// \endcond
 
-    /*! \name Setter
-     * *************
-     * @{ */
-    void load() override;
-    /// @} Setter
-
-    /*! \name Getter
-     * *************
-     * @{ */
+    // methodes
+    void get_first() override;
     bool get_next() override;
     std::string name() const override;
-    SSockaddr sockaddr() const override;
-    SSockaddr socknetmask() const override;
-    /// @} Getter
+    void sockaddr(SSockaddr& a_saddr) const override;
+    void socknetmask(SSockaddr& a_snetmask) const override;
+    unsigned int index() const override;
 
   private:
     // Pointer to the first network adapter structure. This pointer must not be

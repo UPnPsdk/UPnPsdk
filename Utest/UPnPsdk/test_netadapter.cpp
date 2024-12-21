@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2024-12-22
 
 #ifdef _WIN32
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -27,28 +27,39 @@ TEST(NetadapterTestSuite, get_adapters_info_successful) {
     UPnPsdk::CNetadapter netadapterObj;
     UPnPsdk::INetadapter& nadObj{netadapterObj};
 
-    ASSERT_NO_THROW(nadObj.load());
+    ASSERT_NO_THROW(nadObj.get_first());
 
     do {
         ASSERT_FALSE(nadObj.name().empty());
-        saddrObj = nadObj.sockaddr();
+        nadObj.sockaddr(saddrObj);
         ASSERT_THAT(saddrObj.ss.ss_family, AnyOf(AF_INET6, AF_INET));
         // Check valid ip address
         ASSERT_EQ(::getnameinfo(&saddrObj.sa, sizeof(saddrObj.ss), addrStr,
                                 sizeof(addrStr), servStr, sizeof(servStr),
                                 NI_NUMERICHOST),
                   0);
-        snmskObj = nadObj.socknetmask();
+        nadObj.socknetmask(snmskObj);
         // Check valid netmask
         ASSERT_EQ(::getnameinfo(&snmskObj.sa, sizeof(snmskObj.ss), nmskStr,
                                 sizeof(nmskStr), nullptr, 0, NI_NUMERICHOST),
                   0);
+        ASSERT_NE(nadObj.index(), 0);
+        if (saddrObj.sin6.sin6_family == AF_INET6 &&
+            saddrObj.sin6.sin6_addr.s6_addr[15] == 1) {
+            ASSERT_EQ(nadObj.index(), 1) << "should be index 1 for \"[::1]\"";
+        }
+        if (saddrObj.sin.sin_family == AF_INET &&
+            ntohl(saddrObj.sin.sin_addr.s_addr) == 2130706433) { // "127.0.0.1"
+            ASSERT_EQ(nadObj.index(), 1)
+                << "should be index 1 for \"127.0.0.1\"";
+        }
 #if 0
         // To show resolved iface names set first NI_NUMERICHOST above to 0.
         std::cout << "DEBUG: \"" << nadObj.name() << "\" address = " << addrStr
                   << "(" << saddrObj.netaddr()
                   << "), netmask = " << snmskObj.netaddr()
-                  << ", service = " << servStr << '\n';
+                  << ", service = " << servStr
+                  << ", index = " << nadObj.index() << '\n';
 #endif
     } while (nadObj.get_next());
 }

@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2024-12-21
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -181,20 +181,21 @@ class UpnpapiMockFTestSuite : public UpnpapiFTestSuite {
 
 
 #if 0
-TEST_F(UpnpapiFTestSuite, UpnpInit2_iface_nullptr) {
+TEST_F(UpnpapiFTestSuite, UpnpInit2_interface_name_successful) {
     // Test Unit
-    int ret_UpnpInit2 = UpnpInit2(nullptr, 0);
+    int ret_UpnpInit2 = UpnpInit2("ens1", 0);
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
-    EXPECT_STRNE(gIF_NAME, "");
-}
+    EXPECT_STREQ(gIF_NAME, "ens1");
+    EXPECT_STREQ(gIF_IPV4, "");
+    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    EXPECT_STREQ(gIF_IPV6, "fe80::5054:ff:fe7f:c021");
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "2003:d5:2705:dd00:5054:ff:fe7f:c021");
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 64);
+    EXPECT_EQ(gIF_INDEX, 2);
 
-TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv6_addr_successful) {
-    // Test Unit
-    int ret_UpnpInit2 = UpnpInit2("[fe80::5054:ff:fe7f:c021]", 0);
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
-    EXPECT_STREQ(gIF_NAME, "lo");
+    UpnpFinish();
 }
 #endif
 

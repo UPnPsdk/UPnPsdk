@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-23
+// Redistribution only with this Copyright remark. Last modified: 2024-12-22
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -7,7 +7,9 @@
 
 #include <UPnPsdk/netadapter.hpp>
 #include <UPnPsdk/synclog.hpp>
+/// \cond
 #include <umock/iphlpapi.hpp>
+/// \endcond
 
 
 namespace UPnPsdk {
@@ -124,10 +126,10 @@ CNetadapter::~CNetadapter() {
     this->free_adaptaddrs();
 }
 
-void CNetadapter::load() {
+void CNetadapter::get_first() {
     // For the structure look at
     // REF:_https://docs.microsoft.com/en-us/windows/win32/api/iptypes/ns-iptypes-ip_adapter_addresses_lh
-    TRACE2(this, " Executing load()")
+    TRACE2(this, " Executing CNetadapter::get_first()")
 
     ULONG adapts_size{};
     // Get Adapters addresses required size. Check with adapts_size = 0
@@ -172,7 +174,7 @@ bool CNetadapter::get_next() {
     // entering this function there is no synchronous information as given in a
     // loop (or two nested). I have to excamine the current state for the next
     // action. Writing down a state table on paper has helped me.
-    TRACE2(this, " Executing get_next()")
+    TRACE2(this, " Executing CNetadapter::get_next()")
     if (m_adapt_current == nullptr && m_unicastaddr_current == nullptr) {
         return false;
     }
@@ -214,7 +216,7 @@ bool CNetadapter::get_next() {
 }
 
 std::string CNetadapter::name() const {
-    TRACE2(this, " Executing name()")
+    TRACE2(this, " Executing CNetadapter::name()")
     if (m_adapt_current == nullptr)
         return "";
 
@@ -236,38 +238,44 @@ std::string CNetadapter::name() const {
     return if_name;
 }
 
-SSockaddr CNetadapter::sockaddr() const {
-    // TRACE maybe not usable with chained output.
-    TRACE2(this, " Executing sockaddr()")
-    SSockaddr saddrObj;
-
+void CNetadapter::sockaddr(SSockaddr& a_saddr) const {
+    TRACE2(this, " Executing CNetadapter::sockaddr()")
     if (m_adapt_current != nullptr) {
         // Copy address of the network adapter
-        memcpy(&saddrObj.ss,
+        memcpy(&a_saddr.ss,
                reinterpret_cast<sockaddr_storage*>(
                    m_unicastaddr_current->Address.lpSockaddr),
-               sizeof(saddrObj.ss));
+               sizeof(a_saddr.ss));
     }
-    return saddrObj; // Return as copy
 }
 
-SSockaddr CNetadapter::socknetmask() const {
-    // TRACE maybe not usable with chained output.
-    TRACE2(this, " Executing socknetmask()")
-    SSockaddr saObj;
+void CNetadapter::socknetmask(SSockaddr& a_snetmask) const {
+    TRACE2(this, " Executing CNetadapter::socknetmask()")
     if (m_adapt_current != nullptr) {
         bitnum_to_netmask(m_unicastaddr_current->Address.lpSockaddr->sa_family,
-                          m_unicastaddr_current->OnLinkPrefixLength, saObj);
+                          m_unicastaddr_current->OnLinkPrefixLength,
+                          a_snetmask);
     }
-    return saObj; // Return as copy
 }
 
+unsigned int CNetadapter::index() const {
+    TRACE2(this, " Executing CNetadapter::index()")
+    if (m_adapt_current == nullptr)
+        return 0;
+    // No matter if the adapter supports only IPv4 or only IPv6 or both, the
+    // adapter index should be always the same.
+    if (m_adapt_current->IfIndex != 0) // IPv4 interface
+        return m_adapt_current->IfIndex;
+    if (m_adapt_current->Ipv6IfIndex != 0) // IPv6 interface
+        return m_adapt_current->Ipv6IfIndex;
+    return 0; // neither IPv4 nor IPv6
+}
 
 // Private helper methods
 // ----------------------
 //
 void CNetadapter::free_adaptaddrs() noexcept {
-    TRACE2(this, " Executing free_adaptaddrs()")
+    TRACE2(this, " Executing CNetadapter::free_adaptaddrs()")
     if (m_adapt_first != nullptr) {
         free(m_adapt_first);
         m_adapt_first = nullptr;

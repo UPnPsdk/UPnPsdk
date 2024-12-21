@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-23
+// Redistribution only with this Copyright remark. Last modified: 2024-12-21
 /*!
  * \file
  * \brief Manage information from different platforms about network adapters.
@@ -28,13 +28,13 @@ namespace UPnPsdk {
  * CNetadapter netadapterObj;          // Instantiate object
  * INetadapter& nadObj{netadapterObj}; // reference C++ interface
  * try {
- *     nadObj.load();
+ *     nadObj.get_first();
  * } catch(xcp) { handle_error(); };
- * SSockaddr saObj;
+ * UPnPsdk::SSockaddr saObj;
  * do {
  *     std::cout << "adapter name is " << nadObj.name() << '\n';
- *     saObj = nadObj.sockaddr();
- *     std::cout << "adapter address is " << saObj.netaddr() << '\n';
+ *     nadObj.sockaddr(saObj);
+ *     std::cout << "adapter address is " << saObj.netaddrp() << '\n';
  * } while (nadObj.get_next());
  * \endcode
  *
@@ -45,22 +45,15 @@ namespace UPnPsdk {
  */
 class INetadapter {
   public:
-    /*! \name Setter
-     * *************
-     * @{ */
-    /*!
-     * \brief Load object with local network adapter information from operating
-     * system
+    /*! \brief Load a list of network adapters from the operating system and
+     * select its first entry
      *
      * \exception std::runtime_error Failed to get information from the network
      * adapters: (detail)*/
-    virtual void load() = 0;
-    /// @} Setter
+    virtual void get_first() = 0;
 
-    /*! \name Getter
-     * *************
-     * @{ */
-    /*! \brief Get next entry from loaded network adapter list. */
+    /*! \brief Select next entry from the network adapter list that was initial
+     * loaded with INetadapter::get_first(). */
     virtual bool get_next() = 0;
 
     /*! \brief Get network adapter name from current selected list entry. */
@@ -69,16 +62,26 @@ class INetadapter {
     // // I code IP Version-Independent, so this method is not provided.
     // sa_family_t in_family() const;
 
-    /*! \brief Get socket address Object from current selected list entry. */
-    virtual SSockaddr sockaddr() const = 0;
+    /*! \brief Get socket address from current selected list entry. */
+    virtual void sockaddr( //
+        /*! [in,out] Reference to a socket address object that will be filled
+         * with the socket address from the current selected network adapter
+         * list entry. */
+        SSockaddr& a_saddr) const = 0;
 
-    /*! \brief Get socket address netmask Object from current selected list
+    /*! \brief Get socket address netmask from current selected list
      * entry.
      *
      * This netmask belongs to the adapters network address that is current
-     * selected with load() and get_next(). */
-    virtual SSockaddr socknetmask() const = 0;
-    /// @} Getter
+     * selected. */
+    virtual void socknetmask( //
+        /*! [in,out] Reference to a socket address object that will be filled
+         * with the socket address netmask from the current selected network
+         * adapter list entry. */
+        SSockaddr& a_snetmask) const = 0;
+
+    /*! \brief Get index number from current selected list entry. */
+    virtual unsigned int index() const = 0;
 };
 
 } // namespace UPnPsdk
