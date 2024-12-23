@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_INCLUDE_ADDRINFO_HPP
 #define UPnPsdk_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2024-12-24
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
@@ -73,9 +73,8 @@ class UPnPsdk_API CAddrinfo {
      * \code
      * // Usage e.g.:
      * CAddrinfo aiObj("localhost", "50001", AF_UNSPEC, SOCK_STREAM);
-     * try {
-     *     aiObj.get_first();
-     * } catch (xcp) { handle_error(); }
+     * if (!aiObj.get_first())
+     *     handle_error();
      * if (aiObj->ai_socktype == SOCK_DGRAM) {} // is SOCK_STREAM here
      * if (aiObj->ai_family == AF_INET6) { handle_ipv6(); };
      * \endcode
@@ -92,11 +91,9 @@ class UPnPsdk_API CAddrinfo {
 CAddrinfo ai("[2001:db8::1]", "50050", AF_UNSPEC, SOCK_STREAM, AI_NUMERICHOST);
 // or
 CAddrinfo ai("[2001:db8::1]:50050");
-try {
-    ai.get_first();
-} catch (const std::runtime_error& e) { handle_failed_address_info(); }
-// will also catch (const std::range_error& e) { port out of range 0..65535(); }
-// if that is not explicit specified.
+if (!ai.get_first()) {
+    std::cerr << ai.what() << '\n';
+    handle_failed_address_info();
 }
 normal_execution();
      * \endcode
@@ -118,35 +115,23 @@ normal_execution();
      * information. But note that this is quite expensive because always memory
      * is freed and new allocated for the information list so doing this in a
      * busy loop is not very useful.
-     *
-     * \exception std::runtime_error Failed to get address information, node or
-     * service not known. Maybe an alphanumeric node name that cannot be
-     * resolved. Or the DNS server is temporary not available. This exeption is
-     * parent from std::range_error and will also catch it if that is not
-     * explicit catched.
-     * \exception std::range_error The service number representing a port
-     * number is a numeric value but out of valid range 0..65535. This
-     * exception is derived from std::runtime_error.
-     *
-     * It should be noted that are different error messages returned by
-     * different platforms.
-     */
-    void get_first();
+     * \returns
+     *  \b true if address information is available\n
+     *  \b false otherwise */
+    bool get_first();
 
 
     /*! \brief Get next available address information
      * \code
      * // Usage e.g.:
      * CAddrinfo aiObj("localhost");
-     * try {
-     *     aiObj.get_first();
-     * } catch (xcp) { handle_error(); }
+     * if (!aiObj.get_first())
+     *     handle_error();
      * do {
      *     int af = aiObj->ai_family;
      *     std::cout << "AF=" << af << "\n";
      * } while (aiObj.get_next()); // handle next addrinfo
      * \endcode
-     *
      * If more than one address information is available this is used to switch
      * to the next addrinfo.
      * \returns
@@ -167,6 +152,19 @@ normal_execution();
          * (at least CAddrinfo::get_first() wasn't called) the structure is
          * not modified. */
         SSockaddr& a_saddr);
+
+    /*! \brief Get cached error message
+     * \code
+     * // Usage e.g.:
+     * CAddrinfo ai("[2001:db8::1]:50050");
+     * if (!ai.get_first()) {
+     *     std::cerr << ai.what() << '\n';
+     *     handle_failed_address_info();
+     * }
+     * \endcode
+     * It should be noted that are different error messages returned by
+     * different platforms. */
+    const std::string& what() const;
     /// @} Getter
 
   private:
@@ -186,8 +184,13 @@ normal_execution();
     // if (m_res == &m_hints) { // do nothing }
     ::addrinfo* m_res{&m_hints};
     // This points to the current used address info. If more than one address
-    // info is available it is modified with this->get_next().
+    // info is available it is modified with CAddrinfo::get_next() or
+    // CAddrinfo::find().
     ::addrinfo* m_res_current{&m_hints};
+
+    // Storage for a message in case of an error, that can be called afterwards.
+    SUPPRESS_MSVC_WARN_4251_NEXT_LINE
+    std::string m_error_msg{"Success."};
 
     // Private method to free allocated memory for address information.
     void free_addrinfo() noexcept;

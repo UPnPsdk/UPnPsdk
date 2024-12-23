@@ -1,7 +1,7 @@
-#ifndef UPNPLIB_SOCKET_HPP
-#define UPNPLIB_SOCKET_HPP
+#ifndef UPnPsdk_SOCKET_HPP
+#define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2024-12-22
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -128,7 +128,7 @@ namespace UPnPsdk {
  * descriptor is in the responsibility of the caller who created the socket. If
  * you need to manage a socket you must use CSocket.
  */
-class UPNPLIB_API CSocket_basic : private SSockaddr {
+class UPnPsdk_API CSocket_basic : private SSockaddr {
   public:
     // Default constructor for an empty basic socket object
     CSocket_basic();
@@ -263,7 +263,7 @@ class UPNPLIB_API CSocket_basic : private SSockaddr {
  *
  * For general information have a look at \ref socket_module.
  *********************************************** */
-class UPNPLIB_API CSocket : public CSocket_basic {
+class UPnPsdk_API CSocket : public CSocket_basic {
   public:
     /*! \brief Default constructor for an
      * [empty socket object](\ref empty_socket) */
@@ -489,7 +489,7 @@ class UPNPLIB_API CSocket : public CSocket_basic {
  * This class is optimized for frequent short-term use. It's a simple class
  * without inheritence and virtual methods.
  */
-class UPNPLIB_API CSocketErr {
+class UPnPsdk_API CSocketErr {
   public:
     CSocketErr();
     ~CSocketErr();
@@ -510,4 +510,4 @@ class UPNPLIB_API CSocketErr {
 
 } // namespace UPnPsdk
 
-#endif // UPNPLIB_SOCKET_HPP
+#endif // UPnPsdk_SOCKET_HPP

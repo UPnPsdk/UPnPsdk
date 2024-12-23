@@ -15,6 +15,7 @@ var namespaceUPnPsdk =
     ] ],
     [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
     [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", "d8/d37/classUPnPsdk_1_1CNetadapter" ],
+    [ "CRootdevice", "dd/d06/classUPnPsdk_1_1CRootdevice.html", "dd/d06/classUPnPsdk_1_1CRootdevice" ],
     [ "CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
     [ "CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html", "d3/d5d/classUPnPsdk_1_1CSocket" ],
     [ "CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html", "d9/da5/classUPnPsdk_1_1CSocket__basic" ],

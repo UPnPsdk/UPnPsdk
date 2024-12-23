@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"d3/d5d/classUPnPsdk_1_1CSocket.html#a90513b6a7a35f5f619f475d57d618647":[4,2,0,1,6],
+"d3/d5d/classUPnPsdk_1_1CSocket.html#a92f286eecf18959304329a91622024d4":[4,3,0,1,1,4],
+"d3/d5d/classUPnPsdk_1_1CSocket.html#a92f286eecf18959304329a91622024d4":[4,2,0,1,4],
 "d3/d5d/classUPnPsdk_1_1CSocket.html#ae2414f0b1083fc8fdc30208273572fa6":[4,3,0,1,1,1],
 "d3/d5d/classUPnPsdk_1_1CSocket.html#ae2414f0b1083fc8fdc30208273572fa6":[4,2,0,1,1],
 "d3/d60/connection__ctrlpt_8hpp.html":[7,0,2,0,1,3],
@@ -246,8 +249,5 @@ var NAVTREEINDEX2 =
 "d4/d6b/UpnpSubscriptionRequest_8cpp_source.html":[7,0,0,1,0,12],
 "d4/d77/namespaceUPnPsdk_1_1anonymous__namespace_02socket_8cpp_03.html":[5,0,25,3],
 "d4/d99/ssdp__ctrlpt_8cpp.html":[4,1,1,8],
-"d4/d99/upnpapi_8cpp.html":[4,1,0,0],
-"d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html":[6,0,6,0],
-"d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html":[5,0,22,0],
-"d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a001ffd8c54e8022a32a4eafb033dfbdf":[5,0,22,0,7]
+"d4/d99/upnpapi_8cpp.html":[4,1,0,0]
 };

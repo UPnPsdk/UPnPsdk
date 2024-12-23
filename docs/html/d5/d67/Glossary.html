@@ -125,8 +125,9 @@ $(document).ready(function(){initNavTree('d5/d67/Glossary.html','../../'); initR
 <p>The services that a client requires are the client's <b>dependencies</b>.</p>
 <p><a class="anchor" id="glossary_ipv6addr"></a><em><b>IPv6 addresses</b></em></p>
 <ul>
-<li>LLA: Link Local Addresses</li>
-<li>UAD: Unique Addresses are ULA (Unique Local Addresses) or GUA (Globally Unique Addresses). They are handled together because GUA and ULA should be treated with equal weight, with address selection performed according to IETF guidance.</li>
+<li>LLA: Link-Local Addresses may have a scope id "%n" appended, e.g. "[fe80::1%1]", that usually is the local network interface index number.</li>
+<li>ULA: Unicast Local Addresses, Unique Local Addresses or Site-Local Unicast Addresses are deprecated due to <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.7">RFC 4291 - section 2.5.7.</a> and not supported by this SDK. New implementations must treat this prefix as Global Unicast.</li>
+<li>GUA: Global Unicast Addresses or Global Unique Addresses.</li>
 </ul>
 <p><a class="anchor" id="glossary_mlink"></a><em><b>multicast link</b></em></p>
 <p>This is a <a class="el" href="../../d5/d67/Glossary.html#glossary_conn">connection</a> that follows the network multicast specification. It has one local <a class="el" href="../../d5/d67/Glossary.html#glossary_sock">socket</a> and a number of remote sockets that are interested to receive UPnP™ messages. It uses stateless UDP datagrams as given by its sockets of type <code>SOCK_DGRAM</code>.</p>

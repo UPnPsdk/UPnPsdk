@@ -13,6 +13,7 @@ var hierarchy =
     [ "_Parser", "d0/d19/ixmlparser_8hpp.html#d2/db3/struct__Parser", null ],
     [ "UPnPsdk::CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", null ],
     [ "char_info", "da/dff/ixmlparser_8cpp.html#db/de1/structchar__info", null ],
+    [ "UPnPsdk::CRootdevice", "dd/d06/classUPnPsdk_1_1CRootdevice.html", null ],
     [ "UPnPsdk::CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
     [ "UPnPsdk::CSocketErr", "dd/d3a/classUPnPsdk_1_1CSocketErr.html", null ],
     [ "UPnPsdk::CStrIntMap< T >", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", null ],

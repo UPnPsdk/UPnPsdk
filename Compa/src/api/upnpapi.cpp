@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-12-19
+ * Redistribution only with this Copyright remark. Last modified: 2024-12-23
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -3034,9 +3034,9 @@ namespace {
  * We'll retrieve the following information from the interface:
  * \li gIF_NAME -> Interface name (by input or found).
  * \li gIF_IPV4 -> IPv4 address (if any).
- * \li gIF_IPV6 -> IPv6 address (if any).
- * \li gIF_IPV6_ULA_GUA -> ULA or GUA IPv6 address (if any)
- * \li gIF_INDEX -> Interface index number.
+ * \li gIF_IPV6 -> IPv6 LLA address (if any).
+ * \li gIF_IPV6_ULA_GUA -> GUA IPv6 address (if any)
+ * \li gIF_INDEX -> local network Interface index number.
  *
  * \return UPNP_E_SUCCESS on success.
  */
@@ -3337,14 +3337,14 @@ int GetIfInfo(const char* a_IfName) {
 } // anonymous namespace
 
 int UpnpGetIfInfo(const char* a_IFace) {
+    TRACE("Executing UpnpGetIfInfo(" + std::string(a_IFace) + ")")
+
+    // Check if input is a netaddress.
     UPnPsdk::CAddrinfo aiObj(a_IFace, AF_UNSPEC, SOCK_STREAM, AI_NUMERICHOST);
-    try {
-        aiObj.get_first();
-    } catch (const std::exception&) {
+    if (!aiObj.get_first())
         // a_IFace is not an IP address. Assume it is an interface name and call
         // old code.
         return GetIfInfo(a_IFace);
-    }
 
     // Get needed information from given IP address for global variables.
     return UPNP_E_INVALID_INTERFACE;

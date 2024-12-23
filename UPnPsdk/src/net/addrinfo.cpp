@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-17
+// Redistribution only with this Copyright remark. Last modified: 2024-12-23
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -89,14 +89,21 @@ void CAddrinfo::free_addrinfo() noexcept {
 // Getter for the first entry of an address info from the operating system
 // -----------------------------------------------------------------------
 // Get address information with cached hints.
-void CAddrinfo::get_first() {
+bool CAddrinfo::get_first() {
     TRACE2(this, " Executing CAddrinfo::get_first()")
 
+    // Prepare input for ::getaddrinfo()
     std::string node, service;
-    if (m_service.empty()) {
-        split_addr_port(m_node, node, service);
-    } else {
-        split_addr_port(m_node + ":" + m_service, node, service);
+    try {
+        if (m_service.empty())
+            split_addr_port(m_node, node, service);
+        else
+            split_addr_port(m_node + ":" + m_service, node, service);
+    } catch (const std::range_error& ex) {
+        m_error_msg =
+            UPnPsdk_LOGWHAT + "MSG1128: catched next line ...\n" + ex.what();
+
+        return false;
     }
 
     // syscall ::getaddrinfo() with prepared arguments
@@ -161,7 +168,7 @@ void CAddrinfo::get_first() {
         // depends on extern available DNS server the error can occur
         // unexpectedly at any time. We have no influence on it but I will give
         // an extended error message.
-        throw std::runtime_error(UPnPsdk_LOGEXCEPT + "MSG1112: errid(" +
+        m_error_msg = UPnPsdk_LOGWHAT + "MSG1112: errid(" +
              std::to_string(ret) + ")=\"" + ::gai_strerror(ret) + "\", " +
              ((m_hints.ai_family == AF_UNSPEC) ? "IPv?_" :
              ((m_hints.ai_family == AF_INET6) ? "IPv6_" : "IPv4_")) +
@@ -169,7 +176,9 @@ void CAddrinfo::get_first() {
               m_node + "\", service=\"" +
               m_service + "\"" +
              ((m_hints.ai_flags & AI_PASSIVE) ? ", passive_listen" : "") +
-             ((m_hints.ai_flags & AI_NUMERICHOST) ? "" : ", (maybe DNS query temporary failed?)"));
+             ((m_hints.ai_flags & AI_NUMERICHOST) ? "" : ", (maybe DNS query temporary failed?)");
+
+             return false;
     }
     // clang-format on
 
@@ -191,6 +200,8 @@ void CAddrinfo::get_first() {
     // system.
     m_res = new_res;
     m_res_current = new_res;
+
+    return true;
 }
 
 
@@ -249,5 +260,10 @@ void CAddrinfo::sockaddr(SSockaddr& a_saddr) {
     if (m_res != &m_hints)
         memcpy(&a_saddr.ss, m_res_current->ai_addr, sizeof(a_saddr.ss));
 }
+
+
+// Get cached error message
+// ------------------------
+const std::string& CAddrinfo::what() const { return m_error_msg; }
 
 } // namespace UPnPsdk

@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SYNCLOG_HPP
 #define UPnPsdk_SYNCLOG_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2024-12-23
 /*!
  * \file
  * \brief Define macro for synced logging to the console for detailed info and
@@ -54,6 +54,7 @@ namespace UPnPsdk {
 // This is intended to be used as:
 // throw(UPnPsdk_LOGEXCEPT + "MSG1nnn: exception message.\n");
 #define UPnPsdk_LOGEXCEPT "UPnPsdk ["+::std::string(__PRETTY_FUNCTION__)+"] EXCEPTION "
+#define UPnPsdk_LOGWHAT "UPnPsdk ["+::std::string(__PRETTY_FUNCTION__)+"] WHAT "
 
 // Next line mainly used for Unit Tests to catch the right output channel.
 inline constexpr int log_fileno{2}; // 1 = stdout, 2 = stderr, conforming to next line
