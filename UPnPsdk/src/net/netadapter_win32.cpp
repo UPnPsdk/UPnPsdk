@@ -1,11 +1,12 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-22
+// Redistribution only with this Copyright remark. Last modified: 2024-12-29
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
  */
 
 #include <UPnPsdk/netadapter.hpp>
+#include <UPnPsdk/addrinfo.hpp>
 #include <UPnPsdk/synclog.hpp>
 /// \cond
 #include <umock/iphlpapi.hpp>
@@ -117,19 +118,19 @@ void bitnum_to_netmask(
 } // anonymous namespace
 
 
-CNetadapter::CNetadapter(){
-    TRACE2(this, " Construct CNetadapter()") //
+CNetadapter_platform::CNetadapter_platform(){
+    TRACE2(this, " Construct CNetadapter_platform()") //
 }
 
-CNetadapter::~CNetadapter() {
-    TRACE2(this, " Destruct CNetadapter()")
+CNetadapter_platform::~CNetadapter_platform() {
+    TRACE2(this, " Destruct CNetadapter_platform()")
     this->free_adaptaddrs();
 }
 
-void CNetadapter::get_first() {
+void CNetadapter_platform::get_first() {
     // For the structure look at
     // REF:_https://docs.microsoft.com/en-us/windows/win32/api/iptypes/ns-iptypes-ip_adapter_addresses_lh
-    TRACE2(this, " Executing CNetadapter::get_first()")
+    TRACE2(this, " Executing CNetadapter_platform::get_first()")
 
     ULONG adapts_size{};
     // Get Adapters addresses required size. Check with adapts_size = 0
@@ -168,17 +169,14 @@ void CNetadapter::get_first() {
     m_unicastaddr_current = m_adapt_current->FirstUnicastAddress;
 }
 
-bool CNetadapter::get_next() {
+bool CNetadapter_platform::get_next() {
     // A network adapter has several IP addresses. First the address list must
     // be parsed and when at its end the next adapter must be selected. When
     // entering this function there is no synchronous information as given in a
     // loop (or two nested). I have to excamine the current state for the next
     // action. Writing down a state table on paper has helped me.
-    TRACE2(this, " Executing CNetadapter::get_next()")
-    if (m_adapt_current == nullptr && m_unicastaddr_current == nullptr) {
-        return false;
-    }
-    if (m_adapt_current == nullptr && m_unicastaddr_current != nullptr) {
+    TRACE2(this, " Executing CNetadapter_platform::get_next()")
+    if (m_adapt_current == nullptr) {
         m_unicastaddr_current = nullptr;
         return false;
     }
@@ -215,8 +213,54 @@ bool CNetadapter::get_next() {
         "\n");
 }
 
-std::string CNetadapter::name() const {
-    TRACE2(this, " Executing CNetadapter::name()")
+bool CNetadapter_platform::find_first(const std::string& a_name_or_addr) {
+    TRACE2(this, " Executing CNetadapter_platform::find_first(" +
+                     a_name_or_addr + ")")
+    // First look for a local network adapter name
+    this->reset();
+    do {
+        if (this->name() == a_name_or_addr)
+            return true;
+    } while (this->get_next());
+
+    // No name found, look for the ip address of a local network adapter.
+    // Try to translate input argument to a socket address.
+    CAddrinfo ainfoObj(a_name_or_addr, AF_UNSPEC, 0, AI_NUMERICHOST);
+    if (!ainfoObj.get_first())
+        return false;
+
+    // Valid ip address string given as input argument. Get its socket address.
+    SSockaddr sa_inputObj{};
+    ainfoObj.sockaddr(sa_inputObj);
+
+    // Parse network adapter list for the given input argument.
+    SSockaddr sa_nadObj{};
+    this->reset();
+    do {
+        this->sockaddr(sa_nadObj);
+        if (sa_nadObj == sa_inputObj.ss)
+            return true;
+    } while (this->get_next());
+
+    return false;
+}
+
+bool CNetadapter_platform::find_first(unsigned int a_index) {
+    TRACE2(this, " Executing CNetadapter_platform::find_first(" +
+                     std::to_string(a_index) + ")")
+    this->reset();
+    do {
+        if (this->index() == a_index)
+            return true;
+    } while (this->get_next());
+
+    m_adapt_current = nullptr;
+    m_unicastaddr_current = nullptr;
+    return false;
+}
+
+std::string CNetadapter_platform::name() const {
+    TRACE2(this, " Executing CNetadapter_platform::name()")
     if (m_adapt_current == nullptr)
         return "";
 
@@ -238,9 +282,12 @@ std::string CNetadapter::name() const {
     return if_name;
 }
 
-void CNetadapter::sockaddr(SSockaddr& a_saddr) const {
-    TRACE2(this, " Executing CNetadapter::sockaddr()")
-    if (m_adapt_current != nullptr) {
+void CNetadapter_platform::sockaddr(SSockaddr& a_saddr) const {
+    TRACE2(this, " Executing CNetadapter_platform::sockaddr()")
+    if (m_adapt_current == nullptr) {
+        // If no information found then return an empty netaddress.
+        memset(&a_saddr.ss, 0, sizeof(a_saddr.ss));
+    } else {
         // Copy address of the network adapter
         memcpy(&a_saddr.ss,
                reinterpret_cast<sockaddr_storage*>(
@@ -249,8 +296,8 @@ void CNetadapter::sockaddr(SSockaddr& a_saddr) const {
     }
 }
 
-void CNetadapter::socknetmask(SSockaddr& a_snetmask) const {
-    TRACE2(this, " Executing CNetadapter::socknetmask()")
+void CNetadapter_platform::socknetmask(SSockaddr& a_snetmask) const {
+    TRACE2(this, " Executing CNetadapter_platform::socknetmask()")
     if (m_adapt_current != nullptr) {
         bitnum_to_netmask(m_unicastaddr_current->Address.lpSockaddr->sa_family,
                           m_unicastaddr_current->OnLinkPrefixLength,
@@ -258,8 +305,8 @@ void CNetadapter::socknetmask(SSockaddr& a_snetmask) const {
     }
 }
 
-unsigned int CNetadapter::index() const {
-    TRACE2(this, " Executing CNetadapter::index()")
+unsigned int CNetadapter_platform::index() const {
+    TRACE2(this, " Executing CNetadapter_platform::index()")
     if (m_adapt_current == nullptr)
         return 0;
     // No matter if the adapter supports only IPv4 or only IPv6 or both, the
@@ -271,17 +318,24 @@ unsigned int CNetadapter::index() const {
     return 0; // neither IPv4 nor IPv6
 }
 
+
 // Private helper methods
 // ----------------------
 //
-void CNetadapter::free_adaptaddrs() noexcept {
-    TRACE2(this, " Executing CNetadapter::free_adaptaddrs()")
+void CNetadapter_platform::free_adaptaddrs() noexcept {
+    TRACE2(this, " Executing CNetadapter_platform::free_adaptaddrs()")
     if (m_adapt_first != nullptr) {
         free(m_adapt_first);
         m_adapt_first = nullptr;
     }
     m_adapt_current = nullptr;
     m_unicastaddr_current = nullptr;
+}
+
+inline void CNetadapter_platform::reset() noexcept {
+    TRACE2(this, " Executing CNetadapter_platform::reset()")
+    m_adapt_current = m_adapt_first;
+    m_unicastaddr_current = m_adapt_current->FirstUnicastAddress;
 }
 
 } // namespace UPnPsdk

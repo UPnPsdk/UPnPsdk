@@ -14,7 +14,8 @@ var namespaceUPnPsdk =
       [ "getsockname", "db/d86/group__upnplib-socket.html#ga22b121617b4eb96c4b4548a814683dfc", null ]
     ] ],
     [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
-    [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", "d8/d37/classUPnPsdk_1_1CNetadapter" ],
+    [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ],
+    [ "CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform" ],
     [ "CRootdevice", "dd/d06/classUPnPsdk_1_1CRootdevice.html", "dd/d06/classUPnPsdk_1_1CRootdevice" ],
     [ "CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
     [ "CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html", "d3/d5d/classUPnPsdk_1_1CSocket" ],

@@ -1,0 +1,15 @@
+<map id="UPnPsdk::INetadapter::find_first" name="UPnPsdk::INetadapter::find_first">
+<area shape="rect" id="Node000001" title="Find local network adapter with given name or ip address." alt="" coords="5,133,169,173"/>
+<area shape="rect" id="Node000002" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="224,5,375,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,131,157,94,216,55,228,49,230,54,219,60,160,98,113,135"/>
+<area shape="rect" id="Node000004" href="$d6/d3e/classUPnPsdk_1_1INetadapter.html#ac9fa9dfc1f2b69ad57ba30b69bbf1914" title="Select next entry from the network adapter list that was initial loaded with INetadapter::get_first()..." alt="" coords="217,69,381,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="154,131,219,111,220,116,155,136"/>
+<area shape="rect" id="Node000005" href="$d6/d3e/classUPnPsdk_1_1INetadapter.html#a3d39079c1e95b80cfc47da504b19ea7a" title="Get network adapter name from current selected list entry." alt="" coords="217,133,381,173"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="170,151,204,151,204,156,170,156"/>
+<area shape="rect" id="Node000006" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342" title="Get the socket address from current selcted address information." alt="" coords="224,197,375,237"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="155,171,220,191,219,196,154,176"/>
+<area shape="rect" id="Node000007" href="$d6/d3e/classUPnPsdk_1_1INetadapter.html#af61a58371ffea2f7a08d3630721ff40e" title="Get socket address from current selected list entry." alt="" coords="217,261,381,301"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="113,171,160,209,219,247,230,253,228,258,216,252,157,213,110,175"/>
+<area shape="rect" id="Node000003" href="$d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30" title="Free function to split inet address and port(service)" alt="" coords="429,13,613,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="375,23,415,23,415,28,375,28"/>
+</map>

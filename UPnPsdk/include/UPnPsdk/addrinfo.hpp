@@ -1,18 +1,13 @@
 #ifndef UPnPsdk_INCLUDE_ADDRINFO_HPP
 #define UPnPsdk_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-24
+// Redistribution only with this Copyright remark. Last modified: 2024-12-31
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
  */
 
-#include <UPnPsdk/visibility.hpp>
-#include <UPnPsdk/port.hpp>
-#include <UPnPsdk/port_sock.hpp>
 #include <UPnPsdk/sockaddr.hpp>
-#include <string>
-
 
 namespace UPnPsdk {
 

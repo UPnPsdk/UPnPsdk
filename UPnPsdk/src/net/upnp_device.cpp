@@ -26,17 +26,16 @@ CRootdevice::~CRootdevice() {
 void CRootdevice::bind(const std::string& a_ifname) {
     TRACE2(this, " Executing CRootdevice::bind()")
 
-    CNetadapter netadapterObj; // Instantiate object
-    INetadapter& nadObj{netadapterObj}; // reference C++ interface
-    nadObj.get_first(); // May throw exception std::runtime_error
+    CNetadapter nadaptObj; // Instantiate object
+    nadaptObj.get_first(); // May throw exception std::runtime_error
 
     enum struct Found { none, name, index, addr } iface_found{};
     do {
-        if (nadObj.name() == a_ifname) {
+        if (nadaptObj.name() == a_ifname) {
             iface_found = Found::name;
             break;
         }
-    } while (nadObj.get_next());
+    } while (nadaptObj.get_next());
 
     switch (iface_found) {
     case Found::none:

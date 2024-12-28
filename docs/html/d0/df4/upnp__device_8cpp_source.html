@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('d0/df4/upnp__device_8cpp_source.html',
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-12-23</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="../../d7/de2/upnp__device_8hpp.html">UPnPsdk/upnp_device.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d3b/synclog_8hpp.html">UPnPsdk/synclog.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;UPnPsdk/netadapter.hpp&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d9/dff/netadapter_8hpp.html">UPnPsdk/netadapter.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a> {</div>
@@ -124,47 +124,48 @@ $(document).ready(function(){initNavTree('d0/df4/upnp__device_8cpp_source.html',
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html#a97d863e9d980ef662447c132fe0a7e53">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html#a97d863e9d980ef662447c132fe0a7e53">CRootdevice::bind</a>(<span class="keyword">const</span> std::string&amp; a_ifname) {</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing CRootdevice::bind()&quot;</span>)</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_class" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">CNetadapter</a> netadapterObj; <span class="comment">// Instantiate object</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_class" href="../../d6/d3e/classUPnPsdk_1_1INetadapter.html">INetadapter</a>&amp; nadObj{netadapterObj}; <span class="comment">// reference C++ interface</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    nadObj.<a class="code hl_function" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ae4eb9dc358ed04748ef79f6ead20fd61">get_first</a>(); <span class="comment">// May throw exception std::runtime_error</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">enum struct</span> Found { none, name, index, addr } iface_found{};</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">do</span> {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">if</span> (nadObj.name() == a_ifname) {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            iface_found = Found::name;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    } <span class="keywordflow">while</span> (nadObj.get_next());</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">switch</span> (iface_found) {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">case</span> Found::none:</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">case</span> Found::name:</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        m_ifname = a_ifname;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">case</span> Found::index:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">case</span> Found::addr:</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_class" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">CNetadapter</a> nadaptObj; <span class="comment">// Instantiate object</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    nadaptObj.<a class="code hl_function" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#acc039aa39f69f82aa26906287de8996e">get_first</a>(); <span class="comment">// May throw exception std::runtime_error</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">enum struct</span> Found { none, name, index, addr } iface_found{};</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">do</span> {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (nadaptObj.<a class="code hl_function" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8adb1de77c10e3ad389d84896c053d8c">name</a>() == a_ifname) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            iface_found = Found::name;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    } <span class="keywordflow">while</span> (nadaptObj.<a class="code hl_function" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a7be49c7e7d38b541a24b47285ed1d357">get_next</a>());</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">switch</span> (iface_found) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">case</span> Found::none:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">case</span> Found::name:</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        m_ifname = a_ifname;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">case</span> Found::index:</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">case</span> Found::addr:</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
 </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">// Get interface name</span></div>
-<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050">   55</a></span>std::string <a class="code hl_function" href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050">CRootdevice::ifname</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing CRootdevice::ifname()&quot;</span>)</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span> m_ifname;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// Get interface name</span></div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050">   54</a></span>std::string <a class="code hl_function" href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050">CRootdevice::ifname</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing CRootdevice::ifname()&quot;</span>)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> m_ifname;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
 </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace UPnPsdk</span></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">UPnPsdk::CNetadapter</a></div><div class="ttdoc">Manage information from Unix like platforms about network adapters.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/de3/unix_2UPnPsdk_2netadapter_8hpp_source.html#l00023">netadapter.hpp:23</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_ae4eb9dc358ed04748ef79f6ead20fd61"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ae4eb9dc358ed04748ef79f6ead20fd61">UPnPsdk::CNetadapter::get_first</a></div><div class="ttdeci">void get_first() override</div><div class="ttdoc">Load a list of network adapters from the operating system and select its first entry.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/db4/netadapter__unix_8cpp_source.html#l00028">netadapter_unix.cpp:28</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CRootdevice_html_a3de5d95f143629c8d1f3e3bc311ce050"><div class="ttname"><a href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050">UPnPsdk::CRootdevice::ifname</a></div><div class="ttdeci">std::string ifname() const</div><div class="ttdoc">Get interface name.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/df4/upnp__device_8cpp_source.html#l00055">upnp_device.cpp:55</a></div></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <span class="comment">// namespace UPnPsdk</span></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter__platform_html_a7be49c7e7d38b541a24b47285ed1d357"><div class="ttname"><a href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a7be49c7e7d38b541a24b47285ed1d357">UPnPsdk::CNetadapter_platform::get_next</a></div><div class="ttdeci">bool get_next() override</div><div class="ttdoc">Select next entry from the network adapter list that was initial loaded with INetadapter::get_first()...</div><div class="ttdef"><b>Definition</b> <a href="../../dc/db4/netadapter__unix_8cpp_source.html#l00044">netadapter_unix.cpp:44</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter__platform_html_a8adb1de77c10e3ad389d84896c053d8c"><div class="ttname"><a href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8adb1de77c10e3ad389d84896c053d8c">UPnPsdk::CNetadapter_platform::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">Get network adapter name from current selected list entry.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/db4/netadapter__unix_8cpp_source.html#l00058">netadapter_unix.cpp:58</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter__platform_html_acc039aa39f69f82aa26906287de8996e"><div class="ttname"><a href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#acc039aa39f69f82aa26906287de8996e">UPnPsdk::CNetadapter_platform::get_first</a></div><div class="ttdeci">void get_first() override</div><div class="ttdoc">Load a list of network adapters from the operating system and select its first entry.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/db4/netadapter__unix_8cpp_source.html#l00027">netadapter_unix.cpp:27</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">UPnPsdk::CNetadapter</a></div><div class="ttdoc">Get information from local network adapters.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dff/netadapter_8hpp_source.html#l00041">netadapter.hpp:41</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CRootdevice_html_a3de5d95f143629c8d1f3e3bc311ce050"><div class="ttname"><a href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050">UPnPsdk::CRootdevice::ifname</a></div><div class="ttdeci">std::string ifname() const</div><div class="ttdoc">Get interface name.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/df4/upnp__device_8cpp_source.html#l00054">upnp_device.cpp:54</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CRootdevice_html_a97d863e9d980ef662447c132fe0a7e53"><div class="ttname"><a href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html#a97d863e9d980ef662447c132fe0a7e53">UPnPsdk::CRootdevice::bind</a></div><div class="ttdeci">void bind(const std::string &amp;a_ifname)</div><div class="ttdoc">Bind rootdevice to local network interfaces.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/df4/upnp__device_8cpp_source.html#l00026">upnp_device.cpp:26</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1INetadapter_html"><div class="ttname"><a href="../../d6/d3e/classUPnPsdk_1_1INetadapter.html">UPnPsdk::INetadapter</a></div><div class="ttdoc">Manage information from different platforms about network adapters.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d8b/netadapter__if_8hpp_source.html#l00046">netadapter_if.hpp:46</a></div></div>
 <div class="ttc" id="anamespaceUPnPsdk_html"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a></div><div class="ttdoc">Reengineered Object Oriented UPnP+ program code.</div></div>
+<div class="ttc" id="anetadapter_8hpp_html"><div class="ttname"><a href="../../d9/dff/netadapter_8hpp.html">netadapter.hpp</a></div><div class="ttdoc">Manage information about network adapters.</div></div>
 <div class="ttc" id="asynclog_8hpp_html"><div class="ttname"><a href="../../d1/d3b/synclog_8hpp.html">synclog.hpp</a></div><div class="ttdoc">Define macro for synced logging to the console for detailed info and debug.</div></div>
 <div class="ttc" id="aupnp__device_8hpp_html"><div class="ttname"><a href="../../d7/de2/upnp__device_8hpp.html">upnp_device.hpp</a></div><div class="ttdoc">Manage UPnP devices.</div></div>
 </div><!-- fragment --></div><!-- contents -->

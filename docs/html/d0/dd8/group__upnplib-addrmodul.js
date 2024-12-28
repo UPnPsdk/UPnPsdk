@@ -10,14 +10,7 @@ var group__upnplib_addrmodul =
       [ "sockaddr", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342", null ],
       [ "what", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598", null ]
     ] ],
-    [ "UPnPsdk::INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", [
-      [ "get_first", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a49e82220119a94aa05b251ba25550188", null ],
-      [ "get_next", "d6/d3e/classUPnPsdk_1_1INetadapter.html#ac9fa9dfc1f2b69ad57ba30b69bbf1914", null ],
-      [ "name", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a3d39079c1e95b80cfc47da504b19ea7a", null ],
-      [ "sockaddr", "d6/d3e/classUPnPsdk_1_1INetadapter.html#af61a58371ffea2f7a08d3630721ff40e", null ],
-      [ "socknetmask", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a181d9055271c4dfc92921aac0248ac87", null ],
-      [ "index", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a188ff8491cfc4cc03683ab557bfe3fee", null ]
-    ] ],
+    [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ],
     [ "UPnPsdk::sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
     [ "UPnPsdk::SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", [
       [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html#ab010d4691740181daeda8e01cd97e965", null ],

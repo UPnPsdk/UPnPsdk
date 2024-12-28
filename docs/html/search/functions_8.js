@@ -1,7 +1,7 @@
 var searchData=
 [
   ['ifname_0',['ifname',['../dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050',1,'UPnPsdk::CRootdevice']]],
-  ['index_1',['index',['../d8/d37/classUPnPsdk_1_1CNetadapter.html#a740b64248f2239a0693b377b2ca77513',1,'UPnPsdk::CNetadapter::index()'],['../d6/d3e/classUPnPsdk_1_1INetadapter.html#a188ff8491cfc4cc03683ab557bfe3fee',1,'UPnPsdk::INetadapter::index()']]],
+  ['index_1',['index',['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aef71113ff26dd525f7ff567f335b8fa7',1,'UPnPsdk::CNetadapter_platform::index() const override'],['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aef71113ff26dd525f7ff567f335b8fa7',1,'UPnPsdk::CNetadapter_platform::index() const override'],['../d6/d3e/classUPnPsdk_1_1INetadapter.html#a188ff8491cfc4cc03683ab557bfe3fee',1,'UPnPsdk::INetadapter::index()']]],
   ['index_5fof_2',['index_of',['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#a6c512dfcfece21875e8342ba4f3abe80',1,'UPnPsdk::CStrIntMap::index_of(const char *a_name, bool a_case_sensitive=false)'],['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#ae6bbded737bfa2e3aaadf95bee615079',1,'UPnPsdk::CStrIntMap::index_of(const int a_id)']]],
   ['init_5ftable_3',['init_table',['../df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#aa8720c71e46ee6041f745bc51190be1a',1,'anonymous_namespace{statcodes.cpp}']]],
   ['init_5ftables_4',['init_tables',['../df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#a67ec6f35b83046df716768cadc353e39',1,'anonymous_namespace{statcodes.cpp}']]],

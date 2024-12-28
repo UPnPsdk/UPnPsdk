@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-22
+// Redistribution only with this Copyright remark. Last modified: 2024-12-30
 
 #ifdef _WIN32
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -24,9 +24,7 @@ TEST(NetadapterTestSuite, get_adapters_info_successful) {
     char nmskStr[INET6_ADDRSTRLEN];
     char servStr[NI_MAXSERV];
 
-    UPnPsdk::CNetadapter netadapterObj;
-    UPnPsdk::INetadapter& nadObj{netadapterObj};
-
+    UPnPsdk::CNetadapter nadObj;
     ASSERT_NO_THROW(nadObj.get_first());
 
     do {
@@ -190,6 +188,55 @@ TEST(NetadapterTestSuite, check_bitnum_to_netmask_error_messages) {
     EXPECT_THAT(captureObj.str(), HasSubstr("] CRITICAL MSG1126: "));
 }
 #endif
+
+TEST(NetadapterTestSuite, find_adapters_info) {
+    UPnPsdk::CNetadapter nadaptObj;
+    ASSERT_NO_THROW(nadaptObj.get_first());
+
+    // Index 1 is always the loopback device on all platforms but it has
+    // different names.
+    EXPECT_TRUE(nadaptObj.find_first(1));
+    EXPECT_EQ(nadaptObj.index(), 1);
+    std::string nad_name = nadaptObj.name();
+
+    EXPECT_TRUE(nadaptObj.find_first(nad_name));
+    nadaptObj.sockaddr(saddrObj);
+    EXPECT_THAT(saddrObj.netaddrp(), AnyOf("[::1]:0", "127.0.0.1:0"));
+
+    ASSERT_TRUE(nadaptObj.find_first("::1"));
+    EXPECT_EQ(nadaptObj.index(), 1);
+    nadaptObj.socknetmask(saddrObj);
+    EXPECT_EQ(saddrObj.netaddr(), "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
+
+    ASSERT_TRUE(nadaptObj.find_first("127.0.0.1"));
+    EXPECT_EQ(nadaptObj.index(), 1);
+    nadaptObj.socknetmask(saddrObj);
+    EXPECT_EQ(saddrObj.netaddr(), "255.0.0.0");
+
+    EXPECT_FALSE(nadaptObj.find_first(0));
+    EXPECT_EQ(nadaptObj.index(), 0);
+    EXPECT_EQ(nadaptObj.name(), "");
+    nadaptObj.sockaddr(saddrObj);
+    EXPECT_EQ(saddrObj.netaddrp(), ":0");
+    nadaptObj.socknetmask(saddrObj);
+    EXPECT_EQ(saddrObj.netaddr(), "");
+
+    EXPECT_FALSE(nadaptObj.find_first(~0u - 2));
+    EXPECT_EQ(nadaptObj.index(), 0);
+    EXPECT_EQ(nadaptObj.name(), "");
+    nadaptObj.sockaddr(saddrObj);
+    EXPECT_EQ(saddrObj.netaddrp(), ":0");
+    nadaptObj.socknetmask(saddrObj);
+    EXPECT_EQ(saddrObj.netaddr(), "");
+
+    EXPECT_FALSE(nadaptObj.find_first(""));
+    EXPECT_EQ(nadaptObj.index(), 0);
+    EXPECT_EQ(nadaptObj.name(), "");
+    nadaptObj.sockaddr(saddrObj);
+    EXPECT_EQ(saddrObj.netaddrp(), ":0");
+    nadaptObj.socknetmask(saddrObj);
+    EXPECT_EQ(saddrObj.netaddr(), "");
+}
 
 } // namespace utest
 

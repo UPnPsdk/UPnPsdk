@@ -1,7 +1,7 @@
-#ifndef UPnPsdk_UNIX_NETIFINFO_HPP
-#define UPnPsdk_UNIX_NETIFINFO_HPP
+#ifndef UPnPsdk_UNIX_NETADAPTER_HPP
+#define UPnPsdk_UNIX_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-21
+// Redistribution only with this Copyright remark. Last modified: 2024-12-31
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -17,28 +17,14 @@ namespace UPnPsdk {
 
 /*!
  * \brief Manage information from Unix like platforms about network adapters.
- *
- * For details look at UPnPsdk::INetadapter
  */
-class UPnPsdk_API CNetadapter : public INetadapter {
+class UPnPsdk_API CNetadapter_platform : public INetadapter {
   public:
     // Constructor
-    CNetadapter();
+    CNetadapter_platform();
 
     // Destructor
-    virtual ~CNetadapter();
-
-    /// \cond
-    // Copy constructor
-    // We cannot use the default copy constructor because there is also
-    // allocated memory for the ifaddrs structure to copy. We get segfaults
-    // and program aborts. This class is not usable to copy the object.
-    CNetadapter(const CNetadapter&) = delete;
-
-    // Copy assignment operator
-    // Same as with the copy constructor.
-    CNetadapter& operator=(CNetadapter) = delete;
-    /// \endcond
+    virtual ~CNetadapter_platform();
 
     // methodes
     void get_first() override;
@@ -57,10 +43,15 @@ class UPnPsdk_API CNetadapter : public INetadapter {
     // Pointer to the current network adapter in work.
     ifaddrs* m_ifa_current{nullptr};
 
+    // methodes
+    /*! \brief Reset pointer and point to the first entry of the local network
+     * adapter list if available. */
+    void reset() noexcept override;
+
+    inline bool is_valid_if(const ifaddrs* a_ifa) const noexcept;
     void free_ifaddrs() noexcept;
-    bool is_valid_if() const noexcept;
 };
 
 } // namespace UPnPsdk
 
-#endif // UPnPsdk_UNIX_NETIFINFO_HPP
+#endif // UPnPsdk_UNIX_NETADAPTER_HPP

@@ -28,7 +28,7 @@ var searchData=
   ['request_20from_20control_20point_25',['Request from control point',['../d0/dea/group__Description-ctrlpt.html',1,'']]],
   ['request_5fmethod_26',['request_method',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a8ad4b5caee28078c616859bf127846a5',1,'http_message_t']]],
   ['requestcookie_27',['RequestCookie',['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a7edd1d50cc56be53dddbf790b8fab0a2',1,'SendInstruction']]],
-  ['requesttype_28',['requesttype',['../da/db2/ssdp__ctrlpt_8hpp.html#a1adf765df19b966120d281efa7c3fdaf',1,'SsdpSearchArg::requestType'],['../d0/d19/ssdp__common_8hpp.html#abecb3878ad71167cfa70174e5226ec6d',1,'SsdpEvent::RequestType']]],
+  ['requesttype_28',['requesttype',['../d0/d19/ssdp__common_8hpp.html#abecb3878ad71167cfa70174e5226ec6d',1,'SsdpEvent::RequestType'],['../da/db2/ssdp__ctrlpt_8hpp.html#a1adf765df19b966120d281efa7c3fdaf',1,'SsdpSearchArg::requestType']]],
   ['resolve_5frel_5furl_29',['resolve_rel_url',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#adc864fb20907e242824e5b53ceafbf15',1,'resolve_rel_url(char *base_url, char *rel_url):&#160;uri.cpp'],['../d8/dd2/uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356',1,'resolve_rel_url(char *base_url, char *rel_url):&#160;uri.cpp']]],
   ['resp_5ftype_30',['resp_type',['../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5',1,'anonymous_namespace{webserver.cpp}']]],
   ['respond_5fok_31',['respond_ok',['../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a11f6b8370b141ab90b844dbf1092265c',1,'anonymous_namespace{gena_device.cpp}']]],

@@ -31,8 +31,10 @@ var hierarchy =
     [ "http_message_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t", null ],
     [ "http_parser_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t", null ],
     [ "UPnPsdk::INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", [
-      [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ],
-      [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ]
+      [ "UPnPsdk::CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", [
+        [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ]
+      ] ],
+      [ "UPnPsdk::CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", null ]
     ] ],
     [ "ixml_membuf", "de/dad/ixmlmembuf_8hpp.html#d6/d70/structixml__membuf", null ],
     [ "job_arg", "d6/de3/gena__ctrlpt_8cpp.html#dd/d20/unionjob__arg", null ],

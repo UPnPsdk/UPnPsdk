@@ -6,7 +6,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2023-08-19
+ * Redistribution only with this Copyright remark. Last modified: 2024-12-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -206,16 +206,16 @@ EXPORT_SPEC void UpnpPrintf(
 #if defined NDEBUG && !defined UPNP_DEBUG_C
 #define UpnpPrintf UpnpPrintf_Inlined
 // static UPNP_INLINE void UpnpPrintf_Inlined(Upnp_LogLevel DLevel,
-// 	Dbg_Module Module,
-// 	const char *DbgFileName,
-// 	int DbgLineNo,
-// 	const char *FmtStr,
-// 	...)
+//     Dbg_Module Module,
+//     const char *DbgFileName,
+//     int DbgLineNo,
+//     const char *FmtStr,
+//     ...)
 // #if (__GNUC__ >= 3)
-// 	/* This enables printf like format checking by the compiler. */
-// 	__attribute__((format(__printf__, 5, 6)))
+//     /* This enables printf like format checking by the compiler. */
+//     __attribute__((format(__printf__, 5, 6)))
 // #endif
-// 	;
+//     ;
 static UPNP_INLINE void UpnpPrintf_Inlined(Upnp_LogLevel DLevel,
                                            Dbg_Module Module,
                                            const char* DbgFileName,

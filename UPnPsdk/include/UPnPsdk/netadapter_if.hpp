@@ -1,10 +1,11 @@
-#ifndef UPnPsdk_NETADAPTER_HPP
-#define UPnPsdk_NETADAPTER_HPP
+#ifndef UPnPsdk_NETADAPTER_IF_HPP
+#define UPnPsdk_NETADAPTER_IF_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-21
+// Redistribution only with this Copyright remark. Last modified: 2024-12-31
 /*!
  * \file
- * \brief Manage information from different platforms about network adapters.
+ * \brief C++ interface to manage information from different platforms about
+ * network adapters.
  *
  * This is a C++ Interface class to encapsulate different handling of local
  * network adapters on different platforms, for example Unix like platforms and
@@ -13,50 +14,89 @@
  */
 
 #include <UPnPsdk/sockaddr.hpp>
-// \cond
-#include <string>
-// \endcond
 
 
 namespace UPnPsdk {
 
 /*!
  * \brief Manage information from different platforms about network adapters.
- * \ingroup upnplib-addrmodul
  * \code
- * // Usage (polymorphism) e.g.:
- * CNetadapter netadapterObj;          // Instantiate object
- * INetadapter& nadObj{netadapterObj}; // reference C++ interface
+ * // Usage e.g.:
+ * CNetadapter nadaptObj;
  * try {
- *     nadObj.get_first();
+ *     nadaptObj.get_first();
  * } catch(xcp) { handle_error(); };
- * UPnPsdk::SSockaddr saObj;
+ * UPnPsdk::SSockaddr saddrObj;
  * do {
- *     std::cout << "adapter name is " << nadObj.name() << '\n';
- *     nadObj.sockaddr(saObj);
- *     std::cout << "adapter address is " << saObj.netaddrp() << '\n';
- * } while (nadObj.get_next());
+ *     std::cout << "adapter name is " << nadaptObj.name() << '\n';
+ *     nadaptObj.sockaddr(saddrObj);
+ *     std::cout << "adapter address is " << saddrObj.netaddrp() << '\n';
+ *     nadaptObj.socknetmask(saddrObj);
+ *     std::cout << "with netmask " << saddrObj.netaddr() << '\n';
+ * } while (nadaptObj.get_next());
  * \endcode
- *
  * Used to get information from the local network adapters. Encapsulate it
  * in a class to get a common C++ interface to the program for different
  * platform realisations, for example on Unix like platforms and on Microsoft
  * Windows. They use different system calls.
  */
-class INetadapter {
+class UPnPsdk_API INetadapter {
   public:
+    // Constructor
+    INetadapter();
+
+    // Destructor
+    virtual ~INetadapter();
+
     /*! \brief Load a list of network adapters from the operating system and
      * select its first entry
      *
      * \exception std::runtime_error Failed to get information from the network
-     * adapters: (detail)*/
+     * adapters: (detail information appended) */
     virtual void get_first() = 0;
 
     /*! \brief Select next entry from the network adapter list that was initial
-     * loaded with INetadapter::get_first(). */
+     * loaded with INetadapter::get_first().
+     * \returns
+     *  - \b true if next adapter in the list exists
+     *  - \b false otherwise */
     virtual bool get_next() = 0;
 
-    /*! \brief Get network adapter name from current selected list entry. */
+    /*! \brief Find local network adapter with given name or ip address
+     *  \details Try to find an adapter with the given property. If found, the
+     *  adapter is selected so that all its properties can be retrieved.
+     * \returns
+     *  - \b true if adapter with given name or ip address was found
+     *  - \b false otherwise */
+    virtual bool find_first(
+        /*! [in] Either local network interface name (like "lo", "eth0" etc.) or
+           a numeric ip address. */
+        const std::string& a_name_or_addr);
+
+    /*! \brief Find local network adapter with given index number.
+     * \details Try to find an adapter with the given index. If found, the
+     * adapter is selected so that all its properties can be retrieved.
+     * \returns
+     *  - \b true if adapter with given index number was found
+     *  - \b false otherwise */
+    virtual bool find_first(
+        /*! [in] Index number of the local network adapter. */
+        const unsigned int a_index);
+
+    /*! \brief Get index number from current selected list entry.
+     * \returns
+     *  - \b 0 if the local network adapter does not exist. This should only be
+     *  possible if you haven't successful selected an adapter before.
+     *  - otherwise index number of the selected adapter. */
+    virtual unsigned int index() const = 0;
+
+    /*! \brief Get network adapter name from current selected list entry.
+     * \returns
+     *  - \b "" (empty string) if the local network adapter does not exist.
+     *  This should only be possible if you haven't successful selected an
+     *  adapter before.
+     *  - otherwise name of the local network adapter like "lo", "wlan0",
+     *  "Ethernet". etc. */
     virtual std::string name() const = 0;
 
     // // I code IP Version-Independent, so this method is not provided.
@@ -80,10 +120,12 @@ class INetadapter {
          * adapter list entry. */
         SSockaddr& a_snetmask) const = 0;
 
-    /*! \brief Get index number from current selected list entry. */
-    virtual unsigned int index() const = 0;
+  private:
+    /*! \brief Reset pointer and point to the first entry of the local network
+     * adapter list if available. */
+    virtual void reset() noexcept = 0;
 };
 
 } // namespace UPnPsdk
 
-#endif // UPnPsdk_NETADAPTER_HPP
+#endif // UPnPsdk_NETADAPTER_IF_HPP

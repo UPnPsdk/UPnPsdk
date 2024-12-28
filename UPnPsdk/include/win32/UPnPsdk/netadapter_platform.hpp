@@ -1,7 +1,7 @@
-#ifndef UPnPsdk_WIN32_NETIFINFO_HPP
-#define UPnPsdk_WIN32_NETIFINFO_HPP
+#ifndef UPnPsdk_WIN32_NETADAPTER_HPP
+#define UPnPsdk_WIN32_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-21
+// Redistribution only with this Copyright remark. Last modified: 2024-12-31
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -14,35 +14,24 @@ namespace UPnPsdk {
 
 /*!
  * \brief Manage information from Microsoft Windows about network adapters.
- *
- * For details look at UPnPsdk::INetadapter
  */
-class UPnPsdk_API CNetadapter : public INetadapter {
-    /// \cond
+class UPnPsdk_API CNetadapter_platform : public INetadapter {
   public:
     // Constructor
-    CNetadapter();
+    CNetadapter_platform();
 
     // Destructor
-    virtual ~CNetadapter();
+    virtual ~CNetadapter_platform();
 
-    // Copy constructor
-    // We cannot use the default copy constructor because there is also
-    // allocated memory for the ifaddrs structure to copy. We get segfaults
-    // and program aborts. This class is not usable to copy the object.
-    CNetadapter(const CNetadapter&) = delete;
-
-    // Copy assignment operator
-    // Same as with the copy constructor.
-    CNetadapter& operator=(CNetadapter) = delete;
-
+    // methodes
     void get_first() override;
     bool get_next() override;
+    bool find_first(const std::string& a_name_or_addr) override;
+    bool find_first(const unsigned int a_index) override;
     std::string name() const override;
     void sockaddr(SSockaddr& a_saddr) const override;
     void socknetmask(SSockaddr& a_snetmask) const override;
     unsigned int index() const override;
-    /// \endcond
 
   private:
     // Pointer to the first network adapter structure. This pointer must not be
@@ -59,8 +48,12 @@ class UPnPsdk_API CNetadapter : public INetadapter {
     ::PIP_ADAPTER_UNICAST_ADDRESS_LH m_unicastaddr_current{nullptr};
 
     void free_adaptaddrs() noexcept;
+
+    /*! \brief Reset pointer and point to the first entry of the local network
+     * adapter list if available. */
+    inline void reset() noexcept;
 };
 
 } // namespace UPnPsdk
 
-#endif // UPnPsdk_WIN32_NETIFINFO_HPP
+#endif // UPnPsdk_WIN32_NETADAPTER_HPP
