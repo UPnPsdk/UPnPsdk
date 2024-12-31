@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-30
+// Redistribution only with this Copyright remark. Last modified: 2024-12-31
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -75,7 +75,7 @@ void CNetadapter_platform::sockaddr(SSockaddr& a_saddr) const {
     TRACE2(this, " Executing CNetadapter_platform::sockaddr()")
     if (m_ifa_current == nullptr) {
         // If no information found then return an empty netaddress.
-        memset(&a_saddr.ss, 0, sizeof(a_saddr.ss));
+        a_saddr.clear();
     } else {
         // Copy address of the network adapter.
         memcpy(&a_saddr.ss,

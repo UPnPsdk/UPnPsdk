@@ -17,6 +17,7 @@ var group__upnplib_addrmodul =
       [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a8b52904288181002af2f93d13fa43c09", null ],
       [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a1f9d157e611b5cda3903b0497728c7c6", null ],
       [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a20b517fd6087268d643f8bd7433ec83a", null ],
+      [ "clear", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a7b9d455ff37ae3e5cced128216668b37", null ],
       [ "operator==", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a6a079612d8847f9306025b172b9078b3", null ],
       [ "netaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a15cdd6812fb1fd64d446021ea0236af5", null ],
       [ "netaddrp", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6", null ],

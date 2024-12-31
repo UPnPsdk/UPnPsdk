@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2024-12-31
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -173,8 +173,8 @@ struct UPnPsdk_API SSockaddr {
         const std::string& a_addr_str); // noexept?
 
 
-    // Assignment operator to set a port
-    // ---------------------------------
+    // Assignment operator= to set socket port from an integer
+    // -------------------------------------------------------
     /*! \brief Set [port number](\ref glossary_port) from integer
      * \code
      * // Usage e.g.:
@@ -182,6 +182,23 @@ struct UPnPsdk_API SSockaddr {
      * saObj = 50001;
      * \endcode */
     void operator=(const in_port_t a_port);
+
+
+    // Clear socket address
+    // --------------------
+    /*! \brief Clear socket address to contain no address info
+     * \code
+     * // Usage e.g.:
+     * SSockaddr saObj;
+     * saObj = "[2001:db8::1]:50001";
+     * std::cout << saObj << '\n'; // output "[2001:db8::1]:50001"
+     * saObj.clear();
+     * std::cout << saObj << '\n'; // output ":0"
+     * \endcode
+     * A cleared socket address is empty. On an empty socket address
+     * - SSockaddr::netaddr returns "" (empty string)
+     * - SSockaddr::netaddrp returns ":0" */
+    void clear();
     /// @} Setter
 
 

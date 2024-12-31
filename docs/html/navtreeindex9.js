@@ -1,8 +1,9 @@
 var NAVTREEINDEX9 =
 {
+"dc/df7/structUPnPsdk_1_1SSockaddr.html#a97ea79fa03a7b544e5552e636d072c2f":[4,3,0,0,3,8],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#ab010d4691740181daeda8e01cd97e965":[4,3,0,0,3,0],
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176":[4,3,0,0,3,10],
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53":[4,3,0,0,3,9],
+"dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176":[4,3,0,0,3,11],
+"dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53":[4,3,0,0,3,10],
 "dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html":[5,0,15],
 "dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a09e7140e6d8041eccf860f635f4192b1":[5,0,15,0],
 "dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a17e5932702163dfb5c09193a069959be":[5,0,15,5],
@@ -24,8 +25,8 @@ var NAVTREEINDEX9 =
 "dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#af2c5c202798ffef6d50277b0ee80c155":[5,0,15,17],
 "dd/d06/classUPnPsdk_1_1CRootdevice.html":[5,0,25,7],
 "dd/d06/classUPnPsdk_1_1CRootdevice.html":[6,0,7,4],
-"dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050":[5,0,25,7,1],
 "dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050":[6,0,7,4,1],
+"dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050":[5,0,25,7,1],
 "dd/d06/classUPnPsdk_1_1CRootdevice.html#a97d863e9d980ef662447c132fe0a7e53":[5,0,25,7,0],
 "dd/d06/classUPnPsdk_1_1CRootdevice.html#a97d863e9d980ef662447c132fe0a7e53":[6,0,7,4,0],
 "dd/d10/service__table_8cpp.html":[7,0,0,1,2,3,0],
@@ -109,10 +110,10 @@ var NAVTREEINDEX9 =
 "dd/d3a/classUPnPsdk_1_1CSocketErr.html":[4,3,0,1,2],
 "dd/d3a/classUPnPsdk_1_1CSocketErr.html#a8044843ffe9f0ff65b70b116e248b32a":[4,2,0,2,0],
 "dd/d3a/classUPnPsdk_1_1CSocketErr.html#a8044843ffe9f0ff65b70b116e248b32a":[4,3,0,1,2,0],
-"dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603":[4,3,0,1,2,1],
 "dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603":[4,2,0,2,1],
-"dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6":[4,3,0,1,2,2],
+"dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603":[4,3,0,1,2,1],
 "dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6":[4,2,0,2,2],
+"dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6":[4,3,0,1,2,2],
 "dd/d48/group__compaAPI-Discovery.html":[4,0,1],
 "dd/d48/group__compaAPI-Discovery.html#ga4785db3633eaac25030029d7459f9aac":[4,0,1,1],
 "dd/d48/group__compaAPI-Discovery.html#ga8a965858ae4c724d7699a3ced0f3df5d":[4,0,1,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX9 =
 "dd/dbe/UPnPsdk_2src_2api_2upnptools_8cpp_source.html":[7,0,2,1,0,0],
 "dd/dbe/group__upnplib-connection.html":[4,3,0,2],
 "dd/de6/gena__device_8cpp.html":[7,0,0,1,1,2],
-"dd/de6/gena__device_8cpp.html#a11f6b8370b141ab90b844dbf1092265c":[7,0,0,1,1,2,10],
-"dd/de6/gena__device_8cpp.html#a1503915b6cd3d0ea5adc7b5493b589ab":[7,0,0,1,1,2,13]
+"dd/de6/gena__device_8cpp.html#a11f6b8370b141ab90b844dbf1092265c":[7,0,0,1,1,2,10]
 };

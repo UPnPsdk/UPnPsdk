@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2024-12-31
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -520,12 +520,18 @@ exit_fail:
                                 "\".");
 }
 
-// Assignment operator= to set socket port from an integer,
-// --------------------------------------------------------
+// Assignment operator= to set socket port from an integer
+// -------------------------------------------------------
 void SSockaddr::operator=(const in_port_t a_port) {
     // Don't use ::htons, MacOS don't like it.
     // sin6_port is also sin_port due to union.
     sin6.sin6_port = htons(a_port);
+}
+
+// Clear socket address
+// --------------------
+void SSockaddr::clear() {
+    ::memset(&m_sa_union, 0, sizeof(m_sa_union)); //
 }
 
 // Compare operator== to test if another trivial socket address is equal to this

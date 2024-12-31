@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2024-12-31
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
@@ -767,6 +767,15 @@ INSTANTIATE_TEST_SUITE_P(SplitAddrPort, SplitAddrPortTest, ::testing::Values(
     std::make_tuple("[::FFff:142.250.185.99]:50008", "::FFff:142.250.185.99", "50008")
 ));
 // clang-format on
+
+TEST(SockaddrStorageTestSuite, sockaddr_clear) {
+    SSockaddr saObj;
+    saObj = "[2001:db8::1]:50001";
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::1]:50001");
+    saObj.clear();
+    EXPECT_EQ(saObj.netaddr(), "");
+    EXPECT_EQ(saObj.netaddrp(), ":0");
+}
 
 } // namespace utest
 

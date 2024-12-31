@@ -22,7 +22,7 @@ var searchData=
   ['chunk_5fsize_19',['chunk_size',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a91ab50a5e0edc2fb271b620a7a988d2a',1,'http_parser_t']]],
   ['chunk_5ftail_5fsize_20',['CHUNK_TAIL_SIZE',['../d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a35d9f9ea6c4e249613f9df4d8ac9a6f1',1,'anonymous_namespace{httpreadwrite.cpp}']]],
   ['class_21',['The UpnpString Class',['../d1/d03/group__UpnpString.html',1,'']]],
-  ['clear_22',['clear',['../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a29029bffc2a9680f4b946e77d569e323',1,'anonymous_namespace{webserver.cpp}::xml_alias_t']]],
+  ['clear_22',['clear',['../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a29029bffc2a9680f4b946e77d569e323',1,'anonymous_namespace{webserver.cpp}::xml_alias_t::clear()'],['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7b9d455ff37ae3e5cced128216668b37',1,'UPnPsdk::SSockaddr::clear()']]],
   ['client_5ftable_2ecpp_23',['client_table.cpp',['../da/d8f/client__table_8cpp.html',1,'']]],
   ['client_5ftable_2ehpp_24',['client_table.hpp',['../d9/d78/client__table_8hpp.html',1,'']]],
   ['clientsublist_25',['ClientSubList',['../d3/da9/upnpapi_8hpp.html#a4488fbe1cce3c304b51a00ee3def4293',1,'Handle_Info']]],

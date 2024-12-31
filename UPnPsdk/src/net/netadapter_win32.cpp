@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-29
+// Redistribution only with this Copyright remark. Last modified: 2024-12-31
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -78,7 +78,7 @@ void bitnum_to_netmask(
         }
 
         // Return the result.
-        memset(&a_saddrObj.ss, 0, sizeof(a_saddrObj.ss));
+        a_saddrObj.clear();
         a_saddrObj.sin6.sin6_family = AF_INET6;
         memcpy(&a_saddrObj.sin6.sin6_addr, &netmask6,
                sizeof(a_saddrObj.sin6.sin6_addr));
@@ -98,7 +98,7 @@ void bitnum_to_netmask(
             << (32 - a_prefixlength)); // shift zero bits from right into mask
 
         // Return the result.
-        memset(&a_saddrObj.ss, 0, sizeof(a_saddrObj.ss));
+        a_saddrObj.clear();
         a_saddrObj.sin.sin_family = AF_INET;
         memcpy(&a_saddrObj.sin.sin_addr, &netmask4,
                sizeof(a_saddrObj.sin.sin_addr));
@@ -109,7 +109,7 @@ void bitnum_to_netmask(
             << a_family << "), only AF_INET6(" << AF_INET6 << ") or AF_INET("
             << AF_INET << ") are valid. Continue with AF_UNSPEC(" << AF_UNSPEC
             << ").\n";
-        memset(&a_saddrObj.ss, 0, sizeof(a_saddrObj.ss));
+        a_saddrObj.clear();
         a_saddrObj.ss.ss_family = AF_UNSPEC;
     }
     } // switch
@@ -286,7 +286,7 @@ void CNetadapter_platform::sockaddr(SSockaddr& a_saddr) const {
     TRACE2(this, " Executing CNetadapter_platform::sockaddr()")
     if (m_adapt_current == nullptr) {
         // If no information found then return an empty netaddress.
-        memset(&a_saddr.ss, 0, sizeof(a_saddr.ss));
+        a_saddr.clear();
     } else {
         // Copy address of the network adapter
         memcpy(&a_saddr.ss,
