@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_INCLUDE_ADDRINFO_HPP
 #define UPnPsdk_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-31
+// Redistribution only with this Copyright remark. Last modified: 2025-01-02
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
@@ -23,19 +23,46 @@ namespace UPnPsdk {
 // e2ffc0c46a2d8f15390f2816e1a18782e500fd09
 class UPnPsdk_API CAddrinfo {
   public:
-    /*! \brief Constructor for getting an address information with service name
-     * \details The service name can also be a port number string, e.g. "http"
-     * or "80" */
-    CAddrinfo(std::string_view a_node, std::string_view a_service,
-              const int a_family = AF_UNSPEC,
-              const int a_socktype = SOCK_STREAM, const int a_flags = 0,
-              const int a_protocol = 0);
+    /// \brief Constructor for getting an address information with service name
+    //  -----------------------------------------------------------------------
+    CAddrinfo(
+        /*! [in] Name or address string of a node, e.g. "example.com" or
+           "[2001.db8::1]". */
+        std::string_view a_node,
+        /*! [in] Service name resp. port can also be a port number string, e.g.
+         * "https" or "443". */
+        std::string_view a_service,
+        /*! [in] Optional: flags that can be "or-ed", e.g. AI_PASSIVE |
+         * AI_NUMERICHOST. Details at <a
+         * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">getaddrinfo
+         * — Linux manual page</a> or <a
+         * href="https://learn.microsoft.com/en-us/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfo#use-of-ai-flags-in-the-phints-parameter">getaddrinfo
+         * — Microsoft Learn</a> */
+        const int a_flags = 0,
+        /*! [in] Optional: can be SOCK_STREAM, SOCK_DGRAM, or \b 0 (any
+         * possible socket type). */
+        const int a_socktype = SOCK_STREAM,
+        /*! [in] Optional: experimental argument, will be removed. */
+        const int a_family = AF_UNSPEC);
 
-    /*! \brief Constructor for getting an address information from only a
-     * [netaddress](\ref glossary_netaddr) */
-    CAddrinfo(std::string_view a_node, const int a_family = AF_UNSPEC,
-              const int a_socktype = SOCK_STREAM, const int a_flags = 0,
-              const int a_protocol = 0);
+
+    /*! \brief Constructor for getting an address information from only an
+     * internet address */
+    // -------------------------------------------------------------------
+    CAddrinfo(
+        /*! [in] Name or address string of a node, e.g. "example.com:50001" or
+         * "[2001.db8::1]:50002" or "2001.db8::2". */
+        std::string_view a_node,
+        /*! [in] Optional: flags that can be "or-ed", e.g. AI_PASSIVE |
+         * AI_NUMERICHOST. Details at <a
+         * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">getaddrinfo
+         * — Linux manual page</a> or <a
+         * href="https://learn.microsoft.com/en-us/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfo#use-of-ai-flags-in-the-phints-parameter">getaddrinfo
+         * — Microsoft Learn</a> */
+        const int a_flags = 0,
+        /*! [in] Optional: can be SOCK_STREAM, SOCK_DGRAM, or \b 0 (any
+         * possible socket type). */
+        const int a_socktype = SOCK_STREAM);
 
   private:
     /// \brief Helper method for common tasks on different constructors

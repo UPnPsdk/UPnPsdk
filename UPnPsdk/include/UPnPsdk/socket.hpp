@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-22
+// Redistribution only with this Copyright remark. Last modified: 2025-01-02
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -46,7 +46,7 @@
  * \code
  * CSocket sockObj; // or CSocket_basic sockObj;
  * if (static_cast<SOCKET>(sockObj) != INVALID_SOCKET) {
- *     in_port_t port = sockObj.get_port(); };
+ *     in_port_t port = sockObj.get_port(); }
  * \endcode
  *
  * protocol family

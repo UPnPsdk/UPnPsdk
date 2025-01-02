@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-31
+// Redistribution only with this Copyright remark. Last modified: 2025-01-02
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -225,7 +225,7 @@ bool CNetadapter_platform::find_first(const std::string& a_name_or_addr) {
 
     // No name found, look for the ip address of a local network adapter.
     // Try to translate input argument to a socket address.
-    CAddrinfo ainfoObj(a_name_or_addr, AF_UNSPEC, 0, AI_NUMERICHOST);
+    CAddrinfo ainfoObj(a_name_or_addr, AI_NUMERICHOST, 0);
     if (!ainfoObj.get_first())
         return false;
 

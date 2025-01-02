@@ -31,7 +31,7 @@ bool INetadapter::find_first(const std::string& a_name_or_addr) {
 
     // No name found, look for the ip address of a local network adapter.
     // Try to translate input argument to a socket address.
-    CAddrinfo ainfoObj(a_name_or_addr, AF_UNSPEC, 0, AI_NUMERICHOST);
+    CAddrinfo ainfoObj(a_name_or_addr, AI_NUMERICHOST, 0);
     if (!ainfoObj.get_first())
         return false;
 

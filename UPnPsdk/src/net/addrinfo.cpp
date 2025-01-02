@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-23
+// Redistribution only with this Copyright remark. Last modified: 2025-01-02
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -25,22 +25,24 @@ namespace UPnPsdk {
 // Constructor for getting an address information with service name that can
 // also be a port number string.
 // -------------------------------------------------------------------------
-CAddrinfo::CAddrinfo(std::string_view a_node, std::string_view a_service,
-                     const int a_family, const int a_socktype,
-                     const int a_flags, const int a_protocol)
+CAddrinfo::CAddrinfo(std::string_view a_node, //
+                     std::string_view a_service, //
+                     const int a_flags, //
+                     const int a_socktype, //
+                     const int a_family)
     : m_node(a_node), m_service(a_service) {
     TRACE2(this, " Construct CAddrinfo() with extra service")
-    this->set_ai_flags(a_family, a_socktype, a_flags, a_protocol);
+    this->set_ai_flags(a_family, a_socktype, a_flags, 0);
 }
 
 // Constructor for getting an address information from only a netaddress.
 // ----------------------------------------------------------------------
-CAddrinfo::CAddrinfo(std::string_view a_node, const int a_family,
-                     const int a_socktype, const int a_flags,
-                     const int a_protocol)
+CAddrinfo::CAddrinfo(std::string_view a_node, //
+                     const int a_flags, //
+                     const int a_socktype)
     : m_node(a_node) {
     TRACE2(this, " Construct CAddrinfo() with netaddress")
-    this->set_ai_flags(a_family, a_socktype, a_flags, a_protocol);
+    this->set_ai_flags(AF_UNSPEC, a_socktype, a_flags, 0);
 }
 
 
@@ -146,29 +148,22 @@ bool CAddrinfo::get_first() {
                         (m_hints.ai_socktype == SOCK_RAW ? "SOCK_RAW" :
                             "socktype=" + std::to_string(m_hints.ai_socktype))))
             << (ret != 0
-                ? ". Get GAI_ERROR(" + std::to_string(ret) + ")"
+                ? ". Get EAI_ERROR(" + std::to_string(ret) + ")"
                 : ". Get first \"" + std::string(addrStr) + "\" port "
                   + std::string(servStr)
                   + (new_res->ai_next == nullptr ? ", no more entries." : ", more entries..."))
             << '\n';
     }
 
-    if (ret == EAI_SERVICE    /* Servname not supported for ai_socktype */
-        || ret == EAI_NONAME  /* Node or service not known */
-        || ret == EAI_MEMORY  /* Out of memory */
-        || ret == EAI_AGAIN   /* The name server returned a temporary failure indication, try again later */
+    if (ret != 0) {
         /*! \todo Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32. */
-#ifndef _MSC_VER
-        || ret == EAI_ADDRFAMILY /* Address family for NAME not supported */
-#endif
-        || ret == EAI_NODATA)  /* No address associated with hostname */ {
         // Error numbers definded in netdb.h.
         // Maybe an alphanumeric node name that cannot be resolved (e.g. by
         // DNS)? Anyway, the user has to decide what to do. Because this
         // depends on extern available DNS server the error can occur
         // unexpectedly at any time. We have no influence on it but I will give
         // an extended error message.
-        m_error_msg = UPnPsdk_LOGWHAT + "MSG1112: errid(" +
+         UPnPsdk_LOGERR << ("MSG1112: errid(" +
              std::to_string(ret) + ")=\"" + ::gai_strerror(ret) + "\", " +
              ((m_hints.ai_family == AF_UNSPEC) ? "IPv?_" :
              ((m_hints.ai_family == AF_INET6) ? "IPv6_" : "IPv4_")) +
@@ -176,7 +171,8 @@ bool CAddrinfo::get_first() {
               m_node + "\", service=\"" +
               m_service + "\"" +
              ((m_hints.ai_flags & AI_PASSIVE) ? ", passive_listen" : "") +
-             ((m_hints.ai_flags & AI_NUMERICHOST) ? "" : ", (maybe DNS query temporary failed?)");
+             ((m_hints.ai_flags & AI_NUMERICHOST) ? "" : ", (maybe DNS query temporary failed?)"))
+             << '\n';
 
              return false;
     }
@@ -223,7 +219,7 @@ bool CAddrinfo::get_next() noexcept {
 // -----------------------------------------------------------------
 std::string CAddrinfo::netaddrp() noexcept {
     if (m_res == &m_hints)
-        return "";
+        return ":0";
 
     char addrStr[INET6_ADDRSTRLEN];
     char servStr[NI_MAXSERV];
@@ -235,7 +231,7 @@ std::string CAddrinfo::netaddrp() noexcept {
     if (ret != 0) {
         UPnPsdk_LOGERR "MSG1130: Failed to get name information: "
             << gai_strerror(ret) << ". Continue with empty netaddress \"\".\n";
-        return "";
+        return ":0";
     }
 
     switch (m_res_current->ai_family) {
@@ -250,7 +246,7 @@ std::string CAddrinfo::netaddrp() noexcept {
     UPnPsdk_LOGERR "MSG1033: Unsupported address family "
         << m_res_current->ai_family
         << ". Continue with empty netaddress \"\".\n";
-    return "";
+    return ":0";
 }
 
 
