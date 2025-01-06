@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-12-19
+ * Redistribution only with this Copyright remark. Last modified: 2025-01-05
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -146,15 +146,16 @@ int host_header_is_numeric(
  */
 int getNumericHostRedirection(
     SOCKET a_socket,   ///< [in] Socket file descriptor.
-    char* a_host_port, ///< [out] Pointer to buffer that will be filled.
+    char* a_host_port, ///< [in,out] Pointer to buffer that will be filled.
     size_t a_hp_size   ///< [in] size of the buffer.
 ) {
     TRACE("Executing getNumericHostRedirection()")
     UPnPsdk::CSocket_basic socketObj(a_socket);
     try {
         socketObj.load();
-        std::string host_port = socketObj.netaddrp();
-        memcpy(a_host_port, host_port.c_str(), a_hp_size);
+        UPnPsdk::SSockaddr sa;
+        socketObj.sockaddr(sa);
+        memcpy(a_host_port, sa.netaddrp().c_str(), a_hp_size);
         return true;
 
     } catch (const std::exception& e) {
@@ -836,7 +837,9 @@ int get_miniserver_sockets(
                                           std::to_string(listen_port6));
             out->MiniSvrSock6LlaObj->listen();
             out->miniServerSock6 = *out->MiniSvrSock6LlaObj;
-            out->miniServerPort6 = out->MiniSvrSock6LlaObj->get_port();
+            UPnPsdk::SSockaddr sa;
+            out->MiniSvrSock6LlaObj->sockaddr(sa);
+            out->miniServerPort6 = sa.get_port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& e) {
             UPnPsdk_LOGCATCH "MSG1110: catched next line...\n" << e.what();
@@ -855,7 +858,9 @@ int get_miniserver_sockets(
                                           std::to_string(listen_port6UlaGua));
             out->MiniSvrSock6UadObj->listen();
             out->miniServerSock6UlaGua = *out->MiniSvrSock6UadObj;
-            out->miniServerPort6UlaGua = out->MiniSvrSock6UadObj->get_port();
+            UPnPsdk::SSockaddr sa;
+            out->MiniSvrSock6UadObj->sockaddr(sa);
+            out->miniServerPort6UlaGua = sa.get_port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& e) {
             UPnPsdk_LOGCATCH "MSG1117: catched next line...\n" << e.what();
@@ -869,7 +874,9 @@ int get_miniserver_sockets(
                                        std::to_string(listen_port4));
             out->MiniSvrSock4Obj->listen();
             out->miniServerSock4 = *out->MiniSvrSock4Obj;
-            out->miniServerPort4 = out->MiniSvrSock4Obj->get_port();
+            UPnPsdk::SSockaddr sa;
+            out->MiniSvrSock4Obj->sockaddr(sa);
+            out->miniServerPort4 = sa.get_port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& e) {
             UPnPsdk_LOGCATCH "MSG1114: catched next line...\n" << e.what();

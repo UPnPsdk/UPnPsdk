@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-31
+// Redistribution only with this Copyright remark. Last modified: 2025-01-04
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
@@ -471,8 +471,11 @@ TEST(SockaddrStorageTestSuite, sizeof_saddr_get_successful) {
     saddr = ""; // Does not modify previous setting
     EXPECT_EQ(saddr.sizeof_saddr(),
               static_cast<socklen_t>(sizeof(::sockaddr_in)));
-    SSockaddr saddr2; // Initialize a new socket address structure
+    SSockaddr saddr2; // An empty socket address structure provides full storage
     saddr2 = "";
+    EXPECT_EQ(saddr2.sizeof_saddr(),
+              static_cast<socklen_t>(sizeof(::sockaddr_storage)));
+    saddr2.ss.ss_family = AF_UNIX; // Inval addr family doesn't provide storage
     EXPECT_EQ(saddr2.sizeof_saddr(), static_cast<socklen_t>(0));
 }
 

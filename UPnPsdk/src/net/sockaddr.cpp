@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-31
+// Redistribution only with this Copyright remark. Last modified: 2025-01-05
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -592,6 +592,8 @@ socklen_t SSockaddr::sizeof_saddr() const {
         return sizeof(sin6);
     case AF_INET:
         return sizeof(sin);
+    case AF_UNSPEC:
+        return sizeof(ss);
     default:
         return 0;
     }

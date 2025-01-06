@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-02
+// Redistribution only with this Copyright remark. Last modified: 2025-01-05
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -119,28 +119,17 @@ CSocket_basic::operator const SOCKET&() const {
 
 // Getter
 // ------
-sa_family_t CSocket_basic::get_family() const {
-    TRACE2(this, " Executing CSocket_basic::get_family()")
-    m_get_addr_from_socket();
-    return this->ss.ss_family;
-}
-
-const std::string& CSocket_basic::netaddr() {
-    TRACE2(this, " Executing CSocket_basic::netaddr()")
-    m_get_addr_from_socket();
-    return SSockaddr::netaddr();
-}
-
-const std::string& CSocket_basic::netaddrp() {
-    TRACE2(this, " Executing CSocket_basic::netaddrp()")
-    m_get_addr_from_socket();
-    return SSockaddr::netaddrp();
-}
-
-in_port_t CSocket_basic::get_port() const {
-    TRACE2(this, " Executing CSocket_basic::get_port()")
-    m_get_addr_from_socket();
-    return SSockaddr::get_port();
+void CSocket_basic::sockaddr(SSockaddr& a_saddr) const {
+    TRACE2(this, " Executing CSocket_basic::sockaddr()")
+    // Get address from socket file descriptor.
+    socklen_t len = sizeof(a_saddr.ss); // May be modified
+    CSocketErr serrObj;
+    if (UPnPsdk::getsockname(m_sfd, &a_saddr.sa, &len) != 0) {
+        serrObj.catch_error();
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT + "MSG1001: Failed to get address from socket: " +
+            serrObj.error_str() + "\n");
+    }
 }
 
 int CSocket_basic::get_socktype() const {
@@ -197,39 +186,75 @@ bool CSocket_basic::is_reuse_addr() const {
     return so_option;
 }
 
-bool CSocket_basic::is_bound() {
+int CSocket_basic::is_bound() const {
     // I get the socket address from the file descriptor and check if its
-    // address is unspecified or if the address and port are all zero. This
-    // replaces the method with direct compare of the socket addresses with a
-    // 16 byte AF_INET6 compare which last version can be found at commit
-    // a5ec86a93608234016630123c776c09f8ff276fb.
+    // address and port are all zero. I have to do this different for AF_INET6
+    // and AF_INET. Because I only use ::getaddrinfo() to get internet address
+    // information I can use its criteria to detect binding. With
+    // ::getaddrinfo():
+    // - Either node or service (port), but not both, may be NULL means a bound
+    //   address must have at least a node address or a port.
+    // - If the AI_PASSIVE flag was specified, and node is NULL, then the
+    // returned socket addresses will be suitable for binding a socket that
+    // will ::accept() connections. The returned socket address will contain the
+    // "wildcard  address" (INADDR_ANY for IPv4 addresses, IN6ADDR_ANY_INIT for
+    // IPv6 address).
+    // - If the AI_PASSIVE flag was not specified, then the returned socket
+    // addresses will be suitable for use with ::connect(), ::sendto(), or
+    // ::sendmsg(). If node is NULL, then the network address will be set to
+    // the loopback interface  address (INADDR_LOOPBACK for IPv4 addresses,
+    // IN6ADDR_LOOPBACK_INIT for IPv6 address).
+    // - Syscall ::bind() accepts a socket address structure that always has a
+    // numeric service/port number. 0 is interpreted as "unspecified port" and
+    // ::bind() will use a free random port number, so a bound socket always
+    // have a port number > 0.
+    //
+    // This all means for a socket when asking for its bound address with
+    // syscall ::getsockname():
+    // - A socket address with port 0 cannot be bound, otherwise
+    // - an unspecified socket address of the address family AF_INET6 or
+    //   AF_INET (means with the "wildcard address" (all zero)) is passive
+    //   bound to listen on local network adapters with ::accept().
+    // - A socket address with any other ip address is (active) bound to the
+    //   local network adapter with that ip address for use with syscalls
+    //   ::connect(), ::sendto(), or ::sendmsg().
+    //
+    // An older but incomplete version of this member function with direct
+    // compare of the socket address with a 16 null byte array AF_INET6 can be
+    // found at commit
+    // a5ec86a93608234016630123c776c09f8ff276fb:upnplib/src/net/socket.cpp.
     TRACE2(this, " Executing CSocket::is_bound()")
 
     // binding is protected.
     std::scoped_lock lock(m_bound_mutex);
 
-    const std::string& netaddr = this->netaddrp();
-    return (netaddr.empty() || netaddr.compare("[::]:0") == 0 ||
-            netaddr.compare("0.0.0.0:0") == 0)
-               ? false
-               : true;
-}
+    // Get the socket address from the socket file descriptor.
+    SSockaddr sa;
+    this->sockaddr(sa);
 
-// Private methods
-// ---------------
-void CSocket_basic::m_get_addr_from_socket() const {
-    TRACE2(this, " Executing CSocket_basic::m_get_addr_from_socket()")
+    // A socket address with port number 0 cannot be bound. 'sin6_port' is on
+    // the same structure location as 'sin_port' so it can be used for AF_INET6
+    // and AF_INET together.
+    if (sa.sin6.sin6_port == 0u)
+        return 0;
 
-    // Get address from socket file descriptor and fill in the inherited
-    // sockaddr structure from SSockaddr.
-    socklen_t len = this->sizeof_ss(); // May be modified
-    CSocketErr serrObj;
-    if (UPnPsdk::getsockname(m_sfd, &this->sa, &len) != 0) {
-        serrObj.catch_error();
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT + "MSG1001: Failed to get address from socket: " +
-            serrObj.error_str() + "\n");
-    }
+    // With an unspecified IP address the socket is "passive" bound, otherwise
+    // it is "active" bound.
+    switch (sa.ss.ss_family) {
+    case AF_INET6:
+        for (size_t i{}; i < sizeof(in6_addr); i++) {
+            if (sa.sin6.sin6_addr.s6_addr[i] != 0u)
+                return 1; // Bound active
+        }
+        return -1; // All zero, bound passive
+
+    case AF_INET:
+        return (sa.sin.sin_addr.s_addr == INADDR_ANY) ? -1 // Bound passive
+                                                      : 1; // Bound active
+    } // switch
+
+    throw std::runtime_error("MSG1029: Invalid address family " +
+                             std::to_string(sa.ss.ss_family) + ".\n");
 }
 
 
@@ -361,7 +386,9 @@ void CSocket::set_v6only(const bool a_opt) {
     const int so_option{a_opt};
 
     // Type cast (char*)&so_option is needed for Microsoft Windows.
-    if (this->get_family() == PF_INET6 && !this->is_bound() &&
+    SSockaddr sa;
+    this->sockaddr(sa);
+    if (sa.ss.ss_family == PF_INET6 && !this->is_bound() &&
         umock::sys_socket_h.setsockopt(
             m_sfd, IPPROTO_IPV6, IPV6_V6ONLY,
             reinterpret_cast<const char*>(&so_option),
@@ -397,12 +424,13 @@ void CSocket::bind(const std::string& a_node, const std::string& a_port,
     // Protect binding.
     std::scoped_lock lock(m_bound_mutex);
 
-    const sa_family_t addr_family = this->get_family();
+    SSockaddr sa;
+    this->sockaddr(sa);
     CSocketErr serrObj;
 
     // With protocol family PF_INET6 we always set IPV6_V6ONLY to true. See also
     // note to bind() in the header file.
-    if (addr_family == PF_INET6) {
+    if (sa.ss.ss_family == PF_INET6) {
         // Don't use 'this->set_v6only(true)' because binding is protected with
         // a mutex and we will get a deadlock due to using
         // 'this->is_bound()' in 'this->set_v6only(true)'.
@@ -422,7 +450,7 @@ void CSocket::bind(const std::string& a_node, const std::string& a_port,
 
     // Get an adress info to bind.
     CAddrinfo ai(a_node, a_port, AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
-                 this->get_socktype(), addr_family);
+                 this->get_socktype(), sa.ss.ss_family);
     ai.get_first(); // may throw exception
 
     // Here we bind the socket to an address.
@@ -431,10 +459,13 @@ void CSocket::bind(const std::string& a_node, const std::string& a_port,
     int ret = umock::sys_socket_h.bind(m_sfd, ai->ai_addr,
                                        static_cast<socklen_t>(ai->ai_addrlen));
 
-    UPnPsdk_LOGINFO << "MSG1115: syscall ::bind(" << m_sfd << ", "
-                    << ai->ai_addr << ", " << ai->ai_addrlen << ") Using \""
-                    << ai.netaddrp() << "\". Get "
-                    << (ret != 0 ? "ERROR" : this->netaddrp()) << "\n";
+    if (g_dbug) {
+        this->sockaddr(sa); // Get new bound socket address.
+        UPnPsdk_LOGINFO << "MSG1115: syscall ::bind(" << m_sfd << ", "
+                        << ai->ai_addr << ", " << ai->ai_addrlen << ") Using \""
+                        << ai.netaddrp() << "\". Bound to \""
+                        << (ret != 0 ? "ERROR" : sa.netaddrp()) << "\"\n";
+    }
     if (ret != 0) {
         serrObj.catch_error();
         throw std::runtime_error(

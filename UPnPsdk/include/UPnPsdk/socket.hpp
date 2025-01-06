@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-02
+// Redistribution only with this Copyright remark. Last modified: 2025-01-06
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -128,7 +128,7 @@ namespace UPnPsdk {
  * descriptor is in the responsibility of the caller who created the socket. If
  * you need to manage a socket you must use CSocket.
  */
-class UPnPsdk_API CSocket_basic : private SSockaddr {
+class UPnPsdk_API CSocket_basic {
   public:
     // Default constructor for an empty basic socket object
     CSocket_basic();
@@ -192,17 +192,13 @@ class UPnPsdk_API CSocket_basic : private SSockaddr {
      * \endcode */
     operator const SOCKET&() const;
 
-    /*! \brief Get socket [address family](\ref glossary_af) */
-    sa_family_t get_family() const;
-
-    /*! \brief Get [netaddress](\ref glossary_netaddr) without port. */
-    const std::string& netaddr() override;
-
-    /*! \brief Get [netaddress](\ref glossary_netaddr) with port. */
-    const std::string& netaddrp() override;
-
-    /*! \brief Get the [port](\ref glossary_port) number. */
-    in_port_t get_port() const override;
+    /*! \brief Get the socket address the socket is bound to */
+    void sockaddr(
+        /*! [in,out] Reference to a socket address structure that will be
+         * filled with the address information. If no information is available
+         * (the socket is not bound to a network adapter) the structure is
+         * not modified. */
+        SSockaddr& a_saddr) const;
 
     /*! \brief Get the [socket type](\ref glossary_socktype) `SOCK_STREAM` or
      * `SOCK_DGRAM`.
@@ -229,12 +225,12 @@ class UPnPsdk_API CSocket_basic : private SSockaddr {
      * Throws exception std::runtime_error if query option fails. */
     bool is_reuse_addr() const;
 
-    /*! \brief Get status if socket is bound to a local
-     * \glos{netaddr,netaddress}.
+    /*! \brief Get status if socket is bound to an ip address of a local network
+     * adapter.
      *
      * I assume that a valid socket file descriptor with unknown address (all
      * zero) and port 0 is not bound. */
-    bool is_bound();
+    int is_bound() const;
     /// @} Getter
 
   protected:
@@ -250,9 +246,6 @@ class UPnPsdk_API CSocket_basic : private SSockaddr {
   private:
     // Hint from the constructor what socket file descriptor to use.
     const SOCKET m_sfd_hint{INVALID_SOCKET};
-
-    // Helper method
-    void m_get_addr_from_socket() const;
 };
 
 
