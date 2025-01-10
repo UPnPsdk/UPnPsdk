@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-05
+// Redistribution only with this Copyright remark. Last modified: 2025-01-13
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -80,7 +80,7 @@ std::string to_netaddr(const ::sockaddr_storage& a_sockaddr) noexcept {
  * \endcode
  */
 std::string to_netaddrp(const ::sockaddr_storage& a_sockaddr) noexcept {
-    // TRACE("Executing to_addrport_str()") // not usable in chained output.
+    // TRACE("Executing to_netaddrp()") // not usable in chained output.
     //
     // sin_port and sin6_port are on the same memory location (union of the
     // structures) so I can use it for AF_INET and AF_INET6.
@@ -96,6 +96,8 @@ std::string to_netaddrp(const ::sockaddr_storage& a_sockaddr) noexcept {
                std::to_string(
                    ntohs(reinterpret_cast<const ::sockaddr_in6*>(&a_sockaddr)
                              ->sin6_port));
+    case AF_UNIX:
+        return to_netaddr(a_sockaddr) + ":0";
     }
     return to_netaddr(a_sockaddr);
 }
@@ -106,8 +108,8 @@ std::string to_netaddrp(const ::sockaddr_storage& a_sockaddr) noexcept {
 /*! \brief logical compare two sockaddr structures
  * \ingroup upnplib-addrmodul
  *
- * To have a logical equal socket address we compare the address family, the ip
- * address and the port.
+ * To have logical equal socket addresses I compare the address family, the ip
+ * address, the scope, and the port.
  *
  * \returns
  *  \b true if socket addresses are logical equal\n
@@ -115,8 +117,6 @@ std::string to_netaddrp(const ::sockaddr_storage& a_sockaddr) noexcept {
  */
 bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
                  const ::sockaddr_storage* a_ss2) noexcept {
-    // To have a logical equal socket address we compare the address family,
-    // the ip address, the port and the scope.
     // Throws no exception.
     if (a_ss1 == nullptr && a_ss2 == nullptr)
         return true;
@@ -470,13 +470,20 @@ SSockaddr& SSockaddr::operator=(SSockaddr that) {
 // -------------------------------------------------------
 void SSockaddr::operator=(const std::string& a_addr_str) {
     TRACE2(this, " Executing SSockaddr::operator=(" + a_addr_str + ")")
+
+    if (a_addr_str.empty()) {
+        // This clears the complete socket address.
+        ::memset(&m_sa_union, 0, sizeof(m_sa_union));
+        return;
+    }
     std::string ai_addr_str;
     std::string ai_port_str;
 
     // Throws exception std::out_of_range().
     split_addr_port(a_addr_str, ai_addr_str, ai_port_str);
 
-    // With an empty address string only set the port.
+    // With an empty address part (e.g. ":50001") only set the port and leave
+    // the (old) address unmodified.
     if (ai_addr_str.empty()) {
         in_port_t port;
         if (to_port(ai_port_str, &port) != 0)
@@ -528,16 +535,10 @@ void SSockaddr::operator=(const in_port_t a_port) {
     sin6.sin6_port = htons(a_port);
 }
 
-// Clear socket address
-// --------------------
-void SSockaddr::clear() {
-    ::memset(&m_sa_union, 0, sizeof(m_sa_union)); //
-}
-
 // Compare operator== to test if another trivial socket address is equal to this
 // -----------------------------------------------------------------------------
-bool SSockaddr::operator==(const ::sockaddr_storage& a_ss) const {
-    return sockaddrcmp(&a_ss, &ss);
+bool SSockaddr::operator==(const SSockaddr& a_saddr) const {
+    return sockaddrcmp(&a_saddr.ss, &ss);
 }
 
 // Getter for the assosiated ip address without port
@@ -549,7 +550,7 @@ const std::string& SSockaddr::netaddr() {
     //
     // It is important to have the string available as long as the object lives,
     // otherwise you may get dangling pointer, e.g. with getting .c_str().
-    m_netaddr = to_netaddr(ss);
+    m_netaddr = to_netaddr(m_sa_union.ss);
     return m_netaddr;
 }
 
@@ -573,27 +574,20 @@ in_port_t SSockaddr::get_port() const {
     // sin_port and sin6_port are on the same memory location (union of the
     // structures) so we can use it for AF_INET and AF_INET6.
     // Don't use ::ntohs, MacOS don't like it.
-    return ntohs(sin6.sin6_port);
-}
-
-// Getter for sizeof the Sockaddr Structure.
-// -----------------------------------------
-socklen_t SSockaddr::sizeof_ss() const {
-    TRACE2(this, " Executing SSockaddr::sizeof_ss()")
-    return sizeof(ss);
+    return ntohs(m_sa_union.sin6.sin6_port);
 }
 
 // Getter for sizeof the current (sin6 or sin) Sockaddr Structure.
 // ---------------------------------------------------------------
 socklen_t SSockaddr::sizeof_saddr() const {
     TRACE2(this, " Executing SSockaddr::sizeof_saddr()")
-    switch (ss.ss_family) {
+    switch (m_sa_union.ss.ss_family) {
     case AF_INET6:
-        return sizeof(sin6);
+        return sizeof(m_sa_union.sin6);
     case AF_INET:
-        return sizeof(sin);
+        return sizeof(m_sa_union.sin);
     case AF_UNSPEC:
-        return sizeof(ss);
+        return sizeof(m_sa_union.ss);
     default:
         return 0;
     }

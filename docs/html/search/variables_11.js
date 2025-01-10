@@ -55,5 +55,6 @@ var searchData=
   ['stopport_52',['stopPort',['../d3/d8b/miniserver_8hpp.html#a88d3137251e9970f3c5f49b4822eecfc',1,'MiniServerSockArray']]],
   ['subscriptionlist_53',['subscriptionList',['../db/d74/service__table_8hpp.html#a77da60bd560a0409a86a1b35001f2c69',1,'service_info']]],
   ['subsid_54',['SubsId',['../d3/da9/upnpapi_8hpp.html#a949f73a3784997f30068d82f00a6ac65',1,'UpnpNonblockParam']]],
-  ['subtype_55',['subtype',['../dd/d67/namespaceUPnPsdk.html#a7da00f23e11db5e884ef88a8445067ea',1,'UPnPsdk::Document_meta']]]
+  ['subtype_55',['subtype',['../dd/d67/namespaceUPnPsdk.html#a7da00f23e11db5e884ef88a8445067ea',1,'UPnPsdk::Document_meta']]],
+  ['sun_56',['sun',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a6e0b9e33fdd62f45a1374e399e0bc082',1,'UPnPsdk::SSockaddr']]]
 ];

@@ -165,13 +165,19 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Helpful union of the different socket address structures. </p>
 <p>Never need to use type casts with pointer to different socket address structures. For details about using this helpful union have a look at <a href="https://stackoverflow.com/a/76548581/5014688">sockaddr structures as union</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">
 <a id="a7eb5d30cb351092983e7e6f75ff3a755" name="a7eb5d30cb351092983e7e6f75ff3a755"></a>::sockaddr_storage</td>
 <td class="fieldname">
 ss</td>
+<td class="fielddoc">
+</td></tr>
+<tr><td class="fieldtype">
+<a id="a4a5ea6e3cfcfd749e12cd60674dddf53" name="a4a5ea6e3cfcfd749e12cd60674dddf53"></a>::sockaddr_un</td>
+<td class="fieldname">
+sun</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
@@ -240,7 +246,7 @@ sa</td>
 <div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30">split_addr_port</a>(<span class="stringliteral">&quot;example.COM:50003&quot;</span>, addr, serv);</div>
 <div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30">split_addr_port</a>(<span class="stringliteral">&quot;example.com:HTTPS&quot;</span>, addr, serv);</div>
 <div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30">split_addr_port</a>(<span class="stringliteral">&quot;[::FFff:142.250.185.99]:ssh&quot;</span>, addr, serv);</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga5ba9b68e7f75b3239270fc5956931e30"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30">UPnPsdk::split_addr_port</a></div><div class="ttdeci">void split_addr_port(const std::string &amp;a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</div><div class="ttdoc">Free function to split inet address and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00296">sockaddr.cpp:296</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga5ba9b68e7f75b3239270fc5956931e30"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30">UPnPsdk::split_addr_port</a></div><div class="ttdeci">void split_addr_port(const std::string &amp;a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</div><div class="ttdoc">Free function to split inet address and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00294">sockaddr.cpp:294</a></div></div>
 </div><!-- fragment --><p>This is a function for special use to prepare input for system call ::getaddrinfo(). Its results returned in <b>a_addr</b> and <b>a_serv</b> are only useful for ::getaddrinfo() and are not meant for general usage. For example returned IPv6 addresses never have brackets because ::getaddrinfo() does not accept them, port numbers are limited to 65535 because ::getaddrinfo() accepts also greater numbers with overrun to 65535 + 1 = 0. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -251,7 +257,7 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00296">296</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00294">294</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -317,7 +323,7 @@ sa</td>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
 <div class="line">saObj = <span class="stringliteral">&quot;[2001:db8::1]:56789&quot;</span>;</div>
 <div class="line">std::cout &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; <span class="comment">// output &quot;[2001:db8::1]:56789&quot;</span></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00086">sockaddr.hpp:86</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00093">sockaddr.hpp:93</a></div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -474,7 +480,7 @@ sa</td>
 </div><div class="memdoc">
 
 <p>logical compare two sockaddr structures </p>
-<p>To have a logical equal socket address we compare the address family, the ip address and the port.</p>
+<p>To have logical equal socket addresses I compare the address family, the ip address, the scope, and the port.</p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if socket addresses are logical equal<br  />
  <b>false</b> otherwise </dd></dl>
 
@@ -554,7 +560,7 @@ sa</td>
 <div class="line"><span class="stringliteral">}</span></div>
 <div class="line"><span class="stringliteral"></span> </div>
 <div class="line"><span class="stringliteral">if (to_port(&quot;</span>65536<span class="stringliteral">&quot;) != 0) { // do nothing with port }</span></div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga15c2857e134c29ff3dae7e20ff62b5df"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga15c2857e134c29ff3dae7e20ff62b5df">UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_port</a></div><div class="ttdeci">int to_port(const std::string &amp;a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string represents a valid port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00200">sockaddr.cpp:200</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga15c2857e134c29ff3dae7e20ff62b5df"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga15c2857e134c29ff3dae7e20ff62b5df">UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_port</a></div><div class="ttdeci">int to_port(const std::string &amp;a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string represents a valid port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00198">sockaddr.cpp:198</a></div></div>
 </div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>On success: <b>0</b><br  />
  A binary port number in host byte order is returned in <b>a_port_num</b>, so ypu can use it in your application without conversion. If you want to store it in a netaddr structure you must use <b>htons()</b>. An empty input string returns 0.<br  />
  On error:<ul>
@@ -570,7 +576,7 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00200">200</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00198">198</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">

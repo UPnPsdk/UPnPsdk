@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-30
+// Redistribution only with this Copyright remark. Last modified: 2025-01-07
 /*!
  * \file
  * \brief C++ interface to manage information from different platforms about
@@ -44,7 +44,7 @@ bool INetadapter::find_first(const std::string& a_name_or_addr) {
     this->reset();
     do {
         this->sockaddr(sa_nadObj);
-        if (sa_nadObj == sa_inputObj.ss)
+        if (sa_nadObj == sa_inputObj)
             return true;
     } while (this->get_next());
 

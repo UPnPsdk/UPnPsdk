@@ -1,11 +1,12 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-12-06
+// Redistribution only with this Copyright remark. Last modified: 2025-01-13
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
  * - Provide IP-Address instead of interface name to UpnpInit2() (https://datatracker.ietf.org/doc/html/rfc3484).
+ * - Make SSockaddr structure to support AF_UNIX.
  * - Make SDK IP Version - Independent (https://datatracker.ietf.org/doc/html/rfc4038)
  * - Rework IPv6 support to use only IPv6 with IPv4-mapped IPv6 addresses (socket option v6only = false) (https://datatracker.ietf.org/doc/html/rfc4038)
  * - Remove IN6_IS_ADDR_GLOBAL, should be checked by kernel or system library (https://datatracker.ietf.org/doc/html/rfc6890)

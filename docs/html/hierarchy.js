@@ -15,6 +15,9 @@ var hierarchy =
     [ "char_info", "da/dff/ixmlparser_8cpp.html#db/de1/structchar__info", null ],
     [ "UPnPsdk::CRootdevice", "dd/d06/classUPnPsdk_1_1CRootdevice.html", null ],
     [ "UPnPsdk::CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
+    [ "UPnPsdk::CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html", [
+      [ "UPnPsdk::CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html", null ]
+    ] ],
     [ "UPnPsdk::CSocketErr", "dd/d3a/classUPnPsdk_1_1CSocketErr.html", null ],
     [ "UPnPsdk::CStrIntMap< T >", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", null ],
     [ "UPnPsdk::CUri", "da/dcf/classUPnPsdk_1_1CUri.html", null ],
@@ -72,11 +75,7 @@ var hierarchy =
     [ "SsdpSearchArg", "da/db2/ssdp__ctrlpt_8hpp.html#d4/df8/structSsdpSearchArg", null ],
     [ "SsdpSearchExpArg", "d0/d19/ssdp__common_8hpp.html#d2/d52/structSsdpSearchExpArg", null ],
     [ "SsdpSearchReply", "d0/d19/ssdp__common_8hpp.html#df/dd8/structSsdpSearchReply", null ],
-    [ "UPnPsdk::SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", [
-      [ "UPnPsdk::CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html", [
-        [ "UPnPsdk::CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html", null ]
-      ] ]
-    ] ],
+    [ "UPnPsdk::SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", null ],
     [ "UPnPsdk::str_int_entry", "dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry", null ],
     [ "subscription", "db/d74/service__table_8hpp.html#dd/dc7/structsubscription", null ],
     [ "ThreadData", "d0/d19/ssdp__common_8hpp.html#de/d7d/structThreadData", null ],

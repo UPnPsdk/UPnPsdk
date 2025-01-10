@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-04
+// Redistribution only with this Copyright remark. Last modified: 2025-01-10
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
@@ -397,29 +397,29 @@ TEST(SockaddrStorageTestSuite, compare_ipv6_address) {
     EXPECT_EQ(memcmp(s6_addr1, s6_addr2, sizeof(*s6_addr1)), 0);
 
     // Test Unit compare successful
-    EXPECT_TRUE(saddr1 == saddr2.ss);
+    EXPECT_TRUE(saddr1 == saddr2);
 
     // Test Unit different address family
     saddr2 = "192.168.0.27:50027";
-    EXPECT_FALSE(saddr1 == saddr2.ss);
+    EXPECT_FALSE(saddr1 == saddr2);
 
     // Test Unit different address
     saddr2 = "[2001:db8::28]:50027";
-    EXPECT_FALSE(saddr1 == saddr2.ss);
+    EXPECT_FALSE(saddr1 == saddr2);
 
     // Test Unit different port
     saddr2 = "[2001:db8::27]:50028";
-    EXPECT_FALSE(saddr1 == saddr2.ss);
+    EXPECT_FALSE(saddr1 == saddr2);
 
     // Test Unit with unsupported address family
     saddr2 = "[2001:db8::27]:50027";
     saddr1.ss.ss_family = AF_UNIX;
-    EXPECT_FALSE(saddr1 == saddr2.ss);
+    EXPECT_FALSE(saddr1 == saddr2);
     saddr1.ss.ss_family = AF_INET6;
     saddr2.ss.ss_family = AF_UNIX;
-    EXPECT_FALSE(saddr1 == saddr2.ss);
+    EXPECT_FALSE(saddr1 == saddr2);
     saddr2.ss.ss_family = AF_INET6;
-    EXPECT_TRUE(saddr1 == saddr2.ss);
+    EXPECT_TRUE(saddr1 == saddr2);
 }
 
 TEST(SockaddrStorageTestSuite, compare_ipv4_address) {
@@ -429,35 +429,29 @@ TEST(SockaddrStorageTestSuite, compare_ipv4_address) {
     saddr2 = "192.168.0.1:50029";
 
     // Test Unit compare successful
-    EXPECT_TRUE(saddr1 == saddr2.ss);
+    EXPECT_TRUE(saddr1 == saddr2);
 
     // Test Unit different address family
     saddr2 = "[2001:db8::27]:50027";
-    EXPECT_FALSE(saddr1 == saddr2.ss);
+    EXPECT_FALSE(saddr1 == saddr2);
 
     // Test Unit different address
     saddr2 = "192.168.0.2:50029";
-    EXPECT_FALSE(saddr1 == saddr2.ss);
+    EXPECT_FALSE(saddr1 == saddr2);
 
     // Test Unit different port
     saddr2 = "192.168.0.1:50030";
-    EXPECT_FALSE(saddr1 == saddr2.ss);
+    EXPECT_FALSE(saddr1 == saddr2);
 
     // Test Unit with unsupported address family
     saddr2 = "192.168.0.1:50029";
     saddr1.ss.ss_family = AF_UNIX;
-    EXPECT_FALSE(saddr1 == saddr2.ss);
+    EXPECT_FALSE(saddr1 == saddr2);
     saddr1.ss.ss_family = AF_INET;
     saddr2.ss.ss_family = AF_UNIX;
-    EXPECT_FALSE(saddr1 == saddr2.ss);
+    EXPECT_FALSE(saddr1 == saddr2);
     saddr2.ss.ss_family = AF_INET;
-    EXPECT_TRUE(saddr1 == saddr2.ss);
-}
-
-TEST(SockaddrStorageTestSuite, sizeof_ss_get_successful) {
-    SSockaddr saddr;
-    EXPECT_EQ(saddr.sizeof_ss(),
-              static_cast<socklen_t>(sizeof(::sockaddr_storage)));
+    EXPECT_TRUE(saddr1 == saddr2);
 }
 
 TEST(SockaddrStorageTestSuite, sizeof_saddr_get_successful) {
@@ -468,11 +462,12 @@ TEST(SockaddrStorageTestSuite, sizeof_saddr_get_successful) {
     saddr = "0.0.0.0";
     EXPECT_EQ(saddr.sizeof_saddr(),
               static_cast<socklen_t>(sizeof(::sockaddr_in)));
-    saddr = ""; // Does not modify previous setting
+    saddr = ":50001"; // Does not modify previous address setting
     EXPECT_EQ(saddr.sizeof_saddr(),
               static_cast<socklen_t>(sizeof(::sockaddr_in)));
+    EXPECT_EQ(saddr.netaddrp(), "0.0.0.0:50001");
     SSockaddr saddr2; // An empty socket address structure provides full storage
-    saddr2 = "";
+    saddr2 = "";      // this clears the complete socket address.
     EXPECT_EQ(saddr2.sizeof_saddr(),
               static_cast<socklen_t>(sizeof(::sockaddr_storage)));
     saddr2.ss.ss_family = AF_UNIX; // Inval addr family doesn't provide storage
@@ -589,11 +584,11 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_port_string) {
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     g_dbug = false;
     captureObj.start();
-    EXPECT_EQ(to_netaddrp(saddr.ss), "");
+    EXPECT_EQ(to_netaddrp(saddr.ss), ":0");
     EXPECT_EQ(captureObj.str(), "");
     g_dbug = true;
     captureObj.start();
-    EXPECT_EQ(to_netaddrp(saddr.ss), "");
+    EXPECT_EQ(to_netaddrp(saddr.ss), ":0");
     EXPECT_THAT(captureObj.str(),
                 HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
     g_dbug = g_dbug_old;
@@ -775,7 +770,7 @@ TEST(SockaddrStorageTestSuite, sockaddr_clear) {
     SSockaddr saObj;
     saObj = "[2001:db8::1]:50001";
     EXPECT_EQ(saObj.netaddrp(), "[2001:db8::1]:50001");
-    saObj.clear();
+    saObj = "";
     EXPECT_EQ(saObj.netaddr(), "");
     EXPECT_EQ(saObj.netaddrp(), ":0");
 }

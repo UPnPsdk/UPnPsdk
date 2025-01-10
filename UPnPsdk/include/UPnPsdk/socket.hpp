@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-06
+// Redistribution only with this Copyright remark. Last modified: 2025-01-12
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -192,19 +192,20 @@ class UPnPsdk_API CSocket_basic {
      * \endcode */
     operator const SOCKET&() const;
 
-    /*! \brief Get the socket address the socket is bound to */
+    /*! \brief Get the socket address the socket is bound to
+     * \details For an example look at CSocket_basic::is_bound().
+     * \exception std::runtime_error Failed to get address from socket. */
     void sockaddr(
         /*! [in,out] Reference to a socket address structure that will be
-         * filled with the address information. If no information is available
-         * (the socket is not bound to a network adapter) the structure is
-         * not modified. */
+         * filled with the address information. If an error is thrown the
+         * structure is not modified. If no information is available (the socket
+         * is not bound to a network adapter) an unspecified netaddress is
+         * returned. */
         SSockaddr& a_saddr) const;
 
     /*! \brief Get the [socket type](\ref glossary_socktype) `SOCK_STREAM` or
      * `SOCK_DGRAM`.
-     *
-     * Throws exception std::runtime_error if query option fails.
-     *
+     * \exception std::runtime_error if query option fails.
      * \todo Check if SOCK_UNDEF is also possible, maybe with an empty socket */
     int get_socktype() const;
 
@@ -213,23 +214,34 @@ class UPnPsdk_API CSocket_basic {
      * This is not a system error from the operating system (with POSIX
      * returned in \b errno). It is the error that can be queried as option
      * from the socket.
-     *
-     * Throws exception std::runtime_error if query option fails. */
+     * \exception std::runtime_error if query option fails. */
     int get_sockerr() const;
 
     /*! \brief Get status if reusing address is enabled.
      *
      * For details to this option have a look at
      * [option "reuse address"](\ref overview_reuseaddr).
-     *
-     * Throws exception std::runtime_error if query option fails. */
+     * \exception std::runtime_error if query option fails. */
     bool is_reuse_addr() const;
 
     /*! \brief Get status if socket is bound to an ip address of a local network
      * adapter.
+     * \code
+     * // Usage e.g.:
+     * SOCKET sfd = ::socket(PF_INET6, SOCK_STREAM, 0);
+     * CSocket_basic sockObj(sfd);
+     * SSockaddr saObj;
+     * try {
+     *     sockObj.load();
+     *     sockObj.sockaddr(saObj);
+     * } catch(xcp) { handle_error(); };
      *
-     * I assume that a valid socket file descriptor with unknown address (all
-     * zero) and port 0 is not bound. */
+     * if (sockObj.is_bound())
+     *     std::cout << "socket is bound to " << saObj << '\n';
+     * else
+     *     std::cout << "unbound socket has unknown netaddr " << saObj << '\n';
+     * close(sfd);
+     * \endcode */
     int is_bound() const;
     /// @} Getter
 
@@ -261,6 +273,10 @@ class UPnPsdk_API CSocket : public CSocket_basic {
     /*! \brief Default constructor for an
      * [empty socket object](\ref empty_socket) */
     CSocket();
+
+    /*! \brief Constructor to prepare for a socket file descriptor that must use
+     * bind() to be created */
+    CSocket(int a_socktype /*!< [in] SOCK_STREAM or SOCK_DGRAM */);
 
     /// \brief Constructor for a new socket file descriptor that must be load()
     CSocket(sa_family_t a_family, /*!<  [in] PF_INET6 or PF_INET. PF_UNSPEC is
@@ -380,8 +396,8 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * addresses will be suitable for use with **connect**, **sendto**, or
      * **sendmsg** (typically clients). If **a_node** is empty ("") and flag
      * AI_NUMERICHOST not set then you will get an exception: no address for
-     * hostname "". With AI_NUMERICHOST the unknown address "[::]" or "0.0.0.0"
-     * is used.
+     * hostname "". With AI_NUMERICHOST the unspecified address "[::]" or
+     * "0.0.0.0" is used.
      * \code
      * // typical for client connect
      * sockObj.bind("[2001:db8::1]", "49123");
@@ -411,6 +427,8 @@ class UPnPsdk_API CSocket : public CSocket_basic {
          * bitwise OR-ing them together. Example is: `AI_PASSIVE |
          * AI_NUMERICHOST | AI_NUMERICSERV` */
         const int a_flags = 0);
+
+    void bind2(const int socktype, SSockaddr* a_saddr = nullptr);
 
     /*! \brief Set socket to listen
      *
@@ -447,6 +465,8 @@ class UPnPsdk_API CSocket : public CSocket_basic {
     SUPPRESS_MSVC_WARN_4251_NEXT_LINE
     mutable std::mutex m_listen_mutex;
     bool m_listen{false}; // Protected by a mutex.
+
+    void get_sockfd(sa_family_t a_pf_family, int a_socktype);
 };
 
 

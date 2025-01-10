@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-31
+// Redistribution only with this Copyright remark. Last modified: 2025-01-11
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -11,6 +11,12 @@
 #include <UPnPsdk/port.hpp>
 #include <UPnPsdk/port_sock.hpp>
 /// \cond
+#ifdef _MSC_VER
+#include <afunix.h>
+#else
+#include <sys/un.h>
+#endif
+
 #include <string>
 /// \endcond
 
@@ -27,6 +33,7 @@ namespace UPnPsdk {
  */
 union sockaddr_t {
     ::sockaddr_storage ss;
+    ::sockaddr_un sun;
     ::sockaddr_in6 sin6;
     ::sockaddr_in sin;
     ::sockaddr sa;
@@ -76,7 +83,7 @@ void split_addr_port( //
 // Usage e.g.:
 ::sockaddr_storage saddr{};
 SSockaddr saObj;
-::memcpy(&saObj.ss, &saddr, saObj.sizeof_ss());
+::memcpy(&saObj.ss, &saddr, sizeof(saObj.ss));
 std::cout << "netaddress of saObj is " << saObj.netaddr() << "\n";
 \endcode
  *
@@ -86,6 +93,8 @@ std::cout << "netaddress of saObj is " << saObj.netaddr() << "\n";
 struct UPnPsdk_API SSockaddr {
     /// Reference to sockaddr_storage struct
     sockaddr_storage& ss = m_sa_union.ss;
+    /// Reference to sockaddr_un struct
+    sockaddr_un& sun = m_sa_union.sun;
     /// Reference to sockaddr_in6 struct
     sockaddr_in6& sin6 = m_sa_union.sin6;
     /// Reference to sockaddr_in struct
@@ -106,7 +115,6 @@ struct UPnPsdk_API SSockaddr {
     // SSockaddr::ss (instantiated e.g. ssObj.ss) to access the trivial
     // member structure.
     // operator const ::sockaddr_storage&() const;
-
 
     // Copy constructor
     /*! \brief Copy constructor, also needed for copy assignment operator.
@@ -140,20 +148,23 @@ struct UPnPsdk_API SSockaddr {
      * \code
      * // Usage e.g.:
      * SSockaddr saObj;
+     * saObj = ""; // Clears the address storage.
      * saObj = "[2001:db8::1]";
      * saObj = "[2001:db8::1]:50001";
      * saObj = "192.168.1.1";
      * saObj = "192.168.1.1:50001";
      *  \endcode
-     * An empty netaddress "" clears the address storage.
      * \exception std::invalid_argument Invalid netaddress
      *
      * Assign rules are:\n
      * a netaddress consists of two parts, ip address and port. A netaddress
-     * has always a port. With an invalid ip address the whole netaddress is
-     * unspecified and results to "". Valid special cases are these well
-     * defined unspecified addresses:
+     * has always a port. A cleared socket address is empty. On an empty socket
+     * address
+     * - SSockaddr::netaddr() returns "" (empty string)
+     * - SSockaddr::netaddrp() returns ":0"\n\n
+     * Valid special cases are these well defined unspecified addresses:
 \verbatim
+""              results to  ":0"
 "[::]"          results to  "[::]:0"
 "[::]:"         results to  "[::]:0"
 "[::]:0"        results to  "[::]:0"
@@ -182,23 +193,6 @@ struct UPnPsdk_API SSockaddr {
      * saObj = 50001;
      * \endcode */
     void operator=(const in_port_t a_port);
-
-
-    // Clear socket address
-    // --------------------
-    /*! \brief Clear socket address to contain no address info
-     * \code
-     * // Usage e.g.:
-     * SSockaddr saObj;
-     * saObj = "[2001:db8::1]:50001";
-     * std::cout << saObj << '\n'; // output "[2001:db8::1]:50001"
-     * saObj.clear();
-     * std::cout << saObj << '\n'; // output ":0"
-     * \endcode
-     * A cleared socket address is empty. On an empty socket address
-     * - SSockaddr::netaddr returns "" (empty string)
-     * - SSockaddr::netaddrp returns ":0" */
-    void clear();
     /// @} Setter
 
 
@@ -212,9 +206,9 @@ struct UPnPsdk_API SSockaddr {
      *  \b true if socket addresses are logical equal\n
      *  \b false otherwise
      *
-     * It only supports AF_INET6 and AF_INET. For all other address families it
-     * returns false. */
-    bool operator==(const ::sockaddr_storage&) const;
+     * It only supports AF_INET6 and AF_INET. For all other address families \b
+     * false is returned. */
+    bool operator==(const SSockaddr&) const;
 
 
     // Getter for a netaddress
@@ -241,9 +235,6 @@ struct UPnPsdk_API SSockaddr {
 
     /// \brief Get the numeric port
     virtual in_port_t get_port() const;
-
-    /// \brief Get sizeof the Sockaddr Structure
-    socklen_t sizeof_ss() const;
 
     /// Get sizeof the current (sin6 or sin) Sockaddr Structure
     socklen_t sizeof_saddr() const;

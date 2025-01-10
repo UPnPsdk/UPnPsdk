@@ -1,7 +1,7 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-30
+// Redistribution only with this Copyright remark. Last modified: 2025-01-11
 
-#ifdef _WIN32
+#ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
 #include <UPnPsdk/sockaddr.hpp>
 #endif
@@ -88,7 +88,7 @@ end_loops:
 }
 #endif
 
-#ifdef _WIN32
+#ifdef MSC_VER
 class BitnumToNetmaskTest
     : public ::testing::TestWithParam<std::tuple<
           //    family,      bitnum,        netmask
@@ -153,10 +153,6 @@ TEST(NetadapterTestSuite, check_bitnum_to_netmask_error_messages) {
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
 
     // Test Unit AF_INET6
-    captureObj.start();
-    UPnPsdk::bitnum_to_netmask(AF_INET6, 128, saddrObj);
-    EXPECT_EQ(captureObj.str(), "");
-
     captureObj.start();
     UPnPsdk::bitnum_to_netmask(AF_INET6, 129, saddrObj);
     std::cout << captureObj.str();

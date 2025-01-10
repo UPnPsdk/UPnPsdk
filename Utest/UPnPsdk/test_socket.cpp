@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-06
+// Redistribution only with this Copyright remark. Last modified: 2025-01-13
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -179,38 +179,37 @@ TEST(SocketBasicTestSuite, instantiate_socket_successful) {
 }
 
 TEST(SocketBasicTestSuite, instantiate_empty_socket) {
-    if (!github_actions) {
-        // Test Unit
-        CSocket_basic sockObj;
-        SSockaddr saObj;
-        ASSERT_NO_THROW(sockObj.sockaddr(saObj));
+    // Test Unit
+    CSocket_basic sockObj;
+    ASSERT_EQ(static_cast<SOCKET>(sockObj), INVALID_SOCKET);
+    ASSERT_FALSE(sockObj.is_bound());
 
-        EXPECT_EQ(static_cast<SOCKET>(sockObj), INVALID_SOCKET);
-        // All getter from an INVALID_SOCKET throw an exception.
-        EXPECT_THAT([&saObj]() { saObj.netaddr(); },
-                    ThrowsMessage<std::runtime_error>(
-                        HasSubstr("] EXCEPTION MSG1001: ")));
-        EXPECT_THAT([&saObj]() { saObj.netaddrp(); },
-                    ThrowsMessage<std::runtime_error>(
-                        // Different on MacOS with MSG1001.
-                        AnyOf(HasSubstr("] EXCEPTION MSG1057: "),
-                              HasSubstr("] EXCEPTION MSG1001: "))));
-        EXPECT_THAT([&saObj]() { saObj.get_port(); },
-                    ThrowsMessage<std::runtime_error>(
-                        HasSubstr("] EXCEPTION MSG1001: ")));
-        EXPECT_THAT([&sockObj]() { sockObj.get_socktype(); },
-                    ThrowsMessage<std::runtime_error>(
-                        HasSubstr("] EXCEPTION MSG1030: ")));
-        EXPECT_THAT([&sockObj]() { sockObj.get_sockerr(); },
-                    ThrowsMessage<std::runtime_error>(
-                        HasSubstr("] EXCEPTION MSG1011: ")));
-        EXPECT_THAT([&sockObj]() { sockObj.is_reuse_addr(); },
-                    ThrowsMessage<std::runtime_error>(
-                        HasSubstr("] EXCEPTION MSG1013: ")));
-        EXPECT_THAT([&sockObj]() { sockObj.is_bound(); },
-                    ThrowsMessage<std::runtime_error>(
-                        HasSubstr("] EXCEPTION MSG1001: ")));
-    }
+    sockObj.sockaddr(sa);
+    EXPECT_EQ(sa.netaddrp(), ":0");
+
+    EXPECT_THAT(
+        [&sockObj]() { sockObj.get_socktype(); },
+        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1030: ")));
+    EXPECT_THAT(
+        [&sockObj]() { sockObj.get_sockerr(); },
+        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1011: ")));
+    EXPECT_THAT(
+        [&sockObj]() { sockObj.is_reuse_addr(); },
+        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1013: ")));
+}
+
+TEST(SocketTestSuite, instantiate_empty_socket) {
+    // Test Unit
+    CSocket sockObj;
+    ASSERT_EQ(static_cast<SOCKET>(sockObj), INVALID_SOCKET);
+    ASSERT_FALSE(sockObj.is_bound());
+
+    EXPECT_THAT(
+        [&sockObj]() { sockObj.is_v6only(); },
+        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1028: ")));
+    EXPECT_THAT(
+        [&sockObj]() { sockObj.is_listen(); },
+        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1035: ")));
 }
 
 TEST(SocketBasicTestSuite, instantiate_with_bound_socket_fd) {
@@ -236,127 +235,44 @@ TEST(SocketBasicTestSuite, instantiate_with_bound_socket_fd) {
     EXPECT_FALSE(sockObj.is_reuse_addr());
 }
 
-TEST(SocketBasicTestSuite, instantiate_socket_af_unix_sock_stream) {
+TEST(SocketBasicTestSuite, instantiate_socket_af_unix) {
+    // With family AF_UNIX the types SOCK_STREAM, SOCK_DGRAM, and
+    // SOCK_SEQPACKET are valid (man unix(7)). It defines a 'struct
+    // sockaddr_un' (man sockaddr).
+#ifdef _MSC_VER
+    // Microsoft Windows only supports SOCK_STREAM for AF_UNIX
     SOCKET sfd = ::socket(AF_UNIX, SOCK_STREAM, 0);
-    ASSERT_NE(sfd, INVALID_SOCKET);
-
-    CSocket_basic sockObj(sfd);
-    sockObj.load();
-    SSockaddr saObj;
-    memset(&saObj.ss, 0xAA, sizeof(saObj.ss));
-    sockObj.sockaddr(saObj);
-
-    EXPECT_NE((SOCKET)sockObj, INVALID_SOCKET);
-    EXPECT_EQ(saObj.ss.ss_family, AF_UNIX);
-    EXPECT_EQ(sockObj.get_socktype(), SOCK_STREAM);
-    // 43690 is unmodified, macOS returns 0.
-    EXPECT_THAT(saObj.get_port(), AnyOf(0, 43690));
-    EXPECT_EQ(sockObj.get_sockerr(), 0);
-    EXPECT_FALSE(sockObj.is_reuse_addr());
-
-    bool g_dbug_old = g_dbug;
-    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
-    g_dbug = false;
-    captureObj.start();
-    EXPECT_EQ(saObj.netaddr(), "");
-    EXPECT_THAT(
-        captureObj.str(),
-        AnyOf("",
-              ContainsStdRegex(
-                  "^TRACE\\[.*\\].* Executing CSocket_basic::netaddr\\(\\)")));
-    g_dbug = true;
-    captureObj.start();
-    EXPECT_EQ(saObj.netaddr(), "");
-    EXPECT_THAT(captureObj.str(),
-                HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
-    g_dbug = g_dbug_old;
-
-    CLOSE_SOCKET_P(sfd);
-}
-
-TEST(SocketBasicTestSuite, instantiate_socket_af_unix_sock_dgram) {
+#else
     SOCKET sfd = ::socket(AF_UNIX, SOCK_DGRAM, 0);
+#endif
 
-// Seems this isn't supported on Microsoft Windows
-#ifndef _MSC_VER
     ASSERT_NE(sfd, INVALID_SOCKET);
     CSocket_basic sockObj(sfd);
     sockObj.load();
-    SSockaddr saObj;
-    memset(&saObj.ss, 0xAA, sizeof(saObj.ss));
-    sockObj.sockaddr(saObj);
 
-    EXPECT_NE((SOCKET)sockObj, INVALID_SOCKET);
-    EXPECT_EQ(saObj.ss.ss_family, AF_UNIX);
+    EXPECT_NE(static_cast<SOCKET>(sockObj), INVALID_SOCKET);
+#ifdef _MSC_VER
+    // Microsoft Windows only supports SOCK_STREAM for AF_UNIX
+    EXPECT_EQ(sockObj.get_socktype(), SOCK_STREAM);
+#else
     EXPECT_EQ(sockObj.get_socktype(), SOCK_DGRAM);
-    // 43690 is unmodified, macOS returns 0.
-    EXPECT_THAT(saObj.get_port(), AnyOf(0, 43690));
+#endif
     EXPECT_EQ(sockObj.get_sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-#else
-    EXPECT_EQ(sfd, INVALID_SOCKET);
-#endif
 
-    CLOSE_SOCKET_P(sfd);
-}
-
-TEST(SocketBasicTestSuite, instantiate_socket_af_unix_sock_raw) {
-    // The GCC compiler accepts with family AF_UNIX the types SOCK_STREAM,
-    // SOCK_DGRAM, SOCK_RAW (changes silently to SOCK_DGRAM) and
-    // SOCK_SEQPACKET.
-    SOCKET sfd = ::socket(AF_UNIX, SOCK_RAW, 0);
-
-// Seems this is only supported by the GCC compiler
-#if defined(__GNUC__) && !defined(__clang__)
-    ASSERT_NE(sfd, INVALID_SOCKET);
-    CSocket_basic sockObj(sfd);
-    sockObj.load();
+    // The socket is not bound to an address from a local network adapter so we
+    // will find an unknown address of the address family.
+    EXPECT_FALSE(sockObj.is_bound());
     SSockaddr saObj;
     memset(&saObj.ss, 0xAA, sizeof(saObj.ss));
+    // Next returns a UNIX domain 'struct sockaddr_un'.
     sockObj.sockaddr(saObj);
-
-    EXPECT_NE((SOCKET)sockObj, INVALID_SOCKET);
     EXPECT_EQ(saObj.ss.ss_family, AF_UNIX);
-    // Silently changed
-    EXPECT_EQ(sockObj.get_socktype(), SOCK_DGRAM);
-    if (github_actions)
-        EXPECT_EQ(saObj.get_port(), 43690); // Untouched sockaddr ?
-    else
-        EXPECT_EQ(saObj.get_port(), 0);
-    EXPECT_EQ(sockObj.get_sockerr(), 0);
-    EXPECT_FALSE(sockObj.is_reuse_addr());
-#else
-    EXPECT_EQ(sfd, INVALID_SOCKET);
-#endif
-
-    CLOSE_SOCKET_P(sfd);
-}
-
-TEST(SocketBasicTestSuite, instantiate_socket_af_unix_sock_seqpacket) {
-    // The GCC compiler accepts with family AF_UNIX the types SOCK_STREAM,
-    // SOCK_DGRAM, SOCK_RAW (changes silently to SOCK_DGRAM) and
-    // SOCK_SEQPACKET.
-    SOCKET sfd = ::socket(AF_UNIX, SOCK_SEQPACKET, 0);
-
-// Seems this is only supported by the GCC compiler
-#if defined(__GNUC__) && !defined(__clang__)
-    ASSERT_NE(sfd, INVALID_SOCKET);
-    CSocket_basic sockObj(sfd);
-    sockObj.load();
-    EXPECT_NE((SOCKET)sockObj, INVALID_SOCKET);
-    SSockaddr saObj;
-    memset(&saObj.ss, 0xAA, sizeof(saObj.ss));
-    sockObj.sockaddr(saObj);
-
-    if (github_actions)
-        EXPECT_EQ(saObj.get_port(), 43690); // Untouched sockaddr ?
-    else
-        EXPECT_EQ(saObj.get_port(), 0);
-    EXPECT_EQ(sockObj.get_sockerr(), 0);
-    EXPECT_FALSE(sockObj.is_reuse_addr());
-#else
-    EXPECT_EQ(sfd, INVALID_SOCKET);
-#endif
+    EXPECT_EQ(saObj.sun.sun_family, AF_UNIX);
+    EXPECT_STREQ(saObj.sun.sun_path, "");
+    EXPECT_EQ(saObj.netaddr(), "");
+    EXPECT_EQ(saObj.get_port(), 0);
+    EXPECT_EQ(saObj.netaddrp(), ":0");
 
     CLOSE_SOCKET_P(sfd);
 }
@@ -591,34 +507,6 @@ TEST(SocketTestSuite, try_to_instantiate_invalid_sockets) {
             HasSubstr("] EXCEPTION MSG1016: ")));
 }
 
-TEST(SocketTestSuite, instantiate_empty_socket) {
-    // Test Unit
-    CSocket sockObj;
-    EXPECT_EQ(static_cast<SOCKET>(sockObj), INVALID_SOCKET);
-    // All getter from an INVALID_SOCKET throw an exception.
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.sockaddr(sa); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1001: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.get_socktype(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1030: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.get_sockerr(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1011: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.is_reuse_addr(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1013: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.is_v6only(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1028: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.is_bound(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1001: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.is_listen(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1035: ")));
-}
-
 TEST(SocketTestSuite, move_socket_successful) {
     // Provide a socket object
     CSocket sock1(PF_INET, SOCK_STREAM);
@@ -824,9 +712,9 @@ TEST(SocketTestSuite, get_addr_str_ipv4_successful) {
 TEST(SocketTestSuite, get_sockaddr_from_invalid_socket) {
     // Test Unit wit empty socket.
     CSocket sockObj;
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.sockaddr(sa); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1001: ")));
+    EXPECT_FALSE(sockObj.is_bound());
+    sockObj.sockaddr(sa);
+    EXPECT_EQ(sa.netaddrp(), ":0");
 }
 
 TEST(SocketTestSuite, get_addr_str_from_unbound_socket) {
@@ -854,43 +742,6 @@ TEST_F(SocketMockFTestSuite, get_sockaddr_syscall_fail) {
     EXPECT_THAT(
         [&sockObj]() { sockObj.sockaddr(sa); },
         ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1001: ")));
-}
-
-TEST_F(SocketMockFTestSuite, get_sockaddr_invalid_address_family) {
-    // Get a socket and bind it to the local address.
-    CSocket sockObj(PF_INET6, SOCK_STREAM);
-    ASSERT_NO_THROW(sockObj.load());
-    ASSERT_NO_THROW(sockObj.bind("", "8080", AI_PASSIVE));
-
-    // Provide invalid address family.
-    ::sockaddr_storage ss{};
-    ss.ss_family = static_cast<sa_family_t>(255);
-
-    // Mock system function
-    umock::Sys_socket sys_socket_injectObj(&m_sys_socketObj);
-    EXPECT_CALL(
-        m_sys_socketObj,
-        getsockname(static_cast<SOCKET>(sockObj), _,
-                    Pointee(static_cast<int>(sizeof(::sockaddr_storage)))))
-        .WillOnce(DoAll(SetArgPointee<1>(*reinterpret_cast<sockaddr*>(&ss)),
-                        Return(0)));
-
-    // Test Unit
-    sockObj.sockaddr(sa);
-    bool g_dbug_old = g_dbug;
-    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
-    g_dbug = false;
-    captureObj.start();
-    EXPECT_EQ(sa.netaddrp(), "");
-    EXPECT_THAT(captureObj.str(),
-                AnyOf("", ContainsStdRegex("^TRACE\\[.*\\].* Executing "
-                                           "CSocket_basic::netaddrp\\(\\)")));
-    g_dbug = true;
-    captureObj.start();
-    EXPECT_EQ(sa.netaddrp(), "");
-    EXPECT_THAT(captureObj.str(),
-                HasSubstr("] ERROR MSG1129: Unsupported address family 255"));
-    g_dbug = g_dbug_old;
 }
 
 TEST(SocketBindTestSuite, bind_ipv6_successful) {
@@ -1101,7 +952,7 @@ TEST(SocketBindTestSuite, bind_with_empty_socket_fails) {
             CSocket sockObj;
             sockObj.bind("", "8080", AI_PASSIVE);
         },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1001: ")));
+        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1030: ")));
 }
 
 TEST(SocketBindTestSuite, bind_two_times_different_addresses_fail) {

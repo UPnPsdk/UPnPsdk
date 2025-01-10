@@ -75,7 +75,7 @@ void CNetadapter_platform::sockaddr(SSockaddr& a_saddr) const {
     TRACE2(this, " Executing CNetadapter_platform::sockaddr()")
     if (m_ifa_current == nullptr) {
         // If no information found then return an empty netaddress.
-        a_saddr.clear();
+        a_saddr = "";
     } else {
         // Copy address of the network adapter.
         memcpy(&a_saddr.ss,

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-02
+// Redistribution only with this Copyright remark. Last modified: 2025-01-13
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -111,10 +111,10 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
     // with parallel running threads here. For example running the miniserver
     // with schedule_request_job() in a new thread cannot be finished before the
     // mocked miniserver shutdown in the calling thread has been executed at
-    // Unit end. This is why I prevent starting other threads. We only test
+    // Unit end. This is why I prevent starting other threads. I only test
     // initialize running the miniserver and stopping it.
     //
-    // We have 7 socket file descriptors and additional 2 with client APIs,
+    // I have 7 socket file descriptors and additional 2 with client APIs,
     // that are used to listen to the different IPv4 and IPv6 protocols for the
     // miniserver (4 fds), the ssdp service (3 fds) and the ssdp request
     // service (2 fds). These are file descriptors summarized in the structure
@@ -190,9 +190,9 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
         // Mock that the socket fd ist bound to an address of a local interface.
         ssObj = "[2001:db8::cd]:50059";
         EXPECT_CALL(m_sys_socketObj, getsockname(m_minisock->miniServerSock4, _,
-                                                 Pointee(ssObj.sizeof_ss())))
+                                                 Pointee(sizeof(ssObj.ss))))
             .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa),
-                            SetArgPointee<2>(ssObj.sizeof_ss()), Return(0)));
+                            SetArgPointee<2>(ssObj.sizeof_saddr()), Return(0)));
 
         // select() in RunMiniServer() also succeeds.
         EXPECT_CALL(m_sys_socketObj,
@@ -203,8 +203,9 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
     // accept() in RunMiniServer() succeeds and returns the remote ip address
     // that it is connected to.
     ssObj = "192.168.200.201:" + remote_connect_port;
-    EXPECT_CALL(m_sys_socketObj, accept(m_minisock->miniServerSock4, NotNull(),
-                                        Pointee(Ge(ssObj.sizeof_ss()))))
+    EXPECT_CALL(m_sys_socketObj,
+                accept(m_minisock->miniServerSock4, NotNull(),
+                       Pointee(Ge(static_cast<SIZEP_T>(sizeof(ssObj.ss))))))
         .WillOnce(
             DoAll(SetArgPointee<1>(ssObj.sa), Return(remote_connect_sockfd)));
 
@@ -215,7 +216,7 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
     // It is important to expect shutdown_strlen.
     EXPECT_CALL(m_sys_socketObj,
                 recvfrom(m_minisock->miniServerStopSock, _, Ge(shutdown_strlen),
-                         0, _, Pointee(ssObj.sizeof_ss())))
+                         0, _, Pointee(sizeof(ssObj.ss))))
         .WillOnce(DoAll(StrCpyToArg<1>(shutdown_str),
                         SetArgPointee<4>(ssObj.sa), Return(shutdown_strlen)));
 
@@ -280,9 +281,9 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_select_fails_with_no_memory) {
         // Mock that the socket fd ist bound to an address of a local interface.
         ssObj = "192.168.10.10:50060";
         EXPECT_CALL(m_sys_socketObj, getsockname(m_minisock->miniServerSock4, _,
-                                                 Pointee(ssObj.sizeof_ss())))
+                                                 Pointee(sizeof(ssObj.ss))))
             .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa),
-                            SetArgPointee<2>(ssObj.sizeof_ss()), Return(0)));
+                            SetArgPointee<2>(sizeof(ssObj.ss)), Return(0)));
 
         // but select in RunMiniServer() fails
         EXPECT_CALL(m_sys_socketObj,
@@ -370,11 +371,12 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_accept_fails) {
         // Mock that the socket fd ist bound to an address.
         SSockaddr ssObj;
         ssObj = "[2001:db8::ab]:50044";
-        EXPECT_CALL(m_sys_socketObj,
-                    getsockname(m_minisock->miniServerSock4, _,
-                                Pointee(Ge(ssObj.sizeof_ss()))))
+        EXPECT_CALL(
+            m_sys_socketObj,
+            getsockname(m_minisock->miniServerSock4, _,
+                        Pointee(Ge(static_cast<SIZEP_T>(sizeof(ssObj.ss))))))
             .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa),
-                            SetArgPointee<2>(ssObj.sizeof_ss()), Return(0)));
+                            SetArgPointee<2>(ssObj.sizeof_saddr()), Return(0)));
     }
 
     // select in RunMiniServer() also succeeds.
@@ -420,10 +422,14 @@ TEST_F(RunMiniServerMockFTestSuite, fdset_if_valid_read_successful) {
         // interface address. Here I mock it to find the socket is bound.
         SSockaddr ssObj;
         ssObj = "192.168.10.11:50061";
-        EXPECT_CALL(m_sys_socketObj,
-                    getsockname(sockfd, _, Pointee(Ge(ssObj.sizeof_ss()))))
-            .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa),
-                            SetArgPointee<2>(ssObj.sizeof_ss()), Return(0)));
+        EXPECT_CALL(
+            m_sys_socketObj,
+            getsockname(sockfd, _,
+                        Pointee(Ge(static_cast<SIZEP_T>(sizeof(ssObj.ss))))))
+            .WillOnce(DoAll(
+                SetArgPointee<1>(ssObj.sa),
+                SetArgPointee<2>(static_cast<SIZEP_T>(ssObj.sizeof_saddr())),
+                Return(0)));
     }
 
     // Test Unit
@@ -569,10 +575,12 @@ TEST_F(RunMiniServerMockFTestSuite, fdset_if_valid_fails_with_unbind_socket) {
         // to find the socket is not bound.
         SSockaddr ssObj;
         ssObj = "[::]";
-        EXPECT_CALL(m_sys_socketObj,
-                    getsockname(sockfd, _, Pointee(Ge(ssObj.sizeof_ss()))))
+        EXPECT_CALL(
+            m_sys_socketObj,
+            getsockname(sockfd, _,
+                        Pointee(Ge(static_cast<SIZEP_T>(sizeof(ssObj.ss))))))
             .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa),
-                            SetArgPointee<2>(ssObj.sizeof_ss()), Return(0)));
+                            SetArgPointee<2>(sizeof(ssObj.ss)), Return(0)));
     }
 
     // Test Unit
@@ -613,7 +621,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_successful) {
     // Mock system functions
     // expected_destbuflen is important here to avoid buffer limit overwrite.
     EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(expected_destbuflen), 0,
-                                          _, Pointee(ssObj.sizeof_ss())))
+                                          _, Pointee(sizeof(ssObj.ss))))
         .WillOnce(DoAll(StrnCpyToArg<1>(shutdown_str, expected_destbuflen),
                         SetArgPointee<4>(ssObj.sa),
                         Return(expected_destbuflen)));
@@ -682,7 +690,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_no_bytes_received) {
 
     // Mock system functions
     EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(bufsizeof_ShutDown_str),
-                                          0, _, Pointee(ssObj.sizeof_ss())))
+                                          0, _, Pointee(sizeof(ssObj.ss))))
         .WillOnce(DoAll(StrCpyToArg<1>(shutdown_str),
                         SetArgPointee<4>(ssObj.sa), Return(0)));
 
@@ -722,7 +730,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_wrong_stop_message) {
     // Mock system functions
     // expected_destbuflen is important here to avoid buffer limit overwrite.
     EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(expected_destbuflen), 0,
-                                          _, Pointee(ssObj.sizeof_ss())))
+                                          _, Pointee(sizeof(ssObj.ss))))
         .WillOnce(DoAll(StrnCpyToArg<1>(shutdown_str, expected_destbuflen),
                         SetArgPointee<4>(ssObj.sa),
                         Return(expected_destbuflen)));
@@ -753,7 +761,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_from_wrong_address) {
     // Mock system functions
     // expected_destbuflen is important here to avoid buffer limit overwrite.
     EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(expected_destbuflen), 0,
-                                          _, Pointee(ssObj.sizeof_ss())))
+                                          _, Pointee(sizeof(ssObj.ss))))
         .WillOnce(DoAll(StrnCpyToArg<1>(shutdown_str, expected_destbuflen),
                         SetArgPointee<4>(ssObj.sa),
                         Return(expected_destbuflen)));
@@ -791,7 +799,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_without_0_termbyte) {
     // Mock system functions
     // expected_destbuflen is important here to avoid buffer limit overwrite.
     EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(expected_destbuflen), 0,
-                                          _, Pointee(ssObj.sizeof_ss())))
+                                          _, Pointee(sizeof(ssObj.ss))))
         .WillOnce(DoAll(StrnCpyToArg<1>(shutdown_str, expected_destbuflen),
                         SetArgPointee<4>(ssObj.sa),
                         Return(expected_destbuflen)));
@@ -931,7 +939,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_successful) {
     SSockaddr ssObj;
     ssObj = "192.168.201.202:" + connected_port;
     EXPECT_CALL(m_sys_socketObj,
-                accept(listen_sockfd, NotNull(), Pointee(ssObj.sizeof_ss())))
+                accept(listen_sockfd, NotNull(), Pointee(sizeof(ssObj.ss))))
         .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa), Return(connected_sockfd)));
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
@@ -1128,7 +1136,8 @@ TEST_F(RunMiniServerMockFTestSuite, get_numeric_host_redirection) {
                     getsockopt(sockfd, SOL_SOCKET, SO_ERROR, _, _))
             .WillOnce(Return(0));
         EXPECT_CALL(m_sys_socketObj, getsockname(sockfd, _, _))
-            .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa), Return(0)));
+            .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa),
+                            SetArgPointee<2>(ssObj.sizeof_saddr()), Return(0)));
         EXPECT_TRUE(
             getNumericHostRedirection(sockfd, host_port, sizeof(host_port)));
     }
@@ -1258,7 +1267,7 @@ TEST_F(RunMiniServerMockFTestSuite,
                                        "getNumericHostRedirection\\(\\)")));
         EXPECT_TRUE(ret_getNumericHostRedirection); // Doesn't matter because it
                                                     // is never used.
-        EXPECT_STREQ(host_port, ""); // Set to an unknown netaddress.
+        EXPECT_STREQ(host_port, ":0"); // Set to an unspecified netaddress.
 
         // Test Unit
         captureObj.start();
@@ -1272,7 +1281,7 @@ TEST_F(RunMiniServerMockFTestSuite,
                     HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
         EXPECT_TRUE(ret_getNumericHostRedirection); // Doesn't matter because it
                                                     // is never used.
-        EXPECT_STREQ(host_port, ""); // Set to an unknown netaddress.
+        EXPECT_STREQ(host_port, ":0"); // Set to an unspecified netaddress.
     }
 }
 

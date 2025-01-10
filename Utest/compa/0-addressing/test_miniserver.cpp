@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-03
+// Redistribution only with this Copyright remark. Last modified: 2025-01-11
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -826,7 +826,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_CALL(
         m_sys_socketObj,
         getsockname(sockfd, _,
-                    Pointee(Ge(static_cast<socklen_t>(saddrObj.sizeof_ss())))))
+                    Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
         .WillOnce(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
     // Listen on the socket
     EXPECT_CALL(m_sys_socketObj, listen(sockfd, _)).WillOnce(Return(0));
@@ -850,9 +850,11 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_CALL(
         m_sys_socketObj,
         getsockname(sockfd, _,
-                    Pointee(Ge(static_cast<socklen_t>(saddrObj.sizeof_ss())))))
+                    Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
         .Times(g_dbug ? 3 : 2) // additional call with debug output
-        .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
+        .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa),
+                              SetArgPointee<2>(saddrObj.sizeof_saddr()),
+                              Return(0)));
     EXPECT_CALL(m_sys_socketObj, getsockopt(sockfd, SOL_SOCKET, SO_TYPE, _, _))
         .WillOnce(DoAll(SetArgPtrIntValue<3>(SOCK_STREAM), Return(0)));
     // Bind socket to an ip address
@@ -944,9 +946,11 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_CALL(
         m_sys_socketObj,
         getsockname(sockfd, _,
-                    Pointee(Ge(static_cast<socklen_t>(saddrObj.sizeof_ss())))))
+                    Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
         .Times(g_dbug ? 3 : 2) // additional call with debug output
-        .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
+        .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa),
+                              SetArgPointee<2>(saddrObj.sizeof_saddr()),
+                              Return(0)));
     EXPECT_CALL(m_sys_socketObj, getsockopt(sockfd, SOL_SOCKET, SO_TYPE, _, _))
         .WillOnce(DoAll(SetArgPtrIntValue<3>(SOCK_STREAM), Return(0)));
     // Bind socket to an ip address
@@ -1279,7 +1283,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_successful) {
     EXPECT_CALL(
         m_sys_socketObj,
         getsockname(sockfd, _,
-                    Pointee(Ge(static_cast<socklen_t>(saddrObj.sizeof_ss())))))
+                    Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
         .WillOnce(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
 
     // Test Unit
@@ -1290,8 +1294,9 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_successful) {
     // Check all fields of struct s_SocketStuff
     EXPECT_EQ(s.ip_version, 4);
     EXPECT_STREQ(s.text_addr, text_addr);
-    EXPECT_TRUE(saddrObj ==
-                *reinterpret_cast<sockaddr_storage*>(s.serverAddr4));
+    SSockaddr sa_serverAddr4;
+    memcpy(&sa_serverAddr4.ss, s.serverAddr4, sizeof(sa_serverAddr4.ss));
+    EXPECT_TRUE(saddrObj == sa_serverAddr4);
     EXPECT_EQ(s.serverAddr4->sin_family, AF_INET);
     EXPECT_STREQ(
         inet_ntop(AF_INET, &s.serverAddr4->sin_addr, addrbuf, sizeof(addrbuf)),
@@ -1421,7 +1426,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_address_in_use) {
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(sockfd_free, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    saddrObj.sizeof_ss())))))
+                                    sizeof(saddrObj.ss))))))
             .WillOnce(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
 
         // Test Unit
@@ -1862,7 +1867,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_listen_successful) {
     EXPECT_CALL(
         m_sys_socketObj,
         getsockname(sockfd, _,
-                    Pointee(Ge(static_cast<socklen_t>(saddrObj.sizeof_ss())))))
+                    Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
         .WillOnce(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
 
     // Test Unit
