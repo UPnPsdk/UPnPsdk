@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-11
+// Redistribution only with this Copyright remark. Last modified: 2025-01-28
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -89,6 +89,7 @@ std::cout << "netaddress of saObj is " << saObj.netaddr() << "\n";
  *
  * This structure should be usable on a low level like the trival C `struct
  * ::%sockaddr_storage` but provides additional methods to manage its data.
+ * When ever this SDK manage a network address it uses an object of this class.
  */
 struct UPnPsdk_API SSockaddr {
     /// Reference to sockaddr_storage struct
@@ -154,17 +155,17 @@ struct UPnPsdk_API SSockaddr {
      * saObj = "192.168.1.1";
      * saObj = "192.168.1.1:50001";
      *  \endcode
-     * \exception std::invalid_argument Invalid netaddress
-     *
      * Assign rules are:\n
      * a netaddress consists of two parts, ip address and port. A netaddress
      * has always a port. A cleared socket address is empty. On an empty socket
-     * address
-     * - SSockaddr::netaddr() returns "" (empty string)
-     * - SSockaddr::netaddrp() returns ":0"\n\n
+     * address\n
+     * SSockaddr::netaddr() returns "" (empty string)\n
+     * SSockaddr::netaddrp() returns ":0"\n\n
      * Valid special cases are these well defined unspecified addresses:
 \verbatim
 ""              results to  ":0"
+":0"            results to  ":0"
+"::"            results to  "[::]:0"
 "[::]"          results to  "[::]:0"
 "[::]:"         results to  "[::]:0"
 "[::]:0"        results to  "[::]:0"
@@ -178,6 +179,13 @@ struct UPnPsdk_API SSockaddr {
 \verbatim
 "[2001:db8::51]:98765" results to "[2001:db8::51]:0"
 \endverbatim
+     * Setting only the port number does not modify the address part.\n
+\verbatim
+"[2001:db8::52]:50001" results to "[2001:db8::52]:50001"
+              ":55555" results to "[2001:db8::52]:55555" (address prev setting)
+\endverbatim
+     * \exception std::invalid_argument
+     *            Invalid [netaddress](\ref glossary_netaddr).
     */
     void operator=(
         /// [in] String with a possible netaddress
@@ -236,7 +244,7 @@ struct UPnPsdk_API SSockaddr {
     /// \brief Get the numeric port
     virtual in_port_t get_port() const;
 
-    /// Get sizeof the current (sin6 or sin) Sockaddr Structure
+    /// Get sizeof the current filled (sin6 or sin) Sockaddr Structure
     socklen_t sizeof_saddr() const;
     /// @} Getter
 

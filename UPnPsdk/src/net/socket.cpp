@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-09
+// Redistribution only with this Copyright remark. Last modified: 2025-01-31
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -34,6 +34,7 @@ int getsockname(SOCKET a_sockfd, sockaddr* a_addr, socklen_t* a_addrlen) {
     TRACE("Executing getsockname()");
 
     int ret = umock::sys_socket_h.getsockname(a_sockfd, a_addr, a_addrlen);
+
     if (ret == 0) {
         return 0;
     }
@@ -65,6 +66,102 @@ int getsockname(SOCKET a_sockfd, sockaddr* a_addr, socklen_t* a_addrlen) {
         static_cast<unsigned short>(protocol_info.iAddressFamily);
     return 0;
 #endif
+}
+
+/*!
+ * \brief Get a socket file descriptor from the operating system
+ * <!--   -------------------------------------------------- -->
+ * \ingroup upnplib-socket
+ *
+ * Get a socket file descriptor and set its default options as specified.
+ */
+SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
+    TRACE(" Executing get_sockfd()")
+
+    // Do some general checks that must always be done according to the
+    // specification.
+    if (a_pf_family != PF_INET6 && a_pf_family != PF_INET)
+        throw std::invalid_argument(
+            UPnPsdk_LOGEXCEPT +
+            "MSG1015: Failed to create socket: invalid protocol family " +
+            std::to_string(a_pf_family));
+    if (a_socktype != SOCK_STREAM && a_socktype != SOCK_DGRAM)
+        throw std::invalid_argument(
+            UPnPsdk_LOGEXCEPT +
+            "MSG1016: Failed to create socket: invalid socket type " +
+            std::to_string(a_socktype));
+
+    CSocketErr serrObj;
+
+    // Syscall socket(): get new socket file descriptor.
+    SOCKET sfd = umock::sys_socket_h.socket(a_pf_family, a_socktype, 0);
+    UPnPsdk_LOGINFO << "MSG1135: syscall ::socket(" << a_pf_family << ", "
+                    << a_socktype << ", 0). Get socket fd " << sfd << '\n';
+    if (sfd == INVALID_SOCKET) {
+        serrObj.catch_error();
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT +
+            "MSG1017: Failed to create socket: " + serrObj.error_str());
+    }
+    int so_option{0};
+    constexpr socklen_t optlen{sizeof(so_option)};
+
+    // Reset SO_REUSEADDR on all platforms if it should be set by default. This
+    // is unclear on WIN32. See note below.
+    // Type cast (char*)&so_option is needed for Microsoft Windows.
+    if (umock::sys_socket_h.setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR,
+                                       reinterpret_cast<char*>(&so_option),
+                                       optlen) != 0) {
+        serrObj.catch_error();
+        CLOSE_SOCKET_P(sfd);
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT + "MSG1018: Close socket fd " +
+            std::to_string(sfd) +
+            ". Failed to set socket option SO_REUSEADDR: " +
+            serrObj.error_str());
+    }
+
+    // With protocol family PF_INET6 we always set IPV6_V6ONLY to true. See also
+    // note to bind() in the header file.
+    if (a_pf_family == AF_INET6) {
+        so_option = 1; // true
+        // Type cast (char*)&so_option is needed for Microsoft Windows.
+        if (umock::sys_socket_h.setsockopt(
+                sfd, IPPROTO_IPV6, IPV6_V6ONLY,
+                reinterpret_cast<const char*>(&so_option),
+                sizeof(so_option)) != 0) {
+            serrObj.catch_error();
+            CLOSE_SOCKET_P(sfd);
+            throw std::runtime_error(
+                UPnPsdk_LOGEXCEPT + "MSG1007: Close socket fd " +
+                std::to_string(sfd) +
+                ". Failed to set socket option IPV6_V6ONLY: " +
+                serrObj.error_str() + '\n');
+        }
+    }
+
+#ifdef _MSC_VER
+    // Set socket option SO_EXCLUSIVEADDRUSE on Microsoft Windows. THIS IS AN
+    // IMPORTANT SECURITY ISSUE! But it needs special handling with binding a
+    // socket fd to an ip address because it may be possible that even a new
+    // unbound socket fd is blocked by the operating system. Lock at
+    // REF:_[Using SO_REUSEADDR and SO_EXCLUSIVEADDRUSE]
+    // (https://learn.microsoft.com/en-us/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse#application-strategies)
+    so_option = 1; // Set SO_EXCLUSIVEADDRUSE
+    // Type cast (char*)&so_option is needed for Microsoft Windows.
+    if (umock::sys_socket_h.setsockopt(sfd, SOL_SOCKET, SO_EXCLUSIVEADDRUSE,
+                                       reinterpret_cast<char*>(&so_option),
+                                       optlen) != 0) {
+        serrObj.catch_error();
+        CLOSE_SOCKET_P(sfd);
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT + "MSG1019: Close socket fd " +
+            std::to_string(sfd) +
+            ". Failed to set socket option SO_EXCLUSIVEADDRUSE: " +
+            serrObj.error_str());
+    }
+#endif
+    return sfd;
 }
 
 } // anonymous namespace
@@ -99,7 +196,7 @@ void CSocket_basic::load() {
         serrObj.catch_error();
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT + "MSG1014: Failed to create socket=" +
-            std::to_string(m_sfd_hint) + ": " + serrObj.error_str() + "\n");
+            std::to_string(m_sfd_hint) + ": " + serrObj.error_str());
     }
     m_sfd = m_sfd_hint;
 }
@@ -128,7 +225,8 @@ void CSocket_basic::sockaddr(SSockaddr& a_saddr) const {
     // Get address from socket file descriptor.
     socklen_t addrlen = sizeof(a_saddr.ss); // May be modified
     CSocketErr serrObj;
-    if (UPnPsdk::getsockname(m_sfd, &a_saddr.sa, &addrlen) != 0) {
+    int ret = UPnPsdk::getsockname(m_sfd, &a_saddr.sa, &addrlen);
+    if (ret != 0) {
         serrObj.catch_error();
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT + "MSG1001: Failed to get address from socket: " +
@@ -145,18 +243,18 @@ void CSocket_basic::sockaddr(SSockaddr& a_saddr) const {
         return;
 
     // If there is no complete address structure returned from
-    // UPnPsdk::getsockname() an empty socket address is returned with
+    // UPnPsdk::getsockname() we return here an empty socket address with
     // preserved address family.
     a_saddr = "";
     a_saddr.ss.ss_family = af;
     UPnPsdk_LOGERR
-        "MSG1133: Unknown socket address detected. Is the socket bound to a "
-        "local address? Continue with unknown address of address family "
+        "MSG1133: Unspecified socket address detected. Is the socket bound to "
+        "a local address? Continue with unspecified address and address family "
         << af << ".\n";
 }
 
-int CSocket_basic::get_socktype() const {
-    TRACE2(this, " Executing CSocket_basic::get_socktype()")
+int CSocket_basic::socktype() const {
+    TRACE2(this, " Executing CSocket_basic::socktype()")
     int so_option{-1};
     socklen_t len{sizeof(so_option)}; // May be modified
     CSocketErr serrObj;
@@ -168,13 +266,13 @@ int CSocket_basic::get_socktype() const {
         throw std::runtime_error(UPnPsdk_LOGEXCEPT +
                                  "MSG1030: Failed to get socket option SO_TYPE "
                                  "(SOCK_STREAM, SOCK_DGRAM, etc.): " +
-                                 serrObj.error_str() + "\n");
+                                 serrObj.error_str());
     }
     return so_option;
 }
 
-int CSocket_basic::get_sockerr() const {
-    TRACE2(this, " Executing CSocket_basic::get_sockerr()")
+int CSocket_basic::sockerr() const {
+    TRACE2(this, " Executing CSocket_basic::sockerr()")
     int so_option{-1};
     socklen_t len{sizeof(so_option)}; // May be modified
     CSocketErr serrObj;
@@ -186,7 +284,7 @@ int CSocket_basic::get_sockerr() const {
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT +
             "MSG1011: Failed to get socket option SO_ERROR: " +
-            serrObj.error_str() + "\n");
+            serrObj.error_str());
     }
     return so_option;
 }
@@ -204,7 +302,7 @@ bool CSocket_basic::is_reuse_addr() const {
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT +
             "MSG1013: Failed to get socket option SO_REUSEADDR: " +
-            serrObj.error_str() + "\n");
+            serrObj.error_str());
     }
     return so_option;
 }
@@ -252,32 +350,34 @@ int CSocket_basic::is_bound() const {
     std::scoped_lock lock(m_bound_mutex);
 
     // Get the socket address from the socket file descriptor.
-    SSockaddr sa;
-    this->sockaddr(sa);
+    SSockaddr saObj;
+    this->sockaddr(saObj);
 
     // A socket address with port number 0 cannot be bound. 'sin6_port' is on
     // the same structure location as 'sin_port' so it can be used for AF_INET6
     // and AF_INET together.
-    if (sa.sin6.sin6_port == 0u)
+    if (saObj.sin6.sin6_port == 0u)
         return 0;
 
     // With an unspecified IP address of a given address family AF_INET6 or
-    // AF_INET the socket is "passive" bound, otherwise it is "active" bound.
-    switch (sa.ss.ss_family) {
+    // AF_INET the socket is "passive" bound for listening, otherwise it is
+    // "active" bound.
+    switch (saObj.ss.ss_family) {
     case AF_INET6:
         for (size_t i{}; i < sizeof(in6_addr); i++) {
-            if (sa.sin6.sin6_addr.s6_addr[i] != 0u)
+            if (saObj.sin6.sin6_addr.s6_addr[i] != 0u)
                 return 1; // Bound active
         }
         return -1; // All zero, bound passive
 
     case AF_INET:
-        return (sa.sin.sin_addr.s_addr == INADDR_ANY) ? -1 // Bound passive
-                                                      : 1; // Bound active
+        return (saObj.sin.sin_addr.s_addr == INADDR_ANY) ? -1 // Bound passive
+                                                         : 1; // Bound active
     } // switch
 
-    throw std::runtime_error("MSG1029: Invalid address family " +
-                             std::to_string(sa.ss.ss_family) + ".\n");
+    throw std::invalid_argument(
+        "MSG1029: Program error must be fixed. Unsupported address family " +
+        std::to_string(saObj.ss.ss_family) + ".\n");
 }
 
 
@@ -288,21 +388,8 @@ CSocket::CSocket(){
     TRACE2(this, " Construct default CSocket()") //
 }
 
-/*! Constructor to prepare for a socket file descriptor that must use bind() to
- * be created */
-CSocket::CSocket(int a_socktype)
-    : m_socktype_hint(a_socktype){
-    TRACE2(this, " Construct CSocket() for binding") //
-}
-
-// Constructor for a new socket file descriptor that must be load()
-CSocket::CSocket(sa_family_t a_family, int a_socktype)
-    : m_pf_hint(a_family), m_socktype_hint(a_socktype) {
-    TRACE2(this, " Construct CSocket() for socket fd") //
-}
-
 // Move constructor
-CSocket::CSocket(CSocket && that) {
+CSocket::CSocket(CSocket&& that) {
     TRACE2(this, " Construct move CSocket()")
     m_sfd = that.m_sfd;
     that.m_sfd = INVALID_SOCKET;
@@ -327,110 +414,15 @@ CSocket& CSocket::operator=(CSocket that) {
 
 // Destructor
 CSocket::~CSocket() {
-    TRACE2(this,
-           " Destruct CSocket(), shutdown and close socket file descriptor")
+    TRACE2(this, " Destruct CSocket()")
+    UPnPsdk_LOGINFO << "MSG1136: shutdown and close socket fd " << m_sfd
+                    << ".\n";
     ::shutdown(m_sfd, SHUT_RDWR);
     CLOSE_SOCKET_P(m_sfd);
 }
 
 // Setter
 // ------
-// Setter to initialize the object with the hints given by the constructor
-void CSocket::load() { this->get_sockfd(m_pf_hint, m_socktype_hint); }
-
-void CSocket::get_sockfd(sa_family_t a_pf_family, int a_socktype) {
-    TRACE2(this, " Executing CSocket::get_sockfd()")
-
-    // Do some general checks that must always be fulfilled according to the
-    // specification.
-    if (a_pf_family != PF_INET6 && a_pf_family != PF_INET)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1015: Failed to create socket: invalid protocol family " +
-            std::to_string(a_pf_family) + '\n');
-    if (a_socktype != SOCK_STREAM && a_socktype != SOCK_DGRAM)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1016: Failed to create socket: invalid socket type " +
-            std::to_string(a_socktype) + '\n');
-
-    // Do nothing if there is already a valid socket file descriptor from a
-    // previous load().
-    if (m_sfd != INVALID_SOCKET)
-        return;
-
-    CSocketErr serrObj;
-
-    // Syscall socket(): get new socket file descriptor.
-    SOCKET sfd = umock::sys_socket_h.socket(a_pf_family, a_socktype, 0);
-    if (sfd == INVALID_SOCKET) {
-        serrObj.catch_error();
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1017: Failed to create socket: " + serrObj.error_str() + '\n');
-    }
-    int so_option{0};
-    constexpr socklen_t optlen{sizeof(so_option)};
-
-    // Reset SO_REUSEADDR on all platforms if it should be set by default. This
-    // is unclear on WIN32. See note below.
-    // Type cast (char*)&so_option is needed for Microsoft Windows.
-    if (umock::sys_socket_h.setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR,
-                                       reinterpret_cast<char*>(&so_option),
-                                       optlen) != 0) {
-        serrObj.catch_error();
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1018: Failed to set socket option SO_REUSEADDR: " +
-            serrObj.error_str() + '\n');
-    }
-
-#ifdef _MSC_VER
-    // Set socket option SO_EXCLUSIVEADDRUSE on Microsoft Windows.
-    // THIS IS AN IMPORTANT SECURITY ISSUE! Lock at
-    // REF: [Using SO_REUSEADDR and SO_EXCLUSIVEADDRUSE]
-    // (https://learn.microsoft.com/en-us/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse#application-strategies)
-    so_option = 1; // Set SO_EXCLUSIVEADDRUSE
-    // Type cast (char*)&so_option is needed for Microsoft Windows.
-    if (umock::sys_socket_h.setsockopt(sfd, SOL_SOCKET, SO_EXCLUSIVEADDRUSE,
-                                       reinterpret_cast<char*>(&so_option),
-                                       optlen) != 0) {
-        serrObj.catch_error();
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1019: Failed to set socket option SO_EXCLUSIVEADDRUSE: " +
-            serrObj.error_str() + '\n');
-    }
-#endif
-
-    // Store socket file descriptor
-    m_sfd = sfd;
-}
-
-// Set IPV6_V6ONLY
-void CSocket::set_v6only(const bool a_opt) {
-    TRACE2(this, " Executing CSocket::set_ipv6_v6only()")
-    CSocketErr serrObj;
-
-    // Needed to have a valid argument for setsockopt()
-    const int so_option{a_opt};
-
-    // Type cast (char*)&so_option is needed for Microsoft Windows.
-    SSockaddr sa;
-    this->sockaddr(sa);
-    if (sa.ss.ss_family == PF_INET6 && !this->is_bound() &&
-        umock::sys_socket_h.setsockopt(
-            m_sfd, IPPROTO_IPV6, IPV6_V6ONLY,
-            reinterpret_cast<const char*>(&so_option),
-            sizeof(so_option)) != 0) {
-        serrObj.catch_error();
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1006: Failed to set socket option IPV6_V6ONLY: " +
-            serrObj.error_str() + "\n");
-    }
-}
-
 #if 0
 void CSocket::set_reuse_addr(bool a_reuse) {
     // Set socket option SO_REUSEADDR on other platforms.
@@ -445,116 +437,110 @@ void CSocket::set_reuse_addr(bool a_reuse) {
 }
 #endif
 
-// Bind socket to local address
-// REF:_[Bind:_Address_Already_in_Use]_(https://hea-www.harvard.edu/~fine/Tech/addrinuse.html)
-void CSocket::bind(const std::string& a_node, const std::string& a_port,
+void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
                    const int a_flags) {
     TRACE2(this, " Executing CSocket::bind()")
 
     // Protect binding.
     std::scoped_lock lock(m_bound_mutex);
 
-    SSockaddr sa;
-    this->sockaddr(sa);
-    CSocketErr serrObj;
+    if (m_sfd != INVALID_SOCKET) {
+        SSockaddr saddr;
+        this->sockaddr(saddr);
+        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
+                                 "MSG1137: Failed toa bind socket to an "
+                                 "address. Socket fd " +
+                                 std::to_string(m_sfd) +
+                                 " already bound to netaddress \"" +
+                                 saddr.netaddrp() + '\"');
+    }
 
-    // With protocol family PF_INET6 we always set IPV6_V6ONLY to true. See also
-    // note to bind() in the header file.
-    if (sa.ss.ss_family == PF_INET6) {
-        // Don't use 'this->set_v6only(true)' because binding is protected with
-        // a mutex and we will get a deadlock due to using
-        // 'this->is_bound()' in 'this->set_v6only(true)'.
-        constexpr int so_option{1}; // true
-        // Type cast (char*)&so_option is needed for Microsoft Windows.
-        if (umock::sys_socket_h.setsockopt(
-                m_sfd, IPPROTO_IPV6, IPV6_V6ONLY,
-                reinterpret_cast<const char*>(&so_option),
-                sizeof(so_option)) != 0) {
-            serrObj.catch_error();
-            throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT +
-                "MSG1007: Failed to set socket option IPV6_V6ONLY: " +
-                serrObj.error_str() + "\n");
+    // If no socket address is given then point to a valid one, either to the
+    // loopback address or to the unspecified address when a passive address is
+    // requested.
+    SSockaddr unspec_saddr;
+    if (a_saddr == nullptr) {
+        if (!(a_flags & AI_PASSIVE)) {
+            unspec_saddr = "[::1]";
         }
+        a_saddr = &unspec_saddr;
     }
 
     // Get an adress info to bind.
-    CAddrinfo ai(a_node, a_port, AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
-                 this->get_socktype(), sa.ss.ss_family);
-    ai.get_first(); // may throw exception
+    CAddrinfo ai(a_saddr->netaddrp(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
+                 a_socktype);
+    if (!ai.get_first())
+        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
+                                 "MSG1037: detect error next line ...\n" +
+                                 ai.what());
 
-    // Here we bind the socket to an address.
-    /// \todo Improve CSocketErr for specific ::bind() error messages.
-    // Type cast socklen_t is needed for Microsoft Windows.
-    int ret = umock::sys_socket_h.bind(m_sfd, ai->ai_addr,
-                                       static_cast<socklen_t>(ai->ai_addrlen));
-
-    if (g_dbug) {
-        this->sockaddr(sa); // Get new bound socket address.
-        UPnPsdk_LOGINFO << "MSG1115: syscall ::bind(" << m_sfd << ", "
-                        << ai->ai_addr << ", " << ai->ai_addrlen << ") Using \""
-                        << ai.netaddrp() << "\". Bound to \""
-                        << (ret != 0 ? "ERROR" : sa.netaddrp()) << "\"\n";
-    }
-    if (ret != 0) {
-        serrObj.catch_error();
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1008: Failed to bind socket to an address: " +
-            serrObj.error_str() + "\n");
-    }
-}
-
-void CSocket::bind2(const int a_socktype, SSockaddr* a_saddr) {
-    TRACE2(this, " Executing CSocket::bind2()")
-    if (a_saddr == nullptr)
-        return;
-
-    // Protect binding.
-    std::scoped_lock lock(m_bound_mutex);
-
-    this->get_sockfd(a_saddr->ss.ss_family, a_socktype);
     CSocketErr serrObj;
 
-    // With protocol family PF_INET6 we always set IPV6_V6ONLY to true. See also
-    // note to bind() in the header file.
-    if (a_saddr->ss.ss_family == AF_INET6) {
-        // Don't use 'this->set_v6only(true)' because binding is protected with
-        // a mutex and we will get a deadlock due to using
-        // 'this->is_bound()' in 'this->set_v6only(true)'.
-        constexpr int so_option{1}; // true
-        // Type cast (char*)&so_option is needed for Microsoft Windows.
-        if (umock::sys_socket_h.setsockopt(
-                m_sfd, IPPROTO_IPV6, IPV6_V6ONLY,
-                reinterpret_cast<const char*>(&so_option),
-                sizeof(so_option)) != 0) {
-            serrObj.catch_error();
-            throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT +
-                "MSG1007: Failed to set socket option IPV6_V6ONLY: " +
-                serrObj.error_str() + '\n');
-        }
-    }
-
     // Here we bind the socket to an address.
-    /// \todo Improve CSocketErr for specific ::bind() error messages.
-    int ret = umock::sys_socket_h.bind(m_sfd, &(a_saddr->sa),
-                                       a_saddr->sizeof_saddr());
+    SOCKET sockfd{INVALID_SOCKET};
+    int ret{-1};
+#if _MSC_VER
+    // On Microsoft Windows there is an issue with binding an address to a
+    // socket in conjunction with the socket option SO_EXCLUSIVEADDRUSE that I
+    // use for security reasons. Even on successful new opened socket file
+    // descriptors it may be possible that we cannot bind an unused socket
+    // address to it. For details of this have a look at:
+    // REF:_[SO_EXCLUSIVEADDRUSE socket option not binding unused socket]
+    // (https://learn.microsoft.com/en-us/windows/win32/winsock/so-exclusiveaddruse).
+    // There is also a Unit Test to verify this:
+    // TEST(SocketTestSuite, check_binding_passive_all_free_ports).
+    // Try several times to bind:
+    for (int i{0}; i < 5; i++) {
+        // Try again with a new socket file descriptor. Doing it in this order
+        // to realy get an other fd.
+        SOCKET sfd = UPnPsdk::get_sockfd(
+            static_cast<sa_family_t>(ai->ai_family), ai->ai_socktype);
+        CLOSE_SOCKET_P(sockfd);
+        sockfd = sfd;
+
+        // Try to bind the socket.
+        ret = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
+                                       static_cast<socklen_t>(ai->ai_addrlen));
+
+        // Repeat only with specific error WSAEACCES.
+        if (ret == 0)
+            break;
+        serrObj.catch_error();
+        if (serrObj != EACCESP)
+            break;
+    }
+#else
+    // Get a socket file descriptor with address info where I get the address
+    // family.
+    sockfd = UPnPsdk::get_sockfd(static_cast<sa_family_t>(ai->ai_family),
+                                 ai->ai_socktype);
+    // Try to bind the socket.
+    ret = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
+                                   static_cast<socklen_t>(ai->ai_addrlen));
+#endif
+
+    if (ret == 0)
+        // Store valid socket file descriptor.
+        m_sfd = sockfd;
 
     if (g_dbug) {
-        SSockaddr sa;
-        this->sockaddr(sa); // Get new bound socket address.
+        SSockaddr saddr;
+        this->sockaddr(saddr); // Get new bound socket address.
         UPnPsdk_LOGINFO "MSG1115: syscall ::bind("
-            << m_sfd << ", " << &a_saddr->sa << ", " << a_saddr->sizeof_saddr()
-            << ") Using \"" << a_saddr->netaddrp() << "\". Bound to \""
-            << (ret != 0 ? "ERROR" : sa.netaddrp()) << "\"\n";
+            << sockfd << ", " << &a_saddr->sa << ", " << a_saddr->sizeof_saddr()
+            << ") Tried \"" << a_saddr->netaddrp()
+            << (ret != 0 ? ". Get ERROR" : ". Bound to " + saddr.netaddrp())
+            << ".\"\n";
     }
+
     if (ret != 0) {
         serrObj.catch_error();
+        CLOSE_SOCKET_P(sockfd);
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1008: Failed to bind socket to an address: " +
-            serrObj.error_str() + '\n');
+            UPnPsdk_LOGEXCEPT + "MSG1008: Close socket fd " +
+            std::to_string(sockfd) +
+            ". Failed to bind socket to an address: (errid " +
+            std::to_string(serrObj) + ") " + serrObj.error_str());
     }
 }
 
@@ -570,14 +556,15 @@ void CSocket::listen() {
 
     CSocketErr serrObj;
     // Second argument backlog (maximum length of the queue for pending
-    // connections) is hard coded set to 1 for now.
-    if (umock::sys_socket_h.listen(m_sfd, 1) != 0) {
+    // connections) is hard coded for now.
+    if (umock::sys_socket_h.listen(m_sfd, SOMAXCONN) != 0) {
         serrObj.catch_error();
-        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
-                                 "MSG1034: Failed to set socket to listen: " +
-                                 serrObj.error_str() + "\n");
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT +
+            "MSG1034: Failed to set socket to listen: " + serrObj.error_str());
     }
-
+    UPnPsdk_LOGINFO "MSG1032: syscall ::listen(" << m_sfd << ", " << SOMAXCONN
+                                                 << ").\n";
     m_listen = true;
 }
 
@@ -588,7 +575,7 @@ bool CSocket::is_v6only() const {
     if (m_sfd == INVALID_SOCKET)
         throw std::runtime_error(UPnPsdk_LOGEXCEPT +
                                  "MSG1028: Failed to get socket option "
-                                 "IPV6_V6ONLY: \"Bad file descriptor\"\n");
+                                 "IPV6_V6ONLY: Bad file descriptor");
 
     int so_option{0};
     socklen_t len{sizeof(so_option)}; // May be modified
@@ -604,7 +591,7 @@ bool CSocket::is_listen() const {
     if (m_sfd == INVALID_SOCKET)
         throw std::runtime_error(UPnPsdk_LOGEXCEPT +
                                  "MSG1035: Failed to get socket option "
-                                 "'is_Listen': \"Bad file descriptor\"\n");
+                                 "'is_Listen': Bad file descriptor");
 
     // m_listen is protected.
     std::scoped_lock lock(m_listen_mutex);

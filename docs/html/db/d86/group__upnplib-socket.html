@@ -128,6 +128,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga22b121617b4eb96c4b4548a814683dfc" id="r_ga22b121617b4eb96c4b4548a814683dfc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d86/group__upnplib-socket.html#ga22b121617b4eb96c4b4548a814683dfc">UPnPsdk::anonymous_namespace{socket.cpp}::getsockname</a> (SOCKET a_sockfd, sockaddr *a_addr, socklen_t *a_addrlen)</td></tr>
 <tr class="memdesc:ga22b121617b4eb96c4b4548a814683dfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for the ::getsockname() system function.  <br /></td></tr>
 <tr class="separator:ga22b121617b4eb96c4b4548a814683dfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaff979637c7cac7b0ef5df38ec5eae017" id="r_gaff979637c7cac7b0ef5df38ec5eae017"><td class="memItemLeft" align="right" valign="top">SOCKET&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d86/group__upnplib-socket.html#gaff979637c7cac7b0ef5df38ec5eae017">UPnPsdk::anonymous_namespace{socket.cpp}::get_sockfd</a> (sa_family_t a_pf_family, int a_socktype)</td></tr>
+<tr class="memdesc:gaff979637c7cac7b0ef5df38ec5eae017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a socket file descriptor from the operating system.  <br /></td></tr>
+<tr class="separator:gaff979637c7cac7b0ef5df38ec5eae017"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -140,26 +143,23 @@ Variables</h2></td></tr>
 <p><a class="anchor" id="socket_module"></a>This module mainly consists of the CSocket class but also provides free functions to manage a socket. The problem is that socket handling isn't very good portable. There is different behavior on the supported platforms Unix, MacOS and Microsoft Windows. The CSocket class atempts to be consistent portable on all three platforms by using common behavior or by emulating missing functions on a platform.</p>
 <h1><a class="anchor" id="autotoc_md0"></a>
 Specification for CSocket</h1>
-<p>The class encapsulates and manages one raw socket file descriptor. The file descriptor of a valid socket object cannot be changed but the object with its immutable file descriptor can be moved and assigned to another socket object. Copying a socket object isn't supported because having two objects with the same file descriptor may be very error prone in particular with multithreading. Effort has been taken to do not cache any socket information outside the socket file descriptor. All socket informations are direct set and get to/from the operating system with the file descriptor. The socket file descriptor is always valid except on an empty socket object.</p>
+<p>The class encapsulates and manages one raw socket file descriptor. The file descriptor of a valid socket object cannot be changed but the object with its immutable file descriptor can be moved and assigned to another socket object. Copying a socket object isn't supported because having two objects with the same file descriptor may be very error prone in particular with multithreading. Effort has been taken to do not cache any socket information outside the socket file descriptor. Nearly all socket informations are direct set and get to/from the operating system with the file descriptor. The socket file descriptor is always valid except on an empty socket object.</p>
 <p><a class="anchor" id="empty_socket"></a></p>
 <h2><a class="anchor" id="autotoc_md1"></a>
 empty socket object</h2>
-<p>An empty socket object can be instantiated with the default constructor, e.g. <code>CSocket sockObj;</code>. It is a valid object and should be destructed. When moving a socket object, the left over source object is also empty. An empty socket object has an <code>INVALID_SOCKET</code> defined and no valid content. It throws an exception if using any of its Setter and Getter. Moving and assigning it is possible. You can test for an empty socket by looking for an <code>INVALID_SOCKET</code>, e.g. </p><div class="fragment"><div class="line">CSocket sockObj; <span class="comment">// or CSocket_basic sockObj;</span></div>
+<p>An empty socket object can be instantiated with the default constructor, e.g. <code>CSocket sockObj;</code>. It is a valid object and should be destructed. When moving a socket object, the left over source object is also empty. An empty socket object has an <code>INVALID_SOCKET</code> defined and no valid content. It throws an exception if using most of its Setter and Getter. Moving and assigning it is possible. You can test for an empty socket by looking for an <code>INVALID_SOCKET</code>, e.g. </p><div class="fragment"><div class="line">CSocket sockObj; <span class="comment">// or CSocket_basic sockObj;</span></div>
 <div class="line"><span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span>SOCKET<span class="keyword">&gt;</span>(sockObj) != INVALID_SOCKET) {</div>
 <div class="line">    in_port_t port = sockObj.get_port(); }</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
-protocol family</h2>
-<p>Only protocol family <code>PF_INET6</code> and <code>PF_INET</code> is supported. Any other address family throws an exception.</p>
+protocol family, address family</h2>
+<p>This SDK handles network connections IP Version - Independent so that a protocoll family (PF_INET6, PF_INET, PF_UNIX) or address family (AF_INET6, AF_INET, AF_UNIX) is never used on the SDKs Application Programming Interface. IP Version is managed by the operating system.</p>
 <h2><a class="anchor" id="autotoc_md3"></a>
 socket type</h2>
 <p>Only <code>SOCK_STREAM</code> and <code>SOCK_DGRAM</code> is supported. Any other type throws an exception.</p>
 <h2><a class="anchor" id="autotoc_md4"></a>
-valid socket file descriptor</h2>
-<p>I get this from the C standard library function: <code>int ::socket(address_family, socket_type, protocol)</code>. Other arguments than address family and socket type are not accepted. For the protocol argument is always the default one used that is internal hard coded with argument 0.</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
 options SO_REUSEADDR and SO_EXCLUSIVEADDRUSE</h2>
 <p>I don't set the option to immediately reuse an address and I always set the option <code>SO_EXCLUSIVEADDRUSE</code> on Microsoft Windows. For more details of this have a look at <a class="el" href="../../index.html#overview_reuseaddr">Socket option &quot;reuse address&quot;</a>.</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 References</h2>
 <ul>
 <li><a href="https://www.rfc-editor.org/rfc/rfc3493">RFC 3493</a> - Basic Socket Interface Extensions for IPv6</li>
@@ -222,6 +222,65 @@ References</h2>
 <map name="adb/d86/group__upnplib-socket_ga22b121617b4eb96c4b4548a814683dfc_icgraph" id="adb/d86/group__upnplib-socket_ga22b121617b4eb96c4b4548a814683dfc_icgraph">
 <area shape="rect" title="Wrapper for the ::getsockname() system function." alt="" coords="5,29,199,84"/>
 <area shape="poly" title=" " alt="" coords="134,18,122,11,102,8,85,10,74,15,69,21,69,29,64,29,64,19,71,10,84,5,102,3,124,6,136,14"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gaff979637c7cac7b0ef5df38ec5eae017" name="gaff979637c7cac7b0ef5df38ec5eae017"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaff979637c7cac7b0ef5df38ec5eae017">&#9670;&#160;</a></span>get_sockfd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SOCKET UPnPsdk::anonymous_namespace{socket.cpp}::get_sockfd </td>
+          <td>(</td>
+          <td class="paramtype">sa_family_t&#160;</td>
+          <td class="paramname"><em>a_pf_family</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>a_socktype</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a socket file descriptor from the operating system. </p>
+<p>Get a socket file descriptor and set its default options as specified. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00078">78</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../db/d86/group__upnplib-socket_gaff979637c7cac7b0ef5df38ec5eae017_cgraph.png" border="0" usemap="#adb/d86/group__upnplib-socket_gaff979637c7cac7b0ef5df38ec5eae017_cgraph" alt=""/></div>
+<map name="adb/d86/group__upnplib-socket_gaff979637c7cac7b0ef5df38ec5eae017_cgraph" id="adb/d86/group__upnplib-socket_gaff979637c7cac7b0ef5df38ec5eae017_cgraph">
+<area shape="rect" title="Get a socket file descriptor from the operating system." alt="" coords="5,30,177,85"/>
+<area shape="poly" title=" " alt="" coords="50,30,50,20,58,11,71,5,91,3,115,6,129,14,126,19,114,11,91,9,73,11,61,15,55,22,55,30"/>
+<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="225,5,380,45"/>
+<area shape="poly" title=" " alt="" coords="177,42,212,36,212,42,178,47"/>
+<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="225,69,380,109"/>
+<area shape="poly" title=" " alt="" coords="178,68,212,73,212,78,177,73"/>
+</map>
+</div>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../db/d86/group__upnplib-socket_gaff979637c7cac7b0ef5df38ec5eae017_icgraph.png" border="0" usemap="#adb/d86/group__upnplib-socket_gaff979637c7cac7b0ef5df38ec5eae017_icgraph" alt=""/></div>
+<map name="adb/d86/group__upnplib-socket_gaff979637c7cac7b0ef5df38ec5eae017_icgraph" id="adb/d86/group__upnplib-socket_gaff979637c7cac7b0ef5df38ec5eae017_icgraph">
+<area shape="rect" title="Get a socket file descriptor from the operating system." alt="" coords="5,29,177,84"/>
+<area shape="poly" title=" " alt="" coords="119,18,109,11,91,8,76,10,67,15,63,21,63,29,57,29,57,19,63,10,75,5,91,3,111,6,122,13"/>
 </map>
 </div>
 

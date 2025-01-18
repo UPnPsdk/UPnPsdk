@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-01-18
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -333,7 +333,7 @@ TEST_F(HttpBasicFTestSuite, make_message_format_S_successful) {
     umock::SysinfoMock sysinfoObj;
     umock::Sysinfo sysinfo_injectObj(&sysinfoObj);
     EXPECT_CALL(sysinfoObj, uname(_))
-        .WillOnce(DoAll(StructCpyToArg<0>(&sysinf), Return(0)));
+        .WillOnce(DoAll(StructCpyToArg<0>(&sysinf, sizeof(sysinf)), Return(0)));
 
     // Test Unit
     EXPECT_EQ(http_MakeMessage(&m_request, 1, 1, "S"), 0);
@@ -449,8 +449,8 @@ TEST_F(HttpBasicFTestSuite, make_message_get_sdk_info_system_info_fails) {
     umock::SysinfoMock sysinfoObj;
     umock::Sysinfo sysinfo_injectObj(&sysinfoObj);
     EXPECT_CALL(sysinfoObj, uname(_))
-        .WillOnce(
-            DoAll(StructCpyToArg<0>(&sysinf), SetErrnoAndReturn(EFAULT, -1)));
+        .WillOnce(DoAll(StructCpyToArg<0>(&sysinf, sizeof(sysinf)),
+                        SetErrnoAndReturn(EFAULT, -1)));
 
     // Test Unit
     get_sdk_info(info, sizeof(info));

@@ -1,0 +1,21 @@
+<map id="UPnPsdk::CSocket::bind" name="UPnPsdk::CSocket::bind">
+<area shape="rect" id="Node000001" title="Bind socket to an ip address." alt="" coords="5,191,180,217"/>
+<area shape="rect" id="Node000002" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="469,92,627,132"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,189,154,145,189,123,227,105,285,92,345,87,403,88,456,93,456,98,403,94,345,93,286,98,229,111,192,127,158,150,108,193"/>
+<area shape="rect" id="Node000003" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="469,216,627,256"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="108,215,158,258,192,281,229,297,278,310,317,313,357,308,407,297,457,281,501,260,503,265,459,286,409,303,358,313,317,318,277,315,227,303,189,285,154,263,104,219"/>
+<area shape="rect" id="Node000004" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="243,5,393,45"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="101,189,151,130,187,94,226,62,248,49,250,54,230,66,190,98,155,134,105,193"/>
+<area shape="rect" id="Node000006" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6" title="Get the assosiated netaddress with port." alt="" coords="241,184,395,224"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="180,201,227,201,227,207,180,207"/>
+<area shape="rect" id="Node000007" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53" title="Get sizeof the current filled (sin6 or sin) Sockaddr Structure." alt="" coords="241,248,395,288"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="139,214,234,242,233,247,138,219"/>
+<area shape="rect" id="Node000008" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="228,120,408,160"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="138,189,233,161,234,166,139,194"/>
+<area shape="rect" id="Node000009" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598" title="Get cached error message." alt="" coords="243,363,393,403"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="105,215,155,274,190,310,230,342,250,354,248,359,226,346,187,314,151,278,101,219"/>
+<area shape="rect" id="Node000005" href="$d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30" title="Free function to split inet address and port(service)" alt="" coords="456,13,640,38"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="394,23,442,23,442,28,394,28"/>
+<area shape="poly" id="edge8_Node000008_Node000002" title=" " alt="" coords="408,126,455,121,456,126,409,132"/>
+<area shape="poly" id="edge9_Node000008_Node000003" title=" " alt="" coords="378,158,409,170,494,208,492,212,407,174,376,163"/>
+</map>

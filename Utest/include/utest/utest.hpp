@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_UTEST_HPP
 #define UPNPLIB_UTEST_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-15
+// Redistribution only with this Copyright remark. Last modified: 2025-01-18
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port.hpp>
@@ -213,10 +213,10 @@ ACTION_TEMPLATE(StrnCpyToArg, HAS_1_TEMPLATE_PARAMS(int, k),
         .WillOnce(DoAll(StructCpyToArg<4>(&timeout), Return(1)));
 */
 ACTION_TEMPLATE(StructCpyToArg, HAS_1_TEMPLATE_PARAMS(int, k),
-                AND_1_VALUE_PARAMS(src)) {
+                AND_2_VALUE_PARAMS(src, len)) {
     auto arg = std::get<k>(args);
-    if (arg != nullptr)
-        std::memcpy(arg, src, sizeof(*arg));
+    if (arg != nullptr && src != nullptr)
+        std::memcpy(arg, src, len);
 }
 
 ACTION_TEMPLATE(StructSetToArg, HAS_1_TEMPLATE_PARAMS(int, k),

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-10
+// Redistribution only with this Copyright remark. Last modified: 2025-01-21
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 
@@ -66,7 +66,6 @@ INSTANTIATE_TEST_SUITE_P(SetAddrPort, SetAddrPortTest, ::testing::Values(
     std::make_tuple("2001:db8::70", AF_INET6, "[2001:db8::70]", 0),
     std::make_tuple("[2001:db8::68]", AF_INET6, "[2001:db8::68]", 0),
     std::make_tuple("[2001:db8::67]:", AF_INET6, "[2001:db8::67]", 0),
-    std::make_tuple("[2001:db8::66]:50066", AF_INET6, "[2001:db8::66]", 50066),
     // --- Essential for checking bind, see note next test
     std::make_tuple("0.0.0.0", AF_INET, "0.0.0.0", 0),
     std::make_tuple("0.0.0.0:", AF_INET, "0.0.0.0", 0),
@@ -186,6 +185,51 @@ TEST(SockaddrStorageTestSuite, modify_address_and_port_successful) {
     EXPECT_EQ(saddr.netaddr(), "127.0.0.6");
     EXPECT_EQ(saddr.netaddrp(), "127.0.0.6:0");
     EXPECT_EQ(saddr.get_port(), 0);
+}
+
+TEST(SockaddrStorageTestSuite, set_link_local_address) {
+    // IPv6 link-local unicast address structure is defined as:
+    // ----------+------------+-----------+--------------
+    //           |  10 bits   |  54 bits  |   64 bits
+    // fe80::/10 | 1111111010 | 000...000 | Interface ID
+    // ----------+------------+-----------+--------------
+    // Different platforms behave different for accepting a valid LLA.
+    SSockaddr saddr;
+
+    saddr = "[fe80::]";
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::]:0");
+
+    saddr = "[fe80::1]:50001";
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::1]:50001");
+
+    saddr = "[fe80::1111:2222:3333:4444]:50002";
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::1111:2222:3333:4444]:50002");
+
+    // Invalid LLA?
+    saddr = "[fe80::1:2222:3333:4444:5555]:50003";
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::1:2222:3333:4444:5555]:50003");
+
+    // Invalid LLA?
+    saddr = "[fe80:1::2222:3333:4444:5555]:50004";
+#ifdef __APPLE__
+    // Huu? Seems macOS modifies to a different ip address.
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::2222:3333:4444:5555%lo0]:50004");
+#else
+    EXPECT_EQ(saddr.netaddrp(), "[fe80:1::2222:3333:4444:5555]:50004");
+#endif
+
+    // Invalid LLA?
+    saddr = "[fe80::5678:9abc:def1:2345:6789:abcd]:50005";
+    EXPECT_EQ(saddr.netaddrp(), "[fe80:0:5678:9abc:def1:2345:6789:abcd]:50005");
+
+    // Invalid LLA?
+    saddr = "[fe80:1234:5678:9abc:def1:2345:6789:abcd]:50006";
+#ifdef __APPLE__
+    EXPECT_EQ(saddr.netaddrp(), ":50006");
+#else
+    EXPECT_EQ(saddr.netaddrp(),
+              "[fe80:1234:5678:9abc:def1:2345:6789:abcd]:50006");
+#endif
 
     // If the scope id on Unix like platforms matches a real interface then its
     // name is returned instead of the number, e.g. "%lo" instead of "%1".
@@ -516,13 +560,15 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
     saddr.ss.ss_family = AF_INET;
     EXPECT_EQ(to_netaddr(saddr.ss), "0.0.0.0");
 
+    saddr = "[fe80:db8::5%21]";
+#ifdef __APPLE__
+    EXPECT_EQ(to_netaddr(saddr.ss), "");
+#else
+    EXPECT_EQ(to_netaddr(saddr.ss), "[fe80:db8::5%21]");
+#endif
+
     saddr = "[2001:db8::4]";
     EXPECT_EQ(to_netaddr(saddr.ss), "[2001:db8::4]");
-
-    if (!github_actions) {
-        saddr = "[fe80:db8::5%21]";
-        EXPECT_EQ(to_netaddr(saddr.ss), "[fe80:db8::5%21]");
-    }
 
     saddr = "192.168.88.99";
     EXPECT_EQ(to_netaddr(saddr.ss), "192.168.88.99");

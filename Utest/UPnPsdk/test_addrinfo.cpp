@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-02
+// Redistribution only with this Copyright remark. Last modified: 2025-01-26
 
 // I test different address infos that we get from system function
 // ::getaddrinfo(). This function does not ensure always the same order of same
@@ -498,32 +498,27 @@ TEST(AddrinfoTestSuite, get_unknown_numeric_host_fails) {
     // Test Unit
     CAddrinfo ai1("localhost", "50031", AI_NUMERICHOST);
     EXPECT_FALSE(ai1.get_first());
-    // EXPECT_THAT(ai1.what(), HasSubstr("] WHAT MSG1112: errid("));
-    EXPECT_EQ(ai1.what(), "Success.");
+    EXPECT_THAT(ai1.what(), HasSubstr("] WHAT MSG1112: errid("));
 
     // Does not call ::getaddrinfo(), because invalid numeric IPv6 is detected
     // before.
     CAddrinfo ai2("localhost:50052", AI_NUMERICHOST, SOCK_DGRAM);
     EXPECT_FALSE(ai2.get_first());
-    // EXPECT_THAT(ai2.what(), HasSubstr("] WHAT MSG1112: errid("));
-    EXPECT_EQ(ai1.what(), "Success.");
+    EXPECT_THAT(ai2.what(), HasSubstr("] WHAT MSG1112: errid("));
 
     CAddrinfo ai3("localhost", "50053", AI_NUMERICHOST);
     EXPECT_FALSE(ai3.get_first());
-    // EXPECT_THAT(ai3.what(), HasSubstr("] WHAT MSG1112: errid("));
-    EXPECT_EQ(ai1.what(), "Success.");
+    EXPECT_THAT(ai3.what(), HasSubstr("] WHAT MSG1112: errid("));
 }
 
 TEST(AddrinfoTestSuite, get_unknown_alphanumeric_host_fails) {
     CAddrinfo ai1("[localhost]", "50055", suppress_dns_lookup, SOCK_DGRAM);
     EXPECT_FALSE(ai1.get_first());
-    // EXPECT_THAT(ai1.what(), HasSubstr("] WHAT MSG1112: errid("));
-    EXPECT_EQ(ai1.what(), "Success.");
+    EXPECT_THAT(ai1.what(), HasSubstr("] WHAT MSG1112: errid("));
 
     CAddrinfo ai2("[localhost]:50005", suppress_dns_lookup, SOCK_DGRAM);
     EXPECT_FALSE(ai2.get_first());
-    // EXPECT_THAT(ai2.what(), HasSubstr("] WHAT MSG1112: errid("));
-    EXPECT_EQ(ai1.what(), "Success.");
+    EXPECT_THAT(ai2.what(), HasSubstr("] WHAT MSG1112: errid("));
 }
 
 TEST_F(AddrinfoMockFTestSuite, get_addrinfo_out_of_memory) {
@@ -538,8 +533,7 @@ TEST_F(AddrinfoMockFTestSuite, get_addrinfo_out_of_memory) {
     // Test Unit
     CAddrinfo ai("localhost", "50118");
     EXPECT_FALSE(ai.get_first());
-    // EXPECT_THAT(ai.what(), HasSubstr("] WHAT MSG1112: errid("));
-    EXPECT_EQ(ai.what(), "Success.");
+    EXPECT_THAT(ai.what(), HasSubstr("] WHAT MSG1112: errid("));
 }
 
 TEST_F(AddrinfoMockFTestSuite, get_addrinfo_invalid_ipv4_address) {
@@ -555,8 +549,7 @@ TEST_F(AddrinfoMockFTestSuite, get_addrinfo_invalid_ipv4_address) {
     // Test Unit
     CAddrinfo ai("192.168.88.256:59866");
     EXPECT_FALSE(ai.get_first());
-    // EXPECT_THAT(ai.what(), HasSubstr("] WHAT MSG1112: errid("));
-    EXPECT_EQ(ai.what(), "Success.");
+    EXPECT_THAT(ai.what(), HasSubstr("] WHAT MSG1112: errid("));
 }
 
 TEST_F(AddrinfoMockFTestSuite, get_addrinfo_ipv6_service_dot_instead_colon) {

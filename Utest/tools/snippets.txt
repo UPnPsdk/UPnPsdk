@@ -19,3 +19,12 @@ class CDisableTrace {
 };
 // CDisableTrace disable_trace;
 #endif
+
+
+// Create a simple random number generator for port numbers.
+// We could need this because we do not reuse addresses before TIME_WAIT has
+// expired (socket option SO_REUSEADDR = false). We may want to use different
+// socket addresses and that is already given with different port numbers.
+std::random_device rd;         // obtain a random number from hardware
+std::minstd_rand random(rd()); // seed the generator
+std::uniform_int_distribution<in_port_t> portno(49152, 65535); // define range

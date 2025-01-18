@@ -144,13 +144,13 @@ Public Member Functions</h2></td></tr>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Error &quot;</span> &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(serrObj) &lt;&lt; <span class="stringliteral">&quot;: &quot;</span></div>
 <div class="line">              &lt;&lt; serrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html">UPnPsdk::CSocketErr</a></div><div class="ttdoc">Class for portable handling of network socket errors.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00505">socket.hpp:505</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html_a91bdee1763e001634a3b49e7a346a603"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">UPnPsdk::CSocketErr::catch_error</a></div><div class="ttdeci">void catch_error()</div><div class="ttdoc">Catch error for later use.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00628">socket.cpp:628</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html_ac33bc7561a105383c0e9d951b3b5e3f6"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">UPnPsdk::CSocketErr::error_str</a></div><div class="ttdeci">std::string error_str() const</div><div class="ttdoc">Get human readable error description of the catched error.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00637">socket.cpp:637</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html">UPnPsdk::CSocketErr</a></div><div class="ttdoc">Class for portable handling of network socket errors.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00477">socket.hpp:477</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html_a91bdee1763e001634a3b49e7a346a603"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">UPnPsdk::CSocketErr::catch_error</a></div><div class="ttdeci">void catch_error()</div><div class="ttdoc">Catch error for later use.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00615">socket.cpp:615</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html_ac33bc7561a105383c0e9d951b3b5e3f6"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">UPnPsdk::CSocketErr::error_str</a></div><div class="ttdeci">std::string error_str() const</div><div class="ttdoc">Get human readable error description of the catched error.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00624">socket.cpp:624</a></div></div>
 </div><!-- fragment --><p>There is a compatibility problem with Winsock2 on the Microsoft Windows platform that does not support detailed error information given in the global variable 'errno' that is used by POSIX. Instead it returns them with calling 'WSAGetLastError()'. This class encapsulates differences so there is no need to always check the platform to get the error information.</p>
 <p>This class is optimized for frequent short-term use. It's a simple class without inheritence and virtual methods. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dfc/socket_8hpp_source.html#l00505">505</a> of file <a class="el" href="../../da/dfc/socket_8hpp_source.html">socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dfc/socket_8hpp_source.html#l00477">477</a> of file <a class="el" href="../../da/dfc/socket_8hpp_source.html">socket.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8044843ffe9f0ff65b70b116e248b32a" name="a8044843ffe9f0ff65b70b116e248b32a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8044843ffe9f0ff65b70b116e248b32a">&#9670;&#160;</a></span>operator const int &amp;()</h2>
@@ -169,7 +169,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Get error number. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00621">621</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00608">608</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -190,7 +190,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Catch error for later use. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00628">628</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00615">615</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -198,125 +198,123 @@ Public Member Functions</h2></td></tr>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dd/d3a/classUPnPsdk_1_1CSocketErr_a91bdee1763e001634a3b49e7a346a603_icgraph.png" border="0" usemap="#add/d3a/classUPnPsdk_1_1CSocketErr_a91bdee1763e001634a3b49e7a346a603_icgraph" alt=""/></div>
 <map name="add/d3a/classUPnPsdk_1_1CSocketErr_a91bdee1763e001634a3b49e7a346a603_icgraph" id="add/d3a/classUPnPsdk_1_1CSocketErr_a91bdee1763e001634a3b49e7a346a603_icgraph">
-<area shape="rect" title="Catch error for later use." alt="" coords="1280,550,1437,590"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7d8a000d07b38db55e1ff380d2e36024" title="Bind socket to a local interface address." alt="" coords="783,83,957,108"/>
-<area shape="poly" title=" " alt="" coords="1351,537,1336,438,1310,310,1294,247,1275,190,1254,145,1230,116,1194,93,1154,78,1111,70,1068,67,984,72,916,85,915,80,983,67,1068,61,1112,64,1155,73,1196,88,1234,112,1258,142,1280,188,1299,245,1316,309,1341,437,1356,536"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab1b7880f4d37940538160dc7c6a43683" title=" " alt="" coords="779,193,961,219"/>
-<area shape="poly" title=" " alt="" coords="1350,537,1339,480,1317,411,1301,375,1282,340,1258,309,1230,281,1211,270,1185,259,1116,241,1037,227,961,217,962,212,1038,222,1117,236,1186,254,1214,265,1234,277,1262,305,1286,337,1306,372,1322,409,1344,479,1356,536"/>
-<area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html#ab9a5841aed6435464cfca9c7e1ed371a" title="Creates the SSDP IPv4 socket to be used by the control point." alt="" coords="1040,795,1221,820"/>
-<area shape="poly" title=" " alt="" coords="1349,604,1333,646,1309,694,1276,743,1234,784,1210,797,1208,792,1230,780,1271,740,1304,692,1328,644,1344,602"/>
-<area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html#aa26ca96260b253550d2e26b5b761767e" title="Creates the SSDP IPv6 socket to be used by the control point." alt="" coords="1040,844,1221,869"/>
-<area shape="poly" title=" " alt="" coords="1353,604,1340,655,1316,717,1282,780,1260,808,1234,833,1212,846,1210,842,1230,829,1256,805,1277,777,1312,715,1335,654,1348,603"/>
-<area shape="rect" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a2a4b0ed4bade63f5a1bc68d8349e93bd" title="Create an SSDP IPv4 socket." alt="" coords="1041,716,1221,771"/>
-<area shape="poly" title=" " alt="" coords="1335,602,1290,651,1234,699,1201,718,1198,714,1230,694,1286,647,1331,599"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="519,129,699,184"/>
-<area shape="poly" title=" " alt="" coords="1352,536,1344,472,1323,390,1307,348,1287,306,1261,269,1230,236,1200,213,1171,199,1144,191,1116,188,1056,188,981,183,832,168,699,161,700,156,833,163,982,178,1056,182,1117,183,1145,186,1173,194,1202,209,1234,232,1266,265,1292,304,1312,345,1328,388,1349,471,1358,536"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#afdcdf2ec2674ab50be325bdd768d537b" title="Get the error that is given from the socket as option." alt="" coords="1041,894,1221,934"/>
-<area shape="poly" title=" " alt="" coords="1356,604,1344,664,1322,738,1306,777,1286,815,1262,851,1234,883,1215,896,1212,892,1230,879,1258,848,1282,813,1301,775,1317,736,1339,662,1350,603"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a8b882b2ed7f1aa57c508f29041a8bd25" title="Get the socket type SOCK_STREAM or SOCK_DGRAM." alt="" coords="1041,126,1221,166"/>
-<area shape="poly" title=" " alt="" coords="1353,536,1345,465,1325,372,1310,322,1289,273,1263,227,1230,187,1205,168,1208,164,1234,183,1267,224,1294,271,1315,320,1331,370,1350,464,1358,536"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac866a7e2ee68d5be6e62f997b26454a5" title="Get status if reusing address is enabled." alt="" coords="1041,958,1221,998"/>
-<area shape="poly" title=" " alt="" coords="1359,604,1351,675,1331,767,1315,816,1294,864,1267,908,1234,948,1218,960,1215,956,1230,944,1263,905,1289,861,1310,814,1326,766,1345,674,1353,604"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b" title="Set socket to listen." alt="" coords="779,29,961,55"/>
-<area shape="poly" title=" " alt="" coords="1351,537,1338,430,1313,289,1297,219,1277,156,1255,106,1230,73,1196,50,1157,34,1116,24,1074,19,992,22,923,32,923,27,991,16,1074,14,1117,19,1159,29,1198,45,1234,69,1260,103,1282,155,1302,218,1318,288,1343,429,1357,536"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor from the constructor into the object." alt="" coords="1041,406,1221,446"/>
-<area shape="poly" title=" " alt="" coords="1329,542,1285,500,1231,460,1206,448,1208,444,1233,456,1288,496,1332,538"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a792af065e758a89de58061eadd9769ee" title="Initiate a connection on a socket." alt="" coords="546,709,673,735"/>
-<area shape="poly" title=" " alt="" coords="1310,599,1233,630,1077,668,921,695,780,712,673,721,673,716,780,706,920,689,1076,663,1231,625,1307,594"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a90513b6a7a35f5f619f475d57d618647" title="Set IPV6_V6ONLY." alt="" coords="787,358,953,398"/>
-<area shape="poly" title=" " alt="" coords="1342,538,1325,503,1301,463,1269,426,1231,396,1197,381,1162,370,1089,359,1017,359,954,365,953,359,1017,353,1089,354,1164,365,1199,376,1233,392,1273,422,1305,460,1330,500,1347,536"/>
-<area shape="rect" href="../../d5/d78/sock_8cpp.html#a90f3d17250e4a8df679a4b88a8abd4da" title="Shutsdown the socket using the ShutdownMethod to indicate whether sends and receives on the socket wi..." alt="" coords="555,615,663,640"/>
-<area shape="poly" title=" " alt="" coords="1277,596,1232,605,1070,622,910,630,768,633,663,632,663,626,768,627,910,625,1070,617,1232,599,1276,591"/>
-<area shape="rect" href="../../db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#ad0c68e095264a6c6a0bdc68974f6ae18" title="Read from an SSL protected socket." alt="" coords="1031,550,1230,590"/>
-<area shape="poly" title=" " alt="" coords="1266,573,1230,573,1230,567,1266,567"/>
-<area shape="rect" href="../../db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#ae217b5dfecc7cd51d476066695c86aff" title="Read from a not SSL protected socket." alt="" coords="1041,471,1221,525"/>
-<area shape="poly" title=" " alt="" coords="1281,548,1217,528,1218,523,1282,543"/>
-<area shape="rect" href="../../db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#a2356245ef3089394fee85fd3f34be80f" title="Write to an SSL protected socket." alt="" coords="1029,1102,1232,1142"/>
-<area shape="poly" title=" " alt="" coords="1356,605,1341,714,1316,860,1299,933,1280,999,1258,1054,1234,1092,1219,1104,1216,1100,1230,1088,1254,1051,1275,997,1294,931,1311,859,1336,714,1351,604"/>
-<area shape="rect" href="../../db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#a64de72048c9ed20f9673c4d9564d5457" title="Write to a not SSL protected socket." alt="" coords="1041,1023,1221,1077"/>
-<area shape="poly" title=" " alt="" coords="1360,604,1355,684,1337,793,1321,851,1299,908,1271,963,1234,1012,1219,1025,1216,1021,1230,1008,1266,960,1294,906,1316,849,1332,792,1350,684,1355,603"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="1041,291,1221,331"/>
-<area shape="poly" title=" " alt="" coords="1344,538,1328,496,1303,446,1271,396,1230,352,1201,334,1204,329,1234,348,1275,393,1308,444,1332,494,1349,536"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="519,51,699,105"/>
-<area shape="poly" title=" " alt="" coords="769,91,699,87,700,81,769,86"/>
-<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="299,143,421,168"/>
-<area shape="poly" title=" " alt="" coords="509,112,403,145,401,140,507,107"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="30,143,187,168"/>
-<area shape="poly" title=" " alt="" coords="285,158,188,158,188,153,285,153"/>
-<area shape="rect" href="../../df/d13/ssdp__common_8cpp.html#a60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation." alt="" coords="802,795,938,820"/>
-<area shape="poly" title=" " alt="" coords="1026,810,938,810,938,805,1026,805"/>
-<area shape="poly" title=" " alt="" coords="1049,844,937,823,938,817,1050,839"/>
-<area shape="poly" title=" " alt="" coords="1028,771,923,797,922,792,1027,766"/>
-<area shape="poly" title=" " alt="" coords="506,159,421,158,422,153,506,153"/>
-<area shape="poly" title=" " alt="" coords="1027,129,935,111,936,105,1028,123"/>
-<area shape="poly" title=" " alt="" coords="765,59,700,68,699,63,765,54"/>
-<area shape="poly" title=" " alt="" coords="916,20,913,15,905,12,870,8,842,10,827,15,824,20,832,27,828,31,819,21,824,11,841,5,870,3,907,7,917,11,921,17"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="519,311,699,365"/>
-<area shape="poly" title=" " alt="" coords="1047,453,1031,460,1007,477,997,485,982,491,919,510,867,520,841,520,816,516,788,507,757,491,737,472,729,451,723,429,709,406,685,386,660,368,663,363,689,381,713,403,728,427,734,450,742,469,760,486,790,502,817,511,842,515,866,515,918,505,980,486,995,480,1004,473,1028,456,1045,448"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="759,423,981,477"/>
-<area shape="poly" title=" " alt="" coords="1027,438,982,442,981,437,1027,433"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="260,311,460,365"/>
-<area shape="poly" title=" " alt="" coords="506,341,460,341,460,335,506,335"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a54d3ff9589278aff8765d7a64df23587" title="Based on the type of message, appropriate callback is issued." alt="" coords="508,417,711,472"/>
-<area shape="poly" title=" " alt="" coords="745,450,711,449,711,444,745,445"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="265,413,455,468"/>
-<area shape="poly" title=" " alt="" coords="494,445,456,445,456,440,494,440"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a4a107199de415d50f725a5c6a327c1be" title="Initilize the thread pool to handle a request, sets priority for the job and adds the job to the thre..." alt="" coords="6,193,211,248"/>
-<area shape="poly" title=" " alt="" coords="291,408,258,378,247,362,240,346,235,317,229,289,222,275,210,261,196,250,200,246,214,257,226,272,234,287,240,316,246,345,252,360,262,375,294,404"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a17d0de5cdf2e5047f8c549f745c5d965" title="Opens a connection to the server." alt="" coords="265,709,455,735"/>
-<area shape="poly" title=" " alt="" coords="532,725,456,725,456,719,532,719"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="282,759,438,784"/>
-<area shape="poly" title=" " alt="" coords="533,740,425,761,424,756,532,735"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#af28645a07fa4c84254776136a8050db6" title="Opens a connection to the server." alt="" coords="13,784,204,809"/>
-<area shape="poly" title=" " alt="" coords="284,741,261,748,237,761,213,774,172,786,171,781,211,769,235,756,259,744,282,736"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a45850f990fe110e26f9b093a88e3e8a0" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th..." alt="" coords="35,735,182,760"/>
-<area shape="poly" title=" " alt="" coords="251,736,182,743,182,737,251,730"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a68e366bcfaed3559025fa8ac04c2885c" title="Gets specified number of bytes from a file specified in the URL." alt="" coords="30,833,187,859"/>
-<area shape="poly" title=" " alt="" coords="311,791,213,823,165,836,164,831,211,818,310,786"/>
-<area shape="poly" title=" " alt="" coords="541,616,523,607,506,595,494,580,487,565,481,537,476,509,469,495,458,481,444,470,448,466,462,477,474,492,481,507,486,536,492,564,498,577,510,591,526,602,544,611"/>
-<area shape="poly" title=" " alt="" coords="563,648,395,712,394,707,561,643"/>
-<area shape="poly" title=" " alt="" coords="577,650,510,699,487,725,477,737,461,748,432,761,430,756,459,744,474,733,483,721,506,695,574,645"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a23dee83362f8bda1551e1514e806d6bf" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="264,636,456,661"/>
-<area shape="poly" title=" " alt="" coords="542,636,457,643,456,638,541,630"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="262,571,458,596"/>
-<area shape="poly" title=" " alt="" coords="541,618,432,599,433,593,542,613"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae1781a5b638d50bd7626b3ea925492cb" title="Sends the notify message and returns a reply." alt="" coords="270,492,450,547"/>
-<area shape="poly" title=" " alt="" coords="548,613,507,595,482,578,459,560,436,549,438,544,461,556,485,573,509,590,550,608"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a865d9b116a6028d1fd1f1ad2377dca35" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="12,636,205,661"/>
-<area shape="poly" title=" " alt="" coords="250,651,206,651,206,646,250,646"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a32b6a961a76abcb37fcd7f6e3de10ee7" title="Sends and receives any pending data, closes the connection with the server, and frees memory allocate..." alt="" coords="35,685,183,711"/>
-<area shape="poly" title=" " alt="" coords="282,667,175,688,174,683,281,661"/>
-<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28" title="Subscribes or renew subscription." alt="" coords="19,557,199,612"/>
-<area shape="poly" title=" " alt="" coords="248,587,199,587,199,582,248,581"/>
-<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#af298d2d7e5a94605b0b284718e20cdc9" title="Sends the UNSUBCRIBE gena request and recieves the response from the device and returns it as a param..." alt="" coords="19,351,199,405"/>
-<area shape="poly" title=" " alt="" coords="266,566,258,560,244,542,236,524,232,489,229,453,223,436,210,418,197,408,201,404,214,415,228,433,235,452,238,488,241,523,248,540,262,556,269,562"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a4c4ffc89743a422ff2ad243e9ab14892" title="Download the document message and extract the document from the message." alt="" coords="49,429,169,455"/>
-<area shape="poly" title=" " alt="" coords="268,567,258,560,247,549,240,537,234,513,227,489,221,479,210,468,190,457,168,450,170,444,193,452,214,464,225,475,232,487,239,511,245,534,251,545,262,556,271,562"/>
-<area shape="rect" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a19db19e25ca9e8e52017abd97190db81" title="This function sends the control point&#39;s request to the device and receives a response from it." alt="" coords="5,479,212,533"/>
-<area shape="poly" title=" " alt="" coords="292,570,259,561,184,536,186,531,261,555,293,565"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a951778f34697a8cc0a0e9dd7da2b66ca" title="Function to Notify a particular subscription of a particular event." alt="" coords="19,272,199,327"/>
-<area shape="poly" title=" " alt="" coords="262,485,258,481,244,463,237,444,234,409,230,374,223,357,210,340,197,329,201,325,214,336,228,354,235,373,239,408,242,443,249,460,262,478,266,482"/>
-<area shape="rect" href="../../d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="826,555,914,580"/>
-<area shape="poly" title=" " alt="" coords="1018,572,914,570,914,565,1018,566"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a12907b819d45e67ef4d49600e80dfd7e" title="Reads the content of a response using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="520,556,699,581"/>
-<area shape="poly" title=" " alt="" coords="812,570,699,571,699,566,812,565"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ac4f5f24f4aa10cc725b96ac5c29a88f7" title="Get the data on the socket and take actions based on the read data to modify the parser objects buffe..." alt="" coords="537,507,682,532"/>
-<area shape="poly" title=" " alt="" coords="812,559,678,535,679,529,813,554"/>
-<area shape="poly" title=" " alt="" coords="554,505,447,471,448,466,556,500"/>
-<area shape="poly" title=" " alt="" coords="540,538,509,546,461,561,413,573,412,568,459,555,507,541,539,533"/>
-<area shape="poly" title=" " alt="" coords="523,522,450,522,450,517,523,517"/>
-<area shape="poly" title=" " alt="" coords="1028,528,915,558,914,553,1027,523"/>
-<area shape="rect" href="../../d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="824,1073,916,1099"/>
-<area shape="poly" title=" " alt="" coords="1015,1109,916,1095,916,1090,1016,1104"/>
-<area shape="poly" title=" " alt="" coords="1027,1067,916,1082,916,1077,1027,1062"/>
-<area shape="poly" title=" " alt="" coords="1095,284,980,183,887,110,890,106,983,179,1099,280"/>
-<area shape="poly" title=" " alt="" coords="1026,293,854,256,757,232,744,218,736,204,731,175,726,146,720,132,709,119,695,108,698,103,713,115,725,130,731,145,736,174,741,202,748,215,760,228,855,251,1027,287"/>
-<area shape="poly" title=" " alt="" coords="1056,288,1028,275,1004,257,980,240,928,221,930,216,983,236,1007,253,1031,270,1058,284"/>
-<area shape="poly" title=" " alt="" coords="1094,342,1042,377,983,412,954,425,952,420,980,408,1039,373,1091,337"/>
-<area shape="poly" title=" " alt="" coords="1039,337,950,360,948,355,1038,332"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2a75ddca058ce720523173aafeb87904" title="Get status if socket is bound to an ip address of a local network adapter." alt="" coords="780,294,960,334"/>
-<area shape="poly" title=" " alt="" coords="1027,315,960,316,960,310,1027,310"/>
-<area shape="poly" title=" " alt="" coords="767,326,700,332,699,327,766,321"/>
+<area shape="rect" title="Catch error for later use." alt="" coords="1169,603,1324,643"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35" title="Bind socket to an ip address." alt="" coords="709,157,878,183"/>
+<area shape="poly" title=" " alt="" coords="1242,590,1236,518,1217,426,1202,377,1181,330,1153,286,1120,248,1093,228,1065,211,1002,188,937,175,878,170,878,165,938,170,1003,183,1067,206,1096,223,1123,244,1158,283,1185,327,1207,375,1222,424,1241,517,1247,589"/>
+<area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html#ab9a5841aed6435464cfca9c7e1ed371a" title="Creates the SSDP IPv4 socket to be used by the control point." alt="" coords="947,636,1113,661"/>
+<area shape="poly" title=" " alt="" coords="1156,637,1114,642,1113,636,1156,631"/>
+<area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html#aa26ca96260b253550d2e26b5b761767e" title="Creates the SSDP IPv6 socket to be used by the control point." alt="" coords="947,685,1113,711"/>
+<area shape="poly" title=" " alt="" coords="1186,651,1122,675,1081,688,1079,683,1120,670,1184,646"/>
+<area shape="rect" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a2a4b0ed4bade63f5a1bc68d8349e93bd" title="Create an SSDP IPv4 socket." alt="" coords="949,735,1111,789"/>
+<area shape="poly" title=" " alt="" coords="1215,655,1173,690,1123,724,1099,737,1097,732,1120,720,1169,685,1212,650"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="712,5,875,60"/>
+<area shape="poly" title=" " alt="" coords="1238,590,1223,487,1197,352,1181,285,1162,224,1142,174,1119,140,1094,117,1065,97,1001,68,935,50,874,40,875,35,936,44,1003,63,1068,92,1097,112,1123,136,1146,171,1167,222,1186,283,1202,351,1228,486,1244,589"/>
+<area shape="rect" href="../../db/d86/group__upnplib-socket.html#gaff979637c7cac7b0ef5df38ec5eae017" title="Get a socket file descriptor from the operating system." alt="" coords="944,837,1116,892"/>
+<area shape="poly" title=" " alt="" coords="1230,657,1185,727,1156,766,1123,803,1078,839,1075,835,1119,799,1152,763,1181,724,1225,654"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac866a7e2ee68d5be6e62f997b26454a5" title="Get status if reusing address is enabled." alt="" coords="943,917,1117,957"/>
+<area shape="poly" title=" " alt="" coords="1242,657,1229,711,1206,777,1171,845,1149,877,1123,905,1104,919,1101,914,1120,901,1145,874,1167,843,1201,775,1224,709,1237,656"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b" title="Set socket to listen." alt="" coords="705,108,881,133"/>
+<area shape="poly" title=" " alt="" coords="1244,589,1241,508,1235,456,1225,401,1209,344,1187,289,1158,238,1119,193,1094,173,1066,157,1004,134,940,123,881,119,882,114,941,117,1005,129,1068,152,1097,169,1123,189,1162,235,1192,286,1214,342,1230,400,1240,456,1246,508,1249,589"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="943,326,1117,366"/>
+<area shape="poly" title=" " alt="" coords="1235,591,1220,544,1196,487,1163,430,1143,403,1120,380,1102,368,1105,364,1123,376,1147,400,1167,427,1201,485,1225,542,1240,589"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a792af065e758a89de58061eadd9769ee" title="Initiate a connection on a socket." alt="" coords="503,683,617,708"/>
+<area shape="poly" title=" " alt="" coords="1155,622,1051,620,939,626,848,638,758,653,612,685,611,680,757,648,847,632,938,621,1051,615,1155,616"/>
+<area shape="rect" href="../../d5/d78/sock_8cpp.html#a90f3d17250e4a8df679a4b88a8abd4da" title="Shutsdown the socket using the ShutdownMethod to indicate whether sends and receives on the socket wi..." alt="" coords="510,593,610,619"/>
+<area shape="poly" title=" " alt="" coords="1187,601,1121,582,1003,566,909,563,816,570,696,582,611,597,610,591,696,577,815,564,909,558,1003,561,1122,577,1188,596"/>
+<area shape="rect" href="../../db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#ad0c68e095264a6c6a0bdc68974f6ae18" title="Read from an SSL protected socket." alt="" coords="941,390,1119,430"/>
+<area shape="poly" title=" " alt="" coords="1228,592,1186,517,1156,478,1120,444,1101,432,1103,428,1123,440,1160,475,1190,514,1233,589"/>
+<area shape="rect" href="../../db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#ae217b5dfecc7cd51d476066695c86aff" title="Read from a not SSL protected socket." alt="" coords="949,455,1111,509"/>
+<area shape="poly" title=" " alt="" coords="1210,597,1120,531,1087,512,1089,507,1123,526,1213,592"/>
+<area shape="rect" href="../../db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#a2356245ef3089394fee85fd3f34be80f" title="Write to an SSL protected socket." alt="" coords="939,981,1121,1021"/>
+<area shape="poly" title=" " alt="" coords="1245,658,1236,723,1215,806,1199,850,1179,894,1154,934,1123,971,1107,983,1104,978,1119,967,1149,931,1174,891,1194,848,1210,805,1230,722,1240,657"/>
+<area shape="rect" href="../../db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#a64de72048c9ed20f9673c4d9564d5457" title="Write to a not SSL protected socket." alt="" coords="949,1045,1111,1100"/>
+<area shape="poly" title=" " alt="" coords="1247,658,1240,733,1221,833,1205,886,1184,939,1157,989,1123,1034,1109,1047,1106,1043,1119,1031,1152,986,1179,937,1200,884,1216,831,1234,732,1242,657"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="943,258,1117,298"/>
+<area shape="poly" title=" " alt="" coords="1238,590,1226,532,1204,459,1169,383,1146,347,1120,316,1098,300,1101,296,1123,312,1151,344,1174,380,1209,457,1231,531,1243,589"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a03d5f6960eee00a3d0a987df326aaf2b" title="Get the error that is given from the socket as option." alt="" coords="943,1125,1117,1165"/>
+<area shape="poly" title=" " alt="" coords="1244,658,1228,761,1202,897,1185,966,1167,1028,1146,1079,1123,1114,1109,1126,1105,1122,1119,1111,1141,1076,1162,1026,1180,964,1197,896,1223,761,1238,657"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad041272f04b0147168ec8b89f179e39b" title="Get the socket type." alt="" coords="943,1189,1117,1229"/>
+<area shape="poly" title=" " alt="" coords="1245,658,1231,774,1206,929,1190,1007,1171,1078,1148,1137,1123,1178,1109,1191,1106,1187,1119,1175,1144,1135,1165,1077,1185,1006,1201,928,1226,773,1239,657"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="479,125,641,180"/>
+<area shape="poly" title=" " alt="" coords="694,165,641,161,642,156,695,160"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="277,112,389,137"/>
+<area shape="poly" title=" " alt="" coords="465,144,389,134,389,129,465,138"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="27,112,171,137"/>
+<area shape="poly" title=" " alt="" coords="262,127,172,127,172,122,262,122"/>
+<area shape="rect" href="../../df/d13/ssdp__common_8cpp.html#a60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation." alt="" coords="729,685,857,711"/>
+<area shape="poly" title=" " alt="" coords="956,667,856,688,855,683,954,662"/>
+<area shape="poly" title=" " alt="" coords="933,701,858,701,858,695,933,695"/>
+<area shape="poly" title=" " alt="" coords="934,739,840,713,842,708,936,734"/>
+<area shape="poly" title=" " alt="" coords="699,54,390,116,388,111,698,49"/>
+<area shape="poly" title=" " alt="" coords="1066,826,1053,819,1030,816,1011,818,999,823,993,829,993,837,988,837,988,827,995,818,1010,813,1030,811,1055,814,1068,822"/>
+<area shape="poly" title=" " alt="" coords="692,137,642,144,641,139,691,132"/>
+<area shape="poly" title=" " alt="" coords="835,99,824,90,793,87,768,89,755,94,753,99,760,106,756,110,747,100,752,90,767,84,793,81,826,85,838,95"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="479,244,641,299"/>
+<area shape="poly" title=" " alt="" coords="958,373,891,391,790,412,746,411,722,404,694,391,676,373,668,353,661,332,646,312,631,301,634,297,650,308,666,330,673,351,680,370,698,386,723,399,747,406,789,407,890,386,957,368"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="696,323,891,377"/>
+<area shape="poly" title=" " alt="" coords="929,350,891,351,891,346,929,345"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="245,244,420,299"/>
+<area shape="poly" title=" " alt="" coords="465,274,420,274,420,269,465,269"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a54d3ff9589278aff8765d7a64df23587" title="Based on the type of message, appropriate callback is issued." alt="" coords="472,323,648,377"/>
+<area shape="poly" title=" " alt="" coords="682,353,648,353,648,347,682,347"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="250,323,415,377"/>
+<area shape="poly" title=" " alt="" coords="458,353,415,353,415,347,458,347"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a4a107199de415d50f725a5c6a327c1be" title="Initilize the thread pool to handle a request, sets priority for the job and adds the job to the thre..." alt="" coords="10,165,189,220"/>
+<area shape="poly" title=" " alt="" coords="246,317,239,312,223,291,215,272,207,252,192,233,176,222,179,218,195,229,212,250,220,270,228,289,243,308,249,313"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a17d0de5cdf2e5047f8c549f745c5d965" title="Opens a connection to the server." alt="" coords="246,683,419,708"/>
+<area shape="poly" title=" " alt="" coords="489,698,420,698,420,693,489,693"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="261,732,405,757"/>
+<area shape="poly" title=" " alt="" coords="490,713,392,735,391,729,489,708"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#af28645a07fa4c84254776136a8050db6" title="Opens a connection to the server." alt="" coords="12,756,187,781"/>
+<area shape="poly" title=" " alt="" coords="264,714,242,722,194,746,155,759,153,753,192,741,240,717,262,709"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a45850f990fe110e26f9b093a88e3e8a0" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th..." alt="" coords="31,707,167,732"/>
+<area shape="poly" title=" " alt="" coords="232,708,168,715,167,710,232,703"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a68e366bcfaed3559025fa8ac04c2885c" title="Gets specified number of bytes from a file specified in the URL." alt="" coords="26,805,173,831"/>
+<area shape="poly" title=" " alt="" coords="285,764,194,795,151,808,149,803,193,790,283,759"/>
+<area shape="poly" title=" " alt="" coords="496,599,470,583,452,558,444,534,442,510,444,486,444,438,437,415,422,390,410,379,414,376,426,387,442,412,450,438,449,486,448,510,449,533,457,556,474,579,498,594"/>
+<area shape="poly" title=" " alt="" coords="515,626,367,685,365,680,513,621"/>
+<area shape="poly" title=" " alt="" coords="530,629,474,672,451,698,441,710,425,722,397,734,395,730,423,717,438,706,447,695,470,668,527,624"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a23dee83362f8bda1551e1514e806d6bf" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="245,608,421,633"/>
+<area shape="poly" title=" " alt="" coords="497,613,421,618,421,612,496,607"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="241,480,424,505"/>
+<area shape="poly" title=" " alt="" coords="496,593,471,583,402,544,349,508,352,503,405,540,473,578,498,588"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae1781a5b638d50bd7626b3ea925492cb" title="Sends the notify message and returns a reply." alt="" coords="251,401,414,456"/>
+<area shape="poly" title=" " alt="" coords="495,598,470,583,458,568,450,554,445,525,439,497,433,483,422,469,409,458,412,454,426,465,438,480,445,495,450,524,455,552,462,565,474,579,498,593"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a865d9b116a6028d1fd1f1ad2377dca35" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="10,608,189,633"/>
+<area shape="poly" title=" " alt="" coords="230,623,189,623,189,618,230,618"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a32b6a961a76abcb37fcd7f6e3de10ee7" title="Sends and receives any pending data, closes the connection with the server, and frees memory allocate..." alt="" coords="30,657,169,683"/>
+<area shape="poly" title=" " alt="" coords="259,639,161,660,160,655,258,634"/>
+<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28" title="Subscribes or renew subscription." alt="" coords="18,529,181,584"/>
+<area shape="poly" title=" " alt="" coords="273,512,182,537,180,532,271,507"/>
+<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#af298d2d7e5a94605b0b284718e20cdc9" title="Sends the UNSUBCRIBE gena request and recieves the response from the device and returns it as a param..." alt="" coords="18,323,181,377"/>
+<area shape="poly" title=" " alt="" coords="250,476,240,469,222,450,214,430,207,410,191,391,176,380,179,375,195,387,212,407,219,428,227,447,243,465,253,472"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a4c4ffc89743a422ff2ad243e9ab14892" title="Download the document message and extract the document from the message." alt="" coords="45,401,154,427"/>
+<area shape="poly" title=" " alt="" coords="263,478,240,470,216,455,192,440,154,428,155,423,194,436,219,450,243,465,265,473"/>
+<area shape="rect" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a19db19e25ca9e8e52017abd97190db81" title="This function sends the control point&#39;s request to the device and receives a response from it." alt="" coords="5,451,193,505"/>
+<area shape="poly" title=" " alt="" coords="227,489,193,487,194,481,227,483"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a951778f34697a8cc0a0e9dd7da2b66ca" title="Function to Notify a particular subscription of a particular event." alt="" coords="18,244,181,299"/>
+<area shape="poly" title=" " alt="" coords="246,396,239,391,223,370,215,350,207,331,192,312,176,301,179,297,195,308,212,328,220,348,228,367,243,387,249,392"/>
+<area shape="rect" href="../../d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="752,465,835,491"/>
+<area shape="poly" title=" " alt="" coords="947,436,836,469,834,464,946,431"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a12907b819d45e67ef4d49600e80dfd7e" title="Reads the content of a response using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="477,465,643,491"/>
+<area shape="poly" title=" " alt="" coords="738,481,644,481,644,475,738,475"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ac4f5f24f4aa10cc725b96ac5c29a88f7" title="Get the data on the socket and take actions based on the read data to modify the parser objects buffe..." alt="" coords="493,416,627,441"/>
+<area shape="poly" title=" " alt="" coords="738,469,620,444,622,439,739,464"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ade42b67e208b7dbb02ba7271472c0039" title="Receives the HTTP post message." alt="" coords="479,515,641,569"/>
+<area shape="poly" title=" " alt="" coords="739,495,642,522,641,517,738,490"/>
+<area shape="poly" title=" " alt="" coords="508,414,412,380,413,375,510,409"/>
+<area shape="poly" title=" " alt="" coords="500,448,473,455,425,470,381,483,379,477,423,465,471,450,498,442"/>
+<area shape="poly" title=" " alt="" coords="479,431,414,431,414,426,479,426"/>
+<area shape="poly" title=" " alt="" coords="934,483,835,481,835,476,935,478"/>
+<area shape="rect" href="../../d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="751,1024,836,1049"/>
+<area shape="poly" title=" " alt="" coords="926,1019,837,1033,836,1028,925,1014"/>
+<area shape="poly" title=" " alt="" coords="934,1061,836,1046,837,1040,935,1056"/>
+<area shape="poly" title=" " alt="" coords="981,253,890,204,837,185,839,180,892,200,983,249"/>
+<area shape="poly" title=" " alt="" coords="931,257,695,197,641,181,642,175,697,191,932,252"/>
+<area shape="poly" title=" " alt="" coords="951,305,884,325,883,320,950,300"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2a75ddca058ce720523173aafeb87904" title="Get property if socket is bound to an ip address." alt="" coords="706,258,881,298"/>
+<area shape="poly" title=" " alt="" coords="928,281,881,281,881,275,928,275"/>
+<area shape="poly" title=" " alt="" coords="692,278,641,276,642,271,692,272"/>
 </map>
 </div>
 
@@ -339,7 +337,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Get human readable error description of the catched error. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00637">637</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00624">624</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -347,121 +345,119 @@ Public Member Functions</h2></td></tr>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dd/d3a/classUPnPsdk_1_1CSocketErr_ac33bc7561a105383c0e9d951b3b5e3f6_icgraph.png" border="0" usemap="#add/d3a/classUPnPsdk_1_1CSocketErr_ac33bc7561a105383c0e9d951b3b5e3f6_icgraph" alt=""/></div>
 <map name="add/d3a/classUPnPsdk_1_1CSocketErr_ac33bc7561a105383c0e9d951b3b5e3f6_icgraph" id="add/d3a/classUPnPsdk_1_1CSocketErr_ac33bc7561a105383c0e9d951b3b5e3f6_icgraph">
-<area shape="rect" title="Get human readable error description of the catched error." alt="" coords="1729,462,1887,502"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7d8a000d07b38db55e1ff380d2e36024" title="Bind socket to a local interface address." alt="" coords="1252,84,1427,109"/>
-<area shape="poly" title=" " alt="" coords="1800,449,1789,391,1767,318,1751,280,1732,244,1708,210,1680,182,1645,170,1571,151,1398,112,1399,107,1572,146,1647,165,1683,177,1712,207,1736,241,1756,278,1772,316,1794,389,1805,448"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab1b7880f4d37940538160dc7c6a43683" title=" " alt="" coords="1248,185,1431,211"/>
-<area shape="poly" title=" " alt="" coords="1790,450,1772,416,1747,377,1716,339,1680,307,1656,292,1634,283,1593,274,1550,269,1498,255,1450,232,1390,213,1391,208,1452,228,1500,250,1551,264,1594,269,1636,278,1658,287,1683,303,1720,336,1751,374,1776,414,1794,448"/>
-<area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html#ab9a5841aed6435464cfca9c7e1ed371a" title="Creates the SSDP IPv4 socket to be used by the control point." alt="" coords="1499,643,1681,668"/>
-<area shape="poly" title=" " alt="" coords="1790,516,1746,576,1717,607,1683,634,1659,645,1657,640,1680,629,1713,603,1742,573,1786,512"/>
-<area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html#aa26ca96260b253550d2e26b5b761767e" title="Creates the SSDP IPv6 socket to be used by the control point." alt="" coords="1499,692,1681,717"/>
-<area shape="poly" title=" " alt="" coords="1797,516,1780,555,1755,600,1723,645,1683,683,1662,694,1659,690,1680,679,1719,641,1751,597,1775,553,1792,514"/>
-<area shape="rect" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a2a4b0ed4bade63f5a1bc68d8349e93bd" title="Create an SSDP IPv4 socket." alt="" coords="1500,741,1680,796"/>
-<area shape="poly" title=" " alt="" coords="1800,516,1785,563,1761,621,1727,680,1683,732,1669,743,1665,739,1679,728,1722,677,1756,618,1780,561,1795,514"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="1249,5,1429,60"/>
-<area shape="poly" title=" " alt="" coords="1799,449,1782,357,1756,242,1740,185,1721,134,1701,93,1680,67,1652,48,1622,34,1590,24,1557,18,1491,14,1430,19,1429,13,1491,9,1558,13,1592,19,1624,29,1655,43,1683,63,1706,90,1726,132,1745,183,1761,240,1788,356,1804,448"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#afdcdf2ec2674ab50be325bdd768d537b" title="Get the error that is given from the socket as option." alt="" coords="1500,821,1680,861"/>
-<area shape="poly" title=" " alt="" coords="1806,516,1795,578,1773,656,1757,698,1737,739,1713,777,1683,811,1667,823,1664,819,1680,807,1708,773,1732,736,1752,696,1768,655,1790,577,1800,515"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a8b882b2ed7f1aa57c508f29041a8bd25" title="Get the socket type SOCK_STREAM or SOCK_DGRAM." alt="" coords="1500,77,1680,117"/>
-<area shape="poly" title=" " alt="" coords="1801,449,1790,384,1769,301,1753,258,1733,214,1709,174,1679,137,1655,119,1658,115,1683,133,1713,171,1738,212,1758,256,1774,300,1795,383,1806,448"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac866a7e2ee68d5be6e62f997b26454a5" title="Get status if reusing address is enabled." alt="" coords="1500,885,1680,925"/>
-<area shape="poly" title=" " alt="" coords="1808,516,1801,589,1781,684,1765,735,1744,785,1717,833,1683,875,1668,887,1665,882,1679,871,1713,830,1739,783,1760,734,1776,683,1796,588,1803,515"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b" title="Set socket to listen." alt="" coords="1499,216,1681,241"/>
-<area shape="poly" title=" " alt="" coords="1794,450,1777,407,1753,357,1721,307,1680,263,1646,244,1648,239,1683,259,1725,303,1758,355,1782,405,1799,448"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor from the constructor into the object." alt="" coords="1500,462,1680,502"/>
-<area shape="poly" title=" " alt="" coords="1715,485,1680,485,1680,479,1715,479"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a792af065e758a89de58061eadd9769ee" title="Initiate a connection on a socket." alt="" coords="1527,544,1653,569"/>
-<area shape="poly" title=" " alt="" coords="1737,509,1629,546,1627,541,1735,504"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a90513b6a7a35f5f619f475d57d618647" title="Set IPV6_V6ONLY." alt="" coords="1256,350,1423,390"/>
-<area shape="poly" title=" " alt="" coords="1715,461,1681,453,1422,391,1423,386,1682,447,1717,456"/>
-<area shape="rect" href="../../d5/d78/sock_8cpp.html#a90f3d17250e4a8df679a4b88a8abd4da" title="Shutsdown the socket using the ShutdownMethod to indicate whether sends and receives on the socket wi..." alt="" coords="1536,593,1644,619"/>
-<area shape="poly" title=" " alt="" coords="1778,514,1735,551,1683,584,1645,598,1643,593,1680,580,1732,546,1775,510"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="1500,317,1680,357"/>
-<area shape="poly" title=" " alt="" coords="1765,456,1680,398,1621,359,1624,355,1683,393,1768,452"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="987,108,1167,163"/>
-<area shape="poly" title=" " alt="" coords="1239,114,1168,125,1167,119,1238,109"/>
-<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="769,65,891,91"/>
-<area shape="poly" title=" " alt="" coords="973,114,885,93,886,88,974,109"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="505,65,663,91"/>
-<area shape="poly" title=" " alt="" coords="755,81,663,81,663,75,755,75"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="301,65,386,91"/>
-<area shape="poly" title=" " alt="" coords="491,81,386,81,386,75,491,75"/>
-<area shape="rect" href="../../df/d13/ssdp__common_8cpp.html#a60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation." alt="" coords="1271,904,1407,929"/>
-<area shape="poly" title=" " alt="" coords="1506,677,1501,682,1483,708,1475,734,1475,760,1478,787,1481,814,1480,841,1472,868,1453,895,1432,909,1409,917,1407,912,1430,904,1449,891,1467,866,1475,840,1476,814,1473,788,1470,761,1470,733,1478,706,1497,679,1503,673"/>
-<area shape="poly" title=" " alt="" coords="1507,727,1501,732,1486,751,1479,771,1478,812,1477,854,1469,874,1452,895,1432,908,1409,916,1407,911,1430,903,1449,891,1464,872,1471,853,1473,812,1474,770,1481,749,1497,728,1503,723"/>
-<area shape="poly" title=" " alt="" coords="1506,806,1501,810,1485,832,1478,853,1471,874,1452,895,1431,906,1409,914,1407,909,1429,902,1449,891,1466,872,1473,851,1480,829,1497,807,1502,802"/>
-<area shape="poly" title=" " alt="" coords="1236,44,892,75,891,70,1235,39"/>
-<area shape="poly" title=" " alt="" coords="1486,99,1427,99,1427,94,1486,94"/>
-<area shape="poly" title=" " alt="" coords="1550,213,1503,192,1450,175,1376,160,1301,150,1167,140,1167,134,1302,145,1377,155,1451,170,1505,187,1552,208"/>
-<area shape="poly" title=" " alt="" coords="1629,206,1618,198,1590,195,1567,197,1555,202,1552,207,1559,214,1555,218,1547,208,1551,198,1566,192,1590,189,1620,193,1632,202"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="987,319,1167,373"/>
-<area shape="poly" title=" " alt="" coords="1486,464,1341,432,1227,405,1144,376,1146,371,1229,399,1342,427,1487,458"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="1228,465,1451,520"/>
-<area shape="poly" title=" " alt="" coords="1486,489,1451,491,1451,485,1486,484"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="5,376,205,431"/>
-<area shape="poly" title=" " alt="" coords="973,355,206,400,205,395,973,349"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a54d3ff9589278aff8765d7a64df23587" title="Based on the type of message, appropriate callback is issued." alt="" coords="975,465,1178,520"/>
-<area shape="poly" title=" " alt="" coords="1214,495,1178,495,1178,490,1214,490"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="735,483,925,537"/>
-<area shape="poly" title=" " alt="" coords="962,503,926,506,925,501,961,498"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a4a107199de415d50f725a5c6a327c1be" title="Initilize the thread pool to handle a request, sets priority for the job and adds the job to the thre..." alt="" coords="481,433,687,488"/>
-<area shape="poly" title=" " alt="" coords="721,491,686,484,687,479,722,486"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a34abbc6e410d0cfd24057c79c9f1b9c3" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="253,408,433,463"/>
-<area shape="poly" title=" " alt="" coords="467,451,433,447,434,442,468,446"/>
-<area shape="poly" title=" " alt="" coords="239,424,205,419,206,414,240,419"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a17d0de5cdf2e5047f8c549f745c5d965" title="Opens a connection to the server." alt="" coords="1244,544,1435,569"/>
-<area shape="poly" title=" " alt="" coords="1512,559,1435,559,1435,554,1512,554"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="1261,593,1417,619"/>
-<area shape="poly" title=" " alt="" coords="1513,574,1405,596,1404,591,1512,569"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#af28645a07fa4c84254776136a8050db6" title="Opens a connection to the server." alt="" coords="981,416,1172,441"/>
-<area shape="poly" title=" " alt="" coords="1235,540,1226,535,1209,515,1201,494,1194,475,1178,456,1155,444,1158,439,1182,452,1199,472,1206,493,1213,512,1230,531,1238,536"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a45850f990fe110e26f9b093a88e3e8a0" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th..." alt="" coords="1003,544,1150,569"/>
-<area shape="poly" title=" " alt="" coords="1230,559,1150,559,1150,554,1230,554"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a14067069cf3e1f0dc9ac25867a4ca83d" title="Gets a file specified in a URL." alt="" coords="759,384,901,409"/>
-<area shape="poly" title=" " alt="" coords="967,417,900,408,901,403,968,412"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a5f069548a767baef4623774d7bb3ce9f" title="Gets a file specified in a URL through the specified proxy." alt="" coords="741,433,919,459"/>
-<area shape="poly" title=" " alt="" coords="968,439,920,442,919,437,967,434"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a68e366bcfaed3559025fa8ac04c2885c" title="Gets specified number of bytes from a file specified in the URL." alt="" coords="998,593,1155,619"/>
-<area shape="poly" title=" " alt="" coords="1248,609,1156,609,1156,603,1248,603"/>
-<area shape="poly" title=" " alt="" coords="1533,625,1427,649,1359,660,1285,667,1207,670,1127,667,1048,655,972,634,935,615,902,591,851,539,855,536,905,587,938,611,974,629,1049,650,1128,662,1207,665,1284,662,1358,654,1426,643,1532,620"/>
-<area shape="poly" title=" " alt="" coords="1521,595,1404,572,1405,567,1522,590"/>
-<area shape="poly" title=" " alt="" coords="1522,609,1418,609,1418,603,1522,603"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a23dee83362f8bda1551e1514e806d6bf" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="1243,695,1435,720"/>
-<area shape="poly" title=" " alt="" coords="1524,623,1500,634,1486,644,1477,655,1467,666,1452,678,1404,697,1402,692,1449,673,1463,663,1473,652,1482,640,1497,629,1522,618"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="1241,776,1437,801"/>
-<area shape="poly" title=" " alt="" coords="1524,620,1500,633,1482,657,1476,681,1470,707,1453,734,1418,761,1381,778,1379,773,1415,756,1449,731,1465,705,1471,680,1478,655,1497,629,1522,615"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae1781a5b638d50bd7626b3ea925492cb" title="Sends the notify message and returns a reply." alt="" coords="1249,825,1429,880"/>
-<area shape="poly" title=" " alt="" coords="1524,618,1500,633,1484,655,1477,677,1475,699,1477,722,1477,768,1469,792,1453,816,1431,833,1428,828,1449,812,1464,790,1471,767,1471,722,1470,699,1472,676,1480,653,1497,629,1521,614"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a865d9b116a6028d1fd1f1ad2377dca35" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="980,744,1173,769"/>
-<area shape="poly" title=" " alt="" coords="1258,725,1146,747,1145,741,1257,720"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a32b6a961a76abcb37fcd7f6e3de10ee7" title="Sends and receives any pending data, closes the connection with the server, and frees memory allocate..." alt="" coords="1003,695,1151,720"/>
-<area shape="poly" title=" " alt="" coords="1230,710,1151,710,1151,705,1230,705"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a016d21ff4d92fd6367469cf7f0d4e562" title="Closes the connection and frees memory that was allocated for the handle parameter." alt="" coords="759,744,901,769"/>
-<area shape="poly" title=" " alt="" coords="966,759,901,759,901,754,966,754"/>
-<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28" title="Subscribes or renew subscription." alt="" coords="987,872,1167,927"/>
-<area shape="poly" title=" " alt="" coords="1247,808,1229,816,1215,827,1206,838,1196,850,1182,863,1161,874,1158,870,1178,858,1192,847,1202,835,1211,823,1227,812,1245,803"/>
-<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#af298d2d7e5a94605b0b284718e20cdc9" title="Sends the UNSUBCRIBE gena request and recieves the response from the device and returns it as a param..." alt="" coords="987,951,1167,1005"/>
-<area shape="poly" title=" " alt="" coords="1237,810,1230,816,1217,830,1210,845,1206,876,1202,908,1195,925,1182,941,1168,953,1165,948,1178,937,1190,922,1196,907,1200,875,1205,843,1213,827,1226,812,1234,806"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a4c4ffc89743a422ff2ad243e9ab14892" title="Download the document message and extract the document from the message." alt="" coords="1017,1029,1137,1055"/>
-<area shape="poly" title=" " alt="" coords="1236,811,1230,816,1212,840,1205,865,1204,890,1207,916,1209,942,1209,968,1201,994,1182,1020,1161,1034,1138,1042,1136,1037,1159,1029,1178,1016,1196,992,1203,967,1204,942,1201,916,1199,890,1199,864,1207,838,1226,812,1232,807"/>
-<area shape="rect" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a19db19e25ca9e8e52017abd97190db81" title="This function sends the control point&#39;s request to the device and receives a response from it." alt="" coords="973,793,1180,848"/>
-<area shape="poly" title=" " alt="" coords="1228,805,1180,811,1180,805,1227,800"/>
-<area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="741,852,919,877"/>
-<area shape="poly" title=" " alt="" coords="973,887,919,880,920,875,973,882"/>
-<area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#a8fa71879823e3dc936bac4847ca1fcc5" title="This function subscribes to a PublisherURL (also mentioned as EventURL in some places)." alt="" coords="771,901,889,927"/>
-<area shape="poly" title=" " alt="" coords="973,908,889,913,889,908,973,903"/>
-<area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="750,965,910,991"/>
-<area shape="poly" title=" " alt="" coords="973,981,910,981,910,975,973,975"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a951778f34697a8cc0a0e9dd7da2b66ca" title="Function to Notify a particular subscription of a particular event." alt="" coords="987,1079,1167,1133"/>
-<area shape="poly" title=" " alt="" coords="1240,886,1230,894,1215,916,1208,937,1207,980,1205,1024,1198,1046,1182,1069,1168,1081,1165,1077,1178,1066,1193,1044,1200,1023,1201,980,1202,936,1210,914,1226,891,1236,882"/>
-<area shape="poly" title=" " alt="" coords="1551,310,1497,254,1482,232,1473,213,1464,195,1449,175,1406,138,1364,112,1367,107,1409,134,1453,171,1469,192,1478,211,1486,230,1501,251,1555,306"/>
-<area shape="poly" title=" " alt="" coords="1527,314,1497,300,1474,288,1450,277,1388,259,1339,252,1289,244,1227,224,1168,196,1117,165,1120,161,1171,191,1229,220,1290,238,1339,246,1389,254,1452,271,1476,283,1500,296,1529,309"/>
-<area shape="poly" title=" " alt="" coords="1516,313,1497,300,1481,282,1473,264,1465,248,1449,232,1410,213,1412,208,1452,228,1469,245,1478,262,1486,279,1500,296,1518,308"/>
-<area shape="poly" title=" " alt="" coords="1547,366,1386,468,1383,463,1544,362"/>
-<area shape="poly" title=" " alt="" coords="1486,353,1423,362,1422,356,1486,348"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2a75ddca058ce720523173aafeb87904" title="Get status if socket is bound to an ip address of a local network adapter." alt="" coords="1249,286,1429,326"/>
-<area shape="poly" title=" " alt="" coords="1486,327,1429,320,1430,314,1487,321"/>
-<area shape="poly" title=" " alt="" coords="1236,324,1167,335,1166,330,1236,319"/>
+<area shape="rect" title="Get human readable error description of the catched error." alt="" coords="1580,551,1735,591"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35" title="Bind socket to an ip address." alt="" coords="1127,157,1297,183"/>
+<area shape="poly" title=" " alt="" coords="1651,538,1641,476,1621,397,1605,356,1585,316,1560,280,1530,248,1505,229,1477,213,1416,190,1354,177,1297,172,1297,167,1355,172,1417,185,1479,208,1508,224,1534,244,1564,276,1590,314,1610,354,1626,395,1646,475,1656,537"/>
+<area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html#ab9a5841aed6435464cfca9c7e1ed371a" title="Creates the SSDP IPv4 socket to be used by the control point." alt="" coords="1361,655,1528,680"/>
+<area shape="poly" title=" " alt="" coords="1615,601,1533,644,1497,657,1495,652,1531,640,1613,596"/>
+<area shape="rect" href="../../d4/d99/ssdp__ctrlpt_8cpp.html#aa26ca96260b253550d2e26b5b761767e" title="Creates the SSDP IPv6 socket to be used by the control point." alt="" coords="1361,704,1528,729"/>
+<area shape="poly" title=" " alt="" coords="1634,604,1590,651,1563,675,1533,695,1508,706,1506,701,1531,690,1560,670,1587,647,1630,601"/>
+<area shape="rect" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a2a4b0ed4bade63f5a1bc68d8349e93bd" title="Create an SSDP IPv4 socket." alt="" coords="1363,576,1526,631"/>
+<area shape="poly" title=" " alt="" coords="1567,588,1527,594,1526,588,1566,582"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="1131,5,1293,60"/>
+<area shape="poly" title=" " alt="" coords="1654,538,1649,458,1632,352,1616,296,1595,241,1566,189,1530,142,1505,120,1477,101,1415,72,1352,53,1293,42,1294,37,1353,48,1417,67,1480,96,1508,116,1534,139,1571,186,1600,238,1621,294,1637,351,1654,458,1659,537"/>
+<area shape="rect" href="../../db/d86/group__upnplib-socket.html#gaff979637c7cac7b0ef5df38ec5eae017" title="Get a socket file descriptor from the operating system." alt="" coords="1359,777,1531,832"/>
+<area shape="poly" title=" " alt="" coords="1639,605,1594,672,1534,744,1491,779,1488,775,1530,740,1590,669,1635,602"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac866a7e2ee68d5be6e62f997b26454a5" title="Get status if reusing address is enabled." alt="" coords="1357,857,1532,897"/>
+<area shape="poly" title=" " alt="" coords="1652,605,1639,658,1615,722,1581,788,1559,819,1534,847,1517,859,1514,854,1530,843,1555,816,1577,786,1610,720,1633,656,1647,604"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b" title="Set socket to listen." alt="" coords="1124,108,1300,133"/>
+<area shape="poly" title=" " alt="" coords="1653,538,1647,466,1628,373,1613,324,1592,277,1564,233,1530,195,1505,175,1478,160,1418,137,1357,125,1300,121,1301,115,1358,120,1420,132,1480,155,1508,171,1534,191,1569,230,1596,274,1618,322,1633,372,1652,465,1658,538"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="1357,381,1532,421"/>
+<area shape="poly" title=" " alt="" coords="1622,544,1530,467,1473,423,1476,419,1534,463,1625,540"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a792af065e758a89de58061eadd9769ee" title="Initiate a connection on a socket." alt="" coords="1387,477,1502,503"/>
+<area shape="poly" title=" " alt="" coords="1603,548,1531,516,1496,505,1498,500,1533,512,1605,543"/>
+<area shape="rect" href="../../d5/d78/sock_8cpp.html#a90f3d17250e4a8df679a4b88a8abd4da" title="Shutsdown the socket using the ShutdownMethod to indicate whether sends and receives on the socket wi..." alt="" coords="1395,527,1495,552"/>
+<area shape="poly" title=" " alt="" coords="1566,560,1495,549,1496,544,1567,555"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="1357,258,1532,298"/>
+<area shape="poly" title=" " alt="" coords="1636,540,1591,461,1530,370,1497,332,1466,300,1469,296,1501,328,1534,367,1596,458,1641,537"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a03d5f6960eee00a3d0a987df326aaf2b" title="Get the error that is given from the socket as option." alt="" coords="1357,921,1532,961"/>
+<area shape="poly" title=" " alt="" coords="1656,605,1645,669,1624,750,1608,793,1588,835,1564,875,1534,911,1518,923,1515,919,1530,907,1559,872,1584,833,1603,791,1619,749,1640,668,1650,604"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad041272f04b0147168ec8b89f179e39b" title="Get the socket type." alt="" coords="1357,985,1532,1025"/>
+<area shape="poly" title=" " alt="" coords="1658,605,1651,680,1632,778,1617,831,1595,882,1568,931,1534,975,1519,987,1515,983,1530,971,1564,928,1591,880,1612,829,1627,777,1646,679,1653,605"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="891,125,1054,180"/>
+<area shape="poly" title=" " alt="" coords="1114,166,1054,161,1054,156,1114,160"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="692,72,804,97"/>
+<area shape="poly" title=" " alt="" coords="877,127,790,100,792,95,879,122"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="456,72,600,97"/>
+<area shape="poly" title=" " alt="" coords="678,87,600,87,600,82,678,82"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="270,72,349,97"/>
+<area shape="poly" title=" " alt="" coords="442,87,349,87,349,82,442,82"/>
+<area shape="rect" href="../../df/d13/ssdp__common_8cpp.html#a60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation." alt="" coords="1148,839,1276,864"/>
+<area shape="poly" title=" " alt="" coords="1366,689,1359,695,1346,711,1340,727,1336,761,1333,795,1325,812,1311,829,1295,840,1277,847,1275,843,1293,836,1308,825,1321,810,1328,794,1331,760,1334,725,1342,708,1355,691,1363,685"/>
+<area shape="poly" title=" " alt="" coords="1369,738,1359,744,1343,764,1336,786,1329,808,1311,829,1277,846,1275,841,1308,825,1324,805,1331,784,1338,762,1356,740,1366,733"/>
+<area shape="poly" title=" " alt="" coords="1361,642,1359,644,1344,667,1338,690,1338,737,1339,760,1337,783,1329,806,1311,829,1295,841,1277,848,1275,843,1293,836,1307,825,1324,804,1332,782,1334,759,1333,737,1333,690,1340,665,1355,640,1357,638"/>
+<area shape="poly" title=" " alt="" coords="1117,46,805,81,804,76,1116,41"/>
+<area shape="poly" title=" " alt="" coords="1480,766,1467,759,1445,756,1426,758,1414,763,1408,769,1409,777,1403,777,1403,767,1411,758,1425,753,1445,751,1469,754,1482,762"/>
+<area shape="poly" title=" " alt="" coords="1111,137,1054,144,1054,139,1110,132"/>
+<area shape="poly" title=" " alt="" coords="1254,99,1243,90,1212,87,1187,89,1174,94,1171,99,1178,106,1174,110,1166,100,1170,90,1186,84,1212,81,1245,85,1257,95"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="891,272,1054,327"/>
+<area shape="poly" title=" " alt="" coords="1368,379,1309,363,1174,335,1054,314,1055,309,1175,330,1310,358,1369,374"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="1115,373,1309,428"/>
+<area shape="poly" title=" " alt="" coords="1343,403,1309,403,1309,398,1343,398"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="5,313,180,368"/>
+<area shape="poly" title=" " alt="" coords="877,306,228,335,180,338,180,333,228,330,877,300"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a54d3ff9589278aff8765d7a64df23587" title="Based on the type of message, appropriate callback is issued." alt="" coords="885,351,1061,405"/>
+<area shape="poly" title=" " alt="" coords="1101,393,1061,389,1061,384,1101,388"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="665,351,831,405"/>
+<area shape="poly" title=" " alt="" coords="871,381,831,381,831,375,871,375"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a4a107199de415d50f725a5c6a327c1be" title="Initilize the thread pool to handle a request, sets priority for the job and adds the job to the thre..." alt="" coords="439,347,617,401"/>
+<area shape="poly" title=" " alt="" coords="651,379,617,378,618,373,652,374"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a34abbc6e410d0cfd24057c79c9f1b9c3" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="228,345,391,400"/>
+<area shape="poly" title=" " alt="" coords="425,376,391,376,391,370,425,371"/>
+<area shape="poly" title=" " alt="" coords="214,361,180,356,181,351,215,356"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a17d0de5cdf2e5047f8c549f745c5d965" title="Opens a connection to the server." alt="" coords="1125,501,1299,527"/>
+<area shape="poly" title=" " alt="" coords="1374,500,1299,508,1299,502,1373,495"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="1140,452,1284,477"/>
+<area shape="poly" title=" " alt="" coords="1373,485,1284,475,1285,470,1374,480"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#af28645a07fa4c84254776136a8050db6" title="Opens a connection to the server." alt="" coords="885,580,1060,605"/>
+<area shape="poly" title=" " alt="" coords="1160,534,1013,583,1011,577,1158,529"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a45850f990fe110e26f9b093a88e3e8a0" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th..." alt="" coords="905,479,1041,504"/>
+<area shape="poly" title=" " alt="" coords="1111,507,1040,500,1041,495,1112,502"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a14067069cf3e1f0dc9ac25867a4ca83d" title="Gets a file specified in a URL." alt="" coords="683,605,813,631"/>
+<area shape="poly" title=" " alt="" coords="872,607,814,613,813,608,871,601"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a5f069548a767baef4623774d7bb3ce9f" title="Gets a file specified in a URL through the specified proxy." alt="" coords="666,556,830,581"/>
+<area shape="poly" title=" " alt="" coords="871,584,830,580,830,575,872,579"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a68e366bcfaed3559025fa8ac04c2885c" title="Gets specified number of bytes from a file specified in the URL." alt="" coords="899,429,1046,455"/>
+<area shape="poly" title=" " alt="" coords="1126,459,1046,452,1046,446,1126,454"/>
+<area shape="poly" title=" " alt="" coords="1382,555,1281,569,1219,573,1152,574,1082,570,1012,561,943,544,877,518,841,495,810,465,764,407,768,404,814,462,845,490,880,513,944,539,1013,556,1082,565,1152,569,1218,568,1280,563,1381,549"/>
+<area shape="poly" title=" " alt="" coords="1381,535,1298,526,1299,521,1381,530"/>
+<area shape="poly" title=" " alt="" coords="1381,525,1356,516,1332,504,1308,491,1273,480,1275,475,1310,486,1335,499,1358,512,1383,520"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a23dee83362f8bda1551e1514e806d6bf" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="1124,708,1300,733"/>
+<area shape="poly" title=" " alt="" coords="1383,551,1359,565,1347,579,1340,593,1335,622,1330,653,1324,668,1311,684,1290,700,1267,710,1265,706,1288,695,1307,680,1319,666,1325,651,1330,621,1335,591,1343,576,1356,561,1380,547"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="1121,789,1303,815"/>
+<area shape="poly" title=" " alt="" coords="1383,550,1359,565,1343,587,1335,608,1332,630,1333,652,1333,698,1326,722,1311,748,1283,774,1250,792,1248,787,1280,770,1307,744,1321,720,1327,697,1328,652,1327,630,1330,607,1338,584,1356,561,1380,546"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae1781a5b638d50bd7626b3ea925492cb" title="Sends the notify message and returns a reply." alt="" coords="1131,616,1293,671"/>
+<area shape="poly" title=" " alt="" coords="1382,557,1358,566,1306,591,1258,618,1255,613,1303,586,1356,561,1381,552"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a865d9b116a6028d1fd1f1ad2377dca35" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="883,757,1062,783"/>
+<area shape="poly" title=" " alt="" coords="1137,739,1036,760,1035,755,1136,734"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a32b6a961a76abcb37fcd7f6e3de10ee7" title="Sends and receives any pending data, closes the connection with the server, and frees memory allocate..." alt="" coords="903,708,1042,733"/>
+<area shape="poly" title=" " alt="" coords="1110,723,1042,723,1042,718,1110,718"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a016d21ff4d92fd6367469cf7f0d4e562" title="Closes the connection and frees memory that was allocated for the handle parameter." alt="" coords="681,757,815,783"/>
+<area shape="poly" title=" " alt="" coords="870,773,815,773,815,767,870,767"/>
+<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28" title="Subscribes or renew subscription." alt="" coords="891,885,1054,940"/>
+<area shape="poly" title=" " alt="" coords="1133,822,1116,830,1102,840,1092,852,1083,864,1068,876,1049,888,1046,883,1065,872,1079,860,1088,848,1098,837,1113,825,1130,817"/>
+<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#af298d2d7e5a94605b0b284718e20cdc9" title="Sends the UNSUBCRIBE gena request and recieves the response from the device and returns it as a param..." alt="" coords="891,1013,1054,1068"/>
+<area shape="poly" title=" " alt="" coords="1123,824,1117,829,1101,850,1093,871,1092,913,1091,958,1084,981,1069,1004,1056,1015,1052,1011,1065,1000,1079,978,1086,957,1086,913,1088,870,1096,847,1113,826,1119,820"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a4c4ffc89743a422ff2ad243e9ab14892" title="Download the document message and extract the document from the message." alt="" coords="918,964,1027,989"/>
+<area shape="poly" title=" " alt="" coords="1124,824,1117,829,1104,844,1097,859,1093,890,1089,923,1082,939,1068,955,1050,967,1029,974,1027,969,1047,962,1065,951,1077,936,1084,921,1088,890,1092,857,1099,841,1113,825,1120,819"/>
+<area shape="rect" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a19db19e25ca9e8e52017abd97190db81" title="This function sends the control point&#39;s request to the device and receives a response from it." alt="" coords="879,807,1067,861"/>
+<area shape="poly" title=" " alt="" coords="1108,819,1067,824,1067,819,1107,813"/>
+<area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="667,875,829,900"/>
+<area shape="poly" title=" " alt="" coords="878,905,829,899,830,894,878,899"/>
+<area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#a8fa71879823e3dc936bac4847ca1fcc5" title="This function subscribes to a PublisherURL (also mentioned as EventURL in some places)." alt="" coords="694,924,802,949"/>
+<area shape="poly" title=" " alt="" coords="878,925,803,934,802,928,878,920"/>
+<area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="676,1003,820,1028"/>
+<area shape="poly" title=" " alt="" coords="877,1033,820,1026,820,1021,878,1027"/>
+<area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="685,1052,811,1077"/>
+<area shape="poly" title=" " alt="" coords="878,1053,811,1061,811,1055,877,1048"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a951778f34697a8cc0a0e9dd7da2b66ca" title="Function to Notify a particular subscription of a particular event." alt="" coords="891,629,1054,684"/>
+<area shape="poly" title=" " alt="" coords="1117,651,1054,655,1054,649,1117,646"/>
+<area shape="poly" title=" " alt="" coords="1399,253,1308,204,1257,185,1258,180,1310,200,1401,248"/>
+<area shape="poly" title=" " alt="" coords="1347,257,1114,197,1053,179,1055,174,1115,191,1349,252"/>
+<area shape="poly" title=" " alt="" coords="1395,307,1266,376,1263,371,1392,302"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2a75ddca058ce720523173aafeb87904" title="Get property if socket is bound to an ip address." alt="" coords="1125,258,1299,298"/>
+<area shape="poly" title=" " alt="" coords="1344,281,1299,281,1299,275,1344,275"/>
+<area shape="poly" title=" " alt="" coords="1111,290,1054,295,1054,289,1111,284"/>
 </map>
 </div>
 

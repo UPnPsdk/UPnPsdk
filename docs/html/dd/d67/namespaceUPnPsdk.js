@@ -11,7 +11,8 @@ var namespaceUPnPsdk =
       [ "to_port", "d0/dd8/group__upnplib-addrmodul.html#ga15c2857e134c29ff3dae7e20ff62b5df", null ]
     ] ],
     [ "anonymous_namespace{socket.cpp}", "d4/d77/namespaceUPnPsdk_1_1anonymous__namespace_02socket_8cpp_03.html", [
-      [ "getsockname", "db/d86/group__upnplib-socket.html#ga22b121617b4eb96c4b4548a814683dfc", null ]
+      [ "getsockname", "db/d86/group__upnplib-socket.html#ga22b121617b4eb96c4b4548a814683dfc", null ],
+      [ "get_sockfd", "db/d86/group__upnplib-socket.html#gaff979637c7cac7b0ef5df38ec5eae017", null ]
     ] ],
     [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
     [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ],

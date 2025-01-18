@@ -317,7 +317,7 @@ Public Member Functions</h2></td></tr>
 <p>Usually this getter is called one time after constructing the object. This gets an address information from the operating system that may also use its internal name resolver inclusive contacting external DNS server. If you use the flag <b>AI_NUMERICHOST</b> with the constructor then a possible expensive name resolution to DNS server is suppressed.</p>
 <p>If you have iterated address information entries with <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a" title="Get next available address information.">CAddrinfo::get_next()</a> and want to restart you can do it with call <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system.">CAddrinfo::get_first()</a> again. It will read the information from the operating system again and could be used to monitor changes of address information. But note that this is quite expensive because always memory is freed and new allocated for the information list so doing this in a busy loop is not very useful. </p><dl class="section return"><dt>Returns</dt><dd><b>true</b> if address information is available<br  />
  <b>false</b> otherwise </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo:</a></b></dt><dd>Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000002">Todo:</a></b></dt><dd>Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00094">94</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -340,7 +340,7 @@ Public Member Functions</h2></td></tr>
 <div class="center"><img src="../../d0/d44/classUPnPsdk_1_1CAddrinfo_a51afe8a1c3b65109b9cf3340f8e5186d_icgraph.png" border="0" usemap="#ad0/d44/classUPnPsdk_1_1CAddrinfo_a51afe8a1c3b65109b9cf3340f8e5186d_icgraph" alt=""/></div>
 <map name="ad0/d44/classUPnPsdk_1_1CAddrinfo_a51afe8a1c3b65109b9cf3340f8e5186d_icgraph" id="ad0/d44/classUPnPsdk_1_1CAddrinfo_a51afe8a1c3b65109b9cf3340f8e5186d_icgraph">
 <area shape="rect" title="Get the first entry of an address info from the operating system." alt="" coords="965,87,1116,127"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7d8a000d07b38db55e1ff380d2e36024" title="Bind socket to a local interface address." alt="" coords="743,5,917,31"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35" title="Bind socket to an ip address." alt="" coords="743,5,917,31"/>
 <area shape="poly" title=" " alt="" coords="992,83,916,46,880,33,881,28,918,41,995,78"/>
 <area shape="rect" href="../../d6/d3e/classUPnPsdk_1_1INetadapter.html#a231c504261da4d09974259d73bc3be2a" title="Find local network adapter with given name or ip address." alt="" coords="748,55,912,95"/>
 <area shape="poly" title=" " alt="" coords="951,96,912,90,912,85,952,91"/>
@@ -397,7 +397,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- fragment --><p> If more than one address information is available this is used to switch to the next addrinfo. </p><dl class="section return"><dt>Returns</dt><dd><b>true</b> if address information is available<br  />
  <b>false</b> otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00206">206</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00207">207</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
 
 </div>
 </div>
@@ -426,27 +426,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Get <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a> with port from current selcted address information. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00220">220</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d0/d44/classUPnPsdk_1_1CAddrinfo_a9d8977414d20354d50a2aad950cf2e32_icgraph.png" border="0" usemap="#ad0/d44/classUPnPsdk_1_1CAddrinfo_a9d8977414d20354d50a2aad950cf2e32_icgraph" alt=""/></div>
-<map name="ad0/d44/classUPnPsdk_1_1CAddrinfo_a9d8977414d20354d50a2aad950cf2e32_icgraph" id="ad0/d44/classUPnPsdk_1_1CAddrinfo_a9d8977414d20354d50a2aad950cf2e32_icgraph">
-<area shape="rect" title="Get netaddress with port from current selcted address information." alt="" coords="965,13,1116,53"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7d8a000d07b38db55e1ff380d2e36024" title="Bind socket to a local interface address." alt="" coords="743,20,917,45"/>
-<area shape="poly" title=" " alt="" coords="951,35,917,35,917,30,951,30"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="515,5,695,60"/>
-<area shape="poly" title=" " alt="" coords="729,35,695,35,695,30,729,30"/>
-<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="344,20,467,45"/>
-<area shape="poly" title=" " alt="" coords="501,35,467,35,467,30,501,30"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="139,20,296,45"/>
-<area shape="poly" title=" " alt="" coords="330,35,296,35,296,30,330,30"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,20,91,45"/>
-<area shape="poly" title=" " alt="" coords="125,35,91,35,91,30,125,30"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00221">221</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
 
 </div>
 </div>
@@ -474,12 +454,12 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00255">255</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00256">256</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d0/d44/classUPnPsdk_1_1CAddrinfo_afce4785f8d0fb6fe5a84e3145664e342_icgraph.png" border="0" usemap="#ad0/d44/classUPnPsdk_1_1CAddrinfo_afce4785f8d0fb6fe5a84e3145664e342_icgraph" alt=""/></div>
 <map name="ad0/d44/classUPnPsdk_1_1CAddrinfo_afce4785f8d0fb6fe5a84e3145664e342_icgraph" id="ad0/d44/classUPnPsdk_1_1CAddrinfo_afce4785f8d0fb6fe5a84e3145664e342_icgraph">
 <area shape="rect" title="Get the socket address from current selcted address information." alt="" coords="223,37,373,77"/>
@@ -516,7 +496,27 @@ Public Member Functions</h2></td></tr>
 <div class="line">}</div>
 </div><!-- fragment --><p> It should be noted that are different error messages returned by different platforms. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00263">263</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00264">264</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d0/d44/classUPnPsdk_1_1CAddrinfo_a5d5295decc4e6797b3e8c35c4f1b0598_icgraph.png" border="0" usemap="#ad0/d44/classUPnPsdk_1_1CAddrinfo_a5d5295decc4e6797b3e8c35c4f1b0598_icgraph" alt=""/></div>
+<map name="ad0/d44/classUPnPsdk_1_1CAddrinfo_a5d5295decc4e6797b3e8c35c4f1b0598_icgraph" id="ad0/d44/classUPnPsdk_1_1CAddrinfo_a5d5295decc4e6797b3e8c35c4f1b0598_icgraph">
+<area shape="rect" title="Get cached error message." alt="" coords="965,13,1116,53"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35" title="Bind socket to an ip address." alt="" coords="743,20,917,45"/>
+<area shape="poly" title=" " alt="" coords="951,35,917,35,917,30,951,30"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="515,5,695,60"/>
+<area shape="poly" title=" " alt="" coords="729,35,695,35,695,30,729,30"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="344,20,467,45"/>
+<area shape="poly" title=" " alt="" coords="501,35,467,35,467,30,501,30"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="139,20,296,45"/>
+<area shape="poly" title=" " alt="" coords="330,35,296,35,296,30,330,30"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,20,91,45"/>
+<area shape="poly" title=" " alt="" coords="125,35,91,35,91,30,125,30"/>
+</map>
+</div>
 
 </div>
 </div>

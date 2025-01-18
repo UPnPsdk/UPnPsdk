@@ -122,7 +122,7 @@ var searchData=
   ['programs_119',['UPnP sample programs',['../d8/d20/group__UPnPsamples.html',1,'']]],
   ['promise_20to_20throw_20no_20exception_120',['Promise to throw &quot;no exception&quot;',['../index.html#noexcept',1,'']]],
   ['propertyset_121',['propertySet',['../d9/dd2/gena_8hpp.html#aaecdd97f28c110caa2874f8a10126857',1,'NOTIFY_THREAD_STRUCT']]],
-  ['protocol_20family_122',['protocol family',['../db/d86/group__upnplib-socket.html#autotoc_md2',1,'']]],
+  ['protocol_20family_20address_20family_122',['protocol family, address family',['../db/d86/group__upnplib-socket.html#autotoc_md2',1,'']]],
   ['pupnp_123',['pupnp',['../dc/d9a/namespacepupnp.html',1,'']]],
   ['pvirtualdirlist_124',['pvirtualdirlist',['../d3/da9/upnpapi_8hpp.html#a85ec286c63778e7aa2c8013917312713',1,'pVirtualDirList:&#160;upnpapi.cpp'],['../d4/d99/upnpapi_8cpp.html#a85ec286c63778e7aa2c8013917312713',1,'pVirtualDirList:&#160;upnpapi.cpp']]]
 ];

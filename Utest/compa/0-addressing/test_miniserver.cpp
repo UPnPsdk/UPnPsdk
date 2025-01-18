@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-11
+// Redistribution only with this Copyright remark. Last modified: 2025-01-30
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -151,7 +151,7 @@ class StartMiniServerMockFTestSuite : public StartMiniServerFTestSuite {
   protected:
     // Instantiate mocking objects.
     StrictMock<umock::Sys_socketMock> m_sys_socketObj;
-    // Inject the mocking objects into the tested code.
+    // Inject the mocking objects into the tested code. This starts mocking.
     umock::Sys_socket sys_socket_injectObj{&m_sys_socketObj};
 
     StrictMock<umock::PupnpMiniServerMock> miniserverObj;
@@ -168,19 +168,19 @@ class StartMiniServerMockFTestSuite : public StartMiniServerFTestSuite {
     StartMiniServerMockFTestSuite() {
         // Set default socket object values
         ON_CALL(m_sys_socketObj, socket(_, _, _))
-            .WillByDefault(SetErrnoAndReturn(EACCES, SOCKET_ERROR));
+            .WillByDefault(SetErrnoAndReturn(EACCESP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, bind(_, _, _))
-            .WillByDefault(SetErrnoAndReturn(EBADF, SOCKET_ERROR));
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, listen(_, _))
-            .WillByDefault(SetErrnoAndReturn(EBADF, SOCKET_ERROR));
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, select(_, _, _, _, _))
-            .WillByDefault(SetErrnoAndReturn(EBADF, SOCKET_ERROR));
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, getsockopt(_, _, _, _, _))
-            .WillByDefault(SetErrnoAndReturn(EBADF, SOCKET_ERROR));
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, setsockopt(_, _, _, _, _))
-            .WillByDefault(SetErrnoAndReturn(EBADF, SOCKET_ERROR));
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, getsockname(_, _, _))
-            .WillByDefault(SetErrnoAndReturn(EBADF, SOCKET_ERROR));
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(ssdpObj, get_ssdp_sockets(_))
             .WillByDefault(Return(UPNP_E_OUTOF_SOCKET));
         ON_CALL(miniserverObj, RunMiniServer(_))
@@ -283,10 +283,10 @@ TEST_F(StartMiniServerMockFTestSuite, start_miniserver_with_one_ipv4_addr) {
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(listen_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in))))))
-            .WillOnce(DoAll(SetArgPointee<1>(
-                                *reinterpret_cast<sockaddr*>(&listen_ssObj.ss)),
-                            Return(0)));
+                                    sizeof(listen_ssObj.ss))))))
+            .WillOnce(DoAll(
+                StructCpyToArg<1>(&listen_ssObj.ss, sizeof(listen_ssObj.ss)),
+                Return(0)));
 
         // Provide a socket id for the stop socket.
         EXPECT_CALL(m_sys_socketObj, socket(AF_INET, SOCK_DGRAM, 0))
@@ -298,10 +298,10 @@ TEST_F(StartMiniServerMockFTestSuite, start_miniserver_with_one_ipv4_addr) {
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(stop_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in))))))
-            .WillOnce(DoAll(
-                SetArgPointee<1>(*reinterpret_cast<sockaddr*>(&stop_ssObj.ss)),
-                Return(0)));
+                                    sizeof(stop_ssObj.ss))))))
+            .WillOnce(
+                DoAll(StructCpyToArg<1>(&stop_ssObj.ss, sizeof(stop_ssObj.ss)),
+                      Return(0)));
 
         // Mock get_ssdp_sockets
         EXPECT_CALL(ssdpObj, get_ssdp_sockets(_))
@@ -362,10 +362,10 @@ TEST_F(StartMiniServerMockFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(listen_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in6))))))
-            .WillOnce(DoAll(SetArgPointee<1>(
-                                *reinterpret_cast<sockaddr*>(&listen_ssObj.ss)),
-                            Return(0)));
+                                    sizeof(listen_ssObj.ss))))))
+            .WillOnce(DoAll(
+                StructCpyToArg<1>(&listen_ssObj.ss, sizeof(listen_ssObj.ss)),
+                Return(0)));
 
         // Provide a socket id for the stop socket.
         EXPECT_CALL(m_sys_socketObj, socket(AF_INET, SOCK_DGRAM, 0))
@@ -377,10 +377,10 @@ TEST_F(StartMiniServerMockFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(stop_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in))))))
-            .WillOnce(DoAll(
-                SetArgPointee<1>(*reinterpret_cast<sockaddr*>(&stop_ssObj.ss)),
-                Return(0)));
+                                    sizeof(stop_ssObj.ss))))))
+            .WillOnce(
+                DoAll(StructCpyToArg<1>(&stop_ssObj.ss, sizeof(stop_ssObj.ss)),
+                      Return(0)));
 
         // Mock get_ssdp_sockets
         EXPECT_CALL(ssdpObj, get_ssdp_sockets(_))
@@ -454,10 +454,10 @@ TEST_F(StartMiniServerMockFTestSuite,
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(listen_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in6))))))
-            .WillOnce(DoAll(SetArgPointee<1>(
-                                *reinterpret_cast<sockaddr*>(&listen_ssObj.ss)),
-                            Return(0)));
+                                    sizeof(listen_ssObj.ss))))))
+            .WillOnce(DoAll(
+                StructCpyToArg<1>(&listen_ssObj.ss, sizeof(listen_ssObj.ss)),
+                Return(0)));
 
         // Provide a socket id for the stop socket.
         EXPECT_CALL(m_sys_socketObj, socket(AF_INET, SOCK_DGRAM, 0))
@@ -469,10 +469,10 @@ TEST_F(StartMiniServerMockFTestSuite,
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(stop_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in))))))
-            .WillOnce(DoAll(
-                SetArgPointee<1>(*reinterpret_cast<sockaddr*>(&stop_ssObj.ss)),
-                Return(0)));
+                                    sizeof(stop_ssObj.ss))))))
+            .WillOnce(
+                DoAll(StructCpyToArg<1>(&stop_ssObj.ss, sizeof(stop_ssObj.ss)),
+                      Return(0)));
 
         // Mock get_ssdp_sockets
         EXPECT_CALL(ssdpObj, get_ssdp_sockets(_))
@@ -553,10 +553,10 @@ TEST_F(StartMiniServerMockFTestSuite,
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(listen4_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in))))))
-            .WillOnce(DoAll(SetArgPointee<1>(*reinterpret_cast<sockaddr*>(
-                                &listen4_ssObj.ss)),
-                            Return(0)));
+                                    sizeof(listen4_ssObj.ss))))))
+            .WillOnce(DoAll(
+                StructCpyToArg<1>(&listen4_ssObj.ss, sizeof(listen4_ssObj.ss)),
+                Return(0)));
         // Bind socket to an IPv6 address for listening
         EXPECT_CALL(m_sys_socketObj, bind(listen6_sockfd, _, _))
             .WillOnce(Return(0));
@@ -567,10 +567,10 @@ TEST_F(StartMiniServerMockFTestSuite,
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(listen6_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in6))))))
-            .WillOnce(DoAll(SetArgPointee<1>(*reinterpret_cast<sockaddr*>(
-                                &listen6_ssObj.ss)),
-                            Return(0)));
+                                    sizeof(listen6_ssObj.ss))))))
+            .WillOnce(DoAll(
+                StructCpyToArg<1>(&listen6_ssObj.ss, sizeof(listen6_ssObj.ss)),
+                Return(0)));
 
         // Provide a socket id for the stop socket.
         EXPECT_CALL(m_sys_socketObj, socket(AF_INET, SOCK_DGRAM, 0))
@@ -582,10 +582,10 @@ TEST_F(StartMiniServerMockFTestSuite,
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(stop_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in))))))
-            .WillOnce(DoAll(
-                SetArgPointee<1>(*reinterpret_cast<sockaddr*>(&stop_ssObj.ss)),
-                Return(0)));
+                                    sizeof(stop_ssObj.ss))))))
+            .WillOnce(
+                DoAll(StructCpyToArg<1>(&stop_ssObj.ss, sizeof(stop_ssObj.ss)),
+                      Return(0)));
 
         // Mock get_ssdp_sockets
         EXPECT_CALL(ssdpObj, get_ssdp_sockets(_))
@@ -659,10 +659,10 @@ TEST_F(StartMiniServerMockFTestSuite,
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(listenl_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in6))))))
-            .WillOnce(DoAll(SetArgPointee<1>(*reinterpret_cast<sockaddr*>(
-                                &listenl_ssObj.ss)),
-                            Return(0)));
+                                    sizeof(listenl_ssObj.ss))))))
+            .WillOnce(DoAll(
+                StructCpyToArg<1>(&listenl_ssObj.ss, sizeof(listenl_ssObj.ss)),
+                Return(0)));
 
         // Bind socket to an ipv6 ula/gua address for listening
         EXPECT_CALL(m_sys_socketObj, bind(listeng_sockfd, _, _))
@@ -674,10 +674,10 @@ TEST_F(StartMiniServerMockFTestSuite,
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(listeng_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in6))))))
-            .WillOnce(DoAll(SetArgPointee<1>(*reinterpret_cast<sockaddr*>(
-                                &listeng_ssObj.ss)),
-                            Return(0)));
+                                    sizeof(listeng_ssObj.ss))))))
+            .WillOnce(DoAll(
+                StructCpyToArg<1>(&listeng_ssObj.ss, sizeof(listeng_ssObj.ss)),
+                Return(0)));
 
         // Provide a socket id for the stop socket.
         EXPECT_CALL(m_sys_socketObj, socket(AF_INET, SOCK_DGRAM, 0))
@@ -689,10 +689,10 @@ TEST_F(StartMiniServerMockFTestSuite,
         EXPECT_CALL(m_sys_socketObj,
                     getsockname(stop_sockfd, _,
                                 Pointee(Ge(static_cast<socklen_t>(
-                                    sizeof(sockaddr_in))))))
-            .WillOnce(DoAll(
-                SetArgPointee<1>(*reinterpret_cast<sockaddr*>(&stop_ssObj.ss)),
-                Return(0)));
+                                    sizeof(stop_ssObj.ss))))))
+            .WillOnce(
+                DoAll(StructCpyToArg<1>(&stop_ssObj.ss, sizeof(stop_ssObj.ss)),
+                      Return(0)));
 
         // Mock get_ssdp_sockets
         EXPECT_CALL(ssdpObj, get_ssdp_sockets(_))
@@ -827,15 +827,16 @@ TEST_F(StartMiniServerMockFTestSuite,
         m_sys_socketObj,
         getsockname(sockfd, _,
                     Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
-        .WillOnce(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
+        .WillOnce(DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
+                        Return(0)));
     // Listen on the socket
     EXPECT_CALL(m_sys_socketObj, listen(sockfd, _)).WillOnce(Return(0));
 
 #else // new code
 
     // Instantiate a socket object and point to it in miniSocket().
-    UPnPsdk::CSocket Sock4Obj(saddrObj.ss.ss_family, SOCK_STREAM);
-    miniSocket.MiniSvrSock4Obj = &Sock4Obj;
+    UPnPsdk::CSocket Socket4Obj;
+    miniSocket.MiniSvrSock4Obj = &Socket4Obj;
 
     // Mock socket object initialization
     EXPECT_CALL(m_sys_socketObj,
@@ -851,12 +852,10 @@ TEST_F(StartMiniServerMockFTestSuite,
         m_sys_socketObj,
         getsockname(sockfd, _,
                     Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
-        .Times(g_dbug ? 3 : 2) // additional call with debug output
-        .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa),
-                              SetArgPointee<2>(saddrObj.sizeof_saddr()),
-                              Return(0)));
-    EXPECT_CALL(m_sys_socketObj, getsockopt(sockfd, SOL_SOCKET, SO_TYPE, _, _))
-        .WillOnce(DoAll(SetArgPtrIntValue<3>(SOCK_STREAM), Return(0)));
+        .Times(g_dbug ? 2 : 1) // additional call with debug output
+        .WillRepeatedly(
+            DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
+                  SetArgPointee<2>(saddrObj.sizeof_saddr()), Return(0)));
     // Bind socket to an ip address
     EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _)).WillOnce(Return(0));
     // Listen on the socket
@@ -892,8 +891,8 @@ TEST_F(StartMiniServerMockFTestSuite,
     // Initialize needed structure
     constexpr SOCKET sockfd{umock::sfd_base + 10};
     SSockaddr saddrObj;
-    saddrObj = "[fe80::fedc:0:0:3]:50079";
-    // Get gIF_IPV6 and strip surounding brackets
+    saddrObj = "[fe80::fedc:cdef:0:3]:50079";
+    // Set gIF_IPV6 and strip surounding brackets
     std::strcpy(gIF_IPV6, saddrObj.netaddr().c_str() + 1);
     gIF_IPV6[strlen(gIF_IPV6) - 1] = '\0';
     LOCAL_PORT_V6 = saddrObj.get_port();
@@ -926,35 +925,34 @@ TEST_F(StartMiniServerMockFTestSuite,
 #else // new_code
 
     // Instantiate a socket object and point to it in miniSocket().
-    UPnPsdk::CSocket Sock6LlaObj(saddrObj.ss.ss_family, SOCK_STREAM);
-    miniSocket.MiniSvrSock6LlaObj = &Sock6LlaObj;
+    UPnPsdk::CSocket Socket6LlaObj;
+    miniSocket.MiniSvrSock6LlaObj = &Socket6LlaObj;
 
-    // Mock socket object initialization
+    // Expect resetting SO_REUSEADDR.
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, _, _))
         .WillOnce(Return(0));
+    // Expect setting IPV6_V6ONLY.
+    EXPECT_CALL(m_sys_socketObj, setsockopt(sockfd, IPPROTO_IPV6, IPV6_V6ONLY,
+                                            PointeeVoidToConstInt(1), _))
+        .WillOnce(Return(0));
 #ifdef _MSC_VER
+    // Expect setting SO_EXCLUSIVEADDRUSE on MS Windows
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sockfd, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, _, _))
         .WillOnce(Return(0));
 #endif
-    // Expect setting IPV6_V6ONLY
-    EXPECT_CALL(m_sys_socketObj, setsockopt(sockfd, IPPROTO_IPV6, IPV6_V6ONLY,
-                                            PointeeVoidToConstInt(1), _))
-        .WillOnce(Return(0));
+    // Bind socket to an ip address
+    EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _)).WillOnce(Return(0));
     // Provide socket address from the socket file descriptor
     EXPECT_CALL(
         m_sys_socketObj,
         getsockname(sockfd, _,
                     Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
-        .Times(g_dbug ? 3 : 2) // additional call with debug output
-        .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa),
-                              SetArgPointee<2>(saddrObj.sizeof_saddr()),
-                              Return(0)));
-    EXPECT_CALL(m_sys_socketObj, getsockopt(sockfd, SOL_SOCKET, SO_TYPE, _, _))
-        .WillOnce(DoAll(SetArgPtrIntValue<3>(SOCK_STREAM), Return(0)));
-    // Bind socket to an ip address
-    EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _)).WillOnce(Return(0));
+        .Times(g_dbug ? 2 : 1) // additional call with debug output
+        .WillRepeatedly(
+            DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
+                  SetArgPointee<2>(saddrObj.sizeof_saddr()), Return(0)));
     // Listen on the socket
     EXPECT_CALL(m_sys_socketObj, listen(sockfd, _)).WillOnce(Return(0));
 
@@ -1093,9 +1091,10 @@ TEST_F(StartMiniServerMockFTestSuite,
 #endif
 
 #else // new code
-      // Instantiate a socket object and point to it in miniSocket().
-    UPnPsdk::CSocket Sock4Obj(AF_INET, SOCK_STREAM);
-    miniSocket.MiniSvrSock4Obj = &Sock4Obj;
+
+    // Instantiate a socket object and point to it in miniSocket().
+    UPnPsdk::CSocket Socket4Obj;
+    miniSocket.MiniSvrSock4Obj = &Socket4Obj;
 
 #ifdef _MSC_VER
     EXPECT_CALL(m_winsock2Obj, WSAGetLastError()).WillOnce(Return(WSAEINVAL));
@@ -1284,7 +1283,8 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_successful) {
         m_sys_socketObj,
         getsockname(sockfd, _,
                     Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
-        .WillOnce(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
+        .WillOnce(DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
+                        Return(0)));
 
     // Test Unit
     int ret_get_do_bind_listen = do_bind_listen(&s);
@@ -1427,7 +1427,9 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_address_in_use) {
                     getsockname(sockfd_free, _,
                                 Pointee(Ge(static_cast<socklen_t>(
                                     sizeof(saddrObj.ss))))))
-            .WillOnce(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
+            .WillOnce(
+                DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
+                      Return(0)));
 
         // Test Unit
         int ret_get_do_bind_listen = do_bind_listen(&s);
@@ -1868,7 +1870,8 @@ TEST_F(StartMiniServerMockFTestSuite, do_listen_successful) {
         m_sys_socketObj,
         getsockname(sockfd, _,
                     Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
-        .WillOnce(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
+        .WillOnce(DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
+                        Return(0)));
 
     // Test Unit
     int ret_do_listen = do_listen(&s);
@@ -2020,11 +2023,9 @@ TEST_F(StartMiniServerMockFTestSuite, get_port_successful) {
     EXPECT_CALL(
         m_sys_socketObj,
         getsockname(sockfd, _,
-                    Pointee(Ge(static_cast<socklen_t>(sizeof(saObj.sin))))))
-        .WillOnce(
-            DoAll(SetArgPointee<1>(saObj.sa),
-                  SetArgPointee<2>(static_cast<socklen_t>(sizeof(saObj.sin))),
-                  Return(0)));
+                    Pointee(Ge(static_cast<socklen_t>(sizeof(saObj.ss))))))
+        .WillOnce(DoAll(StructCpyToArg<1>(&saObj.ss, sizeof(saObj.ss)),
+                        SetArgPointee<2>(saObj.sizeof_saddr()), Return(0)));
 
     // Test Unit
     EXPECT_EQ(get_port(sockfd, &port), 0);
@@ -2048,7 +2049,7 @@ TEST_F(StartMiniServerMockFTestSuite, get_port_wrong_sockaddr_family) {
 
     // Mock system function
     EXPECT_CALL(m_sys_socketObj, getsockname(sockfd, _, _))
-        .WillOnce(DoAll(SetArgPointee<1>(sa),
+        .WillOnce(DoAll(StructCpyToArg<1>(&sa, sizeof(sa)),
                         SetArgPointee<2>((socklen_t)sizeof(sa)), Return(0)));
 
     // Test Unit
@@ -2083,7 +2084,8 @@ TEST_F(StartMiniServerMockFTestSuite, get_port_fails) {
 
     // Mock system functions
     EXPECT_CALL(m_sys_socketObj, getsockname(sockfd, _, _))
-        .WillOnce(DoAll(SetArgPointee<1>(sa), SetErrnoAndReturn(ENOBUFS, -1)));
+        .WillOnce(DoAll(StructCpyToArg<1>(&sa, sizeof(sa)),
+                        SetErrnoAndReturn(ENOBUFS, -1)));
 
     // Test Unit
     EXPECT_EQ(get_port(sockfd, &port), -1);
@@ -2110,7 +2112,7 @@ TEST(StartMiniServerTestSuite, get_miniserver_stopsock) {
 
     // Get socket object from the bound socket
     CSocket_basic sockObj(out.miniServerStopSock);
-    sockObj.load();
+    sockObj.load(); // UPnPsdk::CSocket_basic
 
     // and verify its settings
     SSockaddr sa;

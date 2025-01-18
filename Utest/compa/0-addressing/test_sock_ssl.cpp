@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-23
+// Redistribution only with this Copyright remark. Last modified: 2025-01-26
 
 #include <upnp.hpp>
 #include <sock.hpp>
@@ -160,9 +160,7 @@ TEST(SockDeathTest, sock_ssl_connect_signal_broken_pipe) {
     ::SOCKINFO info{};
     // b) a socket in the info structure that is expected to have a valid
     //    connection to a remote server. Here it hasn't.
-    CSocket sock(AF_INET6, SOCK_STREAM);
-    sock.load();
-    info.socket = sock;
+    info.socket = ::socket(AF_INET6, SOCK_STREAM, 0);
     // c) initialize the global SSL Context in global variable gSslCtx;
     CGsslCtx gSslCtxObj;
 
@@ -197,6 +195,8 @@ TEST(SockDeathTest, sock_ssl_connect_signal_broken_pipe) {
     EXPECT_EQ(ret_sock_ssl_connect, UPNP_E_SOCKET_ERROR)
         << errStrEx(ret_sock_ssl_connect, UPNP_E_SOCKET_ERROR);
 #endif
+
+    CLOSE_SOCKET_P(info.socket);
 }
 
 } // namespace utest

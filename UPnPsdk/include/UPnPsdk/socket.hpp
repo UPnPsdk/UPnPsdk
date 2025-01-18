@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-12
+// Redistribution only with this Copyright remark. Last modified: 2025-01-30
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -14,12 +14,12 @@
  * \addtogroup upnplib-socket
  *
  * \anchor socket_module
- * This module mainly consists of the CSocket class but
- * also provides free functions to manage a socket. The problem is that socket
- * handling isn't very good portable. There is different behavior on the
- * supported platforms Unix, MacOS and Microsoft Windows. The CSocket class
- * atempts to be consistent portable on all three platforms by using common
- * behavior or by emulating missing functions on a platform.
+ * This module mainly consists of the CSocket class but also provides free
+ * functions to manage a socket. The problem is that socket handling isn't very
+ * good portable. There is different behavior on the supported platforms Unix,
+ * MacOS and Microsoft Windows. The CSocket class atempts to be consistent
+ * portable on all three platforms by using common behavior or by emulating
+ * missing functions on a platform.
  *
  * Specification for CSocket
  * =========================
@@ -29,9 +29,9 @@
  * object. Copying a socket object isn't supported because having two objects
  * with the same file descriptor may be very error prone in particular with
  * multithreading. Effort has been taken to do not cache any socket information
- * outside the socket file descriptor. All socket informations are direct set
- * and get to/from the operating system with the file descriptor. The socket
- * file descriptor is always valid except on an empty socket object.
+ * outside the socket file descriptor. Nearly all socket informations are
+ * direct set and get to/from the operating system with the file descriptor.
+ * The socket file descriptor is always valid except on an empty socket object.
  *
  * \anchor empty_socket
  * empty socket object
@@ -40,7 +40,7 @@
  * e.g. `CSocket sockObj;`. It is a valid object and should be destructed. When
  * moving a socket object, the left over source object is also empty. An empty
  * socket object has an `INVALID_SOCKET` defined and no valid content. It
- * throws an exception if using any of its Setter and Getter. Moving and
+ * throws an exception if using most of its Setter and Getter. Moving and
  * assigning it is possible. You can test for an empty socket by looking for an
  * `INVALID_SOCKET`, e.g.
  * \code
@@ -49,23 +49,17 @@
  *     in_port_t port = sockObj.get_port(); }
  * \endcode
  *
- * protocol family
- * ---------------
- * Only protocol family `PF_INET6` and `PF_INET` is supported. Any other
- * address family throws an exception.
+ * protocol family, address family
+ * -------------------------------
+ * This SDK handles network connections IP Version - Independent so that a
+ * protocoll family (PF_INET6, PF_INET, PF_UNIX) or address family (AF_INET6,
+ * AF_INET, AF_UNIX) is never used on the SDKs Application Programming
+ * Interface. IP Version is managed by the operating system.
  *
  * socket type
  * -----------
  * Only `SOCK_STREAM` and `SOCK_DGRAM` is supported. Any other type throws an
  * exception.
- *
- * valid socket file descriptor
- * ----------------------------
- * I get this from the C standard library function:
- * `int ::%socket(address_family, socket_type, protocol)`.
- * Other arguments than address family and socket type are not accepted. For
- * the protocol argument is always the default one used that is internal hard
- * coded with argument 0.
  *
  * options SO_REUSEADDR and SO_EXCLUSIVEADDRUSE
  * --------------------------------------------
@@ -96,6 +90,7 @@
 #define EFAULTP WSAEFAULT
 #define ENOMEMP WSA_NOT_ENOUGH_MEMORY
 #define EINVALP WSAEINVAL
+#define EACCESP WSAEACCES
 #else
 #define EBADFP EBADF
 #define ENOTCONNP ENOTCONN
@@ -103,6 +98,7 @@
 #define EFAULTP EFAULT
 #define ENOMEMP ENOMEM
 #define EINVALP EINVAL
+#define EACCESP EACCES
 #endif
 /// \endcond
 
@@ -130,12 +126,13 @@ namespace UPnPsdk {
  */
 class UPnPsdk_API CSocket_basic {
   public:
-    // Default constructor for an empty basic socket object
+    /*! \brief Default constructor for an empty basic socket object with
+     * invalid socket file descriptor */
     CSocket_basic();
 
     /*! \brief Constructor for the socket file descriptor. Before use, it must
      * be load(). */
-    CSocket_basic(SOCKET a_sfd);
+    CSocket_basic(SOCKET a_sfd) /*!< [in] Socket file descriptor. */;
 
     /// \cond
     // I want to restrict to only move the resource.
@@ -152,8 +149,8 @@ class UPnPsdk_API CSocket_basic {
     /*! \name Setter
      * *************
      * @{ */
-    /*! \brief Load the raw socket file descriptor from the constructor into
-     * the object
+    /*! \brief Load the raw socket file descriptor specified with the
+     * constructor into the object
      * \code
      * // Usage e.g.:
      * SOCKET sfd = ::socket(PF_INET6, SOCK_STREAM);
@@ -166,7 +163,6 @@ class UPnPsdk_API CSocket_basic {
      * }
      * ::close(sfd);
      * \endcode
-     *
      * The socket file descriptor was given with the constructor. This object
      * does not take ownership of the socket file descriptor and will never
      * close it. Closing is in the responsibility of the caller who created the
@@ -193,7 +189,8 @@ class UPnPsdk_API CSocket_basic {
     operator const SOCKET&() const;
 
     /*! \brief Get the socket address the socket is bound to
-     * \details For an example look at CSocket_basic::is_bound().
+     *
+     * For an example look at CSocket_basic::is_bound().
      * \exception std::runtime_error Failed to get address from socket. */
     void sockaddr(
         /*! [in,out] Reference to a socket address structure that will be
@@ -203,29 +200,31 @@ class UPnPsdk_API CSocket_basic {
          * returned. */
         SSockaddr& a_saddr) const;
 
-    /*! \brief Get the [socket type](\ref glossary_socktype) `SOCK_STREAM` or
-     * `SOCK_DGRAM`.
-     * \exception std::runtime_error if query option fails.
-     * \todo Check if SOCK_UNDEF is also possible, maybe with an empty socket */
-    int get_socktype() const;
+    /*! \brief Get the [socket type](\ref glossary_socktype).
+     * \returns `SOCK_STREAM` or `SOCK_DGRAM`.
+     * \exception std::runtime_error if query option fails. */
+    int socktype() const;
 
-    /*! \brief Get the error that is given from the socket as option.
+    /*! \brief Get the error that is given from the socket as option
      *
      * This is not a system error from the operating system (with POSIX
      * returned in \b errno). It is the error that can be queried as option
      * from the socket.
+     * \returns error number.
      * \exception std::runtime_error if query option fails. */
-    int get_sockerr() const;
+    int sockerr() const;
 
     /*! \brief Get status if reusing address is enabled.
      *
      * For details to this option have a look at
      * [option "reuse address"](\ref overview_reuseaddr).
+     * \returns
+     *  \b true&nbsp; if reuse address is enabled\n
+     *  \b false otherwise
      * \exception std::runtime_error if query option fails. */
     bool is_reuse_addr() const;
 
-    /*! \brief Get status if socket is bound to an ip address of a local network
-     * adapter.
+    /*! \brief Get property if socket is bound to an ip address
      * \code
      * // Usage e.g.:
      * SOCKET sfd = ::socket(PF_INET6, SOCK_STREAM, 0);
@@ -239,9 +238,18 @@ class UPnPsdk_API CSocket_basic {
      * if (sockObj.is_bound())
      *     std::cout << "socket is bound to " << saObj << '\n';
      * else
-     *     std::cout << "unbound socket has unknown netaddr " << saObj << '\n';
+     *     std::cout << "unbound socket unspecified netaddr " << saObj << '\n';
      * close(sfd);
-     * \endcode */
+     * \endcode
+     * \returns
+     *  - \b -1 The socket is passive bound to an ip address of a local
+     *          network adapter for listening on incomming requests.
+     *  - \b 0 The socket is not bound to any ip address.
+     *  - \b 1 The socket is bound to an ip address ready to use for syscalls
+     *         ::%connect(), ::%sendto(), or ::%sendmsg().
+     * \exception std::invalid_argument Unsupported address family. This is a
+     * program guard and should never thrown. If so, it must be fixed.
+     */
     int is_bound() const;
     /// @} Getter
 
@@ -267,21 +275,12 @@ class UPnPsdk_API CSocket_basic {
  * \ingroup upnplib-socket
  *
  * For general information have a look at \ref socket_module.
- *********************************************** */
+ ********************************************************* */
 class UPnPsdk_API CSocket : public CSocket_basic {
   public:
     /*! \brief Default constructor for an
      * [empty socket object](\ref empty_socket) */
     CSocket();
-
-    /*! \brief Constructor to prepare for a socket file descriptor that must use
-     * bind() to be created */
-    CSocket(int a_socktype /*!< [in] SOCK_STREAM or SOCK_DGRAM */);
-
-    /// \brief Constructor for a new socket file descriptor that must be load()
-    CSocket(sa_family_t a_family, /*!<  [in] PF_INET6 or PF_INET. PF_UNSPEC is
-                                             not accepted */
-            int a_socktype /*!<         [in] SOCK_STREAM or SOCK_DGRAM */);
 
     /*! \brief Move constructor
      *
@@ -293,13 +292,12 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * to it again.
      * \code
      * // Usage e.g.:
-     * CSocket sock1Obj(PF_INET6, SOCK_STREAM);
+     * CSocket sock1Obj;
      * try {
-     *     sock1Obj.load();
+     *     sock1Obj.bind(SOCK_STREAM);
      * } catch(xcp) { // handle error }
      * CSocket sock2Obj{std::move(sock1Obj)};
-     * \endcode
-     * */
+     * \endcode */
     CSocket(CSocket&&);
 
     /*! \brief Assignment operator
@@ -314,9 +312,9 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * throw exceptions.
      * \code
      * // Usage e.g.:
-     * CSocket sock1Obj(PF_INET6, SOCK_STREAM);
+     * CSocket sock1Obj;
      * try {
-     *     sock1Obj.load();
+     *     sock1Obj.bind(SOCK_STREAM);
      * } catch(xcp) { // handle error }
      * CSocket sock2Obj;
      * sock2Obj = std::move(sock1Obj);
@@ -329,106 +327,79 @@ class UPnPsdk_API CSocket : public CSocket_basic {
     /*! \name Setter
      * *************
      * @{ */
-
-    /*! \brief Initialize the object with the hints given by the constructor
+    /*! \brief Bind socket to an ip address
      * \code
-     * // Usage e.g.:
-     * CSocket sockObj(PF_INET6, SOCK_STREAM);
+     * // Usage e.g. to bind to localhost for use with **connect**, **sendto**,
+     * // or **sendmsg** (typically clients).
+     * CSocket sock1Obj;
      * try {
-     *     sockObj.load();
+     *     sock1Obj.bind(SOCK_STREAM);
      * } catch(xcp) { handle_error(); }
-     * \endcode */
-    void load();
-
-    /*! \brief Set IPV6_V6ONLY
-     * - IPV6_V6ONLY = **true**: the socket is restricted to sending and
-     *   receiving IPv6 packets only. In this case, an IPv4 and an IPv6
-     *   application can bind to a single port at the same time.
-     * - IPV6_V6ONLY = **false**: the socket can be used to send and receive
-     *   packets to and from an IPv6 address or an IPv4-mapped IPv6 address.
-     * - Bind a socket for PF_INET6 to a local address will always set its
-     *   option IPV6_V6ONLY.
-     * - On Unix platforms IPV6_V6ONLY is false by default and cannot be
-     *   modified on sockets for PF_INET. Binding this to a local address
-     *   results in a IPv4 socket with IPV6_V6ONLY **unset**.
-     * - On Microsoft Windows IPV6_V6ONLY is true by default and cannot be
-     *   modified on sockets for PF_INET. Binding it to a local address results
-     *   in a IPv4 socket with IPV6_V6ONLY **set**. This does not make sense
-     *   and I assume that the option is ignored by the underlaying ip stack in
-     *   this case.
-     * - The option IPV6_V6ONLY can never be modified on a sochet that is
-     *   already bound to a local address.
      *
-     * If the setter cannot fulfill the request it silently ignores it and does
-     * not modify the socket. Other system errors may throw an exception (e.g.
-     * using an invalid socket etc.).
-     *
-     * To get the current setting use CSocket::is_v6only(). */
-    void set_v6only(const bool);
-
-    /*! \brief Bind socket to a local interface address
-     * \code
-     * // Usage e.g.:
-     * CSocket sockObj(PF_INET6, SOCK_STREAM);
+     * // Usage e.g. to bind with default settings for listening on local
+     * // network adapters (typically server).
+     * CSocket sock2Obj;
      * try {
-     *     sockObj.load();
-     *     sockObj.bind("[::1]", "8080");
-     * } catch(xcp) { // handle error }
-     * \endcode
+     *     sock2Obj.bind(SOCK_STREAM, nullptr, AI_PASSIVE);
+     * } catch(xcp) { handle_error(); }
      *
+     * // Usage e.g. to bind for listening on the link local address of a local
+     * // network adapter.
+     * SSockaddr saddr3;
+     * saddr3 = "[fe80::fedc:cdef:0:1]";
+     * CSocket sock3Obj;
+     * try {
+     *     sock3Obj.bind(SOCK_STREAM, &saddr3, AI_PASSIVE);
+     * } catch(xcp) { handle_error(); }
+     *
+     * // Usage e.g. to bind to a global unicast address for use with
+     * // **connect**, **sendto**, or **sendmsg**.
+     * SSockaddr saddr4;
+     * saddr4 = "[2001:db8::abc]:50001";
+     * CSocket sock4Obj;
+     * try {
+     *     sock4Obj.bind(SOCK_STREAM, &saddr4);
+     * } catch(xcp) { handle_error(); }
+     * \endcode
+
      * This method uses internally the system function <a
      * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">::%getaddrinfo()</a>
-     * to provide possible local socket addresses. If the AI_PASSIVE flag is
-     * specified with **a_flags**, and **a_node** is empty (""), then the
-     * selected local socket addresses will be suitable for **binding** a
-     * socket that will **accept** connections. The selected local socket
-     * address will contain the "wildcard address" (INADDR_ANY for IPv4
-     * addresses, IN6ADDR_ANY_INIT for IPv6 address). The wildcard address is
-     * used by applications (typically servers) that intend to accept
-     * connections on any of the host's network addresses. If **a_node** is not
-     * empty (""), then the AI_PASSIVE flag is ignored.
-     * \code
-     * // typical for server listening
-     * sockObj.bind("", "54839", AI_PASSIVE);
-     * \endcode
+     * to provide possible socket addresses. If the AI_PASSIVE flag is
+     * specified with **a_flags**, and **a_saddr** is an unspecified socket
+     * address (netaddress ":0") , then the selected local socket
+     * addresses will be suitable for **binding** a socket that will **accept**
+     * connections. The selected local socket address will contain the
+     * "wildcard address" (INADDR_ANY for IPv4 addresses, IN6ADDR_ANY_INIT for
+     * IPv6 address). The wildcard address is used by applications (typically
+     * servers) that intend to accept connections on any of the host's network
+     * addresses. If **a_saddr** is specified, then the AI_PASSIVE flag is
+     * ignored.
      *
      * If the AI_PASSIVE flag is not set, then the selected local socket
      * addresses will be suitable for use with **connect**, **sendto**, or
-     * **sendmsg** (typically clients). If **a_node** is empty ("") and flag
-     * AI_NUMERICHOST not set then you will get an exception: no address for
-     * hostname "". With AI_NUMERICHOST the unspecified address "[::]" or
-     * "0.0.0.0" is used.
-     * \code
-     * // typical for client connect
-     * sockObj.bind("[2001:db8::1]", "49123");
-     * // or
-     * sockObj.bind("", "51593"); // uses "[::1]:51593" or "127.0.0.1:51593"
-     * \endcode
+     * **sendmsg** (typically clients).
      *
-     * With protocol family PF_INET6 I internally always set IPV6_V6ONLY to
-     * true to be portable with same behavior on all platforms. This is default
-     * on Unix platforms when binding the address and cannot be modified. MacOS
-     * does not modify IPV6_V6ONLY with binding. On Microsoft Windows
-     * IPV6_V6ONLY is already set by default.
-     *
-     * There is additional information at set_v6only() */
+     * I internally always set IPV6_V6ONLY to true to be portable with same
+     * behavior on all platforms. This is default on Unix platforms when
+     * binding the address and cannot be modified. MacOS does not modify
+     * IPV6_V6ONLY with binding. On Microsoft Windows IPV6_V6ONLY is already
+     * set by default. */
     void bind(
-        /*! [in] local interface address */
-        const std::string& a_node,
-        /*! [in] Port of the local interface address. This is a string argument
-         * to be able to use service names instead of only numbers. */
-        const std::string& a_port,
+        /*! [in] This property must always be specified with SOCK_STREAM, or
+         * SOCK_DGRAM. */
+        const int a_socktype,
+        /*! [in] Optional: Pointer to a socket address the socket shall be bound
+         * to. */
+        SSockaddr* a_saddr = nullptr,
         /*! [in] Optional: this field specifies additional options, as
          * described at <a
-         * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">getaddrinfo(3)
+         * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html#DESCRIPTION">getaddrinfo(3)
          * — Linux manual page</a> or at <a
-         * href="https://learn.microsoft.com/en-us/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfo">Microsoft
-         * Build — getaddrinfo function</a>. Multiple flags are specified by
+         * href="https://learn.microsoft.com/en-us/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">Microsoft
+         * Build — addrinfo structure</a>. Multiple flags are specified by
          * bitwise OR-ing them together. Example is: `AI_PASSIVE |
          * AI_NUMERICHOST | AI_NUMERICSERV` */
         const int a_flags = 0);
-
-    void bind2(const int socktype, SSockaddr* a_saddr = nullptr);
 
     /*! \brief Set socket to listen
      *
@@ -446,27 +417,28 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * *************
      * @{ */
     /*! \brief Get status of IPV6_V6ONLY flag
-     *
-     * IPV6_V6ONLY == false means allowing IPv4 and IPv6. */
+     * \returns
+     *  - \b true&nbsp; The socket manages only IPv6 addresses.
+     *  - \b false The socket manages IPv6 addresses and IPv6 mapped IPv4
+     *             addresses.
+     * \exception std::runtime_error Failed to get socket option from unbind
+     *             socket. */
     bool is_v6only() const;
 
-    /// \brief Get status if the socket is listen to incomming network packets.
+    /*! \brief Get status if the socket is listen to incomming network packets.
+     * \returns
+     *  - \b true&nbsp; Socket is listen to incomming network packets
+     *  - \b false otherwise.
+     * \exception std::runtime_error Failed to get socket option from unbind
+     *             socket. */
     bool is_listen() const;
     /// @} Getter
 
   private:
-    /// \brief Protocol family to use
-    const sa_family_t m_pf_hint{PF_UNSPEC};
-
-    /// \brief Socket type to use
-    const int m_socktype_hint{};
-
     /// \brief Mutex to protect concurrent listen a socket.
     SUPPRESS_MSVC_WARN_4251_NEXT_LINE
     mutable std::mutex m_listen_mutex;
     bool m_listen{false}; // Protected by a mutex.
-
-    void get_sockfd(sa_family_t a_pf_family, int a_socktype);
 };
 
 

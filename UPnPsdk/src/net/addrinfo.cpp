@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-02
+// Redistribution only with this Copyright remark. Last modified: 2025-01-26
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -163,7 +163,7 @@ bool CAddrinfo::get_first() {
         // depends on extern available DNS server the error can occur
         // unexpectedly at any time. We have no influence on it but I will give
         // an extended error message.
-         UPnPsdk_LOGERR << ("MSG1112: errid(" +
+         m_error_msg = UPnPsdk_LOGWHAT + "MSG1112: errid(" +
              std::to_string(ret) + ")=\"" + ::gai_strerror(ret) + "\", " +
              ((m_hints.ai_family == AF_UNSPEC) ? "IPv?_" :
              ((m_hints.ai_family == AF_INET6) ? "IPv6_" : "IPv4_")) +
@@ -171,10 +171,11 @@ bool CAddrinfo::get_first() {
               m_node + "\", service=\"" +
               m_service + "\"" +
              ((m_hints.ai_flags & AI_PASSIVE) ? ", passive_listen" : "") +
-             ((m_hints.ai_flags & AI_NUMERICHOST) ? "" : ", (maybe DNS query temporary failed?)"))
-             << '\n';
+             ((m_hints.ai_flags & AI_NUMERICHOST) ? "" : ", (maybe DNS query temporary failed?)") +
+             ", ai_socktype=" + std::to_string(m_hints.ai_socktype);
+        UPnPsdk_LOGERR << m_error_msg << '\n';
 
-             return false;
+        return false;
     }
     // clang-format on
 

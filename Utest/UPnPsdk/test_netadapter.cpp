@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-11
+// Redistribution only with this Copyright remark. Last modified: 2025-01-29
 
 #ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -20,6 +20,13 @@ UPnPsdk::SSockaddr saddrObj;
 UPnPsdk::SSockaddr snmskObj;
 
 TEST(NetadapterTestSuite, get_adapters_info_successful) {
+    // The index of the loopback interface is usually 1, but you cannot rely on
+    // this. A network interface may have different interface indexes for the
+    // IPv4 and IPv6 loopback interface. Loopback addresses are not limited to
+    // the 127.0.0.0/8 block.
+    // REF: [Loopback Interface Index]
+    // (https://learn.microsoft.com/en-us/dotnet/api/system.net.networkinformation.networkinterface.loopbackinterfaceindex)
+    // (https://study-ccna.com/loopback-interface-loopback-address/)
     char addrStr[INET6_ADDRSTRLEN];
     char nmskStr[INET6_ADDRSTRLEN];
     char servStr[NI_MAXSERV];
@@ -44,12 +51,14 @@ TEST(NetadapterTestSuite, get_adapters_info_successful) {
         ASSERT_NE(nadObj.index(), 0);
         if (saddrObj.sin6.sin6_family == AF_INET6 &&
             saddrObj.sin6.sin6_addr.s6_addr[15] == 1) {
-            ASSERT_EQ(nadObj.index(), 1) << "should be index 1 for \"[::1]\"";
+            ASSERT_GT(nadObj.index(), 0)
+                << "index should be greater 0 for \"[::1]\"";
         }
+        // TODO: Loopback addresses are not limited to the 127.0.0.0/8 block.
         if (saddrObj.sin.sin_family == AF_INET &&
             ntohl(saddrObj.sin.sin_addr.s_addr) == 2130706433) { // "127.0.0.1"
-            ASSERT_EQ(nadObj.index(), 1)
-                << "should be index 1 for \"127.0.0.1\"";
+            ASSERT_GT(nadObj.index(), 0)
+                << "index should be greater 0 for \"127.0.0.1\"";
         }
 #if 0
         // To show resolved iface names set first NI_NUMERICHOST above to 0.
