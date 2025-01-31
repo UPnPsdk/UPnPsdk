@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-26
+// Redistribution only with this Copyright remark. Last modified: 2025-01-31
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -28,11 +28,15 @@ namespace UPnPsdk {
 CAddrinfo::CAddrinfo(std::string_view a_node, //
                      std::string_view a_service, //
                      const int a_flags, //
-                     const int a_socktype, //
-                     const int a_family)
+                     const int a_socktype)
     : m_node(a_node), m_service(a_service) {
     TRACE2(this, " Construct CAddrinfo() with extra service")
-    this->set_ai_flags(a_family, a_socktype, a_flags, 0);
+    // I cannot use the initialization list of the constructor because the
+    // member order in the structure addrinfo is different on Linux, MacOS and
+    // win32. I have to use the member names to initialize them, what's not
+    // possible for structures in the constructors initialization list.
+    m_hints.ai_flags = a_flags;
+    m_hints.ai_socktype = a_socktype;
 }
 
 // Constructor for getting an address information from only a netaddress.
@@ -42,23 +46,12 @@ CAddrinfo::CAddrinfo(std::string_view a_node, //
                      const int a_socktype)
     : m_node(a_node) {
     TRACE2(this, " Construct CAddrinfo() with netaddress")
-    this->set_ai_flags(AF_UNSPEC, a_socktype, a_flags, 0);
-}
-
-
-// Helper method for common tasks on different constructors
-// --------------------------------------------------------
-inline void CAddrinfo::set_ai_flags(const int a_family, const int a_socktype,
-                                    const int a_flags,
-                                    const int a_protocol) noexcept {
     // I cannot use the initialization list of the constructor because the
     // member order in the structure addrinfo is different on Linux, MacOS and
     // win32. I have to use the member names to initialize them, what's not
     // possible for structures in the constructors initialization list.
     m_hints.ai_flags = a_flags;
-    m_hints.ai_family = a_family;
     m_hints.ai_socktype = a_socktype;
-    m_hints.ai_protocol = a_protocol;
 }
 
 
@@ -85,7 +78,9 @@ void CAddrinfo::free_addrinfo() noexcept {
 
 // Member access operator ->
 // -------------------------
-::addrinfo* CAddrinfo::operator->() const noexcept { return m_res_current; }
+const ::addrinfo* CAddrinfo::operator->() const noexcept {
+    return m_res_current;
+}
 
 
 // Getter for the first entry of an address info from the operating system
@@ -216,45 +211,12 @@ bool CAddrinfo::get_next() noexcept {
 }
 
 
-// Get netaddress with port from current selcted address information
-// -----------------------------------------------------------------
-std::string CAddrinfo::netaddrp() noexcept {
-    if (m_res == &m_hints)
-        return ":0";
-
-    char addrStr[INET6_ADDRSTRLEN];
-    char servStr[NI_MAXSERV];
-    int ret = ::getnameinfo(m_res_current->ai_addr,
-                            static_cast<socklen_t>(m_res_current->ai_addrlen),
-                            addrStr, static_cast<socklen_t>(sizeof(addrStr)),
-                            servStr, static_cast<socklen_t>(sizeof(servStr)),
-                            NI_NUMERICHOST | NI_NUMERICSERV);
-    if (ret != 0) {
-        UPnPsdk_LOGERR "MSG1130: Failed to get name information: "
-            << gai_strerror(ret) << ". Continue with empty netaddress \"\".\n";
-        return ":0";
-    }
-
-    switch (m_res_current->ai_family) {
-    case AF_INET6:
-        return "[" + std::string(addrStr) + "]:" + std::string(servStr);
-    case AF_INET:
-        return std::string(addrStr) + ":" + std::string(servStr);
-    case AF_UNSPEC:
-        return ":" + std::string(servStr);
-    }
-
-    UPnPsdk_LOGERR "MSG1033: Unsupported address family "
-        << m_res_current->ai_family
-        << ". Continue with empty netaddress \"\".\n";
-    return ":0";
-}
-
-
 // Get the socket address from current selcted address information
 // ---------------------------------------------------------------
 void CAddrinfo::sockaddr(SSockaddr& a_saddr) {
-    if (m_res != &m_hints)
+    if (m_res == &m_hints)
+        memset(&a_saddr.ss, 0, sizeof(a_saddr.ss));
+    else
         memcpy(&a_saddr.ss, m_res_current->ai_addr, sizeof(a_saddr.ss));
 }
 

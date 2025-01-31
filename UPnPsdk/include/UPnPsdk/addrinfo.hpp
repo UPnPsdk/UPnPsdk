@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_INCLUDE_ADDRINFO_HPP
 #define UPnPsdk_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-02
+// Redistribution only with this Copyright remark. Last modified: 2025-01-31
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
@@ -41,9 +41,7 @@ class UPnPsdk_API CAddrinfo {
         const int a_flags = 0,
         /*! [in] Optional: can be SOCK_STREAM, SOCK_DGRAM, or \b 0 (any
          * possible socket type). */
-        const int a_socktype = SOCK_STREAM,
-        /*! [in] Optional: experimental argument, will be removed. */
-        const int a_family = AF_UNSPEC);
+        const int a_socktype = SOCK_STREAM);
 
 
     /*! \brief Constructor for getting an address information from only an
@@ -64,12 +62,6 @@ class UPnPsdk_API CAddrinfo {
          * possible socket type). */
         const int a_socktype = SOCK_STREAM);
 
-  private:
-    /// \brief Helper method for common tasks on different constructors
-    void set_ai_flags(const int a_family, const int a_socktype,
-                      const int a_flags, const int a_protocol) noexcept;
-
-  public:
     /// \cond
     // Destructor
     virtual ~CAddrinfo();
@@ -77,7 +69,7 @@ class UPnPsdk_API CAddrinfo {
     // Copy constructor
     // We cannot use the default copy constructor because there is also
     // allocated memory for the addrinfo structure to copy. We get segfaults
-    // and program aborts. This class is not used to copy the object.
+    // and program aborts. This class is not usable for copying the object.
     CAddrinfo(const CAddrinfo&) = delete;
 
     // Copy assignment operator
@@ -104,7 +96,7 @@ class UPnPsdk_API CAddrinfo {
      * The operating system returns the information in a structure that you can
      * read to get all details. */
     // REF:_<a_href="https://stackoverflow.com/a/8782794/5014688">Overloading_member_access_operators_->,_.*</a>
-    ::addrinfo* operator->() const noexcept;
+    const ::addrinfo* operator->() const noexcept;
 
 
     /*! \brief Get the first entry of an address info from the operating system
@@ -162,17 +154,12 @@ normal_execution();
     bool get_next() noexcept;
 
 
-    /*! \brief Get [netaddress](\ref glossary_netaddr) with port from current
-     * selcted address information */
-    std::string netaddrp() noexcept;
-
-
     /// \brief Get the socket address from current selcted address information
     void sockaddr( //
         /*! [in,out] Reference to a socket address structure that will be
          * filled with the address information. If no information is available
-         * (at least CAddrinfo::get_first() wasn't called) the structure is
-         * not modified. */
+         * (e.g. CAddrinfo::get_first() wasn't called) an unspecified socket
+         * address is returned (netaddr "", netaddrp ":0"). */
         SSockaddr& a_saddr);
 
     /*! \brief Get cached error message

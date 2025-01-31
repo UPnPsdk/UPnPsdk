@@ -16,7 +16,7 @@ var searchData=
   ['netadapter_5funix_2ecpp_13',['netadapter_unix.cpp',['../dc/db4/netadapter__unix_8cpp.html',1,'']]],
   ['netadapter_5fwin32_2ecpp_14',['netadapter_win32.cpp',['../d6/dda/netadapter__win32_8cpp.html',1,'']]],
   ['netaddr_15',['netaddr',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a15cdd6812fb1fd64d446021ea0236af5',1,'UPnPsdk::SSockaddr']]],
-  ['netaddrp_16',['netaddrp',['../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a9d8977414d20354d50a2aad950cf2e32',1,'UPnPsdk::CAddrinfo::netaddrp()'],['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6',1,'UPnPsdk::SSockaddr::netaddrp()']]],
+  ['netaddrp_16',['netaddrp',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3ca4c6a25926c6fd9003b85414d9d5e6',1,'UPnPsdk::SSockaddr']]],
   ['newrequesthandler_17',['NewRequestHandler',['../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a3355aacf8ea50cef6cd089fc6f7c9e13',1,'anonymous_namespace{ssdp_device.cpp}']]],
   ['newval_18',['NewVal',['../d3/da9/upnpapi_8hpp.html#acace7e13a28e2f87d8bb2aea8d6335e7',1,'UpnpNonblockParam']]],
   ['next_19',['next',['../d6/d92/VirtualDir_8hpp.html#ac2772de7be82c11b2e3a5e26fd6181e6',1,'virtual_Dir_List::next'],['../db/d74/service__table_8hpp.html#a69daf22b958b3c2dd0c790102a950d7a',1,'service_info::next'],['../dc/d1d/list_8hpp.html#ad9117acc2cfb1847063f7bc506e3c47d',1,'UpnpListHead::next'],['../db/d74/service__table_8hpp.html#a4d63c90d28d3eed58eba17715b1d7ee7',1,'subscription::next']]],

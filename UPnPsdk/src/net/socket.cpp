@@ -12,6 +12,9 @@
 #include <umock/stringh.hpp>
 #ifdef _MSC_VER
 #include <umock/winsock2.hpp>
+/// \cond
+#include <array>
+/// \endcond
 #endif
 
 namespace UPnPsdk {
@@ -489,31 +492,34 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     // (https://learn.microsoft.com/en-us/windows/win32/winsock/so-exclusiveaddruse).
     // There is also a Unit Test to verify this:
     // TEST(SocketTestSuite, check_binding_passive_all_free_ports).
-    // Try several times to bind:
-    for (int i{0}; i < 5; i++) {
-        // Try again with a new socket file descriptor. Doing it in this order
-        // to realy get an other fd.
-        SOCKET sfd = UPnPsdk::get_sockfd(
-            static_cast<sa_family_t>(ai->ai_family), ai->ai_socktype);
-        CLOSE_SOCKET_P(sockfd);
-        sockfd = sfd;
-
+    // Try several times to bind. I free all failed bind sfds at the end to
+    // ensure that I get an other socket file descriptor.
+    std::array<SOCKET, 5> sfds;
+    sfds.fill(INVALID_SOCKET);
+    for (size_t i{}; i < sfds.size(); i++) {
+        // Try again with a new socket file descriptor.
+        sockfd = get_sockfd(static_cast<sa_family_t>(ai->ai_family),
+                            ai->ai_socktype);
         // Try to bind the socket.
         ret = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
                                        static_cast<socklen_t>(ai->ai_addrlen));
-
         // Repeat only with specific error WSAEACCES.
         if (ret == 0)
             break;
         serrObj.catch_error();
         if (serrObj != EACCESP)
             break;
+        // Failed to bind: store it to free it later.
+        sfds[i] = sockfd;
     }
+    // Free failed socket fds.
+    for (size_t i{}; i < sfds.size(); i++)
+        CLOSE_SOCKET_P(sfds[i]);
 #else
     // Get a socket file descriptor with address info where I get the address
     // family.
-    sockfd = UPnPsdk::get_sockfd(static_cast<sa_family_t>(ai->ai_family),
-                                 ai->ai_socktype);
+    sockfd =
+        get_sockfd(static_cast<sa_family_t>(ai->ai_family), ai->ai_socktype);
     // Try to bind the socket.
     ret = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
                                    static_cast<socklen_t>(ai->ai_addrlen));

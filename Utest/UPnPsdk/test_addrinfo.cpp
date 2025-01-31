@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-26
+// Redistribution only with this Copyright remark. Last modified: 2025-01-31
 
 // I test different address infos that we get from system function
 // ::getaddrinfo(). This function does not ensure always the same order of same
@@ -32,6 +32,12 @@ using ::testing::StrictMock;
 using ::UPnPsdk::CAddrinfo;
 using ::UPnPsdk::SSockaddr;
 
+
+namespace {
+
+// General storage for temporary socket address evaluation
+SSockaddr saddr;
+
 constexpr int suppress_dns_lookup{AI_NUMERICHOST};
 
 // Alternative proof of runtime select of the platform instead of conditional
@@ -52,6 +58,8 @@ Co co = Co::msc;
 #else
 Co co = Co::unknown;
 #endif
+
+} // anonymous namespace
 
 #if false
 // Raw ::getaddrinfo and ::getnameinfo execution to verify its behavior. This is
@@ -119,7 +127,8 @@ TEST_P(NetaddrAssignTest, netaddress_assign) {
             EXPECT_EQ(aiObj->ai_next, nullptr);
         else
             EXPECT_NE(aiObj->ai_next, nullptr);
-        EXPECT_EQ(aiObj.netaddrp(), std::get<1>(params));
+        aiObj.sockaddr(saddr);
+        EXPECT_EQ(saddr.netaddrp(), std::get<1>(params));
     }
 }
 
@@ -212,7 +221,8 @@ TEST(AddrinfoTestSuite, query_ipv6_addrinfo_successful) {
     EXPECT_EQ(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     // There is no address information
-    EXPECT_EQ(ai1.netaddrp(), ":0");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
     EXPECT_EQ(ai1->ai_next, nullptr);
 
     ASSERT_TRUE(ai1.get_first());
@@ -225,7 +235,8 @@ TEST(AddrinfoTestSuite, query_ipv6_addrinfo_successful) {
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     // I don't know why macOS cripples address to "[fe80::8%lo0]:50001"
-    EXPECT_THAT(ai1.netaddrp(),
+    ai1.sockaddr(saddr);
+    EXPECT_THAT(saddr.netaddrp(),
                 AnyOf("[fe80:db8::8%lo]:50001", "[fe80::8%lo0]:50001",
                       "[fe80:db8::8%1]:50001"));
     EXPECT_EQ(ai1->ai_next, nullptr);
@@ -233,8 +244,8 @@ TEST(AddrinfoTestSuite, query_ipv6_addrinfo_successful) {
 }
 
 TEST_F(AddrinfoMockFTestSuite, query_ipv6_addrinfo_successful) {
-    UPnPsdk::sockaddr_t saddr{};
-    saddr.ss.ss_family = AF_INET6;
+    UPnPsdk::sockaddr_t sockaddr{};
+    sockaddr.ss.ss_family = AF_INET6;
 
     ::addrinfo res;
 
@@ -242,8 +253,8 @@ TEST_F(AddrinfoMockFTestSuite, query_ipv6_addrinfo_successful) {
     res.ai_family = AF_INET6;
     res.ai_socktype = SOCK_STREAM;
     res.ai_protocol = 0;
-    res.ai_addrlen = sizeof(saddr.sin6);
-    res.ai_addr = &saddr.sa;
+    res.ai_addrlen = sizeof(sockaddr.sin6);
+    res.ai_addr = &sockaddr.sa;
     res.ai_canonname = nullptr;
     res.ai_next = nullptr;
 
@@ -294,7 +305,8 @@ TEST_F(AddrinfoMockFTestSuite, query_addrinfo_url_with_service_successful) {
     EXPECT_EQ(ai->ai_addr, &ss.sa);
     EXPECT_EQ(ai->ai_canonname, nullptr);
     EXPECT_EQ(ai->ai_next, nullptr);
-    EXPECT_EQ(ai.netaddrp(), ":0");
+    ai.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
     EXPECT_EQ(ai.what(), "Success.");
 }
 
@@ -312,7 +324,8 @@ TEST(AddrinfoTestSuite, load_ipv6_addrinfo_and_port_successful) {
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     EXPECT_EQ(ai1->ai_next, nullptr);
-    EXPECT_EQ(ai1.netaddrp(), "[2001:db8::14]:443");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::14]:443");
 }
 
 TEST(AddrinfoTestSuite, load_ipv6_addrinfo_with_port_successful) {
@@ -329,7 +342,8 @@ TEST(AddrinfoTestSuite, load_ipv6_addrinfo_with_port_successful) {
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     EXPECT_EQ(ai1->ai_next, nullptr);
-    EXPECT_EQ(ai1.netaddrp(), "[2001:db8::15]:59877");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::15]:59877");
 }
 
 TEST(AddrinfoTestSuite, query_ipv4_addrinfo_successful) {
@@ -346,7 +360,8 @@ TEST(AddrinfoTestSuite, query_ipv4_addrinfo_successful) {
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     EXPECT_EQ(ai1->ai_next, nullptr);
     // There is no address information
-    EXPECT_EQ(ai1.netaddrp(), ":0");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
     ASSERT_TRUE(ai1.get_first());
 
@@ -359,7 +374,8 @@ TEST(AddrinfoTestSuite, query_ipv4_addrinfo_successful) {
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     EXPECT_EQ(ai1->ai_next, nullptr);
-    EXPECT_EQ(ai1.netaddrp(), "192.168.200.201:0");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "192.168.200.201:0");
 }
 
 TEST(AddrinfoTestSuite, load_ipv4_addrinfo_and_port_successful) {
@@ -376,7 +392,8 @@ TEST(AddrinfoTestSuite, load_ipv4_addrinfo_and_port_successful) {
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     EXPECT_EQ(ai1->ai_next, nullptr);
-    EXPECT_EQ(ai1.netaddrp(), "192.168.200.202:54544");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "192.168.200.202:54544");
 }
 
 TEST(AddrinfoTestSuite, load_ipv4_addrinfo_with_port_successful) {
@@ -393,7 +410,8 @@ TEST(AddrinfoTestSuite, load_ipv4_addrinfo_with_port_successful) {
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     EXPECT_EQ(ai1->ai_next, nullptr);
-    EXPECT_EQ(ai1.netaddrp(), "192.168.200.203:80");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "192.168.200.203:80");
 }
 
 TEST(AddrinfoTestSuite, double_set_addrinfo_successful) {
@@ -417,7 +435,8 @@ TEST(AddrinfoTestSuite, double_set_addrinfo_successful) {
     // EXPECT_EQ(ai2->ai_flags, AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV);
     EXPECT_EQ(ai2->ai_flags, AI_PASSIVE | AI_NUMERICHOST);
     // Returns what ::getaddrinfo() returns.
-    EXPECT_EQ(ai2.netaddrp(), "[2001:db8::2]:50048");
+    ai2.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::2]:50048");
     // Returns what ::getaddrinfo() returns.
     EXPECT_EQ(ai2->ai_next, nullptr);
 
@@ -425,7 +444,7 @@ TEST(AddrinfoTestSuite, double_set_addrinfo_successful) {
     // Getting the address information again is possible but not very useful.
     // Because the same node, service and hints are used the result is exactly
     // the same as before.
-    int* old_res{&ai2->ai_flags};
+    const int* old_res{&ai2->ai_flags};
     ASSERT_TRUE(ai2.get_first());
 
     EXPECT_NE(old_res, &ai2->ai_flags);
@@ -434,7 +453,8 @@ TEST(AddrinfoTestSuite, double_set_addrinfo_successful) {
     EXPECT_EQ(ai2->ai_protocol, 0);
     // EXPECT_EQ(ai2->ai_flags, AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV);
     EXPECT_EQ(ai2->ai_flags, AI_PASSIVE | AI_NUMERICHOST);
-    EXPECT_EQ(ai2.netaddrp(), "[2001:db8::2]:50048");
+    ai2.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::2]:50048");
     EXPECT_EQ(ai2->ai_next, nullptr);
     EXPECT_EQ(ai2.what(), "Success.");
 }
@@ -458,7 +478,8 @@ TEST(AddrinfoTestSuite, instantiate_not_load_numeric_host_successful) {
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     EXPECT_EQ(ai1->ai_next, nullptr);
     // There is no address information
-    EXPECT_EQ(ai1.netaddrp(), ":0");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
     EXPECT_EQ(ai1.what(), "Success.");
 }
 
@@ -476,7 +497,8 @@ TEST(AddrinfoTestSuite, get_implicit_address_family) {
     // EXPECT_EQ(ai1->ai_flags, AI_NUMERICHOST | AI_NUMERICSERV);
     EXPECT_EQ(ai1->ai_flags, 0);
     EXPECT_EQ(ai1->ai_next, nullptr);
-    EXPECT_EQ(ai1.netaddrp(), "[2001:db8::5]:50051");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::5]:50051");
 
     // Test Unit
     CAddrinfo ai2("192.168.9.10", "50096");
@@ -488,7 +510,8 @@ TEST(AddrinfoTestSuite, get_implicit_address_family) {
     // EXPECT_EQ(ai2->ai_flags, AI_NUMERICHOST | AI_NUMERICSERV);
     EXPECT_EQ(ai2->ai_flags, 0);
     EXPECT_EQ(ai2->ai_next, nullptr);
-    EXPECT_EQ(ai2.netaddrp(), "192.168.9.10:50096");
+    ai2.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "192.168.9.10:50096");
 }
 
 TEST(AddrinfoTestSuite, get_unknown_numeric_host_fails) {
@@ -641,7 +664,8 @@ TEST(AddrinfoTestSuite, get_unknown_ipv6_node_address) {
     EXPECT_EQ(ai3->ai_addr, nullptr);
     EXPECT_EQ(ai3->ai_canonname, nullptr);
     EXPECT_EQ(ai3->ai_next, nullptr);
-    EXPECT_EQ(ai3.netaddrp(), ":0");
+    ai3.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
     ASSERT_TRUE(ai3.get_first());
 
@@ -658,26 +682,30 @@ TEST(AddrinfoTestSuite, get_unknown_ipv6_node_address) {
             ASSERT_FALSE(double_res1);
             double_res1 = true;
             EXPECT_EQ(ai3->ai_addrlen, 28);
-            EXPECT_EQ(ai3.netaddrp(), "[::]:0");
+            ai3.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "[::]:0");
         } else if (ai3->ai_family == AF_INET6 &&
                    ai3->ai_socktype == SOCK_DGRAM) {
             ASSERT_FALSE(double_res2);
             double_res2 = true;
             EXPECT_EQ(ai3->ai_addrlen, 28);
-            EXPECT_EQ(ai3.netaddrp(), "[::]:0");
+            ai3.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "[::]:0");
 #if !defined(__APPLE__)
         } else if (ai3->ai_family == AF_INET6 && ai3->ai_socktype == SOCK_RAW) {
             ASSERT_FALSE(double_res3);
             double_res3 = true;
             EXPECT_EQ(ai3->ai_addrlen, 28);
-            EXPECT_EQ(ai3.netaddrp(), "[::]:0");
+            ai3.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "[::]:0");
 #endif
 #else // _MSC_VER
         if (ai3->ai_family == AF_INET6 && ai3->ai_socktype == 0) {
             ASSERT_FALSE(double_res1);
             double_res1 = true;
             EXPECT_EQ(ai3->ai_addrlen, 28);
-            EXPECT_EQ(ai3.netaddrp(), "[::]:0");
+            ai3.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "[::]:0");
 #endif
         } else {
             GTEST_FAIL()
@@ -702,7 +730,8 @@ TEST(AddrinfoTestSuite, get_unknown_ipv4_node_address) {
     EXPECT_EQ(ai4->ai_addr, nullptr);
     EXPECT_EQ(ai4->ai_canonname, nullptr);
     EXPECT_EQ(ai4->ai_next, nullptr);
-    EXPECT_EQ(ai4.netaddrp(), ":0");
+    ai4.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
     ASSERT_TRUE(ai4.get_first());
 
@@ -720,26 +749,30 @@ TEST(AddrinfoTestSuite, get_unknown_ipv4_node_address) {
             ASSERT_FALSE(double_res1);
             double_res1 = true;
             EXPECT_EQ(ai4->ai_addrlen, 16);
-            EXPECT_EQ(ai4.netaddrp(), "0.0.0.0:0");
+            ai4.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "0.0.0.0:0");
         } else if (ai4->ai_family == AF_INET &&
                    ai4->ai_socktype == SOCK_DGRAM) {
             ASSERT_FALSE(double_res2);
             double_res2 = true;
             EXPECT_EQ(ai4->ai_addrlen, 16);
-            EXPECT_EQ(ai4.netaddrp(), "0.0.0.0:0");
+            ai4.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "0.0.0.0:0");
 #if !defined(__APPLE__)
         } else if (ai4->ai_family == AF_INET && ai4->ai_socktype == SOCK_RAW) {
             ASSERT_FALSE(double_res3);
             double_res3 = true;
             EXPECT_EQ(ai4->ai_addrlen, 16);
-            EXPECT_EQ(ai4.netaddrp(), "0.0.0.0:0");
+            ai4.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "0.0.0.0:0");
 #endif
 #else // _MSC_VER
         if (ai4->ai_family == AF_INET && ai4->ai_socktype == 0) {
             ASSERT_FALSE(double_res1);
             double_res1 = true;
             EXPECT_EQ(ai4->ai_addrlen, 16);
-            EXPECT_EQ(ai4.netaddrp(), "0.0.0.0:0");
+            ai4.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "0.0.0.0:0");
 #endif
         } else {
             GTEST_FAIL()
@@ -775,12 +808,14 @@ TEST(AddrinfoTestSuite, get_active_empty_node_address) {
             ASSERT_FALSE(double_res1);
             double_res1 = true;
             EXPECT_EQ(ai1->ai_addrlen, 28);
-            EXPECT_EQ(ai1.netaddrp(), "[::1]:50007");
+            ai1.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "[::1]:50007");
         } else if (ai1->ai_family == AF_INET) {
             ASSERT_FALSE(double_res2);
             double_res2 = true;
             EXPECT_EQ(ai1->ai_addrlen, 16);
-            EXPECT_EQ(ai1.netaddrp(), "127.0.0.1:50007");
+            ai1.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "127.0.0.1:50007");
         } else {
             GTEST_FAIL()
                 << "  Unexpected address information: address family = "
@@ -821,7 +856,8 @@ TEST(AddrinfoTestSuite, get_active_empty_node_socktype_0) {
 #endif
         ASSERT_EQ(ai6->ai_protocol, 0);
         ASSERT_EQ(ai6->ai_flags, 0);
-        ASSERT_THAT(ai6.netaddrp(), AnyOf("[::1]:0", "127.0.0.1:0"));
+        ai6.sockaddr(saddr);
+        ASSERT_THAT(saddr.netaddrp(), AnyOf("[::1]:0", "127.0.0.1:0"));
         number_of_entries++;
     } while (ai6.get_next());
 
@@ -850,11 +886,13 @@ TEST(AddrinfoTestSuite, get_multiple_address_infos) {
         switch (ai1->ai_family) {
         case AF_INET6:
             EXPECT_EQ(ai1->ai_addrlen, 28);
-            EXPECT_EQ(ai1.netaddrp(), "[::1]:50686");
+            ai1.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "[::1]:50686");
             break;
         case AF_INET:
             EXPECT_EQ(ai1->ai_addrlen, 16);
-            EXPECT_EQ(ai1.netaddrp(), "127.0.0.1:50686");
+            ai1.sockaddr(saddr);
+            EXPECT_EQ(saddr.netaddrp(), "127.0.0.1:50686");
             break;
         default:
             GTEST_FAIL() << "  Unexpected address family = " << ai1->ai_family
@@ -880,7 +918,8 @@ TEST(AddrinfoTestSuite, get_passive_node_address) {
         EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
         EXPECT_EQ(ai1->ai_protocol, 0);
         EXPECT_EQ(ai1->ai_flags, AI_PASSIVE);
-        EXPECT_THAT(ai1.netaddrp(), AnyOf("[::]:50106", "0.0.0.0:50106"));
+        ai1.sockaddr(saddr);
+        EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:50106", "0.0.0.0:50106"));
 
         // Test Unit for default AF_UNSPEC
         CAddrinfo ai2("", "50107", AI_PASSIVE | AI_NUMERICHOST,
@@ -898,7 +937,8 @@ TEST(AddrinfoTestSuite, get_passive_node_address) {
 #endif
         EXPECT_EQ(ai2->ai_protocol, 0);
         EXPECT_EQ(ai2->ai_flags, AI_PASSIVE | AI_NUMERICHOST);
-        EXPECT_THAT(ai2.netaddrp(), AnyOf("[::]:50107", "0.0.0.0:50107"));
+        ai2.sockaddr(saddr);
+        EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:50107", "0.0.0.0:50107"));
     }
 
     { // Scoped to reduce memory usage for testing with node "[]".
@@ -923,7 +963,8 @@ TEST(AddrinfoTestSuite, get_passive_node_address) {
     EXPECT_EQ(ai1->ai_protocol, 0);
     EXPECT_EQ(ai1->ai_flags, AI_PASSIVE | AI_NUMERICHOST);
     // This will listen on all local network interfaces.
-    EXPECT_EQ(ai1.netaddrp(), "[::]:50006");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[::]:50006");
 
     // Test Unit
     // Using explicit the unknown netaddress should definetly return the
@@ -936,7 +977,8 @@ TEST(AddrinfoTestSuite, get_passive_node_address) {
     EXPECT_EQ(ai2->ai_protocol, 0);
     EXPECT_EQ(ai2->ai_flags, AI_PASSIVE | AI_NUMERICHOST);
     // This will listen on all local network interfaces.
-    EXPECT_EQ(ai2.netaddrp(), "0.0.0.0:50032");
+    ai2.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "0.0.0.0:50032");
 }
 
 TEST(AddrinfoTestSuite, get_two_brackets_alphanum_node_address) {
@@ -978,7 +1020,8 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai1->ai_protocol, 0);
     EXPECT_EQ(ai1->ai_flags, AI_PASSIVE | AI_NUMERICHOST);
-    EXPECT_EQ(ai1.netaddrp(), "[::1]:50001");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[::1]:50001");
 
     // Test Unit
     CAddrinfo ai5("[::1]", "50085");
@@ -988,7 +1031,8 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
     EXPECT_EQ(ai5->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai5->ai_protocol, 0);
     EXPECT_EQ(ai5->ai_flags, 0);
-    EXPECT_EQ(ai5.netaddrp(), "[::1]:50085");
+    ai5.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[::1]:50085");
 
     // Test Unit
     CAddrinfo ai2("127.0.0.1", "50086", 0, SOCK_DGRAM);
@@ -998,7 +1042,8 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
     EXPECT_EQ(ai2->ai_socktype, SOCK_DGRAM);
     EXPECT_EQ(ai2->ai_protocol, 0);
     EXPECT_EQ(ai2->ai_flags, 0);
-    EXPECT_EQ(ai2.netaddrp(), "127.0.0.1:50086");
+    ai2.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "127.0.0.1:50086");
 
     // Test Unit
     CAddrinfo ai3("[::1]", "50087");
@@ -1008,7 +1053,8 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
     EXPECT_EQ(ai3->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai3->ai_protocol, 0);
     EXPECT_EQ(ai3->ai_flags, 0);
-    EXPECT_EQ(ai3.netaddrp(), "[::1]:50087");
+    ai3.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[::1]:50087");
 
     // Test Unit, does not trigger a DNS query
     CAddrinfo ai4("localhost", "50088");
@@ -1018,7 +1064,8 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
     EXPECT_EQ(ai4->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai4->ai_protocol, 0);
     EXPECT_EQ(ai4->ai_flags, 0);
-    EXPECT_THAT(ai4.netaddrp(), AnyOf("[::1]:50088", "127.0.0.1:50088"));
+    ai4.sockaddr(saddr);
+    EXPECT_THAT(saddr.netaddrp(), AnyOf("[::1]:50088", "127.0.0.1:50088"));
 }
 
 TEST(AddrinfoTestSuite, empty_service) {
@@ -1033,7 +1080,8 @@ TEST(AddrinfoTestSuite, empty_service) {
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai1->ai_protocol, 0);
     EXPECT_EQ(ai1->ai_flags, AI_NUMERICHOST);
-    EXPECT_EQ(ai1.netaddrp(), "[2001:db8::8]:0");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::8]:0");
 }
 
 TEST(AddrinfoTestSuite, service_out_of_range) {
@@ -1045,7 +1093,8 @@ TEST(AddrinfoTestSuite, service_out_of_range) {
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai1->ai_protocol, 0);
     EXPECT_EQ(ai1->ai_flags, AI_NUMERICHOST);
-    EXPECT_EQ(ai1.netaddrp(), ":0");
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
     EXPECT_THAT(ai1.what(), HasSubstr("] WHAT MSG1128: catched next line"));
     // std::cout << ai1.what() << '\n';
 }
@@ -1061,7 +1110,8 @@ TEST(AddrinfoTestSuite, load_loopback_addr_with_scope_id) {
     EXPECT_EQ(ai1->ai_addrlen, 28);
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
-    EXPECT_THAT(ai1.netaddrp(),
+    ai1.sockaddr(saddr);
+    EXPECT_THAT(saddr.netaddrp(),
                 Conditional(co == Co::clang, "[::1]:0", "[::1%1]:0"));
     EXPECT_EQ(ai1->ai_next, nullptr);
 
@@ -1076,7 +1126,8 @@ TEST(AddrinfoTestSuite, load_loopback_addr_with_scope_id) {
     EXPECT_EQ(ai2->ai_addrlen, 28);
     EXPECT_NE(ai2->ai_addr, nullptr);
     EXPECT_EQ(ai2->ai_canonname, nullptr);
-    EXPECT_EQ(ai2.netaddrp(), "[::1]:0");
+    ai2.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[::1]:0");
     EXPECT_EQ(ai2->ai_next, nullptr);
 #else
     EXPECT_FALSE(ai2.get_first());
@@ -1094,8 +1145,10 @@ TEST(AddrinfoTestSuite, load_lla_with_scope_id) {
     EXPECT_EQ(ai1->ai_addrlen, 28);
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
-    EXPECT_THAT(ai1.netaddrp(), AnyOf("[fe80::acd%lo]:22", "[fe80::acd%lo0]:22",
-                                      "[fe80::acd%1]:22"));
+    ai1.sockaddr(saddr);
+    EXPECT_THAT(
+        saddr.netaddrp(),
+        AnyOf("[fe80::acd%lo]:22", "[fe80::acd%lo0]:22", "[fe80::acd%1]:22"));
     EXPECT_EQ(ai1->ai_next, nullptr);
 
     CAddrinfo ai2("[fe80::acd%lo]:ssh");
@@ -1111,8 +1164,9 @@ TEST(AddrinfoTestSuite, load_lla_with_scope_id) {
     EXPECT_EQ(ai2->ai_addrlen, 28);
     EXPECT_NE(ai2->ai_addr, nullptr);
     EXPECT_EQ(ai2->ai_canonname, nullptr);
-    EXPECT_THAT(ai2.netaddrp(), Conditional(co == Co::clang, "[fe80::acd]:22",
-                                            "[fe80::acd%lo]:22"));
+    ai2.sockaddr(saddr);
+    EXPECT_THAT(saddr.netaddrp(), Conditional(co == Co::clang, "[fe80::acd]:22",
+                                              "[fe80::acd%lo]:22"));
     EXPECT_EQ(ai2->ai_next, nullptr);
 #endif // _MSC_VER
 }
@@ -1131,7 +1185,8 @@ TEST(AddrinfoTestSuite, load_uad_with_scope_id) {
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     // AppleClang accepts scope id (%1) only from link local addresses [fe80::]
-    EXPECT_THAT(ai1.netaddrp(),
+    ai1.sockaddr(saddr);
+    EXPECT_THAT(saddr.netaddrp(),
                 Conditional(co == Co::clang, "[2001:db8::55]:443",
                             "[2001:db8::55%1]:443"));
     EXPECT_EQ(ai1->ai_next, nullptr);
@@ -1148,7 +1203,8 @@ TEST(AddrinfoTestSuite, load_uad_with_scope_id) {
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     // AppleClang accepts scope id (%1) only from link local addresses [fe80::]
-    EXPECT_THAT(ai1.netaddrp(),
+    ai1.sockaddr(saddr);
+    EXPECT_THAT(saddr.netaddrp(),
                 Conditional(co == Co::clang, "[2001:db8::55]:443",
                             "[2001:db8::55%1]:433"));
     EXPECT_EQ(ai1->ai_next, nullptr);
@@ -1157,35 +1213,20 @@ TEST(AddrinfoTestSuite, load_uad_with_scope_id) {
 #endif
 }
 
-TEST(AddrinfoTestSuite, get_netaddrp) {
+TEST(AddrinfoTestSuite, check_netaddrp) {
     CAddrinfo ai1("[fe80::1%1]:50001");
     ASSERT_TRUE(ai1.get_first());
     // Test Unit
-    EXPECT_THAT(ai1.netaddrp(),
+    ai1.sockaddr(saddr);
+    EXPECT_THAT(saddr.netaddrp(),
                 AnyOf("[fe80::1%lo]:50001", "[fe80::1%lo0]:50001",
                       "[fe80::1%1]:50001"));
 
     CAddrinfo ai2("127.0.0.1:50002");
     ASSERT_TRUE(ai2.get_first());
     // Test Unit
-    EXPECT_EQ(ai2.netaddrp(), "127.0.0.1:50002");
-
-    ai2->ai_family = AF_UNSPEC;
-    // Test Unit
-    EXPECT_EQ(ai2.netaddrp(), ":50002");
-
-    ai2->ai_family = AF_UNIX;
-    CaptureStdOutErr captureObj;
-    captureObj.start();
-    bool g_dbug_old = UPnPsdk::g_dbug;
-    UPnPsdk::g_dbug = true;
-
-    // Test Unit
-    EXPECT_EQ(ai2.netaddrp(), ":0");
-    UPnPsdk::g_dbug = g_dbug_old;
-
-    EXPECT_THAT(captureObj.str(),
-                HasSubstr("] ERROR MSG1033: Unsupported address family"));
+    ai2.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "127.0.0.1:50002");
 }
 
 #ifndef _WIN32
@@ -1271,12 +1312,11 @@ TEST(AddrinfoTestSuite, get_sockaddr) {
     CAddrinfo aiObj("[2001:db8::2%1]:47111");
     aiObj.get_first();
 
-    SSockaddr saObj;
-    aiObj.sockaddr(saObj);
-    EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
-    EXPECT_EQ(saObj.sin6.sin6_port, htons(47111));
+    aiObj.sockaddr(saddr);
+    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.sin6.sin6_port, htons(47111));
     // AppleClang accepts scope id (%1) only from link local addresses [fe80::]
-    EXPECT_THAT(saObj.netaddrp(),
+    EXPECT_THAT(saddr.netaddrp(),
                 AnyOf("[2001:db8::2%lo]:47111", "[2001:db8::2]:47111",
                       "[2001:db8::2%1]:47111"));
 }
