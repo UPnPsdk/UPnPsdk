@@ -1,11 +1,7 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-21
+// Redistribution only with this Copyright remark. Last modified: 2025-02-02
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
-
-#include <UPnPsdk/sockaddr.hpp>
-#include <UPnPsdk/socket.hpp>
-
 #include <utest/utest.hpp>
 
 namespace utest {
@@ -19,8 +15,6 @@ using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::sockaddrcmp;
 using ::UPnPsdk::split_addr_port;
 using ::UPnPsdk::SSockaddr;
-using ::UPnPsdk::to_netaddr;
-using ::UPnPsdk::to_netaddrp;
 using ::UPnPsdk::to_port;
 
 
@@ -549,51 +543,51 @@ TEST(SockaddrStorageTestSuite, output_netaddr_to_ostream) {
 TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
     SSockaddr saddr;
 
-    EXPECT_EQ(to_netaddr(saddr.ss), "");
+    EXPECT_EQ(saddr.netaddr(), "");
 
     saddr.ss.ss_family = AF_UNSPEC;
-    EXPECT_EQ(to_netaddr(saddr.ss), "");
+    EXPECT_EQ(saddr.netaddr(), "");
 
     saddr.ss.ss_family = AF_INET6;
-    EXPECT_EQ(to_netaddr(saddr.ss), "[::]");
+    EXPECT_EQ(saddr.netaddr(), "[::]");
 
     saddr.ss.ss_family = AF_INET;
-    EXPECT_EQ(to_netaddr(saddr.ss), "0.0.0.0");
+    EXPECT_EQ(saddr.netaddr(), "0.0.0.0");
 
     saddr = "[fe80:db8::5%21]";
 #ifdef __APPLE__
-    EXPECT_EQ(to_netaddr(saddr.ss), "");
+    EXPECT_EQ(saddr.netaddr(), "");
 #else
-    EXPECT_EQ(to_netaddr(saddr.ss), "[fe80:db8::5%21]");
+    EXPECT_EQ(saddr.netaddr(), "[fe80:db8::5%21]");
 #endif
 
     saddr = "[2001:db8::4]";
-    EXPECT_EQ(to_netaddr(saddr.ss), "[2001:db8::4]");
+    EXPECT_EQ(saddr.netaddr(), "[2001:db8::4]");
 
     saddr = "192.168.88.99";
-    EXPECT_EQ(to_netaddr(saddr.ss), "192.168.88.99");
+    EXPECT_EQ(saddr.netaddr(), "192.168.88.99");
 
     bool g_dbug_old = g_dbug;
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     saddr.ss.ss_family = AF_UNIX;
     g_dbug = false;
     captureObj.start();
-    EXPECT_EQ(to_netaddr(saddr.ss), "");
+    EXPECT_EQ(saddr.netaddr(), "");
     EXPECT_EQ(captureObj.str(), "");
     g_dbug = true;
     captureObj.start();
-    EXPECT_EQ(to_netaddr(saddr.ss), "");
+    EXPECT_EQ(saddr.netaddr(), "");
     EXPECT_THAT(captureObj.str(),
                 HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
 
     saddr.ss.ss_family = 255;
     g_dbug = false;
     captureObj.start();
-    EXPECT_EQ(to_netaddr(saddr.ss), "");
+    EXPECT_EQ(saddr.netaddr(), "");
     EXPECT_EQ(captureObj.str(), "");
     g_dbug = true;
     captureObj.start();
-    EXPECT_EQ(to_netaddr(saddr.ss), "");
+    EXPECT_EQ(saddr.netaddr(), "");
     EXPECT_THAT(captureObj.str(),
                 HasSubstr("] ERROR MSG1129: Unsupported address family 255"));
     g_dbug = g_dbug_old;
@@ -602,39 +596,39 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
 TEST(ToAddrStrTestSuite, sockaddr_to_address_port_string) {
     SSockaddr saddr;
 
-    EXPECT_EQ(to_netaddrp(saddr.ss), ":0");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
     saddr.ss.ss_family = AF_UNSPEC;
-    EXPECT_EQ(to_netaddrp(saddr.ss), ":0");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
     saddr.ss.ss_family = AF_INET6;
-    EXPECT_EQ(to_netaddrp(saddr.ss), "[::]:0");
+    EXPECT_EQ(saddr.netaddrp(), "[::]:0");
 
     saddr.ss.ss_family = AF_INET;
-    EXPECT_EQ(to_netaddrp(saddr.ss), "0.0.0.0:0");
+    EXPECT_EQ(saddr.netaddrp(), "0.0.0.0:0");
 
     saddr = "[2001:db8::4]";
-    EXPECT_EQ(to_netaddrp(saddr.ss), "[2001:db8::4]:0");
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::4]:0");
 
     saddr = "192.168.88.100";
-    EXPECT_EQ(to_netaddrp(saddr.ss), "192.168.88.100:0");
+    EXPECT_EQ(saddr.netaddrp(), "192.168.88.100:0");
 
     saddr = "[2001:db8::5]:56789";
-    EXPECT_EQ(to_netaddrp(saddr.ss), "[2001:db8::5]:56789");
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::5]:56789");
 
     saddr = "192.168.88.101:54321";
-    EXPECT_EQ(to_netaddrp(saddr.ss), "192.168.88.101:54321");
+    EXPECT_EQ(saddr.netaddrp(), "192.168.88.101:54321");
 
     saddr.ss.ss_family = AF_UNIX;
     bool g_dbug_old = g_dbug;
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     g_dbug = false;
     captureObj.start();
-    EXPECT_EQ(to_netaddrp(saddr.ss), ":0");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
     EXPECT_EQ(captureObj.str(), "");
     g_dbug = true;
     captureObj.start();
-    EXPECT_EQ(to_netaddrp(saddr.ss), ":0");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
     EXPECT_THAT(captureObj.str(),
                 HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
     g_dbug = g_dbug_old;

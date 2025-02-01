@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-28
+// Redistribution only with this Copyright remark. Last modified: 2025-02-02
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -84,7 +84,7 @@ void split_addr_port( //
 ::sockaddr_storage saddr{};
 SSockaddr saObj;
 ::memcpy(&saObj.ss, &saddr, sizeof(saObj.ss));
-std::cout << "netaddress of saObj is " << saObj.netaddr() << "\n";
+std::cout << "netaddress of saObj is " << saObj << "\n";
 \endcode
  *
  * This structure should be usable on a low level like the trival C `struct
@@ -201,6 +201,19 @@ struct UPnPsdk_API SSockaddr {
      * saObj = 50001;
      * \endcode */
     void operator=(const in_port_t a_port);
+
+
+    // Assignment operator= to set socket address from a trivial socket address
+    // structure
+    // ------------------------------------------------------------------------
+    /*! \brief Set socket address from a trivial socket address structure
+     * \code
+     * // Usage e.g.:
+     * ::sockaddr_storage ss{};
+     * SSockaddr saObj;
+     * saObj = ss;
+     * \endcode */
+    void operator=(const ::sockaddr_storage& a_ss);
     /// @} Setter
 
 
@@ -228,7 +241,7 @@ struct UPnPsdk_API SSockaddr {
      * SSockaddr saObj;
      * if (saObj.netaddr() == "[::1]") { manage_localhost(); }
      * \endcode */
-    virtual const std::string& netaddr();
+    const std::string& netaddr() noexcept;
 
 
     // Getter for a netaddress with port
@@ -239,12 +252,16 @@ struct UPnPsdk_API SSockaddr {
      * SSockaddr saObj;
      * if (saObj.netaddrp() == "[::1]:49494") { manage_localhost(); }
      * \endcode */
-    virtual const std::string& netaddrp();
+    const std::string& netaddrp() noexcept;
+
 
     /// \brief Get the numeric port
-    virtual in_port_t get_port() const;
+    // ----------------------------
+    in_port_t get_port() const;
 
-    /// Get sizeof the current filled (sin6 or sin) Sockaddr Structure
+
+    /// \brief Get sizeof the current filled (sin6 or sin) Sockaddr Structure
+    // ----------------------------------------------------------------------
     socklen_t sizeof_saddr() const;
     /// @} Getter
 

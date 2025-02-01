@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-01-10
+ * Redistribution only with this Copyright remark. Last modified: 2025-02-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -909,8 +909,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
 
                     if (UPnPsdk::g_dbug) {
                         UPnPsdk::SSockaddr saObj;
-                        memcpy(&saObj.ss, &info->foreign_sockaddr,
-                               sizeof(saObj.ss));
+                        saObj = info->foreign_sockaddr;
                         UPnPsdk_LOGINFO "MSG1105: >>> (SENT) >>> to \""
                             << saObj.netaddrp() << "\"\n"
                             << std::string(buf, buf_length)

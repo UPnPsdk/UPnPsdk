@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-31
+// Redistribution only with this Copyright remark. Last modified: 2025-02-01
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -215,9 +215,9 @@ bool CAddrinfo::get_next() noexcept {
 // ---------------------------------------------------------------
 void CAddrinfo::sockaddr(SSockaddr& a_saddr) {
     if (m_res == &m_hints)
-        memset(&a_saddr.ss, 0, sizeof(a_saddr.ss));
+        a_saddr = "";
     else
-        memcpy(&a_saddr.ss, m_res_current->ai_addr, sizeof(a_saddr.ss));
+        a_saddr = reinterpret_cast<sockaddr_storage&>(*m_res_current->ai_addr);
 }
 
 

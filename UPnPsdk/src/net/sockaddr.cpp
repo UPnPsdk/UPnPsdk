@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-13
+// Redistribution only with this Copyright remark. Last modified: 2025-02-02
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -9,7 +9,6 @@
 #include <UPnPsdk/synclog.hpp>
 #include <umock/netdb.hpp>
 /// \cond
-#include <cstring>
 #include <algorithm>
 #include <regex>
 /// \endcond
@@ -17,91 +16,6 @@
 namespace UPnPsdk {
 
 namespace {
-
-// Free function to get the address string from a sockaddr structure
-// -----------------------------------------------------------------
-/*! \brief Get the [netaddress](\ref glossary_netaddr) without port from a
- * sockaddr structure
- * \ingroup upnplib-addrmodul
- * \code
- * // Usage e.g.:
- * ::sockaddr_storage saddr{};
- * std::cout << "netaddress is " << to_netaddr(saddr) << "\n";
- * \endcode
- */
-std::string to_netaddr(const ::sockaddr_storage& a_sockaddr) noexcept {
-    // TRACE("Executing to_netaddr()") // not usable in chained output.
-
-    // Accept nameinfo only for supported address families.
-    switch (a_sockaddr.ss_family) {
-    case AF_INET6:
-    case AF_INET:
-        break;
-    case AF_UNSPEC:
-        return "";
-    default:
-        UPnPsdk_LOGERR "MSG1129: Unsupported address family "
-            << std::to_string(a_sockaddr.ss_family)
-            << ". Continue with empty netaddress \"\".\n";
-        return "";
-    }
-
-    char addrStr[INET6_ADDRSTRLEN]{};
-    int ret = ::getnameinfo(reinterpret_cast<const sockaddr*>(&a_sockaddr),
-                            sizeof(a_sockaddr), addrStr, sizeof(addrStr),
-                            nullptr, 0, NI_NUMERICHOST);
-    if (ret != 0) {
-        UPnPsdk_LOGERR "MSG1036: Failed to get netaddress with address family "
-            << std::to_string(a_sockaddr.ss_family) << ": "
-            << ::gai_strerror(ret)
-            << ". Continue with empty netaddress \"\".\n";
-        return "";
-    }
-
-    // Next throws 'std::length_error' if the length of the constructed
-    // std::string would exceed max_size(). This should never happen with given
-    // lengths of addrStr (promise noexcept).
-    if (a_sockaddr.ss_family == AF_INET6)
-        return '[' + std::string(addrStr) + ']';
-
-    return std::string(addrStr);
-}
-
-
-// Free function to get the address string with port from a sockaddr structure
-// ---------------------------------------------------------------------------
-/*! \brief Get the [netaddress](\ref glossary_netaddr) with port from a sockaddr
- * structure
- * \ingroup upnplib-addrmodul
- * \code
- * // Usage e.g.:
- * ::sockaddr_storage ss{};
- * std::cout << "netaddress is " << to_netaddrp(ss) << "\n";
- * \endcode
- */
-std::string to_netaddrp(const ::sockaddr_storage& a_sockaddr) noexcept {
-    // TRACE("Executing to_netaddrp()") // not usable in chained output.
-    //
-    // sin_port and sin6_port are on the same memory location (union of the
-    // structures) so I can use it for AF_INET and AF_INET6.
-    // 'std::to_string()' may throw 'std::bad_alloc' from the std::string
-    // constructor. It is a fatal error that violates the promise to noexcept
-    // and immediately terminates the propgram. This is intentional because the
-    // error cannot be handled.
-    switch (a_sockaddr.ss_family) {
-    case AF_INET6:
-    case AF_INET:
-    case AF_UNSPEC:
-        return to_netaddr(a_sockaddr) + ":" +
-               std::to_string(
-                   ntohs(reinterpret_cast<const ::sockaddr_in6*>(&a_sockaddr)
-                             ->sin6_port));
-    case AF_UNIX:
-        return to_netaddr(a_sockaddr) + ":0";
-    }
-    return to_netaddr(a_sockaddr);
-}
-
 
 // Free function to logical compare two sockaddr structures
 // --------------------------------------------------------
@@ -532,7 +446,14 @@ exit_fail:
 void SSockaddr::operator=(const in_port_t a_port) {
     // Don't use ::htons, MacOS don't like it.
     // sin6_port is also sin_port due to union.
-    sin6.sin6_port = htons(a_port);
+    m_sa_union.sin6.sin6_port = htons(a_port);
+}
+
+// Assignment operator= to set socket address from a trivial socket address
+// structure
+// ------------------------------------------------------------------------
+void SSockaddr::operator=(const ::sockaddr_storage& a_ss) {
+    ::memcpy(&m_sa_union, &a_ss, sizeof(m_sa_union));
 }
 
 // Compare operator== to test if another trivial socket address is equal to this
@@ -544,26 +465,76 @@ bool SSockaddr::operator==(const SSockaddr& a_saddr) const {
 // Getter for the assosiated ip address without port
 // -------------------------------------------------
 // e.g. "[2001:db8::2]" or "192.168.254.253".
-const std::string& SSockaddr::netaddr() {
+const std::string& SSockaddr::netaddr() noexcept {
     // TRACE not usable with chained output.
     // TRACE2(this, " Executing SSockaddr::netaddr()")
-    //
-    // It is important to have the string available as long as the object lives,
-    // otherwise you may get dangling pointer, e.g. with getting .c_str().
-    m_netaddr = to_netaddr(m_sa_union.ss);
+    m_netaddr.clear();
+
+    // Accept nameinfo only for supported address families.
+    switch (m_sa_union.ss.ss_family) {
+    case AF_INET6:
+    case AF_INET:
+        break;
+    case AF_UNSPEC:
+        return m_netaddr;
+    default:
+        UPnPsdk_LOGERR "MSG1129: Unsupported address family "
+            << std::to_string(m_sa_union.ss.ss_family)
+            << ". Continue with unspecified netaddress \"\".\n";
+        return m_netaddr;
+    }
+
+    char addrStr[INET6_ADDRSTRLEN]{};
+    int ret = ::getnameinfo(&m_sa_union.sa, sizeof(m_sa_union.ss), addrStr,
+                            sizeof(addrStr), nullptr, 0, NI_NUMERICHOST);
+    if (ret != 0) {
+        // 'std::to_string()' may throw 'std::bad_alloc' from the std::string
+        // constructor. It is a fatal error that violates the promise to
+        // noexcept and immediately terminates the propgram. This is
+        // intentional because the error cannot be handled except improving the
+        // hardware.
+        UPnPsdk_LOGERR "MSG1036: Failed to get netaddress with address family "
+            << std::to_string(m_sa_union.ss.ss_family) << ": "
+            << ::gai_strerror(ret)
+            << ". Continue with unspecified netaddress \"\".\n";
+        return m_netaddr;
+    }
+
+    // Next may throw 'std::length_error' if the length of the constructed
+    // std::string would exceed max_size(). This should never happen with given
+    // lengths of addrStr (promise noexcept).
+    if (m_sa_union.ss.ss_family == AF_INET6)
+        m_netaddr = '[' + std::string(addrStr) + ']';
+    else
+        m_netaddr = std::string(addrStr);
+
     return m_netaddr;
 }
 
 // Getter for the assosiated ip address with port
 // ----------------------------------------------
 // e.g. "[2001:db8::2]:50001" or "192.168.254.253:50001".
-const std::string& SSockaddr::netaddrp() {
+const std::string& SSockaddr::netaddrp() noexcept {
     // TRACE not usable with chained output.
     // TRACE2(this, " Executing SSockaddr::netaddrp()")
     //
-    // It is important to have the string available as long as the object lives,
-    // otherwise you may get dangling pointer, e.g. with getting .c_str().
-    m_netaddrp = to_netaddrp(m_sa_union.ss);
+    // sin_port and sin6_port are on the same memory location (union of the
+    // structures) so I can use it for AF_INET and AF_INET6. 'std::to_string()'
+    // may throw 'std::bad_alloc' from the std::string constructor. It is a
+    // fatal error that violates the promise to noexcept and immediately
+    // terminates the propgram. This is intentional because the error cannot be
+    // handled except improving the hardware.
+    switch (m_sa_union.ss.ss_family) {
+    case AF_INET6:
+    case AF_INET:
+    case AF_UNSPEC:
+        m_netaddrp = this->netaddr() + ":" +
+                     std::to_string(ntohs(m_sa_union.sin6.sin6_port));
+        break;
+    case AF_UNIX:
+        m_netaddrp = this->netaddr() + ":0";
+    }
+
     return m_netaddrp;
 }
 

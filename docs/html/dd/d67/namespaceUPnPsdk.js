@@ -5,8 +5,6 @@ var namespaceUPnPsdk =
       [ "bitnum_to_netmask", "d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html#a81650637c3cc2fe6e9c523d5cfe4c067", null ]
     ] ],
     [ "anonymous_namespace{sockaddr.cpp}", "d7/d77/namespaceUPnPsdk_1_1anonymous__namespace_02sockaddr_8cpp_03.html", [
-      [ "to_netaddr", "d0/dd8/group__upnplib-addrmodul.html#ga7682566c7f9f0f6f7439657ca618114f", null ],
-      [ "to_netaddrp", "d0/dd8/group__upnplib-addrmodul.html#ga3567b69c4ffb4ad72bf13049e2433d14", null ],
       [ "sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ],
       [ "to_port", "d0/dd8/group__upnplib-addrmodul.html#ga15c2857e134c29ff3dae7e20ff62b5df", null ]
     ] ],
