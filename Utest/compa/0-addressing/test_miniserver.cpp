@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-30
+// Redistribution only with this Copyright remark. Last modified: 2025-02-02
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -934,7 +934,7 @@ TEST_F(StartMiniServerMockFTestSuite,
         .WillOnce(Return(0));
     // Expect setting IPV6_V6ONLY.
     EXPECT_CALL(m_sys_socketObj, setsockopt(sockfd, IPPROTO_IPV6, IPV6_V6ONLY,
-                                            PointeeVoidToConstInt(1), _))
+                                            PointeeVoidToConstInt(0), _))
         .WillOnce(Return(0));
 #ifdef _MSC_VER
     // Expect setting SO_EXCLUSIVEADDRUSE on MS Windows

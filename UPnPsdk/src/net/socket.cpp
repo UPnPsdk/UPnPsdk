@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-31
+// Redistribution only with this Copyright remark. Last modified: 2025-02-02
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -124,10 +124,10 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
             serrObj.error_str());
     }
 
-    // With protocol family PF_INET6 we always set IPV6_V6ONLY to true. See also
-    // note to bind() in the header file.
+    // With protocol family PF_INET6 I always set IPV6_V6ONLY to false. See
+    // also note to bind() in the header file.
     if (a_pf_family == AF_INET6) {
-        so_option = 1; // true
+        so_option = 0; // false
         // Type cast (char*)&so_option is needed for Microsoft Windows.
         if (umock::sys_socket_h.setsockopt(
                 sfd, IPPROTO_IPV6, IPV6_V6ONLY,
@@ -440,6 +440,8 @@ void CSocket::set_reuse_addr(bool a_reuse) {
 }
 #endif
 
+// Bind socket to an ip address
+// ----------------------------
 void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
                    const int a_flags) {
     TRACE2(this, " Executing CSocket::bind()")
@@ -476,10 +478,11 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
         throw std::runtime_error(UPnPsdk_LOGEXCEPT +
                                  "MSG1037: detect error next line ...\n" +
                                  ai.what());
-
     CSocketErr serrObj;
 
-    // Here we bind the socket to an address.
+
+    // Get a socket file descriptor from operating system and try to bind it.
+    // ----------------------------------------------------------------------
     SOCKET sockfd{INVALID_SOCKET};
     int ret{-1};
 #if _MSC_VER
@@ -516,8 +519,7 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     for (size_t i{}; i < sfds.size(); i++)
         CLOSE_SOCKET_P(sfds[i]);
 #else
-    // Get a socket file descriptor with address info where I get the address
-    // family.
+    // Get a socket file descriptor with address info to get the address family.
     sockfd =
         get_sockfd(static_cast<sa_family_t>(ai->ai_family), ai->ai_socktype);
     // Try to bind the socket.
@@ -582,13 +584,20 @@ bool CSocket::is_v6only() const {
         throw std::runtime_error(UPnPsdk_LOGEXCEPT +
                                  "MSG1028: Failed to get socket option "
                                  "IPV6_V6ONLY: Bad file descriptor");
+    CSocketErr serrObj;
 
     int so_option{0};
     socklen_t len{sizeof(so_option)}; // May be modified
     // Type cast (char*)&so_option is needed for Microsoft Windows.
-    umock::sys_socket_h.getsockopt(m_sfd, IPPROTO_IPV6, IPV6_V6ONLY,
-                                   reinterpret_cast<char*>(&so_option), &len);
-
+    int err = umock::sys_socket_h.getsockopt(
+        m_sfd, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<char*>(&so_option),
+        &len);
+    if (err) {
+        serrObj.catch_error();
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT +
+            "MSG1138: Failed to get socket option: " + serrObj.error_str());
+    }
     return so_option;
 }
 

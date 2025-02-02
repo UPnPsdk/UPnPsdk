@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-30
+// Redistribution only with this Copyright remark. Last modified: 2025-02-02
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -328,6 +328,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * *************
      * @{ */
     /*! \brief Bind socket to an ip address
+     * <!-- --------------------------- -->
      * \code
      * // Usage e.g. to bind to localhost for use with **connect**, **sendto**,
      * // or **sendmsg** (typically clients).
@@ -379,11 +380,10 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * addresses will be suitable for use with **connect**, **sendto**, or
      * **sendmsg** (typically clients).
      *
-     * I internally always set IPV6_V6ONLY to true to be portable with same
-     * behavior on all platforms. This is default on Unix platforms when
-     * binding the address and cannot be modified. MacOS does not modify
-     * IPV6_V6ONLY with binding. On Microsoft Windows IPV6_V6ONLY is already
-     * set by default. */
+     * I internally always set IPV6_V6ONLY to false to use IPv6 mapped IPv4
+     * addresses. This is default on Unix platforms when binding the address
+     * and cannot be modified after binding. MacOS does not modify IPV6_V6ONLY
+     * with binding. On Microsoft Windows IPV6_V6ONLY is set by default. */
     void bind(
         /*! [in] This property must always be specified with SOCK_STREAM, or
          * SOCK_DGRAM. */

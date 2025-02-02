@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-31
+// Redistribution only with this Copyright remark. Last modified: 2025-02-02
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -36,6 +36,31 @@ namespace {
 
 // General storage for temporary socket address evaluation
 SSockaddr saddr;
+
+
+// Helper function to examine what's going on with option IPV6_V6ONLY.
+// -------------------------------------------------------------------
+bool is_v6only(SOCKET a_sfd) {
+    if (a_sfd == INVALID_SOCKET)
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT +
+            "Failed to get socket option IPV6_V6ONLY: Bad file descriptor");
+    CSocketErr serrObj;
+
+    int so_option{0};
+    socklen_t len{sizeof(so_option)}; // May be modified
+    // Type cast (char*)&so_option is needed for Microsoft Windows.
+    int err = umock::sys_socket_h.getsockopt(
+        a_sfd, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<char*>(&so_option),
+        &len);
+    if (err) {
+        serrObj.catch_error();
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT +
+            "Failed to get socket option: " + serrObj.error_str());
+    }
+    return so_option;
+}
 
 } // anonymous namespace
 
@@ -286,14 +311,8 @@ TEST(SocketBasicTestSuite, instantiate_with_bound_raw_socket_fd) {
     saddr = "127.0.0.1:50002";
     CSocket bound_sockObj;
     // Default IPV6_V6ONLY setting is different on different platforms but
-    // doesn't matter; will be set before binding.
-    // EXPECT_FALSE(bound_sockObj.is_v6only());
+    // doesn't matter. It will be reset before binding a socket address.
     ASSERT_NO_THROW(bound_sockObj.bind(SOCK_STREAM, &saddr));
-#ifdef _MSC_VER
-    EXPECT_TRUE(bound_sockObj.is_v6only()); // default win32, ignored with IPv4
-#else
-    EXPECT_FALSE(bound_sockObj.is_v6only()); // with IPv4 this is false
-#endif
     SOCKET bound_sock = bound_sockObj;
 
     // Test Unit with a bound socket.
@@ -319,6 +338,12 @@ TEST(SocketTestSuite, move_socket_successful) {
     saddr = "";
     saddr = 8080;
     ASSERT_NO_THROW(sock1.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
+    ASSERT_EQ(sock1.is_bound(), -1);
+    sock1.sockaddr(saddr);
+    if (saddr.ss.ss_family == AF_INET6)
+        EXPECT_FALSE(sock1.is_v6only()); // resetted
+    else
+        EXPECT_THROW(sock1.is_v6only(), std::runtime_error);
 
     SOCKET old_fd_sock1 = sock1;
 
@@ -344,12 +369,10 @@ TEST(SocketTestSuite, move_socket_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sock2.sockerr(), 0);
     EXPECT_FALSE(sock2.is_reuse_addr());
-    // Default IPV6_V6ONLY setting is different on different platforms.
-    // #ifdef _MSC_VER
-    //     EXPECT_TRUE(sock2.is_v6only());
-    // #else
-    //     EXPECT_FALSE(sock2.is_v6only());
-    // #endif
+    if (saddr.ss.ss_family == AF_INET6)
+        EXPECT_FALSE(sock2.is_v6only()); // resetted
+    else
+        EXPECT_THROW(sock2.is_v6only(), std::runtime_error);
     EXPECT_EQ(sock2.is_bound(), -1);
     EXPECT_TRUE(sock2.is_listen());
 }
@@ -361,6 +384,12 @@ TEST(SocketTestSuite, assign_socket_successful) {
     saddr = 8080;
     CSocket sock1;
     ASSERT_NO_THROW(sock1.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
+    ASSERT_EQ(sock1.is_bound(), -1);
+    sock1.sockaddr(saddr);
+    if (saddr.ss.ss_family == AF_INET6)
+        EXPECT_FALSE(sock1.is_v6only()); // resetted
+    else
+        EXPECT_THROW(sock1.is_v6only(), std::runtime_error);
 
     SOCKET old_fd_sock1 = sock1;
 
@@ -385,7 +414,10 @@ TEST(SocketTestSuite, assign_socket_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sock2.sockerr(), 0);
     EXPECT_FALSE(sock2.is_reuse_addr());
-    // EXPECT_FALSE(sock2.is_v6only());
+    if (saddr.ss.ss_family == AF_INET6)
+        EXPECT_FALSE(sock2.is_v6only()); // resetted
+    else
+        EXPECT_THROW(sock2.is_v6only(), std::runtime_error);
     EXPECT_EQ(sock2.is_bound(), -1);
     EXPECT_TRUE(sock2.is_listen());
 }
@@ -393,6 +425,63 @@ TEST(SocketTestSuite, assign_socket_successful) {
 
 // Bind socket objects
 // -------------------
+TEST(SocketTestSuite, bind_ipv6only) {
+    // This is to verify the situation of binding a socket with option
+    // IPV6_V6ONLY. This option can only be switched on IPv6 (AF_INET6) created
+    // sockets listening on the "any" address for incomming requests. For other
+    // situations it isn't applicable and has different results on differnt
+    // platforms after binding the socket fd to an ip address with no useful
+    // common meaning.
+    //
+    // This SDK uses IPv6 mapped IPv4 addresses and it always reset option
+    // IPV6_V6ONLY when getting a socket from the operating system to have the
+    // same situation on all platforms for listening.
+    // REF: [How to support both IPv4 and IPv6 connections]
+    // (https://stackoverflow.com/a/1618259/5014688)
+
+    // "any" IPv6 address, unspec. address will accept resetting IPV6_V6ONLY.
+    saddr = "[::]:50001";
+    CSocket sock1Obj;
+    ASSERT_NO_THROW(sock1Obj.bind(SOCK_STREAM, &saddr));
+    EXPECT_TRUE(sock1Obj.is_bound());
+    EXPECT_FALSE(is_v6only(sock1Obj)); // resetted
+
+    // Unicast IPv6 address.
+    saddr = "[::1]:50002";
+    CSocket sock2Obj;
+    ASSERT_NO_THROW(sock2Obj.bind(SOCK_STREAM, &saddr));
+    EXPECT_TRUE(sock2Obj.is_bound());
+#ifdef __unix__
+    EXPECT_TRUE(is_v6only(sock2Obj)); // Not resetted
+#else
+    EXPECT_FALSE(is_v6only(sock2Obj));
+#endif
+
+    // "any" IPv4 address, fails with exception.
+    saddr = "0.0.0.0:50003";
+    CSocket sock3Obj;
+    ASSERT_NO_THROW(sock3Obj.bind(SOCK_STREAM, &saddr));
+    EXPECT_TRUE(sock3Obj.is_bound());
+#ifdef _WIN32
+    EXPECT_TRUE(is_v6only(sock3Obj)); // Not resetted
+#else
+    // "Operation not supported".
+    EXPECT_THROW(is_v6only(sock3Obj), std::runtime_error);
+#endif
+
+    // Unicast IPv4 address, fails with exception.
+    saddr = "127.0.0.1:50004";
+    CSocket sock4Obj;
+    ASSERT_NO_THROW(sock4Obj.bind(SOCK_STREAM, &saddr));
+    EXPECT_TRUE(sock4Obj.is_bound());
+#ifdef _WIN32
+    EXPECT_TRUE(is_v6only(sock4Obj)); // Not resetted
+#else
+    // "Operation not supported".
+    EXPECT_THROW(is_v6only(sock4Obj), std::runtime_error);
+#endif
+}
+
 TEST(SocketTestSuite, bind_ipv6_successful) {
     saddr = "[::1]:50001";
     CSocket sockObj;
@@ -407,9 +496,12 @@ TEST(SocketTestSuite, bind_ipv6_successful) {
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-    EXPECT_FALSE(sockObj.is_listen());
-    // v6only is true because it is a socket property that's of domain PF_INET6
+#ifdef __unix__
     EXPECT_TRUE(sockObj.is_v6only());
+#else
+    EXPECT_FALSE(sockObj.is_v6only());
+#endif
+    EXPECT_FALSE(sockObj.is_listen());
 }
 
 TEST(SocketTestSuite, bind_ipv4_successful) {
@@ -426,14 +518,12 @@ TEST(SocketTestSuite, bind_ipv4_successful) {
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-    EXPECT_FALSE(sockObj.is_listen());
-#ifdef _MSC_VER
-    // ON MS Windows this is set by default. That doesn't make sense for an ipv4
-    // socket. Seems MS Windows just ignores this on the IPv4 network stack.
+#ifdef _WIN32
     EXPECT_TRUE(sockObj.is_v6only());
 #else
-    EXPECT_FALSE(sockObj.is_v6only()); // with IPv4 this is false by default.
+    EXPECT_THROW(sockObj.is_v6only(), std::runtime_error);
 #endif
+    EXPECT_FALSE(sockObj.is_listen());
 }
 
 TEST(SocketBasicTestSuite, bind_socket_two_times_successful) {
@@ -474,13 +564,10 @@ TEST(SocketTestSuite, bind_default_passive_successful) {
     EXPECT_NE(saddr.get_port(), 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-#if (defined __APPLE__) || (defined _MSC_VER)
-    EXPECT_TRUE(sockObj.is_v6only());
-#else
-    // With passive mode the preset IPV6_V6ONLY value isn't modified by the
-    // operating system.
-    EXPECT_FALSE(sockObj.is_v6only());
-#endif
+    if (saddr.ss.ss_family == AF_INET6)
+        EXPECT_FALSE(sockObj.is_v6only()); // resetted
+    else
+        EXPECT_THROW(sockObj.is_v6only(), std::runtime_error);
     EXPECT_FALSE(sockObj.is_listen());
 }
 
@@ -499,13 +586,10 @@ TEST(SocketTestSuite, bind_only_service_passive_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-    // With passive mode the preset IPV6_V6ONLY value isn't modified by the
-    // operating system.
-#if (defined __APPLE__) || (defined _MSC_VER)
-    EXPECT_TRUE(sockObj.is_v6only());
-#else
-    EXPECT_FALSE(sockObj.is_v6only());
-#endif
+    if (saddr.ss.ss_family == AF_INET6)
+        EXPECT_FALSE(sockObj.is_v6only()); // resetted
+    else
+        EXPECT_THROW(sockObj.is_v6only(), std::runtime_error);
     EXPECT_FALSE(sockObj.is_listen());
 }
 
@@ -522,9 +606,11 @@ TEST(SocketTestSuite, bind_default_not_passive_successful) {
     EXPECT_NE(saddr.get_port(), 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-    // v6only is always set true with IPv6 address and active mode (AI_PASSIVE
-    // not set).
+#ifdef __unix__
     EXPECT_TRUE(sockObj.is_v6only());
+#else
+    EXPECT_FALSE(sockObj.is_v6only());
+#endif
     EXPECT_FALSE(sockObj.is_listen());
 }
 
@@ -543,10 +629,14 @@ TEST(SocketTestSuite, bind_only_service_not_passive_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::1]:8080", "127.0.0.1:8080"));
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-    // v6only is always set true with IPv6 address and active mode (AI_PASSIVE
-    // not set).
-    EXPECT_EQ(sockObj.is_v6only(),
-              saddr.ss.ss_family == AF_INET6 ? true : false);
+    if (saddr.ss.ss_family == AF_INET6)
+#ifdef __unix__
+        EXPECT_TRUE(sockObj.is_v6only()); // resetted
+#else
+        EXPECT_FALSE(sockObj.is_v6only()); // resetted
+#endif
+    else
+        EXPECT_THROW(sockObj.is_v6only(), std::runtime_error);
     EXPECT_FALSE(sockObj.is_listen());
 }
 
@@ -563,8 +653,8 @@ TEST_F(SocketMockFTestSuite, bind_ipv6_lla_successful) {
                 setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, _, _))
         .WillOnce(Return(0));
     // Expect setting IPV6_V6ONLY.
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd, IPPROTO_IPV6, IPV6_V6ONLY, _, _))
+    EXPECT_CALL(m_sys_socketObj, setsockopt(sockfd, IPPROTO_IPV6, IPV6_V6ONLY,
+                                            PointeeVoidToConstInt(0), _))
         .WillOnce(Return(0));
 #ifdef _MSC_VER
     // Expect setting SO_EXCLUSIVEADDRUSE.
@@ -652,8 +742,8 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_ipv6_only) {
         .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
     // Expect setting IPV6_V6ONLY.
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY, _, _))
+    EXPECT_CALL(m_sys_socketObj, setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY,
+                                            PointeeVoidToConstInt(0), _))
         .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
 
@@ -685,8 +775,8 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_win32_exclusiveaddruse) {
         .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
     // Expect setting IPV6_V6ONLY.
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY, _, _))
+    EXPECT_CALL(m_sys_socketObj, setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY,
+                                            PointeeVoidToConstInt(0), _))
         .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
     EXPECT_CALL(m_sys_socketObj,
@@ -721,8 +811,8 @@ TEST_F(SocketMockFTestSuite, bind_syscall_fails) {
         .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
     // Expect setting IPV6_V6ONLY.
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY, _, _))
+    EXPECT_CALL(m_sys_socketObj, setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY,
+                                            PointeeVoidToConstInt(0), _))
         .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
 #ifdef _MSC_VER
@@ -804,8 +894,8 @@ TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_successful) {
         .Times(5)
         .WillRepeatedly(Return(0));
     // Expect setting IPV6_V6ONLY.
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY, _, _))
+    EXPECT_CALL(m_sys_socketObj, setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY,
+                                            PointeeVoidToConstInt(0), _))
         .Times(5)
         .WillRepeatedly(Return(0));
     // Expect setting SO_EXCLUSIVEADDRUSE.
@@ -863,8 +953,8 @@ TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_fails) {
         .Times(Between(5, 10)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
     // Expect setting IPV6_V6ONLY.
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY, _, _))
+    EXPECT_CALL(m_sys_socketObj, setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY,
+                                            PointeeVoidToConstInt(0), _))
         .Times(Between(5, 10)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
     // Expect setting SO_EXCLUSIVEADDRUSE.
