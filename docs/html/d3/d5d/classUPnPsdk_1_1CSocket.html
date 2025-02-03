@@ -159,9 +159,6 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Getter</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><hr  />
  </div></td></tr>
-<tr class="memitem:a463a3dbd4c0ea08291a7093c866aae9e" id="r_a463a3dbd4c0ea08291a7093c866aae9e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a463a3dbd4c0ea08291a7093c866aae9e">is_v6only</a> () const</td></tr>
-<tr class="memdesc:a463a3dbd4c0ea08291a7093c866aae9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get status of IPV6_V6ONLY flag.  <br /></td></tr>
-<tr class="separator:a463a3dbd4c0ea08291a7093c866aae9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7498f381c33b05ae56887b413c0350bf" id="r_a7498f381c33b05ae56887b413c0350bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7498f381c33b05ae56887b413c0350bf">is_listen</a> () const</td></tr>
 <tr class="memdesc:a7498f381c33b05ae56887b413c0350bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get status if the socket is listen to incomming network packets.  <br /></td></tr>
 <tr class="separator:a7498f381c33b05ae56887b413c0350bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -495,52 +492,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a463a3dbd4c0ea08291a7093c866aae9e" name="a463a3dbd4c0ea08291a7093c866aae9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a463a3dbd4c0ea08291a7093c866aae9e">&#9670;&#160;</a></span>is_v6only()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool UPnPsdk::CSocket::is_v6only </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get status of IPV6_V6ONLY flag. </p>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li><b>true&#160;</b> The socket manages only IPv6 addresses.</li>
-<li><b>false</b> The socket manages IPv6 addresses and IPv6 mapped IPv4 addresses. </li>
-</ul>
-</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>Failed to get socket option from unbind socket. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00581">581</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d3/d5d/classUPnPsdk_1_1CSocket_a463a3dbd4c0ea08291a7093c866aae9e_cgraph.png" border="0" usemap="#ad3/d5d/classUPnPsdk_1_1CSocket_a463a3dbd4c0ea08291a7093c866aae9e_cgraph" alt=""/></div>
-<map name="ad3/d5d/classUPnPsdk_1_1CSocket_a463a3dbd4c0ea08291a7093c866aae9e_cgraph" id="ad3/d5d/classUPnPsdk_1_1CSocket_a463a3dbd4c0ea08291a7093c866aae9e_cgraph">
-<area shape="rect" title="Get status of IPV6_V6ONLY flag." alt="" coords="5,37,164,77"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="212,5,369,45"/>
-<area shape="poly" title=" " alt="" coords="164,42,198,37,199,42,164,48"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="212,69,369,109"/>
-<area shape="poly" title=" " alt="" coords="164,67,199,72,198,78,164,72"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a7498f381c33b05ae56887b413c0350bf" name="a7498f381c33b05ae56887b413c0350bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7498f381c33b05ae56887b413c0350bf">&#9670;&#160;</a></span>is_listen()</h2>
 
@@ -569,7 +520,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00604">604</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00581">581</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 
 </div>
 </div>

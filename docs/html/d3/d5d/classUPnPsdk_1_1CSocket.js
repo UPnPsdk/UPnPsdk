@@ -6,6 +6,5 @@ var classUPnPsdk_1_1CSocket =
     [ "operator=", "d3/d5d/classUPnPsdk_1_1CSocket.html#a92f286eecf18959304329a91622024d4", null ],
     [ "bind", "d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35", null ],
     [ "listen", "d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b", null ],
-    [ "is_v6only", "d3/d5d/classUPnPsdk_1_1CSocket.html#a463a3dbd4c0ea08291a7093c866aae9e", null ],
     [ "is_listen", "d3/d5d/classUPnPsdk_1_1CSocket.html#a7498f381c33b05ae56887b413c0350bf", null ]
 ];

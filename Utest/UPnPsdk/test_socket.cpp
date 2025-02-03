@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-02
+// Redistribution only with this Copyright remark. Last modified: 2025-02-03
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -300,9 +300,6 @@ TEST(SocketTestSuite, instantiate_unbind_socket) {
         [&sockObj]() { sockObj.is_reuse_addr(); },
         ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1013: ")));
     EXPECT_THAT(
-        [&sockObj]() { sockObj.is_v6only(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1028: ")));
-    EXPECT_THAT(
         [&sockObj]() { sockObj.is_listen(); },
         ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1035: ")));
 }
@@ -340,10 +337,6 @@ TEST(SocketTestSuite, move_socket_successful) {
     ASSERT_NO_THROW(sock1.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
     ASSERT_EQ(sock1.is_bound(), -1);
     sock1.sockaddr(saddr);
-    if (saddr.ss.ss_family == AF_INET6)
-        EXPECT_FALSE(sock1.is_v6only()); // resetted
-    else
-        EXPECT_THROW(sock1.is_v6only(), std::runtime_error);
 
     SOCKET old_fd_sock1 = sock1;
 
@@ -369,10 +362,6 @@ TEST(SocketTestSuite, move_socket_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sock2.sockerr(), 0);
     EXPECT_FALSE(sock2.is_reuse_addr());
-    if (saddr.ss.ss_family == AF_INET6)
-        EXPECT_FALSE(sock2.is_v6only()); // resetted
-    else
-        EXPECT_THROW(sock2.is_v6only(), std::runtime_error);
     EXPECT_EQ(sock2.is_bound(), -1);
     EXPECT_TRUE(sock2.is_listen());
 }
@@ -386,10 +375,6 @@ TEST(SocketTestSuite, assign_socket_successful) {
     ASSERT_NO_THROW(sock1.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
     ASSERT_EQ(sock1.is_bound(), -1);
     sock1.sockaddr(saddr);
-    if (saddr.ss.ss_family == AF_INET6)
-        EXPECT_FALSE(sock1.is_v6only()); // resetted
-    else
-        EXPECT_THROW(sock1.is_v6only(), std::runtime_error);
 
     SOCKET old_fd_sock1 = sock1;
 
@@ -414,10 +399,6 @@ TEST(SocketTestSuite, assign_socket_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sock2.sockerr(), 0);
     EXPECT_FALSE(sock2.is_reuse_addr());
-    if (saddr.ss.ss_family == AF_INET6)
-        EXPECT_FALSE(sock2.is_v6only()); // resetted
-    else
-        EXPECT_THROW(sock2.is_v6only(), std::runtime_error);
     EXPECT_EQ(sock2.is_bound(), -1);
     EXPECT_TRUE(sock2.is_listen());
 }
@@ -496,11 +477,6 @@ TEST(SocketTestSuite, bind_ipv6_successful) {
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-#ifdef __unix__
-    EXPECT_TRUE(sockObj.is_v6only());
-#else
-    EXPECT_FALSE(sockObj.is_v6only());
-#endif
     EXPECT_FALSE(sockObj.is_listen());
 }
 
@@ -518,11 +494,6 @@ TEST(SocketTestSuite, bind_ipv4_successful) {
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-#ifdef _WIN32
-    EXPECT_TRUE(sockObj.is_v6only());
-#else
-    EXPECT_THROW(sockObj.is_v6only(), std::runtime_error);
-#endif
     EXPECT_FALSE(sockObj.is_listen());
 }
 
@@ -564,10 +535,6 @@ TEST(SocketTestSuite, bind_default_passive_successful) {
     EXPECT_NE(saddr.get_port(), 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-    if (saddr.ss.ss_family == AF_INET6)
-        EXPECT_FALSE(sockObj.is_v6only()); // resetted
-    else
-        EXPECT_THROW(sockObj.is_v6only(), std::runtime_error);
     EXPECT_FALSE(sockObj.is_listen());
 }
 
@@ -586,10 +553,6 @@ TEST(SocketTestSuite, bind_only_service_passive_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-    if (saddr.ss.ss_family == AF_INET6)
-        EXPECT_FALSE(sockObj.is_v6only()); // resetted
-    else
-        EXPECT_THROW(sockObj.is_v6only(), std::runtime_error);
     EXPECT_FALSE(sockObj.is_listen());
 }
 
@@ -606,11 +569,6 @@ TEST(SocketTestSuite, bind_default_not_passive_successful) {
     EXPECT_NE(saddr.get_port(), 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-#ifdef __unix__
-    EXPECT_TRUE(sockObj.is_v6only());
-#else
-    EXPECT_FALSE(sockObj.is_v6only());
-#endif
     EXPECT_FALSE(sockObj.is_listen());
 }
 
@@ -629,14 +587,6 @@ TEST(SocketTestSuite, bind_only_service_not_passive_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::1]:8080", "127.0.0.1:8080"));
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
-    if (saddr.ss.ss_family == AF_INET6)
-#ifdef __unix__
-        EXPECT_TRUE(sockObj.is_v6only()); // resetted
-#else
-        EXPECT_FALSE(sockObj.is_v6only()); // resetted
-#endif
-    else
-        EXPECT_THROW(sockObj.is_v6only(), std::runtime_error);
     EXPECT_FALSE(sockObj.is_listen());
 }
 

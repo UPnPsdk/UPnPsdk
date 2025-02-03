@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-02
+// Redistribution only with this Copyright remark. Last modified: 2025-02-03
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -578,29 +578,6 @@ void CSocket::listen() {
 
 // Getter
 // ------
-bool CSocket::is_v6only() const {
-    TRACE2(this, " Executing CSocket::is_v6only()")
-    if (m_sfd == INVALID_SOCKET)
-        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
-                                 "MSG1028: Failed to get socket option "
-                                 "IPV6_V6ONLY: Bad file descriptor");
-    CSocketErr serrObj;
-
-    int so_option{0};
-    socklen_t len{sizeof(so_option)}; // May be modified
-    // Type cast (char*)&so_option is needed for Microsoft Windows.
-    int err = umock::sys_socket_h.getsockopt(
-        m_sfd, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<char*>(&so_option),
-        &len);
-    if (err) {
-        serrObj.catch_error();
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1138: Failed to get socket option: " + serrObj.error_str());
-    }
-    return so_option;
-}
-
 bool CSocket::is_listen() const {
     TRACE2(this, " Executing CSocket::is_listen()")
     if (m_sfd == INVALID_SOCKET)

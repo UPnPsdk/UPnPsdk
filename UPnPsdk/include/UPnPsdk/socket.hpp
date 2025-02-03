@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-02
+// Redistribution only with this Copyright remark. Last modified: 2025-02-03
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -416,15 +416,6 @@ class UPnPsdk_API CSocket : public CSocket_basic {
     /*! \name Getter
      * *************
      * @{ */
-    /*! \brief Get status of IPV6_V6ONLY flag
-     * \returns
-     *  - \b true&nbsp; The socket manages only IPv6 addresses.
-     *  - \b false The socket manages IPv6 addresses and IPv6 mapped IPv4
-     *             addresses.
-     * \exception std::runtime_error Failed to get socket option from unbind
-     *             socket. */
-    bool is_v6only() const;
-
     /*! \brief Get status if the socket is listen to incomming network packets.
      * \returns
      *  - \b true&nbsp; Socket is listen to incomming network packets

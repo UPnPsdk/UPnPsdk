@@ -1,7 +1,5 @@
 var NAVTREEINDEX12 =
 {
-"hierarchy.html":[6,2],
-"index.html":[0],
 "index.html":[],
 "index.html#noexcept":[0,2],
 "index.html#overview_comp":[0,1],
