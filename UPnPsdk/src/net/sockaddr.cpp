@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-02
+// Redistribution only with this Copyright remark. Last modified: 2025-02-10
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -484,7 +484,10 @@ const std::string& SSockaddr::netaddr() noexcept {
         return m_netaddr;
     }
 
-    char addrStr[INET6_ADDRSTRLEN]{};
+    // The buffer fit to an IPv6 address with mapped IPv4 address (max. 46) and
+    // also fit to an IPv6 address with scope id (max. 51).
+    char addrStr[39 /*sizeof(IPv6_addr)*/ + 1 /*'%'*/ +
+                 10 /*sin6_scope_id_max(4294967295)*/ + 1 /*'\0'*/]{};
     int ret = ::getnameinfo(&m_sa_union.sa, sizeof(m_sa_union.ss), addrStr,
                             sizeof(addrStr), nullptr, 0, NI_NUMERICHOST);
     if (ret != 0) {

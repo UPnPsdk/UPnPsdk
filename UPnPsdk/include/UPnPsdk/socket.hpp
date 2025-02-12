@@ -151,6 +151,9 @@ class UPnPsdk_API CSocket_basic {
      * @{ */
     /*! \brief Load the raw socket file descriptor specified with the
      * constructor into the object
+     * \note This function can only be used with the CSocket_basic class. A
+     * derived usage e.g. with the CSocket class will throw an exception.
+     *
      * \code
      * // Usage e.g.:
      * SOCKET sfd = ::socket(PF_INET6, SOCK_STREAM);

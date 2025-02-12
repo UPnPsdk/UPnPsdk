@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-23
+ * Redistribution only with this Copyright remark. Last modified: 2025-02-10
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -46,7 +46,7 @@
 /// \cond
 #include <cassert>
 
-#define DEFAULT_WEB_DIR "./sample/web"
+#define DEFAULT_WEB_DIR "./Sample/web"
 #define DESC_URL_SIZE 200
 /// \endcond
 
@@ -1292,7 +1292,7 @@ int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
                   const int combo) {
     TRACE("Executing TvDeviceStart()");
     int ret{UPNP_E_SUCCESS};
-    // example for desc_doc_url: http://192.168.47.11:50001/tvdevicedesc.xml
+    // example for desc_doc_url: http://[2001:db8::1]:50001/tvdevicedesc.xml
     char desc_doc_url[DESC_URL_SIZE];
     char* ip_address{};
     int address_family{AF_INET};
@@ -1338,8 +1338,8 @@ int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
     }
 
     SampleUtil_Print("UpnpInit2 finished, UPnP Initialized, "
-                     "local IP address = %s, local port = %u\n",
-                     ip_address ? ip_address : "{NULL}", port);
+                     "Root UDevice local IP address = %s, local port = %u\n",
+                     ip_address ? ip_address : "", port);
 
     if (!desc_doc_name) {
         if (combo) {
@@ -1377,7 +1377,7 @@ int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
         return ret;
     }
 
-    SampleUtil_Print("Registering the RootDevice with desc_doc_url: %s\n",
+    SampleUtil_Print("Registering the Root UDevice with desc_doc_url: %s\n",
                      desc_doc_url);
     ret =
         UpnpRegisterRootDevice3(desc_doc_url, TvDeviceCallbackEventHandler,
@@ -1511,9 +1511,9 @@ int device_main(const int argc, char* argv[]) {
                 "\t\te.g.: tvdevicedesc.xml\n"
                 "\tweb_dir_path:  Filesystem path where web files related to "
                 "the device are stored\n"
-                "\t\te.g.: /upnp/sample/tvdevice/web\n"
+                "\t\te.g.: ./Sample/web\n"
                 "\tip_mode:       set to 1 for IPv4, 2 for IPv6 LLA (default) "
-                "and 3 for IPv6 ULA or GUA\n");
+                "and 3 for IPv6 GUA\n");
             return UPNP_E_INVALID_ARGUMENT;
         }
     }

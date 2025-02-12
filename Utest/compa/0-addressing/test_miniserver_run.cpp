@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-13
+// Redistribution only with this Copyright remark. Last modified: 2025-02-12
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -120,7 +120,7 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
     // service (2 fds). These are file descriptors summarized in the structure
     // MiniServerSockArray. For details look there.
     //
-    // For this test we use only socket file descriptor miniServerSock4 that is
+    // For this test I use only socket file descriptor miniServerSock4 that is
     // listening on IPv4 for the miniserver. --Ingo
     std::cout
         << CYEL "[ TODO     ] " CRES << __LINE__
@@ -157,7 +157,7 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
     // host and not part of listening sockets monitored by select().
     constexpr SOCKET remote_connect_sockfd = umock::sfd_base + 9;
 
-    // We need this to mock socket addresses.
+    // I need this to mock socket addresses.
     SSockaddr ssObj;
 
     if (old_code) {
@@ -183,16 +183,21 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
                      "to be on the heap and free it.\n";
 
         // Check socket in fdset_if_valid() successful
-        EXPECT_CALL(m_sys_socketObj, getsockopt(m_minisock->miniServerSock4,
+        // EXPECT_CALL(m_sys_socketObj, getsockopt(m_minisock->miniServerSock4,
+        EXPECT_CALL(m_sys_socketObj, getsockopt(_, //
                                                 SOL_SOCKET, SO_ERROR, _, _))
-            .WillOnce(Return(0));
+            .Times(g_dbug ? 4 : 1)
+            .WillRepeatedly(Return(0));
 
         // Mock that the socket fd ist bound to an address of a local interface.
         ssObj = "[2001:db8::cd]:50059";
-        EXPECT_CALL(m_sys_socketObj, getsockname(m_minisock->miniServerSock4, _,
-                                                 Pointee(sizeof(ssObj.ss))))
-            .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa),
-                            SetArgPointee<2>(ssObj.sizeof_saddr()), Return(0)));
+        // EXPECT_CALL(m_sys_socketObj, getsockname(m_minisock->miniServerSock4,
+        EXPECT_CALL(m_sys_socketObj, getsockname(_, //
+                                                 _, Pointee(sizeof(ssObj.ss))))
+            .Times(g_dbug ? 4 : 1)
+            .WillRepeatedly(DoAll(SetArgPointee<1>(ssObj.sa),
+                                  SetArgPointee<2>(ssObj.sizeof_saddr()),
+                                  Return(0)));
 
         // select() in RunMiniServer() also succeeds.
         EXPECT_CALL(m_sys_socketObj,
@@ -961,11 +966,26 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_successful) {
                                  std::to_string(connected_sockfd) +
                                  ": cannot schedule request"));
 #else
-    EXPECT_THAT(captureObj.str(),
-                ContainsStdRegex("libupnp ThreadPoolAdd too many jobs: 0"));
+    EXPECT_EQ(captureObj.str(), "libupnp ThreadPoolAdd too many jobs: 0@");
 #endif
+    if (!github_actions)
+        GTEST_FAIL() << "Fix to schedule request. The error is only with "
+                        "build_type DEBUG reported.";
 
 #else  // UPnPsdk_WITH_NATIVE_PUPNP
+
+    if (g_dbug) {
+        EXPECT_CALL(m_sys_socketObj, getsockopt(_, SOL_SOCKET, SO_ERROR, _, _))
+            .Times(3)
+            .WillRepeatedly(Return(0));
+
+        EXPECT_CALL(m_sys_socketObj,
+                    getsockname(_, _, Pointee(sizeof(ssObj.ss))))
+            .Times(3)
+            .WillRepeatedly(DoAll(SetArgPointee<1>(ssObj.sa),
+                                  SetArgPointee<2>(ssObj.sizeof_saddr()),
+                                  Return(0)));
+    }
 
     // Test Unit
     int ret_web_server_accept = web_server_accept(listen_sockfd, set);
@@ -1286,7 +1306,7 @@ TEST_F(RunMiniServerMockFTestSuite,
 }
 
 TEST(RunMiniServerTestSuite, schedule_request_job) {
-    constexpr SOCKET connected_sockfd{umock::sfd_base + 36};
+    SOCKET connected_sockfd = ::socket(AF_INET, SOCK_STREAM, 0);
     SSockaddr saddrObj;
     saddrObj = "192.168.1.1:50063";
 
@@ -1303,23 +1323,29 @@ TEST(RunMiniServerTestSuite, schedule_request_job) {
     captureObj.start();
 
     // Test Unit
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     schedule_request_job(connected_sockfd, &saddrObj.sa);
+#else
+    schedule_request_job(connected_sockfd, saddrObj);
+#endif
 
     // Get captured output
     EXPECT_THAT(captureObj.str(),
                 HasSubstr("libupnp ThreadPoolAdd too many jobs: 0\n"));
     if (old_code) {
 #ifdef DEBUG
-        EXPECT_THAT(captureObj.str(),
-                    EndsWith("]: mserv 36: cannot schedule request\n"));
+        EXPECT_THAT(
+            captureObj.str(),
+            ContainsStdRegex("\\]: mserv \\d+: cannot schedule request"));
 #endif
     } else {
         if (g_dbug)
             EXPECT_THAT(
                 captureObj.str(),
-                EndsWith(
-                    "] ERROR MSG1025: Socket 36: cannot schedule request.\n"));
+                ContainsStdRegex("\\] ERROR MSG1025: Socket\\(\\d+\\)"));
     }
+
+    CLOSE_SOCKET_P(connected_sockfd);
 }
 
 TEST(RunMiniServerTestSuite, free_handle_request_arg_successful) {

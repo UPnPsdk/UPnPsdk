@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-02-01
+ * Redistribution only with this Copyright remark. Last modified: 2025-02-11
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -538,6 +538,7 @@ static int private_connect(
 
             return SOCKET_ERROR;
         }
+
         return 0;
     }
 }
@@ -630,10 +631,10 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
     TRACE("Executing http_RecvMessage()")
     int ret{UPNP_E_SUCCESS};
     int line{};
-    parse_status_t status{};
+    parse_status_t status;
     int num_read{};
     int ok_on_close{};
-    char* buf{nullptr};
+    char* buf;
     size_t buf_len{1024};
 
     *http_error_code = HTTP_INTERNAL_SERVER_ERROR;
@@ -668,7 +669,7 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
             switch (status) {
             case PARSE_SUCCESS:
                 UPnPsdk_LOGINFO "MSG1031: <<< (RECVD) <<<\n"
-                    << parser->msg.msg.buf << "UPnPlib -----------------\n";
+                    << parser->msg.msg.buf << "UPnPsdk -----------------\n";
                 print_http_headers(&parser->msg);
                 if (g_maxContentLength > (size_t)0 &&
                     parser->content_length > (unsigned int)g_maxContentLength) {
@@ -704,7 +705,7 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
                     << parser->msg.msg.buf << "\n-----------------\n";
                 print_http_headers(&parser->msg);
                 line = __LINE__;
-                ret = UPNP_E_SUCCESS;
+                ret = 0;
                 goto ExitFunction;
             } else {
                 /* partial msg */
@@ -744,6 +745,8 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
     size_t num_read;
     off_t amount_to_be_read{};
     size_t Data_Buf_Size{WEB_SERVER_BUF_SIZE};
+    int I_fmt_processed = 0;
+    memset(Chunk_Header, 0, sizeof(Chunk_Header));
 #endif /* COMPA_HAVE_WEBSERVER */
     va_list argp;
     char* buf{nullptr};
@@ -753,10 +756,15 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
     size_t buf_length;
     size_t num_written;
 
-#ifdef COMPA_HAVE_WEBSERVER
-    int I_fmt_processed = 0;
-    memset(Chunk_Header, 0, sizeof(Chunk_Header));
-#endif
+    UPnPsdk::CSocket_basic sockObj(info->socket);
+    sockObj.load();
+    if (!sockObj.is_bound()) {
+        UPnPsdk_LOGERR
+            << "MSG1044: socket file descriptor(" << info->socket
+            << ") is not bound to a connect destination socket address.\n";
+        RetVal = UPNP_E_SOCKET_WRITE;
+        goto ExitFunction;
+    }
     va_start(argp, fmt);
     while ((c = *fmt++) != '\0') {
 #ifdef COMPA_HAVE_WEBSERVER
@@ -881,7 +889,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                     nw = sock_write(info, file_buf, num_read, TimeOut);
                     UPnPsdk_LOGINFO "MSG1104: >>> (SENT) >>>\n"
                         << std::string(file_buf, static_cast<size_t>(nw))
-                        << "UPnPlib ------------\n";
+                        << "UPnPsdk ------------\n";
                     /* Send error nothing we can do */
                     num_written = (size_t)nw;
                     if (nw <= 0 || num_written != num_read) {
@@ -908,14 +916,18 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                     num_written = (size_t)nw;
 
                     if (UPnPsdk::g_dbug) {
-                        UPnPsdk::SSockaddr saObj;
-                        saObj = info->foreign_sockaddr;
-                        UPnPsdk_LOGINFO "MSG1105: >>> (SENT) >>> to \""
-                            << saObj.netaddrp() << "\"\n"
+                        // Get the local netaddress the socket is bound to.
+                        UPnPsdk::SSockaddr local_saObj;
+                        sockObj.sockaddr(local_saObj);
+                        UPnPsdk_LOGINFO "MSG1105: >>> (SENT) >>> Ctrlpnt "
+                                        "request from local \""
+                            << local_saObj.netaddrp()
+                            << "\" to \"HOST:\" in request message following "
+                               "...\n"
                             << std::string(buf, buf_length)
-                            << "UPnPlib buf_length=" << buf_length
+                            << "UPnPsdk buf_length=" << buf_length
                             << ", num_written=" << num_written
-                            << ".\nUPnPlib ------------\n";
+                            << ".\nUPnPsdk ------------\n";
                     }
                     if (nw < 0) {
                         RetVal = nw;
@@ -945,7 +957,6 @@ int http_RequestAndResponse(uri_type* destination, const char* request,
     SOCKET tcp_connection;
     int ret_code;
     socklen_t sockaddr_len;
-    int http_error_code;
     SOCKINFO info;
 
     tcp_connection = umock::sys_socket_h.socket(
@@ -979,6 +990,7 @@ int http_RequestAndResponse(uri_type* destination, const char* request,
         goto end_function;
     }
     /* recv response */
+    int http_error_code;
     ret_code = http_RecvMessage(&info, response, req_method, &timeout_secs,
                                 &http_error_code);
 
@@ -1008,7 +1020,7 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
 
     url_str_len = strlen(url_str);
     /*ret_code = parse_uri( (char*)url_str, url_str_len, &url ); */
-    UPnPsdk_LOGINFO "MSG1098: DOWNLOAD URL=\"" << url_str << "\".\n";
+    UPnPsdk_LOGINFO "MSG1098: UDevice DOWNLOAD URL=\"" << url_str << "\".\n";
     ret_code = http_FixStrUrl((char*)url_str, url_str_len, &url);
     if (ret_code != UPNP_E_SUCCESS) {
         return ret_code;
@@ -1019,8 +1031,6 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
     if (ret_code != UPNP_E_SUCCESS) {
         return ret_code;
     }
-    UPnPsdk_LOGINFO "MSG1099: HOSTNAME=\"" << hoststr
-                                           << "\", Length=" << hostlen << "\n";
     ret_code = http_MakeMessage(&request, 1, 1,
                                 "Q"
                                 "s"
@@ -1032,8 +1042,8 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
         membuffer_destroy(&request);
         return ret_code;
     }
-    UPnPsdk_LOGINFO "MSG1101: HTTP Buffer...\n"
-        << request.buf << "UPnPlib ----------END--------\n";
+    UPnPsdk_LOGINFO "MSG1101: Ctrlpnt send request HTTP Buffer...\n"
+        << request.buf << "UPnPsdk ----------END--------\n";
     /* get doc msg */
     ret_code = http_RequestAndResponse(&url, request.buf, request.length,
                                        HTTPMETHOD_GET, timeout_secs, &response);

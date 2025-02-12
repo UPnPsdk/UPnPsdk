@@ -258,6 +258,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Load the raw socket file descriptor specified with the constructor into the object. </p>
+<dl class="section note"><dt>Note</dt><dd>This function can only be used with the <a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html" title="Get information from a raw network socket file descriptor.">CSocket_basic</a> class. A derived usage e.g. with the <a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html" title="Manage all aspects of a network socket.">CSocket</a> class will throw an exception.</dd></dl>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
 <div class="line">SOCKET sfd = ::socket(PF_INET6, SOCK_STREAM);</div>
 <div class="line">{   <span class="comment">// Scope for sockObj, sfd must longer exist than sockObj</span></div>
@@ -413,7 +414,7 @@ Public Member Functions</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="971,39,891,39,891,34,971,34"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="505,24,663,49"/>
 <area shape="poly" title=" " alt="" coords="755,39,663,39,663,34,755,34"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="301,24,386,49"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="301,24,386,49"/>
 <area shape="poly" title=" " alt="" coords="491,39,386,39,386,34,491,34"/>
 <area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a54d3ff9589278aff8765d7a64df23587" title="Based on the type of message, appropriate callback is issued." alt="" coords="973,107,1176,161"/>
 <area shape="poly" title=" " alt="" coords="1210,137,1176,137,1176,131,1210,131"/>

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-20
+ * Redistribution only with this Copyright remark. Last modified: 2025-02-11
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -958,7 +958,7 @@ parse_status_t parser_parse_requestline( //
     if (status != (parse_status_t)PARSE_OK) {
         return status;
     }
-    /*simple get http 0.9 as described in http 1.0 spec */
+    /* simple get http 0.9 as described in http 1.0 spec */
 
     status = match(&parser->scanner, "%s\t%S%w%c", &method_str, &url_str);
 
@@ -1031,7 +1031,10 @@ parse_status_t parser_parse_requestline( //
     index = map_str_to_int(method_str.buf, method_str.length, &Http_Method_Table[0],
                            Http_Method_Table.size(), 1);
 #endif
-    index = http_method_table.index_of(method_str.buf, true);
+    // Valid content of method_str.buf is not terminated with '\0' but only
+    // specified by the length.
+    const std::string tmpbuf = std::string(method_str.buf, method_str.length);
+    index = http_method_table.index_of(tmpbuf.c_str(), true);
 
     if (index == http_method_table.npos) {
         /* error; method not found */
@@ -1698,7 +1701,7 @@ parse_status_t parser_parse(http_parser_t* parser) {
 
     /*takes an http_parser_t with memory already allocated  */
     /*in the message  */
-    assert(parser != NULL);
+    assert(parser != nullptr);
 
     do {
         switch (parser->position) {
@@ -1736,13 +1739,11 @@ parse_status_t parser_parse(http_parser_t* parser) {
 
 parse_status_t parser_append(http_parser_t* parser, const char* buf,
                              size_t buf_length) {
-    int ret_code;
-
-    assert(parser != NULL);
-    assert(buf != NULL);
+    assert(parser != nullptr);
+    assert(buf != nullptr);
 
     /* append data to buffer */
-    ret_code = membuffer_append(&parser->msg.msg, buf, buf_length);
+    int ret_code = membuffer_append(&parser->msg.msg, buf, buf_length);
     if (ret_code != 0) {
         /* set failure status */
         parser->http_error_code = HTTP_INTERNAL_SERVER_ERROR;

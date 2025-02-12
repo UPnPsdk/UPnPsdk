@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-01-28
+ * Redistribution only with this Copyright remark. Last modified: 2025-02-11
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -296,23 +296,33 @@ void free_handle_request_arg(
  * \brief Receive the request and dispatch it for handling.
  */
 void handle_request(
-    /*! [in] Received Request Message to be handled. */
-    void* args) { // Expected to be mserv_request_t*
-    SOCKINFO info;
-    int http_error_code;
+    /*! [in] Pointer to Received Request Message to be handled. It's expected to
+       be mserv_request_t* */
+    void* args) {
+    TRACE("Executing handle_request()")
+    int http_major_version{1};
+    int http_minor_version{1};
     int ret_code;
-    int major = 1;
-    int minor = 1;
-    http_parser_t parser;
-    http_message_t* hmsg = NULL;
-    int timeout = HTTP_DEFAULT_TIMEOUT;
     mserv_request_t* request_in = (mserv_request_t*)args;
     SOCKET connfd = request_in->connfd;
 
-    UPnPsdk_LOGINFO "MSG1027: Miniserver socket "
-        << connfd << ": READING request from client...\n";
+    if (UPnPsdk::g_dbug) {
+        UPnPsdk::CSocket_basic sockObj(connfd);
+        sockObj.load();
+        UPnPsdk::SSockaddr local_saObj;
+        sockObj.sockaddr(local_saObj);
+        UPnPsdk::SSockaddr remote_saObj;
+        remote_saObj = request_in->foreign_sockaddr;
+        UPnPsdk_LOGINFO "MSG1027: UDevice socket("
+            << connfd << "): READING request on local=\""
+            << local_saObj.netaddrp() << "\" from control point remote=\""
+            << remote_saObj.netaddrp() << "\".\n";
+    }
+
     /* parser_request_init( &parser ); */ /* LEAK_FIX_MK */
-    hmsg = &parser.msg;
+    http_parser_t parser;
+    http_message_t* hmsg = &parser.msg;
+    SOCKINFO info;
     ret_code = sock_init_with_ip(&info, connfd,
                                  (sockaddr*)&request_in->foreign_sockaddr);
     if (ret_code != UPNP_E_SUCCESS) {
@@ -322,6 +332,8 @@ void handle_request(
     }
 
     /* read */
+    int timeout{HTTP_DEFAULT_TIMEOUT};
+    int http_error_code;
     ret_code = http_RecvMessage(&info, &parser, HTTPMETHOD_UNKNOWN, &timeout,
                                 &http_error_code);
     if (ret_code != 0) {
@@ -340,64 +352,64 @@ void handle_request(
 error_handler:
     if (http_error_code > 0) {
         if (hmsg) {
-            major = hmsg->major_version;
-            minor = hmsg->minor_version;
+            http_major_version = hmsg->major_version;
+            http_minor_version = hmsg->minor_version;
         }
         // BUG! Don't try to send a status response to a remote client with
         // http error (e.g. 400) if we have a socket error. It doesn't make
         // sense. --Ingo
-        http_SendStatusResponse(&info, http_error_code, major, minor);
+        http_SendStatusResponse(&info, http_error_code, http_major_version,
+                                http_minor_version);
     }
     sock_destroy(&info, SD_BOTH);
     httpmsg_destroy(hmsg);
     free(request_in);
 
-    UpnpPrintf(UPNP_INFO, MSERV, __FILE__, __LINE__,
-               "miniserver %d: COMPLETE\n", connfd);
+    UPnPsdk_LOGINFO "MSG1058: miniserver socket(" << connfd << "); COMPLETE.\n";
 }
 
 /*!
- * \brief Initilize the thread pool to handle a request, sets priority for the
- * job and adds the job to the thread pool.
+ * \brief Initilize the thread pool to handle an incomming request, sets
+ * priority for the job and adds the job to the thread pool.
  */
 UPNP_INLINE void schedule_request_job(
     /*! [in] Socket Descriptor on which connection is accepted. */
-    SOCKET connfd,
-    /*! [in] Clients Address information. */
-    sockaddr* clientAddr) {
+    SOCKET a_connfd,
+    /*! [in] Ctrlpnt address object. */
+    UPnPsdk::SSockaddr& clientAddr) {
     TRACE("Executing schedule_request_job()")
     if (UPnPsdk::g_dbug) {
-        char addrStr[INET6_ADDRSTRLEN];
-        char servStr[NI_MAXSERV];
-        ::getnameinfo(clientAddr, sizeof(::sockaddr_storage), addrStr,
-                      sizeof(addrStr), servStr, sizeof(servStr),
-                      NI_NUMERICHOST | NI_NUMERICSERV);
-        UPnPsdk_LOGINFO "MSG1042: Schedule request job to host \""
-            << addrStr << "\", port " << servStr << ", with socket " << connfd
-            << ".\n";
+        UPnPsdk::CSocket_basic sockObj(a_connfd);
+        sockObj.load();
+        UPnPsdk::SSockaddr local_saObj;
+        sockObj.sockaddr(local_saObj);
+        UPnPsdk::SSockaddr remote_saObj;
+        remote_saObj = clientAddr.ss;
+        UPnPsdk_LOGINFO
+            "MSG1042: Schedule UDevice to read incomming request with socket("
+            << a_connfd << ") local=\"" << local_saObj.netaddrp()
+            << "\" remote=\"" << remote_saObj.netaddrp() << "\".\n";
     }
+
     ThreadPoolJob job{};
     mserv_request_t* request{
         static_cast<mserv_request_t*>(std::malloc(sizeof(mserv_request_t)))};
-
     if (request == nullptr) {
-        UPnPsdk_LOGCRIT "MSG1024: Socket " << connfd << ": out of memory.\n";
-        sock_close(connfd);
+        UPnPsdk_LOGCRIT "MSG1024: Socket(" << a_connfd << "): out of memory.\n";
+        sock_close(a_connfd);
         return;
     }
-
-    request->connfd = connfd;
-    memcpy(&request->foreign_sockaddr, clientAddr,
+    request->connfd = a_connfd;
+    memcpy(&request->foreign_sockaddr, &clientAddr.ss,
            sizeof(request->foreign_sockaddr));
     TPJobInit(&job, (start_routine)handle_request, request);
     TPJobSetFreeFunction(&job, free_handle_request_arg);
     TPJobSetPriority(&job, MED_PRIORITY);
     if (ThreadPoolAdd(&gMiniServerThreadPool, &job, NULL) != 0) {
-        UPnPsdk_LOGERR "MSG1025: Socket " << connfd
-                                          << ": cannot schedule request.\n";
+        UPnPsdk_LOGERR "MSG1025: Socket("
+            << a_connfd << "): failed to add job to miniserver threadpool.\n";
         free(request);
-        sock_close(connfd);
-        return;
+        sock_close(a_connfd);
     }
 }
 #endif // COMPA_HAVE_WEBSERVER
@@ -469,39 +481,53 @@ void fdset_if_valid( //
  *  - UPNP_E_SOCKET_ACCEPT
  */
 int web_server_accept(
-    /// [in] Socket file descriptor.
-    [[maybe_unused]] SOCKET lsock,
+    /// [in] File descriptor of socket that is listening on incomming requests.
+    [[maybe_unused]] SOCKET listen_sock,
     /// [out] Reference to a file descriptor set as needed for \::select().
     [[maybe_unused]] fd_set& set) {
 #ifndef COMPA_HAVE_WEBSERVER
     return UPNP_E_NO_WEB_SERVER;
 #else
     TRACE("Executing web_server_accept()")
-    if (lsock == INVALID_SOCKET || !FD_ISSET(lsock, &set)) {
+    if (listen_sock == INVALID_SOCKET || !FD_ISSET(listen_sock, &set)) {
         UPnPsdk_LOGINFO "MSG1012: Socket("
-            << lsock << ") invalid or not in file descriptor set.\n";
+            << listen_sock << ") invalid or not in file descriptor set.\n";
         return UPNP_E_SOCKET_ERROR;
     }
 
-    SOCKET asock;
-    UPnPsdk::sockaddr_t clientAddr;
-    socklen_t clientLen = sizeof(clientAddr);
+    UPnPsdk::SSockaddr ctrlpnt_saObj;
+    socklen_t ctrlpntLen = sizeof(ctrlpnt_saObj.ss);
 
     // accept a network request connection
-    asock = umock::sys_socket_h.accept(lsock, &clientAddr.sa, &clientLen);
-    if (asock == INVALID_SOCKET) {
+    SOCKET conn_sock =
+        umock::sys_socket_h.accept(listen_sock, &ctrlpnt_saObj.sa, &ctrlpntLen);
+    if (conn_sock == INVALID_SOCKET) {
         UPnPsdk_LOGERR "MSG1022: Error in ::accept(): " << std::strerror(errno)
                                                         << ".\n";
         return UPNP_E_SOCKET_ACCEPT;
     }
 
-    // Schedule a job to manage a UPnP request from a remote host.
-    char buf_ntop[INET6_ADDRSTRLEN + 7];
-    inet_ntop(AF_INET, &clientAddr.sin.sin_addr, buf_ntop, sizeof(buf_ntop));
-    UPnPsdk_LOGINFO "MSG1023: Connected to host "
-        << buf_ntop << ":" << ntohs(clientAddr.sin.sin_port) << " with socket "
-        << asock << ".\n";
-    schedule_request_job(asock, &clientAddr.sa);
+    if (UPnPsdk::g_dbug) {
+        // Some helpful status information.
+        UPnPsdk::CSocket_basic listen_sockObj(listen_sock);
+        listen_sockObj.load();
+        UPnPsdk::SSockaddr listen_saObj;
+        listen_sockObj.sockaddr(listen_saObj);
+
+        UPnPsdk::CSocket_basic conn_sockObj(conn_sock);
+        conn_sockObj.load();
+        UPnPsdk::SSockaddr conn_saObj;
+        conn_sockObj.sockaddr(conn_saObj);
+
+        UPnPsdk_LOGINFO "MSG1023: Listening socket("
+            << listen_sock << ") on \"" << listen_saObj.netaddrp()
+            << "\" accept connection socket(" << conn_sock << ") local=\""
+            << conn_saObj.netaddrp() << "\" to remote=\""
+            << ctrlpnt_saObj.netaddrp() << "\".\n";
+    }
+
+    // Schedule a job to manage the UPnP request from the remote control point.
+    schedule_request_job(conn_sock, ctrlpnt_saObj);
 
     return UPNP_E_SUCCESS;
 #endif /* COMPA_HAVE_WEBSERVER */
@@ -975,6 +1001,10 @@ void InitMiniServerSockArray(
     miniSocket->ssdpReqSock4 = INVALID_SOCKET;
     miniSocket->ssdpReqSock6 = INVALID_SOCKET;
 #endif
+    // Point to the needed socket objects in miniSocket
+    miniSocket->MiniSvrSock6LlaObj = &Sock6LlaObj;
+    miniSocket->MiniSvrSock6UadObj = &Sock6UadObj;
+    miniSocket->MiniSvrSock4Obj = &Sock4Obj;
 }
 
 /// @} // Functions (scope restricted to file)
@@ -1016,11 +1046,6 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
         return UPNP_E_OUTOF_MEMORY;
     }
     InitMiniServerSockArray(miniSocket);
-
-    // Point to the needed socket objects in miniSocket
-    miniSocket->MiniSvrSock6LlaObj = &Sock6LlaObj;
-    miniSocket->MiniSvrSock6UadObj = &Sock6UadObj;
-    miniSocket->MiniSvrSock4Obj = &Sock4Obj;
 
 #ifdef COMPA_HAVE_WEBSERVER
     if (*listen_port4 == 0 || *listen_port6 == 0 || *listen_port6UlaGua == 0) {

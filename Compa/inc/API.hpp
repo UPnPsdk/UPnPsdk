@@ -498,7 +498,7 @@ extern "C" {
  * \ingroup compaAPI-Addressing */
 
 /*!
- * \brief Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).
+ * \brief Initializes the Linux SDK for UPnP Devices.
  *
  * This function must be called before any other API function can be called.
  * It should be called only once. Subsequent calls to this API return a

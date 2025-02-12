@@ -934,7 +934,7 @@ device_handle</td>
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_function" href="../../d8/d32/upnpdebug_8hpp.html#a186bccdd3cab13ada1bdc46ee95c7d37">UpnpPrintf</a>(UPNP_INFO, GENA, __FILE__, __LINE__, <span class="stringliteral">&quot;Trying Subscribe Lock&quot;</span>);  \</div>
 <div class="line">    ithread_mutex_lock(&amp;<a class="code hl_variable" href="../../d4/d99/upnpapi_8cpp.html#a991b57a360ce2410e6acf4b21983c5a9">GlobalClientSubscribeMutex</a>);                           \</div>
 <div class="line">    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, <span class="stringliteral">&quot;Subscribe Lock&quot;</span>);</div>
-<div class="ttc" id="aupnpapi_8cpp_html_a991b57a360ce2410e6acf4b21983c5a9"><div class="ttname"><a href="../../d4/d99/upnpapi_8cpp.html#a991b57a360ce2410e6acf4b21983c5a9">GlobalClientSubscribeMutex</a></div><div class="ttdeci">ithread_mutex_t GlobalClientSubscribeMutex</div><div class="ttdoc">Mutex to synchronize the subscription handling at the client side.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d99/upnpapi_8cpp_source.html#l00113">upnpapi.cpp:113</a></div></div>
+<div class="ttc" id="aupnpapi_8cpp_html_a991b57a360ce2410e6acf4b21983c5a9"><div class="ttname"><a href="../../d4/d99/upnpapi_8cpp.html#a991b57a360ce2410e6acf4b21983c5a9">GlobalClientSubscribeMutex</a></div><div class="ttdeci">ithread_mutex_t GlobalClientSubscribeMutex</div><div class="ttdoc">Mutex to synchronize the subscription handling at the client side.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d99/upnpapi_8cpp_source.html#l00114">upnpapi.cpp:114</a></div></div>
 <div class="ttc" id="aupnpdebug_8hpp_html_a186bccdd3cab13ada1bdc46ee95c7d37"><div class="ttname"><a href="../../d8/d32/upnpdebug_8hpp.html#a186bccdd3cab13ada1bdc46ee95c7d37">UpnpPrintf</a></div><div class="ttdeci">UPNPLIB_API void UpnpPrintf(Upnp_LogLevel DLevel, Dbg_Module Module, const char *DbgFileName, int DbgLineNo, const char *FmtStr,...)</div><div class="ttdoc">Prints the debug statement.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/dfa/upnpdebug_8cpp_source.html#l00240">upnpdebug.cpp:240</a></div></div>
 </div><!-- fragment -->
 <p>Locks the subscription. </p>
@@ -1191,7 +1191,7 @@ device_handle</td>
 <area shape="rect" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="325,5,436,31"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="139,5,277,31"/>
 <area shape="poly" title=" " alt="" coords="312,21,277,21,277,15,312,15"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,5,91,31"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,5,91,31"/>
 <area shape="poly" title=" " alt="" coords="125,21,91,21,91,15,125,15"/>
 </map>
 </div>
@@ -1803,7 +1803,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="893,46,859,46,859,41,893,41"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
 <area shape="poly" title=" " alt="" coords="678,46,644,46,644,41,678,41"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,31,91,56"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
 <area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
 <area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
@@ -1906,7 +1906,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="929,46,895,46,895,41,929,41"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
 <area shape="poly" title=" " alt="" coords="678,46,644,46,644,41,678,41"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,31,91,56"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
 <area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
 <area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
@@ -3182,7 +3182,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="512,53,485,66,437,98,399,129,395,125,434,94,483,62,510,48"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="139,127,277,153"/>
 <area shape="poly" title=" " alt="" coords="312,143,277,143,277,137,312,137"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,127,91,153"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,127,91,153"/>
 <area shape="poly" title=" " alt="" coords="125,143,91,143,91,137,125,137"/>
 <area shape="poly" title=" " alt="" coords="470,143,436,143,436,137,470,137"/>
 <area shape="poly" title=" " alt="" coords="505,182,421,155,423,150,507,177"/>

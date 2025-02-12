@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-02-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -278,31 +278,6 @@ typedef enum { WEB_SERVER_DISABLED, WEB_SERVER_ENABLED } WebServerState;
 
 /// E_HTTP_SYNTAX
 #define E_HTTP_SYNTAX -6
-
-/*!
- * \brief Retrieve network interface information and keep it in global
- * variables.
- *
- * If nullptr given, we'll find the first suitable network interface for
- * operation.
- *
- * The network interface must fulfill these requirements:
- * \li Be UP.
- * \li Support MULTICAST.
- * \li Have a valid IPv4 or IPv6 address.
- *
- * We'll retrieve the following information from the interface:
- * \li gIF_NAME -> Interface name (by input or found).
- * \li gIF_IPV4 -> IPv4 address (if any).
- * \li gIF_IPV6 -> IPv6 address (if any).
- * \li gIF_IPV6_ULA_GUA -> ULA or GUA IPv6 address (if any)
- * \li gIF_INDEX -> Interface index number.
- *
- * \return UPNP_E_SUCCESS on success.
- */
-UPNPLIB_API int UpnpGetIfInfo(
-    /*! [in] Interface name (can be NULL). */
-    const char* a_IFace);
 
 /// UpnpThreadDistribution
 void UpnpThreadDistribution(struct UpnpNonblockParam* Param);

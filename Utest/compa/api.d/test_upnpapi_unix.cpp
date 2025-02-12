@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-02-12
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -34,14 +34,10 @@ using ::UPnPsdk::errStrEx;
 
 // This TestSuite is with instantiating mocks
 //-------------------------------------------
-class UpnpapiIPv4MockTestSuite : public ::testing::Test
-// Fixtures for this Testsuite
-{
+class UpnpapiFTestSuite : public ::testing::Test {
   protected:
-    umock::IfaddrsMock ifaddrsObj;
-
     // constructor of this testsuite
-    UpnpapiIPv4MockTestSuite() {
+    UpnpapiFTestSuite() {
         // initialize needed global variables
         std::fill(std::begin(gIF_NAME), std::end(gIF_NAME), 0);
         std::fill(std::begin(gIF_IPV4), std::end(gIF_IPV4), 0);
@@ -54,6 +50,13 @@ class UpnpapiIPv4MockTestSuite : public ::testing::Test
         UpnpSdkInit = 0xAA; // This should not be used and modified here
     }
 };
+
+class UpnpapiIPv4MockTestSuite : public UpnpapiFTestSuite {
+    // Fixtures for this Testsuite
+  protected:
+    umock::IfaddrsMock ifaddrsObj;
+};
+
 
 TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
     // provide a network interface
@@ -111,6 +114,31 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_loopback_interface) {
         EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
             << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
     }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_called_with_loopback_interface) {
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("::1");
+
+    if (old_code) {
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+        GTEST_SKIP()
+            << "Using the local network loopback interface is not supported.";
+    }
+
+    EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+    EXPECT_STRNE(gIF_NAME, "");
+    EXPECT_NE(gIF_INDEX, 0);
+    EXPECT_STREQ(gIF_IPV4, "");
+    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    // The loopback address belongs to link-local unicast addresses.
+    EXPECT_STREQ(gIF_IPV6, "::1");
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 128);
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
 }
 
 TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {

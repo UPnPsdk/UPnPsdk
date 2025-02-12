@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="memitem:ga91ebefb4f6d49c62cb37b418fae2ed7f" id="r_ga91ebefb4f6d49c62cb37b418fae2ed7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f">UpnpInit2</a> (const char *IfName, unsigned short DestPort)</td></tr>
-<tr class="memdesc:ga91ebefb4f6d49c62cb37b418fae2ed7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).  <br /></td></tr>
+<tr class="memdesc:ga91ebefb4f6d49c62cb37b418fae2ed7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the Linux SDK for UPnP Devices.  <br /></td></tr>
 <tr class="separator:ga91ebefb4f6d49c62cb37b418fae2ed7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga572275f308aad00da00968469ec9d569" id="r_ga572275f308aad00da00968469ec9d569"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga572275f308aad00da00968469ec9d569">UpnpFinish</a> ()</td></tr>
 <tr class="memdesc:ga572275f308aad00da00968469ec9d569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Terminates the Linux SDK for UPnP Devices.  <br /></td></tr>
@@ -189,7 +189,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
       </table>
 </div><div class="memdoc">
 
-<p>Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6). </p>
+<p>Initializes the Linux SDK for UPnP Devices. </p>
 <p>This function must be called before any other API function can be called. It should be called only once. Subsequent calls to this API return a <code>UPNP_E_INIT</code> error code.</p>
 <p>Optionally, the application can specify an interface name (in the case of a multi-homed configuration) and a port number to use for all UPnP operations. Since a port number can be used only by one process, multiple processes using the SDK must specify different port numbers.</p>
 <p>If unspecified, the SDK will use the first suitable interface and an arbitrary port.</p>
@@ -214,7 +214,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00471">471</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00886">886</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -222,138 +222,134 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d7/df3/group__compaAPI-Addressing_ga91ebefb4f6d49c62cb37b418fae2ed7f_cgraph.png" border="0" usemap="#ad7/df3/group__compaAPI-Addressing_ga91ebefb4f6d49c62cb37b418fae2ed7f_cgraph" alt=""/></div>
 <map name="ad7/df3/group__compaAPI-Addressing_ga91ebefb4f6d49c62cb37b418fae2ed7f_cgraph" id="ad7/df3/group__compaAPI-Addressing_ga91ebefb4f6d49c62cb37b418fae2ed7f_cgraph">
-<area shape="rect" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,667,91,693"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="583,542,678,567"/>
-<area shape="poly" title=" " alt="" coords="76,665,184,621,253,598,325,579,390,567,455,560,569,553,570,558,456,565,390,572,326,584,255,603,185,626,78,670"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a2ef1d667da6a9fb1403119d004277492" title="Retrieve network interface information and keep it in global variables." alt="" coords="151,1175,265,1201"/>
-<area shape="poly" title=" " alt="" coords="56,692,201,1161,196,1163,51,694"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="139,818,277,843"/>
-<area shape="poly" title=" " alt="" coords="65,691,185,807,182,810,61,695"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="329,194,486,219"/>
-<area shape="poly" title=" " alt="" coords="54,666,88,608,136,534,205,443,275,356,383,228,387,232,279,359,209,447,141,538,93,611,59,669"/>
-<area shape="rect" href="../../d5/d78/sock_8cpp.html#aa1c16c9b2701dab6728c2b7e2efacf7b" title="Free the OpenSSL context." alt="" coords="829,467,918,493"/>
-<area shape="poly" title=" " alt="" coords="665,539,771,503,815,491,816,496,773,508,667,544"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#af1c7fa6eff1380708c436bad3d4843d2" title="Get client handle info." alt="" coords="1047,403,1201,429"/>
-<area shape="poly" title=" " alt="" coords="671,565,734,580,813,589,855,589,897,583,936,571,973,552,986,541,993,528,998,500,1001,469,1008,454,1021,439,1033,431,1036,435,1024,443,1013,457,1007,471,1003,500,998,530,990,544,976,557,938,576,898,588,855,594,813,594,733,585,670,570"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="1561,567,1651,593"/>
-<area shape="poly" title=" " alt="" coords="632,541,644,492,669,424,687,388,710,353,738,322,771,298,798,284,823,278,847,277,869,280,916,290,975,297,1057,296,1129,292,1194,287,1254,285,1312,291,1371,306,1432,334,1498,379,1536,420,1566,467,1587,514,1600,553,1595,555,1582,516,1561,470,1532,423,1494,383,1429,339,1369,311,1311,296,1254,291,1194,292,1129,297,1057,301,975,303,915,295,868,285,846,282,824,283,800,289,773,302,741,326,714,356,692,390,674,426,649,494,637,542"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#ab014d8c655f48d04fcc9ea7931a8f99c" title="Retrieves the device handle and information of the first device of the address family specified...." alt="" coords="793,311,954,337"/>
-<area shape="poly" title=" " alt="" coords="635,541,653,504,682,455,722,401,770,355,800,339,802,344,774,359,726,405,687,458,658,507,640,543"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4a0f84b177b8a84964bcb7a057fc3831" title="Prints thread pool statistics if DEBUG is enabled. See also #define PrintThreadPoolStats()" alt="" coords="794,871,953,897"/>
-<area shape="poly" title=" " alt="" coords="644,566,857,859,852,862,639,569"/>
-<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#ac0223038b7afa1e3ea3d7cec983ccc63" title="Stop and Shutdown the MiniServer and free socket resources." alt="" coords="813,618,934,643"/>
-<area shape="poly" title=" " alt="" coords="673,565,819,611,818,616,671,570"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a281f138c93124463e1fbbbdf00caf21f" title="Shuts the thread pool down." alt="" coords="1045,1089,1203,1114"/>
-<area shape="poly" title=" " alt="" coords="636,567,648,626,672,716,691,765,713,816,741,864,774,908,807,940,843,970,923,1019,1001,1056,1068,1082,1066,1087,999,1061,920,1024,840,974,803,944,770,911,737,867,709,818,686,767,667,717,643,627,631,568"/>
-<area shape="rect" href="../../dd/d9f/TimerThread_8cpp.html#a19a3b97cd97e1c5f9d465c96ac71e588" title="Shutdown the timer thread." alt="" coords="1039,1235,1209,1261"/>
-<area shape="poly" title=" " alt="" coords="638,567,774,1051,798,1070,822,1080,846,1084,871,1085,923,1089,949,1098,976,1117,988,1129,995,1143,1001,1168,1007,1193,1013,1205,1024,1217,1041,1227,1038,1232,1021,1221,1009,1208,1002,1195,996,1170,990,1144,984,1133,973,1121,947,1103,922,1094,871,1090,846,1089,821,1085,795,1074,770,1053,633,568"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#aef83a39b0da5868966600f99163cce38" title="Closes the log files." alt="" coords="816,369,931,394"/>
-<area shape="poly" title=" " alt="" coords="638,540,689,475,727,437,771,404,802,391,804,396,773,409,730,441,693,478,643,543"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#ac1faae99fb914af807e9537867a46935" title="Removes all virtual directory mappings." alt="" coords="775,418,971,443"/>
-<area shape="poly" title=" " alt="" coords="645,540,698,498,733,474,771,454,793,445,795,450,773,458,736,478,701,502,648,544"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#aead9c1aad0998507f66cf7f0749013d3" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="790,694,957,719"/>
-<area shape="poly" title=" " alt="" coords="649,565,703,606,773,654,833,686,830,690,771,658,700,611,646,570"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#abb1c47010971d19ecd2b46ee842871ec" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="772,517,975,542"/>
-<area shape="poly" title=" " alt="" coords="678,547,758,539,759,544,679,552"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aba5685f22e83826b14771e59d0edbc05" title="Release memory allocated for the global web server root directory and the global XML document." alt="" coords="797,119,950,145"/>
-<area shape="poly" title=" " alt="" coords="632,541,647,486,674,402,715,305,741,258,770,213,803,178,838,150,841,155,807,182,774,216,745,260,720,308,679,403,652,487,637,542"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="1327,459,1443,485"/>
-<area shape="poly" title=" " alt="" coords="1184,426,1314,454,1312,459,1183,431"/>
-<area shape="poly" title=" " alt="" coords="1431,482,1497,508,1540,532,1577,557,1574,561,1537,537,1495,513,1429,487"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="1736,543,1876,569"/>
-<area shape="poly" title=" " alt="" coords="1651,572,1722,563,1723,569,1652,577"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="1716,593,1896,618"/>
-<area shape="poly" title=" " alt="" coords="1652,583,1702,590,1702,595,1651,588"/>
-<area shape="poly" title=" " alt="" coords="954,312,1015,309,1084,311,1157,320,1226,340,1269,362,1308,391,1366,447,1362,451,1305,395,1266,367,1224,345,1156,326,1084,316,1015,314,954,317"/>
-<area shape="poly" title=" " alt="" coords="945,869,1056,844,1197,805,1349,751,1424,717,1495,679,1545,641,1584,601,1587,605,1548,645,1497,684,1426,722,1351,756,1198,810,1057,849,946,874"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a9575d30ed041fc240cf373ea0f7f3515" title="Returns various statistics about the thread pool." alt="" coords="1049,922,1199,947"/>
-<area shape="poly" title=" " alt="" coords="938,894,1048,917,1047,922,937,899"/>
-<area shape="poly" title=" " alt="" coords="934,629,1180,627,1337,619,1496,603,1547,593,1548,598,1496,608,1338,624,1180,632,934,635"/>
-<area shape="rect" href="../../d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="1077,354,1171,379"/>
-<area shape="poly" title=" " alt="" coords="898,616,937,590,956,573,972,553,984,531,990,510,992,469,996,430,1004,410,1021,390,1041,377,1063,369,1065,374,1043,381,1024,394,1009,413,1001,431,997,470,995,511,989,533,977,556,960,576,940,594,901,620"/>
-<area shape="rect" href="../../d7/d20/FreeList_8cpp.html#ae64c10055f937a33eff150f678303b7f" title="Releases the resources stored with the free list." alt="" coords="1544,1293,1668,1318"/>
-<area shape="poly" title=" " alt="" coords="1164,1112,1274,1144,1337,1155,1388,1158,1438,1165,1466,1175,1497,1190,1526,1209,1552,1233,1590,1279,1586,1283,1548,1237,1523,1214,1495,1194,1464,1180,1437,1170,1388,1163,1337,1160,1273,1149,1163,1117"/>
-<area shape="rect" href="../../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a7a528d1b1b1733d0139ea70befee0691" title="Deallocates a dynamically allocated ThreadPoolJob." alt="" coords="1273,1022,1496,1077"/>
-<area shape="poly" title=" " alt="" coords="1188,1086,1259,1072,1260,1077,1189,1091"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a751d0c613a5c8d83b2675c5f4261e2d7" title="Removes a node from the list. The memory for the node is freed." alt="" coords="1555,1153,1657,1178"/>
-<area shape="poly" title=" " alt="" coords="1204,1107,1496,1144,1542,1151,1541,1157,1496,1149,1203,1112"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a28e5dc6ff4a189982c97ae5780d360fd" title="Removes all memory associated with list nodes. Does not free LinkedList *list." alt="" coords="1337,1203,1433,1229"/>
-<area shape="poly" title=" " alt="" coords="1149,1112,1274,1182,1324,1199,1323,1204,1272,1186,1147,1117"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a898216a354e8dd7089db150630862376" title="Returns the head of the list." alt="" coords="1345,973,1424,998"/>
-<area shape="poly" title=" " alt="" coords="1158,1086,1191,1071,1224,1052,1237,1041,1247,1030,1257,1019,1272,1008,1301,996,1331,989,1332,994,1303,1002,1275,1013,1260,1023,1251,1033,1241,1045,1227,1057,1193,1076,1160,1091"/>
-<area shape="poly" title=" " alt="" coords="1418,1226,1562,1285,1560,1290,1416,1231"/>
-<area shape="poly" title=" " alt="" coords="1432,1203,1541,1177,1542,1182,1434,1208"/>
-<area shape="poly" title=" " alt="" coords="1208,1259,1227,1271,1242,1290,1249,1310,1250,1350,1252,1387,1259,1404,1275,1419,1303,1437,1330,1449,1355,1455,1380,1455,1433,1444,1495,1419,1525,1401,1551,1377,1588,1328,1593,1332,1555,1381,1528,1405,1497,1424,1435,1449,1381,1461,1355,1460,1328,1454,1301,1442,1272,1423,1255,1407,1247,1388,1245,1350,1244,1311,1237,1293,1224,1275,1205,1263"/>
-<area shape="poly" title=" " alt="" coords="1209,1257,1273,1262,1346,1263,1422,1256,1495,1239,1519,1229,1542,1215,1580,1185,1584,1190,1545,1219,1522,1233,1497,1244,1422,1261,1346,1268,1273,1268,1209,1263"/>
-<area shape="poly" title=" " alt="" coords="1208,1235,1322,1221,1323,1226,1209,1240"/>
-<area shape="poly" title=" " alt="" coords="1136,1233,1178,1188,1223,1125,1236,1093,1242,1064,1250,1036,1272,1009,1300,993,1331,985,1332,990,1302,997,1275,1013,1254,1039,1247,1065,1242,1094,1228,1128,1182,1191,1140,1237"/>
-<area shape="rect" href="../../da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html#ab40f4f1217f62d380736126fec2ae82e" title="Deallocates a dynamically allocated TimerEvent." alt="" coords="1295,1354,1475,1409"/>
-<area shape="poly" title=" " alt="" coords="1202,1258,1227,1271,1244,1288,1252,1306,1260,1324,1275,1341,1284,1347,1281,1351,1272,1345,1255,1327,1247,1309,1239,1291,1224,1275,1199,1263"/>
-<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a83123d7868ce3aba2cf9d5c066fb7eb4" title="Returns the next item in the list." alt="" coords="1347,1305,1423,1330"/>
-<area shape="poly" title=" " alt="" coords="1177,1258,1226,1271,1334,1300,1333,1306,1225,1276,1176,1263"/>
-<area shape="poly" title=" " alt="" coords="914,691,945,676,973,654,983,640,989,625,994,596,1000,567,1008,553,1021,539,1063,524,1139,508,1313,479,1314,484,1140,513,1064,529,1024,544,1012,556,1005,569,999,597,995,627,988,642,977,658,948,681,916,696"/>
-<area shape="poly" title=" " alt="" coords="957,703,1066,697,1201,684,1349,662,1423,646,1495,627,1568,597,1570,601,1497,632,1425,651,1350,667,1202,690,1066,702,957,708"/>
-<area shape="poly" title=" " alt="" coords="951,717,1067,744,1138,765,1212,791,1288,823,1363,862,1434,907,1498,959,1535,1003,1564,1052,1585,1100,1599,1139,1594,1140,1581,1102,1559,1055,1531,1006,1494,963,1431,911,1360,866,1286,828,1210,796,1136,770,1066,749,950,722"/>
-<area shape="poly" title=" " alt="" coords="888,718,932,776,957,816,977,859,989,899,992,936,988,1002,986,1033,990,1062,1002,1093,1025,1125,1056,1153,1092,1175,1131,1191,1172,1203,1253,1215,1323,1217,1323,1223,1253,1221,1171,1208,1129,1196,1089,1179,1053,1157,1021,1128,997,1095,985,1064,981,1033,982,1002,987,936,984,900,972,861,952,819,927,779,884,721"/>
-<area shape="poly" title=" " alt="" coords="895,717,1024,799,1081,830,1127,851,1172,874,1227,909,1251,931,1275,951,1303,964,1332,973,1331,978,1301,969,1272,956,1247,935,1224,913,1169,878,1124,856,1079,834,1021,804,892,722"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#adede929017553d41a13e25f2aa4c9c98" title="Free handle." alt="" coords="1337,567,1433,593"/>
-<area shape="poly" title=" " alt="" coords="925,691,1323,592,1324,598,926,697"/>
-<area shape="rect" href="../../d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="1044,453,1204,478"/>
-<area shape="poly" title=" " alt="" coords="916,692,946,676,973,654,986,634,992,614,994,575,997,536,1005,516,1021,495,1039,482,1042,486,1025,499,1010,518,1003,537,1000,575,997,615,991,636,977,658,949,681,918,696"/>
-<area shape="poly" title=" " alt="" coords="1433,577,1547,577,1547,583,1433,583"/>
-<area shape="poly" title=" " alt="" coords="1204,465,1313,468,1313,473,1204,470"/>
-<area shape="poly" title=" " alt="" coords="957,514,973,503,988,484,994,464,994,422,993,400,995,379,1003,359,1021,341,1047,324,1072,315,1095,312,1118,314,1167,325,1226,340,1307,356,1370,373,1429,401,1498,446,1527,471,1554,500,1592,554,1588,557,1549,504,1524,475,1494,450,1426,405,1368,378,1306,361,1225,345,1166,331,1117,319,1095,317,1073,320,1050,329,1024,345,1008,362,1000,380,998,400,999,421,999,465,992,487,977,507,961,519"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#ab04dfc9206cdac78f584e6d208ba9c72" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="1023,553,1225,593"/>
-<area shape="poly" title=" " alt="" coords="947,539,1010,551,1009,556,946,545"/>
-<area shape="poly" title=" " alt="" coords="1179,551,1224,532,1272,508,1329,487,1331,492,1274,513,1226,537,1181,556"/>
-<area shape="poly" title=" " alt="" coords="1225,558,1354,549,1426,549,1496,553,1548,562,1547,568,1496,559,1426,554,1355,554,1226,563"/>
-<area shape="poly" title=" " alt="" coords="1134,593,1228,910,1239,961,1246,1002,1255,1041,1276,1088,1295,1118,1317,1147,1361,1192,1357,1196,1313,1150,1290,1121,1271,1091,1250,1043,1241,1003,1234,962,1223,911,1129,594"/>
-<area shape="poly" title=" " alt="" coords="1226,573,1323,576,1323,581,1225,579"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a54e6c7136fbfff4ed5b5e2e447d19446" title="Release the XML document referred to by the input parameter." alt="" coords="1034,43,1214,98"/>
-<area shape="poly" title=" " alt="" coords="925,117,1020,93,1021,99,927,122"/>
-<area shape="rect" href="../../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a29029bffc2a9680f4b946e77d569e323" title="Clear the XML object." alt="" coords="1034,122,1214,177"/>
-<area shape="poly" title=" " alt="" coords="950,135,1020,139,1020,145,950,140"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="332,1225,483,1265"/>
-<area shape="poly" title=" " alt="" coords="254,1198,325,1219,324,1224,252,1203"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a1c751ef564d3fede875a9d44b0425170" title="Retrieve network interface information for a given interface name and keep it in global variables." alt="" coords="537,1039,724,1079"/>
-<area shape="poly" title=" " alt="" coords="250,1173,550,1080,552,1085,252,1178"/>
-<area shape="poly" title=" " alt="" coords="725,1070,831,1077,960,1076,1027,1069,1095,1056,1161,1038,1224,1012,1239,1001,1248,988,1257,974,1272,959,1304,940,1334,928,1389,916,1415,911,1441,902,1467,887,1494,863,1519,833,1539,800,1570,727,1589,659,1599,606,1604,607,1594,660,1575,729,1544,802,1523,836,1498,867,1470,891,1443,907,1417,916,1390,922,1335,933,1306,945,1275,963,1261,977,1253,991,1243,1005,1227,1017,1163,1043,1096,1062,1028,1074,960,1081,831,1083,724,1075"/>
-<area shape="poly" title=" " alt="" coords="589,1039,587,1029,593,1020,608,1014,631,1012,657,1015,671,1022,668,1027,655,1020,631,1017,609,1019,597,1024,592,1030,594,1038"/>
-<area shape="poly" title=" " alt="" coords="236,815,324,779,372,765,410,759,446,749,488,727,529,692,565,652,614,578,618,581,569,655,533,696,491,732,448,754,411,764,373,771,326,784,238,820"/>
-<area shape="rect" href="../../dc/d02/gena__callback2_8cpp.html#a6f658b4eab5786398a00a53b87e7c622" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="575,895,686,921"/>
-<area shape="poly" title=" " alt="" coords="278,841,562,893,561,898,277,846"/>
-<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#af500b18ad2a00dd3c3fa6da8ce62369d" title="Set GENA Callback." alt="" coords="341,943,474,969"/>
-<area shape="poly" title=" " alt="" coords="222,842,266,885,295,909,327,930,340,936,338,941,324,934,292,913,262,889,219,845"/>
-<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a569fe15e9cbb156f31065a8b7ac12799" title="Set SOAP Callback." alt="" coords="342,993,473,1018"/>
-<area shape="poly" title=" " alt="" coords="218,842,258,908,289,946,327,979,336,985,333,989,324,983,285,950,253,911,213,845"/>
-<area shape="rect" href="../../d6/d92/soap__device_8cpp.html#a4b5104845d73b836d6365a306fba1679" title="This is a callback called by minisever." alt="" coords="325,1042,489,1067"/>
-<area shape="poly" title=" " alt="" coords="216,843,229,880,251,930,284,983,304,1007,327,1029,334,1033,331,1038,324,1033,300,1011,280,986,246,932,224,882,211,845"/>
-<area shape="rect" href="../../dd/d9f/TimerThread_8cpp.html#a88b075dce04bff1935ef802ff6df4621" title="Initializes and starts timer thread." alt="" coords="1061,1285,1187,1310"/>
-<area shape="poly" title=" " alt="" coords="214,843,224,888,245,952,278,1020,301,1051,327,1078,369,1110,413,1139,508,1187,608,1225,709,1252,808,1272,899,1284,1047,1294,1047,1300,899,1289,807,1277,708,1258,606,1230,506,1192,410,1144,366,1114,324,1082,296,1054,274,1023,240,954,219,890,209,844"/>
-<area shape="rect" href="../../db/d37/uuid_8cpp.html#a810c4032637bfecbb4ea1a039dbf6ef0" title="Unpack a UUID." alt="" coords="336,593,479,618"/>
-<area shape="poly" title=" " alt="" coords="211,817,224,780,247,729,280,675,300,650,324,629,333,622,336,626,327,633,304,654,284,678,251,732,229,782,216,819"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#acb989a0182d5595b14f2dc3de64225b9" title="Initialize the log files." alt="" coords="357,642,457,667"/>
-<area shape="poly" title=" " alt="" coords="214,816,254,751,286,712,324,678,344,667,346,672,327,682,289,715,258,754,218,819"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a7855376cc412564ea0b12b867e11e3a7" title="Initializes the global mutexes used by the UPnP SDK." alt="" coords="341,691,473,717"/>
-<area shape="poly" title=" " alt="" coords="220,816,264,776,324,734,353,720,355,724,327,738,268,781,224,820"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="329,793,486,818"/>
-<area shape="poly" title=" " alt="" coords="277,819,315,814,315,820,278,825"/>
-<area shape="rect" href="../../db/d37/uuid_8cpp.html#acc106615ebd609fdd904738800e442a3" title="Generate a UUID." alt="" coords="358,894,457,919"/>
-<area shape="poly" title=" " alt="" coords="243,841,361,887,359,892,241,846"/>
-<area shape="poly" title=" " alt="" coords="660,918,759,958,828,979,905,996,987,1007,1069,1006,1110,1000,1150,991,1188,977,1224,958,1236,948,1242,938,1249,914,1254,889,1261,876,1272,863,1301,843,1330,831,1384,823,1438,816,1466,805,1494,785,1532,742,1561,693,1582,644,1595,605,1600,606,1587,646,1566,695,1537,745,1498,789,1468,809,1439,821,1385,828,1331,836,1304,847,1275,867,1265,879,1259,891,1254,916,1247,940,1239,952,1227,962,1190,982,1151,996,1111,1006,1070,1011,986,1012,904,1002,827,984,757,963,658,923"/>
-<area shape="poly" title=" " alt="" coords="1134,1309,1153,1343,1184,1386,1225,1430,1248,1448,1274,1463,1335,1486,1386,1495,1411,1494,1436,1488,1495,1463,1531,1436,1559,1400,1580,1362,1594,1330,1599,1332,1585,1365,1563,1403,1534,1439,1497,1468,1438,1493,1411,1499,1386,1501,1333,1492,1272,1468,1246,1453,1221,1434,1180,1390,1149,1345,1129,1312"/>
-<area shape="poly" title=" " alt="" coords="1183,1282,1225,1271,1338,1231,1340,1236,1226,1276,1184,1287"/>
-<area shape="poly" title=" " alt="" coords="454,790,488,771,533,725,570,672,598,621,617,579,622,581,603,623,574,675,537,728,491,775,456,795"/>
-<area shape="poly" title=" " alt="" coords="419,218,616,529,612,532,415,221"/>
-<area shape="poly" title=" " alt="" coords="420,192,469,150,501,126,536,106,625,59,697,27,734,16,773,9,872,3,1125,3,1178,8,1228,22,1275,44,1318,73,1358,108,1395,147,1429,191,1460,236,1512,330,1553,420,1582,497,1600,553,1595,555,1577,499,1548,422,1507,332,1455,239,1425,194,1391,151,1355,112,1315,77,1272,49,1226,27,1178,13,1125,8,872,8,774,14,735,22,699,32,627,64,539,110,504,131,472,154,424,196"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="569,169,692,194"/>
-<area shape="poly" title=" " alt="" coords="486,195,555,187,556,192,487,200"/>
-<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="569,218,692,243"/>
-<area shape="poly" title=" " alt="" coords="487,212,556,220,555,225,486,218"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a3c6309a98eb5281fbbfa45644c06fc34" title="Enables or disables the webserver." alt="" coords="546,119,715,145"/>
-<area shape="poly" title=" " alt="" coords="439,191,536,155,566,146,567,151,538,160,440,196"/>
-<area shape="poly" title=" " alt="" coords="693,236,824,259,900,276,976,297,1035,321,1088,345,1085,350,1033,325,974,303,899,281,823,264,692,241"/>
-<area shape="poly" title=" " alt="" coords="716,129,783,129,783,135,716,135"/>
+<area shape="rect" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,385,91,411"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="672,360,767,385"/>
+<area shape="poly" title=" " alt="" coords="74,383,159,346,219,324,287,305,360,289,436,281,512,281,587,294,617,305,646,319,693,349,690,354,643,323,615,309,586,299,512,287,436,286,360,294,288,310,221,329,161,351,76,388"/>
+<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a85475c832574e6a96c33a5712b215a50" title="Retrieve network interface information and keep it in global variables." alt="" coords="139,1074,359,1114"/>
+<area shape="poly" title=" " alt="" coords="56,410,240,1060,235,1062,50,411"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="179,535,318,560"/>
+<area shape="poly" title=" " alt="" coords="68,409,221,524,218,529,65,413"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="418,124,575,149"/>
+<area shape="poly" title=" " alt="" coords="51,384,80,321,105,283,137,251,201,210,271,180,340,159,404,146,405,151,342,164,272,185,203,215,140,255,109,286,85,323,56,386"/>
+<area shape="rect" href="../../d5/d78/sock_8cpp.html#aa1c16c9b2701dab6728c2b7e2efacf7b" title="Free the OpenSSL context." alt="" coords="905,311,995,336"/>
+<area shape="poly" title=" " alt="" coords="766,360,892,333,893,338,767,365"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#af1c7fa6eff1380708c436bad3d4843d2" title="Get client handle info." alt="" coords="873,261,1027,287"/>
+<area shape="poly" title=" " alt="" coords="738,357,788,327,851,295,872,288,874,293,853,300,790,331,741,362"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="1383,361,1474,387"/>
+<area shape="poly" title=" " alt="" coords="750,383,798,401,853,418,983,451,1087,472,1137,475,1190,473,1249,463,1318,445,1364,422,1402,394,1405,398,1367,427,1320,450,1250,468,1191,478,1137,481,1086,477,982,456,851,423,796,406,748,388"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#ab014d8c655f48d04fcc9ea7931a8f99c" title="Retrieves the device handle and information of the first device of the address family specified...." alt="" coords="869,212,1031,237"/>
+<area shape="poly" title=" " alt="" coords="728,358,777,304,812,273,851,246,865,239,867,244,853,251,815,277,780,308,732,362"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4a0f84b177b8a84964bcb7a057fc3831" title="Prints thread pool statistics if DEBUG is enabled. See also #define PrintThreadPoolStats()" alt="" coords="871,360,1029,385"/>
+<area shape="poly" title=" " alt="" coords="767,370,857,370,857,375,767,375"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#ac0223038b7afa1e3ea3d7cec983ccc63" title="Stop and Shutdown the MiniServer and free socket resources." alt="" coords="889,163,1011,188"/>
+<area shape="poly" title=" " alt="" coords="724,359,741,326,769,282,805,236,851,197,875,185,878,190,853,201,809,240,773,285,746,328,729,361"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a281f138c93124463e1fbbbdf00caf21f" title="Shuts the thread pool down." alt="" coords="871,761,1029,787"/>
+<area shape="poly" title=" " alt="" coords="728,385,775,495,812,570,854,646,894,703,931,749,927,752,889,706,850,649,808,573,771,497,723,387"/>
+<area shape="rect" href="../../dd/d9f/TimerThread_8cpp.html#a19a3b97cd97e1c5f9d465c96ac71e588" title="Shutdown the timer thread." alt="" coords="865,868,1035,893"/>
+<area shape="poly" title=" " alt="" coords="726,385,778,587,816,711,836,761,854,796,884,831,918,858,915,862,881,835,850,799,831,763,811,712,773,588,721,386"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#aef83a39b0da5868966600f99163cce38" title="Closes the log files." alt="" coords="893,561,1007,587"/>
+<area shape="poly" title=" " alt="" coords="729,384,746,417,773,461,809,507,853,546,880,559,878,564,851,551,805,511,769,465,741,420,724,387"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#ac1faae99fb914af807e9537867a46935" title="Removes all virtual directory mappings." alt="" coords="852,611,1048,636"/>
+<area shape="poly" title=" " alt="" coords="727,385,741,426,766,483,804,544,827,572,854,596,864,602,861,607,850,600,823,576,799,547,762,486,736,428,722,387"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#aead9c1aad0998507f66cf7f0749013d3" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="867,512,1033,537"/>
+<area shape="poly" title=" " alt="" coords="733,383,782,435,816,464,853,490,885,505,883,510,851,495,813,469,778,439,729,387"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#abb1c47010971d19ecd2b46ee842871ec" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="1106,411,1309,436"/>
+<area shape="poly" title=" " alt="" coords="767,380,852,394,976,407,1092,415,1092,420,976,412,852,399,766,385"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aba5685f22e83826b14771e59d0edbc05" title="Release memory allocated for the global web server root directory and the global XML document." alt="" coords="873,113,1027,139"/>
+<area shape="poly" title=" " alt="" coords="722,359,736,318,762,260,800,200,823,172,850,148,859,142,862,146,854,152,827,175,804,203,766,263,741,320,727,360"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="1149,260,1265,285"/>
+<area shape="poly" title=" " alt="" coords="1027,271,1136,270,1136,276,1027,276"/>
+<area shape="poly" title=" " alt="" coords="1265,283,1320,302,1363,326,1401,351,1398,355,1360,330,1318,307,1263,288"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="1539,361,1679,387"/>
+<area shape="poly" title=" " alt="" coords="1474,371,1525,371,1525,377,1474,377"/>
+<area shape="poly" title=" " alt="" coords="1019,235,1136,257,1135,262,1018,240"/>
+<area shape="poly" title=" " alt="" coords="1014,357,1096,346,1207,339,1319,346,1370,355,1369,361,1318,351,1207,344,1096,351,1014,363"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a9575d30ed041fc240cf373ea0f7f3515" title="Returns various statistics about the thread pool." alt="" coords="1132,361,1283,387"/>
+<area shape="poly" title=" " alt="" coords="1029,370,1118,371,1118,376,1029,376"/>
+<area shape="poly" title=" " alt="" coords="1011,173,1078,177,1157,188,1241,210,1282,226,1320,245,1351,268,1377,295,1416,348,1411,351,1373,298,1347,272,1317,250,1280,230,1239,215,1156,193,1077,182,1011,178"/>
+<area shape="rect" href="../../d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="1161,87,1254,112"/>
+<area shape="poly" title=" " alt="" coords="1001,160,1047,147,1154,114,1156,119,1049,152,1003,165"/>
+<area shape="rect" href="../../d7/d20/FreeList_8cpp.html#ae64c10055f937a33eff150f678303b7f" title="Releases the resources stored with the free list." alt="" coords="1367,1033,1491,1059"/>
+<area shape="poly" title=" " alt="" coords="968,785,1024,828,1097,877,1158,909,1207,930,1257,950,1320,980,1397,1024,1394,1028,1317,984,1255,955,1205,935,1156,914,1095,882,1021,832,965,789"/>
+<area shape="rect" href="../../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a7a528d1b1b1733d0139ea70befee0691" title="Deallocates a dynamically allocated ThreadPoolJob." alt="" coords="1096,715,1319,769"/>
+<area shape="poly" title=" " alt="" coords="1029,761,1082,755,1082,760,1030,767"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a751d0c613a5c8d83b2675c5f4261e2d7" title="Removes a node from the list. The memory for the node is freed." alt="" coords="1378,753,1479,779"/>
+<area shape="poly" title=" " alt="" coords="969,759,1023,727,1059,711,1095,699,1158,686,1208,681,1258,685,1319,699,1365,718,1402,743,1399,747,1362,723,1318,704,1257,690,1208,686,1158,691,1097,704,1060,716,1026,732,971,763"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a28e5dc6ff4a189982c97ae5780d360fd" title="Removes all memory associated with list nodes. Does not free LinkedList *list." alt="" coords="1159,843,1255,868"/>
+<area shape="poly" title=" " alt="" coords="982,784,1097,827,1146,840,1145,846,1095,832,980,789"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a898216a354e8dd7089db150630862376" title="Returns the head of the list." alt="" coords="1168,793,1247,819"/>
+<area shape="poly" title=" " alt="" coords="1030,781,1155,797,1154,802,1029,786"/>
+<area shape="poly" title=" " alt="" coords="1229,866,1320,936,1408,1021,1404,1025,1317,940,1226,870"/>
+<area shape="poly" title=" " alt="" coords="1255,845,1318,827,1360,807,1397,784,1399,789,1362,812,1320,832,1256,850"/>
+<area shape="poly" title=" " alt="" coords="1035,891,1050,903,1068,929,1076,956,1075,984,1072,1011,1069,1037,1069,1062,1078,1086,1098,1108,1125,1126,1151,1137,1176,1141,1200,1140,1254,1127,1318,1107,1362,1089,1399,1065,1402,1069,1365,1093,1320,1112,1255,1132,1201,1145,1175,1146,1149,1142,1123,1131,1094,1112,1073,1088,1064,1063,1063,1037,1067,1010,1070,983,1070,957,1064,931,1046,906,1032,896"/>
+<area shape="poly" title=" " alt="" coords="1007,891,1073,901,1152,906,1237,899,1278,891,1318,877,1347,859,1373,836,1411,788,1415,792,1377,840,1350,864,1320,882,1280,896,1237,905,1152,911,1072,906,1007,896"/>
+<area shape="poly" title=" " alt="" coords="1034,870,1145,859,1146,864,1035,875"/>
+<area shape="poly" title=" " alt="" coords="983,865,1095,827,1153,813,1155,818,1097,832,985,870"/>
+<area shape="rect" href="../../da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html#ab40f4f1217f62d380736126fec2ae82e" title="Deallocates a dynamically allocated TimerEvent." alt="" coords="1117,995,1297,1049"/>
+<area shape="poly" title=" " alt="" coords="1028,891,1050,902,1067,920,1075,938,1083,956,1098,973,1116,986,1113,990,1094,977,1078,959,1070,940,1062,923,1046,907,1025,896"/>
+<area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a83123d7868ce3aba2cf9d5c066fb7eb4" title="Returns the next item in the list." alt="" coords="1169,1073,1245,1099"/>
+<area shape="poly" title=" " alt="" coords="1033,891,1050,903,1065,922,1073,943,1075,983,1076,1022,1083,1040,1098,1059,1125,1075,1156,1082,1155,1088,1123,1080,1094,1063,1079,1043,1071,1023,1069,983,1068,944,1061,925,1046,907,1030,896"/>
+<area shape="poly" title=" " alt="" coords="958,510,1012,437,1051,391,1094,347,1133,316,1170,291,1173,295,1136,320,1098,351,1055,394,1016,441,962,513"/>
+<area shape="poly" title=" " alt="" coords="1034,531,1098,533,1171,529,1246,516,1283,505,1317,490,1347,471,1373,446,1411,397,1415,400,1377,450,1350,475,1320,495,1285,510,1248,521,1172,534,1098,538,1033,537"/>
+<area shape="poly" title=" " alt="" coords="1011,535,1049,546,1189,599,1248,629,1320,673,1367,708,1406,742,1402,746,1364,712,1317,677,1245,634,1187,604,1047,551,1010,540"/>
+<area shape="poly" title=" " alt="" coords="1035,535,1050,547,1074,583,1082,619,1081,654,1074,690,1068,725,1067,760,1075,794,1098,828,1120,843,1146,851,1144,856,1117,848,1094,832,1070,796,1061,760,1063,725,1069,689,1075,654,1077,619,1069,585,1046,550,1032,539"/>
+<area shape="poly" title=" " alt="" coords="1035,535,1050,547,1070,576,1079,606,1079,636,1074,665,1070,694,1070,723,1078,751,1098,779,1124,795,1155,803,1154,808,1122,800,1094,783,1073,753,1065,724,1065,694,1069,664,1073,635,1073,607,1066,578,1046,550,1032,539"/>
+<area shape="poly" title=" " alt="" coords="1264,408,1369,384,1371,389,1266,413"/>
+<area shape="poly" title=" " alt="" coords="211,1074,209,1064,215,1055,228,1049,249,1047,272,1050,285,1057,282,1062,270,1055,249,1053,230,1054,218,1059,214,1065,216,1073"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#ad30d8361037d6d7c036ac586702c87e1" title="Find local network adapter with given name or ip address." alt="" coords="412,1253,581,1293"/>
+<area shape="poly" title=" " alt="" coords="270,1112,329,1170,367,1202,408,1232,431,1244,428,1249,405,1236,364,1206,326,1174,267,1116"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8adb1de77c10e3ad389d84896c053d8c" title="Get network adapter name from current selected list entry." alt="" coords="635,1221,804,1261"/>
+<area shape="poly" title=" " alt="" coords="277,1112,335,1151,370,1171,408,1187,461,1204,517,1217,621,1232,621,1237,516,1222,460,1209,406,1192,368,1176,332,1156,274,1116"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a112fd1ee7d1d3a43f7504bd57da6303b" title="Get socket address from current selected list entry." alt="" coords="635,1297,804,1337"/>
+<area shape="poly" title=" " alt="" coords="260,1113,280,1155,311,1208,354,1261,380,1284,408,1302,460,1322,515,1332,570,1334,621,1331,621,1336,570,1339,514,1337,458,1327,405,1307,376,1288,350,1265,307,1211,275,1158,255,1115"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#acc039aa39f69f82aa26906287de8996e" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="412,858,581,898"/>
+<area shape="poly" title=" " alt="" coords="260,1072,316,993,358,948,405,908,414,902,417,907,408,912,361,952,320,997,264,1075"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aef71113ff26dd525f7ff567f335b8fa7" title="Get index number from current selected list entry." alt="" coords="412,922,581,962"/>
+<area shape="poly" title=" " alt="" coords="270,1072,329,1023,405,972,419,965,421,970,408,976,332,1027,274,1076"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a29c41bbfce7a8e358e7c6b6cdf968d2b" title="Get the assosiated netaddress without port." alt="" coords="419,986,574,1026"/>
+<area shape="poly" title=" " alt="" coords="305,1071,425,1028,427,1033,307,1076"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#ad59a98ab2a138709df13904d0e4f216c" title="Get prefix length from the ip address of the current selected local network adapter." alt="" coords="407,1074,586,1114"/>
+<area shape="poly" title=" " alt="" coords="359,1091,394,1091,394,1097,359,1097"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a1515db33e3e1b37d2e1bcaa2f0aa0658" title="Get socket address netmask from current selected list entry." alt="" coords="407,1138,587,1178"/>
+<area shape="poly" title=" " alt="" coords="328,1111,406,1132,405,1137,326,1117"/>
+<area shape="poly" title=" " alt="" coords="581,1258,621,1252,621,1257,582,1263"/>
+<area shape="poly" title=" " alt="" coords="582,1287,621,1295,620,1300,581,1292"/>
+<area shape="poly" title=" " alt="" coords="455,1074,453,1064,459,1055,474,1049,497,1047,523,1050,537,1057,534,1062,521,1055,497,1053,475,1054,463,1059,458,1065,460,1073"/>
+<area shape="poly" title=" " alt="" coords="264,532,324,490,364,466,406,445,453,429,520,412,658,382,659,387,521,417,455,434,408,450,366,470,327,494,267,537"/>
+<area shape="rect" href="../../dc/d02/gena__callback2_8cpp.html#a6f658b4eab5786398a00a53b87e7c622" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="664,709,775,735"/>
+<area shape="poly" title=" " alt="" coords="258,559,277,597,308,649,352,701,379,723,408,741,441,753,476,760,512,763,547,761,615,751,671,736,672,741,616,756,548,767,512,768,475,765,439,758,406,746,376,728,349,705,304,652,272,600,253,561"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#af500b18ad2a00dd3c3fa6da8ce62369d" title="Set GENA Callback." alt="" coords="430,460,563,485"/>
+<area shape="poly" title=" " alt="" coords="287,532,406,494,433,486,434,491,407,499,289,537"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a569fe15e9cbb156f31065a8b7ac12799" title="Set SOAP Callback." alt="" coords="431,509,562,535"/>
+<area shape="poly" title=" " alt="" coords="318,538,418,527,418,533,319,543"/>
+<area shape="rect" href="../../d6/d92/soap__device_8cpp.html#a4b5104845d73b836d6365a306fba1679" title="This is a callback called by minisever." alt="" coords="415,559,579,584"/>
+<area shape="poly" title=" " alt="" coords="319,551,401,559,401,565,318,557"/>
+<area shape="rect" href="../../dd/d9f/TimerThread_8cpp.html#a88b075dce04bff1935ef802ff6df4621" title="Initializes and starts timer thread." alt="" coords="887,917,1013,943"/>
+<area shape="poly" title=" " alt="" coords="258,559,277,600,309,657,353,717,379,745,408,769,444,789,494,810,620,850,757,885,874,912,873,917,755,890,619,855,492,815,442,794,405,773,376,749,349,721,304,660,272,602,253,561"/>
+<area shape="rect" href="../../db/d37/uuid_8cpp.html#a810c4032637bfecbb4ea1a039dbf6ef0" title="Unpack a UUID." alt="" coords="425,608,568,633"/>
+<area shape="poly" title=" " alt="" coords="292,558,407,593,438,602,436,607,406,598,290,563"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#acb989a0182d5595b14f2dc3de64225b9" title="Initialize the log files." alt="" coords="447,657,547,683"/>
+<area shape="poly" title=" " alt="" coords="268,558,328,599,408,642,434,652,432,657,406,647,326,603,265,562"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a7855376cc412564ea0b12b867e11e3a7" title="Initializes the global mutexes used by the UPnP SDK." alt="" coords="431,707,563,732"/>
+<area shape="poly" title=" " alt="" coords="262,558,319,622,361,659,408,692,424,699,422,704,405,696,358,664,316,626,258,562"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="418,309,575,335"/>
+<area shape="poly" title=" " alt="" coords="254,533,274,496,307,445,351,390,377,365,405,344,416,338,418,342,408,348,381,369,355,394,311,448,279,499,258,536"/>
+<area shape="rect" href="../../db/d37/uuid_8cpp.html#acc106615ebd609fdd904738800e442a3" title="Generate a UUID." alt="" coords="447,359,546,384"/>
+<area shape="poly" title=" " alt="" coords="259,532,317,471,359,434,405,401,435,386,437,391,408,406,362,438,321,475,263,536"/>
+<area shape="poly" title=" " alt="" coords="775,716,884,704,953,692,1027,675,1103,653,1179,623,1251,586,1317,540,1350,506,1378,468,1415,398,1419,400,1382,471,1354,510,1320,544,1254,590,1181,628,1105,658,1028,681,954,698,885,710,775,722"/>
+<area shape="poly" title=" " alt="" coords="957,942,972,985,1000,1045,1018,1076,1041,1106,1067,1132,1097,1153,1155,1178,1181,1183,1205,1185,1257,1175,1318,1153,1346,1136,1372,1114,1410,1069,1414,1072,1376,1118,1350,1141,1320,1158,1258,1181,1206,1190,1180,1189,1154,1183,1095,1158,1064,1136,1037,1109,1014,1079,995,1048,967,987,952,944"/>
+<area shape="poly" title=" " alt="" coords="1001,915,1047,902,1153,870,1155,875,1049,907,1002,920"/>
+<area shape="poly" title=" " alt="" coords="554,332,659,356,658,362,553,337"/>
+<area shape="poly" title=" " alt="" coords="512,147,699,348,695,352,508,151"/>
+<area shape="poly" title=" " alt="" coords="511,122,562,82,597,62,634,47,703,31,788,17,883,7,983,3,1082,6,1175,17,1256,39,1291,54,1320,72,1351,100,1375,135,1394,173,1408,212,1424,288,1430,347,1424,348,1419,289,1403,214,1389,175,1371,137,1347,104,1317,76,1288,58,1254,44,1174,22,1082,11,983,8,883,13,789,22,704,36,635,52,599,67,565,87,514,126"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="658,112,781,137"/>
+<area shape="poly" title=" " alt="" coords="575,130,644,126,644,131,576,135"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="658,63,781,88"/>
+<area shape="poly" title=" " alt="" coords="543,121,659,89,660,94,544,126"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a3c6309a98eb5281fbbfa45644c06fc34" title="Enables or disables the webserver." alt="" coords="635,161,804,187"/>
+<area shape="poly" title=" " alt="" coords="574,147,630,156,629,162,573,152"/>
+<area shape="poly" title=" " alt="" coords="781,76,1147,94,1147,99,781,81"/>
+<area shape="poly" title=" " alt="" coords="781,159,875,139,876,144,782,164"/>
 </map>
 </div>
 
@@ -391,7 +387,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00562">562</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00977">977</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -548,7 +544,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 <div class="center"><img src="../../d7/df3/group__compaAPI-Addressing_ga572275f308aad00da00968469ec9d569_icgraph.png" border="0" usemap="#ad7/df3/group__compaAPI-Addressing_ga572275f308aad00da00968469ec9d569_icgraph" alt=""/></div>
 <map name="ad7/df3/group__compaAPI-Addressing_ga572275f308aad00da00968469ec9d569_icgraph" id="ad7/df3/group__compaAPI-Addressing_ga572275f308aad00da00968469ec9d569_icgraph">
 <area shape="rect" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,31,91,56"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
 <area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
 <area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
@@ -580,14 +576,14 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 </div><div class="memdoc">
 
 <p>Returns the internal server IPv4 UPnP listening port. </p>
-<p>If '0' is used as the port number in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>, then this function can be used to retrieve the actual port allocated to the SDK.</p>
+<p>If '0' is used as the port number in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a>, then this function can be used to retrieve the actual port allocated to the SDK.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>On success: The port on which an internal server is listening for IPv4 UPnP related requests. </li>
-<li>On error: 0 is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a> has not succeeded. </li>
+<li>On error: 0 is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a> has not succeeded. </li>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00635">635</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01050">1050</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -607,14 +603,14 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 </div><div class="memdoc">
 
 <p>Returns the internal server IPv6 link-local (LLA) UPnP listening port. </p>
-<p>If '0' is used as the port number in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>, then this function can be used to retrieve the actual port allocated to the SDK.</p>
+<p>If '0' is used as the port number in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a>, then this function can be used to retrieve the actual port allocated to the SDK.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>On success: The port on which an internal server is listening for IPv6 link-local (LLA) UPnP related requests. </li>
-<li>On error: 0 is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a> has not succeeded. </li>
+<li>On error: 0 is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a> has not succeeded. </li>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00642">642</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01057">1057</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -634,14 +630,14 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 </div><div class="memdoc">
 
 <p>Returns the internal server IPv6 ULA or GUA UPnP listening port. </p>
-<p>If '0' is used as the port number in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>, then this function can be used to retrieve the actual port allocated to the SDK.</p>
+<p>If '0' is used as the port number in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a>, then this function can be used to retrieve the actual port allocated to the SDK.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>On success: The port on which an internal server is listening for IPv6 ULA or GUA UPnP related requests. </li>
-<li>On error: 0 is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a> has not succeeded. </li>
+<li>On error: 0 is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a> has not succeeded. </li>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00653">653</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01068">1068</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -661,14 +657,14 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 </div><div class="memdoc">
 
 <p>Returns the local IPv4 listening ip address. </p>
-<p>If <code>nullptr</code> is used as the interface in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>, then this function can be used to retrieve the actual interface address on which device is running.</p>
+<p>If <code>nullptr</code> is used as the interface in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a>, then this function can be used to retrieve the actual interface address on which device is running.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>On success: The IPv4 address on which an internal server is listening for UPnP related requests. </li>
-<li>On error: <code>nullptr</code> is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a> has not succeeded. </li>
+<li>On error: <code>nullptr</code> is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a> has not succeeded. </li>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00664">664</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01079">1079</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -688,14 +684,14 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 </div><div class="memdoc">
 
 <p>Returns the IPv6 link-local listening ip address. </p>
-<p>If <code>nullptr</code> is used as the interface in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>, then this function can be used to retrieve the actual interface address on which device is running.</p>
+<p>If <code>nullptr</code> is used as the interface in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a>, then this function can be used to retrieve the actual interface address on which device is running.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>On success: The IPv6 link-local address (LLA) on which an internal server is listening for UPnP related requests. </li>
-<li>On error: <code>nullptr</code> is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a> has not succeeded. </li>
+<li>On error: <code>nullptr</code> is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a> has not succeeded. </li>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00671">671</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01086">1086</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -715,14 +711,14 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 </div><div class="memdoc">
 
 <p>Returns the IPv6 unique-local or globally-unique listening ip address. </p>
-<p>If <code>nullptr</code> is used as the interface in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a>, then this function can be used to retrieve the actual interface address on which device is running.</p>
+<p>If <code>nullptr</code> is used as the interface in <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a>, then this function can be used to retrieve the actual interface address on which device is running.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>On success: The IPv6 unique-local or globally-unique address (ULA or GUA) on which an internal server is listening for UPnP related requests. </li>
-<li>On error: <code>nullptr</code> is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6).">UpnpInit2()</a> has not succeeded. </li>
+<li>On error: <code>nullptr</code> is returned if <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a> has not succeeded. </li>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00682">682</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01097">1097</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -792,7 +788,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00744">744</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01159">1159</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -1043,7 +1039,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00898">898</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01313">1313</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -1271,7 +1267,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01042">1042</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01457">1457</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -1493,7 +1489,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01184">1184</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01599">1599</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -1670,7 +1666,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01195">1195</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01610">1610</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -1834,7 +1830,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 <area shape="rect" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="692,31,895,56"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
 <area shape="poly" title=" " alt="" coords="678,46,644,46,644,41,678,41"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,31,91,56"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
 <area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
 <area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
@@ -1908,7 +1904,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01201">1201</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01616">1616</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -2073,7 +2069,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 <area shape="poly" title=" " alt="" coords="929,46,895,46,895,41,929,41"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
 <area shape="poly" title=" " alt="" coords="678,46,644,46,644,41,678,41"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,31,91,56"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
 <area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
 <area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
@@ -2140,7 +2136,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01273">1273</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01688">1688</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -2198,7 +2194,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01322">1322</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01737">1737</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
@@ -2353,7 +2349,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 <area shape="rect" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="692,31,859,56"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
 <area shape="poly" title=" " alt="" coords="678,46,644,46,644,41,678,41"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices (IPv4 or IPv6)." alt="" coords="5,31,91,56"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
 <area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
 <area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
@@ -2405,7 +2401,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03898">3898</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03963">3963</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
@@ -2459,7 +2455,7 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03928">3928</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03993">3993</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>

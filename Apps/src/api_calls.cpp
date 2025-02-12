@@ -1,12 +1,13 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-05
+// Redistribution only with this Copyright remark. Last modified: 2025-02-03
 /*!
  * \file
  * \brief Simple calls of API functions to test conditional compile and linking.
  *
  * Just calling every API function with default/empty arguments to ensure that
  * it will link successful and that there are no different symbols used when
- * linking with the pUPnP library and the compatible UPnPsdk.
+ * linking with the pUPnP library and the compatible UPnPsdk. Extended Unit
+ * Tests are done when compiled with CMake option "-D UPnPsdk_WITH_GOOGLETEST".
  */
 
 #include <upnp.hpp>

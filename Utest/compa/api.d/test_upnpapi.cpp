@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-21
+// Redistribution only with this Copyright remark. Last modified: 2025-02-12
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -31,6 +31,7 @@ using ::pupnp::CLogging;
 
 using ::testing::_;
 using ::testing::A;
+using ::testing::AnyOf;
 using ::testing::ExitedWithCode;
 using ::testing::NotNull;
 using ::testing::Pointee;
@@ -181,6 +182,7 @@ class UpnpapiMockFTestSuite : public UpnpapiFTestSuite {
 
 
 #if 0
+// Snapshot of a real but volatile valid network interface situation.
 TEST_F(UpnpapiFTestSuite, UpnpInit2_interface_name_successful) {
     // Test Unit
     int ret_UpnpInit2 = UpnpInit2("ens1", 0);
@@ -191,9 +193,43 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_interface_name_successful) {
     EXPECT_STREQ(gIF_IPV4_NETMASK, "");
     EXPECT_STREQ(gIF_IPV6, "fe80::5054:ff:fe7f:c021");
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
-    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "2003:d5:2705:dd00:5054:ff:fe7f:c021");
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "2003:d5:2748:ae00:5054:ff:fe7f:c021");
     EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 64);
     EXPECT_EQ(gIF_INDEX, 2);
+
+    UpnpFinish();
+}
+#endif
+
+#ifdef __unix__
+// Interface name "lo" is only used on Unix platforms but not on macOS.
+TEST_F(UpnpapiFTestSuite, UpnpInit2_interface_name_lo_successful) {
+    // Test Unit
+    int ret_UpnpInit2 = UpnpInit2("lo", 0);
+
+    if (old_code) {
+        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        GTEST_SKIP() << "Using the local network loopback interface is not "
+                        "supported with pupnp.";
+    }
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    std::string if_ipv4 = std::string(gIF_IPV4);
+    std::string if_ipv4_netmask = std::string(gIF_IPV4_NETMASK);
+    std::string if_ipv6 = std::string(gIF_IPV6);
+    std::string if_ipv6_gua = std::string(gIF_IPV6_ULA_GUA);
+
+    EXPECT_STREQ(gIF_NAME, "lo");
+    EXPECT_THAT(if_ipv4, AnyOf("", "127.0.0.1"));
+    EXPECT_THAT(if_ipv4_netmask, if_ipv4 == "127.0.0.1" ? "255.0.0.0" : "");
+    EXPECT_THAT(if_ipv6, AnyOf("::1", ""));
+    EXPECT_THAT(gIF_IPV6_PREFIX_LENGTH, if_ipv6 == "::1" ? 128 : 0);
+    EXPECT_THAT(if_ipv6_gua, AnyOf("::1", ""));
+    EXPECT_THAT(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, if_ipv6_gua == "::1" ? 128 : 0);
+    EXPECT_EQ(gIF_INDEX, 1);
 
     UpnpFinish();
 }
@@ -507,6 +543,35 @@ int CallbackEventHandler(Upnp_EventType EventType, const void* Event,
     std::cout << "Received event type \"" << EventType << "\" with event '"
               << Event << "'\n";
     return 0;
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_successful) {
+    if (github_actions)
+        GTEST_SKIP() << "             test needs inprovements.";
+
+    constexpr char desc_doc_url[]{
+        "http://[2003:d5:2748:ae00:5054:ff:fe7f:c021]:53779/tvdevicedesc.xml"};
+    UpnpDevice_Handle device_handle = -1;
+    // Initialize the handle list.
+    // for (int i = 0; i < NUM_HANDLE; ++i) {
+    //     HandleTable[i] = nullptr;
+    // }
+
+    int ret_UpnpInit2 = UpnpInit2("ens1", 50001);
+    ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    UpnpSdkInit = 1;
+
+    // Test Unit
+    int ret_UpnpRegisterRootDevice3 =
+        UpnpRegisterRootDevice3(desc_doc_url, CallbackEventHandler,
+                                &device_handle, &device_handle, AF_INET6);
+    EXPECT_EQ(ret_UpnpRegisterRootDevice3, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpRegisterRootDevice3, UPNP_E_SUCCESS);
+
+    UpnpUnRegisterRootDevice(device_handle);
+    UpnpFinish();
 }
 
 TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {

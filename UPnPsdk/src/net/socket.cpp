@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-03
+// Redistribution only with this Copyright remark. Last modified: 2025-02-13
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -347,7 +347,7 @@ int CSocket_basic::is_bound() const {
     // compare of the socket address with a 16 null byte array AF_INET6 can be
     // found at commit
     // a5ec86a93608234016630123c776c09f8ff276fb:upnplib/src/net/socket.cpp.
-    TRACE2(this, " Executing CSocket::is_bound()")
+    // TRACE2(this, " Executing CSocket::is_bound()")
 
     // binding is protected.
     std::scoped_lock lock(m_bound_mutex);
@@ -484,7 +484,7 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     // Get a socket file descriptor from operating system and try to bind it.
     // ----------------------------------------------------------------------
     SOCKET sockfd{INVALID_SOCKET};
-    int ret{-1};
+    int ret_code{SOCKET_ERROR};
 #if _MSC_VER
     // On Microsoft Windows there is an issue with binding an address to a
     // socket in conjunction with the socket option SO_EXCLUSIVEADDRUSE that I
@@ -504,10 +504,10 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
         sockfd = get_sockfd(static_cast<sa_family_t>(ai->ai_family),
                             ai->ai_socktype);
         // Try to bind the socket.
-        ret = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
-                                       static_cast<socklen_t>(ai->ai_addrlen));
+        ret_code = umock::sys_socket_h.bind(
+            sockfd, ai->ai_addr, static_cast<socklen_t>(ai->ai_addrlen));
         // Repeat only with specific error WSAEACCES.
-        if (ret == 0)
+        if (ret_code == 0)
             break;
         serrObj.catch_error();
         if (serrObj != EACCESP)
@@ -523,11 +523,11 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     sockfd =
         get_sockfd(static_cast<sa_family_t>(ai->ai_family), ai->ai_socktype);
     // Try to bind the socket.
-    ret = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
-                                   static_cast<socklen_t>(ai->ai_addrlen));
+    ret_code = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
+                                        static_cast<socklen_t>(ai->ai_addrlen));
 #endif
 
-    if (ret == 0)
+    if (ret_code == 0)
         // Store valid socket file descriptor.
         m_sfd = sockfd;
 
@@ -537,11 +537,12 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
         UPnPsdk_LOGINFO "MSG1115: syscall ::bind("
             << sockfd << ", " << &a_saddr->sa << ", " << a_saddr->sizeof_saddr()
             << ") Tried \"" << a_saddr->netaddrp()
-            << (ret != 0 ? ". Get ERROR" : ". Bound to " + saddr.netaddrp())
+            << (ret_code != 0 ? ". Get ERROR"
+                              : ". Bound to " + saddr.netaddrp())
             << ".\"\n";
     }
 
-    if (ret != 0) {
+    if (ret_code == SOCKET_ERROR) {
         serrObj.catch_error();
         CLOSE_SOCKET_P(sockfd);
         throw std::runtime_error(

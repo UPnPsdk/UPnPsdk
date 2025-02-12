@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-29
+// Redistribution only with this Copyright remark. Last modified: 2025-02-04
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -38,7 +38,7 @@ namespace UPnPsdk {
  * href=https://datatracker.ietf.org/doc/html/rfc4038#section-5.4.1>RFC4038 -
  * IP Address Selection</a>).
  */
-class CNetadapter : public CNetadapter_platform {
+class UPnPsdk_API CNetadapter : public CNetadapter_platform {
   public:
     // Constructor
     CNetadapter();

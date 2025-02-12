@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_IF_HPP
 #define UPnPsdk_NETADAPTER_IF_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-31
+// Redistribution only with this Copyright remark. Last modified: 2025-02-04
 /*!
  * \file
  * \brief C++ interface to manage information from different platforms about
@@ -26,7 +26,7 @@ namespace UPnPsdk {
  * try {
  *     nadaptObj.get_first();
  * } catch(xcp) { handle_error(); };
- * UPnPsdk::SSockaddr saddrObj;
+ * SSockaddr saddrObj;
  * do {
  *     std::cout << "adapter name is " << nadaptObj.name() << '\n';
  *     nadaptObj.sockaddr(saddrObj);
@@ -63,8 +63,19 @@ class UPnPsdk_API INetadapter {
     virtual bool get_next() = 0;
 
     /*! \brief Find local network adapter with given name or ip address
-     *  \details Try to find an adapter with the given property. If found, the
-     *  adapter is selected so that all its properties can be retrieved.
+     * \code
+     * // Usage e.g.:
+     * CNetadapter nadaptObj;
+     * try {
+     *     nadaptObj.get_first();
+     * } catch(xcp) { handle_error(); };
+     * if (nadaptObj.find_first("[2001.db8::1:0:2]"))
+     *     std::cout << "adapter name is " << nadaptObj.name() << '\n';
+     * \endcode
+     * \details You have to get_first() entry of the internal network adapter
+     * list to load it. Then you can try to \b %find_first() adapter with the
+     * given property. If found, the adapter is selected so that all its
+     * properties can be retrieved.
      * \returns
      *  - \b true if adapter with given name or ip address was found
      *  - \b false otherwise */
@@ -74,8 +85,13 @@ class UPnPsdk_API INetadapter {
         const std::string& a_name_or_addr);
 
     /*! \brief Find local network adapter with given index number.
-     * \details Try to find an adapter with the given index. If found, the
-     * adapter is selected so that all its properties can be retrieved.
+     * \details Example at find_first(const std::string&). Of course you have to
+     * use an index number.
+     *
+     * You have to get_first() entry of the internal network adapter
+     * list to load it. Then you can try to \b %find_first() adapter with the
+     * given property. If found, the adapter is selected so that all its
+     * properties can be retrieved.
      * \returns
      *  - \b true if adapter with given index number was found
      *  - \b false otherwise */
@@ -103,7 +119,7 @@ class UPnPsdk_API INetadapter {
     // sa_family_t in_family() const;
 
     /*! \brief Get socket address from current selected list entry. */
-    virtual void sockaddr( //
+    virtual void sockaddr(
         /*! [in,out] Reference to a socket address object that will be filled
          * with the socket address from the current selected network adapter
          * list entry. */
@@ -114,11 +130,17 @@ class UPnPsdk_API INetadapter {
      *
      * This netmask belongs to the adapters network address that is current
      * selected. */
-    virtual void socknetmask( //
+    virtual void socknetmask(
         /*! [in,out] Reference to a socket address object that will be filled
          * with the socket address netmask from the current selected network
          * adapter list entry. */
         SSockaddr& a_snetmask) const = 0;
+
+    /*! \brief Get prefix length from the ip address of the current selected
+     * local network adapter.
+     * \returns Prefix length of the ip address from the current selected local
+     * network adapter. */
+    virtual unsigned int prefix_length() const = 0;
 
   private:
     /*! \brief Reset pointer and point to the first entry of the local network

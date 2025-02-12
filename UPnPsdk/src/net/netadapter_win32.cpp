@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-11
+// Redistribution only with this Copyright remark. Last modified: 2025-02-05
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -303,6 +303,14 @@ void CNetadapter_platform::socknetmask(SSockaddr& a_snetmask) const {
                           m_unicastaddr_current->OnLinkPrefixLength,
                           a_snetmask);
     }
+}
+
+unsigned int CNetadapter_platform::prefix_length() const {
+    TRACE2(this, " Executing CNetadapter_platform::prefix_length()")
+    if (m_adapt_current == nullptr)
+        return 0;
+
+    return m_unicastaddr_current->OnLinkPrefixLength;
 }
 
 unsigned int CNetadapter_platform::index() const {

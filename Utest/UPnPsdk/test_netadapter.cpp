@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-29
+// Redistribution only with this Copyright remark. Last modified: 2025-02-12
 
 #ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -49,16 +49,17 @@ TEST(NetadapterTestSuite, get_adapters_info_successful) {
                                 sizeof(nmskStr), nullptr, 0, NI_NUMERICHOST),
                   0);
         ASSERT_NE(nadObj.index(), 0);
-        if (saddrObj.sin6.sin6_family == AF_INET6 &&
-            saddrObj.sin6.sin6_addr.s6_addr[15] == 1) {
+        if (saddrObj.netaddr() == "[::1]") {
             ASSERT_GT(nadObj.index(), 0)
                 << "index should be greater 0 for \"[::1]\"";
+            EXPECT_EQ(nadObj.prefix_length(), 128);
         }
         // TODO: Loopback addresses are not limited to the 127.0.0.0/8 block.
         if (saddrObj.sin.sin_family == AF_INET &&
             ntohl(saddrObj.sin.sin_addr.s_addr) == 2130706433) { // "127.0.0.1"
             ASSERT_GT(nadObj.index(), 0)
                 << "index should be greater 0 for \"127.0.0.1\"";
+            EXPECT_EQ(nadObj.prefix_length(), 8);
         }
 #if 0
         // To show resolved iface names set first NI_NUMERICHOST above to 0.
@@ -72,9 +73,9 @@ TEST(NetadapterTestSuite, get_adapters_info_successful) {
 }
 
 #if 0
-// Get Subnet mask from prefix bit number, first version with two nested loops
-// working on 128 bits. I have made a more performant version working on bytes
-// but won't discard this version.
+// Get Subnet mask from address prefix length, first version with two nested
+// loops working on 128 bits. I have made a more performant version working on
+// bytes but won't discard this version.
 TEST(NetadapterTestSuite, ipv6_netmask_test) {
     char buf[INET6_ADDRSTRLEN]{};
     in6_addr netmask6;
@@ -198,7 +199,7 @@ TEST(NetadapterTestSuite, find_adapters_info) {
     UPnPsdk::CNetadapter nadaptObj;
     ASSERT_NO_THROW(nadaptObj.get_first());
 
-    // Index 1 is always the loopback device on all platforms but it has
+    // Index 1 is assumed to be the loopback device on all platforms but it has
     // different names.
     EXPECT_TRUE(nadaptObj.find_first(1));
     EXPECT_EQ(nadaptObj.index(), 1);
@@ -210,17 +211,20 @@ TEST(NetadapterTestSuite, find_adapters_info) {
 
     ASSERT_TRUE(nadaptObj.find_first("::1"));
     EXPECT_EQ(nadaptObj.index(), 1);
+    EXPECT_EQ(nadaptObj.prefix_length(), 128);
     nadaptObj.socknetmask(saddrObj);
     EXPECT_EQ(saddrObj.netaddr(), "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
 
     ASSERT_TRUE(nadaptObj.find_first("127.0.0.1"));
     EXPECT_EQ(nadaptObj.index(), 1);
+    EXPECT_EQ(nadaptObj.prefix_length(), 8);
     nadaptObj.socknetmask(saddrObj);
     EXPECT_EQ(saddrObj.netaddr(), "255.0.0.0");
 
     EXPECT_FALSE(nadaptObj.find_first(0));
     EXPECT_EQ(nadaptObj.index(), 0);
     EXPECT_EQ(nadaptObj.name(), "");
+    EXPECT_EQ(nadaptObj.prefix_length(), 0);
     nadaptObj.sockaddr(saddrObj);
     EXPECT_EQ(saddrObj.netaddrp(), ":0");
     nadaptObj.socknetmask(saddrObj);
@@ -229,6 +233,7 @@ TEST(NetadapterTestSuite, find_adapters_info) {
     EXPECT_FALSE(nadaptObj.find_first(~0u - 2));
     EXPECT_EQ(nadaptObj.index(), 0);
     EXPECT_EQ(nadaptObj.name(), "");
+    EXPECT_EQ(nadaptObj.prefix_length(), 0);
     nadaptObj.sockaddr(saddrObj);
     EXPECT_EQ(saddrObj.netaddrp(), ":0");
     nadaptObj.socknetmask(saddrObj);
@@ -237,6 +242,7 @@ TEST(NetadapterTestSuite, find_adapters_info) {
     EXPECT_FALSE(nadaptObj.find_first(""));
     EXPECT_EQ(nadaptObj.index(), 0);
     EXPECT_EQ(nadaptObj.name(), "");
+    EXPECT_EQ(nadaptObj.prefix_length(), 0);
     nadaptObj.sockaddr(saddrObj);
     EXPECT_EQ(saddrObj.netaddrp(), ":0");
     nadaptObj.socknetmask(saddrObj);
