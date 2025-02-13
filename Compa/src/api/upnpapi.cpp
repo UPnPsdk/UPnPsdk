@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-02-12
+ * Redistribution only with this Copyright remark. Last modified: 2025-02-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -88,13 +88,6 @@
  * ifru_netmask/ifru_addr are all just union members, this should work. */
 #define ifr_netmask ifr_addr
 #endif
-
-#if !defined(IN6_IS_ADDR_GLOBAL) || defined(DOXYGEN_RUN)
-/// \brief If IN6_IS_ADDR_GLOBAL is not defined then this is set.
-#define IN6_IS_ADDR_GLOBAL(a)                                                  \
-    ((((__const uint32_t*)(a))[0] & htonl((uint32_t)0xe0000000)) ==            \
-     htonl((uint32_t)0x20000000))
-#endif /* IN6_IS_ADDR_GLOBAL */
 
 #if !defined(IN6_IS_ADDR_ULA) || defined(DOXYGEN_RUN)
 /// \brief If IN6_IS_ADDR_ULA is not defined then this is set.
