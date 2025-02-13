@@ -143,7 +143,7 @@ target_compile_options(test_upnpapi-pst
 target_link_libraries(test_upnpapi-pst
     PRIVATE
         pupnp_static
-        UPnPsdk_shared
+        UPnPsdk_static
         utest_shared
 )
 add_test(NAME ctest_upnpapi-pst COMMAND test_upnpapi-pst --gtest_shuffle
@@ -160,7 +160,7 @@ target_include_directories(test_upnpapi-cst
 target_link_libraries(test_upnpapi-cst
     PRIVATE
         compa_static
-        UPnPsdk_shared
+        UPnPsdk_static
         utest_shared
 )
 add_test(NAME ctest_upnpapi-cst COMMAND test_upnpapi-cst --gtest_shuffle
