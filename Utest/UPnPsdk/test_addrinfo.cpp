@@ -1229,7 +1229,6 @@ TEST(AddrinfoTestSuite, check_netaddrp) {
     EXPECT_EQ(saddr.netaddrp(), "127.0.0.1:50002");
 }
 
-#ifndef _WIN32
 #if !defined(IN6_IS_ADDR_GLOBAL)
 /// \brief If IN6_IS_ADDR_GLOBAL is not defined then this is set.
 #define IN6_IS_ADDR_GLOBAL(a)                                                  \
@@ -1341,7 +1340,6 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
         EXPECT_TRUE(IN6_IS_ADDR_V4COMPAT(sa6));
     }
 }
-#endif
 
 TEST(AddrinfoTestSuite, get_sockaddr) {
     CAddrinfo aiObj("[2001:db8::2%1]:47111");
