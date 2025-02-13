@@ -106,9 +106,13 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A general TODO-list. </p>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd><ul>
+<li>Improve Unit Tests for CNetadapter module with mocking addresses.</li>
+<li>Check CNetadapter_platform::is_valid_if() for win32.</li>
+<li>Rework Unit Tests for UpnpGetIfInfo. There is no need anymore to have different tests for platforms.</li>
+<li>Reformat UPnPsdk_LOG* output.</li>
+<li>Make the sample program running with the compatible library.</li>
 <li>Provide IP-Address instead of interface name to <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a> (<a href="https://datatracker.ietf.org/doc/html/rfc3484">https://datatracker.ietf.org/doc/html/rfc3484</a>).</li>
 <li>Make SSockaddr structure to support AF_UNIX.</li>
-<li>Remove IN6_IS_ADDR_GLOBAL, should be checked by kernel or system library (<a href="https://datatracker.ietf.org/doc/html/rfc6890">https://datatracker.ietf.org/doc/html/rfc6890</a>)</li>
 <li>Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.</li>
 <li>Improve tests for OpenSSL (test_sock.cpp, sock read_ssl, sock write_ssl).</li>
 <li>Create no mocked tests for <a href="#" onclick="location.href='mai'+'lto:'+'CSi'+'gp'+'ipe'+'@s'+'ock'+'.c'+'pp'; return false;">CSigp<span class="obfuscator">.nosp@m.</span>ipe@<span class="obfuscator">.nosp@m.</span>sock.<span class="obfuscator">.nosp@m.</span>cpp</a>, read and write data using UPnP-Device.</li>

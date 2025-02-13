@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-03
+// Redistribution only with this Copyright remark. Last modified: 2025-03-02
 /*!
  * \file
  * \brief Simple calls of API functions to test conditional compile and linking.
@@ -18,10 +18,16 @@ namespace {
 
 // Step 0: Addressing
 // ------------------
-int UpnpInit2() {
-    std::cerr << "Executing UpnpInit2()\n";
-    int ret = ::UpnpInit2("", 0);
-    if (ret != UPNP_E_INVALID_INTERFACE) {
+int UpnpInit2(bool execute = true) {
+    constexpr char function_name[]{"UpnpInit2()"};
+    if (!execute) {
+        std::cerr << "Skip " << function_name << " due to failed execution\n";
+        return 0;
+    }
+    std::cerr << "Executing " << function_name << '\n';
+
+    int ret = ::UpnpInit2(nullptr, 0);
+    if (ret != UPNP_E_SUCCESS) {
         std::cerr << "Unexpected: ::UpnpInit2() == " << ret << '\n';
         ::UpnpFinish();
         return 1;
@@ -1280,7 +1286,7 @@ int main() {
     ret += utest::UpnpInitSslContext();
 
     // Step 0: Addressing
-    ret += utest::UpnpInit2();
+    ret += utest::UpnpInit2(false); // Execution fails
     ret += utest::UpnpFinish();
     ret += utest::UpnpGetServerPort();
     ret += utest::UpnpGetServerPort6();

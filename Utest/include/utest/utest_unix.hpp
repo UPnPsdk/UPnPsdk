@@ -1,7 +1,7 @@
 #ifndef UTEST_TOOLS_UNIX_HPP
 #define UTEST_TOOLS_UNIX_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-02-15
 
 #include <UPnPsdk/visibility.hpp>
 #include <ifaddrs.h>
@@ -11,9 +11,9 @@
 
 namespace utest {
 
-class UPNPLIB_API CIfaddr4
-// Tool to manage and fill a socket address structure. This is needed
-// for mocked network interfaces.
+class UPnPsdk_API CIfaddr4
+// Tool to manage and fill an IPv4 socket address structure. This is needed for
+// mocked network interfaces.
 {
   public:
     CIfaddr4();
@@ -43,6 +43,24 @@ class UPNPLIB_API CIfaddr4
             "255.255.255.128", "255.255.255.192", "255.255.255.224", "255.255.255.240",
             "255.255.255.248", "255.255.255.252", "255.255.255.254", "255.255.255.255"};
     // clang-format on
+};
+
+
+class UPnPsdk_API CIfaddr6 {
+    // Tool to manage and fill an IPv6 socket address structure. This is needed
+    // for mocked network interfaces.
+  public:
+    CIfaddr6();
+    ifaddrs* get();
+    bool set(const std::string_view a_Ifname, std::string_view a_Ifaddress);
+    void chain_next_addr(struct ifaddrs* a_ptrNextAddr);
+
+  private:
+    ifaddrs m_ifaddr{};
+
+    std::string m_ifa_name{};     // name of the adapter/interface
+    sockaddr_in6 m_ifa_addr{};    // network address
+    sockaddr_in6 m_ifa_netmask{}; // netmask
 };
 
 } // namespace utest

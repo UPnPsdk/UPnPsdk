@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-02-11
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-01
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -95,10 +95,13 @@ enum MiniServerState {
 };
 
 /// \cond
-// Instantiate socket objects for internal use by the miniserver.
-UPnPsdk::CSocket Sock6LlaObj;
-UPnPsdk::CSocket Sock6UadObj;
-UPnPsdk::CSocket Sock4Obj;
+#ifdef COMPA_HAVE_WEBSERVER
+// Pointer to dynamic allocated socket objects for internal use by the
+// miniserver.
+UPnPsdk::CSocket* pSockLlaObj{nullptr};
+UPnPsdk::CSocket* pSockGuaObj{nullptr};
+UPnPsdk::CSocket* pSock4Obj{nullptr};
+#endif
 /// \endcond
 
 /*! \brief Port of the stop socket.
@@ -602,8 +605,8 @@ int receive_from_stopSock(
         return 1;
     }
 
-    // 16777343 are netorder bytes of "127.0.0.1"
-    if (clientAddr.sin.sin_addr.s_addr != 16777343 ||
+    // integer of "127.0.0.1" is 2130706433.
+    if (clientAddr.sin.sin_addr.s_addr != htonl(2130706433) ||
         strcmp(receiveBuf, shutdown_str) != 0) //
     {
         char nullstr[]{"\\0"};
@@ -825,7 +828,8 @@ int get_port(
  * \brief Create STREAM sockets, binds to local network interfaces and listens
  * for incoming connections.
  *
- * Only available with the webserver compiled in.
+ * This is part of starting the miniserver and only available with the webserver
+ * compiled in. Initialized resources here are freed with StopMiniServer(),
  *
  * \returns
  *  On success: UPNP_E_SUCCESS\n
@@ -863,19 +867,21 @@ int get_miniserver_sockets(
 
     int retval{UPNP_E_OUTOF_SOCKET};
 
-    if (out->MiniSvrSock6LlaObj != nullptr && gIF_IPV6[0] != '\0') {
+    if (gIF_IPV6[0] != '\0') {
         try {
             UPnPsdk::SSockaddr saObj;
             saObj = '[' + std::string(gIF_IPV6) +
                     "]:" + std::to_string(listen_port6);
-            out->MiniSvrSock6LlaObj->bind(SOCK_STREAM, &saObj);
-            out->MiniSvrSock6LlaObj->listen();
-            out->miniServerSock6 = *out->MiniSvrSock6LlaObj;
-            out->MiniSvrSock6LlaObj->sockaddr(saObj);
+            pSockLlaObj->bind(SOCK_STREAM, &saObj, AI_PASSIVE);
+            pSockLlaObj->listen();
+            out->miniServerSock6 = *pSockLlaObj;
+            pSockLlaObj->sockaddr(saObj);
             out->miniServerPort6 = saObj.get_port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& e) {
-            UPnPsdk_LOGCATCH "MSG1110: catched next line...\n" << e.what();
+            UPnPsdk_LOGCATCH "MSG1110: gIF_IPV6=\""
+                << gIF_IPV6 << "\", catched next line...\n"
+                << e.what();
         }
     }
 
@@ -883,34 +889,38 @@ int get_miniserver_sockets(
     // I could not find where sin6_scope_id is read elsewhere to use it.
     // It is never copied to 'out'. --Ingo
 
-    if (out->MiniSvrSock6UadObj != nullptr && gIF_IPV6_ULA_GUA[0] != '\0') {
+    if (gIF_IPV6_ULA_GUA[0] != '\0') {
         try {
             UPnPsdk::SSockaddr saObj;
             saObj = '[' + std::string(gIF_IPV6_ULA_GUA) +
                     "]:" + std::to_string(listen_port6UlaGua);
-            out->MiniSvrSock6UadObj->bind(SOCK_STREAM, &saObj);
-            out->MiniSvrSock6UadObj->listen();
-            out->miniServerSock6UlaGua = *out->MiniSvrSock6UadObj;
-            out->MiniSvrSock6UadObj->sockaddr(saObj);
+            pSockGuaObj->bind(SOCK_STREAM, &saObj, AI_PASSIVE);
+            pSockGuaObj->listen();
+            out->miniServerSock6UlaGua = *pSockGuaObj;
+            pSockGuaObj->sockaddr(saObj);
             out->miniServerPort6UlaGua = saObj.get_port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& e) {
-            UPnPsdk_LOGCATCH "MSG1117: catched next line...\n" << e.what();
+            UPnPsdk_LOGCATCH "MSG1117: gIF_IPV6_ULA_GUA=\""
+                << gIF_IPV6_ULA_GUA << "\", catched next line...\n"
+                << e.what();
         }
     }
 
-    if (out->MiniSvrSock4Obj != nullptr && gIF_IPV4[0] != '\0') {
+    if (gIF_IPV4[0] != '\0') {
         try {
             UPnPsdk::SSockaddr saObj;
             saObj = std::string(gIF_IPV4) + ':' + std::to_string(listen_port4);
-            out->MiniSvrSock4Obj->bind(SOCK_STREAM, &saObj);
-            out->MiniSvrSock4Obj->listen();
-            out->miniServerSock4 = *out->MiniSvrSock4Obj;
-            out->MiniSvrSock4Obj->sockaddr(saObj);
+            pSock4Obj->bind(SOCK_STREAM, &saObj, AI_PASSIVE);
+            pSock4Obj->listen();
+            out->miniServerSock4 = *pSock4Obj;
+            pSock4Obj->sockaddr(saObj);
             out->miniServerPort4 = saObj.get_port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& e) {
-            UPnPsdk_LOGCATCH "MSG1114: catched next line...\n" << e.what();
+            UPnPsdk_LOGCATCH "MSG1114: gIF_IPV4=\""
+                << gIF_IPV4 << "\", catched next line...\n"
+                << e.what();
         }
     }
 
@@ -1001,10 +1011,6 @@ void InitMiniServerSockArray(
     miniSocket->ssdpReqSock4 = INVALID_SOCKET;
     miniSocket->ssdpReqSock6 = INVALID_SOCKET;
 #endif
-    // Point to the needed socket objects in miniSocket
-    miniSocket->MiniSvrSock6LlaObj = &Sock6LlaObj;
-    miniSocket->MiniSvrSock6UadObj = &Sock6UadObj;
-    miniSocket->MiniSvrSock4Obj = &Sock4Obj;
 }
 
 /// @} // Functions (scope restricted to file)
@@ -1041,6 +1047,7 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
         UPnPsdk_LOGERR "MSG1087: Cannot start. Miniserver is running.\n";
         return UPNP_E_INTERNAL_ERROR;
     }
+
     miniSocket = (MiniServerSockArray*)malloc(sizeof(MiniServerSockArray));
     if (!miniSocket) {
         return UPNP_E_OUTOF_MEMORY;
@@ -1067,6 +1074,11 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
         if (*listen_port6UlaGua == 0)
             *listen_port6UlaGua = listen_port;
     }
+
+    pSockLlaObj = new UPnPsdk::CSocket;
+    pSockGuaObj = new UPnPsdk::CSocket;
+    pSock4Obj = new UPnPsdk::CSocket;
+
     /* V4 and V6 http listeners. */
     ret_code = get_miniserver_sockets(miniSocket, *listen_port4, *listen_port6,
                                       *listen_port6UlaGua);
@@ -1185,7 +1197,14 @@ int StopMiniServer() {
         }
         isleep(1u);
     }
+#ifdef COMPA_HAVE_WEBSERVER
+    delete pSockLlaObj;
+    pSockLlaObj = nullptr;
+    delete pSockGuaObj;
+    pSockGuaObj = nullptr;
+    delete pSock4Obj;
+    pSock4Obj = nullptr;
+#endif
     sock_close(sock);
-
     return 0;
 }

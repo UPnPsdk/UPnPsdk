@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-11-06
+# Redistribution only with this Copyright remark. Last modified: 2025-02-23
 
 cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -172,6 +172,9 @@ add_compile_options(
         # _strdup. See online help for details. (This is Microsoft specific, no
         # need to fix).
         $<$<CXX_COMPILER_ID:MSVC>:/wd4996>
+        # Disable warning C4456: declaration of 'var' hides previous local
+        # declaration. I like to redeclare local variable names.
+        $<$<CXX_COMPILER_ID:MSVC>:/wd4456>
         # lots of warnings and all warnings as errors
         $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall>
         $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wextra>

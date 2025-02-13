@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-26
+// Redistribution only with this Copyright remark. Last modified: 2025-02-27
 
 #ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -220,9 +220,8 @@ TEST(NetadapterTestSuite, bitmask_to_netmask_fails) {
     EXPECT_EQ(saddrObj.netaddrp(), ":0");
 
     saddr.ss.ss_family = static_cast<sa_family_t>(231);
-    bitmask_to_netmask(&saddr.ss, 64, saddrObj);
-    EXPECT_EQ(saddrObj.ss.ss_family, AF_UNSPEC);
-    EXPECT_EQ(saddrObj.netaddrp(), ":0");
+    EXPECT_THROW(bitmask_to_netmask(&saddr.ss, 64, saddrObj),
+                 std::runtime_error);
 
     EXPECT_THROW(bitmask_to_netmask(/*in*/ nullptr, /*in*/ 64,
                                     /*out netmask*/ saddrObj),
@@ -301,14 +300,15 @@ TEST(NetadapterTestSuite, find_first_adapters_info) {
     nadaptObj.socknetmask(saddrObj);
     EXPECT_EQ(saddrObj.netaddr(), "");
 
-    EXPECT_FALSE(nadaptObj.find_first(""));
-    EXPECT_EQ(nadaptObj.index(), 0);
-    EXPECT_EQ(nadaptObj.name(), "");
-    EXPECT_EQ(nadaptObj.bitmask(), 0);
+    // This will return a prefered socket address from the operating system.
+    EXPECT_TRUE(nadaptObj.find_first(""));
+    EXPECT_NE(nadaptObj.index(), 0);
+    EXPECT_NE(nadaptObj.name(), "");
+    EXPECT_NE(nadaptObj.bitmask(), 0);
     nadaptObj.sockaddr(saddrObj);
-    EXPECT_EQ(saddrObj.netaddrp(), ":0");
+    EXPECT_NE(saddrObj.netaddrp(), ":0");
     nadaptObj.socknetmask(saddrObj);
-    EXPECT_EQ(saddrObj.netaddr(), "");
+    EXPECT_NE(saddrObj.netaddr(), "");
 }
 
 TEST(NetadapterTestSuite, find_loopback_adapter_info) {

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-02
+// Redistribution only with this Copyright remark. Last modified: 2025-03-01
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -144,6 +144,20 @@ class StartMiniServerFTestSuite : public ::testing::Test {
         gIF_INDEX = unsigned(-1);
         memset(&errno, 0xAA, sizeof(errno));
         gMServState = MSERV_IDLE;
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+        if (pSockLlaObj != nullptr) {
+            delete pSockLlaObj;
+            pSockLlaObj = nullptr;
+        }
+        if (pSockGuaObj != nullptr) {
+            delete pSockGuaObj;
+            pSockGuaObj = nullptr;
+        }
+        if (pSock4Obj != nullptr) {
+            delete pSock4Obj;
+            pSock4Obj = nullptr;
+        }
+#endif
     }
 };
 
@@ -834,9 +848,9 @@ TEST_F(StartMiniServerMockFTestSuite,
 
 #else // new code
 
-    // Instantiate a socket object and point to it in miniSocket().
-    UPnPsdk::CSocket Socket4Obj;
-    miniSocket.MiniSvrSock4Obj = &Socket4Obj;
+    pSockLlaObj = new UPnPsdk::CSocket;
+    pSockGuaObj = new UPnPsdk::CSocket;
+    pSock4Obj = new UPnPsdk::CSocket;
 
     // Mock socket object initialization
     EXPECT_CALL(m_sys_socketObj,
@@ -884,6 +898,15 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_EQ(miniSocket.miniServerPort6UlaGua, 0u);
     EXPECT_EQ(miniSocket.ssdpReqSock4, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.ssdpReqSock6, INVALID_SOCKET);
+
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+    delete pSockLlaObj;
+    pSockLlaObj = nullptr;
+    delete pSockGuaObj;
+    pSockGuaObj = nullptr;
+    delete pSock4Obj;
+    pSock4Obj = nullptr;
+#endif
 }
 
 TEST_F(StartMiniServerMockFTestSuite,
@@ -924,9 +947,9 @@ TEST_F(StartMiniServerMockFTestSuite,
 
 #else // new_code
 
-    // Instantiate a socket object and point to it in miniSocket().
-    UPnPsdk::CSocket Socket6LlaObj;
-    miniSocket.MiniSvrSock6LlaObj = &Socket6LlaObj;
+    pSockLlaObj = new UPnPsdk::CSocket;
+    pSockGuaObj = new UPnPsdk::CSocket;
+    pSock4Obj = new UPnPsdk::CSocket;
 
     // Expect resetting SO_REUSEADDR.
     EXPECT_CALL(m_sys_socketObj,
@@ -978,6 +1001,13 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_EQ(miniSocket.miniServerPort6UlaGua, 0u);
     EXPECT_EQ(miniSocket.ssdpReqSock4, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.ssdpReqSock6, INVALID_SOCKET);
+
+    delete pSockLlaObj;
+    pSockLlaObj = nullptr;
+    delete pSockGuaObj;
+    pSockGuaObj = nullptr;
+    delete pSock4Obj;
+    pSock4Obj = nullptr;
 }
 #endif
 
@@ -1092,9 +1122,9 @@ TEST_F(StartMiniServerMockFTestSuite,
 
 #else // new code
 
-    // Instantiate a socket object and point to it in miniSocket().
-    UPnPsdk::CSocket Socket4Obj;
-    miniSocket.MiniSvrSock4Obj = &Socket4Obj;
+    pSockLlaObj = new UPnPsdk::CSocket;
+    pSockGuaObj = new UPnPsdk::CSocket;
+    pSock4Obj = new UPnPsdk::CSocket;
 
 #ifdef _MSC_VER
     EXPECT_CALL(m_winsock2Obj, WSAGetLastError()).WillOnce(Return(WSAEINVAL));
@@ -1106,6 +1136,13 @@ TEST_F(StartMiniServerMockFTestSuite,
 
     EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET)
         << errStrEx(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET);
+
+    delete pSockLlaObj;
+    pSockLlaObj = nullptr;
+    delete pSockGuaObj;
+    pSockGuaObj = nullptr;
+    delete pSock4Obj;
+    pSock4Obj = nullptr;
 #endif
     {
         SCOPED_TRACE("");

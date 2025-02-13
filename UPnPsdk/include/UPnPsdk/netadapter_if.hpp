@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_IF_HPP
 #define UPnPsdk_NETADAPTER_IF_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-25
+// Redistribution only with this Copyright remark. Last modified: 2025-02-27
 /*!
  * \file
  * \brief C++ interface to manage information from different platforms about
@@ -111,7 +111,10 @@ class UPnPsdk_API INetadapter {
     virtual void reset() noexcept = 0;
 
   protected:
+    /// \cond
+    // Index of the current found network adapter.
     unsigned int m_find_index{};
+    /// \endcond
 };
 
 } // namespace UPnPsdk

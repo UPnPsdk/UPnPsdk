@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-25
+// Redistribution only with this Copyright remark. Last modified: 2025-02-27
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -86,10 +86,9 @@ uint8_t netmask_to_bitmask(const ::sockaddr_storage* a_netmask) {
                 AF_INET,
                 &reinterpret_cast<const ::sockaddr_in*>(a_netmask)->sin_addr,
                 ip_str, sizeof(ip_str));
-            throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT +
-                "MSG1069: Invalid ip-address prefix bitmask \"" +
-                std::string(ip_str) + "\".\n");
+            throw std::runtime_error(UPnPsdk_LOGEXCEPT +
+                                     "MSG1069: Invalid ip-address netmask \"" +
+                                     std::string(ip_str) + "\".\n");
         }
     } break;
 
@@ -181,18 +180,23 @@ void bitmask_to_netmask(const ::sockaddr_storage* a_saddr,
         a_saddrObj.sin = saddr;
     } break;
 
-    default: {
-        UPnPsdk_LOGCRIT "MSG1126: Invalid address family("
-            << a_saddr->ss_family << "), only AF_INET6(" << AF_INET6
-            << ") or AF_INET(" << AF_INET
-            << ") are valid. Continue with AF_UNSPEC(" << AF_UNSPEC << ").\n";
+    case AF_UNSPEC: {
         a_saddrObj = "";
-        a_saddrObj.ss.ss_family = AF_UNSPEC;
+    } break;
+
+    default: {
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT + "MSG1126: Unsupported address family(" +
+            std::to_string(a_saddr->ss_family) + "), only AF_INET6(" +
+            std::to_string(AF_INET6) + "), AF_INET(" + std::to_string(AF_INET) +
+            "), or AF_UNSPEC(" + std::to_string(AF_UNSPEC) + ") are valid.\n");
     }
     } // switch
 }
 
 
+// CNetadapter class
+// =================
 CNetadapter::CNetadapter(){
     TRACE2(this, " Constnuct CNetadapter()") //
 }
@@ -203,18 +207,31 @@ CNetadapter::~CNetadapter() {
 
 bool CNetadapter::find_first(const std::string& a_name_or_addr) {
     TRACE2(this, " Executing CNetadapter::find_first(" + a_name_or_addr + ")")
-    // First look for a loopback interface.
+
+    // By default look for a valid ip address.
+    // ---------------------------------------
+    // The operating system presents one as best choise.
+    if (a_name_or_addr.empty()) {
+        SSockaddr sa_nadObj;
+        this->reset(); // noexcept
+        do {
+            this->sockaddr(sa_nadObj);
+            if (!sa_nadObj.is_loopback())
+                return true;
+        } while (this->get_next());
+
+        // No usable address found, nothing more to do.
+        return false;
+    }
+
+    // Look for a loopback interface.
+    // ------------------------------
     if (a_name_or_addr == "loopback") {
         SSockaddr sa_nadObj;
         this->reset();
         do {
             this->sockaddr(sa_nadObj);
-            if ((sa_nadObj.ss.ss_family == AF_INET6 &&
-                 IN6_IS_ADDR_LOOPBACK(&sa_nadObj.sin6.sin6_addr)) ||
-                (sa_nadObj.ss.ss_family == AF_INET &&
-                 // address between "127.0.0.0" and "127.255.255.255"
-                 ntohl(sa_nadObj.sin.sin_addr.s_addr) >= 2130706432 &&
-                 ntohl(sa_nadObj.sin.sin_addr.s_addr) <= 2147483647)) {
+            if (sa_nadObj.is_loopback()) {
                 m_find_index = this->index();
                 return true;
             }
@@ -224,7 +241,8 @@ bool CNetadapter::find_first(const std::string& a_name_or_addr) {
         return false;
     }
 
-    // Look for a local network adapter name
+    // Look for a local network adapter name.
+    // --------------------------------------
     this->reset();
     do {
         if (this->name() == a_name_or_addr) {
@@ -234,6 +252,7 @@ bool CNetadapter::find_first(const std::string& a_name_or_addr) {
     } while (this->get_next());
 
     // No name found, look for the ip address of a local network adapter.
+    // ------------------------------------------------------------------
     // Try to translate input argument to a socket address.
     CAddrinfo ainfoObj(a_name_or_addr, AI_NUMERICHOST, 0);
     if (!ainfoObj.get_first())
@@ -243,15 +262,13 @@ bool CNetadapter::find_first(const std::string& a_name_or_addr) {
     SSockaddr sa_inputObj{};
     ainfoObj.sockaddr(sa_inputObj);
 
-    // Parse network adapter list for the given input argument.
+    // Parse network adapter list for the given input ip address.
     SSockaddr sa_nadObj;
     this->reset();
     do {
         this->sockaddr(sa_nadObj);
-        if (sa_nadObj == sa_inputObj) {
-            m_find_index = this->index();
+        if (sa_nadObj == sa_inputObj)
             return true;
-        }
     } while (this->get_next());
 
     return false;

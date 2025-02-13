@@ -8,5 +8,5 @@ var classUPnPsdk_1_1INetadapter =
     [ "name", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a3d39079c1e95b80cfc47da504b19ea7a", null ],
     [ "sockaddr", "d6/d3e/classUPnPsdk_1_1INetadapter.html#af61a58371ffea2f7a08d3630721ff40e", null ],
     [ "socknetmask", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a181d9055271c4dfc92921aac0248ac87", null ],
-    [ "prefix_length", "d6/d3e/classUPnPsdk_1_1INetadapter.html#adc374b7d34a3fdbc90158082989d3e28", null ]
+    [ "bitmask", "d6/d3e/classUPnPsdk_1_1INetadapter.html#a6a01e506ac931b8ebcbc72f44c8878d0", null ]
 ];

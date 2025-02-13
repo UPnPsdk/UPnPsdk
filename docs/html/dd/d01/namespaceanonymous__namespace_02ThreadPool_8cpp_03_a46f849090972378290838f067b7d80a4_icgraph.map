@@ -12,7 +12,7 @@
 <area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="1342,358,1292,292,1258,256,1219,224,1195,211,1197,206,1221,220,1261,252,1296,288,1346,355"/>
 <area shape="rect" id="Node000014" href="$df/d13/ssdp__common_8cpp.html#af3e17308ebc31e7e81c476624487614c" title="This function reads the data from the ssdp socket." alt="" coords="524,551,685,576"/>
 <area shape="poly" id="edge15_Node000002_Node000014" title=" " alt="" coords="1355,408,1338,453,1312,509,1273,563,1249,587,1221,606,1183,624,1143,638,1059,653,973,656,889,648,810,633,739,614,636,579,637,574,740,609,811,628,890,642,973,650,1058,648,1141,633,1181,619,1219,601,1245,583,1269,560,1307,506,1334,451,1350,406"/>
-<area shape="rect" id="Node000017" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a4a107199de415d50f725a5c6a327c1be" title="Initilize the thread pool to handle a request, sets priority for the job and adds the job to the thre..." alt="" coords="1003,385,1209,440"/>
+<area shape="rect" id="Node000017" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a80129c74e300de9e2a06be5067e47ae5" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="1003,385,1209,440"/>
 <area shape="poly" id="edge18_Node000002_Node000017" title=" " alt="" coords="1287,393,1209,402,1209,397,1286,387"/>
 <area shape="rect" id="Node000019" href="$d7/d5e/group__SSDP-ctrlpt__functions.html#ga07ee8d9e5104cbeb9949ec23e0d4113b" title="This function handles the ssdp messages from the devices." alt="" coords="1017,565,1195,591"/>
 <area shape="poly" id="edge21_Node000002_Node000019" title=" " alt="" coords="1347,407,1298,477,1262,516,1221,548,1178,568,1176,563,1219,544,1259,512,1294,474,1343,404"/>
@@ -52,7 +52,7 @@
 <area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="510,558,467,555,467,549,511,553"/>
 <area shape="rect" id="Node000016" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="5,481,205,536"/>
 <area shape="poly" id="edge17_Node000015_Node000016" title=" " alt="" coords="239,530,205,525,206,520,240,524"/>
-<area shape="rect" id="Node000018" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a34abbc6e410d0cfd24057c79c9f1b9c3" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="515,416,695,471"/>
+<area shape="rect" id="Node000018" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="515,416,695,471"/>
 <area shape="poly" id="edge19_Node000017_Node000018" title=" " alt="" coords="990,422,695,441,695,435,989,417"/>
 <area shape="poly" id="edge20_Node000018_Node000016" title=" " alt="" coords="501,459,206,498,205,493,501,454"/>
 <area shape="rect" id="Node000020" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a" title="This function is a thread that handles SSDP requests." alt="" coords="743,536,944,591"/>

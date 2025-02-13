@@ -1,4 +1,4 @@
 var netadapter__win32_8cpp =
 [
-    [ "bitnum_to_netmask", "d6/dda/netadapter__win32_8cpp.html#a81650637c3cc2fe6e9c523d5cfe4c067", null ]
+    [ "bitmask_to_netmask", "d6/dda/netadapter__win32_8cpp.html#a56d7e10a49db37e7cbf2bea819c2c0ac", null ]
 ];

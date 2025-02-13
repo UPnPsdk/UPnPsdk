@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-02
+// Redistribution only with this Copyright remark. Last modified: 2025-02-27
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -265,6 +265,12 @@ struct UPnPsdk_API SSockaddr {
     socklen_t sizeof_saddr() const;
     /// @} Getter
 
+
+    /// \brief Get if the socket address is a loopback address
+    // -------------------------------------------------------
+    bool is_loopback() const;
+
+
   private:
     sockaddr_t m_sa_union{}; // this is the union of trivial sockaddr structures
                              // that is managed.
@@ -277,6 +283,7 @@ struct UPnPsdk_API SSockaddr {
     SUPPRESS_MSVC_WARN_4251_NEXT_LINE
     std::string m_netaddrp; // For a netaddress with port
 };
+
 
 // Getter of the netaddress to output stream
 // -----------------------------------------

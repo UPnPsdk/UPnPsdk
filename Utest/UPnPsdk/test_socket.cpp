@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-03
+// Redistribution only with this Copyright remark. Last modified: 2025-02-27
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -983,9 +983,9 @@ TEST(SocketTestSuite, bind_two_times_different_addresses_fail) {
     SSockaddr saddr2;
     saddr2 = ":50002"; // Modifies only port
     EXPECT_THAT(([&sockObj, &saddr2]() { sockObj.bind(SOCK_STREAM, &saddr2); }),
-                ThrowsMessage<std::runtime_error>(
-                    ContainsStdRegex("\\] EXCEPTION MSG1137: .* bound to "
-                                     "netaddress \"\\[::1\\]:50001\"")));
+                ThrowsMessage<std::runtime_error>(ContainsStdRegex(
+                    "\\] EXCEPTION MSG1137: .* bound to "
+                    "netaddress \"(\\[::1\\]|127\\.0\\.0\\.1):50001\"")));
 }
 
 TEST(SocketTestSuite, bind_with_invalid_argument_fails) {

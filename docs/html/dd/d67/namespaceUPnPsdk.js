@@ -1,9 +1,6 @@
 var namespaceUPnPsdk =
 [
     [ "anonymous_namespace{global.cpp}", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03.html", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03" ],
-    [ "anonymous_namespace{netadapter_win32.cpp}", "d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html", [
-      [ "bitnum_to_netmask", "d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html#a81650637c3cc2fe6e9c523d5cfe4c067", null ]
-    ] ],
     [ "anonymous_namespace{sockaddr.cpp}", "d7/d77/namespaceUPnPsdk_1_1anonymous__namespace_02sockaddr_8cpp_03.html", [
       [ "sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ],
       [ "to_port", "d0/dd8/group__upnplib-addrmodul.html#ga15c2857e134c29ff3dae7e20ff62b5df", null ]
@@ -13,7 +10,7 @@ var namespaceUPnPsdk =
       [ "get_sockfd", "db/d86/group__upnplib-socket.html#gaff979637c7cac7b0ef5df38ec5eae017", null ]
     ] ],
     [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
-    [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ],
+    [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", "d8/d37/classUPnPsdk_1_1CNetadapter" ],
     [ "CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform" ],
     [ "CRootdevice", "dd/d06/classUPnPsdk_1_1CRootdevice.html", "dd/d06/classUPnPsdk_1_1CRootdevice" ],
     [ "CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
@@ -23,7 +20,7 @@ var namespaceUPnPsdk =
     [ "CStrIntMap", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", "d7/d1a/classUPnPsdk_1_1CStrIntMap" ],
     [ "CUri", "da/dcf/classUPnPsdk_1_1CUri.html", "da/dcf/classUPnPsdk_1_1CUri" ],
     [ "Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", "dd/d67/namespaceUPnPsdk_db/dfe/structUPnPsdk_1_1Document__meta_dup" ],
-    [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", "d6/d3e/classUPnPsdk_1_1INetadapter" ],
+    [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", null ],
     [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
     [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", "dc/df7/structUPnPsdk_1_1SSockaddr" ],
     [ "str_int_entry", "dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry", "dd/d67/namespaceUPnPsdk_de/dd6/structUPnPsdk_1_1str__int__entry_dup" ],
@@ -49,6 +46,8 @@ var namespaceUPnPsdk =
       [ "SOAPMETHOD_POST", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60af36f6651a84f4a8ff85fa2cecc25505c", null ],
       [ "HTTPMETHOD_SIMPLEGET", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60ad9d286da9f9dc214d6ec88ab465d42f2", null ]
     ] ],
+    [ "netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71", null ],
+    [ "bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#ga5f66fceda4eaabc471e06dd5d56939de", null ],
     [ "split_addr_port", "d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30", null ],
     [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],
     [ "errStr", "dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588", null ],

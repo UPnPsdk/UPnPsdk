@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-12-19
+ * Redistribution only with this Copyright remark. Last modified: 2025-02-28
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1536,10 +1536,8 @@ int web_server_init() {
         virtualDirCallback.seek = NULL;
         virtualDirCallback.close = NULL;
 
-        if (pthread_mutex_init(&gWebMutex, NULL) == -1)
-            ret = UPNP_E_OUTOF_MEMORY;
-        else
-            bWebServerState = WEB_SERVER_ENABLED;
+        pthread_mutex_init(&gWebMutex, NULL); // Returns always 0
+        bWebServerState = WEB_SERVER_ENABLED;
     }
 
     return ret;

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-02-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -103,7 +103,7 @@
 #include <openssl/ssl.h>
 #endif
 
-#ifndef IN6_IS_ADDR_GLOBAL
+#if !defined(_MSC_VER) && !defined(IN6_IS_ADDR_GLOBAL)
 #define IN6_IS_ADDR_GLOBAL(a)                                                  \
     ((((__const uint32_t*)(a))[0] & htonl((uint32_t)0x70000000)) ==            \
      htonl((uint32_t)0x20000000))

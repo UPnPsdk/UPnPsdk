@@ -26,7 +26,7 @@ var annotated_dup =
         [ "CWSAStartup", "d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html", null ]
       ] ],
       [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
-      [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ],
+      [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", "d8/d37/classUPnPsdk_1_1CNetadapter" ],
       [ "CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform" ],
       [ "CRootdevice", "dd/d06/classUPnPsdk_1_1CRootdevice.html", "dd/d06/classUPnPsdk_1_1CRootdevice" ],
       [ "CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
@@ -36,7 +36,7 @@ var annotated_dup =
       [ "CStrIntMap", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", "d7/d1a/classUPnPsdk_1_1CStrIntMap" ],
       [ "CUri", "da/dcf/classUPnPsdk_1_1CUri.html", "da/dcf/classUPnPsdk_1_1CUri" ],
       [ "Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", "dd/d67/namespaceUPnPsdk_db/dfe/structUPnPsdk_1_1Document__meta_dup" ],
-      [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", "d6/d3e/classUPnPsdk_1_1INetadapter" ],
+      [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", null ],
       [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
       [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", "dc/df7/structUPnPsdk_1_1SSockaddr" ],
       [ "str_int_entry", "dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry", "dd/d67/namespaceUPnPsdk_de/dd6/structUPnPsdk_1_1str__int__entry_dup" ]

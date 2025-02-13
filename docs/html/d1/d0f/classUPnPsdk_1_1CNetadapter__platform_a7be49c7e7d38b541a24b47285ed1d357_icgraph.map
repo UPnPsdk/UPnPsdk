@@ -1,14 +1,17 @@
 <map id="UPnPsdk::CNetadapter_platform::get_next" name="UPnPsdk::CNetadapter_platform::get_next">
-<area shape="rect" id="Node000001" title="Select next entry from the network adapter list that was initial loaded with INetadapter::get_first()..." alt="" coords="624,69,793,109"/>
+<area shape="rect" id="Node000001" title="Select next entry from the network adapter list that was initial loaded with INetadapter::get_first()..." alt="" coords="624,101,793,141"/>
 <area shape="rect" id="Node000002" href="$dd/d06/classUPnPsdk_1_1CRootdevice.html#a97d863e9d980ef662447c132fe0a7e53" title="Bind rootdevice to local network interfaces." alt="" coords="407,5,576,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="626,68,559,48,561,43,628,63"/>
-<area shape="rect" id="Node000003" href="$d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#ad30d8361037d6d7c036ac586702c87e1" title="Find local network adapter with given name or ip address." alt="" coords="407,69,576,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="610,92,576,92,576,87,610,87"/>
-<area shape="rect" id="Node000006" href="$d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8ef0b11c6f975b05d273a6bf4eab944e" title="Find local network adapter with given index number." alt="" coords="407,133,576,173"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="628,116,561,136,559,131,626,111"/>
-<area shape="rect" id="Node000004" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a85475c832574e6a96c33a5712b215a50" title="Retrieve network interface information and keep it in global variables." alt="" coords="139,69,359,109"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="393,92,359,92,359,87,393,87"/>
-<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="282,58,270,51,249,48,230,50,218,55,214,61,216,68,211,70,209,60,215,51,228,45,249,43,272,46,285,53"/>
-<area shape="rect" id="Node000005" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,77,91,102"/>
-<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="125,92,91,92,91,87,125,87"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="655,97,575,60,546,48,548,43,577,55,657,93"/>
+<area shape="rect" id="Node000003" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#aba753a991395b227d297a2ee64ba7173" title="Find local network adapter with given name or ip address." alt="" coords="407,69,576,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="610,110,576,104,576,99,611,104"/>
+<area shape="rect" id="Node000006" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ac15f127ad89cf573a0a1306d7e7ad66e" title="Find local network adapter with given index number." alt="" coords="407,133,576,173"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="611,138,576,144,576,138,610,133"/>
+<area shape="rect" id="Node000007" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from a selected network adapter." alt="" coords="407,197,576,237"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="657,150,577,188,548,200,546,195,575,183,655,145"/>
+<area shape="rect" id="Node000004" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a24d57a16f749d790337f24bee32b95a4" title="Retrieve network interface information and keep it in global variables." alt="" coords="139,133,359,173"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="402,115,326,136,324,131,401,110"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="282,122,270,115,249,112,230,114,218,119,214,125,216,132,211,134,209,124,215,115,228,109,249,107,272,110,285,117"/>
+<area shape="rect" id="Node000005" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,141,91,166"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="125,156,91,156,91,151,125,151"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="401,196,324,176,326,171,402,191"/>
 </map>

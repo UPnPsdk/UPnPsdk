@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('d7/d1b/sockaddr_8hpp_source.html','../
 <a href="../../d7/d1b/sockaddr_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef UPnPsdk_NET_SOCKADDR_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define UPnPsdk_NET_SOCKADDR_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-02-02</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-02-27</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/d21/visibility_8hpp.html">UPnPsdk/visibility.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d42/port_8hpp.html">UPnPsdk/port.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="../../d8/d43/port__sock_8hpp.html">UPnPsdk/port_sock.hpp</a>&gt;</span></div>
@@ -204,27 +204,33 @@ $(document).ready(function(){initNavTree('d7/d1b/sockaddr_8hpp_source.html','../
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="comment">// ----------------------------------------------------------------------</span></div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    socklen_t sizeof_saddr() const;</div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>  private:</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <a class="code hl_union" href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">sockaddr_t</a> m_sa_union{}; <span class="comment">// this is the union of trivial sockaddr structures</span></div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>                             <span class="comment">// that is managed.</span></div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="comment">// Two buffer to have the strings valid for the lifetime of the object. This</span></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="comment">// is important for pointer to the string, for example with getting a C</span></div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="comment">// string by using &#39;.c_str()&#39;.</span></div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    SUPPRESS_MSVC_WARN_4251_NEXT_LINE</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    std::string m_netaddr; <span class="comment">// For a netaddress without port</span></div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    SUPPRESS_MSVC_WARN_4251_NEXT_LINE</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    std::string m_netaddrp; <span class="comment">// For a netaddress with port</span></div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>};</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="comment">// -------------------------------------------------------</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keywordtype">bool</span> is_loopback() const;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>  private:</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <a class="code hl_union" href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">sockaddr_t</a> m_sa_union{}; <span class="comment">// this is the union of trivial sockaddr structures</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                             <span class="comment">// that is managed.</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="comment">// Two buffer to have the strings valid for the lifetime of the object. This</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="comment">// is important for pointer to the string, for example with getting a C</span></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="comment">// string by using &#39;.c_str()&#39;.</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    SUPPRESS_MSVC_WARN_4251_NEXT_LINE</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    std::string m_netaddr; <span class="comment">// For a netaddress without port</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    SUPPRESS_MSVC_WARN_4251_NEXT_LINE</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    std::string m_netaddrp; <span class="comment">// For a netaddress with port</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>};</div>
 </div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="comment">// Getter of the netaddress to output stream</span></div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="comment">// -----------------------------------------</span></div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno"><a class="line" href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">  292</a></span>UPnPsdk_API ::std::ostream&amp; <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">operator&lt;&lt;</a>(::std::ostream&amp; os, <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>&amp; saddr);</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>} <span class="comment">// namespace UPnPsdk</span></div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="preprocessor">#endif </span><span class="comment">// UPnPsdk_NET_SOCKADDR_HPP</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="comment">// Getter of the netaddress to output stream</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="comment">// -----------------------------------------</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno"><a class="line" href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">  299</a></span>UPnPsdk_API ::std::ostream&amp; <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">operator&lt;&lt;</a>(::std::ostream&amp; os, <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>&amp; saddr);</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>} <span class="comment">// namespace UPnPsdk</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="preprocessor">#endif </span><span class="comment">// UPnPsdk_NET_SOCKADDR_HPP</span></div>
 <div class="ttc" id="agroup__upnplib-addrmodul_html_d2/d11/unionUPnPsdk_1_1sockaddr__t"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">UPnPsdk::sockaddr_t</a></div><div class="ttdoc">Helpful union of the different socket address structures.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00034">sockaddr.hpp:34</a></div></div>
 <div class="ttc" id="agroup__upnplib-addrmodul_html_ga5ba9b68e7f75b3239270fc5956931e30"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30">UPnPsdk::split_addr_port</a></div><div class="ttdeci">void split_addr_port(const std::string &amp;a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</div><div class="ttdoc">Free function to split inet address and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00210">sockaddr.cpp:210</a></div></div>
 <div class="ttc" id="agroup__upnplib-addrmodul_html_ga7214f121f69c12bc1ddccce1297c12a9"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">UPnPsdk::operator&lt;&lt;</a></div><div class="ttdeci">UPnPsdk_API::std::ostream &amp; operator&lt;&lt;(::std::ostream &amp;os, SSockaddr &amp;saddr)</div><div class="ttdoc">output the netaddress</div></div>

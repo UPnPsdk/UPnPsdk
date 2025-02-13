@@ -9,7 +9,11 @@ var group__upnplib_addrmodul =
       [ "sockaddr", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342", null ],
       [ "what", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598", null ]
     ] ],
-    [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ],
+    [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", [
+      [ "find_first", "d8/d37/classUPnPsdk_1_1CNetadapter.html#aba753a991395b227d297a2ee64ba7173", null ],
+      [ "find_first", "d8/d37/classUPnPsdk_1_1CNetadapter.html#ac15f127ad89cf573a0a1306d7e7ad66e", null ],
+      [ "find_next", "d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c", null ]
+    ] ],
     [ "UPnPsdk::sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
     [ "UPnPsdk::SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", [
       [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html#ab010d4691740181daeda8e01cd97e965", null ],
@@ -22,12 +26,15 @@ var group__upnplib_addrmodul =
       [ "netaddrp", "dc/df7/structUPnPsdk_1_1SSockaddr.html#aa63701b8d311374ed6c1061b4d648a9e", null ],
       [ "get_port", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a97ea79fa03a7b544e5552e636d072c2f", null ],
       [ "sizeof_saddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53", null ],
+      [ "is_loopback", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a8457ec8e8e7da28afc70095f2f61a795", null ],
       [ "ss", "dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176", null ],
       [ "sun", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a6e0b9e33fdd62f45a1374e399e0bc082", null ],
       [ "sin6", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8", null ],
       [ "sin", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a12a001f2043f8c4ef1d45ec0f402e566", null ],
       [ "sa", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a7fb20663e898118cf58c34e3ad4bbf09", null ]
     ] ],
+    [ "UPnPsdk::netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71", null ],
+    [ "UPnPsdk::bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#ga5f66fceda4eaabc471e06dd5d56939de", null ],
     [ "UPnPsdk::split_addr_port", "d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30", null ],
     [ "UPnPsdk::operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],
     [ "UPnPsdk::anonymous_namespace{sockaddr.cpp}::sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ],

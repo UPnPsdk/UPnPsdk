@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-10
+// Redistribution only with this Copyright remark. Last modified: 2025-02-27
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -388,6 +388,7 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
     if (a_addr_str.empty()) {
         // This clears the complete socket address.
         ::memset(&m_sa_union, 0, sizeof(m_sa_union));
+        m_sa_union.ss.ss_family = AF_UNSPEC;
         return;
     }
     std::string ai_addr_str;
@@ -412,7 +413,7 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
         ::addrinfo hints{};
         hints.ai_flags = AI_NUMERICHOST | AI_NUMERICSERV;
         hints.ai_family = AF_UNSPEC;
-        ::addrinfo* res{nullptr};
+        ::addrinfo* res{nullptr}; // Result from getaddrinfo().
 
         // Call ::getaddrinfo() to check the ip address string.
         int ret = umock::netdb_h.getaddrinfo(ai_addr_str.c_str(),
@@ -565,6 +566,17 @@ socklen_t SSockaddr::sizeof_saddr() const {
     default:
         return 0;
     }
+}
+
+// Get if the socket address is a loopback address
+//  ----------------------------------------------
+bool SSockaddr::is_loopback() const {
+    return ((m_sa_union.ss.ss_family == AF_INET6 &&
+             IN6_IS_ADDR_LOOPBACK(&m_sa_union.sin6.sin6_addr)) ||
+            (m_sa_union.ss.ss_family == AF_INET &&
+             // address between "127.0.0.0" and "127.255.255.255"
+             ntohl(m_sa_union.sin.sin_addr.s_addr) >= 2130706432 &&
+             ntohl(m_sa_union.sin.sin_addr.s_addr) <= 2147483647));
 }
 
 /// \cond

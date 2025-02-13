@@ -7,7 +7,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-18
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-01
  * Copied from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,6 +39,17 @@
  * \file
  * \ingroup compa-Addressing
  * \brief Manage "Step 0: Addressing" of the UPnP+™ specification.
+ *
+ * The minserver program module is encapsulated in this file and has only some
+ * public available structures and functions. All other internals are
+ * restricted to file scope using the anonymous namespace. The miniserver is
+ * started with StartMiniServer(). It mainly initializes and manages the needed
+ * network sockets, starts a new thread and runs the miniserver in it with
+ * locking and unlocking mutexes. All constructed resources with
+ * StartMiniServer() are freed with StopMiniServer(). The miniserver is stopped
+ * through a separate stop socket that sends a regular network stop message to
+ * localhost for the running miniserver in its thread. This way the blocking
+ * ::%select() listing will always be triggered and can shutdown the miniserver.
  */
 
 #include <httpparser.hpp>
@@ -89,9 +100,6 @@ struct MiniServerSockArray {
     SOCKET ssdpReqSock6;
     /// @}
 #endif
-    UPnPsdk::CSocket* MiniSvrSock6LlaObj{nullptr};
-    UPnPsdk::CSocket* MiniSvrSock6UadObj{nullptr};
-    UPnPsdk::CSocket* MiniSvrSock4Obj{nullptr};
 };
 
 /*! \brief For a miniserver callback function. */
@@ -138,7 +146,7 @@ void SetGenaCallback(
  *
  * \returns
  *  - On success: UPNP_E_SUCCESS\n
- *  - On error: UPNP_E_XXX
+ *  - On error: UPNP_E_*
  */
 int StartMiniServer(
     /*! [in,out] Port on which the server listens for incoming IPv4

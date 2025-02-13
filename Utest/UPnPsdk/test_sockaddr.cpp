@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-02
+// Redistribution only with this Copyright remark. Last modified: 2025-02-27
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 #include <utest/utest.hpp>
@@ -512,8 +512,28 @@ TEST(SockaddrStorageTestSuite, sizeof_saddr_get_successful) {
     EXPECT_EQ(saddr2.sizeof_saddr(), static_cast<socklen_t>(0));
 }
 
+TEST(SockaddrStorageTestSuite, is_loopback) {
+    SSockaddr saObj;
+    saObj = "[::]";
+    EXPECT_FALSE(saObj.is_loopback());
+    saObj = "[::1]";
+    EXPECT_TRUE(saObj.is_loopback());
+    saObj = "[::2]";
+    EXPECT_FALSE(saObj.is_loopback());
+    saObj = "126.255.255.255";
+    EXPECT_FALSE(saObj.is_loopback());
+    saObj = "127.0.0.0";
+    EXPECT_TRUE(saObj.is_loopback());
+    saObj = "127.0.0.1";
+    EXPECT_TRUE(saObj.is_loopback());
+    saObj = "127.255.255.255";
+    EXPECT_TRUE(saObj.is_loopback());
+    saObj = "128.0.0.0";
+    EXPECT_FALSE(saObj.is_loopback());
+}
+
 TEST(SockaddrStorageTestSuite, output_netaddr_to_ostream) {
-    UPnPsdk::SSockaddr saObj;
+    SSockaddr saObj;
     CaptureStdOutErr captoutObj(STDOUT_FILENO);
 
     // Test Unit output stream
