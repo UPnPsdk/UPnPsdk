@@ -1244,8 +1244,9 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     // link-local addressing is all in the fe80::/10 range
     // (Deprecated ULA is in the fc00::/7 range)
     // Multicast is in the ff00::/8 range
+    // REF:_[How_to_detect_global_vs._link_local_IPv6_address](https://stackoverflow.com/questions/66324779/how-to-detect-global-vs-link-local-ipv6-address#comment117257243_66324779)
     {
-        // Global Unicast Address
+        // No Global Unicast Address
         CAddrinfo aiObj("[1fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
         aiObj.get_first();
         in6_addr* sa6 =
@@ -1253,7 +1254,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
         EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
     }
     {
-        // Global Unicast Address
+        // First Global Unicast Address
         CAddrinfo aiObj("[2000::]");
         aiObj.get_first();
         in6_addr* sa6 =
@@ -1269,7 +1270,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
         EXPECT_TRUE(IN6_IS_ADDR_GLOBAL(sa6));
     }
     {
-        // Global Unicast Address
+        // Last Global Unicast Address
         CAddrinfo aiObj("[3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
         aiObj.get_first();
         in6_addr* sa6 =
