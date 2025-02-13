@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-12
+// Redistribution only with this Copyright remark. Last modified: 2025-02-13
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -15,6 +15,7 @@
 
 #include <UPnPsdk/upnptools.hpp>
 #include <UPnPsdk/addrinfo.hpp>
+#include <UPnPsdk/netadapter.hpp>
 
 #include <utest/utest.hpp>
 #include <umock/sys_socket_mock.hpp>
@@ -38,6 +39,9 @@ using ::testing::Pointee;
 using ::testing::Return;
 using ::testing::SetErrnoAndReturn;
 using ::testing::StrictMock;
+
+using ::UPnPsdk::CNetadapter;
+using ::UPnPsdk::SSockaddr;
 
 
 // The UpnpInit2() call stack to initialize the pupnp library
@@ -637,6 +641,148 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
     int ret_UpnpFinish = UpnpFinish();
     EXPECT_EQ(ret_UpnpFinish, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpFinish, UPNP_E_SUCCESS);
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv6_loopback_iface_successful) {
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("[::1]");
+
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": Using the local network loopback interface should be "
+                     "supported.\n";
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+    } else {
+
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+        EXPECT_STRNE(gIF_NAME, "");
+        EXPECT_NE(gIF_INDEX, 0);
+        EXPECT_STREQ(gIF_IPV4, "");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+        // The loopback address belongs to link-local unicast addresses.
+        EXPECT_STREQ(gIF_IPV6, "::1");
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 128);
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv4_loopback_iface_successful) {
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("127.0.0.1");
+
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": Using the local network loopback interface should be "
+                     "supported.\n";
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+    } else {
+
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+        EXPECT_STRNE(gIF_NAME, "");
+        EXPECT_NE(gIF_INDEX, 0);
+        EXPECT_STREQ(gIF_IPV4, "127.0.0.1");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "255.0.0.0");
+        // The loopback address belongs to link-local unicast addresses.
+        EXPECT_STREQ(gIF_IPV6, "");
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_successful) {
+    // Get a valid IPv6 address from a local network adapter.
+    SSockaddr saObj;
+    CNetadapter nadaptObj;
+    nadaptObj.get_first();
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (saObj.ss.ss_family == AF_INET6 &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+            break;
+    } while (nadaptObj.get_next());
+
+    if (saObj.ss.ss_family != AF_INET6 ||
+        !IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+        GTEST_SKIP()
+            << "No local network adapter with link local address found.";
+
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
+
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": Using a link local address should be supported.\n";
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+    } else {
+
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+        EXPECT_STRNE(gIF_NAME, "");
+        EXPECT_NE(gIF_INDEX, 0);
+        EXPECT_STREQ(gIF_IPV4, "");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+        // The loopback address belongs to link-local unicast addresses.
+        EXPECT_STRNE(gIF_IPV6, "");
+        EXPECT_NE(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua_successful) {
+    // Get a valid IPv6 address from a local network adapter.
+    SSockaddr saObj;
+    CNetadapter nadaptObj;
+    nadaptObj.get_first();
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (saObj.ss.ss_family == AF_INET6 &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+            break;
+    } while (nadaptObj.get_next());
+
+    if (saObj.ss.ss_family != AF_INET6 ||
+        !IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+        GTEST_SKIP()
+            << "No local network adapter with link local address found.";
+
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
+
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": Using a link local address should be supported.\n";
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+    } else {
+
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+        EXPECT_STRNE(gIF_NAME, "");
+        EXPECT_NE(gIF_INDEX, 0);
+        EXPECT_STREQ(gIF_IPV4, "");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+        // The loopback address belongs to link-local unicast addresses.
+        EXPECT_STRNE(gIF_IPV6, "");
+        EXPECT_NE(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    }
 }
 
 #if 0

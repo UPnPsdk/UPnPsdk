@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-02-12
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -103,22 +103,6 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
     EXPECT_EQ(LOCAL_PORT_V4, (unsigned short)0);
     EXPECT_EQ(LOCAL_PORT_V6, (unsigned short)0);
     EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, (unsigned short)0);
-}
-
-TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_loopback_interface) {
-    // Test Unit
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("::1");
-
-    if (old_code) {
-        // Not supported
-        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
-            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
-
-    } else if (!github_actions) {
-
-        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
-            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
-    }
 }
 
 TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
