@@ -89,13 +89,6 @@
 #define ifr_netmask ifr_addr
 #endif
 
-#if !defined(IN6_IS_ADDR_GLOBAL) || defined(DOXYGEN_RUN)
-/// \brief If IN6_IS_ADDR_GLOBAL is not defined then this is set.
-#define IN6_IS_ADDR_GLOBAL(a)                                                  \
-    ((((__const uint32_t*)(a))[0] & htonl((uint32_t)0xe0000000)) ==            \
-     htonl((uint32_t)0x20000000))
-#endif /* IN6_IS_ADDR_GLOBAL */
-
 #if !defined(IN6_IS_ADDR_ULA) || defined(DOXYGEN_RUN)
 /// \brief If IN6_IS_ADDR_ULA is not defined then this is set.
 #define IN6_IS_ADDR_ULA(a)                                                     \

@@ -14,9 +14,7 @@
 #include <UPnPsdk/socket.hpp>
 #include <utest/utest.hpp>
 #include <umock/netdb_mock.hpp>
-#ifdef _MSC_VER
-#include <ws2ipdef.h>
-#endif
+
 
 namespace utest {
 
@@ -1232,31 +1230,43 @@ TEST(AddrinfoTestSuite, check_netaddrp) {
     EXPECT_EQ(saddr.netaddrp(), "127.0.0.1:50002");
 }
 
-#if !defined(IN6_IS_ADDR_GLOBAL)
-/// \brief If IN6_IS_ADDR_GLOBAL is not defined then this is set.
-#define IN6_IS_ADDR_GLOBAL(a)                                                  \
-    ((((__const uint32_t*)(a))[0] & htonl((uint32_t)0xe0000000)) ==            \
-     htonl((uint32_t)0x20000000))
+// Veify macro/function IN6_IS_ADDR_GLOBAL
+// ---------------------------------------
+// Global addressing is all in the 2000::/3 range
+//     current range is 2000:: to 3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff,
+//     that could be expanded into the future
+// link-local addressing is all in the fe80::/10 range
+// (Deprecated ULA is in the fc00::/7 range)
+// Multicast is in the ff00::/8 range
+// REF:_[How_to_detect_global_vs._link_local_IPv6_address](https://stackoverflow.com/questions/66324779/how-to-detect-global-vs-link-local-ipv6-address#comment117257243_66324779)
+//
+// Microsoft specifies it more relax with function (not macro) in 'ws2ipdef.h'
+// as follows:
+#if 0
+IN6_IS_ADDR_GLOBAL(CONST IN6_ADDR* a) {
+    // Check the format prefix and exclude addresses whose high 4 bits are all
+    // zero or all one. This is a cheap way of excluding v4-compatible,
+    // v4-mapped, loopback, multicast, link-local, site-local.
+    ULONG High = (a->s6_bytes[0] & 0xf0);
+    return (BOOLEAN)((High != 0) && (High != 0xf0));
+}
 #endif
-
+// If IN6_IS_ADDR_GLOBAL is not defined I use the more restricted macro.
 TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
-    // Global addressing is all in the 2000::/3 range
-    //     current range is 2000:: to 3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff,
-    //     that could be expanded into the future
-    // link-local addressing is all in the fe80::/10 range
-    // (Deprecated ULA is in the fc00::/7 range)
-    // Multicast is in the ff00::/8 range
-    // REF:_[How_to_detect_global_vs._link_local_IPv6_address](https://stackoverflow.com/questions/66324779/how-to-detect-global-vs-link-local-ipv6-address#comment117257243_66324779)
     {
-        // No Global Unicast Address
+        // No Global Unicast Address (different on win32)
         CAddrinfo aiObj("[1fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
         aiObj.get_first();
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
+#ifdef _MSC_VER
+        EXPECT_TRUE(IN6_IS_ADDR_GLOBAL(sa6));
+#else
         EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
+#endif
     }
     {
-        // First Global Unicast Address
+        // First Global Unicast Address (not first on win32)
         CAddrinfo aiObj("[2000::]");
         aiObj.get_first();
         in6_addr* sa6 =
@@ -1272,7 +1282,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
         EXPECT_TRUE(IN6_IS_ADDR_GLOBAL(sa6));
     }
     {
-        // Last Global Unicast Address
+        // Last Global Unicast Address (not last on win32)
         CAddrinfo aiObj("[3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
         aiObj.get_first();
         in6_addr* sa6 =
@@ -1280,12 +1290,16 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
         EXPECT_TRUE(IN6_IS_ADDR_GLOBAL(sa6));
     }
     {
-        // No Global Unicast Address
+        // No Global Unicast Address (different on win32)
         CAddrinfo aiObj("[4000::]");
         aiObj.get_first();
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
+#ifdef _MSC_VER
+        EXPECT_TRUE(IN6_IS_ADDR_GLOBAL(sa6));
+#else
         EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
+#endif
     }
     {
         // Link-local address
