@@ -14,6 +14,9 @@
 #include <UPnPsdk/socket.hpp>
 #include <utest/utest.hpp>
 #include <umock/netdb_mock.hpp>
+#ifdef _MSC_VER
+#include <ws2ipdef.h>
+#endif
 
 namespace utest {
 
