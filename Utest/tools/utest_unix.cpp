@@ -1,10 +1,11 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-10-20
+// Redistribution only with this Copyright remark. Last modified: 2025-02-16
 
 // Tools and helper classes to manage gtests
 // =========================================
 
 #include <utest/utest_unix.hpp>
+#include <UPnPsdk/sockaddr.hpp>
 
 #include <arpa/inet.h>
 #include <net/if.h>
@@ -97,5 +98,83 @@ bool CIfaddr4::set(std::string_view a_Ifname, std::string_view a_Ifaddress)
 void CIfaddr4::chain_next_addr(struct ifaddrs* a_ptrNextAddr) {
     m_ifaddr.ifa_next = a_ptrNextAddr;
 }
+
+//
+// CIfaddr6
+// --------
+CIfaddr6::CIfaddr6()
+// With constructing the object you get a loopback device by default.
+{
+    // loopback interface
+    //-------------------
+    m_ifa_name = "lo";
+    // No problem with casting const away because we only read the source.
+    m_ifaddr.ifa_name = const_cast<char*>(m_ifa_name.c_str());
+    m_ifaddr.ifa_flags = 0 | IFF_LOOPBACK | IFF_UP;
+
+    // set network address
+    m_ifa_addr.sin6_family = AF_INET6;
+    // m_ifa_addr.sin_port = htons(MYPORT);
+    inet_pton(AF_INET6, "::1", &(m_ifa_addr.sin6_addr));
+    m_ifaddr.ifa_addr = reinterpret_cast<sockaddr*>(&m_ifa_addr);
+
+    // set netmask
+    m_ifa_netmask.sin6_family = AF_INET6;
+    // m_ifa_netmask.sin_port = htons(MYPORT);
+    inet_pton(AF_INET6, "FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF",
+              &(m_ifa_netmask.sin6_addr));
+    m_ifaddr.ifa_netmask = reinterpret_cast<sockaddr*>(&m_ifa_netmask);
+}
+
+ifaddrs* CIfaddr6::get() {
+    // Return the pointer to the m_ifaddr structure
+    return &m_ifaddr;
+}
+
+bool CIfaddr6::set(const std::string_view a_Ifname,
+                   std::string_view a_Ifaddress) {
+    // Set the interface name and the ipv6 address with bitmask. Properties are
+    // set to an ipv6 UP interface, supporting multicast. Returns true if
+    // successful.
+    if (a_Ifname == "" or a_Ifaddress == "")
+        return false;
+
+    m_ifa_name = a_Ifname;
+    // No problem with casting const away because we only read the source.
+    m_ifaddr.ifa_name = const_cast<char*>(m_ifa_name.c_str());
+    m_ifaddr.ifa_flags = 0 | IFF_UP | IFF_MULTICAST;
+
+    // Split address and bitmask.
+    std::string address;
+    std::string bitmask;
+    std::size_t slashpos = a_Ifaddress.find("/");
+    if (slashpos != a_Ifaddress.npos) {
+        address = a_Ifaddress.substr(0, slashpos);
+        bitmask = a_Ifaddress.substr(slashpos + 1);
+    } else {
+        address = std::string(a_Ifaddress);
+        bitmask = "128";
+    }
+
+    // Set network address
+    // m_ifa_addr.sin_port = htons(MYPORT);
+    inet_pton(AF_INET6, address.c_str(), &(m_ifa_addr.sin6_addr));
+    m_ifaddr.ifa_addr = reinterpret_cast<sockaddr*>(&m_ifa_addr);
+
+    // Set netmask
+    UPnPsdk::SSockaddr sa_netmObj;
+    // UPnPsdk::bitmask_to_netmask(
+    //     AF_INET6, static_cast<uint8_t>(std::stoi(bitmask)), sa_netmObj);
+    m_ifa_netmask = sa_netmObj.sin6;
+    m_ifaddr.ifa_netmask = reinterpret_cast<sockaddr*>(&m_ifa_netmask);
+
+    return true;
+}
+
+#if 0
+void CIfaddr4::chain_next_addr(struct ifaddrs* a_ptrNextAddr) {
+    m_ifaddr.ifa_next = a_ptrNextAddr;
+}
+#endif
 
 } // namespace utest

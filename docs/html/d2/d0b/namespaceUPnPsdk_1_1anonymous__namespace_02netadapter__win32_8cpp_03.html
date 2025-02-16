@@ -105,19 +105,19 @@ $(document).ready(function(){initNavTree('d2/d0b/namespaceUPnPsdk_1_1anonymous__
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a81650637c3cc2fe6e9c523d5cfe4c067" id="r_a81650637c3cc2fe6e9c523d5cfe4c067"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html#a81650637c3cc2fe6e9c523d5cfe4c067">bitnum_to_netmask</a> (const sa_family_t a_family, uint8_t a_prefixlength, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddrObj)</td></tr>
-<tr class="memdesc:a81650637c3cc2fe6e9c523d5cfe4c067"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network address mask from address prefix bit number.  <br /></td></tr>
-<tr class="separator:a81650637c3cc2fe6e9c523d5cfe4c067"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56d7e10a49db37e7cbf2bea819c2c0ac" id="r_a56d7e10a49db37e7cbf2bea819c2c0ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html#a56d7e10a49db37e7cbf2bea819c2c0ac">bitmask_to_netmask</a> (const sa_family_t a_family, uint8_t a_prefixlength, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddrObj)</td></tr>
+<tr class="memdesc:a56d7e10a49db37e7cbf2bea819c2c0ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network address mask from address prefix bit number.  <br /></td></tr>
+<tr class="separator:a56d7e10a49db37e7cbf2bea819c2c0ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a81650637c3cc2fe6e9c523d5cfe4c067" name="a81650637c3cc2fe6e9c523d5cfe4c067"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81650637c3cc2fe6e9c523d5cfe4c067">&#9670;&#160;</a></span>bitnum_to_netmask()</h2>
+<a id="a56d7e10a49db37e7cbf2bea819c2c0ac" name="a56d7e10a49db37e7cbf2bea819c2c0ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56d7e10a49db37e7cbf2bea819c2c0ac">&#9670;&#160;</a></span>bitmask_to_netmask()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UPnPsdk::anonymous_namespace{netadapter_win32.cpp}::bitnum_to_netmask </td>
+          <td class="memname">void UPnPsdk::anonymous_namespace{netadapter_win32.cpp}::bitmask_to_netmask </td>
           <td>(</td>
           <td class="paramtype">const sa_family_t&#160;</td>
           <td class="paramname"><em>a_family</em>, </td>
@@ -145,16 +145,16 @@ Functions</h2></td></tr>
 <p>Get network address mask from address prefix bit number. </p>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
-<div class="line"><a class="code hl_function" href="../../d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html#a81650637c3cc2fe6e9c523d5cfe4c067">bitnum_to_netmask</a>(AF_INET6, 64, saObj);</div>
+<div class="line"><a class="code hl_function" href="../../d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html#a56d7e10a49db37e7cbf2bea819c2c0ac">bitmask_to_netmask</a>(AF_INET6, 64, saObj);</div>
 <div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;netmask is &quot;</span> &lt;&lt; saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a29c41bbfce7a8e358e7c6b6cdf968d2b">netaddr</a>() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="ttc" id="anamespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_html_a81650637c3cc2fe6e9c523d5cfe4c067"><div class="ttname"><a href="../../d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html#a81650637c3cc2fe6e9c523d5cfe4c067">UPnPsdk::anonymous_namespace{netadapter_win32.cpp}::bitnum_to_netmask</a></div><div class="ttdeci">void bitnum_to_netmask(const sa_family_t a_family, uint8_t a_prefixlength, SSockaddr &amp;a_saddrObj)</div><div class="ttdoc">Get network address mask from address prefix bit number.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dda/netadapter__win32_8cpp_source.html#l00030">netadapter_win32.cpp:30</a></div></div>
+<div class="ttc" id="anamespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_html_a56d7e10a49db37e7cbf2bea819c2c0ac"><div class="ttname"><a href="../../d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html#a56d7e10a49db37e7cbf2bea819c2c0ac">UPnPsdk::anonymous_namespace{netadapter_win32.cpp}::bitmask_to_netmask</a></div><div class="ttdeci">void bitmask_to_netmask(const sa_family_t a_family, uint8_t a_prefixlength, SSockaddr &amp;a_saddrObj)</div><div class="ttdoc">Get network address mask from address prefix bit number.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dda/netadapter__win32_8cpp_source.html#l00030">netadapter_win32.cpp:30</a></div></div>
 <div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00094">sockaddr.hpp:94</a></div></div>
 <div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a29c41bbfce7a8e358e7c6b6cdf968d2b"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a29c41bbfce7a8e358e7c6b6cdf968d2b">UPnPsdk::SSockaddr::netaddr</a></div><div class="ttdeci">const std::string &amp; netaddr() noexcept</div><div class="ttdoc">Get the assosiated netaddress without port.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00468">sockaddr.cpp:468</a></div></div>
 </div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_family</td><td>Address family AF_INET6 or AF_INET.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">a_prefixlength</td><td>IPv6 or IPv4 address prefix length as number of set bits as given e.g. with [2001:db8::1]/64.  </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">a_saddrObj</td><td>Referene to a socket address structure that will be filled with the netmask. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">a_saddrObj</td><td>Reference to a socket address structure that will be filled with the netmask. </td></tr>
   </table>
   </dd>
 </dl>
@@ -165,8 +165,8 @@ Functions</h2></td></tr>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a81650637c3cc2fe6e9c523d5cfe4c067_cgraph.png" border="0" usemap="#ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a81650637c3cc2fe6e9c523d5cfe4c067_cgraph" alt=""/></div>
-<map name="ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a81650637c3cc2fe6e9c523d5cfe4c067_cgraph" id="ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a81650637c3cc2fe6e9c523d5cfe4c067_cgraph">
+<div class="center"><img src="../../d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a56d7e10a49db37e7cbf2bea819c2c0ac_cgraph.png" border="0" usemap="#ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a56d7e10a49db37e7cbf2bea819c2c0ac_cgraph" alt=""/></div>
+<map name="ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a56d7e10a49db37e7cbf2bea819c2c0ac_cgraph" id="ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a56d7e10a49db37e7cbf2bea819c2c0ac_cgraph">
 <area shape="rect" title="Get network address mask from address prefix bit number." alt="" coords="5,29,188,99"/>
 <area shape="poly" title=" " alt="" coords="60,29,62,19,69,10,80,5,97,3,116,6,128,14,125,18,114,11,97,8,82,10,72,14,67,21,65,29"/>
 </map>
@@ -176,10 +176,10 @@ Functions</h2></td></tr>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a81650637c3cc2fe6e9c523d5cfe4c067_icgraph.png" border="0" usemap="#ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a81650637c3cc2fe6e9c523d5cfe4c067_icgraph" alt=""/></div>
-<map name="ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a81650637c3cc2fe6e9c523d5cfe4c067_icgraph" id="ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a81650637c3cc2fe6e9c523d5cfe4c067_icgraph">
-<area shape="rect" title="Get network address mask from address prefix bit number." alt="" coords="5,29,167,99"/>
-<area shape="poly" title=" " alt="" coords="111,18,101,11,86,8,73,10,65,14,60,21,59,29,53,29,55,19,61,10,72,5,86,3,103,6,114,14"/>
+<div class="center"><img src="../../d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a56d7e10a49db37e7cbf2bea819c2c0ac_icgraph.png" border="0" usemap="#ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a56d7e10a49db37e7cbf2bea819c2c0ac_icgraph" alt=""/></div>
+<map name="ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a56d7e10a49db37e7cbf2bea819c2c0ac_icgraph" id="ad2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03_a56d7e10a49db37e7cbf2bea819c2c0ac_icgraph">
+<area shape="rect" title="Get network address mask from address prefix bit number." alt="" coords="5,29,188,99"/>
+<area shape="poly" title=" " alt="" coords="125,18,114,11,97,8,82,10,72,14,67,21,65,29,60,29,62,19,69,10,80,5,97,3,116,6,128,14"/>
 </map>
 </div>
 

@@ -275,15 +275,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a9b4b32cfbe825a3f7cc9906b33d50872" id="r_a9b4b32cfbe825a3f7cc9906b33d50872"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872">anonymous_namespace{miniserver.cpp}::handle_request</a> (void *args)</td></tr>
 <tr class="memdesc:a9b4b32cfbe825a3f7cc9906b33d50872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive the request and dispatch it for handling.  <br /></td></tr>
 <tr class="separator:a9b4b32cfbe825a3f7cc9906b33d50872"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a107199de415d50f725a5c6a327c1be" id="r_a4a107199de415d50f725a5c6a327c1be"><td class="memItemLeft" align="right" valign="top">UPNP_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a4a107199de415d50f725a5c6a327c1be">anonymous_namespace{miniserver.cpp}::schedule_request_job</a> (SOCKET connfd, sockaddr *clientAddr)</td></tr>
-<tr class="memdesc:a4a107199de415d50f725a5c6a327c1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize the thread pool to handle a request, sets priority for the job and adds the job to the thread pool.  <br /></td></tr>
-<tr class="separator:a4a107199de415d50f725a5c6a327c1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80129c74e300de9e2a06be5067e47ae5" id="r_a80129c74e300de9e2a06be5067e47ae5"><td class="memItemLeft" align="right" valign="top">UPNP_INLINE void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a80129c74e300de9e2a06be5067e47ae5">anonymous_namespace{miniserver.cpp}::schedule_request_job</a> (SOCKET a_connfd, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a> &amp;clientAddr)</td></tr>
+<tr class="memdesc:a80129c74e300de9e2a06be5067e47ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job to the thread pool.  <br /></td></tr>
+<tr class="separator:a80129c74e300de9e2a06be5067e47ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a937a0eae18a69c7e034aa982345d9a50" id="r_a937a0eae18a69c7e034aa982345d9a50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50">anonymous_namespace{miniserver.cpp}::fdset_if_valid</a> (SOCKET a_sock, fd_set *a_set)</td></tr>
 <tr class="memdesc:a937a0eae18a69c7e034aa982345d9a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a socket file descriptor to an <code>'fd_set'</code> structure as needed for <code>::select()</code>.  <br /></td></tr>
 <tr class="separator:a937a0eae18a69c7e034aa982345d9a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34abbc6e410d0cfd24057c79c9f1b9c3" id="r_a34abbc6e410d0cfd24057c79c9f1b9c3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a34abbc6e410d0cfd24057c79c9f1b9c3">anonymous_namespace{miniserver.cpp}::web_server_accept</a> (SOCKET lsock, fd_set &amp;set)</td></tr>
-<tr class="memdesc:a34abbc6e410d0cfd24057c79c9f1b9c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accept requested connection from a remote control point and run it in a new thread.  <br /></td></tr>
-<tr class="separator:a34abbc6e410d0cfd24057c79c9f1b9c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53d1fc0751489b766ddd900c54415df7" id="r_a53d1fc0751489b766ddd900c54415df7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7">anonymous_namespace{miniserver.cpp}::web_server_accept</a> (SOCKET listen_sock, fd_set &amp;set)</td></tr>
+<tr class="memdesc:a53d1fc0751489b766ddd900c54415df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accept requested connection from a remote control point and run it in a new thread.  <br /></td></tr>
+<tr class="separator:a53d1fc0751489b766ddd900c54415df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02379f09474a96b3590cadd8ca82ecf1" id="r_a02379f09474a96b3590cadd8ca82ecf1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a02379f09474a96b3590cadd8ca82ecf1">anonymous_namespace{miniserver.cpp}::ssdp_read</a> (SOCKET *rsock, fd_set *set)</td></tr>
 <tr class="memdesc:a02379f09474a96b3590cadd8ca82ecf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read data from the SSDP socket.  <br /></td></tr>
 <tr class="separator:a02379f09474a96b3590cadd8ca82ecf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -395,7 +395,7 @@ Socket address of the remote control point. </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00985">985</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l01015">1015</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -437,7 +437,7 @@ Socket address of the remote control point. </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00992">992</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l01022">1022</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -506,7 +506,7 @@ Socket address of the remote control point. </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00998">998</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l01028">1028</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -662,7 +662,7 @@ Socket address of the remote control point. </td></tr>
 <p>Stop and Shutdown the MiniServer and free socket resources. </p>
 <dl class="section return"><dt>Returns</dt><dd>Always returns 0. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l01126">1126</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l01151">1151</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">

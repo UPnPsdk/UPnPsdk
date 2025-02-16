@@ -6,7 +6,6 @@ var upnpapi_8cpp =
     ] ],
     [ "job_arg.advertise", "d4/d99/upnpapi_8cpp.html#de/da3/structjob__arg_8advertise", null ],
     [ "ifr_netmask", "d4/d99/upnpapi_8cpp.html#a249f4577f2fbad03ccb2959e9f9a9fda", null ],
-    [ "IN6_IS_ADDR_GLOBAL", "d4/d99/upnpapi_8cpp.html#adac75b931d6c8b4517f3b5d806d33d10", null ],
     [ "IN6_IS_ADDR_ULA", "d4/d99/upnpapi_8cpp.html#a9dd7c394529caa29a98958354f269d31", null ],
     [ "free_advertise_arg", "d4/d99/upnpapi_8cpp.html#ad1ea8e065c7bee700fb8a248b5b0d3cb", null ],
     [ "free_action_arg", "d4/d99/upnpapi_8cpp.html#a3eea359891d4e865553b3e94b893a71c", null ],

@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('dc/db4/netadapter__unix_8cpp_source.ht
 </div><!--header-->
 <div class="contents">
 <a href="../../dc/db4/netadapter__unix_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-02-05</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-02-06</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;UPnPsdk/netadapter_platform.hpp&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d3b/synclog_8hpp.html">UPnPsdk/synclog.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;umock/ifaddrs.hpp&gt;</span></div>
@@ -263,7 +263,7 @@ $(document).ready(function(){initNavTree('dc/db4/netadapter__unix_8cpp_source.ht
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    if (m_ifa_first != <span class="keywordtype">nullptr</span>) {</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        UPnPsdk_LOGINFO &lt;&lt; <span class="stringliteral">&quot;MSG1116: syscall ::freeifaddrs(&quot;</span> &lt;&lt; m_ifa_first</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                        &lt;&lt; <span class="stringliteral">&quot;)\n&quot;</span>;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        ::freeifaddrs(m_ifa_first);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        umock::ifaddrs_h.freeifaddrs(m_ifa_first);</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        m_ifa_first = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    }</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    m_ifa_current = <span class="keyword">nullptr</span>;</div>

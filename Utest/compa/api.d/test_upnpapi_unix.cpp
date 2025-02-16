@@ -100,6 +100,47 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
     EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, (unsigned short)0);
 }
 
+TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_loopback_interface) {
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("::1");
+
+    if (old_code) {
+        // Not supported
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+    } else if (!github_actions) {
+
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+    }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_called_with_loopback_interface) {
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("::1");
+
+    if (old_code) {
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+        GTEST_SKIP()
+            << "Using the local network loopback interface is not supported.";
+    }
+
+    EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+    EXPECT_STRNE(gIF_NAME, "");
+    EXPECT_NE(gIF_INDEX, 0);
+    EXPECT_STREQ(gIF_IPV4, "");
+    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    // The loopback address belongs to link-local unicast addresses.
+    EXPECT_STREQ(gIF_IPV6, "::1");
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 128);
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+}
+
 TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
     // provide a network interface
     CIfaddr4 ifaddr4Obj;

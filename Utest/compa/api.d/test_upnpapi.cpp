@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-13
+// Redistribution only with this Copyright remark. Last modified: 2025-02-14
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -760,7 +760,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua_successful) {
             << "No local network adapter with link local address found.";
 
     // Test Unit
-    std::cout << "DEBUG! netaddr=\"" << saObj << "\".\n";
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
 
     if (old_code) {
@@ -784,6 +783,64 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua_successful) {
         EXPECT_STRNE(gIF_IPV6_ULA_GUA, "");
         EXPECT_NE(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
     }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
+    // Get a valid IPv4 address from a local network adapter.
+    SSockaddr saObj;
+    CNetadapter nadaptObj;
+    nadaptObj.get_first();
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (saObj.ss.ss_family == AF_INET)
+            break;
+    } while (nadaptObj.get_next());
+
+    if (saObj.ss.ss_family != AF_INET)
+        GTEST_SKIP() << "No local network adapter with IPv4 address found.";
+
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
+
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": Using an IPv4 address should be supported.\n";
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+    } else {
+
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+        EXPECT_STRNE(gIF_NAME, "");
+        EXPECT_NE(gIF_INDEX, 0);
+        EXPECT_STRNE(gIF_IPV4, "");
+        EXPECT_STRNE(gIF_IPV4_NETMASK, "");
+        // The loopback address belongs to link-local unicast addresses.
+        EXPECT_STREQ(gIF_IPV6, "");
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("ens1");
+
+    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gIF_NAME, "ens1");
+    EXPECT_EQ(gIF_INDEX, 2);
+    EXPECT_STREQ(gIF_IPV4, "");
+    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    // The loopback address belongs to link-local unicast addresses.
+    EXPECT_STREQ(gIF_IPV6, "fe80::5054:ff:fe7f:c021");
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "2003:d5:2748:ae00:5054:ff:fe7f:c021");
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 64);
 }
 
 #if 0

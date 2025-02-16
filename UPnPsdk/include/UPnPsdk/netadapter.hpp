@@ -58,19 +58,24 @@ void bitmask_to_netmask(
  * \brief Get information from local network adapters
  * \ingroup upnplib-addrmodul
  * \code
- * // Usage e.g:
- * CNetadapter nadaptObj;
- * try {
- *     nadaptObj.get_first();
- * } catch (xcp) { handle_error() }
- * if (nadaptObj.find_first(1))
- *     std::cout << "loopback interface name is " << nadaptObj.name() << '\n';
- *
- * if (nadaptObj.find_first("eth0")) {
- *     SSockaddr saddrObj;
- *     nadaptObj.sockaddr(saddrObj);
- *     std::cout << "first ip address on eth0 is " << saddrObj.netaddrp << '\n';
- * }
+// Example to get a link local address from a network adapter:
+SSockaddr saObj;
+CNetadapter nadaptObj;
+try {
+    nadaptObj.get_first();
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (saObj.ss.ss_family == AF_INET6 &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+            break;
+    } while (nadaptObj.get_next());
+} catch (const std::exception& ex) { handle_error() }
+
+if (saObj.ss.ss_family != AF_INET6 ||
+    !IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+    std::cout << "No local network adapter with link local address found.\n";
+else
+    std::cout << "Adapter " << nadaptObj.name() << " has lla " << saObj << '\n';
  * \endcode
  * The operating system manages an internal list of the local network adapters.
  * With this class you can get information about them. <i>"Typically, nodes, not
