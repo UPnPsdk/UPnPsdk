@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_UNIX_NETADAPTER_HPP
 #define UPnPsdk_UNIX_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-05
+// Redistribution only with this Copyright remark. Last modified: 2025-02-16
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -33,7 +33,7 @@ class UPnPsdk_API CNetadapter_platform : public INetadapter {
     std::string name() const override;
     void sockaddr(SSockaddr& a_saddr) const override;
     void socknetmask(SSockaddr& a_snetmask) const override;
-    unsigned int prefix_length() const override;
+    unsigned int bitmask() const override;
 
   private:
     // Pointer to the first network adapter structure. This pointer must not be

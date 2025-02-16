@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-02-12
+ * Redistribution only with this Copyright remark. Last modified: 2025-02-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -686,7 +686,7 @@ int UpnpGetIfInfo(
                         // Strip trailing bracket.
                         if (char* chptr{::strchr(gIF_IPV6, ']')})
                             *chptr = '\0';
-                        gIF_IPV6_PREFIX_LENGTH = nadaptObj.prefix_length();
+                        gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
                     }
                 } else {
                     ::memset(gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
@@ -698,8 +698,7 @@ int UpnpGetIfInfo(
                         // Strip trailing bracket.
                         if (char* chptr{::strchr(gIF_IPV6_ULA_GUA, ']')})
                             *chptr = '\0';
-                        gIF_IPV6_ULA_GUA_PREFIX_LENGTH =
-                            nadaptObj.prefix_length();
+                        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadaptObj.bitmask();
                     }
                 }
                 break;

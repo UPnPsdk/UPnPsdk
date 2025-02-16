@@ -1,11 +1,11 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-06
+// Redistribution only with this Copyright remark. Last modified: 2025-02-16
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
  */
 
-#include <UPnPsdk/netadapter_platform.hpp>
+#include <UPnPsdk/netadapter.hpp>
 #include <UPnPsdk/synclog.hpp>
 /// \cond
 #include <umock/ifaddrs.hpp>
@@ -99,50 +99,13 @@ void CNetadapter_platform::socknetmask(SSockaddr& a_snetmask) const {
 }
 
 
-unsigned int CNetadapter_platform::prefix_length() const {
-    TRACE2(this, " Executing CNetadapter_platform::prefix_length()")
+unsigned int CNetadapter_platform::bitmask() const {
+    TRACE2(this, " Executing CNetadapter_platform::bitmask()")
     if (m_ifa_current == nullptr)
         return 0;
 
-    unsigned prefix_length{};
-    switch (m_ifa_current->ifa_netmask->sa_family) {
-    case AF_INET6: {
-        for (size_t i{}; i < sizeof(in6_addr); i++) {
-            uint8_t s6addr =
-                reinterpret_cast<sockaddr_in6*>(m_ifa_current->ifa_netmask)
-                    ->sin6_addr.s6_addr[i];
-            if (s6addr == 255) {
-                prefix_length += 8;
-            } else {
-                while (s6addr) {
-                    prefix_length++;
-                    s6addr >>= 1;
-                }
-                break; // for() loop
-            }
-        }
-    } break; // switch()
-
-    case AF_INET: {
-        in_addr_t saddr =
-            reinterpret_cast<sockaddr_in*>(m_ifa_current->ifa_netmask)
-                ->sin_addr.s_addr;
-        while (saddr) {
-            prefix_length++;
-            saddr >>= 1;
-        }
-    } break;
-
-    default: {
-        UPnPsdk_LOGCRIT "MSG1028: Unsupported address family("
-            << m_ifa_current->ifa_netmask->sa_family << "), only AF_INET6("
-            << AF_INET6 << ") or AF_INET(" << AF_INET
-            << ") are valid. Continue with address prefix length 0.\n";
-        return 0;
-    }
-    } // switch()
-
-    return prefix_length;
+    return netmask_to_bitmask(reinterpret_cast<const ::sockaddr_storage*>(
+        m_ifa_current->ifa_netmask));
 }
 
 

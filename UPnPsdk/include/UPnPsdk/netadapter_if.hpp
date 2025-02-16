@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_IF_HPP
 #define UPnPsdk_NETADAPTER_IF_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-04
+// Redistribution only with this Copyright remark. Last modified: 2025-02-16
 /*!
  * \file
  * \brief C++ interface to manage information from different platforms about
@@ -140,7 +140,7 @@ class UPnPsdk_API INetadapter {
      * local network adapter.
      * \returns Prefix length of the ip address from the current selected local
      * network adapter. */
-    virtual unsigned int prefix_length() const = 0;
+    virtual unsigned int bitmask() const = 0;
 
   private:
     /*! \brief Reset pointer and point to the first entry of the local network

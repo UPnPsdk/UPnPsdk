@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-12
+// Redistribution only with this Copyright remark. Last modified: 2025-02-21
 
 #ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -14,6 +14,10 @@ namespace utest {
 
 using ::testing::AnyOf;
 using ::testing::HasSubstr;
+
+using ::UPnPsdk::bitmask_to_netmask;
+using ::UPnPsdk::netmask_to_bitmask;
+using ::UPnPsdk::SSockaddr;
 
 
 UPnPsdk::SSockaddr saddrObj;
@@ -52,14 +56,14 @@ TEST(NetadapterTestSuite, get_adapters_info_successful) {
         if (saddrObj.netaddr() == "[::1]") {
             ASSERT_GT(nadObj.index(), 0)
                 << "index should be greater 0 for \"[::1]\"";
-            EXPECT_EQ(nadObj.prefix_length(), 128);
+            EXPECT_EQ(nadObj.bitmask(), 128);
         }
         // TODO: Loopback addresses are not limited to the 127.0.0.0/8 block.
         if (saddrObj.sin.sin_family == AF_INET &&
             ntohl(saddrObj.sin.sin_addr.s_addr) == 2130706433) { // "127.0.0.1"
             ASSERT_GT(nadObj.index(), 0)
                 << "index should be greater 0 for \"127.0.0.1\"";
-            EXPECT_EQ(nadObj.prefix_length(), 8);
+            EXPECT_EQ(nadObj.bitmask(), 8);
         }
 #if 0
         // To show resolved iface names set first NI_NUMERICHOST above to 0.
@@ -98,102 +102,133 @@ end_loops:
 }
 #endif
 
-#ifdef MSC_VER
-class BitnumToNetmaskTest
-    : public ::testing::TestWithParam<std::tuple<
-          //    family,      bitnum,        netmask
-          const sa_family_t, const uint8_t, std::string>> {};
+enum struct Except { yes, no };
 
-TEST_P(BitnumToNetmaskTest, set_family_and_bitnum) {
+class ToBitmaskAndToNetmaskTest
+    : public ::testing::TestWithParam<std::tuple<
+          //    family,      bitmask,       netmask,     exception
+          const sa_family_t, const uint8_t, std::string, const Except>> {};
+
+TEST_P(ToBitmaskAndToNetmaskTest, set_family_and_bitmask) {
     // Get parameter
     const std::tuple params = GetParam();
     const sa_family_t family = std::get<0>(params);
-    const uint8_t bitnum = std::get<1>(params);
+    const uint8_t bitmask = std::get<1>(params);
     const std::string netmask = std::get<2>(params);
+    const Except except = std::get<3>(params);
 
-    UPnPsdk::bitnum_to_netmask(family, bitnum, saddrObj);
+    // Test bitmask_to_netmask.
+    ::sockaddr_storage ss{}; // socket address the netmask is associated.
+    ss.ss_family = family;
+    if (except == Except::yes) {
+        EXPECT_THROW(bitmask_to_netmask(/*in*/ &ss, bitmask,
+                                        /*out netmask*/ saddrObj),
+                     std::runtime_error);
+        return;
+    }
+    bitmask_to_netmask(/*in*/ &ss, bitmask, /*out netmask*/ saddrObj);
     EXPECT_EQ(saddrObj.netaddr(), netmask);
     if (family == AF_INET6 || family == AF_INET || family == AF_UNSPEC)
         EXPECT_EQ(saddrObj.ss.ss_family, family);
     else
         EXPECT_EQ(saddrObj.ss.ss_family, AF_UNSPEC);
+
+    // Test netmask_to_bitmask.
+    ::sockaddr_storage ss_netmask{};
+    ss_netmask.ss_family = family;
+    switch (family) {
+    case AF_INET6: {
+        std::string netmsk = netmask.substr(1, netmask.size() - 2);
+        inet_pton(AF_INET6, netmsk.c_str(),
+                  &reinterpret_cast<::sockaddr_in6*>(&ss_netmask)->sin6_addr);
+    } break;
+    case AF_INET: {
+        inet_pton(AF_INET, netmask.c_str(),
+                  &reinterpret_cast<::sockaddr_in*>(&ss_netmask)->sin_addr);
+    } break;
+    } // switch
+
+    if (except == Except::yes)
+        EXPECT_THROW(UPnPsdk::netmask_to_bitmask(/*in*/ &ss_netmask),
+                     std::runtime_error);
+    else
+        EXPECT_EQ(UPnPsdk::netmask_to_bitmask(/*in*/ &ss_netmask), bitmask);
 }
 
 // clang-format off
-INSTANTIATE_TEST_SUITE_P(BitnumToNetmask, BitnumToNetmaskTest, ::testing::Values(
-    std::make_tuple(AF_INET6, 64, "[ffff:ffff:ffff:ffff::]"),
-    std::make_tuple(AF_INET6, -1, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]"),
-    std::make_tuple(AF_INET6, 0, "[::]"),
-    std::make_tuple(AF_INET6, 1, "[8000::]"),
-    std::make_tuple(AF_INET6, 2, "[c000::]"),
-    std::make_tuple(AF_INET6, 126, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffc]"),
-    std::make_tuple(AF_INET6, 127, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffe]"),
-    std::make_tuple(AF_INET6, 128, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]"),
-    std::make_tuple(AF_INET6, 129, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]"),
-    std::make_tuple(AF_INET6, 255, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]"),
+INSTANTIATE_TEST_SUITE_P(ToBitmaskAndToNetmask, ToBitmaskAndToNetmaskTest, ::testing::Values(
+    std::make_tuple(AF_INET6, 64, "[ffff:ffff:ffff:ffff::]", Except::no),
+    std::make_tuple(AF_INET6, -1, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", Except::yes),
+    std::make_tuple(AF_INET6, 0, "[::]", Except::no),
+    std::make_tuple(AF_INET6, 1, "[8000::]", Except::no),
+    std::make_tuple(AF_INET6, 2, "[c000::]", Except::no),
+    std::make_tuple(AF_INET6, 15, "[fffe::]", Except::no),
+    std::make_tuple(AF_INET6, 16, "[ffff::]", Except::no),
+    std::make_tuple(AF_INET6, 17, "[ffff:8000::]", Except::no),
+    std::make_tuple(AF_INET6, 126, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffc]", Except::no),
+    std::make_tuple(AF_INET6, 127, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffe]", Except::no),
+    std::make_tuple(AF_INET6, 128, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", Except::no),
+    std::make_tuple(AF_INET6, 129, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", Except::yes),
+    std::make_tuple(AF_INET6, 255, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", Except::yes),
     // Here we have uint8_t overrun.
-    std::make_tuple(AF_INET6, 256, "[::]"),
-    std::make_tuple(AF_INET6, 257, "[8000::]"),
-    std::make_tuple(AF_INET6, 511, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]"),
-    std::make_tuple(AF_INET6, 512, "[::]"),
-    std::make_tuple(AF_INET6, 513, "[8000::]"),
-    std::make_tuple(AF_INET, 24, "255.255.255.0"),
-    std::make_tuple(AF_INET, -1, "255.255.255.255"), // 16
-    std::make_tuple(AF_INET, 0, "255.255.255.255"),
-    std::make_tuple(AF_INET, 1, "128.0.0.0"),
-    std::make_tuple(AF_INET, 2, "192.0.0.0"),
-    std::make_tuple(AF_INET, 30, "255.255.255.252"),
-    std::make_tuple(AF_INET, 31, "255.255.255.254"),
-    std::make_tuple(AF_INET, 32, "255.255.255.255"),
-    std::make_tuple(AF_INET, 33, "255.255.255.255"),
-    std::make_tuple(AF_INET, 64, "255.255.255.255"),
-    std::make_tuple(AF_INET, 65, "255.255.255.255"),
+    std::make_tuple(AF_INET6, 256, "[::]", Except::no),
+    std::make_tuple(AF_INET6, 257, "[8000::]", Except::no),
+    std::make_tuple(AF_INET6, 511, "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", Except::yes),
+    std::make_tuple(AF_INET6, 512, "[::]", Except::no),
+    std::make_tuple(AF_INET6, 513, "[8000::]", Except::no),
+
+    std::make_tuple(AF_INET, 24, "255.255.255.0", Except::no),
+    std::make_tuple(AF_INET, -1, "255.255.255.255", Except::yes),
+    std::make_tuple(AF_INET, 0, "0.0.0.0", Except::no),
+    std::make_tuple(AF_INET, 1, "128.0.0.0", Except::no),
+    std::make_tuple(AF_INET, 2, "192.0.0.0", Except::no),
+    std::make_tuple(AF_INET, 30, "255.255.255.252", Except::no),
+    std::make_tuple(AF_INET, 31, "255.255.255.254", Except::no),
+    std::make_tuple(AF_INET, 32, "255.255.255.255", Except::no),
+    std::make_tuple(AF_INET, 33, "255.255.255.255", Except::yes),
+    std::make_tuple(AF_INET, 64, "255.255.255.255", Except::yes),
+    std::make_tuple(AF_INET, 65, "255.255.255.255", Except::yes),
+    std::make_tuple(AF_INET, 255, "255.255.255.255", Except::yes),
+    std::make_tuple(AF_UNSPEC, 0, "", Except::no), // continues with AF_UNSPEC
     // Here we have uint8_t overrun.
-    std::make_tuple(AF_INET, 256, "255.255.255.255"),
-    std::make_tuple(AF_INET, 257, "128.0.0.0"),
-    std::make_tuple(AF_UNSPEC, 64, ""),
-    std::make_tuple(4711, 64, ""),
-    std::make_tuple(AF_UNSPEC, 24, ""),
-    std::make_tuple(4712, 24, "")
+    std::make_tuple(AF_INET, 256, "0.0.0.0", Except::no),
+    std::make_tuple(AF_INET, 257, "128.0.0.0", Except::no)
 ));
+
+TEST(NetadapterTestSuite, netmask_to_bitmask_fails) {
+    UPnPsdk::sockaddr_t saddr{};
+    saddr.ss.ss_family = AF_INET6;
+
+    // Test Unit
+    inet_pton(AF_INET6, "ffff:ffff:ffff:ffff:f0f0::", &saddr.sin6.sin6_addr);
+    EXPECT_THROW(netmask_to_bitmask(&saddr.ss), std::runtime_error);
+
+    saddr.ss.ss_family = static_cast<sa_family_t>(231);
+    inet_pton(AF_INET6, "ffff:ffff:ffff:ffff::", &saddr.sin6.sin6_addr);
+    EXPECT_THROW(netmask_to_bitmask(&saddr.ss), std::runtime_error);
+}
 // clang-format on
 
-TEST(NetadapterTestSuite, check_bitnum_to_netmask_error_messages) {
-    // Capture output to stderr
-    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
+TEST(NetadapterTestSuite, bitmask_to_netmask_fails) {
+    UPnPsdk::sockaddr_t saddr{};
+    saddrObj = "";
 
-    // Test Unit AF_INET6
-    captureObj.start();
-    UPnPsdk::bitnum_to_netmask(AF_INET6, 129, saddrObj);
-    std::cout << captureObj.str();
-    EXPECT_THAT(captureObj.str(), HasSubstr("] CRITICAL MSG1124: "));
+    // Test Unit
+    saddr.ss.ss_family = AF_UNSPEC;
+    bitmask_to_netmask(&saddr.ss, 64, saddrObj);
+    EXPECT_EQ(saddrObj.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddrObj.netaddrp(), ":0");
 
-    captureObj.start();
-    UPnPsdk::bitnum_to_netmask(AF_INET6, 255, saddrObj);
-    std::cout << captureObj.str();
-    EXPECT_THAT(captureObj.str(), HasSubstr("] CRITICAL MSG1124: "));
+    saddr.ss.ss_family = static_cast<sa_family_t>(231);
+    bitmask_to_netmask(&saddr.ss, 64, saddrObj);
+    EXPECT_EQ(saddrObj.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddrObj.netaddrp(), ":0");
 
-    // Test Unit AF_INET
-    captureObj.start();
-    UPnPsdk::bitnum_to_netmask(AF_INET, 32, saddrObj);
-    EXPECT_EQ(captureObj.str(), "");
-
-    captureObj.start();
-    UPnPsdk::bitnum_to_netmask(AF_INET, 33, saddrObj);
-    std::cout << captureObj.str();
-    EXPECT_THAT(captureObj.str(), HasSubstr("] CRITICAL MSG1125: "));
-
-    captureObj.start();
-    UPnPsdk::bitnum_to_netmask(AF_INET, 255, saddrObj);
-    std::cout << captureObj.str();
-    EXPECT_THAT(captureObj.str(), HasSubstr("] CRITICAL MSG1125: "));
-
-    captureObj.start();
-    UPnPsdk::bitnum_to_netmask(AF_UNIX, 64, saddrObj);
-    std::cout << captureObj.str();
-    EXPECT_THAT(captureObj.str(), HasSubstr("] CRITICAL MSG1126: "));
+    EXPECT_THROW(bitmask_to_netmask(/*in*/ nullptr, /*in*/ 64,
+                                    /*out netmask*/ saddrObj),
+                 std::runtime_error);
 }
-#endif
+
 
 TEST(NetadapterTestSuite, find_adapters_info) {
     UPnPsdk::CNetadapter nadaptObj;
@@ -211,20 +246,20 @@ TEST(NetadapterTestSuite, find_adapters_info) {
 
     ASSERT_TRUE(nadaptObj.find_first("::1"));
     EXPECT_EQ(nadaptObj.index(), 1);
-    EXPECT_EQ(nadaptObj.prefix_length(), 128);
+    EXPECT_EQ(nadaptObj.bitmask(), 128);
     nadaptObj.socknetmask(saddrObj);
     EXPECT_EQ(saddrObj.netaddr(), "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
 
     ASSERT_TRUE(nadaptObj.find_first("127.0.0.1"));
     EXPECT_EQ(nadaptObj.index(), 1);
-    EXPECT_EQ(nadaptObj.prefix_length(), 8);
+    EXPECT_EQ(nadaptObj.bitmask(), 8);
     nadaptObj.socknetmask(saddrObj);
     EXPECT_EQ(saddrObj.netaddr(), "255.0.0.0");
 
     EXPECT_FALSE(nadaptObj.find_first(0));
     EXPECT_EQ(nadaptObj.index(), 0);
     EXPECT_EQ(nadaptObj.name(), "");
-    EXPECT_EQ(nadaptObj.prefix_length(), 0);
+    EXPECT_EQ(nadaptObj.bitmask(), 0);
     nadaptObj.sockaddr(saddrObj);
     EXPECT_EQ(saddrObj.netaddrp(), ":0");
     nadaptObj.socknetmask(saddrObj);
@@ -233,7 +268,7 @@ TEST(NetadapterTestSuite, find_adapters_info) {
     EXPECT_FALSE(nadaptObj.find_first(~0u - 2));
     EXPECT_EQ(nadaptObj.index(), 0);
     EXPECT_EQ(nadaptObj.name(), "");
-    EXPECT_EQ(nadaptObj.prefix_length(), 0);
+    EXPECT_EQ(nadaptObj.bitmask(), 0);
     nadaptObj.sockaddr(saddrObj);
     EXPECT_EQ(saddrObj.netaddrp(), ":0");
     nadaptObj.socknetmask(saddrObj);
@@ -242,7 +277,7 @@ TEST(NetadapterTestSuite, find_adapters_info) {
     EXPECT_FALSE(nadaptObj.find_first(""));
     EXPECT_EQ(nadaptObj.index(), 0);
     EXPECT_EQ(nadaptObj.name(), "");
-    EXPECT_EQ(nadaptObj.prefix_length(), 0);
+    EXPECT_EQ(nadaptObj.bitmask(), 0);
     nadaptObj.sockaddr(saddrObj);
     EXPECT_EQ(saddrObj.netaddrp(), ":0");
     nadaptObj.socknetmask(saddrObj);

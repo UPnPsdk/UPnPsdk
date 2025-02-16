@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-04
+// Redistribution only with this Copyright remark. Last modified: 2025-02-19
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -9,8 +9,50 @@
 
 #include <UPnPsdk/netadapter_platform.hpp>
 
-
 namespace UPnPsdk {
+
+/*!
+ * \brief Get prefix bit number from a network address mask.
+ * \ingroup upnplib-addrmodul
+ *
+ * The length, in bits, of the prefix or network part of the IP address, e.g.
+ * 64 from "[2001:db8::1]/64". For a unicast IPv4 address, any value greater
+ * than 32 is an illegal value. For a unicast IPv6 address, any value greater
+ * than 128 is an illegal value. A value of 255 is commonly used to represent
+ * an illegal value.
+ * \returns
+ *  - On success: The length, in bits, of the prefix or network part of the IP
+ * address.
+ *  _ On error: \b 255
+ */
+uint8_t netmask_to_bitmask(
+    // [in] Pointer to a socket address structure containing the netmask.
+    const ::sockaddr_storage* a_netmask);
+
+
+/*!
+ * \brief Get network address mask from address prefix bit number.
+ * \ingroup upnplib-addrmodul
+ * \code
+// Usage e.g.:
+SSockaddr saObj;
+bitmask_to_netmask(AF_INET6, 64, saObj);
+std::cout << "netmask is " << saObj.netaddr() << '\n';
+ * \endcode
+ * \exception std::invalid_argument An invalid ip-address prefix bitmask >32
+ * (IPv4) or >128 (IPv6) was used.
+ */
+void bitmask_to_netmask(
+    /*! [in] Pointer to a structure containing the socket address the netmask
+     * is associated. */
+    const ::sockaddr_storage* a_saddr,
+    /*! [in] IPv6 or IPv4 address prefix length as number of set bits as given
+     * e.g. with 64 in [2001:db8::1]/64. */
+    const uint8_t a_prefixlength,
+    /*! [out] Reference to a socket address object that will be filled with the
+     * netmask. */
+    SSockaddr& a_saddrObj);
+
 
 /*!
  * \brief Get information from local network adapters
