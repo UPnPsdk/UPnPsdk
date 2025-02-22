@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-10
+// Redistribution only with this Copyright remark. Last modified: 2025-02-21
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -388,6 +388,7 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
     if (a_addr_str.empty()) {
         // This clears the complete socket address.
         ::memset(&m_sa_union, 0, sizeof(m_sa_union));
+        m_sa_union.ss.ss_family = AF_UNSPEC;
         return;
     }
     std::string ai_addr_str;

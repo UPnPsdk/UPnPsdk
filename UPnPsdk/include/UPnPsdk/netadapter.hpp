@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-19
+// Redistribution only with this Copyright remark. Last modified: 2025-02-21
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -14,19 +14,25 @@ namespace UPnPsdk {
 /*!
  * \brief Get prefix bit number from a network address mask.
  * \ingroup upnplib-addrmodul
+ * \code
+// Usage e.g.:
+::sockaddr_storage saddr{};
+try {
+    std::cout << "bitmask is " << netmask_to_bitmask(&saddr) << '\n';
+} catch (const std::runtime_error& ex) { handle_error() }
+ * \endcode
+ * Returns the length, in bits, of the prefix or network part of the IP
+ * address, e.g. 64 from "[2001:db8::1]/64". A value of 255 is commonly used to
+ * represent an illegal value but this function throws an exception instead.
  *
- * The length, in bits, of the prefix or network part of the IP address, e.g.
- * 64 from "[2001:db8::1]/64". For a unicast IPv4 address, any value greater
- * than 32 is an illegal value. For a unicast IPv6 address, any value greater
- * than 128 is an illegal value. A value of 255 is commonly used to represent
- * an illegal value.
- * \returns
- *  - On success: The length, in bits, of the prefix or network part of the IP
- * address.
- *  _ On error: \b 255
+ * \returns The length, in bits, of the prefix or network part of the IP
+ * address, 0..32 for IPv4, 0..128 for IPv6.
+ * \exception std::runtime_error
+ *  - with an invalid netmask
+ *  - with an invalid \glos{af,address family}.
  */
 uint8_t netmask_to_bitmask(
-    // [in] Pointer to a socket address structure containing the netmask.
+    /// [in] Pointer to a socket address structure containing the netmask.
     const ::sockaddr_storage* a_netmask);
 
 
@@ -35,12 +41,17 @@ uint8_t netmask_to_bitmask(
  * \ingroup upnplib-addrmodul
  * \code
 // Usage e.g.:
+::sockaddr_storage saddr{};
 SSockaddr saObj;
-bitmask_to_netmask(AF_INET6, 64, saObj);
+try {
+    bitmask_to_netmask(&saddr, 64, saObj);
+} catch (const std::runtime_error& ex) { handle_error() }
 std::cout << "netmask is " << saObj.netaddr() << '\n';
  * \endcode
- * \exception std::invalid_argument An invalid ip-address prefix bitmask >32
- * (IPv4) or >128 (IPv6) was used.
+ * \exception std::runtime_error
+ *  - if the associated socket address **a_saddr** is not given.
+ *  - if the prefix length exceeds its maximum size (128 for IPv6, 32 for IPv4),
+ *  - with an invalid \glos{af,address family}.
  */
 void bitmask_to_netmask(
     /*! [in] Pointer to a structure containing the socket address the netmask

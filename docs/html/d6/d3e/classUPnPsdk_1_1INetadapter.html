@@ -150,9 +150,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a181d9055271c4dfc92921aac0248ac87" id="r_a181d9055271c4dfc92921aac0248ac87"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d3e/classUPnPsdk_1_1INetadapter.html#a181d9055271c4dfc92921aac0248ac87">socknetmask</a> (<a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_snetmask) const =0</td></tr>
 <tr class="memdesc:a181d9055271c4dfc92921aac0248ac87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get socket address netmask from current selected list entry.  <br /></td></tr>
 <tr class="separator:a181d9055271c4dfc92921aac0248ac87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc374b7d34a3fdbc90158082989d3e28" id="r_adc374b7d34a3fdbc90158082989d3e28"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d3e/classUPnPsdk_1_1INetadapter.html#adc374b7d34a3fdbc90158082989d3e28">prefix_length</a> () const =0</td></tr>
-<tr class="memdesc:adc374b7d34a3fdbc90158082989d3e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get prefix length from the ip address of the current selected local network adapter.  <br /></td></tr>
-<tr class="separator:adc374b7d34a3fdbc90158082989d3e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a01e506ac931b8ebcbc72f44c8878d0" id="r_a6a01e506ac931b8ebcbc72f44c8878d0"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d3e/classUPnPsdk_1_1INetadapter.html#a6a01e506ac931b8ebcbc72f44c8878d0">bitmask</a> () const =0</td></tr>
+<tr class="memdesc:a6a01e506ac931b8ebcbc72f44c8878d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get prefix length from the ip address of the current selected local network adapter.  <br /></td></tr>
+<tr class="separator:a6a01e506ac931b8ebcbc72f44c8878d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manage information from different platforms about network adapters. </p>
@@ -174,7 +174,7 @@ Public Member Functions</h2></td></tr>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter__platform_html_a7be49c7e7d38b541a24b47285ed1d357"><div class="ttname"><a href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a7be49c7e7d38b541a24b47285ed1d357">UPnPsdk::CNetadapter_platform::get_next</a></div><div class="ttdeci">bool get_next() override</div><div class="ttdoc">Select next entry from the network adapter list that was initial loaded with INetadapter::get_first()...</div><div class="ttdef"><b>Definition</b> <a href="../../dc/db4/netadapter__unix_8cpp_source.html#l00044">netadapter_unix.cpp:44</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter__platform_html_a8adb1de77c10e3ad389d84896c053d8c"><div class="ttname"><a href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8adb1de77c10e3ad389d84896c053d8c">UPnPsdk::CNetadapter_platform::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdoc">Get network adapter name from current selected list entry.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/db4/netadapter__unix_8cpp_source.html#l00065">netadapter_unix.cpp:65</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter__platform_html_acc039aa39f69f82aa26906287de8996e"><div class="ttname"><a href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#acc039aa39f69f82aa26906287de8996e">UPnPsdk::CNetadapter_platform::get_first</a></div><div class="ttdeci">void get_first() override</div><div class="ttdoc">Load a list of network adapters from the operating system and select its first entry.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/db4/netadapter__unix_8cpp_source.html#l00027">netadapter_unix.cpp:27</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">UPnPsdk::CNetadapter</a></div><div class="ttdoc">Get information from local network adapters.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dff/netadapter_8hpp_source.html#l00046">netadapter.hpp:46</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">UPnPsdk::CNetadapter</a></div><div class="ttdoc">Get information from local network adapters.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dff/netadapter_8hpp_source.html#l00099">netadapter.hpp:99</a></div></div>
 </div><!-- fragment --><p> Used to get information from the local network adapters. Encapsulate it in a class to get a common C++ interface to the program for different platform realisations, for example on Unix like platforms and on Microsoft Windows. They use different system calls. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d9/d8b/netadapter__if_8hpp_source.html#l00043">43</a> of file <a class="el" href="../../d9/d8b/netadapter__if_8hpp_source.html">netadapter_if.hpp</a>.</p>
@@ -341,7 +341,7 @@ Public Member Functions</h2></td></tr>
 <div class="line">} <span class="keywordflow">catch</span>(xcp) { handle_error(); };</div>
 <div class="line"><span class="keywordflow">if</span> (nadaptObj.<a class="code hl_function" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#ad30d8361037d6d7c036ac586702c87e1">find_first</a>(<span class="stringliteral">&quot;[2001.db8::1:0:2]&quot;</span>))</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;adapter name is &quot;</span> &lt;&lt; nadaptObj.<a class="code hl_function" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8adb1de77c10e3ad389d84896c053d8c">name</a>() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter__platform_html_ad30d8361037d6d7c036ac586702c87e1"><div class="ttname"><a href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#ad30d8361037d6d7c036ac586702c87e1">UPnPsdk::CNetadapter_platform::find_first</a></div><div class="ttdeci">bool find_first(const std::string &amp;a_name_or_addr) override</div><div class="ttdoc">Find local network adapter with given name or ip address.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dda/netadapter__win32_8cpp_source.html#l00216">netadapter_win32.cpp:216</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter__platform_html_ad30d8361037d6d7c036ac586702c87e1"><div class="ttname"><a href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#ad30d8361037d6d7c036ac586702c87e1">UPnPsdk::CNetadapter_platform::find_first</a></div><div class="ttdeci">bool find_first(const std::string &amp;a_name_or_addr) override</div><div class="ttdoc">Find local network adapter with given name or ip address.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dda/netadapter__win32_8cpp_source.html#l00113">netadapter_win32.cpp:113</a></div></div>
 </div><!-- fragment --><p>You have to <a class="el" href="../../d6/d3e/classUPnPsdk_1_1INetadapter.html#a49e82220119a94aa05b251ba25550188" title="Load a list of network adapters from the operating system and select its first entry.">get_first()</a> entry of the internal network adapter list to load it. Then you can try to <b>find_first</b>() adapter with the given property. If found, the adapter is selected so that all its properties can be retrieved. </p><dl class="section return"><dt>Returns</dt><dd><ul>
 <li><b>true</b> if adapter with given name or ip address was found</li>
 <li><b>false</b> otherwise </li>
@@ -617,8 +617,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adc374b7d34a3fdbc90158082989d3e28" name="adc374b7d34a3fdbc90158082989d3e28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc374b7d34a3fdbc90158082989d3e28">&#9670;&#160;</a></span>prefix_length()</h2>
+<a id="a6a01e506ac931b8ebcbc72f44c8878d0" name="a6a01e506ac931b8ebcbc72f44c8878d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a01e506ac931b8ebcbc72f44c8878d0">&#9670;&#160;</a></span>bitmask()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -627,7 +627,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual unsigned int UPnPsdk::INetadapter::prefix_length </td>
+          <td class="memname">virtual unsigned int UPnPsdk::INetadapter::bitmask </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -643,7 +643,7 @@ Public Member Functions</h2></td></tr>
 <p>Get prefix length from the ip address of the current selected local network adapter. </p>
 <dl class="section return"><dt>Returns</dt><dd>Prefix length of the ip address from the current selected local network adapter. </dd></dl>
 
-<p>Implemented in <a class="el" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#ad59a98ab2a138709df13904d0e4f216c">UPnPsdk::CNetadapter_platform</a>, and <a class="el" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#ad59a98ab2a138709df13904d0e4f216c">UPnPsdk::CNetadapter_platform</a>.</p>
+<p>Implemented in <a class="el" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aa0cd4b5fb12fc8c4e66d8ba47a4938b3">UPnPsdk::CNetadapter_platform</a>, and <a class="el" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aa0cd4b5fb12fc8c4e66d8ba47a4938b3">UPnPsdk::CNetadapter_platform</a>.</p>
 
 </div>
 </div>

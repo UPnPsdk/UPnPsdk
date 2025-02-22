@@ -1,9 +1,6 @@
 var namespaceUPnPsdk =
 [
     [ "anonymous_namespace{global.cpp}", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03.html", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03" ],
-    [ "anonymous_namespace{netadapter_win32.cpp}", "d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html", [
-      [ "bitmask_to_netmask", "d2/d0b/namespaceUPnPsdk_1_1anonymous__namespace_02netadapter__win32_8cpp_03.html#a56d7e10a49db37e7cbf2bea819c2c0ac", null ]
-    ] ],
     [ "anonymous_namespace{sockaddr.cpp}", "d7/d77/namespaceUPnPsdk_1_1anonymous__namespace_02sockaddr_8cpp_03.html", [
       [ "sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ],
       [ "to_port", "d0/dd8/group__upnplib-addrmodul.html#ga15c2857e134c29ff3dae7e20ff62b5df", null ]
@@ -49,6 +46,8 @@ var namespaceUPnPsdk =
       [ "SOAPMETHOD_POST", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60af36f6651a84f4a8ff85fa2cecc25505c", null ],
       [ "HTTPMETHOD_SIMPLEGET", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60ad9d286da9f9dc214d6ec88ab465d42f2", null ]
     ] ],
+    [ "netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71", null ],
+    [ "bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#ga5f66fceda4eaabc471e06dd5d56939de", null ],
     [ "split_addr_port", "d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30", null ],
     [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],
     [ "errStr", "dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588", null ],

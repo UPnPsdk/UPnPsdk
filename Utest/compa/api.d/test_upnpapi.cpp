@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-14
+// Redistribution only with this Copyright remark. Last modified: 2025-02-22
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -643,7 +643,7 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
         << errStrEx(ret_UpnpFinish, UPNP_E_SUCCESS);
 }
 
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv6_loopback_iface_successful) {
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv6_iface_successful) {
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("[::1]");
 
@@ -671,7 +671,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv6_loopback_iface_successful) {
     }
 }
 
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv4_loopback_iface_successful) {
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv4_iface_successful) {
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("127.0.0.1");
 
@@ -697,6 +697,13 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv4_loopback_iface_successful) {
         EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
     }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_iface_successful) {
+    // By specifing "loopback" as argument then use first IP address given by
+    // the operating system.
+    if (!github_actions)
+        GTEST_FAIL() << "Still needs to be done.";
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_successful) {
@@ -826,6 +833,9 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
+    if (github_actions)
+        GTEST_SKIP() << "IP addresses need to be mocked.";
+
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("ens1");
 
@@ -839,21 +849,43 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     // The loopback address belongs to link-local unicast addresses.
     EXPECT_STREQ(gIF_IPV6, "fe80::5054:ff:fe7f:c021");
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
-    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "2003:d5:2748:ae00:5054:ff:fe7f:c021");
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "2003:d5:2732:f300:5054:ff:fe7f:c021");
     EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 64);
 }
 
-#if 0
-TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
-    // To be done
-    int ret_GetFreeHandle = GetFreeHandle();
-}
-
-TEST_F(UpnpapiFTestSuite, download_xml_successful) {
-    // A possible url is http://127.0.0.1:50001/tvdevicedesc.xml
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
     if (github_actions)
         GTEST_SKIP() << "Still needs to be done.";
 
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
+
+    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gIF_NAME, "ens1");
+    EXPECT_EQ(gIF_INDEX, 2);
+    EXPECT_STREQ(gIF_IPV4, "");
+    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    // The loopback address belongs to link-local unicast addresses.
+    EXPECT_STREQ(gIF_IPV6, "fe80::5054:ff:fe7f:c021");
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "2003:d5:2732:f300:5054:ff:fe7f:c021");
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 64);
+}
+
+TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
+    if (!github_actions)
+        GTEST_FAIL() << "Still needs to be done.";
+
+    [[maybe_unused]] int ret_GetFreeHandle = GetFreeHandle();
+}
+
+TEST_F(UpnpapiFTestSuite, download_xml_successful) {
+    if (github_actions)
+        GTEST_SKIP() << "Still needs to be done.";
+
+    // A possible url is http://127.0.0.1:50001/tvdevicedesc.xml
     IXML_Document* xmldocbuf_ptr{nullptr};
 
     int ret_UpnpDownloadXmlDoc = UpnpDownloadXmlDoc(
@@ -861,7 +893,6 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     EXPECT_EQ(ret_UpnpDownloadXmlDoc, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpDownloadXmlDoc, UPNP_E_SUCCESS);
 }
-#endif // #if 0
 
 } // namespace utest
 

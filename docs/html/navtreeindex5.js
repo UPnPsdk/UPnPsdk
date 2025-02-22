@@ -1,6 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"d7/d47/UpnpActionRequest_8hpp.html#a01eb3b0437d81938d50c05b859701178":[7,0,0,0,5,25],
 "d7/d47/UpnpActionRequest_8hpp.html#a06298c1dd713160d41339d8dd98f89f5":[7,0,0,0,5,45],
 "d7/d47/UpnpActionRequest_8hpp.html#a0639c58da98747645b24848567fdd63f":[7,0,0,0,5,47],
 "d7/d47/UpnpActionRequest_8hpp.html#a11aafd5c01b2b0f47882a72dc71a294f":[7,0,0,0,5,28],
@@ -88,7 +87,7 @@ var NAVTREEINDEX5 =
 "d7/d70/node_8cpp.html#aeaf9901703e669826fc14cfb55d9d514":[7,0,1,0,1,9,9],
 "d7/d70/node_8cpp.html#af53d9601ebe0e2f9f846bb6824eb3ba7":[7,0,1,0,1,9,46],
 "d7/d70/node_8cpp_source.html":[7,0,1,0,1,9],
-"d7/d77/namespaceUPnPsdk_1_1anonymous__namespace_02sockaddr_8cpp_03.html":[5,0,25,2],
+"d7/d77/namespaceUPnPsdk_1_1anonymous__namespace_02sockaddr_8cpp_03.html":[5,0,25,1],
 "d7/da5/group__SSDP-Data.html":[4,1,1,0],
 "d7/da5/group__SSDP-Data.html#d4/dcc/structs__SSDPResultData":[4,1,1,0,0],
 "d7/da5/group__SSDP-Data.html#ga2ba3e04109fa0a28cd5e9cb55555cb8d":[4,1,1,0,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX5 =
 "d8/dc8/group__compaAPI-Ctrlpt.html#ga4409448def86e4fdcb7c0e0610c4cfaf":[4,0,7,17],
 "d8/dc8/group__compaAPI-Ctrlpt.html#ga4975c577c11ef53fa94ef85c7a3fbde9":[4,0,7,2],
 "d8/dc8/group__compaAPI-Ctrlpt.html#ga534507dd9c88a06cf60373ba7955a9a9":[4,0,7,4],
-"d8/dc8/group__compaAPI-Ctrlpt.html#ga5f23a01e864a18c56c88f7780a2071fb":[4,0,7,8]
+"d8/dc8/group__compaAPI-Ctrlpt.html#ga5f23a01e864a18c56c88f7780a2071fb":[4,0,7,8],
+"d8/dc8/group__compaAPI-Ctrlpt.html#ga618f0d31de6451f9cdf212173dfba8f3":[4,0,7,13]
 };

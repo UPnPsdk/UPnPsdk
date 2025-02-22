@@ -85,10 +85,9 @@ uint8_t netmask_to_bitmask(const ::sockaddr_storage* a_netmask) {
                 AF_INET,
                 &reinterpret_cast<const ::sockaddr_in*>(a_netmask)->sin_addr,
                 ip_str, sizeof(ip_str));
-            throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT +
-                "MSG1069: Invalid ip-address prefix bitmask \"" +
-                std::string(ip_str) + "\".\n");
+            throw std::runtime_error(UPnPsdk_LOGEXCEPT +
+                                     "MSG1069: Invalid ip-address netmask \"" +
+                                     std::string(ip_str) + "\".\n");
         }
     } break;
 
@@ -180,13 +179,16 @@ void bitmask_to_netmask(const ::sockaddr_storage* a_saddr,
         a_saddrObj.sin = saddr;
     } break;
 
-    default: {
-        UPnPsdk_LOGCRIT "MSG1126: Invalid address family("
-            << a_saddr->ss_family << "), only AF_INET6(" << AF_INET6
-            << ") or AF_INET(" << AF_INET
-            << ") are valid. Continue with AF_UNSPEC(" << AF_UNSPEC << ").\n";
+    case AF_UNSPEC: {
         a_saddrObj = "";
-        a_saddrObj.ss.ss_family = AF_UNSPEC;
+    } break;
+
+    default: {
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT + "MSG1126: Unsupported address family(" +
+            std::to_string(a_saddr->ss_family) + "), only AF_INET6(" +
+            std::to_string(AF_INET6) + "), AF_INET(" + std::to_string(AF_INET) +
+            "), or AF_UNSPEC(" + std::to_string(AF_UNSPEC) + ") are valid.\n");
     }
     } // switch
 }

@@ -220,9 +220,8 @@ TEST(NetadapterTestSuite, bitmask_to_netmask_fails) {
     EXPECT_EQ(saddrObj.netaddrp(), ":0");
 
     saddr.ss.ss_family = static_cast<sa_family_t>(231);
-    bitmask_to_netmask(&saddr.ss, 64, saddrObj);
-    EXPECT_EQ(saddrObj.ss.ss_family, AF_UNSPEC);
-    EXPECT_EQ(saddrObj.netaddrp(), ":0");
+    EXPECT_THROW(bitmask_to_netmask(&saddr.ss, 64, saddrObj),
+                 std::runtime_error);
 
     EXPECT_THROW(bitmask_to_netmask(/*in*/ nullptr, /*in*/ 64,
                                     /*out netmask*/ saddrObj),

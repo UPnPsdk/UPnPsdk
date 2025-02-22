@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('d1/d42/port_8hpp_source.html','../../'
 <a href="../../d1/d42/port_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef UPnPsdk_INCLUDE_PORT_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define UPnPsdk_INCLUDE_PORT_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-02-13</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-02-21</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">// Header file for portable definitions</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">// ====================================</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// This header should be includable into any source file to have portable</span></div>
@@ -170,8 +170,8 @@ $(document).ready(function(){initNavTree('d1/d42/port_8hpp_source.html','../../'
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#if (!defined(_MSC_VER) &amp;&amp; !defined(IN6_IS_ADDR_GLOBAL)) || defined(DOXYGEN_RUN)</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">// On win32 this is a function and will not be detected with macro option &quot;defined&quot;.</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">// For detailed information look at Unit Test</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">// On win32 this is a function and will not be detected by macro conditional</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">// &quot;if defined&quot;. For detailed information look at Unit Test</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment">// &#39;AddrinfoTestSuite.check_in6_is_addr_global&#39;.</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#define IN6_IS_ADDR_GLOBAL(a)                                                  \</span></div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">    ((((__const uint32_t*)(a))[0] &amp; htonl((uint32_t)0xe0000000)) ==            \</span></div>
