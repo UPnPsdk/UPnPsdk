@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-21
+// Redistribution only with this Copyright remark. Last modified: 2025-02-26
 
 #ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -230,19 +230,46 @@ TEST(NetadapterTestSuite, bitmask_to_netmask_fails) {
 }
 
 
-TEST(NetadapterTestSuite, find_adapters_info) {
+#if 0
+// This test is usually used only one time to get the binary values for
+// netaddresses "127.0.0.0" and "127.255.255.255" to simply check for the range
+// of all possible IPv4 loopback addresses. They are htonl(2130706432) and
+// htonl(2147483647).
+TEST(NetadapterTestSuite, af_inet_loopback_range) {
+    ::in_addr low;
+    ::in_addr high;
+    inet_pton(AF_INET, "127.0.0.0", &low);
+    inet_pton(AF_INET, "127.255.255.255", &high);
+    std::cout << "\"127.0.0.0\" is " << ntohl(low.s_addr)
+              << ", \"127.255.255.255\" is " << ntohl(high.s_addr) << ".\n";
+}
+#endif
+
+TEST(NetadapterTestSuite, find_first_adapters_info) {
     UPnPsdk::CNetadapter nadaptObj;
     ASSERT_NO_THROW(nadaptObj.get_first());
 
-    // Index 1 is assumed to be the loopback device on all platforms but it has
-    // different names.
+    // I do not expect index 1 to be the loopback adapter. It can be any ip
+    // address 127.0.0.1 to 127.255.255.255.
     EXPECT_TRUE(nadaptObj.find_first(1));
     EXPECT_EQ(nadaptObj.index(), 1);
-    std::string nad_name = nadaptObj.name();
+    EXPECT_NE(nadaptObj.name(), "");
+    EXPECT_NE(nadaptObj.bitmask(), 0);
+    nadaptObj.sockaddr(saddrObj);
+    EXPECT_NE(saddrObj.netaddrp(), ":0");
+    nadaptObj.socknetmask(saddrObj);
+    EXPECT_NE(saddrObj.netaddr(), "");
 
-    EXPECT_TRUE(nadaptObj.find_first(nad_name));
+    EXPECT_TRUE(nadaptObj.find_first("loopback"));
+    EXPECT_NE(nadaptObj.index(), 0);
+    EXPECT_NE(nadaptObj.name(), "");
+    EXPECT_NE(nadaptObj.bitmask(), 0);
     nadaptObj.sockaddr(saddrObj);
     EXPECT_THAT(saddrObj.netaddrp(), AnyOf("[::1]:0", "127.0.0.1:0"));
+    nadaptObj.socknetmask(saddrObj);
+    EXPECT_THAT(
+        saddrObj.netaddr(),
+        AnyOf("[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", "255.0.0.0"));
 
     ASSERT_TRUE(nadaptObj.find_first("::1"));
     EXPECT_EQ(nadaptObj.index(), 1);
@@ -251,7 +278,7 @@ TEST(NetadapterTestSuite, find_adapters_info) {
     EXPECT_EQ(saddrObj.netaddr(), "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
 
     ASSERT_TRUE(nadaptObj.find_first("127.0.0.1"));
-    EXPECT_EQ(nadaptObj.index(), 1);
+    EXPECT_NE(nadaptObj.index(), 0);
     EXPECT_EQ(nadaptObj.bitmask(), 8);
     nadaptObj.socknetmask(saddrObj);
     EXPECT_EQ(saddrObj.netaddr(), "255.0.0.0");
@@ -282,6 +309,33 @@ TEST(NetadapterTestSuite, find_adapters_info) {
     EXPECT_EQ(saddrObj.netaddrp(), ":0");
     nadaptObj.socknetmask(saddrObj);
     EXPECT_EQ(saddrObj.netaddr(), "");
+}
+
+TEST(NetadapterTestSuite, find_loopback_adapter_info) {
+    UPnPsdk::CNetadapter nadaptObj;
+    ASSERT_NO_THROW(nadaptObj.get_first());
+
+    EXPECT_TRUE(nadaptObj.find_first("loopback"));
+    EXPECT_NE(nadaptObj.index(), 0);
+    EXPECT_NE(nadaptObj.name(), "");
+    EXPECT_NE(nadaptObj.bitmask(), 0);
+    nadaptObj.sockaddr(saddrObj);
+    EXPECT_THAT(saddrObj.netaddrp(), AnyOf("[::1]:0", "127.0.0.1:0"));
+    nadaptObj.socknetmask(saddrObj);
+    EXPECT_THAT(
+        saddrObj.netaddr(),
+        AnyOf("[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", "255.0.0.0"));
+
+    EXPECT_TRUE(nadaptObj.find_next());
+    EXPECT_NE(nadaptObj.index(), 0);
+    EXPECT_NE(nadaptObj.name(), "");
+    EXPECT_NE(nadaptObj.bitmask(), 0);
+    nadaptObj.sockaddr(saddrObj);
+    EXPECT_THAT(saddrObj.netaddrp(), AnyOf("[::1]:0", "127.0.0.1:0"));
+    nadaptObj.socknetmask(saddrObj);
+    EXPECT_THAT(
+        saddrObj.netaddr(),
+        AnyOf("[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", "255.0.0.0"));
 }
 
 } // namespace utest

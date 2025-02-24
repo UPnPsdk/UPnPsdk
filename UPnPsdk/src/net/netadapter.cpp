@@ -1,11 +1,12 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-21
+// Redistribution only with this Copyright remark. Last modified: 2025-02-25
 /*!
  * \file
  * \brief Manage information about network adapters.
  */
 
 #include <UPnPsdk/netadapter.hpp>
+#include <UPnPsdk/addrinfo.hpp>
 #include <UPnPsdk/synclog.hpp>
 
 
@@ -198,6 +199,90 @@ CNetadapter::CNetadapter(){
 
 CNetadapter::~CNetadapter() {
     TRACE2(this, " Destruct CNetadapter()")
+}
+
+bool CNetadapter::find_first(const std::string& a_name_or_addr) {
+    TRACE2(this, " Executing CNetadapter::find_first(" + a_name_or_addr + ")")
+    // First look for a loopback interface.
+    if (a_name_or_addr == "loopback") {
+        SSockaddr sa_nadObj;
+        this->reset();
+        do {
+            this->sockaddr(sa_nadObj);
+            if ((sa_nadObj.ss.ss_family == AF_INET6 &&
+                 IN6_IS_ADDR_LOOPBACK(&sa_nadObj.sin6.sin6_addr)) ||
+                (sa_nadObj.ss.ss_family == AF_INET &&
+                 // address between "127.0.0.0" and "127.255.255.255"
+                 ntohl(sa_nadObj.sin.sin_addr.s_addr) >= 2130706432 &&
+                 ntohl(sa_nadObj.sin.sin_addr.s_addr) <= 2147483647)) {
+                m_find_index = this->index();
+                return true;
+            }
+        } while (this->get_next());
+
+        // No loopback interface found, nothing more to do.
+        return false;
+    }
+
+    // Look for a local network adapter name
+    this->reset();
+    do {
+        if (this->name() == a_name_or_addr) {
+            m_find_index = this->index();
+            return true;
+        }
+    } while (this->get_next());
+
+    // No name found, look for the ip address of a local network adapter.
+    // Try to translate input argument to a socket address.
+    CAddrinfo ainfoObj(a_name_or_addr, AI_NUMERICHOST, 0);
+    if (!ainfoObj.get_first())
+        return false;
+
+    // Valid ip address string given as input argument. Get its socket address.
+    SSockaddr sa_inputObj{};
+    ainfoObj.sockaddr(sa_inputObj);
+
+    // Parse network adapter list for the given input argument.
+    SSockaddr sa_nadObj;
+    this->reset();
+    do {
+        this->sockaddr(sa_nadObj);
+        if (sa_nadObj == sa_inputObj) {
+            m_find_index = this->index();
+            return true;
+        }
+    } while (this->get_next());
+
+    return false;
+}
+
+bool CNetadapter::find_first(unsigned int a_index) {
+    TRACE2(this, " Executing CNetadapter::find_first(" +
+                     std::to_string(a_index) + ")")
+    this->reset();
+    do {
+        if (this->index() == a_index) {
+            m_find_index = a_index;
+            return true;
+        }
+    } while (this->get_next());
+
+    return false;
+}
+
+bool CNetadapter::find_next() {
+    TRACE2(this, " Executing CNetadapter::find_next() (on netadapter index " +
+                     std::to_string(m_find_index) + ")")
+    if (m_find_index == 0)
+        return false;
+
+    while (this->get_next()) {
+        if (this->index() == m_find_index)
+            return true;
+    }
+    m_find_index = 0;
+    return false;
 }
 
 } // namespace UPnPsdk

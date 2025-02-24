@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-16
+// Redistribution only with this Copyright remark. Last modified: 2025-02-25
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -151,6 +151,7 @@ void CNetadapter_platform::reset() noexcept {
     for (ifaddrs* ifa_current = m_ifa_first; ifa_current != nullptr;
          ifa_current = ifa_current->ifa_next) {
         if (is_valid_if(ifa_current)) {
+            m_find_index = 0;
             m_ifa_current = ifa_current;
             break; // Does not increment ifa_current
         }

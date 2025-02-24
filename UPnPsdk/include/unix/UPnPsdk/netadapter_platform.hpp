@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_UNIX_NETADAPTER_HPP
 #define UPnPsdk_UNIX_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-16
+// Redistribution only with this Copyright remark. Last modified: 2025-02-24
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -26,7 +26,7 @@ class UPnPsdk_API CNetadapter_platform : public INetadapter {
     // Destructor
     virtual ~CNetadapter_platform();
 
-    // methodes
+    // Methodes
     void get_first() override;
     bool get_next() override;
     unsigned int index() const override;
@@ -44,13 +44,14 @@ class UPnPsdk_API CNetadapter_platform : public INetadapter {
     // Pointer to the current network adapter in work.
     ifaddrs* m_ifa_current{nullptr};
 
-    // methodes
+    // Methodes
+    inline bool is_valid_if(const ifaddrs* a_ifa) const noexcept;
+    void free_ifaddrs() noexcept;
+
+  protected:
     /*! \brief Reset pointer and point to the first entry of the local network
      * adapter list if available. */
     void reset() noexcept override;
-
-    inline bool is_valid_if(const ifaddrs* a_ifa) const noexcept;
-    void free_ifaddrs() noexcept;
 };
 
 } // namespace UPnPsdk

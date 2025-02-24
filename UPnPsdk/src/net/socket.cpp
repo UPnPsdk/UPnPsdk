@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-13
+// Redistribution only with this Copyright remark. Last modified: 2025-02-23
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -530,6 +530,8 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     if (ret_code == 0)
         // Store valid socket file descriptor.
         m_sfd = sockfd;
+    else
+        serrObj.catch_error();
 
     if (g_dbug) {
         SSockaddr saddr;
@@ -543,7 +545,6 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     }
 
     if (ret_code == SOCKET_ERROR) {
-        serrObj.catch_error();
         CLOSE_SOCKET_P(sockfd);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT + "MSG1008: Close socket fd " +

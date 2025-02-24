@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-12
+// Redistribution only with this Copyright remark. Last modified: 2025-02-25
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -72,7 +72,9 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
     EXPECT_CALL(ifaddrsObj, getifaddrs(_))
         .WillOnce(DoAll(SetArgPointee<0>(ifaddr), Return(0)));
     EXPECT_CALL(ifaddrsObj, freeifaddrs(ifaddr)).Times(1);
-    EXPECT_CALL(net_ifObj, if_nametoindex(_)).WillOnce(Return(2));
+    EXPECT_CALL(net_ifObj, if_nametoindex(_))
+        .Times(old_code ? 1 : 2)
+        .WillRepeatedly(Return(2));
 
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("if0v4");

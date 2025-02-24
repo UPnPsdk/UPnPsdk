@@ -1,17 +1,17 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-12
+// Redistribution only with this Copyright remark. Last modified: 2025-02-25
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
+ * - Improve Unit Tests for CNetadapter module with mocking addresses.
+ * - Check CNetadapter_platform::is_valid_if() for win32.
  * - Rework Unit Tests for UpnpGetIfInfo. There is no need anymore to have different tests for platforms.
  * - Reformat UPnPsdk_LOG* output.
  * - Make the sample program running with the compatible library.
  * - Provide IP-Address instead of interface name to UpnpInit2() (https://datatracker.ietf.org/doc/html/rfc3484).
- * - Add CNetadapter::search_next() method.
  * - Make SSockaddr structure to support AF_UNIX.
- * - Remove IN6_IS_ADDR_GLOBAL, should be checked by kernel or system library (https://datatracker.ietf.org/doc/html/rfc6890)
  * - Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.
  * - Improve tests for OpenSSL (test_sock.cpp, sock read_ssl, sock write_ssl).
  * - Create no mocked tests for CSigpipe@sock.cpp, read and write data using UPnP-Device.

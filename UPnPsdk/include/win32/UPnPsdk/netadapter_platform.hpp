@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_WIN32_NETADAPTER_HPP
 #define UPnPsdk_WIN32_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-16
+// Redistribution only with this Copyright remark. Last modified: 2025-02-24
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -27,8 +27,6 @@ class UPnPsdk_API CNetadapter_platform : public INetadapter {
     void get_first() override;
     bool get_next() override;
     unsigned int index() const override;
-    bool find_first(const std::string& a_name_or_addr) override;
-    bool find_first(const unsigned int a_index) override;
     std::string name() const override;
     void sockaddr(SSockaddr& a_saddr) const override;
     void socknetmask(SSockaddr& a_snetmask) const override;
@@ -50,6 +48,7 @@ class UPnPsdk_API CNetadapter_platform : public INetadapter {
 
     void free_adaptaddrs() noexcept;
 
+  protected:
     /*! \brief Reset pointer and point to the first entry of the local network
      * adapter list if available. */
     inline void reset() noexcept;
