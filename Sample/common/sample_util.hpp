@@ -6,7 +6,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-09-08
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,7 @@
 #include "pthread.h" // To find pthreads4w don't use <pthread.h>
 #include <string.h>
 
-#ifdef SAMPLE_UTIL_C
+#if defined(SAMPLE_UTIL_C) || defined(DOXYGEN_RUN)
 /*! Service types for tv services. */
 const char* TvServiceType[] = {"urn:schemas-upnp-org:service:tvcontrol:1",
                                "urn:schemas-upnp-org:service:tvpicture:1"};
@@ -59,6 +59,7 @@ extern const char* TvServiceType[];
 /* mutex to control displaying of events */
 extern pthread_mutex_t display_mutex;
 
+/// \brief Event types
 typedef enum {
     STATE_UPDATE = 0,
     DEVICE_ADDED = 1,
@@ -67,7 +68,7 @@ typedef enum {
 } eventType;
 
 /*!
- * \brief Given a DOM node such as <Channel>11</Channel>, this routine
+ * \brief Given a DOM node such as \<Channel\>11\</Channel\>, this routine
  * extracts the value (e.g., 11) from the node and returns it as
  * a string. The string must be freed by the caller using free.
  *
@@ -219,14 +220,14 @@ int SampleUtil_Print(
     ;
 
 /*!
- * \brief
+ * \brief SampleUtil_RegisterUpdateFunction
  */
 int SampleUtil_RegisterUpdateFunction(
     /*! [in] . */
     state_update update_function);
 
 /*!
- * \brief
+ * \brief SampleUtil_StateUpdate
  */
 void SampleUtil_StateUpdate(
     /*! [in] . */

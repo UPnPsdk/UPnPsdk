@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,7 +39,9 @@
  * \file
  */
 
+/// \cond
 #define SAMPLE_UTIL_C
+/// \endcond
 
 #include "sample_util.hpp"
 #include "UpnpDiscovery.hpp"
@@ -58,8 +60,10 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+/// \cond
 static int initialize_init = 1;
 static int initialize_register = 1;
+/// \endcond
 
 /*! Function pointers to use for displaying formatted strings.
  * Set on Initialization of device. */
@@ -138,18 +142,19 @@ IXML_NodeList* SampleUtil_GetFirstServiceList(IXML_Document* doc) {
     return ServiceList;
 }
 
+/// \cond
 #define OLD_FIND_SERVICE_CODE
+/// \endcond
 #ifdef OLD_FIND_SERVICE_CODE
 #else
-/*
- * Obtain the service list
- *    n == 0 the first
- *    n == 1 the next in the device list, etc..
+/*!
+ * \brief Obtain the service list
  */
 static IXML_NodeList* SampleUtil_GetNthServiceList(
     /*! [in] . */
     IXML_Document* doc,
-    /*! [in] . */
+    /*! [in] n == 0 the first\n
+     *       n == 1 the next in the device list, etc.. */
     unsigned int n) {
     IXML_NodeList* ServiceList = NULL;
     IXML_NodeList* servlistnodelist = NULL;
@@ -646,7 +651,9 @@ int SampleUtil_FindAndParseService(IXML_Document* DescDoc, const char* location,
 }
 
 int SampleUtil_Print(const char* fmt, ...) {
+/// \cond
 #define MAX_BUF (8 * 1024)
+    /// \endcond
     va_list ap;
     static char buf[MAX_BUF];
     int rc;

@@ -1,38 +1,87 @@
 <map id="anonymous_namespace{soap_ctrlpt::cpp}::dom_find_node" name="anonymous_namespace{soap_ctrlpt::cpp}::dom_find_node">
-<area shape="rect" id="Node000001" title="Goes thru each child of &#39;start_node&#39; looking for a node having the name &#39;node_name&#39;." alt="" coords="1441,167,1621,222"/>
-<area shape="rect" id="Node000002" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a507d0652d5f4792b6b33a299a239ec90" title="Searches for the node specifed by the last name in the &#39;name&#39; array." alt="" coords="1213,199,1393,254"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1428,211,1394,216,1393,211,1427,206"/>
-<area shape="rect" id="Node000003" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a02637d010040bd277464e3324aa697f4" title="This function handles the response coming back from the device." alt="" coords="985,167,1165,222"/>
-<area shape="poly" id="edge20_Node000001_Node000003" title=" " alt="" coords="1427,191,1393,190,1213,190,1166,192,1166,187,1213,185,1393,185,1428,186"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1199,214,1165,210,1166,204,1200,209"/>
-<area shape="rect" id="Node000004" href="$d9/dd1/soap__ctrlpt_8cpp.html#a05e899b6e0c3bc1b2964ac01c37c15d7" title="This function creates a status variable query message send it to the specified URL...." alt="" coords="751,132,937,158"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="971,175,904,160,905,155,972,170"/>
-<area shape="rect" id="Node000013" href="$d9/dd1/soap__ctrlpt_8cpp.html#a98ef5ed7d4950c8d6c2624271efb36bc" title="This function is called by UPnP API to send the SOAP action request." alt="" coords="781,182,907,207"/>
-<area shape="poly" id="edge13_Node000003_Node000013" title=" " alt="" coords="971,197,908,197,908,192,971,192"/>
-<area shape="rect" id="Node000016" href="$d9/dd1/soap__ctrlpt_8cpp.html#a03f9e29e2408fb92bc48b9b93c4c9841" title="This extended function is called by UPnP API to send the SOAP action request." alt="" coords="773,231,915,256"/>
-<area shape="poly" id="edge17_Node000003_Node000016" title=" " alt="" coords="972,219,905,234,904,228,971,214"/>
-<area shape="rect" id="Node000005" href="$d1/d73/group__compaAPI-Control.html#ga5fcb3482640f0119b34995f8cc087c22" title="Queries the state of a state variable of a service on another device." alt="" coords="513,107,703,132"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="737,136,703,132,703,127,737,131"/>
-<area shape="rect" id="Node000006" href="$d4/d99/upnpapi_8cpp.html#a282c8419fef146b7170ee266159029e6" title="Schedule async functions in threadpool." alt="" coords="519,156,697,182"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="737,158,697,163,696,157,737,153"/>
-<area shape="rect" id="Node000007" href="$d4/d99/upnpapi_8cpp.html#a8cd338e66ebab077fa1f0d9bb0bec183" title="Queries the state of a variable of a service, generating a callback when the operation is complete." alt="" coords="237,150,465,175"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="506,169,465,168,465,163,506,164"/>
-<area shape="rect" id="Node000008" href="$d4/d99/upnpapi_8cpp.html#a69d01558a5fdec26320b6ea9683f9d70" title="Renews a subscription that is about to expire, generating a callback when the operation is complete." alt="" coords="242,199,461,224"/>
-<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="518,186,429,202,428,196,518,181"/>
-<area shape="rect" id="Node000009" href="$d4/d99/upnpapi_8cpp.html#a012bb5501f0167248edf7447ee3f092c" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="267,248,435,274"/>
-<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="546,188,515,202,491,221,481,230,466,239,435,251,433,246,464,235,478,226,488,217,512,197,543,184"/>
-<area shape="rect" id="Node000010" href="$d4/d99/upnpapi_8cpp.html#abd5f9f5ca2e83b67eb0dd421ffd030f9" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="5,124,189,150"/>
-<area shape="poly" id="edge10_Node000006_Node000010" title=" " alt="" coords="520,152,512,146,500,132,493,118,488,89,483,63,476,51,464,40,434,24,407,13,381,9,356,9,302,20,238,41,199,58,164,81,113,126,109,122,161,77,197,53,236,36,301,15,355,4,381,3,408,8,436,19,467,36,480,48,488,61,493,88,498,116,504,129,515,142,523,148"/>
-<area shape="rect" id="Node000011" href="$d4/d99/upnpapi_8cpp.html#aadb37732f8450dd78eb205842ff82a61" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call..." alt="" coords="272,51,431,76"/>
-<area shape="poly" id="edge11_Node000006_Node000011" title=" " alt="" coords="526,154,512,146,496,132,487,117,479,103,464,90,430,76,432,71,467,85,483,99,492,114,500,128,515,141,529,149"/>
-<area shape="rect" id="Node000012" href="$d4/d99/upnpapi_8cpp.html#a6c8bd43f4e0357cdc04939ddd60b383c" title="Removes a subscription of a control point from a service previously subscribed to using UpnpSubscribe..." alt="" coords="263,100,439,126"/>
-<area shape="poly" id="edge12_Node000006_Node000012" title=" " alt="" coords="538,156,465,140,412,128,413,123,466,134,539,151"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="256,247,236,239,198,219,163,195,111,152,114,148,166,191,201,215,238,235,258,242"/>
-<area shape="poly" id="edge16_Node000013_Node000006" title=" " alt="" coords="766,189,697,181,697,176,767,183"/>
-<area shape="rect" id="Node000014" href="$d4/d99/upnpapi_8cpp.html#aacef79c530ba5401c5946cd64939ef70" title="Sends a message to change a state variable in a service." alt="" coords="543,211,673,236"/>
-<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="767,206,673,218,673,213,766,201"/>
-<area shape="rect" id="Node000015" href="$d4/d99/upnpapi_8cpp.html#ae3bc939c3883bda96689903791b2c360" title="Sends a message to change a state variable in a service." alt="" coords="279,298,424,323"/>
-<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="568,245,466,289,424,300,423,295,464,284,566,240"/>
-<area shape="poly" id="edge19_Node000016_Node000006" title=" " alt="" coords="775,230,750,222,702,202,650,184,651,179,704,197,752,217,776,225"/>
-<area shape="poly" id="edge18_Node000016_Node000015" title=" " alt="" coords="759,258,425,303,424,298,759,252"/>
+<area shape="rect" id="Node000001" title="Goes thru each child of &#39;start_node&#39; looking for a node having the name &#39;node_name&#39;." alt="" coords="2496,564,2676,619"/>
+<area shape="rect" id="Node000002" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a507d0652d5f4792b6b33a299a239ec90" title="Searches for the node specifed by the last name in the &#39;name&#39; array." alt="" coords="2268,596,2448,651"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2483,609,2448,613,2448,608,2482,603"/>
+<area shape="rect" id="Node000003" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a02637d010040bd277464e3324aa697f4" title="This function handles the response coming back from the device." alt="" coords="2040,564,2220,619"/>
+<area shape="poly" id="edge49_Node000001_Node000003" title=" " alt="" coords="2482,588,2448,587,2268,587,2220,589,2220,584,2268,582,2448,582,2482,583"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="2254,611,2220,607,2220,601,2255,606"/>
+<area shape="rect" id="Node000004" href="$d9/dd1/soap__ctrlpt_8cpp.html#a05e899b6e0c3bc1b2964ac01c37c15d7" title="This function creates a status variable query message send it to the specified URL...." alt="" coords="1805,529,1992,555"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="2026,572,1958,557,1959,552,2027,567"/>
+<area shape="rect" id="Node000034" href="$d9/dd1/soap__ctrlpt_8cpp.html#a98ef5ed7d4950c8d6c2624271efb36bc" title="This function is called by UPnP API to send the SOAP action request." alt="" coords="1835,579,1962,604"/>
+<area shape="poly" id="edge42_Node000003_Node000034" title=" " alt="" coords="2026,594,1962,594,1962,589,2026,589"/>
+<area shape="rect" id="Node000037" href="$d9/dd1/soap__ctrlpt_8cpp.html#a03f9e29e2408fb92bc48b9b93c4c9841" title="This extended function is called by UPnP API to send the SOAP action request." alt="" coords="1827,628,1970,653"/>
+<area shape="poly" id="edge46_Node000003_Node000037" title=" " alt="" coords="2027,616,1959,631,1958,625,2026,611"/>
+<area shape="rect" id="Node000005" href="$d1/d73/group__compaAPI-Control.html#ga5fcb3482640f0119b34995f8cc087c22" title="Queries the state of a state variable of a service on another device." alt="" coords="1568,504,1757,529"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1791,533,1757,529,1758,524,1792,528"/>
+<area shape="rect" id="Node000006" href="$d4/d99/upnpapi_8cpp.html#a282c8419fef146b7170ee266159029e6" title="Schedule async functions in threadpool." alt="" coords="1574,553,1751,579"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1792,556,1752,560,1751,554,1791,550"/>
+<area shape="rect" id="Node000007" href="$d4/d99/upnpapi_8cpp.html#a8cd338e66ebab077fa1f0d9bb0bec183" title="Queries the state of a variable of a service, generating a callback when the operation is complete." alt="" coords="1292,528,1520,553"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1560,559,1520,555,1520,549,1561,553"/>
+<area shape="rect" id="Node000019" href="$d4/d99/upnpapi_8cpp.html#a69d01558a5fdec26320b6ea9683f9d70" title="Renews a subscription that is about to expire, generating a callback when the operation is complete." alt="" coords="1297,380,1515,405"/>
+<area shape="poly" id="edge17_Node000006_Node000019" title=" " alt="" coords="1572,548,1566,544,1553,528,1546,512,1542,479,1538,448,1531,433,1518,419,1501,408,1504,403,1522,415,1535,430,1543,446,1547,479,1551,510,1557,525,1570,540,1575,544"/>
+<area shape="rect" id="Node000020" href="$d4/d99/upnpapi_8cpp.html#a012bb5501f0167248edf7447ee3f092c" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="1322,577,1490,603"/>
+<area shape="poly" id="edge18_Node000006_Node000020" title=" " alt="" coords="1561,578,1490,585,1490,580,1560,573"/>
+<area shape="rect" id="Node000031" href="$d4/d99/upnpapi_8cpp.html#abd5f9f5ca2e83b67eb0dd421ffd030f9" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="1060,628,1244,653"/>
+<area shape="poly" id="edge39_Node000006_Node000031" title=" " alt="" coords="1595,585,1569,594,1545,607,1521,618,1449,633,1376,642,1244,647,1244,642,1376,637,1448,628,1519,613,1543,602,1567,589,1594,580"/>
+<area shape="rect" id="Node000032" href="$d4/d99/upnpapi_8cpp.html#aadb37732f8450dd78eb205842ff82a61" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call..." alt="" coords="1327,429,1485,455"/>
+<area shape="poly" id="edge40_Node000006_Node000032" title=" " alt="" coords="1574,549,1566,544,1549,525,1542,505,1535,486,1518,468,1485,453,1487,448,1522,464,1539,483,1547,503,1554,522,1570,540,1577,545"/>
+<area shape="rect" id="Node000033" href="$d4/d99/upnpapi_8cpp.html#a6c8bd43f4e0357cdc04939ddd60b383c" title="Removes a subscription of a control point from a service previously subscribed to using UpnpSubscribe..." alt="" coords="1318,479,1494,504"/>
+<area shape="poly" id="edge41_Node000006_Node000033" title=" " alt="" coords="1589,552,1567,544,1543,532,1519,519,1477,507,1478,501,1521,514,1545,527,1569,540,1591,547"/>
+<area shape="rect" id="Node000008" href="$d3/dc5/group__UpnpSamples.html#ga3a823a6076337cd6b3a1e4e23f914f09" title="Send a GetVar request to the specified service of a device." alt="" coords="1083,205,1221,231"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="1297,524,1290,519,1257,486,1229,448,1206,406,1188,364,1164,286,1153,232,1158,231,1169,284,1193,362,1210,404,1233,445,1261,482,1294,515,1300,519"/>
+<area shape="rect" id="Node000009" href="$d3/dc5/group__UpnpSamples.html#gad7cb8e946c062077e50078615f9cb606" title="TvCtrlPointGetBrightness." alt="" coords="797,205,983,231"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1069,221,983,221,983,215,1069,215"/>
+<area shape="rect" id="Node000010" href="$d3/dc5/group__UpnpSamples.html#gac16a4eff29f123c234e0e4b08c057c75" title="TvCtrlPointGetChannel." alt="" coords="805,255,975,280"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="1071,236,959,257,958,252,1070,231"/>
+<area shape="rect" id="Node000011" href="$d3/dc5/group__UpnpSamples.html#ga43232f6b0d55baeac59a39a8df7e1537" title="TvCtrlPointGetColor." alt="" coords="815,304,965,329"/>
+<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="1121,240,1071,268,1013,294,966,307,965,302,1011,289,1069,263,1118,236"/>
+<area shape="rect" id="Node000012" href="$d3/dc5/group__UpnpSamples.html#ga776a99a41dd4dbee7f093468a1a456d8" title="TvCtrlPointGetContrast." alt="" coords="804,353,976,379"/>
+<area shape="poly" id="edge11_Node000008_Node000012" title=" " alt="" coords="1133,243,1083,294,1049,321,1013,343,977,356,975,351,1011,338,1046,316,1079,290,1129,239"/>
+<area shape="rect" id="Node000013" href="$d3/dc5/group__UpnpSamples.html#ga82cf524731e139976f4dd81c9cc0c73d" title="TvCtrlPointGetPower." alt="" coords="811,5,969,31"/>
+<area shape="poly" id="edge12_Node000008_Node000013" title=" " alt="" coords="1136,194,1116,160,1088,119,1053,78,1011,44,968,28,970,23,1013,40,1057,74,1093,115,1121,157,1141,192"/>
+<area shape="rect" id="Node000014" href="$d3/dc5/group__UpnpSamples.html#ga2712849eddca81b17582e0a48bbd7e6d" title="TvCtrlPointGetTint." alt="" coords="819,55,961,80"/>
+<area shape="poly" id="edge13_Node000008_Node000014" title=" " alt="" coords="1130,197,1080,144,1047,116,1011,94,961,77,963,72,1013,89,1050,112,1084,140,1134,193"/>
+<area shape="rect" id="Node000015" href="$d3/dc5/group__UpnpSamples.html#gaf54eed3d104aca8ae0845aa827652e27" title="TvCtrlPointGetVolume." alt="" coords="807,104,973,129"/>
+<area shape="poly" id="edge14_Node000008_Node000015" title=" " alt="" coords="1116,201,1067,176,1011,151,948,132,950,127,1013,146,1069,171,1118,196"/>
+<area shape="rect" id="Node000016" href="$d3/dc5/group__UpnpSamples.html#ga14010940fdabdf6558c7b5d05ea92718" title="TvCtrlPointProcessCommand." alt="" coords="245,579,456,604"/>
+<area shape="poly" id="edge15_Node000008_Node000016" title=" " alt="" coords="1098,204,1030,188,947,177,902,175,857,177,812,183,769,195,692,231,621,279,557,334,500,394,451,452,411,505,362,580,357,577,406,502,447,449,496,390,553,331,618,275,690,226,767,190,811,178,856,172,902,170,947,172,1031,183,1099,199"/>
+<area shape="rect" id="Node000017" href="$d3/dc5/group__UpnpSamples.html#ga6dfa8b6e5a54243f10e1952ad69e59b9" title="Function that receives commands from the user." alt="" coords="5,579,197,604"/>
+<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="232,594,198,594,198,589,232,589"/>
+<area shape="rect" id="Node000021" href="$d3/dc5/group__UpnpSamples.html#ga440dbdcb8802a87115f7f10e95cbeb58" title="Send an Action request to the specified service of a device." alt="" coords="1069,579,1235,604"/>
+<area shape="poly" id="edge19_Node000020_Node000021" title=" " alt="" coords="1308,593,1235,594,1235,588,1308,588"/>
+<area shape="poly" id="edge38_Node000020_Node000031" title=" " alt="" coords="1328,608,1217,631,1216,625,1327,603"/>
+<area shape="poly" id="edge20_Node000021_Node000016" title=" " alt="" coords="1119,574,1014,516,942,483,860,453,773,429,682,418,637,417,592,421,548,430,505,444,480,457,457,473,415,511,383,550,362,580,358,577,379,547,411,508,453,469,477,452,503,440,546,425,591,416,637,412,682,412,774,424,862,447,944,478,1017,511,1121,569"/>
+<area shape="rect" id="Node000022" href="$d3/dc5/group__UpnpSamples.html#ga3a55c9c895faccc78b3b046f2317664d" title="Send an action with one argument to a device in the global device* list." alt="" coords="768,579,1012,604"/>
+<area shape="poly" id="edge21_Node000021_Node000022" title=" " alt="" coords="1055,594,1012,594,1012,589,1055,589"/>
+<area shape="rect" id="Node000029" href="$d3/dc5/group__UpnpSamples.html#ga8340b68e10f1da9c334fb088aa3851c0" title="TvCtrlPointSendPowerOff." alt="" coords="519,751,705,776"/>
+<area shape="poly" id="edge34_Node000021_Node000029" title=" " alt="" coords="1090,610,1061,619,965,653,891,682,818,711,721,742,677,753,676,748,719,737,816,706,889,677,963,648,1059,614,1089,605"/>
+<area shape="rect" id="Node000030" href="$d3/dc5/group__UpnpSamples.html#gacd84dbee2f0a43637d6bfac2f9311e6a" title="TvCtrlPointSendPowerOn." alt="" coords="520,800,704,825"/>
+<area shape="poly" id="edge36_Node000021_Node000030" title=" " alt="" coords="1070,613,1062,619,1050,632,1044,645,1039,674,1034,703,1027,717,1014,731,979,755,941,775,900,790,859,801,778,815,704,819,704,814,777,809,858,796,899,785,939,770,976,751,1010,727,1022,714,1029,701,1034,673,1039,644,1046,629,1058,615,1067,608"/>
+<area shape="rect" id="Node000023" href="$d3/dc5/group__UpnpSamples.html#ga763f22e4aff7de360d3c5f0ee79bfece" title="TvCtrlPointSendSetBrightness." alt="" coords="504,455,720,480"/>
+<area shape="poly" id="edge22_Node000022_Node000023" title=" " alt="" coords="859,573,796,533,719,494,683,483,685,477,721,489,799,528,862,568"/>
+<area shape="rect" id="Node000024" href="$d3/dc5/group__UpnpSamples.html#gad658cbd97954c6e9cc9f4d67a79a672a" title="TvCtrlPointSendSetChannel." alt="" coords="512,504,712,529"/>
+<area shape="poly" id="edge24_Node000022_Node000024" title=" " alt="" coords="834,577,719,545,669,532,670,527,721,539,835,572"/>
+<area shape="rect" id="Node000025" href="$d3/dc5/group__UpnpSamples.html#ga8ca83222dceeccf9ff5074b33eadcb5d" title="TvCtrlPointSendSetColor." alt="" coords="521,553,703,579"/>
+<area shape="poly" id="edge26_Node000022_Node000025" title=" " alt="" coords="754,582,703,577,703,572,755,576"/>
+<area shape="rect" id="Node000026" href="$d3/dc5/group__UpnpSamples.html#ga0e0cfeeda6a317d35460f6cb7cc42df1" title="TvCtrlPointSendSetContrast." alt="" coords="511,603,713,628"/>
+<area shape="poly" id="edge28_Node000022_Node000026" title=" " alt="" coords="754,606,714,609,713,604,754,600"/>
+<area shape="rect" id="Node000027" href="$d3/dc5/group__UpnpSamples.html#gaa45ccb02289e6473ed343c9d5045ed72" title="TvCtrlPointSendSetTint." alt="" coords="526,652,698,677"/>
+<area shape="poly" id="edge30_Node000022_Node000027" title=" " alt="" coords="836,611,721,643,674,654,673,649,719,638,834,605"/>
+<area shape="rect" id="Node000028" href="$d3/dc5/group__UpnpSamples.html#gad9c8622a70886cc3d42b81e4f2f61435" title="TvCtrlPointSendSetVolume." alt="" coords="514,701,710,727"/>
+<area shape="poly" id="edge32_Node000022_Node000028" title=" " alt="" coords="843,612,806,629,770,649,746,672,737,682,721,692,692,704,690,699,719,688,733,678,743,668,766,645,804,624,840,607"/>
+<area shape="poly" id="edge23_Node000023_Node000016" title=" " alt="" coords="526,486,505,494,465,514,427,538,369,581,366,576,424,533,462,509,503,489,524,481"/>
+<area shape="poly" id="edge25_Node000024_Node000016" title=" " alt="" coords="541,535,505,545,389,581,388,576,503,539,540,530"/>
+<area shape="poly" id="edge27_Node000025_Node000016" title=" " alt="" coords="508,579,456,584,456,578,508,573"/>
+<area shape="poly" id="edge29_Node000026_Node000016" title=" " alt="" coords="497,607,456,604,456,598,497,602"/>
+<area shape="poly" id="edge31_Node000027_Node000016" title=" " alt="" coords="536,651,503,643,387,607,389,602,505,638,537,646"/>
+<area shape="poly" id="edge33_Node000028_Node000016" title=" " alt="" coords="524,700,503,692,462,672,424,649,366,606,369,602,427,644,465,668,505,688,526,695"/>
+<area shape="poly" id="edge35_Node000029_Node000016" title=" " alt="" coords="517,748,503,742,456,709,414,671,359,606,363,602,418,667,459,705,505,737,519,743"/>
+<area shape="poly" id="edge37_Node000030_Node000016" title=" " alt="" coords="514,797,503,791,475,770,450,746,407,693,375,643,356,606,360,603,380,640,411,690,454,743,478,766,505,786,516,792"/>
+<area shape="poly" id="edge45_Node000034_Node000006" title=" " alt="" coords="1821,586,1751,578,1752,573,1822,580"/>
+<area shape="rect" id="Node000035" href="$d4/d99/upnpapi_8cpp.html#aacef79c530ba5401c5946cd64939ef70" title="Sends a message to change a state variable in a service." alt="" coords="1598,603,1727,628"/>
+<area shape="poly" id="edge43_Node000034_Node000035" title=" " alt="" coords="1821,602,1728,611,1727,606,1821,597"/>
+<area shape="rect" id="Node000036" href="$d4/d99/upnpapi_8cpp.html#ae3bc939c3883bda96689903791b2c360" title="Sends a message to change a state variable in a service." alt="" coords="1333,679,1479,704"/>
+<area shape="poly" id="edge44_Node000035_Node000036" title=" " alt="" coords="1609,635,1521,662,1454,681,1453,676,1519,657,1608,630"/>
+<area shape="poly" id="edge48_Node000037_Node000006" title=" " alt="" coords="1826,627,1804,619,1780,606,1756,594,1718,581,1720,576,1758,589,1783,602,1806,614,1828,622"/>
+<area shape="poly" id="edge47_Node000037_Node000036" title=" " alt="" coords="1814,652,1479,687,1479,681,1813,647"/>
 </map>

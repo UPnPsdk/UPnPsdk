@@ -1,22 +1,38 @@
 <map id="ssdp_request_type1" name="ssdp_request_type1">
-<area shape="rect" id="Node000001" title="This function figures out the type of the SSDP search in the request." alt="" coords="1392,31,1544,56"/>
-<area shape="rect" id="Node000002" href="$d4/d99/ssdp__ctrlpt_8cpp.html#a0466b3099133c9b31f308b7839f8b12b" title="Creates and send the search request for a specific URL." alt="" coords="1211,5,1333,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1378,34,1333,29,1334,23,1379,29"/>
-<area shape="rect" id="Node000004" href="$df/d13/ssdp__common_8cpp.html#a3096b77d16b0ab09d3d0ec540fb09016" title="Starts filling the SSDP event structure based upon the request received." alt="" coords="1200,55,1344,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1379,57,1344,61,1344,56,1378,52"/>
-<area shape="rect" id="Node000003" href="$dd/d48/group__compaAPI-Discovery.html#gacbc564f3c21415a8165d6882f5bc3189" title="Searches for devices matching the given search target." alt="" coords="993,5,1132,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1197,21,1132,21,1132,15,1197,15"/>
-<area shape="rect" id="Node000005" href="$d7/d5e/group__SSDP-ctrlpt__functions.html#ga07ee8d9e5104cbeb9949ec23e0d4113b" title="This function handles the ssdp messages from the devices." alt="" coords="973,55,1152,80"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1186,70,1152,70,1152,65,1186,65"/>
-<area shape="rect" id="Node000010" href="$db/db9/ssdp__device_8cpp.html#a71cabcefa14fea2869b65b9d2ba7712d" title="Handles the search request." alt="" coords="986,105,1139,145"/>
-<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="1212,86,1137,107,1135,102,1211,81"/>
-<area shape="rect" id="Node000006" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a" title="This function is a thread that handles SSDP requests." alt="" coords="724,69,925,124"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="960,83,926,87,925,82,959,77"/>
-<area shape="rect" id="Node000007" href="$df/d13/ssdp__common_8cpp.html#af3e17308ebc31e7e81c476624487614c" title="This function reads the data from the ssdp socket." alt="" coords="515,84,676,109"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="710,99,676,99,676,94,710,94"/>
-<area shape="rect" id="Node000008" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a02379f09474a96b3590cadd8ca82ecf1" title="Read data from the SSDP socket." alt="" coords="253,77,467,117"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="501,99,467,99,467,94,501,94"/>
-<area shape="rect" id="Node000009" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="5,69,205,124"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="240,99,206,99,206,94,240,94"/>
-<area shape="poly" id="edge10_Node000010_Node000006" title=" " alt="" coords="972,117,925,111,926,106,972,111"/>
+<area shape="rect" id="Node000001" title="This function figures out the type of the SSDP search in the request." alt="" coords="1441,120,1593,145"/>
+<area shape="rect" id="Node000002" href="$d4/d99/ssdp__ctrlpt_8cpp.html#a0466b3099133c9b31f308b7839f8b12b" title="Creates and send the search request for a specific URL." alt="" coords="1260,95,1383,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1428,124,1383,118,1383,113,1428,118"/>
+<area shape="rect" id="Node000011" href="$df/d13/ssdp__common_8cpp.html#a3096b77d16b0ab09d3d0ec540fb09016" title="Starts filling the SSDP event structure based upon the request received." alt="" coords="1249,144,1393,169"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="1428,146,1394,151,1393,145,1428,141"/>
+<area shape="rect" id="Node000003" href="$dd/d48/group__compaAPI-Discovery.html#gacbc564f3c21415a8165d6882f5bc3189" title="Searches for devices matching the given search target." alt="" coords="1043,95,1181,120"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1246,110,1181,110,1181,105,1246,105"/>
+<area shape="rect" id="Node000004" href="$d3/dc5/group__UpnpSamples.html#gae27fe2191c00fc00026a940bbe25932d" title="Clear the current global device list and issue new search requests to build it up again from scratch." alt="" coords="802,56,946,81"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1029,97,946,83,947,78,1030,91"/>
+<area shape="rect" id="Node000009" href="$d3/dc5/group__UpnpSamples.html#ga5395762de03df9e79a90a2a7d1c5421e" title="Checks the advertisement each device in the global device list." alt="" coords="778,105,970,131"/>
+<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="1029,114,971,116,970,111,1029,108"/>
+<area shape="rect" id="Node000005" href="$d3/dc5/group__UpnpSamples.html#ga14010940fdabdf6558c7b5d05ea92718" title="TvCtrlPointProcessCommand." alt="" coords="515,5,725,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="795,56,684,33,685,28,796,51"/>
+<area shape="rect" id="Node000008" href="$d3/dc5/group__UpnpSamples.html#gab7b35e599dc56c4720e60c43b733a44b" title="Call this function to initialize the UPnP library and start the TV Control Point." alt="" coords="297,56,423,81"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="788,71,423,71,423,66,788,66"/>
+<area shape="rect" id="Node000006" href="$d3/dc5/group__UpnpSamples.html#ga6dfa8b6e5a54243f10e1952ad69e59b9" title="Function that receives commands from the user." alt="" coords="264,7,456,32"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="501,21,456,22,456,16,501,16"/>
+<area shape="rect" id="Node000007" href="$dc/dcc/tv__combo__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Main entry point for the combo sample program." alt="" coords="78,32,133,57"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="251,33,133,45,133,39,250,28"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="283,64,133,50,133,45,284,59"/>
+<area shape="rect" id="Node000010" href="$d5/d29/tv__ctrlpt_8cpp.html#a70d7db3d6f73fc30c2a5ec26df714d26" title="Function that runs in its own thread and monitors advertisement and subscription timeouts for devices..." alt="" coords="539,107,701,132"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="764,121,702,122,702,116,764,116"/>
+<area shape="poly" id="edge11_Node000010_Node000008" title=" " alt="" coords="540,106,422,83,423,78,541,101"/>
+<area shape="rect" id="Node000012" href="$d7/d5e/group__SSDP-ctrlpt__functions.html#ga07ee8d9e5104cbeb9949ec23e0d4113b" title="This function handles the ssdp messages from the devices." alt="" coords="1023,144,1201,169"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="1235,159,1201,159,1201,154,1235,154"/>
+<area shape="rect" id="Node000017" href="$db/db9/ssdp__device_8cpp.html#a71cabcefa14fea2869b65b9d2ba7712d" title="Handles the search request." alt="" coords="1035,194,1189,234"/>
+<area shape="poly" id="edge18_Node000011_Node000017" title=" " alt="" coords="1262,176,1186,197,1185,191,1260,171"/>
+<area shape="rect" id="Node000013" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a" title="This function is a thread that handles SSDP requests." alt="" coords="773,165,975,220"/>
+<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="1015,174,975,180,974,175,1014,169"/>
+<area shape="rect" id="Node000014" href="$df/d13/ssdp__common_8cpp.html#af3e17308ebc31e7e81c476624487614c" title="This function reads the data from the ssdp socket." alt="" coords="539,180,701,205"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="760,195,701,195,701,190,760,190"/>
+<area shape="rect" id="Node000015" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a02379f09474a96b3590cadd8ca82ecf1" title="Read data from the SSDP socket." alt="" coords="253,173,467,213"/>
+<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="525,195,467,195,467,190,525,190"/>
+<area shape="rect" id="Node000016" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="5,165,205,220"/>
+<area shape="poly" id="edge17_Node000015_Node000016" title=" " alt="" coords="240,195,206,195,206,190,240,190"/>
+<area shape="poly" id="edge19_Node000017_Node000013" title=" " alt="" coords="1021,209,975,204,975,199,1021,203"/>
 </map>

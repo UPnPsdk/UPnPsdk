@@ -1,0 +1,94 @@
+<map id="SampleUtil_FindAndParseService" name="SampleUtil_FindAndParseService">
+<area shape="rect" id="Node000001" title="This routine finds the first occurance of a service in a DOM representation of a description document..." alt="" coords="5,258,241,283"/>
+<area shape="rect" id="Node000002" href="$da/d8a/group__XMLAPI.html#ga75e495145d903766f9f24d381461399c" title="Frees a NodeList object." alt="" coords="621,281,763,306"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="242,273,607,287,607,293,241,278"/>
+<area shape="rect" id="Node000003" href="$da/d8a/group__XMLAPI.html#gaff27467eecfd6c352bd11fdac8606598" title="Retrieves a Node from a NodeList specified by a numerical index." alt="" coords="619,102,765,127"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,256,196,199,240,168,288,143,370,120,455,108,536,104,606,105,606,110,536,109,455,113,371,125,290,148,242,172,199,203,138,260"/>
+<area shape="rect" id="Node000004" href="$da/d8a/group__XMLAPI.html#ga7a05f6afb09fad2da555a4e60e112a54" title="Returns the number of Nodes in a NodeList." alt="" coords="893,26,1049,51"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="132,256,192,185,237,143,288,106,357,67,419,39,475,20,531,8,588,3,649,3,798,12,882,21,881,27,797,17,649,9,588,9,532,14,477,25,420,44,359,72,291,110,241,147,196,189,136,259"/>
+<area shape="rect" id="Node000005" href="$d3/dc5/group__UpnpSamples.html#ga1be666dac0b2278ef4562d893c535514" title="Given a document node, this routine searches for the first element named by the input string item,..." alt="" coords="289,309,539,334"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="197,281,328,304,327,309,197,286"/>
+<area shape="rect" id="Node000016" href="$d3/dc5/group__UpnpSamples.html#ga7c54872f6a2a394f25124be2e2298898" title="Function emulating printf that ultimately calls the registered print function with the formatted stri..." alt="" coords="627,382,757,407"/>
+<area shape="poly" id="edge46_Node000001_Node000016" title=" " alt="" coords="138,282,163,307,198,339,242,369,290,392,331,404,374,411,461,417,543,414,613,406,613,412,543,420,461,423,373,416,330,409,288,397,239,374,195,343,159,311,134,285"/>
+<area shape="rect" id="Node000017" href="$d3/dc5/group__UpnpSamples.html#ga8b1b46cdfff281352c9b81eae3409e48" title="Given a DOM element, this routine searches for the first element named by the input string item,..." alt="" coords="296,358,532,383"/>
+<area shape="poly" id="edge25_Node000001_Node000017" title=" " alt="" coords="150,281,212,312,290,343,325,352,323,358,288,348,210,317,147,286"/>
+<area shape="rect" id="Node000019" href="$d3/dc5/group__UpnpSamples.html#ga234833b0ac482c7ae325fb0f0490b40a" title="Given a DOM node representing a UPnP Device Description Document, this routine parses the document an..." alt="" coords="303,158,525,183"/>
+<area shape="poly" id="edge33_Node000001_Node000019" title=" " alt="" coords="147,255,210,224,288,192,318,184,320,189,290,197,212,229,149,260"/>
+<area shape="rect" id="Node000020" href="$d3/dc5/group__UpnpSamples.html#ga67af912b61453651e122791025d0ae2f" title="Obtain the service list." alt="" coords="305,207,523,233"/>
+<area shape="poly" id="edge39_Node000001_Node000020" title=" " alt="" coords="197,255,327,232,328,238,197,261"/>
+<area shape="rect" id="Node000021" href="$d3/d57/group__UPnPTools.html#ga03477b63ea460d397cfd61c67a5a7866" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="343,562,485,587"/>
+<area shape="poly" id="edge47_Node000001_Node000021" title=" " alt="" coords="139,282,393,550,389,554,135,285"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="739,99,910,53,911,58,740,105"/>
+<area shape="poly" id="edge22_Node000005_Node000002" title=" " alt="" coords="539,306,607,299,607,305,539,311"/>
+<area shape="poly" id="edge23_Node000005_Node000003" title=" " alt="" coords="444,306,491,280,515,263,537,242,552,215,558,189,565,164,573,151,585,138,605,126,607,130,588,142,577,154,570,166,563,191,557,217,541,246,519,267,494,285,447,311"/>
+<area shape="rect" id="Node000006" href="$da/d8a/group__XMLAPI.html#ga845002ce51f64b8ff02a54d62448c04f" title="Returns a NodeList of all Elements that match the given tag name in the order in which they were enco..." alt="" coords="589,152,795,192"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="436,306,537,242,560,221,585,202,599,195,602,200,588,206,564,225,540,246,439,311"/>
+<area shape="rect" id="Node000009" href="$da/d8a/group__XMLAPI.html#ga5876c582a0b41143b5ea3101c7e1335f" title="Retrieves the first child Node of a Node." alt="" coords="1425,306,1599,331"/>
+<area shape="poly" id="edge20_Node000005_Node000009" title=" " alt="" coords="539,318,1411,316,1411,322,539,324"/>
+<area shape="rect" id="Node000015" href="$da/d8a/group__XMLAPI.html#ga7ddc145712288eaea45054b6d811f38b" title="Returns the value of the Node as a string." alt="" coords="601,431,783,457"/>
+<area shape="poly" id="edge21_Node000005_Node000015" title=" " alt="" coords="518,332,540,343,558,361,565,381,573,399,588,417,600,423,597,428,585,421,568,402,560,383,553,364,537,348,516,337"/>
+<area shape="poly" id="edge24_Node000005_Node000016" title=" " alt="" coords="491,332,539,343,588,360,635,375,633,380,586,365,538,348,490,337"/>
+<area shape="rect" id="Node000007" href="$d7/d70/node_8cpp.html#a7dfbf2b5843343daf831bf8a3fcd5c97" title="Returns a nodeList of all descendant Elements with a given tagName, in the order in which they are en..." alt="" coords="845,173,1097,198"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="796,174,832,176,831,181,795,180"/>
+<area shape="rect" id="Node000008" href="$d7/d70/node_8cpp.html#a8dbe3aa1f72ea2d88cc48ed66bf38ad2" title="Recursively traverse the whole tree, search for element with the given tagname." alt="" coords="1145,165,1359,205"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="1097,183,1131,183,1131,188,1097,188"/>
+<area shape="poly" id="edge16_Node000007_Node000009" title=" " alt="" coords="1010,196,1146,238,1296,273,1430,301,1429,306,1295,279,1145,243,1009,201"/>
+<area shape="rect" id="Node000011" href="$da/d8a/group__XMLAPI.html#ga0597d91f7834c1d86574d67f5c9b6565" title="Returns the name of the Node, depending on what type of Node it is, in a read&#45;only string." alt="" coords="1419,226,1605,251"/>
+<area shape="poly" id="edge17_Node000007_Node000011" title=" " alt="" coords="1032,195,1146,215,1281,227,1405,233,1405,239,1280,232,1145,220,1031,201"/>
+<area shape="rect" id="Node000012" href="$da/d8a/group__XMLAPI.html#gacc2afa7a4ca95da4476eb8c59fa0761b" title="Retrieves the type of a Node. Note that not all possible return values are actually implemented." alt="" coords="1423,50,1601,75"/>
+<area shape="poly" id="edge18_Node000007_Node000012" title=" " alt="" coords="993,170,1059,135,1101,117,1145,102,1212,86,1282,74,1409,63,1410,68,1283,80,1213,91,1146,107,1103,122,1061,140,995,175"/>
+<area shape="rect" id="Node000013" href="$da/daf/nodeList_8cpp.html#a12290394f4bd975cf5e837c5c4549c16" title="Add a node to nodelist." alt="" coords="1407,107,1617,133"/>
+<area shape="poly" id="edge19_Node000007_Node000013" title=" " alt="" coords="1002,170,1067,147,1145,127,1208,118,1273,114,1393,112,1393,117,1273,119,1209,124,1146,132,1069,152,1004,175"/>
+<area shape="poly" id="edge9_Node000008_Node000008" title=" " alt="" coords="1204,166,1201,156,1209,146,1226,141,1252,139,1282,142,1298,149,1296,154,1281,147,1252,144,1227,146,1212,151,1206,157,1209,164"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="1294,203,1475,297,1473,302,1291,208"/>
+<area shape="rect" id="Node000010" href="$da/d8a/group__XMLAPI.html#gaf65398cf04478d94045396debf5ea6d6" title="Retrieves the sibling Node immediately following this Node." alt="" coords="1418,173,1606,198"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="1359,183,1404,183,1404,188,1359,188"/>
+<area shape="poly" id="edge12_Node000008_Node000011" title=" " alt="" coords="1350,203,1437,221,1436,226,1349,208"/>
+<area shape="poly" id="edge13_Node000008_Node000012" title=" " alt="" coords="1281,163,1338,128,1406,92,1447,77,1449,82,1408,97,1340,132,1284,167"/>
+<area shape="poly" id="edge14_Node000008_Node000013" title=" " alt="" coords="1332,163,1447,134,1448,139,1333,168"/>
+<area shape="rect" id="Node000014" href="$da/daf/nodeList_8cpp.html#aae86fd3830a53f7cbe8864fd4b00fde3" title="Initializes a nodelist." alt="" coords="1687,107,1823,133"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="1617,117,1674,117,1674,123,1617,123"/>
+<area shape="poly" id="edge30_Node000017_Node000002" title=" " alt="" coords="484,355,538,343,644,308,645,313,539,348,485,361"/>
+<area shape="poly" id="edge31_Node000017_Node000003" title=" " alt="" coords="520,356,537,344,555,319,563,295,563,269,560,243,558,217,558,191,566,164,585,138,605,124,608,128,589,142,571,167,563,191,563,217,566,243,569,269,568,296,560,322,541,347,523,360"/>
+<area shape="poly" id="edge28_Node000017_Node000009" title=" " alt="" coords="433,381,497,426,541,449,587,466,651,479,716,488,782,491,848,490,979,478,1105,454,1222,424,1324,391,1470,334,1472,339,1326,396,1223,429,1107,460,980,483,848,496,782,496,715,493,650,484,586,471,539,453,495,430,430,386"/>
+<area shape="poly" id="edge29_Node000017_Node000015" title=" " alt="" coords="460,381,587,416,625,426,623,431,586,421,459,386"/>
+<area shape="poly" id="edge32_Node000017_Node000016" title=" " alt="" coords="532,378,613,385,613,391,532,384"/>
+<area shape="rect" id="Node000018" href="$da/d8a/group__XMLAPI.html#gadeea688305e89f783153050ce1b12953" title="Returns a NodeList of all descendant Elements with a given tag name, in the order in which they are e..." alt="" coords="587,216,797,256"/>
+<area shape="poly" id="edge26_Node000017_Node000018" title=" " alt="" coords="513,356,537,343,553,326,561,306,568,286,585,266,593,261,596,265,588,270,573,289,566,308,558,328,540,348,516,360"/>
+<area shape="poly" id="edge27_Node000018_Node000007" title=" " alt="" coords="797,214,887,198,888,203,798,220"/>
+<area shape="poly" id="edge36_Node000019_Node000002" title=" " alt="" coords="518,181,540,193,558,211,565,230,573,249,588,266,609,277,607,282,585,270,568,252,560,232,553,214,537,197,516,186"/>
+<area shape="poly" id="edge37_Node000019_Node000003" title=" " alt="" coords="477,155,614,128,615,133,478,161"/>
+<area shape="poly" id="edge38_Node000019_Node000004" title=" " alt="" coords="425,156,451,130,489,98,535,67,586,43,661,25,739,17,814,18,880,23,880,28,814,23,740,23,662,30,588,48,537,71,492,102,455,134,429,160"/>
+<area shape="poly" id="edge34_Node000019_Node000006" title=" " alt="" coords="525,169,575,169,575,174,525,174"/>
+<area shape="poly" id="edge35_Node000019_Node000018" title=" " alt="" coords="486,181,539,192,609,210,608,215,538,197,485,186"/>
+<area shape="poly" id="edge42_Node000020_Node000002" title=" " alt="" coords="468,230,539,250,587,266,622,275,621,280,586,271,538,255,467,235"/>
+<area shape="poly" id="edge43_Node000020_Node000003" title=" " alt="" coords="509,205,537,192,552,180,561,166,569,152,585,138,605,128,608,133,588,142,573,155,565,169,556,183,540,197,511,210"/>
+<area shape="poly" id="edge44_Node000020_Node000004" title=" " alt="" coords="516,205,537,193,548,181,555,168,560,141,565,113,572,100,585,87,607,75,637,66,713,51,798,43,879,38,880,43,799,48,713,57,638,71,609,80,588,92,577,103,570,115,565,142,560,170,553,184,540,197,519,210"/>
+<area shape="poly" id="edge40_Node000020_Node000006" title=" " alt="" coords="488,205,575,190,576,195,488,210"/>
+<area shape="poly" id="edge45_Node000020_Node000016" title=" " alt="" coords="438,231,540,294,661,372,658,377,537,298,435,235"/>
+<area shape="poly" id="edge41_Node000020_Node000018" title=" " alt="" coords="524,224,573,227,573,232,523,229"/>
+<area shape="rect" id="Node000022" href="$d8/dd2/uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356" title="Resolves a relative url with a base url." alt="" coords="633,635,751,661"/>
+<area shape="poly" id="edge48_Node000021_Node000022" title=" " alt="" coords="464,585,631,629,629,634,463,590"/>
+<area shape="rect" id="Node000023" href="$d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="930,635,1013,661"/>
+<area shape="poly" id="edge49_Node000022_Node000023" title=" " alt="" coords="752,645,916,645,916,651,752,651"/>
+<area shape="rect" id="Node000032" href="$d8/dd2/uri_8cpp.html#a259b5aed5805a1f66475a483a201f587" title="Removes &quot;.&quot;, and &quot;..&quot; from a path." alt="" coords="918,717,1025,742"/>
+<area shape="poly" id="edge58_Node000022_Node000032" title=" " alt="" coords="737,658,914,710,913,715,736,663"/>
+<area shape="rect" id="Node000024" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="1157,532,1347,572"/>
+<area shape="poly" id="edge50_Node000023_Node000024" title=" " alt="" coords="1005,633,1144,582,1169,574,1170,579,1146,587,1006,638"/>
+<area shape="rect" id="Node000025" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="1158,596,1346,636"/>
+<area shape="poly" id="edge51_Node000023_Node000025" title=" " alt="" coords="1013,641,1144,626,1145,631,1013,646"/>
+<area shape="rect" id="Node000026" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="1162,660,1342,700"/>
+<area shape="poly" id="edge52_Node000023_Node000026" title=" " alt="" coords="1013,650,1149,666,1148,671,1013,655"/>
+<area shape="rect" id="Node000031" href="$d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="1169,725,1335,750"/>
+<area shape="poly" id="edge57_Node000023_Node000031" title=" " alt="" coords="1004,658,1069,683,1146,710,1180,719,1178,724,1145,715,1067,688,1003,663"/>
+<area shape="rect" id="Node000027" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a4666c8d916f7397270c5cc93734482d3" title="Check that a char[3] sequence is ESCAPED." alt="" coords="1422,724,1602,764"/>
+<area shape="poly" id="edge53_Node000026_Node000027" title=" " alt="" coords="1335,698,1418,718,1416,723,1333,703"/>
+<area shape="rect" id="Node000028" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a72aa299b86ca4486b62de1ac2e11b649" title="Check for a RESERVED character." alt="" coords="1422,596,1602,636"/>
+<area shape="poly" id="edge54_Node000026_Node000028" title=" " alt="" coords="1333,657,1416,637,1418,642,1335,663"/>
+<area shape="rect" id="Node000029" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#abb4b2d5f48da8f6aaa405da333b3ab45" title="Check for an UNRESERVED character." alt="" coords="1419,660,1605,700"/>
+<area shape="poly" id="edge55_Node000026_Node000029" title=" " alt="" coords="1342,677,1405,677,1405,683,1342,683"/>
+<area shape="rect" id="Node000030" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a1425dfc37b98f61a0b49a36ac07660d1" title="Check for a MARK character." alt="" coords="1665,660,1845,700"/>
+<area shape="poly" id="edge56_Node000029_Node000030" title=" " alt="" coords="1605,677,1652,677,1652,683,1605,683"/>
+<area shape="rect" id="Node000033" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a3ee49f49a4ad5c7d3058bb6e67d5ff7f" title="Check if end of a path." alt="" coords="1162,775,1342,815"/>
+<area shape="poly" id="edge59_Node000032_Node000033" title=" " alt="" coords="1026,739,1153,769,1152,774,1024,744"/>
+</map>

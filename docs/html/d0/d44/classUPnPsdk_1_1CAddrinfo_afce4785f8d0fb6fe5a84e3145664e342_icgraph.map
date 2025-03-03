@@ -1,10 +1,19 @@
 <map id="UPnPsdk::CAddrinfo::sockaddr" name="UPnPsdk::CAddrinfo::sockaddr">
-<area shape="rect" id="Node000001" title="Get the socket address from current selcted address information." alt="" coords="624,29,775,69"/>
-<area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#aba753a991395b227d297a2ee64ba7173" title="Find local network adapter with given name or ip address." alt="" coords="407,29,576,69"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="610,52,576,52,576,47,610,47"/>
-<area shape="rect" id="Node000003" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a24d57a16f749d790337f24bee32b95a4" title="Retrieve network interface information and keep it in global variables." alt="" coords="139,29,359,69"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="393,52,359,52,359,47,393,47"/>
-<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="282,18,270,11,249,8,230,10,218,15,214,21,216,28,211,30,209,20,215,11,228,5,249,3,272,6,285,13"/>
-<area shape="rect" id="Node000004" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,37,91,62"/>
-<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="125,52,91,52,91,47,125,47"/>
+<area shape="rect" id="Node000001" title="Get the socket address from current selcted address information." alt="" coords="1063,29,1213,69"/>
+<area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a704718eabf87183b164077816e19cae0" title="Find local network adapter with given name or ip address." alt="" coords="845,29,1015,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1049,52,1015,52,1015,47,1049,47"/>
+<area shape="rect" id="Node000003" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a24d57a16f749d790337f24bee32b95a4" title="Retrieve network interface information and keep it in global variables." alt="" coords="577,29,797,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="832,52,798,52,798,47,832,47"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="721,18,709,11,687,8,668,10,657,15,653,21,655,28,650,30,647,20,653,11,667,5,687,3,711,6,724,13"/>
+<area shape="rect" id="Node000004" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="444,37,529,62"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="564,52,530,52,530,47,564,47"/>
+<area shape="rect" id="Node000005" href="$d3/dc5/group__UpnpSamples.html#gab7b35e599dc56c4720e60c43b733a44b" title="Call this function to initialize the UPnP library and start the TV Control Point." alt="" coords="108,13,233,38"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="430,48,234,33,234,27,431,42"/>
+<area shape="rect" id="Node000007" href="$d9/d09/tv__device_8cpp.html#a1b4755ecfe4dd1e3712c1a6dbad3ed29" title="Initializes the UPnP SDK, registers the root&#45;device, and sends out advertisements." alt="" coords="281,62,396,87"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="431,62,397,67,396,62,430,56"/>
+<area shape="rect" id="Node000006" href="$dc/dcc/tv__combo__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Main entry point for the combo sample program." alt="" coords="5,38,60,63"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="95,42,61,48,60,43,94,37"/>
+<area shape="rect" id="Node000008" href="$d9/d09/tv__device_8cpp.html#ad0dc5c3600aa2ebd4ffdc90e741607e7" title="Main entry point for tv device application." alt="" coords="118,62,223,87"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="267,77,224,77,224,72,267,72"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="104,66,60,58,61,53,105,61"/>
 </map>

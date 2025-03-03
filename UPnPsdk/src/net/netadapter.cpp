@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-27
+// Redistribution only with this Copyright remark. Last modified: 2025-03-03
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -205,8 +205,8 @@ CNetadapter::~CNetadapter() {
     TRACE2(this, " Destruct CNetadapter()")
 }
 
-bool CNetadapter::find_first(const std::string& a_name_or_addr) {
-    TRACE2(this, " Executing CNetadapter::find_first(" + a_name_or_addr + ")")
+bool CNetadapter::find_first(std::string_view a_name_or_addr) {
+    TRACE2(this, " Executing CNetadapter::find_first()")
 
     // By default look for a valid ip address.
     // ---------------------------------------

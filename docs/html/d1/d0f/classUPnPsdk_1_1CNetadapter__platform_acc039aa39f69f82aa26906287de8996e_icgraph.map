@@ -1,10 +1,19 @@
 <map id="UPnPsdk::CNetadapter_platform::get_first" name="UPnPsdk::CNetadapter_platform::get_first">
-<area shape="rect" id="Node000001" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="407,49,576,89"/>
-<area shape="rect" id="Node000002" href="$dd/d06/classUPnPsdk_1_1CRootdevice.html#a97d863e9d980ef662447c132fe0a7e53" title="Bind rootdevice to local network interfaces." alt="" coords="164,5,333,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="392,54,333,43,334,38,393,49"/>
-<area shape="rect" id="Node000003" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a24d57a16f749d790337f24bee32b95a4" title="Retrieve network interface information and keep it in global variables." alt="" coords="139,93,359,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="393,90,360,96,359,91,392,85"/>
-<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="282,82,270,75,249,72,230,74,218,79,214,85,216,92,211,94,209,84,215,75,228,69,249,67,272,70,285,77"/>
-<area shape="rect" id="Node000004" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,101,91,126"/>
-<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="125,116,91,116,91,111,125,111"/>
+<area shape="rect" id="Node000001" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="845,49,1015,89"/>
+<area shape="rect" id="Node000002" href="$dd/d06/classUPnPsdk_1_1CRootdevice.html#a97d863e9d980ef662447c132fe0a7e53" title="Bind rootdevice to local network interfaces." alt="" coords="603,5,772,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="831,54,772,43,773,38,832,49"/>
+<area shape="rect" id="Node000003" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a24d57a16f749d790337f24bee32b95a4" title="Retrieve network interface information and keep it in global variables." alt="" coords="577,93,797,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="832,90,798,96,797,91,831,85"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="721,82,709,75,687,72,668,74,657,79,653,85,655,92,650,94,647,84,653,75,667,69,687,67,711,70,724,77"/>
+<area shape="rect" id="Node000004" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="444,101,529,126"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="564,116,530,116,530,111,564,111"/>
+<area shape="rect" id="Node000005" href="$d3/dc5/group__UpnpSamples.html#gab7b35e599dc56c4720e60c43b733a44b" title="Call this function to initialize the UPnP library and start the TV Control Point." alt="" coords="108,77,233,102"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="430,112,234,97,234,91,431,106"/>
+<area shape="rect" id="Node000007" href="$d9/d09/tv__device_8cpp.html#a1b4755ecfe4dd1e3712c1a6dbad3ed29" title="Initializes the UPnP SDK, registers the root&#45;device, and sends out advertisements." alt="" coords="281,126,396,151"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="431,126,397,131,396,126,430,120"/>
+<area shape="rect" id="Node000006" href="$dc/dcc/tv__combo__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Main entry point for the combo sample program." alt="" coords="5,102,60,127"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="95,106,61,112,60,107,94,101"/>
+<area shape="rect" id="Node000008" href="$d9/d09/tv__device_8cpp.html#ad0dc5c3600aa2ebd4ffdc90e741607e7" title="Main entry point for tv device application." alt="" coords="118,126,223,151"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="267,141,224,141,224,136,267,136"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="104,130,60,122,61,117,105,125"/>
 </map>

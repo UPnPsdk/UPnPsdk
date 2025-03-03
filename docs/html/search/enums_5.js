@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['resp_5ftype_0',['resp_type',['../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5',1,'anonymous_namespace{webserver.cpp}']]]
+  ['miniserverstate_0',['MiniServerState',['../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afff',1,'anonymous_namespace{miniserver.cpp}']]]
 ];

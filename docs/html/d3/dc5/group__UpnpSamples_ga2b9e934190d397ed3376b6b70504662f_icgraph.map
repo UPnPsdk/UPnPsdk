@@ -1,0 +1,18 @@
+<map id="TvCtrlPointRemoveAll" name="TvCtrlPointRemoveAll">
+<area shape="rect" id="Node000001" title="Remove all devices from the global device list." alt="" coords="799,56,964,81"/>
+<area shape="rect" id="Node000002" href="$d3/dc5/group__UpnpSamples.html#gae27fe2191c00fc00026a940bbe25932d" title="Clear the current global device list and issue new search requests to build it up again from scratch." alt="" coords="607,31,751,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="785,59,751,55,751,50,786,54"/>
+<area shape="rect" id="Node000007" href="$d3/dc5/group__UpnpSamples.html#gaf74ecc3c0ea69f8c6e6302e36fb59e36" title="Finish execution of the control point." alt="" coords="617,80,740,105"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="786,83,741,88,740,83,785,77"/>
+<area shape="rect" id="Node000003" href="$d3/dc5/group__UpnpSamples.html#ga14010940fdabdf6558c7b5d05ea92718" title="TvCtrlPointProcessCommand." alt="" coords="348,55,559,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="593,55,559,59,558,53,593,50"/>
+<area shape="rect" id="Node000006" href="$d3/dc5/group__UpnpSamples.html#gab7b35e599dc56c4720e60c43b733a44b" title="Call this function to initialize the UPnP library and start the TV Control Point." alt="" coords="141,5,267,31"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="593,41,267,24,267,19,593,36"/>
+<area shape="rect" id="Node000004" href="$d3/dc5/group__UpnpSamples.html#ga6dfa8b6e5a54243f10e1952ad69e59b9" title="Function that receives commands from the user." alt="" coords="108,55,300,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="334,70,300,70,300,65,334,65"/>
+<area shape="rect" id="Node000005" href="$dc/dcc/tv__combo__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Main entry point for the combo sample program." alt="" coords="5,55,60,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="95,70,60,70,60,65,95,65"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="140,37,109,46,61,61,59,56,107,41,139,32"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="603,87,558,82,559,77,604,82"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="604,103,505,110,381,114,244,110,107,95,59,81,61,76,109,90,244,105,381,108,505,105,603,98"/>
+</map>

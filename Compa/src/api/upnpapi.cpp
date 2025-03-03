@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-02
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-04
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -308,27 +308,28 @@ namespace {
  * \return UPNP_E_SUCCESS or UPNP_E_INVALID_INTERFACE.
  */
 int UpnpGetIfInfo(
-    /*! [in] Interface name (can be NULL). */
+    /*! [in] Interface name (can be nullptr). */
     const char* a_IFace = nullptr) {
-    TRACE("Executing UpnpGetIfInfo(" + std::string(a_IFace) + ")")
+    std::string_view a_interface{a_IFace == nullptr ? "" : a_IFace};
+    TRACE("Executing UpnpGetIfInfo()")
 
     UPnPsdk::CNetadapter nadaptObj;
     try {
         nadaptObj.get_first(); // May throw exception
 
-        if (!nadaptObj.find_first(a_IFace == nullptr ? "" : a_IFace)) {
+        if (!nadaptObj.find_first(a_interface)) {
             UPnPsdk_LOGERR "MSG1033: Local network interface \""
-                << a_IFace << "\" not found.\n";
+                << a_interface << "\" not found.\n";
             return UPNP_E_INVALID_INTERFACE;
         }
 
+        UPnPsdk::SSockaddr saObj;
         do {
             // Get gIF_NAME and gIF_INDEX
             ::memset(gIF_NAME, 0, sizeof(gIF_NAME));
             ::strncpy(gIF_NAME, nadaptObj.name().c_str(), sizeof(gIF_NAME) - 1);
             gIF_INDEX = nadaptObj.index();
 
-            UPnPsdk::SSockaddr saObj;
             nadaptObj.sockaddr(saObj);
             const char* netaddr{saObj.netaddr().c_str()};
 

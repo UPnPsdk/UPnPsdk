@@ -1,83 +1,95 @@
 <map id="ixml_membuf_init" name="ixml_membuf_init">
-<area shape="rect" id="Node000001" title="ixml_membuf initialization routine." alt="" coords="1780,389,1921,415"/>
-<area shape="rect" id="Node000002" href="$d1/d6a/ixmlmembuf_8cpp.html#a5925e1f1e8fc6290b68330bbf8369eb5" title="ixml_membuf clearing routine." alt="" coords="1563,207,1732,232"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1823,381,1661,234,1665,230,1826,378"/>
-<area shape="rect" id="Node000054" href="$da/d8a/group__XMLAPI.html#gaf2c8698f70f34ce4f209a81fdeddc28e" title="Renders a Node and all sub&#45;elements into an XML document representation." alt="" coords="1563,315,1732,340"/>
-<area shape="poly" id="edge23_Node000001_Node000054" title=" " alt="" coords="1809,386,1731,354,1696,343,1697,337,1733,349,1811,381"/>
-<area shape="rect" id="Node000055" href="$da/d8a/group__XMLAPI.html#ga7b6244f2971cb9e69acc9a50f991523c" title="Renders a Node and all sub&#45;elements into an XML text representation. The caller is required to free t..." alt="" coords="1579,364,1715,389"/>
-<area shape="poly" id="edge24_Node000001_Node000055" title=" " alt="" coords="1766,394,1715,388,1716,382,1767,389"/>
-<area shape="rect" id="Node000056" href="$da/d8a/group__XMLAPI.html#ga5bab5bc21b3258a128c3ad3871fbd6ea" title="Renders a Node and all sub&#45;elements into an XML document representation." alt="" coords="1573,413,1721,439"/>
-<area shape="poly" id="edge25_Node000001_Node000056" title=" " alt="" coords="1767,415,1722,420,1721,415,1766,409"/>
-<area shape="rect" id="Node000058" href="$da/d8a/group__XMLAPI.html#gaf71e11e801ca62f0d922dc10ea3fe6a6" title="Renders a Node and all sub&#45;elements into an XML text representation." alt="" coords="1590,572,1705,597"/>
-<area shape="poly" id="edge28_Node000001_Node000058" title=" " alt="" coords="1826,426,1665,574,1661,570,1823,423"/>
-<area shape="rect" id="Node000064" href="$da/dff/ixmlparser_8cpp.html#a0eacdafa9ca9fe872b050cac5b22ad1f" title="Initializes a xml parser." alt="" coords="261,639,351,664"/>
-<area shape="poly" id="edge46_Node000001_Node000064" title=" " alt="" coords="1845,429,1829,481,1804,553,1769,635,1723,721,1667,802,1634,838,1599,870,1560,896,1519,917,1474,929,1426,934,729,934,693,932,656,925,587,900,522,863,464,820,412,775,369,731,315,666,319,662,373,727,416,771,467,816,525,859,589,895,658,920,693,926,729,929,1426,929,1473,924,1517,912,1557,892,1595,866,1630,834,1663,799,1719,718,1764,633,1799,551,1824,480,1840,427"/>
-<area shape="rect" id="Node000003" href="$d1/d6a/ixmlmembuf_8cpp.html#aec1bbc038c9fe4e5a1cff6948963ee2d" title="Copies the contents o a buffer to the designated ixml_membuf." alt="" coords="1343,87,1506,112"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1609,202,1448,114,1451,110,1612,198"/>
-<area shape="rect" id="Node000048" href="$da/dff/ixmlparser_8cpp.html#a5d59957643934c19e8e073481602d561" title="Clear token buffer." alt="" coords="1106,181,1266,207"/>
-<area shape="poly" id="edge9_Node000002_Node000048" title=" " alt="" coords="1549,217,1266,201,1266,196,1549,211"/>
-<area shape="rect" id="Node000053" href="$da/dff/ixmlparser_8cpp.html#aebef9fd006a378376432c3da3c285aa2" title="Frees all temporary memory allocated by xmlparser." alt="" coords="470,257,565,283"/>
-<area shape="poly" id="edge20_Node000002_Node000053" title=" " alt="" coords="1562,237,1390,260,1288,269,1187,273,951,273,565,273,565,267,951,267,1187,267,1288,264,1389,255,1561,232"/>
-<area shape="rect" id="Node000004" href="$d1/d6a/ixmlmembuf_8cpp.html#ad584c9bc7aa7981cf0535c4273ae2737" title="Copies a NULL terminated string to the ixml_buffer." alt="" coords="1093,49,1279,75"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1329,87,1267,77,1268,72,1330,82"/>
-<area shape="rect" id="Node000005" href="$da/dff/ixmlparser_8cpp.html#ae2c2a1bb2775ce062c198fe4e7b59713" title="Set the last element to be the given string." alt="" coords="877,31,1027,56"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1079,56,1027,52,1027,47,1079,51"/>
-<area shape="rect" id="Node000006" href="$da/dff/ixmlparser_8cpp.html#a2f413615d184341a330872c09fb1fd22" title="Processes the STag as defined by XML spec." alt="" coords="656,5,805,31"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="863,36,805,29,806,24,864,31"/>
-<area shape="rect" id="Node000007" href="$da/dff/ixmlparser_8cpp.html#a1a4a23a8c694f26c59c2f1b24fef612d" title="Get the next node." alt="" coords="440,132,595,157"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="676,38,644,52,581,95,534,134,531,130,578,90,641,48,674,33"/>
-<area shape="rect" id="Node000008" href="$da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542" title="Parses the xml file and returns the DOM document tree." alt="" coords="220,232,392,257"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="478,166,335,234,333,229,476,161"/>
-<area shape="rect" id="Node000009" href="$da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49" title="Parses a xml file and return the DOM tree." alt="" coords="5,283,172,308"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="238,263,144,285,143,280,237,258"/>
-<area shape="rect" id="Node000049" href="$da/dff/ixmlparser_8cpp.html#afc77054f1c094bc4735fa71b63fa5cc7" title="Return the length of next token in tokenBuff." alt="" coords="873,105,1031,131"/>
-<area shape="poly" id="edge10_Node000048_Node000049" title=" " alt="" coords="1132,179,991,133,993,128,1134,174"/>
-<area shape="rect" id="Node000050" href="$da/dff/ixmlparser_8cpp.html#a6d77ded2429cef8aa8408b9824c657ad" title="Processes attribute." alt="" coords="643,156,819,181"/>
-<area shape="poly" id="edge17_Node000048_Node000050" title=" " alt="" coords="1092,191,819,176,819,171,1092,186"/>
-<area shape="rect" id="Node000052" href="$da/dff/ixmlparser_8cpp.html#a7ade48c4b26c634052650a808c22a980" title="Processes the CONTENT as defined in XML spec." alt="" coords="867,207,1037,232"/>
-<area shape="poly" id="edge18_Node000048_Node000052" title=" " alt="" coords="1092,207,1038,213,1037,207,1092,201"/>
-<area shape="poly" id="edge16_Node000049_Node000006" title=" " alt="" coords="915,101,818,52,769,33,770,28,820,48,917,96"/>
-<area shape="poly" id="edge11_Node000049_Node000007" title=" " alt="" coords="884,105,832,96,771,90,707,89,643,97,589,113,543,134,541,129,587,108,642,91,706,84,771,85,832,91,885,100"/>
-<area shape="poly" id="edge12_Node000049_Node000050" title=" " alt="" coords="883,136,787,159,786,153,882,131"/>
-<area shape="rect" id="Node000051" href="$da/dff/ixmlparser_8cpp.html#a41f4d864085c0cc345e6ba7516fc0d77" title="Process ETag as defined by XML spec." alt="" coords="656,107,805,132"/>
-<area shape="poly" id="edge14_Node000049_Node000051" title=" " alt="" coords="859,121,805,122,805,116,859,116"/>
-<area shape="poly" id="edge13_Node000050_Node000007" title=" " alt="" coords="629,160,595,156,596,151,629,155"/>
-<area shape="poly" id="edge15_Node000051_Node000007" title=" " alt="" coords="642,132,595,138,594,133,642,127"/>
-<area shape="poly" id="edge19_Node000052_Node000007" title=" " alt="" coords="853,221,751,213,642,195,589,179,544,160,546,155,591,174,643,190,751,208,853,215"/>
-<area shape="poly" id="edge22_Node000053_Node000008" title=" " alt="" coords="456,265,392,258,392,252,457,260"/>
-<area shape="poly" id="edge21_Node000053_Node000009" title=" " alt="" coords="456,276,172,293,172,288,456,271"/>
-<area shape="rect" id="Node000057" href="$d1/d4a/urlconfig_8cpp.html#a2fa72177f842afa6e0b87182387aac88" title="Configure the full URL for the description document." alt="" coords="1356,308,1493,333"/>
-<area shape="poly" id="edge26_Node000056_Node000057" title=" " alt="" coords="1575,410,1561,403,1545,389,1536,374,1528,360,1513,347,1490,336,1493,331,1516,342,1532,357,1541,371,1550,385,1564,399,1577,406"/>
-<area shape="rect" id="Node000034" href="$d4/d99/upnpapi_8cpp.html#a9300edc4f96f8f3e563bcaf49bffd514" title="Fills the sockadr_in with miniserver information." alt="" coords="1089,332,1283,357"/>
-<area shape="poly" id="edge27_Node000057_Node000034" title=" " alt="" coords="1342,332,1284,338,1283,332,1342,326"/>
-<area shape="rect" id="Node000059" href="$dd/de6/gena__device_8cpp.html#aadf54fcafc02a512a76124ab8bf938f6" title="Similar to the genaInitNofity. The only difference is that it takes the xml document for the state ta..." alt="" coords="1357,407,1492,432"/>
-<area shape="poly" id="edge29_Node000058_Node000059" title=" " alt="" coords="1628,562,1581,503,1549,472,1513,446,1489,435,1491,430,1516,441,1553,468,1585,500,1632,559"/>
-<area shape="rect" id="Node000061" href="$dd/de6/gena__device_8cpp.html#a8f2185f7e2ef6345535174b920c6e86b" title="Sends a notification to all the subscribed control points." alt="" coords="1359,456,1490,481"/>
-<area shape="poly" id="edge31_Node000058_Node000061" title=" " alt="" coords="1616,566,1569,535,1514,503,1466,484,1468,479,1516,498,1572,530,1619,562"/>
-<area shape="rect" id="Node000020" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a02637d010040bd277464e3324aa697f4" title="This function handles the response coming back from the device." alt="" coords="1335,557,1515,612"/>
-<area shape="poly" id="edge33_Node000058_Node000020" title=" " alt="" coords="1576,587,1515,587,1515,582,1576,582"/>
-<area shape="rect" id="Node000030" href="$d9/dd1/soap__ctrlpt_8cpp.html#a98ef5ed7d4950c8d6c2624271efb36bc" title="This function is called by UPnP API to send the SOAP action request." alt="" coords="1123,547,1249,572"/>
-<area shape="poly" id="edge39_Node000058_Node000030" title=" " alt="" coords="1600,570,1559,557,1514,547,1444,541,1373,541,1250,552,1250,547,1373,536,1444,536,1515,542,1560,552,1602,565"/>
-<area shape="rect" id="Node000033" href="$d9/dd1/soap__ctrlpt_8cpp.html#a03f9e29e2408fb92bc48b9b93c4c9841" title="This extended function is called by UPnP API to send the SOAP action request." alt="" coords="1115,597,1257,623"/>
-<area shape="poly" id="edge40_Node000058_Node000033" title=" " alt="" coords="1601,604,1559,617,1515,626,1447,632,1378,632,1258,623,1258,618,1378,627,1447,627,1514,621,1558,612,1599,599"/>
-<area shape="rect" id="Node000036" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#aef9e66b433f64923b1142779a4cdced6" title="Handles the SOAP action request." alt="" coords="1096,705,1276,760"/>
-<area shape="poly" id="edge36_Node000058_Node000036" title=" " alt="" coords="1604,605,1516,639,1391,679,1277,712,1276,706,1390,674,1514,634,1602,600"/>
-<area shape="rect" id="Node000063" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a06c8e12369d9db67a834d961dc914563" title="Sends the SOAP action response." alt="" coords="1335,739,1515,793"/>
-<area shape="poly" id="edge37_Node000058_Node000063" title=" " alt="" coords="1629,610,1581,664,1516,721,1486,741,1483,736,1513,717,1577,660,1625,606"/>
-<area shape="rect" id="Node000044" href="$d4/d99/upnpapi_8cpp.html#ac43a9ddbe8e1c8270f20565240d20563" title="Downloads an XML document specified in a URL." alt="" coords="1339,357,1511,383"/>
-<area shape="poly" id="edge41_Node000058_Node000044" title=" " alt="" coords="1628,562,1565,465,1533,420,1513,396,1492,385,1495,380,1516,392,1537,416,1569,462,1633,559"/>
-<area shape="rect" id="Node000026" href="$d4/d99/upnpapi_8cpp.html#a012bb5501f0167248edf7447ee3f092c" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="1341,817,1509,843"/>
-<area shape="poly" id="edge43_Node000058_Node000026" title=" " alt="" coords="1640,611,1624,654,1598,707,1562,761,1540,785,1516,807,1493,820,1491,815,1513,802,1537,782,1558,757,1593,704,1619,652,1635,609"/>
-<area shape="rect" id="Node000027" href="$d4/d99/upnpapi_8cpp.html#abd5f9f5ca2e83b67eb0dd421ffd030f9" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="1094,843,1278,868"/>
-<area shape="poly" id="edge45_Node000058_Node000027" title=" " alt="" coords="1645,611,1633,665,1610,734,1593,769,1572,802,1547,832,1516,856,1481,874,1442,885,1403,890,1363,891,1289,884,1228,871,1229,866,1289,879,1363,886,1402,885,1441,880,1479,869,1513,852,1543,828,1568,799,1589,766,1605,732,1628,664,1640,610"/>
-<area shape="rect" id="Node000060" href="$d4/d99/upnpapi_8cpp.html#ab7f67326e349b9025ac62d0b8ae8ae43" title="Similar to UpnpAcceptSubscription() except that it takes a DOM document for the variables to event ra..." alt="" coords="1085,407,1287,432"/>
-<area shape="poly" id="edge30_Node000059_Node000060" title=" " alt="" coords="1343,422,1287,422,1287,417,1343,417"/>
-<area shape="rect" id="Node000062" href="$d4/d99/upnpapi_8cpp.html#a2244040bbe493e66273b8b53a61a1959" title="Similar to UpnpNotify() except that it takes a DOM document for the event rather than an array of str..." alt="" coords="1128,456,1244,481"/>
-<area shape="poly" id="edge32_Node000061_Node000062" title=" " alt="" coords="1345,471,1244,471,1244,466,1345,466"/>
-<area shape="poly" id="edge34_Node000020_Node000030" title=" " alt="" coords="1321,576,1249,569,1250,563,1321,571"/>
-<area shape="poly" id="edge35_Node000020_Node000033" title=" " alt="" coords="1321,598,1258,605,1257,600,1321,593"/>
-<area shape="poly" id="edge38_Node000063_Node000036" title=" " alt="" coords="1321,754,1276,748,1277,743,1321,749"/>
-<area shape="poly" id="edge42_Node000044_Node000034" title=" " alt="" coords="1324,362,1283,358,1284,352,1325,357"/>
-<area shape="poly" id="edge44_Node000026_Node000027" title=" " alt="" coords="1327,843,1278,848,1278,843,1327,838"/>
-<area shape="poly" id="edge47_Node000064_Node000009" title=" " alt="" coords="288,628,95,310,100,307,292,626"/>
+<area shape="rect" id="Node000001" title="ixml_membuf initialization routine." alt="" coords="1869,376,2011,402"/>
+<area shape="rect" id="Node000002" href="$d1/d6a/ixmlmembuf_8cpp.html#a5925e1f1e8fc6290b68330bbf8369eb5" title="ixml_membuf clearing routine." alt="" coords="1652,148,1821,174"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1916,368,1747,175,1751,172,1920,364"/>
+<area shape="rect" id="Node000112" href="$da/d8a/group__XMLAPI.html#gaf2c8698f70f34ce4f209a81fdeddc28e" title="Renders a Node and all sub&#45;elements into an XML document representation." alt="" coords="1652,351,1821,376"/>
+<area shape="poly" id="edge23_Node000001_Node000112" title=" " alt="" coords="1855,381,1821,377,1822,372,1856,376"/>
+<area shape="rect" id="Node000113" href="$da/d8a/group__XMLAPI.html#ga7b6244f2971cb9e69acc9a50f991523c" title="Renders a Node and all sub&#45;elements into an XML text representation. The caller is required to free t..." alt="" coords="1669,400,1805,426"/>
+<area shape="poly" id="edge24_Node000001_Node000113" title=" " alt="" coords="1856,402,1805,408,1804,402,1855,396"/>
+<area shape="rect" id="Node000114" href="$da/d8a/group__XMLAPI.html#ga5bab5bc21b3258a128c3ad3871fbd6ea" title="Renders a Node and all sub&#45;elements into an XML document representation." alt="" coords="1663,450,1811,475"/>
+<area shape="poly" id="edge25_Node000001_Node000114" title=" " alt="" coords="1898,410,1822,439,1784,452,1782,447,1820,434,1896,405"/>
+<area shape="rect" id="Node000116" href="$da/d8a/group__XMLAPI.html#gaf71e11e801ca62f0d922dc10ea3fe6a6" title="Renders a Node and all sub&#45;elements into an XML text representation." alt="" coords="1679,706,1794,731"/>
+<area shape="poly" id="edge28_Node000001_Node000116" title=" " alt="" coords="1926,415,1748,707,1744,704,1922,412"/>
+<area shape="rect" id="Node000123" href="$da/dff/ixmlparser_8cpp.html#a0eacdafa9ca9fe872b050cac5b22ad1f" title="Initializes a xml parser." alt="" coords="261,250,351,275"/>
+<area shape="poly" id="edge53_Node000001_Node000123" title=" " alt="" coords="1902,372,1863,355,1821,341,1736,323,1670,316,1515,316,755,316,640,311,527,300,351,273,352,268,528,295,640,306,755,310,1515,310,1670,311,1737,318,1822,336,1865,350,1904,367"/>
+<area shape="rect" id="Node000003" href="$d1/d6a/ixmlmembuf_8cpp.html#aec1bbc038c9fe4e5a1cff6948963ee2d" title="Copies the contents o a buffer to the designated ixml_membuf." alt="" coords="1433,186,1595,211"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1647,179,1591,188,1590,183,1646,173"/>
+<area shape="rect" id="Node000106" href="$da/dff/ixmlparser_8cpp.html#a5d59957643934c19e8e073481602d561" title="Clear token buffer." alt="" coords="1195,107,1355,132"/>
+<area shape="poly" id="edge9_Node000002_Node000106" title=" " alt="" coords="1638,155,1355,129,1356,124,1638,150"/>
+<area shape="rect" id="Node000111" href="$da/dff/ixmlparser_8cpp.html#aebef9fd006a378376432c3da3c285aa2" title="Frees all temporary memory allocated by xmlparser." alt="" coords="470,99,565,124"/>
+<area shape="poly" id="edge20_Node000002_Node000111" title=" " alt="" coords="1700,144,1626,107,1523,64,1464,45,1402,29,1339,18,1277,14,1021,14,913,11,829,8,746,14,699,24,644,39,612,52,582,69,536,101,533,97,579,64,610,47,642,34,697,19,745,9,829,3,913,6,1021,9,1277,9,1340,13,1403,24,1465,40,1524,59,1628,102,1703,139"/>
+<area shape="rect" id="Node000004" href="$d1/d6a/ixmlmembuf_8cpp.html#ad584c9bc7aa7981cf0535c4273ae2737" title="Copies a NULL terminated string to the ixml_buffer." alt="" coords="1182,190,1369,215"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1419,203,1369,203,1369,198,1419,197"/>
+<area shape="rect" id="Node000005" href="$da/dff/ixmlparser_8cpp.html#ae2c2a1bb2775ce062c198fe4e7b59713" title="Set the last element to be the given string." alt="" coords="947,202,1097,227"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1168,210,1097,213,1097,208,1168,205"/>
+<area shape="rect" id="Node000006" href="$da/dff/ixmlparser_8cpp.html#a2f413615d184341a330872c09fb1fd22" title="Processes the STag as defined by XML spec." alt="" coords="681,200,831,226"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="934,217,831,216,831,211,934,211"/>
+<area shape="rect" id="Node000007" href="$da/dff/ixmlparser_8cpp.html#a1a4a23a8c694f26c59c2f1b24fef612d" title="Get the next node." alt="" coords="440,150,595,175"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="681,200,577,178,578,172,682,195"/>
+<area shape="rect" id="Node000008" href="$da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542" title="Parses the xml file and returns the DOM document tree." alt="" coords="220,150,392,175"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="426,165,392,165,392,160,426,160"/>
+<area shape="rect" id="Node000009" href="$da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49" title="Parses a xml file and return the DOM tree." alt="" coords="5,150,172,175"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="206,165,172,165,172,160,206,160"/>
+<area shape="rect" id="Node000107" href="$da/dff/ixmlparser_8cpp.html#afc77054f1c094bc4735fa71b63fa5cc7" title="Return the length of next token in tokenBuff." alt="" coords="943,100,1101,126"/>
+<area shape="poly" id="edge10_Node000106_Node000107" title=" " alt="" coords="1181,120,1101,118,1102,112,1182,114"/>
+<area shape="rect" id="Node000108" href="$da/dff/ixmlparser_8cpp.html#a6d77ded2429cef8aa8408b9824c657ad" title="Processes attribute." alt="" coords="668,50,844,75"/>
+<area shape="poly" id="edge17_Node000106_Node000108" title=" " alt="" coords="1211,106,1126,90,977,75,844,67,844,62,978,69,1127,85,1212,101"/>
+<area shape="rect" id="Node000110" href="$da/dff/ixmlparser_8cpp.html#a7ade48c4b26c634052650a808c22a980" title="Processes the CONTENT as defined in XML spec." alt="" coords="671,250,841,275"/>
+<area shape="poly" id="edge18_Node000106_Node000110" title=" " alt="" coords="1182,134,1033,158,966,174,919,191,904,202,895,214,886,227,871,239,840,252,838,247,868,235,882,223,891,211,900,199,916,187,964,169,1032,153,1181,129"/>
+<area shape="poly" id="edge16_Node000107_Node000006" title=" " alt="" coords="955,132,919,147,895,165,871,183,818,203,816,198,868,179,892,161,916,143,953,127"/>
+<area shape="poly" id="edge11_Node000107_Node000007" title=" " alt="" coords="930,130,870,138,724,152,595,161,595,155,723,147,869,133,930,125"/>
+<area shape="poly" id="edge12_Node000107_Node000108" title=" " alt="" coords="941,100,823,78,824,72,942,95"/>
+<area shape="rect" id="Node000109" href="$da/dff/ixmlparser_8cpp.html#a41f4d864085c0cc345e6ba7516fc0d77" title="Process ETag as defined by XML spec." alt="" coords="681,99,831,124"/>
+<area shape="poly" id="edge14_Node000107_Node000109" title=" " alt="" coords="929,115,831,115,831,109,929,110"/>
+<area shape="poly" id="edge13_Node000108_Node000007" title=" " alt="" coords="657,82,644,89,629,100,620,112,611,125,596,138,567,152,565,147,593,133,607,121,616,109,626,96,641,84,655,77"/>
+<area shape="poly" id="edge15_Node000109_Node000007" title=" " alt="" coords="682,130,578,152,577,147,681,125"/>
+<area shape="poly" id="edge19_Node000110_Node000007" title=" " alt="" coords="668,248,642,239,581,208,534,177,537,173,584,204,644,234,670,243"/>
+<area shape="poly" id="edge22_Node000111_Node000008" title=" " alt="" coords="457,129,360,152,359,147,456,123"/>
+<area shape="poly" id="edge21_Node000111_Node000009" title=" " alt="" coords="457,117,347,126,220,140,148,152,148,147,220,134,346,120,456,112"/>
+<area shape="rect" id="Node000115" href="$d1/d4a/urlconfig_8cpp.html#a2fa72177f842afa6e0b87182387aac88" title="Configure the full URL for the description document." alt="" coords="1445,400,1583,426"/>
+<area shape="poly" id="edge26_Node000114_Node000115" title=" " alt="" coords="1665,449,1572,428,1573,423,1666,444"/>
+<area shape="rect" id="Node000087" href="$d4/d99/upnpapi_8cpp.html#a9300edc4f96f8f3e563bcaf49bffd514" title="Fills the sockadr_in with miniserver information." alt="" coords="1178,418,1373,443"/>
+<area shape="poly" id="edge27_Node000115_Node000087" title=" " alt="" coords="1432,422,1373,426,1373,421,1431,416"/>
+<area shape="rect" id="Node000117" href="$dd/de6/gena__device_8cpp.html#aadf54fcafc02a512a76124ab8bf938f6" title="Similar to the genaInitNofity. The only difference is that it takes the xml document for the state ta..." alt="" coords="1447,780,1581,806"/>
+<area shape="poly" id="edge29_Node000116_Node000117" title=" " alt="" coords="1693,739,1605,771,1567,783,1565,778,1603,766,1691,734"/>
+<area shape="rect" id="Node000119" href="$dd/de6/gena__device_8cpp.html#a8f2185f7e2ef6345535174b920c6e86b" title="Sends a notification to all the subscribed control points." alt="" coords="1449,1012,1579,1038"/>
+<area shape="poly" id="edge33_Node000116_Node000119" title=" " alt="" coords="1732,745,1718,797,1693,864,1657,934,1633,966,1606,995,1573,1014,1570,1010,1602,991,1629,963,1652,931,1689,862,1713,796,1727,744"/>
+<area shape="rect" id="Node000065" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a02637d010040bd277464e3324aa697f4" title="This function handles the response coming back from the device." alt="" coords="1424,882,1604,936"/>
+<area shape="poly" id="edge36_Node000116_Node000065" title=" " alt="" coords="1720,744,1672,802,1640,835,1606,864,1576,884,1573,879,1602,860,1636,831,1668,798,1716,740"/>
+<area shape="rect" id="Node000083" href="$d9/dd1/soap__ctrlpt_8cpp.html#a98ef5ed7d4950c8d6c2624271efb36bc" title="This function is called by UPnP API to send the SOAP action request." alt="" coords="1212,928,1339,954"/>
+<area shape="poly" id="edge45_Node000116_Node000083" title=" " alt="" coords="1732,745,1718,792,1693,850,1656,907,1633,931,1605,951,1569,968,1529,978,1489,982,1448,981,1373,971,1313,956,1315,951,1374,966,1449,976,1489,977,1528,972,1567,963,1603,947,1629,927,1652,903,1689,848,1713,790,1727,744"/>
+<area shape="rect" id="Node000086" href="$d9/dd1/soap__ctrlpt_8cpp.html#a03f9e29e2408fb92bc48b9b93c4c9841" title="This extended function is called by UPnP API to send the SOAP action request." alt="" coords="1204,839,1347,864"/>
+<area shape="poly" id="edge46_Node000116_Node000086" title=" " alt="" coords="1715,743,1668,784,1637,805,1605,821,1539,841,1470,852,1404,857,1347,858,1347,853,1404,852,1469,847,1537,836,1603,816,1635,800,1664,780,1712,739"/>
+<area shape="rect" id="Node000089" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#aef9e66b433f64923b1142779a4cdced6" title="Handles the SOAP action request." alt="" coords="1185,598,1365,652"/>
+<area shape="poly" id="edge39_Node000116_Node000089" title=" " alt="" coords="1718,696,1698,669,1672,639,1640,611,1603,590,1571,580,1538,574,1470,574,1405,584,1348,600,1346,595,1404,579,1470,569,1538,569,1572,575,1605,585,1643,607,1675,635,1702,666,1722,693"/>
+<area shape="rect" id="Node000121" href="$d3/dc5/group__UpnpSamples.html#ga57f460f1df1159562900cab8a8f219c8" title="Prints callback event structure details." alt="" coords="1430,499,1598,524"/>
+<area shape="poly" id="edge40_Node000116_Node000121" title=" " alt="" coords="1720,694,1674,621,1641,581,1602,546,1565,527,1567,522,1606,541,1645,577,1679,618,1725,692"/>
+<area shape="rect" id="Node000122" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a06c8e12369d9db67a834d961dc914563" title="Sends the SOAP action response." alt="" coords="1424,600,1604,655"/>
+<area shape="poly" id="edge43_Node000116_Node000122" title=" " alt="" coords="1691,703,1581,658,1583,653,1693,698"/>
+<area shape="rect" id="Node000101" href="$d4/d99/upnpapi_8cpp.html#ac43a9ddbe8e1c8270f20565240d20563" title="Downloads an XML document specified in a URL." alt="" coords="1428,450,1600,475"/>
+<area shape="poly" id="edge47_Node000116_Node000101" title=" " alt="" coords="1725,693,1710,648,1684,593,1649,536,1627,511,1602,488,1583,477,1586,473,1606,484,1631,507,1653,533,1689,590,1715,646,1731,691"/>
+<area shape="rect" id="Node000079" href="$d4/d99/upnpapi_8cpp.html#a012bb5501f0167248edf7447ee3f092c" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="1430,731,1598,756"/>
+<area shape="poly" id="edge50_Node000116_Node000079" title=" " alt="" coords="1666,729,1599,737,1598,731,1665,724"/>
+<area shape="rect" id="Node000080" href="$d4/d99/upnpapi_8cpp.html#abd5f9f5ca2e83b67eb0dd421ffd030f9" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="1183,692,1367,718"/>
+<area shape="poly" id="edge52_Node000116_Node000080" title=" " alt="" coords="1665,719,1367,710,1367,705,1665,714"/>
+<area shape="rect" id="Node000118" href="$d4/d99/upnpapi_8cpp.html#ab7f67326e349b9025ac62d0b8ae8ae43" title="Similar to UpnpAcceptSubscription() except that it takes a DOM document for the variables to event ra..." alt="" coords="1175,767,1376,792"/>
+<area shape="poly" id="edge30_Node000117_Node000118" title=" " alt="" coords="1433,791,1376,788,1376,783,1433,786"/>
+<area shape="rect" id="Node000096" href="$d9/d09/tv__device_8cpp.html#a236a906cc1d589cb1655d8ce6b0623bc" title="Called during a subscription request callback." alt="" coords="917,698,1127,738"/>
+<area shape="poly" id="edge31_Node000118_Node000096" title=" " alt="" coords="1208,766,1105,741,1106,736,1210,761"/>
+<area shape="rect" id="Node000097" href="$d9/d09/tv__device_8cpp.html#aed1cafead3fb83e9101a11c24b346a3b" title="The callback handler registered with the SDK while registering root device." alt="" coords="643,643,869,668"/>
+<area shape="poly" id="edge32_Node000096_Node000097" title=" " alt="" coords="923,698,810,671,811,666,924,693"/>
+<area shape="rect" id="Node000120" href="$d4/d99/upnpapi_8cpp.html#a2244040bbe493e66273b8b53a61a1959" title="Similar to UpnpNotify() except that it takes a DOM document for the event rather than an array of str..." alt="" coords="1217,1012,1333,1038"/>
+<area shape="poly" id="edge34_Node000119_Node000120" title=" " alt="" coords="1435,1028,1333,1028,1333,1022,1435,1022"/>
+<area shape="rect" id="Node000099" href="$d9/d09/tv__device_8cpp.html#a89eb472ed3be65eb2673397c4ba249e4" title="Update the TvDevice service state table, and notify all subscribed control points of the updated stat..." alt="" coords="919,1012,1125,1038"/>
+<area shape="poly" id="edge35_Node000120_Node000099" title=" " alt="" coords="1204,1028,1126,1028,1126,1022,1204,1022"/>
+<area shape="poly" id="edge37_Node000065_Node000083" title=" " alt="" coords="1411,925,1339,935,1339,930,1410,920"/>
+<area shape="poly" id="edge38_Node000065_Node000086" title=" " alt="" coords="1410,887,1328,867,1329,862,1411,882"/>
+<area shape="poly" id="edge42_Node000121_Node000097" title=" " alt="" coords="1433,530,825,645,824,640,1432,524"/>
+<area shape="rect" id="Node000102" href="$d3/dc5/group__UpnpSamples.html#ga9e63f2e47c7d15e566753d0305fc5ed7" title="The callback handler registered with the SDK while registering the control point." alt="" coords="1182,472,1369,512"/>
+<area shape="poly" id="edge41_Node000121_Node000102" title=" " alt="" coords="1416,506,1369,502,1369,497,1416,501"/>
+<area shape="poly" id="edge44_Node000122_Node000089" title=" " alt="" coords="1410,629,1365,629,1366,623,1410,624"/>
+<area shape="poly" id="edge48_Node000101_Node000087" title=" " alt="" coords="1414,452,1370,446,1370,440,1415,446"/>
+<area shape="poly" id="edge49_Node000101_Node000102" title=" " alt="" coords="1414,477,1369,483,1369,477,1414,472"/>
+<area shape="poly" id="edge51_Node000079_Node000080" title=" " alt="" coords="1421,731,1354,720,1355,715,1422,726"/>
+<area shape="poly" id="edge54_Node000123_Node000009" title=" " alt="" coords="263,246,116,178,119,173,266,241"/>
 </map>

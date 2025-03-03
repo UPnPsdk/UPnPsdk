@@ -947,11 +947,9 @@ INPUT                  = Pupnp/directory.dox \
                          docs \
                          UPnPsdk \
                          Compa \
-                         Pupnp/ixml
-                         # sample/api_samples.cpp \
-                         # sample/common/tv_device.hpp \
-                         # sample/common/tv_device.cpp \
-                         # sample/linux/tv_device_main.cpp
+                         Pupnp/ixml \
+                         Sample/common \
+                         Sample/linux
 #
 # delete Compa/inc/UpnpGlobal.hpp
 # delete Compa/inc/UpnpInet.hpp

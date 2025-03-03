@@ -1,0 +1,60 @@
+<map id="TvCtrlPointPrintList" name="TvCtrlPointPrintList">
+<area shape="rect" id="Node000001" title="Print the universal device names for each device in the global device list." alt="" coords="1612,704,1759,729"/>
+<area shape="rect" id="Node000002" href="$d3/dc5/group__UpnpSamples.html#ga9e63f2e47c7d15e566753d0305fc5ed7" title="The callback handler registered with the SDK while registering the control point." alt="" coords="1377,373,1564,413"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1666,694,1483,414,1487,411,1671,691"/>
+<area shape="rect" id="Node000011" href="$d3/dc5/group__UpnpSamples.html#ga14010940fdabdf6558c7b5d05ea92718" title="TvCtrlPointProcessCommand." alt="" coords="348,581,559,607"/>
+<area shape="poly" id="edge34_Node000001_Node000011" title=" " alt="" coords="1653,738,1582,776,1483,819,1427,838,1368,854,1308,865,1247,869,991,869,932,871,880,877,790,889,748,890,704,884,657,869,605,843,573,818,544,788,520,755,500,720,471,655,456,608,461,606,476,653,505,718,525,752,548,785,576,814,608,838,659,865,705,879,748,885,790,884,879,872,931,866,991,863,1247,863,1307,859,1367,849,1425,833,1481,814,1580,771,1650,734"/>
+<area shape="rect" id="Node000003" href="$d3/dc5/group__UpnpSamples.html#ga3a823a6076337cd6b3a1e4e23f914f09" title="Send a GetVar request to the specified service of a device." alt="" coords="1177,255,1315,280"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1420,368,1269,282,1271,278,1423,363"/>
+<area shape="rect" id="Node000014" href="$d3/dc5/group__UpnpSamples.html#ga440dbdcb8802a87115f7f10e95cbeb58" title="Send an Action request to the specified service of a device." alt="" coords="1163,505,1329,531"/>
+<area shape="poly" id="edge13_Node000002_Node000014" title=" " alt="" coords="1423,422,1271,507,1269,503,1420,417"/>
+<area shape="rect" id="Node000024" href="$d3/dc5/group__UpnpSamples.html#gab7b35e599dc56c4720e60c43b733a44b" title="Call this function to initialize the UPnP library and start the TV Control Point." alt="" coords="391,81,516,107"/>
+<area shape="poly" id="edge32_Node000002_Node000024" title=" " alt="" coords="1448,362,1399,291,1324,200,1278,154,1227,111,1172,74,1114,46,1071,31,1027,21,936,10,844,10,755,19,672,33,598,51,490,84,488,79,597,45,671,28,755,13,844,5,936,4,1028,15,1072,26,1116,41,1175,70,1231,107,1282,150,1328,196,1403,287,1452,359"/>
+<area shape="rect" id="Node000004" href="$d3/dc5/group__UpnpSamples.html#gad7cb8e946c062077e50078615f9cb606" title="TvCtrlPointGetBrightness." alt="" coords="899,305,1086,331"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1169,285,1057,308,1056,303,1168,280"/>
+<area shape="rect" id="Node000005" href="$d3/dc5/group__UpnpSamples.html#gac16a4eff29f123c234e0e4b08c057c75" title="TvCtrlPointGetChannel." alt="" coords="907,355,1078,380"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="1217,290,1171,318,1116,344,1073,357,1072,352,1114,339,1168,313,1214,285"/>
+<area shape="rect" id="Node000006" href="$d3/dc5/group__UpnpSamples.html#ga43232f6b0d55baeac59a39a8df7e1537" title="TvCtrlPointGetColor." alt="" coords="917,404,1068,429"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="1229,293,1182,344,1151,371,1116,394,1069,410,1067,405,1113,389,1147,367,1178,340,1225,289"/>
+<area shape="rect" id="Node000007" href="$d3/dc5/group__UpnpSamples.html#ga776a99a41dd4dbee7f093468a1a456d8" title="TvCtrlPointGetContrast." alt="" coords="907,56,1079,81"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="1231,243,1213,209,1187,168,1153,128,1113,95,1078,80,1080,75,1116,90,1157,124,1191,165,1217,206,1236,241"/>
+<area shape="rect" id="Node000008" href="$d3/dc5/group__UpnpSamples.html#ga82cf524731e139976f4dd81c9cc0c73d" title="TvCtrlPointGetPower." alt="" coords="914,105,1071,131"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="1225,246,1179,193,1148,166,1113,144,1071,129,1072,124,1116,139,1151,162,1182,190,1229,242"/>
+<area shape="rect" id="Node000009" href="$d3/dc5/group__UpnpSamples.html#ga2712849eddca81b17582e0a48bbd7e6d" title="TvCtrlPointGetTint." alt="" coords="921,155,1064,180"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="1215,249,1168,220,1114,194,1063,180,1065,174,1116,189,1171,215,1218,244"/>
+<area shape="rect" id="Node000010" href="$d3/dc5/group__UpnpSamples.html#gaf54eed3d104aca8ae0845aa827652e27" title="TvCtrlPointGetVolume." alt="" coords="909,204,1076,229"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="1168,254,1056,232,1057,227,1169,249"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="1163,265,1045,266,974,272,899,282,822,299,747,322,674,354,608,396,558,443,516,496,484,546,463,582,459,580,479,543,511,493,554,439,605,392,672,350,745,317,821,293,898,277,973,266,1044,261,1163,259"/>
+<area shape="rect" id="Node000012" href="$d3/dc5/group__UpnpSamples.html#ga6dfa8b6e5a54243f10e1952ad69e59b9" title="Function that receives commands from the user." alt="" coords="108,332,300,357"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="428,573,216,359,220,356,432,570"/>
+<area shape="rect" id="Node000013" href="$dc/dcc/tv__combo__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Main entry point for the combo sample program." alt="" coords="5,307,60,332"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="104,332,60,326,61,321,105,327"/>
+<area shape="poly" id="edge14_Node000014_Node000011" title=" " alt="" coords="1149,514,822,498,761,493,713,487,666,486,607,498,566,515,527,538,470,583,467,579,524,534,563,510,606,493,666,481,713,481,762,488,823,493,1149,509"/>
+<area shape="rect" id="Node000015" href="$d3/dc5/group__UpnpSamples.html#ga3a55c9c895faccc78b3b046f2317664d" title="Send an action with one argument to a device in the global device* list." alt="" coords="871,605,1115,631"/>
+<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="1201,538,1027,608,1025,603,1199,533"/>
+<area shape="rect" id="Node000022" href="$d3/dc5/group__UpnpSamples.html#ga8340b68e10f1da9c334fb088aa3851c0" title="TvCtrlPointSendPowerOff." alt="" coords="622,803,807,828"/>
+<area shape="poly" id="edge28_Node000014_Node000022" title=" " alt="" coords="1227,543,1179,593,1116,645,1040,697,977,733,910,762,824,794,785,805,784,800,822,789,908,757,974,728,1037,693,1113,641,1175,589,1223,539"/>
+<area shape="rect" id="Node000023" href="$d3/dc5/group__UpnpSamples.html#gacd84dbee2f0a43637d6bfac2f9311e6a" title="TvCtrlPointSendPowerOn." alt="" coords="623,405,807,431"/>
+<area shape="poly" id="edge30_Node000014_Node000023" title=" " alt="" coords="1163,505,783,433,784,428,1164,500"/>
+<area shape="rect" id="Node000016" href="$d3/dc5/group__UpnpSamples.html#ga763f22e4aff7de360d3c5f0ee79bfece" title="TvCtrlPointSendSetBrightness." alt="" coords="607,704,823,729"/>
+<area shape="poly" id="edge16_Node000015_Node000016" title=" " alt="" coords="956,639,895,667,824,695,783,706,781,701,822,690,893,662,954,634"/>
+<area shape="rect" id="Node000017" href="$d3/dc5/group__UpnpSamples.html#gad658cbd97954c6e9cc9f4d67a79a672a" title="TvCtrlPointSendSetChannel." alt="" coords="615,753,815,779"/>
+<area shape="poly" id="edge18_Node000015_Node000017" title=" " alt="" coords="970,642,907,694,867,721,824,744,792,756,790,751,822,739,864,717,904,689,966,638"/>
+<area shape="rect" id="Node000018" href="$d3/dc5/group__UpnpSamples.html#ga8ca83222dceeccf9ff5074b33eadcb5d" title="TvCtrlPointSendSetColor." alt="" coords="624,507,805,532"/>
+<area shape="poly" id="edge20_Node000015_Node000018" title=" " alt="" coords="952,602,892,574,822,547,777,535,779,529,824,542,894,569,955,597"/>
+<area shape="rect" id="Node000019" href="$d3/dc5/group__UpnpSamples.html#ga0e0cfeeda6a317d35460f6cb7cc42df1" title="TvCtrlPointSendSetContrast." alt="" coords="613,556,816,581"/>
+<area shape="poly" id="edge22_Node000015_Node000019" title=" " alt="" coords="907,605,787,584,788,579,908,600"/>
+<area shape="rect" id="Node000020" href="$d3/dc5/group__UpnpSamples.html#gaa45ccb02289e6473ed343c9d5045ed72" title="TvCtrlPointSendSetTint." alt="" coords="629,605,801,631"/>
+<area shape="poly" id="edge24_Node000015_Node000020" title=" " alt="" coords="857,621,801,621,801,615,857,615"/>
+<area shape="rect" id="Node000021" href="$d3/dc5/group__UpnpSamples.html#gad9c8622a70886cc3d42b81e4f2f61435" title="TvCtrlPointSendSetVolume." alt="" coords="617,655,813,680"/>
+<area shape="poly" id="edge26_Node000015_Node000021" title=" " alt="" coords="908,636,788,657,787,652,907,630"/>
+<area shape="poly" id="edge17_Node000016_Node000011" title=" " alt="" coords="627,703,606,695,565,675,527,651,469,609,472,605,530,647,568,670,608,690,628,698"/>
+<area shape="poly" id="edge19_Node000017_Node000011" title=" " alt="" coords="619,751,605,744,558,712,517,674,462,608,466,605,521,670,562,708,608,740,622,746"/>
+<area shape="poly" id="edge21_Node000018_Node000011" title=" " alt="" coords="644,538,607,547,492,584,490,579,606,542,642,532"/>
+<area shape="poly" id="edge23_Node000019_Node000011" title=" " alt="" coords="600,582,559,586,558,581,600,577"/>
+<area shape="poly" id="edge25_Node000020_Node000011" title=" " alt="" coords="615,611,559,606,559,601,615,606"/>
+<area shape="poly" id="edge27_Node000021_Node000011" title=" " alt="" coords="638,654,606,646,490,609,491,604,607,641,640,649"/>
+<area shape="poly" id="edge29_Node000022_Node000011" title=" " alt="" coords="616,800,605,793,578,773,552,749,510,696,478,645,458,608,463,606,482,643,514,693,556,745,581,769,608,789,619,795"/>
+<area shape="poly" id="edge31_Node000023_Node000011" title=" " alt="" coords="641,437,608,452,563,484,522,520,467,583,463,579,519,517,560,480,605,448,639,432"/>
+<area shape="poly" id="edge33_Node000024_Node000013" title=" " alt="" coords="418,115,59,309,57,304,415,111"/>
+</map>

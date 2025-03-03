@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -489,7 +489,7 @@ int TvDeviceStart(
     const char* web_dir_path,
     /*! [in] IP mode: IP_MODE_IPV4, IP_MODE_IPV6_LLA or
      * IP_MODE_IPV6_ULA_GUA. Default is IP_MODE_IPV6_LLA. */
-    const int ip_mode,
+    const int a_ip_mode,
     /*! [in] Non-zero if called from the combo application. */
     const int combo);
 

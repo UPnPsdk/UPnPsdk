@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-02-10
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1288,11 +1288,11 @@ int TvDeviceCallbackEventHandler(Upnp_EventType EventType, const void* Event,
 }
 
 int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
-                  const char* web_dir_path, const int ip_mode,
+                  const char* web_dir_path, const int a_ip_mode,
                   const int combo) {
     TRACE("Executing TvDeviceStart()");
     int ret{UPNP_E_SUCCESS};
-    // example for desc_doc_url: http://[2001:db8::1]:50001/tvdevicedesc.xml
+    // example for desc_doc_url: "http://[2001:db8::1]:50001/tvdevicedesc.xml"
     char desc_doc_url[DESC_URL_SIZE];
     char* ip_address{};
     int address_family{AF_INET};
@@ -1315,7 +1315,7 @@ int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
         return ret;
     }
 
-    switch (ip_mode) {
+    switch (a_ip_mode) {
     case IP_MODE_IPV4:
         ip_address = UpnpGetServerIpAddress();
         port = UpnpGetServerPort();
@@ -1332,7 +1332,7 @@ int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
         address_family = AF_INET6;
         break;
     default:
-        SampleUtil_Print("Invalid ip_mode : %d\n", ip_mode);
+        SampleUtil_Print("Invalid ip_mode : %d\n", a_ip_mode);
         UpnpFinish();
         return UPNP_E_INTERNAL_ERROR;
     }
@@ -1460,21 +1460,21 @@ void* TvDeviceCommandLoop(void* args) {
 int device_main(const int argc, char* argv[]) {
     TRACE("Executing device_main()");
     unsigned int portTemp{};
-    char* iface{};
-    char* desc_doc_name{};
-    char* web_dir_path{};
+    char* iface{nullptr};
+    char* desc_doc_name{nullptr};
+    char* web_dir_path{nullptr};
     unsigned short port{};
+    // Default ip mode setting.
     // int ip_mode{IP_MODE_IPV4};
     int ip_mode{IP_MODE_IPV6_LLA};
     // int ip_mode{IP_MODE_IPV6_ULA_GUA};
-    int i{};
 
     if (!argc)
         return UPNP_E_INVALID_ARGUMENT;
 
     SampleUtil_Initialize(linux_print);
     /* Parse options */
-    for (i = 1; i < argc; i++) {
+    for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-i") == 0) {
             iface = argv[++i];
         } else if (strcmp(argv[i], "--port") == 0) {

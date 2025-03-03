@@ -1,0 +1,19 @@
+<map id="UpnpSearchAsync" name="UpnpSearchAsync">
+<area shape="rect" id="Node000001" title="Searches for devices matching the given search target." alt="" coords="847,81,985,107"/>
+<area shape="rect" id="Node000002" href="$d3/dc5/group__UpnpSamples.html#gae27fe2191c00fc00026a940bbe25932d" title="Clear the current global device list and issue new search requests to build it up again from scratch." alt="" coords="631,56,775,81"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="832,87,775,80,775,75,833,81"/>
+<area shape="rect" id="Node000007" href="$d3/dc5/group__UpnpSamples.html#ga5395762de03df9e79a90a2a7d1c5421e" title="Checks the advertisement each device in the global device list." alt="" coords="607,105,799,131"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="833,106,799,110,799,105,833,101"/>
+<area shape="rect" id="Node000003" href="$d3/dc5/group__UpnpSamples.html#ga14010940fdabdf6558c7b5d05ea92718" title="TvCtrlPointProcessCommand." alt="" coords="348,5,559,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="625,56,516,33,517,28,627,51"/>
+<area shape="rect" id="Node000006" href="$d3/dc5/group__UpnpSamples.html#gab7b35e599dc56c4720e60c43b733a44b" title="Call this function to initialize the UPnP library and start the TV Control Point." alt="" coords="141,56,267,81"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="617,71,267,71,267,66,617,66"/>
+<area shape="rect" id="Node000004" href="$d3/dc5/group__UpnpSamples.html#ga6dfa8b6e5a54243f10e1952ad69e59b9" title="Function that receives commands from the user." alt="" coords="108,7,300,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="334,21,300,21,300,16,334,16"/>
+<area shape="rect" id="Node000005" href="$dc/dcc/tv__combo__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Main entry point for the combo sample program." alt="" coords="5,32,60,57"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="105,37,61,43,60,38,104,31"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="128,61,60,51,61,46,128,55"/>
+<area shape="rect" id="Node000008" href="$d5/d29/tv__ctrlpt_8cpp.html#a70d7db3d6f73fc30c2a5ec26df714d26" title="Function that runs in its own thread and monitors advertisement and subscription timeouts for devices..." alt="" coords="372,107,535,132"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="593,121,535,122,535,116,593,116"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="376,106,266,84,267,79,377,101"/>
+</map>

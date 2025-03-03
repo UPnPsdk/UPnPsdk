@@ -1,12 +1,11 @@
 #ifndef UPNPLIB_TV_CTRLPT_HPP
 #define UPNPLIB_TV_CTRLPT_HPP
-
 /**************************************************************************
  *
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-09-09
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,17 +32,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-
 /*!
- * \addtogroup UpnpSamples
- *
- * @{
- *
- * \name Contro Point Sample API
- *
- * @{
- *
  * \file
+ * \brief TV Control Point sample program
+ * \addtogroup UpnpSamples
+ * @{
  */
 
 #include "sample_util.hpp"
@@ -57,6 +50,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+/// \cond
 #define TV_SERVICE_SERVCOUNT 2
 #define TV_SERVICE_CONTROL 0
 #define TV_SERVICE_PICTURE 1
@@ -84,7 +78,9 @@
 extern const char* TvServiceName[];
 extern const char* TvVarName[TV_SERVICE_SERVCOUNT][TV_MAXVARS];
 extern char TvVarCount[];
+/// \endcond
 
+/// \brief Properties of a TV Service
 struct tv_service {
     char ServiceId[NAME_SIZE];
     char ServiceType[NAME_SIZE];
@@ -94,8 +90,7 @@ struct tv_service {
     char SID[NAME_SIZE];
 };
 
-extern struct TvDeviceNode* GlobalDeviceList;
-
+/// \brief Properties of the TV Device
 struct TvDevice {
     char UDN[250];
     char DescDocURL[250];
@@ -105,55 +100,169 @@ struct TvDevice {
     struct tv_service TvService[TV_SERVICE_SERVCOUNT];
 };
 
+/// \brief TV Device list node
 struct TvDeviceNode {
     struct TvDevice device;
     struct TvDeviceNode* next;
 };
 
+/// The first node in the global device list, or NULL if empty
+extern TvDeviceNode* GlobalDeviceList;
+
+/// \cond
 extern pthread_mutex_t DeviceListMutex;
 
 extern UpnpClient_Handle ctrlpt_handle;
+/// \endcond
 
-void TvCtrlPointPrintHelp(void);
-int TvCtrlPointDeleteNode(struct TvDeviceNode*);
-int TvCtrlPointRemoveDevice(const char*);
-int TvCtrlPointRemoveAll(void);
-int TvCtrlPointRefresh(void);
+// Seems this isn't used anywhere? --Ingo
+// void TvCtrlPointPrintHelp();
 
-int TvCtrlPointSendAction(int, int, const char*, const char**, char**, int);
-int TvCtrlPointSendActionNumericArg(int devnum, int service,
-                                    const char* actionName,
-                                    const char* paramName, int paramValue);
+/*!
+ * \brief Delete a device node from the global device list
+ *
+ * \note This function is NOT thread safe, and should be called from
+ * another function that has already locked the global device list.
+ */
+int TvCtrlPointDeleteNode(TvDeviceNode* node /*!< [in] The device node */);
+
+/*!
+ * \brief Remove a device from the global device list
+ */
+int TvCtrlPointRemoveDevice(
+    /*! [in] The Unique Device Name for the device to remove */
+    const char* UDN);
+
+/*!
+ * \brief Remove all devices from the global device list
+ */
+int TvCtrlPointRemoveAll();
+
+/*!
+ * \brief Clear the current global device list and issue new search requests to
+ * build it up again from scratch
+ */
+int TvCtrlPointRefresh();
+
+/*!
+ * \brief Send an Action request to the specified service of a device
+ */
+int TvCtrlPointSendAction(
+    int service, ///< [in] The service
+    int devnum,  /*!< [in] The number of the device (order in the list, starting
+                  * with 1) */
+    const char* actionname,  ///< [in] The name of the action
+    const char** param_name, ///< [in] An array of parameter names
+    char** param_val,        ///< [in] The corresponding parameter values
+    int param_count          ///< [in] The number of parameters
+);
+
+/*!
+ * \brief Send an action with one argument to a device in the global device*
+ * list
+ */
+int TvCtrlPointSendActionNumericArg(
+    int devnum,  /*!< [in] The number of the device (order in the list, starting
+                    with 1) */
+    int service, /*!< [in] TV_SERVICE_CONTROL or TV_SERVICE_PICTURE */
+    const char* actionName, /*!< [in] The device action, i.e., "SetChannel" */
+    const char*
+        paramName, /*!< [in] The name of the parameter that is being passed */
+    int paramValue /*!< [in] Actual value of the parameter being passed */
+);
+
+/// \brief TvCtrlPointSendPowerOn
 int TvCtrlPointSendPowerOn(int devnum);
+/// \brief TvCtrlPointSendPowerOff
 int TvCtrlPointSendPowerOff(int devnum);
-int TvCtrlPointSendSetChannel(int, int);
-int TvCtrlPointSendSetVolume(int, int);
-int TvCtrlPointSendSetColor(int, int);
-int TvCtrlPointSendSetTint(int, int);
-int TvCtrlPointSendSetContrast(int, int);
-int TvCtrlPointSendSetBrightness(int, int);
+/// \brief TvCtrlPointSendSetChannel
+int TvCtrlPointSendSetChannel(int devnum, int channel);
+/// \brief TvCtrlPointSendSetVolume
+int TvCtrlPointSendSetVolume(int devnum, int volume);
+/// \brief TvCtrlPointSendSetColor
+int TvCtrlPointSendSetColor(int devnum, int color);
+/// \brief TvCtrlPointSendSetTint
+int TvCtrlPointSendSetTint(int devnum, int tint);
+/// \brief TvCtrlPointSendSetContrast
+int TvCtrlPointSendSetContrast(int devnum, int contrast);
+/// \brief TvCtrlPointSendSetBrightness
+int TvCtrlPointSendSetBrightness(int devnum, int brightness);
 
-int TvCtrlPointGetVar(int, int, const char*);
+/*!
+ * \brief Send a GetVar request to the specified service of a device.
+ */
+int TvCtrlPointGetVar(
+    int service, ///< [in] The service
+    int devnum,  /*!< [in] The number of the device (order in the list, starting
+                    with 1) */
+    const char* varname ///< [in] The name of the variable to request
+);
+
+/// \brief TvCtrlPointGetPower
 int TvCtrlPointGetPower(int devnum);
-int TvCtrlPointGetChannel(int);
-int TvCtrlPointGetVolume(int);
-int TvCtrlPointGetColor(int);
-int TvCtrlPointGetTint(int);
-int TvCtrlPointGetContrast(int);
-int TvCtrlPointGetBrightness(int);
+/// \brief TvCtrlPointGetChannel
+int TvCtrlPointGetChannel(int devnum);
+/// \brief TvCtrlPointGetVolume
+int TvCtrlPointGetVolume(int devnum);
+/// \brief TvCtrlPointGetColor
+int TvCtrlPointGetColor(int devnum);
+/// \brief TvCtrlPointGetTint
+int TvCtrlPointGetTint(int devnum);
+/// \brief TvCtrlPointGetContrast
+int TvCtrlPointGetContrast(int devnum);
+/// \brief TvCtrlPointGetBrightness
+int TvCtrlPointGetBrightness(int devnum);
 
-int TvCtrlPointGetDevice(int, struct TvDeviceNode**);
-int TvCtrlPointPrintList(void);
-int TvCtrlPointPrintDevice(int);
-void TvCtrlPointAddDevice(IXML_Document*, const char*, int);
-void TvCtrlPointHandleGetVar(const char*, const char*, const DOMString);
+/*!
+ * \brief Get Control Point Device
+ *
+ * Given a list number, returns the pointer to the device node at that position
+ * in the global device list.
+ * \note that this function is not thread safe. It must be called from a
+ * function that has locked the global device list.
+ */
+int TvCtrlPointGetDevice(
+    int devnum, /*!< [in] The number of the device (order in the list, starting
+                   with 1) */
+    struct TvDeviceNode** devnode /*!< [in] The output device node pointer */
+);
+
+/*!
+ * \brief Print the universal device names for each device in the global device
+ * list
+ */
+int TvCtrlPointPrintList();
+
+/*!
+ * \brief Print the identifiers and state table for a device from the global
+ * device list
+ */
+int TvCtrlPointPrintDevice(
+    /*! [in] The number of the device (order in the list, starting with 1) */
+    int devnum);
+
+/*!
+ * \brief Add the UPnP device to the global device list
+ *
+ * If the device is not already included in the global device list, add it.
+ * Otherwise, update its advertisement expiration timeout.
+ */
+void TvCtrlPointAddDevice(
+    IXML_Document* DescDoc, ///< [in] The description document for the device
+    const char* location, ///< [in] The location of the description document URL
+    int expires           ///< [in] The expiration time for this advertisement
+);
+
+/// \brief TvCtrlPointHandleGetVar
+void TvCtrlPointHandleGetVar(const char* controlURL, const char* varName,
+                             const DOMString varValue);
 
 /*!
  * \brief Update a Tv state table. Called when an event is received.
  *
- * Note: this function is NOT thread save. It must be called from another
+ * \note: this function is NOT thread save. It must be called from another
  * function that has locked the global device list.
- **/
+ */
 void TvStateUpdate(
     /*! [in] The UDN of the parent device. */
     char* UDN,
@@ -164,57 +273,94 @@ void TvStateUpdate(
     /*! [out] pointer to the state table for the Tv  service to update. */
     char** State);
 
-void TvCtrlPointHandleEvent(const char*, int, IXML_Document*);
-void TvCtrlPointHandleSubscribeUpdate(const char*, const Upnp_SID, int);
-int TvCtrlPointCallbackEventHandler(Upnp_EventType, const void*, void*);
+/*!
+ * \brief Handle a UPnP event that was received
+ *
+ * Process the event and update the appropriate service state table.
+ */
+void TvCtrlPointHandleEvent(
+    const char* sid,       ///< [in] The subscription id for the event
+    int evntkey,           ///< [in] The eventkey number for the event
+    IXML_Document* changes ///< [in] The DOM document representing the changes
+);
+
+/*!
+ * \brief Handle a UPnP subscription update that was received
+ *
+ * Find the service the update belongs to, and update its subscription timeout.
+ */
+void TvCtrlPointHandleSubscribeUpdate(
+    const char* eventURL, ///< [in] The event URL for the subscription
+    const Upnp_SID sid,   ///< [in] The subscription id for the subscription
+    int timeout           ///< [in] The new timeout for the subscription
+);
+
+/*!
+ * \brief The callback handler registered with the SDK while registering the
+ * control point
+ *
+ * Detects the type of callback, and passes the request on to the appropriate
+ * function.
+ */
+int TvCtrlPointCallbackEventHandler(
+    Upnp_EventType EventType, ///< [in] The type of callback event
+    const void* Event,        ///< [in] Data structure containing event data
+    [[maybe_unused]] void*
+        Cookie ///< [in] Optional data specified during callback registration
+);
 
 /*!
  * \brief Checks the advertisement each device in the global device list.
  *
- * If an advertisement expires, the device is removed from the list.
- *
- * If an advertisement is about to expire, a search request is sent for that
- * device.
+ * If an advertisement expires, the device is removed from the list. If an
+ * advertisement is about to expire, a search request is sent for that device.
  */
 void TvCtrlPointVerifyTimeouts(
     /*! [in] The increment to subtract from the timeouts each time the
      * function is called. */
     int incr);
 
-void TvCtrlPointPrintCommands(void);
-void* TvCtrlPointCommandLoop(void*);
+/*!
+ * \brief Call this function to initialize the UPnP library and start the TV
+ * Control Point.
+ *
+ * This function creates a timer thread and provides a callback handler to
+ * process any UPnP events that are received.
+ *
+ * \return TV_SUCCESS if everything went well, else TV_ERROR.
+ */
 int TvCtrlPointStart(char* iface, state_update updateFunctionPtr, int combo);
-int TvCtrlPointStop(void);
-int TvCtrlPointProcessCommand(char* cmdline);
+
+/// \brief Finish execution of the control point
+int TvCtrlPointStop();
 
 /*!
  * \brief Print help info for this application.
  */
-void TvCtrlPointPrintShortHelp(void);
+void TvCtrlPointPrintShortHelp();
 
 /*!
  * \brief Print long help info for this application.
  */
-void TvCtrlPointPrintLongHelp(void);
+void TvCtrlPointPrintLongHelp();
 
 /*!
- * \briefPrint the list of valid command line commands to the user
+ * \brief Print the list of valid command line commands to the user
  */
-void TvCtrlPointPrintCommands(void);
+void TvCtrlPointPrintCommands();
 
 /*!
- * \brief Function that receives commands from the user at the command prompt
- * during the lifetime of the device, and calls the appropriate
- * functions for those commands.
+ * \brief Function that receives commands from the user
+ *
+ * Accepting commands at the command prompt during the lifetime of the device,
+ * and calls the appropriate functions for those commands.
  */
 void* TvCtrlPointCommandLoop(void* args);
 
 /*!
- * \brief
+ * \brief TvCtrlPointProcessCommand
  */
 int TvCtrlPointProcessCommand(char* cmdline);
-
-/*! @} Device Sample */
 
 /*! @} UpnpSamples */
 
