@@ -39,6 +39,7 @@
 
 #include "tv_device.hpp"
 #include <upnpdebug.hpp>
+#include <upnpapi.hpp> // DEBUG!
 
 #include <UPnPsdk/synclog.hpp>
 #include <UPnPsdk/port.hpp>
@@ -1314,19 +1315,28 @@ int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
         UpnpFinish();
         return ret;
     }
+    std::cerr << "DEBUG! iface="
+              << (iface == nullptr ? "nullptr"
+                                   : "\"" + std::string(iface) + "\"")
+              << ", port=" << port << ", gIF_IP4=\"" << ::gIF_IPV4
+              << "\", gIF_LLA=\"[" << ::gIF_IPV6 << "]\", gIF_GUA=\"["
+              << ::gIF_IPV6_ULA_GUA << "]\".\n";
 
     switch (a_ip_mode) {
     case IP_MODE_IPV4:
+        std::cerr << "DEBUG! Use gIF_IP4\n";
         ip_address = UpnpGetServerIpAddress();
         port = UpnpGetServerPort();
         address_family = AF_INET;
         break;
     case IP_MODE_IPV6_LLA:
+        std::cerr << "DEBUG! Use gIF_LLA\n";
         ip_address = UpnpGetServerIp6Address();
         port = UpnpGetServerPort6();
         address_family = AF_INET6;
         break;
     case IP_MODE_IPV6_ULA_GUA:
+        std::cerr << "DEBUG! Use gIF_GUA\n";
         ip_address = UpnpGetServerUlaGuaIp6Address();
         port = UpnpGetServerUlaGuaPort6();
         address_family = AF_INET6;

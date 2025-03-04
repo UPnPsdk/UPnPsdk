@@ -103,18 +103,15 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <div class="textblock"><dl class="reflist">
 <dt>File <a class="el" href="../../de/d2c/A__general__TODO-list_8dox.html">A_general_TODO-list.dox</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a><ul>
-<li>Improve Unit Tests for CNetadapter module with mocking addresses.</li>
-<li>Check CNetadapter_platform::is_valid_if() for win32.</li>
-<li>Rework Unit Tests for UpnpGetIfInfo. There is no need anymore to have different tests for platforms.</li>
+<li>Rework '<a class="el" href="../../de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation.">get_ssdp_sockets()</a>' and Utest/compa/1-discovery/test_ssdp.cpp.</li>
 <li>Reformat UPnPsdk_LOG* output.</li>
+<li>Check CNetadapter_platform::is_valid_if() for win32.</li>
 <li>Make the sample program running with the compatible library.</li>
-<li>Provide IP-Address instead of interface name to <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a> (<a href="https://datatracker.ietf.org/doc/html/rfc3484">https://datatracker.ietf.org/doc/html/rfc3484</a>).</li>
 <li>Make SSockaddr structure to support AF_UNIX.</li>
 <li>Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.</li>
 <li>Improve tests for OpenSSL (test_sock.cpp, sock read_ssl, sock write_ssl).</li>
 <li>Create no mocked tests for <a href="#" onclick="location.href='mai'+'lto:'+'CSi'+'gp'+'ipe'+'@s'+'ock'+'.c'+'pp'; return false;">CSigp<span class="obfuscator">.nosp@m.</span>ipe@<span class="obfuscator">.nosp@m.</span>sock.<span class="obfuscator">.nosp@m.</span>cpp</a>, read and write data using UPnP-Device.</li>
 <li>Test and document ixml script support.</li>
-<li>Rework Utest/compa/1-discovery/test_ssdp.cpp, mainly to fix <a class="el" href="../../de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation.">get_ssdp_sockets()</a> for IPv6.</li>
 <li>Rework Utest/compa/api.d/test_upnpapi_win32.cpp.</li>
 <li>Enable Utest/sample/CMakeLists.txt.</li>
 <li>Build for ARM platforms.</li>
@@ -130,7 +127,6 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <li>Rework test_httpreadwrite.cpp.</li>
 <li>Add AI_IDN and AI_CANONIDN support to CAddrinfo.</li>
 <li>Improve test_http_Download.cpp, start with error conditions for <a class="el" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters.">http_MakeMessage()</a>.</li>
-<li>Create gtests for ssdp/.., start with get_ssdp_sockets (needed for miniserver).</li>
 <li>Use poll() and WSAPoll() instead of select().</li>
 <li>Parse_uri should except "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.</li>
 <li>Create gtests for web_server_callback.</li>

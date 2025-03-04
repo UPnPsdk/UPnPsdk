@@ -54,10 +54,9 @@ var searchData=
   ['api_51',['api',['../d9/d54/group__compaAPI.html',1,'COMPATIBLE API'],['../d8/dc8/group__compaAPI-Ctrlpt.html',1,'Control Point http API'],['../d3/d57/group__UPnPTools.html',1,'Optional Tool API'],['../d6/d14/group__upnplibAPI.html',1,'UPnPsdk API'],['../d6/d8a/group__compaAPI-WebServer.html',1,'Web Server API'],['../da/d8a/group__XMLAPI.html',1,'XML API']]],
   ['api_2ehpp_52',['api.hpp',['../d9/d24/UPnPsdk_2include_2UPnPsdk_2API_8hpp.html',1,'(Global Namespace)'],['../d0/d5f/Compa_2inc_2API_8hpp.html',1,'(Global Namespace)']]],
   ['application_5findex_53',['APPLICATION_INDEX',['../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a88511668d2ac33aa85c57ce1a2658971',1,'anonymous_namespace{webserver.cpp}']]],
-  ['application_5flistening_5fport_54',['APPLICATION_LISTENING_PORT',['../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a8c30f2dba4e55fe57b72c5e3b545301d',1,'anonymous_namespace{miniserver.cpp}']]],
-  ['asctime_5fr_5fbuffer_5fsize_55',['ASCTIME_R_BUFFER_SIZE',['../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#afcadca483864bc02dd2561a5a61c2683',1,'anonymous_namespace{webserver.cpp}']]],
-  ['attr_56',['attr',['../d5/d91/ThreadPool_8hpp.html#ac48b95b1d077723112912e64bc19d23d',1,'ThreadPool']]],
-  ['auto_5fadvertisement_5ftime_57',['AUTO_ADVERTISEMENT_TIME',['../d8/dfd/config_8hpp.html#ac88e2a316cf6b50a6fb7e9d6ac245cb9',1,'config.hpp']]],
-  ['auto_5frenew_5ftime_58',['AUTO_RENEW_TIME',['../d8/dfd/config_8hpp.html#aaeff9873bdac38b8a8b03fcf1d36ac0b',1,'config.hpp']]],
-  ['autoadvertise_59',['autoadvertise',['../d3/da9/upnpapi_8hpp.html#abb1ab3d0ba145286005284d447110fce',1,'AutoAdvertise(void *input):&#160;upnpapi.cpp'],['../d4/d99/upnpapi_8cpp.html#abb1ab3d0ba145286005284d447110fce',1,'AutoAdvertise(void *input):&#160;upnpapi.cpp']]]
+  ['asctime_5fr_5fbuffer_5fsize_54',['ASCTIME_R_BUFFER_SIZE',['../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#afcadca483864bc02dd2561a5a61c2683',1,'anonymous_namespace{webserver.cpp}']]],
+  ['attr_55',['attr',['../d5/d91/ThreadPool_8hpp.html#ac48b95b1d077723112912e64bc19d23d',1,'ThreadPool']]],
+  ['auto_5fadvertisement_5ftime_56',['AUTO_ADVERTISEMENT_TIME',['../d8/dfd/config_8hpp.html#ac88e2a316cf6b50a6fb7e9d6ac245cb9',1,'config.hpp']]],
+  ['auto_5frenew_5ftime_57',['AUTO_RENEW_TIME',['../d8/dfd/config_8hpp.html#aaeff9873bdac38b8a8b03fcf1d36ac0b',1,'config.hpp']]],
+  ['autoadvertise_58',['autoadvertise',['../d3/da9/upnpapi_8hpp.html#abb1ab3d0ba145286005284d447110fce',1,'AutoAdvertise(void *input):&#160;upnpapi.cpp'],['../d4/d99/upnpapi_8cpp.html#abb1ab3d0ba145286005284d447110fce',1,'AutoAdvertise(void *input):&#160;upnpapi.cpp']]]
 ];

@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_IF_HPP
 #define UPnPsdk_NETADAPTER_IF_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-27
+// Redistribution only with this Copyright remark. Last modified: 2025-03-04
 /*!
  * \file
  * \brief C++ interface to manage information from different platforms about
@@ -64,6 +64,10 @@ class UPnPsdk_API INetadapter {
     virtual bool get_next() = 0;
 
     /*! \brief Get index number from current selected list entry.
+     *
+     * This is the unique number of a network adapter as given by the operating
+     * system. It is the best way to identify a network adapter. 0 means the
+     * unspecified, unavailable adapter.
      * \returns
      *  - \b 0 if the local network adapter does not exist. This should only be
      *  possible if you haven't successful selected an adapter before.

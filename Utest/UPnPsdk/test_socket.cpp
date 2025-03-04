@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-27
+// Redistribution only with this Copyright remark. Last modified: 2025-03-05
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -775,7 +775,7 @@ TEST_F(SocketMockFTestSuite, bind_syscall_fails) {
     // --- Mock bind() ---
     // Bind socket to an ip address, provide port if port was 0.
     EXPECT_CALL(m_sys_socketObj, bind(sfd, _, _))
-        .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
+        .Times(Between(3, 4)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
 
     // Inject mocking functions
@@ -836,37 +836,27 @@ TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_successful) {
     // --- Mock get_sockfd() ---
     // Provide a socket file descriptor
     EXPECT_CALL(m_sys_socketObj, socket(AF_INET6, SOCK_DGRAM, 0))
-        .Times(5)
-        .WillRepeatedly(Return(sfd));
+        .WillOnce(Return(sfd));
     // Expect resetting SO_REUSEADDR.
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, _, _))
-        .Times(5)
-        .WillRepeatedly(Return(0));
+        .WillOnce(Return(0));
     // Expect setting IPV6_V6ONLY.
     EXPECT_CALL(m_sys_socketObj, setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY,
                                             PointeeVoidToConstInt(0), _))
-        .Times(5)
-        .WillRepeatedly(Return(0));
+        .WillOnce(Return(0));
     // Expect setting SO_EXCLUSIVEADDRUSE.
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sfd, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, _, _))
-        .Times(5)
-        .WillRepeatedly(Return(0));
+        .WillOnce(Return(0));
 
     // --- Mock bind() ---
     // Bind socket to an ip address, provide port if port was 0.
     EXPECT_CALL(m_sys_socketObj, bind(sfd, _, _))
-        .Times(5)
-        .WillOnce(Return(SOCKET_ERROR))
-        .WillOnce(Return(SOCKET_ERROR))
+        .Times(3)
         .WillOnce(Return(SOCKET_ERROR))
         .WillOnce(Return(SOCKET_ERROR))
         .WillOnce(Return(0));
-    // Set expected error numnber.
-    EXPECT_CALL(m_winsock2Obj, WSAGetLastError())
-        .Times(4)
-        .WillRepeatedly(Return(EACCESP));
 
     if (g_dbug) {
         EXPECT_CALL(
@@ -895,32 +885,32 @@ TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_fails) {
     // --- Mock get_sockfd() ---
     // Provide a socket file descriptor
     EXPECT_CALL(m_sys_socketObj, socket(AF_INET6, SOCK_DGRAM, 0))
-        .Times(Between(5, 10)) // EXPECT_THAT calls a second time if it fails
+        .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(sfd));
     // Expect resetting SO_REUSEADDR.
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, _, _))
-        .Times(Between(5, 10)) // EXPECT_THAT calls a second time if it fails
+        .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
     // Expect setting IPV6_V6ONLY.
     EXPECT_CALL(m_sys_socketObj, setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY,
                                             PointeeVoidToConstInt(0), _))
-        .Times(Between(5, 10)) // EXPECT_THAT calls a second time if it fails
+        .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
     // Expect setting SO_EXCLUSIVEADDRUSE.
     EXPECT_CALL(m_sys_socketObj,
                 setsockopt(sfd, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, _, _))
-        .Times(Between(5, 10)) // EXPECT_THAT calls a second time if it fails
+        .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
 
     // --- Mock bind() ---
     // Bind socket to an ip address, provide port if port was 0.
     EXPECT_CALL(m_sys_socketObj, bind(sfd, _, _))
-        .Times(Between(5, 10)) // EXPECT_THAT calls a second time if it fails
+        .Times(Between(3, 4)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(SOCKET_ERROR));
     // Set expected error numnber.
     EXPECT_CALL(m_winsock2Obj, WSAGetLastError())
-        .Times(Between(5, 10))
+        .Times(Between(1, 2))
         .WillRepeatedly(Return(EACCESP));
 
     // Inject mocking functions

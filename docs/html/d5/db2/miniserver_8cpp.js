@@ -29,7 +29,6 @@ var miniserver_8cpp =
     [ "SetGenaCallback", "d5/db2/miniserver_8cpp.html#af500b18ad2a00dd3c3fa6da8ce62369d", null ],
     [ "StartMiniServer", "d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a", null ],
     [ "StopMiniServer", "d5/db2/miniserver_8cpp.html#ac0223038b7afa1e3ea3d7cec983ccc63", null ],
-    [ "APPLICATION_LISTENING_PORT", "d5/db2/miniserver_8cpp.html#a8c30f2dba4e55fe57b72c5e3b545301d", null ],
     [ "miniStopSockPort", "d5/db2/miniserver_8cpp.html#a6ab69017b8af0de7bc0bfec810bbe9fb", null ],
     [ "gMServState", "d5/db2/miniserver_8cpp.html#ae413745d69678061574e39ce1949af43", null ],
     [ "gSoapCallback", "d5/db2/miniserver_8cpp.html#a49eca2fd8ae56a32b6c866db4b5dcb47", null ],

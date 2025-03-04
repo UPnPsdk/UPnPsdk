@@ -1,6 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"da/d8a/group__XMLAPI.html#gaf2c8698f70f34ce4f209a81fdeddc28e":[4,7,102],
 "da/d8a/group__XMLAPI.html#gaf4d37a42d1f3e28c7e4ed5e90848a86c":[4,7,35],
 "da/d8a/group__XMLAPI.html#gaf65398cf04478d94045396debf5ea6d6":[4,7,33],
 "da/d8a/group__XMLAPI.html#gaf71e11e801ca62f0d922dc10ea3fe6a6":[4,7,101],
@@ -25,12 +24,12 @@ var NAVTREEINDEX8 =
 "da/dbd/urlparser_8cpp.html":[7,0,3,1,1,1,1],
 "da/dbd/urlparser_8cpp_source.html":[7,0,3,1,1,1,1],
 "da/dc0/UpnpInet_8hpp_source.html":[7,0,0,0,13],
-"da/dcf/classUPnPsdk_1_1CUri.html":[6,0,7,10],
 "da/dcf/classUPnPsdk_1_1CUri.html":[5,0,25,12],
+"da/dcf/classUPnPsdk_1_1CUri.html":[6,0,7,10],
 "da/dcf/classUPnPsdk_1_1CUri.html#a2d6069a50cbe1c8a5dc7cfd501695468":[6,0,7,10,1],
 "da/dcf/classUPnPsdk_1_1CUri.html#a2d6069a50cbe1c8a5dc7cfd501695468":[5,0,25,12,1],
-"da/dcf/classUPnPsdk_1_1CUri.html#a98f90c0e9f4656fad15ebd7213f7a849":[6,0,7,10,0],
 "da/dcf/classUPnPsdk_1_1CUri.html#a98f90c0e9f4656fad15ebd7213f7a849":[5,0,25,12,0],
+"da/dcf/classUPnPsdk_1_1CUri.html#a98f90c0e9f4656fad15ebd7213f7a849":[6,0,7,10,0],
 "da/dcf/classUPnPsdk_1_1CUri.html#ad06350e389e8c6d587eb223b49f0fd05":[6,0,7,10,2],
 "da/dcf/classUPnPsdk_1_1CUri.html#ad06350e389e8c6d587eb223b49f0fd05":[5,0,25,12,2],
 "da/dd9/membuffer_8cpp.html":[7,0,0,1,2,4,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX8 =
 "dc/d1d/list_8hpp.html#a4896c23626b95e35ab284f5239467fd2":[7,0,0,0,3,2],
 "dc/d1d/list_8hpp.html#a4b1675d58cb9f452893e6d6b7fbb83ae":[7,0,0,0,3,4],
 "dc/d1d/list_8hpp.html#a4ec45a2d47d4a19965579cace80ad9d8":[7,0,0,0,3,0,1],
-"dc/d1d/list_8hpp.html#a64fa76ca5ca237ef28de01797990467d":[7,0,0,0,3,6]
+"dc/d1d/list_8hpp.html#a64fa76ca5ca237ef28de01797990467d":[7,0,0,0,3,6],
+"dc/d1d/list_8hpp.html#a76264289963aec70ff71ddbd87c51d99":[7,0,0,0,3,7]
 };

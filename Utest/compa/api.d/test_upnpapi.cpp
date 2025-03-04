@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-04
+// Redistribution only with this Copyright remark. Last modified: 2025-03-06
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -27,8 +27,7 @@ namespace utest {
 
 using ::UPnPsdk::CAddrinfo;
 using ::UPnPsdk::errStrEx;
-
-using ::pupnp::CLogging;
+using ::UPnPsdk::g_dbug;
 
 using ::testing::_;
 using ::testing::A;
@@ -134,11 +133,11 @@ class UpnpapiFTestSuite : public ::testing::Test {
 // with an exeption if g_dbug is enabled. I cannot use Clogging when testing
 // UpnpInitLog().
 #ifndef UPnPsdk_WITH_NATIVE_PUPNP
-    CLogging logObj; // Output only with build type DEBUG.
+    pupnp::CLogging logObj; // Output only with build type DEBUG.
 
     // Constructor
     UpnpapiFTestSuite() {
-        if (UPnPsdk::g_dbug)
+        if (g_dbug)
             logObj.enable(UPNP_INFO);
 #else
     // Constructor
@@ -563,7 +562,7 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
 
     UpnpSdkInit = 1;
     { // Scope for logging
-        // CLogging logObj; // Output only with build type DEBUG.
+        // pupnp::CLogging logObj; // Output only with build type DEBUG.
         // logObj.enable(UPNP_ALL);
 
         // Test Unit
@@ -915,17 +914,15 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     bWebServerState = WEB_SERVER_DISABLED;
 
     // Test Unit
-    int ret1_UpnpInit2 = ::UpnpInit2(nullptr, 0);
-    // 'create_ssdp_sock_v6_ula_gua()' must be reworked. This fails with
-    // UPNP_E_SOCKET_BIND(-203).
-    if (!github_actions)
-        EXPECT_EQ(ret1_UpnpInit2, UPNP_E_SUCCESS)
-            << errStrEx(ret1_UpnpInit2, UPNP_E_SUCCESS);
+    int ret_UpnpInit2 = ::UpnpInit2(nullptr, 0);
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
     // std::cerr << "DEBUG: gIF_IPV4=\"" << ::gIF_IPV4 << "\",gIF_IPV6=\""
     //           << ::gIF_IPV6 << "\", gIF_IPV6_ULA_GUA=\"" <<
     //           ::gIF_IPV6_ULA_GUA
     //           << "\".\n";
+
     EXPECT_STRNE(gIF_NAME, "");
     EXPECT_NE(gIF_INDEX, 0);
     EXPECT_FALSE(gIF_IPV4[0] == '\0' && gIF_IPV6[0] == '\0' &&

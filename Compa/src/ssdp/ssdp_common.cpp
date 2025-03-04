@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-12-19
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-05
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -52,6 +52,7 @@
 #endif
 
 #include <UPnPsdk/synclog.hpp>
+#include <UPnPsdk/socket.hpp>
 #include <umock/sys_socket.hpp>
 #include <umock/winsock2.hpp>
 
@@ -474,8 +475,6 @@ inline int create_ssdp_sock_v6_ula_gua(
     UPnPsdk_LOGINFO "MSG1084: Executing...\n";
     char errorBuffer[ERROR_BUFFER_LEN];
     ipv6_mreq ssdpMcastAddr;
-    sockaddr_storage __ss;
-    sockaddr_in6* ssdpAddr6 = (struct sockaddr_in6*)&__ss;
     int onOff;
     int ret = 0;
 
@@ -519,20 +518,24 @@ inline int create_ssdp_sock_v6_ula_gua(
         ret = UPNP_E_SOCKET_ERROR;
         goto error_handler;
     }
-    memset(&__ss, 0, sizeof(__ss));
-    ssdpAddr6->sin6_family = (sa_family_t)AF_INET6;
-    ssdpAddr6->sin6_addr = in6addr_any;
-    ssdpAddr6->sin6_scope_id = gIF_INDEX;
-    ssdpAddr6->sin6_port = htons(SSDP_PORT);
-    ret = umock::sys_socket_h.bind(*ssdpSock, (sockaddr*)ssdpAddr6,
-                                   sizeof(*ssdpAddr6));
-    if (ret == -1) {
-        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
-        UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in bind(), addr=0x%032lX, port=%d: %s\n", 0lu,
-                   SSDP_PORT, errorBuffer);
-        ret = UPNP_E_SOCKET_BIND;
-        goto error_handler;
+
+    { // Bind socket
+        UPnPsdk::sockaddr_t saddr{};
+        saddr.sin6.sin6_family = AF_INET6;
+        saddr.sin6.sin6_addr = in6addr_any;
+        // saddr.sin6.sin6_scope_id = gIF_INDEX; // Not valid on a GUA
+        saddr.sin6.sin6_port = htons(SSDP_PORT);
+        UPnPsdk::CSocketErr serrObj;
+        ret =
+            umock::sys_socket_h.bind(*ssdpSock, &saddr.sa, sizeof(saddr.sin6));
+        if (ret == -1) {
+            serrObj.catch_error();
+            UPnPsdk_LOGERR "in ::bind() with addr=\"[::]:"
+                << SSDP_PORT << "\": (" << serrObj << ") "
+                << serrObj.error_str() << '\n';
+            ret = UPNP_E_SOCKET_BIND;
+            goto error_handler;
+        }
     }
     memset((void*)&ssdpMcastAddr, 0, sizeof(ssdpMcastAddr));
     ssdpMcastAddr.ipv6mr_interface = gIF_INDEX;

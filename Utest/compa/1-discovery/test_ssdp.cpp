@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-03-02
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -44,7 +44,7 @@ class SsdpFTestSuite : public ::testing::Test {
         if (g_dbug)
             logObj.enable(UPNP_ALL);
 
-        // Clean up needed global environment
+        // initialize needed global variables
         memset(&gIF_NAME, 0, sizeof(gIF_NAME));
         memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
         memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
@@ -53,7 +53,22 @@ class SsdpFTestSuite : public ::testing::Test {
         memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
         gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
         gIF_INDEX = unsigned(-1);
+
+        // Destroy global variables to avoid side effects.
+        // memset(&UpnpSdkInit, 0xAA, sizeof(UpnpSdkInit));
         memset(&errno, 0xAA, sizeof(errno));
+        memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
+        // memset(&gWebMutex, 0xAA, sizeof(gWebMutex));
+        // memset(&gUUIDMutex, 0xAA, sizeof(gUUIDMutex));
+        // memset(&GlobalClientSubscribeMutex, 0xAA,
+        //        sizeof(GlobalClientSubscribeMutex));
+        memset(&gUpnpSdkNLSuuid, 0, sizeof(gUpnpSdkNLSuuid));
+        // memset(&HandleTable, 0xAA, sizeof(HandleTable));
+        memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
+        memset(&gRecvThreadPool, 0xAA, sizeof(gRecvThreadPool));
+        memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
+        memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
+        memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
     }
 };
 
@@ -258,7 +273,7 @@ TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv6_lla_local) {
         << errStrEx(ret_get_ssdp_socket, UPNP_E_SUCCESS);
 }
 
-TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv6_uad_local) {
+TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv6_gua_local) {
     GTEST_SKIP() << CRED "[ FIXIT    ] " CRES << __LINE__
                  << ": Unit fails with valid IPv6 ULA address by selecting a "
                     "\"garbage\" multicast group.";

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-27
+// Redistribution only with this Copyright remark. Last modified: 2025-03-06
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 #include <utest/utest.hpp>
@@ -265,61 +265,61 @@ TEST(SockaddrStorageTestSuite, set_address_and_port_fail) {
 
     EXPECT_THAT([&saddr]() { saddr = ":"; },
                 ThrowsMessage<std::invalid_argument>(EndsWith(
-                    "] EXCEPTION MSG1043: Invalid netaddress \":\".")));
+                    "] EXCEPTION MSG1043: Invalid netaddress \":\".\n")));
 
     EXPECT_THAT([&saddr]() { saddr = "garbage"; },
                 ThrowsMessage<std::invalid_argument>(EndsWith(
-                    "] EXCEPTION MSG1043: Invalid netaddress \"garbage\".")));
+                    "] EXCEPTION MSG1043: Invalid netaddress \"garbage\".\n")));
 
     EXPECT_THAT(
         [&saddr]() { saddr = "[2001::db8::1]"; },
         ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"[2001::db8::1]\".")));
+            "] EXCEPTION MSG1043: Invalid netaddress \"[2001::db8::1]\".\n")));
 
     EXPECT_THAT(
         [&saddr]() { saddr = "2001:db8::2]"; },
         ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"2001:db8::2]\".")));
+            "] EXCEPTION MSG1043: Invalid netaddress \"2001:db8::2]\".\n")));
 
     EXPECT_THAT(
         [&saddr]() { saddr = "[2001:db8::3"; },
         ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"[2001:db8::3\".")));
+            "] EXCEPTION MSG1043: Invalid netaddress \"[2001:db8::3\".\n")));
 
     EXPECT_THAT([&saddr]() { saddr = "[2001:db8::5]50003"; },
                 ThrowsMessage<std::invalid_argument>(
                     EndsWith("] EXCEPTION MSG1043: Invalid netaddress "
-                             "\"[2001:db8::5]50003\".")));
+                             "\"[2001:db8::5]50003\".\n")));
 
-    EXPECT_THAT(
-        [&saddr]() { saddr = "[2001:db8::35003]"; },
-        ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"[2001:db8::35003]\".")));
+    EXPECT_THAT([&saddr]() { saddr = "[2001:db8::35003]"; },
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] EXCEPTION MSG1043: Invalid netaddress "
+                             "\"[2001:db8::35003]\".\n")));
 
     EXPECT_THAT(
         [&saddr]() { saddr = "192.168.66.67."; },
         ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"192.168.66.67.\".")));
+            "] EXCEPTION MSG1043: Invalid netaddress \"192.168.66.67.\".\n")));
 
     EXPECT_THAT(
         [&saddr]() { saddr = "192.168.66.67z"; },
         ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"192.168.66.67z\".")));
+            "] EXCEPTION MSG1043: Invalid netaddress \"192.168.66.67z\".\n")));
 
     EXPECT_THAT(
         [&saddr]() { saddr = "[192.168.66.67]"; },
         ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"[192.168.66.67]\".")));
+            "] EXCEPTION MSG1043: Invalid netaddress \"[192.168.66.67]\".\n")));
 
-    EXPECT_THAT(
-        [&saddr]() { saddr = "[192.168.66.68]:"; },
-        ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"[192.168.66.68]:\".")));
+    EXPECT_THAT([&saddr]() { saddr = "[192.168.66.68]:"; },
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] EXCEPTION MSG1043: Invalid netaddress "
+                             "\"[192.168.66.68]:\".\n")));
 
     EXPECT_THAT([&saddr]() { saddr = "[192.168.66.68]:50044"; },
                 ThrowsMessage<std::invalid_argument>(
                     EndsWith("] EXCEPTION MSG1043: Invalid netaddress "
-                             "\"[192.168.66.68]:50044\".")));
+                             "\"[192.168.66.68]:50044\".\n")));
 }
 
 TEST(SockaddrCmpTestSuite, compare_equal_ipv6_sockaddrs_successful) {

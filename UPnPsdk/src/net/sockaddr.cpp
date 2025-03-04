@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-27
+// Redistribution only with this Copyright remark. Last modified: 2025-03-05
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -439,7 +439,7 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
 exit_fail:
     throw std::invalid_argument(UPnPsdk_LOGEXCEPT +
                                 "MSG1043: Invalid netaddress \"" + a_addr_str +
-                                "\".");
+                                "\".\n");
 }
 
 // Assignment operator= to set socket port from an integer

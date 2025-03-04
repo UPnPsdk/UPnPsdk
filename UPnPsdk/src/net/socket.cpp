@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-23
+// Redistribution only with this Copyright remark. Last modified: 2025-03-06
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -449,6 +449,7 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     // Protect binding.
     std::scoped_lock lock(m_bound_mutex);
 
+    // Check if socket is already bound.
     if (m_sfd != INVALID_SOCKET) {
         SSockaddr saddr;
         this->sockaddr(saddr);
@@ -470,62 +471,45 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
         }
         a_saddr = &unspec_saddr;
     }
+#ifdef __APPLE__
+    // On MacOS there is a regular link local address "[fe80::1]" without
+    // scope_id abused as additional loopback address. Without scope_id it
+    // fails to bind so I translate it to the regular loopback address.
+    else if (a_saddr->netaddr() == "[fe80::1]" &&
+             a_saddr->sin6.sin6_scope_id == 0) {
+        unspec_saddr = "[::1]";
+        a_saddr = &unspec_saddr;
+    }
+#endif
 
     // Get an adress info to bind.
     CAddrinfo ai(a_saddr->netaddrp(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
                  a_socktype);
-    if (!ai.get_first())
+    if (!ai.get_first()) {
         throw std::runtime_error(UPnPsdk_LOGEXCEPT +
                                  "MSG1037: detect error next line ...\n" +
                                  ai.what());
+    }
     CSocketErr serrObj;
 
 
     // Get a socket file descriptor from operating system and try to bind it.
     // ----------------------------------------------------------------------
     SOCKET sockfd{INVALID_SOCKET};
-    int ret_code{SOCKET_ERROR};
-#if _MSC_VER
-    // On Microsoft Windows there is an issue with binding an address to a
-    // socket in conjunction with the socket option SO_EXCLUSIVEADDRUSE that I
-    // use for security reasons. Even on successful new opened socket file
-    // descriptors it may be possible that we cannot bind an unused socket
-    // address to it. For details of this have a look at:
-    // REF:_[SO_EXCLUSIVEADDRUSE socket option not binding unused socket]
-    // (https://learn.microsoft.com/en-us/windows/win32/winsock/so-exclusiveaddruse).
-    // There is also a Unit Test to verify this:
-    // TEST(SocketTestSuite, check_binding_passive_all_free_ports).
-    // Try several times to bind. I free all failed bind sfds at the end to
-    // ensure that I get an other socket file descriptor.
-    std::array<SOCKET, 5> sfds;
-    sfds.fill(INVALID_SOCKET);
-    for (size_t i{}; i < sfds.size(); i++) {
-        // Try again with a new socket file descriptor.
-        sockfd = get_sockfd(static_cast<sa_family_t>(ai->ai_family),
-                            ai->ai_socktype);
-        // Try to bind the socket.
-        ret_code = umock::sys_socket_h.bind(
-            sockfd, ai->ai_addr, static_cast<socklen_t>(ai->ai_addrlen));
-        // Repeat only with specific error WSAEACCES.
-        if (ret_code == 0)
-            break;
-        serrObj.catch_error();
-        if (serrObj != EACCESP)
-            break;
-        // Failed to bind: store it to free it later.
-        sfds[i] = sockfd;
-    }
-    // Free failed socket fds.
-    for (size_t i{}; i < sfds.size(); i++)
-        CLOSE_SOCKET_P(sfds[i]);
-#else
     // Get a socket file descriptor with address info to get the address family.
     sockfd =
         get_sockfd(static_cast<sa_family_t>(ai->ai_family), ai->ai_socktype);
+
     // Try to bind the socket.
-    ret_code = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
-                                        static_cast<socklen_t>(ai->ai_addrlen));
-#endif
+    int ret_code{SOCKET_ERROR};
+    int count{};
+    for (int i{}; i < 3; i++) {
+        ret_code = umock::sys_socket_h.bind(
+            sockfd, ai->ai_addr, static_cast<socklen_t>(ai->ai_addrlen));
+        count++;
+        if (ret_code == 0)
+            break;
+    }
 
     if (ret_code == 0)
         // Store valid socket file descriptor.
@@ -538,7 +522,7 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
         this->sockaddr(saddr); // Get new bound socket address.
         UPnPsdk_LOGINFO "MSG1115: syscall ::bind("
             << sockfd << ", " << &a_saddr->sa << ", " << a_saddr->sizeof_saddr()
-            << ") Tried \"" << a_saddr->netaddrp()
+            << ") Tried " << count << " times \"" << a_saddr->netaddrp()
             << (ret_code != 0 ? ". Get ERROR"
                               : ". Bound to " + saddr.netaddrp())
             << ".\"\n";

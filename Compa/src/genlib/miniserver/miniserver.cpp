@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-01
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-06
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -68,13 +68,6 @@
 /// \endcond
 
 namespace {
-
-#ifdef COMPA_HAVE_WEBSERVER
-/*! \brief First dynamic and/or private port from 49152 to 65535 used by the
- * library.\n
- * Only available with webserver compiled in. */
-constexpr in_port_t APPLICATION_LISTENING_PORT{49152};
-#endif
 
 /*! \brief miniserver received request message.
  * \details This defines the structure of a UPnP request that has income from a
@@ -1055,26 +1048,6 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
     InitMiniServerSockArray(miniSocket);
 
 #ifdef COMPA_HAVE_WEBSERVER
-    if (*listen_port4 == 0 || *listen_port6 == 0 || *listen_port6UlaGua == 0) {
-        // Create a simple random number generator for port numbers. We need
-        // this because we do not reuse addresses before TIME_WAIT has expired
-        // (socket option SO_REUSEADDR = false). We need to use different
-        // socket addresses and that is already given with different port
-        // numbers.
-        std::random_device rd;         // obtain a random number from hardware
-        std::minstd_rand random(rd()); // seed the generator
-        std::uniform_int_distribution<in_port_t> portno(
-            APPLICATION_LISTENING_PORT, 65535); // used range
-
-        in_port_t listen_port = portno(random);
-        if (*listen_port4 == 0)
-            *listen_port4 = listen_port;
-        if (*listen_port6 == 0)
-            *listen_port6 = listen_port;
-        if (*listen_port6UlaGua == 0)
-            *listen_port6UlaGua = listen_port;
-    }
-
     pSockLlaObj = new UPnPsdk::CSocket;
     pSockGuaObj = new UPnPsdk::CSocket;
     pSock4Obj = new UPnPsdk::CSocket;

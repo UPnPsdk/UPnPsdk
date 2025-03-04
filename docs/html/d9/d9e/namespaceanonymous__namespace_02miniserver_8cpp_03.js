@@ -22,7 +22,6 @@ var namespaceanonymous__namespace_02miniserver_8cpp_03 =
     [ "get_miniserver_sockets", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e", null ],
     [ "get_miniserver_stopsock", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63", null ],
     [ "InitMiniServerSockArray", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5d8a62e1d3813dc7cc3bcfca83d918a5", null ],
-    [ "APPLICATION_LISTENING_PORT", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a8c30f2dba4e55fe57b72c5e3b545301d", null ],
     [ "miniStopSockPort", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6ab69017b8af0de7bc0bfec810bbe9fb", null ],
     [ "gMServState", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ae413745d69678061574e39ce1949af43", null ],
     [ "gSoapCallback", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a49eca2fd8ae56a32b6c866db4b5dcb47", null ],
