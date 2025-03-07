@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-05
+// Redistribution only with this Copyright remark. Last modified: 2025-03-09
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -401,6 +401,43 @@ TEST(SocketTestSuite, assign_socket_successful) {
     EXPECT_FALSE(sock2.is_reuse_addr());
     EXPECT_EQ(sock2.is_bound(), -1);
     EXPECT_TRUE(sock2.is_listen());
+}
+
+TEST(SocketTestSuite, move_socket_via_allocated_list) {
+    /* There are some // commented outputs for humans. Uncomment them if you
+     * like to see whats going on. */
+    struct SSocketList {
+        CSocket* pSock1Obj;
+    };
+
+    SSocketList* socket_list =
+        static_cast<SSocketList*>(malloc(sizeof(SSocketList)));
+    ASSERT_NE(socket_list, nullptr);
+
+    saddr = "";
+    saddr = 8080;
+    CSocket sock1Obj;
+    ASSERT_NO_THROW(sock1Obj.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
+    // sock1Obj.sockaddr(saddr);
+    // std::cerr << "Source socket is bound to " << saddr.netaddrp()
+    //           << ". Moving...\n";
+
+    /* Move the socket object via pointer in allocated list. */
+    socket_list->pSock1Obj = &sock1Obj;
+    CSocket sock2Obj{std::move(*socket_list->pSock1Obj)};
+
+    ASSERT_EQ((SOCKET)sock1Obj, INVALID_SOCKET);
+    // sock1Obj.sockaddr(saddr);
+    // std::cerr << "Source socket is now empty with " << saddr.netaddrp() <<
+    // ".\n";
+    ASSERT_NE((SOCKET)sock2Obj, INVALID_SOCKET);
+    // sock2Obj.sockaddr(saddr);
+    // std::cerr << "Moved socket is still bound to " << saddr.netaddrp() <<
+    // ".\n";
+
+    // std::cerr << "Free socket_list.\n";
+    free(socket_list);
+    // std::cerr << "Test finished.\n";
 }
 
 

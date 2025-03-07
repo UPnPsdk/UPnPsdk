@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-06
+// Redistribution only with this Copyright remark. Last modified: 2025-03-08
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -104,7 +104,7 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
         serrObj.catch_error();
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT +
-            "MSG1017: Failed to create socket: " + serrObj.error_str());
+            "MSG1017: Failed to create socket: " + serrObj.error_str() + '\n');
     }
     int so_option{0};
     constexpr socklen_t optlen{sizeof(so_option)};
@@ -121,7 +121,7 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
             UPnPsdk_LOGEXCEPT + "MSG1018: Close socket fd " +
             std::to_string(sfd) +
             ". Failed to set socket option SO_REUSEADDR: " +
-            serrObj.error_str());
+            serrObj.error_str() + '\n');
     }
 
     // With protocol family PF_INET6 I always set IPV6_V6ONLY to false. See
@@ -161,7 +161,7 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
             UPnPsdk_LOGEXCEPT + "MSG1019: Close socket fd " +
             std::to_string(sfd) +
             ". Failed to set socket option SO_EXCLUSIVEADDRUSE: " +
-            serrObj.error_str());
+            serrObj.error_str() + '\n');
     }
 #endif
     return sfd;
@@ -199,7 +199,7 @@ void CSocket_basic::load() {
         serrObj.catch_error();
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT + "MSG1014: Failed to create socket=" +
-            std::to_string(m_sfd_hint) + ": " + serrObj.error_str());
+            std::to_string(m_sfd_hint) + ": " + serrObj.error_str() + '\n');
     }
     m_sfd = m_sfd_hint;
 }
@@ -269,7 +269,7 @@ int CSocket_basic::socktype() const {
         throw std::runtime_error(UPnPsdk_LOGEXCEPT +
                                  "MSG1030: Failed to get socket option SO_TYPE "
                                  "(SOCK_STREAM, SOCK_DGRAM, etc.): " +
-                                 serrObj.error_str());
+                                 serrObj.error_str() + '\n');
     }
     return so_option;
 }
@@ -287,7 +287,7 @@ int CSocket_basic::sockerr() const {
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT +
             "MSG1011: Failed to get socket option SO_ERROR: " +
-            serrObj.error_str());
+            serrObj.error_str() + '\n');
     }
     return so_option;
 }
@@ -305,7 +305,7 @@ bool CSocket_basic::is_reuse_addr() const {
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT +
             "MSG1013: Failed to get socket option SO_REUSEADDR: " +
-            serrObj.error_str());
+            serrObj.error_str() + '\n');
     }
     return so_option;
 }
@@ -534,7 +534,7 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
             UPnPsdk_LOGEXCEPT + "MSG1008: Close socket fd " +
             std::to_string(sockfd) +
             ". Failed to bind socket to an address: (errid " +
-            std::to_string(serrObj) + ") " + serrObj.error_str());
+            std::to_string(serrObj) + ") " + serrObj.error_str() + '\n');
     }
 }
 
@@ -553,9 +553,9 @@ void CSocket::listen() {
     // connections) is hard coded for now.
     if (umock::sys_socket_h.listen(m_sfd, SOMAXCONN) != 0) {
         serrObj.catch_error();
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1034: Failed to set socket to listen: " + serrObj.error_str());
+        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
+                                 "MSG1034: Failed to set socket to listen: " +
+                                 serrObj.error_str() + '\n');
     }
     UPnPsdk_LOGINFO "MSG1032: syscall ::listen(" << m_sfd << ", " << SOMAXCONN
                                                  << ").\n";
@@ -569,7 +569,7 @@ bool CSocket::is_listen() const {
     if (m_sfd == INVALID_SOCKET)
         throw std::runtime_error(UPnPsdk_LOGEXCEPT +
                                  "MSG1035: Failed to get socket option "
-                                 "'is_Listen': Bad file descriptor");
+                                 "'is_Listen': Bad file descriptor.\n");
 
     // m_listen is protected.
     std::scoped_lock lock(m_listen_mutex);
