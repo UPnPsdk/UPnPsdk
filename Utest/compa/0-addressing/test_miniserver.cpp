@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-01
+// Redistribution only with this Copyright remark. Last modified: 2025-03-07
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -269,7 +269,6 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_no_ip_addr) {
         << errStrEx(ret_StartMiniServer, UPNP_E_OUTOF_SOCKET);
 }
 
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(StartMiniServerMockFTestSuite, start_miniserver_with_one_ipv4_addr) {
     std::strcpy(gIF_IPV4, "192.168.47.11");
     LOCAL_PORT_V4 = 50071;
@@ -732,7 +731,6 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_EQ(ret_StartMiniServer, UPNP_E_SUCCESS)
         << errStrEx(ret_StartMiniServer, UPNP_E_SUCCESS);
 }
-#endif
 
 TEST(StartMiniServerTestSuite, start_miniserver_already_running) {
     gMServState = MSERV_RUNNING;
