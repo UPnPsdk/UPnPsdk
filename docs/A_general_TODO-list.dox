@@ -1,18 +1,18 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-07
+// Redistribution only with this Copyright remark. Last modified: 2025-03-09
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
+ * - Ignore "[fe80::1]" as loopback address by CNetadapter on MacOS.
+ * - Rework miniserver Unit Tests.
  * - Rename SSockaddr.get_port() to SSockaddr.port().
- * - Ignore "fe80::1" as loopback address by CNetadapter on MacOS.
- * - Move miniserver socket objects to MiniServerSockArray.
+ * - Reformat UPnPsdk_LOG* output.
+ * - Make the sample program running with the compatible library.
+ * - Check CNetadapter_platform::is_valid_if() for win32.
  * - Test and improve UpnpInit2 with different arguments.
  * - Rework 'get_ssdp_sockets()' and Utest/compa/1-discovery/test_ssdp.cpp.
- * - Reformat UPnPsdk_LOG* output.
- * - Check CNetadapter_platform::is_valid_if() for win32.
- * - Make the sample program running with the compatible library.
  * - Make SSockaddr structure to support AF_UNIX.
  * - Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.
  * - Improve tests for OpenSSL (test_sock.cpp, sock read_ssl, sock write_ssl).

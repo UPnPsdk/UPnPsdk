@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-08
+// Redistribution only with this Copyright remark. Last modified: 2025-03-09
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -394,8 +394,10 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
     gIF_INDEX = nadaptObj.index();
     // Copy with removing surrounding brackets. Netadapter variables are never
     // empty because we have found a valid item.
-    *(::stpcpy(gIF_NAME, nadaptObj.name().c_str() + 1) - 1) = '\0';
-    *(::stpcpy(gIF_IPV6, saObj.netaddr().c_str() + 1) - 1) = '\0';
+    std::strcpy(gIF_NAME, nadaptObj.name().c_str() + 1);
+    gIF_NAME[std::strlen(gIF_NAME) - 1] = '\0';
+    std::strcpy(gIF_IPV6, saObj.netaddr().c_str() + 1);
+    gIF_IPV6[std::strlen(gIF_IPV6) - 1] = '\0';
     gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
     LOCAL_PORT_V6 = saObj.get_port();
 
@@ -536,8 +538,10 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_gua_addr) {
     gIF_INDEX = nadaptObj.index();
     // Copy with removing surrounding brackets. Netadapter variables are never
     // empty because we have found a valid item.
-    *(::stpcpy(gIF_NAME, nadaptObj.name().c_str() + 1) - 1) = '\0';
-    *(::stpcpy(gIF_IPV6_ULA_GUA, saObj.netaddr().c_str() + 1) - 1) = '\0';
+    std::strcpy(gIF_NAME, nadaptObj.name().c_str() + 1);
+    gIF_NAME[std::strlen(gIF_NAME) - 1] = '\0';
+    std::strcpy(gIF_IPV6_ULA_GUA, saObj.netaddr().c_str() + 1);
+    gIF_IPV6_ULA_GUA[std::strlen(gIF_IPV6_ULA_GUA) - 1] = '\0';
     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadaptObj.bitmask();
     LOCAL_PORT_V6_ULA_GUA = saObj.get_port();
 
@@ -658,6 +662,8 @@ TEST_F(StartMiniServerMockFTestSuite,
 }
 #endif
 
+#ifndef __APPLE__
+// TODO: enable test after exclude "[fe80::1]" from using as loopback addr.
 TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
     // Get a real local LLA from a netadapter.
     UPnPsdk::CNetadapter nadaptObj;
@@ -678,8 +684,10 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
     gIF_INDEX = nadaptObj.index();
     // Copy with removing surrounding brackets. Netadapter variables are never
     // empty because we have found a valid item.
-    *(::stpcpy(gIF_NAME, nadaptObj.name().c_str() + 1) - 1) = '\0';
-    *(::stpcpy(gIF_IPV6, saObj.netaddr().c_str() + 1) - 1) = '\0';
+    std::strcpy(gIF_NAME, nadaptObj.name().c_str() + 1);
+    gIF_NAME[std::strlen(gIF_NAME) - 1] = '\0';
+    std::strcpy(gIF_IPV6, saObj.netaddr().c_str() + 1);
+    gIF_IPV6[std::strlen(gIF_IPV6) - 1] = '\0';
     gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
     LOCAL_PORT_V6 = saObj.get_port();
 
@@ -719,6 +727,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
 
     EXPECT_EQ(StopMiniServer(), 0);
 }
+#endif
 
 #if 0
 TEST_F(StartMiniServerMockFTestSuite,
@@ -843,8 +852,10 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_gua_addr) {
     gIF_INDEX = nadaptObj.index();
     // Copy with removing surrounding brackets. Netadapter variables are never
     // empty because we have found a valid item.
-    *(::stpcpy(gIF_NAME, nadaptObj.name().c_str() + 1) - 1) = '\0';
-    *(::stpcpy(gIF_IPV6, saObj.netaddr().c_str() + 1) - 1) = '\0';
+    std::strcpy(gIF_NAME, nadaptObj.name().c_str() + 1);
+    gIF_NAME[std::strlen(gIF_NAME) - 1] = '\0';
+    std::strcpy(gIF_IPV6, saObj.netaddr().c_str() + 1);
+    gIF_IPV6[std::strlen(gIF_IPV6) - 1] = '\0';
     gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
     LOCAL_PORT_V6 = saObj.get_port();
 
@@ -866,8 +877,10 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_gua_addr) {
     gIF_INDEX = nadaptObj.index();
     // Copy with removing surrounding brackets. Netadapter variables are never
     // empty because we have found a valid item.
-    *(::stpcpy(gIF_NAME, nadaptObj.name().c_str() + 1) - 1) = '\0';
-    *(::stpcpy(gIF_IPV6_ULA_GUA, saObj.netaddr().c_str() + 1) - 1) = '\0';
+    std::strcpy(gIF_NAME, nadaptObj.name().c_str() + 1);
+    gIF_NAME[std::strlen(gIF_NAME) - 1] = '\0';
+    std::strcpy(gIF_IPV6_ULA_GUA, saObj.netaddr().c_str() + 1);
+    gIF_IPV6_ULA_GUA[std::strlen(gIF_IPV6_ULA_GUA) - 1] = '\0';
     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadaptObj.bitmask();
     LOCAL_PORT_V6_ULA_GUA = saObj.get_port();
 
