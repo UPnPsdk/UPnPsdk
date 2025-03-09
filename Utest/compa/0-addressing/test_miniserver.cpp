@@ -284,8 +284,6 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv4_addr) {
     nadaptObj.socknetmask(saObj);
     std::strcpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
 
-    std::cerr << "DEBUG! gIF_IPV4=\"" << gIF_IPV4 << "\".\n";
-
     // We need the threadpool to RunMiniServer().
     CThreadPoolInit tp(gMiniServerThreadPool);
     // TPAttrSetMaxThreads(&gMiniServerThreadPool.attr, 0);
@@ -2273,7 +2271,6 @@ TEST_F(StartMiniServerMockFTestSuite, get_port_successful) {
 
     // Provide a sockaddr structure that will be returned by mocked
     // getsockname().
-    SSockaddr saObj;
     saObj = "192.168.154.188:" + std::to_string(actual_port);
 
     // Mock system functions, static_cast needed for _MSC_VER
