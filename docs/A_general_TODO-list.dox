@@ -6,9 +6,10 @@
  *
  * \todo
  * - Ignore "[fe80::1]" as loopback address by CNetadapter on MacOS.
+ * - Reformat UPnPsdk_LOG* output.
+ * - Manage pthread_mutex_lock for socket objects to miniserver thread.
  * - Rework miniserver Unit Tests.
  * - Rename SSockaddr.get_port() to SSockaddr.port().
- * - Reformat UPnPsdk_LOG* output.
  * - Make the sample program running with the compatible library.
  * - Check CNetadapter_platform::is_valid_if() for win32.
  * - Test and improve UpnpInit2 with different arguments.

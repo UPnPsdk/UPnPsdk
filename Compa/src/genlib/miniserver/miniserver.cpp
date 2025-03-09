@@ -632,19 +632,16 @@ void RunMiniServer(
     // Move the current valid socket objects to this scope. They are owner of
     // the raw socket file descriptor and manage/close it when leaving this
     // scope.
-    std::cerr << "DEBUG! Tracepoint30\n";
     UPnPsdk::CSocket sockLlaObj;
     if (miniSock->pSockLlaObj != nullptr) {
         sockLlaObj = std::move(*miniSock->pSockLlaObj);
         miniSock->pSockLlaObj = &sockLlaObj;
     }
-    std::cerr << "DEBUG! Tracepoint31\n";
     UPnPsdk::CSocket sockGuaObj;
     if (miniSock->pSockGuaObj != nullptr) {
         sockGuaObj = std::move(*miniSock->pSockGuaObj);
         miniSock->pSockGuaObj = &sockGuaObj;
     }
-    std::cerr << "DEBUG! Tracepoint32\n";
     UPnPsdk::CSocket sockIp4Obj;
     if (miniSock->pSockIp4Obj != nullptr) {
         sockIp4Obj = std::move(*miniSock->pSockIp4Obj);
@@ -1071,7 +1068,6 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
     InitMiniServerSockArray(miniSocket);
 
 #ifdef COMPA_HAVE_WEBSERVER
-    std::cerr << "DEBUG! Tracepoint0\n";
     // These socket objects must be valid until the miniserver is successful
     // started. They will be moved to the running miniserver thread.
     UPnPsdk::CSocket sockLlaObj;
@@ -1111,14 +1107,12 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
         return ret_code;
     }
 #endif
-    std::cerr << "DEBUG! Tracepoint1\n";
     // Run miniserver in a new thread.
     TPJobInit(&job, (start_routine)RunMiniServer_f, (void*)miniSocket);
     TPJobSetPriority(&job, MED_PRIORITY);
     TPJobSetFreeFunction(&job, (free_routine)free);
     ret_code = ThreadPoolAddPersistent(&gMiniServerThreadPool, &job, NULL);
     if (ret_code != 0) {
-        std::cerr << "DEBUG! Tracepoint2\n";
         sock_close(miniSocket->miniServerSock4);
         sock_close(miniSocket->miniServerSock6);
         sock_close(miniSocket->miniServerSock6UlaGua);
@@ -1133,7 +1127,6 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
         free(miniSocket);
         return UPNP_E_OUTOF_MEMORY;
     }
-    std::cerr << "DEBUG! Tracepoint3\n";
     /* Wait for miniserver to start. */
     int count{0};
     while (gMServState != (MiniServerState)MSERV_RUNNING && count < max_count) {
@@ -1141,7 +1134,6 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
         imillisleep(50);
         count++;
     }
-    std::cerr << "DEBUG! Tracepoint4\n";
     if (count >= max_count) {
         /* Took it too long to start that thread. */
         sock_close(miniSocket->miniServerSock4);
@@ -1157,14 +1149,12 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
 #endif
         return UPNP_E_INTERNAL_ERROR;
     }
-    std::cerr << "DEBUG! Tracepoint5\n";
 #ifdef COMPA_HAVE_WEBSERVER
     *listen_port4 = miniSocket->miniServerPort4;
     *listen_port6 = miniSocket->miniServerPort6;
     *listen_port6UlaGua = miniSocket->miniServerPort6UlaGua;
 #endif
 
-    std::cerr << "DEBUG! Tracepoint6\n";
     return UPNP_E_SUCCESS;
 }
 
