@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-06
+// Redistribution only with this Copyright remark. Last modified: 2025-03-09
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -404,8 +404,8 @@ TEST(SocketTestSuite, assign_socket_successful) {
 }
 
 TEST(SocketTestSuite, move_socket_via_allocated_list) {
-    // There are some commented outputs for humans. Uncomment them if you like
-    // to see whats going on.
+    /* There are some // commented outputs for humans. Uncomment them if you
+     * like to see whats going on. */
     struct SSocketList {
         CSocket* pSock1Obj;
     };
@@ -422,7 +422,7 @@ TEST(SocketTestSuite, move_socket_via_allocated_list) {
     // std::cerr << "Source socket is bound to " << saddr.netaddrp()
     //           << ". Moving...\n";
 
-    // Move the socket object via pointer in allocated list.
+    /* Move the socket object via pointer in allocated list. */
     socket_list->pSock1Obj = &sock1Obj;
     CSocket sock2Obj{std::move(*socket_list->pSock1Obj)};
 

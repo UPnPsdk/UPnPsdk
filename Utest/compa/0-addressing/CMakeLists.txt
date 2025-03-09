@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-11-08
+# Redistribution only with this Copyright remark. Last modified: 2025-03-07
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -103,6 +103,8 @@ add_executable(test_miniserver-pst
 )
 target_include_directories(test_miniserver-pst
     PRIVATE ${CMAKE_SOURCE_DIR}
+    PRIVATE $<$<CXX_COMPILER_ID:MSVC>:${UPnPsdk_SOURCE_DIR}/include/win32>
+    PRIVATE $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:${UPnPsdk_SOURCE_DIR}/include/unix>
 )
 target_compile_definitions(test_miniserver-pst
     PRIVATE INCLUDE_DEVICE_APIS

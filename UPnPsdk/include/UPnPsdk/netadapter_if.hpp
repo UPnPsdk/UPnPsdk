@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_IF_HPP
 #define UPnPsdk_NETADAPTER_IF_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-04
+// Redistribution only with this Copyright remark. Last modified: 2025-03-08
 /*!
  * \file
  * \brief C++ interface to manage information from different platforms about
@@ -57,7 +57,7 @@ class UPnPsdk_API INetadapter {
     virtual void get_first() = 0;
 
     /*! \brief Select next entry from the network adapter list that was initial
-     * loaded with INetadapter::get_first().
+     * loaded with get_first().
      * \returns
      *  - \b true if next adapter in the list exists
      *  - \b false otherwise */
