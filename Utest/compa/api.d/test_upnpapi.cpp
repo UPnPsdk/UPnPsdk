@@ -906,7 +906,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
 TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     bool g_dbug_old = g_dbug;
     g_dbug = true;
-    logObj.enable(UPNP_ALL);
+    logObj.enable(UPNP_INFO);
 
     // For Microsoft Windows there are some TODOs in the old code:
     // TODO: Retrieve IPv4 netmask

@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-25
+// Redistribution only with this Copyright remark. Last modified: 2025-03-10
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -125,21 +125,30 @@ void CNetadapter_platform::free_ifaddrs() noexcept {
 
 inline bool
 CNetadapter_platform::is_valid_if(const ifaddrs* a_ifa) const noexcept {
-    // Accept IFF_LOOPBACK or up AF_INET6/AF_INET interfaces with address
-    // (e.g. not bonded) and that support MULTICAST.
     if (a_ifa == nullptr || a_ifa->ifa_addr == nullptr)
         return false;
 
+    // Accept IPv4 and IPv6 loopback addresses.
     if (a_ifa->ifa_flags & IFF_LOOPBACK &&
         (a_ifa->ifa_addr->sa_family == AF_INET6 ||
          a_ifa->ifa_addr->sa_family == AF_INET))
         return true;
 
+    // Accept all IPv4 and IPv6 interfaces that are up with address (e.g. not
+    // bonded) and that support multicast.
     if ((a_ifa->ifa_addr->sa_family == AF_INET6 ||
          a_ifa->ifa_addr->sa_family == AF_INET) &&
         a_ifa->ifa_flags & IFF_UP && a_ifa->ifa_flags & IFF_MULTICAST)
         return true;
 
+    // Accept interfaces with an IPv6 link local address that have a scope id.
+    if (a_ifa->ifa_addr->sa_family == AF_INET6 &&
+        IN6_IS_ADDR_LINKLOCAL(
+            &reinterpret_cast<sockaddr_in6*>(a_ifa->ifa_addr)->sin6_addr) &&
+        reinterpret_cast<sockaddr_in6*>(a_ifa->ifa_addr)->sin6_scope_id != 0)
+        return true;
+
+    // All other interfaces are ignored.
     return false;
 }
 
