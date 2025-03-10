@@ -902,10 +902,12 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
     UpnpFinish();
 }
 
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     bool g_dbug_old = g_dbug;
     g_dbug = true;
+    logObj.enable(UPNP_ALL);
+
     // For Microsoft Windows there are some TODOs in the old code:
     // TODO: Retrieve IPv4 netmask
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
