@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-06-21
+// Redistribution only with this Copyright remark. Last modified: 2025-03-10
 
 /*!
 \page Glossary
@@ -39,7 +39,7 @@ The services that a client requires are the client's **dependencies**.
 
 \anchor glossary_ipv6addr ***IPv6 addresses***
 
-- LLA: Link-Local Addresses may have a scope id "%n" appended, e.g. "[fe80::1%1]", that usually is the local network interface index number.
+- LLA: Link-Local Addresses have a scope id "%*" appended, e.g. "[fe80::1%eth0]", that is the local network interface index number. Microsoft Windows only supports the index number (e.g. "[fe80::1%2]"), not its mnemonic name so an LLA is normalized with appended numeric index.
 - ULA: Unicast Local Addresses, Unique Local Addresses or Site-Local Unicast Addresses are deprecated due to [RFC 4291 - section 2.5.7.](https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.7) and not supported by this SDK. New implementations must treat this prefix as Global Unicast.
 - GUA: Global Unicast Addresses or Global Unique Addresses.
 

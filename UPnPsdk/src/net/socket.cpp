@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-08
+// Redistribution only with this Copyright remark. Last modified: 2025-03-10
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -471,16 +471,6 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
         }
         a_saddr = &unspec_saddr;
     }
-#ifdef __APPLE__
-    // On MacOS there is a regular link local address "[fe80::1]" without
-    // scope_id abused as additional loopback address. Without scope_id it
-    // fails to bind so I translate it to the regular loopback address.
-    else if (a_saddr->netaddr() == "[fe80::1]" &&
-             a_saddr->sin6.sin6_scope_id == 0) {
-        unspec_saddr = "[::1]";
-        a_saddr = &unspec_saddr;
-    }
-#endif
 
     // Get an adress info to bind.
     CAddrinfo ai(a_saddr->netaddrp(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,

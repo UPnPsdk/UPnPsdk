@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-09
+// Redistribution only with this Copyright remark. Last modified: 2025-03-10
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -375,6 +375,9 @@ TEST_F(StartMiniServerMockFTestSuite, start_miniserver_with_one_ipv4_addr) {
 
 TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
     // Get a real local LLA from a netadapter.
+    // On MacOS there is a regular link local address "[fe80::1]" without
+    // scope_id abused as additional loopback address. Without scope_id it
+    // fails to bind so I ignore this invalid "lla loopback" address.
     UPnPsdk::CNetadapter nadaptObj;
     ASSERT_NO_THROW(nadaptObj.get_first());
     bool found_lla{false};
@@ -382,6 +385,10 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
         nadaptObj.sockaddr(saObj);
         if (saObj.ss.ss_family == AF_INET6 &&
             IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+#ifdef __APPLE__
+            if (saObj.netaddr() == "[fe80::1]") // missing scope id "%*"
+                continue;
+#endif
             found_lla = true;
             break;
         }
@@ -660,8 +667,6 @@ TEST_F(StartMiniServerMockFTestSuite,
 }
 #endif
 
-#ifndef __APPLE__
-// TODO: enable test after exclude "[fe80::1]" from using as loopback addr.
 TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
     // Get a real local LLA from a netadapter.
     UPnPsdk::CNetadapter nadaptObj;
@@ -671,6 +676,10 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
         nadaptObj.sockaddr(saObj);
         if (saObj.ss.ss_family == AF_INET6 &&
             IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+#ifdef __APPLE__
+            if (saObj.netaddr() == "[fe80::1]") // missing scope id "%*"
+                continue;
+#endif
             found_lla = true;
             break;
         }
@@ -725,7 +734,6 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
 
     EXPECT_EQ(StopMiniServer(), 0);
 }
-#endif
 
 #if 0
 TEST_F(StartMiniServerMockFTestSuite,
@@ -839,6 +847,10 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_gua_addr) {
         nadaptObj.sockaddr(saObj);
         if (saObj.ss.ss_family == AF_INET6 &&
             IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+#ifdef __APPLE__
+            if (saObj.netaddr() == "[fe80::1]") // missing scope id "%*"
+                continue;
+#endif
             found_lla = true;
             break;
         }
