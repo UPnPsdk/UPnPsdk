@@ -125,7 +125,7 @@ $(document).ready(function(){initNavTree('d5/d67/Glossary.html','../../'); initR
 <p>The services that a client requires are the client's <b>dependencies</b>.</p>
 <p><a class="anchor" id="glossary_ipv6addr"></a><em><b>IPv6 addresses</b></em></p>
 <ul>
-<li>LLA: Link-Local Addresses may have a scope id "%n" appended, e.g. "[fe80::1%1]", that usually is the local network interface index number.</li>
+<li>LLA: Link-Local Addresses have a scope id "%*" appended, e.g. "[fe80::1%eth0]", that is the local network interface index number. Microsoft Windows only supports the index number (e.g. "[fe80::1%2]"), not its mnemonic name so an LLA is normalized with appended numeric index.</li>
 <li>ULA: Unicast Local Addresses, Unique Local Addresses or Site-Local Unicast Addresses are deprecated due to <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.7">RFC 4291 - section 2.5.7.</a> and not supported by this SDK. New implementations must treat this prefix as Global Unicast.</li>
 <li>GUA: Global Unicast Addresses or Global Unique Addresses.</li>
 </ul>

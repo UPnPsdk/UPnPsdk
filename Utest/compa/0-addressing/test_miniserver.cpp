@@ -668,6 +668,8 @@ TEST_F(StartMiniServerMockFTestSuite,
 #endif
 
 TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
+    bool g_dbug_old = g_dbug;
+    g_dbug = true;
     // Get a real local LLA from a netadapter.
     UPnPsdk::CNetadapter nadaptObj;
     ASSERT_NO_THROW(nadaptObj.get_first());
@@ -733,6 +735,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
         << errStrEx(ret_StartMiniServer, UPNP_E_SUCCESS);
 
     EXPECT_EQ(StopMiniServer(), 0);
+    g_dbug = g_dbug_old;
 }
 
 #if 0
