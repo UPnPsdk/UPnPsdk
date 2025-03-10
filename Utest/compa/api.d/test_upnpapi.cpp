@@ -902,8 +902,10 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
     UpnpFinish();
 }
 
-#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
+    bool g_dbug_old = g_dbug;
+    g_dbug = true;
     // For Microsoft Windows there are some TODOs in the old code:
     // TODO: Retrieve IPv4 netmask
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
@@ -946,6 +948,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
         EXPECT_NE(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
 #endif
     UpnpFinish();
+    g_dbug = g_dbug_old;
 }
 #endif
 
