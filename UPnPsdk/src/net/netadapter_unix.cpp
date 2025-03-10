@@ -48,9 +48,15 @@ bool CNetadapter_platform::get_next() {
 
     m_ifa_current = m_ifa_current->ifa_next;
 
+    SSockaddr saObj;
     for (; m_ifa_current != nullptr; m_ifa_current = m_ifa_current->ifa_next) {
-        if (is_valid_if(m_ifa_current))
+        if (is_valid_if(m_ifa_current)) {
+            saObj =
+                *reinterpret_cast<sockaddr_storage*>(m_ifa_current->ifa_addr);
+            std::cerr << "DEBUG! next ifa_addr=\"" << saObj.netaddrp()
+                      << "\".\n";
             return true; // Does not increment m_ifa_current
+        }
     }
     return false;
 }
