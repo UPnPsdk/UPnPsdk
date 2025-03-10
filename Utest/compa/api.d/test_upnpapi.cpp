@@ -902,6 +902,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
     UpnpFinish();
 }
 
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     // For Microsoft Windows there are some TODOs in the old code:
     // TODO: Retrieve IPv4 netmask
@@ -946,6 +947,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
 #endif
     UpnpFinish();
 }
+#endif
 
 TEST_F(UpnpapiFTestSuite, UpnpInit2_call_two_times) {
     if (github_actions)
