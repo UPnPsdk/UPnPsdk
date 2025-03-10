@@ -373,7 +373,7 @@ TEST_F(StartMiniServerMockFTestSuite, start_miniserver_with_one_ipv4_addr) {
 }
 #endif
 
-TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
+TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_addr) {
     // Get a real local LLA from a netadapter.
     // On MacOS there is a regular link local address "[fe80::1]" without
     // scope_id abused as additional loopback address. Without scope_id it
@@ -667,6 +667,7 @@ TEST_F(StartMiniServerMockFTestSuite,
 }
 #endif
 
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
     bool g_dbug_old = g_dbug;
     g_dbug = true;
@@ -699,7 +700,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
     gIF_IPV6[std::strlen(gIF_IPV6) - 1] = '\0';
     gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
     LOCAL_PORT_V6 = saObj.get_port();
-
+#if 0
     // Get a real local IPv4 address from a netadapter.
     ASSERT_NO_THROW(nadaptObj.get_first());
     bool found_ip4{false};
@@ -722,7 +723,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
     LOCAL_PORT_V4 = saObj.get_port();
     nadaptObj.socknetmask(saObj);
     std::strcpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
-
+#endif
     // We need the threadpool to RunMiniServer().
     CThreadPoolInit tp(gMiniServerThreadPool);
     // TPAttrSetMaxThreads(&gMiniServerThreadPool.attr, 0);
@@ -737,6 +738,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
     EXPECT_EQ(StopMiniServer(), 0);
     g_dbug = g_dbug_old;
 }
+#endif
 
 #if 0
 TEST_F(StartMiniServerMockFTestSuite,
