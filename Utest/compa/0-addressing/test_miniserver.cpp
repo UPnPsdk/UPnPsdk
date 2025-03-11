@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-09
+// Redistribution only with this Copyright remark. Last modified: 2025-03-11
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -17,6 +17,7 @@
 #else
 // #include <Compa/src/api/upnpapi.cpp> // only for StartMiniServer_real
 #include <Compa/src/genlib/miniserver/miniserver.cpp>
+#include <Compa/src/api/upnpapi.cpp>
 #endif
 
 #include <UPnPsdk/upnptools.hpp> // for errStrEx
@@ -46,6 +47,7 @@ using ::testing::SetArgPointee;
 using ::testing::SetErrnoAndReturn;
 using ::testing::StrictMock;
 
+using ::UPnPsdk::CNetadapter;
 using ::UPnPsdk::CSocket;
 using ::UPnPsdk::CSocket_basic;
 using ::UPnPsdk::errStrEx;
@@ -139,6 +141,7 @@ class StartMiniServerFTestSuite : public ::testing::Test {
             logObj.enable(UPNP_ALL);
 
         // Clean up needed global environment
+        gIF_INDEX = 0u;
         memset(&gIF_NAME, 0, sizeof(gIF_NAME));
         memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
         memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
@@ -146,7 +149,6 @@ class StartMiniServerFTestSuite : public ::testing::Test {
         gIF_IPV6_PREFIX_LENGTH = 0;
         memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
         gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_INDEX = unsigned(-1);
         memset(&errno, 0xAA, sizeof(errno));
         gMServState = MSERV_IDLE;
     }
@@ -247,6 +249,179 @@ TEST(StartMiniServerTestSuite, StartMiniServer_real) {
 }
 #endif
 
+
+TEST_F(StartMiniServerFTestSuite, get_miniserver_sockets_default_successful) {
+    // Set global variables belonging to the local inet address.
+    ASSERT_EQ(::UpnpGetIfInfo(nullptr), UPNP_E_SUCCESS);
+
+    // Provide socket structure and socket objects.
+    MiniServerSockArray miniSocket{};
+    InitMiniServerSockArray(&miniSocket);
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+    CSocket sockLlaObj;
+    miniSocket.pSockLlaObj = &sockLlaObj;
+    CSocket sockGuaObj;
+    miniSocket.pSockGuaObj = &sockGuaObj;
+    CSocket sockIp4Obj;
+    miniSocket.pSockIp4Obj = &sockIp4Obj;
+#endif
+
+    // Test Unit, needs initialized sockets on MS Windows
+    int ret_get_miniserver_sockets =
+        get_miniserver_sockets(&miniSocket, 0, 0, 0);
+
+    EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
+        << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS);
+}
+
+TEST_F(StartMiniServerFTestSuite, get_miniserver_sockets_with_one_lla_addr) {
+    // Get a valid lla address from a local network adapter.
+    CNetadapter nadaptObj;
+    ASSERT_NO_THROW(nadaptObj.get_first());
+    bool found{false};
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (saObj.ss.ss_family == AF_INET6 &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            found = true;
+            break;
+        }
+    } while (nadaptObj.get_next());
+    if (!found)
+        GTEST_SKIP()
+            << "No local network adapter with link local address found.";
+
+    // Set global variables belonging to the local inet address.
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
+
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": Using a link local address should be supported.\n";
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+    } else {
+
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+        // Provide socket structure and socket objects.
+        MiniServerSockArray miniSocket{};
+        InitMiniServerSockArray(&miniSocket);
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+        CSocket sockLlaObj;
+        miniSocket.pSockLlaObj = &sockLlaObj;
+        CSocket sockGuaObj;
+        miniSocket.pSockGuaObj = &sockGuaObj;
+        CSocket sockIp4Obj;
+        miniSocket.pSockIp4Obj = &sockIp4Obj;
+#endif
+
+        // Test Unit, needs initialized sockets on MS Windows
+        int ret_get_miniserver_sockets =
+            get_miniserver_sockets(&miniSocket, 0, 0, 0);
+
+        EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
+            << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS);
+    }
+}
+
+#if 0 // Disable whole test. It is too complicated and doesn't reflect the real
+      // situation anymore.
+TEST_F(StartMiniServerMockFTestSuite,
+       get_miniserver_sockets_with_one_ipv6_lla_addr) {
+    // Initialize needed structure
+    constexpr SOCKET sockfd{umock::sfd_base + 10};
+    SSockaddr saddrObj;
+    saddrObj = "[fe80::fedc:cdef:0:3]:50079";
+    // Set gIF_IPV6 and strip surounding brackets
+    std::strcpy(gIF_IPV6, saddrObj.netaddr().c_str() + 1);
+    gIF_IPV6[strlen(gIF_IPV6) - 1] = '\0';
+    LOCAL_PORT_V6 = saddrObj.get_port();
+    MiniServerSockArray miniSocket{};
+    InitMiniServerSockArray(&miniSocket);
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+    CSocket sockLlaObj;
+    miniSocket.pSockLlaObj = &sockLlaObj;
+#endif
+    // Provide a socket file descriptor
+    EXPECT_CALL(m_sys_socketObj, socket(saddrObj.ss.ss_family, SOCK_STREAM, 0))
+        .WillOnce(Return(sockfd));
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+
+    // Mock setsockopt()
+    EXPECT_CALL(m_sys_socketObj, setsockopt(sockfd, _, _, _, _))
+        .WillOnce(Return(0));
+
+    // Test Unit, needs initialized sockets on MS Windows
+    int ret_get_miniserver_sockets =
+        get_miniserver_sockets(&miniSocket, 0, 0, 0);
+
+    // ===== result; should be same as with new code =====
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": Having only one IPv6 address should not fail.\n";
+    EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET)
+        << errStrEx(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET); // Wrong!
+    EXPECT_EQ(miniSocket.miniServerSock6, INVALID_SOCKET);            // Wrong!
+    EXPECT_EQ(miniSocket.miniServerPort6, 0);                         // Wrong!
+}
+
+#else // new_code
+
+    // Expect resetting SO_REUSEADDR.
+    EXPECT_CALL(m_sys_socketObj,
+                setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, _, _))
+        .WillOnce(Return(0));
+    // Expect setting IPV6_V6ONLY.
+    EXPECT_CALL(m_sys_socketObj, setsockopt(sockfd, IPPROTO_IPV6, IPV6_V6ONLY,
+                                            PointeeVoidToConstInt(0), _))
+        .WillOnce(Return(0));
+#ifdef _MSC_VER
+    // Expect setting SO_EXCLUSIVEADDRUSE on MS Windows
+    EXPECT_CALL(m_sys_socketObj,
+                setsockopt(sockfd, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, _, _))
+        .WillOnce(Return(0));
+#endif
+    // Bind socket to an ip address
+    EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _)).WillOnce(Return(0));
+    // Provide socket address from the socket file descriptor
+    EXPECT_CALL(
+        m_sys_socketObj,
+        getsockname(sockfd, _,
+                    Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
+        .Times(g_dbug ? 2 : 1) // additional call with debug output
+        .WillRepeatedly(
+            DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
+                  SetArgPointee<2>(saddrObj.sizeof_saddr()), Return(0)));
+    // Listen on the socket
+    EXPECT_CALL(m_sys_socketObj, listen(sockfd, _)).WillOnce(Return(0));
+
+    // Test Unit, needs initialized sockets on MS Windows
+    int ret_get_miniserver_sockets =
+        get_miniserver_sockets(&miniSocket, 0, 0, 0);
+
+    // ===== result with fixes =====
+    EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
+        << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS);
+    EXPECT_EQ(miniSocket.miniServerSock4, INVALID_SOCKET);
+    EXPECT_EQ(miniSocket.miniServerPort4, 0u);
+    // EXPECT_EQ(miniSocket.miniServerSock6, INVALID_SOCKET);
+    EXPECT_EQ(miniSocket.miniServerSock6, sockfd);
+    EXPECT_EQ(miniSocket.miniServerSock6UlaGua, INVALID_SOCKET);
+    EXPECT_EQ(miniSocket.miniServerStopSock, INVALID_SOCKET);
+    EXPECT_EQ(miniSocket.ssdpSock4, INVALID_SOCKET);
+    EXPECT_EQ(miniSocket.ssdpSock6, INVALID_SOCKET);
+    EXPECT_EQ(miniSocket.ssdpSock6UlaGua, INVALID_SOCKET);
+    EXPECT_EQ(miniSocket.stopPort, 0u);
+    // EXPECT_EQ(miniSocket.miniServerPort6, 0u);
+    EXPECT_EQ(miniSocket.miniServerPort6, saddrObj.get_port());
+    EXPECT_EQ(miniSocket.miniServerPort6UlaGua, 0u);
+    EXPECT_EQ(miniSocket.ssdpReqSock4, INVALID_SOCKET);
+    EXPECT_EQ(miniSocket.ssdpReqSock6, INVALID_SOCKET);
+}
+#endif
+#endif // Disable whole test.
 
 TEST_F(StartMiniServerFTestSuite, start_miniserver_with_no_ip_addr) {
     // Not having a valid local ip_address on all interfaces will fail to start
@@ -386,18 +561,13 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
             break;
         }
     } while (nadaptObj.get_next());
-    ASSERT_TRUE(found_lla);
+    if (!found_lla)
+        GTEST_SKIP()
+            << "No local network adapter with link local address found.";
 
     // Set global variables belonging to the local inet address.
-    gIF_INDEX = nadaptObj.index();
-    // Copy with removing surrounding brackets. Netadapter variables are never
-    // empty because we have found a valid item.
-    std::strcpy(gIF_NAME, nadaptObj.name().c_str() + 1);
-    gIF_NAME[std::strlen(gIF_NAME) - 1] = '\0';
-    std::strcpy(gIF_IPV6, saObj.netaddr().c_str() + 1);
-    gIF_IPV6[std::strlen(gIF_IPV6) - 1] = '\0';
-    gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
-    LOCAL_PORT_V6 = saObj.get_port();
+    // This will fail on old_code but ignored here because it is handled below.
+    ::UpnpGetIfInfo(saObj.netaddr().c_str());
 
     // We need the threadpool to RunMiniServer().
     CThreadPoolInit tp(gMiniServerThreadPool);
@@ -1042,61 +1212,109 @@ void chk_minisocket(MiniServerSockArray& minisocket) {
     EXPECT_EQ(minisocket.ssdpReqSock6, INVALID_SOCKET);
 }
 
-TEST(StartMiniServerTestSuite, get_miniserver_sockets_with_no_ip_addr) {
-    // Using empty text ip addresses ("") will not bind to a valid socket.
-    // TODO: With address 0, it would successful bind to all local ip
-    // addresses. If this is intended then gIF_IPV4 should be set to "0.0.0.0",
-    // or gIF_IPV6 to "::".
+TEST_F(StartMiniServerFTestSuite, get_miniserver_sockets_with_one_gua_addr) {
+    // Get a valid gua address from a local network adapter.
+    CNetadapter nadaptObj;
+    ASSERT_NO_THROW(nadaptObj.get_first());
+    bool found{false};
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (saObj.ss.ss_family == AF_INET6 &&
+            IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+            found = true;
+            break;
+        }
+    } while (nadaptObj.get_next());
+    if (!found)
+        GTEST_SKIP()
+            << "No local network adapter with global unicast address found.";
 
-    // Due to unmocked bind() it returns successful with a valid ip address
-    // instead of failing. That results in an endless loop with this test. So
-    // we have to ensure empty ip addresses.
-    gIF_IPV4[0] = '\0'; // Empty ip address
-    gIF_IPV6[0] = '\0';
-    gIF_IPV6_ULA_GUA[0] = '\0';
-    LOCAL_PORT_V4 = 0;
-    LOCAL_PORT_V6 = 0;
-    LOCAL_PORT_V6_ULA_GUA = 0;
-
-    // Initialize needed structure
-    MiniServerSockArray miniSocket{};
-    InitMiniServerSockArray(&miniSocket);
-
-    // Test Unit
-    int ret_get_miniserver_sockets =
-        get_miniserver_sockets(&miniSocket, 0, 0, 0);
+    // Set global variables belonging to the local inet address.
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
 
     if (old_code) {
-        std::cout << CRED "[ BUG      ] " CRES << __LINE__
-                  << ": Using empty IPv4 address with disabled IPv6 stack must "
-                     "not succeed.\n";
-#ifndef UPNP_ENABLE_IPV6
-        // This isn't relevant for new code because there is IPv6 always
-        // available.
-        EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
-            << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS); // Wrong!
-#else
-        EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET)
-            << errStrEx(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET);
-#endif
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": Using a global unicast address should be supported.\n";
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
     } else {
 
-        EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET)
-            << errStrEx(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET);
-    }
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
-    // We do not get a valid socket with an empty text ip address.
-    EXPECT_EQ(miniSocket.miniServerSock4, INVALID_SOCKET);
-    // It should return the 0 port.
-    EXPECT_EQ(miniSocket.miniServerPort4, 0);
-    {
-        SCOPED_TRACE("");
-        chk_minisocket(miniSocket);
+        // Provide socket structure and socket objects.
+        MiniServerSockArray miniSocket{};
+        InitMiniServerSockArray(&miniSocket);
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+        CSocket sockLlaObj;
+        miniSocket.pSockLlaObj = &sockLlaObj;
+        CSocket sockGuaObj;
+        miniSocket.pSockGuaObj = &sockGuaObj;
+        CSocket sockIp4Obj;
+        miniSocket.pSockIp4Obj = &sockIp4Obj;
+#endif
+
+        // Test Unit, needs initialized sockets on MS Windows
+        int ret_get_miniserver_sockets =
+            get_miniserver_sockets(&miniSocket, 0, 0, 0);
+
+        EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
+            << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS);
     }
-    // Close socket should fail, there is no valid socket.
-    EXPECT_EQ(CLOSE_SOCKET_P(miniSocket.miniServerSock4), -1);
 }
 
+TEST_F(StartMiniServerFTestSuite, get_miniserver_sockets_with_one_ip4_addr) {
+    // Get a valid ip4 address from a local network adapter.
+    CNetadapter nadaptObj;
+    ASSERT_NO_THROW(nadaptObj.get_first());
+    bool found{false};
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (saObj.ss.ss_family == AF_INET && !saObj.is_loopback()) {
+            found = true;
+            break;
+        }
+    } while (nadaptObj.get_next());
+    if (!found)
+        GTEST_SKIP() << "No local network adapter with IPv4 address found.";
+
+    // Set global variables belonging to the local inet address.
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
+
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": Using an IPv4 address should be supported.\n";
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+    } else {
+
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+        // Provide socket structure and socket objects.
+        MiniServerSockArray miniSocket{};
+        InitMiniServerSockArray(&miniSocket);
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+        CSocket sockLlaObj;
+        miniSocket.pSockLlaObj = &sockLlaObj;
+        CSocket sockGuaObj;
+        miniSocket.pSockGuaObj = &sockGuaObj;
+        CSocket sockIp4Obj;
+        miniSocket.pSockIp4Obj = &sockIp4Obj;
+#endif
+        // Test Unit, needs initialized sockets on MS Windows
+        int ret_get_miniserver_sockets =
+            get_miniserver_sockets(&miniSocket, 0, 0, 0);
+
+        EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
+            << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS);
+    }
+}
+
+#if 0 // Disable whole test. It is too complicated and doesn't reflect the real
+      // situation anymore.
 TEST_F(StartMiniServerMockFTestSuite,
        get_miniserver_sockets_with_one_ipv4_addr) {
     // Initialize needed structure
@@ -1179,100 +1397,62 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_EQ(miniSocket.ssdpReqSock4, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.ssdpReqSock6, INVALID_SOCKET);
 }
+#endif // Disable whole test.
 
-TEST_F(StartMiniServerMockFTestSuite,
-       get_miniserver_sockets_with_one_ipv6_lla_addr) {
+TEST(StartMiniServerTestSuite, get_miniserver_sockets_with_no_ip_addr) {
+    // Using empty text ip addresses ("") will not bind to a valid socket.
+    // TODO: With address 0, it would successful bind to all local ip
+    // addresses. If this is intended then gIF_IPV4 should be set to "0.0.0.0",
+    // or gIF_IPV6 to "::".
+
+    // Due to unmocked bind() it returns successful with a valid ip address
+    // instead of failing. That results in an endless loop with this test. So
+    // we have to ensure empty ip addresses.
+    gIF_IPV4[0] = '\0'; // Empty ip address
+    gIF_IPV6[0] = '\0';
+    gIF_IPV6_ULA_GUA[0] = '\0';
+    LOCAL_PORT_V4 = 0;
+    LOCAL_PORT_V6 = 0;
+    LOCAL_PORT_V6_ULA_GUA = 0;
+
     // Initialize needed structure
-    constexpr SOCKET sockfd{umock::sfd_base + 10};
-    SSockaddr saddrObj;
-    saddrObj = "[fe80::fedc:cdef:0:3]:50079";
-    // Set gIF_IPV6 and strip surounding brackets
-    std::strcpy(gIF_IPV6, saddrObj.netaddr().c_str() + 1);
-    gIF_IPV6[strlen(gIF_IPV6) - 1] = '\0';
-    LOCAL_PORT_V6 = saddrObj.get_port();
     MiniServerSockArray miniSocket{};
     InitMiniServerSockArray(&miniSocket);
-#ifndef UPnPsdk_WITH_NATIVE_PUPNP
-    CSocket sockLlaObj;
-    miniSocket.pSockLlaObj = &sockLlaObj;
-#endif
-    // Provide a socket file descriptor
-    EXPECT_CALL(m_sys_socketObj, socket(saddrObj.ss.ss_family, SOCK_STREAM, 0))
-        .WillOnce(Return(sockfd));
 
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
-
-    // Mock setsockopt()
-    EXPECT_CALL(m_sys_socketObj, setsockopt(sockfd, _, _, _, _))
-        .WillOnce(Return(0));
-
-    // Test Unit, needs initialized sockets on MS Windows
+    // Test Unit
     int ret_get_miniserver_sockets =
         get_miniserver_sockets(&miniSocket, 0, 0, 0);
 
-    // ===== result; should be same as with new code =====
-    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-              << ": Having only one IPv6 address should not fail.\n";
-    EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET)
-        << errStrEx(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET); // Wrong!
-    EXPECT_EQ(miniSocket.miniServerSock6, INVALID_SOCKET);            // Wrong!
-    EXPECT_EQ(miniSocket.miniServerPort6, 0);                         // Wrong!
-}
-
-#else // new_code
-
-    // Expect resetting SO_REUSEADDR.
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, _, _))
-        .WillOnce(Return(0));
-    // Expect setting IPV6_V6ONLY.
-    EXPECT_CALL(m_sys_socketObj, setsockopt(sockfd, IPPROTO_IPV6, IPV6_V6ONLY,
-                                            PointeeVoidToConstInt(0), _))
-        .WillOnce(Return(0));
-#ifdef _MSC_VER
-    // Expect setting SO_EXCLUSIVEADDRUSE on MS Windows
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, _, _))
-        .WillOnce(Return(0));
+    if (old_code) {
+        std::cout << CRED "[ BUG      ] " CRES << __LINE__
+                  << ": Using empty IPv4 address with disabled IPv6 stack must "
+                     "not succeed.\n";
+#ifndef UPNP_ENABLE_IPV6
+        // This isn't relevant for new code because there is IPv6 always
+        // available.
+        EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
+            << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS); // Wrong!
+#else
+        EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET)
+            << errStrEx(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET);
 #endif
-    // Bind socket to an ip address
-    EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _)).WillOnce(Return(0));
-    // Provide socket address from the socket file descriptor
-    EXPECT_CALL(
-        m_sys_socketObj,
-        getsockname(sockfd, _,
-                    Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
-        .Times(g_dbug ? 2 : 1) // additional call with debug output
-        .WillRepeatedly(
-            DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
-                  SetArgPointee<2>(saddrObj.sizeof_saddr()), Return(0)));
-    // Listen on the socket
-    EXPECT_CALL(m_sys_socketObj, listen(sockfd, _)).WillOnce(Return(0));
+    } else {
 
-    // Test Unit, needs initialized sockets on MS Windows
-    int ret_get_miniserver_sockets =
-        get_miniserver_sockets(&miniSocket, 0, 0, 0);
+        EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET)
+            << errStrEx(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET);
+    }
 
-    // ===== result with fixes =====
-    EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
-        << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS);
+    // We do not get a valid socket with an empty text ip address.
     EXPECT_EQ(miniSocket.miniServerSock4, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.miniServerPort4, 0u);
-    // EXPECT_EQ(miniSocket.miniServerSock6, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.miniServerSock6, sockfd);
-    EXPECT_EQ(miniSocket.miniServerSock6UlaGua, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.miniServerStopSock, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.ssdpSock4, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.ssdpSock6, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.ssdpSock6UlaGua, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.stopPort, 0u);
-    // EXPECT_EQ(miniSocket.miniServerPort6, 0u);
-    EXPECT_EQ(miniSocket.miniServerPort6, saddrObj.get_port());
-    EXPECT_EQ(miniSocket.miniServerPort6UlaGua, 0u);
-    EXPECT_EQ(miniSocket.ssdpReqSock4, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.ssdpReqSock6, INVALID_SOCKET);
+    // It should return the 0 port.
+    EXPECT_EQ(miniSocket.miniServerPort4, 0);
+    {
+        SCOPED_TRACE("");
+        chk_minisocket(miniSocket);
+    }
+    // Close socket should fail, there is no valid socket.
+    EXPECT_EQ(CLOSE_SOCKET_P(miniSocket.miniServerSock4), -1);
 }
-#endif
 
 TEST(StartMiniServerTestSuite, get_miniserver_sockets_with_invalid_ip_address) {
     strcpy(gIF_IPV4, "192.168.129.XXX"); // Invalid ip address
