@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-04
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-12
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -144,19 +144,26 @@ int gAllowLiteralHostRedirection = 0;
 /*! \brief Static buffer to contain interface name. (extern'ed in upnp.h) */
 char gIF_NAME[LINE_SIZE] = {'\0'};
 
+/*! \brief Static buffer to contain interface loopback address. (extern'ed in
+ * upnpapi.hpp) */
+char gIF_LOOPBACK[INET6_ADDRSTRLEN]{};
+
+/*! \brief loppback address prefix length. (extern'ed in upnpapi.hpp) */
+unsigned gIF_LOOPBACK_PREFIX_LENGTH{};
+
 /*! \brief Static buffer to contain interface IPv4 address. (extern'ed in
- * upnp.h) */
+ * upnpapi.hpp) */
 char gIF_IPV4[INET_ADDRSTRLEN] = {'\0'};
 
 /*! \brief Static buffer to contain interface IPv4 netmask. (extern'ed in
- * upnp.h) */
+ * upnpapi.hpp) */
 char gIF_IPV4_NETMASK[INET_ADDRSTRLEN] = {'\0'};
 
 /*! \brief Static buffer to contain interface IPv6 link-local address (LLA).
- * (extern'ed in upnp.h) */
+ * (extern'ed in upnpapi.hpp) */
 char gIF_IPV6[INET6_ADDRSTRLEN] = {'\0'};
 
-/*! \brief IPv6 LLA prefix length. (extern'ed in upnp.h) */
+/*! \brief IPv6 LLA prefix length. (extern'ed in upnpapi.hpp) */
 unsigned gIF_IPV6_PREFIX_LENGTH = 0;
 
 /*! \brief Contains network interface index of the link local address gIF_IPV6
@@ -166,10 +173,10 @@ unsigned gIF_INDEX;
 // index.
 
 /*! \brief Static buffer to contain interface IPv6 unique-local or
- * globally-unique address (ULA or GUA). (extern'ed in upnp.h) */
+ * globally-unique address (ULA or GUA). (extern'ed in upnpapi.hpp) */
 char gIF_IPV6_ULA_GUA[INET6_ADDRSTRLEN] = {'\0'};
 
-/*! \brief IPv6 ULA or GUA prefix length. (extern'ed in upnp.h) */
+/*! \brief IPv6 ULA or GUA prefix length. (extern'ed in upnpapi.hpp) */
 unsigned gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
 
 /*! \brief local IPv4 port for the mini-server */
@@ -298,12 +305,12 @@ namespace {
  * We'll retrieve the following information from the interface:
  * \li gIF_NAME -> Interface name (by input or found).
  * \li gIF_INDEX -> local network Interface index number.
- * \li gIF_IPV4 -> IPv4 address (if any).
- * \li gIF_IPV4_NETMASK -> Netmask of gIF_IPV4 (if any).
  * \li gIF_IPV6 -> IPv6 LLA address (if any).
  * \li gIF_IPV6_PREFIX_LENGTH -> IPv6 LLA address prefix length.
  * \li gIF_IPV6_ULA_GUA -> ULA or GUA IPv6 address (if any).
  * \li gIF_IPV6_ULA_GUA_PREFIX_LENGTH -> IPv6 ULA or GUA address prefix length.
+ * \li gIF_IPV4 -> IPv4 address (if any).
+ * \li gIF_IPV4_NETMASK -> Netmask of gIF_IPV4 (if any).
  *
  * \return UPNP_E_SUCCESS or UPNP_E_INVALID_INTERFACE.
  */
@@ -323,6 +330,15 @@ int UpnpGetIfInfo(
             return UPNP_E_INVALID_INTERFACE;
         }
 
+        memset(&gIF_LOOPBACK, 0, sizeof(gIF_LOOPBACK));
+        gIF_LOOPBACK_PREFIX_LENGTH = 0;
+        memset(&gIF_IPV6, 0, sizeof(gIF_IPV6));
+        gIF_IPV6_PREFIX_LENGTH = 0;
+        memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
+        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+        memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
+        memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
+
         UPnPsdk::SSockaddr saObj;
         do {
             // Get gIF_NAME and gIF_INDEX
@@ -331,19 +347,33 @@ int UpnpGetIfInfo(
             gIF_INDEX = nadaptObj.index();
 
             nadaptObj.sockaddr(saObj);
-            const char* netaddr{saObj.netaddr().c_str()};
+            std::string netaddr(saObj.netaddr());
+            const char* pNetaddr{netaddr.c_str()};
 
             switch (saObj.ss.ss_family) {
             case AF_INET6:
-                // The loopback address belongs to link-local unicast
-                // addresses.
-                if (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) ||
-                    IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
+                if (IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
+                    std::cerr << "DEBUG! Tracepoint20\n";
+                    ::memset(gIF_LOOPBACK, 0, sizeof(gIF_LOOPBACK));
+                    gIF_LOOPBACK_PREFIX_LENGTH = 0;
+                    if (*pNetaddr != '\0') {
+                        // Strip leading bracket on copying.
+                        ::strncpy(gIF_LOOPBACK, pNetaddr + 1,
+                                  sizeof(gIF_LOOPBACK) - 1);
+                        // Strip trailing scope id if any.
+                        if (char* chptr{::strchr(gIF_LOOPBACK, '%')})
+                            *chptr = '\0';
+                        // Strip trailing bracket if any.
+                        else if (char* chptr{::strchr(gIF_LOOPBACK, ']')})
+                            *chptr = '\0';
+                        gIF_LOOPBACK_PREFIX_LENGTH = nadaptObj.bitmask();
+                    }
+                } else if (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
                     ::memset(gIF_IPV6, 0, sizeof(gIF_IPV6));
                     gIF_IPV6_PREFIX_LENGTH = 0;
-                    if (*netaddr != '\0') {
+                    if (*pNetaddr != '\0') {
                         // Strip leading bracket on copying.
-                        ::strncpy(gIF_IPV6, netaddr + 1, sizeof(gIF_IPV6) - 1);
+                        ::strncpy(gIF_IPV6, pNetaddr + 1, sizeof(gIF_IPV6) - 1);
                         // Strip trailing scope id if any.
                         if (char* chptr{::strchr(gIF_IPV6, '%')})
                             *chptr = '\0';
@@ -355,9 +385,9 @@ int UpnpGetIfInfo(
                 } else {
                     ::memset(gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
                     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-                    if (*netaddr != '\0') {
+                    if (*pNetaddr != '\0') {
                         // Strip leading bracket on copying.
-                        ::strncpy(gIF_IPV6_ULA_GUA, netaddr + 1,
+                        ::strncpy(gIF_IPV6_ULA_GUA, pNetaddr + 1,
                                   sizeof(gIF_IPV6_ULA_GUA) - 1);
                         // Strip trailing scope id if any.
                         if (char* chptr{::strchr(gIF_IPV6, '%')})
@@ -371,12 +401,17 @@ int UpnpGetIfInfo(
                 break;
 
             case AF_INET:
-                ::memset(gIF_IPV4, 0, sizeof(gIF_IPV4));
-                ::memset(gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
-                if (*netaddr != '\0') {
-                    ::strncpy(gIF_IPV4, netaddr, sizeof(gIF_IPV4) - 1);
+                if (saObj.is_loopback()) {
+                    ::memset(gIF_LOOPBACK, 0, sizeof(gIF_LOOPBACK));
+                    ::strncpy(gIF_LOOPBACK, pNetaddr, sizeof(gIF_LOOPBACK) - 1);
+                    gIF_LOOPBACK_PREFIX_LENGTH = nadaptObj.bitmask();
+                } else if (*pNetaddr != '\0') {
+                    ::memset(gIF_IPV4, 0, sizeof(gIF_IPV4));
+                    ::memset(gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
+                    ::strncpy(gIF_IPV4, pNetaddr, sizeof(gIF_IPV4) - 1);
                     nadaptObj.socknetmask(saObj);
-                    ::strncpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str(),
+                    const std::string socknetmask(saObj.netaddr());
+                    ::strncpy(gIF_IPV4_NETMASK, socknetmask.c_str(),
                               sizeof(gIF_IPV4_NETMASK) - 1);
                 }
                 break;

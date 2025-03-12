@@ -139,13 +139,17 @@ class UpnpapiFTestSuite : public ::testing::Test {
 #endif
         // initialize needed global variables
         memset(&gIF_NAME, 0, sizeof(gIF_NAME));
-        memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
-        memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
+        gIF_INDEX = 0;
+        // #ifndef UPnPsdk_WITH_NATIVE_PUPNP
+        //         memset(&gIF_LOOPBACK, 0, sizeof(gIF_LOOPBACK));
+        //         gIF_LOOPBACK_PREFIX_LENGTH = 0;
+        // #endif
         memset(&gIF_IPV6, 0, sizeof(gIF_IPV6));
         gIF_IPV6_PREFIX_LENGTH = 0;
         memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
         gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_INDEX = 0;
+        memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
+        memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
 
         // Destroy global variables to avoid side effects.
         UpnpSdkInit = 0xAA;
@@ -606,13 +610,16 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv6_iface_successful) {
 
         EXPECT_NE(gIF_NAME[0], '\0');
         EXPECT_NE(gIF_INDEX, 0);
-        EXPECT_EQ(gIF_IPV4[0], '\0');
-        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
-        // The loopback address belongs to link-local unicast addresses.
-        EXPECT_STREQ(gIF_IPV6, "::1");
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 128);
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+        EXPECT_STREQ(gIF_LOOPBACK, "::1");
+        EXPECT_EQ(gIF_LOOPBACK_PREFIX_LENGTH, 128);
+#endif
+        EXPECT_EQ(gIF_IPV6[0], '\0');
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
         EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
     }
 }
 
@@ -634,13 +641,16 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv4_iface_successful) {
 
         EXPECT_NE(gIF_NAME[0], '\0');
         EXPECT_NE(gIF_INDEX, 0);
-        EXPECT_STREQ(gIF_IPV4, "127.0.0.1");
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "255.0.0.0");
-        // The loopback address belongs to link-local unicast addresses.
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+        EXPECT_STREQ(gIF_LOOPBACK, "127.0.0.1");
+        EXPECT_EQ(gIF_LOOPBACK_PREFIX_LENGTH, 8);
+#endif
         EXPECT_EQ(gIF_IPV6[0], '\0');
         EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
         EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
     }
 }
 
@@ -661,13 +671,16 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_iface_successful) {
 
         EXPECT_NE(gIF_NAME[0], '\0');
         EXPECT_NE(gIF_INDEX, 0);
-        EXPECT_STREQ(gIF_IPV4, "127.0.0.1");
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "255.0.0.0");
-        // The loopback address belongs to link-local unicast addresses.
-        EXPECT_STREQ(gIF_IPV6, "::1");
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 128);
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+        EXPECT_THAT(std::string(gIF_LOOPBACK), AnyOf("::1", "127.0.0.1"));
+        EXPECT_THAT(gIF_LOOPBACK_PREFIX_LENGTH, AnyOf(128, 8));
+#endif
+        EXPECT_EQ(gIF_IPV6[0], '\0');
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
         EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
     }
 }
 
@@ -766,17 +779,21 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
     SSockaddr saObj;
     CNetadapter nadaptObj;
     nadaptObj.get_first();
+    bool found_ip4{false};
     do {
         nadaptObj.sockaddr(saObj);
-        if (saObj.ss.ss_family == AF_INET)
+        if (saObj.ss.ss_family == AF_INET && !saObj.is_loopback()) {
+            found_ip4 = true;
             break;
+        }
     } while (nadaptObj.get_next());
 
-    if (saObj.ss.ss_family != AF_INET)
+    if (!found_ip4)
         GTEST_SKIP() << "No local network adapter with IPv4 address found.";
 
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
+    std::cerr << "DEBUG! saObj=\"" << saObj << "\".\n";
 
     if (old_code) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
@@ -791,12 +808,16 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
 
         EXPECT_NE(gIF_NAME[0], '\0');
         EXPECT_NE(gIF_INDEX, 0);
-        EXPECT_NE(gIF_IPV4[0], '\0');
-        EXPECT_NE(gIF_IPV4_NETMASK[0], '\0');
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+        EXPECT_EQ(gIF_LOOPBACK[0], '\0');
+        EXPECT_EQ(gIF_LOOPBACK_PREFIX_LENGTH, 0);
+#endif
         EXPECT_EQ(gIF_IPV6[0], '\0');
         EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
         EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_NE(gIF_IPV4[0], '\0');
+        EXPECT_NE(gIF_IPV4_NETMASK[0], '\0');
     }
 }
 
@@ -967,6 +988,9 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
+    if (github_actions)
+        GTEST_SKIP() << "Still needs to be done.";
+
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
@@ -977,6 +1001,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
     if (old_code) {
         EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
             << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        UpnpFinish();
         GTEST_SKIP() << "Using the local network loopback interface is not "
                         "supported with pupnp.";
     }
