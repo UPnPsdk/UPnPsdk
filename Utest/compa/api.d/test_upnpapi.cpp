@@ -826,7 +826,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     do {
         nadaptObj.sockaddr(saObj);
         if (saObj.ss.ss_family == AF_INET6 &&
-            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+            (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) ||
+             IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)))
             found_lla = true;
         else if (saObj.ss.ss_family == AF_INET6 &&
                  IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr))
@@ -843,6 +844,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
 
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+    std::cerr << "DEBUG! gIF_IPV6=\"" << gIF_IPV6 << "\", gIF_IPV6_ULA_GUA=\""
+              << gIF_IPV6_ULA_GUA << "\", gIF_IPV4=\"" << gIF_IPV4 << "\".\n";
 
     EXPECT_STREQ(gIF_NAME, adapt_name.c_str());
     EXPECT_EQ(gIF_INDEX, index);
@@ -895,7 +898,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
     do {
         nadaptObj.sockaddr(saObj);
         if (saObj.ss.ss_family == AF_INET6 &&
-            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+            (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) ||
+             IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)))
             found_lla = true;
         else if (saObj.ss.ss_family == AF_INET6 &&
                  IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr))
@@ -912,6 +916,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
 
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+    std::cerr << "DEBUG! gIF_IPV6=\"" << gIF_IPV6 << "\", gIF_IPV6_ULA_GUA=\""
+              << gIF_IPV6_ULA_GUA << "\", gIF_IPV4=\"" << gIF_IPV4 << "\".\n";
 
     EXPECT_STREQ(gIF_NAME, adapt_name.c_str());
     EXPECT_EQ(gIF_INDEX, index);
