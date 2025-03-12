@@ -818,10 +818,10 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     if (index == 0)
         GTEST_SKIP() << "No netadapter found that isn't a loopback interface.";
 
-    // Get ip addresses on the found netadapter.
     bool found_lla{false};
     bool found_gua{false};
     bool found_ip4{false};
+    // Get ip addresses on the found netadapter.
     nadaptObj.find_first(index);
     do {
         nadaptObj.sockaddr(saObj);
@@ -834,6 +834,9 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
         else if (saObj.ss.ss_family == AF_INET)
             found_ip4 = true;
     } while (nadaptObj.get_next() && nadaptObj.index() == index);
+    std::cerr << "DEBUG! index=" << index << ", adapt_name=\"" << adapt_name
+              << "\", found_lla=" << found_lla << ", found_gua=" << found_gua
+              << ", found_ip4=" << found_ip4 << ".\n";
 
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(adapt_name.c_str());
@@ -900,6 +903,9 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
         else if (saObj.ss.ss_family == AF_INET)
             found_ip4 = true;
     } while (nadaptObj.get_next() && nadaptObj.index() == index);
+    std::cerr << "DEBUG! index=" << index << ", adapt_name=\"" << adapt_name
+              << "\", found_lla=" << found_lla << ", found_gua=" << found_gua
+              << ", found_ip4=" << found_ip4 << ".\n";
 
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
