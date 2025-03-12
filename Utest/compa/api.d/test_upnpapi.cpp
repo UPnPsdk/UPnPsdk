@@ -844,8 +844,9 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
 
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
-    std::cerr << "DEBUG! gIF_IPV6=\"" << gIF_IPV6 << "\", gIF_IPV6_ULA_GUA=\""
-              << gIF_IPV6_ULA_GUA << "\", gIF_IPV4=\"" << gIF_IPV4 << "\".\n";
+    std::cerr << "DEBUG! gIF_NAME=\"" << gIF_NAME << "\", gIF_IPV6=\""
+              << gIF_IPV6 << "\", gIF_IPV6_ULA_GUA=\"" << gIF_IPV6_ULA_GUA
+              << "\", gIF_IPV4=\"" << gIF_IPV4 << "\".\n";
 
     EXPECT_STREQ(gIF_NAME, adapt_name.c_str());
     EXPECT_EQ(gIF_INDEX, index);
@@ -916,8 +917,9 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
 
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
-    std::cerr << "DEBUG! gIF_IPV6=\"" << gIF_IPV6 << "\", gIF_IPV6_ULA_GUA=\""
-              << gIF_IPV6_ULA_GUA << "\", gIF_IPV4=\"" << gIF_IPV4 << "\".\n";
+    std::cerr << "DEBUG! gIF_NAME=\"" << gIF_NAME << "\", gIF_IPV6=\""
+              << gIF_IPV6 << "\", gIF_IPV6_ULA_GUA=\"" << gIF_IPV6_ULA_GUA
+              << "\", gIF_IPV4=\"" << gIF_IPV4 << "\".\n";
 
     EXPECT_STREQ(gIF_NAME, adapt_name.c_str());
     EXPECT_EQ(gIF_INDEX, index);
