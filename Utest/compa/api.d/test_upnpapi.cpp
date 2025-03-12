@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-11
+// Redistribution only with this Copyright remark. Last modified: 2025-03-12
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -25,24 +25,18 @@
 
 namespace utest {
 
-using ::UPnPsdk::CAddrinfo;
+using ::UPnPsdk::CNetadapter;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::SSockaddr;
 
 using ::testing::_;
-using ::testing::A;
 using ::testing::AnyOf;
-using ::testing::ExitedWithCode;
-using ::testing::Not;
 using ::testing::NotNull;
-using ::testing::Pointee;
 using ::testing::Return;
 using ::testing::SetErrnoAndReturn;
 using ::testing::StartsWith;
 using ::testing::StrictMock;
-
-using ::UPnPsdk::CNetadapter;
-using ::UPnPsdk::SSockaddr;
 
 
 // The UpnpInit2() call stack to initialize the pupnp library
@@ -809,76 +803,103 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     SSockaddr saObj;
     CNetadapter nadaptObj;
+    unsigned int index{0};
+    std::string adapt_name;
+    // Find last usable netadapter.
     nadaptObj.get_first();
-    unsigned int index{};
-    // Get last local netadapter index.
     do {
         nadaptObj.sockaddr(saObj);
-        if (!saObj.is_loopback())
+        if (!saObj.is_loopback()) {
             index = nadaptObj.index();
+            adapt_name = nadaptObj.name();
+        }
     } while (nadaptObj.get_next());
 
     if (index == 0)
         GTEST_SKIP() << "No netadapter found that isn't a loopback interface.";
 
-    // address last local netadapter.
+    // Get ip addresses on the found netadapter.
+    bool found_lla{false};
+    bool found_gua{false};
+    bool found_ip4{false};
     nadaptObj.find_first(index);
-    nadaptObj.sockaddr(saObj);
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (saObj.ss.ss_family == AF_INET6 &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+            found_lla = true;
+        else if (saObj.ss.ss_family == AF_INET6 &&
+                 IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr))
+            found_gua = true;
+        else if (saObj.ss.ss_family == AF_INET)
+            found_ip4 = true;
+    } while (nadaptObj.get_next() && nadaptObj.index() == index);
 
     // Test Unit
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nadaptObj.name().c_str());
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(adapt_name.c_str());
 
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
-    SSockaddr nmskObj;
-    nadaptObj.socknetmask(nmskObj);
-    EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
-    EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-    if (saObj.ss.ss_family == AF_INET) {
-        EXPECT_STREQ(gIF_IPV4, saObj.netaddr().c_str());
-        EXPECT_STREQ(gIF_IPV4_NETMASK, nmskObj.netaddr().c_str());
-        EXPECT_EQ(gIF_IPV6[0], '\0');
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
-        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-    } else if (saObj.ss.ss_family == AF_INET6 &&
-               IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
-        EXPECT_EQ(gIF_IPV4[0], '\0');
-        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
-        const std::string lla{'[' + std::string(gIF_IPV6) + ']'};
-        EXPECT_EQ(lla, saObj.netaddr());
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
-        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-    } else { // remaining must have a GUA and must also always have an LLA.
-        EXPECT_EQ(gIF_IPV4[0], '\0');
-        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+    EXPECT_STREQ(gIF_NAME, adapt_name.c_str());
+    EXPECT_EQ(gIF_INDEX, index);
+    if (found_lla) {
         EXPECT_NE(gIF_IPV6[0], '\0');
         EXPECT_NE(gIF_IPV6_PREFIX_LENGTH, 0);
-        const std::string gua('[' + std::string(gIF_IPV6_ULA_GUA) + ']');
-        EXPECT_EQ(gua, saObj.netaddr());
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
+    } else {
+        EXPECT_EQ(gIF_IPV6[0], '\0');
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+    }
+    if (found_gua) {
+        EXPECT_NE(gIF_IPV6_ULA_GUA[0], '\0');
+        EXPECT_NE(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    }
+    if (found_ip4) {
+        EXPECT_NE(gIF_IPV4[0], '\0');
+        EXPECT_NE(gIF_IPV4_NETMASK[0], '\0');
+    } else {
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
     }
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
     SSockaddr saObj;
     CNetadapter nadaptObj;
+    unsigned int index{0};
+    std::string adapt_name;
     // Get first usable local netadapter. This should be used as best choise
     // from the operating system.
-    bool found{false};
     nadaptObj.get_first();
     do {
         nadaptObj.sockaddr(saObj);
         if (!saObj.is_loopback()) {
-            found = true;
+            index = nadaptObj.index();
+            adapt_name = nadaptObj.name();
             break;
         }
     } while (nadaptObj.get_next());
 
-    if (!found)
+    if (index == 0)
         GTEST_SKIP() << "No netadapter found that isn't a loopback interface.";
+
+    bool found_lla{false};
+    bool found_gua{false};
+    bool found_ip4{false};
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (saObj.ss.ss_family == AF_INET6 &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+            found_lla = true;
+        else if (saObj.ss.ss_family == AF_INET6 &&
+                 IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr))
+            found_gua = true;
+        else if (saObj.ss.ss_family == AF_INET)
+            found_ip4 = true;
+    } while (nadaptObj.get_next() && nadaptObj.index() == index);
 
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
@@ -886,33 +907,28 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
-    SSockaddr nmskObj;
-    nadaptObj.socknetmask(nmskObj);
-    EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
-    EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-    if (saObj.ss.ss_family == AF_INET) {
-        EXPECT_STREQ(gIF_IPV4, saObj.netaddr().c_str());
-        EXPECT_STREQ(gIF_IPV4_NETMASK, nmskObj.netaddr().c_str());
-        EXPECT_EQ(gIF_IPV6[0], '\0');
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
-        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-    } else if (saObj.ss.ss_family == AF_INET6 &&
-               IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
-        EXPECT_EQ(gIF_IPV4[0], '\0');
-        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
-        EXPECT_STREQ(gIF_IPV6, saObj.netaddr().c_str());
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
-        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-    } else { // remaining must be a GUA and must also always have an LLA.
-        EXPECT_EQ(gIF_IPV4[0], '\0');
-        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+    EXPECT_STREQ(gIF_NAME, adapt_name.c_str());
+    EXPECT_EQ(gIF_INDEX, index);
+    if (found_lla) {
         EXPECT_NE(gIF_IPV6[0], '\0');
         EXPECT_NE(gIF_IPV6_PREFIX_LENGTH, 0);
-        const std::string gua{"[" + std::string(gIF_IPV6_ULA_GUA) + "]"};
-        EXPECT_EQ(gua, saObj.netaddr());
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
+    } else {
+        EXPECT_EQ(gIF_IPV6[0], '\0');
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+    }
+    if (found_gua) {
+        EXPECT_NE(gIF_IPV6_ULA_GUA[0], '\0');
+        EXPECT_NE(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    }
+    if (found_ip4) {
+        EXPECT_NE(gIF_IPV4[0], '\0');
+        EXPECT_NE(gIF_IPV4_NETMASK[0], '\0');
+    } else {
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
     }
 }
 
