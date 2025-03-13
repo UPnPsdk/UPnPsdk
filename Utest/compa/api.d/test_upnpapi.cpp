@@ -900,7 +900,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
         EXPECT_EQ(gIF_IPV4[0], '\0');
         EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
     }
-    GTEST_FAIL() << "DEBUG!";
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
