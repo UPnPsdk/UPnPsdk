@@ -833,6 +833,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
         if (!saObj.is_loopback()) {
             index = nadaptObj.index();
             adapt_name = nadaptObj.name();
+            std::cerr << "DEBUG! index=" << index << ", address=\"" << saObj
+                      << "\".\n";
         }
     } while (nadaptObj.get_next());
 
@@ -846,8 +848,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     nadaptObj.find_first(index);
     do {
         nadaptObj.sockaddr(saObj);
-        std::cerr << "DEBUG! current selected ip address=\"" << saObj
-                  << "\".\n";
         if (saObj.ss.ss_family == AF_INET6 &&
             (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) ||
              IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)))
