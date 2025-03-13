@@ -319,6 +319,7 @@ int UpnpGetIfInfo(
     const char* a_IFace = nullptr) {
     std::string_view a_interface{a_IFace == nullptr ? "" : a_IFace};
     TRACE("Executing UpnpGetIfInfo()")
+    std::cerr << "DEBUG! Tracepoint20\n";
 
     UPnPsdk::CNetadapter nadaptObj;
     try {
@@ -340,6 +341,7 @@ int UpnpGetIfInfo(
         memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
 
         UPnPsdk::SSockaddr saObj;
+        std::cerr << "DEBUG! Tracepoint21\n";
         do {
             // Get gIF_NAME and gIF_INDEX
             ::memset(gIF_NAME, 0, sizeof(gIF_NAME));
@@ -353,7 +355,7 @@ int UpnpGetIfInfo(
             switch (saObj.ss.ss_family) {
             case AF_INET6:
                 if (IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
-                    std::cerr << "DEBUG! Tracepoint20\n";
+                    std::cerr << "DEBUG! Tracepoint22\n";
                     ::memset(gIF_LOOPBACK, 0, sizeof(gIF_LOOPBACK));
                     gIF_LOOPBACK_PREFIX_LENGTH = 0;
                     if (*pNetaddr != '\0') {
@@ -369,11 +371,10 @@ int UpnpGetIfInfo(
                         gIF_LOOPBACK_PREFIX_LENGTH = nadaptObj.bitmask();
                     }
                 } else if (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
-                    std::cerr << "DEBUG! Tracepoint21\n";
+                    std::cerr << "DEBUG! Tracepoint23\n";
                     ::memset(gIF_IPV6, 0, sizeof(gIF_IPV6));
                     gIF_IPV6_PREFIX_LENGTH = 0;
                     if (*pNetaddr != '\0') {
-                        std::cerr << "DEBUG! Tracepoint21a\n";
                         // Strip leading bracket on copying.
                         ::strncpy(gIF_IPV6, pNetaddr + 1, sizeof(gIF_IPV6) - 1);
                         // Strip trailing scope id if any.
@@ -385,7 +386,7 @@ int UpnpGetIfInfo(
                         gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
                     }
                 } else {
-                    std::cerr << "DEBUG! Tracepoint22\n";
+                    std::cerr << "DEBUG! Tracepoint24\n";
                     ::memset(gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
                     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
                     if (*pNetaddr != '\0') {
@@ -404,6 +405,7 @@ int UpnpGetIfInfo(
                 break;
 
             case AF_INET:
+                std::cerr << "DEBUG! Tracepoint25\n";
                 if (saObj.is_loopback()) {
                     ::memset(gIF_LOOPBACK, 0, sizeof(gIF_LOOPBACK));
                     ::strncpy(gIF_LOOPBACK, pNetaddr, sizeof(gIF_LOOPBACK) - 1);
