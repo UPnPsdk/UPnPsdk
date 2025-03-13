@@ -373,6 +373,7 @@ int UpnpGetIfInfo(
                     ::memset(gIF_IPV6, 0, sizeof(gIF_IPV6));
                     gIF_IPV6_PREFIX_LENGTH = 0;
                     if (*pNetaddr != '\0') {
+                        std::cerr << "DEBUG! Tracepoint21a\n";
                         // Strip leading bracket on copying.
                         ::strncpy(gIF_IPV6, pNetaddr + 1, sizeof(gIF_IPV6) - 1);
                         // Strip trailing scope id if any.
