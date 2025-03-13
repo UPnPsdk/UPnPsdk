@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-09
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-13
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -835,7 +835,7 @@ int get_port(
  * for incoming connections.
  *
  * This is part of starting the miniserver and only available with the webserver
- * compiled in. Initialized resources here are freed with StopMiniServer(),
+ * compiled in.
  *
  * \returns
  *  On success: UPNP_E_SUCCESS\n
@@ -876,7 +876,8 @@ int get_miniserver_sockets(
     if (out->pSockLlaObj != nullptr && gIF_IPV6[0] != '\0') {
         try {
             UPnPsdk::SSockaddr saObj;
-            saObj = '[' + std::string(gIF_IPV6) +
+            saObj = '[' + std::string(gIF_IPV6) + '%' +
+                    std::to_string(gIF_INDEX) +
                     "]:" + std::to_string(listen_port6);
             out->pSockLlaObj->bind(SOCK_STREAM, &saObj, AI_PASSIVE);
             out->pSockLlaObj->listen();

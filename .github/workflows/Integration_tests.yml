@@ -2,9 +2,9 @@ name: Integration tests
 
 on:
   push:
-    branches: [ dev, main ]
+    branches: [ dev, dev2, main ]
   pull_request:
-    branches: [ dev, main ]
+    branches: [ main ]
 
 jobs:
   # Job: Check clang format

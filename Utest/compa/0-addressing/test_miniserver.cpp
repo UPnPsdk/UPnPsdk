@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-09
+// Redistribution only with this Copyright remark. Last modified: 2025-03-13
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -16,6 +16,7 @@
 #include <Pupnp/upnp/src/genlib/miniserver/miniserver.cpp>
 #else
 // #include <Compa/src/api/upnpapi.cpp> // only for StartMiniServer_real
+#include <Compa/src/api/upnpapi.cpp>
 #include <Compa/src/genlib/miniserver/miniserver.cpp>
 #endif
 
@@ -139,6 +140,7 @@ class StartMiniServerFTestSuite : public ::testing::Test {
             logObj.enable(UPNP_ALL);
 
         // Clean up needed global environment
+        gIF_INDEX = 0u;
         memset(&gIF_NAME, 0, sizeof(gIF_NAME));
         memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
         memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
@@ -146,7 +148,6 @@ class StartMiniServerFTestSuite : public ::testing::Test {
         gIF_IPV6_PREFIX_LENGTH = 0;
         memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
         gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_INDEX = unsigned(-1);
         memset(&errno, 0xAA, sizeof(errno));
         gMServState = MSERV_IDLE;
     }
@@ -386,18 +387,13 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
             break;
         }
     } while (nadaptObj.get_next());
-    ASSERT_TRUE(found_lla);
+    if (!found_lla)
+        GTEST_SKIP()
+            << "No local network adapter with link local address found.";
 
     // Set global variables belonging to the local inet address.
-    gIF_INDEX = nadaptObj.index();
-    // Copy with removing surrounding brackets. Netadapter variables are never
-    // empty because we have found a valid item.
-    std::strcpy(gIF_NAME, nadaptObj.name().c_str() + 1);
-    gIF_NAME[std::strlen(gIF_NAME) - 1] = '\0';
-    std::strcpy(gIF_IPV6, saObj.netaddr().c_str() + 1);
-    gIF_IPV6[std::strlen(gIF_IPV6) - 1] = '\0';
-    gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
-    LOCAL_PORT_V6 = saObj.get_port();
+    // This will fail on old_code but ignored here because it is handled below.
+    ::UpnpGetIfInfo(saObj.netaddr().c_str());
 
     // We need the threadpool to RunMiniServer().
     CThreadPoolInit tp(gMiniServerThreadPool);
