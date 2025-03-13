@@ -873,8 +873,10 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
 
     EXPECT_STREQ(gIF_NAME, adapt_name.c_str());
     EXPECT_EQ(gIF_INDEX, index);
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
     EXPECT_EQ(gIF_LOOPBACK[0], '\0');
     EXPECT_EQ(gIF_LOOPBACK_PREFIX_LENGTH, 0);
+#endif
     if (found_lla) {
         EXPECT_NE(gIF_IPV6[0], '\0');
         EXPECT_NE(gIF_IPV6_PREFIX_LENGTH, 0);
