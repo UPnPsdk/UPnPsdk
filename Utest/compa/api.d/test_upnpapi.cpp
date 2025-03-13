@@ -833,7 +833,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
         if (!saObj.is_loopback()) {
             index = nadaptObj.index();
             adapt_name = nadaptObj.name();
-            std::cerr << "DEBUG! index=" << index << ", address=\"" << saObj
+            std::cerr << "DEBUG! get index=" << index << ", address=\"" << saObj
                       << "\".\n";
         }
     } while (nadaptObj.get_next());
@@ -848,6 +848,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     nadaptObj.find_first(index);
     do {
         nadaptObj.sockaddr(saObj);
+        std::cerr << "DEBUG! find index=" << nadaptObj.index() << ", address=\""
+                  << saObj << "\".\n";
         if (saObj.ss.ss_family == AF_INET6 &&
             (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) ||
              IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)))
@@ -857,7 +859,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
             found_gua = true;
         else if (saObj.ss.ss_family == AF_INET)
             found_ip4 = true;
-    } while (nadaptObj.get_next() && nadaptObj.index() == index);
+    } while (nadaptObj.find_next());
     std::cerr << "DEBUG! index=" << index << ", adapt_name=\"" << adapt_name
               << "\", found_lla=" << found_lla << ", found_gua=" << found_gua
               << ", found_ip4=" << found_ip4 << ".\n";
