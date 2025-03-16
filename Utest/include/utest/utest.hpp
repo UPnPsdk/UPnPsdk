@@ -1,7 +1,7 @@
-#ifndef UPNPLIB_UTEST_HPP
-#define UPNPLIB_UTEST_HPP
+#ifndef UPnPsdk_UTEST_HPP
+#define UPnPsdk_UTEST_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-18
+// Redistribution only with this Copyright remark. Last modified: 2025-03-16
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port.hpp>
@@ -71,7 +71,7 @@ const bool github_actions{static_cast<bool>(std::getenv("GITHUB_ACTIONS"))};
 //              Read 0 byte from pipe.
 // clang-format on
 
-class UPNPLIB_API CaptureStdOutErr {
+class UPnPsdk_API CaptureStdOutErr {
   public:
     CaptureStdOutErr(int a_fileno = UPnPsdk::log_fileno);
     virtual ~CaptureStdOutErr();
@@ -103,13 +103,13 @@ class UPNPLIB_API CaptureStdOutErr {
 // function to get the modification time of a file
 // -----------------------------------------------
 //     using ::utest::file_mod_time;
-UPNPLIB_API time_t file_mod_time(const std::string& a_pathname);
+UPnPsdk_API time_t file_mod_time(const std::string& a_pathname);
 
 
 // function to test if file descriptors are closed
 // -----------------------------------------------
 //     using ::utest::check_closed_fds;
-UPNPLIB_API void check_closed_fds(int a_from_fd, int a_to_fd);
+UPnPsdk_API void check_closed_fds(int a_from_fd, int a_to_fd);
 
 
 // ###############################
@@ -219,6 +219,11 @@ ACTION_TEMPLATE(StructCpyToArg, HAS_1_TEMPLATE_PARAMS(int, k),
         std::memcpy(arg, src, len);
 }
 
+ACTION_TEMPLATE(SaddrCpyToArg, HAS_1_TEMPLATE_PARAMS(int, k),
+                AND_1_VALUE_PARAMS(src)) {
+    std::get<k>(args) = src;
+}
+
 ACTION_TEMPLATE(StructSetToArg, HAS_1_TEMPLATE_PARAMS(int, k),
                 AND_1_VALUE_PARAMS(val)) {
     auto arg = std::get<k>(args);
@@ -228,7 +233,7 @@ ACTION_TEMPLATE(StructSetToArg, HAS_1_TEMPLATE_PARAMS(int, k),
 
 // Set Error portable means set 'errno' on Linux, 'WSASetLastError()' on win32
 // ---------------------------------------------------------------------------
-// 'errid' is portable mapped in upnplib socket.hpp.
+// 'errid' is portable mapped in UPnPsdk socket.hpp.
 ACTION_P(SetErrPtblAndReturn, errid, ret) {
 #ifdef _MSC_VER
     ::WSASetLastError(errid);
@@ -240,4 +245,4 @@ ACTION_P(SetErrPtblAndReturn, errid, ret) {
 
 } // namespace utest
 
-#endif // UPNPLIB_UTEST_HPP
+#endif // UPnPsdk_UTEST_HPP

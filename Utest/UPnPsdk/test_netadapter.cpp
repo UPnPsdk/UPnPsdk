@@ -12,10 +12,13 @@
 
 namespace utest {
 
+using ::testing::_;
 using ::testing::AnyOf;
 using ::testing::HasSubstr;
+using ::testing::Return;
 
 using ::UPnPsdk::bitmask_to_netmask;
+using ::UPnPsdk::CNetadapter;
 using ::UPnPsdk::netmask_to_bitmask;
 using ::UPnPsdk::SSockaddr;
 
@@ -35,7 +38,7 @@ TEST(NetadapterTestSuite, get_adapters_info_successful) {
     char nmskStr[INET6_ADDRSTRLEN];
     char servStr[NI_MAXSERV];
 
-    UPnPsdk::CNetadapter nadObj;
+    CNetadapter nadObj;
     ASSERT_NO_THROW(nadObj.get_first());
 
     do {
@@ -53,18 +56,11 @@ TEST(NetadapterTestSuite, get_adapters_info_successful) {
                                 sizeof(nmskStr), nullptr, 0, NI_NUMERICHOST),
                   0);
         ASSERT_NE(nadObj.index(), 0);
-        if (saddrObj.netaddr() == "[::1]") {
-            ASSERT_GT(nadObj.index(), 0)
-                << "index should be greater 0 for \"[::1]\"";
+        if (saddrObj.netaddr() == "[::1]")
             EXPECT_EQ(nadObj.bitmask(), 128);
-        }
-        // TODO: Loopback addresses are not limited to the 127.0.0.0/8 block.
         if (saddrObj.sin.sin_family == AF_INET &&
-            ntohl(saddrObj.sin.sin_addr.s_addr) == 2130706433) { // "127.0.0.1"
-            ASSERT_GT(nadObj.index(), 0)
-                << "index should be greater 0 for \"127.0.0.1\"";
+            ntohl(saddrObj.sin.sin_addr.s_addr) == 2130706433) // "127.0.0.1"
             EXPECT_EQ(nadObj.bitmask(), 8);
-        }
 #if 0
         // To show resolved iface names set first NI_NUMERICHOST above to 0.
         std::cout << "DEBUG: \"" << nadObj.name() << "\" address = " << addrStr
@@ -245,7 +241,7 @@ TEST(NetadapterTestSuite, af_inet_loopback_range) {
 #endif
 
 TEST(NetadapterTestSuite, find_first_adapters_info) {
-    UPnPsdk::CNetadapter nadaptObj;
+    CNetadapter nadaptObj;
     ASSERT_NO_THROW(nadaptObj.get_first());
 
     // I do not expect index 1 to be the loopback adapter. It can be any ip
@@ -259,19 +255,8 @@ TEST(NetadapterTestSuite, find_first_adapters_info) {
     nadaptObj.socknetmask(saddrObj);
     EXPECT_NE(saddrObj.netaddr(), "");
 
-    EXPECT_TRUE(nadaptObj.find_first("loopback"));
-    EXPECT_NE(nadaptObj.index(), 0);
-    EXPECT_NE(nadaptObj.name(), "");
-    EXPECT_NE(nadaptObj.bitmask(), 0);
-    nadaptObj.sockaddr(saddrObj);
-    EXPECT_THAT(saddrObj.netaddrp(), AnyOf("[::1]:0", "127.0.0.1:0"));
-    nadaptObj.socknetmask(saddrObj);
-    EXPECT_THAT(
-        saddrObj.netaddr(),
-        AnyOf("[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", "255.0.0.0"));
-
     ASSERT_TRUE(nadaptObj.find_first("::1"));
-    EXPECT_EQ(nadaptObj.index(), 1);
+    EXPECT_NE(nadaptObj.index(), 0);
     EXPECT_EQ(nadaptObj.bitmask(), 128);
     nadaptObj.socknetmask(saddrObj);
     EXPECT_EQ(saddrObj.netaddr(), "[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
@@ -312,30 +297,36 @@ TEST(NetadapterTestSuite, find_first_adapters_info) {
 }
 
 TEST(NetadapterTestSuite, find_loopback_adapter_info) {
-    UPnPsdk::CNetadapter nadaptObj;
+    CNetadapter nadaptObj;
     ASSERT_NO_THROW(nadaptObj.get_first());
+    unsigned int index{0};
+    std::string name;
+
 
     EXPECT_TRUE(nadaptObj.find_first("loopback"));
-    EXPECT_NE(nadaptObj.index(), 0);
-    EXPECT_NE(nadaptObj.name(), "");
+    index = nadaptObj.index();
+    ASSERT_NE(index, 0);
+    name = nadaptObj.name();
+    ASSERT_FALSE(name.empty());
     EXPECT_NE(nadaptObj.bitmask(), 0);
     nadaptObj.sockaddr(saddrObj);
-    EXPECT_THAT(saddrObj.netaddrp(), AnyOf("[::1]:0", "127.0.0.1:0"));
+    EXPECT_TRUE(saddrObj.is_loopback());
     nadaptObj.socknetmask(saddrObj);
     EXPECT_THAT(
         saddrObj.netaddr(),
         AnyOf("[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", "255.0.0.0"));
 
-    EXPECT_TRUE(nadaptObj.find_next());
-    EXPECT_NE(nadaptObj.index(), 0);
-    EXPECT_NE(nadaptObj.name(), "");
-    EXPECT_NE(nadaptObj.bitmask(), 0);
-    nadaptObj.sockaddr(saddrObj);
-    EXPECT_THAT(saddrObj.netaddrp(), AnyOf("[::1]:0", "127.0.0.1:0"));
-    nadaptObj.socknetmask(saddrObj);
-    EXPECT_THAT(
-        saddrObj.netaddr(),
-        AnyOf("[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", "255.0.0.0"));
+    if (nadaptObj.find_next()) {
+        EXPECT_EQ(nadaptObj.index(), index);
+        EXPECT_EQ(nadaptObj.name(), name);
+        EXPECT_NE(nadaptObj.bitmask(), 0);
+        nadaptObj.sockaddr(saddrObj);
+        EXPECT_THAT(saddrObj.netaddrp(), AnyOf("[::1]:0", "127.0.0.1:0"));
+        nadaptObj.socknetmask(saddrObj);
+        EXPECT_THAT(
+            saddrObj.netaddr(),
+            AnyOf("[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", "255.0.0.0"));
+    }
 }
 
 class CNetadapterMock : public UPnPsdk::INetadapter {
@@ -346,20 +337,108 @@ class CNetadapterMock : public UPnPsdk::INetadapter {
     MOCK_METHOD(bool, get_next, (), (override));
     MOCK_METHOD(unsigned int, index, (), (const, override));
     MOCK_METHOD(std::string, name, (), (const, override));
-    MOCK_METHOD(void, sockaddr, (UPnPsdk::SSockaddr&), (const, override));
-    MOCK_METHOD(void, socknetmask, (UPnPsdk::SSockaddr&), (const, override));
+    MOCK_METHOD(void, sockaddr, (SSockaddr&), (const, override));
+    MOCK_METHOD(void, socknetmask, (SSockaddr&), (const, override));
     MOCK_METHOD(unsigned int, bitmask, (), (const, override));
     MOCK_METHOD(void, reset, (), (noexcept, override));
 };
 
 TEST(NetadapterTestSuite, mock_netadapter_successful) {
     // Create mocking di-service object and get the smart pointer to it.
-    auto na_mockPtr = std::make_shared<CNetadapterMock>();
+    auto nadap_mockPtr = std::make_shared<CNetadapterMock>();
+    SSockaddr sa_mockObj;
+    sa_mockObj = "[fe80::2]:50122";
+    SSockaddr nm_mockObj;
+    nm_mockObj = "[ffff:ffff:ffff:ffff::]";
 
-    EXPECT_CALL(*na_mockPtr, get_first()).Times(1);
+    EXPECT_CALL(*nadap_mockPtr, get_first()).Times(1);
+    EXPECT_CALL(*nadap_mockPtr, index()).WillOnce(Return(2));
+    EXPECT_CALL(*nadap_mockPtr, name()).WillOnce(Return("eth0"));
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        .WillOnce(SaddrCpyToArg<0>(sa_mockObj));
+    EXPECT_CALL(*nadap_mockPtr, socknetmask(_))
+        .WillOnce(SaddrCpyToArg<0>(nm_mockObj));
+    EXPECT_CALL(*nadap_mockPtr, bitmask()).WillOnce(Return(64));
+    EXPECT_CALL(*nadap_mockPtr, reset()).Times(1);
 
-    UPnPsdk::CNetadapter naObj(na_mockPtr);
-    naObj.get_first();
+    // Test Unit
+    CNetadapter nadapObj(nadap_mockPtr);
+    nadapObj.get_first();
+
+    EXPECT_EQ(nadapObj.index(), 2);
+    EXPECT_EQ(nadapObj.name(), "eth0");
+    saddrObj = "";
+    nadapObj.sockaddr(saddrObj);
+    EXPECT_TRUE(saddrObj == sa_mockObj);
+    nadapObj.socknetmask(saddrObj);
+    EXPECT_TRUE(saddrObj == nm_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
+    nadapObj.reset();
+}
+
+TEST(NetadapterTestSuite, mock_netadapter_get_address_sequence) {
+    // Create mocking di-service object and get the smart pointer to it.
+    auto nadap_mockPtr = std::make_shared<CNetadapterMock>();
+    SSockaddr sa1_mockObj;
+    sa1_mockObj = "[fe80::3]:50123";
+    SSockaddr sa2_mockObj;
+    sa2_mockObj = "[2001:db8::4]:50124";
+    SSockaddr sa3_mockObj;
+    sa3_mockObj = "192.168.74.224:50125";
+
+    EXPECT_CALL(*nadap_mockPtr, get_first()).Times(1);
+
+    EXPECT_CALL(*nadap_mockPtr, index())
+        .WillOnce(Return(2))
+        .WillOnce(Return(3))
+        .WillOnce(Return(2));
+
+    EXPECT_CALL(*nadap_mockPtr, name())
+        .WillOnce(Return("eth0"))
+        .WillOnce(Return("eth1"))
+        .WillOnce(Return("eth0"));
+
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        .WillOnce(SaddrCpyToArg<0>(sa1_mockObj))
+        .WillOnce(SaddrCpyToArg<0>(sa2_mockObj))
+        .WillOnce(SaddrCpyToArg<0>(sa3_mockObj));
+
+    EXPECT_CALL(*nadap_mockPtr, bitmask())
+        .WillOnce(Return(64))
+        .WillOnce(Return(64))
+        .WillOnce(Return(24));
+
+    EXPECT_CALL(*nadap_mockPtr, reset()).Times(0);
+
+    EXPECT_CALL(*nadap_mockPtr, get_next())
+        .WillOnce(Return(true))
+        .WillOnce(Return(true))
+        .WillOnce(Return(false));
+
+    // Test Unit
+    CNetadapter nadapObj(nadap_mockPtr);
+    ASSERT_NO_THROW(nadapObj.get_first());
+
+    EXPECT_EQ(nadapObj.index(), 2);
+    EXPECT_EQ(nadapObj.name(), "eth0");
+    nadapObj.sockaddr(saddrObj);
+    EXPECT_TRUE(saddrObj == sa1_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
+    ASSERT_TRUE(nadapObj.get_next());
+
+    EXPECT_EQ(nadapObj.index(), 3);
+    EXPECT_EQ(nadapObj.name(), "eth1");
+    nadapObj.sockaddr(saddrObj);
+    EXPECT_TRUE(saddrObj == sa2_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
+    ASSERT_TRUE(nadapObj.get_next());
+
+    EXPECT_EQ(nadapObj.index(), 2);
+    EXPECT_EQ(nadapObj.name(), "eth0");
+    nadapObj.sockaddr(saddrObj);
+    EXPECT_TRUE(saddrObj == sa3_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 24);
+    ASSERT_FALSE(nadapObj.get_next());
 }
 
 } // namespace utest

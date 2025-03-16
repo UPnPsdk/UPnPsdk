@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-16
+// Redistribution only with this Copyright remark. Last modified: 2025-03-17
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -228,6 +228,7 @@ unsigned int CNetadapter::bitmask() const {
 
 void CNetadapter::reset() noexcept {
     m_find_index = 0;
+    m_state = Find::finish;
     m_na_platformPtr->reset();
 }
 
@@ -235,16 +236,18 @@ void CNetadapter::reset() noexcept {
 bool CNetadapter::find_first(std::string_view a_name_or_addr) {
     TRACE2(this, " Executing CNetadapter::find_first()")
 
-    // By default look for a valid ip address.
-    // ---------------------------------------
+    // By default look for a valid ip address from a local network adapter.
+    // --------------------------------------------------------------------
     // The operating system presents one as best choise.
     if (a_name_or_addr.empty()) {
         SSockaddr sa_nadObj;
         this->reset(); // noexcept
         do {
             this->sockaddr(sa_nadObj);
-            if (!sa_nadObj.is_loopback())
+            if (!sa_nadObj.is_loopback()) {
+                m_state = Find::best;
                 return true;
+            }
         } while (this->get_next());
 
         // No usable address found, nothing more to do.
@@ -255,11 +258,11 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
     // ------------------------------
     if (a_name_or_addr == "loopback") {
         SSockaddr sa_nadObj;
-        this->reset();
+        this->reset(); // noexcept
         do {
             this->sockaddr(sa_nadObj);
             if (sa_nadObj.is_loopback()) {
-                m_find_index = this->index();
+                m_state = Find::loopback;
                 return true;
             }
         } while (this->get_next());
@@ -270,32 +273,36 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
 
     // Look for a local network adapter name.
     // --------------------------------------
-    this->reset();
+    this->reset(); // noexcept
     do {
         if (this->name() == a_name_or_addr) {
             m_find_index = this->index();
+            m_state = Find::index;
             return true;
         }
     } while (this->get_next());
 
     // No name found, look for the ip address of a local network adapter.
     // ------------------------------------------------------------------
-    // Try to translate input argument to a socket address.
-    CAddrinfo ainfoObj(a_name_or_addr, AI_NUMERICHOST, 0);
-    if (!ainfoObj.get_first())
+    // Last attempt to get a socket address from the input argument.
+    SSockaddr sa_inputObj;
+    try {
+        // Throws exception if invalid.
+        sa_inputObj = std::string(a_name_or_addr);
+    } catch (std::exception&) {
         return false;
-
-    // Valid ip address string given as input argument. Get its socket address.
-    SSockaddr sa_inputObj{};
-    ainfoObj.sockaddr(sa_inputObj);
+    }
 
     // Parse network adapter list for the given input ip address.
     SSockaddr sa_nadObj;
     this->reset();
     do {
         this->sockaddr(sa_nadObj);
-        if (sa_nadObj == sa_inputObj)
+        if (sa_nadObj == sa_inputObj) {
+            // With a unique ip address given, there cannot be another.
+            m_state = Find::finish;
             return true;
+        }
     } while (this->get_next());
 
     return false;
@@ -316,16 +323,34 @@ bool CNetadapter::find_first(unsigned int a_index) {
 }
 
 bool CNetadapter::find_next() {
-    TRACE2(this, " Executing CNetadapter::find_next() (on netadapter index " +
-                     std::to_string(m_find_index) + ")")
-    if (m_find_index == 0)
+    TRACE2(this, " Executing CNetadapter::find_next()")
+    switch (m_state) {
+    case Find::finish:
         return false;
 
-    while (this->get_next()) {
-        if (this->index() == m_find_index)
-            return true;
-    }
-    m_find_index = 0;
+    case Find::best:
+    case Find::loopback: {
+        SSockaddr sa_nadapObj;
+        while (this->get_next()) {
+            this->sockaddr(sa_nadapObj);
+            if (sa_nadapObj.is_loopback()) {
+                if (m_state == Find::loopback)
+                    return true;
+            } else if (m_state == Find::best) {
+                return true;
+            }
+        }
+    } break;
+
+    case Find::index: {
+        while (this->get_next()) {
+            if (this->index() == m_find_index)
+                return true;
+        }
+    } break;
+    } // switch
+
+    m_state = Find::finish;
     return false;
 }
 

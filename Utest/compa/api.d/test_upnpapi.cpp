@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-06
+// Redistribution only with this Copyright remark. Last modified: 2025-03-17
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -127,6 +127,9 @@ clang-format on
 
 // upnpapi TestSuites
 // ==================
+// General storage for temporary socket address evaluation
+SSockaddr saObj;
+
 class UpnpapiFTestSuite : public ::testing::Test {
   protected:
 // Old code UpnpInitLog() does not understand the object logObj and crashes
@@ -662,24 +665,33 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_iface_successful) {
 
     } else {
 
-        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
             << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
-        EXPECT_STRNE(gIF_NAME, "");
+        EXPECT_NE(gIF_NAME[0], '\0');
         EXPECT_NE(gIF_INDEX, 0);
-        EXPECT_STREQ(gIF_IPV4, "127.0.0.1");
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "255.0.0.0");
+        if (gIF_IPV4[0] != '\0') {
+            EXPECT_STREQ(gIF_IPV4, "127.0.0.1");
+            EXPECT_STREQ(gIF_IPV4_NETMASK, "255.0.0.0");
+        } else {
+            EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+            ASSERT_STREQ(gIF_IPV6, "::1");
+        }
         // The loopback address belongs to link-local unicast addresses.
-        EXPECT_THAT(gIF_IPV6, AnyOf(StartsWith("::1"), StartsWith("fe80::")));
-        EXPECT_THAT(gIF_IPV6_PREFIX_LENGTH, AnyOf(128, 64));
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        if (gIF_IPV6[0] != '\0') {
+            EXPECT_STREQ(gIF_IPV6, "::1");
+            EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 128);
+        } else {
+            EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+            ASSERT_STREQ(gIF_IPV4, "127.0.0.1");
+        }
+        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
     }
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_successful) {
     // Get a valid IPv6 address from a local network adapter.
-    SSockaddr saObj;
     CNetadapter nadaptObj;
     nadaptObj.get_first();
     do {
@@ -722,7 +734,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_successful) {
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua_successful) {
     // Get a valid IPv6 address from a local network adapter.
-    SSockaddr saObj;
     CNetadapter nadaptObj;
     nadaptObj.get_first();
     do {
@@ -770,7 +781,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv6_address_successful) {
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
     // Get a valid IPv4 address from a local network adapter.
-    SSockaddr saObj;
     CNetadapter nadaptObj;
     nadaptObj.get_first();
     do {

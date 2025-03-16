@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-16
+// Redistribution only with this Copyright remark. Last modified: 2025-03-17
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -214,7 +214,11 @@ class CNetadapter {
     // system. It may also point to a mocking object.
     PNetadapter_platform m_na_platformPtr;
 
-    // Index of the current found network adapter.
+    // State of the finding steps.
+    enum struct Find { finish, best, loopback, index } m_state{};
+
+    // Index of the first found network adapter.
+    // Only used with m_state = Find::index;
     unsigned int m_find_index{};
     /// \endcond
 };
