@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-27
+// Redistribution only with this Copyright remark. Last modified: 2025-03-16
 
 #ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -336,6 +336,30 @@ TEST(NetadapterTestSuite, find_loopback_adapter_info) {
     EXPECT_THAT(
         saddrObj.netaddr(),
         AnyOf("[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]", "255.0.0.0"));
+}
+
+class CNetadapterMock : public UPnPsdk::INetadapter {
+  public:
+    CNetadapterMock() = default;
+    virtual ~CNetadapterMock() override = default;
+    MOCK_METHOD(void, get_first, (), (override));
+    MOCK_METHOD(bool, get_next, (), (override));
+    MOCK_METHOD(unsigned int, index, (), (const, override));
+    MOCK_METHOD(std::string, name, (), (const, override));
+    MOCK_METHOD(void, sockaddr, (UPnPsdk::SSockaddr&), (const, override));
+    MOCK_METHOD(void, socknetmask, (UPnPsdk::SSockaddr&), (const, override));
+    MOCK_METHOD(unsigned int, bitmask, (), (const, override));
+    MOCK_METHOD(void, reset, (), (noexcept, override));
+};
+
+TEST(NetadapterTestSuite, mock_netadapter_successful) {
+    // Create mocking di-service object and get the smart pointer to it.
+    auto na_mockPtr = std::make_shared<CNetadapterMock>();
+
+    EXPECT_CALL(*na_mockPtr, get_first()).Times(1);
+
+    UPnPsdk::CNetadapter naObj(na_mockPtr);
+    naObj.get_first();
 }
 
 } // namespace utest

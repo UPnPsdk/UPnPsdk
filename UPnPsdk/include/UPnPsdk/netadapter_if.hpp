@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_IF_HPP
 #define UPnPsdk_NETADAPTER_IF_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-08
+// Redistribution only with this Copyright remark. Last modified: 2025-03-16
 /*!
  * \file
  * \brief C++ interface to manage information from different platforms about
@@ -14,6 +14,7 @@
  */
 
 #include <UPnPsdk/sockaddr.hpp>
+#include <memory>
 
 
 namespace UPnPsdk {
@@ -48,7 +49,6 @@ class UPnPsdk_API INetadapter {
     // Destructor
     virtual ~INetadapter();
 
-  private:
     /*! \brief Load a list of network adapters from the operating system and
      * select its first entry
      *
@@ -113,13 +113,11 @@ class UPnPsdk_API INetadapter {
     /*! \brief Reset pointer and point to the first entry of the local network
      * adapter list if available. */
     virtual void reset() noexcept = 0;
-
-  protected:
-    /// \cond
-    // Index of the current found network adapter.
-    unsigned int m_find_index{};
-    /// \endcond
 };
+
+/*! \brief Smart pointer to hold the injected pointer to the netadapter object
+ * for the current used platform */
+using PNetadapter_platform = std::shared_ptr<INetadapter>;
 
 } // namespace UPnPsdk
 

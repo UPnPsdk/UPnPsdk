@@ -36,6 +36,7 @@ var NAVTREE =
         [ "All", "namespacemembers.html", "namespacemembers_dup" ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ],
         [ "Enumerations", "namespacemembers_enum.html", null ],
         [ "Enumerator", "namespacemembers_eval.html", null ]
       ] ]
@@ -68,18 +69,18 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d1/d03/group__UpnpString.html#acea9de7fd993715cd9b2c99854bed2f6",
-"d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699",
-"d4/d6b/UpnpActionRequest_8cpp.html#a2a0fe29a46f0206f9e14f0b159041811",
-"d5/de9/sysdep_8hpp.html",
-"d6/de3/gena__ctrlpt_8cpp.html#a1ad4362363dce08abc2975659be12b4c",
-"d8/da2/UpnpIntTypes_8hpp_source.html",
-"d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493",
-"da/d8a/group__XMLAPI.html#gaf4d37a42d1f3e28c7e4ed5e90848a86c",
-"dc/d1d/list_8hpp.html#aadf0be10df4c503872328aaff45aa52d",
-"dd/d6d/UpnpSubscriptionRequest_8hpp.html#a955e900ac43c69cd52d526ba328c59c6",
-"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#aaedb4c45d523c23d6d7fd382886a99a1",
-"functions_d.html"
+"d1/d03/group__UpnpString.html#d8/dbb/structs__UpnpString",
+"d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html",
+"d4/d6b/UpnpSubscriptionRequest_8cpp.html#a6940dd3796cd8d0be1132d4a3fce5370",
+"d6/d72/UpnpStateVarRequest_8hpp.html#a25c589d8166c197bf725d0c054efdb7e",
+"d7/d47/UpnpActionRequest_8hpp.html#a11aafd5c01b2b0f47882a72dc71a294f",
+"d8/dc4/unixutil_8hpp.html",
+"d9/dd2/gena_8hpp.html#aeec9cc26e815e30c3b2fe7f7f261a145",
+"da/dff/ixmlparser_8cpp.html#a6116f23c2b6e4a021870ad6b09f38500",
+"dc/df7/structUPnPsdk_1_1SSockaddr.html#a97ea79fa03a7b544e5552e636d072c2f",
+"dd/dbe/group__upnplib-connection.html",
+"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aaec739c6f0ff93b139062af2ba4b0f1da952f16db1d3b76fc3ce841a7ca836de6",
+"globals_i.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

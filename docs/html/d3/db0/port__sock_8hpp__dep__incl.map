@@ -1,116 +1,121 @@
 <map id="UPnPsdk/include/UPnPsdk/port_sock.hpp" name="UPnPsdk/include/UPnPsdk/port_sock.hpp">
-<area shape="rect" id="Node000001" title="Specifications to be portable with sockets between different platforms." alt="" coords="1166,5,1349,45"/>
-<area shape="rect" id="Node000002" href="$d5/dc6/UpnpFileInfo_8hpp.html" title="Header file for UpnpFileInfo methods." alt="" coords="78,101,266,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1152,33,767,53,524,71,279,96,231,103,230,98,278,91,523,66,767,47,1152,28"/>
-<area shape="rect" id="Node000005" href="$d4/d6b/UpnpActionRequest_8cpp.html" title="Source file for UpnpActionRequest methods." alt="" coords="291,93,469,133"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1152,35,850,57,666,74,482,96,470,98,469,92,481,91,666,69,850,52,1152,30"/>
-<area shape="rect" id="Node000006" href="$d8/db8/UpnpDiscovery_8cpp.html" title="Source file for UpnpDiscovery methods." alt="" coords="494,101,719,126"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1153,42,732,96,682,103,681,98,732,91,1152,37"/>
-<area shape="rect" id="Node000007" href="$d3/d7b/UpnpStateVarRequest_8cpp.html" title="Source file for UpnpStateVarRequest methods." alt="" coords="744,93,936,133"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1153,51,932,96,931,91,1152,46"/>
-<area shape="rect" id="Node000008" href="$d8/dd2/uri_8cpp.html" title="Modify and parse URIs." alt="" coords="960,93,1107,133"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1196,53,1083,96,1081,91,1195,48"/>
-<area shape="rect" id="Node000009" href="$d6/df0/sock_8hpp.html" title="Manage network sockets and connections." alt="" coords="1263,277,1427,302"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1274,57,1288,92,1323,198,1345,276,1340,277,1317,200,1283,94,1269,59"/>
-<area shape="rect" id="Node000031" href="$d5/d91/ThreadPool_8hpp.html" title="Manage a threadpool (for internal use only)." alt="" coords="1131,93,1274,133"/>
-<area shape="poly" id="edge32_Node000001_Node000031" title=" " alt="" coords="1240,58,1217,95,1213,92,1236,56"/>
-<area shape="rect" id="Node000042" href="$d6/d4b/sysdep_8cpp.html" title="Get some system dependent information." alt="" coords="1350,101,1535,126"/>
-<area shape="poly" id="edge39_Node000001_Node000042" title=" " alt="" coords="1312,49,1419,98,1417,103,1309,54"/>
-<area shape="rect" id="Node000043" href="$db/d37/uuid_8cpp.html" title="Manage UUIDs." alt="" coords="1559,101,1726,126"/>
-<area shape="poly" id="edge40_Node000001_Node000043" title=" " alt="" coords="1356,46,1592,98,1591,103,1355,51"/>
-<area shape="rect" id="Node000044" href="$d0/daf/tv__device_8hpp.html" title="Declarations for a simple UPnP device console application." alt="" coords="1751,101,1956,126"/>
-<area shape="poly" id="edge41_Node000001_Node000044" title=" " alt="" coords="1363,38,1738,91,1784,98,1784,103,1737,96,1362,43"/>
-<area shape="rect" id="Node000047" href="$d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="2703,181,2886,221"/>
-<area shape="poly" id="edge45_Node000001_Node000047" title=" " alt="" coords="1363,27,1514,33,1689,45,1852,63,1919,76,1969,91,1985,101,1995,112,2005,122,2020,131,2076,147,2153,161,2340,180,2538,191,2703,196,2703,201,2538,196,2340,185,2152,166,2075,152,2018,136,2002,126,1991,115,1982,105,1967,96,1918,81,1852,69,1689,50,1514,38,1362,32"/>
-<area shape="rect" id="Node000060" href="$db/d7d/global_8cpp.html" title="Global used flags, classes and emulated system functions." alt="" coords="2031,101,2193,126"/>
-<area shape="poly" id="edge64_Node000001_Node000060" title=" " alt="" coords="1363,30,1656,52,1834,69,2012,91,2057,98,2056,103,2012,96,1833,74,1655,57,1362,35"/>
-<area shape="rect" id="Node000003" href="$d0/d5f/Compa_2inc_2API_8hpp.html" title="UPnPsdk API." alt="" coords="5,189,141,214"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="150,137,89,190,85,186,147,133"/>
-<area shape="rect" id="Node000004" href="$dd/da6/UpnpFileInfo_8cpp.html" title="Source file for UpnpFileInfo methods." alt="" coords="165,189,376,214"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="197,133,259,186,255,190,194,137"/>
-<area shape="rect" id="Node000010" href="$d5/d78/sock_8cpp.html" title="Manage network sockets and connections." alt="" coords="1571,357,1717,397"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1400,303,1579,355,1577,360,1398,309"/>
-<area shape="rect" id="Node000011" href="$d9/dd2/gena_8hpp.html" title="Manage Eventing with GENA, the General Event Notification Architecture." alt="" coords="609,365,773,390"/>
-<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="1279,307,1251,312,1120,328,1018,336,916,344,786,360,745,367,744,362,785,355,916,339,1018,331,1120,323,1250,307,1278,302"/>
-<area shape="rect" id="Node000016" href="$d8/d74/gena__ctrlpt_8hpp.html" title="Processes NOTIFY events that are sent by devices." alt="" coords="1195,357,1333,397"/>
-<area shape="poly" id="edge15_Node000009_Node000016" title=" " alt="" coords="1327,314,1284,359,1280,355,1323,310"/>
-<area shape="rect" id="Node000017" href="$d2/d33/gena__device_8hpp.html" title="Handles subscriptions from a control point." alt="" coords="1032,357,1171,397"/>
-<area shape="poly" id="edge17_Node000009_Node000017" title=" " alt="" coords="1300,309,1156,360,1154,355,1298,304"/>
-<area shape="rect" id="Node000018" href="$de/ded/Compa_2src_2inc_2httpreadwrite_8hpp.html" title="Performs HTTP read and write messages." alt="" coords="797,365,1008,390"/>
-<area shape="poly" id="edge19_Node000009_Node000018" title=" " alt="" coords="1275,307,1251,312,963,367,962,362,1250,307,1274,302"/>
-<area shape="rect" id="Node000019" href="$d3/d8b/miniserver_8hpp.html" title="Manage &quot;Step 0: Addressing&quot; of the UPnP+™ specification." alt="" coords="1742,365,1938,390"/>
-<area shape="poly" id="edge20_Node000009_Node000019" title=" " alt="" coords="1425,302,1775,362,1774,367,1424,307"/>
-<area shape="rect" id="Node000029" href="$d9/d36/Compa_2src_2inc_2webserver_8hpp.html" title="Internal Web Server and functions to carry out operations of it." alt="" coords="1550,453,1746,478"/>
-<area shape="poly" id="edge31_Node000009_Node000029" title=" " alt="" coords="1395,304,1451,326,1509,355,1536,374,1560,395,1634,450,1630,454,1557,399,1532,378,1507,360,1448,331,1393,309"/>
-<area shape="rect" id="Node000030" href="$d2/dd2/soap__device_8hpp.html" title="SOAP declarations for UPnP Devices using SOAP." alt="" coords="1357,357,1496,397"/>
-<area shape="poly" id="edge28_Node000009_Node000030" title=" " alt="" coords="1368,310,1410,355,1406,359,1364,314"/>
-<area shape="rect" id="Node000012" href="$d4/d99/upnpapi_8cpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="1344,453,1525,478"/>
-<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="758,390,786,395,939,415,1092,432,1344,455,1344,460,1092,437,938,420,785,400,757,395"/>
-<area shape="rect" id="Node000013" href="$dc/d02/gena__callback2_8cpp.html" title="Callback function to handle incoming GENA requests." alt="" coords="1026,445,1177,485"/>
-<area shape="poly" id="edge12_Node000011_Node000013" title=" " alt="" coords="759,390,1026,446,1025,451,758,395"/>
-<area shape="rect" id="Node000014" href="$d6/de3/gena__ctrlpt_8cpp.html" title="Manage GENA control point." alt="" coords="729,445,879,485"/>
-<area shape="poly" id="edge13_Node000011_Node000014" title=" " alt="" coords="718,396,781,443,777,447,715,400"/>
-<area shape="rect" id="Node000015" href="$dd/de6/gena__device_8cpp.html" title="Manage GENA Devices." alt="" coords="838,533,989,573"/>
-<area shape="poly" id="edge14_Node000011_Node000015" title=" " alt="" coords="693,403,698,444,706,465,718,484,744,506,774,522,806,534,838,542,837,547,805,539,772,527,741,510,714,487,701,468,693,446,687,404"/>
-<area shape="poly" id="edge16_Node000016_Node000013" title=" " alt="" coords="1218,406,1138,448,1136,443,1215,401"/>
-<area shape="poly" id="edge18_Node000017_Node000013" title=" " alt="" coords="1104,411,1104,445,1099,445,1099,411"/>
-<area shape="poly" id="edge21_Node000019_Node000012" title=" " alt="" coords="1773,395,1489,455,1488,450,1772,390"/>
-<area shape="rect" id="Node000020" href="$d5/db2/miniserver_8cpp.html" title="Implements the functionality and utility functions used by the Miniserver module." alt="" coords="1853,533,2041,573"/>
-<area shape="poly" id="edge22_Node000019_Node000020" title=" " alt="" coords="1874,395,1900,417,1924,444,1935,467,1942,491,1948,533,1943,534,1937,492,1930,468,1919,447,1897,420,1870,400"/>
-<area shape="rect" id="Node000021" href="$d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="1771,445,1909,485"/>
-<area shape="poly" id="edge23_Node000019_Node000021" title=" " alt="" coords="1843,404,1843,445,1837,445,1837,404"/>
-<area shape="poly" id="edge27_Node000019_Node000029" title=" " alt="" coords="1803,398,1675,455,1673,450,1800,393"/>
-<area shape="poly" id="edge24_Node000021_Node000015" title=" " alt="" coords="1757,488,1535,515,1318,534,989,552,989,547,1318,529,1534,510,1756,483"/>
-<area shape="poly" id="edge25_Node000021_Node000020" title=" " alt="" coords="1876,492,1925,531,1921,535,1873,496"/>
-<area shape="rect" id="Node000028" href="$d6/d92/soap__device_8cpp.html" title="Items for UPnP devices to manage UPnP Control." alt="" coords="1457,533,1607,573"/>
-<area shape="poly" id="edge26_Node000021_Node000028" title=" " alt="" coords="1760,492,1600,536,1599,531,1759,486"/>
-<area shape="poly" id="edge29_Node000030_Node000012" title=" " alt="" coords="1432,411,1436,452,1431,452,1427,411"/>
-<area shape="poly" id="edge30_Node000030_Node000028" title=" " alt="" coords="1374,407,1351,424,1334,447,1328,466,1334,484,1359,509,1389,526,1423,538,1457,545,1456,550,1422,543,1387,531,1356,513,1330,487,1322,466,1330,444,1347,421,1370,402"/>
-<area shape="rect" id="Node000032" href="$d6/d13/Compa_2src_2api_2upnptools_8cpp.html" title="Additional, optional utility API that can be helpful in writing applications." alt="" coords="915,189,1107,214"/>
-<area shape="poly" id="edge33_Node000031_Node000032" title=" " alt="" coords="1149,141,1037,191,1035,186,1147,137"/>
-<area shape="rect" id="Node000033" href="$d8/d61/ThreadPool_8cpp.html" title="Manage a threadpool (for internal use only)." alt="" coords="747,181,890,221"/>
-<area shape="poly" id="edge34_Node000031_Node000033" title=" " alt="" coords="1118,136,891,187,890,182,1117,131"/>
-<area shape="rect" id="Node000034" href="$d0/d87/TimerThread_8hpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="1131,181,1274,221"/>
-<area shape="poly" id="edge35_Node000031_Node000034" title=" " alt="" coords="1205,147,1205,181,1200,181,1200,147"/>
-<area shape="rect" id="Node000035" href="$d9/d78/client__table_8hpp.html" title=" " alt="" coords="815,269,958,309"/>
-<area shape="poly" id="edge36_Node000034_Node000035" title=" " alt="" coords="1121,228,957,272,955,267,1119,222"/>
-<area shape="rect" id="Node000041" href="$dd/d9f/TimerThread_8cpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="1097,269,1239,309"/>
-<area shape="poly" id="edge38_Node000034_Node000041" title=" " alt="" coords="1192,235,1178,270,1173,268,1187,233"/>
-<area shape="poly" id="edge37_Node000035_Node000011" title=" " alt="" coords="832,317,718,367,716,362,830,312"/>
-<area shape="rect" id="Node000040" href="$d9/d09/tv__device_8cpp.html" title="Definitions for a simple UPnP device console application." alt="" coords="1751,189,1956,214"/>
-<area shape="poly" id="edge42_Node000044_Node000040" title=" " alt="" coords="1856,140,1856,188,1851,188,1851,140"/>
-<area shape="rect" id="Node000045" href="$dc/dcc/tv__combo__main_8cpp.html" title="The main() program entry for the TV device and control point (combo) sample program." alt="" coords="1981,181,2139,221"/>
-<area shape="poly" id="edge43_Node000044_Node000045" title=" " alt="" coords="1895,129,2015,179,2013,184,1893,134"/>
-<area shape="rect" id="Node000046" href="$d5/de7/tv__device__main_8cpp.html" title="The main() program entry for the TV device sample program." alt="" coords="1569,181,1727,221"/>
-<area shape="poly" id="edge44_Node000044_Node000046" title=" " alt="" coords="1814,134,1694,184,1692,179,1812,129"/>
-<area shape="rect" id="Node000038" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html" title="This file defines the functionality making use of the http." alt="" coords="2921,269,3073,309"/>
-<area shape="poly" id="edge46_Node000047_Node000038" title=" " alt="" coords="2853,224,2954,267,2952,272,2850,229"/>
-<area shape="rect" id="Node000048" href="$d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="3098,269,3281,309"/>
-<area shape="poly" id="edge47_Node000047_Node000048" title=" " alt="" coords="2895,222,3103,267,3102,272,2894,227"/>
-<area shape="rect" id="Node000049" href="$dc/d59/addrinfo_8cpp.html" title="Definition of the Addrinfo class and free helper functions." alt="" coords="3403,365,3600,390"/>
-<area shape="poly" id="edge62_Node000047_Node000049" title=" " alt="" coords="2900,204,2986,210,3086,222,3191,240,3294,267,3351,289,3405,315,3485,362,3483,367,3403,320,3349,293,3293,272,3190,246,3085,227,2986,216,2900,209"/>
-<area shape="rect" id="Node000052" href="$d9/d8b/netadapter__if_8hpp.html" title="C++ interface to manage information from different platforms about network adapters." alt="" coords="2486,269,2669,309"/>
-<area shape="poly" id="edge52_Node000047_Node000052" title=" " alt="" coords="2735,229,2626,272,2624,267,2733,224"/>
-<area shape="rect" id="Node000056" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="2003,269,2186,309"/>
-<area shape="poly" id="edge56_Node000047_Node000056" title=" " alt="" coords="2690,218,2187,279,2186,274,2690,213"/>
-<area shape="rect" id="Node000059" href="$d7/def/sockaddr_8cpp.html" title="Definition of the Sockaddr class and some free helper functions." alt="" coords="2693,277,2897,302"/>
-<area shape="poly" id="edge63_Node000047_Node000059" title=" " alt="" coords="2797,235,2797,276,2792,276,2792,235"/>
-<area shape="poly" id="edge48_Node000048_Node000012" title=" " alt="" coords="3177,323,3148,365,3128,384,3105,400,3063,413,2999,424,2818,438,2586,445,2327,446,1833,444,1648,444,1538,448,1489,455,1488,450,1537,443,1648,439,1833,438,2327,441,2585,439,2818,432,2999,418,3062,408,3103,395,3125,380,3144,361,3172,320"/>
-<area shape="poly" id="edge49_Node000048_Node000049" title=" " alt="" coords="3272,310,3461,362,3459,367,3270,316"/>
-<area shape="rect" id="Node000050" href="$df/d05/netadapter_8cpp.html" title="Manage information about network adapters." alt="" coords="3166,365,3378,390"/>
-<area shape="poly" id="edge50_Node000048_Node000050" title=" " alt="" coords="3219,317,3262,362,3259,366,3215,321"/>
-<area shape="rect" id="Node000051" href="$d8/d81/socket_8cpp.html" title="Definition of the &#39;class Socket&#39;." alt="" coords="2439,365,2630,390"/>
-<area shape="poly" id="edge51_Node000048_Node000051" title=" " alt="" coords="3084,312,2959,328,2862,336,2765,345,2643,360,2597,367,2596,362,2642,355,2764,340,2861,331,2959,322,3083,307"/>
-<area shape="rect" id="Node000053" href="$da/d0d/unix_2UPnPsdk_2netadapter__platform_8hpp.html" title="Manage information from Unix like platforms about network adapters." alt="" coords="2865,357,3092,397"/>
-<area shape="poly" id="edge53_Node000052_Node000053" title=" " alt="" coords="2679,310,2891,355,2890,360,2678,315"/>
-<area shape="rect" id="Node000054" href="$dd/db9/win32_2UPnPsdk_2netadapter__platform_8hpp.html" title="Manage information from Microsoft Windows about network adapters." alt="" coords="2188,357,2415,397"/>
-<area shape="poly" id="edge54_Node000052_Node000054" title=" " alt="" coords="2505,316,2363,360,2361,355,2503,311"/>
-<area shape="rect" id="Node000055" href="$de/dab/netadapter__if_8cpp.html" title="C++ interface to manage information from different platforms about network adapters." alt="" coords="2655,357,2841,397"/>
-<area shape="poly" id="edge55_Node000052_Node000055" title=" " alt="" coords="2628,313,2712,355,2709,360,2626,318"/>
-<area shape="poly" id="edge58_Node000056_Node000010" title=" " alt="" coords="1990,311,1730,360,1718,362,1717,357,1729,355,1989,306"/>
-<area shape="poly" id="edge59_Node000056_Node000019" title=" " alt="" coords="2027,316,1875,367,1873,362,2025,311"/>
-<area shape="poly" id="edge57_Node000056_Node000020" title=" " alt="" coords="2117,320,2131,358,2133,378,2128,398,2099,444,2061,482,2021,513,1984,536,1982,531,2018,508,2058,478,2095,440,2123,396,2127,378,2126,359,2112,322"/>
-<area shape="poly" id="edge61_Node000056_Node000051" title=" " alt="" coords="2200,308,2477,362,2476,367,2199,314"/>
-<area shape="rect" id="Node000024" href="$df/d13/ssdp__common_8cpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for common SSDP usage." alt="" coords="1962,357,2113,397"/>
-<area shape="poly" id="edge60_Node000056_Node000024" title=" " alt="" coords="2076,322,2052,359,2048,356,2072,320"/>
+<area shape="rect" id="Node000001" title="Specifications to be portable with sockets between different platforms." alt="" coords="1276,5,1467,45"/>
+<area shape="rect" id="Node000002" href="$d5/dc6/UpnpFileInfo_8hpp.html" title="Header file for UpnpFileInfo methods." alt="" coords="227,101,433,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1262,34,899,55,672,73,445,96,394,103,393,98,444,91,672,68,898,50,1262,29"/>
+<area shape="rect" id="Node000005" href="$d4/d6b/UpnpActionRequest_8cpp.html" title="Source file for UpnpActionRequest methods." alt="" coords="457,93,651,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1262,37,990,60,664,96,652,98,651,92,663,91,989,55,1262,32"/>
+<area shape="rect" id="Node000006" href="$d8/db8/UpnpDiscovery_8cpp.html" title="Source file for UpnpDiscovery methods." alt="" coords="675,101,918,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1263,45,874,103,873,98,1262,40"/>
+<area shape="rect" id="Node000007" href="$d3/d7b/UpnpStateVarRequest_8cpp.html" title="Source file for UpnpStateVarRequest methods." alt="" coords="942,93,1150,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1288,51,1118,96,1117,91,1286,46"/>
+<area shape="rect" id="Node000008" href="$d8/dd2/uri_8cpp.html" title="Modify and parse URIs." alt="" coords="1174,93,1334,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1336,56,1282,95,1278,91,1333,52"/>
+<area shape="rect" id="Node000009" href="$d6/df0/sock_8hpp.html" title="Manage network sockets and connections." alt="" coords="521,189,697,214"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1376,59,1370,99,1361,119,1347,136,1320,144,1261,153,1084,170,697,197,697,192,1084,165,1261,147,1318,139,1345,131,1357,116,1365,98,1370,59"/>
+<area shape="rect" id="Node000031" href="$d5/d91/ThreadPool_8hpp.html" title="Manage a threadpool (for internal use only)." alt="" coords="1409,93,1568,133"/>
+<area shape="poly" id="edge39_Node000001_Node000031" title=" " alt="" coords="1410,52,1464,91,1461,95,1407,56"/>
+<area shape="rect" id="Node000041" href="$d6/d4b/sysdep_8cpp.html" title="Get some system dependent information." alt="" coords="1821,101,2021,126"/>
+<area shape="poly" id="edge46_Node000001_Node000041" title=" " alt="" coords="1481,40,1809,91,1854,98,1853,103,1808,96,1480,45"/>
+<area shape="rect" id="Node000042" href="$db/d37/uuid_8cpp.html" title="Manage UUIDs." alt="" coords="2045,101,2228,126"/>
+<area shape="poly" id="edge47_Node000001_Node000042" title=" " alt="" coords="1481,32,1733,55,2033,91,2078,98,2078,103,2032,96,1733,61,1480,38"/>
+<area shape="rect" id="Node000043" href="$d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="1605,93,1796,133"/>
+<area shape="poly" id="edge48_Node000001_Node000043" title=" " alt="" coords="1457,46,1629,91,1628,96,1456,51"/>
+<area shape="rect" id="Node000056" href="$db/d7d/global_8cpp.html" title="Global used flags, classes and emulated system functions." alt="" coords="2253,101,2426,126"/>
+<area shape="poly" id="edge69_Node000001_Node000056" title=" " alt="" coords="1481,28,1821,49,2031,67,2241,91,2286,98,2285,103,2240,96,2030,72,1820,54,1480,34"/>
+<area shape="rect" id="Node000003" href="$d0/d5f/Compa_2inc_2API_8hpp.html" title="UPnPsdk API." alt="" coords="70,189,214,214"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="293,134,169,191,166,186,291,129"/>
+<area shape="rect" id="Node000004" href="$dd/da6/UpnpFileInfo_8cpp.html" title="Source file for UpnpFileInfo methods." alt="" coords="239,189,467,214"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="339,139,352,187,347,189,334,140"/>
+<area shape="rect" id="Node000010" href="$d5/d78/sock_8cpp.html" title="Manage network sockets and connections." alt="" coords="1365,357,1525,397"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="711,208,928,230,1031,247,1104,267,1121,276,1131,287,1142,297,1157,307,1194,320,1247,334,1365,359,1364,364,1246,339,1192,325,1154,312,1138,301,1128,291,1117,281,1102,272,1030,252,927,235,710,213"/>
+<area shape="rect" id="Node000011" href="$d9/dd2/gena_8hpp.html" title="Manage Eventing with GENA, the General Event Notification Architecture." alt="" coords="355,365,534,390"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="597,227,570,268,535,311,498,343,464,367,461,362,495,339,531,307,566,265,593,224"/>
+<area shape="rect" id="Node000016" href="$d8/d74/gena__ctrlpt_8hpp.html" title="Processes NOTIFY events that are sent by devices." alt="" coords="180,357,331,397"/>
+<area shape="poly" id="edge15_Node000009_Node000016" title=" " alt="" coords="514,219,366,244,306,258,276,271,263,291,257,313,255,357,250,357,251,313,258,288,272,267,305,253,365,239,513,213"/>
+<area shape="rect" id="Node000017" href="$d2/d33/gena__device_8hpp.html" title="Handles subscriptions from a control point." alt="" coords="5,357,156,397"/>
+<area shape="poly" id="edge17_Node000009_Node000017" title=" " alt="" coords="515,219,367,243,299,258,251,272,209,291,169,315,106,359,103,355,166,310,207,287,249,267,298,253,366,238,514,213"/>
+<area shape="rect" id="Node000018" href="$de/ded/Compa_2src_2inc_2httpreadwrite_8hpp.html" title="Performs HTTP read and write messages." alt="" coords="286,277,521,302"/>
+<area shape="poly" id="edge19_Node000009_Node000018" title=" " alt="" coords="570,222,432,279,430,274,568,217"/>
+<area shape="rect" id="Node000019" href="$d3/d8b/miniserver_8hpp.html" title="Manage &quot;Step 0: Addressing&quot; of the UPnP+™ specification." alt="" coords="876,277,1091,302"/>
+<area shape="poly" id="edge20_Node000009_Node000019" title=" " alt="" coords="673,214,934,274,933,279,671,220"/>
+<area shape="rect" id="Node000029" href="$d9/d36/Compa_2src_2inc_2webserver_8hpp.html" title="Internal Web Server and functions to carry out operations of it." alt="" coords="731,365,945,390"/>
+<area shape="poly" id="edge38_Node000009_Node000029" title=" " alt="" coords="711,212,767,232,792,248,815,268,830,291,838,318,841,364,836,365,833,319,825,294,811,271,789,252,764,237,710,217"/>
+<area shape="rect" id="Node000030" href="$d2/dd2/soap__device_8hpp.html" title="SOAP declarations for UPnP Devices using SOAP." alt="" coords="558,357,707,397"/>
+<area shape="poly" id="edge35_Node000009_Node000030" title=" " alt="" coords="615,227,633,357,627,358,609,228"/>
+<area shape="rect" id="Node000012" href="$d4/d99/upnpapi_8cpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="884,541,1083,566"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="472,396,539,440,581,463,624,483,690,504,758,520,884,541,883,546,757,526,689,509,622,488,578,468,536,445,469,400"/>
+<area shape="rect" id="Node000013" href="$dc/d02/gena__callback2_8cpp.html" title="Callback function to handle incoming GENA requests." alt="" coords="174,445,337,485"/>
+<area shape="poly" id="edge12_Node000011_Node000013" title=" " alt="" coords="408,398,298,448,296,443,406,393"/>
+<area shape="rect" id="Node000014" href="$d6/de3/gena__ctrlpt_8cpp.html" title="Manage GENA control point." alt="" coords="362,445,525,485"/>
+<area shape="poly" id="edge13_Node000011_Node000014" title=" " alt="" coords="447,404,446,445,441,445,442,403"/>
+<area shape="rect" id="Node000015" href="$dd/de6/gena__device_8cpp.html" title="Manage GENA Devices." alt="" coords="701,445,863,485"/>
+<area shape="poly" id="edge14_Node000011_Node000015" title=" " alt="" coords="504,391,709,443,707,448,502,396"/>
+<area shape="poly" id="edge16_Node000016_Node000013" title=" " alt="" coords="258,411,258,445,253,445,253,411"/>
+<area shape="poly" id="edge18_Node000017_Node000013" title=" " alt="" coords="132,401,218,443,216,448,130,406"/>
+<area shape="poly" id="edge21_Node000019_Node000012" title=" " alt="" coords="987,316,981,359,973,381,959,399,939,414,917,424,866,436,811,440,759,439,715,440,686,445,679,450,677,457,680,468,691,484,702,494,720,503,768,519,825,531,884,540,884,545,824,537,766,524,718,508,699,498,687,487,675,470,671,457,674,447,684,440,715,434,759,434,811,434,865,431,915,419,936,409,955,395,968,378,976,357,982,315"/>
+<area shape="rect" id="Node000020" href="$d5/db2/miniserver_8cpp.html" title="Implements the functionality and utility functions used by the Miniserver module." alt="" coords="1603,445,1812,485"/>
+<area shape="poly" id="edge22_Node000019_Node000020" title=" " alt="" coords="1046,303,1241,355,1297,375,1353,395,1463,418,1603,444,1602,449,1462,423,1352,400,1296,380,1240,360,1045,308"/>
+<area shape="rect" id="Node000021" href="$d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="1080,357,1228,397"/>
+<area shape="poly" id="edge23_Node000019_Node000021" title=" " alt="" coords="1020,306,1118,355,1115,360,1017,311"/>
+<area shape="poly" id="edge34_Node000019_Node000029" title=" " alt="" coords="953,311,859,367,856,362,951,307"/>
+<area shape="poly" id="edge24_Node000021_Node000015" title=" " alt="" coords="1067,401,864,448,863,443,1066,396"/>
+<area shape="poly" id="edge25_Node000021_Node000020" title=" " alt="" coords="1242,389,1592,443,1603,444,1602,450,1591,448,1241,395"/>
+<area shape="rect" id="Node000022" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html" title="Internal Web Server and functions to carry out operations of it." alt="" coords="1074,445,1234,485"/>
+<area shape="poly" id="edge26_Node000021_Node000022" title=" " alt="" coords="1157,411,1157,445,1151,445,1151,411"/>
+<area shape="rect" id="Node000023" href="$da/db2/ssdp__ctrlpt_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="1259,445,1407,485"/>
+<area shape="poly" id="edge27_Node000021_Node000023" title=" " alt="" coords="1207,401,1295,443,1292,448,1204,406"/>
+<area shape="rect" id="Node000026" href="$da/df5/ssdp__device_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="1431,445,1579,485"/>
+<area shape="poly" id="edge30_Node000021_Node000026" title=" " alt="" coords="1242,397,1431,443,1430,449,1241,403"/>
+<area shape="rect" id="Node000028" href="$d6/d92/soap__device_8cpp.html" title="Items for UPnP devices to manage UPnP Control." alt="" coords="888,445,1049,485"/>
+<area shape="poly" id="edge33_Node000021_Node000028" title=" " alt="" coords="1102,406,1010,448,1008,443,1100,401"/>
+<area shape="poly" id="edge28_Node000023_Node000012" title=" " alt="" coords="1246,491,1031,543,1029,538,1245,485"/>
+<area shape="rect" id="Node000024" href="$df/d13/ssdp__common_8cpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for common SSDP usage." alt="" coords="1425,533,1584,573"/>
+<area shape="poly" id="edge29_Node000023_Node000024" title=" " alt="" coords="1384,489,1468,531,1466,536,1382,494"/>
+<area shape="poly" id="edge31_Node000026_Node000012" title=" " alt="" coords="1417,488,1227,520,1069,543,1068,538,1226,515,1417,483"/>
+<area shape="poly" id="edge32_Node000026_Node000024" title=" " alt="" coords="1507,499,1507,533,1502,533,1502,499"/>
+<area shape="poly" id="edge36_Node000030_Node000012" title=" " alt="" coords="630,411,631,449,636,468,647,484,662,495,684,506,744,523,814,535,884,543,883,548,813,540,742,528,682,511,659,500,643,487,632,470,626,450,624,411"/>
+<area shape="poly" id="edge37_Node000030_Node000028" title=" " alt="" coords="720,398,896,443,894,448,719,403"/>
+<area shape="rect" id="Node000032" href="$d6/d13/Compa_2src_2api_2upnptools_8cpp.html" title="Additional, optional utility API that can be helpful in writing applications." alt="" coords="1349,189,1559,214"/>
+<area shape="poly" id="edge40_Node000031_Node000032" title=" " alt="" coords="1478,147,1461,189,1456,187,1473,145"/>
+<area shape="rect" id="Node000033" href="$d8/d61/ThreadPool_8cpp.html" title="Manage a threadpool (for internal use only)." alt="" coords="983,181,1141,221"/>
+<area shape="poly" id="edge41_Node000031_Node000033" title=" " alt="" coords="1397,136,1155,184,1142,186,1141,181,1153,179,1396,130"/>
+<area shape="rect" id="Node000034" href="$d0/d87/TimerThread_8hpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="1165,181,1324,221"/>
+<area shape="poly" id="edge42_Node000031_Node000034" title=" " alt="" coords="1423,140,1299,184,1297,179,1421,135"/>
+<area shape="rect" id="Node000035" href="$d9/d78/client__table_8hpp.html" title=" " alt="" coords="646,269,801,309"/>
+<area shape="poly" id="edge43_Node000034_Node000035" title=" " alt="" coords="1152,224,801,280,801,275,1151,219"/>
+<area shape="rect" id="Node000040" href="$dd/d9f/TimerThread_8cpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="1167,269,1325,309"/>
+<area shape="poly" id="edge45_Node000034_Node000040" title=" " alt="" coords="1248,235,1248,269,1243,269,1243,235"/>
+<area shape="poly" id="edge44_Node000035_Node000011" title=" " alt="" coords="650,316,483,367,481,362,648,311"/>
+<area shape="rect" id="Node000038" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html" title="This file defines the functionality making use of the http." alt="" coords="2095,181,2266,221"/>
+<area shape="poly" id="edge49_Node000043_Node000038" title=" " alt="" coords="1810,131,2077,179,2095,182,2095,187,2076,184,1809,136"/>
+<area shape="rect" id="Node000044" href="$d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="1829,181,2020,221"/>
+<area shape="poly" id="edge50_Node000043_Node000044" title=" " alt="" coords="1763,136,1877,179,1875,184,1762,141"/>
+<area shape="rect" id="Node000045" href="$dc/d59/addrinfo_8cpp.html" title="Definition of the Addrinfo class and free helper functions." alt="" coords="2244,277,2456,302"/>
+<area shape="poly" id="edge67_Node000043_Node000045" title=" " alt="" coords="1810,131,1947,158,2034,179,2050,189,2060,199,2070,209,2085,219,2123,233,2177,248,2293,274,2292,279,2176,253,2121,238,2082,224,2067,214,2056,203,2046,193,2032,184,1946,163,1809,137"/>
+<area shape="rect" id="Node000048" href="$d9/d8b/netadapter__if_8hpp.html" title="C++ interface to manage information from different platforms about network adapters." alt="" coords="2509,181,2700,221"/>
+<area shape="poly" id="edge55_Node000043_Node000048" title=" " alt="" coords="1810,131,2008,153,2202,170,2509,192,2509,197,2202,176,2008,158,1809,136"/>
+<area shape="rect" id="Node000052" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="1584,181,1775,221"/>
+<area shape="poly" id="edge59_Node000043_Node000052" title=" " alt="" coords="1695,148,1687,182,1681,180,1690,146"/>
+<area shape="rect" id="Node000055" href="$d7/def/sockaddr_8cpp.html" title="Definition of the Sockaddr class and some free helper functions." alt="" coords="2724,189,2939,214"/>
+<area shape="poly" id="edge68_Node000043_Node000055" title=" " alt="" coords="1811,131,1948,144,2065,151,2263,156,2461,160,2577,167,2713,179,2767,186,2766,191,2712,184,2577,172,2461,165,2263,161,2065,156,1948,149,1810,136"/>
+<area shape="poly" id="edge51_Node000044_Node000012" title=" " alt="" coords="1934,235,1936,271,1931,310,1916,368,1899,413,1872,452,1826,488,1793,496,1726,504,1523,521,1083,549,1083,544,1523,516,1726,499,1792,490,1824,483,1868,448,1894,411,1911,366,1926,309,1931,271,1928,235"/>
+<area shape="poly" id="edge52_Node000044_Node000045" title=" " alt="" coords="2032,221,2294,274,2293,279,2031,227"/>
+<area shape="rect" id="Node000046" href="$df/d05/netadapter_8cpp.html" title="Manage information about network adapters." alt="" coords="1992,277,2220,302"/>
+<area shape="poly" id="edge53_Node000044_Node000046" title=" " alt="" coords="1978,225,2083,274,2081,279,1976,230"/>
+<area shape="rect" id="Node000047" href="$d8/d81/socket_8cpp.html" title="Definition of the &#39;class Socket&#39;." alt="" coords="1717,277,1917,302"/>
+<area shape="poly" id="edge54_Node000044_Node000047" title=" " alt="" coords="1892,232,1833,278,1830,274,1889,228"/>
+<area shape="rect" id="Node000049" href="$da/d0d/unix_2UPnPsdk_2netadapter__platform_8hpp.html" title="Manage information from Unix like platforms about network adapters." alt="" coords="2480,269,2729,309"/>
+<area shape="poly" id="edge56_Node000048_Node000049" title=" " alt="" coords="2607,235,2607,269,2602,269,2602,235"/>
+<area shape="rect" id="Node000050" href="$dd/db9/win32_2UPnPsdk_2netadapter__platform_8hpp.html" title="Manage information from Microsoft Windows about network adapters." alt="" coords="2753,269,3003,309"/>
+<area shape="poly" id="edge57_Node000048_Node000050" title=" " alt="" coords="2679,223,2819,267,2817,272,2677,228"/>
+<area shape="rect" id="Node000051" href="$de/dab/netadapter__if_8cpp.html" title="C++ interface to manage information from different platforms about network adapters." alt="" coords="3027,269,3230,309"/>
+<area shape="poly" id="edge58_Node000048_Node000051" title=" " alt="" coords="2714,219,3016,267,3027,269,3026,274,3015,272,2713,224"/>
+<area shape="poly" id="edge61_Node000052_Node000010" title=" " alt="" coords="1651,232,1554,311,1480,359,1477,355,1551,307,1647,228"/>
+<area shape="poly" id="edge62_Node000052_Node000019" title=" " alt="" coords="1571,224,1087,279,1086,274,1570,219"/>
+<area shape="poly" id="edge60_Node000052_Node000020" title=" " alt="" coords="1671,235,1663,270,1663,319,1672,368,1686,411,1700,444,1695,446,1681,413,1667,369,1658,320,1658,269,1666,234"/>
+<area shape="poly" id="edge63_Node000052_Node000024" title=" " alt="" coords="1685,234,1693,271,1707,308,1727,336,1752,360,1805,399,1826,418,1840,438,1841,461,1827,487,1811,500,1787,512,1726,529,1654,542,1584,549,1584,544,1653,536,1724,524,1785,507,1808,496,1823,484,1836,460,1835,440,1822,421,1802,403,1748,364,1723,340,1702,311,1688,272,1680,235"/>
+<area shape="poly" id="edge66_Node000052_Node000047" title=" " alt="" coords="1722,226,1800,274,1797,279,1719,231"/>
+<area shape="rect" id="Node000053" href="$dd/d74/connection__common_8hpp.html" title="Declaration of common used classes and free functions for network connections." alt="" coords="1349,269,1540,309"/>
+<area shape="poly" id="edge64_Node000052_Node000053" title=" " alt="" coords="1616,229,1497,272,1495,267,1614,224"/>
+<area shape="poly" id="edge65_Node000053_Node000010" title=" " alt="" coords="1447,323,1447,357,1442,357,1442,323"/>
 </map>

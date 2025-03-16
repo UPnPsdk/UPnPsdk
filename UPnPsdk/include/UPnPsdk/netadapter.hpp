@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-03
+// Redistribution only with this Copyright remark. Last modified: 2025-03-16
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -96,13 +96,22 @@ else
  * href=https://datatracker.ietf.org/doc/html/rfc4038#section-5.4.1>RFC4038 -
  * IP Address Selection</a>).
  */
-class UPnPsdk_API CNetadapter : public CNetadapter_platform {
+class CNetadapter {
+    // Due to warning C4251 "'type' : class 'type1' needs to have dll-interface
+    // to be used by clients of class 'type2'" on Microsoft Windows each member
+    // function needs to be decorated with UPnPsdk_API instead of just only the
+    // class. The reason is 'm_na_platformPtr'.
   public:
-    // Constructor
-    CNetadapter();
+    /*! \brief Constructor */
+    UPnPsdk_API CNetadapter(
+        /*! [in] Inject the used \glos{depinj,di-service} object that is by
+         * default the productive one but may also be a mocked object for Unit
+         * Tests. */
+        PNetadapter_platform a_na_platformPtr =
+            std::make_shared<CNetadapter_platform>());
 
-    // Destructor
-    virtual ~CNetadapter();
+    /* \brief Destructor */
+    UPnPsdk_API virtual ~CNetadapter();
 
     /// \cond
     // Copy constructor
@@ -116,6 +125,25 @@ class UPnPsdk_API CNetadapter : public CNetadapter_platform {
     CNetadapter& operator=(CNetadapter) = delete;
     /// \endcond
 
+    // methods from injected object
+    /// \copydoc INetadapter::get_first()
+    UPnPsdk_API void get_first();
+    /// \copydoc INetadapter::get_next()
+    UPnPsdk_API bool get_next();
+    /// \copydoc INetadapter::index()
+    UPnPsdk_API unsigned int index() const;
+    /// \copydoc INetadapter::name()
+    UPnPsdk_API std::string name() const;
+    /// \copydoc INetadapter::sockaddr()
+    UPnPsdk_API void sockaddr(SSockaddr& a_saddr) const;
+    /// \copydoc INetadapter::socknetmask()
+    UPnPsdk_API void socknetmask(SSockaddr& a_snetmask) const;
+    /// \copydoc INetadapter::bitmask()
+    UPnPsdk_API unsigned int bitmask() const;
+    /// \copydoc INetadapter::reset()
+    UPnPsdk_API void reset() noexcept;
+
+    // Own methods
     /*! \brief Find local network adapter with given name or ip address
      * \code
      * // Usage e.g.:
@@ -146,7 +174,7 @@ class UPnPsdk_API CNetadapter : public CNetadapter_platform {
      * \returns
      *  - \b true if adapter with given name or ip address was found
      *  - \b false otherwise */
-    bool find_first(
+    UPnPsdk_API bool find_first(
         /*! [in]
          * - no argument will select a local ip address by the operating system
          * - "loopback" (all lower case) will select the first loopback address
@@ -165,7 +193,7 @@ class UPnPsdk_API CNetadapter : public CNetadapter_platform {
      * \returns
      *  - \b true if adapter with given index number was found
      *  - \b false otherwise */
-    bool find_first(
+    UPnPsdk_API bool find_first(
         /*! [in] Index number of the local network adapter. */
         const unsigned int a_index);
 
@@ -178,7 +206,17 @@ class UPnPsdk_API CNetadapter : public CNetadapter_platform {
      *  - \b true if the next item on the selected adatper was found
      *  - \b false otherwise, or if you haven't used get_first() and
      * find_first() */
-    bool find_next();
+    UPnPsdk_API bool find_next();
+
+  private:
+    /// \cond
+    // Injected smart pointer to the netadapter object of the current operating
+    // system. It may also point to a mocking object.
+    PNetadapter_platform m_na_platformPtr;
+
+    // Index of the current found network adapter.
+    unsigned int m_find_index{};
+    /// \endcond
 };
 
 } // namespace UPnPsdk

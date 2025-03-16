@@ -1,82 +1,15 @@
 <map id="UpnpActionRequest_get_ActionResult" name="UpnpActionRequest_get_ActionResult">
-<area shape="rect" id="Node000001" title=" " alt="" coords="1919,798,2097,838"/>
-<area shape="rect" id="Node000002" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#aef9e66b433f64923b1142779a4cdced6" title="Handles the SOAP action request." alt="" coords="1681,791,1861,845"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1905,821,1862,821,1862,815,1905,815"/>
-<area shape="rect" id="Node000010" href="$d3/dc5/group__UpnpSamples.html#ga57f460f1df1159562900cab8a8f219c8" title="Prints callback event structure details." alt="" coords="1687,628,1855,653"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="1967,791,1788,656,1792,652,1970,787"/>
-<area shape="rect" id="Node000033" href="$d4/d6b/UpnpActionRequest_8cpp.html#a877b9d9f4b8b0ee8759b2df69d2fb67a" title=" " alt="" coords="1672,869,1871,895"/>
-<area shape="poly" id="edge45_Node000001_Node000033" title=" " alt="" coords="1928,845,1871,861,1827,872,1826,867,1870,855,1927,839"/>
-<area shape="rect" id="Node000003" href="$d6/d92/soap__device_8cpp.html#a4b5104845d73b836d6365a306fba1679" title="This is a callback called by minisever." alt="" coords="1449,813,1613,839"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1667,824,1613,826,1613,821,1667,819"/>
-<area shape="rect" id="Node000004" href="$d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="1207,901,1345,927"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1477,846,1438,860,1390,884,1330,904,1328,899,1388,880,1436,856,1475,841"/>
-<area shape="rect" id="Node000005" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="950,901,1035,927"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1193,917,1036,917,1036,911,1193,911"/>
-<area shape="rect" id="Node000006" href="$d3/dc5/group__UpnpSamples.html#gab7b35e599dc56c4720e60c43b733a44b" title="Call this function to initialize the UPnP library and start the TV Control Point." alt="" coords="652,851,777,876"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="935,906,777,877,778,872,936,901"/>
-<area shape="rect" id="Node000008" href="$d9/d09/tv__device_8cpp.html#a1b4755ecfe4dd1e3712c1a6dbad3ed29" title="Initializes the UPnP SDK, registers the root&#45;device, and sends out advertisements." alt="" coords="657,652,772,677"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="954,897,912,872,869,840,823,797,781,751,723,679,728,676,785,748,827,793,872,836,915,867,956,892"/>
-<area shape="rect" id="Node000007" href="$dc/dcc/tv__combo__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Main entry point for the combo sample program." alt="" coords="5,652,60,677"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="653,849,414,782,107,691,59,676,61,671,109,686,416,777,655,844"/>
-<area shape="rect" id="Node000009" href="$d9/d09/tv__device_8cpp.html#ad0dc5c3600aa2ebd4ffdc90e741607e7" title="Main entry point for tv device application." alt="" coords="151,652,257,677"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="644,667,257,667,257,662,644,662"/>
-<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="138,667,60,667,60,662,138,662"/>
-<area shape="rect" id="Node000011" href="$d3/dc5/group__UpnpSamples.html#ga9e63f2e47c7d15e566753d0305fc5ed7" title="The callback handler registered with the SDK while registering the control point." alt="" coords="1437,621,1624,661"/>
-<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="1674,643,1624,643,1624,638,1674,638"/>
-<area shape="rect" id="Node000032" href="$d9/d09/tv__device_8cpp.html#aed1cafead3fb83e9101a11c24b346a3b" title="The callback handler registered with the SDK while registering root device." alt="" coords="1163,451,1389,476"/>
-<area shape="poly" id="edge43_Node000010_Node000032" title=" " alt="" coords="1721,626,1312,479,1314,474,1722,621"/>
-<area shape="poly" id="edge42_Node000011_Node000006" title=" " alt="" coords="1488,670,1419,710,1329,758,1224,804,1115,841,1024,858,932,867,847,870,778,869,778,864,847,865,932,862,1024,853,1114,835,1223,799,1326,753,1417,706,1485,665"/>
-<area shape="rect" id="Node000012" href="$d3/dc5/group__UpnpSamples.html#ga3a823a6076337cd6b3a1e4e23f914f09" title="Send a GetVar request to the specified service of a device." alt="" coords="1207,628,1345,653"/>
-<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="1424,643,1345,643,1345,638,1424,638"/>
-<area shape="rect" id="Node000022" href="$d3/dc5/group__UpnpSamples.html#ga440dbdcb8802a87115f7f10e95cbeb58" title="Send an Action request to the specified service of a device." alt="" coords="1193,105,1359,131"/>
-<area shape="poly" id="edge23_Node000011_Node000022" title=" " alt="" coords="1511,609,1281,132,1286,130,1516,607"/>
-<area shape="rect" id="Node000013" href="$d3/dc5/group__UpnpSamples.html#gad7cb8e946c062077e50078615f9cb606" title="TvCtrlPointGetBrightness." alt="" coords="899,504,1086,529"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1246,622,1187,581,1151,561,1114,543,1077,532,1079,527,1116,538,1154,556,1190,577,1249,617"/>
-<area shape="rect" id="Node000014" href="$d3/dc5/group__UpnpSamples.html#gac16a4eff29f123c234e0e4b08c057c75" title="TvCtrlPointGetChannel." alt="" coords="907,553,1078,579"/>
-<area shape="poly" id="edge14_Node000012_Node000014" title=" " alt="" coords="1225,626,1114,593,1065,581,1066,576,1115,587,1226,621"/>
-<area shape="rect" id="Node000015" href="$d3/dc5/group__UpnpSamples.html#ga43232f6b0d55baeac59a39a8df7e1537" title="TvCtrlPointGetColor." alt="" coords="917,603,1068,628"/>
-<area shape="poly" id="edge15_Node000012_Node000015" title=" " alt="" coords="1193,636,1068,625,1068,619,1193,631"/>
-<area shape="rect" id="Node000016" href="$d3/dc5/group__UpnpSamples.html#ga776a99a41dd4dbee7f093468a1a456d8" title="TvCtrlPointGetContrast." alt="" coords="907,652,1079,677"/>
-<area shape="poly" id="edge16_Node000012_Node000016" title=" " alt="" coords="1193,650,1079,660,1078,655,1193,645"/>
-<area shape="rect" id="Node000017" href="$d3/dc5/group__UpnpSamples.html#ga82cf524731e139976f4dd81c9cc0c73d" title="TvCtrlPointGetPower." alt="" coords="914,701,1071,727"/>
-<area shape="poly" id="edge17_Node000012_Node000017" title=" " alt="" coords="1223,660,1115,691,1060,704,1059,699,1114,686,1222,655"/>
-<area shape="rect" id="Node000018" href="$d3/dc5/group__UpnpSamples.html#ga2712849eddca81b17582e0a48bbd7e6d" title="TvCtrlPointGetTint." alt="" coords="921,751,1064,776"/>
-<area shape="poly" id="edge18_Node000012_Node000018" title=" " alt="" coords="1249,664,1190,704,1116,742,1065,756,1063,751,1114,737,1187,699,1246,659"/>
-<area shape="rect" id="Node000019" href="$d3/dc5/group__UpnpSamples.html#gaf54eed3d104aca8ae0845aa827652e27" title="TvCtrlPointGetVolume." alt="" coords="909,800,1076,825"/>
-<area shape="poly" id="edge19_Node000012_Node000019" title=" " alt="" coords="1259,666,1200,729,1160,763,1116,791,1077,805,1076,800,1113,786,1157,759,1196,725,1255,662"/>
-<area shape="rect" id="Node000020" href="$d3/dc5/group__UpnpSamples.html#ga14010940fdabdf6558c7b5d05ea92718" title="TvCtrlPointProcessCommand." alt="" coords="348,255,559,280"/>
-<area shape="poly" id="edge20_Node000012_Node000020" title=" " alt="" coords="1255,619,1231,588,1198,554,1158,520,1113,494,1076,479,1041,469,976,461,917,464,859,472,802,479,742,481,677,470,642,458,605,442,579,425,554,405,511,360,479,315,459,282,464,279,484,312,516,356,558,401,582,421,608,437,644,453,679,465,742,475,801,474,859,466,916,458,977,456,1042,464,1078,474,1116,489,1161,516,1201,550,1235,585,1260,615"/>
-<area shape="rect" id="Node000021" href="$d3/dc5/group__UpnpSamples.html#ga6dfa8b6e5a54243f10e1952ad69e59b9" title="Function that receives commands from the user." alt="" coords="108,429,300,455"/>
-<area shape="poly" id="edge21_Node000020_Node000021" title=" " alt="" coords="424,290,225,431,222,427,421,286"/>
-<area shape="poly" id="edge22_Node000021_Node000007" title=" " alt="" coords="187,468,46,653,42,650,182,464"/>
-<area shape="poly" id="edge24_Node000022_Node000020" title=" " alt="" coords="1179,117,1037,114,871,115,717,125,654,133,608,146,563,169,523,200,467,256,463,253,519,196,560,165,606,141,653,128,716,119,871,110,1037,109,1179,112"/>
-<area shape="rect" id="Node000023" href="$d3/dc5/group__UpnpSamples.html#ga3a55c9c895faccc78b3b046f2317664d" title="Send an action with one argument to a device in the global device* list." alt="" coords="871,255,1115,280"/>
-<area shape="poly" id="edge25_Node000022_Node000023" title=" " alt="" coords="1240,139,1019,257,1017,252,1238,135"/>
-<area shape="rect" id="Node000030" href="$d3/dc5/group__UpnpSamples.html#ga8340b68e10f1da9c334fb088aa3851c0" title="TvCtrlPointSendPowerOff." alt="" coords="622,5,807,31"/>
-<area shape="poly" id="edge38_Node000022_Node000030" title=" " alt="" coords="1223,104,1114,74,952,46,807,29,808,24,953,41,1115,69,1225,99"/>
-<area shape="rect" id="Node000031" href="$d3/dc5/group__UpnpSamples.html#gacd84dbee2f0a43637d6bfac2f9311e6a" title="TvCtrlPointSendPowerOn." alt="" coords="623,55,807,80"/>
-<area shape="poly" id="edge40_Node000022_Node000031" title=" " alt="" coords="1179,109,1114,102,807,76,807,71,1115,97,1179,104"/>
-<area shape="rect" id="Node000024" href="$d3/dc5/group__UpnpSamples.html#ga763f22e4aff7de360d3c5f0ee79bfece" title="TvCtrlPointSendSetBrightness." alt="" coords="607,353,823,379"/>
-<area shape="poly" id="edge26_Node000023_Node000024" title=" " alt="" coords="955,288,894,316,824,343,779,356,777,351,822,338,892,311,952,284"/>
-<area shape="rect" id="Node000025" href="$d3/dc5/group__UpnpSamples.html#gad658cbd97954c6e9cc9f4d67a79a672a" title="TvCtrlPointSendSetChannel." alt="" coords="615,403,815,428"/>
-<area shape="poly" id="edge28_Node000023_Node000025" title=" " alt="" coords="969,292,906,342,866,369,824,392,788,405,786,400,822,388,864,365,903,338,966,287"/>
-<area shape="rect" id="Node000026" href="$d3/dc5/group__UpnpSamples.html#ga8ca83222dceeccf9ff5074b33eadcb5d" title="TvCtrlPointSendSetColor." alt="" coords="624,156,805,181"/>
-<area shape="poly" id="edge30_Node000023_Node000026" title=" " alt="" coords="954,251,893,223,822,195,781,184,783,179,824,190,895,218,956,246"/>
-<area shape="rect" id="Node000027" href="$d3/dc5/group__UpnpSamples.html#ga0e0cfeeda6a317d35460f6cb7cc42df1" title="TvCtrlPointSendSetContrast." alt="" coords="613,205,816,231"/>
-<area shape="poly" id="edge32_Node000023_Node000027" title=" " alt="" coords="907,255,787,233,788,228,908,250"/>
-<area shape="rect" id="Node000028" href="$d3/dc5/group__UpnpSamples.html#gaa45ccb02289e6473ed343c9d5045ed72" title="TvCtrlPointSendSetTint." alt="" coords="629,255,801,280"/>
-<area shape="poly" id="edge34_Node000023_Node000028" title=" " alt="" coords="857,270,801,270,801,265,857,265"/>
-<area shape="rect" id="Node000029" href="$d3/dc5/group__UpnpSamples.html#gad9c8622a70886cc3d42b81e4f2f61435" title="TvCtrlPointSendSetVolume." alt="" coords="617,304,813,329"/>
-<area shape="poly" id="edge36_Node000023_Node000029" title=" " alt="" coords="908,285,788,307,787,301,907,280"/>
-<area shape="poly" id="edge27_Node000024_Node000020" title=" " alt="" coords="636,352,606,343,534,312,476,282,478,278,536,308,608,338,637,347"/>
-<area shape="poly" id="edge29_Node000025_Node000020" title=" " alt="" coords="626,401,605,392,562,366,522,336,465,282,469,278,525,332,565,362,608,388,628,396"/>
-<area shape="poly" id="edge31_Node000026_Node000020" title=" " alt="" coords="633,187,608,195,536,226,478,257,475,252,533,221,606,190,632,182"/>
-<area shape="poly" id="edge33_Node000027_Node000020" title=" " alt="" coords="634,236,522,257,521,252,633,231"/>
-<area shape="poly" id="edge35_Node000028_Node000020" title=" " alt="" coords="615,270,559,270,559,265,615,265"/>
-<area shape="poly" id="edge37_Node000029_Node000020" title=" " alt="" coords="633,304,521,283,522,277,634,299"/>
-<area shape="poly" id="edge39_Node000030_Node000020" title=" " alt="" coords="617,39,608,44,579,68,553,95,510,156,479,214,462,256,457,254,475,212,505,154,549,92,575,64,605,40,614,34"/>
-<area shape="poly" id="edge41_Node000031_Node000020" title=" " alt="" coords="639,87,608,102,560,139,519,183,465,256,460,253,515,180,557,135,605,97,637,82"/>
-<area shape="poly" id="edge44_Node000032_Node000008" title=" " alt="" coords="1169,452,1100,450,1023,454,945,467,908,479,872,494,845,510,821,529,778,574,746,619,725,653,721,650,741,616,774,571,817,525,842,505,869,489,906,474,944,462,1023,448,1099,444,1169,447"/>
-<area shape="rect" id="Node000034" href="$d4/d6b/UpnpActionRequest_8cpp.html#acff1dc3ee6d4b9089b62621f473bb0fc" title=" " alt="" coords="1440,869,1621,895"/>
-<area shape="poly" id="edge46_Node000033_Node000034" title=" " alt="" coords="1658,885,1622,885,1622,879,1658,879"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="801,45,980,85"/>
+<area shape="rect" id="Node000002" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#aef9e66b433f64923b1142779a4cdced6" title="Handles the SOAP action request." alt="" coords="564,5,744,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="787,53,744,47,745,42,788,48"/>
+<area shape="rect" id="Node000006" href="$d4/d6b/UpnpActionRequest_8cpp.html#a877b9d9f4b8b0ee8759b2df69d2fb67a" title=" " alt="" coords="555,84,753,109"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="788,81,749,87,748,81,787,76"/>
+<area shape="rect" id="Node000003" href="$d6/d92/soap__device_8cpp.html#a4b5104845d73b836d6365a306fba1679" title="This is a callback called by minisever." alt="" coords="334,20,498,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="550,35,498,35,498,30,550,30"/>
+<area shape="rect" id="Node000004" href="$d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="139,20,277,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="320,35,278,35,278,30,320,30"/>
+<area shape="rect" id="Node000005" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,20,91,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="125,35,91,35,91,30,125,30"/>
+<area shape="rect" id="Node000007" href="$d4/d6b/UpnpActionRequest_8cpp.html#acff1dc3ee6d4b9089b62621f473bb0fc" title=" " alt="" coords="325,84,507,109"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="541,99,507,99,507,94,541,94"/>
 </map>

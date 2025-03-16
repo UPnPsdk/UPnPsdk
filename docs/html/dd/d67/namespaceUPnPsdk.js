@@ -20,10 +20,11 @@ var namespaceUPnPsdk =
     [ "CStrIntMap", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", "d7/d1a/classUPnPsdk_1_1CStrIntMap" ],
     [ "CUri", "da/dcf/classUPnPsdk_1_1CUri.html", "da/dcf/classUPnPsdk_1_1CUri" ],
     [ "Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", "dd/d67/namespaceUPnPsdk_db/dfe/structUPnPsdk_1_1Document__meta_dup" ],
-    [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", null ],
+    [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", "d6/d3e/classUPnPsdk_1_1INetadapter" ],
     [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
     [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", "dc/df7/structUPnPsdk_1_1SSockaddr" ],
     [ "str_int_entry", "dd/d67/namespaceUPnPsdk.html#de/dd6/structUPnPsdk_1_1str__int__entry", "dd/d67/namespaceUPnPsdk_de/dd6/structUPnPsdk_1_1str__int__entry_dup" ],
+    [ "PNetadapter_platform", "dd/d67/namespaceUPnPsdk.html#aa9f30d9a1a9776d7bf32ffd8c0e3f524", null ],
     [ "Upnp_HttpMethod", "dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323c", [
       [ "UPNP_HTTPMETHOD_PUT", "dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323ca46cde3748d475ae57539ba29c9c13bf0", null ],
       [ "UPNP_HTTPMETHOD_DELETE", "dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323ca5222fd6c491dc9cc9702d35314c60864", null ],

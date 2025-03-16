@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-24
+// Redistribution only with this Copyright remark. Last modified: 2025-03-16
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -195,7 +195,6 @@ inline void CNetadapter_platform::reset() noexcept {
     TRACE2(this, " Executing CNetadapter_platform::reset()")
     m_adapt_current = m_adapt_first;
     m_unicastaddr_current = m_adapt_current->FirstUnicastAddress;
-    m_find_index = 0;
 }
 
 } // namespace UPnPsdk

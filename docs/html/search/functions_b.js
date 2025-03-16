@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['name_0',['name',['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8adb1de77c10e3ad389d84896c053d8c',1,'UPnPsdk::CNetadapter_platform::name() const override'],['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8adb1de77c10e3ad389d84896c053d8c',1,'UPnPsdk::CNetadapter_platform::name() const override']]],
+  ['name_0',['name',['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8adb1de77c10e3ad389d84896c053d8c',1,'UPnPsdk::CNetadapter_platform::name()'],['../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995',1,'UPnPsdk::CNetadapter::name()'],['../d6/d3e/classUPnPsdk_1_1INetadapter.html#a3d39079c1e95b80cfc47da504b19ea7a',1,'UPnPsdk::INetadapter::name()'],['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8adb1de77c10e3ad389d84896c053d8c',1,'UPnPsdk::CNetadapter_platform::name()']]],
   ['namecopy_1',['namecopy',['../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#aaff3151949d24586b6cd210fec3890b2',1,'anonymous_namespace{soap_device.cpp}']]],
   ['netaddr_2',['netaddr',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a29c41bbfce7a8e358e7c6b6cdf968d2b',1,'UPnPsdk::SSockaddr']]],
   ['netaddrp_3',['netaddrp',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#aa63701b8d311374ed6c1061b4d648a9e',1,'UPnPsdk::SSockaddr']]],

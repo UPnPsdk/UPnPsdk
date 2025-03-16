@@ -947,9 +947,9 @@ INPUT                  = Pupnp/directory.dox \
                          docs \
                          UPnPsdk \
                          Compa \
-                         Pupnp/ixml \
-                         Sample/common \
-                         Sample/linux
+                         Pupnp/ixml
+                         # Sample/common \
+                         # Sample/linux
 #
 # delete Compa/inc/UpnpGlobal.hpp
 # delete Compa/inc/UpnpInet.hpp

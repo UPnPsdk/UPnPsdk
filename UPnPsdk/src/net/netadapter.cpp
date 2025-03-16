@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-03
+// Redistribution only with this Copyright remark. Last modified: 2025-03-16
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -197,13 +197,40 @@ void bitmask_to_netmask(const ::sockaddr_storage* a_saddr,
 
 // CNetadapter class
 // =================
-CNetadapter::CNetadapter(){
-    TRACE2(this, " Constnuct CNetadapter()") //
+CNetadapter::CNetadapter(PNetadapter_platform a_na_platformPtr)
+    : m_na_platformPtr(a_na_platformPtr) {
+    TRACE2(this, " Construct CNetadapter()") //
 }
 
 CNetadapter::~CNetadapter() {
     TRACE2(this, " Destruct CNetadapter()")
 }
+
+void CNetadapter::get_first() { m_na_platformPtr->get_first(); }
+
+bool CNetadapter::get_next() { return m_na_platformPtr->get_next(); }
+
+unsigned int CNetadapter::index() const { return m_na_platformPtr->index(); }
+
+std::string CNetadapter::name() const { return m_na_platformPtr->name(); }
+
+void CNetadapter::sockaddr(SSockaddr& a_saddr) const {
+    m_na_platformPtr->sockaddr(a_saddr);
+}
+
+void CNetadapter::socknetmask(SSockaddr& a_snetmask) const {
+    m_na_platformPtr->socknetmask(a_snetmask);
+}
+
+unsigned int CNetadapter::bitmask() const {
+    return m_na_platformPtr->bitmask();
+}
+
+void CNetadapter::reset() noexcept {
+    m_find_index = 0;
+    m_na_platformPtr->reset();
+}
+
 
 bool CNetadapter::find_first(std::string_view a_name_or_addr) {
     TRACE2(this, " Executing CNetadapter::find_first()")

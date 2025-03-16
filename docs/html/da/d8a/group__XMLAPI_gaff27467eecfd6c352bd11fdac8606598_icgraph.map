@@ -1,125 +1,68 @@
 <map id="ixmlNodeList_item" name="ixmlNodeList_item">
-<area shape="rect" id="Node000001" title="Retrieves a Node from a NodeList specified by a numerical index." alt="" coords="1887,437,2032,463"/>
-<area shape="rect" id="Node000002" href="$d0/dc4/group__SSDP-device__functions.html#gaa9d18b0afb046c657893b11e88eb857b" title="Sends SSDP advertisements, replies and shutdown messages." alt="" coords="1350,120,1497,145"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1953,424,1944,368,1925,297,1910,261,1890,226,1866,194,1837,168,1795,144,1750,127,1702,116,1653,111,1560,113,1483,123,1482,117,1559,107,1653,106,1703,111,1751,122,1798,139,1840,164,1870,191,1895,223,1914,259,1930,296,1949,367,1958,423"/>
-<area shape="rect" id="Node000029" href="$df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0" title="Configure the description document." alt="" coords="1624,309,1804,364"/>
-<area shape="poly" id="edge23_Node000001_Node000029" title=" " alt="" coords="1927,432,1886,405,1838,379,1804,365,1806,360,1840,374,1888,400,1930,427"/>
-<area shape="rect" id="Node000033" href="$d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a7359ea5e4d70db0a82faa1cdd447b5d5" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="1333,233,1513,288"/>
-<area shape="poly" id="edge27_Node000001_Node000033" title=" " alt="" coords="1944,426,1928,396,1904,360,1874,326,1837,299,1798,281,1757,268,1671,252,1587,248,1514,251,1514,246,1587,243,1672,247,1758,262,1800,276,1840,294,1877,322,1908,357,1932,393,1949,424"/>
-<area shape="rect" id="Node000039" href="$d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a75316464db9843014fb2e2311ad6f0b4" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="1624,179,1804,233"/>
-<area shape="poly" id="edge35_Node000001_Node000039" title=" " alt="" coords="1946,425,1930,387,1907,342,1876,295,1837,255,1803,234,1806,229,1840,251,1880,292,1911,339,1935,385,1951,423"/>
-<area shape="rect" id="Node000040" href="$d6/d37/ixmldebug_8cpp.html#a64ec28a981a1ebc97ae7103252bda8e0" title="Print the node names and values of a XML tree." alt="" coords="1667,711,1761,736"/>
-<area shape="poly" id="edge37_Node000001_Node000040" title=" " alt="" coords="1953,477,1939,520,1916,573,1883,629,1840,677,1802,702,1762,716,1760,711,1800,697,1837,673,1879,625,1911,571,1934,518,1948,475"/>
-<area shape="rect" id="Node000041" href="$d3/dc5/group__UpnpSamples.html#ga0f4f40a9937dc227c245108fc26ae5ce" title="This routine finds the first occurance of a service in a DOM representation of a description document..." alt="" coords="1305,479,1541,504"/>
-<area shape="poly" id="edge39_Node000001_Node000041" title=" " alt="" coords="1894,468,1839,478,1684,491,1542,495,1541,489,1684,485,1838,473,1894,463"/>
-<area shape="rect" id="Node000063" href="$d3/dc5/group__UpnpSamples.html#ga1be666dac0b2278ef4562d893c535514" title="Given a document node, this routine searches for the first element named by the input string item,..." alt="" coords="1589,637,1839,663"/>
-<area shape="poly" id="edge47_Node000001_Node000063" title=" " alt="" coords="1951,477,1935,511,1911,553,1879,594,1840,628,1818,639,1816,635,1837,624,1875,590,1906,550,1930,509,1946,474"/>
-<area shape="rect" id="Node000072" href="$d3/dc5/group__UpnpSamples.html#ga8b1b46cdfff281352c9b81eae3409e48" title="Given a DOM element, this routine searches for the first element named by the input string item,..." alt="" coords="1596,539,1832,564"/>
-<area shape="poly" id="edge65_Node000001_Node000072" title=" " alt="" coords="1930,472,1888,498,1840,522,1779,541,1777,536,1838,517,1886,493,1927,468"/>
-<area shape="rect" id="Node000073" href="$d3/dc5/group__UpnpSamples.html#ga234833b0ac482c7ae325fb0f0490b40a" title="Given a DOM node representing a UPnP Device Description Document, this routine parses the document an..." alt="" coords="1603,588,1825,613"/>
-<area shape="poly" id="edge67_Node000001_Node000073" title=" " alt="" coords="1944,476,1902,529,1873,556,1840,579,1813,590,1811,585,1837,574,1869,552,1898,525,1940,472"/>
-<area shape="rect" id="Node000074" href="$d3/dc5/group__UpnpSamples.html#ga67af912b61453651e122791025d0ae2f" title="Obtain the service list." alt="" coords="1605,437,1823,463"/>
-<area shape="poly" id="edge69_Node000001_Node000074" title=" " alt="" coords="1873,453,1824,453,1824,447,1873,447"/>
-<area shape="rect" id="Node000075" href="$d3/dc5/group__UpnpSamples.html#gab7dba54e74f1d0f39ad964b05d504e5f" title="Update a Tv state table. Called when an event is received." alt="" coords="1655,388,1773,413"/>
-<area shape="poly" id="edge71_Node000001_Node000075" title=" " alt="" coords="1882,437,1773,415,1774,410,1883,432"/>
-<area shape="rect" id="Node000003" href="$db/db9/ssdp__device_8cpp.html#ab3115143bf1fdc1e542272324939ea28" title="Wrapper function to reply the search request coming from the control point." alt="" coords="1057,41,1247,67"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1365,119,1196,69,1197,64,1366,114"/>
-<area shape="rect" id="Node000009" href="$d4/d99/upnpapi_8cpp.html#a35b8096fd45fc632c6ac12a835d67f53" title="Sends out the discovery announcements for all devices and services contained within one root device." alt="" coords="1047,110,1257,150"/>
-<area shape="poly" id="edge6_Node000002_Node000009" title=" " alt="" coords="1336,134,1258,134,1258,128,1336,129"/>
-<area shape="rect" id="Node000015" href="$d4/d99/upnpapi_8cpp.html#ab04dfc9206cdac78f584e6d208ba9c72" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="1051,174,1253,214"/>
-<area shape="poly" id="edge13_Node000002_Node000015" title=" " alt="" coords="1354,151,1242,177,1241,171,1353,146"/>
-<area shape="rect" id="Node000004" href="$db/db9/ssdp__device_8cpp.html#a71cabcefa14fea2869b65b9d2ba7712d" title="Handles the search request." alt="" coords="821,15,974,55"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1043,49,974,44,974,38,1043,43"/>
-<area shape="rect" id="Node000005" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a" title="This function is a thread that handles SSDP requests." alt="" coords="547,5,748,60"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="807,37,748,36,748,31,807,32"/>
-<area shape="rect" id="Node000006" href="$df/d13/ssdp__common_8cpp.html#af3e17308ebc31e7e81c476624487614c" title="This function reads the data from the ssdp socket." alt="" coords="337,20,499,45"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="533,35,499,35,499,30,533,30"/>
-<area shape="rect" id="Node000010" href="$d4/d99/upnpapi_8cpp.html#a9e7f15fd415e463b3c4f4c873ed56114" title="Sends out the discovery announcements for all devices and services contained within one root device." alt="" coords="805,135,989,160"/>
-<area shape="poly" id="edge7_Node000009_Node000010" title=" " alt="" coords="1033,141,990,144,989,138,1033,135"/>
-<area shape="rect" id="Node000011" href="$d4/d99/upnpapi_8cpp.html#abb1ab3d0ba145286005284d447110fce" title="This function is a timer thread scheduled by UpnpSendAdvertisement to the send advetisement again." alt="" coords="590,84,705,109"/>
-<area shape="poly" id="edge8_Node000010_Node000011" title=" " alt="" coords="820,134,704,111,705,106,821,129"/>
-<area shape="rect" id="Node000012" href="$d9/d09/tv__device_8cpp.html#a1b4755ecfe4dd1e3712c1a6dbad3ed29" title="Initializes the UPnP SDK, registers the root&#45;device, and sends out advertisements." alt="" coords="361,285,475,311"/>
-<area shape="poly" id="edge10_Node000010_Node000012" title=" " alt="" coords="792,164,673,188,609,205,548,226,497,253,441,288,438,283,495,248,546,221,608,200,672,182,791,159"/>
-<area shape="poly" id="edge9_Node000011_Node000009" title=" " alt="" coords="719,99,1047,120,1046,126,718,104"/>
-<area shape="rect" id="Node000013" href="$d9/d09/tv__device_8cpp.html#ad0dc5c3600aa2ebd4ffdc90e741607e7" title="Main entry point for tv device application." alt="" coords="146,285,251,311"/>
-<area shape="poly" id="edge11_Node000012_Node000013" title=" " alt="" coords="347,301,252,301,252,295,347,295"/>
-<area shape="rect" id="Node000014" href="$dc/dcc/tv__combo__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="Main entry point for the combo sample program." alt="" coords="5,285,60,311"/>
-<area shape="poly" id="edge12_Node000013_Node000014" title=" " alt="" coords="132,301,60,301,60,295,132,295"/>
-<area shape="rect" id="Node000016" href="$d4/d99/upnpapi_8cpp.html#abb1c47010971d19ecd2b46ee842871ec" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="796,185,999,211"/>
-<area shape="poly" id="edge14_Node000015_Node000016" title=" " alt="" coords="1037,198,999,199,999,194,1037,193"/>
-<area shape="rect" id="Node000017" href="$d9/d09/tv__device_8cpp.html#ae9d9e95e2f4d533ed860ae40c9b3353b" title="Stops the device. Uninitializes the SDK." alt="" coords="362,211,474,236"/>
-<area shape="poly" id="edge15_Node000016_Node000017" title=" " alt="" coords="782,207,475,223,474,218,782,201"/>
-<area shape="rect" id="Node000020" href="$d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="600,236,695,261"/>
-<area shape="poly" id="edge18_Node000016_Node000020" title=" " alt="" coords="821,216,696,242,695,237,820,211"/>
-<area shape="poly" id="edge16_Node000017_Node000014" title=" " alt="" coords="349,234,235,250,109,275,61,290,59,285,107,270,235,244,348,228"/>
-<area shape="rect" id="Node000018" href="$d9/d09/tv__device_8cpp.html#ad3a78c1a3b2b7ebeca7dd92f1ed27de1" title="Function that receives commands from the user at the command prompt during the lifetime of the device..." alt="" coords="108,184,289,209"/>
-<area shape="poly" id="edge17_Node000017_Node000018" title=" " alt="" coords="348,218,289,210,290,205,349,212"/>
-<area shape="poly" id="edge21_Node000020_Node000012" title=" " alt="" coords="587,264,476,288,475,283,586,259"/>
-<area shape="poly" id="edge22_Node000020_Node000017" title=" " alt="" coords="586,245,474,232,474,227,587,239"/>
-<area shape="rect" id="Node000021" href="$d3/dc5/group__UpnpSamples.html#gab7b35e599dc56c4720e60c43b733a44b" title="Call this function to initialize the UPnP library and start the TV Control Point." alt="" coords="355,336,481,361"/>
-<area shape="poly" id="edge19_Node000020_Node000021" title=" " alt="" coords="588,260,548,275,534,286,525,298,515,311,500,324,470,338,468,334,497,320,511,308,520,295,530,283,545,270,586,255"/>
-<area shape="poly" id="edge20_Node000021_Node000014" title=" " alt="" coords="342,350,231,342,107,325,60,311,61,306,109,319,231,337,342,344"/>
-<area shape="rect" id="Node000030" href="$d1/d4a/urlconfig_8cpp.html#a2fa72177f842afa6e0b87182387aac88" title="Configure the full URL for the description document." alt="" coords="1355,325,1492,351"/>
-<area shape="poly" id="edge24_Node000029_Node000030" title=" " alt="" coords="1610,340,1492,340,1492,335,1610,334"/>
-<area shape="rect" id="Node000031" href="$d4/d99/upnpapi_8cpp.html#a9300edc4f96f8f3e563bcaf49bffd514" title="Fills the sockadr_in with miniserver information." alt="" coords="1055,337,1249,363"/>
-<area shape="poly" id="edge25_Node000030_Node000031" title=" " alt="" coords="1341,344,1250,348,1250,343,1341,339"/>
-<area shape="rect" id="Node000032" href="$d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="801,337,994,363"/>
-<area shape="poly" id="edge26_Node000031_Node000032" title=" " alt="" coords="1041,353,994,353,994,347,1041,347"/>
-<area shape="rect" id="Node000034" href="$dd/d10/service__table_8cpp.html#a6a15f56e772dfbe60a5edbfb590f86b3" title="Add Service to the table." alt="" coords="1088,239,1216,264"/>
-<area shape="poly" id="edge28_Node000033_Node000034" title=" " alt="" coords="1319,260,1216,256,1216,251,1320,254"/>
-<area shape="rect" id="Node000035" href="$dd/d10/service__table_8cpp.html#a93dca6df0d19011183259fe98fafce8e" title="Retrieve service from the table." alt="" coords="1089,288,1215,313"/>
-<area shape="poly" id="edge29_Node000033_Node000035" title=" " alt="" coords="1320,279,1215,294,1214,289,1319,273"/>
-<area shape="poly" id="edge31_Node000035_Node000032" title=" " alt="" coords="1076,318,964,340,963,335,1075,313"/>
-<area shape="rect" id="Node000036" href="$d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="805,239,990,264"/>
-<area shape="poly" id="edge30_Node000035_Node000036" title=" " alt="" coords="1075,289,963,267,964,261,1076,283"/>
-<area shape="rect" id="Node000037" href="$d4/d99/upnpapi_8cpp.html#a40c47dc11eed3d58d20b64dd2804a206" title="Registers one UPnP device object for a specific address family with the UPnP library and get a handle..." alt="" coords="801,288,994,313"/>
-<area shape="poly" id="edge32_Node000035_Node000037" title=" " alt="" coords="1076,303,994,303,994,298,1076,298"/>
-<area shape="poly" id="edge33_Node000037_Node000012" title=" " alt="" coords="809,318,748,325,647,330,546,325,474,313,475,308,547,319,647,325,748,319,809,313"/>
-<area shape="rect" id="Node000038" href="$d4/d99/upnpapi_8cpp.html#a4aadebd5375b753c66b3aa8a24017d59" title="Same as UpnpRegisterRootDevice3()" alt="" coords="551,285,744,311"/>
-<area shape="poly" id="edge34_Node000037_Node000038" title=" " alt="" coords="787,302,744,302,744,296,787,297"/>
-<area shape="poly" id="edge36_Node000039_Node000033" title=" " alt="" coords="1611,228,1514,246,1513,241,1610,223"/>
-<area shape="poly" id="edge38_Node000040_Node000040" title=" " alt="" coords="1758,701,1755,697,1747,693,1714,689,1688,691,1674,696,1671,702,1678,709,1674,712,1666,702,1670,692,1687,686,1714,684,1749,688,1759,693,1762,698"/>
-<area shape="rect" id="Node000042" href="$d3/dc5/group__UpnpSamples.html#ga411338cb897483b8334a73150c30f51f" title="Add the UPnP device to the global device list." alt="" coords="1070,529,1234,555"/>
-<area shape="poly" id="edge40_Node000041_Node000042" title=" " alt="" coords="1342,509,1221,532,1220,527,1341,504"/>
-<area shape="rect" id="Node000062" href="$d9/d09/tv__device_8cpp.html#a98b53df920f1c3bbe4124e44b1cf8ce1" title="Initialize the device state table for this TvDevice, pulling identifier info from the description Doc..." alt="" coords="561,556,733,581"/>
-<area shape="poly" id="edge45_Node000041_Node000062" title=" " alt="" coords="1292,501,1047,521,734,559,733,554,1046,515,1291,496"/>
-<area shape="rect" id="Node000043" href="$d3/dc5/group__UpnpSamples.html#ga9e63f2e47c7d15e566753d0305fc5ed7" title="The callback handler registered with the SDK while registering the control point." alt="" coords="804,414,991,454"/>
-<area shape="poly" id="edge41_Node000042_Node000043" title=" " alt="" coords="1107,526,945,457,947,452,1109,521"/>
-<area shape="poly" id="edge44_Node000043_Node000021" title=" " alt="" coords="789,418,480,362,481,357,790,412"/>
-<area shape="rect" id="Node000044" href="$d3/dc5/group__UpnpSamples.html#ga3a823a6076337cd6b3a1e4e23f914f09" title="Send a GetVar request to the specified service of a device." alt="" coords="578,437,717,463"/>
-<area shape="poly" id="edge42_Node000043_Node000044" title=" " alt="" coords="791,443,717,448,717,443,790,438"/>
-<area shape="rect" id="Node000052" href="$d3/dc5/group__UpnpSamples.html#ga440dbdcb8802a87115f7f10e95cbeb58" title="Send an Action request to the specified service of a device." alt="" coords="564,487,731,512"/>
-<area shape="poly" id="edge43_Node000043_Node000052" title=" " alt="" coords="814,460,749,478,704,489,702,484,747,473,812,455"/>
-<area shape="poly" id="edge46_Node000062_Node000012" title=" " alt="" coords="580,553,561,542,545,526,528,500,521,473,519,448,521,423,523,398,522,374,514,350,497,325,474,310,477,306,501,321,519,347,527,373,529,398,527,423,525,448,526,472,533,497,549,523,564,537,583,548"/>
-<area shape="poly" id="edge48_Node000063_Node000041" title=" " alt="" coords="1594,633,1588,628,1575,616,1568,602,1562,576,1557,550,1551,537,1540,525,1506,506,1508,502,1543,521,1555,534,1562,548,1567,575,1573,601,1580,612,1591,624,1597,628"/>
-<area shape="poly" id="edge49_Node000063_Node000042" title=" " alt="" coords="1602,635,1588,628,1572,615,1563,601,1555,588,1540,576,1503,561,1463,549,1382,536,1303,532,1234,535,1234,530,1303,527,1382,530,1464,544,1504,556,1543,572,1559,584,1568,598,1576,612,1591,624,1604,630"/>
-<area shape="poly" id="edge64_Node000063_Node000062" title=" " alt="" coords="1638,637,1541,622,1313,600,1086,586,734,573,734,567,1087,580,1313,595,1542,617,1639,632"/>
-<area shape="rect" id="Node000064" href="$d9/d09/tv__device_8cpp.html#a77123bac1bbefeb2dac640461c5f02ed" title="Change the brightness, update the TvDevice picture service state table, and notify all subscribed con..." alt="" coords="1337,729,1510,755"/>
-<area shape="poly" id="edge50_Node000063_Node000064" title=" " alt="" coords="1611,669,1591,678,1576,688,1567,698,1558,710,1543,720,1511,732,1510,727,1540,716,1554,706,1563,695,1573,684,1588,673,1609,664"/>
-<area shape="rect" id="Node000067" href="$d9/d09/tv__device_8cpp.html#ab980bd8535216da103d058ad04c9ef5b" title="Change the channel, update the TvDevice control service state table, and notify all subscribed contro..." alt="" coords="1345,779,1502,804"/>
-<area shape="poly" id="edge54_Node000063_Node000067" title=" " alt="" coords="1601,671,1591,677,1580,688,1574,699,1568,722,1562,746,1555,758,1543,769,1524,781,1503,788,1501,783,1522,776,1540,765,1550,755,1557,744,1563,721,1569,696,1576,684,1588,673,1598,666"/>
-<area shape="rect" id="Node000068" href="$d9/d09/tv__device_8cpp.html#ae8b836792cbe96ab39c49055ecfed95c" title="Change the color, update the TvDevice picture service state table, and notify all subscribed control ..." alt="" coords="1354,828,1493,853"/>
-<area shape="poly" id="edge56_Node000063_Node000068" title=" " alt="" coords="1598,672,1591,677,1577,694,1570,710,1568,746,1565,783,1558,801,1543,819,1520,833,1494,841,1492,836,1518,828,1540,815,1553,798,1560,782,1563,746,1565,709,1573,691,1587,673,1595,668"/>
-<area shape="rect" id="Node000069" href="$d9/d09/tv__device_8cpp.html#a1acc6c9b217bd1d69d9bfacc9afcb22b" title="Change the contrast, update the TvDevice picture service state table, and notify all subscribed contr..." alt="" coords="1344,877,1503,903"/>
-<area shape="poly" id="edge58_Node000063_Node000069" title=" " alt="" coords="1597,672,1591,677,1574,700,1567,723,1566,746,1568,770,1570,795,1569,820,1561,844,1543,868,1525,881,1504,889,1502,884,1522,876,1539,864,1557,842,1564,819,1565,795,1563,771,1560,746,1561,722,1569,697,1587,674,1594,668"/>
-<area shape="rect" id="Node000070" href="$d9/d09/tv__device_8cpp.html#abe544b3fec6c58b75a5de45bd4d4b40a" title="Change the tint, update the TvDevice picture service state table, and notify all subscribed control p..." alt="" coords="1359,631,1488,656"/>
-<area shape="poly" id="edge60_Node000063_Node000070" title=" " alt="" coords="1576,649,1488,647,1488,642,1576,644"/>
-<area shape="rect" id="Node000071" href="$d9/d09/tv__device_8cpp.html#a49f479f22cb086c07ffc6196e1015d19" title="Change the volume, update the TvDevice control service state table, and notify all subscribed control..." alt="" coords="1347,680,1500,705"/>
-<area shape="poly" id="edge62_Node000063_Node000071" title=" " alt="" coords="1614,667,1501,684,1500,679,1613,662"/>
-<area shape="rect" id="Node000065" href="$d9/d09/tv__device_8cpp.html#aae7c6a0d30a838eca4e073c7da59147d" title="Initializes the action table for the specified service." alt="" coords="1093,729,1211,755"/>
-<area shape="poly" id="edge51_Node000064_Node000065" title=" " alt="" coords="1323,745,1212,745,1212,739,1323,739"/>
-<area shape="rect" id="Node000066" href="$d9/d09/tv__device_8cpp.html#a40252741ac1ba3b00544d619e663eb24" title="Initializes the service table for the specified service." alt="" coords="835,680,960,705"/>
-<area shape="poly" id="edge52_Node000065_Node000066" title=" " alt="" coords="1078,731,960,707,961,702,1079,725"/>
-<area shape="poly" id="edge53_Node000066_Node000062" title=" " alt="" coords="857,676,673,584,675,579,860,671"/>
-<area shape="poly" id="edge55_Node000067_Node000065" title=" " alt="" coords="1339,779,1211,755,1212,750,1340,774"/>
-<area shape="poly" id="edge57_Node000068_Node000065" title=" " alt="" coords="1340,829,1304,819,1231,788,1173,757,1176,752,1234,783,1306,814,1342,824"/>
-<area shape="poly" id="edge59_Node000069_Node000065" title=" " alt="" coords="1330,878,1304,868,1260,842,1220,811,1163,757,1167,753,1223,807,1263,838,1306,864,1332,873"/>
-<area shape="poly" id="edge61_Node000070_Node000065" title=" " alt="" coords="1346,660,1306,671,1235,701,1177,731,1175,727,1232,697,1304,666,1344,655"/>
-<area shape="poly" id="edge63_Node000071_Node000065" title=" " alt="" coords="1340,710,1212,734,1211,729,1339,705"/>
-<area shape="poly" id="edge66_Node000072_Node000041" title=" " alt="" coords="1637,538,1485,507,1486,501,1639,533"/>
-<area shape="poly" id="edge68_Node000073_Node000041" title=" " alt="" coords="1601,585,1588,579,1572,566,1563,552,1554,538,1540,526,1495,507,1497,502,1543,521,1558,535,1567,549,1576,562,1591,574,1603,581"/>
-<area shape="poly" id="edge70_Node000074_Node000041" title=" " alt="" coords="1611,467,1514,481,1513,476,1610,462"/>
-<area shape="rect" id="Node000076" href="$d3/dc5/group__UpnpSamples.html#ga39e4c0bcd8a287f34297de07fb6d147a" title="Handle a UPnP event that was received." alt="" coords="1063,403,1241,428"/>
-<area shape="poly" id="edge72_Node000075_Node000076" title=" " alt="" coords="1641,405,1241,416,1241,410,1640,400"/>
-<area shape="poly" id="edge73_Node000076_Node000043" title=" " alt="" coords="1050,425,991,430,991,424,1049,420"/>
+<area shape="rect" id="Node000001" title="Retrieves a Node from a NodeList specified by a numerical index." alt="" coords="1743,261,1888,287"/>
+<area shape="rect" id="Node000002" href="$d0/dc4/group__SSDP-device__functions.html#gaa9d18b0afb046c657893b11e88eb857b" title="Sends SSDP advertisements, replies and shutdown messages." alt="" coords="1531,117,1678,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1791,254,1748,213,1693,171,1641,145,1643,140,1696,166,1751,209,1795,250"/>
+<area shape="rect" id="Node000019" href="$df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0" title="Configure the description document." alt="" coords="1515,181,1695,236"/>
+<area shape="poly" id="edge22_Node000001_Node000019" title=" " alt="" coords="1760,260,1693,239,1694,234,1761,255"/>
+<area shape="rect" id="Node000023" href="$d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a7359ea5e4d70db0a82faa1cdd447b5d5" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="1271,308,1451,363"/>
+<area shape="poly" id="edge26_Node000001_Node000023" title=" " alt="" coords="1729,281,1626,289,1515,303,1452,316,1451,310,1514,298,1626,284,1728,276"/>
+<area shape="rect" id="Node000029" href="$d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a75316464db9843014fb2e2311ad6f0b4" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="1515,312,1695,367"/>
+<area shape="poly" id="edge33_Node000001_Node000029" title=" " alt="" coords="1761,293,1694,314,1693,309,1760,288"/>
+<area shape="rect" id="Node000030" href="$d6/d37/ixmldebug_8cpp.html#a64ec28a981a1ebc97ae7103252bda8e0" title="Print the node names and values of a XML tree." alt="" coords="1558,415,1651,440"/>
+<area shape="poly" id="edge35_Node000001_Node000030" title=" " alt="" coords="1793,299,1750,339,1696,382,1635,417,1632,412,1693,377,1746,335,1790,295"/>
+<area shape="rect" id="Node000003" href="$db/db9/ssdp__device_8cpp.html#ab3115143bf1fdc1e542272324939ea28" title="Wrapper function to reply the search request coming from the control point." alt="" coords="1266,35,1457,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1552,115,1399,63,1401,58,1554,110"/>
+<area shape="rect" id="Node000009" href="$d4/d99/upnpapi_8cpp.html#a35b8096fd45fc632c6ac12a835d67f53" title="Sends out the discovery announcements for all devices and services contained within one root device." alt="" coords="1256,103,1467,143"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="1518,130,1467,129,1467,124,1518,125"/>
+<area shape="rect" id="Node000012" href="$d4/d99/upnpapi_8cpp.html#ab04dfc9206cdac78f584e6d208ba9c72" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="1260,167,1463,207"/>
+<area shape="poly" id="edge12_Node000002_Node000012" title=" " alt="" coords="1537,148,1447,170,1446,165,1536,143"/>
+<area shape="rect" id="Node000004" href="$db/db9/ssdp__device_8cpp.html#a71cabcefa14fea2869b65b9d2ba7712d" title="Handles the search request." alt="" coords="1030,13,1183,53"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1252,44,1183,40,1184,34,1252,38"/>
+<area shape="rect" id="Node000005" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a" title="This function is a thread that handles SSDP requests." alt="" coords="756,5,957,60"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1016,35,958,35,958,30,1016,30"/>
+<area shape="rect" id="Node000006" href="$df/d13/ssdp__common_8cpp.html#af3e17308ebc31e7e81c476624487614c" title="This function reads the data from the ssdp socket." alt="" coords="531,20,692,45"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="742,35,692,35,692,30,742,30"/>
+<area shape="rect" id="Node000007" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a02379f09474a96b3590cadd8ca82ecf1" title="Read data from the SSDP socket." alt="" coords="253,13,467,53"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="517,35,467,35,467,30,517,30"/>
+<area shape="rect" id="Node000008" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="5,5,205,60"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="240,35,206,35,206,30,240,30"/>
+<area shape="rect" id="Node000010" href="$d4/d99/upnpapi_8cpp.html#a9e7f15fd415e463b3c4f4c873ed56114" title="Sends out the discovery announcements for all devices and services contained within one root device." alt="" coords="1015,77,1199,103"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1242,110,1199,105,1199,99,1243,105"/>
+<area shape="rect" id="Node000011" href="$d4/d99/upnpapi_8cpp.html#abb1ab3d0ba145286005284d447110fce" title="This function is a timer thread scheduled by UpnpSendAdvertisement to the send advetisement again." alt="" coords="799,107,914,132"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="1001,105,914,115,914,110,1001,100"/>
+<area shape="poly" id="edge11_Node000011_Node000009" title=" " alt="" coords="928,117,1256,120,1256,125,928,123"/>
+<area shape="rect" id="Node000013" href="$d4/d99/upnpapi_8cpp.html#abb1c47010971d19ecd2b46ee842871ec" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="1005,179,1208,204"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1246,192,1208,192,1208,187,1246,186"/>
+<area shape="rect" id="Node000014" href="$d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="809,179,904,204"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="992,194,905,194,905,189,992,189"/>
+<area shape="rect" id="Node000015" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="63,179,148,204"/>
+<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="795,185,708,175,481,160,381,160,254,169,149,185,148,180,253,163,381,155,481,154,708,170,796,180"/>
+<area shape="rect" id="Node000016" href="$d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="291,179,429,204"/>
+<area shape="poly" id="edge16_Node000014_Node000016" title=" " alt="" coords="796,194,430,194,430,189,796,189"/>
+<area shape="rect" id="Node000017" href="$d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="281,241,439,267"/>
+<area shape="poly" id="edge18_Node000014_Node000017" title=" " alt="" coords="814,212,764,229,709,243,638,253,566,258,439,260,439,255,566,253,637,248,707,238,762,224,812,207"/>
+<area shape="rect" id="Node000018" href="$d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="533,204,690,229"/>
+<area shape="poly" id="edge20_Node000014_Node000018" title=" " alt="" coords="796,200,690,211,690,206,795,195"/>
+<area shape="poly" id="edge17_Node000016_Node000015" title=" " alt="" coords="277,194,148,194,148,189,277,189"/>
+<area shape="poly" id="edge19_Node000017_Node000015" title=" " alt="" coords="294,241,147,204,149,199,295,235"/>
+<area shape="poly" id="edge21_Node000018_Node000016" title=" " alt="" coords="519,210,429,201,430,196,519,205"/>
+<area shape="rect" id="Node000020" href="$d1/d4a/urlconfig_8cpp.html#a2fa72177f842afa6e0b87182387aac88" title="Configure the full URL for the description document." alt="" coords="1293,232,1430,257"/>
+<area shape="poly" id="edge23_Node000019_Node000020" title=" " alt="" coords="1502,227,1431,237,1430,232,1501,221"/>
+<area shape="rect" id="Node000021" href="$d4/d99/upnpapi_8cpp.html#a9300edc4f96f8f3e563bcaf49bffd514" title="Fills the sockadr_in with miniserver information." alt="" coords="1009,232,1204,257"/>
+<area shape="poly" id="edge24_Node000020_Node000021" title=" " alt="" coords="1279,247,1204,247,1204,242,1279,242"/>
+<area shape="rect" id="Node000022" href="$d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="760,244,953,269"/>
+<area shape="poly" id="edge25_Node000021_Node000022" title=" " alt="" coords="996,253,954,255,954,249,996,247"/>
+<area shape="rect" id="Node000024" href="$dd/d10/service__table_8cpp.html#a6a15f56e772dfbe60a5edbfb590f86b3" title="Add Service to the table." alt="" coords="1043,281,1171,307"/>
+<area shape="poly" id="edge27_Node000023_Node000024" title=" " alt="" coords="1257,321,1170,307,1171,302,1258,316"/>
+<area shape="rect" id="Node000025" href="$dd/d10/service__table_8cpp.html#a93dca6df0d19011183259fe98fafce8e" title="Retrieve service from the table." alt="" coords="1044,331,1169,356"/>
+<area shape="poly" id="edge28_Node000023_Node000025" title=" " alt="" coords="1258,341,1170,344,1169,339,1258,336"/>
+<area shape="poly" id="edge30_Node000025_Node000022" title=" " alt="" coords="1031,330,1004,322,938,297,883,272,885,267,940,292,1006,317,1033,325"/>
+<area shape="rect" id="Node000026" href="$d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="764,317,949,343"/>
+<area shape="poly" id="edge29_Node000025_Node000026" title=" " alt="" coords="1030,342,950,338,950,332,1030,337"/>
+<area shape="rect" id="Node000027" href="$d4/d99/upnpapi_8cpp.html#a40c47dc11eed3d58d20b64dd2804a206" title="Registers one UPnP device object for a specific address family with the UPnP library and get a handle..." alt="" coords="760,367,953,392"/>
+<area shape="poly" id="edge31_Node000025_Node000027" title=" " alt="" coords="1031,357,945,369,945,364,1030,352"/>
+<area shape="rect" id="Node000028" href="$d4/d99/upnpapi_8cpp.html#a4aadebd5375b753c66b3aa8a24017d59" title="Same as UpnpRegisterRootDevice3()" alt="" coords="515,367,708,392"/>
+<area shape="poly" id="edge32_Node000027_Node000028" title=" " alt="" coords="746,382,708,382,708,377,746,377"/>
+<area shape="poly" id="edge34_Node000029_Node000023" title=" " alt="" coords="1501,340,1452,339,1452,334,1501,335"/>
+<area shape="poly" id="edge36_Node000030_Node000030" title=" " alt="" coords="1642,405,1632,397,1605,393,1582,395,1570,400,1568,406,1574,413,1570,416,1563,406,1567,396,1581,390,1605,388,1634,392,1646,401"/>
 </map>

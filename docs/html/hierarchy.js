@@ -13,7 +13,7 @@ var hierarchy =
     [ "_Parser", "d0/d19/ixmlparser_8hpp.html#d2/db3/struct__Parser", null ],
     [ "UPnPsdk::CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", null ],
     [ "char_info", "da/dff/ixmlparser_8cpp.html#db/de1/structchar__info", null ],
-    [ "cmdloop_commands", "d5/d29/tv__ctrlpt_8cpp.html#d6/ddd/structcmdloop__commands", null ],
+    [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ],
     [ "UPnPsdk::CRootdevice", "dd/d06/classUPnPsdk_1_1CRootdevice.html", null ],
     [ "UPnPsdk::CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
     [ "UPnPsdk::CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html", [
@@ -35,9 +35,7 @@ var hierarchy =
     [ "http_message_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t", null ],
     [ "http_parser_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t", null ],
     [ "UPnPsdk::INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", [
-      [ "UPnPsdk::CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", [
-        [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ]
-      ] ],
+      [ "UPnPsdk::CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", null ],
       [ "UPnPsdk::CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", null ]
     ] ],
     [ "ixml_membuf", "de/dad/ixmlmembuf_8hpp.html#d6/d70/structixml__membuf", null ],
@@ -88,10 +86,6 @@ var hierarchy =
     [ "TimerThread", "d0/d87/TimerThread_8hpp.html#d0/d2a/structTimerThread", null ],
     [ "timezone", "d5/d91/ThreadPool_8hpp.html#de/dc1/structtimezone", null ],
     [ "token", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken", null ],
-    [ "tv_service", "d3/dc5/group__UpnpSamples.html#d5/d7e/structtv__service", null ],
-    [ "TvDevice", "d3/dc5/group__UpnpSamples.html#db/d9f/structTvDevice", null ],
-    [ "TvDeviceNode", "d3/dc5/group__UpnpSamples.html#df/d2f/structTvDeviceNode", null ],
-    [ "TvService", "d0/daf/tv__device_8hpp.html#d4/db0/structTvService", null ],
     [ "UpnpListHead", "dc/d1d/list_8hpp.html#d0/d92/structUpnpListHead", null ],
     [ "UpnpNonblockParam", "d3/da9/upnpapi_8hpp.html#d8/db0/structUpnpNonblockParam", null ],
     [ "uri_type", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type", null ],
