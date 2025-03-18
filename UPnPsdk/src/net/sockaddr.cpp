@@ -466,10 +466,9 @@ bool SSockaddr::operator==(const SSockaddr& a_saddr) const {
 // Getter for the assosiated ip address without port
 // -------------------------------------------------
 // e.g. "[2001:db8::2]" or "192.168.254.253".
-const std::string& SSockaddr::netaddr() noexcept {
+const std::string SSockaddr::netaddr() noexcept {
     // TRACE not usable with chained output.
     // TRACE2(this, " Executing SSockaddr::netaddr()")
-    m_netaddr.clear();
 
     // Accept nameinfo only for supported address families.
     switch (m_sa_union.ss.ss_family) {
@@ -477,12 +476,12 @@ const std::string& SSockaddr::netaddr() noexcept {
     case AF_INET:
         break;
     case AF_UNSPEC:
-        return m_netaddr;
+        return "";
     default:
         UPnPsdk_LOGERR "MSG1129: Unsupported address family "
             << std::to_string(m_sa_union.ss.ss_family)
             << ". Continue with unspecified netaddress \"\".\n";
-        return m_netaddr;
+        return "";
     }
 
     // The buffer fit to an IPv6 address with mapped IPv4 address (max. 46) and
@@ -501,24 +500,22 @@ const std::string& SSockaddr::netaddr() noexcept {
             << std::to_string(m_sa_union.ss.ss_family) << ": "
             << ::gai_strerror(ret)
             << ". Continue with unspecified netaddress \"\".\n";
-        return m_netaddr;
+        return "";
     }
 
     // Next may throw 'std::length_error' if the length of the constructed
     // std::string would exceed max_size(). This should never happen with given
     // lengths of addrStr (promise noexcept).
     if (m_sa_union.ss.ss_family == AF_INET6)
-        m_netaddr = '[' + std::string(addrStr) + ']';
+        return '[' + std::string(addrStr) + ']';
     else
-        m_netaddr = std::string(addrStr);
-
-    return m_netaddr;
+        return std::string(addrStr);
 }
 
 // Getter for the assosiated ip address with port
 // ----------------------------------------------
 // e.g. "[2001:db8::2]:50001" or "192.168.254.253:50001".
-const std::string& SSockaddr::netaddrp() noexcept {
+const std::string SSockaddr::netaddrp() noexcept {
     // TRACE not usable with chained output.
     // TRACE2(this, " Executing SSockaddr::netaddrp()")
     //
@@ -532,14 +529,14 @@ const std::string& SSockaddr::netaddrp() noexcept {
     case AF_INET6:
     case AF_INET:
     case AF_UNSPEC:
-        m_netaddrp = this->netaddr() + ":" +
-                     std::to_string(ntohs(m_sa_union.sin6.sin6_port));
+        return this->netaddr() + ":" +
+               std::to_string(ntohs(m_sa_union.sin6.sin6_port));
         break;
     case AF_UNIX:
-        m_netaddrp = this->netaddr() + ":0";
+        return this->netaddr() + ":0";
     }
 
-    return m_netaddrp;
+    return "";
 }
 
 // Getter for the assosiated port number

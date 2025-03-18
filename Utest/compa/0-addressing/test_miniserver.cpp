@@ -1503,8 +1503,9 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_successful) {
     // * Mocked getsockname() returns a sockaddr with current ip address and
     //   port
     SSockaddr saddrObj;
-    saddrObj = "192.168.54.188:50020";
-    const char* text_addr = saddrObj.netaddr().c_str();
+    constexpr char text_addr[]{"192.168.54.188"};
+    saddrObj = text_addr;
+    saddrObj = 50020;
     char addrbuf[INET_ADDRSTRLEN];
     constexpr SOCKET sockfd{umock::sfd_base + 11};
 
@@ -1583,8 +1584,8 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_with_failed_listen) {
     // * Mocked listen() returns error
 
     SSockaddr saddrObj;
-    saddrObj = "192.168.54.188";
-    const char* text_addr = saddrObj.netaddr().c_str();
+    const char text_addr[]{"192.168.54.188"};
+    saddrObj = text_addr;
     constexpr SOCKET sockfd{umock::sfd_base + 12};
 
     s_SocketStuff s;
@@ -1634,8 +1635,9 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_address_in_use) {
     } else {
 
         SSockaddr saddrObj;
-        saddrObj = "192.168.54.188:50024";
-        const char* text_addr = saddrObj.netaddr().c_str();
+        const char text_addr[]{"192.168.54.188"};
+        saddrObj = text_addr;
+        saddrObj = 50024;
         const in_port_t actual_port(saddrObj.port());
         char addrbuf[INET_ADDRSTRLEN];
         constexpr SOCKET sockfd_inuse{umock::sfd_base + 13};
@@ -2099,8 +2101,9 @@ TEST_F(StartMiniServerMockFTestSuite, do_listen_successful) {
 
     // Provide needed data for the Unit
     SSockaddr saddrObj;
-    saddrObj = "192.168.202.233:50083";
-    const char* text_addr = saddrObj.netaddr().c_str();
+    constexpr char text_addr[]{"192.168.202.233"};
+    saddrObj = text_addr;
+    saddrObj = 50083;
     constexpr SOCKET sockfd{umock::sfd_base + 20};
     char addrbuf[INET_ADDRSTRLEN];
     constexpr in_port_t try_port{0}; // not used

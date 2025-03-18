@@ -1673,7 +1673,8 @@ TEST(RunMiniServerTestSuite, do_reinit) {
 
     ASSERT_FALSE(MINISERVER_REUSEADDR);
     SSockaddr saddrObj;
-    saddrObj = "192.168.202.244";
+    const char text_addr[]{"192.168.202.244"};
+    saddrObj = text_addr;
 
     // Get a valid socket, needs initialized sockets on MS Windows.
     CSocket sockObj;
@@ -1683,7 +1684,7 @@ TEST(RunMiniServerTestSuite, do_reinit) {
     s.ss.ss_family = saddrObj.ss.ss_family;
     s.serverAddr = &saddrObj.sa;
     s.ip_version = 4;
-    s.text_addr = saddrObj.netaddr().c_str();
+    s.text_addr = text_addr;
     s.serverAddr4->sin_port = saddrObj.port(); // not used
     s.serverAddr4->sin_addr = saddrObj.sin.sin_addr;
     s.fd = sockObj;
@@ -1694,7 +1695,7 @@ TEST(RunMiniServerTestSuite, do_reinit) {
     // Test Unit
     EXPECT_EQ(do_reinit(&s), 0);
 
-    EXPECT_STREQ(s.text_addr, saddrObj.netaddr().c_str());
+    EXPECT_STREQ(s.text_addr, text_addr);
     EXPECT_EQ(s.serverAddr4->sin_addr.s_addr, saddrObj.sin.sin_addr.s_addr);
     // Valid real socket
     // EXPECT_EQ(s.fd, sockfd); This is an invalid condition. The fd may change.

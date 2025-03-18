@@ -241,7 +241,7 @@ struct UPnPsdk_API SSockaddr {
      * SSockaddr saObj;
      * if (saObj.netaddr() == "[::1]") { manage_localhost(); }
      * \endcode */
-    const std::string& netaddr() noexcept;
+    const std::string netaddr() noexcept;
 
 
     // Getter for a netaddress with port
@@ -252,7 +252,7 @@ struct UPnPsdk_API SSockaddr {
      * SSockaddr saObj;
      * if (saObj.netaddrp() == "[::1]:49494") { manage_localhost(); }
      * \endcode */
-    const std::string& netaddrp() noexcept;
+    const std::string netaddrp() noexcept;
 
 
     /// \brief Get the numeric port
@@ -274,14 +274,6 @@ struct UPnPsdk_API SSockaddr {
   private:
     sockaddr_t m_sa_union{}; // this is the union of trivial sockaddr structures
                              // that is managed.
-
-    // Two buffer to have the strings valid for the lifetime of the object. This
-    // is important for pointer to the string, for example with getting a C
-    // string by using '.c_str()'.
-    SUPPRESS_MSVC_WARN_4251_NEXT_LINE
-    std::string m_netaddr; // For a netaddress without port
-    SUPPRESS_MSVC_WARN_4251_NEXT_LINE
-    std::string m_netaddrp; // For a netaddress with port
 };
 
 

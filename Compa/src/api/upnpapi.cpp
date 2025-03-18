@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-04
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-18
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -331,7 +331,8 @@ int UpnpGetIfInfo(
             gIF_INDEX = nadaptObj.index();
 
             nadaptObj.sockaddr(saObj);
-            const char* netaddr{saObj.netaddr().c_str()};
+            std::string naddr{saObj.netaddr()};
+            const char* c_netaddr{naddr.c_str()};
 
             switch (saObj.ss.ss_family) {
             case AF_INET6:
@@ -341,9 +342,10 @@ int UpnpGetIfInfo(
                     IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
                     ::memset(gIF_IPV6, 0, sizeof(gIF_IPV6));
                     gIF_IPV6_PREFIX_LENGTH = 0;
-                    if (*netaddr != '\0') {
+                    if (*c_netaddr != '\0') {
                         // Strip leading bracket on copying.
-                        ::strncpy(gIF_IPV6, netaddr + 1, sizeof(gIF_IPV6) - 1);
+                        ::strncpy(gIF_IPV6, c_netaddr + 1,
+                                  sizeof(gIF_IPV6) - 1);
                         // Strip trailing scope id if any.
                         if (char* chptr{::strchr(gIF_IPV6, '%')})
                             *chptr = '\0';
@@ -355,9 +357,9 @@ int UpnpGetIfInfo(
                 } else {
                     ::memset(gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
                     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-                    if (*netaddr != '\0') {
+                    if (*c_netaddr != '\0') {
                         // Strip leading bracket on copying.
-                        ::strncpy(gIF_IPV6_ULA_GUA, netaddr + 1,
+                        ::strncpy(gIF_IPV6_ULA_GUA, c_netaddr + 1,
                                   sizeof(gIF_IPV6_ULA_GUA) - 1);
                         // Strip trailing scope id if any.
                         if (char* chptr{::strchr(gIF_IPV6, '%')})
@@ -373,8 +375,8 @@ int UpnpGetIfInfo(
             case AF_INET:
                 ::memset(gIF_IPV4, 0, sizeof(gIF_IPV4));
                 ::memset(gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
-                if (*netaddr != '\0') {
-                    ::strncpy(gIF_IPV4, netaddr, sizeof(gIF_IPV4) - 1);
+                if (*c_netaddr != '\0') {
+                    ::strncpy(gIF_IPV4, c_netaddr, sizeof(gIF_IPV4) - 1);
                     nadaptObj.socknetmask(saObj);
                     ::strncpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str(),
                               sizeof(gIF_IPV4_NETMASK) - 1);
