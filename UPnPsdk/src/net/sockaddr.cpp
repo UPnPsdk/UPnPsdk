@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-05
+// Redistribution only with this Copyright remark. Last modified: 2025-03-18
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -544,8 +544,8 @@ const std::string& SSockaddr::netaddrp() noexcept {
 
 // Getter for the assosiated port number
 // -------------------------------------
-in_port_t SSockaddr::get_port() const {
-    TRACE2(this, " Executing SSockaddr::get_port()")
+in_port_t SSockaddr::port() const {
+    TRACE2(this, " Executing SSockaddr::port()")
     // sin_port and sin6_port are on the same memory location (union of the
     // structures) so we can use it for AF_INET and AF_INET6.
     // Don't use ::ntohs, MacOS don't like it.

@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-27
+// Redistribution only with this Copyright remark. Last modified: 2025-03-18
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -257,7 +257,7 @@ struct UPnPsdk_API SSockaddr {
 
     /// \brief Get the numeric port
     // ----------------------------
-    in_port_t get_port() const;
+    in_port_t port() const;
 
 
     /// \brief Get sizeof the current filled (sin6 or sin) Sockaddr Structure

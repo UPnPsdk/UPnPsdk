@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-09
+// Redistribution only with this Copyright remark. Last modified: 2025-03-18
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -191,7 +191,7 @@ TEST(SocketBasicTestSuite, instantiate_socket_af_unix) {
     EXPECT_EQ(saddr.sun.sun_family, AF_UNIX);
     EXPECT_STREQ(saddr.sun.sun_path, "");
     EXPECT_EQ(saddr.netaddr(), "");
-    EXPECT_EQ(saddr.get_port(), 0);
+    EXPECT_EQ(saddr.port(), 0);
     EXPECT_EQ(saddr.netaddrp(), ":0");
 
     CLOSE_SOCKET_P(sfd);
@@ -569,7 +569,7 @@ TEST(SocketTestSuite, bind_default_passive_successful) {
     sockObj.sockaddr(saddr);
     EXPECT_THAT(saddr.netaddr(), AnyOf("[::]", "0.0.0.0"));
     // A port number was given by ::bind().
-    EXPECT_NE(saddr.get_port(), 0);
+    EXPECT_NE(saddr.port(), 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());
@@ -603,7 +603,7 @@ TEST(SocketTestSuite, bind_default_not_passive_successful) {
     sockObj.sockaddr(saddr);
     EXPECT_EQ(saddr.netaddr(), "[::1]");
     // A port number was given by ::bind().
-    EXPECT_NE(saddr.get_port(), 0);
+    EXPECT_NE(saddr.port(), 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());

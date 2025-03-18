@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-12
+// Redistribution only with this Copyright remark. Last modified: 2025-03-18
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -1684,7 +1684,7 @@ TEST(RunMiniServerTestSuite, do_reinit) {
     s.serverAddr = &saddrObj.sa;
     s.ip_version = 4;
     s.text_addr = saddrObj.netaddr().c_str();
-    s.serverAddr4->sin_port = saddrObj.get_port(); // not used
+    s.serverAddr4->sin_port = saddrObj.port(); // not used
     s.serverAddr4->sin_addr = saddrObj.sin.sin_addr;
     s.fd = sockObj;
     s.try_port = 0; // not used

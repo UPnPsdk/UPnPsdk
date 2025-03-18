@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-06
+// Redistribution only with this Copyright remark. Last modified: 2025-03-18
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 #include <utest/utest.hpp>
@@ -37,7 +37,7 @@ TEST_P(SetAddrPortTest, set_address_and_port) {
     EXPECT_EQ(saddr.ss.ss_family, family);
     EXPECT_EQ(saddr.netaddr(), addr_str);
     EXPECT_EQ(saddr.netaddrp(), addr_str + ":" + std::to_string(port));
-    EXPECT_EQ(saddr.get_port(), port);
+    EXPECT_EQ(saddr.port(), port);
 }
 
 // clang-format off
@@ -85,17 +85,17 @@ TEST(SockaddrStorageTestSuite, pattern_for_checking_bind) {
     EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
     EXPECT_EQ(saddr.netaddr(), "");
     EXPECT_EQ(saddr.netaddrp(), ":0");
-    EXPECT_EQ(saddr.get_port(), 0);
+    EXPECT_EQ(saddr.port(), 0);
 
     saddr.ss.ss_family = AF_INET6;
     EXPECT_EQ(saddr.netaddr(), "[::]");
     EXPECT_EQ(saddr.netaddrp(), "[::]:0");
-    EXPECT_EQ(saddr.get_port(), 0);
+    EXPECT_EQ(saddr.port(), 0);
 
     saddr.ss.ss_family = AF_INET;
     EXPECT_EQ(saddr.netaddr(), "0.0.0.0");
     EXPECT_EQ(saddr.netaddrp(), "0.0.0.0:0");
-    EXPECT_EQ(saddr.get_port(), 0);
+    EXPECT_EQ(saddr.port(), 0);
 }
 
 TEST(SockaddrStorageTestSuite, modify_address_and_port_successful) {
@@ -105,7 +105,7 @@ TEST(SockaddrStorageTestSuite, modify_address_and_port_successful) {
     EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
     EXPECT_EQ(saddr.netaddr(), "");
     EXPECT_EQ(saddr.netaddrp(), ":50010");
-    EXPECT_EQ(saddr.get_port(), 50010);
+    EXPECT_EQ(saddr.port(), 50010);
 
     // Setting address and port in two steps
     saddr.ss.ss_family = AF_INET;
@@ -113,39 +113,39 @@ TEST(SockaddrStorageTestSuite, modify_address_and_port_successful) {
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr.netaddr(), "[2001:db8::3]");
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::3]:0");
-    EXPECT_EQ(saddr.get_port(), 0);
-    EXPECT_EQ(saddr.get_port(), 0);
+    EXPECT_EQ(saddr.port(), 0);
+    EXPECT_EQ(saddr.port(), 0);
 
     saddr = "[2001:db8::1]:50001";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr.netaddr(), "[2001:db8::1]");
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:50001");
-    EXPECT_EQ(saddr.get_port(), 50001);
+    EXPECT_EQ(saddr.port(), 50001);
 
     saddr = 0;
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr.netaddr(), "[2001:db8::1]");
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:0");
-    EXPECT_EQ(saddr.get_port(), 0);
+    EXPECT_EQ(saddr.port(), 0);
 
     saddr = 65535;
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr.netaddr(), "[2001:db8::1]");
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:65535");
-    EXPECT_EQ(saddr.get_port(), 65535);
+    EXPECT_EQ(saddr.port(), 65535);
 
     saddr = ":65535";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr.netaddr(), "[2001:db8::1]");
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:65535");
-    EXPECT_EQ(saddr.get_port(), 65535);
+    EXPECT_EQ(saddr.port(), 65535);
 
     // This will not modify the port
     saddr = "192.168.47.48";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET);
     EXPECT_EQ(saddr.netaddr(), "192.168.47.48");
     EXPECT_EQ(saddr.netaddrp(), "192.168.47.48:65535");
-    EXPECT_EQ(saddr.get_port(), 65535);
+    EXPECT_EQ(saddr.port(), 65535);
 
     // Check that a failing call does not modify old settings.
     EXPECT_THAT(
@@ -154,31 +154,31 @@ TEST(SockaddrStorageTestSuite, modify_address_and_port_successful) {
     EXPECT_EQ(saddr.ss.ss_family, AF_INET);
     EXPECT_EQ(saddr.netaddr(), "192.168.47.48");
     EXPECT_EQ(saddr.netaddrp(), "192.168.47.48:65535");
-    EXPECT_EQ(saddr.get_port(), 65535);
+    EXPECT_EQ(saddr.port(), 65535);
 
     saddr = "[2001:db8::2]";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr.netaddr(), "[2001:db8::2]");
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::2]:65535");
-    EXPECT_EQ(saddr.get_port(), 65535);
+    EXPECT_EQ(saddr.port(), 65535);
 
     saddr = "127.0.0.4:50004";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET);
     EXPECT_EQ(saddr.netaddr(), "127.0.0.4");
     EXPECT_EQ(saddr.netaddrp(), "127.0.0.4:50004");
-    EXPECT_EQ(saddr.get_port(), 50004);
+    EXPECT_EQ(saddr.port(), 50004);
 
     saddr = "2001:db8::7";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr.netaddr(), "[2001:db8::7]");
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::7]:50004");
-    EXPECT_EQ(saddr.get_port(), 50004);
+    EXPECT_EQ(saddr.port(), 50004);
 
     saddr = "127.0.0.6:";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET);
     EXPECT_EQ(saddr.netaddr(), "127.0.0.6");
     EXPECT_EQ(saddr.netaddrp(), "127.0.0.6:0");
-    EXPECT_EQ(saddr.get_port(), 0);
+    EXPECT_EQ(saddr.port(), 0);
 }
 
 TEST(SockaddrStorageTestSuite, set_link_local_address) {
@@ -409,7 +409,7 @@ TEST(SockaddrStorageTestSuite, copy_and_assign_structure) {
     SSockaddr saddr2 = saddr1;
     EXPECT_EQ(saddr2.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr2.netaddr(), "[2001:db8::1]");
-    EXPECT_EQ(saddr2.get_port(), 50001);
+    EXPECT_EQ(saddr2.port(), 50001);
 
     // Test Unit assign
     saddr1 = "192.168.251.252:50002";
@@ -417,7 +417,7 @@ TEST(SockaddrStorageTestSuite, copy_and_assign_structure) {
     saddr3 = saddr1;
     EXPECT_EQ(saddr3.ss.ss_family, AF_INET);
     EXPECT_EQ(saddr3.netaddr(), "192.168.251.252");
-    EXPECT_EQ(saddr3.get_port(), 50002);
+    EXPECT_EQ(saddr3.port(), 50002);
 }
 
 TEST(SockaddrStorageTestSuite, compare_ipv6_address) {

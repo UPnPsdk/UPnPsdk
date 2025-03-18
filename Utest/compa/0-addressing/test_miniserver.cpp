@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-13
+// Redistribution only with this Copyright remark. Last modified: 2025-03-18
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -281,7 +281,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv4_addr) {
     // empty because we have found a valid item.
     std::strcpy(gIF_NAME, nadaptObj.name().c_str());
     std::strcpy(gIF_IPV4, saObj.netaddr().c_str());
-    LOCAL_PORT_V4 = saObj.get_port();
+    LOCAL_PORT_V4 = saObj.port();
     nadaptObj.socknetmask(saObj);
     std::strcpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
 
@@ -537,7 +537,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_gua_addr) {
     std::strcpy(gIF_IPV6_ULA_GUA, saObj.netaddr().c_str() + 1);
     gIF_IPV6_ULA_GUA[std::strlen(gIF_IPV6_ULA_GUA) - 1] = '\0';
     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadaptObj.bitmask();
-    LOCAL_PORT_V6_ULA_GUA = saObj.get_port();
+    LOCAL_PORT_V6_ULA_GUA = saObj.port();
 
     // We need the threadpool to RunMiniServer().
     CThreadPoolInit tp(gMiniServerThreadPool);
@@ -683,7 +683,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
     std::strcpy(gIF_IPV6, saObj.netaddr().c_str() + 1);
     gIF_IPV6[std::strlen(gIF_IPV6) - 1] = '\0';
     gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
-    LOCAL_PORT_V6 = saObj.get_port();
+    LOCAL_PORT_V6 = saObj.port();
 
     // Get a real local IPv4 address from a netadapter.
     ASSERT_NO_THROW(nadaptObj.get_first());
@@ -704,7 +704,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_ip4_addr) {
     // empty because we have found a valid item.
     std::strcpy(gIF_NAME, nadaptObj.name().c_str());
     std::strcpy(gIF_IPV4, saObj.netaddr().c_str());
-    LOCAL_PORT_V4 = saObj.get_port();
+    LOCAL_PORT_V4 = saObj.port();
     nadaptObj.socknetmask(saObj);
     std::strcpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
 
@@ -851,7 +851,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_gua_addr) {
     std::strcpy(gIF_IPV6, saObj.netaddr().c_str() + 1);
     gIF_IPV6[std::strlen(gIF_IPV6) - 1] = '\0';
     gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
-    LOCAL_PORT_V6 = saObj.get_port();
+    LOCAL_PORT_V6 = saObj.port();
 
     // Get a real local GUA from a netadapter.
     ASSERT_NO_THROW(nadaptObj.get_first());
@@ -876,7 +876,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_lla_and_gua_addr) {
     std::strcpy(gIF_IPV6_ULA_GUA, saObj.netaddr().c_str() + 1);
     gIF_IPV6_ULA_GUA[std::strlen(gIF_IPV6_ULA_GUA) - 1] = '\0';
     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadaptObj.bitmask();
-    LOCAL_PORT_V6_ULA_GUA = saObj.get_port();
+    LOCAL_PORT_V6_ULA_GUA = saObj.port();
 
     // We need the threadpool to RunMiniServer().
     CThreadPoolInit tp(gMiniServerThreadPool);
@@ -1101,7 +1101,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     saddrObj = "192.168.22.33:50080";
     // Get gIF_IPV4
     std::strcpy(gIF_IPV4, saddrObj.netaddr().c_str());
-    LOCAL_PORT_V4 = saddrObj.get_port();
+    LOCAL_PORT_V4 = saddrObj.port();
     MiniServerSockArray miniSocket{};
     InitMiniServerSockArray(&miniSocket);
 #ifndef UPnPsdk_WITH_NATIVE_PUPNP
@@ -1162,7 +1162,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     // EXPECT_EQ(miniSocket.miniServerSock4, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.miniServerSock4, sockfd);
     // EXPECT_EQ(miniSocket.miniServerPort4, 0u);
-    EXPECT_EQ(miniSocket.miniServerPort4, saddrObj.get_port());
+    EXPECT_EQ(miniSocket.miniServerPort4, saddrObj.port());
     EXPECT_EQ(miniSocket.miniServerSock6, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.miniServerSock6UlaGua, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.miniServerStopSock, INVALID_SOCKET);
@@ -1185,7 +1185,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     // Set gIF_IPV6 and strip surounding brackets
     std::strcpy(gIF_IPV6, saddrObj.netaddr().c_str() + 1);
     gIF_IPV6[strlen(gIF_IPV6) - 1] = '\0';
-    LOCAL_PORT_V6 = saddrObj.get_port();
+    LOCAL_PORT_V6 = saddrObj.port();
     MiniServerSockArray miniSocket{};
     InitMiniServerSockArray(&miniSocket);
 #ifndef UPnPsdk_WITH_NATIVE_PUPNP
@@ -1263,7 +1263,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_EQ(miniSocket.ssdpSock6UlaGua, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.stopPort, 0u);
     // EXPECT_EQ(miniSocket.miniServerPort6, 0u);
-    EXPECT_EQ(miniSocket.miniServerPort6, saddrObj.get_port());
+    EXPECT_EQ(miniSocket.miniServerPort6, saddrObj.port());
     EXPECT_EQ(miniSocket.miniServerPort6UlaGua, 0u);
     EXPECT_EQ(miniSocket.ssdpReqSock4, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.ssdpReqSock6, INVALID_SOCKET);
@@ -1513,7 +1513,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_successful) {
     s.serverAddr = reinterpret_cast<sockaddr*>(&s.ss);
     s.ip_version = 4;
     s.text_addr = text_addr;
-    s.actual_port = saddrObj.get_port();
+    s.actual_port = saddrObj.port();
     s.serverAddr4 = &saddrObj.sin;
     s.fd = sockfd;
     s.try_port = APPLICATION_LISTENING_PORT;
@@ -1592,7 +1592,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_with_failed_listen) {
     s.serverAddr = (sockaddr*)&s.ss;
     s.ip_version = 4;
     s.text_addr = text_addr;
-    s.actual_port = saddrObj.get_port();
+    s.actual_port = saddrObj.port();
     s.serverAddr4 = &saddrObj.sin;
     s.fd = sockfd;
     s.try_port = APPLICATION_LISTENING_PORT;
@@ -1636,7 +1636,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_address_in_use) {
         SSockaddr saddrObj;
         saddrObj = "192.168.54.188:50024";
         const char* text_addr = saddrObj.netaddr().c_str();
-        const in_port_t actual_port(saddrObj.get_port());
+        const in_port_t actual_port(saddrObj.port());
         char addrbuf[INET_ADDRSTRLEN];
         constexpr SOCKET sockfd_inuse{umock::sfd_base + 13};
         constexpr SOCKET sockfd_free{umock::sfd_base + 14};
@@ -2138,7 +2138,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_listen_successful) {
         inet_ntop(AF_INET, &s.serverAddr4->sin_addr, addrbuf, sizeof(addrbuf)),
         text_addr);
     EXPECT_EQ(s.fd, sockfd);
-    EXPECT_EQ(s.actual_port, saddrObj.get_port());
+    EXPECT_EQ(s.actual_port, saddrObj.port());
     EXPECT_EQ(s.try_port, try_port); // not used
     EXPECT_EQ(s.address_len, (socklen_t)sizeof(*s.serverAddr4));
 }
@@ -2367,7 +2367,7 @@ TEST(StartMiniServerTestSuite, get_miniserver_stopsock) {
     // and verify its settings
     SSockaddr sa;
     sockObj.sockaddr(sa);
-    EXPECT_EQ(sa.get_port(), miniStopSockPort);
+    EXPECT_EQ(sa.port(), miniStopSockPort);
     EXPECT_EQ(sa.netaddr(), "127.0.0.1");
 
     // Close socket

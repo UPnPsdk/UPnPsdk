@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-18
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -883,7 +883,7 @@ int get_miniserver_sockets(
             out->pSockLlaObj->listen();
             out->miniServerSock6 = *out->pSockLlaObj;
             out->pSockLlaObj->sockaddr(saObj);
-            out->miniServerPort6 = saObj.get_port();
+            out->miniServerPort6 = saObj.port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& ex) {
             UPnPsdk_LOGCATCH "MSG1110: gIF_IPV6=\""
@@ -905,7 +905,7 @@ int get_miniserver_sockets(
             out->pSockGuaObj->listen();
             out->miniServerSock6UlaGua = *out->pSockGuaObj;
             out->pSockGuaObj->sockaddr(saObj);
-            out->miniServerPort6UlaGua = saObj.get_port();
+            out->miniServerPort6UlaGua = saObj.port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& ex) {
             UPnPsdk_LOGCATCH "MSG1117: gIF_IPV6_ULA_GUA=\""
@@ -922,7 +922,7 @@ int get_miniserver_sockets(
             out->pSockIp4Obj->listen();
             out->miniServerSock4 = *out->pSockIp4Obj;
             out->pSockIp4Obj->sockaddr(saObj);
-            out->miniServerPort4 = saObj.get_port();
+            out->miniServerPort4 = saObj.port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& ex) {
             UPnPsdk_LOGCATCH "MSG1114: gIF_IPV4=\""
