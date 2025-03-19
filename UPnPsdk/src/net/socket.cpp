@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-08
+// Redistribution only with this Copyright remark. Last modified: 2025-03-20
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -85,26 +85,27 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
     // specification.
     if (a_pf_family != PF_INET6 && a_pf_family != PF_INET)
         throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1015: Failed to create socket: invalid protocol family " +
+            UPnPsdk_LOGEXCEPT(
+                "MSG1015") "Failed to create socket: invalid protocol family " +
             std::to_string(a_pf_family));
     if (a_socktype != SOCK_STREAM && a_socktype != SOCK_DGRAM)
         throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1016: Failed to create socket: invalid socket type " +
+            UPnPsdk_LOGEXCEPT(
+                "MSG1016") "Failed to create socket: invalid socket type " +
             std::to_string(a_socktype));
 
     CSocketErr serrObj;
 
     // Syscall socket(): get new socket file descriptor.
     SOCKET sfd = umock::sys_socket_h.socket(a_pf_family, a_socktype, 0);
-    UPnPsdk_LOGINFO << "MSG1135: syscall ::socket(" << a_pf_family << ", "
-                    << a_socktype << ", 0). Get socket fd " << sfd << '\n';
+    UPnPsdk_LOGINFO("MSG1135") "syscall ::socket("
+        << a_pf_family << ", " << a_socktype << ", 0). Get socket fd " << sfd
+        << '\n';
     if (sfd == INVALID_SOCKET) {
         serrObj.catch_error();
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1017: Failed to create socket: " + serrObj.error_str() + '\n');
+            UPnPsdk_LOGEXCEPT("MSG1017") "Failed to create socket: " +
+            serrObj.error_str() + '\n');
     }
     int so_option{0};
     constexpr socklen_t optlen{sizeof(so_option)};
@@ -118,7 +119,7 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
         serrObj.catch_error();
         CLOSE_SOCKET_P(sfd);
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT + "MSG1018: Close socket fd " +
+            UPnPsdk_LOGEXCEPT("MSG1018") "Close socket fd " +
             std::to_string(sfd) +
             ". Failed to set socket option SO_REUSEADDR: " +
             serrObj.error_str() + '\n');
@@ -136,7 +137,7 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
             serrObj.catch_error();
             CLOSE_SOCKET_P(sfd);
             throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT + "MSG1007: Close socket fd " +
+                UPnPsdk_LOGEXCEPT("MSG1007") "Close socket fd " +
                 std::to_string(sfd) +
                 ". Failed to set socket option IPV6_V6ONLY: " +
                 serrObj.error_str() + '\n');
@@ -158,7 +159,7 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
         serrObj.catch_error();
         CLOSE_SOCKET_P(sfd);
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT + "MSG1019: Close socket fd " +
+            UPnPsdk_LOGEXCEPT("MSG1019") "Close socket fd " +
             std::to_string(sfd) +
             ". Failed to set socket option SO_EXCLUSIVEADDRUSE: " +
             serrObj.error_str() + '\n');
@@ -198,7 +199,7 @@ void CSocket_basic::load() {
                                        &optlen) != 0) {
         serrObj.catch_error();
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT + "MSG1014: Failed to create socket=" +
+            UPnPsdk_LOGEXCEPT("MSG1014") "Failed to create socket=" +
             std::to_string(m_sfd_hint) + ": " + serrObj.error_str() + '\n');
     }
     m_sfd = m_sfd_hint;
@@ -232,7 +233,7 @@ void CSocket_basic::sockaddr(SSockaddr& a_saddr) const {
     if (ret != 0) {
         serrObj.catch_error();
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT + "MSG1001: Failed to get address from socket: " +
+            UPnPsdk_LOGEXCEPT("MSG1001") "Failed to get address from socket: " +
             serrObj.error_str() + '\n');
     }
     // Check if there is a complete address structure returned from
@@ -250,9 +251,9 @@ void CSocket_basic::sockaddr(SSockaddr& a_saddr) const {
     // preserved address family.
     a_saddr = "";
     a_saddr.ss.ss_family = af;
-    UPnPsdk_LOGERR
-        "MSG1133: Unspecified socket address detected. Is the socket bound to "
-        "a local address? Continue with unspecified address and address family "
+    UPnPsdk_LOGERR("MSG1133") "Unspecified socket address detected. Is the "
+                              "socket bound to a local address? Continue with "
+                              "unspecified address and address family "
         << af << ".\n";
 }
 
@@ -266,10 +267,10 @@ int CSocket_basic::socktype() const {
                                        reinterpret_cast<char*>(&so_option),
                                        &len) != 0) {
         serrObj.catch_error();
-        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
-                                 "MSG1030: Failed to get socket option SO_TYPE "
-                                 "(SOCK_STREAM, SOCK_DGRAM, etc.): " +
-                                 serrObj.error_str() + '\n');
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1030") "Failed to get socket option SO_TYPE "
+                                         "(SOCK_STREAM, SOCK_DGRAM, etc.): " +
+            serrObj.error_str() + '\n');
     }
     return so_option;
 }
@@ -285,8 +286,8 @@ int CSocket_basic::sockerr() const {
                                        &len) != 0) {
         serrObj.catch_error();
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1011: Failed to get socket option SO_ERROR: " +
+            UPnPsdk_LOGEXCEPT(
+                "MSG1011") "Failed to get socket option SO_ERROR: " +
             serrObj.error_str() + '\n');
     }
     return so_option;
@@ -303,8 +304,8 @@ bool CSocket_basic::is_reuse_addr() const {
                                        &len) != 0) {
         serrObj.catch_error();
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1013: Failed to get socket option SO_REUSEADDR: " +
+            UPnPsdk_LOGEXCEPT(
+                "MSG1013") "Failed to get socket option SO_REUSEADDR: " +
             serrObj.error_str() + '\n');
     }
     return so_option;
@@ -418,8 +419,8 @@ CSocket& CSocket::operator=(CSocket that) {
 // Destructor
 CSocket::~CSocket() {
     TRACE2(this, " Destruct CSocket()")
-    UPnPsdk_LOGINFO << "MSG1136: shutdown and close socket fd " << m_sfd
-                    << ".\n";
+    UPnPsdk_LOGINFO("MSG1136") "shutdown and close socket fd " << m_sfd
+                                                               << ".\n";
     ::shutdown(m_sfd, SHUT_RDWR);
     CLOSE_SOCKET_P(m_sfd);
 }
@@ -453,12 +454,11 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     if (m_sfd != INVALID_SOCKET) {
         SSockaddr saddr;
         this->sockaddr(saddr);
-        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
-                                 "MSG1137: Failed toa bind socket to an "
-                                 "address. Socket fd " +
-                                 std::to_string(m_sfd) +
-                                 " already bound to netaddress \"" +
-                                 saddr.netaddrp() + '\"');
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1137") "Failed toa bind socket to an "
+                                         "address. Socket fd " +
+            std::to_string(m_sfd) + " already bound to netaddress \"" +
+            saddr.netaddrp() + '\"');
     }
 
     // If no socket address is given then point to a valid one, either to the
@@ -471,24 +471,14 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
         }
         a_saddr = &unspec_saddr;
     }
-#ifdef __APPLE__
-    // On MacOS there is a regular link local address "[fe80::1]" without
-    // scope_id abused as additional loopback address. Without scope_id it
-    // fails to bind so I translate it to the regular loopback address.
-    else if (a_saddr->netaddr() == "[fe80::1]" &&
-             a_saddr->sin6.sin6_scope_id == 0) {
-        unspec_saddr = "[::1]";
-        a_saddr = &unspec_saddr;
-    }
-#endif
 
     // Get an adress info to bind.
     CAddrinfo ai(a_saddr->netaddrp(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
                  a_socktype);
     if (!ai.get_first()) {
-        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
-                                 "MSG1037: detect error next line ...\n" +
-                                 ai.what());
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1037") "detect error next line ...\n" +
+            ai.what());
     }
     CSocketErr serrObj;
 
@@ -496,7 +486,7 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     // Get a socket file descriptor from operating system and try to bind it.
     // ----------------------------------------------------------------------
     SOCKET sockfd{INVALID_SOCKET};
-    // Get a socket file descriptor with address info to get the address family.
+    // Get a socket file descriptor with address family from the address info.
     sockfd =
         get_sockfd(static_cast<sa_family_t>(ai->ai_family), ai->ai_socktype);
 
@@ -520,7 +510,7 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     if (g_dbug) {
         SSockaddr saddr;
         this->sockaddr(saddr); // Get new bound socket address.
-        UPnPsdk_LOGINFO "MSG1115: syscall ::bind("
+        UPnPsdk_LOGINFO("MSG1115") "syscall ::bind("
             << sockfd << ", " << &a_saddr->sa << ", " << a_saddr->sizeof_saddr()
             << ") Tried " << count << " times \"" << a_saddr->netaddrp()
             << (ret_code != 0 ? ". Get ERROR"
@@ -530,11 +520,13 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
 
     if (ret_code == SOCKET_ERROR) {
         CLOSE_SOCKET_P(sockfd);
+        SSockaddr saddr;
+        saddr = *reinterpret_cast<sockaddr_storage*>(ai->ai_addr);
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT + "MSG1008: Close socket fd " +
-            std::to_string(sockfd) +
-            ". Failed to bind socket to an address: (errid " +
-            std::to_string(serrObj) + ") " + serrObj.error_str() + '\n');
+            UPnPsdk_LOGEXCEPT("MSG1008") "Close socket fd " +
+            std::to_string(sockfd) + ". Failed to bind socket to address=\"" +
+            saddr.netaddrp() + "\": (errid " + std::to_string(serrObj) + ") " +
+            serrObj.error_str() + '\n');
     }
 }
 
@@ -553,12 +545,12 @@ void CSocket::listen() {
     // connections) is hard coded for now.
     if (umock::sys_socket_h.listen(m_sfd, SOMAXCONN) != 0) {
         serrObj.catch_error();
-        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
-                                 "MSG1034: Failed to set socket to listen: " +
-                                 serrObj.error_str() + '\n');
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1034") "Failed to set socket to listen: " +
+            serrObj.error_str() + '\n');
     }
-    UPnPsdk_LOGINFO "MSG1032: syscall ::listen(" << m_sfd << ", " << SOMAXCONN
-                                                 << ").\n";
+    UPnPsdk_LOGINFO("MSG1032") "syscall ::listen(" << m_sfd << ", " << SOMAXCONN
+                                                   << ").\n";
     m_listen = true;
 }
 
@@ -567,9 +559,9 @@ void CSocket::listen() {
 bool CSocket::is_listen() const {
     TRACE2(this, " Executing CSocket::is_listen()")
     if (m_sfd == INVALID_SOCKET)
-        throw std::runtime_error(UPnPsdk_LOGEXCEPT +
-                                 "MSG1035: Failed to get socket option "
-                                 "'is_Listen': Bad file descriptor.\n");
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1035") "Failed to get socket option "
+                                         "'is_Listen': Bad file descriptor.\n");
 
     // m_listen is protected.
     std::scoped_lock lock(m_listen_mutex);

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-18
+// Redistribution only with this Copyright remark. Last modified: 2025-03-20
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -43,8 +43,8 @@ SSockaddr saddr;
 bool is_v6only(SOCKET a_sfd) {
     if (a_sfd == INVALID_SOCKET)
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "Failed to get socket option IPV6_V6ONLY: Bad file descriptor");
+            UPnPsdk_LOGEXCEPT("MSG????") "Failed to get socket option "
+                                         "IPV6_V6ONLY: Bad file descriptor");
     CSocketErr serrObj;
 
     int so_option{0};
@@ -56,8 +56,8 @@ bool is_v6only(SOCKET a_sfd) {
     if (err) {
         serrObj.catch_error();
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "Failed to get socket option: " + serrObj.error_str());
+            UPnPsdk_LOGEXCEPT("MSG????") "Failed to get socket option: " +
+            serrObj.error_str());
     }
     return so_option;
 }
@@ -201,9 +201,9 @@ TEST(SocketBasicTestSuite, instantiate_invalid_socket_fd) {
     CSocket_basic sockObj(INVALID_SOCKET);
 
     // Test Unit
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.load(); }, // UPnPsdk::CSocket_basic
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1014: ")));
+    EXPECT_THAT([&sockObj]() { sockObj.load(); }, // UPnPsdk::CSocket_basic
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1014 EXCEPT[")));
 }
 
 TEST(SocketBasicTestSuite, instantiate_socket_load_two_times) {
@@ -271,15 +271,15 @@ TEST(SocketBasicTestSuite, instantiate_empty_socket) {
     sockObj.sockaddr(saddr);
     EXPECT_EQ(saddr.netaddrp(), ":0");
 
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.socktype(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1030: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.sockerr(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1011: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.is_reuse_addr(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1013: ")));
+    EXPECT_THAT([&sockObj]() { sockObj.socktype(); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1030 EXCEPT[")));
+    EXPECT_THAT([&sockObj]() { sockObj.sockerr(); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1011 EXCEPT[")));
+    EXPECT_THAT([&sockObj]() { sockObj.is_reuse_addr(); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1013 EXCEPT[")));
 }
 
 TEST(SocketTestSuite, instantiate_unbind_socket) {
@@ -290,18 +290,18 @@ TEST(SocketTestSuite, instantiate_unbind_socket) {
     sockObj.sockaddr(saddr);
     EXPECT_EQ(saddr.netaddrp(), ":0");
 
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.socktype(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1030: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.sockerr(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1011: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.is_reuse_addr(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1013: ")));
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.is_listen(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1035: ")));
+    EXPECT_THAT([&sockObj]() { sockObj.socktype(); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1030 EXCEPT[")));
+    EXPECT_THAT([&sockObj]() { sockObj.sockerr(); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1011 EXCEPT[")));
+    EXPECT_THAT([&sockObj]() { sockObj.is_reuse_addr(); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1013 EXCEPT[")));
+    EXPECT_THAT([&sockObj]() { sockObj.is_listen(); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1035 EXCEPT[")));
 }
 
 TEST(SocketBasicTestSuite, instantiate_with_bound_raw_socket_fd) {
@@ -517,6 +517,32 @@ TEST(SocketTestSuite, bind_ipv6_successful) {
     EXPECT_FALSE(sockObj.is_listen());
 }
 
+TEST(SocketTestSuite, bind_ipv6_rapid_same_port_two_times) {
+    saddr = "[::1]:50011";
+    SSockaddr saddr2;
+    saddr2 = "[::1]:50011"; // Can be modified to different saddr.
+    CSocket sock2Obj;
+
+    // Test Unit
+    {
+        CSocket sock1Obj;
+        ASSERT_NO_THROW(sock1Obj.bind(SOCK_STREAM, &saddr));
+    }
+    ASSERT_NO_THROW(sock2Obj.bind(SOCK_STREAM, &saddr2));
+
+    EXPECT_TRUE(sock2Obj.is_bound());
+
+    // Compare bound ip address from socket with given ip address.
+    SSockaddr sa_sock2Obj;
+    sock2Obj.sockaddr(sa_sock2Obj);
+    EXPECT_TRUE(sa_sock2Obj == saddr2);
+
+    EXPECT_EQ(sock2Obj.socktype(), SOCK_STREAM);
+    EXPECT_EQ(sock2Obj.sockerr(), 0);
+    EXPECT_FALSE(sock2Obj.is_reuse_addr());
+    EXPECT_FALSE(sock2Obj.is_listen());
+}
+
 TEST(SocketTestSuite, bind_ipv4_successful) {
     saddr = "127.0.0.1:50002";
     CSocket sockObj;
@@ -682,9 +708,9 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_get_socket) {
 
     // Test Unit
     CSocket sockObj;
-    ASSERT_THAT(
-        [&sockObj]() { sockObj.bind(SOCK_STREAM); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1017: ")));
+    ASSERT_THAT([&sockObj]() { sockObj.bind(SOCK_STREAM); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1017 EXCEPT[")));
 }
 
 TEST_F(SocketMockFTestSuite, bind_fails_to_set_option_reuseaddr) {
@@ -707,9 +733,9 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_option_reuseaddr) {
 
     // Test Unit
     CSocket sockObj;
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.bind(SOCK_STREAM); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1018: ")));
+    EXPECT_THAT([&sockObj]() { sockObj.bind(SOCK_STREAM); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1018 EXCEPT[")));
 }
 
 TEST_F(SocketMockFTestSuite, bind_fails_to_set_ipv6_only) {
@@ -739,9 +765,9 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_ipv6_only) {
 
     // Test Unit
     CSocket sockObj;
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.bind(SOCK_STREAM); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1007: ")));
+    EXPECT_THAT([&sockObj]() { sockObj.bind(SOCK_STREAM); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1007 EXCEPT[")));
 }
 
 #ifdef _MSC_VER
@@ -776,9 +802,9 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_win32_exclusiveaddruse) {
 
     // Test Unit
     CSocket sockObj;
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.bind(SOCK_STREAM); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1019: ")));
+    EXPECT_THAT([&sockObj]() { sockObj.bind(SOCK_STREAM); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1019 EXCEPT[")));
 }
 #endif
 
@@ -824,7 +850,8 @@ TEST_F(SocketMockFTestSuite, bind_syscall_fails) {
     CSocket sockObj;
     EXPECT_THAT(
         ([&sockObj, &saddrObj]() { sockObj.bind(SOCK_DGRAM, &saddrObj); }),
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1008: ")));
+        ThrowsMessage<std::runtime_error>(
+            HasSubstr("UPnPsdk MSG1008 EXCEPT[")));
 }
 
 #ifdef _MSC_VER
@@ -960,7 +987,8 @@ TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_fails) {
     CSocket sockObj;
     EXPECT_THAT(
         ([&sockObj, &saddrObj]() { sockObj.bind(SOCK_DGRAM, &saddrObj); }),
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1008: ")));
+        ThrowsMessage<std::runtime_error>(
+            HasSubstr("UPnPsdk MSG1008 EXCEPT[")));
 }
 #endif // MSC_VER
 
@@ -992,7 +1020,7 @@ TEST(SocketTestSuite, bind_same_address_again_fails) {
     EXPECT_THAT(
         [&sockObj]() { sockObj.bind(SOCK_STREAM, nullptr, AI_PASSIVE); },
         ThrowsMessage<std::runtime_error>(ContainsStdRegex(
-            "\\] EXCEPTION MSG1137: .* bound to "
+            "UPnPsdk MSG1137 EXCEPT\\[.* bound to "
             "netaddress \"(\\[::\\]|0\\.0\\.0\\.0):\\d\\d\\d\\d\\d\"")));
 }
 
@@ -1011,7 +1039,7 @@ TEST(SocketTestSuite, bind_two_times_different_addresses_fail) {
     saddr2 = ":50002"; // Modifies only port
     EXPECT_THAT(([&sockObj, &saddr2]() { sockObj.bind(SOCK_STREAM, &saddr2); }),
                 ThrowsMessage<std::runtime_error>(ContainsStdRegex(
-                    "\\] EXCEPTION MSG1137: .* bound to "
+                    "UPnPsdk MSG1137 EXCEPT\\[.* bound to "
                     "netaddress \"(\\[::1\\]|127\\.0\\.0\\.1):50001\"")));
 }
 
@@ -1023,7 +1051,7 @@ TEST(SocketTestSuite, bind_with_invalid_argument_fails) {
             sockObj.bind(-1);
         },
         ThrowsMessage<std::runtime_error>(ContainsStdRegex(
-            "\\] EXCEPTION MSG1037: .*\n.* WHAT MSG1112: errid\\(")));
+            "UPnPsdk MSG1037 EXCEPT\\[.*\n.* WHAT MSG1112: errid\\(")));
 
     // Test Unit, set invalid flag number.
     EXPECT_THAT(
@@ -1032,7 +1060,7 @@ TEST(SocketTestSuite, bind_with_invalid_argument_fails) {
             sockObj.bind(SOCK_STREAM, nullptr, -1);
         },
         ThrowsMessage<std::runtime_error>(ContainsStdRegex(
-            "\\] EXCEPTION MSG1037: .*\n.* WHAT MSG1112: errid\\(")));
+            "UPnPsdk MSG1037 EXCEPT\\[.*\n.* WHAT MSG1112: errid\\(")));
 }
 
 
@@ -1071,9 +1099,9 @@ TEST(SocketTestSuite, listen_on_datagram_socket_fails) {
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM, nullptr, AI_PASSIVE));
 
     // Test Unit
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.listen(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1034: ")));
+    EXPECT_THAT([&sockObj]() { sockObj.listen(); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1034 EXCEPT[")));
 }
 
 TEST_F(SocketMockFTestSuite, listen_fails) {
@@ -1089,9 +1117,9 @@ TEST_F(SocketMockFTestSuite, listen_fails) {
     umock::Sys_socket sys_socket_injectObj(&m_sys_socketObj);
 
     // Test Unit
-    EXPECT_THAT(
-        [&sockObj]() { sockObj.listen(); },
-        ThrowsMessage<std::runtime_error>(HasSubstr("] EXCEPTION MSG1034: ")));
+    EXPECT_THAT([&sockObj]() { sockObj.listen(); },
+                ThrowsMessage<std::runtime_error>(
+                    HasSubstr("UPnPsdk MSG1034 EXCEPT[")));
 }
 
 

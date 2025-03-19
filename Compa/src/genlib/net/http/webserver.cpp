@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-02-28
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-20
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -481,7 +481,7 @@ int get_file_info(
     UpnpFileInfo_set_LastModified(info, s.st_mtime);
     rc = get_content_type(filename, info);
     aux_LastModified = UpnpFileInfo_get_LastModified(info);
-    UPnPsdk_LOGINFO "MSG1108: webserver file info=\""
+    UPnPsdk_LOGINFO("MSG1108") "webserver file info=\""
         << filename << "\", length=" << UpnpFileInfo_get_FileLength(info)
         << ", last_mod=\""
         << web_server_asctime_r(http_gmtime_r(&aux_LastModified, &date), buffer)

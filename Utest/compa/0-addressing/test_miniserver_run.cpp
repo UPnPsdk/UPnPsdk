@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-18
+// Redistribution only with this Copyright remark. Last modified: 2025-03-20
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -320,7 +320,7 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_select_fails_with_no_memory) {
 
     } else {                                 // New code
 
-        EXPECT_THAT(captureObj.str(), HasSubstr("] CRITICAL MSG1021: "));
+        EXPECT_THAT(captureObj.str(), HasSubstr("UPnPsdk MSG1021 CRIT  ["));
     }
 }
 
@@ -507,7 +507,7 @@ TEST_F(RunMiniServerMockFTestSuite, fdset_if_valid_fails) {
         // Get captured output
         if (g_dbug)
             std::cout << captureObj.str();
-        EXPECT_THAT(captureObj.str(), HasSubstr("] ERROR MSG1005: "));
+        EXPECT_THAT(captureObj.str(), HasSubstr("UPnPsdk MSG1005 ERROR ["));
 
         // Test Unit
         FD_ZERO(&rdSet);
@@ -529,7 +529,8 @@ TEST_F(RunMiniServerMockFTestSuite, fdset_if_valid_fails) {
         if (g_dbug)
             std::cout << captureObj.str();
         EXPECT_THAT(captureObj.str(),
-                    HasSubstr("] ERROR MSG1005: Prohibited socket 1024"));
+                    ContainsStdRegex(
+                        "UPnPsdk MSG1005 ERROR \\[.* Prohibited socket 1024"));
     }
 }
 
@@ -1217,8 +1218,8 @@ TEST_F(RunMiniServerMockFTestSuite,
         // Get captured output
         EXPECT_THAT(captureObj.str(),
                     // Different on MacOS
-                    AnyOf(HasSubstr("] EXCEPTION MSG1057: "),
-                          HasSubstr("] EXCEPTION MSG1001: ")));
+                    AnyOf(HasSubstr("UPnPsdk MSG1057 EXCEPT["),
+                          HasSubstr("UPnPsdk MSG1001 EXCEPT[")));
     }
 
     EXPECT_STREQ(host_port, "<no message>");
@@ -1297,8 +1298,10 @@ TEST_F(RunMiniServerMockFTestSuite,
 
         g_dbug = g_dbug_old;
         // Get captured output
-        EXPECT_THAT(captureObj.str(),
-                    HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
+        EXPECT_THAT(
+            captureObj.str(),
+            ContainsStdRegex(
+                "UPnPsdk MSG1129 ERROR \\[.* Unsupported address family 1"));
         EXPECT_TRUE(ret_getNumericHostRedirection); // Doesn't matter because it
                                                     // is never used.
         EXPECT_STREQ(host_port, ":0"); // Set to an unspecified netaddress.
@@ -1340,9 +1343,8 @@ TEST(RunMiniServerTestSuite, schedule_request_job) {
 #endif
     } else {
         if (g_dbug)
-            EXPECT_THAT(
-                captureObj.str(),
-                ContainsStdRegex("\\] ERROR MSG1025: Socket\\(\\d+\\)"));
+            EXPECT_THAT(captureObj.str(),
+                        ContainsStdRegex("UPnPsdk MSG1025 ERROR \\["));
     }
 
     CLOSE_SOCKET_P(connected_sockfd);

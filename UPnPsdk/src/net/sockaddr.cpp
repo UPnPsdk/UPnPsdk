@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-18
+// Redistribution only with this Copyright remark. Last modified: 2025-03-20
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -338,9 +338,9 @@ void split_addr_port(const std::string& a_addr_str, std::string& a_addr,
     return;
 
 exit_overrun:
-    throw std::range_error(UPnPsdk_LOGEXCEPT +
-                           "MSG1127: Number string from \"" + a_addr_str +
-                           "\" for port is out of range 0..65535.");
+    throw std::range_error(
+        UPnPsdk_LOGEXCEPT("MSG1127") "Number string from \"" + a_addr_str +
+        "\" for port is out of range 0..65535.");
 }
 
 // Specialized sockaddr_structure
@@ -437,9 +437,9 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
     }
 
 exit_fail:
-    throw std::invalid_argument(UPnPsdk_LOGEXCEPT +
-                                "MSG1043: Invalid netaddress \"" + a_addr_str +
-                                "\".\n");
+    throw std::invalid_argument(
+        UPnPsdk_LOGEXCEPT("MSG1043") "Invalid netaddress \"" + a_addr_str +
+        "\".\n");
 }
 
 // Assignment operator= to set socket port from an integer
@@ -478,7 +478,7 @@ const std::string SSockaddr::netaddr() noexcept {
     case AF_UNSPEC:
         return "";
     default:
-        UPnPsdk_LOGERR "MSG1129: Unsupported address family "
+        UPnPsdk_LOGERR("MSG1129") "Unsupported address family "
             << std::to_string(m_sa_union.ss.ss_family)
             << ". Continue with unspecified netaddress \"\".\n";
         return "";
@@ -496,7 +496,8 @@ const std::string SSockaddr::netaddr() noexcept {
         // noexcept and immediately terminates the propgram. This is
         // intentional because the error cannot be handled except improving the
         // hardware.
-        UPnPsdk_LOGERR "MSG1036: Failed to get netaddress with address family "
+        UPnPsdk_LOGERR(
+            "MSG1036") "Failed to get netaddress with address family "
             << std::to_string(m_sa_union.ss.ss_family) << ": "
             << ::gai_strerror(ret)
             << ". Continue with unspecified netaddress \"\".\n";

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-18
+// Redistribution only with this Copyright remark. Last modified: 2025-03-20
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 #include <utest/utest.hpp>
@@ -150,7 +150,7 @@ TEST(SockaddrStorageTestSuite, modify_address_and_port_successful) {
     // Check that a failing call does not modify old settings.
     EXPECT_THAT(
         [&saddr]() { saddr = "65536"; },
-        ThrowsMessage<std::range_error>(HasSubstr("] EXCEPTION MSG1127: ")));
+        ThrowsMessage<std::range_error>(HasSubstr("UPnPsdk MSG1127 EXCEPT[")));
     EXPECT_EQ(saddr.ss.ss_family, AF_INET);
     EXPECT_EQ(saddr.netaddr(), "192.168.47.48");
     EXPECT_EQ(saddr.netaddrp(), "192.168.47.48:65535");
@@ -250,75 +250,69 @@ TEST(SockaddrStorageTestSuite, set_address_and_port_fail) {
 
     EXPECT_THAT([&saddr]() { saddr = ":65536"; },
                 ThrowsMessage<std::range_error>(
-                    EndsWith("] EXCEPTION MSG1127: Number string from "
+                    EndsWith("] Number string from "
                              "\":65536\" for port is out of range 0..65535.")));
 
     EXPECT_THAT([&saddr]() { saddr = "65536"; },
                 ThrowsMessage<std::range_error>(
-                    EndsWith("] EXCEPTION MSG1127: Number string from "
+                    EndsWith("] Number string from "
                              "\"65536\" for port is out of range 0..65535.")));
 
     EXPECT_THAT([&saddr]() { saddr = "127.0.0.1:65536"; },
                 ThrowsMessage<std::range_error>(EndsWith(
-                    "] EXCEPTION MSG1127: Number string from "
+                    "] Number string from "
                     "\"127.0.0.1:65536\" for port is out of range 0..65535.")));
 
     EXPECT_THAT([&saddr]() { saddr = ":"; },
-                ThrowsMessage<std::invalid_argument>(EndsWith(
-                    "] EXCEPTION MSG1043: Invalid netaddress \":\".\n")));
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] Invalid netaddress \":\".\n")));
 
     EXPECT_THAT([&saddr]() { saddr = "garbage"; },
-                ThrowsMessage<std::invalid_argument>(EndsWith(
-                    "] EXCEPTION MSG1043: Invalid netaddress \"garbage\".\n")));
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] Invalid netaddress \"garbage\".\n")));
 
-    EXPECT_THAT(
-        [&saddr]() { saddr = "[2001::db8::1]"; },
-        ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"[2001::db8::1]\".\n")));
+    EXPECT_THAT([&saddr]() { saddr = "[2001::db8::1]"; },
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] Invalid netaddress \"[2001::db8::1]\".\n")));
 
-    EXPECT_THAT(
-        [&saddr]() { saddr = "2001:db8::2]"; },
-        ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"2001:db8::2]\".\n")));
+    EXPECT_THAT([&saddr]() { saddr = "2001:db8::2]"; },
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] Invalid netaddress \"2001:db8::2]\".\n")));
 
-    EXPECT_THAT(
-        [&saddr]() { saddr = "[2001:db8::3"; },
-        ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"[2001:db8::3\".\n")));
+    EXPECT_THAT([&saddr]() { saddr = "[2001:db8::3"; },
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] Invalid netaddress \"[2001:db8::3\".\n")));
 
     EXPECT_THAT([&saddr]() { saddr = "[2001:db8::5]50003"; },
                 ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] EXCEPTION MSG1043: Invalid netaddress "
+                    EndsWith("] Invalid netaddress "
                              "\"[2001:db8::5]50003\".\n")));
 
     EXPECT_THAT([&saddr]() { saddr = "[2001:db8::35003]"; },
                 ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] EXCEPTION MSG1043: Invalid netaddress "
+                    EndsWith("] Invalid netaddress "
                              "\"[2001:db8::35003]\".\n")));
 
-    EXPECT_THAT(
-        [&saddr]() { saddr = "192.168.66.67."; },
-        ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"192.168.66.67.\".\n")));
+    EXPECT_THAT([&saddr]() { saddr = "192.168.66.67."; },
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] Invalid netaddress \"192.168.66.67.\".\n")));
 
-    EXPECT_THAT(
-        [&saddr]() { saddr = "192.168.66.67z"; },
-        ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"192.168.66.67z\".\n")));
+    EXPECT_THAT([&saddr]() { saddr = "192.168.66.67z"; },
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] Invalid netaddress \"192.168.66.67z\".\n")));
 
-    EXPECT_THAT(
-        [&saddr]() { saddr = "[192.168.66.67]"; },
-        ThrowsMessage<std::invalid_argument>(EndsWith(
-            "] EXCEPTION MSG1043: Invalid netaddress \"[192.168.66.67]\".\n")));
+    EXPECT_THAT([&saddr]() { saddr = "[192.168.66.67]"; },
+                ThrowsMessage<std::invalid_argument>(
+                    EndsWith("] Invalid netaddress \"[192.168.66.67]\".\n")));
 
     EXPECT_THAT([&saddr]() { saddr = "[192.168.66.68]:"; },
                 ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] EXCEPTION MSG1043: Invalid netaddress "
+                    EndsWith("] Invalid netaddress "
                              "\"[192.168.66.68]:\".\n")));
 
     EXPECT_THAT([&saddr]() { saddr = "[192.168.66.68]:50044"; },
                 ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] EXCEPTION MSG1043: Invalid netaddress "
+                    EndsWith("] Invalid netaddress "
                              "\"[192.168.66.68]:50044\".\n")));
 }
 
@@ -597,8 +591,10 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
     g_dbug = true;
     captureObj.start();
     EXPECT_EQ(saddr.netaddr(), "");
-    EXPECT_THAT(captureObj.str(),
-                HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
+    EXPECT_THAT(
+        captureObj.str(),
+        ContainsStdRegex(
+            "UPnPsdk MSG1129 ERROR \\[.* Unsupported address family 1"));
 
     saddr.ss.ss_family = 255;
     g_dbug = false;
@@ -608,8 +604,10 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
     g_dbug = true;
     captureObj.start();
     EXPECT_EQ(saddr.netaddr(), "");
-    EXPECT_THAT(captureObj.str(),
-                HasSubstr("] ERROR MSG1129: Unsupported address family 255"));
+    EXPECT_THAT(
+        captureObj.str(),
+        ContainsStdRegex(
+            "UPnPsdk MSG1129 ERROR \\[.* Unsupported address family 255"));
     g_dbug = g_dbug_old;
 }
 
@@ -649,8 +647,10 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_port_string) {
     g_dbug = true;
     captureObj.start();
     EXPECT_EQ(saddr.netaddrp(), ":0");
-    EXPECT_THAT(captureObj.str(),
-                HasSubstr("] ERROR MSG1129: Unsupported address family 1"));
+    EXPECT_THAT(
+        captureObj.str(),
+        ContainsStdRegex(
+            "UPnPsdk MSG1129 ERROR \\[.* Unsupported address family 1"));
     g_dbug = g_dbug_old;
 }
 

@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp_source.html','../
 </div><!--header-->
 <div class="contents">
 <a href="../../dc/d59/addrinfo_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-02-01</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-03-20</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="../../d6/dbf/addrinfo_8hpp.html">UPnPsdk/addrinfo.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d3b/synclog_8hpp.html">UPnPsdk/synclog.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d7/d1b/sockaddr_8hpp.html">UPnPsdk/sockaddr.hpp</a>&gt;</span></div>
@@ -198,7 +198,7 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp_source.html','../
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30">split_addr_port</a>(m_node + <span class="stringliteral">&quot;:&quot;</span> + m_service, node, service);</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::range_error&amp; ex) {</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        m_error_msg =</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            UPnPsdk_LOGWHAT + <span class="stringliteral">&quot;MSG1128: catched next line ...\n&quot;</span> + ex.what();</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            UPnPsdk_LOGWHAT <span class="stringliteral">&quot;MSG1128: catched next line ...\n&quot;</span> + ex.what();</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
@@ -225,7 +225,7 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp_source.html','../
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                          <span class="keyword">sizeof</span>(addrStr), servStr, <span class="keyword">sizeof</span>(servStr),</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                          NI_NUMERICHOST | NI_NUMERICSERV);</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="comment">// clang-format off</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        UPnPsdk_LOGINFO &lt;&lt; <span class="stringliteral">&quot;MSG1111: syscall ::getaddrinfo(&quot;</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        UPnPsdk_LOGINFO(<span class="stringliteral">&quot;MSG1111&quot;</span>) <span class="stringliteral">&quot;syscall ::getaddrinfo(&quot;</span></div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            &lt;&lt; (node.empty() ? <span class="stringliteral">&quot;nullptr, &quot;</span> : <span class="stringliteral">&quot;\&quot;&quot;</span> + node + <span class="stringliteral">&quot;\&quot;, &quot;</span>)</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            &lt;&lt; (service.empty() ? <span class="stringliteral">&quot;nullptr, &quot;</span> : <span class="stringliteral">&quot;\&quot;&quot;</span> + service + <span class="stringliteral">&quot;\&quot;, &quot;</span>)</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            &lt;&lt; &amp;m_hints &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; &amp;new_res</div>
@@ -267,7 +267,7 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp_source.html','../
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>             ((m_hints.ai_flags &amp; AI_PASSIVE) ? <span class="stringliteral">&quot;, passive_listen&quot;</span> : <span class="stringliteral">&quot;&quot;</span>) +</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>             ((m_hints.ai_flags &amp; AI_NUMERICHOST) ? <span class="stringliteral">&quot;&quot;</span> : <span class="stringliteral">&quot;, (maybe DNS query temporary failed?)&quot;</span>) +</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>             <span class="stringliteral">&quot;, ai_socktype=&quot;</span> + std::to_string(m_hints.ai_socktype);</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        UPnPsdk_LOGERR &lt;&lt; m_error_msg &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        UPnPsdk_LOGERR(<span class="stringliteral">&quot;?????&quot;</span>) &lt;&lt; m_error_msg &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    }</div>

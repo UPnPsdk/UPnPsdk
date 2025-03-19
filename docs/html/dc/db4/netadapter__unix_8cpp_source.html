@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('dc/db4/netadapter__unix_8cpp_source.ht
 </div><!--header-->
 <div class="contents">
 <a href="../../dc/db4/netadapter__unix_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-03-16</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-03-20</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="../../d9/dff/netadapter_8hpp.html">UPnPsdk/netadapter.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d3b/synclog_8hpp.html">UPnPsdk/synclog.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;umock/ifaddrs.hpp&gt;</span></div>
@@ -126,13 +126,13 @@ $(document).ready(function(){initNavTree('dc/db4/netadapter__unix_8cpp_source.ht
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">// Get system adapters addresses.</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    this-&gt;free_ifaddrs();</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (umock::ifaddrs_h.getifaddrs(&amp;m_ifa_first) != 0) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">throw</span> std::runtime_error(UPnPsdk_LOGEXCEPT +</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                                 <span class="stringliteral">&quot;MSG1119: Failed to get information from &quot;</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                                 <span class="stringliteral">&quot;the network adapters: &quot;</span> +</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                                 std::string(std::strerror(errno)) + <span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">throw</span> std::runtime_error(</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            UPnPsdk_LOGEXCEPT(<span class="stringliteral">&quot;MSG1119&quot;</span>) <span class="stringliteral">&quot;Failed to get information from &quot;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                                         <span class="stringliteral">&quot;the network adapters: &quot;</span> +</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            std::string(std::strerror(errno)) + <span class="charliteral">&#39;\n&#39;</span>);</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    UPnPsdk_LOGINFO &lt;&lt; <span class="stringliteral">&quot;MSG1132: syscall ::getifaddrs() gets &quot;</span> &lt;&lt; m_ifa_first</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                    &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    UPnPsdk_LOGINFO(<span class="stringliteral">&quot;MSG1132&quot;</span>) <span class="stringliteral">&quot;syscall ::getifaddrs() gets &quot;</span> &lt;&lt; m_ifa_first</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                                                              &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    this-&gt;<a class="code hl_function" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a6adc7ce0b610f9cf08d0acb6bd8f7493">reset</a>();</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
@@ -224,8 +224,8 @@ $(document).ready(function(){initNavTree('dc/db4/netadapter__unix_8cpp_source.ht
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keywordtype">void</span> CNetadapter_platform::free_ifaddrs() noexcept {</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing CNetadapter::free_ifaddrs()&quot;</span>)</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    if (m_ifa_first != <span class="keywordtype">nullptr</span>) {</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        UPnPsdk_LOGINFO &lt;&lt; <span class="stringliteral">&quot;MSG1116: syscall ::freeifaddrs(&quot;</span> &lt;&lt; m_ifa_first</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                        &lt;&lt; <span class="stringliteral">&quot;)\n&quot;</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        UPnPsdk_LOGINFO(<span class="stringliteral">&quot;MSG1116&quot;</span>) <span class="stringliteral">&quot;syscall ::freeifaddrs(&quot;</span> &lt;&lt; m_ifa_first</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                                                            &lt;&lt; <span class="stringliteral">&quot;)\n&quot;</span>;</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        umock::ifaddrs_h.freeifaddrs(m_ifa_first);</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        m_ifa_first = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>

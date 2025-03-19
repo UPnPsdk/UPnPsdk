@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-02-11
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-20
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -533,7 +533,7 @@ static int private_connect(
         UPnPsdk::CSocketErr serrObj;
         if (umock::sys_socket_h.connect(sockfd, serv_addr, addrlen) != 0) {
             serrObj.catch_error();
-            UPnPsdk_LOGERR "MSG1020: failed to connect() socket("
+            UPnPsdk_LOGERR("MSG1020") "failed to connect() socket("
                 << sockfd << "): " << serrObj.error_str() << "\n";
 
             return SOCKET_ERROR;
@@ -668,7 +668,7 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
             status = parser_append(parser, buf, (size_t)num_read);
             switch (status) {
             case PARSE_SUCCESS:
-                UPnPsdk_LOGINFO "MSG1031: <<< (RECVD) <<<\n"
+                UPnPsdk_LOGINFO("MSG1031") "<<< (RECVD) <<<\n"
                     << parser->msg.msg.buf << "UPnPsdk -----------------\n";
                 print_http_headers(&parser->msg);
                 if (g_maxContentLength > (size_t)0 &&
@@ -701,7 +701,7 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
             }
         } else if (num_read == 0) {
             if (ok_on_close) {
-                UPnPsdk_LOGINFO "MSG1047: <<< (RECVD) <<<\n"
+                UPnPsdk_LOGINFO("MSG1047") "<<< (RECVD) <<<\n"
                     << parser->msg.msg.buf << "\n-----------------\n";
                 print_http_headers(&parser->msg);
                 line = __LINE__;
@@ -725,8 +725,9 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
 ExitFunction:
     free(buf);
     if (ret != UPNP_E_SUCCESS) {
-        UPnPsdk_LOGERR << "MSG1048: " << ret << " on line " << line
-                       << ", http_error_code = " << *http_error_code << ".\n";
+        UPnPsdk_LOGERR("MSG1048")
+            << ret << " on line " << line
+            << ", http_error_code = " << *http_error_code << ".\n";
     }
 
     return ret;
@@ -759,8 +760,8 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
     UPnPsdk::CSocket_basic sockObj(info->socket);
     sockObj.load();
     if (!sockObj.is_bound()) {
-        UPnPsdk_LOGERR
-            << "MSG1044: socket file descriptor(" << info->socket
+        UPnPsdk_LOGERR("MSG1044") "socket file descriptor("
+            << info->socket
             << ") is not bound to a connect destination socket address.\n";
         RetVal = UPNP_E_SOCKET_WRITE;
         goto ExitFunction;
@@ -887,7 +888,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                 } else {
                     /* write data */
                     nw = sock_write(info, file_buf, num_read, TimeOut);
-                    UPnPsdk_LOGINFO "MSG1104: >>> (SENT) >>>\n"
+                    UPnPsdk_LOGINFO("MSG1104") ">>> (SENT) >>>\n"
                         << std::string(file_buf, static_cast<size_t>(nw))
                         << "UPnPsdk ------------\n";
                     /* Send error nothing we can do */
@@ -919,8 +920,8 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                         // Get the local netaddress the socket is bound to.
                         UPnPsdk::SSockaddr local_saObj;
                         sockObj.sockaddr(local_saObj);
-                        UPnPsdk_LOGINFO "MSG1105: >>> (SENT) >>> Ctrlpnt "
-                                        "request from local \""
+                        UPnPsdk_LOGINFO("MSG1105") ">>> (SENT) >>> Ctrlpnt "
+                                                   "request from local \""
                             << local_saObj.netaddrp()
                             << "\" to \"HOST:\" in request message following "
                                "...\n"
@@ -1020,7 +1021,7 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
 
     url_str_len = strlen(url_str);
     /*ret_code = parse_uri( (char*)url_str, url_str_len, &url ); */
-    UPnPsdk_LOGINFO "MSG1098: UDevice DOWNLOAD URL=\"" << url_str << "\".\n";
+    UPnPsdk_LOGINFO("MSG1098") "UDevice DOWNLOAD URL=\"" << url_str << "\".\n";
     ret_code = http_FixStrUrl((char*)url_str, url_str_len, &url);
     if (ret_code != UPNP_E_SUCCESS) {
         return ret_code;
@@ -1038,11 +1039,11 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
                                 HTTPMETHOD_GET, url.pathquery.buff,
                                 url.pathquery.size, "HOST: ", hoststr, hostlen);
     if (ret_code != 0) {
-        UPnPsdk_LOGINFO "MSG1100: HTTP Makemessage failed.\n";
+        UPnPsdk_LOGINFO("MSG1100") "HTTP Makemessage failed.\n";
         membuffer_destroy(&request);
         return ret_code;
     }
-    UPnPsdk_LOGINFO "MSG1101: Ctrlpnt send request HTTP Buffer...\n"
+    UPnPsdk_LOGINFO("MSG1101") "Ctrlpnt send request HTTP Buffer...\n"
         << request.buf << "UPnPsdk ----------END--------\n";
     /* get doc msg */
     ret_code = http_RequestAndResponse(&url, request.buf, request.length,
@@ -1053,7 +1054,7 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
         membuffer_destroy(&request);
         return ret_code;
     }
-    UPnPsdk_LOGINFO "MSG1102: Response...\n";
+    UPnPsdk_LOGINFO("MSG1102") "Response...\n";
     print_http_headers(&response.msg);
     /* optional content-type */
     if (content_type) {
@@ -1090,7 +1091,7 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
         assert(msg_length > *doc_length);
         assert(*document != NULL);
         if (msg_length <= *doc_length || *document == NULL)
-            UPnPsdk_LOGINFO "MSG1103: msg_length("
+            UPnPsdk_LOGINFO("MSG1103") "msg_length("
                 << msg_length << ") <= *doc_length(" << *doc_length
                 << ") or document is NULL.\n";
     }

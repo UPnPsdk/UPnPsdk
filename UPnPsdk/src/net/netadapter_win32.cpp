@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-16
+// Redistribution only with this Copyright remark. Last modified: 2025-03-20
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -36,8 +36,8 @@ void CNetadapter_platform::get_first() {
         m_adapt_first, &adapts_size);
     if (ret != ERROR_BUFFER_OVERFLOW) {
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1120: failed to get buffer size for list of adapters (errid=" +
+            UPnPsdk_LOGEXCEPT("MSG1120") "failed to get buffer size for list "
+                                         "of adapters (errid=" +
             std::to_string(ret) + ").");
     }
 
@@ -46,9 +46,8 @@ void CNetadapter_platform::get_first() {
     // Allocate enough memory that size was detected above.
     m_adapt_first = static_cast<PIP_ADAPTER_ADDRESSES>(malloc(adapts_size));
     if (m_adapt_first == nullptr) {
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1121: failed to allocate memory for list of adapters.");
+        throw std::runtime_error(UPnPsdk_LOGEXCEPT(
+            "MSG1121") "failed to allocate memory for list of adapters.");
     }
     // Do the call that will actually return the info.
     ret = umock::iphlpapi_h.GetAdaptersAddresses(
@@ -56,8 +55,8 @@ void CNetadapter_platform::get_first() {
         m_adapt_first, &adapts_size);
     if (ret != ERROR_SUCCESS) {
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1122: failed to find list of adapters (errid=" +
+            UPnPsdk_LOGEXCEPT(
+                "MSG1122") "failed to find list of adapters (errid=" +
             std::to_string(ret) + ").");
     }
 
@@ -100,9 +99,10 @@ bool CNetadapter_platform::get_next() {
         }
     }
     throw std::invalid_argument(
-        UPnPsdk_LOGEXCEPT +
-        "MSG1123: Failed to get next network adapter entry. This should never "
-        "come up and must be fixed. m_adapt_current=" +
+        UPnPsdk_LOGEXCEPT(
+            "MSG1123") "Failed to get next network adapter entry. This should "
+                       "never "
+                       "come up and must be fixed. m_adapt_current=" +
         std::to_string(reinterpret_cast<uintptr_t>(m_adapt_current)) +
         ", m_unicastaddr_current=" +
         std::to_string(reinterpret_cast<uintptr_t>(m_unicastaddr_current)) +

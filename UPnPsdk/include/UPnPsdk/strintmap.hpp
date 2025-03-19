@@ -1,7 +1,7 @@
 #ifndef UPnPdsk_STRINTMAP_HPP
 #define UPnPdsk_STRINTMAP_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-08
+// Redistribution only with this Copyright remark. Last modified: 2025-03-20
 
 /*!
  * \file
@@ -102,7 +102,7 @@ size_t CStrIntMap<T>::index_of(const char* a_name, bool a_case_sensitive) {
         } else if (cmp < 0) {
             bot = mid - 1; /* look above mid */
         } else if (mid > INT_MAX) { // guard for the following type cast
-            UPnPsdk_LOGCRIT "MSG1026: Index mid="
+            UPnPsdk_LOGCRIT("MSG1026") "Index mid="
                 << mid
                 << "exceeds integer limit. This program error MUST be fixed! "
                    "Program is stable but may have ignored runtime "

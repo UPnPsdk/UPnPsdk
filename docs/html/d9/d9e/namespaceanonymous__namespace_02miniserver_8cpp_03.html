@@ -1707,7 +1707,8 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
 </div><div class="memdoc">
 
 <p>Returns port to which socket, sockfd, is bound. </p>
-<dl class="section return"><dt>Returns</dt><dd>On success: <b>0</b> On error: <b>-1</b> with unmodified system error (errno or WSAGetLastError()). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>On success: <b>0</b><br  />
+ On error: <b>-1</b> with unmodified system error (errno or WSAGetLastError()). </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">sockfd</td><td>Socket descriptor.  </td></tr>
@@ -1804,7 +1805,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00848">848</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00846">846</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-21-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-21-summary" class="dynsummary" style="display:block;">
@@ -1812,37 +1813,36 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
 <div id="dynsection-21-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a7edcadd0e5ba55588d4794730343772e_cgraph.png" border="0" usemap="#ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a7edcadd0e5ba55588d4794730343772e_cgraph" alt=""/></div>
 <map name="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a7edcadd0e5ba55588d4794730343772e_cgraph" id="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a7edcadd0e5ba55588d4794730343772e_cgraph">
-<area shape="rect" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="5,196,185,251"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35" title="Bind socket to an ip address." alt="" coords="233,236,408,261"/>
-<area shape="poly" title=" " alt="" coords="186,231,220,235,219,240,186,236"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="457,130,637,170"/>
-<area shape="poly" title=" " alt="" coords="185,206,443,164,444,169,186,211"/>
+<area shape="rect" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="5,168,185,223"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35" title="Bind socket to an ip address." alt="" coords="233,208,408,233"/>
+<area shape="poly" title=" " alt="" coords="186,203,220,207,219,212,186,208"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="457,79,637,119"/>
+<area shape="poly" title=" " alt="" coords="185,174,443,119,444,124,186,179"/>
 <area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b" title="Set socket to listen." alt="" coords="456,29,639,55"/>
-<area shape="poly" title=" " alt="" coords="163,194,501,57,503,62,165,198"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a8d4aa24450915e0b20fd30e672e9a660" title="Get the numeric port." alt="" coords="243,286,398,326"/>
-<area shape="poly" title=" " alt="" coords="172,248,253,279,252,284,170,253"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="700,70,857,110"/>
-<area shape="poly" title=" " alt="" coords="328,234,376,175,413,142,455,116,512,95,573,84,632,79,686,79,686,85,632,85,574,89,514,101,457,120,416,146,380,178,333,237"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="700,134,857,174"/>
-<area shape="poly" title=" " alt="" coords="382,233,686,170,687,176,383,239"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="472,359,623,399"/>
-<area shape="poly" title=" " alt="" coords="385,259,410,272,426,289,435,305,443,322,458,339,476,351,473,355,454,343,438,325,430,308,422,292,406,276,383,264"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#aa33ca96a98c6bcaeae39e6f06c1543a0" title="Get the assosiated netaddress without port." alt="" coords="701,273,856,313"/>
-<area shape="poly" title=" " alt="" coords="371,259,409,272,433,284,457,294,516,303,576,307,687,302,688,307,576,312,515,309,455,299,430,289,407,276,369,264"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="470,245,625,285"/>
-<area shape="poly" title=" " alt="" coords="409,252,456,256,456,261,408,258"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53" title="Get sizeof the current filled (sin6 or sin) Sockaddr Structure." alt="" coords="470,423,625,463"/>
-<area shape="poly" title=" " alt="" coords="391,259,410,272,424,289,431,307,435,342,438,376,445,393,458,410,462,413,459,417,454,413,440,395,433,377,430,342,426,308,419,292,406,276,388,264"/>
-<area shape="poly" title=" " alt="" coords="349,233,455,186,485,173,487,178,457,191,351,238"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598" title="Get cached error message." alt="" coords="472,487,623,527"/>
-<area shape="poly" title=" " alt="" coords="392,259,410,272,428,298,436,324,437,349,435,374,433,399,434,424,441,449,458,474,463,478,459,482,454,477,436,451,429,425,428,399,430,374,432,349,431,324,423,300,406,276,389,264"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30" title="Free function to split inet address and port(service)" alt="" coords="687,367,871,392"/>
-<area shape="poly" title=" " alt="" coords="623,377,673,377,673,382,623,382"/>
-<area shape="poly" title=" " alt="" coords="625,271,688,279,687,284,624,277"/>
-<area shape="poly" title=" " alt="" coords="625,127,687,111,688,116,626,132"/>
-<area shape="poly" title=" " alt="" coords="638,149,686,150,686,155,638,154"/>
-<area shape="poly" title=" " alt="" coords="610,52,687,68,686,74,609,57"/>
-<area shape="poly" title=" " alt="" coords="570,53,622,85,688,120,704,126,701,131,686,124,619,89,567,57"/>
+<area shape="poly" title=" " alt="" coords="146,165,232,126,360,85,474,55,475,60,361,90,234,131,149,170"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a8d4aa24450915e0b20fd30e672e9a660" title="Get the numeric port." alt="" coords="243,258,398,298"/>
+<area shape="poly" title=" " alt="" coords="172,220,253,251,252,256,170,225"/>
+<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="700,51,857,91"/>
+<area shape="poly" title=" " alt="" coords="393,231,450,235,514,233,578,220,609,209,637,193,648,184,655,173,661,150,667,126,674,113,685,101,691,96,695,101,688,105,678,116,672,128,667,152,660,176,652,187,640,198,611,214,580,225,514,238,450,240,392,236"/>
+<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="700,115,857,155"/>
+<area shape="poly" title=" " alt="" coords="367,231,423,243,491,251,565,251,602,246,638,237,670,223,699,204,748,163,751,167,702,208,672,227,640,242,603,251,566,256,491,257,422,248,366,236"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="472,373,623,413"/>
+<area shape="poly" title=" " alt="" coords="390,231,410,244,422,258,430,273,435,302,440,331,446,345,458,359,462,363,459,367,454,363,442,348,435,333,430,303,425,275,418,261,406,248,387,236"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="470,309,625,349"/>
+<area shape="poly" title=" " alt="" coords="380,231,409,244,425,255,434,266,444,277,457,288,480,300,477,305,455,292,440,280,430,269,421,259,407,248,378,236"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53" title="Get sizeof the current filled (sin6 or sin) Sockaddr Structure." alt="" coords="470,437,625,477"/>
+<area shape="poly" title=" " alt="" coords="392,231,410,244,427,267,435,290,435,335,436,379,443,401,458,423,462,427,458,430,454,426,438,403,430,380,430,335,429,291,422,269,406,248,389,236"/>
+<area shape="poly" title=" " alt="" coords="337,206,388,169,455,129,470,122,472,127,457,134,391,173,340,210"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598" title="Get cached error message." alt="" coords="472,143,623,183"/>
+<area shape="poly" title=" " alt="" coords="371,205,458,183,459,188,372,211"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30" title="Free function to split inet address and port(service)" alt="" coords="687,380,871,405"/>
+<area shape="poly" title=" " alt="" coords="623,390,673,390,673,395,623,395"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#aa33ca96a98c6bcaeae39e6f06c1543a0" title="Get the assosiated netaddress without port." alt="" coords="701,309,856,349"/>
+<area shape="poly" title=" " alt="" coords="625,326,688,326,688,331,625,331"/>
+<area shape="poly" title=" " alt="" coords="637,86,686,80,687,85,638,91"/>
+<area shape="poly" title=" " alt="" coords="638,111,687,118,686,124,637,116"/>
+<area shape="poly" title=" " alt="" coords="639,51,687,57,686,62,639,56"/>
+<area shape="poly" title=" " alt="" coords="607,52,640,65,664,83,688,101,701,108,699,112,685,106,661,87,637,70,605,57"/>
 <area shape="poly" title=" " alt="" coords="510,31,502,21,507,11,522,5,547,3,579,7,591,16,588,20,577,11,547,8,523,10,510,15,508,20,514,27"/>
 </map>
 </div>
@@ -1897,7 +1897,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00956">956</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00954">954</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-23-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-23-summary" class="dynsummary" style="display:block;">
@@ -1959,7 +1959,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l01004">1004</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l01002">1002</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-25-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-25-summary" class="dynsummary" style="display:block;">

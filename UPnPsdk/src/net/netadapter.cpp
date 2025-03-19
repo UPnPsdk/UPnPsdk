@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-17
+// Redistribution only with this Copyright remark. Last modified: 2025-03-20
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -15,9 +15,8 @@ namespace UPnPsdk {
 uint8_t netmask_to_bitmask(const ::sockaddr_storage* a_netmask) {
     TRACE("Executing netmask_to_bitmask()")
     if (a_netmask == nullptr)
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1059: No network socket address information given.\n");
+        throw std::runtime_error(UPnPsdk_LOGEXCEPT(
+            "MSG1059") "No network socket address information given.\n");
 
     uint8_t bitmask{};
     uint8_t nullbits{};
@@ -59,8 +58,8 @@ uint8_t netmask_to_bitmask(const ::sockaddr_storage* a_netmask) {
                 &reinterpret_cast<const ::sockaddr_in6*>(a_netmask)->sin6_addr,
                 ip_str, sizeof(ip_str));
             throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT +
-                "MSG1067: Invalid ip-address prefix bitmask \"[" +
+                UPnPsdk_LOGEXCEPT(
+                    "MSG1067") "Invalid ip-address prefix bitmask \"[" +
                 std::string(ip_str) + "]\".\n");
         }
     } break; // switch()
@@ -86,9 +85,9 @@ uint8_t netmask_to_bitmask(const ::sockaddr_storage* a_netmask) {
                 AF_INET,
                 &reinterpret_cast<const ::sockaddr_in*>(a_netmask)->sin_addr,
                 ip_str, sizeof(ip_str));
-            throw std::runtime_error(UPnPsdk_LOGEXCEPT +
-                                     "MSG1069: Invalid ip-address netmask \"" +
-                                     std::string(ip_str) + "\".\n");
+            throw std::runtime_error(
+                UPnPsdk_LOGEXCEPT("MSG1069") "Invalid ip-address netmask \"" +
+                std::string(ip_str) + "\".\n");
         }
     } break;
 
@@ -97,7 +96,7 @@ uint8_t netmask_to_bitmask(const ::sockaddr_storage* a_netmask) {
 
     default:
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT + "MSG1028: Unsupported address family(" +
+            UPnPsdk_LOGEXCEPT("MSG1028") "Unsupported address family(" +
             std::to_string(a_netmask->ss_family) + "), only AF_INET6(" +
             std::to_string(AF_INET6) + "), AF_INET(" + std::to_string(AF_INET) +
             "), or AF_UNSPEC(" + std::to_string(AF_UNSPEC) + ") are valid.\n");
@@ -111,9 +110,8 @@ void bitmask_to_netmask(const ::sockaddr_storage* a_saddr,
                         const uint8_t a_prefixlength, SSockaddr& a_saddrObj) {
     TRACE("Executing bitmask_to_netmask()")
     if (a_saddr == nullptr)
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT +
-            "MSG1070: No associated socket address for the netmask given.\n");
+        throw std::runtime_error(UPnPsdk_LOGEXCEPT(
+            "MSG1070") "No associated socket address for the netmask given.\n");
 
     switch (a_saddr->ss_family) {
     case AF_INET6: {
@@ -127,8 +125,8 @@ void bitmask_to_netmask(const ::sockaddr_storage* a_saddr,
         // All prefix lengths > 128 will throw this exception.
         if (a_prefixlength > 128)
             throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT +
-                "MSG1124: Invalid IPv6 address prefix bitmask(" +
+                UPnPsdk_LOGEXCEPT(
+                    "MSG1124") "Invalid IPv6 address prefix bitmask(" +
                 std::to_string(a_prefixlength) + ") exceeds 128.\n");
 
         // Calculate number of leading bytes with full one bits.
@@ -164,8 +162,8 @@ void bitmask_to_netmask(const ::sockaddr_storage* a_saddr,
         // All prefix lengths > 32 will throw this exception.
         if (a_prefixlength > 32) {
             throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT +
-                "MSG1125: Invalid IPv4 address prefix bitmask(" +
+                UPnPsdk_LOGEXCEPT(
+                    "MSG1125") "Invalid IPv4 address prefix bitmask(" +
                 std::to_string(a_prefixlength) + ") exceeds 32.\n");
         }
         // Prepare socket address and shift zero bits from right into the mask.
@@ -186,7 +184,7 @@ void bitmask_to_netmask(const ::sockaddr_storage* a_saddr,
 
     default: {
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT + "MSG1126: Unsupported address family(" +
+            UPnPsdk_LOGEXCEPT("MSG1126") "Unsupported address family(" +
             std::to_string(a_saddr->ss_family) + "), only AF_INET6(" +
             std::to_string(AF_INET6) + "), AF_INET(" + std::to_string(AF_INET) +
             "), or AF_UNSPEC(" + std::to_string(AF_UNSPEC) + ") are valid.\n");

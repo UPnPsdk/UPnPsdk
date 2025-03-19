@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('df/df3/strintmap_8hpp_source.html','..
 <a href="../../df/df3/strintmap_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef UPnPdsk_STRINTMAP_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define UPnPdsk_STRINTMAP_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2024-11-08</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-03-20</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d3b/synclog_8hpp.html">UPnPsdk/synclog.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d42/port_8hpp.html">UPnPsdk/port.hpp</a>&gt;</span></div>
@@ -168,7 +168,7 @@ $(document).ready(function(){initNavTree('df/df3/strintmap_8hpp_source.html','..
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cmp &lt; 0) {</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            bot = mid - 1; <span class="comment">/* look above mid */</span></div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (mid &gt; INT_MAX) { <span class="comment">// guard for the following type cast</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            UPnPsdk_LOGCRIT <span class="stringliteral">&quot;MSG1026: Index mid=&quot;</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            UPnPsdk_LOGCRIT(<span class="stringliteral">&quot;MSG1026&quot;</span>) <span class="stringliteral">&quot;Index mid=&quot;</span></div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                &lt;&lt; mid</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                &lt;&lt; <span class="stringliteral">&quot;exceeds integer limit. This program error MUST be fixed! &quot;</span></div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                   <span class="stringliteral">&quot;Program is stable but may have ignored runtime &quot;</span></div>

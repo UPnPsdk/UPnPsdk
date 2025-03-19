@@ -230,7 +230,7 @@ TEST_F(SsdpMockFTestSuite, set_ipv4_socket_no_blocking_fails) {
         captureObj.start();
         ret_create_ssdp_sock_reqv4 = create_ssdp_sock_reqv4(&ssdpSock);
         std::cout << captureObj.str();
-        EXPECT_THAT(captureObj.str(), HasSubstr("] CRITICAL MSG1029: "));
+        EXPECT_THAT(captureObj.str(), HasSubstr("UPnPsdk MSG1029 CRIT  ["));
 
         // This should be ...
         // EXPECT_EQ(ret_create_ssdp_sock_reqv4, UPNP_E_SOCKET_ERROR)

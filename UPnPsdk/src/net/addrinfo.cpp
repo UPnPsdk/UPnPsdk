@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-01
+// Redistribution only with this Copyright remark. Last modified: 2025-03-20
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -98,7 +98,7 @@ bool CAddrinfo::get_first() {
             split_addr_port(m_node + ":" + m_service, node, service);
     } catch (const std::range_error& ex) {
         m_error_msg =
-            UPnPsdk_LOGWHAT + "MSG1128: catched next line ...\n" + ex.what();
+            UPnPsdk_LOGWHAT "MSG1128: catched next line ...\n" + ex.what();
 
         return false;
     }
@@ -125,7 +125,7 @@ bool CAddrinfo::get_first() {
                           sizeof(addrStr), servStr, sizeof(servStr),
                           NI_NUMERICHOST | NI_NUMERICSERV);
         // clang-format off
-        UPnPsdk_LOGINFO << "MSG1111: syscall ::getaddrinfo("
+        UPnPsdk_LOGINFO("MSG1111") "syscall ::getaddrinfo("
             << (node.empty() ? "nullptr, " : "\"" + node + "\", ")
             << (service.empty() ? "nullptr, " : "\"" + service + "\", ")
             << &m_hints << ", " << &new_res
@@ -168,7 +168,7 @@ bool CAddrinfo::get_first() {
              ((m_hints.ai_flags & AI_PASSIVE) ? ", passive_listen" : "") +
              ((m_hints.ai_flags & AI_NUMERICHOST) ? "" : ", (maybe DNS query temporary failed?)") +
              ", ai_socktype=" + std::to_string(m_hints.ai_socktype);
-        UPnPsdk_LOGERR << m_error_msg << '\n';
+        UPnPsdk_LOGERR("?????") << m_error_msg << '\n';
 
         return false;
     }

@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-03-20
 
 #include <pupnp/threadpool_init.hpp>
 #include <UPnPsdk/synclog.hpp>
@@ -19,8 +19,8 @@ CThreadPoolInit::CThreadPoolInit(ThreadPool& a_threadpool,
     int ret = ThreadPoolInit(&m_threadpool, nullptr);
     if (ret != 0)
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT
-            "MSG1045: Initializing ThreadPool fails with return number " +
+            UPnPsdk_LOGEXCEPT(
+                "MSG1045") "Initializing ThreadPool fails with return number " +
             std::to_string(ret));
 
     if (a_shutdown) {
@@ -33,10 +33,10 @@ CThreadPoolInit::CThreadPoolInit(ThreadPool& a_threadpool,
         // to stderr to test if threads are used.
         ret = TPAttrSetMaxJobsTotal(&m_threadpool.attr, a_maxJobsTotal);
         if (ret != 0)
-            throw std::runtime_error(UPnPsdk_LOGEXCEPT
-                                     "MSG1046: Setting maximal jobs number "
-                                     "fails with return number " +
-                                     std::to_string(ret));
+            throw std::runtime_error(
+                UPnPsdk_LOGEXCEPT("MSG1046") "Setting maximal jobs number "
+                                             "fails with return number " +
+                std::to_string(ret));
     }
 }
 

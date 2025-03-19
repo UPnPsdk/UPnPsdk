@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SYNCLOG_HPP
 #define UPnPsdk_SYNCLOG_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-23
+// Redistribution only with this Copyright remark. Last modified: 2025-03-19
 /*!
  * \file
  * \brief Define macro for synced logging to the console for detailed info and
@@ -52,18 +52,18 @@ namespace UPnPsdk {
 #endif
 
 // This is intended to be used as:
-// throw(UPnPsdk_LOGEXCEPT + "MSG1nnn: exception message.\n");
-#define UPnPsdk_LOGEXCEPT "UPnPsdk ["+::std::string(__PRETTY_FUNCTION__)+"] EXCEPTION "
+// throw(UPnPsdk_LOGEXCEPT("MSG1nnn") "exception message.\n");
+#define UPnPsdk_LOGEXCEPT(m) "UPnPsdk "+std::string(m)+" EXCEPT["+::std::string(__PRETTY_FUNCTION__)+"] "
 #define UPnPsdk_LOGWHAT "UPnPsdk ["+::std::string(__PRETTY_FUNCTION__)+"] WHAT "
 
 // Next line mainly used for Unit Tests to catch the right output channel.
 inline constexpr int log_fileno{2}; // 1 = stdout, 2 = stderr, conforming to next line
-#define UPnPsdk_LOG SYNC(std::cerr)<<"UPnPsdk ["<<__PRETTY_FUNCTION__
+#define UPnPsdk_LOG(m) SYNC(std::cerr)<<"UPnPsdk "<<(m)
 // Critical messages are always output.
-#define UPnPsdk_LOGCRIT UPnPsdk_LOG<<"] CRITICAL "
-#define UPnPsdk_LOGERR if(UPnPsdk::g_dbug) UPnPsdk_LOG<<"] ERROR "
-#define UPnPsdk_LOGCATCH if(UPnPsdk::g_dbug) UPnPsdk_LOG<<"] CATCH "
-#define UPnPsdk_LOGINFO if(UPnPsdk::g_dbug) UPnPsdk_LOG<<"] INFO "
+#define UPnPsdk_LOGCRIT(m) UPnPsdk_LOG(m)<<" CRIT  ["<<__PRETTY_FUNCTION__<<"] "
+#define UPnPsdk_LOGERR(m) if(UPnPsdk::g_dbug) UPnPsdk_LOG(m)<<" ERROR ["<<__PRETTY_FUNCTION__<<"] "
+#define UPnPsdk_LOGCATCH(m) if(UPnPsdk::g_dbug) UPnPsdk_LOG(m)<<" CATCH ["<<__PRETTY_FUNCTION__<<"] "
+#define UPnPsdk_LOGINFO(m) if(UPnPsdk::g_dbug) UPnPsdk_LOG(m)<<" INFO  ["<<__PRETTY_FUNCTION__<<"] "
 
 // clang-format on
 } // namespace UPnPsdk
