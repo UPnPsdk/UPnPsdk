@@ -1,13 +1,15 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-21
+// Redistribution only with this Copyright remark. Last modified: 2025-03-23
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
  * - Make the sample program running with the compatible library.
+ * - Test UpnpGetIfInfo() to be compatible with pupnp.
+ * - Change  bitmask_to_netmask() a_prefixlength from const uint8_t to const unsigned int.
+ * - Change SSockaddr sockaddr_t structure names from e.g. ss_family to family.
  * - Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.
- * - Rework miniserver Unit Tests.
  * - Test and improve UpnpInit2 with different arguments.
  * - Rework 'get_ssdp_sockets()' and Utest/compa/1-discovery/test_ssdp.cpp.
  * - Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.

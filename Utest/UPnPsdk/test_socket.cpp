@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-20
+// Redistribution only with this Copyright remark. Last modified: 2025-03-22
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -838,7 +838,7 @@ TEST_F(SocketMockFTestSuite, bind_syscall_fails) {
     // --- Mock bind() ---
     // Bind socket to an ip address, provide port if port was 0.
     EXPECT_CALL(m_sys_socketObj, bind(sfd, _, _))
-        .Times(Between(3, 4)) // EXPECT_THAT calls a second time if it fails
+        .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
 
     // Inject mocking functions
@@ -917,9 +917,9 @@ TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_successful) {
     // --- Mock bind() ---
     // Bind socket to an ip address, provide port if port was 0.
     EXPECT_CALL(m_sys_socketObj, bind(sfd, _, _))
-        .Times(3)
-        .WillOnce(Return(SOCKET_ERROR))
-        .WillOnce(Return(SOCKET_ERROR))
+        // .Times(3)
+        // .WillOnce(Return(SOCKET_ERROR))
+        // .WillOnce(Return(SOCKET_ERROR))
         .WillOnce(Return(0));
 
     if (g_dbug) {
@@ -970,7 +970,7 @@ TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_fails) {
     // --- Mock bind() ---
     // Bind socket to an ip address, provide port if port was 0.
     EXPECT_CALL(m_sys_socketObj, bind(sfd, _, _))
-        .Times(Between(3, 4)) // EXPECT_THAT calls a second time if it fails
+        .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(SOCKET_ERROR));
     // Set expected error numnber.
     EXPECT_CALL(m_winsock2Obj, WSAGetLastError())
