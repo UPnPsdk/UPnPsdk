@@ -48,7 +48,7 @@ var namespaceUPnPsdk =
       [ "HTTPMETHOD_SIMPLEGET", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60ad9d286da9f9dc214d6ec88ab465d42f2", null ]
     ] ],
     [ "netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71", null ],
-    [ "bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#ga5f66fceda4eaabc471e06dd5d56939de", null ],
+    [ "bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb", null ],
     [ "split_addr_port", "d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30", null ],
     [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],
     [ "errStr", "dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588", null ],

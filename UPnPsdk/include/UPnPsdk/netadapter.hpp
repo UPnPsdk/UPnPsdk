@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-23
+// Redistribution only with this Copyright remark. Last modified: 2025-04-01
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -59,7 +59,7 @@ void bitmask_to_netmask(
     const ::sockaddr_storage* a_saddr,
     /*! [in] IPv6 or IPv4 address prefix length as number of set bits as given
      * e.g. with 64 in [2001:db8::1]/64. */
-    const uint8_t a_prefixlength,
+    const unsigned int a_prefixlength,
     /*! [out] Reference to a socket address object that will be filled with the
      * netmask. */
     SSockaddr& a_saddrObj);
@@ -140,8 +140,6 @@ class CNetadapter {
     UPnPsdk_API void socknetmask(SSockaddr& a_snetmask) const;
     /// \copydoc INetadapter::bitmask()
     UPnPsdk_API unsigned int bitmask() const;
-    /// \copydoc INetadapter::reset()
-    UPnPsdk_API void reset() noexcept;
 
     // Own methods
     /*! \brief Find local network adapter with given name or ip address
@@ -161,16 +159,28 @@ class CNetadapter {
      * \endcode
      *
      * You have to get_first() entry from the internal network adapter list to
-     * load it. Then you can try to \b %find_first() an adapter. With no
-     * argument the operating system presents one as best choise. Due to
+     * load it. Then you can try to \b %find_first() a local ip address. With
+     * no argument the operating system presents one as best choise. Due to
      * <!--REF:-->_<a
      * href="https://datatracker.ietf.org/doc/html/rfc4038#section-5.4.1">RFC
      * 4038, 5.4.1 - IP_Address Selection</a>, specifying the source address is
      * not typically required.
      *
-     * If found, the adapter is selected so that all its properties can be
-     * retrieved. If the adapter has more than one ip address you can get them
-     * with find_next().
+     * If found, the ip address is selected so that you can get all its
+     * properties. With find_next() you can get following ip addresses.
+     *
+     * If finding fails (%find_first() == false) no selection is modified.
+     * Before starting lookup, the first local ip address was selected with
+     * get_first(). This is still selected but has mostly no useful meaning in
+     * the current context. You should not expect empty values.
+     *
+     * \b %find_first() and \b find_next() ignore loopback addresses by
+     * default. If you want them you must select them (see Parameters below). It
+     * is possible that you don't find the loopback adapter, e.g.
+     * %find_first("lo"), or %find_first(1), if it only has loopback addresses.
+     * You can use %find_first("[::1]"), %find_first("127.0.0.1"), or
+     * %find_first("loopback") to also get the associated adapter info.
+     *
      * \returns
      *  - \b true if adapter with given name or ip address was found
      *  - \b false otherwise */
@@ -178,18 +188,21 @@ class CNetadapter {
         /*! [in]
          * - no argument will select a local ip address by the operating system
          * - "loopback" (all lower case) will select the first loopback address
-         * - local network interface name (like "lo", "eth0", "Ethernet", etc.)
+         * - local network adapter name (like "lo", "eth0", "Ethernet", etc.).
+         *   This restricts find_next() to point only to next ip addresses of
+         *   the selected adapter.
          * - an ip address. */
         std::string_view a_name_or_addr = "");
 
-    /*! \brief Find local network adapter with given index number.
-     * \details Example at find_first(const std::string&). Of course you have to
+    /*! \brief Find first ip address on the local network adapter with given
+     * index number.
+     * \details Example at find_first(std::string_view). Of course you have to
      * use an index number.
      *
-     * You have to get_first() entry of the internal network adapter
-     * list to load it. Then you can try to \b %find_first() adapter with the
-     * given property. If found, the adapter is selected so that all its
-     * properties can be retrieved.
+     * You have to get_first() entry of the internal network adapter list to
+     * load it. Then you can try to <b>find_first(a_index)</b> adapter. If
+     * found, the adapter is selected so that all its properties can be
+     * retrieved.
      * \returns
      *  - \b true if adapter with given index number was found
      *  - \b false otherwise */
@@ -197,13 +210,16 @@ class CNetadapter {
         /*! [in] Index number of the local network adapter. */
         const unsigned int a_index);
 
-    /*! \brief Find next ip address from a selected network adapter
+    /*! \brief Find next ip address from local network adapters.
      * \details Before using this method you have to use get_first() to load
      * the internal network adapter list from the operating system and then use
-     * find_first() to select a network adapter. If the adapter has more than
-     * one item (ip address) you can select them with this method.
+     * find_first() to specify and select the first wanted ip address. With
+     * this method you can find following ip addresses. When pre-selecting an
+     * adapter, e.g. find_first("eth0"), or find_first(index), \b find_next()
+     * will only select following ip addresses on this adapter. For more
+     * details have a look at find_first(std::string_view).
      * \returns
-     *  - \b true if the next item on the selected adatper was found
+     *  - \b true if the next item (ip address) was found
      *  - \b false otherwise, or if you haven't used get_first() and
      * find_first() */
     UPnPsdk_API bool find_next();
@@ -221,6 +237,9 @@ class CNetadapter {
     // Only used with m_state = Find::index;
     unsigned int m_find_index{};
     /// \endcond
+
+    // Private helper methods.
+    void reset() noexcept;
 };
 
 } // namespace UPnPsdk

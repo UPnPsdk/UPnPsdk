@@ -142,9 +142,7 @@ var namespaces_dup =
       [ "AddWorker", "dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#af2c5c202798ffef6d50277b0ee80c155", null ]
     ] ],
     [ "anonymous_namespace{TimerThread.cpp}", "da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html", "da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03" ],
-    [ "anonymous_namespace{upnpapi.cpp}", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html", [
-      [ "UpnpGetIfInfo", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a24d57a16f749d790337f24bee32b95a4", null ]
-    ] ],
+    [ "anonymous_namespace{upnpapi.cpp}", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html", null ],
     [ "anonymous_namespace{upnptools.cpp}", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03.html", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03" ],
     [ "anonymous_namespace{uri.cpp}", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html", [
       [ "is_reserved", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a72aa299b86ca4486b62de1ac2e11b649", null ],
@@ -165,7 +163,7 @@ var namespaces_dup =
     ] ],
     [ "anonymous_namespace{uuid.cpp}", "db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html", "db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03" ],
     [ "anonymous_namespace{webserver.cpp}", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03" ],
-    [ "compa", "d3/d02/namespacecompa.html", null ],
+    [ "compa", "d3/d02/namespacecompa.html", "d3/d02/namespacecompa" ],
     [ "pupnp", "dc/d9a/namespacepupnp.html", null ],
     [ "UPnPsdk", "dd/d67/namespaceUPnPsdk.html", "dd/d67/namespaceUPnPsdk" ]
 ];

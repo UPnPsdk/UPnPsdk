@@ -57,7 +57,9 @@ class UpnpapiIPv4MockTestSuite : public UpnpapiFTestSuite {
     umock::IfaddrsMock ifaddrsObj;
 };
 
-
+#if 0
+// Mocking must be disabled for system calls in classes due to possible
+// segfaults. Umock in classes violates the RAII principle.
 TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
     // provide a network interface
     CIfaddr4 ifaddr4Obj;
@@ -101,6 +103,7 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
     EXPECT_EQ(LOCAL_PORT_V6, (unsigned short)0);
     EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, (unsigned short)0);
 }
+#endif
 
 TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_loopback_interface) {
     // Test Unit
@@ -143,6 +146,9 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_called_with_loopback_interface) {
     EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
 }
 
+#if 0
+// Mocking must be disabled for system calls in classes due to possible
+// segfaults. Umock in classes violates the RAII principle.
 TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
     // provide a network interface
     CIfaddr4 ifaddr4Obj;
@@ -205,6 +211,7 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
     EXPECT_EQ(LOCAL_PORT_V6, (unsigned short)0);
     EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, (unsigned short)0);
 }
+#endif
 
 // This is too complex to mock all deep detailed system calls. Rework it when I
 // can mock GetIfInfo().

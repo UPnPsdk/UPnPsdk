@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-20
+// Redistribution only with this Copyright remark. Last modified: 2025-03-25
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -16,7 +16,7 @@
 namespace UPnPsdk {
 
 CNetadapter_platform::CNetadapter_platform(){
-    TRACE2(this, " Constnuct CNetadapter_platform()") //
+    TRACE2(this, " Construct CNetadapter_platform()") //
 }
 
 CNetadapter_platform::~CNetadapter_platform() {
@@ -29,7 +29,7 @@ void CNetadapter_platform::get_first() {
 
     // Get system adapters addresses.
     this->free_ifaddrs();
-    if (umock::ifaddrs_h.getifaddrs(&m_ifa_first) != 0) {
+    if (getifaddrs(&m_ifa_first) != 0) {
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1119") "Failed to get information from "
                                          "the network adapters: " +
@@ -37,7 +37,6 @@ void CNetadapter_platform::get_first() {
     }
     UPnPsdk_LOGINFO("MSG1132") "syscall ::getifaddrs() gets " << m_ifa_first
                                                               << "\n";
-
     this->reset();
 }
 
@@ -117,7 +116,7 @@ void CNetadapter_platform::free_ifaddrs() noexcept {
     if (m_ifa_first != nullptr) {
         UPnPsdk_LOGINFO("MSG1116") "syscall ::freeifaddrs(" << m_ifa_first
                                                             << ")\n";
-        umock::ifaddrs_h.freeifaddrs(m_ifa_first);
+        freeifaddrs(m_ifa_first);
         m_ifa_first = nullptr;
     }
     m_ifa_current = nullptr;

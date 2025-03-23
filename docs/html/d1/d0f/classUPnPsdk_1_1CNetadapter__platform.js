@@ -14,6 +14,5 @@ var classUPnPsdk_1_1CNetadapter__platform =
     [ "name", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a8adb1de77c10e3ad389d84896c053d8c", null ],
     [ "sockaddr", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a112fd1ee7d1d3a43f7504bd57da6303b", null ],
     [ "socknetmask", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a1515db33e3e1b37d2e1bcaa2f0aa0658", null ],
-    [ "bitmask", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aa0cd4b5fb12fc8c4e66d8ba47a4938b3", null ],
-    [ "reset", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a63ee1489b0604637acbf4c2b708a1c31", null ]
+    [ "bitmask", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aa0cd4b5fb12fc8c4e66d8ba47a4938b3", null ]
 ];

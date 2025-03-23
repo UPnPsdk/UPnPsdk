@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-22
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-02
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -81,6 +81,131 @@
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #endif
+
+namespace compa {
+namespace {
+
+/*!
+ * \brief Retrieve local network adapter information and keep it in global
+ * variables.
+ *
+ * If no or empty argument given, we'll find the best suitable local network
+ * adapter for operation. The IPv6 loopback address - as specified - is handled
+ * as link local unicast address.
+ *
+ * The local network adapter must fulfill these requirements:
+ * \li Be UP.
+ * \li Support MULTICAST.
+ * \li Have a valid IPv4 or IPv6 address.
+ *
+ * We'll retrieve the following information from the adapter:
+ * \li gIF_NAME -> adapter name (by input or found).
+ * \li gIF_INDEX -> Unique local network adapter index number.
+ * \li gIF_IPV4 -> IPv4 address (if any).
+ * \li gIF_IPV4_NETMASK -> Netmask of gIF_IPV4 (if any).
+ * \li gIF_IPV6 -> IPv6 LLA address (if any).
+ * \li gIF_IPV6_PREFIX_LENGTH -> IPv6 LLA address prefix length.
+ * \li gIF_IPV6_ULA_GUA -> ULA or GUA IPv6 address (if any).
+ * \li gIF_IPV6_ULA_GUA_PREFIX_LENGTH -> IPv6 ULA or GUA address prefix length.
+ *
+ * \return UPNP_E_SUCCESS or UPNP_E_INVALID_INTERFACE.
+ */
+int UpnpGetIfInfo(
+    /*! [in] Adapter name or ip address. If no or empty argument ("") given,
+     * we'll find the best suitable local network adapter for operation. */
+    std::string_view a_iface = "") //
+{
+    TRACE("Executing compa::UpnpGetIfInfo()")
+    UPnPsdk::CNetadapter nadaptObj;
+    try {
+        nadaptObj.get_first(); // May throw exception
+
+        if (!nadaptObj.find_first(a_iface)) {
+            UPnPsdk_LOGERR("MSG1033") "Local network interface \""
+                << a_iface << "\" not found.\n";
+            return UPNP_E_INVALID_INTERFACE;
+        }
+
+        // Get gIF_NAME and gIF_INDEX
+        ::memset(gIF_NAME, 0, sizeof(gIF_NAME));
+        ::strncpy(gIF_NAME, nadaptObj.name().c_str(), sizeof(gIF_NAME) - 1);
+        gIF_INDEX = nadaptObj.index();
+
+        // With default lookup restrict finding to the current selected adapter.
+        if (a_iface.empty())
+            nadaptObj.find_first(gIF_INDEX);
+
+        ::memset(gIF_IPV6, 0, sizeof(gIF_IPV6));
+        ::memset(gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
+        ::memset(gIF_IPV4, 0, sizeof(gIF_IPV4));
+        ::memset(gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
+
+        UPnPsdk::SSockaddr saObj;
+        do {
+            nadaptObj.sockaddr(saObj);
+            switch (saObj.ss.ss_family) {
+            case AF_INET6:
+                // The loopback address belongs to link-local unicast
+                // addresses.
+                if (gIF_IPV6[0] == '\0' &&
+                    (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) ||
+                     IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr))) {
+                    // Strip leading bracket on copying.
+                    ::strncpy(gIF_IPV6, saObj.netaddr().c_str() + 1,
+                              sizeof(gIF_IPV6) - 1);
+                    // Strip trailing scope id if any.
+                    if (char* chptr{::strchr(gIF_IPV6, '%')})
+                        *chptr = '\0';
+                    // Strip trailing bracket if any.
+                    else if (char* chptr{::strchr(gIF_IPV6, ']')})
+                        *chptr = '\0';
+                    gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
+                } else if (gIF_IPV6_ULA_GUA[0] == '\0') {
+                    // Strip leading bracket on copying.
+                    ::strncpy(gIF_IPV6_ULA_GUA, saObj.netaddr().c_str() + 1,
+                              sizeof(gIF_IPV6_ULA_GUA) - 1);
+                    // Strip trailing scope id if any.
+                    if (char* chptr{::strchr(gIF_IPV6, '%')})
+                        *chptr = '\0';
+                    // Strip trailing bracket if any.
+                    else if (char* chptr{::strchr(gIF_IPV6_ULA_GUA, ']')})
+                        *chptr = '\0';
+                    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadaptObj.bitmask();
+                }
+                break;
+
+            case AF_INET:
+                if (gIF_IPV4[0] == '\0') {
+                    ::strncpy(gIF_IPV4, saObj.netaddr().c_str(),
+                              sizeof(gIF_IPV4) - 1);
+                    nadaptObj.socknetmask(saObj);
+                    ::strncpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str(),
+                              sizeof(gIF_IPV4_NETMASK) - 1);
+                }
+                break;
+
+            default:
+                UPnPsdk_LOGCRIT("MSG1029") "Unsupported address family("
+                    << saObj.ss.ss_family << "), only AF_INET6(" << AF_INET6
+                    << ") or AF_INET(" << AF_INET << ") are valid.\n";
+                return UPNP_E_INVALID_INTERFACE;
+            } // switch
+
+        } while (nadaptObj.find_next() &&
+                 (gIF_IPV6[0] == '\0' || gIF_IPV6_ULA_GUA[0] == '\0' ||
+                  gIF_IPV4[0] == '\0'));
+
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGCATCH("MSG1006") "catched next line...\n" << ex.what();
+        return UPNP_E_INVALID_INTERFACE;
+    }
+
+    return UPNP_E_SUCCESS;
+}
+
+} // namespace
+} // namespace compa
+
 
 #if !defined(ifr_netmask) || defined(DOXYGEN_RUN) // it's a define if exists
 /*! \brief ifr_netmask is not defined on e.g. OmniOS/Solaris, but since
@@ -281,122 +406,15 @@ static void free_action_arg(job_arg* arg) {
 
 namespace {
 
-/*!
- * \brief Retrieve network interface information and keep it in global
- * variables.
- *
- * If nullptr given, we'll find the first suitable network interface for
- * operation. The IPv6 loopback address - as specified - is handled as link
- * local unicast address.
- *
- * The network interface must fulfill these requirements:
- * \li Be UP.
- * \li Support MULTICAST.
- * \li Have a valid IPv4 or IPv6 address.
- *
- * We'll retrieve the following information from the interface:
- * \li gIF_NAME -> Interface name (by input or found).
- * \li gIF_INDEX -> local network Interface index number.
- * \li gIF_IPV4 -> IPv4 address (if any).
- * \li gIF_IPV4_NETMASK -> Netmask of gIF_IPV4 (if any).
- * \li gIF_IPV6 -> IPv6 LLA address (if any).
- * \li gIF_IPV6_PREFIX_LENGTH -> IPv6 LLA address prefix length.
- * \li gIF_IPV6_ULA_GUA -> ULA or GUA IPv6 address (if any).
- * \li gIF_IPV6_ULA_GUA_PREFIX_LENGTH -> IPv6 ULA or GUA address prefix length.
- *
- * \return UPNP_E_SUCCESS or UPNP_E_INVALID_INTERFACE.
- */
-int UpnpGetIfInfo(
+/// \cond
+// Compatible call mainly used for Unit Tests.
+[[maybe_unused]] int UpnpGetIfInfo(
     /*! [in] Interface name (can be nullptr). */
-    const char* a_IFace = nullptr) {
-    std::string_view a_interface{a_IFace == nullptr ? "" : a_IFace};
-    TRACE("Executing UpnpGetIfInfo()")
-
-    UPnPsdk::CNetadapter nadaptObj;
-    try {
-        nadaptObj.get_first(); // May throw exception
-
-        if (!nadaptObj.find_first(a_interface)) {
-            UPnPsdk_LOGERR("MSG1033") "Local network interface \""
-                << a_interface << "\" not found.\n";
-            return UPNP_E_INVALID_INTERFACE;
-        }
-
-        UPnPsdk::SSockaddr saObj;
-        do {
-            // Get gIF_NAME and gIF_INDEX
-            ::memset(gIF_NAME, 0, sizeof(gIF_NAME));
-            ::strncpy(gIF_NAME, nadaptObj.name().c_str(), sizeof(gIF_NAME) - 1);
-            gIF_INDEX = nadaptObj.index();
-
-            nadaptObj.sockaddr(saObj);
-            std::string naddr{saObj.netaddr()};
-            const char* c_netaddr{naddr.c_str()};
-
-            switch (saObj.ss.ss_family) {
-            case AF_INET6:
-                // The loopback address belongs to link-local unicast
-                // addresses.
-                if (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) ||
-                    IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
-                    ::memset(gIF_IPV6, 0, sizeof(gIF_IPV6));
-                    gIF_IPV6_PREFIX_LENGTH = 0;
-                    if (*c_netaddr != '\0') {
-                        // Strip leading bracket on copying.
-                        ::strncpy(gIF_IPV6, c_netaddr + 1,
-                                  sizeof(gIF_IPV6) - 1);
-                        // Strip trailing scope id if any.
-                        if (char* chptr{::strchr(gIF_IPV6, '%')})
-                            *chptr = '\0';
-                        // Strip trailing bracket if any.
-                        else if (char* chptr{::strchr(gIF_IPV6, ']')})
-                            *chptr = '\0';
-                        gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
-                    }
-                } else {
-                    ::memset(gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
-                    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-                    if (*c_netaddr != '\0') {
-                        // Strip leading bracket on copying.
-                        ::strncpy(gIF_IPV6_ULA_GUA, c_netaddr + 1,
-                                  sizeof(gIF_IPV6_ULA_GUA) - 1);
-                        // Strip trailing scope id if any.
-                        if (char* chptr{::strchr(gIF_IPV6, '%')})
-                            *chptr = '\0';
-                        // Strip trailing bracket if any.
-                        else if (char* chptr{::strchr(gIF_IPV6_ULA_GUA, ']')})
-                            *chptr = '\0';
-                        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadaptObj.bitmask();
-                    }
-                }
-                break;
-
-            case AF_INET:
-                ::memset(gIF_IPV4, 0, sizeof(gIF_IPV4));
-                ::memset(gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
-                if (*c_netaddr != '\0') {
-                    ::strncpy(gIF_IPV4, c_netaddr, sizeof(gIF_IPV4) - 1);
-                    nadaptObj.socknetmask(saObj);
-                    ::strncpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str(),
-                              sizeof(gIF_IPV4_NETMASK) - 1);
-                }
-                break;
-
-            default:
-                UPnPsdk_LOGCRIT("MSG1029") "Unsupported address family("
-                    << saObj.ss.ss_family << "), only AF_INET6(" << AF_INET6
-                    << ") or AF_INET(" << AF_INET << ") are valid.\n";
-                return UPNP_E_INVALID_INTERFACE;
-            } // switch
-        } while (nadaptObj.find_next());
-
-    } catch (const std::exception& ex) {
-        UPnPsdk_LOGCATCH("MSG1006") "catched next line...\n" << ex.what();
-        return UPNP_E_INVALID_INTERFACE;
-    }
-
-    return UPNP_E_SUCCESS;
+    const char* a_IFace) {
+    TRACE("Executing ::UpnpGetIfInfo()")
+    return compa::UpnpGetIfInfo(a_IFace == nullptr ? "" : a_IFace);
 }
+/// \endcond
 
 } // anonymous namespace
 
@@ -608,7 +626,7 @@ int UpnpInit2(const char* IfName, unsigned short DestPort) {
     }
 
     /* Retrieve interface information (Addresses, index, etc). */
-    retVal = UpnpGetIfInfo(IfName);
+    retVal = compa::UpnpGetIfInfo(IfName == nullptr ? "" : IfName);
     if (retVal != UPNP_E_SUCCESS) {
         goto exit_function;
     }

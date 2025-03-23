@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_WIN32_NETADAPTER_HPP
 #define UPnPsdk_WIN32_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-24
+// Redistribution only with this Copyright remark. Last modified: 2025-03-31
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -48,7 +48,6 @@ class UPnPsdk_API CNetadapter_platform : public INetadapter {
 
     void free_adaptaddrs() noexcept;
 
-  protected:
     /*! \brief Reset pointer and point to the first entry of the local network
      * adapter list if available. */
     inline void reset() noexcept;

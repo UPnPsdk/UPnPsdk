@@ -127,9 +127,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga539a669f96c0c642b2ed25b1c4dd1f71" id="r_ga539a669f96c0c642b2ed25b1c4dd1f71"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71">UPnPsdk::netmask_to_bitmask</a> (const ::sockaddr_storage *a_netmask)</td></tr>
 <tr class="memdesc:ga539a669f96c0c642b2ed25b1c4dd1f71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get prefix bit number from a network address mask.  <br /></td></tr>
 <tr class="separator:ga539a669f96c0c642b2ed25b1c4dd1f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5f66fceda4eaabc471e06dd5d56939de" id="r_ga5f66fceda4eaabc471e06dd5d56939de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5f66fceda4eaabc471e06dd5d56939de">UPnPsdk::bitmask_to_netmask</a> (const ::sockaddr_storage *a_saddr, const uint8_t a_prefixlength, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddrObj)</td></tr>
-<tr class="memdesc:ga5f66fceda4eaabc471e06dd5d56939de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network address mask from address prefix bit number.  <br /></td></tr>
-<tr class="separator:ga5f66fceda4eaabc471e06dd5d56939de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd67f7b346d4017d3cb45e45e0be77fb" id="r_gadd67f7b346d4017d3cb45e45e0be77fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">UPnPsdk::bitmask_to_netmask</a> (const ::sockaddr_storage *a_saddr, const unsigned int a_prefixlength, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddrObj)</td></tr>
+<tr class="memdesc:gadd67f7b346d4017d3cb45e45e0be77fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network address mask from address prefix bit number.  <br /></td></tr>
+<tr class="separator:gadd67f7b346d4017d3cb45e45e0be77fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5ba9b68e7f75b3239270fc5956931e30" id="r_ga5ba9b68e7f75b3239270fc5956931e30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30">UPnPsdk::split_addr_port</a> (const std::string &amp;a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</td></tr>
 <tr class="memdesc:ga5ba9b68e7f75b3239270fc5956931e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to split inet address and port(service)  <br /></td></tr>
 <tr class="separator:ga5ba9b68e7f75b3239270fc5956931e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -261,8 +261,8 @@ sa</td>
 
 </div>
 </div>
-<a id="ga5f66fceda4eaabc471e06dd5d56939de" name="ga5f66fceda4eaabc471e06dd5d56939de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5f66fceda4eaabc471e06dd5d56939de">&#9670;&#160;</a></span>bitmask_to_netmask()</h2>
+<a id="gadd67f7b346d4017d3cb45e45e0be77fb" name="gadd67f7b346d4017d3cb45e45e0be77fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadd67f7b346d4017d3cb45e45e0be77fb">&#9670;&#160;</a></span>bitmask_to_netmask()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,7 +276,7 @@ sa</td>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const uint8_t&#160;</td>
+          <td class="paramtype">const unsigned int&#160;</td>
           <td class="paramname"><em>a_prefixlength</em>, </td>
         </tr>
         <tr>
@@ -298,10 +298,10 @@ sa</td>
 <div class="line">::sockaddr_storage saddr{};</div>
 <div class="line">SSockaddr saObj;</div>
 <div class="line"><span class="keywordflow">try</span> {</div>
-<div class="line">    <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5f66fceda4eaabc471e06dd5d56939de">bitmask_to_netmask</a>(&amp;saddr, 64, saObj);</div>
+<div class="line">    <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">bitmask_to_netmask</a>(&amp;saddr, 64, saObj);</div>
 <div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::runtime_error&amp; ex) { handle_error() }</div>
 <div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;netmask is &quot;</span> &lt;&lt; saObj.netaddr() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga5f66fceda4eaabc471e06dd5d56939de"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga5f66fceda4eaabc471e06dd5d56939de">UPnPsdk::bitmask_to_netmask</a></div><div class="ttdeci">void bitmask_to_netmask(const ::sockaddr_storage *a_saddr, const uint8_t a_prefixlength, SSockaddr &amp;a_saddrObj)</div><div class="ttdoc">Get network address mask from address prefix bit number.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00109">netadapter.cpp:109</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_gadd67f7b346d4017d3cb45e45e0be77fb"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">UPnPsdk::bitmask_to_netmask</a></div><div class="ttdeci">void bitmask_to_netmask(const ::sockaddr_storage *a_saddr, const unsigned int a_prefixlength, SSockaddr &amp;a_saddrObj)</div><div class="ttdoc">Get network address mask from address prefix bit number.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00109">netadapter.cpp:109</a></div></div>
 </div><!-- fragment --> <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::runtime_error</td><td><ul>
