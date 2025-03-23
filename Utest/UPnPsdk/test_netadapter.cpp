@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-16
+// Redistribution only with this Copyright remark. Last modified: 2025-03-23
 
 #ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -286,7 +286,7 @@ TEST(NetadapterTestSuite, find_first_adapters_info) {
     EXPECT_EQ(saddrObj.netaddr(), "");
 
     // This will return a prefered socket address from the operating system.
-    EXPECT_TRUE(nadaptObj.find_first(""));
+    EXPECT_TRUE(nadaptObj.find_first()); // or .find_first("");
     EXPECT_NE(nadaptObj.index(), 0);
     EXPECT_NE(nadaptObj.name(), "");
     EXPECT_NE(nadaptObj.bitmask(), 0);
@@ -294,6 +294,17 @@ TEST(NetadapterTestSuite, find_first_adapters_info) {
     EXPECT_NE(saddrObj.netaddrp(), ":0");
     nadaptObj.socknetmask(saddrObj);
     EXPECT_NE(saddrObj.netaddr(), "");
+}
+
+TEST(NetadapterTestSuite, find_next_adapters_info) {
+    CNetadapter nadaptObj;
+    ASSERT_NO_THROW(nadaptObj.get_first());
+
+    ASSERT_TRUE(nadaptObj.find_first());
+    unsigned int idx{nadaptObj.index()};
+    do {
+        ASSERT_EQ(nadaptObj.index(), idx);
+    } while (nadaptObj.find_next());
 }
 
 TEST(NetadapterTestSuite, find_loopback_adapter_info) {

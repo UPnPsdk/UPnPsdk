@@ -878,9 +878,15 @@ int get_miniserver_sockets(
     if (out->pSockLlaObj != nullptr && gIF_IPV6[0] != '\0') {
         try {
             UPnPsdk::SSockaddr saObj;
-            saObj = '[' + std::string(gIF_IPV6) + '%' +
-                    std::to_string(gIF_INDEX) +
-                    "]:" + std::to_string(listen_port6);
+            if (::strncmp(gIF_IPV6, "::1", 3) == 0)
+                // The loopback address belongs to a lla but 'bind()' on win32
+                // does not accept it with scope id.
+                saObj = '[' + std::string(gIF_IPV6) +
+                        "]:" + std::to_string(listen_port6);
+            else
+                saObj = '[' + std::string(gIF_IPV6) + '%' +
+                        std::to_string(gIF_INDEX) +
+                        "]:" + std::to_string(listen_port6);
             out->pSockLlaObj->bind(SOCK_STREAM, &saObj, AI_PASSIVE);
             out->pSockLlaObj->listen();
             out->miniServerSock6 = *out->pSockLlaObj;

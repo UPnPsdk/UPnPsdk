@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-17
+// Redistribution only with this Copyright remark. Last modified: 2025-03-23
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -125,11 +125,62 @@ clang-format off
 clang-format on
 */
 
-// upnpapi TestSuites
-// ==================
 // General storage for temporary socket address evaluation
 SSockaddr saObj;
 
+// Real local ip addresses on this nodes network adapters, evaluated with
+// CNetadapter.
+struct SSaNadap {
+    SSockaddr sa;
+    unsigned int idx{};
+    unsigned int bitmask{};
+    std::string name;
+};
+SSaNadap llaObj;
+SSaNadap guaObj;
+SSaNadap ip4Obj;
+
+void get_netadapter() {
+    // Here you can do set-up work once for all tests on the TestSuite.
+
+    // Getting information of the local network adapters is expensive because
+    // it allocates memory to return the internal adapter list. So I do it one
+    // time on start and provide the needed information.
+    UPnPsdk::CNetadapter nadaptObj;
+    nadaptObj.get_first();
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (llaObj.sa.ss.ss_family == AF_UNSPEC &&
+            saObj.ss.ss_family == AF_INET6 &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            // Found first LLA address.
+            llaObj.sa = saObj;
+            llaObj.idx = nadaptObj.index();
+            llaObj.bitmask = nadaptObj.bitmask();
+            llaObj.name = nadaptObj.name();
+        } else if (guaObj.sa.ss.ss_family == AF_UNSPEC &&
+                   saObj.ss.ss_family == AF_INET6 &&
+                   IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+            // Found first GUA address.
+            guaObj.sa = saObj;
+            guaObj.idx = nadaptObj.index();
+            guaObj.bitmask = nadaptObj.bitmask();
+            guaObj.name = nadaptObj.name();
+        } else if (ip4Obj.sa.ss.ss_family == AF_UNSPEC &&
+                   saObj.ss.ss_family == AF_INET && !saObj.is_loopback()) {
+            // Found first IPv4 address.
+            ip4Obj.sa = saObj;
+            ip4Obj.idx = nadaptObj.index();
+            ip4Obj.bitmask = nadaptObj.bitmask();
+            ip4Obj.name = nadaptObj.name();
+        }
+    } while (nadaptObj.get_next() && (llaObj.sa.ss.ss_family == AF_UNSPEC ||
+                                      guaObj.sa.ss.ss_family == AF_UNSPEC ||
+                                      ip4Obj.sa.ss.ss_family == AF_UNSPEC));
+}
+
+// upnpapi TestSuites
+// ==================
 class UpnpapiFTestSuite : public ::testing::Test {
   protected:
 // Old code UpnpInitLog() does not understand the object logObj and crashes
@@ -597,6 +648,40 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
         << errStrEx(ret_UpnpFinish, UPNP_E_SUCCESS);
 }
 
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
+    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+    // More than one ip address is only valid if they are on the same local
+    // network adapter (same index).
+    if (gIF_IPV4[0] != '\0') {
+        if (ip4Obj.idx != llaObj.idx)
+#if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(__APPLE__)
+            // Fails with old code on MacOS due to "[fe80::1]" on loopback.
+            EXPECT_EQ(gIF_IPV6[0], '\0');
+#endif
+        if (ip4Obj.idx != guaObj.idx)
+            EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+    }
+    if (gIF_IPV6[0] != '\0') {
+        if (llaObj.idx != ip4Obj.idx)
+#if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(__APPLE__)
+            // Fails with old code on MacOS due to "[fe80::1]" on loopback.
+            EXPECT_EQ(gIF_IPV4[0], '\0');
+#endif
+        if (llaObj.idx != guaObj.idx)
+            EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+    }
+    if (gIF_IPV6_ULA_GUA[0] != '\0') {
+        if (guaObj.idx != ip4Obj.idx)
+            EXPECT_EQ(gIF_IPV4[0], '\0');
+        if (guaObj.idx != llaObj.idx)
+            EXPECT_EQ(gIF_IPV6[0], '\0');
+    }
+}
+
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv6_iface_successful) {
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("[::1]");
@@ -981,6 +1066,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_call_two_times) {
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleMock(&argc, argv);
+    utest::get_netadapter();
 #include <utest/utest_main.inc>
     return gtest_return_code; // managed in gtest_main.inc
 }

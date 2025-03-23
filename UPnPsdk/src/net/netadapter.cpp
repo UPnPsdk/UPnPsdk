@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-20
+// Redistribution only with this Copyright remark. Last modified: 2025-03-23
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -330,12 +330,14 @@ bool CNetadapter::find_next() {
     case Find::loopback: {
         SSockaddr sa_nadapObj;
         while (this->get_next()) {
-            this->sockaddr(sa_nadapObj);
-            if (sa_nadapObj.is_loopback()) {
-                if (m_state == Find::loopback)
+            if (this->index() == m_find_index) {
+                this->sockaddr(sa_nadapObj);
+                if (sa_nadapObj.is_loopback()) {
+                    if (m_state == Find::loopback)
+                        return true;
+                } else if (m_state == Find::best) {
                     return true;
-            } else if (m_state == Find::best) {
-                return true;
+                }
             }
         }
     } break;

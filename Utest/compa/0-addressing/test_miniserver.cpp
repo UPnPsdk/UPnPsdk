@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-22
+// Redistribution only with this Copyright remark. Last modified: 2025-03-23
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -142,50 +142,49 @@ SSaNadap llaObj;
 SSaNadap guaObj;
 SSaNadap ip4Obj;
 
+void get_netadapter() {
+    // Here you can do set-up work once for all tests on the TestSuite.
+
+    // Getting information of the local network adapters is expensive because
+    // it allocates memory to return the internal adapter list. So I do it one
+    // time on start and provide the needed information.
+    UPnPsdk::CNetadapter nadaptObj;
+    nadaptObj.get_first();
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (llaObj.sa.ss.ss_family == AF_UNSPEC &&
+            saObj.ss.ss_family == AF_INET6 &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            // Found first LLA address.
+            llaObj.sa = saObj;
+            llaObj.idx = nadaptObj.index();
+            llaObj.bitmask = nadaptObj.bitmask();
+            llaObj.name = nadaptObj.name();
+        } else if (guaObj.sa.ss.ss_family == AF_UNSPEC &&
+                   saObj.ss.ss_family == AF_INET6 &&
+                   IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+            // Found first GUA address.
+            guaObj.sa = saObj;
+            guaObj.idx = nadaptObj.index();
+            guaObj.bitmask = nadaptObj.bitmask();
+            guaObj.name = nadaptObj.name();
+        } else if (ip4Obj.sa.ss.ss_family == AF_UNSPEC &&
+                   saObj.ss.ss_family == AF_INET && !saObj.is_loopback()) {
+            // Found first IPv4 address.
+            ip4Obj.sa = saObj;
+            ip4Obj.idx = nadaptObj.index();
+            ip4Obj.bitmask = nadaptObj.bitmask();
+            ip4Obj.name = nadaptObj.name();
+        }
+    } while (nadaptObj.get_next() && (llaObj.sa.ss.ss_family == AF_UNSPEC ||
+                                      guaObj.sa.ss.ss_family == AF_UNSPEC ||
+                                      ip4Obj.sa.ss.ss_family == AF_UNSPEC));
+}
+
+
 class StartMiniServerFTestSuite : public ::testing::Test {
   protected:
     CLogging logObj; // Output only with build type DEBUG.
-
-    static void SetUpTestSuite() {
-        // Here you can do set-up work once for all tests on the TestSuite.
-
-        // Getting information of the local network adapters is expensive
-        // because it allocates memory to return the internal adapter list. So I
-        // do it one time on start of the test suite and provide the needed
-        // information.
-        UPnPsdk::CNetadapter nadaptObj;
-        nadaptObj.get_first();
-        do {
-            nadaptObj.sockaddr(saObj);
-            if (llaObj.sa.ss.ss_family == AF_UNSPEC &&
-                saObj.ss.ss_family == AF_INET6 &&
-                IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
-                // Found first LLA address.
-                llaObj.sa = saObj;
-                llaObj.idx = nadaptObj.index();
-                llaObj.bitmask = nadaptObj.bitmask();
-                llaObj.name = nadaptObj.name();
-                break;
-            } else if (guaObj.sa.ss.ss_family == AF_UNSPEC &&
-                       saObj.ss.ss_family == AF_INET6 &&
-                       IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
-                // Found first GUA address.
-                guaObj.sa = saObj;
-                guaObj.idx = nadaptObj.index();
-                guaObj.bitmask = nadaptObj.bitmask();
-                guaObj.name = nadaptObj.name();
-                break;
-            } else if (ip4Obj.sa.ss.ss_family == AF_UNSPEC &&
-                       saObj.ss.ss_family == AF_INET && !saObj.is_loopback()) {
-                // Found first IPv4 address.
-                ip4Obj.sa = saObj;
-                ip4Obj.idx = nadaptObj.index();
-                ip4Obj.bitmask = nadaptObj.bitmask();
-                ip4Obj.name = nadaptObj.name();
-                break;
-            }
-        } while (nadaptObj.get_next());
-    }
 
     // Constructor
     StartMiniServerFTestSuite() {
@@ -1889,6 +1888,7 @@ TEST_F(StartMiniServerMockFTestSuite,
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleMock(&argc, argv);
+    utest::get_netadapter();
 #include "utest/utest_main.inc"
     return gtest_return_code; // managed in compa/gtest_main.inc
 }

@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-17
+// Redistribution only with this Copyright remark. Last modified: 2025-03-23
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -180,7 +180,7 @@ class CNetadapter {
          * - "loopback" (all lower case) will select the first loopback address
          * - local network interface name (like "lo", "eth0", "Ethernet", etc.)
          * - an ip address. */
-        std::string_view a_name_or_addr);
+        std::string_view a_name_or_addr = "");
 
     /*! \brief Find local network adapter with given index number.
      * \details Example at find_first(const std::string&). Of course you have to
