@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-23
+// Redistribution only with this Copyright remark. Last modified: 2025-03-24
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -107,7 +107,8 @@ uint8_t netmask_to_bitmask(const ::sockaddr_storage* a_netmask) {
 
 
 void bitmask_to_netmask(const ::sockaddr_storage* a_saddr,
-                        const uint8_t a_prefixlength, SSockaddr& a_saddrObj) {
+                        const unsigned int a_prefixlength,
+                        SSockaddr& a_saddrObj) {
     TRACE("Executing bitmask_to_netmask()")
     if (a_saddr == nullptr)
         throw std::runtime_error(UPnPsdk_LOGEXCEPT(
@@ -130,10 +131,10 @@ void bitmask_to_netmask(const ::sockaddr_storage* a_saddr,
                 std::to_string(a_prefixlength) + ") exceeds 128.\n");
 
         // Calculate number of leading bytes with full one bits.
-        int ones_bytes{a_prefixlength / 8};
+        unsigned int ones_bytes{a_prefixlength / 8};
 
         // Fill leading bytes with all bit ones.
-        int i{};
+        unsigned int i{};
         for (; i < ones_bytes; i++)
             netmask6.s6_addr[i] = static_cast<uint8_t>(~0);
 

@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-23
+// Redistribution only with this Copyright remark. Last modified: 2025-03-24
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -59,7 +59,7 @@ void bitmask_to_netmask(
     const ::sockaddr_storage* a_saddr,
     /*! [in] IPv6 or IPv4 address prefix length as number of set bits as given
      * e.g. with 64 in [2001:db8::1]/64. */
-    const uint8_t a_prefixlength,
+    const unsigned int a_prefixlength,
     /*! [out] Reference to a socket address object that will be filled with the
      * netmask. */
     SSockaddr& a_saddrObj);
