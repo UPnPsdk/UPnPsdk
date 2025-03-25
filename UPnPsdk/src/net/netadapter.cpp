@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-24
+// Redistribution only with this Copyright remark. Last modified: 2025-03-25
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -235,7 +235,8 @@ void CNetadapter::reset() noexcept {
 bool CNetadapter::find_first(std::string_view a_name_or_addr) {
     TRACE2(this, " Executing CNetadapter::find_first()")
 
-    // By default look for a valid ip address from a local network adapter.
+    // By default look for a valid ip address without loopback from a local
+    // network adapter.
     // --------------------------------------------------------------------
     // The operating system presents one as best choise.
     if (a_name_or_addr.empty()) {
@@ -261,6 +262,7 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
         do {
             this->sockaddr(sa_nadObj);
             if (sa_nadObj.is_loopback()) {
+                m_find_index = this->index();
                 m_state = Find::loopback;
                 return true;
             }
@@ -327,20 +329,26 @@ bool CNetadapter::find_next() {
     case Find::finish:
         return false;
 
-    case Find::best:
+    case Find::best: { // without loopback
+        SSockaddr sa_nadapObj;
+        while (this->get_next()) {
+            if (this->index() == m_find_index) {
+                this->sockaddr(sa_nadapObj);
+                if (!sa_nadapObj.is_loopback())
+                    return true;
+            }
+        } // while
+    } break;
+
     case Find::loopback: {
         SSockaddr sa_nadapObj;
         while (this->get_next()) {
             if (this->index() == m_find_index) {
                 this->sockaddr(sa_nadapObj);
-                if (sa_nadapObj.is_loopback()) {
-                    if (m_state == Find::loopback)
-                        return true;
-                } else if (m_state == Find::best) {
+                if (sa_nadapObj.is_loopback())
                     return true;
-                }
             }
-        }
+        } // while
     } break;
 
     case Find::index: {
