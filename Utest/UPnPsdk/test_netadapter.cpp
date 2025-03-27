@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-23
+// Redistribution only with this Copyright remark. Last modified: 2025-03-27
 
 #ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -428,7 +428,7 @@ TEST(NetadapterTestSuite, mock_netadapter_get_address_sequence) {
 
     // Test Unit
     CNetadapter nadapObj(nadap_mockPtr);
-    ASSERT_NO_THROW(nadapObj.get_first());
+    nadapObj.get_first();
 
     EXPECT_EQ(nadapObj.index(), 2);
     EXPECT_EQ(nadapObj.name(), "eth0");
@@ -450,6 +450,205 @@ TEST(NetadapterTestSuite, mock_netadapter_get_address_sequence) {
     EXPECT_TRUE(saddrObj == sa3_mockObj);
     EXPECT_EQ(nadapObj.bitmask(), 24);
     ASSERT_FALSE(nadapObj.get_next());
+}
+
+TEST(NetadapterTestSuite, mock_netadapter_find_with_1_addr) {
+    // clang-format off
+    // Network adapter: index, name, address
+    /*1*/ char name1[]{"nad0"}; char addr1a[]{"[fe80::c021%1]:50121"};
+
+    SSockaddr sa1a_mockObj; sa1a_mockObj = addr1a;
+    // clang-format on
+
+    // Create mocking di-service object and get the smart pointer to it.
+    auto nadap_mockPtr = std::make_shared<CNetadapterMock>();
+
+    EXPECT_CALL(*nadap_mockPtr, get_first()).Times(1);
+    EXPECT_CALL(*nadap_mockPtr, index()).Times(2).WillRepeatedly(Return(1));
+    EXPECT_CALL(*nadap_mockPtr, name()).WillOnce(Return(name1));
+
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        // One time triggered by testcall below.
+        .WillOnce(SaddrCpyToArg<0>(sa1a_mockObj))
+        .WillOnce(SaddrCpyToArg<0>(sa1a_mockObj));
+
+    EXPECT_CALL(*nadap_mockPtr, bitmask()).WillOnce(Return(64));
+    EXPECT_CALL(*nadap_mockPtr, reset()).Times(1);
+    EXPECT_CALL(*nadap_mockPtr, get_next()).WillOnce(Return(false));
+
+    // Test Unit
+    CNetadapter nadapObj(nadap_mockPtr); // Inject mocked functions.
+    nadapObj.get_first();
+    nadapObj.find_first();
+
+    EXPECT_EQ(nadapObj.index(), 1);
+    EXPECT_EQ(nadapObj.name(), name1);
+    nadapObj.sockaddr(saddrObj); // Triggers additional expected call.
+    EXPECT_TRUE(saddrObj == sa1a_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
+    ASSERT_FALSE(nadapObj.find_next());
+}
+
+TEST(NetadapterTestSuite, mock_netadapter_find_with_2_addr) {
+    // clang-format off
+    // Network adapter: index, name, address (attention to scope_id = idx).
+    uint32_t idx{2}; char name1[]{"nad0"}; char addr1a[]{"[fe80::c021%2]:50122"};
+                                           char addr1b[]{"[2001:db8::4]:50125"};
+    // Sequence, means priority, in internal netadapter list:
+    // addr1b, addr1a.
+
+    SSockaddr sa1a_mockObj; sa1a_mockObj = addr1a;
+    SSockaddr sa1b_mockObj; sa1b_mockObj = addr1b;
+    // clang-format on
+
+    // Create mocking di-service object and get the smart pointer to it.
+    auto nadap_mockPtr = std::make_shared<CNetadapterMock>();
+
+    EXPECT_CALL(*nadap_mockPtr, get_first()).Times(1);
+    EXPECT_CALL(*nadap_mockPtr, index()).Times(4).WillRepeatedly(Return(idx));
+    EXPECT_CALL(*nadap_mockPtr, name()).Times(2).WillRepeatedly(Return(name1));
+
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        .WillOnce(SaddrCpyToArg<0>(sa1b_mockObj))
+        .WillOnce(SaddrCpyToArg<0>(sa1b_mockObj))  // Returned for EXPECT below.
+        .WillOnce(SaddrCpyToArg<0>(sa1a_mockObj))
+        .WillOnce(SaddrCpyToArg<0>(sa1a_mockObj)); // Returned for EXPECT below.
+
+    EXPECT_CALL(*nadap_mockPtr, bitmask()).WillOnce(Return(64));
+    EXPECT_CALL(*nadap_mockPtr, reset()).Times(1);
+    EXPECT_CALL(*nadap_mockPtr, get_next())
+        .WillOnce(Return(true))
+        .WillOnce(Return(false));
+
+    // Test Unit
+    CNetadapter nadapObj(nadap_mockPtr); // Inject mocked functions.
+    nadapObj.get_first();
+    nadapObj.find_first();
+
+    EXPECT_EQ(nadapObj.index(), idx);
+    EXPECT_EQ(nadapObj.name(), name1);
+    nadapObj.sockaddr(saddrObj);
+    EXPECT_TRUE(saddrObj == sa1b_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
+
+    EXPECT_TRUE(nadapObj.find_next());
+    EXPECT_EQ(nadapObj.index(), idx);
+    EXPECT_EQ(nadapObj.name(), name1);
+    nadapObj.sockaddr(saddrObj);
+    EXPECT_TRUE(saddrObj == sa1a_mockObj);
+
+    EXPECT_FALSE(nadapObj.find_next());
+    EXPECT_FALSE(nadapObj.find_next());
+}
+
+TEST(NetadapterTestSuite, mock_netadapter_find_with_8_addr) {
+    // clang-format off
+    // Network adapter: index, name, address (attention to scope_id = idx?).
+    unsigned int idx1{1}; char name1[]{"lo"};   char addr1a[]{"127.0.0.1:50011"};
+                                                char addr1b[]{"[::1]:50012"};
+                                                char addr1c[]{"[fe80::1%1]:50013"};
+    unsigned int idx2{2}; char name2[]{"nad0"}; char addr2a[]{"[2001:db8::2:a]:50021"};
+                                                char addr2b[]{"[fe80::2:b%2]:50022"};
+                                                char addr2c[]{"192.168.2.3:50023"};
+    unsigned int idx3{3}; char name3[]{"nad1"}; char addr3a[]{"192.168.3.1:50031"};
+                                                char addr3b[]{"[fe80::3:b%3]:50032"};
+    (void)name1; (void)name3; // Unused variables.
+
+    // Sequence, means priority, in internal netadapter list. This sequence is
+    // realized with the mocked expectations below.
+    // -----------------------------------------------------------------------
+    // addr2a, addr3a, addr2c, addr1c, addr3b, addr2b, addr1b, addr1a
+
+
+    SSockaddr sa1a_mockObj; sa1a_mockObj = addr1a;
+    SSockaddr sa1b_mockObj; sa1b_mockObj = addr1b;
+    SSockaddr sa1c_mockObj; sa1c_mockObj = addr1c;
+    SSockaddr sa2a_mockObj; sa2a_mockObj = addr2a;
+    SSockaddr sa2b_mockObj; sa2b_mockObj = addr2b;
+    SSockaddr sa2c_mockObj; sa2c_mockObj = addr2c;
+    SSockaddr sa3a_mockObj; sa3a_mockObj = addr3a;
+    SSockaddr sa3b_mockObj; sa3b_mockObj = addr3b;
+    // clang-format on
+
+    // Create mocking di-service object and get the smart pointer to it.
+    auto nadap_mockPtr = std::make_shared<CNetadapterMock>();
+
+    EXPECT_CALL(*nadap_mockPtr, get_first()).Times(1);
+    EXPECT_CALL(*nadap_mockPtr, index())
+        .WillOnce(Return(idx2))  // addr2a
+        .WillOnce(Return(idx2))  // Returned for EXPECT below.
+        .WillOnce(Return(idx3))  // addr3a, intern skipped.
+        .WillOnce(Return(idx2))  // addr2c, matched.
+        .WillOnce(Return(idx2))  // Returned for EXPECT below.
+        .WillOnce(Return(idx1))  // addr1c, intern skipped.
+        .WillOnce(Return(idx3))  // addr3b, intern skipped.
+        .WillOnce(Return(idx2))  // addr2b, matched.
+        .WillOnce(Return(idx2))  // Returned for EXPECT below.
+        .WillOnce(Return(idx1))  // addr1b, intern skipped.
+        .WillOnce(Return(idx1)); // addr1a, intern skipped.
+
+    EXPECT_CALL(*nadap_mockPtr, name())
+        .WillOnce(Return(name2))  // addr2a, returned for EXPECT below.
+        .WillOnce(Return(name2))  // addr2c, returned for EXPECT below.
+        .WillOnce(Return(name2)); // addr2b, returned for EXPECT below.
+
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        .WillOnce(
+            SaddrCpyToArg<0>(sa2a_mockObj)) // Intern check if loopback addr.
+        .WillOnce(SaddrCpyToArg<0>(sa2a_mockObj)) // Returned for EXPECT below.
+        .WillOnce(SaddrCpyToArg<0>(sa2c_mockObj))
+        .WillOnce(SaddrCpyToArg<0>(sa2c_mockObj))
+        .WillOnce(SaddrCpyToArg<0>(sa2b_mockObj))
+        .WillOnce(SaddrCpyToArg<0>(sa2b_mockObj));
+
+    EXPECT_CALL(*nadap_mockPtr, bitmask())
+        .WillOnce(Return(64)) // Returned for EXPECT below.
+        .WillOnce(Return(24))
+        .WillOnce(Return(64));
+
+    EXPECT_CALL(*nadap_mockPtr, reset()).Times(1);
+    EXPECT_CALL(*nadap_mockPtr, get_next())
+        .WillOnce(Return(true))   // gets addr3a, doesn't match index=2.
+        .WillOnce(Return(true))   // gets addr2c, does match index=2.
+        .WillOnce(Return(true))   // gets addr1c, doesn't match index=2.
+        .WillOnce(Return(true))   // gets addr3b, doesn't match index=2.
+        .WillOnce(Return(true))   // gets addr2b, does match index=2.
+        .WillOnce(Return(true))   // gets addr1b, doesn't match index=2.
+        .WillOnce(Return(true))   // gets addr1a, doesn't match index=2.
+        .WillOnce(Return(false)); // Finish.
+
+    // Test Unit
+    CNetadapter nadapObj(nadap_mockPtr); // Inject pointer to mocked functions.
+    nadapObj.get_first();
+    nadapObj.find_first();
+
+    // Should get addr2a.
+    EXPECT_EQ(nadapObj.index(), idx2);
+    EXPECT_EQ(nadapObj.name(), name2);
+    nadapObj.sockaddr(saddrObj);
+    EXPECT_TRUE(saddrObj == sa2a_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
+
+    // Should get addr2c, skipping addr3a.
+    EXPECT_TRUE(nadapObj.find_next());
+    EXPECT_EQ(nadapObj.index(), idx2);
+    EXPECT_EQ(nadapObj.name(), name2);
+    nadapObj.sockaddr(saddrObj);
+    EXPECT_TRUE(saddrObj == sa2c_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 24);
+
+    // Should get addr2b, skipping addr1c and addr3b.
+    EXPECT_TRUE(nadapObj.find_next());
+    EXPECT_EQ(nadapObj.index(), idx2);
+    EXPECT_EQ(nadapObj.name(), name2);
+    nadapObj.sockaddr(saddrObj);
+    EXPECT_TRUE(saddrObj == sa2b_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
+
+    // Should skip addr1b and addr1a.
+    EXPECT_FALSE(nadapObj.find_next());
+    // Should do nothing.
+    EXPECT_FALSE(nadapObj.find_next());
 }
 
 } // namespace utest

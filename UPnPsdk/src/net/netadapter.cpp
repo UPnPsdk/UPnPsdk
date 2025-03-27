@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-25
+// Redistribution only with this Copyright remark. Last modified: 2025-03-27
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -245,6 +245,7 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
         do {
             this->sockaddr(sa_nadObj);
             if (!sa_nadObj.is_loopback()) {
+                m_find_index = this->index();
                 m_state = Find::best;
                 return true;
             }
@@ -262,7 +263,7 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
         do {
             this->sockaddr(sa_nadObj);
             if (sa_nadObj.is_loopback()) {
-                m_find_index = this->index();
+                m_find_index = this->index(); // DEBUG!
                 m_state = Find::loopback;
                 return true;
             }
@@ -332,7 +333,11 @@ bool CNetadapter::find_next() {
     case Find::best: { // without loopback
         SSockaddr sa_nadapObj;
         while (this->get_next()) {
-            if (this->index() == m_find_index) {
+            const unsigned int index{this->index()};
+            std::cerr << "DEBUG! Tracepoint1: m_find_index=" << m_find_index
+                      << ", this->index()=" << index << ".\n";
+            if (index == m_find_index) {
+                std::cerr << "DEBUG! Tracepoint2\n";
                 this->sockaddr(sa_nadapObj);
                 if (!sa_nadapObj.is_loopback())
                     return true;
