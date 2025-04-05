@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-01-26
+# Redistribution only with this Copyright remark. Last modified: 2025-04-06
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -97,6 +97,7 @@ add_test(NAME ctest_webserver-ush COMMAND test_webserver-ush --gtest_shuffle
 
 # general
 # =======
+if(NOT WIN32)
 add_executable(test_general-ush
     test_general.cpp
 )
@@ -107,6 +108,7 @@ target_link_libraries(test_general-ush
 add_test(NAME ctest_general-ush COMMAND test_general-ush --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
+endif()
 
 
 # strintmap

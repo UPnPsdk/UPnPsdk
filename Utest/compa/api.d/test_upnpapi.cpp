@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-02
+// Redistribution only with this Copyright remark. Last modified: 2025-04-06
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -122,7 +122,7 @@ SSockaddr saObj;
 // CNetadapter.
 struct SSaNadap {
     SSockaddr sa;
-    unsigned int idx{};
+    unsigned int index{};
     unsigned int bitmask{};
     std::string name;
 };
@@ -145,14 +145,14 @@ void get_netadapter() {
             saObj.ss.ss_family == AF_INET6) {
             // Found first ipv6 loopback address.
             lo6Obj.sa = saObj;
-            lo6Obj.idx = nadaptObj.index();
+            lo6Obj.index = nadaptObj.index();
             lo6Obj.bitmask = nadaptObj.bitmask();
             lo6Obj.name = nadaptObj.name();
         } else if (lo4Obj.sa.ss.ss_family == AF_UNSPEC && saObj.is_loopback() &&
                    saObj.ss.ss_family == AF_INET) {
             // Found first ipv4 loopback address.
             lo4Obj.sa = saObj;
-            lo4Obj.idx = nadaptObj.index();
+            lo4Obj.index = nadaptObj.index();
             lo4Obj.bitmask = nadaptObj.bitmask();
             lo4Obj.name = nadaptObj.name();
         } else if (llaObj.sa.ss.ss_family == AF_UNSPEC &&
@@ -160,7 +160,7 @@ void get_netadapter() {
                    IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
             // Found first LLA address.
             llaObj.sa = saObj;
-            llaObj.idx = nadaptObj.index();
+            llaObj.index = nadaptObj.index();
             llaObj.bitmask = nadaptObj.bitmask();
             llaObj.name = nadaptObj.name();
         } else if (guaObj.sa.ss.ss_family == AF_UNSPEC &&
@@ -168,14 +168,14 @@ void get_netadapter() {
                    IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
             // Found first GUA address.
             guaObj.sa = saObj;
-            guaObj.idx = nadaptObj.index();
+            guaObj.index = nadaptObj.index();
             guaObj.bitmask = nadaptObj.bitmask();
             guaObj.name = nadaptObj.name();
         } else if (ip4Obj.sa.ss.ss_family == AF_UNSPEC &&
                    saObj.ss.ss_family == AF_INET && !saObj.is_loopback()) {
             // Found first IPv4 address.
             ip4Obj.sa = saObj;
-            ip4Obj.idx = nadaptObj.index();
+            ip4Obj.index = nadaptObj.index();
             ip4Obj.bitmask = nadaptObj.bitmask();
             ip4Obj.name = nadaptObj.name();
         }
@@ -191,9 +191,9 @@ void get_netadapter() {
 class UpnpapiFTestSuite : public ::testing::Test {
   protected:
 // Old code UpnpInitLog() does not understand the object logObj and crashes
-// with an exeption if g_dbug is enabled. I cannot use Clogging when testing
-// UpnpInitLog().
-#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+// on win32 randomly with exeption 0xc0000409 (STATUS_STACK_BUFFER_OVERRUN) if
+// g_dbug is enabled. I cannot use Clogging when testing UpnpInitLog().
+#if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(_MSC_VER)
     pupnp::CLogging logObj; // Output only with build type DEBUG.
 
     // Constructor
@@ -562,24 +562,39 @@ TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_successful) {
     if (github_actions)
         GTEST_SKIP() << "             test needs inprovements.";
 
-    constexpr char desc_doc_url[]{
-        "http://[2003:d5:2748:ae00:5054:ff:fe7f:c021]:53779/tvdevicedesc.xml"};
     UpnpDevice_Handle device_handle = -1;
     // Initialize the handle list.
     // for (int i = 0; i < NUM_HANDLE; ++i) {
     //     HandleTable[i] = nullptr;
     // }
 
-    int ret_UpnpInit2 = ::UpnpInit2("ens1", 50001);
+    int ret_UpnpInit2 = ::UpnpInit2(llaObj.name.c_str(), 0);
     ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    // clang-format off
+    std::cerr << "DEBUG! gIF_IPV4=\"" << ::gIF_IPV4
+              << "\", LOCAL_PORT_V4=" << ::LOCAL_PORT_V4
+              << ", gIF_IPV6=\"" << ::gIF_IPV6
+              << "\", LOCAL_PORT_V6=" << LOCAL_PORT_V6
+              << ", gIF_IPV6_ULA_GUA=\"" << ::gIF_IPV6_ULA_GUA
+              << "\", LOCAL_PORT_V6_ULA_GUA=" << LOCAL_PORT_V6_ULA_GUA
+              << ".\n";
+    // clang-format on
+
+    const std::string desc_doc_url{"http://[" + std::string(gIF_IPV6) +
+                                   "]:" + std::to_string(LOCAL_PORT_V6) +
+                                   "/tvdevicedesc.xml"};
+    std::cerr << "DEBUG! Tracepoint1 desc_doc_url=\"" << desc_doc_url
+              << "\".\n";
 
     UpnpSdkInit = 1;
 
     // Test Unit
     int ret_UpnpRegisterRootDevice3 =
-        UpnpRegisterRootDevice3(desc_doc_url, CallbackEventHandler,
+        UpnpRegisterRootDevice3(desc_doc_url.c_str(), CallbackEventHandler,
                                 &device_handle, &device_handle, AF_INET6);
+
     EXPECT_EQ(ret_UpnpRegisterRootDevice3, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpRegisterRootDevice3, UPNP_E_SUCCESS);
 
@@ -621,9 +636,6 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
 
     UpnpSdkInit = 1;
     { // Scope for logging
-        // pupnp::CLogging logObj; // Output only with build type DEBUG.
-        // logObj.enable(UPNP_ALL);
-
         // Test Unit
         int ret_UpnpRegisterRootDevice3 =
             UpnpRegisterRootDevice3(desc_doc_url, CallbackEventHandler,
@@ -666,27 +678,27 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
     // More than one ip address is only valid if they are on the same local
     // network adapter (same index).
     if (gIF_IPV4[0] != '\0') {
-        if (ip4Obj.idx != llaObj.idx)
+        if (ip4Obj.index != llaObj.index)
 #if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(__APPLE__)
             // Fails with old code on MacOS due to "[fe80::1]" on loopback.
             EXPECT_EQ(gIF_IPV6[0], '\0');
 #endif
-        if (ip4Obj.idx != guaObj.idx)
+        if (ip4Obj.index != guaObj.index)
             EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
     }
     if (gIF_IPV6[0] != '\0') {
-        if (llaObj.idx != ip4Obj.idx)
+        if (llaObj.index != ip4Obj.index)
 #if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(__APPLE__)
             // Fails with old code on MacOS due to "[fe80::1]" on loopback.
             EXPECT_EQ(gIF_IPV4[0], '\0');
 #endif
-        if (llaObj.idx != guaObj.idx)
+        if (llaObj.index != guaObj.index)
             EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
     }
     if (gIF_IPV6_ULA_GUA[0] != '\0') {
-        if (guaObj.idx != ip4Obj.idx)
+        if (guaObj.index != ip4Obj.index)
             EXPECT_EQ(gIF_IPV4[0], '\0');
-        if (guaObj.idx != llaObj.idx)
+        if (guaObj.index != llaObj.index)
             EXPECT_EQ(gIF_IPV6[0], '\0');
     }
 }
@@ -712,7 +724,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv6_iface_successful) {
             << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
         EXPECT_STREQ(gIF_NAME, lo6Obj.name.c_str());
-        EXPECT_EQ(gIF_INDEX, lo6Obj.idx);
+        EXPECT_EQ(gIF_INDEX, lo6Obj.index);
         // The loopback address belongs to link-local unicast addresses.
         EXPECT_STREQ(gIF_IPV6, "::1");
         EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 128);
@@ -746,7 +758,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv4_iface_successful) {
             << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
         EXPECT_STREQ(gIF_NAME, lo4Obj.name.c_str());
-        EXPECT_EQ(gIF_INDEX, lo4Obj.idx);
+        EXPECT_EQ(gIF_INDEX, lo4Obj.index);
         EXPECT_STREQ(gIF_IPV4, lo4Obj.sa.netaddr().c_str());
         EXPECT_STREQ(gIF_IPV4_NETMASK, "255.0.0.0");
         // The loopback address belongs to link-local unicast addresses.
@@ -780,14 +792,14 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_iface_successful) {
 
         if (lo6Obj.sa.ss.ss_family == AF_INET6) {
             EXPECT_STREQ(gIF_NAME, lo6Obj.name.c_str());
-            EXPECT_EQ(gIF_INDEX, lo6Obj.idx);
+            EXPECT_EQ(gIF_INDEX, lo6Obj.index);
             // The loopback address belongs to link-local unicast addresses.
             EXPECT_STREQ(gIF_IPV6, "::1");
             EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 128);
         }
         if (lo6Obj.sa.ss.ss_family == AF_INET) {
             EXPECT_STREQ(gIF_NAME, lo4Obj.name.c_str());
-            EXPECT_EQ(gIF_INDEX, lo4Obj.idx);
+            EXPECT_EQ(gIF_INDEX, lo4Obj.index);
             EXPECT_STREQ(gIF_IPV4, lo4Obj.sa.netaddr().c_str());
             EXPECT_STREQ(gIF_IPV4_NETMASK, "255.0.0.0");
         }
@@ -1066,13 +1078,35 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     if (github_actions)
         GTEST_SKIP() << "Still needs to be done.";
 
-    // A possible url is http://127.0.0.1:50001/tvdevicedesc.xml
-    IXML_Document* xmldocbuf_ptr{nullptr};
+    // The Unit needs a defined state, otherwise it will fail with segfault
+    // because internal pupnp media_list_init() isn't executed;
+    bWebServerState = WEB_SERVER_DISABLED;
 
-    int ret_UpnpDownloadXmlDoc = UpnpDownloadXmlDoc(
-        "https://localhost:443/sample/web/tvdevicedesc.xml", &xmldocbuf_ptr);
+    int ret_UpnpInit2 = ::UpnpInit2(llaObj.name.c_str(), 0);
+    ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+    UpnpSdkInit = 1;
+
+    // Example url maybe "http://[fe80::1]:50001/tvdevicedesc.xml".
+    const std::string url{"http://[" + std::string(gIF_IPV6) + "]:" +
+                          std::to_string(LOCAL_PORT_V6) + "/tvdevicedesc.xml"};
+    std::cerr << "DEBUG! Tracepoint6 url=\"" << url << "\".\n";
+
+    IXML_Document* xmldocbuf_ptr{nullptr};
+    EXPECT_EQ(UpnpSetWebServerRootDir(SAMPLE_SOURCE_DIR "/web"), 0);
+
+    // Test Unit
+    int ret_UpnpDownloadXmlDoc =
+        UpnpDownloadXmlDoc(url.c_str(), &xmldocbuf_ptr);
     EXPECT_EQ(ret_UpnpDownloadXmlDoc, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpDownloadXmlDoc, UPNP_E_SUCCESS);
+
+    // EXPECT_STREQ(xmldocbuf_ptr->n.nodeName, "#document");
+    // EXPECT_STREQ(xmldocbuf_ptr->n.nodeValue, nullptr);
+    // std::cout << "DEBUG! xmldoc=\"" << xmldocbuf_ptr->n.nodeName << "\".\n";
+
+    free(xmldocbuf_ptr);
+    UpnpFinish();
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
@@ -1102,7 +1136,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
 
     if (lo6Obj.sa.ss.ss_family == AF_INET6) {
         EXPECT_STREQ(gIF_NAME, lo6Obj.name.c_str());
-        EXPECT_EQ(gIF_INDEX, lo6Obj.idx);
+        EXPECT_EQ(gIF_INDEX, lo6Obj.index);
         char buf[INET6_ADDRSTRLEN + 32];
         // Strip leading bracket on copying.
         std::strcpy(buf, lo6Obj.sa.netaddr().c_str() + 1);
@@ -1115,7 +1149,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
     }
     if (lo4Obj.sa.ss.ss_family == AF_INET) {
         EXPECT_STREQ(gIF_NAME, lo4Obj.name.c_str());
-        EXPECT_EQ(gIF_INDEX, lo4Obj.idx);
+        EXPECT_EQ(gIF_INDEX, lo4Obj.index);
         EXPECT_STREQ(gIF_IPV4, lo4Obj.sa.netaddr().c_str());
         bitmask_to_netmask(&lo4Obj.sa.ss, lo4Obj.bitmask, saObj);
         EXPECT_STREQ(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
@@ -1143,31 +1177,54 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
-    // std::cerr << "DEBUG: gIF_IPV4=\"" << ::gIF_IPV4 << "\",gIF_IPV6=\""
-    //           << ::gIF_IPV6 << "\", gIF_IPV6_ULA_GUA=\"" <<
-    //           ::gIF_IPV6_ULA_GUA
-    //           << "\".\n";
+    // clang-format off
+    // std::cerr << "DEBUG: gIF_IPV4=\"" << ::gIF_IPV4
+    //           << "\", LOCAL_PORT_V4=" << ::LOCAL_PORT_V4
+    //           << ", gIF_IPV6=\"" << ::gIF_IPV6
+    //           << "\", LOCAL_PORT_V6=" << LOCAL_PORT_V6
+    //           << ", gIF_IPV6_ULA_GUA=\"" << ::gIF_IPV6_ULA_GUA
+    //           << "\", LOCAL_PORT_V6_ULA_GUA=" << LOCAL_PORT_V6_ULA_GUA
+    //           << ".\n";
+    // clang-format on
 
     EXPECT_STRNE(gIF_NAME, "");
     EXPECT_NE(gIF_INDEX, 0);
     EXPECT_FALSE(gIF_IPV4[0] == '\0' && gIF_IPV6[0] == '\0' &&
                  gIF_IPV6_ULA_GUA[0] == '\0');
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    std::cout
+        << CYEL "[    FIX   ] " CRES << __LINE__
+        << ": gIF_IPV4_NETMASK, gIF_IPV6_PREFIX_LENGTH, gIF_IPV6_ULA_GUA, and "
+           "gIF_IPV6_PREFIX_LENGTH should be retrieved on wih32.\n";
+#endif
 #if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(_MSC_VER)
     EXPECT_STREQ(gIF_IPV4_NETMASK, "");
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+    EXPECT_NE(LOCAL_PORT_V6, 0);
     EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
     EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-    std::cout
-        << CYEL "[ BUGFIX   ] " CRES << __LINE__
-        << ": gIF_IPV4_NETMASK, gIF_IPV6_PREFIX_LENGTH, gIF_IPV6_ULA_GUA, and "
-           "gIF_IPV6_PREFIX_LENGTH should be retrieved on wih32.\n";
 #else
-    if (gIF_IPV4[0] != '\0')
+    if (gIF_IPV4[0] != '\0') {
         EXPECT_STRNE(gIF_IPV4_NETMASK, "");
-    if (gIF_IPV6[0] != '\0')
+        EXPECT_NE(LOCAL_PORT_V4, 0);
+    } else {
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+        EXPECT_EQ(LOCAL_PORT_V4, 0);
+    }
+    if (gIF_IPV6[0] != '\0') {
         EXPECT_NE(gIF_IPV6_PREFIX_LENGTH, 0);
-    if (gIF_IPV6_ULA_GUA[0] != '\0')
+        EXPECT_NE(LOCAL_PORT_V6, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_EQ(LOCAL_PORT_V6, 0);
+    }
+    if (gIF_IPV6_ULA_GUA[0] != '\0') {
         EXPECT_NE(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_NE(LOCAL_PORT_V6_ULA_GUA, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
+    }
 #endif
     UpnpFinish();
 }

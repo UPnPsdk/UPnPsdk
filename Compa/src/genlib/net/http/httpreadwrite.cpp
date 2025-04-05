@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-20
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-04
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -700,17 +700,18 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
                 break;
             }
         } else if (num_read == 0) {
+            UPnPsdk_LOGINFO("MSG1047") "<<< (RECVD) <<<\n"
+                << parser->msg.msg.buf << "\n-----------------\n";
+            print_http_headers(&parser->msg);
             if (ok_on_close) {
-                UPnPsdk_LOGINFO("MSG1047") "<<< (RECVD) <<<\n"
-                    << parser->msg.msg.buf << "\n-----------------\n";
-                print_http_headers(&parser->msg);
                 line = __LINE__;
                 ret = 0;
                 goto ExitFunction;
             } else {
-                /* partial msg */
                 *http_error_code = HTTP_BAD_REQUEST; /* or response */
                 line = __LINE__;
+                UPnPsdk_LOGERR("MSG1005") "Line " << line
+                                                  << ": partial message.\n";
                 ret = UPNP_E_BAD_HTTPMSG;
                 goto ExitFunction;
             }
@@ -725,9 +726,9 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
 ExitFunction:
     free(buf);
     if (ret != UPNP_E_SUCCESS) {
-        UPnPsdk_LOGERR("MSG1048")
+        UPnPsdk_LOGERR("MSG1048") "error "
             << ret << " on line " << line
-            << ", http_error_code = " << *http_error_code << ".\n";
+            << ", http_error_code=" << *http_error_code << ".\n";
     }
 
     return ret;

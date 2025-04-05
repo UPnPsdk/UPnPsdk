@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-20
+// Redistribution only with this Copyright remark. Last modified: 2025-04-05
 
 #include <UPnPsdk/synclog.hpp>
 #include <utest/utest.hpp>
@@ -10,12 +10,11 @@ namespace utest {
 using ::UPnPsdk::g_dbug;
 
 using ::testing::AnyOf;
-using ::testing::HasSubstr;
 
 
 TEST(GeneralToolsTestSuite, debug_messages_successful) {
-    const std::string pretty_function{"UPnPsdk [" +
-                                      std::string(__PRETTY_FUNCTION__) + "] "};
+    const std::string pretty_function{"UPnPsdk [" + std::string(__func__) +
+                                      "] "};
 
     // Capture output to stderr and stdout
     CaptureStdOutErr captureErrObj(STDERR_FILENO); // or STDOUT_FILENO
@@ -51,24 +50,28 @@ TEST(GeneralToolsTestSuite, debug_messages_successful) {
     // and output there depending on the g_dbug flag.
     g_dbug = false;
     EXPECT_EQ(UPnPsdk_LOGEXCEPT("MSG1022") "this is an exception message.\n",
-              "UPnPsdk MSG1022 EXCEPT[" + std::string(__PRETTY_FUNCTION__) +
+              "UPnPsdk MSG1022 EXCEPT[" + std::string(__func__) +
                   "] this is an exception message.\n");
 
     // UPnPsdk_LOGCRIT is an output stream with no dependency to g_dbug flag.
     g_dbug = false;
     captureErrObj.start();
     UPnPsdk_LOGCRIT("MSG1023") "this is a critical message.\n";
-    EXPECT_EQ(captureErrObj.str(), "UPnPsdk MSG1023 CRIT  [" +
-                                       std::string(__PRETTY_FUNCTION__) +
-                                       "] this is a critical message.\n");
+    EXPECT_THAT(
+        captureErrObj.str(),
+        MatchesStdRegex("UPnPsdk MSG1023 CRIT  \\[0x[[:xdigit:]]{9,12} " +
+                        std::string(__func__) +
+                        "\\(\\)\\] this is a critical message\\.\n"));
 
     // UPnPsdk_LOGERR is an output stream depending on the g_dbug flag.
     g_dbug = true;
     captureErrObj.start();
     UPnPsdk_LOGERR("MSG1024") "this is an error message.\n";
-    EXPECT_EQ(captureErrObj.str(), "UPnPsdk MSG1024 ERROR [" +
-                                       std::string(__PRETTY_FUNCTION__) +
-                                       "] this is an error message.\n");
+    EXPECT_THAT(
+        captureErrObj.str(),
+        MatchesStdRegex("UPnPsdk MSG1024 ERROR \\[0x[[:xdigit:]]{9,12} " +
+                        std::string(__func__) +
+                        "\\(\\)\\] this is an error message\\.\n"));
     g_dbug = false;
     captureErrObj.start();
     UPnPsdk_LOGERR("MSG1025") "this error message should not output.\n";
@@ -78,9 +81,11 @@ TEST(GeneralToolsTestSuite, debug_messages_successful) {
     g_dbug = true;
     captureErrObj.start();
     UPnPsdk_LOGCATCH("MSG1026") "this is a catched message.\n";
-    EXPECT_EQ(captureErrObj.str(), "UPnPsdk MSG1026 CATCH [" +
-                                       std::string(__PRETTY_FUNCTION__) +
-                                       "] this is a catched message.\n");
+    EXPECT_THAT(
+        captureErrObj.str(),
+        MatchesStdRegex("UPnPsdk MSG1026 CATCH \\[0x[[:xdigit:]]{9,12} " +
+                        std::string(__func__) +
+                        "\\(\\)\\] this is a catched message\\.\n"));
     g_dbug = false;
     captureErrObj.start();
     UPnPsdk_LOGCATCH("MSG1027") "this catched message should not output.\n";
@@ -90,9 +95,11 @@ TEST(GeneralToolsTestSuite, debug_messages_successful) {
     g_dbug = true;
     captureErrObj.start();
     UPnPsdk_LOGINFO("MSG1028") "this is an info message.\n";
-    EXPECT_EQ(captureErrObj.str(), "UPnPsdk MSG1028 INFO  [" +
-                                       std::string(__PRETTY_FUNCTION__) +
-                                       "] this is an info message.\n");
+    EXPECT_THAT(
+        captureErrObj.str(),
+        MatchesStdRegex("UPnPsdk MSG1028 INFO  \\[0x[[:xdigit:]]{9,12} " +
+                        std::string(__func__) +
+                        "\\(\\)\\] this is an info message\\.\n"));
 
     g_dbug = false;
     captureErrObj.start();
