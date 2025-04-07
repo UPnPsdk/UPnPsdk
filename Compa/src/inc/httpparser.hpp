@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-20
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -522,7 +522,7 @@ int raw_find_str(      //
  * \brief A wrapper function that maps a method id to a method.
  *
  * nameConverts a http_method id stored in the HTTP Method.
- *
+
  * \returns Pointer to the HTTP Method.
  */
 UPNPLIB_API const char* method_to_str( //
@@ -530,17 +530,12 @@ UPNPLIB_API const char* method_to_str( //
 );
 
 /*!
- * \brief Print the HTTP headers if DEBUG is enabled.
- * \details Function is only available when compiled with DEBUG enabled.
+ * \brief Print the HTTP headers
+ * \details Function is mainly used for debugging.
  */
-#if defined(DEBUG) || defined(DOXYGEN_RUN)
-UPNPLIB_API void print_http_headers( //
-    http_message_t* hmsg             ///< [in] HTTP Message object.
+UPNPLIB_API void print_http_headers(
+    std::string_view log_msg, ///< [in] log message number ("MSGxxxx").
+    http_message_t* hmsg      ///< [in] HTTP Message object.
 );
-#else
-#define print_http_headers(hmsg)                                               \
-    do {                                                                       \
-    } while (0)
-#endif
 
 #endif /* COMPA_GENLIB_NET_HTTP_HTTPPARSER_HPP */

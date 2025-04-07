@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-04-07
 
 #include <UPnPsdk/strintmap.hpp>
 #include <UPnPsdk/httpparser.hpp> // for HTTPMETHOD* constants
@@ -36,6 +36,14 @@ TEST(StrintmapTestSuite, index_of_boundaries) {
 
     idx = table.index_of("UNSUBSCRIBE", true);
     EXPECT_EQ(idx, 9);
+}
+
+TEST(StrintmapTestSuite, index_of_outer_boundaries) {
+    size_t idx = table.index_of("aaa");
+    EXPECT_EQ(idx, table.npos);
+
+    idx = table.index_of("ZZZ", true);
+    EXPECT_EQ(idx, table.npos);
 }
 
 TEST(StrintmapTestSuite, nullptr_to_namestring) {

@@ -1,7 +1,7 @@
 #ifndef UPnPdsk_STRINTMAP_HPP
 #define UPnPdsk_STRINTMAP_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-20
+// Redistribution only with this Copyright remark. Last modified: 2025-04-07
 
 /*!
  * \file
@@ -88,14 +88,17 @@ size_t CStrIntMap<T>::index_of(const char* a_name, bool a_case_sensitive) {
     int (*str_cmp)(const char*, const char*);
     str_cmp = a_case_sensitive ? strcmp : strcasecmp;
 
-    size_t top, mid, bot;
+    size_t top, mid, bot, idxmax;
     int cmp;
 
     top = 0;
     bot = m_table.size() - 1;
+    idxmax = bot;
 
     while (top <= bot) {
         mid = (top + bot) / 2;
+        if (mid > idxmax) // unsigned index outer low bound
+            break;
         cmp = str_cmp(a_name, m_table[mid].name);
         if (cmp > 0) {
             top = mid + 1; /* look below mid */

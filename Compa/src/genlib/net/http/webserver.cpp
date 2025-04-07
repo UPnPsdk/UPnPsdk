@@ -1052,7 +1052,6 @@ int process_request(
     size_t dummy;
     memptr hdr_value;
 
-    print_http_headers(req);
     url = &req->uri;
     assert(req->method == HTTPMETHOD_GET || req->method == HTTPMETHOD_HEAD ||
            req->method == HTTPMETHOD_POST ||
@@ -1468,7 +1467,6 @@ int http_RecvPostMessage(
                                "<<< (RECVD) "
                                "<<<\n%s\n-----------------\n",
                                parser->msg.msg.buf);
-                    print_http_headers(&parser->msg);
                     parser->position = POS_COMPLETE;
                 } else {
                     /* partial msg or response */

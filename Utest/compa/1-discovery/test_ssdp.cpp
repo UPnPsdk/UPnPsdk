@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-02
+// Redistribution only with this Copyright remark. Last modified: 2025-04-07
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -230,7 +230,7 @@ TEST_F(SsdpMockFTestSuite, set_ipv4_socket_no_blocking_fails) {
         captureObj.start();
         ret_create_ssdp_sock_reqv4 = create_ssdp_sock_reqv4(&ssdpSock);
         std::cout << captureObj.str();
-        EXPECT_THAT(captureObj.str(), HasSubstr("UPnPsdk MSG1029 CRIT  ["));
+        EXPECT_THAT(captureObj.str(), HasSubstr("UPnPsdk MSG1090 CRIT  ["));
 
         // This should be ...
         // EXPECT_EQ(ret_create_ssdp_sock_reqv4, UPNP_E_SOCKET_ERROR)

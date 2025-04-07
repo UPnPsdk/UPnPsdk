@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-20
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -509,7 +509,7 @@ int sock_destroy(SOCKINFO* info, int ShutdownMethod) {
                 // shutdown a not connected connection is not an error.
                 UPnPsdk_LOGINFO("MSG1010") << msg;
             } else {
-                UPnPsdk_LOGERR("MSG1010") << msg;
+                UPnPsdk_LOGERR("MSG1089") << msg;
                 ret = UPNP_E_SOCKET_ERROR;
             }
         }
@@ -525,13 +525,14 @@ int sock_destroy(SOCKINFO* info, int ShutdownMethod) {
 
 int sock_read(SOCKINFO* info, char* buffer, size_t bufsize, int* timeoutSecs) {
     TRACE("Executing sock_read()")
-    if (info == nullptr)
+    if (info == nullptr) {
         return UPNP_E_SOCKET_ERROR;
+    }
 #ifdef UPnPsdk_HAVE_OPENSSL
-    if (info->ssl)
+    if (info->ssl) {
         return sock_read_ssl(info, buffer /*read_buffer*/,
                              nullptr /*write_buffer*/, bufsize, timeoutSecs);
-    else
+    } else
 #endif
         return sock_read_unprotected(info, buffer /*read_buffer*/,
                                      nullptr /*write_buffer*/, bufsize,

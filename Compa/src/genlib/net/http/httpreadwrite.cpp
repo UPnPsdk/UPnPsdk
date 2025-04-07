@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-04
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-07
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -670,7 +670,6 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
             case PARSE_SUCCESS:
                 UPnPsdk_LOGINFO("MSG1031") "<<< (RECVD) <<<\n"
                     << parser->msg.msg.buf << "UPnPsdk -----------------\n";
-                print_http_headers(&parser->msg);
                 if (g_maxContentLength > (size_t)0 &&
                     parser->content_length > (unsigned int)g_maxContentLength) {
                     *http_error_code = HTTP_REQ_ENTITY_TOO_LARGE;
@@ -702,7 +701,6 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
         } else if (num_read == 0) {
             UPnPsdk_LOGINFO("MSG1047") "<<< (RECVD) <<<\n"
                 << parser->msg.msg.buf << "\n-----------------\n";
-            print_http_headers(&parser->msg);
             if (ok_on_close) {
                 line = __LINE__;
                 ret = 0;
@@ -1056,7 +1054,6 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
         return ret_code;
     }
     UPnPsdk_LOGINFO("MSG1102") "Response...\n";
-    print_http_headers(&response.msg);
     /* optional content-type */
     if (content_type) {
         if (httpmsg_find_hdr(&response.msg, HDR_CONTENT_TYPE, &ctype) == NULL) {

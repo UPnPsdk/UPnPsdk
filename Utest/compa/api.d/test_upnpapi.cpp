@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-06
+// Redistribution only with this Copyright remark. Last modified: 2025-04-08
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -572,22 +572,9 @@ TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_successful) {
     ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
-    // clang-format off
-    std::cerr << "DEBUG! gIF_IPV4=\"" << ::gIF_IPV4
-              << "\", LOCAL_PORT_V4=" << ::LOCAL_PORT_V4
-              << ", gIF_IPV6=\"" << ::gIF_IPV6
-              << "\", LOCAL_PORT_V6=" << LOCAL_PORT_V6
-              << ", gIF_IPV6_ULA_GUA=\"" << ::gIF_IPV6_ULA_GUA
-              << "\", LOCAL_PORT_V6_ULA_GUA=" << LOCAL_PORT_V6_ULA_GUA
-              << ".\n";
-    // clang-format on
-
     const std::string desc_doc_url{"http://[" + std::string(gIF_IPV6) +
                                    "]:" + std::to_string(LOCAL_PORT_V6) +
                                    "/tvdevicedesc.xml"};
-    std::cerr << "DEBUG! Tracepoint1 desc_doc_url=\"" << desc_doc_url
-              << "\".\n";
-
     UpnpSdkInit = 1;
 
     // Test Unit
@@ -1075,8 +1062,9 @@ TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, download_xml_successful) {
-    if (github_actions)
-        GTEST_SKIP() << "Still needs to be done.";
+#ifdef __APPLE__
+    GTEST_SKIP() << "             test needs fixes for macOS.";
+#endif
 
     // The Unit needs a defined state, otherwise it will fail with segfault
     // because internal pupnp media_list_init() isn't executed;
@@ -1090,7 +1078,6 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     // Example url maybe "http://[fe80::1]:50001/tvdevicedesc.xml".
     const std::string url{"http://[" + std::string(gIF_IPV6) + "]:" +
                           std::to_string(LOCAL_PORT_V6) + "/tvdevicedesc.xml"};
-    std::cerr << "DEBUG! Tracepoint6 url=\"" << url << "\".\n";
 
     IXML_Document* xmldocbuf_ptr{nullptr};
     EXPECT_EQ(UpnpSetWebServerRootDir(SAMPLE_SOURCE_DIR "/web"), 0);
@@ -1101,9 +1088,8 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     EXPECT_EQ(ret_UpnpDownloadXmlDoc, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpDownloadXmlDoc, UPNP_E_SUCCESS);
 
-    // EXPECT_STREQ(xmldocbuf_ptr->n.nodeName, "#document");
-    // EXPECT_STREQ(xmldocbuf_ptr->n.nodeValue, nullptr);
-    // std::cout << "DEBUG! xmldoc=\"" << xmldocbuf_ptr->n.nodeName << "\".\n";
+    EXPECT_STREQ(xmldocbuf_ptr->n.nodeName, "#document");
+    EXPECT_EQ(xmldocbuf_ptr->n.nodeValue, nullptr);
 
     free(xmldocbuf_ptr);
     UpnpFinish();

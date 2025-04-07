@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-20
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-06
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -300,8 +300,8 @@ void handle_request(
         sockObj.sockaddr(local_saObj);
         UPnPsdk::SSockaddr remote_saObj;
         remote_saObj = request_in->foreign_sockaddr;
-        UPnPsdk_LOGINFO("MSG1027") "UDevice socket("
-            << connfd << "): READING request on local=\""
+        UPnPsdk_LOGINFO("MSG1027") "UDevice socket="
+            << connfd << ": READING request on local=\""
             << local_saObj.netaddrp() << "\" from control point remote=\""
             << remote_saObj.netaddrp() << "\".\n";
     }
@@ -320,31 +320,23 @@ void handle_request(
 
     /* read */
     int timeout{HTTP_DEFAULT_TIMEOUT};
-    int http_error_code;
+    int http_error_code; // Either negative UPNP_E_XXX error code,
+                         // or positve HTTP error code (4XX or 5XX).
+                         // Will be initialized by next function.
     ret_code = http_RecvMessage(&info, &parser, HTTPMETHOD_UNKNOWN, &timeout,
                                 &http_error_code);
-    if (ret_code != 0) {
-        goto error_handler;
+    if (ret_code == 0) {
+        UPnPsdk_LOGINFO("MSG1106") "miniserver socket=" << connfd
+                                                        << ": PROCESSING...\n";
+        /* dispatch */
+        http_error_code = dispatch_request(&info, &parser);
     }
 
-    UPnPsdk_LOGINFO("MSG1106") "miniserver socket=" << connfd
-                                                    << ": PROCESSING...\n";
-    /* dispatch */
-    http_error_code = dispatch_request(&info, &parser);
-    if (http_error_code != 0) {
-        goto error_handler;
-    }
-    http_error_code = 0;
-
-error_handler:
-    if (http_error_code > 0) {
+    if (http_error_code > 0) { // only positive HTTP error codes (4XX or 5XX).
         if (hmsg) {
             http_major_version = hmsg->major_version;
             http_minor_version = hmsg->minor_version;
         }
-        // BUG! Don't try to send a status response to a remote client with
-        // http error (e.g. 400) if we have a socket error. It doesn't make
-        // sense. --Ingo
         http_SendStatusResponse(&info, http_error_code, http_major_version,
                                 http_minor_version);
     }

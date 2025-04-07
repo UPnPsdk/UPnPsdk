@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-22
+// Redistribution only with this Copyright remark. Last modified: 2025-04-06
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -380,7 +380,7 @@ int CSocket_basic::is_bound() const {
     } // switch
 
     throw std::invalid_argument(
-        "MSG1029: Program error must be fixed. Unsupported address family " +
+        "MSG1091: Program error must be fixed. Unsupported address family " +
         std::to_string(saObj.ss.ss_family) + ".\n");
 }
 

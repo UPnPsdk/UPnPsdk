@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-02-11
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-07
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1480,13 +1480,10 @@ parse_status_t parser_parse_headers(http_parser_t* parser) {
         }
         /* add header */
         /* find header */
-#if 0
-        index = map_str_to_int(token.buf, token.length, &Http_Header_Names[0],
-                               Http_Header_Names.size(), 0);
-#endif
-        UPnPsdk::CStrIntMap http_header_names_table(Http_Header_Names);
-        index = http_header_names_table.index_of(token.buf);
 
+        UPnPsdk::CStrIntMap http_header_names_table(Http_Header_Names);
+        index = http_header_names_table.index_of(
+            std::string(token.buf, token.length).c_str());
         if (index != http_header_names_table.npos) {
             /*Check if it is a soap header */
             if (Http_Header_Names[index].id == HDR_SOAPACTION) {
@@ -1816,24 +1813,29 @@ const char* method_to_str(http_method_t method) {
                                            : Http_Method_Table[index].name;
 }
 
-#ifdef DEBUG
-void print_http_headers(http_message_t* hmsg) {
+void print_http_headers(std::string_view log_msg, http_message_t* hmsg) {
+    if (!UPnPsdk::g_dbug)
+        return;
+    UPnPsdk_LOGINFO(log_msg) "...\n";
+
     ListNode* node;
     /* NNS:  dlist_node *node; */
     http_header_t* header;
 
     /* print start line */
     if (hmsg->is_request) {
-        UpnpPrintf(UPNP_ALL, HTTP, __FILE__, __LINE__,
-                   "method = %d, version = %d.%d, url = %.*s\n", hmsg->method,
-                   hmsg->major_version, hmsg->minor_version,
-                   (int)hmsg->uri.pathquery.size, hmsg->uri.pathquery.buff);
+        std::cerr << "    method=" << hmsg->method
+                  << ", version=" << hmsg->major_version << "."
+                  << hmsg->minor_version << ", url=\""
+                  << std::string(hmsg->uri.pathquery.buff,
+                                 hmsg->uri.pathquery.size)
+                  << "\".\n";
     } else {
-        UpnpPrintf(UPNP_ALL, HTTP, __FILE__, __LINE__,
-                   "resp status = %d, version = %d.%d, status msg = "
-                   "%.*s\n",
-                   hmsg->status_code, hmsg->major_version, hmsg->minor_version,
-                   (int)hmsg->status_msg.length, hmsg->status_msg.buf);
+        std::cerr << "    resp_status=" << hmsg->status_code
+                  << ", version=" << hmsg->major_version << "."
+                  << hmsg->minor_version << ", status_msg=\""
+                  << std::string(hmsg->status_msg.buf, hmsg->status_msg.length)
+                  << "\".\n";
     }
 
     /* print headers */
@@ -1842,13 +1844,13 @@ void print_http_headers(http_message_t* hmsg) {
     while (node != NULL) {
         header = (http_header_t*)node->item;
         /* NNS: header = (http_header_t *)node->data; */
-        UpnpPrintf(UPNP_ALL, HTTP, __FILE__, __LINE__,
-                   "hdr name: %.*s, value: %.*s\n", (int)header->name.length,
-                   header->name.buf, (int)header->value.length,
-                   header->value.buf);
+        std::cerr << "    name_id=" << header->name_id << ", hdr_name=\""
+                  << std::string(header->name.buf, header->name.length)
+                  << "\", value=\""
+                  << std::string(header->value.buf, header->value.length)
+                  << "\".\n";
 
         node = ListNext(&hmsg->headers, node);
         /* NNS: node = dlist_next( &hmsg->headers, node ); */
     }
 }
-#endif /* DEBUG */
