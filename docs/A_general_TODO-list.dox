@@ -1,11 +1,10 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-05
+// Redistribution only with this Copyright remark. Last modified: 2025-04-08
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Make the sample program running with the compatible library.
  * - Optimize log messages with ostream overload: https://stackoverflow.com/a/34122443/5014688
  * - Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.
  * - Rework 'get_ssdp_sockets()' and Utest/compa/1-discovery/test_ssdp.cpp.

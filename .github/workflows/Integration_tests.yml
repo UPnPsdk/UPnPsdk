@@ -281,7 +281,7 @@ jobs:
         run: |
           $env:UPnPsdk_DEBUG = "set"
           cd ./build/Utest
-          ctest -C ${{matrix.buildtype}} --timeout 12 --output-on-failure
+          ctest -C ${{matrix.buildtype}} --timeout 9 --output-on-failure
 
 
   # Job: Configure, build and test with NMake
@@ -376,7 +376,7 @@ jobs:
         run: |
           $env:UPnPsdk_DEBUG = "set"
           cd ./build/Utest
-          ctest -C ${{matrix.buildtype}} --timeout 12 --output-on-failure
+          ctest -C ${{matrix.buildtype}} --timeout 9 --output-on-failure
 
 
   # Job: Run build tests

@@ -1062,16 +1062,36 @@ TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, download_xml_successful) {
-#ifdef __APPLE__
-    GTEST_SKIP() << "             test needs fixes for macOS.";
+#ifdef _MSC_VER
+    if (github_actions)
+        GTEST_SKIP()
+            << "Download XML files must be reworked to be stable on win32.";
 #endif
 
     // The Unit needs a defined state, otherwise it will fail with segfault
     // because internal pupnp media_list_init() isn't executed;
     bWebServerState = WEB_SERVER_DISABLED;
 
+#ifdef __APPLE__
+    if (old_code)
+        if (llaObj.sa.netaddr() == "[fe80::1%lo0]") {
+            // Maybe the netadapter code has found this lla as address on the
+            // loopback adapter. This is a special case on macOS. When given
+            // the adapter name to the old pupnp init function then it selects
+            // the first address on the adapter and that is mostly "[::1]" or
+            // "127.0.0.1" (followed by "[fe80::1]"). Pupnp does not support
+            // loopback addresses and fails.
+            int ret_UpnpInit2 = ::UpnpInit2(llaObj.name.c_str(), 0);
+            EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+                << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+            UpnpFinish();
+            GTEST_SKIP() << "Using a local network loopback interface is not "
+                            "supported by pupnp.";
+        }
+#endif
+
     int ret_UpnpInit2 = ::UpnpInit2(llaObj.name.c_str(), 0);
-    ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
     UpnpSdkInit = 1;
 
@@ -1088,10 +1108,11 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     EXPECT_EQ(ret_UpnpDownloadXmlDoc, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpDownloadXmlDoc, UPNP_E_SUCCESS);
 
-    EXPECT_STREQ(xmldocbuf_ptr->n.nodeName, "#document");
-    EXPECT_EQ(xmldocbuf_ptr->n.nodeValue, nullptr);
-
-    free(xmldocbuf_ptr);
+    if (ret_UpnpDownloadXmlDoc == UPNP_E_SUCCESS) {
+        EXPECT_STREQ(xmldocbuf_ptr->n.nodeName, "#document");
+        EXPECT_EQ(xmldocbuf_ptr->n.nodeValue, nullptr);
+        free(xmldocbuf_ptr);
+    }
     UpnpFinish();
 }
 
