@@ -1,126 +1,78 @@
 <map id="anonymous_namespace{miniserver::cpp}::handle_request" name="anonymous_namespace{miniserver::cpp}::handle_request">
-<area shape="rect" id="Node000001" title="Receive the request and dispatch it for handling." alt="" coords="5,486,196,541"/>
-<area shape="rect" id="Node000002" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a54d3ff9589278aff8765d7a64df23587" title="Based on the type of message, appropriate callback is issued." alt="" coords="244,486,447,541"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,511,230,511,230,516,196,516"/>
-<area shape="rect" id="Node000004" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="782,375,962,415"/>
-<area shape="poly" id="edge66_Node000001_Node000004" title=" " alt="" coords="194,484,244,473,376,452,480,443,584,436,717,421,768,412,769,418,718,426,585,441,480,448,377,457,244,478,195,489"/>
-<area shape="rect" id="Node000007" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="795,146,949,186"/>
-<area shape="poly" id="edge67_Node000001_Node000007" title=" " alt="" coords="119,485,175,414,260,323,311,276,368,232,429,193,494,163,567,144,643,137,717,139,781,146,781,151,716,144,643,142,568,149,496,168,432,198,371,236,315,280,263,327,179,418,123,488"/>
-<area shape="rect" id="Node000009" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="1036,260,1216,300"/>
-<area shape="poly" id="edge74_Node000001_Node000009" title=" " alt="" coords="107,485,125,435,153,371,192,304,215,272,242,244,303,196,358,170,494,133,567,107,632,80,691,55,747,35,802,25,858,27,917,44,980,81,997,96,1005,113,1010,148,1012,185,1017,203,1029,221,1045,238,1065,251,1062,256,1042,242,1025,225,1012,205,1006,186,1004,149,1000,115,992,100,977,85,915,49,857,32,803,30,749,40,693,60,634,85,568,112,495,138,360,175,306,201,246,248,220,276,196,307,158,373,130,437,112,487"/>
-<area shape="rect" id="Node000027" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ac4f5f24f4aa10cc725b96ac5c29a88f7" title="Get the data on the socket and take actions based on the read data to modify the parser objects buffe..." alt="" coords="273,1224,418,1249"/>
-<area shape="poly" id="edge30_Node000001_Node000027" title=" " alt="" coords="107,541,118,638,142,782,161,864,184,948,212,1031,246,1110,283,1167,323,1212,319,1216,279,1170,242,1112,207,1033,179,949,156,865,137,783,113,639,102,542"/>
-<area shape="rect" id="Node000091" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="250,854,441,880"/>
-<area shape="poly" id="edge44_Node000001_Node000091" title=" " alt="" coords="123,540,330,842,325,845,119,543"/>
-<area shape="rect" id="Node000105" href="$dd/d1d/httpparser_8cpp.html#aae19f051c772e39575e48ddb2615f6b5" title="Free memory allocated for the http message." alt="" coords="279,1073,411,1098"/>
-<area shape="poly" id="edge63_Node000001_Node000105" title=" " alt="" coords="114,540,166,691,246,891,292,985,332,1060,328,1062,287,988,242,894,161,693,109,542"/>
-<area shape="rect" id="Node000111" href="$d5/d78/sock_8cpp.html#a90f3d17250e4a8df679a4b88a8abd4da" title="Shutsdown the socket using the ShutdownMethod to indicate whether sends and receives on the socket wi..." alt="" coords="1072,121,1180,146"/>
-<area shape="poly" id="edge68_Node000001_Node000111" title=" " alt="" coords="104,485,118,423,143,342,162,298,184,255,211,214,242,177,273,149,301,129,329,114,357,104,418,89,494,71,628,33,684,18,737,8,790,3,845,5,908,15,980,34,1016,49,1050,69,1103,110,1100,114,1047,73,1013,54,978,39,907,20,845,11,790,8,738,13,685,23,630,38,495,76,419,94,359,109,331,119,304,133,276,154,246,181,215,217,189,257,167,300,148,343,123,425,109,487"/>
-<area shape="rect" id="Node000113" href="$d5/d78/sock_8cpp.html#ad157f660685d5b00db98e17f839e45f8" title="Calls the sock_init function and assigns the passed in IP address and port to the IP address and port..." alt="" coords="278,1322,413,1348"/>
-<area shape="poly" id="edge72_Node000001_Node000113" title=" " alt="" coords="107,541,123,687,152,899,171,1010,193,1113,218,1199,246,1260,274,1291,306,1314,303,1318,270,1295,242,1263,213,1201,188,1114,166,1011,146,900,117,687,102,542"/>
-<area shape="rect" id="Node000003" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="495,228,717,282"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="356,485,376,443,406,391,445,338,493,292,499,288,502,292,496,296,449,341,411,394,381,445,361,488"/>
-<area shape="rect" id="Node000010" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b" title="Check if a network address is numeric." alt="" coords="516,306,696,361"/>
-<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="368,484,422,428,456,398,493,372,505,365,508,370,496,376,459,402,425,432,372,488"/>
-<area shape="rect" id="Node000011" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="533,385,679,410"/>
-<area shape="poly" id="edge12_Node000002_Node000011" title=" " alt="" coords="407,484,563,414,565,418,409,489"/>
-<area shape="rect" id="Node000016" href="$dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="539,178,673,204"/>
-<area shape="poly" id="edge19_Node000002_Node000016" title=" " alt="" coords="349,485,365,428,392,354,411,315,434,277,461,243,493,213,524,197,526,202,496,217,465,246,438,280,415,318,397,356,370,429,355,487"/>
-<area shape="rect" id="Node000018" href="$da/dd9/membuffer_8cpp.html#ab76ad780ccbf0233d6e2b756b259fc53" title="Invokes function to appends data from a constant string to the buffer." alt="" coords="785,590,959,616"/>
-<area shape="poly" id="edge21_Node000002_Node000018" title=" " alt="" coords="407,539,450,555,495,569,567,582,639,591,772,600,772,605,639,597,566,587,494,574,448,560,405,544"/>
-<area shape="rect" id="Node000021" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="797,1034,947,1060"/>
-<area shape="poly" id="edge23_Node000002_Node000021" title=" " alt="" coords="353,541,367,603,393,684,412,727,435,769,463,807,496,840,525,857,552,865,579,866,607,864,634,862,662,864,690,873,719,892,733,908,740,925,744,958,747,991,754,1006,767,1021,785,1033,783,1037,764,1025,750,1009,742,992,739,959,735,926,728,911,716,896,688,877,661,869,634,868,607,869,580,872,551,870,523,862,493,844,459,810,430,771,407,729,388,686,362,604,348,542"/>
-<area shape="rect" id="Node000022" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1065,1034,1187,1060"/>
-<area shape="poly" id="edge26_Node000002_Node000022" title=" " alt="" coords="447,516,595,524,761,537,903,554,952,565,980,577,1005,600,1027,626,1063,684,1089,747,1108,812,1119,875,1125,934,1128,1021,1123,1021,1120,934,1114,876,1102,813,1084,749,1058,686,1023,629,1001,604,977,581,950,570,902,560,760,542,595,529,447,521"/>
-<area shape="rect" id="Node000024" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="827,489,917,514"/>
-<area shape="poly" id="edge27_Node000002_Node000024" title=" " alt="" coords="447,509,813,500,813,506,447,514"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="693,280,719,291,782,328,835,365,832,369,779,332,716,296,691,285"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="687,225,798,188,799,193,689,230"/>
-<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="717,243,843,239,979,246,1035,255,1034,260,978,251,843,245,717,249"/>
-<area shape="rect" id="Node000005" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="1305,375,1463,415"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="962,392,1292,392,1292,398,962,398"/>
-<area shape="rect" id="Node000006" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="1305,260,1463,300"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="961,373,1291,298,1292,304,963,378"/>
-<area shape="rect" id="Node000008" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#aa33ca96a98c6bcaeae39e6f06c1543a0" title="Get the assosiated netaddress without port." alt="" coords="1049,171,1203,211"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="950,171,1035,179,1035,185,949,176"/>
-<area shape="poly" id="edge9_Node000009_Node000005" title=" " alt="" coords="1173,298,1327,367,1324,372,1171,303"/>
-<area shape="poly" id="edge10_Node000009_Node000006" title=" " alt="" coords="1216,278,1292,278,1292,283,1216,283"/>
-<area shape="poly" id="edge15_Node000011_Node000004" title=" " alt="" coords="679,394,768,394,768,399,679,400"/>
-<area shape="poly" id="edge16_Node000011_Node000007" title=" " alt="" coords="678,390,698,383,716,372,729,358,736,344,742,314,747,282,753,265,763,247,792,216,824,191,827,195,795,220,767,250,757,267,752,283,748,315,741,346,733,361,719,376,701,388,680,395"/>
-<area shape="poly" id="edge18_Node000011_Node000009" title=" " alt="" coords="666,383,717,371,1025,301,1026,306,718,376,667,388"/>
-<area shape="rect" id="Node000012" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2a75ddca058ce720523173aafeb87904" title="Get property if socket is bound to an ip address." alt="" coords="782,260,962,300"/>
-<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="678,387,716,372,731,359,740,346,748,331,764,317,787,304,789,308,767,321,753,335,744,349,735,363,719,376,680,392"/>
-<area shape="rect" id="Node000013" href="$d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="826,440,918,465"/>
-<area shape="poly" id="edge17_Node000011_Node000013" title=" " alt="" coords="669,408,813,438,812,443,668,413"/>
-<area shape="poly" id="edge14_Node000012_Node000009" title=" " alt="" coords="962,278,1022,278,1022,283,962,283"/>
-<area shape="rect" id="Node000017" href="$df/db8/LinkedList_8cpp.html#acaab477429a2d1e57eb1b24ee616be3a" title="Finds the specified item in the list." alt="" coords="836,96,908,121"/>
-<area shape="poly" id="edge20_Node000016_Node000017" title=" " alt="" coords="638,176,765,131,822,116,823,121,766,136,640,181"/>
-<area shape="rect" id="Node000019" href="$da/dd9/membuffer_8cpp.html#ad2b10e589712efb648a8f86bfe3b5975" title="Allocates memory for the new data to be inserted. Does memory management by moving the data from the ..." alt="" coords="1057,1085,1195,1110"/>
-<area shape="poly" id="edge22_Node000018_Node000019" title=" " alt="" coords="961,612,981,627,1002,655,1016,683,1023,711,1026,740,1020,795,1006,851,992,906,986,961,988,988,995,1015,1008,1043,1029,1071,1046,1084,1042,1088,1025,1074,1004,1046,990,1017,983,989,980,961,986,905,1001,849,1015,794,1021,740,1018,712,1011,685,997,658,977,630,958,616"/>
-<area shape="poly" id="edge24_Node000021_Node000022" title=" " alt="" coords="947,1044,1051,1044,1051,1050,947,1050"/>
-<area shape="rect" id="Node000023" href="$d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1273,1020,1495,1074"/>
-<area shape="poly" id="edge25_Node000022_Node000023" title=" " alt="" coords="1188,1044,1260,1044,1260,1050,1188,1050"/>
-<area shape="rect" id="Node000025" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="1056,514,1196,540"/>
-<area shape="poly" id="edge28_Node000024_Node000025" title=" " alt="" coords="918,504,1042,516,1042,521,917,509"/>
-<area shape="rect" id="Node000026" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="1036,465,1216,490"/>
-<area shape="poly" id="edge29_Node000024_Node000026" title=" " alt="" coords="917,495,1021,485,1022,490,918,500"/>
-<area shape="rect" id="Node000028" href="$dd/d1d/httpparser_8cpp.html#ad81b8bf2917f89c5f09ed3005c6869a5" title="Append date to HTTP parser, and do the parsing." alt="" coords="547,1173,665,1198"/>
-<area shape="poly" id="edge31_Node000027_Node000028" title=" " alt="" coords="411,1221,533,1197,534,1202,412,1226"/>
-<area shape="rect" id="Node000079" href="$dd/d1d/httpparser_8cpp.html#a5afd7501a14bb89fb3a4fc24cc23c86a" title="Initializes parser object for a request." alt="" coords="533,1274,679,1300"/>
-<area shape="poly" id="edge35_Node000027_Node000079" title=" " alt="" coords="412,1247,527,1269,526,1274,411,1252"/>
-<area shape="rect" id="Node000087" href="$dd/d1d/httpparser_8cpp.html#a95aa14b5e06a3b635c73810fdbcb9de5" title="Initializes parser object for a response." alt="" coords="527,1324,685,1349"/>
-<area shape="poly" id="edge37_Node000027_Node000087" title=" " alt="" coords="369,1247,425,1278,496,1310,521,1318,520,1323,494,1315,423,1283,366,1252"/>
-<area shape="rect" id="Node000088" href="$d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="828,1234,916,1260"/>
-<area shape="poly" id="edge39_Node000027_Node000088" title=" " alt="" coords="418,1235,815,1243,815,1249,418,1241"/>
-<area shape="rect" id="Node000029" href="$da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="797,1136,947,1161"/>
-<area shape="poly" id="edge32_Node000028_Node000029" title=" " alt="" coords="665,1175,784,1158,784,1163,666,1180"/>
-<area shape="rect" id="Node000030" href="$dd/d1d/httpparser_8cpp.html#a4eff37cf0315cb3beccc9e9d03e834c7" title="The parser function." alt="" coords="819,1185,925,1210"/>
-<area shape="poly" id="edge34_Node000028_Node000030" title=" " alt="" coords="666,1186,805,1192,805,1198,666,1191"/>
-<area shape="poly" id="edge33_Node000029_Node000019" title=" " alt="" coords="936,1133,1048,1111,1049,1116,937,1138"/>
-<area shape="rect" id="Node000080" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afdf0b2d4ea832f287ca5fb9aca2aff2d" title="Initializes the parser object." alt="" coords="765,1295,979,1335"/>
-<area shape="poly" id="edge36_Node000079_Node000080" title=" " alt="" coords="680,1292,752,1300,751,1305,679,1297"/>
-<area shape="poly" id="edge38_Node000087_Node000080" title=" " alt="" coords="685,1328,751,1322,751,1328,685,1333"/>
-<area shape="rect" id="Node000089" href="$db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#ad0c68e095264a6c6a0bdc68974f6ae18" title="Read from an SSL protected socket." alt="" coords="1027,1224,1225,1264"/>
-<area shape="poly" id="edge40_Node000088_Node000089" title=" " alt="" coords="917,1244,1013,1243,1013,1248,917,1249"/>
-<area shape="rect" id="Node000090" href="$db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#ae217b5dfecc7cd51d476066695c86aff" title="Read from a not SSL protected socket." alt="" coords="1036,1138,1216,1193"/>
-<area shape="poly" id="edge42_Node000088_Node000090" title=" " alt="" coords="916,1236,978,1221,1047,1196,1049,1201,979,1226,917,1241"/>
-<area shape="poly" id="edge41_Node000089_Node000005" title=" " alt="" coords="1201,1222,1223,1204,1248,1099,1293,868,1374,428,1379,429,1298,869,1253,1100,1228,1207,1204,1227"/>
-<area shape="poly" id="edge43_Node000090_Node000005" title=" " alt="" coords="1207,1136,1223,1122,1241,1082,1262,1010,1307,806,1348,586,1375,428,1380,429,1353,587,1313,807,1268,1011,1246,1084,1227,1125,1211,1140"/>
-<area shape="poly" id="edge60_Node000091_Node000011" title=" " alt="" coords="351,853,589,421,593,424,356,855"/>
-<area shape="poly" id="edge61_Node000091_Node000021" title=" " alt="" coords="370,878,426,908,496,941,570,968,629,986,766,1021,800,1029,798,1034,765,1026,627,991,568,973,494,946,424,913,367,882"/>
-<area shape="poly" id="edge62_Node000091_Node000022" title=" " alt="" coords="357,878,411,944,450,981,496,1013,567,1044,642,1064,719,1076,796,1081,871,1080,940,1075,1053,1060,1054,1065,940,1081,871,1086,796,1087,719,1082,641,1070,565,1049,493,1017,447,985,407,947,353,882"/>
-<area shape="rect" id="Node000092" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e" title="Calculate HTTP response versions based on the request versions." alt="" coords="509,905,703,930"/>
-<area shape="poly" id="edge45_Node000091_Node000092" title=" " alt="" coords="412,877,527,900,526,905,411,883"/>
-<area shape="rect" id="Node000093" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="532,804,680,829"/>
-<area shape="poly" id="edge46_Node000091_Node000093" title=" " alt="" coords="411,852,526,829,527,834,412,857"/>
-<area shape="poly" id="edge53_Node000093_Node000018" title=" " alt="" coords="612,802,633,767,667,719,711,669,736,646,764,626,778,619,781,623,767,631,740,650,715,672,671,722,638,770,617,805"/>
-<area shape="poly" id="edge54_Node000093_Node000021" title=" " alt="" coords="682,824,702,833,719,847,736,869,743,892,743,936,744,980,751,1001,767,1021,785,1034,782,1038,764,1025,747,1003,739,981,738,936,738,893,731,871,715,850,699,838,679,829"/>
-<area shape="poly" id="edge59_Node000093_Node000024" title=" " alt="" coords="612,802,668,704,712,639,763,577,799,545,836,520,839,524,803,550,767,581,716,642,672,707,616,805"/>
-<area shape="poly" id="edge52_Node000093_Node000029" title=" " alt="" coords="637,827,680,853,701,871,720,892,733,917,741,940,744,983,747,1025,754,1047,767,1071,798,1103,833,1127,830,1131,795,1107,763,1074,749,1049,742,1026,739,983,736,941,729,919,715,895,697,875,677,857,634,832"/>
-<area shape="poly" id="edge51_Node000093_Node000093" title=" " alt="" coords="564,806,555,796,560,785,577,779,606,777,643,781,653,786,657,792,652,795,649,790,641,786,606,782,578,785,563,789,560,795,568,802"/>
-<area shape="rect" id="Node000094" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a4c469cd11deee69c1f1d9ec77de66df9" title="Returns the server information for the operating system." alt="" coords="819,689,925,714"/>
-<area shape="poly" id="edge47_Node000093_Node000094" title=" " alt="" coords="625,801,685,764,764,725,805,712,806,717,766,730,688,768,627,806"/>
-<area shape="rect" id="Node000095" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a502852e9caf9d74374e83f8e9bf42acb" title="Validates URL." alt="" coords="825,738,919,764"/>
-<area shape="poly" id="edge48_Node000093_Node000095" title=" " alt="" coords="656,801,765,774,811,763,813,768,766,779,657,806"/>
-<area shape="rect" id="Node000096" href="$d0/d45/statcodes_8cpp.html#aef38182042fe8413586c1bd1d023d98e" title="Return the right status message based on the passed in int statusCode input parameter." alt="" coords="799,788,945,813"/>
-<area shape="poly" id="edge49_Node000093_Node000096" title=" " alt="" coords="680,809,785,803,785,808,680,815"/>
-<area shape="rect" id="Node000099" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a62839c9e5e505c93e0f9eb71d1089594" title="Portable gmtime_r for Microsoft Windows." alt="" coords="813,837,931,862"/>
-<area shape="poly" id="edge50_Node000093_Node000099" title=" " alt="" coords="681,823,799,838,799,843,680,828"/>
-<area shape="rect" id="Node000100" href="$dd/d1d/httpparser_8cpp.html#ae4883a78151ed4bbc5ceb797a5703402" title="A wrapper function that maps a method id to a method." alt="" coords="814,886,930,912"/>
-<area shape="poly" id="edge55_Node000093_Node000100" title=" " alt="" coords="661,827,718,846,743,860,766,873,801,883,799,889,764,878,740,864,716,851,659,832"/>
-<area shape="rect" id="Node000101" href="$d7/d3a/UpnpExtraHeaders_8cpp.html#a786a0c272065b81af91b9f4ea969eadf" title=" " alt="" coords="769,936,975,961"/>
-<area shape="poly" id="edge56_Node000093_Node000101" title=" " alt="" coords="680,827,719,846,736,866,744,886,751,905,767,922,776,928,773,932,764,927,746,908,739,888,731,869,716,851,678,832"/>
-<area shape="rect" id="Node000102" href="$d1/dd9/list_8cpp.html#aadf0be10df4c503872328aaff45aa52d" title="Return iterator pointing to the first list element, or UpnpListEnd(list) if the list is empty." alt="" coords="814,985,930,1010"/>
-<area shape="poly" id="edge57_Node000093_Node000102" title=" " alt="" coords="681,825,701,834,719,847,732,862,740,879,744,911,748,943,754,957,767,972,783,982,801,989,799,994,781,987,764,976,750,960,742,944,738,912,734,880,728,865,716,850,699,838,679,830"/>
-<area shape="rect" id="Node000103" href="$d1/dd9/list_8cpp.html#a4b1675d58cb9f452893e6d6b7fbb83ae" title="Return end of list sentinel iterator (not an element)" alt="" coords="821,640,923,665"/>
-<area shape="poly" id="edge58_Node000093_Node000103" title=" " alt="" coords="616,802,675,741,717,705,764,675,807,660,809,665,767,680,720,710,678,745,620,805"/>
-<area shape="poly" id="edge65_Node000105_Node000021" title=" " alt="" coords="411,1078,782,1051,783,1056,412,1084"/>
-<area shape="rect" id="Node000106" href="$df/db8/LinkedList_8cpp.html#a28e5dc6ff4a189982c97ae5780d360fd" title="Removes all memory associated with list nodes. Does not free LinkedList *list." alt="" coords="558,1124,654,1149"/>
-<area shape="poly" id="edge64_Node000105_Node000106" title=" " alt="" coords="412,1096,545,1122,544,1127,411,1101"/>
-<area shape="poly" id="edge69_Node000111_Node000005" title=" " alt="" coords="1181,135,1206,143,1227,157,1243,176,1251,195,1256,232,1258,270,1264,290,1275,311,1303,341,1336,366,1332,370,1300,345,1271,314,1259,292,1253,271,1251,233,1246,196,1238,179,1224,161,1203,148,1180,140"/>
-<area shape="poly" id="edge70_Node000111_Node000006" title=" " alt="" coords="1181,141,1226,157,1263,177,1298,202,1354,249,1351,253,1294,206,1260,182,1224,162,1179,146"/>
-<area shape="rect" id="Node000112" href="$d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="1337,121,1431,146"/>
-<area shape="poly" id="edge71_Node000111_Node000112" title=" " alt="" coords="1180,131,1324,131,1324,136,1180,136"/>
-<area shape="rect" id="Node000114" href="$d5/d78/sock_8cpp.html#af13a5f56b9850283b5813dff5592149a" title="Assign the passed in socket descriptor to socket descriptor in the SOCKINFO structure." alt="" coords="566,1373,646,1398"/>
-<area shape="poly" id="edge73_Node000113_Node000114" title=" " alt="" coords="412,1345,553,1373,552,1378,411,1351"/>
+<area shape="rect" id="Node000001" title="Receive the request and dispatch it for handling." alt="" coords="5,391,196,446"/>
+<area shape="rect" id="Node000002" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a54d3ff9589278aff8765d7a64df23587" title="Based on the type of message, appropriate callback is issued." alt="" coords="244,391,447,446"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,416,230,416,230,421,196,421"/>
+<area shape="rect" id="Node000004" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="765,129,945,169"/>
+<area shape="poly" id="edge39_Node000001_Node000004" title=" " alt="" coords="122,389,179,324,265,242,316,201,372,163,431,131,494,106,532,98,571,93,649,95,722,107,785,122,783,127,721,112,648,100,571,99,533,103,495,111,434,135,375,168,319,205,268,246,183,328,126,392"/>
+<area shape="rect" id="Node000007" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="778,194,933,234"/>
+<area shape="poly" id="edge40_Node000001_Node000007" title=" " alt="" coords="146,389,212,352,297,310,394,269,494,237,564,223,635,215,764,209,765,214,636,220,565,228,495,242,396,274,299,315,215,357,149,393"/>
+<area shape="rect" id="Node000009" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="765,65,945,105"/>
+<area shape="poly" id="edge47_Node000001_Node000009" title=" " alt="" coords="109,390,127,344,156,287,194,228,217,201,242,176,300,136,364,106,432,85,502,72,571,65,637,63,752,68,752,73,637,68,571,70,502,77,433,91,366,111,303,141,246,180,221,204,198,231,160,290,132,346,114,392"/>
+<area shape="rect" id="Node000027" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ac4f5f24f4aa10cc725b96ac5c29a88f7" title="Get the data on the socket and take actions based on the read data to modify the parser objects buffe..." alt="" coords="273,1010,418,1035"/>
+<area shape="poly" id="edge21_Node000001_Node000027" title=" " alt="" coords="109,446,124,526,151,639,192,769,217,834,246,896,284,953,324,998,320,1002,280,956,242,898,212,836,187,771,146,641,119,527,104,447"/>
+<area shape="rect" id="Node000091" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="250,658,441,683"/>
+<area shape="poly" id="edge26_Node000001_Node000091" title=" " alt="" coords="130,444,324,646,320,649,126,448"/>
+<area shape="rect" id="Node000105" href="$dd/d1d/httpparser_8cpp.html#aae19f051c772e39575e48ddb2615f6b5" title="Free memory allocated for the http message." alt="" coords="279,860,411,886"/>
+<area shape="poly" id="edge36_Node000001_Node000105" title=" " alt="" coords="118,445,246,693,332,847,328,850,242,696,113,447"/>
+<area shape="rect" id="Node000111" href="$d5/d78/sock_8cpp.html#a90f3d17250e4a8df679a4b88a8abd4da" title="Shutsdown the socket using the ShutdownMethod to indicate whether sends and receives on the socket wi..." alt="" coords="801,15,909,40"/>
+<area shape="poly" id="edge41_Node000001_Node000111" title=" " alt="" coords="104,390,118,332,144,257,162,217,184,179,211,143,242,112,306,70,378,39,453,19,529,8,604,3,673,4,788,14,787,19,673,9,604,9,530,13,454,24,379,44,309,74,246,116,215,147,189,182,167,220,149,259,123,333,109,391"/>
+<area shape="rect" id="Node000113" href="$d5/d78/sock_8cpp.html#ad157f660685d5b00db98e17f839e45f8" title="Calls the sock_init function and assigns the passed in IP address and port to the IP address and port..." alt="" coords="278,1108,413,1134"/>
+<area shape="poly" id="edge45_Node000001_Node000113" title=" " alt="" coords="104,446,108,550,115,623,126,705,144,792,169,880,203,965,246,1045,274,1076,307,1099,304,1103,271,1080,242,1048,198,968,164,881,139,793,121,706,110,624,103,551,99,446"/>
+<area shape="rect" id="Node000003" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="495,122,717,176"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="365,389,420,319,493,238,555,183,559,187,497,241,424,322,369,393"/>
+<area shape="rect" id="Node000010" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b" title="Check if a network address is numeric." alt="" coords="516,252,696,307"/>
+<area shape="poly" id="edge10_Node000002_Node000010" title=" " alt="" coords="380,389,432,352,493,316,506,310,508,315,496,321,435,356,383,393"/>
+<area shape="rect" id="Node000011" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="533,380,679,406"/>
+<area shape="poly" id="edge11_Node000002_Node000011" title=" " alt="" coords="447,406,519,399,520,404,447,411"/>
+<area shape="rect" id="Node000016" href="$dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="539,331,673,356"/>
+<area shape="poly" id="edge15_Node000002_Node000016" title=" " alt="" coords="420,388,494,365,526,357,528,362,495,370,422,393"/>
+<area shape="rect" id="Node000018" href="$da/dd9/membuffer_8cpp.html#ab76ad780ccbf0233d6e2b756b259fc53" title="Invokes function to appends data from a constant string to the buffer." alt="" coords="769,482,942,507"/>
+<area shape="poly" id="edge16_Node000002_Node000018" title=" " alt="" coords="429,443,495,460,630,479,755,488,755,493,630,484,494,465,427,448"/>
+<area shape="rect" id="Node000021" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="780,759,931,784"/>
+<area shape="poly" id="edge17_Node000002_Node000021" title=" " alt="" coords="360,444,380,488,410,540,449,595,496,642,561,683,632,715,703,738,767,754,766,759,702,744,631,720,559,688,493,646,445,598,405,543,375,490,355,447"/>
+<area shape="rect" id="Node000022" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1011,708,1133,734"/>
+<area shape="poly" id="edge19_Node000002_Node000022" title=" " alt="" coords="447,419,741,434,873,448,920,457,947,467,975,490,998,518,1018,549,1034,581,1057,644,1069,694,1064,695,1052,646,1029,583,1013,551,994,521,971,494,944,471,918,462,873,453,741,440,447,424"/>
+<area shape="rect" id="Node000024" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="810,570,901,595"/>
+<area shape="poly" id="edge20_Node000002_Node000024" title=" " alt="" coords="395,443,443,469,496,492,576,518,658,540,797,570,796,575,657,546,575,523,494,497,440,473,392,448"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="718,146,752,146,752,152,718,152"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="712,174,766,188,765,193,710,179"/>
+<area shape="poly" id="edge7_Node000003_Node000009" title=" " alt="" coords="712,119,763,106,764,111,714,124"/>
+<area shape="rect" id="Node000005" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="993,129,1151,169"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="946,146,980,146,980,152,946,152"/>
+<area shape="rect" id="Node000006" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="993,65,1151,105"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="923,126,990,106,992,111,925,131"/>
+<area shape="poly" id="edge8_Node000009_Node000005" title=" " alt="" coords="925,102,992,123,990,128,923,108"/>
+<area shape="poly" id="edge9_Node000009_Node000006" title=" " alt="" coords="946,82,980,82,980,88,946,88"/>
+<area shape="poly" id="edge12_Node000011_Node000004" title=" " alt="" coords="678,386,698,378,715,366,732,344,740,322,742,300,740,276,740,229,747,205,763,181,769,175,772,179,767,184,752,207,745,230,746,276,747,300,745,323,737,346,719,370,701,383,680,391"/>
+<area shape="poly" id="edge13_Node000011_Node000007" title=" " alt="" coords="678,381,716,365,752,339,784,307,833,244,837,247,788,310,756,343,719,370,680,386"/>
+<area shape="poly" id="edge14_Node000011_Node000009" title=" " alt="" coords="678,386,698,378,715,366,737,336,745,306,745,275,741,244,736,213,735,181,743,148,763,115,766,112,770,115,767,119,748,150,740,181,741,212,746,244,750,275,750,306,741,338,719,369,701,383,680,391"/>
+<area shape="poly" id="edge18_Node000021_Node000022" title=" " alt="" coords="910,756,1003,734,1004,739,911,761"/>
+<area shape="rect" id="Node000028" href="$dd/d1d/httpparser_8cpp.html#ad81b8bf2917f89c5f09ed3005c6869a5" title="Append date to HTTP parser, and do the parsing." alt="" coords="547,1108,665,1134"/>
+<area shape="poly" id="edge22_Node000027_Node000028" title=" " alt="" coords="370,1033,426,1063,496,1093,534,1104,532,1110,494,1098,424,1068,367,1037"/>
+<area shape="rect" id="Node000079" href="$dd/d1d/httpparser_8cpp.html#a5afd7501a14bb89fb3a4fc24cc23c86a" title="Initializes parser object for a request." alt="" coords="533,960,679,986"/>
+<area shape="poly" id="edge23_Node000027_Node000079" title=" " alt="" coords="413,1007,524,986,525,991,414,1012"/>
+<area shape="rect" id="Node000087" href="$dd/d1d/httpparser_8cpp.html#a95aa14b5e06a3b635c73810fdbcb9de5" title="Initializes parser object for a response." alt="" coords="527,1010,685,1035"/>
+<area shape="poly" id="edge24_Node000027_Node000087" title=" " alt="" coords="418,1020,513,1020,513,1025,418,1025"/>
+<area shape="rect" id="Node000088" href="$d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="562,1059,650,1084"/>
+<area shape="poly" id="edge25_Node000027_Node000088" title=" " alt="" coords="414,1032,549,1058,548,1063,413,1038"/>
+<area shape="poly" id="edge33_Node000091_Node000011" title=" " alt="" coords="357,655,581,414,585,418,361,659"/>
+<area shape="poly" id="edge34_Node000091_Node000021" title=" " alt="" coords="358,681,380,707,412,739,451,770,496,793,535,804,577,811,660,811,738,800,801,785,802,791,739,806,660,816,576,816,534,810,494,798,448,774,408,743,376,711,354,685"/>
+<area shape="poly" id="edge35_Node000091_Node000022" title=" " alt="" coords="441,674,997,713,997,718,441,680"/>
+<area shape="rect" id="Node000092" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e" title="Calculate HTTP response versions based on the request versions." alt="" coords="509,759,703,784"/>
+<area shape="poly" id="edge27_Node000091_Node000092" title=" " alt="" coords="372,681,428,708,496,737,543,753,541,758,494,742,426,713,370,685"/>
+<area shape="rect" id="Node000093" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="532,607,680,632"/>
+<area shape="poly" id="edge28_Node000091_Node000093" title=" " alt="" coords="411,655,526,632,527,637,412,660"/>
+<area shape="poly" id="edge30_Node000093_Node000018" title=" " alt="" coords="631,605,816,511,818,515,634,609"/>
+<area shape="poly" id="edge31_Node000093_Node000021" title=" " alt="" coords="670,630,719,649,753,672,786,698,836,747,832,751,782,702,750,676,716,654,668,635"/>
+<area shape="poly" id="edge32_Node000093_Node000024" title=" " alt="" coords="680,606,796,588,797,594,680,611"/>
+<area shape="poly" id="edge29_Node000093_Node000093" title=" " alt="" coords="566,609,557,599,562,589,578,582,606,580,641,584,651,589,655,595,650,598,647,593,640,589,606,586,579,588,565,593,562,598,570,605"/>
+<area shape="poly" id="edge38_Node000105_Node000021" title=" " alt="" coords="411,865,552,849,635,836,717,818,811,787,812,792,718,823,636,841,553,854,412,871"/>
+<area shape="rect" id="Node000106" href="$df/db8/LinkedList_8cpp.html#a28e5dc6ff4a189982c97ae5780d360fd" title="Removes all memory associated with list nodes. Does not free LinkedList *list." alt="" coords="558,911,654,936"/>
+<area shape="poly" id="edge37_Node000105_Node000106" title=" " alt="" coords="412,883,545,909,544,914,411,888"/>
+<area shape="poly" id="edge42_Node000111_Node000005" title=" " alt="" coords="910,34,947,51,963,67,972,83,980,99,995,115,1002,120,999,124,992,119,976,102,967,86,959,70,944,55,908,39"/>
+<area shape="poly" id="edge43_Node000111_Node000006" title=" " alt="" coords="905,38,984,59,982,64,903,43"/>
+<area shape="rect" id="Node000112" href="$d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="1025,15,1119,40"/>
+<area shape="poly" id="edge44_Node000111_Node000112" title=" " alt="" coords="910,25,1012,25,1012,30,910,30"/>
+<area shape="rect" id="Node000114" href="$d5/d78/sock_8cpp.html#af13a5f56b9850283b5813dff5592149a" title="Assign the passed in socket descriptor to socket descriptor in the SOCKINFO structure." alt="" coords="566,1158,646,1183"/>
+<area shape="poly" id="edge46_Node000113_Node000114" title=" " alt="" coords="413,1131,553,1158,552,1163,412,1136"/>
 </map>

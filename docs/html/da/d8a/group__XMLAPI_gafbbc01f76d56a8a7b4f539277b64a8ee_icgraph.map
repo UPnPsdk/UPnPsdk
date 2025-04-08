@@ -1,82 +1,54 @@
 <map id="ixmlParseBufferEx" name="ixmlParseBufferEx">
-<area shape="rect" id="Node000001" title="Parses an XML text buffer converting it into an IXML DOM representation." alt="" coords="1240,427,1381,452"/>
-<area shape="rect" id="Node000002" href="$d6/d13/Compa_2src_2api_2upnptools_8cpp.html#aafd756cb03883fef4d1a7ee52c53a5eb" title="Adds the argument in the action request or response." alt="" coords="1046,51,1147,76"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1306,413,1300,348,1282,261,1267,215,1248,169,1222,127,1190,91,1170,78,1147,70,1148,65,1172,73,1194,87,1226,124,1252,167,1272,213,1287,260,1305,347,1311,413"/>
-<area shape="rect" id="Node000005" href="$d6/de3/gena__ctrlpt_8cpp.html#a2eb03f67113de1b037f592d6e49cdf3c" title="This function processes NOTIFY events that are sent by devices." alt="" coords="1001,101,1192,141"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1303,413,1293,360,1272,290,1239,218,1217,184,1190,155,1174,143,1177,139,1194,151,1221,181,1244,215,1277,288,1298,358,1309,412"/>
-<area shape="rect" id="Node000009" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a02637d010040bd277464e3324aa697f4" title="This function handles the response coming back from the device." alt="" coords="1007,296,1187,351"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1276,422,1191,372,1154,353,1156,348,1193,368,1278,417"/>
-<area shape="rect" id="Node000015" href="$d4/d99/upnpapi_8cpp.html#a012bb5501f0167248edf7447ee3f092c" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="267,376,435,401"/>
-<area shape="poly" id="edge43_Node000001_Node000015" title=" " alt="" coords="1226,427,1192,423,978,407,767,397,436,391,436,386,767,392,979,402,1192,418,1226,422"/>
-<area shape="rect" id="Node000016" href="$d4/d99/upnpapi_8cpp.html#abd5f9f5ca2e83b67eb0dd421ffd030f9" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="5,376,189,401"/>
-<area shape="poly" id="edge44_Node000001_Node000016" title=" " alt="" coords="1226,442,855,442,609,442,422,436,237,415,164,404,164,399,238,410,423,431,609,437,855,437,1226,437"/>
-<area shape="rect" id="Node000023" href="$d4/d99/upnpapi_8cpp.html#a9300edc4f96f8f3e563bcaf49bffd514" title="Fills the sockadr_in with miniserver information." alt="" coords="757,477,951,503"/>
-<area shape="poly" id="edge26_Node000001_Node000023" title=" " alt="" coords="1227,456,1192,461,952,485,951,480,1192,455,1226,451"/>
-<area shape="rect" id="Node000025" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#aef9e66b433f64923b1142779a4cdced6" title="Handles the SOAP action request." alt="" coords="1007,165,1187,220"/>
-<area shape="poly" id="edge28_Node000001_Node000025" title=" " alt="" coords="1297,415,1258,331,1227,284,1190,241,1164,222,1167,218,1194,237,1232,281,1263,329,1302,412"/>
-<area shape="rect" id="Node000026" href="$d6/d92/soap__device_8cpp.html#a4b5104845d73b836d6365a306fba1679" title="This is a callback called by minisever." alt="" coords="772,169,936,195"/>
-<area shape="poly" id="edge35_Node000001_Node000026" title=" " alt="" coords="1295,416,1254,350,1225,315,1190,286,1165,271,1142,262,1100,254,1055,249,1000,234,976,221,952,208,916,197,918,192,954,204,979,216,1002,229,1056,244,1100,248,1144,256,1167,266,1194,281,1229,311,1259,347,1300,413"/>
-<area shape="rect" id="Node000027" href="$da/d8a/group__XMLAPI.html#ga76cd8382803355c02e9a2e68e4365607" title="Parses an XML text buffer converting it into an IXML DOM representation." alt="" coords="1034,577,1159,603"/>
-<area shape="poly" id="edge31_Node000001_Node000027" title=" " alt="" coords="1295,465,1253,517,1225,544,1193,567,1161,581,1159,576,1191,562,1222,540,1249,513,1291,462"/>
-<area shape="rect" id="Node000028" href="$d6/d13/Compa_2src_2api_2upnptools_8cpp.html#a8f0883133a4ca071148336866431faba" title="Creates the action request or response from the argument list." alt="" coords="1047,627,1146,652"/>
-<area shape="poly" id="edge32_Node000001_Node000028" title=" " alt="" coords="1302,466,1286,500,1262,541,1231,581,1194,616,1171,628,1147,636,1146,631,1169,623,1190,612,1227,578,1258,538,1281,497,1297,463"/>
-<area shape="rect" id="Node000031" href="$d3/d57/group__UPnPTools.html#gae933908ded200771ae8dc9cb8d06d303" title="Can be used when an application needs to transfer the status of many variables at once." alt="" coords="1011,676,1182,701"/>
-<area shape="poly" id="edge36_Node000001_Node000031" title=" " alt="" coords="1306,467,1292,510,1270,565,1238,620,1217,645,1194,667,1175,678,1172,674,1190,663,1213,641,1233,617,1265,562,1287,509,1301,465"/>
-<area shape="rect" id="Node000032" href="$d3/d57/group__UPnPTools.html#ga69a0a991a668c732c0a7f50261ffbd13" title="Creates a property set message packet." alt="" coords="1009,725,1184,751"/>
-<area shape="poly" id="edge37_Node000001_Node000032" title=" " alt="" coords="1309,466,1298,519,1277,586,1262,622,1244,656,1221,688,1194,716,1176,727,1173,723,1190,712,1217,685,1239,653,1258,619,1272,584,1293,517,1303,465"/>
-<area shape="rect" id="Node000033" href="$d4/d99/upnpapi_8cpp.html#ac43a9ddbe8e1c8270f20565240d20563" title="Downloads an XML document specified in a URL." alt="" coords="1011,528,1183,553"/>
-<area shape="poly" id="edge38_Node000001_Node000033" title=" " alt="" coords="1280,462,1239,487,1193,511,1142,530,1140,525,1191,506,1237,482,1277,458"/>
-<area shape="rect" id="Node000003" href="$d3/d57/group__UPnPTools.html#gaecd324ad2ede6fa97a0fb77a67074468" title="Adds the argument in the action request." alt="" coords="786,5,922,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1032,54,922,33,923,28,1033,49"/>
-<area shape="rect" id="Node000004" href="$d3/d57/group__UPnPTools.html#ga6a5c02ae1eca518c8d6507eacd76a928" title="Creates an action response packet based on its output parameters (status variable name and value pair..." alt="" coords="755,55,953,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="1032,67,954,68,953,63,1032,62"/>
-<area shape="rect" id="Node000006" href="$dc/d02/gena__callback2_8cpp.html#a6f658b4eab5786398a00a53b87e7c622" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="799,108,909,133"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="988,123,909,123,909,118,988,118"/>
-<area shape="rect" id="Node000007" href="$d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="541,108,679,133"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="785,123,680,123,680,118,785,118"/>
-<area shape="rect" id="Node000008" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="309,28,394,53"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="567,105,465,67,394,50,395,45,466,62,568,100"/>
-<area shape="rect" id="Node000010" href="$d9/dd1/soap__ctrlpt_8cpp.html#a05e899b6e0c3bc1b2964ac01c37c15d7" title="This function creates a status variable query message send it to the specified URL...." alt="" coords="761,317,947,343"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="993,329,948,330,948,325,993,324"/>
-<area shape="rect" id="Node000019" href="$d9/dd1/soap__ctrlpt_8cpp.html#a98ef5ed7d4950c8d6c2624271efb36bc" title="This function is called by UPnP API to send the SOAP action request." alt="" coords="791,268,917,293"/>
-<area shape="poly" id="edge19_Node000009_Node000019" title=" " alt="" coords="993,308,917,294,918,289,994,303"/>
-<area shape="rect" id="Node000022" href="$d9/dd1/soap__ctrlpt_8cpp.html#a03f9e29e2408fb92bc48b9b93c4c9841" title="This extended function is called by UPnP API to send the SOAP action request." alt="" coords="783,219,925,244"/>
-<area shape="poly" id="edge23_Node000009_Node000022" title=" " alt="" coords="1026,292,952,258,915,247,917,242,954,253,1028,287"/>
-<area shape="rect" id="Node000011" href="$d1/d73/group__compaAPI-Control.html#ga5fcb3482640f0119b34995f8cc087c22" title="Queries the state of a state variable of a service on another device." alt="" coords="515,317,705,343"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="747,333,705,333,705,327,747,327"/>
-<area shape="rect" id="Node000012" href="$d4/d99/upnpapi_8cpp.html#a282c8419fef146b7170ee266159029e6" title="Schedule async functions in threadpool." alt="" coords="521,268,699,293"/>
-<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="777,317,673,296,674,291,778,312"/>
-<area shape="rect" id="Node000013" href="$d4/d99/upnpapi_8cpp.html#a8cd338e66ebab077fa1f0d9bb0bec183" title="Queries the state of a variable of a service, generating a callback when the operation is complete." alt="" coords="237,225,465,251"/>
-<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="519,268,428,253,429,248,520,263"/>
-<area shape="rect" id="Node000014" href="$d4/d99/upnpapi_8cpp.html#a69d01558a5fdec26320b6ea9683f9d70" title="Renews a subscription that is about to expire, generating a callback when the operation is complete." alt="" coords="242,275,461,300"/>
-<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="508,286,461,287,461,282,508,281"/>
-<area shape="poly" id="edge14_Node000012_Node000015" title=" " alt="" coords="527,301,515,307,500,319,491,332,482,346,467,359,421,378,419,374,464,354,478,342,487,329,496,315,512,302,524,296"/>
-<area shape="poly" id="edge16_Node000012_Node000016" title=" " alt="" coords="537,299,466,314,160,379,158,373,465,309,536,294"/>
-<area shape="rect" id="Node000017" href="$d4/d99/upnpapi_8cpp.html#aadb37732f8450dd78eb205842ff82a61" title="Performs the same operation as UpnpSubscribe(), but returns immediately and calls the registered call..." alt="" coords="272,127,431,152"/>
-<area shape="poly" id="edge17_Node000012_Node000017" title=" " alt="" coords="526,264,512,255,494,232,487,208,481,186,464,165,430,149,432,144,467,161,485,183,492,207,499,229,515,251,529,260"/>
-<area shape="rect" id="Node000018" href="$d4/d99/upnpapi_8cpp.html#a6c8bd43f4e0357cdc04939ddd60b383c" title="Removes a subscription of a control point from a service previously subscribed to using UpnpSubscribe..." alt="" coords="263,176,439,201"/>
-<area shape="poly" id="edge18_Node000012_Node000018" title=" " alt="" coords="537,266,512,255,497,245,488,234,478,224,464,215,435,204,436,199,467,210,482,220,491,230,501,241,515,250,540,261"/>
-<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="253,391,189,391,189,386,253,386"/>
-<area shape="poly" id="edge22_Node000019_Node000012" title=" " alt="" coords="777,283,699,283,699,278,777,278"/>
-<area shape="rect" id="Node000020" href="$d4/d99/upnpapi_8cpp.html#aacef79c530ba5401c5946cd64939ef70" title="Sends a message to change a state variable in a service." alt="" coords="545,216,675,241"/>
-<area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="780,268,670,244,671,239,781,263"/>
-<area shape="rect" id="Node000021" href="$d4/d99/upnpapi_8cpp.html#ae3bc939c3883bda96689903791b2c360" title="Sends a message to change a state variable in a service." alt="" coords="279,77,424,103"/>
-<area shape="poly" id="edge21_Node000020_Node000021" title=" " alt="" coords="542,213,512,195,495,174,488,153,480,134,464,116,445,106,423,99,425,94,447,101,467,112,485,131,493,151,500,171,515,191,545,209"/>
-<area shape="poly" id="edge25_Node000022_Node000012" title=" " alt="" coords="778,249,674,271,673,265,777,244"/>
-<area shape="poly" id="edge24_Node000022_Node000021" title=" " alt="" coords="780,218,632,183,562,164,512,147,488,131,464,116,423,104,425,99,466,112,491,127,515,142,564,159,634,178,781,213"/>
-<area shape="rect" id="Node000024" href="$d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="513,477,707,503"/>
-<area shape="poly" id="edge27_Node000023_Node000024" title=" " alt="" coords="743,493,707,493,707,487,743,487"/>
-<area shape="poly" id="edge29_Node000025_Node000026" title=" " alt="" coords="993,191,936,188,936,183,993,185"/>
-<area shape="poly" id="edge30_Node000026_Node000007" title=" " alt="" coords="789,169,661,136,662,131,790,163"/>
-<area shape="rect" id="Node000029" href="$d3/d57/group__UPnPTools.html#ga230b1c85d742030d8adfca84572a3e4d" title="Creates an action request packet based on its input parameters (status variable name and value pair)." alt="" coords="788,627,920,652"/>
-<area shape="poly" id="edge33_Node000028_Node000029" title=" " alt="" coords="1033,642,920,642,920,637,1033,637"/>
-<area shape="rect" id="Node000030" href="$d3/d57/group__UPnPTools.html#ga221f2dc32af51ff01a8d375468a9624d" title="Ceates an action response packet based on its output parameters (status variable name and value pair)..." alt="" coords="757,676,951,701"/>
-<area shape="poly" id="edge34_Node000028_Node000030" title=" " alt="" coords="1034,655,918,679,917,673,1033,649"/>
-<area shape="poly" id="edge39_Node000033_Node000023" title=" " alt="" coords="1021,528,915,505,916,500,1022,522"/>
-<area shape="rect" id="Node000034" href="$d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="761,527,947,552"/>
-<area shape="poly" id="edge40_Node000033_Node000034" title=" " alt="" coords="997,543,947,543,947,537,997,537"/>
-<area shape="rect" id="Node000035" href="$d4/d99/upnpapi_8cpp.html#a40c47dc11eed3d58d20b64dd2804a206" title="Registers one UPnP device object for a specific address family with the UPnP library and get a handle..." alt="" coords="757,576,951,601"/>
-<area shape="poly" id="edge41_Node000033_Node000035" title=" " alt="" coords="1019,559,919,579,918,573,1018,553"/>
-<area shape="rect" id="Node000036" href="$d4/d99/upnpapi_8cpp.html#a4aadebd5375b753c66b3aa8a24017d59" title="Same as UpnpRegisterRootDevice3()" alt="" coords="513,576,707,601"/>
-<area shape="poly" id="edge42_Node000035_Node000036" title=" " alt="" coords="744,591,707,591,707,586,744,586"/>
+<area shape="rect" id="Node000001" title="Parses an XML text buffer converting it into an IXML DOM representation." alt="" coords="732,449,873,475"/>
+<area shape="rect" id="Node000002" href="$d6/d13/Compa_2src_2api_2upnptools_8cpp.html#aafd756cb03883fef4d1a7ee52c53a5eb" title="Adds the argument in the action request or response." alt="" coords="538,55,639,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="798,436,791,370,773,281,758,234,738,187,713,143,682,104,662,89,639,79,641,74,665,84,686,100,718,140,743,185,763,232,778,280,796,369,803,435"/>
+<area shape="rect" id="Node000005" href="$d6/de3/gena__ctrlpt_8cpp.html#a2eb03f67113de1b037f592d6e49cdf3c" title="This function processes NOTIFY events that are sent by devices." alt="" coords="493,114,684,154"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="794,437,782,385,760,318,727,247,706,214,682,184,664,169,644,156,646,152,667,164,686,180,711,211,732,245,765,316,787,384,799,435"/>
+<area shape="rect" id="Node000009" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a02637d010040bd277464e3324aa697f4" title="This function handles the response coming back from the device." alt="" coords="499,195,679,249"/>
+<area shape="poly" id="edge6_Node000001_Node000009" title=" " alt="" coords="788,438,747,362,717,318,682,279,646,252,649,247,686,275,721,315,751,359,793,436"/>
+<area shape="rect" id="Node000023" href="$d4/d99/upnpapi_8cpp.html#a9300edc4f96f8f3e563bcaf49bffd514" title="Fills the sockadr_in with miniserver information." alt="" coords="249,301,443,327"/>
+<area shape="poly" id="edge10_Node000001_Node000023" title=" " alt="" coords="787,439,770,410,747,377,718,347,683,323,648,309,612,300,537,293,466,296,405,304,404,299,465,290,537,287,613,295,650,304,685,318,721,342,751,374,775,407,792,436"/>
+<area shape="rect" id="Node000025" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#aef9e66b433f64923b1142779a4cdced6" title="Handles the SOAP action request." alt="" coords="499,435,679,489"/>
+<area shape="poly" id="edge12_Node000001_Node000025" title=" " alt="" coords="718,465,679,465,679,459,718,459"/>
+<area shape="rect" id="Node000026" href="$d6/d92/soap__device_8cpp.html#a4b5104845d73b836d6365a306fba1679" title="This is a callback called by minisever." alt="" coords="264,449,428,475"/>
+<area shape="poly" id="edge18_Node000001_Node000026" title=" " alt="" coords="759,447,723,434,683,425,630,417,589,415,494,425,470,431,446,439,399,452,398,447,445,434,468,426,493,419,589,409,631,412,685,419,724,429,761,442"/>
+<area shape="rect" id="Node000027" href="$da/d8a/group__XMLAPI.html#ga76cd8382803355c02e9a2e68e4365607" title="Parses an XML text buffer converting it into an IXML DOM representation." alt="" coords="526,513,651,539"/>
+<area shape="poly" id="edge14_Node000001_Node000027" title=" " alt="" coords="752,482,685,503,640,516,639,511,683,498,751,477"/>
+<area shape="rect" id="Node000028" href="$d6/d13/Compa_2src_2api_2upnptools_8cpp.html#a8f0883133a4ca071148336866431faba" title="Creates the action request or response from the argument list." alt="" coords="539,563,638,588"/>
+<area shape="poly" id="edge15_Node000001_Node000028" title=" " alt="" coords="780,486,738,520,685,552,639,569,637,564,683,548,735,516,776,482"/>
+<area shape="rect" id="Node000031" href="$d3/d57/group__UPnPTools.html#gae933908ded200771ae8dc9cb8d06d303" title="Can be used when an application needs to transfer the status of many variables at once." alt="" coords="503,612,674,637"/>
+<area shape="poly" id="edge19_Node000001_Node000031" title=" " alt="" coords="789,488,748,545,719,576,685,602,658,614,656,609,683,597,715,572,744,542,785,485"/>
+<area shape="rect" id="Node000032" href="$d3/d57/group__UPnPTools.html#ga69a0a991a668c732c0a7f50261ffbd13" title="Creates a property set message packet." alt="" coords="501,661,676,687"/>
+<area shape="poly" id="edge20_Node000001_Node000032" title=" " alt="" coords="795,488,779,525,756,569,725,613,686,651,662,664,659,659,682,647,721,610,752,566,775,522,790,486"/>
+<area shape="rect" id="Node000033" href="$d4/d99/upnpapi_8cpp.html#ac43a9ddbe8e1c8270f20565240d20563" title="Downloads an XML document specified in a URL." alt="" coords="503,333,675,359"/>
+<area shape="poly" id="edge21_Node000001_Node000033" title=" " alt="" coords="774,442,732,411,683,380,635,361,637,356,685,376,735,406,777,438"/>
+<area shape="rect" id="Node000015" href="$d4/d99/upnpapi_8cpp.html#a012bb5501f0167248edf7447ee3f092c" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="505,763,673,788"/>
+<area shape="poly" id="edge25_Node000001_Node000015" title=" " alt="" coords="800,489,789,542,769,611,735,682,713,716,686,745,653,765,650,760,682,741,708,712,730,680,764,609,784,541,795,488"/>
+<area shape="rect" id="Node000016" href="$d4/d99/upnpapi_8cpp.html#abd5f9f5ca2e83b67eb0dd421ffd030f9" title="Sends a message to change a state variable in a service, generating a callback when the operation is ..." alt="" coords="254,737,438,763"/>
+<area shape="poly" id="edge27_Node000001_Node000016" title=" " alt="" coords="799,489,787,536,765,593,732,652,711,678,685,700,642,719,579,732,438,748,438,743,579,727,641,714,683,696,707,674,728,649,761,591,782,534,794,488"/>
+<area shape="rect" id="Node000003" href="$d3/d57/group__UPnPTools.html#gaecd324ad2ede6fa97a0fb77a67074468" title="Adds the argument in the action request." alt="" coords="278,5,414,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="524,57,409,33,410,28,525,52"/>
+<area shape="rect" id="Node000004" href="$d3/d57/group__UPnPTools.html#ga6a5c02ae1eca518c8d6507eacd76a928" title="Creates an action response packet based on its output parameters (status variable name and value pair..." alt="" coords="247,55,445,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="524,70,446,70,446,65,524,65"/>
+<area shape="rect" id="Node000006" href="$dc/d02/gena__callback2_8cpp.html#a6f658b4eab5786398a00a53b87e7c622" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="291,104,401,129"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="479,129,401,123,402,118,480,124"/>
+<area shape="rect" id="Node000010" href="$d9/dd1/soap__ctrlpt_8cpp.html#a05e899b6e0c3bc1b2964ac01c37c15d7" title="This function creates a status variable query message send it to the specified URL...." alt="" coords="253,153,439,179"/>
+<area shape="poly" id="edge7_Node000009_Node000010" title=" " alt="" coords="485,201,401,181,402,176,486,196"/>
+<area shape="rect" id="Node000019" href="$d9/dd1/soap__ctrlpt_8cpp.html#a98ef5ed7d4950c8d6c2624271efb36bc" title="This function is called by UPnP API to send the SOAP action request." alt="" coords="283,203,409,228"/>
+<area shape="poly" id="edge8_Node000009_Node000019" title=" " alt="" coords="485,222,409,220,410,214,485,216"/>
+<area shape="rect" id="Node000022" href="$d9/dd1/soap__ctrlpt_8cpp.html#a03f9e29e2408fb92bc48b9b93c4c9841" title="This extended function is called by UPnP API to send the SOAP action request." alt="" coords="275,252,417,277"/>
+<area shape="poly" id="edge9_Node000009_Node000022" title=" " alt="" coords="486,243,418,255,417,250,485,238"/>
+<area shape="rect" id="Node000024" href="$d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="5,301,199,327"/>
+<area shape="poly" id="edge11_Node000023_Node000024" title=" " alt="" coords="235,317,199,317,199,311,235,311"/>
+<area shape="poly" id="edge13_Node000025_Node000026" title=" " alt="" coords="485,465,428,465,428,459,485,459"/>
+<area shape="rect" id="Node000029" href="$d3/d57/group__UPnPTools.html#ga230b1c85d742030d8adfca84572a3e4d" title="Creates an action request packet based on its input parameters (status variable name and value pair)." alt="" coords="280,539,412,564"/>
+<area shape="poly" id="edge16_Node000028_Node000029" title=" " alt="" coords="525,572,412,560,412,555,526,566"/>
+<area shape="rect" id="Node000030" href="$d3/d57/group__UPnPTools.html#ga221f2dc32af51ff01a8d375468a9624d" title="Ceates an action response packet based on its output parameters (status variable name and value pair)..." alt="" coords="249,588,443,613"/>
+<area shape="poly" id="edge17_Node000028_Node000030" title=" " alt="" coords="526,585,444,593,443,588,525,579"/>
+<area shape="poly" id="edge22_Node000033_Node000023" title=" " alt="" coords="489,336,442,329,443,324,489,330"/>
+<area shape="rect" id="Node000034" href="$d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="253,351,439,376"/>
+<area shape="poly" id="edge23_Node000033_Node000034" title=" " alt="" coords="489,356,439,359,438,354,488,350"/>
+<area shape="rect" id="Node000035" href="$d4/d99/upnpapi_8cpp.html#a40c47dc11eed3d58d20b64dd2804a206" title="Registers one UPnP device object for a specific address family with the UPnP library and get a handle..." alt="" coords="249,400,443,425"/>
+<area shape="poly" id="edge24_Node000033_Node000035" title=" " alt="" coords="532,365,446,390,398,403,397,397,445,385,531,360"/>
+<area shape="poly" id="edge26_Node000015_Node000016" title=" " alt="" coords="490,768,438,762,438,757,491,762"/>
 </map>

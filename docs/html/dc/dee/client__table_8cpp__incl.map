@@ -1,38 +1,11 @@
 <map id="Compa/src/genlib/client_table/client_table.cpp" name="Compa/src/genlib/client_table/client_table.cpp">
-<area shape="rect" id="Node000001" title="This file defines the functions for control points." alt="" coords="289,5,464,45"/>
-<area shape="rect" id="Node000002" href="$d9/d78/client__table_8hpp.html" title=" " alt="" coords="313,93,440,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="379,46,379,79,374,79,374,46"/>
-<area shape="rect" id="Node000003" href="$d2/dad/GenlibClientSubscription_8hpp.html" title="Header file for GenlibClientSubscription methods." alt="" coords="271,167,482,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="379,119,379,153,374,153,374,119"/>
-<area shape="rect" id="Node000006" href="$d0/d87/TimerThread_8hpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="114,167,247,192"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="346,121,226,164,225,159,344,116"/>
-<area shape="rect" id="Node000013" href="$db/d74/service__table_8hpp.html" title="Manage the UPnP Services of a UPnP Device if available." alt="" coords="451,240,588,265"/>
-<area shape="poly" id="edge13_Node000002_Node000013" title=" " alt="" coords="418,116,459,135,479,148,496,165,512,195,520,225,514,227,507,197,492,168,476,153,456,140,416,121"/>
-<area shape="rect" id="Node000004" href="$d3/dd1/UpnpString_8hpp.html" title="UpnpString object declaration." alt="" coords="315,387,438,412"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="379,192,379,372,374,372,374,192"/>
-<area shape="rect" id="Node000005" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="303,460,469,485"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="381,412,385,446,380,447,376,413"/>
-<area shape="rect" id="Node000007" href="$d5/d91/ThreadPool_8hpp.html" title="Manage a threadpool (for internal use only)." alt="" coords="119,240,242,265"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="183,192,183,226,178,226,178,192"/>
-<area shape="rect" id="Node000008" href="$de/dd1/LinkedList_8hpp.html" title="Manage a linked list (for internal use only)." alt="" coords="205,313,319,339"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="195,263,240,302,237,306,192,267"/>
-<area shape="rect" id="Node000012" href="$d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="5,313,180,339"/>
-<area shape="poly" id="edge12_Node000007_Node000012" title=" " alt="" coords="168,267,119,307,116,302,165,263"/>
-<area shape="rect" id="Node000009" href="$d8/d1c/FreeList_8hpp.html" title="Manage a free list (for internal use only)." alt="" coords="190,387,291,412"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="261,340,251,374,245,373,256,338"/>
-<area shape="poly" id="edge11_Node000009_Node000005" title=" " alt="" coords="265,410,351,452,349,456,263,414"/>
-<area shape="rect" id="Node000010" href="$d4/d0f/ithread_8hpp.html" title="Deprecated ithread functions redirected to pthread. Internal use Only." alt="" coords="183,460,279,485"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="242,413,237,447,232,446,236,412"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="189,533,273,559"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="234,486,234,520,229,520,229,486"/>
-<area shape="poly" id="edge15_Node000013_Node000008" title=" " alt="" coords="479,268,317,312,316,307,477,263"/>
-<area shape="rect" id="Node000014" href="$d8/dfd/config_8hpp.html" title="Main program configuration file." alt="" coords="504,313,593,339"/>
-<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="527,265,541,300,536,302,522,267"/>
-<area shape="rect" id="Node000015" href="$d8/d32/upnpdebug_8hpp.html" title="Manage Debug messages with levels &quot;critical&quot; to &quot;all&quot;." alt="" coords="618,313,741,339"/>
-<area shape="poly" id="edge16_Node000013_Node000015" title=" " alt="" coords="546,263,642,305,640,310,544,268"/>
-<area shape="rect" id="Node000017" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="462,387,529,412"/>
-<area shape="poly" id="edge18_Node000013_Node000017" title=" " alt="" coords="514,267,503,288,494,314,491,344,493,373,488,373,486,344,489,313,498,286,510,264"/>
-<area shape="rect" id="Node000016" title=" " alt="" coords="638,387,721,412"/>
-<area shape="poly" id="edge17_Node000015_Node000016" title=" " alt="" coords="682,339,682,373,677,373,677,339"/>
-<area shape="poly" id="edge19_Node000017_Node000005" title=" " alt="" coords="479,414,417,455,414,450,476,410"/>
+<area shape="rect" id="Node000001" title="This file defines the functions for control points." alt="" coords="219,5,394,45"/>
+<area shape="rect" id="Node000002" href="$d9/d78/client__table_8hpp.html" title=" " alt="" coords="243,93,370,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="309,46,309,79,304,79,304,46"/>
+<area shape="rect" id="Node000003" href="$d2/dad/GenlibClientSubscription_8hpp.html" title="Header file for GenlibClientSubscription methods." alt="" coords="5,167,216,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="276,121,156,164,155,159,274,116"/>
+<area shape="rect" id="Node000006" href="$d0/d87/TimerThread_8hpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="240,167,373,192"/>
+<area shape="poly" id="edge3_Node000002_Node000006" title=" " alt="" coords="309,119,309,153,304,153,304,119"/>
+<area shape="rect" id="Node000013" href="$db/d74/service__table_8hpp.html" title="Manage the UPnP Services of a UPnP Device if available." alt="" coords="398,167,535,192"/>
+<area shape="poly" id="edge4_Node000002_Node000013" title=" " alt="" coords="333,116,429,159,427,163,331,121"/>
 </map>

@@ -1,37 +1,21 @@
 <map id="GetSubscriptionSID" name="GetSubscriptionSID">
-<area shape="rect" id="Node000001" title="Return the subscription from the service table that matches const Upnp_SID sid value." alt="" coords="915,106,1061,131"/>
-<area shape="rect" id="Node000002" href="$dd/de6/gena__device_8cpp.html#a6fd1575d4217390506014c896b22251e" title="Handles a subscription renewal request from a ctrl point. The connection is not destroyed on return." alt="" coords="669,5,867,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="951,102,866,60,834,48,836,43,868,55,953,97"/>
-<area shape="rect" id="Node000006" href="$dd/de6/gena__device_8cpp.html#a4b03afbfa4cbf8c318857a43bbf92d8e" title="Handles a subscription cancellation request from a ctrl point. The connection is not destroyed on ret..." alt="" coords="670,69,866,109"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="901,110,866,105,866,100,901,104"/>
-<area shape="rect" id="Node000007" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a2cfe3543fad246a253ed6379e1fc0bf4" title="We take ownership of propertySet and will free it." alt="" coords="441,119,621,174"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="901,127,622,144,621,139,901,121"/>
-<area shape="rect" id="Node000012" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae2ea03f611c00f8ca5691e59f7e988c6" title="Thread job to Notify a control point." alt="" coords="678,185,858,239"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="946,139,834,187,832,182,944,134"/>
-<area shape="rect" id="Node000003" href="$dc/d02/gena__callback2_8cpp.html#a6f658b4eab5786398a00a53b87e7c622" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="476,31,587,57"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="655,37,587,42,587,37,655,32"/>
-<area shape="rect" id="Node000004" href="$d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="255,31,393,57"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="462,47,393,47,393,41,462,41"/>
-<area shape="rect" id="Node000005" href="$d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="63,31,149,57"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="241,47,149,47,149,41,241,41"/>
-<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="656,71,587,57,588,52,657,65"/>
-<area shape="rect" id="Node000008" href="$dd/de6/gena__device_8cpp.html#afe08f0a722cafb84faa9def7850da596" title="Sends the intial state table dump to newly subscribed control point." alt="" coords="267,91,381,117"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="427,128,381,118,382,113,428,123"/>
-<area shape="rect" id="Node000010" href="$dd/de6/gena__device_8cpp.html#aadf54fcafc02a512a76124ab8bf938f6" title="Similar to the genaInitNofity. The only difference is that it takes the xml document for the state ta..." alt="" coords="257,141,391,166"/>
-<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="427,153,392,154,391,149,427,147"/>
-<area shape="rect" id="Node000009" href="$d4/d07/group__compaAPI-Eventing.html#ga39884307c097d23a218d0cc03153f076" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi..." alt="" coords="16,91,196,117"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="253,107,196,107,196,101,253,101"/>
-<area shape="rect" id="Node000011" href="$d4/d99/upnpapi_8cpp.html#ab7f67326e349b9025ac62d0b8ae8ae43" title="Similar to UpnpAcceptSubscription() except that it takes a DOM document for the variables to event ra..." alt="" coords="5,141,207,166"/>
-<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="243,156,207,156,207,151,243,151"/>
-<area shape="poly" id="edge13_Node000012_Node000007" title=" " alt="" coords="664,186,621,174,622,169,665,181"/>
-<area shape="rect" id="Node000013" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ac1a38d06cf74cd21f7f8ac40f00efb11" title="We take ownership of propertySet and will free it." alt="" coords="441,198,621,253"/>
-<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="664,220,622,223,621,218,664,215"/>
-<area shape="rect" id="Node000014" href="$dd/de6/gena__device_8cpp.html#a3300ba366cae7db4f8c21b0119cdacd9" title="Sends a notification to all the subscribed control points." alt="" coords="269,205,379,230"/>
-<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="427,224,379,222,380,217,427,219"/>
-<area shape="rect" id="Node000016" href="$dd/de6/gena__device_8cpp.html#a8f2185f7e2ef6345535174b920c6e86b" title="Sends a notification to all the subscribed control points." alt="" coords="259,254,389,279"/>
-<area shape="poly" id="edge17_Node000013_Node000016" title=" " alt="" coords="428,249,389,257,388,251,427,243"/>
-<area shape="rect" id="Node000015" href="$d4/d99/upnpapi_8cpp.html#a889522712799600d91e157c50e8bcd38" title="Sends out an event change notification to all control points subscribed to a particular service." alt="" coords="59,205,153,230"/>
-<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="255,220,154,220,154,215,255,215"/>
-<area shape="rect" id="Node000017" href="$d4/d99/upnpapi_8cpp.html#a2244040bbe493e66273b8b53a61a1959" title="Similar to UpnpNotify() except that it takes a DOM document for the event rather than an array of str..." alt="" coords="48,254,164,279"/>
-<area shape="poly" id="edge18_Node000016_Node000017" title=" " alt="" coords="245,269,164,269,164,264,245,264"/>
+<area shape="rect" id="Node000001" title="Return the subscription from the service table that matches const Upnp_SID sid value." alt="" coords="661,106,808,131"/>
+<area shape="rect" id="Node000002" href="$dd/de6/gena__device_8cpp.html#a6fd1575d4217390506014c896b22251e" title="Handles a subscription renewal request from a ctrl point. The connection is not destroyed on return." alt="" coords="416,5,613,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="697,102,612,60,581,48,583,43,614,55,700,97"/>
+<area shape="rect" id="Node000006" href="$dd/de6/gena__device_8cpp.html#a4b03afbfa4cbf8c318857a43bbf92d8e" title="Handles a subscription cancellation request from a ctrl point. The connection is not destroyed on ret..." alt="" coords="417,69,613,109"/>
+<area shape="poly" id="edge3_Node000001_Node000006" title=" " alt="" coords="647,110,612,105,613,100,648,104"/>
+<area shape="rect" id="Node000007" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a2cfe3543fad246a253ed6379e1fc0bf4" title="We take ownership of propertySet and will free it." alt="" coords="188,119,368,174"/>
+<area shape="poly" id="edge5_Node000001_Node000007" title=" " alt="" coords="648,127,368,144,368,139,647,121"/>
+<area shape="rect" id="Node000012" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae2ea03f611c00f8ca5691e59f7e988c6" title="Thread job to Notify a control point." alt="" coords="425,185,605,239"/>
+<area shape="poly" id="edge8_Node000001_Node000012" title=" " alt="" coords="692,139,581,187,579,182,690,134"/>
+<area shape="rect" id="Node000003" href="$dc/d02/gena__callback2_8cpp.html#a6f658b4eab5786398a00a53b87e7c622" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="223,42,333,67"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="403,42,334,51,333,45,402,37"/>
+<area shape="poly" id="edge4_Node000006_Node000003" title=" " alt="" coords="403,76,334,65,334,60,404,70"/>
+<area shape="rect" id="Node000008" href="$dd/de6/gena__device_8cpp.html#afe08f0a722cafb84faa9def7850da596" title="Sends the intial state table dump to newly subscribed control point." alt="" coords="15,110,130,135"/>
+<area shape="poly" id="edge6_Node000007_Node000008" title=" " alt="" coords="174,137,130,132,130,127,175,132"/>
+<area shape="rect" id="Node000010" href="$dd/de6/gena__device_8cpp.html#aadf54fcafc02a512a76124ab8bf938f6" title="Similar to the genaInitNofity. The only difference is that it takes the xml document for the state ta..." alt="" coords="5,159,140,185"/>
+<area shape="poly" id="edge7_Node000007_Node000010" title=" " alt="" coords="175,162,141,166,140,161,174,157"/>
+<area shape="poly" id="edge9_Node000012_Node000007" title=" " alt="" coords="411,186,367,174,369,169,412,181"/>
+<area shape="rect" id="Node000013" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ac1a38d06cf74cd21f7f8ac40f00efb11" title="We take ownership of propertySet and will free it." alt="" coords="188,198,368,253"/>
+<area shape="poly" id="edge10_Node000012_Node000013" title=" " alt="" coords="411,220,368,223,368,218,411,215"/>
 </map>
