@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-10
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -418,7 +418,7 @@ void fdset_if_valid( //
                      \p \::select(). The structure is modified as documented for
                      \p \::select(). */
 ) {
-    UPnPsdk_LOGINFO("MSG1086") "Check sockfd=" << a_sock << ".\n";
+    TRACE("Executing fdset_if_valid(): check sockfd=" + std::to_string(a_sock))
     if (a_sock == INVALID_SOCKET)
         // This is a defined state and we return silently.
         return;

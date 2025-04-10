@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-12
+// Redistribution only with this Copyright remark. Last modified: 2025-04-10
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -13,6 +13,7 @@
 #include <pupnp/upnpdebug.hpp>
 
 #include <UPnPsdk/upnptools.hpp>
+#include <UPnPsdk/sockaddr.hpp>
 
 #include <utest/utest.hpp>
 #include <umock/sysinfo_mock.hpp>
@@ -24,8 +25,10 @@ namespace utest {
 
 using ::testing::_;
 using ::testing::DoAll;
+using ::testing::Ge;
 using ::testing::InSequence;
 using ::testing::NotNull;
+using ::testing::Pointee;
 using ::testing::Return;
 using ::testing::SetArgPointee; // <argno> is 0-based
 using ::testing::SetErrnoAndReturn;
@@ -35,6 +38,8 @@ using ::testing::StrictMock;
 using ::pupnp::CLogging;
 
 using ::UPnPsdk::errStrEx;
+using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::SSockaddr;
 
 /*
 clang-format off
@@ -477,30 +482,38 @@ TEST_F(HttpBasicFTestSuite, make_message_get_sdk_info_system_info_fails) {
 // ================================
 
 TEST_F(HttpMockFTestSuite, send_message_from_buffer_successful) {
-    if (github_actions)
-        GTEST_SKIP()
-            << "Test needs to be completed after revision of the function().";
-
     // CLogging logObj; // Output only with build type DEBUG.
     // logObj.enable(UPNP_ALL);
 
     SOCKINFO info{};
     info.socket = umock::sfd_base + 51;
     int timeout_secs{HTTP_DEFAULT_TIMEOUT};
-    constexpr char request[]{"This is a test message."};
-    constexpr size_t request_length{sizeof(request) - 1};
+    constexpr char request_out[]{"This is a test message."};
+    constexpr size_t request_length{sizeof(request_out) - 1};
+    SSockaddr saObj;
+    saObj = "[::1]:50077";
 
     // Mock select()
     EXPECT_CALL(m_sys_socketObj,
                 select(info.socket + 1, _, NotNull(), NULL, NotNull()))
         .WillOnce(Return(1)); // send from buffer successful
-    // Mock getsockopt()
-    EXPECT_CALL(m_sys_socketObj, getsockopt(_, SOL_SOCKET, SO_ERROR, _, _))
-        .WillOnce(Return(0));
-    // Mock getsockname()
-    EXPECT_CALL(m_sys_socketObj, getsockname(_, _, _)).WillOnce(Return(0));
+    if (!old_code) {
+        // Mock getsockopt()
+        EXPECT_CALL(m_sys_socketObj, getsockopt(_, SOL_SOCKET, SO_ERROR, _, _))
+            .WillOnce(Return(0));
+        // Mock getsockname()
+        EXPECT_CALL(
+            m_sys_socketObj,
+            getsockname(info.socket, _,
+                        Pointee(Ge(static_cast<socklen_t>(sizeof(saObj.ss))))))
+            .Times(g_dbug ? 2 : 1) // additional call with debug output
+            .WillRepeatedly(
+                DoAll(StructCpyToArg<1>(&saObj.ss, sizeof(saObj.ss)),
+                      SetArgPointee<2>(saObj.sizeof_saddr()), Return(0)));
+    }
     // Mock send()
-    EXPECT_CALL(m_sys_socketObj, send(info.socket, request, request_length, _))
+    EXPECT_CALL(m_sys_socketObj,
+                send(info.socket, request_out, request_length, _))
         .WillOnce(Return((SSIZEP_T)request_length));
 
 #ifdef SO_NOSIGPIPE // this seems to be defined on MacOS
@@ -522,8 +535,8 @@ TEST_F(HttpMockFTestSuite, send_message_from_buffer_successful) {
 #endif
 
     // Test Unit, send from buffer successful
-    int ret_http_SendMessage =
-        http_SendMessage(&info, &timeout_secs, "b", request, request_length);
+    int ret_http_SendMessage = http_SendMessage(&info, &timeout_secs, "b",
+                                                request_out, request_length);
     EXPECT_EQ(ret_http_SendMessage, UPNP_E_SUCCESS)
         << errStrEx(ret_http_SendMessage, UPNP_E_SUCCESS);
 }

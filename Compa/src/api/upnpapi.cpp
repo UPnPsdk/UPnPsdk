@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-02
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1219,8 +1219,9 @@ int UpnpRegisterRootDevice3(const char* const DescUrl, const Upnp_FunPtr Fun,
     else
         strncpy(HInfo->LowerDescURL, LowerDescUrl,
                 sizeof(HInfo->LowerDescURL) - 1);
-    UPnPsdk_LOGINFO("MSG1050") "Following Root UDevice URL will be used when "
-                               "answering to legacy control points: "
+    UPnPsdk_LOGINFO(
+        "MSG1050") "Following Root UDevice local URL will be used when "
+                   "responding to requests from control points: "
         << HInfo->LowerDescURL << ".\n";
     HInfo->Callback = Fun;
     HInfo->Cookie = (char*)Cookie;
@@ -3073,15 +3074,14 @@ int UpnpDownloadUrlItem([[maybe_unused]] const char* url,
 #endif
 
 int UpnpDownloadXmlDoc(const char* url, IXML_Document** xmlDoc) {
-    int ret_code;
-    char* xml_buf;
-    char content_type[LINE_SIZE];
-
-    if (url == NULL || xmlDoc == NULL) {
+    TRACE("Executing UpnpDownloadXmlDoc()")
+    if (url == nullptr || xmlDoc == nullptr) {
         return UPNP_E_INVALID_PARAM;
     }
 
-    ret_code = UpnpDownloadUrlItem(url, &xml_buf, content_type);
+    char* xml_buf;
+    char content_type[LINE_SIZE];
+    int ret_code = UpnpDownloadUrlItem(url, &xml_buf, content_type);
     if (ret_code != UPNP_E_SUCCESS) {
         UpnpPrintf(UPNP_CRITICAL, API, __FILE__, __LINE__,
                    "Error downloading document, retCode: %d\n", ret_code);

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-07
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -749,15 +749,17 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
     memset(Chunk_Header, 0, sizeof(Chunk_Header));
 #endif /* COMPA_HAVE_WEBSERVER */
     va_list argp;
-    char* buf{nullptr};
     char c;
-    int nw;
     int RetVal = UPNP_E_SUCCESS;
-    size_t buf_length;
-    size_t num_written;
 
     UPnPsdk::CSocket_basic sockObj(info->socket);
-    sockObj.load();
+    try {
+        sockObj.load();
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGCATCH("MSG1086") "catched next line...\n" << ex.what();
+        RetVal = UPNP_E_SOCKET_WRITE;
+        goto ExitFunction;
+    }
     if (!sockObj.is_bound()) {
         UPnPsdk_LOGERR("MSG1044") "socket file descriptor("
             << info->socket
@@ -843,6 +845,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                     num_read = umock::stdio_h.fread(file_buf, (size_t)1,
                                                     Data_Buf_Size, Fp);
                 }
+                int nw;
                 if (num_read == (size_t)0) {
                     /* EOF so no more to send. */
                     if (Instr && Instr->IsChunkActive) {
@@ -877,12 +880,11 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                     nw = sock_write(info, file_buf - strlen(Chunk_Header),
                                     num_read + strlen(Chunk_Header) + (size_t)2,
                                     TimeOut);
-                    num_written = static_cast<size_t>(nw);
+                    size_t num_written = static_cast<size_t>(nw);
                     if (nw <= 0 || num_written != num_read +
                                                       strlen(Chunk_Header) +
                                                       (size_t)2)
-                        /* Send error nothing we can do.
-                         */
+                        /* Send error nothing we can do. */
                         goto Cleanup_File;
                 } else {
                     /* write data */
@@ -891,7 +893,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                         << std::string(file_buf, static_cast<size_t>(nw))
                         << "UPnPsdk ------------\n";
                     /* Send error nothing we can do */
-                    num_written = (size_t)nw;
+                    size_t num_written = static_cast<size_t>(nw);
                     if (nw <= 0 || num_written != num_read) {
                         goto Cleanup_File;
                     }
@@ -907,13 +909,13 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
             goto ExitFunction;
         } else
 #endif /* COMPA_HAVE_WEBSERVER */
+
             if (c == 'b') {
                 /* Message to send is given in a memory buffer */
-                buf = va_arg(argp, char*);
-                buf_length = va_arg(argp, size_t);
-                if (buf_length > (size_t)0) {
-                    nw = sock_write(info, buf, buf_length, TimeOut);
-                    num_written = (size_t)nw;
+                char* buf = va_arg(argp, char*);
+                size_t buf_length = va_arg(argp, size_t);
+                if (buf_length > 0u) {
+                    int nw = sock_write(info, buf, buf_length, TimeOut);
 
                     if (UPnPsdk::g_dbug) {
                         // Get the local netaddress the socket is bound to.
@@ -922,24 +924,26 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                         UPnPsdk_LOGINFO("MSG1105") ">>> (SENT) >>> Ctrlpnt "
                                                    "request from local \""
                             << local_saObj.netaddrp()
-                            << "\" to \"HOST:\" in request message following "
-                               "...\n"
+                            << "\" to (\"HOST:\" in following message) ...\n"
                             << std::string(buf, buf_length)
                             << "UPnPsdk buf_length=" << buf_length
-                            << ", num_written=" << num_written
+                            << ", num_written=" << nw
                             << ".\nUPnPsdk ------------\n";
                     }
                     if (nw < 0) {
                         RetVal = nw;
                         goto ExitFunction;
                     }
-                    if (num_written != buf_length) {
+                    // nw may be negive in case of error. This will be casted to
+                    // very big positive numbers that also never equals to
+                    // buf_length.
+                    if (static_cast<size_t>(nw) != buf_length) {
                         RetVal = UPNP_E_SOCKET_WRITE;
                         goto ExitFunction;
                     }
                 }
             }
-    }
+    } // while
 
 ExitFunction:
     va_end(argp);
@@ -1006,57 +1010,69 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
                   size_t* doc_length, char* content_type) {
     TRACE("Executing http_Download()")
     int ret_code;
-    uri_type url;
     char* msg_start;
     char* entity_start;
-    const char* hoststr;
-    size_t hostlen;
-    http_parser_t response;
     size_t msg_length;
     memptr ctype;
     size_t copy_len;
-    membuffer request;
-    size_t url_str_len;
 
-    url_str_len = strlen(url_str);
-    /*ret_code = parse_uri( (char*)url_str, url_str_len, &url ); */
-    UPnPsdk_LOGINFO("MSG1098") "UDevice DOWNLOAD URL=\"" << url_str << "\".\n";
-    ret_code = http_FixStrUrl((char*)url_str, url_str_len, &url);
-    if (ret_code != UPNP_E_SUCCESS) {
-        return ret_code;
+    // Normalize URL-string into
+    uri_type url;
+    {
+        size_t url_str_len = strlen(url_str);
+        /*ret_code = parse_uri( (char*)url_str, url_str_len, &url ); */
+        UPnPsdk_LOGINFO("MSG1098") "UDevice DOWNLOAD URL=\"" << url_str
+                                                             << "\".\n";
+        ret_code = http_FixStrUrl(url_str, url_str_len, &url);
+        if (ret_code != UPNP_E_SUCCESS) {
+            return ret_code;
+        }
     }
-    /* make msg */
-    membuffer_init(&request);
-    ret_code = get_hoststr(url_str, &hoststr, &hostlen);
-    if (ret_code != UPNP_E_SUCCESS) {
-        return ret_code;
-    }
-    ret_code = http_MakeMessage(&request, 1, 1,
-                                "Q"
-                                "s"
-                                "bcDCUc",
-                                HTTPMETHOD_GET, url.pathquery.buff,
-                                url.pathquery.size, "HOST: ", hoststr, hostlen);
-    if (ret_code != 0) {
-        UPnPsdk_LOGINFO("MSG1100") "HTTP Makemessage failed.\n";
-        membuffer_destroy(&request);
-        return ret_code;
-    }
-    UPnPsdk_LOGINFO("MSG1101") "Ctrlpnt send request HTTP Buffer...\n"
-        << request.buf << "UPnPsdk ----------END--------\n";
-    /* get doc msg */
-    ret_code = http_RequestAndResponse(&url, request.buf, request.length,
-                                       HTTPMETHOD_GET, timeout_secs, &response);
 
-    if (ret_code != 0) {
-        httpmsg_destroy(&response.msg);
-        membuffer_destroy(&request);
-        return ret_code;
+    // make msg into
+    http_parser_t response_in;
+    {
+        const char* hoststr;
+        size_t hostlen;
+        ret_code = get_hoststr(url_str, &hoststr, &hostlen);
+        if (ret_code != UPNP_E_SUCCESS) {
+            return ret_code;
+        }
+
+        membuffer request_out;
+        membuffer_init(&request_out); // Does not allocate memory
+        ret_code =
+            http_MakeMessage(&request_out, 1, 1,
+                             "Q"
+                             "s"
+                             "bcDCUc",
+                             HTTPMETHOD_GET, url.pathquery.buff,
+                             url.pathquery.size, "HOST: ", hoststr, hostlen);
+        if (ret_code != 0) {
+            UPnPsdk_LOGERR("MSG1100") "HTTP MakeMessage failed.\n";
+            membuffer_destroy(&request_out);
+            return ret_code;
+        }
+        UPnPsdk_LOGINFO("MSG1101") "Ctrlpnt send request_out HTTP Buffer...\n"
+            << request_out.buf << "UPnPsdk ----------END--------\n";
+
+        /* get doc msg */
+        ret_code =
+            http_RequestAndResponse(&url, request_out.buf, request_out.length,
+                                    HTTPMETHOD_GET, timeout_secs, &response_in);
+
+        membuffer_destroy(&request_out);
+        if (ret_code != 0) {
+            httpmsg_destroy(&response_in.msg);
+            return ret_code;
+        }
     }
-    UPnPsdk_LOGINFO("MSG1102") "Response...\n";
+    UPnPsdk_LOGINFO("MSG1102") "Response_in...\n";
+
     /* optional content-type */
     if (content_type) {
-        if (httpmsg_find_hdr(&response.msg, HDR_CONTENT_TYPE, &ctype) == NULL) {
+        if (httpmsg_find_hdr(&response_in.msg, HDR_CONTENT_TYPE, &ctype) ==
+            NULL) {
             *content_type = '\0'; /* no content-type */
         } else {
             /* safety */
@@ -1068,16 +1084,17 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
             content_type[copy_len] = '\0';
         }
     }
+
     /* extract doc from msg */
-    if ((*doc_length = response.msg.entity.length) == (size_t)0) {
+    if ((*doc_length = response_in.msg.entity.length) == (size_t)0) {
         /* 0-length msg */
         *document = NULL;
-    } else if (response.msg.status_code == HTTP_OK) {
+    } else if (response_in.msg.status_code == HTTP_OK) {
         /*LEAK_FIX_MK */
         /* copy entity */
-        entity_start = response.msg.entity.buf; /* what we want */
-        msg_length = response.msg.msg.length;   /* save for posterity   */
-        msg_start = membuffer_detach(&response.msg.msg); /* whole msg */
+        entity_start = response_in.msg.entity.buf; /* what we want */
+        msg_length = response_in.msg.msg.length;   /* save for posterity */
+        msg_start = membuffer_detach(&response_in.msg.msg); /* whole msg */
         /* move entity to the start; copy null-terminator too */
         memmove(msg_start, entity_start, *doc_length + (size_t)1);
         /* save mem for body only */
@@ -1093,14 +1110,13 @@ int http_Download(const char* url_str, int timeout_secs, char** document,
                 << msg_length << ") <= *doc_length(" << *doc_length
                 << ") or document is NULL.\n";
     }
-    if (response.msg.status_code == HTTP_OK) {
+    if (response_in.msg.status_code == HTTP_OK) {
         ret_code = 0; /* success */
     } else {
         /* server sent error msg (not requested doc) */
-        ret_code = response.msg.status_code;
+        ret_code = response_in.msg.status_code;
     }
-    httpmsg_destroy(&response.msg);
-    membuffer_destroy(&request);
+    httpmsg_destroy(&response_in.msg);
 
     return ret_code;
 }

@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-06
+// Redistribution only with this Copyright remark. Last modified: 2025-04-10
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -419,8 +419,9 @@ CSocket& CSocket::operator=(CSocket that) {
 // Destructor
 CSocket::~CSocket() {
     TRACE2(this, " Destruct CSocket()")
-    UPnPsdk_LOGINFO("MSG1136") "shutdown and close socket fd " << m_sfd
-                                                               << ".\n";
+    if (m_sfd != INVALID_SOCKET)
+        UPnPsdk_LOGINFO("MSG1136") "shutdown and close socket fd " << m_sfd
+                                                                   << ".\n";
     ::shutdown(m_sfd, SHUT_RDWR);
     CLOSE_SOCKET_P(m_sfd);
 }
