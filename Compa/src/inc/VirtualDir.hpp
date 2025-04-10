@@ -28,10 +28,10 @@ struct VirtualDirCallbacks {
      *  file.  The callback should copy \b buflen bytes from the file into
      *  the buffer.
      *  @return An integer representing one of the following:
-     *      \li <tt>   0</tt>:  The file contains no more data (EOF).
-     *      \li <tt> > 0</tt>: A successful read of the number of bytes in
-     * the return code. \li <tt> < 0</tt>: An error occurred reading the
-     * file.
+     *      \li <tt>   0</tt>: The file contains no more data (EOF).
+     *      \li <tt> > 0</tt>: A successful read of the number of bytes in the
+     *                         return code.
+     *      \li <tt> < 0</tt>: An error occurred reading the file.
      */
     VDCallback_Read read;
 

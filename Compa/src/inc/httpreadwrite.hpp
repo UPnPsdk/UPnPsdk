@@ -8,7 +8,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-04-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -476,8 +476,8 @@ UPNPLIB_API int http_SendStatusResponse(
 Format types:
   'B':  arg = int status_code        -- appends content-length, content-type
                                         and HTML body for given code.
-  'b':  arg1 = const char *buf;
-        arg2 = size_t buf_length memory ptr
+  'b':  arg1 = const char* buf       -- appends content of the buffer
+        arg2 = size_t buf_length        with this buffer size
   'C':  (no args)                    -- appends a HTTP CONNECTION: close header
                                         depending on major, minor version.
   'c':  (no args)                    -- appends CRLF "\r\n"
@@ -492,22 +492,22 @@ Format types:
                                         empty
   'N':  arg1 = off_t content_length  -- content-length header
   'q':  arg1 = http_method_t         -- request start line and HOST header
-        arg2 = (uri_type *)
-  'Q':  arg1 = http_method_t;        -- start line of request
+        arg2 = (uri_type*)
+  'Q':  arg1 = http_method_t         -- start line of request
         arg2 = char* url;
         arg3 = size_t url_length
   'R':  arg = int status_code        -- adds a response start line
   'S':  (no args)                    -- appends HTTP SERVER: header
-  's':  arg = const char *           -- C_string
-  'T':  arg = char * content_type;   -- format e.g: "text/html";
+  's':  arg = const char*            -- C_string
+  'T':  arg = char* content_type     -- format e.g: "text/html";
                                         content-type header
-  't':  arg = time_t * gmt_time      -- appends time in RFC 1123 fmt
+  't':  arg = time_t* gmt_time       -- appends time in RFC 1123 fmt
   'U':  (no args)                    -- appends HTTP USER-AGENT: header
-  'X':  arg = const char *           -- useragent; "redsonic"
+  'X':  arg = const char*            -- useragent; "redsonic"
                                         HTTP X-User-Agent: useragent
 \endverbatim
  * \returns
- * On success: UPNP_E_SUCCESS\n
+ * On success: **0**\n
  * On error:
  *  - UPNP_E_OUTOF_MEMORY
  *  - UPNP_E_INVALID_URL

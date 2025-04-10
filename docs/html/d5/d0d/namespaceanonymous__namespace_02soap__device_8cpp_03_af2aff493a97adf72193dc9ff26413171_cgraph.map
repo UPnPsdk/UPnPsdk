@@ -5,11 +5,11 @@
 <area shape="rect" id="Node000003" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="257,351,405,376"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="121,581,306,384,310,388,124,584"/>
 <area shape="rect" id="Node000015" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="504,597,655,623"/>
-<area shape="poly" id="edge25_Node000001_Node000015" title=" " alt="" coords="186,607,490,607,490,613,186,613"/>
-<area shape="rect" id="Node000016" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="759,635,882,660"/>
-<area shape="poly" id="edge26_Node000001_Node000016" title=" " alt="" coords="186,614,476,631,746,642,746,648,476,637,185,619"/>
-<area shape="rect" id="Node000027" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="258,791,403,816"/>
-<area shape="poly" id="edge18_Node000001_Node000027" title=" " alt="" coords="132,636,305,780,302,784,128,640"/>
+<area shape="poly" id="edge23_Node000001_Node000015" title=" " alt="" coords="186,607,490,607,490,613,186,613"/>
+<area shape="rect" id="Node000016" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="731,623,853,648"/>
+<area shape="poly" id="edge24_Node000001_Node000016" title=" " alt="" coords="186,614,476,631,717,634,717,639,476,637,185,620"/>
+<area shape="rect" id="Node000027" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="258,769,403,795"/>
+<area shape="poly" id="edge18_Node000001_Node000027" title=" " alt="" coords="136,635,302,759,299,763,132,640"/>
 <area shape="poly" id="edge7_Node000003_Node000003" title=" " alt="" coords="293,352,284,342,289,332,304,326,331,324,364,328,376,337,373,342,362,333,331,329,306,331,292,336,289,342,296,349"/>
 <area shape="rect" id="Node000004" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a4c469cd11deee69c1f1d9ec77de66df9" title="Returns the server information for the operating system." alt="" coords="527,5,632,31"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="375,348,403,334,426,312,445,277,452,242,450,208,445,175,440,141,441,108,450,74,474,40,492,27,512,19,514,24,494,32,478,44,455,76,446,109,446,141,450,174,456,208,457,243,450,279,430,316,406,338,377,353"/>
@@ -36,16 +36,13 @@
 <area shape="poly" id="edge16_Node000003_Node000023" title=" " alt="" coords="345,374,399,428,436,458,477,484,512,497,510,502,475,488,433,462,395,432,341,378"/>
 <area shape="rect" id="Node000024" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="534,548,625,573"/>
 <area shape="poly" id="edge17_Node000003_Node000024" title=" " alt="" coords="341,375,361,407,391,450,430,495,477,533,499,543,522,551,520,556,497,548,475,538,427,499,387,454,356,410,337,377"/>
-<area shape="poly" id="edge11_Node000015_Node000016" title=" " alt="" coords="655,619,746,633,745,638,654,624"/>
-<area shape="rect" id="Node000028" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2a75ddca058ce720523173aafeb87904" title="Get property if socket is bound to an ip address." alt="" coords="489,698,669,738"/>
-<area shape="poly" id="edge19_Node000027_Node000028" title=" " alt="" coords="368,788,506,740,508,745,370,793"/>
-<area shape="rect" id="Node000029" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="731,713,911,753"/>
-<area shape="poly" id="edge24_Node000027_Node000029" title=" " alt="" coords="403,790,716,745,717,750,404,796"/>
-<area shape="rect" id="Node000032" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="489,813,669,853"/>
-<area shape="poly" id="edge21_Node000027_Node000032" title=" " alt="" coords="404,809,476,818,475,823,403,815"/>
-<area shape="rect" id="Node000033" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="502,877,657,917"/>
-<area shape="poly" id="edge22_Node000027_Node000033" title=" " alt="" coords="361,814,477,862,498,870,497,875,475,867,359,819"/>
-<area shape="rect" id="Node000035" href="$d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="533,941,625,967"/>
-<area shape="poly" id="edge23_Node000027_Node000035" title=" " alt="" coords="345,814,398,869,436,900,477,926,521,942,519,947,475,931,433,904,394,873,341,818"/>
-<area shape="poly" id="edge20_Node000028_Node000029" title=" " alt="" coords="670,721,717,724,717,729,669,726"/>
+<area shape="poly" id="edge11_Node000015_Node000016" title=" " alt="" coords="655,616,717,624,716,629,654,622"/>
+<area shape="rect" id="Node000028" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="489,698,669,738"/>
+<area shape="poly" id="edge19_Node000027_Node000028" title=" " alt="" coords="381,767,487,739,488,744,382,772"/>
+<area shape="rect" id="Node000031" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="502,762,657,802"/>
+<area shape="poly" id="edge20_Node000027_Node000031" title=" " alt="" coords="404,779,488,779,488,785,404,785"/>
+<area shape="rect" id="Node000033" href="$d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="533,827,625,852"/>
+<area shape="poly" id="edge21_Node000027_Node000033" title=" " alt="" coords="387,792,520,823,519,828,386,797"/>
+<area shape="rect" id="Node000036" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="489,877,669,917"/>
+<area shape="poly" id="edge22_Node000027_Node000036" title=" " alt="" coords="353,793,408,826,477,862,495,870,493,874,475,867,405,831,350,797"/>
 </map>

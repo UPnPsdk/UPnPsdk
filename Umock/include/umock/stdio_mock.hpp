@@ -1,7 +1,7 @@
 #ifndef UMOCK_STDIO_MOCK_HPP
 #define UMOCK_STDIO_MOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-04-13
 
 #include <umock/stdio.hpp>
 #include <UPnPsdk/port.hpp>
@@ -24,6 +24,9 @@ class UPNPLIB_API StdioMock : public umock::StdioInterface {
     MOCK_METHOD(size_t, fread, (void* ptr, size_t size, size_t nmemb, FILE* stream), (override));
     MOCK_METHOD(size_t, fwrite, (const void* ptr, size_t size, size_t nmemb, FILE* stream), (override));
     MOCK_METHOD(int, fflush, (FILE * stream), (override));
+    MOCK_METHOD(int, feof, (FILE * stream), (override));
+    MOCK_METHOD(int, ferror, (FILE * stream), (override));
+    MOCK_METHOD(void, clearerr, (FILE * stream), (override));
     ENABLE_MSVC_WARN
 };
 // clang-format on

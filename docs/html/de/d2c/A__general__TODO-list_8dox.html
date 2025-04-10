@@ -106,11 +106,14 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A general TODO-list. </p>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd><ul>
+<li>Improve test_http_Download.cpp, start with error conditions for <a class="el" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters.">http_MakeMessage()</a>.</li>
+<li>Improve <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices.">UpnpInit2()</a> to accept not only netadapter names.</li>
+<li>Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.</li>
 <li>Optimize log messages with ostream overload: <a href="https://stackoverflow.com/a/34122443/5014688">https://stackoverflow.com/a/34122443/5014688</a></li>
+<li>Enable OpenSSL, improve its tests (test_sock.cpp, sock read_ssl, sock write_ssl).</li>
 <li>Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.</li>
 <li>Rework '<a class="el" href="../../de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation.">get_ssdp_sockets()</a>' and Utest/compa/1-discovery/test_ssdp.cpp.</li>
 <li>Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.</li>
-<li>Improve tests for OpenSSL (test_sock.cpp, sock read_ssl, sock write_ssl).</li>
 <li>Create no mocked tests for <a href="#" onclick="location.href='mai'+'lto:'+'CSi'+'gp'+'ipe'+'@s'+'ock'+'.c'+'pp'; return false;">CSigp<span class="obfuscator">.nosp@m.</span>ipe@<span class="obfuscator">.nosp@m.</span>sock.<span class="obfuscator">.nosp@m.</span>cpp</a>, read and write data using UPnP-Device.</li>
 <li>Test and document ixml script support.</li>
 <li>Rework Utest/compa/api.d/test_upnpapi_win32.cpp.</li>
@@ -118,22 +121,14 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <li>Build for ARM platforms.</li>
 <li>Create Unit Test large-file support (<a href="https://gist.github.com/mortenpi/9745042">https://gist.github.com/mortenpi/9745042</a>)</li>
 <li>Create info function in the library to avoid exporting private symbols, callable on the API.</li>
-<li>Use of <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> installation with sample program.</li>
 <li>Remove Interface/ directory?</li>
-<li>Remove random port number generator.</li>
-<li>Eleminate static listing socket objects in miniserver.</li>
-<li>Create connection class.</li>
 <li>Fix "time used" on sock_read and sock_write.</li>
-<li>Remove a_service argument from CAddrinfo constructor.</li>
 <li>Rework test_httpreadwrite.cpp.</li>
 <li>Add AI_IDN and AI_CANONIDN support to CAddrinfo.</li>
-<li>Improve test_http_Download.cpp, start with error conditions for <a class="el" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters.">http_MakeMessage()</a>.</li>
 <li>Use poll() and WSAPoll() instead of select().</li>
-<li>Parse_uri should except "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.</li>
 <li>Create gtests for web_server_callback.</li>
 <li>Check bugfix in pupnp/upnp/src/urlconfig/urlconfig.cpp with a gtest.</li>
 <li>Move pupnp/upnp/src/inc/sock.hpp:79:static UPNP_INLINE int <a class="el" href="../../d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from -1.">sock_close()</a> to <a class="el" href="../../d5/db2/miniserver_8cpp.html" title="Implements the functionality and utility functions used by the Miniserver module.">miniserver.cpp</a> and rework.</li>
-<li>Create own Url class.</li>
 <li>Replace <a class="el" href="../../d5/d91/ThreadPool_8hpp.html#d0/d41/structThreadPool" title="A thread pool.">ThreadPool</a> and multithreading with C++ standard library functions. </li>
 </ul>
 </dd></dl>

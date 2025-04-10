@@ -1,7 +1,7 @@
 #ifndef UMOCK_STDIO_HPP
 #define UMOCK_STDIO_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-07
+// Redistribution only with this Copyright remark. Last modified: 2025-04-13
 
 #include <UPnPsdk/visibility.hpp>
 #include <stdio.h>
@@ -23,6 +23,9 @@ class UPnPsdk_API StdioInterface {
     virtual size_t fwrite(const void* ptr, size_t size, size_t nmemb, FILE* stream) = 0;
     virtual int fclose(FILE* stream) = 0;
     virtual int fflush(FILE* stream) = 0;
+    virtual int feof(FILE* stream) = 0;
+    virtual int ferror(FILE* stream) = 0;
+    virtual void clearerr(FILE* stream) = 0;
 };
 
 
@@ -41,6 +44,9 @@ class StdioReal : public StdioInterface {
     size_t fwrite(const void* ptr, size_t size, size_t nmemb, FILE* stream) override;
     int fclose(FILE* stream) override;
     int fflush(FILE* stream) override;
+    int feof(FILE* stream) override;
+    int ferror(FILE* stream) override;
+    void clearerr(FILE* stream) override;
 };
 // clang-format on
 
@@ -80,6 +86,9 @@ class UPnPsdk_API Stdio {
     virtual size_t fwrite(const void* ptr, size_t size, size_t nmemb, FILE* stream);
     virtual int fclose(FILE* stream);
     virtual int fflush(FILE* stream);
+    virtual int feof(FILE* stream);
+    virtual int ferror(FILE* stream);
+    virtual void clearerr(FILE* stream);
     // clang-format on
 
   private:

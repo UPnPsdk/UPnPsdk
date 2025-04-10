@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-12
+// Redistribution only with this Copyright remark. Last modified: 2025-04-12
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -13,6 +13,8 @@
 #include <pupnp/upnpdebug.hpp>
 
 #include <UPnPsdk/upnptools.hpp>
+#include <UPnPsdk/sockaddr.hpp>
+#include <UPnPsdk/socket.hpp>
 
 #include <utest/utest.hpp>
 #include <umock/sysinfo_mock.hpp>
@@ -24,8 +26,10 @@ namespace utest {
 
 using ::testing::_;
 using ::testing::DoAll;
+using ::testing::Ge;
 using ::testing::InSequence;
 using ::testing::NotNull;
+using ::testing::Pointee;
 using ::testing::Return;
 using ::testing::SetArgPointee; // <argno> is 0-based
 using ::testing::SetErrnoAndReturn;
@@ -35,6 +39,8 @@ using ::testing::StrictMock;
 using ::pupnp::CLogging;
 
 using ::UPnPsdk::errStrEx;
+using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::SSockaddr;
 
 /*
 clang-format off
@@ -58,15 +64,24 @@ clang-format off
 04) Tested with TEST(*, make_message_*)
 05) Tested with TEST(*, request_response_*)
 07) Tested with test_netconnect.cpp - TEST(PrivateConnectFTestSuite, *)
-08) Tested with TEST(*, send_message_*)
+08) Tested with TEST(*, http_send_message_*)
 
 clang-format on
 */
 
 class HttpBasicFTestSuite : public ::testing::Test {
   protected:
+    CLogging logObj; // Output only with build type DEBUG.
     membuffer m_request{};
-    HttpBasicFTestSuite() { membuffer_init(&m_request); }
+
+    // Constructor
+    HttpBasicFTestSuite() {
+        if (g_dbug)
+            logObj.enable(UPNP_ALL);
+        membuffer_init(&m_request);
+    }
+
+    // Destructor
     ~HttpBasicFTestSuite() override { membuffer_destroy(&m_request); }
 };
 
@@ -81,6 +96,35 @@ class HttpMockFTestSuite : public HttpBasicFTestSuite {
     umock::Sys_socket sys_socket_injectObj = umock::Sys_socket(&m_sys_socketObj);
     umock::Stdio stdio_injectObj = umock::Stdio(&m_stdioObj);
     // clang-format on
+
+    // Constructor
+    HttpMockFTestSuite() {
+        // Set default socket object values
+        ON_CALL(m_sys_socketObj, socket(_, _, _))
+            .WillByDefault(SetErrnoAndReturn(EACCESP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, bind(_, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, listen(_, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, select(_, _, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, getsockopt(_, _, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, setsockopt(_, _, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, getsockname(_, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_stdioObj, fopen(_, _))
+            .WillByDefault(SetErrnoAndReturn(EINVALP, nullptr));
+        // stdio fread, fwrite, does not return errors but default 0.
+        ON_CALL(m_stdioObj, fclose(_))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, EOF));
+        ON_CALL(m_stdioObj, fflush(_))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, EOF));
+        ON_CALL(m_stdioObj, feof(_)).WillByDefault(Return(1));
+        ON_CALL(m_stdioObj, ferror(_)).WillByDefault(Return(1));
+        // void stdio clearerr() does nothing return.
+    }
 };
 
 
@@ -476,34 +520,9 @@ TEST_F(HttpBasicFTestSuite, make_message_get_sdk_info_system_info_fails) {
 // Testsuite for http_SendMessage()
 // ================================
 
-TEST_F(HttpMockFTestSuite, send_message_from_buffer_successful) {
-    if (github_actions)
-        GTEST_SKIP()
-            << "Test needs to be completed after revision of the function().";
-
-    // CLogging logObj; // Output only with build type DEBUG.
-    // logObj.enable(UPNP_ALL);
-
-    SOCKINFO info{};
-    info.socket = umock::sfd_base + 51;
-    int timeout_secs{HTTP_DEFAULT_TIMEOUT};
-    constexpr char request[]{"This is a test message."};
-    constexpr size_t request_length{sizeof(request) - 1};
-
-    // Mock select()
-    EXPECT_CALL(m_sys_socketObj,
-                select(info.socket + 1, _, NotNull(), NULL, NotNull()))
-        .WillOnce(Return(1)); // send from buffer successful
-    // Mock getsockopt()
-    EXPECT_CALL(m_sys_socketObj, getsockopt(_, SOL_SOCKET, SO_ERROR, _, _))
-        .WillOnce(Return(0));
-    // Mock getsockname()
-    EXPECT_CALL(m_sys_socketObj, getsockname(_, _, _)).WillOnce(Return(0));
-    // Mock send()
-    EXPECT_CALL(m_sys_socketObj, send(info.socket, request, request_length, _))
-        .WillOnce(Return((SSIZEP_T)request_length));
-
 #ifdef SO_NOSIGPIPE // this seems to be defined on MacOS
+// Subroutine for multiple check of expectations.
+void chk_sigpipe(umock::Sys_socketMock& m_sys_socketObj, SOCKINFO& info) {
     if (old_code) { // Scope InSequence
         InSequence seq;
         // Mock getsockopt(), get old option SIGPIPE
@@ -519,70 +538,183 @@ TEST_F(HttpMockFTestSuite, send_message_from_buffer_successful) {
                     setsockopt(info.socket, SOL_SOCKET, SO_NOSIGPIPE,
                                PointeeVoidToConstInt(0xAA55), _));
     } // End scope InSequence
+}
 #endif
 
+TEST_F(HttpMockFTestSuite, http_send_message_from_buffer_successful) {
+    SOCKINFO info{};
+    info.socket = umock::sfd_base + 51;
+    int timeout_secs{HTTP_DEFAULT_TIMEOUT};
+    constexpr char request_out[]{"Test content from buffer."};
+    constexpr size_t request_length{sizeof(request_out) - 1};
+    SSockaddr saObj;
+    saObj = "[::1]:50077";
+
+    // Mock select()
+    EXPECT_CALL(m_sys_socketObj,
+                select(info.socket + 1, _, NotNull(), NULL, NotNull()))
+        .WillOnce(Return(1)); // send from buffer successful
+
+    if (!old_code) {
+        // Mock getsockopt()
+        EXPECT_CALL(m_sys_socketObj, getsockopt(_, SOL_SOCKET, SO_ERROR, _, _))
+            .Times(3)
+            .WillRepeatedly(Return(0));
+        // Mock getsockname()
+        if (g_dbug)
+            EXPECT_CALL(m_sys_socketObj,
+                        getsockname(info.socket, _,
+                                    Pointee(Ge(static_cast<socklen_t>(
+                                        sizeof(saObj.ss))))))
+                .Times(3)
+                .WillRepeatedly(
+                    DoAll(StructCpyToArg<1>(&saObj.ss, sizeof(saObj.ss)),
+                          SetArgPointee<2>(saObj.sizeof_saddr()), Return(0)));
+    }
+    // Mock send()
+    EXPECT_CALL(m_sys_socketObj,
+                send(info.socket, request_out, request_length, _))
+        .WillOnce(Return((SSIZEP_T)request_length));
+
+#ifdef SO_NOSIGPIPE // this seems to be defined on MacOS
+    {
+        SCOPED_TRACE("");
+        chk_sigpipe(m_sys_socketObj, info);
+    }
+#endif
     // Test Unit, send from buffer successful
-    int ret_http_SendMessage =
-        http_SendMessage(&info, &timeout_secs, "b", request, request_length);
+    int ret_http_SendMessage = http_SendMessage(&info, &timeout_secs, "b",
+                                                request_out, request_length);
+    EXPECT_EQ(ret_http_SendMessage, UPNP_E_SUCCESS)
+        << errStrEx(ret_http_SendMessage, UPNP_E_SUCCESS);
+
+    // Test Unit, send from buffer with buffer length = 0
+    ret_http_SendMessage =
+        http_SendMessage(&info, &timeout_secs, "b", request_out, 0);
+    EXPECT_EQ(ret_http_SendMessage, UPNP_E_SUCCESS)
+        << errStrEx(ret_http_SendMessage, UPNP_E_SUCCESS);
+
+    // Test Unit, only giving send instruction
+    SendInstruction instr{};
+
+    ret_http_SendMessage = http_SendMessage(&info, &timeout_secs, "I", &instr);
     EXPECT_EQ(ret_http_SendMessage, UPNP_E_SUCCESS)
         << errStrEx(ret_http_SendMessage, UPNP_E_SUCCESS);
 }
 
-TEST_F(HttpMockFTestSuite, send_message_from_file_successful) {
-    if (github_actions)
-        GTEST_SKIP() << "Test needs to be completed after rewritten "
-                        "'sock_read()' and 'sock_write()' functions.";
-
-    // CLogging logObj; // Output only with build type DEBUG.
-    // logObj.enable(UPNP_ALL);
+TEST_F(HttpMockFTestSuite, http_send_message_from_file_successful) {
+    constexpr char file_name[]{"./mocked/message.txt"};
+    constexpr char file_content[]{"Test content from file."};
+    FILE fd{};
 
     // Mock fopen()
-    char filename[]{"./mocked/message.txt"};
-    FILE fd{};
 #ifdef _WIN32
-    FILE* fp{};
-    EXPECT_CALL(m_stdioObj, fopen_s(&fp, StrEq(filename), StrEq("rb")))
-        .WillOnce(DoAll(SetArgPointee<0>(&fd), Return(0)));
+    EXPECT_CALL(m_stdioObj, fopen_s(_, StrEq(file_name), StrEq("rb")))
+        // Open with Instruction ("If").
+        .WillOnce(DoAll(SetArgPointee<0>(&fd), Return(0)))
+        // Open with Instruction ("If"), but ReadSendSize = 0.
+        .WillOnce(DoAll(SetArgPointee<0>(&fd), Return(0)))
+        // Open without Instruction ("f").
+        .WillOnce(DoAll(SetArgPointee<0>(nullptr), Return(EINVALP)))
+        // Open with Instruction ("If") but fails with fopen_s() on old_code and
+        // with read() on new code.
+        .WillOnce(DoAll(SetArgPointee<0>(old_code ? nullptr : &fd),
+                        Return(old_code ? EINVALP : 0)));
 #else
-    EXPECT_CALL(m_stdioObj, fopen(StrEq(filename), StrEq("rb")))
-        .WillOnce(Return(&fd));
+    EXPECT_CALL(m_stdioObj, fopen(StrEq(file_name), StrEq("rb")))
+        // Open with Instruction ("If").
+        .WillOnce(Return(&fd))
+        // Open with Instruction ("If"), but ReadSendSize = 0.
+        .WillOnce(Return(&fd))
+        // Open without Instruction ("f").
+        .WillOnce(Return(nullptr))
+        // Open with Instruction ("If") but fails with fopen() on old_code and
+        // with read() on new code.
+        .WillOnce(Return(old_code ? nullptr : &fd));
 #endif
     // Mock fread()
-    constexpr char receive_buf[]{"Test contents from file."};
     EXPECT_CALL(m_stdioObj, fread(_, 1, _, _))
-        .WillOnce(
-            DoAll(StrCpyToArg<0>(receive_buf), Return(sizeof(receive_buf))));
+        .Times(old_code ? 1 : 2)
+        .WillRepeatedly(
+            DoAll(StrCpyToArg<0>(file_content), Return(sizeof(file_content))));
     // Mock fclose()
-    EXPECT_CALL(m_stdioObj, fclose(&fd)).Times(1);
+    EXPECT_CALL(m_stdioObj, fclose(&fd)).Times(old_code ? 2 : 3);
 
     // Provide needed data.
     SOCKINFO info{};
-    info.socket = umock::sfd_base + 52;
+    info.socket = umock::sfd_base + 53;
     int timeout_secs{HTTP_DEFAULT_TIMEOUT};
     SendInstruction instr{};
-    instr.ReadSendSize = -1;
+    instr.ReadSendSize = sizeof(file_content);
+    SSockaddr saObj;
+    saObj = "[::1]:50079";
 
     // Mock select()
     EXPECT_CALL(m_sys_socketObj,
                 select(info.socket + 1, NotNull(), NotNull(), NULL, NotNull()))
         .WillOnce(Return(1)); // send from buffer successful
 
+    if (!old_code) {
+        // Mock getsockopt()
+        EXPECT_CALL(m_sys_socketObj, getsockopt(_, SOL_SOCKET, SO_ERROR, _, _))
+            .Times(4)
+            .WillRepeatedly(Return(0));
+        // Mock getsockname()
+        if (g_dbug)
+            EXPECT_CALL(m_sys_socketObj,
+                        getsockname(info.socket, _,
+                                    Pointee(Ge(static_cast<socklen_t>(
+                                        sizeof(saObj.ss))))))
+                .Times(4)
+                .WillRepeatedly(
+                    DoAll(StructCpyToArg<1>(&saObj.ss, sizeof(saObj.ss)),
+                          SetArgPointee<2>(saObj.sizeof_saddr()), Return(0)));
+        // Mock ferror()
+        EXPECT_CALL(m_stdioObj, ferror(&fd))
+            .WillOnce(Return(0))
+            .WillOnce(Return(1));
+        // Mock clearerr()
+        EXPECT_CALL(m_stdioObj, clearerr(&fd)).Times(old_code ? 0 : 1);
+    }
+    // Mock send()
+    EXPECT_CALL(m_sys_socketObj, send(info.socket, _, _, _))
+        .WillOnce(Return((SSIZEP_T)sizeof(file_content)));
+
+#ifdef SO_NOSIGPIPE // this seems to be defined on MacOS
+    {
+        SCOPED_TRACE("");
+        chk_sigpipe(m_sys_socketObj, info);
+    }
+#endif
     // Test Unit, send from file successful.
     int ret_http_SendMessage =
-        http_SendMessage(&info, &timeout_secs, "If", &instr, filename);
+        http_SendMessage(&info, &timeout_secs, "If", &instr, file_name);
     EXPECT_EQ(ret_http_SendMessage, UPNP_E_SUCCESS)
         << errStrEx(ret_http_SendMessage, UPNP_E_SUCCESS);
 
-#ifdef _WIN32
-    EXPECT_EQ(fp, &fd);
-#endif
+    // Test Unit, send from file with file length = 0.
+    instr.ReadSendSize = 0;
+    ret_http_SendMessage =
+        http_SendMessage(&info, &timeout_secs, "If", &instr, file_name);
+    EXPECT_EQ(ret_http_SendMessage, UPNP_E_SUCCESS)
+        << errStrEx(ret_http_SendMessage, UPNP_E_SUCCESS);
+
+    // Test Unit, send from file without instruction.
+    ret_http_SendMessage =
+        http_SendMessage(&info, &timeout_secs, "f", file_name);
+    EXPECT_EQ(ret_http_SendMessage, UPNP_E_FILE_READ_ERROR)
+        << errStrEx(ret_http_SendMessage, UPNP_E_FILE_READ_ERROR);
+
+    // Test Unit, try to send from file but mocked file read error.
+    instr.ReadSendSize = sizeof(file_content);
+    ret_http_SendMessage =
+        http_SendMessage(&info, &timeout_secs, "If", &instr, file_name);
+    EXPECT_EQ(ret_http_SendMessage, UPNP_E_FILE_READ_ERROR)
+        << errStrEx(ret_http_SendMessage, UPNP_E_FILE_READ_ERROR);
 }
 
 #if 0
-TEST_F(HttpMockFTestSuite, send_message_fails) {
-    CLogging logObj; // Output only with build type DEBUG.
-    logObj.enable(UPNP_ALL);
-
+TEST_F(HttpMockFTestSuite, http_send_message_fails) {
     SOCKINFO info{};
     info.socket = umock::sfd_base + n;
     int timeout_secs{HTTP_DEFAULT_TIMEOUT};
@@ -598,7 +730,7 @@ TEST_F(HttpMockFTestSuite, send_message_fails) {
     EXPECT_CALL(m_sys_socketObj, send(info.socket, request, request_length, _))
         .WillOnce(Return((SSIZEP_T)request_length));
 
-    // 1) Test Unit, send_message_successful
+    // 1) Test Unit, http_send_message_successful
     int ret_http_SendMessage =
         http_SendMessage(&info, &timeout_secs, "b", request, request_length);
     ASSERT_EQ(ret_http_SendMessage, UPNP_E_SUCCESS)
@@ -612,13 +744,10 @@ TEST_F(HttpMockFTestSuite, send_message_fails) {
 }
 #endif
 
-TEST_F(HttpBasicFTestSuite, send_message_without_socket_file_descriptor) {
+TEST_F(HttpBasicFTestSuite, http_send_message_without_socket_file_descriptor) {
     if (github_actions)
         GTEST_SKIP()
             << "Test needs to be completed after revision of test_sock.cpp.";
-
-    // CLogging logObj; // Output only with build type DEBUG.
-    // logObj.enable(UPNP_ALL);
 
     SOCKINFO info{};
     int timeout_secs{HTTP_DEFAULT_TIMEOUT};
@@ -645,9 +774,6 @@ TEST_F(HttpMockFTestSuite, request_response_successful) {
     if (github_actions)
         GTEST_SKIP() << "Test needs to be completed after testing subroutines.";
 
-    // CLogging logObj; // Output only with build type DEBUG.
-    // logObj.enable(UPNP_ALL);
-
     uri_type url;
     http_parser_t response;
 
@@ -664,9 +790,6 @@ TEST_F(HttpMockFTestSuite, request_response_successful) {
 TEST_F(HttpMockFTestSuite, http_Download_successful) {
     if (github_actions)
         GTEST_SKIP() << "Test needs to be completed after testing subroutines.";
-
-    // CLogging logObj; // Output only with build type DEBUG.
-    // logObj.enable(UPNP_ALL);
 
     const char url[]{"http://127.0.0.1:50001/tvdevicedesc.xml"};
     char* outBuf;

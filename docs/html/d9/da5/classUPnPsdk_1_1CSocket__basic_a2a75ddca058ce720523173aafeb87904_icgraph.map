@@ -1,33 +1,7 @@
 <map id="UPnPsdk::CSocket_basic::is_bound" name="UPnPsdk::CSocket_basic::is_bound">
-<area shape="rect" id="Node000001" title="Get property if socket is bound to an ip address." alt="" coords="712,297,892,337"/>
-<area shape="rect" id="Node000002" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="484,132,664,187"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="759,291,613,189,616,185,762,287"/>
-<area shape="rect" id="Node000004" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="501,336,647,361"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="699,334,647,341,646,336,698,329"/>
-<area shape="rect" id="Node000003" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="235,5,435,60"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="522,126,435,74,411,63,413,58,437,69,525,122"/>
-<area shape="rect" id="Node000005" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a54d3ff9589278aff8765d7a64df23587" title="Based on the type of message, appropriate callback is issued." alt="" coords="233,84,436,139"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="559,324,540,286,512,240,477,193,434,152,418,141,420,136,438,148,481,190,516,237,544,284,564,322"/>
-<area shape="rect" id="Node000009" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ab8610e8aea3346f682ca91fe37b21bf8" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="249,163,420,188"/>
-<area shape="poly" id="edge5_Node000004_Node000009" title=" " alt="" coords="555,326,507,263,473,230,435,202,410,191,412,186,437,197,476,226,511,260,560,323"/>
-<area shape="rect" id="Node000014" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="257,212,413,237"/>
-<area shape="poly" id="edge6_Node000004_Node000014" title=" " alt="" coords="548,329,498,289,435,251,404,240,406,235,437,246,501,285,551,325"/>
-<area shape="rect" id="Node000016" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="237,261,433,287"/>
-<area shape="poly" id="edge7_Node000004_Node000016" title=" " alt="" coords="528,333,435,301,393,289,395,284,437,295,530,328"/>
-<area shape="rect" id="Node000056" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="239,311,430,336"/>
-<area shape="poly" id="edge8_Node000004_Node000056" title=" " alt="" coords="487,342,430,336,430,331,488,337"/>
-<area shape="rect" id="Node000065" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1" title="Main entry point into web server." alt="" coords="16,336,175,361"/>
-<area shape="poly" id="edge16_Node000004_Node000065" title=" " alt="" coords="487,351,175,351,175,346,487,346"/>
-<area shape="rect" id="Node000067" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae1781a5b638d50bd7626b3ea925492cb" title="Sends the notify message and returns a reply." alt="" coords="245,412,425,467"/>
-<area shape="poly" id="edge10_Node000004_Node000067" title=" " alt="" coords="527,369,409,414,407,409,526,364"/>
-<area shape="rect" id="Node000063" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a11f6b8370b141ab90b844dbf1092265c" title="Returns OK message in the case of a subscription request." alt="" coords="245,491,425,545"/>
-<area shape="poly" id="edge11_Node000004_Node000063" title=" " alt="" coords="555,374,505,426,472,455,437,480,415,493,412,488,435,476,469,451,501,422,551,370"/>
-<area shape="rect" id="Node000080" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a06c8e12369d9db67a834d961dc914563" title="Sends the SOAP action response." alt="" coords="5,588,185,643"/>
-<area shape="poly" id="edge12_Node000004_Node000080" title=" " alt="" coords="566,375,548,417,521,467,484,517,462,540,437,559,393,577,329,592,186,611,185,605,328,586,391,572,435,554,459,536,480,514,517,464,544,414,561,373"/>
-<area shape="rect" id="Node000082" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#af2aff493a97adf72193dc9ff26413171" title="Sends SOAP error response." alt="" coords="245,621,425,676"/>
-<area shape="poly" id="edge13_Node000004_Node000082" title=" " alt="" coords="567,375,550,423,523,483,486,547,463,577,438,604,411,623,408,619,434,600,459,573,481,544,518,481,545,421,562,374"/>
-<area shape="rect" id="Node000084" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#ac97fc275f79e926d35c691d839489b07" title="Sends response of get var status." alt="" coords="239,700,430,755"/>
-<area shape="poly" id="edge15_Node000004_Node000084" title=" " alt="" coords="572,375,560,438,536,522,518,567,497,612,470,653,438,691,424,702,420,698,434,687,466,650,492,609,514,565,531,520,555,437,567,374"/>
-<area shape="poly" id="edge9_Node000056_Node000065" title=" " alt="" coords="226,338,175,343,175,338,225,332"/>
-<area shape="poly" id="edge14_Node000082_Node000080" title=" " alt="" coords="231,637,185,630,186,625,232,632"/>
+<area shape="rect" id="Node000001" title="Get property if socket is bound to an ip address." alt="" coords="481,13,661,53"/>
+<area shape="rect" id="Node000002" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="253,5,433,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="467,35,433,35,433,30,467,30"/>
+<area shape="rect" id="Node000003" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="5,5,205,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="239,35,206,35,206,30,239,30"/>
 </map>
