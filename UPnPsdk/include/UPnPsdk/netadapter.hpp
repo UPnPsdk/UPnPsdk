@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-01
+// Redistribution only with this Copyright remark. Last modified: 2025-04-14
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -106,7 +106,9 @@ class CNetadapter {
     UPnPsdk_API CNetadapter(
         /*! [in] Inject the used \glos{depinj,di-service} object that is by
          * default the productive one but may also be a mocked object for Unit
-         * Tests. */
+         * Tests. For example productive di-services are the objects to get
+         * local network adapter information on Unix platforms, or on Microsoft
+         * Windows platforms. */
         PNetadapter_platform a_na_platformPtr =
             std::make_shared<CNetadapter_platform>());
 

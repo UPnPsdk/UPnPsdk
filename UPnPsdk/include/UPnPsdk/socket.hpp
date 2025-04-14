@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-03
+// Redistribution only with this Copyright remark. Last modified: 2025-04-16
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -196,10 +196,20 @@ class UPnPsdk_API CSocket_basic {
      * For an example look at CSocket_basic::is_bound().
      * \exception std::runtime_error Failed to get address from socket. */
     void sockaddr(
-        /*! [in,out] Reference to a socket address structure that will be
+        /*! [out] Reference to a socket address structure that will be
          * filled with the address information. If an error is thrown the
          * structure is not modified. If no information is available (the socket
          * is not bound to a network adapter) an unspecified netaddress is
+         * returned. */
+        SSockaddr& a_saddr) const;
+
+    /*! \brief Get the remote socket address the socket is connected to
+     */
+    void remote_saddr(
+        /*! [out] Reference to a socket address structure that will be
+         * filled with the address information. If an error is thrown the
+         * structure is not modified. If no information is available (the socket
+         * is not connected to a remote peer) an unspecified netaddress is
          * returned. */
         SSockaddr& a_saddr) const;
 
@@ -245,7 +255,7 @@ class UPnPsdk_API CSocket_basic {
      * close(sfd);
      * \endcode
      * \returns
-     *  - \b -1 The socket is passive bound to an ip address of a local
+     *  - \b -1 The socket is passive bound with its local ip address of a
      *          network adapter for listening on incomming requests.
      *  - \b 0 The socket is not bound to any ip address.
      *  - \b 1 The socket is bound to an ip address ready to use for syscalls
@@ -330,58 +340,89 @@ class UPnPsdk_API CSocket : public CSocket_basic {
     /*! \name Setter
      * *************
      * @{ */
-    /*! \brief Bind socket to an ip address
-     * <!-- --------------------------- -->
+    /*! \brief Bind socket to an ip address of a local network adapter.
+     * <!-- ------------------------------------------------------- -->
+     * \details Usage e.g. to bind with default settings to an IP address of a
+     * local network adapter for use with **connect**, **sendto**, or
+     * **sendmsg** to send requests (typically control points). The address is
+     * selected by the operating system and considered to be the best choise.
      * \code
-     * // Usage e.g. to bind to localhost for use with **connect**, **sendto**,
-     * // or **sendmsg** (typically clients).
      * CSocket sock1Obj;
      * try {
      *     sock1Obj.bind(SOCK_STREAM);
-     * } catch(xcp) { handle_error(); }
+     * } catch(std::exception& ex) { handle_error(); }
+     * \endcode
      *
-     * // Usage e.g. to bind with default settings for listening on local
-     * // network adapters (typically server).
+     * Usage e.g. to bind with default settings for listening on local network
+     * adapters for incomming requests (typically UPnP devices).
+     * \code
      * CSocket sock2Obj;
      * try {
      *     sock2Obj.bind(SOCK_STREAM, nullptr, AI_PASSIVE);
-     * } catch(xcp) { handle_error(); }
+     * } catch(std::exception& ex) { handle_error(); }
+     * \endcode
      *
-     * // Usage e.g. to bind for listening on the link local address of a local
-     * // network adapter.
+     * Usage e.g. to bind for listening on the link local address of a local
+     * network adapter.
+     * \code
      * SSockaddr saddr3;
      * saddr3 = "[fe80::fedc:cdef:0:1]";
      * CSocket sock3Obj;
      * try {
      *     sock3Obj.bind(SOCK_STREAM, &saddr3, AI_PASSIVE);
-     * } catch(xcp) { handle_error(); }
+     * } catch(std::exception& ex) { handle_error(); }
+     * \endcode
      *
-     * // Usage e.g. to bind to a global unicast address for use with
-     * // **connect**, **sendto**, or **sendmsg**.
+     * Usage e.g. to bind to a global unicast address for use with **connect**,
+     * **sendto**, or **sendmsg**.
+     * \code
      * SSockaddr saddr4;
      * saddr4 = "[2001:db8::abc]:50001";
      * CSocket sock4Obj;
      * try {
      *     sock4Obj.bind(SOCK_STREAM, &saddr4);
-     * } catch(xcp) { handle_error(); }
+     * } catch(std::exception& ex) { handle_error(); }
      * \endcode
-
+     *
+     * Usage e.g. to bind to "localhost", resp. to one of the loopback
+     * addresses of best choise.
+     * \code
+     * SSockaddr saddr5; // Unspecified address selects a loopback address.
+     * CSocket sock5Obj;
+     * try {
+     *     sock5Obj.bind(SOCK_STREAM, &saddr5);
+     * } catch(std::exception& ex) { handle_error(); }
+     * \endcode
+     *
+     * You can also use "localhost" with CAddrinfo, but that allocates memory
+     * and do a DNS lookup. You should prefer the previous example.
+     * \code
+     * SSockaddr saddr6;
+     * CSocket sock6Obj;
+     * CAddrinfo ai("localhost");
+     * try {
+     *     ai.get_first();
+     *     ai.sockaddr(saddr6);
+     *     sock6Obj.bind(SOCK_STREAM, &saddr6);
+     * } catch(std::exception& ex) { handle_error(); }
+     * \endcode
+     *
      * This method uses internally the system function <a
      * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">::%getaddrinfo()</a>
      * to provide possible socket addresses. If the AI_PASSIVE flag is
      * specified with **a_flags**, and **a_saddr** is an unspecified socket
-     * address (netaddress ":0") , then the selected local socket
-     * addresses will be suitable for **binding** a socket that will **accept**
+     * address (netaddress ":0") , then the selected local socket addresses
+     * will be suitable for **binding** a socket that will **accept**
      * connections. The selected local socket address will contain the
      * "wildcard address" (INADDR_ANY for IPv4 addresses, IN6ADDR_ANY_INIT for
      * IPv6 address). The wildcard address is used by applications (typically
-     * servers) that intend to accept connections on any of the host's network
-     * addresses. If **a_saddr** is specified, then the AI_PASSIVE flag is
-     * ignored.
+     * UPnP devices) that intend to accept connections on any of the host's
+     * network addresses. If **a_saddr** is specified, then the AI_PASSIVE flag
+     * is ignored.
      *
      * If the AI_PASSIVE flag is not set, then the selected local socket
      * addresses will be suitable for use with **connect**, **sendto**, or
-     * **sendmsg** (typically clients).
+     * **sendmsg** (typically control points).
      *
      * I internally always set IPV6_V6ONLY to false to use IPv6 mapped IPv4
      * addresses. This is default on Unix platforms when binding the address
@@ -393,7 +434,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
         const int a_socktype,
         /*! [in] Optional: Pointer to a socket address the socket shall be bound
          * to. */
-        SSockaddr* a_saddr = nullptr,
+        const SSockaddr* const a_saddr = nullptr,
         /*! [in] Optional: this field specifies additional options, as
          * described at <a
          * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html#DESCRIPTION">getaddrinfo(3)

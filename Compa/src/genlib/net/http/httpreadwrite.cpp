@@ -887,11 +887,10 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                      * %s\n",file_buf-strlen(Chunk_Header));*/
                     num_write = sock_write(
                         info, file_buf - strlen(Chunk_Header),
-                        num_read + strlen(Chunk_Header) + (size_t)2, TimeOut);
+                        num_read + strlen(Chunk_Header) + 2u, TimeOut);
                     size_t num_written = static_cast<size_t>(num_write);
                     if (num_write <= 0 ||
-                        num_written !=
-                            num_read + strlen(Chunk_Header) + (size_t)2)
+                        num_written != num_read + strlen(Chunk_Header) + 2u)
                         /* Send error nothing we can do. */
                         goto Cleanup_File;
                 } else {

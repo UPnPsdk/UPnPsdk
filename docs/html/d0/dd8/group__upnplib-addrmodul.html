@@ -225,7 +225,7 @@ sa</td>
 <div class="line"><span class="keywordflow">try</span> {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;bitmask is &quot;</span> &lt;&lt; <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71">netmask_to_bitmask</a>(&amp;saddr) &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::runtime_error&amp; ex) { handle_error() }</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga539a669f96c0c642b2ed25b1c4dd1f71"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71">UPnPsdk::netmask_to_bitmask</a></div><div class="ttdeci">uint8_t netmask_to_bitmask(const ::sockaddr_storage *a_netmask)</div><div class="ttdoc">Get prefix bit number from a network address mask.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00015">netadapter.cpp:15</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga539a669f96c0c642b2ed25b1c4dd1f71"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71">UPnPsdk::netmask_to_bitmask</a></div><div class="ttdeci">uint8_t netmask_to_bitmask(const ::sockaddr_storage *a_netmask)</div><div class="ttdoc">Get prefix bit number from a network address mask.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00014">netadapter.cpp:14</a></div></div>
 </div><!-- fragment --><p> Returns the length, in bits, of the prefix or network part of the IP address, e.g. 64 from "[2001:db8::1]/64". A value of 255 is commonly used to represent an illegal value but this function throws an exception instead.</p>
 <dl class="section return"><dt>Returns</dt><dd>The length, in bits, of the prefix or network part of the IP address, 0..32 for IPv4, 0..128 for IPv6. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
@@ -245,7 +245,7 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d05/netadapter_8cpp_source.html#l00015">15</a> of file <a class="el" href="../../df/d05/netadapter_8cpp_source.html">netadapter.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d05/netadapter_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../df/d05/netadapter_8cpp_source.html">netadapter.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -301,7 +301,7 @@ sa</td>
 <div class="line">    <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">bitmask_to_netmask</a>(&amp;saddr, 64, saObj);</div>
 <div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::runtime_error&amp; ex) { handle_error() }</div>
 <div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;netmask is &quot;</span> &lt;&lt; saObj.netaddr() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_gadd67f7b346d4017d3cb45e45e0be77fb"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">UPnPsdk::bitmask_to_netmask</a></div><div class="ttdeci">void bitmask_to_netmask(const ::sockaddr_storage *a_saddr, const unsigned int a_prefixlength, SSockaddr &amp;a_saddrObj)</div><div class="ttdoc">Get network address mask from address prefix bit number.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00109">netadapter.cpp:109</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_gadd67f7b346d4017d3cb45e45e0be77fb"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">UPnPsdk::bitmask_to_netmask</a></div><div class="ttdeci">void bitmask_to_netmask(const ::sockaddr_storage *a_saddr, const unsigned int a_prefixlength, SSockaddr &amp;a_saddrObj)</div><div class="ttdoc">Get network address mask from address prefix bit number.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00108">netadapter.cpp:108</a></div></div>
 </div><!-- fragment --> <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::runtime_error</td><td><ul>
@@ -322,7 +322,7 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d05/netadapter_8cpp_source.html#l00109">109</a> of file <a class="el" href="../../df/d05/netadapter_8cpp_source.html">netadapter.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d05/netadapter_8cpp_source.html#l00108">108</a> of file <a class="el" href="../../df/d05/netadapter_8cpp_source.html">netadapter.cpp</a>.</p>
 
 </div>
 </div>
@@ -393,7 +393,7 @@ sa</td>
 <area shape="poly" title=" " alt="" coords="422,45,380,39,381,34,423,40"/>
 <area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1f9d157e611b5cda3903b0497728c7c6" title="Set socket address from a netaddress." alt="" coords="228,69,383,109"/>
 <area shape="poly" title=" " alt="" coords="423,75,383,81,382,75,422,69"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35" title="Bind socket to an ip address." alt="" coords="5,13,180,38"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea" title="Bind socket to an ip address of a local network adapter." alt="" coords="5,13,180,38"/>
 <area shape="poly" title=" " alt="" coords="217,28,180,28,180,23,217,23"/>
 </map>
 </div>

@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-10
+// Redistribution only with this Copyright remark. Last modified: 2025-04-15
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -8,6 +8,7 @@
 #include <UPnPsdk/socket.hpp>
 
 #include <UPnPsdk/addrinfo.hpp>
+#include <UPnPsdk/netadapter.hpp>
 #include <umock/sys_socket.hpp>
 #include <umock/stringh.hpp>
 #ifdef _MSC_VER
@@ -257,6 +258,44 @@ void CSocket_basic::sockaddr(SSockaddr& a_saddr) const {
         << af << ".\n";
 }
 
+void CSocket_basic::remote_saddr(SSockaddr& a_saddr) const {
+    TRACE2(this, " Executing CSocket_basic::remote_saddr()")
+    if (m_sfd == INVALID_SOCKET) {
+        a_saddr = "";
+        return;
+    }
+    // Get address from socket file descriptor with getsockname().
+    socklen_t addrlen = sizeof(a_saddr.ss); // May be modified
+    CSocketErr serrObj;
+    int ret = ::getpeername(m_sfd, &a_saddr.sa, &addrlen);
+    if (ret != 0) {
+        serrObj.catch_error();
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT(
+                "MSG1044") "Failed to get remote address from socket(" +
+            std::to_string(m_sfd) + "): " + serrObj.error_str() + '\n');
+    }
+    // Check if there is a complete address structure returned from
+    // UPnPsdk::getsockname(). On macOS the function returns only part of the
+    // address structure if the socket file descriptor isn't bound to an
+    // address of a local network adapter. It trunkates the address part.
+    sa_family_t af = a_saddr.ss.ss_family;
+    if ((af == AF_INET6 && addrlen == sizeof(a_saddr.sin6)) ||
+        (af == AF_INET && addrlen == sizeof(a_saddr.sin)) ||
+        (af == AF_UNIX && addrlen == sizeof(a_saddr.sun)))
+        return;
+
+    // If there is no complete address structure returned from
+    // UPnPsdk::getsockname() we return here an empty socket address with
+    // preserved address family.
+    a_saddr = "";
+    a_saddr.ss.ss_family = af;
+    UPnPsdk_LOGERR("MSG1133") "Unspecified socket address detected. Is the "
+                              "socket connected to a remote address? Continue "
+                              "with unspecified address and address family "
+        << af << ".\n";
+}
+
 int CSocket_basic::socktype() const {
     TRACE2(this, " Executing CSocket_basic::socktype()")
     int so_option{-1};
@@ -444,7 +483,7 @@ void CSocket::set_reuse_addr(bool a_reuse) {
 
 // Bind socket to an ip address
 // ----------------------------
-void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
+void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
                    const int a_flags) {
     TRACE2(this, " Executing CSocket::bind()")
 
@@ -453,42 +492,49 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
 
     // Check if socket is already bound.
     if (m_sfd != INVALID_SOCKET) {
-        SSockaddr saddr;
-        this->sockaddr(saddr);
+        SSockaddr saObj;
+        this->sockaddr(saObj);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1137") "Failed toa bind socket to an "
                                          "address. Socket fd " +
             std::to_string(m_sfd) + " already bound to netaddress \"" +
-            saddr.netaddrp() + '\"');
+            saObj.netaddrp() + '\"');
     }
 
-    // If no socket address is given then point to a valid one, either to the
-    // loopback address or to the unspecified address when a passive address is
-    // requested.
-    SSockaddr unspec_saddr;
+    // If no socket address is given then get a valid one, either the
+    // unspecified address when a passive address is requested, or the best
+    // choise from the operating system.
+    SSockaddr saddr; // Unspecified
     if (a_saddr == nullptr) {
         if (!(a_flags & AI_PASSIVE)) {
-            unspec_saddr = "[::1]";
+            // Get best choise sockaddr from operating system.
+            CNetadapter nadapObj;
+            nadapObj.get_first(); // May throw exception.
+            if (!nadapObj.find_first())
+                throw std::runtime_error(
+                    UPnPsdk_LOGEXCEPT("MSG1037") "No usable link local or "
+                                                 "global ip address found. Try "
+                                                 "to use \"loopback\".\n");
+            nadapObj.sockaddr(saddr);
         }
-        a_saddr = &unspec_saddr;
+
+    } else {
+        saddr = *a_saddr;
     }
 
-    // Get an adress info to bind.
-    CAddrinfo ai(a_saddr->netaddrp(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
+    // Get the address info for binding.
+    CAddrinfo ai(saddr.netaddrp(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
                  a_socktype);
-    if (!ai.get_first()) {
+    if (!ai.get_first())
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1037") "detect error next line ...\n" +
             ai.what());
-    }
-    CSocketErr serrObj;
 
 
     // Get a socket file descriptor from operating system and try to bind it.
     // ----------------------------------------------------------------------
-    SOCKET sockfd{INVALID_SOCKET};
-    // Get a socket file descriptor with address family from the address info.
-    sockfd =
+    // Get a socket file descriptor.
+    SOCKET sockfd =
         get_sockfd(static_cast<sa_family_t>(ai->ai_family), ai->ai_socktype);
 
     // Try to bind the socket.
@@ -496,6 +542,7 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
     int count{1};
     ret_code = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
                                         static_cast<socklen_t>(ai->ai_addrlen));
+    CSocketErr serrObj;
     if (ret_code == 0)
         // Store valid socket file descriptor.
         m_sfd = sockfd;
@@ -503,20 +550,18 @@ void CSocket::bind(const int a_socktype, SSockaddr* a_saddr,
         serrObj.catch_error();
 
     if (g_dbug) {
-        SSockaddr saddr;
-        this->sockaddr(saddr); // Get new bound socket address.
+        SSockaddr saObj;
+        this->sockaddr(saObj); // Get new bound socket address.
         UPnPsdk_LOGINFO("MSG1115") "syscall ::bind("
-            << sockfd << ", " << &a_saddr->sa << ", " << a_saddr->sizeof_saddr()
-            << ") Tried " << count << " times \"" << a_saddr->netaddrp()
-            << (ret_code != 0 ? ". Get ERROR"
-                              : ". Bound to " + saddr.netaddrp())
-            << ".\"\n";
+            << sockfd << ", " << &saObj.sa << ", " << saObj.sizeof_saddr()
+            << ") Tried " << count << " times \"" << saddr.netaddrp()
+            << (ret_code != 0 ? "\". Get ERROR"
+                              : "\". Bound to \"" + saObj.netaddrp())
+            << "\".\n";
     }
 
     if (ret_code == SOCKET_ERROR) {
         CLOSE_SOCKET_P(sockfd);
-        SSockaddr saddr;
-        saddr = *reinterpret_cast<sockaddr_storage*>(ai->ai_addr);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1008") "Close socket fd " +
             std::to_string(sockfd) + ". Failed to bind socket to address=\"" +

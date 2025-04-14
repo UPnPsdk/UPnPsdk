@@ -44,7 +44,7 @@ CAddrinfo::CAddrinfo(std::string_view a_node, //
 CAddrinfo::CAddrinfo(std::string_view a_node, //
                      const int a_flags, //
                      const int a_socktype)
-    : m_node(a_node) {
+    : m_node(a_node), m_service(a_node == "" ? "0" : "") {
     TRACE2(this, " Construct CAddrinfo() with netaddress")
     // I cannot use the initialization list of the constructor because the
     // member order in the structure addrinfo is different on Linux, MacOS and

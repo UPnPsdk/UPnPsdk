@@ -603,6 +603,10 @@ TEST_F(HttpMockFTestSuite, http_send_message_from_buffer_successful) {
 }
 
 TEST_F(HttpMockFTestSuite, http_send_message_from_file_successful) {
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": Reading a file should be error checked.\n";
+    }
     constexpr char file_name[]{"./mocked/message.txt"};
     constexpr char file_content[]{"Test content from file."};
     FILE fd{};

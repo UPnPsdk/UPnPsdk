@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-22
+// Redistribution only with this Copyright remark. Last modified: 2025-04-16
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -110,8 +110,14 @@ class SocketMockFTestSuite : public ::testing::Test {
 
 TEST(SockTestSuite, sock_connect_to_host) {
     // Get a socket, bound to a local ip address
+    std::cerr << "DEBUG! 0x" << std::hex << ::pthread_self()
+              << " Tracepoint1\n";
     CSocket sockObj;
+    std::cerr << "DEBUG! 0x" << std::hex << ::pthread_self()
+              << " Tracepoint2\n";
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM));
+    std::cerr << "DEBUG! 0x" << std::hex << ::pthread_self()
+              << " Tracepoint3\n";
 
     // Get the remote host socket address
     CAddrinfo ai("example.com", "echo", 0 /*flags*/, SOCK_DGRAM);
@@ -120,9 +126,9 @@ TEST(SockTestSuite, sock_connect_to_host) {
     // Show local and remote ip addresses
     SSockaddr saObj;
     sockObj.sockaddr(saObj);
-    std::cout << "local netaddress of the socket = \"" << saObj << "\".\n";
-    std::cout << "Remote netaddress to connect = \"" << ai.netaddrp()
-              << "\".\n";
+    std::cout << "local  netaddress of socket  = \"" << saObj << "\".\n";
+    ai.sockaddr(saObj);
+    std::cout << "Remote netaddress to connect = \"" << saObj << "\".\n";
 
     // Connect to the remote host
     CSocketErr sockerrObj;
@@ -587,6 +593,8 @@ TEST(SocketTestSuite, bind_default_passive_successful) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM, nullptr, AI_PASSIVE));
     EXPECT_EQ(sockObj.is_bound(), -1);
+    sockObj.sockaddr(saddr);
+    std::cout << "DEBUG! address family=" << saddr.ss.ss_family << '\n';
 
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
     // With AI_PASSIVE setting (for listening) the presented address is the
@@ -625,9 +633,25 @@ TEST(SocketTestSuite, bind_default_not_passive_successful) {
     EXPECT_EQ(sockObj.is_bound(), 1);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
-    // With empty node the loopback address is selected.
+    // With no node given the best address is selected.
     sockObj.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddr(), "[::1]");
+    EXPECT_THAT(saddr.ss.ss_family, AnyOf(AF_INET6, AF_INET));
+    // A port number was given by ::bind().
+    EXPECT_NE(saddr.port(), 0);
+    EXPECT_EQ(sockObj.sockerr(), 0);
+    EXPECT_FALSE(sockObj.is_reuse_addr());
+    EXPECT_FALSE(sockObj.is_listen());
+}
+
+TEST(SocketTestSuite, bind_without_node_not_passive_successful) {
+    CSocket sockObj;
+    ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, nullptr));
+    EXPECT_EQ(sockObj.is_bound(), 1);
+
+    EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
+    // With no node the best address is selected.
+    sockObj.sockaddr(saddr);
+    EXPECT_THAT(saddr.ss.ss_family, AnyOf(AF_INET6, AF_INET));
     // A port number was given by ::bind().
     EXPECT_NE(saddr.port(), 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
@@ -648,6 +672,42 @@ TEST(SocketTestSuite, bind_only_service_not_passive_successful) {
     // With empty node the loopback address is selected.
     sockObj.sockaddr(saddr);
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::1]:8080", "127.0.0.1:8080"));
+    EXPECT_EQ(sockObj.sockerr(), 0);
+    EXPECT_FALSE(sockObj.is_reuse_addr());
+    EXPECT_FALSE(sockObj.is_listen());
+}
+
+TEST(SocketTestSuite, bind_to_loopback_interface_successful) {
+    saddr = ""; // Unspecified socket address
+    CSocket sockObj;
+    ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
+    EXPECT_EQ(sockObj.is_bound(), 1);
+
+    EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
+    // With an unspecified socket address the loopback address is selected.
+    sockObj.sockaddr(saddr);
+    EXPECT_THAT(saddr.netaddr(), AnyOf("[::1]", "127.0.0.1"));
+    // A port number was given by ::bind().
+    EXPECT_NE(saddr.port(), 0);
+    EXPECT_EQ(sockObj.sockerr(), 0);
+    EXPECT_FALSE(sockObj.is_reuse_addr());
+    EXPECT_FALSE(sockObj.is_listen());
+}
+
+TEST(SocketTestSuite, bind_to_localhost_successful) {
+    CAddrinfo ai("localhost");
+    ASSERT_NO_THROW(ai.get_first());
+    ai.sockaddr(saddr);
+    CSocket sockObj;
+    ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
+    EXPECT_EQ(sockObj.is_bound(), 1);
+
+    EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
+    // With an unspecified socket address the loopback address is selected.
+    sockObj.sockaddr(saddr);
+    EXPECT_THAT(saddr.netaddr(), AnyOf("[::1]", "127.0.0.1"));
+    // A port number was given by ::bind().
+    EXPECT_NE(saddr.port(), 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());
@@ -745,8 +805,7 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_ipv6_only) {
 
     // Mock system functions.
     // Provide a socket file descriptor
-    EXPECT_CALL(m_sys_socketObj,
-                socket(AnyOf(AF_INET6, AF_INET), SOCK_STREAM, 0))
+    EXPECT_CALL(m_sys_socketObj, socket(AF_INET6, SOCK_STREAM, 0))
         .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(sfd));
     // Expect resetting SO_REUSEADDR.
@@ -755,8 +814,7 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_ipv6_only) {
         .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(0));
     // Expect setting IPV6_V6ONLY.
-    EXPECT_CALL(m_sys_socketObj, setsockopt(sfd, IPPROTO_IPV6, IPV6_V6ONLY,
-                                            PointeeVoidToConstInt(0), _))
+    EXPECT_CALL(m_sys_socketObj, setsockopt(_, IPPROTO_IPV6, IPV6_V6ONLY, _, _))
         .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
 
@@ -765,9 +823,14 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_ipv6_only) {
 
     // Test Unit
     CSocket sockObj;
-    EXPECT_THAT([&sockObj]() { sockObj.bind(SOCK_STREAM); },
-                ThrowsMessage<std::runtime_error>(
-                    HasSubstr("UPnPsdk MSG1007 EXCEPT[")));
+    EXPECT_THAT(
+        [&sockObj]() {
+            SSockaddr saObj;
+            saObj = "[::1]";
+            sockObj.bind(SOCK_STREAM, &saObj);
+        },
+        ThrowsMessage<std::runtime_error>(
+            HasSubstr("UPnPsdk MSG1007 EXCEPT[")));
 }
 
 #ifdef _MSC_VER
@@ -1121,6 +1184,11 @@ TEST_F(SocketMockFTestSuite, listen_fails) {
                 ThrowsMessage<std::runtime_error>(
                     HasSubstr("UPnPsdk MSG1034 EXCEPT[")));
 }
+
+
+// Socket remote_saddr()
+// ---------------------
+TEST(SocketBasicTestSuite, remote_saddr_get_successful) {}
 
 
 // Socket error

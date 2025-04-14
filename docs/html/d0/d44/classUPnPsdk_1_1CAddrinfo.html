@@ -138,8 +138,21 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Get information from the operating system about an internet address. </p>
+<p>An empty node returns information of the loopback interface, but either node or service, but not both, may be empty. With setting everything unspecified, except service, we get all available combinations with loopback interfaces but different on platforms. <b>a_socktype</b> specifies the preferred socket type SOCK_STREAM or SOCK_DGRAM. Specifying <b>0</b> for this argument indicates that socket addresses of any socket type can be returned. For example: </p><div class="fragment"><div class="line"><a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a> ai(<span class="stringliteral">&quot;&quot;</span>, 0, 0); <span class="comment">// same as</span></div>
+<div class="line"><a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a> ai(<span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;0&quot;</span>, 0, 0);</div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">UPnPsdk::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about an internet address.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00055">addrinfo.hpp:55</a></div></div>
+</div><!-- fragment --><p> may find<br  />
+ "[::1]" (SOCK_STREAM), "[::1]" (SOCK_DGRAM),<br  />
+ "127.0.0.1" (SOCK_STREAM), "127.0.0.1" (SOCK_DGRAM).</p>
+<p>To get default SOCK_STREAM loopback interfaces just use: </p><div class="fragment"><div class="line"><a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a> ai(<span class="stringliteral">&quot;&quot;</span>);</div>
+</div><!-- fragment --><p> May find, where find_first() should be preferred what ever it finds:<br  />
+ find_first() -&gt; "[::1]"<br  />
+ find_next() -&gt; "127.0.0.1"</p>
+<p>To get address information for <b>passive listening</b> on all local network adapters with default SOCK_STREAM, <b>a_node</b> must be empty, but not <b>a_service</b> and <b>a_flags</b> must be set at least to AI_PASSIVE, for example: </p><div class="fragment"><div class="line"><a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a> ai(<span class="stringliteral">&quot;&quot;</span>, AI_PASSIVE | AI_NUMERICHOST); <span class="comment">// same as</span></div>
+<div class="line"><a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a> ai(<span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;0&quot;</span>, AI_PASSIVE | AI_NUMERICHOST);</div>
+</div><!-- fragment --><p> Of course you can set a specific port (a_service) other than <b>0</b>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">addrinfo.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">addrinfo.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8778e5e82a074f24059c0690d71332d0" name="a8778e5e82a074f24059c0690d71332d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8778e5e82a074f24059c0690d71332d0">&#9670;&#160;</a></span>CAddrinfo() <span class="overload">[1/2]</span></h2>
@@ -271,7 +284,6 @@ Public Member Functions</h2></td></tr>
 <div class="line">    handle_error();</div>
 <div class="line"><span class="keywordflow">if</span> (aiObj-&gt;ai_socktype == SOCK_DGRAM) {} <span class="comment">// is SOCK_STREAM here</span></div>
 <div class="line"><span class="keywordflow">if</span> (aiObj-&gt;ai_family == AF_INET6) { handle_ipv6(); };</div>
-<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">UPnPsdk::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about an internet address.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00024">addrinfo.hpp:24</a></div></div>
 </div><!-- fragment --><p>The operating system returns the information in a structure that you can read to get all details. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html#l00081">81</a> of file <a class="el" href="../../dc/d59/addrinfo_8cpp_source.html">addrinfo.cpp</a>.</p>
@@ -330,7 +342,7 @@ Public Member Functions</h2></td></tr>
 <div class="center"><img src="../../d0/d44/classUPnPsdk_1_1CAddrinfo_a51afe8a1c3b65109b9cf3340f8e5186d_icgraph.png" border="0" usemap="#ad0/d44/classUPnPsdk_1_1CAddrinfo_a51afe8a1c3b65109b9cf3340f8e5186d_icgraph" alt=""/></div>
 <map name="ad0/d44/classUPnPsdk_1_1CAddrinfo_a51afe8a1c3b65109b9cf3340f8e5186d_icgraph" id="ad0/d44/classUPnPsdk_1_1CAddrinfo_a51afe8a1c3b65109b9cf3340f8e5186d_icgraph">
 <area shape="rect" title="Get the first entry of an address info from the operating system." alt="" coords="456,13,607,53"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35" title="Bind socket to an ip address." alt="" coords="233,20,408,45"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea" title="Bind socket to an ip address of a local network adapter." alt="" coords="233,20,408,45"/>
 <area shape="poly" title=" " alt="" coords="442,35,408,35,408,30,442,30"/>
 <area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="5,5,185,60"/>
 <area shape="poly" title=" " alt="" coords="220,35,185,35,185,30,220,30"/>
@@ -397,7 +409,7 @@ Public Member Functions</h2></td></tr>
 <p>Get the socket address from current selcted address information. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">a_saddr</td><td>Reference to a socket address structure that will be filled with the address information. If no information is available (e.g. <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system.">CAddrinfo::get_first()</a> wasn't called) an unspecified socket address is returned (netaddr "", netaddrp ":0"). </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">a_saddr</td><td>Reference to a socket address structure that will be filled with the address information. If no information is available (e.g. <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system.">CAddrinfo::get_first()</a> wasn't called) an unspecified socket address is returned (netaddr "", netaddrp ":0"). </td></tr>
   </table>
   </dd>
 </dl>
@@ -439,7 +451,7 @@ Public Member Functions</h2></td></tr>
 <div class="center"><img src="../../d0/d44/classUPnPsdk_1_1CAddrinfo_a5d5295decc4e6797b3e8c35c4f1b0598_icgraph.png" border="0" usemap="#ad0/d44/classUPnPsdk_1_1CAddrinfo_a5d5295decc4e6797b3e8c35c4f1b0598_icgraph" alt=""/></div>
 <map name="ad0/d44/classUPnPsdk_1_1CAddrinfo_a5d5295decc4e6797b3e8c35c4f1b0598_icgraph" id="ad0/d44/classUPnPsdk_1_1CAddrinfo_a5d5295decc4e6797b3e8c35c4f1b0598_icgraph">
 <area shape="rect" title="Get cached error message." alt="" coords="456,13,607,53"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35" title="Bind socket to an ip address." alt="" coords="233,20,408,45"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea" title="Bind socket to an ip address of a local network adapter." alt="" coords="233,20,408,45"/>
 <area shape="poly" title=" " alt="" coords="442,35,408,35,408,30,442,30"/>
 <area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="5,5,185,60"/>
 <area shape="poly" title=" " alt="" coords="220,35,185,35,185,30,220,30"/>

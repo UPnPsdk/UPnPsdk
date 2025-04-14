@@ -15,6 +15,37 @@ namespace UPnPsdk {
  * \brief Get information from the operating system about an internet address
 <!-- ==================================================================== -->
  * \ingroup upnplib-addrmodul
+ *
+ * An empty node returns information of the loopback interface, but either node
+ * or service, but not both, may be empty. With setting everything unspecified,
+ * except service, we get all available combinations with loopback interfaces
+ * but different on platforms. \b a_socktype specifies the preferred socket
+ * type SOCK_STREAM or SOCK_DGRAM. Specifying \b 0 for this argument indicates
+ * that socket addresses of any socket type can be returned. For example:
+ * \code
+ * CAddrinfo ai("", 0, 0); // same as
+ * CAddrinfo ai("", "0", 0, 0);
+ * \endcode
+ * may find\n
+ * "[::1]" (SOCK_STREAM), "[::1]" (SOCK_DGRAM),\n
+ * "127.0.0.1" (SOCK_STREAM), "127.0.0.1" (SOCK_DGRAM).
+ *
+ * To get default SOCK_STREAM loopback interfaces just use:
+ * \code
+ * CAddrinfo ai("");
+ * \endcode
+ * May find, where find_first() should be preferred what ever it finds:\n
+ * find_first() -> "[::1]"\n
+ * find_next()  -> "127.0.0.1"
+ *
+ * To get address information for **passive listening** on all local network
+ * adapters with default SOCK_STREAM, \b a_node must be empty, but not \b
+ * a_service and \b a_flags must be set at least to AI_PASSIVE, for example:
+ * \code
+ * CAddrinfo ai("", AI_PASSIVE | AI_NUMERICHOST); // same as
+ * CAddrinfo ai("", "0", AI_PASSIVE | AI_NUMERICHOST);
+ * \endcode
+ * Of course you can set a specific port (a_service) other than \b 0.
  */
 // This is a stripped version. It is only as snapshot to get information about
 // a netaddress. There is no need to copy the object. The last full featured
@@ -156,10 +187,10 @@ normal_execution();
 
     /// \brief Get the socket address from current selcted address information
     void sockaddr( //
-        /*! [in,out] Reference to a socket address structure that will be
-         * filled with the address information. If no information is available
-         * (e.g. CAddrinfo::get_first() wasn't called) an unspecified socket
-         * address is returned (netaddr "", netaddrp ":0"). */
+        /*! [out] Reference to a socket address structure that will be filled
+         * with the address information. If no information is available (e.g.
+         * CAddrinfo::get_first() wasn't called) an unspecified socket address
+         * is returned (netaddr "", netaddrp ":0"). */
         SSockaddr& a_saddr);
 
     /*! \brief Get cached error message

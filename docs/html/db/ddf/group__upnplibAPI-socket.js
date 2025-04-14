@@ -6,6 +6,7 @@ var group__upnplibAPI_socket =
       [ "load", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a", null ],
       [ "operator const SOCKET &", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a878863676f643ccb63272f3aabae5762", null ],
       [ "sockaddr", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493", null ],
+      [ "remote_saddr", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a87e1f12599a25cb532c182788b652be3", null ],
       [ "socktype", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad041272f04b0147168ec8b89f179e39b", null ],
       [ "sockerr", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a03d5f6960eee00a3d0a987df326aaf2b", null ],
       [ "is_reuse_addr", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac866a7e2ee68d5be6e62f997b26454a5", null ],
@@ -16,7 +17,7 @@ var group__upnplibAPI_socket =
       [ "CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html#a1932fc4b351967415d93a96d67b9c933", null ],
       [ "~CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html#a4bb9694b948c6da242089cd312fd7692", null ],
       [ "operator=", "d3/d5d/classUPnPsdk_1_1CSocket.html#a92f286eecf18959304329a91622024d4", null ],
-      [ "bind", "d3/d5d/classUPnPsdk_1_1CSocket.html#ab5fa56659a396746dd2375b8078dea35", null ],
+      [ "bind", "d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea", null ],
       [ "listen", "d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b", null ],
       [ "is_listen", "d3/d5d/classUPnPsdk_1_1CSocket.html#a7498f381c33b05ae56887b413c0350bf", null ]
     ] ],

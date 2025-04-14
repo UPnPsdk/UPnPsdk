@@ -1,6 +1,10 @@
 <map id="UPnPsdk::CNetadapter::find_first" name="UPnPsdk::CNetadapter::find_first">
-<area shape="rect" id="Node000001" title="Find local network adapter with given name or ip address." alt="" coords="285,29,455,69"/>
-<area shape="rect" id="Node000002" href="$d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a3e6d640c29d537fad035aedc68d843f1" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,29,237,69"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="272,52,237,52,237,47,272,47"/>
-<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="164,18,149,11,121,8,97,10,83,15,78,21,80,28,75,30,72,20,80,10,96,5,121,3,150,6,166,13"/>
+<area shape="rect" id="Node000001" title="Find local network adapter with given name or ip address." alt="" coords="513,54,683,94"/>
+<area shape="rect" id="Node000002" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea" title="Bind socket to an ip address of a local network adapter." alt="" coords="262,20,437,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="499,60,426,48,427,43,500,55"/>
+<area shape="rect" id="Node000007" href="$d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a3e6d640c29d537fad035aedc68d843f1" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="233,94,465,134"/>
+<area shape="poly" id="edge3_Node000001_Node000007" title=" " alt="" coords="500,92,466,98,465,93,499,87"/>
+<area shape="rect" id="Node000003" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="5,5,185,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="248,35,186,35,186,30,248,30"/>
+<area shape="poly" id="edge4_Node000007_Node000007" title=" " alt="" coords="392,82,377,75,349,73,325,75,311,79,306,85,308,93,303,94,300,84,308,75,324,69,349,67,378,70,394,77"/>
 </map>
