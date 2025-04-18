@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-16
+// Redistribution only with this Copyright remark. Last modified: 2025-04-19
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -91,6 +91,7 @@
 #define ENOMEMP WSA_NOT_ENOUGH_MEMORY
 #define EINVALP WSAEINVAL
 #define EACCESP WSAEACCES
+#define ENOBUFSP WSAENOBUFS
 #else
 #define EBADFP EBADF
 #define ENOTCONNP ENOTCONN
@@ -99,6 +100,7 @@
 #define ENOMEMP ENOMEM
 #define EINVALP EINVAL
 #define EACCESP EACCES
+#define ENOBUFSP ENOBUFS
 #endif
 /// \endcond
 
@@ -196,22 +198,29 @@ class UPnPsdk_API CSocket_basic {
      * For an example look at CSocket_basic::is_bound().
      * \exception std::runtime_error Failed to get address from socket. */
     void sockaddr(
-        /*! [out] Reference to a socket address structure that will be
-         * filled with the address information. If an error is thrown the
-         * structure is not modified. If no information is available (the socket
-         * is not bound to a network adapter) an unspecified netaddress is
-         * returned. */
+        /*! [out] Reference to a socket address object that will be filled with
+         * the address information. If an error is thrown the structure is not
+         * modified. If no information is available (the socket is not bound to
+         * a network adapter) an unspecified netaddress is returned. */
         SSockaddr& a_saddr) const;
 
     /*! \brief Get the remote socket address the socket is connected to
+     * \returns
+     *  \b true&nbsp; if socket is connected\n
+     *  \b false otherwise
+     * \exception std::runtime_error system <a
+     * href="https://www.man7.org/linux/man-pages/man2/getpeername.2.html#ERRORS">errors
+     * as specified</a> except "socket is not connected".
      */
-    void remote_saddr(
-        /*! [out] Reference to a socket address structure that will be
-         * filled with the address information. If an error is thrown the
-         * structure is not modified. If no information is available (the socket
-         * is not connected to a remote peer) an unspecified netaddress is
-         * returned. */
-        SSockaddr& a_saddr) const;
+    bool remote_saddr(
+        /*! [out] Optional: pointer to a socket address object that will be
+         * filled with the remote address information. If an error is thrown,
+         * the destination object is not modified. If no information is
+         * available (the socket is not connected to a remote peer) an
+         * unspecified socket address (":0") is returned, possibly with address
+         * family ("[::]:0" or 0.0.0.0:0"). But you should not work with IP
+         * version in general. */
+        SSockaddr* a_saddr = nullptr) const;
 
     /*! \brief Get the [socket type](\ref glossary_socktype).
      * \returns `SOCK_STREAM` or `SOCK_DGRAM`.

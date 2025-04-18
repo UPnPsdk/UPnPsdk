@@ -144,9 +144,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a35082ff3e44ebd5445417509630b9493" id="r_a35082ff3e44ebd5445417509630b9493"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493">sockaddr</a> (<a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddr) const</td></tr>
 <tr class="memdesc:a35082ff3e44ebd5445417509630b9493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the socket address the socket is bound to.  <br /></td></tr>
 <tr class="separator:a35082ff3e44ebd5445417509630b9493"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87e1f12599a25cb532c182788b652be3" id="r_a87e1f12599a25cb532c182788b652be3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a87e1f12599a25cb532c182788b652be3">remote_saddr</a> (<a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddr) const</td></tr>
-<tr class="memdesc:a87e1f12599a25cb532c182788b652be3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the remote socket address the socket is connected to.  <br /></td></tr>
-<tr class="separator:a87e1f12599a25cb532c182788b652be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac39ca8c143781c52f049fa2d10d889ab" id="r_ac39ca8c143781c52f049fa2d10d889ab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab">remote_saddr</a> (<a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> *a_saddr=nullptr) const</td></tr>
+<tr class="memdesc:ac39ca8c143781c52f049fa2d10d889ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the remote socket address the socket is connected to.  <br /></td></tr>
+<tr class="separator:ac39ca8c143781c52f049fa2d10d889ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad041272f04b0147168ec8b89f179e39b" id="r_ad041272f04b0147168ec8b89f179e39b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad041272f04b0147168ec8b89f179e39b">socktype</a> () const</td></tr>
 <tr class="memdesc:ad041272f04b0147168ec8b89f179e39b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="../../d5/d67/Glossary.html#glossary_socktype">socket type</a>.  <br /></td></tr>
 <tr class="separator:ad041272f04b0147168ec8b89f179e39b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,7 +166,7 @@ Public Member Functions</h2></td></tr>
 <p>This class takes the resources and results as given by the platform (Unix, MacOS, MS Windows). It does not perform any emulations for unification. The behavior can be different on different platforms.</p>
 <p>An object of this class does not take ownership of the raw socket file descriptor and will never close it. This is also the reason why you cannot modify the socket and only have getter available (except the setter '<a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object.">load()</a>' for the raw socket file descriptor itself). But it is helpful to easily get information about an existing raw socket file descriptor. Closing the file descriptor is in the responsibility of the caller who created the socket. If you need to manage a socket you must use <a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html" title="Manage all aspects of a network socket.">CSocket</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dfc/socket_8hpp_source.html#l00127">127</a> of file <a class="el" href="../../da/dfc/socket_8hpp_source.html">socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dfc/socket_8hpp_source.html#l00129">129</a> of file <a class="el" href="../../da/dfc/socket_8hpp_source.html">socket.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2899231a1217983bb210efe731a17343" name="a2899231a1217983bb210efe731a17343"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2899231a1217983bb210efe731a17343">&#9670;&#160;</a></span>CSocket_basic() <span class="overload">[1/2]</span></h2>
@@ -272,7 +272,7 @@ Public Member Functions</h2></td></tr>
 <div class="line">    <span class="comment">// Use the getter from sockObj</span></div>
 <div class="line">}</div>
 <div class="line">::close(sfd);</div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html">UPnPsdk::CSocket_basic</a></div><div class="ttdoc">Get information from a raw network socket file descriptor.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00127">socket.hpp:127</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html">UPnPsdk::CSocket_basic</a></div><div class="ttdoc">Get information from a raw network socket file descriptor.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00129">socket.hpp:129</a></div></div>
 </div><!-- fragment --><p> The socket file descriptor was given with the constructor. This object does not take ownership of the socket file descriptor and will never close it. Closing is in the responsibility of the caller who created the socket. Initializing it again is possible but is only waste of resources. The result is the same as before.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
@@ -405,7 +405,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">a_saddr</td><td>Reference to a socket address structure that will be filled with the address information. If an error is thrown the structure is not modified. If no information is available (the socket is not bound to a network adapter) an unspecified netaddress is returned. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">a_saddr</td><td>Reference to a socket address object that will be filled with the address information. If an error is thrown the structure is not modified. If no information is available (the socket is not bound to a network adapter) an unspecified netaddress is returned. </td></tr>
   </table>
   </dd>
 </dl>
@@ -486,26 +486,34 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a87e1f12599a25cb532c182788b652be3" name="a87e1f12599a25cb532c182788b652be3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87e1f12599a25cb532c182788b652be3">&#9670;&#160;</a></span>remote_saddr()</h2>
+<a id="ac39ca8c143781c52f049fa2d10d889ab" name="ac39ca8c143781c52f049fa2d10d889ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac39ca8c143781c52f049fa2d10d889ab">&#9670;&#160;</a></span>remote_saddr()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UPnPsdk::CSocket_basic::remote_saddr </td>
+          <td class="memname">bool UPnPsdk::CSocket_basic::remote_saddr </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;&#160;</td>
-          <td class="paramname"><em>a_saddr</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> *&#160;</td>
+          <td class="paramname"><em>a_saddr</em> = <code>nullptr</code></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Get the remote socket address the socket is connected to. </p>
+<dl class="section return"><dt>Returns</dt><dd><b>true&#160;</b> if socket is connected<br  />
+ <b>false</b> otherwise </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>system <a href="https://www.man7.org/linux/man-pages/man2/getpeername.2.html#ERRORS">errors as specified</a> except "socket is not connected". </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">a_saddr</td><td>Reference to a socket address structure that will be filled with the address information. If an error is thrown the structure is not modified. If no information is available (the socket is not connected to a remote peer) an unspecified netaddress is returned. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">a_saddr</td><td>Optional: pointer to a socket address object that will be filled with the remote address information. If an error is thrown, the destination object is not modified. If no information is available (the socket is not connected to a remote peer) an unspecified socket address (":0") is returned, possibly with address family ("[::]:0" or 0.0.0.0:0"). But you should not work with IP version in general. </td></tr>
   </table>
   </dd>
 </dl>
@@ -516,8 +524,8 @@ Public Member Functions</h2></td></tr>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/da5/classUPnPsdk_1_1CSocket__basic_a87e1f12599a25cb532c182788b652be3_cgraph.png" border="0" usemap="#ad9/da5/classUPnPsdk_1_1CSocket__basic_a87e1f12599a25cb532c182788b652be3_cgraph" alt=""/></div>
-<map name="ad9/da5/classUPnPsdk_1_1CSocket__basic_a87e1f12599a25cb532c182788b652be3_cgraph" id="ad9/da5/classUPnPsdk_1_1CSocket__basic_a87e1f12599a25cb532c182788b652be3_cgraph">
+<div class="center"><img src="../../d9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_cgraph.png" border="0" usemap="#ad9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_cgraph" alt=""/></div>
+<map name="ad9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_cgraph" id="ad9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_cgraph">
 <area shape="rect" title="Get the remote socket address the socket is connected to." alt="" coords="5,37,185,77"/>
 <area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="233,5,391,45"/>
 <area shape="poly" title=" " alt="" coords="185,41,220,36,220,42,186,47"/>
@@ -552,7 +560,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00299">299</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00314">314</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -594,7 +602,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00317">317</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00332">332</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -637,7 +645,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00335">335</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00350">350</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -699,7 +707,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00353">353</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00368">368</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">

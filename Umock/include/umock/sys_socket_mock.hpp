@@ -1,7 +1,7 @@
 #ifndef UMOCK_SYS_SOCKET_MOCK_HPP
 #define UMOCK_SYS_SOCKET_MOCK_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-04-18
 
 #include <umock/sys_socket.hpp>
 #include <gmock/gmock.h>
@@ -27,6 +27,7 @@ class UPNPLIB_API Sys_socketMock : public umock::Sys_socketInterface {
     MOCK_METHOD(int, getsockopt, (SOCKET sockfd, int level, int optname, void* optval, socklen_t* optlen), (override));
     MOCK_METHOD(int, setsockopt, (SOCKET sockfd, int level, int optname, const void* optval, socklen_t optlen), (override));
     MOCK_METHOD(int, getsockname, (SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen), (override));
+    MOCK_METHOD(int, getpeername, (SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen), (override));
     MOCK_METHOD(SSIZEP_T, recv, (SOCKET sockfd, char* buf, SIZEP_T len, int flags), (override));
     MOCK_METHOD(SSIZEP_T, recvfrom, (SOCKET sockfd, char* buf, SIZEP_T len, int flags, struct sockaddr* src_addr, socklen_t* addrlen), (override));
     MOCK_METHOD(SSIZEP_T, send, (SOCKET sockfd, const char* buf, SIZEP_T len, int flags), (override));

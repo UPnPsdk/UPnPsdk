@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-04-18
 
 #include <umock/sys_socket.hpp>
 
@@ -65,6 +65,10 @@ int Sys_socketReal::setsockopt(SOCKET sockfd, int level, int optname, const void
 
 int Sys_socketReal::getsockname(SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen) {
     return ::getsockname(sockfd, addr, addrlen);
+}
+
+int Sys_socketReal::getpeername(SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen) {
+    return ::getpeername(sockfd, addr, addrlen);
 }
 
 int Sys_socketReal::shutdown(SOCKET sockfd, int how) {
@@ -139,6 +143,9 @@ int Sys_socket::setsockopt(SOCKET sockfd, int level, int optname, const void* op
 }
 int Sys_socket::getsockname(SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen) {
     return m_ptr_workerObj->getsockname(sockfd, addr, addrlen);
+}
+int Sys_socket::getpeername(SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen) {
+    return m_ptr_workerObj->getpeername(sockfd, addr, addrlen);
 }
 int Sys_socket::shutdown(SOCKET sockfd, int how) {
     return m_ptr_workerObj->shutdown(sockfd, how);

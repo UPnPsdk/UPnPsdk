@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-15
+// Redistribution only with this Copyright remark. Last modified: 2025-04-18
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -227,7 +227,7 @@ void CSocket_basic::sockaddr(SSockaddr& a_saddr) const {
         a_saddr = "";
         return;
     }
-    // Get address from socket file descriptor.
+    // Get local address from socket file descriptor.
     socklen_t addrlen = sizeof(a_saddr.ss); // May be modified
     CSocketErr serrObj;
     int ret = UPnPsdk::getsockname(m_sfd, &a_saddr.sa, &addrlen);
@@ -258,43 +258,58 @@ void CSocket_basic::sockaddr(SSockaddr& a_saddr) const {
         << af << ".\n";
 }
 
-void CSocket_basic::remote_saddr(SSockaddr& a_saddr) const {
-    TRACE2(this, " Executing CSocket_basic::remote_saddr()")
+bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
     if (m_sfd == INVALID_SOCKET) {
-        a_saddr = "";
-        return;
+        if (a_saddr)
+            *a_saddr = "";
+        return false;
     }
-    // Get address from socket file descriptor with getsockname().
-    socklen_t addrlen = sizeof(a_saddr.ss); // May be modified
+
+    // Get remote address from socket file descriptor.
+    SSockaddr saObj;
+    socklen_t addrlen = sizeof(saObj.ss); // May be modified
     CSocketErr serrObj;
-    int ret = ::getpeername(m_sfd, &a_saddr.sa, &addrlen);
+    // syscall
+    int ret = umock::sys_socket_h.getpeername(m_sfd, &saObj.sa, &addrlen);
     if (ret != 0) {
         serrObj.catch_error();
+        if (serrObj == ENOTCONNP) {
+            // Return with empty socket address if not connected.
+            if (a_saddr)
+                *a_saddr = "";
+            return false;
+        }
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT(
-                "MSG1044") "Failed to get remote address from socket(" +
-            std::to_string(m_sfd) + "): " + serrObj.error_str() + '\n');
+            UPnPsdk_LOGEXCEPT("MSG1044") "Failed to get address from socket(" +
+            std::to_string(m_sfd) + "): " + serrObj.error_str());
     }
-    // Check if there is a complete address structure returned from
-    // UPnPsdk::getsockname(). On macOS the function returns only part of the
-    // address structure if the socket file descriptor isn't bound to an
-    // address of a local network adapter. It trunkates the address part.
-    sa_family_t af = a_saddr.ss.ss_family;
-    if ((af == AF_INET6 && addrlen == sizeof(a_saddr.sin6)) ||
-        (af == AF_INET && addrlen == sizeof(a_saddr.sin)) ||
-        (af == AF_UNIX && addrlen == sizeof(a_saddr.sun)))
-        return;
 
-    // If there is no complete address structure returned from
-    // UPnPsdk::getsockname() we return here an empty socket address with
-    // preserved address family.
-    a_saddr = "";
-    a_saddr.ss.ss_family = af;
-    UPnPsdk_LOGERR("MSG1133") "Unspecified socket address detected. Is the "
-                              "socket connected to a remote address? Continue "
-                              "with unspecified address and address family "
+    // Check if there is a complete address structure returned from
+    // ::getpeername(). On macOS the function returns only part of the address
+    // structure if the socket file descriptor isn't connected to an address.
+    // It trunkates the address part.
+    sa_family_t af = saObj.ss.ss_family;
+    if ((af == AF_INET6 && addrlen == sizeof(saObj.sin6)) ||
+        (af == AF_INET && addrlen == sizeof(saObj.sin)) ||
+        (af == AF_UNIX && addrlen == sizeof(saObj.sun))) {
+        if (a_saddr)
+            *a_saddr = saObj;
+        return true;
+    }
+    // If there is no complete address structure returned we return here an
+    // empty socket address with preserved address family.
+    if (a_saddr) {
+        *a_saddr = "";
+        a_saddr->ss.ss_family = af;
+    }
+    UPnPsdk_LOGERR(
+        "MSG1088") "Unspecified socket address detected. Is the socket "
+                   "connected to a remote ip address? Returning unspecified "
+                   "address with address family "
         << af << ".\n";
+    return false;
 }
+
 
 int CSocket_basic::socktype() const {
     TRACE2(this, " Executing CSocket_basic::socktype()")
@@ -527,7 +542,7 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
                  a_socktype);
     if (!ai.get_first())
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG1037") "detect error next line ...\n" +
+            UPnPsdk_LOGEXCEPT("MSG1092") "detect error next line ...\n" +
             ai.what());
 
 

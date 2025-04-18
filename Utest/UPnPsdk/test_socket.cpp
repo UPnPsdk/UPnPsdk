@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-16
+// Redistribution only with this Copyright remark. Last modified: 2025-04-18
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -93,6 +93,8 @@ class SocketMockFTestSuite : public ::testing::Test {
             .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, getsockname(_, _, _))
             .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, getpeername(_, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
 #ifdef _MSC_VER
         ON_CALL(m_winsock2Obj, WSAGetLastError())
             .WillByDefault(Return(WSAENOTSOCK));
@@ -106,38 +108,52 @@ class SocketMockFTestSuite : public ::testing::Test {
 // works so we can mock it the right way. Don't enable this test permanently
 // because it connects to the real internet for DNS name resolution and may
 // slow down this gtest dramatically or block the test until timeout expires if
-// no connection is possible.
+// no connection is possible. The IANA server "www.example.com" has only port
+// 80 (http) and port 443 (https) open.
 
 TEST(SockTestSuite, sock_connect_to_host) {
     // Get a socket, bound to a local ip address
-    std::cerr << "DEBUG! 0x" << std::hex << ::pthread_self()
-              << " Tracepoint1\n";
     CSocket sockObj;
-    std::cerr << "DEBUG! 0x" << std::hex << ::pthread_self()
-              << " Tracepoint2\n";
-    ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM));
-    std::cerr << "DEBUG! 0x" << std::hex << ::pthread_self()
-              << " Tracepoint3\n";
-
-    // Get the remote host socket address
-    CAddrinfo ai("example.com", "echo", 0 /*flags*/, SOCK_DGRAM);
-    ASSERT_NO_THROW(ai.get_first());
-
-    // Show local and remote ip addresses
+    ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM));
     SSockaddr saObj;
     sockObj.sockaddr(saObj);
+
+    // Get the remote host socket addresses
+    CAddrinfo aiObj("www.example.com", "http", 0 /*flags*/, SOCK_STREAM);
+    ASSERT_NO_THROW(aiObj.get_first());
+    // Find a remote address of the same address family (IPv4 or IPv6) like the
+    // local one.
+    while (aiObj->ai_family != saObj.ss.ss_family && aiObj.get_next())
+        ;
+
+    // Show local and remote ip addresses
     std::cout << "local  netaddress of socket  = \"" << saObj << "\".\n";
-    ai.sockaddr(saObj);
+    aiObj.sockaddr(saObj);
     std::cout << "Remote netaddress to connect = \"" << saObj << "\".\n";
 
     // Connect to the remote host
     CSocketErr sockerrObj;
-    if (::connect(sockObj, ai->ai_addr, ai->ai_addrlen) == SOCKET_ERROR) {
+    if (::connect(sockObj, aiObj->ai_addr, aiObj->ai_addrlen) == SOCKET_ERROR) {
         sockerrObj.catch_error();
         std::cerr << "Error on connect socket: " << sockerrObj.error_str()
                   << ".\n";
         GTEST_FAIL();
     }
+    // Write test data request
+    char wbuf[]{"GET / HTTP/1.1\r\nHost: www.example.com\r\n\r\n"};
+    if (::write(sockObj, wbuf, sizeof(wbuf) - 1) == SOCKET_ERROR) {
+        sockerrObj.catch_error();
+        std::cerr << "Error on write: " << sockerrObj.error_str() << ".\n";
+        GTEST_FAIL();
+    }
+    // Read response
+    char rbuf[2048]{};
+    if (::read(sockObj, rbuf, sizeof(rbuf) - 1) == SOCKET_ERROR) {
+        sockerrObj.catch_error();
+        std::cerr << "Error on read: " << sockerrObj.error_str() << ".\n";
+        GTEST_FAIL();
+    }
+    std::cout << "---------------\n" << rbuf << "---------------\n";
 }
 #endif
 
@@ -1114,7 +1130,7 @@ TEST(SocketTestSuite, bind_with_invalid_argument_fails) {
             sockObj.bind(-1);
         },
         ThrowsMessage<std::runtime_error>(ContainsStdRegex(
-            "UPnPsdk MSG1037 EXCEPT\\[.*\n.* WHAT MSG1112: errid\\(")));
+            "UPnPsdk MSG1092 EXCEPT\\[.*\n.* WHAT MSG1112: errid\\(")));
 
     // Test Unit, set invalid flag number.
     EXPECT_THAT(
@@ -1123,7 +1139,7 @@ TEST(SocketTestSuite, bind_with_invalid_argument_fails) {
             sockObj.bind(SOCK_STREAM, nullptr, -1);
         },
         ThrowsMessage<std::runtime_error>(ContainsStdRegex(
-            "UPnPsdk MSG1037 EXCEPT\\[.*\n.* WHAT MSG1112: errid\\(")));
+            "UPnPsdk MSG1092 EXCEPT\\[.*\n.* WHAT MSG1112: errid\\(")));
 }
 
 
@@ -1188,7 +1204,74 @@ TEST_F(SocketMockFTestSuite, listen_fails) {
 
 // Socket remote_saddr()
 // ---------------------
-TEST(SocketBasicTestSuite, remote_saddr_get_successful) {}
+TEST_F(SocketMockFTestSuite, remote_saddr_successful) {
+    CSocket_basic sockbasObj;
+    // Test Unit with unbound socket.
+    EXPECT_FALSE(sockbasObj.remote_saddr());
+    EXPECT_FALSE(sockbasObj.remote_saddr(&saddr));
+
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+
+    CSocket sockObj;
+    ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
+
+    // Test Unit with bound socket but not connected.
+    EXPECT_FALSE(sockObj.remote_saddr());
+    EXPECT_FALSE(sockObj.remote_saddr(&saddr));
+
+    // An empty socket address indicates that the socket is not connected.
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    // But it is still bound to a local address.
+    EXPECT_TRUE(sockObj.is_bound());
+
+    // Set mocked expectations, always without and with pointer to result addr.
+    SOCKET sockfd = sockObj;
+    SSockaddr saddr1Obj;
+    saddr1Obj = "[::]"; // Empty IPv6 addr will internally be returned from
+                        // system as valid but not connected.
+    SSockaddr saddr2Obj;
+    saddr2Obj = "[fe80::fedc:1:1]"; // Valid connected ip address.
+    EXPECT_CALL(m_sys_socketObj, getpeername(sockfd, _, _))
+        // First expectation to be valid but with no socket address part (macOS)
+        .WillOnce(DoAll(StructCpyToArg<1>(&saddr1Obj.ss, sizeof(saddr1Obj.ss)),
+                        SetArgPointee<2>(0), Return(0)))
+        .WillOnce(DoAll(StructCpyToArg<1>(&saddr1Obj.ss, sizeof(saddr1Obj.ss)),
+                        SetArgPointee<2>(0), Return(0)))
+        // Second expectation with other system error does not modify result.
+        .WillOnce(DoAll(StructCpyToArg<1>(&saddr1Obj.ss, sizeof(saddr1Obj.ss)),
+                        SetArgPointee<2>(saddr1Obj.sizeof_saddr()),
+                        SetErrnoAndReturn(ENOBUFSP, SOCKET_ERROR)))
+        .WillOnce(DoAll(StructCpyToArg<1>(&saddr1Obj.ss, sizeof(saddr1Obj.ss)),
+                        SetArgPointee<2>(saddr1Obj.sizeof_saddr()),
+                        SetErrnoAndReturn(ENOBUFSP, SOCKET_ERROR)))
+        // Third expectation with valid connected ip address.
+        .WillOnce(DoAll(StructCpyToArg<1>(&saddr2Obj.ss, sizeof(saddr2Obj.ss)),
+                        SetArgPointee<2>(saddr2Obj.sizeof_saddr()), Return(0)))
+        .WillOnce(DoAll(StructCpyToArg<1>(&saddr2Obj.ss, sizeof(saddr2Obj.ss)),
+                        SetArgPointee<2>(saddr2Obj.sizeof_saddr()), Return(0)));
+
+    // Inject mocking functions
+    umock::Sys_socket sys_socket_injectObj(&m_sys_socketObj);
+
+    // Test Unit
+    // First expectation with valid but not connected net address.
+    saddr = "[fe80::fedc:0:4]"; // Will be overwritten as result on return.
+    EXPECT_FALSE(sockObj.remote_saddr());
+    EXPECT_FALSE(sockObj.remote_saddr(&saddr));
+    EXPECT_EQ(saddr.netaddrp(), "[::]:0");
+
+    // Second expectation with other system error does not modify result.
+    saddr = "[fe80::fedc:0:5]"; // Will not be overwritten as result on return.
+    EXPECT_THROW(sockObj.remote_saddr(), std::runtime_error);
+    EXPECT_THROW(sockObj.remote_saddr(&saddr), std::runtime_error);
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:0:5]:0");
+
+    // Third expectation with valid connected ip address.
+    saddr = ""; // Will be filled with the connected socket address.
+    EXPECT_TRUE(sockObj.remote_saddr());
+    EXPECT_TRUE(sockObj.remote_saddr(&saddr));
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:1:1]:0");
+}
 
 
 // Socket error

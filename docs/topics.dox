@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-04-17
 /*!
  * \file
  * \brief Definition of the documentation topics.
@@ -230,6 +230,10 @@
  * \defgroup upnplib-Addressing Step 0: Addressing
  * \ingroup upnplib
  * \copydoc compa-Addressing
+ *
+ * \b References
+ * - <!--REF:--><a href="https://notes.shichao.io/unp/ch5/">TCP Client/Server
+ * Example</a>
  *
  * \defgroup upnplib-addrmodul Address module
  * \ingroup upnplib-Addressing

@@ -1,7 +1,7 @@
 #ifndef UMOCK_SYS_SOCKET_HPP
 #define UMOCK_SYS_SOCKET_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-07
+// Redistribution only with this Copyright remark. Last modified: 2025-04-18
 
 #include <UPnPsdk/port.hpp>
 #include <UPnPsdk/port_sock.hpp>
@@ -26,6 +26,7 @@ class UPnPsdk_API Sys_socketInterface {
     virtual int getsockopt(SOCKET sockfd, int level, int optname, void* optval, socklen_t* optlen) = 0;
     virtual int setsockopt(SOCKET sockfd, int level, int optname, const void* optval, socklen_t optlen) = 0;
     virtual int getsockname(SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen) = 0;
+    virtual int getpeername(SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen) = 0;
     virtual int shutdown(SOCKET sockfd, int how) = 0;
     virtual int select(SOCKET nfds, fd_set* readfds, fd_set* writefds, fd_set* exceptfds, struct timeval* timeout) = 0;
     // clang-format on
@@ -51,6 +52,7 @@ class Sys_socketReal : public Sys_socketInterface {
     int getsockopt(SOCKET sockfd, int level, int optname, void* optval, socklen_t* optlen) override;
     int setsockopt(SOCKET sockfd, int level, int optname, const void* optval, socklen_t optlen) override;
     int getsockname(SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen) override;
+    int getpeername(SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen) override;
     int shutdown(SOCKET sockfd, int how) override;
     int select(SOCKET nfds, fd_set* readfds, fd_set* writefds, fd_set* exceptfds, struct timeval* timeout) override;
     // clang-format on
@@ -97,6 +99,7 @@ class UPnPsdk_API Sys_socket {
     virtual int getsockopt(SOCKET sockfd, int level, int optname, void* optval, socklen_t* optlen);
     virtual int setsockopt(SOCKET sockfd, int level, int optname, const void* optval, socklen_t optlen);
     virtual int getsockname(SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen);
+    virtual int getpeername(SOCKET sockfd, struct sockaddr* addr, socklen_t* addrlen);
     virtual int shutdown(SOCKET sockfd, int how);
     virtual int select(SOCKET nfds, fd_set* readfds, fd_set* writefds, fd_set* exceptfds, struct timeval* timeout);
     // clang-format on
