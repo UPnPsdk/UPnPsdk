@@ -3,15 +3,15 @@
 <area shape="rect" id="Node000002" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a639fecba9beb576e16e842901e9c1c27" title="Free memory assigned for handling request and unitialize socket functionality." alt="" coords="264,133,444,187"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,477,323,197,328,200,131,480"/>
 <area shape="rect" id="Node000003" href="$d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="784,17,877,42"/>
-<area shape="poly" id="edge16_Node000001_Node000003" title=" " alt="" coords="110,478,122,408,148,312,167,260,192,210,221,161,257,118,284,93,314,72,379,40,449,19,522,7,593,3,661,4,771,16,770,21,660,10,593,8,522,13,450,24,381,45,316,77,287,98,261,122,225,164,196,212,172,263,153,314,128,409,115,479"/>
+<area shape="poly" id="edge17_Node000001_Node000003" title=" " alt="" coords="110,478,122,408,148,312,167,260,192,210,221,161,257,118,284,93,314,72,379,40,449,19,522,7,593,3,661,4,771,16,770,21,660,10,593,8,522,13,450,24,381,45,316,77,287,98,261,122,225,164,196,212,172,263,153,314,128,409,115,479"/>
 <area shape="rect" id="Node000004" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="259,322,449,377"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="144,477,257,399,288,381,290,386,260,404,148,481"/>
 <area shape="rect" id="Node000007" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="527,393,707,433"/>
 <area shape="poly" id="edge14_Node000001_Node000007" title=" " alt="" coords="210,482,258,472,513,427,513,432,259,477,211,487"/>
-<area shape="rect" id="Node000010" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="539,457,694,497"/>
-<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="211,498,525,480,526,485,211,503"/>
-<area shape="rect" id="Node000012" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="527,521,707,561"/>
-<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="211,511,513,532,512,537,211,516"/>
+<area shape="rect" id="Node000010" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a5a3e5f9b4a55bb932349592734b04431" title="Get the local socket address the socket is bound to." alt="" coords="527,457,707,497"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="211,498,512,481,513,486,211,503"/>
+<area shape="rect" id="Node000011" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="539,521,694,561"/>
+<area shape="poly" id="edge16_Node000001_Node000011" title=" " alt="" coords="211,511,526,533,525,538,211,516"/>
 <area shape="rect" id="Node000116" href="$d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="294,579,414,605"/>
 <area shape="poly" id="edge18_Node000001_Node000116" title=" " alt="" coords="188,531,305,572,303,577,186,537"/>
 <area shape="rect" id="Node000133" href="$d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="315,629,393,654"/>
@@ -30,13 +30,13 @@
 <area shape="rect" id="Node000107" href="$dd/d1d/httpparser_8cpp.html#aae19f051c772e39575e48ddb2615f6b5" title="Free memory allocated for the http message." alt="" coords="551,117,683,142"/>
 <area shape="poly" id="edge7_Node000004_Node000107" title=" " alt="" coords="370,320,431,226,466,180,496,151,536,134,538,139,499,156,470,184,435,229,374,323"/>
 <area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="450,370,521,387,520,393,449,375"/>
-<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="391,375,440,410,498,443,527,454,525,459,496,448,437,414,387,379"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="391,375,440,410,498,443,517,450,515,455,496,448,437,414,387,379"/>
+<area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="375,375,425,442,460,477,499,507,527,521,525,526,496,512,456,481,421,446,370,379"/>
 <area shape="rect" id="Node000113" href="$d5/d78/sock_8cpp.html#a90f3d17250e4a8df679a4b88a8abd4da" title="Shutsdown the socket using the ShutdownMethod to indicate whether sends and receives on the socket wi..." alt="" coords="563,215,671,241"/>
-<area shape="poly" id="edge10_Node000004_Node000113" title=" " alt="" coords="386,319,436,283,496,250,548,234,550,239,498,254,439,287,389,324"/>
+<area shape="poly" id="edge11_Node000004_Node000113" title=" " alt="" coords="386,319,436,283,496,250,548,234,550,239,498,254,439,287,389,324"/>
 <area shape="rect" id="Node000114" href="$d5/d78/sock_8cpp.html#ad157f660685d5b00db98e17f839e45f8" title="Calls the sock_init function and assigns the passed in IP address and port to the IP address and port..." alt="" coords="549,166,684,191"/>
-<area shape="poly" id="edge12_Node000004_Node000114" title=" " alt="" coords="372,320,423,259,457,227,496,200,535,185,537,190,499,205,461,231,427,262,376,323"/>
-<area shape="poly" id="edge13_Node000004_Node000012" title=" " alt="" coords="375,375,425,442,460,477,499,507,515,516,513,520,496,512,456,481,421,446,370,379"/>
-<area shape="poly" id="edge11_Node000113_Node000003" title=" " alt="" coords="670,224,704,216,734,200,767,168,792,128,809,88,820,54,825,56,814,90,796,131,771,171,738,205,706,221,671,229"/>
+<area shape="poly" id="edge13_Node000004_Node000114" title=" " alt="" coords="372,320,423,259,457,227,496,200,535,185,537,190,499,205,461,231,427,262,376,323"/>
+<area shape="poly" id="edge12_Node000113_Node000003" title=" " alt="" coords="670,224,704,216,734,200,767,168,792,128,809,88,820,54,825,56,814,90,796,131,771,171,738,205,706,221,671,229"/>
 <area shape="rect" id="Node000117" href="$dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#af2c5c202798ffef6d50277b0ee80c155" title="Determines whether or not a thread should be added based on the jobsPerThread ratio." alt="" coords="507,636,727,676"/>
 <area shape="poly" id="edge19_Node000116_Node000117" title=" " alt="" coords="408,602,521,630,520,635,407,607"/>
 <area shape="rect" id="Node000132" href="$dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a46f849090972378290838f067b7d80a4" title="Creates a Thread Pool Job. (Dynamically allocated)" alt="" coords="497,701,736,755"/>

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-20
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -759,7 +759,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
     }
     if (UPnPsdk::g_dbug) {
         // Get the local netaddress the socket is bound to.
-        sockObj.sockaddr(local_saObj);
+        sockObj.local_saddr(&local_saObj);
     }
 
     va_start(argp, fmt);

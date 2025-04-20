@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-18
+// Redistribution only with this Copyright remark. Last modified: 2025-04-20
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -221,44 +221,72 @@ CSocket_basic::operator const SOCKET&() const {
 
 // Getter
 // ------
-void CSocket_basic::sockaddr(SSockaddr& a_saddr) const {
-    TRACE2(this, " Executing CSocket_basic::sockaddr()")
+int CSocket_basic::local_saddr(SSockaddr* a_saddr) const {
+    TRACE2(this, " Executing CSocket_basic::local_saddr()")
     if (m_sfd == INVALID_SOCKET) {
-        a_saddr = "";
-        return;
+        if (a_saddr)
+            *a_saddr = "";
+        return 0;
     }
+
     // Get local address from socket file descriptor.
-    socklen_t addrlen = sizeof(a_saddr.ss); // May be modified
+    SSockaddr saObj;
+    socklen_t addrlen = sizeof(saObj.ss); // May be modified
     CSocketErr serrObj;
-    int ret = UPnPsdk::getsockname(m_sfd, &a_saddr.sa, &addrlen);
+    // syscall
+    int ret = UPnPsdk::getsockname(m_sfd, &saObj.sa, &addrlen);
     if (ret != 0) {
         serrObj.catch_error();
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG1001") "Failed to get address from socket: " +
-            serrObj.error_str() + '\n');
+            UPnPsdk_LOGEXCEPT("MSG1001") "Failed to get address from socket(" +
+            std::to_string(m_sfd) + "): " + serrObj.error_str());
     }
+
     // Check if there is a complete address structure returned from
     // UPnPsdk::getsockname(). On macOS the function returns only part of the
     // address structure if the socket file descriptor isn't bound to an
     // address of a local network adapter. It trunkates the address part.
-    sa_family_t af = a_saddr.ss.ss_family;
-    if ((af == AF_INET6 && addrlen == sizeof(a_saddr.sin6)) ||
-        (af == AF_INET && addrlen == sizeof(a_saddr.sin)) ||
-        (af == AF_UNIX && addrlen == sizeof(a_saddr.sun)))
-        return;
+    sa_family_t af = saObj.ss.ss_family;
+    if (!(af == AF_INET6 && addrlen == sizeof(saObj.sin6)) &&
+        !(af == AF_INET && addrlen == sizeof(saObj.sin))) {
+        // If there is no complete address structure returned from
+        // UPnPsdk::getsockname() but no error reported, it is considered to be
+        // unbound. I return here an empty socket address with preserved
+        // address family that usually should be AF_UNSPEC.
+        if (a_saddr) {
+            *a_saddr = "";
+            a_saddr->ss.ss_family = af;
+        }
+        return 0;
+    }
 
-    // If there is no complete address structure returned from
-    // UPnPsdk::getsockname() we return here an empty socket address with
-    // preserved address family.
-    a_saddr = "";
-    a_saddr.ss.ss_family = af;
-    UPnPsdk_LOGERR("MSG1133") "Unspecified socket address detected. Is the "
-                              "socket bound to a local address? Continue with "
-                              "unspecified address and address family "
-        << af << ".\n";
+    // With an unspecified IP address of a given address family AF_INET6
+    // ("[::]") or AF_INET ("0.0.0.0") the socket is "passive" bound for
+    // listening, otherwise it is "active" bound.
+    switch (af) {
+    case AF_INET6:
+        if (a_saddr)
+            *a_saddr = saObj;
+        for (size_t i{}; i < sizeof(in6_addr); i++) {
+            if (saObj.sin6.sin6_addr.s6_addr[i] != 0u) {
+                return 1; // Bound active
+            }
+        }
+        return -1; // All zero, bound passive
+
+    case AF_INET:
+        if (a_saddr)
+            *a_saddr = saObj;
+        return (saObj.sin.sin_addr.s_addr == INADDR_ANY) ? -1 // Bound passive
+                                                         : 1; // Bound active
+    } // switch
+
+    throw std::invalid_argument("MSG1091: Unsupported address family " +
+                                std::to_string(saObj.ss.ss_family) + ".\n");
 }
 
 bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
+    TRACE2(this, " Executing CSocket_basic::remote_saddr()")
     if (m_sfd == INVALID_SOCKET) {
         if (a_saddr)
             *a_saddr = "";
@@ -290,24 +318,17 @@ bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
     // It trunkates the address part.
     sa_family_t af = saObj.ss.ss_family;
     if ((af == AF_INET6 && addrlen == sizeof(saObj.sin6)) ||
-        (af == AF_INET && addrlen == sizeof(saObj.sin)) ||
-        (af == AF_UNIX && addrlen == sizeof(saObj.sun))) {
+        (af == AF_INET && addrlen == sizeof(saObj.sin))) {
         if (a_saddr)
             *a_saddr = saObj;
         return true;
     }
-    // If there is no complete address structure returned we return here an
-    // empty socket address with preserved address family.
-    if (a_saddr) {
-        *a_saddr = "";
-        a_saddr->ss.ss_family = af;
-    }
-    UPnPsdk_LOGERR(
-        "MSG1088") "Unspecified socket address detected. Is the socket "
-                   "connected to a remote ip address? Returning unspecified "
-                   "address with address family "
-        << af << ".\n";
-    return false;
+    // If there is no complete address structure returned from ::getpeername()
+    // I do not modify the result object *a_saddr.
+    throw std::invalid_argument(
+        UPnPsdk_LOGEXCEPT(
+            "MSG1088") "Unknown socket address detected with address family " +
+        std::to_string(saObj.ss.ss_family));
 }
 
 
@@ -363,79 +384,6 @@ bool CSocket_basic::is_reuse_addr() const {
             serrObj.error_str() + '\n');
     }
     return so_option;
-}
-
-int CSocket_basic::is_bound() const {
-    // I get the socket address from the file descriptor and check if its
-    // address and port are all zero. I have to do this different for AF_INET6
-    // and AF_INET. Because I only use ::getaddrinfo() to get internet address
-    // information I can use its criteria to detect binding. With
-    // ::getaddrinfo():
-    // - Either node or service (port), but not both, may be NULL means a bound
-    //   address must have at least a node address or a port.
-    // - If the AI_PASSIVE flag was specified, and node is NULL, then the
-    // returned socket addresses will be suitable for binding a socket that
-    // will ::accept() connections. The returned socket address will contain the
-    // "wildcard  address" (INADDR_ANY for IPv4 addresses, IN6ADDR_ANY_INIT for
-    // IPv6 address).
-    // - If the AI_PASSIVE flag was not specified, then the returned socket
-    // addresses will be suitable for use with ::connect(), ::sendto(), or
-    // ::sendmsg(). If node is NULL, then the network address will be set to
-    // the loopback interface  address (INADDR_LOOPBACK for IPv4 addresses,
-    // IN6ADDR_LOOPBACK_INIT for IPv6 address).
-    // - Syscall ::bind() accepts a socket address structure that always has a
-    // numeric service/port number. 0 is interpreted as "unspecified port" and
-    // ::bind() will use a free random port number, so a bound socket always
-    // have a port number > 0.
-    //
-    // This all means for a socket when asking for its bound address with
-    // syscall ::getsockname():
-    // - A socket address with port 0 cannot be bound, otherwise
-    // - an unspecified socket address of the address family AF_INET6 or
-    //   AF_INET (means with the "wildcard address" (all zero)) is passive
-    //   bound to listen on local network adapters with ::accept().
-    // - A socket address with any other ip address is (active) bound to the
-    //   local network adapter with that ip address for use with syscalls
-    //   ::connect(), ::sendto(), or ::sendmsg().
-    //
-    // An older but incomplete version of this member function with direct
-    // compare of the socket address with a 16 null byte array AF_INET6 can be
-    // found at commit
-    // a5ec86a93608234016630123c776c09f8ff276fb:upnplib/src/net/socket.cpp.
-    // TRACE2(this, " Executing CSocket::is_bound()")
-
-    // binding is protected.
-    std::scoped_lock lock(m_bound_mutex);
-
-    // Get the socket address from the socket file descriptor.
-    SSockaddr saObj;
-    this->sockaddr(saObj);
-
-    // A socket address with port number 0 cannot be bound. 'sin6_port' is on
-    // the same structure location as 'sin_port' so it can be used for AF_INET6
-    // and AF_INET together.
-    if (saObj.sin6.sin6_port == 0u)
-        return 0;
-
-    // With an unspecified IP address of a given address family AF_INET6 or
-    // AF_INET the socket is "passive" bound for listening, otherwise it is
-    // "active" bound.
-    switch (saObj.ss.ss_family) {
-    case AF_INET6:
-        for (size_t i{}; i < sizeof(in6_addr); i++) {
-            if (saObj.sin6.sin6_addr.s6_addr[i] != 0u)
-                return 1; // Bound active
-        }
-        return -1; // All zero, bound passive
-
-    case AF_INET:
-        return (saObj.sin.sin_addr.s_addr == INADDR_ANY) ? -1 // Bound passive
-                                                         : 1; // Bound active
-    } // switch
-
-    throw std::invalid_argument(
-        "MSG1091: Program error must be fixed. Unsupported address family " +
-        std::to_string(saObj.ss.ss_family) + ".\n");
 }
 
 
@@ -508,7 +456,7 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
     // Check if socket is already bound.
     if (m_sfd != INVALID_SOCKET) {
         SSockaddr saObj;
-        this->sockaddr(saObj);
+        this->local_saddr(&saObj);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1137") "Failed toa bind socket to an "
                                          "address. Socket fd " +
@@ -566,7 +514,7 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
 
     if (g_dbug) {
         SSockaddr saObj;
-        this->sockaddr(saObj); // Get new bound socket address.
+        this->local_saddr(&saObj); // Get new bound socket address.
         UPnPsdk_LOGINFO("MSG1115") "syscall ::bind("
             << sockfd << ", " << &saObj.sa << ", " << saObj.sizeof_saddr()
             << ") Tried " << count << " times \"" << saddr.netaddrp()

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-23
+// Redistribution only with this Copyright remark. Last modified: 2025-04-20
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -1791,7 +1791,7 @@ TEST(StartMiniServerTestSuite, get_miniserver_stopsock) {
 
     // and verify its settings
     SSockaddr sa;
-    sockObj.sockaddr(sa);
+    sockObj.local_saddr(&sa);
     EXPECT_EQ(sa.port(), miniStopSockPort);
     EXPECT_EQ(sa.netaddr(), "127.0.0.1");
 

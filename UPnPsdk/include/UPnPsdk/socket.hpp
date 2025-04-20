@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-19
+// Redistribution only with this Copyright remark. Last modified: 2025-04-20
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -193,34 +193,78 @@ class UPnPsdk_API CSocket_basic {
      * \endcode */
     operator const SOCKET&() const;
 
-    /*! \brief Get the socket address the socket is bound to
+
+    /*! \brief Get the local socket address the socket is bound to
+     * \code
+// Usage e.g.:
+SOCKET sfd = ::socket(PF_INET6, SOCK_STREAM, 0);
+SSockaddr saObj;
+CSocket_basic sockbObj(sfd);
+CSocket sockObj;
+try {
+    sockbObj.load();
+    if (sockbObj.local_saddr(&saObj))
+        std::cout << "socket is bound to " << saObj << '\n';
+    else
+        std::cout << "unbound socket unspecified netaddr " << saObj << '\n';
+
+    if (sockbObj.remote_saddr(&saObj))
+        std::cout << "socket is connected to " << saObj << '\n';
+    else
+        std::cout << "unconnected socket unspecified netaddr " << saObj << '\n';
+} catch(std::exception& ex) { handle_error(); };
+close(sfd);
+
+// CSocket inherit from CSocket_basic
+CSocket sockObj;
+try {
+    sockObj.bind(SOCK_STREAM, nullptr, AI_PASSIVE);
+    if (sockObj.local_saddr() == -1 && !sockObj.remote_saddr())
+        std::cout << "socket unconnected and listening on incomming requests.";
+    else
+        std::cerr << "failing to bind socket passive.";
+} catch(std::exception& ex) { handle_error(); };
+     * \endcode
      *
-     * For an example look at CSocket_basic::is_bound().
-     * \exception std::runtime_error Failed to get address from socket. */
-    void sockaddr(
-        /*! [out] Reference to a socket address object that will be filled with
-         * the address information. If an error is thrown the structure is not
-         * modified. If no information is available (the socket is not bound to
-         * a network adapter) an unspecified netaddress is returned. */
-        SSockaddr& a_saddr) const;
+     * \returns
+     *  - \b -1 The socket is passive bound to listen on all local network
+     *          adapter for incomming requests.
+     *  - \b 0 The socket is not bound to any ip address.
+     *  - \b 1 The socket is bound to an ip address ready to use for syscalls
+     *         ::%connect(), ::%sendto(), or ::%sendmsg().
+     * \exception std::runtime_error system <a
+     * href="https://www.man7.org/linux/man-pages/man2/getsockname.2.html#ERRORS">errors
+     * as specified</a>. */
+    int local_saddr(
+        /*! [out] Optional: pointer to a socket address object that will be
+         * filled with the address information of a local network adapter that
+         * the socket is bound to. If an error is thrown, this socket address
+         * object is not modified. If no information is available (the socket
+         * is not bound to a local network adapter) an unspecified socket
+         * address (":0") is returned, possibly with address family ("[::]:0"
+         * or 0.0.0.0:0"). But working with IP-version is not intended. */
+        SSockaddr* a_saddr = nullptr) const;
+
 
     /*! \brief Get the remote socket address the socket is connected to
+     *
+     * For an example look at CSocket_basic::local_saddr().
      * \returns
      *  \b true&nbsp; if socket is connected\n
      *  \b false otherwise
      * \exception std::runtime_error system <a
      * href="https://www.man7.org/linux/man-pages/man2/getpeername.2.html#ERRORS">errors
-     * as specified</a> except "socket is not connected".
-     */
+     * as specified</a> except "The socket is not connected". */
     bool remote_saddr(
         /*! [out] Optional: pointer to a socket address object that will be
          * filled with the remote address information. If an error is thrown,
-         * the destination object is not modified. If no information is
+         * this socket address object is not modified. If no information is
          * available (the socket is not connected to a remote peer) an
          * unspecified socket address (":0") is returned, possibly with address
-         * family ("[::]:0" or 0.0.0.0:0"). But you should not work with IP
-         * version in general. */
+         * family ("[::]:0" or 0.0.0.0:0"). But working with IP-version is not
+         * intended.*/
         SSockaddr* a_saddr = nullptr) const;
+
 
     /*! \brief Get the [socket type](\ref glossary_socktype).
      * \returns `SOCK_STREAM` or `SOCK_DGRAM`.
@@ -245,34 +289,6 @@ class UPnPsdk_API CSocket_basic {
      *  \b false otherwise
      * \exception std::runtime_error if query option fails. */
     bool is_reuse_addr() const;
-
-    /*! \brief Get property if socket is bound to an ip address
-     * \code
-     * // Usage e.g.:
-     * SOCKET sfd = ::socket(PF_INET6, SOCK_STREAM, 0);
-     * CSocket_basic sockObj(sfd);
-     * SSockaddr saObj;
-     * try {
-     *     sockObj.load();
-     *     sockObj.sockaddr(saObj);
-     * } catch(xcp) { handle_error(); };
-     *
-     * if (sockObj.is_bound())
-     *     std::cout << "socket is bound to " << saObj << '\n';
-     * else
-     *     std::cout << "unbound socket unspecified netaddr " << saObj << '\n';
-     * close(sfd);
-     * \endcode
-     * \returns
-     *  - \b -1 The socket is passive bound with its local ip address of a
-     *          network adapter for listening on incomming requests.
-     *  - \b 0 The socket is not bound to any ip address.
-     *  - \b 1 The socket is bound to an ip address ready to use for syscalls
-     *         ::%connect(), ::%sendto(), or ::%sendmsg().
-     * \exception std::invalid_argument Unsupported address family. This is a
-     * program guard and should never thrown. If so, it must be fixed.
-     */
-    int is_bound() const;
     /// @} Getter
 
   protected:
@@ -411,7 +427,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CAddrinfo ai("localhost");
      * try {
      *     ai.get_first();
-     *     ai.sockaddr(saddr6);
+     *     ai.local_saddr(&saddr6);
      *     sock6Obj.bind(SOCK_STREAM, &saddr6);
      * } catch(std::exception& ex) { handle_error(); }
      * \endcode

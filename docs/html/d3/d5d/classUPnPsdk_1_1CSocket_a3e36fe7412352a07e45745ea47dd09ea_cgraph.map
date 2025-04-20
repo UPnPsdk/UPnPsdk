@@ -7,17 +7,17 @@
 <area shape="rect" id="Node000004" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="233,165,403,205"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="98,456,146,368,183,311,226,256,275,212,278,216,230,259,187,314,150,371,103,459"/>
 <area shape="rect" id="Node000009" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="463,261,633,301"/>
-<area shape="poly" id="edge15_Node000001_Node000009" title=" " alt="" coords="99,456,118,427,146,389,183,351,227,320,281,298,339,284,396,277,449,274,449,280,397,282,340,289,283,303,229,325,186,355,150,393,122,430,104,459"/>
+<area shape="poly" id="edge18_Node000001_Node000009" title=" " alt="" coords="99,456,118,427,146,389,183,351,227,320,281,298,339,284,396,277,449,274,449,280,397,282,340,289,283,303,229,325,186,355,150,393,122,430,104,459"/>
 <area shape="rect" id="Node000010" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="243,543,393,583"/>
 <area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="122,481,229,528,247,535,245,540,227,533,120,486"/>
 <area shape="rect" id="Node000012" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="233,479,403,519"/>
 <area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="180,479,220,484,219,489,180,484"/>
-<area shape="rect" id="Node000013" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="241,671,395,711"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="102,482,120,517,147,564,184,613,230,657,237,662,234,666,226,661,180,617,143,567,115,520,97,485"/>
-<area shape="rect" id="Node000015" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53" title="Get sizeof the current filled (sin6 or sin) Sockaddr Structure." alt="" coords="241,607,395,647"/>
-<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="106,482,156,534,191,565,229,592,240,598,238,603,227,597,188,569,153,538,103,485"/>
-<area shape="rect" id="Node000016" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a35082ff3e44ebd5445417509630b9493" title="Get the socket address the socket is bound to." alt="" coords="228,364,408,404"/>
-<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="126,455,251,407,253,412,128,460"/>
+<area shape="rect" id="Node000013" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a5a3e5f9b4a55bb932349592734b04431" title="Get the local socket address the socket is bound to." alt="" coords="228,364,408,404"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="126,455,251,407,253,412,128,460"/>
+<area shape="rect" id="Node000014" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="241,607,395,647"/>
+<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="106,482,156,534,191,565,229,592,240,598,238,603,227,597,188,569,153,538,103,485"/>
+<area shape="rect" id="Node000016" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53" title="Get sizeof the current filled (sin6 or sin) Sockaddr Structure." alt="" coords="241,671,395,711"/>
+<area shape="poly" id="edge17_Node000001_Node000016" title=" " alt="" coords="102,482,120,517,147,564,184,613,230,657,237,662,234,666,226,661,180,617,143,567,115,520,97,485"/>
 <area shape="rect" id="Node000017" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598" title="Get cached error message." alt="" coords="243,735,393,775"/>
 <area shape="poly" id="edge19_Node000001_Node000017" title=" " alt="" coords="100,483,114,528,139,592,178,661,202,692,230,721,236,725,233,730,226,725,198,696,173,663,135,594,109,530,95,485"/>
 <area shape="rect" id="Node000005" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="463,69,633,109"/>
@@ -31,8 +31,8 @@
 <area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="361,203,457,247,475,254,473,259,455,252,358,208"/>
 <area shape="rect" id="Node000011" href="$d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30" title="Free function to split inet address and port(service)" alt="" coords="456,550,640,575"/>
 <area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="394,560,442,560,442,565,394,565"/>
-<area shape="rect" id="Node000014" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#aa33ca96a98c6bcaeae39e6f06c1543a0" title="Get the assosiated netaddress without port." alt="" coords="471,671,625,711"/>
-<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="396,688,457,688,457,693,396,693"/>
-<area shape="poly" id="edge17_Node000016_Node000002" title=" " alt="" coords="408,370,455,364,456,369,409,375"/>
-<area shape="poly" id="edge18_Node000016_Node000003" title=" " alt="" coords="405,401,456,413,455,419,404,407"/>
+<area shape="poly" id="edge13_Node000013_Node000002" title=" " alt="" coords="408,370,455,364,456,369,409,375"/>
+<area shape="poly" id="edge14_Node000013_Node000003" title=" " alt="" coords="405,401,456,413,455,419,404,407"/>
+<area shape="rect" id="Node000015" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#aa33ca96a98c6bcaeae39e6f06c1543a0" title="Get the assosiated netaddress without port." alt="" coords="471,607,625,647"/>
+<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="396,624,457,624,457,629,396,629"/>
 </map>

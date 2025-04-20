@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-18
+// Redistribution only with this Copyright remark. Last modified: 2025-04-20
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -116,7 +116,7 @@ TEST(SockTestSuite, sock_connect_to_host) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM));
     SSockaddr saObj;
-    sockObj.sockaddr(saObj);
+    sockObj.local_saddr(&saObj);
 
     // Get the remote host socket addresses
     CAddrinfo aiObj("www.example.com", "http", 0 /*flags*/, SOCK_STREAM);
@@ -167,7 +167,7 @@ TEST(SocketBasicTestSuite, instantiate_socket_successful) {
     // Test Unit
     CSocket_basic sockObj(sfd);
     ASSERT_NO_THROW(sockObj.load()); // UPnPsdk::CSocket_basic
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
 
     EXPECT_EQ(static_cast<SOCKET>(sockObj), sfd);
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
@@ -205,10 +205,10 @@ TEST(SocketBasicTestSuite, instantiate_socket_af_unix) {
 
     // The socket is not bound to an address from a local network adapter so we
     // will find an unspecified address of the address family.
-    EXPECT_FALSE(sockObj.is_bound());
+    EXPECT_FALSE(sockObj.local_saddr());
     memset(&saddr.ss, 0xAA, sizeof(saddr.ss));
     // Next returns a UNIX domain 'struct sockaddr_un'.
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
     EXPECT_EQ(saddr.ss.ss_family, AF_UNIX);
     EXPECT_EQ(saddr.sun.sun_family, AF_UNIX);
     EXPECT_STREQ(saddr.sun.sun_path, "");
@@ -236,7 +236,7 @@ TEST(SocketBasicTestSuite, instantiate_socket_load_two_times) {
     CSocket_basic sockObj(sfd);
     sockObj.load(); // UPnPsdk::CSocket_basic
     sockObj.load(); // UPnPsdk::CSocket_basic
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
 
     EXPECT_EQ(static_cast<SOCKET>(sockObj), sfd);
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
@@ -288,9 +288,9 @@ TEST(SocketBasicTestSuite, instantiate_empty_socket) {
     // Test Unit
     CSocket_basic sockObj;
     ASSERT_EQ(static_cast<SOCKET>(sockObj), INVALID_SOCKET);
-    ASSERT_FALSE(sockObj.is_bound());
+    ASSERT_FALSE(sockObj.local_saddr());
 
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
     EXPECT_EQ(saddr.netaddrp(), ":0");
 
     EXPECT_THAT([&sockObj]() { sockObj.socktype(); },
@@ -307,9 +307,9 @@ TEST(SocketBasicTestSuite, instantiate_empty_socket) {
 TEST(SocketTestSuite, instantiate_unbind_socket) {
     CSocket sockObj;
     ASSERT_EQ(static_cast<SOCKET>(sockObj), INVALID_SOCKET);
-    ASSERT_FALSE(sockObj.is_bound());
+    ASSERT_FALSE(sockObj.local_saddr());
 
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
     EXPECT_EQ(saddr.netaddrp(), ":0");
 
     EXPECT_THAT([&sockObj]() { sockObj.socktype(); },
@@ -338,7 +338,7 @@ TEST(SocketBasicTestSuite, instantiate_with_bound_raw_socket_fd) {
     CSocket_basic sockObj(bound_sock);
     sockObj.load(); // UPnPsdk::CSocket_basic
     SSockaddr sa_sockObj;
-    sockObj.sockaddr(sa_sockObj);
+    sockObj.local_saddr(&sa_sockObj);
     EXPECT_TRUE(sa_sockObj == saddr);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
@@ -357,8 +357,8 @@ TEST(SocketTestSuite, move_socket_successful) {
     saddr = "";
     saddr = 8080;
     ASSERT_NO_THROW(sock1.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
-    ASSERT_EQ(sock1.is_bound(), -1);
-    sock1.sockaddr(saddr);
+    ASSERT_EQ(sock1.local_saddr(), -1);
+    sock1.local_saddr(&saddr);
 
     SOCKET old_fd_sock1 = sock1;
 
@@ -371,7 +371,7 @@ TEST(SocketTestSuite, move_socket_successful) {
     //                           to move only.
     // This moves the socket file descriptor.
     CSocket sock2{std::move(sock1)};
-    sock2.sockaddr(saddr);
+    sock2.local_saddr(&saddr);
 
     // The socket file descriptor has been moved to the new object.
     EXPECT_EQ(static_cast<SOCKET>(sock2), old_fd_sock1);
@@ -384,7 +384,7 @@ TEST(SocketTestSuite, move_socket_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sock2.sockerr(), 0);
     EXPECT_FALSE(sock2.is_reuse_addr());
-    EXPECT_EQ(sock2.is_bound(), -1);
+    EXPECT_EQ(sock2.local_saddr(), -1);
     EXPECT_TRUE(sock2.is_listen());
 }
 
@@ -395,8 +395,8 @@ TEST(SocketTestSuite, assign_socket_successful) {
     saddr = 8080;
     CSocket sock1;
     ASSERT_NO_THROW(sock1.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
-    ASSERT_EQ(sock1.is_bound(), -1);
-    sock1.sockaddr(saddr);
+    ASSERT_EQ(sock1.local_saddr(), -1);
+    sock1.local_saddr(&saddr);
 
     SOCKET old_fd_sock1 = sock1;
 
@@ -408,7 +408,7 @@ TEST(SocketTestSuite, assign_socket_successful) {
 
     // Test Unit. We can only move. Copy a socket resource is not useful.
     sock2 = std::move(sock1);
-    sock2.sockaddr(saddr);
+    sock2.local_saddr(&saddr);
 
     // The socket file descriptor has been moved to the destination object.
     EXPECT_EQ((SOCKET)sock2, old_fd_sock1);
@@ -421,7 +421,7 @@ TEST(SocketTestSuite, assign_socket_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sock2.sockerr(), 0);
     EXPECT_FALSE(sock2.is_reuse_addr());
-    EXPECT_EQ(sock2.is_bound(), -1);
+    EXPECT_EQ(sock2.local_saddr(), -1);
     EXPECT_TRUE(sock2.is_listen());
 }
 
@@ -440,7 +440,7 @@ TEST(SocketTestSuite, move_socket_via_allocated_list) {
     saddr = 8080;
     CSocket sock1Obj;
     ASSERT_NO_THROW(sock1Obj.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
-    // sock1Obj.sockaddr(saddr);
+    // sock1Obj.local_saddr(&saddr);
     // std::cerr << "Source socket is bound to " << saddr.netaddrp()
     //           << ". Moving...\n";
 
@@ -449,11 +449,11 @@ TEST(SocketTestSuite, move_socket_via_allocated_list) {
     CSocket sock2Obj{std::move(*socket_list->pSock1Obj)};
 
     ASSERT_EQ((SOCKET)sock1Obj, INVALID_SOCKET);
-    // sock1Obj.sockaddr(saddr);
+    // sock1Obj.local_saddr(&saddr);
     // std::cerr << "Source socket is now empty with " << saddr.netaddrp() <<
     // ".\n";
     ASSERT_NE((SOCKET)sock2Obj, INVALID_SOCKET);
-    // sock2Obj.sockaddr(saddr);
+    // sock2Obj.local_saddr(&saddr);
     // std::cerr << "Moved socket is still bound to " << saddr.netaddrp() <<
     // ".\n";
 
@@ -483,14 +483,14 @@ TEST(SocketTestSuite, bind_ipv6only) {
     saddr = "[::]:50001";
     CSocket sock1Obj;
     ASSERT_NO_THROW(sock1Obj.bind(SOCK_STREAM, &saddr));
-    EXPECT_TRUE(sock1Obj.is_bound());
+    EXPECT_TRUE(sock1Obj.local_saddr());
     EXPECT_FALSE(is_v6only(sock1Obj)); // resetted
 
     // Unicast IPv6 address.
     saddr = "[::1]:50002";
     CSocket sock2Obj;
     ASSERT_NO_THROW(sock2Obj.bind(SOCK_STREAM, &saddr));
-    EXPECT_TRUE(sock2Obj.is_bound());
+    EXPECT_TRUE(sock2Obj.local_saddr());
 #ifdef __unix__
     EXPECT_TRUE(is_v6only(sock2Obj)); // Not resetted
 #else
@@ -501,7 +501,7 @@ TEST(SocketTestSuite, bind_ipv6only) {
     saddr = "0.0.0.0:50003";
     CSocket sock3Obj;
     ASSERT_NO_THROW(sock3Obj.bind(SOCK_STREAM, &saddr));
-    EXPECT_TRUE(sock3Obj.is_bound());
+    EXPECT_TRUE(sock3Obj.local_saddr());
 #ifdef _WIN32
     EXPECT_TRUE(is_v6only(sock3Obj)); // Not resetted
 #else
@@ -513,7 +513,7 @@ TEST(SocketTestSuite, bind_ipv6only) {
     saddr = "127.0.0.1:50004";
     CSocket sock4Obj;
     ASSERT_NO_THROW(sock4Obj.bind(SOCK_STREAM, &saddr));
-    EXPECT_TRUE(sock4Obj.is_bound());
+    EXPECT_TRUE(sock4Obj.local_saddr());
 #ifdef _WIN32
     EXPECT_TRUE(is_v6only(sock4Obj)); // Not resetted
 #else
@@ -526,11 +526,11 @@ TEST(SocketTestSuite, bind_ipv6_successful) {
     saddr = "[::1]:50001";
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
-    EXPECT_TRUE(sockObj.is_bound());
+    EXPECT_TRUE(sockObj.local_saddr());
 
     // Compare bound ip address from socket with given ip address.
     SSockaddr sa_sockObj;
-    sockObj.sockaddr(sa_sockObj);
+    sockObj.local_saddr(&sa_sockObj);
     EXPECT_TRUE(sa_sockObj == saddr);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
@@ -552,11 +552,11 @@ TEST(SocketTestSuite, bind_ipv6_rapid_same_port_two_times) {
     }
     ASSERT_NO_THROW(sock2Obj.bind(SOCK_STREAM, &saddr2));
 
-    EXPECT_TRUE(sock2Obj.is_bound());
+    EXPECT_TRUE(sock2Obj.local_saddr());
 
     // Compare bound ip address from socket with given ip address.
     SSockaddr sa_sock2Obj;
-    sock2Obj.sockaddr(sa_sock2Obj);
+    sock2Obj.local_saddr(&sa_sock2Obj);
     EXPECT_TRUE(sa_sock2Obj == saddr2);
 
     EXPECT_EQ(sock2Obj.socktype(), SOCK_STREAM);
@@ -569,11 +569,11 @@ TEST(SocketTestSuite, bind_ipv4_successful) {
     saddr = "127.0.0.1:50002";
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM, &saddr));
-    EXPECT_TRUE(sockObj.is_bound());
+    EXPECT_TRUE(sockObj.local_saddr());
 
     // Compare bound ip address from socket with given ip address.
     SSockaddr sa_sockObj;
-    sockObj.sockaddr(sa_sockObj);
+    sockObj.local_saddr(&sa_sockObj);
     EXPECT_TRUE(sa_sockObj == saddr);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
@@ -595,9 +595,9 @@ TEST(SocketBasicTestSuite, bind_socket_two_times_successful) {
     ASSERT_NO_THROW(sockObj.load()); // UPnPsdk::CSocket_basic
     EXPECT_NE(static_cast<SOCKET>(sockObj), INVALID_SOCKET);
 
-    EXPECT_TRUE(sockObj.is_bound());
+    EXPECT_TRUE(sockObj.local_saddr());
     SSockaddr sa_sockObj;
-    sockObj.sockaddr(sa_sockObj);
+    sockObj.local_saddr(&sa_sockObj);
     EXPECT_TRUE(sa_sockObj == saddr);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
@@ -608,15 +608,15 @@ TEST(SocketBasicTestSuite, bind_socket_two_times_successful) {
 TEST(SocketTestSuite, bind_default_passive_successful) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM, nullptr, AI_PASSIVE));
-    EXPECT_EQ(sockObj.is_bound(), -1);
-    sockObj.sockaddr(saddr);
+    EXPECT_EQ(sockObj.local_saddr(), -1);
+    sockObj.local_saddr(&saddr);
     std::cout << "DEBUG! address family=" << saddr.ss.ss_family << '\n';
 
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
     // With AI_PASSIVE setting (for listening) the presented address is the
     // unspecified address. When using this to listen, it will listen on all
     // local network interfaces.
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.netaddr(), AnyOf("[::]", "0.0.0.0"));
     // A port number was given by ::bind().
     EXPECT_NE(saddr.port(), 0);
@@ -630,13 +630,13 @@ TEST(SocketTestSuite, bind_only_service_passive_successful) {
     saddr = 8080;
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
-    EXPECT_EQ(sockObj.is_bound(), -1);
+    EXPECT_EQ(sockObj.local_saddr(), -1);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     // With AI_PASSIVE setting (for listening) the presented address is the
     // unspecified address. When using this to listen, it will listen on all
     // local network interfaces.
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
@@ -646,11 +646,11 @@ TEST(SocketTestSuite, bind_only_service_passive_successful) {
 TEST(SocketTestSuite, bind_default_not_passive_successful) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM));
-    EXPECT_EQ(sockObj.is_bound(), 1);
+    EXPECT_EQ(sockObj.local_saddr(), 1);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
     // With no node given the best address is selected.
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.ss.ss_family, AnyOf(AF_INET6, AF_INET));
     // A port number was given by ::bind().
     EXPECT_NE(saddr.port(), 0);
@@ -662,11 +662,11 @@ TEST(SocketTestSuite, bind_default_not_passive_successful) {
 TEST(SocketTestSuite, bind_without_node_not_passive_successful) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, nullptr));
-    EXPECT_EQ(sockObj.is_bound(), 1);
+    EXPECT_EQ(sockObj.local_saddr(), 1);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     // With no node the best address is selected.
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.ss.ss_family, AnyOf(AF_INET6, AF_INET));
     // A port number was given by ::bind().
     EXPECT_NE(saddr.port(), 0);
@@ -682,11 +682,11 @@ TEST(SocketTestSuite, bind_only_service_not_passive_successful) {
     // Test Unit
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
-    EXPECT_EQ(sockObj.is_bound(), 1);
+    EXPECT_EQ(sockObj.local_saddr(), 1);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     // With empty node the loopback address is selected.
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::1]:8080", "127.0.0.1:8080"));
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
@@ -697,11 +697,11 @@ TEST(SocketTestSuite, bind_to_loopback_interface_successful) {
     saddr = ""; // Unspecified socket address
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
-    EXPECT_EQ(sockObj.is_bound(), 1);
+    EXPECT_EQ(sockObj.local_saddr(), 1);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     // With an unspecified socket address the loopback address is selected.
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.netaddr(), AnyOf("[::1]", "127.0.0.1"));
     // A port number was given by ::bind().
     EXPECT_NE(saddr.port(), 0);
@@ -716,11 +716,11 @@ TEST(SocketTestSuite, bind_to_localhost_successful) {
     ai.sockaddr(saddr);
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
-    EXPECT_EQ(sockObj.is_bound(), 1);
+    EXPECT_EQ(sockObj.local_saddr(), 1);
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     // With an unspecified socket address the loopback address is selected.
-    sockObj.sockaddr(saddr);
+    sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.netaddr(), AnyOf("[::1]", "127.0.0.1"));
     // A port number was given by ::bind().
     EXPECT_NE(saddr.port(), 0);
@@ -1111,7 +1111,7 @@ TEST(SocketTestSuite, bind_two_times_different_addresses_fail) {
     saddr = ":50001"; // Modifies only port
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
-    EXPECT_TRUE(sockObj.is_bound());
+    EXPECT_TRUE(sockObj.local_saddr());
 
     // Try to bind the socket a second time to another address.
     SSockaddr saddr2;
@@ -1222,7 +1222,7 @@ TEST_F(SocketMockFTestSuite, remote_saddr_successful) {
     // An empty socket address indicates that the socket is not connected.
     EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
     // But it is still bound to a local address.
-    EXPECT_TRUE(sockObj.is_bound());
+    EXPECT_TRUE(sockObj.local_saddr());
 
     // Set mocked expectations, always without and with pointer to result addr.
     SOCKET sockfd = sockObj;
@@ -1255,13 +1255,13 @@ TEST_F(SocketMockFTestSuite, remote_saddr_successful) {
 
     // Test Unit
     // First expectation with valid but not connected net address.
-    saddr = "[fe80::fedc:0:4]"; // Will be overwritten as result on return.
-    EXPECT_FALSE(sockObj.remote_saddr());
-    EXPECT_FALSE(sockObj.remote_saddr(&saddr));
-    EXPECT_EQ(saddr.netaddrp(), "[::]:0");
+    saddr = "[fe80::fedc:0:4]"; // Will not be modified.
+    EXPECT_THROW(sockObj.remote_saddr(), std::invalid_argument);
+    EXPECT_THROW(sockObj.remote_saddr(&saddr), std::invalid_argument);
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:0:4]:0");
 
     // Second expectation with other system error does not modify result.
-    saddr = "[fe80::fedc:0:5]"; // Will not be overwritten as result on return.
+    saddr = "[fe80::fedc:0:5]"; // Will not be modified.
     EXPECT_THROW(sockObj.remote_saddr(), std::runtime_error);
     EXPECT_THROW(sockObj.remote_saddr(&saddr), std::runtime_error);
     EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:0:5]:0");

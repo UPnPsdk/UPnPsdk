@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-20
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -73,6 +73,7 @@ namespace {
  * remote control point.
  */
 struct mserv_request_t {
+    /// \todo Replace this structure with CSocket.
     /// \brief Connection socket file descriptor.
     SOCKET connfd;
     /// \brief Socket address of the remote control point.
@@ -146,7 +147,7 @@ int getNumericHostRedirection(
     try {
         socketObj.load(); // UPnPsdk::CSocket_basic
         UPnPsdk::SSockaddr sa;
-        socketObj.sockaddr(sa);
+        socketObj.local_saddr(&sa);
         memcpy(a_host_port, sa.netaddrp().c_str(), a_hp_size);
         return true;
 
@@ -296,7 +297,7 @@ void handle_request(
         UPnPsdk::CSocket_basic sockObj(connfd);
         sockObj.load();
         UPnPsdk::SSockaddr local_saObj;
-        sockObj.sockaddr(local_saObj);
+        sockObj.local_saddr(&local_saObj);
         UPnPsdk::SSockaddr remote_saObj;
         remote_saObj = request_in->foreign_sockaddr;
         UPnPsdk_LOGINFO("MSG1027") "UDevice socket="
@@ -309,8 +310,10 @@ void handle_request(
     http_parser_t parser;
     http_message_t* hmsg = &parser.msg;
     SOCKINFO info;
-    ret_code = sock_init_with_ip(&info, connfd,
-                                 (sockaddr*)&request_in->foreign_sockaddr);
+    ret_code = sock_init_with_ip(
+        &info, connfd,
+        reinterpret_cast<sockaddr*>(&request_in->foreign_sockaddr));
+    /// \todo Improve test to detect ret_code = UPNP_E_INTERNAL_ERROR;
     if (ret_code != UPNP_E_SUCCESS) {
         free(request_in);
         httpmsg_destroy(hmsg);
@@ -361,7 +364,7 @@ UPNP_INLINE void schedule_request_job(
         UPnPsdk::CSocket_basic sockObj(a_connfd);
         sockObj.load();
         UPnPsdk::SSockaddr local_saObj;
-        sockObj.sockaddr(local_saObj);
+        sockObj.local_saddr(&local_saObj);
         UPnPsdk::SSockaddr remote_saObj;
         remote_saObj = clientAddr.ss;
         UPnPsdk_LOGINFO(
@@ -433,7 +436,7 @@ void fdset_if_valid( //
     UPnPsdk::CSocket_basic sockObj(a_sock);
     try {
         sockObj.load(); // UPnPsdk::CSocket_basic
-        if (sockObj.is_bound())
+        if (sockObj.local_saddr())
 
             FD_SET(a_sock, a_set);
 
@@ -492,12 +495,12 @@ int web_server_accept(
         UPnPsdk::CSocket_basic listen_sockObj(listen_sock);
         listen_sockObj.load();
         UPnPsdk::SSockaddr listen_saObj;
-        listen_sockObj.sockaddr(listen_saObj);
+        listen_sockObj.local_saddr(&listen_saObj);
 
         UPnPsdk::CSocket_basic conn_sockObj(conn_sock);
         conn_sockObj.load();
         UPnPsdk::SSockaddr conn_saObj;
-        conn_sockObj.sockaddr(conn_saObj);
+        conn_sockObj.local_saddr(&conn_saObj);
 
         UPnPsdk_LOGINFO("MSG1023") "Listening socket("
             << listen_sock << ") on \"" << listen_saObj.netaddrp()
@@ -881,7 +884,7 @@ int get_miniserver_sockets(
             out->pSockLlaObj->bind(SOCK_STREAM, &saObj, AI_PASSIVE);
             out->pSockLlaObj->listen();
             out->miniServerSock6 = *out->pSockLlaObj;
-            out->pSockLlaObj->sockaddr(saObj);
+            out->pSockLlaObj->local_saddr(&saObj);
             out->miniServerPort6 = saObj.port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& ex) {
@@ -903,7 +906,7 @@ int get_miniserver_sockets(
             out->pSockGuaObj->bind(SOCK_STREAM, &saObj, AI_PASSIVE);
             out->pSockGuaObj->listen();
             out->miniServerSock6UlaGua = *out->pSockGuaObj;
-            out->pSockGuaObj->sockaddr(saObj);
+            out->pSockGuaObj->local_saddr(&saObj);
             out->miniServerPort6UlaGua = saObj.port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& ex) {
@@ -920,7 +923,7 @@ int get_miniserver_sockets(
             out->pSockIp4Obj->bind(SOCK_STREAM, &saObj, AI_PASSIVE);
             out->pSockIp4Obj->listen();
             out->miniServerSock4 = *out->pSockIp4Obj;
-            out->pSockIp4Obj->sockaddr(saObj);
+            out->pSockIp4Obj->local_saddr(&saObj);
             out->miniServerPort4 = saObj.port();
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& ex) {
@@ -1164,7 +1167,7 @@ int StopMiniServer() {
 
     socklen_t socklen = sizeof(struct sockaddr_in);
     SOCKET sock;
-    struct sockaddr_in ssdpAddr;
+    sockaddr_in ssdpAddr;
     char buf[256] = "ShutDown";
     // due to required type cast for 'sendto' on WIN32 bufLen must fit to an int
     size_t bufLen = strlen(buf);
@@ -1188,7 +1191,8 @@ int StopMiniServer() {
         inet_pton(AF_INET, "127.0.0.1", &ssdpAddr.sin_addr);
         ssdpAddr.sin_port = htons(miniStopSockPort);
         umock::sys_socket_h.sendto(sock, buf, (SIZEP_T)bufLen, 0,
-                                   (struct sockaddr*)&ssdpAddr, socklen);
+                                   reinterpret_cast<sockaddr*>(&ssdpAddr),
+                                   socklen);
         imillisleep(1);
         if (gMServState == (MiniServerState)MSERV_IDLE) {
             break;
