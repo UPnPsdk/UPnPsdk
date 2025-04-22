@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-14
+// Redistribution only with this Copyright remark. Last modified: 2025-04-22
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -182,14 +182,16 @@ class CNetadapter {
      * %find_first("lo"), or %find_first(1), if it only has loopback addresses.
      * You can use %find_first("[::1]"), %find_first("127.0.0.1"), or
      * %find_first("loopback") to also get the associated adapter info.
+     * "loopback" is preferred because using IP-version is not intended.
      *
      * \returns
      *  - \b true if adapter with given name or ip address was found
      *  - \b false otherwise */
     UPnPsdk_API bool find_first(
         /*! [in]
-         * - no argument will select a local ip address by the operating system
-         * - "loopback" (all lower case) will select the first loopback address
+         * - no argument will select best local ip address by the operating
+         * system
+         * - "loopback" (all lower case) will select the best loopback address
          * - local network adapter name (like "lo", "eth0", "Ethernet", etc.).
          *   This restricts find_next() to point only to next ip addresses of
          *   the selected adapter.

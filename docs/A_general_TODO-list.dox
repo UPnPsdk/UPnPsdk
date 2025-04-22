@@ -1,12 +1,11 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-16
+// Redistribution only with this Copyright remark. Last modified: 2025-04-21
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
- * - Add CSocket_basic::remote_saddr(), rename CSocket::basic.sockaddr() to local_saddr().
  * - Remove CSocket::is_listen(). Info is now also available with CSocket_basic::is_bound().
  * - Improve UpnpInit2() to accept not only netadapter names.
  * - Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.

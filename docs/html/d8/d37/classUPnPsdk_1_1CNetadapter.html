@@ -590,7 +590,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- fragment --><p>You have to <a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry.">get_first()</a> entry from the internal network adapter list to load it. Then you can try to <b>find_first</b>() a local ip address. With no argument the operating system presents one as best choise. Due to _<a href="https://datatracker.ietf.org/doc/html/rfc4038#section-5.4.1">RFC 4038, 5.4.1 - IP_Address Selection</a>, specifying the source address is not typically required.</p>
 <p>If found, the ip address is selected so that you can get all its properties. With <a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters.">find_next()</a> you can get following ip addresses.</p>
 <p>If finding fails (find_first() == false) no selection is modified. Before starting lookup, the first local ip address was selected with <a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry.">get_first()</a>. This is still selected but has mostly no useful meaning in the current context. You should not expect empty values.</p>
-<p><b>find_first</b>() and <b><a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters.">find_next()</a></b> ignore loopback addresses by default. If you want them you must select them (see Parameters below). It is possible that you don't find the loopback adapter, e.g. find_first("lo"), or find_first(1), if it only has loopback addresses. You can use find_first("[::1]"), find_first("127.0.0.1"), or find_first("loopback") to also get the associated adapter info.</p>
+<p><b>find_first</b>() and <b><a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters.">find_next()</a></b> ignore loopback addresses by default. If you want them you must select them (see Parameters below). It is possible that you don't find the loopback adapter, e.g. find_first("lo"), or find_first(1), if it only has loopback addresses. You can use find_first("[::1]"), find_first("127.0.0.1"), or find_first("loopback") to also get the associated adapter info. "loopback" is preferred because using IP-version is not intended.</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li><b>true</b> if adapter with given name or ip address was found</li>
 <li><b>false</b> otherwise </li>
@@ -599,8 +599,8 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_name_or_addr</td><td><ul>
-<li>no argument will select a local ip address by the operating system</li>
-<li>"loopback" (all lower case) will select the first loopback address</li>
+<li>no argument will select best local ip address by the operating system</li>
+<li>"loopback" (all lower case) will select the best loopback address</li>
 <li>local network adapter name (like "lo", "eth0", "Ethernet", etc.). This restricts <a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters.">find_next()</a> to point only to next ip addresses of the selected adapter.</li>
 <li>an ip address. </li>
 </ul>

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-20
+// Redistribution only with this Copyright remark. Last modified: 2025-04-23
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -203,19 +203,9 @@ TEST(SocketBasicTestSuite, instantiate_socket_af_unix) {
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
 
-    // The socket is not bound to an address from a local network adapter so we
-    // will find an unspecified address of the address family.
-    EXPECT_FALSE(sockObj.local_saddr());
-    memset(&saddr.ss, 0xAA, sizeof(saddr.ss));
-    // Next returns a UNIX domain 'struct sockaddr_un'.
-    sockObj.local_saddr(&saddr);
-    EXPECT_EQ(saddr.ss.ss_family, AF_UNIX);
-    EXPECT_EQ(saddr.sun.sun_family, AF_UNIX);
-    EXPECT_STREQ(saddr.sun.sun_path, "");
-    EXPECT_EQ(saddr.netaddr(), "");
-    EXPECT_EQ(saddr.port(), 0);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
-
+    // AF_UNIX does not have an ip address associated, but a pathname from the
+    // local filesystem.
+    EXPECT_THROW(sockObj.local_saddr(), std::runtime_error);
     CLOSE_SOCKET_P(sfd);
 }
 
@@ -357,8 +347,9 @@ TEST(SocketTestSuite, move_socket_successful) {
     saddr = "";
     saddr = 8080;
     ASSERT_NO_THROW(sock1.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
-    ASSERT_EQ(sock1.local_saddr(), -1);
-    sock1.local_saddr(&saddr);
+    ASSERT_TRUE(sock1.local_saddr(&saddr)); // is bound?
+    EXPECT_FALSE(sock1.is_listen());
+    sock1.listen();
 
     SOCKET old_fd_sock1 = sock1;
 
@@ -384,7 +375,7 @@ TEST(SocketTestSuite, move_socket_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sock2.sockerr(), 0);
     EXPECT_FALSE(sock2.is_reuse_addr());
-    EXPECT_EQ(sock2.local_saddr(), -1);
+    EXPECT_TRUE(sock2.local_saddr()); // is bound?
     EXPECT_TRUE(sock2.is_listen());
 }
 
@@ -395,8 +386,9 @@ TEST(SocketTestSuite, assign_socket_successful) {
     saddr = 8080;
     CSocket sock1;
     ASSERT_NO_THROW(sock1.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
-    ASSERT_EQ(sock1.local_saddr(), -1);
-    sock1.local_saddr(&saddr);
+    ASSERT_TRUE(sock1.local_saddr(&saddr)); // is bound?
+    EXPECT_FALSE(sock1.is_listen());
+    sock1.listen();
 
     SOCKET old_fd_sock1 = sock1;
 
@@ -421,7 +413,7 @@ TEST(SocketTestSuite, assign_socket_successful) {
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sock2.sockerr(), 0);
     EXPECT_FALSE(sock2.is_reuse_addr());
-    EXPECT_EQ(sock2.local_saddr(), -1);
+    EXPECT_TRUE(sock2.local_saddr()); // is bound?
     EXPECT_TRUE(sock2.is_listen());
 }
 
@@ -606,17 +598,15 @@ TEST(SocketBasicTestSuite, bind_socket_two_times_successful) {
 }
 
 TEST(SocketTestSuite, bind_default_passive_successful) {
+    // Test Unit
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM, nullptr, AI_PASSIVE));
-    EXPECT_EQ(sockObj.local_saddr(), -1);
-    sockObj.local_saddr(&saddr);
-    std::cout << "DEBUG! address family=" << saddr.ss.ss_family << '\n';
 
+    ASSERT_TRUE(sockObj.local_saddr(&saddr)); // is bound?
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
     // With AI_PASSIVE setting (for listening) the presented address is the
     // unspecified address. When using this to listen, it will listen on all
     // local network interfaces.
-    sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.netaddr(), AnyOf("[::]", "0.0.0.0"));
     // A port number was given by ::bind().
     EXPECT_NE(saddr.port(), 0);
@@ -630,13 +620,12 @@ TEST(SocketTestSuite, bind_only_service_passive_successful) {
     saddr = 8080;
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr, AI_PASSIVE));
-    EXPECT_EQ(sockObj.local_saddr(), -1);
+    ASSERT_TRUE(sockObj.local_saddr(&saddr)); // is bound?
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     // With AI_PASSIVE setting (for listening) the presented address is the
     // unspecified address. When using this to listen, it will listen on all
     // local network interfaces.
-    sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.netaddrp(), AnyOf("[::]:8080", "0.0.0.0:8080"));
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
@@ -646,7 +635,7 @@ TEST(SocketTestSuite, bind_only_service_passive_successful) {
 TEST(SocketTestSuite, bind_default_not_passive_successful) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM));
-    EXPECT_EQ(sockObj.local_saddr(), 1);
+    EXPECT_TRUE(sockObj.local_saddr());
 
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
     // With no node given the best address is selected.
@@ -662,7 +651,7 @@ TEST(SocketTestSuite, bind_default_not_passive_successful) {
 TEST(SocketTestSuite, bind_without_node_not_passive_successful) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, nullptr));
-    EXPECT_EQ(sockObj.local_saddr(), 1);
+    EXPECT_TRUE(sockObj.local_saddr());
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     // With no node the best address is selected.
@@ -682,7 +671,7 @@ TEST(SocketTestSuite, bind_only_service_not_passive_successful) {
     // Test Unit
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
-    EXPECT_EQ(sockObj.local_saddr(), 1);
+    EXPECT_TRUE(sockObj.local_saddr());
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     // With empty node the loopback address is selected.
@@ -697,7 +686,7 @@ TEST(SocketTestSuite, bind_to_loopback_interface_successful) {
     saddr = ""; // Unspecified socket address
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
-    EXPECT_EQ(sockObj.local_saddr(), 1);
+    EXPECT_TRUE(sockObj.local_saddr());
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     // With an unspecified socket address the loopback address is selected.
@@ -716,7 +705,7 @@ TEST(SocketTestSuite, bind_to_localhost_successful) {
     ai.sockaddr(saddr);
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
-    EXPECT_EQ(sockObj.local_saddr(), 1);
+    EXPECT_TRUE(sockObj.local_saddr());
 
     EXPECT_EQ(sockObj.socktype(), SOCK_STREAM);
     // With an unspecified socket address the loopback address is selected.

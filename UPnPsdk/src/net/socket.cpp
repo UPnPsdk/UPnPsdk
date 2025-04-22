@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-20
+// Redistribution only with this Copyright remark. Last modified: 2025-04-22
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -221,12 +221,12 @@ CSocket_basic::operator const SOCKET&() const {
 
 // Getter
 // ------
-int CSocket_basic::local_saddr(SSockaddr* a_saddr) const {
+bool CSocket_basic::local_saddr(SSockaddr* a_saddr) const {
     TRACE2(this, " Executing CSocket_basic::local_saddr()")
     if (m_sfd == INVALID_SOCKET) {
         if (a_saddr)
             *a_saddr = "";
-        return 0;
+        return false;
     }
 
     // Get local address from socket file descriptor.
@@ -241,48 +241,32 @@ int CSocket_basic::local_saddr(SSockaddr* a_saddr) const {
             UPnPsdk_LOGEXCEPT("MSG1001") "Failed to get address from socket(" +
             std::to_string(m_sfd) + "): " + serrObj.error_str());
     }
+    sa_family_t af = saObj.ss.ss_family;
+    if (af != AF_INET6 && af != AF_INET)
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1091") "Unsupported address family " +
+            std::to_string(saObj.ss.ss_family));
 
     // Check if there is a complete address structure returned from
     // UPnPsdk::getsockname(). On macOS the function returns only part of the
     // address structure if the socket file descriptor isn't bound to an
     // address of a local network adapter. It trunkates the address part.
-    sa_family_t af = saObj.ss.ss_family;
     if (!(af == AF_INET6 && addrlen == sizeof(saObj.sin6)) &&
         !(af == AF_INET && addrlen == sizeof(saObj.sin))) {
         // If there is no complete address structure returned from
         // UPnPsdk::getsockname() but no error reported, it is considered to be
         // unbound. I return here an empty socket address with preserved
-        // address family that usually should be AF_UNSPEC.
+        // address family.
         if (a_saddr) {
             *a_saddr = "";
             a_saddr->ss.ss_family = af;
         }
-        return 0;
+        return false;
     }
 
-    // With an unspecified IP address of a given address family AF_INET6
-    // ("[::]") or AF_INET ("0.0.0.0") the socket is "passive" bound for
-    // listening, otherwise it is "active" bound.
-    switch (af) {
-    case AF_INET6:
-        if (a_saddr)
-            *a_saddr = saObj;
-        for (size_t i{}; i < sizeof(in6_addr); i++) {
-            if (saObj.sin6.sin6_addr.s6_addr[i] != 0u) {
-                return 1; // Bound active
-            }
-        }
-        return -1; // All zero, bound passive
-
-    case AF_INET:
-        if (a_saddr)
-            *a_saddr = saObj;
-        return (saObj.sin.sin_addr.s_addr == INADDR_ANY) ? -1 // Bound passive
-                                                         : 1; // Bound active
-    } // switch
-
-    throw std::invalid_argument("MSG1091: Unsupported address family " +
-                                std::to_string(saObj.ss.ss_family) + ".\n");
+    if (a_saddr)
+        *a_saddr = saObj;
+    return true;
 }
 
 bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {

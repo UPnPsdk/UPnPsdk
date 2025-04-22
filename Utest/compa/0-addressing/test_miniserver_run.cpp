@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-20
+// Redistribution only with this Copyright remark. Last modified: 2025-04-23
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -1216,96 +1216,77 @@ TEST_F(RunMiniServerMockFTestSuite,
         EXPECT_FALSE(
             getNumericHostRedirection(sockfd, host_port, sizeof(host_port)));
         // Get captured output
-        EXPECT_THAT(captureObj.str(),
-                    // Different on MacOS
-                    AnyOf(HasSubstr("UPnPsdk MSG1057 EXCEPT["),
-                          HasSubstr("UPnPsdk MSG1001 EXCEPT[")));
+        if (g_dbug)
+            EXPECT_THAT(captureObj.str(),
+                        // Different on MacOS
+                        AnyOf(HasSubstr("UPnPsdk MSG1057 EXCEPT["),
+                              HasSubstr("UPnPsdk MSG1001 EXCEPT[")));
+        else
+            EXPECT_TRUE(captureObj.str().empty());
     }
 
     EXPECT_STREQ(host_port, "<no message>");
 }
 
-TEST_F(RunMiniServerMockFTestSuite,
-       get_numeric_host_redirection_with_wrong_address_family) {
-    constexpr SOCKET sockfd{umock::sfd_base + 47};
+TEST(RunMiniServerTestSuite,
+     get_numeric_host_redirection_with_wrong_address_family) {
+    const SOCKET sockfd{::socket(AF_UNIX, SOCK_STREAM, 0)};
     char host_port[INET6_ADDRSTRLEN + 1 + 5]{"<no message>"};
 
-    // Provide a sockaddr structure that will be returned by mocked
-    // getsockname().
-    SSockaddr saddrObj;
-    saddrObj.ss.ss_family = AF_UNIX;
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    // Capture output to stderr
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
+    captureObj.start();
 
-    if (old_code) {
-        EXPECT_CALL(m_sys_socketObj, getsockname(sockfd, _, _))
-            .WillOnce(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
+    // Test Unit
+    bool ret_getNumericHostRedirection = getNumericHostRedirection(
+        static_cast<int>(sockfd), host_port, sizeof(host_port));
 
-        // Capture output to stderr
-        CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
-        captureObj.start();
+    // Get captured output
+    EXPECT_TRUE(captureObj.str().empty());
 
-        // Test Unit
-        bool ret_getNumericHostRedirection =
-            getNumericHostRedirection(sockfd, host_port, sizeof(host_port));
+    std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+              << ": A wrong address family AF_UNIX should not be accepted "
+                 "on Unix like platforms.\n";
+#ifdef _MSC_VER
+    EXPECT_FALSE(ret_getNumericHostRedirection);
+    EXPECT_STREQ(host_port, "<no message>");
+#else
+    EXPECT_TRUE(ret_getNumericHostRedirection);
+    EXPECT_STRNE(host_port,
+                 "<no message>"); // Wrong! Should not be modified.
+#endif
 
-        // Get captured output
-        EXPECT_TRUE(captureObj.str().empty());
+#else // UPnPsdk_WITH_NATIVE_PUPNP
 
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": A wrong but accepted address family AF_UNIX should "
-                     "set host_port to unknown netaddress.\n";
-        EXPECT_TRUE(ret_getNumericHostRedirection); // Doesn't matter because it
-                                                    // is never ussed.
-        EXPECT_STREQ(host_port, "0.0.0.0:0");       // Wrong! Should be ""
+    // Capture output to stderr
+    CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
+    bool g_dbug_old = g_dbug;
 
-    } else {
+    // Test Unit
+    captureObj.start();
+    g_dbug = false;
+    bool ret_getNumericHostRedirection =
+        getNumericHostRedirection(sockfd, host_port, sizeof(host_port));
 
-        // Mock check on CSocket_basic constructor if raw sochet is valid.
-        EXPECT_CALL(m_sys_socketObj,
-                    getsockopt(sockfd, SOL_SOCKET, SO_ERROR, _, _))
-            .Times(2)
-            .WillRepeatedly(Return(0));
+    // Get captured output
+    EXPECT_TRUE(captureObj.str().empty());
+    EXPECT_FALSE(ret_getNumericHostRedirection);
 
-        // Mock on CSocket_basic to get address (1 time) and port (1 time).
-        EXPECT_CALL(m_sys_socketObj, getsockname(sockfd, _, _))
-            // Different on MacOS
-            .Times(Between(1, 2))
-            .WillRepeatedly(DoAll(SetArgPointee<1>(saddrObj.sa), Return(0)));
+    // Test Unit
+    captureObj.start();
+    g_dbug = true;
+    ret_getNumericHostRedirection =
+        getNumericHostRedirection(sockfd, host_port, sizeof(host_port));
 
-        // Capture output to stderr
-        CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
-        bool g_dbug_old = g_dbug;
+    g_dbug = g_dbug_old;
+    // Get captured output, "Unsupported address family 1".
+    EXPECT_THAT(captureObj.str(), StartsWith("UPnPsdk MSG1093 CATCH "));
+    EXPECT_FALSE(ret_getNumericHostRedirection);
+    EXPECT_STREQ(host_port, "<no message>");
+#endif
 
-        // Test Unit
-        captureObj.start();
-        g_dbug = false;
-        bool ret_getNumericHostRedirection =
-            getNumericHostRedirection(sockfd, host_port, sizeof(host_port));
-
-        // Get captured output
-        EXPECT_THAT(
-            captureObj.str(),
-            AnyOf("", ContainsStdRegex("^TRACE\\[.*\\] Executing "
-                                       "getNumericHostRedirection\\(\\)")));
-        EXPECT_TRUE(ret_getNumericHostRedirection); // Doesn't matter because it
-                                                    // is never used.
-        EXPECT_STREQ(host_port, ":0"); // Set to an unspecified netaddress.
-
-        // Test Unit
-        captureObj.start();
-        g_dbug = true;
-        ret_getNumericHostRedirection =
-            getNumericHostRedirection(sockfd, host_port, sizeof(host_port));
-
-        g_dbug = g_dbug_old;
-        // Get captured output
-        EXPECT_THAT(
-            captureObj.str(),
-            ContainsStdRegex(
-                "UPnPsdk MSG1129 ERROR \\[.* Unsupported address family 1"));
-        EXPECT_TRUE(ret_getNumericHostRedirection); // Doesn't matter because it
-                                                    // is never used.
-        EXPECT_STREQ(host_port, ":0"); // Set to an unspecified netaddress.
-    }
+    CLOSE_SOCKET_P(sockfd);
 }
 
 TEST(RunMiniServerTestSuite, schedule_request_job) {
@@ -1450,7 +1431,7 @@ TEST(RunMiniServerDeathTest, free_handle_request_arg_double_free) {
 
 TEST_F(RunMiniServerMockFTestSuite, handle_request_successful) {
     // This test depends on mocking of http_RecvMessage() with a correct request
-    // message from a client and will be completed if that is done.
+    // message from a control point and will be completed if that is done.
     GTEST_SKIP() << "Still needs to be completed when tests for "
                     "http_RecvMessage() has been made.";
 #if 0

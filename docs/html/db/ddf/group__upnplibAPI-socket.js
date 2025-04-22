@@ -5,7 +5,7 @@ var group__upnplibAPI_socket =
       [ "CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a4e520f7e7786d3f22f50792db5cfc5dd", null ],
       [ "load", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a", null ],
       [ "operator const SOCKET &", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a878863676f643ccb63272f3aabae5762", null ],
-      [ "local_saddr", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a5a3e5f9b4a55bb932349592734b04431", null ],
+      [ "local_saddr", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a3fa77060ec104f1300521d00b9ca50e9", null ],
       [ "remote_saddr", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab", null ],
       [ "socktype", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad041272f04b0147168ec8b89f179e39b", null ],
       [ "sockerr", "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a03d5f6960eee00a3d0a987df326aaf2b", null ],

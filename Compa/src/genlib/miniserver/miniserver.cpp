@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-20
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-22
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -73,7 +73,6 @@ namespace {
  * remote control point.
  */
 struct mserv_request_t {
-    /// \todo Replace this structure with CSocket.
     /// \brief Connection socket file descriptor.
     SOCKET connfd;
     /// \brief Socket address of the remote control point.
@@ -151,8 +150,8 @@ int getNumericHostRedirection(
         memcpy(a_host_port, sa.netaddrp().c_str(), a_hp_size);
         return true;
 
-    } catch (const std::exception& e) {
-        std::cerr << e.what() << "\n";
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGCATCH("MSG1093") "catched next line...\n" << ex.what();
     }
     return false;
 }
@@ -313,7 +312,6 @@ void handle_request(
     ret_code = sock_init_with_ip(
         &info, connfd,
         reinterpret_cast<sockaddr*>(&request_in->foreign_sockaddr));
-    /// \todo Improve test to detect ret_code = UPNP_E_INTERNAL_ERROR;
     if (ret_code != UPNP_E_SUCCESS) {
         free(request_in);
         httpmsg_destroy(hmsg);

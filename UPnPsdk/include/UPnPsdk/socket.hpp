@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-20
+// Redistribution only with this Copyright remark. Last modified: 2025-04-22
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -219,23 +219,23 @@ close(sfd);
 CSocket sockObj;
 try {
     sockObj.bind(SOCK_STREAM, nullptr, AI_PASSIVE);
-    if (sockObj.local_saddr() == -1 && !sockObj.remote_saddr())
-        std::cout << "socket unconnected and listening on incomming requests.";
-    else
-        std::cerr << "failing to bind socket passive.";
+    if (sockObj.local_saddr()) { // is socket bound?
+        std::cout << "socket prepared for listening on all local ip addresses.";
+        sockObj.listen();
+    } else
+        std::cerr << "failed to bind socket passive for listening.";
 } catch(std::exception& ex) { handle_error(); };
      * \endcode
      *
      * \returns
-     *  - \b -1 The socket is passive bound to listen on all local network
-     *          adapter for incomming requests.
-     *  - \b 0 The socket is not bound to any ip address.
-     *  - \b 1 The socket is bound to an ip address ready to use for syscalls
-     *         ::%connect(), ::%sendto(), or ::%sendmsg().
+     *  \b true&nbsp; if socket is bound to one or all ip address of local
+     *     network adapters\n
+     *  \b false otherwise
+     *
      * \exception std::runtime_error system <a
      * href="https://www.man7.org/linux/man-pages/man2/getsockname.2.html#ERRORS">errors
      * as specified</a>. */
-    int local_saddr(
+    bool local_saddr(
         /*! [out] Optional: pointer to a socket address object that will be
          * filled with the address information of a local network adapter that
          * the socket is bound to. If an error is thrown, this socket address
