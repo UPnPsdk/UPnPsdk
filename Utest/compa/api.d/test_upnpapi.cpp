@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-08
+// Redistribution only with this Copyright remark. Last modified: 2025-04-27
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -204,17 +204,20 @@ class UpnpapiFTestSuite : public ::testing::Test {
     // Constructor
     UpnpapiFTestSuite() {
 #endif
-        // initialize needed global variables
+        // initialize needed global variables.
         memset(&gIF_NAME, 0, sizeof(gIF_NAME));
-        memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
-        memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
+        gIF_INDEX = 0;
         memset(&gIF_IPV6, 0, sizeof(gIF_IPV6));
         gIF_IPV6_PREFIX_LENGTH = 0;
+        LOCAL_PORT_V6 = 0;
         memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
         gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_INDEX = 0;
+        LOCAL_PORT_V6_ULA_GUA = 0;
+        memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
+        memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
+        LOCAL_PORT_V4 = 0;
 
-        // Destroy global variables to avoid side effects.
+        // Destroy global variables to detect side effects.
         UpnpSdkInit = 0xAA;
         memset(&errno, 0xAA, sizeof(errno));
         memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
@@ -653,6 +656,8 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
+    // Ports not set with this Unit so they doesn't matter here.
+
     // Test Unit
 #if defined(UPnPsdk_WITH_NATIVE_PUPNP)
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
@@ -691,6 +696,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv6_iface_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
+
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("[::1]");
 
@@ -724,6 +731,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv6_iface_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv4_iface_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
+
     // Test Unit
     // The real used loopback address can be "127.0.0.1" to "127.255.255.254".
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(lo4Obj.sa.netaddr().c_str());
@@ -757,6 +766,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv4_iface_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_iface_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
+
     // Test Unit
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("loopback");
 
@@ -796,6 +807,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_iface_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
     if (llaObj.sa.ss.ss_family != AF_INET6)
         GTEST_SKIP()
             << "No local network adapter with link local address found.";
@@ -806,8 +818,22 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_successful) {
     if (old_code) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
                   << ": Using a link local address should be supported.\n";
-        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
             << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": Unsupported local address must not modify internal "
+                     "interface name.\n";
+        // All interface globals should be untouched.
+        EXPECT_NE(gIF_NAME[0], '\0'); // Wrong !
+
+        EXPECT_EQ(gIF_INDEX, 0);
+        EXPECT_EQ(gIF_IPV6[0], '\0');
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
 
     } else {
 
@@ -816,17 +842,17 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_successful) {
 
         EXPECT_NE(gIF_NAME[0], '\0');
         EXPECT_NE(gIF_INDEX, 0);
-        EXPECT_EQ(gIF_IPV4[0], '\0');
-        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
-        // The loopback address belongs to link-local unicast addresses.
         EXPECT_NE(gIF_IPV6[0], '\0');
         EXPECT_NE(gIF_IPV6_PREFIX_LENGTH, 0);
         EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
     }
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
     if (guaObj.sa.ss.ss_family != AF_INET6)
         GTEST_SKIP()
             << "No local network adapter with link local address found.";
@@ -858,6 +884,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
     // Get a valid IPv4 address from a local network adapter.
     if (ip4Obj.sa.ss.ss_family != AF_INET)
         GTEST_SKIP() << "No local network adapter with IPv4 address found.";
@@ -890,6 +917,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
     // For Microsoft Windows there are some TODOs in the old code:
     // TODO: Retrieve IPv4 netmask
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
@@ -972,6 +1000,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
     // For Microsoft Windows there are some TODOs in the old code:
     // TODO: Retrieve IPv4 netmask
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
@@ -1116,7 +1145,97 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     UpnpFinish();
 }
 
+TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv6_loopback_address) {
+    if (lo6Obj.sa.ss.ss_family != AF_INET6)
+        GTEST_SKIP()
+            << "No local network adapter with loopback ip address found.";
+
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+
+    // Test Unit
+    int ret_UpnpInit2 = ::UpnpInit2("::1", 61234);
+
+    if (old_code) {
+        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        UpnpFinish();
+        GTEST_SKIP() << "Using the local network loopback interface is not "
+                        "supported by pupnp.";
+    }
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gIF_NAME, lo6Obj.name.c_str());
+    EXPECT_EQ(gIF_INDEX, lo6Obj.index);
+    char buf[INET6_ADDRSTRLEN + 32];
+    // Strip leading bracket on copying.
+    std::strcpy(buf, lo6Obj.sa.netaddr().c_str() + 1);
+    // Strip trailing bracket.
+    if (char* chptr{::strchr(buf, ']')})
+        *chptr = '\0';
+    // A loopback address belongs to link-local unicast addresses.
+    EXPECT_STREQ(gIF_IPV6, buf);
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, lo6Obj.bitmask);
+    EXPECT_EQ(LOCAL_PORT_V6, 61234);
+
+    EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
+    EXPECT_EQ(gIF_IPV4[0], '\0');
+    EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+    EXPECT_EQ(LOCAL_PORT_V4, 0);
+
+    UpnpFinish();
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv4_loopback_address) {
+    if (lo4Obj.sa.ss.ss_family != AF_INET)
+        GTEST_SKIP()
+            << "No local network adapter with loopback ip address found.";
+
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+
+    // Test Unit
+    int ret_UpnpInit2 = ::UpnpInit2("127.0.0.1", 49234);
+
+    if (old_code) {
+        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        UpnpFinish();
+        GTEST_SKIP() << "Using the local network loopback interface is not "
+                        "supported by pupnp.";
+    }
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+    EXPECT_STREQ(gIF_NAME, lo4Obj.name.c_str());
+    EXPECT_EQ(gIF_INDEX, lo4Obj.index);
+    EXPECT_STREQ(gIF_IPV4, lo4Obj.sa.netaddr().c_str());
+    bitmask_to_netmask(&lo4Obj.sa.ss, lo4Obj.bitmask, saObj);
+    EXPECT_STREQ(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
+    EXPECT_EQ(LOCAL_PORT_V4, 49234);
+
+    // A loopback address is never a global unicast address.
+    EXPECT_EQ(gIF_IPV6[0], '\0');
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+    EXPECT_EQ(LOCAL_PORT_V6, 0);
+    EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
+
+    UpnpFinish();
+}
+
 TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
+    if (lo6Obj.sa.ss.ss_family != AF_INET6 && lo4Obj.sa.ss.ss_family != AF_INET)
+        GTEST_SKIP()
+            << "No local network adapter with loopback ip address found.";
+
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
@@ -1130,12 +1249,6 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
         UpnpFinish();
         GTEST_SKIP() << "Using the local network loopback interface is not "
                         "supported by pupnp.";
-    }
-    if (lo6Obj.sa.ss.ss_family != AF_INET6 &&
-        lo4Obj.sa.ss.ss_family != AF_INET) {
-        UpnpFinish();
-        GTEST_SKIP()
-            << "No local network adapter with loopback ip address found.";
     }
 
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
@@ -1153,6 +1266,11 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
         // A loopback address belongs to link-local unicast addresses.
         EXPECT_STREQ(gIF_IPV6, buf);
         EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, lo6Obj.bitmask);
+        EXPECT_NE(LOCAL_PORT_V6, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV6[0], '\0');
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_EQ(LOCAL_PORT_V6, 0);
     }
     if (lo4Obj.sa.ss.ss_family == AF_INET) {
         EXPECT_STREQ(gIF_NAME, lo4Obj.name.c_str());
@@ -1160,11 +1278,344 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
         EXPECT_STREQ(gIF_IPV4, lo4Obj.sa.netaddr().c_str());
         bitmask_to_netmask(&lo4Obj.sa.ss, lo4Obj.bitmask, saObj);
         EXPECT_STREQ(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
+        EXPECT_NE(LOCAL_PORT_V4, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+        EXPECT_EQ(LOCAL_PORT_V4, 0);
     }
     // A loopback address is never a global unicast address.
     EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
     EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
 
+    UpnpFinish();
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_lla_successful) {
+    if (llaObj.sa.ss.ss_family != AF_INET6)
+        GTEST_SKIP()
+            << "No local network adapter with ipv6 link local address found.";
+
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+
+    // Test Unit
+    int ret_UpnpInit2 = ::UpnpInit2(llaObj.sa.netaddr().c_str(), 0);
+
+    if (old_code) {
+        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        UpnpFinish();
+        GTEST_SKIP()
+            << "Using an ipv6 link local address is not supported by pupnp.";
+    }
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gIF_NAME, llaObj.name.c_str());
+    EXPECT_EQ(gIF_INDEX, llaObj.index);
+    // Create bare link local address.
+    char lla[INET6_ADDRSTRLEN + 32];
+    // Strip leading bracket on copying.
+    std::strcpy(lla, llaObj.sa.netaddr().c_str() + 1);
+    // Strip trailing scope id if any.
+    if (char* chptr{::strchr(lla, '%')})
+        *chptr = '\0';
+    // Strip trailing bracket.
+    if (char* chptr{::strchr(lla, ']')})
+        *chptr = '\0';
+    EXPECT_STREQ(gIF_IPV6, lla);
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, llaObj.bitmask);
+    EXPECT_NE(LOCAL_PORT_V6, 0);
+
+    EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
+    EXPECT_EQ(gIF_IPV4[0], '\0');
+    EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+    EXPECT_EQ(LOCAL_PORT_V4, 0);
+
+    UpnpFinish();
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_brackets_successful) {
+    if (llaObj.sa.ss.ss_family != AF_INET6)
+        GTEST_SKIP()
+            << "No local network adapter with ipv6 link local address found.";
+
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+
+    // Create bare link local address.
+    char lla[INET6_ADDRSTRLEN + 32];
+    // Strip leading bracket on copying.
+    std::strcpy(lla, llaObj.sa.netaddr().c_str() + 1);
+    // Strip trailing bracket.
+    if (char* chptr{::strchr(lla, ']')})
+        *chptr = '\0';
+
+    // Test Unit
+    int ret_UpnpInit2 = ::UpnpInit2(lla, 0);
+
+    if (old_code) {
+        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        UpnpFinish();
+        GTEST_SKIP()
+            << "Using an ipv6 link local address is not supported by pupnp.";
+    }
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gIF_NAME, llaObj.name.c_str());
+    EXPECT_EQ(gIF_INDEX, llaObj.index);
+    // Strip trailing scope id if any.
+    if (char* chptr{::strchr(lla, '%')})
+        *chptr = '\0';
+    EXPECT_STREQ(gIF_IPV6, lla);
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, llaObj.bitmask);
+    EXPECT_NE(LOCAL_PORT_V6, 0);
+
+    // A link local address is never a global unicast address.
+    EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
+    EXPECT_EQ(gIF_IPV4[0], '\0');
+    EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+    EXPECT_EQ(LOCAL_PORT_V4, 0);
+
+    UpnpFinish();
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_scope_id_fails) {
+    if (llaObj.sa.ss.ss_family != AF_INET6)
+        GTEST_SKIP()
+            << "No local network adapter with ipv6 link local address found.";
+
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+
+    // Create bare link local address.
+    char lla[INET6_ADDRSTRLEN + 32];
+    // Strip leading bracket on copying.
+    std::strcpy(lla, llaObj.sa.netaddr().c_str() + 1);
+    // Strip trailing scope id if any.
+    if (char* chptr{::strchr(lla, '%')})
+        *chptr = '\0';
+    // Strip trailing bracket.
+    if (char* chptr{::strchr(lla, ']')})
+        *chptr = '\0';
+
+    // Test Unit
+    int ret_UpnpInit2 = ::UpnpInit2(lla, 0);
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+        << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+
+    // All interface globals should be untouched.
+    if (old_code)
+        EXPECT_NE(gIF_NAME[0], '\0'); // Wrong! Already tested with GetIfInfo.
+    else
+        EXPECT_EQ(gIF_NAME[0], '\0');
+    EXPECT_EQ(gIF_INDEX, 0);
+    EXPECT_EQ(gIF_IPV6[0], '\0');
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+    EXPECT_EQ(LOCAL_PORT_V6, 0);
+    EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+    EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
+    EXPECT_EQ(gIF_IPV4[0], '\0');
+    EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+    EXPECT_EQ(LOCAL_PORT_V4, 0);
+
+    UpnpFinish();
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_gua_successful) {
+    if (guaObj.sa.ss.ss_family != AF_INET6)
+        GTEST_SKIP() << "No local network adapter with ipv6 global unicast "
+                        "address found.";
+
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+
+    // Test Unit
+    int ret_UpnpInit2 = ::UpnpInit2(guaObj.sa.netaddr().c_str(), 0);
+
+    if (old_code) {
+        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        UpnpFinish();
+        GTEST_SKIP() << "Using an ipv6 global unicast address is not supported "
+                        "by pupnp.";
+    }
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gIF_NAME, guaObj.name.c_str());
+    EXPECT_EQ(gIF_INDEX, guaObj.index);
+    // Create bare link local address.
+    char gua[INET6_ADDRSTRLEN + 32];
+    // Strip leading bracket on copying.
+    std::strcpy(gua, guaObj.sa.netaddr().c_str() + 1);
+    // Strip trailing bracket.
+    if (char* chptr{::strchr(gua, ']')})
+        *chptr = '\0';
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, gua);
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, guaObj.bitmask);
+    EXPECT_NE(LOCAL_PORT_V6_ULA_GUA, 0);
+
+    EXPECT_EQ(gIF_IPV6[0], '\0');
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+    EXPECT_EQ(LOCAL_PORT_V6, 0);
+    EXPECT_EQ(gIF_IPV4[0], '\0');
+    EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+    EXPECT_EQ(LOCAL_PORT_V4, 0);
+
+    UpnpFinish();
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
+    // Find a usable adapter.
+    SSaNadap& naObj{llaObj};
+    if (llaObj.index != 0)
+        ;
+    else if (guaObj.index != 0)
+        naObj = guaObj;
+    else if (ip4Obj.index != 0)
+        naObj = ip4Obj;
+    else
+        GTEST_SKIP()
+            << "No local network adapter with usable adapter index found.";
+
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+
+    // Test Unit
+    int ret_UpnpInit2 = ::UpnpInit2(std::to_string(naObj.index).c_str(), 0);
+
+    if (old_code) {
+        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        UpnpFinish();
+        GTEST_SKIP() << "Using netadapter index is not supported by pupnp.";
+    }
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gIF_NAME, naObj.name.c_str());
+    EXPECT_EQ(gIF_INDEX, naObj.index);
+    EXPECT_FALSE(gIF_IPV4[0] == '\0' && gIF_IPV6[0] == '\0' &&
+                 gIF_IPV6_ULA_GUA[0] == '\0');
+    if (gIF_IPV4[0] != '\0') {
+        EXPECT_STRNE(gIF_IPV4_NETMASK, "");
+        EXPECT_NE(LOCAL_PORT_V4, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+        EXPECT_EQ(LOCAL_PORT_V4, 0);
+    }
+    if (gIF_IPV6[0] != '\0') {
+        EXPECT_NE(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_NE(LOCAL_PORT_V6, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_EQ(LOCAL_PORT_V6, 0);
+    }
+    if (gIF_IPV6_ULA_GUA[0] != '\0') {
+        EXPECT_NE(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_NE(LOCAL_PORT_V6_ULA_GUA, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
+    }
+
+    UpnpFinish();
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpInit2_with_adapter_name_successful) {
+    // For Microsoft Windows there are some TODOs in the old code:
+    // TODO: Retrieve IPv4 netmask
+    // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
+    // link-local addresses.
+    // TODO: Retrieve IPv6 LLA prefix
+
+    // Find a usable adapter.
+    SSaNadap& naObj{llaObj};
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(__APPLE__)
+    // Only for macOS special check for "lo" due to buggy handling of
+    // "[fe80::1]" on loopback adapter.
+    if (!llaObj.name.empty() && !llaObj.name.starts_with("lo"))
+        ;
+#else
+    if (!llaObj.name.empty())
+        ;
+#endif
+    else if (!guaObj.name.empty())
+        naObj = guaObj;
+    else if (!ip4Obj.name.empty())
+        naObj = ip4Obj;
+    else
+        GTEST_SKIP()
+            << "No local network adapter with usable adapter name found.";
+
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+
+    // Test Unit"
+    std::cerr << "DEBUG! Adapter name=\"" << naObj.name.c_str() << "\".\n";
+    int ret_UpnpInit2 = ::UpnpInit2(naObj.name.c_str(), 0);
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gIF_NAME, naObj.name.c_str());
+    EXPECT_EQ(gIF_INDEX, naObj.index);
+    EXPECT_FALSE(gIF_IPV4[0] == '\0' && gIF_IPV6[0] == '\0' &&
+                 gIF_IPV6_ULA_GUA[0] == '\0');
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    std::cout
+        << CYEL "[    FIX   ] " CRES << __LINE__
+        << ": gIF_IPV4_NETMASK, gIF_IPV6_PREFIX_LENGTH, gIF_IPV6_ULA_GUA, and "
+           "gIF_IPV6_PREFIX_LENGTH should be retrieved on wih32.\n";
+#endif
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(_MSC_VER)
+    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+    EXPECT_NE(LOCAL_PORT_V6, 0);
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+#else
+    if (gIF_IPV4[0] != '\0') {
+        EXPECT_STRNE(gIF_IPV4_NETMASK, "");
+        EXPECT_NE(LOCAL_PORT_V4, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+        EXPECT_EQ(LOCAL_PORT_V4, 0);
+    }
+    if (gIF_IPV6[0] != '\0') {
+        EXPECT_NE(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_NE(LOCAL_PORT_V6, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_EQ(LOCAL_PORT_V6, 0);
+    }
+    if (gIF_IPV6_ULA_GUA[0] != '\0') {
+        EXPECT_NE(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_NE(LOCAL_PORT_V6_ULA_GUA, 0);
+    } else {
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
+    }
+#endif
     UpnpFinish();
 }
 
@@ -1215,7 +1666,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
         EXPECT_STRNE(gIF_IPV4_NETMASK, "");
         EXPECT_NE(LOCAL_PORT_V4, 0);
     } else {
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
         EXPECT_EQ(LOCAL_PORT_V4, 0);
     }
     if (gIF_IPV6[0] != '\0') {
@@ -1235,6 +1686,33 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
 #endif
     UpnpFinish();
 }
+
+#if 0
+// This is difficult to implement on the old structures with Lla, UlaGua and
+// IPV4. Listening on all local ip addresses has no distinction on these
+// address types. How to handle this? Maybe I find a solution later.
+TEST_F(UpnpapiFTestSuite, UpnpInit2_listen_on_all_local_addr) {
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+
+    // Test Unit
+    int ret_UpnpInit2 = ::UpnpInit2("", 0);
+
+    if (old_code) {
+        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        UpnpFinish();
+        GTEST_SKIP() << "Using unspecified local ip address for listening on "
+                        "all addresses is not supported by pupnp.";
+    }
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    UpnpFinish();
+}
+#endif
 
 TEST_F(UpnpapiFTestSuite, UpnpInit2_call_two_times) {
     // The Unit needs a defined state, otherwise it will fail with

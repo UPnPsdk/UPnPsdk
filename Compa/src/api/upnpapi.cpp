@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-09
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-27
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -120,7 +120,9 @@ int UpnpGetIfInfo(
     try {
         nadaptObj.get_first(); // May throw exception
 
-        if (!nadaptObj.find_first(a_iface)) {
+        if (!nadaptObj.find_first(a_iface) &&
+            !nadaptObj.find_first(
+                static_cast<unsigned int>(std::stoi(std::string(a_iface))))) {
             UPnPsdk_LOGERR("MSG1033") "Local network interface \""
                 << a_iface << "\" not found.\n";
             return UPNP_E_INVALID_INTERFACE;
@@ -602,6 +604,7 @@ static int UpnpInitStartServers(
 }
 
 int UpnpInit2(const char* IfName, unsigned short DestPort) {
+    UPnPsdk_LOGINFO("MSG1096") "Executing...\n";
     int retVal;
 
     /* Initializes the ithread library */

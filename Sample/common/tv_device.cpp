@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-25
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1288,9 +1288,9 @@ int TvDeviceCallbackEventHandler(Upnp_EventType EventType, const void* Event,
     return 0;
 }
 
-int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
-                  const char* web_dir_path, const int a_ip_mode,
-                  const int combo) {
+int TvDeviceStart(const char* a_iface, in_port_t a_port,
+                  const char* a_desc_doc_name, const char* a_web_dir_path,
+                  const Ip_mode a_ip_mode, const int a_combo) {
     TRACE("Executing TvDeviceStart()");
     int ret{UPNP_E_SUCCESS};
     // example for desc_doc_url: "http://[2001:db8::1]:50001/tvdevicedesc.xml"
@@ -1307,8 +1307,8 @@ int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
     SampleUtil_Print(
         "UpnpInit2 starting, initializing UPnP SDK with network interface "
         "= \"%s\", local port = %u\n",
-        iface, port);
-    ret = UpnpInit2(iface, port);
+        a_iface, a_port);
+    ret = UpnpInit2(a_iface, a_port);
     if (ret != UPNP_E_SUCCESS) {
         SampleUtil_Print("Error with UpnpInit2 -- %s(%d)\n",
                          UpnpGetErrorMessage(ret), ret);
@@ -1316,59 +1316,75 @@ int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
         return ret;
     }
     std::cerr << "DEBUG! iface="
-              << (iface == nullptr ? "nullptr"
-                                   : "\"" + std::string(iface) + "\"")
-              << ", port=" << port << ", gIF_IP4=\"" << ::gIF_IPV4
+              << (a_iface == nullptr ? "nullptr"
+                                     : "\"" + std::string(a_iface) + "\"")
+              << ", port=" << a_port << ", gIF_IP4=\"" << ::gIF_IPV4
               << "\", gIF_LLA=\"[" << ::gIF_IPV6 << "]\", gIF_GUA=\"["
               << ::gIF_IPV6_ULA_GUA << "]\".\n";
 
     switch (a_ip_mode) {
-    case IP_MODE_IPV4:
-        std::cerr << "DEBUG! Use gIF_IP4\n";
+    case Ip_mode::IP4:
+        std::cerr << "DEBUG! Using IP4\n";
         ip_address = UpnpGetServerIpAddress();
-        port = UpnpGetServerPort();
+        a_port = UpnpGetServerPort();
         address_family = AF_INET;
         break;
-    case IP_MODE_IPV6_LLA:
-        std::cerr << "DEBUG! Use gIF_LLA\n";
+    case Ip_mode::LLA:
+        std::cerr << "DEBUG! Using LLA\n";
         ip_address = UpnpGetServerIp6Address();
-        port = UpnpGetServerPort6();
+        a_port = UpnpGetServerPort6();
         address_family = AF_INET6;
         break;
-    case IP_MODE_IPV6_ULA_GUA:
-        std::cerr << "DEBUG! Use gIF_GUA\n";
+    case Ip_mode::GUA:
+        std::cerr << "DEBUG! Using GUA\n";
         ip_address = UpnpGetServerUlaGuaIp6Address();
-        port = UpnpGetServerUlaGuaPort6();
+        a_port = UpnpGetServerUlaGuaPort6();
         address_family = AF_INET6;
+        break;
+    case Ip_mode::BEST:
+        std::cerr << "DEBUG! Using BEST\n";
+        if (*(ip_address = UpnpGetServerIp6Address()) != '\0') {
+            std::cerr << "DEBUG! Tracepoint1\n";
+            a_port = UpnpGetServerPort6();
+            address_family = AF_INET6;
+        } else if (*(ip_address = UpnpGetServerUlaGuaIp6Address()) != '\0') {
+            std::cerr << "DEBUG! Tracepoint2\n";
+            a_port = UpnpGetServerUlaGuaPort6();
+            address_family = AF_INET6;
+        } else if (*(ip_address = UpnpGetServerIpAddress()) != '\0') {
+            std::cerr << "DEBUG! Tracepoint3\n";
+            a_port = UpnpGetServerPort();
+            address_family = AF_INET;
+        }
         break;
     default:
-        SampleUtil_Print("Invalid ip_mode : %d\n", a_ip_mode);
+        SampleUtil_Print("Invalid ip_mode : %d\n", static_cast<int>(a_ip_mode));
         UpnpFinish();
         return UPNP_E_INTERNAL_ERROR;
     }
 
     SampleUtil_Print("UpnpInit2 finished, UPnP Initialized, "
                      "Root UDevice local IP address = %s, local port = %u\n",
-                     ip_address ? ip_address : "", port);
+                     ip_address ? ip_address : "", a_port);
 
-    if (!desc_doc_name) {
-        if (combo) {
-            desc_doc_name = "tvcombodesc.xml";
+    if (!a_desc_doc_name) {
+        if (a_combo) {
+            a_desc_doc_name = "tvcombodesc.xml";
         } else {
-            desc_doc_name = "tvdevicedesc.xml";
+            a_desc_doc_name = "tvdevicedesc.xml";
         }
     }
-    if (!web_dir_path) {
-        web_dir_path = DEFAULT_WEB_DIR;
+    if (!a_web_dir_path) {
+        a_web_dir_path = DEFAULT_WEB_DIR;
     }
     switch (address_family) {
     case AF_INET:
         snprintf(desc_doc_url, DESC_URL_SIZE, "http://%s:%d/%s", ip_address,
-                 port, desc_doc_name);
+                 a_port, a_desc_doc_name);
         break;
     case AF_INET6:
         snprintf(desc_doc_url, DESC_URL_SIZE, "http://[%s]:%d/%s", ip_address,
-                 port, desc_doc_name);
+                 a_port, a_desc_doc_name);
         break;
     default:
         UpnpFinish();
@@ -1376,12 +1392,12 @@ int TvDeviceStart(const char* iface, in_port_t port, const char* desc_doc_name,
     }
 
     SampleUtil_Print("Specifying the webserver root directory -- %s\n",
-                     web_dir_path);
-    ret = UpnpSetWebServerRootDir(web_dir_path);
+                     a_web_dir_path);
+    ret = UpnpSetWebServerRootDir(a_web_dir_path);
     if (ret != UPNP_E_SUCCESS) {
         SampleUtil_Print(
             "Error specifying webserver root directory -- %s: %s(%d)\n",
-            web_dir_path, UpnpGetErrorMessage(ret), ret);
+            a_web_dir_path, UpnpGetErrorMessage(ret), ret);
 
         UpnpFinish();
         return ret;
@@ -1475,9 +1491,10 @@ int device_main(const int argc, char* argv[]) {
     char* web_dir_path{nullptr};
     unsigned short port{};
     // Default ip mode setting.
-    // int ip_mode{IP_MODE_IPV4};
-    int ip_mode{IP_MODE_IPV6_LLA};
-    // int ip_mode{IP_MODE_IPV6_ULA_GUA};
+    // Ip_mode ip_mode{Ip_mode::IP4};
+    // Ip_mode ip_mode{Ip_mode::LLA};
+    // Ip_mode ip_mode{Ip_mode::GUA};
+    Ip_mode ip_mode{Ip_mode::BEST};
 
     if (!argc)
         return UPNP_E_INVALID_ARGUMENT;
@@ -1499,9 +1516,9 @@ int device_main(const int argc, char* argv[]) {
             web_dir_path = argv[++i];
         } else if (strcmp(argv[i], "-m") == 0) {
 #ifdef _WIN32
-            sscanf_s(argv[++i], "%d", &ip_mode);
+            sscanf_s(argv[++i], "%d", reinterpret_cast<int*>(&ip_mode));
 #else
-            sscanf(argv[++i], "%d", &ip_mode);
+            sscanf(argv[++i], "%d", reinterpret_cast<int*>(&ip_mode));
 #endif
         } else if (strcmp(argv[i], "--verbose") == 0) {
             UPnPsdk::g_dbug = true;
@@ -1522,8 +1539,8 @@ int device_main(const int argc, char* argv[]) {
                 "\tweb_dir_path:  Filesystem path where web files related to "
                 "the device are stored\n"
                 "\t\te.g.: ./Sample/web\n"
-                "\tip_mode:       set to 1 for IPv4, 2 for IPv6 LLA (default) "
-                "and 3 for IPv6 GUA\n");
+                "\tip_mode:       set to 1 for IPv4, 2 for IPv6 LLA, "
+                "3 for IPv6 GUA, and 4 for best choise (default)\n");
             return UPNP_E_INVALID_ARGUMENT;
         }
     }

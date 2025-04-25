@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-22
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-27
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -840,26 +840,25 @@ int get_port(
  *  - UPNP_E_INTERNAL_ERROR - Port returned by the socket layer is < 0.
  */
 int get_miniserver_sockets(
-    /*! [in,out] [in]Pointer to a Socket Array that following members will be
-     * filled:
-     *      - .miniServerSock6
-     *      - .miniServerPort6
-     *      - .miniServerSock6UlaGua
-     *      - .miniServerPort6UlaGua
-     *      - .miniServerSock4
-     *      - .miniServerPort4 */
+    /*! [out] Pointer to a Socket Array that following members will be filled:
+     * - .miniServerSock6
+     * - .miniServerPort6
+     * - .miniServerSock6UlaGua
+     * - .miniServerPort6UlaGua
+     * - .miniServerSock4
+     * - .miniServerPort4 */
     MiniServerSockArray* out,
     /*! [in] port on which the UPnP Device shall listen for incoming IPv4
-       connections. If **0** then a random port number is returned in **out**.
-     */
+       connections. If **0** then an available port number from the operating
+       system is returned in **out**. */
     in_port_t listen_port4,
     /*! [in] port on which the UPnP Device shall listen for incoming IPv6
-       [LLA](\ref glossary_ipv6addr) connections. If **0** then a random port
-       number is returned in **out**. */
+       [LLA](\ref glossary_ipv6addr) connections. If **0** then an available
+       port number from the operating system is returned in **out**. */
     in_port_t listen_port6,
     /*! [in] port on which the UPnP Device shall listen for incoming IPv6
-       [UAD](\ref glossary_ipv6addr) connections. If **0** then a random port
-       number is returned in ***out**. */
+       [GUA](\ref glossary_ipv6addr) connections. If **0** then an available
+       port number from the operating system is returned in ***out**. */
     in_port_t listen_port6UlaGua) {
     UPnPsdk_LOGINFO("MSG1109") "Executing with listen_port4="
         << listen_port4 << ", listen_port6=" << listen_port6
@@ -1069,7 +1068,7 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
     InitMiniServerSockArray(miniSocket);
 
 #ifdef COMPA_HAVE_WEBSERVER
-    // These socket objects must be valid until the miniserver is successful
+    // These socket objects must be valid until the miniserver has successful
     // started. They will be moved to the running miniserver thread.
     UPnPsdk::CSocket sockLlaObj;
     miniSocket->pSockLlaObj = &sockLlaObj;

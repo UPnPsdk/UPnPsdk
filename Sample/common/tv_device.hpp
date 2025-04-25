@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -91,9 +91,7 @@
 /*! This should be the maximum VARCOUNT from above */
 #define TV_MAXVARS TV_PICTURE_VARCOUNT
 
-#define IP_MODE_IPV4 1
-#define IP_MODE_IPV6_LLA 2
-#define IP_MODE_IPV6_ULA_GUA 3
+enum struct Ip_mode { UNSPEC, IP4, LLA, GUA, BEST };
 /// \endcond
 
 /*!

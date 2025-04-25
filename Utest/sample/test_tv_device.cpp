@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-09-10
+// Redistribution only with this Copyright remark. Last modified: 2025-04-24
 
 // -----------------------------------------------------------------------------
 // This testsuite starts the sample TV Device with general command line
@@ -270,7 +270,7 @@ TEST_F(SampleTvDeviceFTestSuite, TvDeviceStart_successful) {
     constexpr in_port_t port{};
     constexpr char* desc_doc_name{};
     // constexpr char web_dir_path[]{SAMPLE_SOURCE_DIR "/web\0"};
-    constexpr int ip_mode = IP_MODE_IPV4;
+    constexpr Ip_mode ip_mode{Ip_mode::IP4};
 
     // Mock system functions
     umock::IfaddrsMock ifaddrsObj;

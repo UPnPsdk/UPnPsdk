@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-02-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-25
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -210,20 +210,20 @@ Upnp_Handle_Type GetDeviceHandleInfoForPath(
     /*! [out] Service info for found path. */
     service_info** serv_info);
 
-UPNPLIB_API extern char gIF_NAME[LINE_SIZE];
-UPNPLIB_API extern char gIF_IPV4[INET_ADDRSTRLEN];
-UPNPLIB_API extern char gIF_IPV4_NETMASK[INET_ADDRSTRLEN];
-UPNPLIB_API extern char gIF_IPV6[INET6_ADDRSTRLEN];
-UPNPLIB_API extern unsigned gIF_IPV6_PREFIX_LENGTH;
+UPnPsdk_API extern char gIF_NAME[LINE_SIZE];
+UPnPsdk_API extern char gIF_IPV4[INET_ADDRSTRLEN];
+UPnPsdk_API extern char gIF_IPV4_NETMASK[INET_ADDRSTRLEN];
+UPnPsdk_API extern char gIF_IPV6[INET6_ADDRSTRLEN];
+UPnPsdk_API extern unsigned gIF_IPV6_PREFIX_LENGTH;
 
-UPNPLIB_API extern char gIF_IPV6_ULA_GUA[INET6_ADDRSTRLEN];
-UPNPLIB_API extern unsigned gIF_IPV6_ULA_GUA_PREFIX_LENGTH;
+UPnPsdk_API extern char gIF_IPV6_ULA_GUA[INET6_ADDRSTRLEN];
+UPnPsdk_API extern unsigned gIF_IPV6_ULA_GUA_PREFIX_LENGTH;
 
-UPNPLIB_API extern unsigned gIF_INDEX;
+UPnPsdk_API extern unsigned gIF_INDEX;
 
-UPNPLIB_API extern unsigned short LOCAL_PORT_V4;
-UPNPLIB_API extern unsigned short LOCAL_PORT_V6;
-UPNPLIB_API extern unsigned short LOCAL_PORT_V6_ULA_GUA;
+UPnPsdk_API extern unsigned short LOCAL_PORT_V4;
+UPnPsdk_API extern unsigned short LOCAL_PORT_V6;
+UPnPsdk_API extern unsigned short LOCAL_PORT_V6_ULA_GUA;
 
 /*! NLS uuid. */
 extern Upnp_SID gUpnpSdkNLSuuid;
@@ -303,12 +303,12 @@ int PrintHandleInfo(
 extern WebServerState bWebServerState;
 
 /*! */
-UPNPLIB_API extern WebCallback_HostValidate gWebCallback_HostValidate;
+UPnPsdk_API extern WebCallback_HostValidate gWebCallback_HostValidate;
 
 /*! */
-UPNPLIB_API extern void* gWebCallback_HostValidateCookie;
+UPnPsdk_API extern void* gWebCallback_HostValidateCookie;
 
 /*! */
-UPNPLIB_API extern int gAllowLiteralHostRedirection;
+UPnPsdk_API extern int gAllowLiteralHostRedirection;
 
 #endif /* COMPA_UPNPAPI_HPP */

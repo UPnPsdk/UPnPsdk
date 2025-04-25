@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-05
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-27
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -530,12 +530,24 @@ extern "C" {
  *             have a valid IPv4 or IPv6 addresss configured.
  */
 UPnPsdk_API int UpnpInit2(
-    /*! [in] The interface name to use by the UPnP SDK operations. Examples:
-     * "eth0", "xl0", "Local Area Connection", a \c nullptr to use the first
-     * suitable interface. */
+    /*! [in] Argument to select the local interface to connect to the network,
+     * that can be:
+     * - \b nullptr to use best choise from the operating system for an ip
+     *   address of a local network adapter.
+     * - Local network adapter name, e.g. "eth0", "xl0", "Local Area
+     *   Connection".
+     * - Local network adapter index number as string, e.g. "2".
+     * - Ip address of a local network adapter. Link local addresses are only
+     *   accepted with scope id to be unique, e.g. "[fe80::1%eth0]", or
+     *   "[fe80::1%2]".
+     * - A loopback address, e.g. "[::1]", or any of "127.0.0.0/8", most used
+     *   "127.0.0.1".
+     * - String "loopback" (all lower case) to use the best one of loopback
+     *   addresses, e.g. "[::1]", or "127.0.0.1". This is useful when coding
+     *   ip-version independent. */
     const char* IfName,
-    /*!  [in] Local Port to listen for incoming connections. **0** will pick
-     * an arbitrary free port. */
+    /*!  [in] Local Port to listen for incoming connections. **0** will pick an
+     *        arbitrary free port. */
     unsigned short DestPort);
 
 /*!

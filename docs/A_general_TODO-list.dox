@@ -5,9 +5,9 @@
  * \brief A general TODO-list
  *
  * \todo
- * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
- * - Remove CSocket::is_listen(). Info is now also available with CSocket_basic::is_bound().
  * - Improve UpnpInit2() to accept not only netadapter names.
+ * - Implement scoped pthread_mutex_lock().
+ * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
  * - Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.
  * - Optimize log messages with ostream overload: https://stackoverflow.com/a/34122443/5014688
  * - Enable OpenSSL, improve its tests (test_sock.cpp, sock read_ssl, sock write_ssl).

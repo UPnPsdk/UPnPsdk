@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-12
+// Redistribution only with this Copyright remark. Last modified: 2025-04-23
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -774,7 +774,7 @@ TEST_F(HttpBasicFTestSuite, http_send_message_without_socket_file_descriptor) {
         << errStrEx(ret_http_SendMessage, UPNP_E_SOCKET_ERROR);
 }
 
-TEST_F(HttpMockFTestSuite, request_response_successful) {
+TEST_F(HttpMockFTestSuite, request_and_response_successful) {
     if (github_actions)
         GTEST_SKIP() << "Test needs to be completed after testing subroutines.";
 

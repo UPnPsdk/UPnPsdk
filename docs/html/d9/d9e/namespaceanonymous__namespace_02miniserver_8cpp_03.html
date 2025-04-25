@@ -1317,7 +1317,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">out</td><td>[in]Pointer to a Socket Array that following members will be filled:<ul>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Pointer to a Socket Array that following members will be filled:<ul>
 <li>.miniServerSock6</li>
 <li>.miniServerPort6</li>
 <li>.miniServerSock6UlaGua</li>
@@ -1326,9 +1326,9 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
 <li>.miniServerPort4  </li>
 </ul>
 </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">listen_port4</td><td>port on which the UPnP Device shall listen for incoming IPv4 connections. If <b>0</b> then a random port number is returned in <b>out</b>.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">listen_port6</td><td>port on which the UPnP Device shall listen for incoming IPv6 <a class="el" href="../../d5/d67/Glossary.html#glossary_ipv6addr">LLA</a> connections. If <b>0</b> then a random port number is returned in <b>out</b>.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">listen_port6UlaGua</td><td>port on which the UPnP Device shall listen for incoming IPv6 <a class="el" href="../../d5/d67/Glossary.html#glossary_ipv6addr">UAD</a> connections. If <b>0</b> then a random port number is returned in ***out**. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">listen_port4</td><td>port on which the UPnP Device shall listen for incoming IPv4 connections. If <b>0</b> then an available port number from the operating system is returned in <b>out</b>.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">listen_port6</td><td>port on which the UPnP Device shall listen for incoming IPv6 <a class="el" href="../../d5/d67/Glossary.html#glossary_ipv6addr">LLA</a> connections. If <b>0</b> then an available port number from the operating system is returned in <b>out</b>.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">listen_port6UlaGua</td><td>port on which the UPnP Device shall listen for incoming IPv6 <a class="el" href="../../d5/d67/Glossary.html#glossary_ipv6addr">GUA</a> connections. If <b>0</b> then an available port number from the operating system is returned in ***out**. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1426,7 +1426,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00956">956</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00955">955</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-23-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-23-summary" class="dynsummary" style="display:block;">
@@ -1486,7 +1486,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l01004">1004</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l01003">1003</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-25-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-25-summary" class="dynsummary" style="display:block;">
