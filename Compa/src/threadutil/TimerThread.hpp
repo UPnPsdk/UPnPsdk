@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-28
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -59,8 +59,8 @@ enum TimeoutType {
  * Uses ThreadPool, Mutex, Condition, Thread.
  */
 struct TimerThread {
-    ithread_mutex_t mutex;    ///< [in]
-    ithread_cond_t condition; ///< [in]
+    pthread_mutex_t mutex;    ///< [in]
+    pthread_cond_t condition; ///< [in]
     int lastEventId;          ///< [in]
     LinkedList eventQ;        ///< [in]
     int shutdown;             ///< [in]

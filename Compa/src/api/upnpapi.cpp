@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-27
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -230,18 +230,18 @@ virtualDirList* pVirtualDirList;
 
 #ifdef COMPA_HAVE_CTRLPT_SSDP
 /*! \brief Mutex to synchronize the subscription handling at the client side. */
-ithread_mutex_t GlobalClientSubscribeMutex;
+pthread_mutex_t GlobalClientSubscribeMutex;
 #endif
 
 /*! \brief rwlock to synchronize handles (root device or control point handle).
  */
-ithread_rwlock_t GlobalHndRWLock;
+pthread_rwlock_t GlobalHndRWLock;
 
 /*! \brief Mutex to synchronize the uuid creation process. */
-ithread_mutex_t gUUIDMutex;
+pthread_mutex_t gUUIDMutex;
 
 /*! \brief Initialization mutex. */
-ithread_mutex_t gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
 /*! \brief Global timer thread. */
 TimerThread gTimerThread;
@@ -433,16 +433,16 @@ static int UpnpInitMutexes() {
     /* TODO: Fix Cygwin so we don't need this memset(). */
     memset(&GlobalHndRWLock, 0, sizeof(GlobalHndRWLock));
 #endif
-    if (ithread_rwlock_init(&GlobalHndRWLock, NULL) != 0) {
+    if (pthread_rwlock_init(&GlobalHndRWLock, NULL) != 0) {
         return UPNP_E_INIT_FAILED;
     }
 
-    if (ithread_mutex_init(&gUUIDMutex, NULL) != 0) {
+    if (pthread_mutex_init(&gUUIDMutex, NULL) != 0) {
         return UPNP_E_INIT_FAILED;
     }
     /* initialize subscribe mutex. */
 #ifdef COMPA_HAVE_CTRLPT_SSDP
-    if (ithread_mutex_init(&GlobalClientSubscribeMutex, NULL) != 0) {
+    if (pthread_mutex_init(&GlobalClientSubscribeMutex, NULL) != 0) {
         return UPNP_E_INIT_FAILED;
     }
 #endif
@@ -607,10 +607,7 @@ int UpnpInit2(const char* IfName, unsigned short DestPort) {
     UPnPsdk_LOGINFO("MSG1096") "Executing...\n";
     int retVal;
 
-    /* Initializes the ithread library */
-    ithread_initialize_library();
-
-    ithread_mutex_lock(&gSDKInitMutex);
+    pthread_mutex_lock(&gSDKInitMutex);
 
     /* Check if we're already initialized. */
     if (UpnpSdkInit == 1) {
@@ -644,7 +641,7 @@ exit_function:
     if (retVal != UPNP_E_SUCCESS && retVal != UPNP_E_INIT) {
         UpnpFinish();
     }
-    ithread_mutex_unlock(&gSDKInitMutex);
+    pthread_mutex_unlock(&gSDKInitMutex);
 
     return retVal;
 }
@@ -750,18 +747,16 @@ int UpnpFinish() {
     PrintThreadPoolStats(&gRecvThreadPool, __FILE__, __LINE__,
                          "Recv Thread Pool");
 #ifdef COMPA_HAVE_CTRLPT_SSDP
-    ithread_mutex_destroy(&GlobalClientSubscribeMutex);
+    pthread_mutex_destroy(&GlobalClientSubscribeMutex);
 #endif
-    ithread_rwlock_destroy(&GlobalHndRWLock);
-    ithread_mutex_destroy(&gUUIDMutex);
+    pthread_rwlock_destroy(&GlobalHndRWLock);
+    pthread_mutex_destroy(&gUUIDMutex);
     /* remove all virtual dirs */
     UpnpRemoveAllVirtualDirs();
     UpnpSdkInit = 0;
     UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__,
                "Exiting UpnpFinish: UpnpSdkInit is :%d:\n", UpnpSdkInit);
     UpnpCloseLog();
-    /* Clean-up ithread library resources */
-    ithread_cleanup_library();
 
     return UPNP_E_SUCCESS;
 }
@@ -1786,7 +1781,7 @@ int UpnpSendAdvertisementLowPower(UpnpDevice_Handle Hnd, int Exp,
         return UPNP_E_INVALID_HANDLE;
     }
 #ifdef SSDP_PACKET_DISTRIBUTE
-    TPJobInit(&job, (start_routine)AutoAdvertise, adEvent);
+    TPJobInit(&job, (UPnPsdk::start_routine)AutoAdvertise, adEvent);
     TPJobSetFreeFunction(&job, (free_routine)free_advertise_arg);
     TPJobSetPriority(&job, MED_PRIORITY);
     if ((retVal = TimerThreadSchedule(
@@ -1798,7 +1793,7 @@ int UpnpSendAdvertisementLowPower(UpnpDevice_Handle Hnd, int Exp,
         return retVal;
     }
 #else
-    TPJobInit(&job, (start_routine)AutoAdvertise, adEvent);
+    TPJobInit(&job, (UPnPsdk::start_routine)AutoAdvertise, adEvent);
     TPJobSetFreeFunction(&job, (free_routine)free_advertise_arg);
     TPJobSetPriority(&job, MED_PRIORITY);
     if ((retVal = TimerThreadSchedule(
@@ -1986,7 +1981,7 @@ int UpnpSubscribeAsync(UpnpClient_Handle Hnd, const char* EvtUrl_const,
     Param->Fun = Fun;
     Param->Cookie = (char*)Cookie_const;
 
-    TPJobInit(&job, (start_routine)UpnpThreadDistribution, Param);
+    TPJobInit(&job, (UPnPsdk::start_routine)UpnpThreadDistribution, Param);
     TPJobSetFreeFunction(&job, (free_routine)free);
     TPJobSetPriority(&job, MED_PRIORITY);
     if (ThreadPoolAdd(&gSendThreadPool, &job, NULL) != 0) {
@@ -2162,7 +2157,7 @@ int UpnpUnSubscribeAsync(UpnpClient_Handle Hnd, Upnp_SID SubsId,
     strncpy(Param->SubsId, SubsId, sizeof(Param->SubsId) - 1);
     Param->Fun = Fun;
     Param->Cookie = (char*)Cookie_const;
-    TPJobInit(&job, (start_routine)UpnpThreadDistribution, Param);
+    TPJobInit(&job, (UPnPsdk::start_routine)UpnpThreadDistribution, Param);
     TPJobSetFreeFunction(&job, (free_routine)free);
     TPJobSetPriority(&job, MED_PRIORITY);
     if (ThreadPoolAdd(&gSendThreadPool, &job, NULL) != 0) {
@@ -2281,7 +2276,7 @@ int UpnpRenewSubscriptionAsync(UpnpClient_Handle Hnd, int TimeOut,
     Param->Cookie = (char*)Cookie_const;
     Param->TimeOut = TimeOut;
 
-    TPJobInit(&job, (start_routine)UpnpThreadDistribution, Param);
+    TPJobInit(&job, (UPnPsdk::start_routine)UpnpThreadDistribution, Param);
     TPJobSetFreeFunction(&job, (free_routine)free);
     TPJobSetPriority(&job, MED_PRIORITY);
     if (ThreadPoolAdd(&gSendThreadPool, &job, NULL) != 0) {
@@ -2702,7 +2697,7 @@ int UpnpSendActionAsync(UpnpClient_Handle Hnd, const char* ActionURL_const,
     Param->Cookie = (char*)Cookie_const;
     Param->Fun = Fun;
 
-    TPJobInit(&job, (start_routine)UpnpThreadDistribution, Param);
+    TPJobInit(&job, (UPnPsdk::start_routine)UpnpThreadDistribution, Param);
     TPJobSetFreeFunction(&job, (free_routine)free_action_arg);
 
     TPJobSetPriority(&job, MED_PRIORITY);
@@ -2813,7 +2808,7 @@ int UpnpSendActionExAsync(UpnpClient_Handle Hnd, const char* ActionURL_const,
     Param->Cookie = (char*)Cookie_const;
     Param->Fun = Fun;
 
-    TPJobInit(&job, (start_routine)UpnpThreadDistribution, Param);
+    TPJobInit(&job, (UPnPsdk::start_routine)UpnpThreadDistribution, Param);
     TPJobSetFreeFunction(&job, (free_routine)free_action_arg);
 
     TPJobSetPriority(&job, MED_PRIORITY);
@@ -2876,7 +2871,7 @@ int UpnpGetServiceVarStatusAsync(UpnpClient_Handle Hnd,
     Param->Fun = Fun;
     Param->Cookie = (char*)Cookie_const;
 
-    TPJobInit(&job, (start_routine)UpnpThreadDistribution, Param);
+    TPJobInit(&job, (UPnPsdk::start_routine)UpnpThreadDistribution, Param);
     TPJobSetFreeFunction(&job, (free_routine)free);
 
     TPJobSetPriority(&job, MED_PRIORITY);

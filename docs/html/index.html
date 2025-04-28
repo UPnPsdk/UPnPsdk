@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="textblock"><p><b>The UPnP+™ Software Development Kit</b><br  />
 General information to the SDK, its structure and requirements.</p>
 <hr  />
-<h1><a class="anchor" id="parts"></a>
+<h1><a class="anchor" id="overview_parts"></a>
 Parts 'Control Point' and 'UPnP Device'</h1>
 <p>The SDK has two parts, handling Control Points or UPnP Devices. They are largely independent of each other. You can compile both parts separately so you have resulting libraries that only handle Control Points or UPnP Devices. That make sense for installations that are only a Control Point or only a UPnP Device and is of particular interest for embedded devices. Of course you can also have both parts for hybrid applications.</p>
 <h1><a class="anchor" id="overview_comp"></a>
@@ -126,7 +126,7 @@ Main Components</h1>
 </table>
 <p>The order shows the dependency. Each component depends on its predecessor. For example if selecting SSDP on configuring to compile, this selects also automatically the webserver (only that) and the webserver selects miniserver. If you select GENA for compiling you have a full featured configuration with all main components. There is no need to select previous moduls. Also the abstraction will increase with the order. For example no component except miniserver will handle network sockets.</p>
 <dl class="section note"><dt>Note</dt><dd>This order is an important implicit dependency. It is always expected that it is respected. No internal checks are made about this. The compiler will remind you if you forget it.</dd></dl>
-<h1><a class="anchor" id="noexcept"></a>
+<h1><a class="anchor" id="overview_noexcept"></a>
 Promise to throw "no exception"</h1>
 <p>There are several functions and methods that are specified to <a href="https://en.cppreference.com/w/cpp/language/noexcept_spec">noexcept</a>. This may not always be true with debugging or TRACE enabled because there we have extended use of std::string objects for output to std::cerr. Both may throw exceptions in rare cases like exceeding max. length of a std::string or error on memory allocation or modified output flags of the std::cerr output stream by the program using the SDK. The result of such an unexpected exception is the immediate termination of the program as specified for <b>noexcept</b>. But I assume that debugging or TRACE is only a temporary setting not used for production code and is under special observation by the developer so that he can evaluate these exceptions.</p>
 <h1><a class="anchor" id="overview_reuseaddr"></a>

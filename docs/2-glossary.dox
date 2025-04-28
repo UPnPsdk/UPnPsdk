@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-06-21
+// Redistribution only with this Copyright remark. Last modified: 2025-04-30
 
 /*!
 \page Glossary
@@ -68,6 +68,10 @@ A netaddress and a [socket address](\ref glossary_saddr) are equivalent, contain
 \anchor glossary_port ***port***
 
 The port number is part of the [netaddress](\ref glossary_netaddr). It specifies a specific service provided by a host with the ip address as defined by the POSIX standard. Port 0 has a special meaning and represents the **unknown port**. A not given port number is coded with the zero port number.
+
+\anchor glossary_pthreads ***POSIX threads, pthreads***
+
+This SDK reffers to Linux implementations of POSIX threads NPTL (Native POSIX Threads Library) inclusive "pthread rwlock", that all is based on the POSIX.1 specification.
 
 \anchor glossary_rtout ***response timeout***
 

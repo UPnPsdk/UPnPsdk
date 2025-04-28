@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-09-23
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -500,7 +500,7 @@ int genaInitNotifyCommon(UpnpDevice_Handle device_handle, char* UDN,
         thread_struct->reference_count = reference_count;
         thread_struct->device_handle = device_handle;
 
-        TPJobInit(job, (start_routine)genaNotifyThread, thread_struct);
+        TPJobInit(job, (UPnPsdk::start_routine)genaNotifyThread, thread_struct);
         TPJobSetFreeFunction(job, (free_routine)free_notify_struct);
         TPJobSetPriority(job, MED_PRIORITY);
 
@@ -669,7 +669,8 @@ int genaNotifyAllCommon(UpnpDevice_Handle device_handle, char* UDN,
                     break;
                 }
                 memset(job, 0, sizeof(ThreadPoolJob));
-                TPJobInit(job, (start_routine)genaNotifyThread, thread_s);
+                TPJobInit(job, (UPnPsdk::start_routine)genaNotifyThread,
+                          thread_s);
                 TPJobSetFreeFunction(job, (free_routine)free_notify_struct);
                 TPJobSetPriority(job, MED_PRIORITY);
                 node = ListAddTail(&finger->outgoing, job);

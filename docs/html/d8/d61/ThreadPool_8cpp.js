@@ -29,7 +29,7 @@ var ThreadPool_8cpp =
     [ "ThreadPoolShutdown", "d8/d61/ThreadPool_8cpp.html#a281f138c93124463e1fbbbdf00caf21f", null ],
     [ "TPSetMaxJobsTotal", "d8/d61/ThreadPool_8cpp.html#ad6858733211c24b4a972b22609f08173", null ],
     [ "TPAttrInit", "d8/d61/ThreadPool_8cpp.html#ac7dadbb7b20ca94bf746241c0962f8d1", null ],
-    [ "TPJobInit", "d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3", null ],
+    [ "TPJobInit", "d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908", null ],
     [ "TPJobSetPriority", "d8/d61/ThreadPool_8cpp.html#a7317f4409e514c2c01e31c9f66fd7da5", null ],
     [ "TPJobSetFreeFunction", "d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7", null ],
     [ "TPAttrSetMaxThreads", "d8/d61/ThreadPool_8cpp.html#a6ffeb117b7f8b5e16e09a28f1acdc8d3", null ],

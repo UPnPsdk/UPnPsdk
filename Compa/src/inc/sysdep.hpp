@@ -2,7 +2,7 @@
 #define COMPA_SYSDEP_HPP
 /*
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-08
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-28
  * Copyright (c) 1990- 1993, 1996 Open Software Foundation, Inc.
  * Copyright (c) 1989 by Hewlett-Packard Company, Palo Alto, Ca. &
  * Digital Equipment Corporation, Maynard, Mass.
@@ -45,12 +45,12 @@
 inline constexpr int UUIDS_PER_TICK{1024};
 
 /*! \brief Set the following to a call to acquire a system wide global lock. */
-extern ithread_mutex_t gUUIDMutex;
+extern pthread_mutex_t gUUIDMutex;
 
 /// \brief UUID lock
-#define UUIDLock() ithread_mutex_lock(&gUUIDMutex)
+#define UUIDLock() pthread_mutex_lock(&gUUIDMutex)
 /// \brief UUID unlock
-#define UUIDUnlock() ithread_mutex_unlock(&gUUIDMutex)
+#define UUIDUnlock() pthread_mutex_unlock(&gUUIDMutex)
 
 /// \brief UUID time
 typedef uint64_t uuid_time_t;

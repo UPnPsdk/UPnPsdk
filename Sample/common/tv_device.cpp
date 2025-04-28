@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-25
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1322,37 +1322,35 @@ int TvDeviceStart(const char* a_iface, in_port_t a_port,
               << "\", gIF_LLA=\"[" << ::gIF_IPV6 << "]\", gIF_GUA=\"["
               << ::gIF_IPV6_ULA_GUA << "]\".\n";
 
+    char ip_modestr[5]{};
     switch (a_ip_mode) {
     case Ip_mode::IP4:
-        std::cerr << "DEBUG! Using IP4\n";
+        ::strcpy(ip_modestr, "IP4");
         ip_address = UpnpGetServerIpAddress();
         a_port = UpnpGetServerPort();
         address_family = AF_INET;
         break;
     case Ip_mode::LLA:
-        std::cerr << "DEBUG! Using LLA\n";
+        ::strcpy(ip_modestr, "LLA");
         ip_address = UpnpGetServerIp6Address();
         a_port = UpnpGetServerPort6();
         address_family = AF_INET6;
         break;
     case Ip_mode::GUA:
-        std::cerr << "DEBUG! Using GUA\n";
+        ::strcpy(ip_modestr, "GUA");
         ip_address = UpnpGetServerUlaGuaIp6Address();
         a_port = UpnpGetServerUlaGuaPort6();
         address_family = AF_INET6;
         break;
     case Ip_mode::BEST:
-        std::cerr << "DEBUG! Using BEST\n";
+        ::strcpy(ip_modestr, "BEST");
         if (*(ip_address = UpnpGetServerIp6Address()) != '\0') {
-            std::cerr << "DEBUG! Tracepoint1\n";
             a_port = UpnpGetServerPort6();
             address_family = AF_INET6;
         } else if (*(ip_address = UpnpGetServerUlaGuaIp6Address()) != '\0') {
-            std::cerr << "DEBUG! Tracepoint2\n";
             a_port = UpnpGetServerUlaGuaPort6();
             address_family = AF_INET6;
         } else if (*(ip_address = UpnpGetServerIpAddress()) != '\0') {
-            std::cerr << "DEBUG! Tracepoint3\n";
             a_port = UpnpGetServerPort();
             address_family = AF_INET;
         }
@@ -1364,8 +1362,8 @@ int TvDeviceStart(const char* a_iface, in_port_t a_port,
     }
 
     SampleUtil_Print("UpnpInit2 finished, UPnP Initialized, "
-                     "Root UDevice local IP address = %s, local port = %u\n",
-                     ip_address ? ip_address : "", a_port);
+                     "Root UDevice %s local IP address = %s, local port = %u\n",
+                     ip_modestr, ip_address ? ip_address : "", a_port);
 
     if (!a_desc_doc_name) {
         if (a_combo) {

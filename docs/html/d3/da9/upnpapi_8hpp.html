@@ -203,13 +203,13 @@ Macros</h2></td></tr>
 <tr class="memitem:a28fd4531f2150806c753c981234c5148" id="r_a28fd4531f2150806c753c981234c5148"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a28fd4531f2150806c753c981234c5148">HandleLock</a>()&#160;&#160;&#160;<a class="el" href="../../d3/da9/upnpapi_8hpp.html#a4bc03f7a8e0f012b1c9516fc01de3ddf">HandleWriteLock</a>()</td></tr>
 <tr class="memdesc:a28fd4531f2150806c753c981234c5148"><td class="mdescLeft">&#160;</td><td class="mdescRight">HandleLock.  <br /></td></tr>
 <tr class="separator:a28fd4531f2150806c753c981234c5148"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bc03f7a8e0f012b1c9516fc01de3ddf" id="r_a4bc03f7a8e0f012b1c9516fc01de3ddf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a4bc03f7a8e0f012b1c9516fc01de3ddf">HandleWriteLock</a>()&#160;&#160;&#160;ithread_rwlock_wrlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#aa54fee38c9414acaa5af164cd7622950">GlobalHndRWLock</a>);</td></tr>
+<tr class="memitem:a4bc03f7a8e0f012b1c9516fc01de3ddf" id="r_a4bc03f7a8e0f012b1c9516fc01de3ddf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a4bc03f7a8e0f012b1c9516fc01de3ddf">HandleWriteLock</a>()&#160;&#160;&#160;pthread_rwlock_wrlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#a64ec1639f216d6c2ab547db3b6b67dca">GlobalHndRWLock</a>);</td></tr>
 <tr class="memdesc:a4bc03f7a8e0f012b1c9516fc01de3ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">HandleWriteLock.  <br /></td></tr>
 <tr class="separator:a4bc03f7a8e0f012b1c9516fc01de3ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5dcab7294e2ac8adb849c6bc7e70902" id="r_af5dcab7294e2ac8adb849c6bc7e70902"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#af5dcab7294e2ac8adb849c6bc7e70902">HandleReadLock</a>()&#160;&#160;&#160;ithread_rwlock_rdlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#aa54fee38c9414acaa5af164cd7622950">GlobalHndRWLock</a>);</td></tr>
+<tr class="memitem:af5dcab7294e2ac8adb849c6bc7e70902" id="r_af5dcab7294e2ac8adb849c6bc7e70902"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#af5dcab7294e2ac8adb849c6bc7e70902">HandleReadLock</a>()&#160;&#160;&#160;pthread_rwlock_rdlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#a64ec1639f216d6c2ab547db3b6b67dca">GlobalHndRWLock</a>);</td></tr>
 <tr class="memdesc:af5dcab7294e2ac8adb849c6bc7e70902"><td class="mdescLeft">&#160;</td><td class="mdescRight">HandleReadLock.  <br /></td></tr>
 <tr class="separator:af5dcab7294e2ac8adb849c6bc7e70902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94aedb82868db176a9d4382c8f3a12b5" id="r_a94aedb82868db176a9d4382c8f3a12b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a94aedb82868db176a9d4382c8f3a12b5">HandleUnlock</a>()&#160;&#160;&#160;ithread_rwlock_unlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#aa54fee38c9414acaa5af164cd7622950">GlobalHndRWLock</a>);</td></tr>
+<tr class="memitem:a94aedb82868db176a9d4382c8f3a12b5" id="r_a94aedb82868db176a9d4382c8f3a12b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a94aedb82868db176a9d4382c8f3a12b5">HandleUnlock</a>()&#160;&#160;&#160;pthread_rwlock_unlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#a64ec1639f216d6c2ab547db3b6b67dca">GlobalHndRWLock</a>);</td></tr>
 <tr class="memdesc:a94aedb82868db176a9d4382c8f3a12b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">HandleUnlock.  <br /></td></tr>
 <tr class="separator:a94aedb82868db176a9d4382c8f3a12b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3eb44e50afef76c9c300d198d5405f68" id="r_a3eb44e50afef76c9c300d198d5405f68"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a3eb44e50afef76c9c300d198d5405f68">E_HTTP_SYNTAX</a>&#160;&#160;&#160;-6</td></tr>
@@ -284,9 +284,9 @@ Variables</h2></td></tr>
 <tr class="memitem:ae2bd413c4df052328cc983653f488ca4" id="r_ae2bd413c4df052328cc983653f488ca4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#ae2bd413c4df052328cc983653f488ca4">g_UpnpSdkEQMaxAge</a></td></tr>
 <tr class="memdesc:ae2bd413c4df052328cc983653f488ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global variable to determine the maximum number of seconds which an event can spend on a subscription queue.  <br /></td></tr>
 <tr class="separator:ae2bd413c4df052328cc983653f488ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa54fee38c9414acaa5af164cd7622950" id="r_aa54fee38c9414acaa5af164cd7622950"><td class="memItemLeft" align="right" valign="top">ithread_rwlock_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#aa54fee38c9414acaa5af164cd7622950">GlobalHndRWLock</a></td></tr>
-<tr class="memdesc:aa54fee38c9414acaa5af164cd7622950"><td class="mdescLeft">&#160;</td><td class="mdescRight">rwlock to synchronize handles (root device or control point handle).  <br /></td></tr>
-<tr class="separator:aa54fee38c9414acaa5af164cd7622950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ec1639f216d6c2ab547db3b6b67dca" id="r_a64ec1639f216d6c2ab547db3b6b67dca"><td class="memItemLeft" align="right" valign="top">pthread_rwlock_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#a64ec1639f216d6c2ab547db3b6b67dca">GlobalHndRWLock</a></td></tr>
+<tr class="memdesc:a64ec1639f216d6c2ab547db3b6b67dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">rwlock to synchronize handles (root device or control point handle).  <br /></td></tr>
+<tr class="separator:a64ec1639f216d6c2ab547db3b6b67dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9004c21016e87ccc9894aeeac89f7a7" id="r_ae9004c21016e87ccc9894aeeac89f7a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#ae9004c21016e87ccc9894aeeac89f7a7">gIF_NAME</a> [<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#aba889888734a8b272a51d444d70ad2fa">LINE_SIZE</a>]</td></tr>
 <tr class="memdesc:ae9004c21016e87ccc9894aeeac89f7a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static buffer to contain interface name. (extern'ed in upnp.h)  <br /></td></tr>
 <tr class="separator:ae9004c21016e87ccc9894aeeac89f7a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -821,7 +821,7 @@ UpnpNonblockParam </td></tr>
           <td class="memname">#define HandleWriteLock</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td>&#160;&#160;&#160;ithread_rwlock_wrlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#aa54fee38c9414acaa5af164cd7622950">GlobalHndRWLock</a>);</td>
+          <td>&#160;&#160;&#160;pthread_rwlock_wrlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#a64ec1639f216d6c2ab547db3b6b67dca">GlobalHndRWLock</a>);</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -842,7 +842,7 @@ UpnpNonblockParam </td></tr>
           <td class="memname">#define HandleReadLock</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td>&#160;&#160;&#160;ithread_rwlock_rdlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#aa54fee38c9414acaa5af164cd7622950">GlobalHndRWLock</a>);</td>
+          <td>&#160;&#160;&#160;pthread_rwlock_rdlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#a64ec1639f216d6c2ab547db3b6b67dca">GlobalHndRWLock</a>);</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -863,7 +863,7 @@ UpnpNonblockParam </td></tr>
           <td class="memname">#define HandleUnlock</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td>&#160;&#160;&#160;ithread_rwlock_unlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#aa54fee38c9414acaa5af164cd7622950">GlobalHndRWLock</a>);</td>
+          <td>&#160;&#160;&#160;pthread_rwlock_unlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#a64ec1639f216d6c2ab547db3b6b67dca">GlobalHndRWLock</a>);</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -983,7 +983,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03341">3341</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03336">3336</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -1180,7 +1180,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03247">3247</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03242">3242</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -1280,7 +1280,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03267">3267</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03262">3262</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -1382,7 +1382,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03304">3304</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03299">3299</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -1453,7 +1453,7 @@ UpnpNonblockParam </td></tr>
 <p>UpnpThreadDistribution. </p>
 <p>UpnpThreadDistribution. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03141">3141</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03136">3136</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -1663,7 +1663,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03396">3396</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03391">3391</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -1728,7 +1728,7 @@ UpnpNonblockParam </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03371">3371</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03366">3366</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1856,8 +1856,8 @@ UpnpNonblockParam </td></tr>
 
 </div>
 </div>
-<a id="aa54fee38c9414acaa5af164cd7622950" name="aa54fee38c9414acaa5af164cd7622950"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa54fee38c9414acaa5af164cd7622950">&#9670;&#160;</a></span>GlobalHndRWLock</h2>
+<a id="a64ec1639f216d6c2ab547db3b6b67dca" name="a64ec1639f216d6c2ab547db3b6b67dca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ec1639f216d6c2ab547db3b6b67dca">&#9670;&#160;</a></span>GlobalHndRWLock</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1866,7 +1866,7 @@ UpnpNonblockParam </td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">ithread_rwlock_t GlobalHndRWLock</td>
+          <td class="memname">pthread_rwlock_t GlobalHndRWLock</td>
         </tr>
       </table>
   </td>

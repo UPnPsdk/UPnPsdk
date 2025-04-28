@@ -536,18 +536,18 @@ Variables</h2></td></tr>
 <tr class="memitem:a85ec286c63778e7aa2c8013917312713" id="r_a85ec286c63778e7aa2c8013917312713"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d92/VirtualDir_8hpp.html#ad7a936c7ad5e4ff04823408d18a77f25">virtualDirList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a85ec286c63778e7aa2c8013917312713">pVirtualDirList</a></td></tr>
 <tr class="memdesc:a85ec286c63778e7aa2c8013917312713"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the virtual directory list.  <br /></td></tr>
 <tr class="separator:a85ec286c63778e7aa2c8013917312713"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a991b57a360ce2410e6acf4b21983c5a9" id="r_a991b57a360ce2410e6acf4b21983c5a9"><td class="memItemLeft" align="right" valign="top">ithread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a991b57a360ce2410e6acf4b21983c5a9">GlobalClientSubscribeMutex</a></td></tr>
-<tr class="memdesc:a991b57a360ce2410e6acf4b21983c5a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to synchronize the subscription handling at the client side.  <br /></td></tr>
-<tr class="separator:a991b57a360ce2410e6acf4b21983c5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa54fee38c9414acaa5af164cd7622950" id="r_aa54fee38c9414acaa5af164cd7622950"><td class="memItemLeft" align="right" valign="top">ithread_rwlock_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#aa54fee38c9414acaa5af164cd7622950">GlobalHndRWLock</a></td></tr>
-<tr class="memdesc:aa54fee38c9414acaa5af164cd7622950"><td class="mdescLeft">&#160;</td><td class="mdescRight">rwlock to synchronize handles (root device or control point handle).  <br /></td></tr>
-<tr class="separator:aa54fee38c9414acaa5af164cd7622950"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b2447f75cd3406129a4c17c06e155dc" id="r_a7b2447f75cd3406129a4c17c06e155dc"><td class="memItemLeft" align="right" valign="top">ithread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a7b2447f75cd3406129a4c17c06e155dc">gUUIDMutex</a></td></tr>
-<tr class="memdesc:a7b2447f75cd3406129a4c17c06e155dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to synchronize the uuid creation process.  <br /></td></tr>
-<tr class="separator:a7b2447f75cd3406129a4c17c06e155dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab10aadd9f04edb574b771da76ec8496e" id="r_ab10aadd9f04edb574b771da76ec8496e"><td class="memItemLeft" align="right" valign="top">ithread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#ab10aadd9f04edb574b771da76ec8496e">gSDKInitMutex</a> = PTHREAD_MUTEX_INITIALIZER</td></tr>
-<tr class="memdesc:ab10aadd9f04edb574b771da76ec8496e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization mutex.  <br /></td></tr>
-<tr class="separator:ab10aadd9f04edb574b771da76ec8496e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fad0840fa7b371a1105a1d66a1e0d87" id="r_a6fad0840fa7b371a1105a1d66a1e0d87"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a6fad0840fa7b371a1105a1d66a1e0d87">GlobalClientSubscribeMutex</a></td></tr>
+<tr class="memdesc:a6fad0840fa7b371a1105a1d66a1e0d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to synchronize the subscription handling at the client side.  <br /></td></tr>
+<tr class="separator:a6fad0840fa7b371a1105a1d66a1e0d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ec1639f216d6c2ab547db3b6b67dca" id="r_a64ec1639f216d6c2ab547db3b6b67dca"><td class="memItemLeft" align="right" valign="top">pthread_rwlock_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a64ec1639f216d6c2ab547db3b6b67dca">GlobalHndRWLock</a></td></tr>
+<tr class="memdesc:a64ec1639f216d6c2ab547db3b6b67dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">rwlock to synchronize handles (root device or control point handle).  <br /></td></tr>
+<tr class="separator:a64ec1639f216d6c2ab547db3b6b67dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab95fc2915d874b8f46164273b6fe4280" id="r_ab95fc2915d874b8f46164273b6fe4280"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#ab95fc2915d874b8f46164273b6fe4280">gUUIDMutex</a></td></tr>
+<tr class="memdesc:ab95fc2915d874b8f46164273b6fe4280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to synchronize the uuid creation process.  <br /></td></tr>
+<tr class="separator:ab95fc2915d874b8f46164273b6fe4280"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5479ebfd8bc2b92d1bcd1c790a44a11e" id="r_a5479ebfd8bc2b92d1bcd1c790a44a11e"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#a5479ebfd8bc2b92d1bcd1c790a44a11e">gSDKInitMutex</a> = PTHREAD_MUTEX_INITIALIZER</td></tr>
+<tr class="memdesc:a5479ebfd8bc2b92d1bcd1c790a44a11e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization mutex.  <br /></td></tr>
+<tr class="separator:a5479ebfd8bc2b92d1bcd1c790a44a11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1644e3f1b27134f80ed3bd08289cc58" id="r_ad1644e3f1b27134f80ed3bd08289cc58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d87/TimerThread_8hpp.html#d0/d2a/structTimerThread">TimerThread</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d99/upnpapi_8cpp.html#ad1644e3f1b27134f80ed3bd08289cc58">gTimerThread</a></td></tr>
 <tr class="memdesc:ad1644e3f1b27134f80ed3bd08289cc58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global timer thread.  <br /></td></tr>
 <tr class="separator:ad1644e3f1b27134f80ed3bd08289cc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1199,7 +1199,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="504,2116,520,2156,549,2210,590,2265,615,2288,644,2306,682,2321,722,2329,764,2331,805,2328,883,2312,945,2292,946,2297,884,2317,806,2333,764,2336,722,2334,681,2326,641,2311,612,2292,586,2268,544,2213,516,2159,499,2118"/>
 <area shape="rect" href="../../da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html#a0b3ea1eb15ec9b4f1ddeb57d157b7e92" title="Implements timer thread." alt="" coords="654,2192,834,2247"/>
 <area shape="poly" title=" " alt="" coords="521,2115,644,2178,658,2184,655,2189,642,2183,519,2120"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="705,2271,783,2296"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="705,2271,783,2296"/>
 <area shape="poly" title=" " alt="" coords="508,2116,559,2184,599,2224,644,2257,667,2268,692,2274,691,2280,665,2273,641,2262,595,2228,555,2187,503,2119"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a7317f4409e514c2c01e31c9f66fd7da5" title="Sets the priority of the threadpool job." alt="" coords="681,2143,807,2168"/>
 <area shape="poly" title=" " alt="" coords="560,2115,668,2137,667,2142,559,2120"/>
@@ -1334,7 +1334,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="357,1157,416,1167,415,1172,356,1162"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#aea9809ed39a504aecbbdc574b6998604" title="Adds a persistent job to the thread pool." alt="" coords="437,1240,622,1266"/>
 <area shape="poly" title=" " alt="" coords="315,1159,365,1193,429,1226,450,1234,448,1239,427,1231,362,1197,312,1164"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="490,1290,569,1315"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="490,1290,569,1315"/>
 <area shape="poly" title=" " alt="" coords="308,1160,356,1217,390,1249,429,1276,453,1286,477,1293,476,1298,451,1291,427,1281,387,1253,352,1220,304,1164"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="448,1339,611,1364"/>
 <area shape="poly" title=" " alt="" coords="305,1160,321,1194,348,1239,385,1286,430,1325,439,1331,437,1336,426,1330,381,1290,344,1242,317,1197,300,1163"/>
@@ -1448,7 +1448,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00658">658</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00655">655</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -1527,7 +1527,7 @@ Event</td>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00696">696</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00693">693</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -1666,7 +1666,7 @@ Event</td>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00769">769</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00764">764</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -1693,7 +1693,7 @@ Event</td>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00776">776</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00771">771</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -1720,7 +1720,7 @@ Event</td>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00787">787</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00782">782</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -1747,7 +1747,7 @@ Event</td>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00798">798</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00793">793</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -1774,7 +1774,7 @@ Event</td>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00805">805</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00800">800</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -1801,7 +1801,7 @@ Event</td>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00816">816</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00811">811</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -1832,7 +1832,7 @@ Event</td>
 <dl class="section return"><dt>Returns</dt><dd>On success: an integer greater than zero<br  />
  On error: UPNP_E_OUTOF_HANDLE </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00835">835</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00830">830</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1889,7 +1889,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00852">852</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00847">847</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">
@@ -2002,7 +2002,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00878">878</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00873">873</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-19-summary" class="dynsummary" style="display:block;">
@@ -2129,7 +2129,7 @@ Event</td>
 
 <p>Fills the sockadr_in with miniserver information. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01568">1568</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01563">1563</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-20-summary" class="dynsummary" style="display:block;">
@@ -2302,7 +2302,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01032">1032</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01027">1027</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-22-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-22-summary" class="dynsummary" style="display:block;">
@@ -2430,7 +2430,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01177">1177</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01172">1172</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-23-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-23-summary" class="dynsummary" style="display:block;">
@@ -2573,7 +2573,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01319">1319</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01314">1314</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-25-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-25-summary" class="dynsummary" style="display:block;">
@@ -2639,7 +2639,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01330">1330</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01325">1325</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-26" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-26-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-26-summary" class="dynsummary" style="display:block;">
@@ -2766,7 +2766,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01336">1336</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01331">1331</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-28" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-28-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-28-summary" class="dynsummary" style="display:block;">
@@ -2910,7 +2910,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01408">1408</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01403">1403</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-30" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-30-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-30-summary" class="dynsummary" style="display:block;">
@@ -2968,7 +2968,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01457">1457</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01452">1452</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-31" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-31-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-31-summary" class="dynsummary" style="display:block;">
@@ -3097,7 +3097,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01515">1515</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01510">1510</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-33" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-33-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-33-summary" class="dynsummary" style="display:block;">
@@ -3147,7 +3147,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01541">1541</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01536">1536</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-34" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-34-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-34-summary" class="dynsummary" style="display:block;">
@@ -3197,7 +3197,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01556">1556</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01551">1551</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-35" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-35-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-35-summary" class="dynsummary" style="display:block;">
@@ -3259,7 +3259,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01717">1717</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01712">1712</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-36" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-36-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-36-summary" class="dynsummary" style="display:block;">
@@ -3287,7 +3287,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="367,245,423,204,458,183,495,165,545,148,597,135,694,120,695,125,598,140,547,153,497,170,461,187,426,208,370,249"/>
 <area shape="rect" href="../../dd/d9f/TimerThread_8cpp.html#a8ec8348608c1398ce65c460c5a8a5b7d" title="Schedules an event to run at a specified time." alt="" coords="496,431,660,456"/>
 <area shape="poly" title=" " alt="" coords="363,286,419,346,457,379,497,409,524,423,522,428,495,414,453,384,415,350,359,290"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="539,480,617,506"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="539,480,617,506"/>
 <area shape="poly" title=" " alt="" coords="356,287,377,325,408,374,449,424,497,467,527,481,524,485,495,471,445,428,404,377,373,328,351,289"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="497,179,659,204"/>
 <area shape="poly" title=" " alt="" coords="405,245,524,206,526,211,407,250"/>
@@ -3384,7 +3384,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01723">1723</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01718">1718</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-38" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-38-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-38-summary" class="dynsummary" style="display:block;">
@@ -3405,7 +3405,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="217,912,496,922,495,928,216,917"/>
 <area shape="rect" href="../../dd/d9f/TimerThread_8cpp.html#a8ec8348608c1398ce65c460c5a8a5b7d" title="Schedules an event to run at a specified time." alt="" coords="264,1135,428,1161"/>
 <area shape="poly" title=" " alt="" coords="125,930,179,1014,219,1064,266,1109,297,1128,294,1132,262,1113,215,1068,175,1017,121,932"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="307,974,385,999"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="307,974,385,999"/>
 <area shape="poly" title=" " alt="" coords="175,928,294,968,293,973,173,933"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="265,1023,427,1049"/>
 <area shape="poly" title=" " alt="" coords="139,929,195,969,265,1010,282,1017,280,1022,263,1015,192,974,135,933"/>
@@ -3528,7 +3528,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01868">1868</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01863">1863</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-40" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-40-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-40-summary" class="dynsummary" style="display:block;">
@@ -3589,7 +3589,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01901">1901</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01896">1896</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-41" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-41-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-41-summary" class="dynsummary" style="display:block;">
@@ -3682,7 +3682,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01938">1938</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01933">1933</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-42" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-42-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-42-summary" class="dynsummary" style="display:block;">
@@ -3697,7 +3697,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="83,1232,85,1176,93,1084,109,966,136,832,156,762,180,691,208,622,242,555,281,491,326,432,377,378,436,332,475,313,529,301,591,293,658,292,725,295,787,305,839,320,876,341,900,373,919,421,934,481,946,546,961,677,968,774,963,774,956,678,941,547,929,482,914,423,895,376,873,345,837,325,786,310,725,301,658,297,592,299,530,306,477,319,439,336,381,382,330,435,285,494,246,557,213,624,185,693,161,763,142,833,114,967,98,1084,91,1176,89,1232"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="241,141,361,167"/>
 <area shape="poly" title=" " alt="" coords="84,1232,96,1065,121,784,138,631,159,487,183,363,210,272,223,244,240,218,275,175,279,178,245,221,228,246,214,274,188,364,164,488,144,632,126,785,101,1066,89,1232"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="261,1232,340,1257"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="261,1232,340,1257"/>
 <area shape="poly" title=" " alt="" coords="164,1242,248,1242,248,1247,164,1247"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="219,1281,382,1307"/>
 <area shape="poly" title=" " alt="" coords="142,1255,232,1276,231,1281,140,1260"/>
@@ -3867,7 +3867,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02004">2004</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l01999">1999</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-43" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-43-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-43-summary" class="dynsummary" style="display:block;">
@@ -3992,7 +3992,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02070">2070</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02065">2065</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-44" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-44-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-44-summary" class="dynsummary" style="display:block;">
@@ -4112,7 +4112,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02116">2116</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02111">2111</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-45" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-45-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-45-summary" class="dynsummary" style="display:block;">
@@ -4127,7 +4127,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="92,1232,95,1175,103,1083,120,965,149,831,169,761,194,691,223,622,257,555,297,491,342,431,394,378,453,332,493,314,546,301,609,294,676,292,743,295,804,305,856,320,894,341,917,373,936,421,951,481,963,546,979,677,985,774,980,774,973,678,958,547,946,482,931,423,912,376,890,345,854,325,803,310,742,301,676,297,609,299,547,306,494,319,456,336,398,382,346,435,301,494,262,557,228,624,199,693,174,763,154,833,125,966,108,1084,100,1176,98,1232"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="258,141,378,167"/>
 <area shape="poly" title=" " alt="" coords="93,1232,106,1065,134,784,153,631,175,487,200,363,227,272,258,218,292,175,297,178,262,221,232,274,205,364,180,488,158,632,139,785,112,1066,98,1232"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="279,1232,357,1257"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="279,1232,357,1257"/>
 <area shape="poly" title=" " alt="" coords="182,1242,265,1242,265,1247,182,1247"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="237,1281,399,1307"/>
 <area shape="poly" title=" " alt="" coords="152,1255,247,1276,246,1281,151,1260"/>
@@ -4290,7 +4290,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02181">2181</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02176">2176</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-46" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-46-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-46-summary" class="dynsummary" style="display:block;">
@@ -4440,7 +4440,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02234">2234</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02229">2229</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-47" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-47-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-47-summary" class="dynsummary" style="display:block;">
@@ -4455,7 +4455,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="114,1232,118,1175,128,1083,148,965,180,831,202,761,228,690,259,621,295,554,336,490,383,431,436,378,496,332,535,314,589,301,652,294,719,292,785,296,847,305,899,320,936,341,960,373,979,421,994,481,1006,546,1021,677,1028,774,1023,774,1016,678,1001,547,989,482,974,423,955,376,933,345,897,325,846,310,785,301,719,297,652,299,590,306,537,319,499,336,440,382,387,435,340,493,299,557,264,623,233,692,207,762,185,832,153,966,133,1084,123,1176,119,1232"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="301,141,421,167"/>
 <area shape="poly" title=" " alt="" coords="113,1232,116,1097,122,988,133,858,152,715,180,565,218,415,242,342,270,272,301,218,335,175,339,178,305,221,274,274,247,344,224,417,185,566,157,716,138,858,127,988,121,1098,118,1232"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="321,1232,400,1257"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="321,1232,400,1257"/>
 <area shape="poly" title=" " alt="" coords="224,1242,307,1242,307,1247,224,1247"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="279,1281,442,1307"/>
 <area shape="poly" title=" " alt="" coords="179,1255,284,1276,283,1281,178,1260"/>
@@ -4632,7 +4632,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02299">2299</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02294">2294</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-48" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-48-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-48-summary" class="dynsummary" style="display:block;">
@@ -4720,7 +4720,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02344">2344</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02339">2339</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-49" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-49-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-49-summary" class="dynsummary" style="display:block;">
@@ -4816,7 +4816,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02459">2459</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02454">2454</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-50" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-50-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-50-summary" class="dynsummary" style="display:block;">
@@ -4920,7 +4920,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02537">2537</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02532">2532</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-51" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-51-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-51-summary" class="dynsummary" style="display:block;">
@@ -5071,7 +5071,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02585">2585</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02580">2580</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-53" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-53-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-53-summary" class="dynsummary" style="display:block;">
@@ -5228,7 +5228,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02633">2633</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02628">2628</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-54" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-54-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-54-summary" class="dynsummary" style="display:block;">
@@ -5251,7 +5251,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="174,2078,304,2085,455,2085,527,2081,593,2072,646,2059,684,2040,706,2013,726,1971,745,1918,761,1859,786,1741,801,1652,806,1652,791,1742,766,1860,750,1919,731,1973,710,2016,687,2044,648,2064,594,2078,528,2086,455,2091,304,2090,173,2083"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="250,2161,370,2186"/>
 <area shape="poly" title=" " alt="" coords="111,2084,161,2115,222,2146,245,2154,243,2159,220,2151,158,2119,108,2089"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="271,2210,349,2236"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="271,2210,349,2236"/>
 <area shape="poly" title=" " alt="" coords="103,2085,151,2139,185,2169,223,2195,258,2210,256,2215,220,2200,181,2173,147,2142,99,2089"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="229,2260,391,2285"/>
 <area shape="poly" title=" " alt="" coords="99,2085,116,2118,143,2161,179,2206,223,2245,235,2252,232,2257,220,2249,175,2210,139,2164,111,2120,94,2088"/>
@@ -5466,7 +5466,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02719">2719</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02714">2714</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-56" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-56-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-56-summary" class="dynsummary" style="display:block;">
@@ -5491,7 +5491,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="118,410,171,442,204,458,238,472,298,486,360,496,471,504,471,509,360,501,297,492,237,477,202,463,168,447,116,415"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="482,543,602,568"/>
 <area shape="poly" title=" " alt="" coords="112,410,164,458,199,485,238,506,297,527,357,540,469,552,468,557,357,545,295,532,236,511,196,489,160,462,108,414"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="503,592,581,617"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="503,592,581,617"/>
 <area shape="poly" title=" " alt="" coords="108,411,127,441,157,480,194,519,239,552,302,578,370,594,435,602,489,604,489,609,434,607,369,599,301,583,236,556,191,523,152,483,123,444,104,414"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="461,641,623,667"/>
 <area shape="poly" title=" " alt="" coords="106,411,121,451,149,504,188,560,212,585,239,605,288,630,342,645,396,653,447,656,447,661,396,658,341,650,286,634,236,610,208,589,184,563,144,507,116,453,101,413"/>
@@ -5602,7 +5602,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02831">2831</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02826">2826</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-57" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-57-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-57-summary" class="dynsummary" style="display:block;">
@@ -5617,7 +5617,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="119,1232,123,1175,134,1083,154,965,187,831,209,761,236,690,267,621,303,554,344,490,392,431,445,378,505,332,545,314,598,301,661,294,728,292,795,296,857,305,908,320,946,341,969,373,988,421,1003,481,1015,546,1031,677,1037,774,1032,774,1025,678,1010,547,998,482,983,423,964,376,942,345,906,325,855,310,794,301,728,297,661,299,599,307,547,319,508,336,449,382,396,434,349,493,307,556,272,623,241,692,214,762,192,832,159,966,139,1084,128,1176,124,1232"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="310,141,430,167"/>
 <area shape="poly" title=" " alt="" coords="118,1232,121,1097,128,987,140,858,160,715,188,565,227,415,251,342,279,272,310,218,345,175,349,178,314,221,284,274,256,344,232,417,193,566,165,716,145,858,133,988,126,1098,123,1232"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="331,1232,409,1257"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="331,1232,409,1257"/>
 <area shape="poly" title=" " alt="" coords="233,1242,317,1242,317,1247,233,1247"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="289,1281,451,1307"/>
 <area shape="poly" title=" " alt="" coords="185,1255,292,1276,291,1281,184,1260"/>
@@ -5788,7 +5788,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02944">2944</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02939">2939</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-58" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-58-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-58-summary" class="dynsummary" style="display:block;">
@@ -5887,7 +5887,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02954">2954</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02949">2949</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-59" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-59-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-59-summary" class="dynsummary" style="display:block;">
@@ -5954,7 +5954,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02958">2958</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02953">2953</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-60" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-60-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-60-summary" class="dynsummary" style="display:block;">
@@ -6069,7 +6069,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02968">2968</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02963">2963</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-61" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-61-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-61-summary" class="dynsummary" style="display:block;">
@@ -6185,7 +6185,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02985">2985</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02980">2980</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-62" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-62-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-62-summary" class="dynsummary" style="display:block;">
@@ -6307,7 +6307,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03003">3003</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l02998">2998</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-63" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-63-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-63-summary" class="dynsummary" style="display:block;">
@@ -6378,7 +6378,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03010">3010</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03005">3005</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-64" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-64-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-64-summary" class="dynsummary" style="display:block;">
@@ -6423,7 +6423,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03012">3012</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03007">3007</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-65" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-65-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-65-summary" class="dynsummary" style="display:block;">
@@ -6498,7 +6498,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03014">3014</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03009">3009</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-66" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-66-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-66-summary" class="dynsummary" style="display:block;">
@@ -6571,7 +6571,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03018">3018</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03013">3013</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-67" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-67-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-67-summary" class="dynsummary" style="display:block;">
@@ -6641,7 +6641,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03022">3022</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03017">3017</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-68" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-68-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-68-summary" class="dynsummary" style="display:block;">
@@ -6765,7 +6765,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03026">3026</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03021">3021</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-70" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-70-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-70-summary" class="dynsummary" style="display:block;">
@@ -6863,7 +6863,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03033">3033</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03028">3028</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-72" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-72-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-72-summary" class="dynsummary" style="display:block;">
@@ -6926,7 +6926,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03037">3037</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03032">3032</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-73" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-73-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-73-summary" class="dynsummary" style="display:block;">
@@ -7036,7 +7036,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03041">3041</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03036">3036</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-75" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-75-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-75-summary" class="dynsummary" style="display:block;">
@@ -7134,7 +7134,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03047">3047</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03042">3042</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-77" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-77-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-77-summary" class="dynsummary" style="display:block;">
@@ -7191,7 +7191,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03051">3051</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03046">3046</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-78" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-78-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-78-summary" class="dynsummary" style="display:block;">
@@ -7279,7 +7279,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03057">3057</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03052">3052</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-80" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-80-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-80-summary" class="dynsummary" style="display:block;">
@@ -7385,7 +7385,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03079">3079</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03074">3074</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-82" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-82-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-82-summary" class="dynsummary" style="display:block;">
@@ -7456,7 +7456,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <p>Schedule async functions in threadpool. </p>
 <p>UpnpThreadDistribution. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03141">3141</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03136">3136</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-84" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-84-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-84-summary" class="dynsummary" style="display:block;">
@@ -7661,7 +7661,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 <p>Get callback function ptr from a handle. </p>
 <dl class="section return"><dt>Returns</dt><dd>Upnp_FunPtr </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03242">3242</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03237">3237</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -7702,7 +7702,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03247">3247</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03242">3242</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-86" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-86-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-86-summary" class="dynsummary" style="display:block;">
@@ -7802,7 +7802,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03267">3267</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03262">3262</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-88" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-88-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-88-summary" class="dynsummary" style="display:block;">
@@ -7904,7 +7904,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03304">3304</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03299">3299</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-90" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-90-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-90-summary" class="dynsummary" style="display:block;">
@@ -7992,7 +7992,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03341">3341</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03336">3336</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-92" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-92-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-92-summary" class="dynsummary" style="display:block;">
@@ -8177,7 +8177,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03371">3371</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03366">3366</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-94" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-94-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-94-summary" class="dynsummary" style="display:block;">
@@ -8221,7 +8221,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03396">3396</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03391">3391</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-95" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-95-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-95-summary" class="dynsummary" style="display:block;">
@@ -8294,7 +8294,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03405">3405</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03400">3400</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-97" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-97-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-97-summary" class="dynsummary" style="display:block;">
@@ -8348,7 +8348,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03418">3418</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03413">3413</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-98" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-98-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-98-summary" class="dynsummary" style="display:block;">
@@ -8419,7 +8419,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03431">3431</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03426">3426</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8453,7 +8453,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03506">3506</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03501">3501</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8474,7 +8474,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 
 <p>Removes all <a class="el" href="../../d5/d67/Glossary.html#glossary_virtdir">virtual directory</a> mappings. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03552">3552</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03547">3547</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-99" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-99-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-99-summary" class="dynsummary" style="display:block;">
@@ -8532,7 +8532,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03572">3572</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03567">3567</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-100" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-100-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-100-summary" class="dynsummary" style="display:block;">
@@ -8629,7 +8629,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03597">3597</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03592">3592</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8668,7 +8668,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03605">3605</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03600">3600</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8696,7 +8696,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03611">3611</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03606">3606</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8724,7 +8724,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03615">3615</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03610">3610</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8752,7 +8752,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03626">3626</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03621">3621</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8780,7 +8780,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03637">3637</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03632">3632</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8808,7 +8808,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03648">3648</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03643">3643</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8836,7 +8836,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03659">3659</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03654">3654</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8864,7 +8864,7 @@ Note: In case of return values, the status code parameter of the passed in handl
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03670">3670</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03665">3665</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8904,7 +8904,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03682">3682</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03677">3677</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-102" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-102-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-102-summary" class="dynsummary" style="display:block;">
@@ -8954,7 +8954,7 @@ Note: In case of return values, the status code parameter of the passed in handl
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03712">3712</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l03707">3707</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8995,14 +8995,14 @@ Note: In case of return values, the status code parameter of the passed in handl
 
 </div>
 </div>
-<a id="a991b57a360ce2410e6acf4b21983c5a9" name="a991b57a360ce2410e6acf4b21983c5a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a991b57a360ce2410e6acf4b21983c5a9">&#9670;&#160;</a></span>GlobalClientSubscribeMutex</h2>
+<a id="a6fad0840fa7b371a1105a1d66a1e0d87" name="a6fad0840fa7b371a1105a1d66a1e0d87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fad0840fa7b371a1105a1d66a1e0d87">&#9670;&#160;</a></span>GlobalClientSubscribeMutex</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ithread_mutex_t GlobalClientSubscribeMutex</td>
+          <td class="memname">pthread_mutex_t GlobalClientSubscribeMutex</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -9014,14 +9014,14 @@ Note: In case of return values, the status code parameter of the passed in handl
 
 </div>
 </div>
-<a id="aa54fee38c9414acaa5af164cd7622950" name="aa54fee38c9414acaa5af164cd7622950"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa54fee38c9414acaa5af164cd7622950">&#9670;&#160;</a></span>GlobalHndRWLock</h2>
+<a id="a64ec1639f216d6c2ab547db3b6b67dca" name="a64ec1639f216d6c2ab547db3b6b67dca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ec1639f216d6c2ab547db3b6b67dca">&#9670;&#160;</a></span>GlobalHndRWLock</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ithread_rwlock_t GlobalHndRWLock</td>
+          <td class="memname">pthread_rwlock_t GlobalHndRWLock</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -9032,14 +9032,14 @@ Note: In case of return values, the status code parameter of the passed in handl
 
 </div>
 </div>
-<a id="a7b2447f75cd3406129a4c17c06e155dc" name="a7b2447f75cd3406129a4c17c06e155dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b2447f75cd3406129a4c17c06e155dc">&#9670;&#160;</a></span>gUUIDMutex</h2>
+<a id="ab95fc2915d874b8f46164273b6fe4280" name="ab95fc2915d874b8f46164273b6fe4280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab95fc2915d874b8f46164273b6fe4280">&#9670;&#160;</a></span>gUUIDMutex</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ithread_mutex_t gUUIDMutex</td>
+          <td class="memname">pthread_mutex_t gUUIDMutex</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -9051,14 +9051,14 @@ Note: In case of return values, the status code parameter of the passed in handl
 
 </div>
 </div>
-<a id="ab10aadd9f04edb574b771da76ec8496e" name="ab10aadd9f04edb574b771da76ec8496e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab10aadd9f04edb574b771da76ec8496e">&#9670;&#160;</a></span>gSDKInitMutex</h2>
+<a id="a5479ebfd8bc2b92d1bcd1c790a44a11e" name="a5479ebfd8bc2b92d1bcd1c790a44a11e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5479ebfd8bc2b92d1bcd1c790a44a11e">&#9670;&#160;</a></span>gSDKInitMutex</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ithread_mutex_t gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER</td>
+          <td class="memname">pthread_mutex_t gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER</td>
         </tr>
       </table>
 </div><div class="memdoc">

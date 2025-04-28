@@ -900,9 +900,9 @@ device_handle</td>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_function" href="../../d8/d32/upnpdebug_8hpp.html#a186bccdd3cab13ada1bdc46ee95c7d37">UpnpPrintf</a>(UPNP_INFO, GENA, __FILE__, __LINE__, <span class="stringliteral">&quot;Trying Subscribe Lock&quot;</span>);  \</div>
-<div class="line">    ithread_mutex_lock(&amp;<a class="code hl_variable" href="../../d4/d99/upnpapi_8cpp.html#a991b57a360ce2410e6acf4b21983c5a9">GlobalClientSubscribeMutex</a>);                           \</div>
+<div class="line">    pthread_mutex_lock(&amp;<a class="code hl_variable" href="../../d4/d99/upnpapi_8cpp.html#a6fad0840fa7b371a1105a1d66a1e0d87">GlobalClientSubscribeMutex</a>);                           \</div>
 <div class="line">    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, <span class="stringliteral">&quot;Subscribe Lock&quot;</span>);</div>
-<div class="ttc" id="aupnpapi_8cpp_html_a991b57a360ce2410e6acf4b21983c5a9"><div class="ttname"><a href="../../d4/d99/upnpapi_8cpp.html#a991b57a360ce2410e6acf4b21983c5a9">GlobalClientSubscribeMutex</a></div><div class="ttdeci">ithread_mutex_t GlobalClientSubscribeMutex</div><div class="ttdoc">Mutex to synchronize the subscription handling at the client side.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d99/upnpapi_8cpp_source.html#l00233">upnpapi.cpp:233</a></div></div>
+<div class="ttc" id="aupnpapi_8cpp_html_a6fad0840fa7b371a1105a1d66a1e0d87"><div class="ttname"><a href="../../d4/d99/upnpapi_8cpp.html#a6fad0840fa7b371a1105a1d66a1e0d87">GlobalClientSubscribeMutex</a></div><div class="ttdeci">pthread_mutex_t GlobalClientSubscribeMutex</div><div class="ttdoc">Mutex to synchronize the subscription handling at the client side.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d99/upnpapi_8cpp_source.html#l00233">upnpapi.cpp:233</a></div></div>
 <div class="ttc" id="aupnpdebug_8hpp_html_a186bccdd3cab13ada1bdc46ee95c7d37"><div class="ttname"><a href="../../d8/d32/upnpdebug_8hpp.html#a186bccdd3cab13ada1bdc46ee95c7d37">UpnpPrintf</a></div><div class="ttdeci">UPNPLIB_API void UpnpPrintf(Upnp_LogLevel DLevel, Dbg_Module Module, const char *DbgFileName, int DbgLineNo, const char *FmtStr,...)</div><div class="ttdoc">Prints the debug statement.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/dfa/upnpdebug_8cpp_source.html#l00240">upnpdebug.cpp:240</a></div></div>
 </div><!-- fragment -->
 <p>Locks the subscription. </p>
@@ -927,7 +927,7 @@ device_handle</td>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_function" href="../../d8/d32/upnpdebug_8hpp.html#a186bccdd3cab13ada1bdc46ee95c7d37">UpnpPrintf</a>(UPNP_INFO, GENA, __FILE__, __LINE__,                            \</div>
 <div class="line">               <span class="stringliteral">&quot;Trying Subscribe UnLock&quot;</span>);                                     \</div>
-<div class="line">    ithread_mutex_unlock(&amp;<a class="code hl_variable" href="../../d4/d99/upnpapi_8cpp.html#a991b57a360ce2410e6acf4b21983c5a9">GlobalClientSubscribeMutex</a>);                         \</div>
+<div class="line">    pthread_mutex_unlock(&amp;<a class="code hl_variable" href="../../d4/d99/upnpapi_8cpp.html#a6fad0840fa7b371a1105a1d66a1e0d87">GlobalClientSubscribeMutex</a>);                         \</div>
 <div class="line">    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, <span class="stringliteral">&quot;Subscribe UnLock&quot;</span>);</div>
 </div><!-- fragment -->
 <p>Unlocks the subscription. </p>
@@ -1303,7 +1303,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="374,1308,447,1325,446,1331,373,1313"/>
 <area shape="rect" href="../../dd/d9f/TimerThread_8cpp.html#a8ec8348608c1398ce65c460c5a8a5b7d" title="Schedules an event to run at a specified time." alt="" coords="461,1396,625,1421"/>
 <area shape="poly" title=" " alt="" coords="318,1313,372,1348,436,1381,461,1390,459,1395,434,1386,370,1353,315,1317"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="503,1445,582,1471"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="503,1445,582,1471"/>
 <area shape="poly" title=" " alt="" coords="303,1313,359,1373,396,1404,436,1430,463,1441,490,1449,489,1454,461,1446,433,1435,393,1408,356,1377,300,1317"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="461,1495,624,1520"/>
 <area shape="poly" title=" " alt="" coords="296,1313,318,1351,350,1397,390,1442,436,1480,450,1487,448,1492,433,1484,386,1446,346,1400,314,1354,292,1316"/>
@@ -1923,7 +1923,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="435,1545,602,1576,671,1593,708,1608,723,1625,731,1643,734,1678,737,1713,744,1730,757,1747,765,1754,761,1758,753,1751,739,1733,732,1715,729,1679,726,1644,719,1628,705,1612,669,1598,601,1581,434,1550"/>
 <area shape="rect" href="../../dd/d9f/TimerThread_8cpp.html#a8ec8348608c1398ce65c460c5a8a5b7d" title="Schedules an event to run at a specified time." alt="" coords="519,1671,683,1696"/>
 <area shape="poly" title=" " alt="" coords="369,1559,425,1610,460,1635,497,1657,514,1664,512,1669,495,1662,457,1640,421,1614,365,1563"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="562,1471,641,1496"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="562,1471,641,1496"/>
 <area shape="poly" title=" " alt="" coords="434,1513,548,1491,549,1496,435,1518"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="520,1520,683,1546"/>
 <area shape="poly" title=" " alt="" coords="435,1530,506,1530,506,1536,435,1536"/>
@@ -2069,7 +2069,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="344,458,453,460,513,457,572,450,622,437,668,420,670,425,624,442,572,455,513,462,453,466,344,464"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a74609494846be8d91321eafb29dc55eb" title="This gets called before queuing a new event." alt="" coords="392,749,572,804"/>
 <area shape="poly" title=" " alt="" coords="265,480,282,531,309,597,346,666,368,698,394,728,407,739,403,743,390,731,364,701,341,668,304,599,277,533,260,482"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="443,268,521,293"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="443,268,521,293"/>
 <area shape="poly" title=" " alt="" coords="271,424,320,362,353,330,391,302,428,286,430,291,393,307,357,334,324,366,275,428"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="401,366,563,392"/>
 <area shape="poly" title=" " alt="" coords="325,424,391,400,417,393,418,398,393,405,326,429"/>
@@ -2197,7 +2197,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="277,441,289,385,313,315,331,279,353,246,379,215,411,191,444,174,480,165,517,161,555,161,626,172,684,188,683,193,625,177,554,167,518,166,481,170,446,179,413,195,383,219,357,249,335,282,318,317,294,387,282,442"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a74609494846be8d91321eafb29dc55eb" title="This gets called before queuing a new event." alt="" coords="412,590,592,644"/>
 <area shape="poly" title=" " alt="" coords="311,494,359,530,413,568,435,581,432,585,411,572,355,535,308,498"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="463,668,541,694"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="463,668,541,694"/>
 <area shape="poly" title=" " alt="" coords="290,495,310,532,337,575,372,618,413,655,450,671,448,676,411,659,368,622,333,578,305,534,285,498"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="421,718,583,743"/>
 <area shape="poly" title=" " alt="" coords="286,495,303,541,329,598,366,655,388,681,414,704,421,709,418,714,410,708,385,685,362,659,324,600,298,543,281,497"/>
@@ -2342,7 +2342,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="276,383,297,415,324,453,358,489,397,520,457,548,521,567,584,578,640,584,640,589,584,584,520,572,455,553,395,524,354,493,320,456,292,418,272,386"/>
 <area shape="rect" href="../../df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="881,601,973,626"/>
 <area shape="poly" title=" " alt="" coords="270,383,286,429,312,484,349,538,372,562,397,582,455,612,517,632,582,643,647,648,711,647,770,641,867,625,867,631,770,647,711,652,647,653,582,649,516,637,453,617,395,587,368,566,345,542,307,486,281,431,265,385"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="447,677,525,702"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="447,677,525,702"/>
 <area shape="poly" title=" " alt="" coords="275,383,350,546,362,579,368,606,377,631,398,656,415,668,435,677,433,682,412,673,394,660,373,633,363,608,357,581,346,548,270,385"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="405,92,567,117"/>
 <area shape="poly" title=" " alt="" coords="266,328,283,284,310,229,347,174,369,148,394,126,402,121,405,126,398,131,373,152,351,177,314,232,288,286,271,330"/>
@@ -2468,7 +2468,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="290,375,307,419,334,473,370,526,393,550,418,570,446,587,476,601,540,619,603,628,660,631,660,637,603,634,539,624,474,606,443,592,414,575,389,554,366,530,329,475,302,421,285,377"/>
 <area shape="rect" href="../../df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="901,644,993,669"/>
 <area shape="poly" title=" " alt="" coords="286,376,298,432,322,504,339,541,361,576,387,608,418,634,475,666,537,686,602,696,667,699,731,696,791,689,888,670,889,675,791,695,731,702,667,705,601,702,535,691,472,670,414,639,383,612,356,579,335,543,317,506,293,434,281,377"/>
-<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a52970195b2e114427c2b456773bce4c3" title="Initializes thread pool job." alt="" coords="467,85,545,111"/>
+<area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="467,85,545,111"/>
 <area shape="poly" title=" " alt="" coords="286,320,303,276,330,222,367,167,389,142,414,120,433,109,452,102,454,107,435,114,418,124,393,145,371,170,335,224,308,278,291,322"/>
 <area shape="rect" href="../../d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="425,135,587,160"/>
 <area shape="poly" title=" " alt="" coords="291,319,311,285,339,244,374,203,414,169,424,163,427,168,418,173,377,207,343,247,315,287,296,322"/>

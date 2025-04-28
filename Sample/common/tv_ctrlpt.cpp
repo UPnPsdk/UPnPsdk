@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,14 +39,7 @@
 #include "upnp.hpp"
 #include <UPnPsdk/port.hpp>
 #include <UPnPsdk/global.hpp>
-
-/// \cond
-#ifdef _WIN32
-#define isleep(x) Sleep((x) * 1000)
-#else
-#define isleep sleep
-#endif
-/// \endcond
+#include <thread>
 
 /*!
  * Mutex for protecting the global device list in a multi-threaded,
@@ -936,13 +929,12 @@ static int TvCtrlPointTimerLoopRun = 1;
  * \brief Function that runs in its own thread and monitors advertisement
  * and subscription timeouts for devices in the global device list.
  */
-void* TvCtrlPointTimerLoop(void* args) {
+void* TvCtrlPointTimerLoop([[maybe_unused]] void* args) {
     /* how often to verify the timeouts, in seconds */
     int incr = 30;
-    (void)args;
 
     while (TvCtrlPointTimerLoopRun) {
-        isleep((unsigned int)incr);
+        std::this_thread::sleep_for(std::chrono::seconds(incr));
         TvCtrlPointVerifyTimeouts(incr);
     }
 

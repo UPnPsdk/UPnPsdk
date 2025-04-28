@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-22
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -55,9 +55,7 @@
 
 /// \cond
 #include <cassert>
-#include <cstdio>
-#include <cstring>
-#include <algorithm> // for std::min|max
+#include <thread>
 /// \endcond
 
 
@@ -1010,7 +1008,7 @@ int AdvertiseAndReply(int AdFlag, UpnpDevice_Handle Hnd,
     /* parse the device list and send advertisements/replies */
     while (NumCopy == 0 || (AdFlag && NumCopy < NUM_SSDP_COPY)) {
         if (NumCopy != 0)
-            imillisleep(SSDP_PAUSE);
+            std::this_thread::sleep_for(std::chrono::milliseconds(SSDP_PAUSE));
         NumCopy++;
         for (i = 0lu;; i++) {
             UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,

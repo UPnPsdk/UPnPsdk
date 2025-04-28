@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-27
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,18 +52,13 @@
 #include <statcodes.hpp>
 #include <upnpapi.hpp>
 
-#include <UPnPsdk/socket.hpp>
-
 #include <umock/sys_socket.hpp>
-#include <umock/winsock2.hpp>
 #include <umock/stdlib.hpp>
 #include <umock/pupnp_miniserver.hpp>
 #include <umock/pupnp_ssdp.hpp>
 
-
 /// \cond
-#include <cstring>
-#include <random>
+#include <thread>
 /// \endcond
 
 namespace {
@@ -383,7 +378,7 @@ UPNP_INLINE void schedule_request_job(
     request->connfd = a_connfd;
     memcpy(&request->foreign_sockaddr, &clientAddr.ss,
            sizeof(request->foreign_sockaddr));
-    TPJobInit(&job, (start_routine)handle_request, request);
+    TPJobInit(&job, (UPnPsdk::start_routine)handle_request, request);
     TPJobSetFreeFunction(&job, free_handle_request_arg);
     TPJobSetPriority(&job, MED_PRIORITY);
     if (ThreadPoolAdd(&gMiniServerThreadPool, &job, NULL) != 0) {
@@ -1108,7 +1103,7 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
     }
 #endif
     // Run miniserver in a new thread.
-    TPJobInit(&job, (start_routine)RunMiniServer_f, (void*)miniSocket);
+    TPJobInit(&job, (UPnPsdk::start_routine)RunMiniServer_f, (void*)miniSocket);
     TPJobSetPriority(&job, MED_PRIORITY);
     TPJobSetFreeFunction(&job, (free_routine)free);
     ret_code = ThreadPoolAddPersistent(&gMiniServerThreadPool, &job, NULL);
@@ -1131,7 +1126,7 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
     int count{0};
     while (gMServState != (MiniServerState)MSERV_RUNNING && count < max_count) {
         /* 0.05s */
-        imillisleep(50);
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
         count++;
     }
     if (count >= max_count) {
@@ -1190,11 +1185,11 @@ int StopMiniServer() {
         umock::sys_socket_h.sendto(sock, buf, (SIZEP_T)bufLen, 0,
                                    reinterpret_cast<sockaddr*>(&ssdpAddr),
                                    socklen);
-        imillisleep(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
         if (gMServState == (MiniServerState)MSERV_IDLE) {
             break;
         }
-        isleep(1u);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 
     sock_close(sock);

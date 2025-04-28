@@ -232,9 +232,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a281f138c93124463e1fbbbdf00caf21f" id="r_a281f138c93124463e1fbbbdf00caf21f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d91/ThreadPool_8hpp.html#a281f138c93124463e1fbbbdf00caf21f">ThreadPoolShutdown</a> (<a class="el" href="../../d5/d91/ThreadPool_8hpp.html#d0/d41/structThreadPool">ThreadPool</a> *tp)</td></tr>
 <tr class="memdesc:a281f138c93124463e1fbbbdf00caf21f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shuts the thread pool down.  <br /></td></tr>
 <tr class="separator:a281f138c93124463e1fbbbdf00caf21f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52970195b2e114427c2b456773bce4c3" id="r_a52970195b2e114427c2b456773bce4c3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d91/ThreadPool_8hpp.html#a52970195b2e114427c2b456773bce4c3">TPJobInit</a> (<a class="el" href="../../d5/d91/ThreadPool_8hpp.html#d8/d7a/structThreadPoolJob">ThreadPoolJob</a> *job, start_routine func, void *arg)</td></tr>
-<tr class="memdesc:a52970195b2e114427c2b456773bce4c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes thread pool job.  <br /></td></tr>
-<tr class="separator:a52970195b2e114427c2b456773bce4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab265d32bdfbfa09c1dde67f4e877d908" id="r_ab265d32bdfbfa09c1dde67f4e877d908"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d91/ThreadPool_8hpp.html#ab265d32bdfbfa09c1dde67f4e877d908">TPJobInit</a> (<a class="el" href="../../d5/d91/ThreadPool_8hpp.html#d8/d7a/structThreadPoolJob">ThreadPoolJob</a> *job, UPnPsdk::start_routine func, void *arg)</td></tr>
+<tr class="memdesc:ab265d32bdfbfa09c1dde67f4e877d908"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes thread pool job.  <br /></td></tr>
+<tr class="separator:ab265d32bdfbfa09c1dde67f4e877d908"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7317f4409e514c2c01e31c9f66fd7da5" id="r_a7317f4409e514c2c01e31c9f66fd7da5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d91/ThreadPool_8hpp.html#a7317f4409e514c2c01e31c9f66fd7da5">TPJobSetPriority</a> (<a class="el" href="../../d5/d91/ThreadPool_8hpp.html#d8/d7a/structThreadPoolJob">ThreadPoolJob</a> *job, <a class="el" href="../../d5/d91/ThreadPool_8hpp.html#ac21de3041b361912460403d2649eaa0e">ThreadPriority</a> priority)</td></tr>
 <tr class="memdesc:a7317f4409e514c2c01e31c9f66fd7da5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the priority of the threadpool job.  <br /></td></tr>
 <tr class="separator:a7317f4409e514c2c01e31c9f66fd7da5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -422,7 +422,7 @@ Scheduling policy to use. </td></tr>
 </div><table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">
-<a id="accf2a18fe13118491a5d1583f09bbdca" name="accf2a18fe13118491a5d1583f09bbdca"></a>start_routine</td>
+<a id="a3b2f436c7e9bf91f5a2c42c675fa6ad6" name="a3b2f436c7e9bf91f5a2c42c675fa6ad6"></a>start_routine</td>
 <td class="fieldname">
 func</td>
 <td class="fielddoc">
@@ -640,21 +640,21 @@ currentJobsMQ</td>
 <table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">
-<a id="a4c199491dc3bdd747f6bcaecfd951017" name="a4c199491dc3bdd747f6bcaecfd951017"></a>ithread_mutex_t</td>
+<a id="ac30e97753fd7cf925106c346235a6567" name="ac30e97753fd7cf925106c346235a6567"></a>pthread_mutex_t</td>
 <td class="fieldname">
 mutex</td>
 <td class="fielddoc">
 <p>Mutex to protect job qs. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a id="adced894b7d90eaead1cc7dcff7c7ba55" name="adced894b7d90eaead1cc7dcff7c7ba55"></a>ithread_cond_t</td>
+<a id="a54591b8911e75857ca26324611ffb554" name="a54591b8911e75857ca26324611ffb554"></a>pthread_cond_t</td>
 <td class="fieldname">
 condition</td>
 <td class="fielddoc">
 <p>Condition variable to signal Q. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a id="a72379cc4859b3a6c8851eea564967f0c" name="a72379cc4859b3a6c8851eea564967f0c"></a>ithread_cond_t</td>
+<a id="aaa73c77d8a5c7c5544ab0ed534f08cc7" name="aaa73c77d8a5c7c5544ab0ed534f08cc7"></a>pthread_cond_t</td>
 <td class="fieldname">
 start_and_shutdown</td>
 <td class="fielddoc">
@@ -913,7 +913,7 @@ stats</td>
 
 <p>Get time of day. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01213">1213</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01211">1211</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -970,7 +970,7 @@ stats</td>
 <p>Sets the maximum number of jobs in the thread pool. </p>
 <p>This option is intended for server applications to avoid an overflow of jobs when serving e.g. many web requests. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01028">1028</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01026">1026</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -1037,7 +1037,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00671">671</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00669">669</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -1148,7 +1148,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00739">739</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00737">737</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -1230,7 +1230,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00894">894</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00892">892</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 
 </div>
 </div>
@@ -1275,7 +1275,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00906">906</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00904">904</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -1362,7 +1362,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00786">786</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00784">784</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -1494,7 +1494,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00838">838</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00836">836</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -1546,7 +1546,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00946">946</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l00944">944</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
@@ -1605,8 +1605,8 @@ stats</td>
 
 </div>
 </div>
-<a id="a52970195b2e114427c2b456773bce4c3" name="a52970195b2e114427c2b456773bce4c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52970195b2e114427c2b456773bce4c3">&#9670;&#160;</a></span>TPJobInit()</h2>
+<a id="ab265d32bdfbfa09c1dde67f4e877d908" name="ab265d32bdfbfa09c1dde67f4e877d908"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab265d32bdfbfa09c1dde67f4e877d908">&#9670;&#160;</a></span>TPJobInit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1620,7 +1620,7 @@ stats</td>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">start_routine&#160;</td>
+          <td class="paramtype">UPnPsdk::start_routine&#160;</td>
           <td class="paramname"><em>func</em>, </td>
         </tr>
         <tr>
@@ -1649,14 +1649,14 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01045">1045</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01043">1043</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-15-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d5/d91/ThreadPool_8hpp_a52970195b2e114427c2b456773bce4c3_icgraph.png" border="0" usemap="#ad5/d91/ThreadPool_8hpp_a52970195b2e114427c2b456773bce4c3_icgraph" alt=""/></div>
-<map name="ad5/d91/ThreadPool_8hpp_a52970195b2e114427c2b456773bce4c3_icgraph" id="ad5/d91/ThreadPool_8hpp_a52970195b2e114427c2b456773bce4c3_icgraph">
+<div class="center"><img src="../../d5/d91/ThreadPool_8hpp_ab265d32bdfbfa09c1dde67f4e877d908_icgraph.png" border="0" usemap="#ad5/d91/ThreadPool_8hpp_ab265d32bdfbfa09c1dde67f4e877d908_icgraph" alt=""/></div>
+<map name="ad5/d91/ThreadPool_8hpp_ab265d32bdfbfa09c1dde67f4e877d908_icgraph" id="ad5/d91/ThreadPool_8hpp_ab265d32bdfbfa09c1dde67f4e877d908_icgraph">
 <area shape="rect" title="Initializes thread pool job." alt="" coords="1001,576,1080,601"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a2cfe3543fad246a253ed6379e1fc0bf4" title="We take ownership of propertySet and will free it." alt="" coords="749,40,929,95"/>
 <area shape="poly" title=" " alt="" coords="1035,563,1028,464,1013,330,1001,262,988,200,971,148,951,113,928,94,931,89,955,110,976,146,993,198,1007,261,1018,329,1033,464,1041,562"/>
@@ -1763,7 +1763,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01056">1056</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01054">1054</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1874,7 +1874,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01070">1070</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01068">1068</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">
@@ -1974,7 +1974,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01030">1030</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01028">1028</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -2032,7 +2032,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01078">1078</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01076">1076</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-19-summary" class="dynsummary" style="display:block;">
@@ -2087,7 +2087,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01086">1086</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01084">1084</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-20-summary" class="dynsummary" style="display:block;">
@@ -2142,7 +2142,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01094">1094</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01092">1092</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-21-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-21-summary" class="dynsummary" style="display:block;">
@@ -2197,7 +2197,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01102">1102</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01100">1100</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-22-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-22-summary" class="dynsummary" style="display:block;">
@@ -2252,7 +2252,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01110">1110</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01108">1108</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-23-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-23-summary" class="dynsummary" style="display:block;">
@@ -2307,7 +2307,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01118">1118</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01116">1116</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 
 </div>
 </div>
@@ -2348,7 +2348,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01126">1126</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01124">1124</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 
 </div>
 </div>
@@ -2389,7 +2389,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01134">1134</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01132">1132</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-24-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-24-summary" class="dynsummary" style="display:block;">
@@ -2445,7 +2445,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01170">1170</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01168">1168</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-25-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-25-summary" class="dynsummary" style="display:block;">
@@ -2500,7 +2500,7 @@ stats</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01143">1143</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01141">1141</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 <div id="dynsection-27" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-27-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-27-summary" class="dynsummary" style="display:block;">
@@ -2765,7 +2765,7 @@ stats</td>
 </div><div class="memdoc">
 <p>Specify how many jobs maximal can be used with the threadpool </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01026">1026</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html#l01024">1024</a> of file <a class="el" href="../../d8/d61/ThreadPool_8cpp_source.html">ThreadPool.cpp</a>.</p>
 
 </div>
 </div>

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft,  Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-28
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -134,14 +134,14 @@ void TimerThreadWorker(
 
     assert(timer != nullptr);
 
-    ithread_mutex_lock(&timer->mutex);
+    pthread_mutex_lock(&timer->mutex);
     while (1) {
         /* mutex should always be locked at top of loop */
         /* Check for shutdown. */
         if (timer->shutdown) {
             timer->shutdown = 0;
-            ithread_cond_signal(&timer->condition);
-            ithread_mutex_unlock(&timer->mutex);
+            pthread_cond_signal(&timer->condition);
+            pthread_mutex_unlock(&timer->mutex);
             return;
         }
         nextEvent = NULL;
@@ -149,7 +149,7 @@ void TimerThreadWorker(
         if (timer->eventQ.size > 0) {
             head = ListHead(&timer->eventQ);
             if (head == NULL) {
-                ithread_mutex_unlock(&timer->mutex);
+                pthread_mutex_unlock(&timer->mutex);
                 return;
             }
             nextEvent = (TimerEvent*)head->item;
@@ -181,10 +181,10 @@ void TimerThreadWorker(
         if (nextEvent) {
             timeToWait.tv_nsec = 0;
             timeToWait.tv_sec = (long)nextEvent->eventTime;
-            ithread_cond_timedwait(&timer->condition, &timer->mutex,
+            pthread_cond_timedwait(&timer->condition, &timer->mutex,
                                    &timeToWait);
         } else {
-            ithread_cond_wait(&timer->condition, &timer->mutex);
+            pthread_cond_wait(&timer->condition, &timer->mutex);
         }
     }
 }
@@ -231,14 +231,14 @@ int TimerThreadInit(TimerThread* timer, ThreadPool* tp) {
         return EINVAL;
     }
 
-    rc += ithread_mutex_init(&timer->mutex, NULL);
+    rc += pthread_mutex_init(&timer->mutex, NULL);
 
     assert(rc == 0);
 
-    rc += ithread_mutex_lock(&timer->mutex);
+    rc += pthread_mutex_lock(&timer->mutex);
     assert(rc == 0);
 
-    rc += ithread_cond_init(&timer->condition, NULL);
+    rc += pthread_cond_init(&timer->condition, NULL);
     assert(rc == 0);
 
     rc += FreeListInit(&timer->freeEvents, sizeof(TimerEvent), 100);
@@ -261,11 +261,11 @@ int TimerThreadInit(TimerThread* timer, ThreadPool* tp) {
         rc = ThreadPoolAddPersistent(tp, &timerThreadWorker, NULL);
     }
 
-    ithread_mutex_unlock(&timer->mutex);
+    pthread_mutex_unlock(&timer->mutex);
 
     if (rc != 0) {
-        ithread_cond_destroy(&timer->condition);
-        ithread_mutex_destroy(&timer->mutex);
+        pthread_cond_destroy(&timer->condition);
+        pthread_mutex_destroy(&timer->mutex);
         FreeListDestroy(&timer->freeEvents);
         ListDestroy(&timer->eventQ, 0);
     }
@@ -291,7 +291,7 @@ int TimerThreadSchedule(TimerThread* timer, time_t timeout, TimeoutType type,
     }
 
     CalculateEventTime(&timeout, type);
-    ithread_mutex_lock(&timer->mutex);
+    pthread_mutex_lock(&timer->mutex);
 
     if (id == NULL)
         id = &tempId;
@@ -302,7 +302,7 @@ int TimerThreadSchedule(TimerThread* timer, time_t timeout, TimeoutType type,
         CreateTimerEvent(timer, job, duration, timeout, timer->lastEventId);
 
     if (newEvent == NULL) {
-        ithread_mutex_unlock(&timer->mutex);
+        pthread_mutex_unlock(&timer->mutex);
         return rc;
     }
 
@@ -326,12 +326,12 @@ int TimerThreadSchedule(TimerThread* timer, time_t timeout, TimeoutType type,
     }
     /* signal change in Q. */
     if (rc == 0) {
-        ithread_cond_signal(&timer->condition);
+        pthread_cond_signal(&timer->condition);
     } else {
         FreeTimerEvent(timer, newEvent);
     }
     (*id) = timer->lastEventId++;
-    ithread_mutex_unlock(&timer->mutex);
+    pthread_mutex_unlock(&timer->mutex);
 
     return rc;
 }
@@ -347,7 +347,7 @@ int TimerThreadRemove(TimerThread* timer, int id, ThreadPoolJob* out) {
         return EINVAL;
     }
 
-    ithread_mutex_lock(&timer->mutex);
+    pthread_mutex_lock(&timer->mutex);
 
     tempNode = ListHead(&timer->eventQ);
 
@@ -365,7 +365,7 @@ int TimerThreadRemove(TimerThread* timer, int id, ThreadPoolJob* out) {
         tempNode = ListNext(&timer->eventQ, tempNode);
     }
 
-    ithread_mutex_unlock(&timer->mutex);
+    pthread_mutex_unlock(&timer->mutex);
     return rc;
 }
 
@@ -379,7 +379,7 @@ int TimerThreadShutdown(TimerThread* timer) {
         return EINVAL;
     }
 
-    ithread_mutex_lock(&timer->mutex);
+    pthread_mutex_lock(&timer->mutex);
 
     timer->shutdown = 1;
     tempNode = ListHead(&timer->eventQ);
@@ -400,19 +400,19 @@ int TimerThreadShutdown(TimerThread* timer) {
     ListDestroy(&timer->eventQ, 0);
     FreeListDestroy(&timer->freeEvents);
 
-    ithread_cond_broadcast(&timer->condition);
+    pthread_cond_broadcast(&timer->condition);
 
     while (timer->shutdown) {
         /* wait for timer thread to shutdown. */
-        ithread_cond_wait(&timer->condition, &timer->mutex);
+        pthread_cond_wait(&timer->condition, &timer->mutex);
     }
-    ithread_mutex_unlock(&timer->mutex);
+    pthread_mutex_unlock(&timer->mutex);
 
     /* destroy condition. */
-    while (ithread_cond_destroy(&timer->condition) != 0) {
+    while (pthread_cond_destroy(&timer->condition) != 0) {
     }
     /* destroy mutex. */
-    while (ithread_mutex_destroy(&timer->mutex) != 0) {
+    while (pthread_mutex_destroy(&timer->mutex) != 0) {
     }
 
     return 0;

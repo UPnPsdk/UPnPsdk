@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-21
+// Redistribution only with this Copyright remark. Last modified: 2025-04-29
 
 /*!
 \mainpage Overview
@@ -8,7 +8,7 @@ General information to the SDK, its structure and requirements.
 <!-- \tableofcontents -->
 ___
 
-\section parts Parts 'Control Point' and 'UPnP Device'
+\section overview_parts Parts 'Control Point' and 'UPnP Device'
 
 The SDK has two parts, handling Control Points or UPnP Devices. They are largely independent of each other. You can compile both parts separately so you have resulting libraries that only handle Control Points or UPnP Devices. That make sense for installations that are only a Control Point or only a UPnP Device and is of particular interest for embedded devices. Of course you can also have both parts for hybrid applications.
 
@@ -28,7 +28,7 @@ The order shows the dependency. Each component depends on its predecessor. For e
 
 \note This order is an important implicit dependency. It is always expected that it is respected. No internal checks are made about this. The compiler will remind you if you forget it.
 
-\section noexcept Promise to throw "no exception"
+\section overview_noexcept Promise to throw "no exception"
 
 There are several functions and methods that are specified to <a href="https://en.cppreference.com/w/cpp/language/noexcept_spec">noexcept</a>. This may not always be true with debugging or TRACE enabled because there we have extended use of std::string objects for output to std::cerr. Both may throw exceptions in rare cases like exceeding max. length of a std::string or error on memory allocation or modified output flags of the std::cerr output stream by the program using the SDK. The result of such an unexpected exception is the immediate termination of the program as specified for **noexcept**. But I assume that debugging or TRACE is only a temporary setting not used for production code and is under special observation by the developer so that he can evaluate these exceptions.
 
@@ -112,4 +112,4 @@ struct UPnPsdk_API PublicStruct{};
 - For optimization with using <code>UPnPsdk_LOCAL</code> look at the [GCC Wiki - Visibility](https://gcc.gnu.org/wiki/Visibility). If you have a publicy visibile <code>class UPnPsdk_API PublicClass()</code> then all its member functions are also publicy visible. To keep them private you can prefix them with <code>UPnPsdk_LOCAL</code>.
 */
 
-// vim: filetype=cpp
+// vim: filetype=cpp wrap

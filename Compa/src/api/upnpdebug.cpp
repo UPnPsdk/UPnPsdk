@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-09-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-28
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@
 #include <umock/stdio.hpp>
 
 /*! Mutex to synchronize all the log file operations in the debug mode */
-static ithread_mutex_t GlobalDebugMutex;
+static pthread_mutex_t GlobalDebugMutex;
 
 /*! Global log level */
 static Upnp_LogLevel g_log_level = UPNP_DEFAULT_LOG_LEVEL;
@@ -228,9 +228,9 @@ static void UpnpDisplayFileAndLine(FILE* a_fp, const char* DbgFileName,
 
     fprintf(a_fp, "%s UPNP-%s-%s: Thread:0x%llX [%s:%d]: ", timebuf, smod, slev,
 #ifdef __PTW32_DLLPORT
-            *(unsigned long long int*)ithread_self().p
+            *(unsigned long long int*)pthread_self().p
 #else
-            (unsigned long long int)ithread_self()
+            (unsigned long long int)pthread_self()
 #endif
             ,
             DbgFileName, DbgLineNo);

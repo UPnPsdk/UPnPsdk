@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('d9/dd2/gena_8hpp_source.html','../../'
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Copyright (c) 2000-2003 Intel Corporation</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * All rights reserved.</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-02-28</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2025-04-28</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * modification, are permitted provided that the following conditions are met:</span></div>
@@ -182,7 +182,7 @@ $(document).ready(function(){initNavTree('d9/dd2/gena_8hpp_source.html','../../'
 <div class="foldopen" id="foldopen00092" data-start="" data-end="">
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="../../d9/dd2/gena_8hpp.html#a20ec28c9a655fb14963cb865475abb13">   92</a></span><span class="preprocessor">#define SubscribeLock()                                                        \</span></div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, &quot;Trying Subscribe Lock&quot;);  \</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">    ithread_mutex_lock(&amp;GlobalClientSubscribeMutex);                           \</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">    pthread_mutex_lock(&amp;GlobalClientSubscribeMutex);                           \</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, &quot;Subscribe Lock&quot;);</span></div>
 </div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
@@ -190,7 +190,7 @@ $(document).ready(function(){initNavTree('d9/dd2/gena_8hpp_source.html','../../'
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="../../d9/dd2/gena_8hpp.html#ab79e212dffb1ab098c165ebd97dd718d">  100</a></span><span class="preprocessor">#define SubscribeUnlock()                                                      \</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__,                            \</span></div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">               &quot;Trying Subscribe UnLock&quot;);                                     \</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">    ithread_mutex_unlock(&amp;GlobalClientSubscribeMutex);                         \</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">    pthread_mutex_unlock(&amp;GlobalClientSubscribeMutex);                         \</span></div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, &quot;Subscribe UnLock&quot;);</span></div>
 </div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>

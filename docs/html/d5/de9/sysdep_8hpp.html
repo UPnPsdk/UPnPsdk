@@ -164,10 +164,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ab14e6982b61bc128eb5c3f52781d2a85" id="r_ab14e6982b61bc128eb5c3f52781d2a85"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de9/sysdep_8hpp.html#ab14e6982b61bc128eb5c3f52781d2a85">UUIDLock</a>()&#160;&#160;&#160;ithread_mutex_lock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#a7b2447f75cd3406129a4c17c06e155dc">gUUIDMutex</a>)</td></tr>
+<tr class="memitem:ab14e6982b61bc128eb5c3f52781d2a85" id="r_ab14e6982b61bc128eb5c3f52781d2a85"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de9/sysdep_8hpp.html#ab14e6982b61bc128eb5c3f52781d2a85">UUIDLock</a>()&#160;&#160;&#160;pthread_mutex_lock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#ab95fc2915d874b8f46164273b6fe4280">gUUIDMutex</a>)</td></tr>
 <tr class="memdesc:ab14e6982b61bc128eb5c3f52781d2a85"><td class="mdescLeft">&#160;</td><td class="mdescRight">UUID lock.  <br /></td></tr>
 <tr class="separator:ab14e6982b61bc128eb5c3f52781d2a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a723f73120998c6f365d0e07390a23f" id="r_a1a723f73120998c6f365d0e07390a23f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de9/sysdep_8hpp.html#a1a723f73120998c6f365d0e07390a23f">UUIDUnlock</a>()&#160;&#160;&#160;ithread_mutex_unlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#a7b2447f75cd3406129a4c17c06e155dc">gUUIDMutex</a>)</td></tr>
+<tr class="memitem:a1a723f73120998c6f365d0e07390a23f" id="r_a1a723f73120998c6f365d0e07390a23f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de9/sysdep_8hpp.html#a1a723f73120998c6f365d0e07390a23f">UUIDUnlock</a>()&#160;&#160;&#160;pthread_mutex_unlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#ab95fc2915d874b8f46164273b6fe4280">gUUIDMutex</a>)</td></tr>
 <tr class="memdesc:a1a723f73120998c6f365d0e07390a23f"><td class="mdescLeft">&#160;</td><td class="mdescRight">UUID unlock.  <br /></td></tr>
 <tr class="separator:a1a723f73120998c6f365d0e07390a23f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -194,9 +194,9 @@ Variables</h2></td></tr>
 <tr class="memitem:a8227ecdffae697e53a1780a80924a8f5" id="r_a8227ecdffae697e53a1780a80924a8f5"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de9/sysdep_8hpp.html#a8227ecdffae697e53a1780a80924a8f5">UUIDS_PER_TICK</a> {1024}</td></tr>
 <tr class="memdesc:a8227ecdffae697e53a1780a80924a8f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the following to the number of 100ns ticks of the actual resolution of your system's clock  <br /></td></tr>
 <tr class="separator:a8227ecdffae697e53a1780a80924a8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b2447f75cd3406129a4c17c06e155dc" id="r_a7b2447f75cd3406129a4c17c06e155dc"><td class="memItemLeft" align="right" valign="top">ithread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de9/sysdep_8hpp.html#a7b2447f75cd3406129a4c17c06e155dc">gUUIDMutex</a></td></tr>
-<tr class="memdesc:a7b2447f75cd3406129a4c17c06e155dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the following to a call to acquire a system wide global lock.  <br /></td></tr>
-<tr class="separator:a7b2447f75cd3406129a4c17c06e155dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab95fc2915d874b8f46164273b6fe4280" id="r_ab95fc2915d874b8f46164273b6fe4280"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/de9/sysdep_8hpp.html#ab95fc2915d874b8f46164273b6fe4280">gUUIDMutex</a></td></tr>
+<tr class="memdesc:ab95fc2915d874b8f46164273b6fe4280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the following to a call to acquire a system wide global lock.  <br /></td></tr>
+<tr class="separator:ab95fc2915d874b8f46164273b6fe4280"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Get some system dependent information. </p>
@@ -240,7 +240,7 @@ node ID </td></tr>
           <td class="memname">#define UUIDLock</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td>&#160;&#160;&#160;ithread_mutex_lock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#a7b2447f75cd3406129a4c17c06e155dc">gUUIDMutex</a>)</td>
+          <td>&#160;&#160;&#160;pthread_mutex_lock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#ab95fc2915d874b8f46164273b6fe4280">gUUIDMutex</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -261,7 +261,7 @@ node ID </td></tr>
           <td class="memname">#define UUIDUnlock</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td>&#160;&#160;&#160;ithread_mutex_unlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#a7b2447f75cd3406129a4c17c06e155dc">gUUIDMutex</a>)</td>
+          <td>&#160;&#160;&#160;pthread_mutex_unlock(&amp;<a class="el" href="../../d4/d99/upnpapi_8cpp.html#ab95fc2915d874b8f46164273b6fe4280">gUUIDMutex</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -449,8 +449,8 @@ node ID </td></tr>
 
 </div>
 </div>
-<a id="a7b2447f75cd3406129a4c17c06e155dc" name="a7b2447f75cd3406129a4c17c06e155dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b2447f75cd3406129a4c17c06e155dc">&#9670;&#160;</a></span>gUUIDMutex</h2>
+<a id="ab95fc2915d874b8f46164273b6fe4280" name="ab95fc2915d874b8f46164273b6fe4280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab95fc2915d874b8f46164273b6fe4280">&#9670;&#160;</a></span>gUUIDMutex</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -459,7 +459,7 @@ node ID </td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">ithread_mutex_t gUUIDMutex</td>
+          <td class="memname">pthread_mutex_t gUUIDMutex</td>
         </tr>
       </table>
   </td>

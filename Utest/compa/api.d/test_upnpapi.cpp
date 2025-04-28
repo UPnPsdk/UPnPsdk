@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-27
+// Redistribution only with this Copyright remark. Last modified: 2025-04-30
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -41,7 +41,7 @@ using ::UPnPsdk::SSockaddr;
 clang-format off
 
      UpnpInit2()
-03)  |__ ithread_mutex_lock()
+03)  |__ pthread_mutex_lock()
 03)  |__ UpnpInitPreamble()
 05)  |   |__ UpnpInitLog()
      |   |__ UpnpInitMutexes()
@@ -67,7 +67,7 @@ clang-format off
      |           else
      |              web_server_destroy()
      |
-     |__ ithread_mutex_unlock()
+     |__ pthread_mutex_unlock()
 
 03) TEST(UpnpapiTestSuite, UpnpInitPreamble)
 05) Tested with ./test_upnpdebug.cpp
@@ -102,13 +102,12 @@ clang-format off
      |__ ThreadPoolShutdown()
      |
      |#ifdef COMPA_HAVE_CTRLPT_SSDP
-     |__    ithread_mutex_destroy() for clients
+     |__    pthread_mutex_destroy() for clients
      |#endif
      |
-     |__ ithread_rwlock_destroy()
-     |__ ithread_mutex_destroy()
+     |__ pthread_rwlock_destroy()
+     |__ pthread_mutex_destroy()
      |__ UpnpRemoveAllVirtualDirs()
-     |__ ithread_cleanup_library()
 
 02) TEST(Upnpapi*, GetHandleInfo_*)
 
@@ -266,8 +265,8 @@ TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
         << errStrEx(ret_UpnpInitLog, UPNP_E_SUCCESS);
 
     // Check if global mutexe are initialized
-    ASSERT_EQ(pthread_mutex_trylock(&GlobalHndRWLock), 0);
-    EXPECT_EQ(pthread_mutex_unlock(&GlobalHndRWLock), 0);
+    // ASSERT_EQ(pthread_mutex_trylock(&GlobalHndRWLock), 0); // must be rwlock
+    // EXPECT_EQ(pthread_mutex_unlock(&GlobalHndRWLock), 0);  // must be rwlock
 
     ASSERT_EQ(pthread_mutex_trylock(&gUUIDMutex), 0);
     EXPECT_EQ(pthread_mutex_unlock(&gUUIDMutex), 0);

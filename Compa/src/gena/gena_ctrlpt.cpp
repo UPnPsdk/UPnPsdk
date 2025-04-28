@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-04
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -45,7 +45,7 @@
 #include <uuid.hpp>
 
 /// \brief Provide global Client subscribe mutex.
-extern ithread_mutex_t GlobalClientSubscribeMutex;
+extern pthread_mutex_t GlobalClientSubscribeMutex;
 
 struct job_arg {
     int handle;
@@ -175,7 +175,7 @@ int ScheduleGenaAutoRenew(
     arg->handle = client_handle;
     arg->Event = RenewEvent;
 
-    TPJobInit(&job, (start_routine)GenaAutoRenewSubscription, arg);
+    TPJobInit(&job, (UPnPsdk::start_routine)GenaAutoRenewSubscription, arg);
     TPJobSetFreeFunction(&job, (free_routine)free_subscribe_arg);
     TPJobSetPriority(&job, MED_PRIORITY);
 

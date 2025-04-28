@@ -10,5 +10,5 @@ var sysdep_8hpp =
     [ "get_system_time", "d5/de9/sysdep_8hpp.html#a6b9dabae04c2b47b7aacaf5d1741cbd3", null ],
     [ "get_random_info", "d5/de9/sysdep_8hpp.html#a0608b6a88b9fe8140a7b486ef8aa0da6", null ],
     [ "UUIDS_PER_TICK", "d5/de9/sysdep_8hpp.html#a8227ecdffae697e53a1780a80924a8f5", null ],
-    [ "gUUIDMutex", "d5/de9/sysdep_8hpp.html#a7b2447f75cd3406129a4c17c06e155dc", null ]
+    [ "gUUIDMutex", "d5/de9/sysdep_8hpp.html#ab95fc2915d874b8f46164273b6fe4280", null ]
 ];

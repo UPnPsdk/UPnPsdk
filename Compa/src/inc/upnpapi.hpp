@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-25
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -116,7 +116,7 @@ struct Handle_Info {
 #endif
 };
 
-extern ithread_rwlock_t GlobalHndRWLock;
+extern pthread_rwlock_t GlobalHndRWLock;
 
 /*!
  * \brief Get handle information.
@@ -133,31 +133,31 @@ Upnp_Handle_Type GetHandleInfo(
 #define HandleLock() HandleWriteLock()
 
 /// HandleWriteLock
-#define HandleWriteLock() ithread_rwlock_wrlock(&GlobalHndRWLock);
+#define HandleWriteLock() pthread_rwlock_wrlock(&GlobalHndRWLock);
 
 /// HandleReadLock
-#define HandleReadLock() ithread_rwlock_rdlock(&GlobalHndRWLock);
+#define HandleReadLock() pthread_rwlock_rdlock(&GlobalHndRWLock);
 
 /// HandleUnlock
-#define HandleUnlock() ithread_rwlock_unlock(&GlobalHndRWLock);
+#define HandleUnlock() pthread_rwlock_unlock(&GlobalHndRWLock);
 
 #if 0
 /// HandleWriteLock
 #define HandleWriteLock()                                                      \
     UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Trying a write lock\n");   \
-    ithread_rwlock_wrlock(&GlobalHndRWLock);                                   \
+    pthread_rwlock_wrlock(&GlobalHndRWLock);                                   \
     UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Write lock acquired\n");
 
 /// HandleReadLock
 #define HandleReadLock()                                                       \
     UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Trying a read lock\n");    \
-    ithread_rwlock_rdlock(&GlobalHndRWLock);                                   \
+    pthread_rwlock_rdlock(&GlobalHndRWLock);                                   \
     UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Read lock acquired\n");
 
 /// HandleUnlock
 #define HandleUnlock()                                                         \
     UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Trying Unlock\n");         \
-    ithread_rwlock_unlock(&GlobalHndRWLock);                                   \
+    pthread_rwlock_unlock(&GlobalHndRWLock);                                   \
     UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Unlocked rwlock\n");
 #endif
 

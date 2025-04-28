@@ -27,7 +27,7 @@ var searchData=
   ['amount_5fdiscarded_24',['amount_discarded',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a6bf8c1b722e09bfd03df6f4a586d687e',1,'http_message_t']]],
   ['and_20md5_25',['UUID and MD5',['../d1/d07/group__uuid.html',1,'']]],
   ['and_20so_5fexclusiveaddruse_26',['options SO_REUSEADDR and SO_EXCLUSIVEADDRUSE',['../db/d86/group__upnplib-socket.html#autotoc_md4',1,'']]],
-  ['and_20upnp_20device_27',['Parts &apos;Control Point&apos; and &apos;UPnP Device&apos;',['../index.html#parts',1,'']]],
+  ['and_20upnp_20device_27',['Parts &apos;Control Point&apos; and &apos;UPnP Device&apos;',['../index.html#overview_parts',1,'']]],
   ['anonymous_5fnamespace_7bgena_5fctrlpt_2ecpp_7d_28',['anonymous_namespace{gena_ctrlpt.cpp}',['../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html',1,'']]],
   ['anonymous_5fnamespace_7bgena_5fdevice_2ecpp_7d_29',['anonymous_namespace{gena_device.cpp}',['../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html',1,'']]],
   ['anonymous_5fnamespace_7bhttpparser_2ecpp_7d_30',['anonymous_namespace{httpparser.cpp}',['../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html',1,'']]],

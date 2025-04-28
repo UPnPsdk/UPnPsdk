@@ -6,7 +6,7 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  *
  * - Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
@@ -40,11 +40,11 @@
  */
 
 #include <ssdp_ctrlpt.hpp>
+
 #include "SSDPResultDataCallback.hpp"
 #include <statcodes.hpp>
 #include <upnpapi.hpp>
 
-#include <UPnPsdk/synclog.hpp>
 #include <umock/sys_socket.hpp>
 #include <umock/pupnp_sock.hpp>
 
@@ -52,6 +52,9 @@
 #error "No or wrong config.hpp header file included."
 #endif
 
+/// \cond
+#include <thread>
+/// \endcond
 
 namespace {
 /*! \name Scope restricted to file
@@ -516,7 +519,8 @@ void ssdp_handle_ctrlpt_msg(http_message_t* hmsg,
                                                           ctrlpt_callback);
                         memset(&job, 0, sizeof(job));
 
-                        TPJobInit(&job, (start_routine)send_search_result,
+                        TPJobInit(&job,
+                                  (UPnPsdk::start_routine)send_search_result,
                                   threadData);
                         TPJobSetPriority(&job, MED_PRIORITY);
                         TPJobSetFreeFunction(&job, (free_routine)free);
@@ -627,7 +631,7 @@ int SearchByTarget(int Hnd, int Mx, char* St, void* Cookie) {
     expArg = (SsdpSearchExpArg*)malloc(sizeof(SsdpSearchExpArg));
     expArg->handle = Hnd;
     id = (int*)&(expArg->timeoutEventId);
-    TPJobInit(&job, (start_routine)searchExpired, expArg);
+    TPJobInit(&job, (UPnPsdk::start_routine)searchExpired, expArg);
     TPJobSetPriority(&job, MED_PRIORITY);
     TPJobSetFreeFunction(&job, (free_routine)free);
     /* Schedule a timeout event to remove search Arg */
@@ -679,7 +683,7 @@ int SearchByTarget(int Hnd, int Mx, char* St, void* Cookie) {
                    (struct sockaddr*)&__ss_v6,
                    (SIZEP_T)sizeof(struct sockaddr_in6));
             NumCopy++;
-            imillisleep(SSDP_PAUSE);
+            std::this_thread::sleep_for(std::chrono::milliseconds(SSDP_PAUSE));
         }
         NumCopy = 0;
         inet_pton(AF_INET6, SSDP_IPV6_LINKLOCAL, &destAddr6->sin6_addr);
@@ -690,7 +694,7 @@ int SearchByTarget(int Hnd, int Mx, char* St, void* Cookie) {
                    (struct sockaddr*)&__ss_v6,
                    (SIZEP_T)sizeof(struct sockaddr_in6));
             NumCopy++;
-            imillisleep(SSDP_PAUSE);
+            std::this_thread::sleep_for(std::chrono::milliseconds(SSDP_PAUSE));
         }
     }
 #endif /* IPv6 */
@@ -705,7 +709,7 @@ int SearchByTarget(int Hnd, int Mx, char* St, void* Cookie) {
                                        (struct sockaddr*)&__ss_v4,
                                        (SIZEP_T)sizeof(struct sockaddr_in));
             NumCopy++;
-            imillisleep(SSDP_PAUSE);
+            std::this_thread::sleep_for(std::chrono::milliseconds(SSDP_PAUSE));
         }
     }
 

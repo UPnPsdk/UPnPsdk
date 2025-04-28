@@ -6,7 +6,7 @@ var searchData=
   ['unable_5fservice_5funknown_3',['UNABLE_SERVICE_UNKNOWN',['../d9/dd2/gena_8hpp.html#aeec9cc26e815e30c3b2fe7f7f261a145',1,'gena.hpp']]],
   ['unique_5fservice_5fname_4',['unique_service_name',['../de/d27/group__SSDP-common__functions.html#gae3e29279280d276d05762d9dbeffe31d',1,'unique_service_name(char *cmd, SsdpEvent *Evt):&#160;ssdp_common.cpp'],['../de/d27/group__SSDP-common__functions.html#gae3e29279280d276d05762d9dbeffe31d',1,'unique_service_name(char *cmd, SsdpEvent *Evt):&#160;ssdp_common.cpp']]],
   ['unixutil_2ehpp_5',['unixutil.hpp',['../d8/dc4/unixutil_8hpp.html',1,'']]],
-  ['upnp_20device_6',['Parts &apos;Control Point&apos; and &apos;UPnP Device&apos;',['../index.html#parts',1,'']]],
+  ['upnp_20device_6',['Parts &apos;Control Point&apos; and &apos;UPnP Device&apos;',['../index.html#overview_parts',1,'']]],
   ['upnp_20library_7',['object oriented UPnP library',['../d4/d32/group__upnplib.html',1,'']]],
   ['upnp_20sample_20programs_8',['UPnP sample programs',['../d8/d20/group__UPnPsamples.html',1,'']]],
   ['upnp_20sdk_9',['compatible UPnP SDK',['../d5/dbb/group__compa.html',1,'']]],

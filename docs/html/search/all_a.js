@@ -40,7 +40,7 @@ var searchData=
   ['destaddr_37',['destaddr',['../d0/d19/ssdp__common_8hpp.html#a1fbf65a838e3ff67ca6cbe5f6b09419f',1,'ThreadData::DestAddr'],['../d0/d19/ssdp__common_8hpp.html#a0b18a6f19b435b316d8612a4b47f7dc0',1,'SsdpEvent::DestAddr']]],
   ['dev_5flimit_38',['DEV_LIMIT',['../d3/da9/upnpapi_8hpp.html#a0974c3ecfdafd647a33e70cdd084cf37',1,'upnpapi.hpp']]],
   ['devdesc_39',['Devdesc',['../d3/da9/upnpapi_8hpp.html#a7a884b764567daa11653ac502f6d5e1a',1,'UpnpNonblockParam']]],
-  ['device_40',['device',['../d9/dba/group__Description-device.html',1,'Description from device'],['../index.html#parts',1,'Parts &apos;Control Point&apos; and &apos;UPnP Device&apos;']]],
+  ['device_40',['device',['../d9/dba/group__Description-device.html',1,'Description from device'],['../index.html#overview_parts',1,'Parts &apos;Control Point&apos; and &apos;UPnP Device&apos;']]],
   ['device_20functions_41',['SSDP Device Functions',['../d0/dc4/group__SSDP-device__functions.html',1,'']]],
   ['device_5fhandle_42',['device_handle',['../d9/dd2/gena_8hpp.html#a0adb612dd72a2d664cf01daaeee93f22',1,'NOTIFY_THREAD_STRUCT']]],
   ['deviceadvertisement_43',['deviceadvertisement',['../d0/dc4/group__SSDP-device__functions.html#ga359289d0987b2a9aede8d3a426480986',1,'DeviceAdvertisement(char *DevType, int RootDev, char *Udn, char *Location, int Duration, int AddressFamily, int PowerState, int SleepPeriod, int RegistrationState):&#160;ssdp_device.cpp'],['../db/db9/ssdp__device_8cpp.html#a359289d0987b2a9aede8d3a426480986',1,'DeviceAdvertisement(char *DevType, int RootDev, char *Udn, char *Location, int Duration, int AddressFamily, int PowerState, int SleepPeriod, int RegistrationState):&#160;ssdp_device.cpp']]],

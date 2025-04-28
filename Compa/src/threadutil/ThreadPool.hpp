@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-27
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -148,7 +148,7 @@ struct ThreadPoolAttr {
 
 /*! \brief Internal ThreadPool Job. */
 struct ThreadPoolJob {
-    start_routine func;
+    UPnPsdk::start_routine func;
     void* arg;
     free_routine free_func;
     struct timeval requestTime;
@@ -193,11 +193,11 @@ struct ThreadPoolStats {
  */
 struct ThreadPool {
     /*! Mutex to protect job qs. */
-    ithread_mutex_t mutex;
+    pthread_mutex_t mutex;
     /*! Condition variable to signal Q. */
-    ithread_cond_t condition;
+    pthread_cond_t condition;
     /*! Condition variable for start and stop. */
-    ithread_cond_t start_and_shutdown;
+    pthread_cond_t start_and_shutdown;
     /*! ids for jobs */
     int lastJobId;
     /*! whether or not we are shutting down */
@@ -378,7 +378,7 @@ int TPJobInit(
     /*! [in] Must be valid thread pool attributes. */
     ThreadPoolJob* job,
     /*! [in] Function to run, must be valid. */
-    start_routine func,
+    UPnPsdk::start_routine func,
     /*! [in] Argument to pass to function. */
     void* arg);
 

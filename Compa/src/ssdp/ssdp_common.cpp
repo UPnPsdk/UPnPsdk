@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -761,7 +761,8 @@ int readFromSSDPSocket(SOCKET socket) {
             /* null-terminate */
             data->parser.msg.msg.buf[byteReceived] = 0;
             memcpy(&data->dest_addr, &__ss, sizeof(__ss));
-            TPJobInit(&job, (start_routine)ssdp_event_handler_thread, data);
+            TPJobInit(&job, (UPnPsdk::start_routine)ssdp_event_handler_thread,
+                      data);
             TPJobSetFreeFunction(&job, free_ssdp_event_handler_data);
             TPJobSetPriority(&job, MED_PRIORITY);
             if (ThreadPoolAdd(&gRecvThreadPool, &job, NULL) != 0)
