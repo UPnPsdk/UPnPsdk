@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_PTHREAD_HPP
 #define UPnPsdk_PTHREAD_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-30
+// Redistribution only with this Copyright remark. Last modified: 2025-05-01
 
 /*!
  * \file
@@ -15,44 +15,9 @@
 
 /// \cond
 
-#if defined(BSD) && !defined(__GNU__)
-#define PTHREAD_MUTEX_RECURSIVE_NP PTHREAD_MUTEX_RECURSIVE
-#endif
-
-#if defined(PTHREAD_MUTEX_RECURSIVE) || defined(__DragonFly__)
-/* This system has SuS2-compliant mutex attributes.
- * E.g. on Cygwin, where we don't have the old nonportable (NP) symbols
- */
-#define ITHREAD_MUTEX_FAST_NP PTHREAD_MUTEX_NORMAL
-#define ITHREAD_MUTEX_RECURSIVE_NP PTHREAD_MUTEX_RECURSIVE
-#define ITHREAD_MUTEX_ERRORCHECK_NP PTHREAD_MUTEX_ERRORCHECK
-#else /* PTHREAD_MUTEX_RECURSIVE */
-#define ITHREAD_MUTEX_FAST_NP PTHREAD_MUTEX_FAST_NP
-#define ITHREAD_MUTEX_RECURSIVE_NP PTHREAD_MUTEX_RECURSIVE_NP
-#define ITHREAD_MUTEX_ERRORCHECK_NP PTHREAD_MUTEX_ERRORCHECK_NP
-#endif /* PTHREAD_MUTEX_RECURSIVE */
-
-#define ITHREAD_PROCESS_PRIVATE PTHREAD_PROCESS_PRIVATE
-#define ITHREAD_PROCESS_SHARED PTHREAD_PROCESS_SHARED
-
-#define ITHREAD_CANCELED PTHREAD_CANCELED
-
-#define ITHREAD_STACK_MIN PTHREAD_STACK_MIN
-#define ITHREAD_CREATE_DETACHED PTHREAD_CREATE_DETACHED
-#define ITHREAD_CREATE_JOINABLE PTHREAD_CREATE_JOINABLE
-
 namespace UPnPsdk {
-
-/****************************************************************************
- * Name: start_routine
- *
- *  Description:
- *      Thread start routine
- *      Internal Use Only.
- ***************************************************************************/
-typedef void (*start_routine)(void* arg);
-
 namespace {
+
 /****************************************************************************
  * Function: initialize_thread
  *
@@ -94,6 +59,17 @@ inline int cleanup_thread() {
 }
 
 } // namespace
+
+
+/****************************************************************************
+ * Name: start_routine
+ *
+ *  Description:
+ *      Thread start routine
+ *      Internal Use Only.
+ ***************************************************************************/
+typedef void (*start_routine)(void* arg);
+
 } // namespace UPnPsdk
 
 /// \endcond

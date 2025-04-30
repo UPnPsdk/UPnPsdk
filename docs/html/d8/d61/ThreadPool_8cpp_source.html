@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * All rights reserved.</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Copyright (c) 2012 France Telecom All rights reserved.</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2025-04-30</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2025-05-01</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * modification, are permitted provided that the following conditions are met:</span></div>
@@ -621,7 +621,7 @@ $(document).ready(function(){initNavTree('d8/d61/ThreadPool_8cpp_source.html','.
 <div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>    }</div>
 <div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>    pthread_attr_init(&amp;attr);</div>
 <div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>    pthread_attr_setstacksize(&amp;attr, tp-&gt;<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#ac48b95b1d077723112912e64bc19d23d">attr</a>.<a class="code hl_variable" href="../../d5/d91/ThreadPool_8hpp.html#af0e8630b4d1203540ec3154f352175b5">stackSize</a>);</div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>    pthread_attr_setdetachstate(&amp;attr, ITHREAD_CREATE_DETACHED);</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>    pthread_attr_setdetachstate(&amp;attr, PTHREAD_CREATE_DETACHED);</div>
 <div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>    rc = pthread_create(&amp;temp, &amp;attr, <a class="code hl_function" href="../../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#acb1e63ee2190ce68f1e523af9f27a831">WorkerThread</a>, tp);</div>
 <div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>    pthread_attr_destroy(&amp;attr);</div>
 <div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    <span class="keywordflow">if</span> (rc == 0) {</div>

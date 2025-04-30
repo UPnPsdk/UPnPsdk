@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('d8/d1c/FreeList_8hpp_source.html','../
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * Copyright (c) 2000-2003 Intel Corporation</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * All rights reserved.</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2024-03-06</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * Redistribution only with this Copyright remark. Last modified: 2025-04-30</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * modification, are permitted provided that the following conditions are met:</span></div>
@@ -134,49 +134,47 @@ $(document).ready(function(){initNavTree('d8/d1c/FreeList_8hpp_source.html','../
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;<a class="code" href="../../d4/d0f/ithread_8hpp.html">ithread.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/d21/visibility_8hpp.html">UPnPsdk/visibility.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &lt;cerrno&gt;</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="../../d8/d1c/FreeList_8hpp.html">   56</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode">FreeListNode</a> {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">struct </span><a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode">FreeListNode</a>* next;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;<a class="code" href="../../d4/d88/pthread_8hpp.html">UPnPsdk/pthread.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;cerrno&gt;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="};">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="../../d8/d1c/FreeList_8hpp.html">   55</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode">FreeListNode</a> {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">struct </span><a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode">FreeListNode</a>* next;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
 </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="foldopen" id="foldopen00064" data-start="{" data-end="};">
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="../../d8/d1c/FreeList_8hpp.html">   64</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a> {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode">FreeListNode</a>* head;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">size_t</span> element_size;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">int</span> maxFreeListLength;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">int</span> freeListLength;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="};">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="../../d8/d1c/FreeList_8hpp.html">   63</a></span><span class="keyword">struct </span><a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a> {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode">FreeListNode</a>* head;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">size_t</span> element_size;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">int</span> maxFreeListLength;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">int</span> freeListLength;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
 </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/d1c/FreeList_8hpp.html#a2a1bcf0da31489886910109d5f45ee89">FreeListInit</a>(</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a>* free_list,</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordtype">size_t</span> elementSize,</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordtype">int</span> maxFreeListLength);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keywordtype">void</span>* <a class="code hl_function" href="../../d8/d1c/FreeList_8hpp.html#a63cf965052240dbc6fec792326bf6719">FreeListAlloc</a>(</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a>* free_list);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/d1c/FreeList_8hpp.html#a559c475ea4c5850cd427740512512df0">FreeListFree</a>(</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a>* free_list,</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordtype">void</span>* element);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/d1c/FreeList_8hpp.html#ae64c10055f937a33eff150f678303b7f">FreeListDestroy</a>(</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a>* free_list);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">#endif </span><span class="comment">/* COMPA_FREE_LIST_HPP */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/d1c/FreeList_8hpp.html#a2a1bcf0da31489886910109d5f45ee89">FreeListInit</a>(</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a>* free_list,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordtype">size_t</span> elementSize,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordtype">int</span> maxFreeListLength);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keywordtype">void</span>* <a class="code hl_function" href="../../d8/d1c/FreeList_8hpp.html#a63cf965052240dbc6fec792326bf6719">FreeListAlloc</a>(</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a>* free_list);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/d1c/FreeList_8hpp.html#a559c475ea4c5850cd427740512512df0">FreeListFree</a>(</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a>* free_list,</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordtype">void</span>* element);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d8/d1c/FreeList_8hpp.html#ae64c10055f937a33eff150f678303b7f">FreeListDestroy</a>(</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <a class="code hl_struct" href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a>* free_list);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#endif </span><span class="comment">/* COMPA_FREE_LIST_HPP */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aFreeList_8hpp_html_a2a1bcf0da31489886910109d5f45ee89"><div class="ttname"><a href="../../d8/d1c/FreeList_8hpp.html#a2a1bcf0da31489886910109d5f45ee89">FreeListInit</a></div><div class="ttdeci">int FreeListInit(FreeList *free_list, size_t elementSize, int maxFreeListLength)</div><div class="ttdoc">Initializes Free List.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d20/FreeList_8cpp_source.html#l00050">FreeList.cpp:50</a></div></div>
 <div class="ttc" id="aFreeList_8hpp_html_a559c475ea4c5850cd427740512512df0"><div class="ttname"><a href="../../d8/d1c/FreeList_8hpp.html#a559c475ea4c5850cd427740512512df0">FreeListFree</a></div><div class="ttdeci">int FreeListFree(FreeList *free_list, void *element)</div><div class="ttdoc">Returns an item to the Free List.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d20/FreeList_8cpp_source.html#l00083">FreeList.cpp:83</a></div></div>
 <div class="ttc" id="aFreeList_8hpp_html_a63cf965052240dbc6fec792326bf6719"><div class="ttname"><a href="../../d8/d1c/FreeList_8hpp.html#a63cf965052240dbc6fec792326bf6719">FreeListAlloc</a></div><div class="ttdeci">void * FreeListAlloc(FreeList *free_list)</div><div class="ttdoc">Allocates chunk of set size.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d20/FreeList_8cpp_source.html#l00064">FreeList.cpp:64</a></div></div>
 <div class="ttc" id="aFreeList_8hpp_html_ae64c10055f937a33eff150f678303b7f"><div class="ttname"><a href="../../d8/d1c/FreeList_8hpp.html#ae64c10055f937a33eff150f678303b7f">FreeListDestroy</a></div><div class="ttdeci">int FreeListDestroy(FreeList *free_list)</div><div class="ttdoc">Releases the resources stored with the free list.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d20/FreeList_8cpp_source.html#l00103">FreeList.cpp:103</a></div></div>
-<div class="ttc" id="aFreeList_8hpp_html_d4/d35/structFreeListNode"><div class="ttname"><a href="../../d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode">FreeListNode</a></div><div class="ttdoc">Free list node. points to next free item.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d1c/FreeList_8hpp_source.html#l00056">FreeList.hpp:56</a></div></div>
-<div class="ttc" id="aFreeList_8hpp_html_d4/da5/structFreeList"><div class="ttname"><a href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a></div><div class="ttdoc">Stores head and size of free list, as well as mutex for protection.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d1c/FreeList_8hpp_source.html#l00064">FreeList.hpp:64</a></div></div>
-<div class="ttc" id="aithread_8hpp_html"><div class="ttname"><a href="../../d4/d0f/ithread_8hpp.html">ithread.hpp</a></div><div class="ttdoc">Deprecated ithread functions redirected to pthread. Internal use Only.</div></div>
-<div class="ttc" id="avisibility_8hpp_html"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html">visibility.hpp</a></div><div class="ttdoc">Macros to support visibility of external symbols.</div></div>
+<div class="ttc" id="aFreeList_8hpp_html_d4/d35/structFreeListNode"><div class="ttname"><a href="../../d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode">FreeListNode</a></div><div class="ttdoc">Free list node. points to next free item.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d1c/FreeList_8hpp_source.html#l00055">FreeList.hpp:55</a></div></div>
+<div class="ttc" id="aFreeList_8hpp_html_d4/da5/structFreeList"><div class="ttname"><a href="../../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList">FreeList</a></div><div class="ttdoc">Stores head and size of free list, as well as mutex for protection.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d1c/FreeList_8hpp_source.html#l00063">FreeList.hpp:63</a></div></div>
+<div class="ttc" id="apthread_8hpp_html"><div class="ttname"><a href="../../d4/d88/pthread_8hpp.html">pthread.hpp</a></div><div class="ttdoc">Additional functions to manage Posix threads with C++ and for Microsoft Windows.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -619,7 +619,7 @@ int CreateWorker(
     }
     pthread_attr_init(&attr);
     pthread_attr_setstacksize(&attr, tp->attr.stackSize);
-    pthread_attr_setdetachstate(&attr, ITHREAD_CREATE_DETACHED);
+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
     rc = pthread_create(&temp, &attr, WorkerThread, tp);
     pthread_attr_destroy(&attr);
     if (rc == 0) {
