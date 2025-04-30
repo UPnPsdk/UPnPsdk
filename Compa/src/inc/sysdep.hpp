@@ -2,7 +2,7 @@
 #define COMPA_SYSDEP_HPP
 /*
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-28
+ * Redistribution only with this Copyright remark. Last modified: 2025-04-30
  * Copyright (c) 1990- 1993, 1996 Open Software Foundation, Inc.
  * Copyright (c) 1989 by Hewlett-Packard Company, Palo Alto, Ca. &
  * Digital Equipment Corporation, Maynard, Mass.
@@ -28,7 +28,7 @@
  * \brief Get some system dependent information.
  */
 
-#include <ithread.hpp>
+#include <UPnPsdk/pthread.hpp>
 
 /* change to point to where MD5.hpp's live */
 /* get MD5 sample implementation from RFC 1321 */
