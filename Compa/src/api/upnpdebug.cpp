@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-28
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,16 +39,15 @@
 #include <config.hpp>
 #include <upnpdebug.hpp>
 
-#include <ithread.hpp>
-
-#include <cerrno>
-#include <cstdarg>
-#include <cstring>
-
 #include <UPnPsdk/synclog.hpp>
 
 #include <umock/pthread.hpp>
 #include <umock/stdio.hpp>
+
+/// \cond
+#include <cstdarg>
+#include <cstring>
+/// \endcond
 
 /*! Mutex to synchronize all the log file operations in the debug mode */
 static pthread_mutex_t GlobalDebugMutex;
