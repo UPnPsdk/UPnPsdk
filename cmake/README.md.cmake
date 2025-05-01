@@ -87,11 +87,11 @@ Then build the project:
 
     UPnPsdk-project$ cmake --build build/
 
-To install the libraries to `/usr/local/lib`
+To install the libraries and test-executables to `/usr/local/bin` and `/usr/local/lib`
 
     UPnPsdk-project$ sudo cmake --install build/
 
-To install the test-executables and header files for development to `/usr/local/bin` and `/usr/local/include/`
+To install the header files for development to `/usr/local/include/`
 
     UPnPsdk-project$ sudo cmake --install build/ --component Development
 
@@ -145,13 +145,13 @@ First configure then build. Because CMake is confusing the architecture without 
     PS C: UPnPsdk-project> cmake -S . -B build/ -A Win32
     PS C: UPnPsdk-project> cmake --build build/ --config Release
 
-To install the SDK do:
+To install the SDK with test-executables do:
 
     PS C: UPnPsdk-project> cmake --install build/ --config Release
 
-To install the test-executables and header files for development do:
+To install the header files for development do:
 
-    PS C: UPnPsdk-project> cmake.exe --install build/ --config Release --component Development
+    PS C: UPnPsdk-project> cmake --install build/ --config Release --component Development
 
 To uninstall the SDK do:
 
@@ -209,4 +209,4 @@ PT4W_BUILD_TESTING=[ON\|OFF] | OFF | Runs the testsuite of pthreads4w (PT4W) wit
 
 <pre>
 Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo\@Hoeft-online.de>
-Redistribution only with this Copyright remark. Last modified: 2024-11-20</pre>
+Redistribution only with this Copyright remark. Last modified: 2025-05-01</pre>
