@@ -394,8 +394,10 @@ TEST(UpnpapiDeathTest, GetHandleInfo_with_nullptr_to_handle_table) {
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     std::cout << CYEL "[ BUGFIX   ]" CRES
               << " nullptr to handle table must not segfault.\n";
+#if !defined(__APPLE__) || defined(DEBUG)
     // This expects segfault.
     EXPECT_DEATH(GetHandleInfo(1, nullptr), ".*");
+#endif
 #else
     EXPECT_EQ(GetHandleInfo(1, nullptr), HND_TABLE_INVALID);
 #endif
