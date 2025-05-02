@@ -53,6 +53,7 @@ var upnpapi_8hpp =
     [ "HandleUnlock", "d3/da9/upnpapi_8hpp.html#a94aedb82868db176a9d4382c8f3a12b5", null ],
     [ "E_HTTP_SYNTAX", "d3/da9/upnpapi_8hpp.html#a3eb44e50afef76c9c300d198d5405f68", null ],
     [ "Upnp_Handle_Type", "d3/da9/upnpapi_8hpp.html#a2b57a2af79ca49c62e0994e4e5989e04", [
+      [ "HND_TABLE_INVALID", "d3/da9/upnpapi_8hpp.html#a2b57a2af79ca49c62e0994e4e5989e04a24d2d6be9145df58b51ba8bfbffc3d79", null ],
       [ "HND_INVALID", "d3/da9/upnpapi_8hpp.html#a2b57a2af79ca49c62e0994e4e5989e04adf270d8b61d1d075597f8d9305733b76", null ],
       [ "HND_CLIENT", "d3/da9/upnpapi_8hpp.html#a2b57a2af79ca49c62e0994e4e5989e04ad559c7d86070eb2caab0b7d6be779f13", null ],
       [ "HND_DEVICE", "d3/da9/upnpapi_8hpp.html#a2b57a2af79ca49c62e0994e4e5989e04a41198dd4b070dd59affdf94b9acb064b", null ]

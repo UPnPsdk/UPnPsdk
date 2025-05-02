@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-02
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -84,6 +84,13 @@
 
 namespace compa {
 namespace {
+
+/*! \brief Initialization mutex. */
+pthread_mutex_t gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
+
+/*! \brief UPnP Device and Control Point handle table  */
+Handle_Info* HandleTable[NUM_HANDLE];
+
 
 /*!
  * \brief Retrieve local network adapter information and keep it in global
@@ -208,6 +215,10 @@ int UpnpGetIfInfo(
 } // namespace
 } // namespace compa
 
+namespace { // anonymous namespace for file scoped old upnpapi items.
+
+} // namespace
+
 
 #if !defined(ifr_netmask) || defined(DOXYGEN_RUN) // it's a define if exists
 /*! \brief ifr_netmask is not defined on e.g. OmniOS/Solaris, but since
@@ -239,9 +250,6 @@ pthread_rwlock_t GlobalHndRWLock;
 
 /*! \brief Mutex to synchronize the uuid creation process. */
 pthread_mutex_t gUUIDMutex;
-
-/*! \brief Initialization mutex. */
-pthread_mutex_t gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
 /*! \brief Global timer thread. */
 TimerThread gTimerThread;
@@ -306,9 +314,6 @@ in_port_t LOCAL_PORT_V6;
 
 /*! \brief IPv6 ULA or GUA port for the mini-server */
 in_port_t LOCAL_PORT_V6_ULA_GUA;
-
-/*! \brief UPnP Device and control point handle table  */
-static Handle_Info* HandleTable[NUM_HANDLE];
 
 /*! a string which is set in the header field */
 extern membuffer gWebserverCorsString;
@@ -505,7 +510,6 @@ exit_function:
 static int UpnpInitPreamble() {
     TRACE("Executing UpnpInitPreamble()")
     int retVal = UPNP_E_SUCCESS;
-    int i;
 
     /* needed by SSDP or other parts. */
     srand((unsigned int)time(NULL));
@@ -532,8 +536,8 @@ static int UpnpInitPreamble() {
 
     /* Initializes the handle list. */
     HandleLock();
-    for (i = 0; i < NUM_HANDLE; ++i) {
-        HandleTable[i] = NULL;
+    for (int i{0}; i < NUM_HANDLE; ++i) {
+        compa::HandleTable[i] = nullptr;
     }
     HandleUnlock();
 
@@ -607,7 +611,11 @@ int UpnpInit2(const char* IfName, unsigned short DestPort) {
     UPnPsdk_LOGINFO("MSG1096") "Executing...\n";
     int retVal;
 
-    pthread_mutex_lock(&gSDKInitMutex);
+    // The mutex must be initialized.
+    if (pthread_mutex_lock(&compa::gSDKInitMutex) != 0) {
+        retVal = UPNP_E_INIT_FAILED;
+        goto exit_function;
+    }
 
     /* Check if we're already initialized. */
     if (UpnpSdkInit == 1) {
@@ -641,8 +649,7 @@ exit_function:
     if (retVal != UPNP_E_SUCCESS && retVal != UPNP_E_INIT) {
         UpnpFinish();
     }
-    pthread_mutex_unlock(&gSDKInitMutex);
-
+    pthread_mutex_unlock(&compa::gSDKInitMutex);
     return retVal;
 }
 
@@ -692,29 +699,29 @@ void PrintThreadPoolStats(
 
 int UpnpFinish() {
     TRACE("Executing UpnpFinish()")
+    UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__,
+               "Inside UpnpFinish: UpnpSdkInit is %d\n", UpnpSdkInit);
 #ifdef COMPA_HAVE_DEVICE_SSDP
     UpnpDevice_Handle device_handle;
 #endif
 #ifdef COMPA_HAVE_CTRLPT_SSDP
     UpnpClient_Handle client_handle;
 #endif
-    [[maybe_unused]] struct Handle_Info* temp;
+    [[maybe_unused]] struct Handle_Info* temp{nullptr};
 #ifdef UPnPsdk_HAVE_OPENSSL
     freeSslCtx();
 #endif
     if (UpnpSdkInit != 1)
         return UPNP_E_FINISH;
     UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__,
-               "Inside UpnpFinish: UpnpSdkInit is %d\n", UpnpSdkInit);
-    if (UpnpSdkInit == 1)
-        UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__,
-                   "UpnpFinish: UpnpSdkInit is ONE\n");
-    PrintThreadPoolStats(&gSendThreadPool, __FILE__, __LINE__,
-                         "Send Thread Pool");
-    PrintThreadPoolStats(&gRecvThreadPool, __FILE__, __LINE__,
-                         "Recv Thread Pool");
-    PrintThreadPoolStats(&gMiniServerThreadPool, __FILE__, __LINE__,
-                         "MiniServer Thread Pool");
+               "UpnpFinish: UpnpSdkInit is ONE\n");
+    // May be usable for DEBUG:
+    // PrintThreadPoolStats(&gSendThreadPool, __FILE__, __LINE__,
+    //                      "Send Thread Pool");
+    // PrintThreadPoolStats(&gRecvThreadPool, __FILE__, __LINE__,
+    //                      "Recv Thread Pool");
+    // PrintThreadPoolStats(&gMiniServerThreadPool, __FILE__, __LINE__,
+    //                      "MiniServer Thread Pool");
 #ifdef COMPA_HAVE_DEVICE_SSDP
     while (GetDeviceHandleInfo(0, AF_INET, &device_handle, &temp) ==
            HND_DEVICE) {
@@ -831,7 +838,7 @@ static int GetFreeHandle() {
     // Handle 0 is not used as NULL translates to 0 when passed as a handle
     int i = 1;
 
-    while (i < NUM_HANDLE && HandleTable[i] != NULL)
+    while (i < NUM_HANDLE && compa::HandleTable[i] != nullptr)
         ++i;
     if (i == NUM_HANDLE)
         return UPNP_E_OUTOF_HANDLE;
@@ -854,12 +861,13 @@ static int FreeHandle(
     if (Upnp_Handle < 1 || Upnp_Handle >= NUM_HANDLE) {
         UpnpPrintf(UPNP_CRITICAL, API, __FILE__, __LINE__,
                    "FreeHandle: Handle %d is out of range\n", Upnp_Handle);
-    } else if (HandleTable[Upnp_Handle] == NULL) {
+    } else if (compa::HandleTable[Upnp_Handle] == nullptr) {
         UpnpPrintf(UPNP_CRITICAL, API, __FILE__, __LINE__,
-                   "FreeHandle: HandleTable[%d] is NULL\n", Upnp_Handle);
+                   "FreeHandle: compa::HandleTable[%d] is nullptr\n",
+                   Upnp_Handle);
     } else {
-        free(HandleTable[Upnp_Handle]);
-        HandleTable[Upnp_Handle] = NULL;
+        free(compa::HandleTable[Upnp_Handle]);
+        compa::HandleTable[Upnp_Handle] = nullptr;
         ret = UPNP_E_SUCCESS;
     }
     UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
@@ -906,7 +914,7 @@ int UpnpRegisterRootDevice(const char* const DescUrl, const Upnp_FunPtr Fun,
         goto exit_function;
     }
     memset(HInfo, 0, sizeof(struct Handle_Info));
-    HandleTable[*Hnd] = HInfo;
+    compa::HandleTable[*Hnd] = HInfo;
 
     UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__, "Root device URL is %s\n",
                DescUrl);
@@ -1064,7 +1072,7 @@ int UpnpRegisterRootDevice2(const Upnp_DescType descriptionType,
         goto exit_function;
     }
     memset(HInfo, 0, sizeof(struct Handle_Info));
-    HandleTable[*Hnd] = HInfo;
+    compa::HandleTable[*Hnd] = HInfo;
 
     /* prevent accidental removal of a non-existent alias */
     HInfo->aliasInstalled = 0;
@@ -1207,7 +1215,7 @@ int UpnpRegisterRootDevice3(const char* const DescUrl, const Upnp_FunPtr Fun,
         goto exit_function;
     }
     memset(HInfo, 0, sizeof(Handle_Info));
-    HandleTable[*Hnd] = HInfo;
+    compa::HandleTable[*Hnd] = HInfo;
 
     HInfo->HType = HND_DEVICE; // Set handle info to UPnP Device.
 
@@ -1437,7 +1445,7 @@ int UpnpRegisterClient(Upnp_FunPtr Fun, const void* Cookie,
     HInfo->MaxSubscriptions = UPNP_INFINITE;
     HInfo->MaxSubscriptionTimeOut = UPNP_INFINITE;
 #endif
-    HandleTable[*Hnd] = HInfo;
+    compa::HandleTable[*Hnd] = HInfo;
     UpnpSdkClientRegistered += 1;
     HandleUnlock();
 
@@ -3235,7 +3243,7 @@ void UpnpThreadDistribution(struct UpnpNonblockParam* Param) {
  * \return Upnp_FunPtr
  */
 Upnp_FunPtr GetCallBackFn(UpnpClient_Handle Hnd) {
-    return ((struct Handle_Info*)HandleTable[Hnd])->Callback;
+    return ((struct Handle_Info*)compa::HandleTable[Hnd])->Callback;
 }
 
 /* Assumes at most one client */
@@ -3245,15 +3253,15 @@ Upnp_Handle_Type GetClientHandleInfo(UpnpClient_Handle* client_handle_out,
 
     for (client = 1; client < NUM_HANDLE; client++) {
         switch (GetHandleInfo(client, HndInfo)) {
+        case HND_TABLE_INVALID:
+            goto exit_loop;
         case HND_CLIENT:
             *client_handle_out = client;
             return HND_CLIENT;
-            break;
-        default:
-            break;
+        default:;
         }
     }
-
+exit_loop:
     *client_handle_out = -1;
     return HND_INVALID;
 }
@@ -3334,39 +3342,31 @@ GetDeviceHandleInfoForPath([[maybe_unused]] const char* path,
 }
 
 Upnp_Handle_Type GetHandleInfo(UpnpClient_Handle Hnd, Handle_Info** HndInfo) {
-    // This function expects an initialized global HandleTable, at least with
-    // nullptr.
-    Upnp_Handle_Type ret = HND_INVALID;
-
-    // UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
-    //            "GetHandleInfo: entering, Handle is %d\n", Hnd);
+    // This function expects an initialized global compa::HandleTable HndInfo,
+    // at least with nullptr.
+    Upnp_Handle_Type ret{HND_TABLE_INVALID};
 
     if (HndInfo == nullptr) {
-        UpnpPrintf(
-            UPNP_ERROR, API, __FILE__, __LINE__,
-            "GetHandleInfo: No output variable for handle info available "
-            "(Arg2=nullptr)\n");
+        UPnPsdk_LOGERR("MSG1097") "No output variable for handle info "
+                                  "available (HndInfo==nullptr).\n";
     } else if (Hnd < 1 || Hnd >= NUM_HANDLE) {
-        UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
-                   "GetHandleInfo: Handle out of range\n");
-        // } else if (HandleTable[Hnd] == nullptr) {
-        // UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
-        //            "GetHandleInfo: HandleTable[%d] is NULL\n", Hnd);
-    } else if (HandleTable[Hnd] != nullptr) {
-        *HndInfo = (Handle_Info*)HandleTable[Hnd];
-        ret = ((Handle_Info*)*HndInfo)->HType;
+        UPnPsdk_LOGERR("MSG1130") "Handle(" << Hnd << ") out of range.\n";
+        ret = HND_INVALID;
+    } else if (compa::HandleTable[Hnd] == nullptr) {
+        UPnPsdk_LOGERR("MSG1133") "compa::HandleTable[" << Hnd
+                                                        << "] has no entry.\n";
+        ret = HND_INVALID;
+    } else {
+        *HndInfo = compa::HandleTable[Hnd];
+        ret = (*HndInfo)->HType;
     }
-
-    // UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__, "GetHandleInfo:
-    // exiting\n");
-
     return ret;
 }
 
 int PrintHandleInfo(UpnpClient_Handle Hnd) {
     struct Handle_Info* HndInfo;
-    if (HandleTable[Hnd] != NULL) {
-        HndInfo = HandleTable[Hnd];
+    if (compa::HandleTable[Hnd] != nullptr) {
+        HndInfo = compa::HandleTable[Hnd];
         UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
                    "Printing information for Handle_%d\n", Hnd);
         UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__, "HType_%d\n",

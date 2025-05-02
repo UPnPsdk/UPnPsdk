@@ -70,8 +70,12 @@ inline int cleanup_thread() {
  ***************************************************************************/
 typedef void (*start_routine)(void* arg);
 
-} // namespace UPnPsdk
-
 /// \endcond
+
+class CPthread_scoped_mutex_lock {
+    //
+};
+
+} // namespace UPnPsdk
 
 #endif /* UPnPsdk_PTHREAD_HPP */
