@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-30
+// Redistribution only with this Copyright remark. Last modified: 2025-05-03
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -23,8 +23,6 @@
 
 namespace utest {
 
-using ::UPnPsdk::errStrEx;
-
 using ::testing::_;
 using ::testing::NotNull;
 using ::testing::Return;
@@ -32,7 +30,13 @@ using ::testing::SetErrnoAndReturn;
 using ::testing::StrictMock;
 
 using ::UPnPsdk::CNetadapter;
+using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::SSockaddr;
+
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+using ::compa::gSDKInitMutex;
+using ::compa::HandleTable;
+#endif
 
 
 // The UpnpInit2() call stack to initialize the pupnp library
@@ -198,7 +202,7 @@ class UpnpapiFTestSuite : public ::testing::Test {
     // Constructor
     UpnpapiFTestSuite() {
         if (UPnPsdk::g_dbug)
-            logObj.enable(UPNP_INFO);
+            logObj.enable(UPNP_ALL);
 #else
     // Constructor
     UpnpapiFTestSuite() {
@@ -231,6 +235,7 @@ class UpnpapiFTestSuite : public ::testing::Test {
         memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
         memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
         memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
+        memset(&gSDKInitMutex, 0xAA, sizeof(gSDKInitMutex));
     }
 };
 
@@ -337,38 +342,39 @@ TEST_F(UpnpapiFTestSuite, get_error_message) {
 
 TEST_F(UpnpapiFTestSuite, GetHandleInfo_successful) {
     // Will be filled with a pointer to the requested client info.
-    Handle_Info* hinfo_p{nullptr};
+    Handle_Info dummy;
+    Handle_Info* hinfo_p{&dummy};
 
-    // Initialize the handle list.
+    // Initialize the handle table.
     for (int i = 0; i < NUM_HANDLE; ++i) {
         HandleTable[i] = nullptr;
     }
     Handle_Info hinfo0{};
+    hinfo0.HType = HND_INVALID;
     HandleTable[0] = &hinfo0;
-    HandleTable[0]->HType = HND_INVALID;
     // HandleTable[1] is nullptr from initialization before;
     Handle_Info hinfo2{};
+    hinfo2.HType = HND_CLIENT;
     HandleTable[2] = &hinfo2;
-    HandleTable[2]->HType = HND_CLIENT;
     Handle_Info hinfo3{};
+    hinfo3.HType = HND_DEVICE;
     HandleTable[3] = &hinfo3;
-    HandleTable[3]->HType = HND_DEVICE;
     Handle_Info hinfo4{};
+    hinfo4.HType = HND_CLIENT;
     HandleTable[4] = &hinfo4;
-    HandleTable[4]->HType = HND_CLIENT;
 
     // Test Unit
     EXPECT_EQ(GetHandleInfo(0, &hinfo_p), HND_INVALID);
     // Out of range, nothing returned.
-    EXPECT_EQ(hinfo_p, nullptr);
+    EXPECT_EQ(hinfo_p, &dummy);
     EXPECT_EQ(GetHandleInfo(NUM_HANDLE, &hinfo_p), HND_INVALID);
-    EXPECT_EQ(hinfo_p, nullptr);
+    EXPECT_EQ(hinfo_p, &dummy);
     EXPECT_EQ(GetHandleInfo(NUM_HANDLE + 1, &hinfo_p), HND_INVALID);
-    EXPECT_EQ(hinfo_p, nullptr);
+    EXPECT_EQ(hinfo_p, &dummy);
 
-    EXPECT_EQ(GetHandleInfo(1, &hinfo_p), HND_INVALID); // HandleTable nullptr
+    EXPECT_EQ(GetHandleInfo(1, &hinfo_p), HND_INVALID);
     // Nothing returned.
-    EXPECT_EQ(hinfo_p, nullptr);
+    EXPECT_EQ(hinfo_p, &dummy);
 
     EXPECT_EQ(GetHandleInfo(3, &hinfo_p), HND_DEVICE);
     // Pointer to handle info is returned.
@@ -379,18 +385,29 @@ TEST_F(UpnpapiFTestSuite, GetHandleInfo_successful) {
     EXPECT_EQ(hinfo_p, &hinfo4);
 }
 
-TEST_F(UpnpapiFTestSuite, GetHandleInfo_with_nullptr_to_handle_table) {
+TEST(UpnpapiDeathTest, GetHandleInfo_with_nullptr_to_handle_table) {
     // Initialize HandleTable bcause it only contains pointer.
-    HandleTable[1] = nullptr;
+    Handle_Info dummy{};
+    HandleTable[1] = &dummy;
 
     // Test Unit with nullptr to result variable
-    EXPECT_EQ(GetHandleInfo(1, nullptr), HND_INVALID);
-
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    std::cout << CYEL "[ BUGFIX   ]" CRES
+              << " nullptr to handle table must not segfault.\n";
+#if !defined(__APPLE__) || defined(DEBUG)
+    // This expects segfault.
+    EXPECT_DEATH(GetHandleInfo(1, nullptr), ".*");
+#endif
+#else
+    EXPECT_EQ(GetHandleInfo(1, nullptr), HND_TABLE_INVALID);
+#endif
     // This will be filled with a pointer to the requested client info.
     Handle_Info* hinfo_p{nullptr};
 
     // Test Unit
-    EXPECT_EQ(GetHandleInfo(1, &hinfo_p), HND_INVALID);
+    // This returns the value from dummy, that is 0 initialized and 0 is handle
+    // type HND_CLIENT.
+    EXPECT_EQ(GetHandleInfo(1, &hinfo_p), HND_CLIENT);
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpFinish_successful) {
@@ -1099,6 +1116,7 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     // The Unit needs a defined state, otherwise it will fail with segfault
     // because internal pupnp media_list_init() isn't executed;
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
 #ifdef __APPLE__
     if (old_code)
@@ -1119,9 +1137,8 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
 #endif
 
     int ret_UpnpInit2 = ::UpnpInit2(llaObj.name.c_str(), 0);
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+    ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
-    UpnpSdkInit = 1;
 
     // Example url maybe "http://[fe80::1]:50001/tvdevicedesc.xml".
     const std::string url{"http://[" + std::string(gIF_IPV6) + "]:" +
@@ -1152,6 +1169,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv6_loopback_address) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2("::1", 61234);
@@ -1198,6 +1216,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv4_loopback_address) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2("127.0.0.1", 49234);
@@ -1238,6 +1257,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2("loopback", 0);
@@ -1298,6 +1318,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_lla_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(llaObj.sa.netaddr().c_str(), 0);
@@ -1347,6 +1368,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_brackets_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Create bare link local address.
     char lla[INET6_ADDRSTRLEN + 32];
@@ -1398,6 +1420,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_scope_id_fails) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Create bare link local address.
     char lla[INET6_ADDRSTRLEN + 32];
@@ -1443,6 +1466,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_gua_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(guaObj.sa.netaddr().c_str(), 0);
@@ -1497,6 +1521,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(std::to_string(naObj.index).c_str(), 0);
@@ -1569,6 +1594,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_adapter_name_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit"
     std::cerr << "DEBUG! Adapter name=\"" << naObj.name.c_str() << "\".\n";
@@ -1628,6 +1654,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(nullptr, 0);
@@ -1694,6 +1721,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_listen_on_all_local_addr) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2("", 0);
@@ -1717,6 +1745,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_call_two_times) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
+    gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret1_UpnpInit2 = ::UpnpInit2("loopback", 0);

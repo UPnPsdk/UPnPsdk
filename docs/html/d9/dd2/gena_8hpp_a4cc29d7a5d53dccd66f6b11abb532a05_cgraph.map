@@ -1,15 +1,18 @@
 <map id="genaUnregisterDevice" name="genaUnregisterDevice">
-<area shape="rect" id="Node000001" title="Cleans the service table of the device." alt="" coords="5,92,172,117"/>
-<area shape="rect" id="Node000002" href="$dd/d10/service__table_8cpp.html#a4f91e3d3fa42bb88912c895598c4689f" title="Free&#39;s dynamic memory in table (does not free table, only memory within the structure)." alt="" coords="220,43,351,68"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,89,220,69,222,74,141,95"/>
-<area shape="rect" id="Node000015" href="$d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="227,92,343,117"/>
-<area shape="poly" id="edge5_Node000001_Node000015" title=" " alt="" coords="172,102,213,102,213,107,172,107"/>
-<area shape="rect" id="Node000016" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="413,119,503,144"/>
-<area shape="poly" id="edge7_Node000001_Node000016" title=" " alt="" coords="144,115,220,127,314,132,399,131,399,137,314,138,220,133,143,120"/>
-<area shape="rect" id="Node000003" href="$dd/d10/service__table_8cpp.html#a6b3dbe041f246ff64f7464036778ae62" title="Free&#39;s memory allocated for the various components of each service entry in the service table." alt="" coords="399,5,517,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="344,40,385,31,386,36,345,45"/>
-<area shape="rect" id="Node000009" href="$da/d8a/group__XMLAPI.html#ga0367f3a7ce36cb9ff934caf7e0d4621d" title="Frees a DOMString." alt="" coords="565,31,715,56"/>
-<area shape="poly" id="edge4_Node000002_Node000009" title=" " alt="" coords="351,50,552,44,552,49,351,56"/>
-<area shape="poly" id="edge3_Node000003_Node000009" title=" " alt="" coords="518,24,552,28,551,34,517,29"/>
-<area shape="poly" id="edge6_Node000015_Node000016" title=" " alt="" coords="344,111,400,120,399,125,343,116"/>
+<area shape="rect" id="Node000001" title="Cleans the service table of the device." alt="" coords="5,93,172,119"/>
+<area shape="rect" id="Node000002" href="$dd/d10/service__table_8cpp.html#a4f91e3d3fa42bb88912c895598c4689f" title="Free&#39;s dynamic memory in table (does not free table, only memory within the structure)." alt="" coords="220,44,351,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,91,220,70,222,75,141,96"/>
+<area shape="rect" id="Node000015" href="$d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="227,93,343,119"/>
+<area shape="poly" id="edge5_Node000001_Node000015" title=" " alt="" coords="172,103,213,103,213,109,172,109"/>
+<area shape="rect" id="Node000016" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="240,143,331,168"/>
+<area shape="poly" id="edge6_Node000001_Node000016" title=" " alt="" coords="141,116,227,138,226,143,139,121"/>
+<area shape="rect" id="Node000003" href="$dd/d10/service__table_8cpp.html#a6b3dbe041f246ff64f7464036778ae62" title="Free&#39;s memory allocated for the various components of each service entry in the service table." alt="" coords="429,5,548,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="350,42,415,29,416,34,351,47"/>
+<area shape="rect" id="Node000009" href="$da/d8a/group__XMLAPI.html#ga0367f3a7ce36cb9ff934caf7e0d4621d" title="Frees a DOMString." alt="" coords="627,31,776,56"/>
+<area shape="poly" id="edge4_Node000002_Node000009" title=" " alt="" coords="351,52,613,43,613,49,351,57"/>
+<area shape="poly" id="edge3_Node000003_Node000009" title=" " alt="" coords="549,22,613,30,613,35,548,28"/>
+<area shape="rect" id="Node000017" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="419,131,559,156"/>
+<area shape="poly" id="edge7_Node000016_Node000017" title=" " alt="" coords="331,150,405,146,405,151,331,155"/>
+<area shape="rect" id="Node000018" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="399,180,579,205"/>
+<area shape="poly" id="edge8_Node000016_Node000018" title=" " alt="" coords="331,161,406,175,405,180,330,166"/>
 </map>

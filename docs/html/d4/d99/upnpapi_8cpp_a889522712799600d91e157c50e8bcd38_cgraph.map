@@ -1,17 +1,16 @@
 <map id="UpnpNotify" name="UpnpNotify">
-<area shape="rect" id="Node000001" title="Sends out an event change notification to all control points subscribed to a particular service." alt="" coords="5,194,100,220"/>
-<area shape="rect" id="Node000002" href="$dd/de6/gena__device_8cpp.html#a3300ba366cae7db4f8c21b0119cdacd9" title="Sends a notification to all the subscribed control points." alt="" coords="148,90,259,116"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,192,171,122,174,126,74,197"/>
-<area shape="rect" id="Node000125" href="$d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="535,180,651,205"/>
-<area shape="poly" id="edge8_Node000001_Node000125" title=" " alt="" coords="100,203,521,192,521,197,100,208"/>
-<area shape="rect" id="Node000005" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="699,154,789,180"/>
-<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="101,214,201,229,339,240,416,242,495,239,574,231,650,215,683,202,713,185,716,190,686,207,651,220,574,236,495,244,416,247,339,246,201,234,100,219"/>
-<area shape="rect" id="Node000003" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ac1a38d06cf74cd21f7f8ac40f00efb11" title="We take ownership of propertySet and will free it." alt="" coords="307,114,487,169"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="259,111,294,118,293,124,258,117"/>
-<area shape="poly" id="edge7_Node000002_Node000005" title=" " alt="" coords="214,88,251,53,277,34,306,21,355,7,396,3,437,8,487,21,556,45,620,78,676,113,717,144,714,148,673,118,618,83,554,50,486,26,436,13,396,8,356,12,308,26,280,39,255,57,217,92"/>
-<area shape="rect" id="Node000152" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ab42270564152589e9dbbb90d6a5c0e01" title="Generates XML property set for notifications." alt="" coords="307,36,487,90"/>
-<area shape="poly" id="edge6_Node000002_Node000152" title=" " alt="" coords="258,89,293,82,294,87,259,94"/>
-<area shape="poly" id="edge3_Node000003_Node000125" title=" " alt="" coords="487,162,530,174,529,179,486,168"/>
-<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="487,146,685,160,685,166,487,151"/>
-<area shape="poly" id="edge4_Node000125_Node000005" title=" " alt="" coords="651,180,685,174,686,180,652,185"/>
+<area shape="rect" id="Node000001" title="Sends out an event change notification to all control points subscribed to a particular service." alt="" coords="5,117,100,143"/>
+<area shape="rect" id="Node000002" href="$dd/de6/gena__device_8cpp.html#a3300ba366cae7db4f8c21b0119cdacd9" title="Sends a notification to all the subscribed control points." alt="" coords="148,117,259,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,127,134,127,134,133,100,133"/>
+<area shape="rect" id="Node000125" href="$d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="535,215,651,240"/>
+<area shape="poly" id="edge7_Node000001_Node000125" title=" " alt="" coords="77,140,175,189,240,214,307,233,363,240,419,242,521,235,521,241,419,247,362,245,306,238,238,219,173,194,75,145"/>
+<area shape="rect" id="Node000005" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="547,117,638,143"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="71,115,141,75,189,51,245,30,304,13,366,4,428,6,458,12,488,22,516,38,541,60,578,104,574,107,537,63,513,43,486,27,457,17,427,11,366,9,305,18,246,35,192,56,143,79,74,120"/>
+<area shape="rect" id="Node000003" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ac1a38d06cf74cd21f7f8ac40f00efb11" title="We take ownership of propertySet and will free it." alt="" coords="307,168,487,223"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="243,140,303,161,302,166,241,145"/>
+<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="259,127,533,127,533,133,259,133"/>
+<area shape="rect" id="Node000152" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ab42270564152589e9dbbb90d6a5c0e01" title="Generates XML property set for notifications." alt="" coords="307,37,487,92"/>
+<area shape="poly" id="edge5_Node000002_Node000152" title=" " alt="" coords="241,115,302,94,303,99,243,120"/>
+<area shape="poly" id="edge3_Node000003_Node000125" title=" " alt="" coords="487,207,522,213,521,218,486,213"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="479,165,540,145,541,150,480,170"/>
 </map>

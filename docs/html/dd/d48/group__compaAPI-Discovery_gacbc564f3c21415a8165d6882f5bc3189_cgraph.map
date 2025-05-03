@@ -1,32 +1,31 @@
 <map id="UpnpSearchAsync" name="UpnpSearchAsync">
-<area shape="rect" id="Node000001" title="Searches for devices matching the given search target." alt="" coords="5,11,144,36"/>
-<area shape="rect" id="Node000002" href="$d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="657,62,773,87"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,23,353,33,610,54,644,59,643,64,609,60,352,38,144,28"/>
-<area shape="rect" id="Node000003" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="821,62,912,87"/>
-<area shape="poly" id="edge17_Node000001_Node000003" title=" " alt="" coords="144,14,192,10,356,4,485,5,612,18,774,46,812,55,810,60,773,51,611,23,484,10,356,9,192,16,144,19"/>
-<area shape="rect" id="Node000006" href="$d4/d99/ssdp__ctrlpt_8cpp.html#a0466b3099133c9b31f308b7839f8b12b" title="Creates and send the search request for a specific URL." alt="" coords="192,368,315,394"/>
-<area shape="poly" id="edge3_Node000001_Node000006" title=" " alt="" coords="85,35,242,354,237,357,80,37"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="774,72,807,72,807,77,774,77"/>
-<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="252,368,257,316,273,241,287,201,305,162,330,127,361,97,394,77,430,63,468,54,506,49,581,49,646,57,646,62,581,54,506,54,469,59,432,68,396,82,364,102,334,130,310,165,292,203,278,243,263,317,258,368"/>
-<area shape="poly" id="edge16_Node000006_Node000003" title=" " alt="" coords="258,367,272,338,294,300,324,262,361,229,395,211,425,199,481,192,539,189,571,185,609,176,728,132,825,90,827,95,730,137,610,181,572,190,539,195,481,197,426,205,397,215,364,234,328,265,298,303,276,341,262,369"/>
-<area shape="rect" id="Node000007" href="$df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#aa7a82c9afa80493d3f392e2e7003a606" title="Creates a HTTP search request packet depending on the input parameter." alt="" coords="387,243,585,298"/>
-<area shape="poly" id="edge4_Node000006_Node000007" title=" " alt="" coords="270,366,310,337,361,308,378,300,381,305,364,313,313,342,273,370"/>
-<area shape="rect" id="Node000008" href="$df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#a29a6e33aa5991ff87ce127c2ee40fbed" title="Creates a HTTP search request packet for IPv6 UlaGua depending on the input parameter." alt="" coords="363,322,609,376"/>
-<area shape="poly" id="edge5_Node000006_Node000008" title=" " alt="" coords="315,370,349,365,349,370,315,375"/>
-<area shape="rect" id="Node000009" href="$df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="669,427,761,452"/>
-<area shape="poly" id="edge7_Node000006_Node000009" title=" " alt="" coords="315,386,656,429,655,435,314,391"/>
-<area shape="rect" id="Node000013" href="$df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#af95b19cf8e8c70715878336869d721e0" title="Remove search Target from list and call client back." alt="" coords="396,112,576,167"/>
-<area shape="poly" id="edge8_Node000006_Node000013" title=" " alt="" coords="256,367,268,331,289,283,320,230,361,184,382,169,385,174,364,188,325,233,294,285,273,333,261,369"/>
-<area shape="rect" id="Node000019" href="$df/d13/ssdp__common_8cpp.html#a813e243c5a6ea133ef0803838244766b" title="This function figures out the type of the SSDP search in the request." alt="" coords="410,502,562,527"/>
-<area shape="poly" id="edge10_Node000006_Node000019" title=" " alt="" coords="265,392,304,440,332,466,364,488,398,501,396,506,361,493,329,470,300,444,261,395"/>
-<area shape="rect" id="Node000020" href="$dd/d9f/TimerThread_8cpp.html#a8ec8348608c1398ce65c460c5a8a5b7d" title="Schedules an event to run at a specified time." alt="" coords="404,452,568,478"/>
-<area shape="poly" id="edge11_Node000006_Node000020" title=" " alt="" coords="279,391,364,430,414,446,413,451,362,435,277,396"/>
-<area shape="rect" id="Node000024" href="$d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="447,551,525,576"/>
-<area shape="poly" id="edge13_Node000006_Node000024" title=" " alt="" coords="262,393,275,423,297,463,326,504,364,537,398,552,433,559,432,565,396,557,361,542,322,507,292,466,270,425,257,395"/>
-<area shape="rect" id="Node000025" href="$d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="405,600,567,626"/>
-<area shape="poly" id="edge14_Node000006_Node000025" title=" " alt="" coords="260,393,270,432,290,485,321,540,341,565,364,587,392,601,390,606,361,591,337,569,316,543,285,487,265,433,255,394"/>
-<area shape="rect" id="Node000026" href="$d8/d61/ThreadPool_8cpp.html#a7317f4409e514c2c01e31c9f66fd7da5" title="Sets the priority of the threadpool job." alt="" coords="423,650,549,675"/>
-<area shape="poly" id="edge15_Node000006_Node000026" title=" " alt="" coords="259,394,266,441,284,507,297,542,315,577,337,609,364,636,386,649,410,657,408,662,384,654,361,640,333,612,310,580,292,545,278,508,261,442,253,395"/>
-<area shape="poly" id="edge9_Node000013_Node000002" title=" " alt="" coords="576,111,656,88,657,93,577,116"/>
-<area shape="poly" id="edge12_Node000020_Node000009" title=" " alt="" coords="568,453,655,443,656,449,569,458"/>
+<area shape="rect" id="Node000001" title="Searches for devices matching the given search target." alt="" coords="5,375,144,400"/>
+<area shape="rect" id="Node000002" href="$d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="657,36,773,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,374,110,308,169,210,208,158,253,108,304,64,362,29,400,15,441,6,483,3,524,4,602,14,665,30,664,35,601,20,524,9,483,8,442,12,402,20,364,34,307,68,257,112,212,161,173,213,115,310,84,376"/>
+<area shape="rect" id="Node000003" href="$d4/d99/ssdp__ctrlpt_8cpp.html#a0466b3099133c9b31f308b7839f8b12b" title="Creates and send the search request for a specific URL." alt="" coords="192,375,315,400"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="144,385,178,385,178,390,144,390"/>
+<area shape="rect" id="Node000024" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="441,622,531,647"/>
+<area shape="poly" id="edge16_Node000001_Node000024" title=" " alt="" coords="90,399,132,440,196,497,275,558,319,585,364,608,395,619,427,626,426,631,394,624,362,613,316,589,272,562,192,502,128,444,86,403"/>
+<area shape="poly" id="edge5_Node000003_Node000002" title=" " alt="" coords="252,375,255,318,269,234,282,189,301,145,327,106,361,72,394,52,430,37,468,28,507,23,582,23,648,31,647,36,582,28,507,28,469,33,432,42,396,56,364,76,331,109,306,148,287,191,274,236,260,318,257,375"/>
+<area shape="rect" id="Node000004" href="$df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#aa7a82c9afa80493d3f392e2e7003a606" title="Creates a HTTP search request packet depending on the input parameter." alt="" coords="387,87,585,142"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="254,374,264,332,283,272,315,207,336,177,361,151,373,142,376,146,364,155,340,181,319,210,288,274,269,333,259,375"/>
+<area shape="rect" id="Node000005" href="$df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#a29a6e33aa5991ff87ce127c2ee40fbed" title="Creates a HTTP search request packet for IPv6 UlaGua depending on the input parameter." alt="" coords="363,166,609,220"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="258,373,294,305,324,265,361,230,367,225,370,230,364,234,328,268,299,308,262,376"/>
+<area shape="rect" id="Node000006" href="$df/db8/LinkedList_8cpp.html#aa7da62b5d05e226e1908bb0ab26f4420" title="Adds a node to the tail of the list. Node gets added immediately before list.tail." alt="" coords="669,374,761,399"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="298,372,362,360,486,350,610,360,656,368,655,373,609,365,486,356,363,365,299,378"/>
+<area shape="rect" id="Node000010" href="$df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#af95b19cf8e8c70715878336869d721e0" title="Remove search Target from list and call client back." alt="" coords="396,244,576,299"/>
+<area shape="poly" id="edge7_Node000003_Node000010" title=" " alt="" coords="270,373,311,345,361,316,392,302,394,307,364,321,314,350,273,377"/>
+<area shape="rect" id="Node000016" href="$df/d13/ssdp__common_8cpp.html#a813e243c5a6ea133ef0803838244766b" title="This function figures out the type of the SSDP search in the request." alt="" coords="410,375,562,400"/>
+<area shape="poly" id="edge9_Node000003_Node000016" title=" " alt="" coords="315,385,396,385,396,390,315,390"/>
+<area shape="rect" id="Node000017" href="$dd/d9f/TimerThread_8cpp.html#a8ec8348608c1398ce65c460c5a8a5b7d" title="Schedules an event to run at a specified time." alt="" coords="404,424,568,450"/>
+<area shape="poly" id="edge10_Node000003_Node000017" title=" " alt="" coords="308,398,363,410,405,419,404,424,362,416,307,403"/>
+<area shape="rect" id="Node000021" href="$d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="447,474,525,499"/>
+<area shape="poly" id="edge12_Node000003_Node000021" title=" " alt="" coords="271,398,311,430,364,460,399,471,434,478,433,484,397,476,362,465,308,434,267,402"/>
+<area shape="rect" id="Node000022" href="$d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="405,523,567,548"/>
+<area shape="poly" id="edge13_Node000003_Node000022" title=" " alt="" coords="264,399,302,454,331,484,364,509,393,522,391,527,361,514,327,488,298,457,260,402"/>
+<area shape="rect" id="Node000023" href="$d8/d61/ThreadPool_8cpp.html#a7317f4409e514c2c01e31c9f66fd7da5" title="Sets the priority of the threadpool job." alt="" coords="423,572,549,598"/>
+<area shape="poly" id="edge14_Node000003_Node000023" title=" " alt="" coords="261,400,274,433,295,476,325,521,343,542,364,559,386,570,410,577,408,583,384,575,361,563,340,546,321,525,290,479,269,435,256,402"/>
+<area shape="poly" id="edge15_Node000003_Node000024" title=" " alt="" coords="263,399,365,608,394,624,428,631,427,636,393,629,361,612,258,402"/>
+<area shape="poly" id="edge8_Node000010_Node000002" title=" " alt="" coords="575,249,608,230,642,193,670,151,690,109,704,73,709,75,695,111,674,153,647,196,611,234,577,254"/>
+<area shape="poly" id="edge11_Node000017_Node000006" title=" " alt="" coords="555,422,609,410,656,399,657,404,610,416,556,427"/>
 </map>

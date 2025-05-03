@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('d4/d29/namespacecompa_1_1anonymous__na
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">compa::anonymous_namespace{upnpapi.cpp} Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -108,6 +109,16 @@ Functions</h2></td></tr>
 <tr class="memitem:a3e6d640c29d537fad035aedc68d843f1" id="r_a3e6d640c29d537fad035aedc68d843f1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a3e6d640c29d537fad035aedc68d843f1">UpnpGetIfInfo</a> (std::string_view a_iface=&quot;&quot;)</td></tr>
 <tr class="memdesc:a3e6d640c29d537fad035aedc68d843f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve local network adapter information and keep it in global variables.  <br /></td></tr>
 <tr class="separator:a3e6d640c29d537fad035aedc68d843f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a131d675f81396ef1c35cf5dd081e6c0b" id="r_a131d675f81396ef1c35cf5dd081e6c0b"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a131d675f81396ef1c35cf5dd081e6c0b">gSDKInitMutex</a> = PTHREAD_MUTEX_INITIALIZER</td></tr>
+<tr class="memdesc:a131d675f81396ef1c35cf5dd081e6c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization mutex.  <br /></td></tr>
+<tr class="separator:a131d675f81396ef1c35cf5dd081e6c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6ee754c2a71929e788bf343bdddfd34" id="r_af6ee754c2a71929e788bf343bdddfd34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#d3/d84/structHandle__Info">Handle_Info</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#af6ee754c2a71929e788bf343bdddfd34">HandleTable</a> [<a class="el" href="../../d3/da9/upnpapi_8hpp.html#ac4d94c3e0ec4dfa5640f42fda313c5f4">NUM_HANDLE</a>]</td></tr>
+<tr class="memdesc:af6ee754c2a71929e788bf343bdddfd34"><td class="mdescLeft">&#160;</td><td class="mdescRight">UPnP Device and Control Point handle table <br  />
+  <br /></td></tr>
+<tr class="separator:af6ee754c2a71929e788bf343bdddfd34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a3e6d640c29d537fad035aedc68d843f1" name="a3e6d640c29d537fad035aedc68d843f1"></a>
@@ -151,7 +162,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00113">113</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00120">120</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -203,6 +214,44 @@ Functions</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="161,18,147,11,121,8,99,10,86,15,81,21,83,28,78,30,75,20,82,10,98,5,121,3,148,6,163,13"/>
 </map>
 </div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a131d675f81396ef1c35cf5dd081e6c0b" name="a131d675f81396ef1c35cf5dd081e6c0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a131d675f81396ef1c35cf5dd081e6c0b">&#9670;&#160;</a></span>gSDKInitMutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pthread_mutex_t compa::anonymous_namespace{upnpapi.cpp}::gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialization mutex. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af6ee754c2a71929e788bf343bdddfd34" name="af6ee754c2a71929e788bf343bdddfd34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6ee754c2a71929e788bf343bdddfd34">&#9670;&#160;</a></span>HandleTable</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#d3/d84/structHandle__Info">Handle_Info</a>* compa::anonymous_namespace{upnpapi.cpp}::HandleTable[<a class="el" href="../../d3/da9/upnpapi_8hpp.html#ac4d94c3e0ec4dfa5640f42fda313c5f4">NUM_HANDLE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UPnP Device and Control Point handle table <br  />
+ </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00092">92</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>

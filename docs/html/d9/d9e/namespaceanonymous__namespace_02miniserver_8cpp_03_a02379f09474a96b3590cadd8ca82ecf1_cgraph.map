@@ -2,8 +2,8 @@
 <area shape="rect" id="Node000001" title="Read data from the SSDP socket." alt="" coords="5,386,219,426"/>
 <area shape="rect" id="Node000002" href="$df/d13/ssdp__common_8cpp.html#af3e17308ebc31e7e81c476624487614c" title="This function reads the data from the ssdp socket." alt="" coords="267,270,428,295"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,384,309,299,311,304,152,388"/>
-<area shape="rect" id="Node000027" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="531,467,622,492"/>
-<area shape="poly" id="edge14_Node000001_Node000027" title=" " alt="" coords="219,403,321,411,376,419,429,430,453,441,477,453,519,465,517,470,475,458,451,446,427,435,375,424,321,416,219,408"/>
+<area shape="rect" id="Node000153" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="531,467,622,492"/>
+<area shape="poly" id="edge14_Node000001_Node000153" title=" " alt="" coords="219,403,321,411,376,419,429,430,453,441,477,453,519,465,517,470,475,458,451,446,427,435,375,424,321,416,219,408"/>
 <area shape="rect" id="Node000206" href="$d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="301,444,394,470"/>
 <area shape="poly" id="edge13_Node000001_Node000206" title=" " alt="" coords="206,424,288,442,287,447,205,429"/>
 <area shape="rect" id="Node000003" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a230018a295293e13a2282a2526e4dc1c" title="Frees the ssdp request." alt="" coords="725,84,947,139"/>
@@ -16,14 +16,14 @@
 <area shape="poly" id="edge5_Node000002_Node000022" title=" " alt="" coords="359,268,406,223,439,197,475,176,491,169,493,174,477,181,442,202,410,227,362,271"/>
 <area shape="rect" id="Node000023" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a" title="This function is a thread that handles SSDP requests." alt="" coords="476,191,677,246"/>
 <area shape="poly" id="edge6_Node000002_Node000023" title=" " alt="" coords="393,267,464,247,466,252,395,272"/>
-<area shape="rect" id="Node000102" href="$d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="517,270,637,295"/>
-<area shape="poly" id="edge8_Node000002_Node000102" title=" " alt="" coords="429,280,503,280,503,285,429,285"/>
-<area shape="rect" id="Node000123" href="$d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="537,319,616,344"/>
-<area shape="poly" id="edge9_Node000002_Node000123" title=" " alt="" coords="408,292,524,318,523,323,406,298"/>
-<area shape="rect" id="Node000124" href="$d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="495,368,658,394"/>
-<area shape="poly" id="edge10_Node000002_Node000124" title=" " alt="" coords="368,293,416,324,477,354,498,362,496,367,475,359,414,328,365,297"/>
-<area shape="rect" id="Node000125" href="$d8/d61/ThreadPool_8cpp.html#a7317f4409e514c2c01e31c9f66fd7da5" title="Sets the priority of the threadpool job." alt="" coords="513,418,640,443"/>
-<area shape="poly" id="edge11_Node000002_Node000125" title=" " alt="" coords="360,293,406,347,440,378,477,404,501,414,499,419,475,409,436,382,402,351,356,297"/>
-<area shape="poly" id="edge12_Node000002_Node000027" title=" " alt="" coords="361,293,430,386,451,424,461,439,478,453,497,464,519,470,517,476,495,469,474,458,457,442,446,426,426,389,356,297"/>
+<area shape="rect" id="Node000099" href="$d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="517,270,637,295"/>
+<area shape="poly" id="edge8_Node000002_Node000099" title=" " alt="" coords="429,280,503,280,503,285,429,285"/>
+<area shape="rect" id="Node000120" href="$d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="537,319,616,344"/>
+<area shape="poly" id="edge9_Node000002_Node000120" title=" " alt="" coords="408,292,524,318,523,323,406,298"/>
+<area shape="rect" id="Node000121" href="$d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="495,368,658,394"/>
+<area shape="poly" id="edge10_Node000002_Node000121" title=" " alt="" coords="368,293,416,324,477,354,498,362,496,367,475,359,414,328,365,297"/>
+<area shape="rect" id="Node000122" href="$d8/d61/ThreadPool_8cpp.html#a7317f4409e514c2c01e31c9f66fd7da5" title="Sets the priority of the threadpool job." alt="" coords="513,418,640,443"/>
+<area shape="poly" id="edge11_Node000002_Node000122" title=" " alt="" coords="360,293,406,347,440,378,477,404,501,414,499,419,475,409,436,382,402,351,356,297"/>
+<area shape="poly" id="edge12_Node000002_Node000153" title=" " alt="" coords="361,293,430,386,451,424,461,439,478,453,497,464,519,470,517,476,495,469,474,458,457,442,446,426,426,389,356,297"/>
 <area shape="poly" id="edge7_Node000023_Node000003" title=" " alt="" coords="645,188,676,176,757,142,760,147,678,181,647,193"/>
 </map>
