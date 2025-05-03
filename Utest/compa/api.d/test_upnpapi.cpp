@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-02
+// Redistribution only with this Copyright remark. Last modified: 2025-05-03
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -226,8 +226,6 @@ class UpnpapiFTestSuite : public ::testing::Test {
         memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
         // memset(&gWebMutex, 0xAA, sizeof(gWebMutex));
         memset(&gUUIDMutex, 0xAA, sizeof(gUUIDMutex));
-        memset(&GlobalClientSubscribeMutex, 0xAA,
-               sizeof(GlobalClientSubscribeMutex));
         memset(&gUpnpSdkNLSuuid, 0, sizeof(gUpnpSdkNLSuuid));
         memset(&HandleTable, 0xAA, sizeof(HandleTable));
         memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
@@ -275,9 +273,6 @@ TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
 
     ASSERT_EQ(pthread_mutex_trylock(&gUUIDMutex), 0);
     EXPECT_EQ(pthread_mutex_unlock(&gUUIDMutex), 0);
-
-    ASSERT_EQ(pthread_mutex_trylock(&GlobalClientSubscribeMutex), 0);
-    EXPECT_EQ(pthread_mutex_unlock(&GlobalClientSubscribeMutex), 0);
 
     // Check creation of a uuid
     EXPECT_THAT(gUpnpSdkNLSuuid,

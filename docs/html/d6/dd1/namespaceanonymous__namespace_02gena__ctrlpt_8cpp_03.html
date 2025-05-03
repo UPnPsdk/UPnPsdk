@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('d6/dd1/namespaceanonymous__namespace_0
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">anonymous_namespace{gena_ctrlpt.cpp} Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -120,6 +121,12 @@ Functions</h2></td></tr>
 <tr class="memitem:aab6385b3da2410ba5921c203635b7e28" id="r_aab6385b3da2410ba5921c203635b7e28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28">gena_subscribe</a> (const <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *url, int *timeout, const <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *renewal_sid, <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *sid)</td></tr>
 <tr class="memdesc:aab6385b3da2410ba5921c203635b7e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes or renew subscription.  <br /></td></tr>
 <tr class="separator:aab6385b3da2410ba5921c203635b7e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a533d12fb4fe11ad6364613cf9dac52e8" id="r_a533d12fb4fe11ad6364613cf9dac52e8"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a533d12fb4fe11ad6364613cf9dac52e8">GlobalClientSubscribeMutex</a> {}</td></tr>
+<tr class="memdesc:a533d12fb4fe11ad6364613cf9dac52e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to synchronize the subscription handling at the client side.  <br /></td></tr>
+<tr class="separator:a533d12fb4fe11ad6364613cf9dac52e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a6e5186d8db02472afdfc99808723b754" name="a6e5186d8db02472afdfc99808723b754"></a>
@@ -753,6 +760,25 @@ Functions</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="281,149,200,149,200,143,281,143"/>
 </map>
 </div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a533d12fb4fe11ad6364613cf9dac52e8" name="a533d12fb4fe11ad6364613cf9dac52e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a533d12fb4fe11ad6364613cf9dac52e8">&#9670;&#160;</a></span>GlobalClientSubscribeMutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pthread_mutex_t anonymous_namespace{gena_ctrlpt.cpp}::GlobalClientSubscribeMutex {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mutex to synchronize the subscription handling at the client side. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00056">56</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
 
 </div>
 </div>

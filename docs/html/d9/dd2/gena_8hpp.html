@@ -185,12 +185,6 @@ Macros</h2></td></tr>
 <tr class="memitem:a32181f1cbd2b36ff63b31c33cf70e118" id="r_a32181f1cbd2b36ff63b31c33cf70e118"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a32181f1cbd2b36ff63b31c33cf70e118">XML_VERSION</a>&#160;&#160;&#160;&quot;&lt;?xml version='1.0' encoding='ISO-8859-1' ?&gt;\n&quot;</td></tr>
 <tr class="memdesc:a32181f1cbd2b36ff63b31c33cf70e118"><td class="mdescLeft">&#160;</td><td class="mdescRight">XML version comment. Not used because it is not interoperable with other UPnP vendors.  <br /></td></tr>
 <tr class="separator:a32181f1cbd2b36ff63b31c33cf70e118"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20ec28c9a655fb14963cb865475abb13" id="r_a20ec28c9a655fb14963cb865475abb13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a20ec28c9a655fb14963cb865475abb13">SubscribeLock</a>()</td></tr>
-<tr class="memdesc:a20ec28c9a655fb14963cb865475abb13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks the subscription.  <br /></td></tr>
-<tr class="separator:a20ec28c9a655fb14963cb865475abb13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab79e212dffb1ab098c165ebd97dd718d" id="r_ab79e212dffb1ab098c165ebd97dd718d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#ab79e212dffb1ab098c165ebd97dd718d">SubscribeUnlock</a>()</td></tr>
-<tr class="memdesc:ab79e212dffb1ab098c165ebd97dd718d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlocks the subscription.  <br /></td></tr>
-<tr class="separator:ab79e212dffb1ab098c165ebd97dd718d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:a51ceffd1bc4688e499de046b4575c914" id="r_a51ceffd1bc4688e499de046b4575c914"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a51ceffd1bc4688e499de046b4575c914">XML_PROPERTYSET_HEADER</a>&#160;&#160;&#160;    &quot;&lt;e:propertyset xmlns:e=\&quot;urn:schemas-upnp-org:event-1-0\&quot;&gt;\n&quot;</td></tr>
 <tr class="separator:a51ceffd1bc4688e499de046b4575c914"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -258,6 +252,12 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a4571a8d7a15b410d64faff2e58888132" id="r_a4571a8d7a15b410d64faff2e58888132"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a4571a8d7a15b410d64faff2e58888132">GlobalClientSubscribeMutexInit</a> ()</td></tr>
+<tr class="memdesc:a4571a8d7a15b410d64faff2e58888132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the client subsribe mutex.  <br /></td></tr>
+<tr class="separator:a4571a8d7a15b410d64faff2e58888132"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81a3a9fb9c7be998af60d02fbee25812" id="r_a81a3a9fb9c7be998af60d02fbee25812"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a81a3a9fb9c7be998af60d02fbee25812">GlobalClientSubscribeMutexDestroy</a> ()</td></tr>
+<tr class="memdesc:a81a3a9fb9c7be998af60d02fbee25812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the client subsribe mutex.  <br /></td></tr>
+<tr class="separator:a81a3a9fb9c7be998af60d02fbee25812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6f49bcf85257bbf38e0d52749d442da" id="r_ae6f49bcf85257bbf38e0d52749d442da"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#ae6f49bcf85257bbf38e0d52749d442da">genaCallback</a> (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *parser, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *request, <a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info)</td></tr>
 <tr class="memdesc:ae6f49bcf85257bbf38e0d52749d442da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the callback function called by the miniserver to handle incoming GENA requests.  <br /></td></tr>
 <tr class="separator:ae6f49bcf85257bbf38e0d52749d442da"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -310,7 +310,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <div class="textblock"><p>Structure to send NOTIFY message to all subscribed control points </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dd2/gena_8hpp_source.html#l00109">109</a> of file <a class="el" href="../../d9/dd2/gena_8hpp_source.html">gena.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dd2/gena_8hpp_source.html#l00092">92</a> of file <a class="el" href="../../d9/dd2/gena_8hpp_source.html">gena.hpp</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">
@@ -885,57 +885,6 @@ device_handle</td>
 
 </div>
 </div>
-<a id="a20ec28c9a655fb14963cb865475abb13" name="a20ec28c9a655fb14963cb865475abb13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20ec28c9a655fb14963cb865475abb13">&#9670;&#160;</a></span>SubscribeLock</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SubscribeLock</td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_function" href="../../d8/d32/upnpdebug_8hpp.html#a186bccdd3cab13ada1bdc46ee95c7d37">UpnpPrintf</a>(UPNP_INFO, GENA, __FILE__, __LINE__, <span class="stringliteral">&quot;Trying Subscribe Lock&quot;</span>);  \</div>
-<div class="line">    pthread_mutex_lock(&amp;<a class="code hl_variable" href="../../d4/d99/upnpapi_8cpp.html#a6fad0840fa7b371a1105a1d66a1e0d87">GlobalClientSubscribeMutex</a>);                           \</div>
-<div class="line">    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, <span class="stringliteral">&quot;Subscribe Lock&quot;</span>);</div>
-<div class="ttc" id="aupnpapi_8cpp_html_a6fad0840fa7b371a1105a1d66a1e0d87"><div class="ttname"><a href="../../d4/d99/upnpapi_8cpp.html#a6fad0840fa7b371a1105a1d66a1e0d87">GlobalClientSubscribeMutex</a></div><div class="ttdeci">pthread_mutex_t GlobalClientSubscribeMutex</div><div class="ttdoc">Mutex to synchronize the subscription handling at the client side.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d99/upnpapi_8cpp_source.html#l00244">upnpapi.cpp:244</a></div></div>
-<div class="ttc" id="aupnpdebug_8hpp_html_a186bccdd3cab13ada1bdc46ee95c7d37"><div class="ttname"><a href="../../d8/d32/upnpdebug_8hpp.html#a186bccdd3cab13ada1bdc46ee95c7d37">UpnpPrintf</a></div><div class="ttdeci">UPNPLIB_API void UpnpPrintf(Upnp_LogLevel DLevel, Dbg_Module Module, const char *DbgFileName, int DbgLineNo, const char *FmtStr,...)</div><div class="ttdoc">Prints the debug statement.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/dfa/upnpdebug_8cpp_source.html#l00239">upnpdebug.cpp:239</a></div></div>
-</div><!-- fragment -->
-<p>Locks the subscription. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/dd2/gena_8hpp_source.html#l00092">92</a> of file <a class="el" href="../../d9/dd2/gena_8hpp_source.html">gena.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab79e212dffb1ab098c165ebd97dd718d" name="ab79e212dffb1ab098c165ebd97dd718d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab79e212dffb1ab098c165ebd97dd718d">&#9670;&#160;</a></span>SubscribeUnlock</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SubscribeUnlock</td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_function" href="../../d8/d32/upnpdebug_8hpp.html#a186bccdd3cab13ada1bdc46ee95c7d37">UpnpPrintf</a>(UPNP_INFO, GENA, __FILE__, __LINE__,                            \</div>
-<div class="line">               <span class="stringliteral">&quot;Trying Subscribe UnLock&quot;</span>);                                     \</div>
-<div class="line">    pthread_mutex_unlock(&amp;<a class="code hl_variable" href="../../d4/d99/upnpapi_8cpp.html#a6fad0840fa7b371a1105a1d66a1e0d87">GlobalClientSubscribeMutex</a>);                         \</div>
-<div class="line">    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, <span class="stringliteral">&quot;Subscribe UnLock&quot;</span>);</div>
-</div><!-- fragment -->
-<p>Unlocks the subscription. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d9/dd2/gena_8hpp_source.html#l00100">100</a> of file <a class="el" href="../../d9/dd2/gena_8hpp_source.html">gena.hpp</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a05d519a30da1d0bef9ff4b9239f5f631" name="a05d519a30da1d0bef9ff4b9239f5f631"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a05d519a30da1d0bef9ff4b9239f5f631">&#9670;&#160;</a></span>notify_thread_struct</h2>
@@ -953,6 +902,85 @@ device_handle</td>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a4571a8d7a15b410d64faff2e58888132" name="a4571a8d7a15b410d64faff2e58888132"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4571a8d7a15b410d64faff2e58888132">&#9670;&#160;</a></span>GlobalClientSubscribeMutexInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GlobalClientSubscribeMutexInit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the client subsribe mutex. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00414">414</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_a4571a8d7a15b410d64faff2e58888132_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a4571a8d7a15b410d64faff2e58888132_icgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_a4571a8d7a15b410d64faff2e58888132_icgraph" id="ad9/dd2/gena_8hpp_a4571a8d7a15b410d64faff2e58888132_icgraph">
+<area shape="rect" title="Initialize the client subsribe mutex." alt="" coords="372,5,599,31"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a7855376cc412564ea0b12b867e11e3a7" title="Initializes the global mutexes used by the UPnP SDK." alt="" coords="192,5,324,31"/>
+<area shape="poly" title=" " alt="" coords="358,21,324,21,324,15,358,15"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="5,5,144,31"/>
+<area shape="poly" title=" " alt="" coords="178,21,145,21,145,15,178,15"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a81a3a9fb9c7be998af60d02fbee25812" name="a81a3a9fb9c7be998af60d02fbee25812"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81a3a9fb9c7be998af60d02fbee25812">&#9670;&#160;</a></span>GlobalClientSubscribeMutexDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GlobalClientSubscribeMutexDestroy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroy the client subsribe mutex. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00426">426</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_a81a3a9fb9c7be998af60d02fbee25812_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a81a3a9fb9c7be998af60d02fbee25812_icgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_a81a3a9fb9c7be998af60d02fbee25812_icgraph" id="ad9/dd2/gena_8hpp_a81a3a9fb9c7be998af60d02fbee25812_icgraph">
+<area shape="rect" title="Destroy the client subsribe mutex." alt="" coords="692,24,899,64"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
+<area shape="poly" title=" " alt="" coords="678,46,644,46,644,41,678,41"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
+<area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
+<area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="139,80,296,106"/>
+<area shape="poly" title=" " alt="" coords="568,66,537,84,502,97,449,106,395,110,296,106,296,101,395,105,448,101,501,92,535,79,565,62"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="344,56,501,82"/>
+<area shape="poly" title=" " alt="" coords="536,55,502,60,501,55,535,50"/>
+<area shape="poly" title=" " alt="" coords="134,46,91,46,91,41,134,41"/>
+<area shape="poly" title=" " alt="" coords="159,79,90,59,92,53,161,74"/>
+<area shape="poly" title=" " alt="" coords="330,60,287,55,288,50,330,55"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ae6f49bcf85257bbf38e0d52749d442da" name="ae6f49bcf85257bbf38e0d52749d442da"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae6f49bcf85257bbf38e0d52749d442da">&#9670;&#160;</a></span>genaCallback()</h2>
 
@@ -997,11 +1025,11 @@ device_handle</td>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d02/gena__callback2_8cpp_source.html#l00058">58</a> of file <a class="el" href="../../dc/d02/gena__callback2_8cpp_source.html">gena_callback2.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_cgraph" id="ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_cgraph">
 <area shape="rect" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="5,1349,116,1375"/>
@@ -1130,11 +1158,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="360,1064,448,1048,449,1053,361,1069"/>
 </map>
 </div>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_icgraph" id="ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_icgraph">
 <area shape="rect" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="325,5,436,31"/>
@@ -1202,12 +1230,12 @@ device_handle</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00500">500</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00516">516</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_cgraph" id="ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_cgraph">
 <area shape="rect" title="This function subscribes to a PublisherURL (also mentioned as EventURL in some places)." alt="" coords="5,1716,123,1741"/>
@@ -1339,11 +1367,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="329,2182,439,2181,439,2187,329,2187"/>
 </map>
 </div>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_icgraph" id="ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_icgraph">
 <area shape="rect" title="This function subscribes to a PublisherURL (also mentioned as EventURL in some places)." alt="" coords="739,105,856,131"/>
@@ -1406,12 +1434,12 @@ device_handle</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00455">455</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00471">471</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_cgraph" id="ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_cgraph">
 <area shape="rect" title="Unsubscribes a SID." alt="" coords="5,1077,140,1102"/>
@@ -1506,11 +1534,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="574,1309,743,1415,740,1419,571,1314"/>
 </map>
 </div>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_icgraph" id="ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_icgraph">
 <area shape="rect" title="Unsubscribes a SID." alt="" coords="739,155,873,180"/>
@@ -1562,12 +1590,12 @@ device_handle</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00414">414</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
-<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00430">430</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_cgraph" id="ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_cgraph">
 <area shape="rect" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="5,845,165,870"/>
@@ -1657,11 +1685,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="661,323,675,335,694,361,705,385,710,408,711,432,712,481,715,509,724,539,759,616,794,681,790,683,754,619,719,541,710,510,706,482,706,432,705,409,700,386,690,363,671,339,657,328"/>
 </map>
 </div>
-<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_icgraph" id="ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_icgraph">
 <area shape="rect" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="363,5,523,31"/>
@@ -1700,11 +1728,11 @@ device_handle</td>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00884">884</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
-<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_a4cc29d7a5d53dccd66f6b11abb532a05_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a4cc29d7a5d53dccd66f6b11abb532a05_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_a4cc29d7a5d53dccd66f6b11abb532a05_cgraph" id="ad9/dd2/gena_8hpp_a4cc29d7a5d53dccd66f6b11abb532a05_cgraph">
 <area shape="rect" title="Cleans the service table of the device." alt="" coords="5,93,172,119"/>
@@ -1725,11 +1753,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="331,161,406,175,405,180,330,166"/>
 </map>
 </div>
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_a4cc29d7a5d53dccd66f6b11abb532a05_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a4cc29d7a5d53dccd66f6b11abb532a05_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_a4cc29d7a5d53dccd66f6b11abb532a05_icgraph" id="ad9/dd2/gena_8hpp_a4cc29d7a5d53dccd66f6b11abb532a05_icgraph">
 <area shape="rect" title="Cleans the service table of the device." alt="" coords="507,13,673,38"/>
@@ -1786,12 +1814,12 @@ device_handle</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00587">587</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
-<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00613">613</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_cgraph" id="ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_cgraph">
 <area shape="rect" title="Renews a SID." alt="" coords="5,1195,184,1220"/>
@@ -1936,11 +1964,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="678,1542,705,1522,721,1497,737,1464,765,1379,787,1277,805,1165,830,949,841,802,846,802,835,950,811,1166,792,1278,770,1381,742,1466,726,1500,709,1526,681,1546"/>
 </map>
 </div>
-<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_icgraph" id="ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_icgraph">
 <area shape="rect" title="Renews a SID." alt="" coords="501,109,680,135"/>
@@ -2024,11 +2052,11 @@ device_handle</td>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l01023">1023</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
-<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_a3300ba366cae7db4f8c21b0119cdacd9_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a3300ba366cae7db4f8c21b0119cdacd9_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_a3300ba366cae7db4f8c21b0119cdacd9_cgraph" id="ad9/dd2/gena_8hpp_a3300ba366cae7db4f8c21b0119cdacd9_cgraph">
 <area shape="rect" title="Sends a notification to all the subscribed control points." alt="" coords="5,438,116,464"/>
@@ -2084,11 +2112,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="271,748,319,826,353,869,394,906,418,920,415,925,390,911,349,873,314,829,266,751"/>
 </map>
 </div>
-<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div id="dynsection-17-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_a3300ba366cae7db4f8c21b0119cdacd9_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a3300ba366cae7db4f8c21b0119cdacd9_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_a3300ba366cae7db4f8c21b0119cdacd9_icgraph" id="ad9/dd2/gena_8hpp_a3300ba366cae7db4f8c21b0119cdacd9_icgraph">
 <area shape="rect" title="Sends a notification to all the subscribed control points." alt="" coords="148,5,259,31"/>
@@ -2151,11 +2179,11 @@ device_handle</td>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00994">994</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
-<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_a8f2185f7e2ef6345535174b920c6e86b_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a8f2185f7e2ef6345535174b920c6e86b_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_a8f2185f7e2ef6345535174b920c6e86b_cgraph" id="ad9/dd2/gena_8hpp_a8f2185f7e2ef6345535174b920c6e86b_cgraph">
 <area shape="rect" title="Sends a notification to all the subscribed control points." alt="" coords="5,473,136,498"/>
@@ -2213,11 +2241,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="332,950,419,950,419,955,332,955"/>
 </map>
 </div>
-<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_a8f2185f7e2ef6345535174b920c6e86b_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a8f2185f7e2ef6345535174b920c6e86b_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_a8f2185f7e2ef6345535174b920c6e86b_icgraph" id="ad9/dd2/gena_8hpp_a8f2185f7e2ef6345535174b920c6e86b_icgraph">
 <area shape="rect" title="Sends a notification to all the subscribed control points." alt="" coords="169,5,300,31"/>
@@ -2301,11 +2329,11 @@ device_handle</td>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00925">925</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
-<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-18-content" class="dyncontent" style="display:none;">
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_cgraph" id="ad9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_cgraph">
 <area shape="rect" title="Sends the intial state table dump to newly subscribed control point." alt="" coords="5,373,120,398"/>
@@ -2352,11 +2380,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="283,642,332,693,364,720,397,742,411,748,408,753,395,747,360,724,329,697,280,646"/>
 </map>
 </div>
-<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-21-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div id="dynsection-21-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_icgraph" id="ad9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_icgraph">
 <area shape="rect" title="Sends the intial state table dump to newly subscribed control point." alt="" coords="233,5,348,31"/>
@@ -2426,11 +2454,11 @@ device_handle</td>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00959">959</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
-<div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-22-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-20-content" class="dyncontent" style="display:none;">
+<div id="dynsection-22-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_aadf54fcafc02a512a76124ab8bf938f6_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_aadf54fcafc02a512a76124ab8bf938f6_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_aadf54fcafc02a512a76124ab8bf938f6_cgraph" id="ad9/dd2/gena_8hpp_aadf54fcafc02a512a76124ab8bf938f6_cgraph">
 <area shape="rect" title="Similar to the genaInitNofity. The only difference is that it takes the xml document for the state ta..." alt="" coords="5,365,140,390"/>
@@ -2479,11 +2507,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="336,771,434,793,433,798,335,776"/>
 </map>
 </div>
-<div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-21-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-23-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-21-content" class="dyncontent" style="display:none;">
+<div id="dynsection-23-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_aadf54fcafc02a512a76124ab8bf938f6_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_aadf54fcafc02a512a76124ab8bf938f6_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_aadf54fcafc02a512a76124ab8bf938f6_icgraph" id="ad9/dd2/gena_8hpp_aadf54fcafc02a512a76124ab8bf938f6_icgraph">
 <area shape="rect" title="Similar to the genaInitNofity. The only difference is that it takes the xml document for the state ta..." alt="" coords="255,5,389,31"/>
@@ -2538,11 +2566,11 @@ device_handle</td>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d02/gena__callback2_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../dc/d02/gena__callback2_8cpp_source.html">gena_callback2.cpp</a>.</p>
-<div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-22-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-24-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-22-content" class="dyncontent" style="display:none;">
+<div id="dynsection-24-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_abb1570eae1e832145e2ae85cf1b5ad75_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_abb1570eae1e832145e2ae85cf1b5ad75_cgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_abb1570eae1e832145e2ae85cf1b5ad75_cgraph" id="ad9/dd2/gena_8hpp_abb1570eae1e832145e2ae85cf1b5ad75_cgraph">
 <area shape="rect" title="Sends an error message to the control point in the case of incorrect GENA requests." alt="" coords="5,79,117,104"/>
@@ -2564,11 +2592,11 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="798,150,832,154,832,160,797,155"/>
 </map>
 </div>
-<div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-23-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-25-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-23-content" class="dyncontent" style="display:none;">
+<div id="dynsection-25-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/dd2/gena_8hpp_abb1570eae1e832145e2ae85cf1b5ad75_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_abb1570eae1e832145e2ae85cf1b5ad75_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_abb1570eae1e832145e2ae85cf1b5ad75_icgraph" id="ad9/dd2/gena_8hpp_abb1570eae1e832145e2ae85cf1b5ad75_icgraph">
 <area shape="rect" title="Sends an error message to the control point in the case of incorrect GENA requests." alt="" coords="653,154,765,179"/>

@@ -106,7 +106,6 @@ var upnpapi_8cpp =
     [ "HandleTable", "d4/d99/upnpapi_8cpp.html#af6ee754c2a71929e788bf343bdddfd34", null ],
     [ "virtualDirCallback", "d4/d99/upnpapi_8cpp.html#a24983ed57bf9c82a82e0dc3daeaca538", null ],
     [ "pVirtualDirList", "d4/d99/upnpapi_8cpp.html#a85ec286c63778e7aa2c8013917312713", null ],
-    [ "GlobalClientSubscribeMutex", "d4/d99/upnpapi_8cpp.html#a6fad0840fa7b371a1105a1d66a1e0d87", null ],
     [ "GlobalHndRWLock", "d4/d99/upnpapi_8cpp.html#a64ec1639f216d6c2ab547db3b6b67dca", null ],
     [ "gUUIDMutex", "d4/d99/upnpapi_8cpp.html#ab95fc2915d874b8f46164273b6fe4280", null ],
     [ "gTimerThread", "d4/d99/upnpapi_8cpp.html#ad1644e3f1b27134f80ed3bd08289cc58", null ],

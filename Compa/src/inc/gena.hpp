@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-28
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -87,23 +87,6 @@
 /// @}
 
 /*!
- * \brief Locks the subscription.
- */
-#define SubscribeLock()                                                        \
-    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, "Trying Subscribe Lock");  \
-    pthread_mutex_lock(&GlobalClientSubscribeMutex);                           \
-    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, "Subscribe Lock");
-
-/*!
- * \brief Unlocks the subscription.
- */
-#define SubscribeUnlock()                                                      \
-    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__,                            \
-               "Trying Subscribe UnLock");                                     \
-    pthread_mutex_unlock(&GlobalClientSubscribeMutex);                         \
-    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, "Subscribe UnLock");
-
-/*!
  * Structure to send NOTIFY message to all subscribed control points
  */
 typedef struct NOTIFY_THREAD_STRUCT {
@@ -119,6 +102,12 @@ typedef struct NOTIFY_THREAD_STRUCT {
     UpnpDevice_Handle device_handle;
     /// @}
 } notify_thread_struct;
+
+/*! \brief Initialize the client subsribe mutex */
+int GlobalClientSubscribeMutexInit();
+
+/*! \brief Destroy the client subsribe mutex */
+int GlobalClientSubscribeMutexDestroy();
 
 /*!
  * \brief This is the callback function called by the miniserver to handle

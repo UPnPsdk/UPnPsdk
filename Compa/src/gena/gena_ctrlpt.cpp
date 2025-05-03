@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,9 +44,6 @@
 #include <upnpapi.hpp>
 #include <uuid.hpp>
 
-/// \brief Provide global Client subscribe mutex.
-extern pthread_mutex_t GlobalClientSubscribeMutex;
-
 struct job_arg {
     int handle;
     int eventId;
@@ -54,6 +51,9 @@ struct job_arg {
 };
 
 namespace {
+
+/*! \brief Mutex to synchronize the subscription handling at the client side. */
+pthread_mutex_t GlobalClientSubscribeMutex{};
 
 /*!
  * \brief Free memory associated with job's argument
@@ -411,6 +411,22 @@ int gena_subscribe(
 
 } // namespace
 
+int GlobalClientSubscribeMutexInit() {
+    pthread_mutexattr_t attr;
+
+    int ret = pthread_mutexattr_init(&attr);
+    if (ret != 0)
+        return ret;
+    pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
+    pthread_mutex_init(&GlobalClientSubscribeMutex, &attr);
+    pthread_mutexattr_destroy(&attr);
+    return 0;
+}
+
+int GlobalClientSubscribeMutexDestroy() {
+    return pthread_mutex_destroy(&GlobalClientSubscribeMutex);
+}
+
 int genaUnregisterClient(UpnpClient_Handle client_handle) {
     GenlibClientSubscription* sub_copy = GenlibClientSubscription_new();
     int return_code = UPNP_E_SUCCESS;
@@ -519,15 +535,22 @@ int genaSubscribe(UpnpClient_Handle client_handle,
 
     HandleReadLock();
     /* validate handle */
+    int ret;
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
         return_code = GENA_E_BAD_HANDLE;
-        SubscribeLock();
+        ret = pthread_mutex_lock(&GlobalClientSubscribeMutex);
+        if (ret != 0)
+            UPnPsdk_LOGCRIT("MSG1099") "POSIX thread mutex lock fails with "
+                << (ret == EINVAL ? "EINVAL" : "EDEADLK") << ".\n";
         goto error_handler;
     }
     HandleUnlock();
 
     /* subscribe */
-    SubscribeLock();
+    ret = pthread_mutex_lock(&GlobalClientSubscribeMutex);
+    if (ret != 0)
+        UPnPsdk_LOGCRIT("MSG1138") "POSIX thread mutex lock fails with "
+            << (ret == EINVAL ? "EINVAL" : "EDEADLK") << ".\n";
     return_code = gena_subscribe(PublisherURL, TimeOut, NULL, ActualSID);
     HandleLock();
     if (return_code != UPNP_E_SUCCESS) {
@@ -579,7 +602,10 @@ error_handler:
     if (return_code != UPNP_E_SUCCESS)
         GenlibClientSubscription_delete(newSubscription);
     HandleUnlock();
-    SubscribeUnlock();
+    ret = pthread_mutex_unlock(&GlobalClientSubscribeMutex);
+    if (ret != 0)
+        UPnPsdk_LOGCRIT("MSG1139") "POSIX thread mutex unlock fails with "
+            << (ret == EINVAL ? "EINVAL" : "EPERM") << ".\n";
 
     return return_code;
 }
@@ -765,13 +791,21 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
                 /* try and get Subscription Lock  */
                 /*   (in case we are in the process of
                  * subscribing) */
-                SubscribeLock();
+                int ret = pthread_mutex_lock(&GlobalClientSubscribeMutex);
+                if (ret != 0)
+                    UPnPsdk_LOGCRIT(
+                        "MSG1140") "POSIX thread mutex lock fails with "
+                        << (ret == EINVAL ? "EINVAL" : "EDEADLK") << ".\n";
 
                 /* get HandleLock again */
                 HandleLock();
 
                 if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
-                    SubscribeUnlock();
+                    ret = pthread_mutex_unlock(&GlobalClientSubscribeMutex);
+                    if (ret != 0)
+                        UPnPsdk_LOGCRIT(
+                            "MSG1141") "POSIX thread mutex unlock fails with "
+                            << (ret == EINVAL ? "EINVAL" : "EPERM") << ".\n";
                     HandleUnlock();
                     continue;
                 }
@@ -779,12 +813,20 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
                 subscription =
                     GetClientSubActualSID(handle_info->ClientSubList, &sid);
                 if (subscription == NULL) {
-                    SubscribeUnlock();
+                    ret = pthread_mutex_unlock(&GlobalClientSubscribeMutex);
+                    if (ret != 0)
+                        UPnPsdk_LOGCRIT(
+                            "MSG1142") "POSIX thread mutex unlock fails with "
+                            << (ret == EINVAL ? "EINVAL" : "EPERM") << ".\n";
                     HandleUnlock();
                     continue;
                 }
 
-                SubscribeUnlock();
+                ret = pthread_mutex_unlock(&GlobalClientSubscribeMutex);
+                if (ret != 0)
+                    UPnPsdk_LOGCRIT(
+                        "MSG1143") "POSIX thread mutex unlock fails with "
+                        << (ret == EINVAL ? "EINVAL" : "EPERM") << ".\n";
             } else {
                 HandleUnlock();
                 continue;
