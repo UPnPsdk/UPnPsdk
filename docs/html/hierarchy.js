@@ -14,6 +14,7 @@ var hierarchy =
     [ "UPnPsdk::CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", null ],
     [ "char_info", "da/dff/ixmlparser_8cpp.html#db/de1/structchar__info", null ],
     [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", null ],
+    [ "CPthread_scoped_mutex_lock", "d4/d88/pthread_8hpp.html#d1/dde/classCPthread__scoped__mutex__lock", null ],
     [ "UPnPsdk::CRootdevice", "dd/d06/classUPnPsdk_1_1CRootdevice.html", null ],
     [ "UPnPsdk::CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
     [ "UPnPsdk::CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html", [

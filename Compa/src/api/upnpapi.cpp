@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-02
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -239,13 +239,7 @@ struct VirtualDirCallbacks virtualDirCallback;
 /*! \brief Pointer to the virtual directory list. */
 virtualDirList* pVirtualDirList;
 
-#ifdef COMPA_HAVE_CTRLPT_SSDP
-/*! \brief Mutex to synchronize the subscription handling at the client side. */
-pthread_mutex_t GlobalClientSubscribeMutex;
-#endif
-
-/*! \brief rwlock to synchronize handles (root device or control point handle).
- */
+/// \brief rwlock to synchronize handles (root device or control point handle).
 pthread_rwlock_t GlobalHndRWLock;
 
 /*! \brief Mutex to synchronize the uuid creation process. */
@@ -446,8 +440,8 @@ static int UpnpInitMutexes() {
         return UPNP_E_INIT_FAILED;
     }
     /* initialize subscribe mutex. */
-#ifdef COMPA_HAVE_CTRLPT_SSDP
-    if (pthread_mutex_init(&GlobalClientSubscribeMutex, NULL) != 0) {
+#ifdef COMPA_HAVE_CTRLPT_GENA
+    if (GlobalClientSubscribeMutexInit() != 0) {
         return UPNP_E_INIT_FAILED;
     }
 #endif
@@ -753,8 +747,8 @@ int UpnpFinish() {
     ThreadPoolShutdown(&gSendThreadPool);
     PrintThreadPoolStats(&gRecvThreadPool, __FILE__, __LINE__,
                          "Recv Thread Pool");
-#ifdef COMPA_HAVE_CTRLPT_SSDP
-    pthread_mutex_destroy(&GlobalClientSubscribeMutex);
+#ifdef COMPA_HAVE_CTRLPT_GENA
+    GlobalClientSubscribeMutexDestroy();
 #endif
     pthread_rwlock_destroy(&GlobalHndRWLock);
     pthread_mutex_destroy(&gUUIDMutex);

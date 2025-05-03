@@ -5,7 +5,8 @@ var namespaces_dup =
       [ "GenaAutoRenewSubscription", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a", null ],
       [ "ScheduleGenaAutoRenew", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a997a87554e5a4d733d3cc13bcb1c1dd8", null ],
       [ "gena_unsubscribe", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#af298d2d7e5a94605b0b284718e20cdc9", null ],
-      [ "gena_subscribe", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28", null ]
+      [ "gena_subscribe", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28", null ],
+      [ "GlobalClientSubscribeMutex", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a533d12fb4fe11ad6364613cf9dac52e8", null ]
     ] ],
     [ "anonymous_namespace{gena_device.cpp}", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html", [
       [ "GeneratePropertySet", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ab42270564152589e9dbbb90d6a5c0e01", null ],

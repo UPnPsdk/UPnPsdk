@@ -72,10 +72,6 @@ typedef void (*start_routine)(void* arg);
 
 /// \endcond
 
-class CPthread_scoped_mutex_lock {
-    //
-};
-
 } // namespace UPnPsdk
 
 #endif /* UPnPsdk_PTHREAD_HPP */

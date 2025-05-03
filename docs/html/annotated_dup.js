@@ -53,6 +53,7 @@ var annotated_dup =
     [ "_IXML_Text", "da/d8a/group__XMLAPI.html#da/d75/struct__IXML__Text", null ],
     [ "_Parser", "d0/d19/ixmlparser_8hpp.html#d2/db3/struct__Parser", "d0/d19/ixmlparser_8hpp_d2/db3/struct__Parser" ],
     [ "char_info", "da/dff/ixmlparser_8cpp.html#db/de1/structchar__info", null ],
+    [ "CPthread_scoped_mutex_lock", "d4/d88/pthread_8hpp.html#d1/dde/classCPthread__scoped__mutex__lock", null ],
     [ "ErrorString", "d6/d13/Compa_2src_2api_2upnptools_8cpp.html#dc/dff/structErrorString", "d6/d13/Compa_2src_2api_2upnptools_8cpp_dc/dff/structErrorString" ],
     [ "FreeList", "d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList", null ],
     [ "FreeListNode", "d8/d1c/FreeList_8hpp.html#d4/d35/structFreeListNode", null ],
