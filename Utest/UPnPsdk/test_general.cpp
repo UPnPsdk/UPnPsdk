@@ -1,9 +1,8 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-05
+// Redistribution only with this Copyright remark. Last modified: 2025-05-04
 
 #include <UPnPsdk/synclog.hpp>
 #include <utest/utest.hpp>
-
 
 namespace utest {
 
@@ -46,12 +45,14 @@ TEST(GeneralToolsTestSuite, debug_messages_successful) {
     // All UPnPsdk_LOG* messages are output to stderr.
     //
     // UPnPsdk_LOGEXCEPT is a std::string with no dependency to the g_dbug
-    // flag. It is intended to be used as 'throw' message. It may be catched
-    // and output there depending on the g_dbug flag.
+    // flag. It is intended to be used as 'throw' message and does not direct
+    // output to std::err. It may be catched and output there depending on the
+    // g_dbug flag.
     g_dbug = false;
     EXPECT_EQ(UPnPsdk_LOGEXCEPT("MSG1022") "this is an exception message.\n",
-              "UPnPsdk MSG1022 EXCEPT[" + std::string(__func__) +
-                  "] this is an exception message.\n");
+              "UPnPsdk MSG1022 EXCEPT[#" + std::to_string(PTHREAD_SELF) + " " +
+                  std::string(__func__) +
+                  "()] this is an exception message.\n");
 
     // UPnPsdk_LOGCRIT is an output stream with no dependency to g_dbug flag.
     g_dbug = false;
@@ -59,7 +60,7 @@ TEST(GeneralToolsTestSuite, debug_messages_successful) {
     UPnPsdk_LOGCRIT("MSG1023") "this is a critical message.\n";
     EXPECT_THAT(
         captureErrObj.str(),
-        MatchesStdRegex("UPnPsdk MSG1023 CRIT  \\[0x[[:xdigit:]]{9,12} " +
+        MatchesStdRegex("UPnPsdk MSG1023 CRIT  \\[\\#[[:digit:]]{10,15} " +
                         std::string(__func__) +
                         "\\(\\)\\] this is a critical message\\.\n"));
 
@@ -69,7 +70,7 @@ TEST(GeneralToolsTestSuite, debug_messages_successful) {
     UPnPsdk_LOGERR("MSG1024") "this is an error message.\n";
     EXPECT_THAT(
         captureErrObj.str(),
-        MatchesStdRegex("UPnPsdk MSG1024 ERROR \\[0x[[:xdigit:]]{9,12} " +
+        MatchesStdRegex("UPnPsdk MSG1024 ERROR \\[\\#[[:digit:]]{10,15} " +
                         std::string(__func__) +
                         "\\(\\)\\] this is an error message\\.\n"));
     g_dbug = false;
@@ -83,7 +84,7 @@ TEST(GeneralToolsTestSuite, debug_messages_successful) {
     UPnPsdk_LOGCATCH("MSG1026") "this is a catched message.\n";
     EXPECT_THAT(
         captureErrObj.str(),
-        MatchesStdRegex("UPnPsdk MSG1026 CATCH \\[0x[[:xdigit:]]{9,12} " +
+        MatchesStdRegex("UPnPsdk MSG1026 CATCH \\[\\#[[:digit:]]{10,15} " +
                         std::string(__func__) +
                         "\\(\\)\\] this is a catched message\\.\n"));
     g_dbug = false;
@@ -97,7 +98,7 @@ TEST(GeneralToolsTestSuite, debug_messages_successful) {
     UPnPsdk_LOGINFO("MSG1028") "this is an info message.\n";
     EXPECT_THAT(
         captureErrObj.str(),
-        MatchesStdRegex("UPnPsdk MSG1028 INFO  \\[0x[[:xdigit:]]{9,12} " +
+        MatchesStdRegex("UPnPsdk MSG1028 INFO  \\[\\#[[:digit:]]{10,15} " +
                         std::string(__func__) +
                         "\\(\\)\\] this is an info message\\.\n"));
 

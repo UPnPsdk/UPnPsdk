@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-05-04
 /*!
  * \file
  * \brief Global used flags, classes and emulated system functions.
@@ -15,6 +15,7 @@
 #include <UPnPsdk/port_sock.hpp>
 /// \cond
 #include <iostream>
+#include <string>
 
 // strndup() is a GNU extension.
 #ifndef HAVE_STRNDUP
@@ -32,12 +33,8 @@ char* strndup(const char* __string, size_t __n) {
 #endif
 /// \endcond
 
+
 namespace UPnPsdk {
-
-// SUPPRESS_MSVC_WARN_4273_NEXT_LINE // don't do that
-UPnPsdk_API bool g_dbug{false};
-
-
 namespace {
 
 /*!
@@ -123,5 +120,9 @@ const CWSAStartup init_winsock;
 #endif // _MSC_VER
 
 } // anonymous namespace
+
+
+// SUPPRESS_MSVC_WARN_4273_NEXT_LINE // don't do that
+UPnPsdk_API bool g_dbug{false};
 
 } // namespace UPnPsdk

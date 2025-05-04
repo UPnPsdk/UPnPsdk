@@ -104,10 +104,10 @@ typedef struct NOTIFY_THREAD_STRUCT {
 } notify_thread_struct;
 
 /*! \brief Initialize the client subsribe mutex */
-int GlobalClientSubscribeMutexInit();
+int clientSubscribeMutexInit();
 
 /*! \brief Destroy the client subsribe mutex */
-int GlobalClientSubscribeMutexDestroy();
+int clientSubscribeMutexDestroy();
 
 /*!
  * \brief This is the callback function called by the miniserver to handle

@@ -1,23 +1,23 @@
 #ifndef UPnPsdk_PTHREAD_HPP
 #define UPnPsdk_PTHREAD_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-01
+// Redistribution only with this Copyright remark. Last modified: 2025-05-05
 
 /*!
  * \file
- * \brief Additional functions to manage Posix threads with C++ and for
- * Microsoft Windows.
- *
- * For internal use Only.
+ * \brief Additional functions to manage Posix threads with C++ to be portable
  */
 
-#include "pthread.h" // To find pthreads4w don't use <pthread.h>
-
+#include <UPnPsdk/visibility.hpp>
 /// \cond
+#include "pthread.h" // To find pthreads4w don't use <pthread.h>
+#include <cstdint>
+/// \endcond
 
 namespace UPnPsdk {
 namespace {
 
+/// \cond
 /****************************************************************************
  * Function: initialize_thread
  *
@@ -71,6 +71,22 @@ inline int cleanup_thread() {
 typedef void (*start_routine)(void* arg);
 
 /// \endcond
+
+
+#if defined(_MSC_VER) || defined(__APPLE__) || defined(DOXYGEN_RUN)
+/*!
+ * \brief Get pthread thread id as unsigned integer
+ *
+ * Actually ::pthread_self() returns pthread_t and not an integer thread id you
+ * can work with. The following helper function will get you that in a portable
+ * way across different POSIX systems.
+ * <!--REF:--><a href="https://stackoverflow.com/a/18709692/5014688">How do I
+ * get a thread ID from an arbitrary pthread_t?</a>
+ * \note This function is only available for macOS and Microsoft Windows.
+ * Unix/Linux with GCC compiler can do this authomatically.
+ */
+UPnPsdk_API uint64_t pthread_self();
+#endif
 
 } // namespace UPnPsdk
 

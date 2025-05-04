@@ -6,7 +6,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -55,9 +55,6 @@ const char* TvServiceType[] = {"urn:schemas-upnp-org:service:tvcontrol:1",
 #else  /* SAMPLE_UTIL_C */
 extern const char* TvServiceType[];
 #endif /* SAMPLE_UTIL_C */
-
-/* mutex to control displaying of events */
-extern pthread_mutex_t display_mutex;
 
 /// \brief Event types
 typedef enum {

@@ -5,15 +5,13 @@
  * \brief A general TODO-list
  *
  * \todo
- * - Rework mutex gSDKInitMutex.
- * - Rework mutex GlobalClientSubscribeMutex.
- * - Inspect mutex gWebMutex, display_mutex, DeviceListMutex, TVDevMutex, GlobalDebugMutex, gUUIDMutex.
+ * - Rework mutex display_mutex.
+ * - Inspect mutex gWebMutex, DeviceListMutex, TVDevMutex, GlobalDebugMutex, gUUIDMutex.
  * - Implement scoped pthread_mutex_lock().
+ * - Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
  * - Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.
- * - Optimize log messages with ostream overload: https://stackoverflow.com/a/34122443/5014688
  * - Enable OpenSSL, improve its tests (test_sock.cpp, sock read_ssl, sock write_ssl).
- * - Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.
  * - Rework 'get_ssdp_sockets()' and Utest/compa/1-discovery/test_ssdp.cpp.
  * - Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.
  * - Create no mocked tests for CSigpipe@sock.cpp, read and write data using UPnP-Device.

@@ -1,6 +1,5 @@
 var NAVTREEINDEX9 =
 {
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#a6e0b9e33fdd62f45a1374e399e0bc082":[4,3,0,0,3,12],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a7fb20663e898118cf58c34e3ad4bbf09":[4,3,0,0,3,15],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a8457ec8e8e7da28afc70095f2f61a795":[4,3,0,0,3,10],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a8b52904288181002af2f93d13fa43c09":[4,3,0,0,3,1],
@@ -116,10 +115,10 @@ var NAVTREEINDEX9 =
 "dd/d3a/classUPnPsdk_1_1CSocketErr.html":[4,3,0,1,2],
 "dd/d3a/classUPnPsdk_1_1CSocketErr.html#a8044843ffe9f0ff65b70b116e248b32a":[4,2,0,2,0],
 "dd/d3a/classUPnPsdk_1_1CSocketErr.html#a8044843ffe9f0ff65b70b116e248b32a":[4,3,0,1,2,0],
-"dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603":[4,2,0,2,1],
 "dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603":[4,3,0,1,2,1],
-"dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6":[4,2,0,2,2],
+"dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603":[4,2,0,2,1],
 "dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6":[4,3,0,1,2,2],
+"dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6":[4,2,0,2,2],
 "dd/d48/group__compaAPI-Discovery.html":[4,0,1],
 "dd/d48/group__compaAPI-Discovery.html#ga4785db3633eaac25030029d7459f9aac":[4,0,1,1],
 "dd/d48/group__compaAPI-Discovery.html#ga8a965858ae4c724d7699a3ced0f3df5d":[4,0,1,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX9 =
 "dd/da6/UpnpFileInfo_8cpp_source.html":[7,0,0,1,0,8],
 "dd/db9/win32_2UPnPsdk_2netadapter__platform_8hpp.html":[7,0,2,0,2,0,0],
 "dd/db9/win32_2UPnPsdk_2netadapter__platform_8hpp_source.html":[7,0,2,0,2,0,0],
-"dd/dbe/UPnPsdk_2src_2api_2upnptools_8cpp.html":[7,0,2,1,0,0]
+"dd/dbe/UPnPsdk_2src_2api_2upnptools_8cpp.html":[7,0,2,1,0,0],
+"dd/dbe/UPnPsdk_2src_2api_2upnptools_8cpp.html#a36a0f8484da5819dfa724a1f50b6b588":[7,0,2,1,0,0,1]
 };

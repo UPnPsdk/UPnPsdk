@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-03-04
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -80,6 +80,7 @@ int SampleUtil_Initialize(print_string print_function) {
 
         pthread_mutexattr_init(&attr);
         pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+        /// \todo pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
         pthread_mutex_init(&display_mutex, &attr);
         pthread_mutexattr_destroy(&attr);
         /* To shut up valgrind mutex warning. */
@@ -103,7 +104,9 @@ int SampleUtil_RegisterUpdateFunction(state_update update_function) {
 }
 
 int SampleUtil_Finish() {
-    pthread_mutex_destroy(&display_mutex);
+    if (pthread_mutex_destroy(&display_mutex) != 0)
+        throw std::runtime_error(UPnPsdk_LOGEXCEPT(
+            "MSG1144") "pthread mutex destroy fails with EBUSY!");
     gPrintFun = NULL;
     gStateUpdateFun = NULL;
     initialize_init = 1;
@@ -333,7 +336,11 @@ void SampleUtil_PrintEventType(Upnp_EventType S) {
 }
 
 int SampleUtil_PrintEvent(Upnp_EventType EventType, const void* Event) {
-    pthread_mutex_lock(&display_mutex);
+    int ret = pthread_mutex_lock(&display_mutex);
+    if (ret != 0)
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1145") "pthread mutex lock fails with " +
+            (ret == EINVAL ? "EINVAL" : "EDEADLK"));
 
     SampleUtil_Print("====================================================="
                      "=================\n"
@@ -563,7 +570,11 @@ int SampleUtil_PrintEvent(Upnp_EventType EventType, const void* Event) {
                      "=================\n"
                      "\n\n\n");
 
-    pthread_mutex_unlock(&display_mutex);
+    ret = pthread_mutex_unlock(&display_mutex);
+    if (ret != 0)
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1146") "pthread mutex unlock fails with " +
+            (ret == EINVAL ? "EINVAL" : "EPERM"));
 
     return 0;
 }
@@ -659,7 +670,11 @@ int SampleUtil_Print(const char* fmt, ...) {
     int rc;
 
     /* Protect both the display and the static buffer with the mutex */
-    pthread_mutex_lock(&display_mutex);
+    int ret = pthread_mutex_lock(&display_mutex);
+    if (ret != 0)
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1147") "pthread mutex lock fails with " +
+            (ret == EINVAL ? "EINVAL" : "EDEADLK"));
 
     va_start(ap, fmt);
     rc = vsnprintf(buf, MAX_BUF, fmt, ap);
@@ -667,7 +682,11 @@ int SampleUtil_Print(const char* fmt, ...) {
     if (gPrintFun)
         gPrintFun("%s", buf);
 
-    pthread_mutex_unlock(&display_mutex);
+    ret = pthread_mutex_unlock(&display_mutex);
+    if (ret != 0)
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1148") "pthread mutex unlock fails with " +
+            (ret == EINVAL ? "EINVAL" : "EPERM"));
 
     return rc;
 }

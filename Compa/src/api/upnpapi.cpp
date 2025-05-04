@@ -86,7 +86,7 @@ namespace compa {
 namespace {
 
 /*! \brief Initialization mutex. */
-pthread_mutex_t gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 /*! \brief UPnP Device and Control Point handle table  */
 Handle_Info* HandleTable[NUM_HANDLE];
@@ -441,7 +441,7 @@ static int UpnpInitMutexes() {
     }
     /* initialize subscribe mutex. */
 #ifdef COMPA_HAVE_CTRLPT_GENA
-    if (GlobalClientSubscribeMutexInit() != 0) {
+    if (clientSubscribeMutexInit() != 0) {
         return UPNP_E_INIT_FAILED;
     }
 #endif
@@ -606,7 +606,7 @@ int UpnpInit2(const char* IfName, unsigned short DestPort) {
     int retVal;
 
     // The mutex must be initialized.
-    if (pthread_mutex_lock(&compa::gSDKInitMutex) != 0) {
+    if (pthread_mutex_lock(&compa::gSDKInit_mutex) != 0) {
         retVal = UPNP_E_INIT_FAILED;
         goto exit_function;
     }
@@ -643,7 +643,7 @@ exit_function:
     if (retVal != UPNP_E_SUCCESS && retVal != UPNP_E_INIT) {
         UpnpFinish();
     }
-    pthread_mutex_unlock(&compa::gSDKInitMutex);
+    pthread_mutex_unlock(&compa::gSDKInit_mutex);
     return retVal;
 }
 
@@ -748,7 +748,7 @@ int UpnpFinish() {
     PrintThreadPoolStats(&gRecvThreadPool, __FILE__, __LINE__,
                          "Recv Thread Pool");
 #ifdef COMPA_HAVE_CTRLPT_GENA
-    GlobalClientSubscribeMutexDestroy();
+    clientSubscribeMutexDestroy();
 #endif
     pthread_rwlock_destroy(&GlobalHndRWLock);
     pthread_mutex_destroy(&gUUIDMutex);

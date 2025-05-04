@@ -102,7 +102,7 @@ var upnpapi_8cpp =
     [ "UpnpVirtualDir_set_CloseCallback", "d4/d99/upnpapi_8cpp.html#afefae16400fe3aead7a8e9abdf183b30", null ],
     [ "UpnpSetContentLength", "d4/d99/upnpapi_8cpp.html#a9ad7dd3b0efbad2ef220bee812f94fc5", null ],
     [ "UpnpSetMaxContentLength", "d4/d99/upnpapi_8cpp.html#a4e21370e5d8ac4f8892ef1d3bc17cc7f", null ],
-    [ "gSDKInitMutex", "d4/d99/upnpapi_8cpp.html#a131d675f81396ef1c35cf5dd081e6c0b", null ],
+    [ "gSDKInit_mutex", "d4/d99/upnpapi_8cpp.html#a9aacc603a38a684f04e320446df684b8", null ],
     [ "HandleTable", "d4/d99/upnpapi_8cpp.html#af6ee754c2a71929e788bf343bdddfd34", null ],
     [ "virtualDirCallback", "d4/d99/upnpapi_8cpp.html#a24983ed57bf9c82a82e0dc3daeaca538", null ],
     [ "pVirtualDirList", "d4/d99/upnpapi_8cpp.html#a85ec286c63778e7aa2c8013917312713", null ],
