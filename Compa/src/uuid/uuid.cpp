@@ -1,7 +1,7 @@
 /**************************************************************************
  *
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-05
  * Copyright (c) 1990- 1993, 1996 Open Software Foundation, Inc.
  * Copyright (c) 1989 by Hewlett-Packard Company, Palo Alto, Ca. &
  * Digital Equipment Corporation, Maynard, Mass.
@@ -31,6 +31,7 @@
 
 #include <uuid.hpp>
 #include <UPnPsdk/port_sock.hpp>
+#include <UPnPsdk/synclog.hpp>
 
 /// \cond
 #include <stdio.h>
@@ -40,6 +41,9 @@
 /// \endcond
 
 namespace {
+
+/*! \brief Mutex to synchronize the uuid creation process. */
+pthread_mutex_t uuid_mutex;
 
 /*! \brief Data type for UUID generator persistent state. */
 struct uuid_state {
@@ -191,6 +195,19 @@ inline void format_uuid_v3(uuid_upnp* uid, unsigned char hash[16]) {
 } // anonymous namespace
 
 
+void uuidMutexInit() {
+    pthread_mutex_init(&uuid_mutex, NULL); // always returns 0.
+}
+
+int uuidMutexDestroy() {
+    int ret = pthread_mutex_destroy(&uuid_mutex);
+    // Returns only EBUSY
+    if (ret != 0)
+        UPnPsdk_LOGCRIT(
+            "MSG1149") "POSIX thread destroy uuid_mutex fails with EBUSY.";
+    return ret;
+}
+
 int uuid_create(uuid_upnp* uid) {
     uuid_time_t timestamp;
     uuid_time_t last_time;
@@ -200,7 +217,7 @@ int uuid_create(uuid_upnp* uid) {
     int f;
 
     /* acquire system wide lock so we're alone. */
-    UUIDLock();
+    pthread_mutex_lock(&uuid_mutex);
     /* get current time. */
     get_current_time(&timestamp);
     /* get node ID. */
@@ -217,7 +234,7 @@ int uuid_create(uuid_upnp* uid) {
     format_uuid_v1(uid, clockseq, timestamp, node);
     /* save the state for next time. */
     write_state(clockseq, timestamp, node);
-    UUIDUnlock();
+    pthread_mutex_unlock(&uuid_mutex);
 
     return 1;
 }

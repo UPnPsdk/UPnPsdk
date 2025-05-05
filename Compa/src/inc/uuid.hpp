@@ -6,7 +6,7 @@
  * Digital Equipment Corporation, Maynard, Mass.
  * Copyright (c) 1998 Microsoft.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-08
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-04
  *
  * To anyone who acknowledges that this file is provided "AS IS"
  * without any express or implied warranty: permission to use, copy,
@@ -28,6 +28,15 @@
  */
 
 #include <sysdep.hpp>
+
+/// \brief Initialize mutex for synchronizing the uuid creation process
+void uuidMutexInit();
+
+/*! \brief Destroy mutex for synchronizing the uuid creation process
+ * \returns
+ *  - On success: \b 0
+ *  - On error: EBUSY */
+int uuidMutexDestroy();
 
 /*! \brief uuid UPNP */
 struct uuid_upnp {

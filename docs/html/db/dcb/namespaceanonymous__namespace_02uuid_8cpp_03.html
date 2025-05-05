@@ -134,6 +134,9 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:afb221b66175502515a4f86b7864b31e3" id="r_afb221b66175502515a4f86b7864b31e3"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html#afb221b66175502515a4f86b7864b31e3">gUUIDMutex</a></td></tr>
+<tr class="memdesc:afb221b66175502515a4f86b7864b31e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to synchronize the uuid creation process.  <br /></td></tr>
+<tr class="separator:afb221b66175502515a4f86b7864b31e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a008ffee4d66630b53d64a3c1b2a5c8bd" id="r_a008ffee4d66630b53d64a3c1b2a5c8bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html#dc/dae/structanonymous__namespace_02uuid_8cpp_03_1_1uuid__state">uuid_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html#a008ffee4d66630b53d64a3c1b2a5c8bd">st</a></td></tr>
 <tr class="memdesc:a008ffee4d66630b53d64a3c1b2a5c8bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">UUID generator persistent state.  <br /></td></tr>
 <tr class="separator:a008ffee4d66630b53d64a3c1b2a5c8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,7 +158,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <div class="textblock"><p>Data type for UUID generator persistent state. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00049">49</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
 </div><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for anonymous_namespace{uuid.cpp}::uuid_state:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -244,7 +247,7 @@ cs</td>
 
 <p>Make a UUID from the timestamp, clockseq, and node ID. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00062">62</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00066">66</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -313,7 +316,7 @@ cs</td>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00083">83</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00087">87</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -377,7 +380,7 @@ cs</td>
 
 <p>Save UUID generator state back to non-volatile storage. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00097">97</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -426,7 +429,7 @@ cs</td>
 <p>Get time as 60 bit 100ns ticks since whenever. </p>
 <p>Compensate for the fact that real clock resolution is less than 100ns. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00120">120</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00124">124</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -485,7 +488,7 @@ cs</td>
 
 <p>generate a crypto-quality random number. This sample doesn't do that. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00154">154</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00158">158</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -555,7 +558,7 @@ cs</td>
 
 <p>Make a UUID from a (pseudo)random 128 bit number. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00171">171</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00175">175</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -572,6 +575,24 @@ cs</td>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="afb221b66175502515a4f86b7864b31e3" name="afb221b66175502515a4f86b7864b31e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb221b66175502515a4f86b7864b31e3">&#9670;&#160;</a></span>gUUIDMutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pthread_mutex_t anonymous_namespace{uuid.cpp}::gUUIDMutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mutex to synchronize the uuid creation process. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00046">46</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a008ffee4d66630b53d64a3c1b2a5c8bd" name="a008ffee4d66630b53d64a3c1b2a5c8bd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a008ffee4d66630b53d64a3c1b2a5c8bd">&#9670;&#160;</a></span>st</h2>
 
@@ -586,7 +607,7 @@ cs</td>
 
 <p>UUID generator persistent state. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00059">59</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
 
 </div>
 </div>
@@ -604,7 +625,7 @@ cs</td>
 
 <p>Flag if UUID generator persistent state is initiated. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00057">57</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00061">61</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
 
 </div>
 </div>

@@ -12,10 +12,13 @@ var uuid_8cpp =
     [ "get_current_time", "db/d37/uuid_8cpp.html#a054dd924d2ae30040171e4df3132150c", null ],
     [ "true_random", "db/d37/uuid_8cpp.html#a495200f98fe9ffd4178f7128d44ebf8b", null ],
     [ "format_uuid_v3", "db/d37/uuid_8cpp.html#a6ba6948caa9c3748c960cb43d9f4c81c", null ],
+    [ "uuidMutexInit", "db/d37/uuid_8cpp.html#a2119628ab39e7fa1960770647eaf6bae", null ],
+    [ "uuidMutexDestroy", "db/d37/uuid_8cpp.html#aa7c1b3f41483e01ae1d1a5627d0d9d45", null ],
     [ "uuid_create", "db/d37/uuid_8cpp.html#acc106615ebd609fdd904738800e442a3", null ],
     [ "upnp_uuid_unpack", "db/d37/uuid_8cpp.html#a810c4032637bfecbb4ea1a039dbf6ef0", null ],
     [ "uuid_create_from_name", "db/d37/uuid_8cpp.html#a066dfd080b903c06fbab3b4ff1606e6a", null ],
     [ "uuid_compare", "db/d37/uuid_8cpp.html#a4d78eb9a0740c64bed75b8cc9f696b41", null ],
+    [ "gUUIDMutex", "db/d37/uuid_8cpp.html#afb221b66175502515a4f86b7864b31e3", null ],
     [ "st", "db/d37/uuid_8cpp.html#a008ffee4d66630b53d64a3c1b2a5c8bd", null ],
     [ "stateInited", "db/d37/uuid_8cpp.html#ae7f3a38172e4a03b75695b6a7ba22e52", null ]
 ];

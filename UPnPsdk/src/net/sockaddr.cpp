@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-04
+// Redistribution only with this Copyright remark. Last modified: 2025-05-05
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -9,7 +9,6 @@
 #include <UPnPsdk/synclog.hpp>
 #include <umock/netdb.hpp>
 /// \cond
-#include "pthread.h" // To find pthreads4w don't use <pthread.h>
 #include <algorithm>
 #include <regex>
 /// \endcond

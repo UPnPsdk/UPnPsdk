@@ -15,9 +15,9 @@
 /// \endcond
 
 namespace UPnPsdk {
+/// \cond
 namespace {
 
-/// \cond
 /****************************************************************************
  * Function: initialize_thread
  *
@@ -77,11 +77,12 @@ typedef void (*start_routine)(void* arg);
 /*!
  * \brief Get pthread thread id as unsigned integer
  *
- * Actually ::pthread_self() returns pthread_t and not an integer thread id you
+ * Actually ::%pthread_self() returns pthread_t and not an integer thread id you
  * can work with. The following helper function will get you that in a portable
- * way across different POSIX systems.
- * <!--REF:--><a href="https://stackoverflow.com/a/18709692/5014688">How do I
- * get a thread ID from an arbitrary pthread_t?</a>
+ * way across different POSIX systems.\n
+ * Reference: <!--REF:--><a
+ * href="https://stackoverflow.com/a/18709692/5014688">How do I get a thread ID
+ * from an arbitrary pthread_t?</a>
  * \note This function is only available for macOS and Microsoft Windows.
  * Unix/Linux with GCC compiler can do this authomatically.
  */

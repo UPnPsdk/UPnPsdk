@@ -9,7 +9,6 @@
 #if defined(_MSC_VER) || defined(__APPLE__) || defined(DOXYGEN_RUN)
 #include <UPnPsdk/pthread.hpp>
 /// \cond
-#include "pthread.h" // To find pthreads4w don't use <pthread.h>
 #include <algorithm> // for std::min()
 /// \endcond
 

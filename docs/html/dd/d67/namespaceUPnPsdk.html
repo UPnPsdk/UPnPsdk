@@ -207,6 +207,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gadd67f7b346d4017d3cb45e45e0be77fb" id="r_gadd67f7b346d4017d3cb45e45e0be77fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">bitmask_to_netmask</a> (const ::sockaddr_storage *a_saddr, const unsigned int a_prefixlength, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddrObj)</td></tr>
 <tr class="memdesc:gadd67f7b346d4017d3cb45e45e0be77fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network address mask from address prefix bit number.  <br /></td></tr>
 <tr class="separator:gadd67f7b346d4017d3cb45e45e0be77fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a68659cc5b319d1eeda06f219c64c59" id="r_a2a68659cc5b319d1eeda06f219c64c59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a2a68659cc5b319d1eeda06f219c64c59">pthread_self</a> ()</td></tr>
+<tr class="memdesc:a2a68659cc5b319d1eeda06f219c64c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pthread thread id as unsigned integer.  <br /></td></tr>
+<tr class="separator:a2a68659cc5b319d1eeda06f219c64c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5ba9b68e7f75b3239270fc5956931e30" id="r_ga5ba9b68e7f75b3239270fc5956931e30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30">split_addr_port</a> (const std::string &amp;a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</td></tr>
 <tr class="memdesc:ga5ba9b68e7f75b3239270fc5956931e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to split inet address and port(service)  <br /></td></tr>
 <tr class="separator:ga5ba9b68e7f75b3239270fc5956931e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -374,6 +377,51 @@ Same value in integer form. </td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a2a68659cc5b319d1eeda06f219c64c59" name="a2a68659cc5b319d1eeda06f219c64c59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a68659cc5b319d1eeda06f219c64c59">&#9670;&#160;</a></span>pthread_self()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t UPnPsdk::pthread_self </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get pthread thread id as unsigned integer. </p>
+<p>Actually ::pthread_self() returns pthread_t and not an integer thread id you can work with. The following helper function will get you that in a portable way across different POSIX systems.<br  />
+Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a thread ID from an arbitrary pthread_t?</a> </p><dl class="section note"><dt>Note</dt><dd>This function is only available for macOS and Microsoft Windows. Unix/Linux with GCC compiler can do this authomatically. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/db3/pthread_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../d1/db3/pthread_8cpp_source.html">pthread.cpp</a>.</p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_cgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_cgraph" alt=""/></div>
+<map name="add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_cgraph" id="add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_cgraph">
+<area shape="rect" title="Get pthread thread id as unsigned integer." alt="" coords="5,29,173,55"/>
+<area shape="poly" title=" " alt="" coords="61,31,55,21,58,11,70,5,89,3,112,6,122,15,119,19,110,11,89,8,72,10,63,15,61,20,66,28"/>
+</map>
+</div>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_icgraph" alt=""/></div>
+<map name="add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_icgraph" id="add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_icgraph">
+<area shape="rect" title="Get pthread thread id as unsigned integer." alt="" coords="5,29,173,55"/>
+<area shape="poly" title=" " alt="" coords="119,19,110,11,89,8,72,10,63,15,61,20,66,28,61,31,55,21,58,11,70,5,89,3,112,6,122,15"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a36a0f8484da5819dfa724a1f50b6b588" name="a36a0f8484da5819dfa724a1f50b6b588"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a36a0f8484da5819dfa724a1f50b6b588">&#9670;&#160;</a></span>errStr()</h2>
 
@@ -488,11 +536,11 @@ Same value in integer form. </td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dd/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph" alt=""/></div>
 <map name="add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph" id="add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph">
 <area shape="rect" title="Based on the extension, returns the content type and content subtype." alt="" coords="469,20,652,45"/>

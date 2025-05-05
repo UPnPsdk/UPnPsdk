@@ -117,7 +117,7 @@ $(document).ready(function(){initNavTree('d7/db4/uuid_8hpp.html','../../'); init
 <area shape="rect" title="Manage UUIDs." alt="" coords="71,5,245,31"/>
 <area shape="rect" href="../../d5/de9/sysdep_8hpp.html" title="Get some system dependent information." alt="" coords="110,79,206,104"/>
 <area shape="poly" title=" " alt="" coords="161,31,161,65,155,65,155,31"/>
-<area shape="rect" href="../../d4/d88/pthread_8hpp.html" title="Additional functions to manage Posix threads with C++ and for Microsoft Windows." alt="" coords="5,152,167,177"/>
+<area shape="rect" href="../../d4/d88/pthread_8hpp.html" title="Additional functions to manage Posix threads with C++ to be portable." alt="" coords="5,152,167,177"/>
 <area shape="poly" title=" " alt="" coords="148,106,109,144,106,140,144,102"/>
 <area shape="rect" href="../../d4/d0f/md5_8hpp.html" title="This code implements the MD5 message&#45;digest algorithm." alt="" coords="191,152,269,177"/>
 <area shape="poly" title=" " alt="" coords="172,102,210,140,207,144,168,106"/>
@@ -152,6 +152,12 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a2119628ab39e7fa1960770647eaf6bae" id="r_a2119628ab39e7fa1960770647eaf6bae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db4/uuid_8hpp.html#a2119628ab39e7fa1960770647eaf6bae">uuidMutexInit</a> ()</td></tr>
+<tr class="memdesc:a2119628ab39e7fa1960770647eaf6bae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize mutex for synchronizing the uuid creation process.  <br /></td></tr>
+<tr class="separator:a2119628ab39e7fa1960770647eaf6bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7c1b3f41483e01ae1d1a5627d0d9d45" id="r_aa7c1b3f41483e01ae1d1a5627d0d9d45"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db4/uuid_8hpp.html#aa7c1b3f41483e01ae1d1a5627d0d9d45">uuidMutexDestroy</a> ()</td></tr>
+<tr class="memdesc:aa7c1b3f41483e01ae1d1a5627d0d9d45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy mutex for synchronizing the uuid creation process.  <br /></td></tr>
+<tr class="separator:aa7c1b3f41483e01ae1d1a5627d0d9d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc106615ebd609fdd904738800e442a3" id="r_acc106615ebd609fdd904738800e442a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/db4/uuid_8hpp.html#acc106615ebd609fdd904738800e442a3">uuid_create</a> (<a class="el" href="../../d7/db4/uuid_8hpp.html#d3/d27/structuuid__upnp">uuid_upnp</a> *uid)</td></tr>
 <tr class="memdesc:acc106615ebd609fdd904738800e442a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a UUID.  <br /></td></tr>
 <tr class="separator:acc106615ebd609fdd904738800e442a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -183,7 +189,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <div class="textblock"><p>uuid UPNP </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/db4/uuid_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d7/db4/uuid_8hpp_source.html">uuid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/db4/uuid_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../d7/db4/uuid_8hpp_source.html">uuid.hpp</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">
@@ -227,6 +233,90 @@ Member variable. </td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a2119628ab39e7fa1960770647eaf6bae" name="a2119628ab39e7fa1960770647eaf6bae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2119628ab39e7fa1960770647eaf6bae">&#9670;&#160;</a></span>uuidMutexInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void uuidMutexInit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize mutex for synchronizing the uuid creation process. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00198">198</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d7/db4/uuid_8hpp_a2119628ab39e7fa1960770647eaf6bae_icgraph.png" border="0" usemap="#ad7/db4/uuid_8hpp_a2119628ab39e7fa1960770647eaf6bae_icgraph" alt=""/></div>
+<map name="ad7/db4/uuid_8hpp_a2119628ab39e7fa1960770647eaf6bae_icgraph" id="ad7/db4/uuid_8hpp_a2119628ab39e7fa1960770647eaf6bae_icgraph">
+<area shape="rect" title="Initialize mutex for synchronizing the uuid creation process." alt="" coords="372,5,484,31"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a7855376cc412564ea0b12b867e11e3a7" title="Initializes the global mutexes used by the UPnP SDK." alt="" coords="192,5,324,31"/>
+<area shape="poly" title=" " alt="" coords="358,21,324,21,324,15,358,15"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="5,5,144,31"/>
+<area shape="poly" title=" " alt="" coords="178,21,145,21,145,15,178,15"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa7c1b3f41483e01ae1d1a5627d0d9d45" name="aa7c1b3f41483e01ae1d1a5627d0d9d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7c1b3f41483e01ae1d1a5627d0d9d45">&#9670;&#160;</a></span>uuidMutexDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int uuidMutexDestroy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroy mutex for synchronizing the uuid creation process. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>On success: <b>0</b> </li>
+<li>On error: EBUSY </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00202">202</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d7/db4/uuid_8hpp_aa7c1b3f41483e01ae1d1a5627d0d9d45_icgraph.png" border="0" usemap="#ad7/db4/uuid_8hpp_aa7c1b3f41483e01ae1d1a5627d0d9d45_icgraph" alt=""/></div>
+<map name="ad7/db4/uuid_8hpp_aa7c1b3f41483e01ae1d1a5627d0d9d45_icgraph" id="ad7/db4/uuid_8hpp_aa7c1b3f41483e01ae1d1a5627d0d9d45_icgraph">
+<area shape="rect" title="Destroy mutex for synchronizing the uuid creation process." alt="" coords="692,31,835,56"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
+<area shape="poly" title=" " alt="" coords="679,46,644,46,644,41,679,41"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
+<area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
+<area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="139,80,296,106"/>
+<area shape="poly" title=" " alt="" coords="568,66,537,84,502,97,449,106,395,110,296,106,296,101,395,105,448,101,501,92,535,79,565,62"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="344,56,501,82"/>
+<area shape="poly" title=" " alt="" coords="536,55,502,60,501,55,535,50"/>
+<area shape="poly" title=" " alt="" coords="134,46,91,46,91,41,134,41"/>
+<area shape="poly" title=" " alt="" coords="159,79,90,59,92,53,161,74"/>
+<area shape="poly" title=" " alt="" coords="330,60,287,55,288,50,330,55"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="acc106615ebd609fdd904738800e442a3" name="acc106615ebd609fdd904738800e442a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc106615ebd609fdd904738800e442a3">&#9670;&#160;</a></span>uuid_create()</h2>
 
@@ -252,12 +342,12 @@ Member variable. </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00194">194</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00211">211</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d7/db4/uuid_8hpp_acc106615ebd609fdd904738800e442a3_cgraph.png" border="0" usemap="#ad7/db4/uuid_8hpp_acc106615ebd609fdd904738800e442a3_cgraph" alt=""/></div>
 <map name="ad7/db4/uuid_8hpp_acc106615ebd609fdd904738800e442a3_cgraph" id="ad7/db4/uuid_8hpp_acc106615ebd609fdd904738800e442a3_cgraph">
 <area shape="rect" title="Generate a UUID." alt="" coords="5,173,104,199"/>
@@ -280,11 +370,11 @@ Member variable. </td></tr>
 <area shape="poly" title=" " alt="" coords="330,259,424,232,426,237,331,264"/>
 </map>
 </div>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d7/db4/uuid_8hpp_acc106615ebd609fdd904738800e442a3_icgraph.png" border="0" usemap="#ad7/db4/uuid_8hpp_acc106615ebd609fdd904738800e442a3_icgraph" alt=""/></div>
 <map name="ad7/db4/uuid_8hpp_acc106615ebd609fdd904738800e442a3_icgraph" id="ad7/db4/uuid_8hpp_acc106615ebd609fdd904738800e442a3_icgraph">
 <area shape="rect" title="Generate a UUID." alt="" coords="663,70,761,95"/>
@@ -341,12 +431,12 @@ Member variable. </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00225">225</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00242">242</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d7/db4/uuid_8hpp_a810c4032637bfecbb4ea1a039dbf6ef0_icgraph.png" border="0" usemap="#ad7/db4/uuid_8hpp_a810c4032637bfecbb4ea1a039dbf6ef0_icgraph" alt=""/></div>
 <map name="ad7/db4/uuid_8hpp_a810c4032637bfecbb4ea1a039dbf6ef0_icgraph" id="ad7/db4/uuid_8hpp_a810c4032637bfecbb4ea1a039dbf6ef0_icgraph">
 <area shape="rect" title="Unpack a UUID." alt="" coords="663,70,805,95"/>
@@ -417,12 +507,12 @@ Member variable. </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00233">233</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00250">250</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d7/db4/uuid_8hpp_a066dfd080b903c06fbab3b4ff1606e6a_cgraph.png" border="0" usemap="#ad7/db4/uuid_8hpp_a066dfd080b903c06fbab3b4ff1606e6a_cgraph" alt=""/></div>
 <map name="ad7/db4/uuid_8hpp_a066dfd080b903c06fbab3b4ff1606e6a_cgraph" id="ad7/db4/uuid_8hpp_a066dfd080b903c06fbab3b4ff1606e6a_cgraph">
 <area shape="rect" title="Create a UUID using a &quot;name&quot; from a &quot;name space&quot;." alt="" coords="5,109,185,135"/>
@@ -482,7 +572,7 @@ Member variable. </td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00261">261</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/d37/uuid_8cpp_source.html#l00278">278</a> of file <a class="el" href="../../db/d37/uuid_8cpp_source.html">uuid.cpp</a>.</p>
 
 </div>
 </div>

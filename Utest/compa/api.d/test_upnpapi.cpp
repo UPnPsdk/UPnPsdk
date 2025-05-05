@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-03
+// Redistribution only with this Copyright remark. Last modified: 2025-05-05
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -34,10 +34,10 @@ using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::SSockaddr;
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
-auto& gSDKInit_mutex = gSDKInitMutex;
+auto& sdkInit_mutex = gSDKInitMutex;
 #else
-using ::compa::gSDKInit_mutex;
 using ::compa::HandleTable;
+using ::compa::sdkInit_mutex;
 #endif
 
 
@@ -227,7 +227,6 @@ class UpnpapiFTestSuite : public ::testing::Test {
         memset(&errno, 0xAA, sizeof(errno));
         memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
         // memset(&gWebMutex, 0xAA, sizeof(gWebMutex));
-        memset(&gUUIDMutex, 0xAA, sizeof(gUUIDMutex));
         memset(&gUpnpSdkNLSuuid, 0, sizeof(gUpnpSdkNLSuuid));
         memset(&HandleTable, 0xAA, sizeof(HandleTable));
         memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
@@ -235,7 +234,7 @@ class UpnpapiFTestSuite : public ::testing::Test {
         memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
         memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
         memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
-        memset(&gSDKInit_mutex, 0xAA, sizeof(gSDKInit_mutex));
+        memset(&sdkInit_mutex, 0xAA, sizeof(sdkInit_mutex));
     }
 };
 
@@ -272,9 +271,6 @@ TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
     // Check if global mutexe are initialized
     // ASSERT_EQ(pthread_mutex_trylock(&GlobalHndRWLock), 0); // must be rwlock
     // EXPECT_EQ(pthread_mutex_unlock(&GlobalHndRWLock), 0);  // must be rwlock
-
-    ASSERT_EQ(pthread_mutex_trylock(&gUUIDMutex), 0);
-    EXPECT_EQ(pthread_mutex_unlock(&gUUIDMutex), 0);
 
     // Check creation of a uuid
     EXPECT_THAT(gUpnpSdkNLSuuid,
@@ -1113,7 +1109,7 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     // The Unit needs a defined state, otherwise it will fail with segfault
     // because internal pupnp media_list_init() isn't executed;
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 #ifdef __APPLE__
     if (old_code)
@@ -1166,7 +1162,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv6_loopback_address) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2("::1", 61234);
@@ -1213,7 +1209,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv4_loopback_address) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2("127.0.0.1", 49234);
@@ -1254,7 +1250,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2("loopback", 0);
@@ -1315,7 +1311,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_lla_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(llaObj.sa.netaddr().c_str(), 0);
@@ -1365,7 +1361,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_brackets_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Create bare link local address.
     char lla[INET6_ADDRSTRLEN + 32];
@@ -1417,7 +1413,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_scope_id_fails) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Create bare link local address.
     char lla[INET6_ADDRSTRLEN + 32];
@@ -1463,7 +1459,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_gua_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(guaObj.sa.netaddr().c_str(), 0);
@@ -1518,7 +1514,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(std::to_string(naObj.index).c_str(), 0);
@@ -1591,7 +1587,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_adapter_name_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit"
     std::cerr << "DEBUG! Adapter name=\"" << naObj.name.c_str() << "\".\n";
@@ -1651,7 +1647,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(nullptr, 0);
@@ -1718,7 +1714,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_listen_on_all_local_addr) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2("", 0);
@@ -1742,7 +1738,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_call_two_times) {
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
     int ret1_UpnpInit2 = ::UpnpInit2("loopback", 0);

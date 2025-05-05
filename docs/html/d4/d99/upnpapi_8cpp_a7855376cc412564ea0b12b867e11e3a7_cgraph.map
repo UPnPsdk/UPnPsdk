@@ -1,5 +1,7 @@
 <map id="UpnpInitMutexes" name="UpnpInitMutexes">
-<area shape="rect" id="Node000001" title="Initializes the global mutexes used by the UPnP SDK." alt="" coords="5,5,137,31"/>
-<area shape="rect" id="Node000002" href="$d6/de3/gena__ctrlpt_8cpp.html#a4571a8d7a15b410d64faff2e58888132" title="Initialize the client subsribe mutex." alt="" coords="185,5,412,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,15,171,15,171,21,138,21"/>
+<area shape="rect" id="Node000001" title="Initializes the global mutexes used by the UPnP SDK." alt="" coords="5,31,137,56"/>
+<area shape="rect" id="Node000002" href="$d6/de3/gena__ctrlpt_8cpp.html#a0d33458dbafeb408a76b3b0361284012" title="Initialize the client subsribe mutex." alt="" coords="185,5,368,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,33,171,28,172,34,138,38"/>
+<area shape="rect" id="Node000003" href="$db/d37/uuid_8cpp.html#a2119628ab39e7fa1960770647eaf6bae" title="Initialize mutex for synchronizing the uuid creation process." alt="" coords="221,55,333,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="138,48,207,57,207,62,137,54"/>
 </map>

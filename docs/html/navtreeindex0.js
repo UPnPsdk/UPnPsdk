@@ -245,8 +245,8 @@ var NAVTREEINDEX0 =
 "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9":[4,3,0,0,7],
 "d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb":[4,3,0,0,5],
 "d0/dea/group__Description-ctrlpt.html":[4,1,2,0],
-"d0/df4/upnp__device_8cpp.html":[7,0,2,1,1,12],
-"d0/df4/upnp__device_8cpp_source.html":[7,0,2,1,1,12],
+"d0/df4/upnp__device_8cpp.html":[7,0,2,1,1,13],
+"d0/df4/upnp__device_8cpp_source.html":[7,0,2,1,1,13],
 "d1/d03/group__UpnpString.html":[4,5],
 "d1/d03/group__UpnpString.html#ab0ae2d6e9f981c064cfe0f2a51aea37d":[4,5,0,1],
 "d1/d03/group__UpnpString.html#acea9de7fd993715cd9b2c99854bed2f6":[4,5,0,0]

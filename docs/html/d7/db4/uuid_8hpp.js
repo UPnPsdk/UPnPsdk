@@ -8,6 +8,8 @@ var uuid_8hpp =
       [ "clock_seq_low", "d7/db4/uuid_8hpp.html#ac47615c17b59e89bf08c3256fdee125d", null ],
       [ "node", "d7/db4/uuid_8hpp.html#ab8ffe0cceb6221c46cb2f64e73796b3b", null ]
     ] ],
+    [ "uuidMutexInit", "d7/db4/uuid_8hpp.html#a2119628ab39e7fa1960770647eaf6bae", null ],
+    [ "uuidMutexDestroy", "d7/db4/uuid_8hpp.html#aa7c1b3f41483e01ae1d1a5627d0d9d45", null ],
     [ "uuid_create", "d7/db4/uuid_8hpp.html#acc106615ebd609fdd904738800e442a3", null ],
     [ "upnp_uuid_unpack", "d7/db4/uuid_8hpp.html#a810c4032637bfecbb4ea1a039dbf6ef0", null ],
     [ "uuid_create_from_name", "d7/db4/uuid_8hpp.html#a066dfd080b903c06fbab3b4ff1606e6a", null ],

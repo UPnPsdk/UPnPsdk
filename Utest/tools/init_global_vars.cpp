@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-05
+// Redistribution only with this Copyright remark. Last modified: 2025-05-05
 
 namespace UPnPsdk {
 
@@ -12,7 +12,6 @@ void init_global_vars() {
     GlobalHndRWLock = {}; // mutex, must be initialzed
     memset(&gTimerThread, 0xFF, sizeof(gTimerThread));
     gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
-    gUUIDMutex = {}; // mutex, must be initialzed
     // gSendThreadPool          // type ThreadPool must be initialized
     // gRecvThreadPool;         // type ThreadPool must be initialized
     // gMiniServerThreadPool;   // type ThreadPool must be initialized

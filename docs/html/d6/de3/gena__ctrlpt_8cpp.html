@@ -176,12 +176,12 @@ Functions</h2></td></tr>
 <tr class="memitem:aab6385b3da2410ba5921c203635b7e28" id="r_aab6385b3da2410ba5921c203635b7e28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28">anonymous_namespace{gena_ctrlpt.cpp}::gena_subscribe</a> (const <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *url, int *timeout, const <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *renewal_sid, <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *sid)</td></tr>
 <tr class="memdesc:aab6385b3da2410ba5921c203635b7e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes or renew subscription.  <br /></td></tr>
 <tr class="separator:aab6385b3da2410ba5921c203635b7e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4571a8d7a15b410d64faff2e58888132" id="r_a4571a8d7a15b410d64faff2e58888132"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/de3/gena__ctrlpt_8cpp.html#a4571a8d7a15b410d64faff2e58888132">GlobalClientSubscribeMutexInit</a> ()</td></tr>
-<tr class="memdesc:a4571a8d7a15b410d64faff2e58888132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the client subsribe mutex.  <br /></td></tr>
-<tr class="separator:a4571a8d7a15b410d64faff2e58888132"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81a3a9fb9c7be998af60d02fbee25812" id="r_a81a3a9fb9c7be998af60d02fbee25812"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/de3/gena__ctrlpt_8cpp.html#a81a3a9fb9c7be998af60d02fbee25812">GlobalClientSubscribeMutexDestroy</a> ()</td></tr>
-<tr class="memdesc:a81a3a9fb9c7be998af60d02fbee25812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the client subsribe mutex.  <br /></td></tr>
-<tr class="separator:a81a3a9fb9c7be998af60d02fbee25812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d33458dbafeb408a76b3b0361284012" id="r_a0d33458dbafeb408a76b3b0361284012"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/de3/gena__ctrlpt_8cpp.html#a0d33458dbafeb408a76b3b0361284012">clientSubscribeMutexInit</a> ()</td></tr>
+<tr class="memdesc:a0d33458dbafeb408a76b3b0361284012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the client subsribe mutex.  <br /></td></tr>
+<tr class="separator:a0d33458dbafeb408a76b3b0361284012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa889aacfe53632b1e7a978eecf86df08" id="r_aa889aacfe53632b1e7a978eecf86df08"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/de3/gena__ctrlpt_8cpp.html#aa889aacfe53632b1e7a978eecf86df08">clientSubscribeMutexDestroy</a> ()</td></tr>
+<tr class="memdesc:aa889aacfe53632b1e7a978eecf86df08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the client subsribe mutex.  <br /></td></tr>
+<tr class="separator:aa889aacfe53632b1e7a978eecf86df08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1061c296a8e1902dfa6e17e105d46121" id="r_a1061c296a8e1902dfa6e17e105d46121"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121">genaUnregisterClient</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> client_handle)</td></tr>
 <tr class="memdesc:a1061c296a8e1902dfa6e17e105d46121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubcribes all the outstanding subscriptions and cleans the subscription list.  <br /></td></tr>
 <tr class="separator:a1061c296a8e1902dfa6e17e105d46121"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,9 +200,9 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a533d12fb4fe11ad6364613cf9dac52e8" id="r_a533d12fb4fe11ad6364613cf9dac52e8"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a533d12fb4fe11ad6364613cf9dac52e8">anonymous_namespace{gena_ctrlpt.cpp}::GlobalClientSubscribeMutex</a> {}</td></tr>
-<tr class="memdesc:a533d12fb4fe11ad6364613cf9dac52e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to synchronize the subscription handling at the client side.  <br /></td></tr>
-<tr class="separator:a533d12fb4fe11ad6364613cf9dac52e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b16825da0629b5c3fd2efb51112278" id="r_ab4b16825da0629b5c3fd2efb51112278"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#ab4b16825da0629b5c3fd2efb51112278">anonymous_namespace{gena_ctrlpt.cpp}::gClientSubscribe_mutex</a> {}</td></tr>
+<tr class="memdesc:ab4b16825da0629b5c3fd2efb51112278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to synchronize the subscription handling at the client side.  <br /></td></tr>
+<tr class="separator:ab4b16825da0629b5c3fd2efb51112278"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manage GENA control point. </p>
@@ -222,7 +222,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <div class="textblock"><p><a class="el" href="../../d6/de3/gena__ctrlpt_8cpp.html#dd/d20/unionjob__arg" title="job_arg">job_arg</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00370">370</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00367">367</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 </div><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for job_arg:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -274,14 +274,14 @@ Event</td>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a4571a8d7a15b410d64faff2e58888132" name="a4571a8d7a15b410d64faff2e58888132"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4571a8d7a15b410d64faff2e58888132">&#9670;&#160;</a></span>GlobalClientSubscribeMutexInit()</h2>
+<a id="a0d33458dbafeb408a76b3b0361284012" name="a0d33458dbafeb408a76b3b0361284012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d33458dbafeb408a76b3b0361284012">&#9670;&#160;</a></span>clientSubscribeMutexInit()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int GlobalClientSubscribeMutexInit </td>
+          <td class="memname">int clientSubscribeMutexInit </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -297,9 +297,9 @@ Event</td>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d6/de3/gena__ctrlpt_8cpp_a4571a8d7a15b410d64faff2e58888132_icgraph.png" border="0" usemap="#ad6/de3/gena__ctrlpt_8cpp_a4571a8d7a15b410d64faff2e58888132_icgraph" alt=""/></div>
-<map name="ad6/de3/gena__ctrlpt_8cpp_a4571a8d7a15b410d64faff2e58888132_icgraph" id="ad6/de3/gena__ctrlpt_8cpp_a4571a8d7a15b410d64faff2e58888132_icgraph">
-<area shape="rect" title="Initialize the client subsribe mutex." alt="" coords="372,5,599,31"/>
+<div class="center"><img src="../../d6/de3/gena__ctrlpt_8cpp_a0d33458dbafeb408a76b3b0361284012_icgraph.png" border="0" usemap="#ad6/de3/gena__ctrlpt_8cpp_a0d33458dbafeb408a76b3b0361284012_icgraph" alt=""/></div>
+<map name="ad6/de3/gena__ctrlpt_8cpp_a0d33458dbafeb408a76b3b0361284012_icgraph" id="ad6/de3/gena__ctrlpt_8cpp_a0d33458dbafeb408a76b3b0361284012_icgraph">
+<area shape="rect" title="Initialize the client subsribe mutex." alt="" coords="372,5,555,31"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a7855376cc412564ea0b12b867e11e3a7" title="Initializes the global mutexes used by the UPnP SDK." alt="" coords="192,5,324,31"/>
 <area shape="poly" title=" " alt="" coords="358,21,324,21,324,15,358,15"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="5,5,144,31"/>
@@ -309,14 +309,14 @@ Event</td>
 
 </div>
 </div>
-<a id="a81a3a9fb9c7be998af60d02fbee25812" name="a81a3a9fb9c7be998af60d02fbee25812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81a3a9fb9c7be998af60d02fbee25812">&#9670;&#160;</a></span>GlobalClientSubscribeMutexDestroy()</h2>
+<a id="aa889aacfe53632b1e7a978eecf86df08" name="aa889aacfe53632b1e7a978eecf86df08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa889aacfe53632b1e7a978eecf86df08">&#9670;&#160;</a></span>clientSubscribeMutexDestroy()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int GlobalClientSubscribeMutexDestroy </td>
+          <td class="memname">int clientSubscribeMutexDestroy </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -332,9 +332,9 @@ Event</td>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d6/de3/gena__ctrlpt_8cpp_a81a3a9fb9c7be998af60d02fbee25812_icgraph.png" border="0" usemap="#ad6/de3/gena__ctrlpt_8cpp_a81a3a9fb9c7be998af60d02fbee25812_icgraph" alt=""/></div>
-<map name="ad6/de3/gena__ctrlpt_8cpp_a81a3a9fb9c7be998af60d02fbee25812_icgraph" id="ad6/de3/gena__ctrlpt_8cpp_a81a3a9fb9c7be998af60d02fbee25812_icgraph">
-<area shape="rect" title="Destroy the client subsribe mutex." alt="" coords="692,24,899,64"/>
+<div class="center"><img src="../../d6/de3/gena__ctrlpt_8cpp_aa889aacfe53632b1e7a978eecf86df08_icgraph.png" border="0" usemap="#ad6/de3/gena__ctrlpt_8cpp_aa889aacfe53632b1e7a978eecf86df08_icgraph" alt=""/></div>
+<map name="ad6/de3/gena__ctrlpt_8cpp_aa889aacfe53632b1e7a978eecf86df08_icgraph" id="ad6/de3/gena__ctrlpt_8cpp_aa889aacfe53632b1e7a978eecf86df08_icgraph">
+<area shape="rect" title="Destroy the client subsribe mutex." alt="" coords="692,31,905,56"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
 <area shape="poly" title=" " alt="" coords="678,46,644,46,644,41,678,41"/>
 <area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>

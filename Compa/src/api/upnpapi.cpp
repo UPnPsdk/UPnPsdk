@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-05
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -86,7 +86,7 @@ namespace compa {
 namespace {
 
 /*! \brief Initialization mutex. */
-pthread_mutex_t gSDKInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 /*! \brief UPnP Device and Control Point handle table  */
 Handle_Info* HandleTable[NUM_HANDLE];
@@ -241,9 +241,6 @@ virtualDirList* pVirtualDirList;
 
 /// \brief rwlock to synchronize handles (root device or control point handle).
 pthread_rwlock_t GlobalHndRWLock;
-
-/*! \brief Mutex to synchronize the uuid creation process. */
-pthread_mutex_t gUUIDMutex;
 
 /*! \brief Global timer thread. */
 TimerThread gTimerThread;
@@ -435,10 +432,10 @@ static int UpnpInitMutexes() {
     if (pthread_rwlock_init(&GlobalHndRWLock, NULL) != 0) {
         return UPNP_E_INIT_FAILED;
     }
-
-    if (pthread_mutex_init(&gUUIDMutex, NULL) != 0) {
-        return UPNP_E_INIT_FAILED;
-    }
+#ifdef COMPA_HAVE_OPTION_SSDP
+    // Mutex to synchronize the uuid creation process.
+    uuidMutexInit();
+#endif
     /* initialize subscribe mutex. */
 #ifdef COMPA_HAVE_CTRLPT_GENA
     if (clientSubscribeMutexInit() != 0) {
@@ -606,7 +603,7 @@ int UpnpInit2(const char* IfName, unsigned short DestPort) {
     int retVal;
 
     // The mutex must be initialized.
-    if (pthread_mutex_lock(&compa::gSDKInit_mutex) != 0) {
+    if (pthread_mutex_lock(&compa::sdkInit_mutex) != 0) {
         retVal = UPNP_E_INIT_FAILED;
         goto exit_function;
     }
@@ -643,7 +640,7 @@ exit_function:
     if (retVal != UPNP_E_SUCCESS && retVal != UPNP_E_INIT) {
         UpnpFinish();
     }
-    pthread_mutex_unlock(&compa::gSDKInit_mutex);
+    pthread_mutex_unlock(&compa::sdkInit_mutex);
     return retVal;
 }
 
@@ -751,9 +748,10 @@ int UpnpFinish() {
     clientSubscribeMutexDestroy();
 #endif
     pthread_rwlock_destroy(&GlobalHndRWLock);
-    pthread_mutex_destroy(&gUUIDMutex);
-    /* remove all virtual dirs */
-    UpnpRemoveAllVirtualDirs();
+#ifdef COMPA_HAVE_OPTION_SSDP
+    uuidMutexDestroy(); // May fail but not checked due to compatibility.
+#endif
+    UpnpRemoveAllVirtualDirs(); /* remove all virtual dirs */
     UpnpSdkInit = 0;
     UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__,
                "Exiting UpnpFinish: UpnpSdkInit is :%d:\n", UpnpSdkInit);

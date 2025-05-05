@@ -2,7 +2,7 @@
 #define COMPA_SYSDEP_HPP
 /*
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-04
  * Copyright (c) 1990- 1993, 1996 Open Software Foundation, Inc.
  * Copyright (c) 1989 by Hewlett-Packard Company, Palo Alto, Ca. &
  * Digital Equipment Corporation, Maynard, Mass.
@@ -43,14 +43,6 @@
 /*! \brief set the following to the number of 100ns ticks of the actual
  * resolution of your system's clock */
 inline constexpr int UUIDS_PER_TICK{1024};
-
-/*! \brief Set the following to a call to acquire a system wide global lock. */
-extern pthread_mutex_t gUUIDMutex;
-
-/// \brief UUID lock
-#define UUIDLock() pthread_mutex_lock(&gUUIDMutex)
-/// \brief UUID unlock
-#define UUIDUnlock() pthread_mutex_unlock(&gUUIDMutex)
 
 /// \brief UUID time
 typedef uint64_t uuid_time_t;

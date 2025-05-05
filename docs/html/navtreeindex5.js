@@ -1,5 +1,9 @@
 var NAVTREEINDEX5 =
 {
+"d7/d3a/UpnpExtraHeaders_8cpp.html#aec6d44b8a0820646d5a2c64ff28ca7b1":[7,0,0,1,0,7,18],
+"d7/d3a/UpnpExtraHeaders_8cpp.html#af73e2e53973503fa1a9bbda322d609f9":[7,0,0,1,0,7,13],
+"d7/d3a/UpnpExtraHeaders_8cpp.html#d8/d08/structs__UpnpExtraHeaders":[7,0,0,1,0,7,0],
+"d7/d3a/UpnpExtraHeaders_8cpp_source.html":[7,0,0,1,0,7],
 "d7/d47/UpnpActionRequest_8hpp.html":[7,0,0,0,4],
 "d7/d47/UpnpActionRequest_8hpp.html#a0115686e003ce6ca57416ef95f29e3ef":[7,0,0,0,4,11],
 "d7/d47/UpnpActionRequest_8hpp.html#a01eb3b0437d81938d50c05b859701178":[7,0,0,0,4,25],
@@ -98,8 +102,8 @@ var NAVTREEINDEX5 =
 "d7/de2/upnp__device_8hpp.html":[7,0,2,0,1,19],
 "d7/de2/upnp__device_8hpp_source.html":[7,0,2,0,1,19],
 "d7/de4/posix__overwrites_8hpp_source.html":[7,0,1,0,0,2],
-"d7/def/sockaddr_8cpp.html":[7,0,2,1,1,10],
-"d7/def/sockaddr_8cpp_source.html":[7,0,2,1,1,10],
+"d7/def/sockaddr_8cpp.html":[7,0,2,1,1,11],
+"d7/def/sockaddr_8cpp_source.html":[7,0,2,1,1,11],
 "d7/df1/group__compaAPI-Operating.html":[4,0,6],
 "d7/df3/group__compaAPI-Addressing.html":[4,0,0],
 "d7/df3/group__compaAPI-Addressing.html#ga0b15323d11ed29c160bd35a8c72bae0c":[4,0,0,11],
@@ -169,8 +173,8 @@ var NAVTREEINDEX5 =
 "d8/d74/gena__ctrlpt_8hpp.html":[7,0,0,1,3,3],
 "d8/d74/gena__ctrlpt_8hpp.html#a2eb03f67113de1b037f592d6e49cdf3c":[7,0,0,1,3,3,0],
 "d8/d74/gena__ctrlpt_8hpp_source.html":[7,0,0,1,3,3],
-"d8/d81/socket_8cpp.html":[7,0,2,1,1,11],
-"d8/d81/socket_8cpp_source.html":[7,0,2,1,1,11],
+"d8/d81/socket_8cpp.html":[7,0,2,1,1,12],
+"d8/d81/socket_8cpp_source.html":[7,0,2,1,1,12],
 "d8/da2/UpnpIntTypes_8hpp.html":[7,0,0,0,13],
 "d8/da2/UpnpIntTypes_8hpp_source.html":[7,0,0,0,13],
 "d8/db8/UpnpDiscovery_8cpp.html":[7,0,0,1,0,4],
@@ -245,9 +249,5 @@ var NAVTREEINDEX5 =
 "d8/db8/UpnpDiscovery_8cpp.html#ae520a50cb96521f1609f0dc91212cf41":[7,0,0,1,0,4,62],
 "d8/db8/UpnpDiscovery_8cpp.html#ae786185126a2057415b22c7406082253":[7,0,0,1,0,4,25],
 "d8/db8/UpnpDiscovery_8cpp.html#ae7bb7d2f2e9c71027d1a586b63b752da":[7,0,0,1,0,4,16],
-"d8/db8/UpnpDiscovery_8cpp.html#ae9cdde2953318537a0ecb438d9cecce1":[7,0,0,1,0,4,41],
-"d8/db8/UpnpDiscovery_8cpp.html#aeb3cf1c3d01e40974e0025162d655a67":[7,0,0,1,0,4,46],
-"d8/db8/UpnpDiscovery_8cpp.html#aee020a365d5107b39a519191844a6205":[7,0,0,1,0,4,35],
-"d8/db8/UpnpDiscovery_8cpp.html#aee8e955618683bab1821fd9c4e22a753":[7,0,0,1,0,4,18],
-"d8/db8/UpnpDiscovery_8cpp.html#af3920b84dca7c192fbbd5e51b5426d20":[7,0,0,1,0,4,33]
+"d8/db8/UpnpDiscovery_8cpp.html#ae9cdde2953318537a0ecb438d9cecce1":[7,0,0,1,0,4,41]
 };

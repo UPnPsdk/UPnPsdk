@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-05
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -52,8 +52,9 @@ struct job_arg {
 
 namespace {
 
-/*! \brief Mutex to synchronize the subscription handling at the client side. */
-pthread_mutex_t gClientSubscribe_mutex{};
+/*! \brief Mutex to synchronize the subscription handling at the control point
+ * side. */
+pthread_mutex_t ctrlpntSubscribe_mutex{};
 
 /*!
  * \brief Free memory associated with job's argument
@@ -418,13 +419,13 @@ int clientSubscribeMutexInit() {
     if (ret != 0)
         return ret;
     pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
-    pthread_mutex_init(&gClientSubscribe_mutex, &attr);
+    pthread_mutex_init(&ctrlpntSubscribe_mutex, &attr);
     pthread_mutexattr_destroy(&attr);
     return 0;
 }
 
 int clientSubscribeMutexDestroy() {
-    return pthread_mutex_destroy(&gClientSubscribe_mutex);
+    return pthread_mutex_destroy(&ctrlpntSubscribe_mutex);
 }
 
 int genaUnregisterClient(UpnpClient_Handle client_handle) {
@@ -538,7 +539,7 @@ int genaSubscribe(UpnpClient_Handle client_handle,
     int ret;
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
         return_code = GENA_E_BAD_HANDLE;
-        ret = pthread_mutex_lock(&gClientSubscribe_mutex);
+        ret = pthread_mutex_lock(&ctrlpntSubscribe_mutex);
         if (ret != 0)
             UPnPsdk_LOGCRIT("MSG1099") "POSIX thread mutex lock fails with "
                 << (ret == EINVAL ? "EINVAL" : "EDEADLK") << ".\n";
@@ -547,7 +548,7 @@ int genaSubscribe(UpnpClient_Handle client_handle,
     HandleUnlock();
 
     /* subscribe */
-    ret = pthread_mutex_lock(&gClientSubscribe_mutex);
+    ret = pthread_mutex_lock(&ctrlpntSubscribe_mutex);
     if (ret != 0)
         UPnPsdk_LOGCRIT("MSG1138") "POSIX thread mutex lock fails with "
             << (ret == EINVAL ? "EINVAL" : "EDEADLK") << ".\n";
@@ -602,7 +603,7 @@ error_handler:
     if (return_code != UPNP_E_SUCCESS)
         GenlibClientSubscription_delete(newSubscription);
     HandleUnlock();
-    ret = pthread_mutex_unlock(&gClientSubscribe_mutex);
+    ret = pthread_mutex_unlock(&ctrlpntSubscribe_mutex);
     if (ret != 0)
         UPnPsdk_LOGCRIT("MSG1139") "POSIX thread mutex unlock fails with "
             << (ret == EINVAL ? "EINVAL" : "EPERM") << ".\n";
@@ -791,7 +792,7 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
                 /* try and get Subscription Lock  */
                 /*   (in case we are in the process of
                  * subscribing) */
-                int ret = pthread_mutex_lock(&gClientSubscribe_mutex);
+                int ret = pthread_mutex_lock(&ctrlpntSubscribe_mutex);
                 if (ret != 0)
                     UPnPsdk_LOGCRIT(
                         "MSG1140") "POSIX thread mutex lock fails with "
@@ -801,7 +802,7 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
                 HandleLock();
 
                 if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
-                    ret = pthread_mutex_unlock(&gClientSubscribe_mutex);
+                    ret = pthread_mutex_unlock(&ctrlpntSubscribe_mutex);
                     if (ret != 0)
                         UPnPsdk_LOGCRIT(
                             "MSG1141") "POSIX thread mutex unlock fails with "
@@ -813,7 +814,7 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
                 subscription =
                     GetClientSubActualSID(handle_info->ClientSubList, &sid);
                 if (subscription == NULL) {
-                    ret = pthread_mutex_unlock(&gClientSubscribe_mutex);
+                    ret = pthread_mutex_unlock(&ctrlpntSubscribe_mutex);
                     if (ret != 0)
                         UPnPsdk_LOGCRIT(
                             "MSG1142") "POSIX thread mutex unlock fails with "
@@ -822,7 +823,7 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
                     continue;
                 }
 
-                ret = pthread_mutex_unlock(&gClientSubscribe_mutex);
+                ret = pthread_mutex_unlock(&ctrlpntSubscribe_mutex);
                 if (ret != 0)
                     UPnPsdk_LOGCRIT(
                         "MSG1143") "POSIX thread mutex unlock fails with "
