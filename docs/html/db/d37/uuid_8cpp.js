@@ -18,7 +18,7 @@ var uuid_8cpp =
     [ "upnp_uuid_unpack", "db/d37/uuid_8cpp.html#a810c4032637bfecbb4ea1a039dbf6ef0", null ],
     [ "uuid_create_from_name", "db/d37/uuid_8cpp.html#a066dfd080b903c06fbab3b4ff1606e6a", null ],
     [ "uuid_compare", "db/d37/uuid_8cpp.html#a4d78eb9a0740c64bed75b8cc9f696b41", null ],
-    [ "gUUIDMutex", "db/d37/uuid_8cpp.html#afb221b66175502515a4f86b7864b31e3", null ],
+    [ "uuid_mutex", "db/d37/uuid_8cpp.html#aef5037fd8fe334608a2c8101311352f4", null ],
     [ "st", "db/d37/uuid_8cpp.html#a008ffee4d66630b53d64a3c1b2a5c8bd", null ],
     [ "stateInited", "db/d37/uuid_8cpp.html#ae7f3a38172e4a03b75695b6a7ba22e52", null ]
 ];

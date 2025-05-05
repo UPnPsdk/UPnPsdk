@@ -16,5 +16,5 @@ var gena__ctrlpt_8cpp =
     [ "genaSubscribe", "d6/de3/gena__ctrlpt_8cpp.html#a8fa71879823e3dc936bac4847ca1fcc5", null ],
     [ "genaRenewSubscription", "d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316", null ],
     [ "gena_process_notification_event", "d6/de3/gena__ctrlpt_8cpp.html#a2eb03f67113de1b037f592d6e49cdf3c", null ],
-    [ "gClientSubscribe_mutex", "d6/de3/gena__ctrlpt_8cpp.html#ab4b16825da0629b5c3fd2efb51112278", null ]
+    [ "ctrlpntSubscribe_mutex", "d6/de3/gena__ctrlpt_8cpp.html#ac635c341a8c0ecc99609496551437cc4", null ]
 ];

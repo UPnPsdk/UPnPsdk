@@ -1,12 +1,12 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-04
+// Redistribution only with this Copyright remark. Last modified: 2025-05-05
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Rework mutex gUUIDMutex.
- * - Inspect mutex gWebMutex, DeviceListMutex, TVDevMutex, GlobalDebugMutex.
+ * - Rework mutex DeviceListMutex.
+ * - Inspect mutex gWebMutex, TVDevMutex, GlobalDebugMutex.
  * - Implement scoped pthread_mutex_lock().
  * - Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
