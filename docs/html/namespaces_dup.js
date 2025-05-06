@@ -144,6 +144,9 @@ var namespaces_dup =
     ] ],
     [ "anonymous_namespace{TimerThread.cpp}", "da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html", "da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03" ],
     [ "anonymous_namespace{upnpapi.cpp}", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html", null ],
+    [ "anonymous_namespace{upnpdebug.cpp}", "d0/d23/namespaceanonymous__namespace_02upnpdebug_8cpp_03.html", [
+      [ "debug_mutex", "d0/d23/namespaceanonymous__namespace_02upnpdebug_8cpp_03.html#add61f4fdc41b509b4003f154b2b181ee", null ]
+    ] ],
     [ "anonymous_namespace{upnptools.cpp}", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03.html", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03" ],
     [ "anonymous_namespace{uri.cpp}", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html", [
       [ "is_reserved", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a72aa299b86ca4486b62de1ac2e11b649", null ],

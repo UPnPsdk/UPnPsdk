@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-01
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -49,8 +49,13 @@
 #include <cstring>
 /// \endcond
 
+namespace {
+
 /*! Mutex to synchronize all the log file operations in the debug mode */
-static pthread_mutex_t GlobalDebugMutex;
+pthread_mutex_t debug_mutex;
+
+} // namespace
+
 
 /*! Global log level */
 static Upnp_LogLevel g_log_level = UPNP_DEFAULT_LOG_LEVEL;
@@ -72,7 +77,7 @@ static char* fileName;
 int UpnpInitLog() {
     TRACE("Executing UpnpInitLog()")
     if (!initwascalled) {
-        umock::pthread_h.pthread_mutex_init(&GlobalDebugMutex, NULL);
+        umock::pthread_h.pthread_mutex_init(&debug_mutex, nullptr);
         initwascalled = 1;
     }
     /* If the user did not ask for logging do nothing */
@@ -115,7 +120,7 @@ void UpnpCloseLog() {
      * this is reasonable as it is called from UpnpInit2(). We risk a
      * crash if we do this without a lock.*/
     if (initwascalled)
-        umock::pthread_h.pthread_mutex_lock(&GlobalDebugMutex);
+        umock::pthread_h.pthread_mutex_lock(&debug_mutex);
 
     if (filed != nullptr && filed != stderr) {
         umock::stdio_h.fclose(filed);
@@ -125,8 +130,8 @@ void UpnpCloseLog() {
     int init_called = initwascalled;
     initwascalled = 0;
     if (init_called) {
-        umock::pthread_h.pthread_mutex_unlock(&GlobalDebugMutex);
-        umock::pthread_h.pthread_mutex_destroy(&GlobalDebugMutex);
+        umock::pthread_h.pthread_mutex_unlock(&debug_mutex);
+        umock::pthread_h.pthread_mutex_destroy(&debug_mutex);
     }
 }
 
@@ -249,9 +254,9 @@ void UpnpPrintf(Upnp_LogLevel DLevel, Dbg_Module Module,
 
     if (!DebugAtThisLevel(DLevel, Module))
         return;
-    umock::pthread_h.pthread_mutex_lock(&GlobalDebugMutex);
+    umock::pthread_h.pthread_mutex_lock(&debug_mutex);
     if (filed == nullptr) {
-        umock::pthread_h.pthread_mutex_unlock(&GlobalDebugMutex);
+        umock::pthread_h.pthread_mutex_unlock(&debug_mutex);
         return;
     }
 
@@ -266,7 +271,7 @@ void UpnpPrintf(Upnp_LogLevel DLevel, Dbg_Module Module,
             fflush(filed); // Don't mock this because we use it for debuging.
     }
     va_end(ArgList);
-    umock::pthread_h.pthread_mutex_unlock(&GlobalDebugMutex);
+    umock::pthread_h.pthread_mutex_unlock(&debug_mutex);
 }
 
 /* No locking here, the app should be careful about not calling

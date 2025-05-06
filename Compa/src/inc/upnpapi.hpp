@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-02
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -88,7 +88,7 @@ struct Handle_Info {
     int aliasInstalled;     ///< 0 = not installed; otherwise installed.
 
 #ifdef COMPA_HAVE_DEVICE_SSDP
-    /// \name Following attributes are only valid with managing a device.
+    /// \name Following attributes are only valid with managing a UPnP device.
     /// @{
     char DescURL[LINE_SIZE];      ///< URL for the use of SSDP.
     char LowerDescURL[LINE_SIZE]; /*!< \brief URL for the use of SSDP when
@@ -113,7 +113,7 @@ struct Handle_Info {
 #endif
 
 #ifdef COMPA_HAVE_CTRLPT_SSDP
-    /// \name Following attributes are only valid with managing a client.
+    /// \name Following attributes are only valid with managing a control point.
     /// @{
     GenlibClientSubscription* ClientSubList; ///< Client subscription list.
     LinkedList SsdpSearchList;               ///< Active SSDP searches.

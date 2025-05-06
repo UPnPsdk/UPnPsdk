@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>UPnPsdk: docs/A_general_TODO-list.dox File Reference</title>
+<title>UPnPsdk: anonymous_namespace{upnpdebug.cpp} Namespace Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="../../jquery.js"></script>
@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "../../search/",'.html');
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html','../../'); initResizable(); });
+$(document).ready(function(){initNavTree('d0/d23/namespaceanonymous__namespace_02upnpdebug_8cpp_03.html','../../'); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -97,50 +97,41 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">docs/A_general_TODO-list.dox File Reference</div></div>
+  <div class="summary">
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">anonymous_namespace{upnpdebug.cpp} Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:add61f4fdc41b509b4003f154b2b181ee" id="r_add61f4fdc41b509b4003f154b2b181ee"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d23/namespaceanonymous__namespace_02upnpdebug_8cpp_03.html#add61f4fdc41b509b4003f154b2b181ee">debug_mutex</a></td></tr>
+<tr class="separator:add61f4fdc41b509b4003f154b2b181ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="add61f4fdc41b509b4003f154b2b181ee" name="add61f4fdc41b509b4003f154b2b181ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add61f4fdc41b509b4003f154b2b181ee">&#9670;&#160;</a></span>debug_mutex</h2>
 
-<p>A general TODO-list.  
-<a href="#details">More...</a></p>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A general TODO-list. </p>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd><ul>
-<li>Rework mutex GlobalDebugMutex.</li>
-<li>Inspect mutex gWebMutex.</li>
-<li>Implement scoped pthread_mutex_lock().</li>
-<li>Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.</li>
-<li>Improve test_http_Download.cpp, start with error conditions for <a class="el" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters.">http_MakeMessage()</a>.</li>
-<li>Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.</li>
-<li>Enable OpenSSL, improve its tests (test_sock.cpp, sock read_ssl, sock write_ssl).</li>
-<li>Rework '<a class="el" href="../../de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation.">get_ssdp_sockets()</a>' and Utest/compa/1-discovery/test_ssdp.cpp.</li>
-<li>Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.</li>
-<li>Create no mocked tests for <a href="#" onclick="location.href='mai'+'lto:'+'CSi'+'gp'+'ipe'+'@s'+'ock'+'.c'+'pp'; return false;">CSigp<span class="obfuscator">.nosp@m.</span>ipe@<span class="obfuscator">.nosp@m.</span>sock.<span class="obfuscator">.nosp@m.</span>cpp</a>, read and write data using UPnP-Device.</li>
-<li>Test and document ixml script support.</li>
-<li>Rework Utest/compa/api.d/test_upnpapi_win32.cpp.</li>
-<li>Enable Utest/sample/CMakeLists.txt.</li>
-<li>Build for ARM platforms.</li>
-<li>Create Unit Test large-file support (<a href="https://gist.github.com/mortenpi/9745042">https://gist.github.com/mortenpi/9745042</a>)</li>
-<li>Create info function in the library to avoid exporting private symbols, callable on the API.</li>
-<li>Remove Interface/ directory?</li>
-<li>Fix "time used" on sock_read and sock_write.</li>
-<li>Rework test_httpreadwrite.cpp.</li>
-<li>Add AI_IDN and AI_CANONIDN support to CAddrinfo.</li>
-<li>Use poll() and WSAPoll() instead of select().</li>
-<li>Create gtests for web_server_callback.</li>
-<li>Check bugfix in pupnp/upnp/src/urlconfig/urlconfig.cpp with a gtest.</li>
-<li>Move pupnp/upnp/src/inc/sock.hpp:79:static UPNP_INLINE int <a class="el" href="../../d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from -1.">sock_close()</a> to <a class="el" href="../../d5/db2/miniserver_8cpp.html" title="Implements the functionality and utility functions used by the Miniserver module.">miniserver.cpp</a> and rework.</li>
-<li>Replace <a class="el" href="../../d5/d91/ThreadPool_8hpp.html#d0/d41/structThreadPool" title="A thread pool.">ThreadPool</a> and multithreading with C++ standard library functions. </li>
-</ul>
-</dd></dl>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pthread_mutex_t anonymous_namespace{upnpdebug.cpp}::debug_mutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Mutex to synchronize all the log file operations in the debug mode </p>
 
-<p class="definition">Definition in file <a class="el" href="../../de/d2c/A__general__TODO-list_8dox_source.html">A_general_TODO-list.dox</a>.</p>
-</div></div><!-- contents -->
+<p class="definition">Definition at line <a class="el" href="../../d5/dfa/upnpdebug_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../d5/dfa/upnpdebug_8cpp_source.html">upnpdebug.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../de/d2c/A__general__TODO-list_8dox.html">A_general_TODO-list.dox</a></li>
+    <li class="navelem"><a class="el" href="../../d0/d23/namespaceanonymous__namespace_02upnpdebug_8cpp_03.html">anonymous_namespace{upnpdebug.cpp}</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

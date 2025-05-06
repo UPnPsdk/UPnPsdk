@@ -8,7 +8,7 @@ var upnpdebug_8cpp =
     [ "UpnpDisplayFileAndLine", "d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d", null ],
     [ "UpnpPrintf", "d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3", null ],
     [ "UpnpGetDebugFile", "d5/dfa/upnpdebug_8cpp.html#a82e5807006fc908b77e8340544391026", null ],
-    [ "GlobalDebugMutex", "d5/dfa/upnpdebug_8cpp.html#a0f4173b2544f23e9a33c18e0269c734c", null ],
+    [ "debug_mutex", "d5/dfa/upnpdebug_8cpp.html#add61f4fdc41b509b4003f154b2b181ee", null ],
     [ "g_log_level", "d5/dfa/upnpdebug_8cpp.html#a23857cfd98cddfdf1730d2e5447ae1d8", null ],
     [ "filed", "d5/dfa/upnpdebug_8cpp.html#af6eb7ea2e0117c6da234532c9ca3edae", null ],
     [ "setlogwascalled", "d5/dfa/upnpdebug_8cpp.html#aeabeb8d99f1c6c8a9ec7c36db16a14ff", null ],

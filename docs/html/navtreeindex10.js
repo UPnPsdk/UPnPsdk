@@ -1,5 +1,7 @@
 var NAVTREEINDEX10 =
 {
+"dd/da6/UpnpFileInfo_8cpp.html#aeab0e70e09f4ec70dc1714fd6070dded":[7,0,0,1,0,8,24],
+"dd/da6/UpnpFileInfo_8cpp.html#aeba9fa8ab52f4d524744789522766109":[7,0,0,1,0,8,12],
 "dd/da6/UpnpFileInfo_8cpp.html#d7/d1f/structs__UpnpFileInfo":[7,0,0,1,0,8,0],
 "dd/da6/UpnpFileInfo_8cpp_source.html":[7,0,0,1,0,8],
 "dd/db9/win32_2UPnPsdk_2netadapter__platform_8hpp.html":[7,0,2,0,2,0,0],
@@ -54,7 +56,7 @@ var NAVTREEINDEX10 =
 "de/d27/group__SSDP-common__functions.html#gacf83eab7c7d8483f9c91d266bc465d9e":[4,1,1,1,13],
 "de/d27/group__SSDP-common__functions.html#gadcb9b37b1e0a3f7f45a1ca208d54d5bd":[4,1,1,1,9],
 "de/d27/group__SSDP-common__functions.html#gae3e29279280d276d05762d9dbeffe31d":[4,1,1,1,0],
-"de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03.html":[5,0,25,0],
+"de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03.html":[5,0,26,0],
 "de/dab/netadapter__if_8cpp.html":[7,0,2,1,1,7],
 "de/dab/netadapter__if_8cpp_source.html":[7,0,2,1,1,7],
 "de/dad/ixmlmembuf_8hpp.html":[7,0,1,0,1,0,0],
@@ -169,11 +171,11 @@ var NAVTREEINDEX10 =
 "df/d13/ssdp__common_8cpp.html":[4,1,1,7],
 "df/d44/urlparser_8hpp.html":[7,0,2,0,1,23],
 "df/d44/urlparser_8hpp_source.html":[7,0,2,0,1,23],
-"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html":[5,0,20],
-"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0":[5,0,20,3],
-"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a2ba70b2d33be0858aae4a1f4920b7423":[5,0,20,2],
-"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a3a03c9cc5754a6fb2c4984ebacd0ba5e":[5,0,20,0],
-"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#aaedb4c45d523c23d6d7fd382886a99a1":[5,0,20,1],
+"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html":[5,0,21],
+"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0":[5,0,21,3],
+"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a2ba70b2d33be0858aae4a1f4920b7423":[5,0,21,2],
+"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a3a03c9cc5754a6fb2c4984ebacd0ba5e":[5,0,21,0],
+"df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#aaedb4c45d523c23d6d7fd382886a99a1":[5,0,21,1],
 "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html":[7,0,0,1,3,6],
 "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a01540e038a0e2f3aab83c0876715ec6f":[7,0,0,1,3,6,47],
 "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a0ae25c4f785752a83e6d1b32a5e85c12":[7,0,0,1,3,6,3,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX10 =
 "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aa2001c56d3ad1bc1d89995338850ada4":[7,0,0,1,3,6,55],
 "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aa3bec615c3b93c4115110df5cad170ef":[7,0,0,1,3,6,48],
 "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aa52672857ec618af4bfc97b3e2a15466":[7,0,0,1,3,6,18],
-"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aa79d3550137ace421c440f7f0cf953d6":[7,0,0,1,3,6,19],
-"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aa87468a6ef98f54ebd919c9ba6ea0f32":[7,0,0,1,3,6,44],
-"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aa87468a6ef98f54ebd919c9ba6ea0f32a03f2adb1c5f5dde625f972a145c75002":[7,0,0,1,3,6,44,4]
+"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aa79d3550137ace421c440f7f0cf953d6":[7,0,0,1,3,6,19]
 };

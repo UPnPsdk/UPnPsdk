@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-05
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -3345,8 +3345,8 @@ Upnp_Handle_Type GetHandleInfo(UpnpClient_Handle Hnd, Handle_Info** HndInfo) {
         UPnPsdk_LOGERR("MSG1130") "Handle(" << Hnd << ") out of range.\n";
         ret = HND_INVALID;
     } else if (compa::HandleTable[Hnd] == nullptr) {
-        UPnPsdk_LOGERR("MSG1133") "compa::HandleTable[" << Hnd
-                                                        << "] has no entry.\n";
+        // When scanning the whole handle info table we have a lot of empty
+        // entries. That seems not to be an error.
         ret = HND_INVALID;
     } else {
         *HndInfo = compa::HandleTable[Hnd];
