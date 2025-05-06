@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -51,6 +51,17 @@
 #define DESC_URL_SIZE 200
 /// \endcond
 
+namespace {
+
+/*! \brief Mutex for protecting the global state table data
+ *
+ * Protect it in a multi-threaded, asynchronous environment. All functions
+ * should lock this mutex before reading or writing the state table data. */
+pthread_mutex_t tvDev_mutex;
+
+} // namespace
+
+
 /*! Global arrays for storing Tv Control Service variable names, values,
  * and defaults. */
 const char* tvc_varname[] = {"Power", "Channel", "Volume"};
@@ -77,12 +88,6 @@ struct TvService tv_service_table[2];
 
 /*! Device handle supplied by UPnP SDK. */
 UpnpDevice_Handle device_handle = -1;
-
-/*! Mutex for protecting the global state table data
- * in a multi-threaded, asynchronous environment.
- * All functions should lock this mutex before reading
- * or writing the state table data. */
-pthread_mutex_t TVDevMutex;
 
 /// \cond
 /*! Color constants */
@@ -300,7 +305,7 @@ int TvDeviceHandleSubscriptionRequest(const UpnpSubscriptionRequest* sr_event) {
     const char* l_sid = NULL;
 
     /* lock state mutex */
-    pthread_mutex_lock(&TVDevMutex);
+    pthread_mutex_lock(&tvDev_mutex);
 
     l_serviceId =
         UpnpString_get_String(UpnpSubscriptionRequest_get_ServiceId(sr_event));
@@ -338,7 +343,7 @@ int TvDeviceHandleSubscriptionRequest(const UpnpSubscriptionRequest* sr_event) {
         }
     }
 
-    pthread_mutex_unlock(&TVDevMutex);
+    pthread_mutex_unlock(&tvDev_mutex);
 
     return 1;
 }
@@ -350,7 +355,7 @@ int TvDeviceHandleGetVarRequest(UpnpStateVarRequest* cgv_event) {
 
     UpnpStateVarRequest_set_CurrentVal(cgv_event, NULL);
 
-    pthread_mutex_lock(&TVDevMutex);
+    pthread_mutex_lock(&tvDev_mutex);
 
     for (i = 0; i < TV_SERVICE_SERVCOUNT; i++) {
         /* check udn and service id */
@@ -385,7 +390,7 @@ int TvDeviceHandleGetVarRequest(UpnpStateVarRequest* cgv_event) {
         UpnpStateVarRequest_strcpy_ErrStr(cgv_event, "Invalid Variable");
     }
 
-    pthread_mutex_unlock(&TVDevMutex);
+    pthread_mutex_unlock(&tvDev_mutex);
 
     return UpnpStateVarRequest_get_ErrCode(cgv_event) == UPNP_E_SUCCESS;
 }
@@ -478,7 +483,7 @@ int TvDeviceSetServiceTableVar(unsigned int service, int variable,
         strlen(value) >= TV_MAX_VAL_LEN)
         return (0);
 
-    pthread_mutex_lock(&TVDevMutex);
+    pthread_mutex_lock(&tvDev_mutex);
 
     strcpy(tv_service_table[service].VariableStrVal[variable], value);
 #if 0
@@ -497,7 +502,7 @@ int TvDeviceSetServiceTableVar(unsigned int service, int variable,
         (const char**)&tv_service_table[service].VariableName[variable],
         (const char**)&tv_service_table[service].VariableStrVal[variable], 1);
 
-    pthread_mutex_unlock(&TVDevMutex);
+    pthread_mutex_unlock(&tvDev_mutex);
 
     return 1;
 }
@@ -627,10 +632,10 @@ int IncrementChannel(int incr, IXML_Document* in, IXML_Document** out,
         actionName = "DecreaseChannel";
     }
 
-    pthread_mutex_lock(&TVDevMutex);
+    pthread_mutex_lock(&tvDev_mutex);
     curchannel = atoi(tv_service_table[TV_SERVICE_CONTROL]
                           .VariableStrVal[TV_CONTROL_CHANNEL]);
-    pthread_mutex_unlock(&TVDevMutex);
+    pthread_mutex_unlock(&tvDev_mutex);
 
     newchannel = curchannel + incr;
 
@@ -737,10 +742,10 @@ static int IncrementVolume(
         actionName = "DecreaseVolume";
     }
 
-    pthread_mutex_lock(&TVDevMutex);
+    pthread_mutex_lock(&tvDev_mutex);
     curvolume = atoi(
         tv_service_table[TV_SERVICE_CONTROL].VariableStrVal[TV_CONTROL_VOLUME]);
-    pthread_mutex_unlock(&TVDevMutex);
+    pthread_mutex_unlock(&tvDev_mutex);
 
     newvolume = curvolume + incr;
     if (newvolume < MIN_VOLUME || newvolume > MAX_VOLUME) {
@@ -846,10 +851,10 @@ static int IncrementColor(
         actionName = "DecreaseColor";
     }
 
-    pthread_mutex_lock(&TVDevMutex);
+    pthread_mutex_lock(&tvDev_mutex);
     curcolor = atoi(
         tv_service_table[TV_SERVICE_PICTURE].VariableStrVal[TV_PICTURE_COLOR]);
-    pthread_mutex_unlock(&TVDevMutex);
+    pthread_mutex_unlock(&tvDev_mutex);
 
     newcolor = curcolor + incr;
     if (newcolor < MIN_COLOR || newcolor > MAX_COLOR) {
@@ -954,10 +959,10 @@ int IncrementTint(int incr, ///< [in] The increment by which to change the tint.
         actionName = "DecreaseTint";
     }
 
-    pthread_mutex_lock(&TVDevMutex);
+    pthread_mutex_lock(&tvDev_mutex);
     curtint = atoi(
         tv_service_table[TV_SERVICE_PICTURE].VariableStrVal[TV_PICTURE_TINT]);
-    pthread_mutex_unlock(&TVDevMutex);
+    pthread_mutex_unlock(&tvDev_mutex);
 
     newtint = curtint + incr;
     if (newtint < MIN_TINT || newtint > MAX_TINT) {
@@ -1104,10 +1109,10 @@ static int IncrementContrast(
         actionName = "DecreaseContrast";
     }
 
-    pthread_mutex_lock(&TVDevMutex);
+    pthread_mutex_lock(&tvDev_mutex);
     curcontrast = atoi(tv_service_table[TV_SERVICE_PICTURE]
                            .VariableStrVal[TV_PICTURE_CONTRAST]);
-    pthread_mutex_unlock(&TVDevMutex);
+    pthread_mutex_unlock(&tvDev_mutex);
 
     newcontrast = curcontrast + incr;
     if (newcontrast < MIN_CONTRAST || newcontrast > MAX_CONTRAST) {
@@ -1213,10 +1218,10 @@ static int IncrementBrightness(
         actionName = "DecreaseBrightness";
     }
 
-    pthread_mutex_lock(&TVDevMutex);
+    pthread_mutex_lock(&tvDev_mutex);
     curbrightness = atoi(tv_service_table[TV_SERVICE_PICTURE]
                              .VariableStrVal[TV_PICTURE_BRIGHTNESS]);
-    pthread_mutex_unlock(&TVDevMutex);
+    pthread_mutex_unlock(&tvDev_mutex);
 
     newbrightness = curbrightness + incr;
     if (newbrightness < MIN_BRIGHTNESS || newbrightness > MAX_BRIGHTNESS) {
@@ -1298,7 +1303,7 @@ int TvDeviceStart(const char* a_iface, in_port_t a_port,
     char* ip_address{};
     int address_family{AF_INET};
 
-    pthread_mutex_init(&TVDevMutex, NULL);
+    pthread_mutex_init(&tvDev_mutex, nullptr);
     if (UPnPsdk::g_dbug) {
         UpnpSetLogFileNames(NULL, NULL);
         UpnpSetLogLevel(UPNP_INFO);
@@ -1442,7 +1447,7 @@ int TvDeviceStop(void) {
     UpnpUnRegisterRootDevice(device_handle);
     UpnpFinish(); // DEBUG: Comment for existing unit test.
     SampleUtil_Finish();
-    pthread_mutex_destroy(&TVDevMutex);
+    pthread_mutex_destroy(&tvDev_mutex);
 
     return UPNP_E_SUCCESS;
 }

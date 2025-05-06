@@ -5,8 +5,8 @@
  * \brief A general TODO-list
  *
  * \todo
- * - Rework mutex DeviceListMutex.
- * - Inspect mutex gWebMutex, TVDevMutex, GlobalDebugMutex.
+ * - Rework mutex TVDevMutex.
+ * - Inspect mutex gWebMutex, GlobalDebugMutex.
  * - Implement scoped pthread_mutex_lock().
  * - Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().

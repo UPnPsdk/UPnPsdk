@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-24
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -131,12 +131,6 @@ extern struct TvService tv_service_table[];
 /*! Device handle returned from SDK */
 extern UpnpDevice_Handle device_handle;
 
-/*! Mutex for protecting the global state table data
- * in a multi-threaded, asynchronous environment.
- * All functions should lock this mutex before reading
- * or writing the state table data. */
-extern pthread_mutex_t TVDevMutex;
-
 /*!
  * \brief Initializes the action table for the specified service.
  *
@@ -214,7 +208,7 @@ int TvDeviceCallbackEventHandler(
  * \brief Update the TvDevice service state table, and notify all subscribed
  * control points of the updated state.
  *
- * Note that since this function blocks on the mutex TVDevMutex,
+ * Note that since this function blocks on the mutex tvDev_mutex,
  * to avoid a hang this function should not be called within any other
  * function that currently has this mutex locked.
  */
