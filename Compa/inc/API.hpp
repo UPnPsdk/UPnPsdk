@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-27
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-11
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -2607,7 +2607,7 @@ typedef int (*VDCallback_GetInfo)(
     /*! [out] Pointer to a structure to store the information on the file.
      */
     UpnpFileInfo* info,
-    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
+    /*! [in] The cookie associated with this \glos{webdir,web directory} */
     const void* cookie,
     /*! [out] The cookie associated with this request */
     const void** request_cookie);
@@ -2635,7 +2635,7 @@ UPnPsdk_API int UpnpSetWebServerRootDir(
 
 /*!
  * \brief Sets the get_info callback function to be used to access a
- * \glos{virtdir,virtual directory}.
+ * \glos{webdir,web directory}.
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2653,14 +2653,14 @@ typedef UpnpWebFileHandle (*VDCallback_Open)(
     /*! [in] The mode in which to open the file.
      * Valid values are \c UPNP_READ or \c UPNP_WRITE. */
     enum UpnpOpenFileMode Mode,
-    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
+    /*! [in] The cookie associated with this \glos{webdir,web directory} */
     const void* cookie,
     /*! [in] The cookie associated with this request */
     const void* request_cookie);
 
 /*!
  * \brief Sets the open callback function to be used to access a
- * \glos{virtdir,virtual directory}.
+ * \glos{webdir,web directory}.
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2679,14 +2679,14 @@ typedef int (*VDCallback_Read)(
     char* buf,
     /*! [in] The size of the buffer (i.e. the number of bytes to read). */
     size_t buflen,
-    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
+    /*! [in] The cookie associated with this \glos{webdir,web directory} */
     const void* cookie,
     /*! [in] The cookie associated with this request */
     const void* request_cookie);
 
 /*!
  * \brief Sets the read callback function to be used to access a
- * \glos{virtdir,virtual directory}.
+ * \glos{webdir,web directory}.
  *
  *  \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2705,14 +2705,14 @@ typedef int (*VDCallback_Write)(
     char* buf,
     /*! [in] The number of bytes to write. */
     size_t buflen,
-    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
+    /*! [in] The cookie associated with this \glos{webdir,web directory} */
     const void* cookie,
     /*! [in] The cookie associated with this request */
     const void* request_cookie);
 
 /*!
  * \brief Sets the write callback function to be used to access a
- * \glos{virtdir,virtual directory}.
+ * \glos{webdir,web directory}.
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2736,14 +2736,14 @@ typedef int (*VDCallback_Seek)(
      * move relative to the end of the file, or \c SEEK_SET to
      * specify an absolute offset. */
     int origin,
-    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
+    /*! [in] The cookie associated with this \glos{webdir,web directory} */
     const void* cookie,
     /*! [in] The cookie associated with this request */
     const void* request_cookie);
 
 /*!
  * \brief Sets the seek callback function to be used to access a
- * \glos{virtdir,virtual directory}.
+ * \glos{webdir,web directory}.
  *
  *  \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2758,14 +2758,14 @@ UPnPsdk_API int UpnpVirtualDir_set_SeekCallback(VDCallback_Seek callback);
 typedef int (*VDCallback_Close)(
     /*! [in] The handle of the file to close. */
     UpnpWebFileHandle fileHnd,
-    /*! [in] The cookie associated with this \glos{virtdir,VirtualDir} */
+    /*! [in] The cookie associated with this \glos{webdir,web directory} */
     const void* cookie,
     /*! [in] The cookie associated with this request */
     const void* request_cookie);
 
 /*!
  * \brief Sets the close callback function to be used to access a
- * \glos{virtdir,virtual directory}.
+ * \glos{webdir,web directory}.
  *
  * \return An integer representing one of the following:
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
@@ -2843,7 +2843,7 @@ UPnPsdk_API int UpnpSetWebServerCorsString(
     const char* corsString);
 
 /*!
- * \brief Adds a \glos{virtdir,virtual directory} mapping.
+ * \brief Adds a \glos{webdir,web directory} mapping.
  *
  * All webserver requests containing the given directory are read using
  * functions contained in a VirtualDirCallbacks structure registered
@@ -2857,14 +2857,14 @@ UPnPsdk_API int UpnpSetWebServerCorsString(
 UPnPsdk_API int UpnpAddVirtualDir(
     /*! [in] The name of the new directory mapping to add. */
     const char* newDirName,
-    /*! [in] The cookie to associated with this \glos{virtdir,virtual directory}
+    /*! [in] The cookie to associated with this \glos{webdir,web directory}
      */
     const void* cookie,
     /*! [out] The cookie previously associated, if mapping is already present */
     const void** oldcookie);
 
 /*!
- * \brief Removes a \glos{virtdir,virtual directory} mapping made with
+ * \brief Removes a \glos{webdir,web directory} mapping made with
  * UpnpAddVirtualDir().
  *
  * \return An integer representing one of the following:
@@ -2873,12 +2873,12 @@ UPnPsdk_API int UpnpAddVirtualDir(
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b dirName is not valid.
  */
 UPnPsdk_API int UpnpRemoveVirtualDir(
-    /*! [in] The name of the \glos{virtdir,virtual directory} mapping to remove.
+    /*! [in] The name of the \glos{webdir,web directory} mapping to remove.
      */
     const char* dirName);
 
 /*!
- * \brief Removes all \glos{virtdir,virtual directory} mappings.
+ * \brief Removes all \glos{webdir,web directory} mappings.
  */
 UPnPsdk_API void UpnpRemoveAllVirtualDirs();
 

@@ -1,13 +1,12 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-06
+// Redistribution only with this Copyright remark. Last modified: 2025-05-13
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Rework mutex GlobalDebugMutex.
- * - Inspect mutex gWebMutex.
- * - Implement scoped pthread_mutex_lock().
+ * - Remove xml_alias_t::grab().
+ * - Rename xml_alias_t to CXmlAlias and reorganize namespaces in webserver.cpp.
  * - Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
  * - Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.

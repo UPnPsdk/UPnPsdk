@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-23
+// Redistribution only with this Copyright remark. Last modified: 2025-05-12
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -1222,7 +1222,7 @@ TEST_F(RunMiniServerMockFTestSuite,
                         AnyOf(HasSubstr("UPnPsdk MSG1057 EXCEPT["),
                               HasSubstr("UPnPsdk MSG1001 EXCEPT[")));
         else
-            EXPECT_TRUE(captureObj.str().empty());
+            EXPECT_THAT(captureObj.str(), AnyOf("", StartsWith("TRACE")));
     }
 
     EXPECT_STREQ(host_port, "<no message>");
@@ -1270,7 +1270,7 @@ TEST(RunMiniServerTestSuite,
         getNumericHostRedirection(sockfd, host_port, sizeof(host_port));
 
     // Get captured output
-    EXPECT_TRUE(captureObj.str().empty());
+    EXPECT_THAT(captureObj.str(), AnyOf("", StartsWith("TRACE")));
     EXPECT_FALSE(ret_getNumericHostRedirection);
 
     // Test Unit
@@ -1281,7 +1281,7 @@ TEST(RunMiniServerTestSuite,
 
     g_dbug = g_dbug_old;
     // Get captured output, "Unsupported address family 1".
-    EXPECT_THAT(captureObj.str(), StartsWith("UPnPsdk MSG1093 CATCH "));
+    EXPECT_THAT(captureObj.str(), HasSubstr("UPnPsdk MSG1093 CATCH "));
     EXPECT_FALSE(ret_getNumericHostRedirection);
     EXPECT_STREQ(host_port, "<no message>");
 #endif

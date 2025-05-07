@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -105,33 +105,36 @@ int web_server_init();
 /*!
  * \brief Replaces current alias with the given alias.
  *
- * To remove the current alias, set alias_name to nullptr.
- *
- * \note alias_content is not freed here
- *
+ * To remove the current alias, set **a_alias_name** to nullptr.
  * \return
  * \li \c UPNP_E_SUCCESS
- * \li \c UPNP_E_OUTOF_MEMORY
+ * \li \c UPNP_E_INVALID_ARGUMENT
  */
 int web_server_set_alias(
-    /*! [in] Webserver name of alias; created by caller and freed by caller
-     * (doesn't even have to be malloc()d. */
-    const char* alias_name,
-    /*! [in] The xml doc; this is allocated by the caller; and freed by
-     * the web server. */
-    const char* alias_content,
-    /*! [in] Length of alias body in bytes without terminating '\0'. */
-    size_t alias_content_length,
-    /*! [in] Time when the contents of alias were last changed (local time).
-     */
-    time_t last_modified);
+    /*! [in] Pointer to webserver name of alias for a copy; the ownership of
+     * this C string with terminating '\0' remains by the caller. He is still
+     * responsible to manage it (e.g. deallocating if allocated etc.). */
+    const char* a_alias_name,
+    /*! [in,out] Pointer to the xml doc. This string must be allocated by the
+     * caller. Ownership of this argument is then taken over by the web server
+     * to manage it, in particular also deallocate it. The caller hasn't to
+     * worry about memory management. */
+    const char* a_alias_content,
+    /*! [in,out] Length of alias body in bytes. Document can also contain '\0'
+     * characters within its length. */
+    size_t a_alias_content_length,
+    /*! [in] Time when contents of alias were last changed (local time). */
+    time_t a_last_modified);
 
 /*!
  * \brief Assign the path to the global Document root directory.
  *
  * Also check for path names ending in '/'.
  *
- * \return Integer.
+ * \return On success: **0**\n
+ *  On error:
+ *  - UPNP_E_INVALID_ARGUMENT
+ *  - UPNP_E_OUTOF_MEMORY
  */
 int web_server_set_root_dir(
     /*! [in] String having the root directory for the document. */

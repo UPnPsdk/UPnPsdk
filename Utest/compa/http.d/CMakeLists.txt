@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-22
+# Redistribution only with this Copyright remark. Last modified: 2025-05-09
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -33,7 +33,8 @@ target_compile_options(test_webserver-pst
         $<$<CXX_COMPILER_ID:MSVC>:/wd4703>
 )
 target_link_libraries(test_webserver-pst
-        PRIVATE pupnp_static
+    PRIVATE pupnp_static
+    PRIVATE utest_static
 )
 add_test(NAME ctest_webserver-pst COMMAND test_webserver-pst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}

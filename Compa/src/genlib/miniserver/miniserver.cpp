@@ -347,7 +347,7 @@ void handle_request(
  * \brief Initilize the thread pool to handle an incomming request, sets
  * priority for the job and adds the job to the thread pool.
  */
-UPNP_INLINE void schedule_request_job(
+inline void schedule_request_job(
     /*! [in] Socket Descriptor on which connection is accepted. */
     SOCKET a_connfd,
     /*! [in] Ctrlpnt address object. */

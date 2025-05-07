@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['name_0',['name',['../dd/d67/namespaceUPnPsdk.html#a6845b46c47d390c898d7d70571f31d74',1,'UPnPsdk::str_int_entry::name'],['../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a001ffd8c54e8022a32a4eafb033dfbdf',1,'anonymous_namespace{webserver.cpp}::xml_alias_t::name'],['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a39ccc6b29221ffaf48476329eb43b00c',1,'http_header_t::name']]],
+  ['name_0',['name',['../dd/d67/namespaceUPnPsdk.html#a6845b46c47d390c898d7d70571f31d74',1,'UPnPsdk::str_int_entry::name'],['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a39ccc6b29221ffaf48476329eb43b00c',1,'http_header_t::name']]],
   ['name_5fbuf_1',['name_buf',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a785af325a54ed965881f17cf52c29f90',1,'http_header_t']]],
   ['name_5fid_2',['name_id',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#acd520c762356814ae21b9de9446f9397',1,'http_header_t']]],
   ['namechar_3',['NameChar',['../da/dff/ixmlparser_8cpp.html#ad817329ae5746bcc26a3faa9539671ee',1,'ixmlparser.cpp']]],

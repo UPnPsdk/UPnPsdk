@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-20
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -94,175 +94,228 @@ constexpr size_t APPLICATION_INDEX{4};
 /// \brief Number of elements for asctime_s on win32, means buffer size.
 constexpr size_t ASCTIME_R_BUFFER_SIZE{26};
 
-
-/// \brief Mutex to protect managing an XML document.
-pthread_mutex_t gWebMutex;
-
 /*! \brief Alias directory structure on the webserver for an XML document. */
 struct xml_alias_t {
   public:
-    /*! name of DOC from root; e.g.: /foo/bar/mydesc.xml */
-    membuffer name{};
-    /*! the XML document contents. */
-    membuffer doc{};
-    /*! Last modified time. */
-    time_t last_modified{};
-    /*! pointer to ct, only for downstream compatibility. */
-    int* ct{nullptr}; // to be compatible; will be initialized with this->set()
-                      // int* ct{&m_ct};
-  private:
-    int m_ct{};
-
-  public:
+    /// \cond
     // Constructor
-    xml_alias_t() {
-        TRACE2(this, " Construct xml_alias_t()");
-        this->name.size_inc = 5;
-        this->doc.size_inc = 5;
-    }
+    // -----------
+    xml_alias_t() { TRACE2(this, " Construct xml_alias_t()"); }
 
     // Destructor
+    // ----------
     ~xml_alias_t() {
         TRACE2(this, " Destruct xml_alias_t()");
-        /// \todo Free possible allocated membuffer will segfault. Fix it.
-        // this->clear();
+        this->clear_private();
+        if (pthread_mutex_destroy(&web_mutex) != 0)
+            UPnPsdk_LOGCRIT(
+                "MSG1150") "fails with EBUSY. The mutex is currently locked.\n";
     }
 
-    /// \brief Copy constructor.
+    /// \brief Copy constructor
+    // ------------------------
     xml_alias_t(const xml_alias_t& that) {
         TRACE2(this, " Executing xml_alias_t copy constructor()");
-        int mutex_err = pthread_mutex_trylock(&gWebMutex);
-        this->name = that.name;
-        this->doc = that.doc;
-        this->last_modified = that.last_modified;
-        this->m_ct = that.m_ct;
-        this->ct = (that.ct == nullptr) ? nullptr : &m_ct;
-        if (mutex_err == 0)
-            pthread_mutex_unlock(&gWebMutex);
+        pthread_mutex_lock(&web_mutex);
+        this->m_name = that.m_name;
+        this->m_last_modified = that.m_last_modified;
+        if (that.m_doc.data() == nullptr) {
+            this->m_ct = that.m_ct;
+            this->m_doc = that.m_doc;
+        } else {
+            this->m_ct = 1;
+            const size_t doc_len{that.m_doc.length()};
+            char* doc = static_cast<char*>(malloc(doc_len));
+            memcpy(doc, that.m_doc.data(), doc_len);
+            this->m_doc = std::string_view(doc, doc_len);
+        }
+        pthread_mutex_unlock(&web_mutex);
     }
 
-    /// \brief Copy assignment operator.
+    /// \brief Copy assignment operator
+    // --------------------------------
     xml_alias_t& operator=(xml_alias_t that) {
         TRACE2(this, " Executing xml_alias_t assignment operator=");
-        // No need to protect with a mutex. This swapping from the stack is
-        // thread safe.
-        std::swap(this->name, that.name);
-        std::swap(this->doc, that.doc);
-        std::swap(this->last_modified, that.last_modified);
-        std::swap(this->m_ct, that.m_ct);
-        this->ct = (that.ct == nullptr) ? nullptr : &m_ct;
+        // The copy constructor has alread done its work to copy the current
+        // object to the stack. No need to protect with a mutex. This swapping
+        // from the stack is thread safe.
+        std::swap(this->m_name, that.m_name);
+        std::swap(this->m_doc, that.m_doc);
+        std::swap(this->m_last_modified, that.m_last_modified);
+        std::swap(this->m_ct, that.m_ct); // Set by the copy constructor.
 
         // by convention, always return *this
         return *this;
     }
+    /// \endcond
 
-    /// \brief Set an XML Document.
-    int set(const char* a_alias_name, const char* a_alias_content,
-            size_t a_alias_content_length,
+    /*! \brief Set an XML Document
+     * <!-- ------------------ -->
+     * \copydetails web_server_set_alias()
+     *
+     * \note Due to taking over ownership:
+     *  - Parameter **a_alias_content** is invalid (nullptr) after return. It
+     * cannot be reused and must be new set.
+     *  - Parameter **a_alias_content_length** is set to 0 after return and must
+     * be new set. */
+    int set(const char* a_alias_name, const char*& a_alias_content,
+            size_t& a_alias_content_length,
             time_t a_last_modified = time(nullptr)) {
         TRACE2(this, " Executing xml_alias_t::set()");
-
-        if (a_alias_content == nullptr ||
-            (a_alias_name != nullptr && a_alias_content == this->doc.buf)) {
-            TRACE2(this, " Return xml_alias_t::set() with "
-                         "UPNP_E_INVALID_ARGUMENT");
-            return UPNP_E_INVALID_ARGUMENT;
-        }
-
-        this->release();
+        pthread_mutex_lock(&web_mutex);
 
         if (a_alias_name == nullptr) {
             /* don't serve aliased doc anymore */
+            this->release_private();
+            pthread_mutex_unlock(&web_mutex);
             return UPNP_E_SUCCESS;
         }
+        if (a_alias_content == nullptr) {
+            pthread_mutex_unlock(&web_mutex);
+            return UPNP_E_INVALID_ARGUMENT;
+        }
+        this->release_private();
 
-        membuffer tmp_name{};
-        tmp_name.size_inc = MEMBUF_DEF_SIZE_INC;
-        membuffer tmp_doc{};
-        tmp_doc.size_inc = MEMBUF_DEF_SIZE_INC;
+        /* insert leading /, if missing */
+        if (*a_alias_name != '/')
+            m_name = '/';
+        m_name += a_alias_name;
+        UPnPsdk_LOGINFO(
+            "MSG1133") "attaching allocated document, take ownership.\n";
+        m_doc = std::string_view(a_alias_content, a_alias_content_length);
+        m_last_modified = a_last_modified;
+        a_alias_content = nullptr;
+        a_alias_content_length = 0;
+        m_ct = 1;
 
-        do {
-            /* insert leading /, if missing */
-            if (*a_alias_name != '/')
-                if (membuffer_assign_str(&tmp_name, "/") != 0)
-                    break; /* error; out of mem */
-            if (membuffer_append_str(&tmp_name, a_alias_name) != 0)
-                break;     /* error */
-            // a_alias_content_length must never exceed length of
-            // a_alias_content.
-            size_t content_len = strlen(a_alias_content);
-            size_t doc_len = a_alias_content_length < content_len
-                                 ? a_alias_content_length
-                                 : content_len;
-            membuffer_attach(&tmp_doc, (char*)a_alias_content, doc_len);
-            tmp_doc.buf[doc_len] = '\0';
-            // No errors, set properties
-            TRACE("  set: allocate membuffer name");
-            this->name = tmp_name;
-            TRACE("  set: allocate membuffer doc");
-            this->doc = tmp_doc;
-            this->last_modified = a_last_modified;
-            m_ct = 1;
-            this->ct = &m_ct;
-
-            return UPNP_E_SUCCESS;
-        } while (0); // Seems the "loop" is only used to have breaks.
-        /* error handler */
-        /* free temp vars */
-        TRACE("  set: already allocated membuffer name freed due to error");
-        membuffer_destroy(&tmp_name);
-        TRACE("  set: already allocated membuffer doc freed due to error");
-        membuffer_destroy(&tmp_doc);
-
-        TRACE2(this, " Return xml_alias_t::set() with "
-                     "UPNP_E_OUTOF_MEMORY");
-        return UPNP_E_OUTOF_MEMORY;
+        pthread_mutex_unlock(&web_mutex);
+        return UPNP_E_SUCCESS;
     }
 
-    /// \brief Returns if the XML object contains a valid XML document.
-    bool is_valid() const { return m_ct > 0; }
+    /// \brief Get the name of the root udevice description XML document
+    // -----------------------------------------------------------------
+    std::string_view name() const {
+        TRACE2(this, " Executing xml_alias_t::name()")
+        pthread_mutex_lock(&web_mutex);
+        std::string_view name = m_name;
+        pthread_mutex_unlock(&web_mutex);
+        return name;
+    }
 
-    /// \brief Release an XML document from the XML object.
+    /// \brief Get the root udevice description XML document
+    // -----------------------------------------------------
+    std::string_view doc() const {
+        TRACE2(this, " Executing xml_alias_t::doc()")
+        pthread_mutex_lock(&web_mutex);
+        std::string_view doc = m_doc;
+        pthread_mutex_unlock(&web_mutex);
+        return doc;
+    }
+
+    /*! \brief Get last modified date of the root udevice description XML
+     * document */
+    // ------------------------------------------------------------------
+    time_t last_modified() const {
+        TRACE2(this, " Executing xml_alias_t::last_modified()")
+        pthread_mutex_lock(&web_mutex);
+        auto last_modified = m_last_modified;
+        pthread_mutex_unlock(&web_mutex);
+        return last_modified;
+    }
+
+    /*! \brief Copy this object of the global XML document to the local output
+     * parameter. */
+    // -----------------------------------------------------------------------
+    void grab(xml_alias_t* a_alias /*!< [out] this XML alias object. */) {
+        TRACE2(this, " Executing xml_alias_t::grab()")
+        pthread_mutex_lock(&web_mutex);
+        auto doc = m_doc.data();
+        pthread_mutex_unlock(&web_mutex);
+        if (a_alias != nullptr && doc != nullptr) {
+            // This invokes the copy assignment constructor that should do a
+            // correct copy.
+            *a_alias = *this;
+        }
+    }
+
+    /// \brief Returns if the XML object contains a valid XML document
+    // ---------------------------------------------------------------
+    bool is_valid() const {
+        TRACE2(this, " Executing xml_alias_t::is_valid()")
+        pthread_mutex_lock(&web_mutex);
+        auto doc = m_doc.data();
+        pthread_mutex_unlock(&web_mutex);
+        return doc != nullptr;
+    }
+
+    /// \brief Release an XML document from the XML object
+    // ---------------------------------------------------
     void release() {
         TRACE2(this, " Executing xml_alias_t::release()");
-        int mutex_err = pthread_mutex_trylock(&gWebMutex);
+        pthread_mutex_lock(&web_mutex);
+        this->release_private();
+        pthread_mutex_unlock(&web_mutex);
+    }
+
+    /// \brief Clear the XML object
+    // ----------------------------
+    void clear() {
+        TRACE2(this, " Executing xml_alias_t::clear()");
+        pthread_mutex_lock(&web_mutex);
+        this->clear_private();
+        pthread_mutex_unlock(&web_mutex);
+    }
+
+  private:
+    /*! \brief Mutex to protect this class */
+    mutable pthread_mutex_t web_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+    /*! \brief name of DOC from root; e.g.: /foo/bar/mydesc.xml */
+    std::string m_name;
+
+    /*! \brief the XML document contents. */
+    std::string_view m_doc{std::string_view(nullptr, 0)};
+
+    /*! \brief Last modified time. */
+    time_t m_last_modified{};
+
+    /// cond;
+    // Counter how often the document is requested and will be decremented with
+    // this->release(). Only if m_cnt == 0 then this->clear_private() is called.
+    int m_ct{};
+    /// endcond;
+
+
+    /// \brief Release an XML document from the XML object without mutex lock
+    // ----------------------------------------------------------------------
+    inline void release_private() {
         /* ignore invalid alias */
         if (m_ct > 0) {
             m_ct--;
-            if (m_ct <= 0) {
-                this->clear();
-            } else {
-                TRACE("  release: nothing released, more than one time "
-                      "requested");
-            }
-        } else {
-            TRACE("  release: nothing to release");
+            if (m_ct <= 0)
+                this->clear_private();
         }
-        if (mutex_err == 0)
-            pthread_mutex_unlock(&gWebMutex);
     }
 
-    /// \brief Clear the XML object.
-    void clear() {
-        TRACE2(this, " Executing xml_alias_t::clear()");
-        int mutex_err = pthread_mutex_trylock(&gWebMutex);
-        if (this->name.buf != nullptr) {
-            TRACE("  clear: destroy membuffer name");
-            membuffer_destroy(&this->name);
+    /// \brief Clear the XML object without mutex lock
+    // -----------------------------------------------
+    inline void clear_private() {
+        m_name.clear();
+        // std::string_view 'm_doc' was created from an (external) allocated
+        // raw pointer that ownership has been overtaken with this. To be able
+        // to free this raw pointer the const protection of the
+        // std::string_view must be removed.
+        if (m_doc.data() != nullptr) {
+            UPnPsdk_LOGINFO("MSG1118") "freeing attached allocated document.\n";
+            ::free(const_cast<char*>(m_doc.data()));
+            m_doc = std::string_view(nullptr, 0);
         }
-        if (this->doc.buf != nullptr) {
-            TRACE("  clear: destroy membuffer doc");
-            membuffer_destroy(&this->doc);
-        }
-        this->last_modified = 0;
-        this->ct = nullptr;
+        m_last_modified = 0;
         m_ct = 0;
-        if (mutex_err == 0)
-            pthread_mutex_unlock(&gWebMutex);
     }
 };
 
-/*! \brief XML document object. */
+/*! \brief Global XML document object. */
 xml_alias_t gAliasDoc;
 
 
@@ -302,10 +355,10 @@ char* web_server_asctime_r(const struct tm* tm, char* buf) {
  *  On Success: 0\n
  *  On Error: -1 - not found
  */
-UPNP_INLINE int search_extension( //
-    const char* a_extension,      ///< [in]
-    const char** a_con_type,      ///< [out]
-    const char** a_con_subtype    ///< [out]
+inline int search_extension(   //
+    const char* a_extension,   ///< [in]
+    const char** a_con_type,   ///< [out]
+    const char** a_con_subtype ///< [out]
 ) {
     TRACE("Executing search_extension()")
 
@@ -335,7 +388,7 @@ UPNP_INLINE int search_extension( //
  *  - UPNP_E_INVALID_ARGUMENT - on invalid fileInfo.
  *  - UPNP_E_OUTOF_MEMORY - on memory allocation failures.
  */
-UPNP_INLINE int get_content_type(
+inline int get_content_type(
     const char* filename,  ///< [in] with extension, extension will be used.
     UpnpFileInfo* fileInfo ///< [out]
 ) {
@@ -379,49 +432,6 @@ UPNP_INLINE int get_content_type(
         return UPNP_E_OUTOF_MEMORY;
 
     return 0;
-}
-
-/*!
- * \brief Initialize the global XML document. Allocate buffers for the XML
- * document.
- */
-UPNP_INLINE void glob_alias_init() {
-    TRACE("Executing glob_alias_init()")
-    gAliasDoc.clear();
-}
-
-/*!
- * \brief Copy the contents of the global XML document into the local output
- * parameter.
- */
-void alias_grab(
-    /*! [out] XML alias object. */
-    xml_alias_t* a_alias) {
-    TRACE("Executing alias_grab()")
-    int mutex_err = pthread_mutex_trylock(&gWebMutex);
-    if (a_alias != nullptr) {
-        TRACE("  alias_grab: copy struct gAliasDoc");
-        *a_alias = gAliasDoc;
-        if (a_alias->ct != nullptr)
-            *a_alias->ct = *a_alias->ct + 1;
-    } else {
-        TRACE("  alias_grab: nothing copied to nullptr");
-    }
-    if (mutex_err == 0)
-        pthread_mutex_unlock(&gWebMutex);
-}
-
-/*!
- * \brief Release the XML document referred to by the input parameter.
- *
- * Free the allocated buffers associated with this object.
- */
-void alias_release(
-    /*! [in] XML alias object. */
-    xml_alias_t* a_alias) {
-    TRACE("Executing alias_release()");
-    if (a_alias != nullptr)
-        a_alias->release();
 }
 
 /*!
@@ -504,20 +514,21 @@ exit_function:
  * \li \c 1 - On Success
  * \li \c 0 if request is not an alias
  */
-UPNP_INLINE int get_alias(
+inline int get_alias(
     /*! [in] request file passed in to be compared with. */
     const char* request_file,
     /*! [out] xml alias object which has a file name stored. */
-    struct xml_alias_t* alias,
+    xml_alias_t* alias,
     /*! [out] File information object which will be filled up if the file
      * comparison succeeds. */
     UpnpFileInfo* info) {
-    int cmp = strcmp(alias->name.buf, request_file);
+    int cmp = strcmp(alias->name().data(), request_file);
     if (cmp == 0) {
-        UpnpFileInfo_set_FileLength(info, (off_t)alias->doc.length);
+        UpnpFileInfo_set_FileLength(info,
+                                    static_cast<off_t>(alias->doc().length()));
         UpnpFileInfo_set_IsDirectory(info, 0);
         UpnpFileInfo_set_IsReadable(info, 1);
-        UpnpFileInfo_set_LastModified(info, alias->last_modified);
+        UpnpFileInfo_set_LastModified(info, alias->last_modified());
     }
 
     return cmp == 0;
@@ -1033,9 +1044,9 @@ int process_request(
     /*! [out] Get filename from request document. */
     membuffer* filename,
     /*! [out] Xml alias document from the request document. */
-    struct xml_alias_t* alias,
+    xml_alias_t* alias,
     /*! [out] Send Instruction object where the response is set up. */
-    struct SendInstruction* RespInstr) {
+    SendInstruction* RespInstr) {
     int code;
     int err_code;
 
@@ -1048,9 +1059,9 @@ int process_request(
     const char* temp_str;
     int resp_major;
     int resp_minor;
-    int alias_grabbed;
     size_t dummy;
     memptr hdr_value;
+    bool alias_grabbed{false};
 
     url = &req->uri;
     assert(req->method == HTTPMETHOD_GET || req->method == HTTPMETHOD_HEAD ||
@@ -1060,7 +1071,6 @@ int process_request(
     memset(&finfo, 0, sizeof(finfo));
     request_doc = NULL;
     finfo = UpnpFileInfo_new();
-    alias_grabbed = 0;
     err_code = HTTP_INTERNAL_SERVER_ERROR; /* default error */
     using_virtual_dir = 0;
     using_alias = 0;
@@ -1096,9 +1106,9 @@ int process_request(
         }
     } else {
         /* try using alias */
-        if (gAliasDoc.is_valid()) {
-            alias_grab(alias);
-            alias_grabbed = 1;
+        if (alias != nullptr && gAliasDoc.is_valid()) {
+            gAliasDoc.grab(alias);
+            alias_grabbed = true;
             using_alias = get_alias(request_doc, alias, finfo);
             if (using_alias == 1) {
                 UpnpFileInfo_set_ContentType(finfo,
@@ -1373,7 +1383,7 @@ error_handler:
         (UpnpListHead*)UpnpFileInfo_get_ExtraHeadersList(finfo));
     UpnpFileInfo_delete(finfo);
     if (err_code != HTTP_OK && alias_grabbed) {
-        alias_release(alias);
+        alias->release();
     }
 
     return err_code;
@@ -1523,7 +1533,7 @@ int web_server_init() {
     if (bWebServerState == WEB_SERVER_DISABLED) {
         membuffer_init(&gDocumentRootDir);
         membuffer_init(&gWebserverCorsString);
-        glob_alias_init();
+        gAliasDoc.clear();
         pVirtualDirList = NULL;
 
         /* Initialize callbacks */
@@ -1534,31 +1544,31 @@ int web_server_init() {
         virtualDirCallback.seek = NULL;
         virtualDirCallback.close = NULL;
 
-        pthread_mutex_init(&gWebMutex, NULL); // Returns always 0
         bWebServerState = WEB_SERVER_ENABLED;
     }
 
     return ret;
 }
 
-int web_server_set_alias(const char* alias_name, const char* alias_content,
-                         size_t alias_content_length, time_t last_modified) {
+int web_server_set_alias(const char* a_alias_name, const char* a_alias_content,
+                         size_t a_alias_content_length,
+                         time_t a_last_modified) {
     TRACE("Executing web_server_set_alias()")
-    return gAliasDoc.set(alias_name, alias_content, alias_content_length,
-                         last_modified);
+    return gAliasDoc.set(a_alias_name, a_alias_content, a_alias_content_length,
+                         a_last_modified);
 }
 
 int web_server_set_root_dir(const char* root_dir) {
     TRACE("Executing web_server_set_root_dir()")
-    size_t index;
-    int ret;
+    if (root_dir == nullptr)
+        return UPNP_E_INVALID_ARGUMENT;
 
-    ret = membuffer_assign_str(&gDocumentRootDir, root_dir);
+    int ret = membuffer_assign_str(&gDocumentRootDir, root_dir);
     if (ret != 0)
         return ret;
     /* remove trailing '/', if any */
     if (gDocumentRootDir.length > 0) {
-        index = gDocumentRootDir.length - 1; /* last char */
+        size_t index = gDocumentRootDir.length - 1; /* last char */
         if (gDocumentRootDir.buf[index] == '/')
             membuffer_delete(&gDocumentRootDir, index, 1);
     }
@@ -1583,8 +1593,8 @@ void web_server_callback(http_parser_t* parser, /* INOUT */ http_message_t* req,
     enum resp_type rtype {};
     membuffer headers;
     membuffer filename;
-    struct xml_alias_t xmldoc;
-    struct SendInstruction RespInstr;
+    xml_alias_t xmldoc;
+    SendInstruction RespInstr;
 
     /* init */
     memset(&RespInstr, 0, sizeof(RespInstr));
@@ -1608,8 +1618,9 @@ void web_server_callback(http_parser_t* parser, /* INOUT */ http_message_t* req,
             break;
         case RESP_XMLDOC:
             http_SendMessage(info, &timeout, "Ibb", &RespInstr, headers.buf,
-                             headers.length, xmldoc.doc.buf, xmldoc.doc.length);
-            alias_release(&xmldoc);
+                             headers.length, xmldoc.doc().data(),
+                             xmldoc.doc().length());
+            xmldoc.release();
             break;
         case RESP_WEBDOC:
             /*http_SendVirtualDirDoc(info, &timeout, "Ibf",
@@ -1652,13 +1663,7 @@ void web_server_destroy() {
     if (bWebServerState == WEB_SERVER_ENABLED) {
         membuffer_destroy(&gDocumentRootDir);
         membuffer_destroy(&gWebserverCorsString);
-        alias_release(&gAliasDoc);
-
-        pthread_mutex_lock(&gWebMutex);
         gAliasDoc.clear();
-        pthread_mutex_unlock(&gWebMutex);
-
-        pthread_mutex_destroy(&gWebMutex);
         bWebServerState = WEB_SERVER_DISABLED;
     }
 }

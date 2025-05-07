@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-28
+// Redistribution only with this Copyright remark. Last modified: 2025-05-13
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -9,19 +9,17 @@
 #include <Compa/src/genlib/net/http/webserver.cpp>
 #endif
 
-#include <UPnPsdk/synclog.hpp>
 #include <UPnPsdk/upnptools.hpp> // for errStrEx
-
+#include <umock/stdlib_mock.hpp>
 #include <utest/utest.hpp>
 
-#if false
 // The web_server functions call stack
 //====================================
 /*
      web_server_init()
 01)  |__ media_list_init()
 02)  |__ membuffer_init()
-03)  |__ glob_alias_init()
+03)  |__ gAliasDoc.clear()
 04)  |__ Initialize callbacks
 05)  |__ pthread_mutex_init()
 
@@ -38,25 +36,26 @@
 
 Functions to manage the pupnp global XML alias structure 'gAliasDoc'.
 ---------------------------------------------------------------------
-These functions are re-engeneered to become part of the new XML alias structure
-as methods. They are tested with the XMLaliasTestSuite. */
-static UPNP_INLINE void glob_alias_init();
+These old functions are re-engeneered to become part of the new XML alias
+structure as methods. They are tested with the XMLaliasTestSuite.
+
+static inline void gAliasDoc.clear();
     // Not needed anymore. This will be done by instantiation of the structure
     // and with its constructor.
-int web_server_set_alias();              // Will become method set().
-static void alias_grab();                // will become method get().
-static UPNP_INLINE int is_valid_alias(); // Will become method is_valid().
-static void alias_release();             // Will become method release().
-#endif
+int web_server_set_alias();         // Will become method set().
+static void alias_grab();           // will become method get().
+static inline int is_valid_alias(); // Will become method is_valid().
+static void alias_release();        // Will become method release().
+*/
 
-#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+#if 0
 namespace {
 /*!
  * \brief Check for the validity of the XML object buffer.
  *
  * \returns **true** if valid alias, **false** otherwise.
  */
-UPNP_INLINE bool is_valid_alias(
+inline bool is_valid_alias(
     /*! [in] XML alias object. */
     const xml_alias_t* alias) {
     TRACE("Executing is_valid_alias()")
@@ -75,27 +74,8 @@ using ::testing::ExitedWithCode;
 using ::UPnPsdk::errStrEx;
 
 
-class CEnableTrace {
-#ifdef UPnPsdk_WITH_TRACE
-  public:
-    CEnableTrace() { std::clog.clear(); }
-    ~CEnableTrace() { std::clog.setstate(std::ios_base::failbit); }
-#endif
-};
-
-
 // Little helper
 // =============
-class CgWebMutex {
-    // There are some Units with mutex locks and unlocks that will throw
-    // exceptions on WIN32 if not initialized. I need this class in conjunction
-    // with other helper classes to ensure that the mutex is destructed at last.
-    // --Ingo
-  public:
-    CgWebMutex() { pthread_mutex_init(&gWebMutex, NULL); }
-    ~CgWebMutex() { pthread_mutex_destroy(&gWebMutex); }
-};
-
 class CUpnpFileInfo {
     // Use this simple helper class to ensure to always free an allocated
     // UpnpFileInfo.
@@ -104,18 +84,6 @@ class CUpnpFileInfo {
 
     CUpnpFileInfo() { this->info = UpnpFileInfo_new(); }
     ~CUpnpFileInfo() { UpnpFileInfo_delete(this->info); }
-};
-
-
-// Mocked system calls
-//====================
-class StdlibMock : public umock::StdlibInterface {
-  public:
-    virtual ~StdlibMock() override {}
-    MOCK_METHOD(void*, malloc, (size_t size), (override));
-    MOCK_METHOD(void*, calloc, (size_t nmemb, size_t size), (override));
-    MOCK_METHOD(void*, realloc, (void* ptr, size_t size), (override));
-    MOCK_METHOD(void, free, (void* ptr), (override));
 };
 
 
@@ -139,15 +107,21 @@ TEST(WebServerTestSuite, init_and_destroy) {
 
     // Check if gDocumentRootDir is initialized
     EXPECT_EQ(gDocumentRootDir.buf, nullptr);
-    EXPECT_EQ(gDocumentRootDir.length, (size_t)0);
-    EXPECT_EQ(gDocumentRootDir.capacity, (size_t)0);
-    EXPECT_EQ(gDocumentRootDir.size_inc, (size_t)5);
+    EXPECT_EQ(gDocumentRootDir.length, 0u);
+    EXPECT_EQ(gDocumentRootDir.capacity, 0u);
+    EXPECT_EQ(gDocumentRootDir.size_inc, 5u);
 
     // Check if the global alias document is initialized
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     EXPECT_EQ(gAliasDoc.doc.buf, nullptr);
     EXPECT_EQ(gAliasDoc.name.buf, nullptr);
     EXPECT_EQ(gAliasDoc.ct, nullptr);
     EXPECT_EQ(gAliasDoc.last_modified, 0);
+#else
+    EXPECT_TRUE(gAliasDoc.doc().empty());
+    EXPECT_TRUE(gAliasDoc.name().empty());
+    EXPECT_EQ(gAliasDoc.last_modified(), 0);
+#endif
 
     // Check if the virtual directory callback list is initialized
     EXPECT_EQ(pVirtualDirList, nullptr);
@@ -172,13 +146,8 @@ TEST(WebServerTestSuite, set_root_dir) {
     // Test Unit
     EXPECT_EQ(web_server_set_root_dir(SAMPLE_SOURCE_DIR "/web"), 0);
     EXPECT_STREQ(gDocumentRootDir.buf, SAMPLE_SOURCE_DIR "/web");
-}
 
-TEST(WebServerTestSuite, set_root_dir_with_trailing_slash) {
-    // Initialize global variable to avoid side effects
-    membuffer_init(&gDocumentRootDir);
-
-    // Test Unit
+    // Test Unit with trailing slash
     EXPECT_EQ(web_server_set_root_dir(SAMPLE_SOURCE_DIR "/web/"), 0);
     EXPECT_STREQ(gDocumentRootDir.buf, SAMPLE_SOURCE_DIR "/web");
 }
@@ -209,10 +178,6 @@ TEST(WebServerTestSuite, set_root_dir_empty_string) {
 }
 
 TEST(WebServerDeathTest, set_root_dir_nullptr) {
-    // SKIP on Github Actions
-    if (github_actions && !old_code)
-        GTEST_SKIP() << "             known failing test on Github Actions";
-
     // Test Unit
     if (old_code) {
         // This must be fixed within membuffer.
@@ -238,32 +203,27 @@ TEST(WebServerDeathTest, set_root_dir_nullptr) {
     }
 }
 
-TEST(MediaListTestSuite, init) {
-    if (old_code) {
+// With new code there is no media list to initialize. We have a
+// constant array there, once initialized by the compiler on startup.
+// This is only a dummy function for compatibility.
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
-        // Destroy gMediaTypeList to avoid side effects from other tests.
-        memset(&gMediaTypeList, 0xAA, sizeof(gMediaTypeList));
+TEST(MediaListTestSuite, init) {
+    // Destroy gMediaTypeList to avoid side effects from other tests.
+    memset(&gMediaTypeList, 0xAA, sizeof(gMediaTypeList));
 
-        // Test Unit
-        ::media_list_init();
+    // Test Unit
+    ::media_list_init();
 
-        EXPECT_STREQ(gMediaTypeList[0].file_ext, "aif");
-        EXPECT_STREQ(gMediaTypeList[0].content_type, "audio");
-        EXPECT_STREQ(gMediaTypeList[0].content_subtype, "aiff");
+    EXPECT_STREQ(gMediaTypeList[0].file_ext, "aif");
+    EXPECT_STREQ(gMediaTypeList[0].content_type, "audio");
+    EXPECT_STREQ(gMediaTypeList[0].content_subtype, "aiff");
 
-        EXPECT_STREQ(gMediaTypeList[NUM_MEDIA_TYPES - 1].file_ext, "zip");
-        EXPECT_STREQ(gMediaTypeList[NUM_MEDIA_TYPES - 1].content_type,
-                     "application");
-        EXPECT_STREQ(gMediaTypeList[NUM_MEDIA_TYPES - 1].content_subtype,
-                     "zip");
-#endif
-    } else {
-
-        // With new code there is no media list to initialize. We have a
-        // constant array there, once initialized by the compiler on startup.
-        // This is only a dummy function for compatibility.
-    }
+    EXPECT_STREQ(gMediaTypeList[NUM_MEDIA_TYPES - 1].file_ext, "zip");
+    EXPECT_STREQ(gMediaTypeList[NUM_MEDIA_TYPES - 1].content_type,
+                 "application");
+    EXPECT_STREQ(gMediaTypeList[NUM_MEDIA_TYPES - 1].content_subtype, "zip");
 }
+#endif
 
 TEST(MediaListTestSuite, search_extension) {
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
@@ -384,20 +344,21 @@ TEST(MediaListDeathTest, get_content_type_with_no_fileinfo) {
     }
 }
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 class XMLaliasFTestSuite : public ::testing::Test {
   protected:
     XMLaliasFTestSuite() {
         TRACE2(this, " Construct XMLaliasFTestSuite");
         // There are mutexes used, so we have to initialize it.
-        pthread_mutex_init(&gWebMutex, NULL);
+        pthread_mutex_init(&gWebMutex, nullptr);
 
         // There is a problem with the global structure ::gAliasDoc due to side
-        // effects on other tests. So we always provide a fresh initialized and
+        // effects on other tests. So I always provide a fresh initialized and
         // unused ::gAliasDoc for each test.
 
         // Next does not allocate memory, it only nullify pointer so we do
         // not have to release it.
-        ::glob_alias_init();
+        glob_alias_init();
     }
 
     ~XMLaliasFTestSuite() {
@@ -407,39 +368,49 @@ class XMLaliasFTestSuite : public ::testing::Test {
         // alias_release() by waiting to unlock the mutex.
         pthread_mutex_unlock(&gWebMutex);
 
-        // This frees all allocated resources.
+        // This frees all allocated resources if any.
         while (is_valid_alias(&gAliasDoc)) {
             alias_release(&gAliasDoc);
         }
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
         memset(&::gAliasDoc, 0xAA, sizeof(::gAliasDoc));
-#endif
-
         pthread_mutex_destroy(&gWebMutex);
     }
 };
+
+#else // UPnPsdk_WITH_NATIVE_PUPNP
+
+class XMLaliasFTestSuite : public ::testing::Test {
+  protected:
+    XMLaliasFTestSuite() {
+        TRACE2(this, " Construct XMLaliasFTestSuite");
+        // There is a problem with the global structure ::gAliasDoc due to side
+        // effects on other tests. So I always provide a fresh initialized and
+        // unused ::gAliasDoc for each test.
+        gAliasDoc.clear();
+    }
+
+    ~XMLaliasFTestSuite() {
+        TRACE2(this, " Destruct XMLaliasFTestSuite");
+        // This frees all allocated resources if any.
+        while (gAliasDoc.is_valid()) {
+            gAliasDoc.release();
+        }
+    }
+};
+#endif
 typedef XMLaliasFTestSuite XMLaliasFDeathTest;
 
-
 TEST(XMLaliasTestSuite, glob_alias_init_and_release) {
-    // Because we test glob_alias_init() and alias_release() here, we cannot use
-    // the fixture class with TEST_F that also uses glob_alias_init().
+    // Because I test gAliasDoc.clear() and alias_release() here, I cannot use
+    // the fixture class with TEST_F that also uses gAliasDoc.clear().
 
-    // There are some mutex locks and unlocks. This must be first in scope.
-    CgWebMutex global_web_mutex;
-
-    // With the old code we may see uninitialized but plausible values on
-    // preused global variables so we overwrite them with unwanted values.
-    // With new code the structure is initialized with its constructor, no
-    // need to call an initialization function but we do it also for
-    // compatibility.
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    // With the old code we may see uninitialized but plausible values on
+    // preused global variables so I overwrite them with unwanted values.
     memset(&::gAliasDoc, 0xAA, sizeof(::gAliasDoc));
-#else
-    gAliasDoc.clear();
-#endif
 
     // Test Unit init.
+    pthread_mutex_init(&gWebMutex, nullptr);
     glob_alias_init();
 
     xml_alias_t* alias = &gAliasDoc;
@@ -462,12 +433,15 @@ TEST(XMLaliasTestSuite, glob_alias_init_and_release) {
 
     // An empty alias structure hasn't allocated memory so there is also nothing
     // to free.
-    StdlibMock mock_stdlibObj;
+    umock::StdlibMock mock_stdlibObj;
     umock::Stdlib stdlib_injectObj(&mock_stdlibObj);
     EXPECT_CALL(mock_stdlibObj, free(_)).Times(0);
 
     // Test Unit release
     alias_release(alias);
+    pthread_mutex_destroy(&gWebMutex);
+
+    ASSERT_FALSE(is_valid_alias(alias));
 
     EXPECT_EQ(alias->doc.buf, nullptr);
     EXPECT_EQ(alias->doc.length, (size_t)0);
@@ -481,35 +455,73 @@ TEST(XMLaliasTestSuite, glob_alias_init_and_release) {
 
     EXPECT_EQ(alias->ct, nullptr);
     EXPECT_EQ(alias->last_modified, 0);
+
+#else // UPnPsdk_WITH_NATIVE_PUPNP
+
+    xml_alias_t* alias = &gAliasDoc;
+
+    // Test Unit
+    alias->clear();
+
+    // An initialized empty structure does not contain a valid alias.
+    ASSERT_FALSE(alias->is_valid());
+
+    // Check the empty alias.
+    EXPECT_TRUE(alias->name().empty());
+    EXPECT_TRUE(alias->doc().empty());
+    EXPECT_EQ(alias->last_modified(), 0);
+
+    // Test Unit release
+    alias->release();
+
+    ASSERT_FALSE(alias->is_valid());
+    EXPECT_TRUE(alias->name().empty());
+    EXPECT_TRUE(alias->doc().empty());
+    EXPECT_EQ(alias->last_modified(), 0);
+#endif
 }
 
 TEST_F(XMLaliasFTestSuite, copy_empty_structure) {
     // Test Unit, gAliasDoc is initialized by the fixture.
     xml_alias_t aliasDoc{gAliasDoc};
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Check the copied alias.
+    ASSERT_FALSE(is_valid_alias(&aliasDoc));
     EXPECT_EQ(aliasDoc.doc.buf, nullptr);
-    EXPECT_EQ(aliasDoc.doc.length, (size_t)0);
-    EXPECT_EQ(aliasDoc.doc.capacity, (size_t)0);
-    EXPECT_EQ(aliasDoc.doc.size_inc, (size_t)5);
+    EXPECT_EQ(aliasDoc.doc.length, 0u);
+    EXPECT_EQ(aliasDoc.doc.capacity, 0u);
+    EXPECT_EQ(aliasDoc.doc.size_inc, 5u);
 
     EXPECT_EQ(aliasDoc.name.buf, nullptr);
-    EXPECT_EQ(aliasDoc.name.length, (size_t)0);
-    EXPECT_EQ(aliasDoc.name.capacity, (size_t)0);
-    EXPECT_EQ(aliasDoc.name.size_inc, (size_t)5);
+    EXPECT_EQ(aliasDoc.name.length, 0u);
+    EXPECT_EQ(aliasDoc.name.capacity, 0u);
+    EXPECT_EQ(aliasDoc.name.size_inc, 5u);
 
     EXPECT_EQ(aliasDoc.ct, nullptr);
     EXPECT_EQ(aliasDoc.last_modified, 0);
+
+#else // UPnPsdk_WITH_NATIVE_PUPNP
+
+    EXPECT_FALSE(aliasDoc.is_valid());
+    EXPECT_TRUE(aliasDoc.name().empty());
+    EXPECT_TRUE(aliasDoc.doc().empty());
+    EXPECT_EQ(aliasDoc.last_modified(), 0);
+#endif
 }
 
 TEST_F(XMLaliasFTestSuite, copy_structure) {
-    // For details look at test [..].set_alias_with_content_length_zero.
+    // alias_content is defined to be a XML document which is a character
+    // string with string length. It is not a C string and may contain '\0'
+    // characters within its length and may not have a terminating '\0'.
 
     char alias_name[]{"valid_alias_name1"}; // length = 18
     char content[]{"XML Dokument string1"}; // length = 20
     char* alias_content = (char*)malloc(sizeof(content));
     strcpy(alias_content, content);
     EXPECT_EQ(web_server_set_alias(alias_name, alias_content, 20, 0), 0);
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     *gAliasDoc.ct = 2;
 
     // Test Unit
@@ -517,13 +529,22 @@ TEST_F(XMLaliasFTestSuite, copy_structure) {
 
     EXPECT_EQ(*aliasDoc.ct, 2);
 
-    EXPECT_EQ(aliasDoc.name.length, (size_t)18);
-    EXPECT_EQ(aliasDoc.name.capacity, (size_t)22);
+    EXPECT_EQ(aliasDoc.name.length, 18u);
+    EXPECT_EQ(aliasDoc.name.capacity, 22u);
     EXPECT_STREQ(aliasDoc.name.buf, "/valid_alias_name1");
 
-    EXPECT_EQ(aliasDoc.doc.length, (size_t)20);
-    EXPECT_EQ(aliasDoc.doc.capacity, (size_t)20);
+    EXPECT_EQ(aliasDoc.doc.length, 20u);
+    EXPECT_EQ(aliasDoc.doc.capacity, 20u);
     EXPECT_STREQ(aliasDoc.doc.buf, "XML Dokument string1");
+
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
+
+    // Test Unit
+    xml_alias_t aliasDoc{gAliasDoc};
+
+    EXPECT_EQ(aliasDoc.name(), "/valid_alias_name1");
+    EXPECT_EQ(aliasDoc.doc(), "XML Dokument string1");
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(XMLaliasFTestSuite, assign_empty_structure) {
@@ -531,29 +552,40 @@ TEST_F(XMLaliasFTestSuite, assign_empty_structure) {
     xml_alias_t aliasDoc;
     aliasDoc = gAliasDoc;
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Check the copied alias.
     EXPECT_EQ(aliasDoc.doc.buf, nullptr);
-    EXPECT_EQ(aliasDoc.doc.length, (size_t)0);
-    EXPECT_EQ(aliasDoc.doc.capacity, (size_t)0);
-    EXPECT_EQ(aliasDoc.doc.size_inc, (size_t)5);
+    EXPECT_EQ(aliasDoc.doc.length, 0u);
+    EXPECT_EQ(aliasDoc.doc.capacity, 0u);
+    EXPECT_EQ(aliasDoc.doc.size_inc, 5u);
 
     EXPECT_EQ(aliasDoc.name.buf, nullptr);
-    EXPECT_EQ(aliasDoc.name.length, (size_t)0);
-    EXPECT_EQ(aliasDoc.name.capacity, (size_t)0);
-    EXPECT_EQ(aliasDoc.name.size_inc, (size_t)5);
+    EXPECT_EQ(aliasDoc.name.length, 0u);
+    EXPECT_EQ(aliasDoc.name.capacity, 0u);
+    EXPECT_EQ(aliasDoc.name.size_inc, 5u);
 
     EXPECT_EQ(aliasDoc.ct, nullptr);
     EXPECT_EQ(aliasDoc.last_modified, 0);
+
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
+
+    EXPECT_EQ(aliasDoc.doc().length(), 0);
+    EXPECT_EQ(aliasDoc.name().length(), 0);
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(XMLaliasFTestSuite, assign_structure) {
-    // For details look at test [..].set_alias_with_content_length_zero.
+    // alias_content is defined to be a XML document which is a character
+    // string with string length. It is not a C string and may contain '\0'
+    // characters within its length and may not have a terminating '\0'.
 
     char alias_name[]{"valid_alias_name2"}; // length = 18
     char content[]{"XML Dokument string2"}; // length = 20
-    char* alias_content = (char*)malloc(sizeof(content));
+    char* alias_content = static_cast<char*>(malloc(sizeof(content)));
     strcpy(alias_content, content);
     EXPECT_EQ(web_server_set_alias(alias_name, alias_content, 20, 0), 0);
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     *gAliasDoc.ct = 3;
 
     // Test Unit
@@ -562,108 +594,112 @@ TEST_F(XMLaliasFTestSuite, assign_structure) {
 
     EXPECT_EQ(*aliasDoc.ct, 3);
 
-    EXPECT_EQ(aliasDoc.name.length, (size_t)18);
-    EXPECT_EQ(aliasDoc.name.capacity, (size_t)22);
+    EXPECT_EQ(aliasDoc.name.length, 18u);
+    EXPECT_EQ(aliasDoc.name.capacity, 22u);
     EXPECT_STREQ(aliasDoc.name.buf, "/valid_alias_name2");
 
-    EXPECT_EQ(aliasDoc.doc.length, (size_t)20);
-    EXPECT_EQ(aliasDoc.doc.capacity, (size_t)20);
+    EXPECT_EQ(aliasDoc.doc.length, 20u);
+    EXPECT_EQ(aliasDoc.doc.capacity, 20u);
     EXPECT_STREQ(aliasDoc.doc.buf, "XML Dokument string2");
+
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
+
+    // Test Unit
+    xml_alias_t aliasDoc;
+    aliasDoc = gAliasDoc;
+
+    EXPECT_EQ(aliasDoc.name(), "/valid_alias_name2");
+    EXPECT_EQ(aliasDoc.doc(), "XML Dokument string2");
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
+// For new code there is only a member function xml_alias_t::release() that
+// exists on an instantiated object. No possibility to have a nullptr.
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(XMLaliasFDeathTest, alias_release_nullptr) {
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": alias_release a nullptr must not segfault.\n";
-        // This expects segfault.
-        EXPECT_DEATH(::alias_release(nullptr), ".*");
-
-    } else {
-
-        // This expects NO segfault.
-        EXPECT_EXIT((alias_release(nullptr), exit(0)), ExitedWithCode(0), ".*");
-    }
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": alias_release a nullptr must not segfault.\n";
+    // This expects segfault.
+    EXPECT_DEATH(::alias_release(nullptr), ".*");
 }
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 
+// For new code there is only a member function xml_alias_t::is_valid() that
+// exists on an instantiated object. No possibility to have a nullptr.
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(XMLaliasFDeathTest, is_valid_alias_nullptr) {
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": is_valid_alias(nullptr) must not segfault.\n";
-        // This expects segfault.
-        EXPECT_DEATH(
-            {
-                int rc = ::is_valid_alias((::xml_alias_t*)nullptr);
-                // Next statement is only executed if there was no segfault but
-                // it's needed to suppress optimization to remove unneeded
-                // return code.
-                std::cout << "No segfault with rc = " << rc << "\n";
-            },
-            ".*");
-
-    } else {
-
-        // This expects NO segfault.
-        ASSERT_EXIT((is_valid_alias((xml_alias_t*)nullptr), exit(0)),
-                    ExitedWithCode(0), ".*");
-        bool ret_is_valid_alias{true};
-        ret_is_valid_alias = is_valid_alias((xml_alias_t*)nullptr);
-        EXPECT_FALSE(ret_is_valid_alias);
-    }
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": is_valid_alias(nullptr) must not segfault.\n";
+    // This expects segfault.
+    EXPECT_DEATH(
+        {
+            int rc = ::is_valid_alias((::xml_alias_t*)nullptr);
+            // Next statement is only executed if there was no segfault but
+            // it's needed to suppress optimization to remove unneeded
+            // return code.
+            std::cout << "No segfault with rc = " << rc << "\n";
+        },
+        ".*");
 }
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 
 TEST_F(XMLaliasFTestSuite, is_valid_alias_empty_structure) {
     // An empty alias is provided by the fixture.
     // Test Unit empty alias structure not to be a valid alias.
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     bool ret_is_valid_alias{true};
     ret_is_valid_alias = is_valid_alias(&gAliasDoc);
     EXPECT_FALSE(ret_is_valid_alias);
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
+    bool ret_is_valid{true};
+    ret_is_valid = gAliasDoc.is_valid();
+    EXPECT_FALSE(ret_is_valid);
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
+// This only applies to old code. With new code we have a cnstructor of the
+// struct that is doing initialization so we never get an uninitialized alias.
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST(XMLaliasTestSuite, is_valid_alias_uninitialized_structure) {
     // Because we test an uninitialzed structure we cannot use the fixture that
     // provide an initialized structure. is_valid_alias() does not use mutex.
 
     bool ret_is_valid_alias{true};
 
-    if (old_code) {
-        // Because it is impossible to test for invalid pointers it is important
-        // to "nullify" the structure.
-        ::xml_alias_t alias{};
-        // memset(&alias, 0xA5, sizeof(xml_alias_t));
-        // This "random" structure setting will report a valid alias
+    // Because it is impossible to test for invalid pointers it is important
+    // to "nullify" the structure.
+    ::xml_alias_t alias{};
+    // memset(&alias, 0xA5, sizeof(xml_alias_t));
+    // This "random" structure setting will report a valid alias
 
-        // Test Unit
-        ret_is_valid_alias = ::is_valid_alias(&alias);
-        EXPECT_FALSE(ret_is_valid_alias);
-
-    } else {
-
-        // Here we have a cnstructor of the struct that is doing initialization
-        // so we never get an uninitialized alias. But an unset initialized
-        // alias is also not valid.
-        xml_alias_t alias;
-
-        // Test Unit
-        ret_is_valid_alias = is_valid_alias(&alias);
-        EXPECT_FALSE(ret_is_valid_alias);
-    }
+    // Test Unit
+    ret_is_valid_alias = ::is_valid_alias(&alias);
+    EXPECT_FALSE(ret_is_valid_alias);
 }
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 
-TEST_F(XMLaliasFTestSuite, set_and_is_valid_and_release_global_alias) {
-    char alias_name[]{"is_valid_alias"}; // length = 14
+TEST_F(XMLaliasFTestSuite, set_alias_check_is_valid_and_release_global_alias) {
+    char alias_name[]{"is_valid_alias"}; // length = 14 + 1
 
     // The content string must be allocated on the heap because it is freed by
     // the unit.
-    const char content[]{"Test for a valid alias"}; // length = 22
-    char* alias_content = (char*)malloc(sizeof(content));
-    strcpy(alias_content, content);
+    constexpr char content[]{"Test for a valid alias"}; // length = 22 + 1
+    char* alias_content = new char[sizeof(content)];
+    // Also possible:
+    // char* alias_content = static_cast<char*>(malloc(sizeof(content)));
+    ::strcpy(alias_content, content);
 
     // Test Unit web_server_set_alias()
-    // alias_content_length without terminating '\0'
-    // time_t 1668095500 sec is 2022-11-10T16:51:40
+    //      alias_content_length is without terminating '\0'
+    //      bash get time_t as sec since Epoch: date +'%FT%T = %s'
+    //      2025-05-10T22:57:11 = 1746910631
     EXPECT_EQ(web_server_set_alias(alias_name, alias_content,
-                                   sizeof(content) - 1, 1668095500),
+                                   sizeof(content) - 1, 1746910631),
               0);
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    // Test Unit is_valid_alias()
+    ASSERT_TRUE(is_valid_alias((xml_alias_t*)&gAliasDoc));
 
     EXPECT_STREQ(gAliasDoc.doc.buf, "Test for a valid alias");
     EXPECT_EQ(gAliasDoc.doc.length, strlen(gAliasDoc.doc.buf));
@@ -679,13 +715,11 @@ TEST_F(XMLaliasFTestSuite, set_and_is_valid_and_release_global_alias) {
     EXPECT_EQ(gAliasDoc.name.size_inc, (size_t)5);
 
     EXPECT_EQ(*gAliasDoc.ct, 1);
-    EXPECT_EQ(gAliasDoc.last_modified, 1668095500);
-
-    // Test Unit is_valid_alias()
-    EXPECT_TRUE(is_valid_alias((xml_alias_t*)&gAliasDoc));
+    EXPECT_EQ(gAliasDoc.last_modified, 1746910631);
 
     // Test Unit alias_release()
     alias_release((xml_alias_t*)&gAliasDoc);
+    ASSERT_FALSE(is_valid_alias((xml_alias_t*)&gAliasDoc));
 
     EXPECT_STREQ(gAliasDoc.doc.buf, nullptr);
     EXPECT_EQ(gAliasDoc.doc.length, (size_t)0);
@@ -697,24 +731,41 @@ TEST_F(XMLaliasFTestSuite, set_and_is_valid_and_release_global_alias) {
     EXPECT_EQ(gAliasDoc.name.capacity, (size_t)0);
     EXPECT_EQ(gAliasDoc.name.size_inc, (size_t)5);
 
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": Clear webserver alias with 'alias_release()' "
-                     "should clear all fields of the structure.\n";
-        EXPECT_NE(gAliasDoc.ct, nullptr);               // This is wrong
-        EXPECT_EQ(gAliasDoc.last_modified, 1668095500); // This is wrong
-
-    } else {
-
-        EXPECT_EQ(gAliasDoc.ct, nullptr);
-        EXPECT_EQ(gAliasDoc.last_modified, 0);
-    }
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": Clear webserver alias with 'alias_release()' "
+                 "should clear all fields of the structure.\n";
+    EXPECT_NE(gAliasDoc.ct, nullptr);               // This is wrong
+    EXPECT_EQ(gAliasDoc.last_modified, 1746910631); // This is wrong
+//
+#else // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit is_valid_alias()
-    EXPECT_FALSE(is_valid_alias((xml_alias_t*)&gAliasDoc));
+    ASSERT_TRUE(gAliasDoc.is_valid());
+
+    EXPECT_EQ(gAliasDoc.doc(), "Test for a valid alias");
+    EXPECT_EQ(gAliasDoc.doc().length(), sizeof(content) - 1);
+    EXPECT_EQ(gAliasDoc.name(), "/is_valid_alias");
+    // *.length is without NULL byte, sizeof with NULL byte
+    EXPECT_EQ(gAliasDoc.name().length(), sizeof('/') + sizeof(alias_name) - 1);
+    EXPECT_EQ(gAliasDoc.last_modified(), 1746910631);
+
+    // Test Unit alias_release()
+    gAliasDoc.release();
+    ASSERT_FALSE(gAliasDoc.is_valid());
+
+    EXPECT_TRUE(gAliasDoc.doc().empty());
+    EXPECT_EQ(gAliasDoc.doc().data(), nullptr);
+    EXPECT_EQ(gAliasDoc.doc(), "");
+
+    EXPECT_TRUE(gAliasDoc.name().empty());
+    EXPECT_EQ(*gAliasDoc.name().data(), '\0'); // Points to an empty string now.
+    EXPECT_EQ(gAliasDoc.name(), "");
+
+    EXPECT_EQ(gAliasDoc.last_modified(), 0);
+#endif
 }
 
-TEST_F(XMLaliasFTestSuite, set_and_remove_alias) {
+TEST_F(XMLaliasFTestSuite, set_alias_and_remove_it) {
     char alias_name[]{"alias_name"};
 
     // The content string must be allocated on the heap because it is freed by
@@ -734,299 +785,312 @@ TEST_F(XMLaliasFTestSuite, set_and_remove_alias) {
     EXPECT_EQ(web_server_set_alias(nullptr, alias_content, sizeof(content) - 1,
                                    1668095500),
               0);
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    ASSERT_FALSE(is_valid_alias(&gAliasDoc));
 
     EXPECT_STREQ(gAliasDoc.doc.buf, nullptr);
-    EXPECT_EQ(gAliasDoc.doc.length, (size_t)0);
-    EXPECT_EQ(gAliasDoc.doc.capacity, (size_t)0);
-    EXPECT_EQ(gAliasDoc.doc.size_inc, (size_t)5);
+    EXPECT_EQ(gAliasDoc.doc.length, 0u);
+    EXPECT_EQ(gAliasDoc.doc.capacity, 0u);
+    EXPECT_EQ(gAliasDoc.doc.size_inc, 5u);
 
     EXPECT_STREQ(gAliasDoc.name.buf, nullptr);
-    EXPECT_EQ(gAliasDoc.name.length, (size_t)0);
-    EXPECT_EQ(gAliasDoc.name.capacity, (size_t)0);
-    EXPECT_EQ(gAliasDoc.name.size_inc, (size_t)5);
+    EXPECT_EQ(gAliasDoc.name.length, 0u);
+    EXPECT_EQ(gAliasDoc.name.capacity, 0u);
+    EXPECT_EQ(gAliasDoc.name.size_inc, 5u);
 
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": Clear webserver alias with 'web_server_set_alias()' "
-                     "should clear all fields of the structure.\n";
-        EXPECT_NE(gAliasDoc.ct, nullptr);               // This is wrong
-        EXPECT_EQ(gAliasDoc.last_modified, 1668095500); // This is wrong
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": Clear webserver alias with 'web_server_set_alias()' "
+                 "should clear all fields of the structure.\n";
+    EXPECT_NE(gAliasDoc.ct, nullptr);               // This is wrong
+    EXPECT_EQ(gAliasDoc.last_modified, 1668095500); // This is wrong
+//
+#else // UPnPsdk_WITH_NATIVE_PUPNP
 
-    } else {
-
-        EXPECT_EQ(gAliasDoc.ct, nullptr);
-        EXPECT_EQ(gAliasDoc.last_modified, 0);
-    }
+    ASSERT_FALSE(gAliasDoc.is_valid());
+    EXPECT_TRUE(gAliasDoc.doc().empty());
+    EXPECT_TRUE(gAliasDoc.name().empty());
+    EXPECT_EQ(gAliasDoc.last_modified(), 0);
+#endif
 }
 
 TEST_F(XMLaliasFDeathTest, set_alias_with_nullptr_to_alias_content) {
     char alias_name[]{"alias_Name"};
 
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": web_server_set_alias() with nullptr to "
-                     "alias_content must not abort or leave invalid alias.\n";
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": web_server_set_alias() with nullptr to "
+                 "alias_content must not abort or leave invalid alias.\n";
 #ifndef NDEBUG
-        // This expects an abort with failed assertion only with DEBUG build.
-        // There is an assert used in the function.
-        ASSERT_DEATH(::web_server_set_alias(alias_name, nullptr, 0, 0), ".*");
+    // This expects an abort with failed assertion only with DEBUG build.
+    // There is an assert used in the function.
+    ASSERT_DEATH(::web_server_set_alias(alias_name, nullptr, 0, 0), ".*");
 #else
-        int ret_set_alias{UPNP_E_INTERNAL_ERROR};
-        ret_set_alias = ::web_server_set_alias(alias_name, nullptr, 0, 0);
-        EXPECT_EQ(ret_set_alias, UPNP_E_SUCCESS)
-            << errStrEx(ret_set_alias, UPNP_E_SUCCESS);
+    int ret_set_alias{UPNP_E_INTERNAL_ERROR};
+    ret_set_alias = ::web_server_set_alias(alias_name, nullptr, 0, 0);
+    EXPECT_EQ(ret_set_alias, UPNP_E_SUCCESS)
+        << errStrEx(ret_set_alias, UPNP_E_SUCCESS);
 
-        // This is an invalid alias with name but no pointer to its document.
-        EXPECT_EQ(::gAliasDoc.doc.buf, nullptr);
-        EXPECT_EQ(::gAliasDoc.doc.length, (size_t)0);
-        EXPECT_EQ(::gAliasDoc.doc.capacity, (size_t)0);
-        EXPECT_EQ(::gAliasDoc.doc.size_inc, (size_t)5);
+    // This is an invalid alias with name but no pointer to its document.
+    EXPECT_EQ(::gAliasDoc.doc.buf, nullptr);
+    EXPECT_EQ(::gAliasDoc.doc.length, 0u);
+    EXPECT_EQ(::gAliasDoc.doc.capacity, 0u);
+    EXPECT_EQ(::gAliasDoc.doc.size_inc, 5u);
 
-        EXPECT_STREQ(::gAliasDoc.name.buf, "/alias_Name");
-        EXPECT_EQ(::gAliasDoc.name.length, sizeof(alias_name));
-        EXPECT_EQ(::gAliasDoc.name.capacity, (size_t)15);
-        EXPECT_EQ(::gAliasDoc.name.size_inc, (size_t)5);
+    EXPECT_STREQ(::gAliasDoc.name.buf, "/alias_Name");
+    EXPECT_EQ(::gAliasDoc.name.length, sizeof(alias_name));
+    EXPECT_EQ(::gAliasDoc.name.capacity, 15u);
+    EXPECT_EQ(::gAliasDoc.name.size_inc, 5u);
 #endif
 
-    } else {
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
 
-        // This expects NO abort with failed assertion.
-        ASSERT_EXIT((web_server_set_alias(alias_name, nullptr, 0, 0), exit(0)),
-                    ExitedWithCode(0), ".*");
-        int ret_set_alias{UPNP_E_INTERNAL_ERROR};
-        ret_set_alias = web_server_set_alias(alias_name, nullptr, 0, 0);
-        EXPECT_EQ(ret_set_alias, UPNP_E_INVALID_ARGUMENT)
-            << errStrEx(ret_set_alias, UPNP_E_INVALID_ARGUMENT);
-    }
+    // This expects NO abort with failed assertion.
+    ASSERT_EXIT((web_server_set_alias(alias_name, nullptr, 0, 0), exit(0)),
+                ExitedWithCode(0), ".*");
+    int ret_set_alias = web_server_set_alias(alias_name, nullptr, 0, 0);
+    EXPECT_EQ(ret_set_alias, UPNP_E_INVALID_ARGUMENT)
+        << errStrEx(ret_set_alias, UPNP_E_INVALID_ARGUMENT);
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(XMLaliasFDeathTest, set_alias_with_nullptr_but_length_to_alias_content) {
     char alias_name[]{"alias_with_length"};
 
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": web_server_set_alias() with nullptr to "
-                     "alias_content but length must not abort or leave invalid "
-                     "alias.\n";
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": web_server_set_alias() with nullptr to "
+                 "alias_content but length must not abort or leave invalid "
+                 "alias.\n";
 #ifndef NDEBUG
-        // This expects an abort with failed assertion only with DEBUG build.
-        // There is an assert used in the function.
-        ASSERT_DEATH(::web_server_set_alias(alias_name, nullptr, 1, 0), ".*");
+    // This expects an abort with failed assertion only with DEBUG build.
+    // There is an assert used in the function.
+    ASSERT_DEATH(::web_server_set_alias(alias_name, nullptr, 1, 0), ".*");
 #else
-        int ret_set_alias{UPNP_E_INTERNAL_ERROR};
-        ret_set_alias = ::web_server_set_alias(alias_name, nullptr, 1, 0);
-        EXPECT_EQ(ret_set_alias, UPNP_E_SUCCESS)
-            << errStrEx(ret_set_alias, UPNP_E_SUCCESS);
+    int ret_set_alias{UPNP_E_INTERNAL_ERROR};
+    ret_set_alias = ::web_server_set_alias(alias_name, nullptr, 1, 0);
+    EXPECT_EQ(ret_set_alias, UPNP_E_SUCCESS)
+        << errStrEx(ret_set_alias, UPNP_E_SUCCESS);
 
-        // This is an invalid alias with name and doc length but no pointer to
-        // its document.
-        EXPECT_EQ(::gAliasDoc.doc.buf, nullptr);
-        EXPECT_EQ(::gAliasDoc.doc.length, (size_t)1);
-        EXPECT_EQ(::gAliasDoc.doc.capacity, (size_t)1);
-        EXPECT_EQ(::gAliasDoc.doc.size_inc, (size_t)5);
+    // This is an invalid alias with name and doc length but no pointer to
+    // its document.
+    EXPECT_EQ(::gAliasDoc.doc.buf, nullptr);
+    EXPECT_EQ(::gAliasDoc.doc.length, 1u);
+    EXPECT_EQ(::gAliasDoc.doc.capacity, 1u);
+    EXPECT_EQ(::gAliasDoc.doc.size_inc, 5u);
 
-        EXPECT_STREQ(::gAliasDoc.name.buf, "/alias_with_length");
-        EXPECT_EQ(::gAliasDoc.name.length, sizeof(alias_name));
-        EXPECT_EQ(::gAliasDoc.name.capacity, (size_t)22);
-        EXPECT_EQ(::gAliasDoc.name.size_inc, (size_t)5);
+    EXPECT_STREQ(::gAliasDoc.name.buf, "/alias_with_length");
+    EXPECT_EQ(::gAliasDoc.name.length, sizeof(alias_name));
+    EXPECT_EQ(::gAliasDoc.name.capacity, 22u);
+    EXPECT_EQ(::gAliasDoc.name.size_inc, 5u);
 #endif
 
-    } else {
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
 
-        // This expects NO abort with failed assertion.
-        ASSERT_EXIT((web_server_set_alias(alias_name, nullptr, 1, 0), exit(0)),
-                    ExitedWithCode(0), ".*");
-        int ret_set_alias{UPNP_E_INTERNAL_ERROR};
-        ret_set_alias = web_server_set_alias(alias_name, nullptr, 1, 0);
-        EXPECT_EQ(ret_set_alias, UPNP_E_INVALID_ARGUMENT)
-            << errStrEx(ret_set_alias, UPNP_E_INVALID_ARGUMENT);
-    }
+    // This expects NO abort with failed assertion.
+    ASSERT_EXIT((web_server_set_alias(alias_name, nullptr, 1, 0), exit(0)),
+                ExitedWithCode(0), ".*");
+    int ret_set_alias = web_server_set_alias(alias_name, nullptr, 1, 0);
+    EXPECT_EQ(ret_set_alias, UPNP_E_INVALID_ARGUMENT)
+        << errStrEx(ret_set_alias, UPNP_E_INVALID_ARGUMENT);
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(XMLaliasFTestSuite, set_alias_with_content_length_zero) {
-    // alias_content is defined to be a XML document which is a character string
-    // with string length. So alias_content_length isn't really needed. It
-    // should only truncate the alias_content but never exceed its length even
-    // if it is set greater.
+    // alias_content is defined to be a XML document which is a character
+    // string with string length. It is not a C string and may contain '\0'
+    // characters within its length and may not have a terminating '\0'.
 
-    char alias_name[]{"valid_alias_name"};
+    constexpr char alias_name[]{"valid_alias_name"};
 
     // The content string must be allocated on the heap because it is freed by
     // the unit.
-    char content[]{"XML Dokument string"};
-    char* alias_content = (char*)malloc(sizeof(content));
+    constexpr char content[]{"Old garbage XML Dokument string"};
+    char* alias_content = static_cast<char*>(malloc(sizeof(content)));
     strcpy(alias_content, content);
 
     // Test Unit with alias_content_length = 0
-    EXPECT_EQ(web_server_set_alias(alias_name, alias_content, 0, 0), 0);
+    EXPECT_EQ(web_server_set_alias(alias_name, alias_content,
+                                   /*content_length*/ 0, 0),
+              0);
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // The alias_name is set.
     EXPECT_STREQ(gAliasDoc.name.buf, "/valid_alias_name");
-    EXPECT_EQ(strlen(gAliasDoc.name.buf), (size_t)17);
+    EXPECT_EQ(strlen(gAliasDoc.name.buf), 17u);
     // *.length is without NULL byte, sizeof with NULL byte
     EXPECT_EQ(gAliasDoc.name.length, sizeof('/') + sizeof(alias_name) - 1);
-    EXPECT_EQ(gAliasDoc.name.capacity, (size_t)21);
-    EXPECT_EQ(gAliasDoc.name.size_inc, (size_t)5);
+    EXPECT_EQ(gAliasDoc.name.capacity, 21u);
+    EXPECT_EQ(gAliasDoc.name.size_inc, 5u);
 
     EXPECT_EQ(*gAliasDoc.ct, 1);
     EXPECT_EQ(gAliasDoc.last_modified, 0);
 
     // The content length must be 0.
-    EXPECT_EQ(gAliasDoc.doc.length, (size_t)0);
-    EXPECT_EQ(gAliasDoc.doc.capacity, (size_t)0);
-    EXPECT_EQ(gAliasDoc.doc.size_inc, (size_t)5);
+    EXPECT_EQ(gAliasDoc.doc.length, 0u);
+    EXPECT_EQ(gAliasDoc.doc.capacity, 0u);
+    EXPECT_EQ(gAliasDoc.doc.size_inc, 5u);
 
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": web_server_set_alias() must never copy a longer but "
-                     "an empty string with length zero.\n";
-        EXPECT_STREQ(::gAliasDoc.doc.buf, "XML Dokument string"); // Wrong
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": web_server_set_alias() must never accept character garbage "
+                 "with given content length 0.\n";
+    EXPECT_STREQ(::gAliasDoc.doc.buf,
+                 "Old garbage XML Dokument string"); // Wrong
 
-    } else {
+#else // UPnPsdk_WITH_NATIVE_PUPNP
 
-        EXPECT_STREQ(gAliasDoc.doc.buf, "");
-    }
+    EXPECT_EQ(gAliasDoc.name(), "/valid_alias_name");
+    EXPECT_TRUE(gAliasDoc.doc().empty());
+    EXPECT_EQ(gAliasDoc.last_modified(), 0);
+#endif
 }
 
 TEST_F(XMLaliasFTestSuite, set_alias_with_content_length_one) {
-    // For details look at test [..].set_alias_with_content_length_zero.
+    // alias_content is defined to be a XML document which is a character
+    // string with string length. It is not a C string and may contain '\0'
+    // characters within its length and may not have a terminating '\0'.
 
-    char alias_name[]{"valid_alias_name"};
-    char content[]{"XML Dokument string"};
-    char* alias_content = (char*)malloc(sizeof(content));
+    constexpr char alias_name[]{"valid_alias_name"};
+    constexpr char content[]{"XML Dokument string"};
+    char* alias_content = new char[sizeof(content)];
     strcpy(alias_content, content);
 
     // Test Unit with alias_content_length = 1
-    EXPECT_EQ(web_server_set_alias(alias_name, alias_content, 1, 0), 0);
+    EXPECT_EQ(web_server_set_alias(alias_name, alias_content,
+                                   /*content_length*/ 1, 0),
+              0);
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     EXPECT_EQ(*gAliasDoc.ct, 1);
-    EXPECT_EQ(gAliasDoc.doc.length, (size_t)1);
-    EXPECT_EQ(gAliasDoc.doc.capacity, (size_t)1);
+    EXPECT_EQ(gAliasDoc.doc.length, 1u);
+    EXPECT_EQ(gAliasDoc.doc.capacity, 1u);
 
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": web_server_set_alias() must never copy a longer string "
-                     "than with length one.\n";
-        EXPECT_STREQ(::gAliasDoc.doc.buf, "XML Dokument string"); // Wrong
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": web_server_set_alias() must never copy a longer string "
+                 "than with given content length.\n";
+    EXPECT_STREQ(::gAliasDoc.doc.buf, "XML Dokument string"); // Wrong
 
-    } else {
+#else // UPnPsdk_WITH_NATIVE_PUPNP
 
-        EXPECT_STREQ(gAliasDoc.doc.buf, "X");
-    }
+    EXPECT_EQ(gAliasDoc.name(), "/valid_alias_name");
+    EXPECT_EQ(gAliasDoc.doc(), "X");
+    EXPECT_EQ(gAliasDoc.last_modified(), 0);
+#endif
 }
 
 TEST_F(XMLaliasFTestSuite, set_alias_with_content_length) {
-    // For details look at test [..].set_alias_with_content_length_zero.
+    // alias_content is defined to be a XML document which is a character
+    // string with string length. It is not a C string and may contain '\0'
+    // characters within its length and may not have a terminating '\0'.
 
-    char alias_name[]{"valid_alias_name"};
-    char content[]{"XML Dokument string"}; // length = 19
-    char* alias_content = (char*)malloc(sizeof(content));
+    constexpr char alias_name[]{"valid_alias_name"};
+    constexpr char content[]{"XML Dokument string"}; // length = 19
+    char* alias_content = static_cast<char*>(malloc(sizeof(content)));
     strcpy(alias_content, content);
 
     // Test Unit with alias_content_length
     EXPECT_EQ(web_server_set_alias(alias_name, alias_content, 19, 0), 0);
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     EXPECT_EQ(*gAliasDoc.ct, 1);
-    EXPECT_EQ(gAliasDoc.doc.length, (size_t)19);
-    EXPECT_EQ(gAliasDoc.doc.capacity, (size_t)19);
+    EXPECT_EQ(gAliasDoc.doc.length, 19u);
+    EXPECT_EQ(gAliasDoc.doc.capacity, 19u);
     EXPECT_STREQ(gAliasDoc.doc.buf, "XML Dokument string");
+#else // UPnPsdk_WITH_NATIVE_PUPNP
+    EXPECT_EQ(gAliasDoc.name(), "/valid_alias_name");
+    EXPECT_EQ(gAliasDoc.doc(), "XML Dokument string");
+    // Outside the given XML document, but present from the C string 'content'.
+    EXPECT_EQ(*(gAliasDoc.doc().data() + gAliasDoc.doc().length()), '\0');
+    EXPECT_EQ(gAliasDoc.last_modified(), 0);
+#endif
 }
 
-TEST_F(XMLaliasFTestSuite, set_alias_with_content_length_greater) {
-    // For details look at test [..].set_alias_with_content_length_zero.
+TEST_F(XMLaliasFTestSuite, set_alias_with_null_chars_within_content_length) {
+    // alias_content is defined to be a XML document which is a character
+    // string with string length. It is not a C string and may contain '\0'
+    // characters within its length and may not have a terminating '\0'.
 
-    char alias_name[]{"valid_alias_name"};
-    char content[]{"XML Dokument string"}; // length = 19
-    char* alias_content = (char*)malloc(sizeof(content));
-    strcpy(alias_content, content);
-
-    // Test Unit with alias_content_length greater than length of content.
-    EXPECT_EQ(web_server_set_alias(alias_name, alias_content, 20, 0), 0);
-
-    EXPECT_EQ(*gAliasDoc.ct, 1);
-    EXPECT_STREQ(gAliasDoc.doc.buf, "XML Dokument string");
-
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": web_server_set_alias() must never set wrong content "
-                     "length of alias document.\n";
-        EXPECT_EQ(::gAliasDoc.doc.length, (size_t)20);   // Wrong
-        EXPECT_EQ(::gAliasDoc.doc.capacity, (size_t)20); // Wrong
-
-    } else {
-
-        EXPECT_EQ(gAliasDoc.doc.length, (size_t)19);
-        EXPECT_EQ(gAliasDoc.doc.capacity, (size_t)19);
-    }
-}
-
-TEST_F(XMLaliasFTestSuite, set_alias_with_zero_modified_date) {
-    const char alias_name[]{"valid_alias_name"};
-    // The content string must be allocated on the heap because it is freed by
-    // the unit.
-    const char content[]{"Some valid content"};
-    char* alias_content = (char*)malloc(sizeof(content));
-    strcpy(alias_content, content);
-
-    // Preset modifired date to 2022-11-10T16:51:41
-    gAliasDoc.last_modified = 1668095501;
+    constexpr char alias_name[]{"valid_alias_name"};
+    constexpr char content[]{"XML\0 Dokument \0string"}; // length = 22
+    char* alias_content = new char[sizeof(content)];
+    memcpy(alias_content, content, sizeof(content));
 
     // Test Unit
-    EXPECT_EQ(
-        web_server_set_alias(alias_name, alias_content, sizeof(content) - 1, 0),
-        0);
+    EXPECT_EQ(web_server_set_alias(alias_name, alias_content,
+                                   /*content_length*/ 22, 0),
+              0);
 
-    EXPECT_EQ(gAliasDoc.last_modified, 0);
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": web_server_set_alias() must never truncate document "
+                 "on containing NULL characters, but with longer length.\n";
+    EXPECT_STREQ(gAliasDoc.doc.buf, "XML");   // Wrong!
+    EXPECT_EQ(::gAliasDoc.doc.length, 22u);   // Wrong!
+    EXPECT_EQ(::gAliasDoc.doc.capacity, 22u); // Wrong!
+    EXPECT_EQ(*gAliasDoc.ct, 1);
+
+#else // UPnPsdk_WITH_NATIVE_PUPNP
+
+    EXPECT_EQ(gAliasDoc.doc().length(), 22u);
+    EXPECT_EQ(memcmp(gAliasDoc.doc().data(), "XML\0 Dokument \0string", 22), 0);
+#endif
 }
 
 TEST_F(XMLaliasFTestSuite, set_alias_with_negative_modified_date) {
-    const char alias_name[]{"valid_alias_name"};
+    constexpr char alias_name[]{"valid_alias_name"};
     // The content string must be allocated on the heap because it is freed by
     // the unit.
-    const char content[]{"Some valid content"};
-    char* alias_content = (char*)malloc(sizeof(content));
+    constexpr char content[]{"Some valid content"};
+    char* alias_content = new char[sizeof(content)];
     strcpy(alias_content, content);
 
-    // Preset modifired date to 2022-11-10T16:51:42
-    gAliasDoc.last_modified = 1668095502;
-
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    // bash get time_t as sec since Epoch: date +'%FT%T = %s'
+    // Preset modifired date to 2025-05-11T19:25:31
+    gAliasDoc.last_modified = 1746984331;
+#endif
     // Test Unit
     EXPECT_EQ(web_server_set_alias(alias_name, alias_content,
                                    sizeof(content) - 1, -1),
               0);
-
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     EXPECT_EQ(gAliasDoc.last_modified, -1);
+#else
+    EXPECT_EQ(gAliasDoc.last_modified(), -1);
+#endif
 }
 
-TEST_F(XMLaliasFTestSuite, set_alias_two_times) {
-    const char alias_name[]{"valid_alias_name"}; // length = 16
+TEST_F(XMLaliasFTestSuite, set_alias_two_different_contents) {
+    constexpr char alias_name[]{"valid_alias_name"}; // length = 16
     // The content string must be allocated on the heap because it is freed by
     // the unit.
-    const char content[]{"Some valid content"}; // length = 18
-    char* alias_content1 = (char*)malloc(sizeof(content));
-    strcpy(alias_content1, content);
+    const char* alias_content1 = new const char[]{"Some valid content"};
 
     // Test Unit first time
     EXPECT_EQ(web_server_set_alias(alias_name, alias_content1,
-                                   sizeof(content) - 1, 1),
+                                   ::strlen(alias_content1), 1),
               0);
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Check the alias.
     // The alias_name has been coppied to the heap.
-    EXPECT_NE(gAliasDoc.name.buf, alias_name);
-    // The document buffer is pointing to the allocated memory above.
-    EXPECT_EQ(gAliasDoc.doc.buf, alias_content1);
-
+    EXPECT_STREQ(gAliasDoc.name.buf, "/valid_alias_name");
+    EXPECT_STREQ(gAliasDoc.doc.buf, alias_content1);
     EXPECT_EQ(gAliasDoc.last_modified, 1);
     EXPECT_EQ(*gAliasDoc.ct, 1);
+
+#else // UPnPsdk_WITH_NATIVE_PUPNP
+
+    EXPECT_EQ(gAliasDoc.name(), "/valid_alias_name");
+    EXPECT_EQ(gAliasDoc.doc(), alias_content1);
+    EXPECT_EQ(gAliasDoc.last_modified(), 1);
+#endif
 
     // The allocated alias_content1 is still valid now but will be freed with
     // setting the alias document again, means overwrite it. We need a new
     // allocated alias_content2, otherwise we will get undefined behaviour with
     // segfault or "double free detected in tcache 2" on old_code.
-    EXPECT_STREQ(alias_content1, "Some valid content");
-
-    char* alias_content2 = (char*)malloc(sizeof(content));
+    constexpr char content[]{"Some valid content"}; // length = 18
+    char* alias_content2 = static_cast<char*>(malloc(sizeof(content)));
     strcpy(alias_content2, content);
 
     // Test Unit second time
@@ -1034,201 +1098,148 @@ TEST_F(XMLaliasFTestSuite, set_alias_two_times) {
                                    sizeof(content) - 1, 2),
               0);
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     EXPECT_STREQ(gAliasDoc.name.buf, "/valid_alias_name");
-    EXPECT_STREQ(gAliasDoc.doc.buf, "Some valid content");
+    EXPECT_STREQ(gAliasDoc.doc.buf, content);
     EXPECT_EQ(gAliasDoc.last_modified, 2);
     EXPECT_EQ(*gAliasDoc.ct, 1);
+
+#else // UPnPsdk_WITH_NATIVE_PUPNP
+
+    EXPECT_EQ(gAliasDoc.name(), "/valid_alias_name");
+    EXPECT_EQ(gAliasDoc.doc(), content);
+    EXPECT_EQ(gAliasDoc.last_modified(), 2);
+#endif
 }
 
-TEST_F(XMLaliasFDeathTest, set_alias_more_times_with_same_content) {
-    const char alias_name[]{"valid_alias_name"}; // length = 16
-    const char content[]{"Some valid content"};  // length = 18
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+TEST(XMLaliasTestSuite, set_alias_two_times_with_same_content) {
+    constexpr char alias_name[]{"valid_alias_name"}; // length = 16
+    constexpr char content[]{"Some valid content"};  // length = 18
+    size_t content_len{sizeof(content) - 1};
+    xml_alias_t aliasDoc;
 
-    if (old_code) {
-        // Using the same unallocated content again results in undefined
-        // behaviour with segfault or "double free detected in tcache 2" or
-        // just hang with no return, but may also succeed.
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": Set alias again to overwrite previous setting with "
-                     "same content must not segfault.\n";
-#ifdef DEBUG
-        // This expects segfault.
-        ASSERT_DEATH(
-            {
-                // The content string must be allocated on the heap because it
-                // is freed by the unit.
-                char* alias_content = (char*)malloc(sizeof(content));
-                strcpy(alias_content, content);
-                ::web_server_set_alias(alias_name, alias_content,
-                                       sizeof(content) - 1, 1);
-                // alias_content is freed by the Unit. Using it just again is
-                // undefined behavior but may succeed sometimes. I do not can
-                // test random succeeding or failing, so I have to clear the
-                // pointer for a defined test condition.
-                alias_content = nullptr;
-                ::web_server_set_alias(alias_name, alias_content,
-                                       sizeof(content) - 1, 2);
-            },
-            ".*");
-#else
-        // This expects NO abort.
-        ASSERT_EXIT(
-            {
-                // The content string must be allocated on the heap because it
-                // is freed by the unit.
-                char* alias_content = (char*)malloc(sizeof(content));
-                strcpy(alias_content, content);
-                ::web_server_set_alias(alias_name, alias_content,
-                                       sizeof(content) - 1, 1);
-                // alias_content is freed by the Unit. Using it just again is
-                // undefined behavior but may succeed sometimes. I do not can
-                // test random succeeding or failing, so I have to clear the
-                // pointer for a defined test condition.
-                alias_content = nullptr;
-                ::web_server_set_alias(alias_name, alias_content,
-                                       sizeof(content) - 1, 2);
-                exit(0);
-            },
-            ExitedWithCode(0), ".*");
+    const char* alias_content =
+        static_cast<const char*>(malloc(sizeof(content)));
+    strcpy(const_cast<char*>(alias_content), content);
+    ASSERT_EQ(aliasDoc.set(alias_name, alias_content, content_len, 1),
+              UPNP_E_SUCCESS);
+    ASSERT_EQ(aliasDoc.last_modified(), 1);
+    EXPECT_EQ(alias_content, nullptr);
+    EXPECT_EQ(content_len, 0);
+
+    // Because the allocated document is freed by the Unit it must be allocated
+    // again. Otherwise you have a dangling pointer with undefind behavior.
+    // IT MAY RESULT IN A SEGFAULT OR ABORT!
+    // The problem with dangling pointer cannot be tested.
+    alias_content = static_cast<char*>(malloc(sizeof(content)));
+    strcpy(const_cast<char*>(alias_content), content);
+    content_len = sizeof(content) - 1;
+    ASSERT_EQ(aliasDoc.set(alias_name, alias_content, content_len, 2),
+              UPNP_E_SUCCESS);
+    ASSERT_EQ(aliasDoc.last_modified(), 2);
+    EXPECT_EQ(alias_content, nullptr);
+    EXPECT_EQ(content_len, 0);
+}
 #endif
 
-    } else {
-
-        // This expects NO abort.
-        ASSERT_EXIT(
-            {
-                // The content string must be allocated on the heap because it
-                // is freed by the unit.
-                char* alias_content = (char*)malloc(sizeof(content));
-                strcpy(alias_content, content);
-                web_server_set_alias(alias_name, alias_content,
-                                     sizeof(content) - 1, 1);
-                web_server_set_alias(alias_name, alias_content,
-                                     sizeof(content) - 1, 2);
-                web_server_set_alias(alias_name, alias_content,
-                                     sizeof(content) - 1, 3);
-                exit(0);
-            },
-            ExitedWithCode(0), ".*");
-
-        // Test Unit when it hasn't failed.
-        char* alias_content = (char*)malloc(sizeof(content));
-        strcpy(alias_content, content);
-
-        int ret_set_alias{UPNP_E_INTERNAL_ERROR};
-        ret_set_alias = web_server_set_alias(alias_name, alias_content,
-                                             sizeof(content) - 1, 4);
-        EXPECT_EQ(ret_set_alias, UPNP_E_SUCCESS)
-            << errStrEx(ret_set_alias, UPNP_E_SUCCESS);
-
-        ret_set_alias = web_server_set_alias(alias_name, alias_content,
-                                             sizeof(content) - 1, 5);
-        EXPECT_EQ(ret_set_alias, UPNP_E_INVALID_ARGUMENT)
-            << errStrEx(ret_set_alias, UPNP_E_INVALID_ARGUMENT);
-
-        // This indicates that the second wrong setting attempt hasn't changed
-        // the first valid setting.
-        EXPECT_EQ(gAliasDoc.last_modified, 4);
-        EXPECT_EQ(*gAliasDoc.ct, 1);
-    }
-}
-
 TEST_F(XMLaliasFTestSuite, alias_grab_valid_structure) {
-    char alias_name[]{"is_valid_alias"};            // length = 14
-    const char content[]{"Test for a valid alias"}; // length = 22
-    char* alias_content = (char*)malloc(sizeof(content));
+    constexpr char alias_name[]{"is_valid_alias"};      // length = 14
+    constexpr char content[]{"Test for a valid alias"}; // length = 22
+    char* alias_content = static_cast<char*>(malloc(sizeof(content)));
     strcpy(alias_content, content);
 
     // Set global alias
-    // time_t 1668095500 sec is 2022-11-10T16:51:40
+    // bash get time_t as sec since Epoch: date +'%FT%T = %s'
+    // 2025-05-13T16:33:49 = 1747146829
     EXPECT_EQ(web_server_set_alias(alias_name, alias_content,
-                                   sizeof(content) - 1, 1668095500),
+                                   sizeof(content) - 1, 1747146829),
               0);
-    // Provide dstination structure.
+    // Provide destination structure.
     xml_alias_t gAliasDoc_dup;
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Test Unit
     alias_grab(&gAliasDoc_dup);
 
     EXPECT_STREQ(gAliasDoc_dup.doc.buf, "Test for a valid alias");
     EXPECT_EQ(gAliasDoc_dup.doc.length, sizeof(content) - 1);
-    EXPECT_EQ(gAliasDoc_dup.doc.capacity, (size_t)22);
-    EXPECT_EQ(gAliasDoc_dup.doc.size_inc, (size_t)5);
+    EXPECT_EQ(gAliasDoc_dup.doc.capacity, 22u);
+    EXPECT_EQ(gAliasDoc_dup.doc.size_inc, 5u);
 
     EXPECT_STREQ(gAliasDoc_dup.name.buf, "/is_valid_alias");
-    EXPECT_EQ(strlen(gAliasDoc_dup.name.buf), (size_t)15);
+    EXPECT_EQ(strlen(gAliasDoc_dup.name.buf), 15u);
     // *.length is without NULL byte, sizeof with NULL byte
     EXPECT_EQ(gAliasDoc_dup.name.length, sizeof('/') + sizeof(alias_name) - 1);
-    EXPECT_EQ(gAliasDoc_dup.name.capacity, (size_t)19);
-    EXPECT_EQ(gAliasDoc_dup.name.size_inc, (size_t)5);
+    EXPECT_EQ(gAliasDoc_dup.name.capacity, 19u);
+    EXPECT_EQ(gAliasDoc_dup.name.size_inc, 5u);
 
-    EXPECT_EQ(gAliasDoc_dup.last_modified, 1668095500);
+    EXPECT_EQ(gAliasDoc_dup.last_modified, 1747146829);
     ASSERT_NE(gAliasDoc_dup.ct, nullptr);
     EXPECT_EQ(*gAliasDoc_dup.ct, 2);
+
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
+
+    // Test Unit
+    gAliasDoc.grab(&gAliasDoc_dup);
+    // Less expensive the same should be (without copy assign constructor):
+    // auto gAliasDoc_dup = gAliasDoc;
+
+    EXPECT_EQ(gAliasDoc_dup.doc(), "Test for a valid alias");
+    EXPECT_EQ(gAliasDoc_dup.name(), "/is_valid_alias");
+    EXPECT_EQ(gAliasDoc_dup.last_modified(), 1747146829);
+#endif //  UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(XMLaliasFDeathTest, alias_grab_empty_structure) {
     // An empty gAliasDoc is provided by the fixture.
 
+    // Provide destination structure.
+    xml_alias_t gAliasDoc_dup;
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Test Unit
-    if (old_code) {
-        std::cout << CYEL "[ FIX      ] " CRES << __LINE__
-                  << ": alias_grab an empty structure should not abort the "
-                     "program due to failed assertion.\n";
-        // Provide destination structure.
-        xml_alias_t gAliasDoc_dup;
+    std::cout << CYEL "[ FIX      ] " CRES << __LINE__
+              << ": alias_grab an empty structure should not abort the "
+                 "program due to failed assertion.\n";
 
-        // This expects abort with failed assertion.
-        ASSERT_DEATH(alias_grab(&gAliasDoc_dup), ".*");
+    // This expects abort with failed assertion.
+    ASSERT_DEATH(alias_grab(&gAliasDoc_dup), ".*");
 
-    } else {
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
 
-        // This expects NO abort.
-        // Provide destination structure.
-        xml_alias_t gAliasDoc_dup;
+    // This expects NO abort.
+    ASSERT_EXIT(
+        {
+            gAliasDoc.grab(&gAliasDoc_dup);
+            exit(0);
+        },
+        ExitedWithCode(0), ".*");
 
-        ASSERT_EXIT(
-            {
-                alias_grab(&gAliasDoc_dup);
-                exit(0);
-            },
-            ExitedWithCode(0), ".*");
-
-        alias_grab(&gAliasDoc_dup);
-        EXPECT_STREQ(gAliasDoc_dup.doc.buf, nullptr);
-        EXPECT_EQ(gAliasDoc_dup.doc.length, (size_t)0);
-        EXPECT_EQ(gAliasDoc_dup.doc.capacity, (size_t)0);
-        EXPECT_EQ(gAliasDoc_dup.doc.size_inc, (size_t)5);
-
-        EXPECT_STREQ(gAliasDoc_dup.name.buf, nullptr);
-        EXPECT_EQ(gAliasDoc_dup.name.length, (size_t)0);
-        EXPECT_EQ(gAliasDoc_dup.name.capacity, (size_t)0);
-        EXPECT_EQ(gAliasDoc_dup.name.size_inc, (size_t)5);
-
-        EXPECT_EQ(gAliasDoc_dup.last_modified, 0);
-        ASSERT_EQ(gAliasDoc_dup.ct, nullptr);
-    }
+    gAliasDoc.grab(&gAliasDoc_dup);
+    EXPECT_EQ(gAliasDoc_dup.doc(), std::string_view(nullptr, 0));
+    EXPECT_TRUE(gAliasDoc_dup.name().empty());
+    EXPECT_EQ(gAliasDoc_dup.last_modified(), 0);
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 TEST_F(XMLaliasFDeathTest, alias_grab_nullptr) {
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Test Unit
-    if (old_code) {
-        std::cout << CYEL "[ FIX      ] " CRES << __LINE__
-                  << ": alias_grab(nullptr) must not segfault or abort with "
-                     "failed assertion.\n";
-        ASSERT_DEATH(::alias_grab(nullptr), ".*");
+    std::cout << CYEL "[ FIX      ] " CRES << __LINE__
+              << ": alias_grab(nullptr) must not segfault or abort with "
+                 "failed assertion.\n";
+    ASSERT_DEATH(::alias_grab(nullptr), ".*");
 
-    } else {
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
 
-        ASSERT_EXIT(
-            {
-                alias_grab(nullptr);
-                exit(0);
-            },
-            ExitedWithCode(0), ".*");
-
-        alias_grab(nullptr);
-    }
+    ASSERT_EXIT(
+        {
+            gAliasDoc.grab(nullptr);
+            exit(0);
+        },
+        ExitedWithCode(0), ".*");
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
 } // namespace utest

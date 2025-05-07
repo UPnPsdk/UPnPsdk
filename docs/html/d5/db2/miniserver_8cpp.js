@@ -14,7 +14,7 @@ var miniserver_8cpp =
     [ "dispatch_request", "d5/db2/miniserver_8cpp.html#a54d3ff9589278aff8765d7a64df23587", null ],
     [ "free_handle_request_arg", "d5/db2/miniserver_8cpp.html#a639fecba9beb576e16e842901e9c1c27", null ],
     [ "handle_request", "d5/db2/miniserver_8cpp.html#a9b4b32cfbe825a3f7cc9906b33d50872", null ],
-    [ "schedule_request_job", "d5/db2/miniserver_8cpp.html#a80129c74e300de9e2a06be5067e47ae5", null ],
+    [ "schedule_request_job", "d5/db2/miniserver_8cpp.html#a5e2408b7e1b679c8ff7430ffd9173ac5", null ],
     [ "fdset_if_valid", "d5/db2/miniserver_8cpp.html#a937a0eae18a69c7e034aa982345d9a50", null ],
     [ "web_server_accept", "d5/db2/miniserver_8cpp.html#a53d1fc0751489b766ddd900c54415df7", null ],
     [ "ssdp_read", "d5/db2/miniserver_8cpp.html#a02379f09474a96b3590cadd8ca82ecf1", null ],

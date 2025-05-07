@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-30
+// Redistribution only with this Copyright remark. Last modified: 2025-05-11
 
 /*!
 \page Glossary
@@ -166,10 +166,9 @@ A C++ container object that embeds one or more [service](\ref glossary_serv)s an
 
 This is a [UPnP device](\ref glossary_upnpdev) or a [control point](\ref glossary_cp).
 
-\anchor glossary_virtdir ***Virtual Directory***
+\anchor glossary_webdir ***WEB Directory, webdir***
 
-This is a directory of the HTTP website presented by the internal webserver. It is not a directory of the filesystem on the physical local storage so we call it a virtual directory. You register the virtual root directory of the local website with UpnpSetWebServerRootDir(). Its subdirectories are managed by the internal webserver that uses callback funtions for it. Its addresses are stored in VirtualDirCallbacks.
+This is a virtual directory of the HTTP website presented by the internal webserver. It is not a directory of the filesystem on the physical local storage so we call it a virtual directory. You register the **web root directory** of the local website with UpnpSetWebServerRootDir(). Its subdirectories are managed by the internal webserver that uses callback funtions for it. Its addresses are stored in VirtualDirCallbacks.
  */
 // clang-format on
-
 // vim: filetype=cpp

@@ -1,19 +1,15 @@
 <map id="membuffer_assign_str" name="membuffer_assign_str">
-<area shape="rect" id="Node000001" title="Wrapper function for membuffer_assign()." alt="" coords="511,131,677,156"/>
-<area shape="rect" id="Node000002" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a679f96add9815d14cf84b95d873b9198" title="Process a remote request and return the result." alt="" coords="268,5,463,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="558,126,461,74,437,63,439,58,464,69,561,121"/>
-<area shape="rect" id="Node000007" href="$d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a56be3d34f34993c965ace22a5e2b6319" title="Set an XML Document." alt="" coords="275,84,455,139"/>
-<area shape="poly" id="edge3_Node000001_Node000007" title=" " alt="" coords="497,132,455,127,456,121,497,127"/>
-<area shape="rect" id="Node000017" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24" title="Assign the Access&#45;Control&#45;Allow&#45;Origin specfied by the input const char* cors_string parameterto the ..." alt="" coords="286,163,445,188"/>
-<area shape="poly" id="edge5_Node000001_Node000017" title=" " alt="" coords="498,159,445,167,444,162,497,154"/>
-<area shape="rect" id="Node000019" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a6d275509109519a4ab1be27105d7434b" title="Assign the path to the global Document root directory." alt="" coords="275,212,456,237"/>
-<area shape="poly" id="edge7_Node000001_Node000019" title=" " alt="" coords="555,164,464,202,421,215,420,209,462,197,553,159"/>
+<area shape="rect" id="Node000001" title="Wrapper function for membuffer_assign()." alt="" coords="511,84,677,109"/>
+<area shape="rect" id="Node000002" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="268,5,463,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="534,83,462,62,463,57,535,78"/>
+<area shape="rect" id="Node000007" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24" title="Assign the Access&#45;Control&#45;Allow&#45;Origin specfied by the input const char* cors_string parameterto the ..." alt="" coords="286,84,445,109"/>
+<area shape="poly" id="edge3_Node000001_Node000007" title=" " alt="" coords="497,99,445,99,445,94,497,94"/>
+<area shape="rect" id="Node000009" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a6d275509109519a4ab1be27105d7434b" title="Assign the path to the global Document root directory." alt="" coords="275,133,456,159"/>
+<area shape="poly" id="edge5_Node000001_Node000009" title=" " alt="" coords="522,115,426,136,424,131,521,110"/>
 <area shape="rect" id="Node000003" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1" title="Main entry point into web server." alt="" coords="33,20,192,45"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="254,35,192,35,192,30,254,30"/>
-<area shape="rect" id="Node000008" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aa4514a73581ffd12c050da5ad4998da4" title="Replaces current alias with the given alias." alt="" coords="31,99,194,124"/>
-<area shape="poly" id="edge4_Node000007_Node000008" title=" " alt="" coords="261,114,194,114,194,109,261,109"/>
-<area shape="rect" id="Node000018" href="$d4/d99/upnpapi_8cpp.html#af2bccdf7c1a33e2772c08ecb498980f3" title="Assign the Access&#45;Control&#45;Allow&#45;Origin specfied by the input const char* cors_string parameter to the..." alt="" coords="5,163,220,188"/>
-<area shape="poly" id="edge6_Node000017_Node000018" title=" " alt="" coords="273,178,220,178,220,173,273,173"/>
-<area shape="rect" id="Node000020" href="$d4/d99/upnpapi_8cpp.html#a85b808931b0ed4d1d37da686c031f9b3" title="Sets the document root directory for the internal web server." alt="" coords="15,212,211,237"/>
-<area shape="poly" id="edge8_Node000019_Node000020" title=" " alt="" coords="261,227,211,227,211,222,261,222"/>
+<area shape="rect" id="Node000008" href="$d4/d99/upnpapi_8cpp.html#af2bccdf7c1a33e2772c08ecb498980f3" title="Assign the Access&#45;Control&#45;Allow&#45;Origin specfied by the input const char* cors_string parameter to the..." alt="" coords="5,84,220,109"/>
+<area shape="poly" id="edge4_Node000007_Node000008" title=" " alt="" coords="273,99,220,99,220,94,273,94"/>
+<area shape="rect" id="Node000010" href="$d4/d99/upnpapi_8cpp.html#a85b808931b0ed4d1d37da686c031f9b3" title="Sets the document root directory for the internal web server." alt="" coords="15,133,211,159"/>
+<area shape="poly" id="edge6_Node000009_Node000010" title=" " alt="" coords="261,149,211,149,211,143,261,143"/>
 </map>

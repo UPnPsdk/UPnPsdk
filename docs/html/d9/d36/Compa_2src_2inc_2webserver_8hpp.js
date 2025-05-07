@@ -16,7 +16,7 @@ var Compa_2src_2inc_2webserver_8hpp =
     ] ],
     [ "X_USER_AGENT", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a29964a19653349235df7d05368523833", null ],
     [ "web_server_init", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a4c6abf771128f8ea3976c9eccdb13e4f", null ],
-    [ "web_server_set_alias", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#aa4514a73581ffd12c050da5ad4998da4", null ],
+    [ "web_server_set_alias", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#aa99b39086487b3c85d45663326dede30", null ],
     [ "web_server_set_root_dir", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a6d275509109519a4ab1be27105d7434b", null ],
     [ "web_server_set_cors", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24", null ],
     [ "web_server_callback", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1", null ],

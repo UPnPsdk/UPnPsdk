@@ -1,31 +1,27 @@
 <map id="membuffer_attach" name="membuffer_attach">
-<area shape="rect" id="Node000001" title="Free existing memory in membuffer and assign the new buffer in its place." alt="" coords="717,492,860,517"/>
-<area shape="rect" id="Node000002" href="$dd/d1d/httpparser_8cpp.html#adb6f04b4682aae5e4690b672025b6856" title="Matches a variable parameter list with a string and takes actions based on the data type specified." alt="" coords="539,335,619,360"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="758,485,596,363,599,358,761,481"/>
-<area shape="rect" id="Node000043" href="$d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a56be3d34f34993c965ace22a5e2b6319" title="Set an XML Document." alt="" coords="489,509,669,564"/>
-<area shape="poly" id="edge14_Node000001_Node000043" title=" " alt="" coords="704,520,670,526,669,520,703,515"/>
-<area shape="rect" id="Node000003" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a861d745204c74350296327193bf1d2e5" title="Check header validity, get action name and version of service." alt="" coords="11,127,191,181"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="551,328,502,290,440,254,387,233,344,223,299,215,243,202,185,184,186,179,245,197,301,210,345,218,389,228,442,249,505,286,555,324"/>
-<area shape="rect" id="Node000007" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a6962c73d5dca9f8577188bece68c806c" title="Compares &#39;name&#39; and node&#39;s name." alt="" coords="253,133,433,188"/>
-<area shape="poly" id="edge3_Node000002_Node000007" title=" " alt="" coords="557,325,507,269,475,238,440,210,408,191,411,186,443,205,478,234,511,265,561,322"/>
-<area shape="rect" id="Node000024" href="$d6/de3/gena__ctrlpt_8cpp.html#a2eb03f67113de1b037f592d6e49cdf3c" title="This function processes NOTIFY events that are sent by devices." alt="" coords="5,569,196,609"/>
-<area shape="poly" id="edge4_Node000002_Node000024" title=" " alt="" coords="570,374,551,412,524,457,488,502,443,539,399,556,336,569,197,585,196,580,336,563,397,551,440,534,484,498,520,454,547,409,565,371"/>
-<area shape="rect" id="Node000026" href="$dd/de6/gena__device_8cpp.html#a6fd1575d4217390506014c896b22251e" title="Handles a subscription renewal request from a ctrl point. The connection is not destroyed on return." alt="" coords="244,263,441,303"/>
-<area shape="poly" id="edge5_Node000002_Node000026" title=" " alt="" coords="525,336,417,306,418,301,526,330"/>
-<area shape="rect" id="Node000027" href="$dd/de6/gena__device_8cpp.html#a25ad1852d4d32c6f34a87b92225202fd" title="Handles a subscription request from a ctrl point. The socket is not closed on return." alt="" coords="244,327,441,367"/>
-<area shape="poly" id="edge6_Node000002_Node000027" title=" " alt="" coords="525,350,441,350,441,345,525,345"/>
-<area shape="rect" id="Node000028" href="$d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28" title="Subscribes or renew subscription." alt="" coords="253,392,433,447"/>
-<area shape="poly" id="edge7_Node000002_Node000028" title=" " alt="" coords="527,366,434,395,432,389,525,361"/>
-<area shape="rect" id="Node000035" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#affb524183df9d3a81c5a1c69b0457bad" title="This function retrives the action name in the buffer." alt="" coords="253,471,433,525"/>
-<area shape="poly" id="edge8_Node000002_Node000035" title=" " alt="" coords="557,371,506,415,443,460,419,473,416,468,440,456,503,411,553,367"/>
-<area shape="rect" id="Node000036" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a78a4c8350c9abb790c7811a2e9d4cfec" title="Get the SOAPACTION header value for M&#45;POST request." alt="" coords="251,55,434,109"/>
-<area shape="poly" id="edge9_Node000002_Node000036" title=" " alt="" coords="567,323,549,280,521,227,485,171,440,123,424,112,427,107,443,119,489,168,526,224,554,278,572,321"/>
-<area shape="rect" id="Node000037" href="$dc/dbe/parsetools_8cpp.html#a5622233915165bad17c1f8e5ded50469" title="Find the header from the HTTP message and match the header for xml data." alt="" coords="258,601,427,627"/>
-<area shape="poly" id="edge11_Node000002_Node000037" title=" " alt="" coords="566,373,492,498,480,523,472,544,462,564,443,584,407,603,405,599,440,580,458,561,467,542,475,521,487,495,561,370"/>
-<area shape="rect" id="Node000038" href="$d7/d5e/group__SSDP-ctrlpt__functions.html#ga07ee8d9e5104cbeb9949ec23e0d4113b" title="This function handles the ssdp messages from the devices." alt="" coords="253,5,432,31"/>
-<area shape="poly" id="edge13_Node000002_Node000038" title=" " alt="" coords="572,322,559,264,535,188,518,149,496,110,470,75,440,44,422,33,424,28,443,40,474,71,501,107,522,146,540,186,564,262,577,321"/>
-<area shape="poly" id="edge10_Node000036_Node000003" title=" " alt="" coords="239,116,192,130,190,125,237,111"/>
-<area shape="poly" id="edge12_Node000037_Node000024" title=" " alt="" coords="244,606,196,601,196,596,245,601"/>
-<area shape="rect" id="Node000044" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aa4514a73581ffd12c050da5ad4998da4" title="Replaces current alias with the given alias." alt="" coords="261,651,424,676"/>
-<area shape="poly" id="edge15_Node000043_Node000044" title=" " alt="" coords="540,575,495,610,442,642,412,653,410,648,440,637,492,606,537,571"/>
+<area shape="rect" id="Node000001" title="Free existing memory in membuffer and assign the new buffer in its place." alt="" coords="617,315,760,340"/>
+<area shape="rect" id="Node000002" href="$dd/d1d/httpparser_8cpp.html#adb6f04b4682aae5e4690b672025b6856" title="Matches a variable parameter list with a string and takes actions based on the data type specified." alt="" coords="489,315,569,340"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="604,330,569,330,569,325,604,325"/>
+<area shape="rect" id="Node000003" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a861d745204c74350296327193bf1d2e5" title="Check header validity, get action name and version of service." alt="" coords="11,56,191,111"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="522,302,510,237,493,157,469,83,455,56,440,39,406,20,370,11,331,8,292,12,217,32,153,58,151,53,215,27,291,7,331,3,371,5,408,15,443,35,459,53,474,81,498,156,516,236,527,301"/>
+<area shape="rect" id="Node000007" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a6962c73d5dca9f8577188bece68c806c" title="Compares &#39;name&#39; and node&#39;s name." alt="" coords="253,49,433,104"/>
+<area shape="poly" id="edge3_Node000002_Node000007" title=" " alt="" coords="521,301,513,261,497,212,473,162,439,117,426,106,429,102,443,113,478,159,502,210,518,260,527,300"/>
+<area shape="rect" id="Node000024" href="$d6/de3/gena__ctrlpt_8cpp.html#a2eb03f67113de1b037f592d6e49cdf3c" title="This function processes NOTIFY events that are sent by devices." alt="" coords="5,511,196,551"/>
+<area shape="poly" id="edge4_Node000002_Node000024" title=" " alt="" coords="528,354,521,396,507,446,482,495,464,516,443,534,410,551,375,562,339,569,302,571,230,566,168,554,169,549,231,561,302,566,338,563,374,557,408,546,440,529,460,512,477,492,502,444,516,395,523,353"/>
+<area shape="rect" id="Node000026" href="$dd/de6/gena__device_8cpp.html#a6fd1575d4217390506014c896b22251e" title="Handles a subscription renewal request from a ctrl point. The connection is not destroyed on return." alt="" coords="244,207,441,247"/>
+<area shape="poly" id="edge5_Node000002_Node000026" title=" " alt="" coords="503,307,474,284,440,262,414,250,416,245,443,257,477,279,506,303"/>
+<area shape="rect" id="Node000027" href="$dd/de6/gena__device_8cpp.html#a25ad1852d4d32c6f34a87b92225202fd" title="Handles a subscription request from a ctrl point. The socket is not closed on return." alt="" coords="244,271,441,311"/>
+<area shape="poly" id="edge6_Node000002_Node000027" title=" " alt="" coords="475,320,441,313,442,308,476,315"/>
+<area shape="rect" id="Node000028" href="$d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28" title="Subscribes or renew subscription." alt="" coords="253,336,433,391"/>
+<area shape="poly" id="edge7_Node000002_Node000028" title=" " alt="" coords="476,340,433,349,432,343,475,335"/>
+<area shape="rect" id="Node000035" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#affb524183df9d3a81c5a1c69b0457bad" title="This function retrives the action name in the buffer." alt="" coords="253,415,433,469"/>
+<area shape="poly" id="edge8_Node000002_Node000035" title=" " alt="" coords="508,352,478,379,443,404,419,417,417,412,440,400,475,375,504,348"/>
+<area shape="rect" id="Node000036" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a78a4c8350c9abb790c7811a2e9d4cfec" title="Get the SOAPACTION header value for M&#45;POST request." alt="" coords="251,128,434,183"/>
+<area shape="poly" id="edge9_Node000002_Node000036" title=" " alt="" coords="515,304,485,250,464,222,440,197,421,185,424,181,443,193,468,219,490,247,520,301"/>
+<area shape="rect" id="Node000037" href="$dc/dbe/parsetools_8cpp.html#a5622233915165bad17c1f8e5ded50469" title="Find the header from the HTTP message and match the header for xml data." alt="" coords="258,493,427,519"/>
+<area shape="poly" id="edge11_Node000002_Node000037" title=" " alt="" coords="523,354,512,384,495,420,472,455,443,484,423,496,420,491,440,480,468,451,491,417,507,382,518,352"/>
+<area shape="rect" id="Node000038" href="$d7/d5e/group__SSDP-ctrlpt__functions.html#ga07ee8d9e5104cbeb9949ec23e0d4113b" title="This function handles the ssdp messages from the devices." alt="" coords="253,595,432,620"/>
+<area shape="poly" id="edge13_Node000002_Node000038" title=" " alt="" coords="529,354,522,401,508,461,483,523,465,552,443,577,412,597,409,592,440,573,461,549,478,521,503,459,517,400,524,353"/>
+<area shape="poly" id="edge10_Node000036_Node000003" title=" " alt="" coords="237,127,190,113,192,108,239,122"/>
+<area shape="poly" id="edge12_Node000037_Node000024" title=" " alt="" coords="245,519,196,524,196,519,244,514"/>
 </map>

@@ -1,33 +1,31 @@
 <map id="membuffer_assign" name="membuffer_assign">
-<area shape="rect" id="Node000001" title="Allocate memory to membuffer *m and copy the contents of the in parameter const void *buf." alt="" coords="529,237,672,263"/>
-<area shape="rect" id="Node000002" href="$df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0" title="Configure the description document." alt="" coords="293,13,473,68"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="581,227,538,168,510,135,480,104,434,70,437,66,483,100,514,131,543,165,586,224"/>
-<area shape="rect" id="Node000006" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a78a4c8350c9abb790c7811a2e9d4cfec" title="Get the SOAPACTION header value for M&#45;POST request." alt="" coords="292,115,475,169"/>
-<area shape="poly" id="edge3_Node000001_Node000006" title=" " alt="" coords="561,233,438,172,440,167,563,229"/>
-<area shape="rect" id="Node000011" href="$da/dd9/membuffer_8cpp.html#a6e41eb5e1e1635dfa932c5fbb2228133" title="Wrapper function for membuffer_assign()." alt="" coords="300,237,467,263"/>
-<area shape="poly" id="edge5_Node000001_Node000011" title=" " alt="" coords="515,253,467,253,467,247,515,247"/>
-<area shape="rect" id="Node000026" href="$dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="301,460,466,485"/>
-<area shape="poly" id="edge10_Node000001_Node000026" title=" " alt="" coords="593,277,577,313,553,358,522,403,483,443,446,462,443,458,480,439,518,400,549,355,572,311,588,274"/>
-<area shape="rect" id="Node000098" href="$dd/d1d/httpparser_8cpp.html#aa7dd58029632188085819da596eda0cc" title="Get HTTP Method, URL location and version information." alt="" coords="285,404,481,429"/>
-<area shape="poly" id="edge14_Node000001_Node000098" title=" " alt="" coords="573,273,403,406,400,401,570,269"/>
+<area shape="rect" id="Node000001" title="Allocate memory to membuffer *m and copy the contents of the in parameter const void *buf." alt="" coords="529,212,672,237"/>
+<area shape="rect" id="Node000002" href="$df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0" title="Configure the description document." alt="" coords="293,7,473,61"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="580,202,537,148,480,91,439,64,442,59,483,87,541,145,585,199"/>
+<area shape="rect" id="Node000006" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a78a4c8350c9abb790c7811a2e9d4cfec" title="Get the SOAPACTION header value for M&#45;POST request." alt="" coords="292,101,475,156"/>
+<area shape="poly" id="edge3_Node000001_Node000006" title=" " alt="" coords="557,209,445,158,447,154,560,204"/>
+<area shape="rect" id="Node000011" href="$da/dd9/membuffer_8cpp.html#a6e41eb5e1e1635dfa932c5fbb2228133" title="Wrapper function for membuffer_assign()." alt="" coords="300,212,467,237"/>
+<area shape="poly" id="edge5_Node000001_Node000011" title=" " alt="" coords="515,227,467,227,467,222,515,222"/>
+<area shape="rect" id="Node000020" href="$dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="301,367,466,392"/>
+<area shape="poly" id="edge9_Node000001_Node000020" title=" " alt="" coords="584,250,542,300,514,327,483,350,440,369,437,364,480,345,510,322,538,296,580,247"/>
+<area shape="rect" id="Node000094" href="$dd/d1d/httpparser_8cpp.html#aa7dd58029632188085819da596eda0cc" title="Get HTTP Method, URL location and version information." alt="" coords="285,311,481,336"/>
+<area shape="poly" id="edge13_Node000001_Node000094" title=" " alt="" coords="560,246,414,313,411,308,558,241"/>
 <area shape="rect" id="Node000003" href="$d1/d4a/urlconfig_8cpp.html#a2fa72177f842afa6e0b87182387aac88" title="Configure the full URL for the description document." alt="" coords="53,5,190,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="279,34,190,27,190,21,280,29"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="279,30,190,25,190,20,280,25"/>
 <area shape="rect" id="Node000007" href="$d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a861d745204c74350296327193bf1d2e5" title="Check header validity, get action name and version of service." alt="" coords="31,55,211,109"/>
-<area shape="poly" id="edge4_Node000006_Node000007" title=" " alt="" coords="277,121,211,105,212,100,279,115"/>
-<area shape="rect" id="Node000012" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a679f96add9815d14cf84b95d873b9198" title="Process a remote request and return the result." alt="" coords="24,311,219,365"/>
-<area shape="poly" id="edge6_Node000011_Node000012" title=" " alt="" coords="332,270,204,313,202,308,331,265"/>
-<area shape="rect" id="Node000016" href="$d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a56be3d34f34993c965ace22a5e2b6319" title="Set an XML Document." alt="" coords="31,133,211,188"/>
-<area shape="poly" id="edge7_Node000011_Node000016" title=" " alt="" coords="332,235,236,202,203,191,205,185,238,197,334,230"/>
-<area shape="rect" id="Node000022" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24" title="Assign the Access&#45;Control&#45;Allow&#45;Origin specfied by the input const char* cors_string parameterto the ..." alt="" coords="42,212,201,237"/>
-<area shape="poly" id="edge8_Node000011_Node000022" title=" " alt="" coords="286,243,201,235,201,230,287,238"/>
-<area shape="rect" id="Node000024" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a6d275509109519a4ab1be27105d7434b" title="Assign the path to the global Document root directory." alt="" coords="31,261,212,287"/>
-<area shape="poly" id="edge9_Node000011_Node000024" title=" " alt="" coords="287,261,213,268,212,263,286,256"/>
-<area shape="rect" id="Node000027" href="$dd/d1d/httpparser_8cpp.html#a4eff37cf0315cb3beccc9e9d03e834c7" title="The parser function." alt="" coords="68,468,175,493"/>
-<area shape="poly" id="edge11_Node000026_Node000027" title=" " alt="" coords="287,478,175,482,175,476,287,473"/>
-<area shape="rect" id="Node000084" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34" title="Read headers at the end of the chunked entity." alt="" coords="29,517,214,572"/>
-<area shape="poly" id="edge12_Node000026_Node000084" title=" " alt="" coords="324,492,215,522,213,517,322,486"/>
-<area shape="rect" id="Node000090" href="$d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#ab4ac32ac3127f3a0a0bc87b6b2a45f6f" title="Parses already exiting data." alt="" coords="5,389,237,444"/>
-<area shape="poly" id="edge13_Node000026_Node000090" title=" " alt="" coords="309,460,237,444,238,439,310,454"/>
-<area shape="poly" id="edge15_Node000098_Node000027" title=" " alt="" coords="324,436,238,458,175,472,174,467,237,453,323,430"/>
-<area shape="poly" id="edge16_Node000098_Node000090" title=" " alt="" coords="271,419,237,419,237,414,271,414"/>
+<area shape="poly" id="edge4_Node000006_Node000007" title=" " alt="" coords="278,113,211,101,212,95,279,107"/>
+<area shape="rect" id="Node000012" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="24,133,219,188"/>
+<area shape="poly" id="edge6_Node000011_Node000012" title=" " alt="" coords="316,211,218,187,220,182,318,206"/>
+<area shape="rect" id="Node000016" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24" title="Assign the Access&#45;Control&#45;Allow&#45;Origin specfied by the input const char* cors_string parameterto the ..." alt="" coords="42,212,201,237"/>
+<area shape="poly" id="edge7_Node000011_Node000016" title=" " alt="" coords="286,227,201,227,201,222,286,222"/>
+<area shape="rect" id="Node000018" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a6d275509109519a4ab1be27105d7434b" title="Assign the path to the global Document root directory." alt="" coords="31,261,212,287"/>
+<area shape="poly" id="edge8_Node000011_Node000018" title=" " alt="" coords="302,243,190,264,189,259,301,237"/>
+<area shape="rect" id="Node000021" href="$dd/d1d/httpparser_8cpp.html#a4eff37cf0315cb3beccc9e9d03e834c7" title="The parser function." alt="" coords="68,311,175,336"/>
+<area shape="poly" id="edge10_Node000020_Node000021" title=" " alt="" coords="311,366,237,350,175,337,176,332,238,345,312,361"/>
+<area shape="rect" id="Node000080" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34" title="Read headers at the end of the chunked entity." alt="" coords="29,439,214,493"/>
+<area shape="poly" id="edge11_Node000020_Node000080" title=" " alt="" coords="331,399,205,441,204,436,330,394"/>
+<area shape="rect" id="Node000086" href="$d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#ab4ac32ac3127f3a0a0bc87b6b2a45f6f" title="Parses already exiting data." alt="" coords="5,360,237,415"/>
+<area shape="poly" id="edge12_Node000020_Node000086" title=" " alt="" coords="287,385,238,386,237,381,287,380"/>
+<area shape="poly" id="edge14_Node000094_Node000021" title=" " alt="" coords="271,326,175,326,175,321,271,321"/>
+<area shape="poly" id="edge15_Node000094_Node000086" title=" " alt="" coords="318,342,235,362,233,357,316,337"/>
 </map>
