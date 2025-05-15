@@ -185,12 +185,13 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a4fe2852f9249bccdc1d7850db224c0c5" id="r_a4fe2852f9249bccdc1d7850db224c0c5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5">anonymous_namespace{webserver.cpp}::resp_type</a> { <br />
-&#160;&#160;<b>RESP_FILEDOC</b>
+&#160;&#160;<b>RESP_UNSPEC</b>
+, <b>RESP_FILEDOC</b>
 , <b>RESP_XMLDOC</b>
 , <b>RESP_HEADERS</b>
-, <b>RESP_WEBDOC</b>
 , <br />
-&#160;&#160;<b>RESP_POST</b>
+&#160;&#160;<b>RESP_WEBDOC</b>
+, <b>RESP_POST</b>
 <br />
  }</td></tr>
 <tr class="memdesc:a4fe2852f9249bccdc1d7850db224c0c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response Types.  <a href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5">More...</a><br /></td></tr>
@@ -198,9 +199,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4c6abf771128f8ea3976c9eccdb13e4f" id="r_a4c6abf771128f8ea3976c9eccdb13e4f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4c6abf771128f8ea3976c9eccdb13e4f">web_server_init</a> ()</td></tr>
-<tr class="memdesc:a4c6abf771128f8ea3976c9eccdb13e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilialize root directory for web server and different documents.  <br /></td></tr>
-<tr class="separator:a4c6abf771128f8ea3976c9eccdb13e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4a3fad2948ceb68d8deb1b268ea0c0a" id="r_ad4a3fad2948ceb68d8deb1b268ea0c0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#ad4a3fad2948ceb68d8deb1b268ea0c0a">web_server_init</a> ()</td></tr>
+<tr class="memdesc:ad4a3fad2948ceb68d8deb1b268ea0c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilialize root directory for web server and different documents.  <br /></td></tr>
+<tr class="separator:ad4a3fad2948ceb68d8deb1b268ea0c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa99b39086487b3c85d45663326dede30" id="r_aa99b39086487b3c85d45663326dede30"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aa99b39086487b3c85d45663326dede30">web_server_set_alias</a> (const char *a_alias_name, const char *a_alias_content, size_t a_alias_content_length, time_t a_last_modified)</td></tr>
 <tr class="memdesc:aa99b39086487b3c85d45663326dede30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces current alias with the given alias.  <br /></td></tr>
 <tr class="separator:aa99b39086487b3c85d45663326dede30"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,9 +211,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a83e87cb5abaea1b14b5bbeb67d7adf24" id="r_a83e87cb5abaea1b14b5bbeb67d7adf24"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24">web_server_set_cors</a> (const char *cors_string)</td></tr>
 <tr class="memdesc:a83e87cb5abaea1b14b5bbeb67d7adf24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign the Access-Control-Allow-Origin specfied by the input const char* cors_string parameterto the global CORS string.  <br /></td></tr>
 <tr class="separator:a83e87cb5abaea1b14b5bbeb67d7adf24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb77fc2cfdf0dfbd97e5b3880c4b18d1" id="r_abb77fc2cfdf0dfbd97e5b3880c4b18d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1">web_server_callback</a> (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *parser, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *req, <a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info)</td></tr>
-<tr class="memdesc:abb77fc2cfdf0dfbd97e5b3880c4b18d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main entry point into web server.  <br /></td></tr>
-<tr class="separator:abb77fc2cfdf0dfbd97e5b3880c4b18d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ed108475978c5f7f969ce80ba6e31f1" id="r_a4ed108475978c5f7f969ce80ba6e31f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1">web_server_callback</a> (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *a_parser, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *a_req, <a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *a_info)</td></tr>
+<tr class="memdesc:a4ed108475978c5f7f969ce80ba6e31f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main entry point into web server.  <br /></td></tr>
+<tr class="separator:a4ed108475978c5f7f969ce80ba6e31f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a828e78f0b09f30dd0fb90d026524b236" id="r_a828e78f0b09f30dd0fb90d026524b236"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a828e78f0b09f30dd0fb90d026524b236">SetHTTPGetCallback</a> (<a class="el" href="../../d3/d8b/miniserver_8hpp.html#a3f28f3a60a8a50e6fb3a27904c32dde6">MiniServerCallback</a> callback)</td></tr>
 <tr class="memdesc:a828e78f0b09f30dd0fb90d026524b236"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set HTTP Get Callback.  <br /></td></tr>
 <tr class="separator:a828e78f0b09f30dd0fb90d026524b236"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -262,9 +263,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a6d073afa10796a5f94987b4a7e1450a3" id="r_a6d073afa10796a5f94987b4a7e1450a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a6d073afa10796a5f94987b4a7e1450a3">anonymous_namespace{webserver.cpp}::ExtraHTTPHeaders</a> (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *Req, <a class="el" href="../../dc/d1d/list_8hpp.html#d0/d92/structUpnpListHead">UpnpListHead</a> *extraHeadersList)</td></tr>
 <tr class="memdesc:a6d073afa10796a5f94987b4a7e1450a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build an array of unrecognized headers.  <br /></td></tr>
 <tr class="separator:a6d073afa10796a5f94987b4a7e1450a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e9822eb41d6549ac4aa2d972722494d" id="r_a3e9822eb41d6549ac4aa2d972722494d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d">anonymous_namespace{webserver.cpp}::process_request</a> (<a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *req, enum <a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5">resp_type</a> *rtype, <a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *headers, <a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *filename, <a class="el" href="../../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html">xml_alias_t</a> *alias, <a class="el" href="../../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#d0/d20/structSendInstruction">SendInstruction</a> *RespInstr)</td></tr>
-<tr class="memdesc:a3e9822eb41d6549ac4aa2d972722494d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process a remote request and return the result.  <br /></td></tr>
-<tr class="separator:a3e9822eb41d6549ac4aa2d972722494d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb9f6598fa3e833fe6b3cde9ae27871c" id="r_abb9f6598fa3e833fe6b3cde9ae27871c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c">anonymous_namespace{webserver.cpp}::process_request</a> (<a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *req, enum <a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5">resp_type</a> *rtype, <a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *headers, <a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *filename, <a class="el" href="../../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html">xml_alias_t</a> *a_alias, <a class="el" href="../../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#d0/d20/structSendInstruction">SendInstruction</a> *RespInstr)</td></tr>
+<tr class="memdesc:abb9f6598fa3e833fe6b3cde9ae27871c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process a remote request and return the result.  <br /></td></tr>
+<tr class="separator:abb9f6598fa3e833fe6b3cde9ae27871c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade42b67e208b7dbb02ba7271472c0039" id="r_ade42b67e208b7dbb02ba7271472c0039"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ade42b67e208b7dbb02ba7271472c0039">anonymous_namespace{webserver.cpp}::http_RecvPostMessage</a> (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *parser, <a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info, char *filename, struct <a class="el" href="../../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#d0/d20/structSendInstruction">SendInstruction</a> *Instr)</td></tr>
 <tr class="memdesc:ade42b67e208b7dbb02ba7271472c0039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives the HTTP post message.  <br /></td></tr>
 <tr class="separator:ade42b67e208b7dbb02ba7271472c0039"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -289,14 +290,14 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a4c6abf771128f8ea3976c9eccdb13e4f" name="a4c6abf771128f8ea3976c9eccdb13e4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c6abf771128f8ea3976c9eccdb13e4f">&#9670;&#160;</a></span>web_server_init()</h2>
+<a id="ad4a3fad2948ceb68d8deb1b268ea0c0a" name="ad4a3fad2948ceb68d8deb1b268ea0c0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4a3fad2948ceb68d8deb1b268ea0c0a">&#9670;&#160;</a></span>web_server_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int web_server_init </td>
+          <td class="memname">void web_server_init </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -305,13 +306,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initilialize root directory for web server and different documents. </p>
-<p>Initilialize the different documents. Initialize the memory for root directory for web server. Call to initialize global XML document. Sets bWebServerState to WEB_SERVER_ENABLED.</p>
-<dl class="section note"><dt>Note</dt><dd>alias_content is not freed here</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li><code>0</code> - OK </li>
-<li><code>UPNP_E_OUTOF_MEMORY</code> </li>
-</ul>
-</dd></dl>
+<p>Initilialize the different documents. Initialize the memory for root directory for web server. Sets bWebServerState to WEB_SERVER_ENABLED. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01530">1530</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -319,15 +314,45 @@ Variables</h2></td></tr>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4c6abf771128f8ea3976c9eccdb13e4f_cgraph.png" border="0" usemap="#ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4c6abf771128f8ea3976c9eccdb13e4f_cgraph" alt=""/></div>
-<map name="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4c6abf771128f8ea3976c9eccdb13e4f_cgraph" id="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4c6abf771128f8ea3976c9eccdb13e4f_cgraph">
-<area shape="rect" title="Initilialize root directory for web server and different documents." alt="" coords="5,52,131,77"/>
+<div class="center"><img src="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_ad4a3fad2948ceb68d8deb1b268ea0c0a_cgraph.png" border="0" usemap="#ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_ad4a3fad2948ceb68d8deb1b268ea0c0a_cgraph" alt=""/></div>
+<map name="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_ad4a3fad2948ceb68d8deb1b268ea0c0a_cgraph" id="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_ad4a3fad2948ceb68d8deb1b268ea0c0a_cgraph">
+<area shape="rect" title="Initilialize root directory for web server and different documents." alt="" coords="5,181,131,207"/>
 <area shape="rect" href="../../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a29029bffc2a9680f4b946e77d569e323" title="Clear the XML object." alt="" coords="179,5,359,60"/>
-<area shape="poly" title=" " alt="" coords="130,52,165,47,166,52,131,57"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="207,84,330,109"/>
-<area shape="poly" title=" " alt="" coords="131,72,194,82,193,87,130,77"/>
-<area shape="rect" href="../../d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="407,69,628,124"/>
-<area shape="poly" title=" " alt="" coords="330,94,393,94,393,99,330,99"/>
+<area shape="poly" title=" " alt="" coords="77,179,118,132,177,77,195,65,198,69,180,81,122,135,81,183"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1076,312,1199,337"/>
+<area shape="poly" title=" " alt="" coords="102,179,174,155,272,127,386,105,445,98,503,95,741,95,802,102,861,119,917,145,970,176,1017,210,1058,244,1117,300,1113,304,1054,248,1014,214,967,181,915,150,859,124,801,107,741,101,503,101,445,103,387,110,273,132,175,160,104,184"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a828e78f0b09f30dd0fb90d026524b236" title="Set HTTP Get Callback." alt="" coords="191,352,347,377"/>
+<area shape="poly" title=" " alt="" coords="78,205,115,269,144,306,180,337,192,344,190,349,177,341,141,309,110,272,73,208"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="189,303,348,328"/>
+<area shape="poly" title=" " alt="" coords="92,204,236,293,233,297,89,209"/>
+<area shape="rect" href="../../d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1247,297,1468,352"/>
+<area shape="poly" title=" " alt="" coords="1199,322,1233,322,1233,327,1199,327"/>
+<area shape="poly" title=" " alt="" coords="345,326,361,337,380,366,387,395,387,424,383,452,379,480,380,507,388,533,409,557,459,595,507,618,554,628,601,628,651,621,705,609,829,579,889,568,936,555,978,535,1026,499,1060,463,1088,423,1124,349,1129,352,1092,425,1064,466,1030,503,981,539,937,560,890,573,830,585,706,614,652,626,602,634,553,634,505,623,456,600,405,561,384,535,375,508,374,480,378,451,382,423,382,395,375,368,357,341,342,330"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="665,261,813,287"/>
+<area shape="poly" title=" " alt="" coords="348,306,651,279,652,284,349,311"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="877,261,1028,287"/>
+<area shape="poly" title=" " alt="" coords="276,301,296,274,325,240,362,207,406,182,467,160,521,147,570,141,616,143,663,150,713,162,830,198,883,222,926,250,923,255,880,227,828,203,711,167,662,155,616,148,570,147,522,152,468,165,408,187,365,212,329,244,300,277,280,304"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="907,464,998,489"/>
+<area shape="poly" title=" " alt="" coords="340,326,360,337,377,357,385,378,392,397,408,415,468,446,533,469,600,483,668,491,733,494,794,493,893,483,894,489,794,498,733,499,667,497,599,489,531,474,466,451,405,419,387,400,380,380,373,360,357,341,337,330"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ade42b67e208b7dbb02ba7271472c0039" title="Receives the HTTP post message." alt="" coords="649,515,829,569"/>
+<area shape="poly" title=" " alt="" coords="344,326,361,337,376,357,383,378,384,418,386,458,393,476,408,493,433,511,460,525,518,543,578,551,635,552,635,557,578,557,517,548,458,530,430,516,405,497,389,479,381,459,379,419,378,379,371,360,357,341,341,330"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="667,413,812,439"/>
+<area shape="poly" title=" " alt="" coords="325,326,360,337,384,350,408,362,471,381,535,396,653,415,653,420,534,401,469,386,406,367,381,355,358,342,324,331"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="409,328,599,353"/>
+<area shape="poly" title=" " alt="" coords="348,321,396,326,395,332,348,326"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="407,197,601,252"/>
+<area shape="poly" title=" " alt="" coords="302,300,418,255,420,260,304,305"/>
+<area shape="poly" title=" " alt="" coords="704,263,697,253,701,243,715,237,739,235,769,238,781,247,778,252,767,243,739,240,717,242,705,247,702,252,709,260"/>
+<area shape="poly" title=" " alt="" coords="814,271,864,271,864,277,814,277"/>
+<area shape="poly" title=" " alt="" coords="756,285,930,452,926,456,752,289"/>
+<area shape="poly" title=" " alt="" coords="1001,284,1078,306,1076,311,999,289"/>
+<area shape="poly" title=" " alt="" coords="829,512,896,491,898,496,830,517"/>
+<area shape="poly" title=" " alt="" coords="599,336,1062,324,1062,329,599,341"/>
+<area shape="poly" title=" " alt="" coords="549,325,680,288,681,293,550,331"/>
+<area shape="poly" title=" " alt="" coords="599,327,829,295,877,287,878,292,830,301,600,333"/>
+<area shape="poly" title=" " alt="" coords="541,351,650,391,691,406,689,411,648,397,539,356"/>
+<area shape="poly" title=" " alt="" coords="602,242,665,256,664,261,601,248"/>
+<area shape="poly" title=" " alt="" coords="602,212,712,210,771,214,830,222,876,235,916,253,914,258,874,240,829,227,771,219,711,215,602,218"/>
 </map>
 </div>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -335,12 +360,12 @@ Variables</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4c6abf771128f8ea3976c9eccdb13e4f_icgraph.png" border="0" usemap="#ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4c6abf771128f8ea3976c9eccdb13e4f_icgraph" alt=""/></div>
-<map name="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4c6abf771128f8ea3976c9eccdb13e4f_icgraph" id="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4c6abf771128f8ea3976c9eccdb13e4f_icgraph">
+<div class="center"><img src="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_ad4a3fad2948ceb68d8deb1b268ea0c0a_icgraph.png" border="0" usemap="#ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_ad4a3fad2948ceb68d8deb1b268ea0c0a_icgraph" alt=""/></div>
+<map name="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_ad4a3fad2948ceb68d8deb1b268ea0c0a_icgraph" id="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_ad4a3fad2948ceb68d8deb1b268ea0c0a_icgraph">
 <area shape="rect" title="Initilialize root directory for web server and different documents." alt="" coords="428,5,553,31"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a3c6309a98eb5281fbbfa45644c06fc34" title="Enables or disables the webserver." alt="" coords="211,5,380,31"/>
 <area shape="poly" title=" " alt="" coords="414,21,380,21,380,15,414,15"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="5,5,163,31"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a353a56c4dd0685acd7a8d2bb9cb8dddd" title="Finishes initializing the UPnP SDK." alt="" coords="5,5,163,31"/>
 <area shape="poly" title=" " alt="" coords="197,21,163,21,163,15,197,15"/>
 </map>
 </div>
@@ -401,7 +426,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01553">1553</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01550">1550</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -466,7 +491,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01561">1561</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01558">1558</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -526,7 +551,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01579">1579</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01576">1576</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -556,8 +581,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="abb77fc2cfdf0dfbd97e5b3880c4b18d1" name="abb77fc2cfdf0dfbd97e5b3880c4b18d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb77fc2cfdf0dfbd97e5b3880c4b18d1">&#9670;&#160;</a></span>web_server_callback()</h2>
+<a id="a4ed108475978c5f7f969ce80ba6e31f1" name="a4ed108475978c5f7f969ce80ba6e31f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ed108475978c5f7f969ce80ba6e31f1">&#9670;&#160;</a></span>web_server_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -566,19 +591,19 @@ Variables</h2></td></tr>
           <td class="memname">void web_server_callback </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *&#160;</td>
-          <td class="paramname"><em>parser</em>, </td>
+          <td class="paramname"><em>a_parser</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *&#160;</td>
-          <td class="paramname"><em>req</em>, </td>
+          <td class="paramname"><em>a_req</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *&#160;</td>
-          <td class="paramname"><em>info</em>&#160;</td>
+          <td class="paramname"><em>a_info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -592,21 +617,21 @@ Variables</h2></td></tr>
 <p>Handles HTTP GET and HEAD requests. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">parser</td><td>.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">req</td><td>.  </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">info</td><td>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_parser</td><td>.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_req</td><td>.  </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">a_info</td><td>. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01589">1589</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01586">1586</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-9-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_abb77fc2cfdf0dfbd97e5b3880c4b18d1_cgraph.png" border="0" usemap="#ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_abb77fc2cfdf0dfbd97e5b3880c4b18d1_cgraph" alt=""/></div>
-<map name="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_abb77fc2cfdf0dfbd97e5b3880c4b18d1_cgraph" id="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_abb77fc2cfdf0dfbd97e5b3880c4b18d1_cgraph">
+<div class="center"><img src="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4ed108475978c5f7f969ce80ba6e31f1_cgraph.png" border="0" usemap="#ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4ed108475978c5f7f969ce80ba6e31f1_cgraph" alt=""/></div>
+<map name="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4ed108475978c5f7f969ce80ba6e31f1_cgraph" id="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4ed108475978c5f7f969ce80ba6e31f1_cgraph">
 <area shape="rect" title="Main entry point into web server." alt="" coords="5,452,164,478"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="514,754,662,779"/>
 <area shape="poly" title=" " alt="" coords="93,477,108,513,133,562,169,614,190,637,214,658,247,679,283,698,358,727,433,745,501,757,500,762,432,751,357,732,280,703,244,684,210,662,186,641,164,617,129,564,103,515,88,479"/>
@@ -622,7 +647,7 @@ Variables</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="164,455,501,420,502,426,164,460"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="214,512,405,538"/>
 <area shape="poly" title=" " alt="" coords="134,475,248,506,247,511,132,480"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="212,1344,407,1399"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="212,1344,407,1399"/>
 <area shape="poly" title=" " alt="" coords="92,477,301,1330,295,1332,87,479"/>
 <area shape="poly" title=" " alt="" coords="543,756,534,745,539,735,557,729,588,727,628,731,639,737,642,743,638,745,635,740,627,736,588,732,558,734,542,739,539,745,547,752"/>
 <area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a4c469cd11deee69c1f1d9ec77de66df9" title="Returns the server information for the operating system." alt="" coords="828,866,933,891"/>
@@ -736,13 +761,13 @@ Variables</h2></td></tr>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_abb77fc2cfdf0dfbd97e5b3880c4b18d1_icgraph.png" border="0" usemap="#ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_abb77fc2cfdf0dfbd97e5b3880c4b18d1_icgraph" alt=""/></div>
-<map name="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_abb77fc2cfdf0dfbd97e5b3880c4b18d1_icgraph" id="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_abb77fc2cfdf0dfbd97e5b3880c4b18d1_icgraph">
-<area shape="rect" title="Main entry point into web server." alt="" coords="428,5,587,31"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a3c6309a98eb5281fbbfa45644c06fc34" title="Enables or disables the webserver." alt="" coords="211,5,380,31"/>
-<area shape="poly" title=" " alt="" coords="414,21,380,21,380,15,414,15"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="5,5,163,31"/>
-<area shape="poly" title=" " alt="" coords="197,21,163,21,163,15,197,15"/>
+<div class="center"><img src="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4ed108475978c5f7f969ce80ba6e31f1_icgraph.png" border="0" usemap="#ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4ed108475978c5f7f969ce80ba6e31f1_icgraph" alt=""/></div>
+<map name="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4ed108475978c5f7f969ce80ba6e31f1_icgraph" id="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a4ed108475978c5f7f969ce80ba6e31f1_icgraph">
+<area shape="rect" title="Main entry point into web server." alt="" coords="396,5,555,31"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#ad4a3fad2948ceb68d8deb1b268ea0c0a" title="Initilialize root directory for web server and different documents." alt="" coords="223,5,348,31"/>
+<area shape="poly" title=" " alt="" coords="382,21,348,21,348,15,382,15"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a3c6309a98eb5281fbbfa45644c06fc34" title="Enables or disables the webserver." alt="" coords="5,5,175,31"/>
+<area shape="poly" title=" " alt="" coords="209,21,175,21,175,15,209,15"/>
 </map>
 </div>
 
@@ -772,7 +797,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01657">1657</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01654">1654</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -780,11 +805,16 @@ Variables</h2></td></tr>
 <div id="dynsection-11-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a828e78f0b09f30dd0fb90d026524b236_icgraph.png" border="0" usemap="#ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a828e78f0b09f30dd0fb90d026524b236_icgraph" alt=""/></div>
 <map name="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a828e78f0b09f30dd0fb90d026524b236_icgraph" id="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_a828e78f0b09f30dd0fb90d026524b236_icgraph">
-<area shape="rect" title="Set HTTP Get Callback." alt="" coords="428,5,584,31"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a3c6309a98eb5281fbbfa45644c06fc34" title="Enables or disables the webserver." alt="" coords="211,5,380,31"/>
-<area shape="poly" title=" " alt="" coords="414,21,380,21,380,15,414,15"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="5,5,163,31"/>
-<area shape="poly" title=" " alt="" coords="197,21,163,21,163,15,197,15"/>
+<area shape="rect" title="Set HTTP Get Callback." alt="" coords="424,31,580,56"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aba5685f22e83826b14771e59d0edbc05" title="Release memory allocated for the global web server root directory and the global XML document." alt="" coords="223,55,376,80"/>
+<area shape="poly" title=" " alt="" coords="411,57,377,61,376,56,410,51"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#ad4a3fad2948ceb68d8deb1b268ea0c0a" title="Initilialize root directory for web server and different documents." alt="" coords="237,5,362,31"/>
+<area shape="poly" title=" " alt="" coords="410,35,362,28,362,23,411,29"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a3c6309a98eb5281fbbfa45644c06fc34" title="Enables or disables the webserver." alt="" coords="5,5,175,31"/>
+<area shape="poly" title=" " alt="" coords="231,54,144,33,145,28,232,49"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="43,55,137,80"/>
+<area shape="poly" title=" " alt="" coords="209,70,138,70,138,65,209,65"/>
+<area shape="poly" title=" " alt="" coords="223,21,175,21,175,15,223,15"/>
 </map>
 </div>
 
@@ -808,7 +838,7 @@ Variables</h2></td></tr>
 <p>Release memory allocated for the global web server root directory and the global XML document. </p>
 <p>Resets the flag bWebServerState to WEB_SERVER_DISABLED. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01662">1662</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01659">1659</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -816,11 +846,13 @@ Variables</h2></td></tr>
 <div id="dynsection-12-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_aba5685f22e83826b14771e59d0edbc05_cgraph.png" border="0" usemap="#ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_aba5685f22e83826b14771e59d0edbc05_cgraph" alt=""/></div>
 <map name="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_aba5685f22e83826b14771e59d0edbc05_cgraph" id="ad1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_aba5685f22e83826b14771e59d0edbc05_cgraph">
-<area shape="rect" title="Release memory allocated for the global web server root directory and the global XML document." alt="" coords="5,52,159,77"/>
+<area shape="rect" title="Release memory allocated for the global web server root directory and the global XML document." alt="" coords="5,84,159,109"/>
 <area shape="rect" href="../../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a29029bffc2a9680f4b946e77d569e323" title="Clear the XML object." alt="" coords="207,5,387,60"/>
-<area shape="poly" title=" " alt="" coords="158,51,193,45,193,51,159,56"/>
+<area shape="poly" title=" " alt="" coords="125,81,193,61,194,66,126,86"/>
 <area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="221,84,372,109"/>
-<area shape="poly" title=" " alt="" coords="159,73,208,81,207,86,158,79"/>
+<area shape="poly" title=" " alt="" coords="159,94,208,94,208,99,159,99"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a828e78f0b09f30dd0fb90d026524b236" title="Set HTTP Get Callback." alt="" coords="219,133,375,159"/>
+<area shape="poly" title=" " alt="" coords="139,107,228,128,227,133,137,112"/>
 <area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="435,84,557,109"/>
 <area shape="poly" title=" " alt="" coords="372,94,421,94,421,99,372,99"/>
 </map>
@@ -837,7 +869,7 @@ Variables</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="734,36,700,32,700,27,734,31"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="568,56,663,81"/>
 <area shape="poly" title=" " alt="" coords="734,58,663,66,663,61,734,52"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd" title="Finishes initializing the UPnP SDK." alt="" coords="325,5,483,31"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a353a56c4dd0685acd7a8d2bb9cb8dddd" title="Finishes initializing the UPnP SDK." alt="" coords="325,5,483,31"/>
 <area shape="poly" title=" " alt="" coords="517,21,483,21,483,16,517,16"/>
 <area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,56,91,81"/>
 <area shape="poly" title=" " alt="" coords="312,30,139,53,92,62,91,57,138,47,311,24"/>

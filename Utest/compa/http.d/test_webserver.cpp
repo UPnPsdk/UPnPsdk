@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-13
+// Redistribution only with this Copyright remark. Last modified: 2025-05-16
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -10,7 +10,6 @@
 #endif
 
 #include <UPnPsdk/upnptools.hpp> // for errStrEx
-#include <umock/stdlib_mock.hpp>
 #include <utest/utest.hpp>
 
 // The web_server functions call stack
@@ -71,6 +70,7 @@ namespace utest {
 
 using ::testing::_;
 using ::testing::ExitedWithCode;
+using ::testing::HasSubstr;
 using ::UPnPsdk::errStrEx;
 
 
@@ -94,7 +94,7 @@ TEST(WebServerTestSuite, init_and_destroy) {
     bWebServerState = WEB_SERVER_DISABLED;
 
     // Test Unit init
-    EXPECT_EQ(web_server_init(), UPNP_E_SUCCESS);
+    web_server_init();
 
     EXPECT_EQ(bWebServerState, WEB_SERVER_ENABLED);
 
@@ -430,12 +430,6 @@ TEST(XMLaliasTestSuite, glob_alias_init_and_release) {
 
     EXPECT_EQ(alias->ct, nullptr);
     EXPECT_EQ(alias->last_modified, 0);
-
-    // An empty alias structure hasn't allocated memory so there is also nothing
-    // to free.
-    umock::StdlibMock mock_stdlibObj;
-    umock::Stdlib stdlib_injectObj(&mock_stdlibObj);
-    EXPECT_CALL(mock_stdlibObj, free(_)).Times(0);
 
     // Test Unit release
     alias_release(alias);
@@ -1240,6 +1234,79 @@ TEST_F(XMLaliasFDeathTest, alias_grab_nullptr) {
         },
         ExitedWithCode(0), ".*");
 #endif // UPnPsdk_WITH_NATIVE_PUPNP
+}
+
+TEST(XMLaliasTestSuite, process_request) {
+#if 0
+    // Snapshot with gdb:
+    // ------------------
+    SOCKINFO info{};
+    info.socket = 10;
+
+    http_message_t req{};
+    req.initialized = 1;
+    req.method = HTTPMETHOD_GET;
+    req.uri.type = RELATIVE;
+    req.uri.path_type = ABS_PATH;
+    req.uri.pathquery.buff = "/tvdevicedesc.xml";
+    req.uri.pathquery.size = 17;
+    req.request_method = HTTPMETHOD_PUT;
+    req.is_request = 1;
+    req.major_version = 1;
+    req.minor_version = 1;
+    req.msg.buf =
+        const_cast<char*>("GET /tvdevicedesc.xml HTTP/1.1\n"
+                          "HOST: [fe80::5054:ff:fe7f:c021]:35813\n"
+                          "DATE: Wed, 14 May 2025 15:14:26 GMT\n"
+                          "CONNECTION: close\n"
+                          "USER-AGENT: Linux/6.12.27-amd64, UPnP/1.0, Portable "
+                          "SDK for UPnP devices/1.14.20\n\n");
+    req.msg.length = 211;
+    req.msg.capacity = 211;
+    req.msg.size_inc = 5;
+    req.urlbuf = const_cast<char*>("/tvdevicedesc.xml");
+#endif
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    // This is needed, otherwise getting a segfault.
+    // Initialize web server.
+    bWebServerState = WEB_SERVER_DISABLED;
+    web_server_init();
+#endif
+    // Set web server root dir.
+    membuffer_init(&gDocumentRootDir);
+    EXPECT_EQ(web_server_set_root_dir(SAMPLE_SOURCE_DIR "/web"), 0);
+
+    // Input arguments
+    SOCKINFO local_addrinfo{};
+
+    http_message_t req{};
+    req.uri.type = static_cast<uriType>(RELATIVE);
+    req.uri.path_type = ABS_PATH;
+    req.uri.pathquery.buff = "/tvdevicedesc.xml";
+    req.uri.pathquery.size = 17;
+    req.method = HTTPMETHOD_GET;
+
+    // Output arguments
+    resp_type rtype;
+    membuffer headers;
+    membuffer_init(&headers);
+    membuffer filename;
+    membuffer_init(&filename);
+    xml_alias_t a_alias;
+    SendInstruction RespInstr;
+
+    // Test Unit
+    EXPECT_EQ(process_request(/*in*/ &local_addrinfo, /*in*/ &req,
+                              /*out*/ &rtype,
+                              /*out*/ &headers, /*out*/ &filename,
+                              /*out*/ &a_alias, /*out*/ &RespInstr),
+              HTTP_OK);
+
+    EXPECT_EQ(rtype, RESP_FILEDOC);
+    EXPECT_THAT(headers.buf,
+                HasSubstr("UPnP/1.0, Portable SDK for UPnP devices/"));
+    EXPECT_THAT(filename.buf, HasSubstr("/Sample/web/tvdevicedesc.xml"));
 }
 
 } // namespace utest

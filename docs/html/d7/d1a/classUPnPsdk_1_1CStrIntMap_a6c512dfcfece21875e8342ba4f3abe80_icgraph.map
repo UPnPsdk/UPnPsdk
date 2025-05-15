@@ -2,26 +2,26 @@
 <area shape="rect" id="Node000001" title="Match the given name with names from the entries in the table." alt="" coords="843,138,1001,178"/>
 <area shape="rect" id="Node000002" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a9a0cd361290dce2e98f1a4fa91e5b9a5" title="Get header id from the request parameter." alt="" coords="253,5,475,60"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="889,131,846,97,794,70,713,47,629,34,548,29,475,28,475,23,548,23,630,29,714,42,796,65,849,93,892,127"/>
-<area shape="rect" id="Node000008" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a6d073afa10796a5f94987b4a7e1450a3" title="Build an array of unrecognized headers." alt="" coords="528,79,795,119"/>
-<area shape="poly" id="edge3_Node000001_Node000008" title=" " alt="" coords="829,140,750,122,751,117,830,135"/>
-<area shape="rect" id="Node000009" href="$dd/d1d/httpparser_8cpp.html#ae4883a78151ed4bbc5ceb797a5703402" title="A wrapper function that maps a method id to a method." alt="" coords="603,145,719,171"/>
-<area shape="poly" id="edge5_Node000001_Node000009" title=" " alt="" coords="829,161,720,161,720,155,829,155"/>
-<area shape="rect" id="Node000106" href="$dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="579,273,744,299"/>
-<area shape="poly" id="edge9_Node000001_Node000106" title=" " alt="" coords="895,190,851,229,824,248,796,264,745,280,743,275,794,260,822,244,848,225,892,186"/>
-<area shape="rect" id="Node000123" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a01d7fab7d8ff4a83e2967633b0b282c8" title="Get HTTP Method, URL location and version information." alt="" coords="569,195,754,249"/>
-<area shape="poly" id="edge13_Node000001_Node000123" title=" " alt="" coords="830,183,755,202,753,197,829,178"/>
-<area shape="rect" id="Node000003" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="5,71,200,125"/>
+<area shape="rect" id="Node000009" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a6d073afa10796a5f94987b4a7e1450a3" title="Build an array of unrecognized headers." alt="" coords="528,79,795,119"/>
+<area shape="poly" id="edge3_Node000001_Node000009" title=" " alt="" coords="829,140,750,122,751,117,830,135"/>
+<area shape="rect" id="Node000010" href="$dd/d1d/httpparser_8cpp.html#ae4883a78151ed4bbc5ceb797a5703402" title="A wrapper function that maps a method id to a method." alt="" coords="603,145,719,171"/>
+<area shape="poly" id="edge5_Node000001_Node000010" title=" " alt="" coords="829,161,720,161,720,155,829,155"/>
+<area shape="rect" id="Node000107" href="$dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="579,273,744,299"/>
+<area shape="poly" id="edge9_Node000001_Node000107" title=" " alt="" coords="895,190,851,229,824,248,796,264,745,280,743,275,794,260,822,244,848,225,892,186"/>
+<area shape="rect" id="Node000124" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a01d7fab7d8ff4a83e2967633b0b282c8" title="Get HTTP Method, URL location and version information." alt="" coords="569,195,754,249"/>
+<area shape="poly" id="edge13_Node000001_Node000124" title=" " alt="" coords="830,183,755,202,753,197,829,178"/>
+<area shape="rect" id="Node000003" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="5,71,200,125"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="242,66,201,76,200,71,240,61"/>
-<area shape="poly" id="edge4_Node000008_Node000003" title=" " alt="" coords="514,102,200,101,200,96,514,96"/>
-<area shape="rect" id="Node000010" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="290,160,438,185"/>
-<area shape="poly" id="edge6_Node000009_Node000010" title=" " alt="" coords="590,164,438,172,438,166,589,159"/>
-<area shape="poly" id="edge8_Node000010_Node000003" title=" " alt="" coords="305,159,198,128,199,123,306,154"/>
-<area shape="poly" id="edge7_Node000010_Node000010" title=" " alt="" coords="411,151,408,146,400,143,364,139,336,141,321,146,318,151,326,158,322,162,313,152,317,142,335,135,364,133,401,137,412,142,415,148"/>
-<area shape="rect" id="Node000107" href="$dd/d1d/httpparser_8cpp.html#a4eff37cf0315cb3beccc9e9d03e834c7" title="The parser function." alt="" coords="311,209,417,235"/>
-<area shape="poly" id="edge10_Node000106_Node000107" title=" " alt="" coords="568,273,527,265,479,250,417,235,418,230,481,245,529,259,569,268"/>
-<area shape="rect" id="Node000113" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34" title="Read headers at the end of the chunked entity." alt="" coords="271,259,457,313"/>
-<area shape="poly" id="edge11_Node000106_Node000113" title=" " alt="" coords="565,289,457,289,457,283,565,283"/>
-<area shape="rect" id="Node000119" href="$d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#ab4ac32ac3127f3a0a0bc87b6b2a45f6f" title="Parses already exiting data." alt="" coords="248,337,480,392"/>
-<area shape="poly" id="edge12_Node000106_Node000119" title=" " alt="" coords="599,305,469,340,468,335,598,300"/>
-<area shape="poly" id="edge14_Node000123_Node000107" title=" " alt="" coords="555,225,417,225,417,219,555,219"/>
+<area shape="poly" id="edge4_Node000009_Node000003" title=" " alt="" coords="514,102,200,101,200,96,514,96"/>
+<area shape="rect" id="Node000011" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="290,160,438,185"/>
+<area shape="poly" id="edge6_Node000010_Node000011" title=" " alt="" coords="590,164,438,172,438,166,589,159"/>
+<area shape="poly" id="edge8_Node000011_Node000003" title=" " alt="" coords="305,159,198,128,199,123,306,154"/>
+<area shape="poly" id="edge7_Node000011_Node000011" title=" " alt="" coords="411,151,408,146,400,143,364,139,336,141,321,146,318,151,326,158,322,162,313,152,317,142,335,135,364,133,401,137,412,142,415,148"/>
+<area shape="rect" id="Node000108" href="$dd/d1d/httpparser_8cpp.html#a4eff37cf0315cb3beccc9e9d03e834c7" title="The parser function." alt="" coords="311,209,417,235"/>
+<area shape="poly" id="edge10_Node000107_Node000108" title=" " alt="" coords="568,273,527,265,479,250,417,235,418,230,481,245,529,259,569,268"/>
+<area shape="rect" id="Node000114" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34" title="Read headers at the end of the chunked entity." alt="" coords="271,259,457,313"/>
+<area shape="poly" id="edge11_Node000107_Node000114" title=" " alt="" coords="565,289,457,289,457,283,565,283"/>
+<area shape="rect" id="Node000120" href="$d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#ab4ac32ac3127f3a0a0bc87b6b2a45f6f" title="Parses already exiting data." alt="" coords="248,337,480,392"/>
+<area shape="poly" id="edge12_Node000107_Node000120" title=" " alt="" coords="599,305,469,340,468,335,598,300"/>
+<area shape="poly" id="edge14_Node000124_Node000108" title=" " alt="" coords="555,225,417,225,417,219,555,219"/>
 </map>

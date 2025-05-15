@@ -2,6 +2,7 @@ var namespaceanonymous__namespace_02webserver_8cpp_03 =
 [
     [ "xml_alias_t", "d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html", "d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t" ],
     [ "resp_type", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5", [
+      [ "RESP_UNSPEC", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5a1eb091ff053905c6f69530318c0a8fb9", null ],
       [ "RESP_FILEDOC", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5ac4b692b7008205ab5bcbfcaf0bc2eca0", null ],
       [ "RESP_XMLDOC", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5a8d19729a7e8fd16217d97473ce6482e0", null ],
       [ "RESP_HEADERS", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5a4c7466eaa906f080245c80f0f9fa235b", null ],
@@ -22,7 +23,7 @@ var namespaceanonymous__namespace_02webserver_8cpp_03 =
     [ "CheckOtherHTTPHeaders", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a9a0cd361290dce2e98f1a4fa91e5b9a5", null ],
     [ "FreeExtraHTTPHeaders", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#aabc35282bb480b964b00d540e05bf4ff", null ],
     [ "ExtraHTTPHeaders", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a6d073afa10796a5f94987b4a7e1450a3", null ],
-    [ "process_request", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d", null ],
+    [ "process_request", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c", null ],
     [ "http_RecvPostMessage", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ade42b67e208b7dbb02ba7271472c0039", null ],
     [ "mediatype_list", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ae8aa9de959907e6615afa8703a6dc907", null ],
     [ "gMediaTypes", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a02313202dc12e76a193d4ee6ead9e5d0", null ],

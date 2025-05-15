@@ -85,9 +85,9 @@ struct scanner_t {
     int entire_msg_loaded;
 };
 
-/*! \brief Method in a HTTP request. **For a Warning see**
- * \warning The enum values of the standard HTTP method should match
- * those of Upnp_HttpMethod enum defined in Compa/inc/upnp.hpp */
+/*! \brief Method in a HTTP request. */
+// The enum values of the standard HTTP method should match those of
+// Upnp_HttpMethod enum defined in Compa/inc/API.hpp
 enum http_method_t {
     HTTPMETHOD_PUT = UPNP_HTTPMETHOD_PUT,
     HTTPMETHOD_DELETE = UPNP_HTTPMETHOD_DELETE,

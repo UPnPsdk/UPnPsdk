@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -71,6 +71,7 @@ namespace {
 
 /*! \brief Response Types. */
 enum resp_type {
+    RESP_UNSPEC,
     RESP_FILEDOC,
     RESP_XMLDOC,
     RESP_HEADERS,
@@ -1022,6 +1023,8 @@ int ExtraHTTPHeaders(
 /*!
  * \brief Process a remote request and return the result.
  *
+ * Creates the different kind of header depending on the type of request.
+ *
  * \returns
  *  On success: HTTP_OK\n
  *  On error:
@@ -1044,17 +1047,17 @@ int process_request(
     /*! [out] Get filename from request document. */
     membuffer* filename,
     /*! [out] Xml alias document from the request document. */
-    xml_alias_t* alias,
+    xml_alias_t* a_alias,
     /*! [out] Send Instruction object where the response is set up. */
     SendInstruction* RespInstr) {
     int code;
     int err_code;
 
-    char* request_doc;
+    char* request_doc{nullptr};
     UpnpFileInfo* finfo;
     time_t aux_LastModified;
-    int using_alias;
-    int using_virtual_dir;
+    int using_alias{0};
+    int using_virtual_dir{0};
     uri_type* url;
     const char* temp_str;
     int resp_major;
@@ -1069,11 +1072,8 @@ int process_request(
            req->method == HTTPMETHOD_SIMPLEGET);
     /* init */
     memset(&finfo, 0, sizeof(finfo));
-    request_doc = NULL;
     finfo = UpnpFileInfo_new();
     err_code = HTTP_INTERNAL_SERVER_ERROR; /* default error */
-    using_virtual_dir = 0;
-    using_alias = 0;
 
     http_CalcResponseVersion(req->major_version, req->minor_version,
                              &resp_major, &resp_minor);
@@ -1106,10 +1106,10 @@ int process_request(
         }
     } else {
         /* try using alias */
-        if (alias != nullptr && gAliasDoc.is_valid()) {
-            gAliasDoc.grab(alias);
+        if (a_alias != nullptr && gAliasDoc.is_valid()) {
+            gAliasDoc.grab(a_alias);
             alias_grabbed = true;
-            using_alias = get_alias(request_doc, alias, finfo);
+            using_alias = get_alias(request_doc, a_alias, finfo);
             if (using_alias == 1) {
                 UpnpFileInfo_set_ContentType(finfo,
                                              "text/xml; charset=\"utf-8\"");
@@ -1383,7 +1383,7 @@ error_handler:
         (UpnpListHead*)UpnpFileInfo_get_ExtraHeadersList(finfo));
     UpnpFileInfo_delete(finfo);
     if (err_code != HTTP_OK && alias_grabbed) {
-        alias->release();
+        a_alias->release();
     }
 
     return err_code;
@@ -1527,27 +1527,24 @@ ExitFunction:
 } // anonymous namespace
 
 
-int web_server_init() {
-    int ret = UPNP_E_SUCCESS;
-
+void web_server_init() {
     if (bWebServerState == WEB_SERVER_DISABLED) {
         membuffer_init(&gDocumentRootDir);
         membuffer_init(&gWebserverCorsString);
         gAliasDoc.clear();
-        pVirtualDirList = NULL;
+        pVirtualDirList = nullptr;
 
         /* Initialize callbacks */
-        virtualDirCallback.get_info = NULL;
-        virtualDirCallback.open = NULL;
-        virtualDirCallback.read = NULL;
-        virtualDirCallback.write = NULL;
-        virtualDirCallback.seek = NULL;
-        virtualDirCallback.close = NULL;
+        virtualDirCallback.get_info = nullptr;
+        virtualDirCallback.open = nullptr;
+        virtualDirCallback.read = nullptr;
+        virtualDirCallback.write = nullptr;
+        virtualDirCallback.seek = nullptr;
+        virtualDirCallback.close = nullptr;
 
         bWebServerState = WEB_SERVER_ENABLED;
+        SetHTTPGetCallback(web_server_callback);
     }
-
-    return ret;
 }
 
 int web_server_set_alias(const char* a_alias_name, const char* a_alias_content,
@@ -1586,11 +1583,11 @@ int web_server_set_cors(const char* cors_string) {
     return 0;
 }
 
-void web_server_callback(http_parser_t* parser, /* INOUT */ http_message_t* req,
-                         SOCKINFO* info) {
+void web_server_callback(http_parser_t* a_parser,
+                         /* INOUT */ http_message_t* a_req, SOCKINFO* a_info) {
     int ret;
     int timeout = -1;
-    enum resp_type rtype {};
+    resp_type rtype{RESP_UNSPEC};
     membuffer headers;
     membuffer filename;
     xml_alias_t xmldoc;
@@ -1603,44 +1600,47 @@ void web_server_callback(http_parser_t* parser, /* INOUT */ http_message_t* req,
 
     /* Process request should create the different kind of header depending
      * on the type of request. */
-    ret = process_request(info, req, &rtype, &headers, &filename, &xmldoc,
+    ret = process_request(a_info, a_req, &rtype, &headers, &filename, &xmldoc,
                           &RespInstr);
     if (ret != HTTP_OK) {
         /* send error code */
-        http_SendStatusResponse(info, ret, req->major_version,
-                                req->minor_version);
+        http_SendStatusResponse(a_info, ret, a_req->major_version,
+                                a_req->minor_version);
     } else {
         /* send response */
         switch (rtype) {
         case RESP_FILEDOC:
-            http_SendMessage(info, &timeout, "Ibf", &RespInstr, headers.buf,
+            http_SendMessage(a_info, &timeout, "Ibf", &RespInstr, headers.buf,
                              headers.length, filename.buf);
             break;
         case RESP_XMLDOC:
-            http_SendMessage(info, &timeout, "Ibb", &RespInstr, headers.buf,
+            http_SendMessage(a_info, &timeout, "Ibb", &RespInstr, headers.buf,
                              headers.length, xmldoc.doc().data(),
                              xmldoc.doc().length());
             xmldoc.release();
             break;
         case RESP_WEBDOC:
-            /*http_SendVirtualDirDoc(info, &timeout, "Ibf",
+            /*http_SendVirtualDirDoc(a_info, &timeout, "Ibf",
                 &RespInstr,
                 headers.buf, headers.length,
                 filename.buf);*/
-            http_SendMessage(info, &timeout, "Ibf", &RespInstr, headers.buf,
+            http_SendMessage(a_info, &timeout, "Ibf", &RespInstr, headers.buf,
                              headers.length, filename.buf);
             break;
         case RESP_HEADERS:
             /* headers only */
-            http_SendMessage(info, &timeout, "b", headers.buf, headers.length);
+            http_SendMessage(a_info, &timeout, "b", headers.buf,
+                             headers.length);
             break;
         case RESP_POST:
             /* headers only */
-            ret = http_RecvPostMessage(parser, info, filename.buf, &RespInstr);
+            ret = http_RecvPostMessage(a_parser, a_info, filename.buf,
+                                       &RespInstr);
             /* Send response. */
             http_MakeMessage(&headers, 1, 1, "RTLSXcCc", ret, "text/html",
                              &RespInstr, X_USER_AGENT);
-            http_SendMessage(info, &timeout, "b", headers.buf, headers.length);
+            http_SendMessage(a_info, &timeout, "b", headers.buf,
+                             headers.length);
             break;
         default:
             UpnpPrintf(UPNP_INFO, HTTP, __FILE__, __LINE__,
@@ -1665,5 +1665,6 @@ void web_server_destroy() {
         membuffer_destroy(&gWebserverCorsString);
         gAliasDoc.clear();
         bWebServerState = WEB_SERVER_DISABLED;
+        SetHTTPGetCallback(nullptr);
     }
 }

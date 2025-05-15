@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-15
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -160,9 +160,9 @@ int getNumericHostRedirection(
  */
 int dispatch_request(
     /*! [in] Socket Information object. */
-    SOCKINFO* info,
+    SOCKINFO* a_info,
     /*! [in] HTTP parser object. */
-    http_parser_t* hparser) {
+    http_parser_t* a_hparser) {
     memptr header;
     size_t min_size;
     http_message_t* request;
@@ -173,13 +173,13 @@ int dispatch_request(
     /* If it does not fit in here, it is likely invalid anyway. */
     char host_port[NAME_SIZE];
 
-    switch (hparser->msg.method) {
+    switch (a_hparser->msg.method) {
     /* Soap Call */
     case SOAPMETHOD_POST:
     case HTTPMETHOD_MPOST:
         callback = gSoapCallback;
         UpnpPrintf(UPNP_INFO, MSERV, __FILE__, __LINE__,
-                   "miniserver %d: got SOAP msg\n", info->socket);
+                   "miniserver %d: got SOAP msg\n", a_info->socket);
         break;
     /* Gena Call */
     case HTTPMETHOD_NOTIFY:
@@ -187,7 +187,7 @@ int dispatch_request(
     case HTTPMETHOD_UNSUBSCRIBE:
         callback = gGenaCallback;
         UpnpPrintf(UPNP_INFO, MSERV, __FILE__, __LINE__,
-                   "miniserver %d: got GENA msg\n", info->socket);
+                   "miniserver %d: got GENA msg\n", a_info->socket);
         break;
     /* HTTP server call */
     case HTTPMETHOD_GET:
@@ -198,18 +198,18 @@ int dispatch_request(
         host_validate_callback = gWebCallback_HostValidate;
         cookie = gWebCallback_HostValidateCookie;
         UPnPsdk_LOGINFO("MSG1107") "miniserver socket="
-            << info->socket << ": got WEB server msg.\n";
+            << a_info->socket << ": got WEB server msg.\n";
         break;
     default:
-        callback = 0;
+        callback = nullptr;
     }
     if (!callback) {
         rc = HTTP_INTERNAL_SERVER_ERROR;
         goto ExitFunction;
     }
-    request = &hparser->msg;
+    request = &a_hparser->msg;
     if (UPnPsdk::g_dbug) {
-        getNumericHostRedirection(info->socket, host_port, sizeof host_port);
+        getNumericHostRedirection(a_info->socket, host_port, sizeof host_port);
         UPnPsdk_LOGINFO("MSG1113") "Redirect host_port=\"" << host_port
                                                            << "\"\n";
     }
@@ -241,18 +241,18 @@ int dispatch_request(
             char redir_str[NAME_SIZE];
             int timeout = HTTP_DEFAULT_TIMEOUT;
 
-            getNumericHostRedirection(info->socket, host_port,
+            getNumericHostRedirection(a_info->socket, host_port,
                                       sizeof host_port);
             membuffer_init(&redir_buf);
             snprintf(redir_str, NAME_SIZE, redir_fmt, host_port);
             membuffer_append_str(&redir_buf, redir_str);
-            rc = http_SendMessage(info, &timeout, "b", redir_buf.buf,
+            rc = http_SendMessage(a_info, &timeout, "b", redir_buf.buf,
                                   redir_buf.length);
             membuffer_destroy(&redir_buf);
             goto ExitFunction;
         }
     }
-    callback(hparser, request, info);
+    callback(a_hparser, request, a_info);
 
 ExitFunction:
     return rc;

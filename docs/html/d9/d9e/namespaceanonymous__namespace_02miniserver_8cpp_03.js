@@ -8,7 +8,7 @@ var namespaceanonymous__namespace_02miniserver_8cpp_03 =
     ] ],
     [ "host_header_is_numeric", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b", null ],
     [ "getNumericHostRedirection", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e", null ],
-    [ "dispatch_request", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a54d3ff9589278aff8765d7a64df23587", null ],
+    [ "dispatch_request", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88", null ],
     [ "free_handle_request_arg", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a639fecba9beb576e16e842901e9c1c27", null ],
     [ "handle_request", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872", null ],
     [ "schedule_request_job", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5e2408b7e1b679c8ff7430ffd9173ac5", null ],

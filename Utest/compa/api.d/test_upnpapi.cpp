@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-05
+// Redistribution only with this Copyright remark. Last modified: 2025-05-16
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -1590,7 +1590,6 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_adapter_name_successful) {
     sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit"
-    std::cerr << "DEBUG! Adapter name=\"" << naObj.name.c_str() << "\".\n";
     int ret_UpnpInit2 = ::UpnpInit2(naObj.name.c_str(), 0);
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);

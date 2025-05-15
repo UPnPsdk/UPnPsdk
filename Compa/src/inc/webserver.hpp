@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-15
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -91,16 +91,9 @@ struct SendInstruction {
  * \brief Initilialize root directory for web server and different documents.
  *
  * Initilialize the different documents. Initialize the memory for root
- * directory for web server. Call to initialize global XML document. Sets
- * bWebServerState to WEB_SERVER_ENABLED.
- *
- * \note alias_content is not freed here
- *
- * \return
- * \li \c 0 - OK
- * \li \c UPNP_E_OUTOF_MEMORY
+ * directory for web server. Sets bWebServerState to WEB_SERVER_ENABLED.
  */
-int web_server_init();
+void web_server_init();
 
 /*!
  * \brief Replaces current alias with the given alias.
@@ -157,11 +150,11 @@ int web_server_set_cors(
  */
 void web_server_callback(
     /*! [in] . */
-    http_parser_t* parser,
+    http_parser_t* a_parser,
     /*! [in] . */
-    http_message_t* req,
+    http_message_t* a_req,
     /*! [in,out] . */
-    SOCKINFO* info);
+    SOCKINFO* a_info);
 
 /*!
  * \brief Set HTTP Get Callback.

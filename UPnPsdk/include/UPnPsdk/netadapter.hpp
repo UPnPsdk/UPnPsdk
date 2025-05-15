@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-22
+// Redistribution only with this Copyright remark. Last modified: 2025-05-15
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -161,9 +161,9 @@ class CNetadapter {
      * \endcode
      *
      * You have to get_first() entry from the internal network adapter list to
-     * load it. Then you can try to \b %find_first() a local ip address. With
-     * no argument the operating system presents one as best choise. Due to
-     * <!--REF:-->_<a
+     * load it. Then you can try to \b %find_first() a local ip address from
+     * the loaded internal list. With no argument the operating system presents
+     * one as best choise. Due to <!--REF:-->_<a
      * href="https://datatracker.ietf.org/doc/html/rfc4038#section-5.4.1">RFC
      * 4038, 5.4.1 - IP_Address Selection</a>, specifying the source address is
      * not typically required.
@@ -204,9 +204,9 @@ class CNetadapter {
      * use an index number.
      *
      * You have to get_first() entry of the internal network adapter list to
-     * load it. Then you can try to <b>find_first(a_index)</b> adapter. If
-     * found, the adapter is selected so that all its properties can be
-     * retrieved.
+     * load it. Then you can try to <b>find_first(a_index)</b> adapter from the
+     * loaded internal list. If found, the adapter is selected so that all its
+     * properties can be retrieved.
      * \returns
      *  - \b true if adapter with given index number was found
      *  - \b false otherwise */

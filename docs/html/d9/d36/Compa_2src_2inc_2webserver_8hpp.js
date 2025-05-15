@@ -15,11 +15,11 @@ var Compa_2src_2inc_2webserver_8hpp =
       [ "RequestCookie", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a7edd1d50cc56be53dddbf790b8fab0a2", null ]
     ] ],
     [ "X_USER_AGENT", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a29964a19653349235df7d05368523833", null ],
-    [ "web_server_init", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a4c6abf771128f8ea3976c9eccdb13e4f", null ],
+    [ "web_server_init", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#ad4a3fad2948ceb68d8deb1b268ea0c0a", null ],
     [ "web_server_set_alias", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#aa99b39086487b3c85d45663326dede30", null ],
     [ "web_server_set_root_dir", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a6d275509109519a4ab1be27105d7434b", null ],
     [ "web_server_set_cors", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24", null ],
-    [ "web_server_callback", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1", null ],
+    [ "web_server_callback", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a4ed108475978c5f7f969ce80ba6e31f1", null ],
     [ "SetHTTPGetCallback", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a828e78f0b09f30dd0fb90d026524b236", null ],
     [ "web_server_destroy", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#aba5685f22e83826b14771e59d0edbc05", null ],
     [ "gDocumentRootDir", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a27edf910202d9fb95a131e851cf2217d", null ],

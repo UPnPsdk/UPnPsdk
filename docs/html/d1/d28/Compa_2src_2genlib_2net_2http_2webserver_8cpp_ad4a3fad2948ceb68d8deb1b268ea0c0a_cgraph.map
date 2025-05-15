@@ -1,0 +1,39 @@
+<map id="web_server_init" name="web_server_init">
+<area shape="rect" id="Node000001" title="Initilialize root directory for web server and different documents." alt="" coords="5,181,131,207"/>
+<area shape="rect" id="Node000002" href="$d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a29029bffc2a9680f4b946e77d569e323" title="Clear the XML object." alt="" coords="179,5,359,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,179,118,132,177,77,195,65,198,69,180,81,122,135,81,183"/>
+<area shape="rect" id="Node000003" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="1076,312,1199,337"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="102,179,174,155,272,127,386,105,445,98,503,95,741,95,802,102,861,119,917,145,970,176,1017,210,1058,244,1117,300,1113,304,1054,248,1014,214,967,181,915,150,859,124,801,107,741,101,503,101,445,103,387,110,273,132,175,160,104,184"/>
+<area shape="rect" id="Node000005" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a828e78f0b09f30dd0fb90d026524b236" title="Set HTTP Get Callback." alt="" coords="191,352,347,377"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="78,205,115,269,144,306,180,337,192,344,190,349,177,341,141,309,110,272,73,208"/>
+<area shape="rect" id="Node000006" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="189,303,348,328"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="92,204,236,293,233,297,89,209"/>
+<area shape="rect" id="Node000004" href="$d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e" title="Initialize the buffer." alt="" coords="1247,297,1468,352"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1199,322,1233,322,1233,327,1199,327"/>
+<area shape="poly" id="edge20_Node000006_Node000003" title=" " alt="" coords="345,326,361,337,380,366,387,395,387,424,383,452,379,480,380,507,388,533,409,557,459,595,507,618,554,628,601,628,651,621,705,609,829,579,889,568,936,555,978,535,1026,499,1060,463,1088,423,1124,349,1129,352,1092,425,1064,466,1030,503,981,539,937,560,890,573,830,585,706,614,652,626,602,634,553,634,505,623,456,600,405,561,384,535,375,508,374,480,378,451,382,423,382,395,375,368,357,341,342,330"/>
+<area shape="rect" id="Node000007" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="665,261,813,287"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="348,306,651,279,652,284,349,311"/>
+<area shape="rect" id="Node000019" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="877,261,1028,287"/>
+<area shape="poly" id="edge19_Node000006_Node000019" title=" " alt="" coords="276,301,296,274,325,240,362,207,406,182,467,160,521,147,570,141,616,143,663,150,713,162,830,198,883,222,926,250,923,255,880,227,828,203,711,167,662,155,616,148,570,147,522,152,468,165,408,187,365,212,329,244,300,277,280,304"/>
+<area shape="rect" id="Node000026" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="907,464,998,489"/>
+<area shape="poly" id="edge24_Node000006_Node000026" title=" " alt="" coords="340,326,360,337,377,357,385,378,392,397,408,415,468,446,533,469,600,483,668,491,733,494,794,493,893,483,894,489,794,498,733,499,667,497,599,489,531,474,466,451,405,419,387,400,380,380,373,360,357,341,337,330"/>
+<area shape="rect" id="Node000029" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ade42b67e208b7dbb02ba7271472c0039" title="Receives the HTTP post message." alt="" coords="649,515,829,569"/>
+<area shape="poly" id="edge11_Node000006_Node000029" title=" " alt="" coords="344,326,361,337,376,357,383,378,384,418,386,458,393,476,408,493,433,511,460,525,518,543,578,551,635,552,635,557,578,557,517,548,458,530,430,516,405,497,389,479,381,459,379,419,378,379,371,360,357,341,341,330"/>
+<area shape="rect" id="Node000078" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="667,413,812,439"/>
+<area shape="poly" id="edge13_Node000006_Node000078" title=" " alt="" coords="325,326,360,337,384,350,408,362,471,381,535,396,653,415,653,420,534,401,469,386,406,367,381,355,358,342,324,331"/>
+<area shape="rect" id="Node000087" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="409,328,599,353"/>
+<area shape="poly" id="edge14_Node000006_Node000087" title=" " alt="" coords="348,321,396,326,395,332,348,326"/>
+<area shape="rect" id="Node000089" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="407,197,601,252"/>
+<area shape="poly" id="edge21_Node000006_Node000089" title=" " alt="" coords="302,300,418,255,420,260,304,305"/>
+<area shape="poly" id="edge7_Node000007_Node000007" title=" " alt="" coords="704,263,697,253,701,243,715,237,739,235,769,238,781,247,778,252,767,243,739,240,717,242,705,247,702,252,709,260"/>
+<area shape="poly" id="edge8_Node000007_Node000019" title=" " alt="" coords="814,271,864,271,864,277,814,277"/>
+<area shape="poly" id="edge10_Node000007_Node000026" title=" " alt="" coords="756,285,930,452,926,456,752,289"/>
+<area shape="poly" id="edge9_Node000019_Node000003" title=" " alt="" coords="1001,284,1078,306,1076,311,999,289"/>
+<area shape="poly" id="edge12_Node000029_Node000026" title=" " alt="" coords="829,512,896,491,898,496,830,517"/>
+<area shape="poly" id="edge18_Node000087_Node000003" title=" " alt="" coords="599,336,1062,324,1062,329,599,341"/>
+<area shape="poly" id="edge15_Node000087_Node000007" title=" " alt="" coords="549,325,680,288,681,293,550,331"/>
+<area shape="poly" id="edge17_Node000087_Node000019" title=" " alt="" coords="599,327,829,295,877,287,878,292,830,301,600,333"/>
+<area shape="poly" id="edge16_Node000087_Node000078" title=" " alt="" coords="541,351,650,391,691,406,689,411,648,397,539,356"/>
+<area shape="poly" id="edge22_Node000089_Node000007" title=" " alt="" coords="602,242,665,256,664,261,601,248"/>
+<area shape="poly" id="edge23_Node000089_Node000019" title=" " alt="" coords="602,212,712,210,771,214,830,222,876,235,916,253,914,258,874,240,829,227,771,219,711,215,602,218"/>
+</map>

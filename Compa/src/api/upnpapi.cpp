@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-15
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -567,14 +567,15 @@ static int UpnpInitPreamble() {
  */
 static int UpnpInitStartServers(
     /*! [in] Local Port to listen for incoming connections. */
-    [[maybe_unused]] unsigned short DestPort) {
+    [[maybe_unused]] in_port_t DestPort) {
     UPnPsdk_LOGINFO("MSG1061") "Executing...\n";
+    int retVal;
 
 #ifdef COMPA_HAVE_MINISERVER
     LOCAL_PORT_V4 = DestPort;
     LOCAL_PORT_V6 = DestPort;
     LOCAL_PORT_V6_ULA_GUA = DestPort;
-    int retVal =
+    retVal =
         StartMiniServer(&LOCAL_PORT_V4, &LOCAL_PORT_V6, &LOCAL_PORT_V6_ULA_GUA);
     if (retVal != UPNP_E_SUCCESS) {
         UpnpPrintf(UPNP_CRITICAL, API, __FILE__, __LINE__,
@@ -584,15 +585,11 @@ static int UpnpInitStartServers(
     }
 #endif
 
-#ifdef COMPA_HAVE_WEBSERVER
-    membuffer_init(&gDocumentRootDir);
-    membuffer_init(&gWebserverCorsString);
     retVal = UpnpEnableWebserver(WEB_SERVER_ENABLED);
     if (retVal != UPNP_E_SUCCESS) {
         UpnpFinish();
         return retVal;
     }
-#endif
 
     UPnPsdk_LOGINFO("MSG1066") "Finished.\n";
     return UPNP_E_SUCCESS;
@@ -3562,19 +3559,10 @@ int UpnpEnableWebserver([[maybe_unused]] int enable) {
         return UPNP_E_FINISH;
     }
 #ifdef COMPA_HAVE_WEBSERVER
-    if (enable) {
-        int retVal = web_server_init();
-        if (retVal != UPNP_E_SUCCESS) {
-            return retVal;
-        }
-        bWebServerState = WEB_SERVER_ENABLED;
-        SetHTTPGetCallback(web_server_callback);
-    } else {
+    if (enable)
+        web_server_init();
+    else
         web_server_destroy();
-        bWebServerState = WEB_SERVER_DISABLED;
-        SetHTTPGetCallback(NULL);
-    }
-
     return UPNP_E_SUCCESS;
 #else  /* Internal web server disabled */
     return UPNP_E_NO_WEB_SERVER;

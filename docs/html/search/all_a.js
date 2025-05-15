@@ -56,7 +56,7 @@ var searchData=
   ['directory_2edox_53',['directory.dox',['../d0/dee/Compa_2directory_8dox.html',1,'(Global Namespace)'],['../da/d69/Pupnp_2directory_8dox.html',1,'(Global Namespace)'],['../d0/d8c/UPnPsdk_2directory_8dox.html',1,'(Global Namespace)']]],
   ['dirname_54',['dirName',['../d6/d92/VirtualDir_8hpp.html#a383d2d238d851d433f6d3972e7b8d784',1,'virtual_Dir_List']]],
   ['discovery_55',['discovery',['../dd/d48/group__compaAPI-Discovery.html',1,'Step 1: Discovery'],['../d1/d95/group__compa-Discovery.html',1,'Step 1: Discovery']]],
-  ['dispatch_5frequest_56',['dispatch_request',['../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a54d3ff9589278aff8765d7a64df23587',1,'anonymous_namespace{miniserver.cpp}']]],
+  ['dispatch_5frequest_56',['dispatch_request',['../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88',1,'anonymous_namespace{miniserver.cpp}']]],
   ['doc_57',['doc',['../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a0977230800b5be137b424c66728da004',1,'anonymous_namespace{webserver.cpp}::xml_alias_t']]],
   ['docptr_58',['Docptr',['../da/d8a/group__XMLAPI.html#ga29cd45c12e0aab68c1c31806f99e8fbf',1,'ixml.hpp']]],
   ['document_2ecpp_59',['document.cpp',['../de/db9/document_8cpp.html',1,'']]],

@@ -13,7 +13,7 @@ var upnpapi_8cpp =
     [ "UpnpInitMutexes", "d4/d99/upnpapi_8cpp.html#a7855376cc412564ea0b12b867e11e3a7", null ],
     [ "UpnpInitThreadPools", "d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca", null ],
     [ "UpnpInitPreamble", "d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0", null ],
-    [ "UpnpInitStartServers", "d4/d99/upnpapi_8cpp.html#a679257c76bd4ebdd2aa3fa2bb470dadd", null ],
+    [ "UpnpInitStartServers", "d4/d99/upnpapi_8cpp.html#a353a56c4dd0685acd7a8d2bb9cb8dddd", null ],
     [ "UpnpInit2", "d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f", null ],
     [ "PrintThreadPoolStats", "d4/d99/upnpapi_8cpp.html#a4a0f84b177b8a84964bcb7a057fc3831", null ],
     [ "UpnpFinish", "d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99", null ],

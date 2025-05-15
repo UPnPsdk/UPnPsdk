@@ -114,12 +114,13 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:a4fe2852f9249bccdc1d7850db224c0c5" id="r_a4fe2852f9249bccdc1d7850db224c0c5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5">resp_type</a> { <br />
-&#160;&#160;<b>RESP_FILEDOC</b>
+&#160;&#160;<b>RESP_UNSPEC</b>
+, <b>RESP_FILEDOC</b>
 , <b>RESP_XMLDOC</b>
 , <b>RESP_HEADERS</b>
-, <b>RESP_WEBDOC</b>
 , <br />
-&#160;&#160;<b>RESP_POST</b>
+&#160;&#160;<b>RESP_WEBDOC</b>
+, <b>RESP_POST</b>
 <br />
  }</td></tr>
 <tr class="memdesc:a4fe2852f9249bccdc1d7850db224c0c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Response Types.  <a href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5">More...</a><br /></td></tr>
@@ -170,9 +171,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a6d073afa10796a5f94987b4a7e1450a3" id="r_a6d073afa10796a5f94987b4a7e1450a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a6d073afa10796a5f94987b4a7e1450a3">ExtraHTTPHeaders</a> (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *Req, <a class="el" href="../../dc/d1d/list_8hpp.html#d0/d92/structUpnpListHead">UpnpListHead</a> *extraHeadersList)</td></tr>
 <tr class="memdesc:a6d073afa10796a5f94987b4a7e1450a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build an array of unrecognized headers.  <br /></td></tr>
 <tr class="separator:a6d073afa10796a5f94987b4a7e1450a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e9822eb41d6549ac4aa2d972722494d" id="r_a3e9822eb41d6549ac4aa2d972722494d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d">process_request</a> (<a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *req, enum <a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5">resp_type</a> *rtype, <a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *headers, <a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *filename, <a class="el" href="../../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html">xml_alias_t</a> *alias, <a class="el" href="../../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#d0/d20/structSendInstruction">SendInstruction</a> *RespInstr)</td></tr>
-<tr class="memdesc:a3e9822eb41d6549ac4aa2d972722494d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process a remote request and return the result.  <br /></td></tr>
-<tr class="separator:a3e9822eb41d6549ac4aa2d972722494d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb9f6598fa3e833fe6b3cde9ae27871c" id="r_abb9f6598fa3e833fe6b3cde9ae27871c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c">process_request</a> (<a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *req, enum <a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a4fe2852f9249bccdc1d7850db224c0c5">resp_type</a> *rtype, <a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *headers, <a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *filename, <a class="el" href="../../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html">xml_alias_t</a> *a_alias, <a class="el" href="../../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#d0/d20/structSendInstruction">SendInstruction</a> *RespInstr)</td></tr>
+<tr class="memdesc:abb9f6598fa3e833fe6b3cde9ae27871c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process a remote request and return the result.  <br /></td></tr>
+<tr class="separator:abb9f6598fa3e833fe6b3cde9ae27871c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade42b67e208b7dbb02ba7271472c0039" id="r_ade42b67e208b7dbb02ba7271472c0039"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ade42b67e208b7dbb02ba7271472c0039">http_RecvPostMessage</a> (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *parser, <a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info, char *filename, struct <a class="el" href="../../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#d0/d20/structSendInstruction">SendInstruction</a> *Instr)</td></tr>
 <tr class="memdesc:ade42b67e208b7dbb02ba7271472c0039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives the HTTP post message.  <br /></td></tr>
 <tr class="separator:ade42b67e208b7dbb02ba7271472c0039"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -244,7 +245,7 @@ Variables</h2></td></tr>
 <p>Multiplatform wrapper to make win32 asctime_s compatible to posix asctime_r. </p>
 <p>Only available on Microsoft Windows. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00330">330</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00331">331</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -255,7 +256,7 @@ Variables</h2></td></tr>
 <area shape="rect" title="Multiplatform wrapper to make win32 asctime_s compatible to posix asctime_r." alt="" coords="476,5,656,60"/>
 <area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abfbf5675a51b2132037f22ca881c6aed" title="Get file information." alt="" coords="248,5,428,60"/>
 <area shape="poly" title=" " alt="" coords="462,35,428,35,428,30,462,30"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="5,5,200,60"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="5,5,200,60"/>
 <area shape="poly" title=" " alt="" coords="234,35,200,35,200,30,234,30"/>
 </map>
 </div>
@@ -327,7 +328,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00358">358</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00359">359</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -408,7 +409,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00391">391</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00392">392</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -441,7 +442,7 @@ Variables</h2></td></tr>
 <area shape="rect" title="Based on the extension of the filename, clones an XML string based on type and content subtype." alt="" coords="476,5,656,60"/>
 <area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abfbf5675a51b2132037f22ca881c6aed" title="Get file information." alt="" coords="248,5,428,60"/>
 <area shape="poly" title=" " alt="" coords="462,35,428,35,428,30,462,30"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="5,5,200,60"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="5,5,200,60"/>
 <area shape="poly" title=" " alt="" coords="234,35,200,35,200,30,234,30"/>
 </map>
 </div>
@@ -484,7 +485,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00442">442</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00443">443</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -530,9 +531,9 @@ Variables</h2></td></tr>
 <div class="center"><img src="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abfbf5675a51b2132037f22ca881c6aed_icgraph.png" border="0" usemap="#ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abfbf5675a51b2132037f22ca881c6aed_icgraph" alt=""/></div>
 <map name="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abfbf5675a51b2132037f22ca881c6aed_icgraph" id="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abfbf5675a51b2132037f22ca881c6aed_icgraph">
 <area shape="rect" title="Get file information." alt="" coords="455,5,635,60"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="212,5,407,60"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="212,5,407,60"/>
 <area shape="poly" title=" " alt="" coords="440,35,407,35,407,30,440,30"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1" title="Main entry point into web server." alt="" coords="5,20,164,45"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="5,20,164,45"/>
 <area shape="poly" title=" " alt="" coords="198,35,164,35,164,30,198,30"/>
 </map>
 </div>
@@ -595,7 +596,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00517">517</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00518">518</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -628,9 +629,9 @@ Variables</h2></td></tr>
 <div class="center"><img src="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a314a7a208edc062c9c2d10b800ad5fb5_icgraph.png" border="0" usemap="#ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a314a7a208edc062c9c2d10b800ad5fb5_icgraph" alt=""/></div>
 <map name="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a314a7a208edc062c9c2d10b800ad5fb5_icgraph" id="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a314a7a208edc062c9c2d10b800ad5fb5_icgraph">
 <area shape="rect" title="Compare file names." alt="" coords="455,13,659,53"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="212,5,407,60"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="212,5,407,60"/>
 <area shape="poly" title=" " alt="" coords="441,35,407,35,407,30,441,30"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1" title="Main entry point into web server." alt="" coords="5,20,164,45"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="5,20,164,45"/>
 <area shape="poly" title=" " alt="" coords="198,35,164,35,164,30,198,30"/>
 </map>
 </div>
@@ -673,7 +674,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00543">543</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00544">544</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -682,9 +683,9 @@ Variables</h2></td></tr>
 <div class="center"><img src="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abd83d3d8747ec78ab613fd949b02cb1c_icgraph.png" border="0" usemap="#ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abd83d3d8747ec78ab613fd949b02cb1c_icgraph" alt=""/></div>
 <map name="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abd83d3d8747ec78ab613fd949b02cb1c_icgraph" id="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abd83d3d8747ec78ab613fd949b02cb1c_icgraph">
 <area shape="rect" title="Compares filePath with paths from the list of virtual directory lists." alt="" coords="455,5,645,60"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="212,5,407,60"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="212,5,407,60"/>
 <area shape="poly" title=" " alt="" coords="441,35,407,35,407,30,441,30"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1" title="Main entry point into web server." alt="" coords="5,20,164,45"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="5,20,164,45"/>
 <area shape="poly" title=" " alt="" coords="198,35,164,35,164,30,198,30"/>
 </map>
 </div>
@@ -715,7 +716,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00584">584</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00585">585</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -772,7 +773,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00598">598</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00599">599</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -797,7 +798,7 @@ Variables</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="814,29,780,27,649,25,517,27,470,29,469,24,517,22,649,20,780,22,815,23"/>
 <area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a57008e7ff543698b580ec6ba82f7cf1c" title="Fills in the Offset, read size and contents to send out as an HTTP Range Response." alt="" coords="517,37,780,92"/>
 <area shape="poly" title=" " alt="" coords="815,48,781,52,780,46,814,42"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="5,5,200,60"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="5,5,200,60"/>
 <area shape="poly" title=" " alt="" coords="234,35,200,35,200,30,234,30"/>
 <area shape="poly" title=" " alt="" coords="503,51,469,48,470,42,504,46"/>
 </map>
@@ -841,7 +842,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00634">634</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00635">635</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
@@ -902,7 +903,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00662">662</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00663">663</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -981,7 +982,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00719">719</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00720">720</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1010,7 +1011,7 @@ Variables</h2></td></tr>
 <area shape="rect" title="Fills in the Offset, read size and contents to send out as an HTTP Range Response." alt="" coords="517,5,780,60"/>
 <area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a9a0cd361290dce2e98f1a4fa91e5b9a5" title="Get header id from the request parameter." alt="" coords="248,5,469,60"/>
 <area shape="poly" title=" " alt="" coords="504,35,470,35,470,30,504,30"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="5,5,200,60"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="5,5,200,60"/>
 <area shape="poly" title=" " alt="" coords="234,35,200,35,200,30,234,30"/>
 </map>
 </div>
@@ -1067,7 +1068,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00834">834</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00835">835</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -1099,9 +1100,9 @@ Variables</h2></td></tr>
 <div class="center"><img src="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a9a0cd361290dce2e98f1a4fa91e5b9a5_icgraph.png" border="0" usemap="#ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a9a0cd361290dce2e98f1a4fa91e5b9a5_icgraph" alt=""/></div>
 <map name="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a9a0cd361290dce2e98f1a4fa91e5b9a5_icgraph" id="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a9a0cd361290dce2e98f1a4fa91e5b9a5_icgraph">
 <area shape="rect" title="Get header id from the request parameter." alt="" coords="455,5,676,60"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="212,5,407,60"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="212,5,407,60"/>
 <area shape="poly" title=" " alt="" coords="441,35,407,35,407,30,441,30"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1" title="Main entry point into web server." alt="" coords="5,20,164,45"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="5,20,164,45"/>
 <area shape="poly" title=" " alt="" coords="198,35,164,35,164,30,198,30"/>
 </map>
 </div>
@@ -1132,7 +1133,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00957">957</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00958">958</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-20-summary" class="dynsummary" style="display:block;">
@@ -1167,7 +1168,7 @@ Variables</h2></td></tr>
 <area shape="rect" title="Free extra HTTP headers." alt="" coords="563,27,769,82"/>
 <area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a6d073afa10796a5f94987b4a7e1450a3" title="Build an array of unrecognized headers." alt="" coords="248,5,515,45"/>
 <area shape="poly" title=" " alt="" coords="549,45,515,42,515,36,549,40"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="5,27,200,82"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="5,27,200,82"/>
 <area shape="poly" title=" " alt="" coords="549,60,515,60,248,60,200,59,200,54,248,55,515,55,549,54"/>
 <area shape="poly" title=" " alt="" coords="234,43,200,47,200,42,234,38"/>
 </map>
@@ -1212,7 +1213,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00978">978</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00979">979</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-22-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-22-summary" class="dynsummary" style="display:block;">
@@ -1266,17 +1267,17 @@ Variables</h2></td></tr>
 <div class="center"><img src="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a6d073afa10796a5f94987b4a7e1450a3_icgraph.png" border="0" usemap="#ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a6d073afa10796a5f94987b4a7e1450a3_icgraph" alt=""/></div>
 <map name="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a6d073afa10796a5f94987b4a7e1450a3_icgraph" id="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a6d073afa10796a5f94987b4a7e1450a3_icgraph">
 <area shape="rect" title="Build an array of unrecognized headers." alt="" coords="455,13,721,53"/>
-<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a3e9822eb41d6549ac4aa2d972722494d" title="Process a remote request and return the result." alt="" coords="212,5,407,60"/>
+<area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#abb9f6598fa3e833fe6b3cde9ae27871c" title="Process a remote request and return the result." alt="" coords="212,5,407,60"/>
 <area shape="poly" title=" " alt="" coords="441,35,407,35,407,30,441,30"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1" title="Main entry point into web server." alt="" coords="5,20,164,45"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="5,20,164,45"/>
 <area shape="poly" title=" " alt="" coords="198,35,164,35,164,30,198,30"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a3e9822eb41d6549ac4aa2d972722494d" name="a3e9822eb41d6549ac4aa2d972722494d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e9822eb41d6549ac4aa2d972722494d">&#9670;&#160;</a></span>process_request()</h2>
+<a id="abb9f6598fa3e833fe6b3cde9ae27871c" name="abb9f6598fa3e833fe6b3cde9ae27871c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb9f6598fa3e833fe6b3cde9ae27871c">&#9670;&#160;</a></span>process_request()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1315,7 +1316,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html">xml_alias_t</a> *&#160;</td>
-          <td class="paramname"><em>alias</em>, </td>
+          <td class="paramname"><em>a_alias</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1332,6 +1333,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Process a remote request and return the result. </p>
+<p>Creates the different kind of header depending on the type of request.</p>
 <dl class="section return"><dt>Returns</dt><dd>On success: HTTP_OK<br  />
  On error:<ul>
 <li>HTTP_BAD_REQUEST</li>
@@ -1349,20 +1351,20 @@ Variables</h2></td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">rtype</td><td>Tpye of response.  </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">headers</td><td>Headers.  </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">filename</td><td>Get filename from request document.  </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">alias</td><td>Xml alias document from the request document.  </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">a_alias</td><td>Xml alias document from the request document.  </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">RespInstr</td><td>Send Instruction object where the response is set up. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01035">1035</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l01038">1038</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 <div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-24-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-24-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-24-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a3e9822eb41d6549ac4aa2d972722494d_cgraph.png" border="0" usemap="#ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a3e9822eb41d6549ac4aa2d972722494d_cgraph" alt=""/></div>
-<map name="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a3e9822eb41d6549ac4aa2d972722494d_cgraph" id="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a3e9822eb41d6549ac4aa2d972722494d_cgraph">
+<div class="center"><img src="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abb9f6598fa3e833fe6b3cde9ae27871c_cgraph.png" border="0" usemap="#ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abb9f6598fa3e833fe6b3cde9ae27871c_cgraph" alt=""/></div>
+<map name="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abb9f6598fa3e833fe6b3cde9ae27871c_cgraph" id="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abb9f6598fa3e833fe6b3cde9ae27871c_cgraph">
 <area shape="rect" title="Process a remote request and return the result." alt="" coords="5,1678,200,1732"/>
 <area shape="rect" href="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a9a0cd361290dce2e98f1a4fa91e5b9a5" title="Get header id from the request parameter." alt="" coords="271,131,492,186"/>
 <area shape="poly" title=" " alt="" coords="103,1677,116,1437,143,1054,163,848,186,654,214,487,229,419,245,364,266,316,292,270,346,195,350,198,297,273,271,318,251,366,234,421,219,488,192,655,168,849,149,1054,121,1438,108,1678"/>
@@ -1490,13 +1492,13 @@ Variables</h2></td></tr>
 <div id="dynsection-25-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-25-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a3e9822eb41d6549ac4aa2d972722494d_icgraph.png" border="0" usemap="#ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a3e9822eb41d6549ac4aa2d972722494d_icgraph" alt=""/></div>
-<map name="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a3e9822eb41d6549ac4aa2d972722494d_icgraph" id="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_a3e9822eb41d6549ac4aa2d972722494d_icgraph">
-<area shape="rect" title="Process a remote request and return the result." alt="" coords="429,5,624,60"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1" title="Main entry point into web server." alt="" coords="223,20,381,45"/>
-<area shape="poly" title=" " alt="" coords="416,35,382,35,382,30,416,30"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a3c6309a98eb5281fbbfa45644c06fc34" title="Enables or disables the webserver." alt="" coords="5,20,175,45"/>
-<area shape="poly" title=" " alt="" coords="209,35,175,35,175,30,209,30"/>
+<div class="center"><img src="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abb9f6598fa3e833fe6b3cde9ae27871c_icgraph.png" border="0" usemap="#ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abb9f6598fa3e833fe6b3cde9ae27871c_icgraph" alt=""/></div>
+<map name="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abb9f6598fa3e833fe6b3cde9ae27871c_icgraph" id="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_abb9f6598fa3e833fe6b3cde9ae27871c_icgraph">
+<area shape="rect" title="Process a remote request and return the result." alt="" coords="385,5,580,60"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="179,20,337,45"/>
+<area shape="poly" title=" " alt="" coords="372,35,338,35,338,30,372,30"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#ad4a3fad2948ceb68d8deb1b268ea0c0a" title="Initilialize root directory for web server and different documents." alt="" coords="5,20,131,45"/>
+<area shape="poly" title=" " alt="" coords="165,35,131,35,131,30,165,30"/>
 </map>
 </div>
 
@@ -1605,11 +1607,11 @@ Variables</h2></td></tr>
 <div id="dynsection-27-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_ade42b67e208b7dbb02ba7271472c0039_icgraph.png" border="0" usemap="#ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_ade42b67e208b7dbb02ba7271472c0039_icgraph" alt=""/></div>
 <map name="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_ade42b67e208b7dbb02ba7271472c0039_icgraph" id="ad5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03_ade42b67e208b7dbb02ba7271472c0039_icgraph">
-<area shape="rect" title="Receives the HTTP post message." alt="" coords="429,5,609,60"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#abb77fc2cfdf0dfbd97e5b3880c4b18d1" title="Main entry point into web server." alt="" coords="223,20,381,45"/>
-<area shape="poly" title=" " alt="" coords="415,35,382,35,382,30,415,30"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a3c6309a98eb5281fbbfa45644c06fc34" title="Enables or disables the webserver." alt="" coords="5,20,175,45"/>
-<area shape="poly" title=" " alt="" coords="209,35,175,35,175,30,209,30"/>
+<area shape="rect" title="Receives the HTTP post message." alt="" coords="385,5,565,60"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="179,20,337,45"/>
+<area shape="poly" title=" " alt="" coords="371,35,338,35,338,30,371,30"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#ad4a3fad2948ceb68d8deb1b268ea0c0a" title="Initilialize root directory for web server and different documents." alt="" coords="5,20,131,45"/>
+<area shape="poly" title=" " alt="" coords="165,35,131,35,131,30,165,30"/>
 </map>
 </div>
 
@@ -1657,7 +1659,7 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 <p>Media types. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00082">82</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00083">83</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 
 </div>
 </div>
@@ -1683,7 +1685,7 @@ Variables</h2></td></tr>
 
 <p>index to get media type of application from the media types table. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00092">92</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00093">93</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 
 </div>
 </div>
@@ -1709,7 +1711,7 @@ Variables</h2></td></tr>
 
 <p>Number of elements for asctime_s on win32, means buffer size. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00095">95</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00096">96</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 
 </div>
 </div>
@@ -1727,7 +1729,7 @@ Variables</h2></td></tr>
 
 <p>Global XML document object. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00319">319</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html#l00320">320</a> of file <a class="el" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
 
 </div>
 </div>
