@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-07
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -49,6 +49,11 @@
 
 UPnPsdk_EXTERN unsigned gIF_INDEX;
 
+using compa::pathType::ABS_PATH;
+using compa::pathType::OPAQUE_PART;
+using compa::pathType::REL_PATH;
+using compa::uriType::Absolute;
+using compa::uriType::Relative;
 
 namespace {
 /*! \name Scope restricted to file
@@ -620,12 +625,12 @@ char* resolve_rel_url(char* base_url, char* rel_url) {
     len_rel = strlen(rel_url);
     if (parse_uri(rel_url, len_rel, &rel) != HTTP_SUCCESS)
         return NULL;
-    if (rel.type == (enum uriType)ABSOLUTE)
+    if (rel.type == Absolute)
         return strdup(rel_url);
 
     len_base = strlen(base_url);
     if ((parse_uri(base_url, len_base, &base) != HTTP_SUCCESS) ||
-        (base.type != (enum uriType)ABSOLUTE))
+        (base.type != Absolute))
         return NULL;
     if (len_rel == (size_t)0)
         return strdup(base_url);
@@ -663,7 +668,7 @@ char* resolve_rel_url(char* base_url, char* rel_url) {
 
     /* path */
     path = out_finger;
-    if (rel.path_type == (pathType)ABS_PATH) {
+    if (rel.path_type == ABS_PATH) {
         rv = snprintf(out_finger, len, "%s", rel_url);
     } else if (base.pathquery.size == (size_t)0) {
         rv = snprintf(out_finger, len, "/%s", rel_url);
@@ -733,11 +738,11 @@ int parse_uri(const char* in, size_t max, uri_type* out) {
 
     begin_hostport = parse_scheme(in, max, &out->scheme);
     if (begin_hostport) {
-        out->type = (enum uriType)ABSOLUTE;
+        out->type = Absolute;
         out->path_type = OPAQUE_PART;
         begin_hostport++; // skip ':' scheme delimiter
     } else {
-        out->type = (enum uriType)RELATIVE;
+        out->type = Relative;
         out->path_type = REL_PATH;
     }
     if (begin_hostport + (size_t)1 < max && in[begin_hostport] == '/' &&

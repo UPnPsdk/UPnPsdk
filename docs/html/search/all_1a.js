@@ -606,7 +606,7 @@ var searchData=
   ['uri_2ecpp_603',['uri.cpp',['../d8/dd2/uri_8cpp.html',1,'']]],
   ['uri_2ehpp_604',['uri.hpp',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html',1,'(Global Namespace)'],['../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html',1,'(Global Namespace)']]],
   ['uri_5ftype_605',['uri_type',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type',1,'']]],
-  ['uritype_606',['uriType',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a4124ed067881b326cc6d886f0f1017af',1,'uri.hpp']]],
+  ['uritype_606',['uriType',['../d3/d02/namespacecompa.html#a50226a4595593bc26a232e28f1da79a5',1,'compa']]],
   ['url_607',['Url',['../d3/da9/upnpapi_8hpp.html#a3fc10ecd4394a1063a868843d86181f8',1,'UpnpNonblockParam']]],
   ['url_2ecpp_608',['url.cpp',['../d6/d0e/url_8cpp.html',1,'']]],
   ['url_2ehpp_609',['url.hpp',['../d5/d3a/url_8hpp.html',1,'']]],

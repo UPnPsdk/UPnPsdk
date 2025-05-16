@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-05-17
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -36,6 +36,14 @@ using ::UPnPsdk::Curi;
 using ::UPnPsdk::errStr;
 using ::UPnPsdk::errStrEx;
 
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+using ::compa::pathType;
+using ::compa::uriType;
+using ::compa::pathType::ABS_PATH;
+using ::compa::pathType::OPAQUE_PART;
+using ::compa::uriType::Absolute;
+using ::compa::uriType::Relative;
+#endif
 
 // Pseudo call stack of some important functions to get an overview
 //=================================================================
@@ -133,16 +141,16 @@ class Curi_type_testurl {
     // pointing to a C structure) they must be the first declarations. So we can
     // cast a pointer to the instantiation to uri_type* and use it as C
     // structure. Please note that this only works if we do not have any virtual
-    // declatation. An example:
+    // declaration. An example:
     //
     // Curi_type_testurl testurlObj;
     // uri_type* url = (uri_type*)&testurlObj;
-    // if (url->type == ABSOLUTE) {}; // C like usage
+    // if (url->type == Absolute) {}; // C like usage
     // const char* test_url = testurlObj.get_testurl();
 
-    enum uriType type;
+    uriType type;
     token scheme;
-    enum pathType path_type;
+    pathType path_type;
     token pathquery;
     token fragment;
     hostport_type hostport;
@@ -152,31 +160,20 @@ class Curi_type_testurl {
     // m_url_str. Its lengths are only given by the size stored in the token.
     // They are not terminated by '\0'.
 
-    // m_url_str with 55 characters is terminated with '\0'
+    // m_url_str with 55 characters is terminated with '\0'.
+    // Absolute URL:
     const char m_url_str[55 + 1]{
         "http://www.upnplib.net:80/dest/path/?key=value#fragment"};
     //   |      |                 |                     |      |
     //   0     +7                +25                   +47    +54 zero based
 
+    // Root based relative URL:  "/dest/path/?key=value#fragment"
+    // Relative URL:              "dest/path/?key=value#fragment"
+
   public:
     Curi_type_testurl() {
         // Fill the uri_type structure.
-        // TODO: Fix conflict with name ABSOLUTE
-        // Due to name conflicts on different operating systems we need these
-        // conditionals.
-
-#ifdef __APPLE__
-        // Seems here isn't our enum uriType used.
-        type = (uriType)ABSOLUTE;
-#else
-#ifdef _WIN32
-        // Unsuccessful attempt to fix the conflict.
-        type = absolute;
-#else
-        // The only one that works as expected.
-        type = ABSOLUTE;
-#endif
-#endif
+        type = Absolute;
         path_type = ABS_PATH;
 
         scheme.buff = m_url_str;            // points to start of the scheme
@@ -235,26 +232,8 @@ TEST(ParseUriIp4TestSuite, verify_testurl) {
     Curi uriObj;
     EXPECT_EQ(uriObj.parse_uri(url_str, strlen(url_str), &out), HTTP_SUCCESS);
 
-    EXPECT_EQ(out.type, ABSOLUTE);
-
-    if (old_code) {
-        std::cout << CRED "[ BUG      ] " CRES << __LINE__
-                  << ": Type value on uri structure should be ABSOLUTE but not "
-                     "1 on MS Windows.\n";
-#ifdef _WIN32
-        EXPECT_EQ(1, out.type);
-#else
-        EXPECT_EQ(test_url->type, out.type);
-#endif
-
-    } else {
-
-        std::cout << CRED "[ BUG      ] " CRES << __LINE__
-                  << ": Type value on uri structure should be ABSOLUTE but not "
-                     "1 on MS Windows.\n";
-        EXPECT_EQ(test_url->type, out.type);
-    }
-
+    EXPECT_EQ(out.type, Absolute);
+    EXPECT_EQ(test_url->type, out.type);
     EXPECT_EQ(out.path_type, ABS_PATH);
     EXPECT_EQ(test_url->path_type, out.path_type);
 
@@ -868,7 +847,7 @@ TEST(HttpFixUrl, check_http_FixStrUrl_successful) {
               UPNP_E_SUCCESS)
         << errStrEx(ret_http_FixStrUrl, UPNP_E_SUCCESS);
 
-    EXPECT_EQ(fixed_url.type, ABSOLUTE);
+    EXPECT_EQ(fixed_url.type, Absolute);
     EXPECT_EQ(fixed_url.path_type, ABS_PATH);
     EXPECT_STREQ(fixed_url.scheme.buff,
                  "http://upnplib.net:80/path/?key=value#fragment");
@@ -926,17 +905,17 @@ TEST(HttpFixUrl, fix_url_no_path_and_query_successful) {
 
     // The relevant part (e.g. "http") in the token buffer is specified by the
     // token size. But it is no problem to compare the whole buffer because it
-    // is defined to contain a C string.
-    EXPECT_EQ(fixed_url.type, ABSOLUTE);
+    // contains a C string.
+    EXPECT_EQ(fixed_url.type, Absolute);
     EXPECT_EQ(fixed_url.path_type, OPAQUE_PART);
     EXPECT_STREQ(fixed_url.scheme.buff, "http://upnplib.net#fragment");
-    EXPECT_EQ(fixed_url.scheme.size, (size_t)4);
+    EXPECT_EQ(fixed_url.scheme.size, 4u);
     EXPECT_STREQ(fixed_url.hostport.text.buff, "upnplib.net#fragment");
-    EXPECT_EQ(fixed_url.hostport.text.size, (size_t)11);
+    EXPECT_EQ(fixed_url.hostport.text.size, 11u);
     EXPECT_STREQ(fixed_url.pathquery.buff, "/");
-    EXPECT_EQ(fixed_url.pathquery.size, (size_t)1);
+    EXPECT_EQ(fixed_url.pathquery.size, 1u);
     EXPECT_STREQ(fixed_url.fragment.buff, "fragment");
-    EXPECT_EQ(fixed_url.fragment.size, (size_t)8);
+    EXPECT_EQ(fixed_url.fragment.size, 8u);
 }
 
 TEST(HttpFixUrl, nullptr_to_url) {

@@ -9,9 +9,9 @@ var Compa_2src_2inc_2uri_8hpp =
       [ "IPaddress", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#aa1198c9c6dd6d23d2f90b768ffb9255d", null ]
     ] ],
     [ "uri_type", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type", [
-      [ "type", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#ac20a8bda3795e43b035eb6253e4e1f14", null ],
+      [ "type", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a907ec12a760fbb7b86d99960272422e5", null ],
       [ "scheme", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a1a077d64a99f2adae0508d7836f6cea6", null ],
-      [ "path_type", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a83f2258c3fff321afff835efbc907f03", null ],
+      [ "path_type", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#addef2bd71825f916992987c5da47e439", null ],
       [ "pathquery", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#aa05aa4442efc0d80a19db0559dc4e9b6", null ],
       [ "fragment", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a03191d65a1c8679ea4bbb1e01a8d15a8", null ],
       [ "hostport", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a42091b526df14a334683376bba483bc7", null ]
@@ -21,14 +21,14 @@ var Compa_2src_2inc_2uri_8hpp =
       [ "URLs", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a3380390b4cd7655c79c1e750a511ba62", null ],
       [ "parsedURLs", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a4a7917e86eb7e65374d05e13ef98fa48", null ]
     ] ],
-    [ "pathType", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a631372ca4f28d9792e14f9b83cf4a863", [
-      [ "ABS_PATH", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a631372ca4f28d9792e14f9b83cf4a863a096f2ccb045f749439480c9f8d2051a8", null ],
-      [ "REL_PATH", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a631372ca4f28d9792e14f9b83cf4a863a324972ae58676292e135f7b5b4b64506", null ],
-      [ "OPAQUE_PART", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a631372ca4f28d9792e14f9b83cf4a863a97a123023d1f95989fc670894b613ea2", null ]
+    [ "uriType", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a50226a4595593bc26a232e28f1da79a5", [
+      [ "Absolute", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a50226a4595593bc26a232e28f1da79a5ab51ca26c6c89cfc9bec338f7a0d3e0c8", null ],
+      [ "Relative", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a50226a4595593bc26a232e28f1da79a5a2ca9469819fb0fb61ff98e914a7ccca0", null ]
     ] ],
-    [ "uriType", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a4124ed067881b326cc6d886f0f1017af", [
-      [ "absolute", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a4124ed067881b326cc6d886f0f1017afa527c99faf1db2f63bb88f9b8a8655537", null ],
-      [ "relative", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a4124ed067881b326cc6d886f0f1017afabe9436552d582c852e45a25f3b4a8140", null ]
+    [ "pathType", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#ab054ad652ff0574f763df38fd0d9bfdb", [
+      [ "ABS_PATH", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#ab054ad652ff0574f763df38fd0d9bfdba044527c53ec110c34850c123afc84f63", null ],
+      [ "REL_PATH", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#ab054ad652ff0574f763df38fd0d9bfdbab1d49714835ab8bb024cb819ec223a2e", null ],
+      [ "OPAQUE_PART", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#ab054ad652ff0574f763df38fd0d9bfdba4c54febe4ccf75bc312c3c048961b974", null ]
     ] ],
     [ "replace_escaped", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#aa14fae252a682bbd9bcf3b4fb6806061", null ],
     [ "copy_URL_list", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a8e4838650574d282642cc2d63cdf1990", null ],

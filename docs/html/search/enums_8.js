@@ -9,5 +9,5 @@ var searchData=
   ['upnp_5fstype_5fe_6',['Upnp_SType_e',['../d0/d5f/Compa_2inc_2API_8hpp.html#aa251615d319878648538bb669c9d3226',1,'API.hpp']]],
   ['upnpfunname_7',['UpnpFunName',['../d3/da9/upnpapi_8hpp.html#abd0e7f62f90e8c2b6d9f10de04cdfde4',1,'upnpapi.hpp']]],
   ['upnpopenfilemode_8',['UpnpOpenFileMode',['../d0/d5f/Compa_2inc_2API_8hpp.html#a9f9c4441037bc234cdf6e08895950a95',1,'API.hpp']]],
-  ['uritype_9',['uriType',['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a4124ed067881b326cc6d886f0f1017af',1,'uri.hpp']]]
+  ['uritype_9',['uriType',['../d3/d02/namespacecompa.html#a50226a4595593bc26a232e28f1da79a5',1,'compa']]]
 ];

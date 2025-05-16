@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-05-17
 
 // Helpful link for ip address structures:
 // https://stackoverflow.com/a/16010670/5014688
@@ -69,7 +69,7 @@ TEST(ParseUriIp4TestSuite, simple_call) {
     EXPECT_EQ(uriObj.parse_uri(uri_str, 64, &out), HTTP_SUCCESS);
     ::std::cout << "DEBUG: out.scheme.buff = " << out.scheme.buff
                 << ::std::endl;
-    ::std::cout << "DEBUG: out.type ABSOLUTE(0), RELATIVE(1) = " << out.type
+    ::std::cout << "DEBUG: out.type Absolute(0), Relative(1) = " << out.type
                 << ::std::endl;
     ::std::cout
         << "DEBUG: out.path_type ABS_PATH(0), REL_PATH(1), OPAQUE_PART(2) = "
@@ -132,18 +132,7 @@ TEST(ParseUriIp4TestSuite, absolute_uri_successful) {
 
     EXPECT_STREQ(out.fragment.buff, "urifragment");
     EXPECT_EQ(out.fragment.size, (size_t)11);
-
-    ::std::cout << "  BUG! Wrong uri type 'relative' on MS Windows due to "
-                   "conflicting 'ABSOLUTE' constant name. See issue #3.\n";
-#ifdef _WIN32
-    if (old_code) {
-        EXPECT_EQ(out.type, relative);
-    } else {
-        EXPECT_EQ(out.type, ABSOLUTE);
-    }
-#else
-    EXPECT_EQ(out.type, ABSOLUTE);
-#endif
+    EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, ABS_PATH);
 
     const sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
@@ -197,11 +186,7 @@ TEST(ParseUriIp4TestSuite, absolute_uri_with_shorter_max_size) {
 
     EXPECT_STREQ(out.fragment.buff, nullptr);
     EXPECT_EQ(out.fragment.size, (size_t)0);
-#ifdef _WIN32
-    EXPECT_EQ(out.type, relative); // This bug is reported by another gtest.
-#else
-    EXPECT_EQ(out.type, ABSOLUTE);
-#endif
+    EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, ABS_PATH);
     EXPECT_EQ(sai4->sin_family, AF_INET);
     EXPECT_EQ(sai4->sin_port, htons(80));
@@ -250,11 +235,7 @@ TEST(ParseUriIp4TestSuite, ip_address_with_greater_max_size) {
 
     EXPECT_STREQ(out.pathquery.buff, "/uri/path?uriquery#urifragment");
     EXPECT_EQ(out.pathquery.size, (size_t)18);
-#ifdef _WIN32
-    EXPECT_EQ(out.type, relative); // This bug is reported by another gtest.
-#else
-    EXPECT_EQ(out.type, ABSOLUTE);
-#endif
+    EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, ABS_PATH);
 
     struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
@@ -307,11 +288,7 @@ TEST(ParseUriIp4TestSuite, uri_without_valid_host_and_port) {
               UPNP_E_INVALID_URL)
         << errStrEx(returned, HTTP_SUCCESS);
 
-#ifdef _WIN32
-    EXPECT_EQ(url.type, relative); // This bug is reported by another gtest.
-#else
-    EXPECT_EQ(url.type, ABSOLUTE);
-#endif
+    EXPECT_EQ(url.type, Absolute);
     EXPECT_EQ(url.path_type, OPAQUE_PART);
 
     EXPECT_STREQ(url.scheme.buff,
@@ -372,11 +349,7 @@ TEST(ParseUriIp4TestSuite, ip_address_without_pathquery) {
 
     EXPECT_STREQ(out.fragment.buff, "urifragment");
     EXPECT_EQ(out.fragment.size, (size_t)11);
-#ifdef _WIN32
-    EXPECT_EQ(out.type, relative); // This bug is reported by another gtest.
-#else
-    EXPECT_EQ(out.type, ABSOLUTE);
-#endif
+    EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, OPAQUE_PART);
     EXPECT_EQ(sai4->sin_family, AF_INET);
     EXPECT_EQ(sai4->sin_port, htons(80));
@@ -410,11 +383,7 @@ TEST(ParseUriIp4TestSuite, ip_address_without_fragment) {
 
     EXPECT_STREQ(out.fragment.buff, nullptr);
     EXPECT_EQ(out.fragment.size, (size_t)0);
-#ifdef _WIN32
-    EXPECT_EQ(out.type, relative); // This bug is reported by another gtest.
-#else
-    EXPECT_EQ(out.type, ABSOLUTE);
-#endif
+    EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, ABS_PATH);
 
     struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
@@ -480,14 +449,7 @@ TEST(ParseUriIp4TestSuite, relative_uri_with_authority_and_absolute_path) {
                  "example-site.de:80/uri/path?uriquery#urifragment");
     EXPECT_STREQ(out.pathquery.buff, "/uri/path?uriquery#urifragment");
     EXPECT_STREQ(out.fragment.buff, "urifragment");
-
-    ::std::cout << "  BUG! Wrong uri type on MS Windows due to conflicting "
-                   "ABSOLUTE constant name. See issue #3.\n";
-#ifdef _WIN32
-    EXPECT_EQ(out.type, 2); // What ever this means
-#else
-    EXPECT_EQ(out.type, RELATIVE);
-#endif
+    EXPECT_EQ(out.type, Relative);
     EXPECT_EQ(out.path_type, ABS_PATH);
     EXPECT_EQ(sai4->sin_family, AF_INET);
     EXPECT_EQ(sai4->sin_port, htons(80));
@@ -519,14 +481,7 @@ TEST(ParseUriIp4TestSuite, relative_uri_with_absolute_path) {
     EXPECT_STREQ(out.hostport.text.buff, nullptr);
     EXPECT_STREQ(out.pathquery.buff, "/uri/path?uriquery#urifragment");
     EXPECT_STREQ(out.fragment.buff, "urifragment");
-
-    ::std::cout << "  BUG! Wrong uri type on MS Windows due to conflicting "
-                   "ABSOLUTE constant name. See issue #3.\n";
-#ifdef _WIN32
-    EXPECT_EQ(out.type, 2); // What ever this means.
-#else
-    EXPECT_EQ(out.type, RELATIVE);
-#endif
+    EXPECT_EQ(out.type, Relative);
     EXPECT_EQ(out.path_type, ABS_PATH);
     EXPECT_EQ(sai4->sin_family, AF_UNSPEC);
     EXPECT_EQ(sai4->sin_port, htons(0));
@@ -559,14 +514,7 @@ TEST(ParseUriIp4TestSuite, relative_uri_with_relative_path) {
     EXPECT_STREQ(out.hostport.text.buff, nullptr);
     EXPECT_STREQ(out.pathquery.buff, "uri/path?uriquery#urifragment");
     EXPECT_STREQ(out.fragment.buff, "urifragment");
-
-    ::std::cout << "  BUG! Wrong uri type on MS Windows due to conflicting "
-                   "ABSOLUTE constant name. See issue #3.\n";
-#ifdef _WIN32
-    EXPECT_EQ(out.type, 2); // What ever this means.
-#else
-    EXPECT_EQ(out.type, RELATIVE);
-#endif
+    EXPECT_EQ(out.type, Relative);
     EXPECT_EQ(out.path_type, REL_PATH);
     EXPECT_EQ(sai4->sin_family, AF_UNSPEC);
     EXPECT_EQ(sai4->sin_port, htons(0));
@@ -598,14 +546,7 @@ TEST(ParseUriIp4TestSuite, uri_with_opaque_part) {
     EXPECT_STREQ(out.hostport.text.buff, nullptr);
     EXPECT_STREQ(out.pathquery.buff, "a@b.com");
     EXPECT_STREQ(out.fragment.buff, nullptr);
-
-    ::std::cout << "  BUG! Wrong uri type on MS Windows due to conflicting "
-                   "ABSOLUTE constant name. See issue #3.\n";
-#ifdef _WIN32
-    EXPECT_EQ(out.type, 1); // What ever this means.
-#else
-    EXPECT_EQ(out.type, ABSOLUTE);
-#endif
+    EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, OPAQUE_PART);
     EXPECT_EQ(sai4->sin_family, AF_UNSPEC);
     EXPECT_EQ(sai4->sin_port, htons(0));

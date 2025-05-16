@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -57,6 +57,9 @@
 
 
 namespace {
+
+using compa::uriType::Relative;
+
 /*! \name Functions scope restricted to file
  * @{ */
 
@@ -96,7 +99,7 @@ inline int valid_ssdp_msg(
     }
     if (hmsg->request_method != (http_method_t)HTTPMETHOD_MSEARCH) {
         /* check PATH == "*" */
-        if (hmsg->uri.type != (enum uriType)RELATIVE ||
+        if (hmsg->uri.type != Relative ||
             strncmp("*", hmsg->uri.pathquery.buff, hmsg->uri.pathquery.size) !=
                 0) {
             return 0;

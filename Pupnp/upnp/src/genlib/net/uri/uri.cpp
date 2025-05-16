@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-01
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -601,12 +601,12 @@ char* resolve_rel_url(char* base_url, char* rel_url) {
     len_rel = strlen(rel_url);
     if (parse_uri(rel_url, len_rel, &rel) != HTTP_SUCCESS)
         return NULL;
-    if (rel.type == (enum uriType)ABSOLUTE)
+    if (rel.type == (enum uriType)Absolute)
         return strdup(rel_url);
 
     len_base = strlen(base_url);
     if ((parse_uri(base_url, len_base, &base) != HTTP_SUCCESS) ||
-        (base.type != (enum uriType)ABSOLUTE))
+        (base.type != (enum uriType)Absolute))
         return NULL;
     if (len_rel == (size_t)0)
         return strdup(base_url);
@@ -714,11 +714,11 @@ int parse_uri(const char* in, size_t max, uri_type* out) {
 
     begin_hostport = parse_scheme(in, max, &out->scheme);
     if (begin_hostport) {
-        out->type = (enum uriType)ABSOLUTE;
+        out->type = (enum uriType)Absolute;
         out->path_type = OPAQUE_PART;
         begin_hostport++; // skip ':' scheme delimiter
     } else {
-        out->type = (enum uriType)RELATIVE;
+        out->type = (enum uriType)Relative;
         out->path_type = REL_PATH;
     }
     if (begin_hostport + (size_t)1 < max && in[begin_hostport] == '/' &&

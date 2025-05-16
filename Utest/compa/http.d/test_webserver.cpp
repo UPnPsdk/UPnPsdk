@@ -73,6 +73,11 @@ using ::testing::ExitedWithCode;
 using ::testing::HasSubstr;
 using ::UPnPsdk::errStrEx;
 
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+using ::compa::pathType::ABS_PATH;
+using ::compa::uriType::Relative;
+#endif
+
 
 // Little helper
 // =============
@@ -1246,7 +1251,7 @@ TEST(XMLaliasTestSuite, process_request) {
     http_message_t req{};
     req.initialized = 1;
     req.method = HTTPMETHOD_GET;
-    req.uri.type = RELATIVE;
+    req.uri.type = Relative;
     req.uri.path_type = ABS_PATH;
     req.uri.pathquery.buff = "/tvdevicedesc.xml";
     req.uri.pathquery.size = 17;
@@ -1281,7 +1286,7 @@ TEST(XMLaliasTestSuite, process_request) {
     SOCKINFO local_addrinfo{};
 
     http_message_t req{};
-    req.uri.type = static_cast<uriType>(RELATIVE);
+    req.uri.type = Relative;
     req.uri.path_type = ABS_PATH;
     req.uri.pathquery.buff = "/tvdevicedesc.xml";
     req.uri.pathquery.size = 17;

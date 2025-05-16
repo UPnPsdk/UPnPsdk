@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-07
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -52,6 +52,9 @@
 
 
 namespace {
+
+using compa::uriType::Absolute;
+
 /*! \name Scope restricted to file
  * @{ */
 
@@ -249,7 +252,7 @@ inline int config_description_doc(
             goto error_handler;
         }
         len = parse_uri(domStr, strlen(domStr), &uri);
-        if (len < 0 || uri.type != ABSOLUTE) {
+        if (len < 0 || uri.type != Absolute) {
             err_code = UPNP_E_INVALID_URL;
             goto error_handler;
         }

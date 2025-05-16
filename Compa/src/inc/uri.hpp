@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-18
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -54,20 +54,20 @@
 #endif
 /// \endcond
 
-/// Yet another success code.
-inline constexpr int HTTP_SUCCESS{1};
+namespace compa {
+
+/// Type of the URI.
+// Must not use ABSOLUTE, RELATIVE; already defined in Win32 for other meaning.
+enum struct uriType { Absolute, Relative };
 
 /// Type of the "path" part of the URI.
-enum pathType { ABS_PATH, REL_PATH, OPAQUE_PART };
+enum struct pathType { ABS_PATH, REL_PATH, OPAQUE_PART };
 
-#if defined(_WIN32) || defined(DOXYGEN_RUN)
-/*! \brief Need this for WIN32. There is a conflict with other symbols.
- *
- * Default is\n`enum uriType { ABSOLUTE, RELATIVE };` */
-enum uriType { absolute, relative };
-#else
-enum uriType { ABSOLUTE, RELATIVE };
-#endif
+} // namespace compa
+
+
+/// Yet another success code.
+inline constexpr int HTTP_SUCCESS{1};
 
 /*!
  * \brief Buffer used in parsinghttp messages, urls, etc. Generally this simply
@@ -92,9 +92,9 @@ struct hostport_type {
 struct uri_type {
     /// @{
     /// \brief Member variable
-    uriType type;
+    compa::uriType type;
     token scheme;
-    pathType path_type;
+    compa::pathType path_type;
     token pathquery;
     token fragment;
     hostport_type hostport;

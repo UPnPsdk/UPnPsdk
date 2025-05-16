@@ -1,5 +1,5 @@
 // Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2025-15-16
 //
 // If you need more information how the Url class works you can temporary
 // uncomment #define DEBUG_URL and run the tests with
@@ -43,6 +43,10 @@ scheme     authority  path
 urn:oasis:names:specification:docbook:dtd:xml:4.1.2
 └┬┘ └──────────────────────┬──────────────────────┘
 scheme                    path
+
+Absolute path: whole URL.
+Relative path: begins with the path
+               root based: path with leading '/'
 */
 // clang-format on
 

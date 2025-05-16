@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-05-17
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -79,12 +79,8 @@ enum hostType { HOSTNAME, IPv4address };
 
 enum pathType { ABS_PATH, REL_PATH, OPAQUE_PART };
 
-#ifdef _WIN32
-/* there is a conflict in windows with other symbols. */
-enum uriType { absolute, relative };
-#else
-enum uriType { ABSOLUTE, RELATIVE };
-#endif
+// Must not use ABSOLUTE, RELATIVE; already defined in Win32 for other meaning.
+enum uriType { Absolute, Relative };
 
 /*!
  * \brief Buffer used in parsinghttp messages, urls, etc. generally this simply
