@@ -525,8 +525,8 @@ TEST_F(XMLaliasFTestSuite, copy_structure) {
 
     char alias_name[]{"valid_alias_name1"}; // length = 18
     char content[]{"XML Dokument string1"}; // length = 20
-    char* alias_content = (char*)malloc(sizeof(content));
-    strcpy(alias_content, content);
+    char* alias_content = static_cast<char*>(malloc(sizeof(content)));
+    memcpy(alias_content, content, sizeof(content) - 1);
     EXPECT_EQ(web_server_set_alias(alias_name, alias_content, 20, 0), 0);
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
@@ -543,7 +543,9 @@ TEST_F(XMLaliasFTestSuite, copy_structure) {
 
     EXPECT_EQ(aliasDoc.doc.length, 20u);
     EXPECT_EQ(aliasDoc.doc.capacity, 20u);
-    EXPECT_STREQ(aliasDoc.doc.buf, "XML Dokument string1");
+    EXPECT_EQ(
+        ::memcmp(aliasDoc.doc.buf, "XML Dokument string1", aliasDoc.doc.length),
+        0);
 
 #else  // UPnPsdk_WITH_NATIVE_PUPNP
 

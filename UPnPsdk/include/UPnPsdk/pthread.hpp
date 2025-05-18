@@ -1,14 +1,14 @@
 #ifndef UPnPsdk_PTHREAD_HPP
 #define UPnPsdk_PTHREAD_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-05
+// Redistribution only with this Copyright remark. Last modified: 2025-05-19
 
 /*!
  * \file
  * \brief Additional functions to manage Posix threads with C++ to be portable
  */
 
-#include <UPnPsdk/visibility.hpp>
+#include <UPnPsdk/visibility.hpp> // needed for some platforms
 /// \cond
 #include "pthread.h" // To find pthreads4w don't use <pthread.h>
 #include <cstdint>
@@ -88,6 +88,29 @@ typedef void (*start_routine)(void* arg);
  */
 UPnPsdk_API uint64_t pthread_self();
 #endif
+
+
+/*!
+ * \brief Scoped POSIX thread mutex lock is valid for the current scope of the
+ * object
+ *
+ * The constructor locks the given mutex and the destructor unlocks it. This way
+ * the locked mutex is authomatically unlocked when leaving the current scope,
+ * for example on return or with an exception.
+ *
+ * \exception std::runtime_error The mutex has not been properly initialized.
+ */
+class CPthread_scoped_lock {
+  public:
+    /*! \brief Locks given POSIX thread mutex. */
+    CPthread_scoped_lock(
+        ::pthread_mutex_t& a_mutex /*!< [in] Mutex used to lock. */);
+    /*! \brief Unlock the mutex that was locked by the constructor */
+    ~CPthread_scoped_lock();
+
+  private:
+    ::pthread_mutex_t& m_mutex;
+};
 
 } // namespace UPnPsdk
 

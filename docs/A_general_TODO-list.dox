@@ -5,7 +5,6 @@
  * \brief A general TODO-list
  *
  * \todo
- * - Rename xml_alias_t to CXmlAlias and reorganize namespaces in webserver.cpp.
  * - Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
  * - Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.

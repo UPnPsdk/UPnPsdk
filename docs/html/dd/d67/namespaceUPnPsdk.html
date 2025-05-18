@@ -121,6 +121,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html">CNetadapter_platform</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manage information from Unix like platforms about network adapters.  <a href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html">CPthread_scoped_lock</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scoped POSIX thread mutex lock is valid for the current scope of the object.  <a href="../../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html">CRootdevice</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will become a container object for the root device of a network node.  <a href="../../dd/d06/classUPnPsdk_1_1CRootdevice.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -396,7 +399,7 @@ Same value in integer form. </td></tr>
 <p>Actually ::pthread_self() returns pthread_t and not an integer thread id you can work with. The following helper function will get you that in a portable way across different POSIX systems.<br  />
 Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a thread ID from an arbitrary pthread_t?</a> </p><dl class="section note"><dt>Note</dt><dd>This function is only available for macOS and Microsoft Windows. Unix/Linux with GCC compiler can do this authomatically. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db3/pthread_8cpp_source.html#l00018">18</a> of file <a class="el" href="../../d1/db3/pthread_8cpp_source.html">pthread.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db3/pthread_8cpp_source.html#l00020">20</a> of file <a class="el" href="../../d1/db3/pthread_8cpp_source.html">pthread.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">

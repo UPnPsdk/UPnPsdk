@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-22
+// Redistribution only with this Copyright remark. Last modified: 2025-05-19
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -191,7 +191,7 @@ class UPnPsdk_API CSocket_basic {
      * } catch(xcp) { handle_error(); };
      * SOCKET sfd = sockObj;
      * \endcode */
-    operator const SOCKET&() const;
+    operator SOCKET() const;
 
 
     /*! \brief Get the local socket address the socket is bound to
@@ -296,9 +296,12 @@ try {
     // This is the raw socket file descriptor
     SOCKET m_sfd{INVALID_SOCKET};
 
-    // Mutex to protect concurrent binding a socket.
-    SUPPRESS_MSVC_WARN_4251_NEXT_LINE
-    mutable std::mutex m_bound_mutex;
+    // Mutex to protect socket object.
+    mutable ::pthread_mutex_t m_socket_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+    // CSocket_basic::local_saddr() without pthread mutex lock/unlock for
+    // 'protected:' use only.
+    bool local_saddr_protected(SSockaddr* a_saddr) const;
     /// \endcond
 
   private:
@@ -495,10 +498,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
     /// @} Getter
 
   private:
-    /// \brief Mutex to protect concurrent listen a socket.
-    SUPPRESS_MSVC_WARN_4251_NEXT_LINE
-    mutable std::mutex m_listen_mutex;
-    bool m_listen{false}; // Protected by a mutex.
+    bool m_listen{false};
 };
 
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-22
+// Redistribution only with this Copyright remark. Last modified: 2025-05-19
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -176,13 +176,20 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
 // ===================
 // Default constructor for an empty socket object
 CSocket_basic::CSocket_basic(){
-    TRACE2(this, " Construct default CSocket_basic()") //
-}
+    TRACE2(this, " Construct default CSocket_basic()")}
 
 // Constructor for the socket file descriptor. Before use, it must be load().
 CSocket_basic::CSocket_basic(SOCKET a_sfd)
-    : m_sfd_hint(a_sfd) {
-    TRACE2(this, " Construct CSocket_basic(SOCKET)") //
+    : m_sfd_hint(a_sfd) { //
+    TRACE2(this, " Construct CSocket_basic(SOCKET)")
+}
+
+// Destructor
+CSocket_basic::~CSocket_basic() {
+    TRACE2(this, " Destruct CSocket_basic()")
+    if (::pthread_mutex_destroy(&m_socket_mutex) != 0)
+        UPnPsdk_LOGCRIT(
+            "MSG1151") "fails with EBUSY. The mutex is currently locked.\n";
 }
 
 // Setter with given file desciptor
@@ -195,34 +202,41 @@ void CSocket_basic::load() {
     socklen_t optlen{sizeof(so_option)}; // May be modified
     // Type cast (char*)&so_option is needed for Microsoft Windows.
     TRACE2(this, " Calling system function ::getsockopt().")
+    ::pthread_mutex_lock(&m_socket_mutex);
     if (umock::sys_socket_h.getsockopt(m_sfd_hint, SOL_SOCKET, SO_ERROR,
                                        reinterpret_cast<char*>(&so_option),
                                        &optlen) != 0) {
         serrObj.catch_error();
+        ::pthread_mutex_unlock(&m_socket_mutex);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1014") "Failed to create socket=" +
             std::to_string(m_sfd_hint) + ": " + serrObj.error_str() + '\n');
     }
     m_sfd = m_sfd_hint;
-}
-
-// Destructor
-CSocket_basic::~CSocket_basic(){
-    TRACE2(this, " Destruct CSocket_basic()") //
+    ::pthread_mutex_unlock(&m_socket_mutex);
 }
 
 // Get the raw socket file descriptor
-CSocket_basic::operator const SOCKET&() const {
-    TRACE2(this, " Executing CSocket_basic::operator SOCKET&() (get "
+CSocket_basic::operator SOCKET() const {
+    TRACE2(this, " Executing CSocket_basic::operator SOCKET() (get "
                  "raw socket fd)")
-    // There is no problem with cast here. We cast to const so we can only read.
-    return const_cast<SOCKET&>(m_sfd);
+    ::pthread_mutex_lock(&m_socket_mutex);
+    const auto sfd{m_sfd};
+    ::pthread_mutex_unlock(&m_socket_mutex);
+    return sfd;
 }
 
 // Getter
 // ------
 bool CSocket_basic::local_saddr(SSockaddr* a_saddr) const {
     TRACE2(this, " Executing CSocket_basic::local_saddr()")
+    CPthread_scoped_lock lock(m_socket_mutex);
+    return this->local_saddr_protected(a_saddr);
+}
+
+/// \cond
+bool CSocket_basic::local_saddr_protected(SSockaddr* a_saddr) const {
+    TRACE2(this, " Executing CSocket_basic::local_saddr_protected()")
     if (m_sfd == INVALID_SOCKET) {
         if (a_saddr)
             *a_saddr = "";
@@ -268,9 +282,13 @@ bool CSocket_basic::local_saddr(SSockaddr* a_saddr) const {
         *a_saddr = saObj;
     return true;
 }
+/// \endcond
 
 bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
     TRACE2(this, " Executing CSocket_basic::remote_saddr()")
+
+    CPthread_scoped_lock lock(m_socket_mutex);
+
     if (m_sfd == INVALID_SOCKET) {
         if (a_saddr)
             *a_saddr = "";
@@ -321,16 +339,19 @@ int CSocket_basic::socktype() const {
     int so_option{-1};
     socklen_t len{sizeof(so_option)}; // May be modified
     CSocketErr serrObj;
+    ::pthread_mutex_lock(&m_socket_mutex);
     // Type cast (char*)&so_option is needed for Microsoft Windows.
     if (umock::sys_socket_h.getsockopt(m_sfd, SOL_SOCKET, SO_TYPE,
                                        reinterpret_cast<char*>(&so_option),
                                        &len) != 0) {
         serrObj.catch_error();
+        ::pthread_mutex_unlock(&m_socket_mutex);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1030") "Failed to get socket option SO_TYPE "
                                          "(SOCK_STREAM, SOCK_DGRAM, etc.): " +
             serrObj.error_str() + '\n');
     }
+    ::pthread_mutex_unlock(&m_socket_mutex);
     return so_option;
 }
 
@@ -339,16 +360,19 @@ int CSocket_basic::sockerr() const {
     int so_option{-1};
     socklen_t len{sizeof(so_option)}; // May be modified
     CSocketErr serrObj;
+    ::pthread_mutex_lock(&m_socket_mutex);
     // Type cast (char*)&so_option is needed for Microsoft Windows.
     if (umock::sys_socket_h.getsockopt(m_sfd, SOL_SOCKET, SO_ERROR,
                                        reinterpret_cast<char*>(&so_option),
                                        &len) != 0) {
         serrObj.catch_error();
+        ::pthread_mutex_unlock(&m_socket_mutex);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT(
                 "MSG1011") "Failed to get socket option SO_ERROR: " +
             serrObj.error_str() + '\n');
     }
+    ::pthread_mutex_unlock(&m_socket_mutex);
     return so_option;
 }
 
@@ -357,16 +381,19 @@ bool CSocket_basic::is_reuse_addr() const {
     int so_option{-1};
     socklen_t len{sizeof(so_option)}; // May be modified
     CSocketErr serrObj;
+    ::pthread_mutex_lock(&m_socket_mutex);
     // Type cast (char*)&so_option is needed for Microsoft Windows.
     if (umock::sys_socket_h.getsockopt(m_sfd, SOL_SOCKET, SO_REUSEADDR,
                                        reinterpret_cast<char*>(&so_option),
                                        &len) != 0) {
         serrObj.catch_error();
+        ::pthread_mutex_unlock(&m_socket_mutex);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT(
                 "MSG1013") "Failed to get socket option SO_REUSEADDR: " +
             serrObj.error_str() + '\n');
     }
+    ::pthread_mutex_unlock(&m_socket_mutex);
     return so_option;
 }
 
@@ -374,29 +401,25 @@ bool CSocket_basic::is_reuse_addr() const {
 // CSocket class
 // =============
 // Default constructor for an empty socket object
-CSocket::CSocket(){
-    TRACE2(this, " Construct default CSocket()") //
-}
+CSocket::CSocket(){TRACE2(this, " Construct default CSocket()")}
 
 // Move constructor
 CSocket::CSocket(CSocket&& that) {
     TRACE2(this, " Construct move CSocket()")
+    ::pthread_mutex_lock(&m_socket_mutex);
     m_sfd = that.m_sfd;
     that.m_sfd = INVALID_SOCKET;
 
-    // Following variables are protected
-    std::scoped_lock lock(m_listen_mutex);
     m_listen = that.m_listen;
     that.m_listen = false;
+    ::pthread_mutex_unlock(&m_socket_mutex);
 }
 
 // Assignment operator (parameter as value)
 CSocket& CSocket::operator=(CSocket that) {
     TRACE2(this, " Executing CSocket::operator=()")
+    // This is thread safe because the swap is from the stack.
     std::swap(m_sfd, that.m_sfd);
-
-    // Following variables are protected
-    std::scoped_lock lock(m_listen_mutex);
     std::swap(m_listen, that.m_listen);
 
     return *this;
@@ -405,11 +428,19 @@ CSocket& CSocket::operator=(CSocket that) {
 // Destructor
 CSocket::~CSocket() {
     TRACE2(this, " Destruct CSocket()")
+    ::pthread_mutex_lock(&m_socket_mutex);
     if (m_sfd != INVALID_SOCKET)
         UPnPsdk_LOGINFO("MSG1136") "shutdown and close socket fd " << m_sfd
                                                                    << ".\n";
     ::shutdown(m_sfd, SHUT_RDWR);
     CLOSE_SOCKET_P(m_sfd);
+    ::pthread_mutex_unlock(&m_socket_mutex);
+
+    // Don't destroy pthread mutex here. It will be done with inherited
+    // CSocket_basic::~CSocket_basic.
+    // if (::pthread_mutex_destroy(&m_socket_mutex) != 0)
+    //     UPnPsdk_LOGCRIT(
+    //         "MSGnnnn") "fails with EBUSY. The mutex is currently locked.\n";
 }
 
 // Setter
@@ -435,14 +466,14 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
     TRACE2(this, " Executing CSocket::bind()")
 
     // Protect binding.
-    std::scoped_lock lock(m_bound_mutex);
+    CPthread_scoped_lock lock(m_socket_mutex);
 
     // Check if socket is already bound.
     if (m_sfd != INVALID_SOCKET) {
         SSockaddr saObj;
-        this->local_saddr(&saObj);
+        this->local_saddr_protected(&saObj);
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG1137") "Failed toa bind socket to an "
+            UPnPsdk_LOGEXCEPT("MSG1137") "Failed to bind socket to an "
                                          "address. Socket fd " +
             std::to_string(m_sfd) + " already bound to netaddress \"" +
             saObj.netaddrp() + '\"');
@@ -498,7 +529,7 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
 
     if (g_dbug) {
         SSockaddr saObj;
-        this->local_saddr(&saObj); // Get new bound socket address.
+        this->local_saddr_protected(&saObj); // Get new bound socket address.
         UPnPsdk_LOGINFO("MSG1115") "syscall ::bind("
             << sockfd << ", " << &saObj.sa << ", " << saObj.sizeof_saddr()
             << ") Tried " << count << " times \"" << saddr.netaddrp()
@@ -513,7 +544,7 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
             UPnPsdk_LOGEXCEPT("MSG1008") "Close socket fd " +
             std::to_string(sockfd) + ". Failed to bind socket to address=\"" +
             saddr.netaddrp() + "\": (errid " + std::to_string(serrObj) + ") " +
-            serrObj.error_str() + '\n');
+            serrObj.error_str());
     }
 }
 
@@ -522,16 +553,19 @@ void CSocket::listen() {
     TRACE2(this, " Executing CSocket::listen()")
 
     // Protect set listen and storing its state (m_listen).
-    std::scoped_lock lock(m_listen_mutex);
+    ::pthread_mutex_lock(&m_socket_mutex);
 
-    if (m_listen)
+    if (m_listen) {
+        ::pthread_mutex_unlock(&m_socket_mutex);
         return;
+    }
 
     CSocketErr serrObj;
     // Second argument backlog (maximum length of the queue for pending
     // connections) is hard coded for now.
     if (umock::sys_socket_h.listen(m_sfd, SOMAXCONN) != 0) {
         serrObj.catch_error();
+        ::pthread_mutex_unlock(&m_socket_mutex);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1034") "Failed to set socket to listen: " +
             serrObj.error_str() + '\n');
@@ -539,20 +573,23 @@ void CSocket::listen() {
     UPnPsdk_LOGINFO("MSG1032") "syscall ::listen(" << m_sfd << ", " << SOMAXCONN
                                                    << ").\n";
     m_listen = true;
+    ::pthread_mutex_unlock(&m_socket_mutex);
 }
 
 // Getter
 // ------
 bool CSocket::is_listen() const {
     TRACE2(this, " Executing CSocket::is_listen()")
-    if (m_sfd == INVALID_SOCKET)
+    ::pthread_mutex_lock(&m_socket_mutex);
+    if (m_sfd == INVALID_SOCKET) {
+        ::pthread_mutex_unlock(&m_socket_mutex);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1035") "Failed to get socket option "
                                          "'is_Listen': Bad file descriptor.\n");
-
-    // m_listen is protected.
-    std::scoped_lock lock(m_listen_mutex);
-    return m_listen;
+    }
+    const auto listen{m_listen};
+    ::pthread_mutex_unlock(&m_socket_mutex);
+    return listen;
 }
 
 

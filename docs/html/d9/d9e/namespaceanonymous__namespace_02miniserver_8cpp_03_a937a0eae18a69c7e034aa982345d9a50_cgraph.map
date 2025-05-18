@@ -1,13 +1,11 @@
 <map id="anonymous_namespace{miniserver::cpp}::fdset_if_valid" name="anonymous_namespace{miniserver::cpp}::fdset_if_valid">
-<area shape="rect" id="Node000001" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="5,30,185,85"/>
-<area shape="rect" id="Node000002" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="233,5,413,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,42,220,37,220,42,186,47"/>
-<area shape="rect" id="Node000005" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a3fa77060ec104f1300521d00b9ca50e9" title="Get the local socket address the socket is bound to." alt="" coords="233,69,413,109"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="186,67,220,72,220,77,185,73"/>
+<area shape="rect" id="Node000001" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="5,62,185,117"/>
+<area shape="rect" id="Node000002" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="233,37,413,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,74,220,69,220,74,186,79"/>
+<area shape="rect" id="Node000005" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a3fa77060ec104f1300521d00b9ca50e9" title="Get the local socket address the socket is bound to." alt="" coords="233,101,413,141"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="186,99,220,104,220,109,185,105"/>
 <area shape="rect" id="Node000003" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="461,5,619,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="414,23,448,23,448,28,414,28"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="413,41,448,36,448,42,414,47"/>
 <area shape="rect" id="Node000004" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="461,69,619,109"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="393,43,460,63,458,68,391,48"/>
-<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="391,67,458,47,460,52,393,72"/>
-<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="414,87,448,87,448,92,414,92"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="414,68,448,73,448,78,413,73"/>
 </map>

@@ -102,23 +102,14 @@ struct CXmlAlias {
     /// \cond
     // Constructor
     // -----------
-    CXmlAlias() { TRACE2(this, " Construct CXmlAlias()"); }
-
-    // Destructor
-    // ----------
-    ~CXmlAlias() {
-        TRACE2(this, " Destruct CXmlAlias()");
-        this->clear_private();
-        if (pthread_mutex_destroy(&web_mutex) != 0)
-            UPnPsdk_LOGCRIT(
-                "MSG1150") "fails with EBUSY. The mutex is currently locked.\n";
-    }
+    CXmlAlias(){TRACE2(this, " Construct CXmlAlias()")}
 
     /// \brief Copy constructor
     // ------------------------
     CXmlAlias(const CXmlAlias& that) {
-        TRACE2(this, " Executing CXmlAlias copy constructor()");
-        pthread_mutex_lock(&web_mutex);
+        TRACE2(this, " Executing CXmlAlias copy constructor()")
+
+        ::pthread_mutex_lock(&m_web_mutex);
         this->m_name = that.m_name;
         this->m_last_modified = that.m_last_modified;
         if (that.m_doc.data() == nullptr) {
@@ -131,13 +122,13 @@ struct CXmlAlias {
             memcpy(doc, that.m_doc.data(), doc_len);
             this->m_doc = std::string_view(doc, doc_len);
         }
-        pthread_mutex_unlock(&web_mutex);
+        ::pthread_mutex_unlock(&m_web_mutex);
     }
 
     /// \brief Copy assignment operator
     // --------------------------------
     CXmlAlias& operator=(CXmlAlias that) {
-        TRACE2(this, " Executing CXmlAlias assignment operator=");
+        TRACE2(this, " Executing CXmlAlias assignment operator=")
         // The copy constructor has alread done its work to copy the current
         // object to the stack. No need to protect with a mutex. This swapping
         // from the stack is thread safe.
@@ -148,6 +139,16 @@ struct CXmlAlias {
 
         // by convention, always return *this
         return *this;
+    }
+
+    // Destructor
+    // ----------
+    ~CXmlAlias() {
+        TRACE2(this, " Destruct CXmlAlias()")
+        this->clear_private();
+        if (::pthread_mutex_destroy(&m_web_mutex) != 0)
+            UPnPsdk_LOGCRIT(
+                "MSG1150") "fails with EBUSY. The mutex is currently locked.\n";
     }
     /// \endcond
 
@@ -163,17 +164,17 @@ struct CXmlAlias {
     int set(const char* a_alias_name, const char*& a_alias_content,
             size_t& a_alias_content_length,
             time_t a_last_modified = time(nullptr)) {
-        TRACE2(this, " Executing CXmlAlias::set()");
-        pthread_mutex_lock(&web_mutex);
+        TRACE2(this, " Executing CXmlAlias::set()")
+        ::pthread_mutex_lock(&m_web_mutex);
 
         if (a_alias_name == nullptr) {
             /* don't serve aliased doc anymore */
             this->release_private();
-            pthread_mutex_unlock(&web_mutex);
+            ::pthread_mutex_unlock(&m_web_mutex);
             return UPNP_E_SUCCESS;
         }
         if (a_alias_content == nullptr) {
-            pthread_mutex_unlock(&web_mutex);
+            ::pthread_mutex_unlock(&m_web_mutex);
             return UPNP_E_INVALID_ARGUMENT;
         }
         this->release_private();
@@ -190,7 +191,7 @@ struct CXmlAlias {
         a_alias_content_length = 0;
         m_ct = 1;
 
-        pthread_mutex_unlock(&web_mutex);
+        ::pthread_mutex_unlock(&m_web_mutex);
         return UPNP_E_SUCCESS;
     }
 
@@ -198,9 +199,9 @@ struct CXmlAlias {
     // -----------------------------------------------------------------
     std::string_view name() const {
         TRACE2(this, " Executing CXmlAlias::name()")
-        pthread_mutex_lock(&web_mutex);
+        ::pthread_mutex_lock(&m_web_mutex);
         std::string_view name = m_name;
-        pthread_mutex_unlock(&web_mutex);
+        ::pthread_mutex_unlock(&m_web_mutex);
         return name;
     }
 
@@ -208,9 +209,9 @@ struct CXmlAlias {
     // -----------------------------------------------------
     std::string_view doc() const {
         TRACE2(this, " Executing CXmlAlias::doc()")
-        pthread_mutex_lock(&web_mutex);
+        ::pthread_mutex_lock(&m_web_mutex);
         std::string_view doc = m_doc;
-        pthread_mutex_unlock(&web_mutex);
+        ::pthread_mutex_unlock(&m_web_mutex);
         return doc;
     }
 
@@ -219,9 +220,9 @@ struct CXmlAlias {
     // ------------------------------------------------------------------
     time_t last_modified() const {
         TRACE2(this, " Executing CXmlAlias::last_modified()")
-        pthread_mutex_lock(&web_mutex);
+        ::pthread_mutex_lock(&m_web_mutex);
         auto last_modified = m_last_modified;
-        pthread_mutex_unlock(&web_mutex);
+        ::pthread_mutex_unlock(&m_web_mutex);
         return last_modified;
     }
 
@@ -229,33 +230,33 @@ struct CXmlAlias {
     // ---------------------------------------------------------------
     bool is_valid() const {
         TRACE2(this, " Executing CXmlAlias::is_valid()")
-        pthread_mutex_lock(&web_mutex);
+        ::pthread_mutex_lock(&m_web_mutex);
         auto doc = m_doc.data();
-        pthread_mutex_unlock(&web_mutex);
+        ::pthread_mutex_unlock(&m_web_mutex);
         return doc != nullptr;
     }
 
     /// \brief Release an XML document from the XML object
     // ---------------------------------------------------
     void release() {
-        TRACE2(this, " Executing CXmlAlias::release()");
-        pthread_mutex_lock(&web_mutex);
+        TRACE2(this, " Executing CXmlAlias::release()")
+        ::pthread_mutex_lock(&m_web_mutex);
         this->release_private();
-        pthread_mutex_unlock(&web_mutex);
+        ::pthread_mutex_unlock(&m_web_mutex);
     }
 
     /// \brief Clear the XML object
     // ----------------------------
     void clear() {
-        TRACE2(this, " Executing CXmlAlias::clear()");
-        pthread_mutex_lock(&web_mutex);
+        TRACE2(this, " Executing CXmlAlias::clear()")
+        ::pthread_mutex_lock(&m_web_mutex);
         this->clear_private();
-        pthread_mutex_unlock(&web_mutex);
+        ::pthread_mutex_unlock(&m_web_mutex);
     }
 
   private:
     /*! \brief Mutex to protect this class */
-    mutable pthread_mutex_t web_mutex = PTHREAD_MUTEX_INITIALIZER;
+    mutable ::pthread_mutex_t m_web_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     /*! \brief name of DOC from root; e.g.: /foo/bar/mydesc.xml */
     std::string m_name;
@@ -353,7 +354,7 @@ inline int search_extension(   //
         UPnPsdk::select_filetype(std::string_view(a_extension));
 
     if (filetype == nullptr) {
-        TRACE("  search_extension: return with -1");
+        TRACE("  search_extension: return with -1")
         return -1;
     }
     *a_con_type = filetype->type.c_str();
@@ -1642,7 +1643,7 @@ void web_server_callback(http_parser_t* a_parser,
 }
 
 void SetHTTPGetCallback(MiniServerCallback callback) {
-    TRACE("Executing SetHTTPGetCallback()");
+    TRACE("Executing SetHTTPGetCallback()")
     gGetCallback = callback;
 }
 

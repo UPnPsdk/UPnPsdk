@@ -72,15 +72,15 @@ var NAVTREEINDEX =
 "d1/d03/group__UpnpString.html#ab0ae2d6e9f981c064cfe0f2a51aea37d",
 "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a3355aacf8ea50cef6cd089fc6f7c9e13",
 "d4/d6b/UpnpActionRequest_8cpp.html#a759d018065ba10c622cd8d1e5aeee350",
-"d6/d72/UpnpStateVarRequest_8hpp.html#a23425b383c5d93dada0e4c2649ee1806",
-"d7/d47/UpnpActionRequest_8hpp.html",
-"d8/db8/UpnpDiscovery_8cpp.html#af507261051a77f7009352bdd85d59c94",
-"d9/dd2/gena_8hpp.html#adbf0ace2a4e3ab28ad0f18bc7a2e37e7",
-"da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542",
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#a6e0b9e33fdd62f45a1374e399e0bc082",
-"dd/dbe/UPnPsdk_2src_2api_2upnptools_8cpp.html",
-"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aadee92777b096085e98d344620edd451",
-"globals_func_u.html"
+"d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#d4/d8a/structanonymous__namespace_02httpreadwrite_8cpp_03_1_1http__connection__handle__t",
+"d7/d3a/UpnpExtraHeaders_8cpp.html#adc75f9d14c6b550f8fd1ab55e61132e9",
+"d8/db8/UpnpDiscovery_8cpp.html#ae7bb7d2f2e9c71027d1a586b63b752da",
+"d9/dd2/gena_8hpp.html#ac35a1bd5c263cd4d1d70aa786b5c539d",
+"da/dff/ixmlparser_8cpp.html#a46a73d42b9c999a1298cff940f216cb7",
+"dc/df7/structUPnPsdk_1_1SSockaddr.html#a12a001f2043f8c4ef1d45ec0f402e566",
+"dd/da6/UpnpFileInfo_8cpp.html#aeab0e70e09f4ec70dc1714fd6070dded",
+"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aa87468a6ef98f54ebd919c9ba6ea0f32",
+"globals_func_l.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

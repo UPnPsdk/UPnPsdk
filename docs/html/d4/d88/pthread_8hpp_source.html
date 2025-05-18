@@ -103,9 +103,9 @@ $(document).ready(function(){initNavTree('d4/d88/pthread_8hpp_source.html','../.
 <a href="../../d4/d88/pthread_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef UPnPsdk_PTHREAD_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define UPnPsdk_PTHREAD_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-05-05</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-05-19</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/d21/visibility_8hpp.html">UPnPsdk/visibility.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/d21/visibility_8hpp.html">UPnPsdk/visibility.hpp</a>&gt;</span> <span class="comment">// needed for some platforms</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;pthread.h&quot;</span> <span class="comment">// To find pthreads4w don&#39;t use &lt;pthread.h&gt;</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
@@ -170,11 +170,26 @@ $(document).ready(function(){initNavTree('d4/d88/pthread_8hpp_source.html','../.
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><a class="code hl_define" href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a> uint64_t <a class="code hl_function" href="../../dd/d67/namespaceUPnPsdk.html#a2a68659cc5b319d1eeda06f219c64c59">pthread_self</a>();</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>} <span class="comment">// namespace UPnPsdk</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#endif </span><span class="comment">/* UPnPsdk_PTHREAD_HPP */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="foldopen" id="foldopen00103" data-start="{" data-end="};">
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="../../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html">  103</a></span><span class="keyword">class </span><a class="code hl_class" href="../../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html">CPthread_scoped_lock</a> {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_class" href="../../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html">CPthread_scoped_lock</a>(</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        ::pthread_mutex_t&amp; a_mutex );</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_function" href="../../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html#a5605ce19141d410549b263627c0a85a3">~CPthread_scoped_lock</a>();</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    ::pthread_mutex_t&amp; m_mutex;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>};</div>
+</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>} <span class="comment">// namespace UPnPsdk</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">#endif </span><span class="comment">/* UPnPsdk_PTHREAD_HPP */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CPthread__scoped__lock_html"><div class="ttname"><a href="../../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html">UPnPsdk::CPthread_scoped_lock</a></div><div class="ttdoc">Scoped POSIX thread mutex lock is valid for the current scope of the object.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d88/pthread_8hpp_source.html#l00103">pthread.hpp:103</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CPthread__scoped__lock_html_a5605ce19141d410549b263627c0a85a3"><div class="ttname"><a href="../../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html#a5605ce19141d410549b263627c0a85a3">UPnPsdk::CPthread_scoped_lock::~CPthread_scoped_lock</a></div><div class="ttdeci">~CPthread_scoped_lock()</div><div class="ttdoc">Unlock the mutex that was locked by the constructor.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/db3/pthread_8cpp_source.html#l00037">pthread.cpp:37</a></div></div>
 <div class="ttc" id="anamespaceUPnPsdk_html"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a></div><div class="ttdoc">Reengineered Object Oriented UPnP+ program code.</div></div>
-<div class="ttc" id="anamespaceUPnPsdk_html_a2a68659cc5b319d1eeda06f219c64c59"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a2a68659cc5b319d1eeda06f219c64c59">UPnPsdk::pthread_self</a></div><div class="ttdeci">UPnPsdk_API uint64_t pthread_self()</div><div class="ttdoc">Get pthread thread id as unsigned integer.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/db3/pthread_8cpp_source.html#l00018">pthread.cpp:18</a></div></div>
+<div class="ttc" id="anamespaceUPnPsdk_html_a2a68659cc5b319d1eeda06f219c64c59"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a2a68659cc5b319d1eeda06f219c64c59">UPnPsdk::pthread_self</a></div><div class="ttdeci">UPnPsdk_API uint64_t pthread_self()</div><div class="ttdoc">Get pthread thread id as unsigned integer.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/db3/pthread_8cpp_source.html#l00020">pthread.cpp:20</a></div></div>
 <div class="ttc" id="avisibility_8hpp_html"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html">visibility.hpp</a></div><div class="ttdoc">Macros to support visibility of external symbols.</div></div>
 <div class="ttc" id="avisibility_8hpp_html_a4d2eaa20d58e8671ac73f5fdcd45dd98"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98">UPnPsdk_API</a></div><div class="ttdeci">#define UPnPsdk_API</div><div class="ttdoc">Prefix to export symbol for external use.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d21/visibility_8hpp_source.html#l00061">visibility.hpp:61</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
