@@ -1,7 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"da/dff/ixmlparser_8cpp.html#a58c0bf5b0affb7aafd9ec24a75a5bb42":[7,0,1,0,1,7,10],
-"da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542":[7,0,1,0,1,7,49],
 "da/dff/ixmlparser_8cpp.html#a5c3878cac5b3d270fcab7f0137d27639":[7,0,1,0,1,7,24],
 "da/dff/ixmlparser_8cpp.html#a5d59957643934c19e8e073481602d561":[7,0,1,0,1,7,16],
 "da/dff/ixmlparser_8cpp.html#a6116f23c2b6e4a021870ad6b09f38500":[7,0,1,0,1,7,38],
@@ -249,5 +247,7 @@ var NAVTREEINDEX8 =
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a1f9d157e611b5cda3903b0497728c7c6":[4,3,0,0,3,2],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5":[4,3,0,0,3,7],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a20b517fd6087268d643f8bd7433ec83a":[4,3,0,0,3,3],
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#a2af7f7338ae0bdbb8bd731cadba0dbaa":[4,3,0,0,3,5]
+"dc/df7/structUPnPsdk_1_1SSockaddr.html#a2af7f7338ae0bdbb8bd731cadba0dbaa":[4,3,0,0,3,5],
+"dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8":[4,3,0,0,3,13],
+"dc/df7/structUPnPsdk_1_1SSockaddr.html#a6e0b9e33fdd62f45a1374e399e0bc082":[4,3,0,0,3,12]
 };

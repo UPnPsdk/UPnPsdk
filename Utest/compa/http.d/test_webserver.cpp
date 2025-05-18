@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-16
+// Redistribution only with this Copyright remark. Last modified: 2025-05-18
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -42,7 +42,7 @@ static inline void gAliasDoc.clear();
     // Not needed anymore. This will be done by instantiation of the structure
     // and with its constructor.
 int web_server_set_alias();         // Will become method set().
-static void alias_grab();           // will become method get().
+static void alias_grab();           // will become copy constructor.
 static inline int is_valid_alias(); // Will become method is_valid().
 static void alias_release();        // Will become method release().
 */
@@ -73,7 +73,9 @@ using ::testing::ExitedWithCode;
 using ::testing::HasSubstr;
 using ::UPnPsdk::errStrEx;
 
-#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+auto& process_request_in = process_request;
+#else
 using ::compa::pathType::ABS_PATH;
 using ::compa::uriType::Relative;
 #endif
@@ -162,7 +164,7 @@ TEST(WebServerTestSuite, set_root_dir_empty_string) {
     if (github_actions && !old_code)
         GTEST_SKIP() << "             known failing test on Github Actions";
 
-    // Initialize global variable to avoid side effects
+    // Initialize global variable
     membuffer_init(&gDocumentRootDir);
 
     // Test Unit
@@ -174,7 +176,7 @@ TEST(WebServerTestSuite, set_root_dir_empty_string) {
         std::cout << CRED "[ BUG      ] " CRES << __LINE__
                   << ": Assign an empty string must point to an empty string "
                      "but not having a nullptr.\n";
-        EXPECT_EQ(gDocumentRootDir.buf, nullptr); // Wrong
+        EXPECT_EQ(gDocumentRootDir.buf, nullptr); // Wrong!
 
     } else {
 
@@ -1178,11 +1180,11 @@ TEST_F(XMLaliasFTestSuite, alias_grab_valid_structure) {
     EXPECT_EQ(*gAliasDoc_dup.ct, 2);
 
 #else  // UPnPsdk_WITH_NATIVE_PUPNP
+    // There is no alias_grab() function on new code. It is made with the copy
+    // assignment constructor of xml_alias_t.
 
     // Test Unit
-    gAliasDoc.grab(&gAliasDoc_dup);
-    // Less expensive the same should be (without copy assign constructor):
-    // auto gAliasDoc_dup = gAliasDoc;
+    gAliasDoc_dup = gAliasDoc;
 
     EXPECT_EQ(gAliasDoc_dup.doc(), "Test for a valid alias");
     EXPECT_EQ(gAliasDoc_dup.name(), "/is_valid_alias");
@@ -1206,42 +1208,38 @@ TEST_F(XMLaliasFDeathTest, alias_grab_empty_structure) {
     ASSERT_DEATH(alias_grab(&gAliasDoc_dup), ".*");
 
 #else  // UPnPsdk_WITH_NATIVE_PUPNP
+    // There is no alias_grab() function on new code. It is made with the copy
+    // assignment constructor of xml_alias_t.
 
     // This expects NO abort.
     ASSERT_EXIT(
         {
-            gAliasDoc.grab(&gAliasDoc_dup);
+            gAliasDoc_dup = gAliasDoc;
             exit(0);
         },
         ExitedWithCode(0), ".*");
 
-    gAliasDoc.grab(&gAliasDoc_dup);
+    gAliasDoc_dup = gAliasDoc;
     EXPECT_EQ(gAliasDoc_dup.doc(), std::string_view(nullptr, 0));
     EXPECT_TRUE(gAliasDoc_dup.name().empty());
     EXPECT_EQ(gAliasDoc_dup.last_modified(), 0);
 #endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
-TEST_F(XMLaliasFDeathTest, alias_grab_nullptr) {
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
+// There is no alias_grab() function on new code. It is made with the copy
+// assignment constructor of xml_alias_t but it's not possible to assign to a
+// nullptr.
+TEST_F(XMLaliasFDeathTest, alias_grab_nullptr) {
     // Test Unit
     std::cout << CYEL "[ FIX      ] " CRES << __LINE__
               << ": alias_grab(nullptr) must not segfault or abort with "
                  "failed assertion.\n";
     ASSERT_DEATH(::alias_grab(nullptr), ".*");
-
-#else  // UPnPsdk_WITH_NATIVE_PUPNP
-
-    ASSERT_EXIT(
-        {
-            gAliasDoc.grab(nullptr);
-            exit(0);
-        },
-        ExitedWithCode(0), ".*");
-#endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 
-TEST(XMLaliasTestSuite, process_request) {
+TEST(XMLaliasTestSuite, process_request_in) {
 #if 0
     // Snapshot with gdb:
     // ------------------
@@ -1274,13 +1272,26 @@ TEST(XMLaliasTestSuite, process_request) {
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // This is needed, otherwise getting a segfault.
-    // Initialize web server.
     bWebServerState = WEB_SERVER_DISABLED;
     web_server_init();
 #endif
     // Set web server root dir.
     membuffer_init(&gDocumentRootDir);
     EXPECT_EQ(web_server_set_root_dir(SAMPLE_SOURCE_DIR "/web"), 0);
+
+    // Set web server alias.
+    char alias_name[]{"is_valid_alias"}; // length = 14 + 1
+    // The content string must be allocated on the heap because it is freed by
+    // the unit.
+    constexpr char content[]{"Test for a valid alias"}; // length = 22 + 1
+    char* alias_content = new char[sizeof(content)];
+    ::strcpy(alias_content, content);
+    // alias_content_length is without terminating '\0'
+    // bash get time_t as sec since Epoch: date +'%FT%T = %s'
+    // 2025-05-10T22:57:11 = 1746910631
+    EXPECT_EQ(web_server_set_alias(alias_name, alias_content,
+                                   sizeof(content) - 1, 1746910631),
+              0);
 
     // Input arguments
     SOCKINFO local_addrinfo{};
@@ -1302,16 +1313,20 @@ TEST(XMLaliasTestSuite, process_request) {
     SendInstruction RespInstr;
 
     // Test Unit
-    EXPECT_EQ(process_request(/*in*/ &local_addrinfo, /*in*/ &req,
-                              /*out*/ &rtype,
-                              /*out*/ &headers, /*out*/ &filename,
-                              /*out*/ &a_alias, /*out*/ &RespInstr),
+    EXPECT_EQ(process_request_in(/*in*/ &local_addrinfo, /*in*/ &req,
+                                 /*out*/ &rtype,
+                                 /*out*/ &headers, /*out*/ &filename,
+                                 /*out*/ &a_alias, /*out*/ &RespInstr),
               HTTP_OK);
 
     EXPECT_EQ(rtype, RESP_FILEDOC);
     EXPECT_THAT(headers.buf,
                 HasSubstr("UPnP/1.0, Portable SDK for UPnP devices/"));
     EXPECT_THAT(filename.buf, HasSubstr("/Sample/web/tvdevicedesc.xml"));
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    web_server_destroy();
+#endif
 }
 
 } // namespace utest

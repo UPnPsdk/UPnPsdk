@@ -1,7 +1,5 @@
 var NAVTREEINDEX9 =
 {
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8":[4,3,0,0,3,13],
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#a6e0b9e33fdd62f45a1374e399e0bc082":[4,3,0,0,3,12],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a7fb20663e898118cf58c34e3ad4bbf09":[4,3,0,0,3,15],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a8457ec8e8e7da28afc70095f2f61a795":[4,3,0,0,3,10],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a8b52904288181002af2f93d13fa43c09":[4,3,0,0,3,1],
@@ -249,5 +247,7 @@ var NAVTREEINDEX9 =
 "dd/da6/UpnpFileInfo_8cpp.html#aeba9fa8ab52f4d524744789522766109":[7,0,0,1,0,8,12],
 "dd/da6/UpnpFileInfo_8cpp.html#d7/d1f/structs__UpnpFileInfo":[7,0,0,1,0,8,0],
 "dd/da6/UpnpFileInfo_8cpp_source.html":[7,0,0,1,0,8],
-"dd/db9/win32_2UPnPsdk_2netadapter__platform_8hpp.html":[7,0,2,0,2,0,0]
+"dd/db9/win32_2UPnPsdk_2netadapter__platform_8hpp.html":[7,0,2,0,2,0,0],
+"dd/db9/win32_2UPnPsdk_2netadapter__platform_8hpp_source.html":[7,0,2,0,2,0,0],
+"dd/dbe/UPnPsdk_2src_2api_2upnptools_8cpp.html":[7,0,2,1,0,0]
 };

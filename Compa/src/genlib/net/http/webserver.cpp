@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-18
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -222,21 +222,6 @@ struct xml_alias_t {
         auto last_modified = m_last_modified;
         pthread_mutex_unlock(&web_mutex);
         return last_modified;
-    }
-
-    /*! \brief Copy this object of the global XML document to the local output
-     * parameter. */
-    // -----------------------------------------------------------------------
-    void grab(xml_alias_t* a_alias /*!< [out] this XML alias object. */) {
-        TRACE2(this, " Executing xml_alias_t::grab()")
-        pthread_mutex_lock(&web_mutex);
-        auto doc = m_doc.data();
-        pthread_mutex_unlock(&web_mutex);
-        if (a_alias != nullptr && doc != nullptr) {
-            // This invokes the copy assignment constructor that should do a
-            // correct copy.
-            *a_alias = *this;
-        }
     }
 
     /// \brief Returns if the XML object contains a valid XML document
@@ -1035,7 +1020,7 @@ int ExtraHTTPHeaders(
  *  - HTTP_NOT_FOUND
  *  - HTTP_NOT_ACCEPTABLE
  */
-int process_request(
+int process_request_in(
     /*! [in] Socket info. */
     SOCKINFO* info,
     /*! [in] HTTP Request message. */
@@ -1056,6 +1041,7 @@ int process_request(
     char* request_doc{nullptr};
     UpnpFileInfo* finfo;
     time_t aux_LastModified;
+    bool alias_grabbed{false};
     int using_alias{0};
     int using_virtual_dir{0};
     uri_type* url;
@@ -1064,7 +1050,6 @@ int process_request(
     int resp_minor;
     size_t dummy;
     memptr hdr_value;
-    bool alias_grabbed{false};
 
     url = &req->uri;
     assert(req->method == HTTPMETHOD_GET || req->method == HTTPMETHOD_HEAD ||
@@ -1107,7 +1092,7 @@ int process_request(
     } else {
         /* try using alias */
         if (a_alias != nullptr && gAliasDoc.is_valid()) {
-            gAliasDoc.grab(a_alias);
+            *a_alias = gAliasDoc;
             alias_grabbed = true;
             using_alias = get_alias(request_doc, a_alias, finfo);
             if (using_alias == 1) {
@@ -1598,10 +1583,10 @@ void web_server_callback(http_parser_t* a_parser,
     membuffer_init(&headers);
     membuffer_init(&filename);
 
-    /* Process request should create the different kind of header depending
-     * on the type of request. */
-    ret = process_request(a_info, a_req, &rtype, &headers, &filename, &xmldoc,
-                          &RespInstr);
+    /* Process request should create the different kind of header depending on
+     * the type of request. */
+    ret = process_request_in(a_info, a_req, &rtype, &headers, &filename,
+                             &xmldoc, &RespInstr);
     if (ret != HTTP_OK) {
         /* send error code */
         http_SendStatusResponse(a_info, ret, a_req->major_version,

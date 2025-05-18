@@ -1,11 +1,10 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-17
+// Redistribution only with this Copyright remark. Last modified: 2025-05-18
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Remove xml_alias_t::grab().
  * - Rename xml_alias_t to CXmlAlias and reorganize namespaces in webserver.cpp.
  * - Manage pthread_mutex_lock for socket objects to miniserver thread, when needed.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
