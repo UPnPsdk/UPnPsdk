@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['last_5fmodified_0',['last_modified',['../d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html#a40a486b385cc469f96849a17469bf322',1,'anonymous_namespace{webserver.cpp}::xml_alias_t']]],
+  ['last_5fmodified_0',['last_modified',['../d3/dc3/structcompa_1_1anonymous__namespace_02webserver_8cpp_03_1_1CXmlAlias.html#a9985215f7bc7f1a8586d7529c055ff65',1,'compa::anonymous_namespace{webserver.cpp}::CXmlAlias']]],
   ['listaddafter_1',['listaddafter',['../df/db8/LinkedList_8cpp.html#a855b4c371edc80adeb42e1398d46f22d',1,'ListAddAfter(LinkedList *list, void *item, ListNode *bnode):&#160;LinkedList.cpp'],['../de/dd1/LinkedList_8hpp.html#a855b4c371edc80adeb42e1398d46f22d',1,'ListAddAfter(LinkedList *list, void *item, ListNode *bnode):&#160;LinkedList.cpp']]],
   ['listaddbefore_2',['listaddbefore',['../df/db8/LinkedList_8cpp.html#a8099505e5bec8749a64a0f2b1d3179c7',1,'ListAddBefore(LinkedList *list, void *item, ListNode *anode):&#160;LinkedList.cpp'],['../de/dd1/LinkedList_8hpp.html#a8099505e5bec8749a64a0f2b1d3179c7',1,'ListAddBefore(LinkedList *list, void *item, ListNode *anode):&#160;LinkedList.cpp']]],
   ['listaddhead_3',['listaddhead',['../df/db8/LinkedList_8cpp.html#a8c517a31d1d52d1ed1f48d4338b31781',1,'ListAddHead(LinkedList *list, void *item):&#160;LinkedList.cpp'],['../de/dd1/LinkedList_8hpp.html#a8c517a31d1d52d1ed1f48d4338b31781',1,'ListAddHead(LinkedList *list, void *item):&#160;LinkedList.cpp']]],

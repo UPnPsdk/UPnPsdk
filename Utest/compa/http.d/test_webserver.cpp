@@ -56,7 +56,7 @@ namespace {
  */
 inline bool is_valid_alias(
     /*! [in] XML alias object. */
-    const xml_alias_t* alias) {
+    const CXmlAlias* alias) {
     TRACE("Executing is_valid_alias()")
     if (alias == nullptr)
         return false;
@@ -74,8 +74,15 @@ using ::testing::HasSubstr;
 using ::UPnPsdk::errStrEx;
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
+using CXmlAlias = xml_alias_t;
 auto& process_request_in = process_request;
 #else
+using ::compa::CXmlAlias;
+using ::compa::gAliasDoc;
+using ::compa::get_content_type;
+using ::compa::RESP_FILEDOC;
+using ::compa::resp_type;
+using ::compa::search_extension;
 using ::compa::pathType::ABS_PATH;
 using ::compa::uriType::Relative;
 #endif
@@ -311,7 +318,7 @@ TEST(MediaListDeathTest, get_content_type_with_no_filename) {
                   << ": get_content_type called with nullptr to filename must "
                      "not segfault.\n";
         // This expects segfault.
-        EXPECT_DEATH(::get_content_type(nullptr, f.info), ".*");
+        EXPECT_DEATH(get_content_type(nullptr, f.info), ".*");
 
     } else {
 
@@ -337,7 +344,7 @@ TEST(MediaListDeathTest, get_content_type_with_no_fileinfo) {
                   << ": get_content_type called with nullptr to fileinfo must "
                      "not segfault.\n";
         // This expects segfault.
-        EXPECT_DEATH(::get_content_type("filename.txt", nullptr), ".*");
+        EXPECT_DEATH(get_content_type("filename.txt", nullptr), ".*");
 
     } else {
 
@@ -420,7 +427,7 @@ TEST(XMLaliasTestSuite, glob_alias_init_and_release) {
     pthread_mutex_init(&gWebMutex, nullptr);
     glob_alias_init();
 
-    xml_alias_t* alias = &gAliasDoc;
+    CXmlAlias* alias = &gAliasDoc;
     // An initialized empty structure does not contain a valid alias.
     ASSERT_FALSE(is_valid_alias(alias));
 
@@ -459,7 +466,7 @@ TEST(XMLaliasTestSuite, glob_alias_init_and_release) {
 
 #else // UPnPsdk_WITH_NATIVE_PUPNP
 
-    xml_alias_t* alias = &gAliasDoc;
+    CXmlAlias* alias = &gAliasDoc;
 
     // Test Unit
     alias->clear();
@@ -484,7 +491,7 @@ TEST(XMLaliasTestSuite, glob_alias_init_and_release) {
 
 TEST_F(XMLaliasFTestSuite, copy_empty_structure) {
     // Test Unit, gAliasDoc is initialized by the fixture.
-    xml_alias_t aliasDoc{gAliasDoc};
+    CXmlAlias aliasDoc{gAliasDoc};
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Check the copied alias.
@@ -526,7 +533,7 @@ TEST_F(XMLaliasFTestSuite, copy_structure) {
     *gAliasDoc.ct = 2;
 
     // Test Unit
-    xml_alias_t aliasDoc{gAliasDoc};
+    CXmlAlias aliasDoc{gAliasDoc};
 
     EXPECT_EQ(*aliasDoc.ct, 2);
 
@@ -541,7 +548,7 @@ TEST_F(XMLaliasFTestSuite, copy_structure) {
 #else  // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
-    xml_alias_t aliasDoc{gAliasDoc};
+    CXmlAlias aliasDoc{gAliasDoc};
 
     EXPECT_EQ(aliasDoc.name(), "/valid_alias_name1");
     EXPECT_EQ(aliasDoc.doc(), "XML Dokument string1");
@@ -550,7 +557,7 @@ TEST_F(XMLaliasFTestSuite, copy_structure) {
 
 TEST_F(XMLaliasFTestSuite, assign_empty_structure) {
     // Test Unit, gAliasDoc is initialized by the fixture.
-    xml_alias_t aliasDoc;
+    CXmlAlias aliasDoc;
     aliasDoc = gAliasDoc;
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
@@ -590,7 +597,7 @@ TEST_F(XMLaliasFTestSuite, assign_structure) {
     *gAliasDoc.ct = 3;
 
     // Test Unit
-    xml_alias_t aliasDoc;
+    CXmlAlias aliasDoc;
     aliasDoc = gAliasDoc;
 
     EXPECT_EQ(*aliasDoc.ct, 3);
@@ -606,7 +613,7 @@ TEST_F(XMLaliasFTestSuite, assign_structure) {
 #else  // UPnPsdk_WITH_NATIVE_PUPNP
 
     // Test Unit
-    xml_alias_t aliasDoc;
+    CXmlAlias aliasDoc;
     aliasDoc = gAliasDoc;
 
     EXPECT_EQ(aliasDoc.name(), "/valid_alias_name2");
@@ -614,7 +621,7 @@ TEST_F(XMLaliasFTestSuite, assign_structure) {
 #endif // UPnPsdk_WITH_NATIVE_PUPNP
 }
 
-// For new code there is only a member function xml_alias_t::release() that
+// For new code there is only a member function CXmlAlias::release() that
 // exists on an instantiated object. No possibility to have a nullptr.
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(XMLaliasFDeathTest, alias_release_nullptr) {
@@ -625,7 +632,7 @@ TEST_F(XMLaliasFDeathTest, alias_release_nullptr) {
 }
 #endif // UPnPsdk_WITH_NATIVE_PUPNP
 
-// For new code there is only a member function xml_alias_t::is_valid() that
+// For new code there is only a member function CXmlAlias::is_valid() that
 // exists on an instantiated object. No possibility to have a nullptr.
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(XMLaliasFDeathTest, is_valid_alias_nullptr) {
@@ -634,7 +641,7 @@ TEST_F(XMLaliasFDeathTest, is_valid_alias_nullptr) {
     // This expects segfault.
     EXPECT_DEATH(
         {
-            int rc = ::is_valid_alias((::xml_alias_t*)nullptr);
+            int rc = ::is_valid_alias((CXmlAlias*)nullptr);
             // Next statement is only executed if there was no segfault but
             // it's needed to suppress optimization to remove unneeded
             // return code.
@@ -669,8 +676,8 @@ TEST(XMLaliasTestSuite, is_valid_alias_uninitialized_structure) {
 
     // Because it is impossible to test for invalid pointers it is important
     // to "nullify" the structure.
-    ::xml_alias_t alias{};
-    // memset(&alias, 0xA5, sizeof(xml_alias_t));
+    CXmlAlias alias{};
+    // memset(&alias, 0xA5, sizeof(CXmlAlias));
     // This "random" structure setting will report a valid alias
 
     // Test Unit
@@ -700,7 +707,7 @@ TEST_F(XMLaliasFTestSuite, set_alias_check_is_valid_and_release_global_alias) {
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Test Unit is_valid_alias()
-    ASSERT_TRUE(is_valid_alias((xml_alias_t*)&gAliasDoc));
+    ASSERT_TRUE(is_valid_alias((CXmlAlias*)&gAliasDoc));
 
     EXPECT_STREQ(gAliasDoc.doc.buf, "Test for a valid alias");
     EXPECT_EQ(gAliasDoc.doc.length, strlen(gAliasDoc.doc.buf));
@@ -719,8 +726,8 @@ TEST_F(XMLaliasFTestSuite, set_alias_check_is_valid_and_release_global_alias) {
     EXPECT_EQ(gAliasDoc.last_modified, 1746910631);
 
     // Test Unit alias_release()
-    alias_release((xml_alias_t*)&gAliasDoc);
-    ASSERT_FALSE(is_valid_alias((xml_alias_t*)&gAliasDoc));
+    alias_release((CXmlAlias*)&gAliasDoc);
+    ASSERT_FALSE(is_valid_alias((CXmlAlias*)&gAliasDoc));
 
     EXPECT_STREQ(gAliasDoc.doc.buf, nullptr);
     EXPECT_EQ(gAliasDoc.doc.length, (size_t)0);
@@ -1118,7 +1125,7 @@ TEST(XMLaliasTestSuite, set_alias_two_times_with_same_content) {
     constexpr char alias_name[]{"valid_alias_name"}; // length = 16
     constexpr char content[]{"Some valid content"};  // length = 18
     size_t content_len{sizeof(content) - 1};
-    xml_alias_t aliasDoc;
+    CXmlAlias aliasDoc;
 
     const char* alias_content =
         static_cast<const char*>(malloc(sizeof(content)));
@@ -1157,7 +1164,7 @@ TEST_F(XMLaliasFTestSuite, alias_grab_valid_structure) {
                                    sizeof(content) - 1, 1747146829),
               0);
     // Provide destination structure.
-    xml_alias_t gAliasDoc_dup;
+    CXmlAlias gAliasDoc_dup;
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Test Unit
@@ -1181,7 +1188,7 @@ TEST_F(XMLaliasFTestSuite, alias_grab_valid_structure) {
 
 #else  // UPnPsdk_WITH_NATIVE_PUPNP
     // There is no alias_grab() function on new code. It is made with the copy
-    // assignment constructor of xml_alias_t.
+    // assignment constructor of CXmlAlias.
 
     // Test Unit
     gAliasDoc_dup = gAliasDoc;
@@ -1196,7 +1203,7 @@ TEST_F(XMLaliasFDeathTest, alias_grab_empty_structure) {
     // An empty gAliasDoc is provided by the fixture.
 
     // Provide destination structure.
-    xml_alias_t gAliasDoc_dup;
+    CXmlAlias gAliasDoc_dup;
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Test Unit
@@ -1209,7 +1216,7 @@ TEST_F(XMLaliasFDeathTest, alias_grab_empty_structure) {
 
 #else  // UPnPsdk_WITH_NATIVE_PUPNP
     // There is no alias_grab() function on new code. It is made with the copy
-    // assignment constructor of xml_alias_t.
+    // assignment constructor of CXmlAlias.
 
     // This expects NO abort.
     ASSERT_EXIT(
@@ -1228,7 +1235,7 @@ TEST_F(XMLaliasFDeathTest, alias_grab_empty_structure) {
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 // There is no alias_grab() function on new code. It is made with the copy
-// assignment constructor of xml_alias_t but it's not possible to assign to a
+// assignment constructor of CXmlAlias but it's not possible to assign to a
 // nullptr.
 TEST_F(XMLaliasFDeathTest, alias_grab_nullptr) {
     // Test Unit
@@ -1309,7 +1316,7 @@ TEST(XMLaliasTestSuite, process_request_in) {
     membuffer_init(&headers);
     membuffer filename;
     membuffer_init(&filename);
-    xml_alias_t a_alias;
+    CXmlAlias a_alias;
     SendInstruction RespInstr;
 
     // Test Unit

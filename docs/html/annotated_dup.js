@@ -18,8 +18,10 @@ var annotated_dup =
     [ "anonymous_namespace{uuid.cpp}", "db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html", [
       [ "uuid_state", "db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html#dc/dae/structanonymous__namespace_02uuid_8cpp_03_1_1uuid__state", "db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03_dc/dae/structanonymous__namespace_02uuid_8cpp_03_1_1uuid__state_dup" ]
     ] ],
-    [ "anonymous_namespace{webserver.cpp}", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html", [
-      [ "xml_alias_t", "d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html", "d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t" ]
+    [ "compa", "d3/d02/namespacecompa.html", [
+      [ "anonymous_namespace{webserver.cpp}", "d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html", [
+        [ "CXmlAlias", "d3/dc3/structcompa_1_1anonymous__namespace_02webserver_8cpp_03_1_1CXmlAlias.html", "d3/dc3/structcompa_1_1anonymous__namespace_02webserver_8cpp_03_1_1CXmlAlias" ]
+      ] ]
     ] ],
     [ "UPnPsdk", "dd/d67/namespaceUPnPsdk.html", [
       [ "anonymous_namespace{global.cpp}", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03.html", [

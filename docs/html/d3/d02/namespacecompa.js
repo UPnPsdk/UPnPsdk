@@ -5,6 +5,7 @@ var namespacecompa =
       [ "sdkInit_mutex", "d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a3f0bb70d1955692f51e36b0a870f01ae", null ],
       [ "HandleTable", "d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#af6ee754c2a71929e788bf343bdddfd34", null ]
     ] ],
+    [ "anonymous_namespace{webserver.cpp}", "d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html", "d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03" ],
     [ "uriType", "d3/d02/namespacecompa.html#a50226a4595593bc26a232e28f1da79a5", [
       [ "Absolute", "d3/d02/namespacecompa.html#a50226a4595593bc26a232e28f1da79a5ab51ca26c6c89cfc9bec338f7a0d3e0c8", null ],
       [ "Relative", "d3/d02/namespacecompa.html#a50226a4595593bc26a232e28f1da79a5a2ca9469819fb0fb61ff98e914a7ccca0", null ]

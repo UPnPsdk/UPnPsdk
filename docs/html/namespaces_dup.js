@@ -166,7 +166,9 @@ var namespaces_dup =
       [ "config_description_doc", "df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0", null ]
     ] ],
     [ "anonymous_namespace{uuid.cpp}", "db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html", "db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03" ],
-    [ "anonymous_namespace{webserver.cpp}", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03" ],
+    [ "anonymous_namespace{webserver.cpp}", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html", [
+      [ "mediatype_list", "d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#ae8aa9de959907e6615afa8703a6dc907", null ]
+    ] ],
     [ "compa", "d3/d02/namespacecompa.html", "d3/d02/namespacecompa" ],
     [ "pupnp", "dc/d9a/namespacepupnp.html", null ],
     [ "UPnPsdk", "dd/d67/namespaceUPnPsdk.html", "dd/d67/namespaceUPnPsdk" ]

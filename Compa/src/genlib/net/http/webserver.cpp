@@ -67,6 +67,7 @@
 /// \endcond
 
 
+namespace compa {
 namespace {
 
 /*! \brief Response Types. */
@@ -96,17 +97,17 @@ constexpr size_t APPLICATION_INDEX{4};
 constexpr size_t ASCTIME_R_BUFFER_SIZE{26};
 
 /*! \brief Alias directory structure on the webserver for an XML document. */
-struct xml_alias_t {
+struct CXmlAlias {
   public:
     /// \cond
     // Constructor
     // -----------
-    xml_alias_t() { TRACE2(this, " Construct xml_alias_t()"); }
+    CXmlAlias() { TRACE2(this, " Construct CXmlAlias()"); }
 
     // Destructor
     // ----------
-    ~xml_alias_t() {
-        TRACE2(this, " Destruct xml_alias_t()");
+    ~CXmlAlias() {
+        TRACE2(this, " Destruct CXmlAlias()");
         this->clear_private();
         if (pthread_mutex_destroy(&web_mutex) != 0)
             UPnPsdk_LOGCRIT(
@@ -115,8 +116,8 @@ struct xml_alias_t {
 
     /// \brief Copy constructor
     // ------------------------
-    xml_alias_t(const xml_alias_t& that) {
-        TRACE2(this, " Executing xml_alias_t copy constructor()");
+    CXmlAlias(const CXmlAlias& that) {
+        TRACE2(this, " Executing CXmlAlias copy constructor()");
         pthread_mutex_lock(&web_mutex);
         this->m_name = that.m_name;
         this->m_last_modified = that.m_last_modified;
@@ -135,8 +136,8 @@ struct xml_alias_t {
 
     /// \brief Copy assignment operator
     // --------------------------------
-    xml_alias_t& operator=(xml_alias_t that) {
-        TRACE2(this, " Executing xml_alias_t assignment operator=");
+    CXmlAlias& operator=(CXmlAlias that) {
+        TRACE2(this, " Executing CXmlAlias assignment operator=");
         // The copy constructor has alread done its work to copy the current
         // object to the stack. No need to protect with a mutex. This swapping
         // from the stack is thread safe.
@@ -162,7 +163,7 @@ struct xml_alias_t {
     int set(const char* a_alias_name, const char*& a_alias_content,
             size_t& a_alias_content_length,
             time_t a_last_modified = time(nullptr)) {
-        TRACE2(this, " Executing xml_alias_t::set()");
+        TRACE2(this, " Executing CXmlAlias::set()");
         pthread_mutex_lock(&web_mutex);
 
         if (a_alias_name == nullptr) {
@@ -196,7 +197,7 @@ struct xml_alias_t {
     /// \brief Get the name of the root udevice description XML document
     // -----------------------------------------------------------------
     std::string_view name() const {
-        TRACE2(this, " Executing xml_alias_t::name()")
+        TRACE2(this, " Executing CXmlAlias::name()")
         pthread_mutex_lock(&web_mutex);
         std::string_view name = m_name;
         pthread_mutex_unlock(&web_mutex);
@@ -206,7 +207,7 @@ struct xml_alias_t {
     /// \brief Get the root udevice description XML document
     // -----------------------------------------------------
     std::string_view doc() const {
-        TRACE2(this, " Executing xml_alias_t::doc()")
+        TRACE2(this, " Executing CXmlAlias::doc()")
         pthread_mutex_lock(&web_mutex);
         std::string_view doc = m_doc;
         pthread_mutex_unlock(&web_mutex);
@@ -217,7 +218,7 @@ struct xml_alias_t {
      * document */
     // ------------------------------------------------------------------
     time_t last_modified() const {
-        TRACE2(this, " Executing xml_alias_t::last_modified()")
+        TRACE2(this, " Executing CXmlAlias::last_modified()")
         pthread_mutex_lock(&web_mutex);
         auto last_modified = m_last_modified;
         pthread_mutex_unlock(&web_mutex);
@@ -227,7 +228,7 @@ struct xml_alias_t {
     /// \brief Returns if the XML object contains a valid XML document
     // ---------------------------------------------------------------
     bool is_valid() const {
-        TRACE2(this, " Executing xml_alias_t::is_valid()")
+        TRACE2(this, " Executing CXmlAlias::is_valid()")
         pthread_mutex_lock(&web_mutex);
         auto doc = m_doc.data();
         pthread_mutex_unlock(&web_mutex);
@@ -237,7 +238,7 @@ struct xml_alias_t {
     /// \brief Release an XML document from the XML object
     // ---------------------------------------------------
     void release() {
-        TRACE2(this, " Executing xml_alias_t::release()");
+        TRACE2(this, " Executing CXmlAlias::release()");
         pthread_mutex_lock(&web_mutex);
         this->release_private();
         pthread_mutex_unlock(&web_mutex);
@@ -246,7 +247,7 @@ struct xml_alias_t {
     /// \brief Clear the XML object
     // ----------------------------
     void clear() {
-        TRACE2(this, " Executing xml_alias_t::clear()");
+        TRACE2(this, " Executing CXmlAlias::clear()");
         pthread_mutex_lock(&web_mutex);
         this->clear_private();
         pthread_mutex_unlock(&web_mutex);
@@ -302,7 +303,7 @@ struct xml_alias_t {
 };
 
 /*! \brief Global XML document object. */
-xml_alias_t gAliasDoc;
+CXmlAlias gAliasDoc;
 
 
 /*! \name Scope restricted to file
@@ -335,7 +336,7 @@ char* web_server_asctime_r(const struct tm* tm, char* buf) {
  * htm | text  | html
  * xml | text  | xml
  * mp3 | audio | mpeg
- * The complete list you find at #mediatype_list.
+ * The complete list you find at UPnPsdk::mediatype_list.
  *
  * \returns
  *  On Success: 0\n
@@ -504,7 +505,7 @@ inline int get_alias(
     /*! [in] request file passed in to be compared with. */
     const char* request_file,
     /*! [out] xml alias object which has a file name stored. */
-    xml_alias_t* alias,
+    CXmlAlias* alias,
     /*! [out] File information object which will be filled up if the file
      * comparison succeeds. */
     UpnpFileInfo* info) {
@@ -1032,7 +1033,7 @@ int process_request_in(
     /*! [out] Get filename from request document. */
     membuffer* filename,
     /*! [out] Xml alias document from the request document. */
-    xml_alias_t* a_alias,
+    CXmlAlias* a_alias,
     /*! [out] Send Instruction object where the response is set up. */
     SendInstruction* RespInstr) {
     int code;
@@ -1510,13 +1511,14 @@ ExitFunction:
 
 /// @} // Scope restricted to file
 } // anonymous namespace
+} // namespace compa
 
 
 void web_server_init() {
     if (bWebServerState == WEB_SERVER_DISABLED) {
         membuffer_init(&gDocumentRootDir);
         membuffer_init(&gWebserverCorsString);
-        gAliasDoc.clear();
+        compa::gAliasDoc.clear();
         pVirtualDirList = nullptr;
 
         /* Initialize callbacks */
@@ -1536,8 +1538,8 @@ int web_server_set_alias(const char* a_alias_name, const char* a_alias_content,
                          size_t a_alias_content_length,
                          time_t a_last_modified) {
     TRACE("Executing web_server_set_alias()")
-    return gAliasDoc.set(a_alias_name, a_alias_content, a_alias_content_length,
-                         a_last_modified);
+    return compa::gAliasDoc.set(a_alias_name, a_alias_content,
+                                a_alias_content_length, a_last_modified);
 }
 
 int web_server_set_root_dir(const char* root_dir) {
@@ -1572,10 +1574,10 @@ void web_server_callback(http_parser_t* a_parser,
                          /* INOUT */ http_message_t* a_req, SOCKINFO* a_info) {
     int ret;
     int timeout = -1;
-    resp_type rtype{RESP_UNSPEC};
+    compa::resp_type rtype{compa::RESP_UNSPEC};
     membuffer headers;
     membuffer filename;
-    xml_alias_t xmldoc;
+    compa::CXmlAlias xmldoc;
     SendInstruction RespInstr;
 
     /* init */
@@ -1585,8 +1587,8 @@ void web_server_callback(http_parser_t* a_parser,
 
     /* Process request should create the different kind of header depending on
      * the type of request. */
-    ret = process_request_in(a_info, a_req, &rtype, &headers, &filename,
-                             &xmldoc, &RespInstr);
+    ret = compa::process_request_in(a_info, a_req, &rtype, &headers, &filename,
+                                    &xmldoc, &RespInstr);
     if (ret != HTTP_OK) {
         /* send error code */
         http_SendStatusResponse(a_info, ret, a_req->major_version,
@@ -1594,17 +1596,17 @@ void web_server_callback(http_parser_t* a_parser,
     } else {
         /* send response */
         switch (rtype) {
-        case RESP_FILEDOC:
+        case compa::RESP_FILEDOC:
             http_SendMessage(a_info, &timeout, "Ibf", &RespInstr, headers.buf,
                              headers.length, filename.buf);
             break;
-        case RESP_XMLDOC:
+        case compa::RESP_XMLDOC:
             http_SendMessage(a_info, &timeout, "Ibb", &RespInstr, headers.buf,
                              headers.length, xmldoc.doc().data(),
                              xmldoc.doc().length());
             xmldoc.release();
             break;
-        case RESP_WEBDOC:
+        case compa::RESP_WEBDOC:
             /*http_SendVirtualDirDoc(a_info, &timeout, "Ibf",
                 &RespInstr,
                 headers.buf, headers.length,
@@ -1612,15 +1614,15 @@ void web_server_callback(http_parser_t* a_parser,
             http_SendMessage(a_info, &timeout, "Ibf", &RespInstr, headers.buf,
                              headers.length, filename.buf);
             break;
-        case RESP_HEADERS:
+        case compa::RESP_HEADERS:
             /* headers only */
             http_SendMessage(a_info, &timeout, "b", headers.buf,
                              headers.length);
             break;
-        case RESP_POST:
+        case compa::RESP_POST:
             /* headers only */
-            ret = http_RecvPostMessage(a_parser, a_info, filename.buf,
-                                       &RespInstr);
+            ret = compa::http_RecvPostMessage(a_parser, a_info, filename.buf,
+                                              &RespInstr);
             /* Send response. */
             http_MakeMessage(&headers, 1, 1, "RTLSXcCc", ret, "text/html",
                              &RespInstr, X_USER_AGENT);
@@ -1648,7 +1650,7 @@ void web_server_destroy() {
     if (bWebServerState == WEB_SERVER_ENABLED) {
         membuffer_destroy(&gDocumentRootDir);
         membuffer_destroy(&gWebserverCorsString);
-        gAliasDoc.clear();
+        compa::gAliasDoc.clear();
         bWebServerState = WEB_SERVER_DISABLED;
         SetHTTPGetCallback(nullptr);
     }

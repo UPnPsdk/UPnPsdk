@@ -23,6 +23,7 @@ var hierarchy =
     [ "UPnPsdk::CStrIntMap< T >", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", null ],
     [ "UPnPsdk::CUri", "da/dcf/classUPnPsdk_1_1CUri.html", null ],
     [ "UPnPsdk::anonymous_namespace{global.cpp}::CWSAStartup", "d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html", null ],
+    [ "compa::anonymous_namespace{webserver.cpp}::CXmlAlias", "d3/dc3/structcompa_1_1anonymous__namespace_02webserver_8cpp_03_1_1CXmlAlias.html", null ],
     [ "UPnPsdk::Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", null ],
     [ "anonymous_namespace{upnptools.cpp}::ErrorString", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03.html#d9/d56/structanonymous__namespace_02upnptools_8cpp_03_1_1ErrorString", null ],
     [ "ErrorString", "d6/d13/Compa_2src_2api_2upnptools_8cpp.html#dc/dff/structErrorString", null ],
@@ -94,6 +95,5 @@ var hierarchy =
     [ "anonymous_namespace{uuid.cpp}::uuid_state", "db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html#dc/dae/structanonymous__namespace_02uuid_8cpp_03_1_1uuid__state", null ],
     [ "uuid_upnp", "d7/db4/uuid_8hpp.html#d3/d27/structuuid__upnp", null ],
     [ "virtual_Dir_List", "d6/d92/VirtualDir_8hpp.html#d1/dec/structvirtual__Dir__List", null ],
-    [ "VirtualDirCallbacks", "d6/d92/VirtualDir_8hpp.html#d1/d09/structVirtualDirCallbacks", null ],
-    [ "anonymous_namespace{webserver.cpp}::xml_alias_t", "d4/db6/structanonymous__namespace_02webserver_8cpp_03_1_1xml__alias__t.html", null ]
+    [ "VirtualDirCallbacks", "d6/d92/VirtualDir_8hpp.html#d1/d09/structVirtualDirCallbacks", null ]
 ];

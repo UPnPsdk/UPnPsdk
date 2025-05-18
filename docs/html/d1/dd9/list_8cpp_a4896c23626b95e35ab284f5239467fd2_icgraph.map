@@ -1,25 +1,28 @@
 <map id="UpnpListInit" name="UpnpListInit">
-<area shape="rect" id="Node000001" title="Initialize empty list." alt="" coords="1057,161,1157,187"/>
-<area shape="rect" id="Node000002" href="$d7/d3a/UpnpExtraHeaders_8cpp.html#a3c9276f0998b1a3ac4b4262728147456" title=" " alt="" coords="817,53,1009,79"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1070,157,936,81,939,76,1073,152"/>
-<area shape="rect" id="Node000011" href="$d7/d3a/UpnpExtraHeaders_8cpp.html#a4654fcbbd9b882100e25453af2950456" title=" " alt="" coords="824,136,1003,161"/>
-<area shape="poly" id="edge6_Node000001_Node000011" title=" " alt="" coords="1044,168,1002,163,1003,158,1044,163"/>
-<area shape="rect" id="Node000013" href="$dd/da6/UpnpFileInfo_8cpp.html#adada5d9e2258c048a81b3b71973fad54" title=" " alt="" coords="305,165,457,191"/>
-<area shape="poly" id="edge9_Node000001_Node000013" title=" " alt="" coords="1043,177,458,180,458,175,1043,172"/>
-<area shape="rect" id="Node000014" href="$dd/da6/UpnpFileInfo_8cpp.html#a8d6b6ce6c9ba97da2e6dd90786119a92" title=" " alt="" coords="844,237,983,263"/>
-<area shape="poly" id="edge11_Node000001_Node000014" title=" " alt="" coords="1069,195,1010,220,956,240,955,235,1008,216,1067,190"/>
-<area shape="rect" id="Node000003" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#aabc35282bb480b964b00d540e05bf4ff" title="Free extra HTTP headers." alt="" coords="563,5,769,60"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="805,54,769,49,770,44,806,49"/>
-<area shape="rect" id="Node000004" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a6d073afa10796a5f94987b4a7e1450a3" title="Build an array of unrecognized headers." alt="" coords="248,78,515,118"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="550,62,470,81,469,75,549,57"/>
-<area shape="rect" id="Node000005" href="$d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html#a8ee00c9d39c59b757a802020a223b9be" title="Process a remote request and return the result." alt="" coords="5,100,200,155"/>
-<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="549,35,404,43,326,53,249,69,202,84,158,102,156,97,200,79,247,63,325,48,404,38,549,29"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="234,116,200,120,200,114,234,111"/>
-<area shape="poly" id="edge7_Node000011_Node000004" title=" " alt="" coords="835,136,769,126,638,113,515,106,515,100,639,108,770,121,836,131"/>
-<area shape="rect" id="Node000012" href="$d7/d3a/UpnpExtraHeaders_8cpp.html#adc75f9d14c6b550f8fd1ab55e61132e9" title=" " alt="" coords="579,136,753,161"/>
-<area shape="poly" id="edge8_Node000011_Node000012" title=" " alt="" coords="810,151,753,151,753,146,810,146"/>
-<area shape="poly" id="edge10_Node000013_Node000005" title=" " alt="" coords="297,165,200,148,201,142,298,160"/>
-<area shape="poly" id="edge12_Node000014_Node000005" title=" " alt="" coords="831,258,715,260,568,256,407,239,326,225,247,206,192,184,144,157,146,152,194,179,249,201,327,220,407,234,568,250,715,255,831,252"/>
-<area shape="rect" id="Node000015" href="$dd/da6/UpnpFileInfo_8cpp.html#a0b4a987bcc4ad2e19fe5ce934a01098f" title=" " alt="" coords="599,288,733,313"/>
-<area shape="poly" id="edge13_Node000014_Node000015" title=" " alt="" coords="837,268,729,291,728,285,836,263"/>
+<area shape="rect" id="Node000001" title="Initialize empty list." alt="" coords="1183,170,1283,195"/>
+<area shape="rect" id="Node000002" href="$d7/d3a/UpnpExtraHeaders_8cpp.html#a3c9276f0998b1a3ac4b4262728147456" title=" " alt="" coords="943,66,1135,91"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1194,166,1062,94,1065,89,1197,161"/>
+<area shape="rect" id="Node000006" href="$d7/d3a/UpnpExtraHeaders_8cpp.html#a4654fcbbd9b882100e25453af2950456" title=" " alt="" coords="949,145,1128,170"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="1169,177,1128,172,1128,166,1170,172"/>
+<area shape="rect" id="Node000008" href="$dd/da6/UpnpFileInfo_8cpp.html#adada5d9e2258c048a81b3b71973fad54" title=" " alt="" coords="343,186,495,211"/>
+<area shape="poly" id="edge12_Node000001_Node000008" title=" " alt="" coords="1169,187,495,200,495,195,1169,181"/>
+<area shape="rect" id="Node000009" href="$dd/da6/UpnpFileInfo_8cpp.html#a8d6b6ce6c9ba97da2e6dd90786119a92" title=" " alt="" coords="969,246,1108,271"/>
+<area shape="poly" id="edge14_Node000001_Node000009" title=" " alt="" coords="1194,204,1136,229,1082,248,1080,243,1134,224,1192,199"/>
+<area shape="rect" id="Node000003" href="$d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a8fc06e4ec07693a6c9a34deafa3e6db2" title="Free extra HTTP headers." alt="" coords="600,29,895,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="929,70,895,67,895,62,929,65"/>
+<area shape="poly" id="edge7_Node000003_Node000003" title=" " alt="" coords="797,18,780,11,747,8,719,10,702,15,696,21,699,28,694,30,690,20,699,10,718,5,747,3,781,5,799,13"/>
+<area shape="rect" id="Node000004" href="$d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a9e234f6f128a4cc1f8d2ea905ed96bda" title="Build an array of unrecognized headers." alt="" coords="285,111,552,151"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="653,75,501,113,500,108,652,70"/>
+<area shape="rect" id="Node000005" href="$d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a32492c6eefb0ece6d258b11586ad0a59" title="Process a remote request and return the result." alt="" coords="5,133,237,187"/>
+<area shape="poly" id="edge8_Node000003_Node000005" title=" " alt="" coords="586,44,515,45,439,51,361,61,286,77,221,103,165,135,162,130,219,98,285,72,360,55,438,45,515,40,586,39"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="470,99,452,92,419,89,390,91,372,96,366,102,369,109,364,111,361,101,370,92,389,86,419,84,453,87,471,94"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="272,148,238,151,237,146,271,143"/>
+<area shape="poly" id="edge6_Node000005_Node000005" title=" " alt="" coords="171,122,153,114,121,111,95,113,77,118,69,125,70,133,64,133,65,122,75,113,94,108,121,106,154,109,173,117"/>
+<area shape="poly" id="edge10_Node000006_Node000004" title=" " alt="" coords="965,145,894,135,716,126,552,128,552,122,716,121,895,129,966,139"/>
+<area shape="rect" id="Node000007" href="$d7/d3a/UpnpExtraHeaders_8cpp.html#adc75f9d14c6b550f8fd1ab55e61132e9" title=" " alt="" coords="660,145,835,170"/>
+<area shape="poly" id="edge11_Node000006_Node000007" title=" " alt="" coords="936,160,835,160,835,155,936,155"/>
+<area shape="poly" id="edge13_Node000008_Node000005" title=" " alt="" coords="329,190,237,178,238,172,330,184"/>
+<area shape="poly" id="edge15_Node000009_Node000005" title=" " alt="" coords="956,266,826,270,658,268,471,255,377,243,285,227,229,210,178,190,180,185,231,205,286,221,378,238,472,250,658,263,826,265,955,261"/>
+<area shape="rect" id="Node000010" href="$dd/da6/UpnpFileInfo_8cpp.html#a0b4a987bcc4ad2e19fe5ce934a01098f" title=" " alt="" coords="680,297,815,322"/>
+<area shape="poly" id="edge16_Node000009_Node000010" title=" " alt="" coords="956,276,815,300,814,295,955,270"/>
 </map>
