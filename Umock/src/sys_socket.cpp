@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-18
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 
 #include <umock/sys_socket.hpp>
 
@@ -160,6 +160,6 @@ int Sys_socket::select(SOCKET nfds, fd_set* readfds, fd_set* writefds, fd_set* e
 // This will exist until program end.
 Sys_socketReal sys_socket_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPNPLIB_API Sys_socket sys_socket_h(&sys_socket_realObj);
+UPnPsdk_EXP Sys_socket sys_socket_h(&sys_socket_realObj);
 
 } // namespace umock

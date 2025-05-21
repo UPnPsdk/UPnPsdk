@@ -20,10 +20,10 @@ var upnpdebug_8hpp =
       [ "UPNP_INFO", "d8/d32/upnpdebug_8hpp.html#a9f184232ed06e0f104d8268295be92dfacc4b925a836ab6fc66009a74fb856cca", null ],
       [ "UPNP_ALL", "d8/d32/upnpdebug_8hpp.html#a9f184232ed06e0f104d8268295be92dfafda200d818f7718f179de9ecc884e020", null ]
     ] ],
-    [ "UpnpInitLog", "d8/d32/upnpdebug_8hpp.html#a0bd1a35974602e8428fd53ff4b424c46", null ],
-    [ "UpnpSetLogLevel", "d8/d32/upnpdebug_8hpp.html#a3751794182ea49ea472c0b8efb6e6806", null ],
-    [ "UpnpCloseLog", "d8/d32/upnpdebug_8hpp.html#a46e07b7e3bb05aaba6a4ff9893e93efe", null ],
-    [ "UpnpSetLogFileNames", "d8/d32/upnpdebug_8hpp.html#a09fd59e3af30d46efb0e464419e9ab41", null ],
-    [ "UpnpGetDebugFile", "d8/d32/upnpdebug_8hpp.html#a984374760513d195b0e8f102886e9115", null ],
-    [ "UpnpPrintf", "d8/d32/upnpdebug_8hpp.html#a186bccdd3cab13ada1bdc46ee95c7d37", null ]
+    [ "UpnpInitLog", "d8/d32/upnpdebug_8hpp.html#aebf317f8760757b7e90d3f9c93b8157f", null ],
+    [ "UpnpSetLogLevel", "d8/d32/upnpdebug_8hpp.html#ae5be7f6fe7c283ec4374b97fdf81715b", null ],
+    [ "UpnpCloseLog", "d8/d32/upnpdebug_8hpp.html#a2f18848bb720ef21612f97587d363e5d", null ],
+    [ "UpnpSetLogFileNames", "d8/d32/upnpdebug_8hpp.html#a99bbfb81f5eacc1d9aad3f554d2deee4", null ],
+    [ "UpnpGetDebugFile", "d8/d32/upnpdebug_8hpp.html#a1215c301efb21957a1c69aa3c2b728ec", null ],
+    [ "UpnpPrintf", "d8/d32/upnpdebug_8hpp.html#a18ab08a04d0e13f59ba81a3e735b98ea", null ]
 ];

@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 
 #include <umock/ssl.hpp>
 #include <UPnPsdk/port.hpp>
@@ -45,6 +45,6 @@ int Ssl::SSL_write(SSL* ssl, const void* buf, int num) {
 // This will exist until program end.
 SslReal ssl_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPNPLIB_API Ssl ssl_h(&ssl_realObj);
+UPnPsdk_EXP Ssl ssl_h(&ssl_realObj);
 
 } // namespace umock

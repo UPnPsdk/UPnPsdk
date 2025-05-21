@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPSTRING_HPP
 #define COMPA_UPNPSTRING_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 // Also Copyright by other contributor as noted below.
 // Last compare with pupnp original source file on 2023-04-26, ver 1.14.15
 /*!
@@ -41,12 +41,12 @@ typedef struct s_UpnpString UpnpString;
  *
  * \return A pointer to a new allocated object.
  */
-UPNPLIB_API UpnpString* UpnpString_new();
+PUPNP_API UpnpString* UpnpString_new();
 
 /*!
  * \brief Destructor.
  */
-UPNPLIB_API void UpnpString_delete(
+PUPNP_API void UpnpString_delete(
     /*! [in] The \em \b this pointer. */
     UpnpString* p);
 
@@ -55,14 +55,14 @@ UPNPLIB_API void UpnpString_delete(
  *
  * \return A pointer to a new allocated copy of the original object.
  */
-UPNPLIB_API UpnpString* UpnpString_dup(
+PUPNP_API UpnpString* UpnpString_dup(
     /*! [in] The \em \b this pointer. */
     const UpnpString* p);
 
 /*!
  * \brief Assignment operator.
  */
-UPNPLIB_API void UpnpString_assign(
+PUPNP_API void UpnpString_assign(
     /*! [in] The \em \b this pointer. */
     UpnpString* p,
     /*! [in] The \em \b that pointer. */
@@ -73,7 +73,7 @@ UPNPLIB_API void UpnpString_assign(
  *
  * \return The length of the string.
  * */
-UPNPLIB_API size_t UpnpString_get_Length(
+PUPNP_API size_t UpnpString_get_Length(
     /*! [in] The \em \b this pointer. */
     const UpnpString* p);
 
@@ -81,7 +81,7 @@ UPNPLIB_API size_t UpnpString_get_Length(
  * \brief Truncates the string to the specified lenght, or does nothing
  * if the current lenght is less than or equal to the requested length.
  * */
-UPNPLIB_API void UpnpString_set_Length(
+PUPNP_API void UpnpString_set_Length(
     /*! [in] The \em \b this pointer. */
     UpnpString* p,
     /*! [in] The requested length. */
@@ -93,7 +93,7 @@ UPNPLIB_API void UpnpString_set_Length(
  * \return The pointer to char.
  * \hidecallergraph
  */
-UPNPLIB_API const char* UpnpString_get_String(
+PUPNP_API const char* UpnpString_get_String(
     /*! [in] The \em \b this pointer. */
     const UpnpString* p);
 
@@ -101,7 +101,7 @@ UPNPLIB_API const char* UpnpString_get_String(
  * \brief Sets the string from a pointer to char.
  * \hidecallergraph
  */
-UPNPLIB_API int UpnpString_set_String(
+PUPNP_API int UpnpString_set_String(
     /*! [in] The \em \b this pointer. */
     UpnpString* p,
     /*! [in] (char *) to copy from. */
@@ -110,7 +110,7 @@ UPNPLIB_API int UpnpString_set_String(
 /*!
  * \brief Sets the string from a pointer to char using a maximum of N chars.
  */
-UPNPLIB_API int UpnpString_set_StringN(
+PUPNP_API int UpnpString_set_StringN(
     /*! [in] The \em \b this pointer. */
     UpnpString* p,
     /*! [in] (char *) to copy from. */
@@ -121,7 +121,7 @@ UPNPLIB_API int UpnpString_set_StringN(
 /*!
  * \brief Clears the string, sets its size to zero.
  */
-UPNPLIB_API void UpnpString_clear(
+PUPNP_API void UpnpString_clear(
     /*! [in] The \em \b this pointer. */
     UpnpString* p);
 
@@ -130,7 +130,7 @@ UPNPLIB_API void UpnpString_clear(
  *
  * \return The result of strcmp().
  */
-UPNPLIB_API int UpnpString_cmp(
+PUPNP_API int UpnpString_cmp(
     /*! [in] The \em \b the first string. */
     UpnpString* p,
     /*! [in] The \em \b the second string. */
@@ -141,7 +141,7 @@ UPNPLIB_API int UpnpString_cmp(
  *
  * \return The result of strcasecmp().
  */
-UPNPLIB_API int UpnpString_casecmp(
+PUPNP_API int UpnpString_casecmp(
     /*! [in] The \em \b the first string. */
     UpnpString* p,
     /*! [in] The \em \b the second string. */

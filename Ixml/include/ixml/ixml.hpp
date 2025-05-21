@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-10-29
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-21
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,12 +32,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-
 /*!
  * \file
- *
  * \defgroup XMLAPI XML API
- *
  * @{
  */
 
@@ -52,14 +49,14 @@
  * \return A new \b DOMString that is a duplicate of the original or \c NULL
  * if the operation could not be completed.
  */
-UPNPLIB_API DOMString ixmlCloneDOMString(
+UPnPsdk_EXP DOMString ixmlCloneDOMString(
     /*! [in] The source \b DOMString to clone. */
     const DOMString src);
 
 /*!
  * \brief Frees a \b DOMString.
  */
-UPNPLIB_API void ixmlFreeDOMString(
+UPnPsdk_EXP void ixmlFreeDOMString(
     /*! [in] The \b DOMString to free. */
     DOMString buf);
 

@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft,  Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-02-27
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-21
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,7 +39,7 @@
  * \brief Manage blocks of dynamically allocated memory.
  *
  * membuffer is only used internal within the library and linked with the source
- * file so there are no exports UPNPLIB_API for external use.
+ * file so there are no exports PUPNP_API for external use.
  */
 
 /// \cond

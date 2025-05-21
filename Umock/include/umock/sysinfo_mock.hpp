@@ -1,7 +1,7 @@
 #ifndef UMOCK_SYSINFO_MOCK_HPP
 #define UMOCK_SYSINFO_MOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 
 #include <umock/sysinfo.hpp>
 #include <UPnPsdk/port.hpp>
@@ -9,7 +9,7 @@
 
 namespace umock {
 
-class UPNPLIB_API SysinfoMock : public umock::SysinfoInterface {
+class UPnPsdk_EXP SysinfoMock : public umock::SysinfoInterface {
   public:
     SysinfoMock();
     virtual ~SysinfoMock() override;

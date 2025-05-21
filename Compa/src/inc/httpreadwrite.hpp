@@ -8,7 +8,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-09
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-21
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -61,8 +61,8 @@ tm* http_gmtime_r(const time_t* clock, tm* result);
  *  - UPNP_E_SUCCESS       - On Success
  *  - UPNP_E_INVALID_PARAM - Invalid Parameter
  */
-UPNPLIB_API int http_CancelHttpGet( //
-    void* Handle                    ///< [in] Handle to HTTP get object.
+PUPNP_EXP int http_CancelHttpGet( //
+    void* Handle                  ///< [in] Handle to HTTP get object.
 );
 
 /*!
@@ -116,7 +116,7 @@ SOCKET http_Connect(           //
  * On success: UPNP_E_SUCCESS\n
  * On error: UPNP_E_BAD_HTTPMSG
  */
-UPNPLIB_API int http_RecvMessage( //
+PUPNP_EXP int http_RecvMessage(   //
     SOCKINFO* info,               ///< [in] Socket information object.
     http_parser_t* parser,        ///< [out] HTTP parser object.
     http_method_t request_method, ///< [in] HTTP request method.
@@ -159,7 +159,7 @@ UPNPLIB_API int http_RecvMessage( //
  *  - UPNP_E_SOCKET_WRITE
  *  - UPNP_E_SOCKET_ERROR
  */
-UPNPLIB_API int http_SendMessage(
+PUPNP_EXP int http_SendMessage(
     SOCKINFO* info, ///< [in] Socket information object.
     int* TimeOut,   ///< [in,out] Time out value.
     const char*
@@ -213,9 +213,9 @@ int http_RequestAndResponse(  //
  * On error:
  *  - UPNP_E_INVALID_URL
  */
-UPNPLIB_API int http_Download( //
-    const char* url_str,       ///< [in] String as a URL.
-    int timeout_secs,          ///< [in] Time out value.
+PUPNP_EXP int http_Download( //
+    const char* url_str,     ///< [in] String as a URL.
+    int timeout_secs,        ///< [in] Time out value.
     char** document, /*!< [out] Buffer to store the document extracted from the
                       *   donloaded message. */
     size_t* doc_length, ///< [out] Length of the extracted document.
@@ -230,7 +230,7 @@ UPNPLIB_API int http_Download( //
  * On error:
  *  - UPNP_E_INVALID_PARAM
  */
-UPNPLIB_API int http_HttpGetProgress(
+PUPNP_EXP int http_HttpGetProgress(
     void* Handle,   ///< [in] Handle to the HTTP get object.
     size_t* length, ///< [out] Buffer to get the read and parsed data.
     size_t* total   ///< [out] Size of tge buffer passed.
@@ -256,7 +256,7 @@ UPNPLIB_API int http_HttpGetProgress(
  *  - UPNP_E_SOCKET_CONNECT - An error occurred connecting a socket.
  *  - UPNP_E_OUTOF_SOCKET - Too many sockets are currently allocated.
  */
-UPNPLIB_API int http_OpenHttpConnection(
+PUPNP_EXP int http_OpenHttpConnection(
     /*! [in] The URL which contains the host, and the scheme to make the
        connection. */
     const char* url_str,
@@ -288,7 +288,7 @@ UPNPLIB_API int http_OpenHttpConnection(
  *  - UPNP_E_SOCKET_CONNECT - An error occurred connecting a socket.
  *  - UPNP_E_OUTOF_SOCKET - Too many sockets are currently allocated.
  */
-UPNPLIB_API int http_MakeHttpRequest(
+PUPNP_EXP int http_MakeHttpRequest(
     /*! [in] The method to use to make the request. */
     Upnp_HttpMethod method,
     /*! [in] The URL to use to make the request. The URL should use the same
@@ -325,7 +325,7 @@ UPNPLIB_API int http_MakeHttpRequest(
  *  - UPNP_E_SOCKET_WRITE - An error or timeout occurred writing to a socket.
  *  - UPNP_E_OUTOF_SOCKET - Too many sockets are currently allocated.
  */
-UPNPLIB_API int http_WriteHttpRequest(
+PUPNP_EXP int http_WriteHttpRequest(
     /*! [in] The handle of the connection created by the call to
      * UpnpOpenHttpConnection(). */
     void* Handle,
@@ -352,7 +352,7 @@ UPNPLIB_API int http_WriteHttpRequest(
  *  - UPNP_E_SOCKET_CONNECT - An error occurred connecting a socket.
  *  - UPNP_E_OUTOF_SOCKET - Too many sockets are currently allocated.
  */
-UPNPLIB_API int http_EndHttpRequest(
+PUPNP_EXP int http_EndHttpRequest(
     /*! [in] The handle to the connection. */
     void* Handle,
     /*! [in] The time out value sent with the request during which a response is
@@ -383,7 +383,7 @@ UPNPLIB_API int http_EndHttpRequest(
  *  - UPNP_E_OUTOF_SOCKET - Too many sockets are currently allocated.
  *  - UPNP_E_BAD_RESPONSE - A bad response was received from the remote server.
  */
-UPNPLIB_API int http_GetHttpResponse(
+PUPNP_EXP int http_GetHttpResponse(
     /*! [in] The handle of the connection created by the call to
        UpnpOpenHttpConnection(). */
     void* Handle,
@@ -419,7 +419,7 @@ UPNPLIB_API int http_GetHttpResponse(
  *        in handle value may provide additional information on the return
  *        value.
  */
-UPNPLIB_API int http_ReadHttpResponse(
+PUPNP_EXP int http_ReadHttpResponse(
     /*! [in] The handle of the connection created by the call to
        UpnpOpenHttpConnection(). */
     void* Handle,
@@ -443,7 +443,7 @@ UPNPLIB_API int http_ReadHttpResponse(
  *   - UPNP_E_SOCKET_READ - An error or timeout occurred reading from a socket.
  *   - UPNP_E_OUTOF_SOCKET - Too many sockets are currently allocated.
  */
-UPNPLIB_API int http_CloseHttpConnection(
+PUPNP_EXP int http_CloseHttpConnection(
     /*! [in] The handle of the connection to close, created by the call to
        UpnpOpenHttpPost(). */
     void* Handle);
@@ -459,7 +459,7 @@ UPNPLIB_API int http_CloseHttpConnection(
  *  - UPNP_E_SOCKET_WRITE
  *  - UPNP_E_TIMEDOUT
  */
-UPNPLIB_API int http_SendStatusResponse(
+PUPNP_EXP int http_SendStatusResponse(
     SOCKINFO* info,       ///< [in] Socket information object.
     int http_status_code, /*!< [in] Error code returned while making or sending
                            *   the response message. */
@@ -543,7 +543,7 @@ void http_CalcResponseVersion(
  *  - UPNP_E_SOCKET_ERROR
  *  - UPNP_E_BAD_RESPONSE
  */
-UPNPLIB_API int http_OpenHttpGetEx(
+PUPNP_EXP int http_OpenHttpGetEx(
     const char* url_str, ///< [in] String as a URL.
     void** Handle, ///< [in,out] Pointer to buffer to store HTTP post handle.
     char** contentType, ///< [in,out] Type of content.

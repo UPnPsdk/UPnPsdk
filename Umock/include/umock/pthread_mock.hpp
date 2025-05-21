@@ -1,7 +1,7 @@
 #ifndef UMOCK_PTHREAD_MOCK_HPP
 #define UMOCK_PTHREAD_MOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 
 #include <umock/pthread.hpp>
 #include <UPnPsdk/port.hpp>
@@ -9,7 +9,7 @@
 
 namespace umock {
 
-class UPNPLIB_API PthreadMock : public umock::PthreadInterface {
+class UPnPsdk_EXP PthreadMock : public umock::PthreadInterface {
   public:
     PthreadMock();
     virtual ~PthreadMock() override;

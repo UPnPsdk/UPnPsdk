@@ -1,7 +1,7 @@
 #ifndef UPNPP_0_ADDRESSING_CONNECTION_HPP
 #define UPNPP_0_ADDRESSING_CONNECTION_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 /*!
  * \file
  * \brief Declaration of common used classes and free functions for network
@@ -41,7 +41,7 @@ namespace UPnPsdk {
 // This is a scoped version just using the constructor and destructor. The last
 // version with methods 'suppress()' and 'restore()' can be found at commit
 // c76d123ffbd6989ff415169b86fe0b27c5a111aa. --Ingo
-class UPNPLIB_API CSigpipe_scoped {
+class UPnPsdk_EXP CSigpipe_scoped {
   public:
     CSigpipe_scoped();
     ~CSigpipe_scoped();

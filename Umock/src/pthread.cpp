@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 
 #include <umock/pthread.hpp>
 #include <UPnPsdk/port.hpp>
@@ -103,6 +103,6 @@ int Pthread::pthread_cond_destroy(pthread_cond_t* cond) {
 // This will exist until program end.
 PthreadReal pthread_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPNPLIB_API Pthread pthread_h(&pthread_realObj);
+UPnPsdk_EXP Pthread pthread_h(&pthread_realObj);
 
 } // namespace umock

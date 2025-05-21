@@ -8,7 +8,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-21
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -67,7 +67,7 @@ struct SsdpSearchArg {
  * These messages includes the search replies, advertisement of device coming
  * alive and bye byes.
  */
-UPNPLIB_API void ssdp_handle_ctrlpt_msg(
+PUPNP_EXP void ssdp_handle_ctrlpt_msg(
     /*! [in] SSDP message from the device. */
     http_message_t* hmsg,
     /*! [in] Address of the device. */
@@ -99,7 +99,7 @@ UPNPLIB_API void ssdp_handle_ctrlpt_msg(
  *  - UPNP_E_INVALID_ARGUMENT
  *  - UPNP_E_BUFFER_TOO_SMALL
  */
-UPNPLIB_API int SearchByTarget(
+PUPNP_EXP int SearchByTarget(
     /*! [in] The handle of the client performing the search. */
     int Hnd,
     /*! [in] Number of seconds to wait, to collect all the responses. */
