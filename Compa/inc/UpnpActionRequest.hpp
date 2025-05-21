@@ -16,9 +16,7 @@
  */
 typedef struct s_UpnpActionRequest UpnpActionRequest;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
 PUPNP_API UpnpActionRequest* UpnpActionRequest_new();
@@ -173,8 +171,6 @@ PUPNP_API int UpnpActionRequest_strncpy_Os(UpnpActionRequest* p, const char* s,
 /*! UpnpActionRequest_clear_Os */
 PUPNP_API void UpnpActionRequest_clear_Os(UpnpActionRequest* p);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif /* COMPA_UPNPACTIONREQUEST_HPP */

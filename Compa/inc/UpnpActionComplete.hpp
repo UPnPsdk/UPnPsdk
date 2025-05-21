@@ -15,9 +15,7 @@
 /*! UpnpActionComplete */
 typedef struct s_UpnpActionComplete UpnpActionComplete;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
 PUPNP_API UpnpActionComplete* UpnpActionComplete_new();
@@ -69,8 +67,6 @@ UpnpActionComplete_get_ActionResult(const UpnpActionComplete* p);
 /*! UpnpActionComplete_set_ActionResult */
 PUPNP_API int UpnpActionComplete_set_ActionResult(UpnpActionComplete* p,
                                                   IXML_Document* n);
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif /* COMPA_UPNPACTIONCOMPLETE_HPP */

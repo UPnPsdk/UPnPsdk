@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-21
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-22
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -59,7 +59,7 @@ extern "C" {
  * This option is intended for server applications to avoid an overflow of
  * jobs when serving e.g. many web requests.
  */
-UPnPsdk_API void UpnpSetMaxJobsTotal(int mjt);
+PUPNP_API void UpnpSetMaxJobsTotal(int mjt);
 
 /*!
  * \brief Converts an SDK error code into a string error message suitable for
@@ -68,7 +68,7 @@ UPnPsdk_API void UpnpSetMaxJobsTotal(int mjt);
  * \return An ASCII text string representation of the error message associated
  *  with the error code or the string "Unknown error code"
  */
-UPnPsdk_API const char* UpnpGetErrorMessage(
+PUPNP_API const char* UpnpGetErrorMessage(
     /*! [in] The SDK error code to convert. */
     int errorcode);
 
@@ -86,7 +86,7 @@ UPnPsdk_API const char* UpnpGetErrorMessage(
  *  \li <tt>UPNP_E_OUTOF_MEMORY</tt>: Insufficient resources exist to
  *              complete this operation.
  */
-UPnPsdk_API int UpnpResolveURL(
+PUPNP_API int UpnpResolveURL(
     /*! [in] The base URL to combine. */
     const char* BaseURL,
     /*! [in] The relative URL to \b BaseURL. */
@@ -108,7 +108,7 @@ UPnPsdk_API int UpnpResolveURL(
  *  \li <tt>UPNP_E_OUTOF_MEMORY</tt>: Insufficient resources exist to
  *              complete this operation.
  */
-UPnPsdk_API int UpnpResolveURL2(
+PUPNP_API int UpnpResolveURL2(
     /*! [in] The base URL to combine. */
     const char* BaseURL,
     /*! [in] The relative URL to \b BaseURL. */
@@ -130,7 +130,7 @@ UPnPsdk_API int UpnpResolveURL2(
  * \return The action node of \b Upnp_Document type or <tt>NULL</tt> if the
  *  operation failed.
  */
-UPnPsdk_API IXML_Document* UpnpMakeAction(
+PUPNP_API IXML_Document* UpnpMakeAction(
     /*! [in] Name of the action request or response. */
     const char* ActionName,
     /*! [in] The service type. */
@@ -155,7 +155,7 @@ UPnPsdk_API IXML_Document* UpnpMakeAction(
  * \return The action node of \b Upnp_Document type or <tt>NULL</tt> if the
  *  operation failed.
  */
-UPnPsdk_API IXML_Document* UpnpMakeActionResponse(
+PUPNP_API IXML_Document* UpnpMakeActionResponse(
     /*! [in] The action name. */
     const char* ActionName,
     /*! [in] The service type.. */
@@ -184,7 +184,7 @@ UPnPsdk_API IXML_Document* UpnpMakeActionResponse(
  * invalid. \li <tt>UPNP_E_OUTOF_MEMORY</tt>: Insufficient resources exist to
  *      complete this operation.
  */
-UPnPsdk_API int UpnpAddToAction(
+PUPNP_API int UpnpAddToAction(
     /*! [in,out] A pointer to store the action document node. */
     IXML_Document** ActionDoc,
     /*! [in] The action name. */
@@ -214,7 +214,7 @@ UPnPsdk_API int UpnpAddToAction(
  * invalid. \li <tt>UPNP_E_OUTOF_MEMORY</tt>: Insufficient resources exist to
  *      complete this operation.
  */
-UPnPsdk_API int UpnpAddToActionResponse(
+PUPNP_API int UpnpAddToActionResponse(
     /*! [in,out] Pointer to a document to store the action document node. */
     IXML_Document** ActionResponse,
     /*! [in] The action name. */
@@ -234,7 +234,7 @@ UPnPsdk_API int UpnpAddToActionResponse(
  *
  * \return <tt>NULL</tt> on failure, or the property-set document node.
  */
-UPnPsdk_API IXML_Document* UpnpCreatePropertySet(
+PUPNP_API IXML_Document* UpnpCreatePropertySet(
     /*! [in] The number of argument pairs passed. */
     int NumArg,
     /*! [in] The status variable name and value pair. */
@@ -257,7 +257,7 @@ UPnPsdk_API IXML_Document* UpnpCreatePropertySet(
  * invalid. \li <tt>UPNP_E_OUTOF_MEMORY</tt>: Insufficient resources exist to
  *      complete this operation.
  */
-UPnPsdk_API int UpnpAddToPropertySet(
+PUPNP_API int UpnpAddToPropertySet(
     /*! [in,out] A pointer to the document containing the property set document
        node. */
     IXML_Document** PropSet,

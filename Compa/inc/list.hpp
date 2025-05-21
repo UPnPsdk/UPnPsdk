@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-17
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-22
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -58,29 +58,29 @@ typedef UpnpListHead* UpnpListIter;
 
 /*! \brief Initialize empty list */
 // Don't export function symbol; only used library intern.
-void UpnpListInit(UpnpListHead* list);
+PUPNP_API void UpnpListInit(UpnpListHead* list);
 
 /*! \brief Return iterator pointing to the first list element, or
  *  UpnpListEnd(list) if the list is empty */
 // Don't export function symbol; only used library intern.
-UpnpListIter UpnpListBegin(UpnpListHead* list);
+PUPNP_API UpnpListIter UpnpListBegin(UpnpListHead* list);
 
 /*! \brief Return end of list sentinel iterator (not an element) */
 // Don't export function symbol; only used library intern.
-UpnpListIter UpnpListEnd(UpnpListHead* list);
+PUPNP_API UpnpListIter UpnpListEnd(UpnpListHead* list);
 
 /*! \brief Return iterator pointing to element after pos, or end() */
 // Don't export function symbol; only used library intern.
-UpnpListIter UpnpListNext(UpnpListHead* list, UpnpListIter pos);
+PUPNP_API UpnpListIter UpnpListNext(UpnpListHead* list, UpnpListIter pos);
 
 /*! \brief Insert element before pos, returns iterator pointing to inserted
  * element. */
 // Don't export function symbol; only used library intern.
-UpnpListIter UpnpListInsert(UpnpListHead* list, UpnpListIter pos,
-                            UpnpListHead* elt);
+PUPNP_API UpnpListIter UpnpListInsert(UpnpListHead* list, UpnpListIter pos,
+                                      UpnpListHead* elt);
 
 /*! \brief Erase element at pos, return next one, or end()*/
 // Don't export function symbol; only used library intern.
-UpnpListIter UpnpListErase(UpnpListHead* list, UpnpListIter pos);
+PUPNP_API UpnpListIter UpnpListErase(UpnpListHead* list, UpnpListIter pos);
 
 #endif // COMPA_LIST_HPP

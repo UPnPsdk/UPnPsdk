@@ -15,9 +15,7 @@
  */
 typedef struct s_UpnpEventSubscribe UpnpEventSubscribe;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
 PUPNP_API UpnpEventSubscribe* UpnpEventSubscribe_new();
@@ -81,8 +79,6 @@ PUPNP_API int UpnpEventSubscribe_strncpy_PublisherUrl(UpnpEventSubscribe* p,
 /*! UpnpEventSubscribe_clear_PublisherUrl */
 PUPNP_API void UpnpEventSubscribe_clear_PublisherUrl(UpnpEventSubscribe* p);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif /* COMPA_UPNPEVENTSUBSCRIBE_HPP*/

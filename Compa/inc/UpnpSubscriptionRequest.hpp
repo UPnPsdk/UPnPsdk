@@ -19,9 +19,7 @@
  */
 typedef struct s_UpnpSubscriptionRequest UpnpSubscriptionRequest;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
 PUPNP_API UpnpSubscriptionRequest* UpnpSubscriptionRequest_new();
@@ -100,8 +98,6 @@ PUPNP_API int UpnpSubscriptionRequest_strncpy_SID(UpnpSubscriptionRequest* p,
 /*! UpnpSubscriptionRequest_clear_SID */
 PUPNP_API void UpnpSubscriptionRequest_clear_SID(UpnpSubscriptionRequest* p);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif /* COMPA_UPNPSUBSCRIPTIONREQUEST_HPP */

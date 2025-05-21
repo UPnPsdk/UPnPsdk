@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPFILEINFO_HPP
 #define COMPA_UPNPFILEINFO_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-05-22
 // Also Copyright by other contributor as noted below.
 // Last compare with pupnp original source file on 2023-04-25, ver 1.14.15
 /*!
@@ -34,77 +34,74 @@ extern "C" {
 typedef struct s_UpnpFileInfo UpnpFileInfo;
 
 /*! Constructor */
-UPnPsdk_API UpnpFileInfo* UpnpFileInfo_new();
+PUPNP_API UpnpFileInfo* UpnpFileInfo_new();
 /*! Destructor */
-UPnPsdk_API void UpnpFileInfo_delete(UpnpFileInfo* p);
+PUPNP_API void UpnpFileInfo_delete(UpnpFileInfo* p);
 /*! Copy Constructor */
-UPnPsdk_API UpnpFileInfo* UpnpFileInfo_dup(const UpnpFileInfo* p);
+PUPNP_API UpnpFileInfo* UpnpFileInfo_dup(const UpnpFileInfo* p);
 /*! Assignment operator */
-UPnPsdk_API int UpnpFileInfo_assign(UpnpFileInfo* p, const UpnpFileInfo* q);
+PUPNP_API int UpnpFileInfo_assign(UpnpFileInfo* p, const UpnpFileInfo* q);
 
 /*! UpnpFileInfo_get_FileLength */
-UPnPsdk_API off_t UpnpFileInfo_get_FileLength(const UpnpFileInfo* p);
+PUPNP_API off_t UpnpFileInfo_get_FileLength(const UpnpFileInfo* p);
 /*! UpnpFileInfo_set_FileLength */
-UPnPsdk_API int UpnpFileInfo_set_FileLength(UpnpFileInfo* p, off_t n);
+PUPNP_API int UpnpFileInfo_set_FileLength(UpnpFileInfo* p, off_t n);
 
 /*! UpnpFileInfo_get_LastModified */
-UPnPsdk_API time_t UpnpFileInfo_get_LastModified(const UpnpFileInfo* p);
+PUPNP_API time_t UpnpFileInfo_get_LastModified(const UpnpFileInfo* p);
 /*! UpnpFileInfo_set_LastModified */
-UPnPsdk_API int UpnpFileInfo_set_LastModified(UpnpFileInfo* p, time_t n);
+PUPNP_API int UpnpFileInfo_set_LastModified(UpnpFileInfo* p, time_t n);
 
 /*! UpnpFileInfo_get_IsDirectory */
-UPnPsdk_API int UpnpFileInfo_get_IsDirectory(const UpnpFileInfo* p);
+PUPNP_API int UpnpFileInfo_get_IsDirectory(const UpnpFileInfo* p);
 /*! UpnpFileInfo_set_IsDirectory */
-UPnPsdk_API int UpnpFileInfo_set_IsDirectory(UpnpFileInfo* p, int n);
+PUPNP_API int UpnpFileInfo_set_IsDirectory(UpnpFileInfo* p, int n);
 
 /*! UpnpFileInfo_get_IsReadable */
-UPnPsdk_API int UpnpFileInfo_get_IsReadable(const UpnpFileInfo* p);
+PUPNP_API int UpnpFileInfo_get_IsReadable(const UpnpFileInfo* p);
 /*! UpnpFileInfo_set_IsReadable */
-UPnPsdk_API int UpnpFileInfo_set_IsReadable(UpnpFileInfo* p, int n);
+PUPNP_API int UpnpFileInfo_set_IsReadable(UpnpFileInfo* p, int n);
 
 /*! UpnpFileInfo_get_ContentType */
-UPnPsdk_API const DOMString UpnpFileInfo_get_ContentType(const UpnpFileInfo* p);
+PUPNP_API const DOMString UpnpFileInfo_get_ContentType(const UpnpFileInfo* p);
 /*! UpnpFileInfo_set_ContentType */
-UPnPsdk_API int UpnpFileInfo_set_ContentType(UpnpFileInfo* p,
-                                             const DOMString s);
+PUPNP_API int UpnpFileInfo_set_ContentType(UpnpFileInfo* p, const DOMString s);
 /*! UpnpFileInfo_get_ContentType_cstr */
-UPnPsdk_API const char*
-UpnpFileInfo_get_ContentType_cstr(const UpnpFileInfo* p);
+PUPNP_API const char* UpnpFileInfo_get_ContentType_cstr(const UpnpFileInfo* p);
 
 /*! UpnpFileInfo_get_ExtraHeadersList */
-UPnPsdk_API const UpnpListHead*
+PUPNP_API const UpnpListHead*
 UpnpFileInfo_get_ExtraHeadersList(const UpnpFileInfo* p);
 /*! UpnpFileInfo_set_ExtraHeadersList */
-UPnPsdk_API int UpnpFileInfo_set_ExtraHeadersList(UpnpFileInfo* p,
-                                                  const UpnpListHead* q);
+PUPNP_API int UpnpFileInfo_set_ExtraHeadersList(UpnpFileInfo* p,
+                                                const UpnpListHead* q);
 /*! UpnpFileInfo_add_to_list_ExtraHeadersList */
-UPnPsdk_API void UpnpFileInfo_add_to_list_ExtraHeadersList(UpnpFileInfo* p,
-                                                           UpnpListHead* head);
+PUPNP_API void UpnpFileInfo_add_to_list_ExtraHeadersList(UpnpFileInfo* p,
+                                                         UpnpListHead* head);
 
 /*! UpnpFileInfo_get_CtrlPtIPAddr */
-UPnPsdk_API const sockaddr_storage*
+PUPNP_API const sockaddr_storage*
 UpnpFileInfo_get_CtrlPtIPAddr(const UpnpFileInfo* p);
 /*! UpnpFileInfo_set_CtrlPtIPAddr */
-UPnPsdk_API int UpnpFileInfo_set_CtrlPtIPAddr(UpnpFileInfo* p,
-                                              const sockaddr_storage* buf);
+PUPNP_API int UpnpFileInfo_set_CtrlPtIPAddr(UpnpFileInfo* p,
+                                            const sockaddr_storage* buf);
 /*! UpnpFileInfo_clear_CtrlPtIPAddr */
-UPnPsdk_API void UpnpFileInfo_clear_CtrlPtIPAddr(UpnpFileInfo* p);
+PUPNP_API void UpnpFileInfo_clear_CtrlPtIPAddr(UpnpFileInfo* p);
 
 /*! UpnpFileInfo_get_Os */
-UPnPsdk_API const UpnpString* UpnpFileInfo_get_Os(const UpnpFileInfo* p);
+PUPNP_API const UpnpString* UpnpFileInfo_get_Os(const UpnpFileInfo* p);
 /*! UpnpFileInfo_set_Os */
-UPnPsdk_API int UpnpFileInfo_set_Os(UpnpFileInfo* p, const UpnpString* s);
+PUPNP_API int UpnpFileInfo_set_Os(UpnpFileInfo* p, const UpnpString* s);
 /*! UpnpFileInfo_get_Os_Length */
-UPnPsdk_API size_t UpnpFileInfo_get_Os_Length(const UpnpFileInfo* p);
+PUPNP_API size_t UpnpFileInfo_get_Os_Length(const UpnpFileInfo* p);
 /*! UpnpFileInfo_get_Os_cstr */
-UPnPsdk_API const char* UpnpFileInfo_get_Os_cstr(const UpnpFileInfo* p);
+PUPNP_API const char* UpnpFileInfo_get_Os_cstr(const UpnpFileInfo* p);
 /*! UpnpFileInfo_strcpy_Os */
-UPnPsdk_API int UpnpFileInfo_strcpy_Os(UpnpFileInfo* p, const char* s);
+PUPNP_API int UpnpFileInfo_strcpy_Os(UpnpFileInfo* p, const char* s);
 /*! UpnpFileInfo_strncpy_Os */
-UPnPsdk_API int UpnpFileInfo_strncpy_Os(UpnpFileInfo* p, const char* s,
-                                        size_t n);
+PUPNP_API int UpnpFileInfo_strncpy_Os(UpnpFileInfo* p, const char* s, size_t n);
 /*! UpnpFileInfo_clear_Os */
-UPnPsdk_API void UpnpFileInfo_clear_Os(UpnpFileInfo* p);
+PUPNP_API void UpnpFileInfo_clear_Os(UpnpFileInfo* p);
 
 } // extern "C"
 

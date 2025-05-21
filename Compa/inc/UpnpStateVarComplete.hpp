@@ -20,9 +20,7 @@
  */
 typedef struct s_UpnpStateVarComplete UpnpStateVarComplete;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
 PUPNP_API UpnpStateVarComplete* UpnpStateVarComplete_new();
@@ -93,8 +91,6 @@ PUPNP_API int UpnpStateVarComplete_set_CurrentVal(UpnpStateVarComplete* p,
 PUPNP_API const char*
 UpnpStateVarComplete_get_CurrentVal_cstr(const UpnpStateVarComplete* p);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif /* COMPA_UPNPSTATEVARCOMPLETE_HPP */

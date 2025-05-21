@@ -18,9 +18,7 @@
  */
 typedef struct s_UpnpStateVarRequest UpnpStateVarRequest;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
 PUPNP_API UpnpStateVarRequest* UpnpStateVarRequest_new();
@@ -147,9 +145,7 @@ PUPNP_API int UpnpStateVarRequest_set_CurrentVal(UpnpStateVarRequest* p,
 PUPNP_API const char*
 UpnpStateVarRequest_get_CurrentVal_cstr(const UpnpStateVarRequest* p);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif // COMPA_UPNPSTATEVARREQUEST_HPP
 #endif // COMPA_HAVE_DEVICE_SOAP

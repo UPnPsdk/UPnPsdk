@@ -15,9 +15,7 @@
  */
 typedef struct s_UpnpDiscovery UpnpDiscovery;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
 PUPNP_API UpnpDiscovery* UpnpDiscovery_new();
@@ -182,8 +180,6 @@ PUPNP_API int UpnpDiscovery_set_DestAddr(UpnpDiscovery* p,
 /*! UpnpDiscovery_get_DestAddr */
 PUPNP_API void UpnpDiscovery_clear_DestAddr(UpnpDiscovery* p);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif /* COMPA_UPNPDISCOVERY_HPP */

@@ -1,15 +1,15 @@
 var group__compaAPI_Eventing =
 [
-    [ "UpnpAcceptSubscription", "d4/d07/group__compaAPI-Eventing.html#ga39884307c097d23a218d0cc03153f076", null ],
-    [ "UpnpAcceptSubscriptionExt", "d4/d07/group__compaAPI-Eventing.html#gae7c8a4bd9d959b520805772bebe295b4", null ],
-    [ "UpnpNotify", "d4/d07/group__compaAPI-Eventing.html#gacce0b83e89cd76cf5a7ff15bf7f5e2eb", null ],
-    [ "UpnpNotifyExt", "d4/d07/group__compaAPI-Eventing.html#ga6af7284d0c1f7074035c8650d1a9651b", null ],
-    [ "UpnpRenewSubscription", "d4/d07/group__compaAPI-Eventing.html#ga432702f1729fb397dde196c851355bd2", null ],
-    [ "UpnpRenewSubscriptionAsync", "d4/d07/group__compaAPI-Eventing.html#ga2c9bdc75962402684774c8efc4335f4f", null ],
-    [ "UpnpSetMaxSubscriptions", "d4/d07/group__compaAPI-Eventing.html#gaf525dd4ce64cd2760caca2d2db7a2a41", null ],
-    [ "UpnpSetMaxSubscriptionTimeOut", "d4/d07/group__compaAPI-Eventing.html#ga4350fb532fc039a74ba6c7c5f1117669", null ],
-    [ "UpnpSubscribe", "d4/d07/group__compaAPI-Eventing.html#gaec3120b0a0e24cdb58483b077ef1dcdf", null ],
-    [ "UpnpSubscribeAsync", "d4/d07/group__compaAPI-Eventing.html#ga9b26944e92d3f59c09cbe560d3a06bed", null ],
-    [ "UpnpUnSubscribe", "d4/d07/group__compaAPI-Eventing.html#ga88b8e698c2d0600d22cf288a6b625c21", null ],
-    [ "UpnpUnSubscribeAsync", "d4/d07/group__compaAPI-Eventing.html#gae1515ebcabf3ded6af3bd789b243fdce", null ]
+    [ "UpnpAcceptSubscription", "d4/d07/group__compaAPI-Eventing.html#ga263d42a6f71216fd26c86fbee4320e56", null ],
+    [ "UpnpAcceptSubscriptionExt", "d4/d07/group__compaAPI-Eventing.html#gad072b6e533132efebde79caa80b42e11", null ],
+    [ "UpnpNotify", "d4/d07/group__compaAPI-Eventing.html#ga579c14cb0b673ffd496c99747db1b4bd", null ],
+    [ "UpnpNotifyExt", "d4/d07/group__compaAPI-Eventing.html#ga8d0596bdeee15e489f2bee769bf63797", null ],
+    [ "UpnpRenewSubscription", "d4/d07/group__compaAPI-Eventing.html#gaed33ee5ea1cd788309bc8742e49add47", null ],
+    [ "UpnpRenewSubscriptionAsync", "d4/d07/group__compaAPI-Eventing.html#gac6b928bce03bd0e922cf04dfda0a37f2", null ],
+    [ "UpnpSetMaxSubscriptions", "d4/d07/group__compaAPI-Eventing.html#ga1f72ead7280827b4bea107c69b2c7f4c", null ],
+    [ "UpnpSetMaxSubscriptionTimeOut", "d4/d07/group__compaAPI-Eventing.html#gaefc711b76a27c9b6f376804183c211b8", null ],
+    [ "UpnpSubscribe", "d4/d07/group__compaAPI-Eventing.html#gabb9a08cf9b4549e1fdd1ece1342aa9d8", null ],
+    [ "UpnpSubscribeAsync", "d4/d07/group__compaAPI-Eventing.html#ga6c5acfbebcc28766c2f288ace41d5380", null ],
+    [ "UpnpUnSubscribe", "d4/d07/group__compaAPI-Eventing.html#ga0bdc185a9e612e8a42934c908b3934c1", null ],
+    [ "UpnpUnSubscribeAsync", "d4/d07/group__compaAPI-Eventing.html#gadebe95400c3619cba2b02389e2af2349", null ]
 ];

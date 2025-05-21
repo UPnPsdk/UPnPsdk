@@ -17,9 +17,7 @@
  */
 typedef struct s_UpnpEvent UpnpEvent;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
 PUPNP_API UpnpEvent* UpnpEvent_new();
@@ -55,8 +53,6 @@ PUPNP_API int UpnpEvent_strncpy_SID(UpnpEvent* p, const char* s, size_t n);
 /*! UpnpEvent_clear_SID */
 PUPNP_API void UpnpEvent_clear_SID(UpnpEvent* p);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif /* COMPA_UPNPEVENT_HPP */

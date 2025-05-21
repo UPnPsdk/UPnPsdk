@@ -22,9 +22,7 @@
 #include <cstddef> // For size_t
 /// \endcond
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*!
  * \brief Type of the string objects inside libupnp.
@@ -147,9 +145,7 @@ PUPNP_API int UpnpString_casecmp(
     /*! [in] The \em \b the second string. */
     UpnpString* q);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 /// @} UpnpString The UpnpString API
 
