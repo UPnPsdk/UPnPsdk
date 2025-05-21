@@ -3,6 +3,7 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2024-08-13
 // Also Copyright by other contributor as noted below.
+// Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
 
 /*!
  * \file
@@ -192,10 +193,10 @@ EXPORT_SPEC void UpnpDiscovery_clear_Ext(UpnpDiscovery* p);
 /*! UpnpDiscovery_get_DestAddr */
 EXPORT_SPEC const struct sockaddr_storage*
 UpnpDiscovery_get_DestAddr(const UpnpDiscovery* p);
-/*! UpnpDiscovery_get_DestAddr */
+/*! UpnpDiscovery_set_DestAddr */
 EXPORT_SPEC int UpnpDiscovery_set_DestAddr(UpnpDiscovery* p,
                                            const struct sockaddr_storage* buf);
-/*! UpnpDiscovery_get_DestAddr */
+/*! UpnpDiscovery_clear_DestAddr */
 EXPORT_SPEC void UpnpDiscovery_clear_DestAddr(UpnpDiscovery* p);
 
 #ifdef __cplusplus

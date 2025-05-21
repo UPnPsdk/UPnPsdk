@@ -1,7 +1,8 @@
 #ifndef COMPA_UPNPSUBSCRIPTIONREQUEST_HPP
 #define COMPA_UPNPSUBSCRIPTIONREQUEST_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-13
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Last compare with ./Pupnp source file on 2025-05-23, ver 1.14.20
 /*!
  * \file
  * \brief Header file for UpnpSubscriptionRequest methods.
@@ -19,91 +20,85 @@
  */
 typedef struct s_UpnpSubscriptionRequest UpnpSubscriptionRequest;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
-UPNPLIB_API UpnpSubscriptionRequest* UpnpSubscriptionRequest_new();
+PUPNP_API UpnpSubscriptionRequest* UpnpSubscriptionRequest_new();
 /*! Destructor */
-UPNPLIB_API void UpnpSubscriptionRequest_delete(UpnpSubscriptionRequest* p);
+PUPNP_API void UpnpSubscriptionRequest_delete(UpnpSubscriptionRequest* p);
 /*! Copy Constructor */
-UPNPLIB_API UpnpSubscriptionRequest*
+PUPNP_API UpnpSubscriptionRequest*
 UpnpSubscriptionRequest_dup(const UpnpSubscriptionRequest* p);
 /*! Assignment operator */
-UPNPLIB_API int
-UpnpSubscriptionRequest_assign(UpnpSubscriptionRequest* p,
-                               const UpnpSubscriptionRequest* q);
+PUPNP_API int UpnpSubscriptionRequest_assign(UpnpSubscriptionRequest* p,
+                                             const UpnpSubscriptionRequest* q);
 
 /*! UpnpSubscriptionRequest_get_ServiceId */
-UPNPLIB_API const UpnpString*
+PUPNP_API const UpnpString*
 UpnpSubscriptionRequest_get_ServiceId(const UpnpSubscriptionRequest* p);
 /*! UpnpSubscriptionRequest_set_ServiceId */
-UPNPLIB_API int
-UpnpSubscriptionRequest_set_ServiceId(UpnpSubscriptionRequest* p,
-                                      const UpnpString* s);
+PUPNP_API int UpnpSubscriptionRequest_set_ServiceId(UpnpSubscriptionRequest* p,
+                                                    const UpnpString* s);
 /*! UpnpSubscriptionRequest_get_ServiceId_Length */
-UPNPLIB_API size_t
+PUPNP_API size_t
 UpnpSubscriptionRequest_get_ServiceId_Length(const UpnpSubscriptionRequest* p);
 /*! UpnpSubscriptionRequest_get_ServiceId_cstr */
-UPNPLIB_API const char*
+PUPNP_API const char*
 UpnpSubscriptionRequest_get_ServiceId_cstr(const UpnpSubscriptionRequest* p);
 /*! UpnpSubscriptionRequest_strcpy_ServiceId */
-UPNPLIB_API int
+PUPNP_API int
 UpnpSubscriptionRequest_strcpy_ServiceId(UpnpSubscriptionRequest* p,
                                          const char* s);
 /*! UpnpSubscriptionRequest_strncpy_ServiceId */
-UPNPLIB_API int
+PUPNP_API int
 UpnpSubscriptionRequest_strncpy_ServiceId(UpnpSubscriptionRequest* p,
                                           const char* s, size_t n);
 /*! UpnpSubscriptionRequest_clear_ServiceId */
-UPNPLIB_API void
+PUPNP_API void
 UpnpSubscriptionRequest_clear_ServiceId(UpnpSubscriptionRequest* p);
 
 /*! UpnpSubscriptionRequest_get_UDN */
-UPNPLIB_API const UpnpString*
+PUPNP_API const UpnpString*
 UpnpSubscriptionRequest_get_UDN(const UpnpSubscriptionRequest* p);
 /*! UpnpSubscriptionRequest_set_UDN */
-UPNPLIB_API int UpnpSubscriptionRequest_set_UDN(UpnpSubscriptionRequest* p,
-                                                const UpnpString* s);
+PUPNP_API int UpnpSubscriptionRequest_set_UDN(UpnpSubscriptionRequest* p,
+                                              const UpnpString* s);
 /*! UpnpSubscriptionRequest_get_UDN_Length */
-UPNPLIB_API size_t
+PUPNP_API size_t
 UpnpSubscriptionRequest_get_UDN_Length(const UpnpSubscriptionRequest* p);
 /*! UpnpSubscriptionRequest_get_UDN_cstr */
-UPNPLIB_API const char*
+PUPNP_API const char*
 UpnpSubscriptionRequest_get_UDN_cstr(const UpnpSubscriptionRequest* p);
 /*! UpnpSubscriptionRequest_strcpy_UDN */
-UPNPLIB_API int UpnpSubscriptionRequest_strcpy_UDN(UpnpSubscriptionRequest* p,
-                                                   const char* s);
+PUPNP_API int UpnpSubscriptionRequest_strcpy_UDN(UpnpSubscriptionRequest* p,
+                                                 const char* s);
 /*! UpnpSubscriptionRequest_strncpy_UDN */
-UPNPLIB_API int UpnpSubscriptionRequest_strncpy_UDN(UpnpSubscriptionRequest* p,
-                                                    const char* s, size_t n);
+PUPNP_API int UpnpSubscriptionRequest_strncpy_UDN(UpnpSubscriptionRequest* p,
+                                                  const char* s, size_t n);
 /*! UpnpSubscriptionRequest_clear_UDN */
-UPNPLIB_API void UpnpSubscriptionRequest_clear_UDN(UpnpSubscriptionRequest* p);
+PUPNP_API void UpnpSubscriptionRequest_clear_UDN(UpnpSubscriptionRequest* p);
 
 /*! UpnpSubscriptionRequest_get_SID */
-UPNPLIB_API const UpnpString*
+PUPNP_API const UpnpString*
 UpnpSubscriptionRequest_get_SID(const UpnpSubscriptionRequest* p);
 /*! UpnpSubscriptionRequest_set_SID */
-UPNPLIB_API int UpnpSubscriptionRequest_set_SID(UpnpSubscriptionRequest* p,
-                                                const UpnpString* s);
+PUPNP_API int UpnpSubscriptionRequest_set_SID(UpnpSubscriptionRequest* p,
+                                              const UpnpString* s);
 /*! UpnpSubscriptionRequest_get_SID_Length */
-UPNPLIB_API size_t
+PUPNP_API size_t
 UpnpSubscriptionRequest_get_SID_Length(const UpnpSubscriptionRequest* p);
 /*! UpnpSubscriptionRequest_get_SID_cstr */
-UPNPLIB_API const char*
+PUPNP_API const char*
 UpnpSubscriptionRequest_get_SID_cstr(const UpnpSubscriptionRequest* p);
 /*! UpnpSubscriptionRequest_strcpy_SID */
-UPNPLIB_API int UpnpSubscriptionRequest_strcpy_SID(UpnpSubscriptionRequest* p,
-                                                   const char* s);
+PUPNP_API int UpnpSubscriptionRequest_strcpy_SID(UpnpSubscriptionRequest* p,
+                                                 const char* s);
 /*! UpnpSubscriptionRequest_strncpy_SID */
-UPNPLIB_API int UpnpSubscriptionRequest_strncpy_SID(UpnpSubscriptionRequest* p,
-                                                    const char* s, size_t n);
+PUPNP_API int UpnpSubscriptionRequest_strncpy_SID(UpnpSubscriptionRequest* p,
+                                                  const char* s, size_t n);
 /*! UpnpSubscriptionRequest_clear_SID */
-UPNPLIB_API void UpnpSubscriptionRequest_clear_SID(UpnpSubscriptionRequest* p);
+PUPNP_API void UpnpSubscriptionRequest_clear_SID(UpnpSubscriptionRequest* p);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif /* COMPA_UPNPSUBSCRIPTIONREQUEST_HPP */

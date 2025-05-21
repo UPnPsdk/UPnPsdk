@@ -103,42 +103,43 @@ $(document).ready(function(){initNavTree('d7/d68/ixmldebug_8hpp_source.html','..
 <a href="../../d7/d68/ixmldebug_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  &lt;Ingo@Hoeft-online.de&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2022-02-25</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Taken from authors who haven&#39;t made a note.</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#ifndef UPNPLIB_IXMLDEBUG_HPP</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#define UPNPLIB_IXMLDEBUG_HPP</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;UpnpGlobal.hpp&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d46/ixml_8hpp.html">ixml.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d68/ixmldebug_8hpp.html#a39f4bb286e16f1bc5c1a34947b97f928">IxmlPrintf</a>(</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* DbgFileName,</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">int</span> DbgLineNo,</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* FunctionName,</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* FmtStr,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    ...)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#if (__GNUC__ &gt;= 3)</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="comment">/* This enables printf like format checking by the compiler */</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    __attribute__((format(__printf__, 4, 5)))</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    ;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#else  </span><span class="comment">/* DEBUG */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">static</span> UPNP_INLINE <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d68/ixmldebug_8hpp.html#a39f4bb286e16f1bc5c1a34947b97f928">IxmlPrintf</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* FmtStr, ...) { (void)FmtStr; }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#endif </span><span class="comment">/* DEBUG */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d68/ixmldebug_8hpp.html#a64ec28a981a1ebc97ae7103252bda8e0">printNodes</a>(</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_struct" href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">IXML_Node</a>* tmpRoot,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">int</span> depth);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">static</span> UPNP_INLINE <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d68/ixmldebug_8hpp.html#a64ec28a981a1ebc97ae7103252bda8e0">printNodes</a>(<a class="code hl_struct" href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">IXML_Node</a>* tmpRoot, <span class="keywordtype">int</span> depth) {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    (void)tmpRoot;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    (void)depth;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#endif </span><span class="comment">/* UPNPLIB_IXMLDEBUG_HPP */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="agroup__XMLAPI_html_d7/d7d/struct__IXML__Node"><div class="ttname"><a href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">_IXML_Node</a></div><div class="ttdoc">Data structure common to all types of nodes.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d46/ixml_8hpp_source.html#l00135">ixml.hpp:135</a></div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Last compare with pupnp original source file on 2025-05-23, ver 1.14.20</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#ifndef UPNPLIB_IXMLDEBUG_HPP</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#define UPNPLIB_IXMLDEBUG_HPP</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;UpnpGlobal.hpp&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d46/ixml_8hpp.html">ixml.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d68/ixmldebug_8hpp.html#a39f4bb286e16f1bc5c1a34947b97f928">IxmlPrintf</a>(</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* DbgFileName,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">int</span> DbgLineNo,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* FunctionName,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* FmtStr,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    ...)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#if (__GNUC__ &gt;= 3)</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">/* This enables printf like format checking by the compiler */</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    __attribute__((format(__printf__, 4, 5)))</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    ;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#else  </span><span class="comment">/* DEBUG */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">static</span> UPNP_INLINE <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d68/ixmldebug_8hpp.html#a39f4bb286e16f1bc5c1a34947b97f928">IxmlPrintf</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* FmtStr, ...) { (void)FmtStr; }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#endif </span><span class="comment">/* DEBUG */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d68/ixmldebug_8hpp.html#a64ec28a981a1ebc97ae7103252bda8e0">printNodes</a>(</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_struct" href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">IXML_Node</a>* tmpRoot,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">int</span> depth);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">static</span> UPNP_INLINE <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/d68/ixmldebug_8hpp.html#a64ec28a981a1ebc97ae7103252bda8e0">printNodes</a>(<a class="code hl_struct" href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">IXML_Node</a>* tmpRoot, <span class="keywordtype">int</span> depth) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    (void)tmpRoot;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    (void)depth;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif </span><span class="comment">/* UPNPLIB_IXMLDEBUG_HPP */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="agroup__XMLAPI_html_d7/d7d/struct__IXML__Node"><div class="ttname"><a href="../../da/d8a/group__XMLAPI.html#d7/d7d/struct__IXML__Node">_IXML_Node</a></div><div class="ttdoc">Data structure common to all types of nodes.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/d46/ixml_8hpp_source.html#l00132">ixml.hpp:132</a></div></div>
 <div class="ttc" id="aixml_8hpp_html"><div class="ttname"><a href="../../d1/d46/ixml_8hpp.html">ixml.hpp</a></div></div>
 <div class="ttc" id="aixmldebug_8hpp_html_a39f4bb286e16f1bc5c1a34947b97f928"><div class="ttname"><a href="../../d7/d68/ixmldebug_8hpp.html#a39f4bb286e16f1bc5c1a34947b97f928">IxmlPrintf</a></div><div class="ttdeci">void IxmlPrintf(const char *DbgFileName, int DbgLineNo, const char *FunctionName, const char *FmtStr,...)</div><div class="ttdoc">Prints the debug statement either on the standard output or log file along with the information from ...</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d37/ixmldebug_8cpp_source.html#l00018">ixmldebug.cpp:18</a></div></div>
 <div class="ttc" id="aixmldebug_8hpp_html_a64ec28a981a1ebc97ae7103252bda8e0"><div class="ttname"><a href="../../d7/d68/ixmldebug_8hpp.html#a64ec28a981a1ebc97ae7103252bda8e0">printNodes</a></div><div class="ttdeci">void printNodes(IXML_Node *tmpRoot, int depth)</div><div class="ttdoc">Print the node names and values of a XML tree.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d37/ixmldebug_8cpp_source.html#l00036">ixmldebug.cpp:36</a></div></div>

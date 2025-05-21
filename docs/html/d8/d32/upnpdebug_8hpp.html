@@ -153,24 +153,24 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0bd1a35974602e8428fd53ff4b424c46" id="r_a0bd1a35974602e8428fd53ff4b424c46"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a0bd1a35974602e8428fd53ff4b424c46">UpnpInitLog</a> ()</td></tr>
-<tr class="memdesc:a0bd1a35974602e8428fd53ff4b424c46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the log files.  <br /></td></tr>
-<tr class="separator:a0bd1a35974602e8428fd53ff4b424c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3751794182ea49ea472c0b8efb6e6806" id="r_a3751794182ea49ea472c0b8efb6e6806"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a3751794182ea49ea472c0b8efb6e6806">UpnpSetLogLevel</a> (<a class="el" href="../../d8/d32/upnpdebug_8hpp.html#ac9d220584af8668d158b172d81e956b8">Upnp_LogLevel</a> log_level)</td></tr>
-<tr class="memdesc:a3751794182ea49ea472c0b8efb6e6806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the log level (see <code>Upnp_LogLevel</code>).  <br /></td></tr>
-<tr class="separator:a3751794182ea49ea472c0b8efb6e6806"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46e07b7e3bb05aaba6a4ff9893e93efe" id="r_a46e07b7e3bb05aaba6a4ff9893e93efe"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a46e07b7e3bb05aaba6a4ff9893e93efe">UpnpCloseLog</a> ()</td></tr>
-<tr class="memdesc:a46e07b7e3bb05aaba6a4ff9893e93efe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the log files.  <br /></td></tr>
-<tr class="separator:a46e07b7e3bb05aaba6a4ff9893e93efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09fd59e3af30d46efb0e464419e9ab41" id="r_a09fd59e3af30d46efb0e464419e9ab41"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a09fd59e3af30d46efb0e464419e9ab41">UpnpSetLogFileNames</a> (const char *<a class="el" href="../../d5/dfa/upnpdebug_8cpp.html#a25c8761bc1f523fe6a53db546ae83add">fileName</a>, const char *Ignored)</td></tr>
-<tr class="memdesc:a09fd59e3af30d46efb0e464419e9ab41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name for the log file. There used to be 2 separate files. The second parameter has been kept for compatibility but is ignored. Use a NULL file name for logging to stderr.  <br /></td></tr>
-<tr class="separator:a09fd59e3af30d46efb0e464419e9ab41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a984374760513d195b0e8f102886e9115" id="r_a984374760513d195b0e8f102886e9115"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a984374760513d195b0e8f102886e9115">UpnpGetDebugFile</a> (<a class="el" href="../../d8/d32/upnpdebug_8hpp.html#ac9d220584af8668d158b172d81e956b8">Upnp_LogLevel</a> DLevel, <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a0e8c631f547ccdd59b6e2f16b149cb1c">Dbg_Module</a> Module)</td></tr>
-<tr class="memdesc:a984374760513d195b0e8f102886e9115"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the module is turned on for debug and returns the file descriptor corresponding to the debug level. <a class="anchor" id="UpnpGetDebugFile_dbg"></a>.  <br /></td></tr>
-<tr class="separator:a984374760513d195b0e8f102886e9115"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a186bccdd3cab13ada1bdc46ee95c7d37" id="r_a186bccdd3cab13ada1bdc46ee95c7d37"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a186bccdd3cab13ada1bdc46ee95c7d37">UpnpPrintf</a> (<a class="el" href="../../d8/d32/upnpdebug_8hpp.html#ac9d220584af8668d158b172d81e956b8">Upnp_LogLevel</a> DLevel, <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a0e8c631f547ccdd59b6e2f16b149cb1c">Dbg_Module</a> Module, const char *DbgFileName, int DbgLineNo, const char *FmtStr,...)</td></tr>
-<tr class="memdesc:a186bccdd3cab13ada1bdc46ee95c7d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the debug statement.  <br /></td></tr>
-<tr class="separator:a186bccdd3cab13ada1bdc46ee95c7d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebf317f8760757b7e90d3f9c93b8157f" id="r_aebf317f8760757b7e90d3f9c93b8157f"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#aebf317f8760757b7e90d3f9c93b8157f">UpnpInitLog</a> ()</td></tr>
+<tr class="memdesc:aebf317f8760757b7e90d3f9c93b8157f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the log files.  <br /></td></tr>
+<tr class="separator:aebf317f8760757b7e90d3f9c93b8157f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5be7f6fe7c283ec4374b97fdf81715b" id="r_ae5be7f6fe7c283ec4374b97fdf81715b"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#ae5be7f6fe7c283ec4374b97fdf81715b">UpnpSetLogLevel</a> (<a class="el" href="../../d8/d32/upnpdebug_8hpp.html#ac9d220584af8668d158b172d81e956b8">Upnp_LogLevel</a> log_level)</td></tr>
+<tr class="memdesc:ae5be7f6fe7c283ec4374b97fdf81715b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the log level (see <code>Upnp_LogLevel</code>).  <br /></td></tr>
+<tr class="separator:ae5be7f6fe7c283ec4374b97fdf81715b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f18848bb720ef21612f97587d363e5d" id="r_a2f18848bb720ef21612f97587d363e5d"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a2f18848bb720ef21612f97587d363e5d">UpnpCloseLog</a> ()</td></tr>
+<tr class="memdesc:a2f18848bb720ef21612f97587d363e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes the log files.  <br /></td></tr>
+<tr class="separator:a2f18848bb720ef21612f97587d363e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99bbfb81f5eacc1d9aad3f554d2deee4" id="r_a99bbfb81f5eacc1d9aad3f554d2deee4"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a99bbfb81f5eacc1d9aad3f554d2deee4">UpnpSetLogFileNames</a> (const char *<a class="el" href="../../d5/dfa/upnpdebug_8cpp.html#a25c8761bc1f523fe6a53db546ae83add">fileName</a>, const char *Ignored)</td></tr>
+<tr class="memdesc:a99bbfb81f5eacc1d9aad3f554d2deee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name for the log file. There used to be 2 separate files. The second parameter has been kept for compatibility but is ignored. Use a NULL file name for logging to stderr.  <br /></td></tr>
+<tr class="separator:a99bbfb81f5eacc1d9aad3f554d2deee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1215c301efb21957a1c69aa3c2b728ec" id="r_a1215c301efb21957a1c69aa3c2b728ec"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1215c301efb21957a1c69aa3c2b728ec">UpnpGetDebugFile</a> (<a class="el" href="../../d8/d32/upnpdebug_8hpp.html#ac9d220584af8668d158b172d81e956b8">Upnp_LogLevel</a> DLevel, <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a0e8c631f547ccdd59b6e2f16b149cb1c">Dbg_Module</a> Module)</td></tr>
+<tr class="memdesc:a1215c301efb21957a1c69aa3c2b728ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the module is turned on for debug and returns the file descriptor corresponding to the debug level. <a class="anchor" id="UpnpGetDebugFile_dbg"></a>.  <br /></td></tr>
+<tr class="separator:a1215c301efb21957a1c69aa3c2b728ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18ab08a04d0e13f59ba81a3e735b98ea" id="r_a18ab08a04d0e13f59ba81a3e735b98ea"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a18ab08a04d0e13f59ba81a3e735b98ea">UpnpPrintf</a> (<a class="el" href="../../d8/d32/upnpdebug_8hpp.html#ac9d220584af8668d158b172d81e956b8">Upnp_LogLevel</a> DLevel, <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a0e8c631f547ccdd59b6e2f16b149cb1c">Dbg_Module</a> Module, const char *DbgFileName, int DbgLineNo, const char *FmtStr,...)</td></tr>
+<tr class="memdesc:a18ab08a04d0e13f59ba81a3e735b98ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the debug statement.  <br /></td></tr>
+<tr class="separator:a18ab08a04d0e13f59ba81a3e735b98ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1567411a447d6b0f63320f8b5b09b941" id="r_a1567411a447d6b0f63320f8b5b09b941"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1567411a447d6b0f63320f8b5b09b941">Upnp_Module</a> { <br />
 &#160;&#160;<b>SSDP</b>
 , <b>SOAP</b>
@@ -306,14 +306,14 @@ typedef enum <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1567411a447d6
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a0bd1a35974602e8428fd53ff4b424c46" name="a0bd1a35974602e8428fd53ff4b424c46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bd1a35974602e8428fd53ff4b424c46">&#9670;&#160;</a></span>UpnpInitLog()</h2>
+<a id="aebf317f8760757b7e90d3f9c93b8157f" name="aebf317f8760757b7e90d3f9c93b8157f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebf317f8760757b7e90d3f9c93b8157f">&#9670;&#160;</a></span>UpnpInitLog()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int UpnpInitLog </td>
+          <td class="memname">PUPNP_EXP int UpnpInitLog </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -330,26 +330,26 @@ typedef enum <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1567411a447d6
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d8/d32/upnpdebug_8hpp_a0bd1a35974602e8428fd53ff4b424c46_icgraph.png" border="0" usemap="#ad8/d32/upnpdebug_8hpp_a0bd1a35974602e8428fd53ff4b424c46_icgraph" alt=""/></div>
-<map name="ad8/d32/upnpdebug_8hpp_a0bd1a35974602e8428fd53ff4b424c46_icgraph" id="ad8/d32/upnpdebug_8hpp_a0bd1a35974602e8428fd53ff4b424c46_icgraph">
+<div class="center"><img src="../../d8/d32/upnpdebug_8hpp_aebf317f8760757b7e90d3f9c93b8157f_icgraph.png" border="0" usemap="#ad8/d32/upnpdebug_8hpp_aebf317f8760757b7e90d3f9c93b8157f_icgraph" alt=""/></div>
+<map name="ad8/d32/upnpdebug_8hpp_aebf317f8760757b7e90d3f9c93b8157f_icgraph" id="ad8/d32/upnpdebug_8hpp_aebf317f8760757b7e90d3f9c93b8157f_icgraph">
 <area shape="rect" title="Initialize the log files." alt="" coords="325,5,425,31"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="139,5,277,31"/>
 <area shape="poly" title=" " alt="" coords="311,21,278,21,278,15,311,15"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,5,91,31"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga0daf13b33ef5f4662a03f7249dba9bd3" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,5,91,31"/>
 <area shape="poly" title=" " alt="" coords="125,21,91,21,91,15,125,15"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a3751794182ea49ea472c0b8efb6e6806" name="a3751794182ea49ea472c0b8efb6e6806"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3751794182ea49ea472c0b8efb6e6806">&#9670;&#160;</a></span>UpnpSetLogLevel()</h2>
+<a id="ae5be7f6fe7c283ec4374b97fdf81715b" name="ae5be7f6fe7c283ec4374b97fdf81715b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5be7f6fe7c283ec4374b97fdf81715b">&#9670;&#160;</a></span>UpnpSetLogLevel()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API void UpnpSetLogLevel </td>
+          <td class="memname">PUPNP_EXP void UpnpSetLogLevel </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#ac9d220584af8668d158b172d81e956b8">Upnp_LogLevel</a>&#160;</td>
           <td class="paramname"><em>log_level</em></td><td>)</td>
@@ -370,14 +370,14 @@ typedef enum <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1567411a447d6
 
 </div>
 </div>
-<a id="a46e07b7e3bb05aaba6a4ff9893e93efe" name="a46e07b7e3bb05aaba6a4ff9893e93efe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46e07b7e3bb05aaba6a4ff9893e93efe">&#9670;&#160;</a></span>UpnpCloseLog()</h2>
+<a id="a2f18848bb720ef21612f97587d363e5d" name="a2f18848bb720ef21612f97587d363e5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f18848bb720ef21612f97587d363e5d">&#9670;&#160;</a></span>UpnpCloseLog()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API void UpnpCloseLog </td>
+          <td class="memname">PUPNP_EXP void UpnpCloseLog </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -393,12 +393,12 @@ typedef enum <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1567411a447d6
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d8/d32/upnpdebug_8hpp_a46e07b7e3bb05aaba6a4ff9893e93efe_icgraph.png" border="0" usemap="#ad8/d32/upnpdebug_8hpp_a46e07b7e3bb05aaba6a4ff9893e93efe_icgraph" alt=""/></div>
-<map name="ad8/d32/upnpdebug_8hpp_a46e07b7e3bb05aaba6a4ff9893e93efe_icgraph" id="ad8/d32/upnpdebug_8hpp_a46e07b7e3bb05aaba6a4ff9893e93efe_icgraph">
+<div class="center"><img src="../../d8/d32/upnpdebug_8hpp_a2f18848bb720ef21612f97587d363e5d_icgraph.png" border="0" usemap="#ad8/d32/upnpdebug_8hpp_a2f18848bb720ef21612f97587d363e5d_icgraph" alt=""/></div>
+<map name="ad8/d32/upnpdebug_8hpp_a2f18848bb720ef21612f97587d363e5d_icgraph" id="ad8/d32/upnpdebug_8hpp_a2f18848bb720ef21612f97587d363e5d_icgraph">
 <area shape="rect" title="Closes the log files." alt="" coords="692,31,807,56"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
 <area shape="poly" title=" " alt="" coords="678,46,644,46,644,41,678,41"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga0daf13b33ef5f4662a03f7249dba9bd3" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
 <area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
 <area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
@@ -414,14 +414,14 @@ typedef enum <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1567411a447d6
 
 </div>
 </div>
-<a id="a09fd59e3af30d46efb0e464419e9ab41" name="a09fd59e3af30d46efb0e464419e9ab41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09fd59e3af30d46efb0e464419e9ab41">&#9670;&#160;</a></span>UpnpSetLogFileNames()</h2>
+<a id="a99bbfb81f5eacc1d9aad3f554d2deee4" name="a99bbfb81f5eacc1d9aad3f554d2deee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99bbfb81f5eacc1d9aad3f554d2deee4">&#9670;&#160;</a></span>UpnpSetLogFileNames()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API void UpnpSetLogFileNames </td>
+          <td class="memname">PUPNP_EXP void UpnpSetLogFileNames </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>fileName</em>, </td>
@@ -453,14 +453,14 @@ typedef enum <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1567411a447d6
 
 </div>
 </div>
-<a id="a984374760513d195b0e8f102886e9115" name="a984374760513d195b0e8f102886e9115"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a984374760513d195b0e8f102886e9115">&#9670;&#160;</a></span>UpnpGetDebugFile()</h2>
+<a id="a1215c301efb21957a1c69aa3c2b728ec" name="a1215c301efb21957a1c69aa3c2b728ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1215c301efb21957a1c69aa3c2b728ec">&#9670;&#160;</a></span>UpnpGetDebugFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API FILE * UpnpGetDebugFile </td>
+          <td class="memname">PUPNP_EXP FILE * UpnpGetDebugFile </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#ac9d220584af8668d158b172d81e956b8">Upnp_LogLevel</a>&#160;</td>
           <td class="paramname"><em>DLevel</em>, </td>
@@ -495,8 +495,8 @@ typedef enum <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1567411a447d6
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d8/d32/upnpdebug_8hpp_a984374760513d195b0e8f102886e9115_cgraph.png" border="0" usemap="#ad8/d32/upnpdebug_8hpp_a984374760513d195b0e8f102886e9115_cgraph" alt=""/></div>
-<map name="ad8/d32/upnpdebug_8hpp_a984374760513d195b0e8f102886e9115_cgraph" id="ad8/d32/upnpdebug_8hpp_a984374760513d195b0e8f102886e9115_cgraph">
+<div class="center"><img src="../../d8/d32/upnpdebug_8hpp_a1215c301efb21957a1c69aa3c2b728ec_cgraph.png" border="0" usemap="#ad8/d32/upnpdebug_8hpp_a1215c301efb21957a1c69aa3c2b728ec_cgraph" alt=""/></div>
+<map name="ad8/d32/upnpdebug_8hpp_a1215c301efb21957a1c69aa3c2b728ec_cgraph" id="ad8/d32/upnpdebug_8hpp_a1215c301efb21957a1c69aa3c2b728ec_cgraph">
 <area shape="rect" title="Check if the module is turned on for debug and returns the file descriptor corresponding to the debug..." alt="" coords="5,5,149,31"/>
 <area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="197,5,337,31"/>
 <area shape="poly" title=" " alt="" coords="149,15,183,15,183,21,149,21"/>
@@ -505,14 +505,14 @@ typedef enum <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1567411a447d6
 
 </div>
 </div>
-<a id="a186bccdd3cab13ada1bdc46ee95c7d37" name="a186bccdd3cab13ada1bdc46ee95c7d37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a186bccdd3cab13ada1bdc46ee95c7d37">&#9670;&#160;</a></span>UpnpPrintf()</h2>
+<a id="a18ab08a04d0e13f59ba81a3e735b98ea" name="a18ab08a04d0e13f59ba81a3e735b98ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18ab08a04d0e13f59ba81a3e735b98ea">&#9670;&#160;</a></span>UpnpPrintf()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API void UpnpPrintf </td>
+          <td class="memname">PUPNP_EXP void UpnpPrintf </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d8/d32/upnpdebug_8hpp.html#ac9d220584af8668d158b172d81e956b8">Upnp_LogLevel</a>&#160;</td>
           <td class="paramname"><em>DLevel</em>, </td>
@@ -575,8 +575,8 @@ typedef enum <a class="el" href="../../d8/d32/upnpdebug_8hpp.html#a1567411a447d6
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d8/d32/upnpdebug_8hpp_a186bccdd3cab13ada1bdc46ee95c7d37_cgraph.png" border="0" usemap="#ad8/d32/upnpdebug_8hpp_a186bccdd3cab13ada1bdc46ee95c7d37_cgraph" alt=""/></div>
-<map name="ad8/d32/upnpdebug_8hpp_a186bccdd3cab13ada1bdc46ee95c7d37_cgraph" id="ad8/d32/upnpdebug_8hpp_a186bccdd3cab13ada1bdc46ee95c7d37_cgraph">
+<div class="center"><img src="../../d8/d32/upnpdebug_8hpp_a18ab08a04d0e13f59ba81a3e735b98ea_cgraph.png" border="0" usemap="#ad8/d32/upnpdebug_8hpp_a18ab08a04d0e13f59ba81a3e735b98ea_cgraph" alt=""/></div>
+<map name="ad8/d32/upnpdebug_8hpp_a18ab08a04d0e13f59ba81a3e735b98ea_cgraph" id="ad8/d32/upnpdebug_8hpp_a18ab08a04d0e13f59ba81a3e735b98ea_cgraph">
 <area shape="rect" title="Prints the debug statement." alt="" coords="5,31,96,56"/>
 <area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="164,5,304,31"/>
 <area shape="poly" title=" " alt="" coords="96,34,150,27,151,32,97,40"/>

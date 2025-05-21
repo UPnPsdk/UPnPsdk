@@ -1,8 +1,9 @@
 #ifndef UPNPLIB_UPNPACTIONREQUEST_HPP
 #define UPNPLIB_UPNPACTIONREQUEST_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-13
+// Redistribution only with this Copyright remark. Last modified: 2025-05-22
 // Also Copyright by other contributor as noted below.
+// Last compare with pupnp original source file on 2025-05-22, ver 1.14.20
 
 /*!
  * \file
@@ -157,11 +158,11 @@ EXPORT_SPEC int UpnpActionRequest_set_SoapHeader(UpnpActionRequest* p,
 /*! UpnpActionRequest_get_CtrlPtIPAddr */
 EXPORT_SPEC const struct sockaddr_storage*
 UpnpActionRequest_get_CtrlPtIPAddr(const UpnpActionRequest* p);
-/*! UpnpActionRequest_get_CtrlPtIPAddr */
+/*! UpnpActionRequest_set_CtrlPtIPAddr */
 EXPORT_SPEC int
 UpnpActionRequest_set_CtrlPtIPAddr(UpnpActionRequest* p,
                                    const struct sockaddr_storage* buf);
-/*! UpnpActionRequest_get_CtrlPtIPAddr */
+/*! UpnpActionRequest_clear_CtrlPtIPAddr */
 EXPORT_SPEC void UpnpActionRequest_clear_CtrlPtIPAddr(UpnpActionRequest* p);
 
 /*! UpnpActionRequest_get_Os */

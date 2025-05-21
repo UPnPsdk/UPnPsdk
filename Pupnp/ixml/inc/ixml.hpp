@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-25
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-23
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,6 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
+// Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
 /*!
  * \file
  * \defgroup XMLAPI XML API
@@ -39,10 +40,6 @@
  */
 
 #include <UpnpGlobal.hpp> /* For EXPORT_SPEC */
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
 
 /*!
  * \brief The type of DOM strings.
@@ -208,6 +205,8 @@ typedef struct _IXML_NamedNodeMap {
 
 /*! @} DOM Interfaces */
 
+extern "C" {
+
 /*!
  * \name Interface Node
  *
@@ -230,7 +229,7 @@ typedef struct _IXML_NamedNodeMap {
  *
  * \return A constant \b DOMString of the node name.
  */
-EXPORT_SPEC const DOMString ixmlNode_getNodeName(
+PUPNP_API const DOMString ixmlNode_getNodeName(
     /*! [in] Pointer to the node to retrieve the name. */
     IXML_Node* nodeptr);
 
@@ -242,7 +241,7 @@ EXPORT_SPEC const DOMString ixmlNode_getNodeName(
  *
  *  \return A \b DOMString of the \b Node value.
  */
-EXPORT_SPEC const DOMString ixmlNode_getNodeValue(
+PUPNP_API const DOMString ixmlNode_getNodeValue(
     /*! [in] Pointer to the \b Node to retrieve the value. */
     IXML_Node* nodeptr);
 
@@ -258,7 +257,7 @@ EXPORT_SPEC const DOMString ixmlNode_getNodeValue(
  *      \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists to
  *          complete this operation.
  */
-EXPORT_SPEC int ixmlNode_setNodeValue(
+PUPNP_API int ixmlNode_setNodeValue(
     /*! [in] The \b Node to which to assign a new value. */
     IXML_Node* nodeptr,
     /*! [in] The new value of the \b Node. */
@@ -270,7 +269,7 @@ EXPORT_SPEC int ixmlNode_setNodeValue(
  *
  *  \return An enum IXML_NODE_TYPE representing the type of the \b Node.
  */
-EXPORT_SPEC unsigned short ixmlNode_getNodeType(
+PUPNP_API unsigned short ixmlNode_getNodeType(
     /*! [in] The \b Node from which to retrieve the type. */
     IXML_Node* nodeptr);
 
@@ -280,7 +279,7 @@ EXPORT_SPEC unsigned short ixmlNode_getNodeType(
  * \return A pointer to the parent \b Node or \c NULL if the \b Node has no
  *  parent.
  */
-EXPORT_SPEC IXML_Node* ixmlNode_getParentNode(
+PUPNP_API IXML_Node* ixmlNode_getParentNode(
     /*! [in] The \b Node from which to retrieve the parent. */
     IXML_Node* nodeptr);
 
@@ -293,7 +292,7 @@ EXPORT_SPEC IXML_Node* ixmlNode_getParentNode(
  *
  * \return A \b NodeList of the children of the \b Node.
  */
-EXPORT_SPEC IXML_NodeList* ixmlNode_getChildNodes(
+PUPNP_API IXML_NodeList* ixmlNode_getChildNodes(
     /*! [in] The \b Node from which to retrieve the children. */
     IXML_Node* nodeptr);
 
@@ -303,7 +302,7 @@ EXPORT_SPEC IXML_NodeList* ixmlNode_getChildNodes(
  * \return A pointer to the first child \b Node or \c NULL if the \b Node does
  * not have any children.
  */
-EXPORT_SPEC IXML_Node* ixmlNode_getFirstChild(
+PUPNP_API IXML_Node* ixmlNode_getFirstChild(
     /*! [in] The \b Node from which to retrieve the first child. */
     IXML_Node* nodeptr);
 
@@ -313,7 +312,7 @@ EXPORT_SPEC IXML_Node* ixmlNode_getFirstChild(
  * \return A pointer to the last child \b Node or \c NULL if the \b Node does
  * not have any children.
  */
-EXPORT_SPEC IXML_Node* ixmlNode_getLastChild(
+PUPNP_API IXML_Node* ixmlNode_getLastChild(
     /*! [in] The \b Node from which to retrieve the last child. */
     IXML_Node* nodeptr);
 
@@ -323,7 +322,7 @@ EXPORT_SPEC IXML_Node* ixmlNode_getLastChild(
  * \return A pointer to the previous sibling \b Node or \c NULL if no such
  * \b Node exists.
  */
-EXPORT_SPEC IXML_Node* ixmlNode_getPreviousSibling(
+PUPNP_API IXML_Node* ixmlNode_getPreviousSibling(
     /*! [in] The \b Node for which to retrieve the previous sibling. */
     IXML_Node* nodeptr);
 
@@ -333,7 +332,7 @@ EXPORT_SPEC IXML_Node* ixmlNode_getPreviousSibling(
  *  \return A pointer to the next sibling \b Node or \c NULL if no such
  *  \b Node exists.
  */
-EXPORT_SPEC IXML_Node* ixmlNode_getNextSibling(
+PUPNP_API IXML_Node* ixmlNode_getNextSibling(
     /*! [in] The \b Node from which to retrieve the next sibling. */
     IXML_Node* nodeptr);
 
@@ -343,7 +342,7 @@ EXPORT_SPEC IXML_Node* ixmlNode_getNextSibling(
  *
  *  \return A \b NamedNodeMap of the attributes or \c NULL.
  */
-EXPORT_SPEC IXML_NamedNodeMap* ixmlNode_getAttributes(
+PUPNP_API IXML_NamedNodeMap* ixmlNode_getAttributes(
     /*! [in] The \b Node from which to retrieve the attributes. */
     IXML_Node* nodeptr);
 
@@ -357,7 +356,7 @@ EXPORT_SPEC IXML_NamedNodeMap* ixmlNode_getAttributes(
  * \return A pointer to the owning \b Document or \c NULL, if the \b Node
  * does not have an owner.
  */
-EXPORT_SPEC IXML_Document* ixmlNode_getOwnerDocument(
+PUPNP_API IXML_Document* ixmlNode_getOwnerDocument(
     /*! [in] The \b Node from which to retrieve the owner document. */
     IXML_Node* nodeptr);
 
@@ -370,7 +369,7 @@ EXPORT_SPEC IXML_Document* ixmlNode_getOwnerDocument(
  *
  * \return A \b DOMString representing the URI of the namespace or \c NULL.
  */
-EXPORT_SPEC const DOMString ixmlNode_getNamespaceURI(
+PUPNP_API const DOMString ixmlNode_getNamespaceURI(
     /*! [in] The \b Node for which to retrieve the namespace. */
     IXML_Node* nodeptr);
 
@@ -384,7 +383,7 @@ EXPORT_SPEC const DOMString ixmlNode_getNamespaceURI(
  *
  *  \return A \b DOMString representing the namespace prefix or \c NULL.
  */
-EXPORT_SPEC const DOMString ixmlNode_getPrefix(
+PUPNP_API const DOMString ixmlNode_getPrefix(
     /*! The \b Node from which to retrieve the prefix. */
     IXML_Node* nodeptr);
 
@@ -399,7 +398,7 @@ EXPORT_SPEC const DOMString ixmlNode_getPrefix(
  *  \return A \b DOMString representing the local name of the \b Element or
  *      \c NULL.
  */
-EXPORT_SPEC const DOMString ixmlNode_getLocalName(
+PUPNP_API const DOMString ixmlNode_getLocalName(
     /*! [in] The \b Node from which to retrieve the local name. */
     IXML_Node* nodeptr);
 
@@ -428,7 +427,7 @@ EXPORT_SPEC const DOMString ixmlNode_getLocalName(
  *     \li \c IXML_NOT_FOUND_ERR: \b refChild is not a child of
  *           \b nodeptr.
  */
-EXPORT_SPEC int ixmlNode_insertBefore(
+PUPNP_API int ixmlNode_insertBefore(
     /*! [in] The parent of the \b Node before which to insert the new child.
      */
     IXML_Node* nodeptr,
@@ -460,7 +459,7 @@ EXPORT_SPEC int ixmlNode_insertBefore(
  *      \li \c IXML_NOT_FOUND_ERR: \b oldChild is not a child of
  *            \b nodeptr.
  */
-EXPORT_SPEC int ixmlNode_replaceChild(
+PUPNP_API int ixmlNode_replaceChild(
     /*! [in] The parent of the \b Node which contains the child to replace.
      */
     IXML_Node* nodeptr,
@@ -488,7 +487,7 @@ EXPORT_SPEC int ixmlNode_replaceChild(
  *     \li \c IXML_NOT_FOUND_ERR: \b oldChild is not among the
  *           children of \b nodeptr.
  */
-EXPORT_SPEC int ixmlNode_removeChild(
+PUPNP_API int ixmlNode_removeChild(
     /*! [in] The parent of the child to remove. */
     IXML_Node* nodeptr,
     /*! [in] The child \b Node to remove. */
@@ -514,7 +513,7 @@ EXPORT_SPEC int ixmlNode_removeChild(
  *      \li \c IXML_NO_MODIFICATION_ALLOWED_ERR: \b nodeptr is a
  *            read-only \b Node.
  */
-EXPORT_SPEC int ixmlNode_appendChild(
+PUPNP_API int ixmlNode_appendChild(
     /*! [in] The \b Node in which to append the new child. */
     IXML_Node* nodeptr,
     /*! [in] The new child to append. */
@@ -525,7 +524,7 @@ EXPORT_SPEC int ixmlNode_appendChild(
  *
  * \return \c 1 if the \b Node has one or more children otherwise \c 0.
  */
-EXPORT_SPEC int ixmlNode_hasChildNodes(
+PUPNP_API int ixmlNode_hasChildNodes(
     /*! [in] The \b Node to query for children. */
     IXML_Node* nodeptr);
 
@@ -540,7 +539,7 @@ EXPORT_SPEC int ixmlNode_hasChildNodes(
  *
  * \return A clone of \b nodeptr or \c NULL.
  */
-EXPORT_SPEC IXML_Node* ixmlNode_cloneNode(
+PUPNP_API IXML_Node* ixmlNode_cloneNode(
     /*! [in] The \b Node to clone.  */
     IXML_Node* nodeptr,
     /*! [in] \c 1 to clone the subtree also or \c 0 to clone only
@@ -554,14 +553,14 @@ EXPORT_SPEC IXML_Node* ixmlNode_cloneNode(
  *
  * \return \c 1 if the \b Node has attributes otherwise \c 0.
  */
-EXPORT_SPEC int ixmlNode_hasAttributes(
+PUPNP_API int ixmlNode_hasAttributes(
     /*! [in] The \b Node to query for attributes. */
     IXML_Node* nodeptr);
 
 /*!
  * \brief Frees a \b Node and all \b Nodes in its subtree.
  */
-EXPORT_SPEC void ixmlNode_free(
+PUPNP_API void ixmlNode_free(
     /*! [in] The \b Node tree to free. Before it is freed, the handler
      * set by \b ixmlSetBeforeFree will be called, the order will be
      * top-down.
@@ -572,7 +571,7 @@ EXPORT_SPEC void ixmlNode_free(
 /*!
  * \brief Sets the custom tag for the node.
  */
-EXPORT_SPEC void ixmlNode_setCTag(
+PUPNP_API void ixmlNode_setCTag(
     /*! [in] The \b Node to which to attach the tag. */
     IXML_Node* nodeptr,
     /*! [in] The \b tag to attach. */
@@ -581,7 +580,7 @@ EXPORT_SPEC void ixmlNode_setCTag(
 /*!
  * \brief Gets the custom tag for the node.
  */
-EXPORT_SPEC void* ixmlNode_getCTag(
+PUPNP_API void* ixmlNode_getCTag(
     /*! [in] The \b Node from which to get the tag. */
     IXML_Node* nodeptr);
 #endif
@@ -603,7 +602,7 @@ EXPORT_SPEC void* ixmlNode_getCTag(
 /*!
  * \brief Frees an \b Attr node.
  */
-EXPORT_SPEC void ixmlAttr_free(
+PUPNP_API void ixmlAttr_free(
     /*! The \b Attr node to free. */
     IXML_Attr* attrNode);
 
@@ -626,14 +625,14 @@ EXPORT_SPEC void ixmlAttr_free(
 /*!
  * \brief Initializes a \b CDATASection node.
  */
-EXPORT_SPEC void ixmlCDATASection_init(
+PUPNP_API void ixmlCDATASection_init(
     /*! [in] The <b>CDATA Section Node</b> to iniatialize. */
     IXML_CDATASection* nodeptr);
 
 /*!
  * \brief Frees a \b CDATASection node.
  */
-EXPORT_SPEC void ixmlCDATASection_free(
+PUPNP_API void ixmlCDATASection_free(
     /*! The \b CDATASection node to free. */
     IXML_CDATASection* nodeptr);
 
@@ -655,7 +654,7 @@ EXPORT_SPEC void ixmlCDATASection_free(
 /*!
  * \brief Initializes a \b Document node.
  */
-EXPORT_SPEC void ixmlDocument_init(
+PUPNP_API void ixmlDocument_init(
     /*! [in] The \b Document node to initialize.  */
     IXML_Document* nodeptr);
 
@@ -671,7 +670,7 @@ EXPORT_SPEC void ixmlDocument_init(
  *      \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists
  *            to complete this operation.
  */
-EXPORT_SPEC int ixmlDocument_createDocumentEx(
+PUPNP_API int ixmlDocument_createDocumentEx(
     /*! [out] Pointer to a \b Document where the new object will be stored.
      */
     IXML_Document** doc);
@@ -682,7 +681,7 @@ EXPORT_SPEC int ixmlDocument_createDocumentEx(
  * \return A pointer to the new \b Document object with the nodeName set to
  *      "#document" or \c NULL on failure.
  */
-EXPORT_SPEC IXML_Document* ixmlDocument_createDocument(void);
+PUPNP_API IXML_Document* ixmlDocument_createDocument(void);
 
 /*!
  * \brief Creates a new \b Element node with the given tag name.
@@ -702,7 +701,7 @@ EXPORT_SPEC IXML_Document* ixmlDocument_createDocument(void);
  *     \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists
  *           to complete this operation.
  */
-EXPORT_SPEC int ixmlDocument_createElementEx(
+PUPNP_API int ixmlDocument_createElementEx(
     /*! [in] The owner \b Document of the new node. */
     IXML_Document* doc,
     /*! [in] The tag name of the new \b Element node. */
@@ -722,7 +721,7 @@ EXPORT_SPEC int ixmlDocument_createElementEx(
  *  tagName, and localName, prefix and namespaceURI set to \c NULL, or \c NULL
  *  on failure.
  */
-EXPORT_SPEC IXML_Element* ixmlDocument_createElement(
+PUPNP_API IXML_Element* ixmlDocument_createElement(
     /*! [in] The owner \b Document of the new node. */
     IXML_Document* doc,
     /*! [in] The tag name of the new \b Element node (case-sensitive). */
@@ -742,7 +741,7 @@ EXPORT_SPEC IXML_Element* ixmlDocument_createElement(
  *     \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists
  *           to complete this operation.
  */
-EXPORT_SPEC int ixmlDocument_createTextNodeEx(
+PUPNP_API int ixmlDocument_createTextNodeEx(
     /*! [in] The owner \b Document of the new node. */
     IXML_Document* doc,
     /*! [in] The data to associate with the new \b Text node.
@@ -756,7 +755,7 @@ EXPORT_SPEC int ixmlDocument_createTextNodeEx(
  *
  * \return A pointer to the new \b Node or \c NULL on failure.
  */
-EXPORT_SPEC IXML_Node* ixmlDocument_createTextNode(
+PUPNP_API IXML_Node* ixmlDocument_createTextNode(
     /*! [in] The owner \b Document of the new node. */
     IXML_Document* doc,
     /*! [in] The data to associate with the new \b Text node. It is stored
@@ -777,7 +776,7 @@ EXPORT_SPEC IXML_Node* ixmlDocument_createTextNode(
  *     \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists
  *           to complete this operation.
  */
-EXPORT_SPEC int ixmlDocument_createCDATASectionEx(
+PUPNP_API int ixmlDocument_createCDATASectionEx(
     /*! [in] The owner \b Document of the new node. */
     IXML_Document* doc,
     /*! [in] The data to associate with the new \b CDATASection node. */
@@ -790,7 +789,7 @@ EXPORT_SPEC int ixmlDocument_createCDATASectionEx(
  *
  * \return A pointer to the new \b CDATASection or \c NULL on failure.
  */
-EXPORT_SPEC IXML_CDATASection* ixmlDocument_createCDATASection(
+PUPNP_API IXML_CDATASection* ixmlDocument_createCDATASection(
     /*! [in] The owner \b Document of the new node. */
     IXML_Document* doc,
     /*! [in] The data to associate with the new \b CDATASection node. */
@@ -805,7 +804,7 @@ EXPORT_SPEC IXML_CDATASection* ixmlDocument_createCDATASection(
  *
  * The value of the attribute is the empty string.
  */
-EXPORT_SPEC IXML_Attr* ixmlDocument_createAttribute(
+PUPNP_API IXML_Attr* ixmlDocument_createAttribute(
     /*! [in] The owner \b Document of the new node. */
     IXML_Document* doc,
     /*! [in] The name of the new attribute. */
@@ -825,7 +824,7 @@ EXPORT_SPEC IXML_Attr* ixmlDocument_createAttribute(
  *     \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists
  *           to complete this operation.
  */
-EXPORT_SPEC int ixmlDocument_createAttributeEx(
+PUPNP_API int ixmlDocument_createAttributeEx(
     /*! [in] The owner \b Document of the new node. */
     IXML_Document* doc,
     /*! [in] The name of the new attribute. */
@@ -841,7 +840,7 @@ EXPORT_SPEC int ixmlDocument_createAttributeEx(
  * \return A pointer to a \b NodeList containing the matching items or \c NULL
  * on an error.
  */
-EXPORT_SPEC IXML_NodeList* ixmlDocument_getElementsByTagName(
+PUPNP_API IXML_NodeList* ixmlDocument_getElementsByTagName(
     /*! [in] The \b Document to search. */
     IXML_Document* doc,
     /*! [in] The tag name to find. The special value "*" matches all tags.*/
@@ -866,7 +865,7 @@ EXPORT_SPEC IXML_NodeList* ixmlDocument_getElementsByTagName(
  *     \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists
  *           to complete this operation.
  */
-EXPORT_SPEC int ixmlDocument_createElementNSEx(
+PUPNP_API int ixmlDocument_createElementNSEx(
     /*! [in] The owner \b Document of the new node. */
     IXML_Document* doc,
     /*! [in] The namespace URI for the new \b Element. */
@@ -885,7 +884,7 @@ EXPORT_SPEC int ixmlDocument_createElementNSEx(
  * prefix and localName extraced from qualfiedName, nodeName of qualfiedName,
  * namespaceURI of namespaceURI or \c NULL on failure.
  */
-EXPORT_SPEC IXML_Element* ixmlDocument_createElementNS(
+PUPNP_API IXML_Element* ixmlDocument_createElementNS(
     /*! [in] The owner \b Document of the new node. */
     IXML_Document* doc,
     /*! [in] The namespace URI for the new \b Element. */
@@ -908,7 +907,7 @@ EXPORT_SPEC IXML_Element* ixmlDocument_createElementNS(
  *     \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists
  *           to complete this operation.
  */
-EXPORT_SPEC int ixmlDocument_createAttributeNSEx(
+PUPNP_API int ixmlDocument_createAttributeNSEx(
     /*! [in] The owner \b Document of the new \b Attr. */
     IXML_Document* doc,
     /*! [in] The namespace URI for the attribute. */
@@ -927,7 +926,7 @@ EXPORT_SPEC int ixmlDocument_createAttributeNSEx(
  *  qualifiedName. The prefix and localname are extracted from
  *  the qualifiedName. The node value is empty. Or \c NULL on failure.
  */
-EXPORT_SPEC IXML_Attr* ixmlDocument_createAttributeNS(
+PUPNP_API IXML_Attr* ixmlDocument_createAttributeNS(
     /*! [in] The owner \b Document of the new \b Attribute. */
     IXML_Document* doc,
     /*! [in] The namespace URI for the attribute. */
@@ -946,7 +945,7 @@ EXPORT_SPEC IXML_Attr* ixmlDocument_createAttributeNS(
  * \return A pointer to a \b NodeList containing the matching items or \c NULL
  * on an error.
  */
-EXPORT_SPEC IXML_NodeList* ixmlDocument_getElementsByTagNameNS(
+PUPNP_API IXML_NodeList* ixmlDocument_getElementsByTagNameNS(
     /*! [in] The \b Document to search. */
     IXML_Document* doc,
     /*! [in] The namespace of the elements to find or <tt>"*"</tt> to match
@@ -961,7 +960,7 @@ EXPORT_SPEC IXML_NodeList* ixmlDocument_getElementsByTagNameNS(
  *
  * \return A pointer to the matching \b Element or \c NULL on an error.
  */
-EXPORT_SPEC IXML_Element* ixmlDocument_getElementById(
+PUPNP_API IXML_Element* ixmlDocument_getElementById(
     /*! [in] The owner \b Document of the \b Element. */
     IXML_Document* doc,
     /*! [in] The name of the \b Element.*/
@@ -974,7 +973,7 @@ EXPORT_SPEC IXML_Element* ixmlDocument_getElementById(
  * \b ixmlDocument_GetElementById, become invalid after this call unless
  * explicitly cloned.
  */
-EXPORT_SPEC void ixmlDocument_free(
+PUPNP_API void ixmlDocument_free(
     /*! [in] The \b Document to free. */
     IXML_Document* doc);
 
@@ -1008,7 +1007,7 @@ EXPORT_SPEC void ixmlDocument_free(
  *     \li \c IXML_FAILED: The import operation failed because the
  *           \b Node to be imported could not be cloned.
  */
-EXPORT_SPEC int ixmlDocument_importNode(
+PUPNP_API int ixmlDocument_importNode(
     /*! [in] The \b Document into which to import. */
     IXML_Document* doc,
     /*! [in] The \b Node to import. */
@@ -1036,7 +1035,7 @@ EXPORT_SPEC int ixmlDocument_importNode(
 /*!
  * \brief Initializes a \b IXML_Element node.
  */
-EXPORT_SPEC void ixmlElement_init(
+PUPNP_API void ixmlElement_init(
     /*! [in] The \b Element to initialize.*/
     IXML_Element* element);
 
@@ -1045,7 +1044,7 @@ EXPORT_SPEC void ixmlElement_init(
  *
  * \return The name of the \b Element.
  */
-EXPORT_SPEC const DOMString ixmlElement_getTagName(
+PUPNP_API const DOMString ixmlElement_getTagName(
     /*! [in] The \b Element from which to retrieve the name. */
     IXML_Element* element);
 
@@ -1055,7 +1054,7 @@ EXPORT_SPEC const DOMString ixmlElement_getTagName(
  * \return The value of the attribute, or \b NULL if that attribute
  *       does not have a specified value.
  */
-EXPORT_SPEC const DOMString ixmlElement_getAttribute(
+PUPNP_API const DOMString ixmlElement_getAttribute(
     /*! [in] The \b Element from which to retrieve the attribute. */
     IXML_Element* element,
     /*! [in] The name of the attribute to retrieve. */
@@ -1077,7 +1076,7 @@ EXPORT_SPEC const DOMString ixmlElement_getAttribute(
  *     \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists
  *           to complete the operation.
  */
-EXPORT_SPEC int ixmlElement_setAttribute(
+PUPNP_API int ixmlElement_setAttribute(
     /*! [in] The \b Element on which to set the attribute. */
     IXML_Element* element,
     /*! [in] The name of the attribute. */
@@ -1094,7 +1093,7 @@ EXPORT_SPEC int ixmlElement_setAttribute(
  *     \li \c IXML_INVALID_PARAMETER: Either \b element or
  *           \b name is \c NULL.
  */
-EXPORT_SPEC int ixmlElement_removeAttribute(
+PUPNP_API int ixmlElement_removeAttribute(
     /*! [in] The \b Element from which to remove the attribute. */
     IXML_Element* element,
     /*! [in] The name of the attribute to remove.  */
@@ -1108,7 +1107,7 @@ EXPORT_SPEC int ixmlElement_removeAttribute(
  * \return A pointer to the attribute matching \b name or \c NULL on if there
  *  is no such attribute.
  */
-EXPORT_SPEC IXML_Attr* ixmlElement_getAttributeNode(
+PUPNP_API IXML_Attr* ixmlElement_getAttributeNode(
     /*! [in] The \b Element from which to get the attribute node.  */
     IXML_Element* element,
     /*! [in] The name of the attribute node to find. */
@@ -1131,7 +1130,7 @@ EXPORT_SPEC IXML_Attr* ixmlElement_getAttributeNode(
  *     \li \c IXML_INUSE_ATTRIBUTE_ERR: \b newAttr is already
  *           an attribute of another \b Element.
  */
-EXPORT_SPEC int ixmlElement_setAttributeNode(
+PUPNP_API int ixmlElement_setAttributeNode(
     /*! [in] The \b Element in which to add the new attribute. */
     IXML_Element* element,
     /*! [in] The new \b Attr to add. */
@@ -1150,7 +1149,7 @@ EXPORT_SPEC int ixmlElement_setAttributeNode(
  *     \li \c IXML_NOT_FOUND_ERR: \b oldAttr is not among the list
  *           attributes of \b element.
  */
-EXPORT_SPEC int ixmlElement_removeAttributeNode(
+PUPNP_API int ixmlElement_removeAttributeNode(
     /*! [in] The \b Element from which to remove the attribute. */
     IXML_Element* element,
     /*! [in] The attribute to remove from the \b Element. */
@@ -1166,7 +1165,7 @@ EXPORT_SPEC int ixmlElement_removeAttributeNode(
  *
  * \return A \b NodeList of the matching \b Elements or \c NULL on an error.
  */
-EXPORT_SPEC IXML_NodeList* ixmlElement_getElementsByTagName(
+PUPNP_API IXML_NodeList* ixmlElement_getElementsByTagName(
     /*! [in] The \b Element from which to start the search. */
     IXML_Element* element,
     /*! [in] The name of the tag for which to search. */
@@ -1182,7 +1181,7 @@ EXPORT_SPEC IXML_NodeList* ixmlElement_getElementsByTagName(
  * \return A \b DOMString representing the value of the matching attribute, or
  * \b NULL if that attribute does not have the specified value.
  */
-EXPORT_SPEC const DOMString ixmlElement_getAttributeNS(
+PUPNP_API const DOMString ixmlElement_getAttributeNS(
     /*! [in] The \b Element from which to get the attribute value. */
     IXML_Element* element,
     /*! [in] The namespace URI of the attribute. */
@@ -1212,7 +1211,7 @@ EXPORT_SPEC const DOMString ixmlElement_getAttributeNS(
  *           to complete the operation.
  *     \li \c IXML_FAILED: The operation could not be completed.
  */
-EXPORT_SPEC int ixmlElement_setAttributeNS(
+PUPNP_API int ixmlElement_setAttributeNS(
     /*! [in] The \b Element on which to set the attribute. */
     IXML_Element* element,
     /*! [in] The namespace URI of the new attribute. */
@@ -1233,7 +1232,7 @@ EXPORT_SPEC int ixmlElement_setAttributeNS(
  *     \li \c IXML_INVALID_PARAMETER: Either \b element,
  *           \b namespaceURI, or \b localName is \c NULL.
  */
-EXPORT_SPEC int ixmlElement_removeAttributeNS(
+PUPNP_API int ixmlElement_removeAttributeNS(
     /*! [in] The \b Element from which to remove the the attribute. */
     IXML_Element* element,
     /*! [in] The namespace URI of the attribute. */
@@ -1247,7 +1246,7 @@ EXPORT_SPEC int ixmlElement_removeAttributeNS(
  * \return A pointer to an \b Attribute node  with the specified attribute
  *  local name and namespace URI or \c NULL if there is no such attribute.
  */
-EXPORT_SPEC IXML_Attr* ixmlElement_getAttributeNodeNS(
+PUPNP_API IXML_Attr* ixmlElement_getAttributeNodeNS(
     /*! [in] The \b Element from which to get the attribute. */
     IXML_Element* element,
     /*! [in] The namespace URI of the attribute. */
@@ -1275,7 +1274,7 @@ EXPORT_SPEC IXML_Attr* ixmlElement_getAttributeNodeNS(
  *     \li \c IXML_INUSE_ATTRIBUTE_ERR: \b newAttr already is an
  *           attribute of another \b Element.
  */
-EXPORT_SPEC int ixmlElement_setAttributeNodeNS(
+PUPNP_API int ixmlElement_setAttributeNodeNS(
     /*! [in] The \b Element in which to add the attribute node. */
     IXML_Element* element,
     /*! [in] The new \b Attr to add. */
@@ -1290,7 +1289,7 @@ EXPORT_SPEC int ixmlElement_setAttributeNodeNS(
  *
  * \return A \b NodeList of matching \b Elements or \c NULL on an error.
  */
-EXPORT_SPEC IXML_NodeList* ixmlElement_getElementsByTagNameNS(
+PUPNP_API IXML_NodeList* ixmlElement_getElementsByTagNameNS(
     /*! [in] The \b Element from which to start the search. */
     IXML_Element* element,
     /*! [in] The namespace URI of the \b Elements to find.  The special
@@ -1308,7 +1307,7 @@ EXPORT_SPEC IXML_NodeList* ixmlElement_getElementsByTagNameNS(
  * \return \c 1 if the \b Element has an attribute with this name or has a
  * default value for that attribute, otherwise \c 0.
  */
-EXPORT_SPEC int ixmlElement_hasAttribute(
+PUPNP_API int ixmlElement_hasAttribute(
     /*! [in] The \b Element on which to check for an attribute. */
     IXML_Element* element,
     /*! [in] The name of the attribute for which to check. */
@@ -1321,7 +1320,7 @@ EXPORT_SPEC int ixmlElement_hasAttribute(
  * \return \c 1 if the \b Element has an attribute with the given namespace
  * and local name or has a default value for that attribute, otherwise \c 0.
  */
-EXPORT_SPEC int ixmlElement_hasAttributeNS(
+PUPNP_API int ixmlElement_hasAttributeNS(
     /*! [in] The \b Element on which to check for the attribute. */
     IXML_Element* element,
     /*! [in] The namespace URI of the attribute. */
@@ -1332,7 +1331,7 @@ EXPORT_SPEC int ixmlElement_hasAttributeNS(
 /*!
  * \brief Frees the given \b Element and any subtree of the \b Element.
  */
-EXPORT_SPEC void ixmlElement_free(
+PUPNP_API void ixmlElement_free(
     /*! [in] The \b Element to free. */
     IXML_Element* element);
 
@@ -1354,7 +1353,7 @@ EXPORT_SPEC void ixmlElement_free(
  *
  * \return The number of nodes in this map.
  */
-EXPORT_SPEC unsigned long ixmlNamedNodeMap_getLength(
+PUPNP_API unsigned long ixmlNamedNodeMap_getLength(
     /*! [in] The \b NamedNodeMap from which to retrieve the size. */
     IXML_NamedNodeMap* nnMap);
 
@@ -1364,7 +1363,7 @@ EXPORT_SPEC unsigned long ixmlNamedNodeMap_getLength(
  * \return A Node with the specified nodeName, or \b NULL if it
  *  does not identify any node in this map.
  */
-EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_getNamedItem(
+PUPNP_API IXML_Node* ixmlNamedNodeMap_getNamedItem(
     /*! [in] The \b NamedNodeMap to search. */
     IXML_NamedNodeMap* nnMap,
     /*! [in] The name of the \b Node to find. */
@@ -1377,7 +1376,7 @@ EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_getNamedItem(
  * \return The old \b Node if the new \b Node replaces it or \c NULL if the
  * \b Node was not in the \b NamedNodeMap before.
  */
-EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_setNamedItem(
+PUPNP_API IXML_Node* ixmlNamedNodeMap_setNamedItem(
     /*! The \b NamedNodeMap in which to add the new \b Node. */
     IXML_NamedNodeMap* nnMap,
     /*! The new \b Node to add to the \b NamedNodeMap. */
@@ -1388,7 +1387,7 @@ EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_setNamedItem(
  *
  * \return A pointer to the \b Node, if found, or \c NULL if it wasn't.
  */
-EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_removeNamedItem(
+PUPNP_API IXML_Node* ixmlNamedNodeMap_removeNamedItem(
     /*! The \b NamedNodeMap from which to remove the item. */
     IXML_NamedNodeMap* nnMap,
     /*! The name of the item to remove. */
@@ -1401,7 +1400,7 @@ EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_removeNamedItem(
  * \return The node at the indexth position in the map, or \b NULL if that is
  *  not a valid index.
  */
-EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_item(
+PUPNP_API IXML_Node* ixmlNamedNodeMap_item(
     /*! [in] The \b NamedNodeMap from which to remove the \b Node. */
     IXML_NamedNodeMap* nnMap,
     /*! [in] The index into the map to remove. */
@@ -1417,7 +1416,7 @@ EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_item(
  *
  * \return A pointer to the \b Node, if found, or \c NULL if it wasn't
  */
-EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_getNamedItemNS(
+PUPNP_API IXML_Node* ixmlNamedNodeMap_getNamedItemNS(
     /*! The \b NamedNodeMap from which to remove the \b Node. */
     IXML_NamedNodeMap* nnMap,
     /*! The namespace URI of the \b Node to remove. */
@@ -1432,7 +1431,7 @@ EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_getNamedItemNS(
  * \return The old \b Node if the new \b Node replaces it or \c NULL if the
  * \b Node was not in the \b NamedNodeMap before.
  */
-EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_setNamedItemNS(
+PUPNP_API IXML_Node* ixmlNamedNodeMap_setNamedItemNS(
     /*! The \b NamedNodeMap in which to add the \b Node. */
     IXML_NamedNodeMap* nnMap,
     /*! The \b Node to add to the map. */
@@ -1444,7 +1443,7 @@ EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_setNamedItemNS(
  *
  * \return A pointer to the \b Node, if found, or \c NULL if it wasn't.
  */
-EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_removeNamedItemNS(
+PUPNP_API IXML_Node* ixmlNamedNodeMap_removeNamedItemNS(
     /*! The \b NamedNodeMap from which to remove the \b Node. */
     IXML_NamedNodeMap* nnMap,
     /*! The namespace URI of the \b Node to remove. */
@@ -1456,7 +1455,7 @@ EXPORT_SPEC IXML_Node* ixmlNamedNodeMap_removeNamedItemNS(
  *
  * The \b Nodes inside the map are not freed, just the \b NamedNodeMap object.
  */
-EXPORT_SPEC void ixmlNamedNodeMap_free(
+PUPNP_API void ixmlNamedNodeMap_free(
     /*! [in] The \b NamedNodeMap to free. */
     IXML_NamedNodeMap* nnMap);
 
@@ -1479,7 +1478,7 @@ EXPORT_SPEC void ixmlNamedNodeMap_free(
  *
  * \return A pointer to a \b Node or \c NULL if there was an error.
  */
-EXPORT_SPEC IXML_Node* ixmlNodeList_item(
+PUPNP_API IXML_Node* ixmlNodeList_item(
     /*! [in] The \b NodeList from which to retrieve the \b Node. */
     IXML_NodeList* nList,
     /*! [in] The index into the \b NodeList to retrieve. */
@@ -1490,7 +1489,7 @@ EXPORT_SPEC IXML_Node* ixmlNodeList_item(
  *
  * \return The number of \b Nodes in the \b NodeList.
  */
-EXPORT_SPEC unsigned long ixmlNodeList_length(
+PUPNP_API unsigned long ixmlNodeList_length(
     /*! [in] The \b NodeList for which to retrieve the number of \b Nodes.
      */
     IXML_NodeList* nList);
@@ -1501,7 +1500,7 @@ EXPORT_SPEC unsigned long ixmlNodeList_length(
  * Since the underlying \b Nodes are references, they are not freed using this
  * operation. This only frees the \b NodeList object.
  */
-EXPORT_SPEC void ixmlNodeList_free(
+PUPNP_API void ixmlNodeList_free(
     /*! [in] The \b NodeList to free.  */
     IXML_NodeList* nList);
 
@@ -1539,7 +1538,7 @@ EXPORT_SPEC void ixmlNodeList_free(
  * \return A \b DOMString with the XML document representation
  *                     of the DOM tree or \c NULL on an error.
  */
-EXPORT_SPEC DOMString ixmlPrintDocument(
+PUPNP_API DOMString ixmlPrintDocument(
     /*! [in] The document node to print. */
     IXML_Document* doc);
 
@@ -1560,7 +1559,7 @@ EXPORT_SPEC DOMString ixmlPrintDocument(
  * \return A \b DOMString with the XML text representation of the DOM tree or
  * \c NULL on an error.
  */
-EXPORT_SPEC DOMString ixmlPrintNode(
+PUPNP_API DOMString ixmlPrintNode(
     /*! [in] The root of the \b Node tree to render to XML text. */
     IXML_Node* doc);
 
@@ -1582,7 +1581,7 @@ EXPORT_SPEC DOMString ixmlPrintNode(
  * \return A \b DOMString with the XML text representation of the DOM tree or
  * \c NULL on an error.
  */
-EXPORT_SPEC DOMString ixmlDocumenttoString(
+PUPNP_API DOMString ixmlDocumenttoString(
     /*! [in] The root of the \b Node tree to render to XML text. */
     IXML_Document* doc);
 
@@ -1600,14 +1599,14 @@ EXPORT_SPEC DOMString ixmlDocumenttoString(
  * \return A \b DOMString with the XML text representation of the DOM tree or
  * \c NULL on an error.
  */
-EXPORT_SPEC DOMString ixmlNodetoString(
+PUPNP_API DOMString ixmlNodetoString(
     /*! [in] The root of the \b Node tree to render to XML text. */
     IXML_Node* doc);
 
 /*!
  * \brief Makes the XML parser more tolerant to malformed text.
  */
-EXPORT_SPEC void ixmlRelaxParser(
+PUPNP_API void ixmlRelaxParser(
     /*! [in] If \b errorChar is 0 (default), the parser is strict about XML
      * encoding : invalid UTF-8 sequences or "&" entities are rejected, and
      * the parsing aborts.
@@ -1622,7 +1621,7 @@ EXPORT_SPEC void ixmlRelaxParser(
 /*!
  * \brief Sets the handler to call before a node is freed.
  */
-EXPORT_SPEC void ixmlSetBeforeFree(
+PUPNP_API void ixmlSetBeforeFree(
     /*! [in] If \b hndlr is set to a function, it will be called before any
      * node is freed, with the node as its parameter. This allows scripting
      * languages to do their garbage collection, without maintaining their
@@ -1637,7 +1636,7 @@ EXPORT_SPEC void ixmlSetBeforeFree(
  *
  * \return A \b Document if the buffer correctly parses or \c NULL on an error.
  */
-EXPORT_SPEC IXML_Document* ixmlParseBuffer(
+PUPNP_API IXML_Document* ixmlParseBuffer(
     /*! [in] The buffer that contains the XML text to convert to a \b
        Document. */
     const char* buffer);
@@ -1657,7 +1656,7 @@ EXPORT_SPEC IXML_Document* ixmlParseBuffer(
  *     \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists
  *           to complete this operation.
  */
-EXPORT_SPEC int ixmlParseBufferEx(
+PUPNP_API int ixmlParseBufferEx(
     /*! [in] The buffer that contains the XML text to convert to a \b
        Document. */
     const char* buffer,
@@ -1670,7 +1669,7 @@ EXPORT_SPEC int ixmlParseBufferEx(
  *
  * \return A \b Document if the file correctly parses or \c NULL on an error.
  */
-EXPORT_SPEC IXML_Document* ixmlLoadDocument(
+PUPNP_API IXML_Document* ixmlLoadDocument(
     /*! [in] The filename of the XML text to convert to a \b Document. */
     const char* xmlFile);
 
@@ -1688,7 +1687,7 @@ EXPORT_SPEC IXML_Document* ixmlLoadDocument(
  *     \li \c IXML_INSUFFICIENT_MEMORY: Not enough free memory exists
  *           to complete this operation.
  */
-EXPORT_SPEC int ixmlLoadDocumentEx(
+PUPNP_API int ixmlLoadDocumentEx(
     /*! [in] The filename of the XML text to convert to a \b Document. */
     const char* xmlFile,
     /*! [out] A pointer to the \b Document if file correctly parses or \b
@@ -1701,22 +1700,20 @@ EXPORT_SPEC int ixmlLoadDocumentEx(
  * \return A new \b DOMString that is a duplicate of the original or \c NULL
  * if the operation could not be completed.
  */
-EXPORT_SPEC DOMString ixmlCloneDOMString(
+PUPNP_API DOMString ixmlCloneDOMString(
     /*! [in] The source \b DOMString to clone. */
     const DOMString src);
 
 /*!
  * \brief Frees a \b DOMString.
  */
-EXPORT_SPEC void ixmlFreeDOMString(
+PUPNP_API void ixmlFreeDOMString(
     /*! [in] The \b DOMString to free. */
     DOMString buf);
 
 /*! @} IXML API */
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 /*! @} XMLAPI XML API */
 

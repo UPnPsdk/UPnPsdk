@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-11
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-21
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -483,9 +483,7 @@ typedef enum Upnp_DescType_e Upnp_DescType;
 
 /// @} Constants and Types
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /******************************************************************************
  ******************************************************************************
@@ -529,7 +527,7 @@ extern "C" {
  *     \li \c UPNP_E_INVALID_INTERFACE: IfName is invalid or does not
  *             have a valid IPv4 or IPv6 addresss configured.
  */
-UPnPsdk_API int UpnpInit2(
+PUPNP_API int UpnpInit2(
     /*! [in] Argument to select the local interface to connect to the network,
      * that can be:
      * - \b nullptr to use best choise from the operating system for an ip
@@ -569,7 +567,7 @@ UPnPsdk_API int UpnpInit2(
  *      \li \c UPNP_E_FINISH: The SDK is already terminated or
  *      it is not initialized.
  */
-UPnPsdk_API int UpnpFinish();
+PUPNP_API int UpnpFinish();
 
 /*!
  * \brief Returns the internal server IPv4 UPnP listening port.
@@ -582,7 +580,7 @@ UPnPsdk_API int UpnpFinish();
  *      IPv4 UPnP related requests.
  *  \li On error: 0 is returned if UpnpInit2() has not succeeded.
  */
-UPnPsdk_API in_port_t UpnpGetServerPort();
+PUPNP_API in_port_t UpnpGetServerPort();
 
 /*!
  * \brief Returns the internal server IPv6 link-local (LLA) UPnP listening port.
@@ -595,7 +593,7 @@ UPnPsdk_API in_port_t UpnpGetServerPort();
  *      IPv6 link-local (LLA) UPnP related requests.
  *  \li On error: 0 is returned if UpnpInit2() has not succeeded.
  */
-UPnPsdk_API unsigned short UpnpGetServerPort6();
+PUPNP_API unsigned short UpnpGetServerPort6();
 
 /*!
  * \brief Returns the internal server IPv6 ULA or GUA UPnP listening port.
@@ -608,7 +606,7 @@ UPnPsdk_API unsigned short UpnpGetServerPort6();
  *      IPv6 ULA or GUA UPnP related requests.
  *  \li On error: 0 is returned if UpnpInit2() has not succeeded.
  */
-UPnPsdk_API unsigned short UpnpGetServerUlaGuaPort6();
+PUPNP_API unsigned short UpnpGetServerUlaGuaPort6();
 
 /*!
  * \brief Returns the local IPv4 listening ip address.
@@ -621,7 +619,7 @@ UPnPsdk_API unsigned short UpnpGetServerUlaGuaPort6();
  *      listening for UPnP related requests.
  *  \li On error: \c nullptr is returned if UpnpInit2() has not succeeded.
  */
-UPnPsdk_API char* UpnpGetServerIpAddress();
+PUPNP_API char* UpnpGetServerIpAddress();
 
 /*!
  * \brief Returns the IPv6 link-local listening ip address.
@@ -634,7 +632,7 @@ UPnPsdk_API char* UpnpGetServerIpAddress();
  *      server is listening for UPnP related requests.
  *  \li On error: \c nullptr is returned if UpnpInit2() has not succeeded.
  */
-UPnPsdk_API char* UpnpGetServerIp6Address();
+PUPNP_API char* UpnpGetServerIp6Address();
 
 /*!
  * \brief Returns the IPv6 unique-local or globally-unique listening ip address.
@@ -648,7 +646,7 @@ UPnPsdk_API char* UpnpGetServerIp6Address();
  *      related requests.
  *  \li On error: \c nullptr is returned if UpnpInit2() has not succeeded.
  */
-UPnPsdk_API char* UpnpGetServerUlaGuaIp6Address();
+PUPNP_API char* UpnpGetServerUlaGuaIp6Address();
 
 /*!
  * \brief Registers one root- or logical-device object with the UPnP Library to
@@ -686,7 +684,7 @@ UPnPsdk_API char* UpnpGetServerUlaGuaIp6Address();
  *      \li \c UPNP_E_OUTOF_MEMORY: There are insufficient resources to
  *              register this root device.
  */
-UPnPsdk_API int UpnpRegisterRootDevice(
+PUPNP_API int UpnpRegisterRootDevice(
     /*! [in] Pointer to a string containing the description URL for this
      * root device instance. */
     const char* const DescUrl,
@@ -768,7 +766,7 @@ UPnPsdk_API int UpnpRegisterRootDevice(
  *             compiled out; the SDK cannot configure itself from the
  *             description document.
  */
-UPnPsdk_API int UpnpRegisterRootDevice2(
+PUPNP_API int UpnpRegisterRootDevice2(
     /*! [in] The type of the description document. */
     const Upnp_DescType descriptionType,
     /*! [in] Treated as a URL, file name or memory buffer depending on
@@ -831,7 +829,7 @@ UPnPsdk_API int UpnpRegisterRootDevice2(
  *     \li \c UPNP_E_OUTOF_MEMORY: There are insufficient resources to
  *             register this root device.
  */
-UPnPsdk_API int UpnpRegisterRootDevice3(
+PUPNP_API int UpnpRegisterRootDevice3(
     /*! [in] Pointer to a string containing the description URL fo this
      * root device instance. */
     const char* const DescUrl,
@@ -862,7 +860,7 @@ UPnPsdk_API int UpnpRegisterRootDevice3(
  * If you really want to use this function then don't forget to
  * UpnpUnRegisterRootDevice() it after using.
  */
-UPnPsdk_API int UpnpRegisterRootDevice4(
+PUPNP_API int UpnpRegisterRootDevice4(
     /// [in] .
     const char* const DescUrl,
     /// [in] .
@@ -895,7 +893,7 @@ UPnPsdk_API int UpnpRegisterRootDevice4(
  *                           initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid device handle.
  */
-UPnPsdk_API int UpnpUnRegisterRootDevice(
+PUPNP_API int UpnpUnRegisterRootDevice(
     /*! [in] The handle of the root device instance to unregister. */
     UpnpDevice_Handle Hnd);
 
@@ -919,7 +917,7 @@ UPnPsdk_API int UpnpUnRegisterRootDevice(
  *                           initialized.
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid device handle.
  */
-UPnPsdk_API int UpnpUnRegisterRootDeviceLowPower(
+PUPNP_API int UpnpUnRegisterRootDeviceLowPower(
     /*! [in] The handle of the root device instance to unregister. */
     UpnpDevice_Handle Hnd,
     /*! PowerState as defined by UPnP Low Power. */
@@ -947,7 +945,7 @@ UPnPsdk_API int UpnpUnRegisterRootDeviceLowPower(
  *      \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *              register this control point.
  */
-UPnPsdk_API int UpnpRegisterClient(
+PUPNP_API int UpnpRegisterClient(
     /*! [in] Pointer to a function for receiving asynchronous events. */
     Upnp_FunPtr Fun,
     /*! [in] Pointer to user data returned with the callback function when
@@ -974,7 +972,7 @@ UPnPsdk_API int UpnpRegisterClient(
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid control point
  *             handle.
  */
-UPnPsdk_API int UpnpUnRegisterClient(
+PUPNP_API int UpnpUnRegisterClient(
     /*! [in] The handle of the control point instance to unregister. */
     UpnpClient_Handle Hnd);
 
@@ -986,7 +984,7 @@ UPnPsdk_API int UpnpUnRegisterClient(
  * effect of this function is global to the SDK (= same as
  * %UpnpSetMaxContentLength()). Use UpnpSetMaxContentLength() instead.
  */
-UPnPsdk_API int UpnpSetContentLength(
+PUPNP_API int UpnpSetContentLength(
     /*! [in] The handle of the device instance for which the coincoming content
      *        length needs to be set. */
     UpnpClient_Handle Hnd,
@@ -1011,7 +1009,7 @@ UPnPsdk_API int UpnpSetContentLength(
  *     \li \c UPNP_E_FINISH: The SDK is already terminated or is not
  *                           initialized.
  */
-UPnPsdk_API int UpnpSetMaxContentLength(
+PUPNP_API int UpnpSetMaxContentLength(
     /*! [in] The maximum permissible content length for incoming SOAP
      * actions, in bytes. */
     size_t contentLength);
@@ -1053,7 +1051,7 @@ UPnPsdk_API int UpnpSetMaxContentLength(
  *             point handle.
  *     \li \c UPNP_E_INVALID_PARAM: \b Target is a \c nullptr.
  */
-UPnPsdk_API int UpnpSearchAsync(
+PUPNP_API int UpnpSearchAsync(
     /*! [in] The handle of the client performing the search. */
     UpnpClient_Handle Hnd,
     /*! [in] The time, in seconds, to wait for responses. If the time is
@@ -1084,7 +1082,7 @@ UPnPsdk_API int UpnpSearchAsync(
  *     \li \c UPNP_E_OUTOF_MEMORY: There are insufficient resources to
  *             send future advertisements.
  */
-UPnPsdk_API int UpnpSendAdvertisement(
+PUPNP_API int UpnpSendAdvertisement(
     /*! [in] The device handle for which to send out the announcements. */
     UpnpDevice_Handle Hnd,
     /*! [in] The expiration age, in seconds, of the announcements. If the
@@ -1114,7 +1112,7 @@ UPnPsdk_API int UpnpSendAdvertisement(
  *     \li \c UPNP_E_OUTOF_MEMORY: There are insufficient resources to
  *             send future advertisements.
  */
-UPnPsdk_API int UpnpSendAdvertisementLowPower(
+PUPNP_API int UpnpSendAdvertisementLowPower(
     /*! [in] The device handle for which to send out the announcements. */
     UpnpDevice_Handle Hnd,
     /*! [in] The expiration age, in seconds, of the announcements. If the
@@ -1184,7 +1182,7 @@ UPnPsdk_API int UpnpSendAdvertisementLowPower(
  *     \li \c UPNP_SOAP_E_INVALID_VAR: The given variable is invalid
  *             according to the device.
  */
-UPnPsdk_API int UpnpGetServiceVarStatus(
+PUPNP_API int UpnpGetServiceVarStatus(
     /*! [in] The handle of the control point. */
     UpnpClient_Handle Hnd,
     /*! [in] The URL of the service. */
@@ -1214,7 +1212,7 @@ UPnPsdk_API int UpnpGetServiceVarStatus(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpGetServiceVarStatusAsync(
+PUPNP_API int UpnpGetServiceVarStatusAsync(
     /*! [in] The handle of the control point. */
     UpnpClient_Handle Hnd,
     /*! [in] The URL of the service. */
@@ -1253,7 +1251,7 @@ UPnPsdk_API int UpnpGetServiceVarStatusAsync(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpSendAction(
+PUPNP_API int UpnpSendAction(
     /*! [in] The handle of the control point sending the action. */
     UpnpClient_Handle Hnd,
     /*! [in] The action URL of the service. */
@@ -1293,7 +1291,7 @@ UPnPsdk_API int UpnpSendAction(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpSendActionEx(
+PUPNP_API int UpnpSendActionEx(
     /*! [in] The handle of the control point sending the action. */
     UpnpClient_Handle Hnd,
     /*! [in] The action URL of the service. */
@@ -1334,7 +1332,7 @@ UPnPsdk_API int UpnpSendActionEx(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpSendActionAsync(
+PUPNP_API int UpnpSendActionAsync(
     /*! [in] The handle of the control point sending the action. */
     UpnpClient_Handle Hnd,
     /*! [in] The action URL of the service. */
@@ -1375,7 +1373,7 @@ UPnPsdk_API int UpnpSendActionAsync(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpSendActionExAsync(
+PUPNP_API int UpnpSendActionExAsync(
     /*! [in] The handle of the control point sending the action. */
     UpnpClient_Handle Hnd,
     /*! [in] The action URL of the service. */
@@ -1435,7 +1433,7 @@ UPnPsdk_API int UpnpSendActionExAsync(
  *      \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *              complete this operation.
  */
-UPnPsdk_API int UpnpAcceptSubscription(
+PUPNP_API int UpnpAcceptSubscription(
     /*! [in] The handle of the device. */
     UpnpDevice_Handle Hnd,
     /*! [in] The device ID of the subdevice of the service generating the
@@ -1477,7 +1475,7 @@ UPnPsdk_API int UpnpAcceptSubscription(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpAcceptSubscriptionExt(
+PUPNP_API int UpnpAcceptSubscriptionExt(
     /*! [in] The handle of the device. */
     UpnpDevice_Handle Hnd,
     /*! [in] The device ID of the subdevice of the service generating the
@@ -1516,7 +1514,7 @@ UPnPsdk_API int UpnpAcceptSubscriptionExt(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpNotify(
+PUPNP_API int UpnpNotify(
     /*! [in] The handle to the device sending the event. */
     UpnpDevice_Handle Hnd,
     /*! [in] The device ID of the subdevice of the service generating the
@@ -1553,7 +1551,7 @@ UPnPsdk_API int UpnpNotify(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpNotifyExt(
+PUPNP_API int UpnpNotifyExt(
     /*! [in] The handle to the device sending the event. */
     UpnpDevice_Handle Hnd,
     /*! [in] The device ID of the subdevice of the service generating the
@@ -1596,7 +1594,7 @@ UPnPsdk_API int UpnpNotifyExt(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpRenewSubscription(
+PUPNP_API int UpnpRenewSubscription(
     /*! [in] The handle of the control point that is renewing the
        subscription. */
     UpnpClient_Handle Hnd,
@@ -1655,7 +1653,7 @@ UPnPsdk_API int UpnpRenewSubscription(
  *             the subscription request (returned in the \b
  *             UpnpEventSubscribe.ErrCode field as part of the callback).
  */
-UPnPsdk_API int UpnpRenewSubscriptionAsync(
+PUPNP_API int UpnpRenewSubscriptionAsync(
     /*! [in] The handle of the control point that is renewing the
        subscription. */
     UpnpClient_Handle Hnd,
@@ -1686,7 +1684,7 @@ UPnPsdk_API int UpnpRenewSubscriptionAsync(
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid device
  *             handle.
  */
-UPnPsdk_API int UpnpSetMaxSubscriptions(
+PUPNP_API int UpnpSetMaxSubscriptions(
     /*! The handle of the device for which the maximum number of
      * subscriptions is being set. */
     UpnpDevice_Handle Hnd,
@@ -1709,7 +1707,7 @@ UPnPsdk_API int UpnpSetMaxSubscriptions(
  *     \li \c UPNP_E_INVALID_HANDLE: The handle is not a valid device
  *             handle.
  */
-UPnPsdk_API int UpnpSetMaxSubscriptionTimeOut(
+PUPNP_API int UpnpSetMaxSubscriptionTimeOut(
     /*! The handle of the device for which the maximum subscription
      * time-out is being set. */
     UpnpDevice_Handle Hnd,
@@ -1747,7 +1745,7 @@ UPnPsdk_API int UpnpSetMaxSubscriptionTimeOut(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpSubscribe(
+PUPNP_API int UpnpSubscribe(
     /*! [in] The handle of the control point. */
     UpnpClient_Handle Hnd,
     /*! [in] The URL of the service to subscribe to. */
@@ -1809,7 +1807,7 @@ UPnPsdk_API int UpnpSubscribe(
  *              the subscription request (returned in the \b
  *              UpnpEventSubscribe.ErrCode field as part of the callback).
  */
-UPnPsdk_API int UpnpSubscribeAsync(
+PUPNP_API int UpnpSubscribeAsync(
     /*! The handle of the control point that is subscribing. */
     UpnpClient_Handle Hnd,
     /*! The URL of the service to subscribe to. */
@@ -1853,7 +1851,7 @@ UPnPsdk_API int UpnpSubscribeAsync(
  *     \li \c UPNP_E_OUTOF_MEMORY: Insufficient resources exist to
  *             complete this operation.
  */
-UPnPsdk_API int UpnpUnSubscribe(
+PUPNP_API int UpnpUnSubscribe(
     /*! [in] The handle of the subscribed control point. */
     UpnpClient_Handle Hnd,
     /*! [in] The ID returned when the control point subscribed to the
@@ -1910,7 +1908,7 @@ UPnPsdk_API int UpnpUnSubscribe(
  *          <b>UpnpEventSubscribe.ErrCode</b> field as part of the
  *          callback).
  */
-UPnPsdk_API int UpnpUnSubscribeAsync(
+PUPNP_API int UpnpUnSubscribeAsync(
     /*! [in] The handle of the subscribed control point. */
     UpnpClient_Handle Hnd,
     /*! [in] The ID returned when the control point subscribed to the
@@ -1988,7 +1986,7 @@ enum Upnp_HttpMethod {
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPnPsdk_API int UpnpDownloadUrlItem(
+PUPNP_API int UpnpDownloadUrlItem(
     /*! [in] URL of an item to download. */
     const char* url,
     /*! [out] Buffer to store the downloaded item. */
@@ -2027,7 +2025,7 @@ UPnPsdk_API int UpnpDownloadUrlItem(
  *     \li \c UPNP_E_BAD_RESPONSE: A bad response was received from the
  *             remote server.
  */
-UPnPsdk_API int UpnpOpenHttpGet(
+PUPNP_API int UpnpOpenHttpGet(
     /*! [in] The URL of an item to get. */
     const char* url,
     /*! [in,out] A pointer to store the handle for this connection. */
@@ -2074,7 +2072,7 @@ UPnPsdk_API int UpnpOpenHttpGet(
  *     \li \c UPNP_E_BAD_RESPONSE: A bad response was received from the
  *         remote server.
  */
-UPnPsdk_API int UpnpOpenHttpGetProxy(
+PUPNP_API int UpnpOpenHttpGetProxy(
     /*! [in] The URL of an item to get. */
     const char* url,
     /*! [in] The URL of the proxy. */
@@ -2123,7 +2121,7 @@ UPnPsdk_API int UpnpOpenHttpGetProxy(
  *  \li \c UPNP_E_BAD_RESPONSE: A bad response was received from the
  *          remote server.
  */
-UPnPsdk_API int UpnpOpenHttpGetEx(
+PUPNP_API int UpnpOpenHttpGetEx(
     /*! [in] The URL of the item to get. */
     const char* url_str,
     /*! [in,out] A pointer to store the handle for this connection. */
@@ -2163,7 +2161,7 @@ UPnPsdk_API int UpnpOpenHttpGetEx(
  *        in handle value may provide additional information on the return
  *        value.
  */
-UPnPsdk_API int UpnpReadHttpGet(
+PUPNP_API int UpnpReadHttpGet(
     /*! [in] The token created by the call to \b UpnpOpenHttpGet. */
     void* Handle,
     /*! [in,out] The buffer to store the read item. */
@@ -2184,7 +2182,7 @@ UPnPsdk_API int UpnpReadHttpGet(
  *     \li \c UPNP_E_INVALID_PARAM: Either \b handle, \b length
  *      or \b total is not a valid pointer.
  */
-UPnPsdk_API int UpnpHttpGetProgress(
+PUPNP_API int UpnpHttpGetProgress(
     /*! [in] The token created by the call to \b UpnpOpenHttpGet. */
     void* Handle,
     /*! [out] The number of bytes received. */
@@ -2199,7 +2197,7 @@ UPnPsdk_API int UpnpHttpGetProgress(
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
  *      \li \c UPNP_E_INVALID_PARAM: \b handle is not a valid pointer.
  */
-UPnPsdk_API int UpnpCancelHttpGet(
+PUPNP_API int UpnpCancelHttpGet(
     /*! [in] The handle of the connection created by the call to
      * \b UpnpOpenHttpGet. */
     void* Handle);
@@ -2212,7 +2210,7 @@ UPnPsdk_API int UpnpCancelHttpGet(
  *      \li \c UPNP_E_SUCCESS: The operation completed successfully.
  *      \li \c UPNP_E_INVALID_PARAM: \b handle is not a valid pointer.
  */
-UPnPsdk_API int UpnpCloseHttpGet(
+PUPNP_API int UpnpCloseHttpGet(
     /*! [in] The handle of the connection created by the call to
      * \b UpnpOpenHttpGet. */
     void* Handle);
@@ -2242,7 +2240,7 @@ UPnPsdk_API int UpnpCloseHttpGet(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPnPsdk_API int UpnpOpenHttpPost(
+PUPNP_API int UpnpOpenHttpPost(
     /*! [in] The URL in which to send the POST request. */
     const char* url,
     /*! [in,out] A pointer in which to store the handle for this connection.
@@ -2272,7 +2270,7 @@ UPnPsdk_API int UpnpOpenHttpPost(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPnPsdk_API int UpnpWriteHttpPost(
+PUPNP_API int UpnpWriteHttpPost(
     /*! [in] The handle of the connection created by the call to
      * UpnpOpenHttpPost(). */
     void* handle,
@@ -2298,7 +2296,7 @@ UPnPsdk_API int UpnpWriteHttpPost(
  *     \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *             allocated.
  */
-UPnPsdk_API int UpnpCloseHttpPost(
+PUPNP_API int UpnpCloseHttpPost(
     /*! [in] The handle of the connection to close, created by the call to
      * UpnpOpenHttpPost(). */
     void* handle,
@@ -2333,7 +2331,7 @@ UPnPsdk_API int UpnpCloseHttpPost(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPnPsdk_API int UpnpOpenHttpConnection(
+PUPNP_API int UpnpOpenHttpConnection(
     /*! [in] The URL which contains the host, and the scheme to make the
        connection. */
     const char* url,
@@ -2371,7 +2369,7 @@ UPnPsdk_API int UpnpOpenHttpConnection(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPnPsdk_API int UpnpMakeHttpRequest(
+PUPNP_API int UpnpMakeHttpRequest(
     /*! [in] The method to use to make the request. */
     Upnp_HttpMethod method,
     /*! [in] The URL to use to make the request. The URL should use the same
@@ -2411,7 +2409,7 @@ UPnPsdk_API int UpnpMakeHttpRequest(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPnPsdk_API int UpnpWriteHttpRequest(
+PUPNP_API int UpnpWriteHttpRequest(
     /*! [in] The handle of the connection created by the call to
      * UpnpOpenHttpConnection(). */
     void* handle,
@@ -2442,7 +2440,7 @@ UPnPsdk_API int UpnpWriteHttpRequest(
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPnPsdk_API int UpnpEndHttpRequest(
+PUPNP_API int UpnpEndHttpRequest(
     /*! [in] The handle to the connection. */
     void* handle,
     /*! [in] The time out value sent with the request during which a
@@ -2478,7 +2476,7 @@ UPnPsdk_API int UpnpEndHttpRequest(
  *     \li \c UPNP_E_BAD_RESPONSE: A bad response was received from the
  *             remote server.
  */
-UPnPsdk_API int UpnpGetHttpResponse(
+PUPNP_API int UpnpGetHttpResponse(
     /*! [in] The handle of the connection created by the call to
      * UpnpOpenHttpConnection(). */
     void* handle,
@@ -2515,7 +2513,7 @@ UPnPsdk_API int UpnpGetHttpResponse(
  *        in handle value may provide additional information on the return
  *        value.
  */
-UPnPsdk_API int UpnpReadHttpResponse(
+PUPNP_API int UpnpReadHttpResponse(
     /*! [in] The handle of the connection created by the call to
      * UpnpOpenHttpConnection(). */
     void* handle,
@@ -2541,7 +2539,7 @@ UPnPsdk_API int UpnpReadHttpResponse(
  *     \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *             allocated.
  */
-UPnPsdk_API int UpnpCloseHttpConnection(
+PUPNP_API int UpnpCloseHttpConnection(
     /*! [in] The handle of the connection to close, created by the call to
      * UpnpOpenHttpPost(). */
     void* handle);
@@ -2573,7 +2571,7 @@ UPnPsdk_API int UpnpCloseHttpConnection(
  *     \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *             allocated.
  */
-UPnPsdk_API int UpnpDownloadXmlDoc(
+PUPNP_API int UpnpDownloadXmlDoc(
     /*! [in] URL of the XML document. */
     const char* url,
     /*! [out] A pointer to a variable in which to store the pointer to the XML
@@ -2628,7 +2626,7 @@ typedef int (*VDCallback_GetInfo)(
  *       \li \c UPNP_E_INVALID_PARAM: \b rootDir argument is not valid.
  *       \li \c UPNP_E_OUTOF_MEMORY: Resource for storing string not available.
  */
-UPnPsdk_API int UpnpSetWebServerRootDir(
+PUPNP_API int UpnpSetWebServerRootDir(
     /*! [in] Path on the filesystem of the local storage to be the root
      * directory of the web server. */
     const char* rootDir);
@@ -2642,7 +2640,7 @@ UPnPsdk_API int UpnpSetWebServerRootDir(
  *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPnPsdk_API int UpnpVirtualDir_set_GetInfoCallback(VDCallback_GetInfo callback);
+PUPNP_API int UpnpVirtualDir_set_GetInfoCallback(VDCallback_GetInfo callback);
 
 /*!
  * \brief Open callback function prototype.
@@ -2667,7 +2665,7 @@ typedef UpnpWebFileHandle (*VDCallback_Open)(
  *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPnPsdk_API int UpnpVirtualDir_set_OpenCallback(VDCallback_Open callback);
+PUPNP_API int UpnpVirtualDir_set_OpenCallback(VDCallback_Open callback);
 
 /*!
  * \brief Read callback function prototype.
@@ -2693,7 +2691,7 @@ typedef int (*VDCallback_Read)(
  *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPnPsdk_API int UpnpVirtualDir_set_ReadCallback(VDCallback_Read callback);
+PUPNP_API int UpnpVirtualDir_set_ReadCallback(VDCallback_Read callback);
 
 /*!
  * \brief Write callback function prototype.
@@ -2719,7 +2717,7 @@ typedef int (*VDCallback_Write)(
  *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPnPsdk_API int UpnpVirtualDir_set_WriteCallback(VDCallback_Write callback);
+PUPNP_API int UpnpVirtualDir_set_WriteCallback(VDCallback_Write callback);
 
 /*!
  * \brief Seek callback function prototype.
@@ -2750,7 +2748,7 @@ typedef int (*VDCallback_Seek)(
  *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPnPsdk_API int UpnpVirtualDir_set_SeekCallback(VDCallback_Seek callback);
+PUPNP_API int UpnpVirtualDir_set_SeekCallback(VDCallback_Seek callback);
 
 /*!
  * \brief Close callback function prototype.
@@ -2772,7 +2770,7 @@ typedef int (*VDCallback_Close)(
  *       \li \c UPNP_E_INVALID_PARAM: \b callback is not a valid pointer.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b callback is not a valid pointer.
  */
-UPnPsdk_API int UpnpVirtualDir_set_CloseCallback(VDCallback_Close callback);
+PUPNP_API int UpnpVirtualDir_set_CloseCallback(VDCallback_Close callback);
 
 /*!
  * \brief Enables or disables the webserver.
@@ -2785,7 +2783,7 @@ UPnPsdk_API int UpnpVirtualDir_set_CloseCallback(VDCallback_Close callback);
  *       \li \c UPNP_E_NO_WEB_SERVER: The internal web server has been compiled
  *       out so it can't be enabled or disabled.
  */
-UPnPsdk_API int UpnpEnableWebserver(
+PUPNP_API int UpnpEnableWebserver(
     /*! [in] \c 1 to enable, \c 0 to disable. */
     int enable);
 
@@ -2796,7 +2794,7 @@ UPnPsdk_API int UpnpEnableWebserver(
  *  - 1: The webserver is enabled.
  *  - 0: The webserver is not enabled.
  */
-UPnPsdk_API int UpnpIsWebserverEnabled();
+PUPNP_API int UpnpIsWebserverEnabled();
 
 /*!
  * \brief Callback for validating HTTP requests HOST header values.
@@ -2817,15 +2815,15 @@ typedef int (*WebCallback_HostValidate)(const char* hostname, void* cookie);
  * \param callback the host validating callback function or NULL.
  * \param cookie the chocolate you like.
  */
-UPnPsdk_API void UpnpSetHostValidateCallback(WebCallback_HostValidate callback,
-                                             void* cookie);
+PUPNP_API void UpnpSetHostValidateCallback(WebCallback_HostValidate callback,
+                                           void* cookie);
 
 /*!
  * \brief Enable or disable literal IP redirection.
  *
  * \param enable Zero to disable (default) non-zero to enable.
  */
-UPnPsdk_API void UpnpSetAllowLiteralHostRedirection(int enable);
+PUPNP_API void UpnpSetAllowLiteralHostRedirection(int enable);
 
 /*!
  * \brief Assign the Access-Control-Allow-Origin specfied by the input
@@ -2838,7 +2836,7 @@ UPnPsdk_API void UpnpSetAllowLiteralHostRedirection(int enable);
  *       \li \c UPNP_E_SUCCESS: The operation completed successfully.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b rootDir is an invalid directory.
  */
-UPnPsdk_API int UpnpSetWebServerCorsString(
+PUPNP_API int UpnpSetWebServerCorsString(
     /*! [in] String having the Access-Control-Allow-Origin string. */
     const char* corsString);
 
@@ -2854,7 +2852,7 @@ UPnPsdk_API int UpnpSetWebServerCorsString(
  *       \li \c UPNP_E_FINISH: The library has not been initialized.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b dirName is not valid.
  */
-UPnPsdk_API int UpnpAddVirtualDir(
+PUPNP_API int UpnpAddVirtualDir(
     /*! [in] The name of the new directory mapping to add. */
     const char* newDirName,
     /*! [in] The cookie to associated with this \glos{webdir,web directory}
@@ -2872,7 +2870,7 @@ UPnPsdk_API int UpnpAddVirtualDir(
  *       \li \c UPNP_E_FINISH: The library has not been initialized.
  *       \li \c UPNP_E_INVALID_ARGUMENT: \b dirName is not valid.
  */
-UPnPsdk_API int UpnpRemoveVirtualDir(
+PUPNP_API int UpnpRemoveVirtualDir(
     /*! [in] The name of the \glos{webdir,web directory} mapping to remove.
      */
     const char* dirName);
@@ -2880,12 +2878,10 @@ UPnPsdk_API int UpnpRemoveVirtualDir(
 /*!
  * \brief Removes all \glos{webdir,web directory} mappings.
  */
-UPnPsdk_API void UpnpRemoveAllVirtualDirs();
+PUPNP_API void UpnpRemoveAllVirtualDirs();
 
 /// @} Web Server API
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif // COMPA_INC_API_HPP

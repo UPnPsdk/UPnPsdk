@@ -1,7 +1,8 @@
 #ifndef COMPA_UPNPACTIONCOMPLETE_HPP
 #define COMPA_UPNPACTIONCOMPLETE_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-13
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
  * \file
  *
@@ -15,62 +16,58 @@
 /*! UpnpActionComplete */
 typedef struct s_UpnpActionComplete UpnpActionComplete;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
-UPNPLIB_API UpnpActionComplete* UpnpActionComplete_new();
+PUPNP_API UpnpActionComplete* UpnpActionComplete_new();
 /*! Destructor */
-UPNPLIB_API void UpnpActionComplete_delete(UpnpActionComplete* p);
+PUPNP_API void UpnpActionComplete_delete(UpnpActionComplete* p);
 /*! Copy Constructor */
-UPNPLIB_API UpnpActionComplete*
+PUPNP_API UpnpActionComplete*
 UpnpActionComplete_dup(const UpnpActionComplete* p);
 /*! Assignment operator */
-UPNPLIB_API int UpnpActionComplete_assign(UpnpActionComplete* p,
-                                          const UpnpActionComplete* q);
+PUPNP_API int UpnpActionComplete_assign(UpnpActionComplete* p,
+                                        const UpnpActionComplete* q);
 
 /*! UpnpActionComplete_get_ErrCode */
-UPNPLIB_API int UpnpActionComplete_get_ErrCode(const UpnpActionComplete* p);
+PUPNP_API int UpnpActionComplete_get_ErrCode(const UpnpActionComplete* p);
 /*! UpnpActionComplete_set_ErrCode */
-UPNPLIB_API int UpnpActionComplete_set_ErrCode(UpnpActionComplete* p, int n);
+PUPNP_API int UpnpActionComplete_set_ErrCode(UpnpActionComplete* p, int n);
 
 /*! UpnpActionComplete_get_CtrlUrl */
-UPNPLIB_API const UpnpString*
+PUPNP_API const UpnpString*
 UpnpActionComplete_get_CtrlUrl(const UpnpActionComplete* p);
 /*! UpnpActionComplete_set_CtrlUrl */
-UPNPLIB_API int UpnpActionComplete_set_CtrlUrl(UpnpActionComplete* p,
-                                               const UpnpString* s);
+PUPNP_API int UpnpActionComplete_set_CtrlUrl(UpnpActionComplete* p,
+                                             const UpnpString* s);
 /*! UpnpActionComplete_get_CtrlUrl_Length */
-UPNPLIB_API size_t
+PUPNP_API size_t
 UpnpActionComplete_get_CtrlUrl_Length(const UpnpActionComplete* p);
 /*! UpnpActionComplete_get_CtrlUrl_cstr */
-UPNPLIB_API const char*
+PUPNP_API const char*
 UpnpActionComplete_get_CtrlUrl_cstr(const UpnpActionComplete* p);
 /*! UpnpActionComplete_strcpy_CtrlUrl */
-UPNPLIB_API int UpnpActionComplete_strcpy_CtrlUrl(UpnpActionComplete* p,
-                                                  const char* s);
+PUPNP_API int UpnpActionComplete_strcpy_CtrlUrl(UpnpActionComplete* p,
+                                                const char* s);
 /*! UpnpActionComplete_strncpy_CtrlUrl */
-UPNPLIB_API int UpnpActionComplete_strncpy_CtrlUrl(UpnpActionComplete* p,
-                                                   const char* s, size_t n);
+PUPNP_API int UpnpActionComplete_strncpy_CtrlUrl(UpnpActionComplete* p,
+                                                 const char* s, size_t n);
 /*! UpnpActionComplete_clear_CtrlUrl */
-UPNPLIB_API void UpnpActionComplete_clear_CtrlUrl(UpnpActionComplete* p);
+PUPNP_API void UpnpActionComplete_clear_CtrlUrl(UpnpActionComplete* p);
 
 /*! UpnpActionComplete_get_ActionRequest */
-UPNPLIB_API IXML_Document*
+PUPNP_API IXML_Document*
 UpnpActionComplete_get_ActionRequest(const UpnpActionComplete* p);
 /*! UpnpActionComplete_set_ActionRequest */
-UPNPLIB_API int UpnpActionComplete_set_ActionRequest(UpnpActionComplete* p,
-                                                     IXML_Document* n);
+PUPNP_API int UpnpActionComplete_set_ActionRequest(UpnpActionComplete* p,
+                                                   IXML_Document* n);
 
 /*! UpnpActionComplete_get_ActionResult */
-UPNPLIB_API IXML_Document*
+PUPNP_API IXML_Document*
 UpnpActionComplete_get_ActionResult(const UpnpActionComplete* p);
 /*! UpnpActionComplete_set_ActionResult */
-UPNPLIB_API int UpnpActionComplete_set_ActionResult(UpnpActionComplete* p,
-                                                    IXML_Document* n);
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+PUPNP_API int UpnpActionComplete_set_ActionResult(UpnpActionComplete* p,
+                                                  IXML_Document* n);
+} // extern "C"
 
 #endif /* COMPA_UPNPACTIONCOMPLETE_HPP */

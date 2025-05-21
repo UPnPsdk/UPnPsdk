@@ -1,7 +1,7 @@
 #ifndef UMOCK_STDIO_MOCK_HPP
 #define UMOCK_STDIO_MOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-13
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 
 #include <umock/stdio.hpp>
 #include <UPnPsdk/port.hpp>
@@ -9,7 +9,7 @@
 
 namespace umock {
 
-class UPNPLIB_API StdioMock : public umock::StdioInterface {
+class UPnPsdk_EXP StdioMock : public umock::StdioInterface {
   public:
     StdioMock();
     virtual ~StdioMock() override;

@@ -258,24 +258,24 @@ Functions</h2></td></tr>
 <tr class="memitem:aa889aacfe53632b1e7a978eecf86df08" id="r_aa889aacfe53632b1e7a978eecf86df08"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#aa889aacfe53632b1e7a978eecf86df08">clientSubscribeMutexDestroy</a> ()</td></tr>
 <tr class="memdesc:aa889aacfe53632b1e7a978eecf86df08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the client subsribe mutex.  <br /></td></tr>
 <tr class="separator:aa889aacfe53632b1e7a978eecf86df08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6f49bcf85257bbf38e0d52749d442da" id="r_ae6f49bcf85257bbf38e0d52749d442da"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#ae6f49bcf85257bbf38e0d52749d442da">genaCallback</a> (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *parser, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *request, <a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info)</td></tr>
-<tr class="memdesc:ae6f49bcf85257bbf38e0d52749d442da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the callback function called by the miniserver to handle incoming GENA requests.  <br /></td></tr>
-<tr class="separator:ae6f49bcf85257bbf38e0d52749d442da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa3b693019275e2267230638c0b860f1" id="r_afa3b693019275e2267230638c0b860f1"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#afa3b693019275e2267230638c0b860f1">genaSubscribe</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> client_handle, const <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *PublisherURL, int *TimeOut, <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *out_sid)</td></tr>
-<tr class="memdesc:afa3b693019275e2267230638c0b860f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function subscribes to a PublisherURL (also mentioned as EventURL in some places).  <br /></td></tr>
-<tr class="separator:afa3b693019275e2267230638c0b860f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa705d25ac0e8c87d24cffce447e85e5" id="r_aaa705d25ac0e8c87d24cffce447e85e5"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#aaa705d25ac0e8c87d24cffce447e85e5">genaUnSubscribe</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> client_handle, const <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *in_sid)</td></tr>
-<tr class="memdesc:aaa705d25ac0e8c87d24cffce447e85e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes a SID.  <br /></td></tr>
-<tr class="separator:aaa705d25ac0e8c87d24cffce447e85e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7510df8063d40d9344d1ce439dfb7dfd" id="r_a7510df8063d40d9344d1ce439dfb7dfd"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a7510df8063d40d9344d1ce439dfb7dfd">genaUnregisterClient</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> client_handle)</td></tr>
-<tr class="memdesc:a7510df8063d40d9344d1ce439dfb7dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubcribes all the outstanding subscriptions and cleans the subscription list.  <br /></td></tr>
-<tr class="separator:a7510df8063d40d9344d1ce439dfb7dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addf5f49925e296c4703999744526f9a8" id="r_addf5f49925e296c4703999744526f9a8"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#addf5f49925e296c4703999744526f9a8">genaCallback</a> (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *parser, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *request, <a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info)</td></tr>
+<tr class="memdesc:addf5f49925e296c4703999744526f9a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the callback function called by the miniserver to handle incoming GENA requests.  <br /></td></tr>
+<tr class="separator:addf5f49925e296c4703999744526f9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a376e71bed595f252a2ab46801aefc72c" id="r_a376e71bed595f252a2ab46801aefc72c"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a376e71bed595f252a2ab46801aefc72c">genaSubscribe</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> client_handle, const <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *PublisherURL, int *TimeOut, <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *out_sid)</td></tr>
+<tr class="memdesc:a376e71bed595f252a2ab46801aefc72c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function subscribes to a PublisherURL (also mentioned as EventURL in some places).  <br /></td></tr>
+<tr class="separator:a376e71bed595f252a2ab46801aefc72c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3c5a73d44b3976c16f02d452e4a14db" id="r_ac3c5a73d44b3976c16f02d452e4a14db"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#ac3c5a73d44b3976c16f02d452e4a14db">genaUnSubscribe</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> client_handle, const <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *in_sid)</td></tr>
+<tr class="memdesc:ac3c5a73d44b3976c16f02d452e4a14db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes a SID.  <br /></td></tr>
+<tr class="separator:ac3c5a73d44b3976c16f02d452e4a14db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b3e2a980fa46a24801a8a32b21c5bf4" id="r_a9b3e2a980fa46a24801a8a32b21c5bf4"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a9b3e2a980fa46a24801a8a32b21c5bf4">genaUnregisterClient</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> client_handle)</td></tr>
+<tr class="memdesc:a9b3e2a980fa46a24801a8a32b21c5bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubcribes all the outstanding subscriptions and cleans the subscription list.  <br /></td></tr>
+<tr class="separator:a9b3e2a980fa46a24801a8a32b21c5bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cc29d7a5d53dccd66f6b11abb532a05" id="r_a4cc29d7a5d53dccd66f6b11abb532a05"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a4cc29d7a5d53dccd66f6b11abb532a05">genaUnregisterDevice</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> device_handle)</td></tr>
 <tr class="memdesc:a4cc29d7a5d53dccd66f6b11abb532a05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans the service table of the device.  <br /></td></tr>
 <tr class="separator:a4cc29d7a5d53dccd66f6b11abb532a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a009c1d37bb66d6e1cfdd39ffffa0af7f" id="r_a009c1d37bb66d6e1cfdd39ffffa0af7f"><td class="memItemLeft" align="right" valign="top">UPNPLIB_API int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a009c1d37bb66d6e1cfdd39ffffa0af7f">genaRenewSubscription</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> client_handle, const <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *in_sid, int *TimeOut)</td></tr>
-<tr class="memdesc:a009c1d37bb66d6e1cfdd39ffffa0af7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renews a SID.  <br /></td></tr>
-<tr class="separator:a009c1d37bb66d6e1cfdd39ffffa0af7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4e6ad48b251824309e4623d6bf88483" id="r_ac4e6ad48b251824309e4623d6bf88483"><td class="memItemLeft" align="right" valign="top">PUPNP_EXP int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#ac4e6ad48b251824309e4623d6bf88483">genaRenewSubscription</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a> client_handle, const <a class="el" href="../../d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c">UpnpString</a> *in_sid, int *TimeOut)</td></tr>
+<tr class="memdesc:ac4e6ad48b251824309e4623d6bf88483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renews a SID.  <br /></td></tr>
+<tr class="separator:ac4e6ad48b251824309e4623d6bf88483"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3300ba366cae7db4f8c21b0119cdacd9" id="r_a3300ba366cae7db4f8c21b0119cdacd9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dd2/gena_8hpp.html#a3300ba366cae7db4f8c21b0119cdacd9">genaNotifyAll</a> (<a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#aa90371a4578eb8a96a2e0d21ced90960">UpnpDevice_Handle</a> device_handle, char *UDN, char *servId, char **VarNames, char **VarValues, int var_count)</td></tr>
 <tr class="memdesc:a3300ba366cae7db4f8c21b0119cdacd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a notification to all the subscribed control points.  <br /></td></tr>
 <tr class="separator:a3300ba366cae7db4f8c21b0119cdacd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -965,7 +965,7 @@ device_handle</td>
 <area shape="rect" title="Destroy the client subsribe mutex." alt="" coords="692,31,905,56"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
 <area shape="poly" title=" " alt="" coords="678,46,644,46,644,41,678,41"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga0daf13b33ef5f4662a03f7249dba9bd3" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
 <area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
 <area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
@@ -981,14 +981,14 @@ device_handle</td>
 
 </div>
 </div>
-<a id="ae6f49bcf85257bbf38e0d52749d442da" name="ae6f49bcf85257bbf38e0d52749d442da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6f49bcf85257bbf38e0d52749d442da">&#9670;&#160;</a></span>genaCallback()</h2>
+<a id="addf5f49925e296c4703999744526f9a8" name="addf5f49925e296c4703999744526f9a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addf5f49925e296c4703999744526f9a8">&#9670;&#160;</a></span>genaCallback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API void genaCallback </td>
+          <td class="memname">PUPNP_EXP void genaCallback </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *&#160;</td>
           <td class="paramname"><em>parser</em>, </td>
@@ -1030,8 +1030,8 @@ device_handle</td>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_cgraph" alt=""/></div>
-<map name="ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_cgraph" id="ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_cgraph">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_addf5f49925e296c4703999744526f9a8_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_addf5f49925e296c4703999744526f9a8_cgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_addf5f49925e296c4703999744526f9a8_cgraph" id="ad9/dd2/gena_8hpp_addf5f49925e296c4703999744526f9a8_cgraph">
 <area shape="rect" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="5,1349,116,1375"/>
 <area shape="rect" href="../../dc/d02/gena__callback2_8cpp.html#abb1570eae1e832145e2ae85cf1b5ad75" title="Sends an error message to the control point in the case of incorrect GENA requests." alt="" coords="721,1476,833,1501"/>
 <area shape="poly" title=" " alt="" coords="79,1373,130,1413,209,1467,305,1521,357,1543,410,1561,478,1578,533,1586,587,1581,652,1561,667,1552,676,1542,686,1531,700,1518,726,1505,728,1509,703,1523,689,1534,680,1546,670,1557,654,1566,588,1586,533,1591,477,1583,409,1566,355,1548,303,1526,206,1471,127,1417,76,1377"/>
@@ -1071,9 +1071,9 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="277,501,298,534,328,576,366,617,411,652,444,669,473,679,528,686,584,689,617,694,654,703,737,736,735,741,653,709,616,699,584,695,527,692,472,684,442,674,408,656,362,621,324,579,294,537,273,504"/>
 <area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#adb6f04b4682aae5e4690b672025b6856" title="Matches a variable parameter list with a string and takes actions based on the data type specified." alt="" coords="737,820,817,845"/>
 <area shape="poly" title=" " alt="" coords="271,502,286,553,313,622,332,658,354,694,380,726,411,753,448,777,488,795,530,809,573,819,655,830,723,832,723,838,654,835,572,824,529,814,486,800,445,781,408,757,377,729,350,697,327,661,308,624,281,555,266,503"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga494d21f3d569462b1af7651b536fae83" title="Frees a Document object and all Nodes associated with it." alt="" coords="456,420,607,445"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga07e95ab815bc8f7fe13e0506be44a804" title="Frees a Document object and all Nodes associated with it." alt="" coords="456,420,607,445"/>
 <area shape="poly" title=" " alt="" coords="358,462,448,445,449,450,359,467"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gafbbc01f76d56a8a7b4f539277b64a8ee" title="Parses an XML text buffer converting it into an IXML DOM representation." alt="" coords="461,469,602,495"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga85faed4f9af365fcf5c7e4935ea66686" title="Parses an XML text buffer converting it into an IXML DOM representation." alt="" coords="461,469,602,495"/>
 <area shape="poly" title=" " alt="" coords="358,479,447,479,447,485,358,485"/>
 <area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a0ebdc3494e3cb774b96ee021f7ae6c3b" title="Compares characters of strings passed for number of bytes. If equal for the number of bytes,..." alt="" coords="477,519,586,544"/>
 <area shape="poly" title=" " alt="" coords="359,497,464,516,463,522,358,502"/>
@@ -1163,26 +1163,26 @@ device_handle</td>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_icgraph" alt=""/></div>
-<map name="ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_icgraph" id="ad9/dd2/gena_8hpp_ae6f49bcf85257bbf38e0d52749d442da_icgraph">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_addf5f49925e296c4703999744526f9a8_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_addf5f49925e296c4703999744526f9a8_icgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_addf5f49925e296c4703999744526f9a8_icgraph" id="ad9/dd2/gena_8hpp_addf5f49925e296c4703999744526f9a8_icgraph">
 <area shape="rect" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="325,5,436,31"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="139,5,277,31"/>
 <area shape="poly" title=" " alt="" coords="312,21,277,21,277,15,312,15"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga91ebefb4f6d49c62cb37b418fae2ed7f" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,5,91,31"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#ga0daf13b33ef5f4662a03f7249dba9bd3" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,5,91,31"/>
 <area shape="poly" title=" " alt="" coords="125,21,91,21,91,15,125,15"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="afa3b693019275e2267230638c0b860f1" name="afa3b693019275e2267230638c0b860f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa3b693019275e2267230638c0b860f1">&#9670;&#160;</a></span>genaSubscribe()</h2>
+<a id="a376e71bed595f252a2ab46801aefc72c" name="a376e71bed595f252a2ab46801aefc72c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a376e71bed595f252a2ab46801aefc72c">&#9670;&#160;</a></span>genaSubscribe()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int genaSubscribe </td>
+          <td class="memname">PUPNP_EXP int genaSubscribe </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a>&#160;</td>
           <td class="paramname"><em>client_handle</em>, </td>
@@ -1236,8 +1236,8 @@ device_handle</td>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_cgraph" alt=""/></div>
-<map name="ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_cgraph" id="ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_cgraph">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_a376e71bed595f252a2ab46801aefc72c_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a376e71bed595f252a2ab46801aefc72c_cgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_a376e71bed595f252a2ab46801aefc72c_cgraph" id="ad9/dd2/gena_8hpp_a376e71bed595f252a2ab46801aefc72c_cgraph">
 <area shape="rect" title="This function subscribes to a PublisherURL (also mentioned as EventURL in some places)." alt="" coords="5,1716,123,1741"/>
 <area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28" title="Subscribes or renew subscription." alt="" coords="189,316,369,371"/>
 <area shape="poly" title=" " alt="" coords="63,1716,73,1523,94,1189,126,833,146,683,168,572,186,519,208,467,252,381,256,384,212,469,191,520,173,573,151,684,131,834,99,1189,78,1523,69,1716"/>
@@ -1372,8 +1372,8 @@ device_handle</td>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-7-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_icgraph" alt=""/></div>
-<map name="ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_icgraph" id="ad9/dd2/gena_8hpp_afa3b693019275e2267230638c0b860f1_icgraph">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_a376e71bed595f252a2ab46801aefc72c_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a376e71bed595f252a2ab46801aefc72c_icgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_a376e71bed595f252a2ab46801aefc72c_icgraph" id="ad9/dd2/gena_8hpp_a376e71bed595f252a2ab46801aefc72c_icgraph">
 <area shape="rect" title="This function subscribes to a PublisherURL (also mentioned as EventURL in some places)." alt="" coords="739,105,856,131"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a0777bb16dfc74c68a8202e2d9169ebe5" title="Registers a control point to receive event notifications from a UPnP device." alt="" coords="543,80,661,105"/>
 <area shape="poly" title=" " alt="" coords="724,111,661,103,662,98,725,106"/>
@@ -1397,14 +1397,14 @@ device_handle</td>
 
 </div>
 </div>
-<a id="aaa705d25ac0e8c87d24cffce447e85e5" name="aaa705d25ac0e8c87d24cffce447e85e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa705d25ac0e8c87d24cffce447e85e5">&#9670;&#160;</a></span>genaUnSubscribe()</h2>
+<a id="ac3c5a73d44b3976c16f02d452e4a14db" name="ac3c5a73d44b3976c16f02d452e4a14db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3c5a73d44b3976c16f02d452e4a14db">&#9670;&#160;</a></span>genaUnSubscribe()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int genaUnSubscribe </td>
+          <td class="memname">PUPNP_EXP int genaUnSubscribe </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a>&#160;</td>
           <td class="paramname"><em>client_handle</em>, </td>
@@ -1440,8 +1440,8 @@ device_handle</td>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-8-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_cgraph" alt=""/></div>
-<map name="ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_cgraph" id="ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_cgraph">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_ac3c5a73d44b3976c16f02d452e4a14db_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_ac3c5a73d44b3976c16f02d452e4a14db_cgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_ac3c5a73d44b3976c16f02d452e4a14db_cgraph" id="ad9/dd2/gena_8hpp_ac3c5a73d44b3976c16f02d452e4a14db_cgraph">
 <area shape="rect" title="Unsubscribes a SID." alt="" coords="5,1077,140,1102"/>
 <area shape="rect" href="../../da/d8f/client__table_8cpp.html#a2360b317e19e63db4c808da163991f02" title="Free memory allocated for client subscription data." alt="" coords="699,1273,876,1298"/>
 <area shape="poly" title=" " alt="" coords="89,1100,143,1146,229,1210,280,1243,335,1273,393,1300,453,1320,490,1328,529,1331,606,1328,678,1315,736,1300,738,1305,679,1320,607,1333,529,1336,490,1333,451,1325,391,1305,333,1278,277,1247,226,1214,140,1150,86,1104"/>
@@ -1539,8 +1539,8 @@ device_handle</td>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-9-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_icgraph" alt=""/></div>
-<map name="ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_icgraph" id="ad9/dd2/gena_8hpp_aaa705d25ac0e8c87d24cffce447e85e5_icgraph">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_ac3c5a73d44b3976c16f02d452e4a14db_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_ac3c5a73d44b3976c16f02d452e4a14db_icgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_ac3c5a73d44b3976c16f02d452e4a14db_icgraph" id="ad9/dd2/gena_8hpp_ac3c5a73d44b3976c16f02d452e4a14db_icgraph">
 <area shape="rect" title="Unsubscribes a SID." alt="" coords="739,155,873,180"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a282c8419fef146b7170ee266159029e6" title="Schedule async functions in threadpool." alt="" coords="513,129,691,155"/>
 <area shape="poly" title=" " alt="" coords="724,160,691,156,691,150,725,155"/>
@@ -1564,14 +1564,14 @@ device_handle</td>
 
 </div>
 </div>
-<a id="a7510df8063d40d9344d1ce439dfb7dfd" name="a7510df8063d40d9344d1ce439dfb7dfd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7510df8063d40d9344d1ce439dfb7dfd">&#9670;&#160;</a></span>genaUnregisterClient()</h2>
+<a id="a9b3e2a980fa46a24801a8a32b21c5bf4" name="a9b3e2a980fa46a24801a8a32b21c5bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b3e2a980fa46a24801a8a32b21c5bf4">&#9670;&#160;</a></span>genaUnregisterClient()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int genaUnregisterClient </td>
+          <td class="memname">PUPNP_EXP int genaUnregisterClient </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a>&#160;</td>
           <td class="paramname"><em>client_handle</em></td><td>)</td>
@@ -1596,8 +1596,8 @@ device_handle</td>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_cgraph" alt=""/></div>
-<map name="ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_cgraph" id="ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_cgraph">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_a9b3e2a980fa46a24801a8a32b21c5bf4_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a9b3e2a980fa46a24801a8a32b21c5bf4_cgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_a9b3e2a980fa46a24801a8a32b21c5bf4_cgraph" id="ad9/dd2/gena_8hpp_a9b3e2a980fa46a24801a8a32b21c5bf4_cgraph">
 <area shape="rect" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="5,845,165,870"/>
 <area shape="rect" href="../../da/d8f/client__table_8cpp.html#a2360b317e19e63db4c808da163991f02" title="Free memory allocated for client subscription data." alt="" coords="724,77,901,102"/>
 <area shape="poly" title=" " alt="" coords="84,844,90,708,108,489,124,373,146,266,174,178,192,145,211,119,241,94,274,74,308,57,345,45,421,30,499,27,576,32,648,43,761,70,760,75,647,48,575,37,499,32,422,35,346,50,310,62,276,78,244,99,215,123,196,147,179,180,151,267,129,374,113,489,95,709,90,844"/>
@@ -1690,8 +1690,8 @@ device_handle</td>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-11-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_icgraph" alt=""/></div>
-<map name="ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_icgraph" id="ad9/dd2/gena_8hpp_a7510df8063d40d9344d1ce439dfb7dfd_icgraph">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_a9b3e2a980fa46a24801a8a32b21c5bf4_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a9b3e2a980fa46a24801a8a32b21c5bf4_icgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_a9b3e2a980fa46a24801a8a32b21c5bf4_icgraph" id="ad9/dd2/gena_8hpp_a9b3e2a980fa46a24801a8a32b21c5bf4_icgraph">
 <area shape="rect" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="363,5,523,31"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#aead9c1aad0998507f66cf7f0749013d3" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="148,5,315,31"/>
 <area shape="poly" title=" " alt="" coords="349,21,315,21,315,15,349,15"/>
@@ -1744,7 +1744,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="141,116,227,138,226,143,139,121"/>
 <area shape="rect" href="../../dd/d10/service__table_8cpp.html#a6b3dbe041f246ff64f7464036778ae62" title="Free&#39;s memory allocated for the various components of each service entry in the service table." alt="" coords="429,5,548,31"/>
 <area shape="poly" title=" " alt="" coords="350,42,415,29,416,34,351,47"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga0367f3a7ce36cb9ff934caf7e0d4621d" title="Frees a DOMString." alt="" coords="627,31,776,56"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gab88de68c80ea64adbb23424095474ecc" title="Frees a DOMString." alt="" coords="627,31,776,56"/>
 <area shape="poly" title=" " alt="" coords="351,52,613,43,613,49,351,57"/>
 <area shape="poly" title=" " alt="" coords="549,22,613,30,613,35,548,28"/>
 <area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="419,131,559,156"/>
@@ -1770,14 +1770,14 @@ device_handle</td>
 
 </div>
 </div>
-<a id="a009c1d37bb66d6e1cfdd39ffffa0af7f" name="a009c1d37bb66d6e1cfdd39ffffa0af7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a009c1d37bb66d6e1cfdd39ffffa0af7f">&#9670;&#160;</a></span>genaRenewSubscription()</h2>
+<a id="ac4e6ad48b251824309e4623d6bf88483" name="ac4e6ad48b251824309e4623d6bf88483"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4e6ad48b251824309e4623d6bf88483">&#9670;&#160;</a></span>genaRenewSubscription()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UPNPLIB_API int genaRenewSubscription </td>
+          <td class="memname">PUPNP_EXP int genaRenewSubscription </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d0/d5f/Compa_2inc_2API_8hpp.html#a84542bc42a4adba31063aacbca481cba">UpnpClient_Handle</a>&#160;</td>
           <td class="paramname"><em>client_handle</em>, </td>
@@ -1820,8 +1820,8 @@ device_handle</td>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-14-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_cgraph" alt=""/></div>
-<map name="ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_cgraph" id="ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_cgraph">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_ac4e6ad48b251824309e4623d6bf88483_cgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_ac4e6ad48b251824309e4623d6bf88483_cgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_ac4e6ad48b251824309e4623d6bf88483_cgraph" id="ad9/dd2/gena_8hpp_ac4e6ad48b251824309e4623d6bf88483_cgraph">
 <area shape="rect" title="Renews a SID." alt="" coords="5,1195,184,1220"/>
 <area shape="rect" href="../../da/d8f/client__table_8cpp.html#a2360b317e19e63db4c808da163991f02" title="Free memory allocated for client subscription data." alt="" coords="757,188,935,214"/>
 <area shape="poly" title=" " alt="" coords="93,1195,94,1018,99,876,108,719,124,559,149,411,165,346,183,289,205,242,230,206,283,156,336,124,389,106,445,100,503,104,565,114,707,144,762,160,810,180,808,185,760,165,706,149,564,120,502,109,445,106,391,111,338,129,287,160,234,209,210,244,188,291,170,348,154,412,130,560,114,719,104,877,100,1018,98,1195"/>
@@ -1969,8 +1969,8 @@ device_handle</td>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-15-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_icgraph" alt=""/></div>
-<map name="ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_icgraph" id="ad9/dd2/gena_8hpp_a009c1d37bb66d6e1cfdd39ffffa0af7f_icgraph">
+<div class="center"><img src="../../d9/dd2/gena_8hpp_ac4e6ad48b251824309e4623d6bf88483_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_ac4e6ad48b251824309e4623d6bf88483_icgraph" alt=""/></div>
+<map name="ad9/dd2/gena_8hpp_ac4e6ad48b251824309e4623d6bf88483_icgraph" id="ad9/dd2/gena_8hpp_ac4e6ad48b251824309e4623d6bf88483_icgraph">
 <area shape="rect" title="Renews a SID." alt="" coords="501,109,680,135"/>
 <area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a" title="This is a thread function to send the renewal just before the subscription times out." alt="" coords="243,5,453,60"/>
 <area shape="poly" title=" " alt="" coords="542,107,452,74,422,63,424,58,454,69,544,102"/>
@@ -2073,7 +2073,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="272,477,292,511,320,549,354,587,393,618,455,648,521,668,585,680,642,686,641,692,584,685,519,673,453,653,391,623,350,591,315,552,288,514,267,480"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="620,489,800,544"/>
 <area shape="poly" title=" " alt="" coords="345,461,607,499,606,504,344,467"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga0367f3a7ce36cb9ff934caf7e0d4621d" title="Frees a DOMString." alt="" coords="848,446,997,472"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gab88de68c80ea64adbb23424095474ecc" title="Frees a DOMString." alt="" coords="848,446,997,472"/>
 <area shape="poly" title=" " alt="" coords="344,450,835,455,835,461,344,455"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae2ea03f611c00f8ca5691e59f7e988c6" title="Thread job to Notify a control point." alt="" coords="392,696,572,750"/>
 <area shape="poly" title=" " alt="" coords="269,478,288,520,315,571,351,626,394,675,408,686,405,690,390,678,347,629,311,574,283,522,264,480"/>
@@ -2108,7 +2108,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="559,364,618,357,619,363,559,369"/>
 <area shape="poly" title=" " alt="" coords="572,529,606,525,607,531,573,534"/>
 <area shape="poly" title=" " alt="" coords="573,565,661,591,660,596,572,570"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gad15e2d279f1906221149065bb97e97e8" title="Clones an existing DOMString." alt="" coords="403,928,561,953"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacd6f6ea82f04ae7f1de93776e7cfe302" title="Clones an existing DOMString." alt="" coords="403,928,561,953"/>
 <area shape="poly" title=" " alt="" coords="271,748,319,826,353,869,394,906,418,920,415,925,390,911,349,873,314,829,266,751"/>
 </map>
 </div>
@@ -2191,7 +2191,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="136,483,170,483,170,488,136,488"/>
 <area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="685,208,775,233"/>
 <area shape="poly" title=" " alt="" coords="74,472,108,391,138,331,176,265,222,197,277,133,340,75,374,51,411,30,460,10,502,3,545,9,593,30,618,45,640,64,676,109,704,155,722,194,717,196,699,157,672,112,636,68,615,50,591,35,543,15,502,8,461,15,413,35,377,55,343,79,281,136,227,201,181,268,143,334,113,393,79,474"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaf71e11e801ca62f0d922dc10ea3fe6a6" title="Renders a Node and all sub&#45;elements into an XML text representation." alt="" coords="217,940,331,965"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga230046651fbf50d9113e5dbd990dbeea" title="Renders a Node and all sub&#45;elements into an XML text representation." alt="" coords="217,940,331,965"/>
 <area shape="poly" title=" " alt="" coords="80,498,264,926,259,928,75,500"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a67ce80ee42131a36b7acf96bb9066403" title="Allocates the GENA header." alt="" coords="412,193,592,248"/>
 <area shape="poly" title=" " alt="" coords="284,457,304,416,332,366,367,313,410,265,425,253,429,257,414,269,372,316,336,369,308,419,289,459"/>
@@ -2200,7 +2200,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="365,506,667,583,665,588,364,511"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="640,400,820,454"/>
 <area shape="poly" title=" " alt="" coords="313,456,358,430,411,410,466,400,522,398,627,405,626,410,522,403,467,406,413,415,361,435,315,461"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga0367f3a7ce36cb9ff934caf7e0d4621d" title="Frees a DOMString." alt="" coords="868,357,1017,382"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gab88de68c80ea64adbb23424095474ecc" title="Frees a DOMString." alt="" coords="868,357,1017,382"/>
 <area shape="poly" title=" " alt="" coords="302,456,350,418,380,400,411,386,469,370,529,358,649,347,761,348,855,355,854,361,761,353,649,353,529,363,470,375,413,391,382,404,353,422,305,460"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae2ea03f611c00f8ca5691e59f7e988c6" title="Thread job to Notify a control point." alt="" coords="412,606,592,661"/>
 <area shape="poly" title=" " alt="" coords="311,511,359,547,413,585,435,598,432,602,411,589,355,552,308,515"/>
@@ -2350,7 +2350,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="348,373,645,340,646,345,349,378"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="624,372,804,426"/>
 <area shape="poly" title=" " alt="" coords="348,386,611,393,610,399,348,391"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga0367f3a7ce36cb9ff934caf7e0d4621d" title="Frees a DOMString." alt="" coords="852,329,1001,354"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gab88de68c80ea64adbb23424095474ecc" title="Frees a DOMString." alt="" coords="852,329,1001,354"/>
 <area shape="poly" title=" " alt="" coords="336,356,395,339,509,314,599,299,689,296,804,307,875,323,874,328,804,312,689,302,599,304,510,319,397,344,337,361"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae2ea03f611c00f8ca5691e59f7e988c6" title="Thread job to Notify a control point." alt="" coords="396,474,576,529"/>
 <area shape="poly" title=" " alt="" coords="314,411,420,466,418,470,312,416"/>
@@ -2376,7 +2376,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="577,518,640,532,639,537,576,523"/>
 <area shape="poly" title=" " alt="" coords="540,527,625,571,675,596,673,601,623,576,538,532"/>
 <area shape="poly" title=" " alt="" coords="775,622,867,633,866,639,774,627"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gad15e2d279f1906221149065bb97e97e8" title="Clones an existing DOMString." alt="" coords="407,756,565,781"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacd6f6ea82f04ae7f1de93776e7cfe302" title="Clones an existing DOMString." alt="" coords="407,756,565,781"/>
 <area shape="poly" title=" " alt="" coords="283,642,332,693,364,720,397,742,411,748,408,753,395,747,360,724,329,697,280,646"/>
 </map>
 </div>
@@ -2388,7 +2388,7 @@ device_handle</td>
 <div class="center"><img src="../../d9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_icgraph.png" border="0" usemap="#ad9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_icgraph" alt=""/></div>
 <map name="ad9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_icgraph" id="ad9/dd2/gena_8hpp_afe08f0a722cafb84faa9def7850da596_icgraph">
 <area shape="rect" title="Sends the intial state table dump to newly subscribed control point." alt="" coords="233,5,348,31"/>
-<area shape="rect" href="../../d4/d07/group__compaAPI-Eventing.html#ga39884307c097d23a218d0cc03153f076" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi..." alt="" coords="5,5,185,31"/>
+<area shape="rect" href="../../d4/d07/group__compaAPI-Eventing.html#ga263d42a6f71216fd26c86fbee4320e56" title="Accepts a subscription request and sends out the current state of the eventable variables for a servi..." alt="" coords="5,5,185,31"/>
 <area shape="poly" title=" " alt="" coords="219,21,186,21,186,15,219,15"/>
 </map>
 </div>
@@ -2466,7 +2466,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="140,375,174,375,174,380,140,380"/>
 <area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="689,50,779,76"/>
 <area shape="poly" title=" " alt="" coords="79,363,120,297,192,200,239,147,292,98,351,54,415,20,451,9,489,4,528,3,566,7,636,23,693,42,691,47,635,28,565,12,528,9,490,9,453,14,417,25,354,59,296,102,243,151,196,203,124,300,83,366"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaf71e11e801ca62f0d922dc10ea3fe6a6" title="Renders a Node and all sub&#45;elements into an XML text representation." alt="" coords="221,749,335,774"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga230046651fbf50d9113e5dbd990dbeea" title="Renders a Node and all sub&#45;elements into an XML text representation." alt="" coords="221,749,335,774"/>
 <area shape="poly" title=" " alt="" coords="83,389,266,735,261,738,78,392"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a67ce80ee42131a36b7acf96bb9066403" title="Allocates the GENA header." alt="" coords="416,36,596,90"/>
 <area shape="poly" title=" " alt="" coords="284,349,300,297,326,231,364,161,387,129,414,100,418,96,421,100,418,103,391,132,368,164,331,233,305,299,289,351"/>
@@ -2475,7 +2475,7 @@ device_handle</td>
 <area shape="poly" title=" " alt="" coords="368,375,666,375,666,380,368,380"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="644,414,824,469"/>
 <area shape="poly" title=" " alt="" coords="369,387,631,424,630,430,368,393"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga0367f3a7ce36cb9ff934caf7e0d4621d" title="Frees a DOMString." alt="" coords="872,372,1021,397"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gab88de68c80ea64adbb23424095474ecc" title="Frees a DOMString." alt="" coords="872,372,1021,397"/>
 <area shape="poly" title=" " alt="" coords="368,361,463,350,577,342,701,341,824,350,895,365,894,370,824,355,701,346,577,348,463,356,369,367"/>
 <area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae2ea03f611c00f8ca5691e59f7e988c6" title="Thread job to Notify a control point." alt="" coords="416,466,596,521"/>
 <area shape="poly" title=" " alt="" coords="334,403,440,457,438,462,332,407"/>

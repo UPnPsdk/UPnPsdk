@@ -6,7 +6,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-07
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-21
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -102,7 +102,7 @@ typedef enum Upnp_LogLevel_e {
  *
  * \return -1 if fails or UPNP_E_SUCCESS if succeeds.
  */
-UPNPLIB_API int UpnpInitLog();
+PUPNP_EXP int UpnpInitLog();
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
 #define UpnpInitLog UpnpInitLog_Inlined
@@ -111,7 +111,7 @@ static UPNP_INLINE int UpnpInitLog_Inlined() { return UPNP_E_SUCCESS; }
 /*!
  * \brief Set the log level (see \c Upnp_LogLevel).
  */
-UPNPLIB_API void UpnpSetLogLevel(
+PUPNP_EXP void UpnpSetLogLevel(
     /*! [in] Log level. */
     Upnp_LogLevel log_level);
 
@@ -126,7 +126,7 @@ static UPNP_INLINE void UpnpSetLogLevel_Inlined(Upnp_LogLevel log_level) {
 /*!
  * \brief Closes the log files.
  */
-UPNPLIB_API void UpnpCloseLog();
+PUPNP_EXP void UpnpCloseLog();
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
 #define UpnpCloseLog UpnpCloseLog_Inlined
@@ -138,7 +138,7 @@ static UPNP_INLINE void UpnpCloseLog_Inlined() {}
  * second parameter has been kept for compatibility but is ignored.
  * Use a NULL file name for logging to stderr.
  */
-UPNPLIB_API void UpnpSetLogFileNames(
+PUPNP_EXP void UpnpSetLogFileNames(
     /*! [in] Name of the log file. */
     const char* fileName,
     /*! [in] Ignored. */
@@ -162,7 +162,7 @@ static UPNP_INLINE void UpnpSetLogFileNames_Inlined(const char* ErrFileName,
  * \return nullptr if the module is turn off for debug otherwise returns the
  * right FILE pointer.
  */
-UPNPLIB_API FILE* UpnpGetDebugFile(
+PUPNP_EXP FILE* UpnpGetDebugFile(
     /*! [in] The level of the debug logging. It will decide whether debug
      * statement will go to standard output, or any of the log files. */
     Upnp_LogLevel DLevel,
@@ -188,7 +188,7 @@ UpnpGetDebugFile_Inlined([[maybe_unused]] Upnp_LogLevel level,
  *
  * \hidecallergraph
  */
-UPNPLIB_API void UpnpPrintf(
+PUPNP_EXP void UpnpPrintf(
     /*! [in] The level of the debug logging. It will decide whether debug
      * statement will go to standard output, or any of the log files. */
     Upnp_LogLevel DLevel,

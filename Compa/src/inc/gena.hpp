@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-21
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -115,7 +115,7 @@ int clientSubscribeMutexDestroy();
  *
  * \ returns UPNP_E_SUCCESS if successful, otherwise appropriate error code.
  */
-UPNPLIB_API void genaCallback(
+PUPNP_EXP void genaCallback(
     /*! [in] Represents the parse state of the request */
     http_parser_t* parser,
     /*! [in] HTTP message containing GENA request */
@@ -134,7 +134,7 @@ UPNPLIB_API void genaCallback(
  *  appropriate error code
  */
 #ifdef COMPA_HAVE_CTRLPT_SSDP
-UPNPLIB_API int genaSubscribe(
+PUPNP_EXP int genaSubscribe(
     /*! [in] The client handle. */
     UpnpClient_Handle client_handle,
     /*! [in] Of the form: "http://134.134.156.80:4000/RedBulb/Event" */
@@ -159,7 +159,7 @@ UPNPLIB_API int genaSubscribe(
  *  appropriate error code.
  */
 #ifdef COMPA_HAVE_CTRLPT_SSDP
-UPNPLIB_API int genaUnSubscribe(
+PUPNP_EXP int genaUnSubscribe(
     /*! [in] UPnP client handle. */
     UpnpClient_Handle client_handle,
     /*! [in] The subscription ID. */
@@ -176,7 +176,7 @@ UPNPLIB_API int genaUnSubscribe(
  *  error code.
  */
 #ifdef COMPA_HAVE_CTRLPT_SSDP
-UPNPLIB_API int genaUnregisterClient(
+PUPNP_EXP int genaUnregisterClient(
     /*! [in] Handle containing all the control point related information. */
     UpnpClient_Handle client_handle);
 #endif
@@ -207,7 +207,7 @@ int genaUnregisterDevice(
  *  appropriate error code.
  */
 #ifdef COMPA_HAVE_CTRLPT_SSDP
-UPNPLIB_API int genaRenewSubscription(
+PUPNP_EXP int genaRenewSubscription(
     /*! [in] Client handle. */
     UpnpClient_Handle client_handle,
     /*! [in] Subscription ID. */

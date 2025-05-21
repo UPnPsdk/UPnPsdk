@@ -1,7 +1,7 @@
 var ssdp__device_8hpp =
 [
     [ "ssdp_handle_device_request", "da/df5/ssdp__device_8hpp.html#a71cabcefa14fea2869b65b9d2ba7712d", null ],
-    [ "AdvertiseAndReply", "d0/dc4/group__SSDP-device__functions.html#gaa9d18b0afb046c657893b11e88eb857b", null ],
+    [ "AdvertiseAndReply", "d0/dc4/group__SSDP-device__functions.html#ga23db6d91dd9186968b802cb69efb966d", null ],
     [ "advertiseAndReplyThread", "d0/dc4/group__SSDP-device__functions.html#gab3115143bf1fdc1e542272324939ea28", null ],
     [ "DeviceAdvertisement", "d0/dc4/group__SSDP-device__functions.html#ga359289d0987b2a9aede8d3a426480986", null ],
     [ "SendReply", "d0/dc4/group__SSDP-device__functions.html#gada63c5136ba9b3c63e949e2db2f55d67", null ],

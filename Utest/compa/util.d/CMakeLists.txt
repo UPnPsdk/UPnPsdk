@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-22
+# Redistribution only with this Copyright remark. Last modified: 2025-05-24
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -7,7 +7,6 @@ include(UPnPsdk-ProjectHeader)
 project(GTESTS_COMPA_UTIL VERSION 0002
                   DESCRIPTION "Tests for utilities and helper"
                   HOMEPAGE_URL "https://github.com/UPnPsdk")
-
 
 # list
 #=====
@@ -18,6 +17,16 @@ target_link_libraries(test_list-psh
     PRIVATE pupnp_shared
 )
 add_test(NAME ctest_list-psh COMMAND test_list-psh --gtest_shuffle
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
+)
+
+add_executable(test_list-csh
+        ./test_list.cpp
+)
+target_link_libraries(test_list-csh
+    PRIVATE compa_shared
+)
+add_test(NAME ctest_list-csh COMMAND test_list-csh --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 

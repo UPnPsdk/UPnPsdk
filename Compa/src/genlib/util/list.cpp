@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-02-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -42,32 +42,47 @@
 #include <list.hpp>
 
 void UpnpListInit(UpnpListHead* list) {
-    list->next = list;
-    list->prev = list;
+    if (list) {
+        list->next = list;
+        list->prev = list;
+    }
 }
 
-UpnpListIter UpnpListBegin(UpnpListHead* list) { return list->next; }
+UpnpListIter UpnpListBegin(UpnpListHead* list) {
+    if (list)
+        return list->next;
+    else
+        return nullptr;
+}
 
 UpnpListIter UpnpListEnd(UpnpListHead* list) { return list; }
 
-UpnpListIter UpnpListNext(UpnpListHead* list, UpnpListIter pos) {
-    (void)list;
-    return pos->next;
+UpnpListIter UpnpListNext([[maybe_unused]] UpnpListHead* list,
+                          UpnpListIter pos) {
+    if (pos)
+        return pos->next;
+    else
+        return nullptr;
 }
 
-UpnpListIter UpnpListInsert(UpnpListHead* list, UpnpListIter pos,
-                            UpnpListHead* elt) {
-    (void)list;
-    elt->prev = pos->prev;
-    elt->next = pos;
-    pos->prev->next = elt;
-    pos->prev = elt;
-    return elt;
+UpnpListIter UpnpListInsert([[maybe_unused]] UpnpListHead* list,
+                            UpnpListIter pos, UpnpListHead* elt) {
+    if (pos && elt) {
+        elt->prev = pos->prev;
+        elt->next = pos;
+        pos->prev->next = elt;
+        pos->prev = elt;
+        return elt;
+    } else
+        return nullptr;
 }
 
-UpnpListIter UpnpListErase(UpnpListHead* list, UpnpListIter pos) {
-    (void)list;
-    pos->prev->next = pos->next;
-    pos->next->prev = pos->prev;
-    return pos->next;
+UpnpListIter UpnpListErase([[maybe_unused]] UpnpListHead* list,
+                           UpnpListIter pos) {
+    if (pos) {
+        pos->prev->next = pos->next;
+        pos->next->prev = pos->prev;
+        return pos->next;
+    } else
+        return nullptr;
 }

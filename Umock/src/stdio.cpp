@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-13
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 
 #include <umock/stdio.hpp>
 #include <UPnPsdk/port.hpp>
@@ -74,6 +74,6 @@ void Stdio::clearerr(FILE* stream) { return m_ptr_workerObj->clearerr(stream); }
 // This will exist until program end.
 StdioReal stdio_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPNPLIB_API Stdio stdio_h(&stdio_realObj);
+UPnPsdk_EXP Stdio stdio_h(&stdio_realObj);
 
 } // namespace umock

@@ -1,0 +1,18 @@
+<map id="parser_parse_responseline" name="parser_parse_responseline">
+<area shape="rect" id="Node000001" title="Get HTTP Method, URL location and version information." alt="" coords="5,79,201,105"/>
+<area shape="rect" id="Node000002" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5" title="Matches a variable parameter list and takes necessary actions based on the data type specified." alt="" coords="249,11,435,51"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,77,250,52,251,57,154,82"/>
+<area shape="rect" id="Node000025" href="$da/dd9/membuffer_8cpp.html#aed25d99b33ce20bd0dd819f64252eb6f" title="Allocate memory to membuffer *m and copy the contents of the in parameter const void *buf." alt="" coords="271,79,413,105"/>
+<area shape="poly" id="edge4_Node000001_Node000025" title=" " alt="" coords="201,89,257,89,257,95,201,95"/>
+<area shape="rect" id="Node000030" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a02f65bf2cf2f64de1d1d096f2adbf3fe" title="Skips blank lines at the start of a msg." alt="" coords="252,138,432,193"/>
+<area shape="poly" id="edge7_Node000001_Node000030" title=" " alt="" coords="147,102,240,131,239,136,145,107"/>
+<area shape="rect" id="Node000003" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="483,5,681,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="435,26,469,25,469,31,435,31"/>
+<area shape="rect" id="Node000006" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14" title="Reads next token from the input stream." alt="" coords="729,77,924,131"/>
+<area shape="poly" id="edge3_Node000003_Node000006" title=" " alt="" coords="646,43,729,70,727,75,644,48"/>
+<area shape="rect" id="Node000026" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="507,70,657,95"/>
+<area shape="poly" id="edge5_Node000025_Node000026" title=" " alt="" coords="414,87,493,83,493,89,414,92"/>
+<area shape="rect" id="Node000029" href="$da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b" title="Increases or decreases buffer cap so that at least &#39;new_length&#39; bytes can be stored." alt="" coords="505,119,659,145"/>
+<area shape="poly" id="edge6_Node000025_Node000029" title=" " alt="" coords="414,101,493,114,492,120,413,107"/>
+<area shape="poly" id="edge8_Node000030_Node000006" title=" " alt="" coords="432,168,551,169,617,164,681,155,751,134,753,139,682,160,617,169,551,174,432,174"/>
+</map>

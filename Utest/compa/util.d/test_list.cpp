@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-05-22
 
 #include <list.hpp>
 #include <utest/utest.hpp>
@@ -9,6 +9,7 @@ namespace utest {
 using ::testing::ExitedWithCode;
 
 
+#if 0
 // Interface for the list module
 // =============================
 // clang-format off
@@ -53,10 +54,9 @@ class Clist : Ilist {
 //
 // testsuite for the list module
 //==============================
-#if false
 TEST(ListTestSuite, UpnpList_show_entries)
 // This "test" is only for humans to get an idea what's going on. If you need
-// it, set '#if true' only temporary. It is not intended to be permanent part of
+// it, set '#if 1' only temporary. It is not intended to be permanent part of
 // the test suite because it doesn't really test things.
 {
     UpnpListHead list{};
@@ -117,223 +117,196 @@ TEST(ListTestSuite, UpnpList_init_insert_erase)
     UpnpListHead list{};
 
     // Initialize list
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
-    EXPECT_EQ(listObj.UpnpListBegin(&list), &list);
-    EXPECT_EQ(listObj.UpnpListEnd(&list), &list);
+    UpnpListInit(&list);
+    EXPECT_EQ(UpnpListBegin(&list), &list);
+    EXPECT_EQ(UpnpListEnd(&list), &list);
     EXPECT_EQ(list.next, &list);
     EXPECT_EQ(list.prev, &list);
 
     // Insert element before end of list
     UpnpListHead list_inserted{};
-    UpnpListIter list_end_ptr = listObj.UpnpListEnd(&list);
+    UpnpListIter list_end_ptr = UpnpListEnd(&list);
     UpnpListIter list_inserted_ptr =
-        listObj.UpnpListInsert(&list, list_end_ptr, &list_inserted);
+        UpnpListInsert(&list, list_end_ptr, &list_inserted);
     // Entries in list
-    EXPECT_EQ(listObj.UpnpListBegin(&list), list_inserted_ptr);
-    EXPECT_EQ(listObj.UpnpListEnd(&list), list_end_ptr);
+    EXPECT_EQ(UpnpListBegin(&list), list_inserted_ptr);
+    EXPECT_EQ(UpnpListEnd(&list), list_end_ptr);
     EXPECT_EQ(list.next, list_inserted_ptr);
     EXPECT_EQ(list.prev, list_inserted_ptr);
     // Entries in list_inserted
-    EXPECT_EQ(listObj.UpnpListBegin(&list_inserted), list_end_ptr);
-    EXPECT_EQ(listObj.UpnpListEnd(&list_inserted), list_inserted_ptr);
+    EXPECT_EQ(UpnpListBegin(&list_inserted), list_end_ptr);
+    EXPECT_EQ(UpnpListEnd(&list_inserted), list_inserted_ptr);
     EXPECT_EQ(list_inserted.next, list_end_ptr);
     EXPECT_EQ(list_inserted.prev, list_end_ptr);
 
     // Erasing just inserted element should give the initialized list again
-    UpnpListIter list_erased_ptr =
-        listObj.UpnpListErase(&list, list_inserted_ptr);
+    UpnpListIter list_erased_ptr = UpnpListErase(&list, list_inserted_ptr);
     EXPECT_EQ(list_erased_ptr, &list);
     // Same as UpnpListInit
-    EXPECT_EQ(listObj.UpnpListBegin(&list), &list);
-    EXPECT_EQ(listObj.UpnpListEnd(&list), &list);
+    EXPECT_EQ(UpnpListBegin(&list), &list);
+    EXPECT_EQ(UpnpListEnd(&list), &list);
     EXPECT_EQ(list.next, &list);
     EXPECT_EQ(list.prev, &list);
 }
 
 TEST(ListDeathTest, UpnpListInit_with_nullptr_to_list) {
-    Clist listObj{};
-
     if (old_code) {
-        std::cout << CRED "[ BUG      ]" CRES
+        std::cout << CYEL "[ FIX      ]" CRES
                   << " A nullptr to a list must not segfault.\n";
         // This expects segfault.
-        EXPECT_DEATH(listObj.UpnpListInit(nullptr), ".*");
+        EXPECT_DEATH(UpnpListInit(nullptr), ".*");
 
     } else {
 
         // This expects NO segfault.
-        ASSERT_EXIT((listObj.UpnpListInit(nullptr), exit(0)), ExitedWithCode(0),
-                    ".*");
+        ASSERT_EXIT((UpnpListInit(nullptr), exit(0)), ExitedWithCode(0), ".*");
     }
 }
 
 TEST(ListDeathTest, UpnpListBegin_with_nullptr_to_list) {
     UpnpListHead list{};
 
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
+    UpnpListInit(&list);
 
     if (old_code) {
-        std::cout << CRED "[ BUG      ]" CRES
+        std::cout << CYEL "[ FIX      ]" CRES
                   << " A nullptr to a list must not segfault.\n";
         // This expects segfault.
-        EXPECT_DEATH(listObj.UpnpListBegin(nullptr), ".*");
+        EXPECT_DEATH(UpnpListBegin(nullptr), ".*");
 
     } else {
 
         // This expects NO segfault.
-        ASSERT_EXIT((listObj.UpnpListBegin(nullptr), exit(0)),
-                    ExitedWithCode(0), ".*");
+        ASSERT_EXIT((UpnpListBegin(nullptr), exit(0)), ExitedWithCode(0), ".*");
         UpnpListIter ret_UpnpListBegin;
         memset(&ret_UpnpListBegin, 0xAA, sizeof(ret_UpnpListBegin));
-        ret_UpnpListBegin = listObj.UpnpListBegin(nullptr);
+        ret_UpnpListBegin = UpnpListBegin(nullptr);
         EXPECT_EQ(ret_UpnpListBegin, nullptr);
     }
 }
 
 TEST(ListTestSuite, UpnpListEnd) {
     UpnpListHead list{};
+    UpnpListInit(&list);
 
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
-
-    EXPECT_EQ(listObj.UpnpListEnd(&list), list.prev);
+    EXPECT_EQ(UpnpListEnd(&list), list.prev);
 }
 
 TEST(ListDeathTest, UpnpListEnd_with_nullptr_to_list) {
     UpnpListHead list{};
-
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
+    UpnpListInit(&list);
 
     UpnpListIter ret{};
-    ASSERT_EXIT((ret = listObj.UpnpListEnd(nullptr), exit(0)),
+    ASSERT_EXIT((ret = UpnpListEnd(nullptr), exit(0)),
                 ::testing::ExitedWithCode(0), ".*")
         << "  # A nullptr to a list must not segfault.";
     EXPECT_EQ(ret, nullptr);
 }
 
 TEST(ListTestSuite, UpnpListNext) {
-    Clist listObj{};
-
     UpnpListHead list{};
-    listObj.UpnpListInit(&list);
-    UpnpListIter list_end_ptr = listObj.UpnpListEnd(&list);
+    UpnpListInit(&list);
+    UpnpListIter list_end_ptr = UpnpListEnd(&list);
 
     // Insert element before end of list
     UpnpListHead list_inserted{};
     UpnpListIter list_inserted_ptr =
-        listObj.UpnpListInsert(&list, list_end_ptr, &list_inserted);
+        UpnpListInsert(&list, list_end_ptr, &list_inserted);
 
     // We have inserted between begin and end. So next from begin must be
     // inserted.
-    UpnpListIter list_begin_ptr = listObj.UpnpListEnd(&list);
-    UpnpListIter list_next_ptr = listObj.UpnpListNext(&list, list_begin_ptr);
+    UpnpListIter list_begin_ptr = UpnpListEnd(&list);
+    UpnpListIter list_next_ptr = UpnpListNext(&list, list_begin_ptr);
     EXPECT_EQ(list_next_ptr, list_inserted_ptr);
 }
 
 TEST(ListTestSuite, UpnpListNext_with_nullptr_to_list) {
     UpnpListHead list{};
 
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
-    UpnpListIter list_end_ptr = listObj.UpnpListEnd(&list);
+    UpnpListInit(&list);
+    UpnpListIter list_end_ptr = UpnpListEnd(&list);
 
     // The first argument is ignored. We should find the list end.
-    UpnpListIter list_next_ptr = listObj.UpnpListNext(nullptr, &list);
+    UpnpListIter list_next_ptr = UpnpListNext(nullptr, &list);
     EXPECT_EQ(list_next_ptr, list_end_ptr);
 }
 
 TEST(ListDeathTest, UpnpListNext_with_nullptr_to_position) {
     UpnpListHead list{};
-
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
+    UpnpListInit(&list);
 
     if (old_code) {
-        std::cout << CRED "[ BUG      ]" CRES
+        std::cout << CYEL "[ FIX      ]" CRES
                   << " A nullptr to a position must not segfault.\n";
         // This expects segfault.
-        EXPECT_DEATH(listObj.UpnpListNext(&list, nullptr), ".*");
+        EXPECT_DEATH(UpnpListNext(&list, nullptr), ".*");
 
     } else {
 
         // This expects NO segfault.
-        ASSERT_EXIT((listObj.UpnpListNext(&list, nullptr), exit(0)),
-                    ExitedWithCode(0), ".*");
+        ASSERT_EXIT((UpnpListNext(&list, nullptr), exit(0)), ExitedWithCode(0),
+                    ".*");
         UpnpListIter ret_UpnpListNext;
         memset(&ret_UpnpListNext, 0xAA, sizeof(ret_UpnpListNext));
-        ret_UpnpListNext = listObj.UpnpListNext(&list, nullptr);
+        ret_UpnpListNext = UpnpListNext(&list, nullptr);
         EXPECT_EQ(ret_UpnpListNext, nullptr);
     }
 }
 
 TEST(ListTestSuite, UpnpListNext_with_begin_pos_on_initialized_list) {
     UpnpListHead list{};
-
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
+    UpnpListInit(&list);
 
     // On an initialized list we have begin == end. The next position should
     // give the end position.
-    UpnpListIter list_begin_ptr = listObj.UpnpListBegin(&list);
-    UpnpListIter list_end_ptr = listObj.UpnpListEnd(&list);
+    UpnpListIter list_begin_ptr = UpnpListBegin(&list);
+    UpnpListIter list_end_ptr = UpnpListEnd(&list);
     EXPECT_EQ(list_begin_ptr, list_end_ptr);
-    UpnpListIter list_next_ptr = listObj.UpnpListNext(&list, list_begin_ptr);
+    UpnpListIter list_next_ptr = UpnpListNext(&list, list_begin_ptr);
     EXPECT_EQ(list_next_ptr, list_end_ptr);
 }
 
 TEST(ListTestSuite, UpnpListNext_with_invalid_position) {
     UpnpListHead list{};
     UpnpListHead list_invalid{};
+    UpnpListInit(&list);
 
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
-
-    UpnpListIter list_next_ptr = listObj.UpnpListNext(&list, &list_invalid);
+    UpnpListIter list_next_ptr = UpnpListNext(&list, &list_invalid);
     EXPECT_EQ(list_next_ptr, nullptr);
 }
 
 TEST(ListTestSuite, UpnpListInsert_with_nullptr_to_list) {
     UpnpListHead list{};
     UpnpListHead list_inserted{};
-
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
-    UpnpListIter list_end_ptr = listObj.UpnpListEnd(&list);
+    UpnpListInit(&list);
+    UpnpListIter list_end_ptr = UpnpListEnd(&list);
 
     // The first argument is ignored. We should find inserted next to begin (see
     // other test).
     UpnpListIter list_inserted_ptr =
-        listObj.UpnpListInsert(nullptr, list_end_ptr, &list_inserted);
+        UpnpListInsert(nullptr, list_end_ptr, &list_inserted);
     EXPECT_NE(list_inserted_ptr, nullptr);
 }
 
 TEST(ListDeathTest, UpnpListInsert_with_nullptr_to_position) {
     UpnpListHead list{};
     UpnpListHead list_inserted{};
-
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
+    UpnpListInit(&list);
 
     if (old_code) {
-        std::cout << CRED "[ BUG      ]" CRES
+        std::cout << CYEL "[ FIX      ]" CRES
                   << " A nullptr to a position must not segfault.\n";
         // This expects segfault.
-        EXPECT_DEATH(listObj.UpnpListInsert(nullptr, nullptr, &list_inserted),
-                     ".*");
+        EXPECT_DEATH(UpnpListInsert(nullptr, nullptr, &list_inserted), ".*");
 
     } else {
 
         // This expects NO segfault.
-        ASSERT_EXIT(
-            (listObj.UpnpListInsert(nullptr, nullptr, &list_inserted), exit(0)),
-            ExitedWithCode(0), ".*");
+        ASSERT_EXIT((UpnpListInsert(nullptr, nullptr, &list_inserted), exit(0)),
+                    ExitedWithCode(0), ".*");
         UpnpListIter ret_UpnpListInsert;
         memset(&ret_UpnpListInsert, 0xAA, sizeof(ret_UpnpListInsert));
-        ret_UpnpListInsert =
-            listObj.UpnpListInsert(nullptr, nullptr, &list_inserted);
+        ret_UpnpListInsert = UpnpListInsert(nullptr, nullptr, &list_inserted);
         EXPECT_EQ(ret_UpnpListInsert, nullptr);
     }
 }
@@ -342,40 +315,55 @@ TEST(ListTestSuite, UpnpListInsert_with_pos_on_list_begin) {
     UpnpListHead list{};
     UpnpListHead list_inserted{};
 
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
-    UpnpListIter list_begin_ptr = listObj.UpnpListBegin(&list);
+    UpnpListInit(&list);
+    UpnpListIter list_begin_ptr = UpnpListBegin(&list);
 
     // The first argument is ignored. The inserted element should become the
     // begin.
     UpnpListIter list_inserted_ptr =
-        listObj.UpnpListInsert(nullptr, list_begin_ptr, &list_inserted);
-    list_begin_ptr = listObj.UpnpListBegin(&list);
+        UpnpListInsert(nullptr, list_begin_ptr, &list_inserted);
+    list_begin_ptr = UpnpListBegin(&list);
     EXPECT_EQ(list_inserted_ptr, list_begin_ptr);
+}
+
+TEST(ListDeathTest, UpnpListErase_with_nullptr_to_list) {
+    if (old_code) {
+        std::cout << CYEL "[ FIX      ]" CRES
+                  << " A nullptr to a list must not segfault.\n";
+        // This expects segfault.
+        // The first argument is ignored.
+        EXPECT_DEATH(UpnpListErase(nullptr, nullptr), ".*");
+
+    } else {
+
+        // This expects NO segfault.
+        // The first argument is ignored.
+        ASSERT_EXIT((UpnpListErase(nullptr, nullptr), exit(0)),
+                    ExitedWithCode(0), ".*");
+        EXPECT_EQ(UpnpListErase(nullptr, nullptr), nullptr);
+    }
 }
 
 TEST(ListTestSuite, UpnpListErase_with_position_to_begin) {
     UpnpListHead list{};
 
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
-    UpnpListIter list_begin_ptr = listObj.UpnpListBegin(&list);
-    UpnpListIter list_end_ptr = listObj.UpnpListEnd(&list);
+    UpnpListInit(&list);
+    UpnpListIter list_begin_ptr = UpnpListBegin(&list);
+    UpnpListIter list_end_ptr = UpnpListEnd(&list);
 
     // The first argument is ignored.
-    UpnpListIter list_next_ptr = listObj.UpnpListErase(nullptr, list_begin_ptr);
+    UpnpListIter list_next_ptr = UpnpListErase(nullptr, list_begin_ptr);
     EXPECT_EQ(list_next_ptr, list_end_ptr);
 }
 
 TEST(ListTestSuite, UpnpListErase_with_position_to_end) {
     UpnpListHead list{};
 
-    Clist listObj{};
-    listObj.UpnpListInit(&list);
-    UpnpListIter list_end_ptr = listObj.UpnpListEnd(&list);
+    UpnpListInit(&list);
+    UpnpListIter list_end_ptr = UpnpListEnd(&list);
 
     // The first argument is ignored.
-    UpnpListIter list_next_ptr = listObj.UpnpListErase(nullptr, list_end_ptr);
+    UpnpListIter list_next_ptr = UpnpListErase(nullptr, list_end_ptr);
     EXPECT_EQ(list_next_ptr, list_end_ptr);
 }
 

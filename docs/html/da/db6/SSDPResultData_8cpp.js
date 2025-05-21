@@ -1,6 +1,6 @@
 var SSDPResultData_8cpp =
 [
-    [ "SSDPResultData_new", "de/d27/group__SSDP-common__functions.html#ga46870802a16adadb9cd145c80345e4ec", null ],
+    [ "SSDPResultData_new", "de/d27/group__SSDP-common__functions.html#gaa1e88feaf6841f8b0bcab281bb6ff529", null ],
     [ "SSDPResultData_delete", "da/db6/SSDPResultData_8cpp.html#abee23a01947f1247c3563e1a82071b4d", null ],
     [ "SSDPResultData_assign", "da/db6/SSDPResultData_8cpp.html#aac929dce7640f599c20ca77d356e3791", null ],
     [ "SSDPResultData_dup", "da/db6/SSDPResultData_8cpp.html#ab390f080062b234eceaa13d26f91aff9", null ],

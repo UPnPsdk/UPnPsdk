@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_INCLUDE_VISIBILITY_HPP
 #define UPnPsdk_INCLUDE_VISIBILITY_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-07
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 /*!
  * \file
  * \brief Macros to support visibility of external symbols.
@@ -69,9 +69,10 @@
 #endif
 
 /// \cond
-// Switch old definition to renamed visibility support
-#define UPNPLIB_API UPnPsdk_API
-#define UPNPLIB_LOCAL UPnPsdk_LOCAL
+// Its all the same symbol export but only for its different meanings.
+#define PUPNP_EXP UPnPsdk_API // Symbol exports for pupnp internal use only.
+#define PUPNP_API UPnPsdk_API // Symbol exports for old pupnp API.
+#define UPnPsdk_EXP UPnPsdk_API // Symbol exports for UPnPsdk internal use only.
 /// \endcond
 
 // clang-format on

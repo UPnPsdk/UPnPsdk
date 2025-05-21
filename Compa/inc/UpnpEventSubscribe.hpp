@@ -1,7 +1,8 @@
 #ifndef COMPA_UPNPEVENTSUBSCRIBE_HPP
 #define COMPA_UPNPEVENTSUBSCRIBE_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-13
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
  * \file
  * \brief Header file for UpnpEventSubscribe methods.
@@ -15,76 +16,70 @@
  */
 typedef struct s_UpnpEventSubscribe UpnpEventSubscribe;
 
-#ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
 
 /*! Constructor */
-UPNPLIB_API UpnpEventSubscribe* UpnpEventSubscribe_new();
+PUPNP_API UpnpEventSubscribe* UpnpEventSubscribe_new();
 /*! Destructor */
-UPNPLIB_API void UpnpEventSubscribe_delete(UpnpEventSubscribe* p);
+PUPNP_API void UpnpEventSubscribe_delete(UpnpEventSubscribe* p);
 /*! Copy Constructor */
-UPNPLIB_API UpnpEventSubscribe*
+PUPNP_API UpnpEventSubscribe*
 UpnpEventSubscribe_dup(const UpnpEventSubscribe* p);
 /*! Assignment operator */
-UPNPLIB_API int UpnpEventSubscribe_assign(UpnpEventSubscribe* p,
-                                          const UpnpEventSubscribe* q);
+PUPNP_API int UpnpEventSubscribe_assign(UpnpEventSubscribe* p,
+                                        const UpnpEventSubscribe* q);
 
 /*! UpnpEventSubscribe_get_ErrCode */
-UPNPLIB_API int UpnpEventSubscribe_get_ErrCode(const UpnpEventSubscribe* p);
+PUPNP_API int UpnpEventSubscribe_get_ErrCode(const UpnpEventSubscribe* p);
 /*! UpnpEventSubscribe_set_ErrCode */
-UPNPLIB_API int UpnpEventSubscribe_set_ErrCode(UpnpEventSubscribe* p, int n);
+PUPNP_API int UpnpEventSubscribe_set_ErrCode(UpnpEventSubscribe* p, int n);
 
 /*! UpnpEventSubscribe_get_TimeOut */
-UPNPLIB_API int UpnpEventSubscribe_get_TimeOut(const UpnpEventSubscribe* p);
+PUPNP_API int UpnpEventSubscribe_get_TimeOut(const UpnpEventSubscribe* p);
 /*! UpnpEventSubscribe_set_TimeOut */
-UPNPLIB_API int UpnpEventSubscribe_set_TimeOut(UpnpEventSubscribe* p, int n);
+PUPNP_API int UpnpEventSubscribe_set_TimeOut(UpnpEventSubscribe* p, int n);
 
 /*! UpnpEventSubscribe_get_SID */
-UPNPLIB_API const UpnpString*
+PUPNP_API const UpnpString*
 UpnpEventSubscribe_get_SID(const UpnpEventSubscribe* p);
 /*! UpnpEventSubscribe_set_SID */
-UPNPLIB_API int UpnpEventSubscribe_set_SID(UpnpEventSubscribe* p,
-                                           const UpnpString* s);
+PUPNP_API int UpnpEventSubscribe_set_SID(UpnpEventSubscribe* p,
+                                         const UpnpString* s);
 /*! UpnpEventSubscribe_get_SID_Length */
-UPNPLIB_API size_t
-UpnpEventSubscribe_get_SID_Length(const UpnpEventSubscribe* p);
+PUPNP_API size_t UpnpEventSubscribe_get_SID_Length(const UpnpEventSubscribe* p);
 /*! UpnpEventSubscribe_get_SID_cstr */
-UPNPLIB_API const char*
+PUPNP_API const char*
 UpnpEventSubscribe_get_SID_cstr(const UpnpEventSubscribe* p);
 /*! UpnpEventSubscribe_strcpy_SID */
-UPNPLIB_API int UpnpEventSubscribe_strcpy_SID(UpnpEventSubscribe* p,
-                                              const char* s);
+PUPNP_API int UpnpEventSubscribe_strcpy_SID(UpnpEventSubscribe* p,
+                                            const char* s);
 /*! UpnpEventSubscribe_strncpy_SID */
-UPNPLIB_API int UpnpEventSubscribe_strncpy_SID(UpnpEventSubscribe* p,
-                                               const char* s, size_t n);
+PUPNP_API int UpnpEventSubscribe_strncpy_SID(UpnpEventSubscribe* p,
+                                             const char* s, size_t n);
 /*! UpnpEventSubscribe_clear_SID */
-UPNPLIB_API void UpnpEventSubscribe_clear_SID(UpnpEventSubscribe* p);
+PUPNP_API void UpnpEventSubscribe_clear_SID(UpnpEventSubscribe* p);
 
 /*! UpnpEventSubscribe_get_PublisherUrl */
-UPNPLIB_API const UpnpString*
+PUPNP_API const UpnpString*
 UpnpEventSubscribe_get_PublisherUrl(const UpnpEventSubscribe* p);
 /*! UpnpEventSubscribe_set_PublisherUrl */
-UPNPLIB_API int UpnpEventSubscribe_set_PublisherUrl(UpnpEventSubscribe* p,
-                                                    const UpnpString* s);
+PUPNP_API int UpnpEventSubscribe_set_PublisherUrl(UpnpEventSubscribe* p,
+                                                  const UpnpString* s);
 /*! UpnpEventSubscribe_get_PublisherUrl_Length */
-UPNPLIB_API size_t
+PUPNP_API size_t
 UpnpEventSubscribe_get_PublisherUrl_Length(const UpnpEventSubscribe* p);
 /*! UpnpEventSubscribe_get_PublisherUrl_cstr */
-UPNPLIB_API const char*
+PUPNP_API const char*
 UpnpEventSubscribe_get_PublisherUrl_cstr(const UpnpEventSubscribe* p);
 /*! UpnpEventSubscribe_strcpy_PublisherUrl */
-UPNPLIB_API int UpnpEventSubscribe_strcpy_PublisherUrl(UpnpEventSubscribe* p,
-                                                       const char* s);
+PUPNP_API int UpnpEventSubscribe_strcpy_PublisherUrl(UpnpEventSubscribe* p,
+                                                     const char* s);
 /*! UpnpEventSubscribe_strncpy_PublisherUrl */
-UPNPLIB_API int UpnpEventSubscribe_strncpy_PublisherUrl(UpnpEventSubscribe* p,
-                                                        const char* s,
-                                                        size_t n);
+PUPNP_API int UpnpEventSubscribe_strncpy_PublisherUrl(UpnpEventSubscribe* p,
+                                                      const char* s, size_t n);
 /*! UpnpEventSubscribe_clear_PublisherUrl */
-UPNPLIB_API void UpnpEventSubscribe_clear_PublisherUrl(UpnpEventSubscribe* p);
+PUPNP_API void UpnpEventSubscribe_clear_PublisherUrl(UpnpEventSubscribe* p);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+} // extern "C"
 
 #endif /* COMPA_UPNPEVENTSUBSCRIBE_HPP*/

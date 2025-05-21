@@ -33,6 +33,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last compare with pupnp original source file on 2025-05-22, ver 1.14.20
 
 /** Trivial list management interface, patterned on std::list. It aims more at
  * being familiar than at being minimal. The implementation does not perform

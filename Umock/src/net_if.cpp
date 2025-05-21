@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 
 #include <umock/net_if.hpp>
 #include <UPnPsdk/port.hpp>
@@ -38,6 +38,6 @@ unsigned int Net_if::if_nametoindex(const char* ifname) {
 // This will exist until program end.
 Net_ifReal net_if_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPNPLIB_API Net_if net_if_h(&net_if_realObj);
+UPnPsdk_EXP Net_if net_if_h(&net_if_realObj);
 
 } // namespace umock

@@ -1,7 +1,7 @@
 #ifndef INTERFACE_PUPNP_SOCK_HPP
 #define INTERFACE_PUPNP_SOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-05
+// Redistribution only with this Copyright remark. Last modified: 2025-05-21
 
 #include <sock.hpp>
 
@@ -9,7 +9,7 @@
 // =============================
 // clang-format off
 
-class UPNPLIB_API SockInterface {
+class UPnPsdk_EXP SockInterface {
   public:
     virtual ~SockInterface();
 

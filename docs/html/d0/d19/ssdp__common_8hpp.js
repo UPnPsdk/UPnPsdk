@@ -64,7 +64,7 @@ var ssdp__common_8hpp =
     [ "unique_service_name", "de/d27/group__SSDP-common__functions.html#gae3e29279280d276d05762d9dbeffe31d", null ],
     [ "ssdp_request_type1", "de/d27/group__SSDP-common__functions.html#ga813e243c5a6ea133ef0803838244766b", null ],
     [ "ssdp_request_type", "de/d27/group__SSDP-common__functions.html#ga3096b77d16b0ab09d3d0ec540fb09016", null ],
-    [ "readFromSSDPSocket", "de/d27/group__SSDP-common__functions.html#ga308dfe9b1114a11c55c09678a9397aa9", null ],
+    [ "readFromSSDPSocket", "de/d27/group__SSDP-common__functions.html#ga13bec7ad9261587950274c5feb645fe2", null ],
     [ "get_ssdp_sockets", "de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8", null ],
     [ "gSsdpReqSocket4", "d0/d19/ssdp__common_8hpp.html#ae7b203d9c8f465e0731f0547e83686a6", null ],
     [ "gSsdpReqSocket6", "d0/d19/ssdp__common_8hpp.html#a8f5ef49e339b0e7b1ea0916db2220b0c", null ]

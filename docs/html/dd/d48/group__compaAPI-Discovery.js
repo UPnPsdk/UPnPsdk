@@ -1,6 +1,6 @@
 var group__compaAPI_Discovery =
 [
-    [ "UpnpSearchAsync", "dd/d48/group__compaAPI-Discovery.html#gacbc564f3c21415a8165d6882f5bc3189", null ],
-    [ "UpnpSendAdvertisement", "dd/d48/group__compaAPI-Discovery.html#ga4785db3633eaac25030029d7459f9aac", null ],
-    [ "UpnpSendAdvertisementLowPower", "dd/d48/group__compaAPI-Discovery.html#ga8a965858ae4c724d7699a3ced0f3df5d", null ]
+    [ "UpnpSearchAsync", "dd/d48/group__compaAPI-Discovery.html#gad4e3ad600772c61b5091bf8cb366f3ec", null ],
+    [ "UpnpSendAdvertisement", "dd/d48/group__compaAPI-Discovery.html#gacbffe3175ff3e216f17ec5262c103815", null ],
+    [ "UpnpSendAdvertisementLowPower", "dd/d48/group__compaAPI-Discovery.html#ga98cfe0bcc136bd36f792ea07cb9ee673", null ]
 ];

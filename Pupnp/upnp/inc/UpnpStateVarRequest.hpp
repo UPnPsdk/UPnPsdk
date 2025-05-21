@@ -3,6 +3,7 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2024-08-13
 // Also Copyright by other contributor as noted below.
+// Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
 
 /*!
  * \file
@@ -137,11 +138,11 @@ EXPORT_SPEC void UpnpStateVarRequest_clear_StateVarName(UpnpStateVarRequest* p);
 /*! UpnpStateVarRequest_get_CtrlPtIPAddr */
 EXPORT_SPEC const struct sockaddr_storage*
 UpnpStateVarRequest_get_CtrlPtIPAddr(const UpnpStateVarRequest* p);
-/*! UpnpStateVarRequest_get_CtrlPtIPAddr */
+/*! UpnpStateVarRequest_set_CtrlPtIPAddr */
 EXPORT_SPEC int
 UpnpStateVarRequest_set_CtrlPtIPAddr(UpnpStateVarRequest* p,
                                      const struct sockaddr_storage* buf);
-/*! UpnpStateVarRequest_get_CtrlPtIPAddr */
+/*! UpnpStateVarRequest_clear_CtrlPtIPAddr */
 EXPORT_SPEC void UpnpStateVarRequest_clear_CtrlPtIPAddr(UpnpStateVarRequest* p);
 
 /*! UpnpStateVarRequest_get_CurrentVal */

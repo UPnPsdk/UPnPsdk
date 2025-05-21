@@ -1,0 +1,15 @@
+<map id="parser_request_init" name="parser_request_init">
+<area shape="rect" id="Node000001" title="Initializes parser object for a request." alt="" coords="476,152,623,177"/>
+<area shape="rect" id="Node000002" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ac4f5f24f4aa10cc725b96ac5c29a88f7" title="Get the data on the socket and take actions based on the read data to modify the parser objects buffe..." alt="" coords="275,116,420,141"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="464,152,419,144,419,139,465,147"/>
+<area shape="rect" id="Node000060" href="$df/d13/ssdp__common_8cpp.html#af3e17308ebc31e7e81c476624487614c" title="This function reads the data from the ssdp socket." alt="" coords="267,176,428,201"/>
+<area shape="poly" id="edge5_Node000001_Node000060" title=" " alt="" coords="462,178,429,182,428,176,462,172"/>
+<area shape="rect" id="Node000003" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="17,5,207,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="306,113,218,74,189,63,191,58,220,69,308,108"/>
+<area shape="rect" id="Node000007" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="14,84,210,109"/>
+<area shape="poly" id="edge3_Node000002_Node000007" title=" " alt="" coords="260,120,205,112,206,107,261,114"/>
+<area shape="rect" id="Node000047" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae1781a5b638d50bd7626b3ea925492cb" title="Sends the notify message and returns a reply." alt="" coords="22,133,202,188"/>
+<area shape="poly" id="edge4_Node000002_Node000047" title=" " alt="" coords="261,143,202,151,202,146,260,138"/>
+<area shape="rect" id="Node000061" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a02379f09474a96b3590cadd8ca82ecf1" title="Read data from the SSDP socket." alt="" coords="5,213,219,253"/>
+<area shape="poly" id="edge6_Node000060_Node000061" title=" " alt="" coords="266,207,220,215,219,210,265,201"/>
+</map>

@@ -1,7 +1,7 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2024-08-01
 // Taken from authors who haven't made a note.
-// Last compare with pupnp original source file on 2024-08-01, ver 1.14.19
+// Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
 
 #ifndef PUPNP_UPNPINET_HPP
 #define PUPNP_UPNPINET_HPP
