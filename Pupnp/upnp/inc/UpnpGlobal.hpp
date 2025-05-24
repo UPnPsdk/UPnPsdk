@@ -206,6 +206,7 @@ typedef __int64 int64_t;
 
 // Switch old pupnp definition to use new visibility support
 #define EXPORT_SPEC UPnPsdk_API
+#define PUPNP_API UPnPsdk_API
 #define EXPORT_SPEC_EXTERN UPnPsdk_EXTERN
 
 // clang-format on

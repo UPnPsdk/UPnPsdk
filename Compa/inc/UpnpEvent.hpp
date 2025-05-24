@@ -1,8 +1,11 @@
 #ifndef COMPA_UPNPEVENT_HPP
 #define COMPA_UPNPEVENT_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-05-22
 // Also Copyright by other contributor as noted below.
+//
+// Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
+
 /*!
  * \file
  * \brief Header file for UpnpEvent methods.

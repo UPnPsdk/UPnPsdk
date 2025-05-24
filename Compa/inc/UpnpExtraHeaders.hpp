@@ -2,12 +2,12 @@
 #define COMPA_UPNPEXTRAHEADERS_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2025-05-22
+// Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
  * \file
  * \brief Header file for UpnpExtraHeaders methods.
  * \authors Marcelo Roberto Jimenez, Ingo Höft
  */
-// Don't export function symbols; only used library intern.
 
 #include <UpnpString.hpp>
 #include <ixml.hpp>
@@ -17,6 +17,8 @@
  * UpnpExtraHeaders
  */
 typedef struct s_UpnpExtraHeaders UpnpExtraHeaders;
+
+extern "C" {
 
 /*! Constructor */
 PUPNP_API UpnpExtraHeaders* UpnpExtraHeaders_new();
@@ -81,5 +83,7 @@ PUPNP_API const DOMString UpnpExtraHeaders_get_resp(const UpnpExtraHeaders* p);
 PUPNP_API int UpnpExtraHeaders_set_resp(UpnpExtraHeaders* p, const DOMString s);
 /*! UpnpExtraHeaders_get_resp_cstr */
 PUPNP_API const char* UpnpExtraHeaders_get_resp_cstr(const UpnpExtraHeaders* p);
+
+} // extern "C"
 
 #endif /* COMPA_UPNPEXTRAHEADERS_HPP */

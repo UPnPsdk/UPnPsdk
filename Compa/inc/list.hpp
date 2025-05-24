@@ -33,6 +33,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
  * \file
  * \brief Trivial list management interface, patterned on std::list.
@@ -56,31 +57,29 @@ struct UpnpListHead {
 /// \brief List iterator. Not strictly necessary, but clarifies the interface.
 typedef UpnpListHead* UpnpListIter;
 
+extern "C" {
+
 /*! \brief Initialize empty list */
-// Don't export function symbol; only used library intern.
 PUPNP_API void UpnpListInit(UpnpListHead* list);
 
 /*! \brief Return iterator pointing to the first list element, or
  *  UpnpListEnd(list) if the list is empty */
-// Don't export function symbol; only used library intern.
 PUPNP_API UpnpListIter UpnpListBegin(UpnpListHead* list);
 
 /*! \brief Return end of list sentinel iterator (not an element) */
-// Don't export function symbol; only used library intern.
 PUPNP_API UpnpListIter UpnpListEnd(UpnpListHead* list);
 
 /*! \brief Return iterator pointing to element after pos, or end() */
-// Don't export function symbol; only used library intern.
 PUPNP_API UpnpListIter UpnpListNext(UpnpListHead* list, UpnpListIter pos);
 
 /*! \brief Insert element before pos, returns iterator pointing to inserted
  * element. */
-// Don't export function symbol; only used library intern.
 PUPNP_API UpnpListIter UpnpListInsert(UpnpListHead* list, UpnpListIter pos,
                                       UpnpListHead* elt);
 
 /*! \brief Erase element at pos, return next one, or end()*/
-// Don't export function symbol; only used library intern.
 PUPNP_API UpnpListIter UpnpListErase(UpnpListHead* list, UpnpListIter pos);
+
+} // extern "C"
 
 #endif // COMPA_LIST_HPP

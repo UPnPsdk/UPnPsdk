@@ -32,7 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
+// Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
 
 /*!
  * \file
@@ -54,9 +54,7 @@
 /* Function declarations only if tools compiled into the library */
 #if UPNP_HAVE_TOOLS
 
-#ifdef __cplusplus
 extern "C" {
-#endif
 
 /*!
  * \brief Sets the maximum number of jobs in the internal thread pool.
@@ -271,9 +269,7 @@ EXPORT_SPEC int UpnpAddToPropertySet(
     /*! [in] The status variable value. */
     const char* ArgVal);
 
-#ifdef __cplusplus
-}
-#endif
+} // extern "C"
 
 /*! @} */
 

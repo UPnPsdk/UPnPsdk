@@ -3,7 +3,7 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2025-05-22
 // Also Copyright by other contributor as noted below.
-// Last compare with pupnp original source file on 2023-04-25, ver 1.14.15
+// Last compare with ./Pupnp source file on 2025-05-23, ver 1.14.20
 /*!
  * \file
  * \brief Header file for UpnpFileInfo methods.
@@ -21,8 +21,6 @@
 #endif                 // _WIN32
 /// \endcond
 
-extern "C" {
-
 /*!
  * UpnpFileInfo
  */
@@ -32,6 +30,8 @@ extern "C" {
 // structure publicy invisible. That is intended but we will change it with
 // using C++ private. --Ingo
 typedef struct s_UpnpFileInfo UpnpFileInfo;
+
+extern "C" {
 
 /*! Constructor */
 PUPNP_API UpnpFileInfo* UpnpFileInfo_new();

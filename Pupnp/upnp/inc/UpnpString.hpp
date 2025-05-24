@@ -1,9 +1,9 @@
 #ifndef PUPNP_UPNPSTRING_HPP
 #define PUPNP_UPNPSTRING_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-13
+// Redistribution only with this Copyright remark. Last modified: 2025-05-22
 // Also Copyright by other contributor as noted below.
-// Last compare with pupnp original source file on 2023-04-26, ver 1.14.15
+// Last compare with pupnp original source file on 2025-05-22, ver 1.14.20
 
 /*!
  * \defgroup UpnpString The UpnpString Class
@@ -50,9 +50,9 @@ EXPORT_SPEC void UpnpString_delete(
  *
  * \return A pointer to a new allocated copy of the original object.
  */
-// EXPORT_SPEC UpnpString *UpnpString_dup(
-//        /*! [in] The \em \b this pointer. */
-//        const UpnpString *p);
+EXPORT_SPEC UpnpString* UpnpString_dup(
+    /*! [in] The \em \b this pointer. */
+    const UpnpString* p);
 
 /*!
  * \brief Assignment operator.

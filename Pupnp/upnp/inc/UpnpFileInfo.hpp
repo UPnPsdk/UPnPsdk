@@ -3,7 +3,7 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2024-08-13
 // Also Copyright by other contributor as noted below.
-// Last compare with pupnp original source file on 2023-04-25, ver 1.14.15
+// Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
 
 /*!
  * \file
@@ -85,11 +85,11 @@ EXPORT_SPEC void UpnpFileInfo_add_to_list_ExtraHeadersList(UpnpFileInfo* p,
 /*! UpnpFileInfo_get_CtrlPtIPAddr */
 EXPORT_SPEC const struct sockaddr_storage*
 UpnpFileInfo_get_CtrlPtIPAddr(const UpnpFileInfo* p);
-/*! UpnpFileInfo_get_CtrlPtIPAddr */
+/*! UpnpFileInfo_set_CtrlPtIPAddr */
 EXPORT_SPEC int
 UpnpFileInfo_set_CtrlPtIPAddr(UpnpFileInfo* p,
                               const struct sockaddr_storage* buf);
-/*! UpnpFileInfo_get_CtrlPtIPAddr */
+/*! UpnpFileInfo_clear_CtrlPtIPAddr */
 EXPORT_SPEC void UpnpFileInfo_clear_CtrlPtIPAddr(UpnpFileInfo* p);
 
 /*! UpnpFileInfo_get_Os */

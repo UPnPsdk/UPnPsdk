@@ -3,7 +3,11 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2024-10-07
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+#include <UpnpGlobal.hpp>
+#else
 #include <UPnPsdk/visibility.hpp>
+#endif
 #include <stdlib.h>
 
 namespace umock {

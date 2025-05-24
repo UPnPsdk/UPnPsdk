@@ -1,7 +1,8 @@
 #ifndef COMPA_UPNPACTIONREQUEST_HPP
 #define COMPA_UPNPACTIONREQUEST_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-05-22
+// Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
  * \file
  * \brief Header file for UpnpActionRequest methods.
@@ -146,11 +147,11 @@ PUPNP_API int UpnpActionRequest_set_SoapHeader(UpnpActionRequest* p,
 /*! UpnpActionRequest_get_CtrlPtIPAddr */
 PUPNP_API const struct sockaddr_storage*
 UpnpActionRequest_get_CtrlPtIPAddr(const UpnpActionRequest* p);
-/*! UpnpActionRequest_get_CtrlPtIPAddr */
+/*! UpnpActionRequest_set_CtrlPtIPAddr */
 PUPNP_API int
 UpnpActionRequest_set_CtrlPtIPAddr(UpnpActionRequest* p,
                                    const struct sockaddr_storage* buf);
-/*! UpnpActionRequest_get_CtrlPtIPAddr */
+/*! UpnpActionRequest_clear_CtrlPtIPAddr */
 PUPNP_API void UpnpActionRequest_clear_CtrlPtIPAddr(UpnpActionRequest* p);
 
 /*! UpnpActionRequest_get_Os */

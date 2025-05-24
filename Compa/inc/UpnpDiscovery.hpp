@@ -2,6 +2,7 @@
 #define COMPA_UPNPDISCOVERY_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Last compare with ./Pupnp source file on 2025-05-23, ver 1.14.20
 /*!
  * \file
  * \brief Header file for UpnpDiscovery methods.
@@ -174,10 +175,10 @@ PUPNP_API void UpnpDiscovery_clear_Ext(UpnpDiscovery* p);
 /*! UpnpDiscovery_get_DestAddr */
 PUPNP_API const struct sockaddr_storage*
 UpnpDiscovery_get_DestAddr(const UpnpDiscovery* p);
-/*! UpnpDiscovery_get_DestAddr */
+/*! UpnpDiscovery_set_DestAddr */
 PUPNP_API int UpnpDiscovery_set_DestAddr(UpnpDiscovery* p,
                                          const struct sockaddr_storage* buf);
-/*! UpnpDiscovery_get_DestAddr */
+/*! UpnpDiscovery_clear_DestAddr */
 PUPNP_API void UpnpDiscovery_clear_DestAddr(UpnpDiscovery* p);
 
 } // extern "C"

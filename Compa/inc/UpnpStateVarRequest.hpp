@@ -4,6 +4,7 @@
 #define COMPA_UPNPSTATEVARREQUEST_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Last compare with ./Pupnp source file on 2025-05-23, ver 1.14.20
 /*!
  * \file
  * \brief Header file for UpnpStateVarRequest methods.
@@ -128,11 +129,11 @@ PUPNP_API void UpnpStateVarRequest_clear_StateVarName(UpnpStateVarRequest* p);
 /*! UpnpStateVarRequest_get_CtrlPtIPAddr */
 PUPNP_API const struct sockaddr_storage*
 UpnpStateVarRequest_get_CtrlPtIPAddr(const UpnpStateVarRequest* p);
-/*! UpnpStateVarRequest_get_CtrlPtIPAddr */
+/*! UpnpStateVarRequest_set_CtrlPtIPAddr */
 PUPNP_API int
 UpnpStateVarRequest_set_CtrlPtIPAddr(UpnpStateVarRequest* p,
                                      const struct sockaddr_storage* buf);
-/*! UpnpStateVarRequest_get_CtrlPtIPAddr */
+/*! UpnpStateVarRequest_clear_CtrlPtIPAddr */
 PUPNP_API void UpnpStateVarRequest_clear_CtrlPtIPAddr(UpnpStateVarRequest* p);
 
 /*! UpnpStateVarRequest_get_CurrentVal */

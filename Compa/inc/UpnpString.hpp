@@ -1,9 +1,9 @@
 #ifndef COMPA_UPNPSTRING_HPP
 #define COMPA_UPNPSTRING_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-05-22
 // Also Copyright by other contributor as noted below.
-// Last compare with pupnp original source file on 2023-04-26, ver 1.14.15
+// Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
  * \file
  * \brief UpnpString object declaration.

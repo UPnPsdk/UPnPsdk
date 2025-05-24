@@ -32,7 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with ./Pupnp source file on 2024-10-26, ver 1.14.20
+// Last compare with ./Pupnp source file on 2025-05-23, ver 1.14.20
 
 /*!
  * \file
