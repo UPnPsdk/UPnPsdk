@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-03-07
+# Redistribution only with this Copyright remark. Last modified: 2025-05-28
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -17,6 +17,7 @@ add_executable(test_sock-psh
 target_link_libraries(test_sock-psh
     PRIVATE
         pupnp_shared
+        UPnPsdk_shared
         utest_shared
 )
 add_test(NAME ctest_sock-psh COMMAND test_sock-psh --gtest_shuffle
@@ -29,7 +30,7 @@ add_executable(test_sock-cst
 target_link_libraries(test_sock-cst
     PRIVATE
         compa_static
-        utest_static
+        utest_shared
 )
 add_test(NAME ctest_sock-cst COMMAND test_sock-cst --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -45,6 +46,7 @@ if(UPnPsdk_WITH_OPENSSL)
     target_link_libraries(test_sock_ssl-psh
         PRIVATE
             pupnp_shared
+            UPnPsdk_shared
             utest_shared
     )
     add_test(NAME ctest_sock_ssl-psh COMMAND test_sock_ssl-psh --gtest_shuffle
@@ -71,6 +73,7 @@ if(UPnPsdk_WITH_OPENSSL)
     )
     target_link_libraries(test_openssl_threaded-psh
         PRIVATE pupnp_shared
+        PRIVATE UPnPsdk_shared
     )
     add_test(NAME ctest_openssl_threaded-psh COMMAND test_openssl_threaded-psh --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}

@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-26
+# Redistribution only with this Copyright remark. Last modified: 2025-05-28
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -152,16 +152,21 @@ set(PUPNP_SOURCE_FILES
 
     ${CMAKE_SOURCE_DIR}/Interface/src/pupnp-sock.cpp
 
-    # Helper classes added but not original old pupnp code. To separate them,
-    # they are in a parent directory of the original code. They only
-    # encapsulate old fuctions mainly for testing with init and shutdown
-    # following the RAII paradigm. They are assigned with the UPnPsdk rules,
-    # e.g. throwing exceptions etc.
-    ../src/api/upnpdebug.cpp
-    ../src/threadpool_init.cpp
-    ${CMAKE_SOURCE_DIR}/UPnPsdk/src/global.cpp
+    # ixml
+    # -------------------------------------------------------------------------
+    ${PUPNP_IXML_SOURCE_DIR}/src/attr.cpp
+    ${PUPNP_IXML_SOURCE_DIR}/src/document.cpp
+    ${PUPNP_IXML_SOURCE_DIR}/src/element.cpp
+    ${PUPNP_IXML_SOURCE_DIR}/src/ixml.cpp
+    $<$<CONFIG:Debug>:${PUPNP_IXML_SOURCE_DIR}/src/ixmldebug.cpp>
+    ${PUPNP_IXML_SOURCE_DIR}/src/ixmlmembuf.cpp
+    ${PUPNP_IXML_SOURCE_DIR}/src/ixmlparser.cpp
+    ${PUPNP_IXML_SOURCE_DIR}/src/namedNodeMap.cpp
+    ${PUPNP_IXML_SOURCE_DIR}/src/node.cpp
+    ${PUPNP_IXML_SOURCE_DIR}/src/nodeList.cpp
 
     # Umock files
+    # -------------------------------------------------------------------------
     $<$<NOT:$<PLATFORM_ID:Windows>>:${UMOCK_SOURCE_DIR}/src/ifaddrs.cpp>
     $<$<NOT:$<PLATFORM_ID:Windows>>:${UMOCK_SOURCE_DIR}/src/net_if.cpp>
     $<$<PLATFORM_ID:Windows>:${UMOCK_SOURCE_DIR}/src/iphlpapi.cpp>
@@ -177,6 +182,16 @@ set(PUPNP_SOURCE_FILES
     ${UMOCK_SOURCE_DIR}/src/sys_socket.cpp
     ${UMOCK_SOURCE_DIR}/src/sysinfo.cpp
     ${UMOCK_SOURCE_DIR}/src/unistd.cpp
+
+    # Helper classes added but not original old pupnp code.
+    # -------------------------------------------------------------------------
+    # To separate them, they are in a parent directory of the original code.
+    # They only encapsulate old fuctions mainly for testing with init and
+    # shutdown following the RAII paradigm. They are assigned with the UPnPsdk
+    # rules, e.g. throwing exceptions etc.
+    ../src/api/upnpdebug.cpp
+    ../src/threadpool_init.cpp
+    ${CMAKE_SOURCE_DIR}/UPnPsdk/src/global.cpp
 )
 
 set(PUPNP_INCLUDE_DIRECTORIES
@@ -188,7 +203,8 @@ set(PUPNP_INCLUDE_DIRECTORIES
     PUBLIC ${CMAKE_SOURCE_DIR}/Interface/include
     PUBLIC ${CMAKE_SOURCE_DIR}/UPnPsdk/include
     PUBLIC ${UMOCK_SOURCE_DIR}/include
-    PRIVATE ${PUPNP_IXML_SOURCE_DIR}/inc
+    PUBLIC ${PUPNP_IXML_SOURCE_DIR}/inc
+    PRIVATE ${PUPNP_IXML_SOURCE_DIR}/src/inc
     # if pthreads4w isn't installed this path is empty. The linker doesn't
     # find "pthread.h" and falls back to look at <pthread.h>.
     PUBLIC ${pthreads4w_SOURCE_DIR} # needed for pthread.h
@@ -239,7 +255,6 @@ target_compile_definitions(pupnp_shared
 )
 target_link_libraries(pupnp_shared
     PUBLIC $<$<BOOL:${PUPNP_DEF_OPENSSL}>:OpenSSL::SSL>
-    PUBLIC ixml_shared
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
     PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
@@ -262,6 +277,7 @@ target_link_libraries(pupnp_shared
     # library must also given to the user. So I suppress this uncritical
     # warning because I know what I do. --Ingo
     PRIVATE $<$<CXX_COMPILER_ID:MSVC>:-ignore:4217>
+    PRIVATE UPnPsdk_shared
 )
 
 
@@ -281,7 +297,6 @@ target_compile_definitions(pupnp_static
 )
 target_link_libraries(pupnp_static
     PUBLIC $<$<BOOL:${PUPNP_DEF_OPENSSL}>:OpenSSL::SSL>
-    INTERFACE ixml_static
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
     PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
@@ -293,6 +308,7 @@ target_link_libraries(pupnp_static
     # default. Pthreads on Unix are system wide available so it also makes
     # sense to use shared libs.
     PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
+    PRIVATE UPnPsdk_static
 )
 
 

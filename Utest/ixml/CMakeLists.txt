@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-29
+# Redistribution only with this Copyright remark. Last modified: 2025-05-26
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -14,7 +14,7 @@ add_executable (test_ixml_documents-ish
     ${PUPNP_IXML_SOURCE_DIR}/test/test_document.cpp
 )
 target_link_libraries (test_ixml_documents-ish
-    PRIVATE ixml_shared
+    PRIVATE pupnp_shared
 )
 file(GLOB_RECURSE IXML_TESTDATA_FILES ${PUPNP_IXML_SOURCE_DIR}/test/*.xml
 )
@@ -30,7 +30,7 @@ add_executable (test_ixml-ish
     test_ixml.cpp
 )
 target_link_libraries (test_ixml-ish
-    PRIVATE ixml_shared
+    PRIVATE pupnp_shared
 )
 add_test(NAME ctest_ixml-ish COMMAND test_ixml-ish --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}

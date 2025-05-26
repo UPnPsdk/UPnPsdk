@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-04-06
+# Redistribution only with this Copyright remark. Last modified: 2025-05-27
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -44,7 +44,7 @@ target_include_directories(test_sockaddr-ust
 )
 target_link_libraries(test_sockaddr-ust
     PRIVATE UPnPsdk_static
-    PRIVATE utest_static
+    PRIVATE utest_shared
 )
 add_test(NAME ctest_sockaddr-ust COMMAND test_sockaddr-ust --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -61,7 +61,7 @@ target_include_directories(test_addrinfo-ust
 )
 target_link_libraries(test_addrinfo-ust
     PRIVATE UPnPsdk_static
-    PRIVATE utest_static
+    PRIVATE utest_shared
 )
 add_test(NAME ctest_addrinfo-ust COMMAND test_addrinfo-ust --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}

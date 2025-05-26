@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-25
+# Redistribution only with this Copyright remark. Last modified: 2025-05-26
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -32,6 +32,7 @@ set (IXML_INCLUDE_DIRECTORIES
     INTERFACE ${CMAKE_BINARY_DIR}/include
 )
 
+if(FALSE)
 # ixml shared library
 #--------------------
 add_library (ixml_shared SHARED
@@ -72,3 +73,5 @@ target_link_libraries(ixml_static
 # Installation
 # ------------
 install(TARGETS ixml_shared ixml_static)
+
+endif()

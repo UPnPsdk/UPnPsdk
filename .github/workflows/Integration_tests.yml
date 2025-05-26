@@ -81,7 +81,6 @@ jobs:
           objdump -g /usr/local/lib/libupnpsdk-compa.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-pupnp.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
-          ls /usr/local/lib/libixml.a
           ls /usr/local/lib/libupnpsdk-compa.a
           ls /usr/local/lib/libupnpsdk-pupnp.a
           ls /usr/local/lib/libupnpsdk.a
@@ -92,7 +91,6 @@ jobs:
           objdump -g /usr/local/lib/libupnpsdk-compa.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-pupnp.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
-          ls /usr/local/lib/libixml.a
           ls /usr/local/lib/libupnpsdk-compa.a
           ls /usr/local/lib/libupnpsdk-pupnp.a
           ls /usr/local/lib/libupnpsdk.a
@@ -170,7 +168,6 @@ jobs:
           ls /usr/local/lib/libupnpsdk-compa.dylib
           ls /usr/local/lib/libupnpsdk-pupnp.dylib
           ls /usr/local/lib/libupnpsdk.dylib
-          ls /usr/local/lib/libixml.a
           ls /usr/local/lib/libupnpsdk-compa.a
           ls /usr/local/lib/libupnpsdk-pupnp.a
           ls /usr/local/lib/libupnpsdk.a

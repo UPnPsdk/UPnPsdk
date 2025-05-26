@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-24
+# Redistribution only with this Copyright remark. Last modified: 2025-05-27
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -33,26 +33,17 @@ add_test(NAME ctest_list-csh COMMAND test_list-csh --gtest_shuffle
 
 # membuffer
 #==========
-# Because we want to include the source file into the test to also test static
-# functions, we cannot use shared libraries due to symbol import/export
-# conflicts. We must use static libraries.
-add_executable(test_membuffer-pst
+add_executable(test_membuffer-psh
         ./test_membuffer.cpp
 )
-target_include_directories(test_membuffer-pst
+target_include_directories(test_membuffer-psh
     PRIVATE ${CMAKE_SOURCE_DIR}
-    PRIVATE ${PUPNP_UPNP_SOURCE_DIR}/inc
-    PRIVATE ${PUPNP_UPNP_SOURCE_DIR}/src/inc
-    PRIVATE ${PUPNP_IXML_SOURCE_DIR}/inc
 )
-target_compile_definitions(test_membuffer-pst
-    PRIVATE UPnPsdk_WITH_NATIVE_PUPNP
+target_link_libraries(test_membuffer-psh
+    PRIVATE pupnp_shared
+    PRIVATE utest_shared
 )
-target_link_libraries(test_membuffer-pst
-    PRIVATE UPnPsdk_static # Only for Umock
-    PRIVATE utest_static
-)
-add_test(NAME ctest_membuffer-pst COMMAND test_membuffer-pst --gtest_shuffle
+add_test(NAME ctest_membuffer-psh COMMAND test_membuffer-psh --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
