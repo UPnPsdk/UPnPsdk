@@ -1,12 +1,14 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-09
+# Redistribution only with this Copyright remark. Last modified: 2025-05-25
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(PUPNP_IXML VERSION 0010
+project(PUPNP_IXML VERSION "11.1.2"
                    DESCRIPTION "IXML library"
                    HOMEPAGE_URL "https://github.com/UPnPsdk")
+
+message(STATUS "PUPNP_IXML_VERSION set to \"${PUPNP_IXML_VERSION}\"")
 
 set (IXML_SOURCES
     src/attr.cpp

@@ -1,12 +1,14 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-11-05
+# Redistribution only with this Copyright remark. Last modified: 2025-05-26
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(PUPNP_UPNP VERSION 0032
+project(PUPNP_UPNP VERSION "17.2.0"
         DESCRIPTION "Binary build of the UPnP library core"
         HOMEPAGE_URL "https://github.com/UPnPsdk")
+
+message(STATUS "PUPNP_UPNP_VERSION set to \"${PUPNP_UPNP_VERSION}\"")
 
 # This contains all settings to compile the library dynamically and static.
 #==========================================================================
@@ -220,10 +222,12 @@ set(PUPNP_COMPILE_DEFINITIONS
 # Pupnp SHared library: -psh
 #---------------------------
 add_library(pupnp_shared SHARED
-        ${PUPNP_SOURCE_FILES}
+    ${PUPNP_SOURCE_FILES}
 )
 set_target_properties(pupnp_shared PROPERTIES
-        OUTPUT_NAME upnpsdk-pupnp
+    OUTPUT_NAME upnpsdk-pupnp
+    VERSION ${PUPNP_UPNP_VERSION}
+    SOVERSION ${PUPNP_UPNP_VERSION_MAJOR}
 )
 target_include_directories(pupnp_shared
     ${PUPNP_INCLUDE_DIRECTORIES}

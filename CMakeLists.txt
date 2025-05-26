@@ -1,11 +1,11 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-02-23
+# Redistribution only with this Copyright remark. Last modified: 2025-05-25
 
 cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
 include(UPnPsdk-ProjectHeader)
 
-project("UPnPsdk" VERSION "0.14.0"
+project("UPnPsdk" VERSION "0.2.0"
                 DESCRIPTION "UPnP Software Development Kit"
                 HOMEPAGE_URL "https://github.com/UPnPsdk")
 
@@ -16,7 +16,6 @@ if(NOT PUPNP_VERSION MATCHES "^[0-9]+\\.[0-9]+\\.[0-9]+$")
     message(FATAL_ERROR "${PUPNP_VERSION} is not a valid pUPnP version number.")
 endif()
 configure_file(${PROJECT_SOURCE_DIR}/cmake/README.md.cmake ${PROJECT_SOURCE_DIR}/README.md NEWLINE_STYLE UNIX)
-message(STATUS "PUPNP_VERSION set to \"${PUPNP_VERSION}\"")
 
 enable_testing()
 
@@ -490,6 +489,8 @@ message(DEBUG "  DEBUG: CMAKE_SKIP_BUILD_RPATH is ..........: ${CMAKE_SKIP_BUILD
 message(DEBUG "  DEBUG: CMAKE_BUILD_WITH_INSTALL_RPATH is ..: ${CMAKE_BUILD_WITH_INSTALL_RPATH}")
 message(DEBUG "  DEBUG: CMAKE_INSTALL_RPATH_USE_LINK_PATH is: ${CMAKE_INSTALL_RPATH_USE_LINK_PATH}")
 
+message(STATUS "PUPNP_VERSION set to \"${PUPNP_VERSION}\"")
+message(STATUS "CMAKE_PROJECT_VERSION set to \"${CMAKE_PROJECT_VERSION}\"")
 message(STATUS "Build type is ${CMAKE_BUILD_TYPE}")
 
 

@@ -1,12 +1,14 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-01
+# Redistribution only with this Copyright remark. Last modified: 2025-05-26
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(COMPA VERSION 0010
+project(COMPA VERSION ${CMAKE_PROJECT_VERSION}
               DESCRIPTION "UPnPsdk compatible library subproject"
               HOMEPAGE_URL "https://github.com/UPnPsdk")
+
+message(STATUS "COMPA_VERSION set to \"${COMPA_VERSION}\"")
 
 # Switches for this Subproject
 #-----------------------------
@@ -275,6 +277,8 @@ add_library(compa_shared SHARED
 )
 set_target_properties(compa_shared PROPERTIES
     OUTPUT_NAME upnpsdk-compa
+    VERSION ${COMPA_VERSION}
+    SOVERSION ${COMPA_VERSION_MAJOR}
 )
 target_include_directories(compa_shared
     ${COMPA_INCLUDE_DIRECTORIES}

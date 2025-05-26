@@ -1,13 +1,14 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-05
+# Redistribution only with this Copyright remark. Last modified: 2025-05-26
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
 
-project(UPnPsdk VERSION 0015
+project(UPnPsdk VERSION ${CMAKE_PROJECT_VERSION}
         DESCRIPTION "UPnP library program"
         HOMEPAGE_URL "https://github.com/UPnPsdk")
 
+message(STATUS "UPnPsdk_VERSION set to \"${UPnPsdk_VERSION}\"")
 
 set(UPnPsdk_SOURCE_FILES
     src/global.cpp
@@ -81,6 +82,8 @@ add_library(UPnPsdk_shared SHARED
 )
 set_target_properties(UPnPsdk_shared PROPERTIES
     OUTPUT_NAME upnpsdk
+    VERSION ${UPnPsdk_VERSION}
+    SOVERSION ${UPnPsdk_VERSION_MAJOR}
 )
 target_include_directories(UPnPsdk_shared
     ${UPnPsdk_INCLUDE_DIRECTORIES}
