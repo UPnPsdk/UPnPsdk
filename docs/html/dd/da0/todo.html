@@ -103,6 +103,7 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <div class="textblock"><dl class="reflist">
 <dt>File <a class="el" href="../../de/d2c/A__general__TODO-list_8dox.html">A_general_TODO-list.dox</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a><ul>
+<li>Remove Pupunp/include and Pupnp/src</li>
 <li>Improve test_http_Download.cpp, start with error conditions for <a class="el" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters.">http_MakeMessage()</a>.</li>
 <li>Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.</li>
 <li>Enable OpenSSL, improve its tests (test_sock.cpp, sock read_ssl, sock write_ssl).</li>
@@ -110,8 +111,6 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <li>Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.</li>
 <li>Create no mocked tests for <a href="#" onclick="location.href='mai'+'lto:'+'CSi'+'gp'+'ipe'+'@s'+'ock'+'.c'+'pp'; return false;">CSigp<span class="obfuscator">.nosp@m.</span>ipe@<span class="obfuscator">.nosp@m.</span>sock.<span class="obfuscator">.nosp@m.</span>cpp</a>, read and write data using UPnP-Device.</li>
 <li>Test and document ixml script support.</li>
-<li>Rework Utest/compa/api.d/test_upnpapi_win32.cpp.</li>
-<li>Enable Utest/sample/CMakeLists.txt.</li>
 <li>Build for ARM platforms.</li>
 <li>Create Unit Test large-file support (<a href="https://gist.github.com/mortenpi/9745042">https://gist.github.com/mortenpi/9745042</a>)</li>
 <li>Create info function in the library to avoid exporting private symbols, callable on the API.</li>
@@ -135,26 +134,26 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <dt>Member <a class="el" href="../../d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a0fd8d138b06bd4bdd56f19c8f86ceff6">anonymous_namespace{httpreadwrite.cpp}::MakeGetMessageEx</a>  (const char *url_str, membuffer *request, <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type" title="Represents a URI used in parse_uri and elsewhere.">uri_type</a> *url, <a class="el" href="../../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#d0/d20/structSendInstruction" title="Send instruction.">SendInstruction</a> *pRangeSpecifier)</dt>
 <dd><a class="anchor" id="_todo000011"></a>Needs documentation. There was no information found.  </dd>
 <dt>Member <a class="el" href="../../db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a">anonymous_namespace{ssdp_common.cpp}::ssdp_event_handler_thread</a>  (void *the_data)</dt>
-<dd><a class="anchor" id="_todo000021"></a>Make utests and split function to separate handle ctrlpt and service.  </dd>
+<dd><a class="anchor" id="_todo000028"></a>Make utests and split function to separate handle ctrlpt and service.  </dd>
 <dt>Member <a class="el" href="../../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a4d62609d7a45ffdc340d241f061c014d">anonymous_namespace{ThreadPool.cpp}::SetSeed</a>  (void)</dt>
-<dd><a class="anchor" id="_todo000022"></a>Solve problem with type casts.  </dd>
+<dd><a class="anchor" id="_todo000029"></a>Solve problem with type casts.  </dd>
 <dt>Member <a class="el" href="../../df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a3a03c9cc5754a6fb2c4984ebacd0ba5e">anonymous_namespace{urlconfig.cpp}::addrToString</a>  (const sockaddr *addr, char *ipaddr_port, size_t ipaddr_port_size)</dt>
-<dd><a class="anchor" id="_todo000023"></a>Check bugfix with gtest.  </dd>
+<dd><a class="anchor" id="_todo000030"></a>Check bugfix with gtest.  </dd>
 <dt>Member <a class="el" href="../../d6/d4b/sysdep_8cpp.html#a0608b6a88b9fe8140a7b486ef8aa0da6">get_random_info</a>  (unsigned char seed[16])</dt>
-<dd><a class="anchor" id="_todo000024"></a>Optimize function. &ndash;Ingo  </dd>
+<dd><a class="anchor" id="_todo000031"></a>Optimize function. &ndash;Ingo  </dd>
 <dt>Member <a class="el" href="../../de/db9/document_8cpp.html#a0b2863a17f9bedc235e0387c90c4ffa9">ixmlDocument_setOwnerDocument</a>  (IXML_Document *doc, IXML_Node *nodeptr)</dt>
-<dd><a class="anchor" id="_todo000026"></a>documentation.  </dd>
+<dd><a class="anchor" id="_todo000020"></a>documentation.  </dd>
 <dt>Member <a class="el" href="../../d2/db9/ixml_8cpp.html#adb1e276b6bb10b9e28a15ede46aa01c5">ixmlDomTreetoString</a>  (IXML_Node *nodeptr, <a class="el" href="../../de/dad/ixmlmembuf_8hpp.html#d6/d70/structixml__membuf" title="The ixml_membuf type.">ixml_membuf</a> *buf)</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000032"></a>documentation. </p>
-<p class="enddd"><a class="anchor" id="_todo000031"></a>documentation.  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000026"></a>documentation. </p>
+<p class="enddd"><a class="anchor" id="_todo000025"></a>documentation.  </p>
 </dd>
 <dt>Member <a class="el" href="../../d2/db9/ixml_8cpp.html#a57c5e6bece9155fa54ea918005d61197">ixmlPrintDomTree</a>  (IXML_Node *nodeptr, <a class="el" href="../../de/dad/ixmlmembuf_8hpp.html#d6/d70/structixml__membuf" title="The ixml_membuf type.">ixml_membuf</a> *buf)</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000029"></a>documentation. </p>
-<p class="enddd"><a class="anchor" id="_todo000030"></a>documentation.  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000024"></a>documentation. </p>
+<p class="enddd"><a class="anchor" id="_todo000023"></a>documentation.  </p>
 </dd>
 <dt>Member <a class="el" href="../../d2/db9/ixml_8cpp.html#a6d876f55f8baba0d766473c072814e04">ixmlPrintDomTreeRecursive</a>  (IXML_Node *nodeptr, <a class="el" href="../../de/dad/ixmlmembuf_8hpp.html#d6/d70/structixml__membuf" title="The ixml_membuf type.">ixml_membuf</a> *buf)</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000027"></a>documentation. </p>
-<p class="enddd"><a class="anchor" id="_todo000028"></a>documentation.  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000021"></a>documentation. </p>
+<p class="enddd"><a class="anchor" id="_todo000022"></a>documentation.  </p>
 </dd>
 <dt>Member <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a668ccd4ff414ba93c52f767a65f6dc42">parser_parse_entity</a>  (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t" title="Structure of an HTTP parser object.">http_parser_t</a> *parser)</dt>
 <dd><a class="anchor" id="_todo000015"></a>Check what function description is the right one. There was another found.  </dd>
@@ -167,8 +166,8 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <dt>Member <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#ab8ba916f64d6777c584de7bb9459bd27">remove_escaped_chars</a>  (char *in, size_t *size)</dt>
 <dd><a class="anchor" id="_todo000012"></a>Optimize with prechecking the delimiter '%'.  </dd>
 <dt>Member <a class="el" href="../../d9/dd1/soap__ctrlpt_8cpp.html#a05e899b6e0c3bc1b2964ac01c37c15d7">SoapGetServiceVarStatus</a>  (char *action_url, DOMString var_name, DOMString *var_value)</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000017"></a>Returned error message IDs are ambiguous. Fix it. </p>
-<p class="enddd"><a class="anchor" id="_todo000020"></a>Verify the bug in the source code of this function with a unit test.  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000027"></a>Verify the bug in the source code of this function with a unit test. </p>
+<p class="enddd"><a class="anchor" id="_todo000017"></a>Returned error message IDs are ambiguous. Fix it.  </p>
 </dd>
 <dt>Struct <a class="el" href="../../d6/df0/sock_8hpp.html">SOCKINFO</a>  </dt>
 <dd><a class="anchor" id="_todo000018"></a>Cleanup constants: In &lt;sys/socket.h&gt; are defined SHUT_RD, SHUT_WR, SHUT_RDWR with 0, 1, 2, according to man 2 shutdown.  </dd>
@@ -183,7 +182,7 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <dt>Module <a class="el" href="../../d1/d03/group__UpnpString.html">UpnpString</a>  </dt>
 <dd><a class="anchor" id="_todo000005"></a>Always alloc a minimum size like 64 bytes or so and when shrinking do not perform a new memory allocation. </dd>
 <dt>File <a class="el" href="../../db/d37/uuid_8cpp.html">uuid.cpp</a>  </dt>
-<dd><a class="anchor" id="_todo000025"></a>Remove COMPA_DEF_OPTION_SSDP. Make it always available with COMPA_DEF_DEVICE_GENA.  </dd>
+<dd><a class="anchor" id="_todo000032"></a>Remove COMPA_DEF_OPTION_SSDP. Make it always available with COMPA_DEF_DEVICE_GENA.  </dd>
 <dt>Member <a class="el" href="../../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a29964a19653349235df7d05368523833">X_USER_AGENT</a>  </dt>
 <dd><a class="anchor" id="_todo000019"></a>Check setting of X_USER_AGENT. </dd>
 </dl>

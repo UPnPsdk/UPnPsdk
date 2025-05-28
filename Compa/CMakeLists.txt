@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-26
+# Redistribution only with this Copyright remark. Last modified: 2025-05-29
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -162,16 +162,16 @@ set(COMPA_SOURCE_FILES
 
     # ixml
     # -------------------------------------------------------------------------
-    ${PUPNP_SOURCE_DIR}/ixml/src/attr.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/document.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/element.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/ixml.cpp
-    $<$<CONFIG:Debug>:${PUPNP_SOURCE_DIR}/ixml/src/ixmldebug.cpp>
-    ${PUPNP_SOURCE_DIR}/ixml/src/ixmlmembuf.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/ixmlparser.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/namedNodeMap.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/node.cpp
-    ${PUPNP_SOURCE_DIR}/ixml/src/nodeList.cpp
+    ${COMPA_SOURCE_DIR}/src/ixml/attr.cpp
+    ${COMPA_SOURCE_DIR}/src/ixml/document.cpp
+    ${COMPA_SOURCE_DIR}/src/ixml/element.cpp
+    ${COMPA_SOURCE_DIR}/src/ixml/ixml.cpp
+    $<$<CONFIG:Debug>:${COMPA_SOURCE_DIR}/src/ixml/ixmldebug.cpp>
+    ${COMPA_SOURCE_DIR}/src/ixml/ixmlmembuf.cpp
+    ${COMPA_SOURCE_DIR}/src/ixml/ixmlparser.cpp
+    ${COMPA_SOURCE_DIR}/src/ixml/namedNodeMap.cpp
+    ${COMPA_SOURCE_DIR}/src/ixml/node.cpp
+    ${COMPA_SOURCE_DIR}/src/ixml/nodeList.cpp
 
     # Other sources (need rework)
     # -------------------------------------------------------------------------
@@ -224,10 +224,6 @@ set(COMPA_INCLUDE_DIRECTORIES
     PUBLIC src/threadutil
     PUBLIC ${PUPNP_SOURCE_DIR}/include
     PUBLIC ${CMAKE_SOURCE_DIR}/Interface/include
-
-    # ixml include directories
-    PUBLIC ${PUPNP_SOURCE_DIR}/ixml/inc
-    PRIVATE ${PUPNP_SOURCE_DIR}/ixml/src/inc
 )
 
 set(COMPA_COMPILE_DEFINITIONS

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-20
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -89,6 +89,11 @@ constexpr size_t CHUNK_TAIL_SIZE{10};
  */
 constexpr time_t DEFAULT_TCP_CONNECT_TIMEOUT{5};
 
+/// \cond
+// #define PRIzd "zd"
+#define PRIzu "zu"
+#define PRIzx "zx"
+/// \endcond
 
 /*! \name Scope restricted to file
  * @{

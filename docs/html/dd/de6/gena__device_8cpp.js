@@ -3,7 +3,7 @@ var gena__device_8cpp =
     [ "STALE_JOBID", "dd/de6/gena__device_8cpp.html#ab0db1f3547fc748812fc874bca3dfb45", null ],
     [ "GeneratePropertySet", "dd/de6/gena__device_8cpp.html#ab42270564152589e9dbbb90d6a5c0e01", null ],
     [ "free_notify_struct", "dd/de6/gena__device_8cpp.html#ae0ca4bdec01c3edef6b166d0641c9038", null ],
-    [ "notify_send_and_recv", "dd/de6/gena__device_8cpp.html#ae1781a5b638d50bd7626b3ea925492cb", null ],
+    [ "notify_send_and_recv", "dd/de6/gena__device_8cpp.html#accfccdddeb1a43ab948147ff6178bad9", null ],
     [ "genaNotify", "dd/de6/gena__device_8cpp.html#a951778f34697a8cc0a0e9dd7da2b66ca", null ],
     [ "genaNotifyThread", "dd/de6/gena__device_8cpp.html#ae2ea03f611c00f8ca5691e59f7e988c6", null ],
     [ "AllocGenaHeaders", "dd/de6/gena__device_8cpp.html#a67ce80ee42131a36b7acf96bb9066403", null ],

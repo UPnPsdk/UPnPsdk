@@ -6,7 +6,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-21
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -106,7 +106,7 @@ PUPNP_EXP int UpnpInitLog();
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
 #define UpnpInitLog UpnpInitLog_Inlined
-static UPNP_INLINE int UpnpInitLog_Inlined() { return UPNP_E_SUCCESS; }
+static inline int UpnpInitLog_Inlined() { return UPNP_E_SUCCESS; }
 #endif
 /*!
  * \brief Set the log level (see \c Upnp_LogLevel).
@@ -117,7 +117,7 @@ PUPNP_EXP void UpnpSetLogLevel(
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
 #define UpnpSetLogLevel UpnpSetLogLevel_Inlined
-static UPNP_INLINE void UpnpSetLogLevel_Inlined(Upnp_LogLevel log_level) {
+static inline void UpnpSetLogLevel_Inlined(Upnp_LogLevel log_level) {
     (void)log_level;
     return;
 }
@@ -130,7 +130,7 @@ PUPNP_EXP void UpnpCloseLog();
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
 #define UpnpCloseLog UpnpCloseLog_Inlined
-static UPNP_INLINE void UpnpCloseLog_Inlined() {}
+static inline void UpnpCloseLog_Inlined() {}
 #endif
 
 /*!
@@ -146,8 +146,8 @@ PUPNP_EXP void UpnpSetLogFileNames(
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
 #define UpnpSetLogFileNames UpnpSetLogFileNames_Inlined
-static UPNP_INLINE void UpnpSetLogFileNames_Inlined(const char* ErrFileName,
-                                                    const char* ignored) {
+static inline void UpnpSetLogFileNames_Inlined(const char* ErrFileName,
+                                               const char* ignored) {
     (void)ErrFileName;
     (void)ignored;
     return;
@@ -172,7 +172,7 @@ PUPNP_EXP FILE* UpnpGetDebugFile(
 /// \cond
 #if (defined NDEBUG && !defined UPNP_DEBUG_C)
 #define UpnpGetDebugFile UpnpGetDebugFile_Inlined
-static UPNP_INLINE FILE*
+static inline FILE*
 UpnpGetDebugFile_Inlined([[maybe_unused]] Upnp_LogLevel level,
                          [[maybe_unused]] Dbg_Module module) {
     return NULL;
@@ -212,7 +212,7 @@ PUPNP_EXP void UpnpPrintf(
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
 #define UpnpPrintf UpnpPrintf_Inlined
-// static UPNP_INLINE void UpnpPrintf_Inlined(Upnp_LogLevel DLevel,
+// static inline void UpnpPrintf_Inlined(Upnp_LogLevel DLevel,
 //      Dbg_Module Module,
 //      const char *DbgFileName,
 //      int DbgLineNo,
@@ -223,11 +223,9 @@ PUPNP_EXP void UpnpPrintf(
 //      __attribute__((format(__printf__, 5, 6)))
 // #endif
 //      ;
-static UPNP_INLINE void UpnpPrintf_Inlined(Upnp_LogLevel DLevel,
-                                           Dbg_Module Module,
-                                           const char* DbgFileName,
-                                           int DbgLineNo, const char* FmtStr,
-                                           ...) {
+static inline void UpnpPrintf_Inlined(Upnp_LogLevel DLevel, Dbg_Module Module,
+                                      const char* DbgFileName, int DbgLineNo,
+                                      const char* FmtStr, ...) {
     (void)DLevel;
     (void)Module;
     (void)DbgFileName;

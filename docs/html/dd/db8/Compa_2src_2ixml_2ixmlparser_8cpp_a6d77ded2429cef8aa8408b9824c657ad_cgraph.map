@@ -1,0 +1,48 @@
+<map id="Parser_processAttribute" name="Parser_processAttribute">
+<area shape="rect" id="Node000001" title="Processes attribute." alt="" coords="5,367,181,393"/>
+<area shape="rect" id="Node000002" href="$d4/d4e/Pupnp_2ixml_2src_2ixmldebug_8cpp.html#a39f4bb286e16f1bc5c1a34947b97f928" title="Prints the debug statement either on the standard output or log file along with the information from ..." alt="" coords="1176,242,1263,267"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,366,157,281,204,222,262,160,329,100,405,50,445,31,487,16,531,6,576,3,851,3,911,10,968,29,1021,58,1070,93,1113,131,1150,168,1203,230,1199,233,1147,172,1110,135,1066,97,1018,63,966,34,910,15,851,8,576,8,532,11,489,21,447,36,407,55,332,105,266,163,208,225,161,284,104,369"/>
+<area shape="rect" id="Node000003" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a5d59957643934c19e8e073481602d561" title="Clear token buffer." alt="" coords="497,394,657,419"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="182,382,484,399,483,404,182,387"/>
+<area shape="rect" id="Node000006" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a0ad517259df5536327c7a8a5b5881442" title="Copy string in src into xml parser token buffer." alt="" coords="509,243,646,269"/>
+<area shape="poly" id="edge4_Node000001_Node000006" title=" " alt="" coords="124,365,229,327,369,292,494,267,495,272,370,297,230,332,126,370"/>
+<area shape="rect" id="Node000014" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a0c924589364f613ca7ae13121debb896" title="In UTF&#45;8, characters are encoded using sequences of 1 to 6 octets. This functions will return a UTF&#45;8..." alt="" coords="993,293,1128,318"/>
+<area shape="poly" id="edge20_Node000001_Node000014" title=" " alt="" coords="109,365,160,328,228,288,370,225,484,183,601,155,754,129,853,110,896,111,920,117,947,130,968,144,987,161,1017,201,1039,243,1054,279,1049,281,1035,245,1013,204,983,165,964,148,944,134,918,122,895,116,854,115,755,135,602,160,485,188,372,230,231,293,163,332,112,369"/>
+<area shape="rect" id="Node000016" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#afc77054f1c094bc4735fa71b63fa5cc7" title="Return the length of next token in tokenBuff." alt="" coords="235,342,394,367"/>
+<area shape="poly" id="edge13_Node000001_Node000016" title=" " alt="" coords="181,367,221,363,222,368,182,373"/>
+<area shape="rect" id="Node000017" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a274a44d205dbdd1c866801636647d505" title="Check whether c (int) is in LetterTable or NameCharTable." alt="" coords="503,443,652,469"/>
+<area shape="poly" id="edge19_Node000001_Node000017" title=" " alt="" coords="170,390,230,400,489,440,489,446,229,405,169,395"/>
+<area shape="rect" id="Node000023" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#ab2f68de03133424d9154bf6aee77f6d5" title="Add namespace definition." alt="" coords="229,619,400,645"/>
+<area shape="poly" id="edge21_Node000001_Node000023" title=" " alt="" coords="108,391,295,607,291,610,104,395"/>
+<area shape="rect" id="Node000026" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2" title="Version of strdup() that handles NULL input." alt="" coords="801,545,899,570"/>
+<area shape="poly" id="edge28_Node000001_Node000026" title=" " alt="" coords="122,390,172,412,230,433,474,484,787,543,786,549,473,490,229,439,170,417,120,395"/>
+<area shape="rect" id="Node000004" href="$db/db8/Pupnp_2ixml_2src_2ixmlmembuf_8cpp.html#a5925e1f1e8fc6290b68330bbf8369eb5" title="ixml_membuf clearing routine." alt="" coords="765,394,935,419"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="657,404,752,404,752,409,657,409"/>
+<area shape="poly" id="edge5_Node000006_Node000002" title=" " alt="" coords="589,241,616,216,655,184,702,153,754,129,816,117,880,117,943,127,1004,144,1061,166,1112,189,1189,232,1186,237,1110,194,1059,171,1003,149,942,132,880,123,817,122,755,135,704,157,658,188,619,220,593,245"/>
+<area shape="rect" id="Node000007" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a1ce75189cf1958eebd9eda56fa65fb1c" title="Appends c to token buffer." alt="" coords="755,194,945,219"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="646,241,766,219,766,224,647,246"/>
+<area shape="rect" id="Node000010" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a5c3878cac5b3d270fcab7f0137d27639" title="Appends string s to token buffer." alt="" coords="761,243,939,269"/>
+<area shape="poly" id="edge7_Node000006_Node000010" title=" " alt="" coords="646,253,747,253,747,259,646,259"/>
+<area shape="rect" id="Node000012" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a48d67a03feb38470eda694417804de09" title="Returns next char value and its length." alt="" coords="790,293,910,318"/>
+<area shape="poly" id="edge8_Node000006_Node000012" title=" " alt="" coords="647,266,777,290,776,295,646,271"/>
+<area shape="rect" id="Node000015" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a5865699cf24151fcb14522d2b3ad86cb" title="Encodes a character to its UTF&#45;8 character string, and return its length." alt="" coords="783,145,917,170"/>
+<area shape="poly" id="edge12_Node000006_Node000015" title=" " alt="" coords="605,241,672,211,754,179,779,171,781,176,756,184,674,215,607,245"/>
+<area shape="poly" id="edge9_Node000012_Node000002" title=" " alt="" coords="910,291,993,277,1162,257,1163,263,994,283,911,297"/>
+<area shape="poly" id="edge10_Node000012_Node000014" title=" " alt="" coords="910,303,980,303,980,308,910,308"/>
+<area shape="poly" id="edge11_Node000014_Node000002" title=" " alt="" coords="1101,290,1165,269,1167,274,1102,295"/>
+<area shape="poly" id="edge14_Node000016_Node000003" title=" " alt="" coords="379,365,449,379,499,389,498,394,447,384,378,370"/>
+<area shape="poly" id="edge15_Node000016_Node000006" title=" " alt="" coords="336,339,386,313,447,286,499,269,501,275,449,290,388,317,339,344"/>
+<area shape="poly" id="edge18_Node000016_Node000014" title=" " alt="" coords="377,339,448,329,557,326,697,329,837,331,945,327,996,318,997,324,946,332,837,336,697,334,557,332,448,335,378,345"/>
+<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="335,365,385,397,449,428,490,440,488,445,447,433,382,402,332,370"/>
+<area shape="rect" id="Node000019" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#af5497d61b279d129e7720cafbc7eabdf" title="Skip comment, PI and white space." alt="" coords="514,345,641,370"/>
+<area shape="poly" id="edge17_Node000016_Node000019" title=" " alt="" coords="394,353,500,354,500,359,394,358"/>
+<area shape="poly" id="edge22_Node000023_Node000002" title=" " alt="" coords="329,643,377,689,411,713,449,731,519,751,577,757,634,749,706,731,752,715,797,694,883,641,960,578,1029,509,1089,440,1138,375,1202,278,1206,281,1142,378,1093,443,1033,513,964,582,886,646,800,699,754,719,707,736,635,755,577,762,518,756,447,736,409,718,374,693,325,647"/>
+<area shape="rect" id="Node000024" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a4239e004be8b9a58203f1a7b0488f678" title="Add a namespace definition." alt="" coords="492,545,663,570"/>
+<area shape="poly" id="edge23_Node000023_Node000024" title=" " alt="" coords="344,617,392,597,447,579,482,570,483,575,449,584,394,602,346,622"/>
+<area shape="poly" id="edge27_Node000023_Node000026" title=" " alt="" coords="400,640,467,645,545,647,626,642,706,628,737,618,767,605,818,575,821,580,770,609,739,623,707,633,627,647,545,652,467,651,400,646"/>
+<area shape="rect" id="Node000027" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a961f7e4a30b00da92ec2ce29bed7a5fa" title="Frees namespaceURI item." alt="" coords="510,594,645,619"/>
+<area shape="poly" id="edge25_Node000023_Node000027" title=" " alt="" coords="400,621,496,612,497,617,400,626"/>
+<area shape="rect" id="Node000028" href="$dd/db8/Compa_2src_2ixml_2ixmlparser_8cpp.html#a6e1c9514870fcaa4a581baf033eaa224" title="Set the node prefix and localName as defined by the nodeName in the form of ns:name." alt="" coords="448,695,707,721"/>
+<area shape="poly" id="edge26_Node000023_Node000028" title=" " alt="" coords="352,642,449,673,509,689,507,695,447,679,351,647"/>
+<area shape="poly" id="edge24_Node000024_Node000026" title=" " alt="" coords="663,555,787,555,787,560,663,560"/>
+</map>

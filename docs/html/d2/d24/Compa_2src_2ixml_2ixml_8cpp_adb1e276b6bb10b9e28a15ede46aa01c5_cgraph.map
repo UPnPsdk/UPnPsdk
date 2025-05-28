@@ -1,0 +1,32 @@
+<map id="ixmlDomTreetoString" name="ixmlDomTreetoString">
+<area shape="rect" id="Node000001" title="Converts a DOM tree into a text string." alt="" coords="5,231,165,256"/>
+<area shape="rect" id="Node000002" href="$d2/d24/Compa_2src_2ixml_2ixml_8cpp.html#ae98f05fad4229463cd9846143bac3dd0" title="Appends a string to a buffer, substituting some characters by escape sequences." alt="" coords="487,7,629,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,230,102,192,127,142,164,91,186,68,212,49,243,33,276,21,345,7,413,3,474,5,474,10,413,8,346,12,278,26,245,38,215,54,190,72,168,94,132,145,107,195,93,231"/>
+<area shape="rect" id="Node000005" href="$db/db8/Pupnp_2ixml_2src_2ixmlmembuf_8cpp.html#aeb1d8d0424384e316e40f4d6c2d98c8b" title="Appends the contents of a NULL terminated string to the designated ixml_membuf." alt="" coords="700,57,892,83"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="95,229,141,178,174,150,212,128,272,104,334,86,398,73,461,64,582,56,686,58,686,63,583,62,462,69,399,78,335,91,273,109,215,132,178,154,145,182,98,232"/>
+<area shape="rect" id="Node000006" href="$da/d8a/group__XMLAPI.html#ga8494354a2a14dbd2c60e4d759ba4c223" title="Retrieves the first child Node of a Node." alt="" coords="471,108,645,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="102,228,150,196,212,166,274,148,338,135,457,122,457,127,339,141,276,153,214,171,152,201,105,233"/>
+<area shape="rect" id="Node000007" href="$da/d8a/group__XMLAPI.html#ga77361fff3e9a37abe12fbecd7815743b" title="Returns the name of the Node, depending on what type of Node it is, in a read&#45;only string." alt="" coords="465,259,651,284"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="165,245,451,262,451,268,165,251"/>
+<area shape="rect" id="Node000008" href="$da/d8a/group__XMLAPI.html#ga6f73d57755c26ac9759e1f248e84fcf5" title="Retrieves the type of a Node. Note that not all possible return values are actually implemented." alt="" coords="469,308,647,333"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="148,253,214,266,456,304,455,309,213,271,147,259"/>
+<area shape="rect" id="Node000009" href="$da/d8a/group__XMLAPI.html#gab58101d330a8ab0efd56208f6e1b49c1" title="Returns the value of the Node as a string." alt="" coords="467,357,649,383"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="109,254,156,279,214,303,275,321,337,336,453,355,452,361,336,341,273,326,212,308,154,284,107,258"/>
+<area shape="rect" id="Node000010" href="$d2/d24/Compa_2src_2ixml_2ixml_8cpp.html#a6d876f55f8baba0d766473c072814e04" title="Recursive function to print all the node in a tree. Internal to parser only." alt="" coords="213,205,416,231"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="166,232,199,228,200,233,166,237"/>
+<area shape="rect" id="Node000012" href="$d4/d4e/Pupnp_2ixml_2src_2ixmldebug_8cpp.html#a39f4bb286e16f1bc5c1a34947b97f928" title="Prints the debug statement either on the standard output or log file along with the information from ..." alt="" coords="515,407,601,432"/>
+<area shape="poly" id="edge19_Node000001_Node000012" title=" " alt="" coords="99,254,145,305,178,333,215,356,289,384,366,402,440,412,501,416,501,421,439,417,365,407,287,389,212,360,175,337,141,309,95,258"/>
+<area shape="rect" id="Node000003" href="$db/db8/Pupnp_2ixml_2src_2ixmlmembuf_8cpp.html#ad833eb46fc6cf244442ed6ddda32a446" title="Appends one byte to the designated ixml_membuffer." alt="" coords="712,7,880,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="629,17,698,17,698,22,629,22"/>
+<area shape="poly" id="edge3_Node000002_Node000005" title=" " alt="" coords="619,29,723,52,722,57,618,35"/>
+<area shape="poly" id="edge10_Node000010_Node000002" title=" " alt="" coords="330,203,462,93,529,39,532,43,466,97,333,207"/>
+<area shape="poly" id="edge11_Node000010_Node000005" title=" " alt="" coords="416,224,471,225,532,220,593,210,651,191,689,171,723,144,774,91,778,95,726,148,692,175,653,196,594,215,532,226,472,230,416,230"/>
+<area shape="poly" id="edge12_Node000010_Node000006" title=" " alt="" coords="337,203,393,173,463,142,486,134,488,140,465,147,396,178,340,207"/>
+<area shape="poly" id="edge14_Node000010_Node000007" title=" " alt="" coords="374,228,487,253,486,258,373,233"/>
+<area shape="poly" id="edge15_Node000010_Node000008" title=" " alt="" coords="338,228,394,260,465,293,490,301,488,306,463,298,392,265,336,233"/>
+<area shape="poly" id="edge16_Node000010_Node000009" title=" " alt="" coords="329,229,384,284,423,315,465,342,483,350,481,355,463,347,420,320,381,288,325,233"/>
+<area shape="poly" id="edge17_Node000010_Node000010" title=" " alt="" coords="277,207,269,197,273,187,289,181,315,179,347,182,359,192,356,196,345,187,315,184,290,186,277,191,274,196,281,203"/>
+<area shape="rect" id="Node000011" href="$da/d8a/group__XMLAPI.html#ga37e108f56d82c2942c560d57924b6605" title="Retrieves the sibling Node immediately following this Node." alt="" coords="464,157,652,183"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="379,203,479,183,480,188,380,208"/>
+<area shape="poly" id="edge18_Node000010_Node000012" title=" " alt="" coords="325,230,345,263,376,307,417,354,465,393,502,408,500,413,463,398,413,358,372,311,341,266,321,232"/>
+</map>

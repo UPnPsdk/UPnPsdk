@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-07
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -97,9 +97,9 @@ constexpr char TOKCHAR_LF{0xA};
 /*!
  * \brief Initialize scanner
  */
-UPNP_INLINE void scanner_init( //
-    scanner_t* scanner,        ///< [out] Scanner Object to be initialized
-    membuffer* bufptr          ///< [in]  Buffer to be copied
+inline void scanner_init( //
+    scanner_t* scanner,   ///< [out] Scanner Object to be initialized
+    membuffer* bufptr     ///< [in]  Buffer to be copied
 ) {
     scanner->cursor = (size_t)0;
     scanner->msg = bufptr;
@@ -109,7 +109,7 @@ UPNP_INLINE void scanner_init( //
 /*!
  * \brief Determines if the passed value is a separator.
  */
-UPNP_INLINE int is_separator_char(
+inline int is_separator_char(
     int c ///< [in] Character to be tested against used separator values
 ) {
     return strchr(" \t()<>@,;:\\\"/[]?={}", c) != 0;
@@ -118,7 +118,7 @@ UPNP_INLINE int is_separator_char(
 /*!
  * \brief Determines if the passed value is permissible in token.
  */
-UPNP_INLINE int is_identifier_char( //
+inline int is_identifier_char( //
     int c ///< [in] Character to be tested for separator values
 ) {
     return c >= 32 && c <= 126 && !is_separator_char(c);
@@ -127,7 +127,7 @@ UPNP_INLINE int is_identifier_char( //
 /*!
  * \brief Determines if the passed value is a control character
  */
-UPNP_INLINE int is_control_char( //
+inline int is_control_char( //
     int c ///< [in] Character to be tested for a control character
 ) {
     return (c >= 0 && c <= 31) || c == 127;
@@ -136,8 +136,8 @@ UPNP_INLINE int is_control_char( //
 /*!
  * \brief Determines if the passed value is permissible in qdtext
  */
-UPNP_INLINE int is_qdtext_char( //
-    int c                       ///< [in] Character to be tested for CR/LF
+inline int is_qdtext_char( //
+    int c                  ///< [in] Character to be tested for CR/LF
 ) {
     /* we don't check for this; it's checked in get_token() */
     assert(c != '"');
@@ -274,8 +274,8 @@ parse_status_t scanner_get_token( //
  * \returns
  *  Pointer to next character in string
  */
-UPNP_INLINE char* scanner_get_str( //
-    scanner_t* scanner             ///< [in] Scanner Object
+inline char* scanner_get_str( //
+    scanner_t* scanner        ///< [in] Scanner Object
 ) {
     return scanner->msg->buf + scanner->cursor;
 }
@@ -320,8 +320,8 @@ void httpheader_free( //
  *  - PARSE_INCOMPLETE - not enough chars to get a token
  *  - PARSE_FAILURE - bad msg format
  */
-UPNP_INLINE parse_status_t skip_blank_lines(
-    scanner_t* scanner ///< [in,out] Scanner Object
+inline parse_status_t
+skip_blank_lines(scanner_t* scanner ///< [in,out] Scanner Object
 ) {
     memptr token;
     token_type_t tok_type;
@@ -350,8 +350,7 @@ UPNP_INLINE parse_status_t skip_blank_lines(
  *  - PARSE_FAILURE - bad input
  *  - PARSE_INCOMPLETE - incomplete input
  */
-UPNP_INLINE parse_status_t skip_lws(
-    scanner_t* scanner ///< [in,out] Scanner Object
+inline parse_status_t skip_lws(scanner_t* scanner ///< [in,out] Scanner Object
 ) {
     memptr token;
     token_type_t tok_type;
@@ -400,7 +399,7 @@ UPNP_INLINE parse_status_t skip_lws(
  *  - PARSE_FAILURE
  *  - PARSE_INCOMPLETE
  */
-UPNP_INLINE parse_status_t match_non_ws_string(
+inline parse_status_t match_non_ws_string(
     scanner_t* scanner, ///< [in,out] Scanner Object.
     memptr* str         ///< [out] Buffer to get the scanner buffer contents.
 ) {
@@ -460,9 +459,9 @@ UPNP_INLINE parse_status_t match_non_ws_string(
  *  - PARSE_INCOMPLETE
  *  - PARSE_FAILURE
  */
-UPNP_INLINE parse_status_t match_raw_value(
-    scanner_t* scanner, ///< [in,out] Scanner Object
-    memptr* raw_value   ///< [out] Buffer to get the scanner buffer.
+inline parse_status_t
+match_raw_value(scanner_t* scanner, ///< [in,out] Scanner Object
+                memptr* raw_value   ///< [out] Buffer to get the scanner buffer.
 ) {
     memptr token;
     token_type_t tok_type;
@@ -547,7 +546,7 @@ UPNP_INLINE parse_status_t match_raw_value(
  *  - PARSE_FAILURE - bad input
  *  - PARSE_INCOMPLETE
  */
-UPNP_INLINE parse_status_t match_int(
+inline parse_status_t match_int(
     scanner_t* scanner, ///< [in,out] Scanner Object.
     int base,  ///< [in] Base of number in the string; valid values: 10 or 16.
     int* value ///< [out] Number stored here.
@@ -598,7 +597,7 @@ UPNP_INLINE parse_status_t match_int(
  *  - PARSE_FAILURE
  *  - PARSE_INCOMPLETE
  */
-UPNP_INLINE parse_status_t read_until_crlf(
+inline parse_status_t read_until_crlf(
     scanner_t* scanner, ///< [in,out] Scanner Object.
     memptr* str         ///< [out] Buffer to copy scanner buffer contents to.
 ) {
@@ -638,11 +637,11 @@ UPNP_INLINE parse_status_t read_until_crlf(
  *  - PARSE_NO_MATCH
  *  - PARSE_INCOMPLETE
  */
-UPNP_INLINE parse_status_t match_char(
-    scanner_t* scanner, ///< [in,out] Scanner Object.
-    char c,             ///< [in] Character to be compared with.
-    int case_sensitive  /*!< [in] Flag indicating whether comparison should be
-                                  case sensitive. */
+inline parse_status_t
+match_char(scanner_t* scanner, ///< [in,out] Scanner Object.
+           char c,             ///< [in] Character to be compared with.
+           int case_sensitive  /*!< [in] Flag indicating whether comparison
+                                  should be  case sensitive. */
 ) {
     char scan_char;
 
@@ -914,8 +913,8 @@ void httpmsg_init(      //
 /*!
  * \brief Initializes the parser object.
  */
-UPNP_INLINE void parser_init( //
-    http_parser_t* parser     ///< [out] HTTP Parser Object.
+inline void parser_init(  //
+    http_parser_t* parser ///< [out] HTTP Parser Object.
 ) {
     if (parser == nullptr)
         return;
@@ -1077,7 +1076,7 @@ parse_status_t parser_parse_requestline( //
  *  On success: PARSE_SUCCESS\n
  *  On error: PARSE_INCOMPLETE
  */
-UPNP_INLINE parse_status_t parser_parse_entity_using_clen(
+inline parse_status_t parser_parse_entity_using_clen(
     http_parser_t* parser ///< [in,out] HTTP Parser Object.
 ) {
     /*int entity_length; */
@@ -1122,8 +1121,8 @@ UPNP_INLINE parse_status_t parser_parse_entity_using_clen(
  *  - PARSE_FAILURE
  *  - PARSE_NO_MATCH
  */
-UPNP_INLINE parse_status_t parser_parse_chunky_body(
-    http_parser_t* parser ///< [in,out] HTTP Parser Object.
+inline parse_status_t
+parser_parse_chunky_body(http_parser_t* parser ///< [in,out] HTTP Parser Object.
 ) {
     parse_status_t status;
     size_t save_pos;
@@ -1164,7 +1163,7 @@ UPNP_INLINE parse_status_t parser_parse_chunky_body(
  *  - PARSE_INCOMPLETE
  *  - PARSE_FAILURE
  */
-UPNP_INLINE parse_status_t parser_parse_chunky_headers(
+inline parse_status_t parser_parse_chunky_headers(
     http_parser_t* parser ///< [in,out] HTTP Parser Object.
 ) {
     parse_status_t status;
@@ -1200,7 +1199,7 @@ UPNP_INLINE parse_status_t parser_parse_chunky_headers(
  *  - PARSE_FAILURE
  *  - PARSE_NO_MATCH
  */
-UPNP_INLINE parse_status_t parser_parse_chunky_entity(
+inline parse_status_t parser_parse_chunky_entity(
     http_parser_t* parser ///< [in,out] HTTP Parser Object.
 ) {
     scanner_t* scanner = &parser->scanner;
@@ -1245,7 +1244,7 @@ UPNP_INLINE parse_status_t parser_parse_chunky_entity(
  *
  * \returns always PARSE_INCOMPLETE_ENTITY
  */
-UPNP_INLINE parse_status_t parser_parse_entity_until_close(
+inline parse_status_t parser_parse_entity_until_close(
     http_parser_t* parser ///< [in,out] HTTP Parser Object.
 ) {
     size_t cursor;

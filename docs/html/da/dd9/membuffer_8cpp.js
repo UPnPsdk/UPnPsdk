@@ -3,7 +3,7 @@ var membuffer_8cpp =
     [ "str_alloc", "da/dd9/membuffer_8cpp.html#a37962f857cb3a490e8f21ca923352983", null ],
     [ "memptr_cmp", "da/dd9/membuffer_8cpp.html#a0ebdc3494e3cb774b96ee021f7ae6c3b", null ],
     [ "memptr_cmp_nocase", "da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a", null ],
-    [ "membuffer_initialize", "da/dd9/membuffer_8cpp.html#aa81aeb90fb3c8389c7eb0a77b847101e", null ],
+    [ "membuffer_initialize", "da/dd9/membuffer_8cpp.html#a8456aceff8807d3da4b67596419127af", null ],
     [ "membuffer_set_size", "da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b", null ],
     [ "membuffer_init", "da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80", null ],
     [ "membuffer_destroy", "da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14", null ],

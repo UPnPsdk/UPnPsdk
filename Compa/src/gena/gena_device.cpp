@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -52,6 +52,9 @@
 /// \brief Invalid job id
 #define STALE_JOBID (INVALID_JOB_ID - 1)
 
+/// \cond
+#define PRIzu "zu"
+/// \endcond
 
 namespace {
 
@@ -133,7 +136,7 @@ void free_notify_struct(
  *
  * \note called by genaNotify
  */
-UPNP_INLINE int notify_send_and_recv(
+inline int notify_send_and_recv(
     /*! [in] subscription callback URL (URL of the control point). */
     uri_type* destination_url,
     /*! [in] Common HTTP headers. */

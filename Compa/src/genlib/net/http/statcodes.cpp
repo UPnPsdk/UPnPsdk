@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-02
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -124,7 +124,7 @@ bool gInitialized{false};
  * Initialize with the individual strings that are comprised in the input const
  * char* encoded_str parameter.
  */
-UPNP_INLINE void init_table( //
+inline void init_table(      //
     const char* encoded_str, ///< [in] Status code encoded string.
     const char* table[],     /*!< [out] Table to store the encoded status code
                                         strings. */
@@ -143,7 +143,7 @@ UPNP_INLINE void init_table( //
  * \brief Initializing tables with HTTP strings and different HTTP codes.
  * \details Show graphs...
  */
-UPNP_INLINE void init_tables() {
+inline void init_tables() {
     init_table(Http1xxStr, Http1xxCodes, NUM_1XX_CODES);
     init_table(Http2xxStr, Http2xxCodes, NUM_2XX_CODES);
     init_table(Http3xxStr, Http3xxCodes, NUM_3XX_CODES);

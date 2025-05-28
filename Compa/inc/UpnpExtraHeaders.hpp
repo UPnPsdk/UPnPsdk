@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPEXTRAHEADERS_HPP
 #define COMPA_UPNPEXTRAHEADERS_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-22
+// Redistribution only with this Copyright remark. Last modified: 2025-05-29
 // Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
  * \file
@@ -10,7 +10,7 @@
  */
 
 #include <UpnpString.hpp>
-#include <ixml.hpp>
+#include <ixml/ixml.hpp>
 #include <list.hpp>
 
 /*!

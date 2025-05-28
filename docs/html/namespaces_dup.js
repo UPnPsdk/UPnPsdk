@@ -11,7 +11,7 @@ var namespaces_dup =
     [ "anonymous_namespace{gena_device.cpp}", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html", [
       [ "GeneratePropertySet", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ab42270564152589e9dbbb90d6a5c0e01", null ],
       [ "free_notify_struct", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038", null ],
-      [ "notify_send_and_recv", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae1781a5b638d50bd7626b3ea925492cb", null ],
+      [ "notify_send_and_recv", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9", null ],
       [ "genaNotify", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a951778f34697a8cc0a0e9dd7da2b66ca", null ],
       [ "genaNotifyThread", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae2ea03f611c00f8ca5691e59f7e988c6", null ],
       [ "AllocGenaHeaders", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a67ce80ee42131a36b7acf96bb9066403", null ],
@@ -30,32 +30,32 @@ var namespaces_dup =
         [ "TT_SEPARATOR", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a520bb76e99358d4cf3d450397d253c80a1860bb4ebfd54fcf14354b381534d495", null ],
         [ "TT_QUOTEDSTRING", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a520bb76e99358d4cf3d450397d253c80aad34f02745d10ddb61c7108d52cdbd5c", null ]
       ] ],
-      [ "scanner_init", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a7291f055b4c8c2c7f50fb5ebe4599d01", null ],
-      [ "is_separator_char", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a119ec2e9ed02e25cb1dfd3cbba91ab0c", null ],
-      [ "is_identifier_char", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a397ada9472b0ce782d9636144528c8cf", null ],
-      [ "is_control_char", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#abf87c2390f505c362f987888532ff366", null ],
-      [ "is_qdtext_char", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa8849fbe55dcefa7ab2465ea8aabd214", null ],
+      [ "scanner_init", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8b020c2813961f3e75b1f1e98d8a5743", null ],
+      [ "is_separator_char", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a18fc45e592cf2995013102d8f9380518", null ],
+      [ "is_identifier_char", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a30ca34a4f4363489fe5c758c4e4a5b49", null ],
+      [ "is_control_char", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a6a9af6ba0226d5090d2aaf9b01fdaaf8", null ],
+      [ "is_qdtext_char", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a94eccfbb6f4efa02564c00b2ca67dbbd", null ],
       [ "scanner_get_token", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aaed6a3a6bacd057e854adff4617e7b14", null ],
-      [ "scanner_get_str", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a95b9f2d9c206cb56daa5b61001f5b320", null ],
+      [ "scanner_get_str", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a16e9229580a416902d983df3af962c2d", null ],
       [ "httpmsg_compare", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a5fe49d48f5940fb1131359fe8fca2b9d", null ],
       [ "httpheader_free", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a472f47cc97a610abe220a7c66c9e8716", null ],
-      [ "skip_blank_lines", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a02f65bf2cf2f64de1d1d096f2adbf3fe", null ],
-      [ "skip_lws", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8690442d05125c5459620ebf71b6000f", null ],
-      [ "match_non_ws_string", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa1d5aab18be103f845c04d36c5acd7e7", null ],
-      [ "match_raw_value", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a3541fd5283453b838ee19e9cd757bd24", null ],
-      [ "match_int", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a5b3dfe007aad1e53c4fd62cc4e992b52", null ],
-      [ "read_until_crlf", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aa804ee20accda01aae4a8967b2ce9904", null ],
-      [ "match_char", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afee60e57107525eaabc058d19ddcc5fe", null ],
+      [ "skip_blank_lines", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a6a4088c5df6d5d3c934b574f0aaa4493", null ],
+      [ "skip_lws", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ad662e87ae4da59c5ddf0b5719ac0eb45", null ],
+      [ "match_non_ws_string", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ae42c719a71d41c8f8522734181ebabc9", null ],
+      [ "match_raw_value", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a81e58d3167028d3882780175c55267fa", null ],
+      [ "match_int", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a7e769fa4711cd18bfbf15587f896f02d", null ],
+      [ "read_until_crlf", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a336191e58deb75538c3b9d78c753c7d1", null ],
+      [ "match_char", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ae560b9703d5ff53823cc8e9edd94b945", null ],
       [ "vfmatch", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e", null ],
       [ "match", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5", null ],
       [ "httpmsg_init", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a645d915a8230f48e1a62dee451fa9705", null ],
-      [ "parser_init", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afdf0b2d4ea832f287ca5fb9aca2aff2d", null ],
+      [ "parser_init", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a93d089625bc02f855cc2f255ceed86f0", null ],
       [ "parser_parse_requestline", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a01d7fab7d8ff4a83e2967633b0b282c8", null ],
-      [ "parser_parse_entity_using_clen", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a8dc71c24f5c71f2544e715f0cbf9e511", null ],
-      [ "parser_parse_chunky_body", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#af63731051c62f32e8aee032e269c9ff2", null ],
-      [ "parser_parse_chunky_headers", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a59f3b5b7557744452a650befbf6a5d34", null ],
-      [ "parser_parse_chunky_entity", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ac3546d1ed4487058f5b93ad4a25d5300", null ],
-      [ "parser_parse_entity_until_close", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#afcb84d0307a28d0eff5efde70048508a", null ],
+      [ "parser_parse_entity_using_clen", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a038e3303f943718679f39b2c78bd4e16", null ],
+      [ "parser_parse_chunky_body", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ad106cf5f4c301641ed8d33d990afdeb3", null ],
+      [ "parser_parse_chunky_headers", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a0d1dcdc9c277e1205aff200a617b43fb", null ],
+      [ "parser_parse_chunky_entity", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a1e8724133f542856049f300c75e0e17c", null ],
+      [ "parser_parse_entity_until_close", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a1ca8f88628052bc7155c6ebe8c1d9fb9", null ],
       [ "Http_Method_Table", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a10d3115e01bd0c718838c7eebac09012", null ]
     ] ],
     [ "anonymous_namespace{httpreadwrite.cpp}", "d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html", "d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03" ],
@@ -64,7 +64,7 @@ var namespaces_dup =
       [ "CreateListNode", "d6/d93/namespaceanonymous__namespace_02LinkedList_8cpp_03.html#ad21845c4b35a0cd2530fea3c4b0b788f", null ]
     ] ],
     [ "anonymous_namespace{membuffer.cpp}", "d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html", [
-      [ "membuffer_initialize", "d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#aa81aeb90fb3c8389c7eb0a77b847101e", null ]
+      [ "membuffer_initialize", "d8/d45/namespaceanonymous__namespace_02membuffer_8cpp_03.html#a8456aceff8807d3da4b67596419127af", null ]
     ] ],
     [ "anonymous_namespace{miniserver.cpp}", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03" ],
     [ "anonymous_namespace{service_table.cpp}", "d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html", [
@@ -119,8 +119,8 @@ var namespaces_dup =
       [ "MSGTYPE_REPLY", "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a8d0e2f0966b8e6d1b0f55ec39c6aa138", null ]
     ] ],
     [ "anonymous_namespace{statcodes.cpp}", "df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html", [
-      [ "init_table", "df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#aa8720c71e46ee6041f745bc51190be1a", null ],
-      [ "init_tables", "df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#a67ec6f35b83046df716768cadc353e39", null ]
+      [ "init_table", "df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#ac8f7a76dcef2821d889b89f199f1fb50", null ],
+      [ "init_tables", "df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#a8523327a6014c2afe4ff25fa3b578190", null ]
     ] ],
     [ "anonymous_namespace{ThreadPool.cpp}", "dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html", [
       [ "DiffMillis", "dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#a09e7140e6d8041eccf860f635f4192b1", null ],

@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-25
+# Redistribution only with this Copyright remark. Last modified: 2025-05-29
 
 cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -169,7 +169,7 @@ add_compile_options(
         # disable warning C4996: 'strdup'(or others): The POSIX name for this
         # item is deprecated. Instead, use the ISO C and C++ conformant name:
         # _strdup. See online help for details. (This is Microsoft specific, no
-        # need to fix).
+        # need to fix it because the functions are general still valid).
         $<$<CXX_COMPILER_ID:MSVC>:/wd4996>
         # Disable warning C4456: declaration of 'var' hides previous local
         # declaration. I like to redeclare local variable names.
@@ -449,7 +449,6 @@ endif(UPnPsdk_WITH_GOOGLETEST)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/UPnPsdk)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Pupnp)
-add_subdirectory(${PROJECT_SOURCE_DIR}/Ixml)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Compa)
 if (UPnPsdk_WITH_SAMPLES)
     add_subdirectory(${PROJECT_SOURCE_DIR}/Sample)
