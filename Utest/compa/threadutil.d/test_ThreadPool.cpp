@@ -37,7 +37,7 @@ void start_function([[maybe_unused]] void* arg) {}
 
 
 TEST(ThreadPoolNormalTestSuite, init_and_shutdown_threadpool) {
-    ThreadPool tp{};     // Structure for a threadpool
+    ThreadPool tp{}; // Structure for a threadpool
 
     EXPECT_EQ(ThreadPoolInit(&tp, nullptr), 0);
     EXPECT_EQ(ThreadPoolShutdown(&tp), 0);
@@ -141,7 +141,7 @@ TEST(ThreadPoolErrorCondTestSuite, add_job_to_threadpool) {
 }
 
 TEST(ThreadPoolErrorCondTestSuite, remove_job_from_threadpool) {
-    ThreadPool tp{};     // Structure for a threadpool
+    ThreadPool tp{}; // Structure for a threadpool
     ThreadPoolJob removedJob{};
 
     EXPECT_EQ(ThreadPoolRemove(nullptr, 0, nullptr), EINVAL);
