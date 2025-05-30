@@ -1,3 +1,4 @@
+/// \cond
 #ifndef INTERFACE_PUPNP_SOCK_HPP
 #define INTERFACE_PUPNP_SOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
@@ -100,3 +101,5 @@ class UPNPLIB_API Csock : public ::SockInterface {
 // UPnPsdk_EXP and would require other advanced special handling. So we link
 // the symbol with this source file so it do the right think with it. --Ingo
 SockInterface::~SockInterface() = default;
+
+/// \endcond

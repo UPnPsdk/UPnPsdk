@@ -1,3 +1,4 @@
+/// \cond
 #ifndef INTERFACE_THREADPOOL_HPP
 #define INTERFACE_THREADPOOL_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
@@ -118,3 +119,5 @@ class CThreadPool : public IThreadPool {
 // clang-format on
 
 #endif // INTERFACE_THREADPOOL_HPP
+
+/// \endcond
