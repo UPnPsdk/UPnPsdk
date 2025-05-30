@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-05
+// Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -10,8 +10,6 @@
 #endif
 
 #include <UPnPsdk/upnptools.hpp> // for errStrEx
-
-#include <pupnp/upnpdebug.hpp>
 
 #include <umock/sys_socket_mock.hpp>
 #include <umock/pupnp_sock_mock.hpp>
@@ -37,12 +35,12 @@ using ::testing::StrictMock;
 // =====================
 class SsdpFTestSuite : public ::testing::Test {
   protected:
-    pupnp::CLogging logObj; // Output only with build type DEBUG.
+    // pupnp::CLogging logObj; // Output only with build type DEBUG.
 
     // Constructor
     SsdpFTestSuite() {
-        if (g_dbug)
-            logObj.enable(UPNP_ALL);
+        // if (g_dbug)
+        //     logObj.enable(UPNP_ALL);
 
         // initialize needed global variables
         memset(&gIF_NAME, 0, sizeof(gIF_NAME));

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-12
+// Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -20,7 +20,6 @@
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/upnptools.hpp> // for errStrEx
 
-#include <pupnp/upnpdebug.hpp>
 #include <pupnp/threadpool_init.hpp>
 
 #include <utest/utest.hpp>
@@ -51,8 +50,48 @@ using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
 
-using ::pupnp::CLogging;
 using ::pupnp::CThreadPoolInit;
+
+
+// #include <upnpdebug.hpp>
+// #include <UpnpGlobal.hpp> // for EXPORT_SPEC
+
+// Helper class
+// ============
+/// \brief Helper class for debug log messages in compatible code.
+class CLogging { /*
+ * Use it for example with:
+    CLogging loggingObj; // Output only with build type DEBUG.
+    loggingObj.enable(UPNP_ALL); // or other loglevel, e.g. UPNP_INFO.
+    loggingObj.disable(); // optional
+ */
+  public:
+    CLogging();
+    virtual ~CLogging();
+    /// -brief Enable debug logging messages.
+    void enable(Upnp_LogLevel a_loglevel);
+    /// -brief Disable debug logging messages.
+    void disable();
+};
+
+// #include <pupnp/upnpdebug.hpp>
+
+// #include <UPnPsdk/synclog.hpp>
+// #include <stdexcept>
+
+CLogging::CLogging() = default;
+
+void CLogging::enable(Upnp_LogLevel a_loglevel) {
+    UpnpSetLogLevel(a_loglevel);
+    if (UpnpInitLog() != UPNP_E_SUCCESS) {
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1041") "Failed to initialize pupnp logging.");
+    }
+}
+
+void CLogging::disable() { UpnpCloseLog(); }
+
+CLogging::~CLogging() { UpnpCloseLog(); }
 
 
 // Miniserver Run TestSuite
@@ -1702,7 +1741,6 @@ TEST(StopMiniServerTestSuite, sock_close) {
 }
 
 } // namespace utest
-
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleMock(&argc, argv);

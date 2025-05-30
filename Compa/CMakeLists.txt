@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-29
+# Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -184,7 +184,6 @@ set(COMPA_SOURCE_FILES
     # Helper classes added here. They are assigned with the UPnPsdk rules, e.g.
     # throwing exceptions etc. They only encapsulate old functions mainly for
     # testing with init and shutdown following the RAII paradigm.
-    ${PUPNP_SOURCE_DIR}/src/api/upnpdebug.cpp
     ${PUPNP_SOURCE_DIR}/src/threadpool_init.cpp
 )
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-23
+// Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -10,7 +10,6 @@
 #endif
 
 #include <cmake_vars.hpp>
-#include <pupnp/upnpdebug.hpp>
 
 #include <UPnPsdk/upnptools.hpp>
 #include <UPnPsdk/sockaddr.hpp>
@@ -35,8 +34,6 @@ using ::testing::SetArgPointee; // <argno> is 0-based
 using ::testing::SetErrnoAndReturn;
 using ::testing::StrEq;
 using ::testing::StrictMock;
-
-using ::pupnp::CLogging;
 
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
@@ -71,13 +68,13 @@ clang-format on
 
 class HttpBasicFTestSuite : public ::testing::Test {
   protected:
-    CLogging logObj; // Output only with build type DEBUG.
+    // CLogging logObj; // Output only with build type DEBUG.
     membuffer m_request{};
 
     // Constructor
     HttpBasicFTestSuite() {
-        if (g_dbug)
-            logObj.enable(UPNP_ALL);
+        // if (g_dbug)
+        //     logObj.enable(UPNP_ALL);
         membuffer_init(&m_request);
     }
 

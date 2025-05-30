@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-20
+// Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -25,7 +25,6 @@
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/netadapter.hpp>
 
-#include <pupnp/upnpdebug.hpp>
 #include <pupnp/threadpool_init.hpp>
 
 #include <utest/utest.hpp>
@@ -53,7 +52,6 @@ using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
 
-using ::pupnp::CLogging;
 using ::pupnp::CThreadPoolInit;
 
 
@@ -184,12 +182,12 @@ void get_netadapter() {
 
 class StartMiniServerFTestSuite : public ::testing::Test {
   protected:
-    CLogging logObj; // Output only with build type DEBUG.
+    // CLogging logObj; // Output only with build type DEBUG.
 
     // Constructor
     StartMiniServerFTestSuite() {
-        if (g_dbug)
-            logObj.enable(UPNP_ALL);
+        // if (g_dbug)
+        //     logObj.enable(UPNP_ALL);
 
         // Clean up needed global environment
         gIF_INDEX = 0u;

@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-16
+// Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -10,8 +10,6 @@
 #ifdef UPNP_HAVE_TOOLS
 #include <upnptools.hpp> // For pupnp and compa
 #endif
-
-#include <pupnp/upnpdebug.hpp> // for CLogging
 
 #include <UPnPsdk/upnptools.hpp>
 #include <UPnPsdk/netadapter.hpp>
@@ -199,12 +197,12 @@ class UpnpapiFTestSuite : public ::testing::Test {
 // on win32 randomly with exeption 0xc0000409 (STATUS_STACK_BUFFER_OVERRUN) if
 // g_dbug is enabled. I cannot use Clogging when testing UpnpInitLog().
 #if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(_MSC_VER)
-    pupnp::CLogging logObj; // Output only with build type DEBUG.
+    // pupnp::CLogging logObj; // Output only with build type DEBUG.
 
     // Constructor
     UpnpapiFTestSuite() {
-        if (UPnPsdk::g_dbug)
-            logObj.enable(UPNP_ALL);
+    // if (UPnPsdk::g_dbug)
+    //     logObj.enable(UPNP_ALL);
 #else
     // Constructor
     UpnpapiFTestSuite() {
