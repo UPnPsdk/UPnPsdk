@@ -180,11 +180,6 @@ set(COMPA_SOURCE_FILES
 
     ${UMOCK_SOURCE_DIR}/src/pupnp_sock.cpp
     ${CMAKE_SOURCE_DIR}/Interface/src/pupnp-sock.cpp
-
-    # Helper classes added here. They are assigned with the UPnPsdk rules, e.g.
-    # throwing exceptions etc. They only encapsulate old functions mainly for
-    # testing with init and shutdown following the RAII paradigm.
-    ${PUPNP_SOURCE_DIR}/src/threadpool_init.cpp
 )
 
 # Installation

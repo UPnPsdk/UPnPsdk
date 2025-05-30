@@ -20,9 +20,8 @@
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/upnptools.hpp> // for errStrEx
 
-#include <pupnp/threadpool_init.hpp>
-
 #include <utest/utest.hpp>
+#include <utest/threadpool_init.hpp>
 #include <umock/sys_socket_mock.hpp>
 #include <umock/winsock2_mock.hpp>
 
@@ -50,11 +49,6 @@ using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
 
-using ::pupnp::CThreadPoolInit;
-
-
-// #include <upnpdebug.hpp>
-// #include <UpnpGlobal.hpp> // for EXPORT_SPEC
 
 // Helper class
 // ============
@@ -73,11 +67,6 @@ class CLogging { /*
     /// -brief Disable debug logging messages.
     void disable();
 };
-
-// #include <pupnp/upnpdebug.hpp>
-
-// #include <UPnPsdk/synclog.hpp>
-// #include <stdexcept>
 
 CLogging::CLogging() = default;
 

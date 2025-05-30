@@ -200,7 +200,7 @@ class UpnpapiFTestSuite : public ::testing::Test {
     // pupnp::CLogging logObj; // Output only with build type DEBUG.
 
     // Constructor
-    UpnpapiFTestSuite() {
+    UpnpapiFTestSuite(){
     // if (UPnPsdk::g_dbug)
     //     logObj.enable(UPNP_ALL);
 #else
@@ -209,32 +209,32 @@ class UpnpapiFTestSuite : public ::testing::Test {
 #endif
         // initialize needed global variables.
         memset(&gIF_NAME, 0, sizeof(gIF_NAME));
-        gIF_INDEX = 0;
-        memset(&gIF_IPV6, 0, sizeof(gIF_IPV6));
-        gIF_IPV6_PREFIX_LENGTH = 0;
-        LOCAL_PORT_V6 = 0;
-        memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        LOCAL_PORT_V6_ULA_GUA = 0;
-        memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
-        memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
-        LOCAL_PORT_V4 = 0;
+    gIF_INDEX = 0;
+    memset(&gIF_IPV6, 0, sizeof(gIF_IPV6));
+    gIF_IPV6_PREFIX_LENGTH = 0;
+    LOCAL_PORT_V6 = 0;
+    memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
+    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+    LOCAL_PORT_V6_ULA_GUA = 0;
+    memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
+    memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
+    LOCAL_PORT_V4 = 0;
 
-        // Destroy global variables to detect side effects.
-        UpnpSdkInit = 0xAA;
-        memset(&errno, 0xAA, sizeof(errno));
-        memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
-        // memset(&gWebMutex, 0xAA, sizeof(gWebMutex));
-        memset(&gUpnpSdkNLSuuid, 0, sizeof(gUpnpSdkNLSuuid));
-        memset(&HandleTable, 0xAA, sizeof(HandleTable));
-        memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
-        memset(&gRecvThreadPool, 0xAA, sizeof(gRecvThreadPool));
-        memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
-        memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
-        memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
-        memset(&sdkInit_mutex, 0xAA, sizeof(sdkInit_mutex));
-    }
-};
+    // Destroy global variables to detect side effects.
+    UpnpSdkInit = 0xAA;
+    memset(&errno, 0xAA, sizeof(errno));
+    memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
+    // memset(&gWebMutex, 0xAA, sizeof(gWebMutex));
+    memset(&gUpnpSdkNLSuuid, 0, sizeof(gUpnpSdkNLSuuid));
+    memset(&HandleTable, 0xAA, sizeof(HandleTable));
+    memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
+    memset(&gRecvThreadPool, 0xAA, sizeof(gRecvThreadPool));
+    memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
+    memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
+    memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
+    memset(&sdkInit_mutex, 0xAA, sizeof(sdkInit_mutex));
+}
+}; // namespace utest
 
 class UpnpapiMockFTestSuite : public UpnpapiFTestSuite {
   protected:

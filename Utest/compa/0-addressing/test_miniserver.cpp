@@ -25,9 +25,8 @@
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/netadapter.hpp>
 
-#include <pupnp/threadpool_init.hpp>
-
 #include <utest/utest.hpp>
+#include <utest/threadpool_init.hpp>
 #include <umock/sys_socket_mock.hpp>
 #ifdef _MSC_VER
 #include <umock/winsock2_mock.hpp>
@@ -51,8 +50,6 @@ using ::UPnPsdk::CSocket_basic;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
-
-using ::pupnp::CThreadPoolInit;
 
 
 // The miniserver call stack to get a server socket
@@ -115,6 +112,7 @@ be recieved by select() so it will always enable a blocking (waiting) select().
    |__ http_RecvMessage()
 */
 // clang-format on
+
 
 // Miniserver TestSuite
 // ====================

@@ -185,11 +185,6 @@ set(PUPNP_SOURCE_FILES
 
     # Helper classes added but not original old pupnp code.
     # -------------------------------------------------------------------------
-    # To separate them, they are in a parent directory of the original code.
-    # They only encapsulate old fuctions mainly for testing with init and
-    # shutdown following the RAII paradigm. They are assigned with the UPnPsdk
-    # rules, e.g. throwing exceptions etc.
-    ../src/threadpool_init.cpp
     ${CMAKE_SOURCE_DIR}/UPnPsdk/src/global.cpp
 )
 
