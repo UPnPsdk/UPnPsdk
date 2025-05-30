@@ -6,7 +6,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-12-26
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-31
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -34,7 +34,6 @@
  *
  ******************************************************************************/
 // Last compare with pupnp original source file on 2023-08-19, ver 1.14.17
-
 /*!
  * \file
  */
@@ -42,6 +41,10 @@
 #include <UpnpGlobal.hpp> /* for UPNP_INLINE */
 #include <upnp.hpp>       // for UPNP_E_SUCCESS
 #include <stdio.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 /*! \name Other debugging features
  *
@@ -229,5 +232,9 @@ static UPNP_INLINE void UpnpPrintf_Inlined(Upnp_LogLevel DLevel,
     return;
 }
 #endif /* DEBUG */
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* PUPNP_DEBUG_HPP */

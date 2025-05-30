@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-16
+// Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -10,8 +10,6 @@
 #ifdef UPNP_HAVE_TOOLS
 #include <upnptools.hpp> // For pupnp and compa
 #endif
-
-#include <pupnp/upnpdebug.hpp> // for CLogging
 
 #include <UPnPsdk/upnptools.hpp>
 #include <UPnPsdk/netadapter.hpp>
@@ -199,44 +197,44 @@ class UpnpapiFTestSuite : public ::testing::Test {
 // on win32 randomly with exeption 0xc0000409 (STATUS_STACK_BUFFER_OVERRUN) if
 // g_dbug is enabled. I cannot use Clogging when testing UpnpInitLog().
 #if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(_MSC_VER)
-    pupnp::CLogging logObj; // Output only with build type DEBUG.
+    // pupnp::CLogging logObj; // Output only with build type DEBUG.
 
     // Constructor
-    UpnpapiFTestSuite() {
-        if (UPnPsdk::g_dbug)
-            logObj.enable(UPNP_ALL);
+    UpnpapiFTestSuite(){
+    // if (UPnPsdk::g_dbug)
+    //     logObj.enable(UPNP_ALL);
 #else
     // Constructor
     UpnpapiFTestSuite() {
 #endif
         // initialize needed global variables.
         memset(&gIF_NAME, 0, sizeof(gIF_NAME));
-        gIF_INDEX = 0;
-        memset(&gIF_IPV6, 0, sizeof(gIF_IPV6));
-        gIF_IPV6_PREFIX_LENGTH = 0;
-        LOCAL_PORT_V6 = 0;
-        memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        LOCAL_PORT_V6_ULA_GUA = 0;
-        memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
-        memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
-        LOCAL_PORT_V4 = 0;
+    gIF_INDEX = 0;
+    memset(&gIF_IPV6, 0, sizeof(gIF_IPV6));
+    gIF_IPV6_PREFIX_LENGTH = 0;
+    LOCAL_PORT_V6 = 0;
+    memset(&gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
+    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+    LOCAL_PORT_V6_ULA_GUA = 0;
+    memset(&gIF_IPV4, 0, sizeof(gIF_IPV4));
+    memset(&gIF_IPV4_NETMASK, 0, sizeof(gIF_IPV4_NETMASK));
+    LOCAL_PORT_V4 = 0;
 
-        // Destroy global variables to detect side effects.
-        UpnpSdkInit = 0xAA;
-        memset(&errno, 0xAA, sizeof(errno));
-        memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
-        // memset(&gWebMutex, 0xAA, sizeof(gWebMutex));
-        memset(&gUpnpSdkNLSuuid, 0, sizeof(gUpnpSdkNLSuuid));
-        memset(&HandleTable, 0xAA, sizeof(HandleTable));
-        memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
-        memset(&gRecvThreadPool, 0xAA, sizeof(gRecvThreadPool));
-        memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
-        memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
-        memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
-        memset(&sdkInit_mutex, 0xAA, sizeof(sdkInit_mutex));
-    }
-};
+    // Destroy global variables to detect side effects.
+    UpnpSdkInit = 0xAA;
+    memset(&errno, 0xAA, sizeof(errno));
+    memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
+    // memset(&gWebMutex, 0xAA, sizeof(gWebMutex));
+    memset(&gUpnpSdkNLSuuid, 0, sizeof(gUpnpSdkNLSuuid));
+    memset(&HandleTable, 0xAA, sizeof(HandleTable));
+    memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
+    memset(&gRecvThreadPool, 0xAA, sizeof(gRecvThreadPool));
+    memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
+    memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
+    memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
+    memset(&sdkInit_mutex, 0xAA, sizeof(sdkInit_mutex));
+}
+}; // namespace utest
 
 class UpnpapiMockFTestSuite : public UpnpapiFTestSuite {
   protected:

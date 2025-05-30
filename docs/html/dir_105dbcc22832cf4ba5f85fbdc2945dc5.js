@@ -19,6 +19,7 @@ var dir_105dbcc22832cf4ba5f85fbdc2945dc5 =
     [ "soap_device.hpp", "d2/dd2/soap__device_8hpp.html", "d2/dd2/soap__device_8hpp" ],
     [ "sock.hpp", "d6/df0/sock_8hpp.html", "d6/df0/sock_8hpp" ],
     [ "sock_api.hpp", "d5/d0b/sock__api_8hpp.html", "d5/d0b/sock__api_8hpp" ],
+    [ "sock_if.hpp", "d7/d22/sock__if_8hpp_source.html", null ],
     [ "ssdp_common.hpp", "d0/d19/ssdp__common_8hpp.html", "d0/d19/ssdp__common_8hpp" ],
     [ "ssdp_ctrlpt.hpp", "da/db2/ssdp__ctrlpt_8hpp.html", "da/db2/ssdp__ctrlpt_8hpp" ],
     [ "ssdp_device.hpp", "da/df5/ssdp__device_8hpp.html", "da/df5/ssdp__device_8hpp" ],

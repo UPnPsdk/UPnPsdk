@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_UPNPACTIONCOMPLETE_HPP
 #define UPNPLIB_UPNPACTIONCOMPLETE_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-13
+// Redistribution only with this Copyright remark. Last modified: 2025-06-01
 // Also Copyright by other contributor as noted below.
 // Last compare with pupnp original source file on 2025-05-22, ver 1.14.20
 
@@ -28,7 +28,7 @@ extern "C" {
 typedef struct s_UpnpActionComplete UpnpActionComplete;
 
 /*! Constructor */
-EXPORT_SPEC UpnpActionComplete* UpnpActionComplete_new();
+EXPORT_SPEC UpnpActionComplete* UpnpActionComplete_new(void);
 /*! Destructor */
 EXPORT_SPEC void UpnpActionComplete_delete(UpnpActionComplete* p);
 /*! Copy Constructor */

@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-26
+# Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -53,9 +53,17 @@ add_test(NAME ctest_ThreadPool-pst COMMAND test_ThreadPool-pst --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
-# I do not modify the ThreadPool management so there is no need to test for
-# compatible modifications. I intend to replace threading with C++ standard
-# library functions. --Ingo
+if(FALSE)
+add_executable(test_ThreadPool-cst
+        ./test_ThreadPool.cpp
+)
+target_link_libraries(test_ThreadPool-cst
+    PRIVATE compa_static
+)
+add_test(NAME ctest_ThreadPool-cst COMMAND test_ThreadPool-cst --gtest_shuffle
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
+)
+endif()
 
 
 # TimerThread

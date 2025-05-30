@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-28
+# Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -150,8 +150,6 @@ set(PUPNP_SOURCE_FILES
 
     $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_WEBSERVER}>>:src/urlconfig/urlconfig.cpp>
 
-    ${CMAKE_SOURCE_DIR}/Interface/src/pupnp-sock.cpp
-
     # ixml
     # -------------------------------------------------------------------------
     ${PUPNP_IXML_SOURCE_DIR}/src/attr.cpp
@@ -183,15 +181,9 @@ set(PUPNP_SOURCE_FILES
     ${UMOCK_SOURCE_DIR}/src/sysinfo.cpp
     ${UMOCK_SOURCE_DIR}/src/unistd.cpp
 
-    # Helper classes added but not original old pupnp code.
-    # -------------------------------------------------------------------------
-    # To separate them, they are in a parent directory of the original code.
-    # They only encapsulate old fuctions mainly for testing with init and
-    # shutdown following the RAII paradigm. They are assigned with the UPnPsdk
-    # rules, e.g. throwing exceptions etc.
-    ../src/api/upnpdebug.cpp
-    ../src/threadpool_init.cpp
-    ${CMAKE_SOURCE_DIR}/UPnPsdk/src/global.cpp
+    # Helper added but not original old pupnp code.
+    # ---------------------------------------------
+    ${CMAKE_SOURCE_DIR}/UPnPsdk/src/global.cpp # For general g_dbug flag
 )
 
 set(PUPNP_INCLUDE_DIRECTORIES
@@ -200,7 +192,6 @@ set(PUPNP_INCLUDE_DIRECTORIES
     PUBLIC src/threadutil
     PUBLIC ${PUPNP_SOURCE_DIR}/include
     PUBLIC ${CMAKE_BINARY_DIR}/include
-    PUBLIC ${CMAKE_SOURCE_DIR}/Interface/include
     PUBLIC ${CMAKE_SOURCE_DIR}/UPnPsdk/include
     PUBLIC ${UMOCK_SOURCE_DIR}/include
     PUBLIC ${PUPNP_IXML_SOURCE_DIR}/inc
@@ -277,7 +268,6 @@ target_link_libraries(pupnp_shared
     # library must also given to the user. So I suppress this uncritical
     # warning because I know what I do. --Ingo
     PRIVATE $<$<CXX_COMPILER_ID:MSVC>:-ignore:4217>
-    PRIVATE UPnPsdk_shared
 )
 
 
@@ -308,7 +298,6 @@ target_link_libraries(pupnp_static
     # default. Pthreads on Unix are system wide available so it also makes
     # sense to use shared libs.
     PUBLIC $<IF:$<PLATFORM_ID:Windows>,${UPNP_PTHREADS_STATIC_LIBRARY},${UPNP_PTHREADS_SHARED_LIBRARY}>
-    PRIVATE UPnPsdk_static
 )
 
 

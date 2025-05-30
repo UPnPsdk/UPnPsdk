@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_UPNPACTIONREQUEST_HPP
 #define UPNPLIB_UPNPACTIONREQUEST_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-22
+// Redistribution only with this Copyright remark. Last modified: 2025-06-01
 // Also Copyright by other contributor as noted below.
 // Last compare with pupnp original source file on 2025-05-22, ver 1.14.20
 
@@ -30,7 +30,7 @@ extern "C" {
 typedef struct s_UpnpActionRequest UpnpActionRequest;
 
 /*! Constructor */
-EXPORT_SPEC UpnpActionRequest* UpnpActionRequest_new();
+EXPORT_SPEC UpnpActionRequest* UpnpActionRequest_new(void);
 /*! Destructor */
 EXPORT_SPEC void UpnpActionRequest_delete(UpnpActionRequest* p);
 /*! Copy Constructor */

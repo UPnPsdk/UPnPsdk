@@ -1,7 +1,7 @@
 #ifndef UPNPSTATEVARREQUEST_HPP
 #define UPNPSTATEVARREQUEST_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-13
+// Redistribution only with this Copyright remark. Last modified: 2025-06-01
 // Also Copyright by other contributor as noted below.
 // Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
 
@@ -30,7 +30,7 @@ extern "C" {
 typedef struct s_UpnpStateVarRequest UpnpStateVarRequest;
 
 /*! Constructor */
-EXPORT_SPEC UpnpStateVarRequest* UpnpStateVarRequest_new();
+EXPORT_SPEC UpnpStateVarRequest* UpnpStateVarRequest_new(void);
 /*! Destructor */
 EXPORT_SPEC void UpnpStateVarRequest_delete(UpnpStateVarRequest* p);
 /*! Copy Constructor */

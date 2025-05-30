@@ -1,3 +1,4 @@
+#ifdef __cplusplus
 #ifndef UMOCK_UNISTD_HPP
 #define UMOCK_UNISTD_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
@@ -72,3 +73,4 @@ UPnPsdk_EXTERN Unistd unistd_h;
 } // namespace umock
 
 #endif // UMOCK_UNISTD_HPP
+#endif // __cplusplus

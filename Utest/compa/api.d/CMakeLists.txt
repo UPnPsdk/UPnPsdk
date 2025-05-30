@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-27
+# Redistribution only with this Copyright remark. Last modified: 2025-05-31
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -30,6 +30,7 @@ target_compile_options(test_upnpdebug-pst
 target_link_libraries(test_upnpdebug-pst
     PRIVATE
         pupnp_static
+        UPnPsdk_static # must be static for win32
         utest_shared
 )
 add_test(NAME ctest_upnpdebug-pst COMMAND test_upnpdebug-pst --gtest_shuffle
@@ -143,7 +144,7 @@ target_compile_options(test_upnpapi-pst
 target_link_libraries(test_upnpapi-pst
     PRIVATE
         pupnp_static
-        UPnPsdk_static
+        UPnPsdk_static # must be static for win32
         utest_shared
 )
 add_test(NAME ctest_upnpapi-pst COMMAND test_upnpapi-pst --gtest_shuffle
@@ -183,7 +184,6 @@ target_compile_options(test_upnpapi_platform-pst
 target_link_libraries(test_upnpapi_platform-pst
     PRIVATE
         pupnp_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_upnpapi_platform-pst COMMAND test_upnpapi_platform-pst --gtest_shuffle
@@ -201,7 +201,6 @@ target_include_directories(test_upnpapi_platform-cst
 target_link_libraries(test_upnpapi_platform-cst
     PRIVATE
         compa_static
-        UPnPsdk_static
         utest_static
 )
 add_test(NAME ctest_upnpapi_platform-cst COMMAND test_upnpapi_platform-cst --gtest_shuffle

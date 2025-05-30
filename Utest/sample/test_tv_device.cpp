@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-24
+// Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 // -----------------------------------------------------------------------------
 // This testsuite starts the sample TV Device with general command line
@@ -13,8 +13,6 @@
 
 #include <upnpapi.hpp>
 #include <membuffer.hpp>
-
-#include <pupnp/upnpdebug.hpp>
 
 #include <UPnPsdk/upnptools.hpp>
 #include <UPnPsdk/sockaddr.hpp>
@@ -95,8 +93,6 @@ using ::testing::Pointee;
 using ::testing::Return;
 using ::testing::SetArgPointee;
 using ::testing::SetErrnoAndReturn;
-
-using ::pupnp::CLogging;
 
 using ::utest::CIfaddr4;
 
@@ -262,8 +258,8 @@ TEST_F(SampleTvDeviceFTestSuite, invalid_commandline_argument) {
 }
 
 TEST_F(SampleTvDeviceFTestSuite, TvDeviceStart_successful) {
-    CLogging logObj; // Output only with build type DEBUG.
-    logObj.enable(UPNP_ALL);
+    // CLogging logObj; // Output only with build type DEBUG.
+    // logObj.enable(UPNP_ALL);
 
     // Arguments of TvDeviceStart()
     constexpr char* iface{};

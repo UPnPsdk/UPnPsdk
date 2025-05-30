@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_UPNPSTATEVARCOMPLETE_HPP
 #define UPNPLIB_UPNPSTATEVARCOMPLETE_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-13
+// Redistribution only with this Copyright remark. Last modified: 2025-06-01
 // Also Copyright by other contributor as noted below.
 // Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
 
@@ -28,7 +28,7 @@ extern "C" {
 typedef struct s_UpnpStateVarComplete UpnpStateVarComplete;
 
 /*! Constructor */
-EXPORT_SPEC UpnpStateVarComplete* UpnpStateVarComplete_new();
+EXPORT_SPEC UpnpStateVarComplete* UpnpStateVarComplete_new(void);
 /*! Destructor */
 EXPORT_SPEC void UpnpStateVarComplete_delete(UpnpStateVarComplete* p);
 /*! Copy Constructor */

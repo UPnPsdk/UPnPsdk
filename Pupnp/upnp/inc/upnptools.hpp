@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-26
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -54,7 +54,10 @@
 /* Function declarations only if tools compiled into the library */
 #if UPNP_HAVE_TOOLS
 
+#ifdef __cplusplus
 extern "C" {
+#endif /* __cplusplus */
+
 
 /*!
  * \brief Sets the maximum number of jobs in the internal thread pool.
@@ -269,7 +272,9 @@ EXPORT_SPEC int UpnpAddToPropertySet(
     /*! [in] The status variable value. */
     const char* ArgVal);
 
-} // extern "C"
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 /*! @} */
 

@@ -1,7 +1,7 @@
 #ifndef PUPNP_UPNPGLOBAL_HPP
 #define PUPNP_UPNPGLOBAL_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-05-31
 // Taken from authors who haven't made a note.
 
 /*!
@@ -10,7 +10,7 @@
  * \brief Defines constants that for some reason are not defined on some
  * systems.
  */
-#include <cstddef>
+#include <stddef.h>
 
 #if defined UPNP_LARGEFILE_SENSITIVE && _FILE_OFFSET_BITS + 0 != 64
 #if defined __GNUC__
@@ -207,7 +207,7 @@ typedef __int64 int64_t;
 // Switch old pupnp definition to use new visibility support
 #define EXPORT_SPEC UPnPsdk_API
 #define PUPNP_API UPnPsdk_API
-#define EXPORT_SPEC_EXTERN UPnPsdk_EXTERN
+#define PUPNP_EXP UPnPsdk_API
 
 // clang-format on
 

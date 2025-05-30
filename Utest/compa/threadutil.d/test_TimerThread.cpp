@@ -19,7 +19,6 @@
 // --Ingo
 
 #include <TimerThread.hpp>
-#include <pupnp/ThreadPool.hpp>
 
 #include <chrono>
 #include <thread>
@@ -28,9 +27,6 @@
 
 
 namespace utest {
-
-using ::pupnp::CThreadPool;
-
 
 // ###############################
 //  TimerThread Interface        #
@@ -75,20 +71,19 @@ class CTimerThread : public ITimerThread {
 // ###############################
 
 TEST(TimerThreadNormalTestSuite, init_and_shutdown_timerthread) {
-    CThreadPool tpObj{};  // ThreadPool Object
     ThreadPool tp{};      // Structure for a threadpool
     CTimerThread tmObj{}; // TimerThread Object
     TimerThread timer{};
 
     // Initialize threadpool
-    EXPECT_EQ(tpObj.ThreadPoolInit(&tp, nullptr), 0);
+    EXPECT_EQ(ThreadPoolInit(&tp, nullptr), 0);
     // Initialize timer thread
     EXPECT_EQ(tmObj.TimerThreadInit(&timer, &tp), 0);
 
     // Shutdown timer thread
     EXPECT_EQ(tmObj.TimerThreadShutdown(&timer), 0);
     // Shutdown threadpool
-    EXPECT_EQ(tpObj.ThreadPoolShutdown(&tp), 0);
+    EXPECT_EQ(ThreadPoolShutdown(&tp), 0);
 }
 
 // Start function for schedule_timer_thread
@@ -115,7 +110,6 @@ TEST(TimerThreadNormalTestSuite, schedule_timer_thread) {
     GTEST_SKIP() << "This test is skipped because it is very expensive and "
                     "difficult to completely test.";
 
-    CThreadPool tpObj{};     // ThreadPool Object
     ThreadPool tp{};         // Structure for a threadpool
     ThreadPoolStats stats{}; // Structure for the threadpool status
 
@@ -127,24 +121,23 @@ TEST(TimerThreadNormalTestSuite, schedule_timer_thread) {
     int tmId = -1;
 
     // Initialize threadpool
-    EXPECT_EQ(tpObj.ThreadPoolInit(&tp, nullptr), 0);
+    EXPECT_EQ(ThreadPoolInit(&tp, nullptr), 0);
 
     // Initialize threadpool job
-    EXPECT_EQ(tpObj.TPJobInit(&TPJob, (start_routine)&start_function1, nullptr),
-              0);
+    EXPECT_EQ(TPJobInit(&TPJob, (start_routine)&start_function1, nullptr), 0);
 
     // Get status
-    EXPECT_EQ(tpObj.ThreadPoolGetStats(&tp, &stats), 0);
+    EXPECT_EQ(ThreadPoolGetStats(&tp, &stats), 0);
     EXPECT_EQ(stats.persistentThreads, 0);
     EXPECT_EQ(stats.totalThreads, 1);
     // std::cout << "---- Status after initializing threadpool job ----\n";
-    // tpObj.ThreadPoolPrintStats(&stats); // Print status
+    // ThreadPoolPrintStats(&stats); // Print status
 
     // Initialize timer thread
     EXPECT_EQ(tmObj.TimerThreadInit(&timer, &tp), 0);
 
     // Get status
-    EXPECT_EQ(tpObj.ThreadPoolGetStats(&tp, &stats), 0);
+    EXPECT_EQ(ThreadPoolGetStats(&tp, &stats), 0);
     EXPECT_EQ(stats.persistentThreads, 1);
     EXPECT_EQ(stats.totalThreads, 2);
 
@@ -160,7 +153,7 @@ TEST(TimerThreadNormalTestSuite, schedule_timer_thread) {
     // Shutdown timer thread, order is important!
     EXPECT_EQ(tmObj.TimerThreadShutdown(&timer), 0);
     // Shutdown threadpool
-    EXPECT_EQ(tpObj.ThreadPoolShutdown(&tp), 0);
+    EXPECT_EQ(ThreadPoolShutdown(&tp), 0);
 }
 
 // Start function for remove_timer_thread
@@ -171,7 +164,6 @@ void start_function2([[maybe_unused]] void* arg) {
 }
 
 TEST(TimerThreadNormalTestSuite, remove_timer_thread) {
-    CThreadPool tpObj{};     // ThreadPool Object
     ThreadPool tp{};         // Structure for a threadpool
     ThreadPoolStats stats{}; // Structure for the threadpool status
 
@@ -183,23 +175,22 @@ TEST(TimerThreadNormalTestSuite, remove_timer_thread) {
     int tmId = -1;
 
     // Initialize threadpool
-    EXPECT_EQ(tpObj.ThreadPoolInit(&tp, nullptr), 0);
+    EXPECT_EQ(ThreadPoolInit(&tp, nullptr), 0);
     // Initialize threadpool job
-    EXPECT_EQ(tpObj.TPJobInit(&TPJob, (start_routine)&start_function2, nullptr),
-              0);
+    EXPECT_EQ(TPJobInit(&TPJob, (start_routine)&start_function2, nullptr), 0);
 
     // Get status
-    EXPECT_EQ(tpObj.ThreadPoolGetStats(&tp, &stats), 0);
+    EXPECT_EQ(ThreadPoolGetStats(&tp, &stats), 0);
     EXPECT_EQ(stats.persistentThreads, 0);
     EXPECT_EQ(stats.totalThreads, 1);
     // std::cout << "---- Status after initializing threadpool job ----\n";
-    // tpObj.ThreadPoolPrintStats(&stats); // Print status
+    // ThreadPoolPrintStats(&stats); // Print status
 
     // Initialize timer thread
     EXPECT_EQ(tmObj.TimerThreadInit(&timer, &tp), 0);
 
     // Get status
-    EXPECT_EQ(tpObj.ThreadPoolGetStats(&tp, &stats), 0);
+    EXPECT_EQ(ThreadPoolGetStats(&tp, &stats), 0);
     EXPECT_EQ(stats.persistentThreads, 1);
     EXPECT_EQ(stats.totalThreads, 2);
 
@@ -219,7 +210,7 @@ TEST(TimerThreadNormalTestSuite, remove_timer_thread) {
     // Shutdown timer thread, order is important!
     EXPECT_EQ(tmObj.TimerThreadShutdown(&timer), 0);
     // Shutdown threadpool
-    EXPECT_EQ(tpObj.ThreadPoolShutdown(&tp), 0);
+    EXPECT_EQ(ThreadPoolShutdown(&tp), 0);
 }
 
 } // namespace utest

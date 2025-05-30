@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-20
+// Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -25,10 +25,8 @@
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/netadapter.hpp>
 
-#include <pupnp/upnpdebug.hpp>
-#include <pupnp/threadpool_init.hpp>
-
 #include <utest/utest.hpp>
+#include <utest/threadpool_init.hpp>
 #include <umock/sys_socket_mock.hpp>
 #ifdef _MSC_VER
 #include <umock/winsock2_mock.hpp>
@@ -52,9 +50,6 @@ using ::UPnPsdk::CSocket_basic;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
-
-using ::pupnp::CLogging;
-using ::pupnp::CThreadPoolInit;
 
 
 // The miniserver call stack to get a server socket
@@ -117,6 +112,7 @@ be recieved by select() so it will always enable a blocking (waiting) select().
    |__ http_RecvMessage()
 */
 // clang-format on
+
 
 // Miniserver TestSuite
 // ====================
@@ -184,12 +180,12 @@ void get_netadapter() {
 
 class StartMiniServerFTestSuite : public ::testing::Test {
   protected:
-    CLogging logObj; // Output only with build type DEBUG.
+    // CLogging logObj; // Output only with build type DEBUG.
 
     // Constructor
     StartMiniServerFTestSuite() {
-        if (g_dbug)
-            logObj.enable(UPNP_ALL);
+        // if (g_dbug)
+        //     logObj.enable(UPNP_ALL);
 
         // Clean up needed global environment
         gIF_INDEX = 0u;
