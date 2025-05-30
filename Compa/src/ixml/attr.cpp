@@ -36,6 +36,8 @@
 
 #include <cstring>
 
+namespace compa::xml {
+
 void ixmlAttr_init(IXML_Attr* attr) {
     if (attr != NULL) {
         memset(attr, 0, sizeof(IXML_Attr));
@@ -47,3 +49,5 @@ void ixmlAttr_free(IXML_Attr* attr) {
         ixmlNode_free((IXML_Node*)attr);
     }
 }
+
+} // namespace compa::xml

@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-21
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1261,10 +1261,10 @@ PUPNP_API int UpnpSendAction(
     /*! [in] This parameter is ignored and must be a \c nullptr. */
     const char* DevUDN_const,
     /*! [in] The DOM document for the action. */
-    IXML_Document* Action,
+    compa::xml::IXML_Document* Action,
     /*! [out] The DOM document for the response to the action. The SDK
      * allocates this document and the caller needs to free it. */
-    IXML_Document** RespNodePtr);
+    compa::xml::IXML_Document** RespNodePtr);
 
 /*!
  * \brief Sends a message to change a state variable in a service.
@@ -1302,12 +1302,12 @@ PUPNP_API int UpnpSendActionEx(
     const char* DevUDN_const,
     /*! [in] The DOM document for the SOAP header. This may be a \c nullptr if
      * the header is not required. */
-    IXML_Document* Header,
+    compa::xml::IXML_Document* Header,
     /*! [in] The DOM document for the action. */
-    IXML_Document* Action,
+    compa::xml::IXML_Document* Action,
     /*! [out] The DOM document for the response to the action. The SDK
      * allocates this document and the caller needs to free it. */
-    IXML_Document** RespNodePtr);
+    compa::xml::IXML_Document** RespNodePtr);
 
 /*!
  * \brief Sends a message to change a state variable in a service, generating a
@@ -1342,7 +1342,7 @@ PUPNP_API int UpnpSendActionAsync(
     /*! [in] This parameter is ignored and must be a \c nullptr. */
     const char* DevUDN_const,
     /*! [in] The DOM document for the action to perform on this device. */
-    IXML_Document* Act,
+    compa::xml::IXML_Document* Act,
     /*! [in] Pointer to a callback function to be invoked when the operation
      * completes. */
     Upnp_FunPtr Fun,
@@ -1384,9 +1384,9 @@ PUPNP_API int UpnpSendActionExAsync(
     const char* DevUDN_const,
     /*! [in] The DOM document for the SOAP header. This may be a \c nullptr if
        the header is not required. */
-    IXML_Document* Header,
+    compa::xml::IXML_Document* Header,
     /*! [in] The DOM document for the action to perform on this device. */
-    IXML_Document* Act,
+    compa::xml::IXML_Document* Act,
     /*! [in] Pointer to a callback function to be invoked when the operation
      * completes. */
     Upnp_FunPtr Fun,
@@ -1487,7 +1487,7 @@ PUPNP_API int UpnpAcceptSubscriptionExt(
     /*! [in] The DOM document for the property set. Property set documents
      * must conform to the XML schema defined in section 4.3 of the
      * Universal Plug and Play Device Architecture specification. */
-    IXML_Document* PropSet,
+    compa::xml::IXML_Document* PropSet,
     /*! [in] The subscription ID of the newly registered control point. */
     const Upnp_SID SubsId);
 
@@ -1562,7 +1562,7 @@ PUPNP_API int UpnpNotifyExt(
     /*! [in] The DOM document for the property set. Property set documents
      * must conform to the XML schema defined in section 4.3 of the
      * Universal Plug and Play Device Architecture specification. */
-    IXML_Document* PropSet);
+    compa::xml::IXML_Document* PropSet);
 
 /*!
  * \brief Renews a subscription that is about to expire.
@@ -2576,7 +2576,7 @@ PUPNP_API int UpnpDownloadXmlDoc(
     const char* url,
     /*! [out] A pointer to a variable in which to store the pointer to the XML
        document. */
-    IXML_Document** xmlDoc);
+    compa::xml::IXML_Document** xmlDoc);
 
 /// @} Control Point http API
 

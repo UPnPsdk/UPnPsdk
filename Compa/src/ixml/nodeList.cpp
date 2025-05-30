@@ -40,6 +40,9 @@
 #include <cassert>
 #include <cstring>
 
+
+namespace compa::xml {
+
 void ixmlNodeList_init(IXML_NodeList* nList) {
     assert(nList != NULL);
 
@@ -135,3 +138,5 @@ void ixmlNodeList_free(IXML_NodeList* nList) {
         nList = next;
     }
 }
+
+} // namespace compa::xml

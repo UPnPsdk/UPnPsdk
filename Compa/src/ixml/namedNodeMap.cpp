@@ -41,10 +41,15 @@
 #include <cassert>
 #include <cstring>
 
+
+namespace compa::xml {
+
+namespace {
+
 /*!
  * \brief Return the item number of a item in NamedNodeMap.
  */
-static unsigned long ixmlNamedNodeMap_getItemNumber(
+unsigned long ixmlNamedNodeMap_getItemNumber(
     /*! [in] The named node map to process. */
     IXML_NamedNodeMap* nnMap,
     /*! [in] The name of the item to find. */
@@ -68,6 +73,9 @@ static unsigned long ixmlNamedNodeMap_getItemNumber(
 
     return (unsigned long)IXML_INVALID_ITEM_NUMBER;
 }
+
+} // anonymous namespace
+
 
 void ixmlNamedNodeMap_init(IXML_NamedNodeMap* nnMap) {
     assert(nnMap != NULL);
@@ -175,3 +183,5 @@ int ixmlNamedNodeMap_addToNamedNodeMap(IXML_NamedNodeMap** nnMap,
 
     return IXML_SUCCESS;
 }
+
+} // namespace compa::xml

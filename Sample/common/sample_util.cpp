@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-04
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,13 +30,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-
 /*!
- * \addtogroup UpnpSamples
- *
- * @{
- *
  * \file
+ * \addtogroup UpnpSamples
+ * @{
  */
 
 /// \cond
@@ -115,20 +112,22 @@ int SampleUtil_Finish() {
     return UPNP_E_SUCCESS;
 }
 
-char* SampleUtil_GetElementValue(IXML_Element* element) {
-    IXML_Node* child = ixmlNode_getFirstChild((IXML_Node*)element);
+char* SampleUtil_GetElementValue(NSXML::IXML_Element* element) {
+    NSXML::IXML_Node* child =
+        ixmlNode_getFirstChild((NSXML::IXML_Node*)element);
     char* temp = NULL;
 
-    if (child != 0 && ixmlNode_getNodeType(child) == eTEXT_NODE)
+    if (child != 0 && ixmlNode_getNodeType(child) == NSXML::eTEXT_NODE)
         temp = strdup(ixmlNode_getNodeValue(child));
 
     return temp;
 }
 
-IXML_NodeList* SampleUtil_GetFirstServiceList(IXML_Document* doc) {
-    IXML_NodeList* ServiceList = NULL;
-    IXML_NodeList* servlistnodelist = NULL;
-    IXML_Node* servlistnode = NULL;
+NSXML::IXML_NodeList*
+SampleUtil_GetFirstServiceList(NSXML::IXML_Document* doc) {
+    NSXML::IXML_NodeList* ServiceList = NULL;
+    NSXML::IXML_NodeList* servlistnodelist = NULL;
+    NSXML::IXML_Node* servlistnode = NULL;
 
     servlistnodelist = ixmlDocument_getElementsByTagName(doc, "serviceList");
     if (servlistnodelist && ixmlNodeList_length(servlistnodelist)) {
@@ -137,7 +136,7 @@ IXML_NodeList* SampleUtil_GetFirstServiceList(IXML_Document* doc) {
         servlistnode = ixmlNodeList_item(servlistnodelist, 0);
         /* create as list of DOM nodes */
         ServiceList = ixmlElement_getElementsByTagName(
-            (IXML_Element*)servlistnode, "service");
+            (NSXML::IXML_Element*)servlistnode, "service");
     }
     if (servlistnodelist)
         ixmlNodeList_free(servlistnodelist);
@@ -153,15 +152,15 @@ IXML_NodeList* SampleUtil_GetFirstServiceList(IXML_Document* doc) {
 /*!
  * \brief Obtain the service list
  */
-static IXML_NodeList* SampleUtil_GetNthServiceList(
+static NSXML::IXML_NodeList* SampleUtil_GetNthServiceList(
     /*! [in] . */
-    IXML_Document* doc,
+    NSXML::IXML_Document* doc,
     /*! [in] n == 0 the first\n
      *       n == 1 the next in the device list, etc.. */
     unsigned int n) {
-    IXML_NodeList* ServiceList = NULL;
-    IXML_NodeList* servlistnodelist = NULL;
-    IXML_Node* servlistnode = NULL;
+    NSXML::IXML_NodeList* ServiceList = NULL;
+    NSXML::IXML_NodeList* servlistnodelist = NULL;
+    NSXML::IXML_Node* servlistnode = NULL;
 
     /*  ixmlDocument_getElementsByTagName()
      *  Returns a NodeList of all Elements that match the given
@@ -187,7 +186,7 @@ static IXML_NodeList* SampleUtil_GetNthServiceList(
         if (!servlistnode) {
             /* create as list of DOM nodes */
             ServiceList = ixmlElement_getElementsByTagName(
-                (IXML_Element*)servlistnode, "service");
+                (NSXML::IXML_Element*)servlistnode, "service");
         } else
             SampleUtil_Print("%s(%d): ixmlNodeList_item(nodeList, "
                              "n) returned NULL\n",
@@ -200,10 +199,11 @@ static IXML_NodeList* SampleUtil_GetNthServiceList(
 }
 #endif
 
-char* SampleUtil_GetFirstDocumentItem(IXML_Document* doc, const char* item) {
-    IXML_NodeList* nodeList = NULL;
-    IXML_Node* textNode = NULL;
-    IXML_Node* tmpNode = NULL;
+char* SampleUtil_GetFirstDocumentItem(NSXML::IXML_Document* doc,
+                                      const char* item) {
+    NSXML::IXML_NodeList* nodeList = NULL;
+    NSXML::IXML_Node* textNode = NULL;
+    NSXML::IXML_Node* tmpNode = NULL;
     const char* nodeValue = NULL;
     char* ret = NULL;
 
@@ -250,10 +250,11 @@ epilogue:
     return ret;
 }
 
-char* SampleUtil_GetFirstElementItem(IXML_Element* element, const char* item) {
-    IXML_NodeList* nodeList = NULL;
-    IXML_Node* textNode = NULL;
-    IXML_Node* tmpNode = NULL;
+char* SampleUtil_GetFirstElementItem(NSXML::IXML_Element* element,
+                                     const char* item) {
+    NSXML::IXML_NodeList* nodeList = NULL;
+    NSXML::IXML_Node* textNode = NULL;
+    NSXML::IXML_Node* tmpNode = NULL;
     char* ret = NULL;
 
     nodeList = ixmlElement_getElementsByTagName(element, (char*)item);
@@ -382,8 +383,8 @@ int SampleUtil_PrintEvent(Upnp_EventType EventType, const void* Event) {
     /* SOAP */
     case UPNP_CONTROL_ACTION_REQUEST: {
         UpnpActionRequest* a_event = (UpnpActionRequest*)Event;
-        IXML_Document* actionRequestDoc = NULL;
-        IXML_Document* actionResultDoc = NULL;
+        NSXML::IXML_Document* actionRequestDoc = NULL;
+        NSXML::IXML_Document* actionResultDoc = NULL;
         char* xmlbuff = NULL;
 
         SampleUtil_Print(
@@ -399,7 +400,7 @@ int SampleUtil_PrintEvent(Upnp_EventType EventType, const void* Event) {
             UpnpString_get_String(UpnpActionRequest_get_ServiceID(a_event)));
         actionRequestDoc = UpnpActionRequest_get_ActionRequest(a_event);
         if (actionRequestDoc) {
-            xmlbuff = ixmlPrintNode((IXML_Node*)actionRequestDoc);
+            xmlbuff = ixmlPrintNode((NSXML::IXML_Node*)actionRequestDoc);
             if (xmlbuff) {
                 SampleUtil_Print("ActRequest  =  %s\n", xmlbuff);
                 ixmlFreeDOMString(xmlbuff);
@@ -410,7 +411,7 @@ int SampleUtil_PrintEvent(Upnp_EventType EventType, const void* Event) {
         }
         actionResultDoc = UpnpActionRequest_get_ActionResult(a_event);
         if (actionResultDoc) {
-            xmlbuff = ixmlPrintNode((IXML_Node*)actionResultDoc);
+            xmlbuff = ixmlPrintNode((NSXML::IXML_Node*)actionResultDoc);
             if (xmlbuff) {
                 SampleUtil_Print("ActResult   =  %s\n", xmlbuff);
                 ixmlFreeDOMString(xmlbuff);
@@ -427,16 +428,16 @@ int SampleUtil_PrintEvent(Upnp_EventType EventType, const void* Event) {
         int errCode = UpnpActionComplete_get_ErrCode(a_event);
         const char* ctrlURL =
             UpnpString_get_String(UpnpActionComplete_get_CtrlUrl(a_event));
-        IXML_Document* actionRequest =
+        NSXML::IXML_Document* actionRequest =
             UpnpActionComplete_get_ActionRequest(a_event);
-        IXML_Document* actionResult =
+        NSXML::IXML_Document* actionResult =
             UpnpActionComplete_get_ActionResult(a_event);
 
         SampleUtil_Print("ErrCode     =  %d\n"
                          "CtrlUrl     =  %s\n",
                          errCode, ctrlURL);
         if (actionRequest) {
-            xmlbuff = ixmlPrintNode((IXML_Node*)actionRequest);
+            xmlbuff = ixmlPrintNode((NSXML::IXML_Node*)actionRequest);
             if (xmlbuff) {
                 SampleUtil_Print("ActRequest  =  %s\n", xmlbuff);
                 ixmlFreeDOMString(xmlbuff);
@@ -446,7 +447,7 @@ int SampleUtil_PrintEvent(Upnp_EventType EventType, const void* Event) {
             SampleUtil_Print("ActRequest  =  (null)\n");
         }
         if (actionResult) {
-            xmlbuff = ixmlPrintNode((IXML_Node*)actionResult);
+            xmlbuff = ixmlPrintNode((NSXML::IXML_Node*)actionResult);
             if (xmlbuff) {
                 SampleUtil_Print("ActResult   =  %s\n", xmlbuff);
                 ixmlFreeDOMString(xmlbuff);
@@ -509,8 +510,8 @@ int SampleUtil_PrintEvent(Upnp_EventType EventType, const void* Event) {
         UpnpEvent* e_event = (UpnpEvent*)Event;
         char* xmlbuff = NULL;
 
-        xmlbuff =
-            ixmlPrintNode((IXML_Node*)UpnpEvent_get_ChangedVariables(e_event));
+        xmlbuff = ixmlPrintNode(
+            (NSXML::IXML_Node*)UpnpEvent_get_ChangedVariables(e_event));
         SampleUtil_Print("SID         =  %s\n"
                          "EventKey    =  %d\n"
                          "ChangedVars =  %s\n",
@@ -579,7 +580,8 @@ int SampleUtil_PrintEvent(Upnp_EventType EventType, const void* Event) {
     return 0;
 }
 
-int SampleUtil_FindAndParseService(IXML_Document* DescDoc, const char* location,
+int SampleUtil_FindAndParseService(NSXML::IXML_Document* DescDoc,
+                                   const char* location,
                                    const char* serviceType, char** serviceId,
                                    char** eventURL, char** controlURL) {
     unsigned int i;
@@ -595,8 +597,8 @@ int SampleUtil_FindAndParseService(IXML_Document* DescDoc, const char* location,
     const char* base = NULL;
     char* relcontrolURL = NULL;
     char* releventURL = NULL;
-    IXML_NodeList* serviceList = NULL;
-    IXML_Element* service = NULL;
+    NSXML::IXML_NodeList* serviceList = NULL;
+    NSXML::IXML_Element* service = NULL;
 
     baseURL = SampleUtil_GetFirstDocumentItem(DescDoc, "URLBase");
     if (baseURL)
@@ -616,9 +618,9 @@ int SampleUtil_FindAndParseService(IXML_Document* DescDoc, const char* location,
 #endif /* OLD_FIND_SERVICE_CODE */
     length = ixmlNodeList_length(serviceList);
     for (i = 0; i < length; i++) {
-        service = (IXML_Element*)ixmlNodeList_item(serviceList, i);
-        tempServiceType = SampleUtil_GetFirstElementItem((IXML_Element*)service,
-                                                         "serviceType");
+        service = (NSXML::IXML_Element*)ixmlNodeList_item(serviceList, i);
+        tempServiceType = SampleUtil_GetFirstElementItem(
+            (NSXML::IXML_Element*)service, "serviceType");
         if (tempServiceType && strcmp(tempServiceType, serviceType) == 0) {
             SampleUtil_Print("Found service: %s\n", serviceType);
             *serviceId = SampleUtil_GetFirstElementItem(service, "serviceId");

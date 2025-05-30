@@ -51,6 +51,9 @@
 #define DESC_URL_SIZE 200
 /// \endcond
 
+using compa::xml::IXML_Document;
+
+
 namespace {
 
 /*! \brief Mutex for protecting the global state table data

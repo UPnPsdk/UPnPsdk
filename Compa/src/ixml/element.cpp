@@ -40,6 +40,45 @@
 #include <cassert>
 #include <cstring>
 
+
+namespace compa::xml {
+
+namespace {
+
+/*!
+ * \brief Find a attribute node whose contents are the same as the oldAttr.
+ *
+ * \return If found, the attribute node is returned, otherwise \b NULL is
+ * returned.
+ */
+IXML_Node* ixmlElement_findAttributeNode(
+    /*! [in] The element to search for the attribute. */
+    IXML_Element* element,
+    /*! [in] The attribute node to match. */
+    IXML_Attr* oldAttr) {
+    IXML_Node* attrNode;
+    IXML_Node* oldAttrNode = (IXML_Node*)oldAttr;
+
+    assert(element != NULL && oldAttr != NULL);
+
+    attrNode = element->n.firstAttr;
+    while (attrNode != NULL) {
+        /* parentNode, prevSib, nextSib and ownerDocument doesn't matter
+         */
+        if (ixmlNode_compare(attrNode, oldAttrNode) == 1) {
+            /* Found it */
+            break;
+        } else {
+            attrNode = attrNode->nextSibling;
+        }
+    }
+
+    return attrNode;
+}
+
+} // anonymous namespace
+
+
 void ixmlElement_init(IXML_Element* element) {
     if (element != NULL) {
         memset(element, 0, sizeof(IXML_Element));
@@ -265,37 +304,6 @@ int ixmlElement_setAttributeNode(IXML_Element* element, IXML_Attr* newAttr,
     }
 
     return IXML_SUCCESS;
-}
-
-/*!
- * \brief Find a attribute node whose contents are the same as the oldAttr.
- *
- * \return If found, the attribute node is returned, otherwise \b NULL is
- * returned.
- */
-static IXML_Node* ixmlElement_findAttributeNode(
-    /*! [in] The element to search for the attribute. */
-    IXML_Element* element,
-    /*! [in] The attribute node to match. */
-    IXML_Attr* oldAttr) {
-    IXML_Node* attrNode;
-    IXML_Node* oldAttrNode = (IXML_Node*)oldAttr;
-
-    assert(element != NULL && oldAttr != NULL);
-
-    attrNode = element->n.firstAttr;
-    while (attrNode != NULL) {
-        /* parentNode, prevSib, nextSib and ownerDocument doesn't matter
-         */
-        if (ixmlNode_compare(attrNode, oldAttrNode) == 1) {
-            /* Found it */
-            break;
-        } else {
-            attrNode = attrNode->nextSibling;
-        }
-    }
-
-    return attrNode;
 }
 
 int ixmlElement_removeAttributeNode(IXML_Element* element, IXML_Attr* oldAttr,
@@ -656,3 +664,5 @@ void ixmlElement_free(IXML_Element* element) {
         ixmlNode_free((IXML_Node*)element);
     }
 }
+
+} // namespace compa::xml

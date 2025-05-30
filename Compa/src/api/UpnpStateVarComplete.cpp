@@ -12,6 +12,10 @@
 #include <stdlib.h> /* for calloc(), free() */
 #include <string.h> /* for strlen(), strdup() */
 
+using compa::xml::ixmlCloneDOMString;
+using compa::xml::ixmlFreeDOMString;
+
+
 /// \brief s_UpnpStateVarComplete
 struct s_UpnpStateVarComplete {
     /// @{

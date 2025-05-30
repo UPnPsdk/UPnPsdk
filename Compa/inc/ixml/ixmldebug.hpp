@@ -4,14 +4,15 @@
 // Redistribution only with this Copyright remark. Last modified: 2025-05-29
 // Taken from authors who haven't made a note.
 // Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
-
-#include <ixml/ixml.hpp>
-
 /*!
  * \file
  *
  * \brief Auxiliar routines to aid debugging.
  */
+
+#include <ixml/ixml.hpp>
+
+namespace compa::xml {
 
 /*!
  * \brief Prints the debug statement either on the standard output or log file
@@ -53,5 +54,7 @@ void printNodes(
 static inline void printNodes([[maybe_unused]] IXML_Node* tmpRoot,
                               [[maybe_unused]] int depth) {}
 #endif
+
+} // namespace compa::xml
 
 #endif /* UPNPLIB_IXMLDEBUG_HPP */

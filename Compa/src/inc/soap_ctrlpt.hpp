@@ -63,11 +63,11 @@
  *  - UPNP_E_BAD_HTTPMSG
  *  - may have additional error codes
  */
-int SoapSendAction(               //
-    char* action_url,             ///< [in] device contrl URL.
-    char* service_type,           ///< [in] device service type.
-    IXML_Document* action_node,   ///< [in] SOAP action node.
-    IXML_Document** response_node ///< [out] SOAP response node.
+int SoapSendAction(                           //
+    char* action_url,                         ///< [in] device contrl URL.
+    char* service_type,                       ///< [in] device service type.
+    compa::xml::IXML_Document* action_node,   ///< [in] SOAP action node.
+    compa::xml::IXML_Document** response_node ///< [out] SOAP response node.
 );
 
 /*!
@@ -98,12 +98,13 @@ int SoapSendAction(               //
  *  - SOAP_ACTION_RESP_ERROR
  *  - HTTP error codes >400
  */
-int SoapSendActionEx(             //
-    char* action_url,             ///< [in] device contrl URL.
-    char* service_type,           ///< [in] device service type.
-    IXML_Document* header,        ///< [in] Soap header.
-    IXML_Document* action_node,   ///< [in] SOAP action node (SOAP body).
-    IXML_Document** response_node ///< [out] SOAP response node.
+int SoapSendActionEx(                  //
+    char* action_url,                  ///< [in] device contrl URL.
+    char* service_type,                ///< [in] device service type.
+    compa::xml::IXML_Document* header, ///< [in] Soap header.
+    compa::xml::IXML_Document*
+        action_node,                   ///< [in] SOAP action node (SOAP body).
+    compa::xml::IXML_Document** response_node ///< [out] SOAP response node.
 );
 
 /*!

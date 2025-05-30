@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-03-03
+// Redistribution only with this Copyright remark. Last modified: 2025-05-29
 // Also Copyright by other contributor as noted below.
 // Last compare with pupnp original source file on 2023-04-25, ver 1.14.15
 /*!
@@ -15,6 +15,10 @@
 
 #include <cstring> // for memset
 #include <cstdlib>
+
+using compa::xml::ixmlCloneDOMString;
+using compa::xml::ixmlFreeDOMString;
+
 
 // This structure is addressed with 'UpnpFileInfo' by
 // 'typedef struct s_UpnpFileInfo UpnpFileInfo;' in the header file. The typedef

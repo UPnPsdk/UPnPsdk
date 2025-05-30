@@ -82,7 +82,15 @@
 #include <sys/types.h>
 #endif
 
+using compa::xml::IXML_Document;
+using compa::xml::IXML_INSUFFICIENT_MEMORY;
+using compa::xml::IXML_Node;
+using compa::xml::IXML_SUCCESS;
+using compa::xml::ixmlFreeDOMString;
+
+
 namespace compa {
+
 namespace {
 
 /*! \brief Initialization mutex. */

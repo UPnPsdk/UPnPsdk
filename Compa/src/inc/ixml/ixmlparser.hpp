@@ -50,6 +50,9 @@
 #define ESC_DEC "&#"
 /// \endcond
 
+
+namespace compa::xml {
+
 /// \brief IXML_NamespaceURI
 typedef struct _IXML_NamespaceURI {
     char* nsURI;
@@ -260,5 +263,7 @@ int ixmlNode_setNodeProperties(
 void ixmlNodeList_init(
     /*! [in,out] The \b NodeList to initialize. */
     IXML_NodeList* nList);
+
+} // namespace compa::xml
 
 #endif /* UPNPLIB_IXMLPARSER_HPP */

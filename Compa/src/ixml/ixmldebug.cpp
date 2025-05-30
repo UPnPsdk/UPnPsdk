@@ -10,6 +10,8 @@
 #include <cstdio>
 
 
+namespace compa::xml {
+
 void IxmlPrintf(const char* DbgFileName, int DbgLineNo,
                 const char* FunctionName, const char* FmtStr, ...) {
     va_list ArgList;
@@ -52,3 +54,5 @@ void printNodes(IXML_Node* tmpRoot, int depth) {
                    depth, NodeType, NodeName, NodeValue);
     }
 }
+
+} // namespace compa::xml

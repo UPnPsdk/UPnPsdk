@@ -37,9 +37,11 @@ PUPNP_API int UpnpEvent_get_EventKey(const UpnpEvent* p);
 PUPNP_API int UpnpEvent_set_EventKey(UpnpEvent* p, int n);
 
 /*! UpnpEvent_get_ChangedVariables */
-PUPNP_API IXML_Document* UpnpEvent_get_ChangedVariables(const UpnpEvent* p);
+PUPNP_API compa::xml::IXML_Document*
+UpnpEvent_get_ChangedVariables(const UpnpEvent* p);
 /*! UpnpEvent_set_ChangedVariables */
-PUPNP_API int UpnpEvent_set_ChangedVariables(UpnpEvent* p, IXML_Document* n);
+PUPNP_API int UpnpEvent_set_ChangedVariables(UpnpEvent* p,
+                                             compa::xml::IXML_Document* n);
 
 /*! UpnpEvent_get_SID */
 PUPNP_API const UpnpString* UpnpEvent_get_SID(const UpnpEvent* p);

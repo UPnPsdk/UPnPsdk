@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-29
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -130,7 +130,7 @@ PUPNP_API int UpnpResolveURL2(
  * \return The action node of \b Upnp_Document type or <tt>NULL</tt> if the
  *  operation failed.
  */
-PUPNP_API IXML_Document* UpnpMakeAction(
+PUPNP_API compa::xml::IXML_Document* UpnpMakeAction(
     /*! [in] Name of the action request or response. */
     const char* ActionName,
     /*! [in] The service type. */
@@ -155,7 +155,7 @@ PUPNP_API IXML_Document* UpnpMakeAction(
  * \return The action node of \b Upnp_Document type or <tt>NULL</tt> if the
  *  operation failed.
  */
-PUPNP_API IXML_Document* UpnpMakeActionResponse(
+PUPNP_API compa::xml::IXML_Document* UpnpMakeActionResponse(
     /*! [in] The action name. */
     const char* ActionName,
     /*! [in] The service type.. */
@@ -186,7 +186,7 @@ PUPNP_API IXML_Document* UpnpMakeActionResponse(
  */
 PUPNP_API int UpnpAddToAction(
     /*! [in,out] A pointer to store the action document node. */
-    IXML_Document** ActionDoc,
+    compa::xml::IXML_Document** ActionDoc,
     /*! [in] The action name. */
     const char* ActionName,
     /*! [in] The service type. */
@@ -216,7 +216,7 @@ PUPNP_API int UpnpAddToAction(
  */
 PUPNP_API int UpnpAddToActionResponse(
     /*! [in,out] Pointer to a document to store the action document node. */
-    IXML_Document** ActionResponse,
+    compa::xml::IXML_Document** ActionResponse,
     /*! [in] The action name. */
     const char* ActionName,
     /*! [in] The service type. */
@@ -234,7 +234,7 @@ PUPNP_API int UpnpAddToActionResponse(
  *
  * \return <tt>NULL</tt> on failure, or the property-set document node.
  */
-PUPNP_API IXML_Document* UpnpCreatePropertySet(
+PUPNP_API compa::xml::IXML_Document* UpnpCreatePropertySet(
     /*! [in] The number of argument pairs passed. */
     int NumArg,
     /*! [in] The status variable name and value pair. */
@@ -260,7 +260,7 @@ PUPNP_API IXML_Document* UpnpCreatePropertySet(
 PUPNP_API int UpnpAddToPropertySet(
     /*! [in,out] A pointer to the document containing the property set document
        node. */
-    IXML_Document** PropSet,
+    compa::xml::IXML_Document** PropSet,
     /*! [in] The status variable name. */
     const char* ArgName,
     /*! [in] The status variable value. */

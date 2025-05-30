@@ -44,13 +44,17 @@
 #include <upnpapi.hpp>
 #include <uuid.hpp>
 
+using compa::xml::IXML_Document;
+using compa::xml::IXML_SUCCESS;
+
+
+namespace {
+
 struct job_arg {
     int handle;
     int eventId;
     void* Event;
 };
-
-namespace {
 
 /*! \brief Mutex to synchronize the subscription handling at the control point
  * side. */
@@ -411,6 +415,7 @@ int gena_subscribe(
 }
 
 } // namespace
+
 
 int clientSubscribeMutexInit() {
     pthread_mutexattr_t attr;

@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-05
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,11 +39,11 @@
  * @{
  */
 
-#include "sample_util.hpp"
+#include <sample_util.hpp>
 
-#include "UpnpString.hpp"
-#include "upnp.hpp"
-#include "upnptools.hpp"
+#include <UpnpString.hpp>
+#include <upnp.hpp>
+#include <upnptools.hpp>
 #include "pthread.h" // To find pthreads4w don't use <pthread.h>
 
 #include <signal.h>
@@ -246,7 +246,8 @@ int TvCtrlPointPrintDevice(
  * Otherwise, update its advertisement expiration timeout.
  */
 void TvCtrlPointAddDevice(
-    IXML_Document* DescDoc, ///< [in] The description document for the device
+    NSXML::IXML_Document*
+        DescDoc,          ///< [in] The description document for the device
     const char* location, ///< [in] The location of the description document URL
     int expires           ///< [in] The expiration time for this advertisement
 );
@@ -267,7 +268,7 @@ void TvStateUpdate(
     /*! [in] The service state table to update. */
     int Service,
     /*! [out] DOM document representing the XML received with the event. */
-    IXML_Document* ChangedVariables,
+    NSXML::IXML_Document* ChangedVariables,
     /*! [out] pointer to the state table for the Tv  service to update. */
     char** State);
 
@@ -277,9 +278,10 @@ void TvStateUpdate(
  * Process the event and update the appropriate service state table.
  */
 void TvCtrlPointHandleEvent(
-    const char* sid,       ///< [in] The subscription id for the event
-    int evntkey,           ///< [in] The eventkey number for the event
-    IXML_Document* changes ///< [in] The DOM document representing the changes
+    const char* sid, ///< [in] The subscription id for the event
+    int evntkey,     ///< [in] The eventkey number for the event
+    NSXML::IXML_Document*
+        changes      ///< [in] The DOM document representing the changes
 );
 
 /*!

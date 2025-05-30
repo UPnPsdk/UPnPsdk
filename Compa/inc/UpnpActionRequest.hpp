@@ -124,25 +124,25 @@ PUPNP_API int UpnpActionRequest_strncpy_ServiceID(UpnpActionRequest* p,
 PUPNP_API void UpnpActionRequest_clear_ServiceID(UpnpActionRequest* p);
 
 /*! UpnpActionRequest_get_ActionRequest */
-PUPNP_API IXML_Document*
+PUPNP_API compa::xml::IXML_Document*
 UpnpActionRequest_get_ActionRequest(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_ActionRequest */
 PUPNP_API int UpnpActionRequest_set_ActionRequest(UpnpActionRequest* p,
-                                                  IXML_Document* n);
+                                                  compa::xml::IXML_Document* n);
 
 /*! UpnpActionRequest_get_ActionResult */
-PUPNP_API IXML_Document*
+PUPNP_API compa::xml::IXML_Document*
 UpnpActionRequest_get_ActionResult(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_ActionResult */
 PUPNP_API int UpnpActionRequest_set_ActionResult(UpnpActionRequest* p,
-                                                 IXML_Document* n);
+                                                 compa::xml::IXML_Document* n);
 
 /*! UpnpActionRequest_get_SoapHeader */
-PUPNP_API IXML_Document*
+PUPNP_API compa::xml::IXML_Document*
 UpnpActionRequest_get_SoapHeader(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_SoapHeader */
 PUPNP_API int UpnpActionRequest_set_SoapHeader(UpnpActionRequest* p,
-                                               IXML_Document* n);
+                                               compa::xml::IXML_Document* n);
 
 /*! UpnpActionRequest_get_CtrlPtIPAddr */
 PUPNP_API const struct sockaddr_storage*

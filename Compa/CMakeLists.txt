@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-29
+# Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -220,7 +220,9 @@ set(COMPA_PUBLIC_HEADERS
 
 set(COMPA_INCLUDE_DIRECTORIES
     PUBLIC inc
+    PUBLIC inc/ixml
     PUBLIC src/inc
+    PUBLIC src/inc/ixml
     PUBLIC src/threadutil
     PUBLIC ${PUPNP_SOURCE_DIR}/include
     PUBLIC ${CMAKE_SOURCE_DIR}/Interface/include

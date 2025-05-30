@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-05-29
 // Also Copyright by other contributor as noted below.
 /*!
  * \file
@@ -14,6 +14,10 @@
 #include <cstdlib> /* for calloc(), free() */
 #include <cstring> /* for strlen(), strdup() */
 /// \endcond
+
+using compa::xml::ixmlCloneDOMString;
+using compa::xml::ixmlFreeDOMString;
+
 
 /// \brief With header typedef "protected" s_UpnpStateVarRequest
 struct s_UpnpStateVarRequest {

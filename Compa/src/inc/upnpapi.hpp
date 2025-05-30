@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -99,11 +99,12 @@ struct Handle_Info {
     int PowerState;               ///< Power State as defined by UPnP Low Power.
     int SleepPeriod;       ///< Sleep Period as defined by UPnP Low Power.
     int RegistrationState; ///< Registration State as defined by UPnP Low Power.
-    IXML_Document*
+    compa::xml::IXML_Document*
         DescDocument;      ///< Description parsed in terms of DOM document.
-    IXML_NodeList* DeviceList; ///< List of devices in the description document.
-    IXML_NodeList*
-        ServiceList;      ///< List of services in the description document.
+    compa::xml::IXML_NodeList*
+        DeviceList;        ///< List of devices in the description document.
+    compa::xml::IXML_NodeList*
+        ServiceList;       ///< List of services in the description document.
     service_table
         ServiceTable;     ///< Table holding subscriptions and URL information.
     int MaxSubscriptions; ///< ???
@@ -269,8 +270,8 @@ struct UpnpNonblockParam {
     Upnp_SID SubsId;
     char* Cookie;
     Upnp_FunPtr Fun;
-    IXML_Document* Header;
-    IXML_Document* Act;
+    compa::xml::IXML_Document* Header;
+    compa::xml::IXML_Document* Act;
     struct DevDesc* Devdesc;
     /// @}
 };

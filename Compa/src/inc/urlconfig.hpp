@@ -7,7 +7,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-07
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -59,7 +59,7 @@
 int configure_urlbase(
     /*! [in,out] IXML Description document (dom document whose urlbase is to be
                  modified). */
-    IXML_Document* doc,
+    compa::xml::IXML_Document* doc,
     /*! [in] Socket address object providing the IP address and port information
              (ip address and port of the miniserver). */
     const sockaddr* serverAddr,

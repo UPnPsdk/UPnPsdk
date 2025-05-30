@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-02-28
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -61,6 +61,13 @@
 
 
 namespace {
+
+using compa::xml::IXML_Document;
+using compa::xml::IXML_Node;
+using compa::xml::IXML_SUCCESS;
+using compa::xml::ixmlCloneDOMString;
+using compa::xml::ixmlFreeDOMString;
+
 
 /*! \name Variable scope restricted to file
  * @{ */

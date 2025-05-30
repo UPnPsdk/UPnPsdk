@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-02
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  k
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -50,6 +50,16 @@
 #endif
 
 #ifdef COMPA_HAVE_DEVICE_GENA
+
+using compa::xml::eELEMENT_NODE;
+using compa::xml::eTEXT_NODE;
+using compa::xml::IXML_Element;
+using compa::xml::IXML_Node;
+using compa::xml::IXML_NodeList;
+using compa::xml::ixmlCloneDOMString;
+using compa::xml::ixmlFreeDOMString;
+
+
 namespace {
 
 /*!

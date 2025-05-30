@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-03-02
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -336,7 +336,7 @@ void freeServiceTable(
  */
 int removeServiceTable(
     /*! [in] XML node information. */
-    IXML_Node* node,
+    compa::xml::IXML_Node* node,
     /*! [in] Service table from which services will be removed. */
     service_table* in);
 
@@ -347,7 +347,7 @@ int removeServiceTable(
  */
 int addServiceTable(
     /*! [in] XML node information. */
-    IXML_Node* node,
+    compa::xml::IXML_Node* node,
     /*! [in] Service table that will be initialized with services. */
     service_table* in,
     /*! [in] Default base URL on which the URL will be returned to the
@@ -363,7 +363,7 @@ int addServiceTable(
  */
 int getServiceTable(
     /*! [in] XML node information. */
-    IXML_Node* node,
+    compa::xml::IXML_Node* node,
     /*! [in] Output parameter which will contain the service list and URL. */
     service_table* out,
     /*! [in] Default base URL on which the URL will be returned. */
@@ -381,7 +381,7 @@ int getServiceTable(
  */
 DOMString getElementValue(
     /*! [in] Input node which provides the list of child nodes. */
-    IXML_Node* node);
+    compa::xml::IXML_Node* node);
 
 /*!
  * \brief Traverses through a list of XML nodes to find the node with the
@@ -397,9 +397,9 @@ int getSubElement(
     /*! [in] Sub element name to be searched for. */
     const char* element_name,
     /*! [in] Input node which provides the list of child nodes. */
-    IXML_Node* node,
+    compa::xml::IXML_Node* node,
     /*! [out] Ouput node to which the matched child node is returned. */
-    IXML_Node** out);
+    compa::xml::IXML_Node** out);
 
 #endif /* COMPA_HAVE_DEVICE_GENA */
 #endif /* COMPA_HAVE_DEVICE_SSDP */

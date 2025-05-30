@@ -12,6 +12,9 @@
 #include <stdlib.h> /* for calloc(), free() */
 #include <string.h> /* for strlen(), strdup() */
 
+using compa::xml::IXML_Document;
+
+
 /// \brief s_UpnpEvent
 struct s_UpnpEvent {
     /// @{

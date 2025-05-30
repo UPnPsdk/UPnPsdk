@@ -39,11 +39,16 @@
 
 #include <cstring>
 
+
+namespace compa::xml {
+
+namespace {
+
 /*!
  * \brief Appends a string to a buffer, substituting some characters by escape
  * sequences.
  */
-static void copy_with_escape(
+void copy_with_escape(
     /*! [in,out] The input/output buffer. */
     ixml_membuf* buf,
     /*! [in] The string to copy from. */
@@ -82,7 +87,7 @@ static void copy_with_escape(
  * \brief Recursive function to print all the node in a tree.
  * Internal to parser only.
  */
-static void ixmlPrintDomTreeRecursive(
+void ixmlPrintDomTreeRecursive(
     /*! [in] \todo documentation. */
     IXML_Node* nodeptr,
     /*! [in] \todo documentation. */
@@ -174,7 +179,7 @@ static void ixmlPrintDomTreeRecursive(
  * Element, and Attribute nodes are handled differently. We don't want to print
  * the Element and Attribute nodes' sibling.
  */
-static void ixmlPrintDomTree(
+void ixmlPrintDomTree(
     /*! [in] \todo documentation. */
     IXML_Node* nodeptr,
     /*! [in] \todo documentation. */
@@ -241,7 +246,7 @@ static void ixmlPrintDomTree(
  * Element, and Attribute nodes are handled differently. We don't want to print
  * the Element and Attribute nodes' sibling.
  */
-static void ixmlDomTreetoString(
+void ixmlDomTreetoString(
     /*! [in] \todo documentation. */
     IXML_Node* nodeptr,
     /*! [in] \todo documentation. */
@@ -302,6 +307,9 @@ static void ixmlDomTreetoString(
         break;
     }
 }
+
+} // anonymous namespace
+
 
 int ixmlLoadDocumentEx(const char* xmlFile, IXML_Document** doc) {
     if (xmlFile == NULL || doc == NULL) {
@@ -420,3 +428,5 @@ void ixmlFreeDOMString(DOMString buf) {
         free(buf);
     }
 }
+
+} // namespace compa::xml

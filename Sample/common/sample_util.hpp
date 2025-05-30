@@ -1,12 +1,11 @@
 #ifndef UPNPLIB_SAMPLE_UTIL_HPP
 #define UPNPLIB_SAMPLE_UTIL_HPP
-
 /*******************************************************************************
  *
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,20 +32,24 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-
-/*!
- * \defgroup UpnpSamples Sample Code
- *
- * @{
- *
+/*<
  * \file
+ * \defgroup UpnpSamples Sample Code
+ * @{
  */
 
-#include "upnp.hpp" /* for Upnp_EventType */
-#include "upnptools.hpp"
+#include <upnp.hpp> /* for Upnp_EventType */
+#include <upnptools.hpp>
+#include <ixml.hpp>
 
 #include "pthread.h" // To find pthreads4w don't use <pthread.h>
 #include <string.h>
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+#define NSXML
+#else
+#define NSXML compa::xml
+#endif
 
 #if defined(SAMPLE_UTIL_C) || defined(DOXYGEN_RUN)
 /*! Service types for tv services. */
@@ -73,7 +76,7 @@ typedef enum {
  */
 char* SampleUtil_GetElementValue(
     /*! [in] The DOM node from which to extract the value. */
-    IXML_Element* element);
+    NSXML::IXML_Element* element);
 
 /*!
  * \brief Given a DOM node representing a UPnP Device Description Document,
@@ -84,9 +87,9 @@ char* SampleUtil_GetElementValue(
  *
  * \return The service list is returned as a DOM node list.
  */
-IXML_NodeList* SampleUtil_GetFirstServiceList(
+NSXML::IXML_NodeList* SampleUtil_GetFirstServiceList(
     /*! [in] The DOM node from which to extract the service list. */
-    IXML_Document* doc);
+    NSXML::IXML_Document* doc);
 
 /*!
  * \brief Given a document node, this routine searches for the first element
@@ -95,7 +98,7 @@ IXML_NodeList* SampleUtil_GetFirstServiceList(
  */
 char* SampleUtil_GetFirstDocumentItem(
     /*! [in] The DOM document from which to extract the value. */
-    IXML_Document* doc,
+    NSXML::IXML_Document* doc,
     /*! [in] The item to search for. */
     const char* item);
 
@@ -106,7 +109,7 @@ char* SampleUtil_GetFirstDocumentItem(
  */
 char* SampleUtil_GetFirstElementItem(
     /*! [in] The DOM element from which to extract the value. */
-    IXML_Element* element,
+    NSXML::IXML_Element* element,
     /*! [in] The item to search for. */
     const char* item);
 
@@ -134,7 +137,7 @@ int SampleUtil_PrintEvent(
  */
 int SampleUtil_FindAndParseService(
     /*! [in] The DOM description document. */
-    IXML_Document* DescDoc,
+    NSXML::IXML_Document* DescDoc,
     /*! [in] The location of the description document. */
     const char* location,
     /*! [in] The type of service to search for. */

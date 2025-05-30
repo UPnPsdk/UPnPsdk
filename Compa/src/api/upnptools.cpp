@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-26
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-30
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -47,6 +47,19 @@
 
 #include <stdarg.h>
 #include <stdio.h>
+
+
+using compa::xml::IXML_Document;
+using compa::xml::IXML_Element;
+using compa::xml::IXML_INSUFFICIENT_MEMORY;
+using compa::xml::IXML_Node;
+using compa::xml::IXML_SUCCESS;
+using compa::xml::ixmlDocument_createElement;
+using compa::xml::ixmlDocument_createTextNode;
+using compa::xml::ixmlNode_appendChild;
+using compa::xml::ixmlNode_getFirstChild;
+using compa::xml::ixmlParseBufferEx;
+
 
 /*! Maximum action header buffer length. */
 constexpr int HEADER_LENGTH{2000};

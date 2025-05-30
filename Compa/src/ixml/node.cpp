@@ -40,6 +40,9 @@
 #include <cassert>
 #include <cstring>
 
+
+namespace compa::xml {
+
 void ixmlNode_init(IXML_Node* nodeptr) {
     assert(nodeptr != NULL);
 
@@ -1364,3 +1367,5 @@ void* ixmlNode_getCTag(IXML_Node* nodeptr) {
         return NULL;
 }
 #endif
+
+} // namespace compa::xml

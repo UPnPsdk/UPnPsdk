@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-03-03
+// Redistribution only with this Copyright remark. Last modified: 2025-05-29
 // Also Copyright by other contributor as noted below.
 /*!
  * \file
@@ -10,6 +10,10 @@
 #include <UpnpExtraHeaders.hpp>
 
 #include <cstdlib> /* for calloc(), free() */
+
+using compa::xml::ixmlCloneDOMString;
+using compa::xml::ixmlFreeDOMString;
+
 
 /// \brief s_UpnpExtraHeaders
 struct s_UpnpExtraHeaders {

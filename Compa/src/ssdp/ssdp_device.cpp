@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -57,6 +57,17 @@
 #include <cassert>
 #include <thread>
 /// \endcond
+
+using compa::xml::IXML_Element;
+using compa::xml::IXML_Node;
+using compa::xml::IXML_NodeList;
+using compa::xml::ixmlElement_getElementsByTagName;
+using compa::xml::ixmlNode_getFirstChild;
+using compa::xml::ixmlNode_getNextSibling;
+using compa::xml::ixmlNode_getNodeName;
+using compa::xml::ixmlNode_getNodeValue;
+using compa::xml::ixmlNodeList_free;
+using compa::xml::ixmlNodeList_item;
 
 
 namespace {

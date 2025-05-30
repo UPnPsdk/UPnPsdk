@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-26
+ * Redistribution only with this Copyright remark. Last modified: 2025-05-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -60,7 +60,26 @@
 #include <cstring>
 /// \endcond
 
+using compa::xml::IXML_Document;
+using compa::xml::IXML_INSUFFICIENT_MEMORY;
+using compa::xml::IXML_Node;
+using compa::xml::IXML_SUCCESS;
+using compa::xml::ixmlDocument_free;
+using compa::xml::ixmlParseBufferEx;
+
+
 namespace {
+
+using compa::xml::eTEXT_NODE;
+using compa::xml::ixmlFreeDOMString;
+using compa::xml::ixmlNode_getFirstChild;
+using compa::xml::ixmlNode_getLocalName;
+using compa::xml::ixmlNode_getNamespaceURI;
+using compa::xml::ixmlNode_getNodeType;
+using compa::xml::ixmlNode_getNodeValue;
+using compa::xml::ixmlParseBufferEx;
+using compa::xml::ixmlPrintNode;
+
 
 /*! \name Variables scope restricted to file
  * @{ */

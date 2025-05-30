@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-05-30
 // Also Copyright by other contributor as noted below.
 /*!
  * \file
@@ -14,6 +14,9 @@
 #include <stdlib.h> /* for calloc(), free() */
 #include <string.h> /* for strlen(), strdup() */
 /// \endcond
+
+using compa::xml::IXML_Document;
+
 
 /// \brief s_UpnpActionRequest
 struct s_UpnpActionRequest {

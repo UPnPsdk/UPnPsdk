@@ -46,6 +46,9 @@
 #define MEMBUF_DEF_SIZE_INC 20u
 /// \endcond
 
+
+namespace compa::xml {
+
 /*!
  * \brief The ixml_membuf type.
  */
@@ -157,5 +160,7 @@ int ixml_membuf_insert(
     /*! [in] The point of insertion relative to the beggining of the
      * ixml_membuf internal buffer. */
     size_t index);
+
+} // namespace compa::xml
 
 #endif /* UPNPLIB_IXML_MEMBUF_HPP */

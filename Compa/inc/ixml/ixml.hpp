@@ -41,6 +41,8 @@
 
 #include <UPnPsdk/visibility.hpp>
 
+namespace compa::xml {
+
 /*!
  * \brief The type of DOM strings.
  */
@@ -1716,5 +1718,7 @@ PUPNP_API void ixmlFreeDOMString(
 } // extern "C"
 
 /*! @} XMLAPI XML API */
+
+} // namespace compa::xml
 
 #endif /* UPNPLIB_IXML_HPP */

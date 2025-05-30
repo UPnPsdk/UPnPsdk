@@ -41,6 +41,10 @@
 #include <cassert>
 #include <cstring>
 
+
+namespace compa::xml {
+
+namespace {
 /*!
  * \brief Increases or decreases buffer capacity so that at least 'new_length'
  * bytes can be stored.
@@ -51,7 +55,7 @@
  *  \li UPNP_E_SUCCESS
  *  \li UPNP_E_OUTOF_MEMORY
  */
-static int ixml_membuf_set_size(
+int ixml_membuf_set_size(
     /*! [in,out] The memory buffer. */
     ixml_membuf* m,
     /*! [in] The new lenght. */
@@ -98,6 +102,9 @@ static int ixml_membuf_set_size(
 
     return 0;
 }
+
+} // anonymous namespace
+
 
 void ixml_membuf_init(ixml_membuf* m) {
     assert(m != NULL);
@@ -200,3 +207,5 @@ int ixml_membuf_insert(
 
     return 0;
 }
+
+} // namespace compa::xml

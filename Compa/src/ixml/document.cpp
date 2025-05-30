@@ -40,15 +40,9 @@
 
 #include <cstring>
 
-void ixmlDocument_init(IXML_Document* doc) {
-    memset(doc, 0, sizeof(IXML_Document));
-}
+namespace compa::xml {
 
-void ixmlDocument_free(IXML_Document* doc) {
-    if (doc != NULL) {
-        ixmlNode_free((IXML_Node*)doc);
-    }
-}
+namespace {
 
 /*!
  * When this function is called first time, nodeptr is the root of the subtree,
@@ -56,7 +50,7 @@ void ixmlDocument_free(IXML_Document* doc) {
  *
  * Internal function called by ixmlDocument_importNode
  */
-static void ixmlDocument_setOwnerDocument(
+void ixmlDocument_setOwnerDocument(
     /*! [in] The document node. */
     IXML_Document* doc,
     /*! [in] \todo documentation. */
@@ -65,6 +59,19 @@ static void ixmlDocument_setOwnerDocument(
         nodeptr->ownerDocument = doc;
         ixmlDocument_setOwnerDocument(doc, ixmlNode_getFirstChild(nodeptr));
         ixmlDocument_setOwnerDocument(doc, ixmlNode_getNextSibling(nodeptr));
+    }
+}
+
+} // anonymous namespace
+
+
+void ixmlDocument_init(IXML_Document* doc) {
+    memset(doc, 0, sizeof(IXML_Document));
+}
+
+void ixmlDocument_free(IXML_Document* doc) {
+    if (doc != NULL) {
+        ixmlNode_free((IXML_Node*)doc);
     }
 }
 
@@ -515,3 +522,5 @@ IXML_Element* ixmlDocument_getElementById(IXML_Document* doc,
 
     return rtElement;
 }
+
+} // namespace compa::xml

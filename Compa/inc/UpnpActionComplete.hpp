@@ -56,18 +56,19 @@ PUPNP_API int UpnpActionComplete_strncpy_CtrlUrl(UpnpActionComplete* p,
 PUPNP_API void UpnpActionComplete_clear_CtrlUrl(UpnpActionComplete* p);
 
 /*! UpnpActionComplete_get_ActionRequest */
-PUPNP_API IXML_Document*
+PUPNP_API compa::xml::IXML_Document*
 UpnpActionComplete_get_ActionRequest(const UpnpActionComplete* p);
 /*! UpnpActionComplete_set_ActionRequest */
-PUPNP_API int UpnpActionComplete_set_ActionRequest(UpnpActionComplete* p,
-                                                   IXML_Document* n);
+PUPNP_API int
+UpnpActionComplete_set_ActionRequest(UpnpActionComplete* p,
+                                     compa::xml::IXML_Document* n);
 
 /*! UpnpActionComplete_get_ActionResult */
-PUPNP_API IXML_Document*
+PUPNP_API compa::xml::IXML_Document*
 UpnpActionComplete_get_ActionResult(const UpnpActionComplete* p);
 /*! UpnpActionComplete_set_ActionResult */
 PUPNP_API int UpnpActionComplete_set_ActionResult(UpnpActionComplete* p,
-                                                  IXML_Document* n);
+                                                  compa::xml::IXML_Document* n);
 } // extern "C"
 
 #endif /* COMPA_UPNPACTIONCOMPLETE_HPP */

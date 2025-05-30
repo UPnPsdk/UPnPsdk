@@ -56,7 +56,16 @@
 #define PRIzu "zu"
 /// \endcond
 
+using compa::xml::IXML_Document;
+using compa::xml::IXML_Node;
+using compa::xml::ixmlPrintNode;
+
+
 namespace {
+
+using compa::xml::ixmlCloneDOMString;
+using compa::xml::ixmlFreeDOMString;
+
 
 /*!
  * \brief Generates XML property set for notifications.
