@@ -3,7 +3,7 @@
 #ifndef COMPA_UPNPSTATEVARREQUEST_HPP
 #define COMPA_UPNPSTATEVARREQUEST_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-29
+// Redistribution only with this Copyright remark. Last modified: 2025-06-09
 // Last compare with ./Pupnp source file on 2025-05-23, ver 1.14.20
 /*!
  * \file
@@ -19,10 +19,12 @@
  */
 typedef struct s_UpnpStateVarRequest UpnpStateVarRequest;
 
+#ifdef __cplusplus
 extern "C" {
+#endif /* __cplusplus */
 
 /*! Constructor */
-PUPNP_API UpnpStateVarRequest* UpnpStateVarRequest_new();
+PUPNP_API UpnpStateVarRequest* UpnpStateVarRequest_new(void);
 /*! Destructor */
 PUPNP_API void UpnpStateVarRequest_delete(UpnpStateVarRequest* p);
 /*! Copy Constructor */
@@ -146,7 +148,9 @@ PUPNP_API int UpnpStateVarRequest_set_CurrentVal(UpnpStateVarRequest* p,
 PUPNP_API const char*
 UpnpStateVarRequest_get_CurrentVal_cstr(const UpnpStateVarRequest* p);
 
-} // extern "C"
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif // COMPA_UPNPSTATEVARREQUEST_HPP
 #endif // COMPA_HAVE_DEVICE_SOAP

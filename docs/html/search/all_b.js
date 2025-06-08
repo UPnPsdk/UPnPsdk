@@ -22,7 +22,7 @@ var searchData=
   ['entread_5fusing_5fclen_19',['ENTREAD_USING_CLEN',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#acd3cae2622055961a1c0f8d3417b149e',1,'httpparser.hpp']]],
   ['eoutofmem_20',['EOUTOFMEM',['../de/dd1/LinkedList_8hpp.html#a817bec4c231387b864e2ca495f6ef2ba',1,'LinkedList.hpp']]],
   ['errcode_21',['ErrCode',['../d0/d19/ssdp__common_8hpp.html#a687cd845a2162f9cc279f502a55f1dc1',1,'SsdpEvent']]],
-  ['error_5fbuffer_5flen_22',['ERROR_BUFFER_LEN',['../d0/d5f/Compa_2inc_2API_8hpp.html#a52ec93cb72f4b1bab35fdca43c740ebd',1,'API.hpp']]],
+  ['error_5fbuffer_5flen_22',['ERROR_BUFFER_LEN',['../d0/d19/ssdp__common_8hpp.html#a52ec93cb72f4b1bab35fdca43c740ebd',1,'ssdp_common.hpp']]],
   ['error_5frespond_23',['error_respond',['../dc/d02/gena__callback2_8cpp.html#abb1570eae1e832145e2ae85cf1b5ad75',1,'error_respond(SOCKINFO *info, int error_code, http_message_t *hmsg):&#160;gena_callback2.cpp'],['../d9/dd2/gena_8hpp.html#abb1570eae1e832145e2ae85cf1b5ad75',1,'error_respond(SOCKINFO *info, int error_code, http_message_t *hmsg):&#160;gena_callback2.cpp']]],
   ['error_5fstr_24',['error_str',['../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6',1,'UPnPsdk::CSocketErr']]],
   ['errormessages_25',['errormessages',['../dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03.html#ac65d82fefe8b55566d7085b09c46da08',1,'anonymous_namespace{upnptools.cpp}::ErrorMessages'],['../d6/d13/Compa_2src_2api_2upnptools_8cpp.html#a7c2f2f13c35129b609419648f4ccac2b',1,'ErrorMessages:&#160;upnptools.cpp']]],

@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-05
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,18 +39,18 @@
  * @{
  */
 
-#include "sample_util.hpp"
+#include <sample_util.hpp>
 
-#include "UpnpString.hpp"
-#include "upnp.hpp"
-#include "upnptools.hpp"
+#include <UpnpString.hpp>
+#include <upnp.hpp>
+#include <upnptools.hpp>
 #include "pthread.h" // To find pthreads4w don't use <pthread.h>
 
+/// \cond
 #include <signal.h>
 #include <stdarg.h>
 #include <stdio.h>
 
-/// \cond
 #define TV_SERVICE_SERVCOUNT 2
 #define TV_SERVICE_CONTROL 0
 #define TV_SERVICE_PICTURE 1
@@ -101,10 +101,10 @@ struct TvDevice {
 };
 
 /// \brief TV Device list node
-struct TvDeviceNode {
+typedef struct TvDeviceNode {
     struct TvDevice device;
     struct TvDeviceNode* next;
-};
+} TvDeviceNode;
 
 /// The first node in the global device list, or NULL if empty
 extern TvDeviceNode* GlobalDeviceList;
@@ -134,13 +134,13 @@ int TvCtrlPointRemoveDevice(
 /*!
  * \brief Remove all devices from the global device list
  */
-int TvCtrlPointRemoveAll();
+int TvCtrlPointRemoveAll(void);
 
 /*!
  * \brief Clear the current global device list and issue new search requests to
  * build it up again from scratch
  */
-int TvCtrlPointRefresh();
+int TvCtrlPointRefresh(void);
 
 /*!
  * \brief Send an Action request to the specified service of a device
@@ -229,7 +229,7 @@ int TvCtrlPointGetDevice(
  * \brief Print the universal device names for each device in the global device
  * list
  */
-int TvCtrlPointPrintList();
+int TvCtrlPointPrintList(void);
 
 /*!
  * \brief Print the identifiers and state table for a device from the global
@@ -303,8 +303,7 @@ void TvCtrlPointHandleSubscribeUpdate(
 int TvCtrlPointCallbackEventHandler(
     Upnp_EventType EventType, ///< [in] The type of callback event
     const void* Event,        ///< [in] Data structure containing event data
-    [[maybe_unused]] void*
-        Cookie ///< [in] Optional data specified during callback registration
+    void* Cookie ///< [in] Optional data specified during callback registration
 );
 
 /*!
@@ -330,22 +329,22 @@ void TvCtrlPointVerifyTimeouts(
 int TvCtrlPointStart(char* iface, state_update updateFunctionPtr, int combo);
 
 /// \brief Finish execution of the control point
-int TvCtrlPointStop();
+int TvCtrlPointStop(void);
 
 /*!
  * \brief Print help info for this application.
  */
-void TvCtrlPointPrintShortHelp();
+void TvCtrlPointPrintShortHelp(void);
 
 /*!
  * \brief Print long help info for this application.
  */
-void TvCtrlPointPrintLongHelp();
+void TvCtrlPointPrintLongHelp(void);
 
 /*!
  * \brief Print the list of valid command line commands to the user
  */
-void TvCtrlPointPrintCommands();
+void TvCtrlPointPrintCommands(void);
 
 /*!
  * \brief Function that receives commands from the user

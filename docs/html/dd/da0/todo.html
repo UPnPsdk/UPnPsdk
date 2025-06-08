@@ -103,8 +103,12 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <div class="textblock"><dl class="reflist">
 <dt>File <a class="el" href="../../de/d2c/A__general__TODO-list_8dox.html">A_general_TODO-list.dox</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a><ul>
-<li>Remove Pupunp/include, Pupnp/src, Interface/, and <a class="el" href="../../d8/df6/UpnpGlobal_8hpp_source.html">Compa/inc/UpnpGlobal.hpp</a>.</li>
-<li>Compile pupnp sample source files with pupnp_shared and compa_shared.</li>
+<li>Sample programs built with different libraries.<ul>
+<li>Split API include files into e.g. *.h and *.hpp, start with upnp.h/upnp.hpp.</li>
+</ul>
+</li>
+<li>Install new authentification for Github.</li>
+<li>Implement API of the SDK, remove <a class="el" href="../../d8/df6/UpnpGlobal_8hpp_source.html">Compa/inc/UpnpGlobal.hpp</a>.</li>
 <li>Enable and improve tests in Utest/compa/threadutil.d.</li>
 <li>Improve test_http_Download.cpp, start with error conditions for <a class="el" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters.">http_MakeMessage()</a>.</li>
 <li>Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.</li>
@@ -141,13 +145,15 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <dd><a class="anchor" id="_todo000029"></a>Solve problem with type casts.  </dd>
 <dt>Member <a class="el" href="../../df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a3a03c9cc5754a6fb2c4984ebacd0ba5e">anonymous_namespace{urlconfig.cpp}::addrToString</a>  (const sockaddr *addr, char *ipaddr_port, size_t ipaddr_port_size)</dt>
 <dd><a class="anchor" id="_todo000030"></a>Check bugfix with gtest.  </dd>
+<dt>{<a class="el" href="../../d4/d99/upnpapi_8cpp.html" title="Inititalize the compatible library before it can be used.">upnpapi.cpp</a>} Member <a class="el" href="../../d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a46c5f48668d3cb1dcd599795ca6ce263">compa::anonymous_namespace{upnpapi.cpp}::UpnpRegisterRootDevice3</a>  (const char *const DescUrl, const Upnp_FunPtr Fun, const void *const Cookie, UpnpDevice_Handle *const Hnd, const int AddressFamily, const char *const LowerDescUrl)</dt>
+<dd><a class="anchor" id="_todo000004"></a>Check DEVICE_SSDP vs. CTRLPT_SSDP against struct <a class="el" href="../../d3/da9/upnpapi_8hpp.html#d3/d84/structHandle__Info" title="Data to be stored in handle table for Handle Info.">Handle_Info</a>  </dd>
 <dt>Member <a class="el" href="../../d6/d4b/sysdep_8cpp.html#a0608b6a88b9fe8140a7b486ef8aa0da6">get_random_info</a>  (unsigned char seed[16])</dt>
 <dd><a class="anchor" id="_todo000031"></a>Optimize function. &ndash;Ingo  </dd>
 <dt>Member <a class="el" href="../../de/db9/document_8cpp.html#a0b2863a17f9bedc235e0387c90c4ffa9">ixmlDocument_setOwnerDocument</a>  (IXML_Document *doc, IXML_Node *nodeptr)</dt>
 <dd><a class="anchor" id="_todo000020"></a>documentation.  </dd>
 <dt>Member <a class="el" href="../../d2/db9/ixml_8cpp.html#adb1e276b6bb10b9e28a15ede46aa01c5">ixmlDomTreetoString</a>  (IXML_Node *nodeptr, <a class="el" href="../../de/dad/ixmlmembuf_8hpp.html#d6/d70/structixml__membuf" title="The ixml_membuf type.">ixml_membuf</a> *buf)</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000026"></a>documentation. </p>
-<p class="enddd"><a class="anchor" id="_todo000025"></a>documentation.  </p>
+<dd><p class="startdd"><a class="anchor" id="_todo000025"></a>documentation. </p>
+<p class="enddd"><a class="anchor" id="_todo000026"></a>documentation.  </p>
 </dd>
 <dt>Member <a class="el" href="../../d2/db9/ixml_8cpp.html#a57c5e6bece9155fa54ea918005d61197">ixmlPrintDomTree</a>  (IXML_Node *nodeptr, <a class="el" href="../../de/dad/ixmlmembuf_8hpp.html#d6/d70/structixml__membuf" title="The ixml_membuf type.">ixml_membuf</a> *buf)</dt>
 <dd><p class="startdd"><a class="anchor" id="_todo000024"></a>documentation. </p>
@@ -173,8 +179,6 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 </dd>
 <dt>Struct <a class="el" href="../../d6/df0/sock_8hpp.html">SOCKINFO</a>  </dt>
 <dd><a class="anchor" id="_todo000018"></a>Cleanup constants: In &lt;sys/socket.h&gt; are defined SHUT_RD, SHUT_WR, SHUT_RDWR with 0, 1, 2, according to man 2 shutdown.  </dd>
-<dt>Member <a class="el" href="../../d7/df3/group__compaAPI-Addressing.html#gabdf5fa8ba5f5ece15001f4e52e956383">UpnpRegisterRootDevice3</a>  (const char *const DescUrl, const Upnp_FunPtr Fun, const void *const Cookie, UpnpDevice_Handle *const Hnd, const int AddressFamily, const char *const LowerDescUrl=nullptr)</dt>
-<dd><a class="anchor" id="_todo000004"></a>Check DEVICE_SSDP vs. CTRLPT_SSDP against struct <a class="el" href="../../d3/da9/upnpapi_8hpp.html#d3/d84/structHandle__Info" title="Data to be stored in handle table for Handle Info.">Handle_Info</a>  </dd>
 <dt>Member <a class="el" href="../../d3/d57/group__UPnPTools.html#ga1778ebae2904d4377114586162f2d218">UpnpResolveURL</a>  (const char *BaseURL, const char *RelURL, char *AbsURL)</dt>
 <dd><a class="anchor" id="_todo000006"></a>There is some unnecessary allocation and deallocation going on here because of the way <a class="el" href="../../d8/dd2/uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356" title="Resolves a relative url with a base url.">resolve_rel_url()</a> was originally written and used. In the future it would be nice to clean this up.  </dd>
 <dt>Member <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d">UPnPsdk::CAddrinfo::get_first</a>  ()</dt>

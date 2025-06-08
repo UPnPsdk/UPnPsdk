@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPFILEINFO_HPP
 #define COMPA_UPNPFILEINFO_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-29
+// Redistribution only with this Copyright remark. Last modified: 2025-06-09
 // Also Copyright by other contributor as noted below.
 // Last compare with ./Pupnp source file on 2025-05-23, ver 1.14.20
 /*!
@@ -31,10 +31,12 @@
 // using C++ private. --Ingo
 typedef struct s_UpnpFileInfo UpnpFileInfo;
 
+#ifdef __cplusplus
 extern "C" {
+#endif /* __cplusplus */
 
 /*! Constructor */
-PUPNP_API UpnpFileInfo* UpnpFileInfo_new();
+PUPNP_API UpnpFileInfo* UpnpFileInfo_new(void);
 /*! Destructor */
 PUPNP_API void UpnpFileInfo_delete(UpnpFileInfo* p);
 /*! Copy Constructor */
@@ -80,11 +82,11 @@ PUPNP_API void UpnpFileInfo_add_to_list_ExtraHeadersList(UpnpFileInfo* p,
                                                          UpnpListHead* head);
 
 /*! UpnpFileInfo_get_CtrlPtIPAddr */
-PUPNP_API const sockaddr_storage*
+PUPNP_API const struct sockaddr_storage*
 UpnpFileInfo_get_CtrlPtIPAddr(const UpnpFileInfo* p);
 /*! UpnpFileInfo_set_CtrlPtIPAddr */
 PUPNP_API int UpnpFileInfo_set_CtrlPtIPAddr(UpnpFileInfo* p,
-                                            const sockaddr_storage* buf);
+                                            const struct sockaddr_storage* buf);
 /*! UpnpFileInfo_clear_CtrlPtIPAddr */
 PUPNP_API void UpnpFileInfo_clear_CtrlPtIPAddr(UpnpFileInfo* p);
 
@@ -103,6 +105,8 @@ PUPNP_API int UpnpFileInfo_strncpy_Os(UpnpFileInfo* p, const char* s, size_t n);
 /*! UpnpFileInfo_clear_Os */
 PUPNP_API void UpnpFileInfo_clear_Os(UpnpFileInfo* p);
 
-} // extern "C"
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* COMPA_UPNPFILEINFO_HPP */

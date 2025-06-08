@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPDISCOVERY_HPP
 #define COMPA_UPNPDISCOVERY_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-09
 // Last compare with ./Pupnp source file on 2025-05-23, ver 1.14.20
 /*!
  * \file
@@ -16,10 +16,12 @@
  */
 typedef struct s_UpnpDiscovery UpnpDiscovery;
 
+#ifdef __cplusplus
 extern "C" {
+#endif /* __cplusplus */
 
 /*! Constructor */
-PUPNP_API UpnpDiscovery* UpnpDiscovery_new();
+PUPNP_API UpnpDiscovery* UpnpDiscovery_new(void);
 /*! Destructor */
 PUPNP_API void UpnpDiscovery_delete(UpnpDiscovery* p);
 /*! Copy Constructor */
@@ -181,6 +183,8 @@ PUPNP_API int UpnpDiscovery_set_DestAddr(UpnpDiscovery* p,
 /*! UpnpDiscovery_clear_DestAddr */
 PUPNP_API void UpnpDiscovery_clear_DestAddr(UpnpDiscovery* p);
 
-} // extern "C"
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* COMPA_UPNPDISCOVERY_HPP */

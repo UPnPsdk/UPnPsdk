@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-15
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -217,7 +217,17 @@ int UpnpGetIfInfo(
 
 namespace { // anonymous namespace for file scoped old upnpapi items.
 
-} // namespace
+/// \cond
+// Compatible call mainly used for Unit Tests.
+[[maybe_unused]] int UpnpGetIfInfo(
+    /*! [in] Interface name (can be nullptr). */
+    const char* a_IFace) {
+    TRACE("Executing ::UpnpGetIfInfo()")
+    return compa::UpnpGetIfInfo(a_IFace == nullptr ? "" : a_IFace);
+}
+/// \endcond
+
+} // anonymous namespace
 
 
 #if !defined(ifr_netmask) || defined(DOXYGEN_RUN) // it's a define if exists
@@ -401,20 +411,6 @@ static void free_action_arg(job_arg* arg) {
     free(arg);
 }
 #endif
-
-namespace {
-
-/// \cond
-// Compatible call mainly used for Unit Tests.
-[[maybe_unused]] int UpnpGetIfInfo(
-    /*! [in] Interface name (can be nullptr). */
-    const char* a_IFace) {
-    TRACE("Executing ::UpnpGetIfInfo()")
-    return compa::UpnpGetIfInfo(a_IFace == nullptr ? "" : a_IFace);
-}
-/// \endcond
-
-} // anonymous namespace
 
 
 /*!
@@ -1165,6 +1161,9 @@ exit_function:
 #endif // COMPA_HAVE_DEVICE_DESCRIPTION
 
 #ifdef COMPA_HAVE_DEVICE_SSDP
+
+namespace compa {
+namespace {
 /// \todo Check DEVICE_SSDP vs. CTRLPT_SSDP against struct Handle_Info
 int UpnpRegisterRootDevice3(const char* const DescUrl, const Upnp_FunPtr Fun,
                             const void* const Cookie,
@@ -1305,16 +1304,26 @@ exit_function:
 
     return retVal;
 }
+} // anonymous namespace
+} // namespace compa
 
-// Same as UpnpRegisterRootDevice3() but LowerDescUrl isn't optional here. This
-// function is deprecated. UpnpRegisterRootDevice3() should alwways be used.
+// UpnpRegisterRootDevice3() (without LowerDescUrl argument).
+int UpnpRegisterRootDevice3(const char* const DescUrl, const Upnp_FunPtr Fun,
+                            const void* const Cookie,
+                            UpnpDevice_Handle* const Hnd,
+                            const int AddressFamily) {
+    return compa::UpnpRegisterRootDevice3(DescUrl, Fun, Cookie, Hnd,
+                                          AddressFamily, nullptr);
+}
+
+// Same as UpnpRegisterRootDevice3() but with LowerDescUrl argument.
 int UpnpRegisterRootDevice4(const char* const DescUrl, const Upnp_FunPtr Fun,
                             const void* const Cookie,
                             UpnpDevice_Handle* const Hnd,
                             const int AddressFamily,
                             const char* const LowerDescUrl) {
-    return UpnpRegisterRootDevice3(DescUrl, Fun, Cookie, Hnd, AddressFamily,
-                                   LowerDescUrl);
+    return compa::UpnpRegisterRootDevice3(DescUrl, Fun, Cookie, Hnd,
+                                          AddressFamily, LowerDescUrl);
 }
 #endif /* COMPA_HAVE_DEVICE_SSDP */
 

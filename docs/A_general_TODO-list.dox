@@ -1,12 +1,12 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-30
+// Redistribution only with this Copyright remark. Last modified: 2025-06-10
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Remove Pupunp/include, Pupnp/src, Interface/, and Compa/inc/UpnpGlobal.hpp.
- * - Compile pupnp sample source files with pupnp_shared and compa_shared.
+ * - Implement API of the SDK, remove Compa/inc/UpnpGlobal.hpp.
+ * - Install new authentification for Github.
  * - Enable and improve tests in Utest/compa/threadutil.d.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
  * - Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.

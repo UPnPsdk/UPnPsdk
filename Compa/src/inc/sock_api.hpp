@@ -1,7 +1,7 @@
 #ifndef COMPA_SOCK_API_HPP
 #define COMPA_SOCK_API_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-05
+// Redistribution only with this Copyright remark. Last modified: 2025-06-09
 /*!
  * \file
  * \ingroup compa-Addressing
@@ -45,7 +45,7 @@ UPnPsdk_API int UpnpInitSslContext(
  * \note This method is only available if the library is compiled with OpenSSL
  * support.
  */
-UPnPsdk_API void freeSslCtx();
+UPnPsdk_API void freeSslCtx(void);
 #endif
 
 /// @} ingroup compaAPI

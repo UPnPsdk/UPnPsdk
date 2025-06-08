@@ -1,7 +1,7 @@
 var UpnpDiscovery_8hpp =
 [
     [ "UpnpDiscovery", "d0/d03/UpnpDiscovery_8hpp.html#a7abc48d730a127184f46721c2a28f291", null ],
-    [ "UpnpDiscovery_new", "d0/d03/UpnpDiscovery_8hpp.html#a9038a9cba5f8055d95e2f236b6be4f48", null ],
+    [ "UpnpDiscovery_new", "d0/d03/UpnpDiscovery_8hpp.html#a91dc3ea4f73accb3d2124732a4b90f3e", null ],
     [ "UpnpDiscovery_delete", "d0/d03/UpnpDiscovery_8hpp.html#a40e95b1c4d109e4b5e91676e7ef12cb9", null ],
     [ "UpnpDiscovery_dup", "d0/d03/UpnpDiscovery_8hpp.html#a30a576f5e96c32d09ffba1d6a39dd4e5", null ],
     [ "UpnpDiscovery_assign", "d0/d03/UpnpDiscovery_8hpp.html#af2eaff94ecf708a301c0aab4930b498f", null ],

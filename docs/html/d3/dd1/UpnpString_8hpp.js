@@ -1,7 +1,7 @@
 var UpnpString_8hpp =
 [
     [ "UpnpString", "d1/d03/group__UpnpString.html#gaeecf142f551b0bc6880a321f07ac381c", null ],
-    [ "UpnpString_new", "d1/d03/group__UpnpString.html#gab66dcdfe778dd5e2e8d16e1131ef9ac1", null ],
+    [ "UpnpString_new", "d1/d03/group__UpnpString.html#ga46d774a04653086ef46a1d5ed8798c50", null ],
     [ "UpnpString_delete", "d1/d03/group__UpnpString.html#ga8877a4f1ad605a508a31942527f0ce9f", null ],
     [ "UpnpString_dup", "d1/d03/group__UpnpString.html#ga04a9bde6f73e0b38ef037b0b61776d87", null ],
     [ "UpnpString_assign", "d1/d03/group__UpnpString.html#gaf388f53d32e149566c8eaede13a1a99b", null ],

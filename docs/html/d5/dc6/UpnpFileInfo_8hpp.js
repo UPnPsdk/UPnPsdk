@@ -1,7 +1,7 @@
 var UpnpFileInfo_8hpp =
 [
     [ "UpnpFileInfo", "d5/dc6/UpnpFileInfo_8hpp.html#a0e5b0f7fd1363e710e4b47b49c91d126", null ],
-    [ "UpnpFileInfo_new", "d5/dc6/UpnpFileInfo_8hpp.html#ad3ef6e701fdb726a57b2ae51366dd727", null ],
+    [ "UpnpFileInfo_new", "d5/dc6/UpnpFileInfo_8hpp.html#acd046818250b4b1871ee04bd9f806b23", null ],
     [ "UpnpFileInfo_delete", "d5/dc6/UpnpFileInfo_8hpp.html#a5dc502da718433ca96364d92aa6e3251", null ],
     [ "UpnpFileInfo_dup", "d5/dc6/UpnpFileInfo_8hpp.html#a2a6ed1cbd4186bd2cf28072d41f46618", null ],
     [ "UpnpFileInfo_assign", "d5/dc6/UpnpFileInfo_8hpp.html#a584e565c3ce0e5ccf121550c0d519e51", null ],
@@ -19,8 +19,8 @@ var UpnpFileInfo_8hpp =
     [ "UpnpFileInfo_get_ExtraHeadersList", "d5/dc6/UpnpFileInfo_8hpp.html#adf274a9a05baa7016bbb9bfcf81ab3ad", null ],
     [ "UpnpFileInfo_set_ExtraHeadersList", "d5/dc6/UpnpFileInfo_8hpp.html#a0d85e85d189a7fcf3a4a5152cc1bc15c", null ],
     [ "UpnpFileInfo_add_to_list_ExtraHeadersList", "d5/dc6/UpnpFileInfo_8hpp.html#a8248055c6d889aa7a3be67b6923e826f", null ],
-    [ "UpnpFileInfo_get_CtrlPtIPAddr", "d5/dc6/UpnpFileInfo_8hpp.html#a3ad06dd4880c11df12aa8195b28d456f", null ],
-    [ "UpnpFileInfo_set_CtrlPtIPAddr", "d5/dc6/UpnpFileInfo_8hpp.html#ae0d686ec77601a7c45ee573c55e08b1b", null ],
+    [ "UpnpFileInfo_get_CtrlPtIPAddr", "d5/dc6/UpnpFileInfo_8hpp.html#a1e7fd47243c1ef1e4f6f91eb1bb2159f", null ],
+    [ "UpnpFileInfo_set_CtrlPtIPAddr", "d5/dc6/UpnpFileInfo_8hpp.html#a1a04b663851e51b922cbf5def0257256", null ],
     [ "UpnpFileInfo_clear_CtrlPtIPAddr", "d5/dc6/UpnpFileInfo_8hpp.html#a3263075fd9d47e6c156be1aac1639713", null ],
     [ "UpnpFileInfo_get_Os", "d5/dc6/UpnpFileInfo_8hpp.html#aa32f1d7ce2ad63949be8c74d2d64587a", null ],
     [ "UpnpFileInfo_set_Os", "d5/dc6/UpnpFileInfo_8hpp.html#a0f6b004ab4d5b34563830d54a72bb1a7", null ],

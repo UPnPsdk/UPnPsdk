@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -45,6 +45,7 @@
 
 /// \cond
 #include "pthread.h" // To find pthreads4w don't use <pthread.h>
+#include <signal.h>
 
 /*! Number of services. */
 #define TV_SERVICE_SERVCOUNT 2
@@ -91,7 +92,7 @@
 /*! This should be the maximum VARCOUNT from above */
 #define TV_MAXVARS TV_PICTURE_VARCOUNT
 
-enum struct Ip_mode { UNSPEC, IP4, LLA, GUA, BEST };
+enum Ip_mode { UNSPEC, IP4, LLA, GUA, BEST };
 /// \endcond
 
 /*!
@@ -488,7 +489,7 @@ int TvDeviceStart(
 /*!
  * \brief Stops the device. Uninitializes the SDK.
  */
-int TvDeviceStop();
+int TvDeviceStop(void);
 
 /*!
  * \brief Function that receives commands from the user at the command prompt

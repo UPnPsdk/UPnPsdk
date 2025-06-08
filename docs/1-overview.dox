@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-19
+// Redistribution only with this Copyright remark. Last modified: 2025-06-09
 
 /*!
 \mainpage Overview
@@ -11,6 +11,23 @@ ___
 \section overview_parts Parts 'Control Point' and 'UPnP Device'
 
 The SDK has two parts, handling Control Points or UPnP Devices. They are largely independent of each other. You can compile both parts separately so you have resulting libraries that only handle Control Points or UPnP Devices. That make sense for installations that are only a Control Point or only a UPnP Device and is of particular interest for embedded devices. Of course you can also have both parts for hybrid applications.
+
+\section overview_libs Internal Libraries
+
+We have three different internal libraries:
+- \b pupnp: original code from the fork, based on version 1.14.22 with all its bugs and quirks, only modified to compile as C++ code.
+- \b compa: compatible library, partly with re-engineered code from \b pupnp  and with objects from UPnPsdk to emulate the API (Application Programming Interface) from \b pupnp. It compiles to a library that is drop in compatible to its ABI (Application Binary Interface) so you can just replace an old binary \b libupnp with the binary compa library without modifications or recompiling programs. It fixes bugs and add additional issues that are given by the new UPnPsdk objects. If old programs depend on bugs of the old library they may behave different.
+- \b UPnPsdk: completely new written object oriented UPnP Software Developement Kit. It is intended to support only this library after a transition period.
+
+To manage a smooth transition from old pUPnP "C" code to the object oriented C++ class library there are different compile modes specified.
+
+   code      | with library  | build | mode
+------------ | ------------- | ----- | ----------------------
+   old       |     pupnp     |  yes  | verify (if old programs still run as expected)
+   old       |     compa     |  yes  | compatibility (used to start transition)
+   new       |     pupnp     |  no   | not supported
+old modified |     compa     |  yes  | portability to UPnPsdk (step by step ongoing transition)
+   new       |     UPnPsdk   |  yes  | new project
 
 \section overview_comp Main Components
 

@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPSUBSCRIPTIONREQUEST_HPP
 #define COMPA_UPNPSUBSCRIPTIONREQUEST_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-09
 // Last compare with ./Pupnp source file on 2025-05-23, ver 1.14.20
 /*!
  * \file
@@ -11,19 +11,17 @@
 
 #include "UpnpString.hpp"
 
-/// \cond
-#include <cstdlib> /* for size_t */
-/// \endcond
-
 /*!
  * UpnpSubscriptionRequest
  */
 typedef struct s_UpnpSubscriptionRequest UpnpSubscriptionRequest;
 
+#ifdef __cplusplus
 extern "C" {
+#endif /* __cplusplus */
 
 /*! Constructor */
-PUPNP_API UpnpSubscriptionRequest* UpnpSubscriptionRequest_new();
+PUPNP_API UpnpSubscriptionRequest* UpnpSubscriptionRequest_new(void);
 /*! Destructor */
 PUPNP_API void UpnpSubscriptionRequest_delete(UpnpSubscriptionRequest* p);
 /*! Copy Constructor */
@@ -99,6 +97,8 @@ PUPNP_API int UpnpSubscriptionRequest_strncpy_SID(UpnpSubscriptionRequest* p,
 /*! UpnpSubscriptionRequest_clear_SID */
 PUPNP_API void UpnpSubscriptionRequest_clear_SID(UpnpSubscriptionRequest* p);
 
-} // extern "C"
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* COMPA_UPNPSUBSCRIPTIONREQUEST_HPP */

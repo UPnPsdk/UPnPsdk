@@ -10,5 +10,5 @@ var group__compaAPI =
     [ "Control Point http API", "d8/dc8/group__compaAPI-Ctrlpt.html", "d8/dc8/group__compaAPI-Ctrlpt" ],
     [ "Web Server API", "d6/d8a/group__compaAPI-WebServer.html", "d6/d8a/group__compaAPI-WebServer" ],
     [ "UpnpInitSslContext", "d9/d54/group__compaAPI.html#ga390881f2ae0cfdf7bdfb07522c2ace7b", null ],
-    [ "freeSslCtx", "d9/d54/group__compaAPI.html#ga0ab812577086c70ee6e5515dfbfc6b74", null ]
+    [ "freeSslCtx", "d9/d54/group__compaAPI.html#ga37d4a0336914cffbf96f853d52e2561e", null ]
 ];

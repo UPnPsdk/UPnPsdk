@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPSTATEVARCOMPLETE_HPP
 #define COMPA_UPNPSTATEVARCOMPLETE_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-29
+// Redistribution only with this Copyright remark. Last modified: 2025-06-09
 // Last compare with ./Pupnp source file on 2025-05-23, ver 1.14.20
 /*!
  * \file
@@ -13,7 +13,7 @@
 #include <ixml/ixml.hpp>
 
 /// \cond
-#include <cstdlib> /* for size_t */
+#include <stdlib.h> /* for size_t */
 /// \endcond
 
 /*!
@@ -21,10 +21,12 @@
  */
 typedef struct s_UpnpStateVarComplete UpnpStateVarComplete;
 
+#ifdef __cplusplus
 extern "C" {
+#endif /* __cplusplus */
 
 /*! Constructor */
-PUPNP_API UpnpStateVarComplete* UpnpStateVarComplete_new();
+PUPNP_API UpnpStateVarComplete* UpnpStateVarComplete_new(void);
 /*! Destructor */
 PUPNP_API void UpnpStateVarComplete_delete(UpnpStateVarComplete* p);
 /*! Copy Constructor */
@@ -92,6 +94,9 @@ PUPNP_API int UpnpStateVarComplete_set_CurrentVal(UpnpStateVarComplete* p,
 PUPNP_API const char*
 UpnpStateVarComplete_get_CurrentVal_cstr(const UpnpStateVarComplete* p);
 
-} // extern "C"
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 #endif /* COMPA_UPNPSTATEVARCOMPLETE_HPP */

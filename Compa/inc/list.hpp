@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-22
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-02
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,20 +44,22 @@
 
 #include <UPnPsdk/visibility.hpp>
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 /*! \brief List anchor structure.
  *
  * This should be the *first* entry in list member objects, except if you want
  * to do member offset arithmetic instead of simple casts (look up
  * "containerof"). The list code itself does not care. */
-struct UpnpListHead {
-    UpnpListHead* next; ///< Points to next entry in the list
-    UpnpListHead* prev; ///< Points to previous entry in the list
-};
+typedef struct UpnpListHead {
+    struct UpnpListHead* next; ///< Points to next entry in the list
+    struct UpnpListHead* prev; ///< Points to previous entry in the list
+} UpnpListHead;
 
 /// \brief List iterator. Not strictly necessary, but clarifies the interface.
 typedef UpnpListHead* UpnpListIter;
-
-extern "C" {
 
 /*! \brief Initialize empty list */
 PUPNP_API void UpnpListInit(UpnpListHead* list);
@@ -80,6 +82,8 @@ PUPNP_API UpnpListIter UpnpListInsert(UpnpListHead* list, UpnpListIter pos,
 /*! \brief Erase element at pos, return next one, or end()*/
 PUPNP_API UpnpListIter UpnpListErase(UpnpListHead* list, UpnpListIter pos);
 
-} // extern "C"
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif // COMPA_LIST_HPP

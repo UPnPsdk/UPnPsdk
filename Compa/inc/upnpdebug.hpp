@@ -6,7 +6,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-29
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -41,8 +41,12 @@
 
 #include <upnp.hpp> // for UPNP_E_SUCCESS
 /// \cond
-#include <cstdio>
+#include <stdio.h>
 /// \endcond
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 /* ! \name Other debugging features
  *
@@ -102,11 +106,11 @@ typedef enum Upnp_LogLevel_e {
  *
  * \return -1 if fails or UPNP_E_SUCCESS if succeeds.
  */
-PUPNP_EXP int UpnpInitLog();
+PUPNP_EXP int UpnpInitLog(void);
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
 #define UpnpInitLog UpnpInitLog_Inlined
-static inline int UpnpInitLog_Inlined() { return UPNP_E_SUCCESS; }
+static inline int UpnpInitLog_Inlined(void) { return UPNP_E_SUCCESS; }
 #endif
 /*!
  * \brief Set the log level (see \c Upnp_LogLevel).
@@ -126,11 +130,11 @@ static inline void UpnpSetLogLevel_Inlined(Upnp_LogLevel log_level) {
 /*!
  * \brief Closes the log files.
  */
-PUPNP_EXP void UpnpCloseLog();
+PUPNP_EXP void UpnpCloseLog(void);
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
 #define UpnpCloseLog UpnpCloseLog_Inlined
-static inline void UpnpCloseLog_Inlined() {}
+static inline void UpnpCloseLog_Inlined(void) {}
 #endif
 
 /*!
@@ -172,9 +176,9 @@ PUPNP_EXP FILE* UpnpGetDebugFile(
 /// \cond
 #if (defined NDEBUG && !defined UPNP_DEBUG_C)
 #define UpnpGetDebugFile UpnpGetDebugFile_Inlined
-static inline FILE*
-UpnpGetDebugFile_Inlined([[maybe_unused]] Upnp_LogLevel level,
-                         [[maybe_unused]] Dbg_Module module) {
+static inline FILE* UpnpGetDebugFile_Inlined(Upnp_LogLevel level,
+                                             Dbg_Module module) {
+    (void)level, (void)module;
     return NULL;
 }
 #endif
@@ -234,5 +238,9 @@ static inline void UpnpPrintf_Inlined(Upnp_LogLevel DLevel, Dbg_Module Module,
     return;
 }
 #endif /* DEBUG */
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif // COMPA_DEBUG_HPP

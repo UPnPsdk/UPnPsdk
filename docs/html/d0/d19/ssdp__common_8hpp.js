@@ -66,6 +66,7 @@ var ssdp__common_8hpp =
     [ "ssdp_request_type", "de/d27/group__SSDP-common__functions.html#ga3096b77d16b0ab09d3d0ec540fb09016", null ],
     [ "readFromSSDPSocket", "de/d27/group__SSDP-common__functions.html#ga13bec7ad9261587950274c5feb645fe2", null ],
     [ "get_ssdp_sockets", "de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8", null ],
+    [ "ERROR_BUFFER_LEN", "d0/d19/ssdp__common_8hpp.html#a52ec93cb72f4b1bab35fdca43c740ebd", null ],
     [ "gSsdpReqSocket4", "d0/d19/ssdp__common_8hpp.html#ae7b203d9c8f465e0731f0547e83686a6", null ],
     [ "gSsdpReqSocket6", "d0/d19/ssdp__common_8hpp.html#a8f5ef49e339b0e7b1ea0916db2220b0c", null ]
 ];

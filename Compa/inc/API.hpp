@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-21
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-10
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -392,15 +392,15 @@
 #include <UpnpEventSubscribe.hpp>
 #include <UpnpFileInfo.hpp>
 #include <UpnpStateVarComplete.hpp>
+#include <UpnpStateVarRequest.hpp>
+#include <UpnpSubscriptionRequest.hpp>
 #include <sock_api.hpp>
+#include <UPnPsdk/port.hpp>
 
 /*!
  * \name Constants and Types
  * @{
  */
-
-/// \brief Size of the errorBuffer variable, passed to the strerror_r() function
-inline constexpr size_t ERROR_BUFFER_LEN{256};
 
 enum UpnpOpenFileMode { UPNP_READ, UPNP_WRITE };
 
@@ -483,7 +483,9 @@ typedef enum Upnp_DescType_e Upnp_DescType;
 
 /// @} Constants and Types
 
+#ifdef __cplusplus
 extern "C" {
+#endif /* __cplusplus */
 
 /******************************************************************************
  ******************************************************************************
@@ -567,7 +569,7 @@ PUPNP_API int UpnpInit2(
  *      \li \c UPNP_E_FINISH: The SDK is already terminated or
  *      it is not initialized.
  */
-PUPNP_API int UpnpFinish();
+PUPNP_API int UpnpFinish(void);
 
 /*!
  * \brief Returns the internal server IPv4 UPnP listening port.
@@ -580,7 +582,7 @@ PUPNP_API int UpnpFinish();
  *      IPv4 UPnP related requests.
  *  \li On error: 0 is returned if UpnpInit2() has not succeeded.
  */
-PUPNP_API in_port_t UpnpGetServerPort();
+PUPNP_API in_port_t UpnpGetServerPort(void);
 
 /*!
  * \brief Returns the internal server IPv6 link-local (LLA) UPnP listening port.
@@ -593,7 +595,7 @@ PUPNP_API in_port_t UpnpGetServerPort();
  *      IPv6 link-local (LLA) UPnP related requests.
  *  \li On error: 0 is returned if UpnpInit2() has not succeeded.
  */
-PUPNP_API unsigned short UpnpGetServerPort6();
+PUPNP_API unsigned short UpnpGetServerPort6(void);
 
 /*!
  * \brief Returns the internal server IPv6 ULA or GUA UPnP listening port.
@@ -606,7 +608,7 @@ PUPNP_API unsigned short UpnpGetServerPort6();
  *      IPv6 ULA or GUA UPnP related requests.
  *  \li On error: 0 is returned if UpnpInit2() has not succeeded.
  */
-PUPNP_API unsigned short UpnpGetServerUlaGuaPort6();
+PUPNP_API unsigned short UpnpGetServerUlaGuaPort6(void);
 
 /*!
  * \brief Returns the local IPv4 listening ip address.
@@ -619,7 +621,7 @@ PUPNP_API unsigned short UpnpGetServerUlaGuaPort6();
  *      listening for UPnP related requests.
  *  \li On error: \c nullptr is returned if UpnpInit2() has not succeeded.
  */
-PUPNP_API char* UpnpGetServerIpAddress();
+PUPNP_API char* UpnpGetServerIpAddress(void);
 
 /*!
  * \brief Returns the IPv6 link-local listening ip address.
@@ -632,7 +634,7 @@ PUPNP_API char* UpnpGetServerIpAddress();
  *      server is listening for UPnP related requests.
  *  \li On error: \c nullptr is returned if UpnpInit2() has not succeeded.
  */
-PUPNP_API char* UpnpGetServerIp6Address();
+PUPNP_API char* UpnpGetServerIp6Address(void);
 
 /*!
  * \brief Returns the IPv6 unique-local or globally-unique listening ip address.
@@ -646,7 +648,7 @@ PUPNP_API char* UpnpGetServerIp6Address();
  *      related requests.
  *  \li On error: \c nullptr is returned if UpnpInit2() has not succeeded.
  */
-PUPNP_API char* UpnpGetServerUlaGuaIp6Address();
+PUPNP_API char* UpnpGetServerUlaGuaIp6Address(void);
 
 /*!
  * \brief Registers one root- or logical-device object with the UPnP Library to
@@ -791,12 +793,6 @@ PUPNP_API int UpnpRegisterRootDevice2(
  * \brief Registers one \glos{upnpdev,UPnP device} object for a specific address
  * family with the UPnP library and get a handle for it.
  *
- * This function can optional also be used to specify a dedicated
- * description URL \b LowerDescUrl to be returned for legacy control points.
- * This option was provided by \b UpnpRegisterRootDevice4(). The name is still
- * available for compatibility reasons but just uses this \b
- * %UpnpRegisterRootDevice3().
- *
  * A \glos{upnpdev,UPnP device} object cannot make any other API calls until it
  * registers using this function. To register a control point see \b
  * UpnpRegisterClient() to get a control point handle to perform control point
@@ -843,22 +839,14 @@ PUPNP_API int UpnpRegisterRootDevice3(
     UpnpDevice_Handle* const Hnd,
     /*! [in] Address family of this device. Can be AF_INET for an IPv4
      * device, or AF_INET6 for an IPv6 device. Defaults to AF_INET. */
-    const int AddressFamily,
-    /*! [in] Optional argument: if specified it is a pointer to a string
-     * containing the description URL to be returned for legacy control points
-     * for this root device instance. */
-    const char* const LowerDescUrl = nullptr);
+    const int AddressFamily);
 
 /*!
- * \brief Same as UpnpRegisterRootDevice3()
+ * \brief Same as UpnpRegisterRootDevice3() with additional argument to specify
+ * a description URL.
  *
- * \deprecated Only available for compatibility reasons. The function was used
- * to specify a dedicated description URL \b LowerDescUrl to be returned for
- * legacy control points. This option is also optional provided by
- * UpnpRegisterRootDevice3() now. You should always use that function instead.
- *
- * If you really want to use this function then don't forget to
- * UpnpUnRegisterRootDevice() it after using.
+ * This function can be used to specify a dedicated description URL \b
+ * LowerDescUrl to be returned for legacy control points.
  */
 PUPNP_API int UpnpRegisterRootDevice4(
     /// [in] .
@@ -872,13 +860,13 @@ PUPNP_API int UpnpRegisterRootDevice4(
     /// [in] .
     const int AddressFamily,
     /*! [in] This is a pointer to a string containing the description URL to be
-     * returned for legacy control points for this root device instance. This
-     * argument is not optional and must be set. */
+     * returned for legacy control points for this root device instance. */
     const char* const LowerDescUrl);
 
 /*!
  * \brief Unregisters a root device registered with UpnpRegisterRootDevice(),
- * UpnpRegisterRootDevice2(), UpnpRegisterRootDevice3().
+ * UpnpRegisterRootDevice2(), UpnpRegisterRootDevice3(),
+ * UpnpRegisterRootDevice4.
  *
  * After this call, the \b UpnpDevice_Handle is no longer valid. For all
  * advertisements that have not yet expired, the SDK sends a device unavailable
@@ -899,7 +887,8 @@ PUPNP_API int UpnpUnRegisterRootDevice(
 
 /*!
  * \brief Unregisters a root device registered with UpnpRegisterRootDevice(),
- * UpnpRegisterRootDevice2(), UpnpRegisterRootDevice3().
+ * UpnpRegisterRootDevice2(), UpnpRegisterRootDevice3(),
+ * UpnpRegisterRootDevice4 for Low Power.
  *
  * After this call, the \b UpnpDevice_Handle is no longer valid. For all
  * advertisements that have not yet expired, the SDK sends a device unavailable
@@ -1952,13 +1941,13 @@ PUPNP_API int UpnpUnSubscribeAsync(
 /*!
  * \brief Different HTTP methods.
  */
-enum Upnp_HttpMethod {
+typedef enum {
     UPNP_HTTPMETHOD_PUT,    ///< PUT
     UPNP_HTTPMETHOD_DELETE, ///< DELETE
     UPNP_HTTPMETHOD_GET,    ///< GET
     UPNP_HTTPMETHOD_HEAD,   ///< HEAD
     UPNP_HTTPMETHOD_POST    ///< POST
-};
+} Upnp_HttpMethod;
 
 /*!
  * \brief Downloads a file specified in a URL.
@@ -2794,7 +2783,7 @@ PUPNP_API int UpnpEnableWebserver(
  *  - 1: The webserver is enabled.
  *  - 0: The webserver is not enabled.
  */
-PUPNP_API int UpnpIsWebserverEnabled();
+PUPNP_API int UpnpIsWebserverEnabled(void);
 
 /*!
  * \brief Callback for validating HTTP requests HOST header values.
@@ -2878,10 +2867,12 @@ PUPNP_API int UpnpRemoveVirtualDir(
 /*!
  * \brief Removes all \glos{webdir,web directory} mappings.
  */
-PUPNP_API void UpnpRemoveAllVirtualDirs();
+PUPNP_API void UpnpRemoveAllVirtualDirs(void);
 
 /// @} Web Server API
 
-} // extern "C"
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif // COMPA_INC_API_HPP

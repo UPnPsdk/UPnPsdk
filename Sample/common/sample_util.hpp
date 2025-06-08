@@ -1,12 +1,11 @@
 #ifndef UPNPLIB_SAMPLE_UTIL_HPP
 #define UPNPLIB_SAMPLE_UTIL_HPP
-
 /*******************************************************************************
  *
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,19 +32,16 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-
 /*!
- * \defgroup UpnpSamples Sample Code
- *
- * @{
- *
  * \file
+ * \defgroup UpnpSamples Sample Code
+ * @{
  */
 
 #include "upnp.hpp" /* for Upnp_EventType */
 #include "upnptools.hpp"
+#include <ithread.h>
 
-#include "pthread.h" // To find pthreads4w don't use <pthread.h>
 #include <string.h>
 
 #if defined(SAMPLE_UTIL_C) || defined(DOXYGEN_RUN)
@@ -192,7 +188,7 @@ int SampleUtil_Initialize(
 /*!
  * \brief Releases Resources held by sample util.
  */
-int SampleUtil_Finish();
+int SampleUtil_Finish(void);
 
 /*!
  * \brief Function emulating printf that ultimately calls the registered print

@@ -1,7 +1,7 @@
 var UpnpEventSubscribe_8hpp =
 [
     [ "UpnpEventSubscribe", "d5/dd8/UpnpEventSubscribe_8hpp.html#a4500292e4a134da60b483c0b5d18f544", null ],
-    [ "UpnpEventSubscribe_new", "d5/dd8/UpnpEventSubscribe_8hpp.html#a804d51a787360265e356bb7fc86835ae", null ],
+    [ "UpnpEventSubscribe_new", "d5/dd8/UpnpEventSubscribe_8hpp.html#a80f9e25f3bb7c3fa80cee2e1d5e54c75", null ],
     [ "UpnpEventSubscribe_delete", "d5/dd8/UpnpEventSubscribe_8hpp.html#ad1cd0ca60b24548dbb4a873c19d23020", null ],
     [ "UpnpEventSubscribe_dup", "d5/dd8/UpnpEventSubscribe_8hpp.html#ab3b708f2a81bc34812e5f87cfc7f794d", null ],
     [ "UpnpEventSubscribe_assign", "d5/dd8/UpnpEventSubscribe_8hpp.html#af7000b669ebe7f1e3bf27f70918f5c70", null ],

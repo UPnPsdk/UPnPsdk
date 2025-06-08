@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPACTIONREQUEST_HPP
 #define COMPA_UPNPACTIONREQUEST_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-29
+// Redistribution only with this Copyright remark. Last modified: 2025-06-09
 // Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
  * \file
@@ -17,10 +17,12 @@
  */
 typedef struct s_UpnpActionRequest UpnpActionRequest;
 
+#ifdef __cplusplus
 extern "C" {
+#endif /* __cplusplus */
 
 /*! Constructor */
-PUPNP_API UpnpActionRequest* UpnpActionRequest_new();
+PUPNP_API UpnpActionRequest* UpnpActionRequest_new(void);
 /*! Destructor */
 PUPNP_API void UpnpActionRequest_delete(UpnpActionRequest* p);
 /*! Copy Constructor */
@@ -172,6 +174,8 @@ PUPNP_API int UpnpActionRequest_strncpy_Os(UpnpActionRequest* p, const char* s,
 /*! UpnpActionRequest_clear_Os */
 PUPNP_API void UpnpActionRequest_clear_Os(UpnpActionRequest* p);
 
-} // extern "C"
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* COMPA_UPNPACTIONREQUEST_HPP */

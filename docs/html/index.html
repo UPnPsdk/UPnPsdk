@@ -106,6 +106,28 @@ General information to the SDK, its structure and requirements.</p>
 <h1><a class="anchor" id="overview_parts"></a>
 Parts 'Control Point' and 'UPnP Device'</h1>
 <p>The SDK has two parts, handling Control Points or UPnP Devices. They are largely independent of each other. You can compile both parts separately so you have resulting libraries that only handle Control Points or UPnP Devices. That make sense for installations that are only a Control Point or only a UPnP Device and is of particular interest for embedded devices. Of course you can also have both parts for hybrid applications.</p>
+<h1><a class="anchor" id="overview_libs"></a>
+Internal Libraries</h1>
+<p>We have three different internal libraries:</p><ul>
+<li><b>pupnp:</b> original code from the fork, based on version 1.14.22 with all its bugs and quirks, only modified to compile as C++ code.</li>
+<li><b>compa:</b> compatible library, partly with re-engineered code from <b>pupnp</b> and with objects from <a class="el" href="dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> to emulate the API (Application Programming Interface) from <b>pupnp</b>. It compiles to a library that is drop in compatible to its ABI (Application Binary Interface) so you can just replace an old binary <b>libupnp</b> with the binary compa library without modifications or recompiling programs. It fixes bugs and add additional issues that are given by the new <a class="el" href="dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> objects. If old programs depend on bugs of the old library they may behave different.</li>
+<li><b><a class="el" href="dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a>:</b> completely new written object oriented UPnP Software Developement Kit. It is intended to support only this library after a transition period.</li>
+</ul>
+<p>To manage a smooth transition from old pUPnP "C" code to the object oriented C++ class library there are different compile modes specified.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">code   </th><th class="markdownTableHeadNone">with library   </th><th class="markdownTableHeadNone">build   </th><th class="markdownTableHeadNone">mode    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">old   </td><td class="markdownTableBodyNone">pupnp   </td><td class="markdownTableBodyNone">yes   </td><td class="markdownTableBodyNone">verify (if old programs still run as expected)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">old   </td><td class="markdownTableBodyNone">compa   </td><td class="markdownTableBodyNone">yes   </td><td class="markdownTableBodyNone">compatibility (used to start transition)    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">new   </td><td class="markdownTableBodyNone">pupnp   </td><td class="markdownTableBodyNone">no   </td><td class="markdownTableBodyNone">not supported    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">old modified   </td><td class="markdownTableBodyNone">compa   </td><td class="markdownTableBodyNone">yes   </td><td class="markdownTableBodyNone">portability to <a class="el" href="dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> (step by step ongoing transition)    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">new   </td><td class="markdownTableBodyNone"><a class="el" href="dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a>   </td><td class="markdownTableBodyNone">yes   </td><td class="markdownTableBodyNone">new project   </td></tr>
+</table>
 <h1><a class="anchor" id="overview_comp"></a>
 Main Components</h1>
 <p>The <b>S</b>oftware <b>D</b>evelopment <b>K</b>it contains some main components that are associated with a specific step of the <a href="UPnP-arch-DeviceArchitecture-v2.0-20200417.pdf">UPnP™ Device Architecture 2.0</a>.<br  />

@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPSTRING_HPP
 #define COMPA_UPNPSTRING_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-22
+// Redistribution only with this Copyright remark. Last modified: 2025-06-09
 // Also Copyright by other contributor as noted below.
 // Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
@@ -19,10 +19,12 @@
 
 #include <UPnPsdk/visibility.hpp>
 /// \cond
-#include <cstddef> // For size_t
+#include <stddef.h> // For size_t
 /// \endcond
 
+#ifdef __cplusplus
 extern "C" {
+#endif /* __cplusplus */
 
 /*!
  * \brief Type of the string objects inside libupnp.
@@ -39,7 +41,7 @@ typedef struct s_UpnpString UpnpString;
  *
  * \return A pointer to a new allocated object.
  */
-PUPNP_API UpnpString* UpnpString_new();
+PUPNP_API UpnpString* UpnpString_new(void);
 
 /*!
  * \brief Destructor.
@@ -145,7 +147,10 @@ PUPNP_API int UpnpString_casecmp(
     /*! [in] The \em \b the second string. */
     UpnpString* q);
 
-} // extern "C"
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
 
 /// @} UpnpString The UpnpString API
 

@@ -1,7 +1,7 @@
 var UpnpSubscriptionRequest_8hpp =
 [
     [ "UpnpSubscriptionRequest", "dd/d6d/UpnpSubscriptionRequest_8hpp.html#ae9eba7860e7812941f0fb47f500f41b3", null ],
-    [ "UpnpSubscriptionRequest_new", "dd/d6d/UpnpSubscriptionRequest_8hpp.html#a832cc3f793f5e2716738db93392b6717", null ],
+    [ "UpnpSubscriptionRequest_new", "dd/d6d/UpnpSubscriptionRequest_8hpp.html#a28c2325e3750abfc7c7271e050cdff15", null ],
     [ "UpnpSubscriptionRequest_delete", "dd/d6d/UpnpSubscriptionRequest_8hpp.html#aa1421340853e6f98d25b7a1d0bba02eb", null ],
     [ "UpnpSubscriptionRequest_dup", "dd/d6d/UpnpSubscriptionRequest_8hpp.html#aea36864ab64dcf4ede082c2d0945f0d0", null ],
     [ "UpnpSubscriptionRequest_assign", "dd/d6d/UpnpSubscriptionRequest_8hpp.html#a84171348de7b5c0c80374a23960c3bb6", null ],

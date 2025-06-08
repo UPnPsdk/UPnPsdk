@@ -1,20 +1,18 @@
 <map id="FreeHandle" name="FreeHandle">
-<area shape="rect" id="Node000001" title="Free handle." alt="" coords="649,104,745,129"/>
-<area shape="rect" id="Node000002" href="$d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="407,5,593,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="671,96,639,69,600,44,571,33,572,28,603,40,642,64,675,92"/>
-<area shape="rect" id="Node000003" href="$d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="403,55,597,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="635,103,601,94,555,83,556,77,602,89,637,98"/>
-<area shape="rect" id="Node000004" href="$d4/d99/upnpapi_8cpp.html#a40c47dc11eed3d58d20b64dd2804a206" title="Registers one UPnP device object for a specific address family with the UPnP library and get a handle..." alt="" coords="403,104,597,129"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="635,119,597,119,597,114,635,114"/>
-<area shape="rect" id="Node000006" href="$d4/d99/upnpapi_8cpp.html#aead9c1aad0998507f66cf7f0749013d3" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="166,159,333,184"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="640,135,602,143,460,161,333,171,333,165,459,156,601,138,638,130"/>
-<area shape="rect" id="Node000012" href="$d4/d99/upnpapi_8cpp.html#ab04dfc9206cdac78f584e6d208ba9c72" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="399,205,601,245"/>
-<area shape="poly" id="edge7_Node000001_Node000012" title=" " alt="" coords="672,140,640,165,603,188,562,207,560,202,600,184,637,160,669,136"/>
-<area shape="rect" id="Node000005" href="$d4/d99/upnpapi_8cpp.html#a4aadebd5375b753c66b3aa8a24017d59" title="Same as UpnpRegisterRootDevice3()" alt="" coords="153,104,346,129"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="389,119,346,119,346,114,389,114"/>
-<area shape="rect" id="Node000007" href="$d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="5,185,100,211"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="152,187,101,194,100,189,152,182"/>
-<area shape="rect" id="Node000013" href="$d4/d99/upnpapi_8cpp.html#abb1c47010971d19ecd2b46ee842871ec" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="148,209,351,235"/>
-<area shape="poly" id="edge8_Node000012_Node000013" title=" " alt="" coords="385,226,351,226,351,220,385,221"/>
-<area shape="poly" id="edge9_Node000013_Node000007" title=" " alt="" coords="134,211,100,206,100,201,134,205"/>
+<area shape="rect" id="Node000001" title="Free handle." alt="" coords="693,119,789,144"/>
+<area shape="rect" id="Node000002" href="$d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="429,5,615,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="720,110,687,75,644,44,614,33,616,28,647,40,691,71,724,106"/>
+<area shape="rect" id="Node000003" href="$d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="425,55,619,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="701,116,645,94,600,83,601,77,646,89,703,111"/>
+<area shape="rect" id="Node000004" href="$d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a46c5f48668d3cb1dcd599795ca6ce263" title=" " alt="" coords="399,104,645,159"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="679,134,645,134,645,129,679,129"/>
+<area shape="rect" id="Node000005" href="$d4/d99/upnpapi_8cpp.html#aead9c1aad0998507f66cf7f0749013d3" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="166,187,333,212"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="704,152,646,173,563,188,480,197,333,203,333,198,479,192,563,183,645,167,702,147"/>
+<area shape="rect" id="Node000011" href="$d4/d99/upnpapi_8cpp.html#ab04dfc9206cdac78f584e6d208ba9c72" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="421,234,623,274"/>
+<area shape="poly" id="edge6_Node000001_Node000011" title=" " alt="" coords="721,157,688,188,647,218,605,236,602,231,644,213,684,184,717,153"/>
+<area shape="rect" id="Node000006" href="$d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="5,213,100,239"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="152,215,101,222,100,217,152,210"/>
+<area shape="rect" id="Node000012" href="$d4/d99/upnpapi_8cpp.html#abb1c47010971d19ecd2b46ee842871ec" title="Unregisters a root device registered with UpnpRegisterRootDevice(), UpnpRegisterRootDevice2(),..." alt="" coords="148,237,351,263"/>
+<area shape="poly" id="edge7_Node000011_Node000012" title=" " alt="" coords="407,255,351,254,351,249,407,250"/>
+<area shape="poly" id="edge8_Node000012_Node000006" title=" " alt="" coords="134,239,100,234,100,229,134,233"/>
 </map>

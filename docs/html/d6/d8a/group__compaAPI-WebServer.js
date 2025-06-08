@@ -16,11 +16,11 @@ var group__compaAPI_WebServer =
     [ "UpnpVirtualDir_set_SeekCallback", "d6/d8a/group__compaAPI-WebServer.html#ga2d7fa345017944495a813728317d8f26", null ],
     [ "UpnpVirtualDir_set_CloseCallback", "d6/d8a/group__compaAPI-WebServer.html#gaeaa6033a6961d18f0aa0e05740dc323e", null ],
     [ "UpnpEnableWebserver", "d6/d8a/group__compaAPI-WebServer.html#gae4c6c26ab6a1cf6d81530398dbdc0fc8", null ],
-    [ "UpnpIsWebserverEnabled", "d6/d8a/group__compaAPI-WebServer.html#ga52dd62ffeb720ca75236c3a0314ea706", null ],
+    [ "UpnpIsWebserverEnabled", "d6/d8a/group__compaAPI-WebServer.html#gac33f33c4e1b2984c799209f7f4ef7b2e", null ],
     [ "UpnpSetHostValidateCallback", "d6/d8a/group__compaAPI-WebServer.html#gacad56ea1b97c1bddeaf41bb86fee3b64", null ],
     [ "UpnpSetAllowLiteralHostRedirection", "d6/d8a/group__compaAPI-WebServer.html#gafd6feda22321a7aeedf86c12e989cd7d", null ],
     [ "UpnpSetWebServerCorsString", "d6/d8a/group__compaAPI-WebServer.html#gaf737b2ad901c012d6b0b218d3455c240", null ],
     [ "UpnpAddVirtualDir", "d6/d8a/group__compaAPI-WebServer.html#ga3acb65b027510b97f496076bad9c15e5", null ],
     [ "UpnpRemoveVirtualDir", "d6/d8a/group__compaAPI-WebServer.html#ga1dab2cc65229e6921249bc7762027e8e", null ],
-    [ "UpnpRemoveAllVirtualDirs", "d6/d8a/group__compaAPI-WebServer.html#ga6efdba8976cc1c0361f60db38a4ced6d", null ]
+    [ "UpnpRemoveAllVirtualDirs", "d6/d8a/group__compaAPI-WebServer.html#ga47a6294c2526b2dcb1583d104ba85a92", null ]
 ];
