@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPEXTRAHEADERS_HPP
 #define COMPA_UPNPEXTRAHEADERS_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-02
+// Redistribution only with this Copyright remark. Last modified: 2025-06-12
 // Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
  * \file
@@ -23,68 +23,68 @@ extern "C" {
 #endif /* __cplusplus */
 
 /*! Constructor */
-PUPNP_API UpnpExtraHeaders* UpnpExtraHeaders_new();
+PUPNP_Api UpnpExtraHeaders* UpnpExtraHeaders_new();
 /*! Destructor */
-PUPNP_API void UpnpExtraHeaders_delete(UpnpExtraHeaders* p);
+PUPNP_Api void UpnpExtraHeaders_delete(UpnpExtraHeaders* p);
 /*! Copy Constructor */
-PUPNP_API UpnpExtraHeaders* UpnpExtraHeaders_dup(const UpnpExtraHeaders* p);
+PUPNP_Api UpnpExtraHeaders* UpnpExtraHeaders_dup(const UpnpExtraHeaders* p);
 /*! Assignment operator */
-PUPNP_API int UpnpExtraHeaders_assign(UpnpExtraHeaders* p,
+PUPNP_Api int UpnpExtraHeaders_assign(UpnpExtraHeaders* p,
                                       const UpnpExtraHeaders* q);
 
 /*! UpnpExtraHeaders_get_node */
-PUPNP_API const UpnpListHead*
+PUPNP_Api const UpnpListHead*
 UpnpExtraHeaders_get_node(const UpnpExtraHeaders* p);
 /*! UpnpExtraHeaders_set_node */
-PUPNP_API int UpnpExtraHeaders_set_node(UpnpExtraHeaders* p,
+PUPNP_Api int UpnpExtraHeaders_set_node(UpnpExtraHeaders* p,
                                         const UpnpListHead* q);
 /*! UpnpExtraHeaders_add_to_list_node */
-PUPNP_API void UpnpExtraHeaders_add_to_list_node(UpnpExtraHeaders* p,
+PUPNP_Api void UpnpExtraHeaders_add_to_list_node(UpnpExtraHeaders* p,
                                                  UpnpListHead* head);
 
 /*! UpnpExtraHeaders_get_name */
-PUPNP_API const UpnpString*
+PUPNP_Api const UpnpString*
 UpnpExtraHeaders_get_name(const UpnpExtraHeaders* p);
 /*! UpnpExtraHeaders_set_name */
-PUPNP_API int UpnpExtraHeaders_set_name(UpnpExtraHeaders* p,
+PUPNP_Api int UpnpExtraHeaders_set_name(UpnpExtraHeaders* p,
                                         const UpnpString* s);
 /*! UpnpExtraHeaders_get_name_Length */
-PUPNP_API size_t UpnpExtraHeaders_get_name_Length(const UpnpExtraHeaders* p);
+PUPNP_Api size_t UpnpExtraHeaders_get_name_Length(const UpnpExtraHeaders* p);
 /*! UpnpExtraHeaders_get_name_cstr */
-PUPNP_API const char* UpnpExtraHeaders_get_name_cstr(const UpnpExtraHeaders* p);
+PUPNP_Api const char* UpnpExtraHeaders_get_name_cstr(const UpnpExtraHeaders* p);
 /*! UpnpExtraHeaders_strcpy_name */
-PUPNP_API int UpnpExtraHeaders_strcpy_name(UpnpExtraHeaders* p, const char* s);
+PUPNP_Api int UpnpExtraHeaders_strcpy_name(UpnpExtraHeaders* p, const char* s);
 /*! UpnpExtraHeaders_strncpy_name */
-PUPNP_API int UpnpExtraHeaders_strncpy_name(UpnpExtraHeaders* p, const char* s,
+PUPNP_Api int UpnpExtraHeaders_strncpy_name(UpnpExtraHeaders* p, const char* s,
                                             size_t n);
 /*! UpnpExtraHeaders_clear_name */
-PUPNP_API void UpnpExtraHeaders_clear_name(UpnpExtraHeaders* p);
+PUPNP_Api void UpnpExtraHeaders_clear_name(UpnpExtraHeaders* p);
 
 /*! UpnpExtraHeaders_get_value */
-PUPNP_API const UpnpString*
+PUPNP_Api const UpnpString*
 UpnpExtraHeaders_get_value(const UpnpExtraHeaders* p);
 /*! UpnpExtraHeaders_set_value */
-PUPNP_API int UpnpExtraHeaders_set_value(UpnpExtraHeaders* p,
+PUPNP_Api int UpnpExtraHeaders_set_value(UpnpExtraHeaders* p,
                                          const UpnpString* s);
 /*! UpnpExtraHeaders_get_value_Length */
-PUPNP_API size_t UpnpExtraHeaders_get_value_Length(const UpnpExtraHeaders* p);
+PUPNP_Api size_t UpnpExtraHeaders_get_value_Length(const UpnpExtraHeaders* p);
 /*! UpnpExtraHeaders_get_value_cstr */
-PUPNP_API const char*
+PUPNP_Api const char*
 UpnpExtraHeaders_get_value_cstr(const UpnpExtraHeaders* p);
 /*! UpnpExtraHeaders_strcpy_value */
-PUPNP_API int UpnpExtraHeaders_strcpy_value(UpnpExtraHeaders* p, const char* s);
+PUPNP_Api int UpnpExtraHeaders_strcpy_value(UpnpExtraHeaders* p, const char* s);
 /*! UpnpExtraHeaders_strncpy_value */
-PUPNP_API int UpnpExtraHeaders_strncpy_value(UpnpExtraHeaders* p, const char* s,
+PUPNP_Api int UpnpExtraHeaders_strncpy_value(UpnpExtraHeaders* p, const char* s,
                                              size_t n);
 /*! UpnpExtraHeaders_clear_value */
-PUPNP_API void UpnpExtraHeaders_clear_value(UpnpExtraHeaders* p);
+PUPNP_Api void UpnpExtraHeaders_clear_value(UpnpExtraHeaders* p);
 
 /*! UpnpExtraHeaders_get_resp */
-PUPNP_API const DOMString UpnpExtraHeaders_get_resp(const UpnpExtraHeaders* p);
+PUPNP_Api const DOMString UpnpExtraHeaders_get_resp(const UpnpExtraHeaders* p);
 /*! UpnpExtraHeaders_set_resp */
-PUPNP_API int UpnpExtraHeaders_set_resp(UpnpExtraHeaders* p, const DOMString s);
+PUPNP_Api int UpnpExtraHeaders_set_resp(UpnpExtraHeaders* p, const DOMString s);
 /*! UpnpExtraHeaders_get_resp_cstr */
-PUPNP_API const char* UpnpExtraHeaders_get_resp_cstr(const UpnpExtraHeaders* p);
+PUPNP_Api const char* UpnpExtraHeaders_get_resp_cstr(const UpnpExtraHeaders* p);
 
 #ifdef __cplusplus
 }

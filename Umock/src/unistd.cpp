@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <umock/unistd.hpp>
 #include <UPnPsdk/port.hpp>
@@ -36,6 +36,6 @@ int Unistd::CLOSE_SOCKET_P(SOCKET fd) {
 // This will exist until program end.
 UnistdReal unistd_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPnPsdk_EXP Unistd unistd_h(&unistd_realObj);
+UPnPsdk_VIS Unistd unistd_h(&unistd_realObj);
 
 } // namespace umock

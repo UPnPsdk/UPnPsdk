@@ -1,0 +1,25 @@
+<map id="UpnpCloseHttpPost" name="UpnpCloseHttpPost">
+<area shape="rect" id="Node000001" title="Sends and receives any pending data, closes the connection with the server, and frees memory allocate..." alt="" coords="5,92,153,117"/>
+<area shape="rect" id="Node000002" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a23dee83362f8bda1551e1514e806d6bf" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="201,92,393,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,102,188,102,188,107,154,107"/>
+<area shape="rect" id="Node000016" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a7da45a1ca164b06f2f3e971f89c9fa54" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="217,19,377,44"/>
+<area shape="poly" id="edge4_Node000001_Node000016" title=" " alt="" coords="117,89,245,46,247,51,119,94"/>
+<area shape="rect" id="Node000020" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ab8095d987290dfdc4f151dc8e3d7c40f" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="213,189,382,215"/>
+<area shape="poly" id="edge6_Node000001_Node000020" title=" " alt="" coords="110,115,256,181,254,186,108,120"/>
+<area shape="rect" id="Node000003" href="$dd/d1d/httpparser_8cpp.html#aae19f051c772e39575e48ddb2615f6b5" title="Free memory allocated for the http message." alt="" coords="491,104,623,129"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="394,106,478,110,478,116,393,112"/>
+<area shape="rect" id="Node000012" href="$d5/d78/sock_8cpp.html#a90f3d17250e4a8df679a4b88a8abd4da" title="Shutsdown the socket using the ShutdownMethod to indicate whether sends and receives on the socket wi..." alt="" coords="503,55,611,80"/>
+<area shape="poly" id="edge3_Node000002_Node000012" title=" " alt="" coords="386,89,489,74,490,80,387,95"/>
+<area shape="rect" id="Node000017" href="$d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="511,5,603,31"/>
+<area shape="poly" id="edge5_Node000016_Node000017" title=" " alt="" coords="377,25,498,18,498,24,378,30"/>
+<area shape="poly" id="edge8_Node000020_Node000003" title=" " alt="" coords="324,187,377,163,441,139,477,129,479,134,442,145,379,168,326,192"/>
+<area shape="rect" id="Node000021" href="$d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a553e7c0bea095f39accd1a5cde36c330" title="Dummy function. It do nothing since years. Do we need it?" alt="" coords="467,348,647,403"/>
+<area shape="poly" id="edge7_Node000020_Node000021" title=" " alt="" coords="311,213,364,271,401,305,443,334,456,342,453,346,440,339,398,309,360,275,307,217"/>
+<area shape="rect" id="Node000026" href="$dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="721,191,856,216"/>
+<area shape="poly" id="edge9_Node000020_Node000026" title=" " alt="" coords="382,202,441,203,673,203,708,203,708,208,673,209,441,209,382,207"/>
+<area shape="rect" id="Node000028" href="$dd/d1d/httpparser_8cpp.html#aae632d5cc945d012140dff733af29bd4" title="Determines method to read entity." alt="" coords="471,154,643,194"/>
+<area shape="poly" id="edge10_Node000020_Node000028" title=" " alt="" coords="382,190,458,182,458,187,383,196"/>
+<area shape="rect" id="Node000035" href="$d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#ab4ac32ac3127f3a0a0bc87b6b2a45f6f" title="Parses already exiting data." alt="" coords="441,269,673,324"/>
+<area shape="poly" id="edge12_Node000020_Node000035" title=" " alt="" coords="334,212,469,262,468,267,332,217"/>
+<area shape="poly" id="edge11_Node000028_Node000026" title=" " alt="" coords="644,182,708,190,707,196,643,188"/>
+</map>

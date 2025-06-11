@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_UPNP_DEVICE_HPP
 #define UPnPsdk_UPNP_DEVICE_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-25
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 /*!
  * \file
  * \brief Manage UPnP devices
@@ -18,7 +18,7 @@ namespace UPnPsdk {
 
 /*! \brief This will become a container object for the root device of a network
  * node */
-class UPnPsdk_API CRootdevice {
+class UPnPsdk_VIS CRootdevice {
   public:
     // Constructor
     CRootdevice();

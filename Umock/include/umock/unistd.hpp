@@ -2,14 +2,14 @@
 #ifndef UMOCK_UNISTD_HPP
 #define UMOCK_UNISTD_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-02
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port_sock.hpp>
 
 namespace umock {
 
-class UPnPsdk_API UnistdInterface {
+class UPnPsdk_VIS UnistdInterface {
   public:
     UnistdInterface();
     virtual ~UnistdInterface();
@@ -39,7 +39,7 @@ class UnistdReal : public UnistdInterface {
         EXPECT_CALL(unistd_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPnPsdk_API Unistd {
+class UPnPsdk_VIS Unistd {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.

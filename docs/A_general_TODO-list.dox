@@ -1,11 +1,12 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-10
+// Redistribution only with this Copyright remark. Last modified: 2025-06-12
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
  * - Implement API of the SDK, remove Compa/inc/UpnpGlobal.hpp.
+ * - Remove Compa/inc/UpnpUniStd.hpp from pUPnP API.
  * - Install new authentification for Github.
  * - Enable and improve tests in Utest/compa/threadutil.d.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
@@ -30,3 +31,56 @@
  */
 
 // * [set EXPECT_CALL to redirect the call to the original method](https://stackoverflow.com/questions/25556601/set-expect-call-to-redirect-the-call-to-the-original-method)
+
+/// \cond
+pUPnP API
+=========
+../../pupnp-dev/include/upnp/UpnpActionComplete.h
+                   Compa/inc/UpnpActionComplete.hpp
+../../pupnp-dev/include/upnp/UpnpActionRequest.h
+                   Compa/inc/UpnpActionRequest.hpp
+../../pupnp-dev/include/upnp/UpnpDiscovery.h
+                   Compa/inc/UpnpDiscovery.hpp
+../../pupnp-dev/include/upnp/UpnpEvent.h
+                   Compa/inc/UpnpEvent.hpp
+../../pupnp-dev/include/upnp/UpnpEventSubscribe.h
+                   Compa/inc/UpnpEventSubscribe.hpp
+../../pupnp-dev/include/upnp/UpnpFileInfo.h
+                   Compa/inc/UpnpFileInfo.hpp
+../../pupnp-dev/include/upnp/UpnpStateVarComplete.h
+                   Compa/inc/UpnpStateVarComplete.hpp
+../../pupnp-dev/include/upnp/UpnpStateVarRequest.h
+                   Compa/inc/UpnpStateVarRequest.hpp
+../../pupnp-dev/include/upnp/UpnpSubscriptionRequest.h
+                   Compa/inc/UpnpSubscriptionRequest.hpp
+
+../../pupnp-dev/include/upnp/UpnpString.h
+                   Compa/inc/UpnpString.hpp
+../../pupnp-dev/include/upnp/UpnpExtraHeaders.h
+                   Compa/inc/UpnpExtraHeaders.hpp
+../../pupnp-dev/include/upnp/list.h
+                   Compa/inc/list.hpp
+../../pupnp-dev/include/upnp/UpnpUniStd.h
+                   Compa/inc/UpnpUniStd.hpp  # remove
+../../pupnp-dev/include/upnp/upnp.h
+                   Compa/inc/upnp.hpp
+../../pupnp-dev/include/upnp/upnpconfig.h
+                           # not available
+../../pupnp-dev/include/upnp/UpnpStdInt.h
+              Pupnp/upnp/inc/UpnpStdInt.hpp  # not available on Compa
+../../pupnp-dev/include/upnp/UpnpInet.h
+                   Compa/inc/UpnpInet.hpp
+../../pupnp-dev/include/upnp/ixml.h
+              Compa/inc/ixml/ixml.hpp
+../../pupnp-dev/include/upnp/Callback.h
+                   Compa/inc/Callback.hpp    # check: no symbol exports
+../../pupnp-dev/include/upnp/UpnpGlobal.h
+                   Compa/inc/UpnpGlobal.hpp  # remove?
+../../pupnp-dev/include/upnp/upnptools.h
+                   Compa/inc/upnptools.hpp
+     UPnPsdk/include/UPnPsdk/upnptools.hpp
+../../pupnp-dev/include/upnp/UpnpIntTypes.h
+                   Compa/inc/UpnpIntTypes.hpp # remove?
+../../pupnp-dev/include/upnp/ixmldebug.h
+              Compa/inc/ixml/ixmldebug.hpp    # no exports, remove?
+/// \endcond

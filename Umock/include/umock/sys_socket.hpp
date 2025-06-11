@@ -1,7 +1,7 @@
 #ifndef UMOCK_SYS_SOCKET_HPP
 #define UMOCK_SYS_SOCKET_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-18
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <UPnPsdk/port.hpp>
 #include <UPnPsdk/port_sock.hpp>
@@ -9,7 +9,7 @@
 
 namespace umock {
 
-class UPnPsdk_API Sys_socketInterface {
+class UPnPsdk_VIS Sys_socketInterface {
   public:
     Sys_socketInterface();
     virtual ~Sys_socketInterface();
@@ -73,7 +73,7 @@ class Sys_socketReal : public Sys_socketInterface {
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
 // clang-format on
-class UPnPsdk_API Sys_socket {
+class UPnPsdk_VIS Sys_socket {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.

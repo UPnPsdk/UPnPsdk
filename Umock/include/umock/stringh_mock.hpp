@@ -1,7 +1,7 @@
 #ifndef UMOCK_STRINGH_MOCK_HPP
 #define UMOCK_STRINGH_MOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <umock/stringh.hpp>
 #include <UPnPsdk/port.hpp>
@@ -9,7 +9,7 @@
 
 namespace umock {
 
-class UPnPsdk_EXP StringhMock : public umock::StringhInterface {
+class UPnPsdk_VIS StringhMock : public umock::StringhInterface {
   public:
     StringhMock();
     virtual ~StringhMock() override;

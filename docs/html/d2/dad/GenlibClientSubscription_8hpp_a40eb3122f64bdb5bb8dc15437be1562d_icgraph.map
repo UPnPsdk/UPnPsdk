@@ -1,0 +1,33 @@
+<map id="GenlibClientSubscription_get_ActualSID" name="GenlibClientSubscription_get_ActualSID">
+<area shape="rect" id="Node000001" title=" " alt="" coords="756,202,939,242"/>
+<area shape="rect" id="Node000002" href="$d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="281,72,460,97"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="810,196,763,163,707,135,644,116,579,103,460,90,460,84,580,97,646,111,709,130,765,158,813,191"/>
+<area shape="rect" id="Node000015" href="$d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="291,233,451,259"/>
+<area shape="poly" id="edge5_Node000001_Node000015" title=" " alt="" coords="742,230,451,245,451,239,742,225"/>
+<area shape="rect" id="Node000022" href="$d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="303,133,438,159"/>
+<area shape="poly" id="edge7_Node000001_Node000022" title=" " alt="" coords="797,198,754,178,707,163,636,151,564,145,438,144,438,139,564,139,637,146,709,158,756,173,799,193"/>
+<area shape="rect" id="Node000024" href="$dc/d2f/GenlibClientSubscription_8cpp.html#a9714aabbe76de81410a7cb4435ce009f" title=" " alt="" coords="525,173,708,213"/>
+<area shape="poly" id="edge10_Node000001_Node000024" title=" " alt="" coords="742,211,708,207,709,202,743,206"/>
+<area shape="rect" id="Node000026" href="$dc/d2f/GenlibClientSubscription_8cpp.html#a1978700a068ca00617e40c5047435d82" title=" " alt="" coords="525,287,708,327"/>
+<area shape="poly" id="edge15_Node000001_Node000026" title=" " alt="" coords="781,249,672,290,671,285,779,244"/>
+<area shape="rect" id="Node000030" href="$dc/d2f/GenlibClientSubscription_8cpp.html#ae642af35d3373dd048a4a43d2941ea4a" title=" " alt="" coords="525,351,708,391"/>
+<area shape="poly" id="edge17_Node000001_Node000030" title=" " alt="" coords="819,254,770,299,709,342,685,354,682,349,707,337,767,294,815,250"/>
+<area shape="rect" id="Node000003" href="$d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a" title="This is a thread function to send the renewal just before the subscription times out." alt="" coords="5,55,216,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="268,86,216,86,216,80,268,81"/>
+<area shape="rect" id="Node000014" href="$d4/d99/upnpapi_8cpp.html#a35ef4435d66e949e612a9ca4f17c48f8" title="Renews a subscription that is about to expire." alt="" coords="21,5,201,31"/>
+<area shape="poly" id="edge3_Node000002_Node000014" title=" " alt="" coords="311,71,215,45,169,33,170,28,217,39,313,66"/>
+<area shape="rect" id="Node000007" href="$d4/d99/upnpapi_8cpp.html#a282c8419fef146b7170ee266159029e6" title="Schedule async functions in threadpool." alt="" coords="22,133,199,159"/>
+<area shape="poly" id="edge4_Node000002_Node000007" title=" " alt="" coords="303,103,166,136,165,131,302,98"/>
+<area shape="rect" id="Node000016" href="$d4/d99/upnpapi_8cpp.html#aead9c1aad0998507f66cf7f0749013d3" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="27,233,194,259"/>
+<area shape="poly" id="edge6_Node000015_Node000016" title=" " alt="" coords="277,249,194,249,194,243,277,243"/>
+<area shape="poly" id="edge8_Node000022_Node000007" title=" " alt="" coords="289,149,199,149,199,143,289,143"/>
+<area shape="rect" id="Node000023" href="$d4/d99/upnpapi_8cpp.html#a5b4ae069dbe9fc049ff9d0bd2230effa" title="Removes the subscription of a control point from a service previously subscribed to using UpnpSubscri..." alt="" coords="42,183,179,208"/>
+<area shape="poly" id="edge9_Node000022_Node000023" title=" " alt="" coords="290,164,179,185,178,180,289,159"/>
+<area shape="poly" id="edge11_Node000024_Node000002" title=" " alt="" coords="567,168,476,123,413,100,415,95,478,118,570,164"/>
+<area shape="poly" id="edge12_Node000024_Node000015" title=" " alt="" coords="512,218,431,236,429,231,511,213"/>
+<area shape="poly" id="edge13_Node000024_Node000022" title=" " alt="" coords="511,175,438,161,439,156,512,170"/>
+<area shape="rect" id="Node000025" href="$dc/d2f/GenlibClientSubscription_8cpp.html#abaec6e7bbaa07745323f752d4eaa7c14" title=" " alt="" coords="264,183,477,208"/>
+<area shape="poly" id="edge14_Node000024_Node000025" title=" " alt="" coords="512,196,478,197,478,192,512,191"/>
+<area shape="rect" id="Node000027" href="$da/d8f/client__table_8cpp.html#ae03e84695fe2c955c5c2e8cbec92dce3" title="Returns the client subscription from the client subscription table that has the matching token *sid b..." alt="" coords="285,295,456,320"/>
+<area shape="poly" id="edge16_Node000026_Node000027" title=" " alt="" coords="512,310,456,310,456,305,512,305"/>
+</map>

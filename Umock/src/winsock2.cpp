@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include "umock/winsock2.inc"
 
@@ -27,6 +27,6 @@ int Winsock2::WSAGetLastError() { return m_ptr_workerObj->WSAGetLastError(); }
 // On program start create an object and inject pointer to the real functions.
 // This will exist until program end.
 Winsock2Real winsock2_realObj;
-UPnPsdk_EXP Winsock2 winsock2_h(&winsock2_realObj);
+UPnPsdk_VIS Winsock2 winsock2_h(&winsock2_realObj);
 
 } // namespace umock

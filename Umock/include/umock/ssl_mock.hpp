@@ -2,7 +2,7 @@
 #ifndef UMOCK_SSL_MOCK_HPP
 #define UMOCK_SSL_MOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <umock/ssl.hpp>
 #include <UPnPsdk/port.hpp>
@@ -10,7 +10,7 @@
 
 namespace umock {
 
-class UPnPsdk_EXP SslMock : public umock::SslInterface {
+class UPnPsdk_VIS SslMock : public umock::SslInterface {
   public:
     SslMock();
     virtual ~SslMock() override;

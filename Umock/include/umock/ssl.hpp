@@ -2,14 +2,14 @@
 #ifndef UMOCK_SSL_HPP
 #define UMOCK_SSL_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-07
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <UPnPsdk/visibility.hpp>
 #include <openssl/ssl.h>
 
 namespace umock {
 
-class UPnPsdk_API SslInterface {
+class UPnPsdk_VIS SslInterface {
   public:
     SslInterface();
     virtual ~SslInterface();
@@ -41,7 +41,7 @@ class SslReal : public SslInterface {
         EXPECT_CALL(ssl_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPnPsdk_API Ssl {
+class UPnPsdk_VIS Ssl {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.

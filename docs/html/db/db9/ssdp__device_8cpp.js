@@ -12,7 +12,7 @@ var ssdp__device_8cpp =
     [ "ServiceReply", "db/db9/ssdp__device_8cpp.html#ae54b8393bd5d949c0859f443dc48e4c1", null ],
     [ "ServiceShutdown", "db/db9/ssdp__device_8cpp.html#ac92b2e78ce280abc5041ce0eda84bf2a", null ],
     [ "DeviceShutdown", "db/db9/ssdp__device_8cpp.html#a65d1171e5dcab19e9b7848773650eaf7", null ],
-    [ "AdvertiseAndReply", "d0/dc4/group__SSDP-device__functions.html#ga23db6d91dd9186968b802cb69efb966d", null ],
+    [ "AdvertiseAndReply", "d0/dc4/group__SSDP-device__functions.html#ga298b1186e6cb223cf194453e141d1b29", null ],
     [ "advertiseAndReplyThread", "db/db9/ssdp__device_8cpp.html#ab3115143bf1fdc1e542272324939ea28", null ],
     [ "MSGTYPE_SHUTDOWN", "db/db9/ssdp__device_8cpp.html#aa449f995e443ec23955d1105e43c7ff8", null ],
     [ "MSGTYPE_ADVERTISEMENT", "db/db9/ssdp__device_8cpp.html#ae0416b4cd1ea820624ee317a78a2db89", null ],

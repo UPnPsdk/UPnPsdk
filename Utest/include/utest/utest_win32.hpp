@@ -1,16 +1,16 @@
 #ifndef UTEST_TOOLS_WIN32_HPP
 #define UTEST_TOOLS_WIN32_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-08
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
-#include <UPnPsdk/visibility.hpp> // for UPnPsdk_API
+#include <UPnPsdk/visibility.hpp>
 #include <winsock2.h>
-#include <iphlpapi.h>             // must be after <winsock2.h>
+#include <iphlpapi.h> // must be after <winsock2.h>
 #include <iostream>
 
 namespace utest {
 
-class UPnPsdk_API CNetIf4
+class UPnPsdk_VIS CNetIf4
 // Object to manage and fill a network adapter structure. This is needed for
 // mocked network interfaces. References:
 // [GetAdaptersAddresses_function_(iphlpapi.h)]

@@ -1,5 +1,5 @@
 // Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <umock/ifaddrs.hpp>
 #include <UPnPsdk/port.hpp>
@@ -44,6 +44,6 @@ void Ifaddrs::freeifaddrs(struct ifaddrs* ifa) {
 // This will exist until program end.
 IfaddrsReal ifaddrs_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPnPsdk_EXP Ifaddrs ifaddrs_h(&ifaddrs_realObj);
+UPnPsdk_VIS Ifaddrs ifaddrs_h(&ifaddrs_realObj);
 
 } // namespace umock

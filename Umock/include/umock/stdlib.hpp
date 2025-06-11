@@ -1,18 +1,14 @@
 #ifndef UMOCK_STDLIB_HPP
 #define UMOCK_STDLIB_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-07
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
-#include <UpnpGlobal.hpp>
-#else
 #include <UPnPsdk/visibility.hpp>
-#endif
 #include <stdlib.h>
 
 namespace umock {
 
-class UPnPsdk_API StdlibInterface {
+class UPnPsdk_VIS StdlibInterface {
   public:
     StdlibInterface();
     virtual ~StdlibInterface();
@@ -48,7 +44,7 @@ class StdlibReal : public StdlibInterface {
         EXPECT_CALL(stdlib_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPnPsdk_API Stdlib {
+class UPnPsdk_VIS Stdlib {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.

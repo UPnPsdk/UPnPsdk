@@ -12,7 +12,7 @@ var sock_8cpp =
     [ "sock_write", "d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3", null ],
     [ "sock_make_blocking", "d5/d78/sock_8cpp.html#a16e24253d0b6395a88451d7e64b92cd5", null ],
     [ "sock_make_no_blocking", "d5/d78/sock_8cpp.html#a7618164e31690bb4a53f99022aec01df", null ],
-    [ "UpnpInitSslContext", "d9/d54/group__compaAPI.html#ga390881f2ae0cfdf7bdfb07522c2ace7b", null ],
+    [ "UpnpInitSslContext", "d9/d54/group__compaAPI.html#ga2f82679410e74327cffebdc273a6c496", null ],
     [ "freeSslCtx", "d5/d78/sock_8cpp.html#aa1c16c9b2701dab6728c2b7e2efacf7b", null ],
     [ "gSslCtx", "d5/d78/sock_8cpp.html#af6839ad43cb014accaed861e3ea29cb2", null ]
 ];

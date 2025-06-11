@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <umock/iphlpapi.hpp>
 #include <UPnPsdk/port.hpp>
@@ -45,6 +45,6 @@ ULONG Iphlpapi::GetAdaptersAddresses(ULONG Family, ULONG Flags, PVOID Reserved,
 // This will exist until program end.
 IphlpapiReal iphlpapi_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPnPsdk_EXP Iphlpapi iphlpapi_h(&iphlpapi_realObj);
+UPnPsdk_VIS Iphlpapi iphlpapi_h(&iphlpapi_realObj);
 
 } // namespace umock

@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_INCLUDE_VISIBILITY_HPP
 #define UPnPsdk_INCLUDE_VISIBILITY_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-12
 /*!
  * \file
  * \brief Macros to support visibility of external symbols.
@@ -15,7 +15,7 @@
  * Reference: https://gcc.gnu.org/wiki/Visibility
  */
 
-/*! \def UPnPsdk_API
+/*! \def UPnPsdk_VIS
  * \brief Prefix to export symbol for external use. */
 /*! \def UPnPsdk_LOCAL
  * \brief Prefix to NOT export symbol of a local method for external use. */
@@ -45,34 +45,48 @@
 #endif
 /// \endcond
 
-// Now we use the generic helper definitions above to define UPnPsdk_API and
-// UPnPsdk_LOCAL. UPnPsdk_API is used for the public API symbols. It either DLL imports
-// or DLL exports (or does nothing for static build) UPnPsdk_LOCAL is used for
-// non-api symbols.
+// Now we use the generic helper definitions above to define UPnPsdk_VIS and
+// UPnPsdk_LOCAL. UPnPsdk_VIS is used for the public visible symbols. It either
+// DLL imports or DLL exports (or does nothing for static build) UPnPsdk_LOCAL
+// is used for non-api symbols.
 
 #ifdef UPnPsdk_SHARE // defined if UPnPsdk is compiled as a shared library
   #ifdef UPnPsdk_EXPORTS // defined if we are building the UPnPsdk DLL (instead of using it)
-    #define UPnPsdk_API UPNP_HELPER_DLL_EXPORT
+    #define UPnPsdk_VIS UPNP_HELPER_DLL_EXPORT
   #else
-    #define UPnPsdk_API UPNP_HELPER_DLL_IMPORT
+    #define UPnPsdk_VIS UPNP_HELPER_DLL_IMPORT
   #endif // UPnPsdk_EXPORTS
   #define UPnPsdk_LOCAL UPNP_HELPER_DLL_LOCAL
 #else // UPnPsdk_SHARE is not defined: this means UPnPsdk is a static lib.
-  #define UPnPsdk_API
+  #define UPnPsdk_VIS
   #define UPnPsdk_LOCAL
 #endif // UPnPsdk_SHARE
 
 #if (defined _WIN32 || defined __CYGWIN__) && defined UPnPsdk_SHARE
   #define UPnPsdk_EXTERN __declspec(dllimport) extern
 #else
-  #define UPnPsdk_EXTERN UPnPsdk_API extern
+  #define UPnPsdk_EXTERN UPnPsdk_VIS extern
 #endif
 
 /// \cond
-// Its all the same symbol export but only for its different meanings.
-#define PUPNP_EXP UPnPsdk_API // Symbol exports for pupnp internal use only.
-#define PUPNP_API UPnPsdk_API // Symbol exports for old pupnp API.
-#define UPnPsdk_EXP UPnPsdk_API // Symbol exports for UPnPsdk internal use only.
+/* UPnPsdk_VIS: symbol (function, class, struct) is not a member of the API. The
+                symbol is visible for internal use only. */
+
+/* UPnPsdk_API: symbol (function, class, struct) belongs to the UPnPsdk class
+                library and is tested. */
+#define UPnPsdk_API UPnPsdk_VIS
+
+/* PUPNP_API:   symbol (function, class, struct) belongs to the old pUPnP
+                library, is emulated for backward compatibility and tested. */
+#define PUPNP_API UPnPsdk_VIS
+
+/* PUPNP_Api:   symbol (function, class, struct) belongs to the old pUPnP
+                library but is not tested so far. */
+#define PUPNP_Api UPnPsdk_VIS
+
+/* EXPORT_SPEC: old visibility label in pUPnP from the fork. It does not clearly
+                specify an API member. */
+
 /// \endcond
 
 // clang-format on

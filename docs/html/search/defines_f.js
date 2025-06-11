@@ -60,7 +60,7 @@ var searchData=
   ['upnp_5ftimeout_57',['UPNP_TIMEOUT',['../d3/da9/upnpapi_8hpp.html#a880724c6b595eb9468fe98a1a2c22085',1,'upnpapi.hpp']]],
   ['upnp_5funtil_5fclose_58',['UPNP_UNTIL_CLOSE',['../d0/d5f/Compa_2inc_2API_8hpp.html#a2d0263998b3157c7faa58c487ef775a7',1,'API.hpp']]],
   ['upnp_5fusing_5fchunked_59',['UPNP_USING_CHUNKED',['../d0/d5f/Compa_2inc_2API_8hpp.html#acffffa3289c7b4000871f59ed41342fb',1,'API.hpp']]],
-  ['upnpsdk_5fapi_60',['UPnPsdk_API',['../d0/d21/visibility_8hpp.html#a4d2eaa20d58e8671ac73f5fdcd45dd98',1,'visibility.hpp']]],
-  ['upnpsdk_5fextern_61',['UPnPsdk_EXTERN',['../d0/d21/visibility_8hpp.html#af50c37bbf2934be9d98742046a16304d',1,'visibility.hpp']]],
-  ['upnpsdk_5flocal_62',['UPnPsdk_LOCAL',['../d0/d21/visibility_8hpp.html#a30a6f5f66e8ddccccf7ff97c9b294494',1,'visibility.hpp']]]
+  ['upnpsdk_5fextern_60',['UPnPsdk_EXTERN',['../d0/d21/visibility_8hpp.html#af50c37bbf2934be9d98742046a16304d',1,'visibility.hpp']]],
+  ['upnpsdk_5flocal_61',['UPnPsdk_LOCAL',['../d0/d21/visibility_8hpp.html#a30a6f5f66e8ddccccf7ff97c9b294494',1,'visibility.hpp']]],
+  ['upnpsdk_5fvis_62',['UPnPsdk_VIS',['../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171',1,'visibility.hpp']]]
 ];

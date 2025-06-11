@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-17
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <umock/stdlib.hpp>
 #include <UPnPsdk/port.hpp>
@@ -50,6 +50,6 @@ void Stdlib::free(void* ptr) { return m_ptr_workerObj->free(ptr); }
 // This will exist until program end.
 StdlibReal stdlib_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPnPsdk_API Stdlib stdlib_h(&stdlib_realObj);
+UPnPsdk_VIS Stdlib stdlib_h(&stdlib_realObj);
 
 } // namespace umock

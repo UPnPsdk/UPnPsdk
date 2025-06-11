@@ -8,7 +8,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-12
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -219,7 +219,7 @@ int ssdp_request_type(
  *  On success: **0**\n
  *  On error: **-1**
  */
-PUPNP_EXP int readFromSSDPSocket(
+int readFromSSDPSocket(
     /*! [in] SSDP socket. */
     SOCKET socket);
 

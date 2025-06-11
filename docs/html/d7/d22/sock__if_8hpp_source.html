@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('d7/d22/sock__if_8hpp_source.html','../
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef INTERFACE_PUPNP_SOCK_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#define INTERFACE_PUPNP_SOCK_HPP</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-05-31</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-06-11</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">// Not used at time but have it available for later use. It was too much typing</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">// to just throw it away.</span></div>
@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('d7/d22/sock__if_8hpp_source.html','../
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">// =============================</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// clang-format off</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">class </span>UPnPsdk_EXP SockInterface {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">class </span><a class="code hl_define" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> SockInterface {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">virtual</span> ~SockInterface();</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
@@ -200,7 +200,7 @@ $(document).ready(function(){initNavTree('d7/d22/sock__if_8hpp_source.html','../
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">// then the symbol is included and not linked. We have to decorate the symbol</span></div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">// with __declspec(dllexport) on Microsoft Windows in a header file that</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">// normaly import symbols. It does not conform to the visibility macro</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">// UPnPsdk_EXP and would require other advanced special handling. So we link</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">// UPnPsdk_VIS and would require other advanced special handling. So we link</span></div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">// the symbol with this source file so it do the right think with it. --Ingo</span></div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>SockInterface::~SockInterface() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
@@ -216,6 +216,7 @@ $(document).ready(function(){initNavTree('d7/d22/sock__if_8hpp_source.html','../
 <div class="ttc" id="asock_8hpp_html"><div class="ttname"><a href="../../d6/df0/sock_8hpp.html">sock.hpp</a></div><div class="ttdoc">Manage network sockets and connections.</div></div>
 <div class="ttc" id="asock_8hpp_html_a703577f3b40fc1c9e865b798beab18e5"><div class="ttname"><a href="../../d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5">sock_close</a></div><div class="ttdeci">int sock_close(SOCKET sock)</div><div class="ttdoc">Closes the socket if it is different from -1.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/df0/sock_8hpp_source.html#l00085">sock.hpp:85</a></div></div>
 <div class="ttc" id="asock_8hpp_html_d9/d4f/structSOCKINFO"><div class="ttname"><a href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a></div><div class="ttdoc">Additional socket information for connections and ssl.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/df0/sock_8hpp_source.html#l00065">sock.hpp:65</a></div></div>
+<div class="ttc" id="avisibility_8hpp_html_aff597b5289a5097857287a2a3fd3a171"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a></div><div class="ttdeci">#define UPnPsdk_VIS</div><div class="ttdoc">Prefix to export symbol for external use.</div><div class="ttdef"><b>Definition</b> <a href="../../d0/d21/visibility_8hpp_source.html#l00061">visibility.hpp:61</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

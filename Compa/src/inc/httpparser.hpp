@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-21
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-12
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -298,8 +298,8 @@ struct http_parser_t {
 /*!
  * \brief Free memory allocated for the http message.
  */
-PUPNP_EXP void httpmsg_destroy( //
-    http_message_t* msg         ///< [in,out] HTTP Message Object.
+void httpmsg_destroy(   //
+    http_message_t* msg ///< [in,out] HTTP Message Object.
 );
 
 /*!
@@ -310,7 +310,7 @@ PUPNP_EXP void httpmsg_destroy( //
  *  - Pointer to a header on success
  *  - nullptr on failure
  */
-PUPNP_EXP http_header_t* httpmsg_find_hdr_str(
+http_header_t* httpmsg_find_hdr_str(
     http_message_t* msg,    ///< [in] HTTP Message Object.
     const char* header_name ///< [in] Header name to be compared with.
 );
@@ -322,7 +322,7 @@ PUPNP_EXP http_header_t* httpmsg_find_hdr_str(
  *  - Pointer to a header on success
  *  - nullptr on failure
  */
-PUPNP_EXP http_header_t* httpmsg_find_hdr(
+http_header_t* httpmsg_find_hdr(
     http_message_t* msg, ///< [in] HTTP Message Object.
     int header_name_id,  ///< [in] Header Name ID to be compared with.
     memptr* value        ///< [out] Buffer to get the ouput to.
@@ -331,16 +331,16 @@ PUPNP_EXP http_header_t* httpmsg_find_hdr(
 /*!
  * \brief Initializes parser object for a request.
  */
-PUPNP_EXP void parser_request_init( //
-    http_parser_t* parser           ///< [out] HTTP Parser Object.
+void parser_request_init( //
+    http_parser_t* parser ///< [out] HTTP Parser Object.
 );
 
 /*!
  * \brief Initializes parser object for a response.
  */
-PUPNP_EXP void parser_response_init( //
-    http_parser_t* parser,           ///< [out] HTTP Parser object.
-    http_method_t request_method     ///< [in] Request method.
+void parser_response_init(       //
+    http_parser_t* parser,       ///< [out] HTTP Parser object.
+    http_method_t request_method ///< [in] Request method.
 );
 
 /*!
@@ -390,7 +390,7 @@ parse_status_t parser_parse( //
  *  \todo Check what function description is the right one. There was another
  * found.
  */
-PUPNP_EXP parse_status_t parser_parse_responseline(
+parse_status_t parser_parse_responseline(
     http_parser_t* parser ///< [in,out] HTTP Parser object.
 );
 
@@ -420,8 +420,8 @@ PUPNP_EXP parse_status_t parser_parse_responseline(
  *  \todo Check what function description is the right one. There was another
  * found.
  */
-PUPNP_EXP parse_status_t parser_parse_headers(
-    http_parser_t* parser ///< [in,out] HTTP Parser object.
+parse_status_t
+parser_parse_headers(http_parser_t* parser ///< [in,out] HTTP Parser object.
 );
 
 /* !
@@ -446,8 +446,8 @@ PUPNP_EXP parse_status_t parser_parse_headers(
  *  \todo Check what function description is the right one. There was another
  * found.
  */
-PUPNP_EXP parse_status_t parser_parse_entity(
-    http_parser_t* parser ///< [in,out] HTTP Parser object.
+parse_status_t
+parser_parse_entity(http_parser_t* parser ///< [in,out] HTTP Parser object.
 );
 
 /*!
@@ -459,7 +459,7 @@ PUPNP_EXP parse_status_t parser_parse_entity(
  *  - PARSE_FAILURE
  *  - PARSE_SUCCESS  -- no more reading to do
  */
-PUPNP_EXP parse_status_t parser_get_entity_read_method(
+parse_status_t parser_get_entity_read_method(
     http_parser_t* parser ///< [in,out] HTTP Parser object.
 );
 
@@ -474,10 +474,10 @@ PUPNP_EXP parse_status_t parser_get_entity_read_method(
  *  - PARSE_INCOMPLETE_ENTITY
  *  - PARSE_NO_MATCH
  */
-PUPNP_EXP parse_status_t parser_append(
-    http_parser_t* parser, ///< [in,out] HTTP Parser object.
-    const char* buf,       ///< [in] buffer to be appended to the parser.
-    size_t buf_length      ///< [in] Size of the buffer.
+parse_status_t
+parser_append(http_parser_t* parser, ///< [in,out] HTTP Parser object.
+              const char* buf,  ///< [in] buffer to be appended to the parser.
+              size_t buf_length ///< [in] Size of the buffer.
 );
 
 /*!
@@ -525,15 +525,15 @@ int raw_find_str(      //
 
  * \returns Pointer to the HTTP Method.
  */
-PUPNP_EXP const char* method_to_str( //
-    http_method_t method             ///< [in] HTTP method.
+const char* method_to_str( //
+    http_method_t method   ///< [in] HTTP method.
 );
 
 /*!
  * \brief Print the HTTP headers
  * \details Function is mainly used for debugging.
  */
-PUPNP_EXP void print_http_headers(
+void print_http_headers(
     std::string_view log_msg, ///< [in] log message number ("MSGxxxx").
     http_message_t* hmsg      ///< [in] HTTP Message object.
 );

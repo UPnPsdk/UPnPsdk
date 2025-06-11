@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-09
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 /*!
 \mainpage Overview
@@ -121,14 +121,14 @@ target_compile_definitions(api_calls-csh
 target_link_libraries(api_calls-csh
         PRIVATE compa_shared)
 ```<br/>
-- In your header files, wherever you want an interface or API made public outside the current Dynamic Shared Object, place <code>UPnPsdk_API</code> in struct, class and function declarations you wish to make public. You should not specify it in the definition of your source files. On Microsoft Windows Visual Studio it does not compile due to an error. You should never do it on templated or static functions because they are defined to be local.
+- In your header files, wherever you want an interface or API made public outside the current Dynamic Shared Object, place <code>UPnPsdk_VIS</code> or <code>UPnPsdk_API</code> in struct, class and function declarations you wish to make public visible. You should not specify it in the definition of your source files. On Microsoft Windows Visual Studio it does not compile due to an error. You should never do it on templated or static functions because they are defined to be local.
 ```
-UPnPsdk_API int PublicFreeFunc();
-class UPnPsdk_API PublicClass{};
-struct UPnPsdk_API PublicStruct{};
+UPnPsdk_VIS int PublicFreeFunc();
+class UPnPsdk_VIS PublicClass{};
+struct UPnPsdk_VIS PublicStruct{};
 ```<br/>
 
-- For optimization with using <code>UPnPsdk_LOCAL</code> look at the [GCC Wiki - Visibility](https://gcc.gnu.org/wiki/Visibility). If you have a publicy visibile <code>class UPnPsdk_API PublicClass()</code> then all its member functions are also publicy visible. To keep them private you can prefix them with <code>UPnPsdk_LOCAL</code>.
+- For optimization with using <code>UPnPsdk_LOCAL</code> look at the [GCC Wiki - Visibility](https://gcc.gnu.org/wiki/Visibility). If you have a publicy visibile <code>class UPnPsdk_VIS PublicClass()</code> then all its member functions are also publicy visible. To keep them private you can prefix them with <code>UPnPsdk_LOCAL</code>.
 */
 
 // vim: filetype=cpp wrap

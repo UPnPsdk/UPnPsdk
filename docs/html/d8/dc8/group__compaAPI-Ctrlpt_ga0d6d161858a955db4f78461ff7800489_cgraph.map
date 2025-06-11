@@ -1,0 +1,15 @@
+<map id="UpnpReadHttpGet" name="UpnpReadHttpGet">
+<area shape="rect" id="Node000001" title="Gets specified number of bytes from a file specified in a URL." alt="" coords="5,104,145,129"/>
+<area shape="rect" id="Node000002" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a12907b819d45e67ef4d49600e80dfd7e" title="Reads the content of a response using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="193,104,372,129"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,114,180,114,180,119,145,119"/>
+<area shape="rect" id="Node000003" href="$da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="421,5,570,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="303,101,355,71,419,40,436,33,438,38,421,44,357,76,306,106"/>
+<area shape="rect" id="Node000006" href="$da/dd9/membuffer_8cpp.html#aee72bc5a9c58a849f2e41503500a773d" title="Shrink the size of the buffer depending on the current size of the buffer and the input parameters...." alt="" coords="424,55,567,80"/>
+<area shape="poly" id="edge3_Node000002_Node000006" title=" " alt="" coords="337,101,426,81,427,86,339,107"/>
+<area shape="rect" id="Node000007" href="$dd/d1d/httpparser_8cpp.html#a85f4a9679504a2f6a25cb53580fe81d7" title="Determines method to read entity." alt="" coords="420,104,571,129"/>
+<area shape="poly" id="edge4_Node000002_Node000007" title=" " alt="" coords="372,114,406,114,406,119,372,119"/>
+<area shape="rect" id="Node000059" href="$d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="451,153,539,179"/>
+<area shape="poly" id="edge5_Node000002_Node000059" title=" " alt="" coords="339,127,438,150,437,155,337,132"/>
+<area shape="rect" id="Node000014" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="450,203,541,228"/>
+<area shape="poly" id="edge6_Node000002_Node000014" title=" " alt="" coords="306,127,358,156,421,188,441,196,439,200,419,192,355,161,304,132"/>
+</map>

@@ -41,7 +41,7 @@ namespace UPnPsdk {
 // This is a scoped version just using the constructor and destructor. The last
 // version with methods 'suppress()' and 'restore()' can be found at commit
 // c76d123ffbd6989ff415169b86fe0b27c5a111aa. --Ingo
-class UPnPsdk_EXP CSigpipe_scoped {
+class UPnPsdk_VIS CSigpipe_scoped {
   public:
     CSigpipe_scoped();
     ~CSigpipe_scoped();

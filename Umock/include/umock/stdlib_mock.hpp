@@ -1,7 +1,7 @@
 #ifndef UMOCK_STDLIB_MOCK_HPP
 #define UMOCK_STDLIB_MOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-07
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <umock/stdlib.hpp>
 #include <UPnPsdk/port.hpp>
@@ -9,7 +9,7 @@
 
 namespace umock {
 
-class UPnPsdk_API StdlibMock : public umock::StdlibInterface {
+class UPnPsdk_VIS StdlibMock : public umock::StdlibInterface {
   public:
     StdlibMock();
     virtual ~StdlibMock() override;

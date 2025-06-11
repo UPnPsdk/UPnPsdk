@@ -1,7 +1,7 @@
 #ifndef UPNPLIB_HTTPREADWRITE_HPP
 #define UPNPLIB_HTTPREADWRITE_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 /*!
  * \file
  * \brief Declaration of class Uri
@@ -214,7 +214,7 @@ class Chttpreadwrite: Chttpreadwrite_old {
  *      \li \c UPNP_E_OUTOF_SOCKET: Too many sockets are currently
  *              allocated.
  */
-UPnPsdk_EXP int http_OpenHttpConnection(
+UPnPsdk_VIS int http_OpenHttpConnection(
     /*! [in] The URL which contains the host, and the scheme to make the
        connection. */
     const char* url,

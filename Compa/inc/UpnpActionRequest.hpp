@@ -1,7 +1,7 @@
 #ifndef COMPA_UPNPACTIONREQUEST_HPP
 #define COMPA_UPNPACTIONREQUEST_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-09
+// Redistribution only with this Copyright remark. Last modified: 2025-06-12
 // Last compare with ./Pupnp source file on 2025-05-22, ver 1.14.20
 /*!
  * \file
@@ -22,157 +22,157 @@ extern "C" {
 #endif /* __cplusplus */
 
 /*! Constructor */
-PUPNP_API UpnpActionRequest* UpnpActionRequest_new(void);
+PUPNP_Api UpnpActionRequest* UpnpActionRequest_new(void);
 /*! Destructor */
-PUPNP_API void UpnpActionRequest_delete(UpnpActionRequest* p);
+PUPNP_Api void UpnpActionRequest_delete(UpnpActionRequest* p);
 /*! Copy Constructor */
-PUPNP_API UpnpActionRequest* UpnpActionRequest_dup(const UpnpActionRequest* p);
+PUPNP_Api UpnpActionRequest* UpnpActionRequest_dup(const UpnpActionRequest* p);
 /*! Assignment operator */
-PUPNP_API int UpnpActionRequest_assign(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_assign(UpnpActionRequest* p,
                                        const UpnpActionRequest* q);
 
 /*! UpnpActionRequest_get_ErrCode */
-PUPNP_API int UpnpActionRequest_get_ErrCode(const UpnpActionRequest* p);
+PUPNP_Api int UpnpActionRequest_get_ErrCode(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_ErrCode */
-PUPNP_API int UpnpActionRequest_set_ErrCode(UpnpActionRequest* p, int n);
+PUPNP_Api int UpnpActionRequest_set_ErrCode(UpnpActionRequest* p, int n);
 
 /*! UpnpActionRequest_get_Socket */
-PUPNP_API int UpnpActionRequest_get_Socket(const UpnpActionRequest* p);
+PUPNP_Api int UpnpActionRequest_get_Socket(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_Socket */
-PUPNP_API int UpnpActionRequest_set_Socket(UpnpActionRequest* p, int n);
+PUPNP_Api int UpnpActionRequest_set_Socket(UpnpActionRequest* p, int n);
 
 /*! UpnpActionRequest_get_ErrStr */
-PUPNP_API const UpnpString*
+PUPNP_Api const UpnpString*
 UpnpActionRequest_get_ErrStr(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_ErrStr */
-PUPNP_API int UpnpActionRequest_set_ErrStr(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_set_ErrStr(UpnpActionRequest* p,
                                            const UpnpString* s);
 /*! UpnpActionRequest_get_ErrStr_Length */
-PUPNP_API size_t
+PUPNP_Api size_t
 UpnpActionRequest_get_ErrStr_Length(const UpnpActionRequest* p);
 /*! UpnpActionRequest_get_ErrStr_cstr */
-PUPNP_API const char*
+PUPNP_Api const char*
 UpnpActionRequest_get_ErrStr_cstr(const UpnpActionRequest* p);
 /*! UpnpActionRequest_strcpy_ErrStr */
-PUPNP_API int UpnpActionRequest_strcpy_ErrStr(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_strcpy_ErrStr(UpnpActionRequest* p,
                                               const char* s);
 /*! UpnpActionRequest_strncpy_ErrStr */
-PUPNP_API int UpnpActionRequest_strncpy_ErrStr(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_strncpy_ErrStr(UpnpActionRequest* p,
                                                const char* s, size_t n);
 /*! UpnpActionRequest_clear_ErrStr */
-PUPNP_API void UpnpActionRequest_clear_ErrStr(UpnpActionRequest* p);
+PUPNP_Api void UpnpActionRequest_clear_ErrStr(UpnpActionRequest* p);
 
 /*! UpnpActionRequest_get_ActionName */
-PUPNP_API const UpnpString*
+PUPNP_Api const UpnpString*
 UpnpActionRequest_get_ActionName(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_ActionName */
-PUPNP_API int UpnpActionRequest_set_ActionName(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_set_ActionName(UpnpActionRequest* p,
                                                const UpnpString* s);
 /*! UpnpActionRequest_get_ActionName_Length */
-PUPNP_API size_t
+PUPNP_Api size_t
 UpnpActionRequest_get_ActionName_Length(const UpnpActionRequest* p);
 /*! UpnpActionRequest_get_ActionName_cstr */
-PUPNP_API const char*
+PUPNP_Api const char*
 UpnpActionRequest_get_ActionName_cstr(const UpnpActionRequest* p);
 /*! UpnpActionRequest_strcpy_ActionName */
-PUPNP_API int UpnpActionRequest_strcpy_ActionName(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_strcpy_ActionName(UpnpActionRequest* p,
                                                   const char* s);
 /*! UpnpActionRequest_strncpy_ActionName */
-PUPNP_API int UpnpActionRequest_strncpy_ActionName(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_strncpy_ActionName(UpnpActionRequest* p,
                                                    const char* s, size_t n);
 /*! UpnpActionRequest_clear_ActionName */
-PUPNP_API void UpnpActionRequest_clear_ActionName(UpnpActionRequest* p);
+PUPNP_Api void UpnpActionRequest_clear_ActionName(UpnpActionRequest* p);
 
 /*! UpnpActionRequest_get_DevUDN */
-PUPNP_API const UpnpString*
+PUPNP_Api const UpnpString*
 UpnpActionRequest_get_DevUDN(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_DevUDN */
-PUPNP_API int UpnpActionRequest_set_DevUDN(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_set_DevUDN(UpnpActionRequest* p,
                                            const UpnpString* s);
 /*! UpnpActionRequest_get_DevUDN_Length */
-PUPNP_API size_t
+PUPNP_Api size_t
 UpnpActionRequest_get_DevUDN_Length(const UpnpActionRequest* p);
 /*! UpnpActionRequest_get_DevUDN_cstr */
-PUPNP_API const char*
+PUPNP_Api const char*
 UpnpActionRequest_get_DevUDN_cstr(const UpnpActionRequest* p);
 /*! UpnpActionRequest_strcpy_DevUDN */
-PUPNP_API int UpnpActionRequest_strcpy_DevUDN(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_strcpy_DevUDN(UpnpActionRequest* p,
                                               const char* s);
 /*! UpnpActionRequest_strncpy_DevUDN */
-PUPNP_API int UpnpActionRequest_strncpy_DevUDN(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_strncpy_DevUDN(UpnpActionRequest* p,
                                                const char* s, size_t n);
 /*! UpnpActionRequest_clear_DevUDN */
-PUPNP_API void UpnpActionRequest_clear_DevUDN(UpnpActionRequest* p);
+PUPNP_Api void UpnpActionRequest_clear_DevUDN(UpnpActionRequest* p);
 
 /*! UpnpActionRequest_get_ServiceID */
-PUPNP_API const UpnpString*
+PUPNP_Api const UpnpString*
 UpnpActionRequest_get_ServiceID(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_ServiceID */
-PUPNP_API int UpnpActionRequest_set_ServiceID(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_set_ServiceID(UpnpActionRequest* p,
                                               const UpnpString* s);
 /*! UpnpActionRequest_get_ServiceID_Length */
-PUPNP_API size_t
+PUPNP_Api size_t
 UpnpActionRequest_get_ServiceID_Length(const UpnpActionRequest* p);
 /*! UpnpActionRequest_get_ServiceID_cstr */
-PUPNP_API const char*
+PUPNP_Api const char*
 UpnpActionRequest_get_ServiceID_cstr(const UpnpActionRequest* p);
 /*! UpnpActionRequest_strcpy_ServiceID */
-PUPNP_API int UpnpActionRequest_strcpy_ServiceID(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_strcpy_ServiceID(UpnpActionRequest* p,
                                                  const char* s);
 /*! UpnpActionRequest_strncpy_ServiceID */
-PUPNP_API int UpnpActionRequest_strncpy_ServiceID(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_strncpy_ServiceID(UpnpActionRequest* p,
                                                   const char* s, size_t n);
 /*! UpnpActionRequest_clear_ServiceID */
-PUPNP_API void UpnpActionRequest_clear_ServiceID(UpnpActionRequest* p);
+PUPNP_Api void UpnpActionRequest_clear_ServiceID(UpnpActionRequest* p);
 
 /*! UpnpActionRequest_get_ActionRequest */
-PUPNP_API IXML_Document*
+PUPNP_Api IXML_Document*
 UpnpActionRequest_get_ActionRequest(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_ActionRequest */
-PUPNP_API int UpnpActionRequest_set_ActionRequest(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_set_ActionRequest(UpnpActionRequest* p,
                                                   IXML_Document* n);
 
 /*! UpnpActionRequest_get_ActionResult */
-PUPNP_API IXML_Document*
+PUPNP_Api IXML_Document*
 UpnpActionRequest_get_ActionResult(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_ActionResult */
-PUPNP_API int UpnpActionRequest_set_ActionResult(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_set_ActionResult(UpnpActionRequest* p,
                                                  IXML_Document* n);
 
 /*! UpnpActionRequest_get_SoapHeader */
-PUPNP_API IXML_Document*
+PUPNP_Api IXML_Document*
 UpnpActionRequest_get_SoapHeader(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_SoapHeader */
-PUPNP_API int UpnpActionRequest_set_SoapHeader(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_set_SoapHeader(UpnpActionRequest* p,
                                                IXML_Document* n);
 
 /*! UpnpActionRequest_get_CtrlPtIPAddr */
-PUPNP_API const struct sockaddr_storage*
+PUPNP_Api const struct sockaddr_storage*
 UpnpActionRequest_get_CtrlPtIPAddr(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_CtrlPtIPAddr */
-PUPNP_API int
+PUPNP_Api int
 UpnpActionRequest_set_CtrlPtIPAddr(UpnpActionRequest* p,
                                    const struct sockaddr_storage* buf);
 /*! UpnpActionRequest_clear_CtrlPtIPAddr */
-PUPNP_API void UpnpActionRequest_clear_CtrlPtIPAddr(UpnpActionRequest* p);
+PUPNP_Api void UpnpActionRequest_clear_CtrlPtIPAddr(UpnpActionRequest* p);
 
 /*! UpnpActionRequest_get_Os */
-PUPNP_API const UpnpString*
+PUPNP_Api const UpnpString*
 UpnpActionRequest_get_Os(const UpnpActionRequest* p);
 /*! UpnpActionRequest_set_Os */
-PUPNP_API int UpnpActionRequest_set_Os(UpnpActionRequest* p,
+PUPNP_Api int UpnpActionRequest_set_Os(UpnpActionRequest* p,
                                        const UpnpString* s);
 /*! UpnpActionRequest_get_Os_Length */
-PUPNP_API size_t UpnpActionRequest_get_Os_Length(const UpnpActionRequest* p);
+PUPNP_Api size_t UpnpActionRequest_get_Os_Length(const UpnpActionRequest* p);
 /*! UpnpActionRequest_get_Os_cstr */
-PUPNP_API const char* UpnpActionRequest_get_Os_cstr(const UpnpActionRequest* p);
+PUPNP_Api const char* UpnpActionRequest_get_Os_cstr(const UpnpActionRequest* p);
 /*! UpnpActionRequest_strcpy_Os */
-PUPNP_API int UpnpActionRequest_strcpy_Os(UpnpActionRequest* p, const char* s);
+PUPNP_Api int UpnpActionRequest_strcpy_Os(UpnpActionRequest* p, const char* s);
 /*! UpnpActionRequest_strncpy_Os */
-PUPNP_API int UpnpActionRequest_strncpy_Os(UpnpActionRequest* p, const char* s,
+PUPNP_Api int UpnpActionRequest_strncpy_Os(UpnpActionRequest* p, const char* s,
                                            size_t n);
 /*! UpnpActionRequest_clear_Os */
-PUPNP_API void UpnpActionRequest_clear_Os(UpnpActionRequest* p);
+PUPNP_Api void UpnpActionRequest_clear_Os(UpnpActionRequest* p);
 
 #ifdef __cplusplus
 }

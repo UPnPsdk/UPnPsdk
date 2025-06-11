@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_WIN32_NETADAPTER_HPP
 #define UPnPsdk_WIN32_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-31
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -15,7 +15,7 @@ namespace UPnPsdk {
 /*!
  * \brief Manage information from Microsoft Windows about network adapters.
  */
-class UPnPsdk_API CNetadapter_platform : public INetadapter {
+class UPnPsdk_VIS CNetadapter_platform : public INetadapter {
   public:
     // Constructor
     CNetadapter_platform();

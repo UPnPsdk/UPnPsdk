@@ -1,7 +1,7 @@
 #ifndef UMOCK_ARPA_INET_HPP
 #define UMOCK_ARPA_INET_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-07
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <UPnPsdk/port_sock.hpp>
 #include <UPnPsdk/visibility.hpp>
@@ -10,7 +10,7 @@ namespace umock {
 
 // clang-format off
 
-class UPnPsdk_API Arpa_inetInterface {
+class UPnPsdk_VIS Arpa_inetInterface {
   public:
     Arpa_inetInterface();
     virtual ~Arpa_inetInterface();
@@ -40,7 +40,7 @@ class Arpa_inetReal : public Arpa_inetInterface {
         EXPECT_CALL(arpa_inet_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPnPsdk_API Arpa_inet {
+class UPnPsdk_VIS Arpa_inet {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.

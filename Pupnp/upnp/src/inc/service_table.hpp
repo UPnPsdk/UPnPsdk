@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-12-19
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-11
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -181,7 +181,7 @@ service_info* FindServiceId(
  * \return Pointer to the service list node from the service table whose event
  * URL matches a known event URL.
  */
-UPnPsdk_API service_info* FindServiceEventURLPath(
+UPnPsdk_VIS service_info* FindServiceEventURLPath(
     /*! [in] Service table. */
     service_table* table,
     /*! [in] Event URL path used to find a service from the table. */

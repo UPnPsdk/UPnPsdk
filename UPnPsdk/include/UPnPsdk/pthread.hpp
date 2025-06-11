@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_PTHREAD_HPP
 #define UPnPsdk_PTHREAD_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-19
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 /*!
  * \file
@@ -86,7 +86,7 @@ typedef void (*start_routine)(void* arg);
  * \note This function is only available for macOS and Microsoft Windows.
  * Unix/Linux with GCC compiler can do this authomatically.
  */
-UPnPsdk_API uint64_t pthread_self();
+UPnPsdk_VIS uint64_t pthread_self();
 #endif
 
 

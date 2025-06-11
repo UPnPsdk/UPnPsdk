@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_UTEST_HPP
 #define UPnPsdk_UTEST_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-16
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port.hpp>
@@ -71,7 +71,7 @@ const bool github_actions{static_cast<bool>(std::getenv("GITHUB_ACTIONS"))};
 //              Read 0 byte from pipe.
 // clang-format on
 
-class UPnPsdk_API CaptureStdOutErr {
+class UPnPsdk_VIS CaptureStdOutErr {
   public:
     CaptureStdOutErr(int a_fileno = UPnPsdk::log_fileno);
     virtual ~CaptureStdOutErr();
@@ -103,13 +103,13 @@ class UPnPsdk_API CaptureStdOutErr {
 // function to get the modification time of a file
 // -----------------------------------------------
 //     using ::utest::file_mod_time;
-UPnPsdk_API time_t file_mod_time(const std::string& a_pathname);
+UPnPsdk_VIS time_t file_mod_time(const std::string& a_pathname);
 
 
 // function to test if file descriptors are closed
 // -----------------------------------------------
 //     using ::utest::check_closed_fds;
-UPnPsdk_API void check_closed_fds(int a_from_fd, int a_to_fd);
+UPnPsdk_VIS void check_closed_fds(int a_from_fd, int a_to_fd);
 
 
 // ###############################

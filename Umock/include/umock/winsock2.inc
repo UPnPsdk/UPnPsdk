@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-08
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 // There is no include guard '#ifndef ...' because this file shouln't be
 // included more than two times as given.
@@ -41,7 +41,7 @@ class Winsock2Real : public Winsock2Interface {
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
 // clang-format on
-class UPnPsdk_API Winsock2 {
+class UPnPsdk_VIS Winsock2 {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.

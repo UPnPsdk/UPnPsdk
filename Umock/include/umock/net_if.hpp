@@ -1,14 +1,14 @@
 #ifndef MOCK_NET_IF_HPP
 #define MOCK_NET_IF_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-07
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <UPnPsdk/visibility.hpp>
 #include <net/if.h>
 
 namespace umock {
 
-class UPnPsdk_API Net_ifInterface {
+class UPnPsdk_VIS Net_ifInterface {
   public:
     Net_ifInterface();
     virtual ~Net_ifInterface();
@@ -38,7 +38,7 @@ class Net_ifReal : public Net_ifInterface {
         EXPECT_CALL(net_if_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPnPsdk_API Net_if {
+class UPnPsdk_VIS Net_if {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.

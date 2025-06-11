@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-02
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-12
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -62,25 +62,25 @@ typedef struct UpnpListHead {
 typedef UpnpListHead* UpnpListIter;
 
 /*! \brief Initialize empty list */
-PUPNP_API void UpnpListInit(UpnpListHead* list);
+PUPNP_Api void UpnpListInit(UpnpListHead* list);
 
 /*! \brief Return iterator pointing to the first list element, or
  *  UpnpListEnd(list) if the list is empty */
-PUPNP_API UpnpListIter UpnpListBegin(UpnpListHead* list);
+PUPNP_Api UpnpListIter UpnpListBegin(UpnpListHead* list);
 
 /*! \brief Return end of list sentinel iterator (not an element) */
-PUPNP_API UpnpListIter UpnpListEnd(UpnpListHead* list);
+PUPNP_Api UpnpListIter UpnpListEnd(UpnpListHead* list);
 
 /*! \brief Return iterator pointing to element after pos, or end() */
-PUPNP_API UpnpListIter UpnpListNext(UpnpListHead* list, UpnpListIter pos);
+PUPNP_Api UpnpListIter UpnpListNext(UpnpListHead* list, UpnpListIter pos);
 
 /*! \brief Insert element before pos, returns iterator pointing to inserted
  * element. */
-PUPNP_API UpnpListIter UpnpListInsert(UpnpListHead* list, UpnpListIter pos,
+PUPNP_Api UpnpListIter UpnpListInsert(UpnpListHead* list, UpnpListIter pos,
                                       UpnpListHead* elt);
 
 /*! \brief Erase element at pos, return next one, or end()*/
-PUPNP_API UpnpListIter UpnpListErase(UpnpListHead* list, UpnpListIter pos);
+PUPNP_Api UpnpListIter UpnpListErase(UpnpListHead* list, UpnpListIter pos);
 
 #ifdef __cplusplus
 }

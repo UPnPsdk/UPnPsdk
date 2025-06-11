@@ -103,12 +103,9 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <div class="textblock"><dl class="reflist">
 <dt>File <a class="el" href="../../de/d2c/A__general__TODO-list_8dox.html">A_general_TODO-list.dox</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a><ul>
-<li>Sample programs built with different libraries.<ul>
-<li>Split API include files into e.g. *.h and *.hpp, start with upnp.h/upnp.hpp.</li>
-</ul>
-</li>
-<li>Install new authentification for Github.</li>
 <li>Implement API of the SDK, remove <a class="el" href="../../d8/df6/UpnpGlobal_8hpp_source.html">Compa/inc/UpnpGlobal.hpp</a>.</li>
+<li>Remove <a class="el" href="../../da/df8/UpnpUniStd_8hpp.html" title="Do not #include &lt;unistd.h&gt; on WIN32.">Compa/inc/UpnpUniStd.hpp</a> from pUPnP API.</li>
+<li>Install new authentification for Github.</li>
 <li>Enable and improve tests in Utest/compa/threadutil.d.</li>
 <li>Improve test_http_Download.cpp, start with error conditions for <a class="el" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters.">http_MakeMessage()</a>.</li>
 <li>Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.</li>
@@ -163,15 +160,15 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <dd><p class="startdd"><a class="anchor" id="_todo000021"></a>documentation. </p>
 <p class="enddd"><a class="anchor" id="_todo000022"></a>documentation.  </p>
 </dd>
-<dt>Member <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a668ccd4ff414ba93c52f767a65f6dc42">parser_parse_entity</a>  (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t" title="Structure of an HTTP parser object.">http_parser_t</a> *parser)</dt>
+<dt>Member <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a85f4a9679504a2f6a25cb53580fe81d7">parser_parse_entity</a>  (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t" title="Structure of an HTTP parser object.">http_parser_t</a> *parser)</dt>
 <dd><a class="anchor" id="_todo000015"></a>Check what function description is the right one. There was another found.  </dd>
-<dt>Member <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a1ff238a2fc120a31e408d44318b3023a">parser_parse_headers</a>  (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t" title="Structure of an HTTP parser object.">http_parser_t</a> *parser)</dt>
+<dt>Member <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a0ac4edac66374f24caf41becea2cf236">parser_parse_headers</a>  (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t" title="Structure of an HTTP parser object.">http_parser_t</a> *parser)</dt>
 <dd><a class="anchor" id="_todo000014"></a>Check what function description is the right one. There was another found.  </dd>
-<dt>Member <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aad8a6af90f7bd038cde65724a371cef1">parser_parse_responseline</a>  (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t" title="Structure of an HTTP parser object.">http_parser_t</a> *parser)</dt>
+<dt>Member <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aa7dd58029632188085819da596eda0cc">parser_parse_responseline</a>  (<a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t" title="Structure of an HTTP parser object.">http_parser_t</a> *parser)</dt>
 <dd><a class="anchor" id="_todo000013"></a>Check what function description is the right one. There was another found.  </dd>
 <dt>Member <a class="el" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a792af065e758a89de58061eadd9769ee">private_connect</a>  (const SOCKET sockfd, const sockaddr *const serv_addr, const socklen_t addrlen)</dt>
 <dd><a class="anchor" id="_todo000007"></a>Return more detailed error codes, e.g. with 'getsockopt()' valopt == 111: ECONNREFUSED "Connection refused" if there is a remote host but no server service listening.  </dd>
-<dt>Member <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#ab8ba916f64d6777c584de7bb9459bd27">remove_escaped_chars</a>  (char *in, size_t *size)</dt>
+<dt>Member <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a90e73d69a90e3cb3305a40b30091320e">remove_escaped_chars</a>  (char *in, size_t *size)</dt>
 <dd><a class="anchor" id="_todo000012"></a>Optimize with prechecking the delimiter '%'.  </dd>
 <dt>Member <a class="el" href="../../d9/dd1/soap__ctrlpt_8cpp.html#a05e899b6e0c3bc1b2964ac01c37c15d7">SoapGetServiceVarStatus</a>  (char *action_url, DOMString var_name, DOMString *var_value)</dt>
 <dd><p class="startdd"><a class="anchor" id="_todo000027"></a>Verify the bug in the source code of this function with a unit test. </p>
@@ -179,7 +176,7 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 </dd>
 <dt>Struct <a class="el" href="../../d6/df0/sock_8hpp.html">SOCKINFO</a>  </dt>
 <dd><a class="anchor" id="_todo000018"></a>Cleanup constants: In &lt;sys/socket.h&gt; are defined SHUT_RD, SHUT_WR, SHUT_RDWR with 0, 1, 2, according to man 2 shutdown.  </dd>
-<dt>Member <a class="el" href="../../d3/d57/group__UPnPTools.html#ga1778ebae2904d4377114586162f2d218">UpnpResolveURL</a>  (const char *BaseURL, const char *RelURL, char *AbsURL)</dt>
+<dt>Member <a class="el" href="../../d3/d57/group__UPnPTools.html#ga480e7d0aa9565348e3a113c8c053762d">UpnpResolveURL</a>  (const char *BaseURL, const char *RelURL, char *AbsURL)</dt>
 <dd><a class="anchor" id="_todo000006"></a>There is some unnecessary allocation and deallocation going on here because of the way <a class="el" href="../../d8/dd2/uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356" title="Resolves a relative url with a base url.">resolve_rel_url()</a> was originally written and used. In the future it would be nice to clean this up.  </dd>
 <dt>Member <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d">UPnPsdk::CAddrinfo::get_first</a>  ()</dt>
 <dd><a class="anchor" id="_todo000002"></a>Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32.  </dd>

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <umock/stringh.hpp>
 #include <UPnPsdk/port.hpp>
@@ -42,6 +42,6 @@ char* Stringh::strndup(const char* s, size_t n) {
 // This will exist until program end.
 StringhReal stringh_realObj;
 SUPPRESS_MSVC_WARN_4273_NEXT_LINE
-UPnPsdk_EXP Stringh string_h(&stringh_realObj);
+UPnPsdk_VIS Stringh string_h(&stringh_realObj);
 
 } // namespace umock

@@ -1,14 +1,14 @@
 #ifndef UMOCK_STDIO_HPP
 #define UMOCK_STDIO_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-13
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <UPnPsdk/visibility.hpp>
 #include <stdio.h>
 
 namespace umock {
 
-class UPnPsdk_API StdioInterface {
+class UPnPsdk_VIS StdioInterface {
   public:
     StdioInterface();
     virtual ~StdioInterface();
@@ -63,7 +63,7 @@ class StdioReal : public StdioInterface {
         EXPECT_CALL(stdio_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPnPsdk_API Stdio {
+class UPnPsdk_VIS Stdio {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.

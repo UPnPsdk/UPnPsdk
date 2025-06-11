@@ -1,7 +1,7 @@
 #ifndef UMOCK_IPHLPAPI_HPP
 #define UMOCK_IPHLPAPI_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-10-08
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 // iphlpapi.h is a Microsoft Windows library.
 
@@ -10,7 +10,7 @@
 
 namespace umock {
 
-class UPnPsdk_API IphlpapiInterface {
+class UPnPsdk_VIS IphlpapiInterface {
   public:
     IphlpapiInterface();
     virtual ~IphlpapiInterface();
@@ -45,7 +45,7 @@ class IphlpapiReal : public IphlpapiInterface {
         EXPECT_CALL(ifaddrs_mockObj, ...);
     } // End scope, mock objects are destructed, worker restored to default.
 */ //------------------------------------------------------------------------
-class UPnPsdk_API Iphlpapi {
+class UPnPsdk_VIS Iphlpapi {
   public:
     // This constructor is used to inject the pointer to the real function. It
     // sets the default used class, that is the real function.

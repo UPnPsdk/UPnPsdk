@@ -1,9 +1,9 @@
 var group__compaAPI_Control =
 [
-    [ "UpnpGetServiceVarStatus", "d1/d73/group__compaAPI-Control.html#gac9b4c81f399ad92befd8ba8469529345", null ],
-    [ "UpnpGetServiceVarStatusAsync", "d1/d73/group__compaAPI-Control.html#gad2c62767dca4af9c6c4cc64a2483ffd1", null ],
-    [ "UpnpSendAction", "d1/d73/group__compaAPI-Control.html#ga17fd85c7ae5c727cd003d4a5513983fa", null ],
-    [ "UpnpSendActionEx", "d1/d73/group__compaAPI-Control.html#ga8a25d6a3b74913b613f013ee87cdf18a", null ],
-    [ "UpnpSendActionAsync", "d1/d73/group__compaAPI-Control.html#gad1a91f24f0f3370583784e8c3c360675", null ],
-    [ "UpnpSendActionExAsync", "d1/d73/group__compaAPI-Control.html#ga81549df869dff3011e0b75053c9ea9ff", null ]
+    [ "UpnpGetServiceVarStatus", "d1/d73/group__compaAPI-Control.html#gad3d63b3d60a6b79d1c5130cffbbbc68e", null ],
+    [ "UpnpGetServiceVarStatusAsync", "d1/d73/group__compaAPI-Control.html#ga6b3a466d43b315f229c1d44975177a87", null ],
+    [ "UpnpSendAction", "d1/d73/group__compaAPI-Control.html#gae73f0d0309feee4d71bf9995abdfa794", null ],
+    [ "UpnpSendActionEx", "d1/d73/group__compaAPI-Control.html#ga4760be55d63dee8c0ca4e59d07ff964c", null ],
+    [ "UpnpSendActionAsync", "d1/d73/group__compaAPI-Control.html#ga1b4f31c5154b3cb2e88b098e4bf5041e", null ],
+    [ "UpnpSendActionExAsync", "d1/d73/group__compaAPI-Control.html#ga32711a7376d9c28f147b2b9a9736e5b9", null ]
 ];

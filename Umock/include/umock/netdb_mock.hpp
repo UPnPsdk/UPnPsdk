@@ -1,7 +1,7 @@
 #ifndef UMOCK_NETDB_MOCK_HPP
 #define UMOCK_NETDB_MOCK_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-21
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 
 #include <umock/netdb.hpp>
 #include <UPnPsdk/port.hpp>
@@ -9,7 +9,7 @@
 
 namespace umock {
 
-class UPnPsdk_EXP NetdbMock : public NetdbInterface {
+class UPnPsdk_VIS NetdbMock : public NetdbInterface {
   public:
     NetdbMock();
     virtual ~NetdbMock() override;

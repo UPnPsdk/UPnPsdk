@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_INCLUDE_ADDRINFO_HPP
 #define UPnPsdk_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-01-31
+// Redistribution only with this Copyright remark. Last modified: 2025-06-11
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
@@ -52,7 +52,7 @@ namespace UPnPsdk {
 // version with copy constructor, copy asignment operator, compare operator,
 // additional getter and its unit tests can be found at Github commit
 // e2ffc0c46a2d8f15390f2816e1a18782e500fd09
-class UPnPsdk_API CAddrinfo {
+class UPnPsdk_VIS CAddrinfo {
   public:
     /// \brief Constructor for getting an address information with service name
     //  -----------------------------------------------------------------------
