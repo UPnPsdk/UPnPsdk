@@ -1,13 +1,18 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-12
+// Redistribution only with this Copyright remark. Last modified: 2025-07-02
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Implement API of the SDK, remove Compa/inc/UpnpGlobal.hpp.
- * - Remove Compa/inc/UpnpUniStd.hpp from pUPnP API.
+ * - Implement API of the SDK.
+     - Check installation of binaries and header files in /usr/local.
+     - Add ixml interface calls to api_calls.c.
  * - Install new authentification for Github.
+ * - Rework API of the SDK.
+     - Remove Compa/inc/UpnpGlobal.hpp.
+     - Remove Compa/inc/UpnpUniStd.hpp from pUPnP API.
+     - Remove Compa/src/inc/unixutil.hpp?
  * - Enable and improve tests in Utest/compa/threadutil.d.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
  * - Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.

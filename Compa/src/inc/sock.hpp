@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-11-05
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-15
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -212,5 +212,38 @@ int sock_make_blocking(
 int sock_make_no_blocking(
     /* [in] socket. */
     SOCKET sock);
+
+#if defined(UPnPsdk_HAVE_OPENSSL) || defined(DOXYGEN_RUN)
+/*!
+ * \brief Initializes the OpenSSL library, and the OpenSSL context.
+ *
+ * \note This method is only available if the library is compiled with OpenSSL
+ * support.
+ *
+ * \returns An integer representing one of the following:
+ *   - UPNP_E_SUCCESS: The operation completed successfully.
+ *   - UPNP_E_INIT: The SDK is already initialized.
+ *   - UPNP_E_INIT_FAILED: The SDK initialization failed. Is OpenSSL available?
+ */
+// Don't export function symbol; only used library intern.
+int UpnpInitSslContext(
+    /*! This argument is ignored and only provided for compatibility. It can be
+     * set to any value. The library is initialzed automatically. */
+    int initOpenSslLib,
+    /*! The SSL_METHOD to use to create the context. See OpenSSL docs for more
+     * info, that recommends to use TLS_method(), TLS_server_method() (for
+     * client and server), or TLS_client_method() since OpenSSL 1.1.0 because
+     * other methods are deprecated. */
+    const SSL_METHOD* sslMethod);
+
+/*!
+ * \brief Free the OpenSSL context.
+ *
+ * \note This method is only available if the library is compiled with OpenSSL
+ * support.
+ */
+// Don't export function symbol; only used library intern.
+void freeSslCtx(void);
+#endif
 
 #endif /* COMPA_SOCK_HPP */

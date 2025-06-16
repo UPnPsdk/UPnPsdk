@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-06-10
+# Redistribution only with this Copyright remark. Last modified: 2025-06-29
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -62,7 +62,6 @@ add_executable (tv_ctrlpt-psh
 )
 target_include_directories(tv_ctrlpt-psh
     PRIVATE ${PUPNP_SOURCE_DIR}/sample/common
-    PRIVATE ${COMPA_SOURCE_DIR}/inc/ixml
 )
 target_compile_options(tv_ctrlpt-psh
     ${PUPNP_COMPILE_OPTIONS}
@@ -126,7 +125,6 @@ add_executable (tv_combo-psh
 )
 target_include_directories(tv_combo-psh
     PRIVATE ${PUPNP_SOURCE_DIR}/sample/common
-    PRIVATE ${COMPA_SOURCE_DIR}/inc/ixml
 )
 target_compile_options(tv_combo-psh
     ${PUPNP_COMPILE_OPTIONS}
@@ -188,7 +186,6 @@ add_executable (tv_device-psh
 )
 target_include_directories(tv_device-psh
     PRIVATE ${PUPNP_SOURCE_DIR}/sample/common
-    PRIVATE ${COMPA_SOURCE_DIR}/inc/ixml
 )
 target_compile_options(tv_device-psh
     ${PUPNP_COMPILE_OPTIONS}

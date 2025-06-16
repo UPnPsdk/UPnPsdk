@@ -1,8 +1,5 @@
 var NAVTREEINDEX9 =
 {
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#a12a001f2043f8c4ef1d45ec0f402e566":[4,3,0,0,3,14],
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#a1f9d157e611b5cda3903b0497728c7c6":[4,3,0,0,3,2],
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5":[4,3,0,0,3,7],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a20b517fd6087268d643f8bd7433ec83a":[4,3,0,0,3,3],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a2af7f7338ae0bdbb8bd731cadba0dbaa":[4,3,0,0,3,5],
 "dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8":[4,3,0,0,3,13],
@@ -249,5 +246,8 @@ var NAVTREEINDEX9 =
 "dd/da6/UpnpFileInfo_8cpp.html#ad310677db2ea61dda0249e7fe3530d6a":[7,0,0,1,0,8,0,2],
 "dd/da6/UpnpFileInfo_8cpp.html#adad0e39258c4d4a236d756f47a7f9bd0":[7,0,0,1,0,8,15],
 "dd/da6/UpnpFileInfo_8cpp.html#adada5d9e2258c048a81b3b71973fad54":[7,0,0,1,0,8,2],
-"dd/da6/UpnpFileInfo_8cpp.html#ae083771be852271b9c8221631063f955":[7,0,0,1,0,8,0,7]
+"dd/da6/UpnpFileInfo_8cpp.html#ae083771be852271b9c8221631063f955":[7,0,0,1,0,8,0,7],
+"dd/da6/UpnpFileInfo_8cpp.html#aeab0e70e09f4ec70dc1714fd6070dded":[7,0,0,1,0,8,24],
+"dd/da6/UpnpFileInfo_8cpp.html#aeba9fa8ab52f4d524744789522766109":[7,0,0,1,0,8,12],
+"dd/da6/UpnpFileInfo_8cpp.html#d7/d1f/structs__UpnpFileInfo":[7,0,0,1,0,8,0]
 };

@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-06-09
+# Redistribution only with this Copyright remark. Last modified: 2025-06-24
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -18,64 +18,65 @@ message(STATUS "PUPNP_UPNP_VERSION set to \"${PUPNP_UPNP_VERSION}\"")
 # These switches are all handled only in this configuration file.
 
 # Options selectable by user configuration
-set(PUPNP_DEF_GOOGLETEST ${UPnPsdk_WITH_GOOGLETEST})
-set(PUPNP_DEF_TOOLS YES) #${UPnPsdk_WITH_TOOLS})         # tools -> UPNP_ENABLE_HELPER_API_TOOLS
-set(PUPNP_DEF_CLIENT YES) #${UPnPsdk_WITH_CLIENT})       # client -> UPNP_ENABLE_CLIENT_API
-set(PUPNP_DEF_DEVICE YES) #${UPnPsdk_WITH_DEVICE})
-set(PUPNP_DEF_WEBSERVER YES) #${UPnPsdk_WITH_WEBSERVER}) # webserver -> UPNP_ENABLE_WEBSERVER
-                                                     #   only enabled with PUPNP_DEF_DEVICE
-set(PUPNP_DEF_OPTSSDP YES) #${UPnPsdk_WITH_OPTSSDP})     # optssdp -> UPNP_ENABLE_OPTIONAL_SSDP_HEADERS
-set(PUPNP_DEF_SOAP YES) #${UPnPsdk_WITH_SOAP})           # soap -> UPNP_ENABLE_SOAP
-                                                     #   only enabled with PUPNP_DEF_WEBSERVER
-set(PUPNP_DEF_GENA YES) #${UPnPsdk_WITH_GENA})           # gena -> UPNP_ENABLE_GENA
-                                                     #   compiles only with PUPNP_DEF_CLIENT and PUPNP_DEF_DEVICE
-set(PUPNP_DEF_OPENSSL ${UPnPsdk_WITH_OPENSSL})     # open_ssl -> UPNP_ENABLE_OPEN_SSL
-set(PUPNP_DEF_BLOCKTCP NO) #${UPnPsdk_WITH_BLOCKTCP})   # blocking_tcp_connections -> UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS
+set(UPNP_HAVE_GOOGLETEST ${UPnPsdk_WITH_GOOGLETEST})
+set(UPNP_HAVE_TOOLS YES) #${UPnPsdk_WITH_TOOLS})         # tools -> UPNP_ENABLE_HELPER_API_TOOLS
+set(UPNP_HAVE_CLIENT YES) #${UPnPsdk_WITH_CLIENT})       # client -> UPNP_ENABLE_CLIENT_API
+set(UPNP_HAVE_DEVICE YES) #${UPnPsdk_WITH_DEVICE})
+set(UPNP_HAVE_WEBSERVER YES) #${UPnPsdk_WITH_WEBSERVER}) # webserver -> UPNP_ENABLE_WEBSERVER
+                                                     #   only enabled with UPNP_HAVE_DEVICE
+set(UPNP_HAVE_OPTSSDP YES) #${UPnPsdk_WITH_OPTSSDP})     # optssdp -> UPNP_ENABLE_OPTIONAL_SSDP_HEADERS
+set(UPNP_HAVE_SOAP YES) #${UPnPsdk_WITH_SOAP})           # soap -> UPNP_ENABLE_SOAP
+                                                     #   only enabled with UPNP_HAVE_WEBSERVER
+set(UPNP_HAVE_GENA YES) #${UPnPsdk_WITH_GENA})           # gena -> UPNP_ENABLE_GENA
+                                                     #   compiles only with UPNP_HAVE_CLIENT and UPNP_HAVE_DEVICE
+set(UPNP_ENABLE_OPEN_SSL ${UPnPsdk_WITH_OPENSSL})     # open_ssl -> UPNP_ENABLE_OPEN_SSL
+set(UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS NO) #${UPnPsdk_WITH_BLOCKTCP})   # blocking_tcp_connections -> UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS
+set(UPNP_ENABLE_IPV6 YES)                           # Always available
 #set(PUPNP_DEF_IXML YES) #${UPnPsdk_WITH_IXML_SCRIPT})   # scriptsupport -> IXML_HAVE_SCRIPTSUPPORT
 #set(PUPNP_DEF_UNSPECSVR NO)                        # unspecified_server -> UPNP_ENABLE_UNSPECIFIED_SERVER
 #set(PUPNP_DEF_REUSEADDR NO)                        # reuseaddr -> UPNP_MINISERVER_REUSEADDR
 if(UPnPsdk_WITH_SAMPLES)                             # all samples -> UPNP_BUILD_SAMPLES
-    set(PUPNP_DEF_SAMPLES YES) # To make it separate selectable don't set it direct
+    set(PUPNP_HAVE_SAMPLES YES) # To make it separate selectable don't set it direct
 endif()
 
 # Dependencies of options
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(PUPNP_DEF_DEBUG YES)
+    set(UPNP_HAVE_DEBUG YES)
 endif()
 
-if(PUPNP_DEF_GOOGLETEST)
-    set(PUPNP_DEF_CLIENT YES)
-    set(PUPNP_DEF_OPTSSDP YES)
-    set(PUPNP_DEF_GENA YES)
+if(UPNP_HAVE_GOOGLETEST)
+    set(UPNP_HAVE_CLIENT YES)
+    set(UPNP_HAVE_OPTSSDP YES)
+    set(UPNP_HAVE_GENA YES)
 endif()
 
-if(PUPNP_DEF_SAMPLES)
-    set(PUPNP_DEF_TOOLS YES)
-    set(PUPNP_DEF_CLIENT YES)
-    set(PUPNP_DEF_GENA YES)
+if(PUPNP_HAVE_SAMPLES)
+    set(UPNP_HAVE_TOOLS YES)
+    set(UPNP_HAVE_CLIENT YES)
+    set(UPNP_HAVE_GENA YES)
 endif()
 
-if(PUPNP_DEF_GENA)
-    set(PUPNP_DEF_WEBSERVER YES)
-    set(PUPNP_DEF_CLIENT YES)
+if(UPNP_HAVE_GENA)
+    set(UPNP_HAVE_WEBSERVER YES)
+    set(UPNP_HAVE_CLIENT YES)
 endif()
 
-if(PUPNP_DEF_CLIENT)
-    set(PUPNP_DEF_SSDP YES)
+if(UPNP_HAVE_CLIENT)
+    set(UPNP_HAVE_SSDP YES)
 endif()
 
-if(PUPNP_DEF_DEVICE)
-    set(PUPNP_DEF_WEBSERVER YES)
-    set(PUPNP_DEF_SSDP YES)
+if(UPNP_HAVE_DEVICE)
+    set(UPNP_HAVE_WEBSERVER YES)
+    set(UPNP_HAVE_SSDP YES)
 endif()
 
-if(PUPNP_DEF_WEBSERVER)
-    set(PUPNP_DEF_DEVICE YES)
-    set(PUPNP_DEF_SOAP YES)
+if(UPNP_HAVE_WEBSERVER)
+    set(UPNP_HAVE_DEVICE YES)
+    set(UPNP_HAVE_SOAP YES)
 endif()
 
-if(PUPNP_DEF_SOAP)
-    set(PUPNP_DEF_SSDP YES)
+if(UPNP_HAVE_SOAP)
+    set(UPNP_HAVE_SSDP YES)
 endif()
 
 
@@ -100,55 +101,55 @@ set(PUPNP_SOURCE_FILES
     src/genlib/util/list.cpp
     src/genlib/util/membuffer.cpp
     src/genlib/util/strintmap.cpp
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>:src/genlib/util/util.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>:src/genlib/util/util.cpp>
 
-    $<$<BOOL:${PUPNP_DEF_DEVICE}>:src/genlib/service-table/service_table.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>:src/genlib/client_table/GenlibClientSubscription.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>:src/genlib/client_table/client_table.cpp>
+    $<$<BOOL:${UPNP_HAVE_DEVICE}>:src/genlib/service-table/service_table.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>:src/genlib/client_table/GenlibClientSubscription.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>:src/genlib/client_table/client_table.cpp>
     src/genlib/miniserver/miniserver.cpp
 
-    $<$<BOOL:${PUPNP_DEF_SSDP}>:src/ssdp/ssdp_server.cpp>
-    $<$<BOOL:${PUPNP_DEF_DEVICE}>:src/ssdp/ssdp_device.cpp>
-    $<$<BOOL:${PUPNP_DEF_CLIENT}>:src/ssdp/ssdp_ctrlpt.cpp>
-    $<$<BOOL:${PUPNP_DEF_CLIENT}>:src/ssdp/SSDPResultData.cpp>
-    $<$<BOOL:${PUPNP_DEF_CLIENT}>:src/ssdp/SSDPResultDataCallback.cpp>
+    $<$<BOOL:${UPNP_HAVE_SSDP}>:src/ssdp/ssdp_server.cpp>
+    $<$<BOOL:${UPNP_HAVE_DEVICE}>:src/ssdp/ssdp_device.cpp>
+    $<$<BOOL:${UPNP_HAVE_CLIENT}>:src/ssdp/ssdp_ctrlpt.cpp>
+    $<$<BOOL:${UPNP_HAVE_CLIENT}>:src/ssdp/SSDPResultData.cpp>
+    $<$<BOOL:${UPNP_HAVE_CLIENT}>:src/ssdp/SSDPResultDataCallback.cpp>
 
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>:src/soap/soap_device.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>:src/soap/soap_common.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>:src/soap/soap_ctrlpt.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>:src/soap/soap_device.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>:src/soap/soap_common.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>:src/soap/soap_ctrlpt.cpp>
 
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>:src/gena/gena_device.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>:src/gena/gena_callback2.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>:src/gena/gena_ctrlpt.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>:src/gena/gena_device.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>:src/gena/gena_callback2.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>:src/gena/gena_ctrlpt.cpp>
 
-    $<$<OR:$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>,$<BOOL:${PUPNP_DEF_OPTSSDP}>>:src/uuid/uuid.cpp>
-    $<$<OR:$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>,$<BOOL:${PUPNP_DEF_OPTSSDP}>>:src/uuid/md5.cpp>
-    $<$<OR:$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>,$<BOOL:${PUPNP_DEF_OPTSSDP}>>:src/uuid/sysdep.cpp>
+    $<$<OR:$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>,$<BOOL:${UPNP_HAVE_OPTSSDP}>>:src/uuid/uuid.cpp>
+    $<$<OR:$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>,$<BOOL:${UPNP_HAVE_OPTSSDP}>>:src/uuid/md5.cpp>
+    $<$<OR:$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>,$<BOOL:${UPNP_HAVE_OPTSSDP}>>:src/uuid/sysdep.cpp>
 
     src/api/UpnpExtraHeaders.cpp
     src/api/UpnpString.cpp
     src/api/upnpapi.cpp
-    $<$<OR:$<BOOL:${PUPNP_DEF_TOOLS}>,$<BOOL:${PUPNP_DEF_DEBUG}>>:src/api/upnptools.cpp>
-    $<$<BOOL:${PUPNP_DEF_WEBSERVER}>:src/api/UpnpFileInfo.cpp>
-    $<$<BOOL:${PUPNP_DEF_CLIENT}>:src/api/UpnpDiscovery.cpp>
-    #$<$<OR:$<BOOL:${PUPNP_DEF_CLIENT}>,$<BOOL:${PUPNP_DEF_DEBUG}>>:src/api/UpnpDiscovery.cpp>
+    $<$<OR:$<BOOL:${UPNP_HAVE_TOOLS}>,$<BOOL:${UPNP_HAVE_DEBUG}>>:src/api/upnptools.cpp>
+    $<$<BOOL:${UPNP_HAVE_WEBSERVER}>:src/api/UpnpFileInfo.cpp>
+    $<$<BOOL:${UPNP_HAVE_CLIENT}>:src/api/UpnpDiscovery.cpp>
+    #$<$<OR:$<BOOL:${UPNP_HAVE_CLIENT}>,$<BOOL:${UPNP_HAVE_DEBUG}>>:src/api/UpnpDiscovery.cpp>
 
-    $<$<OR:$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>,$<BOOL:${PUPNP_DEF_DEBUG}>>:src/api/UpnpActionRequest.cpp>
-    $<$<OR:$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>,$<BOOL:${PUPNP_DEF_DEBUG}>>:src/api/UpnpActionComplete.cpp>
-    $<$<OR:$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>,$<BOOL:${PUPNP_DEF_DEBUG}>>:src/api/UpnpStateVarRequest.cpp>
-    $<$<OR:$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>,$<BOOL:${PUPNP_DEF_DEBUG}>>:src/api/UpnpStateVarComplete.cpp>
-    $<$<OR:$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>,$<BOOL:${PUPNP_DEF_DEBUG}>>:src/api/UpnpSubscriptionRequest.cpp>
-    $<$<OR:$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>,$<BOOL:${PUPNP_DEF_DEBUG}>>:src/api/UpnpEvent.cpp>
-    $<$<OR:$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>,$<BOOL:${PUPNP_DEF_DEBUG}>>:src/api/UpnpEventSubscribe.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>:src/api/UpnpStateVarRequest.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>:src/api/UpnpActionComplete.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_SOAP}>>:src/api/UpnpStateVarComplete.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>:src/api/UpnpSubscriptionRequest.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>:src/api/UpnpEventSubscribe.cpp>
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_GENA}>>:src/api/UpnpEvent.cpp>
+    $<$<OR:$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>,$<BOOL:${UPNP_HAVE_DEBUG}>>:src/api/UpnpActionRequest.cpp>
+    $<$<OR:$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>,$<BOOL:${UPNP_HAVE_DEBUG}>>:src/api/UpnpActionComplete.cpp>
+    $<$<OR:$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>,$<BOOL:${UPNP_HAVE_DEBUG}>>:src/api/UpnpStateVarRequest.cpp>
+    $<$<OR:$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>,$<BOOL:${UPNP_HAVE_DEBUG}>>:src/api/UpnpStateVarComplete.cpp>
+    $<$<OR:$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>,$<BOOL:${UPNP_HAVE_DEBUG}>>:src/api/UpnpSubscriptionRequest.cpp>
+    $<$<OR:$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>,$<BOOL:${UPNP_HAVE_DEBUG}>>:src/api/UpnpEvent.cpp>
+    $<$<OR:$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>,$<BOOL:${UPNP_HAVE_DEBUG}>>:src/api/UpnpEventSubscribe.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>:src/api/UpnpStateVarRequest.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>:src/api/UpnpActionComplete.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_SOAP}>>:src/api/UpnpStateVarComplete.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>:src/api/UpnpSubscriptionRequest.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>:src/api/UpnpEventSubscribe.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_GENA}>>:src/api/UpnpEvent.cpp>
     src/api/upnpdebug.cpp
 
-    $<$<AND:$<BOOL:${PUPNP_DEF_DEVICE}>,$<BOOL:${PUPNP_DEF_WEBSERVER}>>:src/urlconfig/urlconfig.cpp>
+    $<$<AND:$<BOOL:${UPNP_HAVE_DEVICE}>,$<BOOL:${UPNP_HAVE_WEBSERVER}>>:src/urlconfig/urlconfig.cpp>
 
     # ixml
     # -------------------------------------------------------------------------
@@ -173,7 +174,7 @@ set(PUPNP_SOURCE_FILES
     ${UMOCK_SOURCE_DIR}/src/netdb.cpp
     ${UMOCK_SOURCE_DIR}/src/pthread.cpp
     ${UMOCK_SOURCE_DIR}/src/pupnp_sock.cpp
-    $<$<BOOL:${PUPNP_DEF_OPENSSL}>:${UMOCK_SOURCE_DIR}/src/ssl.cpp>
+    $<$<BOOL:${UPNP_ENABLE_OPEN_SSL}>:${UMOCK_SOURCE_DIR}/src/ssl.cpp>
     ${UMOCK_SOURCE_DIR}/src/stdio.cpp
     ${UMOCK_SOURCE_DIR}/src/stdlib.cpp
     ${UMOCK_SOURCE_DIR}/src/stringh.cpp
@@ -203,20 +204,21 @@ set(PUPNP_INCLUDE_DIRECTORIES
 set(PUPNP_COMPILE_DEFINITIONS
     PUBLIC
         UPnPsdk_WITH_NATIVE_PUPNP
-        UPNP_ENABLE_IPV6
-        $<$<BOOL:${PUPNP_DEF_DEBUG}>:UPNP_HAVE_DEBUG>
-        $<$<BOOL:${PUPNP_DEF_OPENSSL}>:UPNP_ENABLE_OPEN_SSL>
+        $<$<BOOL:${UPNP_HAVE_DEBUG}>:UPNP_HAVE_DEBUG>
+        $<$<BOOL:${UPNP_ENABLE_IPV6}>:UPNP_ENABLE_IPV6>
+        $<$<BOOL:${UPNP_ENABLE_OPEN_SSL}>:UPNP_ENABLE_OPEN_SSL>
         #$<$<BOOL:${PUPNP_DEF_IXML}>:IXML_HAVE_SCRIPTSUPPORT>
-        $<$<BOOL:${PUPNP_DEF_TOOLS}>:UPNP_HAVE_TOOLS>
-        $<$<BOOL:${PUPNP_DEF_WEBSERVER}>:UPNP_HAVE_WEBSERVER>
-        $<$<BOOL:${PUPNP_DEF_SSDP}>:UPNP_HAVE_SSDP>
-        $<$<BOOL:${PUPNP_DEF_OPTSSDP}>:UPNP_HAVE_OPTSSDP>
-        $<$<BOOL:${PUPNP_DEF_SOAP}>:UPNP_HAVE_SOAP>
-        $<$<BOOL:${PUPNP_DEF_GENA}>:UPNP_HAVE_GENA>
-        $<$<BOOL:${PUPNP_DEF_CLIENT}>:UPNP_HAVE_CLIENT>
-        $<$<BOOL:${PUPNP_DEF_DEVICE}>:UPNP_HAVE_DEVICE>
-        $<$<BOOL:${PUPNP_DEF_BLOCKTCP}>:UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS>
+        $<$<BOOL:${UPNP_HAVE_TOOLS}>:UPNP_HAVE_TOOLS>
+        $<$<BOOL:${UPNP_HAVE_WEBSERVER}>:UPNP_HAVE_WEBSERVER>
+        $<$<BOOL:${UPNP_HAVE_SSDP}>:UPNP_HAVE_SSDP>
+        $<$<BOOL:${UPNP_HAVE_OPTSSDP}>:UPNP_HAVE_OPTSSDP>
+        $<$<BOOL:${UPNP_HAVE_SOAP}>:UPNP_HAVE_SOAP>
+        $<$<BOOL:${UPNP_HAVE_GENA}>:UPNP_HAVE_GENA>
+        $<$<BOOL:${UPNP_HAVE_CLIENT}>:UPNP_HAVE_CLIENT>
+        $<$<BOOL:${UPNP_HAVE_DEVICE}>:UPNP_HAVE_DEVICE>
+        $<$<BOOL:${UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS}>:UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS>
 )
+configure_file (${PUPNP_UPNP_SOURCE_DIR}/inc/upnpconfig.h.cm ${CMAKE_BINARY_DIR}/include/upnpconfig.h)
 
 
 # Create libraries
@@ -244,7 +246,7 @@ target_compile_definitions(pupnp_shared
     PRIVATE UPnPsdk_EXPORTS
 )
 target_link_libraries(pupnp_shared
-    PUBLIC $<$<BOOL:${PUPNP_DEF_OPENSSL}>:OpenSSL::SSL>
+    PUBLIC $<$<BOOL:${UPNP_ENABLE_OPEN_SSL}>:OpenSSL::SSL>
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
     PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
@@ -285,7 +287,7 @@ target_compile_definitions(pupnp_static
     ${PUPNP_COMPILE_DEFINITIONS}
 )
 target_link_libraries(pupnp_static
-    PUBLIC $<$<BOOL:${PUPNP_DEF_OPENSSL}>:OpenSSL::SSL>
+    PUBLIC $<$<BOOL:${UPNP_ENABLE_OPEN_SSL}>:OpenSSL::SSL>
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
     PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network

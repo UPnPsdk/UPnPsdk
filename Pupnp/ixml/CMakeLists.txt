@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-26
+# Redistribution only with this Copyright remark. Last modified: 2025-06-27
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -11,9 +11,10 @@ project(PUPNP_IXML VERSION "11.1.2"
 message(STATUS "PUPNP_IXML_VERSION set to \"${PUPNP_IXML_VERSION}\"")
 
 if(FALSE)
-# I only need the project version number for compatibillity. The source code is
-# integrated into the Pupnp/upnp project so there is no extra ixml.so library
-# necessary. Following is only presevered for reference and may be removed.
+# I only need the project version number above for compatibillity. The source
+# code is integrated into the Pupnp/upnp project so there is no extra ixml.so
+# library necessary. Following is only presevered for reference and may be
+# removed.
 
 set (IXML_SOURCES
     src/attr.cpp

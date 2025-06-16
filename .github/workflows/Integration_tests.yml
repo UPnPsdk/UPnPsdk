@@ -53,23 +53,25 @@ jobs:
         run: cmake --build build/
 
       - name: Install
-        run: |
-          sudo cmake --install build/
-          ls /usr/local/bin/api_calls-psh
-          ls /usr/local/bin/api_calls-csh
+        run: sudo cmake --install build/
 
       # I do not use static Googletest libraries by default.
       #- if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF')
       #  name: Check gtest library files, static
       #  run: |
+      #    set -v
       #    ls ./build/lib/libgtest.a
       #    ls ./build/lib/libgmock.a
       #    ls ./build/lib/libgtest_main.a
       #    ls ./build/lib/libgmock_main.a
 
+      - name: Run test api_calls
+        run: ./Apps/test_api_calls.sh
+
       - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON')
         name: Check gtest library files, shared
         run: |
+          set -v
           ls ./build/lib/libgtest.so
           ls ./build/lib/libgmock.so
           ls ./build/lib/libgtest_main.so
@@ -78,6 +80,7 @@ jobs:
       - if: matrix.buildtype != 'Debug'
         name: Verify if NO Debug info
         run: |
+          set -v
           objdump -g /usr/local/lib/libupnpsdk-compa.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-pupnp.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk.so | grep --ignore-case --max-count=1 --invert-match "Contents of the .debug_info section"
@@ -88,6 +91,7 @@ jobs:
       - if: matrix.buildtype == 'Debug'
         name: Verify if Debug info
         run: |
+          set -v
           objdump -g /usr/local/lib/libupnpsdk-compa.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk-pupnp.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
           objdump -g /usr/local/lib/libupnpsdk.so | grep --ignore-case --max-count=1 "Contents of the .debug_info section"
@@ -141,23 +145,25 @@ jobs:
         run: cmake --build build/
 
       - name: Install
-        run: |
-          sudo cmake --install build/
-          ls /usr/local/bin/api_calls-psh
-          ls /usr/local/bin/api_calls-csh
+        run: sudo cmake --install build/
 
       # I do not use static Googletest libraries by default.
       #- if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=OFF')
       #  name: Check gtest library files, static
       #  run: |
+      #    set -v
       #    ls ./build/lib/libgtest.a
       #    ls ./build/lib/libgmock.a
       #    ls ./build/lib/libgtest_main.a
       #    ls ./build/lib/libgmock_main.a
 
+      #- name: Run test api_calls
+      #  run: ./Apps/test_api_calls.sh
+
       - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON')
         name: Check gtest library files, shared
         run: |
+          set -v
           ls ./build/lib/libgtest.dylib
           ls ./build/lib/libgmock.dylib
           ls ./build/lib/libgtest_main.dylib
@@ -165,6 +171,7 @@ jobs:
 
       - name: Verify if libraries available
         run: |
+          set -v
           ls /usr/local/lib/libupnpsdk-compa.dylib
           ls /usr/local/lib/libupnpsdk-pupnp.dylib
           ls /usr/local/lib/libupnpsdk.dylib
@@ -464,8 +471,8 @@ jobs:
           cmake --build build/
           sudo cmake --install build/
           sudo cmake --install build/ --component Development
-          if [ -x /usr/local/bin/api_calls-psh ]; then /usr/local/bin/api_calls-psh; else true; fi
-          /usr/local/bin/api_calls-csh
+          # if [ -x /usr/local/bin/api_calls-psh ]; then /usr/local/bin/api_calls-psh; else true; fi
+          # /usr/local/bin/api_calls-csh
 
       - if: runner.os == 'Windows'
         name: Build Windows
@@ -476,9 +483,9 @@ jobs:
           cmake --build build/ --config ${{matrix.buildtype}}
           cmake --install build/ --config ${{matrix.buildtype}}
           cmake --install build/ --config ${{matrix.buildtype}} --component Development
-          $env:prog_path = "C:/Program Files/UPnPsdk/bin/api_calls-psh.exe"
-          If (Test-Path -Path $env:prog_path) {& $env:prog_path}
-          "C:/Program Files/UPnPsdk/bin/api_calls-csh.exe"
+          # $env:prog_path = "C:/Program Files/UPnPsdk/bin/api_calls-psh.exe"
+          # If (Test-Path -Path $env:prog_path) {& $env:prog_path}
+          # "C:/Program Files/UPnPsdk/bin/api_calls-csh.exe"
 
 
   # Job: Run 32 bit build tests
@@ -548,8 +555,8 @@ jobs:
           set -ev
           cmake --build build/
           ls -la build/bin/
-          if [ -x build/bin/api_calls-psh ]; then build/bin/api_calls-psh; else true; fi
-          ./build/bin/api_calls-csh
+          # if [ -x build/bin/api_calls-psh ]; then build/bin/api_calls-psh; else true; fi
+          # ./build/bin/api_calls-csh
 
       - if: runner.os == 'Windows'
         name: Build Windows
@@ -560,6 +567,6 @@ jobs:
           cmake --build build --config ${{matrix.buildtype}}
           ls ./build/bin/${{matrix.buildtype}}
           $env:path += ";./build/bin/${{matrix.buildtype}}"
-          $env:prog_path = "./build/bin/${{matrix.buildtype}}/api_calls-psh.exe"
-          If (Test-Path -Path $env:prog_path) {& $env:prog_path}
-          ./build/bin/${{matrix.buildtype}}/api_calls-csh.exe
+          # $env:prog_path = "./build/bin/${{matrix.buildtype}}/api_calls-psh.exe"
+          # If (Test-Path -Path $env:prog_path) {& $env:prog_path}
+          # ./build/bin/${{matrix.buildtype}}/api_calls-csh.exe

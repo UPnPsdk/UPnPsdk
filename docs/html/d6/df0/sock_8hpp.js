@@ -14,5 +14,7 @@ var sock_8hpp =
     [ "sock_read", "d6/df0/sock_8hpp.html#ab733aa6edb595cdca40bf10b12bb9c11", null ],
     [ "sock_write", "d6/df0/sock_8hpp.html#ad1241b973fa76980eef882848fb535c3", null ],
     [ "sock_make_blocking", "d6/df0/sock_8hpp.html#a16e24253d0b6395a88451d7e64b92cd5", null ],
-    [ "sock_make_no_blocking", "d6/df0/sock_8hpp.html#a7618164e31690bb4a53f99022aec01df", null ]
+    [ "sock_make_no_blocking", "d6/df0/sock_8hpp.html#a7618164e31690bb4a53f99022aec01df", null ],
+    [ "UpnpInitSslContext", "d6/df0/sock_8hpp.html#a9ae7d3022dfbe93f3c955c1a9a86461d", null ],
+    [ "freeSslCtx", "d6/df0/sock_8hpp.html#a7f90d3803661036360fc185c72a4e844", null ]
 ];

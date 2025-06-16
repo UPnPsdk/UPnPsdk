@@ -1,7 +1,7 @@
 #ifndef UTEST_TOOLS_UNIX_HPP
 #define UTEST_TOOLS_UNIX_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-11
+// Redistribution only with this Copyright remark. Last modified: 2025-06-12
 
 #include <UPnPsdk/visibility.hpp>
 #include <ifaddrs.h>
@@ -46,7 +46,7 @@ class UPnPsdk_VIS CIfaddr4
 };
 
 
-class UPnPsdk_VIS CIfaddr6 {
+class CIfaddr6 {
     // Tool to manage and fill an IPv6 socket address structure. This is needed
     // for mocked network interfaces.
   public:

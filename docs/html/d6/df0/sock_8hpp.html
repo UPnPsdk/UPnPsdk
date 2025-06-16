@@ -211,6 +211,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a7618164e31690bb4a53f99022aec01df" id="r_a7618164e31690bb4a53f99022aec01df"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df0/sock_8hpp.html#a7618164e31690bb4a53f99022aec01df">sock_make_no_blocking</a> (SOCKET sock)</td></tr>
 <tr class="memdesc:a7618164e31690bb4a53f99022aec01df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make socket non-blocking.  <br /></td></tr>
 <tr class="separator:a7618164e31690bb4a53f99022aec01df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ae7d3022dfbe93f3c955c1a9a86461d" id="r_a9ae7d3022dfbe93f3c955c1a9a86461d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df0/sock_8hpp.html#a9ae7d3022dfbe93f3c955c1a9a86461d">UpnpInitSslContext</a> (int initOpenSslLib, const SSL_METHOD *sslMethod)</td></tr>
+<tr class="memdesc:a9ae7d3022dfbe93f3c955c1a9a86461d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the OpenSSL library, and the OpenSSL context.  <br /></td></tr>
+<tr class="separator:a9ae7d3022dfbe93f3c955c1a9a86461d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f90d3803661036360fc185c72a4e844" id="r_a7f90d3803661036360fc185c72a4e844"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/df0/sock_8hpp.html#a7f90d3803661036360fc185c72a4e844">freeSslCtx</a> (void)</td></tr>
+<tr class="memdesc:a7f90d3803661036360fc185c72a4e844"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free the OpenSSL context.  <br /></td></tr>
+<tr class="separator:a7f90d3803661036360fc185c72a4e844"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manage network sockets and connections. </p>
@@ -935,6 +941,98 @@ Alternative unused member if OpenSSL isn't compiled in. </td></tr>
 <dl class="section return"><dt>Returns</dt><dd>0 if successful, SOCKET_ERROR otherwise. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d78/sock_8cpp_source.html#l00573">573</a> of file <a class="el" href="../../d5/d78/sock_8cpp_source.html">sock.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9ae7d3022dfbe93f3c955c1a9a86461d" name="a9ae7d3022dfbe93f3c955c1a9a86461d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ae7d3022dfbe93f3c955c1a9a86461d">&#9670;&#160;</a></span>UpnpInitSslContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int UpnpInitSslContext </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>initOpenSslLib</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const SSL_METHOD *&#160;</td>
+          <td class="paramname"><em>sslMethod</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the OpenSSL library, and the OpenSSL context. </p>
+<dl class="section note"><dt>Note</dt><dd>This method is only available if the library is compiled with OpenSSL support.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following:<ul>
+<li>UPNP_E_SUCCESS: The operation completed successfully.</li>
+<li>UPNP_E_INIT: The SDK is already initialized.</li>
+<li>UPNP_E_INIT_FAILED: The SDK initialization failed. Is OpenSSL available? </li>
+</ul>
+</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">initOpenSslLib</td><td>This argument is ignored and only provided for compatibility. It can be set to any value. The library is initialzed automatically.  </td></tr>
+    <tr><td class="paramname">sslMethod</td><td>The SSL_METHOD to use to create the context. See OpenSSL docs for more info, that recommends to use TLS_method(), TLS_server_method() (for client and server), or TLS_client_method() since OpenSSL 1.1.0 because other methods are deprecated. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d78/sock_8cpp_source.html#l00590">590</a> of file <a class="el" href="../../d5/d78/sock_8cpp_source.html">sock.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7f90d3803661036360fc185c72a4e844" name="a7f90d3803661036360fc185c72a4e844"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f90d3803661036360fc185c72a4e844">&#9670;&#160;</a></span>freeSslCtx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void freeSslCtx </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free the OpenSSL context. </p>
+<dl class="section note"><dt>Note</dt><dd>This method is only available if the library is compiled with OpenSSL support. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d5/d78/sock_8cpp_source.html#l00610">610</a> of file <a class="el" href="../../d5/d78/sock_8cpp_source.html">sock.cpp</a>.</p>
+<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d6/df0/sock_8hpp_a7f90d3803661036360fc185c72a4e844_icgraph.png" border="0" usemap="#ad6/df0/sock_8hpp_a7f90d3803661036360fc185c72a4e844_icgraph" alt=""/></div>
+<map name="ad6/df0/sock_8hpp_a7f90d3803661036360fc185c72a4e844_icgraph" id="ad6/df0/sock_8hpp_a7f90d3803661036360fc185c72a4e844_icgraph">
+<area shape="rect" title="Free the OpenSSL context." alt="" coords="692,31,781,56"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="549,31,644,56"/>
+<area shape="poly" title=" " alt="" coords="678,46,644,46,644,41,678,41"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,31,91,56"/>
+<area shape="poly" title=" " alt="" coords="536,33,501,28,399,16,320,9,240,10,139,21,86,34,85,28,138,16,240,5,320,4,400,10,502,22,536,28"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,31,287,56"/>
+<area shape="poly" title=" " alt="" coords="536,46,287,46,287,41,536,41"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a353a56c4dd0685acd7a8d2bb9cb8dddd" title="Finishes initializing the UPnP SDK." alt="" coords="139,80,296,106"/>
+<area shape="poly" title=" " alt="" coords="568,66,537,84,502,97,449,106,395,110,296,106,296,101,395,105,448,101,501,92,535,79,565,62"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="344,56,501,82"/>
+<area shape="poly" title=" " alt="" coords="536,55,502,60,501,55,535,50"/>
+<area shape="poly" title=" " alt="" coords="134,46,91,46,91,41,134,41"/>
+<area shape="poly" title=" " alt="" coords="159,79,90,59,92,53,161,74"/>
+<area shape="poly" title=" " alt="" coords="330,60,287,55,288,50,330,55"/>
+</map>
+</div>
 
 </div>
 </div>

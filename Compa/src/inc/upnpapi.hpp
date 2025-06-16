@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-11
+ * Redistribution only with this Copyright remark. Last modified: 2025-06-12
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -215,20 +215,20 @@ Upnp_Handle_Type GetDeviceHandleInfoForPath(
     /*! [out] Service info for found path. */
     service_info** serv_info);
 
-UPnPsdk_VIS extern char gIF_NAME[LINE_SIZE];
-UPnPsdk_VIS extern char gIF_IPV4[INET_ADDRSTRLEN];
-UPnPsdk_VIS extern char gIF_IPV4_NETMASK[INET_ADDRSTRLEN];
-UPnPsdk_VIS extern char gIF_IPV6[INET6_ADDRSTRLEN];
-UPnPsdk_VIS extern unsigned gIF_IPV6_PREFIX_LENGTH;
+PUPNP_API extern char gIF_NAME[LINE_SIZE];
+PUPNP_API extern char gIF_IPV4[INET_ADDRSTRLEN];
+PUPNP_API extern char gIF_IPV4_NETMASK[INET_ADDRSTRLEN];
+PUPNP_API extern char gIF_IPV6[INET6_ADDRSTRLEN];
+PUPNP_API extern unsigned gIF_IPV6_PREFIX_LENGTH;
 
-UPnPsdk_VIS extern char gIF_IPV6_ULA_GUA[INET6_ADDRSTRLEN];
-UPnPsdk_VIS extern unsigned gIF_IPV6_ULA_GUA_PREFIX_LENGTH;
+PUPNP_API extern char gIF_IPV6_ULA_GUA[INET6_ADDRSTRLEN];
+PUPNP_API extern unsigned gIF_IPV6_ULA_GUA_PREFIX_LENGTH;
 
-UPnPsdk_VIS extern unsigned gIF_INDEX;
+PUPNP_API extern unsigned gIF_INDEX;
 
-UPnPsdk_VIS extern unsigned short LOCAL_PORT_V4;
-UPnPsdk_VIS extern unsigned short LOCAL_PORT_V6;
-UPnPsdk_VIS extern unsigned short LOCAL_PORT_V6_ULA_GUA;
+PUPNP_API extern unsigned short LOCAL_PORT_V4;
+PUPNP_API extern unsigned short LOCAL_PORT_V6;
+PUPNP_API extern unsigned short LOCAL_PORT_V6_ULA_GUA;
 
 /*! NLS uuid. */
 extern Upnp_SID gUpnpSdkNLSuuid;
@@ -308,12 +308,12 @@ int PrintHandleInfo(
 extern WebServerState bWebServerState;
 
 /*! */
-UPnPsdk_VIS extern WebCallback_HostValidate gWebCallback_HostValidate;
+extern WebCallback_HostValidate gWebCallback_HostValidate;
 
 /*! */
-UPnPsdk_VIS extern void* gWebCallback_HostValidateCookie;
+extern void* gWebCallback_HostValidateCookie;
 
 /*! */
-UPnPsdk_VIS extern int gAllowLiteralHostRedirection;
+extern int gAllowLiteralHostRedirection;
 
 #endif /* COMPA_UPNPAPI_HPP */

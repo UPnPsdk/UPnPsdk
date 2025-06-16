@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-06-09
+# Redistribution only with this Copyright remark. Last modified: 2025-06-26
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -15,10 +15,11 @@ message(STATUS "COMPA_VERSION set to \"${COMPA_VERSION}\"")
 # These switches are all handled only in this configuration file.
 
 # Options selectable by user configuration
+set(COMPA_DEF_IPV6 YES)                                # IPv6 is always available
 set(COMPA_DEF_OPENSSL ${UPnPsdk_WITH_OPENSSL})
 set(COMPA_DEF_MINISERVER ${UPnPsdk_WITH_MINISERVER})
 set(COMPA_DEF_WEBSERVER ${UPnPsdk_WITH_WEBSERVER})
-set(COMPA_DEF_CTRLPT_SSDP ${UPnPsdk_WITH_CTRLPT_SSDP})  # client -> UPNP_ENABLE_CLIENT_API
+set(COMPA_DEF_CTRLPT_SSDP ${UPnPsdk_WITH_CTRLPT_SSDP}) # client -> UPNP_ENABLE_CLIENT_API
 set(COMPA_DEF_DEVICE_SSDP ${UPnPsdk_WITH_DEVICE_SSDP})
 set(COMPA_DEF_OPTION_SSDP ${UPnPsdk_WITH_OPTION_SSDP}) # optssdp -> UPNP_ENABLE_OPTIONAL_SSDP_HEADERS
 set(COMPA_DEF_CTRLPT_DESCRIPTION ${UPnPsdk_WITH_CTRLPT_DESCRIPTION})
@@ -183,11 +184,7 @@ set(COMPA_SOURCE_FILES
 
 # Installation
 set(COMPA_PUBLIC_HEADERS
-    inc/API.hpp
     inc/Callback.hpp
-    inc/list.hpp
-    inc/upnp.h
-    inc/upnp.hpp
     inc/UpnpActionComplete.hpp
     inc/UpnpActionRequest.hpp
     inc/UpnpDiscovery.hpp
@@ -204,11 +201,20 @@ set(COMPA_PUBLIC_HEADERS
     inc/UpnpString.hpp
     inc/UpnpSubscriptionRequest.hpp
     inc/UpnpUniStd.hpp
+    inc/ixml/ixml.hpp
+    inc/ixml/ixmldebug.hpp
+    $<$<BOOL:${UPnPsdk_WITH_NATIVE_PUPNP}>:inc/ixml.h>
+    inc/list.hpp
+    inc/API.hpp
+    inc/upnp.h
+    #inc/upnpconfig.h
+    ${CMAKE_BINARY_DIR}/include/cmake_vars.hpp # replaces upnpconfig.h
+    $<$<BOOL:${UPnPsdk_WITH_NATIVE_PUPNP}>:${CMAKE_BINARY_DIR}/include/upnpconfig.h>
     inc/upnptools.h
     inc/upnptools.hpp
-    inc/upnpdebug.h
-    inc/upnpdebug.hpp
-    ${CMAKE_BINARY_DIR}/include/cmake_vars.hpp
+    #inc/upnpdebug.h
+    #inc/upnpdebug.hpp
+    $<$<BOOL:${UPnPsdk_WITH_NATIVE_PUPNP}>:inc/ithread.h>
 )
 
 set(COMPA_INCLUDE_DIRECTORIES
@@ -219,11 +225,10 @@ set(COMPA_INCLUDE_DIRECTORIES
 
 set(COMPA_COMPILE_DEFINITIONS
     PUBLIC
-        UPNP_ENABLE_IPV6
         COMPA_ENABLE_BLOCKING_TCP_CONNECTIONS
 
+        $<$<BOOL:${COMPA_DEF_IPV6}>:UPNP_ENABLE_IPV6>
         $<$<BOOL:${COMPA_DEF_MINISERVER}>:COMPA_HAVE_MINISERVER>
-
         $<$<BOOL:${COMPA_DEF_WEBSERVER}>:COMPA_HAVE_WEBSERVER>
 
         $<$<BOOL:${COMPA_DEF_CTRLPT_SSDP}>:COMPA_HAVE_CTRLPT_SSDP>
@@ -242,6 +247,46 @@ set(COMPA_COMPILE_DEFINITIONS
         $<$<BOOL:${COMPA_DEF_TOOLS}>:UPNP_HAVE_TOOLS>
         $<$<BOOL:${COMPA_DEF_DEBUG}>:UPNP_HAVE_DEBUG>
 )
+
+# Following settings are only for backward compatiblity to pUPnP upnpconfig.h.
+# Don't use them internally. They are not clearly specified and have errors
+# when compiling the old pupnp library (libupnp). E.g. what is selected with
+# UPNP_HAVE_DEVICE and UPNP_HAVE_SSDP? Is there also UPNP_HAVE_CLIENT selected
+# (that also have SSDP)? What is intended?
+#-----------------------------------------------------------------------------
+if(${COMPA_DEF_IPV6})
+    set(UPNP_ENABLE_IPV6 YES)
+endif()
+if(${COMPA_DEF_OPENSSL})
+    set(UPNP_ENABLE_OPEN_SSL YES)
+endif()
+if(${COMPA_DEF_WEBSERVER})
+    set(UPNP_HAVE_WEBSERVER YES)
+endif()
+if(${COMPA_DEF_DEVICE_SSDP} OR ${COMPA_DEF_DEVICE_DESCRIPTION} OR ${COMPA_DEF_DEVICE_SOAP} OR ${COMPA_DEF_DEVICE_GENA})
+    set(UPNP_HAVE_DEVICE YES)
+endif()
+if(${COMPA_DEF_CTRLPT_SSDP} OR ${COMPA_DEF_CTRLPT_DESCRIPTION} OR ${COMPA_DEF_CTRLPT_SSDP} OR ${COMPA_DEF_CTRLPT_GENA})
+    set(UPNP_HAVE_CLIENT YES)
+endif()
+if(${COMPA_DEF_CTRLPT_SSDP} OR ${COMPA_DEF_DEVICE_SSDP})
+    set(UPNP_HAVE_SSDP YES)
+endif()
+if(${COMPA_DEF_OPTION_SSDP})
+    set(UPNP_HAVE_OPTSSDP YES)
+endif()
+if(${COMPA_DEF_CTRLPT_SOAP} OR ${COMPA_DEF_DEVICE_SOAP})
+    set(UPNP_HAVE_SOAP YES)
+endif()
+if(${COMPA_DEF_CTRLPT_GENA} OR ${COMPA_DEF_DEVICE_GENA})
+    set(UPNP_HAVE_GENA YES)
+endif()
+if(${COMPA_DEF_TOOLS})
+    set(UPNP_HAVE_TOOLS YES)
+endif()
+set(UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS YES)
+configure_file (${COMPA_SOURCE_DIR}/inc/upnpconfig.h.cm ${CMAKE_BINARY_DIR}/include/upnpconfig.h)
+# ----- End settings for upnpconfig.h ---------
 
 
 set_source_files_properties(

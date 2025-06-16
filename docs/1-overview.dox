@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-11
+// Redistribution only with this Copyright remark. Last modified: 2025-06-30
 
 /*!
 \mainpage Overview
@@ -21,13 +21,17 @@ We have three different internal libraries:
 
 To manage a smooth transition from old pUPnP "C" code to the object oriented C++ class library there are different compile modes specified.
 
-   code      | with library  | build | mode
------------- | ------------- | ----- | ----------------------
-   old       |     pupnp     |  yes  | verify (if old programs still run as expected)
-   old       |     compa     |  yes  | compatibility (used to start transition)
-   new       |     pupnp     |  no   | not supported
-old modified |     compa     |  yes  | portability to UPnPsdk (step by step ongoing transition)
-   new       |     UPnPsdk   |  yes  | new project
+   code            | with library  | build | mode
+------------------ | ------------- | ----- | ----------------------
+   old (C)         |    pupnp      |  yes  | verify (if old programs still run as expected)
+   old (C)         |    compa      |  yes  | compatibility (used to start transition)
+   old (C)         |    UPnPsdk    |  no   | not supported
+old modified (C++) |    pupnp      |  no   | not supported
+old modified (C++) |    compa      |  yes  | port to UPnPsdk (step by step ongoing transition)
+old modified (C++) |    UPnPsdk    |  no   | not supported
+   new       (C++) |    pupnp      |  no   | not supported
+   new       (C++) |    compa      |  no   | not supported
+   new       (C++) |    UPnPsdk    |  yes  | new project
 
 \section overview_comp Main Components
 

@@ -395,7 +395,7 @@ var searchData=
   ['upnpinitlog_392',['upnpinitlog',['../d8/d32/upnpdebug_8hpp.html#a7089b6360bae038d66b5834b289dd28a',1,'UpnpInitLog(void):&#160;upnpdebug.cpp'],['../d5/dfa/upnpdebug_8cpp.html#acb989a0182d5595b14f2dc3de64225b9',1,'UpnpInitLog():&#160;upnpdebug.cpp']]],
   ['upnpinitmutexes_393',['UpnpInitMutexes',['../d4/d99/upnpapi_8cpp.html#a7855376cc412564ea0b12b867e11e3a7',1,'upnpapi.cpp']]],
   ['upnpinitpreamble_394',['UpnpInitPreamble',['../d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0',1,'upnpapi.cpp']]],
-  ['upnpinitsslcontext_395',['upnpinitsslcontext',['../d9/d54/group__compaAPI.html#ga2f82679410e74327cffebdc273a6c496',1,'UpnpInitSslContext(int initOpenSslLib, const SSL_METHOD *sslMethod):&#160;sock.cpp'],['../d9/d54/group__compaAPI.html#ga2f82679410e74327cffebdc273a6c496',1,'UpnpInitSslContext(int initOpenSslLib, const SSL_METHOD *sslMethod):&#160;sock.cpp']]],
+  ['upnpinitsslcontext_395',['upnpinitsslcontext',['../d5/d78/sock_8cpp.html#a9ae7d3022dfbe93f3c955c1a9a86461d',1,'UpnpInitSslContext(int initOpenSslLib, const SSL_METHOD *sslMethod):&#160;sock.cpp'],['../d6/df0/sock_8hpp.html#a9ae7d3022dfbe93f3c955c1a9a86461d',1,'UpnpInitSslContext(int initOpenSslLib, const SSL_METHOD *sslMethod):&#160;sock.cpp']]],
   ['upnpinitstartservers_396',['UpnpInitStartServers',['../d4/d99/upnpapi_8cpp.html#a353a56c4dd0685acd7a8d2bb9cb8dddd',1,'upnpapi.cpp']]],
   ['upnpinitthreadpools_397',['UpnpInitThreadPools',['../d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca',1,'upnpapi.cpp']]],
   ['upnpinttypes_2ehpp_398',['UpnpIntTypes.hpp',['../d8/da2/UpnpIntTypes_8hpp.html',1,'']]],

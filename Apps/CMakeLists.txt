@@ -1,5 +1,5 @@
 # Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2024-10-21
+# Redistribution only with this Copyright remark. Last modified: 2025-07-02
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -78,25 +78,27 @@ install(TARGETS UPnPsdk-cst)
 
 # Simple API calls to test the UPnPsdk application interface without Googletest
 # -----------------------------------------------------------------------------
-if(UPnPsdk_WITH_NATIVE_PUPNP)
-add_executable(api_calls-psh
-    src/api_calls.cpp
-)
-target_link_libraries(api_calls-psh
-    PRIVATE pupnp_shared
-)
+if(UPnPsdk_WITH_GOOGLETEST)
+    if(UPnPsdk_WITH_NATIVE_PUPNP)
+        add_executable(api_calls-psh
+            src/api_calls.c
+        )
+        target_link_libraries(api_calls-psh
+            PRIVATE pupnp_shared
+        )
 
-# Installation
-install(TARGETS api_calls-psh)
+        # Installation
+        #install(TARGETS api_calls-psh)
+    endif()
+
+
+    add_executable(api_calls-csh
+        src/api_calls.cpp
+    )
+    target_link_libraries(api_calls-csh
+        PRIVATE compa_shared
+    )
+
+    # Installation
+    #install(TARGETS api_calls-csh)
 endif()
-
-
-add_executable(api_calls-csh
-    src/api_calls.cpp
-)
-target_link_libraries(api_calls-csh
-    PRIVATE compa_shared
-)
-
-# Installation
-install(TARGETS api_calls-csh)
