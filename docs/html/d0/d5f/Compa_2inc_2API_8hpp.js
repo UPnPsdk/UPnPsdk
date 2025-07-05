@@ -111,7 +111,6 @@ var Compa_2inc_2API_8hpp =
     [ "UpnpUnRegisterRootDeviceLowPower", "d7/df3/group__compaAPI-Addressing.html#gacb02781bb3514a9a9354453db1d3e61a", null ],
     [ "UpnpRegisterClient", "d7/df3/group__compaAPI-Addressing.html#ga537bd540c8dff695db5d2e33d2d32860", null ],
     [ "UpnpUnRegisterClient", "d7/df3/group__compaAPI-Addressing.html#ga9bb3f57b76e2a074da546d3518256c20", null ],
-    [ "UpnpSetContentLength", "d7/df3/group__compaAPI-Addressing.html#gab1d5734230a7d7042100e8a681aeac85", null ],
     [ "UpnpSetMaxContentLength", "d7/df3/group__compaAPI-Addressing.html#ga83dec43899502c406c6c562f1206fe1d", null ],
     [ "UpnpSearchAsync", "dd/d48/group__compaAPI-Discovery.html#ga21e01d215717f18baebc567b26818367", null ],
     [ "UpnpSendAdvertisement", "dd/d48/group__compaAPI-Discovery.html#gac6d8906c1156fbd4880b1a5aa37804f5", null ],

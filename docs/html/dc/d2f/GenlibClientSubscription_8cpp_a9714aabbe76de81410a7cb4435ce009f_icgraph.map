@@ -1,22 +1,20 @@
 <map id="GenlibClientSubscription_assign" name="GenlibClientSubscription_assign">
-<area shape="rect" id="Node000001" title=" " alt="" coords="525,175,708,215"/>
-<area shape="rect" id="Node000002" href="$d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="281,89,460,115"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="549,173,404,117,406,112,551,168"/>
-<area shape="rect" id="Node000015" href="$d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="291,207,451,232"/>
-<area shape="poly" id="edge5_Node000001_Node000015" title=" " alt="" coords="512,208,451,214,451,209,512,203"/>
-<area shape="rect" id="Node000022" href="$d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="303,157,438,183"/>
-<area shape="poly" id="edge7_Node000001_Node000022" title=" " alt="" coords="511,187,438,180,438,174,512,182"/>
-<area shape="rect" id="Node000024" href="$dc/d2f/GenlibClientSubscription_8cpp.html#abaec6e7bbaa07745323f752d4eaa7c14" title=" " alt="" coords="264,256,477,281"/>
-<area shape="poly" id="edge10_Node000001_Node000024" title=" " alt="" coords="549,223,478,246,430,258,429,253,477,241,548,218"/>
-<area shape="rect" id="Node000003" href="$d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a" title="This is a thread function to send the renewal just before the subscription times out." alt="" coords="5,55,216,109"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="267,97,216,93,216,87,268,91"/>
-<area shape="rect" id="Node000014" href="$d4/d99/upnpapi_8cpp.html#a35ef4435d66e949e612a9ca4f17c48f8" title="Renews a subscription that is about to expire." alt="" coords="21,5,201,31"/>
-<area shape="poly" id="edge3_Node000002_Node000014" title=" " alt="" coords="327,86,215,45,173,33,175,28,217,39,329,81"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="525,151,708,191"/>
+<area shape="rect" id="Node000002" href="$d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="281,84,460,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="552,149,477,123,433,112,435,107,478,118,554,144"/>
+<area shape="rect" id="Node000015" href="$d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="291,133,451,159"/>
+<area shape="poly" id="edge5_Node000001_Node000015" title=" " alt="" coords="512,163,451,157,451,152,512,158"/>
+<area shape="rect" id="Node000016" href="$d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="303,183,438,208"/>
+<area shape="poly" id="edge6_Node000001_Node000016" title=" " alt="" coords="512,184,438,191,438,186,511,179"/>
+<area shape="rect" id="Node000018" href="$dc/d2f/GenlibClientSubscription_8cpp.html#abaec6e7bbaa07745323f752d4eaa7c14" title=" " alt="" coords="264,232,477,257"/>
+<area shape="poly" id="edge9_Node000001_Node000018" title=" " alt="" coords="551,199,478,223,434,235,433,229,477,218,549,194"/>
+<area shape="rect" id="Node000003" href="$d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a" title="This is a thread function to send the renewal just before the subscription times out." alt="" coords="5,5,216,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="304,83,215,61,217,56,305,78"/>
+<area shape="rect" id="Node000014" href="$d4/d99/upnpapi_8cpp.html#a35ef4435d66e949e612a9ca4f17c48f8" title="Renews a subscription that is about to expire." alt="" coords="21,84,201,109"/>
+<area shape="poly" id="edge3_Node000002_Node000014" title=" " alt="" coords="268,99,201,99,201,94,268,94"/>
 <area shape="rect" id="Node000007" href="$d4/d99/upnpapi_8cpp.html#a282c8419fef146b7170ee266159029e6" title="Schedule async functions in threadpool." alt="" coords="22,133,199,159"/>
-<area shape="poly" id="edge4_Node000002_Node000007" title=" " alt="" coords="282,120,187,136,186,131,281,114"/>
-<area shape="rect" id="Node000016" href="$d4/d99/upnpapi_8cpp.html#aead9c1aad0998507f66cf7f0749013d3" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="27,232,194,257"/>
-<area shape="poly" id="edge6_Node000015_Node000016" title=" " alt="" coords="277,231,195,239,194,234,277,226"/>
-<area shape="poly" id="edge8_Node000022_Node000007" title=" " alt="" coords="290,165,199,157,200,151,290,160"/>
-<area shape="rect" id="Node000023" href="$d4/d99/upnpapi_8cpp.html#a5b4ae069dbe9fc049ff9d0bd2230effa" title="Removes the subscription of a control point from a service previously subscribed to using UpnpSubscri..." alt="" coords="42,183,179,208"/>
-<area shape="poly" id="edge9_Node000022_Node000023" title=" " alt="" coords="290,181,180,191,179,186,289,175"/>
+<area shape="poly" id="edge4_Node000002_Node000007" title=" " alt="" coords="290,115,179,136,178,131,289,109"/>
+<area shape="poly" id="edge7_Node000016_Node000007" title=" " alt="" coords="289,183,178,161,179,156,290,177"/>
+<area shape="rect" id="Node000017" href="$d4/d99/upnpapi_8cpp.html#a5b4ae069dbe9fc049ff9d0bd2230effa" title="Removes the subscription of a control point from a service previously subscribed to using UpnpSubscri..." alt="" coords="42,183,179,208"/>
+<area shape="poly" id="edge8_Node000016_Node000017" title=" " alt="" coords="289,198,179,198,179,193,289,193"/>
 </map>

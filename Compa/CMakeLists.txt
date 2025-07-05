@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-06-26
+# Redistribution only with this Copyright remark. Last modified: 2025-07-09
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -250,41 +250,43 @@ set(COMPA_COMPILE_DEFINITIONS
 
 # Following settings are only for backward compatiblity to pUPnP upnpconfig.h.
 # Don't use them internally. They are not clearly specified and have errors
-# when compiling the old pupnp library (libupnp). E.g. what is selected with
-# UPNP_HAVE_DEVICE and UPNP_HAVE_SSDP? Is there also UPNP_HAVE_CLIENT selected
-# (that also have SSDP)? What is intended?
-#-----------------------------------------------------------------------------
-if(${COMPA_DEF_IPV6})
-    set(UPNP_ENABLE_IPV6 YES)
+# when compiling the old pupnp library (libupnp). Maybe you could use for
+# example '#if defined(UPNP_HAVE_DEVICE) && defined(UPNP_HAVE_SSDP' equivalent
+# to COMPA_HAVE_DEVICE_SSDP.
+#------------------------------------------------------------------------------
+if(UPnPsdk_WITH_NATIVE_PUPNP)
+    if(${COMPA_DEF_IPV6})
+        set(UPNP_ENABLE_IPV6 YES)
+    endif()
+    if(${COMPA_DEF_OPENSSL})
+        set(UPNP_ENABLE_OPEN_SSL YES)
+    endif()
+    if(${COMPA_DEF_WEBSERVER})
+        set(UPNP_HAVE_WEBSERVER YES)
+    endif()
+    if(${COMPA_DEF_DEVICE_SSDP} OR ${COMPA_DEF_DEVICE_DESCRIPTION} OR ${COMPA_DEF_DEVICE_SOAP} OR ${COMPA_DEF_DEVICE_GENA})
+        set(UPNP_HAVE_DEVICE YES)
+    endif()
+    if(${COMPA_DEF_CTRLPT_SSDP} OR ${COMPA_DEF_CTRLPT_DESCRIPTION} OR ${COMPA_DEF_CTRLPT_SSDP} OR ${COMPA_DEF_CTRLPT_GENA})
+        set(UPNP_HAVE_CLIENT YES)
+    endif()
+    if(${COMPA_DEF_CTRLPT_SSDP} OR ${COMPA_DEF_DEVICE_SSDP})
+        set(UPNP_HAVE_SSDP YES)
+    endif()
+    if(${COMPA_DEF_OPTION_SSDP})
+        set(UPNP_HAVE_OPTSSDP YES)
+    endif()
+    if(${COMPA_DEF_CTRLPT_SOAP} OR ${COMPA_DEF_DEVICE_SOAP})
+        set(UPNP_HAVE_SOAP YES)
+    endif()
+    if(${COMPA_DEF_CTRLPT_GENA} OR ${COMPA_DEF_DEVICE_GENA})
+        set(UPNP_HAVE_GENA YES)
+    endif()
+    if(${COMPA_DEF_TOOLS})
+        set(UPNP_HAVE_TOOLS YES)
+    endif()
+    set(UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS YES)
 endif()
-if(${COMPA_DEF_OPENSSL})
-    set(UPNP_ENABLE_OPEN_SSL YES)
-endif()
-if(${COMPA_DEF_WEBSERVER})
-    set(UPNP_HAVE_WEBSERVER YES)
-endif()
-if(${COMPA_DEF_DEVICE_SSDP} OR ${COMPA_DEF_DEVICE_DESCRIPTION} OR ${COMPA_DEF_DEVICE_SOAP} OR ${COMPA_DEF_DEVICE_GENA})
-    set(UPNP_HAVE_DEVICE YES)
-endif()
-if(${COMPA_DEF_CTRLPT_SSDP} OR ${COMPA_DEF_CTRLPT_DESCRIPTION} OR ${COMPA_DEF_CTRLPT_SSDP} OR ${COMPA_DEF_CTRLPT_GENA})
-    set(UPNP_HAVE_CLIENT YES)
-endif()
-if(${COMPA_DEF_CTRLPT_SSDP} OR ${COMPA_DEF_DEVICE_SSDP})
-    set(UPNP_HAVE_SSDP YES)
-endif()
-if(${COMPA_DEF_OPTION_SSDP})
-    set(UPNP_HAVE_OPTSSDP YES)
-endif()
-if(${COMPA_DEF_CTRLPT_SOAP} OR ${COMPA_DEF_DEVICE_SOAP})
-    set(UPNP_HAVE_SOAP YES)
-endif()
-if(${COMPA_DEF_CTRLPT_GENA} OR ${COMPA_DEF_DEVICE_GENA})
-    set(UPNP_HAVE_GENA YES)
-endif()
-if(${COMPA_DEF_TOOLS})
-    set(UPNP_HAVE_TOOLS YES)
-endif()
-set(UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS YES)
 configure_file (${COMPA_SOURCE_DIR}/inc/upnpconfig.h.cm ${CMAKE_BINARY_DIR}/include/upnpconfig.h)
 # ----- End settings for upnpconfig.h ---------
 

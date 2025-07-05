@@ -2,12 +2,10 @@
 <area shape="rect" id="Node000001" title="Sends the UNSUBCRIBE gena request and recieves the response from the device and returns it as a param..." alt="" coords="439,16,619,71"/>
 <area shape="rect" id="Node000002" href="$d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="231,5,391,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="425,34,391,30,391,25,425,29"/>
-<area shape="rect" id="Node000009" href="$d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="243,55,378,80"/>
-<area shape="poly" id="edge3_Node000001_Node000009" title=" " alt="" coords="425,57,379,63,378,57,425,52"/>
-<area shape="rect" id="Node000003" href="$d4/d99/upnpapi_8cpp.html#aead9c1aad0998507f66cf7f0749013d3" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="11,5,177,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="217,21,178,21,178,15,217,15"/>
-<area shape="rect" id="Node000010" href="$d4/d99/upnpapi_8cpp.html#a282c8419fef146b7170ee266159029e6" title="Schedule async functions in threadpool." alt="" coords="5,55,183,80"/>
-<area shape="poly" id="edge4_Node000009_Node000010" title=" " alt="" coords="229,70,183,70,183,65,229,65"/>
-<area shape="rect" id="Node000017" href="$d4/d99/upnpapi_8cpp.html#a5b4ae069dbe9fc049ff9d0bd2230effa" title="Removes the subscription of a control point from a service previously subscribed to using UpnpSubscri..." alt="" coords="25,104,163,129"/>
-<area shape="poly" id="edge5_Node000009_Node000017" title=" " alt="" coords="242,86,151,107,150,101,241,80"/>
+<area shape="rect" id="Node000003" href="$d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="243,55,378,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="425,57,379,63,378,57,425,52"/>
+<area shape="rect" id="Node000004" href="$d4/d99/upnpapi_8cpp.html#a282c8419fef146b7170ee266159029e6" title="Schedule async functions in threadpool." alt="" coords="5,29,183,55"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="229,60,182,55,183,50,229,55"/>
+<area shape="rect" id="Node000011" href="$d4/d99/upnpapi_8cpp.html#a5b4ae069dbe9fc049ff9d0bd2230effa" title="Removes the subscription of a control point from a service previously subscribed to using UpnpSubscri..." alt="" coords="25,79,163,104"/>
+<area shape="poly" id="edge4_Node000003_Node000011" title=" " alt="" coords="230,79,163,86,163,81,229,74"/>
 </map>

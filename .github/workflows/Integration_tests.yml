@@ -66,7 +66,11 @@ jobs:
       #    ls ./build/lib/libgmock_main.a
 
       - name: Run test api_calls
-        run: ./Apps/test_api_calls.sh
+        run: |
+          set -v
+          ./Apps/test_api_calls_pre_fork.sh
+          ./Apps/test_api_calls-psh.sh
+          ./Apps/test_api_calls-csh.sh
 
       - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON')
         name: Check gtest library files, shared
@@ -157,8 +161,11 @@ jobs:
       #    ls ./build/lib/libgtest_main.a
       #    ls ./build/lib/libgmock_main.a
 
-      #- name: Run test api_calls
-      #  run: ./Apps/test_api_calls.sh
+      - name: Run test api_calls
+        run: |
+          set -v
+          ./Apps/test_api_calls-psh.sh
+          ./Apps/test_api_calls-csh.sh
 
       - if: (matrix.googletest == '-D UPnPsdk_WITH_GOOGLETEST=ON -D UPnPsdk_WITH_OPENSSL=ON')
         name: Check gtest library files, shared
@@ -471,8 +478,7 @@ jobs:
           cmake --build build/
           sudo cmake --install build/
           sudo cmake --install build/ --component Development
-          # if [ -x /usr/local/bin/api_calls-psh ]; then /usr/local/bin/api_calls-psh; else true; fi
-          # /usr/local/bin/api_calls-csh
+          /usr/local/bin/api_calls-csh
 
       - if: runner.os == 'Windows'
         name: Build Windows
@@ -485,7 +491,7 @@ jobs:
           cmake --install build/ --config ${{matrix.buildtype}} --component Development
           # $env:prog_path = "C:/Program Files/UPnPsdk/bin/api_calls-psh.exe"
           # If (Test-Path -Path $env:prog_path) {& $env:prog_path}
-          # "C:/Program Files/UPnPsdk/bin/api_calls-csh.exe"
+          "C:/Program Files/UPnPsdk/bin/api_calls-csh.exe"
 
 
   # Job: Run 32 bit build tests
