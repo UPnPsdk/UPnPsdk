@@ -1,25 +1,23 @@
 <map id="GenlibClientSubscription_new" name="GenlibClientSubscription_new">
 <area shape="rect" id="Node000001" title=" " alt="" coords="525,183,741,208"/>
-<area shape="rect" id="Node000002" href="$d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="281,76,460,101"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="595,179,540,151,476,123,419,104,421,99,478,118,542,146,598,174"/>
+<area shape="rect" id="Node000002" href="$d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="281,84,460,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="597,178,541,150,476,123,438,112,439,107,478,118,543,145,599,174"/>
 <area shape="rect" id="Node000005" href="$d6/de3/gena__ctrlpt_8cpp.html#a8fa71879823e3dc936bac4847ca1fcc5" title="This function subscribes to a PublisherURL (also mentioned as EventURL in some places)." alt="" coords="312,133,429,159"/>
 <area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="551,183,429,160,430,154,552,178"/>
-<area shape="rect" id="Node000015" href="$d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="291,232,451,257"/>
-<area shape="poly" id="edge7_Node000001_Node000015" title=" " alt="" coords="552,213,440,235,439,229,551,208"/>
-<area shape="rect" id="Node000022" href="$d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="303,183,438,208"/>
-<area shape="poly" id="edge9_Node000001_Node000022" title=" " alt="" coords="512,198,438,198,438,193,512,193"/>
-<area shape="rect" id="Node000024" href="$dc/d2f/GenlibClientSubscription_8cpp.html#abaec6e7bbaa07745323f752d4eaa7c14" title=" " alt="" coords="264,281,477,307"/>
-<area shape="poly" id="edge12_Node000001_Node000024" title=" " alt="" coords="599,217,543,245,478,273,439,284,438,279,476,267,541,240,597,212"/>
-<area shape="rect" id="Node000003" href="$d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a" title="This is a thread function to send the renewal just before the subscription times out." alt="" coords="5,55,216,109"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="268,89,216,87,216,82,268,83"/>
-<area shape="rect" id="Node000014" href="$d4/d99/upnpapi_8cpp.html#a35ef4435d66e949e612a9ca4f17c48f8" title="Renews a subscription that is about to expire." alt="" coords="21,5,201,31"/>
-<area shape="poly" id="edge3_Node000002_Node000014" title=" " alt="" coords="316,74,215,45,170,33,171,28,217,39,318,69"/>
+<area shape="rect" id="Node000015" href="$d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="291,183,451,208"/>
+<area shape="poly" id="edge7_Node000001_Node000015" title=" " alt="" coords="512,198,451,198,451,193,512,193"/>
+<area shape="rect" id="Node000016" href="$d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="303,232,438,257"/>
+<area shape="poly" id="edge8_Node000001_Node000016" title=" " alt="" coords="552,213,439,235,438,229,551,208"/>
+<area shape="rect" id="Node000018" href="$dc/d2f/GenlibClientSubscription_8cpp.html#abaec6e7bbaa07745323f752d4eaa7c14" title=" " alt="" coords="264,281,477,307"/>
+<area shape="poly" id="edge11_Node000001_Node000018" title=" " alt="" coords="599,217,543,245,478,273,439,284,438,279,476,267,541,240,597,212"/>
+<area shape="rect" id="Node000003" href="$d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a" title="This is a thread function to send the renewal just before the subscription times out." alt="" coords="5,5,216,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="304,83,215,61,217,56,305,78"/>
+<area shape="rect" id="Node000014" href="$d4/d99/upnpapi_8cpp.html#a35ef4435d66e949e612a9ca4f17c48f8" title="Renews a subscription that is about to expire." alt="" coords="21,84,201,109"/>
+<area shape="poly" id="edge3_Node000002_Node000014" title=" " alt="" coords="268,99,201,99,201,94,268,94"/>
 <area shape="rect" id="Node000007" href="$d4/d99/upnpapi_8cpp.html#a282c8419fef146b7170ee266159029e6" title="Schedule async functions in threadpool." alt="" coords="22,133,199,159"/>
-<area shape="poly" id="edge4_Node000002_Node000007" title=" " alt="" coords="299,107,170,136,168,131,298,102"/>
+<area shape="poly" id="edge4_Node000002_Node000007" title=" " alt="" coords="290,115,179,136,178,131,289,109"/>
 <area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="298,149,199,149,199,143,298,143"/>
-<area shape="rect" id="Node000016" href="$d4/d99/upnpapi_8cpp.html#aead9c1aad0998507f66cf7f0749013d3" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="27,232,194,257"/>
-<area shape="poly" id="edge8_Node000015_Node000016" title=" " alt="" coords="277,247,194,247,194,242,277,242"/>
-<area shape="poly" id="edge10_Node000022_Node000007" title=" " alt="" coords="289,183,178,161,179,156,290,177"/>
-<area shape="rect" id="Node000023" href="$d4/d99/upnpapi_8cpp.html#a5b4ae069dbe9fc049ff9d0bd2230effa" title="Removes the subscription of a control point from a service previously subscribed to using UpnpSubscri..." alt="" coords="42,183,179,208"/>
-<area shape="poly" id="edge11_Node000022_Node000023" title=" " alt="" coords="289,198,179,198,179,193,289,193"/>
+<area shape="poly" id="edge9_Node000016_Node000007" title=" " alt="" coords="293,231,263,222,191,191,133,161,136,156,193,186,265,217,294,226"/>
+<area shape="rect" id="Node000017" href="$d4/d99/upnpapi_8cpp.html#a5b4ae069dbe9fc049ff9d0bd2230effa" title="Removes the subscription of a control point from a service previously subscribed to using UpnpSubscri..." alt="" coords="42,232,179,257"/>
+<area shape="poly" id="edge10_Node000016_Node000017" title=" " alt="" coords="289,247,179,247,179,242,289,242"/>
 </map>

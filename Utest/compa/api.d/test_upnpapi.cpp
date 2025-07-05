@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-30
+// Redistribution only with this Copyright remark. Last modified: 2025-07-06
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -34,7 +34,7 @@ using ::UPnPsdk::SSockaddr;
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 auto& sdkInit_mutex = gSDKInitMutex;
 #else
-using ::compa::HandleTable;
+using ::HandleTable;
 using ::compa::sdkInit_mutex;
 #endif
 
@@ -669,7 +669,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
 #if defined(UPnPsdk_WITH_NATIVE_PUPNP)
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
 #else
-    int ret_UpnpGetIfInfo = compa::UpnpGetIfInfo();
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo();
 #endif
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
@@ -1041,7 +1041,11 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
 
     // Test Unit
     // This should find the first (best) local ip address.
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP)
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
+#else
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo();
+#endif
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
@@ -1094,7 +1098,7 @@ TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
     if (!github_actions)
         GTEST_FAIL() << "Still needs to be done.";
 
-    [[maybe_unused]] int ret_GetFreeHandle = GetFreeHandle();
+    [[maybe_unused]] int ret_GetFreeHandle = ::GetFreeHandle();
 }
 
 TEST_F(UpnpapiFTestSuite, download_xml_successful) {

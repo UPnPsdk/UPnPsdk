@@ -29,7 +29,7 @@ var searchData=
   ['freeclientsublist_26',['freeclientsublist',['../da/d8f/client__table_8cpp.html#ac8288e19f3ea1298d0d8cf586275226c',1,'freeClientSubList(GenlibClientSubscription *list):&#160;client_table.cpp'],['../d9/d78/client__table_8hpp.html#ac8288e19f3ea1298d0d8cf586275226c',1,'freeClientSubList(GenlibClientSubscription *list):&#160;client_table.cpp']]],
   ['freeevents_27',['freeEvents',['../d0/d87/TimerThread_8hpp.html#acff50373377f1b74f6c96ed8159cd08d',1,'TimerThread']]],
   ['freeextrahttpheaders_28',['FreeExtraHTTPHeaders',['../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a8fc06e4ec07693a6c9a34deafa3e6db2',1,'compa::anonymous_namespace{webserver.cpp}']]],
-  ['freehandle_29',['FreeHandle',['../d4/d99/upnpapi_8cpp.html#adede929017553d41a13e25f2aa4c9c98',1,'upnpapi.cpp']]],
+  ['freehandle_29',['FreeHandle',['../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a07653875141e0fbfd8429f44496dd448',1,'anonymous_namespace{upnpapi.cpp}']]],
   ['freelist_30',['FreeList',['../d8/d1c/FreeList_8hpp.html#d4/da5/structFreeList',1,'']]],
   ['freelist_2ecpp_31',['FreeList.cpp',['../d7/d20/FreeList_8cpp.html',1,'']]],
   ['freelist_2ehpp_32',['FreeList.hpp',['../d8/d1c/FreeList_8hpp.html',1,'']]],

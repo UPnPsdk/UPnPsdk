@@ -16,6 +16,5 @@ var group__compaAPI_Addressing =
     [ "UpnpUnRegisterRootDeviceLowPower", "d7/df3/group__compaAPI-Addressing.html#gacb02781bb3514a9a9354453db1d3e61a", null ],
     [ "UpnpRegisterClient", "d7/df3/group__compaAPI-Addressing.html#ga537bd540c8dff695db5d2e33d2d32860", null ],
     [ "UpnpUnRegisterClient", "d7/df3/group__compaAPI-Addressing.html#ga9bb3f57b76e2a074da546d3518256c20", null ],
-    [ "UpnpSetContentLength", "d7/df3/group__compaAPI-Addressing.html#gab1d5734230a7d7042100e8a681aeac85", null ],
     [ "UpnpSetMaxContentLength", "d7/df3/group__compaAPI-Addressing.html#ga83dec43899502c406c6c562f1206fe1d", null ]
 ];

@@ -23,8 +23,8 @@ The following general goals are in progress or planned:
 - Mandatory OpenSSL support
 
 ## 2. Limitations
-<!-- - On the old <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices (pupnp)</a> already deprecated functions are not supported anymore. These are the functions `UpnpSetContentLength(), handle_query_variable(), UpnpGetServiceVarStatus(), UpnpGetServiceVarStatusAsync()`. -->
 - Development for old **pupnp** code is not supported. No header files for **pupnp** are provided, only for the **UPnPsdk**.
+- On the old <a href="https://github.com/pupnp/pupnp">Portable SDK for UPnP Devices (pupnp)</a> already deprecated functions are not supported anymore. These are the functions `UpnpSetContentLength(), handle_query_variable(), UpnpGetServiceVarStatus(), UpnpGetServiceVarStatusAsync()`.
 - Large-file support on 32 bit architectures is always enabled. Disabling **lfs** is not supported.
 
 ## 3. Technical Documentation

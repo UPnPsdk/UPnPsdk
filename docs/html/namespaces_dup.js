@@ -143,7 +143,12 @@ var namespaces_dup =
       [ "AddWorker", "dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#af2c5c202798ffef6d50277b0ee80c155", null ]
     ] ],
     [ "anonymous_namespace{TimerThread.cpp}", "da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html", "da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03" ],
-    [ "anonymous_namespace{upnpapi.cpp}", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html", null ],
+    [ "anonymous_namespace{upnpapi.cpp}", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html", [
+      [ "UpnpGetIfInfo", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a3a7f1be4bdd896cc27cfe5863237db11", null ],
+      [ "GetFreeHandle", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a0df8015084a465bb2d7f9e5ea5efa3d7", null ],
+      [ "FreeHandle", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a07653875141e0fbfd8429f44496dd448", null ],
+      [ "HandleTable", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ae1780789dd87fdff01750646dfdcb8a8", null ]
+    ] ],
     [ "anonymous_namespace{upnpdebug.cpp}", "d0/d23/namespaceanonymous__namespace_02upnpdebug_8cpp_03.html", [
       [ "debug_mutex", "d0/d23/namespaceanonymous__namespace_02upnpdebug_8cpp_03.html#add61f4fdc41b509b4003f154b2b181ee", null ]
     ] ],

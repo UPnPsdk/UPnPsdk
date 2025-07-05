@@ -1,14 +1,12 @@
 <map id="freeClientSubList" name="freeClientSubList">
-<area shape="rect" id="Node000001" title="Free the client subscription table." alt="" coords="693,31,827,56"/>
-<area shape="rect" id="Node000002" href="$d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="229,5,389,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="679,42,390,25,390,20,679,36"/>
-<area shape="rect" id="Node000009" href="$da/d8f/client__table_8cpp.html#ab7a53a7faf0819bb588f19a08ca56dc9" title="Remove the client subscription matching the subscritpion id represented by the const Upnp_SID sid par..." alt="" coords="447,56,645,81"/>
-<area shape="poly" id="edge3_Node000001_Node000009" title=" " alt="" coords="680,55,646,60,645,54,679,50"/>
-<area shape="rect" id="Node000003" href="$d4/d99/upnpapi_8cpp.html#aead9c1aad0998507f66cf7f0749013d3" title="Unregisters a control point application, unsubscribing all active subscriptions." alt="" coords="5,5,172,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="216,21,172,21,172,15,216,15"/>
-<area shape="poly" id="edge5_Node000009_Node000002" title=" " alt="" coords="472,56,369,33,370,28,473,50"/>
-<area shape="rect" id="Node000010" href="$d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="220,55,399,80"/>
-<area shape="poly" id="edge4_Node000009_Node000010" title=" " alt="" coords="433,71,399,71,399,65,433,65"/>
-<area shape="rect" id="Node000023" href="$d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="242,104,377,129"/>
-<area shape="poly" id="edge6_Node000009_Node000023" title=" " alt="" coords="470,87,373,107,372,101,469,81"/>
+<area shape="rect" id="Node000001" title="Free the client subscription table." alt="" coords="479,31,612,56"/>
+<area shape="rect" id="Node000002" href="$d6/de3/gena__ctrlpt_8cpp.html#a1061c296a8e1902dfa6e17e105d46121" title="Unsubcribes all the outstanding subscriptions and cleans the subscription list." alt="" coords="15,5,175,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="465,42,175,25,175,20,465,36"/>
+<area shape="rect" id="Node000003" href="$da/d8f/client__table_8cpp.html#ab7a53a7faf0819bb588f19a08ca56dc9" title="Remove the client subscription matching the subscritpion id represented by the const Upnp_SID sid par..." alt="" coords="232,56,431,81"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="465,55,431,60,431,54,465,50"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="257,56,154,33,155,28,258,50"/>
+<area shape="rect" id="Node000004" href="$d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="5,55,184,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="218,71,184,71,184,65,218,65"/>
+<area shape="rect" id="Node000017" href="$d6/de3/gena__ctrlpt_8cpp.html#a4dba8a0501a7a608f03e9d92555c98b1" title="Unsubscribes a SID." alt="" coords="27,104,162,129"/>
+<area shape="poly" id="edge5_Node000003_Node000017" title=" " alt="" coords="255,87,159,107,157,101,254,81"/>
 </map>

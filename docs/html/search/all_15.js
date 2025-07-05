@@ -33,7 +33,7 @@ var searchData=
   ['parser_5fgetnextnode_30',['Parser_getNextNode',['../da/dff/ixmlparser_8cpp.html#a1a4a23a8c694f26c59c2f1b24fef612d',1,'ixmlparser.cpp']]],
   ['parser_5fgetnexttoken_31',['Parser_getNextToken',['../da/dff/ixmlparser_8cpp.html#afc77054f1c094bc4735fa71b63fa5cc7',1,'ixmlparser.cpp']]],
   ['parser_5fhasdefaultnamespace_32',['Parser_hasDefaultNamespace',['../da/dff/ixmlparser_8cpp.html#a61bd1728e96bf602fa9a47ee3a11af62',1,'ixmlparser.cpp']]],
-  ['parser_5finit_33',['parser_init',['../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a93d089625bc02f855cc2f255ceed86f0',1,'anonymous_namespace{httpparser.cpp}::parser_init()'],['../da/dff/ixmlparser_8cpp.html#a0eacdafa9ca9fe872b050cac5b22ad1f',1,'Parser_init():&#160;ixmlparser.cpp']]],
+  ['parser_5finit_33',['parser_init',['../da/dff/ixmlparser_8cpp.html#a0eacdafa9ca9fe872b050cac5b22ad1f',1,'Parser_init():&#160;ixmlparser.cpp'],['../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a93d089625bc02f855cc2f255ceed86f0',1,'anonymous_namespace{httpparser.cpp}::parser_init()']]],
   ['parser_5finttoutf8_34',['Parser_intToUTF8',['../da/dff/ixmlparser_8cpp.html#a5865699cf24151fcb14522d2b3ad86cb',1,'ixmlparser.cpp']]],
   ['parser_5fischarintable_35',['Parser_isCharInTable',['../da/dff/ixmlparser_8cpp.html#a12157cc4506fa0e6c4ff60b1b4d7e348',1,'ixmlparser.cpp']]],
   ['parser_5fisnamechar_36',['Parser_isNameChar',['../da/dff/ixmlparser_8cpp.html#a274a44d205dbdd1c866801636647d505',1,'ixmlparser.cpp']]],

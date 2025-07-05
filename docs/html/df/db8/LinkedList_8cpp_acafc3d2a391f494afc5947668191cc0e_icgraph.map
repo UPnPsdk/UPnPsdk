@@ -1,25 +1,23 @@
 <map id="ListInit" name="ListInit">
-<area shape="rect" id="Node000001" title="Initializes LinkedList. Must be called first and only once for List." alt="" coords="748,288,815,313"/>
+<area shape="rect" id="Node000001" title="Initializes LinkedList. Must be called first and only once for List." alt="" coords="748,263,815,288"/>
 <area shape="rect" id="Node000002" href="$d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a553e7c0bea095f39accd1a5cde36c330" title="Dummy function. It do nothing since years. Do we need it?" alt="" coords="487,5,667,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="776,275,770,231,757,177,734,121,718,96,698,73,665,52,668,48,702,69,722,93,738,119,762,175,775,230,781,274"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="774,249,767,210,753,163,731,115,716,93,698,73,666,53,669,48,702,69,720,89,735,112,758,161,772,209,780,248"/>
 <area shape="rect" id="Node000008" href="$dd/d10/service__table_8cpp.html#a4f016e7cd4cf74e605330f45c4062945" title="Makes a copy of the subscription." alt="" coords="507,84,646,109"/>
-<area shape="poly" id="edge3_Node000001_Node000008" title=" " alt="" coords="773,275,765,240,751,199,729,158,698,124,674,110,645,102,647,97,676,105,702,120,733,155,756,197,770,239,779,274"/>
+<area shape="poly" id="edge3_Node000001_Node000008" title=" " alt="" coords="771,250,762,220,747,186,726,152,698,124,673,111,646,103,647,98,676,106,702,120,730,149,752,184,767,219,776,249"/>
 <area shape="rect" id="Node000020" href="$dd/de6/gena__device_8cpp.html#a25ad1852d4d32c6f34a87b92225202fd" title="Handles a subscription request from a ctrl point. The socket is not closed on return." alt="" coords="478,134,675,174"/>
-<area shape="poly" id="edge5_Node000001_Node000020" title=" " alt="" coords="767,277,740,231,721,208,698,188,674,175,677,170,702,184,725,204,744,228,771,274"/>
+<area shape="poly" id="edge5_Node000001_Node000020" title=" " alt="" coords="762,252,735,219,699,188,674,176,677,172,701,184,739,215,766,249"/>
 <area shape="rect" id="Node000024" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a645d915a8230f48e1a62dee451fa9705" title="Initialize and allocate memory for http message." alt="" coords="463,198,690,238"/>
-<area shape="poly" id="edge8_Node000001_Node000024" title=" " alt="" coords="751,282,699,252,667,241,669,236,701,248,753,278"/>
-<area shape="rect" id="Node000079" href="$d8/d61/ThreadPool_8cpp.html#a03dbe83dda6a8fbe38a4a6c2f14edc7f" title="Initializes and starts ThreadPool." alt="" coords="519,263,635,288"/>
-<area shape="poly" id="edge10_Node000001_Node000079" title=" " alt="" coords="734,298,634,285,635,280,735,292"/>
-<area shape="rect" id="Node000080" href="$dd/d9f/TimerThread_8cpp.html#a88b075dce04bff1935ef802ff6df4621" title="Initializes and starts timer thread." alt="" coords="235,312,362,337"/>
-<area shape="poly" id="edge13_Node000001_Node000080" title=" " alt="" coords="734,306,362,324,362,319,734,300"/>
-<area shape="rect" id="Node000081" href="$d4/d99/upnpapi_8cpp.html#a12e523b91dfe443b56ab3c99ef4c1c65" title="Registers a control point application with the UPnP Library." alt="" coords="503,364,651,389"/>
-<area shape="poly" id="edge15_Node000001_Node000081" title=" " alt="" coords="749,323,701,347,639,366,638,361,699,342,747,318"/>
-<area shape="rect" id="Node000060" href="$d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="484,413,669,439"/>
-<area shape="poly" id="edge16_Node000001_Node000060" title=" " alt="" coords="769,327,742,367,723,388,701,404,671,418,669,413,699,400,720,384,738,364,765,324"/>
-<area shape="rect" id="Node000059" href="$d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="480,463,673,488"/>
-<area shape="poly" id="edge17_Node000001_Node000059" title=" " alt="" coords="776,327,766,357,751,391,730,425,702,453,675,468,672,463,698,449,726,422,747,389,761,355,771,326"/>
-<area shape="rect" id="Node000061" href="$d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a46c5f48668d3cb1dcd599795ca6ce263" title=" " alt="" coords="453,512,700,567"/>
-<area shape="poly" id="edge18_Node000001_Node000061" title=" " alt="" coords="779,328,772,366,757,413,735,461,702,503,687,514,684,510,698,499,730,458,752,411,766,365,774,327"/>
+<area shape="poly" id="edge8_Node000001_Node000024" title=" " alt="" coords="734,263,699,253,656,241,658,236,701,247,736,258"/>
+<area shape="rect" id="Node000075" href="$d8/d61/ThreadPool_8cpp.html#a03dbe83dda6a8fbe38a4a6c2f14edc7f" title="Initializes and starts ThreadPool." alt="" coords="519,263,635,288"/>
+<area shape="poly" id="edge10_Node000001_Node000075" title=" " alt="" coords="734,278,635,278,635,273,734,273"/>
+<area shape="rect" id="Node000077" href="$dd/d9f/TimerThread_8cpp.html#a88b075dce04bff1935ef802ff6df4621" title="Initializes and starts timer thread." alt="" coords="235,312,362,337"/>
+<area shape="poly" id="edge13_Node000001_Node000077" title=" " alt="" coords="736,293,701,302,609,315,517,323,362,328,362,322,516,317,608,310,699,297,734,288"/>
+<area shape="rect" id="Node000056" href="$d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="484,364,669,389"/>
+<area shape="poly" id="edge15_Node000001_Node000056" title=" " alt="" coords="761,300,734,325,701,347,650,366,648,361,699,342,731,320,758,296"/>
+<area shape="rect" id="Node000055" href="$d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="480,413,673,439"/>
+<area shape="poly" id="edge16_Node000001_Node000055" title=" " alt="" coords="773,302,747,355,727,382,701,404,675,418,672,413,699,400,723,378,742,352,769,300"/>
+<area shape="rect" id="Node000057" href="$d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a46c5f48668d3cb1dcd599795ca6ce263" title=" " alt="" coords="453,463,700,517"/>
+<area shape="poly" id="edge17_Node000001_Node000057" title=" " alt="" coords="778,302,769,336,754,377,732,418,702,453,686,465,683,460,698,449,728,415,749,375,764,335,773,301"/>
 <area shape="rect" id="Node000003" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ab8095d987290dfdc4f151dc8e3d7c40f" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="214,20,383,45"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="473,35,384,35,384,30,473,30"/>
 <area shape="rect" id="Node000009" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae2ea03f611c00f8ca5691e59f7e988c6" title="Thread job to Notify a control point." alt="" coords="209,69,389,124"/>
@@ -30,8 +28,8 @@
 <area shape="poly" id="edge7_Node000021_Node000022" title=" " alt="" coords="230,175,193,188,162,206,134,227,90,265,87,261,130,222,160,201,191,184,229,170"/>
 <area shape="rect" id="Node000025" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a93d089625bc02f855cc2f255ceed86f0" title="Initializes the parser object." alt="" coords="192,198,405,238"/>
 <area shape="poly" id="edge9_Node000024_Node000025" title=" " alt="" coords="449,221,405,221,405,215,449,215"/>
-<area shape="rect" id="Node000052" href="$d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="220,263,377,288"/>
-<area shape="poly" id="edge11_Node000079_Node000052" title=" " alt="" coords="505,278,378,278,378,273,505,273"/>
-<area shape="poly" id="edge12_Node000052_Node000022" title=" " alt="" coords="206,278,144,278,144,273,206,273"/>
-<area shape="poly" id="edge14_Node000080_Node000022" title=" " alt="" coords="227,312,133,291,134,285,228,306"/>
+<area shape="rect" id="Node000076" href="$d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="220,263,377,288"/>
+<area shape="poly" id="edge11_Node000075_Node000076" title=" " alt="" coords="505,278,378,278,378,273,505,273"/>
+<area shape="poly" id="edge12_Node000076_Node000022" title=" " alt="" coords="206,278,144,278,144,273,206,273"/>
+<area shape="poly" id="edge14_Node000077_Node000022" title=" " alt="" coords="227,312,133,291,134,285,228,306"/>
 </map>

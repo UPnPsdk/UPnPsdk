@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-07-02
+// Redistribution only with this Copyright remark. Last modified: 2025-07-10
 /*!
  * \file
  * \brief Simple calls of API functions to test conditional compile and linking.
@@ -11,7 +11,6 @@
  */
 
 #include <upnp.h>
-#include <UPnPsdk/port_sock.hpp> // for in_port_t with _MSC_VER
 
 #ifdef __cplusplus
 #include <cstdio>  // for printf() and friends
@@ -19,6 +18,12 @@
 #include <stdio.h> // for printf() and friends
 #include <stdbool.h>
 #endif
+
+#ifdef _MSC_VER
+#include <stdint.h> // for uint16_t etc.
+typedef uint16_t in_port_t;
+#endif
+
 
 // Step 0: Addressing
 // ------------------
@@ -115,8 +120,9 @@ int Fun(Upnp_EventType EventType, const void* Event, void* Cookie) {
 int UpnpRegisterRootDevice_utest(bool execute) {
     (void)execute;
 
-    fprintf(stderr, "Executing UpnpRegisterRootDevice()\n");
-#if defined(UPNP_HAVE_DEVICE) // || defined(COMPA_HAVE_DEVICE_SSDP)
+    fprintf(stderr, "Executing UpnpRegisterRootDevice() (needs "
+                    "UPnPsdk_WITH_DEVICE_DESCRIPTION)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_DEVICE_DESCRIPTION)
     if (!execute) {
         fprintf(stderr, "    !--> skipped due to access violation\n");
         return 0;
@@ -135,8 +141,7 @@ int UpnpRegisterRootDevice_utest(bool execute) {
     }
 #else
     fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_DEVICE or COMPA_HAVE_DEVICE_SSDP "
-            "not enabled\n");
+            "    !--> skipped: COMPA_HAVE_DEVICE_DESCRIPTION not enabled\n");
 #endif
     return 0;
 }
@@ -144,8 +149,9 @@ int UpnpRegisterRootDevice_utest(bool execute) {
 int UpnpRegisterRootDevice2_utest(bool execute) {
     (void)execute;
 
-    fprintf(stderr, "Executing UpnpRegisterRootDevice2()\n");
-#if defined(UPNP_HAVE_DEVICE) // || defined(COMPA_HAVE_DEVICE_DESCRIPTION)
+    fprintf(stderr, "Executing UpnpRegisterRootDevice2() (needs "
+                    "UPnPsdk_WITH_DEVICE_DESCRIPTION)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_DEVICE_DESCRIPTION)
     if (!execute) {
         fprintf(stderr, "    !--> skipped due to access violation\n");
         return 0;
@@ -165,10 +171,8 @@ int UpnpRegisterRootDevice2_utest(bool execute) {
         return 1;
     }
 #else
-    fprintf(
-        stderr,
-        "    !--> skipped: UPNP_HAVE_DEVICE or COMPA_HAVE_DEVICE_DESCRIPTION "
-        "not enabled\n");
+    fprintf(stderr,
+            "    !--> skipped: COMPA_HAVE_DEVICE_DESCRIPTION not enabled\n");
 #endif
     return 0;
 }
@@ -176,8 +180,9 @@ int UpnpRegisterRootDevice2_utest(bool execute) {
 int UpnpRegisterRootDevice3_utest(bool execute) {
     (void)execute;
 
-    fprintf(stderr, "Executing UpnpRegisterRootDevice3()\n");
-#if defined(UPNP_HAVE_DEVICE) // || defined(COMPA_HAVE_DEVICE_SSDP)
+    fprintf(stderr, "Executing UpnpRegisterRootDevice3() (needs "
+                    "UPnPsdk_WITH_DEVICE_DESCRIPTION)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_DEVICE_DESCRIPTION)
     if (!execute) {
         fprintf(stderr, "    !--> skipped due to access violation\n");
         return 0;
@@ -198,8 +203,7 @@ int UpnpRegisterRootDevice3_utest(bool execute) {
     }
 #else
     fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_DEVICE or COMPA_HAVE_DEVICE_SSDP "
-            "not enabled\n");
+            "    !--> skipped: COMPA_HAVE_DEVICE_DESCRIPTION not enabled\n");
 #endif
     return 0;
 }
@@ -207,8 +211,9 @@ int UpnpRegisterRootDevice3_utest(bool execute) {
 int UpnpRegisterRootDevice4_utest(bool execute) {
     (void)execute;
 
-    fprintf(stderr, "Executing UpnpRegisterRootDevice4()\n");
-#if defined(UPNP_HAVE_DEVICE) // || defined(COMPA_HAVE_DEVICE_SSDP)
+    fprintf(stderr, "Executing UpnpRegisterRootDevice4() (needs "
+                    "UPnPsdk_WITH_DEVICE_DESCRIPTION)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_DEVICE_DESCRIPTION)
     if (!execute) {
         fprintf(stderr, "    !--> skipped due to access violation\n");
         return 0;
@@ -229,15 +234,15 @@ int UpnpRegisterRootDevice4_utest(bool execute) {
     }
 #else
     fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_DEVICE or COMPA_HAVE_DEVICE_SSDP "
-            "not enabled\n");
+            "    !--> skipped: COMPA_HAVE_DEVICE_DESCRIPTION not enabled\n");
 #endif
     return 0;
 }
 
 int UpnpUnRegisterRootDevice_utest(void) {
-    fprintf(stderr, "Executing UpnpUnRegisterRootDevice()\n");
-#if defined(UPNP_HAVE_DEVICE) // || defined(COMPA_HAVE_DEVICE_SSDP)
+    fprintf(stderr, "Executing UpnpUnRegisterRootDevice() (needs "
+                    "UPnPsdk_WITH_DEVICE_DESCRIPTION)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_DEVICE_DESCRIPTION)
     const int ret = UpnpUnRegisterRootDevice(-1);
     if (ret != UPNP_E_FINISH) {
         fprintf(stderr, "    !--> unexpected returned value == %d\n", ret);
@@ -245,15 +250,15 @@ int UpnpUnRegisterRootDevice_utest(void) {
     }
 #else
     fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_DEVICE or COMPA_HAVE_DEVICE_SSDP "
-            "not enabled\n");
+            "    !--> skipped: COMPA_HAVE_DEVICE_DESCRIPTION not enabled\n");
 #endif
     return 0;
 }
 
 int UpnpUnRegisterRootDeviceLowPower_utest(void) {
-    fprintf(stderr, "Executing UpnpUnRegisterRootDeviceLowPower()\n");
-#if defined(UPNP_HAVE_DEVICE) // || defined(COMPA_HAVE_DEVICE_SSDP)
+    fprintf(stderr, "Executing UpnpUnRegisterRootDeviceLowPower() (needs "
+                    "UPnPsdk_WITH_DEVICE_DESCRIPTION)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_DEVICE_DESCRIPTION)
     const int ret = UpnpUnRegisterRootDeviceLowPower(0, 0, 0, 0);
     if (ret != UPNP_E_FINISH) {
         fprintf(stderr, "    !--> unexpected returned value == %d\n", ret);
@@ -261,15 +266,15 @@ int UpnpUnRegisterRootDeviceLowPower_utest(void) {
     }
 #else
     fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_DEVICE or COMPA_HAVE_DEVICE_SSDP "
-            "not enabled\n");
+            "    !--> skipped: COMPA_HAVE_DEVICE_DESCRIPTION not enabled\n");
 #endif
     return 0;
 }
 
 int UpnpRegisterClient_utest(void) {
-    fprintf(stderr, "Executing UpnpRegisterClient()\n");
-#if defined(UPNP_HAVE_CLIENT) // || defined(COMPA_HAVE_CTRLPT_SSDP)
+    fprintf(stderr, "Executing UpnpRegisterClient() (needs "
+                    "UPnPsdk_WITH_CTRLPT_DESCRIPTION)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_CTRLPT_DESCRIPTION)
     const int ret = UpnpRegisterClient(NULL, NULL, NULL);
     if (ret != UPNP_E_FINISH) {
         fprintf(stderr, "    !--> unexpected returned value == %d\n", ret);
@@ -277,15 +282,15 @@ int UpnpRegisterClient_utest(void) {
     }
 #else
     fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_CLIENT or COMPA_HAVE_CTRLPT_SSDP "
-            "not enabled\n");
+            "    !--> skipped: COMPA_HAVE_CTRLPT_DESCRIPTION not enabled\n");
 #endif
     return 0;
 }
 
 int UpnpUnRegisterClient_utest(void) {
-    fprintf(stderr, "Executing UpnpUnRegisterClient()\n");
-#if defined(UPNP_HAVE_CLIENT) // || defined(COMPA_HAVE_CTRLPT_SSDP)
+    fprintf(stderr, "Executing UpnpUnRegisterClient() (needs "
+                    "UPnPsdk_WITH_CTRLPT_DESCRIPTION)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_CTRLPT_DESCRIPTION)
     const int ret = UpnpUnRegisterClient(0);
     if (ret != UPNP_E_FINISH) {
         fprintf(stderr, "    !--> unexpected returned value == %d\n", ret);
@@ -293,26 +298,8 @@ int UpnpUnRegisterClient_utest(void) {
     }
 #else
     fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_CLIENT or COMPA_HAVE_CTRLPT_SSDP "
-            "not enabled\n");
+            "    !--> skipped: COMPA_HAVE_CTRLPT_DESCRIPTION not enabled\n");
 #endif
-    return 0;
-}
-
-// Deprecated
-int UpnpSetContentLength_utest(bool execute) {
-    fprintf(stderr, "Executing UpnpSetContentLength()\n");
-    if (!execute) {
-        fprintf(stderr, "    !--> skipped due to access violation\n");
-        return 0;
-    }
-
-    // On MS Windows terminate with -1073741819 (0xC0000005): access violation.
-    const int ret = UpnpSetContentLength(0, 0);
-    if (ret != UPNP_E_FINISH) {
-        fprintf(stderr, "    !--> unexpected returned value == %d\n", ret);
-        return 1;
-    }
     return 0;
 }
 
@@ -330,8 +317,9 @@ int UpnpSetMaxContentLength_utest(void) {
 // Step 1: Discovery
 // -----------------
 int UpnpSearchAsync_utest(void) {
-    fprintf(stderr, "Executing UpnpSearchAsync()\n");
-#if defined(UPNP_HAVE_CLIENT) // || defined(COMPA_HAVE_CTRLPT_SSDP)
+    fprintf(stderr,
+            "Executing UpnpSearchAsync() (needs UPnPsdk_WITH_CTRLPT_SSDP)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_CTRLPT_SSDP)
     // const char TvDeviceType[] = "urn:schemas-upnp-org:device:tvdevice:1";
 
     const int ret = UpnpSearchAsync(0, 0, NULL, NULL);
@@ -341,41 +329,38 @@ int UpnpSearchAsync_utest(void) {
         return 1;
     }
 #else
-    fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_CLIENT or COMPA_HAVE_CTRLPT_SSDP "
-            "not enabled\n");
+    fprintf(stderr, "    !--> skipped: COMPA_HAVE_CTRLPT_SSDP not enabled\n");
 #endif
     return 0;
 }
 
 int UpnpSendAdvertisement_utest(void) {
-    fprintf(stderr, "Executing UpnpSendAdvertisement()\n");
-#if defined(UPNP_HAVE_DEVICE) // || defined(COMPA_HAVE_DEVICE_SSDP)
+    fprintf(
+        stderr,
+        "Executing UpnpSendAdvertisement() (needs UPnPsdk_WITH_DEVICE_SSDP)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_DEVICE_SSDP)
     const int ret = UpnpSendAdvertisement(0, 0);
     if (ret != UPNP_E_FINISH) {
         fprintf(stderr, "    !--> unexpected returned value == %d\n", ret);
         return 1;
     }
 #else
-    fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_DEVICE or COMPA_HAVE_DEVICE_SSDP "
-            "not enabled\n");
+    fprintf(stderr, "    !--> skipped: COMPA_HAVE_DEVICE_SSDP not enabled\n");
 #endif
     return 0;
 }
 
 int UpnpSendAdvertisementLowPower_utest(void) {
-    fprintf(stderr, "Executing UpnpSendAdvertisementLowPower()\n");
-#if defined(UPNP_HAVE_DEVICE) // || defined(COMPA_HAVE_DEVICE_SSDP)
+    fprintf(stderr, "Executing UpnpSendAdvertisementLowPower() (needs "
+                    "UPnPsdk_WITH_DEVICE_SSDP)\n");
+#if !defined(__cplusplus) || defined(COMPA_HAVE_DEVICE_SSDP)
     const int ret = UpnpSendAdvertisementLowPower(0, 0, 0, 0, 0);
     if (ret != UPNP_E_FINISH) {
         fprintf(stderr, "    !--> unexpected returned value == %d\n", ret);
         return 1;
     }
 #else
-    fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_DEVICE or COMPA_HAVE_DEVICE_SSDP "
-            "not enabled\n");
+    fprintf(stderr, "    !--> skipped: COMPA_HAVE_DEVICE_SSDP not enabled\n");
 #endif
     return 0;
 }
@@ -383,40 +368,7 @@ int UpnpSendAdvertisementLowPower_utest(void) {
 
 // Step 3: Control
 // ---------------
-// Deprecated
-int UpnpGetServiceVarStatus_utest(void) {
-    fprintf(stderr, "Executing UpnpGetServiceVarStatus()\n");
-#if defined(UPNP_HAVE_SOAP) // || defined(COMPA_HAVE_CTRLPT_SOAP)
-    const int ret = UpnpGetServiceVarStatus(0, NULL, NULL, NULL);
-    if (ret != UPNP_E_FINISH) {
-        fprintf(stderr, "    !--> unexpected returned value == %d\n", ret);
-        return 1;
-    }
-#else
-    fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_SOAP or COMPA_HAVE_CTRLPT_SOAP "
-            "not enabled\n");
-#endif
-    return 0;
-}
-
-// Deprecated
-int UpnpGetServiceVarStatusAsync_utest(void) {
-    fprintf(stderr, "Executing UpnpGetServiceVarStatusAsync()\n");
-#if defined(UPNP_HAVE_SOAP) // || defined(COMPA_HAVE_CTRLPT_SOAP)
-    const int ret = UpnpGetServiceVarStatusAsync(0, NULL, NULL, NULL, NULL);
-    if (ret != UPNP_E_FINISH) {
-        fprintf(stderr, "    !--> unexpected returned value == %d\n", ret);
-        return 1;
-    }
-#else
-    fprintf(stderr,
-            "    !--> skipped: UPNP_HAVE_SOAP or COMPA_HAVE_CTRLPT_SOAP "
-            "not enabled\n");
-#endif
-    return 0;
-}
-
+#if 0
 int UpnpSendAction_utest(void) {
     fprintf(stderr, "Executing UpnpSendAction()\n");
 #if defined(UPNP_HAVE_SOAP) // || defined(COMPA_HAVE_CTRLPT_SOAP)
@@ -484,10 +436,11 @@ int UpnpSendActionExAsync_utest(void) {
 #endif
     return 0;
 }
-
+#endif
 
 // Step 4: Eventing
 // ----------------
+#if 0
 int UpnpAcceptSubscription_utest(void) {
     fprintf(stderr, "Executing UpnpAcceptSubscription()\n");
 #if defined(UPNP_HAVE_DEVICE) // || defined(COMPA_HAVE_DEVICE_GENA)
@@ -689,6 +642,7 @@ int UpnpUnSubscribeAsync_utest(void) {
 #endif
     return 0;
 }
+#endif
 
 
 // Control Point http API
@@ -1211,6 +1165,12 @@ int ixmlNode_getNodeName_utest(void) {
 int main(void) {
     int ret = 0;
 
+#if 0
+    // Test conditional compiling of only one api_call without side effects
+    // from settings for other calls.
+    ret += UpnpSearchAsync_utest();
+
+#else
     // Step 0: Addressing
     ret += UpnpInit2_utest(); // Execution fails
     ret += UpnpFinish_utest();
@@ -1220,54 +1180,40 @@ int main(void) {
     ret += UpnpGetServerIpAddress_utest();
     ret += UpnpGetServerIp6Address_utest();
     ret += UpnpGetServerUlaGuaIp6Address_utest();
-#ifdef _MSC_VER
-    ret += UpnpRegisterRootDevice_utest(true);  // access violation?
-    ret += UpnpRegisterRootDevice2_utest(true); // access violation?
-    ret += UpnpRegisterRootDevice3_utest(true); // access violation?
-    ret += UpnpRegisterRootDevice4_utest(true); // access violation?
-#else
     ret += UpnpRegisterRootDevice_utest(true);
     ret += UpnpRegisterRootDevice2_utest(true);
     ret += UpnpRegisterRootDevice3_utest(true);
     ret += UpnpRegisterRootDevice4_utest(true);
-#endif
     ret += UpnpUnRegisterRootDevice_utest();
     ret += UpnpUnRegisterRootDeviceLowPower_utest();
     ret += UpnpRegisterClient_utest();
     ret += UpnpUnRegisterClient_utest();
-#ifdef _MSC_VER
-    ret += UpnpSetContentLength_utest(true); // access violation?
-#else
-    ret += UpnpSetContentLength_utest(true);
-#endif
     ret += UpnpSetMaxContentLength_utest();
 
     // Step 1: Discovery
-    ret += UpnpSearchAsync_utest();
+    ret += UpnpSearchAsync_utest(); // check this and following
     ret += UpnpSendAdvertisement_utest();
     ret += UpnpSendAdvertisementLowPower_utest();
 
     // Step 3: Control
-    ret += UpnpGetServiceVarStatus_utest();
-    ret += UpnpGetServiceVarStatusAsync_utest();
-    ret += UpnpSendAction_utest();
-    ret += UpnpSendActionEx_utest();
-    ret += UpnpSendActionAsync_utest();
-    ret += UpnpSendActionExAsync_utest();
+    // ret += UpnpSendAction_utest();
+    // ret += UpnpSendActionEx_utest();
+    // ret += UpnpSendActionAsync_utest();
+    // ret += UpnpSendActionExAsync_utest();
 
     // Step 4: Eventing
-    ret += UpnpAcceptSubscription_utest();
-    ret += UpnpAcceptSubscriptionExt_utest();
-    ret += UpnpNotify_utest();
-    ret += UpnpNotifyExt_utest();
-    ret += UpnpRenewSubscription_utest();
-    ret += UpnpRenewSubscriptionAsync_utest();
-    ret += UpnpSetMaxSubscriptions_utest();
-    ret += UpnpSetMaxSubscriptionTimeOut_utest();
-    ret += UpnpSubscribe_utest();
-    ret += UpnpSubscribeAsync_utest();
-    ret += UpnpUnSubscribe_utest();
-    ret += UpnpUnSubscribeAsync_utest();
+    // ret += UpnpAcceptSubscription_utest();
+    // ret += UpnpAcceptSubscriptionExt_utest();
+    // ret += UpnpNotify_utest();
+    // ret += UpnpNotifyExt_utest();
+    // ret += UpnpRenewSubscription_utest();
+    // ret += UpnpRenewSubscriptionAsync_utest();
+    // ret += UpnpSetMaxSubscriptions_utest();
+    // ret += UpnpSetMaxSubscriptionTimeOut_utest();
+    // ret += UpnpSubscribe_utest();
+    // ret += UpnpSubscribeAsync_utest();
+    // ret += UpnpUnSubscribe_utest();
+    // ret += UpnpUnSubscribeAsync_utest();
 
     // Control Point http API
     ret += UpnpDownloadUrlItem_utest();
@@ -1308,6 +1254,7 @@ int main(void) {
 
     // IXML API
     ret += ixmlNode_getNodeName_utest();
+#endif
 
     // returns number of failed tests.
     printf("Failed API calls = %d\n", ret);

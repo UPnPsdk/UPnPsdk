@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-22
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -962,21 +962,6 @@ PUPNP_Api int UpnpRegisterClient(
 PUPNP_Api int UpnpUnRegisterClient(
     /*! [in] The handle of the control point instance to unregister. */
     UpnpClient_Handle Hnd);
-
-/*!
- * \brief Sets the content-length that the SDK will process on an incoming SOAP
- * requests or responses.
- *
- * \deprecated Warning: The Handle argument provided here is not used, so the
- * effect of this function is global to the SDK (= same as
- * %UpnpSetMaxContentLength()). Use UpnpSetMaxContentLength() instead.
- */
-PUPNP_Api int UpnpSetContentLength(
-    /*! [in] The handle of the device instance for which the coincoming content
-     *        length needs to be set. */
-    UpnpClient_Handle Hnd,
-    /*! [in] Permissible content length */
-    size_t contentLength);
 
 /*!
  * \brief Sets the maximum content-length that the SDK will process on an
