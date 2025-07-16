@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-26
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
+// Last compare with pupnp original source file on 2025-07-16, ver 1.14.21
 
 #include <config.hpp> // for EXCLUDE_DOM
 /*!
@@ -50,7 +50,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#include <posix_overwrites.hpp>
+#include <posix_overwrites.hpp> // IWYU pragma: keep
 /*! Maximum action header buffer length. */
 #define HEADER_LENGTH 2000
 

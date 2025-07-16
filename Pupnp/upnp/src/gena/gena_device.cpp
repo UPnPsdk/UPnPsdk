@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-25
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2024-10-25, ver 1.14.20
+// Last compare with pupnp original source file on 2025-07-17, ver 1.14.21
 /*!
  * \file
  */
@@ -47,15 +47,11 @@
 
 #include "gena.hpp"
 #include "httpreadwrite.hpp"
-#include "parsetools.hpp"
+#include "posix_overwrites.hpp" // IWYU pragma: keep
 #include "ssdplib.hpp"
 #include "statcodes.hpp"
-#include "sysdep.hpp"
-#include "unixutil.hpp"
 #include "upnpapi.hpp"
 #include "uuid.hpp"
-#include "posix_overwrites.hpp"
-#include "UpnpSubscriptionRequest.hpp"
 
 #define STALE_JOBID (INVALID_JOB_ID - 1)
 
@@ -70,7 +66,7 @@ int genaUnregisterDevice(
     int ret = 0;
     struct Handle_Info* handle_info;
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
     if (GetHandleInfo(device_handle, &handle_info) != HND_DEVICE) {
         UpnpPrintf(UPNP_CRITICAL, GENA, __FILE__, __LINE__,
                    "genaUnregisterDevice: BAD Handle: %d\n", device_handle);
@@ -79,7 +75,7 @@ int genaUnregisterDevice(
         freeServiceTable(&handle_info->ServiceTable);
         ret = UPNP_E_SUCCESS;
     }
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     return ret;
 }
@@ -141,16 +137,18 @@ static int GeneratePropertySet(
  */
 static void free_notify_struct(
     /*! [in] Notify structure. */
-    notify_thread_struct* input) {
-    (*input->reference_count)--;
-    if (*input->reference_count == 0) {
-        free(input->headers);
-        ixmlFreeDOMString(input->propertySet);
-        free(input->servId);
-        free(input->UDN);
-        free(input->reference_count);
+    void* input) {
+    notify_thread_struct* p = (notify_thread_struct*)input;
+
+    (*p->reference_count)--;
+    if (*p->reference_count == 0) {
+        free(p->headers);
+        ixmlFreeDOMString(p->propertySet);
+        free(p->servId);
+        free(p->UDN);
+        free(p->reference_count);
     }
-    free(input);
+    free(p);
 }
 
 /*!
@@ -312,13 +310,13 @@ static void genaNotifyThread(
      * there is a lot of notifications, then multiple threads will acquire a
      * read lock and the thread which sends the notification will be blocked
      * forever on the HandleLock at the end of this function. */
-    /*HandleReadLock(); */
-    HandleLock();
+    /*HandleReadLock(__FILE__, __LINE__); */
+    HandleLock(__FILE__, __LINE__);
     /* validate context */
 
     if (GetHandleInfo(in->device_handle, &handle_info) != HND_DEVICE) {
         free_notify_struct(in);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return;
     }
 
@@ -327,19 +325,19 @@ static void genaNotifyThread(
         !service->active || !(sub = GetSubscriptionSID(in->sid, service)) ||
         copy_subscription(sub, &sub_copy) != HTTP_SUCCESS) {
         free_notify_struct(in);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return;
     }
 
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     /* send the notify */
     return_code = genaNotify(in->headers, in->propertySet, &sub_copy);
     freeSubscription(&sub_copy);
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
     if (GetHandleInfo(in->device_handle, &handle_info) != HND_DEVICE) {
         free_notify_struct(in);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return;
     }
     /* validate context */
@@ -347,7 +345,7 @@ static void genaNotifyThread(
               FindServiceId(&handle_info->ServiceTable, in->servId, in->UDN)) ||
         !service->active || !(sub = GetSubscriptionSID(in->sid, service))) {
         free_notify_struct(in);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return;
     }
     sub->ToSendEventKey++;
@@ -377,7 +375,7 @@ static void genaNotifyThread(
         RemoveSubscriptionSID(in->sid, service);
     free_notify_struct(in);
 
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 }
 
 /*!
@@ -495,7 +493,7 @@ static int genaInitNotifyCommon(UpnpDevice_Handle device_handle, char* UDN,
         goto ExitFunction;
     }
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     if (GetHandleInfo(device_handle, &handle_info) != HND_DEVICE) {
         line = __LINE__;
@@ -510,7 +508,8 @@ static int genaInitNotifyCommon(UpnpDevice_Handle device_handle, char* UDN,
         goto ExitFunction;
     }
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__,
-               "FOUND SERVICE IN INIT NOTFY: UDN %s, ServID: %s", UDN, servId);
+               "FOUND SERVICE IN INIT NOTFY: UDN %s, ServID: %s\n", UDN,
+               servId);
 
     sub = GetSubscriptionSID(sid, service);
     if (sub == NULL || sub->active) {
@@ -519,7 +518,7 @@ static int genaInitNotifyCommon(UpnpDevice_Handle device_handle, char* UDN,
         goto ExitFunction;
     }
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__,
-               "FOUND SUBSCRIPTION IN INIT NOTIFY: SID %s", sid);
+               "FOUND SUBSCRIPTION IN INIT NOTIFY: SID %s\n", sid);
     sub->active = 1;
 
     headers = AllocGenaHeaders(propertySet);
@@ -581,7 +580,7 @@ ExitFunction:
         free(reference_count);
     }
 
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, line,
                "GENA END INITIAL NOTIFY COMMON, ret = %d\n", ret);
@@ -611,7 +610,7 @@ int genaInitNotify(UpnpDevice_Handle device_handle, char* UDN, char* servId,
         goto ExitFunction;
     }
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__,
-               "GENERATED PROPERTY SET IN INIT NOTIFY: %s", propertySet);
+               "GENERATED PROPERTY SET IN INIT NOTIFY: %s\n", propertySet);
 
     ret = genaInitNotifyCommon(device_handle, UDN, servId, propertySet, sid);
 
@@ -646,7 +645,7 @@ int genaInitNotifyExt(UpnpDevice_Handle device_handle, char* UDN, char* servId,
         goto ExitFunction;
     }
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__,
-               "GENERATED PROPERTY SET IN INIT EXT NOTIFY: %s", propertySet);
+               "GENERATED PROPERTY SET IN INIT EXT NOTIFY: %s\n", propertySet);
 
     ret = genaInitNotifyCommon(device_handle, UDN, servId, propertySet, sid);
 
@@ -669,6 +668,7 @@ ExitFunction:
 static void maybeDiscardEvents(LinkedList* listp) {
     time_t now = time(0L);
     notify_thread_struct* ntsp;
+    ThreadPoolJob* p;
 
     while (ListSize(listp) > 1) {
         ListNode* node = ListHead(listp);
@@ -680,7 +680,8 @@ static void maybeDiscardEvents(LinkedList* listp) {
             break;
         }
 
-        ntsp = (notify_thread_struct*)(((ThreadPoolJob*)node->item)->arg);
+        p = (ThreadPoolJob*)node->item;
+        ntsp = (notify_thread_struct*)(p->arg);
         if (ListSize(listp) > g_UpnpSdkEQMaxLen ||
             now - ntsp->ctime > g_UpnpSdkEQMaxAge) {
             free_notify_struct(ntsp);
@@ -743,7 +744,7 @@ static int genaNotifyAllCommon(UpnpDevice_Handle device_handle, char* UDN,
         goto ExitFunction;
     }
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     if (GetHandleInfo(device_handle, &handle_info) != HND_DEVICE) {
         line = __LINE__;
@@ -827,7 +828,7 @@ ExitFunction:
         free(reference_count);
     }
 
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, line,
                "GENA END NOTIFY ALL COMMON, ret = %d\n", ret);
@@ -852,7 +853,7 @@ int genaNotifyAllExt(UpnpDevice_Handle device_handle, char* UDN, char* servId,
         goto ExitFunction;
     }
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__,
-               "GENERATED PROPERTY SET IN EXT NOTIFY: %s", propertySet);
+               "GENERATED PROPERTY SET IN EXT NOTIFY: %s\n", propertySet);
 
     ret = genaNotifyAllCommon(device_handle, UDN, servId, propertySet);
 
@@ -879,7 +880,7 @@ int genaNotifyAll(UpnpDevice_Handle device_handle, char* UDN, char* servId,
         goto ExitFunction;
     }
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__,
-               "GENERATED PROPERTY SET IN EXT NOTIFY: %s", propertySet);
+               "GENERATED PROPERTY SET IN EXT NOTIFY: %s\n", propertySet);
 
     ret = genaNotifyAllCommon(device_handle, UDN, servId, propertySet);
 
@@ -1003,7 +1004,7 @@ static int create_url_list(
 
     if (URLcount > 0) {
         out->URLs = (char*)malloc(URLS->size + 1);
-        out->parsedURLs = (URI*)malloc(sizeof(uri_type) * URLcount);
+        out->parsedURLs = (uri_type*)malloc(sizeof(uri_type) * URLcount);
         if (!out->URLs || !out->parsedURLs) {
             free(out->URLs);
             free(out->parsedURLs);
@@ -1195,21 +1196,21 @@ void gena_process_subscription_request(SOCKINFO* info,
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__,
                "SubscriptionRequest for event URL path: %s\n", event_url_path);
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     if (GetDeviceHandleInfoForPath(
             event_url_path, info->foreign_sockaddr.ss_family, &device_handle,
             &handle_info, &service) != HND_DEVICE) {
         free(event_url_path);
         error_respond(info, HTTP_INTERNAL_SERVER_ERROR, request);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
     free(event_url_path);
 
     if (service == NULL || !service->active) {
         error_respond(info, HTTP_NOT_FOUND, request);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
 
@@ -1222,14 +1223,14 @@ void gena_process_subscription_request(SOCKINFO* info,
     if (handle_info->MaxSubscriptions != -1 &&
         service->TotalSubscriptions >= handle_info->MaxSubscriptions) {
         error_respond(info, HTTP_INTERNAL_SERVER_ERROR, request);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
     /* generate new subscription */
     sub = (subscription*)malloc(sizeof(subscription));
     if (sub == NULL) {
         error_respond(info, HTTP_INTERNAL_SERVER_ERROR, request);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
     sub->ToSendEventKey = 0;
@@ -1240,7 +1241,7 @@ void gena_process_subscription_request(SOCKINFO* info,
     sub->DeliveryURLs.parsedURLs = NULL;
     if (ListInit(&sub->outgoing, 0, free) != 0) {
         error_respond(info, HTTP_INTERNAL_SERVER_ERROR, request);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
 
@@ -1248,27 +1249,27 @@ void gena_process_subscription_request(SOCKINFO* info,
     if (httpmsg_find_hdr(request, HDR_CALLBACK, &callback_hdr) == NULL) {
         error_respond(info, HTTP_PRECONDITION_FAILED, request);
         freeSubscriptionList(sub);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
     return_code = create_url_list(&callback_hdr, &sub->DeliveryURLs);
     if (return_code == 0) {
         error_respond(info, HTTP_PRECONDITION_FAILED, request);
         freeSubscriptionList(sub);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
     if (return_code == UPNP_E_OUTOF_MEMORY) {
         error_respond(info, HTTP_INTERNAL_SERVER_ERROR, request);
         freeSubscriptionList(sub);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
     return_code = gena_validate_delivery_urls(info, &sub->DeliveryURLs);
     if (return_code != 0) {
         error_respond(info, HTTP_PRECONDITION_FAILED, request);
         freeSubscriptionList(sub);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
     /* set the timeout */
@@ -1306,7 +1307,7 @@ void gena_process_subscription_request(SOCKINFO* info,
     if (rc < 0 || (unsigned int)rc >= sizeof(sub->sid) ||
         (respond_ok(info, time_out, sub, request) != UPNP_E_SUCCESS)) {
         freeSubscriptionList(sub);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
     /* add to subscription list */
@@ -1324,7 +1325,7 @@ void gena_process_subscription_request(SOCKINFO* info,
     callback_fun = handle_info->Callback;
     cookie = handle_info->Cookie;
 
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     /* make call back with request struct */
     /* in the future should find a way of mainting that the handle */
@@ -1370,14 +1371,14 @@ void gena_process_subscription_renewal_request(SOCKINFO* info,
         return;
     }
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     if (GetDeviceHandleInfoForPath(
             event_url_path.buf, info->foreign_sockaddr.ss_family,
             &device_handle, &handle_info, &service) != HND_DEVICE) {
         error_respond(info, HTTP_PRECONDITION_FAILED, request);
         membuffer_destroy(&event_url_path);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return;
     }
     membuffer_destroy(&event_url_path);
@@ -1386,7 +1387,7 @@ void gena_process_subscription_renewal_request(SOCKINFO* info,
     if (service == NULL || !service->active ||
         ((sub = GetSubscriptionSID(sid, service)) == NULL)) {
         error_respond(info, HTTP_PRECONDITION_FAILED, request);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return;
     }
 
@@ -1399,7 +1400,7 @@ void gena_process_subscription_renewal_request(SOCKINFO* info,
         service->TotalSubscriptions > handle_info->MaxSubscriptions) {
         error_respond(info, HTTP_INTERNAL_SERVER_ERROR, request);
         RemoveSubscriptionSID(sub->sid, service);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return;
     }
     /* set the timeout */
@@ -1435,7 +1436,7 @@ void gena_process_subscription_renewal_request(SOCKINFO* info,
         RemoveSubscriptionSID(sub->sid, service);
     }
 
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 }
 
 void gena_process_unsubscribe_request(SOCKINFO* info, http_message_t* request) {
@@ -1470,14 +1471,14 @@ void gena_process_unsubscribe_request(SOCKINFO* info, http_message_t* request) {
         return;
     }
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     if (GetDeviceHandleInfoForPath(
             event_url_path.buf, info->foreign_sockaddr.ss_family,
             &device_handle, &handle_info, &service) != HND_DEVICE) {
         error_respond(info, HTTP_PRECONDITION_FAILED, request);
         membuffer_destroy(&event_url_path);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return;
     }
     membuffer_destroy(&event_url_path);
@@ -1486,14 +1487,14 @@ void gena_process_unsubscribe_request(SOCKINFO* info, http_message_t* request) {
     if (service == NULL || !service->active ||
         GetSubscriptionSID(sid, service) == NULL) {
         error_respond(info, HTTP_PRECONDITION_FAILED, request);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return;
     }
 
     RemoveSubscriptionSID(sid, service);
     error_respond(info, HTTP_OK, request); /* success */
 
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 }
 
 #endif /* INCLUDE_DEVICE_APIS */

@@ -1,8 +1,8 @@
-// Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2022-02-27
-
 #ifndef UPNPLIB_SSDPRESULTDATA_HPP
 #define UPNPLIB_SSDPRESULTDATA_HPP
+// Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
+// Redistribution only with this Copyright remark. Last modified: 2025-07-18
+// Last update from pupnp original source file on 2025-07-18, ver 1.14.21
 
 /*!
  * \file
@@ -24,7 +24,7 @@
 typedef struct s_SSDPResultData SSDPResultData;
 
 /*! Constructor */
-EXPORT_SPEC SSDPResultData* SSDPResultData_new();
+EXPORT_SPEC SSDPResultData* SSDPResultData_new(void);
 /*! Destructor */
 EXPORT_SPEC void SSDPResultData_delete(SSDPResultData* p);
 /*! Copy Constructor */

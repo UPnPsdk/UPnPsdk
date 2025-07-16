@@ -108,6 +108,7 @@ $(document).ready(function(){initNavTree('d6/de3/gena__ctrlpt_8cpp.html','../../
 <p>Manage GENA control point.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d9/dd2/gena_8hpp_source.html">gena.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d9/d78/client__table_8hpp_source.html">client_table.hpp</a>&gt;</code><br />
 <code>#include &lt;httpreadwrite.hpp&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d0/d86/parsetools_8hpp_source.html">parsetools.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d9/df0/statcodes_8hpp_source.html">statcodes.hpp</a>&gt;</code><br />
@@ -120,34 +121,43 @@ $(document).ready(function(){initNavTree('d6/de3/gena__ctrlpt_8cpp.html','../../
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d6/d79/gena__ctrlpt_8cpp__incl.png" border="0" usemap="#aCompa_2src_2gena_2gena__ctrlpt_8cpp" alt=""/></div>
 <map name="aCompa_2src_2gena_2gena__ctrlpt_8cpp" id="aCompa_2src_2gena_2gena__ctrlpt_8cpp">
-<area shape="rect" title="Manage GENA control point." alt="" coords="459,5,622,45"/>
-<area shape="rect" href="../../d9/dd2/gena_8hpp.html" title="Manage Eventing with GENA, the General Event Notification Architecture." alt="" coords="145,93,227,119"/>
-<area shape="poly" title=" " alt="" coords="460,47,242,95,241,90,459,42"/>
-<area shape="rect" title=" " alt="" coords="251,93,390,119"/>
-<area shape="poly" title=" " alt="" coords="489,48,367,91,365,86,487,43"/>
-<area shape="rect" href="../../d0/d86/parsetools_8hpp.html" title="Function to extract header information from an http message and match the data with XML data." alt="" coords="415,93,533,119"/>
-<area shape="poly" title=" " alt="" coords="527,47,495,84,491,81,523,44"/>
-<area shape="rect" href="../../d9/df0/statcodes_8hpp.html" title="HTTP status codes." alt="" coords="684,93,797,119"/>
-<area shape="poly" title=" " alt="" coords="590,43,700,86,698,91,588,48"/>
-<area shape="rect" href="../../d3/da9/upnpapi_8hpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="557,93,660,119"/>
-<area shape="poly" title=" " alt="" coords="559,44,592,81,588,84,555,47"/>
-<area shape="rect" href="../../d7/db4/uuid_8hpp.html" title="Manage UUIDs." alt="" coords="839,93,917,119"/>
-<area shape="poly" title=" " alt="" coords="622,43,826,90,825,95,621,48"/>
-<area shape="rect" title=" " alt="" coords="250,167,314,192"/>
-<area shape="poly" title=" " alt="" coords="203,117,257,156,254,160,200,121"/>
-<area shape="rect" href="../../d9/d78/client__table_8hpp.html" title=" " alt="" coords="356,167,483,192"/>
-<area shape="poly" title=" " alt="" coords="224,116,369,160,368,165,223,121"/>
-<area shape="rect" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html" title="Functions to parse UPnP messages like requests and responses." alt="" coords="5,167,121,192"/>
-<area shape="poly" title=" " alt="" coords="168,121,96,162,94,157,165,116"/>
-<area shape="rect" href="../../d6/df0/sock_8hpp.html" title="Manage network sockets and connections." alt="" coords="146,167,226,192"/>
-<area shape="poly" title=" " alt="" coords="189,119,189,153,183,153,183,119"/>
-<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="658,167,823,192"/>
-<area shape="poly" title=" " alt="" coords="743,119,743,153,738,153,738,119"/>
-<area shape="poly" title=" " alt="" coords="579,121,464,164,462,159,577,116"/>
-<area shape="rect" href="../../d6/d92/VirtualDir_8hpp.html" title="Provide the Virtual Directory Callbacks structure." alt="" coords="523,167,633,192"/>
-<area shape="poly" title=" " alt="" coords="606,120,591,155,586,153,601,118"/>
-<area shape="rect" href="../../d5/de9/sysdep_8hpp.html" title="Get some system dependent information." alt="" coords="847,167,943,192"/>
-<area shape="poly" title=" " alt="" coords="883,118,892,153,887,154,878,120"/>
+<area shape="rect" title="Manage GENA control point." alt="" coords="416,5,579,45"/>
+<area shape="rect" href="../../d9/dd2/gena_8hpp.html" title="Manage Eventing with GENA, the General Event Notification Architecture." alt="" coords="271,93,353,119"/>
+<area shape="poly" title=" " alt="" coords="454,48,353,90,351,85,452,43"/>
+<area shape="rect" href="../../d9/d78/client__table_8hpp.html" title=" " alt="" coords="47,167,174,192"/>
+<area shape="poly" title=" " alt="" coords="416,47,339,68,260,96,194,128,140,162,137,157,192,124,258,91,338,63,415,42"/>
+<area shape="rect" title=" " alt="" coords="428,93,567,119"/>
+<area shape="poly" title=" " alt="" coords="500,46,500,79,495,79,495,46"/>
+<area shape="rect" href="../../d0/d86/parsetools_8hpp.html" title="Function to extract header information from an http message and match the data with XML data." alt="" coords="591,93,710,119"/>
+<area shape="poly" title=" " alt="" coords="535,43,617,85,615,89,533,48"/>
+<area shape="rect" href="../../d9/df0/statcodes_8hpp.html" title="HTTP status codes." alt="" coords="734,93,847,119"/>
+<area shape="poly" title=" " alt="" coords="568,43,735,87,734,92,567,48"/>
+<area shape="rect" href="../../d3/da9/upnpapi_8hpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="533,167,635,192"/>
+<area shape="poly" title=" " alt="" coords="463,48,440,63,422,80,413,99,414,108,418,117,433,129,458,141,520,161,519,166,456,146,430,134,414,120,409,109,408,98,418,77,437,59,460,43"/>
+<area shape="rect" href="../../d7/db4/uuid_8hpp.html" title="Manage UUIDs." alt="" coords="889,93,967,119"/>
+<area shape="poly" title=" " alt="" coords="579,39,875,92,874,98,578,44"/>
+<area shape="rect" title=" " alt="" coords="199,167,263,192"/>
+<area shape="poly" title=" " alt="" coords="301,121,256,160,252,156,297,117"/>
+<area shape="poly" title=" " alt="" coords="281,121,157,165,155,159,279,116"/>
+<area shape="rect" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html" title="Functions to parse UPnP messages like requests and responses." alt="" coords="287,167,403,192"/>
+<area shape="poly" title=" " alt="" coords="320,118,337,153,332,155,315,120"/>
+<area shape="rect" href="../../d6/df0/sock_8hpp.html" title="Manage network sockets and connections." alt="" coords="428,167,508,192"/>
+<area shape="poly" title=" " alt="" coords="338,116,431,158,429,163,336,121"/>
+<area shape="rect" href="../../d2/dad/GenlibClientSubscription_8hpp.html" title="Header file for GenlibClientSubscription methods." alt="" coords="5,240,216,265"/>
+<area shape="poly" title=" " alt="" coords="113,192,113,226,108,226,108,192"/>
+<area shape="rect" href="../../d0/d87/TimerThread_8hpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="240,240,373,265"/>
+<area shape="poly" title=" " alt="" coords="143,190,263,233,261,238,141,195"/>
+<area shape="rect" href="../../db/d74/service__table_8hpp.html" title="Manage the UPnP Services of a UPnP Device if available." alt="" coords="398,240,535,265"/>
+<area shape="poly" title=" " alt="" coords="168,189,396,235,395,240,167,195"/>
+<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="700,167,865,192"/>
+<area shape="poly" title=" " alt="" coords="792,119,788,153,783,153,787,119"/>
+<area shape="poly" title=" " alt="" coords="533,193,520,195,208,241,207,235,520,189,532,187"/>
+<area shape="poly" title=" " alt="" coords="540,195,366,239,364,234,539,189"/>
+<area shape="poly" title=" " alt="" coords="567,194,499,235,496,230,564,190"/>
+<area shape="rect" href="../../d6/d92/VirtualDir_8hpp.html" title="Provide the Virtual Directory Callbacks structure." alt="" coords="559,240,670,265"/>
+<area shape="poly" title=" " alt="" coords="592,191,607,227,602,229,587,193"/>
+<area shape="rect" href="../../d5/de9/sysdep_8hpp.html" title="Get some system dependent information." alt="" coords="889,167,985,192"/>
+<area shape="poly" title=" " alt="" coords="932,119,937,153,931,154,927,119"/>
 </map>
 </div>
 </div>
@@ -161,9 +171,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6e5186d8db02472afdfc99808723b754" id="r_a6e5186d8db02472afdfc99808723b754"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6e5186d8db02472afdfc99808723b754">anonymous_namespace{gena_ctrlpt.cpp}::free_subscribe_arg</a> (<a class="el" href="../../d6/de3/gena__ctrlpt_8cpp.html#dd/d20/unionjob__arg">job_arg</a> *arg)</td></tr>
-<tr class="memdesc:a6e5186d8db02472afdfc99808723b754"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free memory associated with job's argument.  <br /></td></tr>
-<tr class="separator:a6e5186d8db02472afdfc99808723b754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a785cb0f59496ddca737c8376fc5019dd" id="r_a785cb0f59496ddca737c8376fc5019dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a785cb0f59496ddca737c8376fc5019dd">anonymous_namespace{gena_ctrlpt.cpp}::free_subscribe_arg</a> (void *arg)</td></tr>
+<tr class="memdesc:a785cb0f59496ddca737c8376fc5019dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free memory associated with job's argument.  <br /></td></tr>
+<tr class="separator:a785cb0f59496ddca737c8376fc5019dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d433d434965ae0ed59a09f3c38bf03a" id="r_a6d433d434965ae0ed59a09f3c38bf03a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a">anonymous_namespace{gena_ctrlpt.cpp}::GenaAutoRenewSubscription</a> (void *input)</td></tr>
 <tr class="memdesc:a6d433d434965ae0ed59a09f3c38bf03a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a thread function to send the renewal just before the subscription times out.  <br /></td></tr>
 <tr class="separator:a6d433d434965ae0ed59a09f3c38bf03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,7 +232,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <div class="textblock"><p><a class="el" href="../../d6/de3/gena__ctrlpt_8cpp.html#dd/d20/unionjob__arg" title="job_arg">job_arg</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00230">230</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00229">229</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 </div><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for job_arg:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -291,7 +301,7 @@ Event</td>
 
 <p>Initialize the client subsribe mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00415">415</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00417">417</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -326,7 +336,7 @@ Event</td>
 
 <p>Destroy the client subsribe mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00427">427</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00429">429</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -379,7 +389,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00431">431</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00433">433</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -514,7 +524,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00472">472</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00474">474</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -699,7 +709,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00517">517</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00519">519</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -784,7 +794,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="634,1702,692,1702,692,1707,634,1707"/>
 <area shape="poly" title=" " alt="" coords="630,1722,721,1744,720,1749,628,1727"/>
 <area shape="poly" title=" " alt="" coords="292,1261,336,1171,384,1056,395,1006,397,963,405,923,415,903,433,882,438,877,442,880,437,885,420,906,410,925,403,964,400,1006,389,1057,341,1173,297,1264"/>
-<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6e5186d8db02472afdfc99808723b754" title="Free memory associated with job&#39;s argument." alt="" coords="699,1225,879,1280"/>
+<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a785cb0f59496ddca737c8376fc5019dd" title="Free memory associated with job&#39;s argument." alt="" coords="699,1225,879,1280"/>
 <area shape="poly" title=" " alt="" coords="373,1280,685,1258,685,1263,374,1286"/>
 <area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a" title="This is a thread function to send the renewal just before the subscription times out." alt="" coords="437,945,648,1000"/>
 <area shape="poly" title=" " alt="" coords="293,1261,350,1169,390,1114,433,1062,492,1007,495,1011,437,1065,394,1117,355,1172,298,1264"/>
@@ -910,7 +920,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00614">614</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00616">616</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -1033,7 +1043,7 @@ Event</td>
 <area shape="poly" title=" " alt="" coords="387,2018,438,1992,495,1970,539,1963,595,1961,726,1961,792,1959,852,1953,902,1940,921,1931,935,1919,942,1907,949,1886,959,1824,972,1651,978,1474,983,1367,1027,1100,1066,905,1071,906,1032,1101,988,1368,983,1474,977,1651,964,1825,954,1888,947,1909,939,1923,924,1935,903,1945,853,1958,793,1964,726,1966,595,1966,540,1968,497,1976,440,1997,389,2023"/>
 <area shape="poly" title=" " alt="" coords="343,2020,445,1419,455,1338,458,1273,467,1209,477,1173,494,1132,509,1102,528,1074,567,1028,571,1032,532,1078,514,1105,498,1134,482,1175,472,1210,463,1273,460,1338,451,1420,349,2021"/>
 <area shape="poly" title=" " alt="" coords="338,2020,342,1926,349,1863,362,1794,381,1722,408,1652,446,1586,468,1556,494,1528,521,1510,549,1502,577,1502,605,1504,631,1507,657,1506,681,1497,705,1477,713,1460,721,1432,732,1349,738,1242,742,1121,746,889,752,750,769,667,791,585,830,459,836,460,796,587,774,668,757,751,751,889,748,1121,744,1242,737,1350,726,1433,718,1462,709,1480,684,1501,658,1511,631,1512,604,1510,577,1507,550,1507,524,1514,498,1532,473,1559,450,1589,413,1654,386,1724,367,1795,354,1864,347,1926,343,2020"/>
-<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6e5186d8db02472afdfc99808723b754" title="Free memory associated with job&#39;s argument." alt="" coords="756,2224,936,2279"/>
+<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a785cb0f59496ddca737c8376fc5019dd" title="Free memory associated with job&#39;s argument." alt="" coords="756,2224,936,2279"/>
 <area shape="poly" title=" " alt="" coords="370,2073,426,2122,460,2147,497,2168,558,2193,622,2213,743,2237,742,2243,621,2218,556,2198,495,2173,458,2152,423,2126,367,2077"/>
 <area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a" title="This is a thread function to send the renewal just before the subscription times out." alt="" coords="496,2286,707,2340"/>
 <area shape="poly" title=" " alt="" coords="367,2073,498,2214,561,2274,557,2278,494,2218,363,2077"/>
@@ -1119,7 +1129,7 @@ Event</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00705">705</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html#l00707">707</a> of file <a class="el" href="../../d6/de3/gena__ctrlpt_8cpp_source.html">gena_ctrlpt.cpp</a>.</p>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">

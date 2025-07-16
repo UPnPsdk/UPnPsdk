@@ -3,7 +3,7 @@
 
 /*
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-06-07
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-17
  * Copyright (c) 1990- 1993, 1996 Open Software Foundation, Inc.
  * Copyright (c) 1989 by Hewlett-Packard Company, Palo Alto, Ca. &
  * Digital Equipment Corporation, Maynard, Mass.
@@ -21,7 +21,7 @@
  * Corporation makes any representations about the suitability of
  * this software for any purpose.
  */
-// Last compare with pupnp original source file on 2023-07-08, ver 1.14.17
+// Last update from pupnp original source file on 2025-07-17, ver 1.14.21
 
 /*!
  * \file
@@ -31,9 +31,9 @@
 
 /* change to point to where MD5 .h's live */
 /* get MD5 sample implementation from RFC 1321 */
-#include "md5.hpp"
+#include "md5.hpp"        // IWYU pragma: keep
 
-#include "UpnpStdInt.hpp"
+#include "UpnpStdInt.hpp" // IWYU pragma: keep
 
 #include <sys/types.h>
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2022-02-17
+// Redistribution only with this Copyright remark. Last modified: 2025-07-19
 
 /*!
  * \file
@@ -11,7 +11,7 @@
 #include "config.hpp"
 
 #include <stdlib.h> /* for calloc(), free() */
-#include <string.h> /* for strlen(), strdup() */
+#include <string.h> /* for strlen(), strdup(), memset() */
 
 #include "UpnpDiscovery.hpp"
 
@@ -29,7 +29,7 @@ struct s_UpnpDiscovery {
     struct sockaddr_storage m_DestAddr;
 };
 
-UpnpDiscovery* UpnpDiscovery_new() {
+UpnpDiscovery* UpnpDiscovery_new(void) {
     struct s_UpnpDiscovery* p =
         (s_UpnpDiscovery*)calloc(1, sizeof(struct s_UpnpDiscovery));
 

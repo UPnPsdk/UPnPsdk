@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2022-02-20
+// Redistribution only with this Copyright remark. Last modified: 2025-07-19
 // Also Copyright by other contributor.
 
 /*!
@@ -11,7 +11,7 @@
 #include "config.hpp"
 
 #include <stdlib.h> /* for calloc(), free() */
-#include <string.h> /* for strlen(), strdup() */
+#include <string.h> /* for strlen(), strdup(), memset() */
 
 #include "UpnpEvent.hpp"
 
@@ -21,7 +21,7 @@ struct s_UpnpEvent {
     UpnpString* m_SID;
 };
 
-UpnpEvent* UpnpEvent_new() {
+UpnpEvent* UpnpEvent_new(void) {
     struct s_UpnpEvent* p = (s_UpnpEvent*)calloc(1, sizeof(struct s_UpnpEvent));
 
     if (!p)

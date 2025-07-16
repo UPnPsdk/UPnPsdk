@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-02-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-20
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2024-02-16, ver 1.14.18
+// Last compare with pupnp original source file on 2025-07-15, ver 1.14.21
 /*!
  * \addtogroup SSDPlib
  *
@@ -51,14 +51,13 @@
 #include "httpreadwrite.hpp"
 #include "ssdplib.hpp"
 #include "statcodes.hpp"
-#include "unixutil.hpp"
 #include "upnpapi.hpp"
 
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
 
-#include "posix_overwrites.hpp"
+#include "posix_overwrites.hpp" // IWYU pragma: keep
 
 #include <umock/sys_socket.hpp>
 
@@ -116,19 +115,19 @@ void ssdp_handle_device_request(http_message_t* hmsg,
 
     start = 0;
     for (;;) {
-        HandleLock();
+        HandleLock(__FILE__, __LINE__);
         /* device info. */
         switch (GetDeviceHandleInfo(start, (int)dest_addr->ss_family, &handle,
                                     &dev_info)) {
         case HND_DEVICE:
             break;
         default:
-            HandleUnlock();
+            HandleUnlock(__FILE__, __LINE__);
             /* no info found. */
             return;
         }
         maxAge = dev_info->MaxAge;
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
 
         UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "MAX-AGE     =  %d\n",
                    maxAge);
@@ -151,8 +150,8 @@ void ssdp_handle_device_request(http_message_t* hmsg,
         TPJobInit(&job, advertiseAndReplyThread, threadArg);
         TPJobSetFreeFunction(&job, (free_routine)free);
 
-        /* Subtract a percentage from the mx to allow for network and processing
-         * delays (i.e. if search is for 30 seconds, respond
+        /* Subtract a percentage from the mx to allow for network and
+         * processing delays (i.e. if search is for 30 seconds, respond
          * within 0 - 27 seconds). */
         if (mx >= 2)
             mx -= MAXVAL(1, mx / MX_FUDGE_FACTOR);
@@ -165,6 +164,26 @@ void ssdp_handle_device_request(http_message_t* hmsg,
     }
 }
 #endif
+
+static void ProcessSocketError(const char* file, int line,
+                               const char* function_name) {
+    char errorBuffer[ERROR_BUFFER_LEN];
+
+    strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
+    UpnpPrintf(UPNP_INFO, SSDP, file, line,
+               "SSDP_LIB: New Request Handler:"
+               "Error in %s(): %s\n",
+               function_name, errorBuffer);
+}
+
+#define PROCESS_SOCKET_ERROR(file, line, error, func_name)                     \
+    do {                                                                       \
+        if (rc == -1) {                                                        \
+            ProcessSocketError(file, line, func_name);                         \
+            ret = error;                                                       \
+            goto end_NewRequestHandler;                                        \
+        }                                                                      \
+    } while (0)
 
 /*!
  * \brief Works as a request handler which passes the HTTP request string
@@ -179,11 +198,13 @@ static int NewRequestHandler(
     int NumPacket,
     /*! [in] . */
     char** RqPacket) {
-    char errorBuffer[ERROR_BUFFER_LEN];
+    int rc;
     SOCKET ReplySock;
     socklen_t socklen = sizeof(struct sockaddr_storage);
     int Index;
     struct in_addr replyAddr;
+    struct addrinfo hints, *res;
+    int yes = 1;
     /* a/c to UPNP Spec */
     int ttl = 4;
 #ifdef UPNP_ENABLE_IPV6
@@ -197,38 +218,50 @@ static int NewRequestHandler(
         return UPNP_E_INVALID_PARAM;
     }
 
-    ReplySock =
-        umock::sys_socket_h.socket((int)DestAddr->sa_family, SOCK_DGRAM, 0);
+    hints.ai_family = DestAddr->sa_family;
+    hints.ai_socktype = SOCK_DGRAM;
+    hints.ai_flags = AI_PASSIVE;
+    getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res);
+    ReplySock = umock::sys_socket_h.socket(res->ai_family, res->ai_socktype,
+                                           res->ai_protocol);
     if (ReplySock == INVALID_SOCKET) {
-        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
-        UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                   "SSDP_LIB: New Request Handler:"
-                   "Error in socket(): %s\n",
-                   errorBuffer);
-
+        ProcessSocketError(__FILE__, __LINE__, "socket");
         return UPNP_E_OUTOF_SOCKET;
     }
-
+    rc = umock::sys_socket_h.setsockopt(ReplySock, SOL_SOCKET, SO_REUSEADDR,
+                                        &yes, sizeof yes);
+    PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
+                         "setsockopt-1");
+    rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr, res->ai_addrlen);
+    PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_BIND, "bind");
     switch (DestAddr->sa_family) {
     case AF_INET:
         inet_ntop(AF_INET, &((struct sockaddr_in*)DestAddr)->sin_addr, buf_ntop,
                   sizeof(buf_ntop));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_IF,
-                                       (char*)&replyAddr, sizeof(replyAddr));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_TTL,
-                                       (char*)&ttl, sizeof(int));
+        rc = umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP,
+                                            IP_MULTICAST_IF, &replyAddr,
+                                            sizeof(replyAddr));
+        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
+                             "setsockopt-2");
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, &ttl, sizeof(int));
+        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
+                             "setsockopt-3");
         socklen = sizeof(struct sockaddr_in);
         break;
 #ifdef UPNP_ENABLE_IPV6
     case AF_INET6:
         inet_ntop(AF_INET6, &((struct sockaddr_in6*)DestAddr)->sin6_addr,
                   buf_ntop, sizeof(buf_ntop));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
-                                       IPV6_MULTICAST_IF, (char*)&gIF_INDEX,
-                                       sizeof(gIF_INDEX));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
-                                       IPV6_MULTICAST_HOPS, (char*)&hops,
-                                       sizeof(hops));
+        rc = umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
+                                            IPV6_MULTICAST_IF, &gIF_INDEX,
+                                            sizeof(gIF_INDEX));
+        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
+                             "setsockopt-2");
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, &hops, sizeof(hops));
+        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
+                             "setsockopt-3");
         break;
 #endif
     default:
@@ -245,15 +278,7 @@ static int NewRequestHandler(
                    *(RqPacket + Index));
         rc = sendto(ReplySock, *(RqPacket + Index), strlen(*(RqPacket + Index)),
                     0, DestAddr, socklen);
-        if (rc == -1) {
-            strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
-            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                       "SSDP_LIB: New Request Handler:"
-                       "Error in socket(): %s\n",
-                       errorBuffer);
-            ret = UPNP_E_SOCKET_WRITE;
-            goto end_NewRequestHandler;
-        }
+        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_WRITE, "sendto");
     }
 
 end_NewRequestHandler:
@@ -567,6 +592,9 @@ int DeviceAdvertisement(char* DevType, int RootDev, char* Udn, char* Location,
 
     UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                "In function DeviceAdvertisement\n");
+    msgs[0] = NULL;
+    msgs[1] = NULL;
+    msgs[2] = NULL;
     memset(&__ss, 0, sizeof(__ss));
     switch (AddressFamily) {
     case AF_INET:
@@ -586,10 +614,9 @@ int DeviceAdvertisement(char* DevType, int RootDev, char* Udn, char* Location,
     default:
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
                    "Invalid device address family.\n");
+        ret_code = UPNP_E_INVALID_PARAM;
+        goto error_handler;
     }
-    msgs[0] = NULL;
-    msgs[1] = NULL;
-    msgs[2] = NULL;
     /* If deviceis a root device , here we need to send 3 advertisement
      * or reply */
     if (RootDev) {

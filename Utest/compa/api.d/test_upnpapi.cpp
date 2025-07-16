@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-07-06
+// Redistribution only with this Copyright remark. Last modified: 2025-07-25
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -25,6 +25,7 @@ using ::testing::_;
 using ::testing::NotNull;
 using ::testing::Return;
 using ::testing::SetErrnoAndReturn;
+using ::testing::StartsWith;
 using ::testing::StrictMock;
 
 using ::UPnPsdk::CNetadapter;
@@ -408,10 +409,18 @@ TEST_F(UpnpapiFTestSuite, UpnpFinish_successful) {
     ASSERT_EQ(UpnpInitMutexes(), UPNP_E_SUCCESS);
 
     // Initialize the handle list.
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    HandleLock(__FILE__, __LINE__);
+#else
     HandleLock();
+#endif
     for (int i = 0; i < NUM_HANDLE; ++i)
         HandleTable[i] = nullptr;
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    HandleUnlock(__FILE__, __LINE__);
+#else
     HandleUnlock();
+#endif
 
     // Initialize SDK global thread pools.
     ASSERT_EQ(UpnpInitThreadPools(), UPNP_E_SUCCESS);
@@ -926,14 +935,13 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     // Ports not set with this Unit so they doesn't matter here.
     // For Microsoft Windows there are some TODOs in the old code:
-    // TODO: Retrieve IPv4 netmask
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
     // link-local addresses.
-    // TODO: Retrieve IPv6 LLA prefix
+    // TODO: Retrieve IPv6 LLA prefix?
     // Tests below are marked with // Wrong!
     if (old_code) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << ": gIF_IPV6_PREFIX_LENGTH and gIF_IPV4_NETMASK should be "
+                  << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
                      "set on MS Windows.\n";
     }
 
@@ -994,11 +1002,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
         } else if (saObj.ss.ss_family == AF_INET) {
             EXPECT_STREQ(gIF_IPV4, saObj.netaddr().c_str());
             nadapObj.socknetmask(saObj);
-#if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(_MSC_VER)
-            EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0'); // Wrong!
-#else
             EXPECT_STREQ(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
-#endif
         } else {
             GTEST_FAIL() << "Unsupported ip address=\"" << saObj.netaddrp()
                          << "\" found.";
@@ -1009,14 +1013,13 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
     // Ports not set with this Unit so they doesn't matter here.
     // For Microsoft Windows there are some TODOs in the old code:
-    // TODO: Retrieve IPv4 netmask
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
     // link-local addresses.
-    // TODO: Retrieve IPv6 LLA prefix
+    // TODO: Retrieve IPv6 LLA prefix?
     // Tests below are marked with // Wrong!
     if (old_code) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << ": gIF_IPV6_PREFIX_LENGTH and gIF_IPV4_NETMASK should be "
+                  << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
                      "set on MS Windows.\n";
     }
 
@@ -1082,11 +1085,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
         } else if (saObj.ss.ss_family == AF_INET) {
             EXPECT_STREQ(gIF_IPV4, saObj.netaddr().c_str());
             nadapObj.socknetmask(saObj);
-#if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(_MSC_VER)
-            EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
-#else
             EXPECT_STREQ(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
-#endif
         } else {
             GTEST_FAIL() << "Unsupported ip address=\"" << saObj.netaddrp()
                          << "\" found.";
@@ -1562,10 +1561,9 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
 
 TEST_F(UpnpapiFTestSuite, UpnpInit2_with_adapter_name_successful) {
     // For Microsoft Windows there are some TODOs in the old code:
-    // TODO: Retrieve IPv4 netmask
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
     // link-local addresses.
-    // TODO: Retrieve IPv6 LLA prefix
+    // TODO: Retrieve IPv6 LLA prefix?
 
     // Find a usable adapter.
     SSaNadap& naObj{llaObj};
@@ -1601,13 +1599,12 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_adapter_name_successful) {
     EXPECT_FALSE(gIF_IPV4[0] == '\0' && gIF_IPV6[0] == '\0' &&
                  gIF_IPV6_ULA_GUA[0] == '\0');
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
-    std::cout
-        << CYEL "[    FIX   ] " CRES << __LINE__
-        << ": gIF_IPV4_NETMASK, gIF_IPV6_PREFIX_LENGTH, gIF_IPV6_ULA_GUA, and "
-           "gIF_IPV6_PREFIX_LENGTH should be retrieved on wih32.\n";
+    std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+              << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
+                 "retrieved on wih32.\n";
 #endif
 #if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(_MSC_VER)
-    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
     EXPECT_NE(LOCAL_PORT_V6, 0);
     EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
@@ -1640,10 +1637,9 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_adapter_name_successful) {
 
 TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     // For Microsoft Windows there are some TODOs in the old code:
-    // TODO: Retrieve IPv4 netmask
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
     // link-local addresses.
-    // TODO: Retrieve IPv6 LLA prefix
+    // TODO: Retrieve IPv6 LLA prefix?
 
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
@@ -1670,13 +1666,12 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     EXPECT_FALSE(gIF_IPV4[0] == '\0' && gIF_IPV6[0] == '\0' &&
                  gIF_IPV6_ULA_GUA[0] == '\0');
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
-    std::cout
-        << CYEL "[    FIX   ] " CRES << __LINE__
-        << ": gIF_IPV4_NETMASK, gIF_IPV6_PREFIX_LENGTH, gIF_IPV6_ULA_GUA, and "
-           "gIF_IPV6_PREFIX_LENGTH should be retrieved on wih32.\n";
+    std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+              << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
+                 "retrieved on wih32.\n";
 #endif
 #if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(_MSC_VER)
-    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
     EXPECT_NE(LOCAL_PORT_V6, 0);
     EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2025-07-25
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -82,9 +82,7 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
     EXPECT_STREQ(gIF_IPV4, "192.168.99.3");
 
     if (old_code) {
-        std::cout << CRED "[ BUG      ] " CRES << __LINE__
-                  << ": netmask should be set to \"255.224.0.0\".\n";
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "255.224.0.0");
         std::cout << CRED "[ BUG      ] " CRES << __LINE__
                   << ": gIF_IPV6 must not be set to any floating ip address "
                      "when IPv6 is disabled.\n";
@@ -161,9 +159,7 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
                   << "address should not be modified on wrong entries.\n";
         // ATTENTION! There is a wrong upper case 'O', not zero in "ethO";
         EXPECT_STREQ(gIF_NAME, "ethO");
-        std::cout << CRED "[ BUG      ] " CRES << __LINE__
-                  << ": netmask should be set to \"255.255.252.0\".\n";
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "255.255.252.0");
         std::cout << CRED "[ BUG      ] " CRES << __LINE__
                   << ": gIF_IPV6 must not be set to any floating ip "
                      "address when IPv6 is disabled.\n";

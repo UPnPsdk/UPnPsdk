@@ -1,5 +1,6 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2022-02-17
+// Redistribution only with this Copyright remark. Last modified: 2025-07-18
+// Last update from pupnp original source file on 2025-07-18, ver 1.14.21
 
 /*!
  * \file
@@ -8,10 +9,10 @@
  *
  * \author Marcelo Roberto Jimenez
  */
-#include "config.hpp"
+#include "config.hpp"                                      // IWYU pragma: keep
 
-#include <stdlib.h> /* for calloc(), free() */
-#include <string.h> /* for strlen(), strdup() */
+#include <stdlib.h> /* for calloc(), free() */             // IWYU pragma: keep
+#include <string.h> /* for strlen(), strdup(), memset() */ // IWYU pragma: keep
 
 #include "SSDPResultData.hpp"
 
@@ -21,7 +22,7 @@ struct s_SSDPResultData {
     Upnp_FunPtr m_CtrlptCallback;
 };
 
-SSDPResultData* SSDPResultData_new() {
+SSDPResultData* SSDPResultData_new(void) {
     struct s_SSDPResultData* p =
         (s_SSDPResultData*)calloc(1, sizeof(struct s_SSDPResultData));
 

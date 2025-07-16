@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2022-02-19
+// Redistribution only with this Copyright remark. Last modified: 2025-07-19
 
 /*!
  * \file
@@ -10,7 +10,7 @@
 #include "config.hpp"
 
 #include <stdlib.h> /* for calloc(), free() */
-#include <string.h> /* for strlen(), strdup() */
+#include <string.h> /* for strlen(), strdup(), memset() */
 
 #include "UpnpSubscriptionRequest.hpp"
 
@@ -20,7 +20,7 @@ struct s_UpnpSubscriptionRequest {
     UpnpString* m_SID;
 };
 
-UpnpSubscriptionRequest* UpnpSubscriptionRequest_new() {
+UpnpSubscriptionRequest* UpnpSubscriptionRequest_new(void) {
     struct s_UpnpSubscriptionRequest* p = (s_UpnpSubscriptionRequest*)calloc(
         1, sizeof(struct s_UpnpSubscriptionRequest));
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-30
+// Redistribution only with this Copyright remark. Last modified: 2025-07-24
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -35,7 +35,7 @@ using ::testing::StrictMock;
 // =====================
 class SsdpFTestSuite : public ::testing::Test {
   protected:
-    // pupnp::CLogging logObj; // Output only with build type DEBUG.
+    // CLogging logObj; // Output only with build type DEBUG.
 
     // Constructor
     SsdpFTestSuite() {
@@ -241,7 +241,7 @@ TEST_F(SsdpMockFTestSuite, set_ipv4_socket_no_blocking_fails) {
     }
 }
 
-TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv4_local) {
+TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv4_localhost) {
     // Provide needed data.
     MiniServerSockArray mini_sock;
     InitMiniServerSockArray(&mini_sock);
@@ -253,7 +253,7 @@ TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv4_local) {
         << errStrEx(ret_get_ssdp_socket, UPNP_E_SUCCESS);
 }
 
-TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv6_lla_local) {
+TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv6_lla_localhost) {
     GTEST_SKIP()
         << CRED "[ FIXIT    ] " CRES << __LINE__
         << ": Unit uses multicast group FF02::C (Link-Local (2)). Must be "
@@ -270,7 +270,7 @@ TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv6_lla_local) {
         << errStrEx(ret_get_ssdp_socket, UPNP_E_SUCCESS);
 }
 
-TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv6_gua_local) {
+TEST_F(SsdpFTestSuite, get_ssdp_sockets_for_ipv6_gua_localhost) {
     GTEST_SKIP() << CRED "[ FIXIT    ] " CRES << __LINE__
                  << ": Unit fails with valid IPv6 ULA address by selecting a "
                     "\"garbage\" multicast group.";

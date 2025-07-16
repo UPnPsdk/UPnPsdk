@@ -1,5 +1,7 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-03-03
+// Redistribution only with this Copyright remark. Last modified: 2025-07-18
+// Last update from ./Pupnp source file on 2025-07-18, ver 1.14.21
+
 /*!
  * \file
  * \brief Source file for SSDPResultData methods.
@@ -11,7 +13,7 @@
 #include "SSDPResultData.hpp"
 
 /// \cond
-#include <cstring> /* for strlen(), strdup() */
+#include <cstring> /* for strlen(), strdup(), memset() */
 /// \endcond
 
 /*! \brief "protected" structure, addressable with typedef
@@ -22,7 +24,7 @@ struct s_SSDPResultData {
     Upnp_FunPtr m_CtrlptCallback;
 };
 
-SSDPResultData* SSDPResultData_new() {
+SSDPResultData* SSDPResultData_new(void) {
     struct s_SSDPResultData* p =
         (s_SSDPResultData*)calloc(1, sizeof(struct s_SSDPResultData));
 

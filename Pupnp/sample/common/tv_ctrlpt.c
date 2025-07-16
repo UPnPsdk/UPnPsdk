@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2025 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-01
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,6 +30,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last updated from pupnp original source file on 2025-07-16, ver 1.14.21
 
 /*!
  * \addtogroup UpnpSamples
@@ -47,7 +48,7 @@
 
 #include "upnp.h"
 
-#include "posix_overwrites.h"
+#include "posix_overwrites.h" // IWYU pragma: keep
 
 /*!
  * Mutex for protecting the global device list in a multi-threaded,

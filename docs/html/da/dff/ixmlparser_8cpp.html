@@ -110,6 +110,7 @@ $(document).ready(function(){initNavTree('da/dff/ixmlparser_8cpp.html','../../')
 <code>#include &lt;<a class="el" href="../../d7/d68/ixmldebug_8hpp_source.html">ixml/ixmldebug.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d1/d42/port_8hpp_source.html">UPnPsdk/port.hpp</a>&gt;</code><br />
 <code>#include &lt;cassert&gt;</code><br />
+<code>#include &lt;climits&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;cstdio&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
@@ -120,21 +121,23 @@ $(document).ready(function(){initNavTree('da/dff/ixmlparser_8cpp.html','../../')
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d7/d0c/ixmlparser_8cpp__incl.png" border="0" usemap="#aCompa_2src_2ixml_2ixmlparser_8cpp" alt=""/></div>
 <map name="aCompa_2src_2ixml_2ixmlparser_8cpp" id="aCompa_2src_2ixml_2ixmlparser_8cpp">
-<area shape="rect" title=" " alt="" coords="443,5,667,31"/>
+<area shape="rect" title=" " alt="" coords="488,5,712,31"/>
 <area shape="rect" href="../../d0/d19/ixmlparser_8hpp.html" title=" " alt="" coords="181,79,333,104"/>
-<area shape="poly" title=" " alt="" coords="508,33,319,78,318,73,506,28"/>
+<area shape="poly" title=" " alt="" coords="545,33,327,78,326,73,544,28"/>
 <area shape="rect" href="../../d7/d68/ixmldebug_8hpp.html" title="Auxiliar routines to aid debugging." alt="" coords="5,79,157,104"/>
-<area shape="poly" title=" " alt="" coords="479,33,171,79,171,74,478,28"/>
+<area shape="poly" title=" " alt="" coords="517,33,171,80,171,75,516,28"/>
 <area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="358,79,495,104"/>
-<area shape="poly" title=" " alt="" coords="535,33,461,74,459,69,533,28"/>
+<area shape="poly" title=" " alt="" coords="573,33,469,76,467,71,571,28"/>
 <area shape="rect" title=" " alt="" coords="520,79,589,104"/>
-<area shape="poly" title=" " alt="" coords="557,31,557,65,552,65,552,31"/>
-<area shape="rect" title=" " alt="" coords="614,79,685,104"/>
-<area shape="poly" title=" " alt="" coords="571,29,624,68,621,72,568,33"/>
-<area shape="rect" title=" " alt="" coords="709,79,771,104"/>
-<area shape="poly" title=" " alt="" coords="585,28,698,71,696,76,583,33"/>
-<area shape="rect" title=" " alt="" coords="795,79,861,104"/>
-<area shape="poly" title=" " alt="" coords="599,28,782,75,781,81,598,33"/>
+<area shape="poly" title=" " alt="" coords="595,32,572,69,567,66,590,30"/>
+<area shape="rect" title=" " alt="" coords="613,79,680,104"/>
+<area shape="poly" title=" " alt="" coords="610,30,634,66,629,69,605,32"/>
+<area shape="rect" title=" " alt="" coords="705,79,775,104"/>
+<area shape="poly" title=" " alt="" coords="624,28,706,70,704,75,621,33"/>
+<area shape="rect" title=" " alt="" coords="800,79,861,104"/>
+<area shape="poly" title=" " alt="" coords="638,28,788,74,786,79,636,33"/>
+<area shape="rect" title=" " alt="" coords="885,79,952,104"/>
+<area shape="poly" title=" " alt="" coords="656,28,872,76,871,81,655,33"/>
 <area shape="rect" href="../../d1/d46/ixml_8hpp.html" title=" " alt="" coords="32,152,144,177"/>
 <area shape="poly" title=" " alt="" coords="231,106,129,149,127,144,229,102"/>
 <area shape="rect" href="../../de/dad/ixmlmembuf_8hpp.html" title=" " alt="" coords="174,152,341,177"/>
@@ -313,9 +316,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ade0a69e1e3017eb35e6fa7d7604a1398" id="r_ade0a69e1e3017eb35e6fa7d7604a1398"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/ixmlparser_8cpp.html#ade0a69e1e3017eb35e6fa7d7604a1398">Parser_setErrorChar</a> (char c)</td></tr>
 <tr class="memdesc:ade0a69e1e3017eb35e6fa7d7604a1398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the error character.  <br /></td></tr>
 <tr class="separator:ade0a69e1e3017eb35e6fa7d7604a1398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eacdafa9ca9fe872b050cac5b22ad1f" id="r_a0eacdafa9ca9fe872b050cac5b22ad1f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/d19/ixmlparser_8hpp.html#a3e16ad91ee0aeae3293a3908c21e501b">Parser</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/ixmlparser_8cpp.html#a0eacdafa9ca9fe872b050cac5b22ad1f">Parser_init</a> ()</td></tr>
-<tr class="memdesc:a0eacdafa9ca9fe872b050cac5b22ad1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a xml parser.  <br /></td></tr>
-<tr class="separator:a0eacdafa9ca9fe872b050cac5b22ad1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af15dec48867e88a41bd7dbc3761282cd" id="r_af15dec48867e88a41bd7dbc3761282cd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d0/d19/ixmlparser_8hpp.html#a3e16ad91ee0aeae3293a3908c21e501b">Parser</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/ixmlparser_8cpp.html#af15dec48867e88a41bd7dbc3761282cd">Parser_init</a> (void)</td></tr>
+<tr class="memdesc:af15dec48867e88a41bd7dbc3761282cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a xml parser.  <br /></td></tr>
+<tr class="separator:af15dec48867e88a41bd7dbc3761282cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a855e5df115b73a3f4555dc066e5dcc" id="r_a7a855e5df115b73a3f4555dc066e5dcc"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dff/ixmlparser_8cpp.html#a7a855e5df115b73a3f4555dc066e5dcc">Parser_readFileOrBuffer</a> (<a class="el" href="../../d0/d19/ixmlparser_8hpp.html#a3e16ad91ee0aeae3293a3908c21e501b">Parser</a> *xmlParser, const char *xmlFileName, int file)</td></tr>
 <tr class="memdesc:a7a855e5df115b73a3f4555dc066e5dcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a xml file or buffer contents into xml parser.  <br /></td></tr>
 <tr class="separator:a7a855e5df115b73a3f4555dc066e5dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -352,7 +355,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <div class="textblock"><p><a class="el" href="../../da/dff/ixmlparser_8cpp.html#db/de1/structchar__info" title="char_info">char_info</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00078">78</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00080">80</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">
@@ -386,7 +389,7 @@ h</td>
 
 <p>The size of the letter table array. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00171">171</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00173">173</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 
 </div>
 </div>
@@ -404,7 +407,7 @@ h</td>
 
 <p>The name char table array size. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00236">236</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00238">238</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 
 </div>
 </div>
@@ -441,7 +444,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00241">241</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00243">243</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -504,7 +507,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00262">262</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00264">264</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -566,7 +569,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00277">277</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00279">279</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -639,7 +642,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00319">319</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00321">321</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -700,7 +703,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00361">361</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00363">363</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -755,7 +758,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00386">386</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00388">388</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -805,7 +808,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00398">398</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00400">400</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -874,7 +877,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00410">410</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00413">413</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -938,7 +941,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00429">429</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00432">432</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -995,7 +998,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00453">453</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00456">456</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -1075,7 +1078,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00487">487</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00490">490</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -1163,7 +1166,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00526">526</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00529">529</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1227,7 +1230,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00544">544</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00547">547</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -1316,7 +1319,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00556">556</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00559">559</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-20-summary" class="dynsummary" style="display:block;">
@@ -1404,7 +1407,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00623">623</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00626">626</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-22-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-22-summary" class="dynsummary" style="display:block;">
@@ -1470,7 +1473,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00651">651</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00654">654</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-23-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-23-summary" class="dynsummary" style="display:block;">
@@ -1548,7 +1551,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00671">671</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00674">674</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-25-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-25-summary" class="dynsummary" style="display:block;">
@@ -1614,7 +1617,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00681">681</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00684">684</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-26" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-26-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-26-summary" class="dynsummary" style="display:block;">
@@ -1697,7 +1700,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00797">797</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00822">822</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-28" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-28-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-28-summary" class="dynsummary" style="display:block;">
@@ -1778,7 +1781,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00814">814</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00839">839</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-30" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-30-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-30-summary" class="dynsummary" style="display:block;">
@@ -1844,7 +1847,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00875">875</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00900">900</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-31" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-31-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-31-summary" class="dynsummary" style="display:block;">
@@ -1931,7 +1934,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00892">892</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00917">917</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-33" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-33-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-33-summary" class="dynsummary" style="display:block;">
@@ -2024,7 +2027,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00957">957</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00982">982</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-35" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-35-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-35-summary" class="dynsummary" style="display:block;">
@@ -2127,7 +2130,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01037">1037</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01062">1062</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-37" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-37-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-37-summary" class="dynsummary" style="display:block;">
@@ -2226,7 +2229,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01051">1051</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01076">1076</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-38" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-38-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-38-summary" class="dynsummary" style="display:block;">
@@ -2307,7 +2310,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01115">1115</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01140">1140</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-40" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-40-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-40-summary" class="dynsummary" style="display:block;">
@@ -2369,7 +2372,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01148">1148</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01173">1173</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-41" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-41-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-41-summary" class="dynsummary" style="display:block;">
@@ -2444,7 +2447,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01198">1198</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01227">1227</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-43" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-43-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-43-summary" class="dynsummary" style="display:block;">
@@ -2554,7 +2557,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01318">1318</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01347">1347</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-45" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-45-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-45-summary" class="dynsummary" style="display:block;">
@@ -2648,7 +2651,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01404">1404</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01433">1433</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-47" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-47-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-47-summary" class="dynsummary" style="display:block;">
@@ -2698,7 +2701,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01431">1431</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01460">1460</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-48" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-48-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-48-summary" class="dynsummary" style="display:block;">
@@ -2773,7 +2776,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01471">1471</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01500">1500</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-50" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-50-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-50-summary" class="dynsummary" style="display:block;">
@@ -2859,7 +2862,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01598">1598</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01627">1627</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-52" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-52-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-52-summary" class="dynsummary" style="display:block;">
@@ -2984,7 +2987,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01752">1752</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01781">1781</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-54" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-54-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-54-summary" class="dynsummary" style="display:block;">
@@ -3127,7 +3130,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01859">1859</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01888">1888</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-56" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-56-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-56-summary" class="dynsummary" style="display:block;">
@@ -3188,7 +3191,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01896">1896</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01925">1925</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-57" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-57-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-57-summary" class="dynsummary" style="display:block;">
@@ -3262,7 +3265,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01920">1920</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01954">1954</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-59" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-59-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-59-summary" class="dynsummary" style="display:block;">
@@ -3331,7 +3334,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01946">1946</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01980">1980</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-60" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-60-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-60-summary" class="dynsummary" style="display:block;">
@@ -3426,7 +3429,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l01984">1984</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02018">2018</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-62" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-62-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-62-summary" class="dynsummary" style="display:block;">
@@ -3491,7 +3494,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02044">2044</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02078">2078</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-64" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-64-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-64-summary" class="dynsummary" style="display:block;">
@@ -3552,7 +3555,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02054">2054</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02088">2088</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-65" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-65-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-65-summary" class="dynsummary" style="display:block;">
@@ -3621,7 +3624,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02078">2078</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02112">2112</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-66" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-66-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-66-summary" class="dynsummary" style="display:block;">
@@ -3735,7 +3738,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02155">2155</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02189">2189</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-68" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-68-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-68-summary" class="dynsummary" style="display:block;">
@@ -3785,7 +3788,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02175">2175</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02209">2209</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-69" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-69-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-69-summary" class="dynsummary" style="display:block;">
@@ -3860,7 +3863,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02200">2200</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02234">2234</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-71" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-71-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-71-summary" class="dynsummary" style="display:block;">
@@ -3940,7 +3943,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02235">2235</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02269">2269</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-73" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-73-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-73-summary" class="dynsummary" style="display:block;">
@@ -3948,139 +3951,140 @@ h</td>
 <div id="dynsection-73-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/dff/ixmlparser_8cpp_a59cba7776df1ddd02233cfdc23997542_cgraph.png" border="0" usemap="#ada/dff/ixmlparser_8cpp_a59cba7776df1ddd02233cfdc23997542_cgraph" alt=""/></div>
 <map name="ada/dff/ixmlparser_8cpp_a59cba7776df1ddd02233cfdc23997542_cgraph" id="ada/dff/ixmlparser_8cpp_a59cba7776df1ddd02233cfdc23997542_cgraph">
-<area shape="rect" title="Parses the xml file and returns the DOM document tree." alt="" coords="5,672,177,697"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaa06e9bfedc66a7a21809376a59e3d80f" title="Creates a new CDATASection node with given data." alt="" coords="225,22,499,48"/>
-<area shape="poly" title=" " alt="" coords="91,671,102,556,126,373,144,277,166,188,192,115,207,87,223,65,239,53,243,57,227,69,211,89,197,117,171,189,149,278,131,374,107,556,96,672"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gae5694e1e61cb2a0ae91cc0cb429f9052" title="Creates a new empty Document node." alt="" coords="237,124,487,149"/>
-<area shape="poly" title=" " alt="" coords="92,671,105,572,132,420,150,340,172,267,196,207,223,167,241,153,245,157,227,170,201,210,177,269,155,342,137,421,110,573,97,672"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gafe10b3fdbe5ed90ad99e71d7f7ce6c36" title="Frees a Document object and all Nodes associated with it." alt="" coords="591,73,741,98"/>
-<area shape="poly" title=" " alt="" coords="91,671,101,561,125,390,143,301,165,219,192,153,207,128,224,109,250,95,286,84,378,74,482,72,577,76,577,82,482,78,378,79,287,90,252,100,227,113,211,131,196,155,170,221,148,302,131,391,107,562,96,672"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga215d6d2d300e2e2bd46282f638be1471" title="Creates a new Text node with the given data." alt="" coords="241,225,483,250"/>
-<area shape="poly" title=" " alt="" coords="94,671,139,550,177,466,223,384,250,347,280,313,334,258,338,262,284,316,254,351,228,387,181,469,144,552,99,673"/>
-<area shape="rect" href="../../d7/d70/node_8cpp.html#a9468273fb67392fee7df2d9f78247bac" title="Intializes a node." alt="" coords="609,172,723,197"/>
-<area shape="poly" title=" " alt="" coords="92,671,105,578,132,438,150,365,172,299,196,246,209,225,224,210,252,196,291,185,390,174,500,173,596,177,596,182,499,178,390,180,292,190,254,200,227,215,214,229,201,248,177,301,156,367,137,439,111,579,97,672"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga151b974902439cf8339b00e418b560b4" title="Appends a child Node to the list of children of a Node." alt="" coords="579,770,753,796"/>
-<area shape="poly" title=" " alt="" coords="163,695,226,706,576,766,575,771,225,711,162,700"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a9382346f10f76a38b5d5606cba83bd37" title="Verifies endof element tag is the same as the openning element tag." alt="" coords="276,869,448,894"/>
-<area shape="poly" title=" " alt="" coords="102,696,149,763,185,803,227,837,254,852,284,863,282,868,252,857,224,841,181,807,145,766,98,699"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#aebef9fd006a378376432c3da3c285aa2" title="Frees all temporary memory allocated by xmlparser." alt="" coords="619,820,713,845"/>
-<area shape="poly" title=" " alt="" coords="112,695,162,727,226,758,328,787,432,807,528,820,605,827,605,832,527,825,431,813,327,793,224,763,159,732,109,699"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a46a73d42b9c999a1298cff940f216cb7" title="Fees a node contents." alt="" coords="272,1522,452,1548"/>
-<area shape="poly" title=" " alt="" coords="96,698,101,846,119,1089,136,1219,159,1338,173,1390,189,1436,207,1473,227,1501,242,1514,260,1523,258,1528,239,1518,223,1505,203,1476,184,1438,168,1392,154,1339,131,1219,114,1090,95,846,90,698"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a1a4a23a8c694f26c59c2f1b24fef612d" title="Get the next node." alt="" coords="285,1218,439,1244"/>
-<area shape="poly" title=" " alt="" coords="101,696,351,1204,346,1207,97,699"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a79e10a91f0ba4407a806dd423aab4b09" title="Processes the attribute name." alt="" coords="255,398,469,424"/>
-<area shape="poly" title=" " alt="" coords="103,670,337,432,340,436,107,674"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a1813b68205f22276bcff2d467d0c1101" title="Processes element name." alt="" coords="256,672,468,697"/>
-<area shape="poly" title=" " alt="" coords="177,682,242,682,242,687,177,687"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ab0e298ea8ea9c5391ee2f5a058106215" title="Skip prolog." alt="" coords="872,1522,1009,1548"/>
-<area shape="poly" title=" " alt="" coords="95,697,96,786,100,853,110,931,126,1014,150,1098,183,1180,228,1255,258,1292,291,1326,328,1356,368,1383,453,1429,542,1464,631,1490,717,1509,859,1528,858,1533,716,1514,630,1496,540,1469,450,1434,365,1388,325,1360,288,1330,254,1296,223,1258,178,1182,144,1100,120,1015,105,931,95,854,90,786,90,697"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga52a188ffdbc7254329a70a70e6de8bb0" title="Frees a CDATASection node." alt="" coords="853,22,1028,48"/>
-<area shape="poly" title=" " alt="" coords="443,20,546,8,666,3,786,8,859,18,859,23,785,14,666,8,547,14,443,25"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga4015cf9686c87e85f61682a8b5b9490b" title="Initializes a CDATASection node." alt="" coords="581,24,751,49"/>
-<area shape="poly" title=" " alt="" coords="499,33,567,33,567,39,499,38"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga507588bf534bc81caac604eae7d7f9fc" title="Frees a Node and all Nodes in its subtree." alt="" coords="1112,248,1231,273"/>
-<area shape="poly" title=" " alt="" coords="963,46,1004,76,1050,115,1109,178,1155,235,1150,239,1105,182,1046,118,1001,80,959,50"/>
-<area shape="poly" title=" " alt="" coords="439,121,577,98,578,103,439,126"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga8c58b4777b7df1f8c740d73c2bdbb947" title="Initializes a Document node." alt="" coords="593,122,739,148"/>
-<area shape="poly" title=" " alt="" coords="487,133,579,133,579,138,487,139"/>
-<area shape="poly" title=" " alt="" coords="741,96,786,107,885,140,981,176,1131,240,1129,244,979,181,883,145,785,112,740,101"/>
-<area shape="poly" title=" " alt="" coords="484,239,1098,256,1098,261,484,244"/>
-<area shape="poly" title=" " alt="" coords="435,222,595,194,596,199,436,228"/>
-<area shape="rect" href="../../d7/d70/node_8cpp.html#a29cc2715bd3ab2b79221e6b9178d5310" title="Check to see whether nodeptr allows children of type newChild." alt="" coords="850,596,1031,621"/>
-<area shape="poly" title=" " alt="" coords="751,773,784,756,796,741,803,727,807,695,811,662,818,646,832,631,837,626,840,630,835,634,822,649,816,664,812,696,808,728,801,744,787,760,754,778"/>
-<area shape="rect" href="../../d7/d70/node_8cpp.html#a5ec142658ee8d78267c7e49b05256f3d" title="Check if ancestorNode is ancestor of toFind." alt="" coords="861,718,1021,744"/>
-<area shape="poly" title=" " alt="" coords="733,768,859,744,860,749,734,773"/>
-<area shape="rect" href="../../d7/d70/node_8cpp.html#abdc95ce135292145ac238c9b5059462a" title="Check whether toFind is a children of nodeptr." alt="" coords="1099,708,1243,733"/>
-<area shape="poly" title=" " alt="" coords="753,779,892,772,970,764,1047,753,1119,735,1120,740,1049,758,971,769,892,777,753,784"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga45047a5595c8cac8f90ab7289dd80abc" title="Removes a child from the list of children of a Node." alt="" coords="853,645,1028,670"/>
-<area shape="poly" title=" " alt="" coords="752,771,784,756,800,738,807,719,814,699,832,680,841,674,844,679,835,684,819,702,812,721,804,741,787,760,754,776"/>
-<area shape="poly" title=" " alt="" coords="903,720,895,710,899,700,915,694,941,692,973,696,985,705,982,709,971,701,941,697,916,699,903,704,900,709,907,717"/>
-<area shape="poly" title=" " alt="" coords="1027,643,1046,630,1081,592,1108,547,1129,498,1144,449,1161,356,1167,287,1172,287,1167,356,1149,450,1134,500,1112,549,1085,595,1050,635,1030,648"/>
-<area shape="poly" title=" " alt="" coords="1003,668,1049,679,1120,701,1119,706,1047,684,1002,673"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a3d99cae89051fd8809e841e3be8b0777" title="Check if a new node&#45;&gt;nodeName matches top of element stack." alt="" coords="571,1017,761,1042"/>
-<area shape="poly" title=" " alt="" coords="380,893,450,946,497,976,548,1002,573,1011,571,1016,546,1007,494,981,447,950,377,897"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#aa9d7f1f6aa6c0ed25763a9a4be225c2d" title="Remove element from element stack." alt="" coords="593,869,739,894"/>
-<area shape="poly" title=" " alt="" coords="448,879,579,879,579,884,448,884"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a4f6287b141c7c264313f626237e36b12" title="Frees one ElementStack item." alt="" coords="833,918,1048,944"/>
-<area shape="poly" title=" " alt="" coords="738,892,856,913,855,919,737,897"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a961f7e4a30b00da92ec2ce29bed7a5fa" title="Frees namespaceURI item." alt="" coords="873,869,1008,894"/>
-<area shape="poly" title=" " alt="" coords="740,879,859,879,859,884,740,884"/>
-<area shape="poly" title=" " alt="" coords="714,833,751,840,787,854,802,866,812,879,820,892,835,904,851,911,849,916,832,908,816,896,807,883,798,870,784,859,749,845,713,838"/>
-<area shape="poly" title=" " alt="" coords="714,838,860,865,859,870,713,843"/>
-<area shape="rect" href="../../d1/d6a/ixmlmembuf_8cpp.html#a5925e1f1e8fc6290b68330bbf8369eb5" title="ixml_membuf clearing routine." alt="" coords="856,820,1025,845"/>
-<area shape="poly" title=" " alt="" coords="713,830,842,830,842,835,713,835"/>
-<area shape="rect" href="../../d6/d37/ixmldebug_8cpp.html#a39f4bb286e16f1bc5c1a34947b97f928" title="Prints the debug statement either on the standard output or log file along with the information from ..." alt="" coords="897,1294,984,1320"/>
-<area shape="poly" title=" " alt="" coords="387,1242,457,1275,501,1292,547,1305,638,1317,731,1320,815,1317,883,1311,884,1317,815,1322,731,1325,638,1322,546,1310,500,1297,455,1280,385,1246"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#afc77054f1c094bc4735fa71b63fa5cc7" title="Return the length of next token in tokenBuff." alt="" coords="861,1218,1020,1244"/>
-<area shape="poly" title=" " alt="" coords="440,1228,848,1228,848,1234,440,1234"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a58c0bf5b0affb7aafd9ec24a75a5bb42" title="Skip white spaces." alt="" coords="1295,1421,1475,1446"/>
-<area shape="poly" title=" " alt="" coords="386,1242,441,1279,501,1332,515,1354,522,1374,531,1391,548,1406,574,1418,606,1428,686,1442,782,1451,887,1454,1101,1450,1281,1440,1281,1445,1101,1456,887,1459,781,1456,685,1448,605,1433,572,1423,545,1411,526,1394,517,1376,510,1356,497,1336,438,1284,383,1246"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a6d77ded2429cef8aa8408b9824c657ad" title="Processes attribute." alt="" coords="578,1269,754,1294"/>
-<area shape="poly" title=" " alt="" coords="439,1241,576,1264,575,1270,439,1247"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2" title="Version of strdup() that handles NULL input." alt="" coords="891,1117,990,1142"/>
-<area shape="poly" title=" " alt="" coords="374,1216,402,1190,443,1158,492,1127,546,1103,590,1093,636,1087,728,1087,813,1097,882,1111,881,1116,812,1102,727,1092,636,1092,591,1098,548,1108,494,1131,446,1162,406,1194,378,1220"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a7ade48c4b26c634052650a808c22a980" title="Processes the CONTENT as defined in XML spec." alt="" coords="581,1370,751,1396"/>
-<area shape="poly" title=" " alt="" coords="381,1242,451,1293,498,1323,548,1349,591,1364,590,1369,546,1354,495,1327,448,1298,377,1246"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a41f4d864085c0cc345e6ba7516fc0d77" title="Process ETag as defined by XML spec." alt="" coords="591,1168,741,1193"/>
-<area shape="poly" title=" " alt="" coords="439,1216,577,1192,578,1198,439,1221"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a2f413615d184341a330872c09fb1fd22" title="Processes the STag as defined by XML spec." alt="" coords="591,1118,741,1144"/>
-<area shape="poly" title=" " alt="" coords="390,1216,460,1185,546,1154,582,1144,583,1149,547,1159,462,1190,392,1221"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#af5497d61b279d129e7720cafbc7eabdf" title="Skip comment, PI and white space." alt="" coords="1108,1472,1235,1497"/>
-<area shape="poly" title=" " alt="" coords="982,1241,1016,1258,1050,1281,1089,1325,1121,1373,1163,1458,1158,1460,1116,1376,1085,1328,1046,1285,1014,1262,979,1246"/>
-<area shape="poly" title=" " alt="" coords="1225,1469,1317,1447,1318,1452,1226,1474"/>
-<area shape="poly" title=" " alt="" coords="754,1287,884,1299,883,1305,754,1293"/>
-<area shape="poly" title=" " alt="" coords="735,1266,857,1244,858,1249,736,1272"/>
-<area shape="poly" title=" " alt="" coords="689,1267,903,1147,906,1152,691,1271"/>
-<area shape="poly" title=" " alt="" coords="714,1368,785,1349,883,1321,885,1326,786,1354,716,1373"/>
-<area shape="poly" title=" " alt="" coords="752,1383,976,1393,1247,1412,1285,1417,1285,1422,1246,1418,975,1398,751,1388"/>
-<area shape="poly" title=" " alt="" coords="694,1368,739,1342,763,1325,783,1305,800,1280,807,1257,815,1232,831,1205,866,1173,902,1148,905,1152,869,1177,835,1209,820,1235,812,1258,805,1282,787,1309,766,1329,742,1347,697,1373"/>
-<area shape="poly" title=" " alt="" coords="696,1191,901,1286,899,1291,694,1196"/>
-<area shape="poly" title=" " alt="" coords="736,1191,858,1213,857,1219,735,1196"/>
-<area shape="poly" title=" " alt="" coords="741,1172,807,1170,886,1174,968,1184,1049,1205,1098,1225,1146,1249,1235,1306,1310,1363,1362,1409,1358,1413,1306,1368,1232,1310,1144,1254,1096,1229,1047,1210,967,1189,885,1179,807,1176,741,1177"/>
-<area shape="poly" title=" " alt="" coords="735,1165,877,1139,878,1144,736,1170"/>
-<area shape="poly" title=" " alt="" coords="741,1141,786,1154,851,1181,907,1209,904,1214,849,1186,784,1159,739,1146"/>
-<area shape="poly" title=" " alt="" coords="741,1128,877,1127,877,1133,741,1133"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a3bddddfb77b025f8886865a981c47c4a" title="Reports whether the new attribute is the same as an existing one." alt="" coords="590,422,742,448"/>
-<area shape="poly" title=" " alt="" coords="470,417,576,425,576,431,469,422"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga2bb21e4a139e1d5437d20718f5d5eb62" title="Frees an Attr node." alt="" coords="887,298,995,324"/>
-<area shape="poly" title=" " alt="" coords="378,396,448,350,496,326,546,309,633,294,722,289,804,292,873,299,872,304,804,297,722,295,634,299,547,314,498,331,451,355,381,401"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga48b908f0372e2ea6c03dc683bee0b1b5" title="Creates a new Attr node with the given name." alt="" coords="547,324,785,349"/>
-<area shape="poly" title=" " alt="" coords="405,396,546,358,584,349,585,355,547,363,407,401"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacb75b932c7b4d406ed9ef2f4d6a808a1" title="Adds a new attribute node to an Element." alt="" coords="555,373,777,398"/>
-<area shape="poly" title=" " alt="" coords="469,400,540,394,541,399,470,405"/>
-<area shape="rect" href="../../d7/d70/node_8cpp.html#a4933e425f131b70907b24c9235257523" title=" " alt="" coords="560,472,772,497"/>
-<area shape="poly" title=" " alt="" coords="410,421,547,457,590,466,589,471,546,462,409,426"/>
-<area shape="poly" title=" " alt="" coords="994,297,1099,274,1100,279,995,302"/>
-<area shape="poly" title=" " alt="" coords="785,323,873,315,873,320,786,328"/>
-<area shape="poly" title=" " alt="" coords="732,370,785,358,889,326,891,331,786,363,733,376"/>
-<area shape="poly" title=" " alt="" coords="396,695,548,755,583,765,582,770,546,760,394,700"/>
-<area shape="poly" title=" " alt="" coords="370,670,396,637,436,592,487,545,545,506,560,499,563,504,548,511,491,549,440,596,401,640,374,673"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#af56a7f0cf00c39711e075b532c6cf890" title="Reports whether there is a top level element in the parser." alt="" coords="594,622,738,648"/>
-<area shape="poly" title=" " alt="" coords="441,669,580,646,581,652,441,674"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gac477c5001b67345e035018ed0c5db395" title="Creates a new Element node with the given tag name." alt="" coords="548,521,784,546"/>
-<area shape="poly" title=" " alt="" coords="378,669,448,619,496,589,546,563,590,548,591,553,548,568,498,594,451,623,381,674"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacc66377c5e4cd0909790bed3ca36f534" title="Frees the given Element and any subtree of the Element." alt="" coords="871,521,1010,546"/>
-<area shape="poly" title=" " alt="" coords="389,669,459,638,546,607,687,576,857,545,858,550,688,581,547,612,461,643,391,674"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a6116f23c2b6e4a021870ad6b09f38500" title="Decides whether element&#39;s prefix is already defined." alt="" coords="561,672,771,697"/>
-<area shape="poly" title=" " alt="" coords="468,682,547,682,547,687,468,687"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a61bd1728e96bf602fa9a47ee3a11af62" title="Decide whether the current element has default namespace." alt="" coords="557,721,775,746"/>
-<area shape="poly" title=" " alt="" coords="441,695,574,716,573,722,441,700"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a728ef7ca31534bf4780fa831f92239b3" title="Push a new element onto element stack." alt="" coords="589,918,743,944"/>
-<area shape="poly" title=" " alt="" coords="375,696,466,812,517,872,548,904,576,916,574,921,545,908,513,875,462,815,371,699"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ad0aa748d5d71bba6c2915f730e0e0d93" title="Set element&#39;s namespace." alt="" coords="556,968,776,993"/>
-<area shape="poly" title=" " alt="" coords="377,695,433,762,501,855,514,884,521,909,529,931,548,953,557,959,554,963,545,957,524,934,515,911,509,886,496,858,429,765,373,699"/>
-<area shape="poly" title=" " alt="" coords="784,531,857,531,857,536,784,536"/>
-<area shape="poly" title=" " alt="" coords="951,519,1148,282,1153,286,955,523"/>
-<area shape="poly" title=" " alt="" coords="743,928,820,928,820,934,743,934"/>
-<area shape="poly" title=" " alt="" coords="745,937,787,953,833,987,872,1028,904,1069,927,1104,923,1107,900,1072,868,1031,829,991,784,957,743,942"/>
-<area shape="poly" title=" " alt="" coords="756,991,786,1002,826,1025,863,1052,920,1105,916,1109,860,1057,823,1029,784,1007,754,996"/>
-<area shape="poly" title=" " alt="" coords="999,1520,1099,1498,1100,1503,1000,1525"/>
-<area shape="poly" title=" " alt="" coords="1009,1535,1122,1530,1185,1522,1246,1507,1305,1482,1353,1452,1356,1457,1307,1487,1248,1512,1186,1527,1122,1536,1010,1540"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#adff88fbeb218a61d70cf37861a47fda0" title="Skip UTF&#45;8 byte order mark." alt="" coords="1108,1573,1235,1598"/>
-<area shape="poly" title=" " alt="" coords="1000,1545,1100,1568,1099,1573,999,1551"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ad251a96ccd1a403d07d9981c46b6a1c4" title="Skips document type declaration." alt="" coords="1096,1622,1247,1648"/>
-<area shape="poly" title=" " alt="" coords="967,1546,1025,1576,1097,1609,1115,1616,1113,1621,1095,1614,1023,1581,964,1550"/>
+<area shape="rect" title="Parses the xml file and returns the DOM document tree." alt="" coords="5,636,177,662"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaa06e9bfedc66a7a21809376a59e3d80f" title="Creates a new CDATASection node with given data." alt="" coords="225,283,499,308"/>
+<area shape="poly" title=" " alt="" coords="91,636,100,579,121,495,138,449,161,404,189,362,224,326,245,312,248,316,227,330,193,365,165,407,143,451,126,497,105,580,97,637"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga507588bf534bc81caac604eae7d7f9fc" title="Frees a Node and all Nodes in its subtree." alt="" coords="1112,334,1231,359"/>
+<area shape="poly" title=" " alt="" coords="99,635,147,570,183,531,224,496,306,444,376,411,450,390,546,369,621,356,699,346,852,336,990,335,1098,339,1098,344,990,341,852,342,699,351,622,361,547,374,451,395,378,416,309,448,227,501,186,535,151,573,103,638"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gae5694e1e61cb2a0ae91cc0cb429f9052" title="Creates a new empty Document node." alt="" coords="237,182,487,207"/>
+<area shape="poly" title=" " alt="" coords="90,636,93,564,99,512,109,453,125,391,149,331,181,274,224,225,242,211,245,215,227,228,186,277,154,333,130,393,114,454,104,512,98,564,95,636"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gafe10b3fdbe5ed90ad99e71d7f7ce6c36" title="Frees a Document object and all Nodes associated with it." alt="" coords="591,182,741,207"/>
+<area shape="poly" title=" " alt="" coords="90,636,95,570,113,470,129,415,153,361,184,311,224,268,268,256,359,239,577,205,578,210,360,244,269,261,227,273,188,314,157,363,134,417,118,471,100,570,95,636"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga215d6d2d300e2e2bd46282f638be1471" title="Creates a new Text node with the given data." alt="" coords="241,82,483,107"/>
+<area shape="poly" title=" " alt="" coords="90,636,94,560,112,437,128,368,151,297,183,229,223,167,241,149,262,133,306,110,309,115,265,137,245,153,227,171,187,232,156,299,133,369,117,438,100,560,95,637"/>
+<area shape="rect" href="../../d7/d70/node_8cpp.html#a9468273fb67392fee7df2d9f78247bac" title="Intializes a node." alt="" coords="609,31,723,56"/>
+<area shape="poly" title=" " alt="" coords="91,636,101,525,125,352,142,261,165,178,191,111,207,86,224,67,268,38,317,18,369,7,422,3,475,4,525,9,608,25,607,30,524,15,475,10,423,8,370,13,319,23,270,43,227,71,211,89,196,114,170,180,148,263,130,353,106,526,96,637"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga151b974902439cf8339b00e418b560b4" title="Appends a child Node to the list of children of a Node." alt="" coords="579,883,753,908"/>
+<area shape="poly" title=" " alt="" coords="102,660,149,725,185,763,227,795,268,816,311,834,401,862,489,879,566,888,566,894,488,884,400,867,309,839,265,821,224,799,181,767,145,729,98,663"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a9382346f10f76a38b5d5606cba83bd37" title="Verifies endof element tag is the same as the openning element tag." alt="" coords="276,982,448,1007"/>
+<area shape="poly" title=" " alt="" coords="98,662,109,712,134,786,151,826,172,866,197,904,227,938,257,960,291,975,289,980,255,964,224,942,193,908,167,869,146,829,129,788,104,714,92,663"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#aebef9fd006a378376432c3da3c285aa2" title="Frees all temporary memory allocated by xmlparser." alt="" coords="619,932,713,958"/>
+<area shape="poly" title=" " alt="" coords="98,662,111,706,135,768,152,801,173,833,198,862,227,886,272,911,322,930,373,943,425,951,524,955,605,951,605,956,524,961,424,956,372,948,320,935,270,916,224,890,194,865,169,836,148,804,130,770,106,708,93,663"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a46a73d42b9c999a1298cff940f216cb7" title="Fees a node contents." alt="" coords="272,1634,452,1659"/>
+<area shape="poly" title=" " alt="" coords="95,662,97,833,101,969,111,1121,126,1275,150,1417,166,1480,183,1534,204,1579,227,1613,242,1625,260,1635,258,1639,239,1630,223,1616,199,1582,178,1536,160,1481,145,1418,121,1275,105,1121,96,970,91,833,90,662"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a1a4a23a8c694f26c59c2f1b24fef612d" title="Get the next node." alt="" coords="285,1331,439,1356"/>
+<area shape="poly" title=" " alt="" coords="100,661,150,805,228,1018,297,1189,352,1317,347,1320,293,1191,223,1019,145,807,95,663"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a79e10a91f0ba4407a806dd423aab4b09" title="Processes the attribute name." alt="" coords="255,511,469,536"/>
+<area shape="poly" title=" " alt="" coords="119,634,320,540,322,545,121,639"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a1813b68205f22276bcff2d467d0c1101" title="Processes element name." alt="" coords="256,760,468,786"/>
+<area shape="poly" title=" " alt="" coords="121,660,322,752,320,757,119,664"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ab0e298ea8ea9c5391ee2f5a058106215" title="Skip prolog." alt="" coords="872,1583,1009,1608"/>
+<area shape="poly" title=" " alt="" coords="96,662,108,792,133,1002,151,1114,173,1219,198,1306,212,1341,228,1368,256,1404,289,1437,325,1465,364,1490,449,1531,538,1560,628,1579,715,1590,793,1595,858,1596,858,1602,792,1600,714,1595,627,1584,537,1565,447,1536,362,1495,322,1470,285,1441,252,1408,223,1371,208,1343,193,1308,168,1220,146,1115,128,1003,102,792,91,662"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga52a188ffdbc7254329a70a70e6de8bb0" title="Frees a CDATASection node." alt="" coords="853,270,1028,295"/>
+<area shape="poly" title=" " alt="" coords="438,280,546,268,666,264,785,268,840,271,839,276,785,273,666,269,547,273,438,286"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga4015cf9686c87e85f61682a8b5b9490b" title="Initializes a CDATASection node." alt="" coords="581,283,751,308"/>
+<area shape="poly" title=" " alt="" coords="499,293,567,293,567,298,499,298"/>
+<area shape="poly" title=" " alt="" coords="988,293,1112,327,1111,333,987,298"/>
+<area shape="poly" title=" " alt="" coords="487,192,577,192,577,197,487,197"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga8c58b4777b7df1f8c740d73c2bdbb947" title="Initializes a Document node." alt="" coords="593,132,739,158"/>
+<area shape="poly" title=" " alt="" coords="441,179,579,156,580,162,441,184"/>
+<area shape="poly" title=" " alt="" coords="742,194,809,199,887,210,969,228,1049,255,1105,287,1149,322,1145,326,1102,291,1047,260,968,233,886,215,808,205,741,199"/>
+<area shape="poly" title=" " alt="" coords="483,85,609,87,681,93,756,104,833,120,909,143,982,173,1049,211,1082,237,1112,266,1156,321,1152,324,1108,270,1079,241,1047,215,979,177,907,148,832,125,755,109,681,99,609,92,483,90"/>
+<area shape="poly" title=" " alt="" coords="439,79,595,53,596,58,439,84"/>
+<area shape="rect" href="../../d7/d70/node_8cpp.html#a29cc2715bd3ab2b79221e6b9178d5310" title="Check to see whether nodeptr allows children of type newChild." alt="" coords="850,708,1031,734"/>
+<area shape="poly" title=" " alt="" coords="751,886,784,868,796,854,803,839,807,808,811,775,818,759,832,743,837,739,840,743,835,747,822,762,816,776,812,808,808,841,801,857,787,873,754,891"/>
+<area shape="rect" href="../../d7/d70/node_8cpp.html#a5ec142658ee8d78267c7e49b05256f3d" title="Check if ancestorNode is ancestor of toFind." alt="" coords="861,782,1021,807"/>
+<area shape="poly" title=" " alt="" coords="752,882,784,868,799,856,807,843,816,829,832,816,847,809,849,814,835,821,820,833,812,846,803,860,787,873,754,886"/>
+<area shape="rect" href="../../d7/d70/node_8cpp.html#abdc95ce135292145ac238c9b5059462a" title="Check whether toFind is a children of nodeptr." alt="" coords="1099,856,1243,882"/>
+<area shape="poly" title=" " alt="" coords="753,889,1085,871,1085,876,753,894"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga45047a5595c8cac8f90ab7289dd80abc" title="Removes a child from the list of children of a Node." alt="" coords="853,831,1028,856"/>
+<area shape="poly" title=" " alt="" coords="733,880,859,856,860,862,734,886"/>
+<area shape="poly" title=" " alt="" coords="903,783,895,773,899,763,915,757,941,755,973,759,985,768,982,773,971,764,941,760,916,763,903,767,900,773,907,780"/>
+<area shape="poly" title=" " alt="" coords="1027,830,1046,817,1069,783,1090,734,1109,672,1125,605,1150,471,1164,372,1169,373,1155,472,1130,606,1114,674,1095,735,1074,786,1050,820,1030,834"/>
+<area shape="poly" title=" " alt="" coords="1028,851,1086,857,1086,862,1028,856"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a3d99cae89051fd8809e841e3be8b0777" title="Check if a new node&#45;&gt;nodeName matches top of element stack." alt="" coords="571,1130,761,1155"/>
+<area shape="poly" title=" " alt="" coords="380,1005,450,1059,497,1089,548,1115,573,1124,571,1129,546,1120,494,1094,447,1063,377,1010"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#aa9d7f1f6aa6c0ed25763a9a4be225c2d" title="Remove element from element stack." alt="" coords="593,982,739,1007"/>
+<area shape="poly" title=" " alt="" coords="448,992,579,992,579,997,448,997"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a4f6287b141c7c264313f626237e36b12" title="Frees one ElementStack item." alt="" coords="833,1031,1048,1056"/>
+<area shape="poly" title=" " alt="" coords="738,1005,856,1026,855,1031,737,1010"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a961f7e4a30b00da92ec2ce29bed7a5fa" title="Frees namespaceURI item." alt="" coords="873,982,1008,1007"/>
+<area shape="poly" title=" " alt="" coords="740,992,859,992,859,997,740,997"/>
+<area shape="poly" title=" " alt="" coords="714,946,751,953,787,967,802,979,812,992,820,1005,835,1016,851,1024,849,1029,832,1021,816,1008,807,995,798,983,784,971,749,958,713,951"/>
+<area shape="poly" title=" " alt="" coords="714,951,860,977,859,983,713,956"/>
+<area shape="rect" href="../../d1/d6a/ixmlmembuf_8cpp.html#a5925e1f1e8fc6290b68330bbf8369eb5" title="ixml_membuf clearing routine." alt="" coords="856,932,1025,958"/>
+<area shape="poly" title=" " alt="" coords="713,942,842,942,842,948,713,948"/>
+<area shape="rect" href="../../d6/d37/ixmldebug_8cpp.html#a39f4bb286e16f1bc5c1a34947b97f928" title="Prints the debug statement either on the standard output or log file along with the information from ..." alt="" coords="897,1380,984,1406"/>
+<area shape="poly" title=" " alt="" coords="378,1355,406,1381,446,1413,494,1444,548,1467,613,1483,665,1487,718,1481,785,1467,819,1456,852,1442,908,1411,910,1416,854,1447,821,1461,786,1472,719,1486,665,1493,612,1488,546,1472,492,1448,443,1417,402,1385,374,1359"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#afc77054f1c094bc4735fa71b63fa5cc7" title="Return the length of next token in tokenBuff." alt="" coords="861,1331,1020,1356"/>
+<area shape="poly" title=" " alt="" coords="440,1341,848,1341,848,1346,440,1346"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a58c0bf5b0affb7aafd9ec24a75a5bb42" title="Skip white spaces." alt="" coords="1295,1482,1475,1507"/>
+<area shape="poly" title=" " alt="" coords="386,1354,440,1390,501,1438,514,1454,523,1469,532,1481,548,1492,599,1514,652,1531,762,1554,873,1563,983,1562,1088,1553,1182,1539,1326,1508,1327,1513,1183,1544,1088,1558,984,1567,873,1568,761,1559,650,1536,597,1519,545,1497,528,1485,519,1471,510,1457,497,1442,437,1394,383,1359"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a6d77ded2429cef8aa8408b9824c657ad" title="Processes attribute." alt="" coords="578,1382,754,1407"/>
+<area shape="poly" title=" " alt="" coords="439,1354,576,1377,575,1382,439,1359"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2" title="Version of strdup() that handles NULL input." alt="" coords="891,1230,990,1255"/>
+<area shape="poly" title=" " alt="" coords="374,1329,402,1303,443,1271,492,1239,546,1216,590,1205,636,1199,728,1199,813,1210,882,1224,881,1229,812,1215,727,1205,636,1205,591,1210,548,1221,494,1244,446,1275,406,1307,378,1333"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a7ade48c4b26c634052650a808c22a980" title="Processes the CONTENT as defined in XML spec." alt="" coords="581,1431,751,1456"/>
+<area shape="poly" title=" " alt="" coords="391,1354,461,1385,547,1417,578,1426,577,1431,546,1422,459,1390,388,1359"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a41f4d864085c0cc345e6ba7516fc0d77" title="Process ETag as defined by XML spec." alt="" coords="591,1280,741,1306"/>
+<area shape="poly" title=" " alt="" coords="439,1328,577,1305,578,1310,439,1334"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a2f413615d184341a330872c09fb1fd22" title="Processes the STag as defined by XML spec." alt="" coords="591,1231,741,1256"/>
+<area shape="poly" title=" " alt="" coords="390,1328,460,1298,546,1267,582,1257,583,1262,547,1272,462,1303,392,1333"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#af5497d61b279d129e7720cafbc7eabdf" title="Skip comment, PI and white space." alt="" coords="1108,1482,1235,1507"/>
+<area shape="poly" title=" " alt="" coords="1020,1354,1049,1367,1082,1390,1112,1417,1155,1469,1151,1472,1108,1421,1079,1394,1047,1371,1018,1359"/>
+<area shape="poly" title=" " alt="" coords="1235,1492,1281,1492,1281,1497,1235,1497"/>
+<area shape="poly" title=" " alt="" coords="754,1391,883,1391,883,1396,754,1397"/>
+<area shape="poly" title=" " alt="" coords="735,1379,857,1356,858,1362,736,1384"/>
+<area shape="poly" title=" " alt="" coords="689,1379,903,1260,906,1264,691,1384"/>
+<area shape="poly" title=" " alt="" coords="735,1428,884,1401,885,1406,736,1434"/>
+<area shape="poly" title=" " alt="" coords="752,1442,976,1448,1111,1456,1247,1468,1308,1477,1307,1482,1246,1473,1111,1461,976,1453,751,1447"/>
+<area shape="poly" title=" " alt="" coords="750,1434,784,1418,802,1395,810,1372,816,1346,831,1318,866,1285,902,1260,905,1265,869,1290,835,1321,820,1348,815,1373,807,1398,787,1422,753,1439"/>
+<area shape="poly" title=" " alt="" coords="692,1303,755,1335,834,1367,884,1380,883,1385,832,1372,753,1339,690,1308"/>
+<area shape="poly" title=" " alt="" coords="736,1303,858,1326,857,1331,735,1308"/>
+<area shape="poly" title=" " alt="" coords="741,1287,807,1287,885,1290,968,1300,1049,1317,1140,1351,1227,1393,1301,1436,1356,1472,1353,1476,1299,1441,1225,1398,1138,1355,1047,1322,967,1305,884,1296,807,1292,741,1292"/>
+<area shape="poly" title=" " alt="" coords="735,1278,877,1251,878,1257,736,1283"/>
+<area shape="poly" title=" " alt="" coords="741,1254,786,1267,851,1294,907,1322,904,1327,849,1298,784,1272,739,1259"/>
+<area shape="poly" title=" " alt="" coords="741,1241,877,1240,877,1245,741,1246"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a3bddddfb77b025f8886865a981c47c4a" title="Reports whether the new attribute is the same as an existing one." alt="" coords="590,384,742,410"/>
+<area shape="poly" title=" " alt="" coords="383,509,454,469,546,427,594,411,596,416,548,432,457,474,386,513"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga2bb21e4a139e1d5437d20718f5d5eb62" title="Frees an Attr node." alt="" coords="887,460,995,486"/>
+<area shape="poly" title=" " alt="" coords="397,509,466,488,546,470,634,462,723,460,873,465,873,470,723,465,635,468,547,476,467,493,399,514"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga48b908f0372e2ea6c03dc683bee0b1b5" title="Creates a new Attr node with the given name." alt="" coords="547,486,785,511"/>
+<area shape="poly" title=" " alt="" coords="469,512,533,507,533,512,470,518"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacb75b932c7b4d406ed9ef2f4d6a808a1" title="Adds a new attribute node to an Element." alt="" coords="555,535,777,560"/>
+<area shape="poly" title=" " alt="" coords="470,530,541,535,540,541,469,535"/>
+<area shape="rect" href="../../d7/d70/node_8cpp.html#a4933e425f131b70907b24c9235257523" title=" " alt="" coords="560,584,772,610"/>
+<area shape="poly" title=" " alt="" coords="410,534,547,569,590,579,589,584,546,574,409,539"/>
+<area shape="poly" title=" " alt="" coords="964,458,1134,363,1137,368,966,463"/>
+<area shape="poly" title=" " alt="" coords="785,485,873,477,873,482,786,490"/>
+<area shape="poly" title=" " alt="" coords="732,532,785,520,889,488,891,493,786,525,733,538"/>
+<area shape="poly" title=" " alt="" coords="406,783,452,801,500,826,515,837,524,848,534,858,548,868,568,877,566,881,545,873,530,862,520,852,511,841,497,830,450,806,404,788"/>
+<area shape="poly" title=" " alt="" coords="373,758,441,691,490,652,545,619,563,612,565,617,548,624,493,656,444,695,377,762"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#af56a7f0cf00c39711e075b532c6cf890" title="Reports whether there is a top level element in the parser." alt="" coords="594,834,738,859"/>
+<area shape="poly" title=" " alt="" coords="410,783,547,819,590,828,589,833,546,824,409,788"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gac477c5001b67345e035018ed0c5db395" title="Creates a new Element node with the given tag name." alt="" coords="548,634,784,659"/>
+<area shape="poly" title=" " alt="" coords="383,758,454,718,546,676,594,660,596,665,548,681,457,723,386,763"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacc66377c5e4cd0909790bed3ca36f534" title="Frees the given Element and any subtree of the Element." alt="" coords="871,634,1010,659"/>
+<area shape="poly" title=" " alt="" coords="405,758,546,720,712,685,857,658,858,663,713,690,547,725,406,763"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a6116f23c2b6e4a021870ad6b09f38500" title="Decides whether element&#39;s prefix is already defined." alt="" coords="561,735,771,760"/>
+<area shape="poly" title=" " alt="" coords="468,762,547,755,547,760,469,767"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a61bd1728e96bf602fa9a47ee3a11af62" title="Decide whether the current element has default namespace." alt="" coords="557,784,775,810"/>
+<area shape="poly" title=" " alt="" coords="469,779,544,785,543,790,468,784"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a728ef7ca31534bf4780fa831f92239b3" title="Push a new element onto element stack." alt="" coords="589,1031,743,1056"/>
+<area shape="poly" title=" " alt="" coords="374,785,465,913,516,981,548,1016,577,1030,574,1034,545,1021,512,984,461,916,370,788"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ad0aa748d5d71bba6c2915f730e0e0d93" title="Set element&#39;s namespace." alt="" coords="556,1080,776,1106"/>
+<area shape="poly" title=" " alt="" coords="375,784,431,861,501,968,514,997,520,1022,529,1044,548,1066,557,1072,554,1076,545,1070,524,1047,515,1024,509,999,496,970,427,864,371,788"/>
+<area shape="poly" title=" " alt="" coords="784,644,857,644,857,649,784,649"/>
+<area shape="poly" title=" " alt="" coords="950,632,1150,368,1154,372,954,635"/>
+<area shape="poly" title=" " alt="" coords="743,1041,820,1041,820,1046,743,1046"/>
+<area shape="poly" title=" " alt="" coords="745,1049,787,1065,833,1100,872,1141,904,1182,927,1216,923,1219,900,1185,868,1144,829,1104,784,1070,743,1054"/>
+<area shape="poly" title=" " alt="" coords="756,1103,786,1115,826,1138,863,1165,920,1218,916,1221,860,1169,823,1142,784,1120,754,1108"/>
+<area shape="poly" title=" " alt="" coords="970,1581,1128,1510,1130,1515,972,1585"/>
+<area shape="poly" title=" " alt="" coords="1010,1593,1122,1585,1185,1576,1246,1561,1303,1539,1351,1512,1354,1517,1305,1543,1247,1566,1186,1581,1122,1590,1010,1598"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#adff88fbeb218a61d70cf37861a47fda0" title="Skip UTF&#45;8 byte order mark." alt="" coords="1108,1634,1235,1659"/>
+<area shape="poly" title=" " alt="" coords="1000,1606,1100,1628,1099,1633,999,1611"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ad251a96ccd1a403d07d9981c46b6a1c4" title="Skips document type declaration." alt="" coords="1096,1683,1247,1708"/>
+<area shape="poly" title=" " alt="" coords="967,1606,1025,1637,1097,1669,1115,1676,1113,1681,1095,1674,1023,1641,964,1611"/>
 </map>
 </div>
 <div id="dynsection-74" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -4126,7 +4130,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02359">2359</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02394">2394</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-75" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-75-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-75-summary" class="dynsummary" style="display:block;">
@@ -4184,7 +4188,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02380">2380</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02415">2415</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-77" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-77-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-77-summary" class="dynsummary" style="display:block;">
@@ -4200,8 +4204,8 @@ h</td>
 
 </div>
 </div>
-<a id="a0eacdafa9ca9fe872b050cac5b22ad1f" name="a0eacdafa9ca9fe872b050cac5b22ad1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0eacdafa9ca9fe872b050cac5b22ad1f">&#9670;&#160;</a></span>Parser_init()</h2>
+<a id="af15dec48867e88a41bd7dbc3761282cd" name="af15dec48867e88a41bd7dbc3761282cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af15dec48867e88a41bd7dbc3761282cd">&#9670;&#160;</a></span>Parser_init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4212,6 +4216,7 @@ h</td>
         <tr>
           <td class="memname">static <a class="el" href="../../d0/d19/ixmlparser_8hpp.html#a3e16ad91ee0aeae3293a3908c21e501b">Parser</a> * Parser_init </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -4226,14 +4231,14 @@ h</td>
 <p>Initializes a xml parser. </p>
 <dl class="section return"><dt>Returns</dt><dd>The parser object or <b>NULL</b> if there is not enough memory. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02395">2395</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02432">2432</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-78" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-78-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-78-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-78-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../da/dff/ixmlparser_8cpp_a0eacdafa9ca9fe872b050cac5b22ad1f_cgraph.png" border="0" usemap="#ada/dff/ixmlparser_8cpp_a0eacdafa9ca9fe872b050cac5b22ad1f_cgraph" alt=""/></div>
-<map name="ada/dff/ixmlparser_8cpp_a0eacdafa9ca9fe872b050cac5b22ad1f_cgraph" id="ada/dff/ixmlparser_8cpp_a0eacdafa9ca9fe872b050cac5b22ad1f_cgraph">
+<div class="center"><img src="../../da/dff/ixmlparser_8cpp_af15dec48867e88a41bd7dbc3761282cd_cgraph.png" border="0" usemap="#ada/dff/ixmlparser_8cpp_af15dec48867e88a41bd7dbc3761282cd_cgraph" alt=""/></div>
+<map name="ada/dff/ixmlparser_8cpp_af15dec48867e88a41bd7dbc3761282cd_cgraph" id="ada/dff/ixmlparser_8cpp_af15dec48867e88a41bd7dbc3761282cd_cgraph">
 <area shape="rect" title="Initializes a xml parser." alt="" coords="5,5,96,31"/>
 <area shape="rect" href="../../d1/d6a/ixmlmembuf_8cpp.html#aa80b5a0877ebd43d82924bb3a153bcf4" title="ixml_membuf initialization routine." alt="" coords="144,5,285,31"/>
 <area shape="poly" title=" " alt="" coords="96,15,130,15,130,21,96,21"/>
@@ -4244,8 +4249,8 @@ h</td>
 <div id="dynsection-79-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-79-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../da/dff/ixmlparser_8cpp_a0eacdafa9ca9fe872b050cac5b22ad1f_icgraph.png" border="0" usemap="#ada/dff/ixmlparser_8cpp_a0eacdafa9ca9fe872b050cac5b22ad1f_icgraph" alt=""/></div>
-<map name="ada/dff/ixmlparser_8cpp_a0eacdafa9ca9fe872b050cac5b22ad1f_icgraph" id="ada/dff/ixmlparser_8cpp_a0eacdafa9ca9fe872b050cac5b22ad1f_icgraph">
+<div class="center"><img src="../../da/dff/ixmlparser_8cpp_af15dec48867e88a41bd7dbc3761282cd_icgraph.png" border="0" usemap="#ada/dff/ixmlparser_8cpp_af15dec48867e88a41bd7dbc3761282cd_icgraph" alt=""/></div>
+<map name="ada/dff/ixmlparser_8cpp_af15dec48867e88a41bd7dbc3761282cd_icgraph" id="ada/dff/ixmlparser_8cpp_af15dec48867e88a41bd7dbc3761282cd_icgraph">
 <area shape="rect" title="Initializes a xml parser." alt="" coords="433,31,524,56"/>
 <area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49" title="Parses a xml file and return the DOM tree." alt="" coords="219,31,385,56"/>
 <area shape="poly" title=" " alt="" coords="420,46,386,46,386,41,420,41"/>
@@ -4308,7 +4313,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02413">2413</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02450">2450</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-80" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-80-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-80-summary" class="dynsummary" style="display:block;">
@@ -4382,7 +4387,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02475">2475</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02512">2512</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-82" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-82-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-82-summary" class="dynsummary" style="display:block;">
@@ -4390,55 +4395,59 @@ h</td>
 <div id="dynsection-82-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/dff/ixmlparser_8cpp_a2b2e1c2ae7acf39146efcff9457d2e49_cgraph.png" border="0" usemap="#ada/dff/ixmlparser_8cpp_a2b2e1c2ae7acf39146efcff9457d2e49_cgraph" alt=""/></div>
 <map name="ada/dff/ixmlparser_8cpp_a2b2e1c2ae7acf39146efcff9457d2e49_cgraph" id="ada/dff/ixmlparser_8cpp_a2b2e1c2ae7acf39146efcff9457d2e49_cgraph">
-<area shape="rect" title="Parses a xml file and return the DOM tree." alt="" coords="5,301,172,327"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#aebef9fd006a378376432c3da3c285aa2" title="Frees all temporary memory allocated by xmlparser." alt="" coords="532,52,627,77"/>
-<area shape="poly" title=" " alt="" coords="103,299,156,258,236,199,335,138,388,110,442,86,480,75,518,68,519,73,481,80,444,91,390,115,337,142,239,204,159,262,107,303"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a0eacdafa9ca9fe872b050cac5b22ad1f" title="Initializes a xml parser." alt="" coords="262,39,353,64"/>
-<area shape="poly" title=" " alt="" coords="97,300,148,232,218,144,282,73,286,76,222,148,152,236,102,303"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542" title="Parses the xml file and returns the DOM document tree." alt="" coords="221,327,393,352"/>
-<area shape="poly" title=" " alt="" coords="173,321,208,325,207,331,172,326"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a7a855e5df115b73a3f4555dc066e5dcc" title="Read a xml file or buffer contents into xml parser." alt="" coords="220,527,395,552"/>
-<area shape="poly" title=" " alt="" coords="104,325,286,514,282,518,100,329"/>
-<area shape="rect" href="../../d1/d6a/ixmlmembuf_8cpp.html#a5925e1f1e8fc6290b68330bbf8369eb5" title="ixml_membuf clearing routine." alt="" coords="787,77,956,103"/>
-<area shape="poly" title=" " alt="" coords="627,66,773,79,772,84,627,72"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a4f6287b141c7c264313f626237e36b12" title="Frees one ElementStack item." alt="" coords="764,127,979,152"/>
-<area shape="poly" title=" " alt="" coords="628,67,671,74,717,86,741,99,765,112,793,121,791,126,763,117,739,104,715,91,670,79,627,72"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a961f7e4a30b00da92ec2ce29bed7a5fa" title="Frees namespaceURI item." alt="" coords="804,28,939,53"/>
-<area shape="poly" title=" " alt="" coords="627,58,790,45,791,50,627,64"/>
-<area shape="rect" href="../../d1/d6a/ixmlmembuf_8cpp.html#aa80b5a0877ebd43d82924bb3a153bcf4" title="ixml_membuf initialization routine." alt="" coords="1027,28,1168,53"/>
-<area shape="poly" title=" " alt="" coords="930,75,1024,54,1026,59,931,80"/>
-<area shape="poly" title=" " alt="" coords="352,45,442,37,593,21,711,8,828,3,979,13,1035,22,1035,28,978,18,828,8,711,13,594,27,443,42,353,50"/>
-<area shape="poly" title=" " alt="" coords="314,325,392,182,404,154,410,130,420,108,441,87,478,69,518,61,519,66,480,74,444,91,424,111,415,132,409,156,397,185,318,328"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaa06e9bfedc66a7a21809376a59e3d80f" title="Creates a new CDATASection node with given data." alt="" coords="443,252,716,277"/>
-<area shape="poly" title=" " alt="" coords="337,324,386,305,442,286,478,278,480,283,443,291,387,310,339,329"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gae5694e1e61cb2a0ae91cc0cb429f9052" title="Creates a new empty Document node." alt="" coords="455,301,704,327"/>
-<area shape="poly" title=" " alt="" coords="393,329,441,324,441,330,394,334"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gafe10b3fdbe5ed90ad99e71d7f7ce6c36" title="Frees a Document object and all Nodes associated with it." alt="" coords="796,239,947,264"/>
-<area shape="poly" title=" " alt="" coords="313,325,331,295,359,256,396,217,418,201,442,188,494,171,549,164,605,165,659,173,711,186,759,200,833,230,831,235,757,206,710,191,658,179,604,171,549,169,495,176,444,193,421,205,400,221,363,259,335,298,318,328"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga215d6d2d300e2e2bd46282f638be1471" title="Creates a new Text node with the given data." alt="" coords="458,504,701,529"/>
-<area shape="poly" title=" " alt="" coords="319,351,366,415,402,451,444,482,478,498,476,503,441,487,399,456,362,418,314,354"/>
-<area shape="rect" href="../../d7/d70/node_8cpp.html#a9468273fb67392fee7df2d9f78247bac" title="Intializes a node." alt="" coords="815,479,928,504"/>
-<area shape="poly" title=" " alt="" coords="323,350,373,394,407,418,444,437,511,454,607,468,801,485,801,490,606,473,510,459,442,442,404,423,369,399,319,354"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga151b974902439cf8339b00e418b560b4" title="Appends a child Node to the list of children of a Node." alt="" coords="785,377,958,403"/>
-<area shape="poly" title=" " alt="" coords="394,345,771,379,771,384,394,350"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a9382346f10f76a38b5d5606cba83bd37" title="Verifies endof element tag is the same as the openning element tag." alt="" coords="493,553,665,579"/>
-<area shape="poly" title=" " alt="" coords="316,351,331,389,358,441,395,494,418,518,444,539,481,555,479,560,441,543,415,522,391,498,353,443,326,392,311,353"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a46a73d42b9c999a1298cff940f216cb7" title="Fees a node contents." alt="" coords="489,603,669,628"/>
-<area shape="poly" title=" " alt="" coords="317,351,382,482,419,552,444,588,477,604,475,609,441,592,414,555,377,485,312,353"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a1a4a23a8c694f26c59c2f1b24fef612d" title="Get the next node." alt="" coords="502,652,657,677"/>
-<area shape="poly" title=" " alt="" coords="318,351,353,420,397,513,408,551,413,583,421,611,430,625,444,639,465,652,489,660,488,665,463,657,441,643,426,628,417,614,408,584,403,552,392,515,348,422,313,354"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a79e10a91f0ba4407a806dd423aab4b09" title="Processes the attribute name." alt="" coords="472,101,687,127"/>
-<area shape="poly" title=" " alt="" coords="311,326,328,289,355,240,393,188,416,164,441,144,470,129,472,134,444,148,419,168,397,191,359,243,332,292,316,328"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a1813b68205f22276bcff2d467d0c1101" title="Processes element name." alt="" coords="473,403,685,428"/>
-<area shape="poly" title=" " alt="" coords="346,350,443,381,507,397,506,402,442,386,344,355"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ab0e298ea8ea9c5391ee2f5a058106215" title="Skip prolog." alt="" coords="511,203,648,228"/>
-<area shape="poly" title=" " alt="" coords="320,325,370,281,404,257,442,237,496,221,498,226,444,242,407,261,373,285,323,329"/>
-<area shape="poly" title=" " alt="" coords="652,299,715,286,807,265,808,270,717,291,653,304"/>
-<area shape="poly" title=" " alt="" coords="701,504,801,495,801,500,701,509"/>
-<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2" title="Version of strdup() that handles NULL input." alt="" coords="822,677,921,703"/>
-<area shape="poly" title=" " alt="" coords="657,669,808,682,808,687,656,674"/>
-<area shape="poly" title=" " alt="" coords="685,404,771,396,771,401,686,409"/>
-<area shape="poly" title=" " alt="" coords="317,551,335,581,363,620,399,659,421,675,444,688,490,704,539,715,589,721,639,722,732,715,808,703,809,708,732,721,639,727,589,726,538,720,489,710,442,693,418,679,396,663,359,624,331,584,313,554"/>
+<area shape="rect" title="Parses a xml file and return the DOM tree." alt="" coords="5,356,172,381"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#aebef9fd006a378376432c3da3c285aa2" title="Frees all temporary memory allocated by xmlparser." alt="" coords="532,80,627,105"/>
+<area shape="poly" title=" " alt="" coords="102,354,152,307,232,242,332,172,386,141,442,114,480,102,518,95,519,100,481,107,444,119,389,145,335,177,236,246,156,311,105,358"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#af15dec48867e88a41bd7dbc3761282cd" title="Initializes a xml parser." alt="" coords="262,68,353,93"/>
+<area shape="poly" title=" " alt="" coords="97,354,286,103,290,106,102,358"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542" title="Parses the xml file and returns the DOM document tree." alt="" coords="221,381,393,407"/>
+<area shape="poly" title=" " alt="" coords="173,376,208,380,207,385,172,381"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a7a855e5df115b73a3f4555dc066e5dcc" title="Read a xml file or buffer contents into xml parser." alt="" coords="220,605,395,631"/>
+<area shape="poly" title=" " alt="" coords="103,380,288,593,284,596,99,383"/>
+<area shape="rect" href="../../d1/d6a/ixmlmembuf_8cpp.html#a5925e1f1e8fc6290b68330bbf8369eb5" title="ixml_membuf clearing routine." alt="" coords="787,31,956,56"/>
+<area shape="poly" title=" " alt="" coords="627,82,782,56,782,61,628,87"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a4f6287b141c7c264313f626237e36b12" title="Frees one ElementStack item." alt="" coords="764,80,979,105"/>
+<area shape="poly" title=" " alt="" coords="627,90,750,90,750,95,627,95"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a961f7e4a30b00da92ec2ce29bed7a5fa" title="Frees namespaceURI item." alt="" coords="804,129,939,155"/>
+<area shape="poly" title=" " alt="" coords="628,98,791,126,790,131,627,103"/>
+<area shape="rect" href="../../d1/d6a/ixmlmembuf_8cpp.html#aa80b5a0877ebd43d82924bb3a153bcf4" title="ixml_membuf initialization routine." alt="" coords="1027,5,1168,31"/>
+<area shape="poly" title=" " alt="" coords="956,31,1012,25,1013,30,957,36"/>
+<area shape="poly" title=" " alt="" coords="353,70,532,41,647,26,764,15,895,11,1013,12,1013,18,895,16,764,21,648,32,532,46,353,75"/>
+<area shape="poly" title=" " alt="" coords="314,380,349,318,392,236,404,200,409,170,417,142,441,115,459,103,478,96,518,88,519,93,480,101,461,108,444,119,422,145,414,171,409,202,397,238,354,321,319,383"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaa06e9bfedc66a7a21809376a59e3d80f" title="Creates a new CDATASection node with given data." alt="" coords="443,129,716,155"/>
+<area shape="poly" title=" " alt="" coords="313,380,379,265,416,205,441,172,468,157,470,162,444,176,420,208,383,268,318,383"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gae5694e1e61cb2a0ae91cc0cb429f9052" title="Creates a new empty Document node." alt="" coords="455,281,704,307"/>
+<area shape="poly" title=" " alt="" coords="325,379,376,347,442,316,468,307,470,312,444,320,379,351,328,383"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gafe10b3fdbe5ed90ad99e71d7f7ce6c36" title="Frees a Document object and all Nodes associated with it." alt="" coords="796,255,947,280"/>
+<area shape="poly" title=" " alt="" coords="315,380,334,354,363,322,399,290,442,266,488,251,536,242,632,235,723,239,799,250,799,255,723,244,632,240,536,247,489,256,444,271,403,294,367,325,339,357,319,383"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga507588bf534bc81caac604eae7d7f9fc" title="Frees a Node and all Nodes in its subtree." alt="" coords="1038,255,1157,280"/>
+<area shape="poly" title=" " alt="" coords="312,380,329,348,357,306,395,265,417,247,441,233,482,217,523,204,609,189,696,186,781,190,862,202,936,217,1048,248,1047,253,934,222,861,207,781,196,696,191,609,195,524,209,483,222,444,238,420,251,398,269,361,310,334,351,317,383"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga215d6d2d300e2e2bd46282f638be1471" title="Creates a new Text node with the given data." alt="" coords="458,331,701,356"/>
+<area shape="poly" title=" " alt="" coords="376,379,497,356,498,361,377,384"/>
+<area shape="rect" href="../../d7/d70/node_8cpp.html#a9468273fb67392fee7df2d9f78247bac" title="Intializes a node." alt="" coords="815,376,928,401"/>
+<area shape="poly" title=" " alt="" coords="394,391,801,387,801,392,394,396"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga151b974902439cf8339b00e418b560b4" title="Appends a child Node to the list of children of a Node." alt="" coords="785,457,958,483"/>
+<area shape="poly" title=" " alt="" coords="394,403,771,454,771,459,394,408"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a9382346f10f76a38b5d5606cba83bd37" title="Verifies endof element tag is the same as the openning element tag." alt="" coords="493,532,665,557"/>
+<area shape="poly" title=" " alt="" coords="320,405,369,460,404,491,444,517,481,531,479,536,441,522,401,496,365,464,316,409"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a46a73d42b9c999a1298cff940f216cb7" title="Fees a node contents." alt="" coords="489,581,669,607"/>
+<area shape="poly" title=" " alt="" coords="317,405,334,439,361,483,398,529,420,549,444,566,477,581,475,586,441,571,417,553,395,532,357,486,329,441,312,408"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a1a4a23a8c694f26c59c2f1b24fef612d" title="Get the next node." alt="" coords="502,631,657,656"/>
+<area shape="poly" title=" " alt="" coords="315,406,329,447,355,505,393,566,417,593,444,616,466,627,490,635,488,640,464,632,441,620,413,597,389,569,350,508,324,449,310,408"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a79e10a91f0ba4407a806dd423aab4b09" title="Processes the attribute name." alt="" coords="472,680,687,705"/>
+<area shape="poly" title=" " alt="" coords="317,406,380,549,418,625,445,665,461,675,458,680,441,669,414,628,376,551,312,408"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a1813b68205f22276bcff2d467d0c1101" title="Processes element name." alt="" coords="473,483,685,508"/>
+<area shape="poly" title=" " alt="" coords="331,404,381,433,444,461,498,477,496,482,442,466,379,437,328,409"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ab0e298ea8ea9c5391ee2f5a058106215" title="Skip prolog." alt="" coords="511,729,648,755"/>
+<area shape="poly" title=" " alt="" coords="317,406,397,592,408,629,413,660,421,688,444,715,469,729,498,738,496,743,467,734,441,719,417,690,407,662,403,630,392,594,312,408"/>
+<area shape="poly" title=" " alt="" coords="704,280,782,273,783,278,704,285"/>
+<area shape="poly" title=" " alt="" coords="947,265,1024,265,1024,270,947,270"/>
+<area shape="poly" title=" " alt="" coords="694,328,830,311,978,289,1025,280,1026,285,979,294,831,316,695,333"/>
+<area shape="poly" title=" " alt="" coords="662,353,801,375,800,380,661,359"/>
+<area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#ac6b93b1d3ddf30aee16914d08facaac2" title="Version of strdup() that handles NULL input." alt="" coords="822,705,921,731"/>
+<area shape="poly" title=" " alt="" coords="657,652,717,665,824,698,823,703,715,670,656,658"/>
+<area shape="poly" title=" " alt="" coords="685,483,771,476,771,481,686,489"/>
+<area shape="poly" title=" " alt="" coords="318,629,335,660,363,698,400,736,421,752,444,765,495,782,548,789,602,789,656,783,754,760,829,733,830,739,755,765,656,788,602,794,547,794,493,787,442,770,418,757,396,740,359,701,331,663,313,632"/>
 </map>
 </div>
 <div id="dynsection-83" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -4513,7 +4522,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02503">2503</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02540">2540</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-84" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-84-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-84-summary" class="dynsummary" style="display:block;">
@@ -4557,7 +4566,7 @@ h</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02533">2533</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l02570">2570</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 <div id="dynsection-85" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-85-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-85-summary" class="dynsummary" style="display:block;">
@@ -4635,7 +4644,7 @@ h</td>
 <p>The letter table contains all characters in XML 1.0 plus ":", "_" and ideographic. </p>
 <p>This table contains all the characters that an element name can start with. See XML 1.0 (2nd Edition) for more details. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00094">94</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00096">96</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 
 </div>
 </div>
@@ -4662,7 +4671,7 @@ h</td>
 <p>The NameChar table contains CombiningChar, Extender, Digit, '-', '.', less '_', ':'. </p>
 <p>NameChar ::= Digit | '-' | '.' | CombiningChar | Extender See XML 1.0 2nd Edition </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00180">180</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html#l00182">182</a> of file <a class="el" href="../../da/dff/ixmlparser_8cpp_source.html">ixmlparser.cpp</a>.</p>
 
 </div>
 </div>
