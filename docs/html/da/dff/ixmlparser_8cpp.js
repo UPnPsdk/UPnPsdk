@@ -52,7 +52,7 @@ var ixmlparser_8cpp =
     [ "Parser_parseDocument", "da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542", null ],
     [ "Parser_isValidXmlName", "da/dff/ixmlparser_8cpp.html#af0419a66f2b26861503511911a51ebd9", null ],
     [ "Parser_setErrorChar", "da/dff/ixmlparser_8cpp.html#ade0a69e1e3017eb35e6fa7d7604a1398", null ],
-    [ "Parser_init", "da/dff/ixmlparser_8cpp.html#a0eacdafa9ca9fe872b050cac5b22ad1f", null ],
+    [ "Parser_init", "da/dff/ixmlparser_8cpp.html#af15dec48867e88a41bd7dbc3761282cd", null ],
     [ "Parser_readFileOrBuffer", "da/dff/ixmlparser_8cpp.html#a7a855e5df115b73a3f4555dc066e5dcc", null ],
     [ "Parser_LoadDocument", "da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49", null ],
     [ "Parser_freeNodeContent", "da/dff/ixmlparser_8cpp.html#a46a73d42b9c999a1298cff940f216cb7", null ],

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-29
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,6 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last compare with ./Pupnp source file on 2025-07-16, ver 1.14.21
 /*!
  * \file
  * \brief Manage GENA Devices
@@ -117,16 +118,18 @@ int GeneratePropertySet(
  */
 void free_notify_struct(
     /*! [in] Notify structure. */
-    notify_thread_struct* input) {
-    (*input->reference_count)--;
-    if (*input->reference_count == 0) {
-        free(input->headers);
-        ixmlFreeDOMString(input->propertySet);
-        free(input->servId);
-        free(input->UDN);
-        free(input->reference_count);
+    void* input) {
+    notify_thread_struct* p = (notify_thread_struct*)input;
+
+    (*p->reference_count)--;
+    if (*p->reference_count == 0) {
+        free(p->headers);
+        ixmlFreeDOMString(p->propertySet);
+        free(p->servId);
+        free(p->UDN);
+        free(p->reference_count);
     }
-    free(input);
+    free(p);
 }
 
 /*!
@@ -557,6 +560,7 @@ ExitFunction:
 void maybeDiscardEvents(LinkedList* listp) {
     time_t now = time(0L);
     notify_thread_struct* ntsp;
+    ThreadPoolJob* p;
 
     while (ListSize(listp) > 1) {
         ListNode* node = ListHead(listp);
@@ -568,7 +572,8 @@ void maybeDiscardEvents(LinkedList* listp) {
             break;
         }
 
-        ntsp = (notify_thread_struct*)(((ThreadPoolJob*)node->item)->arg);
+        p = (ThreadPoolJob*)node->item;
+        ntsp = (notify_thread_struct*)(p->arg);
         if (ListSize(listp) > g_UpnpSdkEQMaxLen ||
             now - ntsp->ctime > g_UpnpSdkEQMaxAge) {
             free_notify_struct(ntsp);

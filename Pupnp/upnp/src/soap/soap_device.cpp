@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-26
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
+// Last compare with pupnp original source file on 2025-07-17, ver 1.14.21
 /*!
  * \file
  */
@@ -50,7 +50,6 @@
 #include "statcodes.hpp"
 #include "unixutil.hpp"
 #include "upnpapi.hpp"
-// #include "UpnpStateVarRequest.hpp"
 
 #include <assert.h>
 #include <string.h>
@@ -450,7 +449,7 @@ static int get_dev_service(
     save_char = control_url[request->uri.pathquery.size];
     ((char*)control_url)[request->uri.pathquery.size] = '\0';
 
-    HandleReadLock();
+    HandleReadLock(__FILE__, __LINE__);
 
     if (GetDeviceHandleInfoForPath(control_url, AddressFamily, &device_hnd,
                                    &device_info, &serv_info) != HND_DEVICE)
@@ -468,7 +467,7 @@ static int get_dev_service(
 error_handler:
     /* restore */
     ((char*)control_url)[request->uri.pathquery.size] = save_char;
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
     return ret_code;
 }
 

@@ -108,9 +108,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ab42270564152589e9dbbb90d6a5c0e01" id="r_ab42270564152589e9dbbb90d6a5c0e01"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ab42270564152589e9dbbb90d6a5c0e01">GeneratePropertySet</a> (char **names, char **values, int count, <a class="el" href="../../da/d8a/group__XMLAPI.html#ga4d657664f7d193b40a875c8919c54d41">DOMString</a> *out)</td></tr>
 <tr class="memdesc:ab42270564152589e9dbbb90d6a5c0e01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates XML property set for notifications.  <br /></td></tr>
 <tr class="separator:ab42270564152589e9dbbb90d6a5c0e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0ca4bdec01c3edef6b166d0641c9038" id="r_ae0ca4bdec01c3edef6b166d0641c9038"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038">free_notify_struct</a> (<a class="el" href="../../d9/dd2/gena_8hpp.html#a05d519a30da1d0bef9ff4b9239f5f631">notify_thread_struct</a> *input)</td></tr>
-<tr class="memdesc:ae0ca4bdec01c3edef6b166d0641c9038"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence count.  <br /></td></tr>
-<tr class="separator:ae0ca4bdec01c3edef6b166d0641c9038"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acef596348f5bcfe4aa9324472aec8eaa" id="r_acef596348f5bcfe4aa9324472aec8eaa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#acef596348f5bcfe4aa9324472aec8eaa">free_notify_struct</a> (void *input)</td></tr>
+<tr class="memdesc:acef596348f5bcfe4aa9324472aec8eaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence count.  <br /></td></tr>
+<tr class="separator:acef596348f5bcfe4aa9324472aec8eaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accfccdddeb1a43ab948147ff6178bad9" id="r_accfccdddeb1a43ab948147ff6178bad9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9">notify_send_and_recv</a> (<a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *destination_url, <a class="el" href="../../d1/d10/membuffer_8hpp.html#d8/d52/structmembuffer">membuffer</a> *mid_msg, char *propertySet, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t">http_parser_t</a> *response)</td></tr>
 <tr class="memdesc:accfccdddeb1a43ab948147ff6178bad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends the notify message and returns a reply.  <br /></td></tr>
 <tr class="separator:accfccdddeb1a43ab948147ff6178bad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,7 +191,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00069">69</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00070">70</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -225,8 +225,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae0ca4bdec01c3edef6b166d0641c9038" name="ae0ca4bdec01c3edef6b166d0641c9038"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0ca4bdec01c3edef6b166d0641c9038">&#9670;&#160;</a></span>free_notify_struct()</h2>
+<a id="acef596348f5bcfe4aa9324472aec8eaa" name="acef596348f5bcfe4aa9324472aec8eaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acef596348f5bcfe4aa9324472aec8eaa">&#9670;&#160;</a></span>free_notify_struct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,7 +234,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void anonymous_namespace{gena_device.cpp}::free_notify_struct </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d9/dd2/gena_8hpp.html#a05d519a30da1d0bef9ff4b9239f5f631">notify_thread_struct</a> *&#160;</td>
+          <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>input</em></td><td>)</td>
           <td></td>
         </tr>
@@ -249,14 +249,14 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00118">118</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00119">119</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_ae0ca4bdec01c3edef6b166d0641c9038_cgraph.png" border="0" usemap="#ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_ae0ca4bdec01c3edef6b166d0641c9038_cgraph" alt=""/></div>
-<map name="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_ae0ca4bdec01c3edef6b166d0641c9038_cgraph" id="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_ae0ca4bdec01c3edef6b166d0641c9038_cgraph">
+<div class="center"><img src="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_acef596348f5bcfe4aa9324472aec8eaa_cgraph.png" border="0" usemap="#ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_acef596348f5bcfe4aa9324472aec8eaa_cgraph" alt=""/></div>
+<map name="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_acef596348f5bcfe4aa9324472aec8eaa_cgraph" id="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_acef596348f5bcfe4aa9324472aec8eaa_cgraph">
 <area shape="rect" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="5,5,185,60"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaa662950ddd8f831a257581bdde7e5b9f" title="Frees a DOMString." alt="" coords="233,20,383,45"/>
 <area shape="poly" title=" " alt="" coords="186,30,219,30,219,35,186,35"/>
@@ -267,8 +267,8 @@ Functions</h2></td></tr>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_ae0ca4bdec01c3edef6b166d0641c9038_icgraph.png" border="0" usemap="#ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_ae0ca4bdec01c3edef6b166d0641c9038_icgraph" alt=""/></div>
-<map name="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_ae0ca4bdec01c3edef6b166d0641c9038_icgraph" id="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_ae0ca4bdec01c3edef6b166d0641c9038_icgraph">
+<div class="center"><img src="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_acef596348f5bcfe4aa9324472aec8eaa_icgraph.png" border="0" usemap="#ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_acef596348f5bcfe4aa9324472aec8eaa_icgraph" alt=""/></div>
+<map name="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_acef596348f5bcfe4aa9324472aec8eaa_icgraph" id="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_acef596348f5bcfe4aa9324472aec8eaa_icgraph">
 <area shape="rect" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="960,92,1140,147"/>
 <area shape="rect" href="../../dd/de6/gena__device_8cpp.html#a1503915b6cd3d0ea5adc7b5493b589ab" title="???" alt="" coords="689,56,912,82"/>
 <area shape="poly" title=" " alt="" coords="946,101,863,84,864,79,947,96"/>
@@ -350,7 +350,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00139">139</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00142">142</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -499,7 +499,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00218">218</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00221">221</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -612,7 +612,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00276">276</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00279">279</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -625,7 +625,7 @@ Functions</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="101,292,117,243,143,182,181,119,205,90,232,65,240,59,243,64,235,69,209,94,185,122,148,184,122,245,106,294"/>
 <area shape="rect" href="../../dd/d10/service__table_8cpp.html#afbb9a4afaea14ff88b92961701f5d0d1" title="Traverses through the service table to find a service." alt="" coords="269,80,378,105"/>
 <area shape="poly" title=" " alt="" coords="107,292,126,254,154,209,189,163,232,123,256,108,259,113,235,127,193,166,158,212,131,257,111,294"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="1215,151,1395,205"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#acef596348f5bcfe4aa9324472aec8eaa" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="1215,151,1395,205"/>
 <area shape="poly" title=" " alt="" coords="118,291,167,242,198,218,232,198,324,161,400,144,479,140,579,141,823,141,1025,148,1201,164,1201,169,1025,154,823,146,579,146,479,146,401,150,326,166,235,203,201,223,170,246,122,295"/>
 <area shape="rect" href="../../dd/d10/service__table_8cpp.html#a749aa5278c90b85e8af8c5eb80f65564" title="Free&#39;s the memory allocated for storing the URL of the subscription." alt="" coords="758,283,886,308"/>
 <area shape="poly" title=" " alt="" coords="156,291,193,277,233,267,363,249,466,246,569,253,700,267,759,277,758,282,700,273,569,258,466,251,364,254,234,273,195,282,157,296"/>
@@ -742,7 +742,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00369">369</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00372">372</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -830,7 +830,7 @@ Functions</h2></td></tr>
 
 <p>We take ownership of propertySet and will free it. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00404">404</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00407">407</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -845,7 +845,7 @@ Functions</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="97,672,111,554,138,391,156,308,178,232,203,170,217,146,232,128,250,115,277,104,346,87,423,74,492,67,493,72,423,80,347,92,279,109,253,120,235,132,221,149,207,172,183,234,161,309,143,392,116,555,102,672"/>
 <area shape="rect" href="../../dd/d10/service__table_8cpp.html#afbb9a4afaea14ff88b92961701f5d0d1" title="Traverses through the service table to find a service." alt="" coords="497,265,606,291"/>
 <area shape="poly" title=" " alt="" coords="108,671,158,583,192,532,231,483,287,422,335,377,388,339,460,300,483,290,485,295,462,304,390,344,338,381,291,425,235,486,197,535,162,586,113,673"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="461,187,641,241"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#acef596348f5bcfe4aa9324472aec8eaa" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="461,187,641,241"/>
 <area shape="poly" title=" " alt="" coords="100,671,116,614,142,540,180,460,204,422,231,387,282,340,339,300,398,269,454,244,456,249,401,273,342,305,285,344,235,390,208,425,185,463,147,542,121,616,105,672"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaa662950ddd8f831a257581bdde7e5b9f" title="Frees a DOMString." alt="" coords="689,169,839,195"/>
 <area shape="poly" title=" " alt="" coords="97,671,109,602,133,507,150,455,172,403,199,354,231,308,283,253,331,217,387,193,461,171,511,162,550,162,642,171,676,173,675,178,641,177,550,168,511,167,462,177,389,198,334,222,286,257,235,312,204,357,177,406,155,457,138,508,114,603,102,672"/>
@@ -932,7 +932,7 @@ Functions</h2></td></tr>
 <li>We also discard any non-active event older than MAX_SUBSCRIPTION_EVENT_AGE. non-active: any but the head of queue, which is already copied to the thread pool </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00557">557</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00560">560</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -941,7 +941,7 @@ Functions</h2></td></tr>
 <div class="center"><img src="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_a74609494846be8d91321eafb29dc55eb_cgraph.png" border="0" usemap="#ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_a74609494846be8d91321eafb29dc55eb_cgraph" alt=""/></div>
 <map name="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_a74609494846be8d91321eafb29dc55eb_cgraph" id="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_a74609494846be8d91321eafb29dc55eb_cgraph">
 <area shape="rect" title="This gets called before queuing a new event." alt="" coords="5,95,185,149"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="233,5,413,60"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#acef596348f5bcfe4aa9324472aec8eaa" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="233,5,413,60"/>
 <area shape="poly" title=" " alt="" coords="165,92,239,63,241,68,167,97"/>
 <area shape="rect" href="../../df/db8/LinkedList_8cpp.html#a751d0c613a5c8d83b2675c5f4261e2d7" title="Removes a node from the list. The memory for the node is freed." alt="" coords="273,84,374,109"/>
 <area shape="poly" title=" " alt="" coords="185,109,259,101,259,106,186,115"/>
@@ -1014,7 +1014,7 @@ Functions</h2></td></tr>
 
 <p>We take ownership of propertySet and will free it. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00586">586</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00591">591</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1029,7 +1029,7 @@ Functions</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="97,507,112,402,140,260,158,189,179,125,204,73,217,54,232,40,264,21,299,9,336,4,374,3,445,13,505,29,504,34,444,18,373,9,336,9,300,14,266,26,235,44,221,57,208,76,184,127,163,190,145,261,118,403,103,508"/>
 <area shape="rect" href="../../dd/d10/service__table_8cpp.html#afbb9a4afaea14ff88b92961701f5d0d1" title="Traverses through the service table to find a service." alt="" coords="497,185,606,210"/>
 <area shape="poly" title=" " alt="" coords="100,507,115,455,140,390,179,323,203,292,232,266,261,247,292,231,359,210,424,198,483,194,483,199,425,204,360,215,294,236,263,252,235,271,207,296,183,326,145,392,120,457,105,508"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="461,234,641,289"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#acef596348f5bcfe4aa9324472aec8eaa" title="Frees memory used in notify_threads if the reference count is 0, otherwise decrements the refrence co..." alt="" coords="461,234,641,289"/>
 <area shape="poly" title=" " alt="" coords="103,507,120,463,146,409,184,356,206,332,232,312,283,285,339,268,395,259,448,255,448,260,396,264,340,273,285,290,235,316,210,336,188,359,151,412,125,465,108,509"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaa662950ddd8f831a257581bdde7e5b9f" title="Frees a DOMString." alt="" coords="689,192,839,217"/>
 <area shape="poly" title=" " alt="" coords="97,507,109,446,132,367,150,325,172,285,199,248,232,216,259,196,289,180,352,158,419,148,487,146,553,151,615,161,713,185,712,190,613,166,552,156,487,151,420,153,354,163,291,185,262,201,235,220,203,251,177,288,155,327,137,369,114,447,103,508"/>
@@ -1155,7 +1155,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00732">732</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00737">737</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -1246,7 +1246,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00802">802</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00807">807</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
 <div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-20-summary" class="dynsummary" style="display:block;">

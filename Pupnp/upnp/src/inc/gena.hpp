@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-07-05
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-20
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,6 +30,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last update from pupnp original source file on 2025-07-17, ver 1.14.21
 
 #ifndef UPNPLIB_GENA_HPP
 #define UPNPLIB_GENA_HPP
@@ -40,18 +41,13 @@
 
 #include "config.hpp"
 
-#include <string.h>
-#include <time.h>
+// #include <time.h>
 
+// #include "UpnpString.hpp"
 #include "client_table.hpp"
 #include "httpparser.hpp"
-// #include "miniserver.hpp"
-#include "service_table.hpp"
 #include "sock.hpp"
-#include "ThreadPool.hpp"
-#include "upnp.hpp"
-#include "UpnpString.hpp"
-#include "uri.hpp"
+// #include "upnp.hpp"
 
 /*!
  * \brief XML version comment. Not used because it is not interopeable with
@@ -100,7 +96,7 @@
 #define SubscribeLock()                                                        \
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, "Trying Subscribe Lock");  \
     ithread_mutex_lock(&GlobalClientSubscribeMutex);                           \
-    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, "Subscribe Lock");
+    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, "Subscribe Lock")
 
 /*!
  * \brief Unlocks the subscription.
@@ -109,7 +105,7 @@
     UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__,                            \
                "Trying Subscribe UnLock");                                     \
     ithread_mutex_unlock(&GlobalClientSubscribeMutex);                         \
-    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, "Subscribe UnLock");
+    UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, "Subscribe UnLock")
 
 /*!
  * Structure to send NOTIFY message to all subscribed control points

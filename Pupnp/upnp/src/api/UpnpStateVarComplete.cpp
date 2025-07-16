@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2022-02-19
+// Redistribution only with this Copyright remark. Last modified: 2025-07-19
 
 /*!
  * \file
@@ -10,7 +10,7 @@
 #include "config.hpp"
 
 #include <stdlib.h> /* for calloc(), free() */
-#include <string.h> /* for strlen(), strdup() */
+#include <string.h> /* for strlen(), strdup(), memset() */
 
 #include "UpnpStateVarComplete.hpp"
 
@@ -21,7 +21,7 @@ struct s_UpnpStateVarComplete {
     DOMString m_CurrentVal;
 };
 
-UpnpStateVarComplete* UpnpStateVarComplete_new() {
+UpnpStateVarComplete* UpnpStateVarComplete_new(void) {
     struct s_UpnpStateVarComplete* p = (s_UpnpStateVarComplete*)calloc(
         1, sizeof(struct s_UpnpStateVarComplete));
 

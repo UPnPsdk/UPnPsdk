@@ -4,7 +4,7 @@
  * Digital Equipment Corporation, Maynard, Mass.
  * Copyright (c) 1998 Microsoft.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2023-07-08
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-18
  * To anyone who acknowledges that this file is provided "AS IS"
  * without any express or implied warranty: permission to use, copy,
  * modify, and distribute this file for any purpose is hereby
@@ -18,7 +18,7 @@
  * Corporation makes any representations about the suitability of
  * this software for any purpose.
  */
-// Last compare with pupnp original source file on 2023-07-08, ver 1.14.17
+// Last compare with pupnp original source file on 2025-07-18, ver 1.14.21
 
 /*!
  * \file
@@ -52,7 +52,7 @@ void get_ieee_node_identifier(uuid_node_t* node) {
         seed[0] |= 0x80;
         memcpy(&saved_node, seed, sizeof(uuid_node_t));
         inited = 1;
-    };
+    }
     *node = saved_node;
 }
 
@@ -91,7 +91,7 @@ void get_random_info(unsigned char seed[16]) {
     }
 };
 
-#else  /* _WIN32 */
+#else /* _WIN32 */
 
 void get_system_time(uuid_time_t* uuid_time) {
     struct timeval tp;
@@ -104,12 +104,14 @@ void get_system_time(uuid_time_t* uuid_time) {
                  (uuid_time_t)tp.tv_usec * 10 + 0x01B21DD213814000L;
 }
 
+#define HOSTNAME_LENGTH 255
+
 void get_random_info(unsigned char seed[16]) {
     MD5_CTX c;
     typedef struct {
         /*struct sysinfo s; */
         struct timeval t;
-        char hostname[257];
+        char hostname[HOSTNAME_LENGTH + 1];
     } randomness;
     randomness r;
 
@@ -118,7 +120,7 @@ void get_random_info(unsigned char seed[16]) {
 
     /* Get some random stuff. */
     gettimeofday(&r.t, (struct timezone*)0);
-    gethostname(r.hostname, 256);
+    gethostname(r.hostname, HOSTNAME_LENGTH);
 
     /* MD5 it */
     MD5Init(&c);

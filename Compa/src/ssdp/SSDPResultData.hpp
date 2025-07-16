@@ -4,6 +4,8 @@
 #define COMPA_SSDPRESULTDATA_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2025-06-12
+// Last compare with ./Pupnp source file on 2025-07-18, ver 1.14.21
+
 /*!
  * \file
  * \brief Header file for SSDPResultData methods.

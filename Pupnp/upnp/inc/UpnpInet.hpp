@@ -1,7 +1,7 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-01
+// Redistribution only with this Copyright remark. Last modified: 2025-07-17
 // Taken from authors who haven't made a note.
-// Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
+// Last update from pupnp original source file on 2025-07-17, ver 1.14.21
 
 #ifndef PUPNP_UPNPINET_HPP
 #define PUPNP_UPNPINET_HPP
@@ -17,7 +17,7 @@
  * functions.
  */
 
-#include "UpnpUniStd.hpp" /* for close() */
+#include "UpnpUniStd.hpp" /* for close() */ // IWYU pragma: keep
 #include "umock/unistd.hpp"
 
 #ifdef _WIN32

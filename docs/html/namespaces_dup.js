@@ -1,7 +1,7 @@
 var namespaces_dup =
 [
     [ "anonymous_namespace{gena_ctrlpt.cpp}", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html", [
-      [ "free_subscribe_arg", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6e5186d8db02472afdfc99808723b754", null ],
+      [ "free_subscribe_arg", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a785cb0f59496ddca737c8376fc5019dd", null ],
       [ "GenaAutoRenewSubscription", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a6d433d434965ae0ed59a09f3c38bf03a", null ],
       [ "ScheduleGenaAutoRenew", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a997a87554e5a4d733d3cc13bcb1c1dd8", null ],
       [ "gena_unsubscribe", "d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#af298d2d7e5a94605b0b284718e20cdc9", null ],
@@ -10,7 +10,7 @@ var namespaces_dup =
     ] ],
     [ "anonymous_namespace{gena_device.cpp}", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html", [
       [ "GeneratePropertySet", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ab42270564152589e9dbbb90d6a5c0e01", null ],
-      [ "free_notify_struct", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae0ca4bdec01c3edef6b166d0641c9038", null ],
+      [ "free_notify_struct", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#acef596348f5bcfe4aa9324472aec8eaa", null ],
       [ "notify_send_and_recv", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9", null ],
       [ "genaNotify", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a951778f34697a8cc0a0e9dd7da2b66ca", null ],
       [ "genaNotifyThread", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ae2ea03f611c00f8ca5691e59f7e988c6", null ],

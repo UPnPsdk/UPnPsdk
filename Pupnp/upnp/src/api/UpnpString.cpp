@@ -1,7 +1,7 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-06-30
+// Redistribution only with this Copyright remark. Last modified: 2025-07-16
 // Also Copyright by other contributor who haven't made a note.
-// Last compare with pupnp original source file on 2023-04-26, ver 1.14.15
+// Last updated from pupnp original source file on 2025-07-16, ver 1.14.21
 
 /*!
  * \addtogroup UpnpString
@@ -27,9 +27,9 @@
 #include "umock/stringh.hpp"
 
 // #include <stdlib.h> /* for calloc(), free() */
-#include <string.h> /* for strlen(), strdup() */
+#include <string.h>             /* for strlen(), strdup() */
 
-#include "posix_overwrites.hpp"
+#include "posix_overwrites.hpp" // IWYU pragma: keep
 
 #ifndef UPNP_USE_MSVCPP
 #ifdef UPNP_USE_BCBPP

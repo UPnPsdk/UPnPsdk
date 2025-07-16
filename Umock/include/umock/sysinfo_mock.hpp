@@ -14,7 +14,7 @@ class UPnPsdk_VIS SysinfoMock : public umock::SysinfoInterface {
     SysinfoMock();
     virtual ~SysinfoMock() override;
     DISABLE_MSVC_WARN_4251
-    MOCK_METHOD(time_t, time, (time_t * tloc), (override));
+    MOCK_METHOD(time_t, time, (time_t* tloc), (override));
 #ifndef _WIN32
     MOCK_METHOD(int, uname, (utsname * buf), (override));
 #endif

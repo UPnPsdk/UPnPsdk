@@ -1,22 +1,26 @@
 <map id="Compa/src/ssdp/ssdp_common.cpp" name="Compa/src/ssdp/ssdp_common.cpp">
-<area shape="rect" id="Node000001" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for common SSDP usage." alt="" coords="355,5,513,45"/>
-<area shape="rect" id="Node000002" href="$da/db2/ssdp__ctrlpt_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="5,93,127,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="355,46,133,93,132,88,354,41"/>
-<area shape="rect" id="Node000025" href="$da/df5/ssdp__device_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="151,93,282,119"/>
-<area shape="poly" id="edge3_Node000001_Node000025" title=" " alt="" coords="383,48,262,91,261,86,381,43"/>
-<area shape="rect" id="Node000026" href="$d3/da9/upnpapi_8hpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="307,93,409,119"/>
-<area shape="poly" id="edge5_Node000001_Node000026" title=" " alt="" coords="418,47,381,85,377,81,414,44"/>
-<area shape="rect" id="Node000023" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="433,93,587,119"/>
-<area shape="poly" id="edge8_Node000001_Node000023" title=" " alt="" coords="454,44,491,81,487,85,450,47"/>
-<area shape="rect" id="Node000036" title=" " alt="" coords="611,93,780,119"/>
-<area shape="poly" id="edge9_Node000001_Node000036" title=" " alt="" coords="497,43,645,87,643,92,496,48"/>
-<area shape="rect" id="Node000037" title=" " alt="" coords="804,93,963,119"/>
-<area shape="poly" id="edge10_Node000001_Node000037" title=" " alt="" coords="514,38,805,88,804,94,513,43"/>
-<area shape="rect" id="Node000003" href="$d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="63,167,207,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,117,117,155,113,159,76,121"/>
-<area shape="poly" id="edge4_Node000025_Node000003" title=" " alt="" coords="205,121,161,160,157,156,202,117"/>
-<area shape="rect" id="Node000027" href="$d6/d92/VirtualDir_8hpp.html" title="Provide the Virtual Directory Callbacks structure." alt="" coords="267,167,377,192"/>
-<area shape="poly" id="edge6_Node000026_Node000027" title=" " alt="" coords="354,120,336,156,332,153,350,118"/>
-<area shape="rect" id="Node000028" href="$d9/d78/client__table_8hpp.html" title=" " alt="" coords="401,167,528,192"/>
-<area shape="poly" id="edge7_Node000026_Node000028" title=" " alt="" coords="377,116,437,157,434,161,374,121"/>
+<area shape="rect" id="Node000001" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for common SSDP usage." alt="" coords="458,5,617,45"/>
+<area shape="rect" id="Node000002" href="$da/db2/ssdp__ctrlpt_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="69,93,190,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="458,45,203,93,202,88,457,39"/>
+<area shape="rect" id="Node000025" href="$da/df5/ssdp__device_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="241,93,372,119"/>
+<area shape="poly" id="edge3_Node000001_Node000025" title=" " alt="" coords="483,48,354,91,353,86,481,43"/>
+<area shape="rect" id="Node000026" href="$d3/da9/upnpapi_8hpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="410,93,513,119"/>
+<area shape="poly" id="edge5_Node000001_Node000026" title=" " alt="" coords="521,47,484,85,480,81,517,44"/>
+<area shape="rect" id="Node000023" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="537,93,690,119"/>
+<area shape="poly" id="edge10_Node000001_Node000023" title=" " alt="" coords="558,44,594,81,590,85,554,47"/>
+<area shape="rect" id="Node000035" title=" " alt="" coords="714,93,883,119"/>
+<area shape="poly" id="edge11_Node000001_Node000035" title=" " alt="" coords="601,43,748,87,747,92,599,48"/>
+<area shape="rect" id="Node000036" title=" " alt="" coords="907,93,1066,119"/>
+<area shape="poly" id="edge12_Node000001_Node000036" title=" " alt="" coords="618,38,908,88,907,94,617,43"/>
+<area shape="rect" id="Node000003" href="$d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="5,167,149,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,121,96,157,92,154,119,117"/>
+<area shape="poly" id="edge4_Node000025_Node000003" title=" " alt="" coords="271,121,129,165,127,160,269,116"/>
+<area shape="rect" id="Node000027" href="$d2/dad/GenlibClientSubscription_8hpp.html" title="Header file for GenlibClientSubscription methods." alt="" coords="173,167,384,192"/>
+<area shape="poly" id="edge6_Node000026_Node000027" title=" " alt="" coords="433,121,322,164,320,159,431,116"/>
+<area shape="rect" id="Node000029" href="$d0/d87/TimerThread_8hpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="408,167,541,192"/>
+<area shape="poly" id="edge7_Node000026_Node000029" title=" " alt="" coords="466,119,473,153,467,154,461,119"/>
+<area shape="rect" id="Node000031" href="$d6/d92/VirtualDir_8hpp.html" title="Provide the Virtual Directory Callbacks structure." alt="" coords="566,167,677,192"/>
+<area shape="poly" id="edge8_Node000026_Node000031" title=" " alt="" coords="488,116,584,159,582,163,486,121"/>
+<area shape="rect" id="Node000032" href="$db/d74/service__table_8hpp.html" title="Manage the UPnP Services of a UPnP Device if available." alt="" coords="701,167,838,192"/>
+<area shape="poly" id="edge9_Node000026_Node000032" title=" " alt="" coords="511,116,707,161,706,166,510,121"/>
 </map>

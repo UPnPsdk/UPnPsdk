@@ -4,7 +4,7 @@ var gena__ctrlpt_8cpp =
       [ "advertise", "d6/de3/gena__ctrlpt_8cpp.html#a54512c6b710ba150145bb4cf31ee3c68", null ],
       [ "action", "d6/de3/gena__ctrlpt_8cpp.html#a1ad4362363dce08abc2975659be12b4c", null ]
     ] ],
-    [ "free_subscribe_arg", "d6/de3/gena__ctrlpt_8cpp.html#a6e5186d8db02472afdfc99808723b754", null ],
+    [ "free_subscribe_arg", "d6/de3/gena__ctrlpt_8cpp.html#a785cb0f59496ddca737c8376fc5019dd", null ],
     [ "GenaAutoRenewSubscription", "d6/de3/gena__ctrlpt_8cpp.html#a6d433d434965ae0ed59a09f3c38bf03a", null ],
     [ "ScheduleGenaAutoRenew", "d6/de3/gena__ctrlpt_8cpp.html#a997a87554e5a4d733d3cc13bcb1c1dd8", null ],
     [ "gena_unsubscribe", "d6/de3/gena__ctrlpt_8cpp.html#af298d2d7e5a94605b0b284718e20cdc9", null ],

@@ -1,34 +1,38 @@
 <map id="Compa/src/genlib/miniserver/miniserver.cpp" name="Compa/src/genlib/miniserver/miniserver.cpp">
-<area shape="rect" id="Node000001" title="Implements the functionality and utility functions used by the Miniserver module." alt="" coords="524,5,733,45"/>
+<area shape="rect" id="Node000001" title="Implements the functionality and utility functions used by the Miniserver module." alt="" coords="639,5,848,45"/>
 <area shape="rect" id="Node000002" href="$d3/d8b/miniserver_8hpp.html" title="Manage &quot;Step 0: Addressing&quot; of the UPnP+™ specification." alt="" coords="127,167,245,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="524,35,399,44,266,57,155,74,118,85,99,95,94,104,93,112,103,129,122,145,147,158,144,163,119,149,98,132,88,113,89,102,95,91,116,80,154,69,265,52,399,39,524,30"/>
-<area shape="rect" id="Node000023" title=" " alt="" coords="109,93,247,119"/>
-<area shape="poly" id="edge5_Node000001_Node000023" title=" " alt="" coords="524,47,258,94,257,88,523,42"/>
-<area shape="rect" id="Node000024" href="$d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="271,93,415,119"/>
-<area shape="poly" id="edge6_Node000001_Node000024" title=" " alt="" coords="561,48,399,92,397,87,560,43"/>
-<area shape="rect" id="Node000025" href="$d9/df0/statcodes_8hpp.html" title="HTTP status codes." alt="" coords="440,93,553,119"/>
-<area shape="poly" id="edge8_Node000001_Node000025" title=" " alt="" coords="598,48,530,88,527,84,596,43"/>
-<area shape="rect" id="Node000026" href="$d3/da9/upnpapi_8hpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="577,93,680,119"/>
-<area shape="poly" id="edge10_Node000001_Node000026" title=" " alt="" coords="631,46,631,79,626,79,626,46"/>
-<area shape="rect" id="Node000036" title=" " alt="" coords="704,93,873,119"/>
-<area shape="poly" id="edge13_Node000001_Node000036" title=" " alt="" coords="668,43,754,85,752,90,666,48"/>
-<area shape="rect" id="Node000037" title=" " alt="" coords="897,93,1032,119"/>
-<area shape="poly" id="edge14_Node000001_Node000037" title=" " alt="" coords="710,43,903,88,902,93,709,48"/>
-<area shape="rect" id="Node000038" title=" " alt="" coords="1056,93,1271,119"/>
-<area shape="poly" id="edge15_Node000001_Node000038" title=" " alt="" coords="734,39,1072,89,1072,94,733,45"/>
-<area shape="rect" id="Node000039" title=" " alt="" coords="1295,93,1469,119"/>
-<area shape="poly" id="edge16_Node000001_Node000039" title=" " alt="" coords="734,34,1281,90,1280,96,733,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="638,29,523,33,397,44,338,52,286,63,243,78,213,95,203,108,196,122,189,153,184,152,191,120,198,105,210,91,241,73,285,58,337,47,397,38,523,28,638,24"/>
+<area shape="rect" id="Node000023" title=" " alt="" coords="223,93,362,119"/>
+<area shape="poly" id="edge5_Node000001_Node000023" title=" " alt="" coords="639,47,373,94,372,88,638,42"/>
+<area shape="rect" id="Node000024" href="$d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="386,93,530,119"/>
+<area shape="poly" id="edge6_Node000001_Node000024" title=" " alt="" coords="676,48,513,92,512,87,674,43"/>
+<area shape="rect" id="Node000025" href="$d9/df0/statcodes_8hpp.html" title="HTTP status codes." alt="" coords="555,93,668,119"/>
+<area shape="poly" id="edge8_Node000001_Node000025" title=" " alt="" coords="713,48,644,88,642,84,710,43"/>
+<area shape="rect" id="Node000026" href="$d3/da9/upnpapi_8hpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="692,93,795,119"/>
+<area shape="poly" id="edge10_Node000001_Node000026" title=" " alt="" coords="746,46,746,79,741,79,741,46"/>
+<area shape="rect" id="Node000035" title=" " alt="" coords="819,93,988,119"/>
+<area shape="poly" id="edge15_Node000001_Node000035" title=" " alt="" coords="783,43,869,85,866,90,780,48"/>
+<area shape="rect" id="Node000036" title=" " alt="" coords="1012,93,1147,119"/>
+<area shape="poly" id="edge16_Node000001_Node000036" title=" " alt="" coords="824,43,1018,88,1016,93,823,48"/>
+<area shape="rect" id="Node000037" title=" " alt="" coords="1171,93,1385,119"/>
+<area shape="poly" id="edge17_Node000001_Node000037" title=" " alt="" coords="849,39,1187,89,1186,94,848,45"/>
+<area shape="rect" id="Node000038" title=" " alt="" coords="1409,93,1584,119"/>
+<area shape="poly" id="edge18_Node000001_Node000038" title=" " alt="" coords="849,34,1395,90,1395,96,848,40"/>
 <area shape="rect" id="Node000003" href="$df/d6f/Compa_2src_2inc_2httpparser_8hpp.html" title="Functions to parse UPnP messages like requests and responses." alt="" coords="5,240,121,265"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="168,194,96,235,94,231,165,190"/>
 <area shape="rect" id="Node000017" href="$d6/df0/sock_8hpp.html" title="Manage network sockets and connections." alt="" coords="146,240,226,265"/>
 <area shape="poly" id="edge3_Node000002_Node000017" title=" " alt="" coords="189,192,189,226,183,226,183,192"/>
 <area shape="rect" id="Node000021" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="251,240,404,265"/>
 <area shape="poly" id="edge4_Node000002_Node000021" title=" " alt="" coords="210,190,293,231,291,236,208,194"/>
-<area shape="poly" id="edge7_Node000024_Node000002" title=" " alt="" coords="319,121,225,163,223,159,317,116"/>
-<area shape="rect" id="Node000007" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="383,167,549,192"/>
-<area shape="poly" id="edge9_Node000025_Node000007" title=" " alt="" coords="494,120,479,155,474,153,489,118"/>
-<area shape="rect" id="Node000027" href="$d6/d92/VirtualDir_8hpp.html" title="Provide the Virtual Directory Callbacks structure." alt="" coords="573,167,684,192"/>
-<area shape="poly" id="edge11_Node000026_Node000027" title=" " alt="" coords="631,119,631,153,626,153,626,119"/>
-<area shape="rect" id="Node000028" href="$d9/d78/client__table_8hpp.html" title=" " alt="" coords="708,167,835,192"/>
-<area shape="poly" id="edge12_Node000026_Node000028" title=" " alt="" coords="653,116,737,158,735,163,650,121"/>
+<area shape="poly" id="edge7_Node000024_Node000002" title=" " alt="" coords="415,121,244,166,242,161,414,116"/>
+<area shape="rect" id="Node000007" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="269,167,434,192"/>
+<area shape="poly" id="edge9_Node000025_Node000007" title=" " alt="" coords="570,121,407,166,406,160,569,116"/>
+<area shape="rect" id="Node000027" href="$d2/dad/GenlibClientSubscription_8hpp.html" title="Header file for GenlibClientSubscription methods." alt="" coords="458,167,669,192"/>
+<area shape="poly" id="edge11_Node000026_Node000027" title=" " alt="" coords="715,121,606,164,604,159,713,116"/>
+<area shape="rect" id="Node000029" href="$d0/d87/TimerThread_8hpp.html" title="Manage threads that start at a given time (for internal use only)." alt="" coords="693,167,826,192"/>
+<area shape="poly" id="edge12_Node000026_Node000029" title=" " alt="" coords="749,118,756,153,751,154,743,120"/>
+<area shape="rect" id="Node000031" href="$d6/d92/VirtualDir_8hpp.html" title="Provide the Virtual Directory Callbacks structure." alt="" coords="851,167,961,192"/>
+<area shape="poly" id="edge13_Node000026_Node000031" title=" " alt="" coords="771,116,868,159,866,163,768,121"/>
+<area shape="rect" id="Node000032" href="$db/d74/service__table_8hpp.html" title="Manage the UPnP Services of a UPnP Device if available." alt="" coords="985,167,1123,192"/>
+<area shape="poly" id="edge14_Node000026_Node000032" title=" " alt="" coords="794,116,991,161,990,166,793,121"/>
 </map>

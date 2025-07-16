@@ -1,0 +1,878 @@
+commit bf9c8f3b9a59cb4234f1b96cc7cd5b798b7be817 (HEAD, tag: release-1.14.21)
+
+git switch branch-1.14.x
+git pull
+git checkout release-1.14.21
+git whatchanged release-1.14.20^..release-1.14.21
+updated files marked with word "updated", "checked", or "deleted" at line end.
+==============================================================================
+
+commit bf9c8f3b9a59cb4234f1b96cc7cd5b798b7be817 (HEAD, tag: release-1.14.21)
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sun Jun 1 19:33:15 2025 -0300
+
+    README.md and ChangeLog
+
+:100644 100644 e56f6728 22bd3ef6 M	ChangeLog
+:100644 100644 8576b5d3 aebd1530 M	README.md
+
+commit f38d1acf431d2e8f647f8f89d97da9bf132e8aec
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri May 30 22:31:27 2025 -0300
+
+    GitHub Actions: fix lint version
+
+:100644 100644 5f9b1f9b 34b5adb9 M	.github/workflows/clang-format.yml
+:100644 100644 4937fa40 70ed1e1c M	upnp/src/api/upnpapi.c updated
+
+commit e9351667949864eba258aefed0cf683d57ef1f59
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri May 30 22:12:44 2025 -0300
+
+    GitHub Actions: windows-2019 image is deprecated
+
+:100644 100644 07ef6727 694d9bbb M	.github/workflows/ccpp.yml
+
+commit 36f6a71467c4dac2685e3323d79afa01cd10fc1b
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri May 30 22:11:56 2025 -0300
+
+    upnpapi.c: Remove unused include
+
+:100644 100644 a0d7839e 4937fa40 M	upnp/src/api/upnpapi.c updated
+
+commit f2c039f9ad104d2b093fa545e9b621956122d783
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu May 1 11:02:30 2025 -0300
+
+    README: Fix the changelog link
+
+:100644 100644 f43c404f 8576b5d3 M	README.md
+
+commit 64632d4fe0a1d4c06efbdae3d1586e5f9b881b51
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Apr 30 23:05:54 2025 -0300
+
+    release.yml: Enable release
+
+:100644 100644 40227718 2d30740d M	.github/workflows/release.yml
+
+commit afc6717c8eb7fb4e0cf585104e42e5ba6713b061
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Apr 30 23:03:50 2025 -0300
+
+    release.yml: Fix spelling
+
+:100644 100644 40f5dee8 40227718 M	.github/workflows/release.yml
+
+commit 6d090ed652ee8227ddfbe6243f6632f3eca046b2
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Apr 30 23:03:06 2025 -0300
+
+    configure.ac: Fix spelling
+
+:100644 100644 4ae8cb03 d8c17d98 M	configure.ac
+
+commit 45f090088dc384fdbb98245e0f64954be328ac56
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Apr 30 22:51:57 2025 -0300
+
+    Finish homekeeping.sh
+
+:000000 100644 00000000 872fae20 A	docs/configure_ac_template.txt
+:100755 100755 5d3eb80f a9e1f164 M	scripts/homekeeping.sh
+
+commit ad1afc541522e927e375de9f60fc06054c5419c7
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Tue Apr 29 10:47:54 2025 -0300
+
+    Reorder releases in configure.ac
+
+:100644 100644 08392139 4ae8cb03 M	configure.ac
+
+commit dba18dbe9921e9d3c7bf4d06b78cfac012b6025f
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sun Apr 27 18:59:04 2025 -0300
+
+    Release action
+
+:000000 100644 00000000 40f5dee8 A	.github/workflows/release.yml
+:000000 100644 00000000 13c632ce A	docs/changelog_template.txt
+:000000 100755 00000000 260b3dde A	scripts/find_out_bz2_name.sh
+:000000 100755 00000000 5d3eb80f A	scripts/homekeeping.sh
+:000000 100755 00000000 731ec456 A	scripts/parse_release.sh
+
+commit 881f91ce95c53efbd8fa5c682b3c1e7174154fa9
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Tue Apr 29 19:19:00 2025 -0300
+
+    ChangeLog: Fix tabs
+
+:100644 100644 02d7e956 e56f6728 M	ChangeLog
+
+commit 8aa624ddda542ae8ce723b1fa28dcb1ba0d856fc
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sun Apr 27 14:39:31 2025 -0300
+
+    ChangeLog update
+
+:100644 100644 bb8c8eec 02d7e956 M	ChangeLog
+
+commit 52cb6b52d2b914ad37eec142bc2eb677a124eda5
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Apr 14 18:38:39 2025 -0300
+
+    ssdp_device.c: Bind SSDP UDP response to 1900
+
+    And check some result values from setsockopts().
+
+:100644 100644 3578a245 a75f1442 M	upnp/src/inc/ssdplib.h updated
+:100644 100644 23db5ab1 42d89409 M	upnp/src/ssdp/ssdp_device.c TODO
+
+commit 770b9d194344a59c4b1a51f8567cba68afeb8876
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sun Apr 13 21:59:31 2025 -0300
+
+    ssdp_device.c: Catch an invalid parameter error
+
+:100644 100644 c8ddf933 23db5ab1 M	upnp/src/ssdp/ssdp_device.c updated
+
+commit 6ffa540a10ce9bb38da8075e14cfe45e2df4d5b1
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Apr 14 20:37:00 2025 -0300
+
+    gtest: Try to make clangd work
+
+:100755 100755 68dfdaad d66f2bd8 M	gtest/tools/compile.sh
+
+commit 98577763e32fc9ac018137eb2f5e5e12dfbfb566
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Apr 14 20:36:11 2025 -0300
+
+    Cut the HandleLock() spam
+
+:100644 100644 50be60f7 676d6eae M	upnp/inc/upnpdebug.h updated
+:100644 100644 950e2246 a0d7839e M	upnp/src/api/upnpapi.c updated
+:100644 100644 b8e0fbe7 40a76f0e M	upnp/src/gena/gena_ctrlpt.c updated
+:100644 100644 e6fc93d1 03f3c84d M	upnp/src/gena/gena_device.c updated
+:100644 100644 37d32d11 232f01f4 M	upnp/src/inc/upnpapi.h updated
+:100644 100644 d1d99c64 e515d06e M	upnp/src/soap/soap_device.c updated
+:100644 100644 c911d82e d6ccf349 M	upnp/src/ssdp/ssdp_ctrlpt.c updated
+:100644 100644 60b37167 c8ddf933 M	upnp/src/ssdp/ssdp_device.c updated
+:100644 100644 8e5e475d d905b22c M	upnp/src/ssdp/ssdp_server.c updated
+
+commit d3c41bf3c6ebaf8268df95fe1d23355b813a745d
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Apr 14 19:29:58 2025 -0300
+
+    upnpapi.c: Cut some spam
+
+:100644 100644 17493102 950e2246 M	upnp/src/api/upnpapi.c updated
+
+commit 18acff60b267636427c917f275ba14a636d3ce49
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Apr 14 19:29:35 2025 -0300
+
+    gena: Fix some printfs
+
+:100644 100644 8095783d b8e0fbe7 M	upnp/src/gena/gena_ctrlpt.c updated
+:100644 100644 f81a97a4 e6fc93d1 M	upnp/src/gena/gena_device.c updated
+
+commit 122751784d5624cd8d7f0aa7ceb015ec31a0f51f
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sun Apr 13 19:28:45 2025 -0300
+
+    gtest: Use pton() instead of deprecated aton()
+
+:100644 100644 e212260f 6e35dec0 M	gtest/tools/tools.cpp
+
+commit b938bda7f839816a6b2fbb44b888f9f1d618f96b
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sun Apr 13 19:28:08 2025 -0300
+
+    gtest: At least C++14 is now required
+
+:100644 100644 8d75c705 45c13c19 M	CMakeLists.txt
+:100755 100755 f4ff2a7e 68dfdaad M	gtest/tools/compile.sh
+
+commit d6920633ee1e4b7d17a15824dcfd456eb9bad011
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Tue Feb 11 17:41:14 2025 -0300
+
+    Workflow: Update to ubuntu-latest
+
+:100644 100644 b2c9e60e 07ef6727 M	.github/workflows/ccpp.yml
+
+commit e3e31929bfefdbae5cda9cd6f3cefe8cb8bdb136
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Feb 8 22:06:56 2025 -0300
+
+    FuzzIxml.c: Fix for GitHub actions
+
+:100644 100644 a8ee3a52 52db036b M	fuzzer/CMakeLists.txt
+:100755 100755 c3384e04 f82bfbc7 M	fuzzer/build.sh
+
+commit a53a8fffe16613436f7531adf4b037194588c042
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Feb 8 21:46:24 2025 -0300
+
+    FuzzIxml: Fix building process, uses one less directory
+
+:100644 100644 810ffaf4 a8ee3a52 M	fuzzer/CMakeLists.txt
+:100755 100755 26d911b5 c3384e04 M	fuzzer/build.sh
+
+commit 07f2171fccf4cd4ca56b9545f9e549efe2bfea13
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Jan 24 22:02:27 2025 -0300
+
+    README: update badges
+
+:100644 100644 91f183d6 f43c404f M	README.md
+
+commit a92e7aa39d8fd05b1300d7963dc8ae2db3f505e3
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Jan 24 20:43:27 2025 -0300
+
+    clang-format: fix files
+
+:100644 100644 b6d2efa6 ad3b44bc M	upnp/inc/ithread.h
+:100644 100644 96f45122 e600d485 M	upnp/sample/common/tv_device.c updated
+:100644 100644 362d52f8 17493102 M	upnp/src/api/upnpapi.c updated
+:100644 100644 a729c862 588d76d3 M	upnp/src/genlib/net/http/httpreadwrite.c updated
+:100644 100644 2f18422b c6910115 M	upnp/src/inc/upnputil.h checked
+:100644 100644 a72e7d41 8e5e475d M	upnp/src/ssdp/ssdp_server.c updated
+:100644 100644 9b629e43 f53b0121 M	upnp/test/test_url.c checked
+
+commit ffd3dc5d5a83fd766c68601cba8a77f9f3830780
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Jan 24 21:20:36 2025 -0300
+
+    clang-format: use clang-format 19 from temporary repo
+
+:100644 100644 53016929 5f9b1f9b M	.github/workflows/clang-format.yml
+
+commit d06a664e4d514edb9144b70f4e1f8560c655314d
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Jan 24 20:17:27 2025 -0300
+
+    clang-format: update lint action
+
+:100644 100644 dd12058d 53016929 M	.github/workflows/clang-format.yml
+
+commit e86c7ff18a67eea89649d8981993d3060ea37263
+Author: LutzenH <46445220+LutzenH@users.noreply.github.com>
+Date:   Thu Jan 23 11:39:10 2025 +0100
+
+    Fix subs not working on Windows due to missing netmask
+
+:100644 100644 ad1069de 362d52f8 M	upnp/src/api/upnpapi.c updated pupnp, TODO: verify utest compa UpnpGetIfInfo
+
+commit 2cd4a0125f671a335db51dc24cef5a01a0ec5dd0
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Jan 24 17:38:05 2025 -0300
+
+    github actions: update upload-artifact action version
+
+:100644 100644 042cf92d c49a0a58 M	.github/workflows/cifuzz.yml
+
+commit 48e7adc38b1fa071090b74723174c6a4c776fba4
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 29 00:12:34 2024 -0300
+
+    generator: Cosmetic changes
+
+:100644 100644 756981e1 912a5eb0 M	upnp/generator/TestClass.c
+:100644 100644 6f4afa4a a76a85db M	upnp/generator/TestClass.h
+:100644 100644 3e58ddc8 d5dcc153 M	upnp/generator/generator.c
+:100644 100644 23d21a2d 7490743d M	upnp/generator/generator.h
+:100644 100644 0a75ac4d d96820d3 M	upnp/inc/UpnpActionComplete.h updated
+:100644 100644 b816d7d6 53efa5ee M	upnp/inc/UpnpActionRequest.h updated
+:100644 100644 84bc9949 aedcad1e M	upnp/inc/UpnpDiscovery.h updated
+:100644 100644 4292411f 6f4fb2d4 M	upnp/inc/UpnpEvent.h updated
+:100644 100644 ead28955 bc5521be M	upnp/inc/UpnpEventSubscribe.h updated
+:100644 100644 bb6974c9 fcdd49ec M	upnp/inc/UpnpExtraHeaders.h updated
+:100644 100644 c62aa2a0 ac413f25 M	upnp/inc/UpnpFileInfo.h updated
+:100644 100644 f918258d 54783feb M	upnp/inc/UpnpStateVarComplete.h updated
+:100644 100644 a2cec355 79c83fe7 M	upnp/inc/UpnpStateVarRequest.h updated
+:100644 100644 275183c7 ff84f248 M	upnp/inc/UpnpSubscriptionRequest.h updated
+:100644 100644 68d9e059 b5fea820 M	upnp/src/api/UpnpActionComplete.c updated
+:100644 100644 9c7af396 1493d926 M	upnp/src/api/UpnpActionRequest.c updated
+:100644 100644 108d469a 411935c2 M	upnp/src/api/UpnpDiscovery.c updated
+:100644 100644 0652f5be 8c85fcef M	upnp/src/api/UpnpEvent.c updated
+:100644 100644 4df7b5c1 adaa3683 M	upnp/src/api/UpnpEventSubscribe.c updated
+:100644 100644 d4f99078 19ea2944 M	upnp/src/api/UpnpExtraHeaders.c updated
+:100644 100644 acd41def 34fe91a4 M	upnp/src/api/UpnpFileInfo.c updated
+:100644 100644 6472e8bb 139d1a91 M	upnp/src/api/UpnpStateVarComplete.c updated
+:100644 100644 30cc481d 5ee99571 M	upnp/src/api/UpnpStateVarRequest.c updated
+:100644 100644 e8e2b9d6 76d960bf M	upnp/src/api/UpnpSubscriptionRequest.c updated
+:100644 100644 0d8d3629 9ee73512 M	upnp/src/genlib/client_table/GenlibClientSubscription.c updated
+:100644 100644 5f75910c ce3e2700 M	upnp/src/inc/GenlibClientSubscription.h updated
+:100644 100644 823f50bc 24f5e79f M	upnp/src/ssdp/SSDPResultData.c updated
+:100644 100644 1cd96714 bc37d84e M	upnp/src/ssdp/SSDPResultData.h updated
+
+commit 625c528589a9ea7e41d6625c224add3251112fb6
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 23:26:52 2024 -0300
+
+    gena_device.c: Fixes not strictly correct types
+
+:100644 100644 e76b30e2 f81a97a4 M	upnp/src/gena/gena_device.c updated
+
+commit 748dd7f8ab2f62aba327835f39c51fcc50619243
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 23:16:04 2024 -0300
+
+    sysdep.c: Use the actual necessary include files
+
+:100644 100644 4a9045cf ebc63860 M	upnp/src/uuid/sysdep.c updated
+
+commit 434b9ea4425a6d6ddec8c3d606fc5a4edaf6cf15
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 20:02:49 2024 -0300
+
+    sysdep.c: Use the actual necessary include files
+
+:100644 100644 025c896c 4a9045cf M	upnp/src/uuid/sysdep.c updated
+
+commit 76631cfd261886deae6b2c97438e52f119542a30
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 22:53:50 2024 -0300
+
+    sysdep.c: Use the actual necessary include files
+
+:100644 100644 7c859156 025c896c M	upnp/src/uuid/sysdep.c updated
+
+commit e35c9ba8159f86348274d3a3a4213f66b8978ca6
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 22:36:53 2024 -0300
+
+    sysdep.c: Get rid of odd sized struct complaint
+
+:100644 100644 59d1e3c5 7c859156 M	upnp/src/uuid/sysdep.c updated
+
+commit 98ea7e2dc32668cb607b08dd864723f88eaa44bd
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 22:32:24 2024 -0300
+
+    sysdep.c: Remove unnecessary semi-colon
+
+:100644 100644 6201c921 59d1e3c5 M	upnp/src/uuid/sysdep.c updated
+
+commit c389e85f530deb6aff6f80d47825eb870725e8c3
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 22:24:49 2024 -0300
+
+    Use the actual necessary include files
+
+:100644 100644 bb3dd331 a87543fd M	upnp/inc/UpnpStdInt.h updated
+:100644 100644 75484095 e76b30e2 M	upnp/src/gena/gena_device.c updated
+:100644 100644 6f8d032c 39ef1f35 M	upnp/src/inc/sysdep.h updated
+
+commit c6280b0b1e1ec56f2c361914cdb36c2da3983be6
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 19:44:16 2024 -0300
+
+    Use the actual necessary include files
+
+:100644 100644 2ff96b5c 8095783d M	upnp/src/gena/gena_ctrlpt.c updated
+:100644 100644 8a629ac7 bb382399 M	upnp/src/inc/gena.h updated
+
+commit 0294cd8c07071b45c2c92323a21d8a17efa8e0a1
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 19:38:35 2024 -0300
+
+    Use the actual necessary include files
+
+:100644 100644 0a39cedc 73ca5892 M	upnp/src/gena/gena_callback2.c updated
+:100644 100644 98f6da4a 8a629ac7 M	upnp/src/inc/gena.h updated
+
+commit b1c5a15350a310148bca8dfdc31b914a0877f4be
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 19:37:06 2024 -0300
+
+    Use the actual necessary include files
+
+:100644 100644 1e92c1c7 0a39cedc M	upnp/src/gena/gena_callback2.c checked
+:100644 100644 4533a6f6 98f6da4a M	upnp/src/inc/gena.h updated
+
+commit e1567cef85a7c2934855b299deaa85e951045ce0
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 19:33:56 2024 -0300
+
+    gena_ctrlpt.c: Fixes not strictly correct types
+
+:100644 100644 3e16b6d2 2ff96b5c M	upnp/src/gena/gena_ctrlpt.c updated
+
+commit f461c9a3fc2f2363435c1bb3011199b1b529366a
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 19:32:46 2024 -0300
+
+    gena.h: Remove unnecessary semi-colon
+
+:100644 100644 81a14210 4533a6f6 M	upnp/src/inc/gena.h updated
+
+commit 5a50399bf8fa43d3b7277426f3d9afba1b5853d5
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 19:16:34 2024 -0300
+
+    Use the actual necessary include files
+
+:100644 100644 3eede7c2 2edaec70 M	upnp/src/threadutil/FreeList.c checked
+:100644 100644 c8fc70aa cd1e0649 M	upnp/src/threadutil/FreeList.h checked
+:100644 100644 3a7b9614 74fe7756 M	upnp/src/threadutil/LinkedList.c checked
+
+commit 64e558612988de2e20603c94ca6acc703242adb4
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 19:13:40 2024 -0300
+
+    Use the actual necessary include files
+
+:100644 100644 86815150 c8fc70aa M	upnp/src/threadutil/FreeList.h updated
+
+commit 2c87dfdd92c727857c717a375616908799e3c8c6
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 19:05:03 2024 -0300
+
+    Use the actual necessary include files
+
+:100644 100644 7d97d9cb 5cdb8ca7 M	upnp/src/inc/client_table.h checked
+
+commit e1385c6ac00aa23469d6969af36042257f680b94
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 19:04:15 2024 -0300
+
+    Use the actual necessary include files
+
+:100644 100644 33a2c411 7d97d9cb M	upnp/src/inc/client_table.h checked
+
+commit b1129346a32bf0f7dcd3caadadc11de0da1664b0
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 18:49:11 2024 -0300
+
+    service_table.h: Remove unnecessary include
+
+:100644 100644 6771b5f6 beec47a7 M	upnp/src/inc/service_table.h updated
+
+commit 92b4cefdb152e35aa104f4059c33d7c967289a68
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 18:47:35 2024 -0300
+
+    Use the actual necessary include files
+
+:100644 100644 3758fa71 37d32d11 M	upnp/src/inc/upnpapi.h updated
+
+commit 09774abc0c5500a7b857c297d4adcd127b5ef504
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 18:41:36 2024 -0300
+
+    Stop static analyzers from complaining about headers
+
+:100644 100644 a940c9b0 3f21c4d1 M	upnp/inc/UpnpInet.h updated
+:100644 100644 09722b40 edb41e9d M	upnp/inc/upnp.h updated
+
+commit 0cbe2243f6d2356d6616f11689515bfb9c350b19
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 18:32:21 2024 -0300
+
+    upnpapi.h: Remove unnecessary semi-colon
+
+:100644 100644 d3706ac1 3758fa71 M	upnp/src/inc/upnpapi.h updated
+
+commit 08f1a79e019df5c5e7f3f3d0ba1b212da167b687
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 18:28:35 2024 -0300
+
+    ssdp_device.c: Remove unnecessary include
+
+:100644 100644 c6e9068d 60b37167 M	upnp/src/ssdp/ssdp_device.c updated
+
+commit 25baa6b5342396a652ecde6b5cac5532a3e2b69a
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 18:17:00 2024 -0300
+
+    FuzzIxml.c: Clangd complaints
+
+:100644 100644 bf46e88a 8e833813 M	fuzzer/FuzzIxml.c
+
+commit 60a99f77ce5885204c13e96b4e0e626842d021c8
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 18:14:16 2024 -0300
+
+    document.c: Clangd complaint
+
+:100644 100644 4132416d 77edf5d2 M	ixml/src/document.c updated
+
+commit f401fb7733d57e0acfbddb273a762d7cf9872d60
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 20:47:07 2024 -0300
+
+    gena_device.c: Fix for crazy clang-format
+
+:100644 100644 9d809168 75484095 M	upnp/src/gena/gena_device.c updated
+
+commit 1329133d2e5d2a517ba977bad5d7058acf51dbf4
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 28 20:28:39 2024 -0300
+
+    Update clang-format GitHub workflow
+
+:100644 100644 5ba30bad dd12058d M	.github/workflows/clang-format.yml
+
+commit b3f51cf0224f3e6b7884b9ef519b19e44a1ff199
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Nov 23 15:24:22 2024 -0300
+
+    Stop static analyzers from complaining about header
+
+:100644 100644 7d99e8d9 4132416d M	ixml/src/document.c updated
+:100644 100644 967eb29c 5873ddc3 M	ixml/src/element.c updated
+:100644 100644 426aec8e 127bc5f2 M	ixml/src/ixml.c updated
+:100644 100644 7a202e51 e52cf5e3 M	upnp/sample/common/sample_util.c updated
+:100644 100644 23fd9719 3f00a764 M	upnp/sample/common/tv_ctrlpt.c updated
+:100644 100644 7b64f26f 96f45122 M	upnp/sample/common/tv_device.c updated
+:100644 100644 5e532008 a554a423 M	upnp/src/api/UpnpString.c updated
+:100644 100644 fe73bba8 ad1069de M	upnp/src/api/upnpapi.c updated
+:100644 100644 2be121b2 fd6c59c0 M	upnp/src/api/upnpdebug.c updated
+:100644 100644 3315f07b 3c92a82c M	upnp/src/api/upnptools.c updated
+:100644 100644 f57abcfb 3e16b6d2 M	upnp/src/gena/gena_ctrlpt.c updated
+:100644 100644 fe1ceba9 9d809168 M	upnp/src/gena/gena_device.c updated
+:100644 100644 cc7df2d6 a729c862 M	upnp/src/genlib/net/http/httpreadwrite.c updated
+:100644 100644 62c9711f 40beb630 M	upnp/src/genlib/net/http/webserver.c updated
+:100644 100644 772d671e 53124af7 M	upnp/src/genlib/net/uri/uri.c updated
+:100644 100644 c05ad7cd 4613021c M	upnp/src/genlib/util/membuffer.c updated
+:100644 100644 688ee48d 6dcf40cb M	upnp/src/genlib/util/util.c updated
+:100644 100644 8644c746 c911d82e M	upnp/src/ssdp/ssdp_ctrlpt.c updated
+:100644 100644 095f9cb9 c6e9068d M	upnp/src/ssdp/ssdp_device.c updated
+:100644 100644 28c7b5a1 a72e7d41 M	upnp/src/ssdp/ssdp_server.c updated
+:100644 100644 3fc7ce9b 93e06627 M	upnp/test/test_init.c
+
+commit 5ecddc96c781cd739038e8025a84f6636051debe
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Nov 23 13:12:44 2024 -0300
+
+    fuzzer: Add a readme.md with information
+
+:000000 100644 00000000 97bca6bd A	fuzzer/readme.md
+
+commit 5fcad71edaa4f3be69088be3eeb58a3e4dcba7cc
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 22 23:52:03 2024 -0300
+
+    ixmlparser.c: Forgot to free() the node in case of failure
+    
+    Fixes: https://issues.oss-fuzz.com/issues/380325821
+
+:100644 100644 aa5e4b3a b0dcf67b M	ixml/src/ixmlparser.c updated
+
+commit 7c10a48fb45aa3fe9cec8e1c35a4bb6f1b4b7ef0
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 22 23:03:21 2024 -0300
+
+    node.c: Stop static analyzers from complaining about header
+
+:100644 100644 06b2006d 643b83af M	ixml/src/node.c updated
+
+commit 66bc8431327fd201bf1f58810911b02a7c0d3e2f
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 22 22:58:07 2024 -0300
+
+    node.c: Clean ixmlNode_cloneNode()
+
+:100644 100644 c008cf06 06b2006d M	ixml/src/node.c updated
+
+commit 49e17d70ac11a50b800a7e63ae897b8acb010d28
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 22 22:48:41 2024 -0300
+
+    node.c: Fixes compiler warning
+
+:100644 100644 8de352b5 c008cf06 M	ixml/src/node.c updated
+
+commit aec32d09565cd788f821e9d2c463f640d51853f2
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 22 22:45:45 2024 -0300
+
+    node.c: Removes unnecessary fallthrough
+
+:100644 100644 a4153954 8de352b5 M	ixml/src/node.c updated
+
+commit 345d1e8707f3c6ae30cff63b3b774b994f9353b1
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 22 22:44:07 2024 -0300
+
+    node.c: Removes redundant line
+
+:100644 100644 3549a2b5 a4153954 M	ixml/src/node.c updated
+
+commit c7ee85cc8de1dada44829e2b3bf54b4e9135dc99
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 22 21:45:06 2024 -0300
+
+    fuzzer: Use cmake --fresh to clean the cache
+    
+    Also create a command to compile without destroying the build.
+
+:100644 100644 bcd089d3 8d75c705 M	CMakeLists.txt
+:100755 100755 d5fd7d91 26d911b5 M	fuzzer/build.sh
+
+commit c249f95ca136461f9ab167ffd643d0c2e5afdf16
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 22 11:09:00 2024 -0300
+
+    fuzzer: Use more stuff in the corpus and accept leak reports
+
+:100755 100755 89161f3e d5fd7d91 M	fuzzer/build.sh
+
+commit 57042f95e16e4f2babfcc1459e91f8484a351544
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 21 21:44:37 2024 -0300
+
+    ixmlparser.c: Fixes a strchr() related bug
+    
+    The zero terminator is considered part of the string, so strchr()
+    returns a pointer to the terminator if the second argument is zero. That
+    was causing the logic to fail.
+
+:100644 100644 6861d28d aa5e4b3a M	ixml/src/ixmlparser.c updated
+
+commit 84b6cecf40806efd42367eac8e39f2f96994742d
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 21 21:12:52 2024 -0300
+
+    ixmlparser.c: Avoid signed integer overflow (again)
+
+:100644 100644 d387759c 6861d28d M	ixml/src/ixmlparser.c updated
+
+commit c380ff841d363b369d52083def8c959c4bee7a07
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 21 20:01:20 2024 -0300
+
+    ixml: Update library numbers
+
+:100644 100644 0e244ebe bb8c8eec M	ChangeLog
+:100644 100644 15892a96 08392139 M	configure.ac
+
+commit 06f843c8f85fbac9b6240860ee7d3ea435480efb
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 21 19:37:21 2024 -0300
+
+    ixmlparser.c: Fixes unnecessary removal of const
+
+:100644 100644 a32c37da d387759c M	ixml/src/ixmlparser.c updated
+
+commit 61be5eb629e6951d082d3619d3e533f7be2dca09
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 21 19:02:02 2024 -0300
+
+    ixmlparser.c: Fixes heap-buffer-overflow analogous to the previous patch
+
+:100644 100644 25d15ec5 a32c37da M	ixml/src/ixmlparser.c updated
+
+commit acb140258b8c861a13957196bd78f617071d2982
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 21 18:42:40 2024 -0300
+
+    ixmlparser.c: Fixes heap-buffer-overflow
+    
+    ==1008254==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x507000000145 at pc 0x56086b6fe129 bp 0x7ffd0c0527d0 sp 0x7ffd0c0527c8
+    READ of size 1 at 0x507000000145 thread T0
+#0 0x56086b6fe128 in Parser_getChar /home/mroberto/programs/pupnp/maint/github-creator/ixml/src/ixmlparser.c:999:35
+        #1 0x56086b6fcdb6 in Parser_copyToken /home/mroberto/programs/pupnp/maint/github-creator/ixml/src/ixmlparser.c:1163:7
+        #2 0x56086b6f7537 in Parser_processContent /home/mroberto/programs/pupnp/maint/github-creator/ixml/src/ixmlparser.c:1537:7
+        #3 0x56086b6f2818 in Parser_getNextNode /home/mroberto/programs/pupnp/maint/github-creator/ixml/src/ixmlparser.c:2067:9
+        #4 0x56086b6efa7f in Parser_parseDocument /home/mroberto/programs/pupnp/maint/github-creator/ixml/src/ixmlparser.c:2589:7
+        #5 0x56086b6eea2e in Parser_LoadDocument /home/mroberto/programs/pupnp/maint/github-creator/ixml/src/ixmlparser.c:2831:7
+        #6 0x56086b6e9be0 in ixmlLoadDocumentEx /home/mroberto/programs/pupnp/maint/github-creator/ixml/src/ixml.c:333:9
+        #7 0x56086b6de05a in CheckXML /home/mroberto/programs/pupnp/maint/github-creator/fuzzer/FuzzIxml.c:18:7
+        #8 0x56086b6de48e in LLVMFuzzerTestOneInput /home/mroberto/programs/pupnp/maint/github-creator/fuzzer/FuzzIxml.c:54:8
+        #9 0x56086b5e0052 in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) /home/abuild/rpmbuild/BUILD/llvm-19.1.3.src/projects/compiler-rt/lib/fuzzer/FuzzerLoop.cpp:614:13
+        #10 0x56086b5c7c45 in fuzzer::RunOneTest(fuzzer::Fuzzer*, char const*, unsigned long) /home/abuild/rpmbuild/BUILD/llvm-19.1.3.src/projects/compiler-rt/lib/fuzzer/FuzzerDriver.cpp:328:6
+        #11 0x56086b5cdee8 in fuzzer::FuzzerDriver(int*, char***, int(*)(unsigned char const*, unsigned long)) /home/abuild/rpmbuild/BUILD/llvm-19.1.3.src/projects/compiler-rt/lib/fuzzer/FuzzerDriver.cpp:863:9
+        #12 0x56086b5fa4b3 in main /home/abuild/rpmbuild/BUILD/llvm-19.1.3.src/projects/compiler-rt/lib/fuzzer/FuzzerMain.cpp:20:10
+        #13 0x7f930a62a2ad in __libc_start_call_main /usr/src/debug/glibc-2.40/csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+        #14 0x7f930a62a378 in __libc_start_main@GLIBC_2.2.5 /usr/src/debug/glibc-2.40/csu/../csu/libc-start.c:360:3
+        #15 0x56086b5c21a4 in _start /home/abuild/rpmbuild/BUILD/glibc-2.40/csu/../sysdeps/x86_64/start.S:115
+    
+    0x507000000145 is located 0 bytes after 69-byte region [0x507000000100,0x507000000145) allocated by thread T0 here:
+        #0 0x56086b69c637 in malloc /home/abuild/rpmbuild/BUILD/llvm-19.1.3.src/projects/compiler-rt/lib/asan/asan_malloc_linux.cpp:68:3
+        #1 0x56086b6eed0f in Parser_readFileOrBuffer /home/mroberto/programs/pupnp/maint/github-creator/ixml/src/ixmlparser.c:2778:13
+        #2 0x56086b6ee8d7 in Parser_LoadDocument /home/mroberto/programs/pupnp/maint/github-creator/ixml/src/ixmlparser.c:2824:7
+        #3 0x56086b6e9be0 in ixmlLoadDocumentEx /home/mroberto/programs/pupnp/maint/github-creator/ixml/src/ixml.c:333:9
+        #4 0x56086b6de05a in CheckXML /home/mroberto/programs/pupnp/maint/github-creator/fuzzer/FuzzIxml.c:18:7
+        #5 0x56086b6de48e in LLVMFuzzerTestOneInput /home/mroberto/programs/pupnp/maint/github-creator/fuzzer/FuzzIxml.c:54:8
+        #6 0x56086b5e0052 in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) /home/abuild/rpmbuild/BUILD/llvm-19.1.3.src/projects/compiler-rt/lib/fuzzer/FuzzerLoop.cpp:614:13
+        #7 0x56086b5c7c45 in fuzzer::RunOneTest(fuzzer::Fuzzer*, char const*, unsigned long) /home/abuild/rpmbuild/BUILD/llvm-19.1.3.src/projects/compiler-rt/lib/fuzzer/FuzzerDriver.cpp:328:6
+        #8 0x56086b5cdee8 in fuzzer::FuzzerDriver(int*, char***, int (*)(unsigned char const*, unsigned long)) /home/abuild/rpmbuild/BUILD/llvm-19.1.3.src/projects/compiler-rt/lib/fuzzer/FuzzerDriver.cpp:863:9
+        #9 0x56086b5fa4b3 in main /home/abuild/rpmbuild/BUILD/llvm-19.1.3.src/projects/compiler-rt/lib/fuzzer/FuzzerMain.cpp:20:10
+        #10 0x7f930a62a2ad in __libc_start_call_main /usr/src/debug/glibc-2.40/csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+:100644 100644 cc51feb7 25d15ec5 M	ixml/src/ixmlparser.c updated
+
+commit 74b0423272366d13dcaac9b253adfc415a4d342e
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 21 11:21:43 2024 -0300
+
+    ixmlparser.c: Fixes finding the end of CDSection (CDEND)
+    
+    Fixes https://issues.oss-fuzz.com/issues/42516905
+
+:100644 100644 81ffc1aa cc51feb7 M	ixml/src/ixmlparser.c updated
+
+commit 292ac8f071af06674a19025dcd47eeb029c94488
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Thu Nov 21 00:12:56 2024 -0300
+
+    ixmlparser.c: Fix for memory leak
+    
+    Fixes https://issues.oss-fuzz.com/issues/42516907
+
+:100644 100644 b5823c94 81ffc1aa M	ixml/src/ixmlparser.c updated
+
+commit f3547490f5608a4c40d2372c1db14f7a2fef03a5
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Nov 20 23:16:57 2024 -0300
+
+    gitignore: Ignore a folder for fuzzer testcases
+
+:100644 100644 24f8d9ce f06234a2 M	.gitignore
+
+commit 4e6617fd67ce5dcd43db286f3955f52184bc8df1
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Nov 20 23:09:49 2024 -0300
+
+    ixmlparser.c: Fix for null pointer crash
+
+:100644 100644 6c0d488f b5823c94 M	ixml/src/ixmlparser.c updated
+
+commit c16ce868b91b4b6f15b382d515f34b1aed9424db
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Nov 16 15:32:09 2024 -0300
+
+    build.sh: -O0 is better for debugging
+
+:100755 100755 b7089c93 89161f3e M	fuzzer/build.sh
+
+commit e493fbfacbb5798ca3ebcbe52db58688a2a2dd71
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 22:29:24 2024 -0300
+
+    build.sh: Add debug information to the build
+
+:100755 100755 7cef86f2 b7089c93 M	fuzzer/build.sh
+
+commit 083feeadf46eab97885d6f952e1963e21142ba43
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 22:28:58 2024 -0300
+
+    CMake: add a project name
+
+:100644 100644 79aeac52 810ffaf4 M	fuzzer/CMakeLists.txt
+
+commit 482158814cb2cc975ae87ec232869535ece81ec8
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 22:27:49 2024 -0300
+
+    .gitignore: Fix for qtcreator generic build
+
+:100644 100644 8d9de6ea 24f8d9ce M	.gitignore
+
+commit 4ef5b9df0d093890f0cc121d5db6292efbe2e8d2
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 18:51:03 2024 -0300
+
+    build.sh: Fuzzer needs clang
+
+:100755 100755 6670e90a 7cef86f2 M	fuzzer/build.sh
+
+commit a13f7de06b153a74d8934db7a331c3d4b7feaf2d
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 18:49:59 2024 -0300
+
+    build.sh: Remove the build directory before running
+
+:100755 100755 0ee0dd99 6670e90a M	fuzzer/build.sh
+
+commit ae84019a2f0e319ba958c4e2c9ae7cd8b09184db
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 18:47:25 2024 -0300
+
+    gitignore: all build directories should be ignored
+
+:100644 100644 c18d62be 8d9de6ea M	.gitignore
+
+commit 861e10743d5ac84421e422f6129a9e27075cf54f
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 15:27:42 2024 -0300
+
+    CMakeLists: clang-format
+
+:100644 100644 ae117fbb bcd089d3 M	CMakeLists.txt
+
+commit 709377dca4e6e6a6da8c945e2ce065abaf80b675
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 15:12:37 2024 -0300
+
+    fuzzer: fix test for arguments
+
+:100755 100755 fdfd160e 0ee0dd99 M	fuzzer/build.sh
+
+commit 483d44d1eb9ec295c7f440ab49289a2b87f4c824
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 15:06:46 2024 -0300
+
+    fuzzer: clang-format on FuzzIxml.c
+
+:100644 100644 7838a220 bf46e88a M	fuzzer/FuzzIxml.c
+
+commit d89b58b04a86507dc484f908c3272fa01f192490
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 15:05:59 2024 -0300
+
+    fuzzer: quotes on build.sh
+
+:100755 100755 e77f4241 fdfd160e M	fuzzer/build.sh
+
+commit 0db852c0f01e9a073e3bdd52abf3900e073b3506
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 14:57:29 2024 -0300
+
+    ixmlparser.c: avoid integer overflow
+
+:100644 100644 8f41df0a 6c0d488f M	ixml/src/ixmlparser.c updated
+
+commit 7036517f2975ce9ab29f0056e98da58246daf111
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 14:56:16 2024 -0300
+
+    fuzzer: change permissions on build.sh
+
+:100644 100755 78494daf e77f4241 M	fuzzer/build.sh
+
+commit db5d77c8c04f68bc2ff6272ee1edcdf4208b24ac
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Nov 15 14:55:08 2024 -0300
+
+    fuzzer: clang-format on build.sh
+
+:100644 100644 8ec4c58d 78494daf M	fuzzer/build.sh
+
+commit fb552fd0e5cecfa6677e9cad385ff706be88e88d
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Oct 7 19:00:28 2024 -0300
+
+    Homekeeping for the next release
+
+:100644 100644 c21a68fc 0e244ebe M	ChangeLog
+:100644 100644 a9ce12a8 15892a96 M	configure.ac
+:100644 100644 4082f752 fa4668eb M	docs/Doxyfile
+:100644 100644 d7fc7b27 0b613491 M	libupnp.spec
+
+commit 47906a7d6fd6d80c5da36dd120c88982ca4a1204 (tag: release-1.14.20)
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Oct 7 18:35:47 2024 -0300
+
+    ChangeLog, README and gitignore
+
+:100644 100644 db5e53c5 c18d62be M	.gitignore
+:100644 100644 0c647b05 c21a68fc M	ChangeLog
+:100644 100644 1299be77 91f183d6 M	README.md

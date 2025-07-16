@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2023-11-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2023-07-08, ver 1.14.17
+// Last compare with pupnp original source file on 2025-07-16, ver 1.14.21
 
 #ifndef PUPNP_UPNPAPI_HPP
 #define PUPNP_UPNPAPI_HPP
@@ -40,8 +40,10 @@
  * \file
  */
 
+#include "GenlibClientSubscription.hpp"
+#include "TimerThread.hpp"
 #include "VirtualDir.hpp" /* for struct VirtualDirCallbacks */
-#include "client_table.hpp"
+#include "service_table.hpp"
 
 #define MAX_INTERFACES 256
 
@@ -125,28 +127,35 @@ extern ithread_rwlock_t GlobalHndRWLock;
  *
  * \return HND_DEVICE, UPNP_E_INVALID_HANDLE
  */
+static enum Upnp_LogLevel_e debug_handle = UPNP_NEVER;
+
 Upnp_Handle_Type GetHandleInfo(
     /*! handle pointer (key for the client handle structure). */
     int Hnd,
     /*! handle structure passed by this function. */
     struct Handle_Info** HndInfo);
 
-#define HandleLock() HandleWriteLock()
+[[maybe_unused]] static void HandleUnlock(const char* file, int line) {
+    UpnpPrintf(debug_handle, API, file, line, "Trying Unlock\n");
+    ithread_rwlock_unlock(&GlobalHndRWLock);
+    UpnpPrintf(debug_handle, API, file, line, "Unlocked rwlock\n");
+}
 
-#define HandleWriteLock()                                                      \
-    UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Trying a write lock\n");   \
-    ithread_rwlock_wrlock(&GlobalHndRWLock);                                   \
-    UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Write lock acquired\n");
+[[maybe_unused]] static void HandleReadLock(const char* file, int line) {
+    UpnpPrintf(debug_handle, API, file, line, "Trying a read lock\n");
+    ithread_rwlock_rdlock(&GlobalHndRWLock);
+    UpnpPrintf(debug_handle, API, file, line, "Read lock acquired\n");
+}
 
-#define HandleReadLock()                                                       \
-    UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Trying a read lock\n");    \
-    ithread_rwlock_rdlock(&GlobalHndRWLock);                                   \
-    UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Read lock acquired\n");
+[[maybe_unused]] static void HandleWriteLock(const char* file, int line) {
+    UpnpPrintf(debug_handle, API, file, line, "Trying a write lock\n");
+    ithread_rwlock_wrlock(&GlobalHndRWLock);
+    UpnpPrintf(debug_handle, API, file, line, "Write lock acquired\n");
+}
 
-#define HandleUnlock()                                                         \
-    UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Trying Unlock\n");         \
-    ithread_rwlock_unlock(&GlobalHndRWLock);                                   \
-    UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "Unlocked rwlock\n");
+[[maybe_unused]] static void HandleLock(const char* file, int line) {
+    HandleWriteLock(file, line);
+}
 
 /*!
  * \brief Get client handle info.

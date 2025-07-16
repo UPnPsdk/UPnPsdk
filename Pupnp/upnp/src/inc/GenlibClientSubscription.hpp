@@ -2,6 +2,9 @@
 
 #ifndef GENLIBCLIENTSUBSCRIPTION_HPP
 #define GENLIBCLIENTSUBSCRIPTION_HPP
+// Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
+// Redistribution only with this Copyright remark. Last modified: 2025-07-19
+// Based on source code from author Marcelo Roberto Jimenez.
 
 /*!
  * \file
@@ -22,7 +25,7 @@
 typedef struct s_GenlibClientSubscription GenlibClientSubscription;
 
 /*! Constructor */
-EXPORT_SPEC GenlibClientSubscription* GenlibClientSubscription_new();
+EXPORT_SPEC GenlibClientSubscription* GenlibClientSubscription_new(void);
 /*! Destructor */
 EXPORT_SPEC void GenlibClientSubscription_delete(GenlibClientSubscription* p);
 /*! Copy Constructor */

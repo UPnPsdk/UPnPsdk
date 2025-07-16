@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2022-02-20
+// Redistribution only with this Copyright remark. Last modified: 2025-07-19
 
 /*!
  * \file
@@ -10,7 +10,7 @@
 #include "config.hpp"
 
 #include <stdlib.h> /* for calloc(), free() */
-#include <string.h> /* for strlen(), strdup() */
+#include <string.h> /* for strlen(), strdup(), memset() */
 
 #include "UpnpEventSubscribe.hpp"
 
@@ -21,7 +21,7 @@ struct s_UpnpEventSubscribe {
     UpnpString* m_PublisherUrl;
 };
 
-UpnpEventSubscribe* UpnpEventSubscribe_new() {
+UpnpEventSubscribe* UpnpEventSubscribe_new(void) {
     struct s_UpnpEventSubscribe* p =
         (s_UpnpEventSubscribe*)calloc(1, sizeof(struct s_UpnpEventSubscribe));
 

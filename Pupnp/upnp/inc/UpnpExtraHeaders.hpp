@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-02
+// Redistribution only with this Copyright remark. Last modified: 2025-07-19
 // Taken from authors who haven't made a note.
 // Last compare with pupnp original source file on 2025-05-22, ver 1.14.20
 
@@ -29,7 +29,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /*! Constructor */
-EXPORT_SPEC UpnpExtraHeaders* UpnpExtraHeaders_new();
+EXPORT_SPEC UpnpExtraHeaders* UpnpExtraHeaders_new(void);
 /*! Destructor */
 EXPORT_SPEC void UpnpExtraHeaders_delete(UpnpExtraHeaders* p);
 /*! Copy Constructor */

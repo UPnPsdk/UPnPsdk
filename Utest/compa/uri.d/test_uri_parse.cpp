@@ -32,8 +32,8 @@ class Mock_netv4info : public umock::NetdbMock {
     // addrinfo that can be given to the mocked program.
   private:
     // Provide structures to mock system call for network address
-    struct sockaddr_in m_sa {};
-    struct addrinfo m_res {};
+    struct sockaddr_in m_sa{};
+    struct addrinfo m_res{};
 
   public:
     Mock_netv4info() { m_sa.sin_family = AF_INET; }

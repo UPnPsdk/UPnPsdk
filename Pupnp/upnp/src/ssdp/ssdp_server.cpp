@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2024-08-01, ver 1.14.19
+// Last update from pupnp original source file on 2025-07-17, ver 1.14.21
 
 /*!
  * \addtogroup SSDPlib
@@ -60,7 +60,7 @@
 
 #include <stdio.h>
 
-#include "posix_overwrites.hpp"
+#include "posix_overwrites.hpp" // IWYU pragma: keep
 #define MAX_TIME_TOREAD 45
 
 #ifdef INCLUDE_CLIENT_APIS
@@ -115,7 +115,7 @@ int AdvertiseAndReply(int AdFlag, UpnpDevice_Handle Hnd,
                "Inside AdvertiseAndReply with AdFlag = %d\n", AdFlag);
 
     /* Use a read lock */
-    HandleReadLock();
+    HandleReadLock(__FILE__, __LINE__);
     if (GetHandleInfo(Hnd, &SInfo) != HND_DEVICE) {
         retVal = UPNP_E_INVALID_HANDLE;
         goto end_function;
@@ -423,7 +423,7 @@ end_function:
     ixmlNodeList_free(nodeList);
     UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
                "Exiting AdvertiseAndReply.\n");
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     return retVal;
 }
@@ -893,7 +893,7 @@ static int create_ssdp_sock_reqv4(
         return UPNP_E_OUTOF_SOCKET;
     }
     umock::sys_socket_h.setsockopt(*ssdpReqSock, IPPROTO_IP, IP_MULTICAST_TTL,
-                                   (const char*)&ttl, sizeof(ttl));
+                                   &ttl, sizeof(ttl));
     /* just do it, regardless if fails or not. */
     umock::pupnp_sock.sock_make_no_blocking(*ssdpReqSock);
 
@@ -1182,7 +1182,7 @@ int get_ssdp_sockets(MiniServerSockArray* out) {
         gSsdpReqSocket4 = out->ssdpReqSock4;
     } else
         out->ssdpReqSock4 = INVALID_SOCKET;
-        /* Create the IPv6 socket for SSDP REQUESTS */
+    /* Create the IPv6 socket for SSDP REQUESTS */
 #ifdef UPNP_ENABLE_IPV6
     if (strlen(gIF_IPV6) > (size_t)0) {
         retVal = create_ssdp_sock_reqv6(&out->ssdpReqSock6);

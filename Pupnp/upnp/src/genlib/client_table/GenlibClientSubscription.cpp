@@ -1,5 +1,5 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2022-02-20
+// Redistribution only with this Copyright remark. Last modified: 2025-07-19
 // Also Copyright by other contributor.
 
 /*!
@@ -14,7 +14,7 @@
 #include "UpnpString.hpp"
 
 #include <stdlib.h> /* for calloc(), free() */
-#include <string.h> /* for strlen(), strdup() */
+#include <string.h> /* for strlen(), strdup() memset() */
 
 struct s_GenlibClientSubscription {
     int m_RenewEventId;
@@ -24,7 +24,7 @@ struct s_GenlibClientSubscription {
     GenlibClientSubscription* m_Next;
 };
 
-GenlibClientSubscription* GenlibClientSubscription_new() {
+GenlibClientSubscription* GenlibClientSubscription_new(void) {
     struct s_GenlibClientSubscription* p = (s_GenlibClientSubscription*)calloc(
         1, sizeof(struct s_GenlibClientSubscription));
 
