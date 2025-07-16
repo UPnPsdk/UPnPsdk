@@ -5,8 +5,6 @@
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft,  Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
  *
  * - Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
@@ -30,7 +28,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2025-07-16, ver 1.14.21
+
 /*!
  * \addtogroup SSDPlib
  *
@@ -39,30 +37,27 @@
  * \file
  */
 
-#include "config.hpp"
+#include "config.h"
 
-#include "upnputil.hpp"
+#include "upnputil.h"
 
 #ifdef INCLUDE_CLIENT_APIS
 #if EXCLUDE_SSDP == 0
 
-#include "SSDPResultData.hpp"
-#include "SSDPResultDataCallback.hpp"
-#include "ThreadPool.hpp"
-#include "UpnpInet.hpp"
-#include "httpparser.hpp"
-#include "httpreadwrite.hpp"
-#include "ssdplib.hpp"
-#include "statcodes.hpp"
-#include "unixutil.hpp"
-#include "upnpapi.hpp"
+#include "SSDPResultData.h"
+#include "SSDPResultDataCallback.h"
+#include "ThreadPool.h"
+#include "UpnpInet.h"
+#include "httpparser.h"
+#include "httpreadwrite.h"
+#include "ssdplib.h"
+#include "statcodes.h"
+#include "unixutil.h"
+#include "upnpapi.h"
 
 #include <stdio.h>
-#include <algorithm> // for std::min()|max()
 
-#include <umock/sys_socket.hpp>
-
-#include "posix_overwrites.hpp" // IWYU pragma: keep
+#include "posix_overwrites.h" // IWYU pragma: keep
 
 /*!
  * \brief Sends a callback to the control point application with a SEARCH
@@ -285,15 +280,15 @@ void ssdp_handle_ctrlpt_msg(http_message_t* hmsg,
                                        hdr_value.length);
                     break;
                 case SSDP_DEVICETYPE: {
-                    size_t m = std::min(hdr_value.length,
-                                        strlen(searchArg->searchTarget));
+                    size_t m =
+                        min(hdr_value.length, strlen(searchArg->searchTarget));
                     matched =
                         !strncmp(searchArg->searchTarget, hdr_value.buf, m);
                     break;
                 }
                 case SSDP_SERVICE: {
-                    size_t m = std::min(hdr_value.length,
-                                        strlen(searchArg->searchTarget));
+                    size_t m =
+                        min(hdr_value.length, strlen(searchArg->searchTarget));
                     matched =
                         !strncmp(searchArg->searchTarget, hdr_value.buf, m);
                     break;
@@ -627,22 +622,20 @@ int SearchByTarget(int Hnd, int Mx, char* St, void* Cookie) {
 
     FD_ZERO(&wrSet);
     if (gSsdpReqSocket4 != INVALID_SOCKET) {
-        umock::sys_socket_h.setsockopt(gSsdpReqSocket4, IPPROTO_IP,
-                                       IP_MULTICAST_IF, (char*)&addrv4,
-                                       sizeof(addrv4));
+        setsockopt(gSsdpReqSocket4, IPPROTO_IP, IP_MULTICAST_IF, (char*)&addrv4,
+                   sizeof(addrv4));
         FD_SET(gSsdpReqSocket4, &wrSet);
-        max_fd = std::max(max_fd, gSsdpReqSocket4);
+        max_fd = max(max_fd, gSsdpReqSocket4);
     }
 #ifdef UPNP_ENABLE_IPV6
     if (gSsdpReqSocket6 != INVALID_SOCKET) {
-        umock::sys_socket_h.setsockopt(gSsdpReqSocket6, IPPROTO_IPV6,
-                                       IPV6_MULTICAST_IF, (char*)&gIF_INDEX,
-                                       sizeof(gIF_INDEX));
+        setsockopt(gSsdpReqSocket6, IPPROTO_IPV6, IPV6_MULTICAST_IF,
+                   (char*)&gIF_INDEX, sizeof(gIF_INDEX));
         FD_SET(gSsdpReqSocket6, &wrSet);
-        max_fd = std::max(max_fd, gSsdpReqSocket6);
+        max_fd = max(max_fd, gSsdpReqSocket6);
     }
 #endif
-    ret = umock::sys_socket_h.select((int)max_fd + 1, NULL, &wrSet, NULL, NULL);
+    ret = select((int)max_fd + 1, NULL, &wrSet, NULL, NULL);
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
@@ -684,9 +677,8 @@ int SearchByTarget(int Hnd, int Mx, char* St, void* Cookie) {
         while (NumCopy < NUM_SSDP_COPY) {
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                        ">>> SSDP SEND M-SEARCH >>>\n%s\n", ReqBufv4);
-            umock::sys_socket_h.sendto(
-                gSsdpReqSocket4, ReqBufv4, strlen(ReqBufv4), 0,
-                (struct sockaddr*)&__ss_v4, sizeof(struct sockaddr_in));
+            sendto(gSsdpReqSocket4, ReqBufv4, strlen(ReqBufv4), 0,
+                   (struct sockaddr*)&__ss_v4, sizeof(struct sockaddr_in));
             NumCopy++;
             imillisleep(SSDP_PAUSE);
         }

@@ -3,8 +3,6 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
- * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-14
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,18 +29,18 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2025-07-14, ver 1.14.21
+
 /*!
  * \file
  */
 
-#include "ixmlparser.hpp"
+#include "ixmlparser.h"
 
 #include <assert.h>
 #include <stdlib.h> /* for free(), malloc() */
 #include <string.h>
 
-#include "posix_overwrites.hpp" // IWYU pragma: keep
+#include "posix_overwrites.h"
 
 void ixmlNode_init(IXML_Node* nodeptr) {
     assert(nodeptr != NULL);
@@ -149,6 +147,7 @@ void ixmlNode_free(IXML_Node* nodeptr) {
                 curr_child = prev_child;
                 next_child = curr_child->firstChild;
             } while (next_child);
+            curr_child = prev_child;
             /* current is now the last sibling of the last child. */
             /* Delete the attribute nodes of this child */
             /* Attribute nodes only have siblings. */
@@ -222,7 +221,7 @@ static int ixmlNode_setNamespaceURI(
     return IXML_SUCCESS;
 }
 
-/*!
+/*
  * \brief Set the prefix of the node.
  */
 static int ixmlNode_setPrefix(
@@ -328,9 +327,9 @@ int ixmlNode_setNodeValue(IXML_Node* nodeptr, const char* newNodeValue) {
 
 unsigned short ixmlNode_getNodeType(IXML_Node* nodeptr) {
     if (nodeptr != NULL) {
-        return static_cast<unsigned short>(nodeptr->nodeType);
+        return nodeptr->nodeType;
     } else {
-        return static_cast<unsigned short>(eINVALID_NODE);
+        return (unsigned short)eINVALID_NODE;
     }
 }
 
@@ -474,7 +473,6 @@ static int ixmlNode_allowChildren(
         default:
             return 0;
         }
-        break;
 
     default:
         break;
@@ -1077,23 +1075,24 @@ static IXML_Node* ixmlNode_cloneNodeTree(
 }
 
 IXML_Node* ixmlNode_cloneNode(IXML_Node* nodeptr, int deep) {
-    IXML_Node* node = 0;
+    IXML_Node* newNode;
+    IXML_Attr* newAttrNode;
 
-    if (!nodeptr) {
-        goto end_function;
+    if (nodeptr == NULL) {
+        return NULL;
     }
 
     switch (nodeptr->nodeType) {
     case eATTRIBUTE_NODE:
-        node = (IXML_Node*)ixmlNode_cloneAttrDirect((IXML_Attr*)nodeptr);
+        newAttrNode = ixmlNode_cloneAttrDirect((IXML_Attr*)nodeptr);
+        return (IXML_Node*)newAttrNode;
         break;
+
     default:
-        node = ixmlNode_cloneNodeTree(nodeptr, deep);
+        newNode = ixmlNode_cloneNodeTree(nodeptr, deep);
+        return newNode;
         break;
     }
-
-end_function:
-    return node;
 }
 
 IXML_NodeList* ixmlNode_getChildNodes(IXML_Node* nodeptr) {
@@ -1228,7 +1227,7 @@ void ixmlNode_getElementsByTagName(IXML_Node* n, const char* tagname,
 }
 
 /*!
- * \brief ixmlNode_getElementsByTagNameNSRecursive
+ * \brief
  */
 static void ixmlNode_getElementsByTagNameNSRecursive(
     /*! [in] . */

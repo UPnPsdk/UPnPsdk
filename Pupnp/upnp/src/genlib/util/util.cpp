@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-09-10
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -45,7 +45,7 @@
 
 #include <string.h>
 
-#include "posix_overwrites.hpp"
+#include "posix_overwrites.hpp" // IWYU pragma: keep
 
 void linecopy(char dest[LINE_SIZE], const char* src) {
     strncpy(dest, src, LINE_SIZE - (size_t)1);

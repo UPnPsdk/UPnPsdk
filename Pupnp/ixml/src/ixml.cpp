@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2022-09-05
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -30,6 +30,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
+// Last updated from pupnp original source file on 2025-07-16, ver 1.14.21
 
 /*!
  * \file
@@ -42,7 +43,7 @@
 #include <stdlib.h> /* for free() */
 #include <string.h>
 
-#include "posix_overwrites.hpp"
+#include "posix_overwrites.hpp" // IWYU pragma: keep
 
 /*!
  * \brief Appends a string to a buffer, substituting some characters by escape

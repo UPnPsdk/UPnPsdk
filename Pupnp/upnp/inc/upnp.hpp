@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-26
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,7 +33,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
+// Last update from pupnp original source file on 2025-07-16, ver 1.14.21
 
 /*!
  * \defgroup UPnPAPI UPnP API
@@ -398,15 +398,15 @@
  * the internal implementation of these data structures without breaking
  * the API.
  */
-#include "UpnpActionComplete.hpp"
-#include "UpnpActionRequest.hpp"
-#include "UpnpDiscovery.hpp"
-#include "UpnpEvent.hpp"
-#include "UpnpEventSubscribe.hpp"
-#include "UpnpFileInfo.hpp"
-#include "UpnpStateVarComplete.hpp"
-#include "UpnpStateVarRequest.hpp"
-#include "UpnpSubscriptionRequest.hpp"
+#include "UpnpActionComplete.hpp"      // IWYU pragma: keep
+#include "UpnpActionRequest.hpp"       // IWYU pragma: keep
+#include "UpnpDiscovery.hpp"           // IWYU pragma: keep
+#include "UpnpEvent.hpp"               // IWYU pragma: keep
+#include "UpnpEventSubscribe.hpp"      // IWYU pragma: keep
+#include "UpnpFileInfo.hpp"            // IWYU pragma: keep
+#include "UpnpStateVarComplete.hpp"    // IWYU pragma: keep
+#include "UpnpStateVarRequest.hpp"     // IWYU pragma: keep
+#include "UpnpSubscriptionRequest.hpp" // IWYU pragma: keep
 
 /*!
  * \name Constants and Types

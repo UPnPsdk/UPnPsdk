@@ -3,8 +3,6 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
- * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-14
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,16 +29,16 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2025-07-14, ver 1.14.21
+
 /*!
  * \file
  */
 
-// #include "autoconfig.h"
+#include "autoconfig.h"
 
-#include "ixmlparser.hpp"
+#include "ixmlparser.h"
 
-#include "ixmldebug.hpp"
+#include "ixmldebug.h"
 
 #include <assert.h>
 #include <limits.h>
@@ -49,11 +47,8 @@
 #include <stdlib.h> /* for free(), malloc() */
 #include <string.h>
 
-#include "posix_overwrites.hpp" // IWYU pragma: keep
+#include "posix_overwrites.h" // IWYU pragma: keep
 
-// #include <umock/stdio.hpp>
-
-/// \cond
 static char g_error_char = '\0';
 #ifdef IXML_HAVE_SCRIPTSUPPORT
 static IXML_BeforeFreeNode_t Before_Free_callback;
@@ -81,17 +76,13 @@ static const char* CDEND = "]]>";
 static const char* DEC_NUMBERS = "0123456789";
 static const char* HEX_NUMBERS = "0123456789ABCDEFabcdef";
 static const char* UTF8_BOM = "\xef\xbb\xbf";
-/// \endcond
 
-/// \brief char_info
 typedef struct char_info {
     unsigned short l;
     unsigned short h;
 } char_info_t;
 
-/// \cond
 typedef char utf8char[8];
-/// \endcond
 
 /*!
  * \brief The letter table contains all characters in XML 1.0 plus ":", "_" and
@@ -746,7 +737,7 @@ static int Parser_getChar(
         goto ExitFunction;
     } else if (strncasecmp(src, ESC_HEX, strlen(ESC_HEX)) == 0) {
         /* Read in escape characters of type &#xnn where nn is a
-         *  hexadecimal value */
+         * hexadecimal value */
         pnum = src + strlen(ESC_HEX);
         if (!*pnum) {
             line = __LINE__;
@@ -1142,7 +1133,7 @@ static int Parser_processSTag(
 }
 
 /*!
- * \brief Parser_skipPI
+ * \brief
  */
 static int Parser_skipPI(
     /*! [in,out] The pointer to the skipped point. */
@@ -2469,10 +2460,8 @@ static int Parser_readFileOrBuffer(
 
     if (file) {
 #ifdef _WIN32
-        // umock::stdio_h.fopen_s(&xmlFilePtr, xmlFileName, "rb");
         fopen_s(&xmlFilePtr, xmlFileName, "rb");
 #else
-        // xmlFilePtr = umock::stdio_h.fopen(xmlFileName, "rb");
         xmlFilePtr = fopen(xmlFileName, "rb");
 #endif
         if (xmlFilePtr == NULL) {
@@ -2481,26 +2470,21 @@ static int Parser_readFileOrBuffer(
             fseek(xmlFilePtr, 0, SEEK_END);
             fileSize = ftell(xmlFilePtr);
             if (fileSize <= 0) {
-                // umock::stdio_h.fclose(xmlFilePtr);
                 fclose(xmlFilePtr);
                 return IXML_SYNTAX_ERR;
             }
 
             xmlParser->dataBuffer = (char*)malloc((size_t)fileSize + (size_t)1);
             if (xmlParser->dataBuffer == NULL) {
-                // umock::stdio_h.fclose(xmlFilePtr);
                 fclose(xmlFilePtr);
                 return IXML_INSUFFICIENT_MEMORY;
             }
 
             fseek(xmlFilePtr, 0, SEEK_SET);
-            // bytesRead = umock::stdio_h.fread(xmlParser->dataBuffer,
-            // (size_t)1,
             bytesRead = fread(xmlParser->dataBuffer, (size_t)1,
                               (size_t)fileSize, xmlFilePtr);
             /* append null */
             xmlParser->dataBuffer[bytesRead] = '\0';
-            // umock::stdio_h.fclose(xmlFilePtr);
             fclose(xmlFilePtr);
         }
     } else {

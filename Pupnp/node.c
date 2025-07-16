@@ -3,8 +3,6 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
- * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-14
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,18 +29,18 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2025-07-14, ver 1.14.21
+
 /*!
  * \file
  */
 
-#include "ixmlparser.hpp"
+#include "ixmlparser.h"
 
 #include <assert.h>
 #include <stdlib.h> /* for free(), malloc() */
 #include <string.h>
 
-#include "posix_overwrites.hpp" // IWYU pragma: keep
+#include "posix_overwrites.h" // IWYU pragma: keep
 
 void ixmlNode_init(IXML_Node* nodeptr) {
     assert(nodeptr != NULL);
@@ -222,7 +220,7 @@ static int ixmlNode_setNamespaceURI(
     return IXML_SUCCESS;
 }
 
-/*!
+/*
  * \brief Set the prefix of the node.
  */
 static int ixmlNode_setPrefix(
@@ -328,9 +326,9 @@ int ixmlNode_setNodeValue(IXML_Node* nodeptr, const char* newNodeValue) {
 
 unsigned short ixmlNode_getNodeType(IXML_Node* nodeptr) {
     if (nodeptr != NULL) {
-        return static_cast<unsigned short>(nodeptr->nodeType);
+        return (unsigned short)nodeptr->nodeType;
     } else {
-        return static_cast<unsigned short>(eINVALID_NODE);
+        return (unsigned short)eINVALID_NODE;
     }
 }
 
@@ -1228,7 +1226,7 @@ void ixmlNode_getElementsByTagName(IXML_Node* n, const char* tagname,
 }
 
 /*!
- * \brief ixmlNode_getElementsByTagNameNSRecursive
+ * \brief
  */
 static void ixmlNode_getElementsByTagNameNSRecursive(
     /*! [in] . */

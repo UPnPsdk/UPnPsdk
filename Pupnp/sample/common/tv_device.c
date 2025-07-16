@@ -48,7 +48,7 @@
 
 #include <assert.h>
 
-#include "posix_overwrites.h"
+#include "posix_overwrites.h" // IWYU pragma: keep
 
 #define DEFAULT_WEB_DIR "./web"
 

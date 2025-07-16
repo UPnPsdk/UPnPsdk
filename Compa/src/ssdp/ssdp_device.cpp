@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-15
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -518,19 +518,19 @@ void ssdp_handle_device_request(http_message_t* hmsg,
 
     start = 0;
     for (;;) {
-        HandleLock();
+        HandleLock(__FILE__, __LINE__);
         /* device info. */
         switch (GetDeviceHandleInfo(start, (int)dest_addr->ss_family, &handle,
                                     &dev_info)) {
         case HND_DEVICE:
             break;
         default:
-            HandleUnlock();
+            HandleUnlock(__FILE__, __LINE__);
             /* no info found. */
             return;
         }
         maxAge = dev_info->MaxAge;
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
 
         UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "MAX-AGE     =  %d\n",
                    maxAge);
@@ -581,6 +581,9 @@ int DeviceAdvertisement(char* DevType, int RootDev, char* Udn, char* Location,
 
     UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                "In function DeviceAdvertisement\n");
+    msgs[0] = NULL;
+    msgs[1] = NULL;
+    msgs[2] = NULL;
     memset(&__ss, 0, sizeof(__ss));
     switch (AddressFamily) {
     case AF_INET:
@@ -600,10 +603,9 @@ int DeviceAdvertisement(char* DevType, int RootDev, char* Udn, char* Location,
     default:
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
                    "Invalid device address family.\n");
+        ret_code = UPNP_E_INVALID_PARAM;
+        goto error_handler;
     }
-    msgs[0] = NULL;
-    msgs[1] = NULL;
-    msgs[2] = NULL;
     // If device is a root device, here we need to send 3 advertisement or reply
     if (RootDev) {
         rc = snprintf(Mil_Usn, sizeof(Mil_Usn), "%s::upnp:rootdevice", Udn);
@@ -999,7 +1001,7 @@ int AdvertiseAndReply(int AdFlag, UpnpDevice_Handle Hnd,
                "Inside AdvertiseAndReply with AdFlag = %d\n", AdFlag);
 
     /* Use a read lock */
-    HandleReadLock();
+    HandleReadLock(__FILE__, __LINE__);
     if (GetHandleInfo(Hnd, &SInfo) != HND_DEVICE) {
         retVal = UPNP_E_INVALID_HANDLE;
         goto end_function;
@@ -1307,7 +1309,7 @@ end_function:
     ixmlNodeList_free(nodeList);
     UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
                "Exiting AdvertiseAndReply.\n");
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     return retVal;
 }

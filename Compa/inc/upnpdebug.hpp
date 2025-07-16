@@ -6,7 +6,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-12
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,7 +33,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2023-08-19, ver 1.14.17
+// Last compare with ./Pupnp source file on 2025-07-16, ver 1.14.21
 /*!
  * \file
  * \brief Manage Debug messages with levels "critical" to "all".
@@ -89,7 +89,9 @@ typedef enum Upnp_LogLevel_e {
     UPNP_CRITICAL,
     UPNP_ERROR,
     UPNP_INFO,
-    UPNP_ALL
+    UPNP_ALL,
+    /* Always the last, please. */
+    UPNP_NEVER
 } Upnp_LogLevel;
 /// @}
 
