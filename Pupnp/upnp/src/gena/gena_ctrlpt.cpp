@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2025-07-16, ver 1.14.21
+// Last compare with pupnp original source file on 2025-07-17, ver 1.14.21
 
 #include "config.hpp"
 
@@ -67,9 +67,9 @@ typedef struct {
  */
 static void free_subscribe_arg(void* arg) {
     if (arg) {
-        job_arg* p = arg;
+        job_arg* p = (job_arg*)arg;
         if (p->Event) {
-            UpnpEventSubscribe_delete(p->Event);
+            UpnpEventSubscribe_delete((UpnpEventSubscribe*)p->Event);
         }
         free(p);
     }
@@ -88,7 +88,7 @@ static void GenaAutoRenewSubscription(
     Upnp_FunPtr callback_fun;
     struct Handle_Info* handle_info;
     int send_callback = 0;
-    Upnp_EventType eventType = 0;
+    Upnp_EventType eventType{};
     int timeout = 0;
     int errCode = 0;
 
@@ -124,7 +124,7 @@ static void GenaAutoRenewSubscription(
         callback_fun = handle_info->Callback;
         cookie = handle_info->Cookie;
         HandleUnlock(__FILE__, __LINE__);
-        callback_fun((Upnp_EventType)eventType, arg->Event, cookie);
+        callback_fun(eventType, arg->Event, cookie);
     }
 
     free_subscribe_arg(arg);
@@ -279,7 +279,7 @@ static int gena_subscribe(
     /*! [out] SID returned by the subscription or renew msg. */
     UpnpString* sid) {
     int return_code;
-    parse_status_t parse_ret = 0;
+    parse_status_t parse_ret{};
     int local_timeout = CP_MINIMUM_SUBSCRIPTION_TIME;
     memptr sid_hdr;
     memptr timeout_hdr;
@@ -424,7 +424,7 @@ int genaUnregisterClient(UpnpClient_Handle client_handle) {
     http_parser_t response;
 
     while (1) {
-        HandleLock();
+        HandleLock(__FILE__, __LINE__);
 
         if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
             HandleUnlock(__FILE__, __LINE__);
@@ -467,7 +467,7 @@ int genaUnSubscribe(UpnpClient_Handle client_handle, const UpnpString* in_sid) {
     http_parser_t response;
 
     /* validate handle and sid */
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
         HandleUnlock(__FILE__, __LINE__);
         return_code = GENA_E_BAD_HANDLE;
@@ -490,7 +490,7 @@ int genaUnSubscribe(UpnpClient_Handle client_handle, const UpnpString* in_sid) {
     }
     free_client_subscription(sub_copy);
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
         HandleUnlock(__FILE__, __LINE__);
         return_code = GENA_E_BAD_HANDLE;
@@ -538,7 +538,7 @@ int genaSubscribe(UpnpClient_Handle client_handle,
     /* subscribe */
     SubscribeLock();
     return_code = gena_subscribe(PublisherURL, TimeOut, NULL, ActualSID);
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
     if (return_code != UPNP_E_SUCCESS) {
         UpnpPrintf(UPNP_CRITICAL, GENA, __FILE__, __LINE__,
                    "SUBSCRIBE FAILED in transfer error code: %d "
@@ -603,7 +603,7 @@ int genaRenewSubscription(UpnpClient_Handle client_handle,
     UpnpString* ActualSID = UpnpString_new();
     ThreadPoolJob tempJob;
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     /* validate handle and sid */
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
@@ -640,7 +640,7 @@ int genaRenewSubscription(UpnpClient_Handle client_handle,
         GenlibClientSubscription_get_EventURL(sub_copy), TimeOut,
         GenlibClientSubscription_get_ActualSID(sub_copy), ActualSID);
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
         HandleUnlock(__FILE__, __LINE__);
@@ -738,7 +738,7 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
         goto exit_function;
     }
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     /* get client info */
     if (GetClientHandleInfo(&client_handle_start, &handle_info) != HND_CLIENT) {
@@ -751,7 +751,7 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
 
     for (client_handle = client_handle_start; client_handle < NUM_HANDLE;
          client_handle++) {
-        HandleLock();
+        HandleLock(__FILE__, __LINE__);
 
         /* get client info */
         if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
@@ -778,7 +778,7 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
                 SubscribeLock();
 
                 /* get HandleLock again */
-                HandleLock();
+                HandleLock(__FILE__, __LINE__);
 
                 if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
                     SubscribeUnlock();

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-15
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -518,19 +518,19 @@ void ssdp_handle_device_request(http_message_t* hmsg,
 
     start = 0;
     for (;;) {
-        HandleLock(__FILE__, __LINE__);
+        HandleLock();
         /* device info. */
         switch (GetDeviceHandleInfo(start, (int)dest_addr->ss_family, &handle,
                                     &dev_info)) {
         case HND_DEVICE:
             break;
         default:
-            HandleUnlock(__FILE__, __LINE__);
+            HandleUnlock();
             /* no info found. */
             return;
         }
         maxAge = dev_info->MaxAge;
-        HandleUnlock(__FILE__, __LINE__);
+        HandleUnlock();
 
         UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__, "MAX-AGE     =  %d\n",
                    maxAge);
@@ -1001,7 +1001,7 @@ int AdvertiseAndReply(int AdFlag, UpnpDevice_Handle Hnd,
                "Inside AdvertiseAndReply with AdFlag = %d\n", AdFlag);
 
     /* Use a read lock */
-    HandleReadLock(__FILE__, __LINE__);
+    HandleReadLock();
     if (GetHandleInfo(Hnd, &SInfo) != HND_DEVICE) {
         retVal = UPNP_E_INVALID_HANDLE;
         goto end_function;
@@ -1309,7 +1309,7 @@ end_function:
     ixmlNodeList_free(nodeList);
     UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
                "Exiting AdvertiseAndReply.\n");
-    HandleUnlock(__FILE__, __LINE__);
+    HandleUnlock();
 
     return retVal;
 }

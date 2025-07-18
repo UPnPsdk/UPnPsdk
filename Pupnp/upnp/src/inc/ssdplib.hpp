@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2023-11-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,7 +33,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2023-08-24, ver 1.14.18
+// Last updated from pupnp original source file on 2025-07-17, ver 1.14.21
 
 /*!
  * \defgroup SSDPlib SSDP Library
@@ -80,6 +80,7 @@ typedef enum SsdpSearchType {
 #define SSDP_IPV6_LINKLOCAL "FF02::C"
 #define SSDP_IPV6_SITELOCAL "FF05::C"
 #define SSDP_PORT 1900
+#define SSDP_PORT_STR "1900"
 #define NUM_TRY 3
 #define THREAD_LIMIT 50
 #define COMMAND_LEN 300

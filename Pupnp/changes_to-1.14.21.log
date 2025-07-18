@@ -126,7 +126,7 @@ Date:   Mon Apr 14 18:38:39 2025 -0300
     
     And check some result values from setsockopts().
 
-:100644 100644 3578a245 a75f1442 M	upnp/src/inc/ssdplib.h
+:100644 100644 3578a245 a75f1442 M	upnp/src/inc/ssdplib.h updated
 :100644 100644 23db5ab1 42d89409 M	upnp/src/ssdp/ssdp_device.c TODO
 
 commit 770b9d194344a59c4b1a51f8567cba68afeb8876
@@ -156,7 +156,7 @@ Date:   Mon Apr 14 20:36:11 2025 -0300
 :100644 100644 b8e0fbe7 40a76f0e M	upnp/src/gena/gena_ctrlpt.c updated
 :100644 100644 e6fc93d1 03f3c84d M	upnp/src/gena/gena_device.c updated
 :100644 100644 37d32d11 232f01f4 M	upnp/src/inc/upnpapi.h updated pupnp, TODO: verify compa
-:100644 100644 d1d99c64 e515d06e M	upnp/src/soap/soap_device.c
+:100644 100644 d1d99c64 e515d06e M	upnp/src/soap/soap_device.c updated
 :100644 100644 c911d82e d6ccf349 M	upnp/src/ssdp/ssdp_ctrlpt.c updated
 :100644 100644 60b37167 c8ddf933 M	upnp/src/ssdp/ssdp_device.c updated
 :100644 100644 8e5e475d d905b22c M	upnp/src/ssdp/ssdp_server.c updated
@@ -356,7 +356,7 @@ Date:   Thu Nov 28 22:32:24 2024 -0300
 
     sysdep.c: Remove unnecessary semi-colon
 
-:100644 100644 6201c921 59d1e3c5 M	upnp/src/uuid/sysdep.c
+:100644 100644 6201c921 59d1e3c5 M	upnp/src/uuid/sysdep.c updated
 
 commit c389e85f530deb6aff6f80d47825eb870725e8c3
 Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
@@ -364,9 +364,9 @@ Date:   Thu Nov 28 22:24:49 2024 -0300
 
     Use the actual necessary include files
 
-:100644 100644 bb3dd331 a87543fd M	upnp/inc/UpnpStdInt.h
+:100644 100644 bb3dd331 a87543fd M	upnp/inc/UpnpStdInt.h updated
 :100644 100644 75484095 e76b30e2 M	upnp/src/gena/gena_device.c updated
-:100644 100644 6f8d032c 39ef1f35 M	upnp/src/inc/sysdep.h
+:100644 100644 6f8d032c 39ef1f35 M	upnp/src/inc/sysdep.h updated
 
 commit c6280b0b1e1ec56f2c361914cdb36c2da3983be6
 Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
@@ -375,7 +375,7 @@ Date:   Thu Nov 28 19:44:16 2024 -0300
     Use the actual necessary include files
 
 :100644 100644 2ff96b5c 8095783d M	upnp/src/gena/gena_ctrlpt.c updated
-:100644 100644 8a629ac7 bb382399 M	upnp/src/inc/gena.h
+:100644 100644 8a629ac7 bb382399 M	upnp/src/inc/gena.h TODO: verify
 
 commit 0294cd8c07071b45c2c92323a21d8a17efa8e0a1
 Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
@@ -383,8 +383,8 @@ Date:   Thu Nov 28 19:38:35 2024 -0300
 
     Use the actual necessary include files
 
-:100644 100644 0a39cedc 73ca5892 M	upnp/src/gena/gena_callback2.c
-:100644 100644 98f6da4a 8a629ac7 M	upnp/src/inc/gena.h
+:100644 100644 0a39cedc 73ca5892 M	upnp/src/gena/gena_callback2.c TODO: verify
+:100644 100644 98f6da4a 8a629ac7 M	upnp/src/inc/gena.h TODO: verify
 
 commit b1c5a15350a310148bca8dfdc31b914a0877f4be
 Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>

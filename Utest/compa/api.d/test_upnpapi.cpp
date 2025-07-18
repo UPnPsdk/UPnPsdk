@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-07-06
+// Redistribution only with this Copyright remark. Last modified: 2025-07-18
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -408,10 +408,18 @@ TEST_F(UpnpapiFTestSuite, UpnpFinish_successful) {
     ASSERT_EQ(UpnpInitMutexes(), UPNP_E_SUCCESS);
 
     // Initialize the handle list.
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    HandleLock(__FILE__, __LINE__);
+#else
     HandleLock();
+#endif
     for (int i = 0; i < NUM_HANDLE; ++i)
         HandleTable[i] = nullptr;
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    HandleUnlock(__FILE__, __LINE__);
+#else
     HandleUnlock();
+#endif
 
     // Initialize SDK global thread pools.
     ASSERT_EQ(UpnpInitThreadPools(), UPNP_E_SUCCESS);

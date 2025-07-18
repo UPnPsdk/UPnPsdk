@@ -3,8 +3,6 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
- * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,25 +29,25 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2025-07-17, ver 1.14.21
+
 /*!
  * \file
  */
 
-#include "config.hpp"
+#include "config.h"
 
 #ifdef INCLUDE_DEVICE_APIS
 #if EXCLUDE_SOAP == 0
 
-#include "UpnpActionRequest.hpp"
-#include "httpparser.hpp"
-#include "httpreadwrite.hpp"
-#include "parsetools.hpp"
-#include "soaplib.hpp"
-#include "ssdplib.hpp"
-#include "statcodes.hpp"
-#include "unixutil.hpp"
-#include "upnpapi.hpp"
+#include "UpnpActionRequest.h"
+#include "httpparser.h"
+#include "httpreadwrite.h"
+#include "parsetools.h"
+#include "soaplib.h"
+#include "ssdplib.h"
+#include "statcodes.h"
+#include "unixutil.h"
+#include "upnpapi.h"
 
 #include <assert.h>
 #include <string.h>
@@ -697,7 +695,7 @@ void soap_device_callback(
     (void)parser;
 
     /* get device/service identified by the request-URI */
-    soap_info = (soap_devserv_t*)malloc(sizeof(soap_devserv_t));
+    soap_info = malloc(sizeof(soap_devserv_t));
     if (NULL == soap_info) {
         err_code = HTTP_INTERNAL_SERVER_ERROR;
         goto error_handler;

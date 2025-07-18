@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-15
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2025-07-14, ver 1.14.21
+// Last update from pupnp original source file on 2025-07-17, ver 1.14.21
 
 /*!
  * \addtogroup SSDPlib
@@ -573,7 +573,7 @@ static UPNP_INLINE int valid_ssdp_msg(
     }
     if (hmsg->request_method != (http_method_t)HTTPMETHOD_MSEARCH) {
         /* check PATH == "*" */
-        if (hmsg->uri.type != (enum uriType)RELATIVE ||
+        if (hmsg->uri.type != (enum uriType)Relative ||
             strncmp("*", hmsg->uri.pathquery.buff, hmsg->uri.pathquery.size) !=
                 0) {
             return 0;
@@ -680,7 +680,7 @@ int readFromSSDPSocket(SOCKET socket) {
     requestBuf = staticBuf;
     /* in case memory can't be allocated, still drain the socket using a
      * static buffer. */
-    data = malloc(sizeof(ssdp_thread_data));
+    data = (ssdp_thread_data*)malloc(sizeof(ssdp_thread_data));
     if (data) {
         /* initialize parser */
 #ifdef INCLUDE_CLIENT_APIS

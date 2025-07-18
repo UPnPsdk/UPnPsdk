@@ -270,7 +270,7 @@ void ssdp_handle_ctrlpt_msg(http_message_t* hmsg,
             /*save_char = hdr_value.buf[ hdr_value.length ]; */
             /*hdr_value.buf[ hdr_value.length ] = '\0'; */
             while (node != NULL) {
-                searchArg = node->item;
+                searchArg = (SsdpSearchArg*)node->item;
                 /* check for match of ST header and search
                  * target */
                 switch (searchArg->requestType) {

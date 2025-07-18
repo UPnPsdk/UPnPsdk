@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2025-07-16, ver 1.14.21
+// Last compare with pupnp original source file on 2025-07-17, ver 1.14.21
 /*!
  * \file
  */
@@ -138,7 +138,7 @@ static int GeneratePropertySet(
 static void free_notify_struct(
     /*! [in] Notify structure. */
     void* input) {
-    notify_thread_struct* p = input;
+    notify_thread_struct* p = (notify_thread_struct*)input;
 
     (*p->reference_count)--;
     if (*p->reference_count == 0) {
@@ -1003,8 +1003,8 @@ static int create_url_list(
     }
 
     if (URLcount > 0) {
-        out->URLs = malloc(URLS->size + 1);
-        out->parsedURLs = malloc(sizeof(uri_type) * URLcount);
+        out->URLs = (char*)malloc(URLS->size + 1);
+        out->parsedURLs = (uri_type*)malloc(sizeof(uri_type) * URLcount);
         if (!out->URLs || !out->parsedURLs) {
             free(out->URLs);
             free(out->parsedURLs);

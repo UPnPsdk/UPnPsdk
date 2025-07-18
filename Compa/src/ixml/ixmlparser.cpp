@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-14
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with ./Pupnp source file on 2025-07-14, ver 1.14.21
+// Last updated from ./Pupnp source file on 2025-07-17, ver 1.14.21
 /*!
  * \file
  */
@@ -41,6 +41,7 @@
 #include <UPnPsdk/port.hpp>
 
 #include <cassert>
+#include <climits>
 #include <cstddef> /* for ptrdiff_t */
 #include <cstdio>
 #include <cstring>
@@ -1731,7 +1732,7 @@ static int Parser_processAttribute(
     } else {
         /* if attribute doesn't have value, like a=""
          * somewhere on other places is this copied */
-        node->nodeValue = malloc(sizeof(char));
+        node->nodeValue = (char*)malloc(sizeof(char));
         *(node->nodeValue) = '\0';
     }
     node->nodeType = eATTRIBUTE_NODE;
@@ -2590,7 +2591,7 @@ int Parser_setNodePrefixAndLocalName(
         /* fill in the local name and prefix */
         pLocalName = (char*)pStrPrefix + 1;
         nPrefix = pStrPrefix - node->nodeName;
-        node->prefix = malloc((size_t)nPrefix + (size_t)1);
+        node->prefix = (char*)malloc((size_t)nPrefix + (size_t)1);
         if (!node->prefix) {
             return IXML_INSUFFICIENT_MEMORY;
         }

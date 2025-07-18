@@ -3,8 +3,6 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
- * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,40 +29,44 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with ./Pupnp source file on 2025-07-16, ver 1.14.21
+
+#include "config.h"
+
 /*!
  * \file
- * \brief Manage GENA control point
  */
 
-#include <gena.hpp>
-#include <client_table.hpp>
-#include <httpreadwrite.hpp>
-#include <parsetools.hpp>
-#include <statcodes.hpp>
-#include <upnpapi.hpp>
-#include <uuid.hpp>
+#if EXCLUDE_GENA == 0
+#ifdef INCLUDE_CLIENT_APIS
 
-struct job_arg {
+#include "UpnpEventSubscribe.h"
+#include "client_table.h"
+#include "gena.h"
+#include "httpparser.h"
+#include "httpreadwrite.h"
+#include "parsetools.h"
+#include "statcodes.h"
+#include "upnpapi.h"
+#include "uuid.h"
+
+#include "posix_overwrites.h" // IWYU pragma: keep
+
+extern ithread_mutex_t GlobalClientSubscribeMutex;
+
+typedef struct {
     int handle;
     int eventId;
     void* Event;
-};
-
-namespace {
-
-/*! \brief Mutex to synchronize the subscription handling at the control point
- * side. */
-pthread_mutex_t ctrlpntSubscribe_mutex{};
+} job_arg;
 
 /*!
  * \brief Free memory associated with job's argument
  */
-void free_subscribe_arg(void* arg) {
+static void free_subscribe_arg(void* arg) {
     if (arg) {
-        job_arg* p = (job_arg*)arg;
+        job_arg* p = arg;
         if (p->Event) {
-            UpnpEventSubscribe_delete((UpnpEventSubscribe*)p->Event);
+            UpnpEventSubscribe_delete(p->Event);
         }
         free(p);
     }
@@ -74,7 +76,7 @@ void free_subscribe_arg(void* arg) {
  * \brief This is a thread function to send the renewal just before the
  * subscription times out.
  */
-void GenaAutoRenewSubscription(
+static void GenaAutoRenewSubscription(
     /*! [in] Thread data(job_arg *) needed to send the renewal. */
     void* input) {
     job_arg* arg = (job_arg*)input;
@@ -83,11 +85,11 @@ void GenaAutoRenewSubscription(
     Upnp_FunPtr callback_fun;
     struct Handle_Info* handle_info;
     int send_callback = 0;
-    Upnp_EventType eventType{};
+    Upnp_EventType eventType = 0;
     int timeout = 0;
     int errCode = 0;
 
-    if constexpr (AUTO_RENEW_TIME == 0) {
+    if (AUTO_RENEW_TIME == 0) {
         UpnpPrintf(UPNP_INFO, GENA, __FILE__, __LINE__, "GENA SUB EXPIRED\n");
         UpnpEventSubscribe_set_ErrCode(sub_struct, UPNP_E_SUCCESS);
         send_callback = 1;
@@ -107,9 +109,9 @@ void GenaAutoRenewSubscription(
     }
 
     if (send_callback) {
-        HandleReadLock();
+        HandleReadLock(__FILE__, __LINE__);
         if (GetHandleInfo(arg->handle, &handle_info) != HND_CLIENT) {
-            HandleUnlock();
+            HandleUnlock(__FILE__, __LINE__);
             free_subscribe_arg(arg);
             goto end_function;
         }
@@ -118,8 +120,8 @@ void GenaAutoRenewSubscription(
         /* make callback */
         callback_fun = handle_info->Callback;
         cookie = handle_info->Cookie;
-        HandleUnlock();
-        callback_fun((Upnp_EventType)eventType, arg->Event, cookie);
+        HandleUnlock(__FILE__, __LINE__);
+        callback_fun(eventType, arg->Event, cookie);
     }
 
     free_subscribe_arg(arg);
@@ -134,7 +136,7 @@ end_function:
  * \return GENA_E_SUCCESS if successful, otherwise returns the appropriate
  *  error code.
  */
-int ScheduleGenaAutoRenew(
+static int ScheduleGenaAutoRenew(
     /*! [in] Handle that also contains the subscription list. */
     int client_handle,
     /*! [in] The time out value of the subscription. */
@@ -178,7 +180,7 @@ int ScheduleGenaAutoRenew(
     arg->handle = client_handle;
     arg->Event = RenewEvent;
 
-    TPJobInit(&job, (UPnPsdk::start_routine)GenaAutoRenewSubscription, arg);
+    TPJobInit(&job, (start_routine)GenaAutoRenewSubscription, arg);
     TPJobSetFreeFunction(&job, (free_routine)free_subscribe_arg);
     TPJobSetPriority(&job, MED_PRIORITY);
 
@@ -206,7 +208,7 @@ end_function:
  *
  * \returns 0 if successful, otherwise returns the appropriate error code.
  */
-int gena_unsubscribe(
+static int gena_unsubscribe(
     /*! [in] Event URL of the service. */
     const UpnpString* url,
     /*! [in] The subcription ID. */
@@ -263,7 +265,7 @@ int gena_unsubscribe(
  *
  * \return 0 if successful, otherwise returns the appropriate error code.
  */
-int gena_subscribe(
+static int gena_subscribe(
     /*! [in] URL of service to subscribe. */
     const UpnpString* url,
     /*! [in,out] Subscription time desired (in secs). */
@@ -274,7 +276,7 @@ int gena_subscribe(
     /*! [out] SID returned by the subscription or renew msg. */
     UpnpString* sid) {
     int return_code;
-    parse_status_t parse_ret{};
+    parse_status_t parse_ret = 0;
     int local_timeout = CP_MINIMUM_SUBSCRIPTION_TIME;
     memptr sid_hdr;
     memptr timeout_hdr;
@@ -412,24 +414,6 @@ int gena_subscribe(
     return UPNP_E_SUCCESS;
 }
 
-} // namespace
-
-int clientSubscribeMutexInit() {
-    pthread_mutexattr_t attr;
-
-    int ret = pthread_mutexattr_init(&attr);
-    if (ret != 0)
-        return ret;
-    pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
-    pthread_mutex_init(&ctrlpntSubscribe_mutex, &attr);
-    pthread_mutexattr_destroy(&attr);
-    return 0;
-}
-
-int clientSubscribeMutexDestroy() {
-    return pthread_mutex_destroy(&ctrlpntSubscribe_mutex);
-}
-
 int genaUnregisterClient(UpnpClient_Handle client_handle) {
     GenlibClientSubscription* sub_copy = GenlibClientSubscription_new();
     int return_code = UPNP_E_SUCCESS;
@@ -437,10 +421,10 @@ int genaUnregisterClient(UpnpClient_Handle client_handle) {
     http_parser_t response;
 
     while (1) {
-        HandleLock();
+        HandleLock(__FILE__, __LINE__);
 
         if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
-            HandleUnlock();
+            HandleUnlock(__FILE__, __LINE__);
             return_code = GENA_E_BAD_HANDLE;
             goto exit_function;
         }
@@ -452,7 +436,7 @@ int genaUnregisterClient(UpnpClient_Handle client_handle) {
         RemoveClientSubClientSID(&handle_info->ClientSubList,
                                  GenlibClientSubscription_get_SID(sub_copy));
 
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
 
         return_code = gena_unsubscribe(
             GenlibClientSubscription_get_EventURL(sub_copy),
@@ -464,13 +448,14 @@ int genaUnregisterClient(UpnpClient_Handle client_handle) {
     }
 
     freeClientSubList(handle_info->ClientSubList);
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
 exit_function:
     GenlibClientSubscription_delete(sub_copy);
     return return_code;
 }
 
+#ifdef INCLUDE_CLIENT_APIS
 int genaUnSubscribe(UpnpClient_Handle client_handle, const UpnpString* in_sid) {
     GenlibClientSubscription* sub = NULL;
     int return_code = GENA_SUCCESS;
@@ -479,20 +464,20 @@ int genaUnSubscribe(UpnpClient_Handle client_handle, const UpnpString* in_sid) {
     http_parser_t response;
 
     /* validate handle and sid */
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return_code = GENA_E_BAD_HANDLE;
         goto exit_function;
     }
     sub = GetClientSubClientSID(handle_info->ClientSubList, in_sid);
     if (sub == NULL) {
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return_code = GENA_E_BAD_SID;
         goto exit_function;
     }
     GenlibClientSubscription_assign(sub_copy, sub);
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     return_code = gena_unsubscribe(
         GenlibClientSubscription_get_EventURL(sub_copy),
@@ -502,20 +487,22 @@ int genaUnSubscribe(UpnpClient_Handle client_handle, const UpnpString* in_sid) {
     }
     free_client_subscription(sub_copy);
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return_code = GENA_E_BAD_HANDLE;
         goto exit_function;
     }
     RemoveClientSubClientSID(&handle_info->ClientSubList, in_sid);
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
 exit_function:
     GenlibClientSubscription_delete(sub_copy);
     return return_code;
 }
+#endif /* INCLUDE_CLIENT_APIS */
 
+#ifdef INCLUDE_CLIENT_APIS
 int genaSubscribe(UpnpClient_Handle client_handle,
                   const UpnpString* PublisherURL, int* TimeOut,
                   UpnpString* out_sid) {
@@ -536,26 +523,19 @@ int genaSubscribe(UpnpClient_Handle client_handle,
 
     UpnpString_clear(out_sid);
 
-    HandleReadLock();
+    HandleReadLock(__FILE__, __LINE__);
     /* validate handle */
-    int ret;
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
         return_code = GENA_E_BAD_HANDLE;
-        ret = pthread_mutex_lock(&ctrlpntSubscribe_mutex);
-        if (ret != 0)
-            UPnPsdk_LOGCRIT("MSG1099") "POSIX thread mutex lock fails with "
-                << (ret == EINVAL ? "EINVAL" : "EDEADLK") << ".\n";
+        SubscribeLock();
         goto error_handler;
     }
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     /* subscribe */
-    ret = pthread_mutex_lock(&ctrlpntSubscribe_mutex);
-    if (ret != 0)
-        UPnPsdk_LOGCRIT("MSG1138") "POSIX thread mutex lock fails with "
-            << (ret == EINVAL ? "EINVAL" : "EDEADLK") << ".\n";
+    SubscribeLock();
     return_code = gena_subscribe(PublisherURL, TimeOut, NULL, ActualSID);
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
     if (return_code != UPNP_E_SUCCESS) {
         UpnpPrintf(UPNP_CRITICAL, GENA, __FILE__, __LINE__,
                    "SUBSCRIBE FAILED in transfer error code: %d "
@@ -604,14 +584,12 @@ error_handler:
     UpnpString_delete(EventURL);
     if (return_code != UPNP_E_SUCCESS)
         GenlibClientSubscription_delete(newSubscription);
-    HandleUnlock();
-    ret = pthread_mutex_unlock(&ctrlpntSubscribe_mutex);
-    if (ret != 0)
-        UPnPsdk_LOGCRIT("MSG1139") "POSIX thread mutex unlock fails with "
-            << (ret == EINVAL ? "EINVAL" : "EPERM") << ".\n";
+    HandleUnlock(__FILE__, __LINE__);
+    SubscribeUnlock();
 
     return return_code;
 }
+#endif /* INCLUDE_CLIENT_APIS */
 
 int genaRenewSubscription(UpnpClient_Handle client_handle,
                           const UpnpString* in_sid, int* TimeOut) {
@@ -622,11 +600,11 @@ int genaRenewSubscription(UpnpClient_Handle client_handle,
     UpnpString* ActualSID = UpnpString_new();
     ThreadPoolJob tempJob;
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     /* validate handle and sid */
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
 
         return_code = GENA_E_BAD_HANDLE;
         goto exit_function;
@@ -634,7 +612,7 @@ int genaRenewSubscription(UpnpClient_Handle client_handle,
 
     sub = GetClientSubClientSID(handle_info->ClientSubList, in_sid);
     if (sub == NULL) {
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
 
         return_code = GENA_E_BAD_SID;
         goto exit_function;
@@ -653,16 +631,16 @@ int genaRenewSubscription(UpnpClient_Handle client_handle,
     GenlibClientSubscription_set_RenewEventId(sub, -1);
     GenlibClientSubscription_assign(sub_copy, sub);
 
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     return_code = gena_subscribe(
         GenlibClientSubscription_get_EventURL(sub_copy), TimeOut,
         GenlibClientSubscription_get_ActualSID(sub_copy), ActualSID);
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return_code = GENA_E_BAD_HANDLE;
         goto exit_function;
     }
@@ -673,7 +651,7 @@ int genaRenewSubscription(UpnpClient_Handle client_handle,
         /* network failure (remove client sub) */
         RemoveClientSubClientSID(&handle_info->ClientSubList, in_sid);
         free_client_subscription(sub_copy);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
 
@@ -681,7 +659,7 @@ int genaRenewSubscription(UpnpClient_Handle client_handle,
     sub = GetClientSubClientSID(handle_info->ClientSubList, in_sid);
     if (sub == NULL) {
         free_client_subscription(sub_copy);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         return_code = GENA_E_BAD_SID;
         goto exit_function;
     }
@@ -696,7 +674,7 @@ int genaRenewSubscription(UpnpClient_Handle client_handle,
                                  GenlibClientSubscription_get_SID(sub));
     }
     free_client_subscription(sub_copy);
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
 exit_function:
     UpnpString_delete(ActualSID);
@@ -757,24 +735,24 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
         goto exit_function;
     }
 
-    HandleLock();
+    HandleLock(__FILE__, __LINE__);
 
     /* get client info */
     if (GetClientHandleInfo(&client_handle_start, &handle_info) != HND_CLIENT) {
         error_respond(info, HTTP_PRECONDITION_FAILED, event);
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
         goto exit_function;
     }
 
-    HandleUnlock();
+    HandleUnlock(__FILE__, __LINE__);
 
     for (client_handle = client_handle_start; client_handle < NUM_HANDLE;
          client_handle++) {
-        HandleLock();
+        HandleLock(__FILE__, __LINE__);
 
         /* get client info */
         if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
-            HandleUnlock();
+            HandleUnlock(__FILE__, __LINE__);
             continue;
         }
 
@@ -789,49 +767,33 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
                  * first event if we  */
                 /*   receive it before the subscription response
                  */
-                HandleUnlock();
+                HandleUnlock(__FILE__, __LINE__);
 
                 /* try and get Subscription Lock  */
                 /*   (in case we are in the process of
                  * subscribing) */
-                int ret = pthread_mutex_lock(&ctrlpntSubscribe_mutex);
-                if (ret != 0)
-                    UPnPsdk_LOGCRIT(
-                        "MSG1140") "POSIX thread mutex lock fails with "
-                        << (ret == EINVAL ? "EINVAL" : "EDEADLK") << ".\n";
+                SubscribeLock();
 
                 /* get HandleLock again */
-                HandleLock();
+                HandleLock(__FILE__, __LINE__);
 
                 if (GetHandleInfo(client_handle, &handle_info) != HND_CLIENT) {
-                    ret = pthread_mutex_unlock(&ctrlpntSubscribe_mutex);
-                    if (ret != 0)
-                        UPnPsdk_LOGCRIT(
-                            "MSG1141") "POSIX thread mutex unlock fails with "
-                            << (ret == EINVAL ? "EINVAL" : "EPERM") << ".\n";
-                    HandleUnlock();
+                    SubscribeUnlock();
+                    HandleUnlock(__FILE__, __LINE__);
                     continue;
                 }
 
                 subscription =
                     GetClientSubActualSID(handle_info->ClientSubList, &sid);
                 if (subscription == NULL) {
-                    ret = pthread_mutex_unlock(&ctrlpntSubscribe_mutex);
-                    if (ret != 0)
-                        UPnPsdk_LOGCRIT(
-                            "MSG1142") "POSIX thread mutex unlock fails with "
-                            << (ret == EINVAL ? "EINVAL" : "EPERM") << ".\n";
-                    HandleUnlock();
+                    SubscribeUnlock();
+                    HandleUnlock(__FILE__, __LINE__);
                     continue;
                 }
 
-                ret = pthread_mutex_unlock(&ctrlpntSubscribe_mutex);
-                if (ret != 0)
-                    UPnPsdk_LOGCRIT(
-                        "MSG1143") "POSIX thread mutex unlock fails with "
-                        << (ret == EINVAL ? "EINVAL" : "EPERM") << ".\n";
+                SubscribeUnlock();
             } else {
-                HandleUnlock();
+                HandleUnlock(__FILE__, __LINE__);
                 continue;
             }
         }
@@ -849,7 +811,7 @@ void gena_process_notification_event(SOCKINFO* info, http_message_t* event) {
         callback = handle_info->Callback;
         cookie = handle_info->Cookie;
 
-        HandleUnlock();
+        HandleUnlock(__FILE__, __LINE__);
 
         /* make callback with event struct */
         /* In future, should find a way of mainting */
@@ -864,3 +826,6 @@ exit_function:
     ixmlDocument_free(ChangedVars);
     UpnpEvent_delete(event_struct);
 }
+
+#endif /* INCLUDE_CLIENT_APIS */
+#endif /* EXCLUDE_GENA */

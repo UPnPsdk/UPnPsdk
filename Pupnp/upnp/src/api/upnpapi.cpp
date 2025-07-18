@@ -126,7 +126,7 @@ ithread_mutex_t GlobalClientSubscribeMutex;
 #endif /* INCLUDE_CLIENT_APIS */
 
 /*! rwlock to synchronize handles (root device or control point handle). */
-ithread_rwlock_t GlobalHndRWLock;
+EXPORT_SPEC ithread_rwlock_t GlobalHndRWLock;
 
 /*! Mutex to synchronize the uuid creation process. */
 ithread_mutex_t gUUIDMutex;
