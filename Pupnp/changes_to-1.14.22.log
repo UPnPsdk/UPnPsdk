@@ -1,0 +1,73 @@
+commit 8b7fce706261102cdf71a255689cf9e3d6e80780 (HEAD, tag: release-1.14.22)
+
+git switch branch-1.14.x
+git fetch --all
+git pull
+git checkout release-1.14.22
+git whatchanged release-1.14.21^..release-1.14.22
+updated files marked with word "updated", "checked", or "deleted" at line end.
+==============================================================================
+
+commit 8b7fce706261102cdf71a255689cf9e3d6e80780 (HEAD, tag: release-1.14.22)
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Jun 2 17:51:28 2025 -0300
+
+    Readme.md: Update
+
+:100644 100644 aebd1530 3d698029 M	README.md
+
+commit f5fd98f6526df19c0d50cbf1f1caf2d660c1bba1
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Jun 2 17:36:16 2025 -0300
+
+    LinkedList.c: Use zero instead of NULL
+
+:100644 100644 f1a447b4 070636fd M	ChangeLog
+:100644 100644 74fe7756 db85b571 M	upnp/src/threadutil/LinkedList.c updated
+
+commit e88a58626fb1d35e372586d6e089b7861b072424
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Jun 2 16:43:26 2025 -0300
+
+    Fix code QL deprecation
+
+:100644 100644 5cd69f18 bc4eb2a7 M	.github/workflows/codeql-analysis.yml
+
+commit 94e4ff97a280e8a97b9e88b356b1ba4d74ad4390
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Jun 2 16:55:06 2025 -0300
+
+    Fix broken configure.ac
+
+:100644 100644 44b8ac60 6c65c1b1 M	configure.ac
+:100755 100755 a9e1f164 0ce7084b M	scripts/homekeeping.sh
+
+commit cdf240687ce0854088cc43b0d0108bcc0e2149e1
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sun Jun 1 19:49:09 2025 -0300
+
+    Homekeeping for the next release
+
+:100644 100644 22bd3ef6 f1a447b4 M	ChangeLog
+:100644 100644 d8c17d98 44b8ac60 M	configure.ac
+:100644 100644 fa4668eb a0f3c4c5 M	docs/Doxyfile
+:100644 100644 13c632ce cacb5885 M	docs/changelog_template.txt
+:100644 100644 872fae20 3dda48ea M	docs/configure_ac_template.txt
+:100644 100644 0b613491 3ddfe77a M	libupnp.spec
+
+commit 32248c1411c4440e4e3c4b1386665ac123d7b16b
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sun Jun 1 19:45:58 2025 -0300
+
+    Release action commits to main branch
+
+:100644 100644 2d30740d f6d2cde5 M	.github/workflows/release.yml
+
+commit bf9c8f3b9a59cb4234f1b96cc7cd5b798b7be817 (tag: release-1.14.21)
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sun Jun 1 19:33:15 2025 -0300
+
+    README.md and ChangeLog
+
+:100644 100644 e56f6728 22bd3ef6 M	ChangeLog
+:100644 100644 8576b5d3 aebd1530 M	README.md

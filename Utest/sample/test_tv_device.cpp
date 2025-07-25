@@ -11,7 +11,6 @@
 
 #include <Sample/common/tv_device.cpp>
 
-#include <upnpapi.hpp>
 #include <membuffer.hpp>
 
 #include <UPnPsdk/upnptools.hpp>

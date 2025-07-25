@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-07-13
+// Redistribution only with this Copyright remark. Last modified: 2025-07-25
 /*!
  * \file
  * \brief Simple calls of API functions to test conditional compile and linking.
@@ -1151,7 +1151,9 @@ int main(void) {
 
 #else
     // Step 0: Addressing
+    // Initialization and Registration
     ret += UpnpInit2_utest(false); // fix it
+    // ret += UpnpInitSslContext_utest();
     ret += UpnpFinish_utest();
     ret += UpnpGetServerPort_utest();
     ret += UpnpGetServerPort6_utest();
@@ -1174,6 +1176,9 @@ int main(void) {
     ret += UpnpSendAdvertisement_utest();
     ret += UpnpSendAdvertisementLowPower_utest();
 
+    // Step 2: Description
+    // Nothing available?
+
     // Step 3: Control
     ret += UpnpSendAction_utest();
     ret += UpnpSendActionEx_utest();
@@ -1193,6 +1198,9 @@ int main(void) {
     ret += UpnpSubscribeAsync_utest();
     ret += UpnpUnSubscribe_utest();
     ret += UpnpUnSubscribeAsync_utest();
+
+    // Step 5: Presentation
+    // Nothing available?
 
     // Control Point http API
     // ret += UpnpDownloadUrlItem_utest(); // fix it
@@ -1228,6 +1236,7 @@ int main(void) {
     ret += UpnpIsWebserverEnabled_utest();
     ret += UpnpSetHostValidateCallback_utest();
     ret += UpnpSetAllowLiteralHostRedirection_utest();
+    // ret += UpnpSetWebServerCorsString_utest();
     ret += UpnpAddVirtualDir_utest();
     ret += UpnpRemoveVirtualDir_utest();
     ret += UpnpRemoveAllVirtualDirs_utest();
