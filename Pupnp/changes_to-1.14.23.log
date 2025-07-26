@@ -1,0 +1,95 @@
+commit 9603228ba693cb7589aef00c76e5871c66177d36 (HEAD, tag: release-1.14.23)
+
+git switch branch-1.14.x
+git fetch --all
+git pull
+git checkout release-1.14.23
+git whatchanged release-1.14.22^..release-1.14.23
+updated files marked with word "updated", "checked", or "deleted" at line end.
+==============================================================================
+
+commit 9603228ba693cb7589aef00c76e5871c66177d36 (HEAD, tag: release-1.14.23)
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Jun 7 12:19:02 2025 -0300
+
+    Pre-release commit
+
+:100644 100644 d83f36ad 679872cf M	ChangeLog
+:100644 100644 3d698029 23653ecb M	README.md
+:100644 100644 a83e4ac4 8727ce74 M	configure.ac
+
+commit b08550fba8aa587a2e5d9888bd3de71feb53cf9c
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Jun 7 11:31:16 2025 -0300
+
+    Actions: Update checkout to v4
+
+:100644 100644 694d9bbb 735a7dfb M	.github/workflows/ccpp.yml
+:100644 100644 34b5adb9 5b855acb M	.github/workflows/clang-format.yml
+:100644 100644 43882e7c 990ead9a M	.github/workflows/codeql-analysis.yml
+:100644 100644 e7bd7581 683c37eb M	.github/workflows/release.yml
+
+commit 3fa03fe0b55b1541e887311076d885f86acb6ebe
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Jun 7 11:30:21 2025 -0300
+
+    Try to fix the release action
+
+:100644 100644 f6d2cde5 e7bd7581 M	.github/workflows/release.yml
+
+commit 991963ba757aac19bccb4b88b3f98067767590b1
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Apr 26 23:17:28 2025 -0300
+
+    Work in progress
+
+:100755 100755 d66f2bd8 5bc1f535 M	gtest/tools/compile.sh
+
+commit 8a16938304226b0b496463341e95d2c34c7d2c86
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Jun 7 10:51:05 2025 -0300
+
+    THANKS: Update
+
+:100644 100644 b570932b b66bce2a M	THANKS
+
+commit b8018e78378f7f2fe76d05269c743f596dde78a7
+Author: Ryan C. Underwood <nemesis@icequake.net>
+Date:   Sat Jun 7 08:47:37 2025 -0500
+
+    Improve SSDP initialization and error handling (#486)
+
+    * Improve SSDP initialization and error handling
+
+    It was possible for some uninitialized garbage to cause getaddrinfo() to
+    fail on glibc 2.41, which would crash the client program.  Instead,
+    zero the whole struct, and gracefully handle getaddrinfo() failures.
+
+:100644 100644 42d89409 eecf8924 M	upnp/src/ssdp/ssdp_device.c updated
+
+commit acb6ff2dd9d2b6d83d7af100dba151a88c5ca2d0
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Fri Jun 6 19:00:30 2025 -0300
+
+    CodeQL: Update to v3
+
+:100644 100644 bc4eb2a7 43882e7c M	.github/workflows/codeql-analysis.yml
+
+commit e2df1e4502b0dcbb8387dba43bc9512cefbf9a6b
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Jun 2 18:11:09 2025 -0300
+
+    Homekeeping for the next release
+
+:100644 100644 070636fd d83f36ad M	ChangeLog
+:100644 100644 6c65c1b1 a83e4ac4 M	configure.ac
+:100644 100644 a0f3c4c5 fa0adf9b M	docs/Doxyfile
+:100644 100644 3ddfe77a 438036b8 M	libupnp.spec
+
+commit 8b7fce706261102cdf71a255689cf9e3d6e80780 (tag: release-1.14.22)
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Mon Jun 2 17:51:28 2025 -0300
+
+    Readme.md: Update
+
+:100644 100644 aebd1530 3d698029 M	README.md

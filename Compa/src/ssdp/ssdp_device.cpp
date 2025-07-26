@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with ./pupnp source file on 2024-02-16, ver 1.14.18
+// Last update from ./pupnp source file on 2025-07-26, ver 1.14.23
 /*!
  * \file
  * \brief Manage "Step 1: Discovery" of the UPnP+™ specification for UPnP
