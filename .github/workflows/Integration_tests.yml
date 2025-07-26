@@ -220,21 +220,21 @@ jobs:
     # Step building UPnPsdk
       - uses: actions/checkout@v4
 
-      - if: matrix.os == 'windows-2022'
+      - if: matrix.os == 'windows-2025'
         # need developer command prompt
         name: Use MS Windows 32 bit
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: win32
 
-      - if: matrix.os == 'windows-2025'
+      - if: matrix.os == 'windows-2022'
         # need developer command prompt
         name: Use MS Windows 64 bit
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: amd64
 
-      - if: matrix.os == 'windows-2022'
+      - if: matrix.os == 'windows-2025'
         name: Configure 32 bit
         run: >
           cmake
@@ -246,7 +246,7 @@ jobs:
           -D UPnPsdk_WITH_OPENSSL=OFF
           # We do not have a 32 bit OpenSSL library available.
 
-      - if: matrix.os == 'windows-2025'
+      - if: matrix.os == 'windows-2022'
         name: Configure 64 bit
         run: >
           cmake

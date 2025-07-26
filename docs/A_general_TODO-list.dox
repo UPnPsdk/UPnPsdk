@@ -1,11 +1,12 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-07-23
+// Redistribution only with this Copyright remark. Last modified: 2025-08-06
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Test SSDP UDP response to 1900.
+ * - Enable win32 github action Integration tests again.
+ * - Recreate function for sending SSDP multicast messages (is now NewRequestHandler()).
  * - Implement API of the SDK.
      - Check installation of binaries and header files in /usr/local.
      - Add ixml interface calls to api_calls.c.

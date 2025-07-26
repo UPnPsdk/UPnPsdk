@@ -41,6 +41,7 @@ var ssdp__common_8hpp =
     [ "SSDP_IPV6_LINKLOCAL", "d0/d19/ssdp__common_8hpp.html#a6f6d9730dd0bf4338227c5c572989fce", null ],
     [ "SSDP_IPV6_SITELOCAL", "d0/d19/ssdp__common_8hpp.html#a59aa1778bc64335c066dd7511c53deec", null ],
     [ "SSDP_PORT", "d0/d19/ssdp__common_8hpp.html#a0a3b7291b732fc6a286c6f0d1e796836", null ],
+    [ "SSDP_PORT_STR", "d0/d19/ssdp__common_8hpp.html#a266e0c7a8640045829014ca1edfcd5b1", null ],
     [ "NUM_TRY", "d0/d19/ssdp__common_8hpp.html#adcc65d241a5754fbc106f0d30aa08b96", null ],
     [ "THREAD_LIMIT", "d0/d19/ssdp__common_8hpp.html#ae69ccc5531313c2d6eb93eb454a27b2f", null ],
     [ "COMMAND_LEN", "d0/d19/ssdp__common_8hpp.html#a263a398098e98c047598d65206325186", null ],

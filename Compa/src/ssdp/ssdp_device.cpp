@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-17
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with ./pupnp source file on 2024-02-16, ver 1.14.18
+// Last update from ./pupnp source file on 2025-07-26, ver 1.14.23
 /*!
  * \file
  * \brief Manage "Step 1: Discovery" of the UPnP+™ specification for UPnP
@@ -48,6 +48,7 @@
 #include <webserver.hpp>
 
 #include <umock/sys_socket.hpp>
+#include <umock/netdb.hpp>
 
 #ifndef COMPA_INTERNAL_CONFIG_HPP
 #error "No or wrong config.hpp header file included."
@@ -89,60 +90,122 @@ constexpr int MSGTYPE_REPLY{2};
 int NewRequestHandler(
     /*! [in] Ip address, to send the reply. */
     struct sockaddr* DestAddr,
-    /*! [in] Number of packet to be sent. */
+    /*! [in] Number of packets to be sent. */
     int NumPacket,
-    /*! [in] */
-    char** RqPacket) {
-    char errorBuffer[ERROR_BUFFER_LEN];
-    SOCKET ReplySock;
+    /*! [in] Pointer to Array of pointer for multicast packets to send. */
+    char** RqPacket,
+    /*! [in] optional: time to live of multicast ip packets */
+    int a_ttl = 4) {
+    int rc;
     socklen_t socklen = sizeof(struct sockaddr_storage);
     int Index;
     struct in_addr replyAddr;
     /* a/c to UPNP Spec */
-    int ttl = 4;
 #ifdef UPNP_ENABLE_IPV6
     int hops = 1;
 #endif
     char buf_ntop[INET6_ADDRSTRLEN];
     int ret = UPNP_E_SUCCESS;
 
-    if (strlen(gIF_IPV4) > (size_t)0 &&
-        !inet_pton(AF_INET, gIF_IPV4, &replyAddr)) {
+    if (DestAddr == nullptr || (strlen(gIF_IPV4) > (size_t)0 &&
+                                !inet_pton(AF_INET, gIF_IPV4, &replyAddr))) {
         return UPNP_E_INVALID_PARAM;
     }
 
-    ReplySock =
-        umock::sys_socket_h.socket((int)DestAddr->sa_family, SOCK_DGRAM, 0);
-    if (ReplySock == INVALID_SOCKET) {
-        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
+    struct addrinfo hints, *res;
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = DestAddr->sa_family;
+    hints.ai_socktype = SOCK_DGRAM;
+    hints.ai_flags = AI_PASSIVE;
+    if ((rc = umock::netdb_h.getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res)) !=
+        0) {
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                    "SSDP_LIB: New Request Handler:"
-                   "Error in socket(): %s\n",
-                   errorBuffer);
+                   "Error in getaddrinfo(): %s\n",
+                   gai_strerror(rc));
+        return UPNP_E_SOCKET_ERROR;
+    }
 
-        return UPNP_E_OUTOF_SOCKET;
+    SOCKET ReplySock = umock::sys_socket_h.socket(
+        res->ai_family, res->ai_socktype, res->ai_protocol);
+    if (ReplySock == INVALID_SOCKET) {
+        char* errmsg = strerror(errno);
+        UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                   "SSDP_LIB: New Request Handler: "
+                   "Error in socket(): %s\n",
+                   errmsg);
+        ret = UPNP_E_OUTOF_SOCKET;
+        goto end_NewRequestHandler;
+    }
+
+    rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr,
+                                  static_cast<socklen_t>(res->ai_addrlen));
+    if (rc != 0) {
+        char* errmsg = strerror(errno);
+        UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                   "SSDP_LIB: New Request Handler:"
+                   "Error in bind(): %s\n",
+                   errmsg);
+        ret = UPNP_E_SOCKET_ERROR;
+        goto end_NewRequestHandler;
     }
 
     switch (DestAddr->sa_family) {
     case AF_INET:
         inet_ntop(AF_INET, &((struct sockaddr_in*)DestAddr)->sin_addr, buf_ntop,
                   sizeof(buf_ntop));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_IF,
-                                       (char*)&replyAddr, sizeof(replyAddr));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_TTL,
-                                       (char*)&ttl, sizeof(int));
+        rc = umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP,
+                                            IP_MULTICAST_IF, &replyAddr,
+                                            sizeof(replyAddr));
+        if (rc != 0) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler:"
+                       "Error in setsockopt() IP_MULTICAST_IF: %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_ERROR;
+            goto end_NewRequestHandler;
+        }
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, &a_ttl, sizeof(a_ttl));
+        if (rc != 0) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler:"
+                       "Error in setsockopt() IP_MULTICAST_TTL: %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_ERROR;
+            goto end_NewRequestHandler;
+        }
         socklen = sizeof(struct sockaddr_in);
         break;
 #ifdef UPNP_ENABLE_IPV6
     case AF_INET6:
         inet_ntop(AF_INET6, &((struct sockaddr_in6*)DestAddr)->sin6_addr,
                   buf_ntop, sizeof(buf_ntop));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
-                                       IPV6_MULTICAST_IF, (char*)&gIF_INDEX,
-                                       sizeof(gIF_INDEX));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
-                                       IPV6_MULTICAST_HOPS, (char*)&hops,
-                                       sizeof(hops));
+        rc = umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
+                                            IPV6_MULTICAST_IF, &gIF_INDEX,
+                                            sizeof(gIF_INDEX));
+        if (rc != 0) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler:"
+                       "Error in setsockopt() IPV6_MULTICAST_IF: %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_ERROR;
+            goto end_NewRequestHandler;
+        }
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, &hops, sizeof(hops));
+        if (rc != 0) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler:"
+                       "Error in setsockopt() IPV6_MULTICAST_HOPS: %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_ERROR;
+            goto end_NewRequestHandler;
+        }
         break;
 #endif
     default:
@@ -153,25 +216,27 @@ int NewRequestHandler(
     }
 
     for (Index = 0; Index < NumPacket; Index++) {
-        ssize_t rc;
+        if (*(RqPacket + Index) == nullptr)
+            continue;
+
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                   ">>> SSDP SEND to %s >>>\n%s\n", buf_ntop,
+                   ">>> SSDP SEND to %s >>>\n\"%s\"\n", buf_ntop,
                    *(RqPacket + Index));
-        rc = sendto(ReplySock, *(RqPacket + Index),
-                    (SIZEP_T)strlen(*(RqPacket + Index)), 0, DestAddr,
-                    (SIZEP_T)socklen);
+        ssize_t rc = umock::sys_socket_h.sendto(
+            ReplySock, *(RqPacket + Index),
+            (SIZEP_T)strlen(*(RqPacket + Index)), 0, DestAddr, socklen);
         if (rc == -1) {
-            strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
+            char* errmsg = strerror(errno);
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                       "SSDP_LIB: New Request Handler:"
-                       "Error in socket(): %s\n",
-                       errorBuffer);
+                       "SSDP_LIB: New Request Handler: Error sendto(): %s\n",
+                       errmsg);
             ret = UPNP_E_SOCKET_WRITE;
             goto end_NewRequestHandler;
         }
     }
 
 end_NewRequestHandler:
+    umock::netdb_h.freeaddrinfo(res);
     umock::unistd_h.CLOSE_SOCKET_P(ReplySock);
 
     return ret;

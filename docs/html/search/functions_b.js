@@ -5,6 +5,6 @@ var searchData=
   ['netaddr_2',['netaddr',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#aa33ca96a98c6bcaeae39e6f06c1543a0',1,'UPnPsdk::SSockaddr']]],
   ['netaddrp_3',['netaddrp',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5',1,'UPnPsdk::SSockaddr']]],
   ['netmask_5fto_5fbitmask_4',['netmask_to_bitmask',['../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71',1,'UPnPsdk']]],
-  ['newrequesthandler_5',['NewRequestHandler',['../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a3355aacf8ea50cef6cd089fc6f7c9e13',1,'anonymous_namespace{ssdp_device.cpp}']]],
+  ['newrequesthandler_5',['NewRequestHandler',['../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a8648234689df0811c26e612ca789db0f',1,'anonymous_namespace{ssdp_device.cpp}']]],
   ['notify_5fsend_5fand_5frecv_6',['notify_send_and_recv',['../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9',1,'anonymous_namespace{gena_device.cpp}']]]
 ];

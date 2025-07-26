@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-20
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2025-07-15, ver 1.14.21
+// Last compare with pupnp original source file on 2025-07-26, ver 1.14.23
 /*!
  * \addtogroup SSDPlib
  *
@@ -60,6 +60,7 @@
 #include "posix_overwrites.hpp" // IWYU pragma: keep
 
 #include <umock/sys_socket.hpp>
+#include <umock/netdb.hpp>
 
 #define MSGTYPE_SHUTDOWN 0
 #define MSGTYPE_ADVERTISEMENT 1
@@ -197,16 +198,17 @@ static int NewRequestHandler(
     /*! [in] Number of packet to be sent. */
     int NumPacket,
     /*! [in] . */
-    char** RqPacket) {
+    char** RqPacket,
+    /*! [in] optional: time to live of multicast ip packets */
+    int a_ttl = 4) {
     int rc;
-    SOCKET ReplySock;
+    SOCKET ReplySock{INVALID_SOCKET};
     socklen_t socklen = sizeof(struct sockaddr_storage);
     int Index;
     struct in_addr replyAddr;
     struct addrinfo hints, *res;
     int yes = 1;
     /* a/c to UPNP Spec */
-    int ttl = 4;
 #ifdef UPNP_ENABLE_IPV6
     int hops = 1;
 #endif
@@ -218,10 +220,19 @@ static int NewRequestHandler(
         return UPNP_E_INVALID_PARAM;
     }
 
+    memset(&hints, 0, sizeof(hints));
     hints.ai_family = DestAddr->sa_family;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_flags = AI_PASSIVE;
-    getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res);
+    if ((rc = umock::netdb_h.getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res)) !=
+        0) {
+        UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                   "SSDP_LIB: New Request Handler:"
+                   "Error in getaddrinfo(): %s\n",
+                   gai_strerror(rc));
+        ret = UPNP_E_SOCKET_ERROR;
+        goto end_NewRequestHandler;
+    }
     ReplySock = umock::sys_socket_h.socket(res->ai_family, res->ai_socktype,
                                            res->ai_protocol);
     if (ReplySock == INVALID_SOCKET) {
@@ -232,7 +243,8 @@ static int NewRequestHandler(
                                         &yes, sizeof yes);
     PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                          "setsockopt-1");
-    rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr, res->ai_addrlen);
+    rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr,
+                                  static_cast<socklen_t>(res->ai_addrlen));
     PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_BIND, "bind");
     switch (DestAddr->sa_family) {
     case AF_INET:
@@ -244,7 +256,7 @@ static int NewRequestHandler(
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-2");
         rc = umock::sys_socket_h.setsockopt(
-            ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, &ttl, sizeof(int));
+            ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, &a_ttl, sizeof(a_ttl));
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-3");
         socklen = sizeof(struct sockaddr_in);
@@ -276,8 +288,9 @@ static int NewRequestHandler(
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                    ">>> SSDP SEND to %s >>>\n%s\n", buf_ntop,
                    *(RqPacket + Index));
-        rc = sendto(ReplySock, *(RqPacket + Index), strlen(*(RqPacket + Index)),
-                    0, DestAddr, socklen);
+        rc = umock::sys_socket_h.sendto(ReplySock, *(RqPacket + Index),
+                                        (SIZEP_T)strlen(*(RqPacket + Index)), 0,
+                                        DestAddr, socklen);
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_WRITE, "sendto");
     }
 
