@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-30
+// Redistribution only with this Copyright remark. Last modified: 2025-07-28
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -21,6 +21,7 @@
 #include <UPnPsdk/upnptools.hpp> // for errStrEx
 
 #include <utest/utest.hpp>
+#include <utest/upnpdebug.hpp>
 #include <utest/threadpool_init.hpp>
 #include <umock/sys_socket_mock.hpp>
 #include <umock/winsock2_mock.hpp>
@@ -48,39 +49,6 @@ using ::UPnPsdk::CSocket;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
-
-
-// Helper class
-// ============
-/// \brief Helper class for debug log messages in compatible code.
-class CLogging { /*
- * Use it for example with:
-    CLogging loggingObj; // Output only with build type DEBUG.
-    loggingObj.enable(UPNP_ALL); // or other loglevel, e.g. UPNP_INFO.
-    loggingObj.disable(); // optional
- */
-  public:
-    CLogging();
-    virtual ~CLogging();
-    /// -brief Enable debug logging messages.
-    void enable(Upnp_LogLevel a_loglevel);
-    /// -brief Disable debug logging messages.
-    void disable();
-};
-
-CLogging::CLogging() = default;
-
-void CLogging::enable(Upnp_LogLevel a_loglevel) {
-    UpnpSetLogLevel(a_loglevel);
-    if (UpnpInitLog() != UPNP_E_SUCCESS) {
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG1041") "Failed to initialize pupnp logging.");
-    }
-}
-
-void CLogging::disable() { UpnpCloseLog(); }
-
-CLogging::~CLogging() { UpnpCloseLog(); }
 
 
 // Miniserver Run TestSuite
@@ -154,7 +122,7 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
         << CYEL "[ TODO     ] " CRES << __LINE__
         << ": Test must be extended for IPv6 sockets and other sockets.\n";
 
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     if (g_dbug)
         logObj.enable(UPNP_ALL);
 
@@ -261,7 +229,7 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_select_fails_with_no_memory) {
     // See important note at
     // TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful).
 
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     if (g_dbug)
         logObj.enable(UPNP_ALL);
 
@@ -358,7 +326,7 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_accept_fails) {
     // For this test I use only socket file descriptor miniServerSock4 that is
     // listening on IPv4 for the miniserver. --Ingo
 
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
 
     // With shutdown = true, maxJobs is ignored.
@@ -707,7 +675,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_receiving_fails) {
 }
 
 TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_no_bytes_received) {
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     if (old_code)
         if (g_dbug)
             logObj.enable(UPNP_ALL);
@@ -743,7 +711,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_no_bytes_received) {
 }
 
 TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_wrong_stop_message) {
-    CLogging logObj;
+    CPupnplog logObj;
     if (old_code)
         if (g_dbug)
             logObj.enable(UPNP_ALL);
@@ -774,7 +742,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_wrong_stop_message) {
 }
 
 TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_from_wrong_address) {
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     if (old_code)
         if (g_dbug)
             logObj.enable(UPNP_ALL);
@@ -813,7 +781,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_from_wrong_address) {
 }
 
 TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_without_0_termbyte) {
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     if (old_code)
         if (g_dbug)
             logObj.enable(UPNP_ALL);
@@ -852,7 +820,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_without_0_termbyte) {
 }
 
 TEST_F(RunMiniServerMockFTestSuite, ssdp_read_successful) {
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     if (g_dbug)
         logObj.enable(UPNP_ALL);
 
@@ -901,7 +869,7 @@ TEST_F(RunMiniServerMockFTestSuite, ssdp_read_fails) {
     // Due to error there is no job added to the Threadpool. Initializing it
     // is not needed.
 
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     if (g_dbug)
         logObj.enable(UPNP_ALL);
 
@@ -978,7 +946,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_successful) {
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Capture output to stderr
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
@@ -1032,7 +1000,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_invalid_socket) {
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Capture output to stderr
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
@@ -1094,7 +1062,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_with_empty_set) {
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Capture output to stderr
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
@@ -1132,7 +1100,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_fails) {
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Capture output to stderr
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
@@ -1329,7 +1297,7 @@ TEST(RunMiniServerTestSuite, schedule_request_job) {
                        /*shutdown*/ false, /*maxJobs*/ 0);
 
     // Capture output to stderr
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     logObj.enable(UPNP_ALL);
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
     captureObj.start();
@@ -1463,7 +1431,7 @@ TEST_F(RunMiniServerMockFTestSuite, handle_request_successful) {
     GTEST_SKIP() << "Still needs to be completed when tests for "
                     "http_RecvMessage() has been made.";
 #if 0
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     if (g_dbug)
         logObj.enable(UPNP_ALL);
 
@@ -1493,7 +1461,7 @@ TEST_F(RunMiniServerMockFTestSuite, handle_request_with_failing_select) {
     GTEST_SKIP() << "Still needs to be completed when tests for "
                     "http_RecvMessage() has been made.";
 #if 0
-    CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
     if (g_dbug)
         logObj.enable(UPNP_ALL);
 

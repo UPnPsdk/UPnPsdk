@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-02-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-07-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -178,14 +178,15 @@ static int NewRequestHandler(
     /*! [in] Number of packet to be sent. */
     int NumPacket,
     /*! [in] . */
-    char** RqPacket) {
+    char** RqPacket,
+    /*! [in] optional: time to live of multicast ip packets */
+    int a_ttl = 4) {
     char errorBuffer[ERROR_BUFFER_LEN];
     SOCKET ReplySock;
     socklen_t socklen = sizeof(struct sockaddr_storage);
     int Index;
     struct in_addr replyAddr;
     /* a/c to UPNP Spec */
-    int ttl = 4;
 #ifdef UPNP_ENABLE_IPV6
     int hops = 1;
 #endif
@@ -216,7 +217,7 @@ static int NewRequestHandler(
         umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_IF,
                                        (char*)&replyAddr, sizeof(replyAddr));
         umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_TTL,
-                                       (char*)&ttl, sizeof(int));
+                                       (char*)&a_ttl, sizeof(a_ttl));
         socklen = sizeof(struct sockaddr_in);
         break;
 #ifdef UPNP_ENABLE_IPV6
@@ -243,8 +244,9 @@ static int NewRequestHandler(
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                    ">>> SSDP SEND to %s >>>\n%s\n", buf_ntop,
                    *(RqPacket + Index));
-        rc = sendto(ReplySock, *(RqPacket + Index), strlen(*(RqPacket + Index)),
-                    0, DestAddr, socklen);
+        rc = umock::sys_socket_h.sendto(ReplySock, *(RqPacket + Index),
+                                        strlen(*(RqPacket + Index)), 0,
+                                        DestAddr, socklen);
         if (rc == -1) {
             strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
