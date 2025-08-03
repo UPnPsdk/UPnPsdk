@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-01
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -60,6 +60,7 @@
 #include "posix_overwrites.hpp" // IWYU pragma: keep
 
 #include <umock/sys_socket.hpp>
+#include <umock/netdb.hpp>
 
 #define MSGTYPE_SHUTDOWN 0
 #define MSGTYPE_ADVERTISEMENT 1
@@ -223,7 +224,8 @@ static int NewRequestHandler(
     hints.ai_family = DestAddr->sa_family;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_flags = AI_PASSIVE;
-    if ((rc = getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res)) != 0) {
+    if ((rc = umock::netdb_h.getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res)) !=
+        0) {
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                    "SSDP_LIB: New Request Handler:"
                    "Error in getaddrinfo(): %s\n",

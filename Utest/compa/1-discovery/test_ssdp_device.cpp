@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-07-30
+// Redistribution only with this Copyright remark. Last modified: 2025-08-02
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -96,27 +96,44 @@ TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message_succeeds) {
     if (g_dbug)
         logObj.enable(UPNP_ALL);
 
+    strcpy(gIF_IPV4, "127.0.0.1");
+    gIF_INDEX = 0;
     constexpr int num_pkg{1};
     char* RqPacket[num_pkg]{nullptr};
 
-    SSockaddr destaddr;
-    destaddr = "[ff01::c]:1900";
+    SSockaddr destaddr_ip6;
+    destaddr_ip6 = "[ff01::c]:1900";
+    SSockaddr destaddr_ip4;
+    destaddr_ip4 = "239.255.255.250:1900";
+    constexpr int ip4ttl{0};
 
     if (old_code) {
         std::cout << CYEL "[ BUGFIX   ]" CRES
                   << " Pointing to no message (nullptr) must not segfault.\n";
         // This expects segfault.
-        EXPECT_DEATH(::NewRequestHandler(&destaddr.sa, num_pkg, &RqPacket[0]),
+        EXPECT_DEATH(
+            ::NewRequestHandler(&destaddr_ip6.sa, num_pkg, &RqPacket[0]), ".*");
+        EXPECT_DEATH(::NewRequestHandler(&destaddr_ip4.sa, num_pkg,
+                                         &RqPacket[0], ip4ttl),
                      ".*");
-
     } else {
 
         // This expects NO segfault.
         ASSERT_EXIT(
-            (::NewRequestHandler(&destaddr.sa, num_pkg, &RqPacket[0]), exit(0)),
+            (::NewRequestHandler(&destaddr_ip6.sa, num_pkg, &RqPacket[0]),
+             exit(0)),
             ExitedWithCode(0), ".*");
         int ret_NewRequestHandler =
-            ::NewRequestHandler(&destaddr.sa, num_pkg, &RqPacket[0]);
+            ::NewRequestHandler(&destaddr_ip6.sa, num_pkg, &RqPacket[0]);
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+
+        ASSERT_EXIT((::NewRequestHandler(&destaddr_ip4.sa, num_pkg,
+                                         &RqPacket[0], ip4ttl),
+                     exit(0)),
+                    ExitedWithCode(0), ".*");
+        ret_NewRequestHandler = ::NewRequestHandler(&destaddr_ip4.sa, num_pkg,
+                                                    &RqPacket[0], ip4ttl);
         EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
             << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
     }

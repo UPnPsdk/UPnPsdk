@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-01
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -48,6 +48,7 @@
 #include <webserver.hpp>
 
 #include <umock/sys_socket.hpp>
+#include <umock/netdb.hpp>
 
 #ifndef COMPA_INTERNAL_CONFIG_HPP
 #error "No or wrong config.hpp header file included."
@@ -95,6 +96,7 @@ int NewRequestHandler(
     char** RqPacket,
     /*! [in] optional: time to live of multicast ip packets */
     int a_ttl = 4) {
+    int rc;
     socklen_t socklen = sizeof(struct sockaddr_storage);
     int Index;
     struct in_addr replyAddr;
@@ -110,38 +112,98 @@ int NewRequestHandler(
         return UPNP_E_INVALID_PARAM;
     }
 
-    SOCKET ReplySock =
-        umock::sys_socket_h.socket((int)DestAddr->sa_family, SOCK_DGRAM, 0);
+    struct addrinfo hints, *res;
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = DestAddr->sa_family;
+    hints.ai_socktype = SOCK_DGRAM;
+    hints.ai_flags = AI_PASSIVE;
+    if ((rc = umock::netdb_h.getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res)) !=
+        0) {
+        UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                   "SSDP_LIB: New Request Handler:"
+                   "Error in getaddrinfo(): %s\n",
+                   gai_strerror(rc));
+        return UPNP_E_SOCKET_ERROR;
+    }
+
+    SOCKET ReplySock = umock::sys_socket_h.socket(
+        res->ai_family, res->ai_socktype, res->ai_protocol);
     if (ReplySock == INVALID_SOCKET) {
         char* errmsg = strerror(errno);
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                    "SSDP_LIB: New Request Handler: "
                    "Error in socket(): %s\n",
                    errmsg);
-
         return UPNP_E_OUTOF_SOCKET;
+    }
+
+    rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr, res->ai_addrlen);
+    if (rc != 0) {
+        char* errmsg = strerror(errno);
+        UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                   "SSDP_LIB: New Request Handler:"
+                   "Error in bind(): %s\n",
+                   errmsg);
+        ret = UPNP_E_SOCKET_ERROR;
+        goto end_NewRequestHandler;
     }
 
     switch (DestAddr->sa_family) {
     case AF_INET:
         inet_ntop(AF_INET, &((struct sockaddr_in*)DestAddr)->sin_addr, buf_ntop,
                   sizeof(buf_ntop));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_IF,
-                                       (char*)&replyAddr, sizeof(replyAddr));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_TTL,
-                                       (char*)&a_ttl, sizeof(int));
+        rc = umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP,
+                                            IP_MULTICAST_IF, &replyAddr,
+                                            sizeof(replyAddr));
+        if (rc != 0) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler:"
+                       "Error in setsockopt() IP_MULTICAST_IF: %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_ERROR;
+            goto end_NewRequestHandler;
+        }
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, &a_ttl, sizeof(a_ttl));
+        if (rc != 0) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler:"
+                       "Error in setsockopt() IP_MULTICAST_TTL: %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_ERROR;
+            goto end_NewRequestHandler;
+        }
         socklen = sizeof(struct sockaddr_in);
         break;
 #ifdef UPNP_ENABLE_IPV6
     case AF_INET6:
         inet_ntop(AF_INET6, &((struct sockaddr_in6*)DestAddr)->sin6_addr,
                   buf_ntop, sizeof(buf_ntop));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
-                                       IPV6_MULTICAST_IF, (char*)&gIF_INDEX,
-                                       sizeof(gIF_INDEX));
-        umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
-                                       IPV6_MULTICAST_HOPS, (char*)&hops,
-                                       sizeof(hops));
+        rc = umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
+                                            IPV6_MULTICAST_IF, &gIF_INDEX,
+                                            sizeof(gIF_INDEX));
+        if (rc != 0) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler:"
+                       "Error in setsockopt() IPV6_MULTICAST_IF: %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_ERROR;
+            goto end_NewRequestHandler;
+        }
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, &hops, sizeof(hops));
+        if (rc != 0) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler:"
+                       "Error in setsockopt() IPV6_MULTICAST_HOPS: %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_ERROR;
+            goto end_NewRequestHandler;
+        }
         break;
 #endif
     default:
@@ -165,7 +227,7 @@ int NewRequestHandler(
         if (rc == -1) {
             char* errmsg = strerror(errno);
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                       "SSDP_LIB: New Request Handler: Error in socket(): %s\n",
+                       "SSDP_LIB: New Request Handler: Error sendto(): %s\n",
                        errmsg);
             ret = UPNP_E_SOCKET_WRITE;
             goto end_NewRequestHandler;
@@ -173,6 +235,7 @@ int NewRequestHandler(
     }
 
 end_NewRequestHandler:
+    umock::netdb_h.freeaddrinfo(res);
     umock::unistd_h.CLOSE_SOCKET_P(ReplySock);
 
     return ret;
