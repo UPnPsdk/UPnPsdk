@@ -134,10 +134,12 @@ int NewRequestHandler(
                    "SSDP_LIB: New Request Handler: "
                    "Error in socket(): %s\n",
                    errmsg);
-        return UPNP_E_OUTOF_SOCKET;
+        ret = UPNP_E_OUTOF_SOCKET;
+        goto end_NewRequestHandler;
     }
 
-    rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr, res->ai_addrlen);
+    rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr,
+                                  static_cast<socklen_t>(res->ai_addrlen));
     if (rc != 0) {
         char* errmsg = strerror(errno);
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,

@@ -202,7 +202,7 @@ static int NewRequestHandler(
     /*! [in] optional: time to live of multicast ip packets */
     int a_ttl = 4) {
     int rc;
-    SOCKET ReplySock;
+    SOCKET ReplySock{INVALID_SOCKET};
     socklen_t socklen = sizeof(struct sockaddr_storage);
     int Index;
     struct in_addr replyAddr;
