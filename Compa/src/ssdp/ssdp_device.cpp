@@ -222,10 +222,9 @@ int NewRequestHandler(
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                    ">>> SSDP SEND to %s >>>\n\"%s\"\n", buf_ntop,
                    *(RqPacket + Index));
-        ssize_t rc =
-            umock::sys_socket_h.sendto(ReplySock, *(RqPacket + Index),
-                                       (SIZEP_T)strlen(*(RqPacket + Index)), 0,
-                                       DestAddr, (SIZEP_T)socklen);
+        ssize_t rc = umock::sys_socket_h.sendto(
+            ReplySock, *(RqPacket + Index),
+            (SIZEP_T)strlen(*(RqPacket + Index)), 0, DestAddr, socklen);
         if (rc == -1) {
             char* errmsg = strerror(errno);
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
