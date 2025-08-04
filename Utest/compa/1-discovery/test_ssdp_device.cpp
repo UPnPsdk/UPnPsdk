@@ -38,7 +38,7 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_successful) {
     // ttl to 0. This sets the scope to interface-local. The messages don't
     // leave the interface.
     SSockaddr destaddr_ip6;
-    destaddr_ip6 = "[ff01::c]:1900";
+    destaddr_ip6 = "[ff02::c]:1900";
     SSockaddr destaddr_ip4;
     destaddr_ip4 = "239.255.255.250:1900";
     constexpr int ip4ttl{0};
@@ -115,6 +115,8 @@ TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message_succeeds) {
     destaddr_ip4 = "239.255.255.250:1900";
     constexpr int ip4ttl{0};
 
+    // macOS does not segfault
+#ifndef __APPLE__
     if (old_code) {
         std::cout << CYEL "[ BUGFIX   ]" CRES
                   << " Pointing to no message (nullptr) must not segfault.\n";
@@ -125,7 +127,7 @@ TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message_succeeds) {
                                          &RqPacket[0], ip4ttl),
                      ".*");
     } else {
-
+#endif
         // This expects NO segfault.
         ASSERT_EXIT(
             (::NewRequestHandler(&destaddr_ip6.sa, num_pkg, &RqPacket[0]),
@@ -144,7 +146,9 @@ TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message_succeeds) {
                                                     &RqPacket[0], ip4ttl);
         EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
             << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+#ifndef __APPLE__
     }
+#endif
 }
 
 TEST(SsdpDeviceTestSuite, NewRequestHandler_without_messages_succeeds) {
