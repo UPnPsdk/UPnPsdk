@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-04
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -243,7 +243,8 @@ static int NewRequestHandler(
                                         &yes, sizeof yes);
     PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                          "setsockopt-1");
-    rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr, res->ai_addrlen);
+    rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr,
+                                  static_cast<socklen_t>(res->ai_addrlen));
     PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_BIND, "bind");
     switch (DestAddr->sa_family) {
     case AF_INET:
@@ -288,7 +289,7 @@ static int NewRequestHandler(
                    ">>> SSDP SEND to %s >>>\n%s\n", buf_ntop,
                    *(RqPacket + Index));
         rc = umock::sys_socket_h.sendto(ReplySock, *(RqPacket + Index),
-                                        strlen(*(RqPacket + Index)), 0,
+                                        (SIZEP_T)strlen(*(RqPacket + Index)), 0,
                                         DestAddr, socklen);
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_WRITE, "sendto");
     }

@@ -83,8 +83,16 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_with_unicast_addr_fails) {
         std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
                   << ": Enabled debug messages should not output garbage.\n";
 
-    // Test Unit
+        // Test Unit
+#ifdef _MSC_VER
+    // win32 accepts the loopback address and link-local addresses as multicast
+    // addresses, e.g.:
+    // destaddr = "[::1]";
+    // destaddr = "[fe80::123]";
+    destaddr = "[2003:d5:271b:2d00:5054:ff:fe7f:c021]";
+#else
     destaddr = "[::1]";
+#endif
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destaddr.sa, num_pkg, &RqPacket[0]);
     EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_WRITE)
