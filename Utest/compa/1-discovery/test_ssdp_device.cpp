@@ -76,14 +76,14 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_with_unicast_addr_fails) {
 
     SSockaddr destaddr;
 
-    if (old_code)
+    if (old_code) {
         // This has to do with using strerror_r(). That has two versions
         // depending to be XSI-compliant or GNU-specific. The wrong version may
         // be selected. strerror() should be used.
         std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
                   << ": Enabled debug messages should not output garbage.\n";
-
-        // Test Unit
+    }
+    // Test Unit
 #ifdef _MSC_VER
     // win32 accepts the loopback address and link-local addresses as multicast
     // addresses, e.g.:
