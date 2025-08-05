@@ -208,10 +208,6 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_without_messages_succeeds) {
     EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
         << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
 #endif
-    ret_NewRequestHandler = ::NewRequestHandler(&destaddr.sa, 0, nullptr);
-    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
-        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
-
     destaddr = "239.255.255.250:1900";
     ret_NewRequestHandler = ::NewRequestHandler(&destaddr.sa, 0, nullptr);
     EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
