@@ -122,7 +122,7 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_with_unicast_addr_fails) {
 #endif
 }
 
-TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message_succeeds) {
+TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message) {
     CPupnplog logObj; // Output only with build type DEBUG.
     if (g_dbug)
         logObj.enable(UPNP_ALL);
@@ -132,18 +132,34 @@ TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message_succeeds) {
     constexpr int num_pkg{1};
     char* RqPacket[num_pkg]{nullptr};
 
-    SSockaddr destaddr_ip6;
-#ifdef __APPLE__
-    destaddr_ip6 = "[ff02::c]:1900";
-#else
-    destaddr_ip6 = "[ff01::c]:1900";
-#endif
+    constexpr int ip4ttl{0};
     SSockaddr destaddr_ip4;
     destaddr_ip4 = "239.255.255.250:1900";
-    constexpr int ip4ttl{0};
+    SSockaddr destaddr_ip6;
 
-    // macOS does not segfault
-#ifndef __APPLE__
+#ifdef __APPLE__
+    destaddr_ip6 = "[ff02::c]:1900";
+    // This expects NO segfault.
+    ASSERT_EXIT(
+        (::NewRequestHandler(&destaddr_ip6.sa, num_pkg, &RqPacket[0]), exit(0)),
+        ExitedWithCode(0), ".*");
+    int ret_NewRequestHandler =
+        ::NewRequestHandler(&destaddr_ip6.sa, num_pkg, &RqPacket[0]);
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+
+    ASSERT_EXIT(
+        (::NewRequestHandler(&destaddr_ip4.sa, num_pkg, &RqPacket[0], ip4ttl),
+         exit(0)),
+        ExitedWithCode(0), ".*");
+    ret_NewRequestHandler =
+        ::NewRequestHandler(&destaddr_ip4.sa, num_pkg, &RqPacket[0], ip4ttl);
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+
+#else
+    destaddr_ip6 = "[ff01::c]:1900";
+
     if (old_code) {
         std::cout << CYEL "[ BUGFIX   ]" CRES
                   << " Pointing to no message (nullptr) must not segfault.\n";
@@ -154,7 +170,7 @@ TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message_succeeds) {
                                          &RqPacket[0], ip4ttl),
                      ".*");
     } else {
-#endif
+
         // This expects NO segfault.
         ASSERT_EXIT(
             (::NewRequestHandler(&destaddr_ip6.sa, num_pkg, &RqPacket[0]),
@@ -173,7 +189,6 @@ TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message_succeeds) {
                                                     &RqPacket[0], ip4ttl);
         EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
             << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
-#ifndef __APPLE__
     }
 #endif
 }
@@ -188,10 +203,16 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_without_messages_succeeds) {
     // Test Unit
 #ifdef __APPLE__
     destaddr = "[ff02::c]:1900";
+    int ret_NewRequestHandler = ::NewRequestHandler(&destaddr.sa, 0, nullptr);
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
 #else
     destaddr = "[ff01::c]:1900";
-#endif
     int ret_NewRequestHandler = ::NewRequestHandler(&destaddr.sa, 0, nullptr);
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+#endif
+    ret_NewRequestHandler = ::NewRequestHandler(&destaddr.sa, 0, nullptr);
     EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
         << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
 
