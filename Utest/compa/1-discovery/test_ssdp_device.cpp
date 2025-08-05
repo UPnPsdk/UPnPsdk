@@ -113,8 +113,13 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_with_unicast_addr_fails) {
 #endif
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destaddr.sa, num_pkg, &RqPacket[0]);
+#ifdef __APPLE__
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+#else
     EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_WRITE)
         << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_WRITE);
+#endif
 }
 
 TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message_succeeds) {
@@ -128,7 +133,11 @@ TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message_succeeds) {
     char* RqPacket[num_pkg]{nullptr};
 
     SSockaddr destaddr_ip6;
+#ifdef __APPLE__
+    destaddr_ip6 = "[ff02::c]:1900";
+#else
     destaddr_ip6 = "[ff01::c]:1900";
+#endif
     SSockaddr destaddr_ip4;
     destaddr_ip4 = "239.255.255.250:1900";
     constexpr int ip4ttl{0};
@@ -177,7 +186,11 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_without_messages_succeeds) {
     SSockaddr destaddr;
 
     // Test Unit
+#ifdef __APPLE__
+    destaddr = "[ff02::c]:1900";
+#else
     destaddr = "[ff01::c]:1900";
+#endif
     int ret_NewRequestHandler = ::NewRequestHandler(&destaddr.sa, 0, nullptr);
     EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
         << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
