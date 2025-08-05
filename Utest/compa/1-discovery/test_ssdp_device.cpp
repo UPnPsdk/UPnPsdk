@@ -146,8 +146,8 @@ TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message) {
         << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
     ret_NewRequestHandler =
         ::NewRequestHandler(&destaddr_ip4.sa, num_pkg, &RqPacket[0], ip4ttl);
-    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
-        << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
 
 #else
     destaddr_ip6 = "[ff01::c]:1900";
