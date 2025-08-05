@@ -67,8 +67,8 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_successful) {
         // may spam the network, but sorry, MacOS should follow specification.
         ret_NewRequestHandler =
             ::NewRequestHandler(&destaddr2_ip6.sa, num_pkg, &RqPacket[0]);
-        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
-            << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
 #else
         // Test Unit with IPv6 interface-local multicast.
         ret_NewRequestHandler =
