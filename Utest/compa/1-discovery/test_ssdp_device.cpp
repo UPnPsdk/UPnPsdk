@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-02
+// Redistribution only with this Copyright remark. Last modified: 2025-08-05
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -38,7 +38,11 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_successful) {
     // ttl to 0. This sets the scope to interface-local. The messages don't
     // leave the interface.
     SSockaddr destaddr_ip6;
-    destaddr_ip6 = "[ff02::c]:1900";
+    destaddr_ip6 = "[ff01::c]:1900";
+#ifdef __APPLE__
+    SSockaddr destaddr2_ip6;
+    destaddr2_ip6 = "[ff02::c]:1900";
+#endif
     SSockaddr destaddr_ip4;
     destaddr_ip4 = "239.255.255.250:1900";
     constexpr int ip4ttl{0};
@@ -52,12 +56,26 @@ TEST(SsdpDeviceTestSuite, NewRequestHandler_successful) {
     // We have a trivial C-style array, so the size (num_pkg) must fit.
     // Otherwise we get segfaults.
     for (int num_pkg{1}; num_pkg <= 3; num_pkg++) {
+#ifdef __APPLE__
+        // MacOS does not accept IPv6 interface-local multicast address
+        // "[ff01::c]". That doesn't conform to the specification.
+        ret_NewRequestHandler =
+            ::NewRequestHandler(&destaddr_ip6.sa, num_pkg, &RqPacket[0]);
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+        // For testing I use the link-local multicast address "[ff02::c]". That
+        // may spam the network, but sorry, MacOS should follow specification.
+        ret_NewRequestHandler =
+            ::NewRequestHandler(&destaddr2_ip6.sa, num_pkg, &RqPacket[0]);
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+#else
         // Test Unit with IPv6 interface-local multicast.
         ret_NewRequestHandler =
             ::NewRequestHandler(&destaddr_ip6.sa, num_pkg, &RqPacket[0]);
         EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
             << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
-
+#endif
         // Test Unit with IPv4 TTL 0 multicast.
         ret_NewRequestHandler = ::NewRequestHandler(&destaddr_ip4.sa, num_pkg,
                                                     &RqPacket[0], ip4ttl);
