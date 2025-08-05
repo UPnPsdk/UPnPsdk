@@ -148,14 +148,10 @@ TEST(SsdpDeviceDeathTest, NewRequestHandler_with_no_message) {
     EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
         << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
 
-    ASSERT_EXIT(
-        (::NewRequestHandler(&destaddr_ip4.sa, num_pkg, &RqPacket[0], ip4ttl),
-         exit(0)),
-        ExitedWithCode(0), ".*");
-    ret_NewRequestHandler =
-        ::NewRequestHandler(&destaddr_ip4.sa, num_pkg, &RqPacket[0], ip4ttl);
-    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
-        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+    // This expects segfault.
+    EXPECT_DEATH(
+        ::NewRequestHandler(&destaddr_ip4.sa, num_pkg, &RqPacket[0], ip4ttl),
+        ".*");
 
 #else
     destaddr_ip6 = "[ff01::c]:1900";
