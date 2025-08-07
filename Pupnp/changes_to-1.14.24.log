@@ -1,0 +1,104 @@
+commit 959090ad8826f85fc7d19295d4690f4fb589a3a9 (HEAD, tag: release-1.14.24)
+
+git switch branch-1.14.x
+git fetch --all
+git pull
+git checkout release-1.14.24
+git whatchanged release-1.14.23^..release-1.14.24
+updated files marked with word "updated", "checked", or "deleted" at line end.
+==============================================================================
+
+commit 959090ad8826f85fc7d19295d4690f4fb589a3a9 (HEAD, tag: release-1.14.24)
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Jun 11 17:33:57 2025 -0300
+
+    Fix for C before C99
+
+:100644 100644 07fecfa9 6f0abd53 M	upnp/src/ssdp/ssdp_server.c updated
+
+commit 9a7f609e87dca2dce95cb92516f3205453792261
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Jun 11 17:31:18 2025 -0300
+
+    Fix for UpnpPrintf() format
+
+:100644 100644 02cb7286 07fecfa9 M	upnp/src/ssdp/ssdp_server.c updated
+
+commit 9358065bf38556a0beb0f1e9ea76d72c9baa4494
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Jun 11 17:26:27 2025 -0300
+
+    Fix possible close() on non-initialized socket
+
+:100644 100644 a9152fb2 86ec90bc M	ChangeLog
+:100644 100644 abfd2afc 33053a2f M	upnp/src/ssdp/ssdp_device.c updated
+
+commit 3785158fe2d118830e37ec5bf7b32ba1181ddd77
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Jun 11 17:00:17 2025 -0300
+
+    setsockopt(): Explicitly document Winsock difference
+
+:100644 100644 3f21c4d1 e1a6111a M	upnp/inc/UpnpInet.h updated
+:100644 100644 df9b842c abfd2afc M	upnp/src/ssdp/ssdp_device.c updated
+:100644 100644 d905b22c 02cb7286 M	upnp/src/ssdp/ssdp_server.c updated
+
+commit 6d83d917cdd50b175e137b7f47976dff0a8073db
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Wed Jun 11 16:59:37 2025 -0300
+
+    Thanks and ChangeLog
+
+:100644 100644 ccfa02d4 a9152fb2 M	ChangeLog
+:100644 100644 b66bce2a e7fe0385 M	THANKS
+
+commit 8d18ddf058e41c046c39d0ecaa921d8c5ccc121f
+Author: Benjamin Gilbert <bgilbert@backtick.net>
+Date:   Mon Jun 9 21:30:39 2025 -0700
+
+    ssdp_device.c: Fix missing casts in setsockopt()
+
+    Windows thinks argument 4 of setsockopt() is a const char *.  Add casts
+    to avoid build errors with GCC.
+
+    Fixes: 52cb6b52d2 ("ssdp_device.c: Bind SSDP UDP response to 1900")
+
+:100644 100644 eecf8924 df9b842c M	upnp/src/ssdp/ssdp_device.c updated
+
+commit e0c7f43251eb485bb8a53decb808542b681ec134
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Jun 7 13:36:03 2025 -0300
+
+    Try to fix release action
+
+:100644 100644 683c37eb 26306d55 M	.github/workflows/release.yml
+
+commit 9f33a8b60d2d99a6289e40991f216d3bd4289d28
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Jun 7 13:49:10 2025 -0300
+
+    Homekeeping for the next release
+
+:100644 100644 3dda48ea c233d082 M	docs/configure_ac_template.txt
+
+commit ecbfd3a040b6a85004710afd6439553e8dbbb04d
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Jun 7 13:45:49 2025 -0300
+
+    Homekeeping for the next release
+
+:100644 100644 679872cf ccfa02d4 M	ChangeLog
+:100644 100644 8727ce74 5a7145bb M	configure.ac
+:100644 100644 fa0adf9b 1c6f2068 M	docs/Doxyfile
+:100644 100644 cacb5885 8fb90117 M	docs/changelog_template.txt
+:100644 100644 438036b8 203fe45f M	libupnp.spec
+
+commit 9603228ba693cb7589aef00c76e5871c66177d36 (tag: release-1.14.23)
+Author: Marcelo Roberto Jimenez <marcelo.jimenez@gmail.com>
+Date:   Sat Jun 7 12:19:02 2025 -0300
+
+    Pre-release commit
+
+:100644 100644 d83f36ad 679872cf M	ChangeLog
+:100644 100644 3d698029 23653ecb M	README.md
+:100644 100644 a83e4ac4 8727ce74 M	configure.ac

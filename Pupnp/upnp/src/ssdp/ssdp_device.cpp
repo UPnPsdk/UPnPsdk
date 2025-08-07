@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-07
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2025-07-26, ver 1.14.23
+// Last compare with pupnp original source file on 2025-08-07, ver 1.14.24
 /*!
  * \addtogroup SSDPlib
  *
@@ -231,16 +231,17 @@ static int NewRequestHandler(
                    "Error in getaddrinfo(): %s\n",
                    gai_strerror(rc));
         ret = UPNP_E_SOCKET_ERROR;
-        goto end_NewRequestHandler;
+        goto end_NewRequestHandlerDontClose;
     }
     ReplySock = umock::sys_socket_h.socket(res->ai_family, res->ai_socktype,
                                            res->ai_protocol);
     if (ReplySock == INVALID_SOCKET) {
         ProcessSocketError(__FILE__, __LINE__, "socket");
-        return UPNP_E_OUTOF_SOCKET;
+        ret = UPNP_E_OUTOF_SOCKET;
+        goto end_NewRequestHandlerDontClose;
     }
     rc = umock::sys_socket_h.setsockopt(ReplySock, SOL_SOCKET, SO_REUSEADDR,
-                                        &yes, sizeof yes);
+                                        (OPTION_VALUE_CAST)&yes, sizeof yes);
     PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                          "setsockopt-1");
     rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr,
@@ -250,13 +251,14 @@ static int NewRequestHandler(
     case AF_INET:
         inet_ntop(AF_INET, &((struct sockaddr_in*)DestAddr)->sin_addr, buf_ntop,
                   sizeof(buf_ntop));
-        rc = umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP,
-                                            IP_MULTICAST_IF, &replyAddr,
-                                            sizeof(replyAddr));
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IP, IP_MULTICAST_IF,
+            (OPTION_VALUE_CAST)&replyAddr, sizeof(replyAddr));
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-2");
         rc = umock::sys_socket_h.setsockopt(
-            ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, &a_ttl, sizeof(a_ttl));
+            ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, (OPTION_VALUE_CAST)&a_ttl,
+            sizeof(a_ttl));
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-3");
         socklen = sizeof(struct sockaddr_in);
@@ -265,13 +267,14 @@ static int NewRequestHandler(
     case AF_INET6:
         inet_ntop(AF_INET6, &((struct sockaddr_in6*)DestAddr)->sin6_addr,
                   buf_ntop, sizeof(buf_ntop));
-        rc = umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
-                                            IPV6_MULTICAST_IF, &gIF_INDEX,
-                                            sizeof(gIF_INDEX));
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_IF,
+            (OPTION_VALUE_CAST)&gIF_INDEX, sizeof(gIF_INDEX));
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-2");
         rc = umock::sys_socket_h.setsockopt(
-            ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, &hops, sizeof(hops));
+            ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,
+            (OPTION_VALUE_CAST)&hops, sizeof(hops));
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-3");
         break;
@@ -296,6 +299,7 @@ static int NewRequestHandler(
 
 end_NewRequestHandler:
     UpnpCloseSocket(ReplySock);
+end_NewRequestHandlerDontClose:
 
     return ret;
 }

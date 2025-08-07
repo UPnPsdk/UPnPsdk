@@ -1,10 +1,9 @@
+#ifndef PUPNP_UPNPINET_HPP
+#define PUPNP_UPNPINET_HPP
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2025-07-17
 // Taken from authors who haven't made a note.
-// Last update from pupnp original source file on 2025-07-17, ver 1.14.21
-
-#ifndef PUPNP_UPNPINET_HPP
-#define PUPNP_UPNPINET_HPP
+// Last update from pupnp original source file on 2025-08-07, ver 1.14.24
 
 /*!
  * \addtogroup Sock
@@ -32,6 +31,8 @@ typedef short sa_family_t;
 #else
 typedef ADDRESS_FAMILY sa_family_t;
 #endif
+
+#define OPTION_VALUE_CAST const char*
 
 #else /* _WIN32 */
 #include <sys/param.h>
@@ -61,6 +62,36 @@ typedef int SOCKET;
 
 /*! Alias to close() to make code more WIN32 tolerant. */
 #define UpnpCloseSocket umock::unistd_h.close
+
+/*!
+ * Winsock declares setsockopt() like this:
+ *
+ * int setsockopt(
+ *  [in] SOCKET     s,
+ *  [in] int        level,
+ *  [in] int        optname,
+ *  [in] const char *optval,
+ *  [in] int        optlen
+ * );
+ *
+ * While POSIX declares it like this:
+ *
+ * #include <sys/socket.h>
+ *
+ * int setsockopt(
+ *  int socket,
+ *  int level,
+ *  int option_name,
+ *  const void *option_value,
+ *  socklen_t option_len
+ * );
+ *
+ * They diverge on the declaration of option_value, which causes
+ * troubles on Windows compilation. The following define addresses
+ * this issue.
+ */
+#define OPTION_VALUE_CAST const void*
+
 #endif /* _WIN32 */
 
 /* @} Sock */

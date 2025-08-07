@@ -7,8 +7,8 @@
 # Executable 'api_calls-csh' compiled with UPnPsdk_compa (C++) library:
 # ---------------------------------------------------------------------
 # must run with its 'UPnPsdk_compa' (C++) library
-echo "Start: test executable 'api_calls-csh' with its UPnPsdk compatible library: finished."
+echo "Start: test executable 'api_calls-csh' with its UPnPsdk compatible library."
 build/bin/api_calls-csh
-echo "Finished: test executable 'api_calls-csh' with its UPnPsdk compatible library: finished."
+echo "Finished: test executable 'api_calls-csh' with its UPnPsdk compatible library."
 
 echo "Finished $(basename "${BASH_SOURCE[0]}")"

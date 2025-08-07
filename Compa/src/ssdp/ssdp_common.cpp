@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -144,14 +144,14 @@ inline int start_event_handler(
         if (parser->msg.method != (http_method_t)HTTPMETHOD_NOTIFY ||
             !parser->valid_ssdp_notify_hack) {
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                       "SSDP recvd bad msg code = %d\n", status);
+                       "SSDP recvd bad msg code = %u\n", status);
             /* ignore bad msg, or not enuf mem */
             goto error_handler;
         }
         /* valid notify msg */
     } else if (status != (parse_status_t)PARSE_SUCCESS) {
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                   "SSDP recvd bad msg code = %d\n", status);
+                   "SSDP recvd bad msg code = %u\n", status);
 
         goto error_handler;
     }
@@ -400,14 +400,14 @@ inline int create_ssdp_sock_v6(
 #ifndef _WIN32
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in bind(), addr=%s, index=%d, port=%d: %s\n",
+                   "Error in bind(), addr=%s, index=%u, port=%d: %s\n",
                    gIF_IPV6, gIF_INDEX, SSDP_PORT, errorBuffer);
         ret = UPNP_E_SOCKET_BIND;
         goto error_handler;
 #else
         int wsa_err = umock::winsock2_h.WSAGetLastError();
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in bind(), addr=%s, index=%d, port=%d: %d\n",
+                   "Error in bind(), addr=%s, index=%u, port=%d: %d\n",
                    gIF_IPV6, gIF_INDEX, SSDP_PORT, wsa_err);
         ret = UPNP_E_SOCKET_BIND;
         goto error_handler;

@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-06-01
+# Redistribution only with this Copyright remark. Last modified: 2025-08-08
 
 cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -9,7 +9,7 @@ project("UPnPsdk" VERSION "0.2.0"
                 DESCRIPTION "UPnP Software Development Kit"
                 HOMEPAGE_URL "https://github.com/UPnPsdk")
 
-set(PUPNP_VERSION "1.14.20"
+set(PUPNP_VERSION "1.14.24"
     CACHE INTERNAL "The current version of the forked pUPnP library." FORCE)
 # Update pUPnP version number in README.md.
 if(NOT PUPNP_VERSION MATCHES "^[0-9]+\\.[0-9]+\\.[0-9]+$")

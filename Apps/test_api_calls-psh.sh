@@ -10,7 +10,7 @@
 if [ -f build/lib/libupnpsdk-pupnp.so.17 ]; then
     echo "Start: test executable 'api_calls-psh' with its UPnPsdk_NATIVE_PUPNP library."
     build/bin/api_calls-psh
-    echo -e "Finished: test executable 'api_calls-psh' with its UPnPsdk_NATIVE_PUPNP library: finished.\n"
+    echo -e "Finished: test executable 'api_calls-psh' with its UPnPsdk_NATIVE_PUPNP library.\n"
 
     # and must also run with the 'UPnPsdk_compa' (C++) library
     echo  "Start: test executable 'api_calls-psh' with UPnPsdk_compatible library."
@@ -20,7 +20,7 @@ if [ -f build/lib/libupnpsdk-pupnp.so.17 ]; then
     (cd build/Apps/api_calls/ && \
     ln -s ../../lib/libupnpsdk-compa.so.0 libupnpsdk-pupnp.so.17)
     LD_LIBRARY_PATH=build/Apps/api_calls build/bin/api_calls-psh
-    echo "Finished: test executable 'api_calls-psh' with UPnPsdk_compatible library: finished."
+    echo "Finished: test executable 'api_calls-psh' with UPnPsdk_compatible library."
 fi
 
 echo "Finished $(basename "${BASH_SOURCE[0]}")"

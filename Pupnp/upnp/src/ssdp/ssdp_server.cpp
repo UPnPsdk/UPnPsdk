@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-24
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last update from pupnp original source file on 2025-07-17, ver 1.14.21
+// Last update from pupnp original source file on 2025-08-08, ver 1.14.24
 
 /*!
  * \addtogroup SSDPlib
@@ -616,14 +616,14 @@ static UPNP_INLINE int start_event_handler(
         if (parser->msg.method != (http_method_t)HTTPMETHOD_NOTIFY ||
             !parser->valid_ssdp_notify_hack) {
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                       "SSDP recvd bad msg code = %d\n", status);
+                       "SSDP recvd bad msg code = %u\n", status);
             /* ignore bad msg, or not enuf mem */
             goto error_handler;
         }
         /* valid notify msg */
     } else if (status != (parse_status_t)PARSE_SUCCESS) {
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                   "SSDP recvd bad msg code = %d\n", status);
+                   "SSDP recvd bad msg code = %u\n", status);
 
         goto error_handler;
     }
@@ -775,7 +775,8 @@ static int create_ssdp_sock_v4(
     }
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_REUSEADDR,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -786,7 +787,8 @@ static int create_ssdp_sock_v4(
 #if (defined(BSD) && !defined(__GNU__)) || defined(__APPLE__)
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_REUSEPORT,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -824,8 +826,8 @@ static int create_ssdp_sock_v4(
     inet_pton(AF_INET, gIF_IPV4, &ssdpMcastAddr.imr_interface);
     inet_pton(AF_INET, SSDP_IP, &ssdpMcastAddr.imr_multiaddr);
     ret = umock::sys_socket_h.setsockopt(
-        *ssdpSock, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char*)&ssdpMcastAddr,
-        sizeof(struct ip_mreq));
+        *ssdpSock, IPPROTO_IP, IP_ADD_MEMBERSHIP,
+        (OPTION_VALUE_CAST)&ssdpMcastAddr, sizeof(struct ip_mreq));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -839,7 +841,7 @@ static int create_ssdp_sock_v4(
     memset((void*)&addr, 0, sizeof(struct in_addr));
     inet_pton(AF_INET, gIF_IPV4, &addr);
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, IPPROTO_IP, IP_MULTICAST_IF,
-                                         (char*)&addr, sizeof addr);
+                                         (OPTION_VALUE_CAST)&addr, sizeof addr);
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
@@ -850,10 +852,11 @@ static int create_ssdp_sock_v4(
     }
     /* result is not checked becuase it will fail in WinMe and Win9x. */
     umock::sys_socket_h.setsockopt(*ssdpSock, IPPROTO_IP, IP_MULTICAST_TTL,
-                                   (const char*)&ttl, sizeof(ttl));
+                                   (OPTION_VALUE_CAST)&ttl, sizeof(ttl));
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_BROADCAST,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -893,7 +896,7 @@ static int create_ssdp_sock_reqv4(
         return UPNP_E_OUTOF_SOCKET;
     }
     umock::sys_socket_h.setsockopt(*ssdpReqSock, IPPROTO_IP, IP_MULTICAST_TTL,
-                                   &ttl, sizeof(ttl));
+                                   (OPTION_VALUE_CAST)&ttl, sizeof(ttl));
     /* just do it, regardless if fails or not. */
     umock::pupnp_sock.sock_make_no_blocking(*ssdpReqSock);
 
@@ -925,7 +928,8 @@ static int create_ssdp_sock_v6(
     }
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_REUSEADDR,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -936,7 +940,8 @@ static int create_ssdp_sock_v6(
 #if (defined(BSD) && !defined(__GNU__)) || defined(__APPLE__)
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_REUSEPORT,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -947,7 +952,8 @@ static int create_ssdp_sock_v6(
 #endif /* BSD, __APPLE__ */
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, IPPROTO_IPV6, IPV6_V6ONLY,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -968,14 +974,14 @@ static int create_ssdp_sock_v6(
 #ifndef _WIN32
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in bind(), addr=%s, index=%d, port=%d: %s\n",
+                   "Error in bind(), addr=%s, index=%u, port=%d: %s\n",
                    gIF_IPV6, gIF_INDEX, SSDP_PORT, errorBuffer);
         ret = UPNP_E_SOCKET_BIND;
         goto error_handler;
 #else
         int wsa_err = umock::winsock2_h.WSAGetLastError();
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in bind(), addr=%s, index=%d, port=%d: %d\n",
+                   "Error in bind(), addr=%s, index=%u, port=%d: %d\n",
                    gIF_IPV6, gIF_INDEX, SSDP_PORT, wsa_err);
         ret = UPNP_E_SOCKET_BIND;
         goto error_handler;
@@ -984,12 +990,12 @@ static int create_ssdp_sock_v6(
     memset((void*)&ssdpMcastAddr, 0, sizeof(ssdpMcastAddr));
     ssdpMcastAddr.ipv6mr_interface = gIF_INDEX;
     inet_pton(AF_INET6, SSDP_IPV6_LINKLOCAL, &ssdpMcastAddr.ipv6mr_multiaddr);
-    ret = umock::sys_socket_h.setsockopt(*ssdpSock, IPPROTO_IPV6,
-                                         IPV6_JOIN_GROUP, (char*)&ssdpMcastAddr,
-                                         sizeof(ssdpMcastAddr));
+    ret = umock::sys_socket_h.setsockopt(
+        *ssdpSock, IPPROTO_IPV6, IPV6_JOIN_GROUP,
+        (OPTION_VALUE_CAST)&ssdpMcastAddr, sizeof(ssdpMcastAddr));
     if (ret == -1) {
-        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         uint32_t* p = (uint32_t*)&ssdpMcastAddr.ipv6mr_multiaddr;
+        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
                    "Error in setsockopt() IPV6_JOIN_GROUP (join multicast "
                    "group): %s.\n"
@@ -1006,7 +1012,8 @@ static int create_ssdp_sock_v6(
     }
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_BROADCAST,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -1051,7 +1058,8 @@ static int create_ssdp_sock_v6_ula_gua(
     }
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_REUSEADDR,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -1062,7 +1070,8 @@ static int create_ssdp_sock_v6_ula_gua(
 #if (defined(BSD) && !defined(__GNU__)) || defined(__APPLE__)
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_REUSEPORT,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -1073,7 +1082,8 @@ static int create_ssdp_sock_v6_ula_gua(
 #endif /* BSD, __APPLE__ */
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, IPPROTO_IPV6, IPV6_V6ONLY,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -1100,9 +1110,9 @@ static int create_ssdp_sock_v6_ula_gua(
     ssdpMcastAddr.ipv6mr_interface = gIF_INDEX;
     /* SITE LOCAL */
     inet_pton(AF_INET6, SSDP_IPV6_SITELOCAL, &ssdpMcastAddr.ipv6mr_multiaddr);
-    ret = umock::sys_socket_h.setsockopt(*ssdpSock, IPPROTO_IPV6,
-                                         IPV6_JOIN_GROUP, (char*)&ssdpMcastAddr,
-                                         sizeof(ssdpMcastAddr));
+    ret = umock::sys_socket_h.setsockopt(
+        *ssdpSock, IPPROTO_IPV6, IPV6_JOIN_GROUP,
+        (OPTION_VALUE_CAST)&ssdpMcastAddr, sizeof(ssdpMcastAddr));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -1114,7 +1124,8 @@ static int create_ssdp_sock_v6_ula_gua(
     }
     onOff = 1;
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_BROADCAST,
-                                         (char*)&onOff, sizeof(onOff));
+                                         (OPTION_VALUE_CAST)&onOff,
+                                         sizeof(onOff));
     if (ret == -1) {
         strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -1158,7 +1169,8 @@ static int create_ssdp_sock_reqv6(
      * messages instead of relying on the Hop Limit (Equivalent to the TTL
      * limit in IPv4). */
     umock::sys_socket_h.setsockopt(*ssdpReqSock, IPPROTO_IPV6,
-                                   IPV6_MULTICAST_HOPS, &hops, sizeof(hops));
+                                   IPV6_MULTICAST_HOPS,
+                                   (OPTION_VALUE_CAST)&hops, sizeof(hops));
     /* just do it, regardless if fails or not. */
     umock::pupnp_sock.sock_make_no_blocking(*ssdpReqSock);
 
