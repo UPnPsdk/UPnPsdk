@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-07
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-15
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -224,8 +224,7 @@ static int NewRequestHandler(
     hints.ai_family = DestAddr->sa_family;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_flags = AI_PASSIVE;
-    if ((rc = umock::netdb_h.getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res)) !=
-        0) {
+    if ((rc = getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res)) != 0) {
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                    "SSDP_LIB: New Request Handler:"
                    "Error in getaddrinfo(): %s\n",
@@ -233,32 +232,28 @@ static int NewRequestHandler(
         ret = UPNP_E_SOCKET_ERROR;
         goto end_NewRequestHandlerDontClose;
     }
-    ReplySock = umock::sys_socket_h.socket(res->ai_family, res->ai_socktype,
-                                           res->ai_protocol);
+    ReplySock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
     if (ReplySock == INVALID_SOCKET) {
         ProcessSocketError(__FILE__, __LINE__, "socket");
         ret = UPNP_E_OUTOF_SOCKET;
         goto end_NewRequestHandlerDontClose;
     }
-    rc = umock::sys_socket_h.setsockopt(ReplySock, SOL_SOCKET, SO_REUSEADDR,
-                                        (OPTION_VALUE_CAST)&yes, sizeof yes);
+    rc = setsockopt(ReplySock, SOL_SOCKET, SO_REUSEADDR,
+                    (OPTION_VALUE_CAST)&yes, sizeof yes);
     PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                          "setsockopt-1");
-    rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr,
-                                  static_cast<socklen_t>(res->ai_addrlen));
+    rc = bind(ReplySock, res->ai_addr, static_cast<socklen_t>(res->ai_addrlen));
     PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_BIND, "bind");
     switch (DestAddr->sa_family) {
     case AF_INET:
         inet_ntop(AF_INET, &((struct sockaddr_in*)DestAddr)->sin_addr, buf_ntop,
                   sizeof(buf_ntop));
-        rc = umock::sys_socket_h.setsockopt(
-            ReplySock, IPPROTO_IP, IP_MULTICAST_IF,
-            (OPTION_VALUE_CAST)&replyAddr, sizeof(replyAddr));
+        rc = setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_IF,
+                        (OPTION_VALUE_CAST)&replyAddr, sizeof(replyAddr));
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-2");
-        rc = umock::sys_socket_h.setsockopt(
-            ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, (OPTION_VALUE_CAST)&a_ttl,
-            sizeof(a_ttl));
+        rc = setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_TTL,
+                        (OPTION_VALUE_CAST)&a_ttl, sizeof(a_ttl));
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-3");
         socklen = sizeof(struct sockaddr_in);
@@ -267,14 +262,12 @@ static int NewRequestHandler(
     case AF_INET6:
         inet_ntop(AF_INET6, &((struct sockaddr_in6*)DestAddr)->sin6_addr,
                   buf_ntop, sizeof(buf_ntop));
-        rc = umock::sys_socket_h.setsockopt(
-            ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_IF,
-            (OPTION_VALUE_CAST)&gIF_INDEX, sizeof(gIF_INDEX));
+        rc = setsockopt(ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_IF,
+                        (OPTION_VALUE_CAST)&gIF_INDEX, sizeof(gIF_INDEX));
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-2");
-        rc = umock::sys_socket_h.setsockopt(
-            ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,
-            (OPTION_VALUE_CAST)&hops, sizeof(hops));
+        rc = setsockopt(ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,
+                        (OPTION_VALUE_CAST)&hops, sizeof(hops));
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-3");
         break;
@@ -291,9 +284,8 @@ static int NewRequestHandler(
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                    ">>> SSDP SEND to %s >>>\n%s\n", buf_ntop,
                    *(RqPacket + Index));
-        rc = umock::sys_socket_h.sendto(ReplySock, *(RqPacket + Index),
-                                        (SIZEP_T)strlen(*(RqPacket + Index)), 0,
-                                        DestAddr, socklen);
+        rc = sendto(ReplySock, *(RqPacket + Index),
+                    (SIZEP_T)strlen(*(RqPacket + Index)), 0, DestAddr, socklen);
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_WRITE, "sendto");
     }
 

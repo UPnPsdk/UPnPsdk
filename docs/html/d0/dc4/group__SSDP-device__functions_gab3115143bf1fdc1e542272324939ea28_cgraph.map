@@ -6,36 +6,36 @@
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="316,394,321,333,338,240,353,189,374,138,402,90,437,48,455,34,459,39,440,52,406,93,379,140,358,191,343,241,327,333,322,395"/>
 <area shape="rect" id="Node000026" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="697,156,788,181"/>
 <area shape="poly" id="edge21_Node000002_Node000026" title=" " alt="" coords="316,394,321,336,337,252,352,207,373,163,401,124,437,92,465,75,491,65,516,60,540,60,591,71,650,92,691,115,723,143,719,147,688,119,648,96,589,76,540,65,516,65,492,70,467,80,440,96,405,127,378,166,357,209,342,254,326,337,322,395"/>
-<area shape="rect" id="Node000033" href="$db/db9/ssdp__device_8cpp.html#a082e945c4fe977cff7c19a7e1ac8da99" title="Creates the reply packet and send it to the Control Point address." alt="" coords="492,107,596,132"/>
-<area shape="poly" id="edge4_Node000002_Node000033" title=" " alt="" coords="318,394,327,346,348,278,364,240,384,204,408,170,437,141,457,129,478,122,480,127,459,134,440,145,412,174,388,207,369,243,353,279,333,347,323,395"/>
-<area shape="rect" id="Node000034" href="$db/db9/ssdp__device_8cpp.html#a65d1171e5dcab19e9b7848773650eaf7" title="Creates a HTTP device shutdown request packet and send it to the multicast channel through RequestHan..." alt="" coords="479,156,609,181"/>
-<area shape="poly" id="edge5_Node000002_Node000034" title=" " alt="" coords="319,393,332,353,355,298,389,240,412,213,437,190,464,176,467,181,440,195,415,217,394,243,360,301,337,355,324,395"/>
-<area shape="rect" id="Node000035" href="$d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="486,205,602,231"/>
-<area shape="poly" id="edge7_Node000002_Node000035" title=" " alt="" coords="322,393,337,362,362,320,396,277,437,241,472,225,474,230,440,246,400,281,367,323,342,364,327,395"/>
-<area shape="rect" id="Node000036" href="$da/d8a/group__XMLAPI.html#gaff6fb78c3265e8af1f2c3e7f19cff485" title="Returns a NodeList of all descendant Elements with a given tag name, in the order in which they are e..." alt="" coords="439,255,649,295"/>
-<area shape="poly" id="edge8_Node000002_Node000036" title=" " alt="" coords="329,392,374,350,404,326,437,305,451,298,454,303,440,310,407,330,377,354,333,396"/>
-<area shape="rect" id="Node000039" href="$da/d8a/group__XMLAPI.html#gae4a30177b1c908fc787f53002eccf4ac" title="Retrieves the first child Node of a Node." alt="" coords="457,320,631,345"/>
-<area shape="poly" id="edge9_Node000002_Node000039" title=" " alt="" coords="344,392,438,354,465,346,467,351,440,359,346,397"/>
-<area shape="rect" id="Node000040" href="$da/d8a/group__XMLAPI.html#ga68d1006000c849fc6f8cc96954787502" title="Retrieves the sibling Node immediately following this Node." alt="" coords="450,369,638,395"/>
-<area shape="poly" id="edge10_Node000002_Node000040" title=" " alt="" coords="390,397,436,391,437,397,391,402"/>
-<area shape="rect" id="Node000041" href="$da/d8a/group__XMLAPI.html#ga75e36d38951aedf65149e4d3eb921e48" title="Returns the name of the Node, depending on what type of Node it is, in a read&#45;only string." alt="" coords="451,419,637,444"/>
-<area shape="poly" id="edge11_Node000002_Node000041" title=" " alt="" coords="391,412,437,417,437,423,390,418"/>
-<area shape="rect" id="Node000045" href="$da/d8a/group__XMLAPI.html#ga6f455a9e121308ac28bb3f5e1b4385e2" title="Returns the value of the Node as a string." alt="" coords="453,468,635,493"/>
-<area shape="poly" id="edge12_Node000002_Node000045" title=" " alt="" coords="348,418,440,453,472,462,470,467,438,458,346,423"/>
-<area shape="rect" id="Node000046" href="$da/d8a/group__XMLAPI.html#gabb402b9bb3f90b807d23ec6717d0bece" title="Frees a NodeList object." alt="" coords="473,517,615,543"/>
-<area shape="poly" id="edge13_Node000002_Node000046" title=" " alt="" coords="332,418,377,460,407,483,440,502,461,511,459,516,437,507,404,487,374,464,329,422"/>
-<area shape="rect" id="Node000047" href="$da/d8a/group__XMLAPI.html#gaee05e4ab2bf35b425ac99c1c2a86587e" title="Retrieves a Node from a NodeList specified by a numerical index." alt="" coords="471,567,617,592"/>
-<area shape="poly" id="edge14_Node000002_Node000047" title=" " alt="" coords="328,419,369,483,402,520,440,552,459,561,457,566,437,556,398,524,365,486,323,422"/>
-<area shape="rect" id="Node000049" href="$db/db9/ssdp__device_8cpp.html#ada63c5136ba9b3c63e949e2db2f55d67" title="Creates the reply packet and send it to the Control Point addesss." alt="" coords="499,616,589,641"/>
-<area shape="poly" id="edge15_Node000002_Node000049" title=" " alt="" coords="325,419,339,456,362,505,396,557,417,581,440,601,462,613,486,620,484,625,460,618,437,606,413,585,392,561,358,508,334,458,320,421"/>
-<area shape="rect" id="Node000050" href="$db/db9/ssdp__device_8cpp.html#ac90369e3ec78ce279fd45dfeb3f0f33f" title="Creates the advertisement packet and send it to the multicast channel." alt="" coords="461,665,627,691"/>
-<area shape="poly" id="edge16_Node000002_Node000050" title=" " alt="" coords="324,420,334,464,356,527,390,594,413,624,440,651,450,657,447,662,437,655,409,628,386,597,351,529,329,466,318,421"/>
-<area shape="rect" id="Node000051" href="$db/db9/ssdp__device_8cpp.html#ae54b8393bd5d949c0859f443dc48e4c1" title="Creates the advertisement packet and send it to the multicast channel." alt="" coords="491,715,597,740"/>
-<area shape="poly" id="edge18_Node000002_Node000051" title=" " alt="" coords="322,420,330,472,350,548,365,590,385,630,410,668,440,700,458,711,478,719,476,724,456,716,437,704,406,671,380,633,360,592,345,550,325,473,317,421"/>
-<area shape="rect" id="Node000052" href="$db/db9/ssdp__device_8cpp.html#ac92b2e78ce280abc5041ce0eda84bf2a" title="Creates a HTTP service shutdown request packet and sends it to the multicast channel through RequestH..." alt="" coords="477,764,611,789"/>
-<area shape="poly" id="edge19_Node000002_Node000052" title=" " alt="" coords="322,420,327,480,344,569,359,618,379,666,406,711,440,749,465,764,462,769,437,753,402,714,374,668,354,620,338,570,321,481,316,421"/>
+<area shape="rect" id="Node000035" href="$db/db9/ssdp__device_8cpp.html#a082e945c4fe977cff7c19a7e1ac8da99" title="Creates the reply packet and send it to the Control Point address." alt="" coords="492,107,596,132"/>
+<area shape="poly" id="edge4_Node000002_Node000035" title=" " alt="" coords="318,394,327,346,348,278,364,240,384,204,408,170,437,141,457,129,478,122,480,127,459,134,440,145,412,174,388,207,369,243,353,279,333,347,323,395"/>
+<area shape="rect" id="Node000036" href="$db/db9/ssdp__device_8cpp.html#a65d1171e5dcab19e9b7848773650eaf7" title="Creates a HTTP device shutdown request packet and send it to the multicast channel through RequestHan..." alt="" coords="479,156,609,181"/>
+<area shape="poly" id="edge5_Node000002_Node000036" title=" " alt="" coords="319,393,332,353,355,298,389,240,412,213,437,190,464,176,467,181,440,195,415,217,394,243,360,301,337,355,324,395"/>
+<area shape="rect" id="Node000037" href="$d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="486,205,602,231"/>
+<area shape="poly" id="edge7_Node000002_Node000037" title=" " alt="" coords="322,393,337,362,362,320,396,277,437,241,472,225,474,230,440,246,400,281,367,323,342,364,327,395"/>
+<area shape="rect" id="Node000038" href="$da/d8a/group__XMLAPI.html#gaff6fb78c3265e8af1f2c3e7f19cff485" title="Returns a NodeList of all descendant Elements with a given tag name, in the order in which they are e..." alt="" coords="439,255,649,295"/>
+<area shape="poly" id="edge8_Node000002_Node000038" title=" " alt="" coords="329,392,374,350,404,326,437,305,451,298,454,303,440,310,407,330,377,354,333,396"/>
+<area shape="rect" id="Node000041" href="$da/d8a/group__XMLAPI.html#gae4a30177b1c908fc787f53002eccf4ac" title="Retrieves the first child Node of a Node." alt="" coords="457,320,631,345"/>
+<area shape="poly" id="edge9_Node000002_Node000041" title=" " alt="" coords="344,392,438,354,465,346,467,351,440,359,346,397"/>
+<area shape="rect" id="Node000042" href="$da/d8a/group__XMLAPI.html#ga68d1006000c849fc6f8cc96954787502" title="Retrieves the sibling Node immediately following this Node." alt="" coords="450,369,638,395"/>
+<area shape="poly" id="edge10_Node000002_Node000042" title=" " alt="" coords="390,397,436,391,437,397,391,402"/>
+<area shape="rect" id="Node000043" href="$da/d8a/group__XMLAPI.html#ga75e36d38951aedf65149e4d3eb921e48" title="Returns the name of the Node, depending on what type of Node it is, in a read&#45;only string." alt="" coords="451,419,637,444"/>
+<area shape="poly" id="edge11_Node000002_Node000043" title=" " alt="" coords="391,412,437,417,437,423,390,418"/>
+<area shape="rect" id="Node000047" href="$da/d8a/group__XMLAPI.html#ga6f455a9e121308ac28bb3f5e1b4385e2" title="Returns the value of the Node as a string." alt="" coords="453,468,635,493"/>
+<area shape="poly" id="edge12_Node000002_Node000047" title=" " alt="" coords="348,418,440,453,472,462,470,467,438,458,346,423"/>
+<area shape="rect" id="Node000048" href="$da/d8a/group__XMLAPI.html#gabb402b9bb3f90b807d23ec6717d0bece" title="Frees a NodeList object." alt="" coords="473,517,615,543"/>
+<area shape="poly" id="edge13_Node000002_Node000048" title=" " alt="" coords="332,418,377,460,407,483,440,502,461,511,459,516,437,507,404,487,374,464,329,422"/>
+<area shape="rect" id="Node000049" href="$da/d8a/group__XMLAPI.html#gaee05e4ab2bf35b425ac99c1c2a86587e" title="Retrieves a Node from a NodeList specified by a numerical index." alt="" coords="471,567,617,592"/>
+<area shape="poly" id="edge14_Node000002_Node000049" title=" " alt="" coords="328,419,369,483,402,520,440,552,459,561,457,566,437,556,398,524,365,486,323,422"/>
+<area shape="rect" id="Node000051" href="$db/db9/ssdp__device_8cpp.html#ada63c5136ba9b3c63e949e2db2f55d67" title="Creates the reply packet and send it to the Control Point addesss." alt="" coords="499,616,589,641"/>
+<area shape="poly" id="edge15_Node000002_Node000051" title=" " alt="" coords="325,419,339,456,362,505,396,557,417,581,440,601,462,613,486,620,484,625,460,618,437,606,413,585,392,561,358,508,334,458,320,421"/>
+<area shape="rect" id="Node000052" href="$db/db9/ssdp__device_8cpp.html#ac90369e3ec78ce279fd45dfeb3f0f33f" title="Creates the advertisement packet and send it to the multicast channel." alt="" coords="461,665,627,691"/>
+<area shape="poly" id="edge16_Node000002_Node000052" title=" " alt="" coords="324,420,334,464,356,527,390,594,413,624,440,651,450,657,447,662,437,655,409,628,386,597,351,529,329,466,318,421"/>
+<area shape="rect" id="Node000053" href="$db/db9/ssdp__device_8cpp.html#ae54b8393bd5d949c0859f443dc48e4c1" title="Creates the advertisement packet and send it to the multicast channel." alt="" coords="491,715,597,740"/>
+<area shape="poly" id="edge18_Node000002_Node000053" title=" " alt="" coords="322,420,330,472,350,548,365,590,385,630,410,668,440,700,458,711,478,719,476,724,456,716,437,704,406,671,380,633,360,592,345,550,325,473,317,421"/>
+<area shape="rect" id="Node000054" href="$db/db9/ssdp__device_8cpp.html#ac92b2e78ce280abc5041ce0eda84bf2a" title="Creates a HTTP service shutdown request packet and sends it to the multicast channel through RequestH..." alt="" coords="477,764,611,789"/>
+<area shape="poly" id="edge19_Node000002_Node000054" title=" " alt="" coords="322,420,327,480,344,569,359,618,379,666,406,711,440,749,465,764,462,769,437,753,402,714,374,668,354,620,338,570,321,481,316,421"/>
 <area shape="poly" id="edge3_Node000003_Node000026" title=" " alt="" coords="610,28,651,48,676,69,699,95,731,143,726,146,694,98,673,73,648,52,608,33"/>
-<area shape="poly" id="edge6_Node000034_Node000026" title=" " alt="" coords="610,166,683,166,683,171,610,171"/>
-<area shape="poly" id="edge17_Node000050_Node000026" title=" " alt="" coords="626,666,647,651,669,616,687,565,702,502,714,433,730,296,737,195,743,196,735,296,719,434,707,503,692,567,674,619,651,655,629,670"/>
-<area shape="poly" id="edge20_Node000052_Node000026" title=" " alt="" coords="611,770,631,762,647,749,661,731,673,707,693,643,709,566,720,481,734,314,738,195,744,196,739,314,726,481,714,567,698,645,678,709,665,734,651,753,633,767,612,775"/>
+<area shape="poly" id="edge6_Node000036_Node000026" title=" " alt="" coords="610,166,683,166,683,171,610,171"/>
+<area shape="poly" id="edge17_Node000052_Node000026" title=" " alt="" coords="626,666,647,651,669,616,687,565,702,502,714,433,730,296,737,195,743,196,735,296,719,434,707,503,692,567,674,619,651,655,629,670"/>
+<area shape="poly" id="edge20_Node000054_Node000026" title=" " alt="" coords="611,770,631,762,647,749,661,731,673,707,693,643,709,566,720,481,734,314,738,195,744,196,739,314,726,481,714,567,698,645,678,709,665,734,651,753,633,767,612,775"/>
 </map>

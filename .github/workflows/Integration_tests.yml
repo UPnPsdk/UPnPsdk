@@ -186,6 +186,11 @@ jobs:
           ls /usr/local/lib/libupnpsdk-pupnp.a
           ls /usr/local/lib/libupnpsdk.a
 
+      - name: Show ifconfig
+        run: |
+          set -v
+          ifconfig -v
+
      #- name: Run UPnPsdk info programs
      #  # This program is always built
      #  run: ./build/bin/UPnPsdk-pst; ./build/bin/UPnPsdk-psh; ./build/bin/UPnPsdk-cst; ./build/bin/UPnPsdk-csh

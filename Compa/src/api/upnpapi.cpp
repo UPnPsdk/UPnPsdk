@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-10
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -148,9 +148,7 @@ unsigned gIF_IPV6_PREFIX_LENGTH = 0;
 
 /*! \brief Contains network interface index of the link local address gIF_IPV6
  * that is used as its scope_id. */
-unsigned gIF_INDEX;
-// unsigned gIF_INDEX = ~0u; // Use complement of 0 because 0 may be a used
-// index.
+unsigned gIF_INDEX = ~0u; // Use complement of 0 because 0 may be a used index.
 
 /*! \brief Static buffer to contain interface IPv6 unique-local or
  * globally-unique address (ULA or GUA). (extern'ed in upnp.h) */

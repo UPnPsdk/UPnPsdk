@@ -1,6 +1,8 @@
 var ssdp__device_8cpp =
 [
-    [ "NewRequestHandler", "db/db9/ssdp__device_8cpp.html#a8648234689df0811c26e612ca789db0f", null ],
+    [ "NewRequestHandlerIPv6", "db/db9/ssdp__device_8cpp.html#a6e62074a5862306f68f6a763cf28d30b", null ],
+    [ "NewRequestHandlerIPv4", "db/db9/ssdp__device_8cpp.html#aa306560d9c2a91ce3d285877f70e9e34", null ],
+    [ "NewRequestHandler", "db/db9/ssdp__device_8cpp.html#a1d48c12c5b3399b11bd17c4a2c388239", null ],
     [ "extractIPv6address", "db/db9/ssdp__device_8cpp.html#a544bef3ce1cf26739e5bc6b45bf608a7", null ],
     [ "isUrlV6UlaGua", "db/db9/ssdp__device_8cpp.html#ae2cc6174777121e77afc77748f9ae699", null ],
     [ "CreateServicePacket", "db/db9/ssdp__device_8cpp.html#aadadf0015deb15dbbefd082436ff5b75", null ],
