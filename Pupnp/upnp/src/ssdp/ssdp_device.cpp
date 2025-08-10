@@ -56,6 +56,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include <iostream>             // DEBUG!
 
 #include "posix_overwrites.hpp" // IWYU pragma: keep
 
@@ -267,9 +268,12 @@ static int NewRequestHandler(
     case AF_INET6:
         inet_ntop(AF_INET6, &((struct sockaddr_in6*)DestAddr)->sin6_addr,
                   buf_ntop, sizeof(buf_ntop));
+        std::cerr << "DEBUG! gIF_INDEX=" << gIF_INDEX << '\n';
         rc = umock::sys_socket_h.setsockopt(
             ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_IF,
             (OPTION_VALUE_CAST)&gIF_INDEX, sizeof(gIF_INDEX));
+        if (rc == -1)
+            std::cerr << "DEBUG! B errno=" << errno << '\n';
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-2");
         rc = umock::sys_socket_h.setsockopt(
@@ -294,6 +298,8 @@ static int NewRequestHandler(
         rc = umock::sys_socket_h.sendto(ReplySock, *(RqPacket + Index),
                                         (SIZEP_T)strlen(*(RqPacket + Index)), 0,
                                         DestAddr, socklen);
+        if (rc == -1)
+            std::cerr << "DEBUG! sendto errno=" << errno << '\n';
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_WRITE, "sendto");
     }
 

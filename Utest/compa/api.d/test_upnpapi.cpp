@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-07-25
+// Redistribution only with this Copyright remark. Last modified: 2025-08-10
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -136,12 +136,12 @@ SSaNadap llaObj;
 SSaNadap guaObj;
 SSaNadap ip4Obj;
 
-CNetadapter nadaptObj;
-
 void get_netadapter() {
     // Getting information of the local network adapters is expensive because
     // it allocates memory to return the internal adapter list. So I do it one
     // time on start and provide the needed information.
+    CNetadapter nadaptObj;
+
     nadaptObj.get_first();
     do {
         nadaptObj.sockaddr(saObj);

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-03
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -87,6 +87,7 @@ constexpr int MSGTYPE_REPLY{2};
  *  - UPNP_E_NETWORK_ERROR
  *  - UPNP_E_SOCKET_WRITE
  */
+#if 1
 int NewRequestHandler(
     /*! [in] Ip address, to send the reply. */
     struct sockaddr* DestAddr,
@@ -96,10 +97,9 @@ int NewRequestHandler(
     char** RqPacket,
     /*! [in] optional: time to live of multicast ip packets */
     int a_ttl = 4) {
-    int rc;
     socklen_t socklen = sizeof(struct sockaddr_storage);
     int Index;
-    struct in_addr replyAddr;
+    in_addr replyAddr;
     /* a/c to UPNP Spec */
 #ifdef UPNP_ENABLE_IPV6
     int hops = 1;
@@ -107,57 +107,68 @@ int NewRequestHandler(
     char buf_ntop[INET6_ADDRSTRLEN];
     int ret = UPNP_E_SUCCESS;
 
-    if (DestAddr == nullptr || (strlen(gIF_IPV4) > (size_t)0 &&
-                                !inet_pton(AF_INET, gIF_IPV4, &replyAddr))) {
+    // Convert local IPv4 source netaddress to socket address.
+    if (DestAddr == nullptr ||
+        (strlen(gIF_IPV4) > 0u &&
+         (inet_pton(AF_INET, gIF_IPV4, &replyAddr) != 1))) {
         return UPNP_E_INVALID_PARAM;
     }
 
-    struct addrinfo hints, *res;
-    memset(&hints, 0, sizeof(hints));
+    // Get address info for passive listening on all local network interfaces.
+    addrinfo hints{}, *res{};
     hints.ai_family = DestAddr->sa_family;
     hints.ai_socktype = SOCK_DGRAM;
-    hints.ai_flags = AI_PASSIVE;
-    if ((rc = umock::netdb_h.getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res)) !=
-        0) {
+    hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV;
+    int rc = umock::netdb_h.getaddrinfo(nullptr, SSDP_PORT_STR, &hints, &res);
+    if (rc != 0) {
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                   "SSDP_LIB: New Request Handler:"
-                   "Error in getaddrinfo(): %s\n",
+                   "SSDP_LIB: New Request Handler:Error in getaddrinfo(): %s\n",
                    gai_strerror(rc));
         return UPNP_E_SOCKET_ERROR;
     }
 
+    // Get socket file descriptor, using address info.
     SOCKET ReplySock = umock::sys_socket_h.socket(
         res->ai_family, res->ai_socktype, res->ai_protocol);
     if (ReplySock == INVALID_SOCKET) {
         char* errmsg = strerror(errno);
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                   "SSDP_LIB: New Request Handler: "
-                   "Error in socket(): %s\n",
+                   "SSDP_LIB: New Request Handler: Error in socket(): %s\n",
                    errmsg);
         ret = UPNP_E_OUTOF_SOCKET;
         goto end_NewRequestHandler;
     }
 
+    // Bind socket to local network addresses, using address info.
     rc = umock::sys_socket_h.bind(ReplySock, res->ai_addr,
                                   static_cast<socklen_t>(res->ai_addrlen));
-    if (rc != 0) {
+    if (rc == -1) {
         char* errmsg = strerror(errno);
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                    "SSDP_LIB: New Request Handler:"
                    "Error in bind(): %s\n",
                    errmsg);
-        ret = UPNP_E_SOCKET_ERROR;
+        ret = UPNP_E_SOCKET_BIND;
         goto end_NewRequestHandler;
     }
 
     switch (DestAddr->sa_family) {
-    case AF_INET:
-        inet_ntop(AF_INET, &((struct sockaddr_in*)DestAddr)->sin_addr, buf_ntop,
-                  sizeof(buf_ntop));
+    case AF_INET: {
+        const char* pbuf_ntop =
+            inet_ntop(AF_INET, &((struct sockaddr_in*)DestAddr)->sin_addr,
+                      buf_ntop, sizeof(buf_ntop));
+        if (pbuf_ntop == nullptr) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler: Error ntop(): %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_ERROR;
+            goto end_NewRequestHandler;
+        }
         rc = umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IP,
                                             IP_MULTICAST_IF, &replyAddr,
                                             sizeof(replyAddr));
-        if (rc != 0) {
+        if (rc == -1) {
             char* errmsg = strerror(errno);
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                        "SSDP_LIB: New Request Handler:"
@@ -168,7 +179,7 @@ int NewRequestHandler(
         }
         rc = umock::sys_socket_h.setsockopt(
             ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, &a_ttl, sizeof(a_ttl));
-        if (rc != 0) {
+        if (rc == -1) {
             char* errmsg = strerror(errno);
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                        "SSDP_LIB: New Request Handler:"
@@ -178,15 +189,25 @@ int NewRequestHandler(
             goto end_NewRequestHandler;
         }
         socklen = sizeof(struct sockaddr_in);
-        break;
+    } break;
 #ifdef UPNP_ENABLE_IPV6
-    case AF_INET6:
-        inet_ntop(AF_INET6, &((struct sockaddr_in6*)DestAddr)->sin6_addr,
-                  buf_ntop, sizeof(buf_ntop));
+    case AF_INET6: {
+        const char* pbuf_ntop =
+            inet_ntop(AF_INET6, &((struct sockaddr_in6*)DestAddr)->sin6_addr,
+                      buf_ntop, sizeof(buf_ntop));
+        if (pbuf_ntop == nullptr) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler: Error ntop(): %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_ERROR;
+            goto end_NewRequestHandler;
+        }
+        std::cerr << "DEBUG! gIF_INDEX=" << gIF_INDEX << '\n';
         rc = umock::sys_socket_h.setsockopt(ReplySock, IPPROTO_IPV6,
                                             IPV6_MULTICAST_IF, &gIF_INDEX,
                                             sizeof(gIF_INDEX));
-        if (rc != 0) {
+        if (rc == -1) {
             char* errmsg = strerror(errno);
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                        "SSDP_LIB: New Request Handler:"
@@ -197,7 +218,7 @@ int NewRequestHandler(
         }
         rc = umock::sys_socket_h.setsockopt(
             ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS, &hops, sizeof(hops));
-        if (rc != 0) {
+        if (rc == -1) {
             char* errmsg = strerror(errno);
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                        "SSDP_LIB: New Request Handler:"
@@ -206,7 +227,7 @@ int NewRequestHandler(
             ret = UPNP_E_SOCKET_ERROR;
             goto end_NewRequestHandler;
         }
-        break;
+    } break;
 #endif
     default:
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
@@ -222,11 +243,23 @@ int NewRequestHandler(
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                    ">>> SSDP SEND to %s >>>\n\"%s\"\n", buf_ntop,
                    *(RqPacket + Index));
+        // send data
+        if (DestAddr->sa_family == AF_INET6) {
+            std::cerr
+                << "DEBUG! sin6_scope_id="
+                << reinterpret_cast<sockaddr_in6*>(DestAddr)->sin6_scope_id
+                << '\n';
+#ifdef __APPLE__
+            reinterpret_cast<sockaddr_in6*>(DestAddr)->sin6_scope_id =
+                gIF_INDEX;
+#endif
+        }
         ssize_t rc = umock::sys_socket_h.sendto(
             ReplySock, *(RqPacket + Index),
             (SIZEP_T)strlen(*(RqPacket + Index)), 0, DestAddr, socklen);
         if (rc == -1) {
             char* errmsg = strerror(errno);
+            std::cerr << "DEBUG! sendto errno=" << errno << '\n';
             UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
                        "SSDP_LIB: New Request Handler: Error sendto(): %s\n",
                        errmsg);
@@ -240,6 +273,168 @@ end_NewRequestHandler:
     umock::unistd_h.CLOSE_SOCKET_P(ReplySock);
 
     return ret;
+}
+#else
+int NewRequestHandler(
+    /*! [in] Ip address, to send the reply. */
+    struct sockaddr* a_dest_saddr,
+    /*! [in] Number of packets to be sent. */
+    int a_num_packet,
+    /*! [in] Pointer to Array of pointer for multicast packets to send. */
+    char** a_rq_packet,
+    /*! [in] optional: time to live of multicast ip packets */
+    [[maybe_unused]] int a_ttl = 4) {
+    addrinfo hints{}, *res{};
+    SOCKET sockfd{INVALID_SOCKET};
+    int ret = UPNP_E_SUCCESS;
+
+    switch (a_dest_saddr->sa_family) {
+    case AF_INET6: {
+        return ret;
+    } break;
+
+    case AF_INET: {
+        // Get address info for passive listening on all local network
+        // interfaces.
+        hints.ai_family = AF_INET;
+        hints.ai_socktype = SOCK_DGRAM;
+        hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV;
+        int rc =
+            umock::netdb_h.getaddrinfo(nullptr, SSDP_PORT_STR, &hints, &res);
+        if (rc != 0) {
+            UpnpPrintf(
+                UPNP_INFO, SSDP, __FILE__, __LINE__,
+                "SSDP_LIB: New Request Handler:Error in getaddrinfo(): %s\n",
+                gai_strerror(rc));
+            return UPNP_E_SOCKET_ERROR;
+        }
+        if (res->ai_next != nullptr) {
+            UpnpPrintf(
+                UPNP_INFO, SSDP, __FILE__, __LINE__,
+                "SSDP_LIB: New Request Handler:Error in getaddrinfo(): more "
+                "than one address info found. Expected is only one.\n");
+            return UPNP_E_SOCKET_ERROR;
+        }
+
+        // Get socket file descriptor, using address info.
+        SOCKET sockfd = umock::sys_socket_h.socket(
+            res->ai_family, res->ai_socktype, res->ai_protocol);
+        if (sockfd == INVALID_SOCKET) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler: Error in socket(): %s\n",
+                       errmsg);
+            ret = UPNP_E_OUTOF_SOCKET;
+            goto end_NewRequestHandler;
+        }
+
+        // Bind socket to local network addresses, using address info.
+        rc = umock::sys_socket_h.bind(sockfd, res->ai_addr,
+                                      static_cast<socklen_t>(res->ai_addrlen));
+        if (rc == -1) {
+            char* errmsg = strerror(errno);
+            UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                       "SSDP_LIB: New Request Handler: Error in bind(): %s\n",
+                       errmsg);
+            ret = UPNP_E_SOCKET_BIND;
+            goto end_NewRequestHandler;
+        }
+
+        for (int Index = 0; Index < a_num_packet; Index++) {
+            if (*(a_rq_packet + Index) == nullptr)
+                continue;
+
+            // Send data.
+            ssize_t bytes_sent = umock::sys_socket_h.sendto(
+                sockfd, *(a_rq_packet + Index),
+                (SIZEP_T)strlen(*(a_rq_packet + Index)), 0, a_dest_saddr,
+                sizeof(sockaddr_in));
+            if (bytes_sent == -1) {
+                char* errmsg = strerror(errno);
+                std::cerr << "DEBUG! sendto errno=" << errno << '\n';
+                UpnpPrintf(
+                    UPNP_INFO, SSDP, __FILE__, __LINE__,
+                    "SSDP_LIB: New Request Handler: Error sendto(): %s\n",
+                    errmsg);
+                ret = UPNP_E_SOCKET_WRITE;
+                goto end_NewRequestHandler;
+            }
+        }
+
+    } break;
+
+    default: {
+        UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
+                   "Invalid destination address specified.");
+        ret = UPNP_E_NETWORK_ERROR;
+        goto end_NewRequestHandler;
+    }
+    } // switch
+
+end_NewRequestHandler:
+    umock::netdb_h.freeaddrinfo(res);
+    umock::unistd_h.CLOSE_SOCKET_P(sockfd);
+
+    return ret;
+}
+#endif
+
+[[maybe_unused]] int NewRequestHandler2(sockaddr* a_dest_saddr, int num_packet,
+                                        char** a_rq_packet) {
+    // Get address info for passive listening on all local network interfaces.
+    addrinfo hints{}, *res{};
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_DGRAM;
+    hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV;
+    int rc = umock::netdb_h.getaddrinfo(nullptr, "1900", &hints, &res);
+    if (rc != 0) {
+        std::cerr << "Error: getaddrinfo() fails with code=" << rc << " - "
+                  << gai_strerror(rc) << '\n';
+        exit(1);
+    }
+    if (res->ai_next != nullptr) {
+        std::cerr << "Error: getaddrinfo() fails with more than one address "
+                     "info. Expected is only one.\n";
+        exit(1);
+    }
+
+    // Get socket file descriptor, using address info.
+    SOCKET sockfd4 = umock::sys_socket_h.socket(
+        res->ai_family, res->ai_socktype, res->ai_protocol);
+    if (sockfd4 == -1) {
+        std::cerr << "Error: socket() fails with errno=" << errno << " - "
+                  << strerror(errno) << '\n';
+        exit(1);
+    }
+
+    // Bind socket to local network addresses, using address info.
+    rc = umock::sys_socket_h.bind(sockfd4, res->ai_addr,
+                                  static_cast<socklen_t>(res->ai_addrlen));
+    if (rc == -1) {
+        std::cerr << "Error: bind() fails with errno=" << errno << " - "
+                  << strerror(errno) << '\n';
+        exit(1);
+    }
+
+    // I don't need the address info anymore.
+    umock::netdb_h.freeaddrinfo(res);
+
+    for (int index{0}; index < num_packet; index++) {
+        // Send data. The sended string is not zero terminated.
+        ssize_t bytes_sent =
+            umock::sys_socket_h.sendto(sockfd4, *(a_rq_packet + index),
+                                       (SIZEP_T)strlen(*(a_rq_packet + index)),
+                                       0, a_dest_saddr, sizeof(sockaddr_in));
+        if (bytes_sent == -1) {
+            std::cerr << "Error: sendto() fails with errno=" << errno << " - "
+                      << strerror(errno) << '\n';
+            exit(1);
+        }
+    }
+
+    umock::unistd_h.CLOSE_SOCKET_P(sockfd4);
+    std::cout << "Works!\n";
+    return 0;
 }
 
 /*!
