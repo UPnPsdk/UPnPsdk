@@ -57,9 +57,10 @@
 /// \cond
 #include <cassert>
 #include <thread>
-#include <net/if.h>
 #ifdef _MSC_VER
 #include <netioapi.h> // DEBUG! for if_nametoindex()
+#else
+#include <net/if.h>
 #endif
 /// \endcond
 
