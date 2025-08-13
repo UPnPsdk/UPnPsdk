@@ -92,7 +92,7 @@ constexpr int MSGTYPE_REPLY{2};
  *  - UPNP_E_NETWORK_ERROR
  *  - UPNP_E_SOCKET_WRITE
  */
-#if 1
+#if true
 int NewRequestHandler(
     /*! [in] Ip address, to send the reply. */
     struct sockaddr* DestAddr,
@@ -385,45 +385,55 @@ end_NewRequestHandler:
 #endif
 
 [[maybe_unused]] int NewRequestHandlerIPv4(sockaddr* a_dest_saddr,
-                                           int num_packet, char** a_rq_packet) {
+                                           int a_num_packet,
+                                           char** a_rq_packet) {
+    SOCKET sockfd4{INVALID_SOCKET};
+    int ret{UPNP_E_SUCCESS};
+
     // Get address info for passive listening on all local network interfaces.
     addrinfo hints{}, *res{nullptr};
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV;
-    int rc = getaddrinfo(nullptr, "1900", &hints, &res);
+    const char* port =
+        std::to_string(
+            ntohs(reinterpret_cast<sockaddr_in*>(a_dest_saddr)->sin_port))
+            .c_str();
+    // getaddrinfo()
+    int rc = getaddrinfo(nullptr, port, &hints, &res);
     if (rc != 0) {
-        std::cerr << "Error: getaddrinfo() fails with code=" << rc << " - "
-                  << gai_strerror(rc) << '\n';
-        exit(1);
+        UPnPsdk_LOGERR("MSG1041") "getaddrinfo() fails with code="
+            << rc << " - " << gai_strerror(rc) << '\n';
+        return UPNP_E_SOCKET_ERROR;
     }
     if (res->ai_next != nullptr) {
-        std::cerr << "Error: getaddrinfo() fails with more than one address "
-                     "info. Expected is only one.\n";
-        exit(1);
+        UPnPsdk_LOGERR("MSG1045") "getaddrinfo() fails with more than one "
+                                  "address info. Expected is only one.\n";
+        ret = UPNP_E_SOCKET_ERROR;
+        goto exit_function;
     }
 
     // Get socket file descriptor, using address info.
-    SOCKET sockfd4 = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+    sockfd4 = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
     if (sockfd4 == -1) {
-        std::cerr << "Error: socket() fails with errno=" << errno << " - "
-                  << strerror(errno) << '\n';
-        exit(1);
+        UPnPsdk_LOGERR("MSG1046") "socket() fails with errno="
+            << errno << " - " << strerror(errno) << '\n';
+        ret = UPNP_E_OUTOF_SOCKET;
+        goto exit_function;
     }
 
     // Bind socket to local network addresses, using address info.
     rc = bind(sockfd4, res->ai_addr, static_cast<socklen_t>(res->ai_addrlen));
     if (rc == -1) {
-        std::cerr << "Error: bind() fails with errno=" << errno << " - "
-                  << strerror(errno) << '\n';
-        exit(1);
+        UPnPsdk_LOGERR("MSG1154") "bind() fails with errno=" << errno << " - "
+                                                             << strerror(errno)
+                                                             << '\n';
+        ret = UPNP_E_SOCKET_BIND;
+        goto exit_function;
     }
 
-    // I don't need the address info anymore.
-    freeaddrinfo(res);
-
-    for (int index{0}; index < num_packet; index++) {
-        // Ignore invalid and empty strings.
+    for (int index{0}; index < a_num_packet; index++) {
+        // Ignore invalid or empty strings.
         if ((*(a_rq_packet + index) == nullptr) ||
             (**(a_rq_packet + index) == '\0'))
             continue;
@@ -433,18 +443,23 @@ end_NewRequestHandler:
                                     (SIZEP_T)strlen(*(a_rq_packet + index)), 0,
                                     a_dest_saddr, sizeof(sockaddr_in));
         if (bytes_sent == -1) {
-            std::cerr << "Error: sendto() fails with errno=" << errno << " - "
-                      << strerror(errno) << '\n';
-            exit(1);
+            UPnPsdk_LOGERR("MSG1155") "sendto() fails with errno="
+                << errno << " - " << strerror(errno) << '\n';
+            ret = UPNP_E_SOCKET_WRITE;
+            goto exit_function;
         }
     }
 
+exit_function:
+    freeaddrinfo(res);
     CLOSE_SOCKET_P(sockfd4);
-    std::cout << "Works!\n";
-    return 0;
+
+    return ret;
 }
 
-[[maybe_unused]] int NewRequestHandlerIPv6(sockaddr* a_dest_saddr) {
+[[maybe_unused]] int NewRequestHandlerIPv6(sockaddr* a_dest_saddr,
+                                           int a_num_packet,
+                                           char** a_rq_packet) {
 #ifdef __APPLE__
     // Special need for MacOS: sendto() fails if it doesn't have the scope id
     // in the destination multicast group socket address. I guess for this
@@ -497,13 +512,21 @@ end_NewRequestHandler:
     // I don't need the address info anymore.
     freeaddrinfo(res);
 
-    // Send data.
-    ssize_t bytes_sent = sendto(sockfd6, "Hello world", 12, 0, a_dest_saddr,
-                                sizeof(sockaddr_in6));
-    if (bytes_sent == -1) {
-        std::cerr << "Error: sendto() fails with errno=" << errno << " - "
-                  << strerror(errno) << '\n';
-        exit(1);
+    for (int index{0}; index < a_num_packet; index++) {
+        // Ignore invalid or empty strings.
+        if ((*(a_rq_packet + index) == nullptr) ||
+            (**(a_rq_packet + index) == '\0'))
+            continue;
+
+        // Send data. The sent string is not zero terminated.
+        ssize_t bytes_sent = sendto(sockfd6, *(a_rq_packet + index),
+                                    (SIZEP_T)strlen(*(a_rq_packet + index)), 0,
+                                    a_dest_saddr, sizeof(sockaddr_in6));
+        if (bytes_sent == -1) {
+            std::cerr << "Error: sendto() fails with errno=" << errno << " - "
+                      << strerror(errno) << '\n';
+            exit(1);
+        }
     }
 
     CLOSE_SOCKET_P(sockfd6);

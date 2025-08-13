@@ -344,15 +344,23 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandlerIPv4) {
     char* msgs[4]{msg1, nullptr, msg3, msg4};
 
     // Test Unit
-    EXPECT_EQ(NewRequestHandlerIPv4(&mcast_group4.sa, 4, &msgs[0]), 0);
+    int ret_NewRequestHandlerIPv4 =
+        ::NewRequestHandlerIPv4(&mcast_group4.sa, 4, &msgs[0]);
+    EXPECT_EQ(ret_NewRequestHandlerIPv4, UPNP_E_SUCCESS)
+        << errStrEx(ret_NewRequestHandlerIPv4, UPNP_E_SUCCESS);
 }
 
 TEST_F(SsdpDeviceFTestSuite, NewRequestHandlerIPv6) {
     SSockaddr mcast_group6;
     mcast_group6 = "[ff02::c]:1900";
 
+    char msg1[]{"Multicast message 1"};
+    char msg3[]{"mcast msg 3"};
+    char msg4[]{""};
+    char* msgs[4]{msg1, nullptr, msg3, msg4};
+
     // Test Unit
-    EXPECT_EQ(NewRequestHandlerIPv6(&mcast_group6.sa), 0);
+    EXPECT_EQ(NewRequestHandlerIPv6(&mcast_group6.sa, 4, &msgs[0]), 0);
 }
 #endif
 
