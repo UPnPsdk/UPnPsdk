@@ -57,6 +57,7 @@
 /// \cond
 #include <cassert>
 #include <thread>
+#include <net/if.h>
 /// \endcond
 
 
