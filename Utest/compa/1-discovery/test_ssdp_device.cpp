@@ -348,8 +348,11 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandlerIPv4) {
 }
 
 TEST_F(SsdpDeviceFTestSuite, NewRequestHandlerIPv6) {
+    SSockaddr mcast_group6;
+    mcast_group6 = "[ff02::c]:1900";
+
     // Test Unit
-    EXPECT_EQ(NewRequestHandlerIPv6(), 0);
+    EXPECT_EQ(NewRequestHandlerIPv6(&mcast_group6.sa), 0);
 }
 #endif
 

@@ -444,31 +444,21 @@ end_NewRequestHandler:
     return 0;
 }
 
-[[maybe_unused]] int NewRequestHandlerIPv6() {
-    // For this example I use the SSDP multicast group "[ff02::c]:1900".
-    // Prepare socket address as destination address for the group.
-    sockaddr_in6 mcast_group6{};
-    mcast_group6.sin6_family = AF_INET6;
-    mcast_group6.sin6_port = htons(1900);
-    int rc =
-        inet_pton(mcast_group6.sin6_family, "ff02::c", &mcast_group6.sin6_addr);
-    if (rc != 1) {
-        std::cerr << "Error: inet_pton() fails with code=" << rc
-                  << " - no valid network address or address family given.\n";
-        exit(1);
-    }
+[[maybe_unused]] int NewRequestHandlerIPv6(sockaddr* a_dest_saddr) {
 #ifdef __APPLE__
     // Special need for MacOS: sendto() fails if it doesn't have the scope id
     // in the destination multicast group socket address. I guess for this
     // simple test that it uses interface "en0" for sending. The Github Action
     // for this test has a step "show local interface addresses" where you can
     // see the real used interface if this fails.
-    mcast_group6.sin6_scope_id = if_nametoindex("en0");
-    if (mcast_group6.sin6_scope_id == 0) {
+    uint32_t sin6_scope_id = if_nametoindex("en0");
+    if (sin6_scope_id == 0) {
         std::cerr << "Error: nametoindex() fails with errno=" << errno << " - "
                   << strerror(errno) << '\n';
         exit(1);
     }
+    reinterpret_cast<sockaddr_in6*>(a_dest_saddr)->sin6_scope_id =
+        sin6_scope_id;
 #endif
 
     // Get address info for passive listening on all local network interfaces.
@@ -476,7 +466,7 @@ end_NewRequestHandler:
     hints.ai_family = AF_INET6;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV;
-    rc = getaddrinfo(nullptr, "1900", &hints, &res);
+    int rc = getaddrinfo(nullptr, "1900", &hints, &res);
     if (rc != 0) {
         std::cerr << "Error: getaddrinfo() fails with code=" << rc << " - "
                   << gai_strerror(rc) << '\n';
@@ -508,9 +498,8 @@ end_NewRequestHandler:
     freeaddrinfo(res);
 
     // Send data.
-    ssize_t bytes_sent = sendto(
-        sockfd6, "Hello world", 12, 0,
-        reinterpret_cast<const sockaddr*>(&mcast_group6), sizeof(mcast_group6));
+    ssize_t bytes_sent = sendto(sockfd6, "Hello world", 12, 0, a_dest_saddr,
+                                sizeof(sockaddr_in6));
     if (bytes_sent == -1) {
         std::cerr << "Error: sendto() fails with errno=" << errno << " - "
                   << strerror(errno) << '\n';
