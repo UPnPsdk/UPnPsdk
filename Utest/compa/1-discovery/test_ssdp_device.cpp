@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-10
+// Redistribution only with this Copyright remark. Last modified: 2025-08-13
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -334,17 +334,22 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_without_dest_addr_fails) {
 #endif
 
 #ifndef UPnPsdk_WITH_NATIVE_PUPNP
-TEST_F(SsdpDeviceFTestSuite, NewRequestHandler) {
+TEST_F(SsdpDeviceFTestSuite, NewRequestHandlerIPv4) {
     SSockaddr mcast_group4;
     mcast_group4 = "239.255.255.250:1900";
 
     char msg1[]{"Multicast message 1"};
-    char msg2[]{""};
     char msg3[]{"mcast msg 3"};
-    char* msgs[3]{msg1, msg2, msg3};
+    char msg4[]{""};
+    char* msgs[4]{msg1, nullptr, msg3, msg4};
 
     // Test Unit
-    EXPECT_EQ(NewRequestHandler2(&mcast_group4.sa, 3, &msgs[0]), 0);
+    EXPECT_EQ(NewRequestHandlerIPv4(&mcast_group4.sa, 4, &msgs[0]), 0);
+}
+
+TEST_F(SsdpDeviceFTestSuite, NewRequestHandlerIPv6) {
+    // Test Unit
+    EXPECT_EQ(NewRequestHandlerIPv6(), 0);
 }
 #endif
 
