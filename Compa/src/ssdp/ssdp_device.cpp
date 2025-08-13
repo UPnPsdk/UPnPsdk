@@ -391,7 +391,7 @@ end_NewRequestHandler:
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV;
-    int rc = umock::netdb_h.getaddrinfo(nullptr, "1900", &hints, &res);
+    int rc = getaddrinfo(nullptr, "1900", &hints, &res);
     if (rc != 0) {
         std::cerr << "Error: getaddrinfo() fails with code=" << rc << " - "
                   << gai_strerror(rc) << '\n';
@@ -404,8 +404,7 @@ end_NewRequestHandler:
     }
 
     // Get socket file descriptor, using address info.
-    SOCKET sockfd4 = umock::sys_socket_h.socket(
-        res->ai_family, res->ai_socktype, res->ai_protocol);
+    SOCKET sockfd4 = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
     if (sockfd4 == -1) {
         std::cerr << "Error: socket() fails with errno=" << errno << " - "
                   << strerror(errno) << '\n';
@@ -413,8 +412,7 @@ end_NewRequestHandler:
     }
 
     // Bind socket to local network addresses, using address info.
-    rc = umock::sys_socket_h.bind(sockfd4, res->ai_addr,
-                                  static_cast<socklen_t>(res->ai_addrlen));
+    rc = bind(sockfd4, res->ai_addr, static_cast<socklen_t>(res->ai_addrlen));
     if (rc == -1) {
         std::cerr << "Error: bind() fails with errno=" << errno << " - "
                   << strerror(errno) << '\n';
@@ -422,7 +420,7 @@ end_NewRequestHandler:
     }
 
     // I don't need the address info anymore.
-    umock::netdb_h.freeaddrinfo(res);
+    freeaddrinfo(res);
 
     for (int index{0}; index < num_packet; index++) {
         // Ignore invalid and empty strings.
@@ -431,10 +429,9 @@ end_NewRequestHandler:
             continue;
 
         // Send data. The sent string is not zero terminated.
-        ssize_t bytes_sent =
-            umock::sys_socket_h.sendto(sockfd4, *(a_rq_packet + index),
-                                       (SIZEP_T)strlen(*(a_rq_packet + index)),
-                                       0, a_dest_saddr, sizeof(sockaddr_in));
+        ssize_t bytes_sent = sendto(sockfd4, *(a_rq_packet + index),
+                                    (SIZEP_T)strlen(*(a_rq_packet + index)), 0,
+                                    a_dest_saddr, sizeof(sockaddr_in));
         if (bytes_sent == -1) {
             std::cerr << "Error: sendto() fails with errno=" << errno << " - "
                       << strerror(errno) << '\n';
@@ -442,7 +439,7 @@ end_NewRequestHandler:
         }
     }
 
-    umock::unistd_h.CLOSE_SOCKET_P(sockfd4);
+    CLOSE_SOCKET_P(sockfd4);
     std::cout << "Works!\n";
     return 0;
 }
@@ -492,7 +489,7 @@ end_NewRequestHandler:
     }
 
     // Get socket file descriptor, using address info.
-    int sockfd6 = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+    SOCKET sockfd6 = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
     if (sockfd6 == -1) {
         std::cerr << "Error: socket() fails with errno=" << errno << " - "
                   << strerror(errno) << '\n';
@@ -500,7 +497,7 @@ end_NewRequestHandler:
     }
 
     // Bind socket to local network addresses, using address info.
-    rc = bind(sockfd6, res->ai_addr, res->ai_addrlen);
+    rc = bind(sockfd6, res->ai_addr, static_cast<socklen_t>(res->ai_addrlen));
     if (rc == -1) {
         std::cerr << "Error: bind() fails with errno=" << errno << " - "
                   << strerror(errno) << '\n';
@@ -520,7 +517,7 @@ end_NewRequestHandler:
         exit(1);
     }
 
-    close(sockfd6);
+    CLOSE_SOCKET_P(sockfd6);
     std::cout << "Works!\n";
     return 0;
 }
