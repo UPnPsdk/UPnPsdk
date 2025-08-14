@@ -461,7 +461,7 @@ exit_function:
     SOCKET sockfd6{INVALID_SOCKET};
     int ret{UPNP_E_SUCCESS};
 
-#ifdef __APPLE__
+#if 0 // def __APPLE__
     // Special need for MacOS: sendto() fails if it doesn't have the scope id
     // in the destination multicast group socket address. I guess for this
     // simple test that it uses interface "en0" for sending. The Github Action
