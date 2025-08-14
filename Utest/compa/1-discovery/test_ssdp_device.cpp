@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-13
+// Redistribution only with this Copyright remark. Last modified: 2025-08-14
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -360,7 +360,10 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandlerIPv6) {
     char* msgs[4]{msg1, nullptr, msg3, msg4};
 
     // Test Unit
-    EXPECT_EQ(NewRequestHandlerIPv6(&mcast_group6.sa, 4, &msgs[0]), 0);
+    int ret_NewRequestHandlerIPv6 =
+        ::NewRequestHandlerIPv6(&mcast_group6.sa, 4, &msgs[0]);
+    EXPECT_EQ(ret_NewRequestHandlerIPv6, UPNP_E_SUCCESS)
+        << errStrEx(ret_NewRequestHandlerIPv6, UPNP_E_SUCCESS);
 }
 #endif
 

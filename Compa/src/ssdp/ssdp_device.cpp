@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-13
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-14
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -395,12 +395,10 @@ end_NewRequestHandler:
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV;
-    const char* port =
-        std::to_string(
-            ntohs(reinterpret_cast<sockaddr_in*>(a_dest_saddr)->sin_port))
-            .c_str();
+    const std::string port = std::to_string(
+        ntohs(reinterpret_cast<sockaddr_in*>(a_dest_saddr)->sin_port));
     // getaddrinfo()
-    int rc = getaddrinfo(nullptr, port, &hints, &res);
+    int rc = getaddrinfo(nullptr, port.c_str(), &hints, &res);
     if (rc != 0) {
         UPnPsdk_LOGERR("MSG1041") "getaddrinfo() fails with code="
             << rc << " - " << gai_strerror(rc) << '\n';
@@ -460,6 +458,9 @@ exit_function:
 [[maybe_unused]] int NewRequestHandlerIPv6(sockaddr* a_dest_saddr,
                                            int a_num_packet,
                                            char** a_rq_packet) {
+    SOCKET sockfd6{INVALID_SOCKET};
+    int ret{UPNP_E_SUCCESS};
+
 #ifdef __APPLE__
     // Special need for MacOS: sendto() fails if it doesn't have the scope id
     // in the destination multicast group socket address. I guess for this
@@ -468,9 +469,9 @@ exit_function:
     // see the real used interface if this fails.
     uint32_t sin6_scope_id = if_nametoindex("en0");
     if (sin6_scope_id == 0) {
-        std::cerr << "Error: nametoindex() fails with errno=" << errno << " - "
-                  << strerror(errno) << '\n';
-        exit(1);
+        UPnPsdk_LOGERR("MSG1156") "nametoindex() fails with errno="
+            << errno << " - " << strerror(errno) << '\n';
+        return UPNP_E_NETWORK_ERROR;
     }
     reinterpret_cast<sockaddr_in6*>(a_dest_saddr)->sin6_scope_id =
         sin6_scope_id;
@@ -481,36 +482,40 @@ exit_function:
     hints.ai_family = AF_INET6;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV;
-    int rc = getaddrinfo(nullptr, "1900", &hints, &res);
+    const std::string port = std::to_string(
+        ntohs(reinterpret_cast<sockaddr_in6*>(a_dest_saddr)->sin6_port));
+    // getaddrinfo()
+    int rc = getaddrinfo(nullptr, port.c_str(), &hints, &res);
     if (rc != 0) {
-        std::cerr << "Error: getaddrinfo() fails with code=" << rc << " - "
-                  << gai_strerror(rc) << '\n';
-        exit(1);
+        UPnPsdk_LOGERR("MSG1157") "getaddrinfo() fails with code="
+            << rc << " - " << gai_strerror(rc) << '\n';
+        return UPNP_E_SOCKET_ERROR;
     }
     if (res->ai_next != nullptr) {
-        std::cerr << "Error: getaddrinfo() fails with more than one address "
-                     "info. Expected is only one.\n";
-        exit(1);
+        UPnPsdk_LOGERR("MSG11158") "getaddrinfo() fails with more than one "
+                                   "address info. Expected is only one.\n";
+        ret = UPNP_E_SOCKET_ERROR;
+        goto exit_function;
     }
 
     // Get socket file descriptor, using address info.
-    SOCKET sockfd6 = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+    sockfd6 = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
     if (sockfd6 == -1) {
-        std::cerr << "Error: socket() fails with errno=" << errno << " - "
-                  << strerror(errno) << '\n';
-        exit(1);
+        UPnPsdk_LOGERR("MSG1159") "socket() fails with errno="
+            << errno << " - " << strerror(errno) << '\n';
+        ret = UPNP_E_OUTOF_SOCKET;
+        goto exit_function;
     }
 
     // Bind socket to local network addresses, using address info.
     rc = bind(sockfd6, res->ai_addr, static_cast<socklen_t>(res->ai_addrlen));
     if (rc == -1) {
-        std::cerr << "Error: bind() fails with errno=" << errno << " - "
-                  << strerror(errno) << '\n';
-        exit(1);
+        UPnPsdk_LOGERR("MSG1160") "bind() fails with errno=" << errno << " - "
+                                                             << strerror(errno)
+                                                             << '\n';
+        ret = UPNP_E_SOCKET_BIND;
+        goto exit_function;
     }
-
-    // I don't need the address info anymore.
-    freeaddrinfo(res);
 
     for (int index{0}; index < a_num_packet; index++) {
         // Ignore invalid or empty strings.
@@ -523,15 +528,18 @@ exit_function:
                                     (SIZEP_T)strlen(*(a_rq_packet + index)), 0,
                                     a_dest_saddr, sizeof(sockaddr_in6));
         if (bytes_sent == -1) {
-            std::cerr << "Error: sendto() fails with errno=" << errno << " - "
-                      << strerror(errno) << '\n';
-            exit(1);
+            UPnPsdk_LOGERR("MSG1161") "sendto() fails with errno="
+                << errno << " - " << strerror(errno) << '\n';
+            ret = UPNP_E_SOCKET_WRITE;
+            goto exit_function;
         }
     }
 
+exit_function:
+    freeaddrinfo(res);
     CLOSE_SOCKET_P(sockfd6);
-    std::cout << "Works!\n";
-    return 0;
+
+    return ret;
 }
 
 /*!
