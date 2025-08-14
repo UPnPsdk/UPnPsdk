@@ -461,22 +461,6 @@ exit_function:
     SOCKET sockfd6{INVALID_SOCKET};
     int ret{UPNP_E_SUCCESS};
 
-#if 0 // def __APPLE__
-    // Special need for MacOS: sendto() fails if it doesn't have the scope id
-    // in the destination multicast group socket address. I guess for this
-    // simple test that it uses interface "en0" for sending. The Github Action
-    // for this test has a step "show local interface addresses" where you can
-    // see the real used interface if this fails.
-    uint32_t sin6_scope_id = if_nametoindex("en0");
-    if (sin6_scope_id == 0) {
-        UPnPsdk_LOGERR("MSG1156") "nametoindex() fails with errno="
-            << errno << " - " << strerror(errno) << '\n';
-        return UPNP_E_NETWORK_ERROR;
-    }
-    reinterpret_cast<sockaddr_in6*>(a_dest_saddr)->sin6_scope_id =
-        sin6_scope_id;
-#endif
-
     // Get address info for passive listening on all local network interfaces.
     addrinfo hints{}, *res{nullptr};
     hints.ai_family = AF_INET6;

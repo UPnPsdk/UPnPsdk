@@ -351,8 +351,12 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandlerIPv4) {
 }
 
 TEST_F(SsdpDeviceFTestSuite, NewRequestHandlerIPv6) {
-    SSockaddr mcast_group6;
-    mcast_group6 = "[ff02::c]:1900";
+    SSockaddr destaddr_ip6;
+    destaddr_ip6 = "[ff02::c]:1900";
+#ifdef __APPLE__
+    // MacOS needs this, otherwise ::sendto() will fail.
+    destaddr_ip6.sin6.sin6_scope_id = llaObj.index;
+#endif
 
     char msg1[]{"Multicast message 1"};
     char msg3[]{"mcast msg 3"};
@@ -361,7 +365,7 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandlerIPv6) {
 
     // Test Unit
     int ret_NewRequestHandlerIPv6 =
-        ::NewRequestHandlerIPv6(&mcast_group6.sa, 4, &msgs[0]);
+        ::NewRequestHandlerIPv6(&destaddr_ip6.sa, 4, &msgs[0]);
     EXPECT_EQ(ret_NewRequestHandlerIPv6, UPNP_E_SUCCESS)
         << errStrEx(ret_NewRequestHandlerIPv6, UPNP_E_SUCCESS);
 }
