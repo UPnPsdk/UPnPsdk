@@ -139,7 +139,6 @@ class SsdpDeviceFTestSuite : public ::testing::Test {
 typedef SsdpDeviceFTestSuite SsdpDeviceFDeathTest;
 
 
-#if 0
 TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_successful) {
     // Used global variable:
     strcpy(gIF_IPV4, "0.0.0.0");
@@ -181,6 +180,7 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_successful) {
     }
 }
 
+#if 0
 TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_with_unicast_addr_fails) {
     if (!g_dbug)      // Always enable for this test.
         m_logObj.enable(UPNP_ALL);
