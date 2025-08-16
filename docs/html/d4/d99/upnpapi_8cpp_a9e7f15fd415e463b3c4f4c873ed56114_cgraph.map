@@ -11,22 +11,22 @@
 <area shape="poly" id="edge17_Node000005_Node000002" title=" " alt="" coords="352,223,373,187,405,143,446,100,469,81,495,65,552,44,612,33,671,30,721,32,721,38,671,36,613,38,553,49,497,70,472,85,449,104,409,146,378,190,357,226"/>
 <area shape="rect" id="Node000006" href="$d0/dc4/group__SSDP-device__functions.html#ga298b1186e6cb223cf194453e141d1b29" title="Sends SSDP advertisements, replies and shutdown messages." alt="" coords="505,80,651,105"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="363,223,421,174,495,122,524,108,527,113,497,127,424,178,367,227"/>
-<area shape="rect" id="Node000038" href="$d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="722,105,838,131"/>
-<area shape="poly" id="edge12_Node000005_Node000038" title=" " alt="" coords="399,222,495,190,712,131,713,137,497,195,400,227"/>
-<area shape="rect" id="Node000056" href="$d4/d99/upnpapi_8cpp.html#abb1ab3d0ba145286005284d447110fce" title="This function is a timer thread scheduled by UpnpSendAdvertisement to the send advetisement again." alt="" coords="521,429,635,455"/>
-<area shape="poly" id="edge8_Node000005_Node000056" title=" " alt="" coords="367,263,450,351,463,370,472,387,481,401,498,416,510,423,507,428,494,420,477,405,467,389,459,373,446,354,363,267"/>
-<area shape="rect" id="Node000057" href="$d4/d99/upnpapi_8cpp.html#ad1ea8e065c7bee700fb8a248b5b0d3cb" title="Free memory associated with advertise job&#39;s argument." alt="" coords="708,305,852,331"/>
-<area shape="poly" id="edge11_Node000005_Node000057" title=" " alt="" coords="407,222,462,209,527,201,595,202,628,208,661,217,691,232,719,251,761,292,758,296,715,255,689,236,659,222,627,213,594,208,527,207,463,215,408,227"/>
-<area shape="rect" id="Node000058" href="$dd/d9f/TimerThread_8cpp.html#a8ec8348608c1398ce65c460c5a8a5b7d" title="Schedules an event to run at a specified time." alt="" coords="496,232,660,257"/>
-<area shape="poly" id="edge13_Node000005_Node000058" title=" " alt="" coords="448,242,482,242,482,247,448,247"/>
-<area shape="rect" id="Node000069" href="$d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="539,281,617,307"/>
-<area shape="poly" id="edge14_Node000005_Node000069" title=" " alt="" coords="439,262,526,281,525,286,438,267"/>
-<area shape="rect" id="Node000070" href="$d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="497,331,659,356"/>
-<area shape="poly" id="edge15_Node000005_Node000070" title=" " alt="" coords="383,263,497,316,520,324,518,329,495,320,381,267"/>
-<area shape="rect" id="Node000071" href="$d8/d61/ThreadPool_8cpp.html#a7317f4409e514c2c01e31c9f66fd7da5" title="Sets the priority of the threadpool job." alt="" coords="515,380,641,405"/>
-<area shape="poly" id="edge16_Node000005_Node000071" title=" " alt="" coords="366,263,422,314,459,341,497,365,514,373,512,378,495,370,456,345,419,318,362,267"/>
+<area shape="rect" id="Node000040" href="$d4/d99/upnpapi_8cpp.html#a276f608a72d2b223bb429ba31c32f64b" title="Get handle information." alt="" coords="722,105,838,131"/>
+<area shape="poly" id="edge12_Node000005_Node000040" title=" " alt="" coords="399,222,495,190,712,131,713,137,497,195,400,227"/>
+<area shape="rect" id="Node000058" href="$d4/d99/upnpapi_8cpp.html#abb1ab3d0ba145286005284d447110fce" title="This function is a timer thread scheduled by UpnpSendAdvertisement to the send advetisement again." alt="" coords="521,429,635,455"/>
+<area shape="poly" id="edge8_Node000005_Node000058" title=" " alt="" coords="367,263,450,351,463,370,472,387,481,401,498,416,510,423,507,428,494,420,477,405,467,389,459,373,446,354,363,267"/>
+<area shape="rect" id="Node000059" href="$d4/d99/upnpapi_8cpp.html#ad1ea8e065c7bee700fb8a248b5b0d3cb" title="Free memory associated with advertise job&#39;s argument." alt="" coords="708,305,852,331"/>
+<area shape="poly" id="edge11_Node000005_Node000059" title=" " alt="" coords="407,222,462,209,527,201,595,202,628,208,661,217,691,232,719,251,761,292,758,296,715,255,689,236,659,222,627,213,594,208,527,207,463,215,408,227"/>
+<area shape="rect" id="Node000060" href="$dd/d9f/TimerThread_8cpp.html#a8ec8348608c1398ce65c460c5a8a5b7d" title="Schedules an event to run at a specified time." alt="" coords="496,232,660,257"/>
+<area shape="poly" id="edge13_Node000005_Node000060" title=" " alt="" coords="448,242,482,242,482,247,448,247"/>
+<area shape="rect" id="Node000071" href="$d8/d61/ThreadPool_8cpp.html#ab265d32bdfbfa09c1dde67f4e877d908" title="Initializes thread pool job." alt="" coords="539,281,617,307"/>
+<area shape="poly" id="edge14_Node000005_Node000071" title=" " alt="" coords="439,262,526,281,525,286,438,267"/>
+<area shape="rect" id="Node000072" href="$d8/d61/ThreadPool_8cpp.html#a249dd5d52ce5559d123f3c53651667c7" title="Sets the jobs free function." alt="" coords="497,331,659,356"/>
+<area shape="poly" id="edge15_Node000005_Node000072" title=" " alt="" coords="383,263,497,316,520,324,518,329,495,320,381,267"/>
+<area shape="rect" id="Node000073" href="$d8/d61/ThreadPool_8cpp.html#a7317f4409e514c2c01e31c9f66fd7da5" title="Sets the priority of the threadpool job." alt="" coords="515,380,641,405"/>
+<area shape="poly" id="edge16_Node000005_Node000073" title=" " alt="" coords="366,263,422,314,459,341,497,365,514,373,512,378,495,370,456,345,419,318,362,267"/>
 <area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="629,77,721,54,722,59,630,82"/>
-<area shape="poly" id="edge6_Node000006_Node000038" title=" " alt="" coords="652,99,708,106,708,112,652,105"/>
-<area shape="poly" id="edge10_Node000056_Node000001" title=" " alt="" coords="529,432,495,421,392,380,291,337,136,266,138,261,293,332,394,375,497,415,531,427"/>
-<area shape="poly" id="edge9_Node000056_Node000057" title=" " alt="" coords="632,427,659,416,713,378,755,339,759,343,716,382,661,420,635,432"/>
+<area shape="poly" id="edge6_Node000006_Node000040" title=" " alt="" coords="652,99,708,106,708,112,652,105"/>
+<area shape="poly" id="edge10_Node000058_Node000001" title=" " alt="" coords="529,432,495,421,392,380,291,337,136,266,138,261,293,332,394,375,497,415,531,427"/>
+<area shape="poly" id="edge9_Node000058_Node000059" title=" " alt="" coords="632,427,659,416,713,378,755,339,759,343,716,382,661,420,635,432"/>
 </map>

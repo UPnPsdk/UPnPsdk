@@ -110,6 +110,7 @@ $(document).ready(function(){initNavTree('db/db9/ssdp__device_8cpp.html','../../
 <code>#include &lt;<a class="el" href="../../d9/df0/statcodes_8hpp_source.html">statcodes.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d3/da9/upnpapi_8hpp_source.html">upnpapi.hpp</a>&gt;</code><br />
 <code>#include &lt;webserver.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../da/dfc/socket_8hpp_source.html">UPnPsdk/socket.hpp</a>&gt;</code><br />
 <code>#include &lt;umock/sys_socket.hpp&gt;</code><br />
 <code>#include &lt;umock/netdb.hpp&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -119,21 +120,23 @@ $(document).ready(function(){initNavTree('db/db9/ssdp__device_8cpp.html','../../
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../df/db8/ssdp__device_8cpp__incl.png" border="0" usemap="#aCompa_2src_2ssdp_2ssdp__device_8cpp" alt=""/></div>
 <map name="aCompa_2src_2ssdp_2ssdp__device_8cpp" id="aCompa_2src_2ssdp_2ssdp__device_8cpp">
-<area shape="rect" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="547,5,706,45"/>
+<area shape="rect" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="614,5,773,45"/>
 <area shape="rect" href="../../da/df5/ssdp__device_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="84,93,215,119"/>
-<area shape="poly" title=" " alt="" coords="548,42,229,94,228,89,547,37"/>
+<area shape="poly" title=" " alt="" coords="614,41,228,96,228,91,613,35"/>
 <area shape="rect" title=" " alt="" coords="275,93,413,119"/>
-<area shape="poly" title=" " alt="" coords="560,48,399,92,398,87,558,43"/>
+<area shape="poly" title=" " alt="" coords="614,47,409,93,408,88,613,42"/>
 <area shape="rect" href="../../d9/df0/statcodes_8hpp.html" title="HTTP status codes." alt="" coords="438,93,551,119"/>
-<area shape="poly" title=" " alt="" coords="596,48,528,88,525,84,594,43"/>
+<area shape="poly" title=" " alt="" coords="647,48,537,91,535,86,645,43"/>
 <area shape="rect" href="../../d3/da9/upnpapi_8hpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="575,93,678,119"/>
-<area shape="poly" title=" " alt="" coords="629,46,629,79,624,79,624,46"/>
+<area shape="poly" title=" " alt="" coords="679,47,647,84,643,81,675,44"/>
 <area shape="rect" title=" " alt="" coords="703,93,820,119"/>
-<area shape="poly" title=" " alt="" coords="660,43,731,84,728,89,658,48"/>
-<area shape="rect" title=" " alt="" coords="845,93,1014,119"/>
-<area shape="poly" title=" " alt="" coords="700,43,873,87,871,92,698,48"/>
-<area shape="rect" title=" " alt="" coords="1038,93,1173,119"/>
-<area shape="poly" title=" " alt="" coords="707,37,1025,89,1024,94,706,42"/>
+<area shape="poly" title=" " alt="" coords="712,44,744,81,740,84,708,47"/>
+<area shape="rect" href="../../da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="843,93,997,119"/>
+<area shape="poly" title=" " alt="" coords="748,43,875,86,873,91,747,48"/>
+<area shape="rect" title=" " alt="" coords="1021,93,1190,119"/>
+<area shape="poly" title=" " alt="" coords="773,39,1032,88,1031,93,772,44"/>
+<area shape="rect" title=" " alt="" coords="1214,93,1349,119"/>
+<area shape="poly" title=" " alt="" coords="773,34,1201,90,1200,96,772,39"/>
 <area shape="rect" href="../../d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="5,167,149,192"/>
 <area shape="poly" title=" " alt="" coords="139,121,101,159,97,155,136,117"/>
 <area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="173,167,339,192"/>
@@ -184,12 +187,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab3115143bf1fdc1e542272324939ea28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper function to reply the search request coming from the control point.  <br /></td></tr>
 <tr class="separator:ab3115143bf1fdc1e542272324939ea28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Functions scope restricted to file</div></td></tr>
-<tr class="memitem:a6e62074a5862306f68f6a763cf28d30b" id="r_a6e62074a5862306f68f6a763cf28d30b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a6e62074a5862306f68f6a763cf28d30b">anonymous_namespace{ssdp_device.cpp}::NewRequestHandlerIPv6</a> (sockaddr *a_dest_saddr, int a_num_packet, char **a_rq_packet)</td></tr>
-<tr class="memdesc:a6e62074a5862306f68f6a763cf28d30b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Works as a request handler which passes the HTTP request string to multicast channel.  <br /></td></tr>
-<tr class="separator:a6e62074a5862306f68f6a763cf28d30b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa306560d9c2a91ce3d285877f70e9e34" id="r_aa306560d9c2a91ce3d285877f70e9e34"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa306560d9c2a91ce3d285877f70e9e34">anonymous_namespace{ssdp_device.cpp}::NewRequestHandlerIPv4</a> (sockaddr *a_dest_saddr, int a_num_packet, char **a_rq_packet, const int a_ttl=-1)</td></tr>
-<tr class="memdesc:aa306560d9c2a91ce3d285877f70e9e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Works as a request handler which passes the HTTP request string to multicast channel.  <br /></td></tr>
-<tr class="separator:aa306560d9c2a91ce3d285877f70e9e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcb3da940e1ec8f806d27c365fc1ccbd" id="r_adcb3da940e1ec8f806d27c365fc1ccbd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd">anonymous_namespace{ssdp_device.cpp}::send_stateless_ip6</a> (sockaddr *a_dest_saddr, int a_num_packet, char **a_rq_packet)</td></tr>
+<tr class="memdesc:adcb3da940e1ec8f806d27c365fc1ccbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Works as a request handler which passes the HTTP request string to multicast channel.  <br /></td></tr>
+<tr class="separator:adcb3da940e1ec8f806d27c365fc1ccbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4380c79e3f11851ef9f4cabb16b44928" id="r_a4380c79e3f11851ef9f4cabb16b44928"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928">anonymous_namespace{ssdp_device.cpp}::send_stateless_ip4</a> (sockaddr *a_dest_saddr, int a_num_packet, char **a_rq_packet, const int a_ttl=-1)</td></tr>
+<tr class="memdesc:a4380c79e3f11851ef9f4cabb16b44928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Works as a request handler which passes the HTTP request string to multicast channel.  <br /></td></tr>
+<tr class="separator:a4380c79e3f11851ef9f4cabb16b44928"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d48c12c5b3399b11bd17c4a2c388239" id="r_a1d48c12c5b3399b11bd17c4a2c388239"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239">anonymous_namespace{ssdp_device.cpp}::NewRequestHandler</a> (struct sockaddr *a_dest_saddr, int a_num_packet, char **a_rq_packet, int a_ttl=-1)</td></tr>
 <tr class="memdesc:a1d48c12c5b3399b11bd17c4a2c388239"><td class="mdescLeft">&#160;</td><td class="mdescRight">Works as a request handler which passes the HTTP request string to multicast channel.  <br /></td></tr>
 <tr class="separator:a1d48c12c5b3399b11bd17c4a2c388239"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -258,7 +261,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l00774">774</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l00612">612</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -412,7 +415,7 @@ Variables</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l00863">863</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l00701">701</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -420,32 +423,32 @@ Variables</h2></td></tr>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../db/db9/ssdp__device_8cpp_a359289d0987b2a9aede8d3a426480986_cgraph.png" border="0" usemap="#adb/db9/ssdp__device_8cpp_a359289d0987b2a9aede8d3a426480986_cgraph" alt=""/></div>
 <map name="adb/db9/ssdp__device_8cpp_a359289d0987b2a9aede8d3a426480986_cgraph" id="adb/db9/ssdp__device_8cpp_a359289d0987b2a9aede8d3a426480986_cgraph">
-<area shape="rect" title="Creates the device advertisement request." alt="" coords="5,267,168,292"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="216,151,396,205"/>
-<area shape="poly" title=" " alt="" coords="114,264,233,209,235,214,117,269"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="705,209,795,235"/>
-<area shape="poly" title=" " alt="" coords="167,289,261,300,377,306,502,301,565,294,626,282,676,264,718,240,721,244,678,268,627,287,566,299,503,307,377,311,261,305,167,295"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="445,219,625,273"/>
-<area shape="poly" title=" " alt="" coords="168,271,431,251,432,256,168,276"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="216,349,396,404"/>
-<area shape="poly" title=" " alt="" coords="117,290,232,341,230,346,115,294"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="461,120,609,145"/>
-<area shape="poly" title=" " alt="" coords="396,158,457,145,458,151,397,163"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="675,45,825,71"/>
-<area shape="poly" title=" " alt="" coords="336,148,384,112,413,94,443,81,498,65,555,56,661,51,661,56,556,61,499,71,445,86,415,99,387,116,339,152"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="873,20,996,45"/>
-<area shape="poly" title=" " alt="" coords="325,148,374,95,407,68,443,48,496,28,552,15,609,7,666,4,772,6,860,16,859,22,772,12,666,9,610,13,553,20,498,33,445,52,410,73,378,99,329,152"/>
-<area shape="poly" title=" " alt="" coords="397,202,433,213,432,218,396,207"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="463,169,608,195"/>
-<area shape="poly" title=" " alt="" coords="396,177,449,178,449,183,396,182"/>
-<area shape="poly" title=" " alt="" coords="500,122,493,112,497,102,511,95,535,93,565,97,577,106,574,110,563,102,535,99,513,101,501,105,498,111,505,118"/>
-<area shape="poly" title=" " alt="" coords="572,117,699,73,701,78,574,122"/>
-<area shape="poly" title=" " alt="" coords="593,143,628,154,676,176,718,200,715,204,673,181,626,159,592,148"/>
-<area shape="poly" title=" " alt="" coords="825,45,860,40,860,45,826,50"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa306560d9c2a91ce3d285877f70e9e34" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="444,349,627,404"/>
-<area shape="poly" title=" " alt="" coords="396,374,430,374,430,379,396,379"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a6e62074a5862306f68f6a763cf28d30b" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="444,428,627,483"/>
-<area shape="poly" title=" " alt="" coords="387,402,443,421,442,426,386,407"/>
+<area shape="rect" title="Creates the device advertisement request." alt="" coords="5,266,168,291"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="216,150,396,204"/>
+<area shape="poly" title=" " alt="" coords="114,263,233,208,235,213,117,268"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="702,208,793,234"/>
+<area shape="poly" title=" " alt="" coords="167,288,261,299,376,304,500,300,563,293,623,281,673,262,715,239,718,243,675,267,625,286,564,298,501,306,376,310,261,304,167,294"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="444,218,624,272"/>
+<area shape="poly" title=" " alt="" coords="168,270,430,250,430,255,168,275"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="216,348,396,403"/>
+<area shape="poly" title=" " alt="" coords="117,289,232,340,230,345,115,293"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="460,119,608,144"/>
+<area shape="poly" title=" " alt="" coords="396,156,456,144,457,150,397,162"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="672,44,823,70"/>
+<area shape="poly" title=" " alt="" coords="336,147,384,111,413,93,443,80,497,65,554,55,658,50,658,55,554,61,499,70,445,85,415,98,387,115,339,151"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="871,19,993,44"/>
+<area shape="poly" title=" " alt="" coords="326,148,374,95,407,69,443,48,496,29,552,15,608,7,665,4,770,6,858,16,857,21,770,12,665,9,609,13,553,21,498,34,445,53,410,73,378,99,329,151"/>
+<area shape="poly" title=" " alt="" coords="397,201,432,212,430,217,396,206"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="461,168,607,194"/>
+<area shape="poly" title=" " alt="" coords="396,176,448,177,447,182,396,181"/>
+<area shape="poly" title=" " alt="" coords="499,121,492,111,495,101,510,94,534,92,564,96,575,105,572,109,562,101,534,98,511,100,499,104,497,110,503,117"/>
+<area shape="poly" title=" " alt="" coords="571,116,696,72,698,77,572,121"/>
+<area shape="poly" title=" " alt="" coords="591,142,625,153,673,175,715,199,713,204,671,180,623,158,589,147"/>
+<area shape="poly" title=" " alt="" coords="822,44,857,39,858,44,823,49"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="444,348,624,403"/>
+<area shape="poly" title=" " alt="" coords="396,373,430,373,430,378,396,378"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="444,427,624,482"/>
+<area shape="poly" title=" " alt="" coords="387,401,442,420,440,425,385,406"/>
 </map>
 </div>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -569,7 +572,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l00944">944</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l00782">782</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -582,23 +585,23 @@ Variables</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="75,258,168,208,170,213,77,262"/>
 <area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="144,309,324,364"/>
 <area shape="poly" title=" " alt="" coords="89,283,143,302,142,307,87,288"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="389,29,537,55"/>
-<area shape="poly" title=" " alt="" coords="264,147,313,109,371,72,404,57,406,62,373,76,316,113,268,151"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="603,80,753,105"/>
-<area shape="poly" title=" " alt="" coords="296,147,371,122,484,103,589,93,589,99,485,108,373,127,298,152"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="801,105,924,131"/>
-<area shape="poly" title=" " alt="" coords="324,166,788,122,788,128,325,171"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="373,181,553,236"/>
-<area shape="poly" title=" " alt="" coords="325,187,360,192,360,197,324,192"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="391,260,536,285"/>
-<area shape="poly" title=" " alt="" coords="283,202,326,225,373,246,394,254,393,259,371,251,324,230,280,207"/>
-<area shape="poly" title=" " alt="" coords="428,31,421,21,425,11,439,5,463,3,493,6,505,15,502,20,491,11,463,8,441,10,429,15,426,20,433,28"/>
-<area shape="poly" title=" " alt="" coords="519,52,611,74,610,79,518,57"/>
-<area shape="poly" title=" " alt="" coords="754,100,788,105,788,110,753,106"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa306560d9c2a91ce3d285877f70e9e34" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="372,309,555,364"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="388,29,536,55"/>
+<area shape="poly" title=" " alt="" coords="264,147,313,109,371,72,403,57,406,62,373,76,316,113,268,151"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="600,80,751,105"/>
+<area shape="poly" title=" " alt="" coords="296,147,371,122,483,103,586,93,587,99,483,108,373,127,298,152"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="799,105,921,131"/>
+<area shape="poly" title=" " alt="" coords="324,166,785,122,785,128,325,171"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="372,181,552,236"/>
+<area shape="poly" title=" " alt="" coords="325,187,359,192,358,197,324,192"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="389,260,535,285"/>
+<area shape="poly" title=" " alt="" coords="283,202,326,225,373,246,394,254,392,259,371,251,324,230,280,207"/>
+<area shape="poly" title=" " alt="" coords="427,31,420,21,423,11,438,5,462,3,492,6,503,15,500,20,490,11,462,8,439,10,427,15,425,20,431,28"/>
+<area shape="poly" title=" " alt="" coords="517,52,609,74,607,79,516,57"/>
+<area shape="poly" title=" " alt="" coords="751,100,786,105,785,110,750,106"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="372,309,552,364"/>
 <area shape="poly" title=" " alt="" coords="324,334,358,334,358,339,324,339"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a6e62074a5862306f68f6a763cf28d30b" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="372,388,555,443"/>
-<area shape="poly" title=" " alt="" coords="315,362,371,381,370,386,314,367"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="372,388,552,443"/>
+<area shape="poly" title=" " alt="" coords="315,362,370,381,368,386,313,367"/>
 </map>
 </div>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -716,7 +719,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l01002">1002</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l00840">840</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -729,23 +732,23 @@ Variables</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="82,258,179,208,182,213,85,262"/>
 <area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="157,309,337,364"/>
 <area shape="poly" title=" " alt="" coords="97,283,153,302,152,307,95,288"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="403,29,551,55"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="401,29,549,55"/>
 <area shape="poly" title=" " alt="" coords="278,147,326,109,384,72,417,57,419,62,387,76,329,113,281,151"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="616,80,767,105"/>
-<area shape="poly" title=" " alt="" coords="310,147,385,122,497,103,602,93,603,99,498,108,386,127,311,152"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="815,105,937,131"/>
-<area shape="poly" title=" " alt="" coords="337,166,801,122,801,128,338,171"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="387,181,567,236"/>
-<area shape="poly" title=" " alt="" coords="338,187,374,192,373,197,337,192"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="404,260,549,285"/>
-<area shape="poly" title=" " alt="" coords="296,202,339,225,386,246,408,254,406,259,384,251,337,230,294,207"/>
-<area shape="poly" title=" " alt="" coords="442,31,434,21,438,11,453,5,477,3,506,6,518,15,515,20,504,11,477,8,454,10,442,15,439,20,446,28"/>
-<area shape="poly" title=" " alt="" coords="532,52,624,74,623,79,531,57"/>
-<area shape="poly" title=" " alt="" coords="767,100,802,105,801,110,766,106"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa306560d9c2a91ce3d285877f70e9e34" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="385,309,568,364"/>
-<area shape="poly" title=" " alt="" coords="338,334,371,334,371,339,338,339"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a6e62074a5862306f68f6a763cf28d30b" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="385,388,568,443"/>
-<area shape="poly" title=" " alt="" coords="329,362,385,381,383,386,327,367"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="613,80,764,105"/>
+<area shape="poly" title=" " alt="" coords="310,147,385,122,496,103,600,93,600,99,497,108,386,127,311,152"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="812,105,935,131"/>
+<area shape="poly" title=" " alt="" coords="338,166,798,122,799,128,338,171"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="385,181,565,236"/>
+<area shape="poly" title=" " alt="" coords="338,187,372,192,372,197,337,192"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="403,260,548,285"/>
+<area shape="poly" title=" " alt="" coords="296,202,339,225,386,246,407,254,406,259,384,251,337,230,294,207"/>
+<area shape="poly" title=" " alt="" coords="440,31,433,21,437,11,451,5,475,3,505,6,517,15,514,20,503,11,475,8,453,10,441,15,438,20,445,28"/>
+<area shape="poly" title=" " alt="" coords="530,52,622,74,621,79,529,57"/>
+<area shape="poly" title=" " alt="" coords="764,100,799,105,798,110,764,106"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="385,309,565,364"/>
+<area shape="poly" title=" " alt="" coords="338,334,372,334,372,339,338,339"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="385,388,565,443"/>
+<area shape="poly" title=" " alt="" coords="328,362,383,381,382,386,327,367"/>
 </map>
 </div>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -855,7 +858,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l01062">1062</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l00900">900</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -863,32 +866,32 @@ Variables</h2></td></tr>
 <div id="dynsection-9-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../db/db9/ssdp__device_8cpp_ac90369e3ec78ce279fd45dfeb3f0f33f_cgraph.png" border="0" usemap="#adb/db9/ssdp__device_8cpp_ac90369e3ec78ce279fd45dfeb3f0f33f_cgraph" alt=""/></div>
 <map name="adb/db9/ssdp__device_8cpp_ac90369e3ec78ce279fd45dfeb3f0f33f_cgraph" id="adb/db9/ssdp__device_8cpp_ac90369e3ec78ce279fd45dfeb3f0f33f_cgraph">
-<area shape="rect" title="Creates the advertisement packet and send it to the multicast channel." alt="" coords="5,267,172,292"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="220,151,400,205"/>
-<area shape="poly" title=" " alt="" coords="117,264,236,209,238,214,119,269"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="709,209,799,235"/>
-<area shape="poly" title=" " alt="" coords="169,289,264,300,380,306,506,302,569,294,630,282,680,264,722,240,725,244,682,268,631,287,570,299,506,307,380,311,263,305,169,295"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="449,219,629,273"/>
-<area shape="poly" title=" " alt="" coords="172,271,435,251,436,256,172,276"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="220,349,400,404"/>
-<area shape="poly" title=" " alt="" coords="120,290,235,341,233,346,118,294"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="465,120,613,145"/>
-<area shape="poly" title=" " alt="" coords="400,158,461,145,462,151,401,163"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="679,45,829,71"/>
-<area shape="poly" title=" " alt="" coords="340,148,388,112,417,94,447,81,502,65,559,56,665,51,665,56,560,61,503,71,449,86,419,99,391,116,343,152"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="877,20,1000,45"/>
-<area shape="poly" title=" " alt="" coords="329,148,378,95,411,68,447,48,500,28,556,15,613,7,670,4,776,6,864,16,863,22,776,12,670,9,614,13,557,20,502,33,449,52,414,73,382,99,333,152"/>
-<area shape="poly" title=" " alt="" coords="401,202,437,213,436,218,400,207"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="467,169,612,195"/>
-<area shape="poly" title=" " alt="" coords="400,177,453,178,453,183,400,182"/>
-<area shape="poly" title=" " alt="" coords="504,122,497,112,501,102,515,95,539,93,569,97,581,106,578,110,567,102,539,99,517,101,505,105,502,111,509,118"/>
-<area shape="poly" title=" " alt="" coords="576,117,703,73,705,78,578,122"/>
-<area shape="poly" title=" " alt="" coords="597,143,632,154,680,176,722,200,719,204,677,181,630,159,596,148"/>
-<area shape="poly" title=" " alt="" coords="829,45,864,40,864,45,830,50"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa306560d9c2a91ce3d285877f70e9e34" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="448,349,631,404"/>
-<area shape="poly" title=" " alt="" coords="400,374,434,374,434,379,400,379"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a6e62074a5862306f68f6a763cf28d30b" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="448,428,631,483"/>
-<area shape="poly" title=" " alt="" coords="391,402,447,421,446,426,390,407"/>
+<area shape="rect" title="Creates the advertisement packet and send it to the multicast channel." alt="" coords="5,266,172,291"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="220,150,400,204"/>
+<area shape="poly" title=" " alt="" coords="117,263,236,208,238,213,119,268"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="706,208,797,234"/>
+<area shape="poly" title=" " alt="" coords="169,288,263,299,378,304,504,300,566,293,627,281,677,262,719,239,722,243,679,267,629,286,567,298,504,306,378,310,263,304,169,294"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="448,218,628,272"/>
+<area shape="poly" title=" " alt="" coords="172,269,434,250,435,255,173,275"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="220,348,400,403"/>
+<area shape="poly" title=" " alt="" coords="120,289,235,340,233,345,118,293"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="464,119,612,144"/>
+<area shape="poly" title=" " alt="" coords="400,156,460,144,461,150,401,162"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="676,44,827,70"/>
+<area shape="poly" title=" " alt="" coords="340,147,388,111,417,93,447,80,501,65,558,55,662,50,662,55,558,61,503,70,449,85,419,98,391,115,343,151"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="875,19,997,44"/>
+<area shape="poly" title=" " alt="" coords="330,148,378,95,411,69,447,48,500,29,556,15,612,7,669,4,774,6,862,16,861,21,774,12,669,9,613,13,557,21,502,34,449,53,414,73,382,99,333,151"/>
+<area shape="poly" title=" " alt="" coords="401,201,436,212,434,217,400,206"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="465,168,611,194"/>
+<area shape="poly" title=" " alt="" coords="400,176,452,177,451,182,400,181"/>
+<area shape="poly" title=" " alt="" coords="503,121,496,111,499,101,514,94,538,92,568,96,579,105,576,109,566,101,538,98,515,100,503,104,501,110,507,117"/>
+<area shape="poly" title=" " alt="" coords="575,116,700,72,702,77,576,121"/>
+<area shape="poly" title=" " alt="" coords="595,142,629,153,677,175,719,199,717,204,675,180,627,158,593,147"/>
+<area shape="poly" title=" " alt="" coords="826,44,861,39,862,44,827,49"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="448,348,628,403"/>
+<area shape="poly" title=" " alt="" coords="400,373,434,373,434,378,400,378"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="448,427,628,482"/>
+<area shape="poly" title=" " alt="" coords="391,401,446,420,444,425,389,406"/>
 </map>
 </div>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -998,7 +1001,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l01113">1113</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l00951">951</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -1011,23 +1014,23 @@ Variables</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="84,258,181,208,184,213,86,262"/>
 <area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="160,309,340,364"/>
 <area shape="poly" title=" " alt="" coords="99,283,155,302,154,307,97,288"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="405,29,553,55"/>
-<area shape="poly" title=" " alt="" coords="280,147,329,109,387,72,420,57,422,62,389,76,332,113,284,151"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="619,80,769,105"/>
-<area shape="poly" title=" " alt="" coords="312,147,387,122,500,103,605,93,605,99,501,108,389,127,314,152"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="817,105,940,131"/>
-<area shape="poly" title=" " alt="" coords="340,166,804,122,804,128,341,171"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="389,181,569,236"/>
-<area shape="poly" title=" " alt="" coords="341,187,376,192,376,197,340,192"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="407,260,552,285"/>
-<area shape="poly" title=" " alt="" coords="299,202,342,225,389,246,410,254,409,259,387,251,340,230,296,207"/>
-<area shape="poly" title=" " alt="" coords="444,31,437,21,441,11,455,5,479,3,509,6,521,15,518,20,507,11,479,8,457,10,445,15,442,20,449,28"/>
-<area shape="poly" title=" " alt="" coords="535,52,627,74,626,79,534,57"/>
-<area shape="poly" title=" " alt="" coords="770,100,804,105,804,110,769,106"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa306560d9c2a91ce3d285877f70e9e34" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="388,309,571,364"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="404,29,552,55"/>
+<area shape="poly" title=" " alt="" coords="280,147,329,109,387,72,419,57,422,62,389,76,332,113,284,151"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="616,80,767,105"/>
+<area shape="poly" title=" " alt="" coords="312,147,387,122,499,103,602,93,603,99,499,108,389,127,314,152"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="815,105,937,131"/>
+<area shape="poly" title=" " alt="" coords="340,166,801,122,801,128,341,171"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="388,181,568,236"/>
+<area shape="poly" title=" " alt="" coords="341,187,375,192,374,197,340,192"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="405,260,551,285"/>
+<area shape="poly" title=" " alt="" coords="299,202,342,225,389,246,410,254,408,259,387,251,340,230,296,207"/>
+<area shape="poly" title=" " alt="" coords="443,31,436,21,439,11,454,5,478,3,508,6,519,15,516,20,506,11,478,8,455,10,443,15,441,20,447,28"/>
+<area shape="poly" title=" " alt="" coords="533,52,625,74,623,79,532,57"/>
+<area shape="poly" title=" " alt="" coords="767,100,802,105,801,110,766,106"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="388,309,568,364"/>
 <area shape="poly" title=" " alt="" coords="340,334,374,334,374,339,340,339"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a6e62074a5862306f68f6a763cf28d30b" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="388,388,571,443"/>
-<area shape="poly" title=" " alt="" coords="331,362,387,381,386,386,330,367"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="388,388,568,443"/>
+<area shape="poly" title=" " alt="" coords="331,362,386,381,384,386,329,367"/>
 </map>
 </div>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -1124,7 +1127,7 @@ Variables</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l01138">1138</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l00976">976</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
 <div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
@@ -1132,32 +1135,32 @@ Variables</h2></td></tr>
 <div id="dynsection-13-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../db/db9/ssdp__device_8cpp_ac92b2e78ce280abc5041ce0eda84bf2a_cgraph.png" border="0" usemap="#adb/db9/ssdp__device_8cpp_ac92b2e78ce280abc5041ce0eda84bf2a_cgraph" alt=""/></div>
 <map name="adb/db9/ssdp__device_8cpp_ac92b2e78ce280abc5041ce0eda84bf2a_cgraph" id="adb/db9/ssdp__device_8cpp_ac92b2e78ce280abc5041ce0eda84bf2a_cgraph">
-<area shape="rect" title="Creates a HTTP service shutdown request packet and sends it to the multicast channel through RequestH..." alt="" coords="5,267,140,292"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="188,151,368,205"/>
-<area shape="poly" title=" " alt="" coords="98,264,209,209,211,214,101,269"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="677,209,767,235"/>
-<area shape="poly" title=" " alt="" coords="141,288,232,298,347,305,473,301,536,294,598,282,648,264,690,240,693,244,650,268,599,287,537,299,473,307,347,310,231,304,140,293"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="417,219,597,273"/>
-<area shape="poly" title=" " alt="" coords="140,272,404,251,404,257,140,277"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="188,349,368,404"/>
-<area shape="poly" title=" " alt="" coords="102,290,208,341,206,346,99,294"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="433,120,581,145"/>
-<area shape="poly" title=" " alt="" coords="368,158,429,145,430,151,369,163"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="647,45,797,71"/>
-<area shape="poly" title=" " alt="" coords="308,148,356,112,385,94,415,81,470,65,527,56,633,51,633,56,528,61,471,71,417,86,387,99,359,116,311,152"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="845,20,968,45"/>
-<area shape="poly" title=" " alt="" coords="297,148,346,95,379,68,415,48,468,28,524,15,581,7,638,4,744,6,832,16,831,22,744,12,638,9,582,13,525,20,470,33,417,52,382,73,350,99,301,152"/>
-<area shape="poly" title=" " alt="" coords="369,202,405,213,404,218,368,207"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="435,169,580,195"/>
-<area shape="poly" title=" " alt="" coords="368,177,421,178,421,183,368,182"/>
-<area shape="poly" title=" " alt="" coords="472,122,465,112,469,102,483,95,507,93,537,97,549,106,546,110,535,102,507,99,485,101,473,105,470,111,477,118"/>
-<area shape="poly" title=" " alt="" coords="544,117,671,73,673,78,546,122"/>
-<area shape="poly" title=" " alt="" coords="565,143,600,154,648,176,690,200,687,204,645,181,598,159,564,148"/>
-<area shape="poly" title=" " alt="" coords="797,45,832,40,832,45,798,50"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa306560d9c2a91ce3d285877f70e9e34" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="416,349,599,404"/>
-<area shape="poly" title=" " alt="" coords="368,374,402,374,402,379,368,379"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a6e62074a5862306f68f6a763cf28d30b" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="416,428,599,483"/>
-<area shape="poly" title=" " alt="" coords="359,402,415,421,414,426,358,407"/>
+<area shape="rect" title="Creates a HTTP service shutdown request packet and sends it to the multicast channel through RequestH..." alt="" coords="5,266,140,291"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="188,150,368,204"/>
+<area shape="poly" title=" " alt="" coords="98,263,209,208,211,213,101,268"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="674,208,765,234"/>
+<area shape="poly" title=" " alt="" coords="141,287,232,297,346,304,471,300,534,293,595,281,645,262,687,239,690,243,647,267,597,286,535,298,472,305,346,309,231,302,140,292"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="416,218,596,272"/>
+<area shape="poly" title=" " alt="" coords="140,271,402,250,402,256,141,276"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="188,348,368,403"/>
+<area shape="poly" title=" " alt="" coords="102,289,208,340,206,345,99,293"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="432,119,580,144"/>
+<area shape="poly" title=" " alt="" coords="368,156,428,144,429,150,369,162"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="644,44,795,70"/>
+<area shape="poly" title=" " alt="" coords="308,147,356,111,385,93,415,80,469,65,526,55,630,50,630,55,526,61,471,70,417,85,387,98,359,115,311,151"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="843,19,965,44"/>
+<area shape="poly" title=" " alt="" coords="298,148,346,95,379,69,415,48,468,29,524,15,580,7,637,4,742,6,830,16,829,21,742,12,637,9,581,13,525,21,470,34,417,53,382,73,350,99,301,151"/>
+<area shape="poly" title=" " alt="" coords="369,201,404,212,402,217,368,206"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="433,168,579,194"/>
+<area shape="poly" title=" " alt="" coords="368,176,420,177,419,182,368,181"/>
+<area shape="poly" title=" " alt="" coords="471,121,464,111,467,101,482,94,506,92,536,96,547,105,544,109,534,101,506,98,483,100,471,104,469,110,475,117"/>
+<area shape="poly" title=" " alt="" coords="543,116,668,72,670,77,544,121"/>
+<area shape="poly" title=" " alt="" coords="563,142,597,153,645,175,687,199,685,204,643,180,595,158,561,147"/>
+<area shape="poly" title=" " alt="" coords="794,44,829,39,830,44,795,49"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="416,348,596,403"/>
+<area shape="poly" title=" " alt="" coords="368,373,402,373,402,378,368,378"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="416,427,596,482"/>
+<area shape="poly" title=" " alt="" coords="359,401,414,420,412,425,357,406"/>
 </map>
 </div>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -1274,7 +1277,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l01189">1189</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l01027">1027</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
 <div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
@@ -1282,32 +1285,32 @@ Variables</h2></td></tr>
 <div id="dynsection-15-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../db/db9/ssdp__device_8cpp_a65d1171e5dcab19e9b7848773650eaf7_cgraph.png" border="0" usemap="#adb/db9/ssdp__device_8cpp_a65d1171e5dcab19e9b7848773650eaf7_cgraph" alt=""/></div>
 <map name="adb/db9/ssdp__device_8cpp_a65d1171e5dcab19e9b7848773650eaf7_cgraph" id="adb/db9/ssdp__device_8cpp_a65d1171e5dcab19e9b7848773650eaf7_cgraph">
-<area shape="rect" title="Creates a HTTP device shutdown request packet and send it to the multicast channel through RequestHan..." alt="" coords="5,267,136,292"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="184,151,364,205"/>
-<area shape="poly" title=" " alt="" coords="96,264,205,209,207,214,99,269"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="673,209,763,235"/>
-<area shape="poly" title=" " alt="" coords="137,287,228,298,342,305,469,301,532,294,594,282,644,264,686,240,689,244,646,268,595,287,533,299,469,307,342,310,227,303,136,293"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="413,219,593,273"/>
-<area shape="poly" title=" " alt="" coords="136,272,400,251,400,257,137,277"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="184,349,364,404"/>
-<area shape="poly" title=" " alt="" coords="99,290,205,341,203,346,97,294"/>
-<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="429,120,577,145"/>
-<area shape="poly" title=" " alt="" coords="364,158,425,145,426,151,365,163"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="643,45,793,71"/>
-<area shape="poly" title=" " alt="" coords="304,148,352,112,381,94,411,81,466,65,523,56,629,51,629,56,524,61,467,71,413,86,383,99,355,116,307,152"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="841,20,964,45"/>
-<area shape="poly" title=" " alt="" coords="293,148,342,95,375,68,411,48,464,28,520,15,577,7,634,4,740,6,828,16,827,22,740,12,634,9,578,13,521,20,466,33,413,52,378,73,346,99,297,152"/>
-<area shape="poly" title=" " alt="" coords="365,202,401,213,400,218,364,207"/>
-<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="431,169,576,195"/>
-<area shape="poly" title=" " alt="" coords="364,177,417,178,417,183,364,182"/>
-<area shape="poly" title=" " alt="" coords="468,122,461,112,465,102,479,95,503,93,533,97,545,106,542,110,531,102,503,99,481,101,469,105,466,111,473,118"/>
-<area shape="poly" title=" " alt="" coords="540,117,667,73,669,78,542,122"/>
-<area shape="poly" title=" " alt="" coords="561,143,596,154,644,176,686,200,683,204,641,181,594,159,560,148"/>
-<area shape="poly" title=" " alt="" coords="793,45,828,40,828,45,794,50"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa306560d9c2a91ce3d285877f70e9e34" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="412,349,595,404"/>
-<area shape="poly" title=" " alt="" coords="364,374,398,374,398,379,364,379"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a6e62074a5862306f68f6a763cf28d30b" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="412,428,595,483"/>
-<area shape="poly" title=" " alt="" coords="355,402,411,421,410,426,354,407"/>
+<area shape="rect" title="Creates a HTTP device shutdown request packet and send it to the multicast channel through RequestHan..." alt="" coords="5,266,136,291"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="184,150,364,204"/>
+<area shape="poly" title=" " alt="" coords="96,263,205,208,207,213,99,268"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="670,208,761,234"/>
+<area shape="poly" title=" " alt="" coords="137,286,227,297,341,303,467,300,530,293,591,281,641,262,683,239,686,243,643,267,593,286,531,298,467,305,341,309,227,302,136,292"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="412,218,592,272"/>
+<area shape="poly" title=" " alt="" coords="136,271,398,250,399,256,136,276"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="184,348,364,403"/>
+<area shape="poly" title=" " alt="" coords="99,289,205,340,203,345,97,293"/>
+<area shape="rect" href="../../da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="428,119,576,144"/>
+<area shape="poly" title=" " alt="" coords="364,156,424,144,425,150,365,162"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="640,44,791,70"/>
+<area shape="poly" title=" " alt="" coords="304,147,352,111,381,93,411,80,465,65,522,55,626,50,626,55,522,61,467,70,413,85,383,98,355,115,307,151"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="839,19,961,44"/>
+<area shape="poly" title=" " alt="" coords="294,148,342,95,375,69,411,48,464,29,520,15,576,7,633,4,738,6,826,16,825,21,738,12,633,9,577,13,521,21,466,34,413,53,378,73,346,99,297,151"/>
+<area shape="poly" title=" " alt="" coords="365,201,400,212,398,217,364,206"/>
+<area shape="rect" href="../../da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="429,168,575,194"/>
+<area shape="poly" title=" " alt="" coords="364,176,416,177,415,182,364,181"/>
+<area shape="poly" title=" " alt="" coords="467,121,460,111,463,101,478,94,502,92,532,96,543,105,540,109,530,101,502,98,479,100,467,104,465,110,471,117"/>
+<area shape="poly" title=" " alt="" coords="539,116,664,72,666,77,540,121"/>
+<area shape="poly" title=" " alt="" coords="559,142,593,153,641,175,683,199,681,204,639,180,591,158,557,147"/>
+<area shape="poly" title=" " alt="" coords="790,44,825,39,826,44,791,49"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="412,348,592,403"/>
+<area shape="poly" title=" " alt="" coords="364,373,398,373,398,378,364,378"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="412,427,592,482"/>
+<area shape="poly" title=" " alt="" coords="355,401,410,420,408,425,353,406"/>
 </map>
 </div>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -1355,7 +1358,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l01610">1610</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html#l01448">1448</a> of file <a class="el" href="../../db/db9/ssdp__device_8cpp_source.html">ssdp_device.cpp</a>.</p>
 <div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">

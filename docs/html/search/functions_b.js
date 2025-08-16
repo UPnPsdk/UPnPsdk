@@ -6,7 +6,5 @@ var searchData=
   ['netaddrp_3',['netaddrp',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5',1,'UPnPsdk::SSockaddr']]],
   ['netmask_5fto_5fbitmask_4',['netmask_to_bitmask',['../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71',1,'UPnPsdk']]],
   ['newrequesthandler_5',['NewRequestHandler',['../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239',1,'anonymous_namespace{ssdp_device.cpp}']]],
-  ['newrequesthandleripv4_6',['NewRequestHandlerIPv4',['../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa306560d9c2a91ce3d285877f70e9e34',1,'anonymous_namespace{ssdp_device.cpp}']]],
-  ['newrequesthandleripv6_7',['NewRequestHandlerIPv6',['../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a6e62074a5862306f68f6a763cf28d30b',1,'anonymous_namespace{ssdp_device.cpp}']]],
-  ['notify_5fsend_5fand_5frecv_8',['notify_send_and_recv',['../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9',1,'anonymous_namespace{gena_device.cpp}']]]
+  ['notify_5fsend_5fand_5frecv_6',['notify_send_and_recv',['../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9',1,'anonymous_namespace{gena_device.cpp}']]]
 ];

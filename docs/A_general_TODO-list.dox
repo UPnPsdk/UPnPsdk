@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-06
+// Redistribution only with this Copyright remark. Last modified: 2025-08-20
 /*!
  * \file
  * \brief A general TODO-list
@@ -38,54 +38,69 @@
 // * [set EXPECT_CALL to redirect the call to the original method](https://stackoverflow.com/questions/25556601/set-expect-call-to-redirect-the-call-to-the-original-method)
 
 /// \cond
-pUPnP API
-=========
-../../pupnp-dev/include/upnp/UpnpActionComplete.h
-                   Compa/inc/UpnpActionComplete.hpp
-../../pupnp-dev/include/upnp/UpnpActionRequest.h
-                   Compa/inc/UpnpActionRequest.hpp
-../../pupnp-dev/include/upnp/UpnpDiscovery.h
-                   Compa/inc/UpnpDiscovery.hpp
-../../pupnp-dev/include/upnp/UpnpEvent.h
-                   Compa/inc/UpnpEvent.hpp
-../../pupnp-dev/include/upnp/UpnpEventSubscribe.h
-                   Compa/inc/UpnpEventSubscribe.hpp
-../../pupnp-dev/include/upnp/UpnpFileInfo.h
-                   Compa/inc/UpnpFileInfo.hpp
-../../pupnp-dev/include/upnp/UpnpStateVarComplete.h
-                   Compa/inc/UpnpStateVarComplete.hpp
-../../pupnp-dev/include/upnp/UpnpStateVarRequest.h
-                   Compa/inc/UpnpStateVarRequest.hpp
-../../pupnp-dev/include/upnp/UpnpSubscriptionRequest.h
-                   Compa/inc/UpnpSubscriptionRequest.hpp
+Test w/ VS (Debug, windows-2022
+21/58 Test #21: ctest_miniserver_run-cst .........***Failed    0.04 sec
+unknown file: error: SEH exception with code 0xc0000005 thrown in the test body.
+[  FAILED  ] RunMiniServerMockFTestSuite.web_server_accept_successful (0 ms)
 
-../../pupnp-dev/include/upnp/UpnpString.h
-                   Compa/inc/UpnpString.hpp
-../../pupnp-dev/include/upnp/UpnpExtraHeaders.h
-                   Compa/inc/UpnpExtraHeaders.hpp
-../../pupnp-dev/include/upnp/list.h
-                   Compa/inc/list.hpp
-../../pupnp-dev/include/upnp/UpnpUniStd.h
-                   Compa/inc/UpnpUniStd.hpp  # remove
-../../pupnp-dev/include/upnp/upnp.h
-                   Compa/inc/upnp.hpp
-../../pupnp-dev/include/upnp/upnpconfig.h
-                           # not available
-../../pupnp-dev/include/upnp/UpnpStdInt.h
-              Pupnp/upnp/inc/UpnpStdInt.hpp  # not available on Compa
-../../pupnp-dev/include/upnp/UpnpInet.h
-                   Compa/inc/UpnpInet.hpp
-../../pupnp-dev/include/upnp/ixml.h
-              Compa/inc/ixml/ixml.hpp
-../../pupnp-dev/include/upnp/Callback.h
-                   Compa/inc/Callback.hpp    # check: no symbol exports
-../../pupnp-dev/include/upnp/UpnpGlobal.h
-                   Compa/inc/UpnpGlobal.hpp  # remove?
-../../pupnp-dev/include/upnp/upnptools.h
-                   Compa/inc/upnptools.hpp
-     UPnPsdk/include/UPnPsdk/upnptools.hpp
-../../pupnp-dev/include/upnp/UpnpIntTypes.h
-                   Compa/inc/UpnpIntTypes.hpp # remove?
-../../pupnp-dev/include/upnp/ixmldebug.h
-              Compa/inc/ixml/ixmldebug.hpp    # no exports, remove?
+Test w/ VS (Debug, windows-2025
+21/58 Test #21: ctest_miniserver_run-cst .........***Failed    0.06 sec
+unknown file: error: SEH exception with code 0xc0000005 thrown in the test body.
+[  FAILED  ] HeaderIsNum/HeaderIsNumTest.host_header_is_numeric/20, where GetParam() = (00C31624 pointing to "[2001:db8::46]", true) (0 ms)
+
+Test w/ VS (Debug, windows-2025
+21/58 Test #21: ctest_miniserver_run-cst .........***Failed    0.06 sec
+unknown file: error: SEH exception with code 0xc0000005 thrown in the test body.
+[  FAILED  ] HeaderIsNum/HeaderIsNumTest.host_header_is_numeric/24, where GetParam() = (002615D8 pointing to "[2001:db8::42]:", true) (0 ms)
+
+Test w/ VS (Release, windows-2025
+19/59 Test #19: ctest_miniserver-pst .............***Failed    0.08 sec
+unknown file: error: SEH exception with code 0xc0000005 thrown in the test body.
+[  FAILED  ] StartMiniServerMockFTestSuite.do_bind_listen_with_failed_listen (0 ms)
+unknown file: error: SEH exception with code 0xc0000005 thrown in the test body.
+[  FAILED  ] StartMiniServerMockFTestSuite.do_bind_listen_successful (0 ms)
+
+Test w/ VS (Release, windows-2022
+10/59 Test #10: ctest_socket-ush .................***Failed    0.03 sec
+D:\a\UPnPsdk\UPnPsdk\Utest\UPnPsdk\test_socket.cpp(563): error: Expected: sockObj.bind(2, &saddr) doesn't throw an exception.
+  Actual: it throws std::runtime_error with description "UPnPsdk MSG1008 EXCEPT[#2498243098064 UPnPsdk::CSocket::bind()] Close socket fd 428. Failed to bind socket to address="127.0.0.1:50002": (errid 10013) An attempt was made to access a socket in a way forbidden by its access permissions.".
+[  FAILED  ] SocketTestSuite.bind_ipv4_successful (0 ms)
+D:\a\UPnPsdk\UPnPsdk\Utest\UPnPsdk\test_socket.cpp(581): error: Expected: bound_sockObj.bind(2, &saddr) doesn't throw an exception.
+  Actual: it throws std::runtime_error with description "UPnPsdk MSG1008 EXCEPT[#2498243098064 UPnPsdk::CSocket::bind()] Close socket fd 292. Failed to bind socket to address="[::1]:50003": (errid 10013) An attempt was made to access a socket in a way forbidden by its access permissions.".
+[  FAILED  ] SocketBasicTestSuite.bind_socket_two_times_successful (0 ms)
+
+Test w/ VS (Release, windows-2022
+10/63 Test #10: ctest_socket-ush .................***Failed    0.04 sec
+D:\a\UPnPsdk\UPnPsdk\Utest\UPnPsdk\test_socket.cpp(324): error: Expected: bound_sockObj.bind(1, &saddr) doesn't throw an exception.
+  Actual: it throws std::runtime_error with description "UPnPsdk MSG1008 EXCEPT[#1426522955600 UPnPsdk::CSocket::bind()] Close socket fd 368. Failed to bind socket to address="127.0.0.1:50002": (errid 10013) An attempt was made to access a socket in a way forbidden by its access permissions.".
+[  FAILED  ] SocketBasicTestSuite.instantiate_with_bound_raw_socket_fd (0 ms)
+D:\a\UPnPsdk\UPnPsdk\Utest\UPnPsdk\test_socket.cpp(477): error: Expected: sock1Obj.bind(1, &saddr) doesn't throw an exception.
+  Actual: it throws std::runtime_error with description "UPnPsdk MSG1008 EXCEPT[#1426522955600 UPnPsdk::CSocket::bind()] Close socket fd 508. Failed to bind socket to address="[::]:50001": (errid 10013) An attempt was made to access a socket in a way forbidden by its access permissions.".
+[  FAILED  ] SocketTestSuite.bind_ipv6only (0 ms)
+D:\a\UPnPsdk\UPnPsdk\Utest\UPnPsdk\test_socket.cpp(543): error: Expected: sock1Obj.bind(1, &saddr) doesn't throw an exception.
+  Actual: it throws std::runtime_error with description "UPnPsdk MSG1008 EXCEPT[#1426522955600 UPnPsdk::CSocket::bind()] Close socket fd 508. Failed to bind socket to address="[::1]:50011": (errid 10013) An attempt was made to access a socket in a way forbidden by its access permissions.".
+[  FAILED  ] SocketTestSuite.bind_ipv6_rapid_same_port_two_times (0 ms)
+D:\a\UPnPsdk\UPnPsdk\Utest\UPnPsdk\test_socket.cpp(1102): error: Expected: sockObj.bind(1, &saddr) doesn't throw an exception.
+  Actual: it throws std::runtime_error with description "UPnPsdk MSG1008 EXCEPT[#1426522955600 UPnPsdk::CSocket::bind()] Close socket fd 508. Failed to bind socket to address=":50001": (errid 10013) An attempt was made to access a socket in a way forbidden by its access permissions.".
+[  FAILED  ] SocketTestSuite.bind_two_times_different_addresses_fail (0 ms)
+D:\a\UPnPsdk\UPnPsdk\Utest\UPnPsdk\test_socket.cpp(520): error: Expected: sockObj.bind(1, &saddr) doesn't throw an exception.
+  Actual: it throws std::runtime_error with description "UPnPsdk MSG1008 EXCEPT[#1426522955600 UPnPsdk::CSocket::bind()] Close socket fd 536. Failed to bind socket to address="[::1]:50001": (errid 10013) An attempt was made to access a socket in a way forbidden by its access permissions.".
+[  FAILED  ] SocketTestSuite.bind_ipv6_successful (0 ms)
+
+Test w/ VS (Debug, windows-2022
+34/58 Test #34: ctest_upnpapi-cst ................***Failed    0.75 sec
+D:\a\UPnPsdk\UPnPsdk\Utest\compa\api.d\test_upnpapi.cpp(1179): error: Expected equality of these values:
+  ret_UpnpInit2
+    Which is: -205
+  0
+  # Should be UPNP_E_SUCCESS(0), but not UPNP_E_OUTOF_SOCKET(-205).
+D:\a\UPnPsdk\UPnPsdk\Utest\compa\api.d\test_upnpapi.cpp(1197): error: Expected equality of these values:
+  LOCAL_PORT_V6_ULA_GUA
+    Which is: 61234
+  0
+D:\a\UPnPsdk\UPnPsdk\Utest\compa\api.d\test_upnpapi.cpp(1200): error: Expected equality of these values:
+  LOCAL_PORT_V4
+    Which is: 61234
+  0
+[  FAILED  ] UpnpapiFTestSuite.UpnpInit2_ipv6_loopback_address (3 ms)
 /// \endcond

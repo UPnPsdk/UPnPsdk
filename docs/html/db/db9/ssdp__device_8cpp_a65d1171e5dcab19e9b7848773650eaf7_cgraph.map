@@ -1,28 +1,28 @@
 <map id="DeviceShutdown" name="DeviceShutdown">
-<area shape="rect" id="Node000001" title="Creates a HTTP device shutdown request packet and send it to the multicast channel through RequestHan..." alt="" coords="5,267,136,292"/>
-<area shape="rect" id="Node000002" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="184,151,364,205"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,264,205,209,207,214,99,269"/>
-<area shape="rect" id="Node000024" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="673,209,763,235"/>
-<area shape="poly" id="edge15_Node000001_Node000024" title=" " alt="" coords="137,287,228,298,342,305,469,301,532,294,594,282,644,264,686,240,689,244,646,268,595,287,533,299,469,307,342,310,227,303,136,293"/>
-<area shape="rect" id="Node000027" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="413,219,593,273"/>
-<area shape="poly" id="edge11_Node000001_Node000027" title=" " alt="" coords="136,272,400,251,400,257,137,277"/>
-<area shape="rect" id="Node000030" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="184,349,364,404"/>
-<area shape="poly" id="edge12_Node000001_Node000030" title=" " alt="" coords="99,290,205,341,203,346,97,294"/>
-<area shape="rect" id="Node000003" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="429,120,577,145"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="364,158,425,145,426,151,365,163"/>
-<area shape="rect" id="Node000015" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="643,45,793,71"/>
-<area shape="poly" id="edge8_Node000002_Node000015" title=" " alt="" coords="304,148,352,112,381,94,411,81,466,65,523,56,629,51,629,56,524,61,467,71,413,86,383,99,355,116,307,152"/>
-<area shape="rect" id="Node000016" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="841,20,964,45"/>
-<area shape="poly" id="edge10_Node000002_Node000016" title=" " alt="" coords="293,148,342,95,375,68,411,48,464,28,520,15,577,7,634,4,740,6,828,16,827,22,740,12,634,9,578,13,521,20,466,33,413,52,378,73,346,99,297,152"/>
-<area shape="poly" id="edge7_Node000002_Node000027" title=" " alt="" coords="365,202,401,213,400,218,364,207"/>
-<area shape="rect" id="Node000029" href="$da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="431,169,576,195"/>
-<area shape="poly" id="edge9_Node000002_Node000029" title=" " alt="" coords="364,177,417,178,417,183,364,182"/>
-<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="468,122,461,112,465,102,479,95,503,93,533,97,545,106,542,110,531,102,503,99,481,101,469,105,466,111,473,118"/>
-<area shape="poly" id="edge4_Node000003_Node000015" title=" " alt="" coords="540,117,667,73,669,78,542,122"/>
-<area shape="poly" id="edge6_Node000003_Node000024" title=" " alt="" coords="561,143,596,154,644,176,686,200,683,204,641,181,594,159,560,148"/>
-<area shape="poly" id="edge5_Node000015_Node000016" title=" " alt="" coords="793,45,828,40,828,45,794,50"/>
-<area shape="rect" id="Node000031" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa306560d9c2a91ce3d285877f70e9e34" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="412,349,595,404"/>
-<area shape="poly" id="edge13_Node000030_Node000031" title=" " alt="" coords="364,374,398,374,398,379,364,379"/>
-<area shape="rect" id="Node000032" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a6e62074a5862306f68f6a763cf28d30b" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="412,428,595,483"/>
-<area shape="poly" id="edge14_Node000030_Node000032" title=" " alt="" coords="355,402,411,421,410,426,354,407"/>
+<area shape="rect" id="Node000001" title="Creates a HTTP device shutdown request packet and send it to the multicast channel through RequestHan..." alt="" coords="5,266,136,291"/>
+<area shape="rect" id="Node000002" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="184,150,364,204"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,263,205,208,207,213,99,268"/>
+<area shape="rect" id="Node000024" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="670,208,761,234"/>
+<area shape="poly" id="edge15_Node000001_Node000024" title=" " alt="" coords="137,286,227,297,341,303,467,300,530,293,591,281,641,262,683,239,686,243,643,267,593,286,531,298,467,305,341,309,227,302,136,292"/>
+<area shape="rect" id="Node000027" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="412,218,592,272"/>
+<area shape="poly" id="edge11_Node000001_Node000027" title=" " alt="" coords="136,271,398,250,399,256,136,276"/>
+<area shape="rect" id="Node000030" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="184,348,364,403"/>
+<area shape="poly" id="edge12_Node000001_Node000030" title=" " alt="" coords="99,289,205,340,203,345,97,293"/>
+<area shape="rect" id="Node000003" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="428,119,576,144"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="364,156,424,144,425,150,365,162"/>
+<area shape="rect" id="Node000015" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="640,44,791,70"/>
+<area shape="poly" id="edge8_Node000002_Node000015" title=" " alt="" coords="304,147,352,111,381,93,411,80,465,65,522,55,626,50,626,55,522,61,467,70,413,85,383,98,355,115,307,151"/>
+<area shape="rect" id="Node000016" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="839,19,961,44"/>
+<area shape="poly" id="edge10_Node000002_Node000016" title=" " alt="" coords="294,148,342,95,375,69,411,48,464,29,520,15,576,7,633,4,738,6,826,16,825,21,738,12,633,9,577,13,521,21,466,34,413,53,378,73,346,99,297,151"/>
+<area shape="poly" id="edge7_Node000002_Node000027" title=" " alt="" coords="365,201,400,212,398,217,364,206"/>
+<area shape="rect" id="Node000029" href="$da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="429,168,575,194"/>
+<area shape="poly" id="edge9_Node000002_Node000029" title=" " alt="" coords="364,176,416,177,415,182,364,181"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="467,121,460,111,463,101,478,94,502,92,532,96,543,105,540,109,530,101,502,98,479,100,467,104,465,110,471,117"/>
+<area shape="poly" id="edge4_Node000003_Node000015" title=" " alt="" coords="539,116,664,72,666,77,540,121"/>
+<area shape="poly" id="edge6_Node000003_Node000024" title=" " alt="" coords="559,142,593,153,641,175,683,199,681,204,639,180,591,158,557,147"/>
+<area shape="poly" id="edge5_Node000015_Node000016" title=" " alt="" coords="790,44,825,39,826,44,791,49"/>
+<area shape="rect" id="Node000031" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="412,348,592,403"/>
+<area shape="poly" id="edge13_Node000030_Node000031" title=" " alt="" coords="364,373,398,373,398,378,364,378"/>
+<area shape="rect" id="Node000034" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="412,427,592,482"/>
+<area shape="poly" id="edge14_Node000030_Node000034" title=" " alt="" coords="355,401,410,420,408,425,353,406"/>
 </map>

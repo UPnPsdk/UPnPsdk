@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-05
+// Redistribution only with this Copyright remark. Last modified: 2025-08-18
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -402,44 +402,41 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
     if (ai_addr_str.empty()) {
         in_port_t port;
         if (to_port(ai_port_str, &port) != 0)
-            goto exit_fail;
+            throw std::invalid_argument(
+                UPnPsdk_LOGEXCEPT("MSG1043") "Invalid netaddress \"" +
+                a_addr_str + "\".\n");
         m_sa_union.sin6.sin6_port = htons(port);
         return;
     }
 
-    { // Block needed to avoid error: "goto label crosses initialization".
-        // Provide resources for ::getaddrinfo()
-        // ai_flags ensure that only numeric values are accepted.
-        ::addrinfo hints{};
-        hints.ai_flags = AI_NUMERICHOST | AI_NUMERICSERV;
-        hints.ai_family = AF_UNSPEC;
-        ::addrinfo* res{nullptr}; // Result from getaddrinfo().
+    // Provide resources for ::getaddrinfo()
+    // ai_flags ensure that only numeric values are accepted.
+    ::addrinfo hints{};
+    hints.ai_flags = AI_NUMERICHOST | AI_NUMERICSERV;
+    hints.ai_family = AF_UNSPEC;
+    ::addrinfo* res{nullptr}; // Result from getaddrinfo().
 
-        // Call ::getaddrinfo() to check the ip address string.
-        int ret = umock::netdb_h.getaddrinfo(ai_addr_str.c_str(),
-                                             ai_port_str.c_str(), &hints, &res);
-        if (ret != 0) {
-            umock::netdb_h.freeaddrinfo(res);
-            goto exit_fail;
+    // Call ::getaddrinfo() to check the ip address string.
+    int ret = umock::netdb_h.getaddrinfo(ai_addr_str.c_str(),
+                                         ai_port_str.c_str(), &hints, &res);
+    if (ret != 0) {
+        umock::netdb_h.freeaddrinfo(res);
+        throw std::invalid_argument(
+            UPnPsdk_LOGEXCEPT("MSG1156") "Invalid netaddress \"" + a_addr_str +
+            "\".\n");
+    } else {
+        if (ai_port_str.empty()) {
+            // Preserve old port
+            in_port_t port = m_sa_union.sin6.sin6_port;
+            ::memcpy(&m_sa_union, res->ai_addr, sizeof(m_sa_union));
+            m_sa_union.sin6.sin6_port = port;
         } else {
-            if (ai_port_str.empty()) {
-                // Preserve old port
-                in_port_t port = m_sa_union.sin6.sin6_port;
-                ::memcpy(&m_sa_union, res->ai_addr, sizeof(m_sa_union));
-                m_sa_union.sin6.sin6_port = port;
-            } else {
-                ::memcpy(&m_sa_union, res->ai_addr, sizeof(m_sa_union));
-            }
-            umock::netdb_h.freeaddrinfo(res);
+            ::memcpy(&m_sa_union, res->ai_addr, sizeof(m_sa_union));
         }
-
-        return;
+        umock::netdb_h.freeaddrinfo(res);
     }
 
-exit_fail:
-    throw std::invalid_argument(
-        UPnPsdk_LOGEXCEPT("MSG1043") "Invalid netaddress \"" + a_addr_str +
-        "\".\n");
+    return;
 }
 
 // Assignment operator= to set socket port from an integer

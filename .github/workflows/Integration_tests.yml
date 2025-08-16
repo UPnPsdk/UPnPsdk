@@ -103,6 +103,13 @@ jobs:
           ls /usr/local/lib/libupnpsdk-pupnp.a
           ls /usr/local/lib/libupnpsdk.a
 
+      - name: Show network parameter
+        run: |
+          set -v
+          ip addr
+          ip -6 route
+          ip -4 route
+
      #- name: Run UPnPsdk info programs
      #  # This program is always built
      #  run: ./build/bin/UPnPsdk-pst; ./build/bin/UPnPsdk-psh; ./build/bin/UPnPsdk-cst; ./build/bin/UPnPsdk-csh
@@ -186,7 +193,7 @@ jobs:
           ls /usr/local/lib/libupnpsdk-pupnp.a
           ls /usr/local/lib/libupnpsdk.a
 
-      - name: Show ifconfig
+      - name: Show network parameter
         run: |
           set -v
           ifconfig -v
@@ -286,6 +293,9 @@ jobs:
 
      #- name: Run UPnPsdk info programs
      #  run: ./build/bin/${{matrix.buildtype}}/UPnPsdk-pst.exe; ./build/bin/${{matrix.buildtype}}/UPnPsdk-psh.exe; ./build/bin/${{matrix.buildtype}}/UPnPsdk-cst.exe; ./build/bin/${{matrix.buildtype}}/UPnPsdk-csh.exe
+
+      - name: Show network parameter
+        run: ipconfig /all
 
       - name: Run gtests
         run: |
