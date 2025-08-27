@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-15
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-27
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -198,9 +198,7 @@ static int NewRequestHandler(
     /*! [in] Number of packet to be sent. */
     int NumPacket,
     /*! [in] . */
-    char** RqPacket,
-    /*! [in] optional: time to live of multicast ip packets */
-    int a_ttl = 4) {
+    char** RqPacket) {
     int rc;
     SOCKET ReplySock{INVALID_SOCKET};
     socklen_t socklen = sizeof(struct sockaddr_storage);
@@ -209,6 +207,7 @@ static int NewRequestHandler(
     struct addrinfo hints, *res;
     int yes = 1;
     /* a/c to UPNP Spec */
+    int ttl = 4;
 #ifdef UPNP_ENABLE_IPV6
     int hops = 1;
 #endif
@@ -253,7 +252,7 @@ static int NewRequestHandler(
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-2");
         rc = setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_TTL,
-                        (OPTION_VALUE_CAST)&a_ttl, sizeof(a_ttl));
+                        (OPTION_VALUE_CAST)&ttl, sizeof(ttl));
         PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
                              "setsockopt-3");
         socklen = sizeof(struct sockaddr_in);

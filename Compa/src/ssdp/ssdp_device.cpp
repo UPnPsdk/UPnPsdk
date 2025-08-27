@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-23
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-27
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -138,9 +138,9 @@ int send_stateless_ip6(sockaddr* a_dest_saddr, int a_num_packet,
             continue;
 
         // Send data. The sent string is not zero terminated.
-        ssize_t bytes_sent = sendto(sockfd6, *(a_rq_packet + index),
-                                    (SIZEP_T)strlen(*(a_rq_packet + index)), 0,
-                                    a_dest_saddr, sizeof(sockaddr_in6));
+        ssize_t bytes_sent = ::sendto(sockfd6, *(a_rq_packet + index),
+                                      (SIZEP_T)strlen(*(a_rq_packet + index)),
+                                      0, a_dest_saddr, sizeof(sockaddr_in6));
         if (bytes_sent == SOCKET_ERROR) {
             serrObj.catch_error();
             UPnPsdk_LOGERR("MSG1161") "sendto() fails with errid="
@@ -157,6 +157,7 @@ exit_function:
     return ret;
 }
 
+#if 0
 int send_stateless_ip4(sockaddr* a_dest_saddr, int a_num_packet,
                        char** a_rq_packet, const int a_ttl = -1) {
     if (a_dest_saddr == nullptr || a_rq_packet == nullptr)
@@ -263,6 +264,7 @@ exit_function:
 
     return ret;
 }
+#endif
 
 /*!
  * \brief Works as a request handler which passes the HTTP request string
@@ -282,18 +284,16 @@ int NewRequestHandler(
     /*! [in] Number of packets to be sent. */
     int a_num_packet,
     /*! [in] Pointer to Array of pointer for multicast packets to send. */
-    char** a_rq_packet,
-    /*! [in] optional: time to live of multicast ip packets */
-    int a_ttl = -1) {
+    char** a_rq_packet) {
     if (a_dest_saddr == nullptr)
         return UPNP_E_INVALID_PARAM;
 
     switch (a_dest_saddr->sa_family) {
     case AF_INET6:
         return send_stateless_ip6(a_dest_saddr, a_num_packet, a_rq_packet);
-    case AF_INET:
-        return send_stateless_ip4(a_dest_saddr, a_num_packet, a_rq_packet,
-                                  a_ttl);
+    // case AF_INET:
+    //     return send_stateless_ip4(a_dest_saddr, a_num_packet, a_rq_packet,
+    //                               a_ttl);
     case AF_UNSPEC:
         UPnPsdk_LOGINFO(
             "MSG1158") "Empty destination address specified. No stateless "
