@@ -81,56 +81,20 @@ constexpr int MSGTYPE_REPLY{2};
 /*! \name Functions scope restricted to file
  * @{ */
 
-int send_stateless_ip6(sockaddr* a_dest_saddr, int a_num_packet,
-                       char** a_rq_packet) {
+int send_stateless(sockaddr* a_dest_saddr, int a_num_packet,
+                   char** a_rq_packet) {
     if (a_dest_saddr == nullptr || a_rq_packet == nullptr)
         return UPNP_E_INVALID_PARAM;
 
-    SOCKET sockfd6{INVALID_SOCKET};
-    int ret{UPNP_E_SUCCESS};
-    UPnPsdk::CSocketErr serrObj;
-
-    // Get address info for passive listening on all local network interfaces.
-    addrinfo hints{}, *res{nullptr};
-    hints.ai_family = AF_INET6;
-    hints.ai_socktype = SOCK_DGRAM;
-    hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV;
-    const std::string port = std::to_string(
-        ntohs(reinterpret_cast<sockaddr_in6*>(a_dest_saddr)->sin6_port));
-    // getaddrinfo()
-    int rc = getaddrinfo(nullptr, port.c_str(), &hints, &res);
-    if (rc != 0) {
-        UPnPsdk_LOGERR("MSG1157") "getaddrinfo() fails with code="
-            << rc << " - " << gai_strerror(rc) << '\n';
+    UPnPsdk::CSocket sockObj;
+    try {
+        sockObj.bind(SOCK_DGRAM, nullptr, AI_PASSIVE);
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGCATCH("MSG1166") "catched next line...\n" << ex.what();
         return UPNP_E_SOCKET_ERROR;
     }
-    if (res->ai_next != nullptr) {
-        UPnPsdk_LOGERR("MSG1165") "getaddrinfo() fails with more than one "
-                                  "address info. Expected is only one.\n";
-        ret = UPNP_E_SOCKET_ERROR;
-        goto exit_function;
-    }
 
-    // Get socket file descriptor, using address info.
-    sockfd6 = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
-    if (sockfd6 == INVALID_SOCKET) {
-        serrObj.catch_error();
-        UPnPsdk_LOGERR("MSG1159") "socket() fails with errid="
-            << serrObj << " - " << serrObj.error_str() << '\n';
-        ret = UPNP_E_OUTOF_SOCKET;
-        goto exit_function;
-    }
-
-    // Bind socket to local network addresses, using address info.
-    rc = bind(sockfd6, res->ai_addr, static_cast<socklen_t>(res->ai_addrlen));
-    if (rc == SOCKET_ERROR) {
-        serrObj.catch_error();
-        UPnPsdk_LOGERR("MSG1160") "bind() fails with errid="
-            << serrObj << " - " << serrObj.error_str() << '\n';
-        ret = UPNP_E_SOCKET_BIND;
-        goto exit_function;
-    }
-
+    UPnPsdk::CSocketErr serrObj;
     for (int index{0}; index < a_num_packet; index++) {
         // Ignore invalid or empty strings.
         if ((*(a_rq_packet + index) == nullptr) ||
@@ -138,23 +102,18 @@ int send_stateless_ip6(sockaddr* a_dest_saddr, int a_num_packet,
             continue;
 
         // Send data. The sent string is not zero terminated.
-        ssize_t bytes_sent = ::sendto(sockfd6, *(a_rq_packet + index),
+        ssize_t bytes_sent = ::sendto(sockObj, *(a_rq_packet + index),
                                       (SIZEP_T)strlen(*(a_rq_packet + index)),
                                       0, a_dest_saddr, sizeof(sockaddr_in6));
         if (bytes_sent == SOCKET_ERROR) {
             serrObj.catch_error();
             UPnPsdk_LOGERR("MSG1161") "sendto() fails with errid="
                 << serrObj << " - " << serrObj.error_str() << '\n';
-            ret = UPNP_E_SOCKET_WRITE;
-            goto exit_function;
+            return UPNP_E_SOCKET_WRITE;
         }
     }
 
-exit_function:
-    freeaddrinfo(res);
-    CLOSE_SOCKET_P(sockfd6);
-
-    return ret;
+    return UPNP_E_SUCCESS;
 }
 
 #if 0
@@ -290,7 +249,7 @@ int NewRequestHandler(
 
     switch (a_dest_saddr->sa_family) {
     case AF_INET6:
-        return send_stateless_ip6(a_dest_saddr, a_num_packet, a_rq_packet);
+        return send_stateless(a_dest_saddr, a_num_packet, a_rq_packet);
     // case AF_INET:
     //     return send_stateless_ip4(a_dest_saddr, a_num_packet, a_rq_packet,
     //                               a_ttl);
