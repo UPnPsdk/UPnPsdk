@@ -18,7 +18,7 @@ var searchData=
   ['netaddr_15',['netaddr',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#aa33ca96a98c6bcaeae39e6f06c1543a0',1,'UPnPsdk::SSockaddr']]],
   ['netaddrp_16',['netaddrp',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5',1,'UPnPsdk::SSockaddr']]],
   ['netmask_5fto_5fbitmask_17',['netmask_to_bitmask',['../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71',1,'UPnPsdk']]],
-  ['newrequesthandler_18',['NewRequestHandler',['../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239',1,'anonymous_namespace{ssdp_device.cpp}']]],
+  ['newrequesthandler_18',['NewRequestHandler',['../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa40b74aaef0112808e61640e0bad53cd',1,'anonymous_namespace{ssdp_device.cpp}']]],
   ['newval_19',['NewVal',['../d3/da9/upnpapi_8hpp.html#acace7e13a28e2f87d8bb2aea8d6335e7',1,'UpnpNonblockParam']]],
   ['next_20',['next',['../d6/d92/VirtualDir_8hpp.html#ac2772de7be82c11b2e3a5e26fd6181e6',1,'virtual_Dir_List::next'],['../dc/d1d/list_8hpp.html#a8ab9a2c9bc659138860041db7915ef12',1,'UpnpListHead::next'],['../db/d74/service__table_8hpp.html#a69daf22b958b3c2dd0c790102a950d7a',1,'service_info::next'],['../db/d74/service__table_8hpp.html#a4d63c90d28d3eed58eba17715b1d7ee7',1,'subscription::next']]],
   ['no_20exception_21',['Promise to throw &quot;no exception&quot;',['../index.html#overview_noexcept',1,'']]],

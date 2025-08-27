@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-01
+// Redistribution only with this Copyright remark. Last modified: 2025-08-29
 
 #ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -8,6 +8,8 @@
 
 #include <UPnPsdk/netadapter.hpp>
 #include <utest/utest.hpp>
+
+#include <iomanip>
 
 
 namespace utest {
@@ -33,10 +35,20 @@ TEST(NetadapterTestSuite, get_netadapter_list) {
     CNetadapter nadapObj;
     nadapObj.get_first();
     // nadapObj.find_first();
+    int prio{};
     do {
         nadapObj.sockaddr(saddrObj);
-        std::cerr << "DEBUG: index=" << nadapObj.index() << ", address=\""
-                  << saddrObj << "\".\n";
+        prio = std::abs(prio);
+        if (saddrObj.is_loopback())
+            prio = -prio;
+        else
+            prio++;
+
+        std::cout << "prio=" << std::setw(2) << std::right
+                  << (prio <= 0 ? "--" : std::to_string(prio))
+                  << ", idx=" << std::setw(2) << nadapObj.index() << ", name=\""
+                  << std::setw(7) << std::left << (nadapObj.name()+"\",")
+                  << " addr=\"" << saddrObj << "\".\n";
     } while (nadapObj.get_next());
     // } while (nadapObj.find_next());
 }
@@ -464,6 +476,8 @@ TEST(NetadapterTestSuite, mock_netadapter_get_address_sequence) {
     sa2_mockObj = "[2001:db8::4]:50124";
     SSockaddr sa3_mockObj;
     sa3_mockObj = "192.168.74.224:50125";
+    SSockaddr sa3map_mockObj;
+    sa3map_mockObj = "[::ffff:192.168.74.224]:50125";
 
     EXPECT_CALL(*nadap_mockPtr, get_first()).Times(1);
 
@@ -485,7 +499,7 @@ TEST(NetadapterTestSuite, mock_netadapter_get_address_sequence) {
     EXPECT_CALL(*nadap_mockPtr, bitmask())
         .WillOnce(Return(64))
         .WillOnce(Return(64))
-        .WillOnce(Return(24));
+        .WillOnce(Return(64));
 
     EXPECT_CALL(*nadap_mockPtr, reset()).Times(0);
 
@@ -515,8 +529,8 @@ TEST(NetadapterTestSuite, mock_netadapter_get_address_sequence) {
     EXPECT_EQ(nadapObj.index(), 2);
     EXPECT_EQ(nadapObj.name(), "eth0");
     nadapObj.sockaddr(saddrObj);
-    EXPECT_TRUE(saddrObj == sa3_mockObj);
-    EXPECT_EQ(nadapObj.bitmask(), 24);
+    EXPECT_TRUE(saddrObj == sa3map_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
     ASSERT_FALSE(nadapObj.get_next());
 }
 
@@ -715,8 +729,8 @@ TEST(NetadapterTestSuite, mock_netadapter_find_default_with_8_addr) {
 
     EXPECT_CALL(*nadap_mockPtr, bitmask())
         .WillOnce(Return(64))  // addr2a, returned for EXPECT below.
-        .WillOnce(Return(24))  // addr3a, returned for EXPECT below.
-        .WillOnce(Return(24))  // addr2c, returned for EXPECT below.
+        .WillOnce(Return(64))  // addr3a, returned for EXPECT below.
+        .WillOnce(Return(64))  // addr2c, returned for EXPECT below.
         .WillOnce(Return(64))  // addr1c, returned for EXPECT below.
         .WillOnce(Return(64))  // addr3b, returned for EXPECT below.
         .WillOnce(Return(64)); // addr2b, returned for EXPECT below.
@@ -745,20 +759,24 @@ TEST(NetadapterTestSuite, mock_netadapter_find_default_with_8_addr) {
     EXPECT_EQ(nadapObj.bitmask(), 64);
 
     // Should get addr3a.
+    SSockaddr sa3a_map_mockObj;
+    sa3a_map_mockObj = "[::ffff:192.168.3.1]:50031";
     EXPECT_TRUE(nadapObj.find_next());
     EXPECT_EQ(nadapObj.index(), idx3);
     EXPECT_EQ(nadapObj.name(), name3);
     nadapObj.sockaddr(saddrObj);
-    EXPECT_TRUE(saddrObj == sa3a_mockObj);
-    EXPECT_EQ(nadapObj.bitmask(), 24);
+    EXPECT_TRUE(saddrObj == sa3a_map_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
 
     // Should get addr2c.
+    SSockaddr sa2c_map_mockObj;
+    sa2c_map_mockObj = "[::ffff:192.168.2.3]:50023";
     EXPECT_TRUE(nadapObj.find_next());
     EXPECT_EQ(nadapObj.index(), idx2);
     EXPECT_EQ(nadapObj.name(), name2);
     nadapObj.sockaddr(saddrObj);
-    EXPECT_TRUE(saddrObj == sa2c_mockObj);
-    EXPECT_EQ(nadapObj.bitmask(), 24);
+    EXPECT_TRUE(saddrObj == sa2c_map_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
 
     // Should get addr1c.
     EXPECT_TRUE(nadapObj.find_next());
@@ -856,7 +874,7 @@ TEST(NetadapterTestSuite, mock_netadapter_find_name_with_8_addr) {
 
     EXPECT_CALL(*nadap_mockPtr, bitmask())
         .WillOnce(Return(64)) // Returned for EXPECT below.
-        .WillOnce(Return(24))
+        .WillOnce(Return(64))
         .WillOnce(Return(64));
 
     EXPECT_CALL(*nadap_mockPtr, reset()).Times(1);
@@ -883,12 +901,14 @@ TEST(NetadapterTestSuite, mock_netadapter_find_name_with_8_addr) {
     EXPECT_EQ(nadapObj.bitmask(), 64);
 
     // Should get addr2c, skipping addr3a.
+    SSockaddr sa2c_map_mockObj;
+    sa2c_map_mockObj = "[::ffff:192.168.2.3]:50023";
     EXPECT_TRUE(nadapObj.find_next());
     EXPECT_EQ(nadapObj.index(), idx2);
     EXPECT_EQ(nadapObj.name(), name2);
     nadapObj.sockaddr(saddrObj);
-    EXPECT_TRUE(saddrObj == sa2c_mockObj);
-    EXPECT_EQ(nadapObj.bitmask(), 24);
+    EXPECT_TRUE(saddrObj == sa2c_map_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
 
     // Should get addr2b, skipping addr1c and addr3b.
     EXPECT_TRUE(nadapObj.find_next());
@@ -972,7 +992,7 @@ TEST(NetadapterTestSuite, mock_netadapter_find_index_with_8_addr) {
 
     EXPECT_CALL(*nadap_mockPtr, bitmask())
         .WillOnce(Return(64)) // Returned for EXPECT below.
-        .WillOnce(Return(24))
+        .WillOnce(Return(64))
         .WillOnce(Return(64));
 
     EXPECT_CALL(*nadap_mockPtr, reset()).Times(1);
@@ -999,12 +1019,14 @@ TEST(NetadapterTestSuite, mock_netadapter_find_index_with_8_addr) {
     EXPECT_EQ(nadapObj.bitmask(), 64);
 
     // Should get addr2c, skipping addr3a.
+    SSockaddr sa2c_map_mockObj;
+    sa2c_map_mockObj = "[::ffff:192.168.2.3]:50023";
     EXPECT_TRUE(nadapObj.find_next());
     EXPECT_EQ(nadapObj.index(), idx2);
     EXPECT_EQ(nadapObj.name(), name2);
     nadapObj.sockaddr(saddrObj);
-    EXPECT_TRUE(saddrObj == sa2c_mockObj);
-    EXPECT_EQ(nadapObj.bitmask(), 24);
+    EXPECT_TRUE(saddrObj == sa2c_map_mockObj);
+    EXPECT_EQ(nadapObj.bitmask(), 64);
 
     // Should get addr2b, skipping addr1c and addr3b.
     EXPECT_TRUE(nadapObj.find_next());

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-10
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -128,43 +128,32 @@ void* gWebCallback_HostValidateCookie = 0;
 /*! \brief Allow literal host names redirection to numeric host names. */
 int gAllowLiteralHostRedirection = 0;
 
-/*! \brief Static buffer to contain interface name. (extern'ed in upnp.h) */
+/*! \brief Buffer to contain used network interface name. (extern'ed in upnp.h)
+ * \details Only one network interface is supported. */
 char gIF_NAME[LINE_SIZE] = {'\0'};
+/// \brief Index/scope-id from the used network interface.
+unsigned gIF_INDEX = 0;
 
-/*! \brief Static buffer to contain interface IPv4 address. (extern'ed in
- * upnp.h) */
-char gIF_IPV4[INET_ADDRSTRLEN] = {'\0'};
-
-/*! \brief Static buffer to contain interface IPv4 netmask. (extern'ed in
- * upnp.h) */
-char gIF_IPV4_NETMASK[INET_ADDRSTRLEN] = {'\0'};
-
-/*! \brief Static buffer to contain interface IPv6 link-local address (LLA).
- * (extern'ed in upnp.h) */
+/// \brief IPv6 LLA buffer to contain interface address. (extern'ed in upnp.h)
 char gIF_IPV6[INET6_ADDRSTRLEN] = {'\0'};
-
-/*! \brief IPv6 LLA prefix length. (extern'ed in upnp.h) */
+/// \brief IPv6 LLA prefix length. (extern'ed in upnp.h)
 unsigned gIF_IPV6_PREFIX_LENGTH = 0;
-
-/*! \brief Contains network interface index of the link local address gIF_IPV6
- * that is used as its scope_id. */
-unsigned gIF_INDEX = ~0u; // Use complement of 0 because 0 may be a used index.
-
-/*! \brief Static buffer to contain interface IPv6 unique-local or
- * globally-unique address (ULA or GUA). (extern'ed in upnp.h) */
-char gIF_IPV6_ULA_GUA[INET6_ADDRSTRLEN] = {'\0'};
-
-/*! \brief IPv6 ULA or GUA prefix length. (extern'ed in upnp.h) */
-unsigned gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-
-/*! \brief local IPv4 port for the mini-server */
-in_port_t LOCAL_PORT_V4;
-
-/*! \brief IPv6 LLA port for the mini-server */
+/// \brief IPv6 LLA port for the mini-server
 in_port_t LOCAL_PORT_V6;
 
-/*! \brief IPv6 ULA or GUA port for the mini-server */
+/// \brief IPv6 GUA buffer to contain interface IPv6 global-unicast address
+char gIF_IPV6_ULA_GUA[INET6_ADDRSTRLEN] = {'\0'};
+/// \brief IPv6 GUA prefix length. (extern'ed in upnp.h)
+unsigned gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+/// \brief IPv6 GUA port for the mini-server
 in_port_t LOCAL_PORT_V6_ULA_GUA;
+
+/// \brief IPv4 buffer to contain interface address. (extern'ed in upnp.h)
+char gIF_IPV4[INET_ADDRSTRLEN] = {'\0'};
+/// \brief IPv4 buffer to contain interface netmask. (extern'ed in upnp.h)
+char gIF_IPV4_NETMASK[INET_ADDRSTRLEN] = {'\0'};
+/// \brief IPv4 local port for the mini-server
+in_port_t LOCAL_PORT_V4;
 
 /*! a string which is set in the header field */
 extern membuffer gWebserverCorsString;

@@ -344,7 +344,7 @@ Public Member Functions</h2></td></tr>
 <div class="line"><span class="keywordflow">try</span> {</div>
 <div class="line">    sock1Obj.<a class="code hl_function" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea">bind</a>(SOCK_STREAM);</div>
 <div class="line">} <span class="keywordflow">catch</span>(std::exception&amp; ex) { handle_error(); }</div>
-</div><!-- fragment --><p>Usage e.g. to bind with default settings for listening on local network adapters for incomming requests (typically UPnP devices). </p><div class="fragment"><div class="line"><a class="code hl_class" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html">CSocket</a> sock2Obj;</div>
+</div><!-- fragment --><p>Usage e.g. to bind with default settings for listening on all local network adapters for incomming requests (typically UPnP devices). </p><div class="fragment"><div class="line"><a class="code hl_class" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html">CSocket</a> sock2Obj;</div>
 <div class="line"><span class="keywordflow">try</span> {</div>
 <div class="line">    sock2Obj.<a class="code hl_function" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea">bind</a>(SOCK_STREAM, <span class="keyword">nullptr</span>, AI_PASSIVE);</div>
 <div class="line">} <span class="keywordflow">catch</span>(std::exception&amp; ex) { handle_error(); }</div>
@@ -436,11 +436,15 @@ Public Member Functions</h2></td></tr>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d5d/classUPnPsdk_1_1CSocket_a3e36fe7412352a07e45745ea47dd09ea_icgraph.png" border="0" usemap="#ad3/d5d/classUPnPsdk_1_1CSocket_a3e36fe7412352a07e45745ea47dd09ea_icgraph" alt=""/></div>
 <map name="ad3/d5d/classUPnPsdk_1_1CSocket_a3e36fe7412352a07e45745ea47dd09ea_icgraph" id="ad3/d5d/classUPnPsdk_1_1CSocket_a3e36fe7412352a07e45745ea47dd09ea_icgraph">
-<area shape="rect" title="Bind socket to an ip address of a local network adapter." alt="" coords="404,20,579,45"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="176,5,356,60"/>
-<area shape="poly" title=" " alt="" coords="391,35,356,35,356,30,391,30"/>
-<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="5,20,128,45"/>
-<area shape="poly" title=" " alt="" coords="162,35,128,35,128,30,162,30"/>
+<area shape="rect" title="Bind socket to an ip address of a local network adapter." alt="" coords="461,60,636,85"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="233,5,413,60"/>
+<area shape="poly" title=" " alt="" coords="462,60,413,51,414,46,463,55"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="233,84,413,139"/>
+<area shape="poly" title=" " alt="" coords="461,90,414,99,413,93,460,85"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="34,20,157,45"/>
+<area shape="poly" title=" " alt="" coords="219,35,157,35,157,30,219,30"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa40b74aaef0112808e61640e0bad53cd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="5,84,185,139"/>
+<area shape="poly" title=" " alt="" coords="219,114,185,114,185,109,219,109"/>
 </map>
 </div>
 
@@ -464,7 +468,7 @@ Public Member Functions</h2></td></tr>
 <p>Set socket to listen. </p>
 <p>On Linux there is a socket option SO_ACCEPTCONN that can be get with system function ::getsockopt(). This option shows if the socket is set to passive listen. But it is not portable. MacOS does not support it. So this flag has to be managed here. Look for details at <a href="https://stackoverflow.com/q/75942911/5014688">How to get option on MacOS if a socket is set to listen?</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00552">552</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00554">554</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -524,7 +528,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00581">581</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00583">583</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 
 </div>
 </div>

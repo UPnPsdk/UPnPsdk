@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('d8/d81/socket_8cpp_source.html','../..
 </div><!--header-->
 <div class="contents">
 <a href="../../d8/d81/socket_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-05-19</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-08-28</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="../../da/dfc/socket_8hpp.html">UPnPsdk/socket.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d6/dbf/addrinfo_8hpp.html">UPnPsdk/addrinfo.hpp</a>&gt;</span></div>
@@ -602,161 +602,163 @@ $(document).ready(function(){initNavTree('d8/d81/socket_8cpp_source.html','../..
 <div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span>                                                 <span class="stringliteral">&quot;to use \&quot;loopback\&quot;.\n&quot;</span>);</div>
 <div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>            nadapObj.<a class="code hl_function" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f">sockaddr</a>(saddr);</div>
 <div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>        }</div>
-<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span> </div>
-<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>        saddr = *a_saddr;</div>
-<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    }</div>
-<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span> </div>
-<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>    <span class="comment">// Get the address info for binding.</span></div>
-<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>    <a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a> ai(saddr.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5">netaddrp</a>(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,</div>
-<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>                 a_socktype);</div>
-<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>    <span class="keywordflow">if</span> (!ai.<a class="code hl_function" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d">get_first</a>())</div>
-<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>        <span class="keywordflow">throw</span> std::runtime_error(</div>
-<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>            UPnPsdk_LOGEXCEPT(<span class="stringliteral">&quot;MSG1092&quot;</span>) <span class="stringliteral">&quot;detect error next line ...\n&quot;</span> +</div>
-<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>            ai.<a class="code hl_function" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598">what</a>());</div>
-<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span> </div>
-<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span> </div>
-<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>    <span class="comment">// Get a socket file descriptor from operating system and try to bind it.</span></div>
-<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>    <span class="comment">// ----------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>    <span class="comment">// Get a socket file descriptor.</span></div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>    SOCKET sockfd =</div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>        get_sockfd(<span class="keyword">static_cast&lt;</span>sa_family_t<span class="keyword">&gt;</span>(ai-&gt;ai_family), ai-&gt;ai_socktype);</div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span> </div>
-<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    <span class="comment">// Try to bind the socket.</span></div>
-<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    <span class="keywordtype">int</span> ret_code{SOCKET_ERROR};</div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    <span class="keywordtype">int</span> count{1};</div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    ret_code = umock::sys_socket_h.bind(sockfd, ai-&gt;ai_addr,</div>
-<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>                                        <span class="keyword">static_cast&lt;</span>socklen_t<span class="keyword">&gt;</span>(ai-&gt;ai_addrlen));</div>
-<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    <a class="code hl_class" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html">CSocketErr</a> serrObj;</div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    <span class="keywordflow">if</span> (ret_code == 0)</div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>        <span class="comment">// Store valid socket file descriptor.</span></div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>        m_sfd = sockfd;</div>
-<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>        serrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span> </div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e">g_dbug</a>) {</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>        <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>        this-&gt;local_saddr_protected(&amp;saObj); <span class="comment">// Get new bound socket address.</span></div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>        UPnPsdk_LOGINFO(<span class="stringliteral">&quot;MSG1115&quot;</span>) <span class="stringliteral">&quot;syscall ::bind(&quot;</span></div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>            &lt;&lt; sockfd &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; &amp;saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7fb20663e898118cf58c34e3ad4bbf09">sa</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53">sizeof_saddr</a>()</div>
-<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>            &lt;&lt; <span class="stringliteral">&quot;) Tried &quot;</span> &lt;&lt; count &lt;&lt; <span class="stringliteral">&quot; times \&quot;&quot;</span> &lt;&lt; saddr.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5">netaddrp</a>()</div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>            &lt;&lt; (ret_code != 0 ? <span class="stringliteral">&quot;\&quot;. Get ERROR&quot;</span></div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>                              : <span class="stringliteral">&quot;\&quot;. Bound to \&quot;&quot;</span> + saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5">netaddrp</a>())</div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>            &lt;&lt; <span class="stringliteral">&quot;\&quot;.\n&quot;</span>;</div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>    }</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span> </div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>    <span class="keywordflow">if</span> (ret_code == SOCKET_ERROR) {</div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>        CLOSE_SOCKET_P(sockfd);</div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>        <span class="keywordflow">throw</span> std::runtime_error(</div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>            UPnPsdk_LOGEXCEPT(<span class="stringliteral">&quot;MSG1008&quot;</span>) <span class="stringliteral">&quot;Close socket fd &quot;</span> +</div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>            std::to_string(sockfd) + <span class="stringliteral">&quot;. Failed to bind socket to address=\&quot;&quot;</span> +</div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>            saddr.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5">netaddrp</a>() + <span class="stringliteral">&quot;\&quot;: (errid &quot;</span> + std::to_string(serrObj) + <span class="stringliteral">&quot;) &quot;</span> +</div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>            serrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>());</div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    }</div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>}</div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>        <span class="comment">// Here is AI_PASSIVE given, and saddr unspecified. That gives the</span></div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>        <span class="comment">// loopback address.</span></div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span> </div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>        saddr = *a_saddr;</div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>    }</div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span> </div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>    <span class="comment">// Get the address info for binding.</span></div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>    <a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a> ai(saddr.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5">netaddrp</a>(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,</div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>                 a_socktype);</div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>    <span class="keywordflow">if</span> (!ai.<a class="code hl_function" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d">get_first</a>())</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>        <span class="keywordflow">throw</span> std::runtime_error(</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>            UPnPsdk_LOGEXCEPT(<span class="stringliteral">&quot;MSG1092&quot;</span>) <span class="stringliteral">&quot;detect error next line ...\n&quot;</span> +</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>            ai.<a class="code hl_function" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598">what</a>());</div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span> </div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span> </div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>    <span class="comment">// Get a socket file descriptor from operating system and try to bind it.</span></div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>    <span class="comment">// ----------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>    <span class="comment">// Get a socket file descriptor.</span></div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>    SOCKET sockfd =</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>        get_sockfd(<span class="keyword">static_cast&lt;</span>sa_family_t<span class="keyword">&gt;</span>(ai-&gt;ai_family), ai-&gt;ai_socktype);</div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span> </div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>    <span class="comment">// Try to bind the socket.</span></div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    <span class="keywordtype">int</span> ret_code{SOCKET_ERROR};</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    <span class="keywordtype">int</span> count{1};</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    ret_code = umock::sys_socket_h.bind(sockfd, ai-&gt;ai_addr,</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>                                        <span class="keyword">static_cast&lt;</span>socklen_t<span class="keyword">&gt;</span>(ai-&gt;ai_addrlen));</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    <a class="code hl_class" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html">CSocketErr</a> serrObj;</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>    <span class="keywordflow">if</span> (ret_code == 0)</div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>        <span class="comment">// Store valid socket file descriptor.</span></div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>        m_sfd = sockfd;</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>        serrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span> </div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e">g_dbug</a>) {</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>        <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>        this-&gt;local_saddr_protected(&amp;saObj); <span class="comment">// Get new bound socket address.</span></div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>        UPnPsdk_LOGINFO(<span class="stringliteral">&quot;MSG1115&quot;</span>) <span class="stringliteral">&quot;syscall ::bind(&quot;</span></div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>            &lt;&lt; sockfd &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; &amp;saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7fb20663e898118cf58c34e3ad4bbf09">sa</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53">sizeof_saddr</a>()</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>            &lt;&lt; <span class="stringliteral">&quot;) Tried &quot;</span> &lt;&lt; count &lt;&lt; <span class="stringliteral">&quot; times \&quot;&quot;</span> &lt;&lt; saddr.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5">netaddrp</a>()</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>            &lt;&lt; (ret_code != 0 ? <span class="stringliteral">&quot;\&quot;. Get ERROR&quot;</span></div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>                              : <span class="stringliteral">&quot;\&quot;. Bound to \&quot;&quot;</span> + saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5">netaddrp</a>())</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>            &lt;&lt; <span class="stringliteral">&quot;\&quot;.\n&quot;</span>;</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>    }</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span> </div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>    <span class="keywordflow">if</span> (ret_code == SOCKET_ERROR) {</div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>        CLOSE_SOCKET_P(sockfd);</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>        <span class="keywordflow">throw</span> std::runtime_error(</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>            UPnPsdk_LOGEXCEPT(<span class="stringliteral">&quot;MSG1008&quot;</span>) <span class="stringliteral">&quot;Close socket fd &quot;</span> +</div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>            std::to_string(sockfd) + <span class="stringliteral">&quot;. Failed to bind socket to address=\&quot;&quot;</span> +</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>            saddr.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5">netaddrp</a>() + <span class="stringliteral">&quot;\&quot;: (errid &quot;</span> + std::to_string(serrObj) + <span class="stringliteral">&quot;) &quot;</span> +</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>            serrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>());</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    }</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>}</div>
 </div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span> </div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span><span class="comment">// Set socket to listen</span></div>
-<div class="foldopen" id="foldopen00552" data-start="{" data-end="}">
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno"><a class="line" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b">  552</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b">CSocket::listen</a>() {</div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing CSocket::listen()&quot;</span>)</div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span> </div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    <span class="comment">// Protect set listen and storing its state (m_listen).</span></div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>    ::pthread_mutex_lock(&amp;m_socket_mutex);</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span> </div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    <span class="keywordflow">if</span> (m_listen) {</div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>        ::pthread_mutex_unlock(&amp;m_socket_mutex);</div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    }</div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span> </div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    <a class="code hl_class" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html">CSocketErr</a> serrObj;</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    <span class="comment">// Second argument backlog (maximum length of the queue for pending</span></div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    <span class="comment">// connections) is hard coded for now.</span></div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    <span class="keywordflow">if</span> (umock::sys_socket_h.listen(m_sfd, SOMAXCONN) != 0) {</div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>        serrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>        ::pthread_mutex_unlock(&amp;m_socket_mutex);</div>
-<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>        <span class="keywordflow">throw</span> std::runtime_error(</div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>            UPnPsdk_LOGEXCEPT(<span class="stringliteral">&quot;MSG1034&quot;</span>) <span class="stringliteral">&quot;Failed to set socket to listen: &quot;</span> +</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>            serrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>() + <span class="charliteral">&#39;\n&#39;</span>);</div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>    }</div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>    UPnPsdk_LOGINFO(<span class="stringliteral">&quot;MSG1032&quot;</span>) <span class="stringliteral">&quot;syscall ::listen(&quot;</span> &lt;&lt; m_sfd &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; SOMAXCONN</div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>                                                   &lt;&lt; <span class="stringliteral">&quot;).\n&quot;</span>;</div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>    m_listen = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    ::pthread_mutex_unlock(&amp;m_socket_mutex);</div>
-<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>}</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span> </div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span><span class="comment">// Set socket to listen</span></div>
+<div class="foldopen" id="foldopen00554" data-start="{" data-end="}">
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno"><a class="line" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b">  554</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b">CSocket::listen</a>() {</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing CSocket::listen()&quot;</span>)</div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span> </div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>    <span class="comment">// Protect set listen and storing its state (m_listen).</span></div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    ::pthread_mutex_lock(&amp;m_socket_mutex);</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span> </div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>    <span class="keywordflow">if</span> (m_listen) {</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>        ::pthread_mutex_unlock(&amp;m_socket_mutex);</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>    }</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span> </div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>    <a class="code hl_class" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html">CSocketErr</a> serrObj;</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    <span class="comment">// Second argument backlog (maximum length of the queue for pending</span></div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    <span class="comment">// connections) is hard coded for now.</span></div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>    <span class="keywordflow">if</span> (umock::sys_socket_h.listen(m_sfd, SOMAXCONN) != 0) {</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>        serrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">catch_error</a>();</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>        ::pthread_mutex_unlock(&amp;m_socket_mutex);</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>        <span class="keywordflow">throw</span> std::runtime_error(</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>            UPnPsdk_LOGEXCEPT(<span class="stringliteral">&quot;MSG1034&quot;</span>) <span class="stringliteral">&quot;Failed to set socket to listen: &quot;</span> +</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>            serrObj.<a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">error_str</a>() + <span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>    }</div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>    UPnPsdk_LOGINFO(<span class="stringliteral">&quot;MSG1032&quot;</span>) <span class="stringliteral">&quot;syscall ::listen(&quot;</span> &lt;&lt; m_sfd &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; SOMAXCONN</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>                                                   &lt;&lt; <span class="stringliteral">&quot;).\n&quot;</span>;</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>    m_listen = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>    ::pthread_mutex_unlock(&amp;m_socket_mutex);</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>}</div>
 </div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span> </div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span><span class="comment">// Getter</span></div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span><span class="comment">// ------</span></div>
-<div class="foldopen" id="foldopen00581" data-start="{" data-end="}">
-<div class="line"><a id="l00581" name="l00581"></a><span class="lineno"><a class="line" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7498f381c33b05ae56887b413c0350bf">  581</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7498f381c33b05ae56887b413c0350bf">CSocket::is_listen</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing CSocket::is_listen()&quot;</span>)</div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>    ::pthread_mutex_lock(&amp;m_socket_mutex);</div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>    <span class="keywordflow">if</span> (m_sfd == INVALID_SOCKET) {</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>        ::pthread_mutex_unlock(&amp;m_socket_mutex);</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        <span class="keywordflow">throw</span> std::runtime_error(</div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>            UPnPsdk_LOGEXCEPT(<span class="stringliteral">&quot;MSG1035&quot;</span>) <span class="stringliteral">&quot;Failed to get socket option &quot;</span></div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>                                         <span class="stringliteral">&quot;&#39;is_Listen&#39;: Bad file descriptor.\n&quot;</span>);</div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>    }</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>    <span class="keyword">const</span> <span class="keyword">auto</span> listen{m_listen};</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    ::pthread_mutex_unlock(&amp;m_socket_mutex);</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    <span class="keywordflow">return</span> listen;</div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>}</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span> </div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span><span class="comment">// Getter</span></div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span><span class="comment">// ------</span></div>
+<div class="foldopen" id="foldopen00583" data-start="{" data-end="}">
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno"><a class="line" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7498f381c33b05ae56887b413c0350bf">  583</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7498f381c33b05ae56887b413c0350bf">CSocket::is_listen</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing CSocket::is_listen()&quot;</span>)</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>    ::pthread_mutex_lock(&amp;m_socket_mutex);</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>    <span class="keywordflow">if</span> (m_sfd == INVALID_SOCKET) {</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>        ::pthread_mutex_unlock(&amp;m_socket_mutex);</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>        <span class="keywordflow">throw</span> std::runtime_error(</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>            UPnPsdk_LOGEXCEPT(<span class="stringliteral">&quot;MSG1035&quot;</span>) <span class="stringliteral">&quot;Failed to get socket option &quot;</span></div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>                                         <span class="stringliteral">&quot;&#39;is_Listen&#39;: Bad file descriptor.\n&quot;</span>);</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    }</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    <span class="keyword">const</span> <span class="keyword">auto</span> listen{m_listen};</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    ::pthread_mutex_unlock(&amp;m_socket_mutex);</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    <span class="keywordflow">return</span> listen;</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>}</div>
 </div>
-<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span> </div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span> </div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span><span class="comment">// Portable handling of socket errors</span></div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span><span class="comment">// ==================================</span></div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>CSocketErr::CSocketErr() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span> </div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>CSocketErr::~CSocketErr() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span> </div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span> </div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span><span class="comment">// Portable handling of socket errors</span></div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span><span class="comment">// ==================================</span></div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>CSocketErr::CSocketErr() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span> </div>
-<div class="foldopen" id="foldopen00602" data-start="{" data-end="}">
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno"><a class="line" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a8044843ffe9f0ff65b70b116e248b32a">  602</a></span>CSocketErr::operator <span class="keyword">const</span> <span class="keywordtype">int</span>&amp;() {</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    <span class="comment">// TRACE not usable with chained output.</span></div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    <span class="comment">// TRACE2(this, &quot; Executing CSocketErr::operator int&amp;() (get socket error</span></div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>    <span class="comment">// number)&quot;)</span></div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>    <span class="keywordflow">return</span> m_errno;</div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>}</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>CSocketErr::~CSocketErr() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span> </div>
+<div class="foldopen" id="foldopen00604" data-start="{" data-end="}">
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno"><a class="line" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a8044843ffe9f0ff65b70b116e248b32a">  604</a></span>CSocketErr::operator <span class="keyword">const</span> <span class="keywordtype">int</span>&amp;() {</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>    <span class="comment">// TRACE not usable with chained output.</span></div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>    <span class="comment">// TRACE2(this, &quot; Executing CSocketErr::operator int&amp;() (get socket error</span></div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>    <span class="comment">// number)&quot;)</span></div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>    <span class="keywordflow">return</span> m_errno;</div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>}</div>
 </div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span> </div>
-<div class="foldopen" id="foldopen00609" data-start="{" data-end="}">
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno"><a class="line" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">  609</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">CSocketErr::catch_error</a>() {</div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span><span class="preprocessor">#ifdef _MSC_VER</span></div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>    m_errno = umock::winsock2_h.WSAGetLastError();</div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    m_errno = errno;</div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing CSocketErr::catch_error()&quot;</span>)</div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>}</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span> </div>
+<div class="foldopen" id="foldopen00611" data-start="{" data-end="}">
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno"><a class="line" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">  611</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">CSocketErr::catch_error</a>() {</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span><span class="preprocessor">#ifdef _MSC_VER</span></div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    m_errno = umock::winsock2_h.WSAGetLastError();</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    m_errno = errno;</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>    TRACE2(<span class="keyword">this</span>, <span class="stringliteral">&quot; Executing CSocketErr::catch_error()&quot;</span>)</div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>}</div>
 </div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span> </div>
-<div class="foldopen" id="foldopen00618" data-start="{" data-end="}">
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno"><a class="line" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">  618</a></span>std::string <a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">CSocketErr::error_str</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>    <span class="comment">// TRACE not usable with chained output, e.g.</span></div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>    <span class="comment">// std::cerr &lt;&lt; &quot;Error: &quot; &lt;&lt; sockerrObj.error_str();</span></div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>    <span class="comment">// TRACE2(this, &quot; Executing CSocketErr::error_str()&quot;)</span></div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span> </div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>    <span class="comment">// Portable C++ statement</span></div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>    <span class="keywordflow">return</span> std::system_category().message(m_errno);</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    <span class="comment">// return std::generic_category().message(m_errno);</span></div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>    <span class="comment">// return std::strerror(m_errno); // Alternative for Unix platforms</span></div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>}</div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span> </div>
+<div class="foldopen" id="foldopen00620" data-start="{" data-end="}">
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno"><a class="line" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">  620</a></span>std::string <a class="code hl_function" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">CSocketErr::error_str</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>    <span class="comment">// TRACE not usable with chained output, e.g.</span></div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>    <span class="comment">// std::cerr &lt;&lt; &quot;Error: &quot; &lt;&lt; sockerrObj.error_str();</span></div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>    <span class="comment">// TRACE2(this, &quot; Executing CSocketErr::error_str()&quot;)</span></div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span> </div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    <span class="comment">// Portable C++ statement</span></div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>    <span class="keywordflow">return</span> std::system_category().message(m_errno);</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>    <span class="comment">// return std::generic_category().message(m_errno);</span></div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>    <span class="comment">// return std::strerror(m_errno); // Alternative for Unix platforms</span></div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>}</div>
 </div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span> </div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>} <span class="comment">// namespace UPnPsdk</span></div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span> </div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>} <span class="comment">// namespace UPnPsdk</span></div>
 <div class="ttc" id="aaddrinfo_8hpp_html"><div class="ttname"><a href="../../d6/dbf/addrinfo_8hpp.html">addrinfo.hpp</a></div><div class="ttdoc">Declaration of the Addrinfo class.</div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">UPnPsdk::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about an internet address.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00055">addrinfo.hpp:55</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html_a51afe8a1c3b65109b9cf3340f8e5186d"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d">UPnPsdk::CAddrinfo::get_first</a></div><div class="ttdeci">bool get_first()</div><div class="ttdoc">Get the first entry of an address info from the operating system.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d59/addrinfo_8cpp_source.html#l00089">addrinfo.cpp:89</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html_a5d5295decc4e6797b3e8c35c4f1b0598"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598">UPnPsdk::CAddrinfo::what</a></div><div class="ttdeci">const std::string &amp; what() const</div><div class="ttdoc">Get cached error message.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d59/addrinfo_8cpp_source.html#l00226">addrinfo.cpp:226</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html_a51afe8a1c3b65109b9cf3340f8e5186d"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d">UPnPsdk::CAddrinfo::get_first</a></div><div class="ttdeci">bool get_first()</div><div class="ttdoc">Get the first entry of an address info from the operating system.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d59/addrinfo_8cpp_source.html#l00156">addrinfo.cpp:156</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html_a5d5295decc4e6797b3e8c35c4f1b0598"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598">UPnPsdk::CAddrinfo::what</a></div><div class="ttdeci">const std::string &amp; what() const</div><div class="ttdoc">Get cached error message.</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d59/addrinfo_8cpp_source.html#l00292">addrinfo.cpp:292</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">UPnPsdk::CNetadapter</a></div><div class="ttdoc">Get information from local network adapters.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dff/netadapter_8hpp_source.html#l00099">netadapter.hpp:99</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_a14c7e6fb9ea628f5fb898a662ddbd56d"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d">UPnPsdk::CNetadapter::get_first</a></div><div class="ttdeci">UPnPsdk_API void get_first()</div><div class="ttdoc">Load a list of network adapters from the operating system and select its first entry.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00207">netadapter.cpp:207</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_a5ef6468e173a77b387526b14f647791f"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f">UPnPsdk::CNetadapter::sockaddr</a></div><div class="ttdeci">UPnPsdk_API void sockaddr(SSockaddr &amp;a_saddr) const</div><div class="ttdoc">Get socket address from current selected list entry.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00215">netadapter.cpp:215</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_ad5a02099d143890e2e09dbe520fe43dd"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd">UPnPsdk::CNetadapter::find_first</a></div><div class="ttdeci">UPnPsdk_API bool find_first(std::string_view a_name_or_addr=&quot;&quot;)</div><div class="ttdoc">Find local network adapter with given name or ip address.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00234">netadapter.cpp:234</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_ad5a02099d143890e2e09dbe520fe43dd"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd">UPnPsdk::CNetadapter::find_first</a></div><div class="ttdeci">UPnPsdk_API bool find_first(std::string_view a_name_or_addr=&quot;&quot;)</div><div class="ttdoc">Find local network adapter with given name or ip address.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00257">netadapter.cpp:257</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CPthread__scoped__lock_html"><div class="ttname"><a href="../../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html">UPnPsdk::CPthread_scoped_lock</a></div><div class="ttdoc">Scoped POSIX thread mutex lock is valid for the current scope of the object.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d88/pthread_8hpp_source.html#l00103">pthread.hpp:103</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html">UPnPsdk::CSocketErr</a></div><div class="ttdoc">Class for portable handling of network socket errors.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00537">socket.hpp:537</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html_a91bdee1763e001634a3b49e7a346a603"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">UPnPsdk::CSocketErr::catch_error</a></div><div class="ttdeci">void catch_error()</div><div class="ttdoc">Catch error for later use.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00609">socket.cpp:609</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html_ac33bc7561a105383c0e9d951b3b5e3f6"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">UPnPsdk::CSocketErr::error_str</a></div><div class="ttdeci">std::string error_str() const</div><div class="ttdoc">Get human readable error description of the catched error.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00618">socket.cpp:618</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html_a91bdee1763e001634a3b49e7a346a603"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603">UPnPsdk::CSocketErr::catch_error</a></div><div class="ttdeci">void catch_error()</div><div class="ttdoc">Catch error for later use.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00611">socket.cpp:611</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocketErr_html_ac33bc7561a105383c0e9d951b3b5e3f6"><div class="ttname"><a href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6">UPnPsdk::CSocketErr::error_str</a></div><div class="ttdeci">std::string error_str() const</div><div class="ttdoc">Get human readable error description of the catched error.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00620">socket.cpp:620</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html">UPnPsdk::CSocket_basic</a></div><div class="ttdoc">Get information from a raw network socket file descriptor.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00129">socket.hpp:129</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html_a03d5f6960eee00a3d0a987df326aaf2b"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a03d5f6960eee00a3d0a987df326aaf2b">UPnPsdk::CSocket_basic::sockerr</a></div><div class="ttdeci">int sockerr() const</div><div class="ttdoc">Get the error that is given from the socket as option.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00358">socket.cpp:358</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html_a2899231a1217983bb210efe731a17343"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2899231a1217983bb210efe731a17343">UPnPsdk::CSocket_basic::CSocket_basic</a></div><div class="ttdeci">CSocket_basic()</div><div class="ttdoc">Default constructor for an empty basic socket object with invalid socket file descriptor.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00178">socket.cpp:178</a></div></div>
@@ -766,11 +768,11 @@ $(document).ready(function(){initNavTree('d8/d81/socket_8cpp_source.html','../..
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html_ac866a7e2ee68d5be6e62f997b26454a5"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac866a7e2ee68d5be6e62f997b26454a5">UPnPsdk::CSocket_basic::is_reuse_addr</a></div><div class="ttdeci">bool is_reuse_addr() const</div><div class="ttdoc">Get status if reusing address is enabled.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00379">socket.cpp:379</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html_ad041272f04b0147168ec8b89f179e39b"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad041272f04b0147168ec8b89f179e39b">UPnPsdk::CSocket_basic::socktype</a></div><div class="ttdeci">int socktype() const</div><div class="ttdoc">Get the socket type.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00337">socket.cpp:337</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket_html"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html">UPnPsdk::CSocket</a></div><div class="ttdoc">Manage all aspects of a network socket.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00320">socket.hpp:320</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a24742cd73c13af749201f468900a257b"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b">UPnPsdk::CSocket::listen</a></div><div class="ttdeci">void listen()</div><div class="ttdoc">Set socket to listen.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00552">socket.cpp:552</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a24742cd73c13af749201f468900a257b"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b">UPnPsdk::CSocket::listen</a></div><div class="ttdeci">void listen()</div><div class="ttdoc">Set socket to listen.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00554">socket.cpp:554</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a344fe194de361248e4add998b298a225"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a344fe194de361248e4add998b298a225">UPnPsdk::CSocket::CSocket</a></div><div class="ttdeci">CSocket()</div><div class="ttdoc">Default constructor for an empty socket object.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00404">socket.cpp:404</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a3e36fe7412352a07e45745ea47dd09ea"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea">UPnPsdk::CSocket::bind</a></div><div class="ttdeci">void bind(const int a_socktype, const SSockaddr *const a_saddr=nullptr, const int a_flags=0)</div><div class="ttdoc">Bind socket to an ip address of a local network adapter.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00464">socket.cpp:464</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a4bb9694b948c6da242089cd312fd7692"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a4bb9694b948c6da242089cd312fd7692">UPnPsdk::CSocket::~CSocket</a></div><div class="ttdeci">virtual ~CSocket()</div><div class="ttdoc">Destructor.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00429">socket.cpp:429</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a7498f381c33b05ae56887b413c0350bf"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7498f381c33b05ae56887b413c0350bf">UPnPsdk::CSocket::is_listen</a></div><div class="ttdeci">bool is_listen() const</div><div class="ttdoc">Get status if the socket is listen to incomming network packets.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00581">socket.cpp:581</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a7498f381c33b05ae56887b413c0350bf"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a7498f381c33b05ae56887b413c0350bf">UPnPsdk::CSocket::is_listen</a></div><div class="ttdeci">bool is_listen() const</div><div class="ttdoc">Get status if the socket is listen to incomming network packets.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00583">socket.cpp:583</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a92f286eecf18959304329a91622024d4"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a92f286eecf18959304329a91622024d4">UPnPsdk::CSocket::operator=</a></div><div class="ttdeci">CSocket &amp; operator=(CSocket)</div><div class="ttdoc">Assignment operator.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00419">socket.cpp:419</a></div></div>
 <div class="ttc" id="agroup__upnplib-socket_html_ga22b121617b4eb96c4b4548a814683dfc"><div class="ttname"><a href="../../db/d86/group__upnplib-socket.html#ga22b121617b4eb96c4b4548a814683dfc">UPnPsdk::anonymous_namespace{socket.cpp}::getsockname</a></div><div class="ttdeci">int getsockname(SOCKET a_sockfd, sockaddr *a_addr, socklen_t *a_addrlen)</div><div class="ttdoc">Wrapper for the ::getsockname() system function.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00037">socket.cpp:37</a></div></div>
 <div class="ttc" id="agroup__upnplib-socket_html_gaff979637c7cac7b0ef5df38ec5eae017"><div class="ttname"><a href="../../db/d86/group__upnplib-socket.html#gaff979637c7cac7b0ef5df38ec5eae017">UPnPsdk::anonymous_namespace{socket.cpp}::get_sockfd</a></div><div class="ttdeci">SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype)</div><div class="ttdoc">Get a socket file descriptor from the operating system.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00082">socket.cpp:82</a></div></div>

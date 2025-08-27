@@ -1,0 +1,26 @@
+<map id="anonymous_namespace{ssdp_device::cpp}::send_stateless" name="anonymous_namespace{ssdp_device::cpp}::send_stateless">
+<area shape="rect" id="Node000001" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="5,62,185,117"/>
+<area shape="rect" id="Node000002" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea" title="Bind socket to an ip address of a local network adapter." alt="" coords="233,223,408,249"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,115,290,213,287,218,137,119"/>
+<area shape="rect" id="Node000003" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="462,5,619,45"/>
+<area shape="poly" id="edge12_Node000001_Node000003" title=" " alt="" coords="185,74,448,36,449,41,186,79"/>
+<area shape="rect" id="Node000004" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="462,69,619,109"/>
+<area shape="poly" id="edge13_Node000001_Node000004" title=" " alt="" coords="186,87,448,87,448,92,186,92"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="326,222,372,145,410,97,454,55,462,50,465,54,458,59,414,101,377,148,331,225"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="334,221,385,176,455,126,477,113,480,118,457,130,388,181,337,225"/>
+<area shape="rect" id="Node000005" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="456,504,625,544"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="328,248,342,294,367,358,406,429,430,461,458,490,463,494,460,499,454,494,426,465,401,431,362,361,337,296,323,250"/>
+<area shape="rect" id="Node000010" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="673,316,843,356"/>
+<area shape="poly" id="edge10_Node000002_Node000010" title=" " alt="" coords="341,221,393,194,465,166,505,157,546,153,587,157,627,170,666,196,699,231,725,268,744,302,739,304,721,271,695,235,663,200,624,174,586,162,546,158,506,162,466,171,395,198,343,226"/>
+<area shape="rect" id="Node000011" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="465,184,616,224"/>
+<area shape="poly" id="edge6_Node000002_Node000011" title=" " alt="" coords="408,221,451,214,452,220,409,226"/>
+<area shape="rect" id="Node000013" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="456,248,625,288"/>
+<area shape="poly" id="edge7_Node000002_Node000013" title=" " alt="" coords="409,246,443,251,442,256,408,251"/>
+<area shape="rect" id="Node000014" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="463,312,618,352"/>
+<area shape="poly" id="edge8_Node000002_Node000014" title=" " alt="" coords="349,246,457,298,474,305,472,309,455,302,346,251"/>
+<area shape="rect" id="Node000016" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53" title="Get sizeof the current filled (sin6 or sin) Sockaddr Structure." alt="" coords="463,376,618,416"/>
+<area shape="poly" id="edge9_Node000002_Node000016" title=" " alt="" coords="334,247,384,302,419,333,457,362,467,368,465,372,455,366,416,338,380,305,331,251"/>
+<area shape="rect" id="Node000017" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598" title="Get cached error message." alt="" coords="465,440,616,480"/>
+<area shape="poly" id="edge11_Node000002_Node000017" title=" " alt="" coords="330,248,347,282,375,330,412,381,458,426,464,431,461,435,454,430,408,385,370,333,342,285,325,250"/>
+<area shape="poly" id="edge5_Node000005_Node000010" title=" " alt="" coords="603,502,624,490,658,461,689,428,735,366,739,369,693,432,662,465,627,494,606,506"/>
+</map>

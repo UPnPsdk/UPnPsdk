@@ -1,8 +1,7 @@
 var ssdp__device_8cpp =
 [
-    [ "send_stateless_ip6", "db/db9/ssdp__device_8cpp.html#adcb3da940e1ec8f806d27c365fc1ccbd", null ],
-    [ "send_stateless_ip4", "db/db9/ssdp__device_8cpp.html#a4380c79e3f11851ef9f4cabb16b44928", null ],
-    [ "NewRequestHandler", "db/db9/ssdp__device_8cpp.html#a1d48c12c5b3399b11bd17c4a2c388239", null ],
+    [ "send_stateless", "db/db9/ssdp__device_8cpp.html#a0b461f873d52467052adeb50067f7724", null ],
+    [ "NewRequestHandler", "db/db9/ssdp__device_8cpp.html#aa40b74aaef0112808e61640e0bad53cd", null ],
     [ "extractIPv6address", "db/db9/ssdp__device_8cpp.html#a544bef3ce1cf26739e5bc6b45bf608a7", null ],
     [ "isUrlV6UlaGua", "db/db9/ssdp__device_8cpp.html#ae2cc6174777121e77afc77748f9ae699", null ],
     [ "CreateServicePacket", "db/db9/ssdp__device_8cpp.html#aadadf0015deb15dbbefd082436ff5b75", null ],

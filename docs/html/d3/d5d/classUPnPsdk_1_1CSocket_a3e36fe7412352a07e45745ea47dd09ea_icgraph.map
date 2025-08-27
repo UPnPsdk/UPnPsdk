@@ -1,7 +1,11 @@
 <map id="UPnPsdk::CSocket::bind" name="UPnPsdk::CSocket::bind">
-<area shape="rect" id="Node000001" title="Bind socket to an ip address of a local network adapter." alt="" coords="404,20,579,45"/>
-<area shape="rect" id="Node000002" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="176,5,356,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="391,35,356,35,356,30,391,30"/>
-<area shape="rect" id="Node000003" href="$d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="5,20,128,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="162,35,128,35,128,30,162,30"/>
+<area shape="rect" id="Node000001" title="Bind socket to an ip address of a local network adapter." alt="" coords="461,60,636,85"/>
+<area shape="rect" id="Node000002" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="233,5,413,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="462,60,413,51,414,46,463,55"/>
+<area shape="rect" id="Node000006" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="233,84,413,139"/>
+<area shape="poly" id="edge3_Node000001_Node000006" title=" " alt="" coords="461,90,414,99,413,93,460,85"/>
+<area shape="rect" id="Node000003" href="$d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="34,20,157,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="219,35,157,35,157,30,219,30"/>
+<area shape="rect" id="Node000007" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa40b74aaef0112808e61640e0bad53cd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="5,84,185,139"/>
+<area shape="poly" id="edge4_Node000006_Node000007" title=" " alt="" coords="219,114,185,114,185,109,219,109"/>
 </map>

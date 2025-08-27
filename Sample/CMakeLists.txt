@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-06-29
+# Redistribution only with this Copyright remark. Last modified: 2025-08-27
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -13,9 +13,12 @@ project(SAMPLE VERSION 0011
 #    code    | with library  | build | mode
 # -----------+---------------+-------+-----------------------
 #    old     |     pupnp     |  yes  | verify
+#                                    | old code should run as expected
 #    old     |     compa     |  yes  | compatibility
+#                                    | old code must run with compatible library
 #    new     |     pupnp     |  no   | not supported
 #    new     |     compa     |  yes  | portability to UPnPsdk
+#                                    | transition to new object oriented SDK
 
 
 set(PUPNP_COMPILE_OPTIONS

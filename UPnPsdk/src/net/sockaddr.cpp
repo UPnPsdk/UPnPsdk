@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-18
+// Redistribution only with this Copyright remark. Last modified: 2025-09-03
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -313,7 +313,7 @@ void split_addr_port(const std::string& a_addr_str, std::string& a_addr,
         // Remove surounding brackets
         a_addr = addr_str.substr(1, addr_str.length() - 2);
     } else {
-        // Here I have exactly to look for an IPv6 mapped IPv4 address. I could
+        // Here I have exactly to look for an IPv4 mapped IPv6 address. I could
         // not find any general distinctions, I must use expensive regex. But I
         // do it here only when realy needed. Hints found at
         // REF: [Regular expression that matches valid IPv6 addresses]

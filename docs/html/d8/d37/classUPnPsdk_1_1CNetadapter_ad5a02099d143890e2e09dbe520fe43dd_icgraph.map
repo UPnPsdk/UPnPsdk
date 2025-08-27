@@ -1,12 +1,14 @@
 <map id="UPnPsdk::CNetadapter::find_first" name="UPnPsdk::CNetadapter::find_first">
-<area shape="rect" id="Node000001" title="Find local network adapter with given name or ip address." alt="" coords="501,54,671,94"/>
-<area shape="rect" id="Node000002" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea" title="Bind socket to an ip address of a local network adapter." alt="" coords="256,20,431,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="487,60,418,48,419,43,488,55"/>
-<area shape="rect" id="Node000007" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a3a7f1be4bdd896cc27cfe5863237db11" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="233,94,453,134"/>
-<area shape="poly" id="edge3_Node000001_Node000007" title=" " alt="" coords="488,93,454,98,453,93,487,88"/>
+<area shape="rect" id="Node000001" title="Find local network adapter with given name or ip address." alt="" coords="501,123,671,163"/>
+<area shape="rect" id="Node000002" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea" title="Bind socket to an ip address of a local network adapter." alt="" coords="256,89,431,115"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="487,129,418,117,419,112,488,124"/>
+<area shape="rect" id="Node000031" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a3a7f1be4bdd896cc27cfe5863237db11" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="233,163,453,203"/>
+<area shape="poly" id="edge4_Node000001_Node000031" title=" " alt="" coords="488,162,454,168,453,163,487,157"/>
 <area shape="rect" id="Node000003" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="5,5,185,60"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="242,35,186,35,186,30,242,30"/>
-<area shape="poly" id="edge4_Node000007_Node000007" title=" " alt="" coords="385,82,370,75,343,73,320,75,306,79,301,85,303,93,298,94,295,84,303,75,319,69,343,67,372,70,387,77"/>
-<area shape="rect" id="Node000006" href="$d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="53,101,138,127"/>
-<area shape="poly" id="edge5_Node000007_Node000006" title=" " alt="" coords="220,117,139,117,139,111,220,111"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="283,88,185,60,186,55,285,83"/>
+<area shape="rect" id="Node000007" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="5,84,185,139"/>
+<area shape="poly" id="edge3_Node000002_Node000007" title=" " alt="" coords="242,108,186,111,185,105,242,103"/>
+<area shape="poly" id="edge5_Node000031_Node000031" title=" " alt="" coords="385,152,370,145,343,142,320,144,306,149,301,155,303,162,298,164,295,154,303,144,319,139,343,137,372,140,387,147"/>
+<area shape="rect" id="Node000006" href="$d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="53,171,138,196"/>
+<area shape="poly" id="edge6_Node000031_Node000006" title=" " alt="" coords="220,186,139,186,139,181,220,181"/>
 </map>

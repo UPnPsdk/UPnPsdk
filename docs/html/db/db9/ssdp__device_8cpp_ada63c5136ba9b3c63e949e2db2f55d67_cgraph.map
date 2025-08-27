@@ -1,9 +1,9 @@
 <map id="SendReply" name="SendReply">
-<area shape="rect" id="Node000001" title="Creates the reply packet and send it to the Control Point addesss." alt="" coords="5,260,96,285"/>
+<area shape="rect" id="Node000001" title="Creates the reply packet and send it to the Control Point addesss." alt="" coords="5,228,96,253"/>
 <area shape="rect" id="Node000002" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="144,149,324,204"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,258,168,208,170,213,77,262"/>
-<area shape="rect" id="Node000030" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="144,309,324,364"/>
-<area shape="poly" id="edge10_Node000001_Node000030" title=" " alt="" coords="89,283,143,302,142,307,87,288"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,225,142,206,143,211,89,230"/>
+<area shape="rect" id="Node000030" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa40b74aaef0112808e61640e0bad53cd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="144,252,324,307"/>
+<area shape="poly" id="edge10_Node000001_Node000030" title=" " alt="" coords="97,248,131,255,130,260,96,253"/>
 <area shape="rect" id="Node000003" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="388,29,536,55"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="264,147,313,109,371,72,403,57,406,62,373,76,316,113,268,151"/>
 <area shape="rect" id="Node000015" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="600,80,751,105"/>
@@ -17,8 +17,6 @@
 <area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="427,31,420,21,423,11,438,5,462,3,492,6,503,15,500,20,490,11,462,8,439,10,427,15,425,20,431,28"/>
 <area shape="poly" id="edge4_Node000003_Node000015" title=" " alt="" coords="517,52,609,74,607,79,516,57"/>
 <area shape="poly" id="edge5_Node000015_Node000016" title=" " alt="" coords="751,100,786,105,785,110,750,106"/>
-<area shape="rect" id="Node000031" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="372,309,552,364"/>
-<area shape="poly" id="edge11_Node000030_Node000031" title=" " alt="" coords="324,334,358,334,358,339,324,339"/>
-<area shape="rect" id="Node000034" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="372,388,552,443"/>
-<area shape="poly" id="edge12_Node000030_Node000034" title=" " alt="" coords="315,362,370,381,368,386,313,367"/>
+<area shape="rect" id="Node000031" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="372,309,552,364"/>
+<area shape="poly" id="edge11_Node000030_Node000031" title=" " alt="" coords="325,299,360,308,358,313,324,305"/>
 </map>

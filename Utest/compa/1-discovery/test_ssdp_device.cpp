@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-23
+// Redistribution only with this Copyright remark. Last modified: 2025-08-31
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -282,7 +282,7 @@ TEST_P(SendStatelessTest, send_stateless) {
 //   other system errors).
 //
 // Common Recommendation for all:
-//  It is that for MacOs. With its most restrictions it is the the lowest common
+//  It is that for MacOs. With its most restrictions it is the lowest common
 //  denominator.
 //
 // clang-format off
@@ -295,10 +295,10 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[::1]:1900", Idx::lo6, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[::1]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[::1]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("127.0.0.1", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("127.0.0.1", Idx::lo4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("127.0.0.1:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("127.0.0.1:1900", Idx::lo4, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::lo6, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     /*10*/ std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
     std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
     std::make_tuple("[2001:db8:2747::c021]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
@@ -319,14 +319,14 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[ff01::c]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[ff01::c]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
 
-    std::make_tuple("10.178.1.2", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("10.178.1.2", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    /*30*/ std::make_tuple("10.178.1.2:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("10.178.1.2:1900", Idx::ip4, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("239.132.38.179", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("239.132.38.179", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("239.132.38.179:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("239.132.38.179:1900", Idx::ip4, UPNP_E_SUCCESS, UPNP_E_SUCCESS)
+    std::make_tuple("[::ffff:10.178.1.2]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:10.178.1.2]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
+    /*30*/ std::make_tuple("[::ffff:10.178.1.2]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:10.178.1.2]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:239.132.38.179]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:239.132.38.179]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS)
 ));
 #endif
 #ifdef __APPLE__
@@ -338,10 +338,10 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[::1]:1900", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
     std::make_tuple("[::1]:1900", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
     std::make_tuple("[::1]:1900", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS),
-    std::make_tuple("127.0.0.1", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("127.0.0.1", Idx::lo4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("127.0.0.1:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("127.0.0.1:1900", Idx::lo4, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size
+    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size
     /*10*/ std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
     std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
     std::make_tuple("[2001:db8:2747::c021]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
@@ -362,14 +362,14 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[ff01::c]:1900", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
     std::make_tuple("[ff01::c]:1900", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
 
-    std::make_tuple("10.178.1.2", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("10.178.1.2", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    /*30*/ std::make_tuple("10.178.1.2:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("10.178.1.2:1900", Idx::ip4, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("239.132.38.179", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("239.132.38.179", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("239.132.38.179:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("239.132.38.179:1900", Idx::ip4, UPNP_E_SUCCESS, UPNP_E_SUCCESS)
+    std::make_tuple("[::ffff:10.178.1.2]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:10.178.1.2]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
+    /*30*/ std::make_tuple("[::ffff:10.178.1.2]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size
+    std::make_tuple("[::ffff:10.178.1.2]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:239.132.38.179]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:239.132.38.179]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size
+    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS)
 ));
 #endif
 #ifdef _MSC_VER
@@ -383,11 +383,11 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[::1]:1900", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
     std::make_tuple("[::1]:1900", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
     std::make_tuple("[::1]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Curiously the loopback interface is accepted as gua
-    std::make_tuple("127.0.0.1", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("127.0.0.1", Idx::lo4, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("127.0.0.1:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("127.0.0.1:1900", Idx::lo4, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    /*10*/ std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    /*10*/ std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
     std::make_tuple("[2001:db8:2747::c021]", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[2001:db8:2747::c021]", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // with  wrong scope_id is not accepted
@@ -395,9 +395,9 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[2001:db8:2747::c021]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[fe80::20c:fe7f:c021]", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[fe80::20c:fe7f:c021]", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    /*20*/ std::make_tuple("[fe80::20c:fe7f:c021]", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    /*20*/ std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     // Multicast interface-local
     std::make_tuple("[ff01::c]", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
@@ -407,14 +407,18 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[ff01::c]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[ff01::c]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
 
-    std::make_tuple("10.178.1.2", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("10.178.1.2", Idx::ip4, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    /*30*/ std::make_tuple("10.178.1.2:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("10.178.1.2:1900", Idx::ip4, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("239.132.38.179", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("239.132.38.179", Idx::ip4, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("239.132.38.179:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("239.132.38.179:1900", Idx::ip4, UPNP_E_SUCCESS, UPNP_E_SUCCESS)
+    /*30*/ std::make_tuple("[::ffff:10.178.1.1]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.2]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.3]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.4]", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.5]:1900", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.6]:1900", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.7]:1900", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.8]:1900", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:239.132.38.179]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:239.132.38.179]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    /*40*/ std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE) // old code doesn't support IPv4 mapped IPv6
 ));
 #endif
 // clang-format on
@@ -548,7 +552,7 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_no_messages_addressed_fails) {
             << errStrEx(ret_NewRequestHandler, UPNP_E_INVALID_PARAM);
 
         gIF_INDEX = ~0u;
-        destaddr = "239.255.255.250:1900";
+        destaddr = "[::ffff:239.255.255.250]:1900";
 
         ASSERT_EXIT(
             (::NewRequestHandler(&destaddr.sa, num_msg, nullptr), exit(0)),
@@ -636,7 +640,7 @@ TEST_F(SsdpDeviceFTestSuite,
     char* msgs[num_msg]{msg1};
 
     SSockaddr destaddr_ip4;
-    destaddr_ip4 = "10.178.1.2:1900";
+    destaddr_ip4 = "[::ffff:10.178.1.2]:1900";
 
     // strcpy(gIF_IPV4, "0.0.0.0"); // Not initialized.
 

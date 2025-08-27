@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-07-25
+// Redistribution only with this Copyright remark. Last modified: 2025-08-30
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -79,7 +79,12 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
 
     // Check results
     EXPECT_STREQ(gIF_NAME, "if0v4");
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     EXPECT_STREQ(gIF_IPV4, "192.168.99.3");
+#else
+    EXPECT_STREQ(gIF_IPV4, ""); // Not supported on new code
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "::ffff:192.168.99.3");
+#endif
 
     if (old_code) {
         EXPECT_STREQ(gIF_IPV4_NETMASK, "255.224.0.0");
@@ -87,16 +92,18 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
                   << ": gIF_IPV6 must not be set to any floating ip address "
                      "when IPv6 is disabled.\n";
         EXPECT_STRNE(gIF_IPV6, "");
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0u);
 
-    } else if (!github_actions) {
+    } else {
 
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "255.224.0.0");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, ""); // Not supported on new code
         EXPECT_STREQ(gIF_IPV6, "");
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "::ffff:192.168.99.3");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 11u);
     }
 
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0U);
-    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0U);
     EXPECT_EQ(gIF_INDEX, 2U);
     EXPECT_EQ(LOCAL_PORT_V4, (unsigned short)0);
     EXPECT_EQ(LOCAL_PORT_V6, (unsigned short)0);
@@ -178,10 +185,16 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
         }
     }
 
-    EXPECT_STREQ(gIF_IPV4, "192.168.77.48"); // OK
-    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0U);
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    EXPECT_STREQ(gIF_IPV4, "192.168.77.48");
     EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0U);
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0u);
+#else
+    EXPECT_STREQ(gIF_IPV4, ""); // Not supported on new code
+    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "::ffff:192.168.77.48");
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 22u);
+#endif
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0U);
     EXPECT_EQ(gIF_INDEX, 2U);
     EXPECT_EQ(LOCAL_PORT_V4, (unsigned short)0);
     EXPECT_EQ(LOCAL_PORT_V6, (unsigned short)0);

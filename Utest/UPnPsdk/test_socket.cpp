@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-23
+// Redistribution only with this Copyright remark. Last modified: 2025-08-31
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -317,7 +317,8 @@ TEST(SocketTestSuite, instantiate_unbind_socket) {
 }
 
 TEST(SocketBasicTestSuite, instantiate_with_bound_raw_socket_fd) {
-    saddr = "127.0.0.1:50002";
+    // saddr = "127.0.0.1:50002";
+    saddr = "[::1]:50002";
     CSocket bound_sockObj;
     // Default IPV6_V6ONLY setting is different on different platforms but
     // doesn't matter. It will be reset before binding a socket address.
@@ -465,52 +466,56 @@ TEST(SocketTestSuite, bind_ipv6only) {
     // platforms after binding the socket fd to an ip address with no useful
     // common meaning.
     //
-    // This SDK uses IPv6 mapped IPv4 addresses and it always reset option
-    // IPV6_V6ONLY when getting a socket from the operating system to have the
-    // same situation on all platforms for listening.
+    // This SDK uses IPv4 mapped IPv6 addresses and intern does not support
+    // IPv4 addresses. So it must always reset option IPV6_V6ONLY when getting
+    // a socket from the operating system.
     // REF: [How to support both IPv4 and IPv6 connections]
     // (https://stackoverflow.com/a/1618259/5014688)
 
     // "any" IPv6 address, unspec. address will accept resetting IPV6_V6ONLY.
     saddr = "[::]:50001";
     CSocket sock1Obj;
-    ASSERT_NO_THROW(sock1Obj.bind(SOCK_STREAM, &saddr));
+    EXPECT_NO_THROW(sock1Obj.bind(SOCK_STREAM, &saddr));
     EXPECT_TRUE(sock1Obj.local_saddr());
     EXPECT_FALSE(is_v6only(sock1Obj)); // resetted
 
     // Unicast IPv6 address.
     saddr = "[::1]:50002";
     CSocket sock2Obj;
-    ASSERT_NO_THROW(sock2Obj.bind(SOCK_STREAM, &saddr));
+    EXPECT_NO_THROW(sock2Obj.bind(SOCK_STREAM, &saddr));
     EXPECT_TRUE(sock2Obj.local_saddr());
 #ifdef __unix__
+    // Seems ipv6only is always set with an unicast address and cannot be reset,
+    // but without error.
     EXPECT_TRUE(is_v6only(sock2Obj)); // Not resetted
 #else
     EXPECT_FALSE(is_v6only(sock2Obj));
 #endif
 
-    // "any" IPv4 address, fails with exception.
+    // "any" IPv4 address, will normaly fail because an IPv4 socket cannot
+    // specified tu use ipv6only. but the IPv4 address is mapped to IPv6, so
+    // setting IPv6only is accepted.
     saddr = "0.0.0.0:50003";
     CSocket sock3Obj;
-    ASSERT_NO_THROW(sock3Obj.bind(SOCK_STREAM, &saddr));
+    EXPECT_NO_THROW(sock3Obj.bind(SOCK_STREAM, &saddr));
     EXPECT_TRUE(sock3Obj.local_saddr());
 #ifdef _WIN32
-    EXPECT_TRUE(is_v6only(sock3Obj)); // Not resetted
+    EXPECT_FALSE(is_v6only(sock3Obj));
 #else
-    // "Operation not supported".
-    EXPECT_THROW(is_v6only(sock3Obj), std::runtime_error);
+    EXPECT_FALSE(is_v6only(sock3Obj));
 #endif
 
-    // Unicast IPv4 address, fails with exception.
+    // Unicast IPv4 address, will normaly fail because an IPv4 socket cannot
+    // specified tu use ipv6only. but the IPv4 address is mapped to IPv6, so
+    // setting IPv6only is accepted.
     saddr = "127.0.0.1:50004";
     CSocket sock4Obj;
-    ASSERT_NO_THROW(sock4Obj.bind(SOCK_STREAM, &saddr));
+    EXPECT_NO_THROW(sock4Obj.bind(SOCK_STREAM, &saddr));
     EXPECT_TRUE(sock4Obj.local_saddr());
 #ifdef _WIN32
-    EXPECT_TRUE(is_v6only(sock4Obj)); // Not resetted
+    EXPECT_FALSE(is_v6only(sock4Obj));
 #else
-    // "Operation not supported".
-    EXPECT_THROW(is_v6only(sock4Obj), std::runtime_error);
+    EXPECT_FALSE(is_v6only(sock4Obj));
 #endif
 }
 
@@ -560,14 +565,13 @@ TEST(SocketTestSuite, bind_ipv6_rapid_same_port_two_times) {
 TEST(SocketTestSuite, bind_ipv4_successful) {
     saddr = "127.0.0.1:50002";
     CSocket sockObj;
-    ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM, &saddr));
-    EXPECT_TRUE(sockObj.local_saddr());
+    EXPECT_NO_THROW(sockObj.bind(SOCK_DGRAM, &saddr));
 
     // Compare bound ip address from socket with given ip address.
     SSockaddr sa_sockObj;
-    sockObj.local_saddr(&sa_sockObj);
-    EXPECT_TRUE(sa_sockObj == saddr);
-
+    EXPECT_TRUE(sockObj.local_saddr(&sa_sockObj));
+    EXPECT_EQ(sa_sockObj.netaddrp(), "[::ffff:127.0.0.1]:50002");
+    EXPECT_FALSE(is_v6only(sockObj));
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());

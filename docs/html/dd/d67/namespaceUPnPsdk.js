@@ -1,5 +1,8 @@
 var namespaceUPnPsdk =
 [
+    [ "anonymous_namespace{addrinfo.cpp}", "d4/d95/namespaceUPnPsdk_1_1anonymous__namespace_02addrinfo_8cpp_03.html", [
+      [ "getaddrinfo", "d4/d95/namespaceUPnPsdk_1_1anonymous__namespace_02addrinfo_8cpp_03.html#a220185e95c7fc356bf8fd7cb8c3d73dc", null ]
+    ] ],
     [ "anonymous_namespace{global.cpp}", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03.html", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03" ],
     [ "anonymous_namespace{sockaddr.cpp}", "d7/d77/namespaceUPnPsdk_1_1anonymous__namespace_02sockaddr_8cpp_03.html", [
       [ "sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ],

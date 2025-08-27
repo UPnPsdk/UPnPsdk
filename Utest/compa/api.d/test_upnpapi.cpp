@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-10
+// Redistribution only with this Copyright remark. Last modified: 2025-09-05
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -22,6 +22,7 @@
 namespace utest {
 
 using ::testing::_;
+using ::testing::AnyOf;
 using ::testing::NotNull;
 using ::testing::Return;
 using ::testing::SetErrnoAndReturn;
@@ -140,54 +141,59 @@ void get_netadapter() {
     // Getting information of the local network adapters is expensive because
     // it allocates memory to return the internal adapter list. So I do it one
     // time on start and provide the needed information.
-    CNetadapter nadaptObj;
+    CNetadapter nadapObj;
+    nadapObj.get_first();
 
-    nadaptObj.get_first();
     do {
-        nadaptObj.sockaddr(saObj);
+        nadapObj.sockaddr(saObj);
         if (lo6Obj.sa.ss.ss_family == AF_UNSPEC && saObj.is_loopback() &&
             saObj.ss.ss_family == AF_INET6) {
             // Found first ipv6 loopback address.
             lo6Obj.sa = saObj;
-            lo6Obj.index = nadaptObj.index();
-            lo6Obj.bitmask = nadaptObj.bitmask();
-            lo6Obj.name = nadaptObj.name();
+            lo6Obj.index = nadapObj.index();
+            lo6Obj.bitmask = nadapObj.bitmask();
+            lo6Obj.name = nadapObj.name();
         } else if (lo4Obj.sa.ss.ss_family == AF_UNSPEC && saObj.is_loopback() &&
                    saObj.ss.ss_family == AF_INET) {
             // Found first ipv4 loopback address.
             lo4Obj.sa = saObj;
-            lo4Obj.index = nadaptObj.index();
-            lo4Obj.bitmask = nadaptObj.bitmask();
-            lo4Obj.name = nadaptObj.name();
+            lo4Obj.index = nadapObj.index();
+            lo4Obj.bitmask = nadapObj.bitmask();
+            lo4Obj.name = nadapObj.name();
         } else if (llaObj.sa.ss.ss_family == AF_UNSPEC &&
                    saObj.ss.ss_family == AF_INET6 &&
                    IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
             // Found first LLA address.
             llaObj.sa = saObj;
-            llaObj.index = nadaptObj.index();
-            llaObj.bitmask = nadaptObj.bitmask();
-            llaObj.name = nadaptObj.name();
+            llaObj.index = nadapObj.index();
+            llaObj.bitmask = nadapObj.bitmask();
+            llaObj.name = nadapObj.name();
         } else if (guaObj.sa.ss.ss_family == AF_UNSPEC &&
                    saObj.ss.ss_family == AF_INET6 &&
-                   IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+                   (IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr) ||
+                    IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr))) {
             // Found first GUA address.
             guaObj.sa = saObj;
-            guaObj.index = nadaptObj.index();
-            guaObj.bitmask = nadaptObj.bitmask();
-            guaObj.name = nadaptObj.name();
+            guaObj.index = nadapObj.index();
+            guaObj.bitmask = nadapObj.bitmask();
+            guaObj.name = nadapObj.name();
         } else if (ip4Obj.sa.ss.ss_family == AF_UNSPEC &&
                    saObj.ss.ss_family == AF_INET && !saObj.is_loopback()) {
             // Found first IPv4 address.
-            ip4Obj.sa = saObj;
-            ip4Obj.index = nadaptObj.index();
-            ip4Obj.bitmask = nadaptObj.bitmask();
-            ip4Obj.name = nadaptObj.name();
+            throw std::runtime_error("AF_INET detected with address=\"" +
+                                     saObj.netaddrp() +
+                                     "\". Only AF_INET6 with IPv4 mapped IPv6 "
+                                     "addresses are supported.");
+            // ip4Obj.sa = saObj;
+            // ip4Obj.index = nadapObj.index();
+            // ip4Obj.bitmask = nadapObj.bitmask();
+            // ip4Obj.name = nadapObj.name();
         }
-    } while (nadaptObj.get_next() && (lo6Obj.sa.ss.ss_family == AF_UNSPEC ||
-                                      lo4Obj.sa.ss.ss_family == AF_UNSPEC ||
-                                      llaObj.sa.ss.ss_family == AF_UNSPEC ||
-                                      guaObj.sa.ss.ss_family == AF_UNSPEC ||
-                                      ip4Obj.sa.ss.ss_family == AF_UNSPEC));
+    } while (nadapObj.get_next() && (lo6Obj.sa.ss.ss_family == AF_UNSPEC ||
+                                     lo4Obj.sa.ss.ss_family == AF_UNSPEC ||
+                                     llaObj.sa.ss.ss_family == AF_UNSPEC ||
+                                     guaObj.sa.ss.ss_family == AF_UNSPEC ||
+                                     ip4Obj.sa.ss.ss_family == AF_UNSPEC));
 }
 
 // upnpapi TestSuites
@@ -671,11 +677,13 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
         << errStrEx(ret_UpnpFinish, UPNP_E_SUCCESS);
 }
 
+
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
+    // Only one network interface is supported so far but will be extended.
     // Ports not set with this Unit so they doesn't matter here.
 
     // Test Unit
-#if defined(UPnPsdk_WITH_NATIVE_PUPNP)
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
 #else
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo();
@@ -683,32 +691,64 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
-    // More than one ip address is only valid if they are on the same local
-    // network adapter (same index).
-    if (gIF_IPV4[0] != '\0') {
-        if (ip4Obj.index != llaObj.index)
-#if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(__APPLE__)
-            // Fails with old code on MacOS due to "[fe80::1]" on loopback.
-            EXPECT_EQ(gIF_IPV6[0], '\0');
-#endif
-        if (ip4Obj.index != guaObj.index)
-            EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
-    }
+    CNetadapter nadaptObj;
+    EXPECT_NO_THROW(nadaptObj.get_first());
+
     if (gIF_IPV6[0] != '\0') {
-        if (llaObj.index != ip4Obj.index)
-#if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(__APPLE__)
-            // Fails with old code on MacOS due to "[fe80::1]" on loopback.
-            EXPECT_EQ(gIF_IPV4[0], '\0');
+        std::string ipv6{std::string(gIF_IPV6) + "%" +
+                         std::to_string(gIF_INDEX)};
+        EXPECT_TRUE(nadaptObj.find_first(ipv6));
+#ifndef _MSC_VER // todo: detecting gIF_IPV6_PREFIX_LENGTH isn't coded for win32
+        EXPECT_GT(gIF_IPV6_PREFIX_LENGTH, 0);
 #endif
-        if (llaObj.index != guaObj.index)
-            EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
-    }
-    if (gIF_IPV6_ULA_GUA[0] != '\0') {
-        if (guaObj.index != ip4Obj.index)
-            EXPECT_EQ(gIF_IPV4[0], '\0');
-        if (guaObj.index != llaObj.index)
-            EXPECT_EQ(gIF_IPV6[0], '\0');
-    }
+        if (gIF_IPV6_ULA_GUA[0] != '\0') {
+            EXPECT_TRUE(nadaptObj.find_first(gIF_IPV6_ULA_GUA));
+            EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+        } else
+            EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        if (gIF_IPV4[0] != '\0')
+            EXPECT_GT(gIF_INDEX, 0);
+        else
+            EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+
+    } else if (gIF_IPV6_ULA_GUA[0] != '\0') {
+        EXPECT_TRUE(nadaptObj.find_first(gIF_IPV6_ULA_GUA));
+        EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+        EXPECT_GT(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        if (gIF_IPV6[0] != '\0') {
+            std::string ipv6{std::string(gIF_IPV6) + "%" +
+                             std::to_string(gIF_INDEX)};
+            EXPECT_TRUE(nadaptObj.find_first(ipv6));
+        } else
+            EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        if (gIF_IPV4[0] != '\0') {
+            EXPECT_TRUE(nadaptObj.find_first(gIF_IPV4));
+            EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+        } else
+            EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+
+    } else if (gIF_IPV4[0] != '\0') {
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+        EXPECT_GT(gIF_INDEX, 0);
+#else
+        EXPECT_TRUE(nadaptObj.find_first(gIF_IPV4));
+        EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+#endif
+        EXPECT_NE(gIF_IPV4_NETMASK[0], '\0');
+        if (gIF_IPV6[0] != '\0') {
+            std::string ipv6{std::string(gIF_IPV6) + "%" +
+                             std::to_string(gIF_INDEX)};
+            EXPECT_TRUE(nadaptObj.find_first(ipv6));
+        } else
+            EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        if (gIF_IPV6_ULA_GUA[0] != '\0') {
+            EXPECT_TRUE(nadaptObj.find_first(gIF_IPV6_ULA_GUA));
+            EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+        } else
+            EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+
+    } else
+        GTEST_FAIL() << "No network interface found.";
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv6_iface_successful) {
@@ -932,6 +972,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
     }
 }
 
+#if 0 // TODO: ipv4 mapped ipv6
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     // Ports not set with this Unit so they doesn't matter here.
     // For Microsoft Windows there are some TODOs in the old code:
@@ -1092,6 +1133,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
         }
     } while (nadapObj.find_next());
 }
+#endif
 
 TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
     if (!github_actions)

@@ -1,11 +1,13 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-20
+// Redistribution only with this Copyright remark. Last modified: 2025-09-05
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Recreate function for sending SSDP multicast messages (is now NewRequestHandler()).
+ * - Use pthread_rwlock_* instead of pthread_lock and family.
+ * - Make CAddrinfo thread safe.
+ * - Rework Unit Tests in Utest/compa/api.d/test_upnpapi_win32.cpp.
  * - Implement API of the SDK.
      - Check installation of binaries and header files in /usr/local.
      - Add ixml interface calls to api_calls.c.
@@ -103,4 +105,9 @@ D:\a\UPnPsdk\UPnPsdk\Utest\compa\api.d\test_upnpapi.cpp(1200): error: Expected e
     Which is: 61234
   0
 [  FAILED  ] UpnpapiFTestSuite.UpnpInit2_ipv6_loopback_address (3 ms)
+
+Test w/ VS (Debug, windows-2025
+25/58 Test #25: ctest_ssdp_device-cst ............***Failed    0.11 sec
+unknown file: error: SEH exception with code 0xc0000005 thrown in the test body.
+[  FAILED  ] SsdpDeviceFDeathTest.NewRequestHandler_send_no_message_succeeds (0 ms)
 /// \endcond

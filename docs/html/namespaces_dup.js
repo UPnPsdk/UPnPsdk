@@ -110,9 +110,8 @@ var namespaces_dup =
       [ "searchExpired", "df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#af95b19cf8e8c70715878336869d721e0", null ]
     ] ],
     [ "anonymous_namespace{ssdp_device.cpp}", "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html", [
-      [ "send_stateless_ip6", "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#adcb3da940e1ec8f806d27c365fc1ccbd", null ],
-      [ "send_stateless_ip4", "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a4380c79e3f11851ef9f4cabb16b44928", null ],
-      [ "NewRequestHandler", "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a1d48c12c5b3399b11bd17c4a2c388239", null ],
+      [ "send_stateless", "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724", null ],
+      [ "NewRequestHandler", "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa40b74aaef0112808e61640e0bad53cd", null ],
       [ "extractIPv6address", "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a544bef3ce1cf26739e5bc6b45bf608a7", null ],
       [ "isUrlV6UlaGua", "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699", null ],
       [ "CreateServicePacket", "d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75", null ],
