@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-16
+// Redistribution only with this Copyright remark. Last modified: 2025-08-28
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -213,7 +213,30 @@ unsigned int CNetadapter::index() const { return m_na_platformPtr->index(); }
 std::string CNetadapter::name() const { return m_na_platformPtr->name(); }
 
 void CNetadapter::sockaddr(SSockaddr& a_saddr) const {
-    m_na_platformPtr->sockaddr(a_saddr);
+    SSockaddr saddr;
+    m_na_platformPtr->sockaddr(saddr);
+
+    // If there is an IPv4 address but no loopback address then map it to IPv6.
+    if (saddr.ss.ss_family == AF_INET &&
+        // address between "127.0.0.0" and "127.255.255.255"
+        !(ntohl(saddr.sin.sin_addr.s_addr) >= 2130706432 &&
+          ntohl(saddr.sin.sin_addr.s_addr) <= 2147483647)) {
+
+        // We will get something like "[::ffff:192.168.1.2]:49494".
+        SSockaddr saddr4to6;
+        saddr4to6.sin6.sin6_family = AF_INET6;
+        saddr4to6.sin6.sin6_port = saddr.sin.sin_port;
+        in6_addr& sa6{saddr4to6.sin6.sin6_addr};
+        sa6.s6_addr[10] = 0xff; // prefix id for ipv4 mapping.
+        sa6.s6_addr[11] = 0xff; //          ./.
+        // Copy ipv4 addr into ipv6 addr behind prefix.
+        ::memcpy(&sa6.s6_addr[12], &saddr.sin.sin_addr,
+                 sizeof(saddr.sin.sin_addr));
+
+        a_saddr = saddr4to6;
+    } else {
+        a_saddr = saddr;
+    }
 }
 
 void CNetadapter::socknetmask(SSockaddr& a_snetmask) const {

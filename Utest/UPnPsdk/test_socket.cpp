@@ -638,7 +638,6 @@ TEST(SocketTestSuite, bind_only_service_passive_successful) {
     EXPECT_FALSE(sockObj.is_listen());
 }
 
-#if 0 // TODO: ipv4 mapped ipv6
 TEST(SocketTestSuite, bind_default_not_passive_successful) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM));
@@ -670,7 +669,6 @@ TEST(SocketTestSuite, bind_without_node_not_passive_successful) {
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());
 }
-#endif
 
 TEST(SocketTestSuite, bind_only_service_not_passive_successful) {
     saddr = "";
@@ -769,7 +767,6 @@ TEST_F(SocketMockFTestSuite, bind_ipv6_lla_successful) {
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
 }
 
-#if 0 // TODO: ipv4 mapped ipv6
 TEST_F(SocketMockFTestSuite, bind_fails_to_get_socket) {
     // Mock to get an invalid socket id
     EXPECT_CALL(m_sys_socketObj,
@@ -811,7 +808,6 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_option_reuseaddr) {
                 ThrowsMessage<std::runtime_error>(
                     HasSubstr("UPnPsdk MSG1018 EXCEPT[")));
 }
-#endif
 
 TEST_F(SocketMockFTestSuite, bind_fails_to_set_ipv6_only) {
     // sfd is given to the Unit and it will close it.
@@ -1152,7 +1148,6 @@ TEST(SocketTestSuite, listen_on_passive_bound_socket_successful) {
     EXPECT_TRUE(sockObj.is_listen());
 }
 
-#if 0 // TODO: ipv4 mapped ipv6
 TEST(SocketTestSuite, listen_on_single_address_active_bound_socket_successful) {
     // Test Unit
     CSocket sockObj;
@@ -1160,7 +1155,6 @@ TEST(SocketTestSuite, listen_on_single_address_active_bound_socket_successful) {
     ASSERT_NO_THROW(sockObj.listen());
     EXPECT_TRUE(sockObj.is_listen());
 }
-#endif
 
 TEST(SocketTestSuite, listen_to_same_address_multiple_times_successful) {
     // Listen on the same address again of a valid socket is possible and should
@@ -1184,7 +1178,6 @@ TEST(SocketTestSuite, listen_on_datagram_socket_fails) {
                     HasSubstr("UPnPsdk MSG1034 EXCEPT[")));
 }
 
-#if 0 // TODO: ipv4 mapped ipv6
 TEST_F(SocketMockFTestSuite, listen_fails) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM));
@@ -1202,7 +1195,6 @@ TEST_F(SocketMockFTestSuite, listen_fails) {
                 ThrowsMessage<std::runtime_error>(
                     HasSubstr("UPnPsdk MSG1034 EXCEPT[")));
 }
-#endif
 
 
 // Socket remote_saddr()

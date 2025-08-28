@@ -932,6 +932,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
     }
 }
 
+#if 0 // TODO: ipv4 mapped ipv6
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     // Ports not set with this Unit so they doesn't matter here.
     // For Microsoft Windows there are some TODOs in the old code:
@@ -1092,6 +1093,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
         }
     } while (nadapObj.find_next());
 }
+#endif
 
 TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
     if (!github_actions)

@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-19
+// Redistribution only with this Copyright remark. Last modified: 2025-08-28
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -495,6 +495,8 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
                                                  "to use \"loopback\".\n");
             nadapObj.sockaddr(saddr);
         }
+        // Here is AI_PASSIVE given, and saddr unspecified. That gives the
+        // loopback address.
 
     } else {
         saddr = *a_saddr;
