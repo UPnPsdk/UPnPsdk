@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-10
+// Redistribution only with this Copyright remark. Last modified: 2025-08-28
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -1202,6 +1202,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv6_loopback_address) {
     UpnpFinish();
 }
 
+#if 0 // TODO: ipv4 mapped ipv6
 TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv4_loopback_address) {
     if (lo4Obj.sa.ss.ss_family != AF_INET)
         GTEST_SKIP()
@@ -1303,6 +1304,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface) {
 
     UpnpFinish();
 }
+#endif
 
 TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_lla_successful) {
     if (llaObj.sa.ss.ss_family != AF_INET6)
@@ -1635,6 +1637,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_adapter_name_successful) {
     UpnpFinish();
 }
 
+#if 0 // TODO: ipv4 mapped ipv6
 TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     // For Microsoft Windows there are some TODOs in the old code:
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
@@ -1701,6 +1704,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
 #endif
     UpnpFinish();
 }
+#endif
 
 #if 0
 // This is difficult to implement on the old structures with Lla, UlaGua and

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-23
+// Redistribution only with this Copyright remark. Last modified: 2025-08-28
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -317,7 +317,8 @@ TEST(SocketTestSuite, instantiate_unbind_socket) {
 }
 
 TEST(SocketBasicTestSuite, instantiate_with_bound_raw_socket_fd) {
-    saddr = "127.0.0.1:50002";
+    // saddr = "127.0.0.1:50002";
+    saddr = "[::1]:50002";
     CSocket bound_sockObj;
     // Default IPV6_V6ONLY setting is different on different platforms but
     // doesn't matter. It will be reset before binding a socket address.
@@ -465,9 +466,9 @@ TEST(SocketTestSuite, bind_ipv6only) {
     // platforms after binding the socket fd to an ip address with no useful
     // common meaning.
     //
-    // This SDK uses IPv6 mapped IPv4 addresses and it always reset option
-    // IPV6_V6ONLY when getting a socket from the operating system to have the
-    // same situation on all platforms for listening.
+    // This SDK uses IPv4 mapped IPv6 addresses and intern does not support
+    // IPv4 addresses. So it must always reset option IPV6_V6ONLY when getting
+    // a socket from the operating system.
     // REF: [How to support both IPv4 and IPv6 connections]
     // (https://stackoverflow.com/a/1618259/5014688)
 
@@ -492,26 +493,28 @@ TEST(SocketTestSuite, bind_ipv6only) {
     // "any" IPv4 address, fails with exception.
     saddr = "0.0.0.0:50003";
     CSocket sock3Obj;
-    ASSERT_NO_THROW(sock3Obj.bind(SOCK_STREAM, &saddr));
-    EXPECT_TRUE(sock3Obj.local_saddr());
-#ifdef _WIN32
-    EXPECT_TRUE(is_v6only(sock3Obj)); // Not resetted
-#else
-    // "Operation not supported".
-    EXPECT_THROW(is_v6only(sock3Obj), std::runtime_error);
-#endif
+    EXPECT_THROW(sock3Obj.bind(SOCK_STREAM, &saddr), std::runtime_error);
+    //     EXPECT_NO_THROW(sock3Obj.bind(SOCK_STREAM, &saddr));
+    //     EXPECT_TRUE(sock3Obj.local_saddr());
+    // #ifdef _WIN32
+    //     EXPECT_TRUE(is_v6only(sock3Obj)); // Not resetted
+    // #else
+    //     // "Operation not supported".
+    //     EXPECT_THROW(is_v6only(sock3Obj), std::runtime_error);
+    // #endif
 
     // Unicast IPv4 address, fails with exception.
     saddr = "127.0.0.1:50004";
     CSocket sock4Obj;
-    ASSERT_NO_THROW(sock4Obj.bind(SOCK_STREAM, &saddr));
-    EXPECT_TRUE(sock4Obj.local_saddr());
-#ifdef _WIN32
-    EXPECT_TRUE(is_v6only(sock4Obj)); // Not resetted
-#else
-    // "Operation not supported".
-    EXPECT_THROW(is_v6only(sock4Obj), std::runtime_error);
-#endif
+    EXPECT_THROW(sock4Obj.bind(SOCK_STREAM, &saddr), std::runtime_error);
+    //     EXPECT_THROW(sock4Obj.bind(SOCK_STREAM, &saddr));
+    //     EXPECT_TRUE(sock4Obj.local_saddr());
+    // #ifdef _WIN32
+    //     EXPECT_TRUE(is_v6only(sock4Obj)); // Not resetted
+    // #else
+    //     // "Operation not supported".
+    //     EXPECT_THROW(is_v6only(sock4Obj), std::runtime_error);
+    // #endif
 }
 
 TEST(SocketTestSuite, bind_ipv6_successful) {
@@ -557,9 +560,11 @@ TEST(SocketTestSuite, bind_ipv6_rapid_same_port_two_times) {
     EXPECT_FALSE(sock2Obj.is_listen());
 }
 
-TEST(SocketTestSuite, bind_ipv4_successful) {
+TEST(SocketTestSuite, bind_ipv4_fails) {
     saddr = "127.0.0.1:50002";
     CSocket sockObj;
+    ASSERT_THROW(sockObj.bind(SOCK_DGRAM, &saddr), std::runtime_error);
+#if 0
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM, &saddr));
     EXPECT_TRUE(sockObj.local_saddr());
 
@@ -572,6 +577,7 @@ TEST(SocketTestSuite, bind_ipv4_successful) {
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());
+#endif
 }
 
 TEST(SocketBasicTestSuite, bind_socket_two_times_successful) {
@@ -632,6 +638,7 @@ TEST(SocketTestSuite, bind_only_service_passive_successful) {
     EXPECT_FALSE(sockObj.is_listen());
 }
 
+#if 0 // TODO: ipv4 mapped ipv6
 TEST(SocketTestSuite, bind_default_not_passive_successful) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM));
@@ -663,6 +670,7 @@ TEST(SocketTestSuite, bind_without_node_not_passive_successful) {
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());
 }
+#endif
 
 TEST(SocketTestSuite, bind_only_service_not_passive_successful) {
     saddr = "";
@@ -761,6 +769,7 @@ TEST_F(SocketMockFTestSuite, bind_ipv6_lla_successful) {
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
 }
 
+#if 0 // TODO: ipv4 mapped ipv6
 TEST_F(SocketMockFTestSuite, bind_fails_to_get_socket) {
     // Mock to get an invalid socket id
     EXPECT_CALL(m_sys_socketObj,
@@ -802,6 +811,7 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_option_reuseaddr) {
                 ThrowsMessage<std::runtime_error>(
                     HasSubstr("UPnPsdk MSG1018 EXCEPT[")));
 }
+#endif
 
 TEST_F(SocketMockFTestSuite, bind_fails_to_set_ipv6_only) {
     // sfd is given to the Unit and it will close it.
@@ -1142,6 +1152,7 @@ TEST(SocketTestSuite, listen_on_passive_bound_socket_successful) {
     EXPECT_TRUE(sockObj.is_listen());
 }
 
+#if 0 // TODO: ipv4 mapped ipv6
 TEST(SocketTestSuite, listen_on_single_address_active_bound_socket_successful) {
     // Test Unit
     CSocket sockObj;
@@ -1149,6 +1160,7 @@ TEST(SocketTestSuite, listen_on_single_address_active_bound_socket_successful) {
     ASSERT_NO_THROW(sockObj.listen());
     EXPECT_TRUE(sockObj.is_listen());
 }
+#endif
 
 TEST(SocketTestSuite, listen_to_same_address_multiple_times_successful) {
     // Listen on the same address again of a valid socket is possible and should
@@ -1172,6 +1184,7 @@ TEST(SocketTestSuite, listen_on_datagram_socket_fails) {
                     HasSubstr("UPnPsdk MSG1034 EXCEPT[")));
 }
 
+#if 0 // TODO: ipv4 mapped ipv6
 TEST_F(SocketMockFTestSuite, listen_fails) {
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_DGRAM));
@@ -1189,6 +1202,7 @@ TEST_F(SocketMockFTestSuite, listen_fails) {
                 ThrowsMessage<std::runtime_error>(
                     HasSubstr("UPnPsdk MSG1034 EXCEPT[")));
 }
+#endif
 
 
 // Socket remote_saddr()

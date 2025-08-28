@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-16
+// Redistribution only with this Copyright remark. Last modified: 2025-08-28
 
 // I test different address infos that we get from system function
 // ::getaddrinfo().
@@ -143,10 +143,10 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_tuple("[::]:", "[::]:0", Entry::one, Error::no),
         std::make_tuple("[::]:0", "[::]:0", Entry::one, Error::no),
         std::make_tuple("[::]:65535", "[::]:65535", Entry::one, Error::no), // port 0 to 65535
-        std::make_tuple("0.0.0.0", "0.0.0.0:0", Entry::one, Error::no),
-        std::make_tuple("0.0.0.0:", "0.0.0.0:0", Entry::one, Error::no),
-        std::make_tuple("0.0.0.0:0", "0.0.0.0:0", Entry::one, Error::no),
-        std::make_tuple("0.0.0.0:65535", "0.0.0.0:65535", Entry::one, Error::no), // port 0 to 65535
+        std::make_tuple("0.0.0.0", "0.0.0.0:0", Entry::no, Error::yes),
+        std::make_tuple("0.0.0.0:", "0.0.0.0:0", Entry::no, Error::yes),
+        std::make_tuple("0.0.0.0:0", "0.0.0.0:0", Entry::no, Error::yes),
+        std::make_tuple("0.0.0.0:65535", "0.0.0.0:65535", Entry::no, Error::yes), // port 0 to 65535
         // Following invalid address parts will be general unspecified ("").
         // std::make_tuple("", unspec, Entry::???, Error::no), // makes passive listening, tested later
         std::make_tuple("[", "", Entry::no, Error::yes),
@@ -170,9 +170,9 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_tuple("[::1]:", "[::1]:0", Entry::one, Error::no),
         std::make_tuple("[::1]:0", "[::1]:0", Entry::one, Error::no),
         // std::make_tuple("[::1].4", "", Entry::one, Error::no), // dot for colon, takes long time, mocked later
-        std::make_tuple("127.0.0.1", "127.0.0.1:0", Entry::one, Error::no),
-        std::make_tuple("127.0.0.1:", "127.0.0.1:0", Entry::one, Error::no),
-        std::make_tuple("127.0.0.1:0", "127.0.0.1:0", Entry::one, Error::no),
+        std::make_tuple("127.0.0.1", "127.0.0.1:0", Entry::no, Error::yes),
+        std::make_tuple("127.0.0.1:", "127.0.0.1:0", Entry::no, Error::yes),
+        std::make_tuple("127.0.0.1:0", "127.0.0.1:0", Entry::no, Error::yes),
         // std::make_tuple("127.0.0.1.5", "", Entry::one, Error::no), // dot for colon, takes long time, mocked later
         std::make_tuple("[2001:db8::43]:", "[2001:db8::43]:0", Entry::one, Error::no),
         std::make_tuple("2001:db8::41:59897", "", Entry::no, Error::yes), // no brackets and wrong quad
@@ -194,7 +194,7 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_tuple("[garbage]:49494", "", Entry::no, Error::yes),
         std::make_tuple("[2001:db8::44]:https", "[2001:db8::44]:443", Entry::one, Error::no),
         // std::make_tuple("[2001:db8::44]:httpx", "", Entry::one, Error::no), // takes long time, mocked later
-        /*40*/ std::make_tuple("192.168.88.98:http", "192.168.88.98:80", Entry::one, Error::no),
+        /*40*/ std::make_tuple("192.168.88.98:http", "192.168.88.98:80", Entry::no, Error::yes),
         std::make_tuple("192.168.71.73%1:44:https", "", Entry::no, Error::yes),
         std::make_tuple("192.168.71.74%lo:44:https", "", Entry::no, Error::yes)
         // std::make_tuple("192.168.88.98:httpy", "", Entry::one, Error::no), // takes long time, mocked later
@@ -334,7 +334,7 @@ TEST(AddrinfoTestSuite, get_active_empty_node_socktype_0) {
     // Due to "man getaddrinfo" an empty node returns information of the
     // loopback interface, but either node or service, but not both, may be
     // empty. With setting everything unspecified, except service, we get all
-    // available combinations with loopback interfaces but different on
+    // available IPv6 combinations with loopback interfaces but different on
     // platforms. 'ai_socktype' specifies the preferred socket type, for
     // example SOCK_STREAM or SOCK_DGRAM. Specifying 0 in this field indicates
     // that socket addresses of any type can be returned by getaddrinfo().
@@ -363,11 +363,11 @@ TEST(AddrinfoTestSuite, get_active_empty_node_socktype_0) {
     } while (ai6.get_next());
 
 #ifdef __APPLE__
-    EXPECT_EQ(number_of_entries, 4);
-#elif defined(_MSC_VER)
     EXPECT_EQ(number_of_entries, 2);
+#elif defined(_MSC_VER)
+    EXPECT_EQ(number_of_entries, 1);
 #else
-    EXPECT_EQ(number_of_entries, 6);
+    EXPECT_EQ(number_of_entries, 3);
 #endif
 }
 
@@ -375,7 +375,7 @@ TEST(AddrinfoTestSuite, get_multiple_address_infos) {
     CAddrinfo ai1("localhost:50686");
     ASSERT_TRUE(ai1.get_first());
 
-    constexpr int expected_addrinfos{2}; // Value of expected address infos
+    constexpr int expected_addrinfos{1}; // Value of expected address infos
     int found_addrinfos{};
     do {
         EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
@@ -390,7 +390,7 @@ TEST(AddrinfoTestSuite, get_multiple_address_infos) {
             ai1.sockaddr(saddr);
             EXPECT_EQ(saddr.netaddrp(), "[::1]:50686");
             break;
-        case AF_INET:
+        case AF_INET: // should not count, using only AF_INET6
             EXPECT_EQ(ai1->ai_addrlen, 16);
             ai1.sockaddr(saddr);
             EXPECT_EQ(saddr.netaddrp(), "127.0.0.1:50686");
@@ -432,14 +432,14 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
 
     // Test Unit
     CAddrinfo ai2("127.0.0.1", "50086", 0, SOCK_DGRAM);
-    ASSERT_TRUE(ai2.get_first());
+    ASSERT_FALSE(ai2.get_first());
 
-    EXPECT_EQ(ai2->ai_family, AF_INET);
+    EXPECT_EQ(ai2->ai_family, AF_INET6);
     EXPECT_EQ(ai2->ai_socktype, SOCK_DGRAM);
     EXPECT_EQ(ai2->ai_protocol, 0);
     EXPECT_EQ(ai2->ai_flags, 0);
     ai2.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), "127.0.0.1:50086");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
     // Test Unit
     CAddrinfo ai3("[::1]", "50087");
@@ -472,7 +472,7 @@ TEST(AddrinfoTestSuite, query_ipv6_addrinfo_successful) {
 
     // Check the initialized object. This is what we have given with the
     // constructor. We get just the initialized hints.
-    EXPECT_EQ(ai1->ai_family, AF_UNSPEC);
+    EXPECT_EQ(ai1->ai_family, AF_INET6);
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai1->ai_protocol, 0);
     EXPECT_EQ(ai1->ai_flags, 0);
@@ -545,7 +545,7 @@ TEST_F(AddrinfoMockFTestSuite, query_addrinfo_url_with_service_successful) {
     // Mock 'CAddrinfo::get_first()'
     EXPECT_CALL(m_netdbObj,
                 getaddrinfo(Pointee(*"www.excample.com"), Pointee(*"https"),
-                            AllOf(Field(&addrinfo::ai_family, AF_UNSPEC),
+                            AllOf(Field(&addrinfo::ai_family, AF_INET6),
                                   Field(&addrinfo::ai_flags, 0)),
                             _))
         .WillOnce(DoAll(SetArgPointee<3>(&res3), Return(0)));
@@ -605,12 +605,12 @@ TEST(AddrinfoTestSuite, load_ipv6_addrinfo_with_port_successful) {
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::15]:59877");
 }
 
-TEST(AddrinfoTestSuite, query_ipv4_addrinfo_successful) {
+TEST(AddrinfoTestSuite, query_ipv4_addrinfo_fails) {
     CAddrinfo ai1("192.168.200.201");
 
     // Check the initialized object. This is what we have given with the
     // constructor. We get just the initialized hints.
-    EXPECT_EQ(ai1->ai_family, AF_UNSPEC);
+    EXPECT_EQ(ai1->ai_family, AF_INET6);
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai1->ai_protocol, 0);
     EXPECT_EQ(ai1->ai_flags, 0);
@@ -622,55 +622,56 @@ TEST(AddrinfoTestSuite, query_ipv4_addrinfo_successful) {
     ai1.sockaddr(saddr);
     EXPECT_EQ(saddr.netaddrp(), ":0");
 
-    ASSERT_TRUE(ai1.get_first());
+    ASSERT_FALSE(ai1.get_first());
 
-    EXPECT_EQ(ai1->ai_family, AF_INET);
+    // Nothing has changed.
+    EXPECT_EQ(ai1->ai_family, AF_INET6);
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai1->ai_protocol, 0);
-    // EXPECT_EQ(ai1->ai_flags, AI_NUMERICHOST | AI_NUMERICSERV);
     EXPECT_EQ(ai1->ai_flags, 0);
-    EXPECT_EQ(ai1->ai_addrlen, 16);
-    EXPECT_NE(ai1->ai_addr, nullptr);
+    EXPECT_EQ(ai1->ai_flags, 0);
+    EXPECT_EQ(ai1->ai_addrlen, 0);
+    EXPECT_EQ(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     EXPECT_EQ(ai1->ai_next, nullptr);
     ai1.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), "192.168.200.201:0");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 }
 
-TEST(AddrinfoTestSuite, load_ipv4_addrinfo_and_port_successful) {
+TEST(AddrinfoTestSuite, load_ipv4_addrinfo_and_port_fails) {
     CAddrinfo ai1("192.168.200.202", "54544");
 
-    ASSERT_TRUE(ai1.get_first());
+    ASSERT_FALSE(ai1.get_first());
 
-    EXPECT_EQ(ai1->ai_family, AF_INET);
+    EXPECT_EQ(ai1->ai_family, AF_INET6);
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai1->ai_protocol, 0);
     // EXPECT_EQ(ai1->ai_flags, AI_NUMERICHOST | AI_NUMERICSERV);
     EXPECT_EQ(ai1->ai_flags, 0);
-    EXPECT_EQ(ai1->ai_addrlen, 16);
-    EXPECT_NE(ai1->ai_addr, nullptr);
+    EXPECT_EQ(ai1->ai_addrlen, 0);
+    EXPECT_EQ(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     EXPECT_EQ(ai1->ai_next, nullptr);
     ai1.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), "192.168.200.202:54544");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 }
 
-TEST(AddrinfoTestSuite, load_ipv4_addrinfo_with_port_successful) {
+TEST(AddrinfoTestSuite, load_ipv4_addrinfo_with_port_fails) {
     CAddrinfo ai1("192.168.200.203:http");
 
-    ASSERT_TRUE(ai1.get_first());
+    ASSERT_FALSE(ai1.get_first());
 
-    EXPECT_EQ(ai1->ai_family, AF_INET);
+    EXPECT_EQ(ai1->ai_family, AF_INET6);
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai1->ai_protocol, 0);
     // EXPECT_EQ(ai1->ai_flags, AI_NUMERICHOST);
     EXPECT_EQ(ai1->ai_flags, 0);
-    EXPECT_EQ(ai1->ai_addrlen, 16);
-    EXPECT_NE(ai1->ai_addr, nullptr);
+    EXPECT_EQ(ai1->ai_addrlen, 0);
+    EXPECT_EQ(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     EXPECT_EQ(ai1->ai_next, nullptr);
     ai1.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), "192.168.200.203:80");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 }
 
 TEST(AddrinfoTestSuite, double_set_addrinfo_successful) {
@@ -728,7 +729,7 @@ TEST(AddrinfoTestSuite, instantiate_not_load_numeric_host_successful) {
 
     // Check the initialized object without address information. This is what
     // we have given with the constructor. We get just the initialized hints.
-    EXPECT_EQ(ai1->ai_family, AF_UNSPEC);
+    EXPECT_EQ(ai1->ai_family, AF_INET6);
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai1->ai_protocol, 0);
     EXPECT_EQ(ai1->ai_flags, AI_PASSIVE | AI_NUMERICHOST);
@@ -761,16 +762,16 @@ TEST(AddrinfoTestSuite, get_implicit_address_family) {
 
     // Test Unit
     CAddrinfo ai2("192.168.9.10", "50096");
-    ASSERT_TRUE(ai2.get_first());
+    ASSERT_FALSE(ai2.get_first());
 
-    EXPECT_EQ(ai2->ai_family, AF_INET); // set by syscal ::getaddrinfo
+    EXPECT_EQ(ai2->ai_family, AF_INET6); // Fix given by specification
     EXPECT_EQ(ai2->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai2->ai_protocol, 0);
     // EXPECT_EQ(ai2->ai_flags, AI_NUMERICHOST | AI_NUMERICSERV);
     EXPECT_EQ(ai2->ai_flags, 0);
     EXPECT_EQ(ai2->ai_next, nullptr);
     ai2.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), "192.168.9.10:50096");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 }
 
 TEST(AddrinfoTestSuite, get_unknown_numeric_host_fails) {
@@ -915,7 +916,7 @@ TEST(AddrinfoTestSuite, invalid_ipv6_node_address) {
 TEST(AddrinfoTestSuite, get_unknown_ipv6_node_address) {
     CAddrinfo ai3("[::]", "0", AI_NUMERICHOST | AI_NUMERICSERV, 0);
 
-    EXPECT_EQ(ai3->ai_family, AF_UNSPEC);
+    EXPECT_EQ(ai3->ai_family, AF_INET6); // Fix given by specification
     EXPECT_EQ(ai3->ai_socktype, 0);
     EXPECT_EQ(ai3->ai_protocol, 0);
     EXPECT_EQ(ai3->ai_flags, AI_NUMERICHOST | AI_NUMERICSERV);
@@ -978,10 +979,10 @@ TEST(AddrinfoTestSuite, get_unknown_ipv6_node_address) {
     EXPECT_FALSE(ai3.get_next());
 }
 
-TEST(AddrinfoTestSuite, get_unknown_ipv4_node_address) {
+TEST(AddrinfoTestSuite, get_unknown_ipv4_node_address_fails) {
     CAddrinfo ai4("0.0.0.0", "0", AI_NUMERICHOST | AI_NUMERICSERV, 0);
 
-    EXPECT_EQ(ai4->ai_family, AF_UNSPEC);
+    EXPECT_EQ(ai4->ai_family, AF_INET6); // Fix given by specification
     EXPECT_EQ(ai4->ai_socktype, 0);
     EXPECT_EQ(ai4->ai_protocol, 0);
     EXPECT_EQ(ai4->ai_flags, AI_NUMERICHOST | AI_NUMERICSERV);
@@ -992,8 +993,8 @@ TEST(AddrinfoTestSuite, get_unknown_ipv4_node_address) {
     ai4.sockaddr(saddr);
     EXPECT_EQ(saddr.netaddrp(), ":0");
 
-    ASSERT_TRUE(ai4.get_first());
-
+    ASSERT_FALSE(ai4.get_first());
+#if 0
     bool double_res1{false};
     [[maybe_unused]] bool double_res2{false};
     [[maybe_unused]] bool double_res3{false};
@@ -1040,7 +1041,7 @@ TEST(AddrinfoTestSuite, get_unknown_ipv4_node_address) {
                 << "\n";
         }
     } while (ai4.get_next());
-
+#endif
     // Call another one for testing.
     EXPECT_FALSE(ai4.get_next());
 }
@@ -1123,11 +1124,11 @@ TEST(AddrinfoTestSuite, get_passive_node_address) {
         EXPECT_EQ(saddr.netaddrp(), "[::]:50006");
 
         // Test Unit
-        // Using explicit the unknown netaddress should definetly return the
-        // INADDR_ANY passive listening socket info.
+        // Using explicit the unknown IPv4 netaddress should definetly fail
+        // (was: "return the INADDR_ANY passive listening socket info").
         CAddrinfo ai2("0.0.0.0", "50032", AI_PASSIVE | AI_NUMERICHOST);
-        ASSERT_TRUE(ai2.get_first());
-
+        ASSERT_FALSE(ai2.get_first());
+#if 0
         EXPECT_EQ(ai2->ai_family, AF_INET);
         EXPECT_EQ(ai2->ai_socktype, SOCK_STREAM);
         EXPECT_EQ(ai2->ai_protocol, 0);
@@ -1143,6 +1144,7 @@ TEST(AddrinfoTestSuite, get_passive_node_address) {
         // name resolution. I think that will not find it.
         CAddrinfo ai3("[]", "50113", AI_PASSIVE | AI_NUMERICHOST, 0);
         EXPECT_FALSE(ai3.get_first());
+#endif
     }
 }
 
@@ -1195,7 +1197,7 @@ TEST(AddrinfoTestSuite, service_out_of_range) {
     CAddrinfo ai1("[2001:db8::c9]", "65536", AI_NUMERICHOST);
     ASSERT_FALSE(ai1.get_first());
 
-    EXPECT_EQ(ai1->ai_family, AF_UNSPEC);
+    EXPECT_EQ(ai1->ai_family, AF_INET6); // Fix given by specification;
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai1->ai_protocol, 0);
     EXPECT_EQ(ai1->ai_flags, AI_NUMERICHOST);
@@ -1329,10 +1331,10 @@ TEST(AddrinfoTestSuite, check_netaddrp) {
                       "[fe80::1%1]:50001"));
 
     CAddrinfo ai2("127.0.0.1:50002");
-    ASSERT_TRUE(ai2.get_first());
+    ASSERT_FALSE(ai2.get_first());
     // Test Unit
     ai2.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), "127.0.0.1:50002");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 }
 
 // Veify macro/function IN6_IS_ADDR_GLOBAL

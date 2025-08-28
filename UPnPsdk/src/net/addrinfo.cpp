@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-20
+// Redistribution only with this Copyright remark. Last modified: 2025-08-28
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -35,6 +35,7 @@ CAddrinfo::CAddrinfo(std::string_view a_node, //
     // member order in the structure addrinfo is different on Linux, MacOS and
     // win32. I have to use the member names to initialize them, what's not
     // possible for structures in the constructors initialization list.
+    m_hints.ai_family = AF_INET6;
     m_hints.ai_flags = a_flags;
     m_hints.ai_socktype = a_socktype;
 }
@@ -50,6 +51,7 @@ CAddrinfo::CAddrinfo(std::string_view a_node, //
     // member order in the structure addrinfo is different on Linux, MacOS and
     // win32. I have to use the member names to initialize them, what's not
     // possible for structures in the constructors initialization list.
+    m_hints.ai_family = AF_INET6;
     m_hints.ai_flags = a_flags;
     m_hints.ai_socktype = a_socktype;
 }
