@@ -674,6 +674,10 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
     // Ports not set with this Unit so they doesn't matter here.
 
+    CNetadapter Ip4Obj;
+    ASSERT_NO_THROW(Ip4Obj.get_first());
+    ASSERT_TRUE(Ip4Obj.find_first(gIF_IPV4));
+
     // Test Unit
 #if defined(UPnPsdk_WITH_NATIVE_PUPNP)
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
@@ -686,16 +690,16 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
     // More than one ip address is only valid if they are on the same local
     // network adapter (same index).
     if (gIF_IPV4[0] != '\0') {
-        if (ip4Obj.index != llaObj.index)
+        if (Ip4Obj.index() != llaObj.index)
 #if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(__APPLE__)
             // Fails with old code on MacOS due to "[fe80::1]" on loopback.
             EXPECT_EQ(gIF_IPV6[0], '\0');
 #endif
-        if (ip4Obj.index != guaObj.index)
+        if (Ip4Obj.index() != guaObj.index)
             EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
     }
     if (gIF_IPV6[0] != '\0') {
-        if (llaObj.index != ip4Obj.index)
+        if (llaObj.index != Ip4Obj.index())
 #if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(__APPLE__)
             // Fails with old code on MacOS due to "[fe80::1]" on loopback.
             EXPECT_EQ(gIF_IPV4[0], '\0');
@@ -704,7 +708,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
             EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
     }
     if (gIF_IPV6_ULA_GUA[0] != '\0') {
-        if (guaObj.index != ip4Obj.index)
+        if (guaObj.index != Ip4Obj.index())
             EXPECT_EQ(gIF_IPV4[0], '\0');
         if (guaObj.index != llaObj.index)
             EXPECT_EQ(gIF_IPV6[0], '\0');
