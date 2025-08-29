@@ -128,22 +128,16 @@ void* gWebCallback_HostValidateCookie = 0;
 /*! \brief Allow literal host names redirection to numeric host names. */
 int gAllowLiteralHostRedirection = 0;
 
-/*! \brief Buffer to contain interface name. (extern'ed in upnp.h) */
+/*! \brief Buffer to contain used network interface name. (extern'ed in upnp.h)
+ * \details Only one network interface is supported. */
 char gIF_NAME[LINE_SIZE] = {'\0'};
-
-/// \brief IPv4 buffer to contain interface address. (extern'ed in upnp.h)
-char gIF_IPV4[INET_ADDRSTRLEN] = {'\0'};
-/// \brief IPv4 buffer to contain interface netmask. (extern'ed in upnp.h)
-char gIF_IPV4_NETMASK[INET_ADDRSTRLEN] = {'\0'};
-/// \brief IPv4 local port for the mini-server
-in_port_t LOCAL_PORT_V4;
+/// \brief Index/scope-id from the used network interface.
+unsigned gIF_INDEX = 0;
 
 /// \brief IPv6 LLA buffer to contain interface address. (extern'ed in upnp.h)
 char gIF_IPV6[INET6_ADDRSTRLEN] = {'\0'};
 /// \brief IPv6 LLA prefix length. (extern'ed in upnp.h)
 unsigned gIF_IPV6_PREFIX_LENGTH = 0;
-/// \brief IPv6 LLA network interface index/scope-id of the link-local address
-unsigned gIF_INDEX = ~0u;
 /// \brief IPv6 LLA port for the mini-server
 in_port_t LOCAL_PORT_V6;
 
@@ -153,6 +147,13 @@ char gIF_IPV6_ULA_GUA[INET6_ADDRSTRLEN] = {'\0'};
 unsigned gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
 /// \brief IPv6 GUA port for the mini-server
 in_port_t LOCAL_PORT_V6_ULA_GUA;
+
+/// \brief IPv4 buffer to contain interface address. (extern'ed in upnp.h)
+char gIF_IPV4[INET_ADDRSTRLEN] = {'\0'};
+/// \brief IPv4 buffer to contain interface netmask. (extern'ed in upnp.h)
+char gIF_IPV4_NETMASK[INET_ADDRSTRLEN] = {'\0'};
+/// \brief IPv4 local port for the mini-server
+in_port_t LOCAL_PORT_V4;
 
 /*! a string which is set in the header field */
 extern membuffer gWebserverCorsString;
