@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-28
+// Redistribution only with this Copyright remark. Last modified: 2025-08-29
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -22,6 +22,7 @@
 namespace utest {
 
 using ::testing::_;
+using ::testing::AnyOf;
 using ::testing::NotNull;
 using ::testing::Return;
 using ::testing::SetErrnoAndReturn;
@@ -671,7 +672,10 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
         << errStrEx(ret_UpnpFinish, UPNP_E_SUCCESS);
 }
 
+
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP)
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
+    // Only one network interface is supported.
     // Ports not set with this Unit so they doesn't matter here.
 
     CNetadapter Ip4Obj;
@@ -679,11 +683,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
     ASSERT_TRUE(Ip4Obj.find_first(gIF_IPV4));
 
     // Test Unit
-#if defined(UPnPsdk_WITH_NATIVE_PUPNP)
     int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
-#else
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo();
-#endif
+
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
@@ -691,19 +692,13 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
     // network adapter (same index).
     if (gIF_IPV4[0] != '\0') {
         if (Ip4Obj.index() != llaObj.index)
-#if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(__APPLE__)
-            // Fails with old code on MacOS due to "[fe80::1]" on loopback.
             EXPECT_EQ(gIF_IPV6[0], '\0');
-#endif
         if (Ip4Obj.index() != guaObj.index)
             EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
     }
     if (gIF_IPV6[0] != '\0') {
         if (llaObj.index != Ip4Obj.index())
-#if !defined(UPnPsdk_WITH_NATIVE_PUPNP) || !defined(__APPLE__)
-            // Fails with old code on MacOS due to "[fe80::1]" on loopback.
             EXPECT_EQ(gIF_IPV4[0], '\0');
-#endif
         if (llaObj.index != guaObj.index)
             EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
     }
@@ -714,6 +709,49 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
             EXPECT_EQ(gIF_IPV6[0], '\0');
     }
 }
+
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
+    // Only one network interface is supported so far but will be extended.
+    // With compatible code we use only IPv6 addresses. This should be
+    // compatible because old pUPnP code also supports IPv6. So all global IPv4
+    // variables are always unset. IPv6 LLA variables must be initialized if
+    // there is not an IPv4 mapped IPv6 GUA address on the same network
+    // interface. With an active IPv6 network stack an interface with an IPv6
+    // link must have an LLA. An IPv4 mapped IPv6 GUA address is a real IPv4
+    // address, indicating an IPv4 link. In addition the IPv6 GUA variables may
+    // be set if it is available. This can also be an IPv4 mapped IPv6 address.
+    // Ports not set with this Unit so they doesn't matter here.
+
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo();
+    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+    // IPv4 must be unset.
+    EXPECT_EQ(gIF_IPV4[0], '\0');
+    EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+
+    // With an IPv6 LLA a possible IPv6 GUA must be on same network interface
+    if (gIF_IPV6[0] != '\0') {
+        ASSERT_THAT(gIF_IPV6[0], AnyOf('f', 'F'));
+        if (gIF_IPV6_ULA_GUA[0] != '\0')
+            ASSERT_EQ(llaObj.index, guaObj.index);
+    }
+    // An IPv6 GUA without IPv6 LLA on same network interface is only allowed
+    // as IPv4 mapped IPv6 GUA because that is a real IPv4 address.
+    char c{gIF_IPV6_ULA_GUA[0]};
+    if (c != '\0') {
+        ASSERT_TRUE(c == ':' || std::isdigit(c));
+        std::string_view gua{gIF_IPV6_ULA_GUA};
+        if (!gua.starts_with("::ffff:")) {
+            ASSERT_NE(gIF_IPV6[0], '\0');
+            ASSERT_EQ(guaObj.index, llaObj.index);
+        }
+    }
+}
+#endif // else UPnPsdk_WITH_NATIVE_PUPNP
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_ipv6_iface_successful) {
     // Ports not set with this Unit so they doesn't matter here.

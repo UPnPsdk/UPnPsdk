@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-28
+// Redistribution only with this Copyright remark. Last modified: 2025-08-29
 
 #ifdef _MSC_VER
 #include <UPnPsdk/src/net/netadapter_win32.cpp>
@@ -8,6 +8,8 @@
 
 #include <UPnPsdk/netadapter.hpp>
 #include <utest/utest.hpp>
+
+#include <iomanip>
 
 
 namespace utest {
@@ -33,10 +35,20 @@ TEST(NetadapterTestSuite, get_netadapter_list) {
     CNetadapter nadapObj;
     nadapObj.get_first();
     // nadapObj.find_first();
+    int prio{};
     do {
         nadapObj.sockaddr(saddrObj);
-        std::cerr << "DEBUG: index=" << nadapObj.index() << ", address=\""
-                  << saddrObj << "\".\n";
+        prio = std::abs(prio);
+        if (saddrObj.is_loopback())
+            prio = -prio;
+        else
+            prio++;
+
+        std::cout << "prio=" << std::setw(2) << std::right
+                  << (prio <= 0 ? "--" : std::to_string(prio))
+                  << ", idx=" << std::setw(2) << nadapObj.index() << ", name=\""
+                  << std::setw(7) << std::left << (nadapObj.name()+"\",")
+                  << " addr=\"" << saddrObj << "\".\n";
     } while (nadapObj.get_next());
     // } while (nadapObj.find_next());
 }
