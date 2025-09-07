@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-20
+// Redistribution only with this Copyright remark. Last modified: 2025-09-12
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 #include <utest/utest.hpp>
@@ -516,11 +516,17 @@ TEST(SockaddrStorageTestSuite, is_loopback) {
     EXPECT_FALSE(saObj.is_loopback());
     saObj = "126.255.255.255";
     EXPECT_FALSE(saObj.is_loopback());
-    saObj = "127.0.0.0";
+    saObj = "127.0.0.0"; // IPv4 never supported.
+    EXPECT_FALSE(saObj.is_loopback());
+    saObj = "[::ffff:127.0.0.0]";
     EXPECT_TRUE(saObj.is_loopback());
-    saObj = "127.0.0.1";
+    saObj = "127.0.0.1"; // IPv4 never supported.
+    EXPECT_FALSE(saObj.is_loopback());
+    saObj = "[::ffff:127.0.0.1]";
     EXPECT_TRUE(saObj.is_loopback());
-    saObj = "127.255.255.255";
+    saObj = "127.255.255.255"; // IPv4 never supported.
+    EXPECT_FALSE(saObj.is_loopback());
+    saObj = "[::ffff:127.255.255.255]";
     EXPECT_TRUE(saObj.is_loopback());
     saObj = "128.0.0.0";
     EXPECT_FALSE(saObj.is_loopback());

@@ -1,13 +1,18 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-05
+// Redistribution only with this Copyright remark. Last modified: 2025-09-14
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
+ * - Rework Unit Tests in Utest/compa/api.d/test_upnpapi.cpp.
+ *   - Remove Utest/compa/api.d/test_upnpapi_win32.cpp.
+ *   - Remove Utest/compa/api.d/test_upnpapi_unix.cpp.
+ * - Rework UPnPsdk_info application
+ *   - Update printed options
+ *   - Create info function in the library to avoid exporting private symbols, callable on the API.
  * - Use pthread_rwlock_* instead of pthread_lock and family.
  * - Make CAddrinfo thread safe.
- * - Rework Unit Tests in Utest/compa/api.d/test_upnpapi_win32.cpp.
  * - Implement API of the SDK.
      - Check installation of binaries and header files in /usr/local.
      - Add ixml interface calls to api_calls.c.
@@ -25,7 +30,6 @@
  * - Test and document ixml script support.
  * - Build for ARM platforms.
  * - Create Unit Test large-file support (https://gist.github.com/mortenpi/9745042)
- * - Create info function in the library to avoid exporting private symbols, callable on the API.
  * - Remove Interface/ directory?
  * - Fix "time used" on sock_read and sock_write.
  * - Rework test_httpreadwrite.cpp.

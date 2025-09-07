@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-30
+// Redistribution only with this Copyright remark. Last modified: 2025-09-14
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
@@ -100,7 +100,7 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_valid_interface) {
         EXPECT_STREQ(gIF_IPV4_NETMASK, ""); // Not supported on new code
         EXPECT_STREQ(gIF_IPV6, "");
         EXPECT_STREQ(gIF_IPV6_ULA_GUA, "::ffff:192.168.99.3");
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 11u);
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 96u);
     }
 
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0U);
@@ -192,7 +192,7 @@ TEST_F(UpnpapiIPv4MockTestSuite, UpnpGetIfInfo_called_with_unknown_interface) {
 #else
     EXPECT_STREQ(gIF_IPV4, ""); // Not supported on new code
     EXPECT_STREQ(gIF_IPV6_ULA_GUA, "::ffff:192.168.77.48");
-    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 22u);
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 96u);
 #endif
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0U);
     EXPECT_EQ(gIF_INDEX, 2U);

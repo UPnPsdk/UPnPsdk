@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp_source.html','../
 </div><!--header-->
 <div class="contents">
 <a href="../../dc/d59/addrinfo_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-09-05</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2025-09-09</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="../../d6/dbf/addrinfo_8hpp.html">UPnPsdk/addrinfo.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d3b/synclog_8hpp.html">UPnPsdk/synclog.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d7/d1b/sockaddr_8hpp.html">UPnPsdk/sockaddr.hpp</a>&gt;</span></div>
@@ -333,7 +333,7 @@ $(document).ready(function(){initNavTree('dc/d59/addrinfo_8cpp_source.html','../
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>             ((m_hints.ai_flags &amp; AI_PASSIVE) ? <span class="stringliteral">&quot;, passive_listen&quot;</span> : <span class="stringliteral">&quot;&quot;</span>) +</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>             ((m_hints.ai_flags &amp; AI_NUMERICHOST) ? <span class="stringliteral">&quot;&quot;</span> : <span class="stringliteral">&quot;, (maybe DNS query temporary failed?)&quot;</span>) +</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>             <span class="stringliteral">&quot;, ai_socktype=&quot;</span> + std::to_string(m_hints.ai_socktype);</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        UPnPsdk_LOGERR(<span class="stringliteral">&quot;MSG1040&quot;</span>) &lt;&lt; m_error_msg &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        UPnPsdk_LOGERR(<span class="stringliteral">&quot;MSG1041&quot;</span>) &lt;&lt; m_error_msg &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    }</div>

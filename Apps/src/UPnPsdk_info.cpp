@@ -3,7 +3,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-24
+ * Redistribution only with this Copyright remark. Last modified: 2025-09-14
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -37,200 +37,185 @@
 #include <upnpdebug.hpp>
 #include <upnptools.hpp>
 #include "pthread.h" // To find pthreads4w don't use <pthread.h>
+#include <UPnPsdk/netadapter.hpp>
 /// \cond
 #include <iostream>
+#include <iomanip> // For setw() and friends.
 #include <sstream>
 #include <cstring>
 /// \endcond
 
-#if defined INCLUDE_DEVICE_APIS && EXCLUDE_SOAP == 0
+// #if defined INCLUDE_DEVICE_APIS && EXCLUDE_SOAP == 0
 // #include "miniserver.hpp"
-#endif
+// #endif
 
 namespace UPnPsdk {
+
+std::stringstream msg_info;
+std::stringstream msg_nadap;
 
 void* library_info(void*) {
     // Using this will not split output string on '<<' by output from other
     // threads.
-    std::stringstream msg;
 
-    msg << "---- configuration and build -----\n";
-    msg << "CMAKE_VERSION               = " << CMAKE_VERSION << '\n';
-    msg << "CMAKE_CXX_COMPILER          = " << CMAKE_CXX_COMPILER << '\n';
-    msg << "CMAKE_CXX_COMPILER_VERSION  = " << CMAKE_CXX_COMPILER_VERSION
-        << '\n';
-    msg << "CMAKE_BUILD_TYPE            = " << CMAKE_BUILD_TYPE << '\n';
-    msg << "CMAKE_GENERATOR             = " << CMAKE_GENERATOR << '\n';
-    msg << "CMAKE_SOURCE_DIR            = " << CMAKE_SOURCE_DIR << '\n';
-    msg << "CMAKE_SOURCE_PATH_LENGTH    = " << CMAKE_SOURCE_PATH_LENGTH << '\n';
+    // clang-format off
+    msg_info << "\n---- configuration and build -----"
+                "\nCMAKE_VERSION               = " << CMAKE_VERSION
+             << "\nCMAKE_CXX_COMPILER          = " << CMAKE_CXX_COMPILER
+             << "\nCMAKE_CXX_COMPILER_VERSION  = " << CMAKE_CXX_COMPILER_VERSION
+             << "\nCMAKE_BUILD_TYPE            = " << CMAKE_BUILD_TYPE
+             << "\nCMAKE_GENERATOR             = " << CMAKE_GENERATOR
+             << "\nCMAKE_SOURCE_DIR            = " << CMAKE_SOURCE_DIR
+             << "\nCMAKE_SOURCE_PATH_LENGTH    = " << CMAKE_SOURCE_PATH_LENGTH << '\n';
+    // clang-format on
     /*
      * Check library optional features
      */
-    msg << "\n---- user definable options ------\n";
+    msg_info << "\n---- user definable options ------\n";
 #ifdef COMPA_ENABLE_BLOCKING_TCP_CONNECTIONS
-    msg << "COMPA_ENABLE_BLOCKING_TCP_CONNECTIONS = yes\n";
+    msg_info << "COMPA_ENABLE_BLOCKING_TCP_CONNECTIONS = yes\n";
 #else
-    msg << "COMPA_ENABLE_BLOCKING_TCP_CONNECTIONS = no\n";
+    msg_info << "COMPA_ENABLE_BLOCKING_TCP_CONNECTIONS = no\n";
 #endif
 
 #ifdef DEBUG
-    msg << "DEBUG                   = yes\n";
+    msg_info << "DEBUG                   = yes\n";
 #else
-    msg << "DEBUG                   = no\n";
+    msg_info << "DEBUG                   = no\n";
 #endif
 
 #ifdef UPNP_HAVE_DEBUG
-    msg << "UPNP_HAVE_DEBUG         = yes\n";
+    msg_info << "UPNP_HAVE_DEBUG         = yes\n";
 #else
-    msg << "UPNP_HAVE_DEBUG         = no\n";
+    msg_info << "UPNP_HAVE_DEBUG         = no\n";
 #endif
 
 #ifdef UPnPsdk_HAVE_OPENSSL
-    msg << "UPnPsdk_HAVE_OPENSSL    = yes\n";
+    msg_info << "UPnPsdk_HAVE_OPENSSL    = yes\n";
 #else
-    msg << "UPnPsdk_HAVE_OPENSSL    = no\n";
+    msg_info << "UPnPsdk_HAVE_OPENSSL    = no\n";
 #endif
 
 #ifdef UPNP_HAVE_TOOLS
     const char* errmsg = UpnpGetErrorMessage(UPNP_E_SUCCESS);
     if (strcmp(errmsg, "UPNP_E_SUCCESS") == 0)
-        msg << "UPNP_HAVE_TOOLS         = yes\n";
+        msg_info << "UPNP_HAVE_TOOLS         = yes\n";
     else
-        msg << "UPNP_HAVE_TOOLS         = yes, but does not return "
-               "UPNP_E_SUCCESS\n";
+        msg_info << "UPNP_HAVE_TOOLS         = yes, but does not return "
+                    "UPNP_E_SUCCESS\n";
 #else
-    msg << "UPNP_HAVE_TOOLS         = no\n";
+    msg_info << "UPNP_HAVE_TOOLS         = no\n";
 #endif
 
 #ifdef UPNP_HAVE_WEBSERVER
-    msg << "UPNP_HAVE_WEBSERVER     = yes\n";
+    msg_info << "UPNP_HAVE_WEBSERVER     = yes\n";
 #else
-    msg << "UPNP_HAVE_WEBSERVER     = no\n";
+    msg_info << "UPNP_HAVE_WEBSERVER     = no\n";
 #endif
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #ifdef UPNP_HAVE_SSDP
-    msg << "UPNP_HAVE_SSDP          = yes\n";
+    msg_info << "UPNP_HAVE_SSDP          = yes\n";
 #else
-    msg << "UPNP_HAVE_SSDP          = no\n";
+    msg_info << "UPNP_HAVE_SSDP          = no\n";
 #endif
 #endif
 
 #ifdef UPNP_HAVE_OPTSSDP
-    msg << "UPNP_HAVE_OPTSSDP       = yes\n";
+    msg_info << "UPNP_HAVE_OPTSSDP       = yes\n";
 #else
-    msg << "UPNP_HAVE_OPTSSDP       = no\n";
+    msg_info << "UPNP_HAVE_OPTSSDP       = no\n";
 #endif
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #ifdef UPNP_HAVE_SOAP
-    msg << "UPNP_HAVE_SOAP          = yes\n";
+    msg_info << "UPNP_HAVE_SOAP          = yes\n";
 #else
-    msg << "UPNP_HAVE_SOAP          = no\n";
+    msg_info << "UPNP_HAVE_SOAP          = no\n";
 #endif
 
 #ifdef UPNP_HAVE_GENA
-    msg << "UPNP_HAVE_GENA          = yes\n";
+    msg_info << "UPNP_HAVE_GENA          = yes\n";
 #else
-    msg << "UPNP_HAVE_GENA          = no\n";
+    msg_info << "UPNP_HAVE_GENA          = no\n";
 #endif
 #endif
 
 #ifdef UPNP_HAVE_CLIENT
-    msg << "UPNP_HAVE_CLIENT        = yes\n";
+    msg_info << "UPNP_HAVE_CLIENT        = yes\n";
 #else
-    msg << "UPNP_HAVE_CLIENT        = no\n";
+    msg_info << "UPNP_HAVE_CLIENT        = no\n";
 #endif
 
 #ifdef UPNP_HAVE_DEVICE
-    msg << "UPNP_HAVE_DEVICE        = yes\n";
+    msg_info << "UPNP_HAVE_DEVICE        = yes\n";
 #else
-    msg << "UPNP_HAVE_DEVICE        = no\n";
+    msg_info << "UPNP_HAVE_DEVICE        = no\n";
 #endif
 
-    msg << "\n---- internal settings -----------\n";
+    msg_info << "\n---- internal settings -----------\n";
 #ifdef UPNP_ENABLE_IPV6
-    msg << "UPNP_ENABLE_IPV6        = yes\n";
+    msg_info << "UPNP_ENABLE_IPV6        = yes\n";
 #else
-    msg << "UPNP_ENABLE_IPV6        = no\n";
+    msg_info << "UPNP_ENABLE_IPV6        = no\n";
 #endif
 
 #if EXCLUDE_MINISERVER == 0
-    msg << "EXCLUDE_MINISERVER      = 0\n";
+    msg_info << "EXCLUDE_MINISERVER      = 0\n";
 #else
-    msg << "EXCLUDE_MINISERVER      = 1\n";
+    msg_info << "EXCLUDE_MINISERVER      = 1\n";
 #endif
 
 #ifdef INTERNAL_WEB_SERVER
-    msg << "INTERNAL_WEB_SERVER     = yes\n";
+    msg_info << "INTERNAL_WEB_SERVER     = yes\n";
 #else
-    msg << "INTERNAL_WEB_SERVER     = no\n";
+    msg_info << "INTERNAL_WEB_SERVER     = no\n";
 #endif
 
 #ifdef INCLUDE_CLIENT_APIS
-    msg << "INCLUDE_CLIENT_APIS     = yes\n";
+    msg_info << "INCLUDE_CLIENT_APIS     = yes\n";
 #else
-    msg << "INCLUDE_CLIENT_APIS     = no\n";
+    msg_info << "INCLUDE_CLIENT_APIS     = no\n";
 #endif
 
 #ifdef INCLUDE_DEVICE_APIS
-    msg << "INCLUDE_DEVICE_APIS     = yes\n";
+    msg_info << "INCLUDE_DEVICE_APIS     = yes\n";
 #else
-    msg << "INCLUDE_DEVICE_APIS     = no\n";
+    msg_info << "INCLUDE_DEVICE_APIS     = no\n";
 #endif
-
-    msg << "----------------------------------\n";
-    std::cout << msg.str();
 
     return (void*)0; // calls pthread_exit()
 }
 
-// Simple check of module FreeList
-// -------------------------------
-#ifdef _WIN32
-// There is a problem with EXPORT_SPEC. We have to modify the original source
-// upnp/src/threadutil/FreeList.hpp to export its function names. Modifications
-// of the original sources are not intended at this stage of re-engeneering.
-void* check_freelist(void*) {
-    std::cout << "-> Check module FreeList is temporary disabled on MS Windows "
-                 "due to re-engeneering issues.\n";
-    return (void*)0;
-}
-#else
-// Running in the production environment here. For extended testing look at
-// the Unit Tests.
-void* check_freelist(void*) {
-    FreeList free_list{};
-    // Init with chunk size of 1 byte and max. 3 entries in the freelist.
-    ::FreeListInit(&free_list, 1, 3);
+//
+// Print known local network adapter
+// ---------------------------------
+void* print_netadapter(void*) {
+    msg_nadap << "\n---- Known local IP addresses ----\n";
 
-    // Get new nodes. Because the freelist is empty, they should be allocated
-    // from memory.
-    FreeListNode* newnode1 = (FreeListNode*)::FreeListAlloc(&free_list);
-    FreeListNode* newnode2 = (FreeListNode*)::FreeListAlloc(&free_list);
-    FreeListNode* newnode3 = (FreeListNode*)::FreeListAlloc(&free_list);
-    FreeListNode* newnode4 = (FreeListNode*)::FreeListAlloc(&free_list);
+    SSockaddr saObj;
+    CNetadapter nadapObj;
+    nadapObj.get_first();
+    // nadapObj.find_first();
+    int prio{};
+    do {
+        nadapObj.sockaddr(saObj);
+        prio = std::abs(prio);
+        if (saObj.is_loopback())
+            prio = -prio;
+        else
+            prio++;
 
-    // Put unused nodes to the freelist.
-    ::FreeListFree(&free_list, newnode1);
-    ::FreeListFree(&free_list, newnode2);
-    ::FreeListFree(&free_list, newnode3);
-    ::FreeListFree(&free_list, newnode4);
-
-    // Get them again. They should now mostly come from the freelist without
-    // expensive allocation from memory.
-    newnode1 = (FreeListNode*)::FreeListAlloc(&free_list);
-    newnode2 = (FreeListNode*)::FreeListAlloc(&free_list);
-    newnode3 = (FreeListNode*)::FreeListAlloc(&free_list);
-    newnode4 = (FreeListNode*)::FreeListAlloc(&free_list);
-
-    // Destray the freelist. This should free all allocated memory for the
-    // nodes.
-    ::FreeListDestroy(&free_list);
+        msg_nadap << "prio=" << std::setw(2) << std::right
+                  << (prio <= 0 ? "--" : std::to_string(prio))
+                  << ", idx=" << std::setw(2) << nadapObj.index() << ", name=\""
+                  << std::setw(7) << std::left << (nadapObj.name() + "\",")
+                  << " addr=\"" << saObj << "\".\n";
+    } while (nadapObj.get_next());
+    // } while (nadapObj.find_next());
 
     return (void*)0;
 }
-#endif // _WIN32
 
 //
 // Simple check of module upnpdebug
@@ -281,40 +266,43 @@ void* check_upnpdebug(void*) {
 
 //
 // main entry
-// ----------
+// ==========
 int main() {
     int rc;
     void* retval;
 
     // Check correct linking of the different internal libraries
     // ---------------------------------------------------------
-    std::cout << "---- library information ---------\n"
-              << "UPnPsdk_VERSION         = " << UPnPsdk_VERSION
-              << "\nPUPNP_VERSION           = " << PUPNP_VERSION;
+    // clang-format off
+    std::cout << "==== Compatible library information ===="
+              "\nUPnPsdk_VERSION         = " << UPnPsdk_VERSION
+              "\nPUPNP_VERSION           = " << PUPNP_VERSION;
+    // clang-format on
 
     // Starting POSIX Threads
-    // ----------------------
+    // ======================
     std::cout << "\n\n-- Starting POSIX Threads ..." << std::endl;
 
     pthread_t thread_info;
-
+    // -------------------
     rc = pthread_create(&thread_info, NULL, &UPnPsdk::library_info, NULL);
     if (rc != 0) {
         std::clog << "Error! unable to create thread_info, " << rc << std::endl;
         exit(1);
     }
 
-    pthread_t thread_freelist;
-
-    rc = pthread_create(&thread_freelist, NULL, &UPnPsdk::check_freelist, NULL);
+    pthread_t thread_netadapter;
+    // -------------------------
+    rc = pthread_create(&thread_netadapter, NULL, &UPnPsdk::print_netadapter,
+                        NULL);
     if (rc != 0) {
-        std::clog << "Error! unable to create thread_freelist, " << rc
+        std::clog << "Error! unable to create thread_netadapter, " << rc
                   << std::endl;
         exit(1);
     }
 
     pthread_t thread_upnpdebug;
-
+    // ------------------------
     rc = pthread_create(&thread_upnpdebug, NULL, &UPnPsdk::check_upnpdebug,
                         NULL);
     if (rc != 0) {
@@ -324,8 +312,9 @@ int main() {
     }
 
     // Waiting for threads to finish
-    // -----------------------------
+    // =============================
     rc = pthread_join(thread_info, &retval);
+    // -------------------------------------
     if (rc != 0) {
         std::clog << "Error! Unable to join thread_info with rc=" << rc
                   << std::endl;
@@ -336,22 +325,25 @@ int main() {
                   << ((int)(intptr_t)retval) << std::endl;
         exit((int)(intptr_t)retval);
     }
-    std::cout << "-- POSIX Thread for library info done." << std::endl;
+    // std::cout << "-- POSIX Thread for library info done." << std::endl;
 
-    rc = pthread_join(thread_freelist, &retval);
+    rc = pthread_join(thread_netadapter, &retval);
+    // -------------------------------------------
     if (rc != 0) {
-        std::clog << "Error! Unable to join thread_freelist with rc=" << rc
+        std::clog << "Error! Unable to join thread_netadapter with rc=" << rc
                   << std::endl;
         exit(1);
     }
     if (retval != NULL) {
-        std::clog << "Error! Thread_info failed with retval="
+        std::clog << "Error! Thread_info netadapter failed with retval="
                   << ((int)(intptr_t)retval) << std::endl;
         exit((int)(intptr_t)retval);
     }
-    std::cout << "-- POSIX Thread to check module FreeList done." << std::endl;
+    // std::cout << "-- POSIX Thread to print netadapter IP addresses done." <<
+    // std::endl;
 
     rc = pthread_join(thread_upnpdebug, &retval);
+    // ------------------------------------------
     if (rc != 0) {
         std::clog << "Error! Unable to join thread_upnpdebug with rc=" << rc
                   << std::endl;
@@ -362,7 +354,11 @@ int main() {
                   << ((int)(intptr_t)retval) << std::endl;
         exit((int)(intptr_t)retval);
     }
-    std::cout << "-- POSIX Thread to check module upnpdebug done." << std::endl;
+    // std::cout << "-- POSIX Thread to check module upnpdebug done." <<
+    // std::endl;
+
+    std::cout << UPnPsdk::msg_info.str();
+    std::cout << UPnPsdk::msg_nadap.str();
 
     return 0;
 }

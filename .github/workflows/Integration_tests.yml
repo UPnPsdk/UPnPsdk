@@ -109,6 +109,7 @@ jobs:
           ip addr
           ip -6 route
           ip -4 route
+          ./build/bin/UPnPsdk_info
 
      #- name: Run UPnPsdk info programs
      #  # This program is always built
@@ -197,6 +198,7 @@ jobs:
         run: |
           set -v
           ifconfig -v
+          ./build/bin/UPnPsdk_info
 
      #- name: Run UPnPsdk info programs
      #  # This program is always built
@@ -295,7 +297,9 @@ jobs:
      #  run: ./build/bin/${{matrix.buildtype}}/UPnPsdk-pst.exe; ./build/bin/${{matrix.buildtype}}/UPnPsdk-psh.exe; ./build/bin/${{matrix.buildtype}}/UPnPsdk-cst.exe; ./build/bin/${{matrix.buildtype}}/UPnPsdk-csh.exe
 
       - name: Show network parameter
-        run: ipconfig /all
+        run: |
+          ipconfig /all
+          ./build/bin/${{matrix.buildtype}}/UPnPsdk_info
 
       - name: Run gtests
         run: |

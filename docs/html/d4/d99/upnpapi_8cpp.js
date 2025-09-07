@@ -7,7 +7,7 @@ var upnpapi_8cpp =
     [ "job_arg.advertise", "d4/d99/upnpapi_8cpp.html#de/da3/structjob__arg_8advertise", null ],
     [ "ifr_netmask", "d4/d99/upnpapi_8cpp.html#a249f4577f2fbad03ccb2959e9f9a9fda", null ],
     [ "IN6_IS_ADDR_ULA", "d4/d99/upnpapi_8cpp.html#a9dd7c394529caa29a98958354f269d31", null ],
-    [ "UpnpGetIfInfo", "d4/d99/upnpapi_8cpp.html#a3a7f1be4bdd896cc27cfe5863237db11", null ],
+    [ "UpnpGetIfInfo", "d4/d99/upnpapi_8cpp.html#ab1dc11ff68ac2c322840d378ebde4f84", null ],
     [ "GetFreeHandle", "d4/d99/upnpapi_8cpp.html#a0df8015084a465bb2d7f9e5ea5efa3d7", null ],
     [ "FreeHandle", "d4/d99/upnpapi_8cpp.html#a07653875141e0fbfd8429f44496dd448", null ],
     [ "UpnpRegisterRootDevice3", "d4/d99/upnpapi_8cpp.html#a46c5f48668d3cb1dcd599795ca6ce263", null ],

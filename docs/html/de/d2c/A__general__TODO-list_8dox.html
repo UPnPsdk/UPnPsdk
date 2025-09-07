@@ -106,9 +106,18 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A general TODO-list. </p>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd><ul>
+<li>Rework Unit Tests in Utest/compa/api.d/test_upnpapi.cpp.<ul>
+<li>Remove Utest/compa/api.d/test_upnpapi_win32.cpp.</li>
+<li>Remove Utest/compa/api.d/test_upnpapi_unix.cpp.</li>
+</ul>
+</li>
+<li>Rework UPnPsdk_info application<ul>
+<li>Update printed options</li>
+<li>Create info function in the library to avoid exporting private symbols, callable on the API.</li>
+</ul>
+</li>
 <li>Use pthread_rwlock_* instead of pthread_lock and family.</li>
 <li>Make CAddrinfo thread safe.</li>
-<li>Rework Unit Tests in Utest/compa/api.d/test_upnpapi_win32.cpp.</li>
 <li>Implement API of the SDK.<ul>
 <li>Check installation of binaries and header files in /usr/local.</li>
 <li>Add ixml interface calls to api_calls.c.</li>
@@ -130,7 +139,6 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <li>Test and document ixml script support.</li>
 <li>Build for ARM platforms.</li>
 <li>Create Unit Test large-file support (<a href="https://gist.github.com/mortenpi/9745042">https://gist.github.com/mortenpi/9745042</a>)</li>
-<li>Create info function in the library to avoid exporting private symbols, callable on the API.</li>
 <li>Remove Interface/ directory?</li>
 <li>Fix "time used" on sock_read and sock_write.</li>
 <li>Rework test_httpreadwrite.cpp.</li>

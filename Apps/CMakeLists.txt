@@ -1,5 +1,5 @@
 # Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-07-11
+# Redistribution only with this Copyright remark. Last modified: 2025-09-14
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -9,37 +9,6 @@ project(APPS VERSION 0003
         HOMEPAGE_URL "https://github.com/UPnPsdk")
 
 
-if(UPnPsdk_WITH_NATIVE_PUPNP)
-    # Info executable linked with the pupnp shared library
-    # ----------------------------------------------------
-    add_executable(UPnPsdk-psh
-        src/info_UPnPsdk.cpp
-    )
-    set_target_properties(UPnPsdk-psh PROPERTIES
-        OUTPUT_NAME info_pupnp-shared
-    )
-    target_link_libraries(UPnPsdk-psh
-        PRIVATE pupnp_shared
-    )
-
-    # Info executable linked with the pupnp static library
-    #-----------------------------------------------------
-    add_executable(UPnPsdk-pst
-        src/info_UPnPsdk.cpp
-    )
-    set_target_properties(UPnPsdk-pst PROPERTIES
-        OUTPUT_NAME info_pupnp-static
-    )
-    target_link_libraries(UPnPsdk-pst
-        PRIVATE pupnp_static
-    )
-
-    # Installation
-    #-------------
-    install(TARGETS UPnPsdk-psh UPnPsdk-pst)
-endif()
-
-
 # Info executable linked with the compatible shared library
 # ---------------------------------------------------------
 # This does not compile without error because it needs exported symbols from
@@ -47,10 +16,10 @@ endif()
 # design.
 if(FALSE)
     add_executable(UPnPsdk-csh
-            src/info_UPnPsdk.cpp
+            src/UPnPsdk_info.cpp
     )
     set_target_properties(UPnPsdk-csh PROPERTIES
-            OUTPUT_NAME info_compa-shared
+            OUTPUT_NAME UPnPsdk_info-csh
     )
     target_link_libraries(UPnPsdk-csh
         PRIVATE compa_shared
@@ -63,10 +32,10 @@ endif()
 # Info executable linked with the compatible static library
 #----------------------------------------------------------
 add_executable(UPnPsdk-cst
-        src/info_UPnPsdk.cpp
+        src/UPnPsdk_info.cpp
 )
 set_target_properties(UPnPsdk-cst PROPERTIES
-        OUTPUT_NAME info_compa-static
+        OUTPUT_NAME UPnPsdk_info
 )
 target_link_libraries(UPnPsdk-cst
     PRIVATE compa_static

@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-28
+// Redistribution only with this Copyright remark. Last modified: 2025-09-15
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -216,12 +216,8 @@ void CNetadapter::sockaddr(SSockaddr& a_saddr) const {
     SSockaddr saddr;
     m_na_platformPtr->sockaddr(saddr);
 
-    // If there is an IPv4 address but no loopback address then map it to IPv6.
-    if (saddr.ss.ss_family == AF_INET &&
-        // address between "127.0.0.0" and "127.255.255.255"
-        !(ntohl(saddr.sin.sin_addr.s_addr) >= 2130706432 &&
-          ntohl(saddr.sin.sin_addr.s_addr) <= 2147483647)) {
-
+    // If there is an IPv4 address then map it to IPv6.
+    if (saddr.ss.ss_family == AF_INET) {
         // We will get something like "[::ffff:192.168.1.2]:49494".
         SSockaddr saddr4to6;
         saddr4to6.sin6.sin6_family = AF_INET6;
@@ -240,18 +236,28 @@ void CNetadapter::sockaddr(SSockaddr& a_saddr) const {
 }
 
 void CNetadapter::socknetmask(SSockaddr& a_snetmask) const {
-    m_na_platformPtr->socknetmask(a_snetmask);
+    SSockaddr saObj;
+    m_na_platformPtr->socknetmask(saObj);
+    if (saObj.ss.ss_family == AF_INET) // This will be V4MAPPED
+        saObj = "[ffff:ffff:ffff:ffff:ffff:ffff::]"; // V4MAPPED has bitmask 96
+    a_snetmask = saObj;
 }
 
 unsigned int CNetadapter::bitmask() const {
+    SSockaddr saObj;
+    m_na_platformPtr->sockaddr(saObj);
+    if (saObj.ss.ss_family == AF_INET) // This will be V4MAPPED
+        return 96; // V4MAPPED has bitmask 96
     return m_na_platformPtr->bitmask();
 }
 
+/// \cond
 void CNetadapter::reset() noexcept {
     m_find_index = 0;
     m_state = Find::finish;
     m_na_platformPtr->reset();
 }
+/// \endcond
 
 
 bool CNetadapter::find_first(std::string_view a_name_or_addr) {

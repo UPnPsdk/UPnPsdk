@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2025 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-09-05
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -678,7 +678,8 @@ void TvCtrlPointAddDevice(IXML_Document* DescDoc, const char* location,
             strcpy(deviceNode->device.UDN, UDN);
             strcpy(deviceNode->device.DescDocURL, location);
             strcpy(deviceNode->device.FriendlyName, friendlyName);
-            strcpy(deviceNode->device.PresURL, presURL);
+            if (presURL) // BUGFIX: Next could segfault
+                strcpy(deviceNode->device.PresURL, presURL);
             deviceNode->device.AdvrTimeOut = expires;
             for (service = 0; service < TV_SERVICE_SERVCOUNT; service++) {
                 if (serviceId[service] == NULL) {

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-03
+// Redistribution only with this Copyright remark. Last modified: 2025-09-07
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -566,12 +566,22 @@ socklen_t SSockaddr::sizeof_saddr() const {
 // Get if the socket address is a loopback address
 //  ----------------------------------------------
 bool SSockaddr::is_loopback() const {
-    return ((m_sa_union.ss.ss_family == AF_INET6 &&
-             IN6_IS_ADDR_LOOPBACK(&m_sa_union.sin6.sin6_addr)) ||
+    // We handle only IPv6 addresses and check if we have either the IPv6
+    // loopback address or any IPv4 mapped IPv6 address between
+    // "[::ffff:127.0.0.0]" and "[::ffff:127.255.255.255]".
+    return (
+        m_sa_union.ss.ss_family == AF_INET6 &&
+        (IN6_IS_ADDR_LOOPBACK(&m_sa_union.sin6.sin6_addr) ||
+         (ntohl(static_cast<uint32_t>(m_sa_union.sin6.sin6_addr.s6_addr[12])) >=
+              2130706432 &&
+          ntohl(static_cast<uint32_t>(m_sa_union.sin6.sin6_addr.s6_addr[12])) <=
+              2147483647)));
+#if 0
             (m_sa_union.ss.ss_family == AF_INET &&
              // address between "127.0.0.0" and "127.255.255.255"
              ntohl(m_sa_union.sin.sin_addr.s_addr) >= 2130706432 &&
              ntohl(m_sa_union.sin.sin_addr.s_addr) <= 2147483647));
+#endif
 }
 
 /// \cond

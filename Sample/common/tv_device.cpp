@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-06
+ * Redistribution only with this Copyright remark. Last modified: 2025-09-12
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1309,10 +1309,7 @@ int TvDeviceStart(const char* a_iface, in_port_t a_port,
         UpnpSetLogLevel(UPNP_INFO);
     }
 
-    SampleUtil_Print(
-        "UpnpInit2 starting, initializing UPnP SDK with network interface "
-        "= \"%s\", local port = %u\n",
-        a_iface, a_port);
+    SampleUtil_Print("UpnpInit2 starting, initializing UPnP SDK with\n");
     ret = UpnpInit2(a_iface, a_port);
     if (ret != UPNP_E_SUCCESS) {
         SampleUtil_Print("Error with UpnpInit2 -- %s(%d)\n",
@@ -1320,7 +1317,7 @@ int TvDeviceStart(const char* a_iface, in_port_t a_port,
         UpnpFinish();
         return ret;
     }
-    std::cerr << "DEBUG! iface="
+    std::cout << "iface="
               << (a_iface == nullptr ? "nullptr"
                                      : "\"" + std::string(a_iface) + "\"")
               << ", port=" << a_port << ", gIF_IP4=\"" << ::gIF_IPV4
