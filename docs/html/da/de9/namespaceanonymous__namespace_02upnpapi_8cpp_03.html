@@ -141,21 +141,21 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieve local network adapter information and keep it in global variables. </p>
-<p>If no or empty argument given, we'll find the best suitable local network adapter for operation. The IPv6 loopback address - as specified - is handled as link local unicast address.</p>
+<p>If no or empty argument given, the operating system should find the best suitable local network adapter for operation as specified by <a href="https://www.rfc-editor.org/rfc/rfc3484">RFC3484 - Default Address Selection</a>. The IPv6 loopback address - as specified - is handled as link local unicast address.</p>
 <p>The local network adapter must fulfill these requirements: </p><ul>
 <li>Be UP. </li>
 <li>Support MULTICAST. </li>
-<li>Have a valid IPv4 or IPv6 address.</li>
+<li>Have a valid IPv6 address.</li>
 </ul>
 <p>We'll retrieve the following information from the adapter: </p><ul>
 <li>gIF_NAME -&gt; adapter name (by input or found). </li>
 <li>gIF_INDEX -&gt; Unique local network adapter index number. </li>
-<li>gIF_IPV4 -&gt; IPv4 address (if any). </li>
-<li>gIF_IPV4_NETMASK -&gt; Netmask of gIF_IPV4 (if any). </li>
+<li>gIF_IPV4 -&gt; not supported, still empty (see gIF_IPV6_ULA_GUA). </li>
+<li>gIF_IPV4_NETMASK -&gt; not supported, still empty (see gIF_IPV6_ULA_GUA). </li>
 <li>gIF_IPV6 -&gt; IPv6 LLA address (if any). </li>
 <li>gIF_IPV6_PREFIX_LENGTH -&gt; IPv6 LLA address prefix length. </li>
-<li>gIF_IPV6_ULA_GUA -&gt; ULA or GUA IPv6 address (if any). </li>
-<li>gIF_IPV6_ULA_GUA_PREFIX_LENGTH -&gt; IPv6 ULA or GUA address prefix length.</li>
+<li>gIF_IPV6_ULA_GUA -&gt; GUA IPv6 address or IPv4 mapped IPv6 address (if any) </li>
+<li>gIF_IPV6_ULA_GUA_PREFIX_LENGTH -&gt; Prefix length of gIF_IPV6_ULA_GUA.</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>UPNP_E_SUCCESS or UPNP_E_INVALID_INTERFACE. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -165,7 +165,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00255">255</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00257">257</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -241,7 +241,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>On success: an integer greater than zero<br  />
  On error: UPNP_E_OUTOF_HANDLE </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00363">363</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00365">365</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -296,7 +296,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00384">384</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00386">386</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -352,7 +352,7 @@ Variables</h2></td></tr>
 <p>UPnP Device and Control Point handle table <br  />
  </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00352">352</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00354">354</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>

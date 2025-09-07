@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-05
+// Redistribution only with this Copyright remark. Last modified: 2025-09-07
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -19,6 +19,17 @@
 #include <umock/pupnp_sock_mock.hpp>
 #include <umock/winsock2_mock.hpp>
 
+
+namespace compa {
+class CNetadapter : public UPnPsdk::CNetadapter {
+  public:
+    void sockaddr(UPnPsdk::SSockaddr& a_saddr) const {
+        m_na_platformPtr->sockaddr(a_saddr);
+    }
+};
+} // namespace compa
+
+
 namespace utest {
 
 using ::testing::_;
@@ -29,7 +40,6 @@ using ::testing::SetErrnoAndReturn;
 using ::testing::StartsWith;
 using ::testing::StrictMock;
 
-using ::UPnPsdk::CNetadapter;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::SSockaddr;
 
@@ -141,7 +151,7 @@ void get_netadapter() {
     // Getting information of the local network adapters is expensive because
     // it allocates memory to return the internal adapter list. So I do it one
     // time on start and provide the needed information.
-    CNetadapter nadapObj;
+    UPnPsdk::CNetadapter nadapObj;
     nadapObj.get_first();
 
     do {
@@ -677,10 +687,10 @@ TEST_F(UpnpapiMockFTestSuite, UpnpRegisterRootDevice3_successful) {
         << errStrEx(ret_UpnpFinish, UPNP_E_SUCCESS);
 }
 
-
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
-    // Only one network interface is supported so far but will be extended.
-    // Ports not set with this Unit so they doesn't matter here.
+    // Only one network interface is supported for compatibility but will be
+    // extended with re-engineering. Ports not set with this Unit so they
+    // doesn't matter here.
 
     // Test Unit
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
@@ -691,7 +701,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_monitor_if_valid_ip_addresses_set) {
     ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
-    CNetadapter nadaptObj;
+    UPnPsdk::CNetadapter nadaptObj;
     EXPECT_NO_THROW(nadaptObj.get_first());
 
     if (gIF_IPV6[0] != '\0') {
@@ -972,7 +982,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_ipv4_address_successful) {
     }
 }
 
-#if 0 // TODO: ipv4 mapped ipv6
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     // Ports not set with this Unit so they doesn't matter here.
     // For Microsoft Windows there are some TODOs in the old code:
@@ -987,7 +996,11 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
     }
 
     // Get the first adapter from internal network adapter list.
-    CNetadapter nadapObj;
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    compa::CNetadapter nadapObj;
+#else
+    UPnPsdk::CNetadapter nadapObj;
+#endif
     ASSERT_NO_THROW(nadapObj.get_first());
     if (!nadapObj.find_first())
         GTEST_SKIP()
@@ -1032,7 +1045,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
             EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadapObj.bitmask());
 #endif
         } else if (saObj.ss.ss_family == AF_INET6 &&
-                   IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+                   (IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr) ||
+                    IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr))) {
             // Strip leading bracket on copying.
             std::strcpy(buf, saObj.netaddr().c_str() + 1);
             // Strip trailing bracket.
@@ -1065,7 +1079,11 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
     }
 
     // Get the first adapter from internal network adapter list.
-    CNetadapter nadapObj;
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    compa::CNetadapter nadapObj; // Without IPv4 mapped IPv6
+#else
+    UPnPsdk::CNetadapter nadapObj;
+#endif
     ASSERT_NO_THROW(nadapObj.get_first());
     if (!nadapObj.find_first())
         GTEST_SKIP()
@@ -1115,7 +1133,8 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
             EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadapObj.bitmask());
 #endif
         } else if (saObj.ss.ss_family == AF_INET6 &&
-                   IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+                   (IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr) ||
+                    IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr))) {
             // Strip leading bracket on copying.
             std::strcpy(buf, saObj.netaddr().c_str() + 1);
             // Strip trailing bracket.
@@ -1133,7 +1152,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
         }
     } while (nadapObj.find_next());
 }
-#endif
 
 TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
     if (!github_actions)

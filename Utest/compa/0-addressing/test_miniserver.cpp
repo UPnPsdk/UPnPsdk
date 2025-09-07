@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-05
+// Redistribution only with this Copyright remark. Last modified: 2025-09-06
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -511,90 +511,10 @@ TEST(StartMiniServerTestSuite, get_miniserver_sockets_with_no_ip_addr) {
     EXPECT_EQ(CLOSE_SOCKET_P(miniSocket.miniServerSock4), -1);
 }
 
-#if 0 // TODO: ipv4 mapped ipv6, don't mock
-TEST_F(StartMiniServerMockFTestSuite,
-       get_miniserver_sockets_with_one_ipv4_addr) {
-    // Initialize needed structure
-    constexpr SOCKET sockfd{umock::sfd_base + 71};
-    SSockaddr saddrObj;
-    saddrObj = "192.168.22.33:50080";
-    // Get gIF_IPV4
-    std::strcpy(gIF_IPV4, saddrObj.netaddr().c_str());
-    LOCAL_PORT_V4 = saddrObj.port();
-    MiniServerSockArray miniSocket{};
-    InitMiniServerSockArray(&miniSocket);
-#ifndef UPnPsdk_WITH_NATIVE_PUPNP
-    CSocket sockIp4Obj;
-    miniSocket.pSockIp4Obj = &sockIp4Obj;
-#endif
-    // Provide a socket file descriptor
-    EXPECT_CALL(m_sys_socketObj, socket(saddrObj.ss.ss_family, SOCK_STREAM, 0))
-        .WillOnce(Return(sockfd));
-
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
-
-    // Bind socket to an ip address
-    EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _)).WillOnce(Return(0));
-    // Query port from socket
-    EXPECT_CALL(
-        m_sys_socketObj,
-        getsockname(sockfd, _,
-                    Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
-        .WillOnce(DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
-                        Return(0)));
-    // Listen on the socket
-    EXPECT_CALL(m_sys_socketObj, listen(sockfd, _)).WillOnce(Return(0));
-
-#else // new code
-
-    // Mock socket object initialization
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, _, _))
-        .WillOnce(Return(0));
-#ifdef _MSC_VER
-    EXPECT_CALL(m_sys_socketObj,
-                setsockopt(sockfd, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, _, _))
-        .WillOnce(Return(0));
-#endif
-    // Provide socket address from the socket file descriptor
-    EXPECT_CALL(
-        m_sys_socketObj,
-        getsockname(sockfd, _,
-                    Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
-        .Times(g_dbug ? 2 : 1) // additional call with debug output
-        .WillRepeatedly(
-            DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
-                  SetArgPointee<2>(saddrObj.sizeof_saddr()), Return(0)));
-    // Bind socket to an ip address
-    EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _)).WillOnce(Return(0));
-    // Listen on the socket
-    EXPECT_CALL(m_sys_socketObj, listen(sockfd, _)).WillOnce(Return(0));
-#endif
-
-    // Test Unit
-    int ret_get_miniserver_sockets =
-        get_miniserver_sockets(&miniSocket, 0, 0, 0);
-
-    EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
-        << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS);
-
-    // EXPECT_EQ(miniSocket.miniServerSock4, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.miniServerSock4, sockfd);
-    // EXPECT_EQ(miniSocket.miniServerPort4, 0u);
-    EXPECT_EQ(miniSocket.miniServerPort4, saddrObj.port());
-    EXPECT_EQ(miniSocket.miniServerSock6, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.miniServerSock6UlaGua, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.miniServerStopSock, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.ssdpSock4, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.ssdpSock6, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.ssdpSock6UlaGua, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.stopPort, 0u);
-    EXPECT_EQ(miniSocket.miniServerPort6, 0u);
-    EXPECT_EQ(miniSocket.miniServerPort6UlaGua, 0u);
-    EXPECT_EQ(miniSocket.ssdpReqSock4, INVALID_SOCKET);
-    EXPECT_EQ(miniSocket.ssdpReqSock6, INVALID_SOCKET);
-}
-#endif
+// Removed
+// TEST_F(StartMiniServerMockFTestSuite,
+//        get_miniserver_sockets_with_one_ipv4_addr) {}
+// can be found at Github commit a18cff7d3dfd3266ad63a9efacba672ab1bd88b2
 
 TEST_F(StartMiniServerMockFTestSuite,
        get_miniserver_sockets_with_one_ipv6_lla_addr) {
@@ -733,29 +653,25 @@ TEST(StartMiniServerTestSuite, get_miniserver_sockets_with_invalid_ip_address) {
     EXPECT_EQ(CLOSE_SOCKET_P(miniSocket.miniServerSock4), -1);
 }
 
-#if 0 // TODO: ipv4 mapped ipv6, don't mock
 TEST_F(StartMiniServerMockFTestSuite,
        get_miniserver_sockets_with_invalid_socket) {
-    std::strcpy(gIF_IPV4, "192.168.12.9");
+    std::strcpy(gIF_IPV6_ULA_GUA, "::ffff:192.168.12.9");
     // Initialize needed structure
-    MiniServerSockArray miniSocket{};
-    InitMiniServerSockArray(&miniSocket);
+    MiniServerSockArray minisockets{};
+    InitMiniServerSockArray(&minisockets);
 #ifdef COMPA_HAVE_WEBSERVER
-    CSocket sockIp4Obj;
-    miniSocket.pSockIp4Obj = &sockIp4Obj;
+    CSocket sockObj;
+    minisockets.pSockGuaObj = &sockObj;
 #endif
     // Mock to get an invalid socket id
-    EXPECT_CALL(m_sys_socketObj, socket(AF_INET, SOCK_STREAM, 0))
+    EXPECT_CALL(m_sys_socketObj, socket(AF_INET6, SOCK_STREAM, 0))
         .WillOnce(SetErrnoAndReturn(EINVAL, INVALID_SOCKET));
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Test Unit
     int ret_get_miniserver_sockets =
-        get_miniserver_sockets(&miniSocket, 0, 0, 0);
+        get_miniserver_sockets(&minisockets, 0, 0, 0);
 
-    std::cout << CRED "[ BUG      ] " CRES << __LINE__
-              << ": Getting an invalid socket for IPv4 address with "
-                 "disabled IPv6 stack must not succeed.\n";
 #ifndef UPNP_ENABLE_IPV6
     // This isn't relevant for new code because there is IPv6 always
     // available.
@@ -774,17 +690,16 @@ TEST_F(StartMiniServerMockFTestSuite,
 
     // Test Unit
     int ret_get_miniserver_sockets =
-        get_miniserver_sockets(&miniSocket, 0, 0, 0);
+        get_miniserver_sockets(&minisockets, 0, 0, 0);
 
     EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET)
         << errStrEx(ret_get_miniserver_sockets, UPNP_E_OUTOF_SOCKET);
 #endif
     {
         SCOPED_TRACE("");
-        chk_minisocket(miniSocket);
+        chk_minisocket(minisockets);
     }
 }
-#endif
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST(StartMiniServerTestSuite, init_socket_suff_successful) {

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-29
+ * Redistribution only with this Copyright remark. Last modified: 2025-09-07
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -231,24 +231,26 @@ namespace { // anonymous namespace for file scoped old upnpapi items.
  * \brief Retrieve local network adapter information and keep it in global
  * variables.
  *
- * If no or empty argument given, we'll find the best suitable local network
- * adapter for operation. The IPv6 loopback address - as specified - is handled
- * as link local unicast address.
+ * If no or empty argument given, the operating system should find the best
+ * suitable local network adapter for operation as specified by <a
+ * href=https://www.rfc-editor.org/rfc/rfc3484>RFC3484 - Default Address
+ * Selection</a>. The IPv6 loopback address - as specified - is handled as
+ * link local unicast address.
  *
  * The local network adapter must fulfill these requirements:
  * \li Be UP.
  * \li Support MULTICAST.
- * \li Have a valid IPv4 or IPv6 address.
+ * \li Have a valid IPv6 address.
  *
  * We'll retrieve the following information from the adapter:
  * \li gIF_NAME -> adapter name (by input or found).
  * \li gIF_INDEX -> Unique local network adapter index number.
- * \li gIF_IPV4 -> IPv4 address (if any).
- * \li gIF_IPV4_NETMASK -> Netmask of gIF_IPV4 (if any).
+ * \li gIF_IPV4 -> not supported, still empty (see gIF_IPV6_ULA_GUA).
+ * \li gIF_IPV4_NETMASK -> not supported, still empty (see gIF_IPV6_ULA_GUA).
  * \li gIF_IPV6 -> IPv6 LLA address (if any).
  * \li gIF_IPV6_PREFIX_LENGTH -> IPv6 LLA address prefix length.
- * \li gIF_IPV6_ULA_GUA -> ULA or GUA IPv6 address (if any).
- * \li gIF_IPV6_ULA_GUA_PREFIX_LENGTH -> IPv6 ULA or GUA address prefix length.
+ * \li gIF_IPV6_ULA_GUA -> GUA IPv6 address or IPv4 mapped IPv6 address (if any)
+ * \li gIF_IPV6_ULA_GUA_PREFIX_LENGTH -> Prefix length of gIF_IPV6_ULA_GUA.
  *
  * \return UPNP_E_SUCCESS or UPNP_E_INVALID_INTERFACE.
  */
@@ -287,8 +289,7 @@ int UpnpGetIfInfo(
         UPnPsdk::SSockaddr saObj;
         do {
             nadaptObj.sockaddr(saObj);
-            switch (saObj.ss.ss_family) {
-            case AF_INET6:
+            if (saObj.ss.ss_family == AF_INET6) {
                 // The loopback address belongs to link-local unicast
                 // addresses.
                 if (gIF_IPV6[0] == '\0' &&
@@ -316,28 +317,17 @@ int UpnpGetIfInfo(
                         *chptr = '\0';
                     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadaptObj.bitmask();
                 }
-                break;
 
-            case AF_INET:
-                if (gIF_IPV4[0] == '\0') {
-                    ::strncpy(gIF_IPV4, saObj.netaddr().c_str(),
-                              sizeof(gIF_IPV4) - 1);
-                    nadaptObj.socknetmask(saObj);
-                    ::strncpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str(),
-                              sizeof(gIF_IPV4_NETMASK) - 1);
-                }
-                break;
+            } else {
 
-            default:
                 UPnPsdk_LOGCRIT("MSG1029") "Unsupported address family("
                     << saObj.ss.ss_family << "), only AF_INET6(" << AF_INET6
-                    << ") or AF_INET(" << AF_INET << ") are valid.\n";
+                    << ") is valid.\n";
                 return UPNP_E_INVALID_INTERFACE;
-            } // switch
+            }
 
         } while (nadaptObj.find_next() &&
-                 (gIF_IPV6[0] == '\0' || gIF_IPV6_ULA_GUA[0] == '\0' ||
-                  gIF_IPV4[0] == '\0'));
+                 (gIF_IPV6[0] == '\0' || gIF_IPV6_ULA_GUA[0] == '\0'));
 
     } catch (const std::exception& ex) {
         UPnPsdk_LOGCATCH("MSG1006") "catched next line...\n" << ex.what();
