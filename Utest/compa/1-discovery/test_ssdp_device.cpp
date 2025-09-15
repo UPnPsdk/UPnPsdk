@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-31
+// Redistribution only with this Copyright remark. Last modified: 2025-09-15
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -128,7 +128,6 @@ class SsdpDeviceFTestSuite : public ::testing::Test {
         memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
         memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
 #if 0 // #ifdef UPnPsdk_WITH_NATIVE_PUPNP
-        memset(&gWebMutex, 0xAA, sizeof(gWebMutex));
         memset(&GlobalClientSubscribeMutex, 0xAA,
                sizeof(GlobalClientSubscribeMutex));
 #endif

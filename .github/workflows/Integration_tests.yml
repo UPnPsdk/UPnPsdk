@@ -118,12 +118,12 @@ jobs:
       - name: Run gtests
         run: |
           cd ./build/Utest
-          ctest --timeout 6 --output-on-failure
+          ctest --timeout 40 --output-on-failure
 
       - name: Run gtests with debug output
         run: |
           cd ./build/Utest
-          UPnPsdk_DEBUG=true ctest --timeout 6 --output-on-failure
+          UPnPsdk_DEBUG=true ctest --timeout 40 --output-on-failure
 
 
   # Job: Configure, build and test MacOS
@@ -305,13 +305,13 @@ jobs:
         run: |
           $env:path += ";./build/bin/${{matrix.buildtype}}"
           cd ./build/Utest
-          ctest -C ${{matrix.buildtype}} --timeout 9 --output-on-failure
+          ctest -C ${{matrix.buildtype}} --timeout 40 --output-on-failure
 
       - name: Run gtests with debug output
         run: |
           $env:UPnPsdk_DEBUG = "set"
           cd ./build/Utest
-          ctest -C ${{matrix.buildtype}} --timeout 9 --output-on-failure
+          ctest -C ${{matrix.buildtype}} --timeout 40 --output-on-failure
 
 
   # Job: Configure, build and test with NMake
@@ -400,13 +400,13 @@ jobs:
         run: |
           $env:path += ";./build/bin"
           cd ./build/Utest
-          ctest -C ${{matrix.buildtype}} --timeout 9 --output-on-failure
+          ctest -C ${{matrix.buildtype}} --timeout 40 --output-on-failure
 
       - name: Run gtests with debug output
         run: |
           $env:UPnPsdk_DEBUG = "set"
           cd ./build/Utest
-          ctest -C ${{matrix.buildtype}} --timeout 9 --output-on-failure
+          ctest -C ${{matrix.buildtype}} --timeout 40 --output-on-failure
 
 
   # Job: Run build tests

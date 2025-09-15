@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-24
+ * Redistribution only with this Copyright remark. Last modified: 2025-09-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -662,12 +662,14 @@ int UpnpFinish(void) {
     if (UpnpSdkInit == 1)
         UpnpPrintf(UPNP_INFO, API, __FILE__, __LINE__,
                    "UpnpFinish: UpnpSdkInit is ONE\n");
+#if 0 // Maybe useful for DEBUG:
     PrintThreadPoolStats(&gSendThreadPool, __FILE__, __LINE__,
                          "Send Thread Pool");
     PrintThreadPoolStats(&gRecvThreadPool, __FILE__, __LINE__,
                          "Recv Thread Pool");
     PrintThreadPoolStats(&gMiniServerThreadPool, __FILE__, __LINE__,
                          "MiniServer Thread Pool");
+#endif
 #ifdef INCLUDE_DEVICE_APIS
     while (GetDeviceHandleInfo(0, AF_INET, &device_handle, &temp) ==
            HND_DEVICE) {
@@ -691,6 +693,7 @@ int UpnpFinish(void) {
     web_server_destroy();
 #endif
     ThreadPoolShutdown(&gMiniServerThreadPool);
+#if 0 // Maybe useful for DEBUG:
     PrintThreadPoolStats(&gMiniServerThreadPool, __FILE__, __LINE__,
                          "MiniServer Thread Pool");
     ThreadPoolShutdown(&gRecvThreadPool);
@@ -699,6 +702,7 @@ int UpnpFinish(void) {
     ThreadPoolShutdown(&gSendThreadPool);
     PrintThreadPoolStats(&gRecvThreadPool, __FILE__, __LINE__,
                          "Recv Thread Pool");
+#endif
 #ifdef INCLUDE_CLIENT_APIS
     ithread_mutex_destroy(&GlobalClientSubscribeMutex);
 #endif

@@ -1,10 +1,11 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-14
+// Redistribution only with this Copyright remark. Last modified: 2025-09-18
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
+ * - CAddrinfo MUST return error codes!
  * - Rework Unit Tests in Utest/compa/api.d/test_upnpapi.cpp.
  *   - Remove Utest/compa/api.d/test_upnpapi_win32.cpp.
  *   - Remove Utest/compa/api.d/test_upnpapi_unix.cpp.
