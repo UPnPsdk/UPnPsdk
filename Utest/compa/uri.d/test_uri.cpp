@@ -491,7 +491,7 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     std::cout << "NDEBUG! is NOT defined.\n";
 #endif
 
-#if (defined(__APPLE__) && defined(DEBUG)) || defined(__linux__) ||            \
+#if (defined(__APPLE__) && !defined(DEBUG)) || defined(__linux__) ||           \
     defined(_MSC_VER)
     std::cerr << "DEBUG! Tracepoint1\n";
     if (old_code) {
