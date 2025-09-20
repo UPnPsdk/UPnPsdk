@@ -333,27 +333,15 @@ TEST(TokenCmpDeathTest, check_token_string_casecmp) {
         ".*"); // Wrong!
 #endif
 
-    if (old_code) {
-        // This expects segfault.
-        EXPECT_DEATH(
-            {
-                Curi uriObj;
-                uriObj.token_string_casecmp(&inull, in5);
-            },
-            ".*"); // Wrong!
-
-    } else {
-
-        // This expects NO segfault.
-        ASSERT_EXIT(
-            {
-                Curi uriObj;
-                uriObj.token_string_casecmp(&inull, in5);
-                exit(0);
-            },
-            ::testing::ExitedWithCode(0), ".*")
-            << "  A nullptr in the token structure must not segfault.\n";
-    }
+    // This expects NO segfault.
+    ASSERT_EXIT(
+        {
+            Curi uriObj;
+            uriObj.token_string_casecmp(&inull, in5);
+            exit(0);
+        },
+        ::testing::ExitedWithCode(0), ".*")
+        << "  A nullptr in the token structure must not segfault.\n";
 
     Curi uriObj;
     token in0{"", 0};
