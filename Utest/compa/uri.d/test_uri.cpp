@@ -331,8 +331,7 @@ TEST(TokenCmpDeathTest, check_token_string_casecmp) {
                 Curi uriObj;
                 uriObj.token_string_casecmp(&inull, in5);
             },
-            ".*");
-        }; // Wrong!
+            ".*"); // Wrong!
 #endif
     } else {
 
@@ -484,15 +483,13 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     size_t size{strlen(strbuf)};
     Curi uriObj;
 
-#ifndef __APPLE__
     if (old_code) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
                   << ": Calling Unit with nullptr should not segfault.\n";
         EXPECT_DEATH(uriObj.remove_escaped_chars(nullptr, nullptr),
                      ".*"); // Wrong!
-    } else
-#endif
-    {
+    } else {
+
         ASSERT_EXIT((uriObj.remove_escaped_chars(nullptr, nullptr), exit(0)),
                     ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
