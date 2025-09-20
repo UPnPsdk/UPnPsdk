@@ -480,7 +480,7 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     size_t size{strlen(strbuf)};
     Curi uriObj;
 
-#if (defined(__APPLE__) && !defined(DEBUG)) || defined(__linux__) ||           \
+#if (defined(__APPLE__) && defined(DEBUG)) || defined(__linux__) ||            \
     defined(_MSC_VER)
     if (old_code) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
