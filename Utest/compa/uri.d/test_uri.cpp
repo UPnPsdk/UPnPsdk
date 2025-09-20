@@ -480,13 +480,15 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     size_t size{strlen(strbuf)};
     Curi uriObj;
 
+#if defined(__APPLE__) && defined(DEBUG)
     if (old_code) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
                   << ": Calling Unit with nullptr should not segfault.\n";
         EXPECT_DEATH(uriObj.remove_escaped_chars(nullptr, nullptr),
                      ".*"); // Wrong!
-    } else {
-
+    } else
+#endif
+    {
         ASSERT_EXIT((uriObj.remove_escaped_chars(nullptr, nullptr), exit(0)),
                     ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
