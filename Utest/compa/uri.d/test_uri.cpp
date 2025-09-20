@@ -320,11 +320,20 @@ TEST(TokenCmpDeathTest, check_token_string_casecmp) {
     token inull{nullptr, 0};
     constexpr char in5[]{""};
 
-    if (old_code) {
-        std::cout
-            << CYEL "[    FIX   ] " CRES << __LINE__
-            << ": A nullptr in the token structure, segfaults on MS Windows.\n";
+    std::cout
+        << CRED "[ BUG      ] " CRES << __LINE__
+        << ": A nullptr in the token structure, segfaults on MS Windows.\n";
 #ifdef _MSC_VER
+    // This expects segfault.
+    ASSERT_DEATH(
+        {
+            Curi uriObj;
+            uriObj.token_string_casecmp(&inull, in5);
+        },
+        ".*"); // Wrong!
+#endif
+
+    if (old_code) {
         // This expects segfault.
         EXPECT_DEATH(
             {
@@ -332,7 +341,7 @@ TEST(TokenCmpDeathTest, check_token_string_casecmp) {
                 uriObj.token_string_casecmp(&inull, in5);
             },
             ".*"); // Wrong!
-#endif
+
     } else {
 
         // This expects NO segfault.
@@ -500,13 +509,11 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     strcpy(strbuf, "hello"); // with '\0'
     size = strlen(strbuf);
 
-#ifndef __APPLE__
     if (old_code) {
         EXPECT_DEATH(uriObj.remove_escaped_chars(nullptr, &size),
                      ".*"); // Wrong!
-    } else
-#endif
-    {
+    } else {
+
         ASSERT_EXIT((uriObj.remove_escaped_chars(nullptr, &size), exit(0)),
                     ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
