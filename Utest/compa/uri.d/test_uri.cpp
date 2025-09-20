@@ -316,7 +316,6 @@ TEST(TokenCmpTestSuite, check_token_string_cmp) {
 }
 
 TEST(TokenCmpDeathTest, check_token_string_casecmp) {
-    Curi uriObj;
     // == 0, if string1 is identical to string2 case insensitive.
     token inull{nullptr, 0};
     constexpr char in5[]{""};
@@ -327,16 +326,25 @@ TEST(TokenCmpDeathTest, check_token_string_casecmp) {
             << ": A nullptr in the token structure, segfaults on MS Windows.\n";
 #ifdef _MSC_VER
         // This expects segfault.
-        EXPECT_DEATH(uriObj.token_string_casecmp(&inull, in5), "."); // Wrong!
+        EXPECT_DEATH {
+            Curi uriObj;
+            uriObj.token_string_casecmp(&inull, in5), ".*";
+        }; // Wrong!
 #endif
     } else {
 
         // This expects NO segfault.
-        ASSERT_EXIT((uriObj.token_string_casecmp(&inull, in5), exit(0)),
-                    ::testing::ExitedWithCode(0), ".*")
+        ASSERT_EXIT(
+            {
+                Curi uriObj;
+                uriObj.token_string_casecmp(&inull, in5);
+                exit(0);
+            },
+            ::testing::ExitedWithCode(0), ".*")
             << "  A nullptr in the token structure must not segfault.\n";
     }
 
+    Curi uriObj;
     token in0{"", 0};
     EXPECT_EQ(uriObj.token_string_casecmp(&in0, in5), 0);
 
@@ -473,7 +481,7 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     size_t size{strlen(strbuf)};
     Curi uriObj;
 
-    if (old_code) {
+    if (old_code && !__APPLE__) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
                   << ": Calling Unit with nullptr should not segfault.\n";
         EXPECT_DEATH(uriObj.remove_escaped_chars(nullptr, nullptr),
@@ -489,7 +497,7 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     strcpy(strbuf, "hello"); // with '\0'
     size = strlen(strbuf);
 
-    if (old_code) {
+    if (old_code && !__APPLE__) {
         EXPECT_DEATH(uriObj.remove_escaped_chars(nullptr, &size),
                      ".*"); // Wrong!
     } else {
@@ -500,7 +508,7 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
         EXPECT_EQ(size, 5u);
     }
 
-    if (old_code) {
+    if (old_code && !__APPLE__) {
         EXPECT_DEATH(uriObj.remove_escaped_chars(strbuf, nullptr),
                      ".*"); // Wrong!
     } else {
