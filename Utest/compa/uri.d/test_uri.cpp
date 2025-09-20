@@ -326,9 +326,12 @@ TEST(TokenCmpDeathTest, check_token_string_casecmp) {
             << ": A nullptr in the token structure, segfaults on MS Windows.\n";
 #ifdef _MSC_VER
         // This expects segfault.
-        EXPECT_DEATH {
-            Curi uriObj;
-            uriObj.token_string_casecmp(&inull, in5), ".*";
+        EXPECT_DEATH(
+            {
+                Curi uriObj;
+                uriObj.token_string_casecmp(&inull, in5);
+            },
+            ".*");
         }; // Wrong!
 #endif
     } else {
@@ -481,12 +484,15 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     size_t size{strlen(strbuf)};
     Curi uriObj;
 
-    if (old_code && !__APPLE__) {
+#ifndef __APPLE__
+    if (old_code) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
                   << ": Calling Unit with nullptr should not segfault.\n";
         EXPECT_DEATH(uriObj.remove_escaped_chars(nullptr, nullptr),
                      ".*"); // Wrong!
-    } else {
+    } else
+#endif
+    {
         ASSERT_EXIT((uriObj.remove_escaped_chars(nullptr, nullptr), exit(0)),
                     ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
@@ -497,10 +503,13 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     strcpy(strbuf, "hello"); // with '\0'
     size = strlen(strbuf);
 
-    if (old_code && !__APPLE__) {
+#ifndef __APPLE__
+    if (old_code) {
         EXPECT_DEATH(uriObj.remove_escaped_chars(nullptr, &size),
                      ".*"); // Wrong!
-    } else {
+    } else
+#endif
+    {
         ASSERT_EXIT((uriObj.remove_escaped_chars(nullptr, &size), exit(0)),
                     ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
@@ -508,10 +517,13 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
         EXPECT_EQ(size, 5u);
     }
 
-    if (old_code && !__APPLE__) {
+#ifndef __APPLE__
+    if (old_code) {
         EXPECT_DEATH(uriObj.remove_escaped_chars(strbuf, nullptr),
                      ".*"); // Wrong!
-    } else {
+    } else
+#endif
+    {
         ASSERT_EXIT((uriObj.remove_escaped_chars(strbuf, nullptr), exit(0)),
                     ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
