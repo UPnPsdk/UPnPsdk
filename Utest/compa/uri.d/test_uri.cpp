@@ -491,9 +491,11 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     std::cout << "NDEBUG! is NOT defined.\n";
 #endif
 
-#if (defined(__APPLE__) && defined(NDEBUG)) || defined(__linux__) ||           \
+#if (defined(__APPLE__) && defined(DEBUG)) || defined(__linux__) ||            \
     defined(_MSC_VER)
+    std::cerr << "DEBUG! Tracepoint1\n";
     if (old_code) {
+        std::cerr << "DEBUG! Tracepoint2\n";
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
                   << ": Calling Unit with nullptr should not segfault.\n";
         EXPECT_DEATH(uriObj.remove_escaped_chars(nullptr, nullptr),
@@ -501,6 +503,7 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
     } else
 #endif
     {
+        std::cerr << "DEBUG! Tracepoint3\n";
         ASSERT_EXIT((uriObj.remove_escaped_chars(nullptr, nullptr), exit(0)),
                     ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
