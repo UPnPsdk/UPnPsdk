@@ -18,8 +18,7 @@ var namespaces_dup =
       [ "genaInitNotifyCommon", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a2cfe3543fad246a253ed6379e1fc0bf4", null ],
       [ "maybeDiscardEvents", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a74609494846be8d91321eafb29dc55eb", null ],
       [ "genaNotifyAllCommon", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#ac1a38d06cf74cd21f7f8ac40f00efb11", null ],
-      [ "respond_ok", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a11f6b8370b141ab90b844dbf1092265c", null ],
-      [ "create_url_list", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#af3bd1c9ce793964ef17b997f45a2627a", null ]
+      [ "respond_ok", "d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a11f6b8370b141ab90b844dbf1092265c", null ]
     ] ],
     [ "anonymous_namespace{httpparser.cpp}", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html", [
       [ "token_type_t", "da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a520bb76e99358d4cf3d450397d253c80", [

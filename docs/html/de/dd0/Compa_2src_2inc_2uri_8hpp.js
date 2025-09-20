@@ -31,8 +31,9 @@ var Compa_2src_2inc_2uri_8hpp =
       [ "OPAQUE_PART", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#ab054ad652ff0574f763df38fd0d9bfdba4c54febe4ccf75bc312c3c048961b974", null ]
     ] ],
     [ "replace_escaped", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a751f1fd3d53e0f5194c1960da2632109", null ],
-    [ "copy_URL_list", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#abd14ac4c694033997f191b4b5692c529", null ],
-    [ "free_URL_list", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#ab6dd9f4906f80639a933e977345cd786", null ],
+    [ "create_url_list", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#af4cc95bfb93aec4a8f3f5e4192d4e1c2", null ],
+    [ "copy_URL_list", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a374e6c139790318fbeeb52f69574f491", null ],
+    [ "free_URL_list", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#afb7b37727ebf22a77a8edac2b15108ed", null ],
     [ "print_uri", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#acd9ad3e6df399d6ebf98d35ad3704e3e", null ],
     [ "print_token", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#ad94a05e4418a628c9ac63dc80af0a281", null ],
     [ "token_string_casecmp", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#aa9d799bfb658372dabb55d45aedb7778", null ],

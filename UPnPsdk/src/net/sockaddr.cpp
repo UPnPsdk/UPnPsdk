@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-07
+// Redistribution only with this Copyright remark. Last modified: 2025-09-26
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -485,6 +485,7 @@ const std::string SSockaddr::netaddr() noexcept {
     // also fit to an IPv6 address with scope id (max. 51).
     char addrStr[39 /*sizeof(IPv6_addr)*/ + 1 /*'%'*/ +
                  10 /*sin6_scope_id_max(4294967295)*/ + 1 /*'\0'*/]{};
+    // ::getnameinfo() appends scope id with '%' if sin6_scope_id is > 0.
     int ret = ::getnameinfo(&m_sa_union.sa, sizeof(m_sa_union.ss), addrStr,
                             sizeof(addrStr), nullptr, 0, NI_NUMERICHOST);
     if (ret != 0) {
@@ -566,7 +567,7 @@ socklen_t SSockaddr::sizeof_saddr() const {
 // Get if the socket address is a loopback address
 //  ----------------------------------------------
 bool SSockaddr::is_loopback() const {
-    // We handle only IPv6 addresses and check if we have either the IPv6
+    // I handle only IPv6 addresses and check if I have either the IPv6
     // loopback address or any IPv4 mapped IPv6 address between
     // "[::ffff:127.0.0.0]" and "[::ffff:127.255.255.255]".
     return (

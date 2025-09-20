@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-09-12
+ * Redistribution only with this Copyright remark. Last modified: 2025-09-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,7 +39,7 @@
 
 #include "tv_device.hpp"
 #include <upnpdebug.hpp>
-#include <upnpapi.hpp> // DEBUG!
+#include <upnpapi.hpp>
 
 #include <UPnPsdk/synclog.hpp>
 #include <UPnPsdk/port.hpp>

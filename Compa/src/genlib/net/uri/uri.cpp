@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-09-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -38,6 +38,7 @@
 
 #include <upnp.hpp>
 #include <uri.hpp>
+#include <membuffer.hpp>
 
 #include <UPnPsdk/port_sock.hpp>
 #include <umock/netdb.hpp>
@@ -45,6 +46,8 @@
 /// \cond
 #include <cassert>
 #include <cstdio> // Needed if OpenSSL isn't compiled in.
+#include <climits>
+#include <vector>
 /// \endcond
 
 UPnPsdk_EXTERN unsigned gIF_INDEX;
@@ -172,7 +175,7 @@ size_t parse_uric(
  * size from a token (in) relative to one string (in_base) into a token (out)
  * relative to another string (out_base).
  */
-void copy_token(
+inline void copy_token(
     /*! [in] Source token. */
     const token* in,
     /*! [in] */
@@ -192,14 +195,19 @@ void copy_token(
  * "localhost") and fills out a hostport_type struct with internet address and a
  * token representing the full host and port. Uses getaddrinfo() to resolve DNS
  * names. This may result in a longer delay until response from the internet.
+ *
+ * \returns
+ *  On Success: size of the hostport identifier (e.g. 5 for "[::1]").\n
+ *  On Error:
+ *  - UPNP_E_INVALID_URL
  */
 int parse_hostport(
     /*! [in] String of characters representing host and port. */
     const char* in,
-    /*! [out] Output parameter where the host and port are represented as
-     * an internet address. */
+    /*! [in] Used port if no port is specified with \b in */
     unsigned short int defaultPort,
-    /*! [out] The netaddress (with port) */
+    /*! [out] Structure filled with the [netaddress](\ref glossary_netaddr)
+       (with port) and with the socket address (sockaddr_storage). */
     hostport_type* out) {
     char workbuf[256];
     char* c;
@@ -428,36 +436,102 @@ int replace_escaped(char* in, size_t index, size_t* max) {
 }
 
 
-int copy_URL_list(URL_list* in, URL_list* out) {
-    size_t len = strlen(in->URLs) + (size_t)1;
-    size_t i = (size_t)0;
+int create_url_list(memptr* a_url_list, URL_list* a_out) {
+    if (!a_out)
+        return 0;
+    if (!a_url_list || a_url_list->length == 0) {
+        memset(a_out, 0, sizeof(*a_out));
+        return 0;
+    }
 
-    out->URLs = NULL;
-    out->parsedURLs = NULL;
-    out->size = (size_t)0;
-
-    // clang-format off
-// #ifdef UPNPLIB_PUPNP_BUG
-    // Ingo - Error old code: this isn't fixed due to compatibility.
-    out->URLs = (char*)malloc(len);
-    out->parsedURLs = (uri_type*)malloc(sizeof(uri_type) * in->size);
-
-    if (!out->URLs || !out->parsedURLs)
+    // Allocate memory and copy the serialized urls to it.
+    char* base_urls = static_cast<char*>(malloc(a_url_list->length + 1));
+    if (!base_urls)
         return UPNP_E_OUTOF_MEMORY;
-// #else
-//     out->URLs = (char*)malloc(len);
-//     if (!out->URLs)
-//         return UPNP_E_OUTOF_MEMORY;
-//     out->parsedURLs = (uri_type*)malloc(sizeof(uri_type) * in->size);
-//     if (!out->parsedURLs) {
-//         free(out->URLs);
-//         return UPNP_E_OUTOF_MEMORY;
-//     }
-// #endif
-    // clang-format on
+    memcpy(base_urls, a_url_list->buf, a_url_list->length);
+    size_t base_urls_length = a_url_list->length;
+    // terminate list ("<url><url>\0") C string.
+    base_urls[base_urls_length] = '\0';
+
+    // Create views into the base_urls to its components (scheme, hostport,
+    // path, etc.) and cache them in a vector for later use.
+    std::vector<uri_type> url_views;
+
+    for (size_t i{0}; i < base_urls_length; i++) {
+        // Find start of a url...
+        if ((base_urls[i] == '<') && (i + 1 < base_urls_length)) {
+            // ...got it. Parse url with error handling to get its components.
+            uri_type splitted_url;
+            int return_code = parse_uri(
+                &base_urls[i + 1], base_urls_length - i + 1, &splitted_url);
+            if (return_code == HTTP_SUCCESS &&
+                splitted_url.hostport.text.size != 0) {
+                // No errors detected, cache the parsed result. Only URLs with
+                // network addresses are considered.
+                url_views.push_back(splitted_url);
+
+            } else if (return_code == UPNP_E_OUTOF_MEMORY) {
+                free(base_urls);
+                return UPNP_E_OUTOF_MEMORY;
+            }
+        }
+    }
+
+    // The vector tells us how many urls it has.
+    const size_t urls_count{url_views.size()};
+
+    if (urls_count > 0) {
+        // Allocate memory for the parsed urls to concatenate.
+        uri_type* parsed_urls =
+            static_cast<uri_type*>(malloc(sizeof(uri_type) * urls_count));
+        if (!parsed_urls) {
+            free(base_urls);
+            return UPNP_E_OUTOF_MEMORY;
+        }
+
+        // Concatenate parsed urls into a trivial C array.
+        for (size_t i{0}; i < urls_count; i++)
+            parsed_urls[i] = url_views[i];
+
+        // All values are available now. Fill the destination structure.
+        memset(a_out, 0, sizeof(*a_out));
+        a_out->parsedURLs = parsed_urls;
+        a_out->URLs = base_urls;
+        a_out->size = urls_count;
+
+    } else {
+        free(base_urls);
+        base_urls = nullptr;
+        memset(a_out, 0, sizeof(*a_out));
+    }
+
+    if (urls_count > INT_MAX) // Paranoia checking due to cast.
+        return UPNP_E_OUTOF_MEMORY;
+    return static_cast<int>(urls_count);
+}
+
+
+int copy_URL_list(URL_list* in, URL_list* out) {
+    out->URLs = nullptr;
+    out->parsedURLs = nullptr;
+    out->size = 0u;
+
+    size_t len = strlen(in->URLs) + 1;
+    out->URLs = static_cast<char*>(malloc(len));
+    if (!out->URLs)
+        return UPNP_E_OUTOF_MEMORY;
+    // out->parsedURLs = static_cast<uri_type*>(calloc(in->size,
+    // sizeof(uri_type)));
+    out->parsedURLs =
+        static_cast<uri_type*>(malloc(sizeof(uri_type) * in->size));
+    if (!out->parsedURLs) {
+        free(out->URLs);
+        return UPNP_E_OUTOF_MEMORY;
+    }
+
     memcpy(out->URLs, in->URLs, len);
-    for (i = (size_t)0; i < in->size; i++) {
-        /*copy the parsed uri */
+    for (size_t i{0}; i < in->size; i++) {
+        // Having pointer within the coppied structure a deep copy is needed.
         out->parsedURLs[i].type = in->parsedURLs[i].type;
         copy_token(&in->parsedURLs[i].scheme, in->URLs,
                    &out->parsedURLs[i].scheme, out->URLs);
@@ -476,6 +550,7 @@ int copy_URL_list(URL_list* in, URL_list* out) {
 
     return HTTP_SUCCESS;
 }
+
 
 void free_URL_list(URL_list* list) {
     if (list->URLs) {
@@ -509,14 +584,22 @@ void print_token(token* in) {
 
 int token_string_casecmp(token* in1, const char* in2) {
     size_t in2_length = strlen(in2);
-    if (in1->size != in2_length)
+    if (in1->buff == nullptr && in2_length == 0)
+        return 0;
+    else if (in1->buff == nullptr && in2_length != 0)
+        return -1;
+    else if (in1->size < in2_length)
+        return -1;
+    else if (in1->size > in2_length)
         return 1;
-    else
-        return strncasecmp(in1->buff, in2, in1->size);
+
+    return strncasecmp(in1->buff, in2, in1->size);
 }
 
 int token_cmp(token* in1, token* in2) {
-    if (in1->size != in2->size)
+    if (in1->size < in2->size)
+        return -1;
+    else if (in1->size > in2->size)
         return 1;
     else
         return memcmp(in1->buff, in2->buff, in1->size);
@@ -525,12 +608,13 @@ int token_cmp(token* in1, token* in2) {
 
 int remove_escaped_chars(char* in, size_t* size) {
     /// \todo Optimize with prechecking the delimiter '\%'.
-    size_t i = (size_t)0;
+    if (in != nullptr && size != nullptr) {
+        size_t i = 0u;
 
-    for (i = (size_t)0; i < *size; i++) {
-        replace_escaped(in, i, size);
+        for (i = 0u; i < *size; i++) {
+            replace_escaped(in, i, size);
+        }
     }
-
     return UPNP_E_SUCCESS;
 }
 
@@ -615,13 +699,13 @@ char* resolve_rel_url(char* base_url, char* rel_url) {
     size_t i;
     size_t prefix;
 
-    if (!base_url) {
-        if (!rel_url)
-            return NULL;
+    if (!base_url && !rel_url)
+        return nullptr;
+    if (!base_url && rel_url)
         return strdup(rel_url);
-    }
+    if (base_url && !rel_url)
+        return strdup(base_url);
 
-    // BUG! Following segfaults if rel_url is NULL
     len_rel = strlen(rel_url);
     if (parse_uri(rel_url, len_rel, &rel) != HTTP_SUCCESS)
         return NULL;
@@ -731,12 +815,7 @@ error:
 }
 
 int parse_uri(const char* in, size_t max, uri_type* out) {
-    int begin_path = 0;
-    size_t begin_hostport = (size_t)0;
-    size_t begin_fragment = (size_t)0;
-    unsigned short int defaultPort = 80;
-
-    begin_hostport = parse_scheme(in, max, &out->scheme);
+    size_t begin_hostport = parse_scheme(in, max, &out->scheme);
     if (begin_hostport) {
         out->type = Absolute;
         out->path_type = OPAQUE_PART;
@@ -745,25 +824,29 @@ int parse_uri(const char* in, size_t max, uri_type* out) {
         out->type = Relative;
         out->path_type = REL_PATH;
     }
-    if (begin_hostport + (size_t)1 < max && in[begin_hostport] == '/' &&
-        in[begin_hostport + (size_t)1] == '/') {
-        begin_hostport += (size_t)2;
+
+    int begin_path{0};
+    if (begin_hostport + 1u < max && in[begin_hostport] == '/' &&
+        in[begin_hostport + 1u] == '/') {
+        begin_hostport += 2u;
+        in_port_t defaultPort{80};
         if (token_string_casecmp(&out->scheme, "https") == 0) {
             defaultPort = 443;
         }
         begin_path =
             parse_hostport(&in[begin_hostport], defaultPort, &out->hostport);
         if (begin_path >= 0) {
-            begin_path += (int)begin_hostport;
+            begin_path += static_cast<int>(begin_hostport);
         } else
             return begin_path; // error code from parse_hostport()
     } else {
         memset(&out->hostport, 0, sizeof(out->hostport));
-        begin_path = (int)begin_hostport;
+        begin_path = static_cast<int>(begin_hostport);
     }
-    begin_fragment =
-        parse_uric(&in[begin_path], max - (size_t)begin_path, &out->pathquery) +
-        (size_t)begin_path;
+    size_t begin_fragment =
+        parse_uric(&in[begin_path], max - static_cast<size_t>(begin_path),
+                   &out->pathquery) +
+        static_cast<size_t>(begin_path);
     if (out->pathquery.size && out->pathquery.buff[0] == '/') {
         out->path_type = ABS_PATH;
     }
@@ -771,8 +854,8 @@ int parse_uri(const char* in, size_t max, uri_type* out) {
         begin_fragment++;
         parse_uric(&in[begin_fragment], max - begin_fragment, &out->fragment);
     } else {
-        out->fragment.buff = NULL;
-        out->fragment.size = (size_t)0;
+        out->fragment.buff = nullptr;
+        out->fragment.size = 0u;
     }
 
     return HTTP_SUCCESS;

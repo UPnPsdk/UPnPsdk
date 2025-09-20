@@ -11,7 +11,6 @@ var gena__device_8cpp =
     [ "maybeDiscardEvents", "dd/de6/gena__device_8cpp.html#a74609494846be8d91321eafb29dc55eb", null ],
     [ "genaNotifyAllCommon", "dd/de6/gena__device_8cpp.html#ac1a38d06cf74cd21f7f8ac40f00efb11", null ],
     [ "respond_ok", "dd/de6/gena__device_8cpp.html#a11f6b8370b141ab90b844dbf1092265c", null ],
-    [ "create_url_list", "dd/de6/gena__device_8cpp.html#af3bd1c9ce793964ef17b997f45a2627a", null ],
     [ "genaUnregisterDevice", "dd/de6/gena__device_8cpp.html#a4cc29d7a5d53dccd66f6b11abb532a05", null ],
     [ "freeSubscriptionQueuedEvents", "dd/de6/gena__device_8cpp.html#a1503915b6cd3d0ea5adc7b5493b589ab", null ],
     [ "genaInitNotify", "dd/de6/gena__device_8cpp.html#afe08f0a722cafb84faa9def7850da596", null ],

@@ -135,9 +135,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a11f6b8370b141ab90b844dbf1092265c" id="r_a11f6b8370b141ab90b844dbf1092265c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a11f6b8370b141ab90b844dbf1092265c">respond_ok</a> (<a class="el" href="../../d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO">SOCKINFO</a> *info, int time_out, <a class="el" href="../../db/d74/service__table_8hpp.html#dd/dc7/structsubscription">subscription</a> *sub, <a class="el" href="../../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t">http_message_t</a> *request)</td></tr>
 <tr class="memdesc:a11f6b8370b141ab90b844dbf1092265c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns OK message in the case of a subscription request.  <br /></td></tr>
 <tr class="separator:a11f6b8370b141ab90b844dbf1092265c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3bd1c9ce793964ef17b997f45a2627a" id="r_af3bd1c9ce793964ef17b997f45a2627a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#af3bd1c9ce793964ef17b997f45a2627a">create_url_list</a> (<a class="el" href="../../d1/d10/membuffer_8hpp.html#d4/d89/structmemptr">memptr</a> *url_list, <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list">URL_list</a> *out)</td></tr>
-<tr class="memdesc:af3bd1c9ce793964ef17b997f45a2627a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to parse the Callback header value in subscription requests.  <br /></td></tr>
-<tr class="separator:af3bd1c9ce793964ef17b997f45a2627a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ab42270564152589e9dbbb90d6a5c0e01" name="ab42270564152589e9dbbb90d6a5c0e01"></a>
@@ -1204,81 +1201,6 @@ Functions</h2></td></tr>
 <area shape="rect" href="../../dc/d02/gena__callback2_8cpp.html#a6f658b4eab5786398a00a53b87e7c622" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="5,45,116,70"/>
 <area shape="poly" title=" " alt="" coords="151,46,117,51,116,46,150,41"/>
 <area shape="poly" title=" " alt="" coords="150,74,116,69,117,63,151,69"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="af3bd1c9ce793964ef17b997f45a2627a" name="af3bd1c9ce793964ef17b997f45a2627a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3bd1c9ce793964ef17b997f45a2627a">&#9670;&#160;</a></span>create_url_list()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int anonymous_namespace{gena_device.cpp}::create_url_list </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d1/d10/membuffer_8hpp.html#d4/d89/structmemptr">memptr</a> *&#160;</td>
-          <td class="paramname"><em>url_list</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list">URL_list</a> *&#160;</td>
-          <td class="paramname"><em>out</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Function to parse the Callback header value in subscription requests. </p>
-<p>Takes in a buffer containing URLS delimited by '&lt;' and '&gt;'. The entire buffer is copied into dynamic memory and stored in the <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list" title="Represents a list of URLs as in the &quot;callback&quot; header of SUBSCRIBE message in GENA.">URL_list</a>. Pointers to the individual urls within this buffer are allocated and stored in the <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list" title="Represents a list of URLs as in the &quot;callback&quot; header of SUBSCRIBE message in GENA.">URL_list</a>. Only URLs with network addresses are considered (i.e. host:port or domain name).</p>
-<dl class="section return"><dt>Returns</dt><dd>The number of URLs parsed if successful, otherwise UPNP_E_OUTOF_MEMORY. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">url_list</td><td>.  </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../dd/de6/gena__device_8cpp_source.html#l00807">807</a> of file <a class="el" href="../../dd/de6/gena__device_8cpp_source.html">gena_device.cpp</a>.</p>
-<div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-20-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_af3bd1c9ce793964ef17b997f45a2627a_cgraph.png" border="0" usemap="#ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_af3bd1c9ce793964ef17b997f45a2627a_cgraph" alt=""/></div>
-<map name="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_af3bd1c9ce793964ef17b997f45a2627a_cgraph" id="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_af3bd1c9ce793964ef17b997f45a2627a_cgraph">
-<area shape="rect" title="Function to parse the Callback header value in subscription requests." alt="" coords="5,94,185,149"/>
-<area shape="rect" href="../../d8/dd2/uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="233,109,316,134"/>
-<area shape="poly" title=" " alt="" coords="186,119,219,119,219,124,186,124"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="364,5,555,45"/>
-<area shape="poly" title=" " alt="" coords="289,106,322,81,363,55,377,48,379,53,365,60,325,85,292,111"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="365,69,553,109"/>
-<area shape="poly" title=" " alt="" coords="316,112,352,105,352,111,317,117"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="369,133,549,173"/>
-<area shape="poly" title=" " alt="" coords="317,126,356,133,355,138,316,131"/>
-<area shape="rect" href="../../d8/dd2/uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="376,198,543,223"/>
-<area shape="poly" title=" " alt="" coords="292,132,324,158,365,183,386,191,384,196,363,188,321,162,289,137"/>
-</map>
-</div>
-<div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-21-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-21-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_af3bd1c9ce793964ef17b997f45a2627a_icgraph.png" border="0" usemap="#ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_af3bd1c9ce793964ef17b997f45a2627a_icgraph" alt=""/></div>
-<map name="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_af3bd1c9ce793964ef17b997f45a2627a_icgraph" id="ad2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03_af3bd1c9ce793964ef17b997f45a2627a_icgraph">
-<area shape="rect" title="Function to parse the Callback header value in subscription requests." alt="" coords="409,5,589,60"/>
-<area shape="rect" href="../../dd/de6/gena__device_8cpp.html#a25ad1852d4d32c6f34a87b92225202fd" title="Handles a subscription request from a ctrl point. The socket is not closed on return." alt="" coords="164,13,361,53"/>
-<area shape="poly" title=" " alt="" coords="396,35,361,35,361,30,396,30"/>
-<area shape="rect" href="../../dc/d02/gena__callback2_8cpp.html#a6f658b4eab5786398a00a53b87e7c622" title="This is the callback function called by the miniserver to handle incoming GENA requests." alt="" coords="5,20,116,45"/>
-<area shape="poly" title=" " alt="" coords="150,35,116,35,116,30,150,30"/>
 </map>
 </div>
 

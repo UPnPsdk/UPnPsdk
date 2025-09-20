@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-11
+ * Redistribution only with this Copyright remark. Last modified: 2025-09-22
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -37,6 +37,7 @@
  * \brief Modify and parse URIs.
  */
 
+#include <membuffer.hpp>
 #include <UPnPsdk/visibility.hpp>
 
 /// \cond
@@ -106,9 +107,13 @@ struct uri_type {
  * message in GENA.
  */
 struct URL_list {
-    size_t size;          ///< size
-    char* URLs;           ///< Dynamic memory for all urls, delimited by `<>`
-    uri_type* parsedURLs; ///< parsed URLs
+    size_t size;          ///< Number of urls (not characters).
+    char* URLs;           /*!< Dynamic memory for all urls. They are
+                           * serialized, each surounded by '<' and '>'. The
+                           * whole string is expected to be terminated with
+                           * '\0' ("<url><url>\0"). */
+    uri_type* parsedURLs; /*!< parsed URLs, splittet into its components scheme,
+                           * hostport, path, query, fragment, etc. */
 };
 
 /*!
@@ -138,17 +143,41 @@ UPnPsdk_VIS int replace_escaped(
     size_t* max);
 
 /*!
+ * \brief Function to parse the Callback header value in subscription requests.
+ *
+ * Takes in a buffer containing serialized URLs delimited by '<' and '>'. The
+ * entire buffer is copied into dynamic memory and stored in the URL_list.
+ * Pointers to the individual urls within this buffer are allocated and stored
+ * in the URL_list. Only URLs with network addresses are considered (i.e.
+ * host:port or domain name).
+ * \note The result \b a_out must be freed by the caller with free_URL_list()
+ * to avoid memory leaks.
+ *
+ * \returns
+ *  On success: the number of URLs parsed\n
+ *  On error:
+ *  - UPNP_E_OUTOF_MEMORY
+ */
+int create_url_list(
+    /*! [in] Pointer to a buffer containing serialized URLs delimited by '<'
+     * and '>' ("<url><url>"). */
+    memptr* a_url_list,
+    /*! [out] Pointer to the new URL list. */
+    URL_list* a_out);
+
+/*!
  * \brief Copies one URL_list into another.
  *
  * This includes dynamically allocating the out->URLs field (the full string),
- * and the structures used to hold the parsedURLs. This memory MUST be freed
- * by the caller through: free_URL_list(&out).
+ * and the structures used to hold the parsedURLs. This <b>memory MUST be
+ * freed</b> by the caller through: free_URL_list(&out).
  *
  * \returns
  *  On success: HTTP_SUCCESS\n
- *  On error: UPNP_E_OUTOF_MEMORY - On Failure to allocate memory.
+ *  On error:
+ *  - UPNP_E_OUTOF_MEMORY - On Failure to allocate memory.
  */
-UPnPsdk_VIS int copy_URL_list(
+int copy_URL_list(
     /*! [in] Source URL list. */
     URL_list* in,
     /*! [out] Destination URL list. */
@@ -160,7 +189,7 @@ UPnPsdk_VIS int copy_URL_list(
  * Frees the dynamically allocated members of of list. Does NOT free the
  * pointer to the list itself ( i.e. does NOT free(list)).
  */
-UPnPsdk_VIS void free_URL_list(
+void free_URL_list(
     /*! [in] URL list object. */
     URL_list* list);
 
@@ -234,27 +263,23 @@ UPnPsdk_VIS int remove_escaped_chars(
 /*!
  * \brief Removes ".", and ".." from a path.
  *
- * If a ".." can not be resolved (i.e. the .. would go past the root of the
- * path) an error is returned. The input IS modified in place. This function
- * directly implements the "Remove Dot Segments" algorithm described in RFC
- * 3986 section 5.2.4.
+ * The input IS modified in place. This function directly implements the
+ * "Remove Dot Segments" algorithm described in
+ * <a href="https://www.rfc-editor.org/rfc/rfc3986#section-5.2.4">RFC 3986
+ * section 5.2.4.</a>. If it cannot find something to remove it just do nothing
+ * with the input. This is also true for invalid paths.
  *
- * \verbatim
-Examples:
- uchar path[30]="/../hello";
- uremove_dots(path, strlen(path)) -> UPNP_E_INVALID_URL
- uchar path[30]="/./hello";
- uremove_dots(path, strlen(path)) -> UPNP_E_SUCCESS,
- uin = "/hello"
- uchar path[30]="/./hello/foo/../goodbye" ->
- uUPNP_E_SUCCESS, in = "/hello/goodbye"
-\endverbatim
- *
+ * Examples:
+\code
+char path[30]=".../hello";
+remove_dots(path, strlen(path)); // results to ".../hello" (nothing done)
+char path[30]="/./hello";
+remove_dots(path, strlen(path)); // results to "/hello"
+char path[30]="/./hello/foo/../goodbye";
+remove_dots(path, strlen(path)); // results to "/hello/goodbye"
+\endcode
  * \returns
- *  On success: UPNP_E_SUCCESS\n
- *  On error:
- *  - UPNP_E_OUTOF_MEMORY - On failure to allocate memory.
- *  - UPNP_E_INVALID_URL - Failure to resolve URL.
+ *  Always UPNP_E_SUCCESS\n
  */
 UPnPsdk_VIS int remove_dots(
     /*! [in] String of characters from which "dots" have to be removed. */
@@ -266,7 +291,13 @@ UPnPsdk_VIS int remove_dots(
  * \brief Resolves a relative url with a base url.
  *
  * - If the base_url is a \b nullptr, then a copy of the rel_url is passed back.
- * - If the rel_url is absolute then a copy of the rel_url is passed back.
+ * - If the rel_url is a \b nullptr, then a copy of the base_url is passed back.
+ * - If both arguments are \b nullptr, then a \b nullptr is passed back.
+ * - If the base_url is empty (""), then a \b nullptr is passed back.
+ * - If the rel_url is empty (""), then a copy of the base_url is passed back.
+ * - If both arguments are empty (""), then a \b nullptr is passed back.
+ * - If the rel_url is absolute (with a valid base_url), then a copy of the
+ *   rel_url is passed back.
  * - If neither the base nor the rel_url are absolute then a \b nullptr is
  *   returned.
  * - Otherwise it tries and resolves the relative url with the base as
@@ -276,7 +307,8 @@ UPnPsdk_VIS int remove_dots(
  * The resolution of '..' is NOT implemented, but '.' is resolved.
  *
  * \returns
- *  Pointer to a new with malloc dynamically allocated full URL or a \b nullptr.
+ *  Pointer to a new with malloc dynamically allocated full URL or a \b
+ *  nullptr. To avoid memory leaks the caller nust \b free() it after using.
  */
 UPnPsdk_VIS char* resolve_rel_url(
     /*! [in] Base URL. */

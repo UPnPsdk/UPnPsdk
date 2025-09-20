@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-06-24
+# Redistribution only with this Copyright remark. Last modified: 2025-09-23
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -240,6 +240,12 @@ set_target_properties(pupnp_shared PROPERTIES
 target_include_directories(pupnp_shared
     ${PUPNP_INCLUDE_DIRECTORIES}
 )
+target_compile_options(pupnp_shared
+    # disable warning: 'sprintf' (and friends) is deprecated: This function is
+    # provided for compatibility reasons only.
+    # I do not fix deprecated functions on old code.
+    PUBLIC $<$<CXX_COMPILER_ID:AppleClang>:-Wno-deprecated-declarations>
+)
 target_compile_definitions(pupnp_shared
     ${PUPNP_COMPILE_DEFINITIONS}
     PUBLIC UPnPsdk_SHARE
@@ -282,6 +288,12 @@ set_target_properties(pupnp_static PROPERTIES
 )
 target_include_directories(pupnp_static
     ${PUPNP_INCLUDE_DIRECTORIES}
+)
+target_compile_options(pupnp_static
+    # disable warning: 'sprintf' (and friends) is deprecated: This function is
+    # provided for compatibility reasons only.
+    # I do not fix deprecated functions on old code.
+    PUBLIC $<$<CXX_COMPILER_ID:AppleClang>:-Wno-deprecated-declarations>
 )
 target_compile_definitions(pupnp_static
     ${PUPNP_COMPILE_DEFINITIONS}
