@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-09-19
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -192,14 +192,19 @@ void copy_token(
  * "localhost") and fills out a hostport_type struct with internet address and a
  * token representing the full host and port. Uses getaddrinfo() to resolve DNS
  * names. This may result in a longer delay until response from the internet.
+ *
+ * \returns
+ *  On Success: size of the hostport identifier (e.g. 5 for "[::1]").\n
+ *  On Error:
+ *  - UPNP_E_INVALID_URL
  */
 int parse_hostport(
     /*! [in] String of characters representing host and port. */
     const char* in,
-    /*! [out] Output parameter where the host and port are represented as
-     * an internet address. */
+    /*! [in] Used port if no port is specified with \b in */
     unsigned short int defaultPort,
-    /*! [out] The netaddress (with port) */
+    /*! [out] Structure filled with the [netaddress](\ref glossary_netaddr)
+       (with port) and with the socket address (sockaddr_storage). */
     hostport_type* out) {
     char workbuf[256];
     char* c;
@@ -509,14 +514,18 @@ void print_token(token* in) {
 
 int token_string_casecmp(token* in1, const char* in2) {
     size_t in2_length = strlen(in2);
-    if (in1->size != in2_length)
+    if (in1->size < in2_length)
+        return -1;
+    else if (in1->size > in2_length)
         return 1;
     else
         return strncasecmp(in1->buff, in2, in1->size);
 }
 
 int token_cmp(token* in1, token* in2) {
-    if (in1->size != in2->size)
+    if (in1->size < in2->size)
+        return -1;
+    else if (in1->size > in2->size)
         return 1;
     else
         return memcmp(in1->buff, in2->buff, in1->size);
@@ -525,12 +534,13 @@ int token_cmp(token* in1, token* in2) {
 
 int remove_escaped_chars(char* in, size_t* size) {
     /// \todo Optimize with prechecking the delimiter '\%'.
-    size_t i = (size_t)0;
+    if (in != nullptr && size != nullptr) {
+        size_t i = 0u;
 
-    for (i = (size_t)0; i < *size; i++) {
-        replace_escaped(in, i, size);
+        for (i = 0u; i < *size; i++) {
+            replace_escaped(in, i, size);
+        }
     }
-
     return UPNP_E_SUCCESS;
 }
 
@@ -615,13 +625,13 @@ char* resolve_rel_url(char* base_url, char* rel_url) {
     size_t i;
     size_t prefix;
 
-    if (!base_url) {
-        if (!rel_url)
-            return NULL;
+    if (!base_url && !rel_url)
+        return nullptr;
+    if (!base_url && rel_url)
         return strdup(rel_url);
-    }
+    if (base_url && !rel_url)
+        return strdup(base_url);
 
-    // BUG! Following segfaults if rel_url is NULL
     len_rel = strlen(rel_url);
     if (parse_uri(rel_url, len_rel, &rel) != HTTP_SUCCESS)
         return NULL;

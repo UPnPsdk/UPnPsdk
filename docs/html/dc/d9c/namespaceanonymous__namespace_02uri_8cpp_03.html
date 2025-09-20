@@ -518,17 +518,22 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Parses a string with host and port and fills a hostport structure. </p>
-<p>Parses a string representing a host and port (e.g. "127.127.0.1:80" or "localhost") and fills out a <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#db/d73/structhostport__type" title="Represents a host port, e.g. &quot;127.127.0.1:80&quot;.">hostport_type</a> struct with internet address and a token representing the full host and port. Uses getaddrinfo() to resolve DNS names. This may result in a longer delay until response from the internet. </p>
+<p>Parses a string representing a host and port (e.g. "127.127.0.1:80" or "localhost") and fills out a <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#db/d73/structhostport__type" title="Represents a host port, e.g. &quot;127.127.0.1:80&quot;.">hostport_type</a> struct with internet address and a token representing the full host and port. Uses getaddrinfo() to resolve DNS names. This may result in a longer delay until response from the internet.</p>
+<dl class="section return"><dt>Returns</dt><dd>On Success: size of the hostport identifier (e.g. 5 for "[::1]").<br  />
+ On Error:<ul>
+<li>UPNP_E_INVALID_URL </li>
+</ul>
+</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">in</td><td>String of characters representing host and port.  </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">defaultPort</td><td>Output parameter where the host and port are represented as an internet address.  </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>The netaddress (with port) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">defaultPort</td><td>Used port if no port is specified with <b>in</b>  </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Structure filled with the <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a> (with port) and with the socket address (sockaddr_storage). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/uri_8cpp_source.html#l00196">196</a> of file <a class="el" href="../../d8/dd2/uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/uri_8cpp_source.html#l00201">201</a> of file <a class="el" href="../../d8/dd2/uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -609,7 +614,7 @@ REF: <a href="http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaqu
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/uri_8cpp_source.html#l00350">350</a> of file <a class="el" href="../../d8/dd2/uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/uri_8cpp_source.html#l00355">355</a> of file <a class="el" href="../../d8/dd2/uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -669,7 +674,7 @@ REF: <a href="http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaqu
 
 <p>Check if end of a path. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/dd2/uri_8cpp_source.html#l00382">382</a> of file <a class="el" href="../../d8/dd2/uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/dd2/uri_8cpp_source.html#l00387">387</a> of file <a class="el" href="../../d8/dd2/uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">

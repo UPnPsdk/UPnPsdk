@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-11
+ * Redistribution only with this Copyright remark. Last modified: 2025-09-19
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -234,27 +234,23 @@ UPnPsdk_VIS int remove_escaped_chars(
 /*!
  * \brief Removes ".", and ".." from a path.
  *
- * If a ".." can not be resolved (i.e. the .. would go past the root of the
- * path) an error is returned. The input IS modified in place. This function
- * directly implements the "Remove Dot Segments" algorithm described in RFC
- * 3986 section 5.2.4.
+ * The input IS modified in place. This function directly implements the
+ * "Remove Dot Segments" algorithm described in
+ * <a href="https://www.rfc-editor.org/rfc/rfc3986#section-5.2.4">RFC 3986
+ * section 5.2.4.</a>. If it cannot find something to remove it just do nothing
+ * with the input. This is also true for invalid paths.
  *
- * \verbatim
-Examples:
- uchar path[30]="/../hello";
- uremove_dots(path, strlen(path)) -> UPNP_E_INVALID_URL
- uchar path[30]="/./hello";
- uremove_dots(path, strlen(path)) -> UPNP_E_SUCCESS,
- uin = "/hello"
- uchar path[30]="/./hello/foo/../goodbye" ->
- uUPNP_E_SUCCESS, in = "/hello/goodbye"
-\endverbatim
- *
+ * Examples:
+\code
+char path[30]=".../hello";
+remove_dots(path, strlen(path)); // results to ".../hello" (nothing done)
+char path[30]="/./hello";
+remove_dots(path, strlen(path)); // results to "/hello"
+char path[30]="/./hello/foo/../goodbye";
+remove_dots(path, strlen(path)); // results to "/hello/goodbye"
+\endcode
  * \returns
- *  On success: UPNP_E_SUCCESS\n
- *  On error:
- *  - UPNP_E_OUTOF_MEMORY - On failure to allocate memory.
- *  - UPNP_E_INVALID_URL - Failure to resolve URL.
+ *  Always UPNP_E_SUCCESS\n
  */
 UPnPsdk_VIS int remove_dots(
     /*! [in] String of characters from which "dots" have to be removed. */
@@ -266,7 +262,13 @@ UPnPsdk_VIS int remove_dots(
  * \brief Resolves a relative url with a base url.
  *
  * - If the base_url is a \b nullptr, then a copy of the rel_url is passed back.
- * - If the rel_url is absolute then a copy of the rel_url is passed back.
+ * - If the rel_url is a \b nullptr, then a copy of the base_url is passed back.
+ * - If both arguments are \b nullptr, then a \b nullptr is passed back.
+ * - If the base_url is empty (""), then a \b nullptr is passed back.
+ * - If the rel_url is empty (""), then a copy of the base_url is passed back.
+ * - If both arguments are empty (""), then a \b nullptr is passed back.
+ * - If the rel_url is absolute (with a valid base_url), then a copy of the
+ *   rel_url is passed back.
  * - If neither the base nor the rel_url are absolute then a \b nullptr is
  *   returned.
  * - Otherwise it tries and resolves the relative url with the base as
@@ -276,7 +278,8 @@ UPnPsdk_VIS int remove_dots(
  * The resolution of '..' is NOT implemented, but '.' is resolved.
  *
  * \returns
- *  Pointer to a new with malloc dynamically allocated full URL or a \b nullptr.
+ *  Pointer to a new with malloc dynamically allocated full URL or a \b
+ *  nullptr. To avoid memory leaks the caller nust \b free() it after using.
  */
 UPnPsdk_VIS char* resolve_rel_url(
     /*! [in] Base URL. */
