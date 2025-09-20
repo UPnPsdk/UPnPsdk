@@ -325,14 +325,13 @@ TEST(TokenCmpDeathTest, check_token_string_casecmp) {
         << ": A nullptr in the token structure, segfaults on MS Windows.\n";
 #ifdef _MSC_VER
     // This expects segfault.
-    ASSERT_DEATH(
+    EXPECT_DEATH(
         {
             Curi uriObj;
             uriObj.token_string_casecmp(&inull, in5);
         },
         ".*"); // Wrong!
-#endif
-
+#else
     // This expects NO segfault.
     ASSERT_EXIT(
         {
@@ -342,6 +341,7 @@ TEST(TokenCmpDeathTest, check_token_string_casecmp) {
         },
         ::testing::ExitedWithCode(0), ".*")
         << "  A nullptr in the token structure must not segfault.\n";
+#endif
 
     Curi uriObj;
     token in0{"", 0};
@@ -509,13 +509,11 @@ TEST(UriIp4DeathTest, remove_escaped_chars_edge_conditions) {
         EXPECT_EQ(size, 5u);
     }
 
-#ifndef __APPLE__
     if (old_code) {
         EXPECT_DEATH(uriObj.remove_escaped_chars(strbuf, nullptr),
                      ".*"); // Wrong!
-    } else
-#endif
-    {
+    } else {
+
         ASSERT_EXIT((uriObj.remove_escaped_chars(strbuf, nullptr), exit(0)),
                     ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
