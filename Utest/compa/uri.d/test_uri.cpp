@@ -14,7 +14,6 @@
 #endif
 
 #include <membuffer.hpp>
-#include <UPnPsdk/uri.hpp>
 #include <UPnPsdk/sockaddr.hpp>
 #include <utest/utest.hpp>
 #include <umock/netdb_mock.hpp>
@@ -25,7 +24,6 @@ using ::testing::Return;
 using ::testing::SetArgPointee;
 using ::testing::StartsWith;
 
-using ::UPnPsdk::Curi;
 using ::UPnPsdk::SSockaddr;
 
 
@@ -260,16 +258,15 @@ int token_string_cmp(const token* in1, const char* in2) {
 }
 
 TEST(UriTestSuite, token_cmp) {
-    Curi uriObj;
     // == 0, if string1 is identical to string2.
     token inull{nullptr, 0};
-    EXPECT_EQ(uriObj.token_cmp(&inull, &inull), 0);
+    EXPECT_EQ(::token_cmp(&inull, &inull), 0);
 
     token in0{"", 0};
-    EXPECT_EQ(uriObj.token_cmp(&in0, &in0), 0);
+    EXPECT_EQ(::token_cmp(&in0, &in0), 0);
 
     token in1{"some entry", 10};
-    EXPECT_EQ(uriObj.token_cmp(&in1, &in1), 0);
+    EXPECT_EQ(::token_cmp(&in1, &in1), 0);
 
     // < 0, if string1 is less than string2.
     token in2{"some longer entry", 17};
@@ -278,18 +275,18 @@ TEST(UriTestSuite, token_cmp) {
         std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
                   << ": With string1 less than string2 it should return < 0 "
                      "not > 0.\n";
-        EXPECT_GT(uriObj.token_cmp(&in1, &in2), 0); // Wrong!
+        EXPECT_GT(::token_cmp(&in1, &in2), 0); // Wrong!
 
     } else {
 
-        EXPECT_LT(uriObj.token_cmp(&in1, &in2), 0)
+        EXPECT_LT(::token_cmp(&in1, &in2), 0)
             << "  # With string1 less than string2 it should return < 0 not > "
                "0.";
     }
 
     // > 0, if string1 is greater than string2.
     token in3{"entry", 5};
-    EXPECT_GT(uriObj.token_cmp(&in1, &in3), 0);
+    EXPECT_GT(::token_cmp(&in1, &in3), 0);
 }
 
 TEST(UriTestSuite, token_string_cmp) {
@@ -322,7 +319,6 @@ TEST(UriTestSuite, token_string_cmp) {
 
 TEST(UriDeathTest, token_string_casecmp) {
     // == 0, if string1 is identical to string2 case insensitive.
-    Curi uri_Obj;
     token inull{nullptr, 0};
     constexpr char instr0[]{""};
 
@@ -333,10 +329,7 @@ TEST(UriDeathTest, token_string_casecmp) {
 #ifdef _MSC_VER
         // This expects segfault.
         EXPECT_DEATH(
-            {
-                Curi uriObj;
-                uriObj.token_string_casecmp(&inull, instr0);
-            },
+            { ::token_string_casecmp(&inull, instr0); },
             ".*"); // Wrong!
 #endif
     } else {
@@ -344,24 +337,23 @@ TEST(UriDeathTest, token_string_casecmp) {
         // This expects NO segfault.
         ASSERT_EXIT(
             {
-                Curi uriObj;
-                uriObj.token_string_casecmp(&inull, instr0);
+                ::token_string_casecmp(&inull, instr0);
                 exit(0);
             },
             ::testing::ExitedWithCode(0), ".*")
             << "  A nullptr in the token structure must not segfault.\n";
 
-        EXPECT_EQ(uri_Obj.token_string_casecmp(&inull, instr0), 0);
+        EXPECT_EQ(::token_string_casecmp(&inull, instr0), 0);
         constexpr char instr1[]{"X"};
-        EXPECT_EQ(uri_Obj.token_string_casecmp(&inull, instr1), -1);
+        EXPECT_EQ(::token_string_casecmp(&inull, instr1), -1);
     }
 
     token in0{"", 0};
-    EXPECT_EQ(uri_Obj.token_string_casecmp(&in0, instr0), 0);
+    EXPECT_EQ(::token_string_casecmp(&in0, instr0), 0);
 
     token in1{"some entry", 10};
     constexpr char instr10[]{"SOME ENTRY"};
-    EXPECT_EQ(uri_Obj.token_string_casecmp(&in1, instr10), 0);
+    EXPECT_EQ(::token_string_casecmp(&in1, instr10), 0);
 
     // < 0, if string1 is less than string2.
     constexpr char instr17[]{"some longer entry"};
@@ -370,18 +362,18 @@ TEST(UriDeathTest, token_string_casecmp) {
         std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
                   << ": With string1 less than string2 it should return < 0 "
                      "not > 0.\n";
-        EXPECT_GT(uri_Obj.token_string_casecmp(&in1, instr17), 0); // Wrong!
+        EXPECT_GT(::token_string_casecmp(&in1, instr17), 0); // Wrong!
 
     } else {
 
-        EXPECT_LT(uri_Obj.token_string_casecmp(&in1, instr17), 0)
+        EXPECT_LT(::token_string_casecmp(&in1, instr17), 0)
             << "  # With string1 less than string2 it should return < 0 not > "
                "0.";
     }
 
     // > 0, if string1 is greater than string2.
     constexpr char instr5[]{"entry"};
-    EXPECT_GT(uri_Obj.token_string_casecmp(&in1, instr5), 0);
+    EXPECT_GT(::token_string_casecmp(&in1, instr5), 0);
 }
 
 
@@ -404,8 +396,7 @@ TEST(UriTestSuite, replace_escaped_ip4_check_buffer) {
     EXPECT_EQ(strbuf[max - 1], '\0');
 
     // Test Unit; will fill trailing bytes with null
-    Curi uriObj;
-    ASSERT_EQ(uriObj.replace_escaped(strbuf, 0, &max), 1);
+    ASSERT_EQ(::replace_escaped(strbuf, 0, &max), 1);
     EXPECT_EQ(strbuf[0], ' ');
     EXPECT_EQ(strbuf[1], '\0');
     EXPECT_EQ(strbuf[2], '\0');
@@ -424,8 +415,7 @@ TEST(UriTestSuite, replace_escaped_ip4) {
     // Test Unit
     // The function converts only one escaped character and the index must
     // exactly point to its '%'.
-    Curi uriObj;
-    ASSERT_EQ(uriObj.replace_escaped(strbuf, 5, &max), 1);
+    ASSERT_EQ(::replace_escaped(strbuf, 5, &max), 1);
     EXPECT_STREQ(strbuf, "Hello %0AWorld%G0!%0x");
     // max buffer length is reduced by two characters (redudce '%xx' to ' ').
     EXPECT_EQ(max, sizeof(escstr) - 2);
@@ -438,10 +428,10 @@ TEST(UriTestSuite, replace_escaped_ip4) {
     EXPECT_EQ(max + 2, sizeof(strbuf));
 
     // Not pointing to an escaped character
-    EXPECT_EQ(uriObj.replace_escaped(strbuf, 0, &max), 0);
+    EXPECT_EQ(::replace_escaped(strbuf, 0, &max), 0);
     // No hex values after escape character
-    EXPECT_EQ(uriObj.replace_escaped(strbuf, 16, &max), 0);
-    EXPECT_EQ(uriObj.replace_escaped(strbuf, 20, &max), 0);
+    EXPECT_EQ(::replace_escaped(strbuf, 16, &max), 0);
+    EXPECT_EQ(::replace_escaped(strbuf, 20, &max), 0);
     // Failures should not modify output.
     EXPECT_STREQ(strbuf, "Hello %0AWorld%G0!%0x");
     EXPECT_EQ(max, sizeof(escstr) - 2);
@@ -471,8 +461,7 @@ TEST_P(RemoveEscCharsIp4PTestSuite, remove_escaped_chars) {
     strcpy(strbuf, escstr); // with '\0'
 
     // Test Unit.
-    Curi uriObj;
-    EXPECT_EQ(uriObj.remove_escaped_chars(strbuf, &size), UPNP_E_SUCCESS);
+    EXPECT_EQ(::remove_escaped_chars(strbuf, &size), UPNP_E_SUCCESS);
     EXPECT_STREQ(strbuf, ::std::get<1>(params)); // new result string
     EXPECT_EQ(size, ::std::get<2>(params));      // new result size
 }
@@ -490,7 +479,6 @@ INSTANTIATE_TEST_SUITE_P(
 TEST(UriDeathTest, remove_escaped_chars_ip4_edge_conditions) {
     char strbuf[32]{};
     size_t size{strlen(strbuf)};
-    Curi uri_Obj;
 
 #if defined(__APPLE__) && !defined(DEBUG)
     // With this "Release" build there is a curious situation on MacOS. The
@@ -501,7 +489,7 @@ TEST(UriDeathTest, remove_escaped_chars_ip4_edge_conditions) {
     // something to do with the 'assert()' debug function that is disabled
     // here? Anyway, the new code is fixed.
     if (old_code) {
-        //     EXPECT_EQ(uri_Obj.remove_escaped_chars(nullptr, nullptr),
+        //     EXPECT_EQ(::remove_escaped_chars(nullptr, nullptr),
         //               UPNP_E_SUCCESS);
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
                   << ": Calling Unit with nullptr should not segfault.\n";
@@ -510,10 +498,7 @@ TEST(UriDeathTest, remove_escaped_chars_ip4_edge_conditions) {
 #elif defined(__APPLE__) && defined(DEBUG)
     if (old_code) {
         EXPECT_DEATH(
-            {
-                Curi uriObj;
-                uriObj.remove_escaped_chars(nullptr, nullptr);
-            },
+            { ::remove_escaped_chars(nullptr, nullptr); },
             ".*"); // Wrong!
     }
 
@@ -522,10 +507,7 @@ TEST(UriDeathTest, remove_escaped_chars_ip4_edge_conditions) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
                   << ": Calling Unit with nullptr should not segfault.\n";
         EXPECT_DEATH(
-            {
-                Curi uriObj;
-                uriObj.remove_escaped_chars(nullptr, nullptr);
-            },
+            { ::remove_escaped_chars(nullptr, nullptr); },
             ".*"); // Wrong!
     }
 #endif
@@ -533,14 +515,12 @@ TEST(UriDeathTest, remove_escaped_chars_ip4_edge_conditions) {
     if (!old_code) {
         ASSERT_EXIT(
             {
-                Curi uriObj;
-                uriObj.remove_escaped_chars(nullptr, nullptr);
+                ::remove_escaped_chars(nullptr, nullptr);
                 exit(0);
             },
             ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
-        EXPECT_EQ(uri_Obj.remove_escaped_chars(nullptr, nullptr),
-                  UPNP_E_SUCCESS);
+        EXPECT_EQ(::remove_escaped_chars(nullptr, nullptr), UPNP_E_SUCCESS);
     }
 
     strcpy(strbuf, "hello"); // with '\0'
@@ -549,35 +529,28 @@ TEST(UriDeathTest, remove_escaped_chars_ip4_edge_conditions) {
     if (old_code) {
 #ifndef __APPLE__
         EXPECT_DEATH(
-            {
-                Curi uriObj;
-                uriObj.remove_escaped_chars(nullptr, &size);
-            },
+            { ::remove_escaped_chars(nullptr, &size); },
             ".*"); // Wrong!
 #endif
     } else {
-        ASSERT_EXIT((uri_Obj.remove_escaped_chars(nullptr, &size), exit(0)),
+        ASSERT_EXIT((::remove_escaped_chars(nullptr, &size), exit(0)),
                     ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
-        EXPECT_EQ(uri_Obj.remove_escaped_chars(nullptr, &size), UPNP_E_SUCCESS);
+        EXPECT_EQ(::remove_escaped_chars(nullptr, &size), UPNP_E_SUCCESS);
         EXPECT_EQ(size, 5u);
     }
 
     if (old_code) {
 #ifndef __APPLE__
         EXPECT_DEATH(
-            {
-                Curi uriObj;
-                uriObj.remove_escaped_chars(strbuf, nullptr);
-            },
+            { ::remove_escaped_chars(strbuf, nullptr); },
             ".*"); // Wrong!
 #endif
     } else {
-        ASSERT_EXIT((uri_Obj.remove_escaped_chars(strbuf, nullptr), exit(0)),
+        ASSERT_EXIT((::remove_escaped_chars(strbuf, nullptr), exit(0)),
                     ::testing::ExitedWithCode(0), ".*")
             << "  Calling Unit with nullptr should not segfault.";
-        EXPECT_EQ(uri_Obj.remove_escaped_chars(strbuf, nullptr),
-                  UPNP_E_SUCCESS);
+        EXPECT_EQ(::remove_escaped_chars(strbuf, nullptr), UPNP_E_SUCCESS);
         EXPECT_STREQ(strbuf, "hello");
     }
 }
@@ -608,8 +581,7 @@ TEST_P(RemoveDotsIp4PTestSuite, remove_dots) {
     strcpy(strbuf, path); // with '\0'
 
     // Prozess the unit.
-    Curi uriObj;
-    EXPECT_EQ(uriObj.remove_dots(strbuf, size), retval);
+    EXPECT_EQ(::remove_dots(strbuf, size), retval);
     EXPECT_STREQ(strbuf, result);
 }
 
@@ -665,8 +637,7 @@ TEST(UriTestSuite, resolve_rel_url_ip4_arg1_nullptr_base_url) {
     char rel_url[]{"homepage#this-fragment"};
 
     // Test Unit
-    Curi uriObj;
-    char* abs_url = uriObj.resolve_rel_url(nullptr, *&rel_url);
+    char* abs_url = ::resolve_rel_url(nullptr, *&rel_url);
     EXPECT_STREQ(abs_url, "homepage#this-fragment");
     free(abs_url);
 }
@@ -680,18 +651,14 @@ TEST(UriDeathTest, resolve_rel_url_ip4_arg2_nullptr_rel_url) {
         std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
                   << ": nullptr rel_url must not segfault.\n";
         EXPECT_DEATH(
-            {
-                Curi uriObj;
-                free(uriObj.resolve_rel_url(base_url, nullptr));
-            },
+            { free(::resolve_rel_url(base_url, nullptr)); },
             ".*"); // Wrong!
 
     } else {
 
         ASSERT_EXIT(
             {
-                Curi uriObj;
-                free(uriObj.resolve_rel_url(base_url, nullptr));
+                free(::resolve_rel_url(base_url, nullptr));
                 exit(0);
             },
             ::testing::ExitedWithCode(0), ".*")
@@ -708,8 +675,7 @@ TEST(UriDeathTest, resolve_rel_url_ip4_arg2_nullptr_rel_url) {
         EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(0);
 
         // Test Unit
-        Curi uriObj;
-        char* abs_url = uriObj.resolve_rel_url(base_url, nullptr);
+        char* abs_url = ::resolve_rel_url(base_url, nullptr);
         EXPECT_STREQ(abs_url, "http://example.com");
         free(abs_url);
     }
@@ -728,8 +694,7 @@ TEST(UriTestSuite, resolve_rel_url_ip4_arg1_arg2_nullptr_base_and_rel_url) {
     EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(0);
 
     // Test Unit
-    Curi uriObj;
-    char* abs_url = uriObj.resolve_rel_url(nullptr, nullptr);
+    char* abs_url = ::resolve_rel_url(nullptr, nullptr);
     EXPECT_EQ(abs_url, nullptr);
     free(abs_url);
 }
@@ -752,8 +717,7 @@ TEST(UriTestSuite, resolve_rel_url_ip4_arg1_empty_base_url) {
     char rel_url[]{"homepage#this-fragment"};
 
     // Test Unit
-    Curi uriObj;
-    char* abs_url = uriObj.resolve_rel_url(*&base_url, *&rel_url);
+    char* abs_url = ::resolve_rel_url(*&base_url, *&rel_url);
     EXPECT_EQ(abs_url, nullptr);
     free(abs_url);
 }
@@ -774,8 +738,7 @@ TEST(UriTestSuite, resolve_rel_url_ip4_arg2_empty_rel_url) {
     char rel_url[]{""};
 
     // Test Unit
-    Curi uriObj;
-    char* abs_url = uriObj.resolve_rel_url(*&base_url, *&rel_url);
+    char* abs_url = ::resolve_rel_url(*&base_url, *&rel_url);
     EXPECT_STREQ(abs_url, "http://example.com");
     free(abs_url);
 }
@@ -797,8 +760,7 @@ TEST(UriTestSuite, resolve_rel_url_ip4_arg1_arg2_empty_base_and_rel_url) {
     char rel_url[]{""};
 
     // Test Unit
-    Curi uriObj;
-    char* abs_url = uriObj.resolve_rel_url(*&base_url, *&rel_url);
+    char* abs_url = ::resolve_rel_url(*&base_url, *&rel_url);
     EXPECT_EQ(abs_url, nullptr);
     free(abs_url);
 }
@@ -819,8 +781,7 @@ TEST(UriTestSuite, resolve_rel_url_ip4_arg2_absolute_rel_url) {
     char rel_url[]{"https://absolute.net:443/home-page#fragment"};
 
     // Test Unit
-    Curi uriObj;
-    char* abs_url = uriObj.resolve_rel_url(*&base_url, *&rel_url);
+    char* abs_url = ::resolve_rel_url(*&base_url, *&rel_url);
     EXPECT_STREQ(abs_url, rel_url);
     free(abs_url);
 }
@@ -843,8 +804,7 @@ TEST(UriTestSuite,
     char rel_url[]{"home-page#fragment"};
 
     // Test Unit
-    Curi uriObj;
-    char* abs_url = uriObj.resolve_rel_url(*&base_url, *&rel_url);
+    char* abs_url = ::resolve_rel_url(*&base_url, *&rel_url);
     EXPECT_EQ(abs_url, nullptr);
     free(abs_url);
 }
@@ -864,8 +824,7 @@ TEST(UriTestSuite, resolve_rel_url_ip4_successful) {
     char rel_url[]{"homepage#this-fragment"};
 
     // Test Unit
-    Curi uriObj;
-    char* abs_url = uriObj.resolve_rel_url(*&base_url, *&rel_url);
+    char* abs_url = ::resolve_rel_url(*&base_url, *&rel_url);
     EXPECT_STREQ(abs_url, "https://example.com:443/homepage#this-fragment");
     free(abs_url);
 }

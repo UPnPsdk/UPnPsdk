@@ -158,8 +158,49 @@ $(document).ready(function(){initNavTree('d7/df3/group__compaAPI-Addressing.html
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Items to get a network address for UPnP devices and control points.   </p>
-<p>Addressing is Step 0 of UPnP networking. Through addressing, devices and control points get a network address. Addressing enables discovery (Step 1) where control points find interesting device(s), description (Step 2) where control points learn about device capabilities, control (Step 3) where a control point sends commands to device(s), eventing (Step 4) where control points listen to state changes in device(s), and presentation (Step 5) where control points display a user interface for device(s).   </p>
-<h2 class="groupheader">Function Documentation</h2>
+<p>Addressing is Step 0 of UPnP networking. Through addressing, devices and control points get a network address. Addressing enables discovery (Step 1) where control points find interesting device(s), description (Step 2) where control points learn about device capabilities, control (Step 3) where a control point sends commands to device(s), eventing (Step 4) where control points listen to state changes in device(s), and presentation (Step 5) where control points display a user interface for device(s).</p>
+<p>To have it available for tests:<br  />
+ "A URI is opaque if, and only if, it is absolute and its scheme-specific
+   part does not begin with a slash character ('/'). An opaque URI has a
+   scheme, a scheme-specific part, and possibly a fragment; all other
+   components are undefined." E.g.: mailto:a@b. (Ref.: <a href="http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaque&ndash;">Opaque URI</a>).</p>
+<p>the following figure displays example URIs and their component parts.<br  />
+ Sources:<br  />
+ <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax">Wikipedia - syntax diagram</a><br  />
+ <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Example_URIs">Wikipedia - Example URIs</a> </p><pre class="fragment">             userinfo           host      port
+        ┌───────┴───────┐ ┌──────┴──────┐ ┌┴┐
+https://john.doe:password@www.example.com:123/forum/questions/?tag=networking&amp;order=newest#top
+└─┬─┘   └──────────────────┬────────────────┘└───────┬───────┘ └───────────┬─────────────┘ └┬┘
+scheme                 authority                    path                 query           fragment
+
+ldap://[2001:db8::7]/c=GB?objectClass?one
+└┬─┘   └─────┬─────┘└─┬─┘ └──────┬──────┘
+scheme   authority   path      query
+
+mailto:John.Doe@example.com
+└─┬──┘ └────┬─────────────┘
+scheme     path
+
+news:comp.infosystems.www.servers.unix
+└┬─┘ └─────────────┬─────────────────┘
+scheme            path
+
+tel:+1-816-555-1212
+└┬┘ └──────┬──────┘
+scheme    path
+
+telnet://192.0.2.16:80/
+└─┬──┘   └─────┬─────┘│
+scheme     authority  path
+
+urn:oasis:names:specification:docbook:dtd:xml:4.1.2
+└┬┘ └──────────────────────┬──────────────────────┘
+scheme                    path
+
+Absolute path: whole URL.
+Relative path: begins with the path
+root based:    path with leading '/'
+</pre>   <h2 class="groupheader">Function Documentation</h2>
 <a id="gad1de9ac9a9d1233809a8846a97fccd9b" name="gad1de9ac9a9d1233809a8846a97fccd9b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad1de9ac9a9d1233809a8846a97fccd9b">&#9670;&#160;</a></span>UpnpInit2()</h2>
 

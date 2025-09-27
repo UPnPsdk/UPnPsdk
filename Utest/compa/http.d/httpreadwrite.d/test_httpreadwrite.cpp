@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-17
+// Redistribution only with this Copyright remark. Last modified: 2025-09-27
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -10,7 +10,6 @@
 #endif
 
 #include <UPnPsdk/upnptools.hpp>
-#include <UPnPsdk/uri.hpp>
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/httpreadwrite.hpp>
 
@@ -32,7 +31,6 @@ using ::testing::SetErrnoAndReturn;
 using ::testing::StrEq;
 
 using ::UPnPsdk::CUri;
-using ::UPnPsdk::Curi;
 using ::UPnPsdk::errStr;
 using ::UPnPsdk::errStrEx;
 
@@ -142,12 +140,12 @@ class Curi_type_testurl {
     // cast a pointer to the instantiation to uri_type* and use it as C
     // structure. Please note that this only works if we do not have any virtual
     // declaration. An example:
-    //
-    // Curi_type_testurl testurlObj;
-    // uri_type* url = (uri_type*)&testurlObj;
-    // if (url->type == Absolute) {}; // C like usage
-    // const char* test_url = testurlObj.get_testurl();
-
+    /*
+    Curi_type_testurl testurlObj;
+    uri_type* url = static_cast<uri_type*>(&testurlObj);
+    if (url->type == Absolute) {}; // C like usage
+    const char* test_url = testurlObj.get_testurl();
+    */
     uriType type;
     token scheme;
     pathType path_type;
@@ -229,8 +227,7 @@ TEST(ParseUriIp4TestSuite, verify_testurl) {
     memset(&out, 0xaa, sizeof(out));
 
     // Test Unit
-    Curi uriObj;
-    EXPECT_EQ(uriObj.parse_uri(url_str, strlen(url_str), &out), HTTP_SUCCESS);
+    EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &out), HTTP_SUCCESS);
 
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(test_url->type, out.type);
@@ -896,8 +893,7 @@ TEST(HttpFixUrl, fix_url_no_path_and_query_successful) {
     // Get a uri structure with parse_uri()
     constexpr char url_str[] = "http://upnplib.net#fragment";
     uri_type url;
-    Curi uriObj;
-    EXPECT_EQ(uriObj.parse_uri(url_str, strlen(url_str), &url), HTTP_SUCCESS);
+    EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &url), HTTP_SUCCESS);
 
     // Test Unit
     uri_type fixed_url;
@@ -963,8 +959,7 @@ TEST(HttpFixUrl, wrong_scheme_ftp) {
     // Get a uri structure with parse_uri()
     constexpr char url_str[] = "ftp://192.168.169.170:80#fragment";
     uri_type url;
-    Curi uriObj;
-    EXPECT_EQ(uriObj.parse_uri(url_str, strlen(url_str), &url), HTTP_SUCCESS);
+    EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &url), HTTP_SUCCESS);
 
     EXPECT_STREQ(url.scheme.buff, "ftp://192.168.169.170:80#fragment");
     EXPECT_EQ(url.scheme.size, (size_t)3);
@@ -985,8 +980,7 @@ TEST(HttpFixUrl, no_fragment) {
     // Get a uri structure with parse_uri()
     constexpr char url_str[] = "http://192.168.169.170:80/path/?key=value";
     uri_type url;
-    Curi uriObj;
-    EXPECT_EQ(uriObj.parse_uri(url_str, strlen(url_str), &url), HTTP_SUCCESS);
+    EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &url), HTTP_SUCCESS);
 
     // Test Unit
     uri_type fixed_url;

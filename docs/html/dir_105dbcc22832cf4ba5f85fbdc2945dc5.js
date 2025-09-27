@@ -26,7 +26,7 @@ var dir_105dbcc22832cf4ba5f85fbdc2945dc5 =
     [ "sysdep.hpp", "d5/de9/sysdep_8hpp.html", "d5/de9/sysdep_8hpp" ],
     [ "unixutil.hpp", "d8/dc4/unixutil_8hpp.html", null ],
     [ "upnpapi.hpp", "d3/da9/upnpapi_8hpp.html", "d3/da9/upnpapi_8hpp" ],
-    [ "uri.hpp", "de/dd0/Compa_2src_2inc_2uri_8hpp.html", "de/dd0/Compa_2src_2inc_2uri_8hpp" ],
+    [ "uri.hpp", "d0/dee/uri_8hpp.html", "d0/dee/uri_8hpp" ],
     [ "urlconfig.hpp", "d5/d2e/urlconfig_8hpp.html", "d5/d2e/urlconfig_8hpp" ],
     [ "uuid.hpp", "d7/db4/uuid_8hpp.html", "d7/db4/uuid_8hpp" ],
     [ "VirtualDir.hpp", "d6/d92/VirtualDir_8hpp.html", "d6/d92/VirtualDir_8hpp" ],

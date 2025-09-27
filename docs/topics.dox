@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-04-17
+// Redistribution only with this Copyright remark. Last modified: 2025-09-27
 /*!
  * \file
  * \brief Definition of the documentation topics.
@@ -88,6 +88,53 @@
  * a control point sends commands to device(s), eventing (Step 4) where control
  * points listen to state changes in device(s), and presentation (Step 5) where
  * control points display a user interface for device(s).
+ *
+ * To have it available for tests:\n
+ * "A URI is opaque if, and only if, it is absolute and its scheme-specific
+ * part does not begin with a slash character ('/'). An opaque URI has a
+ * scheme, a scheme-specific part, and possibly a fragment; all other
+ * components are undefined." E.g.: mailto:a\@b. (Ref.:
+ * <a href="http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaque--">Opaque URI</a>).
+ *
+ * the following figure displays example URIs and their component parts.\n
+ * Sources:\n
+ * <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax">Wikipedia - syntax diagram</a>\n
+ * <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Example_URIs">Wikipedia - Example URIs</a>
+\verbatim
+             userinfo           host      port
+        ┌───────┴───────┐ ┌──────┴──────┐ ┌┴┐
+https://john.doe:password@www.example.com:123/forum/questions/?tag=networking&order=newest#top
+└─┬─┘   └──────────────────┬────────────────┘└───────┬───────┘ └───────────┬─────────────┘ └┬┘
+scheme                 authority                    path                 query           fragment
+
+ldap://[2001:db8::7]/c=GB?objectClass?one
+└┬─┘   └─────┬─────┘└─┬─┘ └──────┬──────┘
+scheme   authority   path      query
+
+mailto:John.Doe@example.com
+└─┬──┘ └────┬─────────────┘
+scheme     path
+
+news:comp.infosystems.www.servers.unix
+└┬─┘ └─────────────┬─────────────────┘
+scheme            path
+
+tel:+1-816-555-1212
+└┬┘ └──────┬──────┘
+scheme    path
+
+telnet://192.0.2.16:80/
+└─┬──┘   └─────┬─────┘│
+scheme     authority  path
+
+urn:oasis:names:specification:docbook:dtd:xml:4.1.2
+└┬┘ └──────────────────────┬──────────────────────┘
+scheme                    path
+
+Absolute path: whole URL.
+Relative path: begins with the path
+root based:    path with leading '/'
+\endverbatim
  *
  *
  * \defgroup compa-Discovery Step 1: Discovery

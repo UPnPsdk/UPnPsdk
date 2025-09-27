@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-17
+// Redistribution only with this Copyright remark. Last modified: 2025-09-27
 
 // Helpful link for ip address structures:
 // https://stackoverflow.com/a/16010670/5014688
@@ -9,7 +9,6 @@
 #include <Pupnp/upnp/src/genlib/net/uri/uri.cpp>
 
 #include <UPnPsdk/upnptools.hpp>
-#include <UPnPsdk/uri.hpp>
 #include <utest/utest.hpp>
 #include <umock/netdb_mock.hpp>
 
@@ -20,7 +19,6 @@ using ::testing::Eq;
 using ::testing::Return;
 using ::testing::SetArgPointee;
 
-using ::UPnPsdk::Curi;
 using ::UPnPsdk::errStrEx;
 
 namespace utest {
@@ -63,10 +61,9 @@ TEST(ParseUriIp4TestSuite, simple_call) {
     const char* uri_str{"scheme://example-site.de:80/uripath?uriquery#urifragment"};
     // const char* uri_str{"mailto:a@b.com"};
     uri_type out;
-    Curi uriObj;
 
     // Test Unit
-    EXPECT_EQ(uriObj.parse_uri(uri_str, 64, &out), HTTP_SUCCESS);
+    EXPECT_EQ(::parse_uri(uri_str, 64, &out), HTTP_SUCCESS);
     ::std::cout << "DEBUG: out.scheme.buff = " << out.scheme.buff
                 << ::std::endl;
     ::std::cout << "DEBUG: out.type Absolute(0), Relative(1) = " << out.type
@@ -103,9 +100,8 @@ TEST(ParseUriIp4TestSuite, absolute_uri_successful) {
 
     // Test Unit
     char url_str[]{"https://example-site.de:80/uri/path?uriquery#urifragment"};
-    Curi uriObj;
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = uriObj.parse_uri(url_str, strlen(url_str), &out),
+    EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &out),
               HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
 
@@ -163,10 +159,8 @@ TEST(ParseUriIp4TestSuite, absolute_uri_with_shorter_max_size) {
     // split pathquery.
     constexpr size_t max_size = 57 - 1 - 17;
 
-    Curi uriObj;
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = uriObj.parse_uri(url_str, max_size, &out),
-              HTTP_SUCCESS)
+    EXPECT_EQ(returned = ::parse_uri(url_str, max_size, &out), HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
 
     // Check the uri-parts scheme, hostport, pathquery and fragment. Please note
@@ -215,10 +209,8 @@ TEST(ParseUriIp4TestSuite, ip_address_with_greater_max_size) {
     // increase the fragment with garbage at the end.
     constexpr size_t max_size = 57 - 1 + 10;
 
-    Curi uriObj;
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = uriObj.parse_uri(url_str, max_size, &out),
-              HTTP_SUCCESS)
+    EXPECT_EQ(returned = ::parse_uri(url_str, max_size, &out), HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
 
     // Check the uri-parts scheme, hostport, pathquery and fragment. Please note
@@ -282,9 +274,8 @@ TEST(ParseUriIp4TestSuite, uri_without_valid_host_and_port) {
 
     // Get a uri structure with parse_uri(). It fails with NONAME to get a valid
     // host & port.
-    Curi uriObj;
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = uriObj.parse_uri(url_str, strlen(url_str), &url),
+    EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &url),
               UPNP_E_INVALID_URL)
         << errStrEx(returned, HTTP_SUCCESS);
 
@@ -328,9 +319,8 @@ TEST(ParseUriIp4TestSuite, ip_address_without_pathquery) {
     // Test Unit
     constexpr char url_str[]{"https://192.168.168.168:80#urifragment"};
 
-    Curi uriObj;
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = uriObj.parse_uri(url_str, strlen(url_str), &out),
+    EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &out),
               HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
 
@@ -362,9 +352,8 @@ TEST(ParseUriIp4TestSuite, ip_address_without_fragment) {
     memset(&out, 0xaa, sizeof(out));
 
     // Test Unit
-    Curi uriObj;
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = uriObj.parse_uri(url_str, strlen(url_str), &out),
+    EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &out),
               HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
 
@@ -438,11 +427,9 @@ TEST(ParseUriIp4TestSuite, relative_uri_with_authority_and_absolute_path) {
     struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
 
     // Execute the unit
-    Curi uriObj;
-    EXPECT_EQ(
-        uriObj.parse_uri("//example-site.de:80/uri/path?uriquery#urifragment",
-                         51, &out),
-        HTTP_SUCCESS);
+    EXPECT_EQ(::parse_uri("//example-site.de:80/uri/path?uriquery#urifragment",
+                          51, &out),
+              HTTP_SUCCESS);
     // Check the uri-parts scheme, hostport, pathquery and fragment
     EXPECT_STREQ(out.scheme.buff, nullptr);
     EXPECT_STREQ(out.hostport.text.buff,
@@ -473,8 +460,7 @@ TEST(ParseUriIp4TestSuite, relative_uri_with_absolute_path) {
     struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
 
     // Execute the unit
-    Curi uriObj;
-    EXPECT_EQ(uriObj.parse_uri("/uri/path?uriquery#urifragment", 31, &out),
+    EXPECT_EQ(::parse_uri("/uri/path?uriquery#urifragment", 31, &out),
               HTTP_SUCCESS);
     // Check the uri-parts scheme, hostport, pathquery and fragment
     EXPECT_STREQ(out.scheme.buff, nullptr);
@@ -506,8 +492,7 @@ TEST(ParseUriIp4TestSuite, relative_uri_with_relative_path) {
 
     // Execute the unit
     // The relative path does not have a leading /
-    Curi uriObj;
-    EXPECT_EQ(uriObj.parse_uri("uri/path?uriquery#urifragment", 30, &out),
+    EXPECT_EQ(::parse_uri("uri/path?uriquery#urifragment", 30, &out),
               HTTP_SUCCESS);
     // Check the uri-parts scheme, hostport, pathquery and fragment
     EXPECT_STREQ(out.scheme.buff, nullptr);
@@ -539,8 +524,7 @@ TEST(ParseUriIp4TestSuite, uri_with_opaque_part) {
 
     // Execute the unit
     // The relative path does not have a leading /
-    Curi uriObj;
-    EXPECT_EQ(uriObj.parse_uri("mailto:a@b.com", 15, &out), HTTP_SUCCESS);
+    EXPECT_EQ(::parse_uri("mailto:a@b.com", 15, &out), HTTP_SUCCESS);
     // Check the uri-parts scheme, hostport, pathquery and fragment
     EXPECT_STREQ(out.scheme.buff, "mailto:a@b.com");
     EXPECT_STREQ(out.hostport.text.buff, nullptr);

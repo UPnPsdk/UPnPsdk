@@ -21,9 +21,6 @@ var dir_6355b7681b27614fe17a18239640150b =
     [ "synclog.hpp", "d1/d3b/synclog_8hpp.html", null ],
     [ "upnp_device.hpp", "d7/de2/upnp__device_8hpp.html", "d7/de2/upnp__device_8hpp" ],
     [ "upnptools.hpp", "d9/df8/UPnPsdk_2include_2UPnPsdk_2upnptools_8hpp.html", "d9/df8/UPnPsdk_2include_2UPnPsdk_2upnptools_8hpp" ],
-    [ "uri.hpp", "d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html", null ],
-    [ "url.hpp", "d5/d3a/url_8hpp.html", null ],
-    [ "urlparser.hpp", "df/d44/urlparser_8hpp.html", null ],
     [ "visibility.hpp", "d0/d21/visibility_8hpp.html", "d0/d21/visibility_8hpp" ],
     [ "webserver.hpp", "d5/d8e/UPnPsdk_2include_2UPnPsdk_2webserver_8hpp.html", "d5/d8e/UPnPsdk_2include_2UPnPsdk_2webserver_8hpp" ]
 ];
