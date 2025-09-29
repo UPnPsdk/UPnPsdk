@@ -1,6 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"d7/d1a/classUPnPsdk_1_1CStrIntMap.html#acfd23143aba9e99d30cb127ce7eef4a1":[5,0,26,13,0],
 "d7/d1a/classUPnPsdk_1_1CStrIntMap.html#acfd23143aba9e99d30cb127ce7eef4a1":[6,0,7,10,0],
 "d7/d1a/classUPnPsdk_1_1CStrIntMap.html#ae6bbded737bfa2e3aaadf95bee615079":[5,0,26,13,2],
 "d7/d1a/classUPnPsdk_1_1CStrIntMap.html#ae6bbded737bfa2e3aaadf95bee615079":[6,0,7,10,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX5 =
 "d8/db8/UpnpDiscovery_8cpp.html#a89fff177d01b792b6038ecb6e2e1b3da":[7,0,0,1,0,4,66],
 "d8/db8/UpnpDiscovery_8cpp.html#a8e7d8d0c83fe2c6f360795afdcdd7c36":[7,0,0,1,0,4,24],
 "d8/db8/UpnpDiscovery_8cpp.html#a9142746520262614f4167f72c927c0ea":[7,0,0,1,0,4,60],
-"d8/db8/UpnpDiscovery_8cpp.html#a935674aa8d6ff0dac5b0fbb7aa79c561":[7,0,0,1,0,4,6]
+"d8/db8/UpnpDiscovery_8cpp.html#a935674aa8d6ff0dac5b0fbb7aa79c561":[7,0,0,1,0,4,6],
+"d8/db8/UpnpDiscovery_8cpp.html#a9664ff1acca2c5974f51374791e4fcb8":[7,0,0,1,0,4,63]
 };

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-09-26
+ * Redistribution only with this Copyright remark. Last modified: 2025-10-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -38,7 +38,6 @@
 
 #include <upnp.hpp>
 #include <uri.hpp>
-#include <membuffer.hpp>
 
 #include <UPnPsdk/port_sock.hpp>
 #include <umock/netdb.hpp>
@@ -48,6 +47,8 @@
 #include <cstdio> // Needed if OpenSSL isn't compiled in.
 #include <climits>
 #include <vector>
+#include <string_view>
+#include <iostream> // DEBUG!
 /// \endcond
 
 UPnPsdk_EXTERN unsigned gIF_INDEX;
@@ -397,11 +398,32 @@ inline int is_end_path(char c) {
     return 0;
 }
 
-/// @} // Scope restricted to file
-} // anonymous namespace
 
-
-int replace_escaped(char* in, size_t index, size_t* max) {
+/*!
+ * \brief Replaces one single escaped character within a string with its
+ * unescaped version.
+ *
+ * This is spezified in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396
+ * (explaining URIs)</a>. The index must exactly point to the \b '\%'
+ * character, otherwise the function will return unsuccessful. Size of array is
+ * NOT checked (MUST be checked by caller).
+ *
+ * \note This function modifies the string and the max size. If the sequence is
+ * an escaped sequence it is replaced, the other characters in the string are
+ * shifted over, and NULL characters are placed at the end of the string.
+ *
+ * \returns
+ *   1 - if an escaped character was converted\n
+ *   0 - otherwise
+ */
+int replace_escaped(
+    /*! [in,out] String of characters. */
+    char* in,
+    /// [in] Index at which to start checking the characters; must point to '%'.
+    size_t index,
+    /*! [in,out] Maximal size of the string buffer will be reduced by 2 if a
+       character is converted. */
+    size_t* max) {
     int tempInt = 0;
     char tempChar = 0;
     size_t i = (size_t)0;
@@ -435,6 +457,9 @@ int replace_escaped(char* in, size_t index, size_t* max) {
     }
 }
 
+/// @} // Scope restricted to file
+} // anonymous namespace
+
 
 int create_url_list(memptr* a_url_list, URL_list* a_out) {
     if (!a_out)
@@ -443,8 +468,40 @@ int create_url_list(memptr* a_url_list, URL_list* a_out) {
         memset(a_out, 0, sizeof(*a_out));
         return 0;
     }
+    std::cerr << "DEBUG! a_url_list=\""
+              << std::string_view(a_url_list->buf, a_url_list->length)
+              << "\", size=" << a_url_list->length << "\n";
 
-    // Allocate memory and copy the serialized urls to it.
+    // Verify correct delimiter '<', '><', and '>'.
+    std::string_view urls_str(a_url_list->buf, a_url_list->length);
+    // Without any delimiter it is assumed to be just a single url...
+    if (urls_str.find_first_of("<>") != std::string_view::npos) {
+        // ...otherwise delimiter must be checked.
+        if (urls_str.front() == '<')
+            urls_str.remove_prefix(1);
+        else
+            return UPNP_E_INVALID_URL;
+        if (urls_str.back() == '\0')
+            urls_str.remove_suffix(1);
+        if (urls_str.back() == '>')
+            urls_str.remove_suffix(1);
+        else
+            return UPNP_E_INVALID_URL;
+        for (size_t i{0}; i < urls_str.size(); i++) {
+            if (urls_str[i] == '>') {
+                if (urls_str[i + 1] == '<')
+                    i++;
+                else
+                    return UPNP_E_INVALID_URL;
+            } else if (urls_str[i] == '<') {
+                return UPNP_E_INVALID_URL;
+            }
+        } // for
+    }
+
+    // Allocate memory and copy the serialized urls to it. It is important to do
+    // this beforehand because parsing the base_urls for components create
+    // pointer to it.
     char* base_urls = static_cast<char*>(malloc(a_url_list->length + 1));
     if (!base_urls)
         return UPNP_E_OUTOF_MEMORY;
@@ -462,18 +519,26 @@ int create_url_list(memptr* a_url_list, URL_list* a_out) {
         if ((base_urls[i] == '<') && (i + 1 < base_urls_length)) {
             // ...got it. Parse url with error handling to get its components.
             uri_type splitted_url;
+
+            // parse_uri
             int return_code = parse_uri(
-                &base_urls[i + 1], base_urls_length - i + 1, &splitted_url);
+                &base_urls[i + 1], base_urls_length - i - 1, &splitted_url);
+
+            std::cerr << "DEBUG! parse_uri() return_code=" << return_code
+                      << "\n";
             if (return_code == HTTP_SUCCESS &&
                 splitted_url.hostport.text.size != 0) {
+                std::cerr << "DEBUG! Tracepoint1\n";
                 // No errors detected, cache the parsed result. Only URLs with
                 // network addresses are considered.
                 url_views.push_back(splitted_url);
 
             } else if (return_code == UPNP_E_OUTOF_MEMORY) {
+                std::cerr << "DEBUG! Tracepoint2\n";
                 free(base_urls);
                 return UPNP_E_OUTOF_MEMORY;
             }
+            std::cerr << "DEBUG! Tracepoint3\n";
         }
     }
 
@@ -815,6 +880,8 @@ error:
 }
 
 int parse_uri(const char* in, size_t max, uri_type* out) {
+    std::cerr << "DEBUG! parse_uri(\"" << std::string_view(in, max) << "\", "
+              << max << ", ...)\n";
     size_t begin_hostport = parse_scheme(in, max, &out->scheme);
     if (begin_hostport) {
         out->type = Absolute;

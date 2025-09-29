@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft,  Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-12
+ * Redistribution only with this Copyright remark. Last modified: 2025-10-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -50,7 +50,7 @@
 struct memptr {
     /*! \brief start of memory (read/write). */
     char* buf;
-    /*! \brief length of memory (read-only). */
+    /*! \brief length of memory without terminating '\0' (read-only). */
     size_t length;
 };
 

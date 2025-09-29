@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-18
+// Redistribution only with this Copyright remark. Last modified: 2025-10-01
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -1017,7 +1017,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_having_only_ipv6) {
             break;
         }
     }
-    std::cout << "DEBUG! index=" << index << '\n';
 
     if (index == 0)
         GTEST_SKIP()
@@ -1860,10 +1859,14 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
     UpnpFinish();
 }
 
-#if 0
-// Disabled due to bug with IPv6 parse_hostport(). Will be enabled as soon as
-// the bug is fixed.
 TEST_F(UpnpapiFTestSuite, download_xml_successful) {
+    if (!github_actions && !old_code)
+        GTEST_FAIL()
+            << "Test fails on Github Actions with UPNP_E_INVALID_URL. Fixit.";
+    else
+        GTEST_SKIP()
+            << "Test fails on Github Actions with UPNP_E_INVALID_URL. Fixit.";
+
     if (github_actions) // Always disable extended debug messages.
         g_dbug = false; // Will be restored by the tests destructor.
 
@@ -1886,16 +1889,6 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
-    // clang-format off
-    std::cerr << "DEBUG! gIF_IPV4=\"" << ::gIF_IPV4
-              << "\", LOCAL_PORT_V4=" << ::LOCAL_PORT_V4
-              << ", gIF_IPV6=\"" << ::gIF_IPV6
-              << "\", LOCAL_PORT_V6=" << LOCAL_PORT_V6
-              << ", gIF_IPV6_ULA_GUA=\"" << ::gIF_IPV6_ULA_GUA
-              << "\", LOCAL_PORT_V6_ULA_GUA=" << LOCAL_PORT_V6_ULA_GUA
-              << ".\n";
-    // clang-format on
-
     EXPECT_EQ(::UpnpSetWebServerRootDir(SAMPLE_SOURCE_DIR "/web"), 0);
 
     // Create an url.
@@ -1906,14 +1899,18 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
               "]:" + std::to_string(LOCAL_PORT_V6_ULA_GUA) +
               "/tvdevicedesc.xml";
     else if (gIF_IPV6[0] != '\0')
-        // url = "http://[" + std::string(gIF_IPV6) + "%" + std::to_string(gIF_INDEX) + "]:" + std::to_string(LOCAL_PORT_V6) + "/tvdevicedesc.xml";
-        url = "http://" + std::string(gIF_IPV6) + "%" + std::to_string(gIF_INDEX) + ":" + std::to_string(LOCAL_PORT_V6) + "/tvdevicedesc.xml";
-        // url = "http://" + std::string(gIF_IPV6) + ":" + std::to_string(LOCAL_PORT_V6) + "/tvdevicedesc.xml";
+        // url = "http://[" + std::string(gIF_IPV6) + "%" +
+        // std::to_string(gIF_INDEX) + "]:" + std::to_string(LOCAL_PORT_V6) +
+        // "/tvdevicedesc.xml";
+        url = "http://" + std::string(gIF_IPV6) + "%" +
+              std::to_string(gIF_INDEX) + ":" + std::to_string(LOCAL_PORT_V6) +
+              "/tvdevicedesc.xml";
+    // url = "http://" + std::string(gIF_IPV6) + ":" +
+    // std::to_string(LOCAL_PORT_V6) + "/tvdevicedesc.xml";
     else if (gIF_IPV4[0] != '\0')
         url = "http://" + std::string(gIF_IPV4) + ":" +
               std::to_string(LOCAL_PORT_V4) + "/tvdevicedesc.xml";
 
-    std::cerr << "DEBUG! url=\"" << url << "\"\n";
     IXML_Document* xmldocbuf_ptr{nullptr};
 
     // Test Unit
@@ -1929,7 +1926,6 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     }
     UpnpFinish();
 }
-#endif
 
 int CallbackEventHandler(Upnp_EventType EventType, const void* Event,
                          [[maybe_unused]] void* Cookie) {
@@ -1940,15 +1936,15 @@ int CallbackEventHandler(Upnp_EventType EventType, const void* Event,
     return 0;
 }
 
-#if 0
-// Disabled due to bug with IPv6 parse_hostport(). Will be enabled as soon as
-// the bug is fixed.
 TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_successful) {
-    if (github_actions) {
-        //     if (old_code)
-        //         GTEST_SKIP() << "Old code Unit Test takes too long time and "
-        //                         "dynamically triggers run timeouts.";
+    if (!github_actions && !old_code)
+        GTEST_FAIL()
+            << "Test fails on Github Actions with UPNP_E_INVALID_URL. Fixit.";
+    else
+        GTEST_SKIP()
+            << "Test fails on Github Actions with UPNP_E_INVALID_URL. Fixit.";
 
+    if (github_actions) {
         // Always disable extended debug messages.
         g_dbug = false; // Will be restored by the tests destructor.
     }
@@ -1995,7 +1991,6 @@ TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_successful) {
         addr_family = AF_INET6;
     }
 
-    std::cerr << "DEBUG! desc_doc_url=\"" << desc_doc_url << "\"\n";
     UpnpDevice_Handle device_handle = -1;
 
     // Test Unit
@@ -2010,7 +2005,6 @@ TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_successful) {
     UpnpUnRegisterRootDevice(device_handle);
     UpnpFinish();
 }
-#endif
 
 } // namespace utest
 

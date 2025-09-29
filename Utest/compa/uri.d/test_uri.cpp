@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// redistribution only with this copyright remark. last modified: 2025-09-27
+// redistribution only with this copyright remark. last modified: 2025-10-01
 
 // Helpful link for ip address structures:
 // https://stackoverflow.com/a/16010670/5014688
@@ -874,26 +874,42 @@ TEST(UriTestSuite, create_url_list_from_loopback_if) {
     URL_list url_list;
     memset(&url_list, 0xAA, sizeof(url_list));
 
-    char urls[]{"<[::1]>"};
+    std::string_view urls{"<https://[::1]>"};
     memptr base_urls; // "<url><url>"
-    base_urls.buf = urls;
-    base_urls.length = sizeof(urls);
+    base_urls.buf = const_cast<char*>(urls.data());
+    base_urls.length = urls.size();
 
     // Test Unit
-    EXPECT_EQ(::create_url_list(&base_urls, &url_list), 0);
+    ASSERT_EQ(::create_url_list(&base_urls, &url_list), 1);
 
-    if (!github_actions && !old_code) {
-        // Loopback interfaces should be accepted with new code.
-        EXPECT_EQ(url_list.size, 1);
-        EXPECT_NE(url_list.URLs, nullptr);
-        EXPECT_NE(url_list.parsedURLs, nullptr);
-    } else {
-        // Loopback interfaces are not supported with old code.
-        EXPECT_EQ(url_list.size, 0);
-        EXPECT_EQ(url_list.URLs, nullptr);
-        EXPECT_EQ(url_list.parsedURLs, nullptr);
-    }
-    free_URL_list(&url_list);
+    EXPECT_EQ(url_list.size, 1);
+    EXPECT_STREQ(url_list.URLs, urls.data());
+    ASSERT_NE(url_list.parsedURLs, nullptr);
+    EXPECT_EQ(url_list.parsedURLs[0].type, Absolute);
+    EXPECT_EQ(url_list.parsedURLs[0].path_type, OPAQUE_PART);
+    EXPECT_EQ(std::string_view(url_list.parsedURLs[0].scheme.buff,
+                               url_list.parsedURLs[0].scheme.size),
+              "https");
+    EXPECT_EQ(std::string_view(url_list.parsedURLs[0].hostport.text.buff,
+                               url_list.parsedURLs[0].hostport.text.size),
+              "[::1]");
+    // EXPECT_STREQ(url_list.parsedURLs[0].pathquery.buff, ">"); // undefined..
+    EXPECT_EQ(url_list.parsedURLs[0].pathquery.size, 0); // ...no pathquery
+    EXPECT_EQ(url_list.parsedURLs[0].fragment.buff, nullptr);
+    EXPECT_EQ(url_list.parsedURLs[0].fragment.size, 0);
+    SSockaddr saObj;
+    saObj = url_list.parsedURLs[0].hostport.IPaddress;
+#ifndef __APPLE__
+    if (old_code) {
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": The resolved socket address must not have a garbage "
+                     "scope id.\n";
+        EXPECT_THAT(saObj.netaddrp(), StartsWith("[::1%")); // Wrong!
+    } else
+#else
+    EXPECT_EQ(saObj.netaddrp(), "[::1]:443");
+#endif
+        free_URL_list(&url_list);
 }
 
 TEST(UriTestSuite, create_url_list_from_lla) {
@@ -903,7 +919,7 @@ TEST(UriTestSuite, create_url_list_from_lla) {
     char urls[]{"<https://[fe80::5054]:58138/path/query#fragment>"};
     memptr base_urls; // "<url><url>"
     base_urls.buf = urls;
-    base_urls.length = sizeof(urls);
+    base_urls.length = strlen(urls);
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), 1);
@@ -912,11 +928,12 @@ TEST(UriTestSuite, create_url_list_from_lla) {
     ASSERT_STREQ(base_urls.buf, url_list.URLs);
     memset(urls, 0xAA, sizeof(urls));
 
-    EXPECT_EQ(url_list.size, 1);
+    EXPECT_EQ(url_list.size, 1); // Number of URLs in URL list.
     EXPECT_EQ(url_list.parsedURLs[0].type, Absolute);
-    EXPECT_THAT(url_list.parsedURLs[0].scheme.buff, StartsWith("https"));
-    EXPECT_EQ(url_list.parsedURLs[0].scheme.size, 5);
     EXPECT_EQ(url_list.parsedURLs[0].path_type, ABS_PATH);
+    EXPECT_EQ(std::string_view(url_list.parsedURLs[0].scheme.buff,
+                               url_list.parsedURLs[0].scheme.size),
+              "https");
     EXPECT_THAT(url_list.parsedURLs[0].pathquery.buff,
                 StartsWith("/path/query"));
     EXPECT_EQ(url_list.parsedURLs[0].pathquery.size, 11);
@@ -952,7 +969,7 @@ TEST(UriTestSuite, create_url_list_from_three_ip_addresses) {
                 ":example.com><http://[2001:db8::e]/path>"};
     memptr base_urls; // "<url><url>"
     base_urls.buf = urls;
-    base_urls.length = sizeof(urls);
+    base_urls.length = strlen(urls);
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), 2);
@@ -972,11 +989,10 @@ TEST(UriTestSuite, create_url_list_from_three_ip_addresses) {
                 StartsWith("[2001:db8::e]"));
     EXPECT_EQ(url_list.parsedURLs[1].hostport.text.size, 13);
     SSockaddr saObj;
-    if (old_code)
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": IPv6 addresses must not have garbage scope_ids.\n";
 #ifndef __APPLE__
     if (old_code) {
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": IPv6 addresses must not have garbage scope_ids.\n";
         saObj = url_list.parsedURLs[0].hostport.IPaddress;
         EXPECT_THAT(saObj.netaddrp(),
                     StartsWith("[::ffff:192.168.1.2%"));            // Wrong!
@@ -995,8 +1011,8 @@ TEST(UriTestSuite, create_url_list_from_three_ip_addresses) {
 }
 
 TEST(UriTestSuite, create_url_list_from_dns_name) {
-    std::cout
-        << "Triggers DNS lookup with different IP addresses. Has to be done.\n";
+    std::cout << "Triggers DNS lookup with different IP addresses. Has to be "
+                 "mocked.\n";
     if (!github_actions && !old_code)
         GTEST_FAIL();
     else
@@ -1008,7 +1024,7 @@ TEST(UriTestSuite, create_url_list_from_dns_name) {
     char urls[]{"<https://example.com>"};
     memptr base_urls; // "<url><url>"
     base_urls.buf = urls;
-    base_urls.length = sizeof(urls);
+    base_urls.length = strlen(urls);
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), 1);
@@ -1042,7 +1058,7 @@ TEST(UriTestSuite, create_url_list_fails) {
     char urls1[]{"<0 = no valid url>"};
     // --------------------------------
     url_chain.buf = urls1;
-    url_chain.length = sizeof(urls1);
+    url_chain.length = strlen(urls1);
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&url_chain, &url_list), 0);
@@ -1051,7 +1067,7 @@ TEST(UriTestSuite, create_url_list_fails) {
     char urls2[]{"http://example.com"}; // no '<', '>' delimiter
     // --------------------------------
     url_chain.buf = urls2;
-    url_chain.length = sizeof(urls2);
+    url_chain.length = strlen(urls2);
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&url_chain, &url_list), 0);
@@ -1061,7 +1077,7 @@ TEST(UriTestSuite, create_url_list_fails) {
         "<http://example.com:49486><example.com><https://[2001:db8::1]:49487>"};
     // --------------------------------
     url_chain.buf = urls3;
-    url_chain.length = sizeof(urls3);
+    url_chain.length = strlen(urls3);
 
     // Test Unit
     ASSERT_EQ(::create_url_list(&url_chain, &url_list), 2);
@@ -1071,12 +1087,81 @@ TEST(UriTestSuite, create_url_list_fails) {
     free_URL_list(&url_list);
 }
 
+TEST(UriTestSuite, create_url_list_with_wrong_url_str_fails) {
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": Unit should not ignore wrong setting of delimiter '<' "
+                     "and '>'.\n";
+        GTEST_SKIP() << '\x8'; // backspace, remove output empty line
+    }
+
+    memptr base_urls; // "<url><url>"
+    URL_list url_list;
+
+    char urls1[]{"https://[::1]><http://[2001:db8::1]>"};
+    base_urls.buf = urls1;
+    base_urls.length = strlen(urls1);
+
+    // Test Unit
+    EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
+
+    char urls2[]{"<https://[::1]<http://[2001:db8::2]>"};
+    base_urls.buf = urls2;
+    base_urls.length = strlen(urls2);
+
+    // Test Unit
+    EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
+
+    char urls3[]{"<https://[::1]>http://[2001:db8::3]>"};
+    base_urls.buf = urls3;
+    base_urls.length = strlen(urls3);
+
+    // Test Unit
+    EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
+
+    char urls4[]{"<https://[::1]><http://[2001:db8::4]"};
+    base_urls.buf = urls4;
+    base_urls.length = strlen(urls4);
+
+    // Test Unit
+    EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
+
+    char urls5[]{"<https://[::1]><http://[2001:db8::5]>"};
+    base_urls.buf = urls5;
+    base_urls.length = strlen(urls5);
+
+    // Test Unit
+    EXPECT_EQ(::create_url_list(&base_urls, &url_list), 2);
+    free_URL_list(&url_list);
+
+    char urls6[]{"<https://[::1]"};
+    base_urls.buf = urls6;
+    base_urls.length = strlen(urls6);
+
+    // Test Unit
+    EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
+
+    char urls7[]{"https://[::1]>"};
+    base_urls.buf = urls7;
+    base_urls.length = strlen(urls7);
+
+    // Test Unit
+    EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
+
+    char urls8[]{"<>"};
+    base_urls.buf = urls8;
+    base_urls.length = strlen(urls8);
+
+    // Test Unit
+    EXPECT_EQ(::create_url_list(&base_urls, &url_list), 0);
+}
+
 TEST(UriTestSuite, copy_url_list_successful) {
     // Provide needed values.
     char urls[]{"<https://[2001:db8::ac15]:58140/path/query#fragment>"};
     memptr base_urls; // "<url><url>"
     base_urls.buf = urls;
-    base_urls.length = sizeof(urls);
+    base_urls.length = strlen(urls);
 
     URL_list src_urlist{}, dst_urlist{};
     EXPECT_EQ(::create_url_list(&base_urls, &src_urlist), 1);
@@ -1117,16 +1202,16 @@ TEST(UriTestSuite, copy_url_list_successful) {
     EXPECT_EQ(dst_urlist.parsedURLs[0].hostport.text.size, 22);
     SSockaddr saObj;
     saObj = dst_urlist.parsedURLs[0].hostport.IPaddress;
-    if (old_code)
+#ifndef __APPLE__
+    if (old_code) {
         std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
                   << ": The resolved socket address must not have a garbage "
                      "scope id.\n";
-#ifndef __APPLE__
-    if (old_code)
         EXPECT_THAT(saObj.netaddrp(), StartsWith("[2001:db8::ac15%")); // Wrong!
-    else
+    } else
 #endif
         EXPECT_EQ(saObj.netaddrp(), "[2001:db8::ac15]:58140");
+
     free_URL_list(&dst_urlist);
 }
 

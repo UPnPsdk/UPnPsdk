@@ -1,53 +1,24 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-27
-
-// Helpful link for ip address structures:
-// https://stackoverflow.com/a/16010670/5014688
+// Redistribution only with this Copyright remark. Last modified: 2025-10-01
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/genlib/net/uri/uri.cpp>
+#else
+#include <Compa/src/genlib/net/uri/uri.cpp>
+#endif
 
 #include <UPnPsdk/upnptools.hpp>
+#include <UPnPsdk/sockaddr.hpp>
 #include <utest/utest.hpp>
-#include <umock/netdb_mock.hpp>
 
-using ::testing::_;
-using ::testing::AnyOf;
-using ::testing::DoAll;
-using ::testing::Eq;
-using ::testing::Return;
-using ::testing::SetArgPointee;
+using ::testing::StartsWith;
 
 using ::UPnPsdk::errStrEx;
+using ::UPnPsdk::SSockaddr;
 
 namespace utest {
-
-// Mocking
-// =======
-class Mock_netv4info : public umock::NetdbMock {
-    // This is a derived class from mocking netdb to provide a structure for
-    // addrinfo that can be given to the mocked program.
-  private:
-    // Provide structures to mock system call for network address
-    struct sockaddr_in m_sa{};
-    struct addrinfo m_res{};
-
-  public:
-    Mock_netv4info() { m_sa.sin_family = AF_INET; }
-
-    addrinfo* get(const char* a_ipaddr, uint16_t a_port) {
-        inet_pton(m_sa.sin_family, a_ipaddr, &m_sa.sin_addr);
-        m_sa.sin_port = htons(a_port);
-
-        m_res.ai_family = m_sa.sin_family;
-        m_res.ai_addrlen = sizeof(struct sockaddr);
-        m_res.ai_addr = (sockaddr*)&m_sa;
-
-        return &m_res;
-    }
-};
-
 
 // parse_uri() function: tests from the uri module
 // ===============================================
@@ -82,24 +53,55 @@ TEST(ParseUriIp4TestSuite, simple_call) {
 }
 #endif
 
-TEST(ParseUriIp4TestSuite, absolute_uri_successful) {
-    if (github_actions && !old_code)
-        GTEST_SKIP() << "             known failing test on Github Actions";
-
-    Mock_netv4info netv4inf;
-    addrinfo* res = netv4inf.get("192.168.10.10", 80);
-
-    // Mock for network address system calls. parse_uri() asks the DNS server.
-    umock::Netdb netdb_injectObj(&netv4inf);
-    EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _))
-        .WillOnce(DoAll(SetArgPointee<3>(res), Return(0)));
-    EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(1);
-
+TEST(ParseUriTestSuite, loopback_uri) {
     uri_type out;
-    memset(&out, 0xaa, sizeof(out));
+    memset(&out, 0xAA, sizeof(out));
+
+    std::string_view url_str{"https://[::1]/uri/path?uriquery#urifragment"};
 
     // Test Unit
-    char url_str[]{"https://example-site.de:80/uri/path?uriquery#urifragment"};
+    int returned{UPNP_E_INTERNAL_ERROR};
+    EXPECT_EQ(returned = ::parse_uri(url_str.data(), url_str.size(), &out),
+              HTTP_SUCCESS)
+        << errStrEx(returned, HTTP_SUCCESS);
+
+    // Check the uri-parts scheme, hostport, pathquery and fragment. Please
+    // note that the last part of the buffer content is garbage. The valid
+    // character chain is determined by its size. But it's no problem to
+    // compare the whole buffer because it's defined to contain a C string. But
+    // with std::string_view() I have an exact view to the components.
+    EXPECT_EQ(out.type, Absolute);
+    EXPECT_EQ(out.path_type, ABS_PATH);
+    EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "https");
+    EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
+              "[::1]");
+    EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
+              "/uri/path?uriquery");
+    EXPECT_EQ(std::string_view(out.fragment.buff, out.fragment.size),
+              "urifragment");
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saObj.port(), 443);
+#ifndef __APPLE__
+    if (old_code) {
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": The resolved socket address must not have a garbage "
+                     "scope id.\n";
+        EXPECT_THAT(saObj.netaddrp(), StartsWith("[::1%")); // Wrong!
+    } else
+#endif
+        EXPECT_EQ(saObj.netaddrp(), "[::1]:443");
+}
+
+TEST(ParseUriTestSuite, absolute_uri_successful) {
+    uri_type out;
+    memset(&out, 0xAA, sizeof(out));
+
+    char url_str[]{
+        "https://[::ffff:192.168.234.132]:443/uri/path?uriquery#urifragment"};
+
+    // Test Unit
     int returned{UPNP_E_INTERNAL_ERROR};
     EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &out),
               HTTP_SUCCESS)
@@ -109,247 +111,180 @@ TEST(ParseUriIp4TestSuite, absolute_uri_successful) {
     // that the last part of the buffer content is garbage. The valid character
     // chain is determined by its size. But it's no problem to compare the whole
     // buffer because it's defined to contain a C string.
-    EXPECT_STREQ(out.scheme.buff,
-                 "https://example-site.de:80/uri/path?uriquery#urifragment");
-    EXPECT_EQ(out.scheme.size, (size_t)5);
-
     // The token.buff pointer just only point into the original url_str:
-    url_str[8] = 'X';
-    EXPECT_STREQ(out.scheme.buff,
-                 "https://Xxample-site.de:80/uri/path?uriquery#urifragment");
-    //                    ^ there is a 'X' now
+    url_str[37] = 'X'; // offset is zero based.
+    EXPECT_STREQ(
+        out.scheme.buff,
+        "https://[::ffff:192.168.234.132]:443/Xri/path?uriquery#urifragment");
+    //                                        ^ there is an 'X' now
+    // but out.scheme.buff is delimted by its size
+    EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "https");
 
-    EXPECT_STREQ(out.hostport.text.buff,
-                 "Xxample-site.de:80/uri/path?uriquery#urifragment");
-    EXPECT_EQ(out.hostport.text.size, (size_t)18);
-
-    EXPECT_STREQ(out.pathquery.buff, "/uri/path?uriquery#urifragment");
-    EXPECT_EQ(out.pathquery.size, (size_t)18);
-
-    EXPECT_STREQ(out.fragment.buff, "urifragment");
-    EXPECT_EQ(out.fragment.size, (size_t)11);
+    EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
+              "[::ffff:192.168.234.132]:443");
+    EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
+              "/Xri/path?uriquery");
+    EXPECT_EQ(std::string_view(out.fragment.buff, out.fragment.size),
+              "urifragment");
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, ABS_PATH);
-
-    const sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
-    EXPECT_EQ(sai4->sin_family, AF_INET);
-    EXPECT_EQ(sai4->sin_port, htons(80));
-    EXPECT_STREQ(::inet_ntoa(sai4->sin_addr), "192.168.10.10");
-}
-
-TEST(ParseUriIp4TestSuite, absolute_uri_with_shorter_max_size) {
-    Mock_netv4info netv4inf;
-    addrinfo* res = netv4inf.get("192.168.10.10", 80);
-
-    // Mock for network address system calls. parse_uri() asks the DNS server.
-    umock::Netdb netdb_injectObj(&netv4inf);
-    EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _))
-        .WillOnce(DoAll(SetArgPointee<3>(res), Return(0)));
-    EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(1);
-
-    uri_type out;
-    memset(&out, 0xaa, sizeof(out));
-    struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
-
-    // Test Unit
-    constexpr char url_str[57]{
-        "https://example-site.de:80/uri/path?uriquery#urifragment"};
-
-    // This is by 17 chars too short for the whole url (without '\0'). It will
-    // split pathquery.
-    constexpr size_t max_size = 57 - 1 - 17;
-
-    int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = ::parse_uri(url_str, max_size, &out), HTTP_SUCCESS)
-        << errStrEx(returned, HTTP_SUCCESS);
-
-    // Check the uri-parts scheme, hostport, pathquery and fragment. Please note
-    // that the last part of the buffer content is garbage. The valid character
-    // chain is determined by its size. But it's no problem to compare the whole
-    // buffer because it's defined to contain a C string.
-    EXPECT_STREQ(out.scheme.buff,
-                 "https://example-site.de:80/uri/path?uriquery#urifragment");
-    EXPECT_EQ(out.scheme.size, (size_t)5);
-
-    EXPECT_STREQ(out.hostport.text.buff,
-                 "example-site.de:80/uri/path?uriquery#urifragment");
-    EXPECT_EQ(out.hostport.text.size, (size_t)18);
-
-    EXPECT_STREQ(out.pathquery.buff, "/uri/path?uriquery#urifragment");
-    EXPECT_EQ(out.pathquery.size, (size_t)13);
-
-    EXPECT_STREQ(out.fragment.buff, nullptr);
-    EXPECT_EQ(out.fragment.size, (size_t)0);
-    EXPECT_EQ(out.type, Absolute);
-    EXPECT_EQ(out.path_type, ABS_PATH);
-    EXPECT_EQ(sai4->sin_family, AF_INET);
-    EXPECT_EQ(sai4->sin_port, htons(80));
-    EXPECT_STREQ(inet_ntoa(sai4->sin_addr), "192.168.10.10");
-}
-
-TEST(ParseUriIp4TestSuite, ip_address_with_greater_max_size) {
-    if (github_actions && !old_code)
-        GTEST_SKIP() << "             known failing test on Github Actions";
-
-    // Mock for network address system calls. Url with ip address does not need
-    // to query for a network address.
-    Mock_netv4info netv4inf;
-    umock::Netdb netdb_injectObj(&netv4inf);
-    EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _)).Times(0);
-    EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(0);
-
-    uri_type out;
-    memset(&out, 0xaa, sizeof(out));
-
-    // Test Unit
-    constexpr char url_str[57]{
-        "https://192.168.168.168:80/uri/path?uriquery#urifragment"};
-
-    // This is by 10 chars longer than the whole url (without '\0'). It will
-    // increase the fragment with garbage at the end.
-    constexpr size_t max_size = 57 - 1 + 10;
-
-    int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = ::parse_uri(url_str, max_size, &out), HTTP_SUCCESS)
-        << errStrEx(returned, HTTP_SUCCESS);
-
-    // Check the uri-parts scheme, hostport, pathquery and fragment. Please note
-    // that the last part of the buffer content is garbage. The valid character
-    // chain is determined by its size. But it's no problem to compare the whole
-    // buffer because it's defined to contain a C string.
-    EXPECT_STREQ(out.scheme.buff,
-                 "https://192.168.168.168:80/uri/path?uriquery#urifragment");
-    EXPECT_EQ(out.scheme.size, (size_t)5);
-
-    EXPECT_STREQ(out.hostport.text.buff,
-                 "192.168.168.168:80/uri/path?uriquery#urifragment");
-    EXPECT_EQ(out.hostport.text.size, (size_t)18);
-
-    EXPECT_STREQ(out.pathquery.buff, "/uri/path?uriquery#urifragment");
-    EXPECT_EQ(out.pathquery.size, (size_t)18);
-    EXPECT_EQ(out.type, Absolute);
-    EXPECT_EQ(out.path_type, ABS_PATH);
-
-    struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
-    EXPECT_EQ(sai4->sin_family, AF_INET);
-    EXPECT_EQ(sai4->sin_port, htons(80));
-    EXPECT_STREQ(inet_ntoa(sai4->sin_addr), "192.168.168.168");
-
-    EXPECT_STREQ(out.fragment.buff, "urifragment");
-
-    // The fragment size differs on different operating systems and seems to
-    // be undefined with max_size > strlen(url_str). That is a reason to
-    // only use strlen(url_str) as max_size as workaround so far.
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    EXPECT_EQ(saObj.port(), 443);
+    EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
+#ifndef __APPLE__
     if (old_code) {
-        ::std::cout << "  BUG! Fragment size should be 11 (current="
-                    << out.fragment.size
-                    << ") and not different on other OS.\n";
-        EXPECT_GE(out.fragment.size, (size_t)11);
-
-    } else {
-
-        ASSERT_EQ(out.fragment.size, (size_t)11)
-            << "  # Fragment size should be 11 and not different on other OS.";
-        GTEST_FAIL()
-            << "  # Fragment size of 11 should not differ on different OS.";
-    }
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": The resolved socket address must not have a garbage "
+                     "scope id.\n";
+        EXPECT_THAT(saObj.netaddrp(),
+                    StartsWith("[::ffff:192.168.234.132%")); // Wrong!
+    } else
+#endif
+        EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.234.132]:443");
 }
 
-TEST(ParseUriIp4TestSuite, uri_without_valid_host_and_port) {
+TEST(ParseUriTestSuite, absolute_uri_with_shorter_max_size) {
+    uri_type out;
+    memset(&out, 0xAA, sizeof(out));
+
+    constexpr char url_str[65]{
+        "https://[::ffff:192.168.88.77]:443/uri/path?uriquery#urifragment"};
+    // This is by 21 chars too short for the whole url (without '\0'). It will
+    // split pathquery.
+    constexpr size_t max_size = 65 - 1 - 21;
+
+    // Test Unit
+    int returned{UPNP_E_INTERNAL_ERROR};
+    EXPECT_EQ(returned = ::parse_uri(url_str, max_size, &out), HTTP_SUCCESS)
+        << errStrEx(returned, HTTP_SUCCESS);
+
+    // Check the uri-parts scheme, hostport, pathquery and fragment. Please note
+    // that the last part of the buffer content is garbage. The valid character
+    // chain is determined by its size. But it's no problem to compare the whole
+    // buffer because it's defined to contain a C string.
+    EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "https");
+    EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
+              "[::ffff:192.168.88.77]:443");
+    // Here we see that query is stripped from path due to shorten input string.
+    EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
+              "/uri/path"); // Would be regular "/uri/path?uriquery"
+    EXPECT_STREQ(out.fragment.buff, nullptr);
+    EXPECT_EQ(out.fragment.size, 0u);
+    EXPECT_EQ(out.type, Absolute);
+    EXPECT_EQ(out.path_type, ABS_PATH);
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    EXPECT_EQ(saObj.port(), 443);
+    EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
+#ifndef __APPLE__
+    if (old_code) {
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": The resolved socket address must not have a garbage "
+                     "scope id.\n";
+        EXPECT_THAT(saObj.netaddrp(),
+                    StartsWith("[::ffff:192.168.88.77%")); // Wrong!
+    } else
+#endif
+        EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.88.77]:443");
+}
+
+TEST(ParseUriTestSuite, sized_url_string_not_null_terminated) {
+    // Max size is the strlen without '\0' terminator as specified with the
+    // documentation.
+    uri_type out;
+    memset(&out, 0xAA, sizeof(out));
+
+    // string_view does not terminate its data with '\0'
+    std::string_view url_str{
+        "https://[2001:db8::b050]:443/uri/path?uriquery#urifragment"};
+
+    // Test Unit
+    int returned{UPNP_E_INTERNAL_ERROR};
+    EXPECT_EQ(returned = ::parse_uri(url_str.data(), url_str.size(), &out),
+              HTTP_SUCCESS)
+        << errStrEx(returned, HTTP_SUCCESS);
+}
+
+TEST(ParseUriTestSuite, uri_with_invalid_netaddress) {
     // This test will not segfault with a null initialized 'url' structure for
     // the output of 'parse_uri()'.
-
-    if (github_actions && !old_code)
-        GTEST_SKIP() << "             known failing test on Github Actions";
-
-    constexpr char url_str[] = "http://upnplib.net:80/path/?key=value#fragment";
+    constexpr char url_str[] = "http://[z80::28]:80/path/?key=value#fragment";
     uri_type url;
-    memset(&url, 0xaa, sizeof(uri_type));
+    memset(&url, 0xAA, sizeof(uri_type));
 
-    // Mock for network address system calls, parse_uri() ask DNS server.
-    Mock_netv4info netv4inf;
-    umock::Netdb netdb_injectObj(&netv4inf);
-    EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _)).WillOnce(Return(EAI_NONAME));
-    EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(0);
-
+    // Test Unit
     // Get a uri structure with parse_uri(). It fails with NONAME to get a valid
     // host & port.
     int returned{UPNP_E_INTERNAL_ERROR};
     EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &url),
               UPNP_E_INVALID_URL)
-        << errStrEx(returned, HTTP_SUCCESS);
+        << errStrEx(returned, UPNP_E_INVALID_URL);
 
+    // Some components of the url are valid.
     EXPECT_EQ(url.type, Absolute);
     EXPECT_EQ(url.path_type, OPAQUE_PART);
+    EXPECT_EQ(std::string_view(url.scheme.buff, url.scheme.size), "http");
 
-    EXPECT_STREQ(url.scheme.buff,
-                 "http://upnplib.net:80/path/?key=value#fragment");
-    EXPECT_EQ(url.scheme.size, (size_t)4);
-
-    EXPECT_STREQ(url.hostport.text.buff, nullptr);
-    EXPECT_EQ(url.hostport.text.size, (size_t)0);
-
-    if (old_code) {
-        ::std::cout << "  BUG! Fail to get a valid host and port must not "
-                       "segfault on reading url struct.\n";
-
-    } else {
-
-        GTEST_FAIL() << "  # Fail to get a valid host and port must not "
-                        "segfault on reading url struct.";
-
-        EXPECT_STREQ(url.pathquery.buff, "/path/?key=value#fragment");
-        EXPECT_EQ(url.pathquery.size, (size_t)16);
-
-        EXPECT_STREQ(url.fragment.buff, "fragment");
-        EXPECT_EQ(url.fragment.size, (size_t)8);
-    }
-
-    const sockaddr_in* sai4 = (struct sockaddr_in*)&url.hostport.IPaddress;
-    EXPECT_EQ(sai4->sin_family, 0);
-    EXPECT_EQ(sai4->sin_port, 0);
-    EXPECT_STREQ(inet_ntoa(sai4->sin_addr), "0.0.0.0");
+    // This indicates the error...
+    EXPECT_EQ(url.hostport.text.buff, nullptr);
+    EXPECT_EQ(url.hostport.text.size, 0u);
+#if 0 // Undefined behavior, does not match. Will mostly find untouched 0xAA.
+    // ...and also following components.
+    EXPECT_EQ(url.pathquery.buff, nullptr);
+    EXPECT_EQ(url.pathquery.size, 0u);
+    EXPECT_EQ(url.fragment.buff, nullptr);
+    EXPECT_EQ(url.fragment.size, 0u);
+    SSockaddr saObj;
+    saObj = url.hostport.IPaddress;
+    EXPECT_EQ(saObj.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saObj.netaddrp(), ":0");
+#endif
 }
 
-TEST(ParseUriIp4TestSuite, ip_address_without_pathquery) {
+TEST(ParseUriTestSuite, ip_address_without_pathquery) {
     uri_type out;
-    memset(&out, 0xaa, sizeof(out));
-    struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
+    memset(&out, 0xAA, sizeof(out));
 
     // Test Unit
-    constexpr char url_str[]{"https://192.168.168.168:80#urifragment"};
+    constexpr char url_str[]{"http://[fe80::7df]#urifragment"};
 
     int returned{UPNP_E_INTERNAL_ERROR};
     EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &out),
               HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
 
-    // Check the uri-parts scheme, hostport, pathquery and fragment. Please note
-    // that the last part of the buffer content is garbage. The valid character
-    // chain is determined by its size. But it's no problem to compare the whole
-    // buffer because it's defined to contain a C string.
-    EXPECT_STREQ(out.scheme.buff, "https://192.168.168.168:80#urifragment");
-    EXPECT_EQ(out.scheme.size, (size_t)5);
-
-    EXPECT_STREQ(out.hostport.text.buff, "192.168.168.168:80#urifragment");
-    EXPECT_EQ(out.hostport.text.size, (size_t)18);
-
-    EXPECT_STREQ(out.pathquery.buff, "#urifragment");
-    EXPECT_EQ(out.pathquery.size, (size_t)0);
-
-    EXPECT_STREQ(out.fragment.buff, "urifragment");
-    EXPECT_EQ(out.fragment.size, (size_t)11);
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, OPAQUE_PART);
-    EXPECT_EQ(sai4->sin_family, AF_INET);
-    EXPECT_EQ(sai4->sin_port, htons(80));
-    EXPECT_STREQ(inet_ntoa(sai4->sin_addr), "192.168.168.168");
+    EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "http");
+    EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
+              "[fe80::7df]");
+    EXPECT_STREQ(out.pathquery.buff, "#urifragment");
+    EXPECT_EQ(out.pathquery.size, 0u);
+    EXPECT_EQ(std::string_view(out.fragment.buff, out.fragment.size),
+              "urifragment");
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    EXPECT_EQ(saObj.port(), 80);
+    EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
+#ifndef __APPLE__
+    if (old_code) {
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": The resolved socket address must not have a garbage "
+                     "scope id.\n";
+        EXPECT_THAT(saObj.netaddrp(), StartsWith("[fe80::7df%")); // Wrong!
+    } else
+        // lla not from a local netadapter does not has a scope id.
+        EXPECT_EQ(saObj.netaddrp(), "[fe80::7df]:80");
+#endif
 }
 
-TEST(ParseUriIp4TestSuite, ip_address_without_fragment) {
-    constexpr char url_str[] = "http://192.168.167.166:80/path/?key=value";
+TEST(ParseUriTestSuite, ip_address_without_fragment) {
     uri_type out;
-    memset(&out, 0xaa, sizeof(out));
+    memset(&out, 0xAA, sizeof(out));
+
+    constexpr char url_str[] =
+        "http://[::ffff:192.168.167.166]/path/?key=value";
 
     // Test Unit
     int returned{UPNP_E_INTERNAL_ERROR};
@@ -357,184 +292,179 @@ TEST(ParseUriIp4TestSuite, ip_address_without_fragment) {
               HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
 
-    // Check the uri-parts scheme, hostport, pathquery and fragment. Please note
-    // that the last part of the buffer content is garbage. The valid character
-    // chain is determined by its size. But it's no problem to compare the whole
-    // buffer because it's defined to contain a C string.
-    EXPECT_STREQ(out.scheme.buff, "http://192.168.167.166:80/path/?key=value");
-    EXPECT_EQ(out.scheme.size, (size_t)4);
-
-    EXPECT_STREQ(out.hostport.text.buff, "192.168.167.166:80/path/?key=value");
-    EXPECT_EQ(out.hostport.text.size, (size_t)18);
-
-    EXPECT_STREQ(out.pathquery.buff, "/path/?key=value");
-    EXPECT_EQ(out.pathquery.size, (size_t)16);
-
-    EXPECT_STREQ(out.fragment.buff, nullptr);
-    EXPECT_EQ(out.fragment.size, (size_t)0);
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, ABS_PATH);
-
-    struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
-    EXPECT_EQ(sai4->sin_family, AF_INET);
-    EXPECT_EQ(sai4->sin_port, htons(80));
-    EXPECT_STREQ(inet_ntoa(sai4->sin_addr), "192.168.167.166");
+    EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "http");
+    EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
+              "[::ffff:192.168.167.166]");
+    EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
+              "/path/?key=value");
+    EXPECT_STREQ(out.fragment.buff, nullptr);
+    EXPECT_EQ(out.fragment.size, 0u);
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    EXPECT_EQ(saObj.port(), 80);
+    EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
+#ifndef __APPLE__
+    if (old_code) {
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": The resolved socket address must not have a garbage "
+                     "scope id.\n";
+        EXPECT_THAT(saObj.netaddrp(),
+                    StartsWith("[::ffff:192.168.167.166%")); // Wrong!
+    } else
+#endif
+        EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.167.166]:80");
 }
 
-TEST(ParseUriIp4TestSuite, parse_scheme_of_uri) {
+TEST(ParseUriTestSuite, parse_scheme_of_uri) {
     ::token out;
 
-    EXPECT_EQ(::parse_scheme("https://dummy.net:80/page", 6, &out), (size_t)5);
-    EXPECT_EQ(out.size, (size_t)5);
+    EXPECT_EQ(::parse_scheme("https://dummy.net:80/page", 6, &out), 5u);
+    EXPECT_EQ(out.size, 5u);
     EXPECT_STREQ(out.buff, "https://dummy.net:80/page");
-    EXPECT_EQ(::parse_scheme("https://dummy.net:80/page", 5, &out), (size_t)0);
-    EXPECT_EQ(out.size, (size_t)0);
+    EXPECT_EQ(::parse_scheme("https://dummy.net:80/page", 5, &out), 0u);
+    EXPECT_EQ(out.size, 0u);
     EXPECT_STREQ(out.buff, nullptr);
-    EXPECT_EQ(::parse_scheme("h:tps://dummy.net:80/page", 32, &out), (size_t)1);
-    EXPECT_EQ(out.size, (size_t)1);
+    EXPECT_EQ(::parse_scheme("h:tps://dummy.net:80/page", 32, &out), 1u);
+    EXPECT_EQ(out.size, 1u);
     EXPECT_STREQ(out.buff, "h:tps://dummy.net:80/page");
-    EXPECT_EQ(::parse_scheme("1ttps://dummy.net:80/page", 32, &out), (size_t)0);
-    EXPECT_EQ(out.size, (size_t)0);
+    EXPECT_EQ(::parse_scheme("1ttps://dummy.net:80/page", 32, &out), 0u);
+    EXPECT_EQ(out.size, 0u);
     EXPECT_STREQ(out.buff, nullptr);
-    EXPECT_EQ(::parse_scheme("h§tps://dummy.net:80/page", 32, &out), (size_t)0);
-    EXPECT_EQ(out.size, (size_t)0);
+    EXPECT_EQ(::parse_scheme("h§tps://dummy.net:80/page", 32, &out), 0u);
+    EXPECT_EQ(out.size, 0u);
     EXPECT_STREQ(out.buff, nullptr);
-    EXPECT_EQ(::parse_scheme(":ttps://dummy.net:80/page", 32, &out), (size_t)0);
-    EXPECT_EQ(out.size, (size_t)0);
+    EXPECT_EQ(::parse_scheme(":ttps://dummy.net:80/page", 32, &out), 0u);
+    EXPECT_EQ(out.size, 0u);
     EXPECT_STREQ(out.buff, nullptr);
-    EXPECT_EQ(::parse_scheme("h*tps://dummy.net:80/page", 32, &out), (size_t)0);
-    EXPECT_EQ(out.size, (size_t)0);
+    EXPECT_EQ(::parse_scheme("h*tps://dummy.net:80/page", 32, &out), 0u);
+    EXPECT_EQ(out.size, 0u);
     EXPECT_STREQ(out.buff, nullptr);
-    EXPECT_EQ(::parse_scheme("mailto:a@b.com", 7, &out), (size_t)6);
-    EXPECT_EQ(out.size, (size_t)6);
+    EXPECT_EQ(::parse_scheme("mailto:a@b.com", 7, &out), 6u);
+    EXPECT_EQ(out.size, 6u);
     EXPECT_STREQ(out.buff, "mailto:a@b.com");
-    EXPECT_EQ(::parse_scheme("mailto:a@b.com", 6, &out), (size_t)0);
-    EXPECT_EQ(out.size, (size_t)0);
+    EXPECT_EQ(::parse_scheme("mailto:a@b.com", 6, &out), 0u);
+    EXPECT_EQ(out.size, 0u);
     EXPECT_STREQ(out.buff, nullptr);
 }
 
-TEST(ParseUriIp4TestSuite, relative_uri_with_authority_and_absolute_path) {
-    Mock_netv4info netv4inf;
-    addrinfo* res = netv4inf.get("192.168.10.10", 80);
-
-    // Mock for network address system call
-    umock::Netdb netdb_injectObj(&netv4inf);
-    EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _))
-        .WillOnce(DoAll(SetArgPointee<3>(res), Return(0)));
-    EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(1);
-
+TEST(ParseUriTestSuite, relative_uri_with_authority_and_absolute_path) {
     uri_type out;
-    struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
+    memset(&out, 0xAA, sizeof(out));
 
-    // Execute the unit
-    EXPECT_EQ(::parse_uri("//example-site.de:80/uri/path?uriquery#urifragment",
-                          51, &out),
-              HTTP_SUCCESS);
+    constexpr char url_str[]{
+        "//[2001:db8::40ec]:80/uri/path?uriquery#urifragment"};
+
+    // Test Unit
+    EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &out), HTTP_SUCCESS);
+
     // Check the uri-parts scheme, hostport, pathquery and fragment
-    EXPECT_STREQ(out.scheme.buff, nullptr);
-    EXPECT_STREQ(out.hostport.text.buff,
-                 "example-site.de:80/uri/path?uriquery#urifragment");
-    EXPECT_STREQ(out.pathquery.buff, "/uri/path?uriquery#urifragment");
-    EXPECT_STREQ(out.fragment.buff, "urifragment");
     EXPECT_EQ(out.type, Relative);
     EXPECT_EQ(out.path_type, ABS_PATH);
-    EXPECT_EQ(sai4->sin_family, AF_INET);
-    EXPECT_EQ(sai4->sin_port, htons(80));
-    EXPECT_STREQ(inet_ntoa(sai4->sin_addr), "192.168.10.10");
+    EXPECT_EQ(out.scheme.buff, nullptr);
+    EXPECT_EQ(out.scheme.size, 0u);
+    EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
+              "[2001:db8::40ec]:80");
+    EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
+              "/uri/path?uriquery");
+    EXPECT_EQ(std::string_view(out.fragment.buff, out.fragment.size),
+              "urifragment");
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    EXPECT_EQ(saObj.port(), 80);
+    EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
+#ifndef __APPLE__
+    if (old_code) {
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": The resolved socket address must not have a garbage "
+                     "scope id.\n";
+        EXPECT_THAT(saObj.netaddrp(), StartsWith("[2001:db8::40ec%")); // Wrong!
+    } else
+#endif
+        EXPECT_EQ(saObj.netaddrp(), "[2001:db8::40ec]:80");
 }
 
-TEST(ParseUriIp4TestSuite, relative_uri_with_absolute_path) {
-    Mock_netv4info netv4inf;
-    addrinfo* res = netv4inf.get("0.0.0.0", 0);
-
-    // Set default return values for network address system call in case we get
-    // an unexpected call but it should not occur. An ip address should not be
-    // asked for name resolution because we do not have one.
-    umock::Netdb netdb_injectObj(&netv4inf);
-    ON_CALL(netv4inf, getaddrinfo(_, _, _, _))
-        .WillByDefault(DoAll(SetArgPointee<3>(res), Return(EAI_NONAME)));
-    EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _)).Times(0);
-    EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(0);
-
+TEST(ParseUriTestSuite, relative_uri_with_absolute_path) {
     uri_type out;
-    struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
+    memset(&out, 0xAA, sizeof(out));
 
-    // Execute the unit
-    EXPECT_EQ(::parse_uri("/uri/path?uriquery#urifragment", 31, &out),
-              HTTP_SUCCESS);
+    constexpr char url_str[]{"/uri/path?uriquery#urifragment"};
+
+    // Test Unit
+    EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &out), HTTP_SUCCESS);
     // Check the uri-parts scheme, hostport, pathquery and fragment
-    EXPECT_STREQ(out.scheme.buff, nullptr);
-    EXPECT_STREQ(out.hostport.text.buff, nullptr);
-    EXPECT_STREQ(out.pathquery.buff, "/uri/path?uriquery#urifragment");
-    EXPECT_STREQ(out.fragment.buff, "urifragment");
     EXPECT_EQ(out.type, Relative);
     EXPECT_EQ(out.path_type, ABS_PATH);
-    EXPECT_EQ(sai4->sin_family, AF_UNSPEC);
-    EXPECT_EQ(sai4->sin_port, htons(0));
-    EXPECT_STREQ(inet_ntoa(sai4->sin_addr), "0.0.0.0");
+    EXPECT_EQ(out.scheme.buff, nullptr);
+    EXPECT_EQ(out.scheme.size, 0u);
+    EXPECT_EQ(out.hostport.text.buff, nullptr);
+    EXPECT_EQ(out.hostport.text.size, 0u);
+    EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
+              "/uri/path?uriquery");
+    EXPECT_EQ(std::string_view(out.fragment.buff, out.fragment.size),
+              "urifragment");
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    EXPECT_EQ(saObj.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saObj.port(), 0);
+    EXPECT_EQ(saObj.netaddrp(), ":0");
 }
 
-TEST(ParseUriIp4TestSuite, relative_uri_with_relative_path) {
-    Mock_netv4info netv4inf;
-    addrinfo* res = netv4inf.get("0.0.0.0", 0);
-
-    // Set default return values for network address system call in case we get
-    // an unexpected call but it should not occur. An ip address should not be
-    // asked for name resolution because we do not have one.
-    umock::Netdb netdb_injectObj(&netv4inf);
-    ON_CALL(netv4inf, getaddrinfo(_, _, _, _))
-        .WillByDefault(DoAll(SetArgPointee<3>(res), Return(EAI_NONAME)));
-    EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _)).Times(0);
-    EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(0);
-
+TEST(ParseUriTestSuite, relative_uri_with_relative_path) {
     uri_type out;
-    struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
 
-    // Execute the unit
-    // The relative path does not have a leading /
-    EXPECT_EQ(::parse_uri("uri/path?uriquery#urifragment", 30, &out),
-              HTTP_SUCCESS);
+    // The relative path does not have a leading '/'
+    constexpr char url_str[]{"uri/path?uriquery#urifragment"};
+
+    // Test Unit
+    EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &out), HTTP_SUCCESS);
     // Check the uri-parts scheme, hostport, pathquery and fragment
-    EXPECT_STREQ(out.scheme.buff, nullptr);
-    EXPECT_STREQ(out.hostport.text.buff, nullptr);
-    EXPECT_STREQ(out.pathquery.buff, "uri/path?uriquery#urifragment");
-    EXPECT_STREQ(out.fragment.buff, "urifragment");
     EXPECT_EQ(out.type, Relative);
     EXPECT_EQ(out.path_type, REL_PATH);
-    EXPECT_EQ(sai4->sin_family, AF_UNSPEC);
-    EXPECT_EQ(sai4->sin_port, htons(0));
-    EXPECT_STREQ(inet_ntoa(sai4->sin_addr), "0.0.0.0");
+    EXPECT_EQ(out.scheme.buff, nullptr);
+    EXPECT_EQ(out.scheme.size, 0u);
+    EXPECT_EQ(out.hostport.text.buff, nullptr);
+    EXPECT_EQ(out.hostport.text.size, 0u);
+    EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
+              "uri/path?uriquery");
+    EXPECT_EQ(std::string_view(out.fragment.buff, out.fragment.size),
+              "urifragment");
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    EXPECT_EQ(saObj.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saObj.port(), 0);
+    EXPECT_EQ(saObj.netaddrp(), ":0");
 }
 
-TEST(ParseUriIp4TestSuite, uri_with_opaque_part) {
-    Mock_netv4info netv4inf;
-    addrinfo* res = netv4inf.get("0.0.0.0", 0);
-
-    // Set default return values for network address system call in case we get
-    // an unexpected call but it should not occur. An ip address should not be
-    // asked for name resolution because we do not have one.
-    umock::Netdb netdb_injectObj(&netv4inf);
-    ON_CALL(netv4inf, getaddrinfo(_, _, _, _))
-        .WillByDefault(DoAll(SetArgPointee<3>(res), Return(EAI_NONAME)));
-    EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _)).Times(0);
-    EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(0);
-
+TEST(ParseUriTestSuite, uri_with_opaque_part) {
     uri_type out;
-    struct sockaddr_in* sai4 = (struct sockaddr_in*)&out.hostport.IPaddress;
+    memset(&out, 0xAA, sizeof(out));
 
-    // Execute the unit
-    // The relative path does not have a leading /
-    EXPECT_EQ(::parse_uri("mailto:a@b.com", 15, &out), HTTP_SUCCESS);
+    // The relative path does not have a leading '/'
+    constexpr char url_str[]{"mailto:a@b.com"};
+
+    // Test Unit
+    // The relative path does not have a leading '/'
+    int returned{UPNP_E_INTERNAL_ERROR};
+    EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &out),
+              HTTP_SUCCESS)
+        << errStrEx(returned, HTTP_SUCCESS);
     // Check the uri-parts scheme, hostport, pathquery and fragment
-    EXPECT_STREQ(out.scheme.buff, "mailto:a@b.com");
-    EXPECT_STREQ(out.hostport.text.buff, nullptr);
-    EXPECT_STREQ(out.pathquery.buff, "a@b.com");
-    EXPECT_STREQ(out.fragment.buff, nullptr);
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, OPAQUE_PART);
-    EXPECT_EQ(sai4->sin_family, AF_UNSPEC);
-    EXPECT_EQ(sai4->sin_port, htons(0));
-    EXPECT_STREQ(inet_ntoa(sai4->sin_addr), "0.0.0.0");
+    EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "mailto");
+    EXPECT_EQ(out.hostport.text.buff, nullptr);
+    EXPECT_EQ(out.hostport.text.size, 0u);
+    EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
+              "a@b.com");
+    EXPECT_EQ(out.fragment.buff, nullptr);
+    EXPECT_EQ(out.fragment.size, 0u);
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    EXPECT_EQ(saObj.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saObj.port(), 0);
+    EXPECT_EQ(saObj.netaddrp(), ":0");
 }
 
 } // namespace utest

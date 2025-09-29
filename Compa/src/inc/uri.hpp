@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-09-22
+ * Redistribution only with this Copyright remark. Last modified: 2025-10-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -71,8 +71,8 @@ enum struct pathType { ABS_PATH, REL_PATH, OPAQUE_PART };
 inline constexpr int HTTP_SUCCESS{1};
 
 /*!
- * \brief Buffer used in parsinghttp messages, urls, etc. Generally this simply
- * holds a pointer into a larger array.
+ * \brief Buffer used in parsing http messages, urls, etc. Generally this
+ * simply holds a pointer into a larger array.
  */
 struct token {
     const char* buff; ///< Buffer
@@ -80,7 +80,7 @@ struct token {
 };
 
 /*!
- * \brief Represents a host port, e.g. "127.127.0.1:80".
+ * \brief Represents a host port, e.g. "[::1]:443".
  */
 struct hostport_type {
     token text; ///< Pointing to the full host:port string representation.
@@ -113,34 +113,8 @@ struct URL_list {
                            * whole string is expected to be terminated with
                            * '\0' ("<url><url>\0"). */
     uri_type* parsedURLs; /*!< parsed URLs, splittet into its components scheme,
-                           * hostport, path, query, fragment, etc. */
+                           * hostport, pathquery, fragment, and metadata. */
 };
-
-/*!
- * \brief Replaces one single escaped character within a string with its
- * unescaped version.
- *
- * This is spezified in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396
- * (explaining URIs)</a>. The index must exactly point to the \b '\%'
- * character, otherwise the function will return unsuccessful. Size of array is
- * NOT checked (MUST be checked by caller).
- *
- * \note This function modifies the string and the max size. If the sequence is
- * an escaped sequence it is replaced, the other characters in the string are
- * shifted over, and NULL characters are placed at the end of the string.
- *
- * \returns
- *   1 - if an escaped character was converted\n
- *   0 - otherwise
- */
-UPnPsdk_VIS int replace_escaped(
-    /*! [in,out] String of characters. */
-    char* in,
-    /// [in] Index at which to start checking the characters; must point to '%'.
-    size_t index,
-    /*! [in,out] Maximal size of the string buffer will be reduced by 2 if a
-       character is converted. */
-    size_t* max);
 
 /*!
  * \brief Function to parse the Callback header value in subscription requests.
@@ -149,7 +123,8 @@ UPnPsdk_VIS int replace_escaped(
  * entire buffer is copied into dynamic memory and stored in the URL_list.
  * Pointers to the individual urls within this buffer are allocated and stored
  * in the URL_list. Only URLs with network addresses are considered (i.e.
- * host:port or domain name).
+ * host:port or domain name). Because the function expects a serialized list
+ * with delimiters, even one url must be surrounded by '<' and '>'.
  * \note The result \b a_out must be freed by the caller with free_URL_list()
  * to avoid memory leaks.
  *
@@ -160,7 +135,8 @@ UPnPsdk_VIS int replace_escaped(
  */
 int create_url_list(
     /*! [in] Pointer to a buffer containing serialized URLs delimited by '<'
-     * and '>' ("<url><url>"). */
+     * and '>' ("<url><url>"). It is not necessary to terminate the string with
+     * zero ('\0') but can. */
     memptr* a_url_list,
     /*! [out] Pointer to the new URL list. */
     URL_list* a_out);
@@ -225,7 +201,7 @@ void print_token( //
  *  \li == 0, if string1 is identical to string2 .
  *  \li > 0, if string1 is greater than string2.
  */
-UPnPsdk_VIS int token_string_casecmp(
+int token_string_casecmp(
     /*! [in] Token object whose buffer is to be compared. */
     token* in1,
     /*! [in] String of characters to compare with. */
@@ -239,7 +215,7 @@ UPnPsdk_VIS int token_string_casecmp(
  *  \li == 0, if string1 is identical to string2 .
  *  \li > 0, if string1 is greater than string2.
  */
-UPnPsdk_VIS int token_cmp(
+int token_cmp(
     /*! [in] First token object whose buffer is to be compared. */
     token* in1,
     /*! [in] Second token object used for the comparison. */
@@ -254,7 +230,7 @@ UPnPsdk_VIS int token_cmp(
  *
  * \returns UPNP_E_SUCCESS.
  */
-UPnPsdk_VIS int remove_escaped_chars(
+int remove_escaped_chars(
     /*! [in,out] String of characters to be modified. */
     char* in,
     /*! [in,out] Size limit for the number of characters. */
@@ -281,7 +257,7 @@ remove_dots(path, strlen(path)); // results to "/hello/goodbye"
  * \returns
  *  Always UPNP_E_SUCCESS\n
  */
-UPnPsdk_VIS int remove_dots(
+int remove_dots(
     /*! [in] String of characters from which "dots" have to be removed. */
     char* buf,
     /*! [in] Size limit for the number of characters. */
@@ -310,7 +286,7 @@ UPnPsdk_VIS int remove_dots(
  *  Pointer to a new with malloc dynamically allocated full URL or a \b
  *  nullptr. To avoid memory leaks the caller nust \b free() it after using.
  */
-UPnPsdk_VIS char* resolve_rel_url(
+char* resolve_rel_url(
     /*! [in] Base URL. */
     char* base_url,
     /*! [in] Relative URL. */
@@ -329,10 +305,12 @@ UPnPsdk_VIS char* resolve_rel_url(
  *
  * \returns
  *  On success: HTTP_SUCCESS\n
- *  On error: UPNP_E_INVALID_URL
+ *  On error: UPNP_E_INVALID_URL, accessing \b out (arg3) then, is undefined
+ *            behavior.
  */
-UPnPsdk_VIS int parse_uri(
-    /*! [in] Character string containing uri information to be parsed. */
+int parse_uri(
+    /*! [in] Character string containing uri information to be parsed. It is
+     * not expected to be terminated with zero ('\0'), but may have. */
     const char* in,
     /*! [in] Number of characters (strlen()) of the input string. */
     size_t max,
