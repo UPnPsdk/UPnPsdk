@@ -2,7 +2,7 @@ var structUPnPsdk_1_1SSockaddr =
 [
     [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html#ab010d4691740181daeda8e01cd97e965", null ],
     [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a8b52904288181002af2f93d13fa43c09", null ],
-    [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a1f9d157e611b5cda3903b0497728c7c6", null ],
+    [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a8b72040ce3fc2f14c4e85b189a9255a2", null ],
     [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a20b517fd6087268d643f8bd7433ec83a", null ],
     [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#ad344ca4f89f9d4911563b5ad426eca7d", null ],
     [ "operator==", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a2af7f7338ae0bdbb8bd731cadba0dbaa", null ],

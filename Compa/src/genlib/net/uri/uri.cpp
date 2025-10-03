@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-10-01
+ * Redistribution only with this Copyright remark. Last modified: 2025-10-31
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,6 @@
 #include <climits>
 #include <vector>
 #include <string_view>
-#include <iostream> // DEBUG!
 /// \endcond
 
 UPnPsdk_EXTERN unsigned gIF_INDEX;
@@ -60,10 +59,12 @@ using compa::uriType::Absolute;
 using compa::uriType::Relative;
 
 namespace {
+
 /*! \name Scope restricted to file
  * @{
  */
 
+#if 0
 /*!
  * \brief Check for a RESERVED character.
  *
@@ -86,8 +87,9 @@ int is_reserved(
 /*!
  * \brief Check for a MARK character.
  *
- * Returns a 1 if a char is a MARK char as defined in
- * <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396 (explaining URIs)</a>.
+ * As defined in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396
+ * (explaining URIs)</a> this are a limited set of punctuation marks and
+ * symbols: '-', '_', '.', '!', '~', '*', ''', '(', ')'.
  *
  * \returns 1 if char is a MARKED char, otherwise 0.
  */
@@ -145,7 +147,7 @@ int is_escaped(
  * As defined in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396
  * (explaining URIs)</a>.
  *
- * \returns ???
+ * \returns Number of parsed character in **out**, same as out->size.
  */
 size_t parse_uric(
     /*! [in] String of characters. */
@@ -157,9 +159,9 @@ size_t parse_uric(
     size_t i{};
 
     while (i < max &&
-           (is_unreserved((unsigned char)in[i]) ||
-            is_reserved((unsigned char)in[i]) ||
-            ((i + (size_t)2 < max) &&
+           (is_unreserved(static_cast<unsigned char>(in[i])) ||
+            is_reserved(static_cast<unsigned char>(in[i])) ||
+            (/*only '%' remains unchecked*/ (i + 2u < max) &&
              is_escaped(reinterpret_cast<const unsigned char*>(&in[i]))))) {
         i++;
     }
@@ -168,6 +170,50 @@ size_t parse_uric(
     out->buff = in;
     return i;
 }
+#else
+/*!
+ * \brief Parses a string of uric characters starting at in[0].
+ *
+ * As defined in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396
+ * (explaining URIs)</a>.
+ *
+ * \returns Number of parsed character in **out**, same as out->size.
+ */
+size_t parse_uric(
+    /*! [in] String of characters. */
+    const char* in,
+    /*! [in] Maximum limit. */
+    size_t max,
+    /*! [out] Token object where the string of characters is copied. */
+    token* out) {
+    std::string_view in_sv(in, max);
+    constexpr std::string_view uric_special_sv{
+        /*reserved*/ ";/?:@&=+$,{}" /*mark*/ "-_.!~*'()"};
+
+    auto& npos = std::string_view::npos;
+    for (auto it{in_sv.begin()}; it < in_sv.end(); it++) {
+        if (!(/*unreserved*/ std::isalnum(static_cast<unsigned char>(*it)) ||
+              /*reserved+mark*/ uric_special_sv.find_first_of(*it) != npos ||
+              (/*only '%' remains unchecked*/ *it == '%' &&
+               it + 2 < in_sv.end() &&
+               isxdigit(static_cast<unsigned char>(*++it)) &&
+               isxdigit(static_cast<unsigned char>(*++it))))) {
+
+            std::string_view out_sv(in_sv.begin(), it);
+            out->size = out_sv.size();
+            out->buff = out_sv.data();
+            // out->size = 0;
+            // out->buff = nullptr;
+            return out_sv.size();
+        }
+    }
+
+    out->size = in_sv.size();
+    out->buff = in_sv.data();
+    return in_sv.size();
+}
+#endif
+
 
 /*!
  * \brief Copy the offset and size from a token to another token.
@@ -468,9 +514,6 @@ int create_url_list(memptr* a_url_list, URL_list* a_out) {
         memset(a_out, 0, sizeof(*a_out));
         return 0;
     }
-    std::cerr << "DEBUG! a_url_list=\""
-              << std::string_view(a_url_list->buf, a_url_list->length)
-              << "\", size=" << a_url_list->length << "\n";
 
     // Verify correct delimiter '<', '><', and '>'.
     std::string_view urls_str(a_url_list->buf, a_url_list->length);
@@ -524,21 +567,16 @@ int create_url_list(memptr* a_url_list, URL_list* a_out) {
             int return_code = parse_uri(
                 &base_urls[i + 1], base_urls_length - i - 1, &splitted_url);
 
-            std::cerr << "DEBUG! parse_uri() return_code=" << return_code
-                      << "\n";
             if (return_code == HTTP_SUCCESS &&
                 splitted_url.hostport.text.size != 0) {
-                std::cerr << "DEBUG! Tracepoint1\n";
                 // No errors detected, cache the parsed result. Only URLs with
                 // network addresses are considered.
                 url_views.push_back(splitted_url);
 
             } else if (return_code == UPNP_E_OUTOF_MEMORY) {
-                std::cerr << "DEBUG! Tracepoint2\n";
                 free(base_urls);
                 return UPNP_E_OUTOF_MEMORY;
             }
-            std::cerr << "DEBUG! Tracepoint3\n";
         }
     }
 
@@ -880,8 +918,6 @@ error:
 }
 
 int parse_uri(const char* in, size_t max, uri_type* out) {
-    std::cerr << "DEBUG! parse_uri(\"" << std::string_view(in, max) << "\", "
-              << max << ", ...)\n";
     size_t begin_hostport = parse_scheme(in, max, &out->scheme);
     if (begin_hostport) {
         out->type = Absolute;

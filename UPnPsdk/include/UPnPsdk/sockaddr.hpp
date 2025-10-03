@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-18
+// Redistribution only with this Copyright remark. Last modified: 2025-10-23
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -67,7 +67,7 @@ union sockaddr_t {
 void split_addr_port( //
     /*! [in] Any string. If it can be interpreted as an ip-address or -name
      * with or without port number or name, its parts will be retured. */
-    const std::string& a_addr_str,
+    std::string_view a_addr_str,
     /*! [in,out] Reference of a string that will be filled with the ip address
        part. This can also be a alphanumeric name like "example.com" */
     std::string& a_addr,
@@ -165,6 +165,7 @@ struct UPnPsdk_API SSockaddr {
 \verbatim
 ""              results to  ":0"
 ":0"            results to  ":0"
+"65535"         results to  ":65535"
 "::"            results to  "[::]:0"
 "[::]"          results to  "[::]:0"
 "[::]:"         results to  "[::]:0"
@@ -183,13 +184,14 @@ struct UPnPsdk_API SSockaddr {
 \verbatim
 "[2001:db8::52]:50001" results to "[2001:db8::52]:50001"
               ":55555" results to "[2001:db8::52]:55555" (address prev setting)
+               "55556" same as before with leading colon.
 \endverbatim
      * \exception std::invalid_argument
      *            Invalid [netaddress](\ref glossary_netaddr).
     */
     void operator=(
         /// [in] String with a possible netaddress
-        const std::string& a_addr_str); // noexept?
+        std::string_view a_addr_str); // noexept?
 
 
     // Assignment operator= to set socket port from an integer

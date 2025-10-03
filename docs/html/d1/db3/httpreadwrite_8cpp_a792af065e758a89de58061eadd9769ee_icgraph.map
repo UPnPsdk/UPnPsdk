@@ -1,0 +1,13 @@
+<map id="private_connect" name="private_connect">
+<area shape="rect" id="Node000001" title="Initiate a connection on a socket." alt="" coords="483,80,609,105"/>
+<area shape="rect" id="Node000002" href="$d1/db3/httpreadwrite_8cpp.html#a17d0de5cdf2e5047f8c549f745c5d965" title="Opens a connection to the server." alt="" coords="244,55,435,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="469,86,435,82,435,76,469,81"/>
+<area shape="rect" id="Node000007" href="$d1/db3/httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="261,104,417,129"/>
+<area shape="poly" id="edge4_Node000001_Node000007" title=" " alt="" coords="469,104,418,110,417,105,469,99"/>
+<area shape="rect" id="Node000003" href="$d4/d99/upnpapi_8cpp.html#af28645a07fa4c84254776136a8050db6" title="Opens a connection to the server." alt="" coords="5,5,196,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="264,54,162,33,164,28,265,49"/>
+<area shape="rect" id="Node000006" href="$d4/d99/upnpapi_8cpp.html#a45850f990fe110e26f9b093a88e3e8a0" title="Makes an HTTP POST request message, opens a connection to the server and sends the POST request to th..." alt="" coords="27,55,174,80"/>
+<area shape="poly" id="edge3_Node000002_Node000006" title=" " alt="" coords="230,70,174,70,174,65,230,65"/>
+<area shape="rect" id="Node000008" href="$d4/d99/upnpapi_8cpp.html#a68e366bcfaed3559025fa8ac04c2885c" title="Gets specified number of bytes from a file specified in the URL." alt="" coords="22,104,179,129"/>
+<area shape="poly" id="edge5_Node000007_Node000008" title=" " alt="" coords="247,119,179,119,179,114,247,114"/>
+</map>

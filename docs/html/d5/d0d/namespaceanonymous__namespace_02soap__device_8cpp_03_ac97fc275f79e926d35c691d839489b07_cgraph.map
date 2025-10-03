@@ -1,23 +1,23 @@
 <map id="anonymous_namespace{soap_device::cpp}::send_var_query_response" name="anonymous_namespace{soap_device::cpp}::send_var_query_response">
 <area shape="rect" id="Node000001" title="Sends response of get var status." alt="" coords="5,583,196,637"/>
-<area shape="rect" id="Node000002" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e" title="Calculate HTTP response versions based on the request versions." alt="" coords="244,277,439,303"/>
+<area shape="rect" id="Node000002" href="$d1/db3/httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e" title="Calculate HTTP response versions based on the request versions." alt="" coords="244,277,439,303"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,582,119,525,145,452,163,413,185,376,212,342,242,312,249,307,252,311,246,316,216,345,190,379,168,416,150,454,124,526,110,583"/>
-<area shape="rect" id="Node000003" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="267,351,415,376"/>
+<area shape="rect" id="Node000003" href="$d1/db3/httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="267,351,415,376"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="126,581,316,384,320,388,130,585"/>
 <area shape="rect" id="Node000015" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="515,597,665,623"/>
 <area shape="poly" id="edge23_Node000001_Node000015" title=" " alt="" coords="196,607,501,607,501,613,196,613"/>
 <area shape="rect" id="Node000016" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="741,623,864,648"/>
 <area shape="poly" id="edge24_Node000001_Node000016" title=" " alt="" coords="197,615,487,631,727,634,727,639,487,637,196,620"/>
-<area shape="rect" id="Node000027" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="269,769,414,795"/>
+<area shape="rect" id="Node000027" href="$d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="269,769,414,795"/>
 <area shape="poly" id="edge18_Node000001_Node000027" title=" " alt="" coords="142,635,312,759,309,763,139,640"/>
 <area shape="poly" id="edge7_Node000003_Node000003" title=" " alt="" coords="302,352,294,342,298,332,314,326,341,324,375,328,388,337,385,342,373,333,341,329,316,331,302,336,299,342,306,349"/>
-<area shape="rect" id="Node000004" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a4c469cd11deee69c1f1d9ec77de66df9" title="Returns the server information for the operating system." alt="" coords="537,5,643,31"/>
+<area shape="rect" id="Node000004" href="$d1/db3/httpreadwrite_8cpp.html#a4c469cd11deee69c1f1d9ec77de66df9" title="Returns the server information for the operating system." alt="" coords="537,5,643,31"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="386,348,413,334,437,312,456,277,462,242,461,208,456,175,451,141,451,108,461,74,485,40,502,27,523,19,525,24,505,32,489,44,466,76,456,109,456,141,461,174,466,208,468,243,461,279,441,316,417,338,388,353"/>
-<area shape="rect" id="Node000005" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a502852e9caf9d74374e83f8e9bf42acb" title="Validates URL." alt="" coords="543,55,637,80"/>
+<area shape="rect" id="Node000005" href="$d1/db3/httpreadwrite_8cpp.html#a502852e9caf9d74374e83f8e9bf42acb" title="Validates URL." alt="" coords="543,55,637,80"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="385,348,413,334,437,312,453,283,460,255,460,227,457,200,454,172,455,145,464,117,485,89,505,75,529,67,531,72,508,80,489,93,469,120,461,146,459,172,462,199,465,227,465,256,458,285,441,316,416,338,387,353"/>
 <area shape="rect" id="Node000007" href="$d0/d45/statcodes_8cpp.html#aef38182042fe8413586c1bd1d023d98e" title="Return the right status message based on the passed in int statusCode input parameter." alt="" coords="517,104,663,129"/>
 <area shape="poly" id="edge5_Node000003_Node000007" title=" " alt="" coords="383,348,412,334,437,312,450,290,457,268,457,225,459,182,468,160,485,139,502,127,505,131,488,143,472,163,465,183,463,225,462,269,455,292,441,316,415,338,386,353"/>
-<area shape="rect" id="Node000010" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a62839c9e5e505c93e0f9eb71d1089594" title="Portable gmtime_r for Microsoft Windows." alt="" coords="531,153,649,179"/>
+<area shape="rect" id="Node000010" href="$d1/db3/httpreadwrite_8cpp.html#a62839c9e5e505c93e0f9eb71d1089594" title="Portable gmtime_r for Microsoft Windows." alt="" coords="531,153,649,179"/>
 <area shape="poly" id="edge6_Node000003_Node000010" title=" " alt="" coords="381,348,411,333,437,312,448,296,454,281,458,250,463,219,471,203,485,188,516,171,518,176,488,192,476,206,468,220,463,250,459,282,453,299,441,316,414,338,384,353"/>
 <area shape="rect" id="Node000011" href="$da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="515,203,665,228"/>
 <area shape="poly" id="edge8_Node000003_Node000011" title=" " alt="" coords="377,348,408,333,437,312,452,293,459,274,467,255,485,237,501,228,504,233,488,241,472,258,464,276,456,296,441,316,410,337,379,353"/>

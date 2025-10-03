@@ -1,8 +1,8 @@
 <map id="sock_read" name="sock_read">
 <area shape="rect" id="Node000001" title="Reads data on socket in sockinfo." alt="" coords="536,216,624,241"/>
-<area shape="rect" id="Node000002" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a12907b819d45e67ef4d49600e80dfd7e" title="Reads the content of a response using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="279,55,458,80"/>
+<area shape="rect" id="Node000002" href="$d1/db3/httpreadwrite_8cpp.html#a12907b819d45e67ef4d49600e80dfd7e" title="Reads the content of a response using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="279,55,458,80"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="550,210,385,82,388,78,553,205"/>
-<area shape="rect" id="Node000005" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ac4f5f24f4aa10cc725b96ac5c29a88f7" title="Get the data on the socket and take actions based on the read data to modify the parser objects buffe..." alt="" coords="296,172,441,197"/>
+<area shape="rect" id="Node000005" href="$d1/db3/httpreadwrite_8cpp.html#ac4f5f24f4aa10cc725b96ac5c29a88f7" title="Get the data on the socket and take actions based on the read data to modify the parser objects buffe..." alt="" coords="296,172,441,197"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="522,219,487,211,433,200,434,195,489,206,523,214"/>
 <area shape="rect" id="Node000056" href="$d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a8a05e01e6901a46a52cc58828c56b3aa" title="Receives the HTTP post message." alt="" coords="249,245,488,300"/>
 <area shape="poly" id="edge8_Node000001_Node000056" title=" " alt="" coords="523,243,489,250,488,245,522,238"/>
@@ -14,13 +14,13 @@
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="265,70,194,70,194,65,265,65"/>
 <area shape="rect" id="Node000006" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="8,104,199,159"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="291,172,199,153,200,148,292,167"/>
-<area shape="rect" id="Node000010" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="5,183,201,208"/>
+<area shape="rect" id="Node000010" href="$d1/db3/httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="5,183,201,208"/>
 <area shape="poly" id="edge6_Node000005_Node000010" title=" " alt="" coords="282,191,202,194,202,189,282,185"/>
 <area shape="rect" id="Node000043" href="$d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9" title="Sends the notify message and returns a reply." alt="" coords="13,232,193,287"/>
 <area shape="poly" id="edge7_Node000005_Node000043" title=" " alt="" coords="284,203,250,211,177,235,176,229,249,206,283,198"/>
 <area shape="poly" id="edge9_Node000056_Node000056" title=" " alt="" coords="404,234,391,227,369,224,350,226,338,231,332,237,333,245,327,245,327,235,335,226,349,221,369,219,393,222,406,230"/>
-<area shape="rect" id="Node000058" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ab8095d987290dfdc4f151dc8e3d7c40f" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="19,320,188,345"/>
+<area shape="rect" id="Node000058" href="$d1/db3/httpreadwrite_8cpp.html#ab8095d987290dfdc4f151dc8e3d7c40f" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="19,320,188,345"/>
 <area shape="poly" id="edge11_Node000057_Node000058" title=" " alt="" coords="239,345,188,341,188,336,239,340"/>
-<area shape="rect" id="Node000063" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="25,369,181,395"/>
+<area shape="rect" id="Node000063" href="$d1/db3/httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="25,369,181,395"/>
 <area shape="poly" id="edge12_Node000057_Node000063" title=" " alt="" coords="239,369,182,376,181,370,239,364"/>
 </map>

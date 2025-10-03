@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-26
+# Redistribution only with this Copyright remark. Last modified: 2025-10-13
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -23,7 +23,7 @@ set(UPnPsdk_SOURCE_FILES
     $<$<CXX_COMPILER_ID:MSVC>:src/net/netadapter_win32.cpp>
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:src/net/netadapter_unix.cpp>
     src/net/http/webserver.cpp
-    src/net/http/httpreadwrite.cpp
+    src/net/http/uri.cpp
     src/net/pthread.cpp
 
     # Umock source files

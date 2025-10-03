@@ -38,7 +38,7 @@ var searchData=
   ['hdr_5funknown_35',['HDR_UNKNOWN',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#ada5380a79e4f620c182903ee828009d0',1,'httpparser.hpp']]],
   ['hdr_5fuser_5fagent_36',['HDR_USER_AGENT',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aadee92777b096085e98d344620edd451',1,'httpparser.hpp']]],
   ['hdr_5fusn_37',['HDR_USN',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a56e9ecad1d42ee4012f5aa147b1b327a',1,'httpparser.hpp']]],
-  ['http_5fdefault_5ftimeout_38',['HTTP_DEFAULT_TIMEOUT',['../de/ded/Compa_2src_2inc_2httpreadwrite_8hpp.html#aa1607f77eaf4142db9ab2f732c1c8162',1,'httpreadwrite.hpp']]],
+  ['http_5fdefault_5ftimeout_38',['HTTP_DEFAULT_TIMEOUT',['../d8/df1/httpreadwrite_8hpp.html#aa1607f77eaf4142db9ab2f732c1c8162',1,'httpreadwrite.hpp']]],
   ['http_5fok_5fcrlf_39',['HTTP_OK_CRLF',['../d9/dd2/gena_8hpp.html#a318bd72040c7df356e293edb55ffbbf9',1,'gena.hpp']]],
   ['http_5fok_5fstr_40',['HTTP_OK_STR',['../d9/dd2/gena_8hpp.html#adbf0ace2a4e3ab28ad0f18bc7a2e37e7',1,'gena.hpp']]]
 ];

@@ -1,0 +1,22 @@
+<map id="http_RecvMessage" name="http_RecvMessage">
+<area shape="rect" id="Node000001" title="Get the data on the socket and take actions based on the read data to modify the parser objects buffe..." alt="" coords="5,127,151,152"/>
+<area shape="rect" id="Node000002" href="$dd/d1d/httpparser_8cpp.html#ad81b8bf2917f89c5f09ed3005c6869a5" title="Append date to HTTP parser, and do the parsing." alt="" coords="218,52,337,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,124,198,86,218,79,220,84,200,91,108,129"/>
+<area shape="rect" id="Node000060" href="$dd/d1d/httpparser_8cpp.html#a5afd7501a14bb89fb3a4fc24cc23c86a" title="Initializes parser object for a request." alt="" coords="204,101,351,127"/>
+<area shape="poly" id="edge4_Node000001_Node000060" title=" " alt="" coords="151,127,190,122,190,128,151,133"/>
+<area shape="rect" id="Node000068" href="$dd/d1d/httpparser_8cpp.html#a95aa14b5e06a3b635c73810fdbcb9de5" title="Initializes parser object for a response." alt="" coords="199,151,356,176"/>
+<area shape="poly" id="edge6_Node000001_Node000068" title=" " alt="" coords="151,145,185,150,185,155,151,151"/>
+<area shape="rect" id="Node000069" href="$d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="233,200,321,225"/>
+<area shape="poly" id="edge8_Node000001_Node000069" title=" " alt="" coords="111,150,200,185,223,193,221,198,198,190,109,155"/>
+<area shape="rect" id="Node000003" href="$da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="436,5,585,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="336,50,433,31,434,36,337,56"/>
+<area shape="rect" id="Node000006" href="$dd/d1d/httpparser_8cpp.html#a4eff37cf0315cb3beccc9e9d03e834c7" title="The parser function." alt="" coords="457,55,564,80"/>
+<area shape="poly" id="edge3_Node000002_Node000006" title=" " alt="" coords="337,63,444,64,444,69,337,68"/>
+<area shape="rect" id="Node000061" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a93d089625bc02f855cc2f255ceed86f0" title="Initializes the parser object." alt="" coords="404,111,617,151"/>
+<area shape="poly" id="edge5_Node000060_Node000061" title=" " alt="" coords="351,117,391,120,390,125,351,122"/>
+<area shape="poly" id="edge7_Node000068_Node000061" title=" " alt="" coords="356,150,390,145,391,150,356,155"/>
+<area shape="rect" id="Node000070" href="$db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#ad0c68e095264a6c6a0bdc68974f6ae18" title="Read from an SSL protected socket." alt="" coords="411,189,610,229"/>
+<area shape="poly" id="edge9_Node000069_Node000070" title=" " alt="" coords="321,209,398,208,398,213,322,215"/>
+<area shape="rect" id="Node000072" href="$db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#ae217b5dfecc7cd51d476066695c86aff" title="Read from a not SSL protected socket." alt="" coords="421,253,601,308"/>
+<area shape="poly" id="edge10_Node000069_Node000072" title=" " alt="" coords="322,223,408,248,407,253,321,228"/>
+</map>

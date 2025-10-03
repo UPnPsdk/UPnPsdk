@@ -2,45 +2,45 @@
 <area shape="rect" id="Node000001" title="This function handles the response coming back from the device." alt="" coords="5,273,185,328"/>
 <area shape="rect" id="Node000002" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a507d0652d5f4792b6b33a299a239ec90" title="Searches for the node specifed by the last name in the &#39;name&#39; array." alt="" coords="233,5,413,60"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,272,125,231,153,180,188,126,231,77,247,65,250,69,235,81,193,129,157,182,129,233,110,274"/>
-<area shape="rect" id="Node000033" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a7078c15558ea1b34edb5887718d7d21a" title="Goes thru each child of &#39;start_node&#39; looking for a node having the name &#39;node_name&#39;." alt="" coords="461,56,641,111"/>
-<area shape="poly" id="edge7_Node000001_Node000033" title=" " alt="" coords="108,271,128,237,155,198,190,159,232,128,284,104,340,89,395,81,447,77,448,82,396,86,341,94,286,109,235,132,194,163,160,201,132,240,113,274"/>
-<area shape="rect" id="Node000034" href="$da/d8a/group__XMLAPI.html#gae4a30177b1c908fc787f53002eccf4ac" title="Retrieves the first child Node of a Node." alt="" coords="693,169,868,195"/>
-<area shape="poly" id="edge18_Node000001_Node000034" title=" " alt="" coords="132,271,179,242,232,216,290,197,349,183,470,168,583,164,680,169,680,174,583,170,470,173,350,188,291,202,234,220,181,246,135,276"/>
-<area shape="rect" id="Node000036" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#ac7a31a7c77a8634d4742a3a0460dfc7a" title="This function returns the value of the text node." alt="" coords="461,187,641,241"/>
-<area shape="poly" id="edge8_Node000001_Node000036" title=" " alt="" coords="160,271,233,247,343,228,448,217,448,222,344,233,234,253,161,276"/>
-<area shape="rect" id="Node000038" href="$dc/dbe/parsetools_8cpp.html#a5622233915165bad17c1f8e5ded50469" title="Find the header from the HTTP message and match the header for xml data." alt="" coords="239,460,408,485"/>
-<area shape="poly" id="edge11_Node000001_Node000038" title=" " alt="" coords="117,327,166,388,198,420,235,446,246,453,244,457,232,451,195,424,162,391,113,330"/>
-<area shape="rect" id="Node000041" href="$da/d8a/group__XMLAPI.html#gad54d723901cc71417129c8f82964fc4c" title="Clones an existing DOMString." alt="" coords="244,312,403,337"/>
-<area shape="poly" id="edge14_Node000001_Node000041" title=" " alt="" coords="186,308,231,312,230,318,185,313"/>
-<area shape="rect" id="Node000042" href="$da/d8a/group__XMLAPI.html#gafe10b3fdbe5ed90ad99e71d7f7ce6c36" title="Frees a Document object and all Nodes associated with it." alt="" coords="248,361,399,387"/>
-<area shape="poly" id="edge15_Node000001_Node000042" title=" " alt="" coords="173,325,234,346,263,355,262,360,233,351,171,331"/>
-<area shape="rect" id="Node000045" href="$da/d8a/group__XMLAPI.html#gaa662950ddd8f831a257581bdde7e5b9f" title="Frees a DOMString." alt="" coords="249,411,398,436"/>
-<area shape="poly" id="edge17_Node000001_Node000045" title=" " alt="" coords="129,326,177,363,235,397,251,404,249,409,232,402,174,367,126,330"/>
-<area shape="rect" id="Node000046" href="$da/d8a/group__XMLAPI.html#ga21e0aa367cdc3c09a99430e70c584a33" title="Parses an XML text buffer converting it into an IXML DOM representation." alt="" coords="253,511,394,536"/>
-<area shape="poly" id="edge19_Node000001_Node000046" title=" " alt="" coords="111,327,130,365,157,411,192,457,235,496,246,503,243,507,232,500,188,460,152,414,125,368,106,329"/>
-<area shape="rect" id="Node000130" href="$da/d8a/group__XMLAPI.html#ga0c676e40d573cc4f16b773f70b5a739a" title="Renders a Node and all sub&#45;elements into an XML text representation." alt="" coords="266,263,381,288"/>
-<area shape="poly" id="edge21_Node000001_Node000130" title=" " alt="" coords="185,288,252,280,253,286,186,293"/>
+<area shape="rect" id="Node000029" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a7078c15558ea1b34edb5887718d7d21a" title="Goes thru each child of &#39;start_node&#39; looking for a node having the name &#39;node_name&#39;." alt="" coords="461,56,641,111"/>
+<area shape="poly" id="edge7_Node000001_Node000029" title=" " alt="" coords="108,271,128,237,155,198,190,159,232,128,284,104,340,89,395,81,447,77,448,82,396,86,341,94,286,109,235,132,194,163,160,201,132,240,113,274"/>
+<area shape="rect" id="Node000030" href="$da/d8a/group__XMLAPI.html#gae4a30177b1c908fc787f53002eccf4ac" title="Retrieves the first child Node of a Node." alt="" coords="693,169,868,195"/>
+<area shape="poly" id="edge18_Node000001_Node000030" title=" " alt="" coords="132,271,179,242,232,216,290,197,349,183,470,168,583,164,680,169,680,174,583,170,470,173,350,188,291,202,234,220,181,246,135,276"/>
+<area shape="rect" id="Node000032" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#ac7a31a7c77a8634d4742a3a0460dfc7a" title="This function returns the value of the text node." alt="" coords="461,187,641,241"/>
+<area shape="poly" id="edge8_Node000001_Node000032" title=" " alt="" coords="160,271,233,247,343,228,448,217,448,222,344,233,234,253,161,276"/>
+<area shape="rect" id="Node000034" href="$dc/dbe/parsetools_8cpp.html#a5622233915165bad17c1f8e5ded50469" title="Find the header from the HTTP message and match the header for xml data." alt="" coords="239,460,408,485"/>
+<area shape="poly" id="edge11_Node000001_Node000034" title=" " alt="" coords="117,327,166,388,198,420,235,446,246,453,244,457,232,451,195,424,162,391,113,330"/>
+<area shape="rect" id="Node000037" href="$da/d8a/group__XMLAPI.html#gad54d723901cc71417129c8f82964fc4c" title="Clones an existing DOMString." alt="" coords="244,312,403,337"/>
+<area shape="poly" id="edge14_Node000001_Node000037" title=" " alt="" coords="186,308,231,312,230,318,185,313"/>
+<area shape="rect" id="Node000038" href="$da/d8a/group__XMLAPI.html#gafe10b3fdbe5ed90ad99e71d7f7ce6c36" title="Frees a Document object and all Nodes associated with it." alt="" coords="248,361,399,387"/>
+<area shape="poly" id="edge15_Node000001_Node000038" title=" " alt="" coords="173,325,234,346,263,355,262,360,233,351,171,331"/>
+<area shape="rect" id="Node000041" href="$da/d8a/group__XMLAPI.html#gaa662950ddd8f831a257581bdde7e5b9f" title="Frees a DOMString." alt="" coords="249,411,398,436"/>
+<area shape="poly" id="edge17_Node000001_Node000041" title=" " alt="" coords="129,326,177,363,235,397,251,404,249,409,232,402,174,367,126,330"/>
+<area shape="rect" id="Node000042" href="$da/d8a/group__XMLAPI.html#ga21e0aa367cdc3c09a99430e70c584a33" title="Parses an XML text buffer converting it into an IXML DOM representation." alt="" coords="253,511,394,536"/>
+<area shape="poly" id="edge19_Node000001_Node000042" title=" " alt="" coords="111,327,130,365,157,411,192,457,235,496,246,503,243,507,232,500,188,460,152,414,125,368,106,329"/>
+<area shape="rect" id="Node000126" href="$da/d8a/group__XMLAPI.html#ga0c676e40d573cc4f16b773f70b5a739a" title="Renders a Node and all sub&#45;elements into an XML text representation." alt="" coords="266,263,381,288"/>
+<area shape="poly" id="edge21_Node000001_Node000126" title=" " alt="" coords="185,288,252,280,253,286,186,293"/>
 <area shape="rect" id="Node000003" href="$d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#a6962c73d5dca9f8577188bece68c806c" title="Compares &#39;name&#39; and node&#39;s name." alt="" coords="691,56,871,111"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="414,27,523,29,642,41,685,50,684,55,641,46,523,34,414,32"/>
-<area shape="poly" id="edge4_Node000002_Node000033" title=" " alt="" coords="414,50,449,58,447,63,413,55"/>
+<area shape="poly" id="edge4_Node000002_Node000029" title=" " alt="" coords="414,50,449,58,447,63,413,55"/>
 <area shape="rect" id="Node000005" href="$dd/d1d/httpparser_8cpp.html#adb6f04b4682aae5e4690b672025b6856" title="Matches a variable parameter list with a string and takes actions based on the data type specified." alt="" coords="920,268,1000,293"/>
 <area shape="poly" id="edge3_Node000003_Node000005" title=" " alt="" coords="822,109,874,155,915,207,947,255,942,258,911,210,870,159,819,113"/>
-<area shape="poly" id="edge5_Node000033_Node000003" title=" " alt="" coords="642,81,677,81,677,86,642,86"/>
-<area shape="poly" id="edge6_Node000033_Node000034" title=" " alt="" coords="617,108,738,161,736,166,615,113"/>
-<area shape="poly" id="edge9_Node000036_Node000034" title=" " alt="" coords="641,199,680,193,680,199,642,204"/>
-<area shape="rect" id="Node000037" href="$da/d8a/group__XMLAPI.html#ga6f455a9e121308ac28bb3f5e1b4385e2" title="Returns the value of the Node as a string." alt="" coords="689,243,872,268"/>
-<area shape="poly" id="edge10_Node000036_Node000037" title=" " alt="" coords="642,228,697,238,696,243,641,233"/>
-<area shape="poly" id="edge13_Node000038_Node000005" title=" " alt="" coords="408,474,520,470,581,462,641,449,726,417,808,376,877,334,929,299,932,304,880,338,810,380,729,422,642,454,582,467,520,475,408,479"/>
-<area shape="rect" id="Node000039" href="$dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="484,413,619,439"/>
-<area shape="poly" id="edge12_Node000038_Node000039" title=" " alt="" coords="386,457,475,439,476,444,387,463"/>
-<area shape="rect" id="Node000043" href="$da/d8a/group__XMLAPI.html#ga507588bf534bc81caac604eae7d7f9fc" title="Frees a Node and all Nodes in its subtree." alt="" coords="492,364,611,389"/>
-<area shape="poly" id="edge16_Node000042_Node000043" title=" " alt="" coords="399,372,478,373,478,378,399,378"/>
-<area shape="rect" id="Node000047" href="$da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49" title="Parses a xml file and return the DOM tree." alt="" coords="468,515,635,540"/>
-<area shape="poly" id="edge20_Node000046_Node000047" title=" " alt="" coords="394,522,454,523,454,528,394,527"/>
-<area shape="rect" id="Node000050" href="$d1/d6a/ixmlmembuf_8cpp.html#aa80b5a0877ebd43d82924bb3a153bcf4" title="ixml_membuf initialization routine." alt="" coords="481,315,622,340"/>
-<area shape="poly" id="edge22_Node000130_Node000050" title=" " alt="" coords="380,285,483,309,481,314,379,291"/>
-<area shape="rect" id="Node000131" href="$d2/db9/ixml_8cpp.html#a57c5e6bece9155fa54ea918005d61197" title="Print a DOM tree." alt="" coords="482,265,621,291"/>
-<area shape="poly" id="edge23_Node000130_Node000131" title=" " alt="" coords="381,273,468,274,468,280,381,279"/>
-<area shape="poly" id="edge24_Node000131_Node000034" title=" " alt="" coords="603,263,640,250,742,199,745,204,642,255,605,268"/>
-<area shape="poly" id="edge25_Node000131_Node000037" title=" " alt="" coords="620,269,675,263,676,268,621,274"/>
+<area shape="poly" id="edge5_Node000029_Node000003" title=" " alt="" coords="642,81,677,81,677,86,642,86"/>
+<area shape="poly" id="edge6_Node000029_Node000030" title=" " alt="" coords="617,108,738,161,736,166,615,113"/>
+<area shape="poly" id="edge9_Node000032_Node000030" title=" " alt="" coords="641,199,680,193,680,199,642,204"/>
+<area shape="rect" id="Node000033" href="$da/d8a/group__XMLAPI.html#ga6f455a9e121308ac28bb3f5e1b4385e2" title="Returns the value of the Node as a string." alt="" coords="689,243,872,268"/>
+<area shape="poly" id="edge10_Node000032_Node000033" title=" " alt="" coords="642,228,697,238,696,243,641,233"/>
+<area shape="poly" id="edge13_Node000034_Node000005" title=" " alt="" coords="408,474,520,470,581,462,641,449,726,417,808,376,877,334,929,299,932,304,880,338,810,380,729,422,642,454,582,467,520,475,408,479"/>
+<area shape="rect" id="Node000035" href="$dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="484,413,619,439"/>
+<area shape="poly" id="edge12_Node000034_Node000035" title=" " alt="" coords="386,457,475,439,476,444,387,463"/>
+<area shape="rect" id="Node000039" href="$da/d8a/group__XMLAPI.html#ga507588bf534bc81caac604eae7d7f9fc" title="Frees a Node and all Nodes in its subtree." alt="" coords="492,364,611,389"/>
+<area shape="poly" id="edge16_Node000038_Node000039" title=" " alt="" coords="399,372,478,373,478,378,399,378"/>
+<area shape="rect" id="Node000043" href="$da/dff/ixmlparser_8cpp.html#a2b2e1c2ae7acf39146efcff9457d2e49" title="Parses a xml file and return the DOM tree." alt="" coords="468,515,635,540"/>
+<area shape="poly" id="edge20_Node000042_Node000043" title=" " alt="" coords="394,522,454,523,454,528,394,527"/>
+<area shape="rect" id="Node000046" href="$d1/d6a/ixmlmembuf_8cpp.html#aa80b5a0877ebd43d82924bb3a153bcf4" title="ixml_membuf initialization routine." alt="" coords="481,315,622,340"/>
+<area shape="poly" id="edge22_Node000126_Node000046" title=" " alt="" coords="380,285,483,309,481,314,379,291"/>
+<area shape="rect" id="Node000127" href="$d2/db9/ixml_8cpp.html#a57c5e6bece9155fa54ea918005d61197" title="Print a DOM tree." alt="" coords="482,265,621,291"/>
+<area shape="poly" id="edge23_Node000126_Node000127" title=" " alt="" coords="381,273,468,274,468,280,381,279"/>
+<area shape="poly" id="edge24_Node000127_Node000030" title=" " alt="" coords="603,263,640,250,742,199,745,204,642,255,605,268"/>
+<area shape="poly" id="edge25_Node000127_Node000033" title=" " alt="" coords="620,269,675,263,676,268,621,274"/>
 </map>

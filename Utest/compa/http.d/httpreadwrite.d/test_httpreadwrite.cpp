@@ -1,5 +1,5 @@
-// Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-27
+// Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
+// Redistribution only with this Copyright remark. Last modified: 2025-10-30
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -11,7 +11,6 @@
 
 #include <UPnPsdk/upnptools.hpp>
 #include <UPnPsdk/socket.hpp>
-#include <UPnPsdk/httpreadwrite.hpp>
 
 #include <utest/utest.hpp>
 #include <umock/netdb_mock.hpp>
@@ -30,7 +29,6 @@ using ::testing::SetArgPointee;
 using ::testing::SetErrnoAndReturn;
 using ::testing::StrEq;
 
-using ::UPnPsdk::CUri;
 using ::UPnPsdk::errStr;
 using ::UPnPsdk::errStrEx;
 
@@ -962,18 +960,18 @@ TEST(HttpFixUrl, wrong_scheme_ftp) {
     EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &url), HTTP_SUCCESS);
 
     EXPECT_STREQ(url.scheme.buff, "ftp://192.168.169.170:80#fragment");
-    EXPECT_EQ(url.scheme.size, (size_t)3);
-    EXPECT_STREQ(url.pathquery.buff, "#fragment");
-    EXPECT_EQ(url.pathquery.size, (size_t)0);
+    EXPECT_EQ(url.scheme.size, 3u);
+    EXPECT_STREQ(url.fragment.buff, "fragment");
+    EXPECT_EQ(url.fragment.size, 8u);
 
     // Test Unit
     uri_type fixed_url;
     EXPECT_EQ(http_FixUrl(&url, &fixed_url), UPNP_E_INVALID_URL);
 
     EXPECT_STREQ(fixed_url.scheme.buff, "ftp://192.168.169.170:80#fragment");
-    EXPECT_EQ(fixed_url.scheme.size, (size_t)3);
-    EXPECT_STREQ(fixed_url.pathquery.buff, "#fragment");
-    EXPECT_EQ(fixed_url.pathquery.size, (size_t)0);
+    EXPECT_EQ(fixed_url.scheme.size, 3u);
+    EXPECT_STREQ(fixed_url.fragment.buff, "fragment");
+    EXPECT_EQ(fixed_url.fragment.size, 8u);
 }
 
 TEST(HttpFixUrl, no_fragment) {
@@ -1120,57 +1118,6 @@ TEST(GetHostaddr, nullptr_url_str) {
         EXPECT_EQ(hoststr, refptr);
         EXPECT_EQ(hostlen, (size_t)0xaa);
     }
-}
-
-TEST(CUri, construct_successful) {
-    CUri url("https://www.sample.net:49152/tvdevicedesc.xml");
-    EXPECT_EQ(url.url_str, "https://www.sample.net:49152/tvdevicedesc.xml");
-    EXPECT_EQ(url.hostport, "www.sample.net:49152");
-    EXPECT_EQ(url.hostport.size(), (std::string::size_type)20);
-}
-
-TEST(CUri, invalid_scheme_delimiter) {
-    EXPECT_THROW(CUri url("https//www.sample.net:49152/tvdevicedesc.xml"),
-                 std::invalid_argument);
-    // EXPECT_TRUE(url.url_str.empty());
-    // EXPECT_TRUE(url.hostport.empty());
-    // EXPECT_EQ(url.hostport.size(), (size_t)0);
-}
-
-TEST(CUri, no_hostport_delimiter) {
-    EXPECT_THROW(CUri url("https://www.sample.net:49152-tvdevicedesc.xml"),
-                 std::invalid_argument);
-}
-
-TEST(CUri, only_hostport_url) {
-    // This is syntactic the same as 'no_hostport_delimiter' but it's valid. It
-    // needs semantic analysis.
-    if (github_actions)
-        GTEST_SKIP() << "             known failing test on Github Actions";
-
-    CUri url("https://www.sample.net:49152");
-    EXPECT_EQ(url.url_str, "https://www.sample.net:49152");
-    EXPECT_EQ(url.hostport, "www.sample.net:49152");
-    EXPECT_EQ(url.hostport.size(), (size_t)20);
-}
-
-TEST(CUri, empty_hostport_in_url_str) {
-    if (github_actions)
-        GTEST_SKIP() << "             known failing test on Github Actions";
-    CUri url("https:///");
-    EXPECT_EQ(url.url_str, "https:///");
-    EXPECT_TRUE(url.hostport.empty());
-    EXPECT_EQ(url.hostport.size(), (size_t)0);
-}
-
-TEST(CUri, only_scheme) {
-    if (github_actions)
-        GTEST_SKIP() << "             known failing test on Github Actions";
-
-    CUri url("https://");
-    EXPECT_EQ(url.url_str, "https://");
-    EXPECT_TRUE(url.hostport.empty());
-    EXPECT_EQ(url.hostport.size(), (size_t)0);
 }
 
 TEST(HttpReadWriteIp4TestSuite, http_RecvMessage) {

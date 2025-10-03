@@ -1,10 +1,10 @@
 <map id="UpnpCloseHttpPost" name="UpnpCloseHttpPost">
 <area shape="rect" id="Node000001" title="Sends and receives any pending data, closes the connection with the server, and frees memory allocate..." alt="" coords="5,92,153,117"/>
-<area shape="rect" id="Node000002" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a23dee83362f8bda1551e1514e806d6bf" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="201,92,393,117"/>
+<area shape="rect" id="Node000002" href="$d1/db3/httpreadwrite_8cpp.html#a23dee83362f8bda1551e1514e806d6bf" title="Closes the connection created with UpnpOpenHttpConnection() and frees any memory associated with the ..." alt="" coords="201,92,393,117"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,102,188,102,188,107,154,107"/>
-<area shape="rect" id="Node000016" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a7da45a1ca164b06f2f3e971f89c9fa54" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="217,19,377,44"/>
+<area shape="rect" id="Node000016" href="$d1/db3/httpreadwrite_8cpp.html#a7da45a1ca164b06f2f3e971f89c9fa54" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="217,19,377,44"/>
 <area shape="poly" id="edge4_Node000001_Node000016" title=" " alt="" coords="117,89,245,46,247,51,119,94"/>
-<area shape="rect" id="Node000020" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ab8095d987290dfdc4f151dc8e3d7c40f" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="213,189,382,215"/>
+<area shape="rect" id="Node000020" href="$d1/db3/httpreadwrite_8cpp.html#ab8095d987290dfdc4f151dc8e3d7c40f" title="Gets the response from the server using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="213,189,382,215"/>
 <area shape="poly" id="edge6_Node000001_Node000020" title=" " alt="" coords="110,115,256,181,254,186,108,120"/>
 <area shape="rect" id="Node000003" href="$dd/d1d/httpparser_8cpp.html#aae19f051c772e39575e48ddb2615f6b5" title="Free memory allocated for the http message." alt="" coords="491,104,623,129"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="394,106,478,110,478,116,393,112"/>

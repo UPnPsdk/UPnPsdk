@@ -6,11 +6,14 @@ var namespaceUPnPsdk =
     [ "anonymous_namespace{global.cpp}", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03.html", "de/d58/namespaceUPnPsdk_1_1anonymous__namespace_02global_8cpp_03" ],
     [ "anonymous_namespace{sockaddr.cpp}", "d7/d77/namespaceUPnPsdk_1_1anonymous__namespace_02sockaddr_8cpp_03.html", [
       [ "sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ],
-      [ "to_port", "d0/dd8/group__upnplib-addrmodul.html#ga15c2857e134c29ff3dae7e20ff62b5df", null ]
+      [ "to_port", "d0/dd8/group__upnplib-addrmodul.html#gaa0dbf5f7be0d6e9ab643cea70168b4bd", null ]
     ] ],
     [ "anonymous_namespace{socket.cpp}", "d4/d77/namespaceUPnPsdk_1_1anonymous__namespace_02socket_8cpp_03.html", [
       [ "getsockname", "db/d86/group__upnplib-socket.html#ga22b121617b4eb96c4b4548a814683dfc", null ],
       [ "get_sockfd", "db/d86/group__upnplib-socket.html#gaff979637c7cac7b0ef5df38ec5eae017", null ]
+    ] ],
+    [ "anonymous_namespace{uri.cpp}", "dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html", [
+      [ "is_dns_name", "dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html#afa653ebd81ec9323368fc8792a89df48", null ]
     ] ],
     [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
     [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", "d8/d37/classUPnPsdk_1_1CNetadapter" ],
@@ -54,7 +57,7 @@ var namespaceUPnPsdk =
     [ "netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71", null ],
     [ "bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb", null ],
     [ "pthread_self", "dd/d67/namespaceUPnPsdk.html#a2a68659cc5b319d1eeda06f219c64c59", null ],
-    [ "split_addr_port", "d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30", null ],
+    [ "split_addr_port", "d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555", null ],
     [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],
     [ "errStr", "dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588", null ],
     [ "errStrEx", "dd/d67/namespaceUPnPsdk.html#a6fe628907cafd576019aa9d1e3d88b87", null ],

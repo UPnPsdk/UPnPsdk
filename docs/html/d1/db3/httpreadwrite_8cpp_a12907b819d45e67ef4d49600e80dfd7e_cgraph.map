@@ -1,0 +1,39 @@
+<map id="http_ReadHttpResponse" name="http_ReadHttpResponse">
+<area shape="rect" id="Node000001" title="Reads the content of a response using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="5,315,184,340"/>
+<area shape="rect" id="Node000002" href="$da/dd9/membuffer_8cpp.html#a63e6eaa20b3a9f5ac020e23f1966d20d" title="Invokes function to appends data from a constant buffer to the buffer." alt="" coords="233,5,382,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,314,110,265,136,195,175,117,201,81,230,48,249,35,252,39,234,52,205,84,180,120,141,197,115,267,101,315"/>
+<area shape="rect" id="Node000005" href="$da/dd9/membuffer_8cpp.html#aee72bc5a9c58a849f2e41503500a773d" title="Shrink the size of the buffer depending on the current size of the buffer and the input parameters...." alt="" coords="677,121,820,147"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="107,312,154,266,229,203,274,170,324,139,376,112,430,91,485,78,529,76,574,82,630,91,670,101,706,114,705,119,668,106,629,97,573,87,529,81,485,83,431,97,378,117,326,144,277,175,232,207,157,270,110,316"/>
+<area shape="rect" id="Node000006" href="$dd/d1d/httpparser_8cpp.html#a85f4a9679504a2f6a25cb53580fe81d7" title="Determines method to read entity." alt="" coords="232,315,383,340"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="184,325,218,325,218,330,184,330"/>
+<area shape="rect" id="Node000013" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="703,351,794,376"/>
+<area shape="poly" id="edge21_Node000001_Node000013" title=" " alt="" coords="110,338,158,383,233,444,327,505,378,531,432,551,487,568,533,577,577,573,628,552,650,536,670,518,701,473,724,427,738,388,743,390,729,429,706,476,674,521,654,541,631,556,578,578,533,582,486,574,430,557,376,536,324,510,230,448,154,387,107,342"/>
+<area shape="rect" id="Node000054" href="$d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="263,624,351,649"/>
+<area shape="poly" id="edge18_Node000001_Node000054" title=" " alt="" coords="102,340,116,386,143,454,182,528,206,564,234,596,260,616,257,620,230,600,202,567,177,531,138,456,111,388,97,341"/>
+<area shape="rect" id="Node000003" href="$da/dd9/membuffer_8cpp.html#ad2b10e589712efb648a8f86bfe3b5975" title="Allocates memory for the new data to be inserted. Does memory management by moving the data from the ..." alt="" coords="679,39,818,64"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="382,21,666,42,665,48,382,26"/>
+<area shape="rect" id="Node000004" href="$da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b" title="Increases or decreases buffer cap so that at least &#39;new_length&#39; bytes can be stored." alt="" coords="868,80,1023,105"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="810,61,872,75,871,80,809,67"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="809,119,871,106,872,111,810,124"/>
+<area shape="rect" id="Node000007" href="$dd/d1d/httpparser_8cpp.html#aae632d5cc945d012140dff733af29bd4" title="Determines method to read entity." alt="" coords="444,343,616,383"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="384,337,431,345,430,350,383,342"/>
+<area shape="rect" id="Node000016" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#ad106cf5f4c301641ed8d33d990afdeb3" title="Read data in the chunks." alt="" coords="437,107,623,161"/>
+<area shape="poly" id="edge9_Node000006_Node000016" title=" " alt="" coords="313,313,356,247,390,206,429,171,436,166,439,170,432,175,394,210,361,250,318,316"/>
+<area shape="rect" id="Node000035" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a1e8724133f542856049f300c75e0e17c" title="Read entity using chunked transfer encoding." alt="" coords="437,264,623,319"/>
+<area shape="poly" id="edge11_Node000006_Node000035" title=" " alt="" coords="383,313,423,306,424,311,384,318"/>
+<area shape="rect" id="Node000036" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a0d1dcdc9c277e1205aff200a617b43fb" title="Read headers at the end of the chunked entity." alt="" coords="437,185,623,240"/>
+<area shape="poly" id="edge14_Node000006_Node000036" title=" " alt="" coords="326,312,372,282,429,249,441,243,444,248,432,254,375,286,329,317"/>
+<area shape="rect" id="Node000052" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a1ca8f88628052bc7155c6ebe8c1d9fb9" title="Keep reading entity until the connection is closed." alt="" coords="437,408,623,463"/>
+<area shape="poly" id="edge16_Node000006_Node000052" title=" " alt="" coords="331,338,432,393,447,400,445,405,429,398,329,343"/>
+<area shape="rect" id="Node000053" href="$da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a038e3303f943718679f39b2c78bd4e16" title="Reads entity using content&#45;length." alt="" coords="437,487,623,541"/>
+<area shape="poly" id="edge17_Node000006_Node000053" title=" " alt="" coords="318,339,362,401,395,439,432,472,441,478,438,482,429,476,391,442,358,405,314,342"/>
+<area shape="poly" id="edge8_Node000007_Node000013" title=" " alt="" coords="616,361,690,361,690,366,616,366"/>
+<area shape="poly" id="edge10_Node000016_Node000005" title=" " alt="" coords="623,131,664,131,664,137,623,137"/>
+<area shape="poly" id="edge12_Node000035_Node000005" title=" " alt="" coords="606,262,628,249,684,202,727,156,731,159,688,206,631,254,609,266"/>
+<area shape="poly" id="edge13_Node000035_Node000013" title=" " alt="" coords="614,316,697,344,696,349,613,321"/>
+<area shape="poly" id="edge15_Node000036_Node000005" title=" " alt="" coords="606,183,698,149,700,154,608,188"/>
+<area shape="rect" id="Node000055" href="$db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#ad0c68e095264a6c6a0bdc68974f6ae18" title="Read from an SSL protected socket." alt="" coords="431,617,629,657"/>
+<area shape="poly" id="edge19_Node000054_Node000055" title=" " alt="" coords="352,634,417,634,417,639,352,639"/>
+<area shape="rect" id="Node000057" href="$db/dc4/namespaceanonymous__namespace_02sock_8cpp_03.html#ae217b5dfecc7cd51d476066695c86aff" title="Read from a not SSL protected socket." alt="" coords="440,681,620,736"/>
+<area shape="poly" id="edge20_Node000054_Node000057" title=" " alt="" coords="348,647,433,675,432,680,347,652"/>
+</map>

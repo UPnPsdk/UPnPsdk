@@ -55,7 +55,9 @@ var searchData=
   ['application_5findex_52',['APPLICATION_INDEX',['../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a1ea8ce1551a8dce4688c6a5c6a0e09cb',1,'compa::anonymous_namespace{webserver.cpp}']]],
   ['asctime_5fr_5fbuffer_5fsize_53',['ASCTIME_R_BUFFER_SIZE',['../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a76d2310af04c68b238be281f18feeb88',1,'compa::anonymous_namespace{webserver.cpp}']]],
   ['attr_54',['attr',['../d5/d91/ThreadPool_8hpp.html#ac48b95b1d077723112912e64bc19d23d',1,'ThreadPool']]],
-  ['auto_5fadvertisement_5ftime_55',['AUTO_ADVERTISEMENT_TIME',['../d8/dfd/config_8hpp.html#ac88e2a316cf6b50a6fb7e9d6ac245cb9',1,'config.hpp']]],
-  ['auto_5frenew_5ftime_56',['AUTO_RENEW_TIME',['../d8/dfd/config_8hpp.html#aaeff9873bdac38b8a8b03fcf1d36ac0b',1,'config.hpp']]],
-  ['autoadvertise_57',['autoadvertise',['../d3/da9/upnpapi_8hpp.html#abb1ab3d0ba145286005284d447110fce',1,'AutoAdvertise(void *input):&#160;upnpapi.cpp'],['../d4/d99/upnpapi_8cpp.html#abb1ab3d0ba145286005284d447110fce',1,'AutoAdvertise(void *input):&#160;upnpapi.cpp']]]
+  ['authority_55',['authority',['../da/dcf/classUPnPsdk_1_1CUri.html#a5b580674686391d30875d4e8f9f80ed6',1,'UPnPsdk::CUri']]],
+  ['auto_5fadvertisement_5ftime_56',['AUTO_ADVERTISEMENT_TIME',['../d8/dfd/config_8hpp.html#ac88e2a316cf6b50a6fb7e9d6ac245cb9',1,'config.hpp']]],
+  ['auto_5frenew_5ftime_57',['AUTO_RENEW_TIME',['../d8/dfd/config_8hpp.html#aaeff9873bdac38b8a8b03fcf1d36ac0b',1,'config.hpp']]],
+  ['autoadvertise_58',['autoadvertise',['../d3/da9/upnpapi_8hpp.html#abb1ab3d0ba145286005284d447110fce',1,'AutoAdvertise(void *input):&#160;upnpapi.cpp'],['../d4/d99/upnpapi_8cpp.html#abb1ab3d0ba145286005284d447110fce',1,'AutoAdvertise(void *input):&#160;upnpapi.cpp']]],
+  ['avail_59',['avail',['../da/dcf/classUPnPsdk_1_1CUri.html#a02d4e36b41bf3fb6aec16eeb8f621459a2a63117de6700b21651ea40db979a948',1,'UPnPsdk::CUri']]]
 ];

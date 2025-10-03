@@ -1,10 +1,10 @@
 <map id="sock_write" name="sock_write">
 <area shape="rect" id="Node000001" title="Writes data on the socket in sockinfo." alt="" coords="703,381,795,407"/>
-<area shape="rect" id="Node000002" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a7da45a1ca164b06f2f3e971f89c9fa54" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="489,55,649,80"/>
+<area shape="rect" id="Node000002" href="$d1/db3/httpreadwrite_8cpp.html#a7da45a1ca164b06f2f3e971f89c9fa54" title="Indicates the end of a HTTP request previously made by UpnpMakeHttpRequest()." alt="" coords="489,55,649,80"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="732,371,575,81,580,79,736,368"/>
-<area shape="rect" id="Node000007" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="497,381,642,407"/>
+<area shape="rect" id="Node000007" href="$d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="497,381,642,407"/>
 <area shape="poly" id="edge4_Node000001_Node000007" title=" " alt="" coords="689,397,642,397,642,391,689,391"/>
-<area shape="rect" id="Node000084" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a55e7bd2e48918bcaf6b101f174e0b355" title="Writes the content of a HTTP request initiated by a UpnpMakeHttpRequest() call. The end of the conten..." alt="" coords="484,799,655,824"/>
+<area shape="rect" id="Node000084" href="$d1/db3/httpreadwrite_8cpp.html#a55e7bd2e48918bcaf6b101f174e0b355" title="Writes the content of a HTTP request initiated by a UpnpMakeHttpRequest() call. The end of the conten..." alt="" coords="484,799,655,824"/>
 <area shape="poly" id="edge18_Node000001_Node000084" title=" " alt="" coords="739,420,579,800,574,797,734,418"/>
 <area shape="rect" id="Node000003" href="$d4/d99/upnpapi_8cpp.html#a32b6a961a76abcb37fcd7f6e3de10ee7" title="Sends and receives any pending data, closes the connection with the server, and frees memory allocate..." alt="" coords="261,5,409,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="494,54,395,33,397,28,495,49"/>
@@ -12,13 +12,13 @@
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="475,70,416,70,416,65,475,65"/>
 <area shape="rect" id="Node000008" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="233,104,436,159"/>
 <area shape="poly" id="edge5_Node000007_Node000008" title=" " alt="" coords="557,369,539,326,513,274,478,219,434,172,419,161,422,157,438,168,482,216,518,271,544,324,562,367"/>
-<area shape="rect" id="Node000013" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#ab8610e8aea3346f682ca91fe37b21bf8" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="249,183,420,208"/>
+<area shape="rect" id="Node000013" href="$d1/db3/httpreadwrite_8cpp.html#ab8610e8aea3346f682ca91fe37b21bf8" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="249,183,420,208"/>
 <area shape="poly" id="edge6_Node000007_Node000013" title=" " alt="" coords="554,370,535,336,509,296,475,255,435,222,412,210,414,206,437,217,479,252,513,293,540,333,559,368"/>
-<area shape="rect" id="Node000016" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="257,232,413,257"/>
+<area shape="rect" id="Node000016" href="$d1/db3/httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="257,232,413,257"/>
 <area shape="poly" id="edge7_Node000007_Node000016" title=" " alt="" coords="548,372,500,320,469,294,435,271,408,260,410,255,437,266,472,289,504,317,552,369"/>
-<area shape="rect" id="Node000018" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="237,281,433,307"/>
+<area shape="rect" id="Node000018" href="$d1/db3/httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="237,281,433,307"/>
 <area shape="poly" id="edge8_Node000007_Node000018" title=" " alt="" coords="537,376,490,347,435,320,400,309,402,304,437,316,493,343,540,371"/>
-<area shape="rect" id="Node000051" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="239,331,430,356"/>
+<area shape="rect" id="Node000051" href="$d1/db3/httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="239,331,430,356"/>
 <area shape="poly" id="edge9_Node000007_Node000051" title=" " alt="" coords="496,381,394,359,395,353,497,376"/>
 <area shape="rect" id="Node000062" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="16,356,175,381"/>
 <area shape="poly" id="edge17_Node000007_Node000062" title=" " alt="" coords="483,392,175,376,175,370,483,387"/>

@@ -1,27 +1,27 @@
 <map id="UpnpDownloadUrlItem" name="UpnpDownloadUrlItem">
 <area shape="rect" id="Node000001" title="Downloads a file specified in a URL." alt="" coords="5,259,176,284"/>
-<area shape="rect" id="Node000002" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a4c4ffc89743a422ff2ad243e9ab14892" title="Download the document message and extract the document from the message." alt="" coords="224,259,344,284"/>
+<area shape="rect" id="Node000002" href="$d1/db3/httpreadwrite_8cpp.html#a4c4ffc89743a422ff2ad243e9ab14892" title="Download the document message and extract the document from the message." alt="" coords="224,259,344,284"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,269,210,269,210,274,176,274"/>
 <area shape="rect" id="Node000003" href="$d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a7425546fc7012e951b754e7a1316be34" title="Point to the hostname within a URL C&#45;string." alt="" coords="400,5,580,60"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="286,258,298,221,319,171,349,117,368,92,390,69,394,66,398,70,394,73,372,95,354,120,324,174,303,223,291,259"/>
-<area shape="rect" id="Node000004" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a2d33a2d2116d1de548e95d8d023548d9" title="Parses URL and then validates URL." alt="" coords="435,84,545,109"/>
+<area shape="rect" id="Node000004" href="$d1/db3/httpreadwrite_8cpp.html#a2d33a2d2116d1de548e95d8d023548d9" title="Parses URL and then validates URL." alt="" coords="435,84,545,109"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="288,257,302,228,324,191,354,152,391,118,421,104,423,109,393,123,357,155,328,194,307,231,293,260"/>
-<area shape="rect" id="Node000015" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="416,157,564,183"/>
-<area shape="poly" id="edge4_Node000002_Node000015" title=" " alt="" coords="300,256,340,228,391,200,428,185,430,189,393,204,343,233,303,261"/>
-<area shape="rect" id="Node000025" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="636,233,787,259"/>
-<area shape="poly" id="edge12_Node000002_Node000025" title=" " alt="" coords="328,256,392,243,512,236,622,238,622,243,512,242,392,249,329,261"/>
-<area shape="rect" id="Node000026" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="835,309,957,335"/>
-<area shape="poly" id="edge14_Node000002_Node000026" title=" " alt="" coords="300,282,339,315,365,331,393,343,452,358,513,366,574,368,635,366,746,353,834,335,835,341,747,358,635,371,574,373,512,371,451,363,391,349,363,336,336,320,297,287"/>
-<area shape="rect" id="Node000037" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="392,308,588,333"/>
-<area shape="poly" id="edge8_Node000002_Node000037" title=" " alt="" coords="338,281,424,302,422,307,337,287"/>
-<area shape="rect" id="Node000106" href="$dd/d1d/httpparser_8cpp.html#aae19f051c772e39575e48ddb2615f6b5" title="Free memory allocated for the http message." alt="" coords="424,259,556,284"/>
-<area shape="poly" id="edge9_Node000002_Node000106" title=" " alt="" coords="344,269,410,269,410,274,344,274"/>
-<area shape="rect" id="Node000043" href="$dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="423,409,557,435"/>
-<area shape="poly" id="edge11_Node000002_Node000043" title=" " alt="" coords="296,282,334,333,362,363,393,388,422,402,420,407,391,392,358,366,330,337,291,286"/>
-<area shape="rect" id="Node000112" href="$da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="417,459,563,484"/>
-<area shape="poly" id="edge13_Node000002_Node000112" title=" " alt="" coords="292,283,304,317,325,361,355,407,373,427,394,445,406,453,403,457,390,449,369,431,350,410,320,363,299,319,287,285"/>
-<area shape="poly" id="edge5_Node000015_Node000015" title=" " alt="" coords="456,159,449,149,453,139,467,133,490,131,519,134,530,143,527,148,516,139,490,136,468,138,457,143,454,148,460,156"/>
-<area shape="poly" id="edge6_Node000015_Node000025" title=" " alt="" coords="531,180,589,199,664,226,662,231,587,205,530,185"/>
-<area shape="poly" id="edge7_Node000025_Node000026" title=" " alt="" coords="744,256,853,302,850,306,742,261"/>
-<area shape="poly" id="edge10_Node000106_Node000025" title=" " alt="" coords="556,261,622,254,622,259,557,266"/>
+<area shape="rect" id="Node000011" href="$d1/db3/httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="416,157,564,183"/>
+<area shape="poly" id="edge4_Node000002_Node000011" title=" " alt="" coords="300,256,340,228,391,200,428,185,430,189,393,204,343,233,303,261"/>
+<area shape="rect" id="Node000021" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="636,233,787,259"/>
+<area shape="poly" id="edge12_Node000002_Node000021" title=" " alt="" coords="328,256,392,243,512,236,622,238,622,243,512,242,392,249,329,261"/>
+<area shape="rect" id="Node000022" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="835,309,957,335"/>
+<area shape="poly" id="edge14_Node000002_Node000022" title=" " alt="" coords="300,282,339,315,365,331,393,343,452,358,513,366,574,368,635,366,746,353,834,335,835,341,747,358,635,371,574,373,512,371,451,363,391,349,363,336,336,320,297,287"/>
+<area shape="rect" id="Node000033" href="$d1/db3/httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="392,308,588,333"/>
+<area shape="poly" id="edge8_Node000002_Node000033" title=" " alt="" coords="338,281,424,302,422,307,337,287"/>
+<area shape="rect" id="Node000102" href="$dd/d1d/httpparser_8cpp.html#aae19f051c772e39575e48ddb2615f6b5" title="Free memory allocated for the http message." alt="" coords="424,259,556,284"/>
+<area shape="poly" id="edge9_Node000002_Node000102" title=" " alt="" coords="344,269,410,269,410,274,344,274"/>
+<area shape="rect" id="Node000039" href="$dd/d1d/httpparser_8cpp.html#a7b6226c9c3c9bfe3ea0808c5402c96f4" title="Finds header from a list, with the given &#39;name_id&#39;." alt="" coords="423,409,557,435"/>
+<area shape="poly" id="edge11_Node000002_Node000039" title=" " alt="" coords="296,282,334,333,362,363,393,388,422,402,420,407,391,392,358,366,330,337,291,286"/>
+<area shape="rect" id="Node000108" href="$da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327" title="Detaches current buffer and returns it. The caller must free the returned buffer using free()...." alt="" coords="417,459,563,484"/>
+<area shape="poly" id="edge13_Node000002_Node000108" title=" " alt="" coords="292,283,304,317,325,361,355,407,373,427,394,445,406,453,403,457,390,449,369,431,350,410,320,363,299,319,287,285"/>
+<area shape="poly" id="edge5_Node000011_Node000011" title=" " alt="" coords="456,159,449,149,453,139,467,133,490,131,519,134,530,143,527,148,516,139,490,136,468,138,457,143,454,148,460,156"/>
+<area shape="poly" id="edge6_Node000011_Node000021" title=" " alt="" coords="531,180,589,199,664,226,662,231,587,205,530,185"/>
+<area shape="poly" id="edge7_Node000021_Node000022" title=" " alt="" coords="744,256,853,302,850,306,742,261"/>
+<area shape="poly" id="edge10_Node000102_Node000021" title=" " alt="" coords="556,261,622,254,622,259,557,266"/>
 </map>

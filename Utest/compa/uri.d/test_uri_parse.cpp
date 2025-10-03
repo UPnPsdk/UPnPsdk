@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-10-01
+// Redistribution only with this Copyright remark. Last modified: 2025-10-31
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -465,6 +465,22 @@ TEST(ParseUriTestSuite, uri_with_opaque_part) {
     EXPECT_EQ(saObj.ss.ss_family, AF_UNSPEC);
     EXPECT_EQ(saObj.port(), 0);
     EXPECT_EQ(saObj.netaddrp(), ":0");
+}
+
+TEST(ParseUriTestSuite, parse_uric) {
+    token out;
+
+    // There is an invalid URI character '^' as separator for a fragment. This
+    // should not truncate the URI string. It should not accept the whole URI.
+    constexpr char url_str2[]{"https://192.168.192.170/path/dest/"
+                              "?query=value^fragment"};
+    EXPECT_EQ(::parse_uric(url_str2, strlen(url_str2), &out), 46);
+
+    // The valid separator '#' is also not accepted as valid character and also
+    // trunkcate the URI string. That's a bug and should be fixed.
+    constexpr char url_str1[]{"https://192.168.192.170/path/dest/"
+                              "?query=value#fragment"};
+    EXPECT_EQ(::parse_uric(url_str1, strlen(url_str1), &out), 46);
 }
 
 } // namespace utest

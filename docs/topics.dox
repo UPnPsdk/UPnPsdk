@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-27
+// Redistribution only with this Copyright remark. Last modified: 2025-10-13
 /*!
  * \file
  * \brief Definition of the documentation topics.
@@ -96,8 +96,9 @@
  * components are undefined." E.g.: mailto:a\@b. (Ref.:
  * <a href="http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaque--">Opaque URI</a>).
  *
- * the following figure displays example URIs and their component parts.\n
+ * the following figure displays example URIs and their components.\n
  * Sources:\n
+ * <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986: Uniform Resource Identifier (URI): Generic Syntax</a>\n
  * <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax">Wikipedia - syntax diagram</a>\n
  * <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Example_URIs">Wikipedia - Example URIs</a>
 \verbatim

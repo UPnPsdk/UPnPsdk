@@ -26,7 +26,7 @@ var group__upnplib_addrmodul =
     [ "UPnPsdk::SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", [
       [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html#ab010d4691740181daeda8e01cd97e965", null ],
       [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a8b52904288181002af2f93d13fa43c09", null ],
-      [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a1f9d157e611b5cda3903b0497728c7c6", null ],
+      [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a8b72040ce3fc2f14c4e85b189a9255a2", null ],
       [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a20b517fd6087268d643f8bd7433ec83a", null ],
       [ "operator=", "dc/df7/structUPnPsdk_1_1SSockaddr.html#ad344ca4f89f9d4911563b5ad426eca7d", null ],
       [ "operator==", "dc/df7/structUPnPsdk_1_1SSockaddr.html#a2af7f7338ae0bdbb8bd731cadba0dbaa", null ],
@@ -43,8 +43,8 @@ var group__upnplib_addrmodul =
     ] ],
     [ "UPnPsdk::netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71", null ],
     [ "UPnPsdk::bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb", null ],
-    [ "UPnPsdk::split_addr_port", "d0/dd8/group__upnplib-addrmodul.html#ga5ba9b68e7f75b3239270fc5956931e30", null ],
+    [ "UPnPsdk::split_addr_port", "d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555", null ],
     [ "UPnPsdk::operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],
     [ "UPnPsdk::anonymous_namespace{sockaddr.cpp}::sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ],
-    [ "UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_port", "d0/dd8/group__upnplib-addrmodul.html#ga15c2857e134c29ff3dae7e20ff62b5df", null ]
+    [ "UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_port", "d0/dd8/group__upnplib-addrmodul.html#gaa0dbf5f7be0d6e9ab643cea70168b4bd", null ]
 ];

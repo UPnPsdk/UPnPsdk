@@ -1,17 +1,17 @@
 <map id="error_respond" name="error_respond">
 <area shape="rect" id="Node000001" title="Sends an error message to the control point in the case of incorrect GENA requests." alt="" coords="5,79,117,104"/>
-<area shape="rect" id="Node000002" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e" title="Calculate HTTP response versions based on the request versions." alt="" coords="404,5,599,31"/>
+<area shape="rect" id="Node000002" href="$d1/db3/httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e" title="Calculate HTTP response versions based on the request versions." alt="" coords="404,5,599,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,79,411,30,412,36,118,85"/>
-<area shape="rect" id="Node000003" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="165,104,356,129"/>
+<area shape="rect" id="Node000003" href="$d1/db3/httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="165,104,356,129"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="118,96,152,100,152,105,117,101"/>
 <area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="281,102,335,71,403,40,426,32,428,37,405,44,338,76,284,106"/>
-<area shape="rect" id="Node000004" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="427,79,575,104"/>
+<area shape="rect" id="Node000004" href="$d1/db3/httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="427,79,575,104"/>
 <area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="356,104,413,98,414,103,356,109"/>
 <area shape="rect" id="Node000016" href="$da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14" title="Free&#39;s memory allocated for membuffer* m." alt="" coords="647,129,797,155"/>
 <area shape="poly" id="edge9_Node000003_Node000016" title=" " alt="" coords="357,119,633,134,633,140,356,125"/>
 <area shape="rect" id="Node000017" href="$da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80" title="Wrapper to membuffer_initialize()." alt="" coords="845,155,968,180"/>
 <area shape="poly" id="edge10_Node000003_Node000017" title=" " alt="" coords="332,127,404,138,525,154,647,163,832,166,832,172,647,169,525,159,404,143,332,132"/>
-<area shape="rect" id="Node000028" href="$da/d17/Compa_2src_2genlib_2net_2http_2httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="429,231,574,256"/>
+<area shape="rect" id="Node000028" href="$d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="429,231,574,256"/>
 <area shape="poly" id="edge8_Node000003_Node000028" title=" " alt="" coords="280,127,334,167,405,209,442,224,440,229,403,214,331,171,277,132"/>
 <area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="466,80,458,70,462,60,477,54,501,52,532,56,544,65,541,69,530,61,501,57,478,59,466,64,463,70,470,77"/>
 <area shape="poly" id="edge6_Node000004_Node000016" title=" " alt="" coords="558,102,653,124,652,129,557,107"/>

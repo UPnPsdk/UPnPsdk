@@ -107,6 +107,12 @@ TEST(SockaddrStorageTestSuite, modify_address_and_port_successful) {
     EXPECT_EQ(saddr.netaddrp(), ":50010");
     EXPECT_EQ(saddr.port(), 50010);
 
+    saddr = "50022";
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.netaddr(), "");
+    EXPECT_EQ(saddr.netaddrp(), ":50022");
+    EXPECT_EQ(saddr.port(), 50022);
+
     // Setting address and port in two steps
     saddr.ss.ss_family = AF_INET;
     saddr = "[2001:db8::3]:";

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-26
+// Redistribution only with this Copyright remark. Last modified: 2025-10-29
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -113,11 +113,11 @@ bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
  */
 int to_port( //
     /*! [in] String that may represent a port number. */
-    const std::string& a_port_str,
+    std::string_view a_port_str,
     /*! [in,out] Optional: if given, pointer to a variable that will be filled
      *           with the binary port number in host byte order. */
     in_port_t* const a_port_num = nullptr) noexcept {
-    TRACE("Executing to_port() with port=\"" + a_port_str + "\"")
+    TRACE("Executing to_port() with port=\"a_port_str\"")
 
     // // Trim input string.
     // std::string port_str;
@@ -155,10 +155,17 @@ int to_port( //
     }
 
     // Valid positive number but is it within the port range (uint16_t)?
-    // stoi may throw std::invalid_argument if no conversion could be
-    // performed or std::out_of_range. But with the prechecked number string
-    // this should never be thrown.
-    int port = std::stoi(a_port_str);
+    // Error conditions of the function is not checked because there is always a
+    // pre-checked valid number string given.
+    /// \todo Update to Clang compiler that supports std::from_chars() on MacOS.
+#ifdef __clang__
+    std::string port_str(a_port_str);
+    int port = atoi(port_str.c_str());
+#else
+    int port{};
+    std::from_chars(a_port_str.data(), a_port_str.data() + a_port_str.size(),
+                    port);
+#endif
     if (port > 65535) {
         return 1;
     } else if (a_port_num != nullptr) {
@@ -207,7 +214,7 @@ int to_port( //
 //               50006
 //                  Remaining
 //               2001:db8::7
-void split_addr_port(const std::string& a_addr_str, std::string& a_addr,
+void split_addr_port(std::string_view a_addr_str, std::string& a_addr,
                      std::string& a_serv) {
     TRACE("Executing split_addr_port()")
     // Special cases
@@ -339,8 +346,8 @@ void split_addr_port(const std::string& a_addr_str, std::string& a_addr,
 
 exit_overrun:
     throw std::range_error(
-        UPnPsdk_LOGEXCEPT("MSG1127") "Number string from \"" + a_addr_str +
-        "\" for port is out of range 0..65535.");
+        UPnPsdk_LOGEXCEPT("MSG1127") "Number string from \"" +
+        std::string(a_addr_str) + "\" for port is out of range 0..65535.");
 }
 
 // Specialized sockaddr_structure
@@ -382,8 +389,8 @@ SSockaddr& SSockaddr::operator=(SSockaddr that) {
 
 // Assignment operator= to set socket address from string.
 // -------------------------------------------------------
-void SSockaddr::operator=(const std::string& a_addr_str) {
-    TRACE2(this, " Executing SSockaddr::operator=(" + a_addr_str + ")")
+void SSockaddr::operator=(std::string_view a_addr_str) {
+    TRACE2(this, " Executing SSockaddr::operator=(a_addr_str)")
 
     if (a_addr_str.empty()) {
         // This clears the complete socket address.
@@ -404,7 +411,7 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
         if (to_port(ai_port_str, &port) != 0)
             throw std::invalid_argument(
                 UPnPsdk_LOGEXCEPT("MSG1043") "Invalid netaddress \"" +
-                a_addr_str + "\".\n");
+                std::string(a_addr_str) + "\".\n");
         m_sa_union.sin6.sin6_port = htons(port);
         return;
     }
@@ -422,8 +429,8 @@ void SSockaddr::operator=(const std::string& a_addr_str) {
     if (ret != 0) {
         umock::netdb_h.freeaddrinfo(res);
         throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1156") "Invalid netaddress \"" + a_addr_str +
-            "\".\n");
+            UPnPsdk_LOGEXCEPT("MSG1156") "Invalid netaddress \"" +
+            std::string(a_addr_str) + "\".\n");
     } else {
         if (ai_port_str.empty()) {
             // Preserve old port

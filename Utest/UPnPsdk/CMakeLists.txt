@@ -153,3 +153,17 @@ target_link_libraries(test_rootdevice-ush
 add_test(NAME ctest_rootdevice-ush COMMAND test_rootdevice-ush --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
+
+
+# uri
+# ===
+add_executable(test_uri-ush
+    test_uri.cpp
+)
+target_link_libraries(test_uri-ush
+    PRIVATE UPnPsdk_shared
+    PRIVATE utest_shared
+)
+add_test(NAME ctest_uri-ush COMMAND test_uri-ush --gtest_shuffle
+        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
+)

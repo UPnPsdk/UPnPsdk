@@ -8,7 +8,6 @@ var dir_6355b7681b27614fe17a18239640150b =
     [ "global.hpp", "d9/d3a/global_8hpp.html", "d9/d3a/global_8hpp" ],
     [ "global.ipp", "d6/d66/global_8ipp.html", null ],
     [ "httpparser.hpp", "d6/da7/UPnPsdk_2include_2UPnPsdk_2httpparser_8hpp.html", "d6/da7/UPnPsdk_2include_2UPnPsdk_2httpparser_8hpp" ],
-    [ "httpreadwrite.hpp", "d0/d2e/UPnPsdk_2include_2UPnPsdk_2httpreadwrite_8hpp.html", "d0/d2e/UPnPsdk_2include_2UPnPsdk_2httpreadwrite_8hpp" ],
     [ "messages.hpp", "d4/d64/messages_8hpp.html", "d4/d64/messages_8hpp" ],
     [ "netadapter.hpp", "d9/dff/netadapter_8hpp.html", "d9/dff/netadapter_8hpp" ],
     [ "netadapter_if.hpp", "d9/d8b/netadapter__if_8hpp.html", "d9/d8b/netadapter__if_8hpp" ],
@@ -21,6 +20,7 @@ var dir_6355b7681b27614fe17a18239640150b =
     [ "synclog.hpp", "d1/d3b/synclog_8hpp.html", null ],
     [ "upnp_device.hpp", "d7/de2/upnp__device_8hpp.html", "d7/de2/upnp__device_8hpp" ],
     [ "upnptools.hpp", "d9/df8/UPnPsdk_2include_2UPnPsdk_2upnptools_8hpp.html", "d9/df8/UPnPsdk_2include_2UPnPsdk_2upnptools_8hpp" ],
+    [ "uri.hpp", "d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html", "d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp" ],
     [ "visibility.hpp", "d0/d21/visibility_8hpp.html", "d0/d21/visibility_8hpp" ],
     [ "webserver.hpp", "d5/d8e/UPnPsdk_2include_2UPnPsdk_2webserver_8hpp.html", "d5/d8e/UPnPsdk_2include_2UPnPsdk_2webserver_8hpp" ]
 ];

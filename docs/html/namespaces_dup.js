@@ -154,10 +154,6 @@ var namespaces_dup =
     ] ],
     [ "anonymous_namespace{upnptools.cpp}", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03.html", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03" ],
     [ "anonymous_namespace{uri.cpp}", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html", [
-      [ "is_reserved", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a72aa299b86ca4486b62de1ac2e11b649", null ],
-      [ "is_mark", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a1425dfc37b98f61a0b49a36ac07660d1", null ],
-      [ "is_unreserved", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#abb4b2d5f48da8f6aaa405da333b3ab45", null ],
-      [ "is_escaped", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a4666c8d916f7397270c5cc93734482d3", null ],
       [ "parse_uric", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658", null ],
       [ "copy_token", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afda48d566eed98c513c1e4a235d729bf", null ],
       [ "parse_hostport", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b", null ],
