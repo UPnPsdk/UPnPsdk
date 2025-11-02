@@ -556,6 +556,7 @@ TEST(UriDeathTest, remove_escaped_chars_ip4_edge_conditions) {
 }
 
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 // remove_dots() function: tests from the uri module
 // =================================================
 class RemoveDotsIp4PTestSuite
@@ -616,6 +617,7 @@ INSTANTIATE_TEST_SUITE_P(
         ::std::make_tuple("/./hello/foo/../bar", 19, "/hello/bar", UPNP_E_SUCCESS)
     ));
 // clang-format on
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 
 
 // resolve_rel_url() function: tests from the uri module

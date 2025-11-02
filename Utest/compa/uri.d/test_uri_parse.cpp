@@ -474,13 +474,23 @@ TEST(ParseUriTestSuite, parse_uric) {
     // should not truncate the URI string. It should not accept the whole URI.
     constexpr char url_str2[]{"https://192.168.192.170/path/dest/"
                               "?query=value^fragment"};
-    EXPECT_EQ(::parse_uric(url_str2, strlen(url_str2), &out), 46);
+    if (old_code)
+        // This is different due to using deprecated RFC_2396 for coding
+        // separator '#'.
+        EXPECT_EQ(::parse_uric(url_str2, strlen(url_str2), &out), 46);
+    else
+        EXPECT_EQ(::parse_uric(url_str2, strlen(url_str2), &out), 0);
 
     // The valid separator '#' is also not accepted as valid character and also
     // trunkcate the URI string. That's a bug and should be fixed.
     constexpr char url_str1[]{"https://192.168.192.170/path/dest/"
-                              "?query=value#fragment"};
-    EXPECT_EQ(::parse_uric(url_str1, strlen(url_str1), &out), 46);
+                              "?query=value#fragment"}; // strlen = 55
+    if (old_code)
+        // This is different due to using deprecated RFC_2396 for coding
+        // separator '#'.
+        EXPECT_EQ(::parse_uric(url_str1, strlen(url_str1), &out), 46);
+    else
+        EXPECT_EQ(::parse_uric(url_str1, strlen(url_str1), &out), 55);
 }
 
 } // namespace utest

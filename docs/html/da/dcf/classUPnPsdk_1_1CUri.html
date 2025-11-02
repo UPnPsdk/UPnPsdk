@@ -156,9 +156,9 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a08cbd9ba5551ad481f01146b96e0fb09" id="r_a08cbd9ba5551ad481f01146b96e0fb09"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a08cbd9ba5551ad481f01146b96e0fb09">CUri</a> (const std::string a_uri_str)</td></tr>
-<tr class="memdesc:a08cbd9ba5551ad481f01146b96e0fb09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with setting the URI.  <br /></td></tr>
-<tr class="separator:a08cbd9ba5551ad481f01146b96e0fb09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59cfca6372a47747a819efd29069a988" id="r_a59cfca6372a47747a819efd29069a988"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a59cfca6372a47747a819efd29069a988">CUri</a> (std::string a_uri_str)</td></tr>
+<tr class="memdesc:a59cfca6372a47747a819efd29069a988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with setting the URI.  <br /></td></tr>
+<tr class="separator:a59cfca6372a47747a819efd29069a988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8ac1698d099c51170f6ddae2bfa6ca9" id="r_af8ac1698d099c51170f6ddae2bfa6ca9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9">str</a> () const</td></tr>
 <tr class="memdesc:af8ac1698d099c51170f6ddae2bfa6ca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the normalized URI string.  <br /></td></tr>
 <tr class="separator:af8ac1698d099c51170f6ddae2bfa6ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,6 +179,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides a Uniform Resource Identifier (URI) and its components. </p>
+<p>This class is based on <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986 - Uniform Resource Identifier (URI): Generic Syntax</a>. For now it supports only scheme 'http', 'https', and 'file' as used by this SDK but may be improved if needed. All of the requirements for the "http" scheme are also requirements for the "https" scheme, except that TCP port 443 is the default instead of TCP port 80 (RFC7230 2.7.2.). The 'file' scheme permits in addition an empty 'authority' component ("file:///") that defaults to "localhost".</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::invalid_argument</td><td>if the URI string to set the object is ill formed. Then the state of the URI object is undefined. You cannot expect valid content, not even empty one. </td></tr>
@@ -186,7 +187,7 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00065">65</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a02d4e36b41bf3fb6aec16eeb8f621459" name="a02d4e36b41bf3fb6aec16eeb8f621459"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02d4e36b41bf3fb6aec16eeb8f621459">&#9670;&#160;</a></span>STATE</h2>
@@ -219,7 +220,7 @@ Public Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00042">42</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00081">81</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>
@@ -239,12 +240,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00550">550</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00609">609</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a08cbd9ba5551ad481f01146b96e0fb09" name="a08cbd9ba5551ad481f01146b96e0fb09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08cbd9ba5551ad481f01146b96e0fb09">&#9670;&#160;</a></span>CUri() <span class="overload">[2/2]</span></h2>
+<a id="a59cfca6372a47747a819efd29069a988" name="a59cfca6372a47747a819efd29069a988"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59cfca6372a47747a819efd29069a988">&#9670;&#160;</a></span>CUri() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,7 +253,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">UPnPsdk::CUri::CUri </td>
           <td>(</td>
-          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>a_uri_str</em></td><td>)</td>
           <td></td>
         </tr>
@@ -267,7 +268,7 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00555">555</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00614">614</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>
@@ -294,7 +295,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00569">569</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00664">664</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>
@@ -316,7 +317,7 @@ Public Attributes</h2></td></tr>
 
 <p>Get the normalized URI string. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00574">574</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00669">669</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>
@@ -334,7 +335,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>URI Component </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00196">196</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00238">238</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>
@@ -351,7 +352,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>URI Component </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00197">197</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00239">239</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>
@@ -368,7 +369,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>URI Component </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00198">198</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00240">240</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>
@@ -385,7 +386,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>URI Component </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00199">199</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00241">241</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>
@@ -402,7 +403,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>URI Component </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00200">200</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00242">242</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,24 +1,22 @@
 <map id="Compa/src/inc/miniserver.hpp" name="Compa/src/inc/miniserver.hpp">
-<area shape="rect" id="Node000001" title="Manage &quot;Step 0: Addressing&quot; of the UPnP+™ specification." alt="" coords="187,5,402,31"/>
-<area shape="rect" id="Node000002" href="$d4/d99/upnpapi_8cpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="615,255,814,280"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,37,150,64,105,82,65,103,33,126,13,151,9,164,9,177,14,191,24,205,53,219,106,231,265,248,451,258,615,262,615,267,451,263,265,253,106,236,51,224,21,209,9,193,4,178,3,163,8,149,29,122,62,99,103,77,148,59,234,32"/>
+<area shape="rect" id="Node000001" title="Manage &quot;Step 0: Addressing&quot; of the UPnP+™ specification." alt="" coords="187,5,401,31"/>
+<area shape="rect" id="Node000002" href="$d4/d99/upnpapi_8cpp.html" title="Inititalize the compatible library before it can be used." alt="" coords="431,255,629,280"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="235,37,149,64,105,82,65,103,33,126,13,151,9,163,9,177,14,190,24,205,42,215,78,224,184,240,311,251,431,259,430,264,311,257,183,245,77,229,40,220,20,209,9,193,4,178,3,163,8,148,29,122,62,98,103,77,148,59,233,32"/>
 <area shape="rect" id="Node000003" href="$d5/db2/miniserver_8cpp.html" title="Implements the functionality and utility functions used by the Miniserver module." alt="" coords="35,167,244,207"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="277,42,159,168,155,165,273,39"/>
-<area shape="rect" id="Node000004" href="$d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="368,79,516,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="330,35,408,76,405,81,327,40"/>
-<area shape="rect" id="Node000013" href="$d9/d36/Compa_2src_2inc_2webserver_8hpp.html" title="Internal Web Server and functions to carry out operations of it." alt="" coords="541,86,754,111"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="359,31,597,83,596,89,358,36"/>
-<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="363,125,207,169,205,164,362,120"/>
-<area shape="rect" id="Node000005" href="$dd/de6/gena__device_8cpp.html" title="Manage GENA Devices." alt="" coords="269,167,432,207"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="414,130,373,168,369,164,410,126"/>
-<area shape="rect" id="Node000006" href="$d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html" title="Internal Web Server and functions to carry out operations of it." alt="" coords="456,167,616,207"/>
-<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="475,126,517,164,513,168,471,130"/>
-<area shape="rect" id="Node000007" href="$da/db2/ssdp__ctrlpt_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="640,167,788,207"/>
-<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="516,120,656,164,654,169,514,125"/>
-<area shape="rect" id="Node000010" href="$da/df5/ssdp__device_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="812,167,960,207"/>
-<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="530,116,800,164,813,167,812,172,799,169,529,121"/>
-<area shape="rect" id="Node000012" href="$d6/d92/soap__device_8cpp.html" title="Items for UPnP devices to manage UPnP Control." alt="" coords="984,167,1146,207"/>
-<area shape="poly" id="edge11_Node000004_Node000012" title=" " alt="" coords="530,116,656,132,754,140,851,148,973,164,985,166,984,171,973,169,850,154,753,146,655,138,529,121"/>
-<area shape="poly" id="edge8_Node000007_Node000002" title=" " alt="" coords="717,220,717,254,712,254,712,220"/>
-<area shape="poly" id="edge10_Node000010_Node000002" title=" " alt="" coords="834,215,741,257,739,252,832,210"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="276,42,159,168,155,165,272,39"/>
+<area shape="rect" id="Node000004" href="$d0/d19/ssdp__common_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification with SSDP." alt="" coords="276,79,424,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="312,40,339,77,334,80,308,43"/>
+<area shape="rect" id="Node000012" href="$d9/d36/Compa_2src_2inc_2webserver_8hpp.html" title="Internal Web Server and functions to carry out operations of it." alt="" coords="449,86,662,111"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="346,32,518,83,516,89,344,37"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="292,126,186,169,184,164,290,121"/>
+<area shape="rect" id="Node000005" href="$dd/de6/gena__device_8cpp.html" title="Manage GENA Devices." alt="" coords="269,167,431,207"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="353,133,353,166,347,166,347,133"/>
+<area shape="rect" id="Node000006" href="$da/db2/ssdp__ctrlpt_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for Control Points with SSDP." alt="" coords="456,167,604,207"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="403,122,492,164,489,169,400,127"/>
+<area shape="rect" id="Node000009" href="$da/df5/ssdp__device_8hpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="628,167,776,207"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="438,119,628,165,627,170,437,124"/>
+<area shape="rect" id="Node000011" href="$d6/d92/soap__device_8cpp.html" title="Items for UPnP devices to manage UPnP Control." alt="" coords="800,167,961,207"/>
+<area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="438,116,615,141,789,164,800,166,799,171,788,169,615,146,437,121"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="533,220,533,254,527,254,527,220"/>
+<area shape="poly" id="edge9_Node000009_Node000002" title=" " alt="" coords="649,215,556,257,554,252,647,210"/>
 </map>

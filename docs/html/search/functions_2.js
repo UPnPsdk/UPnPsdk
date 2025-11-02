@@ -40,5 +40,5 @@ var searchData=
   ['csocket_37',['csocket',['../d3/d5d/classUPnPsdk_1_1CSocket.html#a344fe194de361248e4add998b298a225',1,'UPnPsdk::CSocket::CSocket()'],['../d3/d5d/classUPnPsdk_1_1CSocket.html#a1932fc4b351967415d93a96d67b9c933',1,'UPnPsdk::CSocket::CSocket(CSocket &amp;&amp;)']]],
   ['csocket_5fbasic_38',['csocket_basic',['../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2899231a1217983bb210efe731a17343',1,'UPnPsdk::CSocket_basic::CSocket_basic()'],['../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a4e520f7e7786d3f22f50792db5cfc5dd',1,'UPnPsdk::CSocket_basic::CSocket_basic(SOCKET a_sfd)']]],
   ['cstrintmap_39',['CStrIntMap',['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#acfd23143aba9e99d30cb127ce7eef4a1',1,'UPnPsdk::CStrIntMap']]],
-  ['curi_40',['CUri',['../da/dcf/classUPnPsdk_1_1CUri.html#a08cbd9ba5551ad481f01146b96e0fb09',1,'UPnPsdk::CUri']]]
+  ['curi_40',['CUri',['../da/dcf/classUPnPsdk_1_1CUri.html#a59cfca6372a47747a819efd29069a988',1,'UPnPsdk::CUri']]]
 ];

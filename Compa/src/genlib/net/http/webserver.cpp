@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-18
+ * Redistribution only with this Copyright remark. Last modified: 2025-11-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -38,16 +38,15 @@
  */
 
 #include <webserver.hpp>
+
 #include <UpnpExtraHeaders.hpp>
 #include <UpnpIntTypes.hpp>
 #include <httpreadwrite.hpp>
-#include <ssdp_common.hpp>
 #include <statcodes.hpp>
 #include <upnpapi.hpp>
 
-#include <UPnPsdk/synclog.hpp>
-#include <UPnPsdk/port.hpp>
 #include <UPnPsdk/webserver.hpp>
+#include <UPnPsdk/uri.hpp>
 
 #include <umock/stdlib.hpp>
 #include <umock/stdio.hpp>
@@ -63,7 +62,6 @@
 /// \cond
 #include <cassert>
 #include <sys/stat.h>
-#include <iostream>
 /// \endcond
 
 
@@ -1040,7 +1038,6 @@ int process_request_in(
     int code;
     int err_code;
 
-    char* request_doc{nullptr};
     UpnpFileInfo* finfo;
     time_t aux_LastModified;
     bool alias_grabbed{false};
@@ -1067,7 +1064,8 @@ int process_request_in(
     /* */
     /* remove dots */
     /* */
-    request_doc = (char*)malloc(url->pathquery.size + 1);
+    std::string request_docObj;
+    char* request_doc = (char*)malloc(url->pathquery.size + 1);
     if (request_doc == NULL) {
         goto error_handler; /* out of mem */
     }
@@ -1075,11 +1073,10 @@ int process_request_in(
     request_doc[url->pathquery.size] = '\0';
     dummy = url->pathquery.size;
     remove_escaped_chars(request_doc, &dummy);
-    code = remove_dots(request_doc, url->pathquery.size);
-    if (code != 0) {
-        err_code = HTTP_FORBIDDEN;
-        goto error_handler;
-    }
+    request_docObj = std::string(request_doc, url->pathquery.size);
+    UPnPsdk::remove_dot_segments(request_docObj);
+    request_docObj.copy(request_doc, request_docObj.size());
+    request_doc[request_docObj.size()] = '\0';
     if (*request_doc != '/') {
         /* no slash */
         err_code = HTTP_BAD_REQUEST;

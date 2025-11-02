@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-10-01
+ * Redistribution only with this Copyright remark. Last modified: 2025-11-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -38,10 +38,8 @@
  */
 
 #include <membuffer.hpp>
-#include <UPnPsdk/visibility.hpp>
 
 /// \cond
-#include <cctype>
 #include <cstring>
 
 #ifndef _WIN32
@@ -237,33 +235,6 @@ int remove_escaped_chars(
     size_t* size);
 
 /*!
- * \brief Removes ".", and ".." from a path.
- *
- * The input IS modified in place. This function directly implements the
- * "Remove Dot Segments" algorithm described in
- * <a href="https://www.rfc-editor.org/rfc/rfc3986#section-5.2.4">RFC 3986
- * section 5.2.4.</a>. If it cannot find something to remove it just do nothing
- * with the input. This is also true for invalid paths.
- *
- * Examples:
-\code
-char path[30]=".../hello";
-remove_dots(path, strlen(path)); // results to ".../hello" (nothing done)
-char path[30]="/./hello";
-remove_dots(path, strlen(path)); // results to "/hello"
-char path[30]="/./hello/foo/../goodbye";
-remove_dots(path, strlen(path)); // results to "/hello/goodbye"
-\endcode
- * \returns
- *  Always UPNP_E_SUCCESS\n
- */
-int remove_dots(
-    /*! [in] String of characters from which "dots" have to be removed. */
-    char* buf,
-    /*! [in] Size limit for the number of characters. */
-    size_t size);
-
-/*!
  * \brief Resolves a relative url with a base url.
  *
  * - If the base_url is a \b nullptr, then a copy of the rel_url is passed back.
@@ -294,7 +265,8 @@ char* resolve_rel_url(
 
 /*!
  * \brief Parses a uri as defined in <a
- * href="http://www.ietf.org/rfc/rfc2396.txt"> RFC 2396 (explaining URIs)</a>.
+ * href="https://www.rfc-editor.org/rfc/rfc3986"> RFC 3986 (Uniform Resource
+ * Identifier)</a>.
  *
  * Handles absolute, relative, and opaque uris. Parses into the following
  * pieces: scheme, hostport, pathquery, fragment (host with port and path with

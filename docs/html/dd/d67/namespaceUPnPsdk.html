@@ -225,6 +225,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a6fe628907cafd576019aa9d1e3d88b87" id="r_a6fe628907cafd576019aa9d1e3d88b87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a6fe628907cafd576019aa9d1e3d88b87">errStrEx</a> (const int error, const int success)</td></tr>
 <tr class="memdesc:a6fe628907cafd576019aa9d1e3d88b87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get extended error name string.  <br /></td></tr>
 <tr class="separator:a6fe628907cafd576019aa9d1e3d88b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b4480819fde1cd38f31b41bedcdce06" id="r_a1b4480819fde1cd38f31b41bedcdce06"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a> (std::string &amp;a_path)</td></tr>
+<tr class="memdesc:a1b4480819fde1cd38f31b41bedcdce06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes ".", and ".." from a path.  <br /></td></tr>
+<tr class="separator:a1b4480819fde1cd38f31b41bedcdce06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab75e516bfffb3c259ea43971e3533ba7" id="r_ab75e516bfffb3c259ea43971e3533ba7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> const <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta">Document_meta</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7">select_filetype</a> (std::string_view a_extension)</td></tr>
 <tr class="memdesc:ab75e516bfffb3c259ea43971e3533ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Based on the extension, returns the content type and content subtype.  <br /></td></tr>
 <tr class="separator:ab75e516bfffb3c259ea43971e3533ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -496,6 +499,63 @@ Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a
 
 </div>
 </div>
+<a id="a1b4480819fde1cd38f31b41bedcdce06" name="a1b4480819fde1cd38f31b41bedcdce06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b4480819fde1cd38f31b41bedcdce06">&#9670;&#160;</a></span>remove_dot_segments()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UPnPsdk::remove_dot_segments </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>a_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes ".", and ".." from a path. </p>
+<p>This function directly implements the "Remove Dot Segments" algorithm described in <a href="https://www.rfc-editor.org/rfc/rfc3986#section-5.2.4">RFC 3986 section 5.2.4</a>. If it cannot find something to remove it just do nothing with the path.</p>
+<p>Examples: </p><div class="fragment"><div class="line"><a class="code hl_function" href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a>(<span class="stringliteral">&quot;/foo/./bar&quot;</span>); <span class="comment">// results to &quot;/foo/bar&quot;</span></div>
+<div class="line"><a class="code hl_function" href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a>(<span class="stringliteral">&quot;/foo/../bar&quot;</span>); <span class="comment">// results to &quot;/bar&quot;</span></div>
+<div class="line"><a class="code hl_function" href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a>(<span class="stringliteral">&quot;../bar&quot;</span>); <span class="comment">// results to &quot;bar&quot;</span></div>
+<div class="line"><a class="code hl_function" href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a>(<span class="stringliteral">&quot;./bar&quot;</span>); <span class="comment">// results to &quot;bar&quot;</span></div>
+<div class="line"><a class="code hl_function" href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a>(<span class="stringliteral">&quot;.../bar&quot;</span>); <span class="comment">// results to &quot;.../bar&quot; (do nothing)</span></div>
+<div class="line"><a class="code hl_function" href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a>(<span class="stringliteral">&quot;/./hello/foo/../bar&quot;</span>); <span class="comment">// results to &quot;/hello/bar&quot;</span></div>
+<div class="ttc" id="anamespaceUPnPsdk_html_a1b4480819fde1cd38f31b41bedcdce06"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">UPnPsdk::remove_dot_segments</a></div><div class="ttdeci">UPnPsdk_VIS void remove_dot_segments(std::string &amp;a_path)</div><div class="ttdoc">Removes &quot;.&quot;, and &quot;..&quot; from a path.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00040">uri.cpp:40</a></div></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">a_path</td><td>String representing a path with '/' separators and possible containing ".." or "." segments. The path is modified in place. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00040">40</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a1b4480819fde1cd38f31b41bedcdce06_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a1b4480819fde1cd38f31b41bedcdce06_icgraph" alt=""/></div>
+<map name="add/d67/namespaceUPnPsdk_a1b4480819fde1cd38f31b41bedcdce06_icgraph" id="add/d67/namespaceUPnPsdk_a1b4480819fde1cd38f31b41bedcdce06_icgraph">
+<area shape="rect" title="Removes &quot;.&quot;, and &quot;..&quot; from a path." alt="" coords="513,69,679,109"/>
+<area shape="rect" href="../../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a32492c6eefb0ece6d258b11586ad0a59" title="Process a remote request and return the result." alt="" coords="233,29,465,84"/>
+<area shape="poly" title=" " alt="" coords="499,79,465,74,466,69,500,74"/>
+<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356" title="Resolves a relative url with a base url." alt="" coords="290,108,409,133"/>
+<area shape="poly" title=" " alt="" coords="500,104,409,116,409,110,499,98"/>
+<area shape="poly" title=" " alt="" coords="390,18,376,11,349,8,327,10,313,15,307,21,307,29,302,29,302,19,310,10,326,5,349,3,377,6,393,14"/>
+<area shape="rect" href="../../d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a75316464db9843014fb2e2311ad6f0b4" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="5,29,185,84"/>
+<area shape="poly" title=" " alt="" coords="275,108,233,98,185,85,186,80,234,93,277,103"/>
+<area shape="rect" href="../../d3/d57/group__UPnPTools.html#ga480e7d0aa9565348e3a113c8c053762d" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="28,108,163,133"/>
+<area shape="poly" title=" " alt="" coords="276,123,163,123,163,118,276,118"/>
+<area shape="rect" href="../../d3/d57/group__UPnPTools.html#ga4a077ceca805a625c1e5cd58477627b8" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="24,157,167,183"/>
+<area shape="poly" title=" " alt="" coords="277,137,162,160,161,155,276,132"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ab75e516bfffb3c259ea43971e3533ba7" name="ab75e516bfffb3c259ea43971e3533ba7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab75e516bfffb3c259ea43971e3533ba7">&#9670;&#160;</a></span>select_filetype()</h2>
 
@@ -539,11 +599,11 @@ Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dd/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph" alt=""/></div>
 <map name="add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph" id="add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph">
 <area shape="rect" title="Based on the extension, returns the content type and content subtype." alt="" coords="592,44,775,69"/>

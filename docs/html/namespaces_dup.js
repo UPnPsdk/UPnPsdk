@@ -158,7 +158,6 @@ var namespaces_dup =
       [ "copy_token", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afda48d566eed98c513c1e4a235d729bf", null ],
       [ "parse_hostport", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b", null ],
       [ "parse_scheme", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9", null ],
-      [ "is_end_path", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a3ee49f49a4ad5c7d3058bb6e67d5ff7f", null ],
       [ "replace_escaped", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ac691b0446688d04178d570d2a251d7c2", null ]
     ] ],
     [ "anonymous_namespace{urlconfig.cpp}", "df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html", [

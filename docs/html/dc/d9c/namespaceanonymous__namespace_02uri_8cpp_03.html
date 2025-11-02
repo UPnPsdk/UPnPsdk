@@ -116,9 +116,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ab8f57212a00e026034f1864f0239bad9" id="r_ab8f57212a00e026034f1864f0239bad9"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9">parse_scheme</a> (const char *in, size_t max, <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *out)</td></tr>
 <tr class="memdesc:ab8f57212a00e026034f1864f0239bad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">parses a uri scheme starting at in[0].  <br /></td></tr>
 <tr class="separator:ab8f57212a00e026034f1864f0239bad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ee49f49a4ad5c7d3058bb6e67d5ff7f" id="r_a3ee49f49a4ad5c7d3058bb6e67d5ff7f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#a3ee49f49a4ad5c7d3058bb6e67d5ff7f">is_end_path</a> (char c)</td></tr>
-<tr class="memdesc:a3ee49f49a4ad5c7d3058bb6e67d5ff7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if end of a path.  <br /></td></tr>
-<tr class="separator:a3ee49f49a4ad5c7d3058bb6e67d5ff7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac691b0446688d04178d570d2a251d7c2" id="r_ac691b0446688d04178d570d2a251d7c2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ac691b0446688d04178d570d2a251d7c2">replace_escaped</a> (char *in, size_t index, size_t *max)</td></tr>
 <tr class="memdesc:ac691b0446688d04178d570d2a251d7c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces one single escaped character within a string with its unescaped version.  <br /></td></tr>
 <tr class="separator:ac691b0446688d04178d570d2a251d7c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,8 +154,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Parses a string of uric characters starting at in[0]. </p>
-<p>As defined in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396 (explaining URIs)</a>.</p>
-<dl class="section return"><dt>Returns</dt><dd>Number of parsed character in <b>out</b>, same as out-&gt;size. </dd></dl>
+<p>As defined in <a href="https://www.rfc-editor.org/rfc/rfc3986#section-2">RFC 2396 (Uniform Resource Identifier (URI))</a>.</p>
+<dl class="section return"><dt>Returns</dt><dd>On success: Number of parsed character in <b>out</b>, same as out-&gt;size.<br  />
+ On error: <b>0</b>, does not accept URI with unspecified character. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">in</td><td>String of characters.  </td></tr>
@@ -168,7 +166,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00182">182</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00075">75</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -177,7 +175,7 @@ Functions</h2></td></tr>
 <div class="center"><img src="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ab0786f41a45f36864383bcca2f4f2658_icgraph.png" border="0" usemap="#adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ab0786f41a45f36864383bcca2f4f2658_icgraph" alt=""/></div>
 <map name="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ab0786f41a45f36864383bcca2f4f2658_icgraph" id="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ab0786f41a45f36864383bcca2f4f2658_icgraph">
 <area shape="rect" title="Parses a string of uric characters starting at in[0]." alt="" coords="383,239,563,279"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="252,247,335,272"/>
+<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="252,247,335,272"/>
 <area shape="poly" title=" " alt="" coords="369,262,335,262,335,257,369,257"/>
 <area shape="rect" href="../../df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0" title="Configure the description document." alt="" coords="15,5,195,60"/>
 <area shape="poly" title=" " alt="" coords="284,234,273,198,257,155,233,111,202,73,188,62,191,58,206,69,238,108,262,153,278,196,289,232"/>
@@ -260,7 +258,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00225">225</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00119">119</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -326,7 +324,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00251">251</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00145">145</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -335,7 +333,7 @@ Functions</h2></td></tr>
 <div class="center"><img src="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_afb6a0fce453e470360da2b0d0d5f8a8b_icgraph.png" border="0" usemap="#adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_afb6a0fce453e470360da2b0d0d5f8a8b_icgraph" alt=""/></div>
 <map name="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_afb6a0fce453e470360da2b0d0d5f8a8b_icgraph" id="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_afb6a0fce453e470360da2b0d0d5f8a8b_icgraph">
 <area shape="rect" title="Parses a string with host and port and fills a hostport structure." alt="" coords="383,239,573,279"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="252,247,335,272"/>
+<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="252,247,335,272"/>
 <area shape="poly" title=" " alt="" coords="369,262,335,262,335,257,369,257"/>
 <area shape="rect" href="../../df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0" title="Configure the description document." alt="" coords="15,5,195,60"/>
 <area shape="poly" title=" " alt="" coords="284,234,273,198,257,155,233,111,202,73,188,62,191,58,206,69,238,108,262,153,278,196,289,232"/>
@@ -407,7 +405,7 @@ REF: <a href="http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaqu
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00405">405</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00299">299</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -416,7 +414,7 @@ REF: <a href="http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaqu
 <div class="center"><img src="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ab8f57212a00e026034f1864f0239bad9_icgraph.png" border="0" usemap="#adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ab8f57212a00e026034f1864f0239bad9_icgraph" alt=""/></div>
 <map name="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ab8f57212a00e026034f1864f0239bad9_icgraph" id="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ab8f57212a00e026034f1864f0239bad9_icgraph">
 <area shape="rect" title="parses a uri scheme starting at in[0]." alt="" coords="383,239,571,279"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 2396 (explaining URIs)." alt="" coords="252,247,335,272"/>
+<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="252,247,335,272"/>
 <area shape="poly" title=" " alt="" coords="369,262,335,262,335,257,369,257"/>
 <area shape="rect" href="../../df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0" title="Configure the description document." alt="" coords="15,5,195,60"/>
 <area shape="poly" title=" " alt="" coords="284,234,273,198,257,155,233,111,202,73,188,62,191,58,206,69,238,108,262,153,278,196,289,232"/>
@@ -436,53 +434,6 @@ REF: <a href="http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaqu
 <area shape="poly" title=" " alt="" coords="288,286,277,318,261,357,237,395,206,428,186,440,165,447,163,442,184,435,202,424,233,392,256,354,272,316,283,284"/>
 <area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="5,489,204,529"/>
 <area shape="poly" title=" " alt="" coords="291,286,283,327,267,379,242,431,225,456,206,477,187,491,184,486,202,473,221,452,237,429,262,377,277,326,286,285"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a3ee49f49a4ad5c7d3058bb6e67d5ff7f" name="a3ee49f49a4ad5c7d3058bb6e67d5ff7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ee49f49a4ad5c7d3058bb6e67d5ff7f">&#9670;&#160;</a></span>is_end_path()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int anonymous_namespace{uri.cpp}::is_end_path </td>
-          <td>(</td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>c</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Check if end of a path. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00437">437</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_a3ee49f49a4ad5c7d3058bb6e67d5ff7f_icgraph.png" border="0" usemap="#adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_a3ee49f49a4ad5c7d3058bb6e67d5ff7f_icgraph" alt=""/></div>
-<map name="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_a3ee49f49a4ad5c7d3058bb6e67d5ff7f_icgraph" id="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_a3ee49f49a4ad5c7d3058bb6e67d5ff7f_icgraph">
-<area shape="rect" title="Check if end of a path." alt="" coords="440,69,620,109"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a259b5aed5805a1f66475a483a201f587" title="Removes &quot;.&quot;, and &quot;..&quot; from a path." alt="" coords="285,76,392,101"/>
-<area shape="poly" title=" " alt="" coords="427,91,392,91,392,86,427,86"/>
-<area shape="rect" href="../../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a32492c6eefb0ece6d258b11586ad0a59" title="Process a remote request and return the result." alt="" coords="5,29,237,84"/>
-<area shape="poly" title=" " alt="" coords="271,81,237,76,238,71,272,76"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356" title="Resolves a relative url with a base url." alt="" coords="62,108,181,133"/>
-<area shape="poly" title=" " alt="" coords="272,101,181,115,180,109,271,96"/>
-<area shape="poly" title=" " alt="" coords="157,18,144,11,121,8,102,10,90,15,84,21,84,29,79,29,79,19,87,10,101,5,121,3,146,6,160,14"/>
 </map>
 </div>
 
@@ -534,12 +485,12 @@ REF: <a href="http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaqu
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00465">465</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00348">348</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ac691b0446688d04178d570d2a251d7c2_icgraph.png" border="0" usemap="#adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ac691b0446688d04178d570d2a251d7c2_icgraph" alt=""/></div>
 <map name="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ac691b0446688d04178d570d2a251d7c2_icgraph" id="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ac691b0446688d04178d570d2a251d7c2_icgraph">
 <area shape="rect" title="Replaces one single escaped character within a string with its unescaped version." alt="" coords="508,29,688,84"/>

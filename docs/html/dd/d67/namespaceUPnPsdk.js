@@ -61,6 +61,7 @@ var namespaceUPnPsdk =
     [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],
     [ "errStr", "dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588", null ],
     [ "errStrEx", "dd/d67/namespaceUPnPsdk.html#a6fe628907cafd576019aa9d1e3d88b87", null ],
+    [ "remove_dot_segments", "dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06", null ],
     [ "select_filetype", "dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7", null ],
     [ "g_dbug", "dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e", null ]
 ];

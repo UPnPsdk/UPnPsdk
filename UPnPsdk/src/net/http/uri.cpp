@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-10-30
+// Redistribution only with this Copyright remark. Last modified: 2025-11-08
 /*!
  * \file
  */
@@ -33,6 +33,68 @@ bool is_dns_name(const std::string& label) {
 }
 
 } // anonymous namespace
+
+
+// Free functions
+// ==============
+void remove_dot_segments(std::string& a_path) {
+    // The letters (A., B., ...) are the steps as given by the algorithm in
+    // RFC3986_5.2.4.
+    TRACE("Executing UPnPsdk::remove_dot_segments(\"" + a_path + "\")")
+
+    std::string_view path_sv{a_path};
+    std::string output;
+
+    while (!path_sv.empty()) {
+        // A.
+        if (path_sv.substr(0, 3) == "../") {
+            path_sv.remove_prefix(3);
+        } else if (path_sv.substr(0, 2) == "./") {
+            path_sv.remove_prefix(2);
+        }
+        // B.
+        else if (path_sv.substr(0, 3) == "/./") {
+            path_sv.remove_prefix(2);
+        } else if (path_sv == "/.") {
+            path_sv.remove_suffix(1);
+        }
+        // C.
+        else if (path_sv.substr(0, 4) == "/../") {
+            path_sv.remove_prefix(3);
+            if (!output.empty()) {
+                size_t pos;
+                output.erase((pos = output.find_last_of('/')) ==
+                                     std::string::npos
+                                 ? 0
+                                 : pos); // Remove last segment
+            }
+        } else if (path_sv == "/..") {
+            path_sv.remove_suffix(2);
+            if (!output.empty()) {
+                size_t pos;
+                output.erase((pos = output.find_last_of('/')) ==
+                                     std::string::npos
+                                 ? 0
+                                 : pos); // Remove last segment
+            }
+        }
+        // D.
+        else if (path_sv == "." || path_sv == "..") {
+            path_sv = "";
+        }
+        // E.
+        else {
+            size_t start = path_sv.front() == '/' ? 1 : 0;
+            size_t end = path_sv.find_first_of('/', start);
+            if (end == std::string_view::npos)
+                end = path_sv.size();
+            output += path_sv.substr(0, end);
+            path_sv.remove_prefix(end);
+        }
+    }
+
+    a_path = output;
+}
 
 
 // CUri::CComponent
@@ -95,7 +157,7 @@ void CUri::CScheme::construct_from(std::string_view a_uri_stv) {
     a_uri_stv.remove_suffix(a_uri_stv.size() - pos);
 
     // Check if the scheme has valid character and normalize it to lower case
-    // character (RFC3986_3.1.).
+    // character (RFC3986_3.1., RFC3986_6.2.2.1).
     m_state = STATE::undef;
     m_component = a_uri_stv;
     bool error{false};
@@ -317,7 +379,7 @@ void CUri::CAuthority::CHost::construct_from(std::string_view a_scheme_stv,
 
     m_state = STATE::undef;
     m_component = authority_stv;
-    // Normalize host to lower case character (RFC3986 3.2.2.).
+    // Normalize host to lower case character (RFC3986_3.2.2.).
     for (auto it{m_component.begin()}; it < m_component.end(); it++)
         *it = static_cast<char>(std::tolower(static_cast<unsigned char>(*it)));
 
@@ -408,7 +470,7 @@ CUri::CPath::~CPath() {
     TRACE2(this, " Destruct CUri::CPath()") //
 }
 
-void CUri::CPath::construct_from(std::string_view a_uri_stv) {
+void CUri::CPath::construct_from(std::string_view a_uri_sv) {
     // This should be called only one time from a constructor.
 
     // If a URI contains an authority component, then the path component must
@@ -421,28 +483,28 @@ void CUri::CPath::construct_from(std::string_view a_uri_stv) {
     // In addition, a URI reference may be a relative-path reference, in which
     // case the first path segment cannot contain a colon (":") character
     // (RFC3986_3.3.).
-    TRACE2(this, " Executing CUri::CPath::construct_from(a_uri_stv)")
+    TRACE2(this, " Executing CUri::CPath::construct_from(a_uri_sv)")
 
     // Remove prefix and suffix from the uri string_view that can contain
     // slashes do not belonging to the path.
     auto& npos = std::string_view::npos;
     size_t pos;
-    if ((pos = a_uri_stv.find("//")) != npos)
-        a_uri_stv.remove_prefix(pos + 2);
-    if ((pos = a_uri_stv.find_first_of("?#")) != npos)
-        a_uri_stv.remove_suffix(a_uri_stv.size() - pos);
+    if ((pos = a_uri_sv.find("//")) != npos)
+        a_uri_sv.remove_prefix(pos + 2);
+    if ((pos = a_uri_sv.find_first_of("?#")) != npos)
+        a_uri_sv.remove_suffix(a_uri_sv.size() - pos);
 
     // Here we have a uri artifact that contains the path component with
-    // slashes only belonging to it. Look for it.
-    if ((pos = a_uri_stv.find_first_of("/")) == npos) {
+    // slashes only belonging to it. Looking for it.
+    if ((pos = a_uri_sv.find_first_of("/")) == npos) {
         // No '/' found. That means there is an empty path componnent.
         m_component.clear();
         m_state = STATE::empty;
         return;
     }
     // Strip all before path begin.
-    a_uri_stv.remove_prefix(pos + 1);
-    if (a_uri_stv.empty()) {
+    a_uri_sv.remove_prefix(pos);
+    if (a_uri_sv == "/") {
         m_component.clear();
         m_state = STATE::empty;
         return;
@@ -450,7 +512,10 @@ void CUri::CPath::construct_from(std::string_view a_uri_stv) {
 
     // There is nothing to strip behind the path component (query and/or
     // fragment component). That's already done above.
-    m_component = a_uri_stv;
+    m_component = a_uri_sv;
+    // Normalize by removing dot segments in place.
+    remove_dot_segments(m_component);
+
     m_state = STATE::avail;
 }
 
@@ -540,29 +605,59 @@ void CUri::CFragment::construct_from(std::string_view a_uri_stv) {
 
 // CUri
 // =====================================
-// This class is based on At first step this class supports only scheme 'http',
-// 'https', and 'file'. All of the requirements for the "http" scheme are also
-// requirements for the "https" scheme, except that TCP port 443 is the default
-// (RFC7230 2.7.2.). The 'file' scheme defines in addition a default 'authority'
-// komponent of
-
 // Constructor
 CUri::CUri(){
     TRACE2(this, " Construct CUri()") //
 }
 
 // Constructor with setting the URI
-CUri::CUri(const std::string a_uri_str) {
+CUri::CUri(std::string a_uri_str) {
     // It is important that the argument 'a_uri_str' is given by value. So
     // it is coppied to the stack and constant available for the live time
-    // of this function and can be used as stable base for string_views.
+    // of the constructor and can be used as stable base for string_views.
     TRACE2(this, " Construct CUri(\"" + a_uri_str + "\")")
+
+    // Normalize percent encoded character to upper case hex digits
+    // (RFC3986_2.1.).
+    auto it{a_uri_str.begin()};
+    auto it_end{a_uri_str.end()};
+    // clang-format off
+    // First check begin and end of the URI for invalid encoded character.
+    if (!a_uri_str.empty() &&
+        ( /*begin*/ (a_uri_str.size() <  3 && *it == '%') ||
+          /*end*/   (a_uri_str.size() >= 3 && (*(it_end - 2) == '%' || *(it_end - 1) == '%'))))
+        goto except;
+    // clang-format on
+
+    // Then parse the URI to set upper case hex digits.
+    for (; it < it_end; it++) {
+        if (static_cast<unsigned char>(*it) == '%') {
+            it++;
+            if (!std::isxdigit(static_cast<unsigned char>(*it)))
+                goto except;
+            *it = static_cast<char>(
+                std::toupper(static_cast<unsigned char>(*it)));
+            it++;
+            if (!std::isxdigit(static_cast<unsigned char>(*it)))
+                goto except;
+            *it = static_cast<char>(
+                std::toupper(static_cast<unsigned char>(*it)));
+        }
+    }
 
     this->scheme.construct_from(a_uri_str);
     this->authority.construct_from(scheme.str(), a_uri_str);
     this->path.construct_from(a_uri_str);
     this->query.construct_from(a_uri_str);
     this->fragment.construct_from(a_uri_str);
+
+    return;
+
+except:
+    throw std::invalid_argument(
+        UPnPsdk_LOGEXCEPT(
+            "MSG1165") "URI with invalid percent encoding, failed URI=\"" +
+        a_uri_str + "\".\n");
 }
 
 // Destructor
@@ -575,7 +670,7 @@ std::string CUri::str() const {
     return (scheme.str() + ':' +
             (authority.state() == STATE::undef ? "" : "//") +
             (authority.state() == STATE::avail ? authority.str() : "") +
-            (path.state() == STATE::undef ? "" : "/") +
+            (path.state() == STATE::empty ? "/" : "") +
             (path.state() == STATE::avail ? path.str() : "") +
             (query.state() == STATE::undef ? "" : "?") +
             (query.state() == STATE::avail ? query.str() : "") +

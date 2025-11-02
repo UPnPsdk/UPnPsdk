@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_URI_HPP
 #define UPnPsdk_URI_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-10-29
+// Redistribution only with this Copyright remark. Last modified: 2025-11-08
 /*!
  * \file
  * \brief Provide the uri class with its 5 components scheme, authority, path,
@@ -17,8 +17,47 @@
 
 namespace UPnPsdk {
 
+// Free functions
+// ==============
+/*!
+ * \brief Removes ".", and ".." from a path.
+ *
+ * This function directly implements the "Remove Dot Segments" algorithm
+ * described in <a
+ * href="https://www.rfc-editor.org/rfc/rfc3986#section-5.2.4">RFC 3986 section
+ * 5.2.4</a>. If it cannot find something to remove it just do nothing with
+ * the path.
+ *
+ * Examples:
+\code
+remove_dot_segments("/foo/./bar"); // results to "/foo/bar"
+remove_dot_segments("/foo/../bar"); // results to "/bar"
+remove_dot_segments("../bar"); // results to "bar"
+remove_dot_segments("./bar"); // results to "bar"
+remove_dot_segments(".../bar"); // results to ".../bar" (do nothing)
+remove_dot_segments("/./hello/foo/../bar"); // results to "/hello/bar"
+\endcode
+ */
+UPnPsdk_VIS void remove_dot_segments(
+    /*! [in,out] String representing a path with '/' separators and possible
+       containing ".." or "." segments. The path is modified in place. */
+    std::string& a_path);
+
+
+// CUri class
+// ==========
 /*!
  * \brief Provides a Uniform Resource Identifier (URI) and its components
+ *
+ * This class is based on <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC
+ * 3986 - Uniform Resource Identifier (URI): Generic Syntax</a>. For now it
+ * supports only scheme 'http', 'https', and 'file' as used by this SDK but may
+ * be improved if needed. All of the requirements for the "http" scheme are
+ * also requirements for the "https" scheme, except that TCP port 443 is the
+ * default instead of TCP port 80 (RFC7230 2.7.2.). The 'file' scheme permits
+ * in addition an empty 'authority' component ("file:///") that defaults to
+ * "localhost".
+ *
  * \exception std::invalid_argument if the URI string to set the object is ill
  * formed. Then the state of the URI object is undefined. You cannot expect
  * valid content, not even empty one.
@@ -91,6 +130,7 @@ class UPnPsdk_VIS CUri {
           public:
             CUserinfo();
             virtual ~CUserinfo();
+            // Next should be called only one time from a constructor.
             void construct_from(std::string_view a_authority);
         };
 
@@ -101,6 +141,7 @@ class UPnPsdk_VIS CUri {
           public:
             CHost();
             virtual ~CHost();
+            // Next should be called only one time from a constructor.
             void construct_from(std::string_view a_scheme_stv,
                                 std::string_view a_authority_stv);
         };
@@ -112,6 +153,7 @@ class UPnPsdk_VIS CUri {
           public:
             CPort();
             virtual ~CPort();
+            // Next should be called only one time from a constructor.
             void construct_from(std::string_view a_authority_stv);
         };
 
@@ -180,7 +222,7 @@ class UPnPsdk_VIS CUri {
         /// [in] String with a possible URI
         // Getting this string by value to have it on the stack to be more
         // thread safe and usable with string_views.
-        const std::string a_uri_str);
+        std::string a_uri_str);
 
     // Destructor
     // ----------

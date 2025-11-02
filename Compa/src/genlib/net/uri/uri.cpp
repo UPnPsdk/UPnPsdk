@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-10-31
+ * Redistribution only with this Copyright remark. Last modified: 2025-11-08
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,15 +39,13 @@
 #include <upnp.hpp>
 #include <uri.hpp>
 
-#include <UPnPsdk/port_sock.hpp>
+#include <UPnPsdk/uri.hpp>
 #include <umock/netdb.hpp>
 
 /// \cond
-#include <cassert>
 #include <cstdio> // Needed if OpenSSL isn't compiled in.
 #include <climits>
 #include <vector>
-#include <string_view>
 /// \endcond
 
 UPnPsdk_EXTERN unsigned gIF_INDEX;
@@ -64,120 +62,15 @@ namespace {
  * @{
  */
 
-#if 0
-/*!
- * \brief Check for a RESERVED character.
- *
- * Returns a 1 if a char is a RESERVED char as defined in
- * <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396 (explaining URIs)</a>.
- * Added {} for compatibility.
- *
- * \returns 1 if char is a RESERVED char, otherwise 0.
- */
-int is_reserved(
-    /*! [in] Char to be matched for RESERVED characters. */
-    const unsigned char in) {
-    if (strchr(";/?:@&=+$,{}", in)) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-/*!
- * \brief Check for a MARK character.
- *
- * As defined in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396
- * (explaining URIs)</a> this are a limited set of punctuation marks and
- * symbols: '-', '_', '.', '!', '~', '*', ''', '(', ')'.
- *
- * \returns 1 if char is a MARKED char, otherwise 0.
- */
-int is_mark(
-    /*! [in] Char to be matched for MARK characters. */
-    const unsigned char in) {
-    if (strchr("-_.!~*'()", in)) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-/*!
- * \brief Check for an UNRESERVED character.
- *
- * Returns a 1 if a char is an UNRESERVED char as defined in
- * <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396 (explaining URIs)</a>.
- *
- * \return 1 if char is a UNRESERVED char, otherwise 0.
- */
-int is_unreserved(
-    /*! [in] Char to be matched for UNRESERVED characters. */
-    const unsigned char in) {
-    if (isalnum(in) || is_mark(in)) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-/*!
- * \brief Check that a char[3] sequence is ESCAPED.
- *
- * Returns a 1 if a char[3] sequence is ESCAPED as defined in
- * <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396 (explaining URIs)</a>.
- *
- * \returns 1 if char is a ESCAPED char, otherwise 0.
- */
-int is_escaped(
-    /*! [in] Char sequence to be matched for ESCAPED characters. */
-    const unsigned char* in) {
-    if (in == nullptr)
-        return 0;
-    if (in[0] == '%' && isxdigit(in[1]) && isxdigit(in[2])) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
 /*!
  * \brief Parses a string of uric characters starting at in[0].
  *
- * As defined in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396
- * (explaining URIs)</a>.
+ * As defined in <a href="https://www.rfc-editor.org/rfc/rfc3986#section-2">RFC
+ * 2396 (Uniform Resource Identifier (URI))</a>.
  *
- * \returns Number of parsed character in **out**, same as out->size.
- */
-size_t parse_uric(
-    /*! [in] String of characters. */
-    const char* in,
-    /*! [in] Maximum limit. */
-    size_t max,
-    /*! [out] Token object where the string of characters is copied. */
-    token* out) {
-    size_t i{};
-
-    while (i < max &&
-           (is_unreserved(static_cast<unsigned char>(in[i])) ||
-            is_reserved(static_cast<unsigned char>(in[i])) ||
-            (/*only '%' remains unchecked*/ (i + 2u < max) &&
-             is_escaped(reinterpret_cast<const unsigned char*>(&in[i]))))) {
-        i++;
-    }
-
-    out->size = i;
-    out->buff = in;
-    return i;
-}
-#else
-/*!
- * \brief Parses a string of uric characters starting at in[0].
- *
- * As defined in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396
- * (explaining URIs)</a>.
- *
- * \returns Number of parsed character in **out**, same as out->size.
+ * \returns
+ *  On success: Number of parsed character in **out**, same as out->size.\n
+ *  On error: **0**, does not accept URI with unspecified character.
  */
 size_t parse_uric(
     /*! [in] String of characters. */
@@ -187,24 +80,26 @@ size_t parse_uric(
     /*! [out] Token object where the string of characters is copied. */
     token* out) {
     std::string_view in_sv(in, max);
-    constexpr std::string_view uric_special_sv{
-        /*reserved*/ ";/?:@&=+$,{}" /*mark*/ "-_.!~*'()"};
+
+    // clang-format off
+    // Valid characters due to RFC_3986_2.:
+    constexpr std::string_view sub_valid_chars_sv{
+        /*reserved = gen-delims*/ ":/?#[]@" /* / sub-delims*/ "!$&'()*+,;="
+        /*unreserved = ALPHA / DIGIT / */ "-._~"};
+    // clang-format on
 
     auto& npos = std::string_view::npos;
     for (auto it{in_sv.begin()}; it < in_sv.end(); it++) {
-        if (!(/*unreserved*/ std::isalnum(static_cast<unsigned char>(*it)) ||
-              /*reserved+mark*/ uric_special_sv.find_first_of(*it) != npos ||
+        if (!(std::isalnum(static_cast<unsigned char>(*it)) ||
+              sub_valid_chars_sv.find_first_of(*it) != npos ||
               (/*only '%' remains unchecked*/ *it == '%' &&
                it + 2 < in_sv.end() &&
                isxdigit(static_cast<unsigned char>(*++it)) &&
                isxdigit(static_cast<unsigned char>(*++it))))) {
 
-            std::string_view out_sv(in_sv.begin(), it);
-            out->size = out_sv.size();
-            out->buff = out_sv.data();
-            // out->size = 0;
-            // out->buff = nullptr;
-            return out_sv.size();
+            out->size = 0;
+            out->buff = nullptr;
+            return 0;
         }
     }
 
@@ -212,7 +107,6 @@ size_t parse_uric(
     out->buff = in_sv.data();
     return in_sv.size();
 }
-#endif
 
 
 /*!
@@ -433,17 +327,6 @@ size_t parse_scheme(
     return (size_t)0;
 }
 
-/// \brief Check if end of a path.
-inline int is_end_path(char c) {
-    switch (c) {
-    case '?':
-    case '#':
-    case '\0':
-        return 1;
-    }
-    return 0;
-}
-
 
 /*!
  * \brief Replaces one single escaped character within a string with its
@@ -516,27 +399,27 @@ int create_url_list(memptr* a_url_list, URL_list* a_out) {
     }
 
     // Verify correct delimiter '<', '><', and '>'.
-    std::string_view urls_str(a_url_list->buf, a_url_list->length);
+    std::string_view urls_sv(a_url_list->buf, a_url_list->length);
     // Without any delimiter it is assumed to be just a single url...
-    if (urls_str.find_first_of("<>") != std::string_view::npos) {
+    if (urls_sv.find_first_of("<>") != std::string_view::npos) {
         // ...otherwise delimiter must be checked.
-        if (urls_str.front() == '<')
-            urls_str.remove_prefix(1);
+        if (urls_sv.front() == '<')
+            urls_sv.remove_prefix(1);
         else
             return UPNP_E_INVALID_URL;
-        if (urls_str.back() == '\0')
-            urls_str.remove_suffix(1);
-        if (urls_str.back() == '>')
-            urls_str.remove_suffix(1);
+        if (urls_sv.back() == '\0')
+            urls_sv.remove_suffix(1);
+        if (urls_sv.back() == '>')
+            urls_sv.remove_suffix(1);
         else
             return UPNP_E_INVALID_URL;
-        for (size_t i{0}; i < urls_str.size(); i++) {
-            if (urls_str[i] == '>') {
-                if (urls_str[i + 1] == '<')
+        for (size_t i{0}; i < urls_sv.size(); i++) {
+            if (urls_sv[i] == '>') {
+                if (urls_sv[i + 1] == '<')
                     i++;
                 else
                     return UPNP_E_INVALID_URL;
-            } else if (urls_str[i] == '<') {
+            } else if (urls_sv[i] == '<') {
                 return UPNP_E_INVALID_URL;
             }
         } // for
@@ -565,7 +448,7 @@ int create_url_list(memptr* a_url_list, URL_list* a_out) {
 
             // parse_uri
             int return_code = parse_uri(
-                &base_urls[i + 1], base_urls_length - i - 1, &splitted_url);
+                &base_urls[i + 1], base_urls_length - i - 2, &splitted_url);
 
             if (return_code == HTTP_SUCCESS &&
                 splitted_url.hostport.text.size != 0) {
@@ -711,83 +594,15 @@ int token_cmp(token* in1, token* in2) {
 
 int remove_escaped_chars(char* in, size_t* size) {
     /// \todo Optimize with prechecking the delimiter '\%'.
+    // REF:_[A_practical_guide_to_URI_encoding_and_URI_decoding](ttps://qqq.is/research/a-practical-guide-to-URI-encoding-and-URI-decoding)
     if (in != nullptr && size != nullptr) {
-        size_t i = 0u;
-
-        for (i = 0u; i < *size; i++) {
+        for (size_t i{0u}; i < *size; i++) {
             replace_escaped(in, i, size);
         }
     }
     return UPNP_E_SUCCESS;
 }
 
-
-int remove_dots(char* buf, size_t size) {
-    char* in = buf;
-    char* out = buf;
-    char* max = buf + size;
-
-    while (!is_end_path(in[0])) {
-        assert(buf <= out);
-        assert(out <= in);
-        assert(in < max);
-
-        /* case 2.A: */
-        if (strncmp(in, "./", 2) == 0) {
-            in += 2;
-        } else if (strncmp(in, "../", 3) == 0) {
-            in += 3;
-            /* case 2.B: */
-        } else if (strncmp(in, "/./", 3) == 0) {
-            in += 2;
-        } else if (strncmp(in, "/.", 2) == 0 && is_end_path(in[2])) {
-            in += 1;
-            in[0] = '/';
-            /* case 2.C: */
-        } else if (strncmp(in, "/../", 4) == 0 ||
-                   (strncmp(in, "/..", 3) == 0 && is_end_path(in[3]))) {
-            /* Make the next character in the input buffer a '/': */
-            if (is_end_path(in[3])) { /* terminating "/.." case */
-                in += 2;
-                in[0] = '/';
-            } else { /* "/../" prefix case */
-                in += 3;
-            }
-            /* Trim the last component from the output buffer, or
-             * empty it. */
-            while (buf < out)
-                if (*--out == '/')
-                    break;
-#ifdef DEBUG
-            if (out < in)
-                out[0] = '\0';
-#endif
-            /* case 2.D: */
-        } else if (strncmp(in, ".", 1) == 0 && is_end_path(in[1])) {
-            in += 1;
-        } else if (strncmp(in, "..", 2) == 0 && is_end_path(in[2])) {
-            in += 2;
-            /* case 2.E */
-        } else {
-            /* move initial '/' character (if any) */
-            if (in[0] == '/')
-                *out++ = *in++;
-            /* move first segment up to, but not including, the next
-             * '/' character */
-            while (in < max && in[0] != '/' && !is_end_path(in[0]))
-                *out++ = *in++;
-#ifdef DEBUG
-            if (out < in)
-                out[0] = '\0';
-#endif
-        }
-    }
-    while (in < max)
-        *out++ = *in++;
-    if (out < max)
-        out[0] = '\0';
-    return UPNP_E_SUCCESS;
-}
 
 char* resolve_rel_url(char* base_url, char* rel_url) {
     uri_type base;
@@ -801,6 +616,7 @@ char* resolve_rel_url(char* base_url, char* rel_url) {
     char* path;
     size_t i;
     size_t prefix;
+    std::string pathObj;
 
     if (!base_url && !rel_url)
         return nullptr;
@@ -907,8 +723,10 @@ char* resolve_rel_url(char* base_url, char* rel_url) {
     out_finger += rv;
     len -= (size_t)rv;
 
-    if (remove_dots(path, (size_t)(out_finger - path)) != UPNP_E_SUCCESS)
-        goto error;
+    pathObj = std::string(path, (size_t)(out_finger - path));
+    UPnPsdk::remove_dot_segments(pathObj);
+    pathObj.copy(path, pathObj.size());
+    path[pathObj.size()] = '\0';
 
     return out;
 
@@ -946,8 +764,14 @@ int parse_uri(const char* in, size_t max, uri_type* out) {
         memset(&out->hostport, 0, sizeof(out->hostport));
         begin_path = static_cast<int>(begin_hostport);
     }
+
+    std::string_view in_sv(in, max);
+    size_t pos;
+    if ((pos = in_sv.find_last_of('#')) == std::string_view::npos)
+        pos = max;
+
     size_t begin_fragment =
-        parse_uric(&in[begin_path], max - static_cast<size_t>(begin_path),
+        parse_uric(&in[begin_path], pos - static_cast<size_t>(begin_path),
                    &out->pathquery) +
         static_cast<size_t>(begin_path);
     if (out->pathquery.size && out->pathquery.buff[0] == '/') {
