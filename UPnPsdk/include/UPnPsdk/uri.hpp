@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_URI_HPP
 #define UPnPsdk_URI_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-11-08
+// Redistribution only with this Copyright remark. Last modified: 2025-11-16
 /*!
  * \file
  * \brief Provide the uri class with its 5 components scheme, authority, path,
@@ -96,9 +96,6 @@ class UPnPsdk_VIS CUri {
         std::string& str() const;
 
       protected:
-        // m_state is STATE::undef: m_component may have any undefined content.
-        //            STATE::empty: m_component.empty() == true.
-        //            STATE::avail: m_component is available (valid content).
         // This is only set by the constructor and then constant. That's why I
         // declare it mutable. Getter CComponent::str() (see above) for extern
         // access is declared const.
@@ -110,6 +107,13 @@ class UPnPsdk_VIS CUri {
 
     // CUri::CScheme
     // =============
+    /*!
+     * \brief Parse scheme component of a URI reference
+     *
+     * All of the requirements for the "http" scheme are also requirements for
+     * the "https" scheme, except that TCP port 443 is the default instead port
+     * 80 for "http" (RFC7230 2.7.2.).
+     */
     class UPnPsdk_VIS CScheme : public CComponent {
       public:
         CScheme();
@@ -142,8 +146,7 @@ class UPnPsdk_VIS CUri {
             CHost();
             virtual ~CHost();
             // Next should be called only one time from a constructor.
-            void construct_from(std::string_view a_scheme_stv,
-                                std::string_view a_authority_stv);
+            void construct_from(std::string_view a_authority_sv);
         };
 
 
@@ -154,7 +157,7 @@ class UPnPsdk_VIS CUri {
             CPort();
             virtual ~CPort();
             // Next should be called only one time from a constructor.
-            void construct_from(std::string_view a_authority_stv);
+            void construct_from(std::string_view a_authority_sv);
         };
 
 
@@ -162,8 +165,9 @@ class UPnPsdk_VIS CUri {
         CAuthority();
         virtual ~CAuthority();
         // Next should be called only one time from a constructor.
-        void construct_from(std::string_view a_scheme_stv,
-                            std::string_view a_uri_stv);
+        void construct_from(std::string_view a_uri_sv);
+        void construct_scheme_file_from(std::string_view a_uri_sv);
+
         STATE state() const;
         std::string str() const;
 
@@ -183,7 +187,7 @@ class UPnPsdk_VIS CUri {
         CPath();
         virtual ~CPath();
         // Next should be called only one time from a constructor.
-        void construct_from(std::string_view a_uri_stv);
+        void construct_from(std::string_view a_uri_sv);
     };
 
 
@@ -194,7 +198,7 @@ class UPnPsdk_VIS CUri {
         CQuery();
         virtual ~CQuery();
         // Next should be called only one time from a constructor.
-        void construct_from(std::string_view a_uri_stv);
+        void construct_from(std::string_view a_uri_sv);
     };
 
 
@@ -205,7 +209,7 @@ class UPnPsdk_VIS CUri {
         CFragment();
         virtual ~CFragment();
         // Next should be called only one time from a constructor.
-        void construct_from(std::string_view a_uri_stv);
+        void construct_from(std::string_view a_uri_sv);
     };
 
 
@@ -214,7 +218,7 @@ class UPnPsdk_VIS CUri {
   public:
     // Constructor
     // -----------
-    CUri();
+    CUri() = delete;
 
     /// \brief Constructor with setting the URI
     // ----------------------------------------
