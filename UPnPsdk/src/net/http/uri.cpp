@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-11-16
+// Redistribution only with this Copyright remark. Last modified: 2025-11-19
 /*!
  * \file
  */
@@ -116,6 +116,10 @@ CUri::STATE CUri::CComponent::state() const {
 
 std::string& CUri::CComponent::str() const {
     TRACE2(this, " Executing CUri::CComponent::str()")
+    if (m_state == STATE::undef)
+        throw std::invalid_argument(UPnPsdk_LOGEXCEPT(
+            "MSG1154") "Reading an undefined URI component is not possible.\n");
+
     return m_component;
 }
 
@@ -133,18 +137,17 @@ CUri::CScheme::~CScheme() {
 }
 
 void CUri::CScheme::construct_from(std::string_view a_uri_sv) {
-    // This should be called only one time from a constructor.
-
     // A scheme, if any, must begin with a letter, must have alphanum
     // characters, or '-', or '+', or '.', and ends with ':'.
     TRACE2(this, " Executing CUri::CScheme::construct_from(a_uri_sv)")
+
+    m_state = STATE::undef;
 
     size_t pos;
     if ((pos = a_uri_sv.find_first_of(':')) == std::string_view::npos) {
         // No separator found means the scheme is undefined. The URI-reference
         // may be a relative reference (RFC3986_4.1). That will be checked
         // later.
-        m_state = STATE::undef;
         return;
     }
     if (pos == 0) {
@@ -161,7 +164,6 @@ void CUri::CScheme::construct_from(std::string_view a_uri_sv) {
 
     // Check if the scheme has valid character and normalize it to lower case
     // character (RFC3986_3.1., RFC3986_6.2.2.1).
-    m_state = STATE::undef;
     m_component = a_uri_sv;
     bool error{false};
     if (!std::isalpha(static_cast<unsigned char>(a_uri_sv.front()))) {
@@ -204,7 +206,6 @@ CUri::CAuthority::~CAuthority() {
 }
 
 void CUri::CAuthority::construct_from(std::string_view a_uri_sv) {
-    // This should be called only one time from a constructor.
     // It constructs URI for scheme "https" and "http".
 
     // The authority component is preceded by a double slash ("//") and is
@@ -246,7 +247,6 @@ void CUri::CAuthority::construct_from(std::string_view a_uri_sv) {
 }
 
 void CUri::CAuthority::construct_scheme_file_from(std::string_view a_uri_sv) {
-    // This should be called only one time from a constructor.
     // It constructs URI for scheme "file".
     TRACE2(this,
            " Executing CUri::CAuthority::construct_scheme_file_from(a_uri_sv)")
@@ -264,7 +264,9 @@ void CUri::CAuthority::construct_scheme_file_from(std::string_view a_uri_sv) {
 
     std::cout << "DEBUG! Tracepoint2: authority_sv=\"" << authority_sv
               << "\"\n";
+    this->userinfo.construct_from(authority_sv);
     this->host.construct_from(authority_sv);
+    this->port.construct_from(authority_sv);
 }
 
 CUri::STATE CUri::CAuthority::state() const {
@@ -304,8 +306,6 @@ CUri::CAuthority::CUserinfo::~CUserinfo() {
 
 void CUri::CAuthority::CUserinfo::construct_from(
     std::string_view a_authority_sv) {
-    // This should be called only one time from a constructor.
-
     // The user information, if present, is followed by a commercial at-sign
     // ("@") that delimits it from the host (RFC3986 3.2.1.). The userinfo may
     // be undefined (no "@" found within the authority). I also take an empty
@@ -316,10 +316,10 @@ void CUri::CAuthority::CUserinfo::construct_from(
     TRACE2(this, " Executing "
                  "CUri::CAuthority::CUserinfo::construct_from(a_authority_sv)")
 
-    if (a_authority_sv.empty()) {
-        m_state = STATE::undef;
+    m_state = STATE::undef;
+
+    if (a_authority_sv.empty())
         return;
-    }
 
     auto& npos = std::string_view::npos;
     size_t pos;
@@ -331,10 +331,9 @@ void CUri::CAuthority::CUserinfo::construct_from(
 
     // Check if there is a separator, or if it is on the first position (no
     // content preceeding).
-    if ((pos = a_authority_sv.find_first_of('@')) == npos) {
-        m_state = STATE::undef;
+    if ((pos = a_authority_sv.find_first_of('@')) == npos)
         return; // No userinfo subcomponent available.
-    }
+
     if (pos == 0) {
         m_component.clear();
         m_state = STATE::empty;
@@ -374,14 +373,14 @@ CUri::CAuthority::CHost::~CHost() {
 }
 
 void CUri::CAuthority::CHost::construct_from(std::string_view a_authority_sv) {
-    // This should be called only one time from a constructor.
     TRACE2(this,
            " Executing CUri::CAuthority::CHost::construct_from(a_authority_sv)")
 
-    if (a_authority_sv.empty() || a_authority_sv == "//") {
-        m_state = STATE::undef;
+    m_state = STATE::undef;
+
+    if (a_authority_sv.empty() || a_authority_sv == "//")
         return;
-    }
+
     if (a_authority_sv == "///") {
         m_component.clear();
         m_state = STATE::empty;
@@ -413,7 +412,6 @@ void CUri::CAuthority::CHost::construct_from(std::string_view a_authority_sv) {
         return;
     }
 
-    m_state = STATE::undef;
     m_component = a_authority_sv;
     // Normalize host to lower case character (RFC3986_3.2.2.).
     for (auto it{m_component.begin()}; it < m_component.end(); it++)
@@ -451,14 +449,13 @@ CUri::CAuthority::CPort::~CPort() {
 }
 
 void CUri::CAuthority::CPort::construct_from(std::string_view a_authority_sv) {
-    // This should be called only one time from a constructor.
     TRACE2(this,
            " Executing CUri::CAuthority::CPort::construct_from(a_authority_sv)")
 
-    if (a_authority_sv.empty()) {
-        m_state = STATE::undef;
-        return;
-    }
+    m_state = STATE::undef;
+
+    if (a_authority_sv.empty())
+        return; // Port is undefined.
 
     std::string_view authority_sv = a_authority_sv; // Working copy
 
@@ -483,8 +480,11 @@ void CUri::CAuthority::CPort::construct_from(std::string_view a_authority_sv) {
     // Remove host if any.
     authority_sv.remove_prefix(pos + 1);
 
-    // Here we have the port string.
+    // Here we have the port string that is defined because we found a ':', but
+    // it may be empty.
     if (authority_sv.empty()) {
+        m_component.clear();
+        m_state = STATE::empty;
         return;
     }
 
@@ -516,8 +516,6 @@ CUri::CPath::~CPath() {
 }
 
 void CUri::CPath::construct_from(std::string_view a_uri_sv) {
-    // This should be called only one time from a constructor.
-
     // If a URI contains an authority component, then the path component must
     // either be empty or begin with a slash ("/") character. The path is
     // terminated by the first question mark ("?") or number sign ("#")
@@ -529,6 +527,8 @@ void CUri::CPath::construct_from(std::string_view a_uri_sv) {
     // case the first path segment cannot contain a colon (":") character
     // (RFC3986_3.3.).
     TRACE2(this, " Executing CUri::CPath::construct_from(a_uri_sv)")
+
+    m_state = STATE::undef;
 
     // Remove prefix and suffix from the uri string_view that can contain
     // slashes do not belonging to the path.
@@ -578,13 +578,13 @@ CUri::CQuery::~CQuery() {
 }
 
 void CUri::CQuery::construct_from(std::string_view a_uri_sv) {
-    // This should be called only one time from a constructor.
-
     // The query component is indicated by the first question mark ("?")
     // character and terminated by a number sign ("#") character or by the end
     // of the URI. The characters slash ("/") and question mark ("?") may
     // represent data within the query component (RFC3986_3.4.).
     TRACE2(this, " Executing CUri::CQuery::construct_from(a_uri_sv)")
+
+    m_state = STATE::undef;
 
     // Find begin of the query component.
     auto& npos = std::string_view::npos;
@@ -622,11 +622,11 @@ CUri::CFragment::~CFragment() {
 }
 
 void CUri::CFragment::construct_from(std::string_view a_uri_sv) {
-    // This should be called only one time from a constructor.
-
     // A fragment identifier component is indicated by the presence of a number
     // sign ("#") character and terminated by the end of the URI.
     TRACE2(this, " Executing CUri::CFragment::construct_from(a_uri_sv)")
+
+    m_state = STATE::undef;
 
     // Find begin of the fragment component.
     auto& npos = std::string_view::npos;
@@ -650,13 +650,24 @@ void CUri::CFragment::construct_from(std::string_view a_uri_sv) {
 
 // CUri class
 // ==========
-// Constructor with setting the URI
-CUri::CUri(std::string a_uri_str) {
+// Constructor
+CUri::CUri(){
+    TRACE2(this, " Construct CUri()") //
+}
+
+// Destructor
+CUri::~CUri() {
+    TRACE2(this, " Destruct CUri()") //
+}
+
+// Method for setting a URI reference
+void CUri::operator=(std::string a_uri_str) {
     // It is important that the argument 'a_uri_str' is given by value. So
     // it is coppied to the stack and constant available for the live time
-    // of the constructor and can be used as stable base for string_views.
-    TRACE2(this, " Construct CUri(\"" + a_uri_str + "\")")
-    std::cout << "DEBUG! Tracepoint1: construct CUri(\"" + a_uri_str + "\")\n";
+    // of the method and can be used as stable base for string_views.
+    TRACE2(this, " Set URI reference \"" + a_uri_str + "\"")
+    std::cout << "DEBUG! Tracepoint1: set URI reference = \"" + a_uri_str +
+                     "\"\n";
 
     // Normalize percent encoded char to upper case hex digits (RFC3986_2.1.).
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -718,7 +729,7 @@ CUri::CUri(std::string a_uri_str) {
     if ((this->scheme.str() == "https" || this->scheme.str() == "http") &&
         this->authority.host.state() != STATE::avail)
         throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1163") "Ill formed URI. Scheme '" +
+            UPnPsdk_LOGEXCEPT("MSG1155") "Ill formed URI. Scheme '" +
             this->scheme.str() + "' must have a host identifier. Failed \"" +
             a_uri_str + "\".\n");
 
@@ -729,11 +740,6 @@ CUri::CUri(std::string a_uri_str) {
             UPnPsdk_LOGEXCEPT("MSG1163") "Ill formed URI. Scheme '" +
             this->scheme.str() + "' must have a host identifier. Failed \"" +
             a_uri_str + "\".\n");
-}
-
-// Destructor
-CUri::~CUri(){
-    TRACE2(this, " Destruct CUri()") //
 }
 
 // Getter

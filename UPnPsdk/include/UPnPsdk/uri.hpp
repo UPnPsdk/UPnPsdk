@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_URI_HPP
 #define UPnPsdk_URI_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-11-16
+// Redistribution only with this Copyright remark. Last modified: 2025-11-19
 /*!
  * \file
  * \brief Provide the uri class with its 5 components scheme, authority, path,
@@ -58,9 +58,12 @@ UPnPsdk_VIS void remove_dot_segments(
  * in addition an empty 'authority' component ("file:///") that defaults to
  * "localhost".
  *
- * \exception std::invalid_argument if the URI string to set the object is ill
- * formed. Then the state of the URI object is undefined. You cannot expect
- * valid content, not even empty one.
+ * \exception std::invalid_argument
+ *  - if you try to read an undefined component string. Reading an empty
+ *    component string is no problem.
+ *  - if the URI string to set the object is ill formed. Then the state of the
+ *    URI object is undefined. You cannot expect valid content, not even empty
+ *    one.
  */
 class UPnPsdk_VIS CUri {
 
@@ -91,7 +94,7 @@ class UPnPsdk_VIS CUri {
     class UPnPsdk_VIS CComponent {
       public:
         CComponent();
-        virtual ~CComponent();
+        ~CComponent();
         STATE state() const;
         std::string& str() const;
 
@@ -117,7 +120,7 @@ class UPnPsdk_VIS CUri {
     class UPnPsdk_VIS CScheme : public CComponent {
       public:
         CScheme();
-        virtual ~CScheme();
+        ~CScheme();
         // Next should be called only one time from a constructor.
         void construct_from(std::string_view a_uri_str);
     };
@@ -133,7 +136,7 @@ class UPnPsdk_VIS CUri {
         class UPnPsdk_VIS CUserinfo : public CComponent {
           public:
             CUserinfo();
-            virtual ~CUserinfo();
+            ~CUserinfo();
             // Next should be called only one time from a constructor.
             void construct_from(std::string_view a_authority);
         };
@@ -144,7 +147,7 @@ class UPnPsdk_VIS CUri {
         class UPnPsdk_VIS CHost : public CComponent {
           public:
             CHost();
-            virtual ~CHost();
+            ~CHost();
             // Next should be called only one time from a constructor.
             void construct_from(std::string_view a_authority_sv);
         };
@@ -155,7 +158,7 @@ class UPnPsdk_VIS CUri {
         class UPnPsdk_VIS CPort : public CComponent {
           public:
             CPort();
-            virtual ~CPort();
+            ~CPort();
             // Next should be called only one time from a constructor.
             void construct_from(std::string_view a_authority_sv);
         };
@@ -163,7 +166,7 @@ class UPnPsdk_VIS CUri {
 
       public:
         CAuthority();
-        virtual ~CAuthority();
+        ~CAuthority();
         // Next should be called only one time from a constructor.
         void construct_from(std::string_view a_uri_sv);
         void construct_scheme_file_from(std::string_view a_uri_sv);
@@ -185,7 +188,7 @@ class UPnPsdk_VIS CUri {
     class UPnPsdk_VIS CPath : public CComponent {
       public:
         CPath();
-        virtual ~CPath();
+        ~CPath();
         // Next should be called only one time from a constructor.
         void construct_from(std::string_view a_uri_sv);
     };
@@ -196,7 +199,7 @@ class UPnPsdk_VIS CUri {
     class UPnPsdk_VIS CQuery : public CComponent {
       public:
         CQuery();
-        virtual ~CQuery();
+        ~CQuery();
         // Next should be called only one time from a constructor.
         void construct_from(std::string_view a_uri_sv);
     };
@@ -207,7 +210,7 @@ class UPnPsdk_VIS CUri {
     class UPnPsdk_VIS CFragment : public CComponent {
       public:
         CFragment();
-        virtual ~CFragment();
+        ~CFragment();
         // Next should be called only one time from a constructor.
         void construct_from(std::string_view a_uri_sv);
     };
@@ -218,19 +221,19 @@ class UPnPsdk_VIS CUri {
   public:
     // Constructor
     // -----------
-    CUri() = delete;
+    CUri();
 
-    /// \brief Constructor with setting the URI
-    // ----------------------------------------
-    CUri(
+    // Destructor
+    // ----------
+    ~CUri();
+
+    /// \brief Set URI reference
+    // -------------------------
+    void operator=(
         /// [in] String with a possible URI
         // Getting this string by value to have it on the stack to be more
         // thread safe and usable with string_views.
         std::string a_uri_str);
-
-    // Destructor
-    // ----------
-    virtual ~CUri();
 
     // Getter
     // ------
