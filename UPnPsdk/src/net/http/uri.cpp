@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-11-19
+// Redistribution only with this Copyright remark. Last modified: 2025-11-21
 /*!
  * \file
  */
@@ -97,25 +97,25 @@ void remove_dot_segments(std::string& a_path) {
 }
 
 
-// CUri::CComponent
-// ================
+// CUriRef::CComponent
+// ===================
 // Constructor
-CUri::CComponent::CComponent(){
-    TRACE2(this, " Construct CUri::CComponent()") //
+CUri::CUriRef::CComponent::CComponent(){
+    TRACE2(this, " Construct CUri::CUriRef::CComponent()") //
 }
 
 // Destructor
-CUri::CComponent::~CComponent(){
-    TRACE2(this, " Destruct CUri::CComponent()") //
+CUri::CUriRef::CComponent::~CComponent(){
+    TRACE2(this, " Destruct CUri::CUriRef::CComponent()") //
 }
 
-CUri::STATE CUri::CComponent::state() const {
-    TRACE2(this, " Executing CUri::CComponent::state()")
+CUri::CUriRef::STATE CUri::CUriRef::CComponent::state() const {
+    TRACE2(this, " Executing CUri::CUriRef::CComponent::state()")
     return m_state;
 }
 
-std::string& CUri::CComponent::str() const {
-    TRACE2(this, " Executing CUri::CComponent::str()")
+std::string& CUri::CUriRef::CComponent::str() const {
+    TRACE2(this, " Executing CUri::CUriRef::CComponent::str()")
     if (m_state == STATE::undef)
         throw std::invalid_argument(UPnPsdk_LOGEXCEPT(
             "MSG1154") "Reading an undefined URI component is not possible.\n");
@@ -124,22 +124,22 @@ std::string& CUri::CComponent::str() const {
 }
 
 
-// CUri::CScheme
-// =============
+// CUri::CUriRef::CScheme
+// ================
 // Constructor
-CUri::CScheme::CScheme(){
-    TRACE2(this, " Construct CUri::CScheme()") //
+CUri::CUriRef::CScheme::CScheme(){
+    TRACE2(this, " Construct CUri::CUriRef::CScheme()") //
 }
 
 // Destructor
-CUri::CScheme::~CScheme() {
-    TRACE2(this, " Destruct CUri::CScheme()") //
+CUri::CUriRef::CScheme::~CScheme() {
+    TRACE2(this, " Destruct CUri::CUriRef::CScheme()") //
 }
 
-void CUri::CScheme::construct_from(std::string_view a_uri_sv) {
+void CUri::CUriRef::CScheme::construct_from(std::string_view a_uri_sv) {
     // A scheme, if any, must begin with a letter, must have alphanum
     // characters, or '-', or '+', or '.', and ends with ':'.
-    TRACE2(this, " Executing CUri::CScheme::construct_from(a_uri_sv)")
+    TRACE2(this, " Executing CUri::CUriRef::CScheme::construct_from(a_uri_sv)")
 
     m_state = STATE::undef;
 
@@ -193,19 +193,19 @@ void CUri::CScheme::construct_from(std::string_view a_uri_sv) {
 }
 
 
-// CUri::CAuthority
-// ================
+// CUri::CUriRef::CAuthority
+// ===================
 // Constructor
-CUri::CAuthority::CAuthority(){
-    TRACE2(this, " Construct CUri::CAuthority()") //
+CUri::CUriRef::CAuthority::CAuthority(){
+    TRACE2(this, " Construct CUri::CUriRef::CAuthority()") //
 }
 
 // Destructor
-CUri::CAuthority::~CAuthority() {
-    TRACE2(this, " Destruct CUri::CAuthority()") //
+CUri::CUriRef::CAuthority::~CAuthority() {
+    TRACE2(this, " Destruct CUri::CUriRef::CAuthority()") //
 }
 
-void CUri::CAuthority::construct_from(std::string_view a_uri_sv) {
+void CUri::CUriRef::CAuthority::construct_from(std::string_view a_uri_sv) {
     // It constructs URI for scheme "https" and "http".
 
     // The authority component is preceded by a double slash ("//") and is
@@ -220,7 +220,8 @@ void CUri::CAuthority::construct_from(std::string_view a_uri_sv) {
     // (RFC3986_3.2.2.). When a scheme defines a default for authority and a
     // URI reference to that default is desired, the reference should be
     // normalized to an empty authority (RFC3986_6.2.3.).
-    TRACE2(this, " Executing CUri::CAuthority::construct_from(a_uri_sv)")
+    TRACE2(this,
+           " Executing CUri::CUriRef::CAuthority::construct_from(a_uri_sv)")
 
     std::string_view authority_sv;
 
@@ -239,17 +240,17 @@ void CUri::CAuthority::construct_from(std::string_view a_uri_sv) {
     // separator (one of '/', '?', '#', '')  or an empty one representing an
     // undefined authority. Having authority_sv only "//" means authority is
     // empty. Construct subcomponents.
-    std::cout << "DEBUG! Tracepoint2: authority_sv=\"" << authority_sv
-              << "\"\n";
+    UPnPsdk_LOGINFO("MSG1159") "authority_sv=\"" << authority_sv << "\"\n";
     this->userinfo.construct_from(authority_sv);
     this->host.construct_from(authority_sv);
     this->port.construct_from(authority_sv);
 }
 
-void CUri::CAuthority::construct_scheme_file_from(std::string_view a_uri_sv) {
+#if 0 // DEBUG!
+void CUri::CUriRef::CAuthority::construct_scheme_file_from(std::string_view a_uri_sv) {
     // It constructs URI for scheme "file".
     TRACE2(this,
-           " Executing CUri::CAuthority::construct_scheme_file_from(a_uri_sv)")
+           " Executing CUri::CUriRef::CAuthority::construct_scheme_file_from(a_uri_sv)")
 
     std::string_view authority_sv;
 
@@ -262,14 +263,14 @@ void CUri::CAuthority::construct_scheme_file_from(std::string_view a_uri_sv) {
         // undefined host is detected that should fail the URI.
         authority_sv = "///";
 
-    std::cout << "DEBUG! Tracepoint2: authority_sv=\"" << authority_sv
-              << "\"\n";
+    UPnPsdk_LOGINFO("MSG1159") "authority_sv=\"" << authority_sv << "\"\n";
     this->userinfo.construct_from(authority_sv);
     this->host.construct_from(authority_sv);
     this->port.construct_from(authority_sv);
 }
+#endif
 
-CUri::STATE CUri::CAuthority::state() const {
+CUri::CUriRef::STATE CUri::CUriRef::CAuthority::state() const {
     if (this->host.state() == STATE::avail ||
         this->userinfo.state() == STATE::avail ||
         this->port.state() == STATE::avail)
@@ -283,7 +284,7 @@ CUri::STATE CUri::CAuthority::state() const {
     return STATE::empty;
 }
 
-std::string CUri::CAuthority::str() const {
+std::string CUri::CUriRef::CAuthority::str() const {
     return (userinfo.state() == STATE::avail ? userinfo.str() : "") +
            (userinfo.state() == STATE::avail ? "@" : "") +
            (host.state() == STATE::avail ? host.str() : "") +
@@ -292,19 +293,19 @@ std::string CUri::CAuthority::str() const {
 }
 
 
-// CUri::CAuthority::CUserinfo
-// ===========================
+// CUri::CUriRef::CAuthority::CUserinfo
+// ==============================
 // Constructor
-CUri::CAuthority::CUserinfo::CUserinfo(){
-    TRACE2(this, " Construct CUri::CAuthority::CUserinfo()") //
+CUri::CUriRef::CAuthority::CUserinfo::CUserinfo(){
+    TRACE2(this, " Construct CUri::CUriRef::CAuthority::CUserinfo()") //
 }
 
 // Destructor
-CUri::CAuthority::CUserinfo::~CUserinfo() {
-    TRACE2(this, " Destruct CUri::CAuthority::CUserinfo()") //
+CUri::CUriRef::CAuthority::CUserinfo::~CUserinfo() {
+    TRACE2(this, " Destruct CUri::CUriRef::CAuthority::CUserinfo()") //
 }
 
-void CUri::CAuthority::CUserinfo::construct_from(
+void CUri::CUriRef::CAuthority::CUserinfo::construct_from(
     std::string_view a_authority_sv) {
     // The user information, if present, is followed by a commercial at-sign
     // ("@") that delimits it from the host (RFC3986 3.2.1.). The userinfo may
@@ -313,8 +314,10 @@ void CUri::CAuthority::CUserinfo::construct_from(
     // Applications should not render as clear text any password data after the
     // first colon (:) found within a userinfo subcomponent unless the data
     // after the colon is the empty string (indicating no password).
-    TRACE2(this, " Executing "
-                 "CUri::CAuthority::CUserinfo::construct_from(a_authority_sv)")
+    TRACE2(
+        this,
+        " Executing "
+        "CUri::CUriRef::CAuthority::CUserinfo::construct_from(a_authority_sv)")
 
     m_state = STATE::undef;
 
@@ -360,21 +363,23 @@ void CUri::CAuthority::CUserinfo::construct_from(
 }
 
 
-// CUri::CAuthority::CHost
-// =======================
+// CUri::CUriRef::CAuthority::CHost
+// ==========================
 // Constructor
-CUri::CAuthority::CHost::CHost(){
-    TRACE2(this, " Construct CUri::CAuthority::CHost()") //
+CUri::CUriRef::CAuthority::CHost::CHost(){
+    TRACE2(this, " Construct CUri::CUriRef::CAuthority::CHost()") //
 }
 
 // Destructor
-CUri::CAuthority::CHost::~CHost() {
-    TRACE2(this, " Destruct CUri::CAuthority::CHost()") //
+CUri::CUriRef::CAuthority::CHost::~CHost() {
+    TRACE2(this, " Destruct CUri::CUriRef::CAuthority::CHost()") //
 }
 
-void CUri::CAuthority::CHost::construct_from(std::string_view a_authority_sv) {
+void CUri::CUriRef::CAuthority::CHost::construct_from(
+    std::string_view a_authority_sv) {
     TRACE2(this,
-           " Executing CUri::CAuthority::CHost::construct_from(a_authority_sv)")
+           " Executing "
+           "CUri::CUriRef::CAuthority::CHost::construct_from(a_authority_sv)")
 
     m_state = STATE::undef;
 
@@ -436,21 +441,23 @@ void CUri::CAuthority::CHost::construct_from(std::string_view a_authority_sv) {
 }
 
 
-// CUri::CAuthority::CPort
-// =======================
+// CUri::CUriRef::CAuthority::CPort
+// ==========================
 // Constructor
-CUri::CAuthority::CPort::CPort(){
-    TRACE2(this, " Construct CUri::CAuthority::CPort()") //
+CUri::CUriRef::CAuthority::CPort::CPort(){
+    TRACE2(this, " Construct CUri::CUriRef::CAuthority::CPort()") //
 }
 
 // Destructor
-CUri::CAuthority::CPort::~CPort() {
-    TRACE2(this, " Destruct CUri::CAuthority::CPort()") //
+CUri::CUriRef::CAuthority::CPort::~CPort() {
+    TRACE2(this, " Destruct CUri::CUriRef::CAuthority::CPort()") //
 }
 
-void CUri::CAuthority::CPort::construct_from(std::string_view a_authority_sv) {
+void CUri::CUriRef::CAuthority::CPort::construct_from(
+    std::string_view a_authority_sv) {
     TRACE2(this,
-           " Executing CUri::CAuthority::CPort::construct_from(a_authority_sv)")
+           " Executing "
+           "CUri::CUriRef::CAuthority::CPort::construct_from(a_authority_sv)")
 
     m_state = STATE::undef;
 
@@ -503,19 +510,19 @@ void CUri::CAuthority::CPort::construct_from(std::string_view a_authority_sv) {
 }
 
 
-// CUri::CPath
-// ===========
+// CUri::CUriRef::CPath
+// ==============
 // Constructor
-CUri::CPath::CPath(){
-    TRACE2(this, " Construct CUri::CPath()") //
+CUri::CUriRef::CPath::CPath(){
+    TRACE2(this, " Construct CUri::CUriRef::CPath()") //
 }
 
 // Destructor
-CUri::CPath::~CPath() {
-    TRACE2(this, " Destruct CUri::CPath()") //
+CUri::CUriRef::CPath::~CPath() {
+    TRACE2(this, " Destruct CUri::CUriRef::CPath()") //
 }
 
-void CUri::CPath::construct_from(std::string_view a_uri_sv) {
+void CUri::CUriRef::CPath::construct_from(std::string_view a_uri_sv) {
     // If a URI contains an authority component, then the path component must
     // either be empty or begin with a slash ("/") character. The path is
     // terminated by the first question mark ("?") or number sign ("#")
@@ -526,7 +533,7 @@ void CUri::CPath::construct_from(std::string_view a_uri_sv) {
     // In addition, a URI reference may be a relative-path reference, in which
     // case the first path segment cannot contain a colon (":") character
     // (RFC3986_3.3.).
-    TRACE2(this, " Executing CUri::CPath::construct_from(a_uri_sv)")
+    TRACE2(this, " Executing CUri::CUriRef::CPath::construct_from(a_uri_sv)")
 
     m_state = STATE::undef;
 
@@ -565,24 +572,24 @@ void CUri::CPath::construct_from(std::string_view a_uri_sv) {
 }
 
 
-// CUri::CQuery
-// ===========
+// CUriRef::CQuery
+// ==============
 // Constructor
-CUri::CQuery::CQuery(){
-    TRACE2(this, " Construct CUri::CQuery()") //
+CUri::CUriRef::CQuery::CQuery(){
+    TRACE2(this, " Construct CUri::CUriRef::CQuery()") //
 }
 
 // Destructor
-CUri::CQuery::~CQuery() {
-    TRACE2(this, " Destruct CUri::CQuery()") //
+CUri::CUriRef::CQuery::~CQuery() {
+    TRACE2(this, " Destruct CUri::CUriRef::CQuery()") //
 }
 
-void CUri::CQuery::construct_from(std::string_view a_uri_sv) {
+void CUri::CUriRef::CQuery::construct_from(std::string_view a_uri_sv) {
     // The query component is indicated by the first question mark ("?")
     // character and terminated by a number sign ("#") character or by the end
     // of the URI. The characters slash ("/") and question mark ("?") may
     // represent data within the query component (RFC3986_3.4.).
-    TRACE2(this, " Executing CUri::CQuery::construct_from(a_uri_sv)")
+    TRACE2(this, " Executing CUri::CUriRef::CQuery::construct_from(a_uri_sv)")
 
     m_state = STATE::undef;
 
@@ -609,22 +616,23 @@ void CUri::CQuery::construct_from(std::string_view a_uri_sv) {
 }
 
 
-// CUri::CFragment
-// ===============
+// CUri::CUriRef::CFragment
+// ==================
 // Constructor
-CUri::CFragment::CFragment(){
-    TRACE2(this, " Construct CUri::CFragment()") //
+CUri::CUriRef::CFragment::CFragment(){
+    TRACE2(this, " Construct CUri::CUriRef::CFragment()") //
 }
 
 // Destructor
-CUri::CFragment::~CFragment() {
-    TRACE2(this, " Destruct CUri::CFragment()") //
+CUri::CUriRef::CFragment::~CFragment() {
+    TRACE2(this, " Destruct CUri::CUriRef::CFragment()") //
 }
 
-void CUri::CFragment::construct_from(std::string_view a_uri_sv) {
+void CUri::CUriRef::CFragment::construct_from(std::string_view a_uri_sv) {
     // A fragment identifier component is indicated by the presence of a number
     // sign ("#") character and terminated by the end of the URI.
-    TRACE2(this, " Executing CUri::CFragment::construct_from(a_uri_sv)")
+    TRACE2(this,
+           " Executing CUri::CUriRef::CFragment::construct_from(a_uri_sv)")
 
     m_state = STATE::undef;
 
@@ -648,26 +656,25 @@ void CUri::CFragment::construct_from(std::string_view a_uri_sv) {
 }
 
 
-// CUri class
-// ==========
+// CUri::CUriRef class
+// =============
 // Constructor
-CUri::CUri(){
-    TRACE2(this, " Construct CUri()") //
+CUri::CUriRef::CUriRef(){
+    TRACE2(this, " Construct CUri::CUriRef()") //
 }
 
 // Destructor
-CUri::~CUri() {
-    TRACE2(this, " Destruct CUri()") //
+CUri::CUriRef::~CUriRef() {
+    TRACE2(this, " Destruct CUri::CUriRef()") //
 }
 
 // Method for setting a URI reference
-void CUri::operator=(std::string a_uri_str) {
+void CUri::CUriRef::operator=(std::string a_uri_str) {
     // It is important that the argument 'a_uri_str' is given by value. So
     // it is coppied to the stack and constant available for the live time
     // of the method and can be used as stable base for string_views.
     TRACE2(this, " Set URI reference \"" + a_uri_str + "\"")
-    std::cout << "DEBUG! Tracepoint1: set URI reference = \"" + a_uri_str +
-                     "\"\n";
+    UPnPsdk_LOGINFO("MSG1167") "set URI reference = \"" + a_uri_str + "\"\n";
 
     // Normalize percent encoded char to upper case hex digits (RFC3986_2.1.).
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -696,7 +703,8 @@ void CUri::operator=(std::string a_uri_str) {
                 std::toupper(static_cast<unsigned char>(*it)));
         }
     }
-    if (false) {
+    if (false) { // This is to ignore the exception by default. It it only
+                 // executed by a 'goto except;' above.
     except:
         throw std::invalid_argument(
             UPnPsdk_LOGEXCEPT(
@@ -707,15 +715,15 @@ void CUri::operator=(std::string a_uri_str) {
     // Split components
     // ~~~~~~~~~~~~~~~~
     this->scheme.construct_from(a_uri_str);
-    if (this->scheme.str() == "file")
-        this->authority.construct_scheme_file_from(a_uri_str);
-    else
-        this->authority.construct_from(a_uri_str);
+    // if (this->scheme.str() == "file")
+    //     this->authority.construct_scheme_file_from(a_uri_str);
+    // else
+    this->authority.construct_from(a_uri_str);
     this->path.construct_from(a_uri_str);
     this->query.construct_from(a_uri_str);
     this->fragment.construct_from(a_uri_str);
 
-
+#if 0 // DEBUG!
     // Check dependencies of the components
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Empty scheme isn't possible.
@@ -740,10 +748,11 @@ void CUri::operator=(std::string a_uri_str) {
             UPnPsdk_LOGEXCEPT("MSG1163") "Ill formed URI. Scheme '" +
             this->scheme.str() + "' must have a host identifier. Failed \"" +
             a_uri_str + "\".\n");
+#endif
 }
 
 // Getter
-std::string CUri::str() const {
+std::string CUri::CUriRef::str() const {
     return (scheme.str() + ':' +
             (authority.state() == STATE::undef ? "" : "//") +
             (authority.state() == STATE::avail ? authority.str() : "") +
@@ -753,6 +762,25 @@ std::string CUri::str() const {
             (query.state() == STATE::avail ? query.str() : "") +
             (fragment.state() == STATE::undef ? "" : "#") +
             (fragment.state() == STATE::avail ? fragment.str() : ""));
+}
+
+
+// CUri class
+// =====================================
+// Constructor
+CUri::CUri(const std::string& a_uribase_str) {
+    TRACE2(this, " Construct CUri(a_uriabs_str)")
+    this->base = a_uribase_str;
+}
+
+// Destructor
+CUri::~CUri() {
+    TRACE2(this, " Destruct CUri()") //
+}
+
+void CUri::operator=(const std::string& a_urirel_str) {
+    TRACE2(this, " Executing CUri::operator=(a_urirel_str)")
+    this->rel = a_urirel_str;
 }
 
 } // namespace UPnPsdk

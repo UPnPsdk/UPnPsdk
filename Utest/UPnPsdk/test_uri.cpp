@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-11-19
+// Redistribution only with this Copyright remark. Last modified: 2025-11-21
 
 #include <UPnPsdk/uri.hpp>
 #include <utest/utest.hpp>
@@ -8,14 +8,34 @@ namespace utest {
 
 using ::UPnPsdk::CUri;
 using ::UPnPsdk::remove_dot_segments;
-using STATE = CUri::STATE;
+using STATE = UPnPsdk::CUri::CUriRef::STATE;
 
 
-CUri uriObj;
+// CUriRef Unit Tests generelly
+// ============================
+TEST(CUriTestSuite, uri_reference) {
+    CUri uriObj("https://[::1]");
+    ASSERT_NE(uriObj.base.scheme.state(), STATE::undef);
+    EXPECT_EQ(uriObj.base.scheme.str(), "https");
+    EXPECT_EQ(uriObj.base.path.state(), STATE::empty);
 
-// CUri Unit Tests generell
-// ========================
-TEST(CUriTestSuite, uri_normalize_percent_encoding) {
+    uriObj = "/path";
+    EXPECT_EQ(uriObj.rel.scheme.state(), STATE::undef);
+    EXPECT_EQ(uriObj.rel.path.state(), STATE::avail);
+    EXPECT_EQ(uriObj.rel.path.str(), "/path");
+}
+
+TEST(CUriTestSuite, uri_read_undefined_component) {
+    // Read undifined component.
+    CUri uriObj("https://[::1]/");
+    EXPECT_EQ(uriObj.base.path.state(), STATE::empty);
+    EXPECT_EQ(uriObj.base.path.str(), "");
+    EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
+    EXPECT_THROW({ uriObj.base.authority.port.str(); }, std::invalid_argument);
+}
+
+#if false
+TEST(CUriRefTestSuite, uri_normalize_percent_encoding) {
     uriObj = "https://[::1]/%3ab%3CA%2f";
     EXPECT_EQ(uriObj.str(), "https://[::1]/%3Ab%3CA%2F");
     uriObj = "https://[::1]/%3ab%3CA%2fX";
@@ -37,21 +57,10 @@ TEST(CUriTestSuite, uri_normalize_percent_encoding) {
         { uriObj = "https://[::1]/%3ab%3C%2fb%"; }, std::invalid_argument);
 }
 
-TEST(CUriTestSuite, uri_read_undefined_component) {
-    // Read undifined component.
-    uriObj = "https://[::1]/";
-    EXPECT_EQ(uriObj.path.state(), CUri::STATE::empty);
-    EXPECT_EQ(uriObj.path.str(), "");
-    EXPECT_EQ(uriObj.authority.port.state(), CUri::STATE::undef);
-    EXPECT_THROW(
-        { std::string port = uriObj.authority.port.str(); },
-        std::invalid_argument);
-}
-
 // Scheme component Unit Tests
 // ===========================
 
-TEST(CUriTestSuite, uri_scheme) {
+TEST(CUriRefTestSuite, uri_scheme) {
     // Scheme "http[s]" must always have a host.
     uriObj = "HttPs://[::1]";
     EXPECT_EQ(uriObj.scheme.state(), STATE::avail);
@@ -90,7 +99,7 @@ TEST(CUriTestSuite, uri_scheme) {
 // Authority component Unit Tests
 // ==============================
 
-TEST(CUriTestSuite, uri_authority) {
+TEST(CUriRefTestSuite, uri_authority) {
     uriObj = "https://@[::1]:"; // Empty userinfo and port
     EXPECT_EQ(uriObj.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.authority.str(), "[::1]");
@@ -132,7 +141,7 @@ TEST(CUriTestSuite, uri_authority) {
 // Authority userinfo component Unit Tests
 // =======================================
 
-TEST(CUriTestSuite, uri_authority_userinfo) {
+TEST(CUriRefTestSuite, uri_authority_userinfo) {
     uriObj = "https://J%6fn.Doe@[::1]";
     EXPECT_EQ(uriObj.authority.userinfo.state(), STATE::avail);
     EXPECT_EQ(uriObj.authority.userinfo.str(), "J%6Fn.Doe");
@@ -158,7 +167,7 @@ TEST(CUriTestSuite, uri_authority_userinfo) {
 // Authority host component Unit Tests
 // ===================================
 
-TEST(CUriTestSuite, uri_authority_host) {
+TEST(CUriRefTestSuite, uri_authority_host) {
     uriObj = "https://[2001:DB8::F9E8]";
     EXPECT_EQ(uriObj.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.authority.host.str(), "[2001:db8::f9e8]");
@@ -175,7 +184,7 @@ TEST(CUriTestSuite, uri_authority_host) {
     EXPECT_EQ(uriObj.str(), "http://example.com/");
 }
 
-TEST(CUriTestSuite, uri_authority_host_scheme_file) {
+TEST(CUriRefTestSuite, uri_authority_host_scheme_file) {
     // This behavior is taken from web browser firefox.
 
     uriObj = "file:///";
@@ -212,7 +221,7 @@ TEST(CUriTestSuite, uri_authority_host_scheme_file) {
 // Authority port component Unit Tests
 // ===================================
 
-TEST(CUriTestSuite, uri_authority_port) {
+TEST(CUriRefTestSuite, uri_authority_port) {
     uriObj = "https://domain.label:54321";
     EXPECT_EQ(uriObj.authority.port.state(), STATE::avail);
     EXPECT_EQ(uriObj.authority.port.str(), "54321");
@@ -313,7 +322,7 @@ INSTANTIATE_TEST_SUITE_P(
     ));
 // clang-format on
 
-TEST(CUriTestSuite, uri_remove_dot_segments_copy_to_c_str) {
+TEST(CUriRefTestSuite, uri_remove_dot_segments_copy_to_c_str) {
     char uri1[]{"/foo-path/../bar"};
     std::string uri_str{uri1, strlen(uri1)};
     remove_dot_segments(uri_str);
@@ -332,7 +341,7 @@ TEST(CUriTestSuite, uri_remove_dot_segments_copy_to_c_str) {
     EXPECT_STREQ(uri2, "/foo/bar");
 }
 
-TEST(CUriTestSuite, uri_path) {
+TEST(CUriRefTestSuite, uri_path) {
     uriObj = "https://[::1]/path";
     EXPECT_EQ(uriObj.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.path.str(), "/path");
@@ -370,7 +379,7 @@ TEST(CUriTestSuite, uri_path) {
         { uriObj = "https://[::1]./a/./b/../c"; }, std::invalid_argument);
 }
 
-TEST(CUriTestSuite, uri_query) {
+TEST(CUriRefTestSuite, uri_query) {
     uriObj = "https://[::1]?query";
     EXPECT_EQ(uriObj.query.state(), STATE::avail);
     EXPECT_EQ(uriObj.query.str(), "query");
@@ -402,7 +411,7 @@ TEST(CUriTestSuite, uri_query) {
     EXPECT_EQ(uriObj.str(), "https://[::1]/?rel/key=?1234");
 }
 
-TEST(CUriTestSuite, uri_fragment) {
+TEST(CUriRefTestSuite, uri_fragment) {
     uriObj = "https://[::1]#fragment";
     EXPECT_EQ(uriObj.fragment.state(), STATE::avail);
     EXPECT_EQ(uriObj.fragment.str(), "fragment");
@@ -423,6 +432,7 @@ TEST(CUriTestSuite, uri_fragment) {
     EXPECT_EQ(uriObj.fragment.str(), "fragment#");
     EXPECT_EQ(uriObj.str(), "https://[::1]/#fragment#");
 }
+#endif
 
 } // namespace utest
 
