@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_URI_HPP
 #define UPnPsdk_URI_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-11-21
+// Redistribution only with this Copyright remark. Last modified: 2025-11-22
 /*!
  * \file
  * \brief Provide the uri class with its 5 components scheme, authority, path,
@@ -48,6 +48,27 @@ UPnPsdk_VIS void remove_dot_segments(
 // =====================================
 class UPnPsdk_VIS CUri {
   public:
+    /*! \brief Defines the possible states of a URI component.
+     *
+     * Note that we (RFC3986) are careful to preserve the distinction
+     * between a component that is undefined, meaning that its separator was
+     * not present in the reference, and a component that is empty, meaning
+     * that the separator was present and was immediately followed by the
+     * next component separator or the end of the reference (RFC3986_5.3.).
+     * The state of a component in this class is not oriented on the URI
+     * input reference, but on its output reference taking normalization and
+     * comparison into account (RFC3986_6.). For example an input URI
+     * reference "https://@[::1]:" will not set authority.userinfo.state()
+     * and authority.port.state() to 'STATE::empty' but to 'STATE::undef',
+     * because the expected URI output reference is "https://[::1]/". */
+    enum struct STATE {
+        undef, /*!< The component is undefined. It may have any
+                  uninitialized content. */
+        empty, ///< The component is empty. Its content is empty.
+        avail ///< The component is available. It has a valid content.
+    };
+
+  private:
     // CUriRef class
     // =============
     /*!
@@ -71,27 +92,6 @@ class UPnPsdk_VIS CUri {
      * empty one.
      */
     class UPnPsdk_VIS CUriRef {
-
-        /*! \brief Defines the possible states of a URI component.
-         *
-         * Note that we (RFC3986) are careful to preserve the distinction
-         * between a component that is undefined, meaning that its separator was
-         * not present in the reference, and a component that is empty, meaning
-         * that the separator was present and was immediately followed by the
-         * next component separator or the end of the reference (RFC3986_5.3.).
-         * The state of a component in this class is not oriented on the URI
-         * input reference, but on its output reference taking normalization and
-         * comparison into account (RFC3986_6.). For example an input URI
-         * reference "https://@[::1]:" will not set authority.userinfo.state()
-         * and authority.port.state() to 'STATE::empty' but to 'STATE::undef',
-         * because the expected URI output reference is "https://[::1]/". */
-      public:
-        enum struct STATE {
-            undef, /*!< The component is undefined. It may have any
-                      uninitialized content. */
-            empty, ///< The component is empty. Its content is empty.
-            avail ///< The component is available. It has a valid content.
-        };
 
       private: // to class CUriRef
         // CUriRef::CComponent
@@ -256,6 +256,9 @@ class UPnPsdk_VIS CUri {
     };
 
 
+    // CUri
+    // ========================================
+  public:
     // Default constructor
     // -------------------
     CUri() = delete;

@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-11-21
+// Redistribution only with this Copyright remark. Last modified: 2025-11-22
 /*!
  * \file
  */
@@ -109,7 +109,7 @@ CUri::CUriRef::CComponent::~CComponent(){
     TRACE2(this, " Destruct CUri::CUriRef::CComponent()") //
 }
 
-CUri::CUriRef::STATE CUri::CUriRef::CComponent::state() const {
+CUri::STATE CUri::CUriRef::CComponent::state() const {
     TRACE2(this, " Executing CUri::CUriRef::CComponent::state()")
     return m_state;
 }
@@ -246,7 +246,6 @@ void CUri::CUriRef::CAuthority::construct_from(std::string_view a_uri_sv) {
     this->port.construct_from(authority_sv);
 }
 
-#if 0 // DEBUG!
 void CUri::CUriRef::CAuthority::construct_scheme_file_from(std::string_view a_uri_sv) {
     // It constructs URI for scheme "file".
     TRACE2(this,
@@ -268,9 +267,8 @@ void CUri::CUriRef::CAuthority::construct_scheme_file_from(std::string_view a_ur
     this->host.construct_from(authority_sv);
     this->port.construct_from(authority_sv);
 }
-#endif
 
-CUri::CUriRef::STATE CUri::CUriRef::CAuthority::state() const {
+CUri::STATE CUri::CUriRef::CAuthority::state() const {
     if (this->host.state() == STATE::avail ||
         this->userinfo.state() == STATE::avail ||
         this->port.state() == STATE::avail)
@@ -657,7 +655,7 @@ void CUri::CUriRef::CFragment::construct_from(std::string_view a_uri_sv) {
 
 
 // CUri::CUriRef class
-// =============
+// ===================
 // Constructor
 CUri::CUriRef::CUriRef(){
     TRACE2(this, " Construct CUri::CUriRef()") //
@@ -715,40 +713,13 @@ void CUri::CUriRef::operator=(std::string a_uri_str) {
     // Split components
     // ~~~~~~~~~~~~~~~~
     this->scheme.construct_from(a_uri_str);
-    // if (this->scheme.str() == "file")
-    //     this->authority.construct_scheme_file_from(a_uri_str);
-    // else
-    this->authority.construct_from(a_uri_str);
+    if (this->scheme.str() == "file")
+        this->authority.construct_scheme_file_from(a_uri_str);
+    else
+        this->authority.construct_from(a_uri_str);
     this->path.construct_from(a_uri_str);
     this->query.construct_from(a_uri_str);
     this->fragment.construct_from(a_uri_str);
-
-#if 0 // DEBUG!
-    // Check dependencies of the components
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Empty scheme isn't possible.
-    if (this->scheme.state() != STATE::avail)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1046") "Ill formed URI, no or empty scheme "
-                                         "specified. Failed \"" +
-            a_uri_str + "\"\n");
-
-    // Scheme "https" and "http" must have a non empty host component available.
-    if ((this->scheme.str() == "https" || this->scheme.str() == "http") &&
-        this->authority.host.state() != STATE::avail)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1155") "Ill formed URI. Scheme '" +
-            this->scheme.str() + "' must have a host identifier. Failed \"" +
-            a_uri_str + "\".\n");
-
-    // Scheme "file" must have at least an empty host component.
-    if (this->scheme.str() == "file" &&
-        this->authority.host.state() == STATE::undef)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1163") "Ill formed URI. Scheme '" +
-            this->scheme.str() + "' must have a host identifier. Failed \"" +
-            a_uri_str + "\".\n");
-#endif
 }
 
 // Getter
@@ -771,6 +742,35 @@ std::string CUri::CUriRef::str() const {
 CUri::CUri(const std::string& a_uribase_str) {
     TRACE2(this, " Construct CUri(a_uriabs_str)")
     this->base = a_uribase_str;
+
+    // Check dependencies of the components
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Empty scheme of a base URI isn't possible.
+    if (this->base.scheme.state() != STATE::avail)
+        throw std::invalid_argument(
+            UPnPsdk_LOGEXCEPT(
+                "MSG1046") "Ill formed base URI, no or empty scheme "
+                           "specified. Failed \"" +
+            a_uribase_str + "\"\n");
+
+    // Scheme "https" and "http" must have a non empty host component available.
+    if ((this->base.scheme.str() == "https" ||
+         this->base.scheme.str() == "http") &&
+        this->base.authority.host.state() != STATE::avail)
+        throw std::invalid_argument(
+            UPnPsdk_LOGEXCEPT("MSG1155") "Ill formed base URI. Scheme '" +
+            this->base.scheme.str() +
+            "' must have a host identifier. Failed \"" + a_uribase_str +
+            "\".\n");
+
+    // Scheme "file" must have at least an empty host component.
+    if (this->base.scheme.str() == "file" &&
+        this->base.authority.host.state() == STATE::undef)
+        throw std::invalid_argument(
+            UPnPsdk_LOGEXCEPT("MSG1163") "Ill formed base URI. Scheme '" +
+            this->base.scheme.str() +
+            "' must have a host identifier. Failed \"" + a_uribase_str +
+            "\".\n");
 }
 
 // Destructor
