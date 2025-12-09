@@ -13,7 +13,9 @@ var namespaceUPnPsdk =
       [ "get_sockfd", "db/d86/group__upnplib-socket.html#gaff979637c7cac7b0ef5df38ec5eae017", null ]
     ] ],
     [ "anonymous_namespace{uri.cpp}", "dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html", [
-      [ "is_dns_name", "dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html#afa653ebd81ec9323368fc8792a89df48", null ]
+      [ "is_ipv4_addr", "dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html#a9f8fe65d1ad9b79b9fbc99f9cf25c36e", null ],
+      [ "is_dns_name", "dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html#afa653ebd81ec9323368fc8792a89df48", null ],
+      [ "parse_percent_encoded_chars", "dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html#a7a38686a6c37619355a8c3a13c3a475c", null ]
     ] ],
     [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
     [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", "d8/d37/classUPnPsdk_1_1CNetadapter" ],

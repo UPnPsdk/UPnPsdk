@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-11-21
+// Redistribution only with this Copyright remark. Last modified: 2025-12-07
 /*!
  * \file
  */
@@ -19,6 +19,19 @@ namespace UPnPsdk {
 namespace {
 
 /*!
+ * \brief Check if string is a valid IPv4 address
+ *
+ * This checks that the address consists of four octets, each ranging from 0 to
+ * 255, separated by dots.
+ */
+bool is_ipv4_addr(const std::string& ip) {
+    TRACE("Executing is_ipv4_addr()")
+    std::regex ipv4_pattern(
+        R"(^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$)");
+    return std::regex_match(ip, ipv4_pattern);
+}
+
+/*!
  * \brief Check if a string conforms to a DNS name
  */
 bool is_dns_name(const std::string& label) {
@@ -26,10 +39,55 @@ bool is_dns_name(const std::string& label) {
     // Negative Lookbehind: (?<!...) is not supported by C++ STL. I workaround
     // it. std::regex
     // pattern("^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$");
+    TRACE("Executing is_dns_name()")
     std::regex pattern("^((?!-)[A-Za-z0-9-]{1,63}\\.)+[A-Za-z]{2,6}$");
     return (std::regex_match(label, pattern) && !label.contains("-.") &&
             !label.contains("--") && !label.ends_with('-')) ||
            label == "localhost";
+}
+
+/*!
+ * \brief Normalize percent encoded characters of a URI reference string to
+ * upper case hex digits (RFC3986_2.1.).
+ *
+ * Possible corrections are made in place. The size of the corrected string
+ * doesn't change.
+ */
+void parse_percent_encoded_chars(std::string& a_uriref_str) {
+    TRACE("Executing parse_percent_encoded_char()")
+
+    auto it{a_uriref_str.begin()};
+    auto it_end{a_uriref_str.end()};
+    // clang-format off
+    // First check begin and end of the URI for invalid encoded character.
+    if (!a_uriref_str.empty() &&
+        ( /*begin*/ (a_uriref_str.size() <  3 && *it == '%') ||
+          /*end*/   (a_uriref_str.size() >= 3 && (*(it_end - 2) == '%' || *(it_end - 1) == '%'))))
+        goto except;
+    // clang-format on
+
+    // Then parse the URI to set upper case hex digits.
+    for (; it < it_end; it++) {
+        if (static_cast<unsigned char>(*it) == '%') {
+            it++;
+            if (!std::isxdigit(static_cast<unsigned char>(*it)))
+                goto except;
+            *it = static_cast<char>(
+                std::toupper(static_cast<unsigned char>(*it)));
+            it++;
+            if (!std::isxdigit(static_cast<unsigned char>(*it)))
+                goto except;
+            *it = static_cast<char>(
+                std::toupper(static_cast<unsigned char>(*it)));
+        }
+    }
+    return;
+
+except:
+    throw std::invalid_argument(
+        UPnPsdk_LOGEXCEPT(
+            "MSG1165") "URI with invalid percent encoding, failed URI=\"" +
+        a_uriref_str + "\".\n");
 }
 
 } // anonymous namespace
@@ -97,49 +155,51 @@ void remove_dot_segments(std::string& a_path) {
 }
 
 
-// CUri::CComponent
-// ================
+// CComponents::CComponent
+// =======================
 // Constructor
-CUri::CComponent::CComponent(){
-    TRACE2(this, " Construct CUri::CComponent()") //
+CUri::CComponents::CComponent::CComponent(){
+    TRACE2(this, " Construct CUri::CComponents::CComponent()") //
 }
 
 // Destructor
-CUri::CComponent::~CComponent(){
-    TRACE2(this, " Destruct CUri::CComponent()") //
+CUri::CComponents::CComponent::~CComponent(){
+    TRACE2(this, " Destruct CUri::CComponents::CComponent()") //
 }
 
-CUri::STATE CUri::CComponent::state() const {
-    TRACE2(this, " Executing CUri::CComponent::state()")
+CUri::STATE CUri::CComponents::CComponent::state() const {
+    TRACE2(this, " Executing CUri::CComponents::CComponent::state()")
     return m_state;
 }
 
-std::string& CUri::CComponent::str() const {
-    TRACE2(this, " Executing CUri::CComponent::str()")
+std::string& CUri::CComponents::CComponent::str() const {
+    TRACE2(this, " Executing CUri::CComponents::CComponent::str()")
     if (m_state == STATE::undef)
-        throw std::invalid_argument(UPnPsdk_LOGEXCEPT(
-            "MSG1154") "Reading an undefined URI component is not possible.\n");
+        throw std::invalid_argument(
+            UPnPsdk_LOGEXCEPT("MSG1154") "Reading an undefined URI component "
+                                         "is not possible.\n");
 
     return m_component;
 }
 
 
-// CUri::CScheme
-// =============
+// CUri::CComponents::CScheme
+// ==========================
 // Constructor
-CUri::CScheme::CScheme(){
-    TRACE2(this, " Construct CUri::CScheme()") //
+CUri::CComponents::CScheme::CScheme(){
+    TRACE2(this, " Construct CUri::CComponents::CScheme()") //
 }
 
 // Destructor
-CUri::CScheme::~CScheme() {
-    TRACE2(this, " Destruct CUri::CScheme()") //
+CUri::CComponents::CScheme::~CScheme() {
+    TRACE2(this, " Destruct CUri::CComponents::CScheme()") //
 }
 
-void CUri::CScheme::construct_from(std::string_view a_uri_sv) {
+void CUri::CComponents::CScheme::construct_from(std::string_view a_uri_sv) {
     // A scheme, if any, must begin with a letter, must have alphanum
     // characters, or '-', or '+', or '.', and ends with ':'.
-    TRACE2(this, " Executing CUri::CScheme::construct_from(a_uri_sv)")
+    TRACE2(this,
+           " Executing CUri::CComponents::CScheme::construct_from(a_uri_sv)")
 
     m_state = STATE::undef;
 
@@ -165,47 +225,45 @@ void CUri::CScheme::construct_from(std::string_view a_uri_sv) {
     // Check if the scheme has valid character and normalize it to lower case
     // character (RFC3986_3.1., RFC3986_6.2.2.1).
     m_component = a_uri_sv;
-    bool error{false};
     if (!std::isalpha(static_cast<unsigned char>(a_uri_sv.front()))) {
         // First character is not alpha.
-        error = true;
+        goto exception;
     } else {
         unsigned char ch;
         for (auto it{m_component.begin()}; it < m_component.end(); it++) {
             ch = static_cast<unsigned char>(*it);
             if (!(std::isalnum(ch) || (ch == '-') || (ch == '+') ||
                   (ch == '.'))) {
-                error = true;
-                break;
+                goto exception;
             }
             *it = static_cast<char>(std::tolower(ch));
         }
     }
 
-    // Check if valid or supported scheme given.
-    if (error || !(m_component == "https" || m_component == "http" ||
-                   m_component == "file"))
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1157") "Invalid or unsupported scheme=\"" +
-            std::string(a_uri_sv) + "\" given.\n");
-
     m_state = STATE::avail;
+    return;
+
+exception:
+    throw std::invalid_argument(
+        UPnPsdk_LOGEXCEPT("MSG1157") "Invalid or unsupported scheme=\"" +
+        std::string(a_uri_sv) + "\" given.\n");
 }
 
 
-// CUri::CAuthority
-// ================
+// CUri::CComponents::CAuthority
+// =============================
 // Constructor
-CUri::CAuthority::CAuthority(){
-    TRACE2(this, " Construct CUri::CAuthority()") //
+CUri::CComponents::CAuthority::CAuthority(){
+    TRACE2(this, " Construct CUri::CComponents::CAuthority()") //
 }
 
 // Destructor
-CUri::CAuthority::~CAuthority() {
-    TRACE2(this, " Destruct CUri::CAuthority()") //
+CUri::CComponents::CAuthority::~CAuthority() {
+    TRACE2(this, " Destruct CUri::CComponents::CAuthority()") //
 }
 
-void CUri::CAuthority::construct_from(std::string_view a_uri_sv) {
+void CUri::CComponents::CAuthority::construct_https_from(
+    std::string_view a_uri_sv) {
     // It constructs URI for scheme "https" and "http".
 
     // The authority component is preceded by a double slash ("//") and is
@@ -214,13 +272,9 @@ void CUri::CAuthority::construct_from(std::string_view a_uri_sv) {
     // NOT generate an "http" URI with an empty host identifier. A recipient
     // that processes such a URI reference MUST reject it as invalid (RFC7230
     // 2.7.1.). This means an authority component is mandatory.
-    //
-    // For scheme "file" an empty authority "file:///" is accepted because it
-    // has implicit a default authority.host "localhost" defined
-    // (RFC3986_3.2.2.). When a scheme defines a default for authority and a
-    // URI reference to that default is desired, the reference should be
-    // normalized to an empty authority (RFC3986_6.2.3.).
-    TRACE2(this, " Executing CUri::CAuthority::construct_from(a_uri_sv)")
+    TRACE2(this,
+           " Executing "
+           "CUri::CComponents::CAuthority::construct_https_from(a_uri_sv)")
 
     std::string_view authority_sv;
 
@@ -239,15 +293,24 @@ void CUri::CAuthority::construct_from(std::string_view a_uri_sv) {
     // separator (one of '/', '?', '#', '')  or an empty one representing an
     // undefined authority. Having authority_sv only "//" means authority is
     // empty. Construct subcomponents.
-    this->userinfo.construct_from(authority_sv);
-    this->host.construct_from(authority_sv);
-    this->port.construct_from(authority_sv);
+    UPnPsdk_LOGINFO("MSG1159") "authority_sv=\"" << authority_sv << "\"\n";
+    this->userinfo.construct_https_from(authority_sv);
+    this->host.construct_https_from(authority_sv);
+    this->port.construct_https_from(authority_sv);
 }
 
-void CUri::CAuthority::construct_scheme_file_from(std::string_view a_uri_sv) {
+void CUri::CComponents::CAuthority::construct_file_from(
+    std::string_view a_uri_sv) {
     // It constructs URI for scheme "file".
-    TRACE2(this,
-           " Executing CUri::CAuthority::construct_scheme_file_from(a_uri_sv)")
+    //
+    // For scheme "file" an empty authority "file:///" is accepted because it
+    // has implicit a default authority.host "localhost" defined
+    // (RFC3986_3.2.2.). When a scheme defines a default for authority and a
+    // URI reference to that default is desired, the reference should be
+    // normalized to an empty authority (RFC3986_6.2.3.).
+    TRACE2(this, " Executing "
+                 "CUri::CComponents::CAuthority::construct_https_scheme_file_"
+                 "from(a_uri_sv)")
 
     std::string_view authority_sv;
 
@@ -260,12 +323,13 @@ void CUri::CAuthority::construct_scheme_file_from(std::string_view a_uri_sv) {
         // undefined host is detected that should fail the URI.
         authority_sv = "///";
 
-    this->userinfo.construct_from(authority_sv);
-    this->host.construct_from(authority_sv);
-    this->port.construct_from(authority_sv);
+    UPnPsdk_LOGINFO("MSG1159") "authority_sv=\"" << authority_sv << "\"\n";
+    this->userinfo.construct_https_from(authority_sv);
+    this->host.construct_https_from(authority_sv);
+    this->port.construct_https_from(authority_sv);
 }
 
-CUri::STATE CUri::CAuthority::state() const {
+CUri::STATE CUri::CComponents::CAuthority::state() const {
     if (this->host.state() == STATE::avail ||
         this->userinfo.state() == STATE::avail ||
         this->port.state() == STATE::avail)
@@ -279,7 +343,7 @@ CUri::STATE CUri::CAuthority::state() const {
     return STATE::empty;
 }
 
-std::string CUri::CAuthority::str() const {
+std::string CUri::CComponents::CAuthority::str() const {
     return (userinfo.state() == STATE::avail ? userinfo.str() : "") +
            (userinfo.state() == STATE::avail ? "@" : "") +
            (host.state() == STATE::avail ? host.str() : "") +
@@ -288,19 +352,19 @@ std::string CUri::CAuthority::str() const {
 }
 
 
-// CUri::CAuthority::CUserinfo
-// ===========================
+// CUri::CComponents::CAuthority::CUserinfo
+// ========================================
 // Constructor
-CUri::CAuthority::CUserinfo::CUserinfo(){
-    TRACE2(this, " Construct CUri::CAuthority::CUserinfo()") //
+CUri::CComponents::CAuthority::CUserinfo::CUserinfo(){
+    TRACE2(this, " Construct CUri::CComponents::CAuthority::CUserinfo()") //
 }
 
 // Destructor
-CUri::CAuthority::CUserinfo::~CUserinfo() {
-    TRACE2(this, " Destruct CUri::CAuthority::CUserinfo()") //
+CUri::CComponents::CAuthority::CUserinfo::~CUserinfo() {
+    TRACE2(this, " Destruct CUri::CComponents::CAuthority::CUserinfo()") //
 }
 
-void CUri::CAuthority::CUserinfo::construct_from(
+void CUri::CComponents::CAuthority::CUserinfo::construct_https_from(
     std::string_view a_authority_sv) {
     // The user information, if present, is followed by a commercial at-sign
     // ("@") that delimits it from the host (RFC3986 3.2.1.). The userinfo may
@@ -309,8 +373,10 @@ void CUri::CAuthority::CUserinfo::construct_from(
     // Applications should not render as clear text any password data after the
     // first colon (:) found within a userinfo subcomponent unless the data
     // after the colon is the empty string (indicating no password).
-    TRACE2(this, " Executing "
-                 "CUri::CAuthority::CUserinfo::construct_from(a_authority_sv)")
+    TRACE2(this,
+           " Executing "
+           "CUri::CComponents::CAuthority::CUserinfo::construct_https_from(a_"
+           "authority_sv)")
 
     m_state = STATE::undef;
 
@@ -330,10 +396,12 @@ void CUri::CAuthority::CUserinfo::construct_from(
     if ((pos = a_authority_sv.find_first_of('@')) == npos)
         return; // No userinfo subcomponent available.
 
-    if (pos == 0) {
+    if (pos == 0 || a_authority_sv[0] == ':') {
+        // Separator '@' or ':' (for password) at first position meeans userinfo
+        // is empty.
         m_component.clear();
         m_state = STATE::empty;
-        return; // Separator at first position meeans userinfo is empty.
+        return;
     }
 
     // Extract userinfo
@@ -356,21 +424,23 @@ void CUri::CAuthority::CUserinfo::construct_from(
 }
 
 
-// CUri::CAuthority::CHost
-// =======================
+// CUri::CComponents::CAuthority::CHost
+// ====================================
 // Constructor
-CUri::CAuthority::CHost::CHost(){
-    TRACE2(this, " Construct CUri::CAuthority::CHost()") //
+CUri::CComponents::CAuthority::CHost::CHost(){
+    TRACE2(this, " Construct CUri::CComponents::CAuthority::CHost()") //
 }
 
 // Destructor
-CUri::CAuthority::CHost::~CHost() {
-    TRACE2(this, " Destruct CUri::CAuthority::CHost()") //
+CUri::CComponents::CAuthority::CHost::~CHost() {
+    TRACE2(this, " Destruct CUri::CComponents::CAuthority::CHost()") //
 }
 
-void CUri::CAuthority::CHost::construct_from(std::string_view a_authority_sv) {
-    TRACE2(this,
-           " Executing CUri::CAuthority::CHost::construct_from(a_authority_sv)")
+void CUri::CComponents::CAuthority::CHost::construct_https_from(
+    std::string_view a_authority_sv) {
+    TRACE2(this, " Executing "
+                 "CUri::CComponents::CAuthority::CHost::construct_https_from(a_"
+                 "authority_sv)")
 
     m_state = STATE::undef;
 
@@ -414,39 +484,54 @@ void CUri::CAuthority::CHost::construct_from(std::string_view a_authority_sv) {
         *it = static_cast<char>(std::tolower(static_cast<unsigned char>(*it)));
 
     // Check if the host_name is valid.
-    SSockaddr saObj;
-    try {
-        // First check for a numeric ip address.
-        saObj = m_component;
-    } catch (const std::exception&) {
-        // No valid numeric IP address. Check for valid DNS name.
-        if (!is_dns_name(m_component)) {
-            throw std::invalid_argument(
-                UPnPsdk_LOGEXCEPT(
-                    "MSG1160") "URI with invalid host address or host name \"" +
-                m_component + "\".\n");
+    // Check IPv6 address.
+    if (m_component.front() == '[') {
+        SSockaddr saObj;
+        try {
+            saObj = m_component;
+        } catch (const std::exception&) {
+            goto exception;
         }
+    }
+    // Check IPv4 address and DNS name.
+    // The syntax rule for host is ambiguous because it does not completely
+    // distinguish between an IPv4address and a reg-name. In order to
+    // disambiguate the syntax, we apply the "first-match-wins" algorithm:
+    // If host matches the rule for IPv4address, then it should be
+    // considered an IPv4 address literal and not a reg-name.
+    // (RFC3986_3.2.2.)
+    else if (!is_ipv4_addr(m_component) && !is_dns_name(m_component)) {
+        goto exception;
     }
 
     m_state = STATE::avail;
+    return;
+
+exception:
+    throw std::invalid_argument(
+        UPnPsdk_LOGEXCEPT(
+            "MSG1160") "URI with invalid host address or host name \"" +
+        m_component + "\".\n");
 }
 
 
-// CUri::CAuthority::CPort
-// =======================
+// CUri::CComponents::CAuthority::CPort
+// ====================================
 // Constructor
-CUri::CAuthority::CPort::CPort(){
-    TRACE2(this, " Construct CUri::CAuthority::CPort()") //
+CUri::CComponents::CAuthority::CPort::CPort(){
+    TRACE2(this, " Construct CUri::CComponents::CAuthority::CPort()") //
 }
 
 // Destructor
-CUri::CAuthority::CPort::~CPort() {
-    TRACE2(this, " Destruct CUri::CAuthority::CPort()") //
+CUri::CComponents::CAuthority::CPort::~CPort() {
+    TRACE2(this, " Destruct CUri::CComponents::CAuthority::CPort()") //
 }
 
-void CUri::CAuthority::CPort::construct_from(std::string_view a_authority_sv) {
-    TRACE2(this,
-           " Executing CUri::CAuthority::CPort::construct_from(a_authority_sv)")
+void CUri::CComponents::CAuthority::CPort::construct_https_from(
+    std::string_view a_authority_sv) {
+    TRACE2(this, " Executing "
+                 "CUri::CComponents::CAuthority::CPort::construct_https_from(a_"
+                 "authority_sv)")
 
     m_state = STATE::undef;
 
@@ -460,6 +545,7 @@ void CUri::CAuthority::CPort::construct_from(std::string_view a_authority_sv) {
     // remove authority separator if any.
     if (authority_sv.starts_with("//"))
         authority_sv.remove_prefix(2);
+    // Remove path, query, fragment if any.
     if ((pos = authority_sv.find_first_of("/?#")) != npos)
         authority_sv.remove_suffix(authority_sv.size() - pos);
 
@@ -482,6 +568,10 @@ void CUri::CAuthority::CPort::construct_from(std::string_view a_authority_sv) {
         m_component.clear();
         m_state = STATE::empty;
         return;
+    } else if (authority_sv == "443") {
+        // Default Port 443 is normalized to undefined port.
+        m_state = STATE::undef;
+        return;
     }
 
     // Check if the port string is valid.
@@ -498,87 +588,119 @@ void CUri::CAuthority::CPort::construct_from(std::string_view a_authority_sv) {
     m_state = STATE::avail;
 }
 
+void CUri::CComponents::CAuthority::CPort::construct_http_port() {
+    // Default Port 80 is normalized to undefined port.
+    if (m_state == STATE::avail && m_component == "80") {
+        m_state = STATE::undef;
+    }
+}
 
-// CUri::CPath
-// ===========
+
+// CUri::CComponents::CPath
+// ========================
 // Constructor
-CUri::CPath::CPath(){
-    TRACE2(this, " Construct CUri::CPath()") //
+CUri::CComponents::CPath::CPath(){
+    TRACE2(this, " Construct CUri::CComponents::CPath()") //
 }
 
 // Destructor
-CUri::CPath::~CPath() {
-    TRACE2(this, " Destruct CUri::CPath()") //
+CUri::CComponents::CPath::~CPath() {
+    TRACE2(this, " Destruct CUri::CComponents::CPath()") //
 }
 
-void CUri::CPath::construct_from(std::string_view a_uri_sv) {
+void CUri::CComponents::CPath::construct_https_from(std::string_view a_uri_sv) {
     // If a URI contains an authority component, then the path component must
     // either be empty or begin with a slash ("/") character. The path is
     // terminated by the first question mark ("?") or number sign ("#")
     // character, or by the end of the URI (RFC3986_3.3.). For now I only
     // handle schemes "http", "https", and "file". They must always have an
     // authority component (RFC7230_2.7.1.).
-    /// \todo manage relative URI path reference.
     // In addition, a URI reference may be a relative-path reference, in which
     // case the first path segment cannot contain a colon (":") character
     // (RFC3986_3.3.).
-    TRACE2(this, " Executing CUri::CPath::construct_from(a_uri_sv)")
+    TRACE2(
+        this,
+        " Executing CUri::CComponents::CPath::construct_https_from(a_uri_sv)")
 
     m_state = STATE::undef;
 
-    // Remove prefix and suffix from the uri string_view that can contain
-    // slashes do not belonging to the path.
     auto& npos = std::string_view::npos;
     size_t pos;
-    if ((pos = a_uri_sv.find("//")) != npos)
-        a_uri_sv.remove_prefix(pos + 2);
+    // Remove possible scheme.
+    if ((pos = a_uri_sv.find_first_of(':')) != npos) {
+        a_uri_sv.remove_prefix(pos + 1);
+    }
+    // Remove possible authority.
+    if ((pos = a_uri_sv.find("//")) != npos) {
+        // Find start of the path, but ignore empty path '/'.
+        if (((pos = a_uri_sv.find_first_of("/?#", pos + 2)) != npos) &&
+            (a_uri_sv[pos] == '/') && (pos + 1 < a_uri_sv.size())) {
+            a_uri_sv.remove_prefix(pos);
+        } else {
+            // There is an empty path.
+            m_component = '/';
+            m_state = STATE::empty;
+            return;
+        }
+    }
+    // Remove possible query and/or fragment.
     if ((pos = a_uri_sv.find_first_of("?#")) != npos)
         a_uri_sv.remove_suffix(a_uri_sv.size() - pos);
 
-    // Here we have a uri artifact that contains the path component with
-    // slashes only belonging to it. Looking for it.
-    if ((pos = a_uri_sv.find_first_of("/")) == npos) {
-        // No '/' found. That means there is an empty path componnent.
-        m_component.clear();
-        m_state = STATE::empty;
-        return;
-    }
-    // Strip all before path begin.
-    a_uri_sv.remove_prefix(pos);
-    if (a_uri_sv == "/") {
-        m_component.clear();
+    if (a_uri_sv.empty() || a_uri_sv == "/") {
+        m_component = '/';
         m_state = STATE::empty;
         return;
     }
 
-    // There is nothing to strip behind the path component (query and/or
-    // fragment component). That's already done above.
     m_component = a_uri_sv;
-    // Normalize by removing dot segments in place.
-    remove_dot_segments(m_component);
-
     m_state = STATE::avail;
 }
 
+void CUri::CComponents::CPath::remove_dot_segments() {
+    // Normalize by removing dot segments in place.
+    UPnPsdk::remove_dot_segments(m_component);
+}
 
-// CUri::CQuery
-// ===========
+void CUri::CComponents::CPath::merge(const CComponents& a_base,
+                                     const CComponents& a_rel) {
+    if (a_base.authority.state() != STATE::undef &&
+        a_base.path.state() == STATE::empty) {
+        m_component = '/' + a_rel.path.str();
+        m_state = STATE::avail;
+    } else {
+        size_t pos;
+        if ((pos = a_base.path.str().find_last_of('/')) == std::string::npos)
+            m_component.clear();
+        else
+            m_component = a_base.path.str().substr(0, pos);
+        m_component += '/' + a_rel.path.str();
+        m_state = STATE::avail;
+    }
+}
+
+
+// CComponents::CQuery
+// ===================
 // Constructor
-CUri::CQuery::CQuery(){
-    TRACE2(this, " Construct CUri::CQuery()") //
+CUri::CComponents::CQuery::CQuery(){
+    TRACE2(this, " Construct CUri::CComponents::CQuery()") //
 }
 
 // Destructor
-CUri::CQuery::~CQuery() {
-    TRACE2(this, " Destruct CUri::CQuery()") //
+CUri::CComponents::CQuery::~CQuery() {
+    TRACE2(this, " Destruct CUri::CComponents::CQuery()") //
 }
 
-void CUri::CQuery::construct_from(std::string_view a_uri_sv) {
+void CUri::CComponents::CQuery::construct_https_from(
+    std::string_view a_uri_sv) {
     // The query component is indicated by the first question mark ("?")
     // character and terminated by a number sign ("#") character or by the end
     // of the URI. The characters slash ("/") and question mark ("?") may
     // represent data within the query component (RFC3986_3.4.).
-    TRACE2(this, " Executing CUri::CQuery::construct_from(a_uri_sv)")
+    TRACE2(
+        this,
+        " Executing CUri::CComponents::CQuery::construct_https_from(a_uri_sv)")
 
     m_state = STATE::undef;
 
@@ -605,22 +727,24 @@ void CUri::CQuery::construct_from(std::string_view a_uri_sv) {
 }
 
 
-// CUri::CFragment
-// ===============
+// CUri::CComponents::CFragment
+// ============================
 // Constructor
-CUri::CFragment::CFragment(){
-    TRACE2(this, " Construct CUri::CFragment()") //
+CUri::CComponents::CFragment::CFragment(){
+    TRACE2(this, " Construct CUri::CComponents::CFragment()") //
 }
 
 // Destructor
-CUri::CFragment::~CFragment() {
-    TRACE2(this, " Destruct CUri::CFragment()") //
+CUri::CComponents::CFragment::~CFragment() {
+    TRACE2(this, " Destruct CUri::CComponents::CFragment()") //
 }
 
-void CUri::CFragment::construct_from(std::string_view a_uri_sv) {
+void CUri::CComponents::CFragment::construct_https_from(
+    std::string_view a_uri_sv) {
     // A fragment identifier component is indicated by the presence of a number
     // sign ("#") character and terminated by the end of the URI.
-    TRACE2(this, " Executing CUri::CFragment::construct_from(a_uri_sv)")
+    TRACE2(this, " Executing "
+                 "CUri::CComponents::CFragment::construct_https_from(a_uri_sv)")
 
     m_state = STATE::undef;
 
@@ -644,109 +768,180 @@ void CUri::CFragment::construct_from(std::string_view a_uri_sv) {
 }
 
 
-// CUri class
-// ==========
+// CUri::CComponents class
+// =======================
 // Constructor
-CUri::CUri(){
-    TRACE2(this, " Construct CUri()") //
+CUri::CComponents::CComponents(){
+    TRACE2(this, " Construct CUri::CComponents()") //
 }
+
+// Destructor
+CUri::CComponents::~CComponents(){
+    TRACE2(this, " Destruct CUri::CComponents()") //
+}
+
+// Getter
+std::string CUri::CComponents::str() const {
+    if (scheme.state() == STATE::avail && scheme.str() == "file")
+        return "file:///";
+    else
+        return (scheme.state() == STATE::avail ? scheme.str() : "") +
+               (scheme.state() == STATE::undef ? "" : ":") +
+               (authority.state() == STATE::undef ? "" : "//") +
+               (authority.state() == STATE::avail ? authority.str() : "") +
+               (path.state() == STATE::empty ? "/" : "") +
+               (path.state() == STATE::avail ? path.str() : "") +
+               (query.state() == STATE::undef ? "" : "?") +
+               (query.state() == STATE::avail ? query.str() : "") +
+               (fragment.state() == STATE::undef ? "" : "#") +
+               (fragment.state() == STATE::avail ? fragment.str() : "");
+}
+
+
+// CUri class
+// =====================================
+// Constructor
+CUri::CUri(std::string a_uriref_str) {
+    // It is important that the argument 'a_uriref_str' is given by value. So
+    // it is coppied to the stack and constant available for the live time of
+    // the constructor and can be used as stable base for string_views.
+    TRACE2(this, " Construct CUri(a_uriabs_str)")
+    UPnPsdk_LOGINFO("MSG1167") "Construct CUri::CUri(" + a_uriref_str + ")\n";
+
+    // Normalize percent encoded character in place to uppercase.
+    parse_percent_encoded_chars(a_uriref_str);
+
+    // Split components
+    // ~~~~~~~~~~~~~~~~
+    this->base.scheme.construct_from(a_uriref_str);
+    const std::string& scheme = this->base.scheme.state() == STATE::avail
+                                    ? this->base.scheme.str()
+                                    : "";
+
+    if (scheme == "https" || scheme == "http") {
+        this->base.authority.construct_https_from(a_uriref_str);
+        if (scheme == "http")
+            this->base.authority.port.construct_http_port();
+    } else if (scheme == "file") {
+        this->base.authority.construct_file_from(a_uriref_str);
+    } else {
+        throw std::invalid_argument(
+            UPnPsdk_LOGEXCEPT(
+                "MSG1046") "Ill formed base URI, Empty or unsupported scheme "
+                           "specified. Failed \"" +
+            a_uriref_str + "\"\n");
+    }
+    this->base.path.construct_https_from(a_uriref_str);
+    this->base.path.remove_dot_segments();
+    this->base.query.construct_https_from(a_uriref_str);
+    this->base.fragment.construct_https_from(a_uriref_str);
+
+    // Check dependencies of the components
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Manage scheme "https" and "http".
+    if (scheme == "https" || scheme == "http") {
+        // Scheme "https" and "http" must have a non empty host component.
+        if (this->base.authority.host.state() != STATE::avail)
+            throw std::invalid_argument(
+                UPnPsdk_LOGEXCEPT("MSG1155") "Ill formed base URI. Scheme '" +
+                scheme + "' must have a host identifier. Failed \"" +
+                a_uriref_str + "\".\n");
+    }
+    // Manage scheme "file".
+    else if (scheme == "file:") {
+        // Scheme "file" must have at least an empty host component.
+        if (this->base.authority.host.state() == STATE::undef)
+            throw std::invalid_argument(
+                UPnPsdk_LOGEXCEPT("MSG1163") "Ill formed base URI. Scheme '" +
+                scheme + "' must have a host identifier. Failed \"" +
+                a_uriref_str + "\".\n");
+    }
+}
+
 
 // Destructor
 CUri::~CUri() {
     TRACE2(this, " Destruct CUri()") //
 }
 
-// Method for setting a URI reference
-void CUri::operator=(std::string a_uri_str) {
-    // It is important that the argument 'a_uri_str' is given by value. So
-    // it is coppied to the stack and constant available for the live time
-    // of the method and can be used as stable base for string_views.
-    TRACE2(this, " Set URI reference \"" + a_uri_str + "\"")
 
-    // Normalize percent encoded char to upper case hex digits (RFC3986_2.1.).
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    auto it{a_uri_str.begin()};
-    auto it_end{a_uri_str.end()};
-    // clang-format off
-    // First check begin and end of the URI for invalid encoded character.
-    if (!a_uri_str.empty() &&
-        ( /*begin*/ (a_uri_str.size() <  3 && *it == '%') ||
-          /*end*/   (a_uri_str.size() >= 3 && (*(it_end - 2) == '%' || *(it_end - 1) == '%'))))
-        goto except;
-    // clang-format on
+void CUri::operator=(std::string a_uriref_str) {
+    // It is important that the argument 'a_uriref_str' is given by value. So
+    // it is coppied to the stack and constant available for the live time of
+    // the method and can be used as stable base for string_views.
+    TRACE2(this, " Executing CUri::operator=(a_uriref_str)")
+    UPnPsdk_LOGINFO("MSG1167") "Executing CUri::operator=(\"" + a_uriref_str +
+        "\")\n";
 
-    // Then parse the URI to set upper case hex digits.
-    for (; it < it_end; it++) {
-        if (static_cast<unsigned char>(*it) == '%') {
-            it++;
-            if (!std::isxdigit(static_cast<unsigned char>(*it)))
-                goto except;
-            *it = static_cast<char>(
-                std::toupper(static_cast<unsigned char>(*it)));
-            it++;
-            if (!std::isxdigit(static_cast<unsigned char>(*it)))
-                goto except;
-            *it = static_cast<char>(
-                std::toupper(static_cast<unsigned char>(*it)));
-        }
-    }
-    if (false) {
-    except:
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT(
-                "MSG1165") "URI with invalid percent encoding, failed URI=\"" +
-            a_uri_str + "\".\n");
-    }
+    // Normalize percent encoded character in place to uppercase.
+    parse_percent_encoded_chars(a_uriref_str);
+
+    CComponents rel;
 
     // Split components
     // ~~~~~~~~~~~~~~~~
-    this->scheme.construct_from(a_uri_str);
-    if (this->scheme.str() == "file")
-        this->authority.construct_scheme_file_from(a_uri_str);
+    rel.scheme.construct_from(a_uriref_str);
+    if (this->base.scheme.str() == "file")
+        rel.authority.construct_file_from(a_uriref_str);
     else
-        this->authority.construct_from(a_uri_str);
-    this->path.construct_from(a_uri_str);
-    this->query.construct_from(a_uri_str);
-    this->fragment.construct_from(a_uri_str);
+        rel.authority.construct_https_from(a_uriref_str);
+    rel.path.construct_https_from(a_uriref_str);
+    rel.query.construct_https_from(a_uriref_str);
+    rel.fragment.construct_https_from(a_uriref_str);
 
-
-    // Check dependencies of the components
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Empty scheme isn't possible.
-    if (this->scheme.state() != STATE::avail)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1046") "Ill formed URI, no or empty scheme "
-                                         "specified. Failed \"" +
-            a_uri_str + "\"\n");
-
-    // Scheme "https" and "http" must have a non empty host component available.
-    if ((this->scheme.str() == "https" || this->scheme.str() == "http") &&
-        this->authority.host.state() != STATE::avail)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1155") "Ill formed URI. Scheme '" +
-            this->scheme.str() + "' must have a host identifier. Failed \"" +
-            a_uri_str + "\".\n");
-
-    // Scheme "file" must have at least an empty host component.
-    if (this->scheme.str() == "file" &&
-        this->authority.host.state() == STATE::undef)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1163") "Ill formed URI. Scheme '" +
-            this->scheme.str() + "' must have a host identifier. Failed \"" +
-            a_uri_str + "\".\n");
+    // Transform References
+    // --------------------
+    // For an overview of the following algorithm have a look to the pseudo code
+    // at RFC3986_5.2.2.
+    auto& baseObj = this->base;
+    auto& targetObj = this->target;
+    if (rel.scheme.state() != STATE::undef) {
+        targetObj.scheme = rel.scheme;
+        targetObj.authority = rel.authority;
+        targetObj.path = rel.path;
+        targetObj.path.remove_dot_segments();
+        targetObj.query = rel.query;
+    } else {
+        if (rel.authority.state() != STATE::undef) {
+            targetObj.authority = rel.authority;
+            targetObj.path = rel.path;
+            targetObj.path.remove_dot_segments();
+            targetObj.query = rel.query;
+        } else {
+            if (rel.path.state() == STATE::empty) {
+                targetObj.path = baseObj.path;
+                targetObj.path.remove_dot_segments();
+                if (rel.query.state() != STATE::undef)
+                    targetObj.query = rel.query;
+                else
+                    targetObj.query = baseObj.query;
+            } else {
+                if (rel.path.str().front() == '/') {
+                    targetObj.path = rel.path;
+                    targetObj.path.remove_dot_segments();
+                } else {
+                    targetObj.path.merge(baseObj, rel);
+                    targetObj.path.remove_dot_segments();
+                }
+                targetObj.query = rel.query;
+            }
+            targetObj.authority = baseObj.authority;
+        }
+        targetObj.scheme = baseObj.scheme;
+    }
+    targetObj.fragment = rel.fragment;
 }
 
-// Getter
+
 std::string CUri::str() const {
-    return (scheme.str() + ':' +
-            (authority.state() == STATE::undef ? "" : "//") +
-            (authority.state() == STATE::avail ? authority.str() : "") +
-            (path.state() == STATE::empty ? "/" : "") +
-            (path.state() == STATE::avail ? path.str() : "") +
-            (query.state() == STATE::undef ? "" : "?") +
-            (query.state() == STATE::avail ? query.str() : "") +
-            (fragment.state() == STATE::undef ? "" : "#") +
-            (fragment.state() == STATE::avail ? fragment.str() : ""));
+    if (target.scheme.state() == STATE::undef &&
+        target.authority.state() == STATE::undef &&
+        target.path.state() == STATE::undef &&
+        target.query.state() == STATE::undef &&
+        target.fragment.state() == STATE::undef)
+        return base.str();
+    else
+        return target.str();
 }
 
 } // namespace UPnPsdk

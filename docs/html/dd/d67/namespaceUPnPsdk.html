@@ -143,7 +143,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table with C-strings mapped to an integer id.  <a href="../../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html">CUri</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a Uniform Resource Identifier (URI) and its components.  <a href="../../da/dcf/classUPnPsdk_1_1CUri.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class to manage a Uniform Resource Identifier.  <a href="../../da/dcf/classUPnPsdk_1_1CUri.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:db/dfe/structUPnPsdk_1_1Document__meta" id="r_db/dfe/structUPnPsdk_1_1Document__meta"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta">Document_meta</a></td></tr>
 <tr class="memdesc:db/dfe/structUPnPsdk_1_1Document__meta"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mapping of file extension to content-type of document.  <a href="../../dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta">More...</a><br /></td></tr>
@@ -523,7 +523,7 @@ Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a
 <div class="line"><a class="code hl_function" href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a>(<span class="stringliteral">&quot;./bar&quot;</span>); <span class="comment">// results to &quot;bar&quot;</span></div>
 <div class="line"><a class="code hl_function" href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a>(<span class="stringliteral">&quot;.../bar&quot;</span>); <span class="comment">// results to &quot;.../bar&quot; (do nothing)</span></div>
 <div class="line"><a class="code hl_function" href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a>(<span class="stringliteral">&quot;/./hello/foo/../bar&quot;</span>); <span class="comment">// results to &quot;/hello/bar&quot;</span></div>
-<div class="ttc" id="anamespaceUPnPsdk_html_a1b4480819fde1cd38f31b41bedcdce06"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">UPnPsdk::remove_dot_segments</a></div><div class="ttdeci">UPnPsdk_VIS void remove_dot_segments(std::string &amp;a_path)</div><div class="ttdoc">Removes &quot;.&quot;, and &quot;..&quot; from a path.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00040">uri.cpp:40</a></div></div>
+<div class="ttc" id="anamespaceUPnPsdk_html_a1b4480819fde1cd38f31b41bedcdce06"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a1b4480819fde1cd38f31b41bedcdce06">UPnPsdk::remove_dot_segments</a></div><div class="ttdeci">UPnPsdk_VIS void remove_dot_segments(std::string &amp;a_path)</div><div class="ttdoc">Removes &quot;.&quot;, and &quot;..&quot; from a path.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00098">uri.cpp:98</a></div></div>
 </div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">a_path</td><td>String representing a path with '/' separators and possible containing ".." or "." segments. The path is modified in place. </td></tr>
@@ -531,7 +531,7 @@ Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00040">40</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00098">98</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -590,7 +590,7 @@ Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a
 <li><code>nullptr</code> if file extension was not known</li>
 </ul>
 </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Rework to use reference instead of pointer and use exception. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo:</a></b></dt><dd>Rework to use reference instead of pointer and use exception. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_extension</td><td>file extension </td></tr>
