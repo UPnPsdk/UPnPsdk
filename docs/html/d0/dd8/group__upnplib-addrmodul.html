@@ -130,6 +130,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gadd67f7b346d4017d3cb45e45e0be77fb" id="r_gadd67f7b346d4017d3cb45e45e0be77fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">UPnPsdk::bitmask_to_netmask</a> (const ::sockaddr_storage *a_saddr, const unsigned int a_prefixlength, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddrObj)</td></tr>
 <tr class="memdesc:gadd67f7b346d4017d3cb45e45e0be77fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network address mask from address prefix bit number.  <br /></td></tr>
 <tr class="separator:gadd67f7b346d4017d3cb45e45e0be77fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6756252cf07c4f4d74f51fedc2fecce5" id="r_ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a> (std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</td></tr>
+<tr class="memdesc:ga6756252cf07c4f4d74f51fedc2fecce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to check if a string represents a valid port number.  <br /></td></tr>
+<tr class="separator:ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabe9fa394c2a994e0cd76c22805033555" id="r_gabe9fa394c2a994e0cd76c22805033555"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">UPnPsdk::split_addr_port</a> (std::string_view a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</td></tr>
 <tr class="memdesc:gabe9fa394c2a994e0cd76c22805033555"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to split inet address and port(service)  <br /></td></tr>
 <tr class="separator:gabe9fa394c2a994e0cd76c22805033555"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,9 +142,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga5ca5d93535c8e9a3ff87df387bfe0d07" id="r_ga5ca5d93535c8e9a3ff87df387bfe0d07"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07">UPnPsdk::anonymous_namespace{sockaddr.cpp}::sockaddrcmp</a> (const ::sockaddr_storage *a_ss1, const ::sockaddr_storage *a_ss2) noexcept</td></tr>
 <tr class="memdesc:ga5ca5d93535c8e9a3ff87df387bfe0d07"><td class="mdescLeft">&#160;</td><td class="mdescRight">logical compare two sockaddr structures  <br /></td></tr>
 <tr class="separator:ga5ca5d93535c8e9a3ff87df387bfe0d07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa0dbf5f7be0d6e9ab643cea70168b4bd" id="r_gaa0dbf5f7be0d6e9ab643cea70168b4bd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#gaa0dbf5f7be0d6e9ab643cea70168b4bd">UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_port</a> (std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</td></tr>
-<tr class="memdesc:gaa0dbf5f7be0d6e9ab643cea70168b4bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to check if a string represents a valid port number.  <br /></td></tr>
-<tr class="separator:gaa0dbf5f7be0d6e9ab643cea70168b4bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>The address module contains all classes and free functions to manage network addresses. </p>
@@ -326,6 +326,95 @@ sa</td>
 
 </div>
 </div>
+<a id="ga6756252cf07c4f4d74f51fedc2fecce5" name="ga6756252cf07c4f4d74f51fedc2fecce5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6756252cf07c4f4d74f51fedc2fecce5">&#9670;&#160;</a></span>to_port()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int UPnPsdk::to_port </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>a_port_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">in_port_t *const&#160;</td>
+          <td class="paramname"><em>a_port_num</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Free function to check if a string represents a valid port number. </p>
+<div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
+<div class="line">in_port_t port{};</div>
+<div class="line"><span class="keywordflow">switch</span> (<a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">to_port</a>(<span class="stringliteral">&quot;65535&quot;</span>, &amp;port) {</div>
+<div class="line"><span class="keywordflow">case</span> -1:</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Invalid port number string.\n&quot;</span>;</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="keywordflow">case</span> 0:</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Valid port number: &quot;</span> &lt;&lt; std::to_string(port) &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line">    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="keywordflow">case</span> 1:</div>
+<div class="line">    std::cout &lt;&lt; Valid number but out of scope 0..65535 <span class="keywordflow">for</span> ports.\n<span class="stringliteral">&quot;;</span></div>
+<div class="line"><span class="stringliteral">    break;</span></div>
+<div class="line"><span class="stringliteral">}</span></div>
+<div class="line"><span class="stringliteral"></span> </div>
+<div class="line"><span class="stringliteral">if (to_port(&quot;</span>65536<span class="stringliteral">&quot;) != 0) { // do nothing with port }</span></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga6756252cf07c4f4d74f51fedc2fecce5"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a></div><div class="ttdeci">int to_port(std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string represents a valid port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00087">sockaddr.cpp:87</a></div></div>
+</div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>On success: <b>0</b><br  />
+ A binary port number in host byte order is returned in <b>a_port_num</b>, so you can use it in your application without conversion. If you want to store it in a netaddr structure you must use <b>htons()</b>. An empty input string returns 0.<br  />
+ On error:<ul>
+<li><b>-1</b> A valid port number was not found.</li>
+<li>&#160;<b>1</b> Valid numeric value found but out of scope, not in range 0..65535. </li>
+</ul>
+</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Update to Clang compiler that supports std::from_chars() on MacOS. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Update to Clang compiler that supports std::from_chars() on MacOS. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_port_str</td><td>String that may represent a port number.  </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">a_port_num</td><td>Optional: if given, pointer to a variable that will be filled with the binary port number in host byte order. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00087">87</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph" alt=""/></div>
+<map name="ad0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph">
+<area shape="rect" title="Free function to check if a string represents a valid port number." alt="" coords="440,38,573,63"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a8b72040ce3fc2f14c4e85b189a9255a2" title="Set socket address from a netaddress." alt="" coords="5,5,160,45"/>
+<area shape="poly" title=" " alt="" coords="426,49,160,33,160,27,426,43"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555" title="Free function to split inet address and port(service)" alt="" coords="208,63,392,89"/>
+<area shape="poly" title=" " alt="" coords="427,63,392,67,392,62,426,58"/>
+<area shape="poly" title=" " alt="" coords="231,63,159,46,161,41,232,58"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="7,69,158,109"/>
+<area shape="poly" title=" " alt="" coords="194,85,158,87,158,82,194,80"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="gabe9fa394c2a994e0cd76c22805033555" name="gabe9fa394c2a994e0cd76c22805033555"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gabe9fa394c2a994e0cd76c22805033555">&#9670;&#160;</a></span>split_addr_port()</h2>
 
@@ -369,7 +458,7 @@ sa</td>
 <div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">split_addr_port</a>(<span class="stringliteral">&quot;example.COM:50003&quot;</span>, addr, serv);</div>
 <div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">split_addr_port</a>(<span class="stringliteral">&quot;example.com:HTTPS&quot;</span>, addr, serv);</div>
 <div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">split_addr_port</a>(<span class="stringliteral">&quot;[::FFff:142.250.185.99]:ssh&quot;</span>, addr, serv);</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_gabe9fa394c2a994e0cd76c22805033555"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">UPnPsdk::split_addr_port</a></div><div class="ttdeci">void split_addr_port(std::string_view a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</div><div class="ttdoc">Free function to split inet address and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00217">sockaddr.cpp:217</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_gabe9fa394c2a994e0cd76c22805033555"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">UPnPsdk::split_addr_port</a></div><div class="ttdeci">void split_addr_port(std::string_view a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</div><div class="ttdoc">Free function to split inet address and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00183">sockaddr.cpp:183</a></div></div>
 </div><!-- fragment --><p>This is a function for special use to prepare input for system call ::getaddrinfo(). Its results returned in <b>a_addr</b> and <b>a_serv</b> are only useful for ::getaddrinfo() and are not meant for general usage. For example returned IPv6 addresses never have brackets because ::getaddrinfo() does not accept them, port numbers are limited to 65535 because ::getaddrinfo() accepts also greater numbers with overrun to 65535 + 1 = 0. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -380,12 +469,24 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00217">217</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00183">183</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_gabe9fa394c2a994e0cd76c22805033555_cgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_gabe9fa394c2a994e0cd76c22805033555_cgraph" alt=""/></div>
+<map name="ad0/dd8/group__upnplib-addrmodul_gabe9fa394c2a994e0cd76c22805033555_cgraph" id="ad0/dd8/group__upnplib-addrmodul_gabe9fa394c2a994e0cd76c22805033555_cgraph">
+<area shape="rect" title="Free function to split inet address and port(service)" alt="" coords="5,5,189,31"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5" title="Free function to check if a string represents a valid port number." alt="" coords="237,5,371,31"/>
+<area shape="poly" title=" " alt="" coords="190,15,223,15,223,21,190,21"/>
+</map>
+</div>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_gabe9fa394c2a994e0cd76c22805033555_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_gabe9fa394c2a994e0cd76c22805033555_icgraph" alt=""/></div>
 <map name="ad0/dd8/group__upnplib-addrmodul_gabe9fa394c2a994e0cd76c22805033555_icgraph" id="ad0/dd8/group__upnplib-addrmodul_gabe9fa394c2a994e0cd76c22805033555_icgraph">
 <area shape="rect" title="Free function to split inet address and port(service)" alt="" coords="431,45,615,70"/>
@@ -431,7 +532,7 @@ sa</td>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
 <div class="line">saObj = <span class="stringliteral">&quot;[2001:db8::1]:56789&quot;</span>;</div>
 <div class="line">std::cout &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; <span class="comment">// output &quot;[2001:db8::1]:56789&quot;</span></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00094">sockaddr.hpp:94</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00133">sockaddr.hpp:133</a></div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -475,107 +576,14 @@ sa</td>
  <b>false</b> otherwise </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00032">32</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_cgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_cgraph" alt=""/></div>
-<map name="ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_cgraph" id="ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_cgraph">
-<area shape="rect" title="logical compare two sockaddr structures" alt="" coords="5,29,176,84"/>
-<area shape="poly" title=" " alt="" coords="57,29,57,19,63,10,74,5,91,3,110,6,121,13,118,18,108,11,91,8,76,10,66,15,62,21,62,29"/>
-</map>
-</div>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_icgraph" alt=""/></div>
-<map name="ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_icgraph">
-<area shape="rect" title="logical compare two sockaddr structures" alt="" coords="5,29,176,84"/>
-<area shape="poly" title=" " alt="" coords="118,18,108,11,91,8,76,10,66,15,62,21,62,29,57,29,57,19,63,10,74,5,91,3,110,6,121,13"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="gaa0dbf5f7be0d6e9ab643cea70168b4bd" name="gaa0dbf5f7be0d6e9ab643cea70168b4bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa0dbf5f7be0d6e9ab643cea70168b4bd">&#9670;&#160;</a></span>to_port()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_port </td>
-          <td>(</td>
-          <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>a_port_str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">in_port_t *const&#160;</td>
-          <td class="paramname"><em>a_port_num</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Free function to check if a string represents a valid port number. </p>
-<div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
-<div class="line">in_port_t port{};</div>
-<div class="line"><span class="keywordflow">switch</span> (<a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gaa0dbf5f7be0d6e9ab643cea70168b4bd">to_port</a>(<span class="stringliteral">&quot;65535&quot;</span>, &amp;port) {</div>
-<div class="line"><span class="keywordflow">case</span> -1:</div>
-<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Invalid port number string.\n&quot;</span>;</div>
-<div class="line">    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="keywordflow">case</span> 0:</div>
-<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Valid port number: &quot;</span> &lt;&lt; std::to_string(port) &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line">    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="keywordflow">case</span> 1:</div>
-<div class="line">    std::cout &lt;&lt; Valid number but out of scope 0..65535 <span class="keywordflow">for</span> ports.\n<span class="stringliteral">&quot;;</span></div>
-<div class="line"><span class="stringliteral">    break;</span></div>
-<div class="line"><span class="stringliteral">}</span></div>
-<div class="line"><span class="stringliteral"></span> </div>
-<div class="line"><span class="stringliteral">if (to_port(&quot;</span>65536<span class="stringliteral">&quot;) != 0) { // do nothing with port }</span></div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_gaa0dbf5f7be0d6e9ab643cea70168b4bd"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gaa0dbf5f7be0d6e9ab643cea70168b4bd">UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_port</a></div><div class="ttdeci">int to_port(std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string represents a valid port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00114">sockaddr.cpp:114</a></div></div>
-</div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>On success: <b>0</b><br  />
- A binary port number in host byte order is returned in <b>a_port_num</b>, so ypu can use it in your application without conversion. If you want to store it in a netaddr structure you must use <b>htons()</b>. An empty input string returns 0.<br  />
- On error:<ul>
-<li><b>-1</b> A valid port number was not found.</li>
-<li>&#160;<b>1</b> Valid numeric value found but out of scope, not in range 0..65535. </li>
-</ul>
-</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Update to Clang compiler that supports std::from_chars() on MacOS. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_port_str</td><td>String that may represent a port number.  </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">a_port_num</td><td>Optional: if given, pointer to a variable that will be filled with the binary port number in host byte order. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00114">114</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_gaa0dbf5f7be0d6e9ab643cea70168b4bd_cgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_gaa0dbf5f7be0d6e9ab643cea70168b4bd_cgraph" alt=""/></div>
-<map name="ad0/dd8/group__upnplib-addrmodul_gaa0dbf5f7be0d6e9ab643cea70168b4bd_cgraph" id="ad0/dd8/group__upnplib-addrmodul_gaa0dbf5f7be0d6e9ab643cea70168b4bd_cgraph">
-<area shape="rect" title="Free function to check if a string represents a valid port number." alt="" coords="5,29,176,84"/>
+<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_cgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_cgraph" alt=""/></div>
+<map name="ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_cgraph" id="ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_cgraph">
+<area shape="rect" title="logical compare two sockaddr structures" alt="" coords="5,29,176,84"/>
 <area shape="poly" title=" " alt="" coords="57,29,57,19,63,10,74,5,91,3,110,6,121,13,118,18,108,11,91,8,76,10,66,15,62,21,62,29"/>
 </map>
 </div>
@@ -584,9 +592,9 @@ sa</td>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_gaa0dbf5f7be0d6e9ab643cea70168b4bd_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_gaa0dbf5f7be0d6e9ab643cea70168b4bd_icgraph" alt=""/></div>
-<map name="ad0/dd8/group__upnplib-addrmodul_gaa0dbf5f7be0d6e9ab643cea70168b4bd_icgraph" id="ad0/dd8/group__upnplib-addrmodul_gaa0dbf5f7be0d6e9ab643cea70168b4bd_icgraph">
-<area shape="rect" title="Free function to check if a string represents a valid port number." alt="" coords="5,29,176,84"/>
+<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_icgraph" alt=""/></div>
+<map name="ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga5ca5d93535c8e9a3ff87df387bfe0d07_icgraph">
+<area shape="rect" title="logical compare two sockaddr structures" alt="" coords="5,29,176,84"/>
 <area shape="poly" title=" " alt="" coords="118,18,108,11,91,8,76,10,66,15,62,21,62,29,57,29,57,19,63,10,74,5,91,3,110,6,121,13"/>
 </map>
 </div>

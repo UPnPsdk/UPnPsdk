@@ -48,8 +48,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", "functions_vars" ],
-        [ "Enumerations", "functions_enum.html", null ]
+        [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -71,17 +70,17 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d1/d03/group__UpnpString.html#ga04a9bde6f73e0b38ef037b0b61776d87",
-"d2/dc8/UpnpStateVarComplete_8cpp.html#a2dc826432bb38d2ec4f79a52add66d65",
-"d4/d64/messages_8hpp.html#aafd15afa6e6a522e2164d0358d0ab27f",
-"d6/d37/ixmldebug_8cpp.html#a64ec28a981a1ebc97ae7103252bda8e0",
-"d7/d1a/classUPnPsdk_1_1CStrIntMap.html#a6c512dfcfece21875e8342ba4f3abe80",
-"d8/db8/UpnpDiscovery_8cpp.html#a935674aa8d6ff0dac5b0fbb7aa79c561",
-"d9/dd2/gena_8hpp.html#a1061c296a8e1902dfa6e17e105d46121",
-"da/dff/ixmlparser_8cpp.html#a12157cc4506fa0e6c4ff60b1b4d7e348",
-"dc/db4/netadapter__unix_8cpp.html",
-"dd/da6/UpnpFileInfo_8cpp.html#a988f1b0bcb0fa891a8e5be5dad754e86",
-"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#ab2f6f295de5f36eeaae53810c3e7b5cd",
-"globals_func_h.html"
+"d2/dc8/UpnpStateVarComplete_8cpp.html#a5678a82c56b8210936b2aeaeedc40306",
+"d4/d64/messages_8hpp.html#ad76979be86947d1fd35b6010b60f1499",
+"d6/d3e/classUPnPsdk_1_1INetadapter.html#a082f8dd924c23399fc70109d1079f2ea",
+"d7/d1a/classUPnPsdk_1_1CStrIntMap.html#ae6bbded737bfa2e3aaadf95bee615079",
+"d8/db8/UpnpDiscovery_8cpp.html#aa3e6f18c3461f2bc1e78cce38ea25e27",
+"d9/dd2/gena_8hpp.html#a30ccbf856771f17e82f751e385906da9",
+"da/dff/ixmlparser_8cpp.html#a6e1c9514870fcaa4a581baf033eaa224",
+"dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53",
+"dd/de6/gena__device_8cpp.html#a1503915b6cd3d0ea5adc7b5493b589ab",
+"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t",
+"index.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

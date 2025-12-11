@@ -2,12 +2,12 @@
 <area shape="rect" id="Node000001" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="5,238,185,293"/>
 <area shape="rect" id="Node000002" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea" title="Bind socket to an ip address of a local network adapter." alt="" coords="237,223,412,249"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,251,223,246,224,252,186,256"/>
-<area shape="rect" id="Node000018" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b" title="Set socket to listen." alt="" coords="233,77,416,102"/>
-<area shape="poly" id="edge12_Node000001_Node000018" title=" " alt="" coords="130,236,294,109,298,113,134,240"/>
-<area shape="rect" id="Node000019" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a3fa77060ec104f1300521d00b9ca50e9" title="Get the local socket address the socket is bound to." alt="" coords="235,273,415,313"/>
-<area shape="poly" id="edge15_Node000001_Node000019" title=" " alt="" coords="186,274,222,278,221,283,185,279"/>
-<area shape="rect" id="Node000020" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a8d4aa24450915e0b20fd30e672e9a660" title="Get the numeric port." alt="" coords="247,337,402,377"/>
-<area shape="poly" id="edge16_Node000001_Node000020" title=" " alt="" coords="158,290,234,323,253,330,251,335,232,328,155,295"/>
+<area shape="rect" id="Node000019" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a24742cd73c13af749201f468900a257b" title="Set socket to listen." alt="" coords="233,77,416,102"/>
+<area shape="poly" id="edge12_Node000001_Node000019" title=" " alt="" coords="130,236,294,109,298,113,134,240"/>
+<area shape="rect" id="Node000020" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a3fa77060ec104f1300521d00b9ca50e9" title="Get the local socket address the socket is bound to." alt="" coords="235,273,415,313"/>
+<area shape="poly" id="edge15_Node000001_Node000020" title=" " alt="" coords="186,274,222,278,221,283,185,279"/>
+<area shape="rect" id="Node000021" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a8d4aa24450915e0b20fd30e672e9a660" title="Get the numeric port." alt="" coords="247,337,402,377"/>
+<area shape="poly" id="edge16_Node000001_Node000021" title=" " alt="" coords="158,290,234,323,253,330,251,335,232,328,155,295"/>
 <area shape="rect" id="Node000003" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="470,69,627,109"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="338,221,391,177,463,126,486,113,488,118,465,130,395,181,342,225"/>
 <area shape="rect" id="Node000004" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="470,5,627,45"/>
@@ -18,15 +18,15 @@
 <area shape="poly" id="edge10_Node000002_Node000010" title=" " alt="" coords="345,221,398,193,471,166,512,156,553,153,595,157,635,170,674,196,707,231,733,268,752,302,747,304,729,271,703,235,671,200,632,174,594,162,553,158,512,162,472,171,400,198,348,226"/>
 <area shape="rect" id="Node000011" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="473,184,624,224"/>
 <area shape="poly" id="edge6_Node000002_Node000011" title=" " alt="" coords="412,221,459,214,460,219,413,226"/>
-<area shape="rect" id="Node000013" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="464,248,633,288"/>
-<area shape="poly" id="edge7_Node000002_Node000013" title=" " alt="" coords="413,246,451,251,450,257,412,251"/>
-<area shape="rect" id="Node000014" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="471,312,626,352"/>
-<area shape="poly" id="edge8_Node000002_Node000014" title=" " alt="" coords="385,246,417,259,442,278,465,298,477,304,474,309,463,302,439,282,415,264,383,251"/>
-<area shape="rect" id="Node000016" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53" title="Get sizeof the current filled (sin6 or sin) Sockaddr Structure." alt="" coords="471,376,626,416"/>
-<area shape="poly" id="edge9_Node000002_Node000016" title=" " alt="" coords="397,247,418,259,430,272,437,285,443,311,449,337,455,350,466,362,471,366,468,371,462,366,451,353,444,339,438,313,432,287,425,275,414,263,394,251"/>
-<area shape="rect" id="Node000017" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598" title="Get cached error message." alt="" coords="473,440,624,480"/>
-<area shape="poly" id="edge11_Node000002_Node000017" title=" " alt="" coords="400,247,418,259,434,280,442,302,444,344,445,385,452,406,466,426,470,430,466,434,462,430,447,408,440,386,438,344,437,303,429,283,414,263,397,251"/>
+<area shape="rect" id="Node000014" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="464,248,633,288"/>
+<area shape="poly" id="edge7_Node000002_Node000014" title=" " alt="" coords="413,246,451,251,450,257,412,251"/>
+<area shape="rect" id="Node000015" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="471,312,626,352"/>
+<area shape="poly" id="edge8_Node000002_Node000015" title=" " alt="" coords="385,246,417,259,442,278,465,298,477,304,474,309,463,302,439,282,415,264,383,251"/>
+<area shape="rect" id="Node000017" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53" title="Get sizeof the current filled (sin6 or sin) Sockaddr Structure." alt="" coords="471,376,626,416"/>
+<area shape="poly" id="edge9_Node000002_Node000017" title=" " alt="" coords="397,247,418,259,430,272,437,285,443,311,449,337,455,350,466,362,471,366,468,371,462,366,451,353,444,339,438,313,432,287,425,275,414,263,394,251"/>
+<area shape="rect" id="Node000018" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598" title="Get cached error message." alt="" coords="473,440,624,480"/>
+<area shape="poly" id="edge11_Node000002_Node000018" title=" " alt="" coords="400,247,418,259,434,280,442,302,444,344,445,385,452,406,466,426,470,430,466,434,462,430,447,408,440,386,438,344,437,303,429,283,414,263,397,251"/>
 <area shape="poly" id="edge5_Node000005_Node000010" title=" " alt="" coords="611,502,632,490,666,461,697,428,743,366,747,369,701,432,670,465,635,494,614,506"/>
-<area shape="poly" id="edge13_Node000018_Node000003" title=" " alt="" coords="416,87,456,87,456,92,416,92"/>
-<area shape="poly" id="edge14_Node000018_Node000004" title=" " alt="" coords="370,74,464,47,466,52,371,79"/>
+<area shape="poly" id="edge13_Node000019_Node000003" title=" " alt="" coords="416,87,456,87,456,92,416,92"/>
+<area shape="poly" id="edge14_Node000019_Node000004" title=" " alt="" coords="370,74,464,47,466,52,371,79"/>
 </map>

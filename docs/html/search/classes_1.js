@@ -11,7 +11,6 @@ var searchData=
   ['csocket_5fbasic_8',['CSocket_basic',['../d9/da5/classUPnPsdk_1_1CSocket__basic.html',1,'UPnPsdk']]],
   ['csocketerr_9',['CSocketErr',['../dd/d3a/classUPnPsdk_1_1CSocketErr.html',1,'UPnPsdk']]],
   ['cstrintmap_10',['CStrIntMap',['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html',1,'UPnPsdk']]],
-  ['curi_11',['CUri',['../da/dcf/classUPnPsdk_1_1CUri.html',1,'UPnPsdk']]],
-  ['cwsastartup_12',['CWSAStartup',['../d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html',1,'UPnPsdk::anonymous_namespace{global.cpp}']]],
-  ['cxmlalias_13',['CXmlAlias',['../d3/dc3/structcompa_1_1anonymous__namespace_02webserver_8cpp_03_1_1CXmlAlias.html',1,'compa::anonymous_namespace{webserver.cpp}']]]
+  ['cwsastartup_11',['CWSAStartup',['../d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html',1,'UPnPsdk::anonymous_namespace{global.cpp}']]],
+  ['cxmlalias_12',['CXmlAlias',['../d3/dc3/structcompa_1_1anonymous__namespace_02webserver_8cpp_03_1_1CXmlAlias.html',1,'compa::anonymous_namespace{webserver.cpp}']]]
 ];

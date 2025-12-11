@@ -201,12 +201,12 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <dd><a class="anchor" id="_todo000019"></a>Cleanup constants: In &lt;sys/socket.h&gt; are defined SHUT_RD, SHUT_WR, SHUT_RDWR with 0, 1, 2, according to man 2 shutdown.  </dd>
 <dt>Member <a class="el" href="../../d3/d57/group__UPnPTools.html#ga480e7d0aa9565348e3a113c8c053762d">UpnpResolveURL</a>  (const char *BaseURL, const char *RelURL, char *AbsURL)</dt>
 <dd><a class="anchor" id="_todo000007"></a>There is some unnecessary allocation and deallocation going on here because of the way <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356" title="Resolves a relative url with a base url.">resolve_rel_url()</a> was originally written and used. In the future it would be nice to clean this up.  </dd>
-<dt>{<a class="el" href="../../d7/def/sockaddr_8cpp.html" title="Definition of the Sockaddr class and some free helper functions.">sockaddr.cpp</a>} Member <a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#gaa0dbf5f7be0d6e9ab643cea70168b4bd">UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_port</a>  (std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</dt>
-<dd><a class="anchor" id="_todo000004"></a>Update to Clang compiler that supports std::from_chars() on MacOS.  </dd>
 <dt>Member <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d">UPnPsdk::CAddrinfo::get_first</a>  ()</dt>
 <dd><a class="anchor" id="_todo000002"></a>Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32.  </dd>
 <dt>Member <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7">UPnPsdk::select_filetype</a>  (std::string_view a_extension)</dt>
 <dd><a class="anchor" id="_todo000003"></a>Rework to use reference instead of pointer and use exception.  </dd>
+<dt>Member <a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a>  (std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</dt>
+<dd><a class="anchor" id="_todo000004"></a>Update to Clang compiler that supports std::from_chars() on MacOS.  </dd>
 <dt>Module <a class="el" href="../../d1/d03/group__UpnpString.html">UpnpString</a>  </dt>
 <dd><a class="anchor" id="_todo000006"></a>Always alloc a minimum size like 64 bytes or so and when shrinking do not perform a new memory allocation. </dd>
 <dt>File <a class="el" href="../../db/d37/uuid_8cpp.html">uuid.cpp</a>  </dt>

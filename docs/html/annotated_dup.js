@@ -37,7 +37,6 @@ var annotated_dup =
       [ "CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html", "d9/da5/classUPnPsdk_1_1CSocket__basic" ],
       [ "CSocketErr", "dd/d3a/classUPnPsdk_1_1CSocketErr.html", "dd/d3a/classUPnPsdk_1_1CSocketErr" ],
       [ "CStrIntMap", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", "d7/d1a/classUPnPsdk_1_1CStrIntMap" ],
-      [ "CUri", "da/dcf/classUPnPsdk_1_1CUri.html", "da/dcf/classUPnPsdk_1_1CUri" ],
       [ "Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", "dd/d67/namespaceUPnPsdk_db/dfe/structUPnPsdk_1_1Document__meta_dup" ],
       [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", "d6/d3e/classUPnPsdk_1_1INetadapter" ],
       [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],

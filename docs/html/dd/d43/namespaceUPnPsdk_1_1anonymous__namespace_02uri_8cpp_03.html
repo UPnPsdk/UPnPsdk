@@ -114,6 +114,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a7a38686a6c37619355a8c3a13c3a475c" id="r_a7a38686a6c37619355a8c3a13c3a475c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html#a7a38686a6c37619355a8c3a13c3a475c">parse_percent_encoded_chars</a> (std::string &amp;a_uriref_str)</td></tr>
 <tr class="memdesc:a7a38686a6c37619355a8c3a13c3a475c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalize percent encoded characters of a URI reference string to upper case hex digits (RFC3986_2.1.).  <br /></td></tr>
 <tr class="separator:a7a38686a6c37619355a8c3a13c3a475c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f9fb879ec8547febcfe970aa9a967ff" id="r_a5f9fb879ec8547febcfe970aa9a967ff"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html#a5f9fb879ec8547febcfe970aa9a967ff">get_scheme</a> (std::string_view a_uri_sv)</td></tr>
+<tr class="memdesc:a5f9fb879ec8547febcfe970aa9a967ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the scheme component from a URI.  <br /></td></tr>
+<tr class="separator:a5f9fb879ec8547febcfe970aa9a967ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71fe403cd22555d7560c522bf55950e1" id="r_a71fe403cd22555d7560c522bf55950e1"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html#a71fe403cd22555d7560c522bf55950e1">get_authority</a> (std::string_view a_uri_sv)</td></tr>
+<tr class="memdesc:a71fe403cd22555d7560c522bf55950e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the authority component from a URI.  <br /></td></tr>
+<tr class="separator:a71fe403cd22555d7560c522bf55950e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a9f8fe65d1ad9b79b9fbc99f9cf25c36e" name="a9f8fe65d1ad9b79b9fbc99f9cf25c36e"></a>
@@ -135,7 +141,7 @@ Functions</h2></td></tr>
 <p>Check if string is a valid IPv4 address. </p>
 <p>This checks that the address consists of four octets, each ranging from 0 to 255, separated by dots. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00027">27</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00960">960</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -179,7 +185,7 @@ Functions</h2></td></tr>
 
 <p>Check if a string conforms to a DNS name. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00037">37</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00971">971</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -222,9 +228,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Normalize percent encoded characters of a URI reference string to upper case hex digits (RFC3986_2.1.). </p>
-<p>Possible corrections are made in place. The size of the corrected string doesn't change. </p>
+<p>Corrections are made in place. The size of the corrected string doesn't change. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00056">56</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00991">991</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -245,6 +251,94 @@ Functions</h2></td></tr>
 <map name="add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a7a38686a6c37619355a8c3a13c3a475c_icgraph" id="add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a7a38686a6c37619355a8c3a13c3a475c_icgraph">
 <area shape="rect" title="Normalize percent encoded characters of a URI reference string to upper case hex digits (RFC3986_2...." alt="" coords="5,29,232,84"/>
 <area shape="poly" title=" " alt="" coords="156,18,143,11,119,8,98,10,86,15,80,21,80,29,74,29,75,19,83,10,97,5,119,3,144,6,159,14"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5f9fb879ec8547febcfe970aa9a967ff" name="a5f9fb879ec8547febcfe970aa9a967ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f9fb879ec8547febcfe970aa9a967ff">&#9670;&#160;</a></span>get_scheme()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view UPnPsdk::anonymous_namespace{uri.cpp}::get_scheme </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>a_uri_sv</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extract the scheme component from a URI. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01150">1150</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a5f9fb879ec8547febcfe970aa9a967ff_cgraph.png" border="0" usemap="#add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a5f9fb879ec8547febcfe970aa9a967ff_cgraph" alt=""/></div>
+<map name="add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a5f9fb879ec8547febcfe970aa9a967ff_cgraph" id="add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a5f9fb879ec8547febcfe970aa9a967ff_cgraph">
+<area shape="rect" title="Extract the scheme component from a URI." alt="" coords="5,29,173,84"/>
+<area shape="poly" title=" " alt="" coords="56,29,56,19,62,10,73,5,89,3,108,6,119,13,116,18,106,11,89,8,75,10,65,14,61,21,61,29"/>
+</map>
+</div>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a5f9fb879ec8547febcfe970aa9a967ff_icgraph.png" border="0" usemap="#add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a5f9fb879ec8547febcfe970aa9a967ff_icgraph" alt=""/></div>
+<map name="add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a5f9fb879ec8547febcfe970aa9a967ff_icgraph" id="add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a5f9fb879ec8547febcfe970aa9a967ff_icgraph">
+<area shape="rect" title="Extract the scheme component from a URI." alt="" coords="5,29,173,84"/>
+<area shape="poly" title=" " alt="" coords="116,18,106,11,89,8,75,10,65,14,61,21,61,29,56,29,56,19,62,10,73,5,89,3,108,6,119,13"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a71fe403cd22555d7560c522bf55950e1" name="a71fe403cd22555d7560c522bf55950e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71fe403cd22555d7560c522bf55950e1">&#9670;&#160;</a></span>get_authority()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view UPnPsdk::anonymous_namespace{uri.cpp}::get_authority </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>a_uri_sv</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extract the authority component from a URI. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01238">1238</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a71fe403cd22555d7560c522bf55950e1_cgraph.png" border="0" usemap="#add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a71fe403cd22555d7560c522bf55950e1_cgraph" alt=""/></div>
+<map name="add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a71fe403cd22555d7560c522bf55950e1_cgraph" id="add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a71fe403cd22555d7560c522bf55950e1_cgraph">
+<area shape="rect" title="Extract the authority component from a URI." alt="" coords="5,29,173,84"/>
+<area shape="poly" title=" " alt="" coords="56,29,56,19,62,10,73,5,89,3,108,6,119,13,116,18,106,11,89,8,75,10,65,14,61,21,61,29"/>
+</map>
+</div>
+<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a71fe403cd22555d7560c522bf55950e1_icgraph.png" border="0" usemap="#add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a71fe403cd22555d7560c522bf55950e1_icgraph" alt=""/></div>
+<map name="add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a71fe403cd22555d7560c522bf55950e1_icgraph" id="add/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03_a71fe403cd22555d7560c522bf55950e1_icgraph">
+<area shape="rect" title="Extract the authority component from a URI." alt="" coords="5,29,173,84"/>
+<area shape="poly" title=" " alt="" coords="116,18,106,11,89,8,75,10,65,14,61,21,61,29,56,29,56,19,62,10,73,5,89,3,108,6,119,13"/>
 </map>
 </div>
 

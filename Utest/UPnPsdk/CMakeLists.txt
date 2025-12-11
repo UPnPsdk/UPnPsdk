@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-09-27
+# Redistribution only with this Copyright remark. Last modified: 2025-12-06
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -157,13 +157,16 @@ add_test(NAME ctest_rootdevice-ush COMMAND test_rootdevice-ush --gtest_shuffle
 
 # uri
 # ===
-add_executable(test_uri-ush
+add_executable(test_uri-ust
     test_uri.cpp
 )
-target_link_libraries(test_uri-ush
-    PRIVATE UPnPsdk_shared
+target_include_directories(test_uri-ust
+    PRIVATE ${CMAKE_SOURCE_DIR}
+)
+target_link_libraries(test_uri-ust
+    PRIVATE UPnPsdk_static
     PRIVATE utest_shared
 )
-add_test(NAME ctest_uri-ush COMMAND test_uri-ush --gtest_shuffle
+add_test(NAME ctest_uri-ust COMMAND test_uri-ust --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )

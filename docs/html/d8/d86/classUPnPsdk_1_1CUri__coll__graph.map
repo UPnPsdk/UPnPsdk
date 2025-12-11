@@ -1,15 +1,15 @@
 <map id="UPnPsdk::CUri" name="UPnPsdk::CUri">
-<area shape="rect" id="Node000001" title="Class to manage a Uniform Resource Identifier." alt="" coords="636,141,751,166"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="333,141,548,166"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="562,151,636,151,636,156,562,156"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,220,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="198,47,221,55,329,99,414,138,412,143,327,104,219,60,197,52"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="5,69,220,109"/>
-<area shape="poly" id="edge3_Node000002_Node000005" title=" " alt="" coords="230,109,375,138,374,143,229,115"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="5,133,220,173"/>
-<area shape="poly" id="edge4_Node000002_Node000009" title=" " alt="" coords="234,151,333,151,333,156,234,156"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="5,197,220,237"/>
-<area shape="poly" id="edge5_Node000002_Node000010" title=" " alt="" coords="229,192,374,163,375,169,230,197"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="5,261,220,301"/>
-<area shape="poly" id="edge6_Node000002_Node000011" title=" " alt="" coords="197,255,219,247,327,203,412,164,415,168,329,208,221,252,198,260"/>
+<area shape="rect" id="Node000001" title="Representing a URI." alt="" coords="503,104,617,129"/>
+<area shape="rect" id="Node000002" href="$dc/d76/classUPnPsdk_1_1CUriRef.html" title="A URI&#45;reference is either a URI or a relative reference." alt="" coords="277,104,415,129"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="428,114,502,114,502,119,428,119"/>
+<area shape="rect" id="Node000003" href="$d4/dc5/classUPnPsdk_1_1CScheme.html" title="Parse scheme component of a URI reference." alt="" coords="11,5,159,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="156,32,254,64,326,101,323,106,252,68,154,37"/>
+<area shape="rect" id="Node000005" href="$dd/d90/classUPnPsdk_1_1CAuthority.html" title="Authority component of a URI reference." alt="" coords="7,55,163,80"/>
+<area shape="poly" id="edge3_Node000002_Node000005" title=" " alt="" coords="176,80,254,94,289,101,288,107,253,99,175,85"/>
+<area shape="rect" id="Node000009" href="$d8/db3/classUPnPsdk_1_1CPath.html" title="Path component of a URI reference." alt="" coords="23,104,147,129"/>
+<area shape="poly" id="edge4_Node000002_Node000009" title=" " alt="" coords="161,114,277,114,277,119,161,119"/>
+<area shape="rect" id="Node000010" href="$d1/df2/classUPnPsdk_1_1CQuery.html" title="Query component of a URI reference." alt="" coords="17,153,152,179"/>
+<area shape="poly" id="edge5_Node000002_Node000010" title=" " alt="" coords="165,150,253,134,288,127,289,132,254,139,166,155"/>
+<area shape="rect" id="Node000011" href="$dd/d7c/classUPnPsdk_1_1CFragment.html" title="Fragment component of a URI reference." alt="" coords="5,203,164,228"/>
+<area shape="poly" id="edge6_Node000002_Node000011" title=" " alt="" coords="157,197,205,183,252,166,291,147,324,127,327,132,294,152,254,171,206,188,159,202"/>
 </map>

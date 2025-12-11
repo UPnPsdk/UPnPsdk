@@ -44,6 +44,8 @@ UPnPsdk_VIS void remove_dot_segments(
     std::string& a_path);
 
 
+#if false
+
 // CUri
 /// \brief Class to manage a Uniform Resource Identifier
 // =====================================================
@@ -296,6 +298,10 @@ class UPnPsdk_VIS CUri {
     /// \brief Resulting URI of merged relative reference to the base URI
     CComponents target;
 };
+
+#else
+//
+#endif
 
 } // namespace UPnPsdk
 

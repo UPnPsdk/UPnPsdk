@@ -22,7 +22,6 @@ var hierarchy =
     ] ],
     [ "UPnPsdk::CSocketErr", "dd/d3a/classUPnPsdk_1_1CSocketErr.html", null ],
     [ "UPnPsdk::CStrIntMap< T >", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", null ],
-    [ "UPnPsdk::CUri", "da/dcf/classUPnPsdk_1_1CUri.html", null ],
     [ "UPnPsdk::anonymous_namespace{global.cpp}::CWSAStartup", "d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html", null ],
     [ "compa::anonymous_namespace{webserver.cpp}::CXmlAlias", "d3/dc3/structcompa_1_1anonymous__namespace_02webserver_8cpp_03_1_1CXmlAlias.html", null ],
     [ "UPnPsdk::Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", null ],

@@ -43,8 +43,8 @@ var group__upnplib_addrmodul =
     ] ],
     [ "UPnPsdk::netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71", null ],
     [ "UPnPsdk::bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb", null ],
+    [ "UPnPsdk::to_port", "d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5", null ],
     [ "UPnPsdk::split_addr_port", "d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555", null ],
     [ "UPnPsdk::operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],
-    [ "UPnPsdk::anonymous_namespace{sockaddr.cpp}::sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ],
-    [ "UPnPsdk::anonymous_namespace{sockaddr.cpp}::to_port", "d0/dd8/group__upnplib-addrmodul.html#gaa0dbf5f7be0d6e9ab643cea70168b4bd", null ]
+    [ "UPnPsdk::anonymous_namespace{sockaddr.cpp}::sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ]
 ];

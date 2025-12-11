@@ -98,8 +98,6 @@ $(document).ready(function(){initNavTree('da/dcf/classUPnPsdk_1_1CUri.html','../
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../d7/d2e/classUPnPsdk_1_1CUri-members.html">List of all members</a>  </div>
@@ -107,10 +105,8 @@ $(document).ready(function(){initNavTree('da/dcf/classUPnPsdk_1_1CUri.html','../
 </div><!--header-->
 <div class="contents">
 
-<p>Class to manage a Uniform Resource Identifier.  
+<p>Representing a URI.  
  <a href="../../da/dcf/classUPnPsdk_1_1CUri.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for UPnPsdk::CUri:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -118,100 +114,53 @@ $(document).ready(function(){initNavTree('da/dcf/classUPnPsdk_1_1CUri.html','../
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d8/d86/classUPnPsdk_1_1CUri__coll__graph.png" border="0" usemap="#aUPnPsdk_1_1CUri_coll__map" alt="Collaboration graph"/></div>
 <map name="aUPnPsdk_1_1CUri_coll__map" id="aUPnPsdk_1_1CUri_coll__map">
-<area shape="rect" title="Class to manage a Uniform Resource Identifier." alt="" coords="636,141,751,166"/>
-<area shape="rect" title=" " alt="" coords="333,141,548,166"/>
-<area shape="poly" title=" " alt="" coords="562,151,636,151,636,156,562,156"/>
-<area shape="rect" title=" " alt="" coords="5,5,220,45"/>
-<area shape="poly" title=" " alt="" coords="198,47,221,55,329,99,414,138,412,143,327,104,219,60,197,52"/>
-<area shape="rect" title=" " alt="" coords="5,69,220,109"/>
-<area shape="poly" title=" " alt="" coords="230,109,375,138,374,143,229,115"/>
-<area shape="rect" title=" " alt="" coords="5,133,220,173"/>
-<area shape="poly" title=" " alt="" coords="234,151,333,151,333,156,234,156"/>
-<area shape="rect" title=" " alt="" coords="5,197,220,237"/>
-<area shape="poly" title=" " alt="" coords="229,192,374,163,375,169,230,197"/>
-<area shape="rect" title=" " alt="" coords="5,261,220,301"/>
-<area shape="poly" title=" " alt="" coords="197,255,219,247,327,203,412,164,415,168,329,208,221,252,198,260"/>
+<area shape="rect" title="Representing a URI." alt="" coords="503,104,617,129"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html" title="A URI&#45;reference is either a URI or a relative reference." alt="" coords="277,104,415,129"/>
+<area shape="poly" title=" " alt="" coords="428,114,502,114,502,119,428,119"/>
+<area shape="rect" href="../../d4/dc5/classUPnPsdk_1_1CScheme.html" title="Parse scheme component of a URI reference." alt="" coords="11,5,159,31"/>
+<area shape="poly" title=" " alt="" coords="156,32,254,64,326,101,323,106,252,68,154,37"/>
+<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html" title="Authority component of a URI reference." alt="" coords="7,55,163,80"/>
+<area shape="poly" title=" " alt="" coords="176,80,254,94,289,101,288,107,253,99,175,85"/>
+<area shape="rect" href="../../d8/db3/classUPnPsdk_1_1CPath.html" title="Path component of a URI reference." alt="" coords="23,104,147,129"/>
+<area shape="poly" title=" " alt="" coords="161,114,277,114,277,119,161,119"/>
+<area shape="rect" href="../../d1/df2/classUPnPsdk_1_1CQuery.html" title="Query component of a URI reference." alt="" coords="17,153,152,179"/>
+<area shape="poly" title=" " alt="" coords="165,150,253,134,288,127,289,132,254,139,166,155"/>
+<area shape="rect" href="../../dd/d7c/classUPnPsdk_1_1CFragment.html" title="Fragment component of a URI reference." alt="" coords="5,203,164,228"/>
+<area shape="poly" title=" " alt="" coords="157,197,205,183,252,166,291,147,324,127,327,132,294,152,254,171,206,188,159,202"/>
 </map>
 <center><span class="legend">[<a target="top" href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a02d4e36b41bf3fb6aec16eeb8f621459" id="r_a02d4e36b41bf3fb6aec16eeb8f621459"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a02d4e36b41bf3fb6aec16eeb8f621459">STATE</a> { <a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a02d4e36b41bf3fb6aec16eeb8f621459af31ee5e3824f1f5e5d206bdf3029f22b">undef</a>
-, <a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a02d4e36b41bf3fb6aec16eeb8f621459aa2e4822a98337283e39f7b60acf85ec9">empty</a>
-, <a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a02d4e36b41bf3fb6aec16eeb8f621459a2a63117de6700b21651ea40db979a948">avail</a>
- }</td></tr>
-<tr class="memdesc:a02d4e36b41bf3fb6aec16eeb8f621459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the possible states of a URI component.  <a href="../../da/dcf/classUPnPsdk_1_1CUri.html#a02d4e36b41bf3fb6aec16eeb8f621459">More...</a><br /></td></tr>
-<tr class="separator:a02d4e36b41bf3fb6aec16eeb8f621459"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7004832c9120dccbe822a16a9090e95b" id="r_a7004832c9120dccbe822a16a9090e95b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a7004832c9120dccbe822a16a9090e95b">CUri</a> (std::string a_urief_str)</td></tr>
-<tr class="memdesc:a7004832c9120dccbe822a16a9090e95b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with setting the base URI.  <br /></td></tr>
-<tr class="separator:a7004832c9120dccbe822a16a9090e95b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75a226e8cc621f9d288d0befb0e7650e" id="r_a75a226e8cc621f9d288d0befb0e7650e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a75a226e8cc621f9d288d0befb0e7650e">CUri</a> (std::string a_uriref_str)</td></tr>
+<tr class="memdesc:a75a226e8cc621f9d288d0befb0e7650e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with setting the base URI.  <br /></td></tr>
+<tr class="separator:a75a226e8cc621f9d288d0befb0e7650e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1e620697598840857fedef88deaac5f" id="r_af1e620697598840857fedef88deaac5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#af1e620697598840857fedef88deaac5f">operator=</a> (std::string a_uriref_str)</td></tr>
 <tr class="memdesc:af1e620697598840857fedef88deaac5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a relative resource reference.  <br /></td></tr>
 <tr class="separator:af1e620697598840857fedef88deaac5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab90b7e985ba8a6653497f1d820729da0" id="r_ab90b7e985ba8a6653497f1d820729da0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00">CComponent::STATE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#ab90b7e985ba8a6653497f1d820729da0">state</a> () const</td></tr>
+<tr class="memdesc:ab90b7e985ba8a6653497f1d820729da0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get state of the URI.  <br /></td></tr>
+<tr class="separator:ab90b7e985ba8a6653497f1d820729da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8ac1698d099c51170f6ddae2bfa6ca9" id="r_af8ac1698d099c51170f6ddae2bfa6ca9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9">str</a> () const</td></tr>
 <tr class="memdesc:af8ac1698d099c51170f6ddae2bfa6ca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the normalized URI string.  <br /></td></tr>
 <tr class="separator:af8ac1698d099c51170f6ddae2bfa6ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aac48bb00ccbcfba33537374ec5457378" id="r_aac48bb00ccbcfba33537374ec5457378"><td class="memItemLeft" align="right" valign="top">CComponents&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#aac48bb00ccbcfba33537374ec5457378">base</a></td></tr>
-<tr class="memdesc:aac48bb00ccbcfba33537374ec5457378"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base URI.  <br /></td></tr>
-<tr class="separator:aac48bb00ccbcfba33537374ec5457378"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1da75c823a86004f5861a665770516de" id="r_a1da75c823a86004f5861a665770516de"><td class="memItemLeft" align="right" valign="top">CComponents&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a1da75c823a86004f5861a665770516de">target</a></td></tr>
-<tr class="memdesc:a1da75c823a86004f5861a665770516de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resulting URI of merged relative reference to the base URI.  <br /></td></tr>
-<tr class="separator:a1da75c823a86004f5861a665770516de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e448684e171cc9f1de1373cad68214d" id="r_a4e448684e171cc9f1de1373cad68214d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html">CUriRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a4e448684e171cc9f1de1373cad68214d">base</a></td></tr>
+<tr class="memdesc:a4e448684e171cc9f1de1373cad68214d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base URI.  <br /></td></tr>
+<tr class="separator:a4e448684e171cc9f1de1373cad68214d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c991bc29b0d16c47ae0b4f9aec0709b" id="r_a2c991bc29b0d16c47ae0b4f9aec0709b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html">CUriRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a2c991bc29b0d16c47ae0b4f9aec0709b">target</a></td></tr>
+<tr class="memdesc:a2c991bc29b0d16c47ae0b4f9aec0709b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resulting URI of merged relative reference to the base URI.  <br /></td></tr>
+<tr class="separator:a2c991bc29b0d16c47ae0b4f9aec0709b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class to manage a Uniform Resource Identifier. </p>
+<div class="textblock"><p>Representing a URI. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a02d4e36b41bf3fb6aec16eeb8f621459" name="a02d4e36b41bf3fb6aec16eeb8f621459"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02d4e36b41bf3fb6aec16eeb8f621459">&#9670;&#160;</a></span>STATE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum struct <a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a02d4e36b41bf3fb6aec16eeb8f621459">UPnPsdk::CUri::STATE</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Defines the possible states of a URI component. </p>
-<p>Quote RFC3986_5.3.:<br  />
-"Note that we are careful to preserve the distinction between a
-component that is undefined, meaning that its separator was not present
-in the reference, and a component that is empty, meaning that the
-separator was present and was immediately followed by the next component
-separator or the end of the reference (RFC3986_5.3.)." </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a02d4e36b41bf3fb6aec16eeb8f621459af31ee5e3824f1f5e5d206bdf3029f22b" name="a02d4e36b41bf3fb6aec16eeb8f621459af31ee5e3824f1f5e5d206bdf3029f22b"></a>undef&#160;</td><td class="fielddoc"><p>The component is undefined means its content is empty. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a02d4e36b41bf3fb6aec16eeb8f621459aa2e4822a98337283e39f7b60acf85ec9" name="a02d4e36b41bf3fb6aec16eeb8f621459aa2e4822a98337283e39f7b60acf85ec9"></a>empty&#160;</td><td class="fielddoc"><p>The component is empty means it contains only its separator. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a02d4e36b41bf3fb6aec16eeb8f621459a2a63117de6700b21651ea40db979a948" name="a02d4e36b41bf3fb6aec16eeb8f621459a2a63117de6700b21651ea40db979a948"></a>avail&#160;</td><td class="fielddoc"><p>The component is available means it has a valid content, starting with its separator, except the scheme that has its separator appended. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00067">67</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7004832c9120dccbe822a16a9090e95b" name="a7004832c9120dccbe822a16a9090e95b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7004832c9120dccbe822a16a9090e95b">&#9670;&#160;</a></span>CUri()</h2>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01799">1799</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a75a226e8cc621f9d288d0befb0e7650e" name="a75a226e8cc621f9d288d0befb0e7650e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75a226e8cc621f9d288d0befb0e7650e">&#9670;&#160;</a></span>CUri()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -220,7 +169,7 @@ separator or the end of the reference (RFC3986_5.3.)." </p>
           <td class="memname">UPnPsdk::CUri::CUri </td>
           <td>(</td>
           <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>a_urief_str</em></td><td>)</td>
+          <td class="paramname"><em>a_uriref_str</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -229,31 +178,12 @@ separator or the end of the reference (RFC3986_5.3.)." </p>
 <p>Constructor with setting the base URI. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_urief_str</td><td>String with a possible absolute URI. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_uriref_str</td><td>String with a possible absolute URI. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00804">804</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae7fa21b25917449b4386bfa664367743" name="ae7fa21b25917449b4386bfa664367743"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7fa21b25917449b4386bfa664367743">&#9670;&#160;</a></span>~CUri()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">UPnPsdk::CUri::~CUri </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00863">863</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01838">1838</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>
@@ -282,7 +212,28 @@ separator or the end of the reference (RFC3986_5.3.)." </p>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00868">868</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01854">1854</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab90b7e985ba8a6653497f1d820729da0" name="ab90b7e985ba8a6653497f1d820729da0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab90b7e985ba8a6653497f1d820729da0">&#9670;&#160;</a></span>state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00">CComponent::STATE</a> UPnPsdk::CUri::state </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get state of the URI. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01918">1918</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>
@@ -303,49 +254,48 @@ separator or the end of the reference (RFC3986_5.3.)." </p>
 
 <p>Get the normalized URI string. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00936">936</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01925">1925</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aac48bb00ccbcfba33537374ec5457378" name="aac48bb00ccbcfba33537374ec5457378"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac48bb00ccbcfba33537374ec5457378">&#9670;&#160;</a></span>base</h2>
+<a id="a4e448684e171cc9f1de1373cad68214d" name="a4e448684e171cc9f1de1373cad68214d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e448684e171cc9f1de1373cad68214d">&#9670;&#160;</a></span>base</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CComponents UPnPsdk::CUri::base</td>
+          <td class="memname"><a class="el" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html">CUriRef</a> UPnPsdk::CUri::base</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Base URI. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00295">295</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01832">1832</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a1da75c823a86004f5861a665770516de" name="a1da75c823a86004f5861a665770516de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1da75c823a86004f5861a665770516de">&#9670;&#160;</a></span>target</h2>
+<a id="a2c991bc29b0d16c47ae0b4f9aec0709b" name="a2c991bc29b0d16c47ae0b4f9aec0709b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c991bc29b0d16c47ae0b4f9aec0709b">&#9670;&#160;</a></span>target</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CComponents UPnPsdk::CUri::target</td>
+          <td class="memname"><a class="el" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html">CUriRef</a> UPnPsdk::CUri::target</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Resulting URI of merged relative reference to the base URI. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00297">297</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01834">1834</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>UPnPsdk/include/UPnPsdk/<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>UPnPsdk/src/net/http/<a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a></li>
 </ul>
 </div><!-- contents -->

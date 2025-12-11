@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-10-29
+// Redistribution only with this Copyright remark. Last modified: 2026-01-29
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -79,44 +79,12 @@ bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
     return true;
 }
 
+} // anonymous namespace
 
-/*! \brief Free function to check if a string represents a valid port number
-<!-- ------------------------------------------------------------------- -->
- * \ingroup upnplib-addrmodul
- * \code
- * // Usage e.g.:
- * in_port_t port{};
- * switch (to_port("65535", &port) {
- * case -1:
- *     std::cout << "Invalid port number string.\n";
- *     break;
- * case 0:
- *     std::cout << "Valid port number: " << std::to_string(port) << '\n';
- *     break;
- * case 1:
- *     std::cout << Valid number but out of scope 0..65535 for ports.\n";
- *     break;
- * }
- *
- * if (to_port("65536") != 0) { // do nothing with port }
- * \endcode
- * \returns
- *   On success: **0**\n
- *      A binary port number in host byte order is returned in **a_port_num**,
- *      so ypu can use it in your application without conversion. If you want
- *      to store it in a netaddr structure you must use <b>%htons()</b>. An
- *      empty input string returns 0.\n
- *   On error:
- *   - **-1** A valid port number was not found.
- *   - &nbsp;**1** Valid numeric value found but out of scope, not in range
- *                 0..65535.
- */
-int to_port( //
-    /*! [in] String that may represent a port number. */
-    std::string_view a_port_str,
-    /*! [in,out] Optional: if given, pointer to a variable that will be filled
-     *           with the binary port number in host byte order. */
-    in_port_t* const a_port_num = nullptr) noexcept {
+
+// Free function to check if a string represents a valid port number
+// -----------------------------------------------------------------
+int to_port(std::string_view a_port_str, in_port_t* const a_port_num) noexcept {
     TRACE("Executing to_port() with port=\"a_port_str\"")
 
     // // Trim input string.
@@ -176,8 +144,6 @@ int to_port( //
 
     return 0;
 }
-
-} // anonymous namespace
 
 
 // Free function to split inet address and port(service)
