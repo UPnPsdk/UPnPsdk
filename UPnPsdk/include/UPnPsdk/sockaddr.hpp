@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-01-29
+// Redistribution only with this Copyright remark. Last modified: 2026-02-22
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -265,7 +265,7 @@ struct UPnPsdk_API SSockaddr {
     // ----------------
     /*! \brief Test if another socket address is logical equal to this
      * \returns
-     *  \b true if socket addresses are logical equal\n
+     *  \b true&nbsp; if socket addresses are logical equal\n
      *  \b false otherwise
      *
      * It only supports AF_INET6 and AF_INET. For all other address families \b

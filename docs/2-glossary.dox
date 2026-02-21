@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-11
+// Redistribution only with this Copyright remark. Last modified: 2026-02-23
 
 /*!
 \page Glossary
@@ -72,6 +72,10 @@ The port number is part of the [netaddress](\ref glossary_netaddr). It specifies
 \anchor glossary_pthreads ***POSIX threads, pthreads***
 
 This SDK reffers to Linux implementations of POSIX threads NPTL (Native POSIX Threads Library) inclusive "pthread rwlock", that all is based on the POSIX.1 specification.
+
+\anchor glossary_URIrel ***relative reference, relative resource reference***
+
+See [URI reference](\ref glossary_URIref).
 
 \anchor glossary_rtout ***response timeout***
 
@@ -165,6 +169,15 @@ A C++ container object that embeds one or more [service](\ref glossary_serv)s an
 \anchor glossary_unit ***UPnP Unit***
 
 This is a [UPnP device](\ref glossary_upnpdev) or a [control point](\ref glossary_cp).
+
+\anchor glossary_URI ***URI***
+
+See [URI reference](\ref glossary_URIref).
+
+\anchor glossary_URIref ***URI reference***
+
+URI-reference = URI / relative-ref\n
+A URI-reference is either a URI or a relative reference. If the URI-reference's prefix does not match the syntax of a scheme followed by its colon separator, then the URI-reference is a relative reference (<a href="https://www.rfc-editor.org/rfc/rfc3986#section-4.1">RFC 3986 4.1.</a>).
 
 \anchor glossary_webdir ***WEB Directory, webdir***
 

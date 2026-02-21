@@ -30,7 +30,7 @@ The following general goals are in progress or planned:
 ## 3. Technical Documentation
 Here you can find the [Technical Documentation](https://upnpsdk.github.io/UPnPsdk/).<br/>
 If you want to be compatible with the classic pUPnP library here you find the <a href="https://upnpsdk.github.io/UPnPsdk/d9/d54/group__compaAPI.html">Compatible API</a>.
-To use the new written object oriented part of the library here you find its <a href="https://upnpsdk.github.io/UPnPsdk/d6/d14/group__upnplibAPI.html">UPnPsdk API</a>.
+To use the new written object oriented part of the library here you find its <a href="https://upnpsdk.github.io/UPnPsdk/d6/d14/group__upnpsdkAPI.html">UPnPsdk API</a>.
 
 ## 4. Version numbering
 We follow the [Semantic Versioning](https://semver.org/spec/v2.0.0.html#semantic-versioning-200). In short it defines

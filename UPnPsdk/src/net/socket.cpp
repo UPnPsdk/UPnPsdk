@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-28
+// Redistribution only with this Copyright remark. Last modified: 2026-02-12
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -27,7 +27,7 @@ namespace {
 /*!
  * \brief Wrapper for the ::%getsockname() system function
  * <!--   ------------------------------------------------ -->
- * \ingroup upnplib-socket
+ * \ingroup upnpsdk-socket
  *
  * The system function ::%getsockname() behaves different on different
  * platforms in particular with error handling on Microsoft Windows. This
@@ -75,7 +75,7 @@ int getsockname(SOCKET a_sockfd, sockaddr* a_addr, socklen_t* a_addrlen) {
 /*!
  * \brief Get a socket file descriptor from the operating system
  * <!--   -------------------------------------------------- -->
- * \ingroup upnplib-socket
+ * \ingroup upnpsdk-socket
  *
  * Get a socket file descriptor and set its default options as specified.
  */

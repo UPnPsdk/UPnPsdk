@@ -1,14 +1,14 @@
 <map id="UPnPsdk::CUriRef" name="UPnPsdk::CUriRef">
-<area shape="rect" id="Node000001" title="A URI&#45;reference is either a URI or a relative reference." alt="" coords="851,184,988,209"/>
-<area shape="rect" id="Node000002" href="$d4/dc5/classUPnPsdk_1_1CScheme.html" title="Parse scheme component of a URI reference." alt="" coords="405,5,553,31"/>
+<area shape="rect" id="Node000001" title="This is a URI reference." alt="" coords="851,184,988,209"/>
+<area shape="rect" id="Node000002" href="$d4/dc5/classUPnPsdk_1_1CScheme.html" title="Scheme component of a URI." alt="" coords="405,5,553,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="546,32,679,72,754,101,828,134,869,158,903,182,900,186,866,163,825,139,752,106,677,77,545,37"/>
 <area shape="rect" id="Node000003" href="$d3/da4/classUPnPsdk_1_1CComponent.html" title="Base class of a component." alt="" coords="5,145,176,171"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="107,132,155,79,188,52,224,32,270,17,317,9,363,6,405,7,405,13,363,12,317,14,271,22,226,36,191,57,159,83,111,136"/>
-<area shape="rect" id="Node000005" href="$d9/dba/classUPnPsdk_1_1CUserinfo.html" title="Uuserinfo component of a URI." alt="" coords="225,47,376,72"/>
+<area shape="rect" id="Node000005" href="$d9/dba/classUPnPsdk_1_1CUserinfo.html" title="Userinfo subcomponent from an authority component of a URI reference." alt="" coords="225,47,376,72"/>
 <area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="122,136,170,108,224,81,254,70,256,75,226,86,172,113,125,140"/>
-<area shape="rect" id="Node000006" href="$d2/de9/classUPnPsdk_1_1CHost.html" title="Host component of a URI reference." alt="" coords="237,96,364,121"/>
+<area shape="rect" id="Node000006" href="$d2/de9/classUPnPsdk_1_1CHost.html" title="Host subcomponent from an authority component of a URI reference." alt="" coords="237,96,364,121"/>
 <area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="158,140,245,119,246,124,159,145"/>
-<area shape="rect" id="Node000007" href="$df/de1/classUPnPsdk_1_1CPort.html" title="Port component of a URI reference." alt="" coords="239,145,362,171"/>
+<area shape="rect" id="Node000007" href="$df/de1/classUPnPsdk_1_1CPort.html" title="Port subcomponent from an authority component of a URI reference." alt="" coords="239,145,362,171"/>
 <area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="190,155,239,155,239,161,190,161"/>
 <area shape="rect" id="Node000008" href="$d8/db3/classUPnPsdk_1_1CPath.html" title="Path component of a URI reference." alt="" coords="417,192,541,217"/>
 <area shape="poly" id="edge11_Node000008_Node000003" title=" " alt="" coords="169,170,226,179,417,198,417,203,225,185,169,176"/>

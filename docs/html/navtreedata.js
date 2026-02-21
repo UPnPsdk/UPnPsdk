@@ -48,7 +48,8 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", "functions_vars" ]
+        [ "Variables", "functions_vars.html", "functions_vars" ],
+        [ "Enumerations", "functions_enum.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -70,17 +71,17 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d1/d03/group__UpnpString.html#ga04a9bde6f73e0b38ef037b0b61776d87",
-"d2/dc8/UpnpStateVarComplete_8cpp.html#a5678a82c56b8210936b2aeaeedc40306",
-"d4/d64/messages_8hpp.html#ad76979be86947d1fd35b6010b60f1499",
-"d6/d3e/classUPnPsdk_1_1INetadapter.html#a082f8dd924c23399fc70109d1079f2ea",
-"d7/d1a/classUPnPsdk_1_1CStrIntMap.html#ae6bbded737bfa2e3aaadf95bee615079",
-"d8/db8/UpnpDiscovery_8cpp.html#aa3e6f18c3461f2bc1e78cce38ea25e27",
-"d9/dd2/gena_8hpp.html#a30ccbf856771f17e82f751e385906da9",
-"da/dff/ixmlparser_8cpp.html#a6e1c9514870fcaa4a581baf033eaa224",
-"dc/df7/structUPnPsdk_1_1SSockaddr.html#ae58496b4631ff2173db32465de3a1d53",
-"dd/de6/gena__device_8cpp.html#a1503915b6cd3d0ea5adc7b5493b589ab",
-"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t",
-"index.html"
+"d2/dc8/UpnpStateVarComplete_8cpp.html#a4aa0d911195e37eda3da8680fb112e64",
+"d4/d64/messages_8hpp.html#a920086328a2948f48d5d0b5e8ba986bf",
+"d6/d13/Compa_2src_2api_2upnptools_8cpp.html#a5e7891c45ecc262cc496d792da86b129",
+"d7/d07/UpnpExtraHeaders_8hpp.html#ac938e0446bc62aeffb3d7a0780ed5194",
+"d8/db8/UpnpDiscovery_8cpp.html#a6f39eceff3b9c00e1294111c73352b55",
+"d9/dd1/soap__ctrlpt_8cpp.html#a773e0c1e2273a36ff26020f302c7860c",
+"da/dfc/socket_8hpp_source.html",
+"dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03.html#ac65d82fefe8b55566d7085b09c46da08",
+"dd/da6/UpnpFileInfo_8cpp.html#a3b4513343da61dc94c15e82cac61658f",
+"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a95aa14b5e06a3b635c73810fdbcb9de5",
+"globals_defs_c.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

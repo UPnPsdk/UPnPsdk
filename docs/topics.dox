@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-10-13
+// Redistribution only with this Copyright remark. Last modified: 2026-02-24
 /*!
  * \file
  * \brief Definition of the documentation topics.
@@ -13,23 +13,24 @@
 /*!
  * <!-- Compatible API
  * ------------------- -->
- * \defgroup compaAPI COMPATIBLE API
+ * \defgroup compaAPI UPnPsdk COMPATIBLE API
  * \brief Well defined Application Programming Interface of the **compatible**
  * part of the library.
  *
- * This API is equal to the API of the old **pUPnP** System Developement Kit
- * (SDK). It drop in replaces the API of the old **pUPnP** SDK. If the default
- * usage of this Interface does not behave like the old one then it should be
- * reported as an issue. Differences may exist with error conditions due to bug
- * fixes and stability enhacements. This ensures that you can direct use
- * **UPnPlib** instead **pUPnP** without changes to your source code. Then you
- * can modify your source code step by step or only when needed, to use the new
- * object oriented features of the completely rewritten **UPnPlib**.
+ * This API is equal to the API of the traditional <a
+ * href="https://github.com/pupnp/pupnp">**pUPnP**</a> library. It drop in
+ * replaces the API of the old **pUPnP** SDK. If the default usage of this
+ * Interface does not behave like the old one then it should be reported as an
+ * issue. Differences may exist with error conditions due to bug fixes and
+ * stability enhacements. This ensures that you can direct use **UPnPsdk**
+ * instead **pUPnP** without changes to your source code. Then you can modify
+ * your source code step by step or only when needed, to use the new object
+ * oriented features of the completely rewritten **UPnPsdk**.
  *
  * This feature is only to ease the port to the new library but support will be
  * discontinued after some time of transition. It is not intended to continue
  * supporting this. With starting a new software project it is strongly
- * recommended to only use the new object oriented **UPnPlib API**.
+ * recommended to only use the new object oriented **UPnPsdk API**.
  *
  * \defgroup compaAPI-Addressing Step 0: Addressing
  * \ingroup compaAPI
@@ -68,7 +69,7 @@
  *
  * <!-- Compatible Software Development Kit
  * ---------------------------------------- -->
- * \defgroup compa compatible UPnP SDK
+ * \defgroup compa UPnPsdk compatible code
  * \brief Detailed documentation of this part of the library. Not of interest
  * for only using the SDK.
  *
@@ -259,19 +260,19 @@ root based:    path with leading '/'
  * \brief Functions to get uuids and md5 sums.
  */
 
-// Topics for the object oriented UPnPlib library
+// Topics for the object oriented UPnPsdk library
 // ----------------------------------------------
 /*!
- * \defgroup upnplibAPI UPnPsdk API
+ * \defgroup upnpsdkAPI UPnPsdk API
  * \brief Well defined Application Programming Interface of the **object
  * oriented** part  of the library.
  *
- * \defgroup upnplibAPI-socket Socket module
- * \ingroup upnplibAPI
- * \copydoc upnplib-socket
+ * \defgroup upnpsdkAPI-socket Socket module
+ * \ingroup upnpsdkAPI
+ * \copydoc upnpsdk-socket
  *
  *
- * \defgroup upnplib object oriented UPnP library
+ * \defgroup upnplib UPnPsdk code
  * \brief Detailed documentation of this part of the library. Not of interest
  * for only using the SDK.
  *
@@ -296,8 +297,42 @@ root based:    path with leading '/'
  *  - <!--REF:--><a href="https://stackoverflow.com/q/76360179/5014688">Why do I
  * get wrong pointer to a base class with a virtual constructor</a>
  *
- * \defgroup upnplib-socket Socket module
+ * \defgroup upnpsdk-socket Socket module
  * \ingroup upnplib-Addressing
+ *
+ * \defgroup upnpsdk-uri URI module
+ * \ingroup upnplib-Addressing
+ * \brief The URI module contains all classes and free functions to manage
+ * Uniform Resource Identifier (URI) as specified with <a
+ * href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986</a>.
+ *
+ * It follows the recommendation of <a
+ * href="https://www.rfc-editor.org/rfc/rfc3986#section-4.1">RFC 3986 4.1.</a>:
+ * > A URI-reference is typically parsed first into the five URI components, in order to determine what components are present and whether the reference is relative.
+ *
+ * All thrown exceptions from this module are **std::invalid_argument**.
+ *
+ * Classes and Abstraction of the URI module
+ * -----------------------------------------
+ * ### Abstraction layer 0
+ * It is the UPnPsdk::CComponent class. It specifies the common properties of a
+ * component and is base class of every named component class.
+ *
+ * Any named component like *scheme, path,* etc. has its own class that is
+ * derived from UPnPsdk::CComponent. They are all initialized by its
+ * constructor with the whole input URI string to ensure they all have the same
+ * source for parsing and extract its specific information as defined by <a
+ * href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986</a>. Its properties
+ * are encapsulated so there is only access to them with "getter" member
+ * functions.
+ *
+ * The constructor of a named component class always tries to extract its component from the input URI string and reflects it in its UPnPsdk::CComponent::STATE. No dependencies with other components are checked on this abstraction layer. Only conditions like valid characters etc. defined for the component are checked. For example no error is reported if a "http" URI does not have a host component available. This is checked on a higher abstraction layer that manage the dependencies of components.
+ *
+ * ### Abstraction layer 1
+ * This is the UPnPsdk::CUriRef class, the representation of a [URI reference](\ref glossary_URIref). Its member variables are named component objects. The constructor only verifies a [URI](\ref glossary_URI). It always accepts a [relative reference](\ref glossary_URIrel) because that only makes sense together with a URI that is used as base URI for a relative reference. Verifying the relative reference is made on a higher abstraction layer that merges the base URI and the relative reference.
+ *
+ * ### Abstraction layer 2
+ * This is the UPnPsdk::CUri class. Its member variables are mainly two UPnPsdk::CUriRef objects for base [URI](\ref glossary_URI) and resulting target URI. The constructor initializes the base [URI](\ref glossary_URI). The class accepts an optional [relative reference](\ref glossary_URIrel) and will then transform it with the base URI to a resulting target URI if it is valid.
  *
  * \defgroup upnplib-connection Connection module
  * \ingroup upnplib-Addressing

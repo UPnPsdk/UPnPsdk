@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-04
+// Redistribution only with this Copyright remark. Last modified: 2026-02-12
 /*!
  * \file
  * \brief Global used flags, classes and emulated system functions.
@@ -40,7 +40,7 @@ namespace {
 /*!
  * \brief Initialize and cleanup Microsoft Windows Sockets
  * <!--   ================================================ -->
- * \ingroup upnplib-socket
+ * \ingroup upnpsdk-socket
  * \note This class is not available for the user and only used on Microsoft
  * Windows.
  * \copydetails global.cpp
@@ -115,7 +115,7 @@ class CWSAStartup {
 
 /*! \brief This object initialize and cleanup the Microsoft Windows Socket
  * subsystem
- * \ingroup upnplib-socket */
+ * \ingroup upnpsdk-socket */
 const CWSAStartup init_winsock;
 #endif // _MSC_VER
 

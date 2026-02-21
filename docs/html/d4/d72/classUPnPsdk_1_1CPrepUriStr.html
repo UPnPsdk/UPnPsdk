@@ -100,22 +100,23 @@ $(document).ready(function(){initNavTree('d4/d72/classUPnPsdk_1_1CPrepUriStr.htm
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../db/d03/classUPnPsdk_1_1CPrepUriStr-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">UPnPsdk::CPrepUriStr Class Reference</div></div>
+  <div class="headertitle"><div class="title">UPnPsdk::CPrepUriStr Class Reference<div class="ingroups"><a class="el" href="../../d4/d32/group__upnplib.html">UPnPsdk code</a> &raquo; <a class="el" href="../../dd/df8/group__upnplib-Addressing.html">Step 0: Addressing</a> &raquo; <a class="el" href="../../de/dc7/group__upnpsdk-uri.html">URI module</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Internal class to modify the input URI string, Not publicly usable.  
+<p>Internal class to prepare the input URI string, Not publicly usable.  
  <a href="../../d4/d72/classUPnPsdk_1_1CPrepUriStr.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8ef9ae88023820ab22bd20d869dc0ec5" id="r_a8ef9ae88023820ab22bd20d869dc0ec5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d72/classUPnPsdk_1_1CPrepUriStr.html#a8ef9ae88023820ab22bd20d869dc0ec5">CPrepUriStr</a> (std::string &amp;a_uri_str)</td></tr>
+<tr class="memdesc:a8ef9ae88023820ab22bd20d869dc0ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the helper class.  <br /></td></tr>
 <tr class="separator:a8ef9ae88023820ab22bd20d869dc0ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Internal class to modify the input URI string, Not publicly usable. </p>
+<div class="textblock"><p>Internal class to prepare the input URI string, Not publicly usable. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01651">1651</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00856">856</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8ef9ae88023820ab22bd20d869dc0ec5" name="a8ef9ae88023820ab22bd20d869dc0ec5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ef9ae88023820ab22bd20d869dc0ec5">&#9670;&#160;</a></span>CPrepUriStr()</h2>
@@ -133,7 +134,21 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01656">1656</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p>Initialize the helper class. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>if invalid percent encoding is detected. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_uri_str</td><td>Input URI string </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00865">865</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>

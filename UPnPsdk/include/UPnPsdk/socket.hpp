@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-08-24
+// Redistribution only with this Copyright remark. Last modified: 2026-02-14
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -11,7 +11,7 @@
 /*!
  * \brief The socket module contains all classes and free functions to manage
  * network sockets.
- * \addtogroup upnplib-socket
+ * \addtogroup upnpsdk-socket
  *
  * \anchor socket_module
  * This module mainly consists of the CSocket class but also provides free
@@ -109,8 +109,8 @@ namespace UPnPsdk {
 /*!
  * \brief Get information from a raw network socket file descriptor
  * <!--   ========================================================= -->
- * \ingroup upnplibAPI-socket
- * \ingroup upnplib-socket
+ * \ingroup upnpsdkAPI-socket
+ * \ingroup upnpsdk-socket
  *
  * For general information have a look at \ref socket_module.
  *
@@ -312,8 +312,8 @@ try {
 
 /*!
  * \brief Manage all aspects of a network socket.
- * \ingroup upnplibAPI-socket
- * \ingroup upnplib-socket
+ * \ingroup upnpsdkAPI-socket
+ * \ingroup upnpsdk-socket
  *
  * For general information have a look at \ref socket_module.
  ********************************************************* */
@@ -505,8 +505,8 @@ class UPnPsdk_API CSocket : public CSocket_basic {
 // Portable handling of socket errors
 // ==================================
 /*! \brief Class for portable handling of network socket errors.
- * \ingroup upnplibAPI-socket
- * \ingroup upnplib-socket
+ * \ingroup upnpsdkAPI-socket
+ * \ingroup upnpsdk-socket
  * \code
  * // Usage e.g.:
  * CSocketErr serrObj;

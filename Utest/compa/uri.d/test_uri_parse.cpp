@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-10-31
+// Redistribution only with this Copyright remark. Last modified: 2026-02-10
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -25,31 +25,47 @@ namespace utest {
 #if 0
 TEST(ParseUriIp4TestSuite, simple_call) {
     // This test is only for humans to get an idea what's going on. If you need
-    // it, set '#if true' only temporary. It is not intended to be permanent
-    // part of the tests. It doesn't really test things and because unmocked, it
+    // it, set '#if 1' only temporary. It is not intended to be permanent part
+    // of the tests. It doesn't really test things and because unmocked, it
     // queries DNS server on the internet that may have long delays.
 
-    const char* uri_str{"scheme://example-site.de:80/uripath?uriquery#urifragment"};
-    // const char* uri_str{"mailto:a@b.com"};
+    std::string_view uri_str{"scheme://localhost:80/path?query#fragment"};
+    // std::string_view uri_str{"scheme://uc6frebGdhl.de:80/path?query#frag"};
+    // std::string_view uri_str{"/exampl.de:80/path?query#frag"};
+    // std::string_view uri_str{"path?query#fragment"};
+    // std::string_view uri_str{"mailto:a@b.com"};
+
+    std::cout << "DEBUG: parsed URI = \"" << uri_str << "\"\n";
     uri_type out;
 
     // Test Unit
-    EXPECT_EQ(::parse_uri(uri_str, 64, &out), HTTP_SUCCESS);
-    ::std::cout << "DEBUG: out.scheme.buff = " << out.scheme.buff
-                << ::std::endl;
-    ::std::cout << "DEBUG: out.type Absolute(0), Relative(1) = " << out.type
-                << ::std::endl;
+    EXPECT_EQ(::parse_uri(uri_str.data(), uri_str.size(), &out), HTTP_SUCCESS);
+
+    ::std::cout << "DEBUG: out.scheme = \""
+                << std::string_view(out.scheme.buff, out.scheme.size) << "\"\n";
+
+    ::std::cout << "DEBUG: out.type Absolute(1), Relative(1) = "
+                << static_cast<int>(out.type) << ::std::endl;
+
     ::std::cout
         << "DEBUG: out.path_type ABS_PATH(0), REL_PATH(1), OPAQUE_PART(2) = "
-        << out.path_type << ::std::endl;
-    ::std::cout << "DEBUG: out.hostport.text.buff = " << out.hostport.text.buff
-                << ::std::endl;
-    ::std::cout << "DEBUG: out.pathquery.buff = " << out.pathquery.buff
-                << ::std::endl;
-    ::std::cout << "DEBUG: out.fragment.buff = " << out.fragment.buff
-                << ::std::endl;
-    ::std::cout << "DEBUG: out.fragment.size = " << (signed)out.fragment.size
-                << ::std::endl;
+        << static_cast<int>(out.path_type) << ::std::endl;
+
+    ::std::cout << "DEBUG: out.hostport.text = \""
+                << std::string_view(out.hostport.text.buff,
+                                    out.hostport.text.size)
+                << "\"\n";
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    std::cout << "DEBUG: IP address = \"" << saObj.netaddrp() << "\"\n";
+
+    ::std::cout << "DEBUG: out.pathquery = \""
+                << std::string_view(out.pathquery.buff, out.pathquery.size)
+                << "\"\n";
+
+    ::std::cout << "DEBUG: out.fragment = \""
+                << std::string_view(out.fragment.buff, out.fragment.size)
+                << "\"\n";
 }
 #endif
 

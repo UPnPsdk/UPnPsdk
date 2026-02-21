@@ -8,19 +8,38 @@ var namespaceUPnPsdk =
       [ "sockaddrcmp", "d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07", null ]
     ] ],
     [ "anonymous_namespace{socket.cpp}", "d4/d77/namespaceUPnPsdk_1_1anonymous__namespace_02socket_8cpp_03.html", [
-      [ "getsockname", "db/d86/group__upnplib-socket.html#ga22b121617b4eb96c4b4548a814683dfc", null ],
-      [ "get_sockfd", "db/d86/group__upnplib-socket.html#gaff979637c7cac7b0ef5df38ec5eae017", null ]
+      [ "getsockname", "da/de4/group__upnpsdk-socket.html#ga22b121617b4eb96c4b4548a814683dfc", null ],
+      [ "get_sockfd", "da/de4/group__upnpsdk-socket.html#gaff979637c7cac7b0ef5df38ec5eae017", null ]
+    ] ],
+    [ "anonymous_namespace{uri.cpp}", "dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html", [
+      [ "is_ipv4_addr", "de/dc7/group__upnpsdk-uri.html#ga9f8fe65d1ad9b79b9fbc99f9cf25c36e", null ],
+      [ "is_dns_name", "de/dc7/group__upnpsdk-uri.html#gafa653ebd81ec9323368fc8792a89df48", null ],
+      [ "parse_percent_encoded_chars", "de/dc7/group__upnpsdk-uri.html#ga7a38686a6c37619355a8c3a13c3a475c", null ],
+      [ "get_scheme", "de/dc7/group__upnpsdk-uri.html#ga5f9fb879ec8547febcfe970aa9a967ff", null ],
+      [ "get_authority", "de/dc7/group__upnpsdk-uri.html#ga71fe403cd22555d7560c522bf55950e1", null ]
     ] ],
     [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
+    [ "CAuthority", "dd/d90/classUPnPsdk_1_1CAuthority.html", "dd/d90/classUPnPsdk_1_1CAuthority" ],
+    [ "CComponent", "d3/da4/classUPnPsdk_1_1CComponent.html", "d3/da4/classUPnPsdk_1_1CComponent" ],
+    [ "CFragment", "dd/d7c/classUPnPsdk_1_1CFragment.html", "dd/d7c/classUPnPsdk_1_1CFragment" ],
+    [ "CHost", "d2/de9/classUPnPsdk_1_1CHost.html", "d2/de9/classUPnPsdk_1_1CHost" ],
     [ "CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", "d8/d37/classUPnPsdk_1_1CNetadapter" ],
     [ "CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform" ],
+    [ "CPath", "d8/db3/classUPnPsdk_1_1CPath.html", "d8/db3/classUPnPsdk_1_1CPath" ],
+    [ "CPort", "df/de1/classUPnPsdk_1_1CPort.html", "df/de1/classUPnPsdk_1_1CPort" ],
+    [ "CPrepUriStr", "d4/d72/classUPnPsdk_1_1CPrepUriStr.html", "d4/d72/classUPnPsdk_1_1CPrepUriStr" ],
     [ "CPthread_scoped_lock", "d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html", "d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock" ],
+    [ "CQuery", "d1/df2/classUPnPsdk_1_1CQuery.html", "d1/df2/classUPnPsdk_1_1CQuery" ],
     [ "CRootdevice", "dd/d06/classUPnPsdk_1_1CRootdevice.html", "dd/d06/classUPnPsdk_1_1CRootdevice" ],
+    [ "CScheme", "d4/dc5/classUPnPsdk_1_1CScheme.html", "d4/dc5/classUPnPsdk_1_1CScheme" ],
     [ "CSigpipe_scoped", "db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html", null ],
     [ "CSocket", "d3/d5d/classUPnPsdk_1_1CSocket.html", "d3/d5d/classUPnPsdk_1_1CSocket" ],
     [ "CSocket_basic", "d9/da5/classUPnPsdk_1_1CSocket__basic.html", "d9/da5/classUPnPsdk_1_1CSocket__basic" ],
     [ "CSocketErr", "dd/d3a/classUPnPsdk_1_1CSocketErr.html", "dd/d3a/classUPnPsdk_1_1CSocketErr" ],
     [ "CStrIntMap", "d7/d1a/classUPnPsdk_1_1CStrIntMap.html", "d7/d1a/classUPnPsdk_1_1CStrIntMap" ],
+    [ "CUri", "da/dcf/classUPnPsdk_1_1CUri.html", "da/dcf/classUPnPsdk_1_1CUri" ],
+    [ "CUriRef", "dc/d76/classUPnPsdk_1_1CUriRef.html", "dc/d76/classUPnPsdk_1_1CUriRef" ],
+    [ "CUserinfo", "d9/dba/classUPnPsdk_1_1CUserinfo.html", "d9/dba/classUPnPsdk_1_1CUserinfo" ],
     [ "Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", "dd/d67/namespaceUPnPsdk_db/dfe/structUPnPsdk_1_1Document__meta_dup" ],
     [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", "d6/d3e/classUPnPsdk_1_1INetadapter" ],
     [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
@@ -57,7 +76,7 @@ var namespaceUPnPsdk =
     [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],
     [ "errStr", "dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588", null ],
     [ "errStrEx", "dd/d67/namespaceUPnPsdk.html#a6fe628907cafd576019aa9d1e3d88b87", null ],
-    [ "remove_dot_segments", "dd/d67/namespaceUPnPsdk.html#aa64e730a914d71ae408c32a5977c9b4d", null ],
+    [ "remove_dot_segments", "de/dc7/group__upnpsdk-uri.html#ga1b4480819fde1cd38f31b41bedcdce06", null ],
     [ "select_filetype", "dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7", null ],
     [ "g_dbug", "dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e", null ]
 ];

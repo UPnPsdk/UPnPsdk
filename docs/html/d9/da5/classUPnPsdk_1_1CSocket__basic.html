@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('d9/da5/classUPnPsdk_1_1CSocket__basic.
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../d4/dcc/classUPnPsdk_1_1CSocket__basic-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">UPnPsdk::CSocket_basic Class Reference<div class="ingroups"><a class="el" href="../../d6/d14/group__upnplibAPI.html">UPnPsdk API</a> &raquo; <a class="el" href="../../db/ddf/group__upnplibAPI-socket.html">Socket module</a> &#124; <a class="el" href="../../d4/d32/group__upnplib.html">object oriented UPnP library</a> &raquo; <a class="el" href="../../dd/df8/group__upnplib-Addressing.html">Step 0: Addressing</a> &raquo; <a class="el" href="../../db/d86/group__upnplib-socket.html">Socket module</a></div></div></div>
+  <div class="headertitle"><div class="title">UPnPsdk::CSocket_basic Class Reference<div class="ingroups"><a class="el" href="../../db/d97/group__upnpsdkAPI.html">UPnPsdk API</a> &raquo; <a class="el" href="../../df/d59/group__upnpsdkAPI-socket.html">Socket module</a> &#124; <a class="el" href="../../d4/d32/group__upnplib.html">UPnPsdk code</a> &raquo; <a class="el" href="../../dd/df8/group__upnplib-Addressing.html">Step 0: Addressing</a> &raquo; <a class="el" href="../../da/de4/group__upnpsdk-socket.html">Socket module</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -159,7 +159,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Get information from a raw network socket file descriptor. </p>
-<p>For general information have a look at <a class="el" href="../../db/d86/group__upnplib-socket.html#socket_module">socket_module</a>.</p>
+<p>For general information have a look at <a class="el" href="../../da/de4/group__upnpsdk-socket.html#socket_module">socket_module</a>.</p>
 <p>This class takes the resources and results as given by the platform (Unix, MacOS, MS Windows). It does not perform any emulations for unification. The behavior can be different on different platforms.</p>
 <p>An object of this class does not take ownership of the raw socket file descriptor and will never close it. This is also the reason why you cannot modify the socket and only have getter available (except the setter '<a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object.">load()</a>' for the raw socket file descriptor itself). But it is helpful to easily get information about an existing raw socket file descriptor. Closing the file descriptor is in the responsibility of the caller who created the socket. If you need to manage a socket you must use <a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html" title="Manage all aspects of a network socket.">CSocket</a>. </p>
 
