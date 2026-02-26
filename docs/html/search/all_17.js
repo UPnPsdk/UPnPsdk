@@ -29,7 +29,7 @@ var searchData=
   ['request_20from_20control_20point_26',['Request from control point',['../d0/dea/group__Description-ctrlpt.html',1,'']]],
   ['request_5fmethod_27',['request_method',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a8ad4b5caee28078c616859bf127846a5',1,'http_message_t']]],
   ['requestcookie_28',['RequestCookie',['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a7edd1d50cc56be53dddbf790b8fab0a2',1,'SendInstruction']]],
-  ['requesttype_29',['requesttype',['../da/db2/ssdp__ctrlpt_8hpp.html#a1adf765df19b966120d281efa7c3fdaf',1,'SsdpSearchArg::requestType'],['../d0/d19/ssdp__common_8hpp.html#abecb3878ad71167cfa70174e5226ec6d',1,'SsdpEvent::RequestType']]],
+  ['requesttype_29',['requesttype',['../d0/d19/ssdp__common_8hpp.html#abecb3878ad71167cfa70174e5226ec6d',1,'SsdpEvent::RequestType'],['../da/db2/ssdp__ctrlpt_8hpp.html#a1adf765df19b966120d281efa7c3fdaf',1,'SsdpSearchArg::requestType']]],
   ['reset_30',['reset',['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a6adc7ce0b610f9cf08d0acb6bd8f7493',1,'UPnPsdk::CNetadapter_platform::reset()'],['../d6/d3e/classUPnPsdk_1_1INetadapter.html#a082f8dd924c23399fc70109d1079f2ea',1,'UPnPsdk::INetadapter::reset()']]],
   ['resolve_5frel_5furl_31',['resolve_rel_url',['../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356',1,'resolve_rel_url(char *base_url, char *rel_url):&#160;uri.cpp'],['../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a108ec7fc0704f362d70140d838e6e356',1,'resolve_rel_url(char *base_url, char *rel_url):&#160;uri.cpp']]],
   ['resp_5ftype_32',['resp_type',['../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a43805383a441408f44f59a8d370da102',1,'compa::anonymous_namespace{webserver.cpp}']]],

@@ -1,4 +1,4 @@
 var classUPnPsdk_1_1CPrepUriStr =
 [
-    [ "CPrepUriStr", "d4/d72/classUPnPsdk_1_1CPrepUriStr.html#a8ef9ae88023820ab22bd20d869dc0ec5", null ]
+    [ "CPrepUriStr", "de/dc7/group__upnpsdk-uri.html#ga5784bc00d96333baef996f623fe998b7", null ]
 ];

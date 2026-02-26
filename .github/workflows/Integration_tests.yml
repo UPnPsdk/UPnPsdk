@@ -2,7 +2,7 @@ name: Integration tests
 
 on:
   push:
-    branches: [ create_uri_class, main ]
+    branches: [ replace_compa_uri, main ]
   pull_request:
     branches: [ main ]
 

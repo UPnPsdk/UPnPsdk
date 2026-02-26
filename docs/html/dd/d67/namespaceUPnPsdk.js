@@ -14,9 +14,15 @@ var namespaceUPnPsdk =
     [ "anonymous_namespace{uri.cpp}", "dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html", [
       [ "is_ipv4_addr", "de/dc7/group__upnpsdk-uri.html#ga9f8fe65d1ad9b79b9fbc99f9cf25c36e", null ],
       [ "is_dns_name", "de/dc7/group__upnpsdk-uri.html#gafa653ebd81ec9323368fc8792a89df48", null ],
-      [ "parse_percent_encoded_chars", "de/dc7/group__upnpsdk-uri.html#ga7a38686a6c37619355a8c3a13c3a475c", null ],
       [ "get_scheme", "de/dc7/group__upnpsdk-uri.html#ga5f9fb879ec8547febcfe970aa9a967ff", null ],
-      [ "get_authority", "de/dc7/group__upnpsdk-uri.html#ga71fe403cd22555d7560c522bf55950e1", null ]
+      [ "get_authority", "de/dc7/group__upnpsdk-uri.html#ga3a98acb7b20ec16a23acefb6a067f1d8", null ],
+      [ "get_userinfo", "de/dc7/group__upnpsdk-uri.html#gac60aa3b36864a27db482fa562d339b51", null ],
+      [ "get_host", "de/dc7/group__upnpsdk-uri.html#gad126cc10cafbe0a958dc11ad8fb8c9ee", null ],
+      [ "get_port", "de/dc7/group__upnpsdk-uri.html#ga6d571ed2cf31b8c6bf670a46b24f350f", null ],
+      [ "get_path", "de/dc7/group__upnpsdk-uri.html#ga5cad4f2b687822c9f6b7d32c7943c6dd", null ],
+      [ "get_query", "de/dc7/group__upnpsdk-uri.html#gaa687876e60fd154efb44d30586a59882", null ],
+      [ "get_fragment", "de/dc7/group__upnpsdk-uri.html#gabc953b6a0e691580342ee083aa9d5faa", null ],
+      [ "merge_paths", "de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557", null ]
     ] ],
     [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
     [ "CAuthority", "dd/d90/classUPnPsdk_1_1CAuthority.html", "dd/d90/classUPnPsdk_1_1CAuthority" ],

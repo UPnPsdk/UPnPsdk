@@ -99,8 +99,6 @@ $(document).ready(function(){initNavTree('de/dd0/Compa_2src_2inc_2uri_8hpp.html'
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">uri.hpp File Reference</div></div>
@@ -110,6 +108,7 @@ $(document).ready(function(){initNavTree('de/dd0/Compa_2src_2inc_2uri_8hpp.html'
 <p>Modify and parse URIs.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d1/d10/membuffer_8hpp_source.html">membuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">UPnPsdk/uri.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for uri.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -117,9 +116,17 @@ $(document).ready(function(){initNavTree('de/dd0/Compa_2src_2inc_2uri_8hpp.html'
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d8/d42/Compa_2src_2inc_2uri_8hpp__incl.png" border="0" usemap="#aCompa_2src_2inc_2uri_8hpp" alt=""/></div>
 <map name="aCompa_2src_2inc_2uri_8hpp" id="aCompa_2src_2inc_2uri_8hpp">
-<area shape="rect" title="Modify and parse URIs." alt="" coords="5,5,168,31"/>
-<area shape="rect" href="../../d1/d10/membuffer_8hpp.html" title="Manage blocks of dynamically allocated memory." alt="" coords="26,79,147,104"/>
-<area shape="poly" title=" " alt="" coords="89,31,89,65,84,65,84,31"/>
+<area shape="rect" title="Modify and parse URIs." alt="" coords="108,5,271,31"/>
+<area shape="rect" href="../../d1/d10/membuffer_8hpp.html" title="Manage blocks of dynamically allocated memory." alt="" coords="54,79,175,104"/>
+<area shape="poly" title=" " alt="" coords="179,33,139,71,135,67,176,29"/>
+<area shape="rect" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="200,79,328,104"/>
+<area shape="poly" title=" " alt="" coords="203,29,244,67,240,71,199,33"/>
+<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="5,152,171,177"/>
+<area shape="poly" title=" " alt="" coords="237,106,131,149,129,144,235,102"/>
+<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="195,152,333,177"/>
+<area shape="poly" title=" " alt="" coords="267,104,267,138,261,138,261,104"/>
+<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="357,152,531,177"/>
+<area shape="poly" title=" " alt="" coords="294,102,403,144,401,149,292,107"/>
 </map>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -158,38 +165,9 @@ $(document).ready(function(){initNavTree('de/dd0/Compa_2src_2inc_2uri_8hpp.html'
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:d4/df4/structtoken" id="r_d4/df4/structtoken"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a></td></tr>
-<tr class="memdesc:d4/df4/structtoken"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer used in parsing http messages, urls, etc. Generally this simply holds a pointer into a larger array.  <a href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">More...</a><br /></td></tr>
-<tr class="separator:d4/df4/structtoken"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:db/d73/structhostport__type" id="r_db/d73/structhostport__type"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#db/d73/structhostport__type">hostport_type</a></td></tr>
-<tr class="memdesc:db/d73/structhostport__type"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a host port, e.g. "[::1]:443".  <a href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#db/d73/structhostport__type">More...</a><br /></td></tr>
-<tr class="separator:db/d73/structhostport__type"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:d4/d48/structuri__type" id="r_d4/d48/structuri__type"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a></td></tr>
-<tr class="memdesc:d4/d48/structuri__type"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a URI used in parse_uri and elsewhere.  <a href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type">More...</a><br /></td></tr>
-<tr class="separator:d4/d48/structuri__type"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:d2/d70/structURL__list" id="r_d2/d70/structURL__list"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list">URL_list</a></td></tr>
 <tr class="memdesc:d2/d70/structURL__list"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a list of URLs as in the "callback" header of SUBSCRIBE message in GENA.  <a href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list">More...</a><br /></td></tr>
 <tr class="separator:d2/d70/structURL__list"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:d3/d02/namespacecompa" id="r_d3/d02/namespacecompa"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d02/namespacecompa.html">compa</a></td></tr>
-<tr class="memdesc:d3/d02/namespacecompa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refactored pupnp program code that is compatible to the original pupnp code. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a50226a4595593bc26a232e28f1da79a5" id="r_a50226a4595593bc26a232e28f1da79a5"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d02/namespacecompa.html#a50226a4595593bc26a232e28f1da79a5">compa::uriType</a> { <b>Absolute</b>
-, <b>Relative</b>
- }</td></tr>
-<tr class="memdesc:a50226a4595593bc26a232e28f1da79a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the URI.  <a href="../../d3/d02/namespacecompa.html#a50226a4595593bc26a232e28f1da79a5">More...</a><br /></td></tr>
-<tr class="separator:a50226a4595593bc26a232e28f1da79a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab054ad652ff0574f763df38fd0d9bfdb" id="r_ab054ad652ff0574f763df38fd0d9bfdb"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d02/namespacecompa.html#ab054ad652ff0574f763df38fd0d9bfdb">compa::pathType</a> { <b>ABS_PATH</b>
-, <b>REL_PATH</b>
-, <b>OPAQUE_PART</b>
- }</td></tr>
-<tr class="memdesc:ab054ad652ff0574f763df38fd0d9bfdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the "path" part of the URI.  <a href="../../d3/d02/namespacecompa.html#ab054ad652ff0574f763df38fd0d9bfdb">More...</a><br /></td></tr>
-<tr class="separator:ab054ad652ff0574f763df38fd0d9bfdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -202,16 +180,16 @@ Functions</h2></td></tr>
 <tr class="memitem:afb7b37727ebf22a77a8edac2b15108ed" id="r_afb7b37727ebf22a77a8edac2b15108ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#afb7b37727ebf22a77a8edac2b15108ed">free_URL_list</a> (<a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list">URL_list</a> *list)</td></tr>
 <tr class="memdesc:afb7b37727ebf22a77a8edac2b15108ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the memory associated with a <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list" title="Represents a list of URLs as in the &quot;callback&quot; header of SUBSCRIBE message in GENA.">URL_list</a>.  <br /></td></tr>
 <tr class="separator:afb7b37727ebf22a77a8edac2b15108ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd9ad3e6df399d6ebf98d35ad3704e3e" id="r_acd9ad3e6df399d6ebf98d35ad3704e3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#acd9ad3e6df399d6ebf98d35ad3704e3e">print_uri</a> (<a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *in)</td></tr>
+<tr class="memitem:acd9ad3e6df399d6ebf98d35ad3704e3e" id="r_acd9ad3e6df399d6ebf98d35ad3704e3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#acd9ad3e6df399d6ebf98d35ad3704e3e">print_uri</a> (<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *in)</td></tr>
 <tr class="memdesc:acd9ad3e6df399d6ebf98d35ad3704e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function useful in debugging for printing a parsed uri.  <br /></td></tr>
 <tr class="separator:acd9ad3e6df399d6ebf98d35ad3704e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad94a05e4418a628c9ac63dc80af0a281" id="r_ad94a05e4418a628c9ac63dc80af0a281"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#ad94a05e4418a628c9ac63dc80af0a281">print_token</a> (<a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *in)</td></tr>
+<tr class="memitem:ad94a05e4418a628c9ac63dc80af0a281" id="r_ad94a05e4418a628c9ac63dc80af0a281"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#ad94a05e4418a628c9ac63dc80af0a281">print_token</a> (<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in)</td></tr>
 <tr class="memdesc:ad94a05e4418a628c9ac63dc80af0a281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function useful in debugging for printing a token.  <br /></td></tr>
 <tr class="separator:ad94a05e4418a628c9ac63dc80af0a281"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f32e8ba916b944b37e9f23e1fc60ec9" id="r_a8f32e8ba916b944b37e9f23e1fc60ec9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9">token_string_casecmp</a> (<a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *in1, const char *in2)</td></tr>
+<tr class="memitem:a8f32e8ba916b944b37e9f23e1fc60ec9" id="r_a8f32e8ba916b944b37e9f23e1fc60ec9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9">token_string_casecmp</a> (<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in1, const char *in2)</td></tr>
 <tr class="memdesc:a8f32e8ba916b944b37e9f23e1fc60ec9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares buffer in the token object with the buffer in in2 case insensitive.  <br /></td></tr>
 <tr class="separator:a8f32e8ba916b944b37e9f23e1fc60ec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b3b45fe5e06c4012785e304e53b4dbf" id="r_a5b3b45fe5e06c4012785e304e53b4dbf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a5b3b45fe5e06c4012785e304e53b4dbf">token_cmp</a> (<a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *in1, <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *in2)</td></tr>
+<tr class="memitem:a5b3b45fe5e06c4012785e304e53b4dbf" id="r_a5b3b45fe5e06c4012785e304e53b4dbf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a5b3b45fe5e06c4012785e304e53b4dbf">token_cmp</a> (<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in1, <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in2)</td></tr>
 <tr class="memdesc:a5b3b45fe5e06c4012785e304e53b4dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two tokens.  <br /></td></tr>
 <tr class="separator:a5b3b45fe5e06c4012785e304e53b4dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae107675e9be7b49d54ec682d8ca6cda" id="r_aae107675e9be7b49d54ec682d8ca6cda"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#aae107675e9be7b49d54ec682d8ca6cda">remove_escaped_chars</a> (char *in, size_t *size)</td></tr>
@@ -220,10 +198,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a108ec7fc0704f362d70140d838e6e356" id="r_a108ec7fc0704f362d70140d838e6e356"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a108ec7fc0704f362d70140d838e6e356">resolve_rel_url</a> (char *base_url, char *rel_url)</td></tr>
 <tr class="memdesc:a108ec7fc0704f362d70140d838e6e356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves a relative url with a base url.  <br /></td></tr>
 <tr class="separator:a108ec7fc0704f362d70140d838e6e356"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae59095a3e023c16f4dd68bc60e21f7c7" id="r_ae59095a3e023c16f4dd68bc60e21f7c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#ae59095a3e023c16f4dd68bc60e21f7c7">parse_uri</a> (const char *in, size_t max, <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *out)</td></tr>
-<tr class="memdesc:ae59095a3e023c16f4dd68bc60e21f7c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a uri as defined in <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986 (Uniform Resource Identifier)</a>.  <br /></td></tr>
-<tr class="separator:ae59095a3e023c16f4dd68bc60e21f7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13dbae9bff877a15f4d6b23c1f934638" id="r_a13dbae9bff877a15f4d6b23c1f934638"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a13dbae9bff877a15f4d6b23c1f934638">parse_token</a> (char *in, <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *out, int max_size)</td></tr>
+<tr class="memitem:a13dbae9bff877a15f4d6b23c1f934638" id="r_a13dbae9bff877a15f4d6b23c1f934638"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#a13dbae9bff877a15f4d6b23c1f934638">parse_token</a> (char *in, <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *out, int max_size)</td></tr>
 <tr class="separator:a13dbae9bff877a15f4d6b23c1f934638"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -237,153 +212,6 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html">uri.hpp</a>.</p>
 </div><hr/><h2 class="groupheader">Class Documentation</h2>
-<a name="d4/df4/structtoken" id="d4/df4/structtoken"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#d4/df4/structtoken">&#9670;&#160;</a></span>token</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct token</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"><p>Buffer used in parsing http messages, urls, etc. Generally this simply holds a pointer into a larger array. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html#l00075">75</a> of file <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html">uri.hpp</a>.</p>
-</div><table class="fieldtable">
-<tr><th colspan="3">Class Members</th></tr>
-<tr><td class="fieldtype">
-<a id="a98fecbccc6f6f29668e9c8bd86ec983b" name="a98fecbccc6f6f29668e9c8bd86ec983b"></a>const char *</td>
-<td class="fieldname">
-buff</td>
-<td class="fielddoc">
-Buffer. </td></tr>
-<tr><td class="fieldtype">
-<a id="a529190c733f35afb42d8963f9f3f65d2" name="a529190c733f35afb42d8963f9f3f65d2"></a>size_t</td>
-<td class="fieldname">
-size</td>
-<td class="fielddoc">
-Size of the buffer. </td></tr>
-</table>
-
-</div>
-</div>
-<a name="db/d73/structhostport__type" id="db/d73/structhostport__type"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#db/d73/structhostport__type">&#9670;&#160;</a></span>hostport_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct hostport_type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"><p>Represents a host port, e.g. "[::1]:443". </p>
-
-<p class="definition">Definition at line <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html#l00083">83</a> of file <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html">uri.hpp</a>.</p>
-</div><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for hostport_type:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d1/d5e/structhostport__type__coll__graph.png" border="0" usemap="#ahostport__type_coll__map" alt="Collaboration graph"/></div>
-<map name="ahostport__type_coll__map" id="ahostport__type_coll__map">
-<area shape="rect" title="Represents a host port, e.g. &quot;[::1]:443&quot;." alt="" coords="5,93,117,119"/>
-<area shape="rect" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken" title="Buffer used in parsing http messages, urls, etc. Generally this simply holds a pointer into a larger ..." alt="" coords="32,5,91,31"/>
-<area shape="poly" title=" " alt="" coords="64,45,64,93,59,93,59,45"/>
-</map>
-<center><span class="legend">[<a target="top" href="../../graph_legend.html">legend</a>]</span></center></div>
-<table class="fieldtable">
-<tr><th colspan="3">Class Members</th></tr>
-<tr><td class="fieldtype">
-<a id="aeb8214b39749d9add1a8777008d982cb" name="aeb8214b39749d9add1a8777008d982cb"></a><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a></td>
-<td class="fieldname">
-text</td>
-<td class="fielddoc">
-Pointing to the full host:port string representation. </td></tr>
-<tr><td class="fieldtype">
-<a id="aa1198c9c6dd6d23d2f90b768ffb9255d" name="aa1198c9c6dd6d23d2f90b768ffb9255d"></a>sockaddr_storage</td>
-<td class="fieldname">
-IPaddress</td>
-<td class="fielddoc">
-Network socket address. </td></tr>
-</table>
-
-</div>
-</div>
-<a name="d4/d48/structuri__type" id="d4/d48/structuri__type"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#d4/d48/structuri__type">&#9670;&#160;</a></span>uri_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct uri_type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"><p>Represents a URI used in parse_uri and elsewhere. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html#l00091">91</a> of file <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html">uri.hpp</a>.</p>
-</div><div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for uri_type:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../db/da3/structuri__type__coll__graph.png" border="0" usemap="#auri__type_coll__map" alt="Collaboration graph"/></div>
-<map name="auri__type_coll__map" id="auri__type_coll__map">
-<area shape="rect" title="Represents a URI used in parse_uri and elsewhere." alt="" coords="5,200,80,225"/>
-<area shape="rect" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken" title="Buffer used in parsing http messages, urls, etc. Generally this simply holds a pointer into a larger ..." alt="" coords="13,5,72,31"/>
-<area shape="poly" title=" " alt="" coords="41,44,36,93,36,137,43,200,38,200,31,137,31,93,36,44"/>
-<area shape="rect" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#db/d73/structhostport__type" title="Represents a host port, e.g. &quot;[::1]:443&quot;." alt="" coords="112,103,224,128"/>
-<area shape="poly" title=" " alt="" coords="70,37,155,100,151,105,67,41"/>
-<area shape="poly" title=" " alt="" coords="144,138,59,202,56,198,140,134"/>
-</map>
-<center><span class="legend">[<a target="top" href="../../graph_legend.html">legend</a>]</span></center></div>
-<table class="fieldtable">
-<tr><th colspan="3">Class Members</th></tr>
-<tr><td class="fieldtype">
-<a id="a907ec12a760fbb7b86d99960272422e5" name="a907ec12a760fbb7b86d99960272422e5"></a>uriType</td>
-<td class="fieldname">
-type</td>
-<td class="fielddoc">
-Member variable. </td></tr>
-<tr><td class="fieldtype">
-<a id="a1a077d64a99f2adae0508d7836f6cea6" name="a1a077d64a99f2adae0508d7836f6cea6"></a><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a></td>
-<td class="fieldname">
-scheme</td>
-<td class="fielddoc">
-Member variable. </td></tr>
-<tr><td class="fieldtype">
-<a id="addef2bd71825f916992987c5da47e439" name="addef2bd71825f916992987c5da47e439"></a>pathType</td>
-<td class="fieldname">
-path_type</td>
-<td class="fielddoc">
-Member variable. </td></tr>
-<tr><td class="fieldtype">
-<a id="aa05aa4442efc0d80a19db0559dc4e9b6" name="aa05aa4442efc0d80a19db0559dc4e9b6"></a><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a></td>
-<td class="fieldname">
-pathquery</td>
-<td class="fielddoc">
-Member variable. </td></tr>
-<tr><td class="fieldtype">
-<a id="a03191d65a1c8679ea4bbb1e01a8d15a8" name="a03191d65a1c8679ea4bbb1e01a8d15a8"></a><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a></td>
-<td class="fieldname">
-fragment</td>
-<td class="fielddoc">
-Member variable. </td></tr>
-<tr><td class="fieldtype">
-<a id="a42091b526df14a334683376bba483bc7" name="a42091b526df14a334683376bba483bc7"></a><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#db/d73/structhostport__type">hostport_type</a></td>
-<td class="fieldname">
-hostport</td>
-<td class="fielddoc">
-Member variable. </td></tr>
-</table>
-
-</div>
-</div>
 <a name="d2/d70/structURL__list" id="d2/d70/structURL__list"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#d2/d70/structURL__list">&#9670;&#160;</a></span>URL_list</h2>
 
@@ -397,20 +225,20 @@ Member variable. </td></tr>
 </div><div class="memdoc">
 <div class="textblock"><p>Represents a list of URLs as in the "callback" header of SUBSCRIBE message in GENA. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html#l00107">107</a> of file <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html">uri.hpp</a>.</p>
-</div><div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for URL_list:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html#l00064">64</a> of file <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html">uri.hpp</a>.</p>
+</div><div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for URL_list:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d5/df3/structURL__list__coll__graph.png" border="0" usemap="#aURL__list_coll__map" alt="Collaboration graph"/></div>
 <map name="aURL__list_coll__map" id="aURL__list_coll__map">
 <area shape="rect" title="Represents a list of URLs as in the &quot;callback&quot; header of SUBSCRIBE message in GENA." alt="" coords="5,288,80,313"/>
-<area shape="rect" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type" title="Represents a URI used in parse_uri and elsewhere." alt="" coords="5,200,80,225"/>
+<area shape="rect" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/d48/structuri__type" title="Represents a URI used in parse_uri and elsewhere." alt="" coords="5,200,80,225"/>
 <area shape="poly" title=" " alt="" coords="45,239,45,287,40,287,40,239"/>
-<area shape="rect" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken" title="Buffer used in parsing http messages, urls, etc. Generally this simply holds a pointer into a larger ..." alt="" coords="13,5,72,31"/>
+<area shape="rect" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken" title="Buffer used in parsing http messages, urls, etc. Generally this simply holds a pointer into a larger ..." alt="" coords="13,5,72,31"/>
 <area shape="poly" title=" " alt="" coords="41,44,36,93,36,137,43,200,38,200,31,137,31,93,36,44"/>
-<area shape="rect" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#db/d73/structhostport__type" title="Represents a host port, e.g. &quot;[::1]:443&quot;." alt="" coords="112,103,224,128"/>
+<area shape="rect" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#db/d73/structhostport__type" title="Represents a host port, e.g. &quot;[::1]:443&quot;." alt="" coords="112,103,224,128"/>
 <area shape="poly" title=" " alt="" coords="70,37,155,100,151,105,67,41"/>
 <area shape="poly" title=" " alt="" coords="144,138,59,202,56,198,140,134"/>
 </map>
@@ -431,7 +259,7 @@ URLs</td>
 <p>Dynamic memory for all urls. They are serialized, each surounded by '&lt;' and '&gt;'. The whole string is expected to be terminated with '\0' ("&lt;url&gt;&lt;url&gt;\0"). </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a id="a4a7917e86eb7e65374d05e13ef98fa48" name="a4a7917e86eb7e65374d05e13ef98fa48"></a><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *</td>
+<a id="a4a7917e86eb7e65374d05e13ef98fa48" name="a4a7917e86eb7e65374d05e13ef98fa48"></a><a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *</td>
 <td class="fieldname">
 parsedURLs</td>
 <td class="fielddoc">
@@ -483,12 +311,12 @@ parsedURLs</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00393">393</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00397">397</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_cgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_cgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_cgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_cgraph">
 <area shape="rect" title="Function to parse the Callback header value in subscription requests." alt="" coords="5,109,120,134"/>
@@ -504,11 +332,11 @@ parsedURLs</td>
 <area shape="poly" title=" " alt="" coords="227,132,259,158,300,183,320,191,318,196,297,188,256,162,223,137"/>
 </map>
 </div>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_icgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_icgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_icgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_icgraph">
 <area shape="rect" title="Function to parse the Callback header value in subscription requests." alt="" coords="409,13,524,38"/>
@@ -562,12 +390,12 @@ parsedURLs</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00500">500</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00504">504</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_a374e6c139790318fbeeb52f69574f491_cgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_a374e6c139790318fbeeb52f69574f491_cgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_a374e6c139790318fbeeb52f69574f491_cgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_a374e6c139790318fbeeb52f69574f491_cgraph">
 <area shape="rect" title="Copies one URL_list into another." alt="" coords="5,13,119,38"/>
@@ -575,11 +403,11 @@ parsedURLs</td>
 <area shape="poly" title=" " alt="" coords="119,23,153,23,153,28,119,28"/>
 </map>
 </div>
-<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_a374e6c139790318fbeeb52f69574f491_icgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_a374e6c139790318fbeeb52f69574f491_icgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_a374e6c139790318fbeeb52f69574f491_icgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_a374e6c139790318fbeeb52f69574f491_icgraph">
 <area shape="rect" title="Copies one URL_list into another." alt="" coords="420,20,533,45"/>
@@ -617,12 +445,12 @@ parsedURLs</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00541">541</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00545">545</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_afb7b37727ebf22a77a8edac2b15108ed_icgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_afb7b37727ebf22a77a8edac2b15108ed_icgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_afb7b37727ebf22a77a8edac2b15108ed_icgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_afb7b37727ebf22a77a8edac2b15108ed_icgraph">
 <area shape="rect" title="Frees the memory associated with a URL_list." alt="" coords="409,37,517,63"/>
@@ -646,7 +474,7 @@ parsedURLs</td>
         <tr>
           <td class="memname">void print_uri </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *&#160;</td>
           <td class="paramname"><em>in</em></td><td>)</td>
           <td></td>
         </tr>
@@ -662,12 +490,12 @@ parsedURLs</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00553">553</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00557">557</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_acd9ad3e6df399d6ebf98d35ad3704e3e_cgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_acd9ad3e6df399d6ebf98d35ad3704e3e_cgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_acd9ad3e6df399d6ebf98d35ad3704e3e_cgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_acd9ad3e6df399d6ebf98d35ad3704e3e_cgraph">
 <area shape="rect" title="Function useful in debugging for printing a parsed uri." alt="" coords="5,5,81,31"/>
@@ -687,7 +515,7 @@ parsedURLs</td>
         <tr>
           <td class="memname">void print_token </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *&#160;</td>
           <td class="paramname"><em>in</em></td><td>)</td>
           <td></td>
         </tr>
@@ -703,12 +531,12 @@ parsedURLs</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00560">560</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00564">564</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_ad94a05e4418a628c9ac63dc80af0a281_icgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_ad94a05e4418a628c9ac63dc80af0a281_icgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_ad94a05e4418a628c9ac63dc80af0a281_icgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_ad94a05e4418a628c9ac63dc80af0a281_icgraph">
 <area shape="rect" title="Function useful in debugging for printing a token." alt="" coords="129,5,224,31"/>
@@ -728,7 +556,7 @@ parsedURLs</td>
         <tr>
           <td class="memname">int token_string_casecmp </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *&#160;</td>
           <td class="paramname"><em>in1</em>, </td>
         </tr>
         <tr>
@@ -760,12 +588,12 @@ parsedURLs</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00571">571</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00575">575</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_a8f32e8ba916b944b37e9f23e1fc60ec9_icgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_a8f32e8ba916b944b37e9f23e1fc60ec9_icgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_a8f32e8ba916b944b37e9f23e1fc60ec9_icgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_a8f32e8ba916b944b37e9f23e1fc60ec9_icgraph">
 <area shape="rect" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="632,104,799,129"/>
@@ -814,13 +642,13 @@ parsedURLs</td>
         <tr>
           <td class="memname">int token_cmp </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *&#160;</td>
           <td class="paramname"><em>in1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *&#160;</td>
           <td class="paramname"><em>in2</em>&#160;</td>
         </tr>
         <tr>
@@ -846,12 +674,12 @@ parsedURLs</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00585">585</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00589">589</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_a5b3b45fe5e06c4012785e304e53b4dbf_icgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_a5b3b45fe5e06c4012785e304e53b4dbf_icgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_a5b3b45fe5e06c4012785e304e53b4dbf_icgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_a5b3b45fe5e06c4012785e304e53b4dbf_icgraph">
 <area shape="rect" title="Compares two tokens." alt="" coords="509,31,603,56"/>
@@ -905,12 +733,12 @@ parsedURLs</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00595">595</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00599">599</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_aae107675e9be7b49d54ec682d8ca6cda_cgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_aae107675e9be7b49d54ec682d8ca6cda_cgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_aae107675e9be7b49d54ec682d8ca6cda_cgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_aae107675e9be7b49d54ec682d8ca6cda_cgraph">
 <area shape="rect" title="Removes http escaped characters such as: &quot;%20&quot; and replaces them with their character representation." alt="" coords="5,20,180,45"/>
@@ -918,11 +746,11 @@ parsedURLs</td>
 <area shape="poly" title=" " alt="" coords="180,30,214,30,214,35,180,35"/>
 </map>
 </div>
-<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_aae107675e9be7b49d54ec682d8ca6cda_icgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_aae107675e9be7b49d54ec682d8ca6cda_icgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_aae107675e9be7b49d54ec682d8ca6cda_icgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_aae107675e9be7b49d54ec682d8ca6cda_icgraph">
 <area shape="rect" title="Removes http escaped characters such as: &quot;%20&quot; and replaces them with their character representation." alt="" coords="285,44,460,69"/>
@@ -982,12 +810,12 @@ parsedURLs</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00607">607</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00611">611</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_a108ec7fc0704f362d70140d838e6e356_cgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_a108ec7fc0704f362d70140d838e6e356_cgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_a108ec7fc0704f362d70140d838e6e356_cgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_a108ec7fc0704f362d70140d838e6e356_cgraph">
 <area shape="rect" title="Resolves a relative url with a base url." alt="" coords="5,138,124,163"/>
@@ -1005,11 +833,11 @@ parsedURLs</td>
 <area shape="poly" title=" " alt="" coords="297,128,339,144,363,164,373,174,387,183,406,191,403,196,384,188,369,178,359,168,336,149,295,133"/>
 </map>
 </div>
-<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_a108ec7fc0704f362d70140d838e6e356_icgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_a108ec7fc0704f362d70140d838e6e356_icgraph" alt=""/></div>
 <map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_a108ec7fc0704f362d70140d838e6e356_icgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_a108ec7fc0704f362d70140d838e6e356_icgraph">
 <area shape="rect" title="Resolves a relative url with a base url." alt="" coords="461,84,580,109"/>
@@ -1021,143 +849,6 @@ parsedURLs</td>
 <area shape="poly" title=" " alt="" coords="457,115,376,136,374,131,456,110"/>
 <area shape="rect" href="../../d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a7359ea5e4d70db0a82faa1cdd447b5d5" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="5,5,185,60"/>
 <area shape="poly" title=" " alt="" coords="219,35,185,35,185,30,219,30"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ae59095a3e023c16f4dd68bc60e21f7c7" name="ae59095a3e023c16f4dd68bc60e21f7c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae59095a3e023c16f4dd68bc60e21f7c7">&#9670;&#160;</a></span>parse_uri()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int parse_uri </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>in</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>max</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *&#160;</td>
-          <td class="paramname"><em>out</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Parses a uri as defined in <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986 (Uniform Resource Identifier)</a>. </p>
-<p>Handles absolute, relative, and opaque uris. Parses into the following pieces: scheme, hostport, pathquery, fragment (host with port and path with query are treated as one token). Strings in output <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/d48/structuri__type" title="Represents a URI used in parse_uri and elsewhere.">uri_type</a> are treated as token with character chain and size. They are not null ('\0') terminated.</p>
-<p>Caller should check for the pieces they require.</p>
-<dl class="section return"><dt>Returns</dt><dd>On success: HTTP_SUCCESS<br  />
- On error: UPNP_E_INVALID_URL, accessing <b>out</b> (arg3) then, is undefined behavior. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">in</td><td>Character string containing uri information to be parsed. It is not expected to be terminated with zero ('\0'), but may have.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">max</td><td>Number of characters (strlen()) of the input string.  </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Output parameter which will have the parsed uri information. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00738">738</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-18-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_ae59095a3e023c16f4dd68bc60e21f7c7_cgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_ae59095a3e023c16f4dd68bc60e21f7c7_cgraph" alt=""/></div>
-<map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_ae59095a3e023c16f4dd68bc60e21f7c7_cgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_ae59095a3e023c16f4dd68bc60e21f7c7_cgraph">
-<area shape="rect" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="5,109,88,134"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="136,5,327,45"/>
-<area shape="poly" title=" " alt="" coords="61,106,94,81,135,55,149,48,151,53,137,60,97,85,64,111"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="137,69,325,109"/>
-<area shape="poly" title=" " alt="" coords="88,112,124,105,124,111,89,117"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="141,133,321,173"/>
-<area shape="poly" title=" " alt="" coords="89,126,128,133,127,138,88,131"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="148,198,315,223"/>
-<area shape="poly" title=" " alt="" coords="64,132,96,158,137,183,158,191,156,196,135,188,93,162,61,137"/>
-</map>
-</div>
-<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-19-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../de/dd0/Compa_2src_2inc_2uri_8hpp_ae59095a3e023c16f4dd68bc60e21f7c7_icgraph.png" border="0" usemap="#ade/dd0/Compa_2src_2inc_2uri_8hpp_ae59095a3e023c16f4dd68bc60e21f7c7_icgraph" alt=""/></div>
-<map name="ade/dd0/Compa_2src_2inc_2uri_8hpp_ae59095a3e023c16f4dd68bc60e21f7c7_icgraph" id="ade/dd0/Compa_2src_2inc_2uri_8hpp_ae59095a3e023c16f4dd68bc60e21f7c7_icgraph">
-<area shape="rect" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="909,240,992,265"/>
-<area shape="rect" href="../../df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0" title="Configure the description document." alt="" coords="672,5,852,60"/>
-<area shape="poly" title=" " alt="" coords="941,227,930,193,913,152,890,110,859,73,845,62,848,58,863,69,895,107,918,150,935,191,946,226"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#af4cc95bfb93aec4a8f3f5e4192d4e1c2" title="Function to parse the Callback header value in subscription requests." alt="" coords="705,84,819,109"/>
-<area shape="poly" title=" " alt="" coords="937,229,908,174,886,146,860,123,840,112,819,106,821,101,842,108,863,118,890,143,912,171,942,226"/>
-<area shape="rect" href="../../dd/d10/service__table_8cpp.html#a061d6dc9795188b0e8a7bef17e29d10b" title="Traverses the service table and finds the node whose control URL Path matches a known value." alt="" coords="663,183,861,208"/>
-<area shape="poly" title=" " alt="" coords="903,238,861,223,816,211,817,206,862,218,905,233"/>
-<area shape="rect" href="../../dd/d10/service__table_8cpp.html#a7bf739f41384af0da70d8504e542c734" title="Traverses the service table and finds the node whose event URL Path matches a known value." alt="" coords="668,133,856,159"/>
-<area shape="poly" title=" " alt="" coords="929,231,898,200,860,172,834,161,836,156,863,168,902,196,932,227"/>
-<area shape="rect" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#aa427eb8edd9f2f132f1ce35a15cb27df" title="This function retrives the host and path from the control URL." alt="" coords="672,835,852,889"/>
-<area shape="poly" title=" " alt="" coords="951,280,945,393,930,553,919,634,904,710,886,772,863,817,842,837,839,833,859,814,881,771,899,708,914,634,925,552,940,393,946,279"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a2d33a2d2116d1de548e95d8d023548d9" title="Parses URL and then validates URL." alt="" coords="707,463,817,488"/>
-<area shape="poly" title=" " alt="" coords="931,278,776,464,772,461,927,275"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a01d7fab7d8ff4a83e2967633b0b282c8" title="Get HTTP Method, URL location and version information." alt="" coords="166,519,351,573"/>
-<area shape="poly" title=" " alt="" coords="946,279,914,382,887,451,852,525,808,599,754,668,724,700,690,728,654,752,616,772,558,795,509,803,460,797,404,772,376,754,351,730,311,676,283,620,266,574,271,572,288,618,316,673,355,727,379,749,407,768,461,791,509,798,557,790,614,768,652,748,687,724,720,696,750,665,804,596,847,522,882,448,909,380,941,278"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356" title="Resolves a relative url with a base url." alt="" coords="703,913,821,939"/>
-<area shape="poly" title=" " alt="" coords="952,279,950,409,940,597,929,693,913,781,892,854,879,882,863,904,845,918,823,926,821,921,842,913,859,900,874,879,887,852,908,780,924,692,935,596,945,409,947,279"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="663,233,861,273"/>
-<area shape="poly" title=" " alt="" coords="895,255,862,255,862,250,895,250"/>
-<area shape="rect" href="../../d1/d4a/urlconfig_8cpp.html#a2fa72177f842afa6e0b87182387aac88" title="Configure the full URL for the description document." alt="" coords="441,20,579,45"/>
-<area shape="poly" title=" " alt="" coords="658,35,579,35,579,30,658,30"/>
-<area shape="rect" href="../../dd/de6/gena__device_8cpp.html#a25ad1852d4d32c6f34a87b92225202fd" title="Handles a subscription request from a ctrl point. The socket is not closed on return." alt="" coords="160,126,357,166"/>
-<area shape="poly" title=" " alt="" coords="691,102,558,109,406,123,358,130,357,125,405,118,558,104,691,97"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a67f191fc3d9877d0efef0af385d07ac9" title="Retrieves the device handle and information of the first device of the address family specified,..." alt="" coords="405,133,615,159"/>
-<area shape="poly" title=" " alt="" coords="683,183,575,161,576,156,684,177"/>
-<area shape="poly" title=" " alt="" coords="392,149,358,149,358,143,392,143"/>
-<area shape="poly" title=" " alt="" coords="654,149,615,149,615,143,654,143"/>
-<area shape="rect" href="../../d9/dd1/soap__ctrlpt_8cpp.html#a05e899b6e0c3bc1b2964ac01c37c15d7" title="This function creates a status variable query message send it to the specified URL...." alt="" coords="417,843,603,868"/>
-<area shape="poly" title=" " alt="" coords="658,862,604,860,604,855,658,857"/>
-<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28" title="Subscribes or renew subscription." alt="" coords="169,287,349,341"/>
-<area shape="poly" title=" " alt="" coords="702,462,614,438,508,415,462,404,404,386,310,344,312,339,406,381,464,399,510,410,615,433,703,456"/>
-<area shape="rect" href="../../d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#af298d2d7e5a94605b0b284718e20cdc9" title="Sends the UNSUBCRIBE gena request and recieves the response from the device and returns it as a param..." alt="" coords="420,704,600,759"/>
-<area shape="poly" title=" " alt="" coords="752,502,732,543,702,594,663,647,616,693,597,706,594,702,613,689,659,644,698,591,727,540,747,499"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a4c4ffc89743a422ff2ad243e9ab14892" title="Download the document message and extract the document from the message." alt="" coords="450,297,570,323"/>
-<area shape="poly" title=" " alt="" coords="741,453,688,394,653,363,613,336,569,320,571,315,616,332,656,358,692,390,745,450"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a17d0de5cdf2e5047f8c549f745c5d965" title="Opens a connection to the server." alt="" coords="415,347,605,372"/>
-<area shape="poly" title=" " alt="" coords="729,457,676,425,614,394,560,375,561,370,616,389,679,421,732,453"/>
-<area shape="rect" href="../../d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a70af1088e67f7621d3f1c3f9b7015634" title="Make a generic message, what ever this mean." alt="" coords="420,448,600,503"/>
-<area shape="poly" title=" " alt="" coords="693,478,600,478,600,473,693,473"/>
-<area shape="rect" href="../../d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a0fd8d138b06bd4bdd56f19c8f86ceff6" title="Make extended GetMessage." alt="" coords="420,527,600,581"/>
-<area shape="poly" title=" " alt="" coords="708,495,599,529,598,524,706,490"/>
-<area shape="rect" href="../../d9/dd1/soap__ctrlpt_8cpp.html#a98ef5ed7d4950c8d6c2624271efb36bc" title="This function is called by UPnP API to send the SOAP action request." alt="" coords="447,605,573,631"/>
-<area shape="poly" title=" " alt="" coords="741,500,687,548,653,573,616,595,574,610,573,605,614,590,650,569,684,544,737,496"/>
-<area shape="rect" href="../../d9/dd1/soap__ctrlpt_8cpp.html#a03f9e29e2408fb92bc48b9b93c4c9841" title="This extended function is called by UPnP API to send the SOAP action request." alt="" coords="439,655,581,680"/>
-<area shape="poly" title=" " alt="" coords="748,501,696,573,659,612,616,644,583,659,580,654,613,640,656,608,692,569,744,498"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#a4eff37cf0315cb3beccc9e9d03e834c7" title="The parser function." alt="" coords="5,533,112,559"/>
-<area shape="poly" title=" " alt="" coords="152,549,112,549,112,543,152,543"/>
-<area shape="rect" href="../../d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a75316464db9843014fb2e2311ad6f0b4" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="420,892,600,947"/>
-<area shape="poly" title=" " alt="" coords="689,927,600,924,600,919,689,921"/>
-<area shape="rect" href="../../d3/d57/group__UPnPTools.html#ga480e7d0aa9565348e3a113c8c053762d" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="443,971,577,996"/>
-<area shape="poly" title=" " alt="" coords="693,944,567,973,566,968,692,939"/>
-<area shape="rect" href="../../d3/d57/group__UPnPTools.html#ga4a077ceca805a625c1e5cd58477627b8" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="439,1020,581,1045"/>
-<area shape="poly" title=" " alt="" coords="732,948,679,981,616,1011,580,1022,578,1017,614,1006,677,976,730,944"/>
-<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a50be9b86bd76f988e970786b232f08c5" title="Matches a variable parameter list and takes necessary actions based on the data type specified." alt="" coords="417,233,603,273"/>
-<area shape="poly" title=" " alt="" coords="649,255,603,255,603,250,649,250"/>
-<area shape="rect" href="../../dd/d1d/httpparser_8cpp.html#adb6f04b4682aae5e4690b672025b6856" title="Matches a variable parameter list with a string and takes actions based on the data type specified." alt="" coords="470,183,550,208"/>
-<area shape="poly" title=" " alt="" coords="660,232,549,207,551,202,661,227"/>
-<area shape="poly" title=" " alt="" coords="414,282,407,287,383,321,346,385,276,519,272,517,342,382,379,318,403,283,410,278"/>
-<area shape="poly" title=" " alt="" coords="456,188,357,168,358,163,457,182"/>
-<area shape="poly" title=" " alt="" coords="458,207,406,223,348,254,297,288,294,284,345,250,404,218,456,202"/>
 </map>
 </div>
 
@@ -1178,7 +869,7 @@ parsedURLs</td>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d4/df4/structtoken">token</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *&#160;</td>
           <td class="paramname"><em>out</em>, </td>
         </tr>
         <tr>
@@ -1229,7 +920,7 @@ parsedURLs</td>
 
 <p>Yet another success code. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html#l00069">69</a> of file <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html#l00058">58</a> of file <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>

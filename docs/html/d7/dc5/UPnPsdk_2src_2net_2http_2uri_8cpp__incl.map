@@ -1,23 +1,27 @@
 <map id="UPnPsdk/src/net/http/uri.cpp" name="UPnPsdk/src/net/http/uri.cpp">
-<area shape="rect" id="Node000001" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="208,5,365,45"/>
-<area shape="rect" id="Node000002" href="$d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="5,93,133,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,48,115,91,113,86,234,43"/>
-<area shape="rect" id="Node000004" href="$d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="206,93,367,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,46,289,79,284,79,284,46"/>
-<area shape="rect" id="Node000009" href="$d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="555,93,723,119"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="366,42,575,88,573,93,365,47"/>
-<area shape="rect" id="Node000003" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="384,240,549,265"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="63,120,44,155,42,174,49,190,69,206,100,218,183,236,279,246,370,249,370,254,278,251,182,242,98,224,66,210,45,194,37,175,39,154,58,118"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="59,167,187,192"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="261,121,163,164,161,159,259,116"/>
-<area shape="rect" id="Node000006" href="$d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="211,167,362,192"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="289,119,289,153,284,153,284,119"/>
-<area shape="rect" id="Node000008" href="$d4/d88/pthread_8hpp.html" title="Additional functions to manage Posix threads with C++ to be portable." alt="" coords="386,167,547,192"/>
-<area shape="poly" id="edge6_Node000004_Node000008" title=" " alt="" coords="317,116,426,159,424,164,315,121"/>
-<area shape="poly" id="edge7_Node000008_Node000003" title=" " alt="" coords="469,192,469,226,464,226,464,192"/>
-<area shape="poly" id="edge9_Node000009_Node000003" title=" " alt="" coords="631,121,601,155,560,194,501,235,498,231,557,190,597,151,627,117"/>
-<area shape="rect" id="Node000010" href="$d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="623,167,761,192"/>
-<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="650,117,677,154,673,157,645,121"/>
-<area shape="rect" id="Node000011" href="$d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="785,167,959,192"/>
-<area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="677,116,822,160,821,165,675,121"/>
+<area shape="rect" id="Node000001" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="664,5,821,45"/>
+<area shape="rect" id="Node000002" href="$d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="593,93,721,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="724,48,682,86,678,82,720,44"/>
+<area shape="rect" id="Node000006" href="$d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="243,93,405,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="664,44,399,93,398,88,663,39"/>
+<area shape="rect" id="Node000011" href="$d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="745,93,913,119"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="765,44,808,82,804,86,762,48"/>
+<area shape="rect" id="Node000012" href="$d4/d64/messages_8hpp.html" title="Definition of the UPNP_E_* error messages." alt="" coords="938,93,1115,119"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="811,43,973,87,971,92,810,48"/>
+<area shape="rect" id="Node000003" href="$d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="449,240,615,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="627,121,591,140,559,168,545,197,537,227,532,226,540,195,555,165,588,136,625,116"/>
+<area shape="rect" id="Node000004" href="$d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="769,167,906,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="687,116,796,159,794,164,685,121"/>
+<area shape="rect" id="Node000005" href="$d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="570,167,745,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="660,119,660,153,655,153,655,119"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="5,167,133,192"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="284,121,124,166,123,160,282,116"/>
+<area shape="rect" id="Node000008" href="$d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="158,167,309,192"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="311,121,261,160,257,156,308,117"/>
+<area shape="rect" id="Node000010" href="$d4/d88/pthread_8hpp.html" title="Additional functions to manage Posix threads with C++ to be portable." alt="" coords="333,167,494,192"/>
+<area shape="poly" id="edge8_Node000006_Node000010" title=" " alt="" coords="340,117,390,156,386,160,337,121"/>
+<area shape="poly" id="edge9_Node000010_Node000003" title=" " alt="" coords="434,190,502,230,499,235,431,194"/>
+<area shape="poly" id="edge11_Node000011_Node000003" title=" " alt="" coords="859,116,887,131,912,149,927,170,927,182,921,194,901,209,873,221,799,239,712,248,629,253,628,248,712,243,798,233,871,216,898,204,917,190,922,181,922,172,908,153,884,135,857,121"/>
+<area shape="poly" id="edge12_Node000011_Node000004" title=" " alt="" coords="833,119,837,153,832,153,828,119"/>
+<area shape="poly" id="edge13_Node000011_Node000005" title=" " alt="" coords="803,121,699,164,697,159,801,116"/>
 </map>

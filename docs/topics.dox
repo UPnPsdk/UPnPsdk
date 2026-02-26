@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-02-24
+// Redistribution only with this Copyright remark. Last modified: 2026-02-28
 /*!
  * \file
  * \brief Definition of the documentation topics.
@@ -132,11 +132,11 @@ scheme     authority  path
 urn:oasis:names:specification:docbook:dtd:xml:4.1.2
 └┬┘ └──────────────────────┬──────────────────────┘
 scheme                    path
-
-Absolute path: whole URL.
-Relative path: begins with the path
-root based:    path with leading '/'
 \endverbatim
+
+Absolute path: A [URI](\ref glossary_URI).\n
+Relative path: A [Relative Reference](\ref glossary_URIrel).\n
+root based:    path with leading '/'
  *
  *
  * \defgroup compa-Discovery Step 1: Discovery
@@ -318,18 +318,19 @@ root based:    path with leading '/'
  * It is the UPnPsdk::CComponent class. It specifies the common properties of a
  * component and is base class of every named component class.
  *
- * Any named component like *scheme, path,* etc. has its own class that is
- * derived from UPnPsdk::CComponent. They are all initialized by its
- * constructor with the whole input URI string to ensure they all have the same
+ * All five named components **scheme, authority** with subcomponents userinfo
+ * and host and port, **path, query, fragment** have its own class that is
+ * derived from UPnPsdk::CComponent. They are all initialized by their
+ * constructors with the whole input URI string to ensure they all have the same
  * source for parsing and extract its specific information as defined by <a
- * href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986</a>. Its properties
- * are encapsulated so there is only access to them with "getter" member
+ * href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986</a>. Their Attributes
+ * are protected so there is only access to them with "getter" member
  * functions.
  *
  * The constructor of a named component class always tries to extract its component from the input URI string and reflects it in its UPnPsdk::CComponent::STATE. No dependencies with other components are checked on this abstraction layer. Only conditions like valid characters etc. defined for the component are checked. For example no error is reported if a "http" URI does not have a host component available. This is checked on a higher abstraction layer that manage the dependencies of components.
  *
  * ### Abstraction layer 1
- * This is the UPnPsdk::CUriRef class, the representation of a [URI reference](\ref glossary_URIref). Its member variables are named component objects. The constructor only verifies a [URI](\ref glossary_URI). It always accepts a [relative reference](\ref glossary_URIrel) because that only makes sense together with a URI that is used as base URI for a relative reference. Verifying the relative reference is made on a higher abstraction layer that merges the base URI and the relative reference.
+ * This is the UPnPsdk::CUriRef class, the representation of a [URI reference](\ref glossary_URIref). Its member variables are named component objects. The constructor only verifies a [URI](\ref glossary_URI). It always accepts a valid [relative reference](\ref glossary_URIrel) because that only makes sense together with a URI that is used as base URI for a relative reference. Verifying the relative reference is made on a higher abstraction layer that merges the base URI and the relative reference.
  *
  * ### Abstraction layer 2
  * This is the UPnPsdk::CUri class. Its member variables are mainly two UPnPsdk::CUriRef objects for base [URI](\ref glossary_URI) and resulting target URI. The constructor initializes the base [URI](\ref glossary_URI). The class accepts an optional [relative reference](\ref glossary_URIrel) and will then transform it with the base URI to a resulting target URI if it is valid.

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-02-10
+// Redistribution only with this Copyright remark. Last modified: 2026-02-26
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -22,12 +22,13 @@ namespace utest {
 
 // parse_uri() function: tests from the uri module
 // ===============================================
-#if 0
+#if false
 TEST(ParseUriIp4TestSuite, simple_call) {
-    // This test is only for humans to get an idea what's going on. If you need
-    // it, set '#if 1' only temporary. It is not intended to be permanent part
-    // of the tests. It doesn't really test things and because unmocked, it
-    // queries DNS server on the internet that may have long delays.
+    // This test is only for humans to get an idea what's going on. If you want
+    // to have a look at it, set '#if 1' only temporary. It is not intended to
+    // be permanent part of the tests. It doesn't really test things and
+    // because unmocked, it queries DNS server on the internet that may have
+    // long delays.
 
     std::string_view uri_str{"scheme://localhost:80/path?query#fragment"};
     // std::string_view uri_str{"scheme://uc6frebGdhl.de:80/path?query#frag"};
@@ -35,7 +36,7 @@ TEST(ParseUriIp4TestSuite, simple_call) {
     // std::string_view uri_str{"path?query#fragment"};
     // std::string_view uri_str{"mailto:a@b.com"};
 
-    std::cout << "DEBUG: parsed URI = \"" << uri_str << "\"\n";
+    ::std::cout << "DEBUG: parsed URI = \"" << uri_str << "\"\n";
     uri_type out;
 
     // Test Unit
@@ -83,9 +84,8 @@ TEST(ParseUriTestSuite, loopback_uri) {
 
     // Check the uri-parts scheme, hostport, pathquery and fragment. Please
     // note that the last part of the buffer content is garbage. The valid
-    // character chain is determined by its size. But it's no problem to
-    // compare the whole buffer because it's defined to contain a C string. But
-    // with std::string_view() I have an exact view to the components.
+    // character chain is determined by its size. But with std::string_view() I
+    // have an exact view to the components.
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, ABS_PATH);
     EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "https");
@@ -333,6 +333,7 @@ TEST(ParseUriTestSuite, ip_address_without_fragment) {
         EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.167.166]:80");
 }
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST(ParseUriTestSuite, parse_scheme_of_uri) {
     ::token out;
 
@@ -364,6 +365,7 @@ TEST(ParseUriTestSuite, parse_scheme_of_uri) {
     EXPECT_EQ(out.size, 0u);
     EXPECT_STREQ(out.buff, nullptr);
 }
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 
 TEST(ParseUriTestSuite, relative_uri_with_authority_and_absolute_path) {
     uri_type out;
@@ -483,6 +485,7 @@ TEST(ParseUriTestSuite, uri_with_opaque_part) {
     EXPECT_EQ(saObj.netaddrp(), ":0");
 }
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST(ParseUriTestSuite, parse_uric) {
     token out;
 
@@ -508,6 +511,7 @@ TEST(ParseUriTestSuite, parse_uric) {
     else
         EXPECT_EQ(::parse_uric(url_str1, strlen(url_str1), &out), 55);
 }
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 
 } // namespace utest
 

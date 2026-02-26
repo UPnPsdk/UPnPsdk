@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// redistribution only with this copyright remark. last modified: 2025-10-01
+// redistribution only with this copyright remark. last modified: 2026-02-26
 
 // Helpful link for ip address structures:
 // https://stackoverflow.com/a/16010670/5014688
@@ -55,6 +55,7 @@ class Mock_netv4info : public umock::NetdbMock {
 };
 
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 // parse_hostport() function: tests from the uri module
 // ====================================================
 
@@ -223,6 +224,7 @@ TEST(UriTestSuite, parse_hostport_ip6_without_name_resolution) {
     inet_ntop(AF_INET6, sai6->sin6_addr.s6_addr, dst, sizeof(dst));
     EXPECT_STREQ(dst, "2001:db8:85a3:8d3:1319:8a2e:370:7348");
 }
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 
 
 // token_cmp() functions: tests from the uri module

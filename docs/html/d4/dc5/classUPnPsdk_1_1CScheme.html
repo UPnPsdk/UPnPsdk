@@ -106,6 +106,8 @@ $(document).ready(function(){initNavTree('d4/dc5/classUPnPsdk_1_1CScheme.html','
 
 <p>Scheme component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URI">URI</a>.  
  <a href="../../d4/dc5/classUPnPsdk_1_1CScheme.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Inheritance diagram for UPnPsdk::CScheme:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -153,12 +155,19 @@ Additional Inherited Members</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aa9ac2dae4e47034b6c4504b2dc23dc00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the possible states of a URI component.  <a href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00">More...</a><br /></td></tr>
 <tr class="separator:aa9ac2dae4e47034b6c4504b2dc23dc00 inherit pub_types_classUPnPsdk_1_1CComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classUPnPsdk_1_1CComponent"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classUPnPsdk_1_1CComponent')"><img src="../../closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html">UPnPsdk::CComponent</a></td></tr>
+<tr class="memitem:ac48a3199aa575e65a189c3763d03c6cd inherit pro_attribs_classUPnPsdk_1_1CComponent" id="r_ac48a3199aa575e65a189c3763d03c6cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00">STATE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#ac48a3199aa575e65a189c3763d03c6cd">m_state</a> {<a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00af31ee5e3824f1f5e5d206bdf3029f22b">STATE::undef</a>}</td></tr>
+<tr class="memdesc:ac48a3199aa575e65a189c3763d03c6cd inherit pro_attribs_classUPnPsdk_1_1CComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current state of the component.  <br /></td></tr>
+<tr class="separator:ac48a3199aa575e65a189c3763d03c6cd inherit pro_attribs_classUPnPsdk_1_1CComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a344d611aa7ff7c807528aae3557e6031 inherit pro_attribs_classUPnPsdk_1_1CComponent" id="r_a344d611aa7ff7c807528aae3557e6031"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#a344d611aa7ff7c807528aae3557e6031">m_component</a></td></tr>
+<tr class="memdesc:a344d611aa7ff7c807528aae3557e6031 inherit pro_attribs_classUPnPsdk_1_1CComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the component.  <br /></td></tr>
+<tr class="separator:a344d611aa7ff7c807528aae3557e6031 inherit pro_attribs_classUPnPsdk_1_1CComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Scheme component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URI">URI</a>. </p>
 <p>All of the requirements for the "http" scheme are also requirements for the "https" scheme, except that TCP port 443 is the default instead port 80 for "http" (<a href="https://www.rfc-editor.org/rfc/rfc7230#section-2.7.2">RFC7230 2.7.2.</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00318">318</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00160">160</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3a7d1af7142b7682ae22bdaafb3440d6" name="a3a7d1af7142b7682ae22bdaafb3440d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3a7d1af7142b7682ae22bdaafb3440d6">&#9670;&#160;</a></span>CScheme()</h2>
@@ -184,11 +193,12 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00325">325</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00207">207</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>UPnPsdk/include/UPnPsdk/<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a></li>
 <li>UPnPsdk/src/net/http/<a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a></li>
 </ul>
 </div><!-- contents -->

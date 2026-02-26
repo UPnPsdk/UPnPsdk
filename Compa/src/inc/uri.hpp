@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-11-08
+ * Redistribution only with this Copyright remark. Last modified: 2026-02-27
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -38,6 +38,7 @@
  */
 
 #include <membuffer.hpp>
+#include <UPnPsdk/uri.hpp>
 
 /// \cond
 #include <cstring>
@@ -53,52 +54,8 @@
 #endif
 /// \endcond
 
-namespace compa {
-
-/// Type of the URI.
-// Must not use ABSOLUTE, RELATIVE; already defined in Win32 for other meaning.
-enum struct uriType { Absolute, Relative };
-
-/// Type of the "path" part of the URI.
-enum struct pathType { ABS_PATH, REL_PATH, OPAQUE_PART };
-
-} // namespace compa
-
-
 /// Yet another success code.
 inline constexpr int HTTP_SUCCESS{1};
-
-/*!
- * \brief Buffer used in parsing http messages, urls, etc. Generally this
- * simply holds a pointer into a larger array.
- */
-struct token {
-    const char* buff; ///< Buffer
-    size_t size;      ///< Size of the buffer
-};
-
-/*!
- * \brief Represents a host port, e.g. "[::1]:443".
- */
-struct hostport_type {
-    token text; ///< Pointing to the full host:port string representation.
-    sockaddr_storage IPaddress; ///< Network socket address.
-};
-
-/*!
- * \brief Represents a URI used in parse_uri and elsewhere.
- */
-struct uri_type {
-    /// @{
-    /// \brief Member variable
-    compa::uriType type;
-    token scheme;
-    compa::pathType path_type;
-    token pathquery;
-    token fragment;
-    hostport_type hostport;
-    /// @}
-};
 
 /*!
  * \brief Represents a list of URLs as in the "callback" header of SUBSCRIBE
@@ -262,33 +219,6 @@ char* resolve_rel_url(
     char* base_url,
     /*! [in] Relative URL. */
     char* rel_url);
-
-/*!
- * \brief Parses a uri as defined in <a
- * href="https://www.rfc-editor.org/rfc/rfc3986"> RFC 3986 (Uniform Resource
- * Identifier)</a>.
- *
- * Handles absolute, relative, and opaque uris. Parses into the following
- * pieces: scheme, hostport, pathquery, fragment (host with port and path with
- * query are treated as one token). Strings in output uri_type are treated as
- * token with character chain and size. They are not null ('\0') terminated.
- *
- * Caller should check for the pieces they require.
- *
- * \returns
- *  On success: HTTP_SUCCESS\n
- *  On error: UPNP_E_INVALID_URL, accessing \b out (arg3) then, is undefined
- *            behavior.
- */
-int parse_uri(
-    /*! [in] Character string containing uri information to be parsed. It is
-     * not expected to be terminated with zero ('\0'), but may have. */
-    const char* in,
-    /*! [in] Number of characters (strlen()) of the input string. */
-    size_t max,
-    /*! [out] Output parameter which will have the parsed uri information.
-     */
-    uri_type* out);
 
 /*!
  * \brief

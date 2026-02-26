@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-11-08
+ * Redistribution only with this Copyright remark. Last modified: 2026-02-28
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -50,11 +50,11 @@
 
 UPnPsdk_EXTERN unsigned gIF_INDEX;
 
-using compa::pathType::ABS_PATH;
-using compa::pathType::OPAQUE_PART;
-using compa::pathType::REL_PATH;
-using compa::uriType::Absolute;
-using compa::uriType::Relative;
+using pathType::ABS_PATH;
+using pathType::OPAQUE_PART;
+using pathType::REL_PATH;
+using uriType::Absolute;
+using uriType::Relative;
 
 namespace {
 
@@ -62,6 +62,7 @@ namespace {
  * @{
  */
 
+#if 1
 /*!
  * \brief Parses a string of uric characters starting at in[0].
  *
@@ -107,6 +108,7 @@ size_t parse_uric(
     out->buff = in_sv.data();
     return in_sv.size();
 }
+#endif
 
 
 /*!
@@ -129,6 +131,7 @@ inline void copy_token(
     out->buff = out_base + (in->buff - in_base);
 }
 
+#if 1
 /*!
  * \brief Parses a string with host and port and fills a hostport structure.
  *
@@ -326,6 +329,7 @@ size_t parse_scheme(
 
     return (size_t)0;
 }
+#endif
 
 
 /*!
@@ -735,6 +739,7 @@ error:
     return NULL;
 }
 
+#if 1
 int parse_uri(const char* in, size_t max, uri_type* out) {
     size_t begin_hostport = parse_scheme(in, max, &out->scheme);
     if (begin_hostport) {
@@ -787,3 +792,4 @@ int parse_uri(const char* in, size_t max, uri_type* out) {
 
     return HTTP_SUCCESS;
 }
+#endif

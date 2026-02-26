@@ -27,7 +27,7 @@ var searchData=
   ['copy_5fwith_5fescape_24',['copy_with_escape',['../d2/db9/ixml_8cpp.html#ae98f05fad4229463cd9846143bac3dd0',1,'ixml.cpp']]],
   ['cpath_25',['CPath',['../d8/db3/classUPnPsdk_1_1CPath.html#a957dd38d307abf572acead1f17e87e41',1,'UPnPsdk::CPath']]],
   ['cport_26',['CPort',['../df/de1/classUPnPsdk_1_1CPort.html#adc215e70897aa5e129e12ec8d669f570',1,'UPnPsdk::CPort']]],
-  ['cprepuristr_27',['CPrepUriStr',['../d4/d72/classUPnPsdk_1_1CPrepUriStr.html#a8ef9ae88023820ab22bd20d869dc0ec5',1,'UPnPsdk::CPrepUriStr']]],
+  ['cprepuristr_27',['CPrepUriStr',['../de/dc7/group__upnpsdk-uri.html#ga5784bc00d96333baef996f623fe998b7',1,'UPnPsdk::CPrepUriStr']]],
   ['cpthread_5fscoped_5flock_28',['CPthread_scoped_lock',['../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html#a5f381773a4ae3656c93fd4a51e1e867f',1,'UPnPsdk::CPthread_scoped_lock']]],
   ['cquery_29',['CQuery',['../d1/df2/classUPnPsdk_1_1CQuery.html#a60eafa4e044c0d748d67c3e3ba0b243b',1,'UPnPsdk::CQuery']]],
   ['create_5fssdp_5fsock_5freqv4_30',['create_ssdp_sock_reqv4',['../d7/d5e/group__SSDP-ctrlpt__functions.html#gab9a5841aed6435464cfca9c7e1ed371a',1,'create_ssdp_sock_reqv4(SOCKET *ssdpReqSock):&#160;ssdp_ctrlpt.cpp'],['../d4/d99/ssdp__ctrlpt_8cpp.html#ab9a5841aed6435464cfca9c7e1ed371a',1,'create_ssdp_sock_reqv4(SOCKET *ssdpReqSock):&#160;ssdp_ctrlpt.cpp']]],
@@ -48,7 +48,7 @@ var searchData=
   ['csocket_45',['csocket',['../d3/d5d/classUPnPsdk_1_1CSocket.html#a344fe194de361248e4add998b298a225',1,'UPnPsdk::CSocket::CSocket()'],['../d3/d5d/classUPnPsdk_1_1CSocket.html#a1932fc4b351967415d93a96d67b9c933',1,'UPnPsdk::CSocket::CSocket(CSocket &amp;&amp;)']]],
   ['csocket_5fbasic_46',['csocket_basic',['../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2899231a1217983bb210efe731a17343',1,'UPnPsdk::CSocket_basic::CSocket_basic()'],['../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a4e520f7e7786d3f22f50792db5cfc5dd',1,'UPnPsdk::CSocket_basic::CSocket_basic(SOCKET a_sfd)']]],
   ['cstrintmap_47',['CStrIntMap',['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#acfd23143aba9e99d30cb127ce7eef4a1',1,'UPnPsdk::CStrIntMap']]],
-  ['curi_48',['CUri',['../da/dcf/classUPnPsdk_1_1CUri.html#a59cfca6372a47747a819efd29069a988',1,'UPnPsdk::CUri']]],
-  ['curiref_49',['CUriRef',['../dc/d76/classUPnPsdk_1_1CUriRef.html#a687ab2528587507affcde1c21e00a9d7',1,'UPnPsdk::CUriRef']]],
+  ['curi_48',['CUri',['../da/dcf/classUPnPsdk_1_1CUri.html#a75a226e8cc621f9d288d0befb0e7650e',1,'UPnPsdk::CUri']]],
+  ['curiref_49',['CUriRef',['../dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e',1,'UPnPsdk::CUriRef']]],
   ['cuserinfo_50',['CUserinfo',['../d9/dba/classUPnPsdk_1_1CUserinfo.html#a32824dda471fe8d567855d60d3e7cf73',1,'UPnPsdk::CUserinfo']]]
 ];

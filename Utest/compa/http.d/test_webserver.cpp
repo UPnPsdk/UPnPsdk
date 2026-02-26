@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-18
+// Redistribution only with this Copyright remark. Last modified: 2026-02-27
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -83,8 +83,8 @@ using ::compa::get_content_type;
 using ::compa::RESP_FILEDOC;
 using ::compa::resp_type;
 using ::compa::search_extension;
-using ::compa::pathType::ABS_PATH;
-using ::compa::uriType::Relative;
+using ::pathType::ABS_PATH;
+using ::uriType::Relative;
 #endif
 
 

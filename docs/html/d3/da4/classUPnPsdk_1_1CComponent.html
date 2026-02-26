@@ -100,6 +100,7 @@ $(document).ready(function(){initNavTree('d3/da4/classUPnPsdk_1_1CComponent.html
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="../../d4/d7a/classUPnPsdk_1_1CComponent-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">UPnPsdk::CComponent Class Reference<div class="ingroups"><a class="el" href="../../d4/d32/group__upnplib.html">UPnPsdk code</a> &raquo; <a class="el" href="../../dd/df8/group__upnplib-Addressing.html">Step 0: Addressing</a> &raquo; <a class="el" href="../../de/dc7/group__upnpsdk-uri.html">URI module</a></div></div></div>
 </div><!--header-->
@@ -107,6 +108,8 @@ $(document).ready(function(){initNavTree('d3/da4/classUPnPsdk_1_1CComponent.html
 
 <p>Base class of a component.  
  <a href="../../d3/da4/classUPnPsdk_1_1CComponent.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Inheritance diagram for UPnPsdk::CComponent:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -149,12 +152,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad7ee59853f1492e7aa85aa3f80e30901" id="r_ad7ee59853f1492e7aa85aa3f80e30901"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#ad7ee59853f1492e7aa85aa3f80e30901">str</a> () const</td></tr>
 <tr class="memdesc:ad7ee59853f1492e7aa85aa3f80e30901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the string of the component.  <br /></td></tr>
 <tr class="separator:ad7ee59853f1492e7aa85aa3f80e30901"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ac48a3199aa575e65a189c3763d03c6cd" id="r_ac48a3199aa575e65a189c3763d03c6cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00">STATE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#ac48a3199aa575e65a189c3763d03c6cd">m_state</a> {<a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00af31ee5e3824f1f5e5d206bdf3029f22b">STATE::undef</a>}</td></tr>
+<tr class="memdesc:ac48a3199aa575e65a189c3763d03c6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current state of the component.  <br /></td></tr>
+<tr class="separator:ac48a3199aa575e65a189c3763d03c6cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a344d611aa7ff7c807528aae3557e6031" id="r_a344d611aa7ff7c807528aae3557e6031"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#a344d611aa7ff7c807528aae3557e6031">m_component</a></td></tr>
+<tr class="memdesc:a344d611aa7ff7c807528aae3557e6031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the component.  <br /></td></tr>
+<tr class="separator:a344d611aa7ff7c807528aae3557e6031"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class of a component. </p>
 <p>All special URI components (scheme, userinfo, host, port, path, query, fragment) are derived from this class. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00191">191</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00098">98</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="aa9ac2dae4e47034b6c4504b2dc23dc00" name="aa9ac2dae4e47034b6c4504b2dc23dc00"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9ac2dae4e47034b6c4504b2dc23dc00">&#9670;&#160;</a></span>STATE</h2>
@@ -190,7 +202,7 @@ Public Member Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00211">211</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00118">118</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>
@@ -213,7 +225,7 @@ Public Member Functions</h2></td></tr>
 <p>Get state of the component. </p>
 <dl class="section return"><dt>Returns</dt><dd>State of the component. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00235">235</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00134">134</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -221,29 +233,33 @@ Public Member Functions</h2></td></tr>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/da4/classUPnPsdk_1_1CComponent_a828a43d0d2b88e27ac397393bdc51162_icgraph.png" border="0" usemap="#ad3/da4/classUPnPsdk_1_1CComponent_a828a43d0d2b88e27ac397393bdc51162_icgraph" alt=""/></div>
 <map name="ad3/da4/classUPnPsdk_1_1CComponent_a828a43d0d2b88e27ac397393bdc51162_icgraph" id="ad3/da4/classUPnPsdk_1_1CComponent_a828a43d0d2b88e27ac397393bdc51162_icgraph">
-<area shape="rect" title="Get state of the component." alt="" coords="673,155,844,195"/>
-<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a59cfca6372a47747a819efd29069a988" title="Initialize with the base URI." alt="" coords="453,5,603,31"/>
-<area shape="poly" title=" " alt="" coords="733,146,686,93,657,67,624,44,598,33,600,28,627,40,660,62,690,90,737,143"/>
-<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#a687ab2528587507affcde1c21e00a9d7" title="Initialize the URI reference." alt="" coords="431,55,625,80"/>
-<area shape="poly" title=" " alt="" coords="714,150,624,102,573,83,574,78,626,97,716,146"/>
-<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0" title="Set a relative resource reference." alt="" coords="193,135,383,160"/>
-<area shape="poly" title=" " alt="" coords="674,155,625,146,499,139,383,142,383,137,499,134,626,141,675,149"/>
+<area shape="rect" title="Get state of the component." alt="" coords="673,185,844,225"/>
+<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a75a226e8cc621f9d288d0befb0e7650e" title="Initialize with the base URI." alt="" coords="453,5,603,31"/>
+<area shape="poly" title=" " alt="" coords="738,175,692,108,660,73,624,44,601,33,603,28,627,40,664,69,696,104,742,172"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e" title="Initialize the URI reference." alt="" coords="431,55,625,80"/>
+<area shape="poly" title=" " alt="" coords="725,177,679,138,624,102,578,83,580,78,627,97,683,134,729,173"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557" title="Merge a relative reference to a base URI." alt="" coords="204,104,372,159"/>
+<area shape="poly" title=" " alt="" coords="711,181,670,161,625,146,559,134,493,128,372,128,372,123,493,123,560,129,626,141,672,156,713,176"/>
+<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0" title="Set a relative resource reference." alt="" coords="193,208,383,233"/>
+<area shape="poly" title=" " alt="" coords="659,211,383,220,383,215,659,205"/>
 <area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#ad3e149966094fc7836c0c72d5b0d089b" title="Get state of the authority." alt="" coords="450,155,606,195"/>
-<area shape="poly" title=" " alt="" coords="660,178,606,178,606,173,660,173"/>
-<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="207,220,369,245"/>
-<area shape="poly" title=" " alt="" coords="671,201,626,210,490,226,369,233,369,228,490,220,625,205,670,196"/>
-<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#a9cd30f4988fb2db226dedc9527e7e6c5" title="Get state of the URI reference." alt="" coords="439,320,617,345"/>
-<area shape="poly" title=" " alt="" coords="737,208,690,261,660,288,627,311,600,322,598,318,624,306,657,284,686,257,733,205"/>
+<area shape="poly" title=" " alt="" coords="659,195,606,188,606,183,660,189"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="207,271,369,296"/>
+<area shape="poly" title=" " alt="" coords="732,237,686,277,657,296,626,310,573,323,529,323,430,310,350,299,351,293,431,305,530,318,572,318,624,305,654,291,682,273,728,233"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#a9cd30f4988fb2db226dedc9527e7e6c5" title="Get state of the URI reference." alt="" coords="439,372,617,397"/>
+<area shape="poly" title=" " alt="" coords="739,238,692,297,661,328,627,355,585,374,583,369,624,350,658,324,688,294,735,235"/>
 <area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#a7af370c774ec2ad272b4802b7dee1bff" title="Get the string of the authority component." alt="" coords="438,271,618,296"/>
-<area shape="poly" title=" " alt="" coords="716,205,626,254,574,273,573,268,624,249,714,200"/>
-<area shape="poly" title=" " alt="" coords="436,167,383,161,383,156,436,162"/>
-<area shape="poly" title=" " alt="" coords="437,200,343,223,341,217,436,194"/>
-<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9" title="Get the resulting URI string merged with the relative reference." alt="" coords="5,245,145,271"/>
-<area shape="poly" title=" " alt="" coords="194,247,146,252,145,247,193,241"/>
-<area shape="poly" title=" " alt="" coords="436,320,145,272,146,267,437,315"/>
+<area shape="poly" title=" " alt="" coords="689,232,626,254,569,273,567,268,624,249,687,227"/>
+<area shape="poly" title=" " alt="" coords="323,93,310,85,288,83,269,85,257,89,252,96,252,104,247,104,247,94,254,85,268,79,288,77,312,80,326,88"/>
+<area shape="poly" title=" " alt="" coords="436,161,372,149,373,144,437,156"/>
+<area shape="poly" title=" " alt="" coords="437,195,357,211,356,205,436,190"/>
+<area shape="poly" title=" " alt="" coords="476,204,384,247,323,273,320,268,382,242,473,199"/>
+<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9" title="Get the resulting URI string merged with the relative reference." alt="" coords="5,321,145,347"/>
+<area shape="poly" title=" " alt="" coords="221,302,130,324,129,319,220,297"/>
+<area shape="poly" title=" " alt="" coords="426,383,314,376,193,362,128,349,129,344,194,357,314,370,426,378"/>
 <area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#ab90b7e985ba8a6653497f1d820729da0" title="Get state of the URI." alt="" coords="210,321,366,347"/>
-<area shape="poly" title=" " alt="" coords="426,336,366,336,366,331,426,331"/>
-<area shape="poly" title=" " alt="" coords="453,270,348,248,349,243,454,265"/>
+<area shape="poly" title=" " alt="" coords="453,372,348,349,349,344,454,366"/>
+<area shape="poly" title=" " alt="" coords="425,286,369,286,369,281,425,281"/>
 </map>
 </div>
 
@@ -273,7 +289,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00240">240</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00139">139</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -281,22 +297,79 @@ Public Member Functions</h2></td></tr>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/da4/classUPnPsdk_1_1CComponent_ad7ee59853f1492e7aa85aa3f80e30901_icgraph.png" border="0" usemap="#ad3/da4/classUPnPsdk_1_1CComponent_ad7ee59853f1492e7aa85aa3f80e30901_icgraph" alt=""/></div>
 <map name="ad3/da4/classUPnPsdk_1_1CComponent_ad7ee59853f1492e7aa85aa3f80e30901_icgraph" id="ad3/da4/classUPnPsdk_1_1CComponent_ad7ee59853f1492e7aa85aa3f80e30901_icgraph">
-<area shape="rect" title="Get the string of the component." alt="" coords="457,80,653,105"/>
-<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#a687ab2528587507affcde1c21e00a9d7" title="Initialize the URI reference." alt="" coords="215,5,409,31"/>
-<area shape="poly" title=" " alt="" coords="507,78,409,45,367,33,369,28,410,39,509,73"/>
-<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0" title="Set a relative resource reference." alt="" coords="217,55,407,80"/>
-<area shape="poly" title=" " alt="" coords="444,84,407,80,407,75,444,78"/>
-<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#a7af370c774ec2ad272b4802b7dee1bff" title="Get the string of the authority component." alt="" coords="222,104,402,129"/>
-<area shape="poly" title=" " alt="" coords="444,106,402,110,402,105,444,101"/>
-<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="5,129,167,155"/>
-<area shape="poly" title=" " alt="" coords="513,113,464,130,410,143,347,151,282,154,167,151,167,146,282,148,346,145,409,138,463,125,511,108"/>
-<area shape="poly" title=" " alt="" coords="209,131,167,136,167,130,208,126"/>
+<area shape="rect" title="Get the string of the component." alt="" coords="457,157,653,183"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e" title="Initialize the URI reference." alt="" coords="215,5,409,31"/>
+<area shape="poly" title=" " alt="" coords="533,149,480,96,445,68,408,44,380,33,382,28,411,40,448,64,483,92,536,145"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557" title="Merge a relative reference to a base URI." alt="" coords="228,79,396,133"/>
+<area shape="poly" title=" " alt="" coords="492,156,396,131,397,126,494,151"/>
+<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0" title="Set a relative resource reference." alt="" coords="217,157,407,183"/>
+<area shape="poly" title=" " alt="" coords="443,173,407,173,407,167,443,167"/>
+<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#a7af370c774ec2ad272b4802b7dee1bff" title="Get the string of the authority component." alt="" coords="222,207,402,232"/>
+<area shape="poly" title=" " alt="" coords="479,188,376,209,375,204,478,183"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="5,232,167,257"/>
+<area shape="poly" title=" " alt="" coords="526,192,474,222,442,236,410,246,347,257,283,261,167,257,167,252,283,256,346,251,409,241,440,231,471,217,523,188"/>
+<area shape="poly" title=" " alt="" coords="349,68,336,60,312,57,292,59,279,64,273,70,273,79,268,79,268,68,276,60,291,54,312,52,337,55,352,63"/>
+<area shape="poly" title=" " alt="" coords="209,234,167,238,167,233,208,228"/>
 </map>
 </div>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac48a3199aa575e65a189c3763d03c6cd" name="ac48a3199aa575e65a189c3763d03c6cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac48a3199aa575e65a189c3763d03c6cd">&#9670;&#160;</a></span>m_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00">STATE</a> UPnPsdk::CComponent::m_state {<a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00af31ee5e3824f1f5e5d206bdf3029f22b">STATE::undef</a>}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Current state of the component. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00136">136</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a344d611aa7ff7c807528aae3557e6031" name="a344d611aa7ff7c807528aae3557e6031"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a344d611aa7ff7c807528aae3557e6031">&#9670;&#160;</a></span>m_component</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string UPnPsdk::CComponent::m_component</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Name of the component. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00141">141</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>UPnPsdk/include/UPnPsdk/<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a></li>
 <li>UPnPsdk/src/net/http/<a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a></li>
 </ul>
 </div><!-- contents -->

@@ -7,7 +7,9 @@ var group__upnpsdk_uri =
         [ "avail", "d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00a2a63117de6700b21651ea40db979a948", null ]
       ] ],
       [ "state", "d3/da4/classUPnPsdk_1_1CComponent.html#a828a43d0d2b88e27ac397393bdc51162", null ],
-      [ "str", "d3/da4/classUPnPsdk_1_1CComponent.html#ad7ee59853f1492e7aa85aa3f80e30901", null ]
+      [ "str", "d3/da4/classUPnPsdk_1_1CComponent.html#ad7ee59853f1492e7aa85aa3f80e30901", null ],
+      [ "m_state", "d3/da4/classUPnPsdk_1_1CComponent.html#ac48a3199aa575e65a189c3763d03c6cd", null ],
+      [ "m_component", "d3/da4/classUPnPsdk_1_1CComponent.html#a344d611aa7ff7c807528aae3557e6031", null ]
     ] ],
     [ "UPnPsdk::CScheme", "d4/dc5/classUPnPsdk_1_1CScheme.html", [
       [ "CScheme", "d4/dc5/classUPnPsdk_1_1CScheme.html#a3a7d1af7142b7682ae22bdaafb3440d6", null ]
@@ -40,10 +42,10 @@ var group__upnpsdk_uri =
       [ "CFragment", "dd/d7c/classUPnPsdk_1_1CFragment.html#ad9690a499e6014cbf68aa48d154a5c85", null ]
     ] ],
     [ "UPnPsdk::CPrepUriStr", "d4/d72/classUPnPsdk_1_1CPrepUriStr.html", [
-      [ "CPrepUriStr", "d4/d72/classUPnPsdk_1_1CPrepUriStr.html#a8ef9ae88023820ab22bd20d869dc0ec5", null ]
+      [ "CPrepUriStr", "de/dc7/group__upnpsdk-uri.html#ga5784bc00d96333baef996f623fe998b7", null ]
     ] ],
     [ "UPnPsdk::CUriRef", "dc/d76/classUPnPsdk_1_1CUriRef.html", [
-      [ "CUriRef", "dc/d76/classUPnPsdk_1_1CUriRef.html#a687ab2528587507affcde1c21e00a9d7", null ],
+      [ "CUriRef", "dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e", null ],
       [ "state", "dc/d76/classUPnPsdk_1_1CUriRef.html#a9cd30f4988fb2db226dedc9527e7e6c5", null ],
       [ "str", "dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed", null ],
       [ "scheme", "dc/d76/classUPnPsdk_1_1CUriRef.html#a87569674aae3a6bb29f336a91c0d3a3d", null ],
@@ -53,7 +55,7 @@ var group__upnpsdk_uri =
       [ "fragment", "dc/d76/classUPnPsdk_1_1CUriRef.html#a3f2457cb93db3032ce4c6768173b73f3", null ]
     ] ],
     [ "UPnPsdk::CUri", "da/dcf/classUPnPsdk_1_1CUri.html", [
-      [ "CUri", "da/dcf/classUPnPsdk_1_1CUri.html#a59cfca6372a47747a819efd29069a988", null ],
+      [ "CUri", "da/dcf/classUPnPsdk_1_1CUri.html#a75a226e8cc621f9d288d0befb0e7650e", null ],
       [ "operator=", "da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0", null ],
       [ "state", "da/dcf/classUPnPsdk_1_1CUri.html#ab90b7e985ba8a6653497f1d820729da0", null ],
       [ "str", "da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9", null ],
@@ -61,9 +63,16 @@ var group__upnpsdk_uri =
       [ "target", "da/dcf/classUPnPsdk_1_1CUri.html#a2c991bc29b0d16c47ae0b4f9aec0709b", null ]
     ] ],
     [ "UPnPsdk::remove_dot_segments", "de/dc7/group__upnpsdk-uri.html#ga1b4480819fde1cd38f31b41bedcdce06", null ],
+    [ "UPnPsdk::CPrepUriStr::CPrepUriStr", "de/dc7/group__upnpsdk-uri.html#ga5784bc00d96333baef996f623fe998b7", null ],
     [ "UPnPsdk::anonymous_namespace{uri.cpp}::is_ipv4_addr", "de/dc7/group__upnpsdk-uri.html#ga9f8fe65d1ad9b79b9fbc99f9cf25c36e", null ],
     [ "UPnPsdk::anonymous_namespace{uri.cpp}::is_dns_name", "de/dc7/group__upnpsdk-uri.html#gafa653ebd81ec9323368fc8792a89df48", null ],
-    [ "UPnPsdk::anonymous_namespace{uri.cpp}::parse_percent_encoded_chars", "de/dc7/group__upnpsdk-uri.html#ga7a38686a6c37619355a8c3a13c3a475c", null ],
     [ "UPnPsdk::anonymous_namespace{uri.cpp}::get_scheme", "de/dc7/group__upnpsdk-uri.html#ga5f9fb879ec8547febcfe970aa9a967ff", null ],
-    [ "UPnPsdk::anonymous_namespace{uri.cpp}::get_authority", "de/dc7/group__upnpsdk-uri.html#ga71fe403cd22555d7560c522bf55950e1", null ]
+    [ "UPnPsdk::anonymous_namespace{uri.cpp}::get_authority", "de/dc7/group__upnpsdk-uri.html#ga3a98acb7b20ec16a23acefb6a067f1d8", null ],
+    [ "UPnPsdk::anonymous_namespace{uri.cpp}::get_userinfo", "de/dc7/group__upnpsdk-uri.html#gac60aa3b36864a27db482fa562d339b51", null ],
+    [ "UPnPsdk::anonymous_namespace{uri.cpp}::get_host", "de/dc7/group__upnpsdk-uri.html#gad126cc10cafbe0a958dc11ad8fb8c9ee", null ],
+    [ "UPnPsdk::anonymous_namespace{uri.cpp}::get_port", "de/dc7/group__upnpsdk-uri.html#ga6d571ed2cf31b8c6bf670a46b24f350f", null ],
+    [ "UPnPsdk::anonymous_namespace{uri.cpp}::get_path", "de/dc7/group__upnpsdk-uri.html#ga5cad4f2b687822c9f6b7d32c7943c6dd", null ],
+    [ "UPnPsdk::anonymous_namespace{uri.cpp}::get_query", "de/dc7/group__upnpsdk-uri.html#gaa687876e60fd154efb44d30586a59882", null ],
+    [ "UPnPsdk::anonymous_namespace{uri.cpp}::get_fragment", "de/dc7/group__upnpsdk-uri.html#gabc953b6a0e691580342ee083aa9d5faa", null ],
+    [ "UPnPsdk::anonymous_namespace{uri.cpp}::merge_paths", "de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557", null ]
 ];

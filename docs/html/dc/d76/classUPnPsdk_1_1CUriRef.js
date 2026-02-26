@@ -1,6 +1,6 @@
 var classUPnPsdk_1_1CUriRef =
 [
-    [ "CUriRef", "dc/d76/classUPnPsdk_1_1CUriRef.html#a687ab2528587507affcde1c21e00a9d7", null ],
+    [ "CUriRef", "dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e", null ],
     [ "state", "dc/d76/classUPnPsdk_1_1CUriRef.html#a9cd30f4988fb2db226dedc9527e7e6c5", null ],
     [ "str", "dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed", null ],
     [ "scheme", "dc/d76/classUPnPsdk_1_1CUriRef.html#a87569674aae3a6bb29f336a91c0d3a3d", null ],

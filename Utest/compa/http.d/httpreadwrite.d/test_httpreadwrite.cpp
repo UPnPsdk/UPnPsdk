@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-10-30
+// Redistribution only with this Copyright remark. Last modified: 2026-02-27
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -33,12 +33,12 @@ using ::UPnPsdk::errStr;
 using ::UPnPsdk::errStrEx;
 
 #ifndef UPnPsdk_WITH_NATIVE_PUPNP
-using ::compa::pathType;
-using ::compa::uriType;
-using ::compa::pathType::ABS_PATH;
-using ::compa::pathType::OPAQUE_PART;
-using ::compa::uriType::Absolute;
-using ::compa::uriType::Relative;
+using ::pathType;
+using ::uriType;
+using ::pathType::ABS_PATH;
+using ::pathType::OPAQUE_PART;
+using ::uriType::Absolute;
+using ::uriType::Relative;
 #endif
 
 // Pseudo call stack of some important functions to get an overview

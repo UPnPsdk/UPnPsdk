@@ -110,6 +110,7 @@ $(document).ready(function(){initNavTree('d1/db5/UPnPsdk_2src_2net_2http_2uri_8c
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">UPnPsdk/uri.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d1/d3b/synclog_8hpp_source.html">UPnPsdk/synclog.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">UPnPsdk/sockaddr.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d4/d64/messages_8hpp_source.html">UPnPsdk/messages.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for uri.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -117,27 +118,31 @@ $(document).ready(function(){initNavTree('d1/db5/UPnPsdk_2src_2net_2http_2uri_8c
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d7/dc5/UPnPsdk_2src_2net_2http_2uri_8cpp__incl.png" border="0" usemap="#aUPnPsdk_2src_2net_2http_2uri_8cpp" alt=""/></div>
 <map name="aUPnPsdk_2src_2net_2http_2uri_8cpp" id="aUPnPsdk_2src_2net_2http_2uri_8cpp">
-<area shape="rect" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="208,5,365,45"/>
-<area shape="rect" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="5,93,133,119"/>
-<area shape="poly" title=" " alt="" coords="236,48,115,91,113,86,234,43"/>
-<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="206,93,367,119"/>
-<area shape="poly" title=" " alt="" coords="289,46,289,79,284,79,284,46"/>
-<area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="555,93,723,119"/>
-<area shape="poly" title=" " alt="" coords="366,42,575,88,573,93,365,47"/>
-<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="384,240,549,265"/>
-<area shape="poly" title=" " alt="" coords="63,120,44,155,42,174,49,190,69,206,100,218,183,236,279,246,370,249,370,254,278,251,182,242,98,224,66,210,45,194,37,175,39,154,58,118"/>
-<area shape="rect" title=" " alt="" coords="59,167,187,192"/>
-<area shape="poly" title=" " alt="" coords="261,121,163,164,161,159,259,116"/>
-<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="211,167,362,192"/>
-<area shape="poly" title=" " alt="" coords="289,119,289,153,284,153,284,119"/>
-<area shape="rect" href="../../d4/d88/pthread_8hpp.html" title="Additional functions to manage Posix threads with C++ to be portable." alt="" coords="386,167,547,192"/>
-<area shape="poly" title=" " alt="" coords="317,116,426,159,424,164,315,121"/>
-<area shape="poly" title=" " alt="" coords="469,192,469,226,464,226,464,192"/>
-<area shape="poly" title=" " alt="" coords="631,121,601,155,560,194,501,235,498,231,557,190,597,151,627,117"/>
-<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="623,167,761,192"/>
-<area shape="poly" title=" " alt="" coords="650,117,677,154,673,157,645,121"/>
-<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="785,167,959,192"/>
-<area shape="poly" title=" " alt="" coords="677,116,822,160,821,165,675,121"/>
+<area shape="rect" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="664,5,821,45"/>
+<area shape="rect" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="593,93,721,119"/>
+<area shape="poly" title=" " alt="" coords="724,48,682,86,678,82,720,44"/>
+<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="243,93,405,119"/>
+<area shape="poly" title=" " alt="" coords="664,44,399,93,398,88,663,39"/>
+<area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="745,93,913,119"/>
+<area shape="poly" title=" " alt="" coords="765,44,808,82,804,86,762,48"/>
+<area shape="rect" href="../../d4/d64/messages_8hpp.html" title="Definition of the UPNP_E_* error messages." alt="" coords="938,93,1115,119"/>
+<area shape="poly" title=" " alt="" coords="811,43,973,87,971,92,810,48"/>
+<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="449,240,615,265"/>
+<area shape="poly" title=" " alt="" coords="627,121,591,140,559,168,545,197,537,227,532,226,540,195,555,165,588,136,625,116"/>
+<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="769,167,906,192"/>
+<area shape="poly" title=" " alt="" coords="687,116,796,159,794,164,685,121"/>
+<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="570,167,745,192"/>
+<area shape="poly" title=" " alt="" coords="660,119,660,153,655,153,655,119"/>
+<area shape="rect" title=" " alt="" coords="5,167,133,192"/>
+<area shape="poly" title=" " alt="" coords="284,121,124,166,123,160,282,116"/>
+<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="158,167,309,192"/>
+<area shape="poly" title=" " alt="" coords="311,121,261,160,257,156,308,117"/>
+<area shape="rect" href="../../d4/d88/pthread_8hpp.html" title="Additional functions to manage Posix threads with C++ to be portable." alt="" coords="333,167,494,192"/>
+<area shape="poly" title=" " alt="" coords="340,117,390,156,386,160,337,121"/>
+<area shape="poly" title=" " alt="" coords="434,190,502,230,499,235,431,194"/>
+<area shape="poly" title=" " alt="" coords="859,116,887,131,912,149,927,170,927,182,921,194,901,209,873,221,799,239,712,248,629,253,628,248,712,243,798,233,871,216,898,204,917,190,922,181,922,172,908,153,884,135,857,121"/>
+<area shape="poly" title=" " alt="" coords="833,119,837,153,832,153,828,119"/>
+<area shape="poly" title=" " alt="" coords="803,121,699,164,697,159,801,116"/>
 </map>
 </div>
 </div>
@@ -145,39 +150,6 @@ $(document).ready(function(){initNavTree('d1/db5/UPnPsdk_2src_2net_2http_2uri_8c
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html">UPnPsdk::CComponent</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class of a component.  <a href="../../d3/da4/classUPnPsdk_1_1CComponent.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dc5/classUPnPsdk_1_1CScheme.html">UPnPsdk::CScheme</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scheme component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URI">URI</a>.  <a href="../../d4/dc5/classUPnPsdk_1_1CScheme.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dba/classUPnPsdk_1_1CUserinfo.html">UPnPsdk::CUserinfo</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Userinfo subcomponent from an authority component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <a href="../../d9/dba/classUPnPsdk_1_1CUserinfo.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/de9/classUPnPsdk_1_1CHost.html">UPnPsdk::CHost</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Host subcomponent from an authority component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <a href="../../d2/de9/classUPnPsdk_1_1CHost.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/de1/classUPnPsdk_1_1CPort.html">UPnPsdk::CPort</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port subcomponent from an authority component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <a href="../../df/de1/classUPnPsdk_1_1CPort.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html">UPnPsdk::CAuthority</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Authority component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <a href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/db3/classUPnPsdk_1_1CPath.html">UPnPsdk::CPath</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <a href="../../d8/db3/classUPnPsdk_1_1CPath.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/df2/classUPnPsdk_1_1CQuery.html">UPnPsdk::CQuery</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <a href="../../d1/df2/classUPnPsdk_1_1CQuery.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7c/classUPnPsdk_1_1CFragment.html">UPnPsdk::CFragment</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fragment component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <a href="../../dd/d7c/classUPnPsdk_1_1CFragment.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d72/classUPnPsdk_1_1CPrepUriStr.html">UPnPsdk::CPrepUriStr</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal class to prepare the input URI string, Not publicly usable.  <a href="../../d4/d72/classUPnPsdk_1_1CPrepUriStr.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html">UPnPsdk::CUriRef</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <a href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dcf/classUPnPsdk_1_1CUri.html">UPnPsdk::CUri</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Representing a <a class="el" href="../../d5/d67/Glossary.html#glossary_URI">URI</a> that can be modified with a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIrel">relative reference</a>.  <a href="../../da/dcf/classUPnPsdk_1_1CUri.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,18 +168,36 @@ Functions</h2></td></tr>
 <tr class="memitem:gafa653ebd81ec9323368fc8792a89df48" id="r_gafa653ebd81ec9323368fc8792a89df48"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#gafa653ebd81ec9323368fc8792a89df48">UPnPsdk::anonymous_namespace{uri.cpp}::is_dns_name</a> (const std::string &amp;label)</td></tr>
 <tr class="memdesc:gafa653ebd81ec9323368fc8792a89df48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a string conforms to a DNS name.  <br /></td></tr>
 <tr class="separator:gafa653ebd81ec9323368fc8792a89df48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7a38686a6c37619355a8c3a13c3a475c" id="r_ga7a38686a6c37619355a8c3a13c3a475c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#ga7a38686a6c37619355a8c3a13c3a475c">UPnPsdk::anonymous_namespace{uri.cpp}::parse_percent_encoded_chars</a> (std::string &amp;a_uriref_str)</td></tr>
-<tr class="memdesc:ga7a38686a6c37619355a8c3a13c3a475c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalize percent encoded characters of a URI reference string to upper case hex digits (<a href="https://www.rfc-editor.org/rfc/rfc3986#section-2.1">RFC3986_2.1.</a>)  <br /></td></tr>
-<tr class="separator:ga7a38686a6c37619355a8c3a13c3a475c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1b4480819fde1cd38f31b41bedcdce06" id="r_ga1b4480819fde1cd38f31b41bedcdce06"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#ga1b4480819fde1cd38f31b41bedcdce06">UPnPsdk::remove_dot_segments</a> (std::string &amp;a_path)</td></tr>
 <tr class="memdesc:ga1b4480819fde1cd38f31b41bedcdce06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove dot segments from a path.  <br /></td></tr>
 <tr class="separator:ga1b4480819fde1cd38f31b41bedcdce06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5f9fb879ec8547febcfe970aa9a967ff" id="r_ga5f9fb879ec8547febcfe970aa9a967ff"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#ga5f9fb879ec8547febcfe970aa9a967ff">UPnPsdk::anonymous_namespace{uri.cpp}::get_scheme</a> (std::string_view a_uri_sv)</td></tr>
-<tr class="memdesc:ga5f9fb879ec8547febcfe970aa9a967ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the scheme component from a <a class="el" href="../../d5/d67/Glossary.html#glossary_URI">URI</a>.  <br /></td></tr>
+<tr class="memdesc:ga5f9fb879ec8547febcfe970aa9a967ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Separates the scheme component from a <a class="el" href="../../d5/d67/Glossary.html#glossary_URI">URI</a>.  <br /></td></tr>
 <tr class="separator:ga5f9fb879ec8547febcfe970aa9a967ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga71fe403cd22555d7560c522bf55950e1" id="r_ga71fe403cd22555d7560c522bf55950e1"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#ga71fe403cd22555d7560c522bf55950e1">UPnPsdk::anonymous_namespace{uri.cpp}::get_authority</a> (std::string_view a_uri_sv)</td></tr>
-<tr class="memdesc:ga71fe403cd22555d7560c522bf55950e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the authority component from a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <br /></td></tr>
-<tr class="separator:ga71fe403cd22555d7560c522bf55950e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a98acb7b20ec16a23acefb6a067f1d8" id="r_ga3a98acb7b20ec16a23acefb6a067f1d8"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#ga3a98acb7b20ec16a23acefb6a067f1d8">UPnPsdk::anonymous_namespace{uri.cpp}::get_authority</a> (std::string_view a_uriref_sv)</td></tr>
+<tr class="memdesc:ga3a98acb7b20ec16a23acefb6a067f1d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Separates the authority component from a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <br /></td></tr>
+<tr class="separator:ga3a98acb7b20ec16a23acefb6a067f1d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac60aa3b36864a27db482fa562d339b51" id="r_gac60aa3b36864a27db482fa562d339b51"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#gac60aa3b36864a27db482fa562d339b51">UPnPsdk::anonymous_namespace{uri.cpp}::get_userinfo</a> (std::string_view a_uriref_sv)</td></tr>
+<tr class="memdesc:gac60aa3b36864a27db482fa562d339b51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Separates the authority userinfo subcomponent from a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <br /></td></tr>
+<tr class="separator:gac60aa3b36864a27db482fa562d339b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad126cc10cafbe0a958dc11ad8fb8c9ee" id="r_gad126cc10cafbe0a958dc11ad8fb8c9ee"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#gad126cc10cafbe0a958dc11ad8fb8c9ee">UPnPsdk::anonymous_namespace{uri.cpp}::get_host</a> (std::string_view a_uriref_sv)</td></tr>
+<tr class="memdesc:gad126cc10cafbe0a958dc11ad8fb8c9ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Separates the authority host subcomponent from a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <br /></td></tr>
+<tr class="separator:gad126cc10cafbe0a958dc11ad8fb8c9ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6d571ed2cf31b8c6bf670a46b24f350f" id="r_ga6d571ed2cf31b8c6bf670a46b24f350f"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#ga6d571ed2cf31b8c6bf670a46b24f350f">UPnPsdk::anonymous_namespace{uri.cpp}::get_port</a> (std::string_view a_uriref_sv)</td></tr>
+<tr class="memdesc:ga6d571ed2cf31b8c6bf670a46b24f350f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Separates the authority port subcomponent from a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <br /></td></tr>
+<tr class="separator:ga6d571ed2cf31b8c6bf670a46b24f350f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5cad4f2b687822c9f6b7d32c7943c6dd" id="r_ga5cad4f2b687822c9f6b7d32c7943c6dd"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#ga5cad4f2b687822c9f6b7d32c7943c6dd">UPnPsdk::anonymous_namespace{uri.cpp}::get_path</a> (std::string_view a_uriref_sv)</td></tr>
+<tr class="memdesc:ga5cad4f2b687822c9f6b7d32c7943c6dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Separates the path component from a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <br /></td></tr>
+<tr class="separator:ga5cad4f2b687822c9f6b7d32c7943c6dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa687876e60fd154efb44d30586a59882" id="r_gaa687876e60fd154efb44d30586a59882"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#gaa687876e60fd154efb44d30586a59882">UPnPsdk::anonymous_namespace{uri.cpp}::get_query</a> (std::string_view a_uriref_sv)</td></tr>
+<tr class="memdesc:gaa687876e60fd154efb44d30586a59882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Separates the query component from a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <br /></td></tr>
+<tr class="separator:gaa687876e60fd154efb44d30586a59882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc953b6a0e691580342ee083aa9d5faa" id="r_gabc953b6a0e691580342ee083aa9d5faa"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#gabc953b6a0e691580342ee083aa9d5faa">UPnPsdk::anonymous_namespace{uri.cpp}::get_fragment</a> (std::string_view a_uriref_sv)</td></tr>
+<tr class="memdesc:gabc953b6a0e691580342ee083aa9d5faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Separates the fragment component from a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <br /></td></tr>
+<tr class="separator:gabc953b6a0e691580342ee083aa9d5faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd04cb26d55f7dbab615dc79abc29557" id="r_gadd04cb26d55f7dbab615dc79abc29557"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557">UPnPsdk::anonymous_namespace{uri.cpp}::merge_paths</a> (<a class="el" href="../../d8/db3/classUPnPsdk_1_1CPath.html">CPath</a> &amp;a_path, const <a class="el" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html">CUriRef</a> &amp;a_base, const <a class="el" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html">CUriRef</a> &amp;a_rel)</td></tr>
+<tr class="memdesc:gadd04cb26d55f7dbab615dc79abc29557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIrel">relative reference</a> to a base <a class="el" href="../../d5/d67/Glossary.html#glossary_URI">URI</a>.  <br /></td></tr>
+<tr class="separator:gadd04cb26d55f7dbab615dc79abc29557"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manage Uniform Resource Identifier (URI) as specified with <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986</a>. </p>

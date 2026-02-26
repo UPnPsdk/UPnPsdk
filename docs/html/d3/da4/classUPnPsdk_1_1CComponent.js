@@ -6,5 +6,7 @@ var classUPnPsdk_1_1CComponent =
       [ "avail", "d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00a2a63117de6700b21651ea40db979a948", null ]
     ] ],
     [ "state", "d3/da4/classUPnPsdk_1_1CComponent.html#a828a43d0d2b88e27ac397393bdc51162", null ],
-    [ "str", "d3/da4/classUPnPsdk_1_1CComponent.html#ad7ee59853f1492e7aa85aa3f80e30901", null ]
+    [ "str", "d3/da4/classUPnPsdk_1_1CComponent.html#ad7ee59853f1492e7aa85aa3f80e30901", null ],
+    [ "m_state", "d3/da4/classUPnPsdk_1_1CComponent.html#ac48a3199aa575e65a189c3763d03c6cd", null ],
+    [ "m_component", "d3/da4/classUPnPsdk_1_1CComponent.html#a344d611aa7ff7c807528aae3557e6031", null ]
 ];
