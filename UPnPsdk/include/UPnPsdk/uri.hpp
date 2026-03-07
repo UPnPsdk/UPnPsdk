@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_URI_HPP
 #define UPnPsdk_URI_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-01
+// Redistribution only with this Copyright remark. Last modified: 2026-03-08
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -17,12 +17,29 @@
 /// \endcond
 
 
+/// Yet another success code.
+inline constexpr int HTTP_SUCCESS{1};
+
 /// Type of the URI.
 // Must not use ABSOLUTE, RELATIVE; already defined in Win32 for other meaning.
-enum struct uriType { Absolute, Relative };
+enum struct uriType {
+    Absolute, ///< The URI is absolute, means it has a 'scheme' component.
+    Relative ///< The URI is relative, means it hasn't a 'scheme' component.
+};
 
-/// Type of the "path" part of the URI.
-enum struct pathType { ABS_PATH, REL_PATH, OPAQUE_PART };
+/// Type of the 'path' part of the URI.
+enum struct pathType {
+    ABS_PATH, ///< The 'path' component begins with a '/'.
+    REL_PATH, ///< The 'path' component doesn't begin with a '/'.
+    OPAQUE_PART /*! A URI is opaque if, and only if, it is absolute and its
+                   'scheme'-specific part does not begin with a slash character
+                   ('/'). An opaque URI has a 'scheme', a 'scheme'-specific
+                   part, and possibly a 'fragment'; all other components are
+                   undefined. A typical example of an opaque uri is a mail to
+                   url "mailto:a@b.com". (<a href="
+                   http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaque--">source</a>)
+                 */
+};
 
 /*!
  * \brief Buffer used in parsing http messages, urls, etc. Generally this
@@ -387,6 +404,7 @@ class CUriRef {
  * \brief Parses a uri as defined in <a
  * href="https://www.rfc-editor.org/rfc/rfc3986"> RFC 3986 (Uniform Resource
  * Identifier)</a>.
+ * \ingroup upnpsdk-uri
  *
  * Handles absolute, relative, and opaque uris. Parses into the following
  * pieces: scheme, hostport, pathquery, fragment (host with port and path with
@@ -400,7 +418,7 @@ class CUriRef {
  *  On error: UPNP_E_INVALID_URL, accessing \b out (arg3) then, is undefined
  *            behavior.
  */
-int parse_uri(
+UPnPsdk_VIS int parse_uri(
     /*! [in] Character string containing uri information to be parsed. It is
      * not expected to be terminated with zero ('\0'), but may have. */
     const char* in,

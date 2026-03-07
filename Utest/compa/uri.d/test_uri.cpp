@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// redistribution only with this copyright remark. last modified: 2026-02-26
+// redistribution only with this copyright remark. last modified: 2026-03-08
 
 // Helpful link for ip address structures:
 // https://stackoverflow.com/a/16010670/5014688
@@ -733,9 +733,14 @@ TEST(UriTestSuite, resolve_rel_url_ip4_arg2_empty_rel_url) {
 
     // Mock for network address system call
     umock::Netdb netdb_injectObj(&netv4inf);
-    EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _))
-        .WillOnce(DoAll(SetArgPointee<3>(res), Return(0)));
-    EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(1);
+    if (old_code) {
+        EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _))
+            .WillOnce(DoAll(SetArgPointee<3>(res), Return(0)));
+        EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(1);
+    } else {
+        EXPECT_CALL(netv4inf, getaddrinfo(_, _, _, _)).Times(0);
+        EXPECT_CALL(netv4inf, freeaddrinfo(_)).Times(0);
+    }
 
     // Provide arguments to execute the unit
     char base_url[]{"http://example.com"};
@@ -829,7 +834,11 @@ TEST(UriTestSuite, resolve_rel_url_ip4_successful) {
 
     // Test Unit
     char* abs_url = ::resolve_rel_url(*&base_url, *&rel_url);
-    EXPECT_STREQ(abs_url, "https://example.com:443/homepage#this-fragment");
+    if (old_code)
+        EXPECT_STREQ(abs_url, "https://example.com:443/homepage#this-fragment");
+    else
+        // Default port is not given.
+        EXPECT_STREQ(abs_url, "https://example.com/homepage#this-fragment");
     free(abs_url);
 }
 
@@ -847,7 +856,7 @@ TEST(UriDeathTest, create_url_list_empty) {
     }
 
     URL_list url_list;
-    memset(&url_list, 0xAA, sizeof(url_list));
+    memset(&url_list, 0xAA, sizeof(url_list)); // Fill with garbage
 
     // Test Unit
     if (old_code) {
@@ -864,7 +873,7 @@ TEST(UriDeathTest, create_url_list_empty) {
         EXPECT_EQ(url_list.parsedURLs, nullptr);
         free_URL_list(&url_list);
     }
-    memset(&url_list, 0xAA, sizeof(url_list));
+    memset(&url_list, 0xAA, sizeof(url_list)); // Fill with garbage
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&urls_ser, &url_list), 0);
@@ -874,9 +883,27 @@ TEST(UriDeathTest, create_url_list_empty) {
     free_URL_list(&url_list);
 }
 
+TEST(UriTestSuite, create_url_list_with_empty_url) {
+    // To be compatible with pUPnP this results in a URL list with 0 URLs.
+    URL_list url_list;
+    memset(&url_list, 0xAA, sizeof(url_list)); // Fill with garbage
+
+    std::string_view urls{"<>"};
+    memptr base_urls; // "<url><url>"
+    base_urls.buf = const_cast<char*>(urls.data());
+    base_urls.length = urls.size();
+
+    // Test Unit
+    ASSERT_EQ(::create_url_list(&base_urls, &url_list), 0);
+
+    EXPECT_EQ(url_list.size, 0);
+    EXPECT_EQ(url_list.URLs, nullptr);
+    EXPECT_EQ(url_list.parsedURLs, nullptr);
+}
+
 TEST(UriTestSuite, create_url_list_from_loopback_if) {
     URL_list url_list;
-    memset(&url_list, 0xAA, sizeof(url_list));
+    memset(&url_list, 0xAA, sizeof(url_list)); // Fill with garbage
 
     std::string_view urls{"<https://[::1]>"};
     memptr base_urls; // "<url><url>"
@@ -926,7 +953,7 @@ TEST(UriTestSuite, create_url_list_from_lla) {
     base_urls.length = strlen(urls);
 
     // Test Unit
-    EXPECT_EQ(::create_url_list(&base_urls, &url_list), 1);
+    ASSERT_EQ(::create_url_list(&base_urls, &url_list), 1);
     // Destroy the input string to detect wrong pointer. It should be coppied to
     // url_list.
     ASSERT_STREQ(base_urls.buf, url_list.URLs);
@@ -969,7 +996,7 @@ TEST(UriTestSuite, create_url_list_from_three_ip_addresses) {
     URL_list url_list;
     memset(&url_list, 0xAA, sizeof(url_list));
 
-    char urls[]{"<https://[::ffff:192.168.1.2]/path/query#fragment><http//"
+    char urls[]{"<https://[::ffff:192.168.1.2]/path?query#fragment><http//"
                 ":example.com><http://[2001:db8::e]/path>"};
     memptr base_urls; // "<url><url>"
     base_urls.buf = urls;
@@ -1015,17 +1042,10 @@ TEST(UriTestSuite, create_url_list_from_three_ip_addresses) {
 }
 
 TEST(UriTestSuite, create_url_list_from_dns_name) {
-    std::cout << "Triggers DNS lookup with different IP addresses. Has to be "
-                 "mocked.\n";
-    if (!github_actions && !old_code)
-        GTEST_FAIL();
-    else
-        GTEST_SKIP();
-
     URL_list url_list;
     memset(&url_list, 0xAA, sizeof(url_list));
 
-    char urls[]{"<https://example.com>"};
+    char urls[]{"<https://localhost>"};
     memptr base_urls; // "<url><url>"
     base_urls.buf = urls;
     base_urls.length = strlen(urls);
@@ -1040,16 +1060,16 @@ TEST(UriTestSuite, create_url_list_from_dns_name) {
     EXPECT_THAT(url_list.parsedURLs[0].scheme.buff, StartsWith("https"));
     EXPECT_EQ(url_list.parsedURLs[0].scheme.size, 5);
     EXPECT_EQ(url_list.parsedURLs[0].path_type, OPAQUE_PART);
-    EXPECT_STREQ(url_list.parsedURLs[0].pathquery.buff, ">"); // Delimiter.
+    // EXPECT_STREQ(url_list.parsedURLs[0].pathquery.buff, ">"); // Undefined.
     EXPECT_EQ(url_list.parsedURLs[0].pathquery.size, 0);
     EXPECT_STREQ(url_list.parsedURLs[0].fragment.buff, nullptr);
     EXPECT_EQ(url_list.parsedURLs[0].fragment.size, 0);
     EXPECT_THAT(url_list.parsedURLs[0].hostport.text.buff,
-                StartsWith("example.com"));
-    EXPECT_EQ(url_list.parsedURLs[0].hostport.text.size, 11);
+                StartsWith("localhost"));
+    EXPECT_EQ(url_list.parsedURLs[0].hostport.text.size, 9);
     SSockaddr saObj;
     saObj = url_list.parsedURLs[0].hostport.IPaddress;
-    EXPECT_EQ(saObj.netaddrp(), "[2600:1406:5e00:6::17ce:bc1b]:443");
+    EXPECT_EQ(saObj.netaddrp(), "[::1]:443");
 
     free_URL_list(&url_list);
 }
@@ -1104,35 +1124,35 @@ TEST(UriTestSuite, create_url_list_with_wrong_url_str_fails) {
 
     char urls1[]{"https://[::1]><http://[2001:db8::1]>"};
     base_urls.buf = urls1;
-    base_urls.length = strlen(urls1);
+    base_urls.length = sizeof(urls1) - 1;
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
 
     char urls2[]{"<https://[::1]<http://[2001:db8::2]>"};
     base_urls.buf = urls2;
-    base_urls.length = strlen(urls2);
+    base_urls.length = sizeof(urls2) - 1;
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
 
     char urls3[]{"<https://[::1]>http://[2001:db8::3]>"};
     base_urls.buf = urls3;
-    base_urls.length = strlen(urls3);
+    base_urls.length = sizeof(urls3) - 1;
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
 
     char urls4[]{"<https://[::1]><http://[2001:db8::4]"};
     base_urls.buf = urls4;
-    base_urls.length = strlen(urls4);
+    base_urls.length = sizeof(urls4) - 1;
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
 
     char urls5[]{"<https://[::1]><http://[2001:db8::5]>"};
     base_urls.buf = urls5;
-    base_urls.length = strlen(urls5);
+    base_urls.length = sizeof(urls5) - 1;
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), 2);
@@ -1140,21 +1160,21 @@ TEST(UriTestSuite, create_url_list_with_wrong_url_str_fails) {
 
     char urls6[]{"<https://[::1]"};
     base_urls.buf = urls6;
-    base_urls.length = strlen(urls6);
+    base_urls.length = sizeof(urls6) - 1;
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
 
     char urls7[]{"https://[::1]>"};
     base_urls.buf = urls7;
-    base_urls.length = strlen(urls7);
+    base_urls.length = sizeof(urls7) - 1;
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), UPNP_E_INVALID_URL);
 
     char urls8[]{"<>"};
     base_urls.buf = urls8;
-    base_urls.length = strlen(urls8);
+    base_urls.length = sizeof(urls8) - 1;
 
     // Test Unit
     EXPECT_EQ(::create_url_list(&base_urls, &url_list), 0);
@@ -1165,7 +1185,7 @@ TEST(UriTestSuite, copy_url_list_successful) {
     char urls[]{"<https://[2001:db8::ac15]:58140/path/query#fragment>"};
     memptr base_urls; // "<url><url>"
     base_urls.buf = urls;
-    base_urls.length = strlen(urls);
+    base_urls.length = sizeof(urls) - 1;
 
     URL_list src_urlist{}, dst_urlist{};
     EXPECT_EQ(::create_url_list(&base_urls, &src_urlist), 1);

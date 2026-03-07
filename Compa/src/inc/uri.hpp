@@ -54,9 +54,6 @@
 #endif
 /// \endcond
 
-/// Yet another success code.
-inline constexpr int HTTP_SUCCESS{1};
-
 /*!
  * \brief Represents a list of URLs as in the "callback" header of SUBSCRIBE
  * message in GENA.
@@ -80,6 +77,7 @@ struct URL_list {
  * in the URL_list. Only URLs with network addresses are considered (i.e.
  * host:port or domain name). Because the function expects a serialized list
  * with delimiters, even one url must be surrounded by '<' and '>'.
+ *
  * \note The result \b a_out must be freed by the caller with free_URL_list()
  * to avoid memory leaks.
  *
@@ -87,6 +85,7 @@ struct URL_list {
  *  On success: the number of URLs parsed\n
  *  On error:
  *  - UPNP_E_OUTOF_MEMORY
+ *  - UPNP_E_INVALID_URL
  */
 int create_url_list(
     /*! [in] Pointer to a buffer containing serialized URLs delimited by '<'

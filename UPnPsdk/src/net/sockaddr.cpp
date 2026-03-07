@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-01-29
+// Redistribution only with this Copyright remark. Last modified: 2026-03-06
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -183,6 +183,7 @@ int to_port(std::string_view a_port_str, in_port_t* const a_port_num) noexcept {
 void split_addr_port(std::string_view a_addr_str, std::string& a_addr,
                      std::string& a_serv) {
     TRACE("Executing split_addr_port()")
+
     // Special cases
     if (a_addr_str.empty()) {
         // An empty address string clears address/port.
@@ -285,21 +286,31 @@ void split_addr_port(std::string_view a_addr_str, std::string& a_addr,
 
         // Remove surounding brackets
         a_addr = addr_str.substr(1, addr_str.length() - 2);
-    } else {
-        // Here I have exactly to look for an IPv4 mapped IPv6 address. I could
-        // not find any general distinctions, I must use expensive regex. But I
-        // do it here only when realy needed. Hints found at
-        // REF: [Regular expression that matches valid IPv6 addresses]
-        //      (https://stackoverflow.com/a/17871737/5014688)
-        const std::regex addr_regex(
-            "\\[::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}"
-            "[0-"
-            "9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\]",
-            std::regex_constants::icase);
 
-        if (std::regex_match(addr_str, addr_regex)) {
-            // Remove surounding brackets.
-            a_addr = addr_str.substr(1, addr_str.length() - 2);
+    } else {
+        // Here I have exactly to look for an IPv4 mapped IPv6 address. If it
+        // seems to be one as checked with its prefix "::ffff:" I use syscall
+        // '::inet_pton()' to verify the complete address.
+        // clang-format off
+        if (addr_str.size() >= 8 &&
+            addr_str[0] == '[' && addr_str[1] == ':' && addr_str[2] == ':' &&
+            static_cast<char>(std::tolower(static_cast<unsigned char>(addr_str[3]))) == 'f' &&
+            static_cast<char>(std::tolower(static_cast<unsigned char>(addr_str[4]))) == 'f' &&
+            static_cast<char>(std::tolower(static_cast<unsigned char>(addr_str[5]))) == 'f' &&
+            static_cast<char>(std::tolower(static_cast<unsigned char>(addr_str[6]))) == 'f' &&
+            std::tolower(static_cast<unsigned char>(addr_str[7])) == ':') //
+        // clang-format on
+        {
+            // Check with '::inet_pton()'. Remove surounding brackets for it.
+            std::string a_str = addr_str.substr(1, addr_str.length() - 2);
+            in6_addr sin6_addr;
+            int ret = ::inet_pton(AF_INET6, a_str.c_str(), &sin6_addr);
+            if (ret == 1)
+                a_addr = a_str;
+            else
+                // Haven't found a valid numeric ip address, no need to remove
+                // brackets.
+                a_addr = addr_str;
         } else {
             // Haven't found a valid numeric ip address, no need to remove
             // brackets.

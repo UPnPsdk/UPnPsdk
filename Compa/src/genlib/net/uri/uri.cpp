@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-02-28
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -62,54 +62,6 @@ namespace {
  * @{
  */
 
-#if 1
-/*!
- * \brief Parses a string of uric characters starting at in[0].
- *
- * As defined in <a href="https://www.rfc-editor.org/rfc/rfc3986#section-2">RFC
- * 2396 (Uniform Resource Identifier (URI))</a>.
- *
- * \returns
- *  On success: Number of parsed character in **out**, same as out->size.\n
- *  On error: **0**, does not accept URI with unspecified character.
- */
-size_t parse_uric(
-    /*! [in] String of characters. */
-    const char* in,
-    /*! [in] Maximum limit. */
-    size_t max,
-    /*! [out] Token object where the string of characters is copied. */
-    token* out) {
-    std::string_view in_sv(in, max);
-
-    // clang-format off
-    // Valid characters due to RFC_3986_2.:
-    constexpr std::string_view sub_valid_chars_sv{
-        /*reserved = gen-delims*/ ":/?#[]@" /* / sub-delims*/ "!$&'()*+,;="
-        /*unreserved = ALPHA / DIGIT / */ "-._~"};
-    // clang-format on
-
-    auto& npos = std::string_view::npos;
-    for (auto it{in_sv.begin()}; it < in_sv.end(); it++) {
-        if (!(std::isalnum(static_cast<unsigned char>(*it)) ||
-              sub_valid_chars_sv.find_first_of(*it) != npos ||
-              (/*only '%' remains unchecked*/ *it == '%' &&
-               it + 2 < in_sv.end() &&
-               isxdigit(static_cast<unsigned char>(*++it)) &&
-               isxdigit(static_cast<unsigned char>(*++it))))) {
-
-            out->size = 0;
-            out->buff = nullptr;
-            return 0;
-        }
-    }
-
-    out->size = in_sv.size();
-    out->buff = in_sv.data();
-    return in_sv.size();
-}
-#endif
-
 
 /*!
  * \brief Copy the offset and size from a token to another token.
@@ -130,206 +82,6 @@ inline void copy_token(
     out->size = in->size;
     out->buff = out_base + (in->buff - in_base);
 }
-
-#if 1
-/*!
- * \brief Parses a string with host and port and fills a hostport structure.
- *
- * Parses a string representing a host and port (e.g. "127.127.0.1:80" or
- * "localhost") and fills out a hostport_type struct with internet address and a
- * token representing the full host and port. Uses getaddrinfo() to resolve DNS
- * names. This may result in a longer delay until response from the internet.
- *
- * \returns
- *  On Success: size of the hostport identifier (e.g. 5 for "[::1]").\n
- *  On Error:
- *  - UPNP_E_INVALID_URL
- */
-int parse_hostport(
-    /*! [in] String of characters representing host and port. */
-    const char* in,
-    /*! [in] Used port if no port is specified with \b in */
-    unsigned short int defaultPort,
-    /*! [out] Structure filled with the [netaddress](\ref glossary_netaddr)
-       (with port) and with the socket address (sockaddr_storage). */
-    hostport_type* out) {
-    char workbuf[256];
-    char* c;
-    struct sockaddr_in* sai4 = (struct sockaddr_in*)&out->IPaddress;
-    struct sockaddr_in6* sai6 = (struct sockaddr_in6*)&out->IPaddress;
-    char* srvname = NULL;
-    char* srvport = NULL;
-    char* last_dot = NULL;
-    unsigned short int port;
-    int af = AF_UNSPEC;
-    size_t hostport_size;
-    int has_port = 0;
-    int ret;
-
-    memset(out, 0, sizeof(hostport_type));
-    memset(workbuf, 0, sizeof(workbuf));
-    /* Work on a copy of the input string. */
-    strncpy(workbuf, in, sizeof(workbuf) - 1);
-    c = workbuf;
-    if (*c == '[') {
-        /* IPv6 addresses are enclosed in square brackets. */
-        srvname = ++c;
-        while (*c != '\0' && *c != ']')
-            c++;
-        if (*c == '\0')
-            /* did not find closing bracket. */
-            return UPNP_E_INVALID_URL;
-        /* NULL terminate the srvname and then increment c. */
-        *c++ = '\0'; /* overwrite the ']' */
-        if (*c == ':') {
-            has_port = 1;
-            c++;
-        }
-        af = AF_INET6;
-    } else {
-        /* IPv4 address -OR- host name. */
-        srvname = c;
-        while (*c != ':' && *c != '/' &&
-               (isalnum(*c) || *c == '.' || *c == '-')) {
-            if (*c == '.')
-                last_dot = c;
-            c++;
-        }
-        has_port = (*c == ':') ? 1 : 0;
-        /* NULL terminate the srvname */
-        *c = '\0';
-        if (has_port == 1)
-            c++;
-        if (last_dot != NULL && isdigit(*(last_dot + 1)))
-            /* Must be an IPv4 address. */
-            af = AF_INET;
-        else {
-            /* Must be a host name. */
-            struct addrinfo hints, *res, *res0;
-
-            memset(&hints, 0, sizeof(hints));
-            hints.ai_family = AF_UNSPEC;
-            hints.ai_socktype = SOCK_STREAM;
-
-            ret = umock::netdb_h.getaddrinfo(srvname, NULL, &hints, &res0);
-            if (ret == 0) {
-                for (res = res0; res; res = res->ai_next) {
-                    switch (res->ai_family) {
-                    case AF_INET:
-                    case AF_INET6:
-                        /* Found a valid IPv4 or IPv6
-                         * address. */
-                        memcpy(&out->IPaddress, res->ai_addr, res->ai_addrlen);
-                        goto found;
-                    }
-                }
-            found:
-                umock::netdb_h.freeaddrinfo(res0);
-                if (res == NULL)
-                    /* Didn't find an AF_INET or AF_INET6
-                     * address. */
-                    return UPNP_E_INVALID_URL;
-            } else
-                /* getaddrinfo failed. */
-                return UPNP_E_INVALID_URL;
-        }
-    }
-    /* Check if a port is specified. */
-    if (has_port == 1) {
-        /* Port is specified. */
-        srvport = c;
-        while (*c != '\0' && isdigit(*c))
-            c++;
-        port = (unsigned short int)atoi(srvport);
-        if (port == 0)
-            /* Bad port number. */
-            return UPNP_E_INVALID_URL;
-    } else
-        /* Port was not specified, use default port. */
-        port = defaultPort;
-    /* The length of the host and port string can be calculated by */
-    /* subtracting pointers. */
-    hostport_size = (size_t)c - (size_t)workbuf;
-    /* Fill in the 'out' information. */
-    switch (af) {
-    case AF_INET:
-        sai4->sin_family = (sa_family_t)af;
-        sai4->sin_port = htons(port);
-        ret = inet_pton(AF_INET, srvname, &sai4->sin_addr);
-        break;
-    case AF_INET6:
-        sai6->sin6_family = (sa_family_t)af;
-        sai6->sin6_port = htons(port);
-        sai6->sin6_scope_id = gIF_INDEX;
-        ret = inet_pton(AF_INET6, srvname, &sai6->sin6_addr);
-        break;
-    default:
-        /* IP address was set by the hostname (getaddrinfo). */
-        /* Override port: */
-        if (out->IPaddress.ss_family == (sa_family_t)AF_INET)
-            sai4->sin_port = htons(port);
-        else
-            sai6->sin6_port = htons(port);
-        ret = 1;
-    }
-    /* Check if address was converted successfully. */
-    if (ret <= 0)
-        return UPNP_E_INVALID_URL;
-    out->text.size = hostport_size;
-    out->text.buff = in;
-
-    return (int)hostport_size;
-}
-
-/*!
- * \brief parses a uri scheme starting at in[0].
- *
- * As defined in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396
- * (explaining URIs)</a> (e.g. "http:" -> scheme= "http").\n
- * The funcion parses also opaque URIs. A URI is opaque if, and only if, it is
- * absolute and its scheme-specific part does not begin with a slash character
- * ('/'). An opaque URI has a scheme, a scheme-specific part, and possibly a
- * fragment; all other components are undefined. A typical example of an opaque
- * uri is a mail to url **mailto:a@b.com**.\n
- * REF: http://docs.oracle.com/javase/8/docs/api/java/net/URI.html#isOpaque--
- *
- * \note String MUST include ':' within the max charcters.
- *
- * \returns size of the scheme identifier (e.g. 4 for "http"). Will be 0 with
- * invalid scheme identifier.
- */
-//
-size_t parse_scheme(
-    /*! [in] String of characters representing a scheme. */
-    const char* in,
-    /*! [in] Maximum number of characters. */
-    size_t max,
-    /*! [out] Output parameter whose buffer is filled in with the scheme. */
-    token* out) {
-    size_t i = (size_t)0;
-
-    out->size = (size_t)0;
-    out->buff = NULL;
-
-    if ((max == (size_t)0) || (!isalpha(in[0])))
-        return (size_t)0;
-
-    i++;
-    while ((i < max) && (in[i] != ':')) {
-        if (!(isalnum(in[i]) || (in[i] == '+') || (in[i] == '-') ||
-              (in[i] == '.')))
-            return (size_t)0;
-        i++;
-    }
-    if (i < max) {
-        out->size = i;
-        out->buff = &in[0];
-        return i;
-    }
-
-    return (size_t)0;
-}
-#endif
 
 
 /*!
@@ -397,107 +149,91 @@ int replace_escaped(
 int create_url_list(memptr* a_url_list, URL_list* a_out) {
     if (!a_out)
         return 0;
-    if (!a_url_list || a_url_list->length == 0) {
-        memset(a_out, 0, sizeof(*a_out));
+    memset(a_out, 0, sizeof(*a_out));
+    if (!a_url_list)
         return 0;
-    }
 
-    // Verify correct delimiter '<', '><', and '>'.
-    std::string_view urls_sv(a_url_list->buf, a_url_list->length);
-    // Without any delimiter it is assumed to be just a single url...
-    if (urls_sv.find_first_of("<>") != std::string_view::npos) {
-        // ...otherwise delimiter must be checked.
-        if (urls_sv.front() == '<')
-            urls_sv.remove_prefix(1);
-        else
-            return UPNP_E_INVALID_URL;
-        if (urls_sv.back() == '\0')
-            urls_sv.remove_suffix(1);
-        if (urls_sv.back() == '>')
-            urls_sv.remove_suffix(1);
-        else
-            return UPNP_E_INVALID_URL;
-        for (size_t i{0}; i < urls_sv.size(); i++) {
-            if (urls_sv[i] == '>') {
-                if (urls_sv[i + 1] == '<')
-                    i++;
-                else
-                    return UPNP_E_INVALID_URL;
-            } else if (urls_sv[i] == '<') {
-                return UPNP_E_INVALID_URL;
-            }
-        } // for
-    }
+    std::string_view url_list_sv =
+        std::string_view(a_url_list->buf, a_url_list->length);
 
-    // Allocate memory and copy the serialized urls to it. It is important to do
-    // this beforehand because parsing the base_urls for components create
-    // pointer to it.
-    char* base_urls = static_cast<char*>(malloc(a_url_list->length + 1));
+    if (url_list_sv.empty() || url_list_sv == "<>")
+        return 0;
+
+    // Verify correct delimiter '<', '><', '>', and count URLs.
+    auto it{url_list_sv.begin()};
+    size_t url_count{1};
+    auto ch0 = *it;
+    for (++it; it < url_list_sv.end() - 1; it++) {
+        if (*it == '<' || (*it == '>' && *++it != '<'))
+            return UPNP_E_INVALID_URL;
+        if (*it == '<')
+            url_count++;
+    }
+    auto ch1 = *it;
+    // Check begin and end delimiter. They must be '<'...'>'.
+    // To be compatible with pUPnP we have different error messages.
+    if ((ch0 == '<' && ch1 != '>') || (ch0 != '<' && ch1 == '>'))
+        return UPNP_E_INVALID_URL;
+    if (!(ch0 == '<' && ch1 == '>'))
+        return 0;
+
+    // Allocate memory and copy the serialized urls to it.
+    auto url_list_size = url_list_sv.size(); // There is no terminating '\0'.
+    char* base_urls = static_cast<char*>(malloc(url_list_size + 1));
     if (!base_urls)
         return UPNP_E_OUTOF_MEMORY;
-    memcpy(base_urls, a_url_list->buf, a_url_list->length);
-    size_t base_urls_length = a_url_list->length;
-    // terminate list ("<url><url>\0") C string.
-    base_urls[base_urls_length] = '\0';
+    // copy and terminate url_list ("<url><url>\0").
+    base_urls[url_list_sv.copy(base_urls, url_list_size)] = '\0';
+    std::string_view base_urls_sv = std::string_view(base_urls, url_list_size);
+
+    // Allocate memory for the parsed urls.
+    uri_type* parsed_urls =
+        static_cast<uri_type*>(malloc(sizeof(uri_type) * url_count));
+    if (!parsed_urls) {
+        free(base_urls);
+        return UPNP_E_OUTOF_MEMORY;
+    }
 
     // Create views into the base_urls to its components (scheme, hostport,
-    // path, etc.) and cache them in a vector for later use.
-    std::vector<uri_type> url_views;
+    // path, etc.) and store them into the allocated buffer as members of a
+    // trivial C array.
+    size_t store_idx{}; // We have 'uri_count' for URIs correct delimited with
+                        // '<url><url>' but the URIs may be wrong. These are not
+                        // parsed and returned. To count only the successful
+                        // parsed URIs I use this index.
+    std::string_view base_url_sv;
+    uri_type splitted_url;
+    for (size_t i{}; i < url_count; i++) {
+        size_t pos = base_urls_sv.find_first_of('>');
+        base_url_sv = base_urls_sv.substr(0, pos); // Extract current URL.
+        base_url_sv.remove_prefix(1); // Remove leading '<' from current URL.
+        base_urls_sv.remove_prefix(pos + 1); // Remove current URL from list.
 
-    for (size_t i{0}; i < base_urls_length; i++) {
-        // Find start of a url...
-        if ((base_urls[i] == '<') && (i + 1 < base_urls_length)) {
-            // ...got it. Parse url with error handling to get its components.
-            uri_type splitted_url;
+        // parse_uri
+        int return_code =
+            parse_uri(base_url_sv.data(), base_url_sv.size(), &splitted_url);
 
-            // parse_uri
-            int return_code = parse_uri(
-                &base_urls[i + 1], base_urls_length - i - 2, &splitted_url);
+        if (return_code == HTTP_SUCCESS &&
+            splitted_url.hostport.text.size != 0) {
+            // No errors detected, cache the parsed result. Only URLs with
+            // network addresses are considered.
+            parsed_urls[store_idx++] = splitted_url;
 
-            if (return_code == HTTP_SUCCESS &&
-                splitted_url.hostport.text.size != 0) {
-                // No errors detected, cache the parsed result. Only URLs with
-                // network addresses are considered.
-                url_views.push_back(splitted_url);
-
-            } else if (return_code == UPNP_E_OUTOF_MEMORY) {
-                free(base_urls);
-                return UPNP_E_OUTOF_MEMORY;
-            }
-        }
-    }
-
-    // The vector tells us how many urls it has.
-    const size_t urls_count{url_views.size()};
-
-    if (urls_count > 0) {
-        // Allocate memory for the parsed urls to concatenate.
-        uri_type* parsed_urls =
-            static_cast<uri_type*>(malloc(sizeof(uri_type) * urls_count));
-        if (!parsed_urls) {
+        } else if (return_code == UPNP_E_OUTOF_MEMORY) {
             free(base_urls);
+            free(parsed_urls);
             return UPNP_E_OUTOF_MEMORY;
         }
-
-        // Concatenate parsed urls into a trivial C array.
-        for (size_t i{0}; i < urls_count; i++)
-            parsed_urls[i] = url_views[i];
-
-        // All values are available now. Fill the destination structure.
-        memset(a_out, 0, sizeof(*a_out));
-        a_out->parsedURLs = parsed_urls;
-        a_out->URLs = base_urls;
-        a_out->size = urls_count;
-
-    } else {
-        free(base_urls);
-        base_urls = nullptr;
-        memset(a_out, 0, sizeof(*a_out));
     }
 
-    if (urls_count > INT_MAX) // Paranoia checking due to cast.
+    // All values are available now. Fill the destination structure.
+    a_out->parsedURLs = parsed_urls;
+    a_out->URLs = base_urls;
+    a_out->size = store_idx;
+
+    if (store_idx > INT_MAX) // Paranoia checking due to cast.
         return UPNP_E_OUTOF_MEMORY;
-    return static_cast<int>(urls_count);
+    return static_cast<int>(store_idx);
 }
 
 
@@ -622,16 +358,17 @@ char* resolve_rel_url(char* base_url, char* rel_url) {
     size_t prefix;
     std::string pathObj;
 
-    if (!base_url && !rel_url)
+    if ((!base_url || *base_url == '\0') && (!rel_url || *rel_url == '\0'))
         return nullptr;
     if (!base_url && rel_url)
         return strdup(rel_url);
-    if (base_url && !rel_url)
+    if (base_url && (!rel_url || *rel_url == '\0'))
         return strdup(base_url);
 
     len_rel = strlen(rel_url);
     if (parse_uri(rel_url, len_rel, &rel) != HTTP_SUCCESS)
         return NULL;
+
     if (rel.type == Absolute)
         return strdup(rel_url);
 
@@ -639,6 +376,7 @@ char* resolve_rel_url(char* base_url, char* rel_url) {
     if ((parse_uri(base_url, len_base, &base) != HTTP_SUCCESS) ||
         (base.type != Absolute))
         return NULL;
+
     if (len_rel == (size_t)0)
         return strdup(base_url);
 
@@ -738,58 +476,3 @@ error:
     free(out);
     return NULL;
 }
-
-#if 1
-int parse_uri(const char* in, size_t max, uri_type* out) {
-    size_t begin_hostport = parse_scheme(in, max, &out->scheme);
-    if (begin_hostport) {
-        out->type = Absolute;
-        out->path_type = OPAQUE_PART;
-        begin_hostport++; // skip ':' scheme delimiter
-    } else {
-        out->type = Relative;
-        out->path_type = REL_PATH;
-    }
-
-    int begin_path{0};
-    if (begin_hostport + 1u < max && in[begin_hostport] == '/' &&
-        in[begin_hostport + 1u] == '/') {
-        begin_hostport += 2u;
-        in_port_t defaultPort{80};
-        if (token_string_casecmp(&out->scheme, "https") == 0) {
-            defaultPort = 443;
-        }
-        begin_path =
-            parse_hostport(&in[begin_hostport], defaultPort, &out->hostport);
-        if (begin_path >= 0) {
-            begin_path += static_cast<int>(begin_hostport);
-        } else
-            return begin_path; // error code from parse_hostport()
-    } else {
-        memset(&out->hostport, 0, sizeof(out->hostport));
-        begin_path = static_cast<int>(begin_hostport);
-    }
-
-    std::string_view in_sv(in, max);
-    size_t pos;
-    if ((pos = in_sv.find_last_of('#')) == std::string_view::npos)
-        pos = max;
-
-    size_t begin_fragment =
-        parse_uric(&in[begin_path], pos - static_cast<size_t>(begin_path),
-                   &out->pathquery) +
-        static_cast<size_t>(begin_path);
-    if (out->pathquery.size && out->pathquery.buff[0] == '/') {
-        out->path_type = ABS_PATH;
-    }
-    if (begin_fragment < max && in[begin_fragment] == '#') {
-        begin_fragment++;
-        parse_uric(&in[begin_fragment], max - begin_fragment, &out->fragment);
-    } else {
-        out->fragment.buff = nullptr;
-        out->fragment.size = 0u;
-    }
-
-    return HTTP_SUCCESS;
-}
-#endif

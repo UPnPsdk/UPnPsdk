@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-02-27
+// Redistribution only with this Copyright remark. Last modified: 2026-03-06
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -310,7 +310,7 @@ TEST_F(OpenHttpConnectionIp4FTestSuite, open_close_connection_successful) {
     // Mock to get network address info, means DNS name resolution.
     umock::Netdb netdb_injectObj(&m_mock_netdbObj);
     EXPECT_CALL(m_mock_netdbObj,
-                getaddrinfo(StrEq(servername), nullptr, NotNull(), NotNull()))
+                getaddrinfo(StrEq(servername), _, NotNull(), NotNull()))
         .WillOnce(DoAll(SetArgPointee<3>(res), Return(0)));
     // Check if it is freed.
     EXPECT_CALL(m_mock_netdbObj, freeaddrinfo(_)).Times(1);
@@ -335,7 +335,7 @@ TEST_F(OpenHttpConnectionIp4FTestSuite, open_close_connection_successful) {
     int returned = http_OpenHttpConnection(("http://" + servername).c_str(),
                                            (void**)&phandle, 0);
 
-    EXPECT_EQ(returned, UPNP_E_SUCCESS) << errStrEx(returned, UPNP_E_SUCCESS);
+    ASSERT_EQ(returned, UPNP_E_SUCCESS) << errStrEx(returned, UPNP_E_SUCCESS);
 
     // Check phandle content
     EXPECT_EQ(phandle->sock_info.socket, m_socketfd);
@@ -437,7 +437,7 @@ TEST_F(OpenHttpConnectionIp4FTestSuite, get_address_info_fails) {
     // failure indication. Try again later."
     umock::Netdb netdb_injectObj(&m_mock_netdbObj);
     EXPECT_CALL(m_mock_netdbObj,
-                getaddrinfo(StrEq(servername), nullptr, NotNull(), NotNull()))
+                getaddrinfo(StrEq(servername), _, NotNull(), NotNull()))
         .WillOnce(DoAll(SetArgPointee<3>(res), Return(EAI_AGAIN)));
     // Should not be freed after a failed query.
     EXPECT_CALL(m_mock_netdbObj, freeaddrinfo(_)).Times(0);
@@ -486,7 +486,7 @@ TEST_F(OpenHttpConnectionIp4FTestSuite, get_socket_fails) {
     // Mock to get network address info, means DNS name resolution.
     umock::Netdb netdb_injectObj(&m_mock_netdbObj);
     EXPECT_CALL(m_mock_netdbObj,
-                getaddrinfo(StrEq(servername), nullptr, NotNull(), NotNull()))
+                getaddrinfo(StrEq(servername), _, NotNull(), NotNull()))
         .WillOnce(DoAll(SetArgPointee<3>(res), Return(0)));
     // Check if it is freed.
     EXPECT_CALL(m_mock_netdbObj, freeaddrinfo(_)).Times(1);
@@ -544,7 +544,7 @@ TEST_F(OpenHttpConnectionIp4FTestSuite, get_socket_fails) {
     int returned = http_OpenHttpConnection(("http://" + servername).c_str(),
                                            (void**)&phandle, 0);
 
-    EXPECT_EQ(returned, UPNP_E_SOCKET_ERROR)
+    ASSERT_EQ(returned, UPNP_E_SOCKET_ERROR)
         << errStrEx(returned, UPNP_E_SOCKET_ERROR);
 
     if (old_code) {
@@ -582,7 +582,7 @@ TEST_F(OpenHttpConnectionIp4FTestSuite, connect_to_server_fails) {
     // Mock to get network address info, means DNS name resolution.
     umock::Netdb netdb_injectObj(&m_mock_netdbObj);
     EXPECT_CALL(m_mock_netdbObj,
-                getaddrinfo(StrEq(servername), nullptr, NotNull(), NotNull()))
+                getaddrinfo(StrEq(servername), _, NotNull(), NotNull()))
         .WillOnce(DoAll(SetArgPointee<3>(res), Return(0)));
     // Check if it is freed.
     EXPECT_CALL(m_mock_netdbObj, freeaddrinfo(_)).Times(1);
@@ -633,15 +633,18 @@ TEST_F(OpenHttpConnectionIp4FTestSuite, open_connection_with_ip_address) {
 
     constexpr char serverip[]{"http://192.168.168.168"};
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
     // Mock to get network address info, means DNS name resolution.
     umock::Netdb netdb_injectObj(&m_mock_netdbObj);
     EXPECT_CALL(m_mock_netdbObj, getaddrinfo(_, _, _, _)).Times(0);
     EXPECT_CALL(m_mock_netdbObj, freeaddrinfo(_)).Times(0);
+#endif
 
     // Expect socket allocation
     umock::Sys_socketMock sys_socketObj;
     umock::Sys_socket sys_socket_injectObj(&sys_socketObj);
-    EXPECT_CALL(sys_socketObj, socket(AF_INET, SOCK_STREAM, 0))
+    EXPECT_CALL(sys_socketObj,
+                socket(old_code ? AF_INET : AF_INET6, SOCK_STREAM, 0))
         .WillOnce(Return(m_socketfd));
     EXPECT_CALL(sys_socketObj, shutdown(_, _)).Times(1);
     umock::UnistdMock unistdObj;
@@ -650,8 +653,10 @@ TEST_F(OpenHttpConnectionIp4FTestSuite, open_connection_with_ip_address) {
 
     // Mock for connection to a network server
     umock::PupnpHttpRw pupnp_httprw_injectObj(&m_mock_pupnpHttpRwObj);
-    EXPECT_CALL(m_mock_pupnpHttpRwObj,
-                private_connect(_, NotNull(), sizeof(sockaddr_in)))
+    EXPECT_CALL(
+        m_mock_pupnpHttpRwObj,
+        private_connect(_, NotNull(),
+                        old_code ? sizeof(sockaddr_in) : sizeof(sockaddr_in6)))
         .WillOnce(Return(0));
 
     // Connection handle must be freed.
@@ -661,7 +666,7 @@ TEST_F(OpenHttpConnectionIp4FTestSuite, open_connection_with_ip_address) {
     // Test Unit
     int returned = http_OpenHttpConnection(serverip, (void**)&phandle, 0);
 
-    EXPECT_EQ(returned, UPNP_E_SUCCESS) << errStrEx(returned, UPNP_E_SUCCESS);
+    ASSERT_EQ(returned, UPNP_E_SUCCESS) << errStrEx(returned, UPNP_E_SUCCESS);
 
     // Check phandle content
     EXPECT_EQ(phandle->sock_info.socket, m_socketfd);

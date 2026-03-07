@@ -10,8 +10,8 @@
 <area shape="poly" id="edge39_Node000001_Node000008" title=" " alt="" coords="146,462,212,425,297,383,394,342,494,310,564,296,635,288,764,282,765,288,636,293,565,301,495,315,396,347,299,388,215,430,149,466"/>
 <area shape="rect" id="Node000026" href="$d1/db3/httpreadwrite_8cpp.html#ac4f5f24f4aa10cc725b96ac5c29a88f7" title="Get the data on the socket and take actions based on the read data to modify the parser objects buffe..." alt="" coords="273,1083,418,1108"/>
 <area shape="poly" id="edge19_Node000001_Node000026" title=" " alt="" coords="109,519,124,599,151,713,192,842,217,907,246,969,284,1026,324,1071,320,1075,280,1029,242,971,212,909,187,844,146,714,119,600,104,520"/>
-<area shape="rect" id="Node000086" href="$d1/db3/httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="250,731,441,756"/>
-<area shape="poly" id="edge24_Node000001_Node000086" title=" " alt="" coords="130,517,324,719,320,722,126,521"/>
+<area shape="rect" id="Node000085" href="$d1/db3/httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="250,731,441,756"/>
+<area shape="poly" id="edge24_Node000001_Node000085" title=" " alt="" coords="130,517,324,719,320,722,126,521"/>
 <area shape="rect" id="Node000100" href="$dd/d1d/httpparser_8cpp.html#aae19f051c772e39575e48ddb2615f6b5" title="Free memory allocated for the http message." alt="" coords="279,933,411,959"/>
 <area shape="poly" id="edge34_Node000001_Node000100" title=" " alt="" coords="118,518,246,766,332,920,328,923,242,769,113,520"/>
 <area shape="rect" id="Node000106" href="$d5/d78/sock_8cpp.html#a90f3d17250e4a8df679a4b88a8abd4da" title="Shutsdown the socket using the ShutdownMethod to indicate whether sends and receives on the socket wi..." alt="" coords="801,52,909,77"/>
@@ -47,23 +47,23 @@
 <area shape="poly" id="edge16_Node000020_Node000021" title=" " alt="" coords="910,829,1003,807,1004,812,911,834"/>
 <area shape="rect" id="Node000027" href="$dd/d1d/httpparser_8cpp.html#ad81b8bf2917f89c5f09ed3005c6869a5" title="Append date to HTTP parser, and do the parsing." alt="" coords="547,1181,665,1207"/>
 <area shape="poly" id="edge20_Node000026_Node000027" title=" " alt="" coords="370,1106,426,1136,496,1166,534,1177,532,1183,494,1171,424,1141,367,1111"/>
-<area shape="rect" id="Node000074" href="$dd/d1d/httpparser_8cpp.html#a5afd7501a14bb89fb3a4fc24cc23c86a" title="Initializes parser object for a request." alt="" coords="533,1033,679,1059"/>
-<area shape="poly" id="edge21_Node000026_Node000074" title=" " alt="" coords="413,1080,524,1059,525,1064,414,1085"/>
-<area shape="rect" id="Node000082" href="$dd/d1d/httpparser_8cpp.html#a95aa14b5e06a3b635c73810fdbcb9de5" title="Initializes parser object for a response." alt="" coords="527,1083,685,1108"/>
-<area shape="poly" id="edge22_Node000026_Node000082" title=" " alt="" coords="418,1093,513,1093,513,1098,418,1098"/>
-<area shape="rect" id="Node000083" href="$d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="562,1132,650,1157"/>
-<area shape="poly" id="edge23_Node000026_Node000083" title=" " alt="" coords="414,1105,549,1131,548,1137,413,1111"/>
-<area shape="poly" id="edge31_Node000086_Node000011" title=" " alt="" coords="357,729,581,488,585,491,361,732"/>
-<area shape="poly" id="edge32_Node000086_Node000020" title=" " alt="" coords="358,754,380,780,412,812,451,843,496,866,535,877,577,884,660,884,738,873,801,859,802,864,739,879,660,889,576,889,534,883,494,871,448,847,408,816,376,784,354,758"/>
-<area shape="poly" id="edge33_Node000086_Node000021" title=" " alt="" coords="441,747,997,786,997,791,441,753"/>
-<area shape="rect" id="Node000087" href="$d1/db3/httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e" title="Calculate HTTP response versions based on the request versions." alt="" coords="509,832,703,857"/>
-<area shape="poly" id="edge25_Node000086_Node000087" title=" " alt="" coords="372,754,428,781,496,810,543,826,541,831,494,815,426,786,370,758"/>
-<area shape="rect" id="Node000088" href="$d1/db3/httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="532,680,680,705"/>
-<area shape="poly" id="edge26_Node000086_Node000088" title=" " alt="" coords="411,728,526,705,527,711,412,733"/>
-<area shape="poly" id="edge28_Node000088_Node000017" title=" " alt="" coords="631,678,816,584,818,589,634,682"/>
-<area shape="poly" id="edge29_Node000088_Node000020" title=" " alt="" coords="670,703,719,722,753,745,786,771,836,820,832,824,782,775,750,749,716,727,668,708"/>
-<area shape="poly" id="edge30_Node000088_Node000023" title=" " alt="" coords="680,679,796,661,797,667,680,684"/>
-<area shape="poly" id="edge27_Node000088_Node000088" title=" " alt="" coords="566,682,557,672,562,662,578,656,606,653,641,657,651,662,655,668,650,671,647,666,640,662,606,659,579,661,565,666,562,671,570,678"/>
+<area shape="rect" id="Node000073" href="$dd/d1d/httpparser_8cpp.html#a5afd7501a14bb89fb3a4fc24cc23c86a" title="Initializes parser object for a request." alt="" coords="533,1033,679,1059"/>
+<area shape="poly" id="edge21_Node000026_Node000073" title=" " alt="" coords="413,1080,524,1059,525,1064,414,1085"/>
+<area shape="rect" id="Node000081" href="$dd/d1d/httpparser_8cpp.html#a95aa14b5e06a3b635c73810fdbcb9de5" title="Initializes parser object for a response." alt="" coords="527,1083,685,1108"/>
+<area shape="poly" id="edge22_Node000026_Node000081" title=" " alt="" coords="418,1093,513,1093,513,1098,418,1098"/>
+<area shape="rect" id="Node000082" href="$d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="562,1132,650,1157"/>
+<area shape="poly" id="edge23_Node000026_Node000082" title=" " alt="" coords="414,1105,549,1131,548,1137,413,1111"/>
+<area shape="poly" id="edge31_Node000085_Node000011" title=" " alt="" coords="357,729,581,488,585,491,361,732"/>
+<area shape="poly" id="edge32_Node000085_Node000020" title=" " alt="" coords="358,754,380,780,412,812,451,843,496,866,535,877,577,884,660,884,738,873,801,859,802,864,739,879,660,889,576,889,534,883,494,871,448,847,408,816,376,784,354,758"/>
+<area shape="poly" id="edge33_Node000085_Node000021" title=" " alt="" coords="441,747,997,786,997,791,441,753"/>
+<area shape="rect" id="Node000086" href="$d1/db3/httpreadwrite_8cpp.html#a5d87c4e85f958f11c3009471743d4a4e" title="Calculate HTTP response versions based on the request versions." alt="" coords="509,832,703,857"/>
+<area shape="poly" id="edge25_Node000085_Node000086" title=" " alt="" coords="372,754,428,781,496,810,543,826,541,831,494,815,426,786,370,758"/>
+<area shape="rect" id="Node000087" href="$d1/db3/httpreadwrite_8cpp.html#af5981cc2f7cc76c3e6b6700c5f27c472" title="Generate an HTTP message based on the format that is specified in the input parameters." alt="" coords="532,680,680,705"/>
+<area shape="poly" id="edge26_Node000085_Node000087" title=" " alt="" coords="411,728,526,705,527,711,412,733"/>
+<area shape="poly" id="edge28_Node000087_Node000017" title=" " alt="" coords="631,678,816,584,818,589,634,682"/>
+<area shape="poly" id="edge29_Node000087_Node000020" title=" " alt="" coords="670,703,719,722,753,745,786,771,836,820,832,824,782,775,750,749,716,727,668,708"/>
+<area shape="poly" id="edge30_Node000087_Node000023" title=" " alt="" coords="680,679,796,661,797,667,680,684"/>
+<area shape="poly" id="edge27_Node000087_Node000087" title=" " alt="" coords="566,682,557,672,562,662,578,656,606,653,641,657,651,662,655,668,650,671,647,666,640,662,606,659,579,661,565,666,562,671,570,678"/>
 <area shape="poly" id="edge36_Node000100_Node000020" title=" " alt="" coords="411,938,552,922,635,909,717,891,811,860,812,865,718,897,636,914,553,927,412,944"/>
 <area shape="rect" id="Node000101" href="$df/db8/LinkedList_8cpp.html#a28e5dc6ff4a189982c97ae5780d360fd" title="Removes all memory associated with list nodes. Does not free LinkedList *list." alt="" coords="558,984,654,1009"/>
 <area shape="poly" id="edge35_Node000100_Node000101" title=" " alt="" coords="412,956,545,982,544,987,411,961"/>

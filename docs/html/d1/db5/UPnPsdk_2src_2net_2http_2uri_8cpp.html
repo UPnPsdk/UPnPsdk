@@ -111,6 +111,7 @@ $(document).ready(function(){initNavTree('d1/db5/UPnPsdk_2src_2net_2http_2uri_8c
 <code>#include &lt;<a class="el" href="../../d1/d3b/synclog_8hpp_source.html">UPnPsdk/synclog.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">UPnPsdk/sockaddr.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d4/d64/messages_8hpp_source.html">UPnPsdk/messages.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">UPnPsdk/addrinfo.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for uri.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -118,31 +119,34 @@ $(document).ready(function(){initNavTree('d1/db5/UPnPsdk_2src_2net_2http_2uri_8c
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d7/dc5/UPnPsdk_2src_2net_2http_2uri_8cpp__incl.png" border="0" usemap="#aUPnPsdk_2src_2net_2http_2uri_8cpp" alt=""/></div>
 <map name="aUPnPsdk_2src_2net_2http_2uri_8cpp" id="aUPnPsdk_2src_2net_2http_2uri_8cpp">
-<area shape="rect" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="664,5,821,45"/>
-<area shape="rect" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="593,93,721,119"/>
-<area shape="poly" title=" " alt="" coords="724,48,682,86,678,82,720,44"/>
-<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="243,93,405,119"/>
-<area shape="poly" title=" " alt="" coords="664,44,399,93,398,88,663,39"/>
-<area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="745,93,913,119"/>
-<area shape="poly" title=" " alt="" coords="765,44,808,82,804,86,762,48"/>
-<area shape="rect" href="../../d4/d64/messages_8hpp.html" title="Definition of the UPNP_E_* error messages." alt="" coords="938,93,1115,119"/>
-<area shape="poly" title=" " alt="" coords="811,43,973,87,971,92,810,48"/>
-<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="449,240,615,265"/>
-<area shape="poly" title=" " alt="" coords="627,121,591,140,559,168,545,197,537,227,532,226,540,195,555,165,588,136,625,116"/>
-<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="769,167,906,192"/>
-<area shape="poly" title=" " alt="" coords="687,116,796,159,794,164,685,121"/>
-<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="570,167,745,192"/>
-<area shape="poly" title=" " alt="" coords="660,119,660,153,655,153,655,119"/>
-<area shape="rect" title=" " alt="" coords="5,167,133,192"/>
-<area shape="poly" title=" " alt="" coords="284,121,124,166,123,160,282,116"/>
-<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="158,167,309,192"/>
-<area shape="poly" title=" " alt="" coords="311,121,261,160,257,156,308,117"/>
-<area shape="rect" href="../../d4/d88/pthread_8hpp.html" title="Additional functions to manage Posix threads with C++ to be portable." alt="" coords="333,167,494,192"/>
-<area shape="poly" title=" " alt="" coords="340,117,390,156,386,160,337,121"/>
-<area shape="poly" title=" " alt="" coords="434,190,502,230,499,235,431,194"/>
-<area shape="poly" title=" " alt="" coords="859,116,887,131,912,149,927,170,927,182,921,194,901,209,873,221,799,239,712,248,629,253,628,248,712,243,798,233,871,216,898,204,917,190,922,181,922,172,908,153,884,135,857,121"/>
-<area shape="poly" title=" " alt="" coords="833,119,837,153,832,153,828,119"/>
-<area shape="poly" title=" " alt="" coords="803,121,699,164,697,159,801,116"/>
+<area shape="rect" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="201,5,358,45"/>
+<area shape="rect" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="215,167,343,192"/>
+<area shape="poly" title=" " alt="" coords="282,46,282,153,277,153,277,46"/>
+<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="368,93,529,119"/>
+<area shape="poly" title=" " alt="" coords="321,43,412,85,410,90,319,48"/>
+<area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="23,167,191,192"/>
+<area shape="poly" title=" " alt="" coords="269,47,241,83,205,121,175,144,144,162,141,158,172,139,202,117,237,79,264,44"/>
+<area shape="rect" href="../../d4/d64/messages_8hpp.html" title="Definition of the UPNP_E_* error messages." alt="" coords="553,93,731,119"/>
+<area shape="poly" title=" " alt="" coords="359,41,576,88,575,93,357,46"/>
+<area shape="rect" href="../../d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="26,93,191,119"/>
+<area shape="poly" title=" " alt="" coords="240,48,147,90,145,85,237,43"/>
+<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="366,240,531,265"/>
+<area shape="poly" title=" " alt="" coords="308,190,409,232,407,237,306,194"/>
+<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="5,240,143,265"/>
+<area shape="poly" title=" " alt="" coords="247,195,121,238,119,233,245,189"/>
+<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="167,240,341,265"/>
+<area shape="poly" title=" " alt="" coords="278,193,265,228,260,226,273,191"/>
+<area shape="rect" title=" " alt="" coords="554,167,682,192"/>
+<area shape="poly" title=" " alt="" coords="477,116,579,159,577,164,475,121"/>
+<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="707,167,857,192"/>
+<area shape="poly" title=" " alt="" coords="503,116,715,161,714,166,502,121"/>
+<area shape="rect" href="../../d4/d88/pthread_8hpp.html" title="Additional functions to manage Posix threads with C++ to be portable." alt="" coords="368,167,529,192"/>
+<area shape="poly" title=" " alt="" coords="451,119,451,153,446,153,446,119"/>
+<area shape="poly" title=" " alt="" coords="451,192,451,226,446,226,446,192"/>
+<area shape="poly" title=" " alt="" coords="163,189,381,235,380,240,162,195"/>
+<area shape="poly" title=" " alt="" coords="104,193,88,229,83,227,99,191"/>
+<area shape="poly" title=" " alt="" coords="132,190,219,232,217,236,130,194"/>
+<area shape="poly" title=" " alt="" coords="111,119,110,153,105,153,106,119"/>
 </map>
 </div>
 </div>
@@ -198,6 +202,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gadd04cb26d55f7dbab615dc79abc29557" id="r_gadd04cb26d55f7dbab615dc79abc29557"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557">UPnPsdk::anonymous_namespace{uri.cpp}::merge_paths</a> (<a class="el" href="../../d8/db3/classUPnPsdk_1_1CPath.html">CPath</a> &amp;a_path, const <a class="el" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html">CUriRef</a> &amp;a_base, const <a class="el" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html">CUriRef</a> &amp;a_rel)</td></tr>
 <tr class="memdesc:gadd04cb26d55f7dbab615dc79abc29557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIrel">relative reference</a> to a base <a class="el" href="../../d5/d67/Glossary.html#glossary_URI">URI</a>.  <br /></td></tr>
 <tr class="separator:gadd04cb26d55f7dbab615dc79abc29557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0755284585db857fd2d239caf34c7c6b" id="r_ga0755284585db857fd2d239caf34c7c6b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b">parse_uri</a> (const char *in, size_t max, <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/d48/structuri__type">uri_type</a> *out)</td></tr>
+<tr class="memdesc:ga0755284585db857fd2d239caf34c7c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a uri as defined in <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986 (Uniform Resource Identifier)</a>.  <br /></td></tr>
+<tr class="separator:ga0755284585db857fd2d239caf34c7c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manage Uniform Resource Identifier (URI) as specified with <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986</a>. </p>

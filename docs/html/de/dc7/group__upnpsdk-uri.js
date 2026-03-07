@@ -64,6 +64,7 @@ var group__upnpsdk_uri =
     ] ],
     [ "UPnPsdk::remove_dot_segments", "de/dc7/group__upnpsdk-uri.html#ga1b4480819fde1cd38f31b41bedcdce06", null ],
     [ "UPnPsdk::CPrepUriStr::CPrepUriStr", "de/dc7/group__upnpsdk-uri.html#ga5784bc00d96333baef996f623fe998b7", null ],
+    [ "parse_uri", "de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b", null ],
     [ "UPnPsdk::anonymous_namespace{uri.cpp}::is_ipv4_addr", "de/dc7/group__upnpsdk-uri.html#ga9f8fe65d1ad9b79b9fbc99f9cf25c36e", null ],
     [ "UPnPsdk::anonymous_namespace{uri.cpp}::is_dns_name", "de/dc7/group__upnpsdk-uri.html#gafa653ebd81ec9323368fc8792a89df48", null ],
     [ "UPnPsdk::anonymous_namespace{uri.cpp}::get_scheme", "de/dc7/group__upnpsdk-uri.html#ga5f9fb879ec8547febcfe970aa9a967ff", null ],

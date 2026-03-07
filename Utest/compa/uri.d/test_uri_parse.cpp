@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-02-26
+// Redistribution only with this Copyright remark. Last modified: 2026-03-05
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -15,6 +15,7 @@
 
 using ::testing::StartsWith;
 
+using ::UPnPsdk::errStr;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::SSockaddr;
 
@@ -22,7 +23,7 @@ namespace utest {
 
 // parse_uri() function: tests from the uri module
 // ===============================================
-#if false
+#if 0
 TEST(ParseUriIp4TestSuite, simple_call) {
     // This test is only for humans to get an idea what's going on. If you want
     // to have a look at it, set '#if 1' only temporary. It is not intended to
@@ -80,7 +81,7 @@ TEST(ParseUriTestSuite, loopback_uri) {
     int returned{UPNP_E_INTERNAL_ERROR};
     EXPECT_EQ(returned = ::parse_uri(url_str.data(), url_str.size(), &out),
               HTTP_SUCCESS)
-        << errStrEx(returned, HTTP_SUCCESS);
+        << errStr(returned);
 
     // Check the uri-parts scheme, hostport, pathquery and fragment. Please
     // note that the last part of the buffer content is garbage. The valid
@@ -119,7 +120,7 @@ TEST(ParseUriTestSuite, absolute_uri_successful) {
 
     // Test Unit
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &out),
+    EXPECT_EQ(returned = ::parse_uri(url_str, sizeof(url_str) - 1, &out),
               HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
 
@@ -135,9 +136,18 @@ TEST(ParseUriTestSuite, absolute_uri_successful) {
     //                                        ^ there is an 'X' now
     // but out.scheme.buff is delimted by its size
     EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "https");
+    if (old_code) {
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": Default port 443 should be suppressed on normalized "
+                     "output.\n";
+        EXPECT_EQ(
+            std::string_view(out.hostport.text.buff, out.hostport.text.size),
+            "[::ffff:192.168.234.132]:443"); // Wrong!
+    } else
+        EXPECT_EQ(
+            std::string_view(out.hostport.text.buff, out.hostport.text.size),
+            "[::ffff:192.168.234.132]");
 
-    EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
-              "[::ffff:192.168.234.132]:443");
     EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
               "/Xri/path?uriquery");
     EXPECT_EQ(std::string_view(out.fragment.buff, out.fragment.size),
@@ -180,8 +190,17 @@ TEST(ParseUriTestSuite, absolute_uri_with_shorter_max_size) {
     // chain is determined by its size. But it's no problem to compare the whole
     // buffer because it's defined to contain a C string.
     EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "https");
-    EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
-              "[::ffff:192.168.88.77]:443");
+    if (old_code) {
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": Default port 443 should be suppressed on normalized "
+                     "output.\n";
+        EXPECT_EQ(
+            std::string_view(out.hostport.text.buff, out.hostport.text.size),
+            "[::ffff:192.168.88.77]:443"); // Wrong!
+    } else
+        EXPECT_EQ(
+            std::string_view(out.hostport.text.buff, out.hostport.text.size),
+            "[::ffff:192.168.88.77]");
     // Here we see that query is stripped from path due to shorten input string.
     EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
               "/uri/path"); // Would be regular "/uri/path?uriquery"
@@ -233,18 +252,19 @@ TEST(ParseUriTestSuite, uri_with_invalid_netaddress) {
     // Get a uri structure with parse_uri(). It fails with NONAME to get a valid
     // host & port.
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &url),
+    EXPECT_EQ(returned = ::parse_uri(url_str, sizeof(url_str) - 1, &url),
               UPNP_E_INVALID_URL)
         << errStrEx(returned, UPNP_E_INVALID_URL);
+    if (old_code) {
+        // Some components of the url are valid but undefined behavior.
+        EXPECT_EQ(url.type, Absolute);
+        EXPECT_EQ(url.path_type, OPAQUE_PART);
+        EXPECT_EQ(std::string_view(url.scheme.buff, url.scheme.size), "http");
 
-    // Some components of the url are valid.
-    EXPECT_EQ(url.type, Absolute);
-    EXPECT_EQ(url.path_type, OPAQUE_PART);
-    EXPECT_EQ(std::string_view(url.scheme.buff, url.scheme.size), "http");
-
-    // This indicates the error...
-    EXPECT_EQ(url.hostport.text.buff, nullptr);
-    EXPECT_EQ(url.hostport.text.size, 0u);
+        // This indicates the error...
+        EXPECT_EQ(url.hostport.text.buff, nullptr);
+        EXPECT_EQ(url.hostport.text.size, 0u);
+    }
 #if 0 // Undefined behavior, does not match. Will mostly find untouched 0xAA.
     // ...and also following components.
     EXPECT_EQ(url.pathquery.buff, nullptr);
@@ -266,7 +286,7 @@ TEST(ParseUriTestSuite, ip_address_without_pathquery) {
     constexpr char url_str[]{"http://[fe80::7df]#urifragment"};
 
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &out),
+    EXPECT_EQ(returned = ::parse_uri(url_str, sizeof(url_str) - 1, &out),
               HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
 
@@ -275,8 +295,9 @@ TEST(ParseUriTestSuite, ip_address_without_pathquery) {
     EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "http");
     EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
               "[fe80::7df]");
-    EXPECT_STREQ(out.pathquery.buff, "#urifragment");
     EXPECT_EQ(out.pathquery.size, 0u);
+    // buff is undefined, may contain garbage.
+    // EXPECT_STREQ(out.pathquery.buff, "#urifragment");
     EXPECT_EQ(std::string_view(out.fragment.buff, out.fragment.size),
               "urifragment");
     SSockaddr saObj;
@@ -304,7 +325,7 @@ TEST(ParseUriTestSuite, ip_address_without_fragment) {
 
     // Test Unit
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &out),
+    EXPECT_EQ(returned = ::parse_uri(url_str, sizeof(url_str) - 1, &out),
               HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
 
@@ -375,7 +396,7 @@ TEST(ParseUriTestSuite, relative_uri_with_authority_and_absolute_path) {
         "//[2001:db8::40ec]:80/uri/path?uriquery#urifragment"};
 
     // Test Unit
-    EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &out), HTTP_SUCCESS);
+    EXPECT_EQ(::parse_uri(url_str, sizeof(url_str) - 1, &out), HTTP_SUCCESS);
 
     // Check the uri-parts scheme, hostport, pathquery and fragment
     EXPECT_EQ(out.type, Relative);
@@ -410,7 +431,7 @@ TEST(ParseUriTestSuite, relative_uri_with_absolute_path) {
     constexpr char url_str[]{"/uri/path?uriquery#urifragment"};
 
     // Test Unit
-    EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &out), HTTP_SUCCESS);
+    EXPECT_EQ(::parse_uri(url_str, sizeof(url_str) - 1, &out), HTTP_SUCCESS);
     // Check the uri-parts scheme, hostport, pathquery and fragment
     EXPECT_EQ(out.type, Relative);
     EXPECT_EQ(out.path_type, ABS_PATH);
@@ -436,7 +457,7 @@ TEST(ParseUriTestSuite, relative_uri_with_relative_path) {
     constexpr char url_str[]{"uri/path?uriquery#urifragment"};
 
     // Test Unit
-    EXPECT_EQ(::parse_uri(url_str, strlen(url_str), &out), HTTP_SUCCESS);
+    EXPECT_EQ(::parse_uri(url_str, sizeof(url_str) - 1, &out), HTTP_SUCCESS);
     // Check the uri-parts scheme, hostport, pathquery and fragment
     EXPECT_EQ(out.type, Relative);
     EXPECT_EQ(out.path_type, REL_PATH);
@@ -465,7 +486,7 @@ TEST(ParseUriTestSuite, uri_with_opaque_part) {
     // Test Unit
     // The relative path does not have a leading '/'
     int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = ::parse_uri(url_str, strlen(url_str), &out),
+    EXPECT_EQ(returned = ::parse_uri(url_str, sizeof(url_str) - 1, &out),
               HTTP_SUCCESS)
         << errStrEx(returned, HTTP_SUCCESS);
     // Check the uri-parts scheme, hostport, pathquery and fragment
@@ -496,9 +517,9 @@ TEST(ParseUriTestSuite, parse_uric) {
     if (old_code)
         // This is different due to using deprecated RFC_2396 for coding
         // separator '#'.
-        EXPECT_EQ(::parse_uric(url_str2, strlen(url_str2), &out), 46);
+        EXPECT_EQ(::parse_uric(url_str2, sizeof(url_str2) - 1, &out), 46);
     else
-        EXPECT_EQ(::parse_uric(url_str2, strlen(url_str2), &out), 0);
+        EXPECT_EQ(::parse_uric(url_str2, sizeof(url_str2) - 1, &out), 0);
 
     // The valid separator '#' is also not accepted as valid character and also
     // trunkcate the URI string. That's a bug and should be fixed.
@@ -507,9 +528,9 @@ TEST(ParseUriTestSuite, parse_uric) {
     if (old_code)
         // This is different due to using deprecated RFC_2396 for coding
         // separator '#'.
-        EXPECT_EQ(::parse_uric(url_str1, strlen(url_str1), &out), 46);
+        EXPECT_EQ(::parse_uric(url_str1, sizeof(url_str1) - 1, &out), 46);
     else
-        EXPECT_EQ(::parse_uric(url_str1, strlen(url_str1), &out), 55);
+        EXPECT_EQ(::parse_uric(url_str1, sizeof(url_str1) - 1, &out), 55);
 }
 #endif // UPnPsdk_WITH_NATIVE_PUPNP
 

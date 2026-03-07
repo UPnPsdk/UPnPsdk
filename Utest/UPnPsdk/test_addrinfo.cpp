@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-05
+// Redistribution only with this Copyright remark. Last modified: 2026-03-09
 
 // I test different address infos that we get from system function
 // ::getaddrinfo().
@@ -1384,7 +1384,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     {
         // No Global Unicast Address (different on win32)
         CAddrinfo aiObj("[1fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
-        aiObj.get_first();
+        ASSERT_TRUE(aiObj.get_first());
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
 #ifdef _MSC_VER
@@ -1396,7 +1396,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     {
         // First Global Unicast Address (not first on win32)
         CAddrinfo aiObj("[2000::]");
-        aiObj.get_first();
+        ASSERT_TRUE(aiObj.get_first());
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
         EXPECT_TRUE(IN6_IS_ADDR_GLOBAL(sa6));
@@ -1404,7 +1404,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     {
         // Documentation- and test-address
         CAddrinfo aiObj("[2001:db8::1]");
-        aiObj.get_first();
+        ASSERT_TRUE(aiObj.get_first());
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
         EXPECT_TRUE(IN6_IS_ADDR_GLOBAL(sa6));
@@ -1412,7 +1412,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     {
         // Last Global Unicast Address (not last on win32)
         CAddrinfo aiObj("[3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]");
-        aiObj.get_first();
+        ASSERT_TRUE(aiObj.get_first());
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
         EXPECT_TRUE(IN6_IS_ADDR_GLOBAL(sa6));
@@ -1420,7 +1420,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     {
         // No Global Unicast Address (different on win32)
         CAddrinfo aiObj("[4000::]");
-        aiObj.get_first();
+        ASSERT_TRUE(aiObj.get_first());
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
 #ifdef _MSC_VER
@@ -1432,7 +1432,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     {
         // Link-local address
         CAddrinfo aiObj("[fe80::1]");
-        aiObj.get_first();
+        ASSERT_TRUE(aiObj.get_first());
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
         EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
@@ -1442,7 +1442,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     {
         // Address belongs to the reserved address block
         CAddrinfo aiObj("[00ab::1]");
-        aiObj.get_first();
+        ASSERT_TRUE(aiObj.get_first());
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
         EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
@@ -1450,7 +1450,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     {
         // Unspecified Address, belongs to the reserved address block
         CAddrinfo aiObj("[::]");
-        aiObj.get_first();
+        ASSERT_TRUE(aiObj.get_first());
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
         EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
@@ -1459,7 +1459,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     {
         // loopback address, belongs to the reserved address block
         CAddrinfo aiObj("[::1]");
-        aiObj.get_first();
+        ASSERT_TRUE(aiObj.get_first());
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
         EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
@@ -1468,7 +1468,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     {
         // v4-mapped address, belongs to the reserved address block
         CAddrinfo aiObj("[::ffff:142.250.185.99]");
-        aiObj.get_first();
+        ASSERT_TRUE(aiObj.get_first());
         in6_addr* sa6 =
             &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
         EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
@@ -1476,19 +1476,20 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
     }
     {
         // IPv4-compatible embedded IPv6 address, belongs to the reserved
-        // address block
+        // address block. Deprecated since february 2006 and not supported by
+        // this SDK.
         CAddrinfo aiObj("[::101.45.75.219]");
-        aiObj.get_first();
-        in6_addr* sa6 =
-            &reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_addr;
-        EXPECT_FALSE(IN6_IS_ADDR_GLOBAL(sa6));
-        EXPECT_TRUE(IN6_IS_ADDR_V4COMPAT(sa6));
+#ifdef _MSC_VER
+        ASSERT_TRUE(aiObj.get_first());
+#else
+        ASSERT_FALSE(aiObj.get_first());
+#endif
     }
 }
 
 TEST(AddrinfoTestSuite, get_sockaddr) {
     CAddrinfo aiObj("[2001:db8::2%1]:47111");
-    aiObj.get_first();
+    ASSERT_TRUE(aiObj.get_first());
 
     aiObj.sockaddr(saddr);
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);

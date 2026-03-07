@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-03
+// Redistribution only with this Copyright remark. Last modified: 2026-03-08
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -11,6 +11,7 @@
 #include <UPnPsdk/synclog.hpp>
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/messages.hpp>
+#include <UPnPsdk/addrinfo.hpp>
 
 /// \cond
 #include <regex>
@@ -274,64 +275,9 @@ get_authority(std::string_view a_uriref_sv ///< [in] URI reference to parse.
 } // anonymous namespace
 
 
-#if 0
-// Authority sub-component CUserinfo
-// ------------------------=========
-CUserinfo::CUserinfo(std::string_view a_uri_sv) {
-    // The user information, if present, starts with "//" and is followed by a
-    // commercial at-sign ("@") that delimits it from the host (RFC3986
-    // 3.2.1.). The userinfo may be undefined (no "@" found within the
-    // authority). I also take an empty userinfo into account (first character
-    // of the authority is "@"). Applications should not render as clear text
-    // any password data after the first colon (:) found within a userinfo
-    // subcomponent unless the data after the colon is the empty string
-    // (indicating no password).
-    TRACE2(this, " Construct CUserinfo(a_uri_sv)")
-
-    std::string_view authority_sv = get_authority(a_uri_sv);
-
-    if (authority_sv.empty())
-        return; // Undefined authority.
-
-    authority_sv.remove_prefix(2); // remove authority separator.
-
-    auto& npos = std::string_view::npos;
-    size_t pos;
-    if ((pos = authority_sv.find_first_of("/?#")) != npos)
-        authority_sv.remove_suffix(authority_sv.size() - pos);
-
-    // Check if there is a separator, or if it is on the first position (no
-    // content preceeding).
-    if ((pos = authority_sv.find_first_of('@')) == npos)
-        return; // No userinfo sub-component available.
-
-    if (pos == 0 || authority_sv[0] == ':') {
-        // Separator '@' or ':' (for password) at first position means userinfo
-        // is empty.
-        m_component.clear();
-        m_state = STATE::empty;
-        return;
-    }
-
-    // Extract userinfo
-    authority_sv.remove_suffix(authority_sv.size() - pos);
-
-    // Check special case with clear text password.
-    if ((pos = authority_sv.find_first_of(':')) != npos) {
-        // Here we have found a username with clear text password appended.
-        // Strip deprecated clear text password incl. ':' (RFC3986 3.3.1.).
-        authority_sv.remove_suffix(authority_sv.size() - pos);
-    }
-    m_component = authority_sv;
-    m_state = STATE::avail;
-    return;
-}
-
-#else
-
+namespace {
 // get_userinfo free helper function
 // ============---------------------
-namespace {
 /*!
  * \brief Separates the authority userinfo subcomponent from a
  * [URI reference](\ref glossary_URIref)
@@ -410,83 +356,7 @@ CUserinfo::CUserinfo(std::string_view a_uriref_sv) {
     m_component = userinfo_sv;
     m_state = STATE::avail;
 }
-#endif
 
-
-#if 0
-// Authority sub-component CHost
-// ------------------------=====
-CHost::CHost(std::string_view a_uri_sv) {
-    // The Host information starts with "//" when a userinfo is removed. It
-    // ends with ':' if a port is available, or with the end of the authority,
-    // that is '/', or '?', or '#', or end of uri.
-    TRACE2(this, " Construct CHost(a_uri_sv)")
-
-    std::string_view authority_sv = get_authority(a_uri_sv);
-
-    if (authority_sv.empty())
-        return; // Undefined authority.
-    authority_sv.remove_prefix(2); // remove authority separator.
-
-    auto& npos = std::string_view::npos;
-    size_t pos;
-    if ((pos = authority_sv.find_first_of("/?#")) != npos)
-        authority_sv.remove_suffix(authority_sv.size() - pos);
-
-    // Strip userinfo from authority string if present.
-    if ((pos = authority_sv.find_first_of('@')) != npos)
-        authority_sv.remove_prefix(pos + 1);
-    // Strip port from authority string if present. I have to look for last
-    // occurrance of the port separator. If there is a ']' instead of ':' at
-    // last then it is an IPv6 address with colons for the host without port.
-    if ((pos = authority_sv.find_last_of("]:")) != npos &&
-        authority_sv[pos] == ':')
-        authority_sv.remove_suffix(authority_sv.size() - pos);
-
-    // Here we have the extracted host string.
-    if (authority_sv.empty()) {
-        m_component.clear();
-        m_state = STATE::empty;
-        return;
-    }
-
-    m_component = authority_sv;
-    // Normalize host to lower case character (RFC3986_3.2.2.).
-    for (auto it{m_component.begin()}; it < m_component.end(); it++)
-        *it = static_cast<char>(std::tolower(static_cast<unsigned char>(*it)));
-
-    // Check if the host_name is valid.
-    // Check IPv6 address.
-    if (m_component.front() == '[') {
-        SSockaddr saObj;
-        try {
-            saObj = m_component;
-        } catch (const std::exception&) {
-            goto exception;
-        }
-    }
-    // Check IPv4 address and DNS name. No DNS name resolution is performed.
-    // The syntax rule for host is ambiguous because it does not completely
-    // distinguish between an IPv4 address and a reg-name. In order to
-    // disambiguate the syntax, we apply the "first-match-wins" algorithm:
-    // If host matches the rule for IPv4 address, then it should be
-    // considered an IPv4 address literal and not a reg-name.
-    // (RFC3986_3.2.2.).
-    else if (!is_ipv4_addr(m_component) && !is_dns_name(m_component)) {
-        goto exception;
-    }
-
-    m_state = STATE::avail;
-    return;
-
-exception:
-    throw std::invalid_argument(
-        UPnPsdk_LOGEXCEPT(
-            "MSG1160") "URI with invalid host address or host name \"" +
-        m_component + "\".\n");
-}
-
-#else
 
 namespace {
 // get_host free helper function
@@ -573,7 +443,7 @@ exception:
     throw std::invalid_argument(
         UPnPsdk_LOGEXCEPT(
             "MSG1160") "invalid host address or host name on URI=\"" +
-        std::string(a_uriref_sv) + "\".\n");
+        std::string(a_uriref_sv) + "\".");
 }
 } // anonymous namespace
 
@@ -601,78 +471,7 @@ CHost::CHost(std::string_view a_uriref_sv) {
 
     m_state = STATE::avail;
 }
-#endif
 
-
-#if 0
-// Authority sub-component CPort
-// ------------------------=====
-CPort::CPort(std::string_view a_uri_sv) {
-    // The Port information starts with ':' and ends with the end of the
-    // authority, that is '/', or '?', or '#', or end of uri. Because there may
-    // be also colons as separator for a password, or within an IPv6 address, I
-    // must look at the last occurrence of a colon within the authority
-    // information that is the separator for the port.
-    TRACE2(this, " Construct CPort(a_uri_sv)")
-
-    std::string_view authority_sv = get_authority(a_uri_sv);
-
-    if (authority_sv.empty())
-        return; // Undefined authority means also no port.
-    authority_sv.remove_prefix(2); // remove authority separator "//".
-
-    auto& npos = std::string_view::npos;
-    size_t pos;
-    // Remove path, query, fragment if any.
-    if ((pos = authority_sv.find_first_of("/?#")) != npos)
-        authority_sv.remove_suffix(authority_sv.size() - pos);
-
-    // Extract port from authority string if present:
-    // first strip userinfo from authority string if present.
-    if ((pos = authority_sv.find_first_of('@')) != npos)
-        authority_sv.remove_prefix(pos + 1);
-    // I have to look for last occurrance of the port separator. If we find ']'
-    // before ':' at last then it is an IPv6 address with colons for the host
-    // without port.
-    if ((pos = authority_sv.find_last_of("]:")) == npos ||
-        authority_sv[pos] != ':')
-        return; // No port found. It is undefined.
-
-    // Remove host if any.
-    authority_sv.remove_prefix(pos + 1);
-
-    // Here we have the port string that is defined because we found a ':', but
-    // it may be empty.
-    if (authority_sv.empty()) {
-        m_component.clear();
-        m_state = STATE::empty;
-        return;
-    }
-    // Default ports are normalized to undefined ports. Pattern optimized for
-    // minimal calling get_scheme().
-    if (authority_sv == "80") {
-        if (get_scheme(a_uri_sv) == "http:") {
-            m_state = STATE::undef;
-            return;
-        }
-    } else if (authority_sv == "443") {
-        if (get_scheme(a_uri_sv) == "https:") {
-            m_state = STATE::undef;
-            return;
-        }
-    }
-
-    // Check if the port string is valid.
-    if (to_port(authority_sv) != 0)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1164") "Invalid port number. Failed URI=\"" +
-            std::string(a_uri_sv) + "\".\n");
-
-    m_component = authority_sv;
-    m_state = STATE::avail;
-}
-
-#else
 
 namespace {
 // get_port free helper function
@@ -776,7 +575,6 @@ CPort::CPort(std::string_view a_uriref_sv) {
     m_component = port_sv;
     m_state = STATE::avail;
 }
-#endif
 
 
 // CAuthority
@@ -811,52 +609,6 @@ std::string CAuthority::str() const {
         (this->port.state() == STATE::avail ? this->port.str() : "");
 }
 
-
-#if 0
-// CPath
-// =====
-CPath::CPath(std::string_view a_uri_sv) {
-    // A path is always defined for a URI, though the defined path may be empty
-    // (zero length) (RFC3986_3.3.). To get the path I strip all other
-    // components from the URI reference.
-    // If a URI contains an authority component, then the path component must
-    // either be empty or begin with a slash ("/") character. The path is
-    // terminated by the first question mark ("?") or number sign ("#")
-    // character, or by the end of the URI (RFC3986_3.3.). Schemes "http", and
-    // "https" must always have an authority component (RFC7230_2.7.1.).
-    // In addition, a URI reference may be a relative-path reference, in which
-    // case the first path segment cannot contain a colon (":") character
-    // (RFC3986_3.3.).
-    TRACE2(this, " Construct CPath(a_uri_sv)")
-
-    auto& npos = std::string_view::npos;
-    size_t pos;
-
-    // Remove possible query and/or fragment. Scheme, authority and path does
-    // not contain '?' or '#'.
-    if ((pos = a_uri_sv.find_first_of("?#")) != npos)
-        a_uri_sv.remove_suffix(a_uri_sv.size() - pos);
-
-    // Remove possible scheme.
-    if ((pos = get_scheme(a_uri_sv).size()) != 0)
-        a_uri_sv.remove_prefix(pos);
-
-    // Remove possible authority.
-    if ((pos = get_authority(a_uri_sv).size()) != 0) {
-        a_uri_sv.remove_prefix(pos);
-    }
-
-    // Store remaining path.
-    if (a_uri_sv.empty()) {
-        m_component.clear();
-        m_state = STATE::empty;
-    } else {
-        m_component = a_uri_sv;
-        m_state = STATE::avail;
-    }
-}
-
-#else
 
 namespace {
 // get_path free helper function
@@ -929,7 +681,6 @@ CPath::CPath(std::string_view a_uriref_sv) {
     m_component = path_sv;
     m_state = STATE::avail;
 }
-#endif
 
 
 void CPath::remove_dot_segments() {
@@ -937,41 +688,6 @@ void CPath::remove_dot_segments() {
     UPnPsdk::remove_dot_segments(m_component);
 }
 
-
-#if 0
-// CQuery
-// ======
-CQuery::CQuery(std::string_view a_uri_sv) {
-    // The query component is indicated by the first question mark ("?")
-    // character and terminated by a number sign ("#") character or by the end
-    // of the URI. The characters slash ("/") and question mark ("?") may
-    // represent data within the query component (RFC3986_3.4.) and within the
-    // fragment identifier (RFC3986_3.5.).
-    TRACE2(this, " Construct CQuery(a_uri_sv)")
-
-    // Find begin of the query component.
-    auto& npos = std::string_view::npos;
-    size_t pos;
-    if ((pos = a_uri_sv.find_first_of("?#")) == npos || a_uri_sv[pos] == '#')
-        // No query component found. Leave it undefined.
-        return;
-
-    // There is a '?'. Strip all before the query component.
-    a_uri_sv.remove_prefix(pos + 1);
-    if (a_uri_sv.empty() || a_uri_sv.front() == '#') {
-        m_component.clear();
-        m_state = STATE::empty;
-        return;
-    }
-    // Strip all behind the query component.
-    if ((pos = a_uri_sv.find_first_of('#')) != npos)
-        a_uri_sv.remove_suffix(a_uri_sv.size() - pos);
-
-    m_component = a_uri_sv;
-    m_state = STATE::avail;
-}
-
-#else
 
 namespace {
 // get_query free helper function
@@ -1040,37 +756,7 @@ CQuery::CQuery(std::string_view a_uriref_sv) {
     m_component = query_sv;
     m_state = STATE::avail;
 }
-#endif
 
-
-#if 0
-// class CFragment
-// ===============
-CFragment::CFragment(std::string_view a_uri_sv) {
-    // A fragment identifier component is indicated by the presence of a number
-    // sign ("#") character and terminated by the end of the URI (RFC3986_3.5.).
-    TRACE2(this, " Construct CFragment(a_uri_sv)")
-
-    // Find begin of the fragment component.
-    auto& npos = std::string_view::npos;
-    size_t pos;
-    if ((pos = a_uri_sv.find_first_of('#')) == npos)
-        // No fragment component found. Leave it undefined.
-        return;
-
-    // Strip all before the fragment component.
-    a_uri_sv.remove_prefix(pos + 1);
-    if (a_uri_sv.empty()) {
-        m_component.clear();
-        m_state = STATE::empty;
-        return;
-    }
-
-    m_component = a_uri_sv;
-    m_state = STATE::avail;
-}
-
-#else
 
 namespace {
 // get_fragment free helper function
@@ -1132,7 +818,6 @@ CFragment::CFragment(std::string_view a_uriref_sv) {
     m_component = fragment_sv;
     m_state = STATE::avail;
 }
-#endif
 
 
 // Class CPrepUriStr
@@ -1455,44 +1140,134 @@ std::string CUri::str() const {
 } // namespace UPnPsdk
 
 
-#if 0
 int parse_uri(const char* in, size_t max, uri_type* out) {
+    // The CUriRef class coppies its input URI reference string to the stack to
+    // be more thread safe. So it cannot provide pointer to the external source.
+    // For that I use the "get component" free functions.
     using STATE = UPnPsdk::CComponent::STATE;
-
     std::string_view uriref_sv = std::string_view(in, max);
-    UPnPsdk::CUriRef uriObj{std::string(uriref_sv)};
+    // std::cerr << "DEBUG: parse_uri: uriref_sv=\"" << uriref_sv << "\"\n";
 
-    ::memset(out, 0, sizeof(*out));
+    try {
+        UPnPsdk::CUriRef uriObj{std::string(uriref_sv)};
 
-    // 'out->type' and 'out->path_type'
-    if (uriObj.scheme.state() == STATE::avail) {
-        out->type = uriType::Absolute;
-        out->path_type = pathType::OPAQUE_PART;
-    } else {
-        out->type = uriType::Relative;
-        out->path_type = pathType::REL_PATH;
-    }
-    // Correct 'out->path_type' if absolute path is available.
-    if (uriObj.path.state() == STATE::avail && uriObj.path.str().front() == '/')
-        out->path_type = pathType::ABS_PATH;
-
-    // out->scheme
-    std::string_view scheme_sv = UPnPsdk::get_scheme(uriref_sv);
-    if (scheme_sv.size() != 0)
-        scheme_sv.remove_suffix(1); // Remove trailing ':'
-    out->scheme.buff = scheme_sv.data();
-    out->scheme.size = scheme_sv.size();
-
-    // out->hostport
-    if (uriObj.authority.host.state() == STATE::avail) {
-    // std::string_view host_sv = UPnPsdk::get_host(uriref_sv);
-    // std::string_view port_sv = UPnPsdk::get_port(uriref_sv);
-    }
-
-    // out->pathquery
-
-    // out->fragment
-
-    return UPNP_E_INVALID_URL;
-}
+#if 0 // Helpful for developers for deep analysis.
+        std::cerr << "DEBUG: scheme=\""
+                  << (uriObj.scheme.state() != STATE::undef
+                          ? uriObj.scheme.str()
+                          : "")
+                  << "\"\n";
+        std::cerr << "DEBUG: authority=\""
+                  << (uriObj.authority.state() != STATE::undef
+                          ? uriObj.authority.str()
+                          : "")
+                  << "\"\n";
+        std::cerr << "DEBUG: path=\""
+                  << (uriObj.path.state() != STATE::undef ? uriObj.path.str()
+                                                          : "")
+                  << "\"\n";
+        std::cerr << "DEBUG: query=\""
+                  << (uriObj.query.state() != STATE::undef ? uriObj.query.str()
+                                                           : "")
+                  << "\"\n";
+        std::cerr << "DEBUG: fragment=\""
+                  << (uriObj.fragment.state() != STATE::undef
+                          ? uriObj.fragment.str()
+                          : "")
+                  << "\"\n";
 #endif
+        ::memset(out, 0, sizeof(*out));
+
+        // 'out->type' and 'out->path_type'
+        if (uriObj.scheme.state() == STATE::avail) {
+            out->type = uriType::Absolute;
+            out->path_type = pathType::OPAQUE_PART;
+        } else {
+            out->type = uriType::Relative;
+            out->path_type = pathType::REL_PATH;
+        }
+        // Correct 'out->path_type' if absolute path is available.
+        if (uriObj.path.state() == STATE::avail &&
+            uriObj.path.str().front() == '/')
+            out->path_type = pathType::ABS_PATH;
+
+        // out->scheme
+        if (uriObj.scheme.state() == STATE::avail) {
+            std::string_view scheme_sv = UPnPsdk::get_scheme(uriref_sv);
+            scheme_sv.remove_suffix(1); // Remove trailing ':'
+            out->scheme.buff = scheme_sv.data();
+            out->scheme.size = scheme_sv.size();
+        }
+
+        // out->hostport
+        if (uriObj.authority.host.state() == STATE::avail) {
+            // Get pointer to host component on the input URI string and store
+            // it to 'out'.
+            std::string_view host_sv = UPnPsdk::get_host(uriref_sv);
+            out->hostport.text.buff = host_sv.data();
+
+            // Calculate size of the host+port string and store it to 'out'. If
+            // there is no port available we must only store the size of the
+            // host string, otherwise we need the sum of host and port sizes
+            // plus 1 for the host:port separator ':'.
+            if (uriObj.authority.port.state() == STATE::avail)
+                out->hostport.text.size = uriObj.authority.host.str().size() +
+                                          1 +
+                                          uriObj.authority.port.str().size();
+            else
+                out->hostport.text.size = uriObj.authority.host.str().size();
+
+            // Calculate the port to be used to get the remote host network
+            // address. If it is available then that is used; if not, then the
+            // defaults for "https" and "http" are used, or the unspecified one
+            // (port=0).
+            std::string port_str;
+            if (uriObj.authority.port.state() == STATE::avail) {
+                port_str = uriObj.authority.port.str();
+            } else {
+                if (uriObj.scheme.state() == STATE::avail) {
+                    if (uriObj.scheme.str() == "https")
+                        port_str = "443";
+                    else if (uriObj.scheme.str() == "http")
+                        port_str = "80";
+                }
+            }
+            // Get the network address. If necessary with DNS lookup.
+            UPnPsdk::CAddrinfo ai(uriObj.authority.host.str(), port_str);
+            if (!ai.get_first())
+                throw std::invalid_argument(
+                    UPnPsdk_LOGEXCEPT(
+                        "MSG1155") "Host not found. Failed URI=\"" +
+                    std::string(uriref_sv) + "\"\n");
+            // Store the address to 'out'.
+            out->hostport.IPaddress =
+                *reinterpret_cast<sockaddr_storage*>(ai->ai_addr);
+        }
+
+        // out->pathquery
+        if (uriObj.path.state() == STATE::avail) {
+            std::string_view path_sv = UPnPsdk::get_path(uriref_sv);
+            out->pathquery.buff = path_sv.data();
+            if (uriObj.query.state() == STATE::avail) {
+                std::string_view query_sv = UPnPsdk::get_query(uriref_sv);
+                out->pathquery.size = path_sv.size() + 1 + query_sv.size();
+            } else {
+                out->pathquery.size = path_sv.size();
+            }
+        }
+
+        // out->fragment
+        if (uriObj.fragment.state() == STATE::avail) {
+            std::string_view fragment_sv = UPnPsdk::get_fragment(uriref_sv);
+            out->fragment.buff = fragment_sv.data();
+            out->fragment.size = fragment_sv.size();
+        }
+
+        return HTTP_SUCCESS;
+
+    } catch (const std::invalid_argument& ex) {
+        UPnPsdk_LOGCATCH("MSG1046") "Catched next line...\n"
+            << ex.what() << '\n';
+        return UPNP_E_INVALID_URL;
+    }
+}

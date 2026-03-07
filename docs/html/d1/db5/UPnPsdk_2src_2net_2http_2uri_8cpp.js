@@ -11,5 +11,6 @@ var UPnPsdk_2src_2net_2http_2uri_8cpp =
     [ "get_path", "d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp.html#ga5cad4f2b687822c9f6b7d32c7943c6dd", null ],
     [ "get_query", "d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp.html#gaa687876e60fd154efb44d30586a59882", null ],
     [ "get_fragment", "d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp.html#gabc953b6a0e691580342ee083aa9d5faa", null ],
-    [ "merge_paths", "d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp.html#gadd04cb26d55f7dbab615dc79abc29557", null ]
+    [ "merge_paths", "d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp.html#gadd04cb26d55f7dbab615dc79abc29557", null ],
+    [ "parse_uri", "de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b", null ]
 ];

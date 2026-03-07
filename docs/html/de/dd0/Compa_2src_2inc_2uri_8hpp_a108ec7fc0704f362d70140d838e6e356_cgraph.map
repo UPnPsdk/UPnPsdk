@@ -1,15 +1,9 @@
 <map id="resolve_rel_url" name="resolve_rel_url">
-<area shape="rect" id="Node000001" title="Resolves a relative url with a base url." alt="" coords="5,138,124,163"/>
-<area shape="rect" id="Node000002" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ae59095a3e023c16f4dd68bc60e21f7c7" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="213,109,296,134"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,139,199,127,200,132,125,144"/>
-<area shape="rect" id="Node000007" href="$de/dc7/group__upnpsdk-uri.html#ga1b4480819fde1cd38f31b41bedcdce06" title="Remove dot segments from a path." alt="" coords="172,159,337,199"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="125,157,159,162,158,167,124,162"/>
-<area shape="rect" id="Node000003" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afb6a0fce453e470360da2b0d0d5f8a8b" title="Parses a string with host and port and fills a hostport structure." alt="" coords="385,5,576,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="278,106,384,55,403,48,405,53,386,60,281,111"/>
-<area shape="rect" id="Node000004" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab8f57212a00e026034f1864f0239bad9" title="parses a uri scheme starting at in[0]." alt="" coords="387,69,575,109"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="296,113,373,102,373,107,297,118"/>
-<area shape="rect" id="Node000005" href="$dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ab0786f41a45f36864383bcca2f4f2658" title="Parses a string of uric characters starting at in[0]." alt="" coords="391,133,571,173"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="297,124,377,136,377,141,296,130"/>
-<area shape="rect" id="Node000006" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="397,198,564,223"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="297,128,339,144,363,164,373,174,387,183,406,191,403,196,384,188,369,178,359,168,336,149,295,133"/>
+<area shape="rect" id="Node000001" title="Resolves a relative url with a base url." alt="" coords="5,42,124,67"/>
+<area shape="rect" id="Node000002" href="$de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="213,13,296,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,43,199,31,200,36,125,48"/>
+<area shape="rect" id="Node000006" href="$de/dc7/group__upnpsdk-uri.html#ga1b4480819fde1cd38f31b41bedcdce06" title="Remove dot segments from a path." alt="" coords="172,63,337,103"/>
+<area shape="poly" id="edge3_Node000001_Node000006" title=" " alt="" coords="125,61,159,66,158,71,124,66"/>
+<area shape="rect" id="Node000003" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="385,5,536,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="296,23,372,23,372,28,296,28"/>
 </map>

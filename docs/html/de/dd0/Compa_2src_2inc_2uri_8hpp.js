@@ -14,6 +14,5 @@ var Compa_2src_2inc_2uri_8hpp =
     [ "token_cmp", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a5b3b45fe5e06c4012785e304e53b4dbf", null ],
     [ "remove_escaped_chars", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#aae107675e9be7b49d54ec682d8ca6cda", null ],
     [ "resolve_rel_url", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a108ec7fc0704f362d70140d838e6e356", null ],
-    [ "parse_token", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a13dbae9bff877a15f4d6b23c1f934638", null ],
-    [ "HTTP_SUCCESS", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#abc47e703414e2d05f9a0c8ffff51dabe", null ]
+    [ "parse_token", "de/dd0/Compa_2src_2inc_2uri_8hpp.html#a13dbae9bff877a15f4d6b23c1f934638", null ]
 ];

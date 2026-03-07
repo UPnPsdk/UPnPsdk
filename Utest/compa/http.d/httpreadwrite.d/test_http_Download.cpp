@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-30
+// Redistribution only with this Copyright remark. Last modified: 2026-03-06
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -335,12 +335,23 @@ TEST_F(HttpBasicFTestSuite, make_message_format_q_successful) {
         http_MakeMessage(&m_request, 1, 1, "q", HTTPMETHOD_GET, &url);
     EXPECT_EQ(ret_http_MakeMessage, 0) << errStrEx(ret_http_MakeMessage, 0);
 #ifdef UPnPsdk_HAVE_OPENSSL
-    EXPECT_STREQ(m_request.buf, "GET /path/dest/?query=value HTTP/1.1\r\nHOST: "
-                                "192.168.192.170:443\r\n");
+    if (old_code)
+        EXPECT_STREQ(m_request.buf,
+                     "GET /path/dest/?query=value HTTP/1.1\r\nHOST: "
+                     "192.168.192.170:443\r\n");
+    else
+        // Default port is not specified.
+        EXPECT_STREQ(m_request.buf,
+                     "GET /path/dest/?query=value HTTP/1.1\r\nHOST: "
+                     "192.168.192.170\r\n");
 #else
-    EXPECT_STREQ(
-        m_request.buf,
-        "GET /path/dest/?query=value HTTP/1.1\r\nHOST: 192.168.192.171:80\r\n");
+    if (old_code)
+        EXPECT_STREQ(m_request.buf, "GET /path/dest/?query=value "
+                                    "HTTP/1.1\r\nHOST: 192.168.192.171:80\r\n");
+    else
+        // Default port is not specified.
+        EXPECT_STREQ(m_request.buf, "GET /path/dest/?query=value "
+                                    "HTTP/1.1\r\nHOST: 192.168.192.171\r\n");
 #endif
 }
 
