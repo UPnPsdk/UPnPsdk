@@ -2,7 +2,7 @@ name: Integration tests
 
 on:
   push:
-    branches: [ replace_compa_uri, main ]
+    branches: [ decode_esc_chars, main ]
   pull_request:
     branches: [ main ]
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-08
+// Redistribution only with this Copyright remark. Last modified: 2026-03-12
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -127,6 +127,52 @@ void remove_dot_segments(std::string& a_path) {
     }
 
     a_path = output;
+}
+
+
+void decode_esc_chars(std::string& a_encoded) {
+    TRACE("Executing decode_esc_chars()")
+
+    std::string decoded;
+    int value;
+
+    auto it{a_encoded.begin()};
+    auto it_end{a_encoded.end()};
+    // clang-format off
+    // First check begin and end of the URI for invalid encoded character. With
+    // '%' we must always have three characters.
+    if (!a_encoded.empty() &&
+        ( /*begin*/ (a_encoded.size() <  3 && *it == '%') ||
+          /*end*/   (a_encoded.size() >= 3 && (*(it_end - 2) == '%' || *(it_end - 1) == '%'))))
+        goto exception;
+    // clang-format on
+
+    for (; it < it_end; it++) {
+        if (static_cast<unsigned char>(*it) == '%') {
+            // Check two hex digit characters after '%'.
+            if (!std::isxdigit(static_cast<unsigned char>(*(it + 1))) ||
+                !std::isxdigit(static_cast<unsigned char>(*(it + 2))))
+                goto exception;
+
+            value =
+                stoi(a_encoded.substr(
+                         static_cast<size_t>(it - a_encoded.begin()) + 1, 2),
+                     nullptr, 16);
+            decoded.push_back(static_cast<char>(value));
+            it += 2; // Skip the next two characters
+        } else {
+            decoded.push_back(*it);
+        }
+    }
+
+    a_encoded = decoded;
+    return;
+
+exception:
+    throw std::invalid_argument(
+        UPnPsdk_LOGEXCEPT(
+            "MSG1159") "URI with invalid percent encoding, failed URI=\"" +
+        a_encoded + "\".\n");
 }
 
 

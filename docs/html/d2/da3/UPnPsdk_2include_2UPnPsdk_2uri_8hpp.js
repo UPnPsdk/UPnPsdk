@@ -26,6 +26,7 @@ var UPnPsdk_2include_2UPnPsdk_2uri_8hpp =
       [ "OPAQUE_PART", "d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#a631372ca4f28d9792e14f9b83cf4a863a4c54febe4ccf75bc312c3c048961b974", null ]
     ] ],
     [ "remove_dot_segments", "d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#ga1b4480819fde1cd38f31b41bedcdce06", null ],
+    [ "decode_esc_chars", "d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#ab707d803eca469c6976bed877909c297", null ],
     [ "parse_uri", "de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b", null ],
     [ "HTTP_SUCCESS", "d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#abc47e703414e2d05f9a0c8ffff51dabe", null ]
 ];

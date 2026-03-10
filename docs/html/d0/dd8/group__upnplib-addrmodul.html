@@ -376,16 +376,15 @@ sa</td>
 <div class="line"><span class="stringliteral">}</span></div>
 <div class="line"><span class="stringliteral"></span> </div>
 <div class="line"><span class="stringliteral">if (to_port(&quot;</span>65536<span class="stringliteral">&quot;) != 0) { // do nothing with port }</span></div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga6756252cf07c4f4d74f51fedc2fecce5"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a></div><div class="ttdeci">int to_port(std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string represents a valid port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00087">sockaddr.cpp:87</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga6756252cf07c4f4d74f51fedc2fecce5"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a></div><div class="ttdeci">int to_port(std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string represents a valid port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00089">sockaddr.cpp:89</a></div></div>
 </div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>On success: <b>0</b><br  />
  A binary port number in host byte order is returned in <b>a_port_num</b>, so you can use it in your application without conversion. If you want to store it in a netaddr structure you must use <b>htons()</b>. An empty input string returns 0.<br  />
  On error:<ul>
 <li><b>-1</b> A valid port number was not found.</li>
-<li>&#160;<b>1</b> Valid numeric value found but out of scope, not in range 0..65535. </li>
+<li>&#160;<b>1</b> Valid numeric value found but out of scope, not in range 0..65535.</li>
 </ul>
 </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Update to Clang compiler that supports std::from_chars() on MacOS. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Update to Clang compiler that supports std::from_chars() on MacOS. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Update on MacOS to Clang compiler that supports std::from_chars(). See below TODO. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_port_str</td><td>String that may represent a port number.  </td></tr>
@@ -394,7 +393,7 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00087">87</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -461,7 +460,7 @@ sa</td>
 <div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">split_addr_port</a>(<span class="stringliteral">&quot;example.COM:50003&quot;</span>, addr, serv);</div>
 <div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">split_addr_port</a>(<span class="stringliteral">&quot;example.com:HTTPS&quot;</span>, addr, serv);</div>
 <div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">split_addr_port</a>(<span class="stringliteral">&quot;[::FFff:142.250.185.99]:ssh&quot;</span>, addr, serv);</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_gabe9fa394c2a994e0cd76c22805033555"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">UPnPsdk::split_addr_port</a></div><div class="ttdeci">void split_addr_port(std::string_view a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</div><div class="ttdoc">Free function to split inet address and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00183">sockaddr.cpp:183</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_gabe9fa394c2a994e0cd76c22805033555"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555">UPnPsdk::split_addr_port</a></div><div class="ttdeci">void split_addr_port(std::string_view a_addr_str, std::string &amp;a_addr, std::string &amp;a_serv)</div><div class="ttdoc">Free function to split inet address and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00185">sockaddr.cpp:185</a></div></div>
 </div><!-- fragment --><p>This is a function for special use to prepare input for system call ::getaddrinfo(). Its results returned in <b>a_addr</b> and <b>a_serv</b> are only useful for ::getaddrinfo() and are not meant for general usage. For example returned IPv6 addresses never have brackets because ::getaddrinfo() does not accept them, port numbers are limited to 65535 because ::getaddrinfo() accepts also greater numbers with overrun to 65535 + 1 = 0. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -472,7 +471,7 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00183">183</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00185">185</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">

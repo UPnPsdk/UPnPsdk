@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-11-08
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -46,7 +46,6 @@
 #include <upnpapi.hpp>
 
 #include <UPnPsdk/webserver.hpp>
-#include <UPnPsdk/uri.hpp>
 
 #include <umock/stdlib.hpp>
 #include <umock/stdio.hpp>
@@ -68,14 +67,17 @@
 namespace compa {
 namespace {
 
-/*! \brief Response Types. */
+/// Response types
 enum resp_type {
+    /// @{
+    /// &nbsp;
     RESP_UNSPEC,
     RESP_FILEDOC,
     RESP_XMLDOC,
     RESP_HEADERS,
     RESP_WEBDOC,
     RESP_POST
+    /// @}
 };
 
 /// \brief Media types.
@@ -1047,8 +1049,8 @@ int process_request_in(
     const char* temp_str;
     int resp_major;
     int resp_minor;
-    size_t dummy;
     memptr hdr_value;
+    char* request_doc{};
 
     url = &req->uri;
     assert(req->method == HTTPMETHOD_GET || req->method == HTTPMETHOD_HEAD ||
@@ -1064,18 +1066,22 @@ int process_request_in(
     /* */
     /* remove dots */
     /* */
-    std::string request_docObj;
-    char* request_doc = (char*)malloc(url->pathquery.size + 1);
-    if (request_doc == NULL) {
+    std::string request_docObj =
+        std::string(url->pathquery.buff, url->pathquery.size);
+    try {
+        UPnPsdk::decode_esc_chars(request_docObj); // modified in place.
+    } catch (const std::invalid_argument& ex) {
+        UPnPsdk_LOGCATCH("MSG1157") "catched next line...\n" << ex.what();
+        err_code = HTTP_NOT_ACCEPTABLE;
+        goto error_handler;
+    }
+    UPnPsdk::remove_dot_segments(request_docObj); // modified in place.
+
+    request_doc = static_cast<char*>(malloc(request_docObj.size() + 1));
+    if (request_doc == nullptr) {
         goto error_handler; /* out of mem */
     }
-    memcpy(request_doc, url->pathquery.buff, url->pathquery.size);
-    request_doc[url->pathquery.size] = '\0';
-    dummy = url->pathquery.size;
-    remove_escaped_chars(request_doc, &dummy);
-    request_docObj = std::string(request_doc, url->pathquery.size);
-    UPnPsdk::remove_dot_segments(request_docObj);
-    request_docObj.copy(request_doc, request_docObj.size());
+    request_docObj.copy(request_doc, std::string::npos);
     request_doc[request_docObj.size()] = '\0';
     if (*request_doc != '/') {
         /* no slash */

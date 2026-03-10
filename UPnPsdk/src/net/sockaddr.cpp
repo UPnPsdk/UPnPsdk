@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-06
+// Redistribution only with this Copyright remark. Last modified: 2026-03-10
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -84,6 +84,8 @@ bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
 
 // Free function to check if a string represents a valid port number
 // -----------------------------------------------------------------
+/// \todo Update on MacOS to Clang compiler that supports std::from_chars().
+///       See below TODO.
 int to_port(std::string_view a_port_str, in_port_t* const a_port_num) noexcept {
     TRACE("Executing to_port() with port=\"a_port_str\"")
 
@@ -125,7 +127,7 @@ int to_port(std::string_view a_port_str, in_port_t* const a_port_num) noexcept {
     // Valid positive number but is it within the port range (uint16_t)?
     // Error conditions of the function is not checked because there is always a
     // pre-checked valid number string given.
-    /// \todo Update to Clang compiler that supports std::from_chars() on MacOS.
+    // TODO: Update on MacOS to Clang compiler that supports std::from_chars().
 #ifdef __clang__
     std::string port_str(a_port_str);
     int port = atoi(port_str.c_str());
@@ -192,7 +194,7 @@ void split_addr_port(std::string_view a_addr_str, std::string& a_addr,
         return;
     }
 
-    std::string addr_str;
+    std::string_view addr_str;
     std::string serv_str;
 
     size_t pos{};
@@ -269,6 +271,25 @@ void split_addr_port(std::string_view a_addr_str, std::string& a_addr,
         }
     }
 
+    // Return result for a_addr.
+    // Remove surounding brackets if any, shortest possible netaddress is
+    // "[::]".
+    if (addr_str.length() >= 4 && addr_str.front() == '[' &&
+        addr_str.back() == ']' && std::ranges::count(addr_str, ':') >= 2) {
+        // Here it can be an IPv6 address without '.', or an IPv4 mapped IPv6
+        // address with '.' and prefix "::ffff:".
+        // Remove surounding brackets.
+
+        a_addr = addr_str.substr(1, addr_str.length() - 2);
+
+    } else {
+        // Haven't found a valid numeric ip address, no need to remove
+        // brackets, should be interpreted as alphanumeric address.
+
+        a_addr = addr_str;
+    }
+
+    // Return result for a_serv.
     // Check for valid port. ::getaddrinfo accepts invalid ports > 65535.
     switch (to_port(serv_str)) {
     case -1:
@@ -278,45 +299,6 @@ void split_addr_port(std::string_view a_addr_str, std::string& a_addr,
         goto exit_overrun;
     }
 
-    // remove surounding brackets if any, shortest possible netaddress is
-    // "[::]"
-    if (addr_str.length() >= 4 && addr_str.front() == '[' &&
-        addr_str.back() == ']' && std::ranges::count(addr_str, ':') >= 2 &&
-        addr_str.find_first_of('.') == std::string::npos) {
-
-        // Remove surounding brackets
-        a_addr = addr_str.substr(1, addr_str.length() - 2);
-
-    } else {
-        // Here I have exactly to look for an IPv4 mapped IPv6 address. If it
-        // seems to be one as checked with its prefix "::ffff:" I use syscall
-        // '::inet_pton()' to verify the complete address.
-        // clang-format off
-        if (addr_str.size() >= 8 &&
-            addr_str[0] == '[' && addr_str[1] == ':' && addr_str[2] == ':' &&
-            static_cast<char>(std::tolower(static_cast<unsigned char>(addr_str[3]))) == 'f' &&
-            static_cast<char>(std::tolower(static_cast<unsigned char>(addr_str[4]))) == 'f' &&
-            static_cast<char>(std::tolower(static_cast<unsigned char>(addr_str[5]))) == 'f' &&
-            static_cast<char>(std::tolower(static_cast<unsigned char>(addr_str[6]))) == 'f' &&
-            std::tolower(static_cast<unsigned char>(addr_str[7])) == ':') //
-        // clang-format on
-        {
-            // Check with '::inet_pton()'. Remove surounding brackets for it.
-            std::string a_str = addr_str.substr(1, addr_str.length() - 2);
-            in6_addr sin6_addr;
-            int ret = ::inet_pton(AF_INET6, a_str.c_str(), &sin6_addr);
-            if (ret == 1)
-                a_addr = a_str;
-            else
-                // Haven't found a valid numeric ip address, no need to remove
-                // brackets.
-                a_addr = addr_str;
-        } else {
-            // Haven't found a valid numeric ip address, no need to remove
-            // brackets.
-            a_addr = addr_str;
-        }
-    }
     a_serv = serv_str;
 
     return;
@@ -326,6 +308,7 @@ exit_overrun:
         UPnPsdk_LOGEXCEPT("MSG1127") "Number string from \"" +
         std::string(a_addr_str) + "\" for port is out of range 0..65535.");
 }
+
 
 // Specialized sockaddr_structure
 // ==============================

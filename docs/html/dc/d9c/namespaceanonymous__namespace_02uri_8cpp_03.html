@@ -107,9 +107,6 @@ Functions</h2></td></tr>
 <tr class="memitem:afda48d566eed98c513c1e4a235d729bf" id="r_afda48d566eed98c513c1e4a235d729bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afda48d566eed98c513c1e4a235d729bf">copy_token</a> (const <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in, const char *in_base, <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *out, char *out_base)</td></tr>
 <tr class="memdesc:afda48d566eed98c513c1e4a235d729bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the offset and size from a token to another token.  <br /></td></tr>
 <tr class="separator:afda48d566eed98c513c1e4a235d729bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac691b0446688d04178d570d2a251d7c2" id="r_ac691b0446688d04178d570d2a251d7c2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ac691b0446688d04178d570d2a251d7c2">replace_escaped</a> (char *in, size_t index, size_t *max)</td></tr>
-<tr class="memdesc:ac691b0446688d04178d570d2a251d7c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces one single escaped character within a string with its unescaped version.  <br /></td></tr>
-<tr class="separator:ac691b0446688d04178d570d2a251d7c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="afda48d566eed98c513c1e4a235d729bf" name="afda48d566eed98c513c1e4a235d729bf"></a>
@@ -170,7 +167,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00073">73</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00069">69</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -183,71 +180,6 @@ Functions</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="340,28,305,28,305,23,340,23"/>
 <area shape="rect" href="../../dd/d10/service__table_8cpp.html#a4f016e7cd4cf74e605330f45c4062945" title="Makes a copy of the subscription." alt="" coords="5,13,144,38"/>
 <area shape="poly" title=" " alt="" coords="178,28,145,28,145,23,178,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ac691b0446688d04178d570d2a251d7c2" name="ac691b0446688d04178d570d2a251d7c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac691b0446688d04178d570d2a251d7c2">&#9670;&#160;</a></span>replace_escaped()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int anonymous_namespace{uri.cpp}::replace_escaped </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>in</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t *&#160;</td>
-          <td class="paramname"><em>max</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Replaces one single escaped character within a string with its unescaped version. </p>
-<p>This is spezified in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396 (explaining URIs)</a>. The index must exactly point to the <b>'%'</b> character, otherwise the function will return unsuccessful. Size of array is NOT checked (MUST be checked by caller).</p>
-<dl class="section note"><dt>Note</dt><dd>This function modifies the string and the max size. If the sequence is an escaped sequence it is replaced, the other characters in the string are shifted over, and NULL characters are placed at the end of the string.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>1 - if an escaped character was converted<br  />
- 0 - otherwise </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">in</td><td>String of characters.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>Index at which to start checking the characters; must point to ''.  </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">max</td><td>Maximal size of the string buffer will be reduced by 2 if a character is converted. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00104">104</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ac691b0446688d04178d570d2a251d7c2_icgraph.png" border="0" usemap="#adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ac691b0446688d04178d570d2a251d7c2_icgraph" alt=""/></div>
-<map name="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ac691b0446688d04178d570d2a251d7c2_icgraph" id="adc/d9c/namespaceanonymous__namespace_02uri_8cpp_03_ac691b0446688d04178d570d2a251d7c2_icgraph">
-<area shape="rect" title="Replaces one single escaped character within a string with its unescaped version." alt="" coords="508,29,688,84"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#aae107675e9be7b49d54ec682d8ca6cda" title="Removes http escaped characters such as: &quot;%20&quot; and replaces them with their character representation." alt="" coords="285,44,460,69"/>
-<area shape="poly" title=" " alt="" coords="494,59,460,59,460,54,494,54"/>
-<area shape="rect" href="../../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a32492c6eefb0ece6d258b11586ad0a59" title="Process a remote request and return the result." alt="" coords="5,29,237,84"/>
-<area shape="poly" title=" " alt="" coords="272,59,238,59,238,54,272,54"/>
-<area shape="poly" title=" " alt="" coords="163,18,148,11,121,8,99,10,84,15,78,21,78,29,73,29,73,19,82,10,98,5,121,3,150,6,166,14"/>
 </map>
 </div>
 

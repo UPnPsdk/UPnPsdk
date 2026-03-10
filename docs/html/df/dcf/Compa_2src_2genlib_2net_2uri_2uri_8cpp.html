@@ -108,8 +108,6 @@ $(document).ready(function(){initNavTree('df/dcf/Compa_2src_2genlib_2net_2uri_2u
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;upnp.hpp&gt;</code><br />
 <code>#include &lt;uri.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">UPnPsdk/uri.hpp</a>&gt;</code><br />
-<code>#include &lt;umock/netdb.hpp&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for uri.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -117,21 +115,11 @@ $(document).ready(function(){initNavTree('df/dcf/Compa_2src_2genlib_2net_2uri_2u
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d6/d14/Compa_2src_2genlib_2net_2uri_2uri_8cpp__incl.png" border="0" usemap="#aCompa_2src_2genlib_2net_2uri_2uri_8cpp" alt=""/></div>
 <map name="aCompa_2src_2genlib_2net_2uri_2uri_8cpp" id="aCompa_2src_2genlib_2net_2uri_2uri_8cpp">
-<area shape="rect" title="Modify and parse URIs." alt="" coords="125,5,285,45"/>
+<area shape="rect" title="Modify and parse URIs." alt="" coords="16,5,176,45"/>
 <area shape="rect" title=" " alt="" coords="5,93,88,119"/>
-<area shape="poly" title=" " alt="" coords="169,48,83,90,81,85,166,43"/>
+<area shape="poly" title=" " alt="" coords="86,47,63,83,59,80,82,44"/>
 <area shape="rect" title=" " alt="" coords="112,93,179,119"/>
-<area shape="poly" title=" " alt="" coords="193,47,165,84,160,81,189,44"/>
-<area shape="rect" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="203,93,331,119"/>
-<area shape="poly" title=" " alt="" coords="222,44,251,81,247,84,218,47"/>
-<area shape="rect" title=" " alt="" coords="355,93,490,119"/>
-<area shape="poly" title=" " alt="" coords="258,43,379,86,377,91,256,48"/>
-<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="8,167,173,192"/>
-<area shape="poly" title=" " alt="" coords="239,121,133,164,131,159,237,116"/>
-<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="198,167,335,192"/>
-<area shape="poly" title=" " alt="" coords="269,119,269,153,264,153,264,119"/>
-<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="359,167,534,192"/>
-<area shape="poly" title=" " alt="" coords="297,116,406,159,404,164,295,121"/>
+<area shape="poly" title=" " alt="" coords="110,44,133,80,129,83,106,47"/>
 </map>
 </div>
 </div>
@@ -160,9 +148,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a5b3b45fe5e06c4012785e304e53b4dbf" id="r_a5b3b45fe5e06c4012785e304e53b4dbf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a5b3b45fe5e06c4012785e304e53b4dbf">token_cmp</a> (<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in1, <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in2)</td></tr>
 <tr class="memdesc:a5b3b45fe5e06c4012785e304e53b4dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two tokens.  <br /></td></tr>
 <tr class="separator:a5b3b45fe5e06c4012785e304e53b4dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae107675e9be7b49d54ec682d8ca6cda" id="r_aae107675e9be7b49d54ec682d8ca6cda"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#aae107675e9be7b49d54ec682d8ca6cda">remove_escaped_chars</a> (char *in, size_t *size)</td></tr>
-<tr class="memdesc:aae107675e9be7b49d54ec682d8ca6cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes http escaped characters such as: "%20" and replaces them with their character representation.  <br /></td></tr>
-<tr class="separator:aae107675e9be7b49d54ec682d8ca6cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a108ec7fc0704f362d70140d838e6e356" id="r_a108ec7fc0704f362d70140d838e6e356"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356">resolve_rel_url</a> (char *base_url, char *rel_url)</td></tr>
 <tr class="memdesc:a108ec7fc0704f362d70140d838e6e356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves a relative url with a base url.  <br /></td></tr>
 <tr class="separator:a108ec7fc0704f362d70140d838e6e356"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,9 +155,6 @@ Functions</h2></td></tr>
 <tr class="memitem:afda48d566eed98c513c1e4a235d729bf" id="r_afda48d566eed98c513c1e4a235d729bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afda48d566eed98c513c1e4a235d729bf">anonymous_namespace{uri.cpp}::copy_token</a> (const <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in, const char *in_base, <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *out, char *out_base)</td></tr>
 <tr class="memdesc:afda48d566eed98c513c1e4a235d729bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the offset and size from a token to another token.  <br /></td></tr>
 <tr class="separator:afda48d566eed98c513c1e4a235d729bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac691b0446688d04178d570d2a251d7c2" id="r_ac691b0446688d04178d570d2a251d7c2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ac691b0446688d04178d570d2a251d7c2">anonymous_namespace{uri.cpp}::replace_escaped</a> (char *in, size_t index, size_t *max)</td></tr>
-<tr class="memdesc:ac691b0446688d04178d570d2a251d7c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces one single escaped character within a string with its unescaped version.  <br /></td></tr>
-<tr class="separator:ac691b0446688d04178d570d2a251d7c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -228,7 +210,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00149">149</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00086">86</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -301,7 +283,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00240">240</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00177">177</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -356,7 +338,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00281">281</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00218">218</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -401,7 +383,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00293">293</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00230">230</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -442,7 +424,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00300">300</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00237">237</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -499,7 +481,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00311">311</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00248">248</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -566,7 +548,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00325">325</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00262">262</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -582,73 +564,6 @@ Variables</h2></td></tr>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a67f191fc3d9877d0efef0af385d07ac9" title="Retrieves the device handle and information of the first device of the address family specified,..." alt="" coords="5,31,215,56"/>
 <area shape="poly" title=" " alt="" coords="249,32,215,35,214,30,249,27"/>
 <area shape="poly" title=" " alt="" coords="254,60,214,56,215,51,255,54"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aae107675e9be7b49d54ec682d8ca6cda" name="aae107675e9be7b49d54ec682d8ca6cda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae107675e9be7b49d54ec682d8ca6cda">&#9670;&#160;</a></span>remove_escaped_chars()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int remove_escaped_chars </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>in</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t *&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes http escaped characters such as: "%20" and replaces them with their character representation. </p>
-<p>For example: "hello%20foo" -&gt; "hello foo". The input IS MODIFIED in place (shortened). Extra characters are replaced with <b>NULL</b>.</p>
-<dl class="section return"><dt>Returns</dt><dd>UPNP_E_SUCCESS. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000013">Todo:</a></b></dt><dd>Optimize with prechecking the delimiter '%'. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">in</td><td>String of characters to be modified.  </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">size</td><td>Size limit for the number of characters. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00335">335</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_aae107675e9be7b49d54ec682d8ca6cda_cgraph.png" border="0" usemap="#adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_aae107675e9be7b49d54ec682d8ca6cda_cgraph" alt=""/></div>
-<map name="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_aae107675e9be7b49d54ec682d8ca6cda_cgraph" id="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_aae107675e9be7b49d54ec682d8ca6cda_cgraph">
-<area shape="rect" title="Removes http escaped characters such as: &quot;%20&quot; and replaces them with their character representation." alt="" coords="5,20,180,45"/>
-<area shape="rect" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ac691b0446688d04178d570d2a251d7c2" title="Replaces one single escaped character within a string with its unescaped version." alt="" coords="228,5,408,60"/>
-<area shape="poly" title=" " alt="" coords="180,30,214,30,214,35,180,35"/>
-</map>
-</div>
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_aae107675e9be7b49d54ec682d8ca6cda_icgraph.png" border="0" usemap="#adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_aae107675e9be7b49d54ec682d8ca6cda_icgraph" alt=""/></div>
-<map name="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_aae107675e9be7b49d54ec682d8ca6cda_icgraph" id="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_aae107675e9be7b49d54ec682d8ca6cda_icgraph">
-<area shape="rect" title="Removes http escaped characters such as: &quot;%20&quot; and replaces them with their character representation." alt="" coords="285,44,460,69"/>
-<area shape="rect" href="../../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a32492c6eefb0ece6d258b11586ad0a59" title="Process a remote request and return the result." alt="" coords="5,29,237,84"/>
-<area shape="poly" title=" " alt="" coords="272,59,238,59,238,54,272,54"/>
-<area shape="poly" title=" " alt="" coords="163,18,148,11,121,8,99,10,84,15,78,21,78,29,73,29,73,19,82,10,98,5,121,3,150,6,166,14"/>
 </map>
 </div>
 
@@ -702,12 +617,12 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00347">347</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00272">272</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_cgraph.png" border="0" usemap="#adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_cgraph" alt=""/></div>
 <map name="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_cgraph" id="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_cgraph">
 <area shape="rect" title="Resolves a relative url with a base url." alt="" coords="5,42,124,67"/>
@@ -719,11 +634,11 @@ Variables</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="296,23,372,23,372,28,296,28"/>
 </map>
 </div>
-<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_icgraph.png" border="0" usemap="#adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_icgraph" alt=""/></div>
 <map name="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_icgraph" id="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_icgraph">
 <area shape="rect" title="Resolves a relative url with a base url." alt="" coords="461,84,580,109"/>
@@ -755,7 +670,7 @@ Variables</h2></td></tr>
 
 <p>Index/scope-id from the used network interface. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00051">51</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>

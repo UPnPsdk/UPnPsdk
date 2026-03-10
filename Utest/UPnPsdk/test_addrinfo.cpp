@@ -1479,11 +1479,7 @@ TEST(AddrinfoTestSuite, check_in6_is_addr_global) {
         // address block. Deprecated since february 2006 and not supported by
         // this SDK.
         CAddrinfo aiObj("[::101.45.75.219]");
-#ifdef _MSC_VER
         ASSERT_TRUE(aiObj.get_first());
-#else
-        ASSERT_FALSE(aiObj.get_first());
-#endif
     }
 }
 

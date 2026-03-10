@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-15
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,7 +39,6 @@
  */
 
 #include <miniserver.hpp>
-#include <sock.hpp>
 
 /*! Global variable. A local dir which serves as webserver root. */
 inline membuffer gDocumentRootDir;

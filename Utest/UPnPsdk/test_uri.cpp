@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-02-21
+// Redistribution only with this Copyright remark. Last modified: 2026-03-11
 
 #include <UPnPsdk/src/net/http/uri.cpp>
 #include <utest/utest.hpp>
@@ -16,8 +16,54 @@ using UPnPsdk::CScheme;
 using UPnPsdk::CUri;
 using UPnPsdk::CUriRef;
 using UPnPsdk::CUserinfo;
+using UPnPsdk::decode_esc_chars;
 using UPnPsdk::get_authority;
 using UPnPsdk::get_scheme;
+
+
+// decode_esc_chars()
+// ==================
+TEST(CUriTestSuite, decode_esc_chars) {
+    std::string encoded{"%5BHello world%21%5D"};
+    decode_esc_chars(encoded);
+    EXPECT_EQ(encoded, "[Hello world!]");
+
+    encoded = "";
+    decode_esc_chars(encoded);
+    EXPECT_EQ(encoded, "");
+
+    encoded = "%20";
+    decode_esc_chars(encoded);
+    EXPECT_EQ(encoded, " ");
+
+    encoded = "%3A%2F";
+    decode_esc_chars(encoded);
+    EXPECT_EQ(encoded, ":/");
+
+    encoded = "hello";
+    decode_esc_chars(encoded);
+    EXPECT_EQ(encoded, "hello");
+
+    encoded = "## %1Z ##";
+    EXPECT_THROW({ decode_esc_chars(encoded); }, std::invalid_argument);
+
+    encoded = "%2";
+    EXPECT_THROW({ decode_esc_chars(encoded); }, std::invalid_argument);
+
+    encoded = "%2F";
+    decode_esc_chars(encoded);
+    EXPECT_EQ(encoded, "/");
+
+    encoded = "123%";
+    EXPECT_THROW({ decode_esc_chars(encoded); }, std::invalid_argument);
+
+    encoded = "123%3";
+    EXPECT_THROW({ decode_esc_chars(encoded); }, std::invalid_argument);
+
+    encoded = "123%3A";
+    decode_esc_chars(encoded);
+    EXPECT_EQ(encoded, "123:");
+}
 
 
 // CUri Unit Tests generelly
@@ -824,7 +870,8 @@ TEST(CUriTestSuite, uri_invalid) {
 
 // Relative reference
 // ==================
-// Test relative references
+// Test relative references.
+// Tests also remove_dot_segments().
 CUri uriObj("HttPS://a.Aa/b/c/d;p?q");
 
 class RelativeReferencesPTestSuite

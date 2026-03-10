@@ -154,8 +154,7 @@ var namespaces_dup =
     ] ],
     [ "anonymous_namespace{upnptools.cpp}", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03.html", "dc/d80/namespaceanonymous__namespace_02upnptools_8cpp_03" ],
     [ "anonymous_namespace{uri.cpp}", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html", [
-      [ "copy_token", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afda48d566eed98c513c1e4a235d729bf", null ],
-      [ "replace_escaped", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#ac691b0446688d04178d570d2a251d7c2", null ]
+      [ "copy_token", "dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afda48d566eed98c513c1e4a235d729bf", null ]
     ] ],
     [ "anonymous_namespace{urlconfig.cpp}", "df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html", [
       [ "addrToString", "df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a3a03c9cc5754a6fb2c4984ebacd0ba5e", null ],

@@ -1,5 +1,7 @@
 var NAVTREEINDEX7 =
 {
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad041272f04b0147168ec8b89f179e39b":[4,2,0,0,6],
+"d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html":[5,0,7],
 "d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a7359ea5e4d70db0a82faa1cdd447b5d5":[5,0,7,1],
 "d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a75316464db9843014fb2e2311ad6f0b4":[5,0,7,0],
 "d9/dba/classUPnPsdk_1_1CUserinfo.html":[4,3,0,2,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX7 =
 "da/dd9/membuffer_8cpp.html#a727e989f878121a7304ca15f60fa3327":[7,0,0,1,2,4,1,13],
 "da/dd9/membuffer_8cpp.html#a8456aceff8807d3da4b67596419127af":[7,0,0,1,2,4,1,3],
 "da/dd9/membuffer_8cpp.html#ab76ad780ccbf0233d6e2b756b259fc53":[7,0,0,1,2,4,1,10],
-"da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a":[7,0,0,1,2,4,1,2],
-"da/dd9/membuffer_8cpp.html#ad2b10e589712efb648a8f86bfe3b5975":[7,0,0,1,2,4,1,11],
-"da/dd9/membuffer_8cpp.html#aed25d99b33ce20bd0dd819f64252eb6f":[7,0,0,1,2,4,1,7]
+"da/dd9/membuffer_8cpp.html#acc25b821b69d506631865b53f8307b3a":[7,0,0,1,2,4,1,2]
 };

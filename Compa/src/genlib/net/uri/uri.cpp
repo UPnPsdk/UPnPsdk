@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-03-09
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,13 +39,9 @@
 #include <upnp.hpp>
 #include <uri.hpp>
 
-#include <UPnPsdk/uri.hpp>
-#include <umock/netdb.hpp>
-
 /// \cond
 #include <cstdio> // Needed if OpenSSL isn't compiled in.
 #include <climits>
-#include <vector>
 /// \endcond
 
 UPnPsdk_EXTERN unsigned gIF_INDEX;
@@ -81,65 +77,6 @@ inline void copy_token(
     char* out_base) {
     out->size = in->size;
     out->buff = out_base + (in->buff - in_base);
-}
-
-
-/*!
- * \brief Replaces one single escaped character within a string with its
- * unescaped version.
- *
- * This is spezified in <a href="http://www.ietf.org/rfc/rfc2396.txt">RFC 2396
- * (explaining URIs)</a>. The index must exactly point to the \b '\%'
- * character, otherwise the function will return unsuccessful. Size of array is
- * NOT checked (MUST be checked by caller).
- *
- * \note This function modifies the string and the max size. If the sequence is
- * an escaped sequence it is replaced, the other characters in the string are
- * shifted over, and NULL characters are placed at the end of the string.
- *
- * \returns
- *   1 - if an escaped character was converted\n
- *   0 - otherwise
- */
-int replace_escaped(
-    /*! [in,out] String of characters. */
-    char* in,
-    /// [in] Index at which to start checking the characters; must point to '%'.
-    size_t index,
-    /*! [in,out] Maximal size of the string buffer will be reduced by 2 if a
-       character is converted. */
-    size_t* max) {
-    int tempInt = 0;
-    char tempChar = 0;
-    size_t i = (size_t)0;
-    size_t j = (size_t)0;
-
-    if (in[index] == '%' && isxdigit(in[index + (size_t)1]) &&
-        isxdigit(in[index + (size_t)2])) {
-        /* Note the "%2x", makes sure that we convert a maximum of two
-         * characters. */
-#ifdef _WIN32
-        if (sscanf_s(&in[index + (size_t)1],
-#else
-        if (sscanf(&in[index + (size_t)1],
-#endif
-                     "%2x", (unsigned int*)&tempInt) != 1) {
-            return 0;
-        }
-        tempChar = (char)tempInt;
-        for (i = index + (size_t)3, j = index; j < *max; i++, j++) {
-            in[j] = tempChar;
-            if (i < *max) {
-                tempChar = in[i];
-            } else {
-                tempChar = 0;
-            }
-        }
-        *max -= (size_t)2;
-        return 1;
-    } else {
-        return 0;
-    }
 }
 
 /// @} // Scope restricted to file
@@ -329,18 +266,6 @@ int token_cmp(token* in1, token* in2) {
         return 1;
     else
         return memcmp(in1->buff, in2->buff, in1->size);
-}
-
-
-int remove_escaped_chars(char* in, size_t* size) {
-    /// \todo Optimize with prechecking the delimiter '\%'.
-    // REF:_[A_practical_guide_to_URI_encoding_and_URI_decoding](ttps://qqq.is/research/a-practical-guide-to-URI-encoding-and-URI-decoding)
-    if (in != nullptr && size != nullptr) {
-        for (size_t i{0u}; i < *size; i++) {
-            replace_escaped(in, i, size);
-        }
-    }
-    return UPNP_E_SUCCESS;
 }
 
 

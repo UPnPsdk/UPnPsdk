@@ -1285,7 +1285,6 @@ TEST(XMLaliasTestSuite, process_request_in) {
     web_server_init();
 #endif
     // Set web server root dir.
-    membuffer_init(&gDocumentRootDir);
     EXPECT_EQ(web_server_set_root_dir(SAMPLE_SOURCE_DIR "/web"), 0);
 
     // Set web server alias.

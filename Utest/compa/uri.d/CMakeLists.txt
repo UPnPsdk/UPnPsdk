@@ -1,14 +1,14 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-09-28
+# Redistribution only with this Copyright remark. Last modified: 2026-03-12
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
 
-project(GTESTS_COMPA_URI VERSION 0004
+project(GTESTS_COMPA_URI VERSION 0005
                   DESCRIPTION "Tests for the uri module and url class"
                   HOMEPAGE_URL "https://github.com/UPnPsdk")
 
-
+if(FALSE)
 # uri
 #====
 # Because we want to include the source file into the test to also test static
@@ -41,6 +41,43 @@ target_link_libraries(test_uri-cst
     PRIVATE utest_shared
 )
 add_test(NAME ctest_uri-cst COMMAND test_uri-cst --gtest_shuffle
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
+)
+endif()
+
+
+# uri2
+#=====
+# Because we want to include the source file into the test to also test static
+# functions, we cannot use shared libraries due to symbol import/export
+# conflicts. We must use static libraries.
+
+add_executable(test_uri2-pst
+    ./test_uri2.cpp
+)
+target_include_directories(test_uri2-pst
+    PRIVATE ${CMAKE_SOURCE_DIR}
+)
+target_link_libraries(test_uri2-pst
+    PRIVATE pupnp_static
+    PRIVATE UPnPsdk_static # win32 needs static
+    PRIVATE utest_shared
+)
+add_test(NAME ctest_uri2-pst COMMAND test_uri2-pst --gtest_shuffle
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
+)
+
+add_executable(test_uri2-cst
+    ./test_uri2.cpp
+)
+target_include_directories(test_uri2-cst
+    PRIVATE ${CMAKE_SOURCE_DIR}
+)
+target_link_libraries(test_uri2-cst
+    PRIVATE compa_static
+    PRIVATE utest_shared
+)
+add_test(NAME ctest_uri2-cst COMMAND test_uri2-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 

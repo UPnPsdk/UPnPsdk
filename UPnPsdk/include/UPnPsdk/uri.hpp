@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_URI_HPP
 #define UPnPsdk_URI_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-08
+// Redistribution only with this Copyright remark. Last modified: 2026-03-12
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -84,8 +84,8 @@ namespace UPnPsdk {
  * This function directly implements the "Remove Dot Segments" algorithm
  * described in <a
  * href="https://www.rfc-editor.org/rfc/rfc3986#section-5.2.4">RFC 3986 section
- * 5.2.4</a>. The path is modified in place. If it cannot find something to
- * remove it just do nothing with the path.
+ * 5.2.4</a>. If it cannot find something to remove it just do nothing with the
+ * path.
  *
  * Examples:
 \code
@@ -99,8 +99,25 @@ remove_dot_segments("/./hello/foo/../bar"); // results to "/hello/bar"
  */
 UPnPsdk_VIS void remove_dot_segments(
     /*! [in,out] Reference of a string representing a path with '/' separators
-       and possible containing ".." or "." segments. */
+       and possible containing ".." or "." segments. The path is modified in
+       place. */
     std::string& a_path);
+
+
+/*!
+ * \brief Replaces http percent encoded characters with their character
+ * representation
+ *
+ * For example: "%5BHello world%21%5D" becomes "[Hello world!]".
+ *
+ * \exception std::invalid_argument if an invalid encoded character is found.
+ */
+// REF:_[A_practical_guide_to_URI_encoding_and_URI_decoding]
+// (https://qqq.is/research/a-practical-guide-to-URI-encoding-and-URI-decoding)
+UPnPsdk_VIS void
+decode_esc_chars(std::string& a_encoded /*!< [in,out] String of characters to be
+                                           modified. It is modified in place. */
+);
 
 
 // CComponent

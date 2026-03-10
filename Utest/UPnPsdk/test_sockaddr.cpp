@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-12
+// Redistribution only with this Copyright remark. Last modified: 2026-03-09
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 #include <utest/utest.hpp>
@@ -834,6 +834,9 @@ INSTANTIATE_TEST_SUITE_P(SplitAddrPort, SplitAddrPortTest, ::testing::Values(
     std::make_tuple("[::1]:", "::1", "0"),
     std::make_tuple("[::1]:0", "::1", "0"),
     std::make_tuple("[::1].4", "[::1].4", ""),
+    std::make_tuple("[::127.0.0.9]:50009", "::127.0.0.9", "50009"),
+    std::make_tuple("[::127.0.0.10]:", "::127.0.0.10", "0"),
+    std::make_tuple("[::127.0.0.11]", "::127.0.0.11", ""),
     std::make_tuple("[::FFff:142.250.185.99]:50008", "::FFff:142.250.185.99", "50008")
 ));
 // clang-format on

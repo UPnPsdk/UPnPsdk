@@ -264,6 +264,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga1b4480819fde1cd38f31b41bedcdce06" id="r_ga1b4480819fde1cd38f31b41bedcdce06"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dc7/group__upnpsdk-uri.html#ga1b4480819fde1cd38f31b41bedcdce06">remove_dot_segments</a> (std::string &amp;a_path)</td></tr>
 <tr class="memdesc:ga1b4480819fde1cd38f31b41bedcdce06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove dot segments from a path.  <br /></td></tr>
 <tr class="separator:ga1b4480819fde1cd38f31b41bedcdce06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab707d803eca469c6976bed877909c297" id="r_ab707d803eca469c6976bed877909c297"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#ab707d803eca469c6976bed877909c297">decode_esc_chars</a> (std::string &amp;a_encoded)</td></tr>
+<tr class="memdesc:ab707d803eca469c6976bed877909c297"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces http percent encoded characters with their character representation.  <br /></td></tr>
+<tr class="separator:ab707d803eca469c6976bed877909c297"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab75e516bfffb3c259ea43971e3533ba7" id="r_ab75e516bfffb3c259ea43971e3533ba7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> const <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta">Document_meta</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7">select_filetype</a> (std::string_view a_extension)</td></tr>
 <tr class="memdesc:ab75e516bfffb3c259ea43971e3533ba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Based on the extension, returns the content type and content subtype.  <br /></td></tr>
 <tr class="separator:ab75e516bfffb3c259ea43971e3533ba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -535,6 +538,54 @@ Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a
 
 </div>
 </div>
+<a id="ab707d803eca469c6976bed877909c297" name="ab707d803eca469c6976bed877909c297"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab707d803eca469c6976bed877909c297">&#9670;&#160;</a></span>decode_esc_chars()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UPnPsdk::decode_esc_chars </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>a_encoded</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Replaces http percent encoded characters with their character representation. </p>
+<p>For example: "%5BHello world%21%5D" becomes "[Hello world!]".</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>if an invalid encoded character is found. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">a_encoded</td><td>String of characters to be modified. It is modified in place. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00133">133</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_ab707d803eca469c6976bed877909c297_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_ab707d803eca469c6976bed877909c297_icgraph" alt=""/></div>
+<map name="add/d67/namespaceUPnPsdk_ab707d803eca469c6976bed877909c297_icgraph" id="add/d67/namespaceUPnPsdk_ab707d803eca469c6976bed877909c297_icgraph">
+<area shape="rect" title="Replaces http percent encoded characters with their character representation." alt="" coords="285,37,448,77"/>
+<area shape="rect" href="../../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a32492c6eefb0ece6d258b11586ad0a59" title="Process a remote request and return the result." alt="" coords="5,29,237,84"/>
+<area shape="poly" title=" " alt="" coords="272,59,237,59,237,54,272,54"/>
+<area shape="poly" title=" " alt="" coords="162,18,148,11,121,8,99,10,85,15,79,21,79,29,74,29,74,19,82,10,98,5,121,3,149,6,165,14"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ab75e516bfffb3c259ea43971e3533ba7" name="ab75e516bfffb3c259ea43971e3533ba7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab75e516bfffb3c259ea43971e3533ba7">&#9670;&#160;</a></span>select_filetype()</h2>
 
@@ -578,11 +629,11 @@ Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dd/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph" alt=""/></div>
 <map name="add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph" id="add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph">
 <area shape="rect" title="Based on the extension, returns the content type and content subtype." alt="" coords="592,44,775,69"/>

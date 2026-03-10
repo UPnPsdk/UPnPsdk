@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-02-27
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-13
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -42,10 +42,6 @@
 
 /// \cond
 #include <cstring>
-
-#ifndef _WIN32
-#include <netdb.h> /* for struct addrinfo */
-#endif
 
 #ifdef _WIN32
 #define strncasecmp strnicmp
@@ -174,21 +170,6 @@ int token_cmp(
     token* in1,
     /*! [in] Second token object used for the comparison. */
     token* in2);
-
-/*!
- * \brief Removes http escaped characters such as: "%20" and replaces them with
- * their character representation.
- *
- * For example: "hello%20foo" -> "hello foo". The input IS MODIFIED in place
- * (shortened). Extra characters are replaced with \b NULL.
- *
- * \returns UPNP_E_SUCCESS.
- */
-int remove_escaped_chars(
-    /*! [in,out] String of characters to be modified. */
-    char* in,
-    /*! [in,out] Size limit for the number of characters. */
-    size_t* size);
 
 /*!
  * \brief Resolves a relative url with a base url.
