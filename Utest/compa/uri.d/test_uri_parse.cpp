@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-05
+// Redistribution only with this Copyright remark. Last modified: 2026-03-13
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -122,7 +122,7 @@ TEST(ParseUriTestSuite, absolute_uri_successful) {
     int returned{UPNP_E_INTERNAL_ERROR};
     EXPECT_EQ(returned = ::parse_uri(url_str, sizeof(url_str) - 1, &out),
               HTTP_SUCCESS)
-        << errStrEx(returned, HTTP_SUCCESS);
+        << errStr(returned);
 
     // Check the uri-parts scheme, hostport, pathquery and fragment. Please note
     // that the last part of the buffer content is garbage. The valid character
@@ -183,7 +183,7 @@ TEST(ParseUriTestSuite, absolute_uri_with_shorter_max_size) {
     // Test Unit
     int returned{UPNP_E_INTERNAL_ERROR};
     EXPECT_EQ(returned = ::parse_uri(url_str, max_size, &out), HTTP_SUCCESS)
-        << errStrEx(returned, HTTP_SUCCESS);
+        << errStr(returned);
 
     // Check the uri-parts scheme, hostport, pathquery and fragment. Please note
     // that the last part of the buffer content is garbage. The valid character
@@ -238,7 +238,7 @@ TEST(ParseUriTestSuite, sized_url_string_not_null_terminated) {
     int returned{UPNP_E_INTERNAL_ERROR};
     EXPECT_EQ(returned = ::parse_uri(url_str.data(), url_str.size(), &out),
               HTTP_SUCCESS)
-        << errStrEx(returned, HTTP_SUCCESS);
+        << errStr(returned);
 }
 
 TEST(ParseUriTestSuite, uri_with_invalid_netaddress) {
@@ -288,7 +288,7 @@ TEST(ParseUriTestSuite, ip_address_without_pathquery) {
     int returned{UPNP_E_INTERNAL_ERROR};
     EXPECT_EQ(returned = ::parse_uri(url_str, sizeof(url_str) - 1, &out),
               HTTP_SUCCESS)
-        << errStrEx(returned, HTTP_SUCCESS);
+        << errStr(returned);
 
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, OPAQUE_PART);
@@ -327,7 +327,7 @@ TEST(ParseUriTestSuite, ip_address_without_fragment) {
     int returned{UPNP_E_INTERNAL_ERROR};
     EXPECT_EQ(returned = ::parse_uri(url_str, sizeof(url_str) - 1, &out),
               HTTP_SUCCESS)
-        << errStrEx(returned, HTTP_SUCCESS);
+        << errStr(returned);
 
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, ABS_PATH);
@@ -488,7 +488,7 @@ TEST(ParseUriTestSuite, uri_with_opaque_part) {
     int returned{UPNP_E_INTERNAL_ERROR};
     EXPECT_EQ(returned = ::parse_uri(url_str, sizeof(url_str) - 1, &out),
               HTTP_SUCCESS)
-        << errStrEx(returned, HTTP_SUCCESS);
+        << errStr(returned);
     // Check the uri-parts scheme, hostport, pathquery and fragment
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, OPAQUE_PART);

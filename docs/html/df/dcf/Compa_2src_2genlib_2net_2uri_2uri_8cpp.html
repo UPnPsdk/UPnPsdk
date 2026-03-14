@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('df/dcf/Compa_2src_2genlib_2net_2uri_2u
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;upnp.hpp&gt;</code><br />
 <code>#include &lt;uri.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">UPnPsdk/uri.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d1/d3b/synclog_8hpp_source.html">UPnPsdk/synclog.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d6/dbf/addrinfo_8hpp_source.html">UPnPsdk/addrinfo.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for uri.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -115,11 +118,35 @@ $(document).ready(function(){initNavTree('df/dcf/Compa_2src_2genlib_2net_2uri_2u
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d6/d14/Compa_2src_2genlib_2net_2uri_2uri_8cpp__incl.png" border="0" usemap="#aCompa_2src_2genlib_2net_2uri_2uri_8cpp" alt=""/></div>
 <map name="aCompa_2src_2genlib_2net_2uri_2uri_8cpp" id="aCompa_2src_2genlib_2net_2uri_2uri_8cpp">
-<area shape="rect" title="Modify and parse URIs." alt="" coords="16,5,176,45"/>
+<area shape="rect" title="Modify and parse URIs." alt="" coords="205,5,365,45"/>
 <area shape="rect" title=" " alt="" coords="5,93,88,119"/>
-<area shape="poly" title=" " alt="" coords="86,47,63,83,59,80,82,44"/>
+<area shape="poly" title=" " alt="" coords="229,48,95,92,94,87,227,43"/>
 <area shape="rect" title=" " alt="" coords="112,93,179,119"/>
-<area shape="poly" title=" " alt="" coords="110,44,133,80,129,83,106,47"/>
+<area shape="poly" title=" " alt="" coords="253,48,179,89,177,84,251,43"/>
+<area shape="rect" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="341,167,469,192"/>
+<area shape="poly" title=" " alt="" coords="325,43,355,64,382,92,397,122,405,153,400,154,392,124,378,95,352,68,322,48"/>
+<area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="578,93,739,119"/>
+<area shape="poly" title=" " alt="" coords="366,41,591,88,590,93,365,46"/>
+<area shape="rect" href="../../d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="203,93,368,119"/>
+<area shape="poly" title=" " alt="" coords="288,46,288,79,283,79,283,46"/>
+<area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="492,240,657,265"/>
+<area shape="poly" title=" " alt="" coords="434,190,535,232,533,237,432,194"/>
+<area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="131,240,269,265"/>
+<area shape="poly" title=" " alt="" coords="373,195,247,238,245,233,371,189"/>
+<area shape="rect" href="../../d8/d43/port__sock_8hpp.html" title="Specifications to be portable with sockets between different platforms." alt="" coords="293,240,467,265"/>
+<area shape="poly" title=" " alt="" coords="404,193,391,228,386,226,399,191"/>
+<area shape="rect" title=" " alt="" coords="680,167,808,192"/>
+<area shape="poly" title=" " alt="" coords="674,117,721,156,718,160,671,121"/>
+<area shape="rect" href="../../d9/d3a/global_8hpp.html" title="Global used constants and variables." alt="" coords="833,167,983,192"/>
+<area shape="poly" title=" " alt="" coords="699,116,855,160,854,165,698,121"/>
+<area shape="rect" href="../../d4/d88/pthread_8hpp.html" title="Additional functions to manage Posix threads with C++ to be portable." alt="" coords="494,167,655,192"/>
+<area shape="poly" title=" " alt="" coords="647,121,601,160,597,155,643,117"/>
+<area shape="poly" title=" " alt="" coords="577,192,577,226,572,226,572,192"/>
+<area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="149,167,317,192"/>
+<area shape="poly" title=" " alt="" coords="279,121,252,157,248,154,275,117"/>
+<area shape="poly" title=" " alt="" coords="289,189,507,235,506,240,288,195"/>
+<area shape="poly" title=" " alt="" coords="230,193,214,229,209,227,225,191"/>
+<area shape="poly" title=" " alt="" coords="258,190,345,232,343,236,256,194"/>
 </map>
 </div>
 </div>
@@ -148,9 +175,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a5b3b45fe5e06c4012785e304e53b4dbf" id="r_a5b3b45fe5e06c4012785e304e53b4dbf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a5b3b45fe5e06c4012785e304e53b4dbf">token_cmp</a> (<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in1, <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in2)</td></tr>
 <tr class="memdesc:a5b3b45fe5e06c4012785e304e53b4dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two tokens.  <br /></td></tr>
 <tr class="separator:a5b3b45fe5e06c4012785e304e53b4dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a108ec7fc0704f362d70140d838e6e356" id="r_a108ec7fc0704f362d70140d838e6e356"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356">resolve_rel_url</a> (char *base_url, char *rel_url)</td></tr>
-<tr class="memdesc:a108ec7fc0704f362d70140d838e6e356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves a relative url with a base url.  <br /></td></tr>
-<tr class="separator:a108ec7fc0704f362d70140d838e6e356"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" id="r_ab23ce7a1c82c7d5a4fd1634e6ff3e1e8"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8">resolve_rel_url</a> (char *a_base_url, char *a_rel_url)</td></tr>
+<tr class="memdesc:ab23ce7a1c82c7d5a4fd1634e6ff3e1e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves a relative url with a base url.  <br /></td></tr>
+<tr class="separator:ab23ce7a1c82c7d5a4fd1634e6ff3e1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Scope restricted to file</div></td></tr>
 <tr class="memitem:afda48d566eed98c513c1e4a235d729bf" id="r_afda48d566eed98c513c1e4a235d729bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d9c/namespaceanonymous__namespace_02uri_8cpp_03.html#afda48d566eed98c513c1e4a235d729bf">anonymous_namespace{uri.cpp}::copy_token</a> (const <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *in, const char *in_base, <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/df4/structtoken">token</a> *out, char *out_base)</td></tr>
 <tr class="memdesc:afda48d566eed98c513c1e4a235d729bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the offset and size from a token to another token.  <br /></td></tr>
@@ -210,7 +237,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00086">86</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00090">90</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -218,11 +245,13 @@ Variables</h2></td></tr>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_cgraph.png" border="0" usemap="#adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_cgraph" alt=""/></div>
 <map name="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_cgraph" id="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_af4cc95bfb93aec4a8f3f5e4192d4e1c2_cgraph">
-<area shape="rect" title="Function to parse the Callback header value in subscription requests." alt="" coords="5,13,120,38"/>
-<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="168,13,251,38"/>
-<area shape="poly" title=" " alt="" coords="120,23,154,23,154,28,120,28"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="299,5,449,45"/>
-<area shape="poly" title=" " alt="" coords="251,23,285,23,285,28,251,28"/>
+<area shape="rect" title="Function to parse the Callback header value in subscription requests." alt="" coords="5,42,120,67"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="168,42,251,67"/>
+<area shape="poly" title=" " alt="" coords="120,52,154,52,154,57,120,57"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="321,5,472,45"/>
+<area shape="poly" title=" " alt="" coords="250,46,307,37,308,42,251,51"/>
+<area shape="rect" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#ad7ee59853f1492e7aa85aa3f80e30901" title="Get the string of the component." alt="" coords="299,70,495,95"/>
+<area shape="poly" title=" " alt="" coords="251,58,299,65,298,71,250,63"/>
 </map>
 </div>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -283,7 +312,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00177">177</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00181">181</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -338,7 +367,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00218">218</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00222">222</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -383,7 +412,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00230">230</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00234">234</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -424,7 +453,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00237">237</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00241">241</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -481,7 +510,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00248">248</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00252">252</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -548,7 +577,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00262">262</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00266">266</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -569,8 +598,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a108ec7fc0704f362d70140d838e6e356" name="a108ec7fc0704f362d70140d838e6e356"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a108ec7fc0704f362d70140d838e6e356">&#9670;&#160;</a></span>resolve_rel_url()</h2>
+<a id="ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" name="ab23ce7a1c82c7d5a4fd1634e6ff3e1e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8">&#9670;&#160;</a></span>resolve_rel_url()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -579,13 +608,13 @@ Variables</h2></td></tr>
           <td class="memname">char * resolve_rel_url </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>base_url</em>, </td>
+          <td class="paramname"><em>a_base_url</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>rel_url</em>&#160;</td>
+          <td class="paramname"><em>a_rel_url</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -611,27 +640,45 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to a new with malloc dynamically allocated full URL or a <b>nullptr</b>. To avoid memory leaks the caller nust <b>free()</b> it after using. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">base_url</td><td>Base URL.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">rel_url</td><td>Relative URL. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_base_url</td><td>Base URL.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_rel_url</td><td>Relative URL. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00272">272</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00276">276</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_cgraph.png" border="0" usemap="#adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_cgraph" alt=""/></div>
-<map name="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_cgraph" id="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_cgraph">
-<area shape="rect" title="Resolves a relative url with a base url." alt="" coords="5,42,124,67"/>
-<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="213,13,296,38"/>
-<area shape="poly" title=" " alt="" coords="124,43,199,31,200,36,125,48"/>
-<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga1b4480819fde1cd38f31b41bedcdce06" title="Remove dot segments from a path." alt="" coords="172,63,337,103"/>
-<area shape="poly" title=" " alt="" coords="125,61,159,66,158,71,124,66"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="385,5,536,45"/>
-<area shape="poly" title=" " alt="" coords="296,23,372,23,372,28,296,28"/>
+<div class="center"><img src="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_ab23ce7a1c82c7d5a4fd1634e6ff3e1e8_cgraph.png" border="0" usemap="#adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_ab23ce7a1c82c7d5a4fd1634e6ff3e1e8_cgraph" alt=""/></div>
+<map name="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_ab23ce7a1c82c7d5a4fd1634e6ff3e1e8_cgraph" id="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_ab23ce7a1c82c7d5a4fd1634e6ff3e1e8_cgraph">
+<area shape="rect" title="Resolves a relative url with a base url." alt="" coords="5,149,124,174"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="172,59,323,99"/>
+<area shape="poly" title=" " alt="" coords="93,146,189,102,191,107,95,151"/>
+<area shape="rect" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#a828a43d0d2b88e27ac397393bdc51162" title="Get state of the component." alt="" coords="843,155,1014,195"/>
+<area shape="poly" title=" " alt="" coords="88,172,127,192,173,210,342,255,411,271,477,280,543,284,612,280,691,268,782,248,838,227,887,200,889,205,840,232,783,254,692,274,613,285,543,289,476,286,410,276,340,260,171,215,125,197,86,177"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="382,120,543,145"/>
+<area shape="poly" title=" " alt="" coords="124,155,368,137,368,142,125,160"/>
+<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9" title="Get the resulting URI string merged with the relative reference." alt="" coords="177,174,317,200"/>
+<area shape="poly" title=" " alt="" coords="125,167,164,173,164,178,124,173"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#gabe9fa394c2a994e0cd76c22805033555" title="Free function to split inet address and port(service)" alt="" coords="371,66,555,92"/>
+<area shape="poly" title=" " alt="" coords="323,76,357,76,357,82,323,82"/>
+<area shape="poly" title=" " alt="" coords="544,140,603,147,830,166,830,171,602,152,543,146"/>
+<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#ad3e149966094fc7836c0c72d5b0d089b" title="Get state of the authority." alt="" coords="615,98,771,138"/>
+<area shape="poly" title=" " alt="" coords="543,125,601,121,601,126,544,130"/>
+<area shape="rect" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#ad7ee59853f1492e7aa85aa3f80e30901" title="Get the string of the component." alt="" coords="831,22,1027,48"/>
+<area shape="poly" title=" " alt="" coords="521,117,553,101,568,84,575,66,583,48,601,33,634,19,669,10,741,3,810,7,868,17,867,22,809,12,741,8,670,15,636,24,604,37,588,51,580,68,572,87,556,105,524,122"/>
+<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#a7af370c774ec2ad272b4802b7dee1bff" title="Get the string of the authority component." alt="" coords="603,48,783,73"/>
+<area shape="poly" title=" " alt="" coords="503,117,554,100,602,83,631,74,632,79,604,88,556,105,505,122"/>
+<area shape="poly" title=" " alt="" coords="772,134,833,149,832,154,770,139"/>
+<area shape="poly" title=" " alt="" coords="748,70,784,83,841,113,890,145,887,149,838,118,782,88,746,75"/>
+<area shape="poly" title=" " alt="" coords="783,48,817,44,817,50,783,53"/>
+<area shape="poly" title=" " alt="" coords="297,172,398,146,399,151,299,177"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#a9cd30f4988fb2db226dedc9527e7e6c5" title="Get state of the URI reference." alt="" coords="604,213,781,238"/>
+<area shape="poly" title=" " alt="" coords="318,190,590,214,590,219,317,196"/>
+<area shape="poly" title=" " alt="" coords="752,210,829,194,830,199,753,215"/>
 </map>
 </div>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -639,8 +686,8 @@ Variables</h2></td></tr>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-11-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_icgraph.png" border="0" usemap="#adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_icgraph" alt=""/></div>
-<map name="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_icgraph" id="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_a108ec7fc0704f362d70140d838e6e356_icgraph">
+<div class="center"><img src="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_ab23ce7a1c82c7d5a4fd1634e6ff3e1e8_icgraph.png" border="0" usemap="#adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_ab23ce7a1c82c7d5a4fd1634e6ff3e1e8_icgraph" alt=""/></div>
+<map name="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_ab23ce7a1c82c7d5a4fd1634e6ff3e1e8_icgraph" id="adf/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_ab23ce7a1c82c7d5a4fd1634e6ff3e1e8_icgraph">
 <area shape="rect" title="Resolves a relative url with a base url." alt="" coords="461,84,580,109"/>
 <area shape="rect" href="../../d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a75316464db9843014fb2e2311ad6f0b4" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="233,5,413,60"/>
 <area shape="poly" title=" " alt="" coords="467,82,407,63,409,58,468,77"/>
@@ -670,7 +717,7 @@ Variables</h2></td></tr>
 
 <p>Index/scope-id from the used network interface. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html#l00051">51</a> of file <a class="el" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp_source.html">uri.cpp</a>.</p>
 
 </div>
 </div>

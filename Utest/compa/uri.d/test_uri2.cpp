@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// redistribution only with this copyright remark. last modified: 2026-03-13
+// redistribution only with this copyright remark. last modified: 2026-03-15
 
 // For more specific tests for old_code use 'Utest/compa/uri.d/test_uri.cpp'
 // from the git commit. This 'test_uri2.cpp* is focused on Compa with IPv6,
@@ -18,7 +18,21 @@
 #include <Compa/src/genlib/net/uri/uri.cpp>
 #endif
 
+#include <UPnPsdk/sockaddr.hpp>
+#include <UPnPsdk/socket.hpp>
 #include <utest/utest.hpp>
+#include <umock/netdb_mock.hpp>
+
+
+using ::testing::_;
+using ::testing::DoAll;
+using ::testing::Pointee;
+using ::testing::Return;
+using ::testing::SetArgPointee;
+using ::testing::SetErrnoAndReturn;
+using ::testing::StrictMock;
+
+using ::UPnPsdk::SSockaddr;
 
 
 namespace utest {
@@ -252,6 +266,321 @@ TEST(UriDeathTest, remove_escaped_chars_edge_conditions) {
 #endif
 }
 #endif // UPnPsdk_WITH_NATIVE_PUPNP
+
+
+#if 0
+struct SAinfIp6 {
+    struct addrinfo inf{};
+
+  private:
+    struct sockaddr_in6 m_sin6{};
+
+    SAinfIp6(std::string_view a_netaddr) {
+        ::inet_pton(AF_INET6, a_netaddr.substr(1, a_netaddr.size() - 1),
+                    &m_sin6.sin6_addr);
+        m_sin6.sin6_port = htons(a_port);
+
+        m_res.ai_family = m_sa.sin_family;
+        m_res.ai_addrlen = sizeof(struct sockaddr);
+        m_res.ai_addr = (sockaddr*)&m_sa;
+    }
+}
+#endif
+
+
+// resolve_rel_url() function: tests from the uri module
+// =====================================================
+
+TEST(UriTestSuite, resolve_rel_url_successful) {
+    SSockaddr saObj;
+    saObj = "[::ffff:192.168.186.186]:443";
+
+    ::addrinfo res{};
+    res.ai_family = saObj.ss.ss_family;
+    res.ai_socktype = SOCK_STREAM;
+    res.ai_addrlen = saObj.sizeof_saddr();
+    res.ai_addr = &saObj.sa;
+
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> netdbObj;
+    // Set default object values
+    ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillByDefault(SetErrnoAndReturn(EACCESP, EAI_NONAME));
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+
+    // Mock for network address system call
+    EXPECT_CALL(netdbObj, getaddrinfo(Pointee(*"example.com"), _, _, _))
+        .WillOnce(DoAll(SetArgPointee<3>(&res), Return(0)));
+    EXPECT_CALL(netdbObj, freeaddrinfo(_)).Times(1);
+
+    // Provide arguments to execute the unit
+    char base_url[]{"https://example.com:443"};
+    char rel_url[]{"homepage#this-fragment"};
+
+    // Test Unit
+    char* abs_url = ::resolve_rel_url(*&base_url, *&rel_url);
+    EXPECT_STREQ(abs_url, old_code
+                              ? "https://example.com:443/homepage#this-fragment"
+                              : "https://example.com/homepage#this-fragment");
+
+    free(abs_url);
+}
+
+TEST(UriTestSuite, resolve_rel_url_arg1_nullptr_arg2_rel_url) {
+    // If the base_url is a nullptr, then a copy of the rel_url is passed back.
+
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> netdbObj;
+    // Set default object values
+    ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillByDefault(SetErrnoAndReturn(EACCESP, EAI_NONAME));
+
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+
+    // Mock for network address system call
+    EXPECT_CALL(netdbObj, getaddrinfo(_, _, _, _)).Times(0);
+    EXPECT_CALL(netdbObj, freeaddrinfo(_)).Times(0);
+
+    // Provide arguments to execute the unit
+    char rel_url[]{"homepage#this-fragment"};
+
+    // Test Unit
+    char* abs_url = ::resolve_rel_url(nullptr, rel_url);
+    EXPECT_STREQ(abs_url, "homepage#this-fragment");
+
+    free(abs_url);
+}
+
+TEST(UriDeathTest, resolve_rel_url_arg1_base_url_arg2_nullptr) {
+    // nullptr_rel_url_returns_base_url.
+
+    // Provide arguments to execute the unit
+    char base_url[]{"http://example.com"};
+
+    if (old_code) {
+        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                  << ": nullptr rel_url must not segfault.\n";
+        EXPECT_DEATH(
+            { free(::resolve_rel_url(base_url, nullptr)); },
+            ".*"); // Wrong!
+
+    } else {
+
+        ASSERT_EXIT(
+            {
+                free(::resolve_rel_url(base_url, nullptr));
+                exit(0);
+            },
+            ::testing::ExitedWithCode(0), ".*")
+            << "  nullptr rel_url must not segfault.";
+
+        SSockaddr saObj;
+        saObj = "[2001:db8::9474]";
+
+        ::addrinfo res{};
+        res.ai_family = saObj.ss.ss_family;
+        res.ai_socktype = SOCK_STREAM;
+        res.ai_addrlen = saObj.sizeof_saddr();
+        res.ai_addr = &saObj.sa;
+
+        // Instantiate mocking object.
+        StrictMock<umock::NetdbMock> netdbObj;
+        // Set default object values
+        ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EACCESP, EAI_NONAME));
+        // Inject the mocking object into the tested code.
+        umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+
+        // Mock for network address system call
+        EXPECT_CALL(netdbObj, getaddrinfo(_, _, _, _))
+            .WillOnce(DoAll(SetArgPointee<3>(&res), Return(0)));
+        EXPECT_CALL(netdbObj, freeaddrinfo(_)).Times(1);
+
+        // Test Unit
+        char* abs_url = ::resolve_rel_url(base_url, nullptr);
+
+        // The URI "http://example.com/" is the normal form for the "http"
+        // scheme, as specified by RFC3986 6.2.3.
+        EXPECT_STREQ(abs_url, "http://example.com/");
+
+        free(abs_url);
+    }
+}
+
+TEST(UriTestSuite, resolve_rel_url_arg1_nullptr_arg2_nullptr) {
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> netdbObj;
+    // Set default object values
+    ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillByDefault(SetErrnoAndReturn(EACCESP, EAI_NONAME));
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+
+    // Mock for network address system call
+    EXPECT_CALL(netdbObj, getaddrinfo(_, _, _, _)).Times(0);
+    EXPECT_CALL(netdbObj, freeaddrinfo(_)).Times(0);
+
+    // Test Unit
+    char* abs_url = ::resolve_rel_url(nullptr, nullptr);
+    EXPECT_EQ(abs_url, nullptr);
+
+    free(abs_url);
+}
+
+TEST(UriTestSuite, resolve_rel_url_arg1_empty_arg2_rel_url) {
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> netdbObj;
+    // Set default object values
+    ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillByDefault(SetErrnoAndReturn(EACCESP, EAI_NONAME));
+
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+
+    // Mock for network address system call
+    EXPECT_CALL(netdbObj, getaddrinfo(_, _, _, _)).Times(0);
+    EXPECT_CALL(netdbObj, freeaddrinfo(_)).Times(0);
+
+    // Provide arguments to execute the unit.
+    // No url is absolute, so a nullptr is returned as specified.
+    char base_url[]{""};
+    char rel_url[]{"homepage#this-fragment"};
+
+    // Test Unit
+    char* abs_url = ::resolve_rel_url(base_url, rel_url);
+    EXPECT_EQ(abs_url, nullptr);
+
+    free(abs_url);
+}
+
+TEST(UriTestSuite, resolve_rel_url_arg1_abs_url_arg2_empty) {
+    // If the rel_url is empty (""), then a copy of the base_url is passed back.
+
+    SSockaddr saObj;
+    saObj = "[::ffff:192.168.168.168]:8080";
+
+    ::addrinfo res{};
+    res.ai_family = saObj.ss.ss_family;
+    res.ai_socktype = SOCK_STREAM;
+    res.ai_addrlen = saObj.sizeof_saddr();
+    res.ai_addr = &saObj.sa;
+
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> netdbObj;
+    // Set default object values
+    ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillByDefault(SetErrnoAndReturn(EACCESP, EAI_NONAME));
+
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+
+    EXPECT_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillOnce(DoAll(SetArgPointee<3>(&res), Return(0)));
+    EXPECT_CALL(netdbObj, freeaddrinfo(_)).Times(1);
+
+    // Provide arguments to execute the unit
+    char base_url[]{"http://example.com"};
+    char rel_url[]{""};
+
+    // Test Unit
+    char* abs_url = ::resolve_rel_url(base_url, rel_url);
+
+    // The URI "http://example.com/" is the normal form for the "http"
+    // scheme, as specified by RFC3986 6.2.3.
+    EXPECT_STREQ(abs_url, old_code ? base_url : "http://example.com/");
+
+    free(abs_url);
+}
+
+TEST(UriTestSuite, resolve_rel_url_arg1_empty_arg2_empty) {
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> netdbObj;
+    // Set default object values
+    ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillByDefault(SetErrnoAndReturn(EACCESP, EAI_NONAME));
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+
+    // Mock for network address system call
+    EXPECT_CALL(netdbObj, getaddrinfo(_, _, _, _)).Times(0);
+    EXPECT_CALL(netdbObj, freeaddrinfo(_)).Times(0);
+
+    // Provide arguments to execute the unit
+    char base_url[]{""};
+    char rel_url[]{""};
+
+    // Test Unit
+    char* abs_url = ::resolve_rel_url(base_url, rel_url);
+    EXPECT_EQ(abs_url, nullptr);
+
+    free(abs_url);
+}
+
+TEST(UriTestSuite, resolve_rel_url_arg1_abs_url_arg2_abs_url) {
+    // If the rel_url is absolute (with a valid base_url), then a copy of the
+    // rel_url is passed back.
+
+    SSockaddr saObj;
+    saObj = "[fe80:db8::8%1]:50001";
+
+    ::addrinfo res{};
+    res.ai_family = saObj.ss.ss_family;
+    res.ai_socktype = SOCK_STREAM;
+    res.ai_addrlen = saObj.sizeof_saddr();
+    res.ai_addr = &saObj.sa;
+
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> netdbObj;
+    // Set default object values
+    ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillByDefault(SetErrnoAndReturn(EACCESP, EAI_NONAME));
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+
+    // Mock for network address system call
+    EXPECT_CALL(netdbObj, getaddrinfo(Pointee(*"absolute.net"), _, _, _))
+        .WillOnce(DoAll(SetArgPointee<3>(&res), Return(0)));
+    EXPECT_CALL(netdbObj, freeaddrinfo(_)).Times(1);
+
+    // Provide arguments to execute the unit
+    char base_url[]{"http://example.com"};
+    char rel_url[]{"https://absolute.net:443/home-page#fragment"};
+
+    // Test Unit
+    // absolute arg2 rel_url_returns_a_copy_of_it
+    char* abs_url = ::resolve_rel_url(base_url, rel_url);
+    EXPECT_STREQ(abs_url, old_code ? rel_url
+                                   : "https://absolute.net/home-page#fragment");
+
+    free(abs_url);
+}
+
+TEST(UriTestSuite, resolve_rel_url_arg1_rel_url_arg2_rel_url) {
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> netdbObj;
+    // Set default object values
+    ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillByDefault(SetErrnoAndReturn(EACCESP, EAI_NONAME));
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+
+    // Mock for network address system call
+    EXPECT_CALL(netdbObj, getaddrinfo(_, _, _, _)).Times(0);
+    EXPECT_CALL(netdbObj, freeaddrinfo(_)).Times(0);
+
+    // Provide arguments to execute the unit
+    char base_url[]{"/example.com"};
+    char rel_url[]{"home-page#fragment"};
+
+    // Test Unit
+    // base and rel_url not absolute returns nullptr
+    char* abs_url = ::resolve_rel_url(base_url, rel_url);
+    EXPECT_EQ(abs_url, nullptr);
+
+    free(abs_url);
+}
 
 } // namespace utest
 

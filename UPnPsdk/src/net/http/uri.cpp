@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-12
+// Redistribution only with this Copyright remark. Last modified: 2026-03-14
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -185,11 +185,6 @@ CComponent::STATE CComponent::state() const {
 
 const std::string& CComponent::str() const {
     TRACE2(this, " Executing CComponent::str()")
-    if (m_state == STATE::undef)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT("MSG1154") "Reading an undefined URI component "
-                                         "is not possible.\n");
-
     return m_component;
 }
 
@@ -975,6 +970,9 @@ CComponent::STATE CUriRef::state() const {
 std::string CUriRef::str() const {
     TRACE2(this, " Executing CUriRef::str()")
 
+    // This rule always appends a '/' to an authority, even the path is empty.
+    // For example, the URI "http://example.com/" is the normal form for the
+    // "http" scheme, as specified by RFC3986 6.2.3.
     return (scheme.state() == STATE::avail ? scheme.str() : "") +
            (scheme.state() == STATE::undef ? "" : ":") +
            (authority.state() == STATE::undef ? "" : "//") +
@@ -1023,81 +1021,6 @@ void merge_paths(CPath& a_path, ///< [out] Resulting merged paths object
 } // anonymous namespace
 
 
-// Class CUri
-// ==========
-/*!
- * \brief Representing a [URI](\ref glossary_URI) that can be modified with a
- * [relative reference](\ref glossary_URIrel)
- * \ingroup upnpsdk-uri
- * \code
-// Usage e.g.:
-try {
-    CUri uriObj("https://example.com/path/");
-    uriObj = "/to/res";
-    std::cout << uriObj.str() << '\n'; // "https://example.com/to/res"
-    uriObj = "to/res";
-    std::cout << uriObj.str() << '\n'; // "https://example.com/path/to/res"
-} catch (const std::invalid_argument& ex) {
-    std::cerr << "Error! " << ex.what() << '\n';
-    handle_error();
-}
- * \endcode
- *
- * On the once given base URI with the constructor, a relative reference can be
- * modified as often as you wish.
- *
- * \note
- * This class succeeds the normal examples as given at <a
- * href="https://www.rfc-editor.org/rfc/rfc3986#section-5.4">RFC3986 5.4.</a>
- * If in daubt have look there.
- */
-class CUri {
-  public:
-    /// \brief Base URI
-    CUriRef base;
-    /// \brief Resulting URI of merged relative reference to the base URI
-    CUriRef target;
-
-    /*! \brief Initialize with the base URI
-     * \exception std::invalid_argument
-     *  - if trying to read an undefined component string.
-     *  - if host pattern is invalid. No DNS lookup is performed.
-     *  - if port number is invalid.
-     *  - if invalid percent encoding is detected.
-     *  - if a [relative reference](\ref glossary_URIrel) without scheme
-     * component is given. */
-    CUri(
-        /// [in] Setting an absolute URI, means must have a scheme.
-        std::string a_uriref_str);
-
-    // Setter
-    // ------
-    /*! \brief Set a [relative resource reference](\ref glossary_URIrel)
-     * \exception std::invalid_argument
-     *  - if trying to read an undefined component string.
-     *  - if host pattern is invalid. No DNS lookup is performed.
-     *  - if port number is invalid.
-     *  - if invalid percent encoding is detected.
-     *  - if an absolute [URI](\ref glossary_URI) with scheme component is
-     * given. */
-    void operator=(
-        /*! [in] String with a relative reference for the Base URI set with the
-         * constructor. */
-        std::string a_relref_str);
-
-    // Getter
-    // ------
-    /// \brief Get state of the URI
-    CComponent::STATE state() const;
-
-    /*! \brief Get the resulting URI string merged with the
-     * [relative reference](\ref glossary_URIref)
-     *
-     * If no relative reference is given then just the base URI is returned. */
-    std::string str() const;
-};
-
-
 CUri::CUri(std::string a_uriref_str) : base(a_uriref_str), target("") {
     TRACE2(this, " Construct CUri(a_uriref_str)")
 
@@ -1113,7 +1036,6 @@ CUri::CUri(std::string a_uriref_str) : base(a_uriref_str), target("") {
 
 void CUri::operator=(std::string a_relref_str) {
     TRACE2(this, " Executing CUri::operator=(a_relref_str)")
-
     // Get a working object with splitted components of the URI input string.
     CUriRef relObj(a_relref_str);
 
@@ -1198,29 +1120,11 @@ int parse_uri(const char* in, size_t max, uri_type* out) {
         UPnPsdk::CUriRef uriObj{std::string(uriref_sv)};
 
 #if 0 // Helpful for developers for deep analysis.
-        std::cerr << "DEBUG: scheme=\""
-                  << (uriObj.scheme.state() != STATE::undef
-                          ? uriObj.scheme.str()
-                          : "")
-                  << "\"\n";
-        std::cerr << "DEBUG: authority=\""
-                  << (uriObj.authority.state() != STATE::undef
-                          ? uriObj.authority.str()
-                          : "")
-                  << "\"\n";
-        std::cerr << "DEBUG: path=\""
-                  << (uriObj.path.state() != STATE::undef ? uriObj.path.str()
-                                                          : "")
-                  << "\"\n";
-        std::cerr << "DEBUG: query=\""
-                  << (uriObj.query.state() != STATE::undef ? uriObj.query.str()
-                                                           : "")
-                  << "\"\n";
-        std::cerr << "DEBUG: fragment=\""
-                  << (uriObj.fragment.state() != STATE::undef
-                          ? uriObj.fragment.str()
-                          : "")
-                  << "\"\n";
+        std::cerr << "DEBUG: scheme=\"" << uriObj.scheme.str() << "\"\n";
+        std::cerr << "DEBUG: authority=\"" << uriObj.authority.str() << "\"\n";
+        std::cerr << "DEBUG: path=\"" << uriObj.path.str() << "\"\n";
+        std::cerr << "DEBUG: query=\"" << uriObj.query.str() << "\"\n";
+        std::cerr << "DEBUG: fragment=\"" << uriObj.fragment.str() << "\"\n";
 #endif
         ::memset(out, 0, sizeof(*out));
 

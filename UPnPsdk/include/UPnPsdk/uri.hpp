@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_URI_HPP
 #define UPnPsdk_URI_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-12
+// Redistribution only with this Copyright remark. Last modified: 2026-03-15
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -129,7 +129,7 @@ decode_esc_chars(std::string& a_encoded /*!< [in,out] String of characters to be
  * All special URI components (scheme, userinfo, host, port, path, query,
  * fragment) are derived from this class.
  */
-class CComponent {
+class UPnPsdk_VIS CComponent {
   public:
     /*! \brief Defines the possible states of a URI component.
      *
@@ -150,9 +150,9 @@ class CComponent {
      * but to 'STATE::undef', because the expected output URI reference is
      * "https://[::1]". */
     enum struct STATE {
-        undef, ///< The component is undefined. Accessing it throws an exception
-        empty, ///< The component string is empty.
-        avail ///< The component string is available means it's a valid content.
+        undef, ///< component is undefined, component string is empty.
+        empty, ///< Component is defined but empty, component string is empty.
+        avail ///< Component string is available, means it has a valid content.
     };
 
     /*! \brief Get state of the component
@@ -160,9 +160,8 @@ class CComponent {
     STATE state() const;
 
     /*! \brief Get the string of the component
-     * \returns Reference of the component string.
-     * \exception std::invalid_argument if trying to read an undefined component
-     * string. */
+     * \returns Reference of the component string. It is empty for STATE "undef"
+     * and "empty". */
     const std::string& str() const;
 
   protected:
@@ -191,7 +190,7 @@ class CComponent {
  * href="https://www.rfc-editor.org/rfc/rfc7230#section-2.7.2">RFC7230
  * 2.7.2.</a>).
  */
-class CScheme : public CComponent {
+class UPnPsdk_VIS CScheme : public CComponent {
   public:
     /// \brief Initialize the scheme component
     CScheme(std::string_view a_uri_sv ///< [in] Input URI string
@@ -206,7 +205,7 @@ class CScheme : public CComponent {
  * [URI reference](\ref glossary_URIref)
  * \ingroup upnpsdk-uri
  */
-class CUserinfo : public CComponent {
+class UPnPsdk_VIS CUserinfo : public CComponent {
   public:
     /// \brief Initialize the userinfo subcomponent
     CUserinfo(std::string_view a_uri_sv ///< [in] Input URI string
@@ -237,7 +236,7 @@ class CUserinfo : public CComponent {
  * will be verified when accessing the resource. This speeds up URI reference
  * parsing a lot.
  */
-class CHost : public CComponent {
+class UPnPsdk_VIS CHost : public CComponent {
   public:
     /*! \brief Initialize the host subcomponent
      * \exception std::invalid_argument if [URI reference](\ref glossary_URIref)
@@ -255,7 +254,7 @@ class CHost : public CComponent {
  * [URI reference](\ref glossary_URIref).
  * \ingroup upnpsdk-uri
  */
-class CPort : public CComponent {
+class UPnPsdk_VIS CPort : public CComponent {
   public:
     /*! \brief Initialize the port subcomponent
      * \exception std::invalid_argument if invalid port number is detected. */
@@ -270,7 +269,7 @@ class CPort : public CComponent {
  * \brief Authority component of a [URI reference](\ref glossary_URIref)
  * \ingroup upnpsdk-uri
  * */
-class CAuthority {
+class UPnPsdk_VIS CAuthority {
   public:
     ///@{
     /// authority subcomponent
@@ -281,7 +280,6 @@ class CAuthority {
 
     /*! \brief Initialize the authority component
      * \exception std::invalid_argument
-     *  - if trying to read an undefined component string.
      *  - if host pattern is invalid. No DNS lookup is performed.
      *  - if port number is invalid. */
     CAuthority(std::string_view a_uri_sv ///< [in] Input URI string
@@ -305,7 +303,7 @@ class CAuthority {
  * \brief Path component of a [URI reference](\ref glossary_URIref)
  * \ingroup upnpsdk-uri
  */
-class CPath : public CComponent {
+class UPnPsdk_VIS CPath : public CComponent {
   public:
     /// \brief Initialize the path component
     CPath(std::string_view a_uri_sv ///< [in] Input URI string
@@ -321,7 +319,7 @@ class CPath : public CComponent {
  * \brief Query component of a [URI reference](\ref glossary_URIref)
  * \ingroup upnpsdk-uri
  */
-class CQuery : public CComponent {
+class UPnPsdk_VIS CQuery : public CComponent {
   public:
     /// \brief Initialize the query component
     CQuery(std::string_view a_uri_sv ///< [in] Input URI string
@@ -335,7 +333,7 @@ class CQuery : public CComponent {
  * \brief Fragment component of a [URI reference](\ref glossary_URIref)
  * \ingroup upnpsdk-uri
  */
-class CFragment : public CComponent {
+class UPnPsdk_VIS CFragment : public CComponent {
   public:
     /// \brief Initialize the fragment component
     CFragment(std::string_view a_uri_sv ///< [in] Input URI string
@@ -349,7 +347,7 @@ class CFragment : public CComponent {
  * \brief Internal class to prepare the input URI string, Not publicly usable
  * \ingroup upnpsdk-uri
  */
-class CPrepUriStr {
+class UPnPsdk_VIS CPrepUriStr {
   public:
     /*! \brief Initialize the helper class
      *
@@ -374,7 +372,7 @@ class CPrepUriStr {
  * \brief This is a [URI reference](\ref glossary_URIref).
  * \ingroup upnpsdk-uri
  */
-class CUriRef {
+class UPnPsdk_VIS CUriRef {
   private:
     using STATE = CComponent::STATE;
 
@@ -397,7 +395,6 @@ class CUriRef {
 
     /*! \brief Initialize the URI reference
      * \exception std::invalid_argument
-     *  - if trying to read an undefined component string.
      *  - if host pattern is invalid. No DNS lookup is performed.
      *  - if port number is invalid.
      */
@@ -411,6 +408,79 @@ class CUriRef {
     CComponent::STATE state() const;
 
     /// Get URI reference string
+    std::string str() const;
+};
+
+
+// Class CUri
+// ==========
+/*!
+ * \brief Representing a [URI](\ref glossary_URI) that can be modified with a
+ * [relative reference](\ref glossary_URIrel)
+ * \ingroup upnpsdk-uri
+ * \code
+// Usage e.g.:
+try {
+    CUri uriObj("https://example.com/path/");
+    uriObj = "/to/res";
+    std::cout << uriObj.str() << '\n'; // "https://example.com/to/res"
+    uriObj = "to/res";
+    std::cout << uriObj.str() << '\n'; // "https://example.com/path/to/res"
+} catch (const std::invalid_argument& ex) {
+    std::cerr << "Error! " << ex.what() << '\n';
+    handle_error();
+}
+ * \endcode
+ *
+ * On the once given base URI with the constructor, a relative reference can be
+ * modified multible times.
+ *
+ * \note
+ * This class succeeds the normal examples as given at <a
+ * href="https://www.rfc-editor.org/rfc/rfc3986#section-5.4">RFC3986 5.4.</a>
+ * If in daubt have look there.
+ */
+class UPnPsdk_VIS CUri {
+  public:
+    /// \brief Base URI
+    CUriRef base;
+    /// \brief Resulting URI of merged relative reference to the base URI
+    CUriRef target;
+
+    /*! \brief Initialize with the base URI
+     * \exception std::invalid_argument
+     *  - if host pattern is invalid. No DNS lookup is performed.
+     *  - if port number is invalid.
+     *  - if invalid percent encoding is detected.
+     *  - if a [relative reference](\ref glossary_URIrel) without scheme
+     * component is given. */
+    CUri(
+        /// [in] Setting an absolute URI, means must have a scheme.
+        std::string a_uriref_str);
+
+    // Setter
+    // ------
+    /*! \brief Set a [relative resource reference](\ref glossary_URIrel)
+     * \exception std::invalid_argument
+     *  - if host pattern is invalid. No DNS lookup is performed.
+     *  - if port number is invalid.
+     *  - if invalid percent encoding is detected.
+     *  - if an absolute [URI](\ref glossary_URI) with scheme component is
+     * given. */
+    void operator=(
+        /*! [in] String with a relative reference for the Base URI set with the
+         * constructor. */
+        std::string a_relref_str);
+
+    // Getter
+    // ------
+    /// \brief Get state of the URI
+    CComponent::STATE state() const;
+
+    /*! \brief Get the resulting URI string merged with the
+     * [relative reference](\ref glossary_URIref)
+     *
+     * If no relative reference is given then just the base URI is returned. */
     std::string str() const;
 };
 

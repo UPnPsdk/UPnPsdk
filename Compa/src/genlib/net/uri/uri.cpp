@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-03-13
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-15
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -38,10 +38,14 @@
 
 #include <upnp.hpp>
 #include <uri.hpp>
+#include <UPnPsdk/uri.hpp>
+#include <UPnPsdk/synclog.hpp>
+#include <UPnPsdk/addrinfo.hpp>
 
 /// \cond
-#include <cstdio> // Needed if OpenSSL isn't compiled in.
+#include <cstdio>   // Needed if OpenSSL isn't compiled in.
 #include <climits>
+#include <iostream> // DEBUG!
 /// \endcond
 
 UPnPsdk_EXTERN unsigned gIF_INDEX;
@@ -269,135 +273,81 @@ int token_cmp(token* in1, token* in2) {
 }
 
 
-char* resolve_rel_url(char* base_url, char* rel_url) {
-    uri_type base;
-    uri_type rel;
-    int rv;
-    size_t len_rel;
-    size_t len_base;
-    size_t len;
-    char* out;
-    char* out_finger;
-    char* path;
-    size_t i;
-    size_t prefix;
-    std::string pathObj;
+char* resolve_rel_url(char* a_base_url, char* a_rel_url) {
+    std::string out_str;
 
-    if ((!base_url || *base_url == '\0') && (!rel_url || *rel_url == '\0'))
-        return nullptr;
-    if (!base_url && rel_url)
-        return strdup(rel_url);
-    if (base_url && (!rel_url || *rel_url == '\0'))
-        return strdup(base_url);
-
-    len_rel = strlen(rel_url);
-    if (parse_uri(rel_url, len_rel, &rel) != HTTP_SUCCESS)
-        return NULL;
-
-    if (rel.type == Absolute)
-        return strdup(rel_url);
-
-    len_base = strlen(base_url);
-    if ((parse_uri(base_url, len_base, &base) != HTTP_SUCCESS) ||
-        (base.type != Absolute))
-        return NULL;
-
-    if (len_rel == (size_t)0)
-        return strdup(base_url);
-
-    len = len_base + len_rel + (size_t)2;
-    out = (char*)malloc(len);
-    if (out == NULL)
-        return NULL;
-    memset(out, 0, len);
-    out_finger = out;
-
-    /* scheme */
-    rv = snprintf(out_finger, len, "%.*s:", (int)base.scheme.size,
-                  base.scheme.buff);
-    if (rv < 0 || rv >= (int)len)
-        goto error;
-    out_finger += rv;
-    len -= (size_t)rv;
-
-    /* authority */
-    if (rel.hostport.text.size > (size_t)0) {
-        rv = snprintf(out_finger, len, "%s", rel_url);
-        if (rv < 0 || rv >= (int)len)
-            goto error;
-        return out;
-    }
-    if (base.hostport.text.size > (size_t)0) {
-        rv = snprintf(out_finger, len, "//%.*s", (int)base.hostport.text.size,
-                      base.hostport.text.buff);
-        if (rv < 0 || rv >= (int)len)
-            goto error;
-        out_finger += rv;
-        len -= (size_t)rv;
-    }
-
-    /* path */
-    path = out_finger;
-    if (rel.path_type == ABS_PATH) {
-        rv = snprintf(out_finger, len, "%s", rel_url);
-    } else if (base.pathquery.size == (size_t)0) {
-        rv = snprintf(out_finger, len, "/%s", rel_url);
-    } else {
-        if (rel.pathquery.size == (size_t)0) {
-            rv = snprintf(out_finger, len, "%.*s", (int)base.pathquery.size,
-                          base.pathquery.buff);
-        } else {
-            if (len < base.pathquery.size)
-                goto error;
-            i = 0;
-            prefix = 1;
-            while (i < base.pathquery.size) {
-                out_finger[i] = base.pathquery.buff[i];
-                switch (base.pathquery.buff[i++]) {
-                case '/':
-                    prefix = i;
-                    /* fall-through */
-                default:
-                    continue;
-                case '?': /* query */
-                    if (rel.pathquery.buff[0] == '?')
-                        prefix = --i;
+    do { // This loop is used one time and only to have one exit target for
+         // breaks. There are two special cases that are not direct handled by
+         // the CUri class.
+        try {
+            using STATE = UPnPsdk::CComponent::STATE;
+            if (a_base_url == nullptr && a_rel_url != nullptr) {
+                // If the base_url is a nullptr, then a copy of the rel_url is
+                // passed back.
+                UPnPsdk::CUriRef uri_refObj(a_rel_url);
+                if (uri_refObj.scheme.state() == STATE::avail) {
+                    // An absolute URI is checked against DNS.
+                    auto& host = uri_refObj.authority.host;
+                    auto& port = uri_refObj.authority.port;
+                    UPnPsdk::CAddrinfo aiObj(host.str(), port.str());
+                    if (!aiObj.get_first())
+                        return nullptr;
                 }
+
+                out_str = uri_refObj.str();
                 break;
             }
-            out_finger += prefix;
-            len -= prefix;
-            rv = snprintf(out_finger, len, "%.*s", (int)rel.pathquery.size,
-                          rel.pathquery.buff);
+
+            if (a_base_url != nullptr && a_rel_url != nullptr) {
+                // If the rel_url is absolute (with a valid base_url), then a
+                // copy of the rel_url is passed back. I have first to check
+                // both URIs if they are absolute, means if they have a scheme.
+                UPnPsdk::CUriRef uri_relObj(a_rel_url);
+                if (uri_relObj.scheme.state() == STATE::avail) {
+                    UPnPsdk::CUriRef uri_baseObj(a_base_url);
+                    if (uri_baseObj.scheme.state() == STATE::avail) {
+                        // The condition is given and I return the "relative"
+                        // URI, that is available with an absolute scheme, but
+                        // only if it is registered on DNS.
+                        auto& host = uri_relObj.authority.host;
+                        auto& port = uri_relObj.authority.port;
+                        UPnPsdk::CAddrinfo aiObj(host.str(), port.str());
+                        if (!aiObj.get_first())
+                            return nullptr;
+
+                        out_str = uri_relObj.str();
+                        break;
+                    }
+                }
+            }
+
+            // Handle the rest of relative parsing. That is covered by the CUri
+            // class.
+            UPnPsdk::CUri uriObj(a_base_url == nullptr ? "" : a_base_url);
+            uriObj = a_rel_url == nullptr ? "" : a_rel_url;
+
+            // Accept a merged target URI only if it is registered on DNS.
+            auto& host = uriObj.target.authority.host;
+            auto& port = uriObj.target.authority.port;
+            UPnPsdk::CAddrinfo aiObj(host.str(), port.str());
+            if (!aiObj.get_first())
+                return nullptr;
+
+            out_str = uriObj.str();
+
+        } catch (const std::invalid_argument& ex) {
+            UPnPsdk_LOGCATCH("MSG1046") "Catched next line...\n"
+                << ex.what() << '\n';
+            return nullptr;
         }
-        if (rv < 0 || rv >= (int)len)
-            goto error;
-        out_finger += rv;
-        len -= (size_t)rv;
+    } while (false);
 
-        /* fragment */
-        if (rel.fragment.size > (size_t)0)
-            rv = snprintf(out_finger, len, "#%.*s", (int)rel.fragment.size,
-                          rel.fragment.buff);
-        else if (base.fragment.size > (size_t)0)
-            rv = snprintf(out_finger, len, "#%.*s", (int)base.fragment.size,
-                          base.fragment.buff);
-        else
-            rv = 0;
-    }
-    if (rv < 0 || rv >= (int)len)
-        goto error;
-    out_finger += rv;
-    len -= (size_t)rv;
 
-    pathObj = std::string(path, (size_t)(out_finger - path));
-    UPnPsdk::remove_dot_segments(pathObj);
-    pathObj.copy(path, pathObj.size());
-    path[pathObj.size()] = '\0';
+    char* out = static_cast<char*>(malloc(out_str.size() + 1));
+    if (out == nullptr)
+        return nullptr;
+    out_str.copy(out, std::string::npos);
+    out[out_str.size()] = '\0';
 
     return out;
-
-error:
-    free(out);
-    return NULL;
 }

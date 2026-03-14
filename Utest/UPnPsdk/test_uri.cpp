@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-11
+// Redistribution only with this Copyright remark. Last modified: 2026-03-14
 
 #include <UPnPsdk/src/net/http/uri.cpp>
 #include <utest/utest.hpp>
@@ -75,34 +75,40 @@ TEST(CUriTestSuite, uri_normalize_0) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "[::1]");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
-    EXPECT_THROW(
-        { uriObj.base.authority.userinfo.str(); }, std::invalid_argument);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "[::1]");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
-    EXPECT_THROW({ uriObj.base.authority.port.str(); }, std::invalid_argument);
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::empty);
-    EXPECT_EQ(uriObj.base.path.str(), "");
+    EXPECT_TRUE(uriObj.base.path.str().empty());
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
-    EXPECT_THROW({ uriObj.base.query.str(); }, std::invalid_argument);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
-    EXPECT_THROW({ uriObj.base.fragment.str(); }, std::invalid_argument);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
 
     EXPECT_EQ(uriObj.base.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.str(), "https://[::1]/");
 
     ASSERT_EQ(uriObj.target.scheme.state(), STATE::undef);
+    ASSERT_TRUE(uriObj.target.scheme.str().empty());
     EXPECT_EQ(uriObj.target.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.target.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.target.authority.host.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.target.authority.host.str().empty());
     EXPECT_EQ(uriObj.target.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.target.authority.port.str().empty());
     EXPECT_EQ(uriObj.target.authority.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.target.authority.str().empty());
     EXPECT_EQ(uriObj.target.path.state(), STATE::empty);
-    EXPECT_EQ(uriObj.target.path.str(), "");
+    EXPECT_TRUE(uriObj.target.path.str().empty());
     EXPECT_EQ(uriObj.target.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.target.query.str().empty());
     EXPECT_EQ(uriObj.target.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.target.fragment.str().empty());
 
     EXPECT_EQ(uriObj.target.state(), STATE::empty);
-    EXPECT_EQ(uriObj.target.str(), "");
+    EXPECT_TRUE(uriObj.target.str().empty());
 
     EXPECT_EQ(uriObj.state(), STATE::avail);
     EXPECT_EQ(uriObj.str(), "https://[::1]/");
@@ -115,13 +121,17 @@ TEST(CUriTestSuite, uri_normalize_1) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
 
     EXPECT_EQ(uriObj.base.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.str(), "https://a.aa/");
@@ -137,14 +147,17 @@ TEST(CUriTestSuite, uri_normalize_2) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "192.168.1.2");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "192.168.1.2");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::empty);
-    EXPECT_EQ(uriObj.base.authority.port.str(), "");
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
 
     EXPECT_EQ(uriObj.base.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.str(), "https://192.168.1.2/");
@@ -161,13 +174,17 @@ TEST(CUriTestSuite, uri_normalize_3) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
 
     EXPECT_EQ(uriObj.base.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.str(), "http://a.aa/");
@@ -184,6 +201,7 @@ TEST(CUriTestSuite, uri_normalize_4) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "192.168.167.166:443");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "192.168.167.166");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::avail);
@@ -191,7 +209,9 @@ TEST(CUriTestSuite, uri_normalize_4) {
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
 
     EXPECT_EQ(uriObj.base.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.str(), "http://192.168.167.166:443/");
@@ -208,13 +228,17 @@ TEST(CUriTestSuite, uri_normalize_5) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
 
     EXPECT_EQ(uriObj.base.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.str(), "https://a.aa/");
@@ -231,6 +255,7 @@ TEST(CUriTestSuite, uri_normalize_6) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "a.aa:80");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::avail);
@@ -238,7 +263,9 @@ TEST(CUriTestSuite, uri_normalize_6) {
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
 
     EXPECT_EQ(uriObj.base.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.str(), "https://a.aa:80/");
@@ -254,17 +281,17 @@ TEST(CUriTestSuite, uri_normalize_7) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "[::1]");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::empty);
-    EXPECT_EQ(uriObj.base.authority.userinfo.str(), "");
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "[::1]");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::empty);
-    EXPECT_EQ(uriObj.base.authority.port.str(), "");
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::empty);
-    EXPECT_EQ(uriObj.base.query.str(), "");
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::empty);
-    EXPECT_EQ(uriObj.base.fragment.str(), "");
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
 
     EXPECT_EQ(uriObj.base.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.str(), "https://[::1]/?#");
@@ -334,29 +361,35 @@ TEST(CUriTestSuite, uri_scheme) {
 
     CScheme scheme2("http");
     EXPECT_EQ(scheme2.state(), STATE::undef);
-    EXPECT_THROW(scheme2.str(), std::invalid_argument);
+    EXPECT_TRUE(scheme2.str().empty());
 
     CScheme scheme3(":");
     EXPECT_EQ(scheme3.state(), STATE::empty);
-    EXPECT_EQ(scheme3.str(), "");
+    EXPECT_TRUE(scheme3.str().empty());
 
     CScheme scheme4("?");
     EXPECT_EQ(scheme4.state(), STATE::undef);
+    EXPECT_TRUE(scheme4.str().empty());
 
     CScheme scheme5("");
     EXPECT_EQ(scheme5.state(), STATE::undef);
+    EXPECT_TRUE(scheme5.str().empty());
 
     CScheme scheme6(" ");
     EXPECT_EQ(scheme6.state(), STATE::undef);
+    EXPECT_TRUE(scheme6.str().empty());
 
     CScheme scheme7("0http://a.aa");
     EXPECT_EQ(scheme7.state(), STATE::undef);
+    EXPECT_TRUE(scheme7.str().empty());
 
     CScheme scheme8("https#://a.aa");
     EXPECT_EQ(scheme8.state(), STATE::undef);
+    EXPECT_TRUE(scheme8.str().empty());
 
     CScheme scheme9("http\0://a.aa");
     EXPECT_EQ(scheme9.state(), STATE::undef);
+    EXPECT_TRUE(scheme9.str().empty());
 }
 
 
@@ -388,15 +421,19 @@ TEST(CUriTestSuite, uri_scheme_file_2) {
     EXPECT_EQ(uriObj.base.scheme.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.scheme.str(), "file");
     EXPECT_EQ(uriObj.base.authority.state(), STATE::empty);
-    EXPECT_EQ(uriObj.base.authority.str(), "");
+    EXPECT_TRUE(uriObj.base.authority.str().empty());
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::empty);
-    EXPECT_EQ(uriObj.base.authority.host.str(), "");
+    EXPECT_TRUE(uriObj.base.authority.host.str().empty());
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
     EXPECT_EQ(uriObj.base.str(), "file:///");
     EXPECT_EQ(uriObj.str(), "file:///");
 }
@@ -409,15 +446,19 @@ TEST(CUriTestSuite, uri_scheme_file_3) {
     EXPECT_EQ(uriObj.base.scheme.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.scheme.str(), "file");
     EXPECT_EQ(uriObj.base.authority.state(), STATE::empty);
-    EXPECT_EQ(uriObj.base.authority.str(), "");
+    EXPECT_TRUE(uriObj.base.authority.str().empty());
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::empty);
-    EXPECT_EQ(uriObj.base.authority.host.str(), "");
+    EXPECT_TRUE(uriObj.base.authority.host.str().empty());
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/path/to/file");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
     EXPECT_EQ(uriObj.base.str(), "file:///path/to/file");
     EXPECT_EQ(uriObj.str(), "file:///path/to/file");
 }
@@ -429,13 +470,17 @@ TEST(CUriTestSuite, uri_scheme_file_4) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "localhost");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "localhost");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
     EXPECT_EQ(uriObj.base.str(), "file://localhost/");
     EXPECT_EQ(uriObj.str(), "file://localhost/");
 }
@@ -447,13 +492,17 @@ TEST(CUriTestSuite, uri_scheme_file_5) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "localhost");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "localhost");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/path/to/file");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
     EXPECT_EQ(uriObj.base.str(), "file://localhost/path/to/file");
     EXPECT_EQ(uriObj.str(), "file://localhost/path/to/file");
 }
@@ -465,13 +514,17 @@ TEST(CUriTestSuite, uri_scheme_file_6) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
     EXPECT_EQ(uriObj.base.str(), "file://a.aa/");
     EXPECT_EQ(uriObj.str(), "file://a.aa/");
 }
@@ -485,13 +538,17 @@ TEST(CUriTestSuite, uri_scheme_file_7) {
     EXPECT_EQ(uriObj.base.authority.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.userinfo.str().empty());
     EXPECT_EQ(uriObj.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.authority.host.str(), "a.aa");
     EXPECT_EQ(uriObj.base.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.port.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/path/to/file");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
     EXPECT_EQ(uriObj.base.str(), "file://a.aa/path/to/file");
     EXPECT_EQ(uriObj.str(), "file://a.aa/path/to/file");
 }
@@ -501,10 +558,13 @@ TEST(CUriTestSuite, uri_scheme_file_8) {
     EXPECT_EQ(uriObj.base.scheme.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.scheme.str(), "file");
     EXPECT_EQ(uriObj.base.authority.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
     EXPECT_EQ(uriObj.base.str(), "file:/");
     EXPECT_EQ(uriObj.str(), "file:/");
 }
@@ -517,10 +577,13 @@ TEST(CUriTestSuite, uri_scheme_file_9) {
     EXPECT_EQ(uriObj.base.scheme.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.scheme.str(), "file");
     EXPECT_EQ(uriObj.base.authority.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.authority.str().empty());
     EXPECT_EQ(uriObj.base.path.state(), STATE::avail);
     EXPECT_EQ(uriObj.base.path.str(), "/path/to/file");
     EXPECT_EQ(uriObj.base.query.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.query.str().empty());
     EXPECT_EQ(uriObj.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uriObj.base.fragment.str().empty());
     EXPECT_EQ(uriObj.base.str(), "file:/path/to/file");
     EXPECT_EQ(uriObj.str(), "file:/path/to/file");
 }
@@ -570,31 +633,35 @@ TEST(CUriTestSuite, uri_userinfo) {
 
     CUserinfo userinfo2("//@");
     EXPECT_EQ(userinfo2.state(), STATE::empty);
-    EXPECT_EQ(userinfo2.str(), "");
+    EXPECT_TRUE(userinfo2.str().empty());
 
     CUserinfo userinfo8("//:@");
     EXPECT_EQ(userinfo8.state(), STATE::empty);
-    EXPECT_EQ(userinfo8.str(), "");
+    EXPECT_TRUE(userinfo8.str().empty());
 
     CUserinfo userinfo10("//::@");
     EXPECT_EQ(userinfo10.state(), STATE::empty);
-    EXPECT_EQ(userinfo10.str(), "");
+    EXPECT_TRUE(userinfo10.str().empty());
 
     CUserinfo userinfo11("///");
     EXPECT_EQ(userinfo11.state(), STATE::undef);
+    EXPECT_TRUE(userinfo11.str().empty());
 
     CUserinfo userinfo9("//:password@");
     EXPECT_EQ(userinfo9.state(), STATE::empty);
-    EXPECT_EQ(userinfo9.str(), "");
+    EXPECT_TRUE(userinfo9.str().empty());
 
     CUserinfo userinfo3("//userinfo");
     EXPECT_EQ(userinfo3.state(), STATE::undef);
+    EXPECT_TRUE(userinfo3.str().empty());
 
     CUserinfo userinfo4("userinfo@");
     EXPECT_EQ(userinfo4.state(), STATE::undef);
+    EXPECT_TRUE(userinfo4.str().empty());
 
     CUserinfo userinfo5("/userinfo@");
     EXPECT_EQ(userinfo5.state(), STATE::undef);
+    EXPECT_TRUE(userinfo5.str().empty());
 
     CUserinfo userinfo6("//userinfo:@");
     EXPECT_EQ(userinfo6.state(), STATE::avail);
@@ -629,31 +696,31 @@ TEST(CUriTestSuite, uri_host) {
 
     CHost host4("//");
     EXPECT_EQ(host4.state(), STATE::empty);
-    EXPECT_EQ(host4.str(), "");
+    EXPECT_TRUE(host4.str().empty());
 
     CHost host5("///");
     EXPECT_EQ(host5.state(), STATE::empty);
-    EXPECT_EQ(host5.str(), "");
+    EXPECT_TRUE(host5.str().empty());
 
     CHost host6("//@/");
     EXPECT_EQ(host6.state(), STATE::empty);
-    EXPECT_EQ(host6.str(), "");
+    EXPECT_TRUE(host6.str().empty());
 
     CHost host7("//:");
     EXPECT_EQ(host7.state(), STATE::empty);
-    EXPECT_EQ(host7.str(), "");
+    EXPECT_TRUE(host7.str().empty());
 
     CHost host8("//?");
     EXPECT_EQ(host8.state(), STATE::empty);
-    EXPECT_EQ(host8.str(), "");
+    EXPECT_TRUE(host8.str().empty());
 
     CHost host9("//#");
     EXPECT_EQ(host9.state(), STATE::empty);
-    EXPECT_EQ(host9.str(), "");
+    EXPECT_TRUE(host9.str().empty());
 
     CHost host10("//@:");
     EXPECT_EQ(host10.state(), STATE::empty);
-    EXPECT_EQ(host10.str(), "");
+    EXPECT_TRUE(host10.str().empty());
 
     CHost host11("//@a.aa");
     EXPECT_EQ(host11.state(), STATE::avail);
@@ -674,25 +741,29 @@ TEST(CUriTestSuite, uri_port) {
 
     CPort port2("//:");
     EXPECT_EQ(port2.state(), STATE::empty);
-    EXPECT_EQ(port2.str(), "");
+    EXPECT_TRUE(port2.str().empty());
 
     CPort port21("///");
     EXPECT_EQ(port21.state(), STATE::undef);
+    EXPECT_TRUE(port21.str().empty());
 
     CPort port3("//");
     EXPECT_EQ(port3.state(), STATE::undef);
+    EXPECT_TRUE(port3.str().empty());
 
     CPort port4("/");
     EXPECT_EQ(port4.state(), STATE::undef);
+    EXPECT_TRUE(port4.str().empty());
 
     CPort port5(":");
     EXPECT_EQ(port5.state(), STATE::undef);
+    EXPECT_TRUE(port5.str().empty());
 }
 
 TEST(CUriTestSuite, uri_path) {
     CPath path00("scheme:");
     EXPECT_EQ(path00.state(), STATE::empty);
-    EXPECT_EQ(path00.str(), "");
+    EXPECT_TRUE(path00.str().empty());
 
     CPath path0("scheme:///");
     EXPECT_EQ(path0.state(), STATE::avail);
@@ -704,7 +775,7 @@ TEST(CUriTestSuite, uri_path) {
 
     CPath path2("scheme://a.aa");
     EXPECT_EQ(path2.state(), STATE::empty);
-    EXPECT_EQ(path2.str(), "");
+    EXPECT_TRUE(path2.str().empty());
 
     CPath path3("scheme://a.aa/");
     EXPECT_EQ(path3.state(), STATE::avail);
@@ -724,7 +795,7 @@ TEST(CUriTestSuite, uri_path) {
 
     CPath path7("foo://info.example.com?fred");
     EXPECT_EQ(path7.state(), STATE::empty);
-    EXPECT_EQ(path7.str(), "");
+    EXPECT_TRUE(path7.str().empty());
 
     CPath path8("mailto:fred@example.com");
     EXPECT_EQ(path8.state(), STATE::avail);
@@ -738,10 +809,11 @@ TEST(CUriTestSuite, uri_query) {
 
     CQuery query2("scheme://a.aa/path/part?#");
     EXPECT_EQ(query2.state(), STATE::empty);
-    EXPECT_EQ(query2.str(), "");
+    EXPECT_TRUE(query2.str().empty());
 
     CQuery query3("scheme://a.aa/path/part#?frag");
     EXPECT_EQ(query3.state(), STATE::undef);
+    EXPECT_TRUE(query3.str().empty());
 
     CQuery query4("?query");
     EXPECT_EQ(query4.state(), STATE::avail);
@@ -759,7 +831,7 @@ TEST(CUriTestSuite, uri_fragment) {
 
     CFragment query3("scheme://a.aa/path/part?#");
     EXPECT_EQ(query3.state(), STATE::empty);
-    EXPECT_EQ(query3.str(), "");
+    EXPECT_TRUE(query3.str().empty());
 
     CFragment query4("scheme://a.aa/path/part#?");
     EXPECT_EQ(query4.state(), STATE::avail);
@@ -799,6 +871,7 @@ TEST(CUriTestSuite, uri_rel) {
     EXPECT_EQ(uri_ref.state(), STATE::avail);
     EXPECT_EQ(uri_ref.str(), "//userinfo@a.aa:56789/path/sub?query#frag");
     EXPECT_EQ(uri_ref.scheme.state(), STATE::undef);
+    EXPECT_TRUE(uri_ref.scheme.str().empty());
     EXPECT_EQ(uri_ref.authority.state(), STATE::avail);
     EXPECT_EQ(uri_ref.authority.str(), "userinfo@a.aa:56789");
     EXPECT_EQ(uri_ref.authority.userinfo.state(), STATE::avail);
@@ -826,14 +899,17 @@ TEST(CUriTestSuite, uri) {
     EXPECT_EQ(uri.base.authority.state(), STATE::avail);
     EXPECT_EQ(uri.base.authority.str(), "a.aa");
     EXPECT_EQ(uri.base.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uri.base.authority.userinfo.str().empty());
     EXPECT_EQ(uri.base.authority.host.state(), STATE::avail);
     EXPECT_EQ(uri.base.authority.host.str(), "a.aa");
     EXPECT_EQ(uri.base.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uri.base.authority.port.str().empty());
     EXPECT_EQ(uri.base.path.state(), STATE::avail);
     EXPECT_EQ(uri.base.path.str(), "/b/c/d;p");
     EXPECT_EQ(uri.base.query.state(), STATE::avail);
     EXPECT_EQ(uri.base.query.str(), "q");
     EXPECT_EQ(uri.base.fragment.state(), STATE::undef);
+    EXPECT_TRUE(uri.base.fragment.str().empty());
 
     uri = ("g;x?y#s");
 
@@ -846,9 +922,11 @@ TEST(CUriTestSuite, uri) {
     EXPECT_EQ(uri.target.authority.state(), STATE::avail);
     EXPECT_EQ(uri.target.authority.str(), "a.aa");
     EXPECT_EQ(uri.target.authority.userinfo.state(), STATE::undef);
+    EXPECT_TRUE(uri.target.authority.userinfo.str().empty());
     EXPECT_EQ(uri.target.authority.host.state(), STATE::avail);
     EXPECT_EQ(uri.target.authority.host.str(), "a.aa");
     EXPECT_EQ(uri.target.authority.port.state(), STATE::undef);
+    EXPECT_TRUE(uri.target.authority.port.str().empty());
     EXPECT_EQ(uri.target.path.state(), STATE::avail);
     EXPECT_EQ(uri.target.path.str(), "/b/c/g;x");
     EXPECT_EQ(uri.target.query.state(), STATE::avail);

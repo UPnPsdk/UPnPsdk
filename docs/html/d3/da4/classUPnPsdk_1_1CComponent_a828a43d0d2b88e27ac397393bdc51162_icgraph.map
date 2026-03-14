@@ -1,29 +1,39 @@
 <map id="UPnPsdk::CComponent::state" name="UPnPsdk::CComponent::state">
-<area shape="rect" id="Node000001" title="Get state of the component." alt="" coords="673,185,844,225"/>
-<area shape="rect" id="Node000002" href="$da/dcf/classUPnPsdk_1_1CUri.html#a75a226e8cc621f9d288d0befb0e7650e" title="Initialize with the base URI." alt="" coords="453,5,603,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="738,175,692,108,660,73,624,44,601,33,603,28,627,40,664,69,696,104,742,172"/>
-<area shape="rect" id="Node000003" href="$dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e" title="Initialize the URI reference." alt="" coords="431,55,625,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="725,177,679,138,624,102,578,83,580,78,627,97,683,134,729,173"/>
-<area shape="rect" id="Node000004" href="$de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557" title="Merge a relative reference to a base URI." alt="" coords="204,104,372,159"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="711,181,670,161,625,146,559,134,493,128,372,128,372,123,493,123,560,129,626,141,672,156,713,176"/>
-<area shape="rect" id="Node000005" href="$da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0" title="Set a relative resource reference." alt="" coords="193,208,383,233"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="659,211,383,220,383,215,659,205"/>
-<area shape="rect" id="Node000006" href="$dd/d90/classUPnPsdk_1_1CAuthority.html#ad3e149966094fc7836c0c72d5b0d089b" title="Get state of the authority." alt="" coords="450,155,606,195"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="659,195,606,188,606,183,660,189"/>
-<area shape="rect" id="Node000007" href="$dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="207,271,369,296"/>
-<area shape="poly" id="edge16_Node000001_Node000007" title=" " alt="" coords="732,237,686,277,657,296,626,310,573,323,529,323,430,310,350,299,351,293,431,305,530,318,572,318,624,305,654,291,682,273,728,233"/>
-<area shape="rect" id="Node000009" href="$dc/d76/classUPnPsdk_1_1CUriRef.html#a9cd30f4988fb2db226dedc9527e7e6c5" title="Get state of the URI reference." alt="" coords="439,372,617,397"/>
-<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="739,238,692,297,661,328,627,355,585,374,583,369,624,350,658,324,688,294,735,235"/>
-<area shape="rect" id="Node000011" href="$dd/d90/classUPnPsdk_1_1CAuthority.html#a7af370c774ec2ad272b4802b7dee1bff" title="Get the string of the authority component." alt="" coords="438,271,618,296"/>
-<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="689,232,626,254,569,273,567,268,624,249,687,227"/>
-<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="323,93,310,85,288,83,269,85,257,89,252,96,252,104,247,104,247,94,254,85,268,79,288,77,312,80,326,88"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="436,161,372,149,373,144,437,156"/>
-<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="437,195,357,211,356,205,436,190"/>
-<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="476,204,384,247,323,273,320,268,382,242,473,199"/>
-<area shape="rect" id="Node000008" href="$da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9" title="Get the resulting URI string merged with the relative reference." alt="" coords="5,321,145,347"/>
-<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="221,302,130,324,129,319,220,297"/>
-<area shape="poly" id="edge13_Node000009_Node000008" title=" " alt="" coords="426,383,314,376,193,362,128,349,129,344,194,357,314,370,426,378"/>
-<area shape="rect" id="Node000010" href="$da/dcf/classUPnPsdk_1_1CUri.html#ab90b7e985ba8a6653497f1d820729da0" title="Get state of the URI." alt="" coords="210,321,366,347"/>
-<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="453,372,348,349,349,344,454,366"/>
-<area shape="poly" id="edge15_Node000011_Node000007" title=" " alt="" coords="425,286,369,286,369,281,425,281"/>
+<area shape="rect" id="Node000001" title="Get state of the component." alt="" coords="1068,206,1239,246"/>
+<area shape="rect" id="Node000002" href="$da/dcf/classUPnPsdk_1_1CUri.html#a75a226e8cc621f9d288d0befb0e7650e" title="Initialize with the base URI." alt="" coords="847,5,998,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1135,195,1116,159,1090,118,1057,78,1019,44,997,33,999,28,1021,40,1061,74,1095,115,1121,156,1140,192"/>
+<area shape="rect" id="Node000003" href="$dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e" title="Initialize the URI reference." alt="" coords="825,55,1020,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1125,197,1079,148,1050,123,1019,102,975,83,977,78,1021,97,1053,119,1082,144,1129,194"/>
+<area shape="rect" id="Node000004" href="$de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557" title="Merge a relative reference to a base URI." alt="" coords="599,103,767,157"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1097,203,1019,175,954,161,887,150,767,137,767,132,888,145,955,156,1021,170,1099,198"/>
+<area shape="rect" id="Node000005" href="$da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0" title="Set a relative resource reference." alt="" coords="588,203,777,228"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="1069,205,1020,197,923,190,826,197,755,205,754,200,825,191,923,185,1020,191,1070,200"/>
+<area shape="rect" id="Node000006" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="233,321,352,347"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="1065,252,1020,261,847,284,711,293,574,300,400,318,353,326,352,320,400,313,574,295,710,287,846,278,1020,255,1064,247"/>
+<area shape="rect" id="Node000016" href="$dd/d90/classUPnPsdk_1_1CAuthority.html#ad3e149966094fc7836c0c72d5b0d089b" title="Get state of the authority." alt="" coords="845,206,1001,246"/>
+<area shape="poly" id="edge10_Node000001_Node000016" title=" " alt="" coords="1054,229,1001,229,1001,223,1054,223"/>
+<area shape="rect" id="Node000017" href="$dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="602,321,763,347"/>
+<area shape="poly" id="edge22_Node000001_Node000017" title=" " alt="" coords="1134,259,1088,314,1057,340,1021,360,981,373,939,380,897,381,855,379,779,366,719,349,721,344,780,360,856,373,897,376,939,374,980,368,1019,356,1053,336,1084,310,1130,255"/>
+<area shape="rect" id="Node000019" href="$dc/d76/classUPnPsdk_1_1CUriRef.html#a9cd30f4988fb2db226dedc9527e7e6c5" title="Get state of the URI reference." alt="" coords="834,423,1011,448"/>
+<area shape="poly" id="edge17_Node000001_Node000019" title=" " alt="" coords="1138,259,1092,333,1060,372,1021,406,982,425,980,420,1019,401,1056,368,1088,329,1134,257"/>
+<area shape="rect" id="Node000021" href="$dd/d90/classUPnPsdk_1_1CAuthority.html#a7af370c774ec2ad272b4802b7dee1bff" title="Get the string of the authority component." alt="" coords="833,321,1013,347"/>
+<area shape="poly" id="edge20_Node000001_Node000021" title=" " alt="" coords="1111,256,1021,304,969,324,967,319,1019,300,1108,251"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="718,92,705,84,683,81,664,83,652,88,646,94,647,103,641,103,641,93,649,84,663,78,683,76,707,79,720,87"/>
+<area shape="rect" id="Node000007" href="$d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a75316464db9843014fb2e2311ad6f0b4" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="5,243,185,297"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="239,320,179,300,181,295,240,314"/>
+<area shape="rect" id="Node000014" href="$d3/d57/group__UPnPTools.html#ga480e7d0aa9565348e3a113c8c053762d" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="28,321,163,347"/>
+<area shape="poly" id="edge8_Node000006_Node000014" title=" " alt="" coords="219,337,163,337,163,331,219,331"/>
+<area shape="rect" id="Node000015" href="$d3/d57/group__UPnPTools.html#ga4a077ceca805a625c1e5cd58477627b8" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="24,371,167,396"/>
+<area shape="poly" id="edge9_Node000006_Node000015" title=" " alt="" coords="229,353,148,373,146,368,228,347"/>
+<area shape="poly" id="edge11_Node000016_Node000004" title=" " alt="" coords="858,203,751,160,753,155,860,198"/>
+<area shape="poly" id="edge12_Node000016_Node000005" title=" " alt="" coords="830,225,778,222,778,217,831,219"/>
+<area shape="poly" id="edge13_Node000016_Node000017" title=" " alt="" coords="866,254,713,324,711,319,864,249"/>
+<area shape="poly" id="edge14_Node000017_Node000006" title=" " alt="" coords="588,337,352,337,352,331,588,331"/>
+<area shape="rect" id="Node000018" href="$da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9" title="Get the resulting URI string merged with the relative reference." alt="" coords="400,372,540,397"/>
+<area shape="poly" id="edge15_Node000017_Node000018" title=" " alt="" coords="616,353,525,375,523,369,615,347"/>
+<area shape="poly" id="edge16_Node000018_Node000006" title=" " alt="" coords="411,371,337,349,339,344,412,366"/>
+<area shape="poly" id="edge19_Node000019_Node000018" title=" " alt="" coords="838,423,777,414,651,401,540,392,540,386,652,395,778,409,839,418"/>
+<area shape="rect" id="Node000020" href="$da/dcf/classUPnPsdk_1_1CUri.html#ab90b7e985ba8a6653497f1d820729da0" title="Get state of the URI." alt="" coords="605,423,761,448"/>
+<area shape="poly" id="edge18_Node000019_Node000020" title=" " alt="" coords="820,438,761,438,761,433,820,433"/>
+<area shape="poly" id="edge21_Node000021_Node000017" title=" " alt="" coords="819,337,764,337,764,331,819,331"/>
 </map>

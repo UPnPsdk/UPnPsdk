@@ -1,9 +1,11 @@
 <map id="FindServiceControlURLPath" name="FindServiceControlURLPath">
-<area shape="rect" id="Node000001" title="Traverses the service table and finds the node whose control URL Path matches a known value." alt="" coords="5,38,204,63"/>
-<area shape="rect" id="Node000002" href="$de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="257,13,340,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,35,243,30,244,35,203,41"/>
-<area shape="rect" id="Node000006" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a5b3b45fe5e06c4012785e304e53b4dbf" title="Compares two tokens." alt="" coords="252,62,345,87"/>
-<area shape="poly" id="edge3_Node000001_Node000006" title=" " alt="" coords="205,60,239,65,238,70,204,66"/>
-<area shape="rect" id="Node000003" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="393,5,544,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="340,23,379,23,379,28,340,28"/>
+<area shape="rect" id="Node000001" title="Traverses the service table and finds the node whose control URL Path matches a known value." alt="" coords="5,67,204,93"/>
+<area shape="rect" id="Node000002" href="$de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="257,42,340,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,65,243,59,244,64,203,70"/>
+<area shape="rect" id="Node000007" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a5b3b45fe5e06c4012785e304e53b4dbf" title="Compares two tokens." alt="" coords="252,91,345,117"/>
+<area shape="poly" id="edge4_Node000001_Node000007" title=" " alt="" coords="205,90,239,94,238,99,204,95"/>
+<area shape="rect" id="Node000003" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="416,5,567,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="340,46,402,36,403,42,341,51"/>
+<area shape="rect" id="Node000006" href="$d3/da4/classUPnPsdk_1_1CComponent.html#ad7ee59853f1492e7aa85aa3f80e30901" title="Get the string of the component." alt="" coords="393,70,589,95"/>
+<area shape="poly" id="edge3_Node000002_Node000006" title=" " alt="" coords="341,58,391,65,390,71,340,63"/>
 </map>

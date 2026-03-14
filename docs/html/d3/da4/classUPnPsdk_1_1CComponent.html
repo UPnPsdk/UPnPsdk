@@ -192,13 +192,13 @@ Protected Attributes</h2></td></tr>
 <p>Quote <a href="https://www.rfc-editor.org/rfc/rfc3986#section-5.3">RFC3986 5.3.</a>: </p><blockquote class="doxtable">
 <p>&zwj;Note that we are careful to preserve the distinction between a component that is undefined, meaning that its separator was not present in the reference, and a component that is empty, meaning that the separator was present and was immediately followed by the next component separator or the end of the reference. </p>
 </blockquote>
-<p>The state of a component in this class is not oriented on the input <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>, but on its output URI reference taking normalization and comparison into account (<a href="https://www.rfc-editor.org/rfc/rfc3986#section-6">RFC3986 6.</a>). For example an input URI reference "https://@[::1]:" will not set authority.userinfo.state() and authority.port.state() to '<a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00aa2e4822a98337283e39f7b60acf85ec9" title="The component string is empty.">STATE::empty</a>' but to '<a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00af31ee5e3824f1f5e5d206bdf3029f22b" title="The component is undefined. Accessing it throws an exception.">STATE::undef</a>', because the expected output URI reference is "https://[::1]". </p>
+<p>The state of a component in this class is not oriented on the input <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>, but on its output URI reference taking normalization and comparison into account (<a href="https://www.rfc-editor.org/rfc/rfc3986#section-6">RFC3986 6.</a>). For example an input URI reference "https://@[::1]:" will not set authority.userinfo.state() and authority.port.state() to '<a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00aa2e4822a98337283e39f7b60acf85ec9" title="Component is defined but empty, component string is empty.">STATE::empty</a>' but to '<a class="el" href="../../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00af31ee5e3824f1f5e5d206bdf3029f22b" title="component is undefined, component string is empty.">STATE::undef</a>', because the expected output URI reference is "https://[::1]". </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa9ac2dae4e47034b6c4504b2dc23dc00af31ee5e3824f1f5e5d206bdf3029f22b" name="aa9ac2dae4e47034b6c4504b2dc23dc00af31ee5e3824f1f5e5d206bdf3029f22b"></a>undef&#160;</td><td class="fielddoc"><p>The component is undefined. Accessing it throws an exception. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa9ac2dae4e47034b6c4504b2dc23dc00af31ee5e3824f1f5e5d206bdf3029f22b" name="aa9ac2dae4e47034b6c4504b2dc23dc00af31ee5e3824f1f5e5d206bdf3029f22b"></a>undef&#160;</td><td class="fielddoc"><p>component is undefined, component string is empty. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="aa9ac2dae4e47034b6c4504b2dc23dc00aa2e4822a98337283e39f7b60acf85ec9" name="aa9ac2dae4e47034b6c4504b2dc23dc00aa2e4822a98337283e39f7b60acf85ec9"></a>empty&#160;</td><td class="fielddoc"><p>The component string is empty. </p>
+<tr><td class="fieldname"><a id="aa9ac2dae4e47034b6c4504b2dc23dc00aa2e4822a98337283e39f7b60acf85ec9" name="aa9ac2dae4e47034b6c4504b2dc23dc00aa2e4822a98337283e39f7b60acf85ec9"></a>empty&#160;</td><td class="fielddoc"><p>Component is defined but empty, component string is empty. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="aa9ac2dae4e47034b6c4504b2dc23dc00a2a63117de6700b21651ea40db979a948" name="aa9ac2dae4e47034b6c4504b2dc23dc00a2a63117de6700b21651ea40db979a948"></a>avail&#160;</td><td class="fielddoc"><p>The component string is available means it's a valid content. </p>
+<tr><td class="fieldname"><a id="aa9ac2dae4e47034b6c4504b2dc23dc00a2a63117de6700b21651ea40db979a948" name="aa9ac2dae4e47034b6c4504b2dc23dc00a2a63117de6700b21651ea40db979a948"></a>avail&#160;</td><td class="fielddoc"><p>Component string is available, means it has a valid content. </p>
 </td></tr>
 </table>
 
@@ -233,33 +233,43 @@ Protected Attributes</h2></td></tr>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/da4/classUPnPsdk_1_1CComponent_a828a43d0d2b88e27ac397393bdc51162_icgraph.png" border="0" usemap="#ad3/da4/classUPnPsdk_1_1CComponent_a828a43d0d2b88e27ac397393bdc51162_icgraph" alt=""/></div>
 <map name="ad3/da4/classUPnPsdk_1_1CComponent_a828a43d0d2b88e27ac397393bdc51162_icgraph" id="ad3/da4/classUPnPsdk_1_1CComponent_a828a43d0d2b88e27ac397393bdc51162_icgraph">
-<area shape="rect" title="Get state of the component." alt="" coords="673,185,844,225"/>
-<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a75a226e8cc621f9d288d0befb0e7650e" title="Initialize with the base URI." alt="" coords="453,5,603,31"/>
-<area shape="poly" title=" " alt="" coords="738,175,692,108,660,73,624,44,601,33,603,28,627,40,664,69,696,104,742,172"/>
-<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e" title="Initialize the URI reference." alt="" coords="431,55,625,80"/>
-<area shape="poly" title=" " alt="" coords="725,177,679,138,624,102,578,83,580,78,627,97,683,134,729,173"/>
-<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557" title="Merge a relative reference to a base URI." alt="" coords="204,104,372,159"/>
-<area shape="poly" title=" " alt="" coords="711,181,670,161,625,146,559,134,493,128,372,128,372,123,493,123,560,129,626,141,672,156,713,176"/>
-<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0" title="Set a relative resource reference." alt="" coords="193,208,383,233"/>
-<area shape="poly" title=" " alt="" coords="659,211,383,220,383,215,659,205"/>
-<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#ad3e149966094fc7836c0c72d5b0d089b" title="Get state of the authority." alt="" coords="450,155,606,195"/>
-<area shape="poly" title=" " alt="" coords="659,195,606,188,606,183,660,189"/>
-<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="207,271,369,296"/>
-<area shape="poly" title=" " alt="" coords="732,237,686,277,657,296,626,310,573,323,529,323,430,310,350,299,351,293,431,305,530,318,572,318,624,305,654,291,682,273,728,233"/>
-<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#a9cd30f4988fb2db226dedc9527e7e6c5" title="Get state of the URI reference." alt="" coords="439,372,617,397"/>
-<area shape="poly" title=" " alt="" coords="739,238,692,297,661,328,627,355,585,374,583,369,624,350,658,324,688,294,735,235"/>
-<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#a7af370c774ec2ad272b4802b7dee1bff" title="Get the string of the authority component." alt="" coords="438,271,618,296"/>
-<area shape="poly" title=" " alt="" coords="689,232,626,254,569,273,567,268,624,249,687,227"/>
-<area shape="poly" title=" " alt="" coords="323,93,310,85,288,83,269,85,257,89,252,96,252,104,247,104,247,94,254,85,268,79,288,77,312,80,326,88"/>
-<area shape="poly" title=" " alt="" coords="436,161,372,149,373,144,437,156"/>
-<area shape="poly" title=" " alt="" coords="437,195,357,211,356,205,436,190"/>
-<area shape="poly" title=" " alt="" coords="476,204,384,247,323,273,320,268,382,242,473,199"/>
-<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9" title="Get the resulting URI string merged with the relative reference." alt="" coords="5,321,145,347"/>
-<area shape="poly" title=" " alt="" coords="221,302,130,324,129,319,220,297"/>
-<area shape="poly" title=" " alt="" coords="426,383,314,376,193,362,128,349,129,344,194,357,314,370,426,378"/>
-<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#ab90b7e985ba8a6653497f1d820729da0" title="Get state of the URI." alt="" coords="210,321,366,347"/>
-<area shape="poly" title=" " alt="" coords="453,372,348,349,349,344,454,366"/>
-<area shape="poly" title=" " alt="" coords="425,286,369,286,369,281,425,281"/>
+<area shape="rect" title="Get state of the component." alt="" coords="1068,206,1239,246"/>
+<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a75a226e8cc621f9d288d0befb0e7650e" title="Initialize with the base URI." alt="" coords="847,5,998,31"/>
+<area shape="poly" title=" " alt="" coords="1135,195,1116,159,1090,118,1057,78,1019,44,997,33,999,28,1021,40,1061,74,1095,115,1121,156,1140,192"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e" title="Initialize the URI reference." alt="" coords="825,55,1020,80"/>
+<area shape="poly" title=" " alt="" coords="1125,197,1079,148,1050,123,1019,102,975,83,977,78,1021,97,1053,119,1082,144,1129,194"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557" title="Merge a relative reference to a base URI." alt="" coords="599,103,767,157"/>
+<area shape="poly" title=" " alt="" coords="1097,203,1019,175,954,161,887,150,767,137,767,132,888,145,955,156,1021,170,1099,198"/>
+<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0" title="Set a relative resource reference." alt="" coords="588,203,777,228"/>
+<area shape="poly" title=" " alt="" coords="1069,205,1020,197,923,190,826,197,755,205,754,200,825,191,923,185,1020,191,1070,200"/>
+<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="233,321,352,347"/>
+<area shape="poly" title=" " alt="" coords="1065,252,1020,261,847,284,711,293,574,300,400,318,353,326,352,320,400,313,574,295,710,287,846,278,1020,255,1064,247"/>
+<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#ad3e149966094fc7836c0c72d5b0d089b" title="Get state of the authority." alt="" coords="845,206,1001,246"/>
+<area shape="poly" title=" " alt="" coords="1054,229,1001,229,1001,223,1054,223"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="602,321,763,347"/>
+<area shape="poly" title=" " alt="" coords="1134,259,1088,314,1057,340,1021,360,981,373,939,380,897,381,855,379,779,366,719,349,721,344,780,360,856,373,897,376,939,374,980,368,1019,356,1053,336,1084,310,1130,255"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#a9cd30f4988fb2db226dedc9527e7e6c5" title="Get state of the URI reference." alt="" coords="834,423,1011,448"/>
+<area shape="poly" title=" " alt="" coords="1138,259,1092,333,1060,372,1021,406,982,425,980,420,1019,401,1056,368,1088,329,1134,257"/>
+<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#a7af370c774ec2ad272b4802b7dee1bff" title="Get the string of the authority component." alt="" coords="833,321,1013,347"/>
+<area shape="poly" title=" " alt="" coords="1111,256,1021,304,969,324,967,319,1019,300,1108,251"/>
+<area shape="poly" title=" " alt="" coords="718,92,705,84,683,81,664,83,652,88,646,94,647,103,641,103,641,93,649,84,663,78,683,76,707,79,720,87"/>
+<area shape="rect" href="../../d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a75316464db9843014fb2e2311ad6f0b4" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="5,243,185,297"/>
+<area shape="poly" title=" " alt="" coords="239,320,179,300,181,295,240,314"/>
+<area shape="rect" href="../../d3/d57/group__UPnPTools.html#ga480e7d0aa9565348e3a113c8c053762d" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="28,321,163,347"/>
+<area shape="poly" title=" " alt="" coords="219,337,163,337,163,331,219,331"/>
+<area shape="rect" href="../../d3/d57/group__UPnPTools.html#ga4a077ceca805a625c1e5cd58477627b8" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="24,371,167,396"/>
+<area shape="poly" title=" " alt="" coords="229,353,148,373,146,368,228,347"/>
+<area shape="poly" title=" " alt="" coords="858,203,751,160,753,155,860,198"/>
+<area shape="poly" title=" " alt="" coords="830,225,778,222,778,217,831,219"/>
+<area shape="poly" title=" " alt="" coords="866,254,713,324,711,319,864,249"/>
+<area shape="poly" title=" " alt="" coords="588,337,352,337,352,331,588,331"/>
+<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9" title="Get the resulting URI string merged with the relative reference." alt="" coords="400,372,540,397"/>
+<area shape="poly" title=" " alt="" coords="616,353,525,375,523,369,615,347"/>
+<area shape="poly" title=" " alt="" coords="411,371,337,349,339,344,412,366"/>
+<area shape="poly" title=" " alt="" coords="838,423,777,414,651,401,540,392,540,386,652,395,778,409,839,418"/>
+<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#ab90b7e985ba8a6653497f1d820729da0" title="Get state of the URI." alt="" coords="605,423,761,448"/>
+<area shape="poly" title=" " alt="" coords="820,438,761,438,761,433,820,433"/>
+<area shape="poly" title=" " alt="" coords="819,337,764,337,764,331,819,331"/>
 </map>
 </div>
 
@@ -281,13 +291,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the string of the component. </p>
-<dl class="section return"><dt>Returns</dt><dd>Reference of the component string. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>if trying to read an undefined component string. </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference of the component string. It is empty for STATE "undef" and "empty". </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00186">186</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -297,19 +301,37 @@ Protected Attributes</h2></td></tr>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/da4/classUPnPsdk_1_1CComponent_ad7ee59853f1492e7aa85aa3f80e30901_icgraph.png" border="0" usemap="#ad3/da4/classUPnPsdk_1_1CComponent_ad7ee59853f1492e7aa85aa3f80e30901_icgraph" alt=""/></div>
 <map name="ad3/da4/classUPnPsdk_1_1CComponent_ad7ee59853f1492e7aa85aa3f80e30901_icgraph" id="ad3/da4/classUPnPsdk_1_1CComponent_ad7ee59853f1492e7aa85aa3f80e30901_icgraph">
-<area shape="rect" title="Get the string of the component." alt="" coords="457,157,653,183"/>
-<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e" title="Initialize the URI reference." alt="" coords="215,5,409,31"/>
-<area shape="poly" title=" " alt="" coords="533,149,480,96,445,68,408,44,380,33,382,28,411,40,448,64,483,92,536,145"/>
-<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557" title="Merge a relative reference to a base URI." alt="" coords="228,79,396,133"/>
-<area shape="poly" title=" " alt="" coords="492,156,396,131,397,126,494,151"/>
-<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0" title="Set a relative resource reference." alt="" coords="217,157,407,183"/>
-<area shape="poly" title=" " alt="" coords="443,173,407,173,407,167,443,167"/>
-<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#a7af370c774ec2ad272b4802b7dee1bff" title="Get the string of the authority component." alt="" coords="222,207,402,232"/>
-<area shape="poly" title=" " alt="" coords="479,188,376,209,375,204,478,183"/>
-<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="5,232,167,257"/>
-<area shape="poly" title=" " alt="" coords="526,192,474,222,442,236,410,246,347,257,283,261,167,257,167,252,283,256,346,251,409,241,440,231,471,217,523,188"/>
-<area shape="poly" title=" " alt="" coords="349,68,336,60,312,57,292,59,279,64,273,70,273,79,268,79,268,68,276,60,291,54,312,52,337,55,352,63"/>
-<area shape="poly" title=" " alt="" coords="209,234,167,238,167,233,208,228"/>
+<area shape="rect" title="Get the string of the component." alt="" coords="495,255,691,280"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#ae7bd319913aa488173c16999db8df74e" title="Initialize the URI reference." alt="" coords="252,77,447,103"/>
+<area shape="poly" title=" " alt="" coords="573,245,521,180,486,145,445,116,421,105,423,100,448,112,489,141,525,176,577,241"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557" title="Merge a relative reference to a base URI." alt="" coords="265,151,433,205"/>
+<area shape="poly" title=" " alt="" coords="543,252,424,208,426,203,545,247"/>
+<area shape="rect" href="../../da/dcf/classUPnPsdk_1_1CUri.html#a40e0f586c8edaeaa0c28b2216c1816a0" title="Set a relative resource reference." alt="" coords="255,229,444,255"/>
+<area shape="poly" title=" " alt="" coords="481,258,444,254,444,249,481,253"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="308,279,391,304"/>
+<area shape="poly" title=" " alt="" coords="481,281,391,290,391,285,481,276"/>
+<area shape="rect" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#a7af370c774ec2ad272b4802b7dee1bff" title="Get the string of the authority component." alt="" coords="259,351,439,376"/>
+<area shape="poly" title=" " alt="" coords="548,288,384,353,382,348,546,283"/>
+<area shape="rect" href="../../dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="24,504,185,529"/>
+<area shape="poly" title=" " alt="" coords="570,292,517,340,448,390,383,426,330,451,205,494,162,506,161,501,203,489,328,446,381,422,445,385,513,335,567,288"/>
+<area shape="poly" title=" " alt="" coords="390,140,375,132,349,129,328,131,314,136,307,142,307,151,302,151,302,140,311,132,327,126,349,124,377,127,392,135"/>
+<area shape="rect" href="../../df/d57/namespaceanonymous__namespace_02urlconfig_8cpp_03.html#a1e5f0d7260b12bc8adaaef5638611cd0" title="Configure the description document." alt="" coords="15,5,195,60"/>
+<area shape="poly" title=" " alt="" coords="294,290,270,282,250,268,232,243,224,219,222,194,224,170,226,146,225,122,218,97,202,73,190,62,194,58,206,70,223,95,230,121,231,146,229,170,227,194,229,218,237,241,254,264,273,277,295,285"/>
+<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#af4cc95bfb93aec4a8f3f5e4192d4e1c2" title="Function to parse the Callback header value in subscription requests." alt="" coords="47,84,162,109"/>
+<area shape="poly" title=" " alt="" coords="294,289,271,282,250,268,235,250,228,231,225,193,223,157,216,140,202,123,183,110,161,103,163,98,186,106,206,119,221,137,228,156,231,193,233,230,240,247,254,264,273,277,295,284"/>
+<area shape="rect" href="../../dd/d10/service__table_8cpp.html#a061d6dc9795188b0e8a7bef17e29d10b" title="Traverses the service table and finds the node whose control URL Path matches a known value." alt="" coords="5,133,204,159"/>
+<area shape="poly" title=" " alt="" coords="293,288,271,280,250,268,239,256,232,243,226,219,220,194,213,183,202,172,184,161,187,157,206,168,217,180,224,192,231,217,237,242,243,253,254,264,273,276,295,283"/>
+<area shape="rect" href="../../dd/d10/service__table_8cpp.html#a7bf739f41384af0da70d8504e542c734" title="Traverses the service table and finds the node whose event URL Path matches a known value." alt="" coords="11,183,199,208"/>
+<area shape="poly" title=" " alt="" coords="294,285,251,268,235,256,226,244,217,233,203,222,176,210,178,206,205,217,221,229,230,241,239,253,253,264,296,280"/>
+<area shape="rect" href="../../d0/d7c/namespaceanonymous__namespace_02soap__ctrlpt_8cpp_03.html#aa427eb8edd9f2f132f1ce35a15cb27df" title="This function retrives the host and path from the control URL." alt="" coords="15,232,195,287"/>
+<area shape="poly" title=" " alt="" coords="294,287,195,274,195,268,295,282"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a2d33a2d2116d1de548e95d8d023548d9" title="Parses URL and then validates URL." alt="" coords="49,311,160,336"/>
+<area shape="poly" title=" " alt="" coords="294,301,161,319,160,314,294,296"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#a01d7fab7d8ff4a83e2967633b0b282c8" title="Get HTTP Method, URL location and version information." alt="" coords="12,360,197,415"/>
+<area shape="poly" title=" " alt="" coords="304,312,176,362,174,357,302,307"/>
+<area shape="rect" href="../../da/dff/namespaceanonymous__namespace_02httpparser_8cpp_03.html#aead0dcbbc1374db7713e44a0e409ff9e" title="Extracts variable parameters depending on the passed in format parameter." alt="" coords="5,439,204,479"/>
+<area shape="poly" title=" " alt="" coords="297,312,274,324,254,340,238,362,231,384,224,406,206,428,185,441,182,437,202,424,219,403,226,382,233,359,250,336,271,320,295,307"/>
+<area shape="poly" title=" " alt="" coords="322,386,254,444,231,470,221,482,205,494,176,506,174,502,203,489,218,478,227,467,250,440,319,382"/>
 </map>
 </div>
 
@@ -338,7 +360,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Current state of the component. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00170">170</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00169">169</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>
@@ -364,7 +386,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Name of the component. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00175">175</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00174">174</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>

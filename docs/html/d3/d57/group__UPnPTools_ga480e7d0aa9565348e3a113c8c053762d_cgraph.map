@@ -1,9 +1,15 @@
 <map id="UpnpResolveURL" name="UpnpResolveURL">
-<area shape="rect" id="Node000001" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="5,35,140,60"/>
-<area shape="rect" id="Node000002" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a108ec7fc0704f362d70140d838e6e356" title="Resolves a relative url with a base url." alt="" coords="188,35,307,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,45,174,45,174,50,140,50"/>
-<area shape="rect" id="Node000003" href="$de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="396,5,479,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="307,36,382,24,383,29,307,41"/>
-<area shape="rect" id="Node000007" href="$de/dc7/group__upnpsdk-uri.html#ga1b4480819fde1cd38f31b41bedcdce06" title="Remove dot segments from a path." alt="" coords="355,55,520,95"/>
-<area shape="poly" id="edge3_Node000002_Node000007" title=" " alt="" coords="307,53,341,58,340,64,307,59"/>
+<area shape="rect" id="Node000001" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="5,95,140,121"/>
+<area shape="rect" id="Node000002" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="188,95,307,121"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,105,174,105,174,111,140,111"/>
+<area shape="rect" id="Node000003" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="355,5,505,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="275,93,371,49,374,54,278,98"/>
+<area shape="rect" id="Node000006" href="$d3/da4/classUPnPsdk_1_1CComponent.html#a828a43d0d2b88e27ac397393bdc51162" title="Get state of the component." alt="" coords="763,88,933,128"/>
+<area shape="poly" id="edge3_Node000002_Node000006" title=" " alt="" coords="307,101,355,99,566,97,749,101,749,107,566,103,355,104,307,106"/>
+<area shape="rect" id="Node000007" href="$dc/d76/classUPnPsdk_1_1CUriRef.html#aa35de91b07e3b9830711c021773188ed" title="Get URI reference string." alt="" coords="553,121,715,146"/>
+<area shape="poly" id="edge4_Node000002_Node000007" title=" " alt="" coords="307,109,540,125,539,130,307,115"/>
+<area shape="rect" id="Node000011" href="$da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9" title="Get the resulting URI string merged with the relative reference." alt="" coords="360,171,500,197"/>
+<area shape="poly" id="edge6_Node000002_Node000011" title=" " alt="" coords="280,118,387,164,385,168,278,123"/>
+<area shape="poly" id="edge5_Node000007_Node000006" title=" " alt="" coords="715,121,749,117,749,122,716,126"/>
+<area shape="poly" id="edge7_Node000011_Node000007" title=" " alt="" coords="481,169,569,147,570,152,483,174"/>
 </map>

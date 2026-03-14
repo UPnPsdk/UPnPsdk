@@ -107,6 +107,8 @@ $(document).ready(function(){initNavTree('da/dcf/classUPnPsdk_1_1CUri.html','../
 
 <p>Representing a <a class="el" href="../../d5/d67/Glossary.html#glossary_URI">URI</a> that can be modified with a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIrel">relative reference</a>.  
  <a href="../../da/dcf/classUPnPsdk_1_1CUri.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Collaboration diagram for UPnPsdk::CUri:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -167,11 +169,11 @@ Public Attributes</h2></td></tr>
 <div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Error! &quot;</span> &lt;&lt; ex.what() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">    handle_error();</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassUPnPsdk_1_1CUri_html"><div class="ttname"><a href="../../da/dcf/classUPnPsdk_1_1CUri.html">UPnPsdk::CUri</a></div><div class="ttdoc">Representing a URI that can be modified with a relative reference.</div><div class="ttdef"><b>Definition</b> <a href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01054">uri.cpp:1054</a></div></div>
-</div><!-- fragment --><p>On the once given base URI with the constructor, a relative reference can be modified as often as you wish.</p>
+<div class="ttc" id="aclassUPnPsdk_1_1CUri_html"><div class="ttname"><a href="../../da/dcf/classUPnPsdk_1_1CUri.html">UPnPsdk::CUri</a></div><div class="ttdoc">Representing a URI that can be modified with a relative reference.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00443">uri.hpp:443</a></div></div>
+</div><!-- fragment --><p>On the once given base URI with the constructor, a relative reference can be modified multible times.</p>
 <dl class="section note"><dt>Note</dt><dd>This class succeeds the normal examples as given at <a href="https://www.rfc-editor.org/rfc/rfc3986#section-5.4">RFC3986 5.4.</a> If in daubt have look there. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01054">1054</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00443">443</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a75a226e8cc621f9d288d0befb0e7650e" name="a75a226e8cc621f9d288d0befb0e7650e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75a226e8cc621f9d288d0befb0e7650e">&#9670;&#160;</a></span>CUri()</h2>
@@ -193,7 +195,6 @@ Public Attributes</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::invalid_argument</td><td><ul>
-<li>if trying to read an undefined component string.</li>
 <li>if host pattern is invalid. No DNS lookup is performed.</li>
 <li>if port number is invalid.</li>
 <li>if invalid percent encoding is detected.</li>
@@ -210,7 +211,7 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01101">1101</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01024">1024</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -247,7 +248,6 @@ Public Attributes</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::invalid_argument</td><td><ul>
-<li>if trying to read an undefined component string.</li>
 <li>if host pattern is invalid. No DNS lookup is performed.</li>
 <li>if port number is invalid.</li>
 <li>if invalid percent encoding is detected.</li>
@@ -264,7 +264,7 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01114">1114</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01037">1037</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -306,7 +306,7 @@ Public Attributes</h2></td></tr>
 
 <p>Get state of the URI. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01172">1172</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01094">1094</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -342,7 +342,7 @@ Public Attributes</h2></td></tr>
 <p>Get the resulting URI string merged with the <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">relative reference</a>. </p>
 <p>If no relative reference is given then just the base URI is returned. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01179">1179</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01101">1101</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -369,6 +369,24 @@ Public Attributes</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="599,161,633,165,633,170,599,166"/>
 </map>
 </div>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../da/dcf/classUPnPsdk_1_1CUri_af8ac1698d099c51170f6ddae2bfa6ca9_icgraph.png" border="0" usemap="#ada/dcf/classUPnPsdk_1_1CUri_af8ac1698d099c51170f6ddae2bfa6ca9_icgraph" alt=""/></div>
+<map name="ada/dcf/classUPnPsdk_1_1CUri_af8ac1698d099c51170f6ddae2bfa6ca9_icgraph" id="ada/dcf/classUPnPsdk_1_1CUri_af8ac1698d099c51170f6ddae2bfa6ca9_icgraph">
+<area shape="rect" title="Get the resulting URI string merged with the relative reference." alt="" coords="400,84,540,109"/>
+<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="233,84,352,109"/>
+<area shape="poly" title=" " alt="" coords="386,99,352,99,352,94,386,94"/>
+<area shape="rect" href="../../d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a75316464db9843014fb2e2311ad6f0b4" title="Returns pointer to service info after getting the sub&#45;elements of the service info." alt="" coords="5,5,185,60"/>
+<area shape="poly" title=" " alt="" coords="239,82,179,63,181,58,240,77"/>
+<area shape="rect" href="../../d3/d57/group__UPnPTools.html#ga480e7d0aa9565348e3a113c8c053762d" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="28,84,163,109"/>
+<area shape="poly" title=" " alt="" coords="219,99,163,99,163,94,219,94"/>
+<area shape="rect" href="../../d3/d57/group__UPnPTools.html#ga4a077ceca805a625c1e5cd58477627b8" title="Combines a base URL and a relative URL into a single absolute URL." alt="" coords="24,133,167,159"/>
+<area shape="poly" title=" " alt="" coords="229,115,148,136,146,131,228,110"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -387,7 +405,7 @@ Public Attributes</h2></td></tr>
 
 <p>Base URI. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01057">1057</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00446">446</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>
@@ -405,11 +423,12 @@ Public Attributes</h2></td></tr>
 
 <p>Resulting URI of merged relative reference to the base URI. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l01059">1059</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html#l00448">448</a> of file <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>UPnPsdk/include/UPnPsdk/<a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp_source.html">uri.hpp</a></li>
 <li>UPnPsdk/src/net/http/<a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a></li>
 </ul>
 </div><!-- contents -->

@@ -2,7 +2,7 @@ name: Integration tests
 
 on:
   push:
-    branches: [ decode_esc_chars, main ]
+    branches: [ resolve_rel_url, main ]
   pull_request:
     branches: [ main ]
 
