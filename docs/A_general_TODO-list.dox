@@ -1,11 +1,11 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-10-04
+// Redistribution only with this Copyright remark. Last modified: 2026-03-15
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- + - Rework CSocket.bind() due to RFC 4038 6.3.1 (try bind to all possible net if).
+ * - Rework CSocket.bind() due to RFC 4038 6.3.1 (try bind to all possible net if).
  * - CAddrinfo MUST return error codes!
  * - Rework Unit Tests in Utest/compa/api.d/test_upnpapi.cpp.
  *   - Remove Utest/compa/api.d/test_upnpapi_win32.cpp.
@@ -28,11 +28,11 @@
  * - Enable OpenSSL, improve its tests (test_sock.cpp, sock read_ssl, sock write_ssl).
  * - Rework 'get_ssdp_sockets()' and Utest/compa/1-discovery/test_ssdp.cpp.
  * - Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.
- * - Create no mocked tests for CSigpipe@sock.cpp, read and write data using UPnP-Device.
+ * - Use new fix in openssl https://github.com/openssl/openssl/issues/16399#event-22993335537
+ * - Obsolete, see above. (Create no mocked tests for CSigpipe@sock.cpp, read and write data using UPnP-Device.)
  * - Test and document ixml script support.
  * - Build for ARM platforms.
  * - Create Unit Test large-file support (https://gist.github.com/mortenpi/9745042)
- * - Remove Interface/ directory?
  * - Fix "time used" on sock_read and sock_write.
  * - Rework test_httpreadwrite.cpp.
  * - Add AI_IDN and AI_CANONIDN support to CAddrinfo.

@@ -2,7 +2,7 @@ name: Integration tests
 
 on:
   push:
-    branches: [ resolve_rel_url, main ]
+    branches: [ reorg_Utest, main ]
   pull_request:
     branches: [ main ]
 

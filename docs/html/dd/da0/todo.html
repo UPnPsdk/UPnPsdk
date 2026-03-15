@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <div class="textblock"><dl class="reflist">
 <dt>File <a class="el" href="../../de/d2c/A__general__TODO-list_8dox.html">A_general_TODO-list.dox</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a><ul>
-<li>- Rework CSocket.bind() due to RFC 4038 6.3.1 (try bind to all possible net if).<ul>
+<li>Rework CSocket.bind() due to RFC 4038 6.3.1 (try bind to all possible net if).</li>
 <li>CAddrinfo MUST return error codes!</li>
 <li>Rework Unit Tests in Utest/compa/api.d/test_upnpapi.cpp.<ul>
 <li>Remove Utest/compa/api.d/test_upnpapi_win32.cpp.</li>
@@ -134,11 +134,11 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <li>Enable OpenSSL, improve its tests (test_sock.cpp, sock read_ssl, sock write_ssl).</li>
 <li>Rework '<a class="el" href="../../de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation.">get_ssdp_sockets()</a>' and Utest/compa/1-discovery/test_ssdp.cpp.</li>
 <li>Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.</li>
-<li>Create no mocked tests for <a href="#" onclick="location.href='mai'+'lto:'+'CSi'+'gp'+'ipe'+'@s'+'ock'+'.c'+'pp'; return false;">CSigp<span class="obfuscator">.nosp@m.</span>ipe@<span class="obfuscator">.nosp@m.</span>sock.<span class="obfuscator">.nosp@m.</span>cpp</a>, read and write data using UPnP-Device.</li>
+<li>Use new fix in openssl <a href="https://github.com/openssl/openssl/issues/16399#event-22993335537">https://github.com/openssl/openssl/issues/16399#event-22993335537</a></li>
+<li>Obsolete, see above. (Create no mocked tests for <a href="#" onclick="location.href='mai'+'lto:'+'CSi'+'gp'+'ipe'+'@s'+'ock'+'.c'+'pp'; return false;">CSigp<span class="obfuscator">.nosp@m.</span>ipe@<span class="obfuscator">.nosp@m.</span>sock.<span class="obfuscator">.nosp@m.</span>cpp</a>, read and write data using UPnP-Device.)</li>
 <li>Test and document ixml script support.</li>
 <li>Build for ARM platforms.</li>
 <li>Create Unit Test large-file support (<a href="https://gist.github.com/mortenpi/9745042">https://gist.github.com/mortenpi/9745042</a>)</li>
-<li>Remove Interface/ directory?</li>
 <li>Fix "time used" on sock_read and sock_write.</li>
 <li>Rework test_httpreadwrite.cpp.</li>
 <li>Add AI_IDN and AI_CANONIDN support to CAddrinfo.</li>
@@ -147,8 +147,6 @@ $(document).ready(function(){initNavTree('dd/da0/todo.html','../../'); initResiz
 <li>Check bugfix in pupnp/upnp/src/urlconfig/urlconfig.cpp with a gtest.</li>
 <li>Move pupnp/upnp/src/inc/sock.hpp:79:static UPNP_INLINE int <a class="el" href="../../d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from -1.">sock_close()</a> to <a class="el" href="../../d5/db2/miniserver_8cpp.html" title="Implements the functionality and utility functions used by the Miniserver module.">miniserver.cpp</a> and rework.</li>
 <li>Replace <a class="el" href="../../d5/d91/ThreadPool_8hpp.html#d0/d41/structThreadPool" title="A thread pool.">ThreadPool</a> and multithreading with C++ standard library functions.  </li>
-</ul>
-</li>
 </ul>
 </dd>
 <dt>Member <a class="el" href="../../d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a553e7c0bea095f39accd1a5cde36c330">anonymous_namespace{httpreadwrite.cpp}::copy_msg_headers</a>  (<a class="el" href="../../de/dd1/LinkedList_8hpp.html#de/d4b/structLinkedList" title="Linked list (no protection).">LinkedList</a> *msgHeaders, UpnpString *headers)</dt>
