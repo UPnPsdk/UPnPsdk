@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-29
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -906,7 +906,7 @@ void httpmsg_init(      //
     ListInit(&msg->headers, httpmsg_compare, httpheader_free);
     membuffer_init(&msg->msg);
     membuffer_init(&msg->status_msg);
-    msg->urlbuf = nullptr;
+    msg->url_buf = nullptr;
     msg->initialized = 1;
 }
 
@@ -989,13 +989,13 @@ parse_status_t parser_parse_requestline( //
             url_str.length--;
         }
         /* store url */
-        hmsg->urlbuf = str_alloc(url_str.buf, url_str.length);
-        if (hmsg->urlbuf == NULL) {
+        hmsg->url_buf = str_alloc(url_str.buf, url_str.length);
+        if (hmsg->url_buf == NULL) {
             /* out of mem */
             parser->http_error_code = HTTP_INTERNAL_SERVER_ERROR;
             return PARSE_FAILURE;
         }
-        if (parse_uri(hmsg->urlbuf, url_str.length, &hmsg->uri) !=
+        if (parse_uri(hmsg->url_buf, url_str.length, &hmsg->uri) !=
             HTTP_SUCCESS) {
             return PARSE_FAILURE;
         }
@@ -1017,13 +1017,13 @@ parse_status_t parser_parse_requestline( //
         url_str.length--;
     }
     /* store url */
-    hmsg->urlbuf = str_alloc(url_str.buf, url_str.length);
-    if (hmsg->urlbuf == NULL) {
+    hmsg->url_buf = str_alloc(url_str.buf, url_str.length);
+    if (hmsg->url_buf == NULL) {
         /* out of mem */
         parser->http_error_code = HTTP_INTERNAL_SERVER_ERROR;
         return PARSE_FAILURE;
     }
-    if (parse_uri(hmsg->urlbuf, url_str.length, &hmsg->uri) != HTTP_SUCCESS) {
+    if (parse_uri(hmsg->url_buf, url_str.length, &hmsg->uri) != HTTP_SUCCESS) {
         return PARSE_FAILURE;
     }
 #if 0
@@ -1277,7 +1277,7 @@ void httpmsg_destroy(http_message_t* msg) {
         ListDestroy(&msg->headers, 1);
         membuffer_destroy(&msg->msg);
         membuffer_destroy(&msg->status_msg);
-        free(msg->urlbuf);
+        free(msg->url_buf);
         msg->initialized = 0;
     }
 }

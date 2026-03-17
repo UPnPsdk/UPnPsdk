@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-09-26
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2025-07-16, ver 1.14.21
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*!
  * \addtogroup UPnPAPI
@@ -132,7 +132,7 @@ ithread_rwlock_t GlobalHndRWLock;
 ithread_mutex_t gUUIDMutex;
 
 /*! Initialization mutex. */
-ithread_mutex_t gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
+static ithread_mutex_t gSDKInitMutex = PTHREAD_MUTEX_INITIALIZER;
 
 /*! Global timer thread. */
 TimerThread gTimerThread;
@@ -225,19 +225,19 @@ int g_UpnpSdkEQMaxAge = MAX_SUBSCRIPTION_EVENT_AGE;
 
 /*! Global variable to denote the state of Upnp SDK == 0 if uninitialized,
  * == 1 if initialized. */
-int UpnpSdkInit = 0;
+static int UpnpSdkInit = 0;
 
 /*! Global variable to denote the state of Upnp SDK client registration.
  * == 0 if unregistered, >= 1 if registered - registered clients count. */
-int UpnpSdkClientRegistered = 0;
+static int UpnpSdkClientRegistered = 0;
 
 /*! Global variable to denote the state of Upnp SDK IPv4 device registration.
  * == 0 if unregistered, == 1 if registered. */
-int UpnpSdkDeviceRegisteredV4 = 0;
+static int UpnpSdkDeviceRegisteredV4 = 0;
 
 /*! Global variable to denote the state of Upnp SDK IPv6 device registration.
  * == 0 if unregistered, == 1 if registered. */
-int UpnpSdkDeviceregisteredV6 = 0;
+static int UpnpSdkDeviceregisteredV6 = 0;
 
 #ifdef UPNP_HAVE_OPTSSDP
 /*! Global variable used in discovery notifications. */
@@ -1527,7 +1527,8 @@ static int GetDescDocumentAndURL(Upnp_DescType descriptionType,
     int fd;
     size_t fileLen;
     size_t num_read;
-    time_t last_modified{time(nullptr)};
+    time_t last_modified{};
+    /// \todo Test if needed to set time_t last_modified{time(nullptr)};
     struct stat file_info;
     struct sockaddr_storage serverAddr;
     int rc = UPNP_E_SUCCESS;
@@ -1544,7 +1545,7 @@ static int GetDescDocumentAndURL(Upnp_DescType descriptionType,
         retVal = UpnpDownloadXmlDoc(description, xmlDoc);
         if (retVal != UPNP_E_SUCCESS)
             return retVal;
-        last_modified = time(nullptr);
+        last_modified = time(NULL);
     } else if (descriptionType == (enum Upnp_DescType_e)UPNPREG_FILENAME_DESC) {
         int ret = 0;
 
@@ -1598,7 +1599,7 @@ static int GetDescDocumentAndURL(Upnp_DescType descriptionType,
             return rc;
         }
     } else if (descriptionType == (enum Upnp_DescType_e)UPNPREG_BUF_DESC) {
-        last_modified = time(nullptr);
+        last_modified = time(NULL);
         rc = ixmlParseBufferEx(description, xmlDoc);
     } else {
         return UPNP_E_INVALID_PARAM;
@@ -2947,8 +2948,8 @@ int UpnpWriteHttpPost(void* handle, char* buf, size_t* size, int timeout) {
 int UpnpCloseHttpPost(void* handle, int* httpStatus, int timeout) {
     int status = http_EndHttpRequest(handle, timeout);
     if (status == UPNP_E_SUCCESS) {
-        /* status = */ http_GetHttpResponse(handle, NULL, NULL, NULL,
-                                            httpStatus, timeout);
+        /*status = */ http_GetHttpResponse(handle, NULL, NULL, NULL, httpStatus,
+                                           timeout);
     }
     status = http_CloseHttpConnection(handle);
     return status;
@@ -3198,6 +3199,32 @@ int UpnpGetIfInfo(const char* IfName) {
         if (adapts_item->Flags & IP_ADAPTER_NO_MULTICAST ||
             adapts_item->OperStatus != IfOperStatusUp) {
             continue;
+        }
+
+        /* Skip VPN and tunnel interfaces when no specific interface is
+         * requested */
+        if (IfName == NULL) {
+            /* Check for common VPN interface types */
+            if (adapts_item->IfType == IF_TYPE_TUNNEL ||
+                adapts_item->IfType == IF_TYPE_PPP ||
+                adapts_item->IfType == 131 /* IF_TYPE_TUNNEL */) {
+                continue;
+            }
+
+            /* Check for common VPN interface names */
+            char tmpIfName[256] = {0};
+            size_t* s = NULL;
+            wcstombs_s(s, tmpIfName, sizeof(tmpIfName),
+                       adapts_item->FriendlyName, sizeof(tmpIfName));
+            free(s);
+
+            /* Skip interfaces with VPN-related names */
+            if (strstr(tmpIfName, "VPN") || strstr(tmpIfName, "Tunnel") ||
+                strstr(tmpIfName, "Meta") || strstr(tmpIfName, "TAP") ||
+                strstr(tmpIfName, "OpenVPN") ||
+                strstr(tmpIfName, "WireGuard")) {
+                continue;
+            }
         }
         if (ifname_found == 0) {
             /* We have found a valid interface name. Keep it. */
@@ -3618,9 +3645,9 @@ GetDeviceHandleInfoForPath([[maybe_unused]] const char* path,
         case HND_DEVICE:
             if ((*HndInfo)->DeviceAf == AddressFamily) {
                 if ((*serv_info = FindServiceControlURLPath(
-                         &(*HndInfo)->ServiceTable, path)) != nullptr ||
+                         &(*HndInfo)->ServiceTable, path)) ||
                     (*serv_info = FindServiceEventURLPath(
-                         &(*HndInfo)->ServiceTable, path)) != nullptr) {
+                         &(*HndInfo)->ServiceTable, path))) {
                     return HND_DEVICE;
                 }
             }
@@ -3640,17 +3667,24 @@ Upnp_Handle_Type GetHandleInfo(UpnpClient_Handle Hnd,
     Upnp_Handle_Type ret = HND_INVALID;
 
 #if 0
-    UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
-               "GetHandleInfo: entering, Handle is %d\n", Hnd);
-
+    UpnpPrintf(UPNP_ALL,
+        API,
+        __FILE__,
+        __LINE__,
+       "GetHandleInfo: entering, Handle is %d\n",
+       Hnd);
 #endif
     if (Hnd < 1 || Hnd >= NUM_HANDLE) {
         UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
                    "GetHandleInfo: Handle out of range\n");
     } else if (HandleTable[Hnd] == NULL) {
 #if 0
-        UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__,
-                   "GetHandleInfo: HandleTable[%d] is NULL\n", Hnd);
+        UpnpPrintf(UPNP_ALL,
+            API,
+            __FILE__,
+            __LINE__,
+           "GetHandleInfo: HandleTable[%d] is NULL\n",
+           Hnd);
 #endif
     } else if (HandleTable[Hnd] != NULL) {
         *HndInfo = (struct Handle_Info*)HandleTable[Hnd];
@@ -3658,7 +3692,8 @@ Upnp_Handle_Type GetHandleInfo(UpnpClient_Handle Hnd,
     }
 
 #if 0
-    UpnpPrintf(UPNP_ALL, API, __FILE__, __LINE__, "GetHandleInfo: exiting\n");
+    UpnpPrintf(
+    UPNP_ALL, API, __FILE__, __LINE__, "GetHandleInfo: exiting\n");
 #endif
 
     return ret;

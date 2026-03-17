@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-12
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-17
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -264,7 +264,7 @@ struct http_message_t {
     /// \brief entire raw message.
     membuffer msg;
     /// \brief storage for url string.
-    char* urlbuf;
+    char* url_buf;
     /// @}
 };
 

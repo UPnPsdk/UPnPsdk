@@ -138,9 +138,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a9b4b32cfbe825a3f7cc9906b33d50872" id="r_a9b4b32cfbe825a3f7cc9906b33d50872"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872">handle_request</a> (void *args)</td></tr>
 <tr class="memdesc:a9b4b32cfbe825a3f7cc9906b33d50872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive the request and dispatch it for handling.  <br /></td></tr>
 <tr class="separator:a9b4b32cfbe825a3f7cc9906b33d50872"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e2408b7e1b679c8ff7430ffd9173ac5" id="r_a5e2408b7e1b679c8ff7430ffd9173ac5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5e2408b7e1b679c8ff7430ffd9173ac5">schedule_request_job</a> (SOCKET a_connfd, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a> &amp;clientAddr)</td></tr>
-<tr class="memdesc:a5e2408b7e1b679c8ff7430ffd9173ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job to the thread pool.  <br /></td></tr>
-<tr class="separator:a5e2408b7e1b679c8ff7430ffd9173ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a152f98f4e525591c17b95de35da9773e" id="r_a152f98f4e525591c17b95de35da9773e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e">schedule_request_job</a> (SOCKET a_sock, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a> &amp;clientAddr)</td></tr>
+<tr class="memdesc:a152f98f4e525591c17b95de35da9773e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job to the thread pool.  <br /></td></tr>
+<tr class="separator:a152f98f4e525591c17b95de35da9773e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a937a0eae18a69c7e034aa982345d9a50" id="r_a937a0eae18a69c7e034aa982345d9a50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50">fdset_if_valid</a> (SOCKET a_sock, fd_set *a_set)</td></tr>
 <tr class="memdesc:a937a0eae18a69c7e034aa982345d9a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a socket file descriptor to an <code>'fd_set'</code> structure as needed for <code>::select()</code>.  <br /></td></tr>
 <tr class="separator:a937a0eae18a69c7e034aa982345d9a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,9 +206,9 @@ Variables</h2></td></tr>
 </div><table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">
-<a id="a1f7d64c469da025cbad2503f1d808de9" name="a1f7d64c469da025cbad2503f1d808de9"></a>SOCKET</td>
+<a id="ab7e7f30ec068aa4eb7aa160f9de8e7fd" name="ab7e7f30ec068aa4eb7aa160f9de8e7fd"></a>SOCKET</td>
 <td class="fieldname">
-connfd</td>
+sock</td>
 <td class="fielddoc">
 Connection socket file descriptor. </td></tr>
 <tr><td class="fieldtype">
@@ -482,7 +482,7 @@ Socket address of the remote control point. </td></tr>
 <area shape="rect" title="Based on the type of message, appropriate callback is issued." alt="" coords="497,5,700,60"/>
 <area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="259,5,449,60"/>
 <area shape="poly" title=" " alt="" coords="484,35,450,35,450,30,484,30"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5e2408b7e1b679c8ff7430ffd9173ac5" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="5,5,211,60"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="5,5,211,60"/>
 <area shape="poly" title=" " alt="" coords="245,35,211,35,211,30,245,30"/>
 </map>
 </div>
@@ -534,7 +534,7 @@ Socket address of the remote control point. </td></tr>
 <div class="center"><img src="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a639fecba9beb576e16e842901e9c1c27_icgraph.png" border="0" usemap="#ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a639fecba9beb576e16e842901e9c1c27_icgraph" alt=""/></div>
 <map name="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a639fecba9beb576e16e842901e9c1c27_icgraph" id="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a639fecba9beb576e16e842901e9c1c27_icgraph">
 <area shape="rect" title="Free memory assigned for handling request and unitialize socket functionality." alt="" coords="487,5,667,60"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5e2408b7e1b679c8ff7430ffd9173ac5" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="233,5,439,60"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="233,5,439,60"/>
 <area shape="poly" title=" " alt="" coords="473,35,439,35,439,30,473,30"/>
 <area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="5,5,185,60"/>
 <area shape="poly" title=" " alt="" coords="220,35,186,35,186,30,220,30"/>
@@ -659,7 +659,7 @@ Socket address of the remote control point. </td></tr>
 <div class="center"><img src="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a9b4b32cfbe825a3f7cc9906b33d50872_icgraph.png" border="0" usemap="#ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a9b4b32cfbe825a3f7cc9906b33d50872_icgraph" alt=""/></div>
 <map name="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a9b4b32cfbe825a3f7cc9906b33d50872_icgraph" id="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a9b4b32cfbe825a3f7cc9906b33d50872_icgraph">
 <area shape="rect" title="Receive the request and dispatch it for handling." alt="" coords="487,5,677,60"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5e2408b7e1b679c8ff7430ffd9173ac5" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="233,5,439,60"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="233,5,439,60"/>
 <area shape="poly" title=" " alt="" coords="473,35,439,35,439,30,473,30"/>
 <area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="5,5,185,60"/>
 <area shape="poly" title=" " alt="" coords="220,35,186,35,186,30,220,30"/>
@@ -668,8 +668,8 @@ Socket address of the remote control point. </td></tr>
 
 </div>
 </div>
-<a id="a5e2408b7e1b679c8ff7430ffd9173ac5" name="a5e2408b7e1b679c8ff7430ffd9173ac5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e2408b7e1b679c8ff7430ffd9173ac5">&#9670;&#160;</a></span>schedule_request_job()</h2>
+<a id="a152f98f4e525591c17b95de35da9773e" name="a152f98f4e525591c17b95de35da9773e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a152f98f4e525591c17b95de35da9773e">&#9670;&#160;</a></span>schedule_request_job()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -681,7 +681,7 @@ Socket address of the remote control point. </td></tr>
           <td class="memname">void anonymous_namespace{miniserver.cpp}::schedule_request_job </td>
           <td>(</td>
           <td class="paramtype">SOCKET&#160;</td>
-          <td class="paramname"><em>a_connfd</em>, </td>
+          <td class="paramname"><em>a_sock</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -705,20 +705,20 @@ Socket address of the remote control point. </td></tr>
 <p>Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job to the thread pool. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_connfd</td><td>Socket Descriptor on which connection is accepted.  </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_sock</td><td>Socket Descriptor on which connection is accepted.  </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">clientAddr</td><td>Ctrlpnt address object. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00350">350</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00349">349</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-9-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a5e2408b7e1b679c8ff7430ffd9173ac5_cgraph.png" border="0" usemap="#ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a5e2408b7e1b679c8ff7430ffd9173ac5_cgraph" alt=""/></div>
-<map name="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a5e2408b7e1b679c8ff7430ffd9173ac5_cgraph" id="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a5e2408b7e1b679c8ff7430ffd9173ac5_cgraph">
+<div class="center"><img src="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a152f98f4e525591c17b95de35da9773e_cgraph.png" border="0" usemap="#ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a152f98f4e525591c17b95de35da9773e_cgraph" alt=""/></div>
+<map name="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a152f98f4e525591c17b95de35da9773e_cgraph" id="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a152f98f4e525591c17b95de35da9773e_cgraph">
 <area shape="rect" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="5,479,211,534"/>
 <area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a639fecba9beb576e16e842901e9c1c27" title="Free memory assigned for handling request and unitialize socket functionality." alt="" coords="264,133,444,187"/>
 <area shape="poly" title=" " alt="" coords="127,477,323,197,328,200,131,480"/>
@@ -772,8 +772,8 @@ Socket address of the remote control point. </td></tr>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a5e2408b7e1b679c8ff7430ffd9173ac5_icgraph.png" border="0" usemap="#ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a5e2408b7e1b679c8ff7430ffd9173ac5_icgraph" alt=""/></div>
-<map name="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a5e2408b7e1b679c8ff7430ffd9173ac5_icgraph" id="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a5e2408b7e1b679c8ff7430ffd9173ac5_icgraph">
+<div class="center"><img src="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a152f98f4e525591c17b95de35da9773e_icgraph.png" border="0" usemap="#ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a152f98f4e525591c17b95de35da9773e_icgraph" alt=""/></div>
+<map name="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a152f98f4e525591c17b95de35da9773e_icgraph" id="ad9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_a152f98f4e525591c17b95de35da9773e_icgraph">
 <area shape="rect" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="481,5,687,60"/>
 <area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="253,5,433,60"/>
 <area shape="poly" title=" " alt="" coords="468,35,434,35,434,30,468,30"/>
@@ -824,7 +824,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00410">410</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00408">408</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -900,7 +900,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00459">459</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00457">457</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-13-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-13-summary" class="dynsummary" style="display:block;">
@@ -915,7 +915,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
 <area shape="poly" title=" " alt="" coords="112,188,161,274,197,331,242,391,293,451,352,508,417,556,488,594,519,604,551,610,617,613,680,607,737,596,738,601,681,612,617,618,550,615,517,609,486,598,414,561,348,512,289,455,237,395,193,334,156,277,108,190"/>
 <area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="738,159,893,199"/>
 <area shape="poly" title=" " alt="" coords="168,131,270,101,331,86,398,75,468,67,539,66,609,72,678,87,708,98,736,114,783,147,780,152,733,118,705,103,677,92,609,77,539,71,468,73,399,80,332,92,271,106,170,136"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5e2408b7e1b679c8ff7430ffd9173ac5" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="233,282,439,337"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="233,282,439,337"/>
 <area shape="poly" title=" " alt="" coords="142,187,281,273,278,277,139,191"/>
 <area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="953,69,1111,109"/>
 <area shape="poly" title=" " alt="" coords="906,72,940,76,940,81,905,77"/>
@@ -996,7 +996,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00515">515</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00513">513</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
@@ -1089,7 +1089,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00551">551</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00549">549</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">
@@ -1131,7 +1131,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00614">614</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00612">612</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -1164,7 +1164,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
 <area shape="poly" title=" " alt="" coords="450,185,514,171,639,158,754,153,755,158,639,163,515,177,451,190"/>
 <area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="781,222,935,262"/>
 <area shape="poly" title=" " alt="" coords="451,238,515,250,580,255,647,256,767,250,767,255,647,261,580,261,514,255,450,243"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5e2408b7e1b679c8ff7430ffd9173ac5" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="515,187,720,241"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="515,187,720,241"/>
 <area shape="poly" title=" " alt="" coords="450,211,501,211,501,217,450,217"/>
 <area shape="poly" title=" " alt="" coords="658,184,709,152,767,121,782,114,785,119,769,126,712,157,661,189"/>
 <area shape="poly" title=" " alt="" coords="720,186,762,176,763,181,721,192"/>
@@ -1194,7 +1194,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
 <p>Check if a network address is numeric. </p>
 <p>An empty netaddress or an unspecified one ("[::]", "0.0.0.0") is not valid. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00781">781</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00779">779</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-19-summary" class="dynsummary" style="display:block;">
@@ -1249,7 +1249,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00793">793</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00791">791</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-20-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-20-summary" class="dynsummary" style="display:block;">
@@ -1333,7 +1333,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00837">837</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00835">835</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-21-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-21-summary" class="dynsummary" style="display:block;">
@@ -1422,7 +1422,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00950">950</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00948">948</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-23-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-23-summary" class="dynsummary" style="display:block;">
@@ -1482,7 +1482,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00998">998</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/db2/miniserver_8cpp_source.html#l00996">996</a> of file <a class="el" href="../../d5/db2/miniserver_8cpp_source.html">miniserver.cpp</a>.</p>
 <div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-25-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-25-summary" class="dynsummary" style="display:block;">

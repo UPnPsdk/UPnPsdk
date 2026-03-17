@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-10-26
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
+
 /*!
  * \file
  */
@@ -312,7 +313,7 @@ static int SetPriority(
     default:
         retVal = EINVAL;
         goto exit_function;
-    };
+    }
 
     newPriority.sched_priority = actPriority;
 
@@ -408,11 +409,11 @@ static void SetSeed(void) {
 
     gettimeofday(&t, NULL);
 #if defined(__PTW32_DLLPORT)
-    srand((unsigned long long)t.tv_usec +
-          (unsigned long long)ithread_get_current_thread_id().p);
+    srand((unsigned int)t.tv_usec +
+          PtrToUint(ithread_get_current_thread_id().p));
 #elif defined(BSD) || defined(__APPLE__) || defined(__FreeBSD_kernel__)
     srand((unsigned int)t.tv_usec +
-          (unsigned int)((unsigned long)ithread_get_current_thread_id()));
+          (unsigned int)(unsigned long)ithread_get_current_thread_id());
 #elif defined(__linux__) || defined(__sun) || defined(__CYGWIN__) ||           \
     defined(__GLIBC__)
     srand((unsigned int)t.tv_usec +
@@ -472,7 +473,7 @@ static void* WorkerThread(
         }
         retCode = 0;
         tp->stats.idleThreads++;
-        tp->stats.totalWorkTime += (double)StatsTime(NULL) - (double)start;
+        tp->stats.totalWorkTime += (double)(StatsTime(NULL)) - (double)start;
         StatsTime(&start);
         if (persistent == 0) {
             tp->stats.workerThreads--;
@@ -503,7 +504,7 @@ static void* WorkerThread(
         }
         tp->stats.idleThreads--;
         /* idle time */
-        tp->stats.totalIdleTime += (double)StatsTime(NULL) - (double)start;
+        tp->stats.totalIdleTime += (double)(StatsTime(NULL)) - (double)start;
         /* work time */
         StatsTime(&start);
         /* bump priority of starved jobs */

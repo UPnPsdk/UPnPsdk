@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-27
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2025-08-07, ver 1.14.24
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
+
 /*!
  * \addtogroup SSDPlib
  *
@@ -53,9 +54,12 @@
 #include "statcodes.hpp"
 #include "upnpapi.hpp"
 
+/// \cond
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include <iostream> // DEBUG!
+/// \endcond
 
 #include "posix_overwrites.hpp" // IWYU pragma: keep
 
@@ -74,6 +78,12 @@ void advertiseAndReplyThread(void* data) {
                       arg->event.UDN, arg->event.ServiceType, arg->MaxAge);
     free(arg);
 }
+
+#ifdef _WIN32
+#define SIZE_P (int)
+#else
+#define SIZE_P
+#endif
 
 #ifdef INCLUDE_DEVICE_APIS
 void ssdp_handle_device_request(http_message_t* hmsg,
@@ -177,14 +187,121 @@ static void ProcessSocketError(const char* file, int line,
                function_name, errorBuffer);
 }
 
-#define PROCESS_SOCKET_ERROR(file, line, error, func_name)                     \
+#define PROCESS_SOCKET_ERROR(file, line, rc, error, func_name)                 \
     do {                                                                       \
         if (rc == -1) {                                                        \
             ProcessSocketError(file, line, func_name);                         \
             ret = error;                                                       \
-            goto end_NewRequestHandler;                                        \
+            goto end_SendToCaller;                                             \
         }                                                                      \
     } while (0)
+
+/*!
+ * \brief Handles the request for one potential target port
+ *
+ * \return UPNP_E_SUCCESS if successful else appropriate error.
+ */
+static int SendToCaller(
+    /*! [in] Address detail for socket */
+    struct addrinfo* res,
+    /*! [in] Socket address, to send the reply. */
+    struct sockaddr* DestAddr,
+    /*! [in] Number of packet to be sent. */
+    int NumPacket,
+    /*! [in] Request content */
+    char** RqPacket,
+    /*! [in] Ip address, to send the reply. */
+    struct in_addr* replyAddr) {
+    int rc;
+    SOCKET ReplySock{INVALID_SOCKET};
+    socklen_t socklen = sizeof(struct sockaddr_storage);
+    int Index;
+    static const int yes = 1;
+    /* a/c to UPNP Spec */
+    static const int ttl = 4;
+#ifdef UPNP_ENABLE_IPV6
+    static const int hops = 1;
+#endif
+    char buf_ntop[INET6_ADDRSTRLEN];
+    int ret = UPNP_E_SUCCESS;
+    ssize_t bindrc;
+
+    ReplySock = umock::sys_socket_h.socket(res->ai_family, res->ai_socktype,
+                                           res->ai_protocol);
+    if (ReplySock == INVALID_SOCKET) {
+        ProcessSocketError(__FILE__, __LINE__, "socket");
+        ret = UPNP_E_OUTOF_SOCKET;
+        goto end_SendToCallerDontClose;
+    }
+    rc = umock::sys_socket_h.setsockopt(ReplySock, SOL_SOCKET, SO_REUSEADDR,
+                                        (OPTION_VALUE_CAST)&yes, sizeof(yes));
+    PROCESS_SOCKET_ERROR(__FILE__, __LINE__, rc, UPNP_E_SOCKET_ERROR,
+                         "setsockopt-1");
+#if (defined(BSD) && !defined(__GNU__)) || defined(__APPLE__) ||               \
+    defined(__linux__)
+    rc = umock::sys_socket_h.setsockopt(ReplySock, SOL_SOCKET, SO_REUSEPORT,
+                                        (OPTION_VALUE_CAST)&yes, sizeof(yes));
+    PROCESS_SOCKET_ERROR(__FILE__, __LINE__, rc, UPNP_E_SOCKET_ERROR,
+                         "setsockopt-1x");
+#endif /* BSD, __APPLE__, __linux__ */
+    bindrc = umock::sys_socket_h.bind(ReplySock, res->ai_addr,
+                                      static_cast<socklen_t>(res->ai_addrlen));
+    PROCESS_SOCKET_ERROR(__FILE__, __LINE__, bindrc, UPNP_E_SOCKET_BIND,
+                         "bind");
+
+    switch (DestAddr->sa_family) {
+    case AF_INET:
+        inet_ntop(AF_INET, &((struct sockaddr_in*)DestAddr)->sin_addr, buf_ntop,
+                  sizeof(buf_ntop));
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IP, IP_MULTICAST_IF,
+            (OPTION_VALUE_CAST)replyAddr, sizeof(*replyAddr));
+        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, rc, UPNP_E_SOCKET_ERROR,
+                             "setsockopt-2");
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IP, IP_MULTICAST_TTL, (OPTION_VALUE_CAST)&ttl,
+            sizeof(ttl));
+        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, rc, UPNP_E_SOCKET_ERROR,
+                             "setsockopt-3");
+        socklen = sizeof(struct sockaddr_in);
+        break;
+#ifdef UPNP_ENABLE_IPV6
+    case AF_INET6:
+        inet_ntop(AF_INET6, &((struct sockaddr_in6*)DestAddr)->sin6_addr,
+                  buf_ntop, sizeof(buf_ntop));
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_IF,
+            (OPTION_VALUE_CAST)&gIF_INDEX, sizeof(gIF_INDEX));
+        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, rc, UPNP_E_SOCKET_ERROR,
+                             "setsockopt-2");
+        rc = umock::sys_socket_h.setsockopt(
+            ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,
+            (OPTION_VALUE_CAST)&hops, sizeof(hops));
+        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, rc, UPNP_E_SOCKET_ERROR,
+                             "setsockopt-3");
+        break;
+#endif
+    }
+
+    for (Index = 0; Index < NumPacket; Index++) {
+        ssize_t sendrc;
+        UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                   ">>> SSDP SEND to %s >>>\n%s\n", buf_ntop,
+                   *(RqPacket + Index));
+        sendrc = umock::sys_socket_h.sendto(ReplySock, *(RqPacket + Index),
+                                            SIZE_P strlen(*(RqPacket + Index)),
+                                            0, DestAddr, socklen);
+        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, sendrc, UPNP_E_SOCKET_WRITE,
+                             "sendto");
+    }
+
+end_SendToCaller:
+    UpnpCloseSocket(ReplySock);
+
+end_SendToCallerDontClose:
+
+    return ret;
+}
 
 /*!
  * \brief Works as a request handler which passes the HTTP request string
@@ -197,22 +314,13 @@ static int NewRequestHandler(
     struct sockaddr* DestAddr,
     /*! [in] Number of packet to be sent. */
     int NumPacket,
-    /*! [in] . */
+    /*! [in] Request content */
     char** RqPacket) {
+    std::cerr << "DEBUG! Tracepoint3\n";
     int rc;
-    SOCKET ReplySock{INVALID_SOCKET};
-    socklen_t socklen = sizeof(struct sockaddr_storage);
-    int Index;
     struct in_addr replyAddr;
-    struct addrinfo hints, *res;
-    int yes = 1;
-    /* a/c to UPNP Spec */
-    int ttl = 4;
-#ifdef UPNP_ENABLE_IPV6
-    int hops = 1;
-#endif
-    char buf_ntop[INET6_ADDRSTRLEN];
-    int ret = UPNP_E_SUCCESS;
+    struct addrinfo hints, *result, *res;
+    int ret = UPNP_E_SOCKET_ERROR;
 
     if (strlen(gIF_IPV4) > (size_t)0 &&
         !inet_pton(AF_INET, gIF_IPV4, &replyAddr)) {
@@ -223,74 +331,50 @@ static int NewRequestHandler(
     hints.ai_family = DestAddr->sa_family;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_flags = AI_PASSIVE;
-    if ((rc = getaddrinfo(NULL, SSDP_PORT_STR, &hints, &res)) != 0) {
-        UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                   "SSDP_LIB: New Request Handler:"
-                   "Error in getaddrinfo(): %s\n",
-                   gai_strerror(rc));
-        ret = UPNP_E_SOCKET_ERROR;
-        goto end_NewRequestHandlerDontClose;
-    }
-    ReplySock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
-    if (ReplySock == INVALID_SOCKET) {
-        ProcessSocketError(__FILE__, __LINE__, "socket");
-        ret = UPNP_E_OUTOF_SOCKET;
-        goto end_NewRequestHandlerDontClose;
-    }
-    rc = setsockopt(ReplySock, SOL_SOCKET, SO_REUSEADDR,
-                    (OPTION_VALUE_CAST)&yes, sizeof yes);
-    PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
-                         "setsockopt-1");
-    rc = bind(ReplySock, res->ai_addr, static_cast<socklen_t>(res->ai_addrlen));
-    PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_BIND, "bind");
-    switch (DestAddr->sa_family) {
-    case AF_INET:
-        inet_ntop(AF_INET, &((struct sockaddr_in*)DestAddr)->sin_addr, buf_ntop,
-                  sizeof(buf_ntop));
-        rc = setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_IF,
-                        (OPTION_VALUE_CAST)&replyAddr, sizeof(replyAddr));
-        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
-                             "setsockopt-2");
-        rc = setsockopt(ReplySock, IPPROTO_IP, IP_MULTICAST_TTL,
-                        (OPTION_VALUE_CAST)&ttl, sizeof(ttl));
-        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
-                             "setsockopt-3");
-        socklen = sizeof(struct sockaddr_in);
-        break;
+    hints.ai_protocol = 0;
+    hints.ai_canonname = NULL;
+    hints.ai_addr = NULL;
+    hints.ai_next = NULL;
+
 #ifdef UPNP_ENABLE_IPV6
-    case AF_INET6:
-        inet_ntop(AF_INET6, &((struct sockaddr_in6*)DestAddr)->sin6_addr,
-                  buf_ntop, sizeof(buf_ntop));
-        rc = setsockopt(ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_IF,
-                        (OPTION_VALUE_CAST)&gIF_INDEX, sizeof(gIF_INDEX));
-        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
-                             "setsockopt-2");
-        rc = setsockopt(ReplySock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,
-                        (OPTION_VALUE_CAST)&hops, sizeof(hops));
-        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_ERROR,
-                             "setsockopt-3");
-        break;
+    if (DestAddr->sa_family != AF_INET6 && DestAddr->sa_family != AF_INET)
+#else
+    if (DestAddr->sa_family != AF_INET)
 #endif
-    default:
+    {
         UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
                    "Invalid destination address specified.");
         ret = UPNP_E_NETWORK_ERROR;
         goto end_NewRequestHandler;
     }
 
-    for (Index = 0; Index < NumPacket; Index++) {
-        ssize_t rc;
+    std::cerr << "DEBUG! Tracepoint4\n";
+    // getaddrinfo() returns a list of address structures.
+    // Try each address until we successfully bind(2).
+    // If socket(2) (or bind(2)) fails, we (close the socket
+    // and) try the next address
+    if ((rc = umock::netdb_h.getaddrinfo(NULL, SSDP_PORT_STR, &hints,
+                                         &result)) != 0) {
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-                   ">>> SSDP SEND to %s >>>\n%s\n", buf_ntop,
-                   *(RqPacket + Index));
-        rc = sendto(ReplySock, *(RqPacket + Index),
-                    (SIZEP_T)strlen(*(RqPacket + Index)), 0, DestAddr, socklen);
-        PROCESS_SOCKET_ERROR(__FILE__, __LINE__, UPNP_E_SOCKET_WRITE, "sendto");
+                   "SSDP_LIB: New Request Handler:"
+                   "Error in getaddrinfo(): %s\n",
+                   gai_strerror(rc));
+        ret = UPNP_E_SOCKET_ERROR;
+        goto end_NewRequestHandler;
     }
 
+    std::cerr << "DEBUG! Tracepoint5\n";
+    for (res = result; res != NULL; res = res->ai_next) {
+        if (SendToCaller(res, DestAddr, NumPacket, RqPacket, &replyAddr) ==
+            UPNP_E_SUCCESS) {
+            ret = UPNP_E_SUCCESS; // one successful send makes
+                                  // response successful
+        }
+    }
+    std::cerr << "DEBUG! Tracepoint6\n";
+    umock::netdb_h.freeaddrinfo(result);
+
 end_NewRequestHandler:
-    UpnpCloseSocket(ReplySock);
-end_NewRequestHandlerDontClose:
 
     return ret;
 }

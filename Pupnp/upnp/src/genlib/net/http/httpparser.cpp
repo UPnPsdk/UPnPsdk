@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2024-08-01
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2023-07-20, ver 1.14.17
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*
  * \file
@@ -43,12 +43,11 @@
 #define _GNU_SOURCE /* For strcasestr() in string.h */
 #endif
 
-#include "config.hpp"
+#include "config.hpp" /* IWYU pragma: keep */
 
 #include "httpparser.hpp"
 #include "statcodes.hpp"
 #include "strintmap.hpp"
-// #include "unixutil.h"
 #include "upnpdebug.hpp"
 
 #include <assert.h>
@@ -125,7 +124,7 @@ str_int_entry Http_Header_Names[NUM_HTTP_HEADER_NAMES] = {
  *  OUT scanner_t* scanner ; Scanner Object to be initialized
  *  IN membuffer* bufptr ;   Buffer to be copied
  *
- * Description :    Intialize scanner
+ * Description :    Initialize scanner
  *
  * Return : void ;
  *
@@ -206,7 +205,7 @@ static UPNP_INLINE int is_qdtext_char(int c) {
  *
  * Return : parse_status_t ;
  *  PARSE_OK
- *  PARSE_INCOMPLETE        -- not enuf chars to get a token
+ *  PARSE_INCOMPLETE        -- not enough chars to get a token
  *  PARSE_FAILURE           -- bad msg format
  *
  * Note :
@@ -254,7 +253,7 @@ static parse_status_t scanner_get_token(scanner_t* scanner, memptr* token,
         /* scan CRLF */
         token->buf = cursor++;
         if (cursor == null_terminator)
-            /* not enuf info to determine CRLF */
+            /* not enough info to determine CRLF */
             return PARSE_INCOMPLETE;
         if (*cursor != TOKCHAR_LF) {
             /* couldn't match CRLF; match as CR */
@@ -416,7 +415,7 @@ void httpmsg_destroy(http_message_t* msg) {
         ListDestroy(&msg->headers, 1);
         membuffer_destroy(&msg->msg);
         membuffer_destroy(&msg->status_msg);
-        free(msg->urlbuf);
+        free(msg->url_buf);
         msg->initialized = 0;
     }
 }
@@ -501,7 +500,7 @@ http_header_t* httpmsg_find_hdr(http_message_t* msg, int header_name_id,
  *
  * Return : parse_status_t ;
  *  PARSE_OK
- *  PARSE_INCOMPLETE        -- not enuf chars to get a token
+ *  PARSE_INCOMPLETE        -- not enough chars to get a token
  *  PARSE_FAILURE           -- bad msg format
  ************************************************************************/
 static UPNP_INLINE parse_status_t skip_blank_lines(scanner_t* scanner) {
@@ -867,7 +866,7 @@ static UPNP_INLINE parse_status_t match_char(scanner_t* scanner, char c,
  *
  * args for ...
  *   %d,    int *     (31-bit positive integer)
- *   %x,    int *     (31-bit postive number encoded as hex)
+ *   %x,    int *     (31-bit positive number encoded as hex)
  *   %s,    memptr*  (simple identifier)
  *   %q,    memptr*  (quoted string)
  *   %S,    memptr*  (non-whitespace string)
@@ -1166,7 +1165,6 @@ parse_status_t matchstr(char* str, size_t slen, const char* fmt, ...) {
  *  void
  ************************************************************************/
 static UPNP_INLINE void parser_init(http_parser_t* parser) {
-
     memset(parser, 0, sizeof(http_parser_t));
 
     parser->http_error_code = HTTP_BAD_REQUEST; /* err msg by default */
@@ -1192,9 +1190,9 @@ static UPNP_INLINE void parser_init(http_parser_t* parser) {
  *  PARSE_INCOMPLETE
  *  PARSE_NO_MATCH
  ************************************************************************/
-static parse_status_t parser_parse_requestline(http_parser_t* parser) {
+static parse_status_t parser_parse_request_line(http_parser_t* parser) {
     parse_status_t status;
-    http_message_t* hmsg = &parser->msg;
+    http_message_t* h_msg = &parser->msg;
     memptr method_str;
     memptr version_str;
     int index;
@@ -1228,7 +1226,7 @@ static parse_status_t parser_parse_requestline(http_parser_t* parser) {
             return PARSE_FAILURE;
         }
 
-        hmsg->method = HTTPMETHOD_SIMPLEGET;
+        h_msg->method = HTTPMETHOD_SIMPLEGET;
 
         /* remove excessive leading slashes, keep one slash */
         while (url_str.length >= 2 && url_str.buf[0] == '/' &&
@@ -1237,13 +1235,13 @@ static parse_status_t parser_parse_requestline(http_parser_t* parser) {
             url_str.length--;
         }
         /* store url */
-        hmsg->urlbuf = str_alloc(url_str.buf, url_str.length);
-        if (hmsg->urlbuf == NULL) {
+        h_msg->url_buf = str_alloc(url_str.buf, url_str.length);
+        if (h_msg->url_buf == NULL) {
             /* out of mem */
             parser->http_error_code = HTTP_INTERNAL_SERVER_ERROR;
             return PARSE_FAILURE;
         }
-        if (parse_uri(hmsg->urlbuf, url_str.length, &hmsg->uri) !=
+        if (parse_uri(h_msg->url_buf, url_str.length, &h_msg->uri) !=
             HTTP_SUCCESS) {
             return PARSE_FAILURE;
         }
@@ -1265,13 +1263,14 @@ static parse_status_t parser_parse_requestline(http_parser_t* parser) {
         url_str.length--;
     }
     /* store url */
-    hmsg->urlbuf = str_alloc(url_str.buf, url_str.length);
-    if (hmsg->urlbuf == NULL) {
+    h_msg->url_buf = str_alloc(url_str.buf, url_str.length);
+    if (h_msg->url_buf == NULL) {
         /* out of mem */
         parser->http_error_code = HTTP_INTERNAL_SERVER_ERROR;
         return PARSE_FAILURE;
     }
-    if (parse_uri(hmsg->urlbuf, url_str.length, &hmsg->uri) != HTTP_SUCCESS) {
+    if (parse_uri(h_msg->url_buf, url_str.length, &h_msg->uri) !=
+        HTTP_SUCCESS) {
         return PARSE_FAILURE;
     }
 
@@ -1290,22 +1289,23 @@ static parse_status_t parser_parse_requestline(http_parser_t* parser) {
     num_scanned =
         sscanf_s(version_str.buf,
 #else
-    num_scanned = sscanf(version_str.buf,
+    num_scanned =
+        sscanf(version_str.buf,
 #endif
-                 "%d . %d", &hmsg->major_version, &hmsg->minor_version);
+                 "%d . %d", &h_msg->major_version, &h_msg->minor_version);
     version_str.buf[version_str.length] = save_char; /* restore */
     if (num_scanned != 2 ||
         /* HTTP version equals to 1.0 should fail for MSEARCH as
          * required by the UPnP certification tool */
-        hmsg->major_version < 0 ||
-        (hmsg->major_version == 1 && hmsg->minor_version < 1 &&
+        h_msg->major_version < 0 ||
+        (h_msg->major_version == 1 && h_msg->minor_version < 1 &&
          Http_Method_Table[index].id == HTTPMETHOD_MSEARCH)) {
         parser->http_error_code = HTTP_HTTP_VERSION_NOT_SUPPORTED;
         /* error; bad http version */
         return PARSE_FAILURE;
     }
 
-    hmsg->method = (http_method_t)Http_Method_Table[index].id;
+    h_msg->method = (http_method_t)Http_Method_Table[index].id;
     parser->position = POS_HEADERS; /* move to headers */
 
     return PARSE_OK;
@@ -1327,7 +1327,7 @@ static parse_status_t parser_parse_requestline(http_parser_t* parser) {
  ************************************************************************/
 parse_status_t parser_parse_responseline(http_parser_t* parser) {
     parse_status_t status;
-    http_message_t* hmsg = &parser->msg;
+    http_message_t* h_msg = &parser->msg;
     memptr line;
     char save_char;
     int num_scanned;
@@ -1342,8 +1342,8 @@ parse_status_t parser_parse_responseline(http_parser_t* parser) {
         return status;
     /* response line */
     /*status = match( &parser->scanner, "%ihttp%w/%w%d\t.\t%d\t%d\t%L%c", */
-    /*  &hmsg->major_version, &hmsg->minor_version, */
-    /*  &hmsg->status_code, &hmsg->status_msg ); */
+    /*  &h_msg->major_version, &h_msg->minor_version, */
+    /*  &h_msg->status_code, &h_msg->status_msg ); */
     status = match(&parser->scanner, "%ihttp%w/%w%L%c", &line);
     if (status != (parse_status_t)PARSE_OK)
         return status;
@@ -1355,11 +1355,11 @@ parse_status_t parser_parse_responseline(http_parser_t* parser) {
 #else
     num_scanned = sscanf(line.buf,
 #endif
-                           "%d . %d %d", &hmsg->major_version,
-                           &hmsg->minor_version, &hmsg->status_code);
+                           "%d . %d %d", &h_msg->major_version,
+                           &h_msg->minor_version, &h_msg->status_code);
     line.buf[line.length] = save_char; /* restore */
-    if (num_scanned != 3 || hmsg->major_version < 0 ||
-        hmsg->minor_version < 0 || hmsg->status_code < 0)
+    if (num_scanned != 3 || h_msg->major_version < 0 ||
+        h_msg->minor_version < 0 || h_msg->status_code < 0)
         /* bad response line */
         return PARSE_FAILURE;
     /* point to status msg */
@@ -1381,7 +1381,7 @@ parse_status_t parser_parse_responseline(http_parser_t* parser) {
         p++;
     /* now, p is at start of status msg */
     n = line.length - ((size_t)p - (size_t)line.buf);
-    if (membuffer_assign(&hmsg->status_msg, p, n) != 0) {
+    if (membuffer_assign(&h_msg->status_msg, p, n) != 0) {
         /* out of mem */
         parser->http_error_code = HTTP_INTERNAL_SERVER_ERROR;
         return PARSE_FAILURE;
@@ -1518,7 +1518,7 @@ parse_status_t parser_parse_headers(http_parser_t* parser) {
             ret2 = membuffer_append(&orig_header->value, hdr_value.buf,
                                     hdr_value.length);
             if (ret == UPNP_E_OUTOF_MEMORY || ret2 == UPNP_E_OUTOF_MEMORY) {
-                /* not enuf mem */
+                /* not enough memory */
                 parser->http_error_code = HTTP_INTERNAL_SERVER_ERROR;
                 return PARSE_FAILURE;
             }
@@ -1756,7 +1756,7 @@ parser_parse_entity_until_close(http_parser_t* parser) {
  *   PARSE_SUCCESS  -- no more reading to do
  ************************************************************************/
 parse_status_t parser_get_entity_read_method(http_parser_t* parser) {
-    http_message_t* hmsg = &parser->msg;
+    http_message_t* h_msg = &parser->msg;
     int response_code;
     memptr hdr_value;
 
@@ -1773,8 +1773,8 @@ parse_status_t parser_get_entity_read_method(http_parser_t* parser) {
 
     /* * no body for 1xx, 204, 304 and HEAD, GET, */
     /*      SUBSCRIBE, UNSUBSCRIBE */
-    if (hmsg->is_request) {
-        switch (hmsg->method) {
+    if (h_msg->is_request) {
+        switch (h_msg->method) {
         case HTTPMETHOD_HEAD:
         case HTTPMETHOD_GET:
             /*case HTTPMETHOD_POST: */
@@ -1790,22 +1790,22 @@ parse_status_t parser_get_entity_read_method(http_parser_t* parser) {
         }
     } else        /* response */
     {
-        response_code = hmsg->status_code;
+        response_code = h_msg->status_code;
 
         if (response_code == 204 || response_code == 304 ||
             (response_code >= 100 && response_code <= 199) ||
-            hmsg->request_method == (http_method_t)HTTPMETHOD_HEAD ||
-            hmsg->request_method == (http_method_t)HTTPMETHOD_MSEARCH ||
-            hmsg->request_method == (http_method_t)HTTPMETHOD_SUBSCRIBE ||
-            hmsg->request_method == (http_method_t)HTTPMETHOD_UNSUBSCRIBE ||
-            hmsg->request_method == (http_method_t)HTTPMETHOD_NOTIFY) {
+            h_msg->request_method == (http_method_t)HTTPMETHOD_HEAD ||
+            h_msg->request_method == (http_method_t)HTTPMETHOD_MSEARCH ||
+            h_msg->request_method == (http_method_t)HTTPMETHOD_SUBSCRIBE ||
+            h_msg->request_method == (http_method_t)HTTPMETHOD_UNSUBSCRIBE ||
+            h_msg->request_method == (http_method_t)HTTPMETHOD_NOTIFY) {
             parser->position = POS_COMPLETE;
             return PARSE_SUCCESS;
         }
     }
 
     /* * transfer-encoding -- used to indicate chunked data */
-    if (httpmsg_find_hdr(hmsg, HDR_TRANSFER_ENCODING, &hdr_value)) {
+    if (httpmsg_find_hdr(h_msg, HDR_TRANSFER_ENCODING, &hdr_value)) {
         if (raw_find_str(&hdr_value, "chunked") >= 0) {
             /* read method to use chunked transfer encoding */
             parser->ent_position = ENTREAD_USING_CHUNKED;
@@ -1816,7 +1816,7 @@ parse_status_t parser_get_entity_read_method(http_parser_t* parser) {
         }
     }
     /* * use content length */
-    if (httpmsg_find_hdr(hmsg, HDR_CONTENT_LENGTH, &hdr_value)) {
+    if (httpmsg_find_hdr(h_msg, HDR_CONTENT_LENGTH, &hdr_value)) {
         parser->content_length = (unsigned int)raw_to_int(&hdr_value, 10);
         parser->ent_position = ENTREAD_USING_CLEN;
         return PARSE_CONTINUE_1;
@@ -1824,10 +1824,10 @@ parse_status_t parser_get_entity_read_method(http_parser_t* parser) {
     /* * multi-part/byteranges not supported (yet) */
 
     /* * read until connection is closed */
-    if (hmsg->is_request) {
+    if (h_msg->is_request) {
         /* set hack flag for NOTIFY methods; if set to 1 this is */
         /*  a valid SSDP notify msg */
-        if (hmsg->method == (http_method_t)HTTPMETHOD_NOTIFY) {
+        if (h_msg->method == (http_method_t)HTTPMETHOD_NOTIFY) {
             parser->valid_ssdp_notify_hack = 1;
         }
 
@@ -1968,7 +1968,7 @@ parse_status_t parser_parse(http_parser_t* parser) {
             break;
 
         case POS_REQUEST_LINE:
-            status = parser_parse_requestline(parser);
+            status = parser_parse_request_line(parser);
 
             break;
 
@@ -2057,7 +2057,7 @@ int raw_to_int(memptr* raw_value, int base) {
  * Function: raw_find_str
  *
  * Parameters:
- *  IN memptr* raw_value ; Buffer containg the string
+ *  IN memptr* raw_value ; Buffer containing the string
  *  IN const char* str ;    Substring to be found
  *
  * Description: Find a substring from raw character string buffer
@@ -2112,7 +2112,7 @@ int raw_find_str(memptr* raw_value, const char* str) {
 const char* method_to_str(http_method_t method) {
     int index;
 
-    index = map_int_to_str(method, Http_Method_Table, NUM_HTTP_METHODS);
+    index = map_int_to_str((int)method, Http_Method_Table, NUM_HTTP_METHODS);
 
     assert(index != -1);
 
@@ -2120,28 +2120,29 @@ const char* method_to_str(http_method_t method) {
 }
 
 #ifdef DEBUG
-void print_http_headers(http_message_t* hmsg) {
+void print_http_headers(http_message_t* h_msg) {
     ListNode* node;
     /* NNS:  dlist_node *node; */
     http_header_t* header;
 
     /* print start line */
-    if (hmsg->is_request) {
+    if (h_msg->is_request) {
         UpnpPrintf(UPNP_ALL, HTTP, __FILE__, __LINE__,
-                   "method = %d, version = %d.%d, url = %.*s\n", hmsg->method,
-                   hmsg->major_version, hmsg->minor_version,
-                   (int)hmsg->uri.pathquery.size, hmsg->uri.pathquery.buff);
+                   "method = %d, version = %d.%d, url = %.*s\n", h_msg->method,
+                   h_msg->major_version, h_msg->minor_version,
+                   (int)h_msg->uri.pathquery.size, h_msg->uri.pathquery.buff);
     } else {
         UpnpPrintf(UPNP_ALL, HTTP, __FILE__, __LINE__,
                    "resp status = %d, version = %d.%d, status msg = "
                    "%.*s\n",
-                   hmsg->status_code, hmsg->major_version, hmsg->minor_version,
-                   (int)hmsg->status_msg.length, hmsg->status_msg.buf);
+                   h_msg->status_code, h_msg->major_version,
+                   h_msg->minor_version, (int)h_msg->status_msg.length,
+                   h_msg->status_msg.buf);
     }
 
     /* print headers */
-    node = ListHead(&hmsg->headers);
-    /* NNS: node = dlist_first_node( &hmsg->headers ); */
+    node = ListHead(&h_msg->headers);
+    /* NNS: node = dlist_first_node( &h_msg->headers ); */
     while (node != NULL) {
         header = (http_header_t*)node->item;
         /* NNS: header = (http_header_t *)node->data; */
@@ -2150,8 +2151,8 @@ void print_http_headers(http_message_t* hmsg) {
                    header->name.buf, (int)header->value.length,
                    header->value.buf);
 
-        node = ListNext(&hmsg->headers, node);
-        /* NNS: node = dlist_next( &hmsg->headers, node ); */
+        node = ListNext(&h_msg->headers, node);
+        /* NNS: node = dlist_next( &h_msg->headers, node ); */
     }
 }
 #endif /* DEBUG */

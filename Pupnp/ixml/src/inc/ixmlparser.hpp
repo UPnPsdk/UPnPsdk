@@ -30,6 +30,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 #ifndef UPNPLIB_IXMLPARSER_HPP
 #define UPNPLIB_IXMLPARSER_HPP
@@ -126,7 +127,7 @@ void Parser_setBeforeFree(
 /*!
  * \brief Gets the handler to call before a node is freed.
  */
-IXML_BeforeFreeNode_t Parser_getBeforeFree();
+IXML_BeforeFreeNode_t Parser_getBeforeFree(void);
 #endif
 
 /*!
@@ -202,9 +203,9 @@ void ixmlNode_init(
  */
 int ixmlNode_compare(
     /*! [in] The first \b Node. */
-    IXML_Node* srcNode,
+    const IXML_Node* srcNode,
     /*! [in] The second \b Node. */
-    IXML_Node* destNode);
+    const IXML_Node* destNode);
 
 /*!
  * \brief Returns a nodeList of all descendant Elements with a given tagName,

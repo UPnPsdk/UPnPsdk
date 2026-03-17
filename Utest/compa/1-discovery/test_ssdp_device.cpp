@@ -1,5 +1,14 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-15
+// Redistribution only with this Copyright remark. Last modified: 2026-03-24
+
+// This tests network communication. The usual way to do it is to use mocking to
+// be independent from current hardware. But with mocking you can only test what
+// you expect, not the behavior with the real system. Here with different
+// platforms it is difficult to know it. So I decided to test with the real
+// system calls and the current network adapter. To know the current hardware on
+// different platforms I have made a function 'get_netadapter()' (see below) to
+// provide the needed information. However, it must be noted that no DNS lookups
+// triggered and that the current network communication isn't spammed.
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -16,16 +25,39 @@
 
 #include <utest/utest.hpp>
 #include <utest/upnpdebug.hpp>
+#include <umock/netdb_mock.hpp>
 
 
 namespace utest {
 
+using ::testing::_;
+using ::testing::DoAll;
 using ::testing::ExitedWithCode;
+using ::testing::Pointee;
+using ::testing::Return;
+using ::testing::SetArgPointee;
+using ::testing::StrictMock;
 
 using ::UPnPsdk::CNetadapter;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
+
+
+// Interface-local multicast adress is not official defined for SSDP but
+// setting its scope for testing works. I use it instead of the only
+// specified link-local multicast address to not spam the users network.
+constexpr char SSDP_MCAST_IFACE_LOCAL[]{"[ff01::c]:1900"};
+[[maybe_unused]] constexpr char SSDP_MCAST_LINK_LOCAL[]{"[ff02::c]:1900"};
+
+enum struct Idx {
+    no,  // no address
+    lo6, // IPv6 loopback address
+    lo4, // IPv4 loopback address
+    lla, // link-local address
+    gua, // global unicast address
+    ip4  // IPv4 address
+};
 
 // Real local ip addresses on this nodes network adapters, evaluated with
 // CNetadapter.
@@ -42,6 +74,10 @@ SSaNadap guaObj;
 SSaNadap ip4Obj;
 
 void get_netadapter() {
+    // Although looking for IPv4 addresses on a local network adapter for
+    // completness this function should never find one because the used
+    // CNetadapter class to get info maps it direct to an IPv6 address.
+    //
     // Getting information of the local network adapters is expensive because
     // it allocates memory to return the internal adapter list. So I do it one
     // time on start and provide the needed information.
@@ -91,6 +127,7 @@ void get_netadapter() {
             ip4Obj.bitmask = nadaptObj.bitmask();
             ip4Obj.name = nadaptObj.name();
         }
+        // Repeat only as long as an adapter type is unspecified.
     } while (nadaptObj.get_next() && (lo6Obj.sa.ss.ss_family == AF_UNSPEC ||
                                       lo4Obj.sa.ss.ss_family == AF_UNSPEC ||
                                       llaObj.sa.ss.ss_family == AF_UNSPEC ||
@@ -136,11 +173,113 @@ class SsdpDeviceFTestSuite : public ::testing::Test {
 typedef SsdpDeviceFTestSuite SsdpDeviceFDeathTest;
 
 
-enum struct Idx { no, lo6, lo4, lla, gua, ip4 };
+TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_successful) {
+    // The points for old_code are:
+    // * NewRequestHandler() has a bug. For an IPv6 destinnation address,
+    //   system call '::sendto()' send with an oversized socket-address size
+    //   'sockaddr_storage' instead of exactly 'sockaddr_in6'. This works
+    //   except on MacOS. That platform expects 'sockaddr_in6" for sending to
+    //   an IPv6 destination address. Sending an IPv6 on NacOs always fails.
+    // * It is unclear what local network interface should be used. All
+    //   possible local interfaces are got with system call '::getaddrinfo()'
+    //   and in a loop they are '::bind()' and tried to send. But after binding
+    //   the socket to address from '::getaddrinfo()', they are immediately
+    //   overwritten with socket option IPV[6]_MULTICAST_IF with global address
+    //   from gIF_IPv4 or gIF_IPv6. So the source is always the global
+    //   gIF-address. '::getaddrinfo()' has no effect.
+
+    //   One test message.
+    constexpr int num_msg{1};
+    char msg1[]{"UPnPsdk send test message UDP DGRAM"};
+    char* msgs[num_msg]{msg1};
+
+    // Prepare other used parameter.
+    SSockaddr destsaObj;
+    destsaObj = SSDP_MCAST_IFACE_LOCAL;
+    if (old_code) {
+        gIF_INDEX = llaObj.index;
+        strcpy(gIF_IPV4, "0.0.0.0");
+    } else {
+#ifdef __APPLE__
+        // Apple needs to know what local network interface to use.
+        destsaObj.sin6.sin6_scope_id = llaObj.index;
+#endif
+    }
+
+    // Test Unit
+    int ret_NewRequestHandler =
+        ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
+#if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(__APPLE__)
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+#else
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+#endif
+}
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_mock_successful) {
+    // One test message.
+    constexpr int num_msg{1};
+    char msg1[]{"UPnPsdk test message mocking send UDP DGRAM"};
+    char* msgs[num_msg]{msg1};
+
+    // Prepare other used parameter.
+    SSockaddr destsaObj;
+    destsaObj = SSDP_MCAST_IFACE_LOCAL;
+    gIF_INDEX = llaObj.index;
+    strcpy(gIF_IPV4, "0.0.0.0");
+
+#if 0
+    std::cout << "DEBUG! llaObj.sa.netaddrp()=\"" << llaObj.sa.netaddrp()
+              << "\"\n";
+    ::addrinfo res;
+    res.ai_flags = 0;
+    res.ai_family = AF_INET6;
+    res.ai_socktype = SOCK_DGRAM;
+    res.ai_protocol = 0;
+    res.ai_addrlen = llaObj.sa.sizeof_saddr();
+    res.ai_addr = &llaObj.sa.sa;
+    res.ai_canonname = nullptr;
+    res.ai_next = nullptr;
+
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> netdbObj;
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+    ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillByDefault(Return(EAI_FAMILY));
+
+    // Mock 'CAddrinfo::get_first()'
+    EXPECT_CALL(netdbObj, getaddrinfo(nullptr, "1900", _, _))
+        .WillOnce(DoAll(SetArgPointee<3>(&res), Return(0)));
+    // Mock 'freeaddrinfo()'
+    EXPECT_CALL(netdbObj, freeaddrinfo(&res)).Times(1);
+#endif
+
+    // Test Unit
+    m_logObj.enable(UPNP_ALL); // DEBUG!
+    auto g_dbug_old = g_dbug;
+    g_dbug = true;
+    int ret_NewRequestHandler =
+        ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
+    g_dbug = g_dbug_old;
+#ifdef __APPLE__
+    // Due to bug with wrong address size on sendto() (see note above).
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+#else
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+#endif
+}
+#endif
+
 
 class SendStatelessTest
     : public ::testing::TestWithParam<std::tuple<
-          // netaddr, netadapter index, retval old, retval new
+          // netaddr, netadapter index, retval old_code, retval new_code
           const std::string, const Idx, const int, const int>> {
   protected:
     CPupnplog m_logObj; // Output only with build type DEBUG.
@@ -215,14 +354,11 @@ TEST_P(SendStatelessTest, send_stateless) {
         GTEST_FAIL();
     }
     std::cout << "             destsaObj=" << destsaObj << '\n';
-    auto g_dbug_old = g_dbug;
-    g_dbug = true;
     m_logObj.enable(UPNP_ALL);
 
     // Test Unit
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
-    g_dbug = g_dbug_old;
 
     if (old_code)
         EXPECT_EQ(ret_NewRequestHandler, ret_old)
@@ -284,118 +420,122 @@ TEST_P(SendStatelessTest, send_stateless) {
 //  It is that for MacOs. With its most restrictions it is the lowest common
 //  denominator.
 //
+//  Helpful analysis on a second console with:
+//  ~$ sudo tcpdump -nnni any udp or icmp or icmp6
+//
 // clang-format off
 #if !defined(__APPLE__) && !defined(_MSC_VER)
 INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
-    //     netaddr, local netadapter index, result old,          result new
-    /*0*/ std::make_tuple("[::1]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::1]", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::1]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::1]:1900", Idx::lo6, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::1]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::1]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::ffff:127.0.0.1]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::lo6, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    /*10*/ std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[2001:db8:2747::c021]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[2001:db8:2747::c021]", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[2001:db8:2747::c021]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[2001:db8:2747::c021]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    /*20*/ std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    //     netaddr, local netadapter index, result old_code,     result new_code
+    /*0*/ std::make_tuple("[::1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::1]", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::1]:1901", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::1]:1902", Idx::lo6, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::1]:1903", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::1]:1904", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:127.0.0.1]:1901", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:127.0.0.1]:1902", Idx::lo6, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    /*10*/ std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[2001:db8:2747::c022]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    // std::make_tuple("[2001:db8:2747::c023]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
+    // std::make_tuple("[2001:db8:2747::c024]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
+    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[fe80::20c:fe7f:c022]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[fe80::20c:fe7f:c023]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    // std::make_tuple("[fe80::20c:fe7f:c024]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
+    // std::make_tuple("[fe80::20c:fe7f:c025]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
+    // std::make_tuple("[fe80::20c:fe7f:c026]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
     // Multicast interface-local
-    std::make_tuple("[ff01::c]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[ff01::c]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[ff01::c]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[ff01::c]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[ff01::c]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[ff01::c]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[ff01::c]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[ff01::c]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[ff01::c]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[ff01::c]:1901", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[ff01::c]:1902", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[ff01::c]:1903", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
 
-    std::make_tuple("[::ffff:10.178.1.2]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:10.178.1.2]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    /*30*/ std::make_tuple("[::ffff:10.178.1.2]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::ffff:10.178.1.2]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::ffff:239.132.38.179]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:239.132.38.179]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS)
+    std::make_tuple("[::ffff:10.178.1.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:10.178.1.2]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:10.178.1.3]", Idx::ip4, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    // std::make_tuple("[::ffff:10.178.1.4]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
+    // std::make_tuple("[::ffff:10.178.1.5]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
+    std::make_tuple("[::ffff:10.178.1.6]:1900", Idx::ip4, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // Due to IPV4_MAPPED_IPV6 never found on an adapter
+    std::make_tuple("[::ffff:239.132.38.181]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:239.132.38.182]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE)
+    // std::make_tuple("[::ffff:239.132.38.183]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS) // Spam to user network
+    // std::make_tuple("[::ffff:239.132.38.184]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS) // Spam to user network
 ));
 #endif
 #ifdef __APPLE__
 INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     //     netaddr, local netadapter index, result old,          result new
     /*0*/ std::make_tuple("[::1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::1]", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::1]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code does not accept loopback as multicast soure address.
-    std::make_tuple("[::1]:1900", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
-    std::make_tuple("[::1]:1900", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
-    std::make_tuple("[::1]:1900", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS),
+    std::make_tuple("[::1]", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::1]:1901", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code does not accept loopback as multicast soure address.
+    std::make_tuple("[::1]:1902", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
+    std::make_tuple("[::1]:1903", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
+    std::make_tuple("[::3]:1904", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
     std::make_tuple("[::ffff:127.0.0.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size
-    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size
-    /*10*/ std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[2001:db8:2747::c021]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[2001:db8:2747::c021]", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[2001:db8:2747::c021]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[2001:db8:2747::c021]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:127.0.0.1]:1901", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size
+    std::make_tuple("[::ffff:127.0.0.1]:1902", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size
+    /*10*/ std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[2001:db8:2747::c022]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    // std::make_tuple("[2001:db8:2747::c023]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
+    // std::make_tuple("[2001:db8:2747::c024]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
     std::make_tuple("[fe80::20c:fe7f:c021]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // macOS always wants a scope_id on lla
-    /*20*/ std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
-    std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
+    std::make_tuple("[fe80::20c:fe7f:c022]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[fe80::20c:fe7f:c023]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[fe80::20c:fe7f:c024]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // macOS always wants a scope_id on lla
+    // std::make_tuple("[fe80::20c:fe7f:c025]:1900", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument, new code: spam to user network with ICMP6, neighbor solicitation
+    // /*20*/ std::make_tuple("[fe80::20c:fe7f:c026]:1900", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument, new code: spam to user network with ICMP6, neighbor solicitation
     // Multicast interface-local
     std::make_tuple("[ff01::c]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[ff01::c]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[ff01::c]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[ff01::c]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // macOS always wants a scope_id on multicast destination
-    std::make_tuple("[ff01::c]:1900", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
-    std::make_tuple("[ff01::c]:1900", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
+    std::make_tuple("[ff01::c]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[ff01::c]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[ff01::c]:1901", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // macOS always wants a scope_id on multicast destination
+    std::make_tuple("[ff01::c]:1902", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
+    std::make_tuple("[ff01::c]:1903", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument
 
-    std::make_tuple("[::ffff:10.178.1.2]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:10.178.1.2]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    /*30*/ std::make_tuple("[::ffff:10.178.1.2]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size
-    std::make_tuple("[::ffff:10.178.1.2]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::ffff:239.132.38.179]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:239.132.38.179]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size
-    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS)
+    std::make_tuple("[::ffff:10.178.1.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:10.178.1.2]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:10.178.1.3]", Idx::ip4, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    // std::make_tuple("[::ffff:10.178.1.4]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size, new code: spam to user network
+    // /*30*/ std::make_tuple("[::ffff:10.178.1.5]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
+    std::make_tuple("[::ffff:10.178.1.6]:1900", Idx::ip4, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // Due to IPV4_MAPPED_IPV6 never found on an adapter
+    std::make_tuple("[::ffff:239.132.38.181]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[::ffff:239.132.38.182]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE)
+    // std::make_tuple("[::ffff:239.132.38.183]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // Old code failed due to bug with wrong address size, new code: spam to user network
+    // std::make_tuple("[::ffff:239.132.38.184]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS) // Spam to user network
 ));
 #endif
 #ifdef _MSC_VER
 INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     //     netaddr, local netadapter index, result old,          result new
     /*0*/ std::make_tuple("[::1]", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::1]", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
-    std::make_tuple("[::1]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
+    std::make_tuple("[::1]", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
+    std::make_tuple("[::1]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
     std::make_tuple("[::1]", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Curiously the loopback interface is accepted as gua
     std::make_tuple("[::1]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::1]:1900", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
-    std::make_tuple("[::1]:1900", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
+    std::make_tuple("[::1]:1900", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
+    std::make_tuple("[::1]:1900", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
     std::make_tuple("[::1]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Curiously the loopback interface is accepted as gua
-    std::make_tuple("[::ffff:127.0.0.1]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
-    /*10*/ std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::lo6, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    /*10*/ std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:127.0.0.1]:1900", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
     std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
+    std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // with wrong scope_id is not accepted
     std::make_tuple("[2001:db8:2747::c021]", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[2001:db8:2747::c021]", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // with  wrong scope_id is not accepted
     std::make_tuple("[2001:db8:2747::c021]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[2001:db8:2747::c021]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[fe80::20c:fe7f:c021]", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[fe80::20c:fe7f:c021]", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    /*20*/ std::make_tuple("[fe80::20c:fe7f:c021]", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    /*20*/ std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     // Multicast interface-local
@@ -406,59 +546,27 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[ff01::c]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[ff01::c]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
 
-    /*30*/ std::make_tuple("[::ffff:10.178.1.1]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:10.178.1.2]", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:10.178.1.3]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:10.178.1.4]", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:10.178.1.5]:1900", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:10.178.1.6]:1900", Idx::lla, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:10.178.1.7]:1900", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:10.178.1.8]:1900", Idx::ip4, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:239.132.38.179]", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:239.132.38.179]", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
-    /*40*/ std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::no, UPNP_E_SOCKET_WRITE, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
-    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::gua, UPNP_E_SOCKET_WRITE, UPNP_E_SOCKET_WRITE) // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    /*30*/ std::make_tuple("[::ffff:10.178.1.2]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.3]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    // std::make_tuple("[::ffff:10.178.1.4]", Idx::ip4, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // Due to IPV4_MAPPED_IPV6 never found on an adapter
+    std::make_tuple("[::ffff:10.178.1.5]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.6]:1900", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:10.178.1.7]:1900", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    // std::make_tuple("[::ffff:10.178.1.8]:1900", Idx::ip4, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // Due to IPV4_MAPPED_IPV6 never found on an adapter
+    std::make_tuple("[::ffff:239.132.38.179]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:239.132.38.179]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // old code doesn't support IPv4 mapped IPv6
+    /*40*/ std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old code doesn't support IPv4 mapped IPv6
+    std::make_tuple("[::ffff:239.132.38.179]:1900", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE) // old code doesn't support IPv4 mapped IPv6
 ));
 #endif
 // clang-format on
 
 
 #if 0
-TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_temporary_check_details) {
-    if (guaObj.index == 0)
-        GTEST_SKIP() << "No local network adapter with a global unicast "
-                        "address detected.";
-
-    // One test message.
-    constexpr int num_msg{1};
-    char msg1[]{"UPnPsdk test sending stateless"};
-    char* msgs[num_msg]{msg1};
-
-    // Prepare other used parameter.
-    SSockaddr destsaObj;
-    // destsaObj = "[2001:db8:2747::c021]:1900";
-    destsaObj = guaObj.sa;
-    destsaObj = ":1900";
-    destsaObj.sin6.sin6_scope_id = guaObj.index;
-    gIF_INDEX = guaObj.index;
-    strcpy(gIF_IPV4, "0.0.0.0");
-
-    auto g_dbug_old = g_dbug;
-    g_dbug = true;
-    m_logObj.enable(UPNP_ALL);
-
-    // Test Unit
-    std::cerr << "DEBUG: destsaObj=\"" << destsaObj << "\"\n";
-    int ret_NewRequestHandler =
-        ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
-    g_dbug = g_dbug_old;
-    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
-        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
-}
-#endif
-
 TEST_F(SsdpDeviceFTestSuite,
        NewRequestHandler_send_multiple_mulitcast_messages) {
+    std::cerr << "DEBUG! Tracepoint1\n";
     // Some test messages.
     constexpr int num_msg{3};
     char msg1[]{"UPnPsdk test multicast message 1"};
@@ -467,22 +575,26 @@ TEST_F(SsdpDeviceFTestSuite,
     char* msgs[num_msg]{msg1, msg2, msg3};
 
     SSockaddr destaddr_ip6;
-    destaddr_ip6 = "[ff01::c]:1900"; // interface-local
+    destaddr_ip6 = SSDP_MCAST_IFACE_LOCAL; // interface-local
 
     if (old_code) {
         strcpy(gIF_IPV4, "0.0.0.0"); // INADDR_ANY
-        gIF_INDEX = llaObj.index;
+        gIF_INDEX = 0; // Can be 0. No need to specify correct llaObj.index;
 
         std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
                   << ": On MacOS sendto() must not fail due to wrong sizeof() "
                      "destination socket address.\n"; // Marked "Wrong!" below.
 
+        m_logObj.enable(UPNP_ALL);                    // DEBUG!
+
         // Test Unit with multicast address, with port, and lla scope_id.
+        std::cerr << "DEBUG! Tracepoint2\n";
         int ret_NewRequestHandler =
             ::NewRequestHandler(&destaddr_ip6.sa, num_msg, &msgs[0]);
+        std::cerr << "DEBUG! Tracepoint7\n";
 #ifdef __APPLE__
-        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_WRITE) // Wrong!
-            << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_WRITE);
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
 #else
         EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
             << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
@@ -490,15 +602,17 @@ TEST_F(SsdpDeviceFTestSuite,
 
     } else {
 
+#ifdef __APPLE__
         destaddr_ip6.sin6.sin6_scope_id = llaObj.index;
-
-        // Test Unit with multicast address, with port, and lla scope_id.
+#endif
+        // Test Unit with multicast address, and with port.
         int ret_NewRequestHandler =
             ::NewRequestHandler(&destaddr_ip6.sa, num_msg, &msgs[0]);
         EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
             << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
     }
 }
+#endif
 
 TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_send_zero_messages_succeeds) {
     constexpr int num_msg{0}; // Zero messages selected.
@@ -506,15 +620,24 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_send_zero_messages_succeeds) {
     char* msgs[1]{msg1};
 
     SSockaddr destaddr_ip6;
-    destaddr_ip6 = "[ff01::c]:1900"; // interface-local
+    destaddr_ip6 = SSDP_MCAST_IFACE_LOCAL; // interface-local
 
-    strcpy(gIF_IPV4, "0.0.0.0");     // INADDR_ANY
-    gIF_INDEX = llaObj.index;
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    strcpy(gIF_IPV4, "0.0.0.0"); // INADDR_ANY
+    gIF_INDEX = 0; // Can be 0. No need to specify correct llaObj.index;
+#endif
 
+    // Test Unit
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destaddr_ip6.sa, num_msg, &msgs[0]);
-    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
-        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+#ifdef __APPLE__
+    if (old_code)
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+    else
+#endif
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
 }
 
 TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_no_messages_addressed_fails) {
@@ -523,40 +646,31 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_no_messages_addressed_fails) {
     // char* msgs[1]{msg1};
 
     SSockaddr destaddr;
+    destaddr = SSDP_MCAST_IFACE_LOCAL;
 
     if (old_code) {
         strcpy(gIF_IPV4, "0.0.0.0"); // INADDR_ANY
-        gIF_INDEX = llaObj.index;
-        destaddr = "[ff01::c]:1900";
+
+        // Index greater than available interfaces fails before segfault.
+        gIF_INDEX = ~0u;
+        int ret_NewRequestHandler =
+            ::NewRequestHandler(&destaddr.sa, num_msg, nullptr);
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
 
         std::cout
             << CYEL "[ BUGFIX   ]" CRES
             << " Pointing to no message array (nullptr) must not segfault.\n";
-        ASSERT_DEATH(::NewRequestHandler(&destaddr.sa, num_msg, nullptr), ".*");
 
-        gIF_INDEX = ~0u;
-        destaddr = "239.255.255.250:1900";
-        ASSERT_DEATH(::NewRequestHandler(&destaddr.sa, num_msg, nullptr), ".*");
+        gIF_INDEX = llaObj.index; // Trigger segfault with valid IPv6 interace.
+        EXPECT_DEATH(::NewRequestHandler(&destaddr.sa, num_msg, nullptr), ".*");
+
     } else {
-
-        destaddr = "[ff01::c]:1900";
-        destaddr.sin6.sin6_scope_id = llaObj.index;
 
         ASSERT_EXIT(
             (::NewRequestHandler(&destaddr.sa, num_msg, nullptr), exit(0)),
             ExitedWithCode(0), ".*");
         int ret_NewRequestHandler =
-            ::NewRequestHandler(&destaddr.sa, num_msg, nullptr);
-        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_INVALID_PARAM)
-            << errStrEx(ret_NewRequestHandler, UPNP_E_INVALID_PARAM);
-
-        gIF_INDEX = ~0u;
-        destaddr = "[::ffff:239.255.255.250]:1900";
-
-        ASSERT_EXIT(
-            (::NewRequestHandler(&destaddr.sa, num_msg, nullptr), exit(0)),
-            ExitedWithCode(0), ".*");
-        ret_NewRequestHandler =
             ::NewRequestHandler(&destaddr.sa, num_msg, nullptr);
         EXPECT_EQ(ret_NewRequestHandler, UPNP_E_INVALID_PARAM)
             << errStrEx(ret_NewRequestHandler, UPNP_E_INVALID_PARAM);
@@ -568,20 +682,19 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_send_no_message_succeeds) {
     char* msgs[num_msg]{nullptr};
 
     SSockaddr destaddr_ip6;
-    destaddr_ip6 = "[ff01::c]:1900"; // interface-local
+    destaddr_ip6 = SSDP_MCAST_IFACE_LOCAL; // interface-local
 
     if (old_code) {
         strcpy(gIF_IPV4, "0.0.0.0"); // INADDR_ANY
-        gIF_INDEX = llaObj.index;
+        gIF_INDEX = llaObj.index; // Trigger segfault with valid IPv6 interace.
 
         std::cout << CYEL "[ BUGFIX   ]" CRES
                   << " Pointing to no message (nullptr) must not segfault.\n";
         ASSERT_DEATH(::NewRequestHandler(&destaddr_ip6.sa, num_msg, &msgs[0]),
                      ".*");
     } else {
-        destaddr_ip6.sin6.sin6_scope_id = llaObj.index;
 
-        // Test Unit with multicast address, with port, and lla scope_id.
+        // Test Unit with multicast address, and with port.
         ASSERT_EXIT(
             (::NewRequestHandler(&destaddr_ip6.sa, num_msg, &msgs[0]), exit(0)),
             ExitedWithCode(0), ".*");
@@ -615,25 +728,23 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_error_message_as_garbage) {
         error_id = UPNP_E_SOCKET_ERROR;
 
     } else {
+
         destaddr_ip6.sin6.sin6_scope_id = ~0u; // Invalid scope_id
         error_id = UPNP_E_SOCKET_WRITE;
     }
 
-    if (!g_dbug) // Always enable for this test.
-        m_logObj.enable(UPNP_ALL);
-    auto g_dbug_old = g_dbug;
-    g_dbug = true;
-
     // Test Unit without port, and with wrong scope_id.
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destaddr_ip6.sa, num_msg, &msgs[0]);
-    g_dbug = g_dbug_old;
     EXPECT_EQ(ret_NewRequestHandler, error_id)
         << errStrEx(ret_NewRequestHandler, error_id);
 }
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+// This test fails only on old_code. New code doesn't depend on global
+// variable gIF_IPV4 and would succeed with spamming the user network.
 TEST_F(SsdpDeviceFTestSuite,
-       NewRequestHandler_send_with_uninitialized_ipv4_address) {
+       NewRequestHandler_send_with_uninitialized_global_ipv4_address) {
     constexpr int num_msg{1};
     char msg1[]{"Multicast message 1"};
     char* msgs[num_msg]{msg1};
@@ -646,13 +757,10 @@ TEST_F(SsdpDeviceFTestSuite,
     // Test Unit
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destaddr_ip4.sa, num_msg, &msgs[0]);
-    if (old_code)
-        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_INVALID_PARAM)
-            << errStrEx(ret_NewRequestHandler, UPNP_E_INVALID_PARAM);
-    else
-        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
-            << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_INVALID_PARAM)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_INVALID_PARAM);
 }
+#endif
 
 TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_without_dest_addr_fails) {
     constexpr int num_msg{1};
@@ -660,7 +768,7 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_without_dest_addr_fails) {
     char* msgs[num_msg]{msg1};
 
     strcpy(gIF_IPV4, "0.0.0.0"); // INADDR_ANY
-    gIF_INDEX = llaObj.index;
+    gIF_INDEX = 0; // Can be 0. No need to specify correct llaObj.index;
 
     if (old_code) {
         std::cout << CYEL "[ BUGFIX   ]" CRES
@@ -680,6 +788,79 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_without_dest_addr_fails) {
             << errStrEx(ret_NewRequestHandler, UPNP_E_INVALID_PARAM);
     }
 }
+
+#if 0
+// #ifdef UPnPsdk_WITH_NATIVE_PUPNP
+TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_with_multible_netadapter) {
+    // One test message.
+    constexpr int num_msg{1};
+    char msg1[]{"UPnPsdk test message sending stateless"};
+    char* msgs[num_msg]{msg1};
+
+    // Prepare other used parameter.
+    SSockaddr destsaObj;
+    destsaObj = "[ff02::c]:1900";
+    gIF_INDEX = llaObj.index;
+    strcpy(gIF_IPV4, "0.0.0.0");
+
+    SSockaddr sa0Obj;
+    sa0Obj = "0.0.0.0"; // With AF_INET6, this should trigger an error.
+
+    // Three possible local source addresses
+    ::addrinfo res3;
+    res3.ai_flags = 0;
+    res3.ai_family = AF_INET6; // ai_addr is AF_INET and trigger an error.
+    res3.ai_socktype = SOCK_DGRAM;
+    res3.ai_protocol = 0;
+    res3.ai_addrlen = sa0Obj.sizeof_saddr();
+    res3.ai_addr = &sa0Obj.sa; // This should trigger an error.
+    res3.ai_canonname = nullptr;
+    res3.ai_next = nullptr;
+
+    ::addrinfo res2;
+    res2.ai_flags = 0;
+    res2.ai_family = AF_INET6;
+    res2.ai_socktype = SOCK_DGRAM;
+    res2.ai_protocol = 0;
+    res2.ai_addrlen = llaObj.sa.sizeof_saddr();
+    res2.ai_addr = &llaObj.sa.sa; // This succeeds.
+    res2.ai_canonname = nullptr;
+    res2.ai_next = &res3;
+
+    ::addrinfo res1;
+    res1.ai_flags = 0;
+    res1.ai_family = AF_INET6; // ai_addr is AF_INET and trigger an error.
+    res1.ai_socktype = SOCK_DGRAM;
+    res1.ai_protocol = 0;
+    res1.ai_addrlen = sa0Obj.sizeof_saddr();
+    res1.ai_addr = &sa0Obj.sa; // This should trigger an error.
+    res1.ai_canonname = nullptr;
+    res1.ai_next = &res2;
+
+    // Instantiate mocking object.
+    StrictMock<umock::NetdbMock> netdbObj;
+    // Inject the mocking object into the tested code.
+    umock::Netdb netdb_injectObj = umock::Netdb(&netdbObj);
+    ON_CALL(netdbObj, getaddrinfo(_, _, _, _))
+        .WillByDefault(Return(EAI_FAMILY));
+
+    // Mock 'CAddrinfo::get_first()'
+    EXPECT_CALL(netdbObj, getaddrinfo(nullptr, "1900", _, _))
+        .WillOnce(DoAll(SetArgPointee<3>(&res1), Return(0)));
+    // Mock 'freeaddrinfo()'
+    EXPECT_CALL(netdbObj, freeaddrinfo(&res1)).Times(1);
+
+    // Test Unit
+    std::cout << "DEBUG! llaObj.sa.netaddrp()=\"" << llaObj.sa.netaddrp()
+              << "\"\n";
+    m_logObj.enable(UPNP_ALL); // DEBUG!
+    int ret_NewRequestHandler =
+        ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
+
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+}
+#endif
 
 } // namespace utest
 

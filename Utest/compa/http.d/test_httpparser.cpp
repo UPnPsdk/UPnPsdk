@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2026-03-17
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/genlib/net/http/httpparser.cpp>
@@ -130,17 +130,17 @@ TEST(HttpparserTestSuite, httpmsg_init_and_destroy) {
 
     if (old_code) {
         std::cout << CYEL "[ FIX      ] " CRES << __LINE__
-                  << ": httpmsg_init: msg->urlbuf set to nullptr otherwise "
+                  << ": httpmsg_init: msg->url_buf set to nullptr otherwise "
                      "segfault with httpmsg_destroy.\n";
         Chttpparser httpars_oldObj;
         httpars_oldObj.httpmsg_init(&msg);
-        EXPECT_NE(msg.urlbuf, nullptr);
+        EXPECT_NE(msg.url_buf, nullptr);
 
     } else {
 
         // Fixed function
         httparsObj.httpmsg_init(&msg);
-        EXPECT_EQ(msg.urlbuf, nullptr);
+        EXPECT_EQ(msg.url_buf, nullptr);
     }
     EXPECT_EQ(msg.initialized, 1);
     EXPECT_EQ(msg.entity.buf, nullptr);

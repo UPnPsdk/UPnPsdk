@@ -1,7 +1,7 @@
 var miniserver_8cpp =
 [
     [ "anonymous_namespace{miniserver.cpp}::mserv_request_t", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#dd/d1f/structanonymous__namespace_02miniserver_8cpp_03_1_1mserv__request__t", [
-      [ "connfd", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1f7d64c469da025cbad2503f1d808de9", null ],
+      [ "sock", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ab7e7f30ec068aa4eb7aa160f9de8e7fd", null ],
       [ "foreign_sockaddr", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a950798bbf6c64b21a4c10cae2251929e", null ]
     ] ],
     [ "MiniServerState", "d5/db2/miniserver_8cpp.html#a9b0e6da1017a752fb8bc9546a048afff", [
@@ -14,7 +14,7 @@ var miniserver_8cpp =
     [ "dispatch_request", "d5/db2/miniserver_8cpp.html#ad173085b190ca23875c545c0684a5b88", null ],
     [ "free_handle_request_arg", "d5/db2/miniserver_8cpp.html#a639fecba9beb576e16e842901e9c1c27", null ],
     [ "handle_request", "d5/db2/miniserver_8cpp.html#a9b4b32cfbe825a3f7cc9906b33d50872", null ],
-    [ "schedule_request_job", "d5/db2/miniserver_8cpp.html#a5e2408b7e1b679c8ff7430ffd9173ac5", null ],
+    [ "schedule_request_job", "d5/db2/miniserver_8cpp.html#a152f98f4e525591c17b95de35da9773e", null ],
     [ "fdset_if_valid", "d5/db2/miniserver_8cpp.html#a937a0eae18a69c7e034aa982345d9a50", null ],
     [ "web_server_accept", "d5/db2/miniserver_8cpp.html#a53d1fc0751489b766ddd900c54415df7", null ],
     [ "ssdp_read", "d5/db2/miniserver_8cpp.html#a02379f09474a96b3590cadd8ca82ecf1", null ],

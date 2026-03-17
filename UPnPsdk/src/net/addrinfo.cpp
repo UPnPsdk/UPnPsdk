@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-09
+// Redistribution only with this Copyright remark. Last modified: 2026-03-20
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -233,7 +233,7 @@ bool CAddrinfo::get_first() {
               m_service + "\"" +
              ((m_hints.ai_flags & AI_PASSIVE) ? ", passive_listen" : "") +
              ((m_hints.ai_flags & AI_NUMERICHOST) ? "" : ", (maybe DNS query temporary failed?)") +
-             ", ai_socktype=" + std::to_string(m_hints.ai_socktype);
+             ", ai_socktype=" + std::to_string(m_hints.ai_socktype) + "\n";
         UPnPsdk_LOGERR("MSG1041") << m_error_msg << '\n';
 
         return false;

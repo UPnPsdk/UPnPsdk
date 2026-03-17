@@ -43,9 +43,8 @@
 #include <UPnPsdk/addrinfo.hpp>
 
 /// \cond
-#include <cstdio>   // Needed if OpenSSL isn't compiled in.
+#include <cstdio> // Needed if OpenSSL isn't compiled in.
 #include <climits>
-#include <iostream> // DEBUG!
 /// \endcond
 
 UPnPsdk_EXTERN unsigned gIF_INDEX;

@@ -25,7 +25,7 @@ var Compa_2src_2inc_2httpparser_8hpp =
       [ "headers", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#ad25a924f2f27dc1000fc080fe408a0c1", null ],
       [ "entity", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a55fe88fcfc0ffc5c0967c0db2c082f19", null ],
       [ "msg", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a755470277c80a2a1fed7a3993b3996ec", null ],
-      [ "urlbuf", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a5813a4478c701c3eac633ca5b9f9e215", null ]
+      [ "url_buf", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#aec38e41f71472c038c3638ff6bba09f7", null ]
     ] ],
     [ "http_parser_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t", [
       [ "msg", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a0ae25c4f785752a83e6d1b32a5e85c12", null ],

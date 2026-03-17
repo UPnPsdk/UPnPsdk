@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2025-07-17, ver 1.14.21
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 /*!
  * \file
  */
@@ -1270,8 +1270,8 @@ static int Parser_processContent(
             } else {
                 xmlParser->curPtr = pEndContent;
             }
-        } else if (strncmp(pEndContent, (char*)BEGIN_PI, strlen(BEGIN_PI)) ==
-                   0) {
+        } else if (strncmp(pEndContent, (const char*)BEGIN_PI,
+                           strlen(BEGIN_PI)) == 0) {
             if (Parser_skipPI(&pEndContent) != IXML_SUCCESS) {
                 line = __LINE__;
                 ret = IXML_SYNTAX_ERR;

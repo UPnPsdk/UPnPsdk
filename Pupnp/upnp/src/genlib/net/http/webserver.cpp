@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2024-10-26, ver 1.14.20
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*!
  * \file
@@ -54,7 +54,7 @@
 #include "httpparser.hpp"
 #include "httpreadwrite.hpp"
 #include "ithread.hpp"
-// #include "membuffer.hpp"
+// #include "membuffer.h"
 #include "ssdplib.hpp"
 #include "statcodes.hpp"
 #include "strintmap.hpp"
@@ -138,17 +138,16 @@ static const char* gMediaTypes[] = {
 #define NUM_HTTP_HEADER_NAMES 33
 
 #define ASCTIME_R_BUFFER_SIZE 26
-#ifdef _WIN32
+
 static char* web_server_asctime_r(const struct tm* tm, char* buf) {
-    if (tm == NULL || buf == NULL)
+    if (!tm || !buf)
         return NULL;
 
-    asctime_s(buf, ASCTIME_R_BUFFER_SIZE, tm);
+    if (!strftime(buf, ASCTIME_R_BUFFER_SIZE, "%a %b %d %H:%M:%S %Y\n", tm))
+        return NULL;
+
     return buf;
 }
-#else
-#define web_server_asctime_r asctime_r
-#endif
 
 /* sorted by file extension; must have 'NUM_MEDIA_TYPES' extensions */
 static const char* gEncodedMediaTypes =
@@ -689,7 +688,7 @@ static void ToUpperCase(
 /*!
  * \brief Finds a substring from a string in a case insensitive way.
  *
- * \return A pointer to the first occurence of s2 in s1.
+ * \return A pointer to the first occurrence of s2 in s1.
  */
 static char* StrStr(
     /*! Input string. */
@@ -1113,7 +1112,7 @@ static int process_request(
     SOCKINFO* info,
     /*! [in] HTTP Request message. */
     http_message_t* req,
-    /*! [out] Tpye of response. */
+    /*! [out] Type of response. */
     enum resp_type* rtype,
     /*! [out] Headers. */
     membuffer* headers,

@@ -31,19 +31,20 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 #include "ixmlparser.hpp"
 
 #include <string.h>
 
 void ixmlAttr_init(IXML_Attr* attr) {
-    if (attr != NULL) {
+    if (attr) {
         memset(attr, 0, sizeof(IXML_Attr));
     }
 }
 
 void ixmlAttr_free(IXML_Attr* attr) {
-    if (attr != NULL) {
+    if (attr) {
         ixmlNode_free((IXML_Node*)attr);
     }
 }

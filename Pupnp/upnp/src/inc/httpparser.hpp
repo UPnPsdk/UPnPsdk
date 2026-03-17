@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2023-07-20
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2023-07-20, ver 1.14.17
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 #ifndef UPNPLIB_GENLIB_NET_HTTP_HTTPPARSER_HPP
 #define UPNPLIB_GENLIB_NET_HTTP_HTTPPARSER_HPP
@@ -42,8 +42,8 @@
 
 #include "LinkedList.hpp"
 #include "membuffer.hpp"
-#include "upnputil.hpp"
 #include "uri.hpp"
+#include "upnputil.hpp"
 
 /* private types */
 
@@ -132,7 +132,7 @@ typedef enum {
 #define HDR_USN 23
 #define HDR_USER_AGENT 24
 
-/* Adding new header difinition */
+/* Adding new header definition */
 #define HDR_ACCEPT 25
 #define HDR_ACCEPT_ENCODING 26
 #define HDR_ACCEPT_CHARSET 27
@@ -206,7 +206,7 @@ typedef struct {
     /*! entire raw message. */
     membuffer msg;
     /*! storage for url string. */
-    char* urlbuf;
+    char* url_buf;
 } http_message_t;
 
 typedef struct {
@@ -215,7 +215,7 @@ typedef struct {
      * contains the HTTP error code (4XX or 5XX). */
     int http_error_code;
     /*! read-only; this is set to 1 if a NOTIFY request has no
-     * content-length. used to read valid sspd notify msg. */
+     * content-length. used to read valid ssdp notify msg. */
     int valid_ssdp_notify_hack;
     /* private data -- don't touch. */
     parser_pos_t position;
@@ -223,7 +223,7 @@ typedef struct {
     unsigned int content_length;
     size_t chunk_size;
     /*! offset in the the raw message buffer, which contains the message
-     * body. preceding this are the headers of the messsage. */
+     * body. preceding this are the headers of the message. */
     size_t entity_start_position;
     scanner_t scanner;
 } http_parser_t;
@@ -254,7 +254,7 @@ void httpmsg_init(http_message_t* msg);
  *
  *	Note :
  ************************************************************************/
-EXPORT_SPEC void httpmsg_destroy(http_message_t* msg);
+void httpmsg_destroy(http_message_t* msg);
 
 /************************************************************************
  *	Function :	httpmsg_find_hdr_str
@@ -270,8 +270,8 @@ EXPORT_SPEC void httpmsg_destroy(http_message_t* msg);
  *			 NULL on failure
  *	Note :
  ************************************************************************/
-EXPORT_SPEC http_header_t* httpmsg_find_hdr_str(http_message_t* msg,
-                                                const char* header_name);
+http_header_t* httpmsg_find_hdr_str(http_message_t* msg,
+                                    const char* header_name);
 
 /************************************************************************
  *	Function :	httpmsg_find_hdr
@@ -288,8 +288,8 @@ EXPORT_SPEC http_header_t* httpmsg_find_hdr_str(http_message_t* msg,
  *
  *	Note :
  ************************************************************************/
-EXPORT_SPEC http_header_t* httpmsg_find_hdr(http_message_t* msg,
-                                            int header_name_id, memptr* value);
+http_header_t* httpmsg_find_hdr(http_message_t* msg, int header_name_id,
+                                memptr* value);
 
 /************************************************************************
  * Function: parser_request_init
@@ -302,7 +302,7 @@ EXPORT_SPEC http_header_t* httpmsg_find_hdr(http_message_t* msg,
  * Returns:
  *	 void
  ************************************************************************/
-EXPORT_SPEC void parser_request_init(http_parser_t* parser);
+void parser_request_init(http_parser_t* parser);
 
 /************************************************************************
  * Function: parser_response_init
@@ -316,8 +316,7 @@ EXPORT_SPEC void parser_request_init(http_parser_t* parser);
  * Returns:
  *	 void
  ************************************************************************/
-EXPORT_SPEC void parser_response_init(http_parser_t* parser,
-                                      http_method_t request_method);
+void parser_response_init(http_parser_t* parser, http_method_t request_method);
 
 /************************************************************************
  * Function: parser_parse
@@ -346,7 +345,7 @@ parse_status_t parser_parse(http_parser_t* parser);
  *	PARSE_SUCCESS
  *	PARSE_FAILURE
  ************************************************************************/
-EXPORT_SPEC parse_status_t parser_parse_responseline(http_parser_t* parser);
+parse_status_t parser_parse_responseline(http_parser_t* parser);
 
 /************************************************************************
  * Function: parser_parse_headers
@@ -361,7 +360,7 @@ EXPORT_SPEC parse_status_t parser_parse_responseline(http_parser_t* parser);
  *	PARSE_SUCCESS
  *	PARSE_FAILURE
  ************************************************************************/
-EXPORT_SPEC parse_status_t parser_parse_headers(http_parser_t* parser);
+parse_status_t parser_parse_headers(http_parser_t* parser);
 
 /************************************************************************
  * Function: parser_parse_entity
@@ -376,7 +375,7 @@ EXPORT_SPEC parse_status_t parser_parse_headers(http_parser_t* parser);
  * 	 PARSE_FAILURE
  *	 PARSE_COMPLETE	-- no more reading to do
  ************************************************************************/
-EXPORT_SPEC parse_status_t parser_parse_entity(http_parser_t* parser);
+parse_status_t parser_parse_entity(http_parser_t* parser);
 
 /************************************************************************
  * Function: parser_get_entity_read_method
@@ -391,7 +390,7 @@ EXPORT_SPEC parse_status_t parser_parse_entity(http_parser_t* parser);
  * 	 PARSE_FAILURE
  *	 PARSE_COMPLETE	-- no more reading to do
  ************************************************************************/
-EXPORT_SPEC parse_status_t parser_get_entity_read_method(http_parser_t* parser);
+parse_status_t parser_get_entity_read_method(http_parser_t* parser);
 
 /************************************************************************
  * Function: parser_append
@@ -408,8 +407,8 @@ EXPORT_SPEC parse_status_t parser_get_entity_read_method(http_parser_t* parser);
  * Returns:
  *	 void
  ************************************************************************/
-EXPORT_SPEC parse_status_t parser_append(http_parser_t* parser, const char* buf,
-                                         size_t buf_length);
+parse_status_t parser_append(http_parser_t* parser, const char* buf,
+                             size_t buf_length);
 
 /************************************************************************
  * Function: matchstr
@@ -448,7 +447,7 @@ int raw_to_int(memptr* raw_value, int base);
  * Function: raw_find_str
  *
  * Parameters:
- *	IN memptr* raw_value ; Buffer containg the string
+ *	IN memptr* raw_value ; Buffer containing the string
  *	IN const char* str ;	Substring to be found
  *
  * Description: Find a substring from raw character string buffer
@@ -472,18 +471,18 @@ int raw_find_str(memptr* raw_value, const char* str);
  * Returns:
  *	 const char* ptr - Ptr to the HTTP Method
  ************************************************************************/
-EXPORT_SPEC const char* method_to_str(http_method_t method);
+const char* method_to_str(http_method_t method);
 
 /*!
  * \brief Print the HTTP headers.
  */
 
 #ifdef DEBUG
-EXPORT_SPEC void print_http_headers(
+void print_http_headers(
     /*! [in] HTTP Message object. */
-    http_message_t* hmsg);
+    http_message_t* h_msg);
 #else
-#define print_http_headers(hmsg)                                               \
+#define print_http_headers(h_msg)                                              \
     do {                                                                       \
     } while (0)
 #endif

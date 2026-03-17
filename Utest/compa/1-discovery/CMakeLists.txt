@@ -1,5 +1,5 @@
 # Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-08-04
+# Redistribution only with this Copyright remark. Last modified: 2026-03-18
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -42,7 +42,7 @@ target_include_directories(test_ssdp-cst
 target_link_libraries(test_ssdp-cst
     PRIVATE
         compa_static
-        utest_static
+        utest_shared
 )
 add_test(NAME ctest_ssdp-cst COMMAND test_ssdp-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
@@ -52,7 +52,7 @@ add_test(NAME ctest_ssdp-cst COMMAND test_ssdp-cst --gtest_shuffle
 # ssdp_device
 #============
 add_executable(test_ssdp_device-pst
-#---------------------------
+#----------------------------------
     ./test_ssdp_device.cpp
 )
 target_include_directories(test_ssdp_device-pst
@@ -62,13 +62,14 @@ target_link_libraries(test_ssdp_device-pst
     PRIVATE
         pupnp_static
         UPnPsdk_static # static needed for win32
+        utest_shared
 )
 add_test(NAME ctest_ssdp_device-pst COMMAND test_ssdp_device-pst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 add_executable(test_ssdp_device-cst
-#---------------------------
+#----------------------------------
     ./test_ssdp_device.cpp
 )
 target_include_directories(test_ssdp_device-cst
@@ -77,6 +78,7 @@ target_include_directories(test_ssdp_device-cst
 target_link_libraries(test_ssdp_device-cst
     PRIVATE
         compa_static
+        utest_shared
 )
 add_test(NAME ctest_ssdp_device-cst COMMAND test_ssdp_device-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}

@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2023-11-13
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,7 +33,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2023-08-03, ver 1.14.17
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*
  * \file
@@ -42,13 +42,13 @@
 #include "config.hpp"
 #include "httpparser.hpp"
 #include "sock.hpp"
-// #include "upnputil.hpp"
+// #include "upnputil.h"
 
 /*! timeout in secs. */
 #define HTTP_DEFAULT_TIMEOUT 30
 
 #ifdef _WIN32
-struct tm* http_gmtime_r(const time_t* clock, struct tm* result);
+#define http_gmtime_r(clock, result) (gmtime_s(result, clock) ? NULL : result)
 #else
 #define http_gmtime_r gmtime_r
 #endif
@@ -117,9 +117,9 @@ SOCKET http_Connect(
  *       UPNP_E_BAD_HTTPMSG
  *       UPNP_E_SUCCESS
  ************************************************************************/
-EXPORT_SPEC int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
-                                 http_method_t request_method,
-                                 int* timeout_secs, int* http_error_code);
+int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
+                     http_method_t request_method, int* timeout_secs,
+                     int* http_error_code);
 
 /*!
  * \brief Sends a message to the destination based on the format parameter.
@@ -143,7 +143,7 @@ EXPORT_SPEC int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
  * \li \c UPNP_E_FILE_READ_ERROR
  * \li \c UPNP_E_SUCCESS
  */
-EXPORT_SPEC int http_SendMessage(
+int http_SendMessage(
     /* [in] Socket information object. */
     SOCKINFO* info,
     /* [in,out] Time out value. */
@@ -261,11 +261,10 @@ EXPORT_SPEC int http_OpenHttpConnection(
      * This handle is required for futher operations over this connection.
      */
     void** handle,
-    /*! [in] The time out value sent with the request during which a response
-     * is expected from the receiver, failing which, an error is reported.
-     * If value is negative, timeout is infinite.
-     * This parameter isn't used anymore and only available for downstream
-     * compatibility. It can be set to 0.*/
+    /*! [in] The time out value sent with the request during which a response is
+     * expected from the receiver, failing which, an error is reported. If value
+     * is negative, timeout is infinite. This parameter isn't used anymore and
+     * only available for downstream compatibility. It can be set to 0.*/
     int timeout);
 
 /*!
@@ -313,9 +312,9 @@ EXPORT_SPEC int http_MakeHttpRequest(
      * avoid specifying the content length to the server. In this case the
      * request is considered unfinished until the connection is closed. */
     int contentLength,
-    /*! [in] The time out value sent with the request during which a response
-     * is expected from the receiver, failing which, an error is reported.
-     * If value is negative, timeout is infinite. */
+    /*! [in] The time out value sent with the request during which a response is
+       expected from the receiver, failing which, an error is reported. If value
+       is negative, timeout is infinite. */
     int timeout);
 
 /*!
@@ -341,8 +340,8 @@ EXPORT_SPEC int http_WriteHttpRequest(
     /*! [in] The size, in bytes of \b buf. */
     size_t* size,
     /*! [in] A timeout value sent with the request during which a response is
-     * expected from the server, failing which, an error is reported. If
-     * value is negative, timeout is infinite. */
+     * expected from the server, failing which, an error is reported. If value
+     * is negative, timeout is infinite. */
     int timeout);
 
 /*!
@@ -366,9 +365,9 @@ EXPORT_SPEC int http_WriteHttpRequest(
 EXPORT_SPEC int http_EndHttpRequest(
     /*! [in] The handle to the connection. */
     void* handle,
-    /*! [in] The time out value sent with the request during which a response
-     * is expected from the receiver, failing which, an error is reported.
-     * If value is negative, timeout is infinite. */
+    /*! [in] The time out value sent with the request during which a response is
+       expected from the receiver, failing which, an error is reported. If value
+       is negative, timeout is infinite. */
     int timeout);
 
 /*!
@@ -413,9 +412,9 @@ EXPORT_SPEC int http_GetHttpResponse(
     int* contentLength,
     /*! [out] The status returned on receiving a response message. */
     int* httpStatus,
-    /*! [in] The time out value sent with the request during which a response
-     * is expected from the server, failing which, an error is reported
-     * back to the user. If value is negative, timeout is infinite. */
+    /*! [in] The time out value sent with the request during which a response is
+       expected from the server, failing which, an error is reported back to the
+       user. If value is negative, timeout is infinite. */
     int timeout);
 
 /*!
@@ -445,8 +444,8 @@ EXPORT_SPEC int http_ReadHttpResponse(
     /*! [in,out] The size of the buffer to be read. */
     size_t* size,
     /*! [in] The time out value sent with the request during which a response is
-     * expected from the server, failing which, an error is reported back to
-     * the user. If value is negative, timeout is infinite. */
+     * expected from the server, failing which, an error is reported back to the
+     * user. If value is negative, timeout is infinite. */
     int timeout);
 
 /*!
@@ -486,9 +485,9 @@ EXPORT_SPEC int http_CloseHttpConnection(
  *      UPNP_E_SOCKET_WRITE
  *      UPNP_E_TIMEDOUT
  ************************************************************************/
-EXPORT_SPEC int http_SendStatusResponse(SOCKINFO* info, int http_status_code,
-                                        int request_major_version,
-                                        int request_minor_version);
+int http_SendStatusResponse(SOCKINFO* info, int http_status_code,
+                            int request_major_version,
+                            int request_minor_version);
 
 // clang-format off
 /*!

@@ -28,27 +28,29 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 #include "sample_util.h"
 #include "tv_ctrlpt.h"
 
+#include <signal.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 
 int main(int argc, char** argv) {
-    (void)argc;
-    (void)argv;
     char* iface = NULL;
     int rc;
     ithread_t cmdloop_thread;
     int i = 0;
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__sun__)
 #else
     int sig;
     sigset_t sigs_to_catch;
 #endif
     int code;
+    (void)argc;
+    (void)argv;
 
     SampleUtil_Initialize(linux_print);
     /* Parse options */
@@ -75,7 +77,7 @@ int main(int argc, char** argv) {
     if (code != 0) {
         return UPNP_E_INTERNAL_ERROR;
     }
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__sun__)
     ithread_join(cmdloop_thread, NULL);
 #else
     /* Catch Ctrl-C and properly shutdown */

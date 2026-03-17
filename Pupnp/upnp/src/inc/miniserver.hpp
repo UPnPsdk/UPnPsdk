@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft,  Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2023-07-08
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-16
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2023-07-08, ver 1.14.17
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*!
  * \file
@@ -42,7 +42,9 @@
 #include "httpparser.hpp"
 #include "sock.hpp"
 
+/// \cond
 #include <cstdint> // for uint16_t
+/// \endcond
 
 extern SOCKET gMiniServerStopSock;
 
@@ -93,7 +95,7 @@ typedef void (*MiniServerCallback)(
 /*!
  * \brief Set HTTP Get Callback.
  */
-EXPORT_SPEC void SetHTTPGetCallback(
+void SetHTTPGetCallback(
     /*! [in] HTTP Callback to be invoked . */
     MiniServerCallback callback);
 
@@ -105,13 +107,12 @@ void SetSoapCallback(
     /*! [in] SOAP Callback to be invoked . */
     MiniServerCallback callback);
 #else  /* INCLUDE_DEVICE_APIS */
-static UPNP_INLINE void
-SetSoapCallback([[maybe_unused]] MiniServerCallback callback) {}
+static UPNP_INLINE void SetSoapCallback(MiniServerCallback callback) {}
 #endif /* INCLUDE_DEVICE_APIS */
 /*!
  * \brief Set GENA Callback.
  */
-EXPORT_SPEC void SetGenaCallback(
+void SetGenaCallback(
     /*! [in] GENA Callback to be invoked. */
     MiniServerCallback callback);
 
@@ -130,7 +131,7 @@ EXPORT_SPEC void SetGenaCallback(
  *  \li On success: UPNP_E_SUCCESS.
  *  \li On error: UPNP_E_XXX.
  */
-EXPORT_SPEC int StartMiniServer(
+int StartMiniServer(
     /*! [in,out] Port on which the server listens for incoming IPv4
      * connections. */
     uint16_t* listen_port4,
@@ -146,6 +147,12 @@ EXPORT_SPEC int StartMiniServer(
  *
  * \return Always returns 0.
  */
-EXPORT_SPEC int StopMiniServer();
+int StopMiniServer();
+
+/*!
+ * \brief Shutdown all active socket connections to interrupt blocking
+ * operations.
+ */
+void shutdown_all_active_connections(void);
 
 #endif /* PUPNP_MINISERVER_HPP */

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-30
+// Redistribution only with this Copyright remark. Last modified: 2026-03-17
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -1379,8 +1379,7 @@ TEST(RunMiniServerTestSuite, free_handle_request_arg_with_valid_socket) {
     mserv_request_t* request =
         static_cast<mserv_request_t*>(calloc(1, sizeof(mserv_request_t)));
     // and set a valid socket
-    ASSERT_NE(request->connfd = socket(AF_INET6, SOCK_STREAM, 0),
-              INVALID_SOCKET);
+    ASSERT_NE(request->sock = socket(AF_INET6, SOCK_STREAM, 0), INVALID_SOCKET);
 
     // Test Unit
     free_handle_request_arg(request);
@@ -1393,7 +1392,7 @@ TEST(RunMiniServerTestSuite, free_handle_request_arg_with_valid_socket) {
     int so_option{-1};
     socklen_t optlen{sizeof(so_option)}; // May be modified
     // Type cast (char*)&so_option is needed for Microsoft Windows.
-    EXPECT_NE(getsockopt(request->connfd, SOL_SOCKET, SO_ERROR,
+    EXPECT_NE(getsockopt(request->sock, SOL_SOCKET, SO_ERROR,
                          reinterpret_cast<char*>(&so_option), &optlen),
               0);
     */
@@ -1404,7 +1403,7 @@ TEST(RunMiniServerTestSuite, free_handle_request_arg_with_invalid_socket) {
     mserv_request_t* request =
         static_cast<mserv_request_t*>(calloc(1, sizeof(mserv_request_t)));
     // and set an invalid socket
-    request->connfd = INVALID_SOCKET;
+    request->sock = INVALID_SOCKET;
 
     // Test Unit
     free_handle_request_arg(request);

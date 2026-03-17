@@ -30,7 +30,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last updated from pupnp original source file on 2025-07-16, ver 1.14.21
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*!
  * \file
@@ -57,8 +57,9 @@ static void copy_with_escape(
     size_t i;
     size_t plen;
 
-    if (p == NULL)
+    if (!p) {
         return;
+    }
     plen = strlen(p);
     for (i = (size_t)0; i < plen; ++i) {
         switch (p[i]) {
@@ -97,7 +98,7 @@ static void ixmlPrintDomTreeRecursive(
     const char* nodeValue = NULL;
     IXML_Node *child = NULL, *sibling = NULL;
 
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         nodeName = (const char*)ixmlNode_getNodeName(nodeptr);
         nodeValue = ixmlNode_getNodeValue(nodeptr);
 
@@ -129,7 +130,7 @@ static void ixmlPrintDomTreeRecursive(
             ixml_membuf_append_str(buf, "=\"");
             copy_with_escape(buf, nodeValue);
             ixml_membuf_append_str(buf, "\"");
-            if (nodeptr->nextSibling != NULL) {
+            if (nodeptr->nextSibling) {
                 ixml_membuf_append_str(buf, " ");
                 ixmlPrintDomTreeRecursive(nodeptr->nextSibling, buf);
             }
@@ -138,12 +139,12 @@ static void ixmlPrintDomTreeRecursive(
         case eELEMENT_NODE:
             ixml_membuf_append_str(buf, "<");
             ixml_membuf_append_str(buf, nodeName);
-            if (nodeptr->firstAttr != NULL) {
+            if (nodeptr->firstAttr) {
                 ixml_membuf_append_str(buf, " ");
                 ixmlPrintDomTreeRecursive(nodeptr->firstAttr, buf);
             }
             child = ixmlNode_getFirstChild(nodeptr);
-            if (child != NULL && ixmlNode_getNodeType(child) == eELEMENT_NODE) {
+            if (child && ixmlNode_getNodeType(child) == eELEMENT_NODE) {
                 ixml_membuf_append_str(buf, ">\r\n");
             } else {
                 ixml_membuf_append_str(buf, ">");
@@ -156,8 +157,7 @@ static void ixmlPrintDomTreeRecursive(
             ixml_membuf_append_str(buf, nodeName);
 
             sibling = ixmlNode_getNextSibling(nodeptr);
-            if (sibling != NULL &&
-                ixmlNode_getNodeType(sibling) == eTEXT_NODE) {
+            if (sibling && ixmlNode_getNodeType(sibling) == eTEXT_NODE) {
                 ixml_membuf_append_str(buf, ">");
             } else {
                 ixml_membuf_append_str(buf, ">\r\n");
@@ -189,7 +189,7 @@ static void ixmlPrintDomTree(
     const char* nodeValue = NULL;
     IXML_Node* child = NULL;
 
-    if (nodeptr == NULL || buf == NULL) {
+    if (!nodeptr || !buf) {
         return;
     }
 
@@ -213,12 +213,12 @@ static void ixmlPrintDomTree(
     case eELEMENT_NODE:
         ixml_membuf_append_str(buf, "<");
         ixml_membuf_append_str(buf, nodeName);
-        if (nodeptr->firstAttr != NULL) {
+        if (nodeptr->firstAttr) {
             ixml_membuf_append_str(buf, " ");
             ixmlPrintDomTreeRecursive(nodeptr->firstAttr, buf);
         }
         child = ixmlNode_getFirstChild(nodeptr);
-        if (child != NULL && ixmlNode_getNodeType(child) == eELEMENT_NODE) {
+        if (child && ixmlNode_getNodeType(child) == eELEMENT_NODE) {
             ixml_membuf_append_str(buf, ">\r\n");
         } else {
             ixml_membuf_append_str(buf, ">");
@@ -256,7 +256,7 @@ static void ixmlDomTreetoString(
     const char* nodeValue = NULL;
     IXML_Node* child = NULL;
 
-    if (nodeptr == NULL || buf == NULL) {
+    if (!nodeptr || !buf) {
         return;
     }
 
@@ -281,12 +281,12 @@ static void ixmlDomTreetoString(
     case eELEMENT_NODE:
         ixml_membuf_append_str(buf, "<");
         ixml_membuf_append_str(buf, nodeName);
-        if (nodeptr->firstAttr != NULL) {
+        if (nodeptr->firstAttr) {
             ixml_membuf_append_str(buf, " ");
             ixmlPrintDomTreeRecursive(nodeptr->firstAttr, buf);
         }
         child = ixmlNode_getFirstChild(nodeptr);
-        if (child != NULL && ixmlNode_getNodeType(child) == eELEMENT_NODE) {
+        if (child && ixmlNode_getNodeType(child) == eELEMENT_NODE) {
             ixml_membuf_append_str(buf, ">");
         } else {
             ixml_membuf_append_str(buf, ">");
@@ -310,7 +310,7 @@ static void ixmlDomTreetoString(
 }
 
 int ixmlLoadDocumentEx(const char* xmlFile, IXML_Document** doc) {
-    if (xmlFile == NULL || doc == NULL) {
+    if (!xmlFile || !doc) {
         return IXML_INVALID_PARAMETER;
     }
 
@@ -330,7 +330,7 @@ DOMString ixmlPrintDocument(IXML_Document* doc) {
     ixml_membuf memBuf;
     ixml_membuf* buf = &memBuf;
 
-    if (rootNode == NULL) {
+    if (!rootNode) {
         return NULL;
     }
 
@@ -345,7 +345,7 @@ DOMString ixmlPrintNode(IXML_Node* node) {
     ixml_membuf memBuf;
     ixml_membuf* buf = &memBuf;
 
-    if (node == NULL) {
+    if (!node) {
         return NULL;
     }
 
@@ -360,7 +360,7 @@ DOMString ixmlDocumenttoString(IXML_Document* doc) {
     ixml_membuf memBuf;
     ixml_membuf* buf = &memBuf;
 
-    if (rootNode == NULL) {
+    if (!rootNode) {
         return NULL;
     }
 
@@ -375,7 +375,7 @@ DOMString ixmlNodetoString(IXML_Node* node) {
     ixml_membuf memBuf;
     ixml_membuf* buf = &memBuf;
 
-    if (node == NULL) {
+    if (!node) {
         return NULL;
     }
 
@@ -394,10 +394,9 @@ void ixmlSetBeforeFree(IXML_BeforeFreeNode_t hndlr) {
 #endif
 
 int ixmlParseBufferEx(const char* buffer, IXML_Document** retDoc) {
-    if (buffer == NULL || retDoc == NULL) {
+    if (!buffer || !retDoc) {
         return IXML_INVALID_PARAMETER;
     }
-
     if (buffer[0] == '\0') {
         return IXML_INVALID_PARAMETER;
     }
@@ -414,7 +413,7 @@ IXML_Document* ixmlParseBuffer(const char* buffer) {
 }
 
 DOMString ixmlCloneDOMString(const DOMString src) {
-    if (src == NULL) {
+    if (!src) {
         return NULL;
     }
 
@@ -422,7 +421,7 @@ DOMString ixmlCloneDOMString(const DOMString src) {
 }
 
 void ixmlFreeDOMString(DOMString buf) {
-    if (buf != NULL) {
+    if (buf) {
         free(buf);
     }
 }

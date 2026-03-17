@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-06
+// Redistribution only with this Copyright remark. Last modified: 2026-03-17
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -60,7 +60,7 @@ using ::UPnPsdk::SSockaddr;
    |
    |__ InitMiniServerSockArray()                   ]
    |__ get_miniserver_sockets()                    ]
-   |   |__ init_socket_suff()                      ] create sockets
+   |   |__ init_socket_stuff()                      ] create sockets
    |   |   |__ get a socket()                      ]
    |   |   |__ setsockopt() - MINISERVER_REUSEADDR |
    |   |                                           V
@@ -73,7 +73,7 @@ using ::UPnPsdk::SSockaddr;
    |       |   |__ listen()           ] listen on a port,
    |       |                          ] and wait for a connection
    |       |__ if EADDRINUSE          ]
-   |       |      init_socket_suff()  ]
+   |       |      init_socket_stuff()  ]
    |       |
    |       |__ get_port()             ] get the current port
    |           |__ getsockname()      ]
@@ -710,7 +710,7 @@ TEST(StartMiniServerTestSuite, init_socket_suff_successful) {
     memset(&ss6, 0xAA, sizeof(ss6));
 
     // Test Unit, needs initialized sockets on MS Windows
-    EXPECT_EQ(init_socket_suff(&ss6, text_addr, 6), 0);
+    EXPECT_EQ(init_socket_stuff(&ss6, text_addr, 6), 0);
 
     EXPECT_EQ(ss6.ip_version, 6);
     EXPECT_STREQ(ss6.text_addr, text_addr);
@@ -744,7 +744,7 @@ TEST(StartMiniServerTestSuite, init_socket_suff_reuseaddr) {
     s_SocketStuff ss6;
 
     // Test Unit, needs initialized sockets on MS Windows
-    EXPECT_EQ(init_socket_suff(&ss6, text_addr, 6), 0);
+    EXPECT_EQ(init_socket_stuff(&ss6, text_addr, 6), 0);
 
     char reuseaddr;
     socklen_t optlen{sizeof(reuseaddr)};
@@ -774,7 +774,7 @@ TEST_F(StartMiniServerMockFTestSuite, init_socket_suff_with_invalid_socket) {
 #endif
 
     // Test Unit
-    EXPECT_EQ(init_socket_suff(&ss4, text_addr, 4), 1);
+    EXPECT_EQ(init_socket_stuff(&ss4, text_addr, 4), 1);
 
     EXPECT_EQ(ss4.fd, INVALID_SOCKET);
     EXPECT_EQ(ss4.ip_version, 4);
@@ -793,7 +793,7 @@ TEST(StartMiniServerTestSuite, init_socket_suff_with_invalid_ip_address) {
     s_SocketStuff ss6;
 
     // Test Unit, needs initialized sockets on MS Windows
-    EXPECT_EQ(init_socket_suff(&ss6, text_addr, 6), 1);
+    EXPECT_EQ(init_socket_stuff(&ss6, text_addr, 6), 1);
 
     EXPECT_STREQ(ss6.text_addr, text_addr);
     EXPECT_EQ(ss6.fd, INVALID_SOCKET);
@@ -820,7 +820,7 @@ TEST(StartMiniServerTestSuite, init_socket_suff_with_invalid_ip_version) {
     s_SocketStuff ss4;
 
     // Test Unit, arg<2> = 0 is an invalid ip version, must be 4 or 6.
-    EXPECT_EQ(init_socket_suff(&ss4, text_addr, 0), 1);
+    EXPECT_EQ(init_socket_stuff(&ss4, text_addr, 0), 1);
 
     EXPECT_EQ(ss4.fd, INVALID_SOCKET);
     EXPECT_EQ(ss4.ip_version, 0);
@@ -901,7 +901,7 @@ TEST(StartMiniServerTestSuite, do_bind_listen_with_wrong_socket) {
     constexpr char text_addr[]{"0.0.0.0"};
 
     s_SocketStuff s;
-    EXPECT_EQ(init_socket_suff(&s, text_addr, 4), 0);
+    EXPECT_EQ(init_socket_stuff(&s, text_addr, 4), 0);
     EXPECT_EQ(CLOSE_SOCKET_P(s.fd), 0) << std::strerror(errno);
     // The socket fd wasn't got from a socket() call now and should trigger an
     // error.
@@ -1006,7 +1006,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_address_in_use) {
         EXPECT_CALL(m_winsock2Obj, WSAGetLastError())
             .WillOnce(Return(WSAEADDRINUSE));
 #endif
-        // A second attempt will call init_socket_suff() to get a new socket.
+        // A second attempt will call init_socket_stuff() to get a new socket.
         EXPECT_CALL(m_sys_socketObj, socket(AF_INET, SOCK_STREAM, 0))
             .WillOnce(Return(sockfd_free));
         EXPECT_CALL(m_sys_socketObj, bind(sockfd_free, _, _))

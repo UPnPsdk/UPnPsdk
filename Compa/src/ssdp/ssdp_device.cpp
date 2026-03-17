@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-29
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-19
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -48,6 +48,7 @@
 #include <webserver.hpp>
 
 #include <UPnPsdk/socket.hpp>
+#include <UPnPsdk/sockaddr.hpp>
 
 #include <umock/sys_socket.hpp>
 #include <umock/netdb.hpp>
@@ -86,6 +87,11 @@ int send_stateless(sockaddr* a_dest_saddr, int a_num_packet,
     if (a_dest_saddr == nullptr || a_rq_packet == nullptr)
         return UPNP_E_INVALID_PARAM;
 
+    if (a_num_packet <= 0 || *a_rq_packet == nullptr) {
+        UPnPsdk_LOGINFO("MSG1163") "nothing to send.\n";
+        return UPNP_E_SUCCESS;
+    }
+
     UPnPsdk::CSocket sockObj;
     try {
         sockObj.bind(SOCK_DGRAM, nullptr, AI_PASSIVE);
@@ -94,6 +100,12 @@ int send_stateless(sockaddr* a_dest_saddr, int a_num_packet,
         return UPNP_E_SOCKET_ERROR;
     }
 
+    if (UPnPsdk::g_dbug) {
+        UPnPsdk::SSockaddr saObj;
+        saObj = *reinterpret_cast<sockaddr_storage*>(a_dest_saddr);
+        UPnPsdk_LOGINFO("MSG1154") "syscall ::sendto() \""
+            << saObj.netaddrp() << "\", " << a_num_packet << " messages.\n";
+    }
     UPnPsdk::CSocketErr serrObj;
     for (int index{0}; index < a_num_packet; index++) {
         // Ignore invalid or empty strings.
@@ -107,7 +119,7 @@ int send_stateless(sockaddr* a_dest_saddr, int a_num_packet,
                                       0, a_dest_saddr, sizeof(sockaddr_in6));
         if (bytes_sent == SOCKET_ERROR) {
             serrObj.catch_error();
-            UPnPsdk_LOGERR("MSG1161") "sendto() fails with errid="
+            UPnPsdk_LOGERR("MSG1161") "syscall ::sendto() fails with errid="
                 << serrObj << " - " << serrObj.error_str() << '\n';
             return UPNP_E_SOCKET_WRITE;
         }

@@ -1,18 +1,18 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2024-10-27
 // Taken from authors who haven't made a note.
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*!
  * \file
  */
 
-// #include "upnpconfig.h"
+// #include "autoconfig.h"
 
 #include "ixmldebug.hpp"
 
 #include <stdarg.h>
 #include <stdio.h>
-// #include <umock/stdio.hpp>
 
 #ifdef DEBUG
 void IxmlPrintf(const char* DbgFileName, int DbgLineNo,
@@ -25,7 +25,6 @@ void IxmlPrintf(const char* DbgFileName, int DbgLineNo,
         fprintf(fp, ": ");
         va_start(ArgList, FmtStr);
         vfprintf(fp, FmtStr, ArgList);
-        // umock::stdio_h.fflush(fp);
         fflush(fp);
         va_end(ArgList);
     } else {
@@ -43,7 +42,7 @@ void printNodes(IXML_Node* tmpRoot, int depth) {
     NodeList1 = ixmlNode_getChildNodes(tmpRoot);
     for (i = 0; i < 100; ++i) {
         ChildNode1 = ixmlNodeList_item(NodeList1, i);
-        if (ChildNode1 == NULL) {
+        if (!ChildNode1) {
             break;
         }
 

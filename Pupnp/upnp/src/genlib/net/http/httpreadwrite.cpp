@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with pupnp original source file on 2024-10-25, ver 1.14.20
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*!
  * \file
@@ -42,24 +42,26 @@
 
 #include "config.hpp"
 
-#include <cmake_vars.hpp>
 #include "httpreadwrite.hpp"
 
 #include "UpnpExtraHeaders.hpp"
-// #include "UpnpFileInfo.h"
-// #include "UpnpInet.hpp"
-#include "UpnpIntTypes.hpp"
-// #include "UpnpStdInt.hpp"
+// #include "UpnpInet.h"
 // #include "membuffer.h"
 // #include "sock.h"
 #include "statcodes.hpp"
-// #include "unixutil.h"
-// #include "upnp.hpp"
+// #include "upnp.h"
 #include "upnpapi.hpp"
 // #include "uri.h"
 #include "webserver.hpp"
 
+#include <cmake_vars.hpp>
+// #include "UpnpFileInfo.h"
+#include "UpnpIntTypes.hpp"
+// #include "UpnpStdInt.hpp"
+// #include "unixutil.h"
+
 #include <assert.h>
+// #include <inttypes.h>
 #include <stdarg.h>
 #include <string.h>
 #include <string>
@@ -132,8 +134,8 @@ static int Check_Connect_And_Wait_Connection(
 #else
         if (EINPROGRESS == errno) {
 #endif
-            result = umock::sys_socket_h.select(sock + 1, NULL, &fdSet, NULL,
-                                                &tmvTimeout);
+            result = umock::sys_socket_h.select((int)sock + 1, NULL, &fdSet,
+                                                NULL, &tmvTimeout);
             if (result < 0) {
 #ifdef _WIN32
                 /* WSAGetLastError(); */
@@ -165,7 +167,7 @@ static int Check_Connect_And_Wait_Connection(
 }
 
 // Using this variable to be able to set it by unit tests to test
-// blocking vs. unblocking at runtime without to compile it.
+// blocking vs. unblocking at runtime without to recompile it.
 #ifdef UPNP_ENABLE_BLOCKING_TCP_CONNECTIONS
 bool unblock_tcp_connections{false};
 #else
@@ -191,17 +193,6 @@ static int private_connect(SOCKET sockfd, const struct sockaddr* serv_addr,
         return umock::sys_socket_h.connect(sockfd, serv_addr, addrlen);
     }
 }
-
-#ifdef _WIN32
-struct tm* http_gmtime_r(const time_t* clock, struct tm* result) {
-    if (clock == NULL || *clock < 0 || result == NULL)
-        return NULL;
-
-    /* gmtime in VC runtime is thread safe. */
-    gmtime_s(result, clock);
-    return result;
-}
-#endif
 
 static int get_hoststr(const char* url_str, const char** hoststr,
                        size_t* hostlen) {
@@ -283,10 +274,11 @@ int http_FixUrl(uri_type* url, uri_type* fixed_url) {
     return UPNP_E_SUCCESS;
 }
 
-int http_FixStrUrl(const char* urlstr, size_t urlstrlen, uri_type* fixed_url) {
+int http_FixStrUrl(const char* url_str, size_t url_str_len,
+                   uri_type* fixed_url) {
     uri_type url;
 
-    if (parse_uri(urlstr, urlstrlen, &url) != HTTP_SUCCESS) {
+    if (parse_uri(url_str, url_str_len, &url) != HTTP_SUCCESS) {
         return UPNP_E_INVALID_URL;
     }
 
@@ -309,37 +301,39 @@ int http_FixStrUrl(const char* urlstr, size_t urlstrlen, uri_type* fixed_url) {
  *  UPNP_E_SOCKET_CONNECT on error
  ************************************************************************/
 SOCKET http_Connect(uri_type* destination_url, uri_type* url) {
-    SOCKET connfd;
+    SOCKET http_socket;
     socklen_t sockaddr_len;
     int ret_connect;
+    char errorBuffer[ERROR_BUFFER_LEN];
 
-    // Ingo: BUG! Must check return value
+    // BUG! Must check return value --Ingo
     http_FixUrl(destination_url, url);
 
-    connfd = umock::sys_socket_h.socket((int)url->hostport.IPaddress.ss_family,
-                                        SOCK_STREAM, 0);
-    if (connfd == INVALID_SOCKET) {
+    http_socket = umock::sys_socket_h.socket(
+        (int)url->hostport.IPaddress.ss_family, SOCK_STREAM, 0);
+    if (http_socket == INVALID_SOCKET) {
         return (SOCKET)(UPNP_E_OUTOF_SOCKET);
     }
     sockaddr_len = (socklen_t)(url->hostport.IPaddress.ss_family == AF_INET6
                                    ? sizeof(struct sockaddr_in6)
                                    : sizeof(struct sockaddr_in));
     ret_connect = umock::pupnp_httprw.private_connect(
-        connfd, (struct sockaddr*)&url->hostport.IPaddress, sockaddr_len);
+        http_socket, (struct sockaddr*)&url->hostport.IPaddress, sockaddr_len);
     if (ret_connect == -1) {
 #ifdef _WIN32
         UpnpPrintf(UPNP_CRITICAL, HTTP, __FILE__, __LINE__,
                    "connect error: %d\n", umock::winsock2_h.WSAGetLastError());
 #endif
-        if (umock::sys_socket_h.shutdown(connfd, SD_BOTH) == -1) {
+        if (umock::sys_socket_h.shutdown(http_socket, SD_BOTH) == -1) {
+            strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
             UpnpPrintf(UPNP_INFO, HTTP, __FILE__, __LINE__,
-                       "Error in shutdown: %s\n", strerror(errno));
+                       "Error in shutdown: %s\n", errorBuffer);
         }
-        UpnpCloseSocket(connfd);
+        UpnpCloseSocket(http_socket);
         return (SOCKET)(UPNP_E_SOCKET_CONNECT);
     }
 
-    return connfd;
+    return http_socket;
 }
 
 /*!
@@ -347,7 +341,7 @@ SOCKET http_Connect(uri_type* destination_url, uri_type* url) {
  * modify the parser objects buffer.
  *
  * If an error is reported while parsing the data, the error code is passed in
- * the http_errr_code parameter.
+ * the http_error_code parameter.
  *
  * Parameters:
  *  IN SOCKINFO *info;          Socket information object
@@ -366,7 +360,7 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
     int ret = UPNP_E_SUCCESS;
     int line = 0;
     parse_status_t status;
-    int num_read{};
+    int num_read = 0;
     int ok_on_close = 0;
     char* buf;
     size_t buf_len = 1024;
@@ -407,7 +401,7 @@ int http_RecvMessage(SOCKINFO* info, http_parser_t* parser,
                            "<<<\n%s\n-----------------\n",
                            parser->msg.msg.buf);
                 print_http_headers(&parser->msg);
-                if (g_maxContentLength > (size_t)0 &&
+                if (g_maxContentLength > 0u &&
                     parser->content_length > (unsigned int)g_maxContentLength) {
                     *http_error_code = HTTP_REQ_ENTITY_TOO_LARGE;
                     line = __LINE__;
@@ -672,7 +666,7 @@ ExitFunction:
  *  IN size_t request_length;   Length of the request
  *  IN http_method_t req_method;    HTTP Request method
  *  IN int timeout_secs;        time out value
- *  OUT http_parser_t* response;    Parser object to receive the repsonse
+ *  OUT http_parser_t* response;    Parser object to receive the response
  *
  * Description:
  *  Initiates socket, connects to the destination, sends a
@@ -741,7 +735,7 @@ end_function:
  *  IN const char* url_str; String as a URL
  *  IN int timeout_secs;    time out value
  *  OUT char** document;    buffer to store the document extracted
- *              from the donloaded message.
+ *              from the downloaded message.
  *  OUT int* doc_length;    length of the extracted document
  *  OUT char* content_type; Type of content
  *
@@ -887,7 +881,7 @@ int MakeGenericMessage(http_method_t method, const char* url_str,
                        membuffer* request, uri_type* url, int contentLength,
                        const char* contentType, const UpnpString* headers) {
     int ret_code = 0;
-    size_t hostlen{};
+    size_t hostlen = 0;
     const char* hoststr;
 
     UpnpPrintf(UPNP_INFO, HTTP, __FILE__, __LINE__, "URL: %s method: %d\n",
@@ -958,12 +952,12 @@ typedef struct HTTPCONNECTIONHANDLE {
 /*!
  * \brief Parses already exiting data. If not complete reads more
  * data on the connected socket. The read data is then parsed. The
- * same methid is carried out for headers.
+ * same method is carried out for headers.
  *
  * \return integer:
  *  \li \c PARSE_OK - On Success
  *  \li \c PARSE_FAILURE - Failure to parse data correctly
- *  \li \c UPNP_E_BAD_HTTPMSG - Socker read() returns an error
+ *  \li \c UPNP_E_BAD_HTTPMSG - Socket read() returns an error
  */
 static int ReadResponseLineAndHeaders(
     /*! Socket information object. */
@@ -972,7 +966,7 @@ static int ReadResponseLineAndHeaders(
     http_parser_t* parser,
     /*! Time out value. */
     int* timeout_secs,
-    /*! HTTP errror code returned. */
+    /*! HTTP error code returned. */
     int* http_error_code) {
     parse_status_t status;
     int num_read;
@@ -991,7 +985,7 @@ static int ReadResponseLineAndHeaders(
         break;
     default:
         /*error */
-        return status;
+        return (int)status;
     }
     while (!done) {
         num_read = sock_read(info, buf, sizeof(buf), timeout_secs);
@@ -1014,26 +1008,28 @@ static int ReadResponseLineAndHeaders(
                 break;
             default:
                 /*error */
-                return status;
+                return (int)status;
             }
         } else if (num_read == 0) {
             /* partial msg */
             *http_error_code = HTTP_BAD_REQUEST; /* or response */
             return UPNP_E_BAD_HTTPMSG;
         } else {
+            /* num_read is negative, this is an error code */
             *http_error_code = parser->http_error_code;
             return num_read;
         }
     }
     status = parser_parse_headers(parser);
     if ((status == (parse_status_t)PARSE_OK) &&
-        (parser->position == (parser_pos_t)POS_ENTITY))
+        (parser->position == (parser_pos_t)POS_ENTITY)) {
         done = 1;
-    else if (status == (parse_status_t)PARSE_INCOMPLETE)
+    } else if (status == (parse_status_t)PARSE_INCOMPLETE) {
         done = 0;
-    else
+    } else {
         /*error */
-        return status;
+        return (int)status;
+    }
     /*read headers */
     while (!done) {
         num_read = sock_read(info, buf, sizeof(buf), timeout_secs);
@@ -1054,7 +1050,7 @@ static int ReadResponseLineAndHeaders(
                 done = 0;
             else
                 /*error */
-                return status;
+                return (int)status;
         } else if (num_read == 0) {
             /* partial msg */
             *http_error_code = HTTP_BAD_REQUEST; /* or response */
@@ -1080,7 +1076,7 @@ static int ReadResponseLineAndHeaders(
  *  Extracts information from the Handle to the HTTP get object.
  *
  * Return: int
- *  UPNP_E_SUCCESS      - On Sucess
+ *  UPNP_E_SUCCESS      - On Success
  *  UPNP_E_INVALID_PARAM    - Invalid Parameter
  ************************************************************************/
 int http_HttpGetProgress(void* Handle, size_t* length, size_t* total) {
@@ -1254,8 +1250,8 @@ int http_WriteHttpRequest(void* Handle, char* buf, size_t* size, int timeout) {
 }
 
 int http_EndHttpRequest(void* Handle, int timeout) {
-    int retc = 0;
-    const char* zcrlf = "0\r\n\r\n";
+    int ret_code = 0;
+    const char* zero_cr_lf = "0\r\n\r\n";
     http_connection_handle_t* handle = (http_connection_handle_t*)Handle;
     if (!handle)
         return UPNP_E_INVALID_PARAM;
@@ -1265,9 +1261,10 @@ int http_EndHttpRequest(void* Handle, int timeout) {
     handle->requestStarted = 0;
     if (handle->contentLength == UPNP_USING_CHUNKED)
         /*send last chunk */
-        retc = sock_write(&handle->sock_info, zcrlf, strlen(zcrlf), &timeout);
+        ret_code = sock_write(&handle->sock_info, zero_cr_lf,
+                              strlen(zero_cr_lf), &timeout);
 
-    return retc >= 0 ? UPNP_E_SUCCESS : UPNP_E_SOCKET_WRITE;
+    return ret_code >= 0 ? UPNP_E_SUCCESS : UPNP_E_SOCKET_WRITE;
 }
 
 int http_GetHttpResponse(void* Handle, UpnpString* headers, char** contentType,
@@ -1758,7 +1755,7 @@ ExitFunction:
  * Parameters:
  *  IN int request_major_vers;  Request major version
  *  IN int request_minor_vers;  Request minor version
- *  OUT int* response_major_vers;   Response mojor version
+ *  OUT int* response_major_vers;   Response major version
  *  OUT int* response_minor_vers;   Response minor version
  *
  * Description:
@@ -1864,7 +1861,7 @@ int MakeGetMessageEx(const char* url_str, membuffer* request, uri_type* url,
  *
  * Return: int
  *  UPNP_E_SUCCESS      - On Success
- *  UPNP_E_INVALID_PARAM    - Invalid Paramters
+ *  UPNP_E_INVALID_PARAM    - Invalid Parameters
  *  UPNP_E_OUTOF_MEMORY
  *  UPNP_E_SOCKET_ERROR
  *  UPNP_E_BAD_RESPONSE

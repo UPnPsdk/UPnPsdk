@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-08
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last update from pupnp original source file on 2025-08-08, ver 1.14.24
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*!
  * \addtogroup SSDPlib
@@ -49,11 +49,11 @@
 
 #include "ThreadPool.hpp"
 #include "httpparser.hpp"
-#include "httpreadwrite.hpp"
 // #include "membuffer.h"
 // #include "miniserver.h"
 #include "sock.hpp"
 #include "upnpapi.hpp"
+// #include "httpreadwrite.hpp"
 #include <umock/sys_socket.hpp>
 #include <umock/pupnp_sock.hpp>
 #include <umock/winsock2.hpp>
@@ -744,10 +744,10 @@ int readFromSSDPSocket(SOCKET socket) {
                 free_ssdp_event_handler_data(data);
         }
         return 0;
-    } else {
-        free_ssdp_event_handler_data(data);
-        return -1;
     }
+    free_ssdp_event_handler_data(data);
+
+    return (byteReceived < 0) ? -1 : 0;
 }
 
 /*!
@@ -1194,7 +1194,7 @@ int get_ssdp_sockets(MiniServerSockArray* out) {
         gSsdpReqSocket4 = out->ssdpReqSock4;
     } else
         out->ssdpReqSock4 = INVALID_SOCKET;
-    /* Create the IPv6 socket for SSDP REQUESTS */
+/* Create the IPv6 socket for SSDP REQUESTS */
 #ifdef UPNP_ENABLE_IPV6
     if (strlen(gIF_IPV6) > (size_t)0) {
         retVal = create_ssdp_sock_reqv6(&out->ssdpReqSock6);

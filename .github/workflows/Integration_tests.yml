@@ -2,7 +2,7 @@ name: Integration tests
 
 on:
   push:
-    branches: [ reorg_Utest, main ]
+    branches: [ update_pupnp, main ]
   pull_request:
     branches: [ main ]
 

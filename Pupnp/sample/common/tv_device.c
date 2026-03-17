@@ -28,6 +28,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*!
  * \addtogroup UpnpSamples
@@ -56,20 +57,20 @@
 
 /*! Global arrays for storing Tv Control Service variable names, values,
  * and defaults. */
-const char* tvc_varname[] = {"Power", "Channel", "Volume"};
+static const char* tvc_varname[] = {"Power", "Channel", "Volume"};
 
-char tvc_varval[TV_CONTROL_VARCOUNT][TV_MAX_VAL_LEN];
-const char* tvc_varval_def[] = {"1", "1", "5"};
+static char tvc_varval[TV_CONTROL_VARCOUNT][TV_MAX_VAL_LEN];
+static const char* tvc_varval_def[] = {"1", "1", "5"};
 
 /*! Global arrays for storing Tv Picture Service variable names, values,
  * and defaults. */
-const char* tvp_varname[] = {"Color", "Tint", "Contrast", "Brightness"};
+static const char* tvp_varname[] = {"Color", "Tint", "Contrast", "Brightness"};
 
-char tvp_varval[TV_PICTURE_VARCOUNT][TV_MAX_VAL_LEN];
-const char* tvp_varval_def[] = {"5", "5", "5", "5"};
+static char tvp_varval[TV_PICTURE_VARCOUNT][TV_MAX_VAL_LEN];
+static const char* tvp_varval_def[] = {"5", "5", "5", "5"};
 
 /*! The amount of time (in seconds) before advertisements will expire. */
-int default_advr_expire = 100;
+static int default_advr_expire = 100;
 
 /*! Global structure for storing the state table for this device. */
 struct TvService tv_service_table[2];

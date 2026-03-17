@@ -1,5 +1,6 @@
 // Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-07-19
+// Redistribution only with this Copyright remark. Last modified: 2026-03-16
+// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
 
 /*!
  * \file
@@ -7,10 +8,10 @@
  * \brief Source file for UpnpStateVarRequest methods.
  * \author Marcelo Roberto Jimenez
  */
-#include "config.hpp"
+#include "config.hpp"                                      // IWYU pragma: keep
 
-#include <stdlib.h> /* for calloc(), free() */
-#include <string.h> /* for strlen(), strdup(), memset() */
+#include <stdlib.h> /* for calloc(), free() */             // IWYU pragma: keep
+#include <string.h> /* for strlen(), strdup(), memset() */ // IWYU pragma: keep
 
 #include "UpnpStateVarRequest.hpp"
 
@@ -26,8 +27,8 @@ struct s_UpnpStateVarRequest {
 };
 
 UpnpStateVarRequest* UpnpStateVarRequest_new(void) {
-    struct s_UpnpStateVarRequest* p =
-        (s_UpnpStateVarRequest*)calloc(1, sizeof(struct s_UpnpStateVarRequest));
+    struct s_UpnpStateVarRequest* p = static_cast<s_UpnpStateVarRequest*>(
+        calloc(1, sizeof(struct s_UpnpStateVarRequest)));
 
     if (!p)
         return 0;
@@ -283,8 +284,9 @@ UpnpStateVarRequest_get_CurrentVal(const UpnpStateVarRequest* p) {
 int UpnpStateVarRequest_set_CurrentVal(UpnpStateVarRequest* p,
                                        const DOMString s) {
     DOMString q = ixmlCloneDOMString(s);
-    if (!q)
+    if (!q) {
         return 0;
+    }
     ixmlFreeDOMString(p->m_CurrentVal);
     p->m_CurrentVal = q;
 

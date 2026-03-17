@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-15
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-17
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,7 +69,7 @@ namespace {
  */
 struct mserv_request_t {
     /// \brief Connection socket file descriptor.
-    SOCKET connfd;
+    SOCKET sock;
     /// \brief Socket address of the remote control point.
     sockaddr_storage foreign_sockaddr;
 };
@@ -269,7 +269,7 @@ void free_handle_request_arg(
     if (args == nullptr)
         return;
 
-    sock_close(static_cast<mserv_request_t*>(args)->connfd);
+    sock_close(static_cast<mserv_request_t*>(args)->sock);
     free(args);
 }
 
@@ -285,19 +285,19 @@ void handle_request(
     int http_minor_version{1};
     int ret_code;
     mserv_request_t* request_in = (mserv_request_t*)args;
-    SOCKET connfd = request_in->connfd;
+    SOCKET sock = request_in->sock;
 
     if (UPnPsdk::g_dbug) {
-        UPnPsdk::CSocket_basic sockObj(connfd);
+        UPnPsdk::CSocket_basic sockObj(sock);
         sockObj.load();
         UPnPsdk::SSockaddr local_saObj;
         sockObj.local_saddr(&local_saObj);
         UPnPsdk::SSockaddr remote_saObj;
         remote_saObj = request_in->foreign_sockaddr;
         UPnPsdk_LOGINFO("MSG1027") "UDevice socket="
-            << connfd << ": READING request on local=\""
-            << local_saObj.netaddrp() << "\" from control point remote=\""
-            << remote_saObj.netaddrp() << "\".\n";
+            << sock << ": READING request on local=\"" << local_saObj.netaddrp()
+            << "\" from control point remote=\"" << remote_saObj.netaddrp()
+            << "\".\n";
     }
 
     /* parser_request_init( &parser ); */ /* LEAK_FIX_MK */
@@ -305,7 +305,7 @@ void handle_request(
     http_message_t* hmsg = &parser.msg;
     SOCKINFO info;
     ret_code = sock_init_with_ip(
-        &info, connfd,
+        &info, sock,
         reinterpret_cast<sockaddr*>(&request_in->foreign_sockaddr));
     if (ret_code != UPNP_E_SUCCESS) {
         free(request_in);
@@ -321,7 +321,7 @@ void handle_request(
     ret_code = http_RecvMessage(&info, &parser, HTTPMETHOD_UNKNOWN, &timeout,
                                 &http_error_code);
     if (ret_code == 0) {
-        UPnPsdk_LOGINFO("MSG1106") "miniserver socket=" << connfd
+        UPnPsdk_LOGINFO("MSG1106") "miniserver socket=" << sock
                                                         << ": PROCESSING...\n";
         /* dispatch */
         http_error_code = dispatch_request(&info, &parser);
@@ -339,8 +339,7 @@ void handle_request(
     httpmsg_destroy(hmsg);
     free(request_in);
 
-    UPnPsdk_LOGINFO("MSG1058") "miniserver socket(" << connfd
-                                                    << "); COMPLETE.\n";
+    UPnPsdk_LOGINFO("MSG1058") "miniserver socket(" << sock << "); COMPLETE.\n";
 }
 
 /*!
@@ -349,12 +348,12 @@ void handle_request(
  */
 inline void schedule_request_job(
     /*! [in] Socket Descriptor on which connection is accepted. */
-    SOCKET a_connfd,
+    SOCKET a_sock,
     /*! [in] Ctrlpnt address object. */
     UPnPsdk::SSockaddr& clientAddr) {
     TRACE("Executing schedule_request_job()")
     if (UPnPsdk::g_dbug) {
-        UPnPsdk::CSocket_basic sockObj(a_connfd);
+        UPnPsdk::CSocket_basic sockObj(a_sock);
         sockObj.load();
         UPnPsdk::SSockaddr local_saObj;
         sockObj.local_saddr(&local_saObj);
@@ -362,7 +361,7 @@ inline void schedule_request_job(
         remote_saObj = clientAddr.ss;
         UPnPsdk_LOGINFO(
             "MSG1042") "Schedule UDevice to read incomming request with socket("
-            << a_connfd << ") local=\"" << local_saObj.netaddrp()
+            << a_sock << ") local=\"" << local_saObj.netaddrp()
             << "\" remote=\"" << remote_saObj.netaddrp() << "\".\n";
     }
 
@@ -370,12 +369,11 @@ inline void schedule_request_job(
     mserv_request_t* request{
         static_cast<mserv_request_t*>(std::malloc(sizeof(mserv_request_t)))};
     if (request == nullptr) {
-        UPnPsdk_LOGCRIT("MSG1024") "Socket(" << a_connfd
-                                             << "): out of memory.\n";
-        sock_close(a_connfd);
+        UPnPsdk_LOGCRIT("MSG1024") "Socket(" << a_sock << "): out of memory.\n";
+        sock_close(a_sock);
         return;
     }
-    request->connfd = a_connfd;
+    request->sock = a_sock;
     memcpy(&request->foreign_sockaddr, &clientAddr.ss,
            sizeof(request->foreign_sockaddr));
     TPJobInit(&job, (UPnPsdk::start_routine)handle_request, request);
@@ -383,9 +381,9 @@ inline void schedule_request_job(
     TPJobSetPriority(&job, MED_PRIORITY);
     if (ThreadPoolAdd(&gMiniServerThreadPool, &job, NULL) != 0) {
         UPnPsdk_LOGERR("MSG1025") "Socket("
-            << a_connfd << "): failed to add job to miniserver threadpool.\n";
+            << a_sock << "): failed to add job to miniserver threadpool.\n";
         free(request);
-        sock_close(a_connfd);
+        sock_close(a_sock);
     }
 }
 #endif // COMPA_HAVE_WEBSERVER
