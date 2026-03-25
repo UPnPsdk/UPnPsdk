@@ -1,7 +1,7 @@
 #ifndef UTEST_PUPNPDEBUG_HPP
 #define UTEST_PUPNPDEBUG_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-07-28
+// Redistribution only with this Copyright remark. Last modified: 2026-03-26
 
 #include <upnpdebug.hpp>
 #include <UPnPsdk/synclog.hpp>
@@ -13,15 +13,17 @@ namespace utest {
 
 // Helper class for debug log messages in compatible code.
 // -------------------------------------------------------
-class CPupnplog { /*
- * Use it for example with:
-    CPupnplog loggingObj; // Output only with build type DEBUG.
-    loggingObj.enable(UPNP_ALL); // or other loglevel, e.g. UPNP_INFO.
-    loggingObj.disable(); // optional
- */
+// Use it for example with:
+//    CPupnplog loggingObj; // Output only with build type DEBUG.
+//    loggingObj.enable(UPNP_ALL); // or other loglevel, e.g. UPNP_INFO.
+//    loggingObj.disable(); // optional
+class CPupnplog {
+  private:
+    bool m_enabled{false};
+
   public:
     CPupnplog();
-    virtual ~CPupnplog();
+    ~CPupnplog();
     /// -brief Enable debug logging messages.
     void enable(Upnp_LogLevel a_loglevel);
     /// -brief Disable debug logging messages.
@@ -31,16 +33,27 @@ class CPupnplog { /*
 CPupnplog::CPupnplog() = default;
 
 void CPupnplog::enable(Upnp_LogLevel a_loglevel) {
-    UpnpSetLogLevel(a_loglevel);
-    if (UpnpInitLog() != UPNP_E_SUCCESS) {
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG1041") "Failed to initialize pupnp logging.");
+    // Guard if already enabled. I then have randomly seen a critical exception
+    // "stack overflow".
+    if (!m_enabled) {
+        UpnpSetLogLevel(a_loglevel);
+        if (UpnpInitLog() != UPNP_E_SUCCESS) {
+            throw std::runtime_error(UPnPsdk_LOGEXCEPT(
+                "MSG1041") "Failed to initialize pupnp logging.");
+        }
+        m_enabled = true;
     }
 }
 
-void CPupnplog::disable() { UpnpCloseLog(); }
+void CPupnplog::disable() {
+    UpnpCloseLog();
+    m_enabled = false;
+}
 
-CPupnplog::~CPupnplog() { UpnpCloseLog(); }
+CPupnplog::~CPupnplog() {
+    UpnpCloseLog();
+    m_enabled = false;
+}
 
 } // namespace utest
 

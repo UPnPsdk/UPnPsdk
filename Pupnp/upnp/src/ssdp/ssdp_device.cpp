@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-03-24
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-25
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -58,7 +58,6 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
-#include <iostream> // DEBUG!
 /// \endcond
 
 #include "posix_overwrites.hpp" // IWYU pragma: keep
@@ -316,7 +315,6 @@ static int NewRequestHandler(
     int NumPacket,
     /*! [in] Request content */
     char** RqPacket) {
-    std::cerr << "DEBUG! Tracepoint3\n";
     int rc;
     struct in_addr replyAddr;
     struct addrinfo hints, *result, *res;
@@ -348,7 +346,6 @@ static int NewRequestHandler(
         goto end_NewRequestHandler;
     }
 
-    std::cerr << "DEBUG! Tracepoint4\n";
     // getaddrinfo() returns a list of address structures.
     // Try each address until we successfully bind(2).
     // If socket(2) (or bind(2)) fails, we (close the socket
@@ -363,7 +360,6 @@ static int NewRequestHandler(
         goto end_NewRequestHandler;
     }
 
-    std::cerr << "DEBUG! Tracepoint5\n";
     for (res = result; res != NULL; res = res->ai_next) {
         if (SendToCaller(res, DestAddr, NumPacket, RqPacket, &replyAddr) ==
             UPNP_E_SUCCESS) {
@@ -371,7 +367,6 @@ static int NewRequestHandler(
                                   // response successful
         }
     }
-    std::cerr << "DEBUG! Tracepoint6\n";
     umock::netdb_h.freeaddrinfo(result);
 
 end_NewRequestHandler:

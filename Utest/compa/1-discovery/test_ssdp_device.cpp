@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-24
+// Redistribution only with this Copyright remark. Last modified: 2026-03-26
 
 // This tests network communication. The usual way to do it is to use mocking to
 // be independent from current hardware. But with mocking you can only test what
@@ -232,8 +232,6 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_mock_successful) {
     strcpy(gIF_IPV4, "0.0.0.0");
 
 #if 0
-    std::cout << "DEBUG! llaObj.sa.netaddrp()=\"" << llaObj.sa.netaddrp()
-              << "\"\n";
     ::addrinfo res;
     res.ai_flags = 0;
     res.ai_family = AF_INET6;
@@ -563,16 +561,40 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
 // clang-format on
 
 
-#if 0
 TEST_F(SsdpDeviceFTestSuite,
        NewRequestHandler_send_multiple_mulitcast_messages) {
-    std::cerr << "DEBUG! Tracepoint1\n";
     // Some test messages.
+    // Fails
     constexpr int num_msg{3};
     char msg1[]{"UPnPsdk test multicast message 1"};
     char msg2[]{""};
     char msg3[]{"UPnPsdk test mcast msg 3"};
     char* msgs[num_msg]{msg1, msg2, msg3};
+
+    // Try to find a random critical exception with MS Windows on githup action
+    // with no avail. The exception has dissapeared. Maybe there was a problem
+    // with the github runner image?
+    // Succeeds
+    // constexpr int num_msg{1};
+    // char msg1[]{"UPnPsdk test multicast message 1"};
+    // char* msgs[num_msg]{msg1};
+
+    // Succeeds
+    // constexpr int num_msg{1};
+    // char msg1[]{""};
+    // char* msgs[num_msg]{msg1};
+
+    // Succeeds
+    // constexpr int num_msg{2};
+    // char msg1[]{"UPnPsdk test multicast message 1"};
+    // char msg2[]{""};
+    // char* msgs[num_msg]{msg1, msg2};
+
+    // Succeeds
+    // constexpr int num_msg{2};
+    // char msg1[]{""};
+    // char msg2[]{"UPnPsdk test multicast message 1"};
+    // char* msgs[num_msg]{msg1, msg2};
 
     SSockaddr destaddr_ip6;
     destaddr_ip6 = SSDP_MCAST_IFACE_LOCAL; // interface-local
@@ -585,14 +607,11 @@ TEST_F(SsdpDeviceFTestSuite,
                   << ": On MacOS sendto() must not fail due to wrong sizeof() "
                      "destination socket address.\n"; // Marked "Wrong!" below.
 
-        m_logObj.enable(UPNP_ALL);                    // DEBUG!
-
         // Test Unit with multicast address, with port, and lla scope_id.
-        std::cerr << "DEBUG! Tracepoint2\n";
         int ret_NewRequestHandler =
             ::NewRequestHandler(&destaddr_ip6.sa, num_msg, &msgs[0]);
-        std::cerr << "DEBUG! Tracepoint7\n";
 #ifdef __APPLE__
+        // Error due to bug wrong socket address length for IPv6 on sendto().
         EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
             << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
 #else
@@ -612,7 +631,6 @@ TEST_F(SsdpDeviceFTestSuite,
             << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
     }
 }
-#endif
 
 TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_send_zero_messages_succeeds) {
     constexpr int num_msg{0}; // Zero messages selected.
@@ -851,9 +869,6 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_with_multible_netadapter) {
     EXPECT_CALL(netdbObj, freeaddrinfo(&res1)).Times(1);
 
     // Test Unit
-    std::cout << "DEBUG! llaObj.sa.netaddrp()=\"" << llaObj.sa.netaddrp()
-              << "\"\n";
-    m_logObj.enable(UPNP_ALL); // DEBUG!
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
 
