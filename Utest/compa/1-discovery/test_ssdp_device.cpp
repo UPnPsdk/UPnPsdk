@@ -142,8 +142,13 @@ class SsdpDeviceFTestSuite : public ::testing::Test {
 
     // Constructor
     SsdpDeviceFTestSuite() {
-        if (g_dbug)
+        if (g_dbug) {
             m_logObj.enable(UPNP_ALL);
+            // Don't remove second call. It's a test for fixed double enable
+            // bug that randomely triggered an uncatchable critical exception
+            // "stack overflow" with test crash.
+            m_logObj.enable(UPNP_ALL);
+        }
 
         // Destroy global variables to detect side effects.
         memset(&gIF_NAME, 0xAA, sizeof(gIF_NAME));
@@ -231,16 +236,15 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_mock_successful) {
     gIF_INDEX = llaObj.index;
     strcpy(gIF_IPV4, "0.0.0.0");
 
-#if 0
-    ::addrinfo res;
-    res.ai_flags = 0;
+    ::addrinfo res{};
+    // res.ai_flags = 0;
     res.ai_family = AF_INET6;
     res.ai_socktype = SOCK_DGRAM;
-    res.ai_protocol = 0;
+    // res.ai_protocol = 0;
     res.ai_addrlen = llaObj.sa.sizeof_saddr();
     res.ai_addr = &llaObj.sa.sa;
-    res.ai_canonname = nullptr;
-    res.ai_next = nullptr;
+    // res.ai_canonname = nullptr;
+    // res.ai_next = nullptr;
 
     // Instantiate mocking object.
     StrictMock<umock::NetdbMock> netdbObj;
@@ -250,21 +254,16 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_mock_successful) {
         .WillByDefault(Return(EAI_FAMILY));
 
     // Mock 'CAddrinfo::get_first()'
-    EXPECT_CALL(netdbObj, getaddrinfo(nullptr, "1900", _, _))
+    EXPECT_CALL(netdbObj, getaddrinfo(nullptr, Pointee(*"1900"), _, _))
         .WillOnce(DoAll(SetArgPointee<3>(&res), Return(0)));
     // Mock 'freeaddrinfo()'
     EXPECT_CALL(netdbObj, freeaddrinfo(&res)).Times(1);
-#endif
 
     // Test Unit
-    m_logObj.enable(UPNP_ALL); // DEBUG!
-    auto g_dbug_old = g_dbug;
-    g_dbug = true;
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
-    g_dbug = g_dbug_old;
 #ifdef __APPLE__
-    // Due to bug with wrong address size on sendto() (see note above).
+    // Due to bug with wrong socket address length on sendto().
     EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
         << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
 #else
@@ -352,7 +351,8 @@ TEST_P(SendStatelessTest, send_stateless) {
         GTEST_FAIL();
     }
     std::cout << "             destsaObj=" << destsaObj << '\n';
-    m_logObj.enable(UPNP_ALL);
+    if (g_dbug)
+        m_logObj.enable(UPNP_ALL);
 
     // Test Unit
     int ret_NewRequestHandler =
@@ -807,8 +807,7 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_without_dest_addr_fails) {
     }
 }
 
-#if 0
-// #ifdef UPnPsdk_WITH_NATIVE_PUPNP
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_with_multible_netadapter) {
     // One test message.
     constexpr int num_msg{1};
@@ -825,7 +824,7 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_with_multible_netadapter) {
     sa0Obj = "0.0.0.0"; // With AF_INET6, this should trigger an error.
 
     // Three possible local source addresses
-    ::addrinfo res3;
+    ::addrinfo res3{};
     res3.ai_flags = 0;
     res3.ai_family = AF_INET6; // ai_addr is AF_INET and trigger an error.
     res3.ai_socktype = SOCK_DGRAM;
@@ -835,7 +834,7 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_with_multible_netadapter) {
     res3.ai_canonname = nullptr;
     res3.ai_next = nullptr;
 
-    ::addrinfo res2;
+    ::addrinfo res2{};
     res2.ai_flags = 0;
     res2.ai_family = AF_INET6;
     res2.ai_socktype = SOCK_DGRAM;
@@ -845,7 +844,7 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_with_multible_netadapter) {
     res2.ai_canonname = nullptr;
     res2.ai_next = &res3;
 
-    ::addrinfo res1;
+    ::addrinfo res1{};
     res1.ai_flags = 0;
     res1.ai_family = AF_INET6; // ai_addr is AF_INET and trigger an error.
     res1.ai_socktype = SOCK_DGRAM;
@@ -863,7 +862,7 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_with_multible_netadapter) {
         .WillByDefault(Return(EAI_FAMILY));
 
     // Mock 'CAddrinfo::get_first()'
-    EXPECT_CALL(netdbObj, getaddrinfo(nullptr, "1900", _, _))
+    EXPECT_CALL(netdbObj, getaddrinfo(nullptr, Pointee(*"1900"), _, _))
         .WillOnce(DoAll(SetArgPointee<3>(&res1), Return(0)));
     // Mock 'freeaddrinfo()'
     EXPECT_CALL(netdbObj, freeaddrinfo(&res1)).Times(1);
@@ -871,9 +870,14 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_with_multible_netadapter) {
     // Test Unit
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
-
+#ifdef __APPLE__
+    // Due to bug with wrong socket address length on sendto().
+    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+        << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+#else
     EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
         << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+#endif
 }
 #endif
 
