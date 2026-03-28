@@ -99,6 +99,8 @@ var namespaces_dup =
       [ "start_event_handler", "db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a3ec25c67d96c9dc8d4508df3e21b98ce", null ],
       [ "ssdp_event_handler_thread", "db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a", null ],
       [ "create_ssdp_sock_v4", "db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a2a4b0ed4bade63f5a1bc68d8349e93bd", null ],
+      [ "create_ssdp_sock_reqv4", "db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#aab5e961f9c122bb7276cb296b54a5370", null ],
+      [ "create_ssdp_sock_reqv6", "db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#aa0f77dcf64cb5989e58e75bfb5c55182", null ],
       [ "create_ssdp_sock_v6", "db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a1601c6dc5f20f27ea6736d391b5d362d", null ],
       [ "create_ssdp_sock_v6_ula_gua", "db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a9f671ce15fe28475cbd2fee7d4c89c26", null ]
     ] ],

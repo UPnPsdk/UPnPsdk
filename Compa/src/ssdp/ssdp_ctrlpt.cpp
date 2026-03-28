@@ -6,7 +6,7 @@
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-04-30
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-27
  *
  * - Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
@@ -46,7 +46,6 @@
 #include <upnpapi.hpp>
 
 #include <umock/sys_socket.hpp>
-#include <umock/pupnp_sock.hpp>
 
 #ifndef COMPA_INTERNAL_CONFIG_HPP
 #error "No or wrong config.hpp header file included."
@@ -715,58 +714,3 @@ int SearchByTarget(int Hnd, int Mx, char* St, void* Cookie) {
 
     return 1;
 }
-
-int create_ssdp_sock_reqv4(
-    /*! [out] SSDP IPv4 request socket to be created. */
-    SOCKET* ssdpReqSock) {
-    UPnPsdk_LOGINFO("MSG1071") "Executing...\n";
-    u_char ttl = 4;
-
-    UPnPsdk::CSocketErr sockerrObj;
-    *ssdpReqSock = umock::sys_socket_h.socket(AF_INET, SOCK_DGRAM, 0);
-    if (*ssdpReqSock == INVALID_SOCKET) {
-        sockerrObj.catch_error();
-        UPnPsdk_LOGCRIT("MSG1072") "Error in socket(): "
-            << sockerrObj.error_str() << ".\n";
-        return UPNP_E_OUTOF_SOCKET;
-    }
-    umock::sys_socket_h.setsockopt(*ssdpReqSock, IPPROTO_IP, IP_MULTICAST_TTL,
-                                   (const char*)&ttl, sizeof(ttl));
-    /* just do it, regardless if fails or not. */
-    int ret = umock::pupnp_sock.sock_make_no_blocking(*ssdpReqSock);
-    if (ret == SOCKET_ERROR)
-        // But at least give a critical error message.
-        UPnPsdk_LOGCRIT("MSG1090") "SSDP Request Socket "
-            << *ssdpReqSock
-            << " failed to set \"no blocking\" but continue...\n";
-
-    /* Again, just do it, regardless if fails or not. */
-    return UPNP_E_SUCCESS;
-}
-
-#ifdef UPNP_ENABLE_IPV6
-int create_ssdp_sock_reqv6(
-    /*! [out] SSDP IPv6 request socket to be created. */
-    SOCKET* ssdpReqSock) {
-    UPnPsdk_LOGINFO("MSG1073") "Executing...\n";
-    char hops = 1;
-
-    UPnPsdk::CSocketErr sockerrObj;
-    *ssdpReqSock = umock::sys_socket_h.socket(AF_INET6, SOCK_DGRAM, 0);
-    if (*ssdpReqSock == INVALID_SOCKET) {
-        sockerrObj.catch_error();
-        UPnPsdk_LOGCRIT("MSG1074") "Error in socket(): "
-            << sockerrObj.error_str() << ".\n";
-        return UPNP_E_OUTOF_SOCKET;
-    }
-    /* MUST use scoping of IPv6 addresses to control the propagation os SSDP
-     * messages instead of relying on the Hop Limit (Equivalent to the TTL
-     * limit in IPv4). */
-    umock::sys_socket_h.setsockopt(*ssdpReqSock, IPPROTO_IPV6,
-                                   IPV6_MULTICAST_HOPS, &hops, sizeof(hops));
-    /* just do it, regardless if fails or not. */
-    umock::pupnp_sock.sock_make_no_blocking(*ssdpReqSock);
-
-    return UPNP_E_SUCCESS;
-}
-#endif /* IPv6 */

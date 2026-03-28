@@ -8,7 +8,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-08-03
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-27
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -162,11 +162,9 @@ struct ssdp_thread_data {
 /*! \brief If control point API is compiled in, this is the global IPv4 socket
  * for it. */
 inline SOCKET gSsdpReqSocket4;
-#ifdef UPNP_ENABLE_IPV6
 /*! \brief If control point API is compiled in, this is the global IPv6 socket
  * for it. */
 inline SOCKET gSsdpReqSocket6;
-#endif /* UPNP_ENABLE_IPV6 */
 
 /// \brief Maybe a callback function?
 typedef int (*ParserFun)(char*, SsdpEvent*);

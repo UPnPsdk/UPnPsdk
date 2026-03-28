@@ -5,6 +5,8 @@ var ssdp__common_8cpp =
     [ "start_event_handler", "df/d13/ssdp__common_8cpp.html#a3ec25c67d96c9dc8d4508df3e21b98ce", null ],
     [ "ssdp_event_handler_thread", "df/d13/ssdp__common_8cpp.html#a73ff71f907e2bf442c51b304f877d07a", null ],
     [ "create_ssdp_sock_v4", "df/d13/ssdp__common_8cpp.html#a2a4b0ed4bade63f5a1bc68d8349e93bd", null ],
+    [ "create_ssdp_sock_reqv4", "df/d13/ssdp__common_8cpp.html#aab5e961f9c122bb7276cb296b54a5370", null ],
+    [ "create_ssdp_sock_reqv6", "df/d13/ssdp__common_8cpp.html#aa0f77dcf64cb5989e58e75bfb5c55182", null ],
     [ "create_ssdp_sock_v6", "df/d13/ssdp__common_8cpp.html#a1601c6dc5f20f27ea6736d391b5d362d", null ],
     [ "create_ssdp_sock_v6_ula_gua", "df/d13/ssdp__common_8cpp.html#a9f671ce15fe28475cbd2fee7d4c89c26", null ],
     [ "unique_service_name", "de/d27/group__SSDP-common__functions.html#gae3e29279280d276d05762d9dbeffe31d", null ],

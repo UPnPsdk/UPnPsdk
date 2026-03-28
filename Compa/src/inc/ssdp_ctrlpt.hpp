@@ -8,7 +8,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-12
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-27
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -109,30 +109,6 @@ int SearchByTarget(
     /*! [in] Cookie provided by control point application. This cokie will be
        returned to application in the callback. */
     void* Cookie);
-
-/*!
- * \brief Creates the SSDP IPv4 socket to be used by the control point.
- *
- * \returns
- *  On success: UPNP_E_SUCCESS\n
- *  On error:
- *  - UPNP_E_OUTOF_SOCKET
- */
-int create_ssdp_sock_reqv4(
-    /*! [out] SSDP IPv4 request socket to be created. */
-    SOCKET* ssdpReqSock);
-
-/*!
- * \brief Creates the SSDP IPv6 socket to be used by the control point.
- *
- * \returns
- *  On success: UPNP_E_SUCCESS\n
- *  On error:
- *  - UPNP_E_OUTOF_SOCKET
- */
-int create_ssdp_sock_reqv6(
-    /*! [out] SSDP IPv6 request socket to be created. */
-    SOCKET* ssdpReqSock);
 
 /// @} // SSDP Control Point Functions
 

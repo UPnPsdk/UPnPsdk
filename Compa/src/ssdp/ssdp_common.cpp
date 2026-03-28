@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-02-27
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-29
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -51,9 +51,11 @@
 #error "No or wrong config.hpp header file included."
 #endif
 
-#include <UPnPsdk/socket.hpp>
 #include <umock/sys_socket.hpp>
+#include <umock/pupnp_sock.hpp>
+#ifdef _MSC_VER
 #include <umock/winsock2.hpp>
+#endif
 
 
 namespace {
@@ -323,6 +325,79 @@ error_handler:
 
     return ret;
 }
+
+#if defined(COMPA_HAVE_CTRLPT_SSDP) || defined(DOXYGEN_RUN)
+/*!
+ * \brief Creates the SSDP IPv4 socket to be used by the control point.
+ *
+ * \returns
+ *  On success: UPNP_E_SUCCESS\n
+ *  On error:
+ *  - UPNP_E_OUTOF_SOCKET
+ */
+int create_ssdp_sock_reqv4(
+    /*! [out] SSDP IPv4 request socket to be created. */
+    SOCKET* ssdpReqSock) {
+    UPnPsdk_LOGINFO("MSG1071") "Executing...\n";
+    u_char ttl = 4;
+
+    UPnPsdk::CSocketErr sockerrObj;
+    *ssdpReqSock = umock::sys_socket_h.socket(AF_INET, SOCK_DGRAM, 0);
+    if (*ssdpReqSock == INVALID_SOCKET) {
+        sockerrObj.catch_error();
+        UPnPsdk_LOGCRIT("MSG1072") "Error in socket(): "
+            << sockerrObj.error_str() << ".\n";
+        return UPNP_E_OUTOF_SOCKET;
+    }
+    umock::sys_socket_h.setsockopt(*ssdpReqSock, IPPROTO_IP, IP_MULTICAST_TTL,
+                                   (const char*)&ttl, sizeof(ttl));
+    /* just do it, regardless if fails or not. */
+    int ret = umock::pupnp_sock.sock_make_no_blocking(*ssdpReqSock);
+    if (ret == SOCKET_ERROR)
+        // But at least give a critical error message.
+        UPnPsdk_LOGCRIT("MSG1090") "SSDP Request Socket "
+            << *ssdpReqSock
+            << " failed to set \"no blocking\" but continue...\n";
+
+    /* Again, just do it, regardless if fails or not. */
+    return UPNP_E_SUCCESS;
+}
+
+#ifdef UPNP_ENABLE_IPV6
+/*!
+ * \brief Creates the SSDP IPv6 socket to be used by the control point.
+ *
+ * \returns
+ *  On success: UPNP_E_SUCCESS\n
+ *  On error:
+ *  - UPNP_E_OUTOF_SOCKET
+ */
+int create_ssdp_sock_reqv6(
+    /*! [out] SSDP IPv6 request socket to be created. */
+    SOCKET* ssdpReqSock) {
+    UPnPsdk_LOGINFO("MSG1073") "Executing...\n";
+    char hops = 1;
+
+    UPnPsdk::CSocketErr sockerrObj;
+    *ssdpReqSock = umock::sys_socket_h.socket(AF_INET6, SOCK_DGRAM, 0);
+    if (*ssdpReqSock == INVALID_SOCKET) {
+        sockerrObj.catch_error();
+        UPnPsdk_LOGCRIT("MSG1074") "Error in socket(): "
+            << sockerrObj.error_str() << ".\n";
+        return UPNP_E_OUTOF_SOCKET;
+    }
+    /* MUST use scoping of IPv6 addresses to control the propagation os SSDP
+     * messages instead of relying on the Hop Limit (Equivalent to the TTL
+     * limit in IPv4). */
+    umock::sys_socket_h.setsockopt(*ssdpReqSock, IPPROTO_IPV6,
+                                   IPV6_MULTICAST_HOPS, &hops, sizeof(hops));
+    /* just do it, regardless if fails or not. */
+    umock::pupnp_sock.sock_make_no_blocking(*ssdpReqSock);
+
+    return UPNP_E_SUCCESS;
+}
+#endif /* IPv6 */
+#endif // COMPA_HAVE_CTRLPT_SSDP
 
 #ifdef UPNP_ENABLE_IPV6
 /*!
@@ -693,29 +768,17 @@ int ssdp_request_type(char* cmd, SsdpEvent* Evt) {
 
 int readFromSSDPSocket(SOCKET socket) {
     TRACE("Executing readFromSSDPSocket()")
-    char* requestBuf = NULL;
+
     char staticBuf[BUFSIZE];
-    struct sockaddr_storage __ss;
-    ThreadPoolJob job;
-    ssdp_thread_data* data = NULL;
-    socklen_t socklen = sizeof(__ss);
-    ssize_t byteReceived = 0;
-    char ntop_buf[INET6_ADDRSTRLEN];
-
-    memset(&job, 0, sizeof(job));
-
-    requestBuf = staticBuf;
+    char* requestBuf = staticBuf;
     /* in case memory can't be allocated, still drain the socket using a
      * static buffer. */
-    data = (ssdp_thread_data*)malloc(sizeof(ssdp_thread_data));
+    ssdp_thread_data* data =
+        static_cast<ssdp_thread_data*>(malloc(sizeof(ssdp_thread_data)));
     if (data) {
         /* initialize parser */
 #ifdef COMPA_HAVE_CTRLPT_SSDP
-        if (socket == gSsdpReqSocket4
-#ifdef UPNP_ENABLE_IPV6
-            || socket == gSsdpReqSocket6
-#endif /* UPNP_ENABLE_IPV6 */
-        )
+        if (socket == gSsdpReqSocket4 || socket == gSsdpReqSocket6)
             parser_response_init(&data->parser, HTTPMETHOD_MSEARCH);
         else
             parser_request_init(&data->parser);
@@ -728,54 +791,60 @@ int readFromSSDPSocket(SOCKET socket) {
             requestBuf = data->parser.msg.msg.buf;
         else {
             free(data);
-            data = NULL;
+            data = nullptr;
         }
     }
-    byteReceived =
-        umock::sys_socket_h.recvfrom(socket, requestBuf, BUFSIZE - (size_t)1, 0,
-                                     (struct sockaddr*)&__ss, &socklen);
+    struct sockaddr_storage __ss;
+    socklen_t socklen = sizeof(__ss);
+    ssize_t byteReceived = umock::sys_socket_h.recvfrom(
+        socket, requestBuf, BUFSIZE - 1, 0, reinterpret_cast<sockaddr*>(&__ss),
+        &socklen);
     if (byteReceived > 0) {
         requestBuf[byteReceived] = '\0';
+        char ntop_buf[INET6_ADDRSTRLEN];
+
         switch (__ss.ss_family) {
         case AF_INET:
             inet_ntop(AF_INET, &((struct sockaddr_in*)&__ss)->sin_addr,
                       ntop_buf, sizeof(ntop_buf));
             break;
-#ifdef UPNP_ENABLE_IPV6
         case AF_INET6:
             inet_ntop(AF_INET6, &((struct sockaddr_in6*)&__ss)->sin6_addr,
                       ntop_buf, sizeof(ntop_buf));
             break;
-#endif /* UPNP_ENABLE_IPV6 */
         default:
             memset(ntop_buf, 0, sizeof(ntop_buf));
             strncpy(ntop_buf, "<Invalid address family>", sizeof(ntop_buf) - 1);
         }
         /* clang-format off */
         UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
-               "Start of received response ----------------------------------------------------\n"
+               "\nStart of received response ----------------------------------------------------\n"
                "%s\n"
                "End of received response ------------------------------------------------------\n"
                "From host %s\n", requestBuf, ntop_buf);
         /* clang-format on */
+
         /* add thread pool job to handle request */
-        if (data != NULL) {
-            data->parser.msg.msg.length += (size_t)byteReceived;
+        if (data != nullptr) {
+            // Cast is no problem; byteReceived is guarded above to be > 0.
+            data->parser.msg.msg.length += static_cast<size_t>(byteReceived);
             /* null-terminate */
-            data->parser.msg.msg.buf[byteReceived] = 0;
+            data->parser.msg.msg.buf[byteReceived] = '\0';
             memcpy(&data->dest_addr, &__ss, sizeof(__ss));
+            ThreadPoolJob job{};
             TPJobInit(&job, (UPnPsdk::start_routine)ssdp_event_handler_thread,
                       data);
             TPJobSetFreeFunction(&job, free_ssdp_event_handler_data);
             TPJobSetPriority(&job, MED_PRIORITY);
-            if (ThreadPoolAdd(&gRecvThreadPool, &job, NULL) != 0)
+            if (ThreadPoolAdd(&gRecvThreadPool, &job, NULL) != 0) {
                 free_ssdp_event_handler_data(data);
+            }
         }
         return 0;
-    } else {
-        free_ssdp_event_handler_data(data);
-        return -1;
     }
+    free_ssdp_event_handler_data(data);
+
+    return (byteReceived < 0) ? -1 : 0;
 }
 
 
@@ -783,7 +852,7 @@ int get_ssdp_sockets(MiniServerSockArray* out) {
     int retVal;
     UPnPsdk_LOGINFO("MSG1057") "Executing...\n";
 
-#ifdef COMPA_HAVE_CTRLPT_SSDP
+#if defined(COMPA_HAVE_CTRLPT_SSDP) || defined(DOXYGEN_RUN)
     out->ssdpReqSock4 = INVALID_SOCKET;
     out->ssdpReqSock6 = INVALID_SOCKET;
     /* Create the IPv4 socket for SSDP REQUESTS */

@@ -1,29 +1,37 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-15
+// Redistribution only with this Copyright remark. Last modified: 2026-03-28
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/ssdp/ssdp_server.cpp>
 #else
-#include <Compa/src/ssdp/ssdp_ctrlpt.cpp>
+#include <Compa/src/ssdp/ssdp_common.cpp>
 #endif
 
 #include <UPnPsdk/upnptools.hpp> // for errStrEx
+#include <UPnPsdk/sockaddr.hpp>
 
 #include <umock/sys_socket_mock.hpp>
 #include <umock/pupnp_sock_mock.hpp>
 #include <umock/unistd_mock.hpp>
 
+#include <utest/upnpdebug.hpp>
+#include <utest/threadpool_init.hpp>
 #include <utest/utest.hpp>
 
 
 namespace utest {
 
+using ::testing::DoAll;
+using ::testing::Pointee;
+using ::testing::SetArgPointee;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::SSockaddr;
 
 using ::testing::_;
+using ::testing::Ge;
 using ::testing::HasSubstr;
 using ::testing::InSequence;
 using ::testing::Return;
@@ -31,16 +39,16 @@ using ::testing::SetErrnoAndReturn;
 using ::testing::StrictMock;
 
 
-// ssdp_server TestSuite
+// ssdp_common TestSuite
 // =====================
 class SsdpFTestSuite : public ::testing::Test {
   protected:
-    // CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog m_logObj; // Output only with build type DEBUG.
 
     // Constructor
     SsdpFTestSuite() {
-        // if (g_dbug)
-        //     logObj.enable(UPNP_ALL);
+        if (g_dbug)
+            m_logObj.enable(UPNP_ALL);
 
         // initialize needed global variables
         memset(&gIF_NAME, 0, sizeof(gIF_NAME));
@@ -65,6 +73,8 @@ class SsdpFTestSuite : public ::testing::Test {
         memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
         memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
         memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
+        memset(&gSsdpReqSocket4, 0xAA, sizeof(gSsdpReqSocket4));
+        memset(&gSsdpReqSocket6, 0xAA, sizeof(gSsdpReqSocket6));
     }
 };
 
@@ -97,6 +107,8 @@ class SsdpMockFTestSuite : public SsdpFTestSuite {
         ON_CALL(m_sys_socketObj, setsockopt(_, _, _, _, _))
             .WillByDefault(SetErrnoAndReturn(EBADF, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, getsockname(_, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADF, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, recvfrom(_, _, _, _, _, _))
             .WillByDefault(SetErrnoAndReturn(EBADF, SOCKET_ERROR));
 
         ON_CALL(m_pupnpSockObj, sock_make_no_blocking(_))
@@ -139,6 +151,54 @@ void InitMiniServerSockArray(MiniServerSockArray* miniSocket) {
 #endif /* INCLUDE_CLIENT_APIS */
 }
 
+
+TEST_F(SsdpMockFTestSuite, read_from_ssdp_socket_successful) {
+    SOCKET sockfd{1005}; // mocked socket file descriptor
+    gSsdpReqSocket6 = sockfd;
+
+    // Prevent to add jobs to dealocate internal data. For more info see notes
+    // at the class definition.
+    // With shutdown = true, maxJobs is ignored.
+    CThreadPoolInit tp(gRecvThreadPool,
+                       /*shutdown*/ false, /*maxJobs*/ 0);
+
+    // Here I mock receiving of the message.
+    constexpr char recv_msg[]("This is a test message.");
+    constexpr SIZEP_T strlen{sizeof(recv_msg) - 1};
+    SSockaddr saObj;
+    saObj = "[::1]:50123";
+    const socklen_t saddrlen{saObj.sizeof_saddr()};
+    // It is important to expect strlen.
+    EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(strlen), 0, _,
+                                          Pointee(sizeof(saObj.ss))))
+        .WillOnce(DoAll(StrCpyToArg<1>(recv_msg),
+                        StructCpyToArg<4>(&saObj.sa, saddrlen),
+                        SetArgPtrSocklen_tValue<5>(saddrlen), Return(strlen)));
+
+    // Test Unit
+    EXPECT_EQ(readFromSSDPSocket(sockfd), 0);
+}
+
+TEST_F(SsdpMockFTestSuite, read_from_ssdp_socket_empty_message) {
+    SOCKET sockfd{1006}; // mocked socket file descriptor
+    gSsdpReqSocket6 = sockfd;
+
+    // Here I mock receiving of the message.
+    constexpr char recv_msg[]("");
+    constexpr SIZEP_T strlen{sizeof(recv_msg) - 1};
+    SSockaddr saObj;
+    saObj = "[::1]:50124";
+    const socklen_t saddrlen{saObj.sizeof_saddr()};
+    // It is important to expect strlen.
+    EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(strlen), 0, _,
+                                          Pointee(sizeof(saObj.ss))))
+        .WillOnce(DoAll(StrCpyToArg<1>(recv_msg),
+                        StructCpyToArg<4>(&saObj.sa, saddrlen),
+                        SetArgPtrSocklen_tValue<5>(saddrlen), Return(strlen)));
+
+    // Test Unit
+    EXPECT_EQ(readFromSSDPSocket(sockfd), 0);
+}
 
 TEST_F(SsdpMockFTestSuite, create_sock_reqv4_successful) {
     // Steps as given by the Unit and expected results:

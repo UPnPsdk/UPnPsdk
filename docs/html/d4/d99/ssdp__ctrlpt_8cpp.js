@@ -5,7 +5,5 @@ var ssdp__ctrlpt_8cpp =
     [ "CreateClientRequestPacketUlaGua", "d4/d99/ssdp__ctrlpt_8cpp.html#a29a6e33aa5991ff87ce127c2ee40fbed", null ],
     [ "searchExpired", "d4/d99/ssdp__ctrlpt_8cpp.html#af95b19cf8e8c70715878336869d721e0", null ],
     [ "ssdp_handle_ctrlpt_msg", "d7/d5e/group__SSDP-ctrlpt__functions.html#ga2bc1baff52fe50d26a1b6d5388c27423", null ],
-    [ "SearchByTarget", "d4/d99/ssdp__ctrlpt_8cpp.html#a0466b3099133c9b31f308b7839f8b12b", null ],
-    [ "create_ssdp_sock_reqv4", "d4/d99/ssdp__ctrlpt_8cpp.html#ab9a5841aed6435464cfca9c7e1ed371a", null ],
-    [ "create_ssdp_sock_reqv6", "d4/d99/ssdp__ctrlpt_8cpp.html#aa26ca96260b253550d2e26b5b761767e", null ]
+    [ "SearchByTarget", "d4/d99/ssdp__ctrlpt_8cpp.html#a0466b3099133c9b31f308b7839f8b12b", null ]
 ];

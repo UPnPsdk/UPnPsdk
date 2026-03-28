@@ -1,10 +1,11 @@
 #ifndef UPnPsdk_UTEST_HPP
 #define UPnPsdk_UTEST_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-11
+// Redistribution only with this Copyright remark. Last modified: 2026-03-28
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port.hpp>
+#include <UPnPsdk/port_sock.hpp>
 #include <UPnPsdk/synclog.hpp>
 
 #include <regex>
@@ -173,6 +174,10 @@ MATCHER_P(PointeeVoidToConstInt, expected, "") {
 ACTION_TEMPLATE(SetArgPtrIntValue, HAS_1_TEMPLATE_PARAMS(int, k),
                 AND_1_VALUE_PARAMS(value)) {
     *static_cast<int*>(std::get<k>(args)) = value;
+}
+ACTION_TEMPLATE(SetArgPtrSocklen_tValue, HAS_1_TEMPLATE_PARAMS(int, k),
+                AND_1_VALUE_PARAMS(value)) {
+    *static_cast<socklen_t*>(std::get<k>(args)) = value;
 }
 
 // Action to return a string literal

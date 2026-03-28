@@ -5,6 +5,7 @@
  * \brief A general TODO-list
  *
  * \todo
+ * - Check if tunnel connections and VPN should not supported as documented with https://github.com/pupnp/pupnp/pull/500.
  * - Rework CSocket.bind() due to RFC 4038 6.3.1 (try bind to all possible net if).
  * - CAddrinfo MUST return error codes!
  * - Rework Unit Tests in Utest/compa/api.d/test_upnpapi.cpp.
