@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-12
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-26
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2026-03-16, ver 1.14.30
+// Last compare with pupnp original source file on 2026-03-26, ver 1.14.30
 /*!
  * \file
  * \defgroup XMLAPI XML API
@@ -1717,7 +1717,7 @@ EXPORT_SPEC void ixmlFreeDOMString(
 
 #ifdef __cplusplus
 }
-#endif /* __cplusplus */
+#endif
 
 /*! @} XMLAPI XML API */
 
