@@ -1,25 +1,27 @@
 <map id="ListNext" name="ListNext">
-<area shape="rect" id="Node000001" title="Returns the next item in the list." alt="" coords="892,335,968,361"/>
+<area shape="rect" id="Node000001" title="Returns the next item in the list." alt="" coords="892,374,968,399"/>
 <area shape="rect" id="Node000002" href="$d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a53887d10b93a29c1a1b081e938f139ad" title="Get header id from the request parameter." alt="" coords="535,29,844,69"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="926,322,922,271,910,206,899,172,884,139,866,109,842,83,826,72,829,67,846,79,870,106,889,137,904,170,915,205,927,270,931,321"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="927,361,925,303,915,228,904,188,889,150,869,114,842,83,827,72,830,67,846,79,873,111,894,147,909,186,920,227,931,302,932,360"/>
 <area shape="rect" id="Node000004" href="$d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#a553e7c0bea095f39accd1a5cde36c330" title="Dummy function. It do nothing since years. Do we need it?" alt="" coords="599,182,779,237"/>
-<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="912,325,883,286,864,267,843,250,812,235,779,224,780,219,814,230,845,246,868,263,887,283,916,322"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="917,362,890,305,869,275,842,250,812,233,779,222,780,217,814,228,846,246,873,272,894,302,922,360"/>
 <area shape="rect" id="Node000010" href="$d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a9e234f6f128a4cc1f8d2ea905ed96bda" title="Build an array of unrecognized headers." alt="" coords="556,117,823,157"/>
-<area shape="poly" id="edge7_Node000001_Node000010" title=" " alt="" coords="921,323,912,288,897,247,874,206,842,171,821,158,824,154,846,167,878,202,902,244,917,286,927,321"/>
+<area shape="poly" id="edge7_Node000001_Node000010" title=" " alt="" coords="924,361,917,319,903,267,878,215,862,192,842,171,821,158,824,153,846,167,866,188,883,212,908,265,922,317,929,360"/>
 <area shape="rect" id="Node000011" href="$dd/d1d/httpparser_8cpp.html#a203e4a83e2a55a4ae005374ef3bc98c0" title="Compares the header name with the header names stored in the linked list of messages." alt="" coords="610,261,769,286"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="899,330,873,313,843,300,806,289,768,282,769,277,807,284,845,295,875,309,902,325"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="911,364,882,330,863,313,843,300,807,286,769,278,770,273,808,281,845,295,867,309,886,326,915,361"/>
 <area shape="rect" id="Node000084" href="$dd/d1d/httpparser_8cpp.html#ae96cac5b107db389ac5494fc4f81ab49" title="Print the HTTP headers." alt="" coords="617,310,761,335"/>
-<area shape="poly" id="edge13_Node000001_Node000084" title=" " alt="" coords="878,345,761,333,762,328,878,340"/>
-<area shape="rect" id="Node000085" href="$df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#af95b19cf8e8c70715878336869d721e0" title="Remove search Target from list and call client back." alt="" coords="599,409,779,463"/>
-<area shape="poly" id="edge14_Node000001_Node000085" title=" " alt="" coords="899,370,845,398,780,420,779,414,843,394,897,366"/>
-<area shape="rect" id="Node000088" href="$d7/d5e/group__SSDP-ctrlpt__functions.html#ga2bc1baff52fe50d26a1b6d5388c27423" title="This function handles the ssdp messages from the devices." alt="" coords="600,359,779,385"/>
-<area shape="poly" id="edge16_Node000001_Node000088" title=" " alt="" coords="878,356,779,366,779,360,878,350"/>
-<area shape="rect" id="Node000089" href="$dd/d9f/TimerThread_8cpp.html#ade2e04bd2b36abd89c399610a894d68e" title="Removes an event from the timer Q." alt="" coords="610,669,769,694"/>
-<area shape="poly" id="edge18_Node000001_Node000089" title=" " alt="" coords="922,375,892,445,871,486,846,526,811,570,772,611,708,670,704,666,769,607,807,567,842,522,866,483,887,442,917,373"/>
-<area shape="rect" id="Node000093" href="$dd/d9f/TimerThread_8cpp.html#a8ec8348608c1398ce65c460c5a8a5b7d" title="Schedules an event to run at a specified time." alt="" coords="607,487,771,513"/>
-<area shape="poly" id="edge22_Node000001_Node000093" title=" " alt="" coords="921,375,893,427,872,455,845,477,810,493,772,502,771,496,808,488,843,472,868,451,889,425,917,372"/>
-<area shape="rect" id="Node000098" href="$dd/d9f/TimerThread_8cpp.html#a19a3b97cd97e1c5f9d465c96ac71e588" title="Shutdown the timer thread." alt="" coords="605,743,774,769"/>
-<area shape="poly" id="edge29_Node000001_Node000098" title=" " alt="" coords="928,375,918,451,901,550,877,645,863,682,846,708,813,733,775,748,773,743,811,728,842,705,858,680,872,644,896,549,913,450,923,374"/>
+<area shape="poly" id="edge13_Node000001_Node000084" title=" " alt="" coords="893,370,843,349,761,332,762,327,845,344,896,365"/>
+<area shape="rect" id="Node000085" href="$df/d70/namespaceanonymous__namespace_02ssdp__ctrlpt_8cpp_03.html#af95b19cf8e8c70715878336869d721e0" title="Remove search Target from list and call client back." alt="" coords="599,487,779,542"/>
+<area shape="poly" id="edge14_Node000001_Node000085" title=" " alt="" coords="914,412,884,446,845,477,814,492,780,503,779,498,812,487,843,472,881,442,910,409"/>
+<area shape="rect" id="Node000088" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a24eedb1f1ba661f797ab4f86f21427f2" title="Shutdown all active socket connections." alt="" coords="584,359,795,414"/>
+<area shape="poly" id="edge16_Node000001_Node000088" title=" " alt="" coords="878,389,795,389,795,384,878,384"/>
+<area shape="rect" id="Node000089" href="$d7/d5e/group__SSDP-ctrlpt__functions.html#ga2bc1baff52fe50d26a1b6d5388c27423" title="This function handles the ssdp messages from the devices." alt="" coords="600,438,779,463"/>
+<area shape="poly" id="edge18_Node000001_Node000089" title=" " alt="" coords="894,408,845,428,779,443,778,438,843,423,892,403"/>
+<area shape="rect" id="Node000090" href="$dd/d9f/TimerThread_8cpp.html#ade2e04bd2b36abd89c399610a894d68e" title="Removes an event from the timer Q." alt="" coords="610,747,769,773"/>
+<area shape="poly" id="edge20_Node000001_Node000090" title=" " alt="" coords="925,414,897,502,874,555,846,605,812,650,774,691,709,749,705,745,770,687,808,647,842,603,869,552,892,500,920,412"/>
+<area shape="rect" id="Node000094" href="$dd/d9f/TimerThread_8cpp.html#a8ec8348608c1398ce65c460c5a8a5b7d" title="Schedules an event to run at a specified time." alt="" coords="607,566,771,591"/>
+<area shape="poly" id="edge24_Node000001_Node000094" title=" " alt="" coords="926,414,916,447,900,485,877,524,846,555,810,573,772,582,771,577,808,568,842,551,873,520,895,483,911,445,921,412"/>
+<area shape="rect" id="Node000099" href="$dd/d9f/TimerThread_8cpp.html#a19a3b97cd97e1c5f9d465c96ac71e588" title="Shutdown the timer thread." alt="" coords="605,822,774,847"/>
+<area shape="poly" id="edge31_Node000001_Node000099" title=" " alt="" coords="929,413,920,497,904,608,880,716,864,758,846,787,813,812,775,827,773,822,811,807,842,784,859,755,875,714,899,607,915,496,924,412"/>
 <area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="730,18,716,11,689,8,666,10,652,15,647,21,650,28,645,30,642,20,649,10,665,5,689,3,717,6,732,13"/>
 <area shape="rect" id="Node000003" href="$d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a32492c6eefb0ece6d258b11586ad0a59" title="Process a remote request and return the result." alt="" coords="255,62,487,117"/>
 <area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="521,73,487,77,487,72,521,68"/>
@@ -32,24 +34,26 @@
 <area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="596,271,462,265,462,259,597,266"/>
 <area shape="rect" id="Node000017" href="$dd/d1d/httpparser_8cpp.html#a0ac4edac66374f24caf41becea2cf236" title="Get HTTP Method, URL location and version information." alt="" coords="288,309,453,334"/>
 <area shape="poly" id="edge12_Node000011_Node000017" title=" " alt="" coords="597,290,454,312,453,306,596,285"/>
-<area shape="rect" id="Node000086" href="$d4/d99/ssdp__ctrlpt_8cpp.html#a0466b3099133c9b31f308b7839f8b12b" title="Creates and send the search request for a specific URL." alt="" coords="309,410,432,435"/>
-<area shape="poly" id="edge15_Node000085_Node000086" title=" " alt="" coords="586,434,432,428,432,423,586,429"/>
-<area shape="rect" id="Node000072" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a" title="This function is a thread that handles SSDP requests." alt="" coords="5,399,207,454"/>
-<area shape="poly" id="edge17_Node000088_Node000072" title=" " alt="" coords="586,377,430,384,255,400,207,408,206,402,254,395,429,379,586,371"/>
-<area shape="rect" id="Node000090" href="$da/d8f/client__table_8cpp.html#a2360b317e19e63db4c808da163991f02" title="Free memory allocated for client subscription data." alt="" coords="282,719,459,745"/>
-<area shape="poly" id="edge19_Node000089_Node000090" title=" " alt="" coords="597,699,452,722,451,717,596,693"/>
-<area shape="rect" id="Node000027" href="$d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="17,669,195,694"/>
-<area shape="poly" id="edge21_Node000089_Node000027" title=" " alt="" coords="596,684,196,684,196,679,596,679"/>
-<area shape="poly" id="edge20_Node000090_Node000027" title=" " alt="" coords="290,719,173,697,174,691,291,714"/>
-<area shape="poly" id="edge25_Node000093_Node000086" title=" " alt="" coords="593,492,534,477,509,464,486,450,432,435,433,430,488,446,512,459,536,472,594,487"/>
-<area shape="rect" id="Node000029" href="$d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a997a87554e5a4d733d3cc13bcb1c1dd8" title="Schedules a job to renew the subscription just before time out." alt="" coords="276,525,465,579"/>
-<area shape="poly" id="edge23_Node000093_Node000029" title=" " alt="" coords="597,518,466,539,465,534,597,512"/>
-<area shape="rect" id="Node000094" href="$db/db9/ssdp__device_8cpp.html#a71cabcefa14fea2869b65b9d2ba7712d" title="Handles the search request." alt="" coords="294,460,447,500"/>
-<area shape="poly" id="edge26_Node000093_Node000094" title=" " alt="" coords="593,497,448,487,448,482,594,491"/>
-<area shape="rect" id="Node000095" href="$d4/d99/upnpapi_8cpp.html#a35b8096fd45fc632c6ac12a835d67f53" title="Sends out the discovery announcements for all devices and services contained within one root device." alt="" coords="265,604,476,644"/>
-<area shape="poly" id="edge28_Node000093_Node000095" title=" " alt="" coords="652,521,577,557,488,595,451,606,449,601,486,589,575,552,650,517"/>
-<area shape="poly" id="edge24_Node000029_Node000027" title=" " alt="" coords="272,587,256,594,183,634,127,671,124,666,181,630,253,590,270,582"/>
-<area shape="poly" id="edge27_Node000094_Node000072" title=" " alt="" coords="280,464,207,450,208,444,281,459"/>
-<area shape="rect" id="Node000099" href="$d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="323,769,418,794"/>
-<area shape="poly" id="edge30_Node000098_Node000099" title=" " alt="" coords="591,766,418,780,418,775,591,761"/>
+<area shape="rect" id="Node000086" href="$d4/d99/ssdp__ctrlpt_8cpp.html#a0466b3099133c9b31f308b7839f8b12b" title="Creates and send the search request for a specific URL." alt="" coords="309,489,432,514"/>
+<area shape="poly" id="edge15_Node000085_Node000086" title=" " alt="" coords="586,513,432,507,432,501,586,508"/>
+<area shape="rect" id="Node000024" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="271,358,471,413"/>
+<area shape="poly" id="edge17_Node000088_Node000024" title=" " alt="" coords="570,389,471,388,471,383,570,384"/>
+<area shape="rect" id="Node000072" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a" title="This function is a thread that handles SSDP requests." alt="" coords="5,478,207,533"/>
+<area shape="poly" id="edge19_Node000089_Node000072" title=" " alt="" coords="586,455,430,463,255,479,207,486,206,481,254,473,429,457,586,450"/>
+<area shape="rect" id="Node000091" href="$da/d8f/client__table_8cpp.html#a2360b317e19e63db4c808da163991f02" title="Free memory allocated for client subscription data." alt="" coords="282,798,459,823"/>
+<area shape="poly" id="edge21_Node000090_Node000091" title=" " alt="" coords="597,777,452,801,451,795,596,772"/>
+<area shape="rect" id="Node000027" href="$d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="17,747,195,773"/>
+<area shape="poly" id="edge23_Node000090_Node000027" title=" " alt="" coords="596,763,196,763,196,757,596,757"/>
+<area shape="poly" id="edge22_Node000091_Node000027" title=" " alt="" coords="290,798,173,775,174,770,291,793"/>
+<area shape="poly" id="edge27_Node000094_Node000086" title=" " alt="" coords="593,571,534,556,509,543,486,529,432,514,433,509,488,524,512,538,536,551,594,566"/>
+<area shape="rect" id="Node000029" href="$d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#a997a87554e5a4d733d3cc13bcb1c1dd8" title="Schedules a job to renew the subscription just before time out." alt="" coords="276,667,465,722"/>
+<area shape="poly" id="edge25_Node000094_Node000029" title=" " alt="" coords="643,599,488,657,453,670,451,665,486,652,642,594"/>
+<area shape="rect" id="Node000095" href="$db/db9/ssdp__device_8cpp.html#a71cabcefa14fea2869b65b9d2ba7712d" title="Handles the search request." alt="" coords="294,539,447,579"/>
+<area shape="poly" id="edge28_Node000094_Node000095" title=" " alt="" coords="593,575,448,566,448,561,594,570"/>
+<area shape="rect" id="Node000096" href="$d4/d99/upnpapi_8cpp.html#a35b8096fd45fc632c6ac12a835d67f53" title="Sends out the discovery announcements for all devices and services contained within one root device." alt="" coords="265,603,476,643"/>
+<area shape="poly" id="edge30_Node000094_Node000096" title=" " alt="" coords="594,594,476,611,476,606,593,589"/>
+<area shape="poly" id="edge26_Node000029_Node000027" title=" " alt="" coords="263,724,159,750,158,745,262,719"/>
+<area shape="poly" id="edge29_Node000095_Node000072" title=" " alt="" coords="280,543,207,528,208,523,281,538"/>
+<area shape="rect" id="Node000100" href="$d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="323,847,418,873"/>
+<area shape="poly" id="edge32_Node000099_Node000100" title=" " alt="" coords="591,845,418,859,418,854,591,840"/>
 </map>

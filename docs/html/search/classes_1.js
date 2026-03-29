@@ -1,28 +1,4 @@
 var searchData=
 [
-  ['caddrinfo_0',['CAddrinfo',['../d0/d44/classUPnPsdk_1_1CAddrinfo.html',1,'UPnPsdk']]],
-  ['cauthority_1',['CAuthority',['../dd/d90/classUPnPsdk_1_1CAuthority.html',1,'UPnPsdk']]],
-  ['ccomponent_2',['CComponent',['../d3/da4/classUPnPsdk_1_1CComponent.html',1,'UPnPsdk']]],
-  ['cfragment_3',['CFragment',['../dd/d7c/classUPnPsdk_1_1CFragment.html',1,'UPnPsdk']]],
-  ['char_5finfo_4',['char_info',['../da/dff/ixmlparser_8cpp.html#db/de1/structchar__info',1,'']]],
-  ['chost_5',['CHost',['../d2/de9/classUPnPsdk_1_1CHost.html',1,'UPnPsdk']]],
-  ['cnetadapter_6',['CNetadapter',['../d8/d37/classUPnPsdk_1_1CNetadapter.html',1,'UPnPsdk']]],
-  ['cnetadapter_5fplatform_7',['CNetadapter_platform',['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html',1,'UPnPsdk']]],
-  ['cpath_8',['CPath',['../d8/db3/classUPnPsdk_1_1CPath.html',1,'UPnPsdk']]],
-  ['cport_9',['CPort',['../df/de1/classUPnPsdk_1_1CPort.html',1,'UPnPsdk']]],
-  ['cprepuristr_10',['CPrepUriStr',['../d4/d72/classUPnPsdk_1_1CPrepUriStr.html',1,'UPnPsdk']]],
-  ['cpthread_5fscoped_5flock_11',['CPthread_scoped_lock',['../d5/dbf/classUPnPsdk_1_1CPthread__scoped__lock.html',1,'UPnPsdk']]],
-  ['cquery_12',['CQuery',['../d1/df2/classUPnPsdk_1_1CQuery.html',1,'UPnPsdk']]],
-  ['crootdevice_13',['CRootdevice',['../dd/d06/classUPnPsdk_1_1CRootdevice.html',1,'UPnPsdk']]],
-  ['cscheme_14',['CScheme',['../d4/dc5/classUPnPsdk_1_1CScheme.html',1,'UPnPsdk']]],
-  ['csigpipe_5fscoped_15',['CSigpipe_scoped',['../db/dcd/classUPnPsdk_1_1CSigpipe__scoped.html',1,'UPnPsdk']]],
-  ['csocket_16',['CSocket',['../d3/d5d/classUPnPsdk_1_1CSocket.html',1,'UPnPsdk']]],
-  ['csocket_5fbasic_17',['CSocket_basic',['../d9/da5/classUPnPsdk_1_1CSocket__basic.html',1,'UPnPsdk']]],
-  ['csocketerr_18',['CSocketErr',['../dd/d3a/classUPnPsdk_1_1CSocketErr.html',1,'UPnPsdk']]],
-  ['cstrintmap_19',['CStrIntMap',['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html',1,'UPnPsdk']]],
-  ['curi_20',['CUri',['../da/dcf/classUPnPsdk_1_1CUri.html',1,'UPnPsdk']]],
-  ['curiref_21',['CUriRef',['../dc/d76/classUPnPsdk_1_1CUriRef.html',1,'UPnPsdk']]],
-  ['cuserinfo_22',['CUserinfo',['../d9/dba/classUPnPsdk_1_1CUserinfo.html',1,'UPnPsdk']]],
-  ['cwsastartup_23',['CWSAStartup',['../d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html',1,'UPnPsdk::anonymous_namespace{global.cpp}']]],
-  ['cxmlalias_24',['CXmlAlias',['../d3/dc3/structcompa_1_1anonymous__namespace_02webserver_8cpp_03_1_1CXmlAlias.html',1,'compa::anonymous_namespace{webserver.cpp}']]]
+  ['active_5fconnection_5ft_0',['active_connection_t',['../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#da/d8f/structanonymous__namespace_02miniserver_8cpp_03_1_1active__connection__t',1,'anonymous_namespace{miniserver.cpp}']]]
 ];

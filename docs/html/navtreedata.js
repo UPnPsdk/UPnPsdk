@@ -76,12 +76,12 @@ var NAVTREEINDEX =
 "d5/dfa/upnpdebug_8cpp.html#a25c8761bc1f523fe6a53db546ae83add",
 "d7/d07/UpnpExtraHeaders_8hpp.html#a3771a3e983b225afe28d4e611418dd20",
 "d8/db8/UpnpDiscovery_8cpp.html#a43df4c4955a3ac8c06efda1e5b548e80",
-"d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html#a7359ea5e4d70db0a82faa1cdd447b5d5",
-"da/dd9/membuffer_8cpp.html#aee72bc5a9c58a849f2e41503500a773d",
-"dc/d2f/GenlibClientSubscription_8cpp.html#affbfb9bd0ba78c48c023825b8f30f13f",
-"dd/d90/classUPnPsdk_1_1CAuthority.html#a23d72c51857d500899c1e469437afd75",
-"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a9bd6e912cddf69f4193762dfae3885cb",
-"globals_defs_l.html"
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab",
+"da/dd9/membuffer_8cpp.html#a6e41eb5e1e1635dfa932c5fbb2228133",
+"dc/d2f/GenlibClientSubscription_8cpp.html#ad5fe2306b0555047b4ad24afa6feb0a3",
+"dd/d7e/UpnpEvent_8hpp.html#ab8f1ac90f435379ac642b74b65484a57",
+"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a8ee1d56dc0af6df7d8c7bbfefa55917a",
+"globals_defs_c.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

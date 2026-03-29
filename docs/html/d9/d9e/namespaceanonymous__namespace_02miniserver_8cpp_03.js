@@ -1,11 +1,16 @@
 var namespaceanonymous__namespace_02miniserver_8cpp_03 =
 [
+    [ "active_connection_t", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#da/d8f/structanonymous__namespace_02miniserver_8cpp_03_1_1active__connection__t", null ],
     [ "mserv_request_t", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#dd/d1f/structanonymous__namespace_02miniserver_8cpp_03_1_1mserv__request__t", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03_dd/d1f/structanonymous__namespace_02miniserver_8cpp_03_1_1mserv__request__t_dup" ],
     [ "MiniServerState", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afff", [
       [ "MSERV_IDLE", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa5c1b6c12e057bcaf7187b7a3d9765b15", null ],
       [ "MSERV_RUNNING", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa23b6f8b180edd0e4c6259a63f610bb71", null ],
       [ "MSERV_STOPPING", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa664303d9a0b13054c9c77545d2ce53f5", null ]
     ] ],
+    [ "active_connection_cmp", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#aebfc082fb3dc901a9f889d935ff07755", null ],
+    [ "add_active_connection", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#aa9e79e71052b908f2243b8eb01619158", null ],
+    [ "remove_active_connection", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1a8ecdded92b4cb960209cbd4f787960", null ],
+    [ "shutdown_all_active_connections", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a24eedb1f1ba661f797ab4f86f21427f2", null ],
     [ "host_header_is_numeric", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b", null ],
     [ "getNumericHostRedirection", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e", null ],
     [ "dispatch_request", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88", null ],
@@ -25,5 +30,8 @@ var namespaceanonymous__namespace_02miniserver_8cpp_03 =
     [ "miniStopSockPort", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6ab69017b8af0de7bc0bfec810bbe9fb", null ],
     [ "gMServState", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ae413745d69678061574e39ce1949af43", null ],
     [ "gSoapCallback", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a49eca2fd8ae56a32b6c866db4b5dcb47", null ],
-    [ "gGenaCallback", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f4c2792aee1e2df9b5ebe874b89760d", null ]
+    [ "gGenaCallback", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f4c2792aee1e2df9b5ebe874b89760d", null ],
+    [ "gActiveConnections", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ab6c5d6f5d8205b319e1e0abd8242304f", null ],
+    [ "gActiveConnectionsMutex", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a2171d66ef42760f57b570e57812c0f0f", null ],
+    [ "gActiveConnectionsInitialized", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a624b8a269359ba0d8bb85af92af4e7c9", null ]
 ];

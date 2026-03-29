@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-25
+// Redistribution only with this Copyright remark. Last modified: 2026-03-30
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -958,6 +958,7 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_successful) {
     // '\n' is not matched by regex '.'-wildcard so we just replace it.
     std::replace(captureObj.str().begin(), captureObj.str().end(), '\n', '@');
 #ifdef DEBUG
+    // This is due to CThreadPoolInit() setting above to prevent jobs.
     EXPECT_THAT(captureObj.str(),
                 ContainsStdRegex(" UPNP-MSER-2: .* mserv " +
                                  std::to_string(connected_sockfd) +
@@ -965,9 +966,6 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_successful) {
 #else
     EXPECT_EQ(captureObj.str(), "libupnp ThreadPoolAdd too many jobs: 0@");
 #endif
-    if (!github_actions)
-        GTEST_FAIL() << "Fix to schedule request. The error is only with "
-                        "build_type DEBUG reported.";
 
 #else  // UPnPsdk_WITH_NATIVE_PUPNP
 
@@ -1495,6 +1493,55 @@ TEST(RunMiniServerTestSuite, dispatch_request_fails) {
 TEST(RunMiniServerTestSuite, dispatch_request) {
     GTEST_SKIP() << "Still needs to be done when we have complete tests for "
                     "httpreadwrite.";
+}
+
+TEST(RunMiniServerTestSuite, active_connections_successful) {
+    CPupnplog logObj; // Output only with build type DEBUG.
+    if (g_dbug)
+        logObj.enable(UPNP_ALL);
+
+    SOCKET sock1 = ::socket(AF_INET6, SOCK_DGRAM, 0);
+    SOCKET sock2 = ::socket(AF_INET6, SOCK_DGRAM, 0);
+    SOCKET sock3 = ::socket(AF_INET6, SOCK_DGRAM, 0);
+
+    active_connection_t search_conn1;
+    search_conn1.socket = sock1;
+    search_conn1.connect_time = 0xA5; // Not used for comparison.
+
+    active_connection_t search_conn2;
+    search_conn2.socket = sock2;
+    search_conn2.connect_time = 0xAA; // Not used for comparison.
+
+    active_connection_t search_conn3;
+    search_conn3.socket = sock3;
+    search_conn3.connect_time = 0x55; // Not used for comparison.
+
+    // Test Unit
+    ::add_active_connection(sock1);
+    ::add_active_connection(sock2);
+    ::add_active_connection(sock3);
+
+    ListNode* node = ::ListFind(&gActiveConnections, nullptr, &search_conn2);
+    EXPECT_TRUE(node);
+    EXPECT_TRUE(::active_connection_cmp(&search_conn2, node->item));
+
+    ::remove_active_connection(sock2);
+    node = ::ListFind(&gActiveConnections, nullptr, &search_conn2);
+    EXPECT_EQ(node, nullptr);
+
+    node = ::ListFind(&gActiveConnections, nullptr, &search_conn3);
+    EXPECT_TRUE(node);
+    EXPECT_FALSE(::active_connection_cmp(&search_conn2, node->item));
+
+    node = ::ListFind(&gActiveConnections, nullptr, &search_conn1);
+    EXPECT_TRUE(node);
+    ::shutdown_all_active_connections();
+    node = ::ListFind(&gActiveConnections, nullptr, &search_conn1);
+    EXPECT_EQ(node, nullptr);
+
+    CLOSE_SOCKET_P(sock3);
+    CLOSE_SOCKET_P(sock2);
+    CLOSE_SOCKET_P(sock1);
 }
 
 TEST(RunMiniServerTestSuite, host_header_is_numeric_modifies_argument) {

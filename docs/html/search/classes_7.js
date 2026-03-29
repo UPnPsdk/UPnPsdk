@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['job_5farg_0',['job_arg',['../d6/de3/gena__ctrlpt_8cpp.html#dd/d20/unionjob__arg',1,'']]],
-  ['job_5farg_2eadvertise_1',['job_arg.advertise',['../d4/d99/upnpapi_8cpp.html#de/da3/structjob__arg_8advertise',1,'']]]
+  ['inetadapter_0',['INetadapter',['../d6/d3e/classUPnPsdk_1_1INetadapter.html',1,'UPnPsdk']]],
+  ['ixml_5fmembuf_1',['ixml_membuf',['../de/dad/ixmlmembuf_8hpp.html#d6/d70/structixml__membuf',1,'']]]
 ];

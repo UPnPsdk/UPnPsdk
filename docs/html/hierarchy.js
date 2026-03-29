@@ -11,6 +11,7 @@ var hierarchy =
     [ "_IXML_NodeList", "da/d8a/group__XMLAPI.html#da/d0c/struct__IXML__NodeList", null ],
     [ "_IXML_Text", "da/d8a/group__XMLAPI.html#da/d75/struct__IXML__Text", null ],
     [ "_Parser", "d0/d19/ixmlparser_8hpp.html#d2/db3/struct__Parser", null ],
+    [ "anonymous_namespace{miniserver.cpp}::active_connection_t", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#da/d8f/structanonymous__namespace_02miniserver_8cpp_03_1_1active__connection__t", null ],
     [ "UPnPsdk::CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", null ],
     [ "UPnPsdk::CAuthority", "dd/d90/classUPnPsdk_1_1CAuthority.html", null ],
     [ "UPnPsdk::CComponent", "d3/da4/classUPnPsdk_1_1CComponent.html", [
