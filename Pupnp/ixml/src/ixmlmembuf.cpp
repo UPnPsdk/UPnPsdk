@@ -38,10 +38,10 @@
  */
 
 #include "ixmlmembuf.hpp"
-#include "ixml.hpp"
+// #include "ixml.hpp"
 
 #include <assert.h>
-#include <stdlib.h>
+// #include <stdlib.h>
 #include <string.h>
 
 /*!

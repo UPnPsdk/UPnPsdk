@@ -24,7 +24,7 @@ var node_8cpp =
     [ "ixmlNode_isAncestor", "d7/d70/node_8cpp.html#a5ec142658ee8d78267c7e49b05256f3d", null ],
     [ "ixmlNode_isParent", "d7/d70/node_8cpp.html#abdc95ce135292145ac238c9b5059462a", null ],
     [ "ixmlNode_allowChildren", "d7/d70/node_8cpp.html#a29cc2715bd3ab2b79221e6b9178d5310", null ],
-    [ "ixmlNode_compare", "d7/d70/node_8cpp.html#a616a817df77cc27c9c4a38cce6faabd7", null ],
+    [ "ixmlNode_compare", "d7/d70/node_8cpp.html#aef788c0a55cd9cb52202c41f2b4da4ab", null ],
     [ "ixmlNode_insertBefore", "da/d8a/group__XMLAPI.html#gaaf45865dcb73f0c58537e290d2cb13be", null ],
     [ "ixmlNode_replaceChild", "da/d8a/group__XMLAPI.html#ga1cfe747002c02d14c0027a75d08c4a3a", null ],
     [ "ixmlNode_removeChild", "da/d8a/group__XMLAPI.html#ga45047a5595c8cac8f90ab7289dd80abc", null ],

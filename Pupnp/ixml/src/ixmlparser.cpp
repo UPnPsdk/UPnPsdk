@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-17
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,12 +44,12 @@
 
 #include <assert.h>
 #include <limits.h>
-#include <stddef.h> /* for ptrdiff_t */
+// #include <stddef.h> /* for ptrdiff_t */
 #include <stdio.h>
-#include <stdlib.h> /* for free(), malloc() */
+// #include <stdlib.h> /* for free(), malloc() */
 #include <string.h>
 
-#include "posix_overwrites.hpp" // IWYU pragma: keep
+#include "posix_overwrites.hpp" // IWYU pragma: keep (for win32)
 
 /// \cond
 static char g_error_char = '\0';

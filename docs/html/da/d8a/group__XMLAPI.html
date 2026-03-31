@@ -433,7 +433,7 @@ typedef struct <a class="el" href="../../da/d8a/group__XMLAPI.html#db/dfd/struct
 <tr class="memdesc:ga0939ddb94cdb6acb937252caf9f0e3e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves an attribute value using the local name and namespace URI.  <br /></td></tr>
 <tr class="separator:ga0939ddb94cdb6acb937252caf9f0e3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacf3883b43130909f49693d52c9223d65" id="r_gacf3883b43130909f49693d52c9223d65"><td class="memItemLeft" align="right" valign="top">PUPNP_Api int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65">ixmlElement_setAttributeNS</a> (<a class="el" href="../../da/d8a/group__XMLAPI.html#gaa8e3e1e5de42b7f37bd61d17774d6ec2">IXML_Element</a> *element, const <a class="el" href="../../da/d8a/group__XMLAPI.html#ga4d657664f7d193b40a875c8919c54d41">DOMString</a> namespaceURI, const <a class="el" href="../../da/d8a/group__XMLAPI.html#ga4d657664f7d193b40a875c8919c54d41">DOMString</a> qualifiedName, const <a class="el" href="../../da/d8a/group__XMLAPI.html#ga4d657664f7d193b40a875c8919c54d41">DOMString</a> value)</td></tr>
-<tr class="memdesc:gacf3883b43130909f49693d52c9223d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new attribute to an <b>Element</b> using the local name and namespace URI.  <br /></td></tr>
+<tr class="memdesc:gacf3883b43130909f49693d52c9223d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new attribute to an <b>Element</b> using the local qualified name and namespace URI.  <br /></td></tr>
 <tr class="separator:gacf3883b43130909f49693d52c9223d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad11f419aeea8caa1ba03454448ed8112" id="r_gad11f419aeea8caa1ba03454448ed8112"><td class="memItemLeft" align="right" valign="top">PUPNP_Api int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8a/group__XMLAPI.html#gad11f419aeea8caa1ba03454448ed8112">ixmlElement_removeAttributeNS</a> (<a class="el" href="../../da/d8a/group__XMLAPI.html#gaa8e3e1e5de42b7f37bd61d17774d6ec2">IXML_Element</a> *element, const <a class="el" href="../../da/d8a/group__XMLAPI.html#ga4d657664f7d193b40a875c8919c54d41">DOMString</a> namespaceURI, const <a class="el" href="../../da/d8a/group__XMLAPI.html#ga4d657664f7d193b40a875c8919c54d41">DOMString</a> localName)</td></tr>
 <tr class="memdesc:gad11f419aeea8caa1ba03454448ed8112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an attribute using the namespace URI and local name.  <br /></td></tr>
@@ -473,7 +473,7 @@ typedef struct <a class="el" href="../../da/d8a/group__XMLAPI.html#db/dfd/struct
 <tr class="memdesc:ga9996a553abad47b63fb9267892c5d794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a <b>Node</b> from a <b>NamedNodeMap</b> specified by name.  <br /></td></tr>
 <tr class="separator:ga9996a553abad47b63fb9267892c5d794"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf0fb6f5af6312dd769174cd943a6a5ab" id="r_gaf0fb6f5af6312dd769174cd943a6a5ab"><td class="memItemLeft" align="right" valign="top">PUPNP_Api <a class="el" href="../../da/d8a/group__XMLAPI.html#ga0a031149a8d79f5ddaab0d13367459e8">IXML_Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8a/group__XMLAPI.html#gaf0fb6f5af6312dd769174cd943a6a5ab">ixmlNamedNodeMap_item</a> (<a class="el" href="../../da/d8a/group__XMLAPI.html#gaa50a7eb8db799acde420c7b2c38b5827">IXML_NamedNodeMap</a> *nnMap, unsigned long index)</td></tr>
-<tr class="memdesc:gaf0fb6f5af6312dd769174cd943a6a5ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the indexth item in the map. If index is greater than or equal to the number of nodes in this map, this returns <b>NULL</b>.  <br /></td></tr>
+<tr class="memdesc:gaf0fb6f5af6312dd769174cd943a6a5ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the index_th item in the map. If index is greater than or equal to the number of nodes in this map, this returns <b>NULL</b>.  <br /></td></tr>
 <tr class="separator:gaf0fb6f5af6312dd769174cd943a6a5ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gacf95a60f6c5da67a14dbdb7afe9fb9c3" id="r_gacf95a60f6c5da67a14dbdb7afe9fb9c3"><td class="memItemLeft" align="right" valign="top">PUPNP_Api <a class="el" href="../../da/d8a/group__XMLAPI.html#ga0a031149a8d79f5ddaab0d13367459e8">IXML_Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d8a/group__XMLAPI.html#gacf95a60f6c5da67a14dbdb7afe9fb9c3">ixmlNamedNodeMap_getNamedItemNS</a> (<a class="el" href="../../da/d8a/group__XMLAPI.html#gaa50a7eb8db799acde420c7b2c38b5827">IXML_NamedNodeMap</a> *nnMap, const <a class="el" href="../../da/d8a/group__XMLAPI.html#ga4d657664f7d193b40a875c8919c54d41">DOMString</a> *namespaceURI, const <a class="el" href="../../da/d8a/group__XMLAPI.html#ga4d657664f7d193b40a875c8919c54d41">DOMString</a> localName)</td></tr>
 <tr class="memdesc:gacf95a60f6c5da67a14dbdb7afe9fb9c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a <b>Node</b> from a <b>NamedNodeMap</b> specified by namespace URI and local name.  <br /></td></tr>
@@ -1153,7 +1153,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00179">179</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00182">182</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -1254,7 +1254,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00296">296</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00294">294</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">
@@ -1362,7 +1362,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00304">304</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00302">302</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -1430,7 +1430,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00326">326</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00322">322</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-11-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-11-summary" class="dynsummary" style="display:block;">
@@ -1536,7 +1536,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00334">334</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00330">330</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 
 </div>
 </div>
@@ -1566,7 +1566,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l01096">1096</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l01075">1075</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-12-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-12-summary" class="dynsummary" style="display:block;">
@@ -1625,7 +1625,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00342">342</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00338">338</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-14-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
@@ -1774,7 +1774,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00350">350</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00346">346</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 
 </div>
 </div>
@@ -1803,7 +1803,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00367">367</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00363">363</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 
 </div>
 </div>
@@ -1832,7 +1832,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00375">375</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00371">371</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-15-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-15-summary" class="dynsummary" style="display:block;">
@@ -1921,7 +1921,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l01125">1125</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l01101">1101</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-16-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary" style="display:block;">
@@ -1968,7 +1968,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00383">383</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00379">379</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 
 </div>
 </div>
@@ -1998,7 +1998,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00276">276</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00274">274</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-17-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-17-summary" class="dynsummary" style="display:block;">
@@ -2052,7 +2052,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00286">286</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00284">284</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 
 </div>
 </div>
@@ -2082,7 +2082,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00187">187</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00190">190</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-18-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-18-summary" class="dynsummary" style="display:block;">
@@ -2162,7 +2162,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00507">507</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00503">503</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-19-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-19-summary" class="dynsummary" style="display:block;">
@@ -2246,7 +2246,7 @@ next</td>
 <p>If <b>newChild</b> is already in the tree, it will first be removed. <b>returnNode</b> will contain the <b>oldChild</b> <b>Node</b>, appropriately removed from the tree (i.e. it will no longer have an owner document).</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>IXML_SUCCESS:</code> The operation completed successfully. </li>
-<li><code>IXML_INVALID_PARAMTER:</code> Either <b>nodeptr</b>, <b>newChild</b>, or <b>oldChild</b> is <code>NULL</code>. </li>
+<li><code>IXML_INVALID_PARAMETER:</code> Either <b>nodeptr</b>, <b>newChild</b>, or <b>oldChild</b> is <code>NULL</code>. </li>
 <li><code>IXML_HIERARCHY_REQUEST_ERR:</code> The <b>newChild</b> is not a type of <b>Node</b> that can be inserted into this tree or <b>newChild</b> is an ancestor of <b>nodePtr</b>. </li>
 <li><code>IXML_WRONG_DOCUMENT_ERR:</code> <b>newChild</b> was created from a different document than <b>nodeptr</b>. </li>
 <li><code>IXML_NO_MODIFICATION_ALLOWED_ERR:</code> <b>nodeptr</b> or its parent is read-only. </li>
@@ -2263,7 +2263,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00554">554</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00549">549</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-21-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-21-summary" class="dynsummary" style="display:block;">
@@ -2349,7 +2349,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00589">589</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00581">581</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-22-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-22-summary" class="dynsummary" style="display:block;">
@@ -2446,7 +2446,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00612">612</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00610">610</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-24-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-24-summary" class="dynsummary" style="display:block;">
@@ -2538,7 +2538,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l01161">1161</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l01134">1134</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 
 </div>
 </div>
@@ -2580,7 +2580,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l01076">1076</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l01056">1056</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-26" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-26-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-26-summary" class="dynsummary" style="display:block;">
@@ -2645,7 +2645,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l01169">1169</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l01142">1142</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 
 </div>
 </div>
@@ -2673,7 +2673,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00121">121</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00124">124</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-28" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-28-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-28-summary" class="dynsummary" style="display:block;">
@@ -2714,7 +2714,7 @@ next</td>
 <area shape="poly" title=" " alt="" coords="930,178,824,169,824,164,930,173"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga3b86a0100355604a3d7b1ad77ae4bcfd" title="Creates a new Attr node with the given qualified name and namespace URI." alt="" coords="268,42,525,67"/>
 <area shape="poly" title=" " alt="" coords="960,165,899,136,827,111,750,93,671,79,525,63,526,58,672,74,751,87,829,105,901,131,962,160"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65" title="Adds a new attribute to an Element using the local name and namespace URI." alt="" coords="5,17,212,42"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65" title="Adds a new attribute to an Element using the local qualified name and namespace URI." alt="" coords="5,17,212,42"/>
 <area shape="poly" title=" " alt="" coords="970,162,908,115,868,91,827,72,746,46,662,28,577,17,493,11,336,10,209,19,208,14,336,5,493,5,578,11,663,23,748,41,829,67,871,86,911,110,973,157"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga26e4ee28e899e3b94bbfaa39c96c4b00" title="Adds a new attribute to an Element." alt="" coords="302,143,491,169"/>
 <area shape="poly" title=" " alt="" coords="950,166,892,148,828,133,730,125,632,127,542,136,467,146,467,141,541,130,632,122,730,120,828,128,894,143,952,161"/>
@@ -2835,7 +2835,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/df3/attr_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../d9/df3/attr_8cpp_source.html">attr.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/df3/attr_8cpp_source.html#l00046">46</a> of file <a class="el" href="../../d9/df3/attr_8cpp_source.html">attr.cpp</a>.</p>
 <div id="dynsection-30" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-30-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-30-summary" class="dynsummary" style="display:block;">
@@ -2862,7 +2862,7 @@ next</td>
 <area shape="poly" title=" " alt="" coords="838,168,740,145,741,140,839,163"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga3b86a0100355604a3d7b1ad77ae4bcfd" title="Creates a new Attr node with the given qualified name and namespace URI." alt="" coords="260,67,517,92"/>
 <area shape="poly" title=" " alt="" coords="881,160,846,131,803,107,732,87,658,76,585,71,518,71,518,66,585,66,658,70,733,82,805,102,849,127,884,156"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65" title="Adds a new attribute to an Element using the local name and namespace URI." alt="" coords="5,41,212,67"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65" title="Adds a new attribute to an Element using the local qualified name and namespace URI." alt="" coords="5,41,212,67"/>
 <area shape="poly" title=" " alt="" coords="889,158,854,111,830,89,803,71,718,39,628,19,536,10,446,9,361,14,283,22,163,44,162,39,282,17,360,8,446,3,537,5,629,14,719,34,805,66,834,85,858,108,893,155"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga26e4ee28e899e3b94bbfaa39c96c4b00" title="Adds a new attribute to an Element." alt="" coords="294,168,483,193"/>
 <area shape="poly" title=" " alt="" coords="838,183,484,183,484,178,838,178"/>
@@ -2914,7 +2914,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00050">50</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00053">53</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-32" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-32-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-32-summary" class="dynsummary" style="display:block;">
@@ -2963,7 +2963,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00054">54</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d70/node_8cpp_source.html#l00057">57</a> of file <a class="el" href="../../d7/d70/node_8cpp_source.html">node.cpp</a>.</p>
 <div id="dynsection-33" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-33-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-33-summary" class="dynsummary" style="display:block;">
@@ -3026,7 +3026,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-35" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-35-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-35-summary" class="dynsummary" style="display:block;">
@@ -3081,7 +3081,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00155">155</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00157">157</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-36" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-36-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-36-summary" class="dynsummary" style="display:block;">
@@ -3136,7 +3136,7 @@ next</td>
 <p>Creates a new empty <b>Document</b> node. </p>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the new <b>Document</b> object with the nodeName set to "#document" or <code>NULL</code> on failure. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00184">184</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00187">187</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-38" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-38-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-38-summary" class="dynsummary" style="display:block;">
@@ -3206,7 +3206,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00098">98</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00100">100</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-39" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-39-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-39-summary" class="dynsummary" style="display:block;">
@@ -3293,7 +3293,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00141">141</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00143">143</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-41" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-41-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-41-summary" class="dynsummary" style="display:block;">
@@ -3394,7 +3394,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00192">192</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00195">195</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-43" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-43-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-43-summary" class="dynsummary" style="display:block;">
@@ -3476,7 +3476,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00237">237</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00240">240</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-45" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-45-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-45-summary" class="dynsummary" style="display:block;">
@@ -3575,7 +3575,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00341">341</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00338">338</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-47" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-47-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-47-summary" class="dynsummary" style="display:block;">
@@ -3647,7 +3647,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00382">382</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00379">379</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-49" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-49-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-49-summary" class="dynsummary" style="display:block;">
@@ -3704,7 +3704,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00283">283</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00280">280</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-50" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-50-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-50-summary" class="dynsummary" style="display:block;">
@@ -3774,7 +3774,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00246">246</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00249">249</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-51" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-51-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-51-summary" class="dynsummary" style="display:block;">
@@ -3810,7 +3810,7 @@ next</td>
 <area shape="poly" title=" " alt="" coords="666,112,553,143,495,156,494,151,551,138,664,107"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga545feff5f7f62bb17016d750f87a72ff" title="Creates a new Attribute node with the given qualified name and namespace URI." alt="" coords="5,31,247,56"/>
 <area shape="poly" title=" " alt="" coords="281,59,246,56,247,50,281,53"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65" title="Adds a new attribute to an Element using the local name and namespace URI." alt="" coords="23,80,229,105"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65" title="Adds a new attribute to an Element using the local qualified name and namespace URI." alt="" coords="23,80,229,105"/>
 <area shape="poly" title=" " alt="" coords="281,82,230,87,230,81,280,77"/>
 <area shape="rect" href="../../da/dff/ixmlparser_8cpp.html#a59cba7776df1ddd02233cfdc23997542" title="Parses the xml file and returns the DOM document tree." alt="" coords="40,153,212,179"/>
 <area shape="poly" title=" " alt="" coords="302,169,212,169,212,163,302,163"/>
@@ -3855,7 +3855,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00452">452</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00449">449</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-53" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-53-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-53-summary" class="dynsummary" style="display:block;">
@@ -3962,7 +3962,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00391">391</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00388">388</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-55" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-55-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-55-summary" class="dynsummary" style="display:block;">
@@ -4034,7 +4034,7 @@ next</td>
 </div><div class="memdoc">
 
 <p>Creates a new <b>Element</b> node in the given qualified name and namespace URI. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the new <b>Element</b> object with tagName qualifiedName, prefix and localName extraced from qualfiedName, nodeName of qualfiedName, namespaceURI of namespaceURI or <code>NULL</code> on failure. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the new <b>Element</b> object with tagName qualifiedName, prefix and localName extracted from qualifiedName, nodeName of qualfiedName, namespaceURI of namespaceURI or <code>NULL</code> on failure. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">doc</td><td>The owner <b>Document</b> of the new node.  </td></tr>
@@ -4044,7 +4044,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00441">441</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00438">438</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-57" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-57-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-57-summary" class="dynsummary" style="display:block;">
@@ -4125,7 +4125,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00293">293</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00290">290</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-58" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-58-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-58-summary" class="dynsummary" style="display:block;">
@@ -4160,7 +4160,7 @@ next</td>
 <area shape="rect" title="Creates a new Attr node with the given qualified name and namespace URI." alt="" coords="295,31,552,56"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga545feff5f7f62bb17016d750f87a72ff" title="Creates a new Attribute node with the given qualified name and namespace URI." alt="" coords="5,5,247,31"/>
 <area shape="poly" title=" " alt="" coords="281,34,246,31,247,26,281,29"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65" title="Adds a new attribute to an Element using the local name and namespace URI." alt="" coords="23,55,229,80"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65" title="Adds a new attribute to an Element using the local qualified name and namespace URI." alt="" coords="23,55,229,80"/>
 <area shape="poly" title=" " alt="" coords="281,57,230,62,230,56,281,52"/>
 </map>
 </div>
@@ -4210,7 +4210,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00330">330</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00327">327</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-60" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-60-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-60-summary" class="dynsummary" style="display:block;">
@@ -4277,7 +4277,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00465">465</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00462">462</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-61" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-61-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-61-summary" class="dynsummary" style="display:block;">
@@ -4347,7 +4347,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00480">480</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00477">477</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-62" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-62-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-62-summary" class="dynsummary" style="display:block;">
@@ -4406,7 +4406,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00047">47</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00049">49</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-64" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-64-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-64-summary" class="dynsummary" style="display:block;">
@@ -4553,7 +4553,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00071">71</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../de/db9/document_8cpp_source.html#l00073">73</a> of file <a class="el" href="../../de/db9/document_8cpp_source.html">document.cpp</a>.</p>
 <div id="dynsection-66" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-66-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-66-summary" class="dynsummary" style="display:block;">
@@ -4606,7 +4606,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00043">43</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00046">46</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 <div id="dynsection-67" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-67-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-67-summary" class="dynsummary" style="display:block;">
@@ -4661,7 +4661,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00049">49</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00052">52</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 
 </div>
 </div>
@@ -4701,7 +4701,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00077">77</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00078">78</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 
 </div>
 </div>
@@ -4826,7 +4826,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00159">159</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00156">156</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 
 </div>
 </div>
@@ -4866,7 +4866,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00186">186</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00183">183</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 
 </div>
 </div>
@@ -4904,7 +4904,7 @@ next</td>
 
 <p>Adds a new attribute node to an <b>Element</b>. </p>
 <p>If an attribute already exists with <b>newAttr</b> as a name, it will be replaced with the new one and the old one will be returned in <b>rtAttr</b>.</p>
-<dl class="section return"><dt>Returns</dt><dd>If successfull, the replaced attribute node is returned in rtAttr, otherwise, <b>NULL</b> is returned in this pointer. The function return value is an integer representing one of the following: <ul>
+<dl class="section return"><dt>Returns</dt><dd>If successful, the replaced attribute node is returned in rtAttr, otherwise, <b>NULL</b> is returned in this pointer. The function return value is an integer representing one of the following: <ul>
 <li><code>IXML_SUCCESS:</code> The operation completed successfully. </li>
 <li><code>IXML_INVALID_PARAMETER:</code> Either <b>element</b> or <b>newAttr</b> is <code>NULL</code>. </li>
 <li><code>IXML_WRONG_DOCUMENT_ERR:</code> <b>newAttr</b> does not belong to the same one as <b>element</b>. </li>
@@ -4920,7 +4920,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00207">207</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00203">203</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 <div id="dynsection-69" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-69-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-69-summary" class="dynsummary" style="display:block;">
@@ -5002,7 +5002,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00301">301</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00305">305</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 <div id="dynsection-71" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-71-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-71-summary" class="dynsummary" style="display:block;">
@@ -5013,7 +5013,7 @@ next</td>
 <area shape="rect" title="Removes the specified attribute node from an Element." alt="" coords="5,5,259,31"/>
 <area shape="rect" href="../../d3/d1c/element_8cpp.html#aef34688e6e47399b2c44f2c550eea6a8" title="Find a attribute node whose contents are the same as the oldAttr." alt="" coords="307,5,533,31"/>
 <area shape="poly" title=" " alt="" coords="259,15,293,15,293,21,259,21"/>
-<area shape="rect" href="../../d7/d70/node_8cpp.html#a616a817df77cc27c9c4a38cce6faabd7" title="Compare two nodes to see whether they are the same node. Parent, sibling and children node are ignore..." alt="" coords="581,5,731,31"/>
+<area shape="rect" href="../../d7/d70/node_8cpp.html#aef788c0a55cd9cb52202c41f2b4da4ab" title="Compare two nodes to see whether they are the same node. Parent, sibling and children node are ignore..." alt="" coords="581,5,731,31"/>
 <area shape="poly" title=" " alt="" coords="534,15,568,15,568,21,534,21"/>
 </map>
 </div>
@@ -5056,7 +5056,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00335">335</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00337">337</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 <div id="dynsection-72" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-72-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-72-summary" class="dynsummary" style="display:block;">
@@ -5159,7 +5159,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00346">346</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00348">348</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 
 </div>
 </div>
@@ -5201,8 +5201,8 @@ next</td>
       </table>
 </div><div class="memdoc">
 
-<p>Adds a new attribute to an <b>Element</b> using the local name and namespace URI. </p>
-<p>If another attribute matches the same local name and namespace, the prefix is changed to be the prefix part of the <code>qualifiedName</code> and the value is changed to <b>value</b>.</p>
+<p>Adds a new attribute to an <b>Element</b> using the local qualified name and namespace URI. </p>
+<p>If another attribute matches the same local qualified name and namespace, the prefix is changed to be the prefix part of the <code>qualifiedName</code> and the value is changed to <b>value</b>.</p>
 <dl class="section return"><dt>Returns</dt><dd>An integer representing one of the following: <ul>
 <li><code>IXML_SUCCESS:</code> The operation completed successfully. </li>
 <li><code>IXML_INVALID_PARAMETER:</code> Either <b>element</b>, <b>namespaceURI</b>, <b>qualifiedName</b>, or <b>value</b> is <code>NULL</code>. </li>
@@ -5222,7 +5222,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00370">370</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00372">372</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 <div id="dynsection-74" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-74-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-74-summary" class="dynsummary" style="display:block;">
@@ -5230,7 +5230,7 @@ next</td>
 <div id="dynsection-74-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/d8a/group__XMLAPI_gacf3883b43130909f49693d52c9223d65_cgraph.png" border="0" usemap="#ada/d8a/group__XMLAPI_gacf3883b43130909f49693d52c9223d65_cgraph" alt=""/></div>
 <map name="ada/d8a/group__XMLAPI_gacf3883b43130909f49693d52c9223d65_cgraph" id="ada/d8a/group__XMLAPI_gacf3883b43130909f49693d52c9223d65_cgraph">
-<area shape="rect" title="Adds a new attribute to an Element using the local name and namespace URI." alt="" coords="5,235,212,260"/>
+<area shape="rect" title="Adds a new attribute to an Element using the local qualified name and namespace URI." alt="" coords="5,235,212,260"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga2bb21e4a139e1d5437d20718f5d5eb62" title="Frees an Attr node." alt="" coords="927,27,1035,52"/>
 <area shape="poly" title=" " alt="" coords="116,233,137,202,169,162,210,121,259,86,344,50,434,25,526,10,618,4,705,4,786,8,914,24,913,30,785,14,705,9,618,9,527,15,435,30,345,55,261,91,214,125,173,166,141,205,120,236"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga3b86a0100355604a3d7b1ad77ae4bcfd" title="Creates a new Attr node with the given qualified name and namespace URI." alt="" coords="260,101,517,127"/>
@@ -5309,7 +5309,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00471">471</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00469">469</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 
 </div>
 </div>
@@ -5356,7 +5356,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00501">501</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00499">499</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 
 </div>
 </div>
@@ -5410,7 +5410,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00524">524</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00522">522</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 <div id="dynsection-75" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-75-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-75-summary" class="dynsummary" style="display:block;">
@@ -5419,7 +5419,7 @@ next</td>
 <div class="center"><img src="../../da/d8a/group__XMLAPI_gacddf6f09783c39ba26df9394f3f80ba2_icgraph.png" border="0" usemap="#ada/d8a/group__XMLAPI_gacddf6f09783c39ba26df9394f3f80ba2_icgraph" alt=""/></div>
 <map name="ada/d8a/group__XMLAPI_gacddf6f09783c39ba26df9394f3f80ba2_icgraph" id="ada/d8a/group__XMLAPI_gacddf6f09783c39ba26df9394f3f80ba2_icgraph">
 <area shape="rect" title="Adds a new attribute node to the element node specified." alt="" coords="260,5,449,45"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65" title="Adds a new attribute to an Element using the local name and namespace URI." alt="" coords="5,13,212,38"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gacf3883b43130909f49693d52c9223d65" title="Adds a new attribute to an Element using the local qualified name and namespace URI." alt="" coords="5,13,212,38"/>
 <area shape="poly" title=" " alt="" coords="247,28,212,28,212,23,247,23"/>
 </map>
 </div>
@@ -5469,7 +5469,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00599">599</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00592">592</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 <div id="dynsection-76" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-76-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-76-summary" class="dynsummary" style="display:block;">
@@ -5539,7 +5539,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00613">613</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00606">606</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 
 </div>
 </div>
@@ -5586,7 +5586,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00632">632</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00624">624</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 
 </div>
 </div>
@@ -5614,7 +5614,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00654">654</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d1c/element_8cpp_source.html#l00646">646</a> of file <a class="el" href="../../d3/d1c/element_8cpp_source.html">element.cpp</a>.</p>
 <div id="dynsection-77" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-77-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-77-summary" class="dynsummary" style="display:block;">
@@ -5690,7 +5690,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html#l00116">116</a> of file <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html">namedNodeMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html#l00118">118</a> of file <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html">namedNodeMap.cpp</a>.</p>
 <div id="dynsection-79" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-79-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-79-summary" class="dynsummary" style="display:block;">
@@ -5699,7 +5699,7 @@ next</td>
 <div class="center"><img src="../../da/d8a/group__XMLAPI_ga36fbc79c4365c6b0363e0725b1dcd070_icgraph.png" border="0" usemap="#ada/d8a/group__XMLAPI_ga36fbc79c4365c6b0363e0725b1dcd070_icgraph" alt=""/></div>
 <map name="ada/d8a/group__XMLAPI_ga36fbc79c4365c6b0363e0725b1dcd070_icgraph" id="ada/d8a/group__XMLAPI_ga36fbc79c4365c6b0363e0725b1dcd070_icgraph">
 <area shape="rect" title="Returns the number of items contained in this NamedNodeMap." alt="" coords="564,5,796,31"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaf0fb6f5af6312dd769174cd943a6a5ab" title="Retrieves the indexth item in the map. If index is greater than or equal to the number of nodes in th..." alt="" coords="319,5,516,31"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaf0fb6f5af6312dd769174cd943a6a5ab" title="Retrieves the index_th item in the map. If index is greater than or equal to the number of nodes in t..." alt="" coords="319,5,516,31"/>
 <area shape="poly" title=" " alt="" coords="550,21,516,21,516,15,550,15"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#gac90123d2046c2073f3b67bf82bccb1bd" title="Retrieves a Node from the NamedNodeMap by name." alt="" coords="5,5,271,31"/>
 <area shape="poly" title=" " alt="" coords="305,21,271,21,271,15,305,15"/>
@@ -5744,7 +5744,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html#l00078">78</a> of file <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html">namedNodeMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html#l00080">80</a> of file <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html">namedNodeMap.cpp</a>.</p>
 <div id="dynsection-80" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-80-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-80-summary" class="dynsummary" style="display:block;">
@@ -5755,7 +5755,7 @@ next</td>
 <area shape="rect" title="Retrieves a Node from the NamedNodeMap by name." alt="" coords="5,42,271,67"/>
 <area shape="rect" href="../../df/d7c/namedNodeMap_8cpp.html#adf1e760c23dbaab517f17a0b6e6e87be" title="Return the item number of a item in NamedNodeMap." alt="" coords="319,5,537,45"/>
 <area shape="poly" title=" " alt="" coords="263,39,305,35,305,40,264,45"/>
-<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaf0fb6f5af6312dd769174cd943a6a5ab" title="Retrieves the indexth item in the map. If index is greater than or equal to the number of nodes in th..." alt="" coords="329,70,527,95"/>
+<area shape="rect" href="../../da/d8a/group__XMLAPI.html#gaf0fb6f5af6312dd769174cd943a6a5ab" title="Retrieves the index_th item in the map. If index is greater than or equal to the number of nodes in t..." alt="" coords="329,70,527,95"/>
 <area shape="poly" title=" " alt="" coords="270,65,316,69,315,74,269,70"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga36fbc79c4365c6b0363e0725b1dcd070" title="Returns the number of items contained in this NamedNodeMap." alt="" coords="585,70,817,95"/>
 <area shape="poly" title=" " alt="" coords="527,80,571,80,571,85,527,85"/>
@@ -5866,8 +5866,8 @@ next</td>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves the indexth item in the map. If index is greater than or equal to the number of nodes in this map, this returns <b>NULL</b>. </p>
-<dl class="section return"><dt>Returns</dt><dd>The node at the indexth position in the map, or <b>NULL</b> if that is not a valid index. </dd></dl>
+<p>Retrieves the index_th item in the map. If index is greater than or equal to the number of nodes in this map, this returns <b>NULL</b>. </p>
+<dl class="section return"><dt>Returns</dt><dd>The node at the index_th position in the map, or <b>NULL</b> if that is not a valid index. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">nnMap</td><td>The <b>NamedNodeMap</b> from which to remove the <b>Node</b>.  </td></tr>
@@ -5876,7 +5876,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html#l00094">94</a> of file <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html">namedNodeMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html#l00096">96</a> of file <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html">namedNodeMap.cpp</a>.</p>
 <div id="dynsection-81" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-81-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-81-summary" class="dynsummary" style="display:block;">
@@ -5884,7 +5884,7 @@ next</td>
 <div id="dynsection-81-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/d8a/group__XMLAPI_gaf0fb6f5af6312dd769174cd943a6a5ab_cgraph.png" border="0" usemap="#ada/d8a/group__XMLAPI_gaf0fb6f5af6312dd769174cd943a6a5ab_cgraph" alt=""/></div>
 <map name="ada/d8a/group__XMLAPI_gaf0fb6f5af6312dd769174cd943a6a5ab_cgraph" id="ada/d8a/group__XMLAPI_gaf0fb6f5af6312dd769174cd943a6a5ab_cgraph">
-<area shape="rect" title="Retrieves the indexth item in the map. If index is greater than or equal to the number of nodes in th..." alt="" coords="5,5,203,31"/>
+<area shape="rect" title="Retrieves the index_th item in the map. If index is greater than or equal to the number of nodes in t..." alt="" coords="5,5,203,31"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#ga36fbc79c4365c6b0363e0725b1dcd070" title="Returns the number of items contained in this NamedNodeMap." alt="" coords="251,5,483,31"/>
 <area shape="poly" title=" " alt="" coords="203,15,237,15,237,21,203,21"/>
 </map>
@@ -5896,7 +5896,7 @@ next</td>
 <div id="dynsection-82-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/d8a/group__XMLAPI_gaf0fb6f5af6312dd769174cd943a6a5ab_icgraph.png" border="0" usemap="#ada/d8a/group__XMLAPI_gaf0fb6f5af6312dd769174cd943a6a5ab_icgraph" alt=""/></div>
 <map name="ada/d8a/group__XMLAPI_gaf0fb6f5af6312dd769174cd943a6a5ab_icgraph" id="ada/d8a/group__XMLAPI_gaf0fb6f5af6312dd769174cd943a6a5ab_icgraph">
-<area shape="rect" title="Retrieves the indexth item in the map. If index is greater than or equal to the number of nodes in th..." alt="" coords="319,5,516,31"/>
+<area shape="rect" title="Retrieves the index_th item in the map. If index is greater than or equal to the number of nodes in t..." alt="" coords="319,5,516,31"/>
 <area shape="rect" href="../../da/d8a/group__XMLAPI.html#gac90123d2046c2073f3b67bf82bccb1bd" title="Retrieves a Node from the NamedNodeMap by name." alt="" coords="5,5,271,31"/>
 <area shape="poly" title=" " alt="" coords="305,21,271,21,271,15,305,15"/>
 </map>
@@ -6057,7 +6057,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html#l00130">130</a> of file <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html">namedNodeMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html#l00132">132</a> of file <a class="el" href="../../df/d7c/namedNodeMap_8cpp_source.html">namedNodeMap.cpp</a>.</p>
 <div id="dynsection-83" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-83-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-83-summary" class="dynsummary" style="display:block;">
@@ -6316,7 +6316,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00322">322</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00328">328</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-88" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-88-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-88-summary" class="dynsummary" style="display:block;">
@@ -6403,7 +6403,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00338">338</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00344">344</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-90" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-90-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-90-summary" class="dynsummary" style="display:block;">
@@ -6521,7 +6521,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00352">352</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00358">358</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-92" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-92-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-92-summary" class="dynsummary" style="display:block;">
@@ -6593,7 +6593,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00368">368</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00374">374</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-93" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-93-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-93-summary" class="dynsummary" style="display:block;">
@@ -6661,7 +6661,7 @@ next</td>
 </dl>
 <p>If <b>errorChar</b> is not 0, the parser is relaxed: invalid UTF-8 characters are replaced by the <b>errorChar</b>, and invalid "&amp;" entities are left untranslated. The parsing is then allowed to continue. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00382">382</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00388">388</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-94" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-94-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-94-summary" class="dynsummary" style="display:block;">
@@ -6702,7 +6702,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00402">402</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00407">407</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-95" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-95-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-95-summary" class="dynsummary" style="display:block;">
@@ -6762,7 +6762,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00390">390</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00396">396</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-96" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-96-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-96-summary" class="dynsummary" style="display:block;">
@@ -6873,7 +6873,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00314">314</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00320">320</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-98" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-98-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-98-summary" class="dynsummary" style="display:block;">
@@ -6933,7 +6933,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00306">306</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00312">312</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-99" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-99-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-99-summary" class="dynsummary" style="display:block;">
@@ -6995,7 +6995,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00410">410</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00415">415</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-101" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-101-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-101-summary" class="dynsummary" style="display:block;">
@@ -7091,7 +7091,7 @@ next</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00418">418</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/db9/ixml_8cpp_source.html#l00423">423</a> of file <a class="el" href="../../d2/db9/ixml_8cpp_source.html">ixml.cpp</a>.</p>
 <div id="dynsection-102" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-102-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-102-summary" class="dynsummary" style="display:block;">

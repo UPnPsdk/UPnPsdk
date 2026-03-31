@@ -1,15 +1,20 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-29
+// Redistribution only with this Copyright remark. Last modified: 2026-03-31
 // Taken from authors who haven't made a note.
+// Last compare with ./Pupnp source file, based on 2026-03-16, ver 1.14.30
+
 /*!
  * \file
  */
 
+// #include "autoconfig.h"
+
 #include <ixml/ixmldebug.hpp>
+
 #include <cstdarg>
 #include <cstdio>
 
-
+#ifdef DEBUG
 void IxmlPrintf(const char* DbgFileName, int DbgLineNo,
                 const char* FunctionName, const char* FmtStr, ...) {
     va_list ArgList;
@@ -20,7 +25,6 @@ void IxmlPrintf(const char* DbgFileName, int DbgLineNo,
         fprintf(fp, ": ");
         va_start(ArgList, FmtStr);
         vfprintf(fp, FmtStr, ArgList);
-        // umock::stdio_h.fflush(fp);
         fflush(fp);
         va_end(ArgList);
     } else {
@@ -38,7 +42,7 @@ void printNodes(IXML_Node* tmpRoot, int depth) {
     NodeList1 = ixmlNode_getChildNodes(tmpRoot);
     for (i = 0; i < 100; ++i) {
         ChildNode1 = ixmlNodeList_item(NodeList1, i);
-        if (ChildNode1 == NULL) {
+        if (!ChildNode1) {
             break;
         }
 
@@ -52,3 +56,5 @@ void printNodes(IXML_Node* tmpRoot, int depth) {
                    depth, NodeType, NodeName, NodeValue);
     }
 }
+
+#endif

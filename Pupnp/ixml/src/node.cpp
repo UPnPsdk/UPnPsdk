@@ -39,10 +39,10 @@
 #include "ixmlparser.hpp"
 
 #include <assert.h>
-#include <stdlib.h> /* for free(), malloc() */
+// #include <stdlib.h> /* for free(), malloc() */
 #include <string.h>
 
-#include "posix_overwrites.hpp" // IWYU pragma: keep
+// #include "posix_overwrites.hpp" // IWYU pragma: keep
 
 void ixmlNode_init(IXML_Node* nodeptr) {
     assert(nodeptr);

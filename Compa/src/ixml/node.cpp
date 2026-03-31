@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-14
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-31
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last compare with ./Pupnp source file on 2025-07-14, ver 1.14.21
+// Last compare with ./Pupnp source file, based on 2026-03-16, ver 1.14.30
 /*!
  * \file
  */
@@ -39,10 +39,13 @@
 #include <ixml/ixmlparser.hpp>
 
 #include <cassert>
+// #include <stdlib.h> /* for free(), malloc() */
 #include <cstring>
 
+// #include "posix_overwrites.hpp" // IWYU pragma: keep
+
 void ixmlNode_init(IXML_Node* nodeptr) {
-    assert(nodeptr != NULL);
+    assert(nodeptr);
 
     memset(nodeptr, 0, sizeof(IXML_Node));
 }
@@ -52,7 +55,7 @@ void ixmlCDATASection_init(IXML_CDATASection* nodeptr) {
 }
 
 void ixmlCDATASection_free(IXML_CDATASection* nodeptr) {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         ixmlNode_free((IXML_Node*)nodeptr);
     }
 }
@@ -65,20 +68,20 @@ static void ixmlNode_freeSingleNode(
     IXML_Node* nodeptr) {
     IXML_Element* element = NULL;
 
-    if (nodeptr != NULL) {
-        if (nodeptr->nodeName != NULL) {
+    if (nodeptr) {
+        if (nodeptr->nodeName) {
             free(nodeptr->nodeName);
         }
-        if (nodeptr->nodeValue != NULL) {
+        if (nodeptr->nodeValue) {
             free(nodeptr->nodeValue);
         }
-        if (nodeptr->namespaceURI != NULL) {
+        if (nodeptr->namespaceURI) {
             free(nodeptr->namespaceURI);
         }
-        if (nodeptr->prefix != NULL) {
+        if (nodeptr->prefix) {
             free(nodeptr->prefix);
         }
-        if (nodeptr->localName != NULL) {
+        if (nodeptr->localName) {
             free(nodeptr->localName);
         }
         switch (nodeptr->nodeType) {
@@ -96,16 +99,16 @@ static void ixmlNode_freeSingleNode(
 #if 0
 /*
  * Old implementation of ixmlNode_free(). Due to its recursive nature, it was
- * succeptible to attacks overflowing the stack.
+ * susceptible to attacks overflowing the stack.
  *
  * void ixmlNode_free(IXML_Node *nodeptr)
  */
 void ixmlNode_recursive_free(IXML_Node *nodeptr)
 {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
 #ifdef IXML_HAVE_SCRIPTSUPPORT
-        IXML_BeforeFreeNode_t hndlr = Parser_getBeforeFree();
-        if (hndlr != NULL) hndlr(nodeptr);
+        IXML_BeforeFreeNode_t handler = Parser_getBeforeFree();
+        if (handler) handler(nodeptr);
 #endif
         ixmlNode_free(nodeptr->firstChild);
         ixmlNode_free(nodeptr->nextSibling);
@@ -127,7 +130,7 @@ void ixmlNode_free(IXML_Node* nodeptr) {
 
     if (nodeptr) {
 #ifdef IXML_HAVE_SCRIPTSUPPORT
-        IXML_BeforeFreeNode_t hndlr = Parser_getBeforeFree();
+        IXML_BeforeFreeNode_t handler = Parser_getBeforeFree();
 #endif
         prev_child = nodeptr;
         next_child = nodeptr->firstChild;
@@ -167,8 +170,8 @@ void ixmlNode_free(IXML_Node* nodeptr) {
                 }
             }
 #ifdef IXML_HAVE_SCRIPTSUPPORT
-            if (hndlr) {
-                hndlr(curr_child);
+            if (handler) {
+                handler(curr_child);
             }
 #endif
             ixmlNode_freeSingleNode(curr_child);
@@ -177,7 +180,7 @@ void ixmlNode_free(IXML_Node* nodeptr) {
 }
 
 const DOMString ixmlNode_getNodeName(IXML_Node* nodeptr) {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         return nodeptr->nodeName;
     }
 
@@ -185,7 +188,7 @@ const DOMString ixmlNode_getNodeName(IXML_Node* nodeptr) {
 }
 
 const DOMString ixmlNode_getLocalName(IXML_Node* nodeptr) {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         return nodeptr->localName;
     }
 
@@ -200,18 +203,16 @@ static int ixmlNode_setNamespaceURI(
     IXML_Node* nodeptr,
     /*! [in] The name space string to set. */
     const char* namespaceURI) {
-    if (nodeptr == NULL) {
+    if (!nodeptr) {
         return IXML_INVALID_PARAMETER;
     }
-
-    if (nodeptr->namespaceURI != NULL) {
+    if (nodeptr->namespaceURI) {
         free(nodeptr->namespaceURI);
         nodeptr->namespaceURI = NULL;
     }
-
-    if (namespaceURI != NULL) {
+    if (namespaceURI) {
         nodeptr->namespaceURI = strdup(namespaceURI);
-        if (nodeptr->namespaceURI == NULL) {
+        if (!nodeptr->namespaceURI) {
             return IXML_INSUFFICIENT_MEMORY;
         }
     }
@@ -227,18 +228,16 @@ static int ixmlNode_setPrefix(
     IXML_Node* nodeptr,
     /*! [in] The prefix string to set. */
     const char* prefix) {
-    if (nodeptr == NULL) {
+    if (!nodeptr) {
         return IXML_INVALID_PARAMETER;
     }
-
-    if (nodeptr->prefix != NULL) {
+    if (nodeptr->prefix) {
         free(nodeptr->prefix);
         nodeptr->prefix = NULL;
     }
-
-    if (prefix != NULL) {
+    if (prefix) {
         nodeptr->prefix = strdup(prefix);
-        if (nodeptr->prefix == NULL) {
+        if (!nodeptr->prefix) {
             return IXML_INSUFFICIENT_MEMORY;
         }
     }
@@ -256,16 +255,15 @@ static int ixmlNode_setLocalName(
     IXML_Node* nodeptr,
     /*! [in] The local name to set. */
     const char* localName) {
-    assert(nodeptr != NULL);
+    assert(nodeptr);
 
-    if (nodeptr->localName != NULL) {
+    if (nodeptr->localName) {
         free(nodeptr->localName);
         nodeptr->localName = NULL;
     }
-
-    if (localName != NULL) {
+    if (localName) {
         nodeptr->localName = strdup(localName);
-        if (nodeptr->localName == NULL) {
+        if (!nodeptr->localName) {
             return IXML_INSUFFICIENT_MEMORY;
         }
     }
@@ -276,7 +274,7 @@ static int ixmlNode_setLocalName(
 const DOMString ixmlNode_getNamespaceURI(IXML_Node* nodeptr) {
     DOMString retNamespaceURI = NULL;
 
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         retNamespaceURI = nodeptr->namespaceURI;
     }
 
@@ -286,7 +284,7 @@ const DOMString ixmlNode_getNamespaceURI(IXML_Node* nodeptr) {
 const DOMString ixmlNode_getPrefix(IXML_Node* nodeptr) {
     const DOMString prefix = NULL;
 
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         prefix = nodeptr->prefix;
     }
 
@@ -294,7 +292,7 @@ const DOMString ixmlNode_getPrefix(IXML_Node* nodeptr) {
 }
 
 const DOMString ixmlNode_getNodeValue(IXML_Node* nodeptr) {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         return nodeptr->nodeValue;
     }
 
@@ -304,18 +302,16 @@ const DOMString ixmlNode_getNodeValue(IXML_Node* nodeptr) {
 int ixmlNode_setNodeValue(IXML_Node* nodeptr, const char* newNodeValue) {
     int rc = IXML_SUCCESS;
 
-    if (nodeptr == NULL) {
+    if (!nodeptr) {
         return IXML_INVALID_PARAMETER;
     }
-
-    if (nodeptr->nodeValue != NULL) {
+    if (nodeptr->nodeValue) {
         free(nodeptr->nodeValue);
         nodeptr->nodeValue = NULL;
     }
-
-    if (newNodeValue != NULL) {
+    if (newNodeValue) {
         nodeptr->nodeValue = strdup(newNodeValue);
-        if (nodeptr->nodeValue == NULL) {
+        if (!nodeptr->nodeValue) {
             return IXML_INSUFFICIENT_MEMORY;
         }
     }
@@ -324,15 +320,15 @@ int ixmlNode_setNodeValue(IXML_Node* nodeptr, const char* newNodeValue) {
 }
 
 unsigned short ixmlNode_getNodeType(IXML_Node* nodeptr) {
-    if (nodeptr != NULL) {
-        return static_cast<unsigned short>(nodeptr->nodeType);
+    if (nodeptr) {
+        return (unsigned short)nodeptr->nodeType;
     } else {
-        return static_cast<unsigned short>(eINVALID_NODE);
+        return (unsigned short)eINVALID_NODE;
     }
 }
 
 IXML_Node* ixmlNode_getParentNode(IXML_Node* nodeptr) {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         return nodeptr->parentNode;
     } else {
         return NULL;
@@ -340,7 +336,7 @@ IXML_Node* ixmlNode_getParentNode(IXML_Node* nodeptr) {
 }
 
 IXML_Node* ixmlNode_getFirstChild(IXML_Node* nodeptr) {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         return nodeptr->firstChild;
     } else {
         return NULL;
@@ -351,10 +347,10 @@ IXML_Node* ixmlNode_getLastChild(IXML_Node* nodeptr) {
     IXML_Node* prev;
     IXML_Node* next;
 
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         prev = nodeptr;
         next = nodeptr->firstChild;
-        while (next != NULL) {
+        while (next) {
             prev = next;
             next = next->nextSibling;
         }
@@ -365,7 +361,7 @@ IXML_Node* ixmlNode_getLastChild(IXML_Node* nodeptr) {
 }
 
 IXML_Node* ixmlNode_getPreviousSibling(IXML_Node* nodeptr) {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         return nodeptr->prevSibling;
     } else {
         return NULL;
@@ -373,7 +369,7 @@ IXML_Node* ixmlNode_getPreviousSibling(IXML_Node* nodeptr) {
 }
 
 IXML_Node* ixmlNode_getNextSibling(IXML_Node* nodeptr) {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         return nodeptr->nextSibling;
     } else {
         return NULL;
@@ -381,7 +377,7 @@ IXML_Node* ixmlNode_getNextSibling(IXML_Node* nodeptr) {
 }
 
 IXML_Document* ixmlNode_getOwnerDocument(IXML_Node* nodeptr) {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         return (IXML_Document*)nodeptr->ownerDocument;
     } else {
         return NULL;
@@ -400,7 +396,7 @@ static int ixmlNode_isAncestor(
     IXML_Node* toFind) {
     int found = 0;
 
-    if (ancestorNode != NULL && toFind != NULL) {
+    if (ancestorNode && toFind) {
         if (toFind->parentNode == ancestorNode) {
             return 1;
         } else {
@@ -426,10 +422,11 @@ static int ixmlNode_isParent(
     IXML_Node* toFind) {
     int found = 0;
 
-    assert(nodeptr != NULL && toFind != NULL);
+    assert(nodeptr && toFind);
 
-    if (nodeptr != NULL && toFind != NULL)
+    if (nodeptr && toFind) {
         found = toFind->parentNode == nodeptr;
+    }
 
     return found;
 }
@@ -446,14 +443,13 @@ static int ixmlNode_allowChildren(
     IXML_Node* nodeptr,
     /*! [in] The child \b Node to check. */
     IXML_Node* newChild) {
-    assert(nodeptr != NULL && newChild != NULL);
+    assert(nodeptr && newChild);
 
     switch (nodeptr->nodeType) {
     case eATTRIBUTE_NODE:
     case eTEXT_NODE:
     case eCDATA_SECTION_NODE:
         return 0;
-
     case eELEMENT_NODE:
         switch (newChild->nodeType) {
         case eATTRIBUTE_NODE:
@@ -463,7 +459,6 @@ static int ixmlNode_allowChildren(
             break;
         }
         break;
-
     case eDOCUMENT_NODE:
         switch (newChild->nodeType) {
         case eELEMENT_NODE:
@@ -472,7 +467,6 @@ static int ixmlNode_allowChildren(
             return 0;
         }
         break;
-
     default:
         break;
     }
@@ -490,11 +484,12 @@ static int ixmlNode_allowChildren(
  */
 int ixmlNode_compare(
     /*! [in] The first \b Node. */
-    IXML_Node* srcNode,
+    const IXML_Node* srcNode,
     /*! [in] The second \b Node. */
-    IXML_Node* destNode) {
-    assert(srcNode != NULL && destNode != NULL);
+    const IXML_Node* destNode) {
+    assert(srcNode && destNode);
 
+    /* clang-format off */
     return srcNode == destNode ||
            (strcmp(srcNode->nodeName, destNode->nodeName) == 0 &&
             strcmp(srcNode->nodeValue, destNode->nodeValue) == 0 &&
@@ -502,13 +497,14 @@ int ixmlNode_compare(
             strcmp(srcNode->namespaceURI, destNode->namespaceURI) == 0 &&
             strcmp(srcNode->prefix, destNode->prefix) == 0 &&
             strcmp(srcNode->localName, destNode->localName) == 0);
+    /* clang-format on */
 }
 
 int ixmlNode_insertBefore(IXML_Node* nodeptr, IXML_Node* newChild,
                           IXML_Node* refChild) {
     int ret = IXML_SUCCESS;
 
-    if (nodeptr == NULL || newChild == NULL) {
+    if (!nodeptr || !newChild) {
         return IXML_INVALID_PARAMETER;
     }
     /* whether nodeptr allow children of the type of newChild */
@@ -527,20 +523,19 @@ int ixmlNode_insertBefore(IXML_Node* nodeptr, IXML_Node* newChild,
     if (ixmlNode_isParent(nodeptr, refChild) == 0) {
         return IXML_NOT_FOUND_ERR;
     }
-
-    if (refChild != NULL) {
+    if (refChild) {
         if (ixmlNode_isParent(nodeptr, newChild)) {
             ixmlNode_removeChild(nodeptr, newChild, &newChild);
             newChild->nextSibling = NULL;
             newChild->prevSibling = NULL;
         }
         newChild->nextSibling = refChild;
-        if (refChild->prevSibling != NULL) {
+        if (refChild->prevSibling) {
             refChild->prevSibling->nextSibling = newChild;
             newChild->prevSibling = refChild->prevSibling;
         }
         refChild->prevSibling = newChild;
-        if (newChild->prevSibling == NULL) {
+        if (!newChild->prevSibling) {
             nodeptr->firstChild = newChild;
         }
         newChild->parentNode = nodeptr;
@@ -555,7 +550,7 @@ int ixmlNode_replaceChild(IXML_Node* nodeptr, IXML_Node* newChild,
                           IXML_Node* oldChild, IXML_Node** returnNode) {
     int ret = IXML_SUCCESS;
 
-    if (nodeptr == NULL || newChild == NULL || oldChild == NULL) {
+    if (!nodeptr || !newChild || !oldChild) {
         return IXML_INVALID_PARAMETER;
     }
     /* if nodetype of nodeptr does not allow children of the type of
@@ -564,7 +559,6 @@ int ixmlNode_replaceChild(IXML_Node* nodeptr, IXML_Node* newChild,
     if (ixmlNode_isAncestor(newChild, nodeptr)) {
         return IXML_HIERARCHY_REQUEST_ERR;
     }
-
     if (ixmlNode_allowChildren(nodeptr, newChild) == 0) {
         return IXML_HIERARCHY_REQUEST_ERR;
     }
@@ -576,35 +570,39 @@ int ixmlNode_replaceChild(IXML_Node* nodeptr, IXML_Node* newChild,
     if (ixmlNode_isParent(nodeptr, oldChild) != 1) {
         return IXML_NOT_FOUND_ERR;
     }
-
     ret = ixmlNode_insertBefore(nodeptr, newChild, oldChild);
     if (ret != IXML_SUCCESS) {
         return ret;
     }
-
     ret = ixmlNode_removeChild(nodeptr, oldChild, returnNode);
     return ret;
 }
 
 int ixmlNode_removeChild(IXML_Node* nodeptr, IXML_Node* oldChild,
                          IXML_Node** returnNode) {
-    if (!nodeptr || !oldChild)
+    if (!nodeptr || !oldChild) {
         return IXML_INVALID_PARAMETER;
-    if (!ixmlNode_isParent(nodeptr, oldChild))
+    }
+    if (!ixmlNode_isParent(nodeptr, oldChild)) {
         return IXML_NOT_FOUND_ERR;
-    if (oldChild->prevSibling)
+    }
+    if (oldChild->prevSibling) {
         oldChild->prevSibling->nextSibling = oldChild->nextSibling;
-    if (nodeptr->firstChild == oldChild)
+    }
+    if (nodeptr->firstChild == oldChild) {
         nodeptr->firstChild = oldChild->nextSibling;
-    if (oldChild->nextSibling)
+    }
+    if (oldChild->nextSibling) {
         oldChild->nextSibling->prevSibling = oldChild->prevSibling;
+    }
     oldChild->nextSibling = NULL;
     oldChild->prevSibling = NULL;
     oldChild->parentNode = NULL;
-    if (returnNode)
+    if (returnNode) {
         *returnNode = oldChild;
-    else
+    } else {
         ixmlNode_free(oldChild);
+    }
 
     return IXML_SUCCESS;
 }
@@ -613,11 +611,11 @@ int ixmlNode_appendChild(IXML_Node* nodeptr, IXML_Node* newChild) {
     IXML_Node* prev = NULL;
     IXML_Node* next = NULL;
 
-    if (nodeptr == NULL || newChild == NULL) {
+    if (!nodeptr || !newChild) {
         return IXML_INVALID_PARAMETER;
     }
     /* if newChild was created from a different document */
-    if (newChild->ownerDocument != NULL &&
+    if (newChild->ownerDocument &&
         nodeptr->ownerDocument != newChild->ownerDocument) {
         return IXML_WRONG_DOCUMENT_ERR;
     }
@@ -629,21 +627,19 @@ int ixmlNode_appendChild(IXML_Node* nodeptr, IXML_Node* newChild) {
     if (ixmlNode_allowChildren(nodeptr, newChild) == 0) {
         return IXML_HIERARCHY_REQUEST_ERR;
     }
-
     if (ixmlNode_isParent(nodeptr, newChild)) {
         ixmlNode_removeChild(nodeptr, newChild, &newChild);
     }
     /* set the parent node pointer */
     newChild->parentNode = nodeptr;
     newChild->ownerDocument = nodeptr->ownerDocument;
-
     /* if the first child */
-    if (nodeptr->firstChild == NULL) {
+    if (!nodeptr->firstChild) {
         nodeptr->firstChild = newChild;
     } else {
         prev = nodeptr->firstChild;
         next = prev->nextSibling;
-        while (next != NULL) {
+        while (next) {
             prev = next;
             next = prev->nextSibling;
         }
@@ -665,10 +661,10 @@ static IXML_Node* ixmlNode_cloneTextNode(
     IXML_Node* newNode = NULL;
     int rc;
 
-    assert(nodeptr != NULL);
+    assert(nodeptr);
 
     newNode = (IXML_Node*)malloc(sizeof(IXML_Node));
-    if (newNode == NULL) {
+    if (!newNode) {
         return NULL;
     } else {
         ixmlNode_init(newNode);
@@ -701,9 +697,9 @@ static IXML_CDATASection* ixmlNode_cloneCDATASect(
     IXML_Node* srcNode;
     int rc;
 
-    assert(nodeptr != NULL);
+    assert(nodeptr);
     newCDATA = (IXML_CDATASection*)malloc(sizeof(IXML_CDATASection));
-    if (newCDATA != NULL) {
+    if (newCDATA) {
         newNode = (IXML_Node*)newCDATA;
         ixmlCDATASection_init(newCDATA);
         srcNode = (IXML_Node*)nodeptr;
@@ -736,20 +732,18 @@ static IXML_Element* ixmlNode_cloneElement(
     IXML_Node* srcNode;
     int rc;
 
-    assert(nodeptr != NULL);
+    assert(nodeptr);
 
     newElement = (IXML_Element*)malloc(sizeof(IXML_Element));
-    if (newElement == NULL) {
+    if (!newElement) {
         return NULL;
     }
-
     ixmlElement_init(newElement);
     rc = ixmlElement_setTagName(newElement, nodeptr->tagName);
     if (rc != IXML_SUCCESS) {
         ixmlElement_free(newElement);
         return NULL;
     }
-
     elementNode = (IXML_Node*)newElement;
     srcNode = (IXML_Node*)nodeptr;
     rc = ixmlNode_setNodeName(elementNode, srcNode->nodeName);
@@ -757,31 +751,26 @@ static IXML_Element* ixmlNode_cloneElement(
         ixmlElement_free(newElement);
         return NULL;
     }
-
     rc = ixmlNode_setNodeValue(elementNode, srcNode->nodeValue);
     if (rc != IXML_SUCCESS) {
         ixmlElement_free(newElement);
         return NULL;
     }
-
     rc = ixmlNode_setNamespaceURI(elementNode, srcNode->namespaceURI);
     if (rc != IXML_SUCCESS) {
         ixmlElement_free(newElement);
         return NULL;
     }
-
     rc = ixmlNode_setPrefix(elementNode, srcNode->prefix);
     if (rc != IXML_SUCCESS) {
         ixmlElement_free(newElement);
         return NULL;
     }
-
     rc = ixmlNode_setLocalName(elementNode, srcNode->localName);
     if (rc != IXML_SUCCESS) {
         ixmlElement_free(newElement);
         return NULL;
     }
-
     elementNode->nodeType = eELEMENT_NODE;
 
     return newElement;
@@ -801,8 +790,9 @@ static IXML_Document* ixmlNode_newDoc(void) {
     int rc;
 
     newDoc = (IXML_Document*)malloc(sizeof(IXML_Document));
-    if (!newDoc)
+    if (!newDoc) {
         return NULL;
+    }
     ixmlDocument_init(newDoc);
     docNode = (IXML_Node*)newDoc;
     rc = ixmlNode_setNodeName(docNode, DOCUMENTNODENAME);
@@ -828,29 +818,25 @@ static IXML_Attr* ixmlNode_cloneAttr(
     IXML_Node* srcNode;
     int rc;
 
-    assert(nodeptr != NULL);
+    assert(nodeptr);
 
     newAttr = (IXML_Attr*)malloc(sizeof(IXML_Attr));
-    if (newAttr == NULL) {
+    if (!newAttr) {
         return NULL;
     }
-
     ixmlAttr_init(newAttr);
     attrNode = (IXML_Node*)newAttr;
     srcNode = (IXML_Node*)nodeptr;
-
     rc = ixmlNode_setNodeName(attrNode, srcNode->nodeName);
     if (rc != IXML_SUCCESS) {
         ixmlAttr_free(newAttr);
         return NULL;
     }
-
     rc = ixmlNode_setNodeValue(attrNode, srcNode->nodeValue);
     if (rc != IXML_SUCCESS) {
         ixmlAttr_free(newAttr);
         return NULL;
     }
-
     /* Check to see whether we need to split prefix and localname for
      * attribute */
     rc = ixmlNode_setNamespaceURI(attrNode, srcNode->namespaceURI);
@@ -858,19 +844,16 @@ static IXML_Attr* ixmlNode_cloneAttr(
         ixmlAttr_free(newAttr);
         return NULL;
     }
-
     rc = ixmlNode_setPrefix(attrNode, srcNode->prefix);
     if (rc != IXML_SUCCESS) {
         ixmlAttr_free(newAttr);
         return NULL;
     }
-
     rc = ixmlNode_setLocalName(attrNode, srcNode->localName);
     if (rc != IXML_SUCCESS) {
         ixmlAttr_free(newAttr);
         return NULL;
     }
-
     attrNode->nodeType = eATTRIBUTE_NODE;
 
     return newAttr;
@@ -886,10 +869,10 @@ static IXML_Attr* ixmlNode_cloneAttrDirect(
     IXML_Attr* nodeptr) {
     IXML_Attr* newAttr;
 
-    assert(nodeptr != NULL);
+    assert(nodeptr);
 
     newAttr = ixmlNode_cloneAttr(nodeptr);
-    if (newAttr != NULL) {
+    if (newAttr) {
         newAttr->specified = 1;
     }
 
@@ -905,7 +888,7 @@ static void ixmlNode_setSiblingNodesParent(
     IXML_Node* parentNode = nodeptr->parentNode;
     IXML_Node* nextptr = nodeptr->nextSibling;
 
-    while (nextptr != NULL) {
+    while (nextptr) {
         nextptr->parentNode = parentNode;
         nextptr = nextptr->nextSibling;
     }
@@ -928,18 +911,19 @@ static IXML_Node* ixmlNode_cloneNodeTreeRecursive(
     IXML_Document* newDoc = NULL;
     IXML_Node* nextSib = NULL;
 
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         switch (nodeptr->nodeType) {
         case eELEMENT_NODE:
             newElement = ixmlNode_cloneElement((IXML_Element*)nodeptr);
-            if (newElement == NULL)
+            if (!newElement) {
                 return NULL;
+            }
             newElement->n.firstAttr =
                 ixmlNode_cloneNodeTreeRecursive(nodeptr->firstAttr, deep);
             if (deep) {
                 newElement->n.firstChild =
                     ixmlNode_cloneNodeTreeRecursive(nodeptr->firstChild, deep);
-                if (newElement->n.firstChild != NULL) {
+                if (newElement->n.firstChild) {
                     newElement->n.firstChild->parentNode =
                         (IXML_Node*)newElement;
                     ixmlNode_setSiblingNodesParent(newElement->n.firstChild);
@@ -947,49 +931,45 @@ static IXML_Node* ixmlNode_cloneNodeTreeRecursive(
                 nextSib =
                     ixmlNode_cloneNodeTreeRecursive(nodeptr->nextSibling, deep);
                 newElement->n.nextSibling = nextSib;
-                if (nextSib != NULL) {
+                if (nextSib) {
                     nextSib->prevSibling = (IXML_Node*)newElement;
                 }
             }
             newNode = (IXML_Node*)newElement;
             break;
-
         case eATTRIBUTE_NODE:
             newAttr = ixmlNode_cloneAttr((IXML_Attr*)nodeptr);
-            if (newAttr == NULL)
+            if (!newAttr)
                 return NULL;
             nextSib =
                 ixmlNode_cloneNodeTreeRecursive(nodeptr->nextSibling, deep);
             newAttr->n.nextSibling = nextSib;
-            if (nextSib != NULL) {
+            if (nextSib) {
                 nextSib->prevSibling = (IXML_Node*)newAttr;
             }
             newNode = (IXML_Node*)newAttr;
             break;
-
         case eTEXT_NODE:
             newNode = ixmlNode_cloneTextNode(nodeptr);
             break;
-
         case eCDATA_SECTION_NODE:
             newCDATA = ixmlNode_cloneCDATASect((IXML_CDATASection*)nodeptr);
             newNode = (IXML_Node*)newCDATA;
             break;
-
         case eDOCUMENT_NODE:
             newDoc = ixmlNode_newDoc();
-            if (newDoc == NULL)
+            if (!newDoc) {
                 return NULL;
+            }
             newNode = (IXML_Node*)newDoc;
             if (deep) {
                 newNode->firstChild =
                     ixmlNode_cloneNodeTreeRecursive(nodeptr->firstChild, deep);
-                if (newNode->firstChild != NULL) {
+                if (newNode->firstChild) {
                     newNode->firstChild->parentNode = newNode;
                 }
             }
             break;
-
         case eINVALID_NODE:
         case eENTITY_REFERENCE_NODE:
         case eENTITY_NODE:
@@ -1019,20 +999,21 @@ static IXML_Node* ixmlNode_cloneNodeTree(
     IXML_Element* newElement;
     IXML_Node* childNode;
 
-    assert(nodeptr != NULL);
+    assert(nodeptr);
 
     switch (nodeptr->nodeType) {
     case eELEMENT_NODE:
         newElement = ixmlNode_cloneElement((IXML_Element*)nodeptr);
-        if (newElement == NULL)
+        if (!newElement) {
             return NULL;
+        }
         newElement->n.firstAttr =
             ixmlNode_cloneNodeTreeRecursive(nodeptr->firstAttr, deep);
         if (deep) {
             newElement->n.firstChild =
                 ixmlNode_cloneNodeTreeRecursive(nodeptr->firstChild, deep);
             childNode = newElement->n.firstChild;
-            while (childNode != NULL) {
+            while (childNode) {
                 childNode->parentNode = (IXML_Node*)newElement;
                 childNode = childNode->nextSibling;
             }
@@ -1040,14 +1021,12 @@ static IXML_Node* ixmlNode_cloneNodeTree(
         }
         newNode = (IXML_Node*)newElement;
         break;
-
     case eATTRIBUTE_NODE:
     case eTEXT_NODE:
     case eCDATA_SECTION_NODE:
     case eDOCUMENT_NODE:
         newNode = ixmlNode_cloneNodeTreeRecursive(nodeptr, deep);
         break;
-
     case eINVALID_NODE:
     case eENTITY_REFERENCE_NODE:
     case eENTITY_NODE:
@@ -1059,7 +1038,7 @@ static IXML_Node* ixmlNode_cloneNodeTree(
 #if 0
         /* create a new node here? */
         newNode = (IXML_Node *)malloc(sizeof(IXML_Node));
-        if (newNode == NULL) {
+        if (!newNode ) {
             return NULL;
         }
 #endif
@@ -1067,8 +1046,9 @@ static IXML_Node* ixmlNode_cloneNodeTree(
     }
 
     /* by spec, the duplicate node has no parent */
-    if (newNode != NULL)
+    if (newNode) {
         newNode->parentNode = NULL;
+    }
 
     return newNode;
 }
@@ -1079,7 +1059,6 @@ IXML_Node* ixmlNode_cloneNode(IXML_Node* nodeptr, int deep) {
     if (!nodeptr) {
         goto end_function;
     }
-
     switch (nodeptr->nodeType) {
     case eATTRIBUTE_NODE:
         node = (IXML_Node*)ixmlNode_cloneAttrDirect((IXML_Attr*)nodeptr);
@@ -1098,24 +1077,21 @@ IXML_NodeList* ixmlNode_getChildNodes(IXML_Node* nodeptr) {
     IXML_NodeList* newNodeList;
     int rc;
 
-    if (nodeptr == NULL) {
+    if (!nodeptr) {
         return NULL;
     }
-
     newNodeList = (IXML_NodeList*)malloc(sizeof(IXML_NodeList));
-    if (newNodeList == NULL) {
+    if (!newNodeList) {
         return NULL;
     }
-
     ixmlNodeList_init(newNodeList);
     tempNode = nodeptr->firstChild;
-    while (tempNode != NULL) {
+    while (tempNode) {
         rc = ixmlNodeList_addToNodeList(&newNodeList, tempNode);
         if (rc != IXML_SUCCESS) {
             ixmlNodeList_free(newNodeList);
             return NULL;
         }
-
         tempNode = tempNode->nextSibling;
     }
 
@@ -1127,28 +1103,25 @@ IXML_NamedNodeMap* ixmlNode_getAttributes(IXML_Node* nodeptr) {
     IXML_Node* tempNode;
     int rc;
 
-    if (nodeptr == NULL) {
+    if (!nodeptr) {
         return NULL;
     }
-
     switch (nodeptr->nodeType) {
     case eELEMENT_NODE:
         returnNamedNodeMap =
             (IXML_NamedNodeMap*)malloc(sizeof(IXML_NamedNodeMap));
-        if (returnNamedNodeMap == NULL) {
+        if (!returnNamedNodeMap) {
             return NULL;
         }
-
         ixmlNamedNodeMap_init(returnNamedNodeMap);
         tempNode = nodeptr->firstAttr;
-        while (tempNode != NULL) {
+        while (tempNode) {
             rc = ixmlNamedNodeMap_addToNamedNodeMap(&returnNamedNodeMap,
                                                     tempNode);
             if (rc != IXML_SUCCESS) {
                 ixmlNamedNodeMap_free(returnNamedNodeMap);
                 return NULL;
             }
-
             tempNode = tempNode->nextSibling;
         }
         return returnNamedNodeMap;
@@ -1159,7 +1132,7 @@ IXML_NamedNodeMap* ixmlNode_getAttributes(IXML_Node* nodeptr) {
 }
 
 int ixmlNode_hasChildNodes(IXML_Node* nodeptr) {
-    if (nodeptr == NULL) {
+    if (!nodeptr) {
         return 0;
     }
 
@@ -1167,10 +1140,10 @@ int ixmlNode_hasChildNodes(IXML_Node* nodeptr) {
 }
 
 int ixmlNode_hasAttributes(IXML_Node* nodeptr) {
-    if (nodeptr != NULL) {
+    if (nodeptr) {
         switch (nodeptr->nodeType) {
         case eELEMENT_NODE:
-            if (nodeptr->firstAttr != NULL)
+            if (nodeptr->firstAttr)
                 return 1;
             break;
         default:
@@ -1194,7 +1167,7 @@ static void ixmlNode_getElementsByTagNameRecursive(
     IXML_NodeList** list) {
     const char* name;
 
-    if (n != NULL) {
+    if (n) {
         if (ixmlNode_getNodeType(n) == eELEMENT_NODE) {
             name = ixmlNode_getNodeName(n);
             if (strcmp(tagname, name) == 0 || strcmp(tagname, "*") == 0) {
@@ -1212,7 +1185,7 @@ void ixmlNode_getElementsByTagName(IXML_Node* n, const char* tagname,
                                    IXML_NodeList** list) {
     const char* name;
 
-    assert(n != NULL && tagname != NULL);
+    assert(n && tagname);
 
     if (ixmlNode_getNodeType(n) == eELEMENT_NODE) {
         name = ixmlNode_getNodeName(n);
@@ -1239,12 +1212,12 @@ static void ixmlNode_getElementsByTagNameNSRecursive(
     const DOMString nsURI;
     const DOMString name;
 
-    if (n != NULL) {
+    if (n) {
         if (ixmlNode_getNodeType(n) == eELEMENT_NODE) {
             name = ixmlNode_getLocalName(n);
             nsURI = ixmlNode_getNamespaceURI(n);
 
-            if (name != NULL && nsURI != NULL &&
+            if (name && nsURI &&
                 (strcmp(namespaceURI, nsURI) == 0 ||
                  strcmp(namespaceURI, "*") == 0) &&
                 (strcmp(name, localName) == 0 || strcmp(localName, "*") == 0)) {
@@ -1264,12 +1237,12 @@ void ixmlNode_getElementsByTagNameNS(IXML_Node* n, const char* namespaceURI,
     const DOMString nsURI;
     const DOMString name;
 
-    assert(n != NULL && namespaceURI != NULL && localName != NULL);
+    assert(n && namespaceURI && localName);
 
     if (ixmlNode_getNodeType(n) == eELEMENT_NODE) {
         name = ixmlNode_getLocalName(n);
         nsURI = ixmlNode_getNamespaceURI(n);
-        if (name != NULL && nsURI != NULL &&
+        if (name && nsURI &&
             (strcmp(namespaceURI, nsURI) == 0 ||
              strcmp(namespaceURI, "*") == 0) &&
             (strcmp(name, localName) == 0 || strcmp(localName, "*") == 0)) {
@@ -1284,20 +1257,18 @@ void ixmlNode_getElementsByTagNameNS(IXML_Node* n, const char* namespaceURI,
 int ixmlNode_setNodeName(IXML_Node* node, const DOMString qualifiedName) {
     int rc = IXML_SUCCESS;
 
-    assert(node != NULL);
+    assert(node);
 
-    if (node->nodeName != NULL) {
+    if (node->nodeName) {
         free(node->nodeName);
         node->nodeName = NULL;
     }
-
-    if (qualifiedName != NULL) {
+    if (qualifiedName) {
         /* set the name part */
         node->nodeName = strdup(qualifiedName);
-        if (node->nodeName == NULL) {
+        if (!node->nodeName) {
             return IXML_INSUFFICIENT_MEMORY;
         }
-
         rc = Parser_setNodePrefixAndLocalName(node);
         if (rc != IXML_SUCCESS) {
             free(node->nodeName);
@@ -1310,21 +1281,18 @@ int ixmlNode_setNodeName(IXML_Node* node, const DOMString qualifiedName) {
 int ixmlNode_setNodeProperties(IXML_Node* destNode, IXML_Node* src) {
     int rc;
 
-    assert(destNode != NULL && src != NULL);
-    if (destNode == NULL || src == NULL) {
+    assert(destNode && src);
+    if (!destNode || !src) {
         return IXML_INVALID_PARAMETER;
     }
-
     rc = ixmlNode_setNodeValue(destNode, src->nodeValue);
     if (rc != IXML_SUCCESS) {
         goto ErrorHandler;
     }
-
     rc = ixmlNode_setLocalName(destNode, src->localName);
     if (rc != IXML_SUCCESS) {
         goto ErrorHandler;
     }
-
     rc = ixmlNode_setPrefix(destNode, src->prefix);
     if (rc != IXML_SUCCESS) {
         goto ErrorHandler;
@@ -1335,15 +1303,15 @@ int ixmlNode_setNodeProperties(IXML_Node* destNode, IXML_Node* src) {
     return IXML_SUCCESS;
 
 ErrorHandler:
-    if (destNode->nodeName != NULL) {
+    if (destNode->nodeName) {
         free(destNode->nodeName);
         destNode->nodeName = NULL;
     }
-    if (destNode->nodeValue != NULL) {
+    if (destNode->nodeValue) {
         free(destNode->nodeValue);
         destNode->nodeValue = NULL;
     }
-    if (destNode->localName != NULL) {
+    if (destNode->localName) {
         free(destNode->localName);
         destNode->localName = NULL;
     }
@@ -1353,14 +1321,16 @@ ErrorHandler:
 
 #ifdef IXML_HAVE_SCRIPTSUPPORT
 void ixmlNode_setCTag(IXML_Node* nodeptr, void* ctag) {
-    if (nodeptr != NULL)
+    if (nodeptr) {
         nodeptr->ctag = ctag;
+    }
 }
 
 void* ixmlNode_getCTag(IXML_Node* nodeptr) {
-    if (nodeptr != NULL)
+    if (nodeptr) {
         return nodeptr->ctag;
-    else
+    } else {
         return NULL;
+    }
 }
 #endif

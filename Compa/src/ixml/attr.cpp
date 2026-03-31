@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-29
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-31
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,19 +31,20 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
+// Last compare with ./Pupnp source file, based on 2026-03-16, ver 1.14.30
 
 #include <ixml/ixmlparser.hpp>
 
 #include <cstring>
 
 void ixmlAttr_init(IXML_Attr* attr) {
-    if (attr != NULL) {
+    if (attr) {
         memset(attr, 0, sizeof(IXML_Attr));
     }
 }
 
 void ixmlAttr_free(IXML_Attr* attr) {
-    if (attr != NULL) {
+    if (attr) {
         ixmlNode_free((IXML_Node*)attr);
     }
 }

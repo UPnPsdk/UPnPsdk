@@ -2,7 +2,7 @@ name: Integration tests
 
 on:
   push:
-    branches: [ connections, main ]
+    branches: [ update_ixml, main ]
   pull_request:
     branches: [ main ]
 

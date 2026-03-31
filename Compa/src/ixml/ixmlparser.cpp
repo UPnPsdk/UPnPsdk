@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-17
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,22 +31,29 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  ******************************************************************************/
-// Last updated from ./Pupnp source file on 2025-07-17, ver 1.14.21
+// Last compare with ./Pupnp source file, based on 2026-03-16, ver 1.14.30
 /*!
  * \file
  */
 
+// #include "autoconfig.h"
+
 #include <ixml/ixmlparser.hpp>
+
 #include <ixml/ixmldebug.hpp>
+
 #include <UPnPsdk/port.hpp>
 
+/// \cond
 #include <cassert>
 #include <climits>
 #include <cstddef> /* for ptrdiff_t */
 #include <cstdio>
+// #include <stdlib.h> /* for free(), malloc() */
 #include <cstring>
 
-/// \cond
+// #include "posix_overwrites.hpp" // IWYU pragma: keep
+
 static char g_error_char = '\0';
 #ifdef IXML_HAVE_SCRIPTSUPPORT
 static IXML_BeforeFreeNode_t Before_Free_callback;
@@ -1265,8 +1272,8 @@ static int Parser_processContent(
             } else {
                 xmlParser->curPtr = pEndContent;
             }
-        } else if (strncmp(pEndContent, (char*)BEGIN_PI, strlen(BEGIN_PI)) ==
-                   0) {
+        } else if (strncmp(pEndContent, (const char*)BEGIN_PI,
+                           strlen(BEGIN_PI)) == 0) {
             if (Parser_skipPI(&pEndContent) != IXML_SUCCESS) {
                 line = __LINE__;
                 ret = IXML_SYNTAX_ERR;

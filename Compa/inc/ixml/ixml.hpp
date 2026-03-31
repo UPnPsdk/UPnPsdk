@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-12
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-31
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  **************************************************************************/
-// Last compare with pupnp original source file on 2025-05-23, ver 1.14.20
+// Last compare with ./Pupnp source file, based on 2026-03-26, ver 1.14.30
 /*!
  * \file
  * \defgroup XMLAPI XML API
@@ -208,7 +208,6 @@ typedef struct _IXML_NamedNodeMap {
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
-
 
 /*!
  * \name Interface Node
@@ -450,7 +449,7 @@ PUPNP_Api int ixmlNode_insertBefore(
  *
  * \return An integer representing one of the following:
  *      \li \c IXML_SUCCESS: The operation completed successfully.
- *      \li \c IXML_INVALID_PARAMTER: Either \b nodeptr, \b newChild,
+ *      \li \c IXML_INVALID_PARAMETER: Either \b nodeptr, \b newChild,
  *          or \b oldChild is \c NULL.
  *      \li \c IXML_HIERARCHY_REQUEST_ERR: The \b newChild is not
  *            a type of \b Node that can be inserted into this tree or
@@ -884,7 +883,7 @@ PUPNP_Api int ixmlDocument_createElementNSEx(
  * namespace URI.
  *
  * \return A pointer to the new \b Element object with tagName qualifiedName,
- * prefix and localName extraced from qualfiedName, nodeName of qualfiedName,
+ * prefix and localName extracted from qualifiedName, nodeName of qualfiedName,
  * namespaceURI of namespaceURI or \c NULL on failure.
  */
 PUPNP_Api IXML_Element* ixmlDocument_createElementNS(
@@ -1122,7 +1121,7 @@ PUPNP_Api IXML_Attr* ixmlElement_getAttributeNode(
  * If an attribute already exists with \b newAttr as a name, it will be
  * replaced with the new one and the old one will be returned in \b rtAttr.
  *
- * \return If successfull, the replaced attribute node is returned in rtAttr,
+ * \return If successful, the replaced attribute node is returned in rtAttr,
  * otherwise, \b NULL is returned in this pointer. The function return value
  * is an integer representing one of the following:
  *     \li \c IXML_SUCCESS: The operation completed successfully.
@@ -1193,12 +1192,12 @@ PUPNP_Api const DOMString ixmlElement_getAttributeNS(
     const DOMString localname);
 
 /*!
- * \brief Adds a new attribute to an \b Element using the local name and
- * namespace URI.
+ * \brief Adds a new attribute to an \b Element using the local qualified name
+ * and namespace URI.
  *
- * If another attribute matches the same local name and namespace, the prefix
- * is changed to be the prefix part of the \c qualifiedName and the value is
- * changed to \b value.
+ * If another attribute matches the same local qualified name and namespace, the
+ * prefix is changed to be the prefix part of the \c qualifiedName and the value
+ * is changed to \b value.
  *
  * \return An integer representing one of the following:
  *     \li \c IXML_SUCCESS: The operation completed successfully.
@@ -1397,10 +1396,10 @@ PUPNP_Api IXML_Node* ixmlNamedNodeMap_removeNamedItem(
     const DOMString name);
 
 /*!
- * \brief Retrieves the indexth item in the map. If index is greater than or
+ * \brief Retrieves the index_th item in the map. If index is greater than or
  * equal to the number of nodes in this map, this returns \b NULL.
  *
- * \return The node at the indexth position in the map, or \b NULL if that is
+ * \return The node at the index_th position in the map, or \b NULL if that is
  *  not a valid index.
  */
 PUPNP_Api IXML_Node* ixmlNamedNodeMap_item(
@@ -1625,12 +1624,12 @@ PUPNP_Api void ixmlRelaxParser(
  * \brief Sets the handler to call before a node is freed.
  */
 PUPNP_Api void ixmlSetBeforeFree(
-    /*! [in] If \b hndlr is set to a function, it will be called before any
-     * node is freed, with the node as its parameter. This allows scripting
-     * languages to do their garbage collection, without maintaining their
-     * own tree structure.
+    /*! [in] If \b handler is set to a function, it will be called before
+     * any node is freed, with the node as its parameter. This allows
+     * scripting languages to do their garbage collection, without
+     * maintaining their own tree structure.
      */
-    IXML_BeforeFreeNode_t hndlr);
+    IXML_BeforeFreeNode_t handler);
 #endif
 
 /*!
@@ -1718,8 +1717,7 @@ PUPNP_Api void ixmlFreeDOMString(
 
 #ifdef __cplusplus
 }
-#endif /* __cplusplus */
-
+#endif
 
 /*! @} XMLAPI XML API */
 

@@ -26,7 +26,7 @@ var ixmlparser_8hpp =
     [ "ixmlNamedNodeMap_addToNamedNodeMap", "d0/d19/ixmlparser_8hpp.html#adea38115fb6250110b12039426f0ccc1", null ],
     [ "ixmlNodeList_addToNodeList", "d0/d19/ixmlparser_8hpp.html#a12290394f4bd975cf5e837c5c4549c16", null ],
     [ "ixmlNode_init", "d0/d19/ixmlparser_8hpp.html#a9468273fb67392fee7df2d9f78247bac", null ],
-    [ "ixmlNode_compare", "d0/d19/ixmlparser_8hpp.html#a616a817df77cc27c9c4a38cce6faabd7", null ],
+    [ "ixmlNode_compare", "d0/d19/ixmlparser_8hpp.html#aef788c0a55cd9cb52202c41f2b4da4ab", null ],
     [ "ixmlNode_getElementsByTagName", "d0/d19/ixmlparser_8hpp.html#a7dfbf2b5843343daf831bf8a3fcd5c97", null ],
     [ "ixmlNode_getElementsByTagNameNS", "d0/d19/ixmlparser_8hpp.html#af53d9601ebe0e2f9f846bb6824eb3ba7", null ],
     [ "ixmlNode_setNodeName", "d0/d19/ixmlparser_8hpp.html#a9aaeaade1651bebbfb24d0c8aacf3cbe", null ],

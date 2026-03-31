@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
+ * Redistribution only with this Copyright remark. Last modified: 2026-03-31
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -37,13 +37,13 @@
  */
 
 #include "ixmldebug.hpp"
-#include "ixmlmembuf.hpp"
+// #include "ixmlmembuf.hpp"
 #include "ixmlparser.hpp"
 
-#include <stdlib.h> /* for free() */
+// #include <stdlib.h> /* for free() */
 #include <string.h>
 
-#include "posix_overwrites.hpp" // IWYU pragma: keep
+// #include "posix_overwrites.hpp" // IWYU pragma: keep
 
 /*!
  * \brief Appends a string to a buffer, substituting some characters by escape
