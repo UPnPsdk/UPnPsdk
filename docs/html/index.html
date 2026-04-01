@@ -109,7 +109,7 @@ Parts 'Control Point' and 'UPnP Device'</h1>
 <h1><a class="anchor" id="overview_libs"></a>
 Internal Libraries</h1>
 <p>We have three different internal libraries:</p><ul>
-<li><b>pupnp:</b> original code from the fork, based on version 1.14.22 with all its bugs and quirks, only modified to compile as C++ code.</li>
+<li><b>pupnp:</b> original code with all its bugs and quirks, only modified to compile as C++ code. It is regularly updated from <a href="https://github.com/pupnp/pupnp">Github pupnp</a>. Use <b>UPnPsdk_info</b> to get current used versions.</li>
 <li><b>compa:</b> compatible library, partly with re-engineered code from <b>pupnp</b> and with objects from <a class="el" href="dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> to emulate the API (Application Programming Interface) from <b>pupnp</b>. It compiles to a library that is drop in compatible to its ABI (Application Binary Interface) so you can just replace an old binary <b>libupnp</b> with the binary compa library without modifications or recompiling programs. It fixes bugs and add additional issues that are given by the new <a class="el" href="dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> objects. If old programs depend on bugs of the old library they may behave different.</li>
 <li><b><a class="el" href="dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a>:</b> completely new written object oriented UPnP Software Developement Kit. It is intended to support only this library after a transition period.</li>
 </ul>

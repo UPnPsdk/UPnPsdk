@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-30
+// Redistribution only with this Copyright remark. Last modified: 2026-04-01
 
 /*!
 \mainpage Overview
@@ -15,7 +15,7 @@ The SDK has two parts, handling Control Points or UPnP Devices. They are largely
 \section overview_libs Internal Libraries
 
 We have three different internal libraries:
-- \b pupnp: original code from the fork, based on version 1.14.22 with all its bugs and quirks, only modified to compile as C++ code.
+- \b pupnp: original code with all its bugs and quirks, only modified to compile as C++ code. It is regularly updated from <a href="https://github.com/pupnp/pupnp">Github pupnp</a>. Use \b UPnPsdk_info to get current used versions.
 - \b compa: compatible library, partly with re-engineered code from \b pupnp  and with objects from UPnPsdk to emulate the API (Application Programming Interface) from \b pupnp. It compiles to a library that is drop in compatible to its ABI (Application Binary Interface) so you can just replace an old binary \b libupnp with the binary compa library without modifications or recompiling programs. It fixes bugs and add additional issues that are given by the new UPnPsdk objects. If old programs depend on bugs of the old library they may behave different.
 - \b UPnPsdk: completely new written object oriented UPnP Software Developement Kit. It is intended to support only this library after a transition period.
 

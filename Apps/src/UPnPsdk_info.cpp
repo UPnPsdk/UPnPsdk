@@ -3,7 +3,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-09-14
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -188,10 +188,10 @@ void* library_info(void*) {
 }
 
 //
-// Print known local network adapter
-// ---------------------------------
+// Print known local network interfaces
+// ------------------------------------
 void* print_netadapter(void*) {
-    msg_nadap << "\n---- Known local IP addresses ----\n";
+    msg_nadap << "\n---- Known local network interfaces ----\n";
 
     SSockaddr saObj;
     CNetadapter nadapObj;
@@ -274,7 +274,7 @@ int main() {
     // Check correct linking of the different internal libraries
     // ---------------------------------------------------------
     // clang-format off
-    std::cout << "==== Compatible library information ===="
+    std::cout << "==== Library versions ===="
               "\nUPnPsdk_VERSION         = " << UPnPsdk_VERSION
               "\nPUPNP_VERSION           = " << PUPNP_VERSION;
     // clang-format on
