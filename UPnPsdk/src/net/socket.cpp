@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-01
+// Redistribution only with this Copyright remark. Last modified: 2026-04-02
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -468,21 +468,21 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
     // Protect binding.
     CPthread_scoped_lock lock(m_socket_mutex);
 
+    SSockaddr saddrObj; // Unspecified
+
     // Check if socket is already bound.
     if (m_sfd != INVALID_SOCKET) {
-        SSockaddr saObj;
-        this->local_saddr_protected(&saObj);
+        this->local_saddr_protected(&saddrObj);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1137") "Failed to bind socket to an "
                                          "address. Socket fd " +
             std::to_string(m_sfd) + " already bound to netaddress \"" +
-            saObj.netaddrp() + '\"');
+            saddrObj.netaddrp() + '\"');
     }
 
     // If no socket address is given then get a valid one, either the
     // unspecified address when a passive address is requested, or the best
     // choise from the operating system.
-    SSockaddr saddr; // Unspecified
     if (a_saddr == nullptr) {
         if (!(a_flags & AI_PASSIVE)) {
             // Get best choise sockaddr from operating system.
@@ -493,23 +493,22 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
                     UPnPsdk_LOGEXCEPT("MSG1037") "No usable link local or "
                                                  "global ip address found. Try "
                                                  "to use \"loopback\".\n");
-            nadapObj.sockaddr(saddr);
+            nadapObj.sockaddr(saddrObj);
         }
-        // Here is AI_PASSIVE given, and saddr unspecified. That gives the
+        // Here is AI_PASSIVE given, and saddrObj unspecified. That gives the
         // "wildcard  address" IN6ADDR_ANY_INIT ([::]).
 
     } else {
-        saddr = *a_saddr;
+        saddrObj = *a_saddr;
     }
 
     // Get the address info for binding.
-    CAddrinfo ai(saddr.netaddrp(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
+    CAddrinfo ai(saddrObj.netaddrp(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
                  a_socktype);
     if (!ai.get_first())
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1092") "detect error next line ...\n" +
             ai.what());
-
 
     // Get a socket file descriptor from operating system and try to bind it.
     // ----------------------------------------------------------------------
@@ -526,6 +525,9 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
             sockfd, ai->ai_addr, static_cast<socklen_t>(ai->ai_addrlen));
         if (ret_code == 0)
             break;
+        else
+            // Try with a random port number // DEBUG!
+            reinterpret_cast<sockaddr_in6*>(ai->ai_addr)->sin6_port = 0;
     }
 #else
     count = 1;
@@ -540,11 +542,12 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
         serrObj.catch_error();
 
     if (g_dbug) {
+        ai.sockaddr(saddrObj);
         SSockaddr saObj;
         this->local_saddr_protected(&saObj); // Get new bound socket address.
         UPnPsdk_LOGINFO("MSG1115") "syscall ::bind("
             << sockfd << ", " << &saObj.sa << ", " << saObj.sizeof_saddr()
-            << ") Tried " << count << " times \"" << saddr.netaddrp()
+            << ") Tried " << count << " times \"" << saddrObj.netaddrp()
             << (ret_code != 0 ? "\". Get ERROR"
                               : "\". Bound to \"" + saObj.netaddrp())
             << "\".\n";
@@ -552,11 +555,13 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
 
     if (ret_code == SOCKET_ERROR) {
         CLOSE_SOCKET_P(sockfd);
+        ai.sockaddr(saddrObj);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1008") "Close socket fd " +
-            std::to_string(sockfd) + ". Failed to bind socket to address=\"" +
-            saddr.netaddrp() + "\": (errid " + std::to_string(serrObj) + ") " +
-            serrObj.error_str());
+            std::to_string(sockfd) + ". Failed to bind socket " +
+            std::to_string(count) + " times to address=\"" +
+            saddrObj.netaddrp() + "\": (errid " + std::to_string(serrObj) +
+            ") " + serrObj.error_str());
     }
 }
 

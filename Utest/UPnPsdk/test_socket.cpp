@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-01
+// Redistribution only with this Copyright remark. Last modified: 2026-04-02
 
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
@@ -317,8 +317,8 @@ TEST(SocketTestSuite, instantiate_unbind_socket) {
 }
 
 TEST(SocketBasicTestSuite, instantiate_with_bound_raw_socket_fd) {
-    // saddr = "127.0.0.1:50002";
-    saddr = "[::1]:50002";
+    // saddr = "127.0.0.1:50001";
+    saddr = "[::1]:50001";
     CSocket bound_sockObj;
     // Default IPV6_V6ONLY setting is different on different platforms but
     // doesn't matter. It will be reset before binding a socket address.
@@ -473,14 +473,14 @@ TEST(SocketTestSuite, bind_ipv6only) {
     // (https://stackoverflow.com/a/1618259/5014688)
 
     // "any" IPv6 address, unspec. address will accept resetting IPV6_V6ONLY.
-    saddr = "[::]:50001";
+    saddr = "[::]:50002";
     CSocket sock1Obj;
     EXPECT_NO_THROW(sock1Obj.bind(SOCK_STREAM, &saddr));
     EXPECT_TRUE(sock1Obj.local_saddr());
     EXPECT_FALSE(is_v6only(sock1Obj)); // resetted
 
     // Unicast IPv6 address.
-    saddr = "[::1]:50002";
+    saddr = "[::1]:50003";
     CSocket sock2Obj;
     EXPECT_NO_THROW(sock2Obj.bind(SOCK_STREAM, &saddr));
     EXPECT_TRUE(sock2Obj.local_saddr());
@@ -493,34 +493,26 @@ TEST(SocketTestSuite, bind_ipv6only) {
 #endif
 
     // "any" IPv4 address, will normaly fail because an IPv4 socket cannot
-    // specified tu use ipv6only. but the IPv4 address is mapped to IPv6, so
+    // specified to use ipv6only. but the IPv4 address is mapped to IPv6, so
     // setting IPv6only is accepted.
-    saddr = "0.0.0.0:50003";
+    saddr = "0.0.0.0:50004";
     CSocket sock3Obj;
     EXPECT_NO_THROW(sock3Obj.bind(SOCK_STREAM, &saddr));
     EXPECT_TRUE(sock3Obj.local_saddr());
-#ifdef _WIN32
     EXPECT_FALSE(is_v6only(sock3Obj));
-#else
-    EXPECT_FALSE(is_v6only(sock3Obj));
-#endif
 
     // Unicast IPv4 address, will normaly fail because an IPv4 socket cannot
     // specified tu use ipv6only. but the IPv4 address is mapped to IPv6, so
     // setting IPv6only is accepted.
-    saddr = "127.0.0.1:50004";
+    saddr = "127.0.0.1:50005";
     CSocket sock4Obj;
     EXPECT_NO_THROW(sock4Obj.bind(SOCK_STREAM, &saddr));
     EXPECT_TRUE(sock4Obj.local_saddr());
-#ifdef _WIN32
     EXPECT_FALSE(is_v6only(sock4Obj));
-#else
-    EXPECT_FALSE(is_v6only(sock4Obj));
-#endif
 }
 
 TEST(SocketTestSuite, bind_ipv6_successful) {
-    saddr = "[::1]:50001";
+    saddr = "[::1]:50006";
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
     EXPECT_TRUE(sockObj.local_saddr());
@@ -537,9 +529,9 @@ TEST(SocketTestSuite, bind_ipv6_successful) {
 }
 
 TEST(SocketTestSuite, bind_ipv6_rapid_same_port_two_times) {
-    saddr = "[::1]:50011";
+    saddr = "[::1]:50007";
     SSockaddr saddr2;
-    saddr2 = "[::1]:50011"; // Can be modified to different saddr.
+    saddr2 = "[::1]:50007"; // Can be modified to different saddr.
     CSocket sock2Obj;
 
     // Test Unit
@@ -563,14 +555,14 @@ TEST(SocketTestSuite, bind_ipv6_rapid_same_port_two_times) {
 }
 
 TEST(SocketTestSuite, bind_ipv4_successful) {
-    saddr = "127.0.0.1:50002";
+    saddr = "127.0.0.1:50008";
     CSocket sockObj;
     EXPECT_NO_THROW(sockObj.bind(SOCK_DGRAM, &saddr));
 
     // Compare bound ip address from socket with given ip address.
     SSockaddr sa_sockObj;
     EXPECT_TRUE(sockObj.local_saddr(&sa_sockObj));
-    EXPECT_EQ(sa_sockObj.netaddrp(), "[::ffff:127.0.0.1]:50002");
+    EXPECT_EQ(sa_sockObj.netaddrp(), "[::ffff:127.0.0.1]:50008");
     EXPECT_FALSE(is_v6only(sockObj));
     EXPECT_EQ(sockObj.socktype(), SOCK_DGRAM);
     EXPECT_EQ(sockObj.sockerr(), 0);
@@ -580,7 +572,7 @@ TEST(SocketTestSuite, bind_ipv4_successful) {
 
 TEST(SocketBasicTestSuite, bind_socket_two_times_successful) {
     // Get a raw socket file descriptor
-    saddr = "[::1]:50003";
+    saddr = "[::1]:50009";
     CSocket bound_sockObj;
     ASSERT_NO_THROW(bound_sockObj.bind(SOCK_DGRAM, &saddr));
     SOCKET bound_sock = bound_sockObj;
@@ -1101,18 +1093,18 @@ TEST(SocketTestSuite, bind_two_times_different_addresses_fail) {
     // shutdown/closed before bind it again.
     // Provide a socket object
     saddr = "";
-    saddr = ":50001"; // Modifies only port
+    saddr = ":50010"; // Modifies only port
     CSocket sockObj;
     ASSERT_NO_THROW(sockObj.bind(SOCK_STREAM, &saddr));
     EXPECT_TRUE(sockObj.local_saddr());
 
     // Try to bind the socket a second time to another address.
     SSockaddr saddr2;
-    saddr2 = ":50002"; // Modifies only port
+    saddr2 = ":50011"; // Modifies only port
     EXPECT_THAT(([&sockObj, &saddr2]() { sockObj.bind(SOCK_STREAM, &saddr2); }),
                 ThrowsMessage<std::runtime_error>(ContainsStdRegex(
                     "UPnPsdk MSG1137 EXCEPT\\[.* bound to "
-                    "netaddress \"(\\[::1\\]|127\\.0\\.0\\.1):50001\"")));
+                    "netaddress \"(\\[::1\\]|127\\.0\\.0\\.1):50010\"")));
 }
 
 TEST(SocketTestSuite, bind_with_invalid_argument_fails) {

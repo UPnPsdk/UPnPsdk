@@ -2,7 +2,7 @@ name: Integration tests
 
 on:
   push:
-    branches: [ fix_winbug10013, main ]
+    branches: [ fix_winbug_10013, main ]
   pull_request:
     branches: [ main ]
 
