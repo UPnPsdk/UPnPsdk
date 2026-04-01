@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-19
+// Redistribution only with this Copyright remark. Last modified: 2026-04-01
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -519,9 +519,19 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
 
     // Try to bind the socket.
     int ret_code{SOCKET_ERROR};
-    int count{1};
+    int count;
+#ifdef _MSC_VER
+    for (count = 0; count < 5; count++) {
+        ret_code = umock::sys_socket_h.bind(
+            sockfd, ai->ai_addr, static_cast<socklen_t>(ai->ai_addrlen));
+        if (ret_code == 0)
+            break;
+    }
+#else
+    count = 1;
     ret_code = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
                                         static_cast<socklen_t>(ai->ai_addrlen));
+#endif
     CSocketErr serrObj;
     if (ret_code == 0)
         // Store valid socket file descriptor.
