@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-02-14
+// Redistribution only with this Copyright remark. Last modified: 2026-04-02
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -423,7 +423,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * \endcode
      *
      * You can also use "localhost" with CAddrinfo, but that allocates memory
-     * and do a DNS lookup. You should prefer the previous example.
+     * and may use a DNS lookup. You should prefer the previous example.
      * \code
      * SSockaddr saddr6;
      * CSocket sock6Obj;
@@ -452,7 +452,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * addresses will be suitable for use with **connect**, **sendto**, or
      * **sendmsg** (typically control points).
      *
-     * I internally always set IPV6_V6ONLY to false to use IPv6 mapped IPv4
+     * I internally always set IPV6_V6ONLY to false to use IPv4 mapped IPv6
      * addresses. This is default on Unix platforms when binding the address
      * and cannot be modified after binding. MacOS does not modify IPV6_V6ONLY
      * with binding. On Microsoft Windows IPV6_V6ONLY is set by default. */

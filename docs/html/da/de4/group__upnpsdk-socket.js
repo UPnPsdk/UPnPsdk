@@ -27,6 +27,6 @@ var group__upnpsdk_socket =
     ] ],
     [ "UPnPsdk::anonymous_namespace{global.cpp}::CWSAStartup", "d3/d3b/classUPnPsdk_1_1anonymous__namespace_02global_8cpp_03_1_1CWSAStartup.html", null ],
     [ "UPnPsdk::anonymous_namespace{socket.cpp}::getsockname", "da/de4/group__upnpsdk-socket.html#ga22b121617b4eb96c4b4548a814683dfc", null ],
-    [ "UPnPsdk::anonymous_namespace{socket.cpp}::get_sockfd", "da/de4/group__upnpsdk-socket.html#gaff979637c7cac7b0ef5df38ec5eae017", null ],
+    [ "UPnPsdk::anonymous_namespace{socket.cpp}::get_sockfd", "da/de4/group__upnpsdk-socket.html#ga8833588b4b703bf3901b20e98c5337be", null ],
     [ "UPnPsdk::anonymous_namespace{global.cpp}::init_winsock", "da/de4/group__upnpsdk-socket.html#ga61993e2691b1c99a50a317b8946eb32a", null ]
 ];

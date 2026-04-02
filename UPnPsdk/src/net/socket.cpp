@@ -79,16 +79,11 @@ int getsockname(SOCKET a_sockfd, sockaddr* a_addr, socklen_t* a_addrlen) {
  *
  * Get a socket file descriptor and set its default options as specified.
  */
-SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
+SOCKET get_sockfd(int a_socktype) {
     TRACE(" Executing get_sockfd()")
 
     // Do some general checks that must always be done according to the
     // specification.
-    if (a_pf_family != PF_INET6 && a_pf_family != PF_INET)
-        throw std::invalid_argument(
-            UPnPsdk_LOGEXCEPT(
-                "MSG1015") "Failed to create socket: invalid protocol family " +
-            std::to_string(a_pf_family));
     if (a_socktype != SOCK_STREAM && a_socktype != SOCK_DGRAM)
         throw std::invalid_argument(
             UPnPsdk_LOGEXCEPT(
@@ -98,10 +93,9 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
     CSocketErr serrObj;
 
     // Syscall socket(): get new socket file descriptor.
-    SOCKET sfd = umock::sys_socket_h.socket(a_pf_family, a_socktype, 0);
-    UPnPsdk_LOGINFO("MSG1135") "syscall ::socket("
-        << a_pf_family << ", " << a_socktype << ", 0). Get socket fd " << sfd
-        << '\n';
+    SOCKET sfd = umock::sys_socket_h.socket(AF_INET6, a_socktype, 0);
+    UPnPsdk_LOGINFO("MSG1135") "syscall ::socket(AF_INET6, "
+        << a_socktype << ", 0). Get socket fd " << sfd << '\n';
     if (sfd == INVALID_SOCKET) {
         serrObj.catch_error();
         throw std::runtime_error(
@@ -126,23 +120,22 @@ SOCKET get_sockfd(sa_family_t a_pf_family, int a_socktype) {
             serrObj.error_str() + '\n');
     }
 
-    // With protocol family PF_INET6 I always set IPV6_V6ONLY to false. See
-    // also note to bind() in the header file.
-    if (a_pf_family == AF_INET6) {
-        so_option = 0; // false
-        // Type cast (char*)&so_option is needed for Microsoft Windows.
-        if (umock::sys_socket_h.setsockopt(
-                sfd, IPPROTO_IPV6, IPV6_V6ONLY,
-                reinterpret_cast<const char*>(&so_option),
-                sizeof(so_option)) != 0) {
-            serrObj.catch_error();
-            CLOSE_SOCKET_P(sfd);
-            throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT("MSG1007") "Close socket fd " +
-                std::to_string(sfd) +
-                ". Failed to set socket option IPV6_V6ONLY: " +
-                serrObj.error_str() + '\n');
-        }
+    // We have only address family AF_INET6. Always set IPV6_V6ONLY to false.
+    // We need that for IPv4 mapped IPv6 addresses. See also note to bind() in
+    // the header file.
+    so_option = 0; // false
+    // Type cast (char*)&so_option is needed for Microsoft Windows.
+    if (umock::sys_socket_h.setsockopt(
+            sfd, IPPROTO_IPV6, IPV6_V6ONLY,
+            reinterpret_cast<const char*>(&so_option),
+            sizeof(so_option)) != 0) {
+        serrObj.catch_error();
+        CLOSE_SOCKET_P(sfd);
+        throw std::runtime_error(
+            UPnPsdk_LOGEXCEPT("MSG1007") "Close socket fd " +
+            std::to_string(sfd) +
+            ". Failed to set socket option IPV6_V6ONLY: " +
+            serrObj.error_str() + '\n');
     }
 
 #ifdef _MSC_VER
@@ -513,21 +506,26 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
     // Get a socket file descriptor from operating system and try to bind it.
     // ----------------------------------------------------------------------
     // Get a socket file descriptor.
-    SOCKET sockfd =
-        get_sockfd(static_cast<sa_family_t>(ai->ai_family), ai->ai_socktype);
+    SOCKET sockfd = get_sockfd(ai->ai_socktype);
 
     // Try to bind the socket.
     int ret_code{SOCKET_ERROR};
     int count;
-#ifdef _MSC_VER
+#if 0 // #ifdef _MSC_VER // DEBUG! Remove this.
     for (count = 0; count < 5; count++) {
         ret_code = umock::sys_socket_h.bind(
             sockfd, ai->ai_addr, static_cast<socklen_t>(ai->ai_addrlen));
-        if (ret_code == 0)
+        if (ret_code == 0) {
             break;
-        else
-            // Try with a random port number // DEBUG!
-            reinterpret_cast<sockaddr_in6*>(ai->ai_addr)->sin6_port = 0;
+        } else {
+            // Try with a random port number
+            in_port_t& port =
+                reinterpret_cast<sockaddr_in6*>(ai->ai_addr)->sin6_port;
+            std::cout << "DEBUG! " << count
+                      << ". try to bind with port=" << port
+                      << " failed. Try again with random port.\n";
+            port = 0;
+        }
     }
 #else
     count = 1;

@@ -79,7 +79,7 @@ var searchData=
   ['get_5fsdk_5finfo_76',['get_sdk_info',['../d1/db3/httpreadwrite_8cpp.html#a4c469cd11deee69c1f1d9ec77de66df9',1,'get_sdk_info(char *info, size_t infoSize):&#160;httpreadwrite.cpp'],['../d8/df1/httpreadwrite_8hpp.html#a4c469cd11deee69c1f1d9ec77de66df9',1,'get_sdk_info(char *info, size_t infoSize):&#160;httpreadwrite.cpp']]],
   ['get_5fserver_5faddr_77',['get_server_addr',['../d4/d99/upnpapi_8cpp.html#aa6c22321f86eb2d2f49f1824389787e8',1,'upnpapi.cpp']]],
   ['get_5fserver_5faddr6_78',['get_server_addr6',['../d4/d99/upnpapi_8cpp.html#ac8082ce18c1310b8c0c1c96ab424ed7e',1,'upnpapi.cpp']]],
-  ['get_5fsockfd_79',['get_sockfd',['../da/de4/group__upnpsdk-socket.html#gaff979637c7cac7b0ef5df38ec5eae017',1,'UPnPsdk::anonymous_namespace{socket.cpp}']]],
+  ['get_5fsockfd_79',['get_sockfd',['../da/de4/group__upnpsdk-socket.html#ga8833588b4b703bf3901b20e98c5337be',1,'UPnPsdk::anonymous_namespace{socket.cpp}']]],
   ['get_5fssdp_5fsockets_80',['get_ssdp_sockets',['../de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8',1,'get_ssdp_sockets(MiniServerSockArray *out):&#160;ssdp_common.cpp'],['../df/d13/ssdp__common_8cpp.html#a60739b2f340e6bdeedcf8f282d9578c8',1,'get_ssdp_sockets(MiniServerSockArray *out):&#160;ssdp_common.cpp']]],
   ['get_5fsystem_5ftime_81',['get_system_time',['../d5/de9/sysdep_8hpp.html#a6b9dabae04c2b47b7aacaf5d1741cbd3',1,'get_system_time(uuid_time_t *uuid_time):&#160;sysdep.cpp'],['../d6/d4b/sysdep_8cpp.html#a6b9dabae04c2b47b7aacaf5d1741cbd3',1,'get_system_time(uuid_time_t *uuid_time):&#160;sysdep.cpp']]],
   ['get_5fuserinfo_82',['get_userinfo',['../de/dc7/group__upnpsdk-uri.html#gac60aa3b36864a27db482fa562d339b51',1,'UPnPsdk::anonymous_namespace{uri.cpp}']]],

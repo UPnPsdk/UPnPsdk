@@ -9,7 +9,7 @@ var namespaceUPnPsdk =
     ] ],
     [ "anonymous_namespace{socket.cpp}", "d4/d77/namespaceUPnPsdk_1_1anonymous__namespace_02socket_8cpp_03.html", [
       [ "getsockname", "da/de4/group__upnpsdk-socket.html#ga22b121617b4eb96c4b4548a814683dfc", null ],
-      [ "get_sockfd", "da/de4/group__upnpsdk-socket.html#gaff979637c7cac7b0ef5df38ec5eae017", null ]
+      [ "get_sockfd", "da/de4/group__upnpsdk-socket.html#ga8833588b4b703bf3901b20e98c5337be", null ]
     ] ],
     [ "anonymous_namespace{uri.cpp}", "dd/d43/namespaceUPnPsdk_1_1anonymous__namespace_02uri_8cpp_03.html", [
       [ "is_ipv4_addr", "de/dc7/group__upnpsdk-uri.html#ga9f8fe65d1ad9b79b9fbc99f9cf25c36e", null ],

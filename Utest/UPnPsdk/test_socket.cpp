@@ -1,6 +1,10 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2026-04-02
 
+// Due to Microsoft Windows socket error 10013 I use port numbers not in
+// range 49152 to 65535 if needed. For details have a look at
+// https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/error-10013-wsaeacces-is-returned
+
 #include <UPnPsdk/socket.hpp>
 #include <UPnPsdk/addrinfo.hpp>
 #include <utest/utest.hpp>
@@ -1034,7 +1038,7 @@ TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_fails) {
     // --- Mock bind() ---
     // Bind socket to an ip address, provide port if port was 0.
     EXPECT_CALL(m_sys_socketObj, bind(sfd, _, _))
-        .Times(Between(5, 6)) // EXPECT_THAT calls a second time if it fails
+        .Times(Between(1, 2)) // EXPECT_THAT calls a second time if it fails
         .WillRepeatedly(Return(SOCKET_ERROR));
     // Set expected error numnber.
     EXPECT_CALL(m_winsock2Obj, WSAGetLastError())
