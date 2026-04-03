@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-02
+// Redistribution only with this Copyright remark. Last modified: 2026-04-03
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -72,20 +72,16 @@ int getsockname(SOCKET a_sockfd, sockaddr* a_addr, socklen_t* a_addrlen) {
 #endif
 }
 
-/*!
- * \brief Get a socket file descriptor from the operating system
- * <!--   -------------------------------------------------- -->
- * \ingroup upnpsdk-socket
- *
- * Get a socket file descriptor and set its default options as specified.
- */
-SOCKET get_sockfd(int a_socktype) {
-    TRACE(" Executing get_sockfd()")
+} // anonymous namespace
+
+
+SOCKET socket(int a_socktype) {
+    TRACE(" Executing socket()")
 
     // Do some general checks that must always be done according to the
     // specification.
     if (a_socktype != SOCK_STREAM && a_socktype != SOCK_DGRAM)
-        throw std::invalid_argument(
+        throw std::runtime_error(
             UPnPsdk_LOGEXCEPT(
                 "MSG1016") "Failed to create socket: invalid socket type " +
             std::to_string(a_socktype));
@@ -161,8 +157,6 @@ SOCKET get_sockfd(int a_socktype) {
 #endif
     return sfd;
 }
-
-} // anonymous namespace
 
 
 // CSocket_basic class
@@ -249,7 +243,7 @@ bool CSocket_basic::local_saddr_protected(SSockaddr* a_saddr) const {
             std::to_string(m_sfd) + "): " + serrObj.error_str());
     }
     sa_family_t af = saObj.ss.ss_family;
-    if (af != AF_INET6 && af != AF_INET)
+    if (af != AF_INET6)
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1091") "Unsupported address family " +
             std::to_string(saObj.ss.ss_family));
@@ -506,7 +500,7 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
     // Get a socket file descriptor from operating system and try to bind it.
     // ----------------------------------------------------------------------
     // Get a socket file descriptor.
-    SOCKET sockfd = get_sockfd(ai->ai_socktype);
+    SOCKET sockfd = UPnPsdk::socket(ai->ai_socktype);
 
     // Try to bind the socket.
     int ret_code{SOCKET_ERROR};

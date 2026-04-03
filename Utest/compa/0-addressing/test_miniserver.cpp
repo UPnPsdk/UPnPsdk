@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-17
+// Redistribution only with this Copyright remark. Last modified: 2026-04-03
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -26,6 +26,7 @@
 #include <UPnPsdk/netadapter.hpp>
 
 #include <utest/utest.hpp>
+#include <utest/upnpdebug.hpp>
 #include <utest/threadpool_init.hpp>
 #include <umock/sys_socket_mock.hpp>
 #ifdef _MSC_VER
@@ -180,12 +181,12 @@ void get_netadapter() {
 
 class StartMiniServerFTestSuite : public ::testing::Test {
   protected:
-    // CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
 
     // Constructor
     StartMiniServerFTestSuite() {
-        // if (g_dbug)
-        //     logObj.enable(UPNP_ALL);
+        if (g_dbug)
+            logObj.enable(UPNP_ALL);
 
         // Clean up needed global environment
         gIF_INDEX = 0u;
@@ -383,6 +384,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
         EXPECT_EQ(ret_StartMiniServer, UPNP_E_SUCCESS)
             << errStrEx(ret_StartMiniServer, UPNP_E_SUCCESS);
 
+        std::cerr << "DEBUG! Tracepoint5\n";
         EXPECT_EQ(StopMiniServer(), 0);
     }
 }
@@ -1689,29 +1691,41 @@ TEST(StartMiniServerTestSuite, get_miniserver_stopsock) {
     // initialization of sockets on MS Windows. We also have to close the
     // socket.
     MiniServerSockArray out;
-    InitMiniServerSockArray(&out);
+    ::InitMiniServerSockArray(&out);
 
     // Test Unit
-    int ret_get_miniserver_stopsock = get_miniserver_stopsock(&out);
+    int ret_get_miniserver_stopsock = ::get_miniserver_stopsock(&out);
     EXPECT_EQ(ret_get_miniserver_stopsock, UPNP_E_SUCCESS)
         << errStrEx(ret_get_miniserver_stopsock, UPNP_E_SUCCESS);
 
-    EXPECT_NE(out.miniServerStopSock, (SOCKET)0);
-    EXPECT_NE(out.stopPort, 0);
-    EXPECT_EQ(out.stopPort, miniStopSockPort);
+    ASSERT_GT(out.miniServerStopSock, 0u);
+    ASSERT_GT(out.stopPort, 0);
+    ASSERT_EQ(out.stopPort, /*global var*/ miniStopSockPort);
 
-    // Get socket object from the bound socket
-    CSocket_basic sockObj(out.miniServerStopSock);
-    sockObj.load(); // UPnPsdk::CSocket_basic
+    // Get local address the socket is bound. Old code use hard coded
+    // "127.0.0.1" to bind to the stop socket. I need to use low level system
+    // calls to test the results because new code does not support IPv4
+    // addresses.
+    UPnPsdk::sockaddr_t local_saddr;
+    socklen_t addrlen = sizeof(sockaddr_storage); // May be modified on return
+    ASSERT_EQ(::getsockname(out.miniServerStopSock, &local_saddr.sa, &addrlen),
+              0);
 
-    // and verify its settings
-    SSockaddr sa;
-    sockObj.local_saddr(&sa);
-    EXPECT_EQ(sa.port(), miniStopSockPort);
-    EXPECT_EQ(sa.netaddr(), "127.0.0.1");
-
-    // Close socket
+    // Close socket, does not touch local_saddr. It is still available.
     EXPECT_EQ(sock_close(out.miniServerStopSock), 0);
+
+    if (old_code) {
+        // integer of "127.0.0.1" in host byte order is 2130706433.
+        ASSERT_EQ(local_saddr.sin.sin_addr.s_addr, htonl(2130706433));
+        ASSERT_EQ(local_saddr.sin.sin_port, ::htons(out.stopPort));
+    } else {
+        // This checks for "[::1]", all address bytes zero, except last one = 1.
+        int i{};
+        for (; i < 15; i++)
+            ASSERT_EQ(local_saddr.sin6.sin6_addr.s6_addr[i], 0);
+        ASSERT_EQ(local_saddr.sin6.sin6_addr.s6_addr[i], 1);
+        ASSERT_EQ(local_saddr.sin6.sin6_port, ::htons(out.stopPort));
+    }
 }
 
 TEST_F(StartMiniServerMockFTestSuite, get_miniserver_stopsock_fails) {

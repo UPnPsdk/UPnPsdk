@@ -1,11 +1,11 @@
 <map id="StopMiniServer" name="StopMiniServer">
 <area shape="rect" id="Node000001" title="Stop and Shutdown the MiniServer and free socket resources." alt="" coords="5,31,127,56"/>
-<area shape="rect" id="Node000002" href="$d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="175,5,268,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,31,161,25,162,30,127,36"/>
-<area shape="rect" id="Node000003" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="176,55,267,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="127,50,163,56,162,61,126,55"/>
-<area shape="rect" id="Node000004" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="336,29,476,55"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="266,59,322,51,322,56,267,64"/>
-<area shape="rect" id="Node000005" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="316,79,496,104"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="267,70,303,75,302,80,266,76"/>
+<area shape="rect" id="Node000002" href="$d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="193,5,286,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,32,179,24,179,29,127,37"/>
+<area shape="rect" id="Node000003" href="$da/de4/group__upnpsdk-socket.html#gadbc969f806b019f3a67c7be8cd76b1a7" title="Get a socket file descriptor from the operating system." alt="" coords="175,55,304,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="127,49,162,54,161,59,127,54"/>
+<area shape="rect" id="Node000004" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="352,15,509,55"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="304,54,338,48,339,53,304,59"/>
+<area shape="rect" id="Node000005" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="352,79,509,119"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="304,75,339,81,338,87,304,81"/>
 </map>

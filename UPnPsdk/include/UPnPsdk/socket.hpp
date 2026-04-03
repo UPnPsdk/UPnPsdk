@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-02
+// Redistribution only with this Copyright remark. Last modified: 2026-04-03
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -105,6 +105,21 @@
 /// \endcond
 
 namespace UPnPsdk {
+
+/*!
+ * \brief Get a socket file descriptor from the operating system
+ * <!--   ====================================================== -->
+ * \ingroup upnpsdk-socket
+ *
+ * Get a socket file descriptor and set its default options as specified.
+ * \returns A socket file descriptor.
+ * \exception std::runtime_error - Failed to create socket
+ *                               - Failed to set socket option
+ */
+UPnPsdk_VIS SOCKET socket(
+    /// [in] Socket type SOCK_STREAM or SOCK_DGRAM.
+    int a_socktype);
+
 
 /*!
  * \brief Get information from a raw network socket file descriptor

@@ -15,7 +15,7 @@ var dir_6355b7681b27614fe17a18239640150b =
     [ "port_sock.hpp", "d8/d43/port__sock_8hpp.html", null ],
     [ "pthread.hpp", "d4/d88/pthread_8hpp.html", "d4/d88/pthread_8hpp" ],
     [ "sockaddr.hpp", "d7/d1b/sockaddr_8hpp.html", "d7/d1b/sockaddr_8hpp" ],
-    [ "socket.hpp", "da/dfc/socket_8hpp.html", null ],
+    [ "socket.hpp", "da/dfc/socket_8hpp.html", "da/dfc/socket_8hpp" ],
     [ "strintmap.hpp", "df/df3/strintmap_8hpp.html", "df/df3/strintmap_8hpp" ],
     [ "synclog.hpp", "d1/d3b/synclog_8hpp.html", null ],
     [ "upnp_device.hpp", "d7/de2/upnp__device_8hpp.html", "d7/de2/upnp__device_8hpp" ],
