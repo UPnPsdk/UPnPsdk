@@ -1297,7 +1297,7 @@ int StopMiniServer() {
     default:
         return 0;
     }
-    sock = umock::sys_socket_h.socket(AF_INET, SOCK_DGRAM, 0);
+    sock = UPnPsdk::socket(SOCK_DGRAM);
     if (sock == INVALID_SOCKET) {
         UpnpPrintf(UPNP_ERROR, SSDP, __FILE__, __LINE__,
                    "SSDP_SERVER: StopSSDPServer: Error in socket() %s\n",
