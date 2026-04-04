@@ -612,7 +612,7 @@ SOCKET http_Connect(uri_type* destination_url, uri_type* url) {
         connfd = UPnPsdk::socket(SOCK_STREAM);
     } catch (const std::exception& ex) {
         UPnPsdk_LOGERR("MSG1167") << ex.what() << "\n";
-        return UPNP_E_OUTOF_SOCKET;
+        return static_cast<SOCKET>(UPNP_E_OUTOF_SOCKET);
     }
     sockaddr_len = (socklen_t)(url->hostport.IPaddress.ss_family == AF_INET6
                                    ? sizeof(struct sockaddr_in6)
@@ -629,7 +629,7 @@ SOCKET http_Connect(uri_type* destination_url, uri_type* url) {
                        "Error in shutdown: %s\n", std::strerror(errno));
         }
         umock::unistd_h.CLOSE_SOCKET_P(connfd);
-        return (SOCKET)(UPNP_E_SOCKET_CONNECT);
+        return static_cast<SOCKET>(UPNP_E_SOCKET_CONNECT);
     }
 
     return connfd;
