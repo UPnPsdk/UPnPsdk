@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-15
+// Redistribution only with this Copyright remark. Last modified: 2026-04-15
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -7,9 +7,46 @@
 
 #include <UPnPsdk/netadapter.hpp>
 #include <UPnPsdk/synclog.hpp>
+/// \cond
+#include <utility>
+/// \endcond
 
 
 namespace UPnPsdk {
+
+// \cond
+// Overload |, &, ~, |=, &= for bit flags UPnPsdk::CNetadapter::ADDRS
+using ADDRS = CNetadapter::ADDRS;
+
+ADDRS operator|(ADDRS lhs, ADDRS rhs) {
+    using Underlying = std::underlying_type_t<ADDRS>;
+    return static_cast<ADDRS>(static_cast<Underlying>(lhs) |
+                              static_cast<Underlying>(rhs));
+}
+
+ADDRS operator&(ADDRS lhs, ADDRS rhs) {
+    using Underlying = std::underlying_type_t<ADDRS>;
+    return static_cast<ADDRS>(static_cast<Underlying>(lhs) &
+                              static_cast<Underlying>(rhs));
+}
+#if 0
+LogDestination operator~(LogDestination rhs) {
+    using Underlying = std::underlying_type_t<LogDestination>;
+    return static_cast<LogDestination>(~static_cast<Underlying>(rhs));
+}
+
+LogDestination& operator|=(LogDestination& lhs, LogDestination rhs) {
+    lhs = lhs | rhs;
+    return lhs;
+}
+
+LogDestination& operator&=(LogDestination& lhs, LogDestination rhs) {
+    lhs = lhs & rhs;
+    return lhs;
+}
+#endif
+// \endcond
+
 
 uint8_t netmask_to_bitmask(const ::sockaddr_storage* a_netmask) {
     TRACE("Executing netmask_to_bitmask()")
@@ -254,7 +291,7 @@ unsigned int CNetadapter::bitmask() const {
 /// \cond
 void CNetadapter::reset() noexcept {
     m_find_index = 0;
-    m_state = Find::finish;
+    m_find_flags = ADDRS::none;
     m_na_platformPtr->reset();
 }
 /// \endcond
@@ -276,28 +313,12 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
         do {
             this->sockaddr(nad_saObj);
             if (!nad_saObj.is_loopback()) {
-                m_state = Find::best;
+                m_find_flags = ADDRS::best;
                 return true;
             }
         } while (this->get_next());
 
         // No usable address found, nothing more to do.
-        return false;
-    }
-
-    // Look for a loopback interface, no matter what local network adapter.
-    // --------------------------------------------------------------------
-    if (a_name_or_addr == "loopback") {
-        this->reset(); // noexcept
-        do {
-            this->sockaddr(nad_saObj);
-            if (nad_saObj.is_loopback()) {
-                m_state = Find::loopback;
-                return true;
-            }
-        } while (this->get_next());
-
-        // No loopback interface found, nothing more to do.
         return false;
     }
 
@@ -310,7 +331,7 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
             this->sockaddr(nad_saObj);
             if (!nad_saObj.is_loopback()) {
                 m_find_index = this->index();
-                m_state = Find::index;
+                m_find_flags = ADDRS::index;
                 return true;
             }
         }
@@ -332,7 +353,7 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
         this->sockaddr(nad_saObj);
         if (nad_saObj == input_saObj) {
             // With a unique ip address given, there cannot be another.
-            m_state = Find::finish;
+            m_find_flags = ADDRS::none;
             return true;
         }
     } while (this->get_next());
@@ -353,7 +374,7 @@ bool CNetadapter::find_first(unsigned int a_index) {
             this->sockaddr(nad_saObj);
             if (!nad_saObj.is_loopback()) {
                 m_find_index = a_index;
-                m_state = Find::index;
+                m_find_flags = ADDRS::index;
                 return true;
             }
         }
@@ -362,43 +383,77 @@ bool CNetadapter::find_first(unsigned int a_index) {
     return false;
 }
 
+bool CNetadapter::find_first(ADDRS a_flags) {
+    TRACE2(this, " Executing CNetadapter::find_first(a_flags)")
+    this->reset(); // noexcept
+    if (this->index() == 0)
+        return false; // There isn't any adapter.
+
+    // Look for filtered addresses, no matter what local network adapter.
+    // ------------------------------------------------------------------
+    m_find_flags = a_flags;
+    SSockaddr saObj;
+    do {
+        this->sockaddr(saObj);
+
+        if ((m_find_flags & ADDRS::lo) != ADDRS::none &&
+            IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
+            return true;
+        }
+        if ((m_find_flags & ADDRS::lla) != ADDRS::none &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            return true;
+        }
+        if ((m_find_flags & ADDRS::gua) != ADDRS::none &&
+            IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+            return true;
+        }
+        if ((m_find_flags & ADDRS::map4) != ADDRS::none &&
+            IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
+            return true;
+        }
+    } while (this->get_next());
+
+    // No matching interface found, nothing more to do.
+    return false;
+}
+
 bool CNetadapter::find_next() {
     TRACE2(this, " Executing CNetadapter::find_next()")
-    SSockaddr nadap_saObj;
 
-    switch (m_state) {
-    case Find::finish:
-        return false;
+    SSockaddr saObj;
+    while (this->get_next()) {
+        this->sockaddr(saObj);
 
-    case Find::best: { // without loopback
-        while (this->get_next()) {
-            this->sockaddr(nadap_saObj);
-            if (!nadap_saObj.is_loopback())
-                return true;
-        } // while
-    } break;
+        if ((m_find_flags & ADDRS::index) != ADDRS::none &&
+            !IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr) &&
+            this->index() == m_find_index) {
+            return true;
+        }
+        if ((m_find_flags & ADDRS::best) != ADDRS::none &&
+            !IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
+            return true;
+        }
+        if ((m_find_flags & ADDRS::lo) != ADDRS::none &&
+            IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
+            return true;
+        }
+        if ((m_find_flags & ADDRS::lla) != ADDRS::none &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            return true;
+        }
+        if ((m_find_flags & ADDRS::gua) != ADDRS::none &&
+            IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+            return true;
+        }
+        if ((m_find_flags & ADDRS::map4) != ADDRS::none &&
+            IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
+            return true;
+        }
+    }
 
-    case Find::loopback: {
-        while (this->get_next()) {
-            this->sockaddr(nadap_saObj);
-            if (nadap_saObj.is_loopback())
-                return true;
-        } // while
-    } break;
-
-    case Find::index: { // without loopback
-        while (this->get_next()) {
-            const unsigned int index{this->index()};
-            if (index == m_find_index) {
-                this->sockaddr(nadap_saObj);
-                if (!nadap_saObj.is_loopback())
-                    return true;
-            }
-        } // while
-    } break;
-    } // switch
-
-    m_state = Find::finish;
+    // Nothing found anymore. Stop finding.
+    m_find_flags = ADDRS::none;
     return false;
 }
 

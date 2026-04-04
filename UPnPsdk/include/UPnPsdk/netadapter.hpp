@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-15
+// Redistribution only with this Copyright remark. Last modified: 2026-04-15
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -64,7 +64,6 @@ void bitmask_to_netmask(
      * netmask. */
     SSockaddr& a_saddrObj);
 
-
 /*!
  * \brief Get information from local network adapters
  * \ingroup upnplib-addrmodul
@@ -102,6 +101,21 @@ class CNetadapter {
     // function needs to be decorated with UPnPsdk_API instead of just only the
     // class. The reason is 'm_na_platformPtr'.
   public:
+    /*! \brief Bit flags to select different address groups.
+     * \details Helpful link: <a
+     * href="https://www.codestudy.net/blog/how-to-use-c-11-enum-class-for-flags/">enum
+     * class for flags</a> */
+    enum struct ADDRS : uint16_t {
+        none = 0, ///< select nothing
+        lo = 1, ///< select loopback interface
+        lla = 2, ///< select link local address
+        gua = 4, ///< select global unicast address
+        map4 = 8, ///< select IPv4 mapped IPv6 address
+        best = 16, /*!< select best address choise from operating system due to
+                      its internal routing table */
+        index = 32 ///< select address by adapter index/scope_id
+    };
+
     /*! \brief Constructor */
     UPnPsdk_API CNetadapter(
         /*! [in] Inject the used \glos{depinj,di-service} object that is by
@@ -200,7 +214,8 @@ class CNetadapter {
 
     /*! \brief Find first ip address on the local network adapter with given
      * index number.
-     * \details Example at find_first(std::string_view). Of course you have to
+     *
+     * Example at find_first(std::string_view). Of course you have to
      * use an index number.
      *
      * You have to get_first() entry of the internal network adapter list to
@@ -213,6 +228,28 @@ class CNetadapter {
     UPnPsdk_API bool find_first(
         /*! [in] Index number of the local network adapter. */
         const unsigned int a_index);
+
+    /*! \brief Find first ip address on a local network adapter belonging to
+     * the specified address group #ADDRS (lla, gua, lo, etc).
+     *
+     * Example at find_first(std::string_view). Of course you have to use an
+     * address group. You can combine the flags with logical \b OR ('|'). You
+     * have to get_first() entry of the internal network adapter list to load
+     * it. Then you can try
+     * \code
+     * // Usage e.g.:
+     * using ADDRS = UPnPsdk::CNetadapter::ADDRS;
+     * find_first(ADDRS::lla | ADDRS::gua)
+     * \endcode
+     * to get the first address of the specified address groups from the loaded
+     * internal list. If found, the address is selected so that all its
+     * properties can be retrieved. Next address of the group you can get as
+     * usual with get_next().
+     * \returns
+     *  - \b true if the first address of the specified address group is
+     *  selected.
+     *  - \b false otherwise */
+    UPnPsdk_API bool find_first(ADDRS a_flags);
 
     /*! \brief Find next ip address from local network adapters.
      * \details Before using this method you have to use get_first() to load
@@ -235,17 +272,24 @@ class CNetadapter {
     PNetadapter_platform m_na_platformPtr;
 
   private:
-    // State of the finding steps.
-    enum struct Find { finish, best, loopback, index } m_state{};
+    // Find mask is a bit order mask and used to cache the search information
+    // to continue with next() search step.
+    ADDRS m_find_flags{};
 
     // Index of the first found network adapter.
-    // Only used with m_state = Find::index;
+    // Only used with finding ADDRS::index.
     unsigned int m_find_index{};
 
     // Private helper methods.
     void reset() noexcept;
     /// \endcond
 };
+
+// \cond
+// Overload |, &, ~, |=, &= for bit flags UPnPsdk::CNetadapter::ADDRS
+CNetadapter::ADDRS operator|(CNetadapter::ADDRS lhs, CNetadapter::ADDRS rhs);
+CNetadapter::ADDRS operator&(CNetadapter::ADDRS lhs, CNetadapter::ADDRS rhs);
+// \endcond
 
 } // namespace UPnPsdk
 

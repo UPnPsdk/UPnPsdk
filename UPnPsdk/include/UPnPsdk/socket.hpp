@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-02
+// Redistribution only with this Copyright remark. Last modified: 2026-04-11
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -107,6 +107,47 @@
 namespace UPnPsdk {
 
 /*!
+ * \brief Get a socket file descriptor from the operating system
+ * <!--   ====================================================== -->
+ * \ingroup upnpsdk-socket
+ * \code
+ * // Usage e.g.:
+ * SOCKET sock{INVALID_SOCKET};
+ * try {
+ *      sock = UPnPsdk::socket(SOCK_STREAM);
+ * } catch(const std::exception& ex) {
+ *      std::cerr << "Error get socket: " << ex.what() << "\n";
+ *      handle_error(); }
+ * \endcode
+ *
+ * Get a socket file descriptor with default settings as specified:
+ *  - \b AF_INET6 - the SDK internal network management is based only on IPv6
+ *  and uses IPv4 mapped IPv6 addresses. For this and for IPV6_V6ONLY the
+ *  socket must always be an IPv6 socket. There is no  way to select another
+ *  address family.
+ *  - \b IPV6_V6ONLY - this option is always disabled. This is needed because
+ *  network interfaces (local network adapter) must also receive and send IPv4
+ *  addresses together with IPv6 addresses to support IPv4 networking.
+ *  - \ref reuseAddr "SO_REUSEADDR" - for security reasons "immediately reuse
+ *  address" is disabled.
+ *  - \ref exclAddrUse "SO_EXCLUSIVEADDRUSE" - on Microsoft Windows always set
+ *  for security reasons.
+ *  - \b protocol - always set to 0.
+ *
+ * \note It is important to always use this function to get a socket file
+ * descriptor. Otherwise you risk problems with networking.
+ *
+ * \returns a socket file descriptor.
+ * \exception std::runtime_error
+ *  - Failed to create socket
+ *  - Failed to set socket option
+ */
+UPnPsdk_VIS SOCKET socket(
+    /// [in] Socket type SOCK_STREAM or SOCK_DGRAM.
+    int a_socktype);
+
+
+/*!
  * \brief Get information from a raw network socket file descriptor
  * <!--   ========================================================= -->
  * \ingroup upnpsdkAPI-socket
@@ -194,6 +235,9 @@ class UPnPsdk_API CSocket_basic {
     operator SOCKET() const;
 
 
+    SOCKET socket() const;
+
+
     /*! \brief Get the local socket address the socket is bound to
      * \code
 // Usage e.g.:
@@ -212,7 +256,7 @@ try {
         std::cout << "socket is connected to " << saObj << '\n';
     else
         std::cout << "unconnected socket unspecified netaddr " << saObj << '\n';
-} catch(std::exception& ex) { handle_error(); };
+} catch(const std::exception& ex) { handle_error(); };
 close(sfd);
 
 // CSocket inherit from CSocket_basic
@@ -224,7 +268,7 @@ try {
         sockObj.listen();
     } else
         std::cerr << "failed to bind socket passive for listening.";
-} catch(std::exception& ex) { handle_error(); };
+} catch(const std::exception& ex) { handle_error(); };
      * \endcode
      *
      * \returns
@@ -299,9 +343,13 @@ try {
     // Mutex to protect socket object.
     mutable ::pthread_mutex_t m_socket_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-    // CSocket_basic::local_saddr() without pthread mutex lock/unlock for
-    // 'protected:' use only.
-    bool local_saddr_protected(SSockaddr* a_saddr) const;
+    // CSocket_basic::local_saddr() without pthread mutex lock/unlock. Only for
+    // calls from already thread-protected internal methods.
+    bool local_saddr_intern(SSockaddr* a_saddr) const;
+
+    // CSocket_basic::socktype() without pthread mutex lock/unlock. Only for
+    // calls from already thread-protected internal methods.
+    int socktype_intern() const;
     /// \endcond
 
   private:
@@ -323,6 +371,9 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * [empty socket object](\ref empty_socket) */
     CSocket();
 
+    /// \brief Constructor with defining the socket type
+    CSocket(const int a_socktype);
+
     /*! \brief Move constructor
      *
      * This moves the socket object to a new instantiated socket object and
@@ -341,7 +392,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * \endcode */
     CSocket(CSocket&&);
 
-    /*! \brief Assignment operator
+    /*! \brief Move assignment operator
      *
      * <!-- With parameter as value this is used as copy- and move-assignment
      * operator. The correct usage (move) is evaluated by the compiler. Here
@@ -362,6 +413,14 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * \endcode */
     CSocket& operator=(CSocket);
 
+
+    /// \brief Assignment operator to set the socket type
+    void operator=(
+        /*! [in] This property must always be specified with SOCK_STREAM, or
+         * SOCK_DGRAM. */
+        const int a_socktype);
+
+
     /// \brief Destructor
     virtual ~CSocket();
 
@@ -378,7 +437,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CSocket sock1Obj;
      * try {
      *     sock1Obj.bind(SOCK_STREAM);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * Usage e.g. to bind with default settings for listening on all local
@@ -387,7 +446,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CSocket sock2Obj;
      * try {
      *     sock2Obj.bind(SOCK_STREAM, nullptr, AI_PASSIVE);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * Usage e.g. to bind for listening on the link local address of a local
@@ -398,7 +457,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CSocket sock3Obj;
      * try {
      *     sock3Obj.bind(SOCK_STREAM, &saddr3, AI_PASSIVE);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * Usage e.g. to bind to a global unicast address for use with **connect**,
@@ -409,7 +468,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CSocket sock4Obj;
      * try {
      *     sock4Obj.bind(SOCK_STREAM, &saddr4);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * Usage e.g. to bind to "localhost", resp. to one of the loopback
@@ -419,7 +478,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CSocket sock5Obj;
      * try {
      *     sock5Obj.bind(SOCK_STREAM, &saddr5);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * You can also use "localhost" with CAddrinfo, but that allocates memory
@@ -432,7 +491,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      *     ai.get_first();
      *     ai.local_saddr(&saddr6);
      *     sock6Obj.bind(SOCK_STREAM, &saddr6);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * This method uses internally the system function <a
@@ -457,9 +516,6 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * and cannot be modified after binding. MacOS does not modify IPV6_V6ONLY
      * with binding. On Microsoft Windows IPV6_V6ONLY is set by default. */
     void bind(
-        /*! [in] This property must always be specified with SOCK_STREAM, or
-         * SOCK_DGRAM. */
-        const int a_socktype,
         /*! [in] Optional: Pointer to a socket address the socket shall be bound
          * to. */
         const SSockaddr* const a_saddr = nullptr,

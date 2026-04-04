@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-02
+// Redistribution only with this Copyright remark. Last modified: 2026-04-12
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -72,20 +72,19 @@ int getsockname(SOCKET a_sockfd, sockaddr* a_addr, socklen_t* a_addrlen) {
 #endif
 }
 
-/*!
- * \brief Get a socket file descriptor from the operating system
- * <!--   -------------------------------------------------- -->
- * \ingroup upnpsdk-socket
- *
- * Get a socket file descriptor and set its default options as specified.
- */
-SOCKET get_sockfd(int a_socktype) {
+} // anonymous namespace
+
+
+// Socket free function
+// ====================
+SOCKET socket(int a_socktype) {
+    // Strong exception guarantee.
     TRACE(" Executing get_sockfd()")
 
     // Do some general checks that must always be done according to the
     // specification.
     if (a_socktype != SOCK_STREAM && a_socktype != SOCK_DGRAM)
-        throw std::invalid_argument(
+        throw std::runtime_error(
             UPnPsdk_LOGEXCEPT(
                 "MSG1016") "Failed to create socket: invalid socket type " +
             std::to_string(a_socktype));
@@ -95,7 +94,10 @@ SOCKET get_sockfd(int a_socktype) {
     // Syscall socket(): get new socket file descriptor.
     SOCKET sfd = umock::sys_socket_h.socket(AF_INET6, a_socktype, 0);
     UPnPsdk_LOGINFO("MSG1135") "syscall ::socket(AF_INET6, "
-        << a_socktype << ", 0). Get socket fd " << sfd << '\n';
+        << (a_socktype == 1   ? "SOCK_STREAM"
+            : a_socktype == 2 ? "SOCK_DGRAM"
+                              : std::to_string(a_socktype))
+        << ", 0). Get socket fd " << sfd << '\n';
     if (sfd == INVALID_SOCKET) {
         serrObj.catch_error();
         throw std::runtime_error(
@@ -162,8 +164,6 @@ SOCKET get_sockfd(int a_socktype) {
     return sfd;
 }
 
-} // anonymous namespace
-
 
 // CSocket_basic class
 // ===================
@@ -209,6 +209,9 @@ void CSocket_basic::load() {
     ::pthread_mutex_unlock(&m_socket_mutex);
 }
 
+
+// Getter
+// ------
 // Get the raw socket file descriptor
 CSocket_basic::operator SOCKET() const {
     TRACE2(this, " Executing CSocket_basic::operator SOCKET() (get "
@@ -219,17 +222,26 @@ CSocket_basic::operator SOCKET() const {
     return sfd;
 }
 
-// Getter
-// ------
+
+SOCKET CSocket_basic::socket() const {
+    TRACE2(this, " Executing CSocket_basic::socket() (get "
+                 "raw socket fd)")
+    ::pthread_mutex_lock(&m_socket_mutex);
+    const auto sfd{m_sfd};
+    ::pthread_mutex_unlock(&m_socket_mutex);
+    return sfd;
+}
+
+
 bool CSocket_basic::local_saddr(SSockaddr* a_saddr) const {
     TRACE2(this, " Executing CSocket_basic::local_saddr()")
     CPthread_scoped_lock lock(m_socket_mutex);
-    return this->local_saddr_protected(a_saddr);
+    return this->local_saddr_intern(a_saddr);
 }
 
 /// \cond
-bool CSocket_basic::local_saddr_protected(SSockaddr* a_saddr) const {
-    TRACE2(this, " Executing CSocket_basic::local_saddr_protected()")
+bool CSocket_basic::local_saddr_intern(SSockaddr* a_saddr) const {
+    TRACE2(this, " Executing CSocket_basic::local_saddr_intern()")
     if (m_sfd == INVALID_SOCKET) {
         if (a_saddr)
             *a_saddr = "";
@@ -249,17 +261,16 @@ bool CSocket_basic::local_saddr_protected(SSockaddr* a_saddr) const {
             std::to_string(m_sfd) + "): " + serrObj.error_str());
     }
     sa_family_t af = saObj.ss.ss_family;
-    if (af != AF_INET6 && af != AF_INET)
+    if (af != AF_INET6)
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1091") "Unsupported address family " +
-            std::to_string(saObj.ss.ss_family));
+            std::to_string(saObj.ss.ss_family) + '\n');
 
     // Check if there is a complete address structure returned from
     // UPnPsdk::getsockname(). On macOS the function returns only part of the
     // address structure if the socket file descriptor isn't bound to an
     // address of a local network adapter. It trunkates the address part.
-    if (!(af == AF_INET6 && addrlen == sizeof(saObj.sin6)) &&
-        !(af == AF_INET && addrlen == sizeof(saObj.sin))) {
+    if (addrlen != sizeof(saObj.sin6)) {
         // If there is no complete address structure returned from
         // UPnPsdk::getsockname() but no error reported, it is considered to be
         // unbound. I return here an empty socket address with preserved
@@ -276,6 +287,7 @@ bool CSocket_basic::local_saddr_protected(SSockaddr* a_saddr) const {
     return true;
 }
 /// \endcond
+
 
 bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
     TRACE2(this, " Executing CSocket_basic::remote_saddr()")
@@ -312,8 +324,7 @@ bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
     // structure if the socket file descriptor isn't connected to an address.
     // It trunkates the address part.
     sa_family_t af = saObj.ss.ss_family;
-    if ((af == AF_INET6 && addrlen == sizeof(saObj.sin6)) ||
-        (af == AF_INET && addrlen == sizeof(saObj.sin))) {
+    if (af == AF_INET6 && addrlen == sizeof(saObj.sin6)) {
         if (a_saddr)
             *a_saddr = saObj;
         return true;
@@ -329,24 +340,30 @@ bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
 
 int CSocket_basic::socktype() const {
     TRACE2(this, " Executing CSocket_basic::socktype()")
+    // For extern calls protect method.
+    CPthread_scoped_lock lock(m_socket_mutex);
+    return this->socktype_intern();
+}
+
+/// \cond
+int CSocket_basic::socktype_intern() const {
+    TRACE2(this, " Executing CSocket_basic::socktype_intern()")
     int so_option{-1};
     socklen_t len{sizeof(so_option)}; // May be modified
     CSocketErr serrObj;
-    ::pthread_mutex_lock(&m_socket_mutex);
     // Type cast (char*)&so_option is needed for Microsoft Windows.
     if (umock::sys_socket_h.getsockopt(m_sfd, SOL_SOCKET, SO_TYPE,
                                        reinterpret_cast<char*>(&so_option),
                                        &len) != 0) {
         serrObj.catch_error();
-        ::pthread_mutex_unlock(&m_socket_mutex);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1030") "Failed to get socket option SO_TYPE "
                                          "(SOCK_STREAM, SOCK_DGRAM, etc.): " +
             serrObj.error_str() + '\n');
     }
-    ::pthread_mutex_unlock(&m_socket_mutex);
     return so_option;
 }
+/// \endcond
 
 int CSocket_basic::sockerr() const {
     TRACE2(this, " Executing CSocket_basic::sockerr()")
@@ -393,8 +410,25 @@ bool CSocket_basic::is_reuse_addr() const {
 
 // CSocket class
 // =============
-// Default constructor for an empty socket object
+// Default constructor for an empty socket object.
 CSocket::CSocket(){TRACE2(this, " Construct default CSocket()")}
+
+
+// Constructor with defining the socket type.
+CSocket::CSocket(const int a_socktype) {
+    TRACE2(this, " Construct CSocket() with socket type")
+
+    ::pthread_mutex_lock(&m_socket_mutex);
+    // Get a socket file descriptor with ignoring exceptions here in the
+    // constructor. New try is made in member functions.
+    try {
+        SOCKET sockfd = UPnPsdk::socket(a_socktype);
+        if (sockfd >= 3)
+            m_sfd = sockfd;
+    } catch (...) {
+    }
+    ::pthread_mutex_unlock(&m_socket_mutex);
+}
 
 // Move constructor
 CSocket::CSocket(CSocket&& that) {
@@ -408,7 +442,7 @@ CSocket::CSocket(CSocket&& that) {
     ::pthread_mutex_unlock(&m_socket_mutex);
 }
 
-// Assignment operator (parameter as value)
+// Copy assignment operator (parameter as value)
 CSocket& CSocket::operator=(CSocket that) {
     TRACE2(this, " Executing CSocket::operator=()")
     // This is thread safe because the swap is from the stack.
@@ -416,6 +450,24 @@ CSocket& CSocket::operator=(CSocket that) {
     std::swap(m_listen, that.m_listen);
 
     return *this;
+}
+
+// Assignment operator to set the socket type
+void CSocket::operator=(const int a_socktype) {
+    TRACE2(this, " Executing CSocket::operator=() (set socket type)")
+
+    CPthread_scoped_lock lock(m_socket_mutex);
+
+    // Check if socket is already in use.
+    if (m_sfd != INVALID_SOCKET) {
+        throw std::invalid_argument(
+            UPnPsdk_LOGEXCEPT(
+                "MSG1137") "Socket already in use with file descriptor " +
+            std::to_string(m_sfd));
+    }
+
+    // Store socket.
+    m_sfd = UPnPsdk::socket(a_socktype); // May throw exception.
 }
 
 // Destructor
@@ -454,8 +506,7 @@ void CSocket::set_reuse_addr(bool a_reuse) {
 
 // Bind socket to an ip address
 // ----------------------------
-void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
-                   const int a_flags) {
+void CSocket::bind(const SSockaddr* const a_saddr, const int a_flags) {
     TRACE2(this, " Executing CSocket::bind()")
 
     // Protect binding.
@@ -463,19 +514,9 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
 
     SSockaddr saddrObj; // Unspecified
 
-    // Check if socket is already bound.
-    if (m_sfd != INVALID_SOCKET) {
-        this->local_saddr_protected(&saddrObj);
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG1137") "Failed to bind socket to an "
-                                         "address. Socket fd " +
-            std::to_string(m_sfd) + " already bound to netaddress \"" +
-            saddrObj.netaddrp() + '\"');
-    }
-
     // If no socket address is given then get a valid one, either the
     // unspecified address when a passive address is requested, or the best
-    // choise from the operating system.
+    // choise (due to the routing table) from the operating system.
     if (a_saddr == nullptr) {
         if (!(a_flags & AI_PASSIVE)) {
             // Get best choise sockaddr from operating system.
@@ -497,16 +538,11 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
 
     // Get the address info for binding.
     CAddrinfo ai(saddrObj.netaddrp(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
-                 a_socktype);
+                 this->socktype_intern());
     if (!ai.get_first())
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1092") "detect error next line ...\n" +
             ai.what());
-
-    // Get a socket file descriptor from operating system and try to bind it.
-    // ----------------------------------------------------------------------
-    // Get a socket file descriptor.
-    SOCKET sockfd = get_sockfd(ai->ai_socktype);
 
     // Try to bind the socket.
     int ret_code{SOCKET_ERROR};
@@ -514,7 +550,7 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
 #if 0 // #ifdef _MSC_VER // DEBUG! Remove this.
     for (count = 0; count < 5; count++) {
         ret_code = umock::sys_socket_h.bind(
-            sockfd, ai->ai_addr, static_cast<socklen_t>(ai->ai_addrlen));
+            m_sfd, ai->ai_addr, static_cast<socklen_t>(ai->ai_addrlen));
         if (ret_code == 0) {
             break;
         } else {
@@ -529,37 +565,33 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
     }
 #else
     count = 1;
-    ret_code = umock::sys_socket_h.bind(sockfd, ai->ai_addr,
+    CSocketErr serrObj;
+    ret_code = umock::sys_socket_h.bind(m_sfd, ai->ai_addr,
                                         static_cast<socklen_t>(ai->ai_addrlen));
 #endif
-    CSocketErr serrObj;
-    if (ret_code == 0)
-        // Store valid socket file descriptor.
-        m_sfd = sockfd;
-    else
+    if (ret_code != 0)
         serrObj.catch_error();
 
     if (g_dbug) {
         ai.sockaddr(saddrObj);
         SSockaddr saObj;
-        this->local_saddr_protected(&saObj); // Get new bound socket address.
+        this->local_saddr_intern(&saObj); // Get new bound socket address.
         UPnPsdk_LOGINFO("MSG1115") "syscall ::bind("
-            << sockfd << ", " << &saObj.sa << ", " << saObj.sizeof_saddr()
+            << m_sfd << ", " << &saObj.sa << ", " << saObj.sizeof_saddr()
             << ") Tried " << count << " times \"" << saddrObj.netaddrp()
             << (ret_code != 0 ? "\". Get ERROR"
                               : "\". Bound to \"" + saObj.netaddrp())
             << "\".\n";
     }
 
-    if (ret_code == SOCKET_ERROR) {
-        CLOSE_SOCKET_P(sockfd);
+    if (ret_code != 0) {
         ai.sockaddr(saddrObj);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1008") "Close socket fd " +
-            std::to_string(sockfd) + ". Failed to bind socket " +
+            std::to_string(m_sfd) + ". Failed to bind socket " +
             std::to_string(count) + " times to address=\"" +
             saddrObj.netaddrp() + "\": (errid " + std::to_string(serrObj) +
-            ") " + serrObj.error_str());
+            ") " + serrObj.error_str() + "\n");
     }
 }
 

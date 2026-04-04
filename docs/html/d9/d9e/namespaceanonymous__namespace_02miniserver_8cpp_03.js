@@ -23,7 +23,6 @@ var namespaceanonymous__namespace_02miniserver_8cpp_03 =
     [ "receive_from_stopSock", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a774280e63947d88746e7f6f8f583d759", null ],
     [ "RunMiniServer", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76", null ],
     [ "RunMiniServer_f", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a88c84bd3f9b53e2ef2ada57dd21a73b1", null ],
-    [ "get_port", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#aec7d02e7e42098f68ed2d85b931106df", null ],
     [ "get_miniserver_sockets", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e", null ],
     [ "get_miniserver_stopsock", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63", null ],
     [ "InitMiniServerSockArray", "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a5d8a62e1d3813dc7cc3bcfca83d918a5", null ],

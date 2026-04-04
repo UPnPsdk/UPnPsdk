@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-03-24
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-04
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -306,7 +306,6 @@ SOCKET http_Connect(uri_type* destination_url, uri_type* url) {
     int ret_connect;
     char errorBuffer[ERROR_BUFFER_LEN];
 
-    // BUG! Must check return value --Ingo
     http_FixUrl(destination_url, url);
 
     http_socket = umock::sys_socket_h.socket(

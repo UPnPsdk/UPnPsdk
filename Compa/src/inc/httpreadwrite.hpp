@@ -8,7 +8,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-06-12
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-04
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -63,18 +63,6 @@ tm* http_gmtime_r(const time_t* clock, tm* result);
  */
 int http_CancelHttpGet( //
     void* Handle        ///< [in] Handle to HTTP get object.
-);
-
-/*!
- * \brief Validates URL.
- *
- * \returns
- *  - UPNP_E_INVALID_URL
- *  - UPNP_E_SUCCESS
- */
-int http_FixUrl(        //
-    uri_type* url,      ///< [in] URL to be validated and fixed.
-    uri_type* fixed_url ///< [out] URL after being fixed.
 );
 
 /*!
@@ -262,9 +250,9 @@ int http_OpenHttpConnection(
     /*! [in,out] A pointer in which to store the handle for this connection.
      * This handle is required for futher operations over this connection. */
     void** Handle,
-    /*! [in] This argument isn't used anymore and only available for
-       downstream compatibility. It can be set to any value. */
-    int timeout);
+    /*! [in] Optional: this argument isn't used anymore and only available for
+       downstream compatibility. You can omit it or set to any value. */
+    int timeout = 0);
 
 /*!
  * \brief Makes a HTTP request using a connection previously created by

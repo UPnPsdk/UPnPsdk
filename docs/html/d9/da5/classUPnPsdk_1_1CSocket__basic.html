@@ -141,6 +141,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa60a708f1b03b6dd2450f3be368cfb03" id="r_aa60a708f1b03b6dd2450f3be368cfb03"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#aa60a708f1b03b6dd2450f3be368cfb03">operator SOCKET</a> () const</td></tr>
 <tr class="memdesc:aa60a708f1b03b6dd2450f3be368cfb03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get raw socket file descriptor.  <br /></td></tr>
 <tr class="separator:aa60a708f1b03b6dd2450f3be368cfb03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbc7a7d14f99a1cb26e32d90fce75fcc" id="r_afbc7a7d14f99a1cb26e32d90fce75fcc"><td class="memItemLeft" align="right" valign="top">SOCKET&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#afbc7a7d14f99a1cb26e32d90fce75fcc">socket</a> () const</td></tr>
+<tr class="memdesc:afbc7a7d14f99a1cb26e32d90fce75fcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get raw socket file descriptor.  <br /></td></tr>
+<tr class="separator:afbc7a7d14f99a1cb26e32d90fce75fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fa77060ec104f1300521d00b9ca50e9" id="r_a3fa77060ec104f1300521d00b9ca50e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a3fa77060ec104f1300521d00b9ca50e9">local_saddr</a> (<a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> *a_saddr=nullptr) const</td></tr>
 <tr class="memdesc:a3fa77060ec104f1300521d00b9ca50e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the local socket address the socket is bound to.  <br /></td></tr>
 <tr class="separator:a3fa77060ec104f1300521d00b9ca50e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,7 +166,7 @@ Public Member Functions</h2></td></tr>
 <p>This class takes the resources and results as given by the platform (Unix, MacOS, MS Windows). It does not perform any emulations for unification. The behavior can be different on different platforms.</p>
 <p>An object of this class does not take ownership of the raw socket file descriptor and will never close it. This is also the reason why you cannot modify the socket and only have getter available (except the setter '<a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object.">load()</a>' for the raw socket file descriptor itself). But it is helpful to easily get information about an existing raw socket file descriptor. Closing the file descriptor is in the responsibility of the caller who created the socket. If you need to manage a socket you must use <a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html" title="Manage all aspects of a network socket.">CSocket</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dfc/socket_8hpp_source.html#l00129">129</a> of file <a class="el" href="../../da/dfc/socket_8hpp_source.html">socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dfc/socket_8hpp_source.html#l00170">170</a> of file <a class="el" href="../../da/dfc/socket_8hpp_source.html">socket.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2899231a1217983bb210efe731a17343" name="a2899231a1217983bb210efe731a17343"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2899231a1217983bb210efe731a17343">&#9670;&#160;</a></span>CSocket_basic() <span class="overload">[1/2]</span></h2>
@@ -260,7 +263,7 @@ Public Member Functions</h2></td></tr>
 <p>Load the raw socket file descriptor specified with the constructor into the object. </p>
 <dl class="section note"><dt>Note</dt><dd>This function can only be used with the <a class="el" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html" title="Get information from a raw network socket file descriptor.">CSocket_basic</a> class. A derived usage e.g. with the <a class="el" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html" title="Manage all aspects of a network socket.">CSocket</a> class will throw an exception.</dd></dl>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
-<div class="line">SOCKET sfd = ::socket(PF_INET6, SOCK_STREAM);</div>
+<div class="line">SOCKET sfd = <a class="code hl_function" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#afbc7a7d14f99a1cb26e32d90fce75fcc">::socket</a>(PF_INET6, SOCK_STREAM);</div>
 <div class="line">{   <span class="comment">// Scope for sockObj, sfd must longer exist than sockObj</span></div>
 <div class="line">    <a class="code hl_class" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html">CSocket_basic</a> sockObj(sfd);</div>
 <div class="line">    <span class="keywordflow">try</span> {</div>
@@ -269,7 +272,8 @@ Public Member Functions</h2></td></tr>
 <div class="line">    <span class="comment">// Use the getter from sockObj</span></div>
 <div class="line">}</div>
 <div class="line">::close(sfd);</div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html">UPnPsdk::CSocket_basic</a></div><div class="ttdoc">Get information from a raw network socket file descriptor.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00129">socket.hpp:129</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html">UPnPsdk::CSocket_basic</a></div><div class="ttdoc">Get information from a raw network socket file descriptor.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00170">socket.hpp:170</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html_afbc7a7d14f99a1cb26e32d90fce75fcc"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#afbc7a7d14f99a1cb26e32d90fce75fcc">UPnPsdk::CSocket_basic::socket</a></div><div class="ttdeci">SOCKET socket() const</div><div class="ttdoc">Get raw socket file descriptor.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00226">socket.cpp:226</a></div></div>
 </div><!-- fragment --><p> The socket file descriptor was given with the constructor. This object does not take ownership of the socket file descriptor and will never close it. Closing is in the responsibility of the caller who created the socket. Initializing it again is possible but is only waste of resources. The result is the same as before.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
@@ -373,7 +377,54 @@ Public Member Functions</h2></td></tr>
 <div class="line">} <span class="keywordflow">catch</span>(xcp) { handle_error(); };</div>
 <div class="line">SOCKET sfd = sockObj;</div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00213">213</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00216">216</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afbc7a7d14f99a1cb26e32d90fce75fcc" name="afbc7a7d14f99a1cb26e32d90fce75fcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbc7a7d14f99a1cb26e32d90fce75fcc">&#9670;&#160;</a></span>socket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SOCKET UPnPsdk::CSocket_basic::socket </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get raw socket file descriptor. </p>
+<div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
+<div class="line"><a class="code hl_class" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html">CSocket_basic</a> sockObj(valid_socket_fd);</div>
+<div class="line"><span class="keywordflow">try</span> {</div>
+<div class="line">    sockObj.load();</div>
+<div class="line">} <span class="keywordflow">catch</span>(xcp) { handle_error(); };</div>
+<div class="line">SOCKET sfd = sockObj;</div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00226">226</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d9/da5/classUPnPsdk_1_1CSocket__basic_afbc7a7d14f99a1cb26e32d90fce75fcc_icgraph.png" border="0" usemap="#ad9/da5/classUPnPsdk_1_1CSocket__basic_afbc7a7d14f99a1cb26e32d90fce75fcc_icgraph" alt=""/></div>
+<map name="ad9/da5/classUPnPsdk_1_1CSocket__basic_afbc7a7d14f99a1cb26e32d90fce75fcc_icgraph" id="ad9/da5/classUPnPsdk_1_1CSocket__basic_afbc7a7d14f99a1cb26e32d90fce75fcc_icgraph">
+<area shape="rect" title="Get raw socket file descriptor." alt="" coords="424,91,604,131"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="186,5,366,60"/>
+<area shape="poly" title=" " alt="" coords="439,89,359,63,360,58,441,84"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="176,84,376,139"/>
+<area shape="poly" title=" " alt="" coords="410,114,376,114,376,109,410,109"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#ac0223038b7afa1e3ea3d7cec983ccc63" title="Stop and Shutdown the MiniServer and free socket resources." alt="" coords="215,163,337,188"/>
+<area shape="poly" title=" " alt="" coords="430,138,377,153,329,165,327,160,375,147,429,133"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="5,20,128,45"/>
+<area shape="poly" title=" " alt="" coords="172,35,128,35,128,30,172,30"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="19,163,114,188"/>
+<area shape="poly" title=" " alt="" coords="201,178,115,178,115,173,201,173"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -395,7 +446,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the local socket address the socket is bound to. </p>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
-<div class="line">SOCKET sfd = ::socket(PF_INET6, SOCK_STREAM, 0);</div>
+<div class="line">SOCKET sfd = <a class="code hl_function" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#afbc7a7d14f99a1cb26e32d90fce75fcc">::socket</a>(PF_INET6, SOCK_STREAM, 0);</div>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
 <div class="line"><a class="code hl_class" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html">CSocket_basic</a> sockbObj(sfd);</div>
 <div class="line"><a class="code hl_class" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html">CSocket</a> sockObj;</div>
@@ -410,22 +461,22 @@ Public Member Functions</h2></td></tr>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;socket is connected to &quot;</span> &lt;&lt; saObj &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">    <span class="keywordflow">else</span></div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;unconnected socket unspecified netaddr &quot;</span> &lt;&lt; saObj &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line">} <span class="keywordflow">catch</span>(std::exception&amp; ex) { handle_error(); };</div>
+<div class="line">} <span class="keywordflow">catch</span>(<span class="keyword">const</span> std::exception&amp; ex) { handle_error(); };</div>
 <div class="line">close(sfd);</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// CSocket inherit from CSocket_basic</span></div>
 <div class="line">CSocket sockObj;</div>
 <div class="line"><span class="keywordflow">try</span> {</div>
-<div class="line">    sockObj.<a class="code hl_function" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea">bind</a>(SOCK_STREAM, <span class="keyword">nullptr</span>, AI_PASSIVE);</div>
+<div class="line">    sockObj.<a class="code hl_function" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c">bind</a>(SOCK_STREAM, <span class="keyword">nullptr</span>, AI_PASSIVE);</div>
 <div class="line">    <span class="keywordflow">if</span> (sockObj.local_saddr()) { <span class="comment">// is socket bound?</span></div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;socket prepared for listening on all local ip addresses.&quot;</span>;</div>
 <div class="line">        sockObj.listen();</div>
 <div class="line">    } <span class="keywordflow">else</span></div>
 <div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;failed to bind socket passive for listening.&quot;</span>;</div>
-<div class="line">} <span class="keywordflow">catch</span>(std::exception&amp; ex) { handle_error(); };</div>
+<div class="line">} <span class="keywordflow">catch</span>(<span class="keyword">const</span> std::exception&amp; ex) { handle_error(); };</div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket__basic_html_a984a1b26d7e29c517362d7c4ab18ef1a"><div class="ttname"><a href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a">UPnPsdk::CSocket_basic::load</a></div><div class="ttdeci">void load()</div><div class="ttdoc">Load the raw socket file descriptor specified with the constructor into the object.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00189">socket.cpp:189</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocket_html"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html">UPnPsdk::CSocket</a></div><div class="ttdoc">Manage all aspects of a network socket.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00320">socket.hpp:320</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a3e36fe7412352a07e45745ea47dd09ea"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea">UPnPsdk::CSocket::bind</a></div><div class="ttdeci">void bind(const int a_socktype, const SSockaddr *const a_saddr=nullptr, const int a_flags=0)</div><div class="ttdoc">Bind socket to an ip address of a local network adapter.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00457">socket.cpp:457</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocket_html"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html">UPnPsdk::CSocket</a></div><div class="ttdoc">Manage all aspects of a network socket.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00368">socket.hpp:368</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a699c76b0626316bf4ce8d6fc68c2c32c"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c">UPnPsdk::CSocket::bind</a></div><div class="ttdeci">void bind(const SSockaddr *const a_saddr=nullptr, const int a_flags=0)</div><div class="ttdoc">Bind socket to an ip address of a local network adapter.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00509">socket.cpp:509</a></div></div>
 <div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00133">sockaddr.hpp:133</a></div></div>
 </div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd><b>true&#160;</b> if socket is bound to one or all ip address of local network adapters<br  />
  <b>false</b> otherwise</dd></dl>
@@ -442,63 +493,66 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00224">224</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00236">236</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/da5/classUPnPsdk_1_1CSocket__basic_a3fa77060ec104f1300521d00b9ca50e9_icgraph.png" border="0" usemap="#ad9/da5/classUPnPsdk_1_1CSocket__basic_a3fa77060ec104f1300521d00b9ca50e9_icgraph" alt=""/></div>
 <map name="ad9/da5/classUPnPsdk_1_1CSocket__basic_a3fa77060ec104f1300521d00b9ca50e9_icgraph" id="ad9/da5/classUPnPsdk_1_1CSocket__basic_a3fa77060ec104f1300521d00b9ca50e9_icgraph">
-<area shape="rect" title="Get the local socket address the socket is bound to." alt="" coords="1495,185,1675,225"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="494,11,674,65"/>
-<area shape="poly" title=" " alt="" coords="1557,176,1509,128,1479,105,1446,87,1344,53,1237,30,1129,16,1022,9,920,9,826,13,675,27,674,22,826,7,920,3,1022,4,1129,10,1238,24,1345,48,1448,82,1482,100,1513,124,1561,172"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="1245,745,1425,800"/>
-<area shape="poly" title=" " alt="" coords="1572,239,1449,532,1352,746,1347,744,1444,530,1568,237"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="1224,243,1447,297"/>
-<area shape="poly" title=" " alt="" coords="1495,231,1441,245,1439,240,1494,226"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="735,217,925,272"/>
-<area shape="poly" title=" " alt="" coords="1481,210,1248,218,974,233,926,237,925,232,973,227,1248,212,1481,204"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="481,141,687,196"/>
-<area shape="poly" title=" " alt="" coords="1481,199,1447,197,1024,180,687,173,687,167,1024,175,1447,191,1481,194"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="253,76,433,131"/>
-<area shape="poly" title=" " alt="" coords="1509,183,1422,158,1315,133,1196,114,1076,106,829,106,433,106,433,101,829,101,1076,101,1197,109,1316,128,1424,153,1511,178"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="1263,495,1408,520"/>
-<area shape="poly" title=" " alt="" coords="1560,237,1349,496,1345,493,1556,234"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="5,44,205,99"/>
-<area shape="poly" title=" " alt="" coords="480,48,206,67,205,62,480,43"/>
-<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="1013,937,1136,963"/>
-<area shape="poly" title=" " alt="" coords="1306,813,1251,873,1216,903,1177,928,1137,944,1135,939,1175,924,1212,899,1247,869,1303,810"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="973,243,1176,297"/>
-<area shape="poly" title=" " alt="" coords="1210,273,1176,273,1176,267,1210,267"/>
-<area shape="poly" title=" " alt="" coords="960,261,925,257,926,252,960,256"/>
-<area shape="poly" title=" " alt="" coords="727,216,672,199,674,194,729,211"/>
-<area shape="poly" title=" " alt="" coords="469,140,433,130,434,125,470,135"/>
-<area shape="poly" title=" " alt="" coords="239,92,205,87,206,82,240,87"/>
-<area shape="poly" title=" " alt="" coords="1318,484,1295,446,1262,400,1221,352,1174,311,1157,300,1160,295,1178,307,1225,349,1266,397,1299,443,1322,481"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#ab8610e8aea3346f682ca91fe37b21bf8" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="989,371,1160,396"/>
-<area shape="poly" title=" " alt="" coords="1306,489,1247,449,1175,410,1142,399,1143,394,1177,405,1250,444,1309,484"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="997,420,1153,445"/>
-<area shape="poly" title=" " alt="" coords="1283,493,1175,459,1132,448,1133,443,1177,454,1284,488"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="977,469,1173,495"/>
-<area shape="poly" title=" " alt="" coords="1249,502,1173,494,1173,489,1249,496"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="979,321,1170,347"/>
-<area shape="poly" title=" " alt="" coords="1314,486,1257,423,1218,389,1175,360,1148,349,1150,344,1177,356,1221,385,1260,419,1318,482"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="751,421,909,447"/>
-<area shape="poly" title=" " alt="" coords="1249,521,1188,525,1118,526,1045,521,973,509,936,497,902,481,848,449,851,445,904,476,938,492,974,503,1045,516,1118,520,1188,519,1249,515"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9" title="Sends the notify message and returns a reply." alt="" coords="985,571,1165,625"/>
-<area shape="poly" title=" " alt="" coords="1286,527,1155,573,1153,568,1284,522"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a11f6b8370b141ab90b844dbf1092265c" title="Returns OK message in the case of a subscription request." alt="" coords="985,649,1165,704"/>
-<area shape="poly" title=" " alt="" coords="1313,532,1254,584,1217,613,1177,639,1153,652,1151,647,1175,634,1214,609,1251,580,1310,528"/>
-<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a06c8e12369d9db67a834d961dc914563" title="Sends the SOAP action response." alt="" coords="740,747,920,801"/>
-<area shape="poly" title=" " alt="" coords="1325,534,1303,575,1271,626,1229,676,1204,699,1177,718,1131,735,1066,750,920,769,920,764,1065,744,1130,730,1175,713,1201,694,1225,672,1267,622,1299,572,1320,531"/>
-<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#af2aff493a97adf72193dc9ff26413171" title="Sends SOAP error response." alt="" coords="985,780,1165,835"/>
-<area shape="poly" title=" " alt="" coords="1326,534,1305,582,1273,642,1230,706,1178,763,1150,782,1146,778,1174,759,1226,702,1268,639,1300,579,1321,532"/>
-<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#ac97fc275f79e926d35c691d839489b07" title="Sends response of get var status." alt="" coords="979,859,1170,913"/>
-<area shape="poly" title=" " alt="" coords="1323,534,1226,734,1215,767,1209,795,1199,822,1178,849,1164,861,1160,857,1174,846,1195,819,1204,794,1210,766,1222,732,1319,532"/>
-<area shape="poly" title=" " alt="" coords="1002,320,972,311,885,275,887,270,974,306,1004,315"/>
-<area shape="poly" title=" " alt="" coords="997,353,974,361,906,392,853,424,850,419,904,388,972,356,996,348"/>
-<area shape="poly" title=" " alt="" coords="971,796,920,789,920,784,971,791"/>
+<area shape="rect" title="Get the local socket address the socket is bound to." alt="" coords="1495,227,1675,267"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50" title="Add a socket file descriptor to an &#39;fd_set&#39; structure as needed for ::select()." alt="" coords="494,20,674,75"/>
+<area shape="poly" title=" " alt="" coords="1564,217,1543,187,1516,153,1484,121,1445,96,1396,75,1345,57,1240,31,1132,15,1025,9,923,9,828,15,675,33,674,28,827,10,922,4,1025,4,1132,10,1241,26,1347,52,1398,70,1448,92,1487,117,1520,149,1548,183,1568,214"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="1245,635,1425,689"/>
+<area shape="poly" title=" " alt="" coords="1574,281,1526,400,1490,472,1449,542,1408,594,1368,636,1364,633,1404,590,1444,539,1486,470,1521,397,1569,279"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="1245,876,1425,931"/>
+<area shape="poly" title=" " alt="" coords="1578,282,1531,463,1494,583,1449,702,1401,799,1357,877,1352,874,1397,797,1444,700,1488,581,1526,462,1573,280"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="1224,252,1447,307"/>
+<area shape="poly" title=" " alt="" coords="1481,263,1447,268,1447,262,1481,258"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="735,227,925,281"/>
+<area shape="poly" title=" " alt="" coords="1481,243,1447,242,1210,236,973,242,926,246,925,240,973,237,1210,230,1447,237,1481,238"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="481,151,687,205"/>
+<area shape="poly" title=" " alt="" coords="1487,227,1446,221,1235,199,1025,187,836,181,687,180,687,175,836,176,1025,182,1236,194,1447,215,1488,222"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="253,85,433,140"/>
+<area shape="poly" title=" " alt="" coords="1529,224,1446,191,1344,158,1264,134,1182,120,1076,115,829,115,433,115,433,110,829,110,1076,110,1183,115,1265,129,1345,153,1448,186,1531,219"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="1263,504,1408,529"/>
+<area shape="poly" title=" " alt="" coords="1558,279,1351,505,1347,502,1554,276"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a29857662f54c55aa7e6023b37b08af76" title="Run the miniserver." alt="" coords="5,53,205,108"/>
+<area shape="poly" title=" " alt="" coords="480,57,206,76,205,71,480,52"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="1013,947,1136,972"/>
+<area shape="poly" title=" " alt="" coords="1316,703,1241,841,1203,904,1178,937,1158,949,1137,956,1135,951,1156,944,1174,933,1199,901,1236,838,1311,700"/>
+<area shape="poly" title=" " alt="" coords="1233,928,1135,949,1134,944,1232,923"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="973,252,1176,307"/>
+<area shape="poly" title=" " alt="" coords="1210,282,1176,282,1176,277,1210,277"/>
+<area shape="poly" title=" " alt="" coords="960,270,925,266,926,261,960,265"/>
+<area shape="poly" title=" " alt="" coords="727,225,672,208,674,203,729,220"/>
+<area shape="poly" title=" " alt="" coords="469,150,433,140,434,134,470,144"/>
+<area shape="poly" title=" " alt="" coords="239,101,205,97,206,91,240,96"/>
+<area shape="poly" title=" " alt="" coords="1318,493,1295,455,1262,409,1221,362,1174,320,1157,309,1160,305,1178,316,1225,358,1266,406,1299,452,1322,490"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#ab8610e8aea3346f682ca91fe37b21bf8" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="989,380,1160,405"/>
+<area shape="poly" title=" " alt="" coords="1306,498,1247,458,1175,419,1142,408,1143,403,1177,414,1250,453,1309,493"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="997,429,1153,455"/>
+<area shape="poly" title=" " alt="" coords="1283,502,1175,469,1132,457,1133,452,1177,463,1284,497"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="977,479,1173,504"/>
+<area shape="poly" title=" " alt="" coords="1249,511,1173,503,1173,498,1249,506"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="979,331,1170,356"/>
+<area shape="poly" title=" " alt="" coords="1314,495,1257,432,1218,398,1175,370,1148,358,1150,354,1177,365,1221,394,1260,428,1318,492"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="751,431,909,456"/>
+<area shape="poly" title=" " alt="" coords="1249,530,1188,534,1118,535,1045,530,973,518,936,506,902,490,848,458,851,454,904,486,938,501,974,513,1045,525,1118,529,1188,529,1249,525"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9" title="Sends the notify message and returns a reply." alt="" coords="985,580,1165,635"/>
+<area shape="poly" title=" " alt="" coords="1286,536,1155,582,1153,577,1284,531"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a11f6b8370b141ab90b844dbf1092265c" title="Returns OK message in the case of a subscription request." alt="" coords="985,659,1165,713"/>
+<area shape="poly" title=" " alt="" coords="1313,541,1254,593,1217,622,1177,648,1153,661,1151,656,1175,644,1214,618,1251,589,1310,537"/>
+<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a06c8e12369d9db67a834d961dc914563" title="Sends the SOAP action response." alt="" coords="740,756,920,811"/>
+<area shape="poly" title=" " alt="" coords="1308,540,1267,577,1226,623,1212,652,1207,678,1199,703,1178,727,1159,738,1133,747,1067,762,921,780,920,775,1066,757,1131,742,1156,733,1174,723,1194,700,1201,677,1207,650,1222,620,1263,573,1305,536"/>
+<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#af2aff493a97adf72193dc9ff26413171" title="Sends SOAP error response." alt="" coords="985,789,1165,844"/>
+<area shape="poly" title=" " alt="" coords="1307,540,1265,576,1226,623,1216,644,1210,663,1206,699,1200,734,1192,752,1178,772,1154,791,1151,787,1174,768,1187,750,1195,732,1201,698,1205,662,1211,642,1222,621,1261,573,1303,536"/>
+<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#ac97fc275f79e926d35c691d839489b07" title="Sends response of get var status." alt="" coords="979,868,1170,923"/>
+<area shape="poly" title=" " alt="" coords="1306,539,1264,576,1243,598,1226,623,1213,656,1207,687,1209,744,1210,771,1208,799,1198,828,1178,858,1166,870,1162,866,1174,855,1193,826,1203,798,1205,771,1204,744,1202,686,1207,655,1222,621,1239,595,1260,572,1302,535"/>
+<area shape="poly" title=" " alt="" coords="1002,330,972,320,885,284,887,279,974,315,1004,325"/>
+<area shape="poly" title=" " alt="" coords="997,362,974,370,906,402,853,433,850,428,904,397,972,365,996,357"/>
+<area shape="poly" title=" " alt="" coords="971,805,920,798,920,793,971,800"/>
 </map>
 </div>
 
@@ -536,12 +590,12 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00280">280</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00292">292</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_cgraph.png" border="0" usemap="#ad9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_cgraph" alt=""/></div>
 <map name="ad9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_cgraph" id="ad9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_cgraph">
 <area shape="rect" title="Get the remote socket address the socket is connected to." alt="" coords="5,37,185,77"/>
@@ -549,6 +603,20 @@ Public Member Functions</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="185,41,220,36,220,42,186,47"/>
 <area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="233,69,391,109"/>
 <area shape="poly" title=" " alt="" coords="186,68,220,73,220,78,185,73"/>
+</map>
+</div>
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../d9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_icgraph.png" border="0" usemap="#ad9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_icgraph" alt=""/></div>
+<map name="ad9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_icgraph" id="ad9/da5/classUPnPsdk_1_1CSocket__basic_ac39ca8c143781c52f049fa2d10d889ab_icgraph">
+<area shape="rect" title="Get the remote socket address the socket is connected to." alt="" coords="404,13,584,53"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="176,5,356,60"/>
+<area shape="poly" title=" " alt="" coords="390,35,356,35,356,30,390,30"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="5,20,128,45"/>
+<area shape="poly" title=" " alt="" coords="162,35,128,35,128,30,162,30"/>
 </map>
 </div>
 
@@ -578,21 +646,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00330">330</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d9/da5/classUPnPsdk_1_1CSocket__basic_ad041272f04b0147168ec8b89f179e39b_cgraph.png" border="0" usemap="#ad9/da5/classUPnPsdk_1_1CSocket__basic_ad041272f04b0147168ec8b89f179e39b_cgraph" alt=""/></div>
-<map name="ad9/da5/classUPnPsdk_1_1CSocket__basic_ad041272f04b0147168ec8b89f179e39b_cgraph" id="ad9/da5/classUPnPsdk_1_1CSocket__basic_ad041272f04b0147168ec8b89f179e39b_cgraph">
-<area shape="rect" title="Get the socket type." alt="" coords="5,37,185,77"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="233,5,391,45"/>
-<area shape="poly" title=" " alt="" coords="185,41,220,36,220,42,186,47"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="233,69,391,109"/>
-<area shape="poly" title=" " alt="" coords="186,68,220,73,220,78,185,73"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00341">341</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -620,12 +674,12 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00351">351</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00368">368</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/da5/classUPnPsdk_1_1CSocket__basic_a03d5f6960eee00a3d0a987df326aaf2b_cgraph.png" border="0" usemap="#ad9/da5/classUPnPsdk_1_1CSocket__basic_a03d5f6960eee00a3d0a987df326aaf2b_cgraph" alt=""/></div>
 <map name="ad9/da5/classUPnPsdk_1_1CSocket__basic_a03d5f6960eee00a3d0a987df326aaf2b_cgraph" id="ad9/da5/classUPnPsdk_1_1CSocket__basic_a03d5f6960eee00a3d0a987df326aaf2b_cgraph">
 <area shape="rect" title="Get the error that is given from the socket as option." alt="" coords="5,37,185,77"/>
@@ -663,12 +717,12 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00372">372</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00389">389</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d9/da5/classUPnPsdk_1_1CSocket__basic_ac866a7e2ee68d5be6e62f997b26454a5_cgraph.png" border="0" usemap="#ad9/da5/classUPnPsdk_1_1CSocket__basic_ac866a7e2ee68d5be6e62f997b26454a5_cgraph" alt=""/></div>
 <map name="ad9/da5/classUPnPsdk_1_1CSocket__basic_ac866a7e2ee68d5be6e62f997b26454a5_cgraph" id="ad9/da5/classUPnPsdk_1_1CSocket__basic_ac866a7e2ee68d5be6e62f997b26454a5_cgraph">
 <area shape="rect" title="Get status if reusing address is enabled." alt="" coords="5,37,185,77"/>

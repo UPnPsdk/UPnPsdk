@@ -1,13 +1,19 @@
 <map id="http_Connect" name="http_Connect">
-<area shape="rect" id="Node000001" title="Gets destination address from URL and then connects to the remote end." alt="" coords="5,31,113,56"/>
-<area shape="rect" id="Node000002" href="$d1/db3/httpreadwrite_8cpp.html#a502852e9caf9d74374e83f8e9bf42acb" title="Validates URL." alt="" coords="161,5,255,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,32,148,26,149,31,114,37"/>
-<area shape="rect" id="Node000004" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="163,55,253,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="114,49,149,55,148,60,113,55"/>
-<area shape="rect" id="Node000003" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="309,5,476,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,15,296,15,296,21,255,21"/>
-<area shape="rect" id="Node000005" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="323,55,463,80"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="253,65,309,65,309,70,253,70"/>
-<area shape="rect" id="Node000006" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="303,104,483,129"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="254,77,332,98,331,103,253,82"/>
+<area shape="rect" id="Node000001" title="Gets destination address from URL and then connects to the remote end." alt="" coords="5,112,113,137"/>
+<area shape="rect" id="Node000002" href="$d6/d58/namespaceanonymous__namespace_02httpreadwrite_8cpp_03.html#afcfeafe98124d78a823db913bb4aa1bd" title="Validates URL." alt="" coords="161,5,341,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,109,180,64,182,68,88,114"/>
+<area shape="rect" id="Node000004" href="$da/de4/group__upnpsdk-socket.html#gadbc969f806b019f3a67c7be8cd76b1a7" title="Get a socket file descriptor from the operating system." alt="" coords="187,112,316,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="113,122,173,122,173,127,113,127"/>
+<area shape="rect" id="Node000007" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="206,184,297,209"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="95,135,204,176,202,181,93,140"/>
+<area shape="rect" id="Node000003" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#a8f32e8ba916b944b37e9f23e1fc60ec9" title="Compares buffer in the token object with the buffer in in2 case insensitive." alt="" coords="396,5,563,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="342,24,382,22,383,27,342,30"/>
+<area shape="rect" id="Node000005" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="401,55,558,95"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="310,109,387,93,388,98,311,115"/>
+<area shape="rect" id="Node000006" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="401,119,558,159"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="316,126,387,131,386,136,316,131"/>
+<area shape="rect" id="Node000008" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="409,184,549,209"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="297,194,396,194,396,199,297,199"/>
+<area shape="rect" id="Node000009" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="389,233,569,259"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="298,204,407,228,406,233,297,209"/>
 </map>

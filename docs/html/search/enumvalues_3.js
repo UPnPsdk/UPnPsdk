@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['opaque_5fpart_0',['OPAQUE_PART',['../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#a631372ca4f28d9792e14f9b83cf4a863a4c54febe4ccf75bc312c3c048961b974',1,'uri.hpp']]]
+  ['gua_0',['gua',['../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8ac9c1ebed56b2efee7844b4158905d845',1,'UPnPsdk::CNetadapter']]]
 ];

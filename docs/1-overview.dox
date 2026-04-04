@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-01
+// Redistribution only with this Copyright remark. Last modified: 2026-04-04
 
 /*!
 \mainpage Overview
@@ -53,6 +53,7 @@ The order shows the dependency. Each component depends on its predecessor. For e
 
 There are several functions and methods that are specified to <a href="https://en.cppreference.com/w/cpp/language/noexcept_spec">noexcept</a>. This may not always be true with debugging or TRACE enabled because there we have extended use of std::string objects for output to std::cerr. Both may throw exceptions in rare cases like exceeding max. length of a std::string or error on memory allocation or modified output flags of the std::cerr output stream by the program using the SDK. The result of such an unexpected exception is the immediate termination of the program as specified for **noexcept**. But I assume that debugging or TRACE is only a temporary setting not used for production code and is under special observation by the developer so that he can evaluate these exceptions.
 
+\anchor reuseAddr
 \section overview_reuseaddr Socket option "reuse address"
 
 There is an issue when a network connection unexpectedly dies. The port then has normaly to `TIME_WAIT` util it can use its old \glos{netaddr,netaddress} again. This may not be acceptable for certain server applications. So there is a socket option `SO_REUSEADDR` to immediately reuse a given netaddress, but with the risk of network errors and security issues. For more details have a look at <!--REF:-->[Bind: Address Already in Use](https://hea-www.harvard.edu/~fine/Tech/addrinuse.html).
@@ -63,6 +64,7 @@ A TIME_WAIT is not necessary if the remote control point closes the connection. 
 
 TIME_WAIT is state of TCP connection, not the port. Every TCP connection identifies by tuple (local-address, local-port, remote-address, remote-port). So if the client connect to server using new (dynamic) local port then new TCP connection is created and TIME_WAIT isn't issue.
 
+\anchor exclAddrUse
 This is unclear on Microsoft Windows. **THERE WE HAVE AN IMPORTANT SECURITY ISSUE!**\n
 In the past Windows had a very bad network security on low level socket handling as documented at [Using SO_REUSEADDR and SO_EXCLUSIVEADDRUSE](https://learn.microsoft.com/en-us/windows/win32/winsock/using-so-reuseaddr-and-so-exclusiveaddruse). Microsoft has fixed this since Windows Server 2003. The network stack now behaves like it does by default on other platforms. Strangely, they call it advanced security, which is standard on other major operating systems. But this isn't done by default. The developer has to take this into account by using the socket option SO_EXCLUSIVEADDRUSE. I always set this option with constructing a socket object on a WIN32 platform.
 

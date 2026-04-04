@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-12
+// Redistribution only with this Copyright remark. Last modified: 2026-04-15
 
 // There are additional Unit Tests at
 // git commit a18cff7d3dfd3266ad63a9efacba672ab1bd88b2.
@@ -27,6 +27,7 @@ using ::UPnPsdk::bitmask_to_netmask;
 using ::UPnPsdk::CNetadapter;
 using ::UPnPsdk::netmask_to_bitmask;
 using ::UPnPsdk::SSockaddr;
+using ADDRS = UPnPsdk::CNetadapter::ADDRS;
 
 
 UPnPsdk::SSockaddr saddrObj;
@@ -93,7 +94,8 @@ TEST(NetadapterTestSuite, get_adapters_info_successful) {
             ntohl(saddrObj.sin.sin_addr.s_addr) == 2130706433) // "127.0.0.1"
             EXPECT_EQ(nadObj.bitmask(), 8);
 #if 0
-        // To show resolved iface names set first NI_NUMERICHOST above to 0.
+        // To show resolved iface names set first 0 two times for
+        // NI_NUMERICHOST above.
         std::cout << "DEBUG: \"" << nadObj.name() << "\" address = " << addrStr
                   << "(" << saddrObj.netaddr()
                   << "), netmask = " << snmskObj.netaddr()
@@ -301,19 +303,19 @@ TEST(NetadapterTestSuite, find_next_adapters_info_without_get_first) {
 TEST(NetadapterTestSuite, find_next_adapters_info_without_find_first) {
     CNetadapter nadaptObj;
     ASSERT_NO_THROW(nadaptObj.get_first());
-    // There is no next adapter, but ...
-    EXPECT_FALSE(nadaptObj.find_next());
-    // ... very first adapter is selected from get_first().
     EXPECT_NE(nadaptObj.index(), 0);
-
-    // and we get the values from the first ip address of the internal adapter
-    // list.
-    ASSERT_NE(nadaptObj.name(), "");
-    EXPECT_NE(nadaptObj.bitmask(), 0);
+    // There is no next adapter.
+    EXPECT_FALSE(nadaptObj.find_next());
+    // Search for an address was not specified. find_next() finished without
+    // finding something and set index to 0.
+    EXPECT_EQ(nadaptObj.index(), 0);
+    // It was nothing found.
+    ASSERT_EQ(nadaptObj.name(), "");
+    EXPECT_EQ(nadaptObj.bitmask(), 0);
     nadaptObj.sockaddr(saddrObj);
-    EXPECT_NE(saddrObj.netaddrp(), ":0");
+    EXPECT_EQ(saddrObj.netaddrp(), ":0");
     nadaptObj.socknetmask(saddrObj);
-    EXPECT_NE(saddrObj.netaddr(), "");
+    EXPECT_EQ(saddrObj.netaddr(), "");
 }
 
 TEST(NetadapterTestSuite, find_first_adapters_info) {
@@ -324,7 +326,7 @@ TEST(NetadapterTestSuite, find_first_adapters_info) {
     // Index 1 must not be the loopback adapter so I ask for it before using
     // its name. The loopback address can be any ip address "127.0.0.0" to
     // "127.255.255.255" or "[::1]".
-    EXPECT_TRUE(nadaptObj.find_first("loopback"));
+    EXPECT_TRUE(nadaptObj.find_first(ADDRS::lo));
     EXPECT_NE(nadaptObj.index(), 0);
     ASSERT_NE(nadaptObj.name(), "");
     std::string lo_name{nadaptObj.name()};
@@ -406,7 +408,8 @@ TEST(NetadapterTestSuite, find_loopback_adapter_info) {
     unsigned int index{0};
     std::string name;
 
-    EXPECT_TRUE(nadaptObj.find_first("loopback"));
+    // EXPECT_TRUE(nadaptObj.find_first("loopback"));
+    EXPECT_TRUE(nadaptObj.find_first(ADDRS::lo));
     index = nadaptObj.index();
     ASSERT_NE(index, 0);
     name = nadaptObj.name();
@@ -673,6 +676,29 @@ TEST(NetadapterTestSuite, mock_netadapter_find_index_with_1_addr) {
     EXPECT_EQ(saddrObj, sa1a_mockObj);
     EXPECT_EQ(nadapObj.bitmask(), 64);
     ASSERT_FALSE(nadapObj.find_next());
+}
+
+TEST(NetadapterTestSuite, netadapter_find_with_flags) {
+    // At least one loopback interface and one link-local address must be
+    // available. There may be more.
+    CNetadapter nadObj;
+    ASSERT_NO_THROW(nadObj.get_first());
+
+    ASSERT_TRUE(nadObj.find_first(ADDRS::lo | ADDRS::lla));
+    nadObj.sockaddr(saddrObj);
+    EXPECT_TRUE(IN6_IS_ADDR_LOOPBACK(&saddrObj.sin6.sin6_addr) ||
+                IN6_IS_ADDR_LINKLOCAL(&saddrObj.sin6.sin6_addr));
+
+    ASSERT_TRUE(nadObj.find_next());
+    nadObj.sockaddr(saddrObj);
+    EXPECT_TRUE(IN6_IS_ADDR_LOOPBACK(&saddrObj.sin6.sin6_addr) ||
+                IN6_IS_ADDR_LINKLOCAL(&saddrObj.sin6.sin6_addr));
+
+    if (nadObj.find_next()) { // There may be more.
+        nadObj.sockaddr(saddrObj);
+        EXPECT_TRUE(IN6_IS_ADDR_LOOPBACK(&saddrObj.sin6.sin6_addr) ||
+                    IN6_IS_ADDR_LINKLOCAL(&saddrObj.sin6.sin6_addr));
+    }
 }
 
 } // namespace utest

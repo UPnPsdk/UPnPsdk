@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-17
+// Redistribution only with this Copyright remark. Last modified: 2026-04-15
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -26,6 +26,7 @@
 #include <UPnPsdk/netadapter.hpp>
 
 #include <utest/utest.hpp>
+#include <utest/upnpdebug.hpp>
 #include <utest/threadpool_init.hpp>
 #include <umock/sys_socket_mock.hpp>
 #ifdef _MSC_VER
@@ -180,12 +181,12 @@ void get_netadapter() {
 
 class StartMiniServerFTestSuite : public ::testing::Test {
   protected:
-    // CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
 
     // Constructor
     StartMiniServerFTestSuite() {
-        // if (g_dbug)
-        //     logObj.enable(UPNP_ALL);
+        if (g_dbug)
+            logObj.enable(UPNP_ALL);
 
         // Clean up needed global environment
         gIF_INDEX = 0u;
@@ -201,12 +202,10 @@ class StartMiniServerFTestSuite : public ::testing::Test {
     }
 };
 
-class StartMiniServerMockFTestSuite : public StartMiniServerFTestSuite {
+class StartMiniServerMockBaseFTestSuite : public StartMiniServerFTestSuite {
   protected:
     // Instantiate mocking objects.
     StrictMock<umock::Sys_socketMock> m_sys_socketObj;
-    // Inject the mocking objects into the tested code. This starts mocking.
-    umock::Sys_socket sys_socket_injectObj{&m_sys_socketObj};
 
     StrictMock<umock::PupnpMiniServerMock> miniserverObj;
     umock::PupnpMiniServer miniserver_injectObj{&miniserverObj};
@@ -219,7 +218,7 @@ class StartMiniServerMockFTestSuite : public StartMiniServerFTestSuite {
 #endif
 
     // Constructor
-    StartMiniServerMockFTestSuite() {
+    StartMiniServerMockBaseFTestSuite() {
         // Set default socket object values
         ON_CALL(m_sys_socketObj, socket(_, _, _))
             .WillByDefault(SetErrnoAndReturn(EACCESP, SOCKET_ERROR));
@@ -235,8 +234,12 @@ class StartMiniServerMockFTestSuite : public StartMiniServerFTestSuite {
             .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, getsockname(_, _, _))
             .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, recvfrom(_, _, _, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+
         ON_CALL(ssdpObj, get_ssdp_sockets(_))
             .WillByDefault(Return(UPNP_E_OUTOF_SOCKET));
+
         ON_CALL(miniserverObj, RunMiniServer(_))
             .WillByDefault(set_gMServState(MSERV_IDLE));
 #ifdef _MSC_VER
@@ -244,6 +247,12 @@ class StartMiniServerMockFTestSuite : public StartMiniServerFTestSuite {
             .WillByDefault(Return(WSAENOTSOCK));
 #endif
     }
+};
+
+class StartMiniServerMockFTestSuite : public StartMiniServerMockBaseFTestSuite {
+  protected:
+    // Inject the mocking objects into the tested code. This starts mocking.
+    umock::Sys_socket sys_socket_injectObj{&m_sys_socketObj};
 };
 
 
@@ -519,6 +528,7 @@ TEST(StartMiniServerTestSuite, get_miniserver_sockets_with_no_ip_addr) {
 TEST_F(StartMiniServerMockFTestSuite,
        get_miniserver_sockets_with_one_ipv6_lla_addr) {
     // Initialize needed structure
+    constexpr int socktype = SOCK_STREAM;
     constexpr SOCKET sockfd{umock::sfd_base + 10};
     SSockaddr saddrObj;
     saddrObj = "[fe80::fedc:cdef:0:3]:50079";
@@ -533,7 +543,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     miniSocket.pSockLlaObj = &sockLlaObj;
 #endif
     // Provide a socket file descriptor
-    EXPECT_CALL(m_sys_socketObj, socket(saddrObj.ss.ss_family, SOCK_STREAM, 0))
+    EXPECT_CALL(m_sys_socketObj, socket(saddrObj.ss.ss_family, socktype, 0))
         .WillOnce(Return(sockfd));
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
@@ -574,6 +584,8 @@ TEST_F(StartMiniServerMockFTestSuite,
     // Bind socket to an ip address
     EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _)).WillOnce(Return(0));
     // Provide socket address from the socket file descriptor
+    EXPECT_CALL(m_sys_socketObj, getsockopt(sockfd, SOL_SOCKET, SO_TYPE, _, _))
+        .WillOnce(DoAll(SetArgPtrIntValue<3>(socktype), Return(0)));
     EXPECT_CALL(
         m_sys_socketObj,
         getsockname(sockfd, _,
@@ -1591,7 +1603,6 @@ TEST_F(StartMiniServerMockFTestSuite, do_listen_insufficient_resources) {
     EXPECT_EQ(s.try_port, 0); // not used
     EXPECT_EQ(s.address_len, (socklen_t)sizeof(*s.serverAddr4));
 }
-#endif
 
 TEST_F(StartMiniServerMockFTestSuite, get_port_successful) {
     // Configure expected system calls:
@@ -1683,36 +1694,77 @@ TEST_F(StartMiniServerMockFTestSuite, get_port_fails) {
     EXPECT_EQ(errno, ENOBUFS);
     EXPECT_EQ(port, 0xAAAA);
 }
+#endif
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST(StartMiniServerTestSuite, get_miniserver_stopsock) {
     // Here we test a real connection to the loopback device. This needs
     // initialization of sockets on MS Windows. We also have to close the
     // socket.
     MiniServerSockArray out;
-    InitMiniServerSockArray(&out);
+    ::InitMiniServerSockArray(&out);
+
+    CPupnplog logObj; // Output only with build type DEBUG.
+    if (g_dbug)
+        logObj.enable(UPNP_ALL);
 
     // Test Unit
-    int ret_get_miniserver_stopsock = get_miniserver_stopsock(&out);
+    int ret_get_miniserver_stopsock = ::get_miniserver_stopsock(&out);
     EXPECT_EQ(ret_get_miniserver_stopsock, UPNP_E_SUCCESS)
         << errStrEx(ret_get_miniserver_stopsock, UPNP_E_SUCCESS);
 
-    EXPECT_NE(out.miniServerStopSock, (SOCKET)0);
-    EXPECT_NE(out.stopPort, 0);
-    EXPECT_EQ(out.stopPort, miniStopSockPort);
+    ASSERT_GT(out.miniServerStopSock, 0u);
+    ASSERT_GT(out.stopPort, 0);
+    ASSERT_EQ(out.stopPort, /*global var*/ miniStopSockPort);
 
-    // Get socket object from the bound socket
-    CSocket_basic sockObj(out.miniServerStopSock);
-    sockObj.load(); // UPnPsdk::CSocket_basic
+    // Get local address the socket is bound. Old code use hard coded
+    // "127.0.0.1" to bind to the stop socket. I need to use low level system
+    // calls to test the results because new code does not support IPv4
+    // addresses.
+    UPnPsdk::sockaddr_t local_saddr;
+    socklen_t addrlen = sizeof(sockaddr_storage); // May be modified on return
+    ASSERT_EQ(::getsockname(out.miniServerStopSock, &local_saddr.sa, &addrlen),
+              0);
 
-    // and verify its settings
-    SSockaddr sa;
-    sockObj.local_saddr(&sa);
-    EXPECT_EQ(sa.port(), miniStopSockPort);
-    EXPECT_EQ(sa.netaddr(), "127.0.0.1");
-
-    // Close socket
+    // Close socket, does not touch local_saddr. It is still available.
     EXPECT_EQ(sock_close(out.miniServerStopSock), 0);
+
+    // integer of "127.0.0.1" in host byte order is 2130706433.
+    ASSERT_EQ(local_saddr.sin.sin_addr.s_addr, htonl(2130706433));
+    ASSERT_EQ(local_saddr.sin.sin_port, htons(out.stopPort));
 }
+#else
+TEST(StartMiniServerTestSuite, get_miniserver_stopsock) {
+    // Here we test a real connection to the loopback device. This needs
+    // initialization of sockets on MS Windows. We also have to close the
+    // socket.
+    MiniServerSockArray out;
+    ::InitMiniServerSockArray(&out);
+
+    UPnPsdk::CSocket sockStpObj;
+    out.pSockStpObj = &sockStpObj;
+
+    CPupnplog logObj; // Output only with build type DEBUG.
+    if (g_dbug)
+        logObj.enable(UPNP_ALL);
+
+    // Test Unit
+    int ret_get_miniserver_stopsock = ::get_miniserver_stopsock(&out);
+    EXPECT_EQ(ret_get_miniserver_stopsock, UPNP_E_SUCCESS)
+        << errStrEx(ret_get_miniserver_stopsock, UPNP_E_SUCCESS);
+
+    ASSERT_GT(out.miniServerStopSock, 0u);
+    ASSERT_EQ(out.miniServerStopSock, out.pSockStpObj->socket());
+    UPnPsdk::SSockaddr saddrObj;
+    ASSERT_TRUE(out.pSockStpObj->local_saddr(&saddrObj));
+    ASSERT_EQ(out.stopPort, saddrObj.port());
+    ASSERT_EQ(out.stopPort, /*global var*/ miniStopSockPort);
+
+    // Get local and remote address the socket is bound.
+    EXPECT_EQ(saddrObj.netaddr(), "[::1]");
+    EXPECT_FALSE(out.pSockStpObj->remote_saddr(&saddrObj));
+}
+#endif
 
 TEST_F(StartMiniServerMockFTestSuite, get_miniserver_stopsock_fails) {
     // Configure expected system calls:
@@ -1723,9 +1775,16 @@ TEST_F(StartMiniServerMockFTestSuite, get_miniserver_stopsock_fails) {
     // Provide needed data for the Unit
     MiniServerSockArray out;
     InitMiniServerSockArray(&out);
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+    UPnPsdk::CSocket sockStpObj;
+    out.pSockStpObj = &sockStpObj;
+    sa_family_t af{AF_INET6};
+#else
+    sa_family_t af{AF_INET};
+#endif
 
     // Mock system functions
-    EXPECT_CALL(m_sys_socketObj, socket(AF_INET, SOCK_DGRAM, 0))
+    EXPECT_CALL(m_sys_socketObj, socket(af, SOCK_DGRAM, 0))
         .WillOnce(SetErrnoAndReturn(EACCES, -1));
 #ifdef _MSC_VER
     if (!old_code)
@@ -1741,19 +1800,31 @@ TEST_F(StartMiniServerMockFTestSuite, get_miniserver_stopsock_fails) {
     // Close socket; we don't need to close a mocked socket
 }
 
-TEST_F(StartMiniServerMockFTestSuite, get_miniserver_stopsock_bind_fails) {
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP // DEBUG!
+TEST_F(StartMiniServerMockBaseFTestSuite, get_miniserver_stopsock_bind_fails) {
     // Configure expected system calls:
     // * socket() returns file descriptor.
     // * bind() fails with ENOMEM.
     // * getsockname() is not called.
 
+    const SOCKET sockfd{umock::sfd_base + 26};
+
     // Provide needed data for the Unit
     MiniServerSockArray out;
     InitMiniServerSockArray(&out);
-    const SOCKET sockfd{umock::sfd_base + 26};
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+    UPnPsdk::CSocket sockStpObj;
+    out.pSockStpObj = &sockStpObj;
+    sa_family_t af{AF_INET6};
+#else
+    sa_family_t af{AF_INET};
+#endif
+
+    // Start mocking.
+    umock::Sys_socket sys_socket_injectObj{&m_sys_socketObj};
 
     // Mock system functions
-    EXPECT_CALL(m_sys_socketObj, socket(AF_INET, SOCK_DGRAM, 0))
+    EXPECT_CALL(m_sys_socketObj, socket(af, SOCK_DGRAM, 0))
         .WillOnce(Return(sockfd));
     EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _))
         .WillOnce(SetErrnoAndReturn(ENOMEM, -1));
@@ -1770,7 +1841,9 @@ TEST_F(StartMiniServerMockFTestSuite, get_miniserver_stopsock_bind_fails) {
 
     // Close socket; we don't need to close a mocked socket
 }
+#endif
 
+#if 0 // DEBUG!
 TEST_F(StartMiniServerMockFTestSuite,
        get_miniserver_stopsock_getsockname_fails) {
     // Configure expected system calls:
@@ -1797,6 +1870,7 @@ TEST_F(StartMiniServerMockFTestSuite,
 
     // Close socket; we don't need to close a mocked socket
 }
+#endif
 
 } // namespace utest
 

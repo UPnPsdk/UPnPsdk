@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['empty_0',['empty',['../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00aa2e4822a98337283e39f7b60acf85ec9',1,'UPnPsdk::CComponent']]]
+  ['best_0',['best',['../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8adb82206b1d49042d1a710e9c88c21d36',1,'UPnPsdk::CNetadapter']]]
 ];

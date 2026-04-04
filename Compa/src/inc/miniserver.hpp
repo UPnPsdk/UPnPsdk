@@ -7,7 +7,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-03-08
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-16
  * Copied from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -88,11 +88,10 @@ struct MiniServerSockArray {
     in_port_t miniServerPort6;
     /*! \brief Corresponding port to miniServerSock6UlaGua */
     in_port_t miniServerPort6UlaGua;
-#ifdef COMPA_HAVE_WEBSERVER
     UPnPsdk::CSocket* pSockLlaObj;
     UPnPsdk::CSocket* pSockGuaObj;
     UPnPsdk::CSocket* pSockIp4Obj;
-#endif
+    UPnPsdk::CSocket* pSockStpObj;
 #ifdef COMPA_HAVE_CTRLPT_SSDP
     /*! \name Only with Client (control point) Module.
      * \todo Move this to control point SSDP

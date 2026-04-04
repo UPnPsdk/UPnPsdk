@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['ixml_5ferrorcode_0',['IXML_ERRORCODE',['../da/d8a/group__XMLAPI.html#ga79a0e67128079b86a31d30ca0a0761b7',1,'ixml.hpp']]],
-  ['ixml_5fnode_5ftype_1',['IXML_NODE_TYPE',['../da/d8a/group__XMLAPI.html#ga99c50b7e866139bf62a5ad7c59369539',1,'ixml.hpp']]]
+  ['http_5fmethod_5ft_0',['http_method_t',['../dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60',1,'UPnPsdk::http_method_t'],['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a2fd930fba66817097e73ba9b75800eb2',1,'http_method_t:&#160;httpparser.hpp']]]
 ];

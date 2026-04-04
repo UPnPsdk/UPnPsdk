@@ -2,7 +2,7 @@ name: Integration tests
 
 on:
   push:
-    branches: [ remove_ipv4, main ]
+    branches: [ provide_socket_function, main ]
   pull_request:
     branches: [ main ]
 

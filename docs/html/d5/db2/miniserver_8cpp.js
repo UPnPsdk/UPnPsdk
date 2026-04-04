@@ -26,7 +26,6 @@ var miniserver_8cpp =
     [ "receive_from_stopSock", "d5/db2/miniserver_8cpp.html#a774280e63947d88746e7f6f8f583d759", null ],
     [ "RunMiniServer", "d5/db2/miniserver_8cpp.html#a29857662f54c55aa7e6023b37b08af76", null ],
     [ "RunMiniServer_f", "d5/db2/miniserver_8cpp.html#a88c84bd3f9b53e2ef2ada57dd21a73b1", null ],
-    [ "get_port", "d5/db2/miniserver_8cpp.html#aec7d02e7e42098f68ed2d85b931106df", null ],
     [ "get_miniserver_sockets", "d5/db2/miniserver_8cpp.html#a7edcadd0e5ba55588d4794730343772e", null ],
     [ "get_miniserver_stopsock", "d5/db2/miniserver_8cpp.html#a1eecc466ef68bcf35458b9b5c5ff4d63", null ],
     [ "InitMiniServerSockArray", "d5/db2/miniserver_8cpp.html#a5d8a62e1d3813dc7cc3bcfca83d918a5", null ],

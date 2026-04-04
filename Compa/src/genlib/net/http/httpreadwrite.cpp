@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-29
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -41,8 +41,6 @@
  */
 
 #include <httpreadwrite.hpp>
-#include <UPnPsdk/synclog.hpp>
-#include <UPnPsdk/sockaddr.hpp>
 
 #include <UpnpExtraHeaders.hpp>
 #include <UpnpIntTypes.hpp>
@@ -52,14 +50,11 @@
 
 /// \cond
 #include <cassert>
-#include <cstdarg>
-#include <cstring>
-
+#include <cstdarg> // needed for MacOS
 #ifdef _WIN32
 #include <malloc.h>
 #define fseeko fseek
 #else /* _WIN32 */
-#include <sys/utsname.h>
 // fseeko is not supported on 32-bit Android older than API 24:
 // https://android.googlesource.com/platform/bionic/+/main/docs/32-bit-abi.md
 #if defined(__ANDROID__) &&                                                    \
@@ -77,6 +72,8 @@
 #include <umock/sysinfo.hpp>
 
 
+/*! \name Scope restricted to file
+ * @{ */
 namespace {
 
 /// ???
@@ -95,9 +92,6 @@ constexpr time_t DEFAULT_TCP_CONNECT_TIMEOUT{5};
 #define PRIzx "zx"
 /// \endcond
 
-/*! \name Scope restricted to file
- * @{
- */
 /*!
  * \brief Checks socket connection and wait if it is not connected.
  *
@@ -487,10 +481,8 @@ int MakeGetMessageEx(const char* url_str, membuffer* request, uri_type* url,
     return ret_code;
 }
 
-/// @} // Functions (scope restricted to file)
 } // anonymous namespace
 
-/// @{
 /*!
  * \brief Initiate a connection on a socket.
  *
@@ -502,7 +494,8 @@ int MakeGetMessageEx(const char* url_str, membuffer* request, uri_type* url,
  * 111: ECONNREFUSED "Connection refused" if there is a remote host but no
  * server service listening.
  */
-// Due to compatibility with Umock for Pupnp this has to be defined static.
+// Due to compile compatibility with Umock for Pupnp this has to be defined
+// static instead to be in the anonymous namespae.
 static int private_connect(
     const SOCKET sockfd,    ///< [in] Socket file descriptor.
     const sockaddr* const
@@ -516,9 +509,8 @@ static int private_connect(
         // This is never used due to SDK specification. It is only presevered
         // for historical reasons.
 
-        int ret{SOCKET_ERROR};
         // returns 0 if successful, else SOCKET_ERROR.
-        ret = umock::pupnp_sock.sock_make_no_blocking(sockfd);
+        int ret = umock::pupnp_sock.sock_make_no_blocking(sockfd);
         if (ret == 0) {
             // ret is needed for Check_Connect_And_Wait_Connection(),
             // returns 0 if successful, else -1.
@@ -547,7 +539,8 @@ static int private_connect(
         return 0;
     }
 }
-/// @}
+/// @} // Functions (scope restricted to file)
+
 
 #if defined(_WIN32) || defined(DOXYGEN_RUN)
 tm* http_gmtime_r(const time_t* clock, tm* result) {
@@ -560,7 +553,17 @@ tm* http_gmtime_r(const time_t* clock, tm* result) {
 }
 #endif
 
-int http_FixUrl(uri_type* url, uri_type* fixed_url) {
+namespace {
+/*!
+ * \brief Validates URL.
+ *
+ * \returns
+ *  - UPNP_E_INVALID_URL
+ *  - UPNP_E_SUCCESS
+ */
+int http_FixUrl(uri_type* url,      ///< [in] URL to be validated and fixed.
+                uri_type* fixed_url ///< [out] URL after being fixed.
+) {
     const char* temp_path = "/";
 
     *fixed_url = *url;
@@ -585,6 +588,7 @@ int http_FixUrl(uri_type* url, uri_type* fixed_url) {
 
     return UPNP_E_SUCCESS;
 }
+} // namespace
 
 int http_FixStrUrl(const char* urlstr, size_t urlstrlen, uri_type* fixed_url) {
     uri_type url;
@@ -597,17 +601,18 @@ int http_FixStrUrl(const char* urlstr, size_t urlstrlen, uri_type* fixed_url) {
 }
 
 SOCKET http_Connect(uri_type* destination_url, uri_type* url) {
-    SOCKET connfd;
     socklen_t sockaddr_len;
     int ret_connect;
 
     // BUG! Must check return value. --Ingo
     http_FixUrl(destination_url, url);
 
-    connfd = umock::sys_socket_h.socket((int)url->hostport.IPaddress.ss_family,
-                                        SOCK_STREAM, 0);
-    if (connfd == INVALID_SOCKET) {
-        return (SOCKET)(UPNP_E_OUTOF_SOCKET);
+    SOCKET connfd{INVALID_SOCKET};
+    try {
+        connfd = UPnPsdk::socket(SOCK_STREAM);
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGERR("MSG1167") << ex.what() << "\n";
+        return static_cast<SOCKET>(UPNP_E_OUTOF_SOCKET);
     }
     sockaddr_len = (socklen_t)(url->hostport.IPaddress.ss_family == AF_INET6
                                    ? sizeof(struct sockaddr_in6)
@@ -624,7 +629,7 @@ SOCKET http_Connect(uri_type* destination_url, uri_type* url) {
                        "Error in shutdown: %s\n", std::strerror(errno));
         }
         umock::unistd_h.CLOSE_SOCKET_P(connfd);
-        return (SOCKET)(UPNP_E_SOCKET_CONNECT);
+        return static_cast<SOCKET>(UPNP_E_SOCKET_CONNECT);
     }
 
     return connfd;
@@ -945,7 +950,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                         << "\" to (\"HOST:\" in following message) ...\n"
                         << std::string(buf, buf_length)
                         << "\nUPnPsdk buf_length=" << buf_length
-                        << ", num_written=" << num_write
+                        << ", num_written=" << (num_write < 0 ? 0 : num_write)
                         << ".\nUPnPsdk ------------\n";
 
                     if (num_write < 0) {
@@ -976,34 +981,31 @@ int http_RequestAndResponse(uri_type* destination, const char* request,
                             size_t request_length, http_method_t req_method,
                             int timeout_secs, http_parser_t* response) {
     TRACE("Executing http_RequestAndResponse()")
-    SOCKET tcp_connection;
-    int ret_code;
-    socklen_t sockaddr_len;
-    SOCKINFO info;
 
-    tcp_connection = umock::sys_socket_h.socket(
-        (int)destination->hostport.IPaddress.ss_family, SOCK_STREAM, 0);
-    if (tcp_connection == INVALID_SOCKET) {
+    // Get a socket file descriptor
+    SOCKINFO info{};
+    try {
+        info.socket = UPnPsdk::socket(SOCK_STREAM);
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGCATCH("MSG1172") "catched next line...\n" << ex.what();
         parser_response_init(response, req_method);
         return UPNP_E_SOCKET_ERROR;
     }
-    if (sock_init(&info, tcp_connection) != UPNP_E_SUCCESS) {
-        parser_response_init(response, req_method);
-        ret_code = UPNP_E_SOCKET_ERROR;
-        goto end_function;
-    }
+
     /* connect */
-    sockaddr_len = destination->hostport.IPaddress.ss_family == AF_INET6
-                       ? sizeof(sockaddr_in6)
-                       : sizeof(sockaddr_in);
-    ret_code = umock::pupnp_httprw.private_connect(
-        info.socket, (sockaddr*)&(destination->hostport.IPaddress),
-        sockaddr_len);
-    if (ret_code == -1) {
-        parser_response_init(response, req_method);
+    int ret_code = umock::sys_socket_h.connect(
+        info.socket,
+        reinterpret_cast<sockaddr*>(&destination->hostport.IPaddress),
+        sizeof(sockaddr_in6));
+    UPnPsdk::CSocketErr serrObj;
+    if (ret_code != 0) {
+        serrObj.catch_error();
+        UPnPsdk_LOGERR("MSG1020") "failed to connect() socket("
+            << info.socket << "): " << serrObj.error_str() << "\n";
         ret_code = UPNP_E_SOCKET_CONNECT;
         goto end_function;
     }
+
     /* send request */
     ret_code =
         http_SendMessage(&info, &timeout_secs, "b", request, request_length);
@@ -1011,6 +1013,7 @@ int http_RequestAndResponse(uri_type* destination, const char* request,
         parser_response_init(response, req_method);
         goto end_function;
     }
+
     /* recv response */
     int http_error_code;
     ret_code = http_RecvMessage(&info, response, req_method, &timeout_secs,

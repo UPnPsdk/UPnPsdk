@@ -94,7 +94,8 @@ int send_stateless(sockaddr* a_dest_saddr, int a_num_packet,
 
     UPnPsdk::CSocket sockObj;
     try {
-        sockObj.bind(SOCK_DGRAM, nullptr, AI_PASSIVE);
+        sockObj = SOCK_DGRAM;
+        sockObj.bind(nullptr, AI_PASSIVE);
     } catch (const std::exception& ex) {
         UPnPsdk_LOGCATCH("MSG1166") "catched next line...\n" << ex.what();
         return UPNP_E_SOCKET_ERROR;
