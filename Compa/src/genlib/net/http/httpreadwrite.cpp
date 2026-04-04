@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-29
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-04
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -41,8 +41,6 @@
  */
 
 #include <httpreadwrite.hpp>
-#include <UPnPsdk/synclog.hpp>
-#include <UPnPsdk/sockaddr.hpp>
 
 #include <UpnpExtraHeaders.hpp>
 #include <UpnpIntTypes.hpp>
@@ -52,14 +50,10 @@
 
 /// \cond
 #include <cassert>
-#include <cstdarg>
-#include <cstring>
-
 #ifdef _WIN32
 #include <malloc.h>
 #define fseeko fseek
 #else /* _WIN32 */
-#include <sys/utsname.h>
 // fseeko is not supported on 32-bit Android older than API 24:
 // https://android.googlesource.com/platform/bionic/+/main/docs/32-bit-abi.md
 #if defined(__ANDROID__) &&                                                    \
@@ -77,6 +71,8 @@
 #include <umock/sysinfo.hpp>
 
 
+/*! \name Scope restricted to file
+ * @{ */
 namespace {
 
 /// ???
@@ -95,9 +91,6 @@ constexpr time_t DEFAULT_TCP_CONNECT_TIMEOUT{5};
 #define PRIzx "zx"
 /// \endcond
 
-/*! \name Scope restricted to file
- * @{
- */
 /*!
  * \brief Checks socket connection and wait if it is not connected.
  *
@@ -487,10 +480,8 @@ int MakeGetMessageEx(const char* url_str, membuffer* request, uri_type* url,
     return ret_code;
 }
 
-/// @} // Functions (scope restricted to file)
 } // anonymous namespace
 
-/// @{
 /*!
  * \brief Initiate a connection on a socket.
  *
@@ -547,7 +538,8 @@ static int private_connect(
         return 0;
     }
 }
-/// @}
+/// @} // Functions (scope restricted to file)
+
 
 #if defined(_WIN32) || defined(DOXYGEN_RUN)
 tm* http_gmtime_r(const time_t* clock, tm* result) {
@@ -560,7 +552,17 @@ tm* http_gmtime_r(const time_t* clock, tm* result) {
 }
 #endif
 
-int http_FixUrl(uri_type* url, uri_type* fixed_url) {
+namespace {
+/*!
+ * \brief Validates URL.
+ *
+ * \returns
+ *  - UPNP_E_INVALID_URL
+ *  - UPNP_E_SUCCESS
+ */
+int http_FixUrl(uri_type* url,      ///< [in] URL to be validated and fixed.
+                uri_type* fixed_url ///< [out] URL after being fixed.
+) {
     const char* temp_path = "/";
 
     *fixed_url = *url;
@@ -585,6 +587,7 @@ int http_FixUrl(uri_type* url, uri_type* fixed_url) {
 
     return UPNP_E_SUCCESS;
 }
+} // namespace
 
 int http_FixStrUrl(const char* urlstr, size_t urlstrlen, uri_type* fixed_url) {
     uri_type url;
@@ -597,17 +600,18 @@ int http_FixStrUrl(const char* urlstr, size_t urlstrlen, uri_type* fixed_url) {
 }
 
 SOCKET http_Connect(uri_type* destination_url, uri_type* url) {
-    SOCKET connfd;
     socklen_t sockaddr_len;
     int ret_connect;
 
     // BUG! Must check return value. --Ingo
     http_FixUrl(destination_url, url);
 
-    connfd = umock::sys_socket_h.socket((int)url->hostport.IPaddress.ss_family,
-                                        SOCK_STREAM, 0);
-    if (connfd == INVALID_SOCKET) {
-        return (SOCKET)(UPNP_E_OUTOF_SOCKET);
+    SOCKET connfd{INVALID_SOCKET};
+    try {
+        connfd = UPnPsdk::socket(SOCK_STREAM);
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGERR("MSG1167") << ex.what() << "\n";
+        return UPNP_E_OUTOF_SOCKET;
     }
     sockaddr_len = (socklen_t)(url->hostport.IPaddress.ss_family == AF_INET6
                                    ? sizeof(struct sockaddr_in6)

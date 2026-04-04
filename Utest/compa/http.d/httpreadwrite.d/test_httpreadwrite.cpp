@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-06
+// Redistribution only with this Copyright remark. Last modified: 2026-04-04
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -13,6 +13,7 @@
 #include <UPnPsdk/socket.hpp>
 
 #include <utest/utest.hpp>
+#include <utest/upnpdebug.hpp>
 #include <umock/netdb_mock.hpp>
 #include <umock/sys_socket_mock.hpp>
 #include <umock/unistd_mock.hpp>
@@ -83,7 +84,7 @@ class Mock_netv4info : public umock::NetdbMock {
 
 // testsuites for Ip4 httpreadwrite
 // ================================
-#if false
+#if 0
 TEST(OpenHttpConnectionTestSuite, open_http_connection_to_localhost) {
     // This test is more an integration test and needs the nc (or netcat, or
     // ncat) program. It examines the real situation without mocking anything.
@@ -91,8 +92,8 @@ TEST(OpenHttpConnectionTestSuite, open_http_connection_to_localhost) {
     // This is the reason why it isn't enabled permanently (#if true). I use it
     // to get the real situation so I can mock the scenario. To use it on Linux
     // you have to run something like
-    // ~$ sudo nc -4 -l 127.0.0.1 80 # or
-    // ~$ sudo nc -6 -l localhost 80
+    // ~$ sudo nc -6 -lknv localhost 80
+    // ~$ sudo nc -6 -lknv "::1" 80
     // on a second console that will listen to the connect of
     // http_OpenHttpConnection(). Have attention to select the right IPv4 or
     // IPv6 option (-4 or -6) because there is no option to select it with
@@ -106,18 +107,19 @@ TEST(OpenHttpConnectionTestSuite, open_http_connection_to_localhost) {
     // If ncat isnt't running, http_OpenHttpConnection() fails with
     // UPNP_E_SOCKET_CONNECT on Unix and with
     // UPNP_E_SOCKET_ERROR on MS Windows.
-    // TODO: Check why failing is different on WIN32
+    // Maybe check why failing is different on WIN32
 
     char serverurl[]{"http://localhost"};
-    // char serverurl[]{"http://127.0.0.1"};
-    url_str_len = strlen(url_str);
+    // char serverurl[]{"http://[::1]"};
+    // char serverurl[]{"http://[::ffff:127.0.0.1]"};
 
     http_connection_handle_t* phandle;
-    memset(&phandle, 0xaa, sizeof(phandle));
+    memset(&phandle, 0xAA, sizeof(phandle));
 
     // Test Unit
     int returned =
-        http_OpenHttpConnection(serverurl, (void**)&phandle, 0);
+        http_OpenHttpConnection(serverurl, reinterpret_cast<void**>(&phandle),
+                                0 /*dummy for old code*/);
 
     EXPECT_EQ(returned, UPNP_E_SUCCESS) << errStrEx(returned, UPNP_E_SUCCESS);
 
@@ -709,14 +711,51 @@ TEST_F(CloseHttpConnectionIp4FTestSuite, close_nullptr_handle) {
     }
 }
 
+#if 0
+TEST(HttpTestSuite, http_connect_successful) {
+    // Enable real test on "[::1]" with listening netcat in a second console
+    // (own process): sudo nc -6 -lknv "::1" 443 &
+
+    // provide url structures for the http connection
+    std::string_view url_str{"https://[::1]/uri/path?uriquery#urifragment"};
+    uri_type dest_url;
+    int returned{UPNP_E_INTERNAL_ERROR};
+    ASSERT_EQ(returned = ::parse_uri(url_str.data(), url_str.size(), &dest_url),
+              HTTP_SUCCESS)
+        << errStr(returned);
+
+    uri_type fixed_url;
+    memset(&fixed_url, 0xAA, sizeof(uri_type));
+
+    // Test Unit
+    SOCKET sockfd; // Returned value should be a valid socket.
+    ASSERT_GT(sockfd = http_Connect(&dest_url, &fixed_url), (SOCKET)0)
+        << "  # Should be a valid socket file descriptor but not "
+        << errStr((int)sockfd);
+
+    EXPECT_EQ(fixed_url.type, Absolute);
+    EXPECT_EQ(std::string_view(fixed_url.scheme.buff, fixed_url.scheme.size), "https");
+    EXPECT_EQ(fixed_url.path_type, ABS_PATH);
+    EXPECT_EQ(std::string_view(fixed_url.pathquery.buff, fixed_url.pathquery.size), "/uri/path?uriquery");
+    EXPECT_EQ(std::string_view(fixed_url.fragment.buff, fixed_url.fragment.size), "urifragment");
+    EXPECT_EQ(std::string_view(fixed_url.hostport.text.buff, fixed_url.hostport.text.size), "[::1]");
+}
+#endif
+
 typedef HttpIp4FTestSuite HttpConnectIp4FTestSuite;
 
 TEST_F(HttpConnectIp4FTestSuite, successful_connect) {
     // Expect socket allocation
     umock::Sys_socketMock sys_socketObj;
     umock::Sys_socket sys_socket_injectObj(&sys_socketObj);
-    EXPECT_CALL(sys_socketObj, socket(AF_INET, SOCK_STREAM, 0))
+    EXPECT_CALL(sys_socketObj, socket(AF_INET6, SOCK_STREAM, 0))
         .WillOnce(Return(m_socketfd));
+    EXPECT_CALL(sys_socketObj, setsockopt(_, _, _, _, _))
+#ifdef _MSC_VER
+        .Times(old_code ? 0 : 3);
+#else
+        .Times(old_code ? 0 : 2);
+#endif
     EXPECT_CALL(sys_socketObj, shutdown(_, _)).Times(0);
     umock::UnistdMock unistdObj;
     umock::Unistd unistd_injectObj(&unistdObj);
@@ -725,23 +764,31 @@ TEST_F(HttpConnectIp4FTestSuite, successful_connect) {
     // Mock for connection to a network server
     umock::PupnpHttpRw pupnp_httprw_injectObj(&m_mock_pupnpHttpRwObj);
     EXPECT_CALL(m_mock_pupnpHttpRwObj,
-                private_connect(m_socketfd, NotNull(), sizeof(sockaddr_in)))
+                private_connect(m_socketfd, NotNull(), sizeof(sockaddr_in6)))
         .WillOnce(Return(0));
 
     // provide url structures for the http connection
-    Curi_type_testurl testurlObj;
-    uri_type* dest_url = (uri_type*)&testurlObj;
+    std::string_view url_str{"https://[::1]/uri/path?uriquery#urifragment"};
     uri_type fixed_url;
-    memset(&fixed_url, 0xaa, sizeof(uri_type));
+    memset(&fixed_url, 0xAA, sizeof(uri_type));
+    uri_type dest_url;
+    int returned{UPNP_E_INTERNAL_ERROR};
+    // Fill uri_type structure for testing
+    ASSERT_EQ(returned = ::parse_uri(url_str.data(), url_str.size(), &dest_url),
+              HTTP_SUCCESS)
+        << errStr(returned);
+
+    CPupnplog logObj; // Output only with build type DEBUG.
+    logObj.enable(UPNP_ALL);
 
     // Test Unit
     SOCKET sockfd; // Returned value should be a valid socket.
-    ASSERT_GT(sockfd = http_Connect(dest_url, &fixed_url), (SOCKET)0)
+    ASSERT_GT(sockfd = http_Connect(&dest_url, &fixed_url), (SOCKET)0)
         << "  # Should be a valid socked file descriptor but not "
         << errStr((int)sockfd);
 
-    EXPECT_STREQ(fixed_url.fragment.buff, "fragment");
-    EXPECT_EQ(fixed_url.fragment.size, (size_t)8);
+    EXPECT_STREQ(fixed_url.fragment.buff, "urifragment");
+    EXPECT_EQ(fixed_url.fragment.size, 11);
 }
 
 TEST_F(HttpConnectIp4FTestSuite, socket_allocation_fails) {
@@ -777,8 +824,14 @@ TEST_F(HttpConnectIp4FTestSuite, low_level_net_connect_fails) {
     // Expect no socket allocation
     umock::Sys_socketMock sys_socketObj;
     umock::Sys_socket sys_socket_injectObj(&sys_socketObj);
-    EXPECT_CALL(sys_socketObj, socket(AF_INET, SOCK_STREAM, 0))
+    EXPECT_CALL(sys_socketObj, socket(AF_INET6, SOCK_STREAM, 0))
         .WillOnce(Return(m_socketfd));
+    EXPECT_CALL(sys_socketObj, setsockopt(_, _, _, _, _))
+#ifdef _MSC_VER
+        .Times(old_code ? 0 : 3);
+#else
+        .Times(old_code ? 0 : 2);
+#endif
     EXPECT_CALL(sys_socketObj, shutdown(_, _)).Times(1);
     umock::UnistdMock unistdObj;
     umock::Unistd unistd_injectObj(&unistdObj);
@@ -787,18 +840,23 @@ TEST_F(HttpConnectIp4FTestSuite, low_level_net_connect_fails) {
     // Connection to a network server will fail
     umock::PupnpHttpRw pupnp_httprw_injectObj(&m_mock_pupnpHttpRwObj);
     EXPECT_CALL(m_mock_pupnpHttpRwObj,
-                private_connect(m_socketfd, NotNull(), sizeof(sockaddr_in)))
+                private_connect(m_socketfd, NotNull(), sizeof(sockaddr_in6)))
         .WillOnce(Return(-1));
 
     // provide url structures for the http connection
-    Curi_type_testurl testurlObj;
-    uri_type* dest_url = (uri_type*)&testurlObj;
+    std::string_view url_str{"https://[::1]/uri/path?uriquery#urifragment"};
     uri_type fixed_url;
-    memset(&fixed_url, 0xaa, sizeof(uri_type));
+    memset(&fixed_url, 0xAA, sizeof(uri_type));
+    uri_type dest_url;
+    int returned{UPNP_E_INTERNAL_ERROR};
+    // Fill uri_type structure for testing
+    ASSERT_EQ(returned = ::parse_uri(url_str.data(), url_str.size(), &dest_url),
+              HTTP_SUCCESS)
+        << errStr(returned);
 
     // Test Unit
     SOCKET sockfd;
-    ASSERT_EQ(sockfd = http_Connect(dest_url, &fixed_url),
+    ASSERT_EQ(sockfd = http_Connect(&dest_url, &fixed_url),
               (SOCKET)UPNP_E_SOCKET_CONNECT)
         << "  # Should be UPNP_E_SOCKET_CONNECT(" << UPNP_E_SOCKET_CONNECT
         << ") but not " << errStr((int)sockfd);

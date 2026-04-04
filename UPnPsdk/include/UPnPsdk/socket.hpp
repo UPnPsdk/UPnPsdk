@@ -110,11 +110,37 @@ namespace UPnPsdk {
  * \brief Get a socket file descriptor from the operating system
  * <!--   ====================================================== -->
  * \ingroup upnpsdk-socket
+ * \code
+ * // Usage e.g.:
+ * SOCKET sock{INVALID_SOCKET};
+ * try {
+ *      sock = UPnPsdk::socket(SOCK_STREAM);
+ * } catch(const std::exception& ex) {
+ *      std::cerr << "Error get socket: " << ex.what() << "\n";
+ *      handle_error(); }
+ * \endcode
  *
- * Get a socket file descriptor and set its default options as specified.
+ * Get a socket file descriptor with default settings as specified:
+ *  - \b AF_INET6 - the SDK internal network management is based only on IPv6
+ *  and uses IPv4 mapped IPv6 addresses. For this and for IPV6_V6ONLY the
+ *  socket must always be an IPv6 socket. There is no  way to select another
+ *  address family.
+ *  - \b IPV6_V6ONLY - this option is always disabled. This is needed because
+ *  network interfaces (local network adapter) must also receive and send IPv4
+ *  addresses together with IPv6 addresses to support IPv4 networking.
+ *  - \ref reuseAddr "SO_REUSEADDR" - for security reasons "immediately reuse
+ *  address" is disabled.
+ *  - \ref exclAddrUse "SO_EXCLUSIVEADDRUSE" - on Microsoft Windows always set
+ *  for security reasons.
+ *  - \b protocol - always set to 0.
+ *
+ * \note It is important to always use this function to get a socket file
+ * descriptor. Otherwise you risk problems with networking.
+ *
  * \returns a socket file descriptor.
- * \exception std::runtime_error - Failed to create socket
- *                               - Failed to set socket option
+ * \exception std::runtime_error
+ *  - Failed to create socket
+ *  - Failed to set socket option
  */
 UPnPsdk_VIS SOCKET socket(
     /// [in] Socket type SOCK_STREAM or SOCK_DGRAM.
@@ -227,7 +253,7 @@ try {
         std::cout << "socket is connected to " << saObj << '\n';
     else
         std::cout << "unconnected socket unspecified netaddr " << saObj << '\n';
-} catch(std::exception& ex) { handle_error(); };
+} catch(const std::exception& ex) { handle_error(); };
 close(sfd);
 
 // CSocket inherit from CSocket_basic
@@ -239,7 +265,7 @@ try {
         sockObj.listen();
     } else
         std::cerr << "failed to bind socket passive for listening.";
-} catch(std::exception& ex) { handle_error(); };
+} catch(const std::exception& ex) { handle_error(); };
      * \endcode
      *
      * \returns
@@ -393,7 +419,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CSocket sock1Obj;
      * try {
      *     sock1Obj.bind(SOCK_STREAM);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * Usage e.g. to bind with default settings for listening on all local
@@ -402,7 +428,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CSocket sock2Obj;
      * try {
      *     sock2Obj.bind(SOCK_STREAM, nullptr, AI_PASSIVE);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * Usage e.g. to bind for listening on the link local address of a local
@@ -413,7 +439,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CSocket sock3Obj;
      * try {
      *     sock3Obj.bind(SOCK_STREAM, &saddr3, AI_PASSIVE);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * Usage e.g. to bind to a global unicast address for use with **connect**,
@@ -424,7 +450,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CSocket sock4Obj;
      * try {
      *     sock4Obj.bind(SOCK_STREAM, &saddr4);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * Usage e.g. to bind to "localhost", resp. to one of the loopback
@@ -434,7 +460,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      * CSocket sock5Obj;
      * try {
      *     sock5Obj.bind(SOCK_STREAM, &saddr5);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * You can also use "localhost" with CAddrinfo, but that allocates memory
@@ -447,7 +473,7 @@ class UPnPsdk_API CSocket : public CSocket_basic {
      *     ai.get_first();
      *     ai.local_saddr(&saddr6);
      *     sock6Obj.bind(SOCK_STREAM, &saddr6);
-     * } catch(std::exception& ex) { handle_error(); }
+     * } catch(const std::exception& ex) { handle_error(); }
      * \endcode
      *
      * This method uses internally the system function <a

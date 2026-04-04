@@ -9,7 +9,7 @@ var httpreadwrite_8cpp =
     [ "MakeGetMessageEx", "d1/db3/httpreadwrite_8cpp.html#a0fd8d138b06bd4bdd56f19c8f86ceff6", null ],
     [ "private_connect", "d1/db3/httpreadwrite_8cpp.html#a792af065e758a89de58061eadd9769ee", null ],
     [ "http_gmtime_r", "d1/db3/httpreadwrite_8cpp.html#a62839c9e5e505c93e0f9eb71d1089594", null ],
-    [ "http_FixUrl", "d1/db3/httpreadwrite_8cpp.html#a502852e9caf9d74374e83f8e9bf42acb", null ],
+    [ "http_FixUrl", "d1/db3/httpreadwrite_8cpp.html#afcfeafe98124d78a823db913bb4aa1bd", null ],
     [ "http_FixStrUrl", "d1/db3/httpreadwrite_8cpp.html#a2d33a2d2116d1de548e95d8d023548d9", null ],
     [ "http_Connect", "d1/db3/httpreadwrite_8cpp.html#a34aecff8b81e210e4f045f4131b92d73", null ],
     [ "http_RecvMessage", "d1/db3/httpreadwrite_8cpp.html#ac4f5f24f4aa10cc725b96ac5c29a88f7", null ],

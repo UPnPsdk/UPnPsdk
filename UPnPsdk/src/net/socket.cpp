@@ -75,6 +75,8 @@ int getsockname(SOCKET a_sockfd, sockaddr* a_addr, socklen_t* a_addrlen) {
 } // anonymous namespace
 
 
+// Socket free function
+// ====================
 SOCKET socket(int a_socktype) {
     TRACE(" Executing get_sockfd()")
 

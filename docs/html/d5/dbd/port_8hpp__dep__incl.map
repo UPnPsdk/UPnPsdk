@@ -1,49 +1,47 @@
 <map id="UPnPsdk/include/UPnPsdk/port.hpp" name="UPnPsdk/include/UPnPsdk/port.hpp">
-<area shape="rect" id="Node000001" title="Specifications to be portable between different platforms." alt="" coords="965,5,1148,45"/>
-<area shape="rect" id="Node000002" href="$d6/d4f/UpnpString_8cpp.html" title="UpnpString object implementation." alt="" coords="203,101,404,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="952,38,707,62,417,96,369,103,368,98,416,91,707,57,952,33"/>
-<area shape="rect" id="Node000003" href="$da/dd9/membuffer_8cpp.html" title="This file contains functions that operate on memory and buffers." alt="" coords="428,93,573,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="952,42,780,65,586,96,574,98,573,93,586,91,779,60,951,37"/>
-<area shape="rect" id="Node000004" href="$da/dff/ixmlparser_8cpp.html" title=" " alt="" coords="598,101,801,126"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="966,51,748,103,746,98,964,46"/>
-<area shape="rect" id="Node000005" href="$d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="825,93,1008,133"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1016,55,949,96,946,91,1013,50"/>
-<area shape="rect" id="Node000033" href="$df/df3/strintmap_8hpp.html" title="String to integer and integer to string conversion functions." alt="" coords="1461,181,1644,221"/>
-<area shape="poly" id="edge17_Node000001_Node000033" title=" " alt="" coords="1162,43,1233,63,1303,91,1319,101,1330,111,1355,131,1417,158,1478,179,1477,184,1415,163,1353,136,1326,115,1316,105,1301,96,1231,68,1161,48"/>
-<area shape="rect" id="Node000043" href="$d7/de2/upnp__device_8hpp.html" title="Manage UPnP devices." alt="" coords="1365,93,1548,133"/>
-<area shape="poly" id="edge19_Node000001_Node000043" title=" " alt="" coords="1158,46,1370,91,1369,96,1157,51"/>
-<area shape="rect" id="Node000045" href="$d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="1107,93,1289,133"/>
-<area shape="poly" id="edge21_Node000001_Node000045" title=" " alt="" coords="1101,50,1168,91,1166,96,1098,55"/>
-<area shape="rect" id="Node000052" href="$db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp.html" title="Definations to manage the builtin Webserver." alt="" coords="1572,93,1720,133"/>
-<area shape="poly" id="edge26_Node000001_Node000052" title=" " alt="" coords="1162,35,1348,58,1561,91,1572,93,1571,98,1560,96,1348,64,1161,41"/>
-<area shape="rect" id="Node000006" href="$d1/db3/httpreadwrite_8cpp.html" title="This file defines the functionality making use of the http." alt="" coords="958,181,1110,221"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="955,140,1010,179,1006,183,952,144"/>
-<area shape="rect" id="Node000007" href="$db/db9/ssdp__device_8cpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="459,269,609,309"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="812,136,727,140,629,144,582,148,540,155,506,167,483,183,477,193,475,203,481,226,496,248,514,267,510,271,492,251,477,228,470,203,472,191,479,180,503,162,538,150,581,143,629,138,727,135,811,130"/>
-<area shape="rect" id="Node000008" href="$d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="751,181,933,221"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="893,146,861,183,857,179,889,142"/>
-<area shape="rect" id="Node000011" href="$dc/d59/addrinfo_8cpp.html" title="Definition of the Addrinfo class and free helper functions." alt="" coords="663,277,861,302"/>
-<area shape="poly" id="edge14_Node000005_Node000011" title=" " alt="" coords="830,140,775,160,754,171,742,183,734,206,737,232,746,256,757,275,752,278,741,258,732,233,729,206,737,180,751,167,773,155,828,135"/>
-<area shape="rect" id="Node000012" href="$d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="1003,269,1151,309"/>
-<area shape="poly" id="edge15_Node000005_Node000012" title=" " alt="" coords="1022,121,1051,129,1078,141,1103,158,1124,180,1132,203,1126,228,1113,251,1098,271,1094,267,1109,248,1121,226,1126,204,1120,183,1100,162,1076,146,1049,134,1021,126"/>
-<area shape="rect" id="Node000014" href="$d9/d8b/netadapter__if_8hpp.html" title="C++ interface to manage information from different platforms about network adapters." alt="" coords="5,181,188,221"/>
-<area shape="poly" id="edge11_Node000005_Node000014" title=" " alt="" coords="812,136,639,153,503,160,369,167,200,184,189,185,188,180,199,179,369,161,503,155,638,148,811,131"/>
-<area shape="rect" id="Node000018" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="492,181,675,221"/>
-<area shape="poly" id="edge12_Node000005_Node000018" title=" " alt="" coords="831,139,657,184,656,179,830,134"/>
-<area shape="rect" id="Node000032" href="$d7/def/sockaddr_8cpp.html" title="Definition of the Sockaddr class and some free helper functions." alt="" coords="212,189,416,214"/>
-<area shape="poly" id="edge16_Node000005_Node000032" title=" " alt="" coords="812,136,622,161,436,184,386,191,385,186,435,179,621,156,811,131"/>
-<area shape="rect" id="Node000010" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html" title="Modify and parse URIs." alt="" coords="1175,269,1322,309"/>
-<area shape="poly" id="edge8_Node000008_Node000010" title=" " alt="" coords="947,221,1164,267,1176,269,1175,274,1163,272,946,227"/>
-<area shape="poly" id="edge9_Node000008_Node000011" title=" " alt="" coords="817,233,775,278,771,274,813,230"/>
-<area shape="poly" id="edge10_Node000008_Node000012" title=" " alt="" coords="907,224,1026,267,1024,272,905,229"/>
-<area shape="poly" id="edge13_Node000018_Node000007" title=" " alt="" coords="568,235,547,270,543,268,563,232"/>
-<area shape="rect" id="Node000034" href="$df/d6f/Compa_2src_2inc_2httpparser_8hpp.html" title="Functions to parse UPnP messages like requests and responses." alt="" coords="1401,277,1595,302"/>
-<area shape="poly" id="edge18_Node000033_Node000034" title=" " alt="" coords="1536,234,1508,278,1503,275,1531,232"/>
-<area shape="rect" id="Node000044" href="$d0/df4/upnp__device_8cpp.html" title="Manage UPnP devices." alt="" coords="1669,181,1823,221"/>
-<area shape="poly" id="edge20_Node000043_Node000044" title=" " alt="" coords="1534,135,1683,179,1682,184,1532,140"/>
-<area shape="poly" id="edge22_Node000045_Node000010" title=" " alt="" coords="1210,146,1246,268,1241,270,1205,147"/>
-<area shape="poly" id="edge25_Node000045_Node000012" title=" " alt="" coords="1196,148,1187,185,1168,223,1143,250,1114,271,1110,267,1139,246,1164,220,1182,183,1191,146"/>
-<area shape="rect" id="Node000046" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="1287,189,1437,214"/>
-<area shape="poly" id="edge23_Node000045_Node000046" title=" " alt="" coords="1247,137,1341,186,1339,191,1245,142"/>
-<area shape="poly" id="edge24_Node000046_Node000034" title=" " alt="" coords="1393,219,1481,274,1478,279,1390,224"/>
+<area shape="rect" id="Node000001" title="Specifications to be portable between different platforms." alt="" coords="851,5,1041,45"/>
+<area shape="rect" id="Node000002" href="$d6/d4f/UpnpString_8cpp.html" title="UpnpString object implementation." alt="" coords="69,101,287,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="837,39,591,63,300,96,248,103,247,98,299,91,590,57,837,34"/>
+<area shape="rect" id="Node000003" href="$da/dd9/membuffer_8cpp.html" title="This file contains functions that operate on memory and buffers." alt="" coords="311,93,471,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="837,43,671,66,484,96,472,98,471,93,483,91,670,61,837,38"/>
+<area shape="rect" id="Node000004" href="$da/dff/ixmlparser_8cpp.html" title=" " alt="" coords="495,101,719,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="859,51,653,103,652,98,858,46"/>
+<area shape="rect" id="Node000005" href="$d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="744,93,935,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="913,56,865,95,861,91,910,52"/>
+<area shape="rect" id="Node000032" href="$df/df3/strintmap_8hpp.html" title="String to integer and integer to string conversion functions." alt="" coords="1519,181,1709,221"/>
+<area shape="poly" id="edge16_Node000001_Node000032" title=" " alt="" coords="1055,26,1129,32,1211,43,1296,62,1378,91,1394,100,1404,111,1414,121,1429,131,1488,158,1546,179,1544,184,1486,163,1426,136,1411,125,1401,114,1391,105,1376,96,1295,67,1210,48,1128,37,1055,31"/>
+<area shape="rect" id="Node000043" href="$d7/de2/upnp__device_8hpp.html" title="Manage UPnP devices." alt="" coords="959,93,1149,133"/>
+<area shape="poly" id="edge18_Node000001_Node000043" title=" " alt="" coords="982,52,1032,91,1028,95,979,56"/>
+<area shape="rect" id="Node000045" href="$d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="1173,93,1364,133"/>
+<area shape="poly" id="edge20_Node000001_Node000045" title=" " alt="" coords="1030,46,1199,91,1197,96,1029,51"/>
+<area shape="rect" id="Node000052" href="$db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp.html" title="Definations to manage the builtin Webserver." alt="" coords="1439,93,1597,133"/>
+<area shape="poly" id="edge25_Node000001_Node000052" title=" " alt="" coords="1055,38,1421,91,1439,94,1438,99,1420,96,1055,43"/>
+<area shape="rect" id="Node000006" href="$db/db9/ssdp__device_8cpp.html" title="Manage &quot;Step 1: Discovery&quot; of the UPnP+™ specification for UPnP Devices with SSDP." alt="" coords="221,269,380,309"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="731,136,614,138,474,136,406,139,345,146,295,161,276,171,261,183,255,192,253,203,258,225,270,248,285,268,281,271,265,251,253,227,248,202,250,190,257,180,273,166,293,156,344,141,405,133,474,131,614,132,731,130"/>
+<area shape="rect" id="Node000007" href="$d6/dbf/addrinfo_8hpp.html" title="Declaration of the Addrinfo class." alt="" coords="777,181,968,221"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="854,145,868,180,863,182,849,147"/>
+<area shape="rect" id="Node000010" href="$dc/d59/addrinfo_8cpp.html" title="Definition of the Addrinfo class and free helper functions." alt="" coords="661,277,873,302"/>
+<area shape="poly" id="edge13_Node000005_Node000010" title=" " alt="" coords="800,144,782,161,768,182,762,207,761,233,767,276,761,277,755,233,756,206,764,180,778,158,796,140"/>
+<area shape="rect" id="Node000011" href="$d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp.html" title="Manage Uniform Resource Identifier (URI) as specified with RFC 3986." alt="" coords="927,269,1085,309"/>
+<area shape="poly" id="edge14_Node000005_Node000011" title=" " alt="" coords="923,136,955,155,983,180,996,201,1004,226,1009,269,1004,270,998,227,991,204,979,183,952,159,921,141"/>
+<area shape="rect" id="Node000013" href="$d9/d8b/netadapter__if_8hpp.html" title="C++ interface to manage information from different platforms about network adapters." alt="" coords="5,181,196,221"/>
+<area shape="poly" id="edge10_Node000005_Node000013" title=" " alt="" coords="731,136,585,152,471,160,358,169,216,184,197,187,196,181,215,179,358,163,471,155,584,147,730,131"/>
+<area shape="rect" id="Node000017" href="$da/dfc/socket_8hpp.html" title="Socket Module: manage properties and methods but not connections of ONE network socket to handle IPv4..." alt="" coords="272,181,463,221"/>
+<area shape="poly" id="edge11_Node000005_Node000017" title=" " alt="" coords="731,137,463,185,462,180,730,132"/>
+<area shape="rect" id="Node000031" href="$d7/def/sockaddr_8cpp.html" title="Definition of the Sockaddr class and some free helper functions." alt="" coords="487,189,701,214"/>
+<area shape="poly" id="edge15_Node000005_Node000031" title=" " alt="" coords="773,140,628,191,626,186,772,135"/>
+<area shape="rect" id="Node000009" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html" title="Modify and parse URIs." alt="" coords="1165,269,1325,309"/>
+<area shape="poly" id="edge7_Node000007_Node000009" title=" " alt="" coords="968,222,1165,267,1164,272,967,227"/>
+<area shape="poly" id="edge8_Node000007_Node000010" title=" " alt="" coords="840,232,784,278,780,274,837,228"/>
+<area shape="poly" id="edge9_Node000007_Node000011" title=" " alt="" coords="915,227,978,267,975,271,912,231"/>
+<area shape="poly" id="edge12_Node000017_Node000006" title=" " alt="" coords="346,234,318,271,313,267,342,231"/>
+<area shape="rect" id="Node000033" href="$df/d6f/Compa_2src_2inc_2httpparser_8hpp.html" title="Functions to parse UPnP messages like requests and responses." alt="" coords="1356,277,1568,302"/>
+<area shape="poly" id="edge17_Node000032_Node000033" title=" " alt="" coords="1570,230,1484,279,1481,274,1568,226"/>
+<area shape="rect" id="Node000044" href="$d0/df4/upnp__device_8cpp.html" title="Manage UPnP devices." alt="" coords="1043,181,1206,221"/>
+<area shape="poly" id="edge19_Node000043_Node000044" title=" " alt="" coords="1080,142,1111,179,1107,183,1076,146"/>
+<area shape="poly" id="edge21_Node000045_Node000009" title=" " alt="" coords="1271,147,1265,222,1253,270,1248,268,1259,221,1266,147"/>
+<area shape="poly" id="edge24_Node000045_Node000011" title=" " alt="" coords="1263,148,1247,187,1235,206,1220,223,1189,245,1155,261,1086,281,1084,276,1153,256,1186,240,1216,219,1231,203,1243,184,1258,146"/>
+<area shape="rect" id="Node000046" href="$de/dd0/Compa_2src_2inc_2uri_8hpp.html" title="Modify and parse URIs." alt="" coords="1331,189,1494,214"/>
+<area shape="poly" id="edge22_Node000045_Node000046" title=" " alt="" coords="1313,138,1395,186,1392,191,1310,143"/>
+<area shape="poly" id="edge23_Node000046_Node000033" title=" " alt="" coords="1428,225,1457,275,1453,277,1424,227"/>
 </map>

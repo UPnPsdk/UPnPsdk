@@ -1,11 +1,17 @@
 <map id="StopMiniServer" name="StopMiniServer">
-<area shape="rect" id="Node000001" title="Stop and Shutdown the MiniServer and free socket resources." alt="" coords="5,31,127,56"/>
-<area shape="rect" id="Node000002" href="$d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="175,5,268,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,31,161,25,162,30,127,36"/>
-<area shape="rect" id="Node000003" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="176,55,267,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="127,50,163,56,162,61,126,55"/>
-<area shape="rect" id="Node000004" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="336,29,476,55"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="266,59,322,51,322,56,267,64"/>
-<area shape="rect" id="Node000005" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="316,79,496,104"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="267,70,303,75,302,80,266,76"/>
+<area shape="rect" id="Node000001" title="Stop and Shutdown the MiniServer and free socket resources." alt="" coords="5,77,127,102"/>
+<area shape="rect" id="Node000002" href="$d6/df0/sock_8hpp.html#a703577f3b40fc1c9e865b798beab18e5" title="Closes the socket if it is different from &#45;1." alt="" coords="193,27,286,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,74,180,54,181,59,112,79"/>
+<area shape="rect" id="Node000003" href="$da/de4/group__upnpsdk-socket.html#gadbc969f806b019f3a67c7be8cd76b1a7" title="Get a socket file descriptor from the operating system." alt="" coords="175,77,304,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="127,87,161,87,161,92,127,92"/>
+<area shape="rect" id="Node000006" href="$d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="194,134,285,159"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="106,100,188,127,187,132,104,105"/>
+<area shape="rect" id="Node000004" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="363,5,521,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="280,74,364,47,366,52,281,79"/>
+<area shape="rect" id="Node000005" href="$dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="363,69,521,109"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="304,87,349,87,349,92,304,92"/>
+<area shape="rect" id="Node000007" href="$d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="372,134,512,159"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="285,144,358,144,358,149,285,149"/>
+<area shape="rect" id="Node000008" href="$d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="352,183,532,209"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="286,155,376,177,375,183,284,160"/>
 </map>

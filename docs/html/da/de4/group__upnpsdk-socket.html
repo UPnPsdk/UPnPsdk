@@ -125,12 +125,12 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gadbc969f806b019f3a67c7be8cd76b1a7" id="r_gadbc969f806b019f3a67c7be8cd76b1a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> SOCKET&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de4/group__upnpsdk-socket.html#gadbc969f806b019f3a67c7be8cd76b1a7">UPnPsdk::socket</a> (int a_socktype)</td></tr>
+<tr class="memdesc:gadbc969f806b019f3a67c7be8cd76b1a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a socket file descriptor from the operating system.  <br /></td></tr>
+<tr class="separator:gadbc969f806b019f3a67c7be8cd76b1a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga22b121617b4eb96c4b4548a814683dfc" id="r_ga22b121617b4eb96c4b4548a814683dfc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de4/group__upnpsdk-socket.html#ga22b121617b4eb96c4b4548a814683dfc">UPnPsdk::anonymous_namespace{socket.cpp}::getsockname</a> (SOCKET a_sockfd, sockaddr *a_addr, socklen_t *a_addrlen)</td></tr>
 <tr class="memdesc:ga22b121617b4eb96c4b4548a814683dfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for the ::getsockname() system function.  <br /></td></tr>
 <tr class="separator:ga22b121617b4eb96c4b4548a814683dfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8833588b4b703bf3901b20e98c5337be" id="r_ga8833588b4b703bf3901b20e98c5337be"><td class="memItemLeft" align="right" valign="top">SOCKET&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de4/group__upnpsdk-socket.html#ga8833588b4b703bf3901b20e98c5337be">UPnPsdk::anonymous_namespace{socket.cpp}::get_sockfd</a> (int a_socktype)</td></tr>
-<tr class="memdesc:ga8833588b4b703bf3901b20e98c5337be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a socket file descriptor from the operating system.  <br /></td></tr>
-<tr class="separator:ga8833588b4b703bf3901b20e98c5337be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -166,6 +166,100 @@ References</h2>
 <li><a href="https://www.rfc-editor.org/rfc/rfc3542">RFC 3542</a> - Advanced Sockets Application Program Interface (API) for IPv6 </li>
 </ul>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gadbc969f806b019f3a67c7be8cd76b1a7" name="gadbc969f806b019f3a67c7be8cd76b1a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadbc969f806b019f3a67c7be8cd76b1a7">&#9670;&#160;</a></span>socket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SOCKET UPnPsdk::socket </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>a_socktype</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a socket file descriptor from the operating system. </p>
+<div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
+<div class="line">SOCKET sock{INVALID_SOCKET};</div>
+<div class="line"><span class="keywordflow">try</span> {</div>
+<div class="line">     sock = <a class="code hl_function" href="../../da/de4/group__upnpsdk-socket.html#gadbc969f806b019f3a67c7be8cd76b1a7">UPnPsdk::socket</a>(SOCK_STREAM);</div>
+<div class="line">} <span class="keywordflow">catch</span>(<span class="keyword">const</span> std::exception&amp; ex) {</div>
+<div class="line">     std::cerr &lt;&lt; <span class="stringliteral">&quot;Error get socket: &quot;</span> &lt;&lt; ex.what() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">     handle_error(); }</div>
+<div class="ttc" id="agroup__upnpsdk-socket_html_gadbc969f806b019f3a67c7be8cd76b1a7"><div class="ttname"><a href="../../da/de4/group__upnpsdk-socket.html#gadbc969f806b019f3a67c7be8cd76b1a7">UPnPsdk::socket</a></div><div class="ttdeci">UPnPsdk_VIS SOCKET socket(int a_socktype)</div><div class="ttdoc">Get a socket file descriptor from the operating system.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00080">socket.cpp:80</a></div></div>
+</div><!-- fragment --><p>Get a socket file descriptor with default settings as specified:</p><ul>
+<li><b>AF_INET6</b> - the SDK internal network management is based only on IPv6 and uses IPv4 mapped IPv6 addresses. For this and for IPV6_V6ONLY the socket must always be an IPv6 socket. There is no way to select another address family.</li>
+<li><b>IPV6_V6ONLY</b> - this option is always disabled. This is needed because network interfaces (local network adapter) must also receive and send IPv4 addresses together with IPv6 addresses to support IPv4 networking.</li>
+<li><a class="el" href="../../index.html#reuseAddr">SO_REUSEADDR</a> - for security reasons "immediately reuse
+ address" is disabled.</li>
+<li><a class="el" href="../../index.html#exclAddrUse">SO_EXCLUSIVEADDRUSE</a> - on Microsoft Windows always set for security reasons.</li>
+<li><b>protocol</b> - always set to 0.</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>It is important to always use this function to get a socket file descriptor. Otherwise you risk problems with networking.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a socket file descriptor. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td><ul>
+<li>Failed to create socket</li>
+<li>Failed to set socket option </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_socktype</td><td>Socket type SOCK_STREAM or SOCK_DGRAM. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00080">80</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../da/de4/group__upnpsdk-socket_gadbc969f806b019f3a67c7be8cd76b1a7_cgraph.png" border="0" usemap="#ada/de4/group__upnpsdk-socket_gadbc969f806b019f3a67c7be8cd76b1a7_cgraph" alt=""/></div>
+<map name="ada/de4/group__upnpsdk-socket_gadbc969f806b019f3a67c7be8cd76b1a7_cgraph" id="ada/de4/group__upnpsdk-socket_gadbc969f806b019f3a67c7be8cd76b1a7_cgraph">
+<area shape="rect" title="Get a socket file descriptor from the operating system." alt="" coords="5,45,135,70"/>
+<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="183,5,340,45"/>
+<area shape="poly" title=" " alt="" coords="134,44,168,38,169,43,135,49"/>
+<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="183,69,340,109"/>
+<area shape="poly" title=" " alt="" coords="135,65,169,71,168,77,134,71"/>
+</map>
+</div>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../da/de4/group__upnpsdk-socket_gadbc969f806b019f3a67c7be8cd76b1a7_icgraph.png" border="0" usemap="#ada/de4/group__upnpsdk-socket_gadbc969f806b019f3a67c7be8cd76b1a7_icgraph" alt=""/></div>
+<map name="ada/de4/group__upnpsdk-socket_gadbc969f806b019f3a67c7be8cd76b1a7_icgraph" id="ada/de4/group__upnpsdk-socket_gadbc969f806b019f3a67c7be8cd76b1a7_icgraph">
+<area shape="rect" title="Get a socket file descriptor from the operating system." alt="" coords="456,177,585,203"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a3e36fe7412352a07e45745ea47dd09ea" title="Bind socket to an ip address of a local network adapter." alt="" coords="233,99,408,124"/>
+<area shape="poly" title=" " alt="" coords="473,175,353,127,355,122,475,170"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a34aecff8b81e210e4f045f4131b92d73" title="Gets destination address from URL and then connects to the remote end." alt="" coords="267,177,375,203"/>
+<area shape="poly" title=" " alt="" coords="442,193,375,193,375,187,442,187"/>
+<area shape="rect" href="../../d5/db2/miniserver_8cpp.html#ac0223038b7afa1e3ea3d7cec983ccc63" title="Stop and Shutdown the MiniServer and free socket resources." alt="" coords="260,233,381,259"/>
+<area shape="poly" title=" " alt="" coords="462,209,368,236,366,231,461,204"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="5,5,185,60"/>
+<area shape="poly" title=" " alt="" coords="269,97,174,63,175,58,271,92"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="5,84,185,139"/>
+<area shape="poly" title=" " alt="" coords="220,114,185,114,185,109,220,109"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9" title="Sends the notify message and returns a reply." alt="" coords="5,163,185,217"/>
+<area shape="poly" title=" " alt="" coords="253,193,186,193,186,187,253,187"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="48,241,143,267"/>
+<area shape="poly" title=" " alt="" coords="246,251,143,255,143,250,246,246"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ga22b121617b4eb96c4b4548a814683dfc" name="ga22b121617b4eb96c4b4548a814683dfc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga22b121617b4eb96c4b4548a814683dfc">&#9670;&#160;</a></span>getsockname()</h2>
 
@@ -202,64 +296,15 @@ References</h2>
 <p>The system function ::getsockname() behaves different on different platforms in particular with error handling on Microsoft Windows. This function provides a portable version. The calling options are the same as documented for the system function. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00037">37</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../da/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_cgraph.png" border="0" usemap="#ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_cgraph" alt=""/></div>
-<map name="ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_cgraph" id="ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_cgraph">
-<area shape="rect" title="Wrapper for the ::getsockname() system function." alt="" coords="5,29,199,84"/>
-<area shape="poly" title=" " alt="" coords="64,29,64,19,71,10,84,5,102,3,124,6,136,14,134,18,122,11,102,8,85,10,74,15,69,21,69,29"/>
-</map>
-</div>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../da/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_icgraph.png" border="0" usemap="#ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_icgraph" alt=""/></div>
-<map name="ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_icgraph" id="ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_icgraph">
-<area shape="rect" title="Wrapper for the ::getsockname() system function." alt="" coords="5,29,199,84"/>
-<area shape="poly" title=" " alt="" coords="134,18,122,11,102,8,85,10,74,15,69,21,69,29,64,29,64,19,71,10,84,5,102,3,124,6,136,14"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ga8833588b4b703bf3901b20e98c5337be" name="ga8833588b4b703bf3901b20e98c5337be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8833588b4b703bf3901b20e98c5337be">&#9670;&#160;</a></span>get_sockfd()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SOCKET UPnPsdk::anonymous_namespace{socket.cpp}::get_sockfd </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>a_socktype</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get a socket file descriptor from the operating system. </p>
-<p>Get a socket file descriptor and set its default options as specified. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00082">82</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../da/de4/group__upnpsdk-socket_ga8833588b4b703bf3901b20e98c5337be_cgraph.png" border="0" usemap="#ada/de4/group__upnpsdk-socket_ga8833588b4b703bf3901b20e98c5337be_cgraph" alt=""/></div>
-<map name="ada/de4/group__upnpsdk-socket_ga8833588b4b703bf3901b20e98c5337be_cgraph" id="ada/de4/group__upnpsdk-socket_ga8833588b4b703bf3901b20e98c5337be_cgraph">
-<area shape="rect" title="Get a socket file descriptor from the operating system." alt="" coords="5,30,199,85"/>
-<area shape="poly" title=" " alt="" coords="59,30,59,20,67,11,81,5,102,3,127,6,141,14,139,19,125,12,102,9,82,11,70,15,64,22,64,30"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="247,5,404,45"/>
-<area shape="poly" title=" " alt="" coords="198,41,233,36,234,41,199,46"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="247,69,404,109"/>
-<area shape="poly" title=" " alt="" coords="199,69,234,74,233,79,198,74"/>
+<div class="center"><img src="../../da/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_cgraph.png" border="0" usemap="#ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_cgraph" alt=""/></div>
+<map name="ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_cgraph" id="ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_cgraph">
+<area shape="rect" title="Wrapper for the ::getsockname() system function." alt="" coords="5,29,199,84"/>
+<area shape="poly" title=" " alt="" coords="64,29,64,19,71,10,84,5,102,3,124,6,136,14,134,18,122,11,102,8,85,10,74,15,69,21,69,29"/>
 </map>
 </div>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -267,9 +312,9 @@ References</h2>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../da/de4/group__upnpsdk-socket_ga8833588b4b703bf3901b20e98c5337be_icgraph.png" border="0" usemap="#ada/de4/group__upnpsdk-socket_ga8833588b4b703bf3901b20e98c5337be_icgraph" alt=""/></div>
-<map name="ada/de4/group__upnpsdk-socket_ga8833588b4b703bf3901b20e98c5337be_icgraph" id="ada/de4/group__upnpsdk-socket_ga8833588b4b703bf3901b20e98c5337be_icgraph">
-<area shape="rect" title="Get a socket file descriptor from the operating system." alt="" coords="5,29,199,84"/>
+<div class="center"><img src="../../da/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_icgraph.png" border="0" usemap="#ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_icgraph" alt=""/></div>
+<map name="ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_icgraph" id="ada/de4/group__upnpsdk-socket_ga22b121617b4eb96c4b4548a814683dfc_icgraph">
+<area shape="rect" title="Wrapper for the ::getsockname() system function." alt="" coords="5,29,199,84"/>
 <area shape="poly" title=" " alt="" coords="134,18,122,11,102,8,85,10,74,15,69,21,69,29,64,29,64,19,71,10,84,5,102,3,124,6,136,14"/>
 </map>
 </div>
