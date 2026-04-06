@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-04
+// Redistribution only with this Copyright remark. Last modified: 2026-04-06
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -245,7 +245,7 @@ bool CSocket_basic::local_saddr_protected(SSockaddr* a_saddr) const {
             std::to_string(m_sfd) + "): " + serrObj.error_str());
     }
     sa_family_t af = saObj.ss.ss_family;
-    if (af != AF_INET6 && af != AF_INET)
+    if (af != AF_INET6)
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1091") "Unsupported address family " +
             std::to_string(saObj.ss.ss_family));
@@ -254,8 +254,7 @@ bool CSocket_basic::local_saddr_protected(SSockaddr* a_saddr) const {
     // UPnPsdk::getsockname(). On macOS the function returns only part of the
     // address structure if the socket file descriptor isn't bound to an
     // address of a local network adapter. It trunkates the address part.
-    if (!(af == AF_INET6 && addrlen == sizeof(saObj.sin6)) &&
-        !(af == AF_INET && addrlen == sizeof(saObj.sin))) {
+    if (addrlen != sizeof(saObj.sin6)) {
         // If there is no complete address structure returned from
         // UPnPsdk::getsockname() but no error reported, it is considered to be
         // unbound. I return here an empty socket address with preserved
@@ -308,8 +307,7 @@ bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
     // structure if the socket file descriptor isn't connected to an address.
     // It trunkates the address part.
     sa_family_t af = saObj.ss.ss_family;
-    if ((af == AF_INET6 && addrlen == sizeof(saObj.sin6)) ||
-        (af == AF_INET && addrlen == sizeof(saObj.sin))) {
+    if (af == AF_INET6 && addrlen == sizeof(saObj.sin6)) {
         if (a_saddr)
             *a_saddr = saObj;
         return true;

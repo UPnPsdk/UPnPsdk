@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-04-05
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -494,7 +494,8 @@ int MakeGetMessageEx(const char* url_str, membuffer* request, uri_type* url,
  * 111: ECONNREFUSED "Connection refused" if there is a remote host but no
  * server service listening.
  */
-// Due to compatibility with Umock for Pupnp this has to be defined static.
+// Due to compile compatibility with Umock for Pupnp this has to be defined
+// static instead to be in the anonymous namespae.
 static int private_connect(
     const SOCKET sockfd,    ///< [in] Socket file descriptor.
     const sockaddr* const
@@ -508,9 +509,8 @@ static int private_connect(
         // This is never used due to SDK specification. It is only presevered
         // for historical reasons.
 
-        int ret{SOCKET_ERROR};
         // returns 0 if successful, else SOCKET_ERROR.
-        ret = umock::pupnp_sock.sock_make_no_blocking(sockfd);
+        int ret = umock::pupnp_sock.sock_make_no_blocking(sockfd);
         if (ret == 0) {
             // ret is needed for Check_Connect_And_Wait_Connection(),
             // returns 0 if successful, else -1.
@@ -950,7 +950,7 @@ int http_SendMessage(SOCKINFO* info, int* TimeOut, const char* fmt, ...) {
                         << "\" to (\"HOST:\" in following message) ...\n"
                         << std::string(buf, buf_length)
                         << "\nUPnPsdk buf_length=" << buf_length
-                        << ", num_written=" << num_write
+                        << ", num_written=" << (num_write < 0 ? 0 : num_write)
                         << ".\nUPnPsdk ------------\n";
 
                     if (num_write < 0) {
@@ -981,34 +981,31 @@ int http_RequestAndResponse(uri_type* destination, const char* request,
                             size_t request_length, http_method_t req_method,
                             int timeout_secs, http_parser_t* response) {
     TRACE("Executing http_RequestAndResponse()")
-    SOCKET tcp_connection;
-    int ret_code;
-    socklen_t sockaddr_len;
-    SOCKINFO info;
 
-    tcp_connection = umock::sys_socket_h.socket(
-        (int)destination->hostport.IPaddress.ss_family, SOCK_STREAM, 0);
-    if (tcp_connection == INVALID_SOCKET) {
+    // Get a socket file descriptor
+    SOCKINFO info{};
+    try {
+        info.socket = UPnPsdk::socket(SOCK_STREAM);
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGCATCH("MSG1172") "catched next line...\n" << ex.what();
         parser_response_init(response, req_method);
         return UPNP_E_SOCKET_ERROR;
     }
-    if (sock_init(&info, tcp_connection) != UPNP_E_SUCCESS) {
-        parser_response_init(response, req_method);
-        ret_code = UPNP_E_SOCKET_ERROR;
-        goto end_function;
-    }
+
     /* connect */
-    sockaddr_len = destination->hostport.IPaddress.ss_family == AF_INET6
-                       ? sizeof(sockaddr_in6)
-                       : sizeof(sockaddr_in);
-    ret_code = umock::pupnp_httprw.private_connect(
-        info.socket, (sockaddr*)&(destination->hostport.IPaddress),
-        sockaddr_len);
-    if (ret_code == -1) {
-        parser_response_init(response, req_method);
+    int ret_code = umock::sys_socket_h.connect(
+        info.socket,
+        reinterpret_cast<sockaddr*>(&destination->hostport.IPaddress),
+        sizeof(sockaddr_in6));
+    UPnPsdk::CSocketErr serrObj;
+    if (ret_code != 0) {
+        serrObj.catch_error();
+        UPnPsdk_LOGERR("MSG1020") "failed to connect() socket("
+            << info.socket << "): " << serrObj.error_str() << "\n";
         ret_code = UPNP_E_SOCKET_CONNECT;
         goto end_function;
     }
+
     /* send request */
     ret_code =
         http_SendMessage(&info, &timeout_secs, "b", request, request_length);
@@ -1016,6 +1013,7 @@ int http_RequestAndResponse(uri_type* destination, const char* request,
         parser_response_init(response, req_method);
         goto end_function;
     }
+
     /* recv response */
     int http_error_code;
     ret_code = http_RecvMessage(&info, response, req_method, &timeout_secs,

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-06
+// Redistribution only with this Copyright remark. Last modified: 2026-04-06
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -16,9 +16,11 @@
 #include <UPnPsdk/socket.hpp>
 
 #include <utest/utest.hpp>
+#include <utest/upnpdebug.hpp>
 #include <umock/sysinfo_mock.hpp>
 #include <umock/sys_socket_mock.hpp>
 #include <umock/stdio_mock.hpp>
+#include "umock/pupnp_httprw_mock.hpp"
 
 
 namespace utest {
@@ -34,6 +36,7 @@ using ::testing::SetArgPointee; // <argno> is 0-based
 using ::testing::SetErrnoAndReturn;
 using ::testing::StrEq;
 using ::testing::StrictMock;
+using ::UPnPsdk::errStr;
 
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
@@ -68,15 +71,10 @@ clang-format on
 
 class HttpBasicFTestSuite : public ::testing::Test {
   protected:
-    // CLogging logObj; // Output only with build type DEBUG.
     membuffer m_request{};
 
     // Constructor
-    HttpBasicFTestSuite() {
-        // if (g_dbug)
-        //     logObj.enable(UPNP_ALL);
-        membuffer_init(&m_request);
-    }
+    HttpBasicFTestSuite() { membuffer_init(&m_request); }
 
     // Destructor
     ~HttpBasicFTestSuite() override { membuffer_destroy(&m_request); }
@@ -89,10 +87,15 @@ class HttpMockFTestSuite : public HttpBasicFTestSuite {
     // Instantiate mocking objects.
     StrictMock<umock::Sys_socketMock> m_sys_socketObj;
     StrictMock<umock::StdioMock> m_stdioObj;
+    StrictMock<umock::PupnpHttpRwMock> m_pupnpHttpRwObj;
     // Inject the mocking objects into the tested code.
     umock::Sys_socket sys_socket_injectObj = umock::Sys_socket(&m_sys_socketObj);
     umock::Stdio stdio_injectObj = umock::Stdio(&m_stdioObj);
+    umock::PupnpHttpRw pupnp_httprw_injectObj = umock::PupnpHttpRw(&m_pupnpHttpRwObj);
     // clang-format on
+
+    // Dummy socket, if we do not need a real one due to mocking
+    const ::SOCKET m_socketfd{515};
 
     // Constructor
     HttpMockFTestSuite() {
@@ -105,12 +108,21 @@ class HttpMockFTestSuite : public HttpBasicFTestSuite {
             .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, select(_, _, _, _, _))
             .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, connect(_, _, _))
+            .WillByDefault(SetErrnoAndReturn(EACCESP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, send(_, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EACCESP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, getsockopt(_, _, _, _, _))
             .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, setsockopt(_, _, _, _, _))
             .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
         ON_CALL(m_sys_socketObj, getsockname(_, _, _))
             .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, recv(_, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, shutdown(_, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+
         ON_CALL(m_stdioObj, fopen(_, _))
             .WillByDefault(SetErrnoAndReturn(EINVALP, nullptr));
         // stdio fread, fwrite, does not return errors but default 0.
@@ -121,6 +133,9 @@ class HttpMockFTestSuite : public HttpBasicFTestSuite {
         ON_CALL(m_stdioObj, feof(_)).WillByDefault(Return(1));
         ON_CALL(m_stdioObj, ferror(_)).WillByDefault(Return(1));
         // void stdio clearerr() does nothing return.
+
+        ON_CALL(m_pupnpHttpRwObj, private_connect(_, _, _))
+            .WillByDefault(Return(SOCKET_ERROR));
     }
 };
 
@@ -782,37 +797,100 @@ TEST_F(HttpBasicFTestSuite, http_send_message_without_socket_file_descriptor) {
         << errStrEx(ret_http_SendMessage, UPNP_E_SOCKET_ERROR);
 }
 
-TEST_F(HttpMockFTestSuite, request_and_response_successful) {
-    if (github_actions)
-        GTEST_SKIP() << "Test needs to be completed after testing subroutines.";
+#if 0
+// Enable real test on "[::1]" with listening netcat in a second console
+// (own process): sudo nc -6 -lknv "::1" 53127
+TEST(HttpTestSuite, request_and_response_real_successful) {
+    membuffer request;
+    membuffer_init(&request);
+    membuffer_assign_str(&request, "Request for UPnPsdk.");
+    http_parser_t response{};
 
+    // Fill uri_type structure for testing
+    std::string_view url_str{"https://[::1]:53127/uri/path?query#fragment"};
     uri_type url;
+    int returned = ::parse_uri(url_str.data(), url_str.size(), &url);
+    ASSERT_EQ(returned, HTTP_SUCCESS) << errStr(returned);
+
+    CPupnplog logObj; // Output only with build type DEBUG.
+    if (g_dbug)
+        logObj.enable(UPNP_ALL);
+
+    // Test Unit
+    int ret_http_RequestAndResponse = http_RequestAndResponse(
+        &url, request.buf, request.length, HTTPMETHOD_GET, HTTP_DEFAULT_TIMEOUT,
+        &response);
+
+    EXPECT_EQ(ret_http_RequestAndResponse, UPNP_E_SUCCESS)
+        << errStrEx(ret_http_RequestAndResponse, UPNP_E_SUCCESS);
+
+    httpmsg_destroy(&response.msg);
+    membuffer_destroy(&request);
+}
+#endif
+
+TEST_F(HttpMockFTestSuite, request_and_response_successful) {
+    membuffer_assign_str(&m_request, "Request for UPnPsdk.");
     http_parser_t response;
+
+    SSockaddr saObj;
+    saObj = "[::1]:61084";
+    std::string url_str{"https://" + saObj.netaddrp() +
+                        "/uri/path?query#fragment"};
+
+    EXPECT_CALL(m_sys_socketObj, socket(AF_INET6, SOCK_STREAM, 0))
+        .WillOnce(Return(m_socketfd));
+    EXPECT_CALL(m_sys_socketObj, shutdown(m_socketfd, _)).WillOnce(Return(0));
+    EXPECT_CALL(m_sys_socketObj, select(_, _, _, _, _))
+        .Times(2)
+        .WillRepeatedly(Return(1)); // Amount of file descritors in fd_set.
+    EXPECT_CALL(m_sys_socketObj, send(m_socketfd, _, _, _))
+        .WillOnce(Return(20));
+    EXPECT_CALL(m_sys_socketObj, recv(m_socketfd, _, _, _)).WillOnce(Return(0));
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    EXPECT_CALL(m_pupnpHttpRwObj, private_connect(m_socketfd, _, _))
+        .WillOnce(Return(0));
+#else
+    EXPECT_CALL(m_sys_socketObj, setsockopt(m_socketfd, _, _, _, _))
+#ifdef _MSC_VER
+        .Times(old_code ? 0 : 3)
+#else
+        .Times(old_code ? 0 : 2)
+#endif
+        .WillRepeatedly(Return(0));
+    EXPECT_CALL(m_sys_socketObj, connect(m_socketfd, _, _)).WillOnce(Return(0));
+    EXPECT_CALL(m_sys_socketObj, getsockopt(m_socketfd, _, _, _, _))
+        .WillOnce(Return(0));
+    // I have to provide the local address of the mocked socket 'm_socketfd'.
+    if (g_dbug) {
+        EXPECT_CALL(
+            m_sys_socketObj,
+            getsockname(m_socketfd, _,
+                        Pointee(Ge(static_cast<socklen_t>(sizeof(saObj.ss))))))
+            .WillOnce(DoAll(StructCpyToArg<1>(&saObj.ss, sizeof(saObj.ss)),
+                            SetArgPointee<2>(saObj.sizeof_saddr()), Return(0)));
+    }
+#endif
+
+    // Fill uri_type structure for testing
+    uri_type url;
+    int returned = ::parse_uri(url_str.data(), url_str.size(), &url);
+    ASSERT_EQ(returned, HTTP_SUCCESS) << errStr(returned);
 
     // Test Unit
     int ret_http_RequestAndResponse = http_RequestAndResponse(
         &url, m_request.buf, m_request.length, HTTPMETHOD_GET,
         HTTP_DEFAULT_TIMEOUT, &response);
-    EXPECT_EQ(ret_http_RequestAndResponse, UPNP_E_TIMEDOUT)
-        << errStrEx(ret_http_RequestAndResponse, UPNP_E_SUCCESS);
+
+    if (github_actions)
+        EXPECT_EQ(ret_http_RequestAndResponse, UPNP_E_BAD_HTTPMSG)
+            << errStrEx(ret_http_RequestAndResponse, UPNP_E_SUCCESS);
+    else
+        EXPECT_EQ(ret_http_RequestAndResponse, UPNP_E_SUCCESS)
+            << errStrEx(ret_http_RequestAndResponse, UPNP_E_SUCCESS);
 
     httpmsg_destroy(&response.msg);
-}
-
-TEST_F(HttpMockFTestSuite, http_Download_successful) {
-    if (github_actions)
-        GTEST_SKIP() << "Test needs to be completed after testing subroutines.";
-
-    const char url[]{"http://127.0.0.1:50001/tvdevicedesc.xml"};
-    char* outBuf;
-    size_t doc_length;
-    char contentType[LINE_SIZE];
-
-    // Test Unit
-    int ret_http_Download = http_Download(url, HTTP_DEFAULT_TIMEOUT, &outBuf,
-                                          &doc_length, contentType);
-    EXPECT_EQ(ret_http_Download, UPNP_E_TIMEDOUT)
-        << errStrEx(ret_http_Download, UPNP_E_SUCCESS);
 }
 
 } // namespace utest

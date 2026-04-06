@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-04
+// Redistribution only with this Copyright remark. Last modified: 2026-04-06
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -32,6 +32,7 @@ using ::testing::StrEq;
 
 using ::UPnPsdk::errStr;
 using ::UPnPsdk::errStrEx;
+using ::UPnPsdk::g_dbug;
 
 #ifndef UPnPsdk_WITH_NATIVE_PUPNP
 using ::pathType;
@@ -712,10 +713,9 @@ TEST_F(CloseHttpConnectionIp4FTestSuite, close_nullptr_handle) {
 }
 
 #if 0
+// Enable real test on "[::1]" with listening netcat in a second console
+// (own process): sudo nc -6 -lknv "::1" 443
 TEST(HttpTestSuite, http_connect_successful) {
-    // Enable real test on "[::1]" with listening netcat in a second console
-    // (own process): sudo nc -6 -lknv "::1" 443 &
-
     // provide url structures for the http connection
     std::string_view url_str{"https://[::1]/uri/path?uriquery#urifragment"};
     uri_type dest_url;
@@ -734,11 +734,18 @@ TEST(HttpTestSuite, http_connect_successful) {
         << errStr((int)sockfd);
 
     EXPECT_EQ(fixed_url.type, Absolute);
-    EXPECT_EQ(std::string_view(fixed_url.scheme.buff, fixed_url.scheme.size), "https");
+    EXPECT_EQ(std::string_view(fixed_url.scheme.buff, fixed_url.scheme.size),
+              "https");
     EXPECT_EQ(fixed_url.path_type, ABS_PATH);
-    EXPECT_EQ(std::string_view(fixed_url.pathquery.buff, fixed_url.pathquery.size), "/uri/path?uriquery");
-    EXPECT_EQ(std::string_view(fixed_url.fragment.buff, fixed_url.fragment.size), "urifragment");
-    EXPECT_EQ(std::string_view(fixed_url.hostport.text.buff, fixed_url.hostport.text.size), "[::1]");
+    EXPECT_EQ(
+        std::string_view(fixed_url.pathquery.buff, fixed_url.pathquery.size),
+        "/uri/path?uriquery");
+    EXPECT_EQ(
+        std::string_view(fixed_url.fragment.buff, fixed_url.fragment.size),
+        "urifragment");
+    EXPECT_EQ(std::string_view(fixed_url.hostport.text.buff,
+                               fixed_url.hostport.text.size),
+              "[::1]");
 }
 #endif
 
@@ -752,10 +759,11 @@ TEST_F(HttpConnectIp4FTestSuite, successful_connect) {
         .WillOnce(Return(m_socketfd));
     EXPECT_CALL(sys_socketObj, setsockopt(_, _, _, _, _))
 #ifdef _MSC_VER
-        .Times(old_code ? 0 : 3);
+        .Times(old_code ? 0 : 3)
 #else
-        .Times(old_code ? 0 : 2);
+        .Times(old_code ? 0 : 2)
 #endif
+        .WillRepeatedly(Return(0));
     EXPECT_CALL(sys_socketObj, shutdown(_, _)).Times(0);
     umock::UnistdMock unistdObj;
     umock::Unistd unistd_injectObj(&unistdObj);
@@ -779,7 +787,8 @@ TEST_F(HttpConnectIp4FTestSuite, successful_connect) {
         << errStr(returned);
 
     CPupnplog logObj; // Output only with build type DEBUG.
-    logObj.enable(UPNP_ALL);
+    if (g_dbug)
+        logObj.enable(UPNP_ALL);
 
     // Test Unit
     SOCKET sockfd; // Returned value should be a valid socket.
@@ -828,10 +837,11 @@ TEST_F(HttpConnectIp4FTestSuite, low_level_net_connect_fails) {
         .WillOnce(Return(m_socketfd));
     EXPECT_CALL(sys_socketObj, setsockopt(_, _, _, _, _))
 #ifdef _MSC_VER
-        .Times(old_code ? 0 : 3);
+        .Times(old_code ? 0 : 3)
 #else
-        .Times(old_code ? 0 : 2);
+        .Times(old_code ? 0 : 2)
 #endif
+        .WillRepeatedly(Return(0));
     EXPECT_CALL(sys_socketObj, shutdown(_, _)).Times(1);
     umock::UnistdMock unistdObj;
     umock::Unistd unistd_injectObj(&unistdObj);
@@ -1200,7 +1210,6 @@ TEST(HttpReadWriteIp4TestSuite, http_SendStatusResponse) {
 
 // testsuite for Ip6 httpreadwrite
 // ===============================
-// TODO: Improve ip6 tests.
 TEST(HttpreadwriteIp6TestSuite, open_http_connection_with_ip_address) {
     // The handle will be allocated on memory by the function and the pointer
     // to it is returned here. As documented we must free it.
@@ -1247,6 +1256,24 @@ TEST(StatcodesTestSuite, http_get_code_text) {
     EXPECT_STREQ(::http_get_code_text(HTTP_NOT_FOUND), "Not Found");
     EXPECT_EQ(::http_get_code_text(99), nullptr);
     EXPECT_EQ(::http_get_code_text(600), nullptr);
+}
+
+// testsuite for HTTP Download
+// ===========================
+TEST(HttpTestSuite, http_Download_successful) {
+    if (github_actions)
+        GTEST_SKIP() << "Test needs to be completed after testing subroutines.";
+
+    const char url[]{"http://127.0.0.1:50001/tvdevicedesc.xml"};
+    char* outBuf;
+    size_t doc_length;
+    char contentType[LINE_SIZE];
+
+    // Test Unit
+    int ret_http_Download = http_Download(url, HTTP_DEFAULT_TIMEOUT, &outBuf,
+                                          &doc_length, contentType);
+    EXPECT_EQ(ret_http_Download, UPNP_E_TIMEDOUT)
+        << errStrEx(ret_http_Download, UPNP_E_SUCCESS);
 }
 
 } // namespace utest
