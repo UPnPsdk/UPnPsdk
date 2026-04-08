@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-03-31
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-08
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -86,7 +86,7 @@ enum MiniServerState {
  * Its socket is listing for a "ShutDown" message from a local network address
  * (localhost). This is used to stop the miniserver from another thread.
  */
-in_port_t miniStopSockPort;
+[[maybe_unused]] in_port_t miniStopSockPort;
 
 /// \brief miniserver state
 MiniServerState gMServState{MSERV_IDLE};
@@ -659,15 +659,15 @@ void ssdp_read( //
 /*!
  * \brief Check if we have received a packet that shall stop the miniserver.
  *
- * The received datagram must exactly match the shutdown_str from 127.0.0.1.
+ * The received datagram must exactly match the shutdown_str from "[::1].
  * This is a security issue to avoid that the UPnPlib can be terminated from a
  * remote ip address. Receiving 0 bytes on a datagram (there's a datagram here)
  * indicates that a zero-length datagram was successful sent. This will not
  * stop the miniserver.
  *
  * \returns
- * - 1 - when the miniserver shall be stopped,
- * - 0 - otherwise.
+ * - \b 1 - when the miniserver shall be stopped,
+ * - \b 0 - otherwise.
  */
 int receive_from_stopSock(
     SOCKET ssock, ///< [in] Socket file descriptor.
@@ -675,50 +675,65 @@ int receive_from_stopSock(
                             \::select(). */
 ) {
     TRACE("Executing receive_from_stopSock()")
-    constexpr char shutdown_str[]{"ShutDown"};
-
     if (!FD_ISSET(ssock, set))
         return 0; // Nothing to do for this socket
 
-    UPnPsdk::sockaddr_t clientAddr{};
-    socklen_t clientLen{sizeof(clientAddr)}; // May be modified
+    // Prepare shutdown string (no terminating '\0') and its receive buffer.
+    constexpr char shutdown_str[]{"ShutDown"};
+    char receiveBuf[sizeof(shutdown_str) + 1]{}; // Two bytes longer than string
 
-    // The receive buffer is one byte greater with '\0' than the max receiving
-    // bytes so the received message will always be terminated.
-    char receiveBuf[sizeof(shutdown_str) + 1]{};
-    char buf_ntop[INET6_ADDRSTRLEN];
+    // Buffer for the remote address that is returned by '::recvfrom()'.
+    UPnPsdk::sockaddr_t remoteAddr{};
+    socklen_t remoteLen{sizeof(remoteAddr)}; // May be modified
 
     // receive from
     SSIZEP_T byteReceived = umock::sys_socket_h.recvfrom(
-        ssock, receiveBuf, sizeof(shutdown_str), 0, &clientAddr.sa, &clientLen);
+        ssock, receiveBuf, sizeof(receiveBuf), 0, &remoteAddr.sa, &remoteLen);
+
+    // Check first critical errors.
+    char buf_ntop[INET6_ADDRSTRLEN]{};
     if (byteReceived == SOCKET_ERROR ||
-        inet_ntop(AF_INET, &clientAddr.sin.sin_addr, buf_ntop,
+        inet_ntop(AF_INET6, &remoteAddr.sin6.sin6_addr, buf_ntop,
                   sizeof(buf_ntop)) == nullptr) {
         UPnPsdk_LOGCRIT("MSG1038") "Failed to receive data from socket "
-            << ssock << ". Stop miniserver.\n";
+            << ssock << ". Shutdown miniserver.\n";
         return 1;
     }
 
-    // integer of "127.0.0.1" is 2130706433.
-    if (clientAddr.sin.sin_addr.s_addr != htonl(2130706433) ||
-        strcmp(receiveBuf, shutdown_str) != 0) //
+    // Check the shutdown word.
+    if (byteReceived != sizeof(shutdown_str) - 1 ||
+        strncmp(shutdown_str, receiveBuf, sizeof(shutdown_str) - 1) != 0)
+        goto error;
+
+    // Check if the binary remote address is the IPv6 loopback address (all
+    // zero bytes, except last one is 1).
     {
-        char nullstr[]{"\\0"};
-        if (byteReceived == 0 || receiveBuf[byteReceived - 1] != '\0')
-            nullstr[0] = '\0';
-        UPnPsdk_LOGERR("MSG1039") "Received \""
-            << receiveBuf << nullstr << "\" from " << buf_ntop << ":"
-            << ntohs(clientAddr.sin.sin_port)
-            << ", must be \"ShutDown\\0\" from 127.0.0.1:*. Don't "
-               "stopping miniserver.\n";
-        return 0;
+        int i{};
+        for (; i < 15 && !remoteAddr.sin6.sin6_addr.s6_addr[i]; i++) {
+        }
+        if (i != 15 || remoteAddr.sin6.sin6_addr.s6_addr[i] != 1)
+            goto error;
     }
 
+    // Here is a valid shutdown message received.
     UPnPsdk_LOGINFO("MSG1040") "On socket "
         << ssock << " received ordinary datagram \"" << receiveBuf
-        << "\\0\" from " << buf_ntop << ":" << ntohs(clientAddr.sin.sin_port)
-        << ". Stop miniserver.\n";
+        << "\" from [" << buf_ntop << "]:" << ntohs(remoteAddr.sin.sin_port)
+        << ". Stopping miniserver.\n";
     return 1;
+
+error:
+    if (byteReceived != sizeof(shutdown_str) - 1) {
+        receiveBuf[sizeof(receiveBuf) - 2] = '?';
+        receiveBuf[sizeof(receiveBuf) - 1] = '\0';
+    }
+    UPnPsdk_LOGERR("MSG1039") "Received \""
+        << receiveBuf << "\" from [" << buf_ntop
+        << "]:" << ntohs(remoteAddr.sin.sin_port) << ", must be \""
+        << shutdown_str
+        << "\" from [::1] with any port. Don't "
+           "stopping miniserver.\n";
+    return 0;
 }
 
 /*!
@@ -731,6 +746,8 @@ int receive_from_stopSock(
  *
  * \attention The miniSock parameter must be allocated on the heap before
  * calling the function because it is freed by it.
+ *
+ * \todo Protect parts of the function with a mutex.
  */
 void RunMiniServer(
     /*! [in] Pointer to an Array containing valid sockets associated with
@@ -740,9 +757,9 @@ void RunMiniServer(
     UPnPsdk_LOGINFO("MSG1085") "Executing...\n";
 
 #ifdef COMPA_HAVE_WEBSERVER
-    // Move the current valid socket objects to this scope. They are owner of
-    // the raw socket file descriptor and manage/close it when leaving this
-    // scope.
+    // Move the current valid socket objects to this scope (thread). They are
+    // owner of the raw socket file descriptor and manage/close it when leaving
+    // this scope.
     UPnPsdk::CSocket sockLlaObj;
     if (miniSock->pSockLlaObj != nullptr) {
         sockLlaObj = std::move(*miniSock->pSockLlaObj);
@@ -758,12 +775,19 @@ void RunMiniServer(
         sockIp4Obj = std::move(*miniSock->pSockIp4Obj);
         miniSock->pSockIp4Obj = &sockIp4Obj;
     }
+    UPnPsdk::CSocket sockStpObj;
+    if (miniSock->pSockStpObj != nullptr) {
+        std::cerr << "DEBUG! Tracepoint2\n";
+        sockStpObj = std::move(*miniSock->pSockStpObj);
+        miniSock->pSockStpObj = &sockStpObj;
+    }
 #endif
 
     fd_set expSet;
     fd_set rdSet;
     int stopSock = 0;
 
+    std::cerr << "DEBUG! Tracepoint3\n";
     // On MS Windows INVALID_SOCKET is unsigned -1 = 18446744073709551615 so we
     // get maxMiniSock with this big number even if there is only one
     // INVALID_SOCKET. Incrementing it at the end results in 0. To be portable
@@ -811,11 +835,16 @@ void RunMiniServer(
 
     gMServState = MSERV_RUNNING;
     while (!stopSock) {
+        std::cerr << "DEBUG! Tracepoint4\n";
         FD_ZERO(&rdSet);
         FD_ZERO(&expSet);
         /* FD_SET()'s */
         FD_SET(miniSock->miniServerStopSock, &expSet);
         FD_SET(miniSock->miniServerStopSock, &rdSet);
+        std::cerr << "DEBUG! pSockStpObj->socket()="
+                  << miniSock->pSockStpObj->socket() << "\n";
+        FD_SET(miniSock->pSockStpObj->socket(), &expSet);
+        FD_SET(miniSock->pSockStpObj->socket(), &rdSet);
         fdset_if_valid(miniSock->miniServerSock4, &rdSet);
         fdset_if_valid(miniSock->miniServerSock6, &rdSet);
         fdset_if_valid(miniSock->miniServerSock6UlaGua, &rdSet);
@@ -827,9 +856,11 @@ void RunMiniServer(
         fdset_if_valid(miniSock->ssdpReqSock6, &rdSet);
 #endif
 
-        /* select() */
+        // select(), this call is blocking.
+        std::cerr << "DEBUG! Tracepoint4a\n";
         int ret = umock::sys_socket_h.select(static_cast<int>(maxMiniSock),
                                              &rdSet, NULL, &expSet, NULL);
+        std::cerr << "DEBUG! Tracepoint4b\n";
 
         if (ret == SOCKET_ERROR) {
             if (errno == EINTR) {
@@ -876,7 +907,10 @@ void RunMiniServer(
 
         // Check if we have received a packet from
         // localhost(127.0.0.1) that will stop the miniserver.
-        stopSock = receive_from_stopSock(miniSock->miniServerStopSock, &rdSet);
+        // stopSock = receive_from_stopSock(miniSock->miniServerStopSock,
+        // &rdSet);
+        stopSock =
+            receive_from_stopSock(miniSock->pSockStpObj->socket(), &rdSet);
     } // while (!stopsock)
 
 #ifdef COMPA_HAVE_WEBSERVER
@@ -906,42 +940,6 @@ void RunMiniServer(
 
 void RunMiniServer_f(MiniServerSockArray* miniSock) {
     umock::pupnp_miniserver.RunMiniServer(miniSock);
-}
-
-
-/*!
- * \brief Returns port to which socket, sockfd, is bound.
- *
- * \returns
- *  On success: **0**\n
- *  On error: **-1** with unmodified system error (errno or WSAGetLastError()).
- */
-int get_port(
-    /*! [in] Socket descriptor. */
-    SOCKET sockfd,
-    /*! [out] The port value if successful, otherwise, untouched. */
-    uint16_t* port) {
-    TRACE("Executing get_port(), calls system ::getsockname()")
-    UPnPsdk::sockaddr_t sockinfo{};
-    socklen_t len(sizeof sockinfo); // May be modified by getsockname()
-
-    if (umock::sys_socket_h.getsockname(sockfd, &sockinfo.sa, &len) == -1)
-        // system error (errno etc.) is expected to be unmodified on return.
-        return -1;
-
-    switch (sockinfo.ss.ss_family) {
-    case AF_INET:
-    case AF_INET6:
-        *port = ntohs(sockinfo.sin6.sin6_port);
-        break;
-    default:
-        // system error (errno etc.) is expected to be unmodified on return.
-        return -1;
-    }
-    UPnPsdk_LOGINFO("MSG1063") "sockfd=" << sockfd << ", port=" << *port
-                                         << ".\n";
-
-    return 0;
 }
 
 #ifdef COMPA_HAVE_WEBSERVER
@@ -1069,10 +1067,9 @@ int get_miniserver_sockets(
  * \returns
  *  On success: UPNP_E_SUCCESS\n
  *  On error:
- *  - UPNP_E_OUTOF_SOCKET: Failed to create a socket.
  *  - UPNP_E_SOCKET_BIND: Bind() failed.
- *  - UPNP_E_INTERNAL_ERROR: Port returned by the socket layer is < 0.
  */
+#if false
 int get_miniserver_stopsock(
     /*! [out] Fills the socket file descriptor and the port it is bound to into
        the structure. */
@@ -1118,6 +1115,35 @@ int get_miniserver_stopsock(
     return UPNP_E_SUCCESS;
 }
 
+#endif
+
+int get_miniserver_stopsock(
+    /*! [out] Bind the stop socket object into the structure to the loopback
+     *        interface. */
+    MiniServerSockArray* out) {
+    TRACE("Executing get_miniserver_stopsock()");
+
+    // Bind stop socket to loopback interface
+    UPnPsdk::SSockaddr sa1Obj;
+    sa1Obj = "[::1]";
+    try {
+        out->pSockStpObj->bind(SOCK_STREAM, &sa1Obj);
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGERR("MSG1174") "Error binding stop socket, " << ex.what()
+                                                                << "\n";
+        return UPNP_E_SOCKET_BIND;
+    }
+
+    out->pSockStpObj->local_saddr(&sa1Obj);
+    UPnPsdk::SSockaddr sa2Obj;
+    out->pSockStpObj->remote_saddr(&sa2Obj);
+    UPnPsdk_LOGINFO("MSG1053") "Bound stop socket("
+        << out->pSockStpObj->socket() << ") to local \"" << sa1Obj.netaddrp()
+        << "\", remote \"" << sa2Obj.netaddrp() << "\".\n";
+
+    return UPNP_E_SUCCESS;
+}
+
 /*!
  * \brief Initialize a miniserver Socket Array.
  */
@@ -1144,6 +1170,7 @@ void InitMiniServerSockArray(
     miniSocket->pSockLlaObj = nullptr;
     miniSocket->pSockGuaObj = nullptr;
     miniSocket->pSockIp4Obj = nullptr;
+    miniSocket->pSockStpObj = nullptr;
 #endif
 }
 
@@ -1170,7 +1197,6 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
                     [[maybe_unused]] in_port_t* listen_port6UlaGua) {
     UPnPsdk_LOGINFO("MSG1068") "Executing...\n";
     constexpr int max_count{10000};
-    MiniServerSockArray* miniSocket;
     ThreadPoolJob job;
     int ret_code{UPNP_E_INTERNAL_ERROR};
 
@@ -1182,7 +1208,8 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
         return UPNP_E_INTERNAL_ERROR;
     }
 
-    miniSocket = (MiniServerSockArray*)malloc(sizeof(MiniServerSockArray));
+    MiniServerSockArray* miniSocket =
+        (MiniServerSockArray*)malloc(sizeof(MiniServerSockArray));
     if (!miniSocket) {
         return UPNP_E_OUTOF_MEMORY;
     }
@@ -1197,6 +1224,10 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
     miniSocket->pSockGuaObj = &sockGuaObj;
     UPnPsdk::CSocket sockIp4Obj;
     miniSocket->pSockIp4Obj = &sockIp4Obj;
+    UPnPsdk::CSocket sockStpObj;
+    miniSocket->pSockStpObj = &sockStpObj;
+    std::cerr << "DEBUG! Tracepoint1, pSockStpObj=" << *miniSocket->pSockStpObj
+              << "\n";
 
     /* V4 and V6 http listeners. */
     ret_code = get_miniserver_sockets(miniSocket, *listen_port4, *listen_port6,
@@ -1279,16 +1310,14 @@ int StartMiniServer([[maybe_unused]] in_port_t* listen_port4,
     return UPNP_E_SUCCESS;
 }
 
+#if 0
 int StopMiniServer() {
     UpnpPrintf(UPNP_INFO, MSERV, __FILE__, __LINE__,
                "Inside StopMiniServer()\n");
 
-    socklen_t socklen = sizeof(struct sockaddr_in);
-    SOCKET sock;
-    sockaddr_in ssdpAddr;
-    char buf[256] = "ShutDown";
+    char buf[] = "ShutDown";
     // due to required type cast for 'sendto' on WIN32 bufLen must fit to an int
-    size_t bufLen = strlen(buf);
+    constexpr size_t bufLen = sizeof(buf) - 1;
 
     switch (gMServState) {
     case MSERV_RUNNING:
@@ -1297,20 +1326,41 @@ int StopMiniServer() {
     default:
         return 0;
     }
-    sock = UPnPsdk::socket(SOCK_DGRAM);
+
+    SOCKET sock = UPnPsdk::socket(SOCK_DGRAM);
     if (sock == INVALID_SOCKET) {
         UpnpPrintf(UPNP_ERROR, SSDP, __FILE__, __LINE__,
                    "SSDP_SERVER: StopSSDPServer: Error in socket() %s\n",
                    std::strerror(errno));
         return 1;
     }
+
+    sockaddr_in6 ssdpAddr{};
+    socklen_t socklen = sizeof(ssdpAddr);
+
+    ssdpAddr.sin6_family = (sa_family_t)AF_INET6;
+    int ret = ::inet_pton(AF_INET6, "::1", &ssdpAddr.sin6_addr);
+    std::cerr << "DEBUG! inet_pton() ret=" << ret << "\n";
+    ssdpAddr.sin6_port = htons(miniStopSockPort);
+
+    UPnPsdk::CSocketErr sockerrObj;
+
     while (gMServState != (MiniServerState)MSERV_IDLE) {
-        ssdpAddr.sin_family = (sa_family_t)AF_INET;
-        inet_pton(AF_INET, "127.0.0.1", &ssdpAddr.sin_addr);
-        ssdpAddr.sin_port = htons(miniStopSockPort);
-        umock::sys_socket_h.sendto(sock, buf, (SIZEP_T)bufLen, 0,
-                                   reinterpret_cast<sockaddr*>(&ssdpAddr),
-                                   socklen);
+        // sendto
+        SSIZEP_T bytes_send = umock::sys_socket_h.sendto(
+            sock, buf, bufLen, 0,
+            reinterpret_cast<sockaddr*>(&ssdpAddr), socklen);
+
+        if (bytes_send == SOCKET_ERROR) {
+            sockerrObj.catch_error();
+            UPnPsdk_LOGCRIT("MSG1094") "Error(" << sockerrObj << ") with sendto(): "
+                << sockerrObj.error_str() << "\n";
+            sock_close(sock);
+            return 1;
+        }
+
+        std::cerr << "DEBUG! bytes_send=" << bytes_send << "\n";
+
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
         if (gMServState == (MiniServerState)MSERV_IDLE) {
             break;
@@ -1321,3 +1371,55 @@ int StopMiniServer() {
     sock_close(sock);
     return 0;
 }
+
+#else
+
+int StopMiniServer() {
+    char errorBuffer[ERROR_BUFFER_LEN];
+    socklen_t socklen = sizeof(struct sockaddr_in);
+    SOCKET sock;
+    struct sockaddr_in ssdpAddr;
+    char buf[256] = "ShutDown";
+    // Due to required type cast for 'sendto' on WIN32 bufLen must fit to an
+    // int, no problem here. --Ingo
+#ifdef _WIN32
+    int bufLen = (int)strlen(buf);
+#else
+    size_t bufLen = strlen(buf);
+#endif
+    switch (gMServState) {
+    case MSERV_RUNNING:
+        gMServState = MSERV_STOPPING;
+        break;
+    default:
+        return 0;
+    }
+    sock = umock::sys_socket_h.socket(AF_INET, SOCK_DGRAM, 0);
+    if (sock == INVALID_SOCKET) {
+        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
+        UpnpPrintf(UPNP_INFO, SSDP, __FILE__, __LINE__,
+                   "SSDP_SERVER: StopSSDPServer: Error in socket() %s\n",
+                   errorBuffer);
+        return 0;
+    }
+    while (gMServState != (MiniServerState)MSERV_IDLE) {
+        ssdpAddr.sin_family = (sa_family_t)AF_INET;
+        inet_pton(AF_INET, "127.0.0.1", &ssdpAddr.sin_addr);
+        ssdpAddr.sin_port = htons(miniStopSockPort);
+        ssize_t ret = umock::sys_socket_h.sendto(
+            sock, buf, bufLen, 0, (struct sockaddr*)&ssdpAddr, socklen);
+        if (ret == -1)
+            std::cerr << "DEBUG! sendto errno=" << errno << "\n";
+        // imillisleep(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        if (gMServState == (MiniServerState)MSERV_IDLE) {
+            break;
+        }
+        // isleep(1u);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    sock_close(sock);
+
+    return 0;
+}
+#endif

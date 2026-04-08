@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-03-15
+ * Redistribution only with this Copyright remark. Last modified: 2026-04-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -335,7 +335,7 @@ char* resolve_rel_url(char* a_base_url, char* a_rel_url) {
             out_str = uriObj.str();
 
         } catch (const std::invalid_argument& ex) {
-            UPnPsdk_LOGCATCH("MSG1046") "Catched next line...\n"
+            UPnPsdk_LOGCATCH("MSG1173") "Catched next line...\n"
                 << ex.what() << '\n';
             return nullptr;
         }

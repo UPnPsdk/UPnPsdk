@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-17
+// Redistribution only with this Copyright remark. Last modified: 2026-04-06
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -26,6 +26,7 @@
 #include <UPnPsdk/netadapter.hpp>
 
 #include <utest/utest.hpp>
+#include <utest/upnpdebug.hpp>
 #include <utest/threadpool_init.hpp>
 #include <umock/sys_socket_mock.hpp>
 #ifdef _MSC_VER
@@ -180,12 +181,12 @@ void get_netadapter() {
 
 class StartMiniServerFTestSuite : public ::testing::Test {
   protected:
-    // CLogging logObj; // Output only with build type DEBUG.
+    CPupnplog logObj; // Output only with build type DEBUG.
 
     // Constructor
     StartMiniServerFTestSuite() {
-        // if (g_dbug)
-        //     logObj.enable(UPNP_ALL);
+        if (g_dbug)
+            logObj.enable(UPNP_ALL);
 
         // Clean up needed global environment
         gIF_INDEX = 0u;
@@ -368,8 +369,10 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
     // TPAttrSetMaxThreads(&gMiniServerThreadPool.attr, 0);
 
     // Test Unit
+    std::cerr << "DEBUG! Tracepoint0\n";
     int ret_StartMiniServer =
         StartMiniServer(&LOCAL_PORT_V4, &LOCAL_PORT_V6, &LOCAL_PORT_V6_ULA_GUA);
+    std::cerr << "DEBUG! Tracepoint0a\n";
 
     if (old_code) {
         std::cout
@@ -380,10 +383,13 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
 
     } else {
 
+        std::cerr << "DEBUG! Tracepoint1\n";
         EXPECT_EQ(ret_StartMiniServer, UPNP_E_SUCCESS)
             << errStrEx(ret_StartMiniServer, UPNP_E_SUCCESS);
 
+        std::cerr << "DEBUG! Tracepoint2\n";
         EXPECT_EQ(StopMiniServer(), 0);
+        std::cerr << "DEBUG! Tracepoint3\n";
     }
 }
 
@@ -1591,7 +1597,6 @@ TEST_F(StartMiniServerMockFTestSuite, do_listen_insufficient_resources) {
     EXPECT_EQ(s.try_port, 0); // not used
     EXPECT_EQ(s.address_len, (socklen_t)sizeof(*s.serverAddr4));
 }
-#endif
 
 TEST_F(StartMiniServerMockFTestSuite, get_port_successful) {
     // Configure expected system calls:
@@ -1683,36 +1688,76 @@ TEST_F(StartMiniServerMockFTestSuite, get_port_fails) {
     EXPECT_EQ(errno, ENOBUFS);
     EXPECT_EQ(port, 0xAAAA);
 }
+#endif
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST(StartMiniServerTestSuite, get_miniserver_stopsock) {
     // Here we test a real connection to the loopback device. This needs
     // initialization of sockets on MS Windows. We also have to close the
     // socket.
     MiniServerSockArray out;
-    InitMiniServerSockArray(&out);
+    ::InitMiniServerSockArray(&out);
+
+    CPupnplog logObj; // Output only with build type DEBUG.
+    if (g_dbug)
+        logObj.enable(UPNP_ALL);
 
     // Test Unit
-    int ret_get_miniserver_stopsock = get_miniserver_stopsock(&out);
+    int ret_get_miniserver_stopsock = ::get_miniserver_stopsock(&out);
     EXPECT_EQ(ret_get_miniserver_stopsock, UPNP_E_SUCCESS)
         << errStrEx(ret_get_miniserver_stopsock, UPNP_E_SUCCESS);
 
-    EXPECT_NE(out.miniServerStopSock, (SOCKET)0);
-    EXPECT_NE(out.stopPort, 0);
-    EXPECT_EQ(out.stopPort, miniStopSockPort);
+    ASSERT_GT(out.miniServerStopSock, 0u);
+    ASSERT_GT(out.stopPort, 0);
+    ASSERT_EQ(out.stopPort, /*global var*/ miniStopSockPort);
 
-    // Get socket object from the bound socket
-    CSocket_basic sockObj(out.miniServerStopSock);
-    sockObj.load(); // UPnPsdk::CSocket_basic
+    // Get local address the socket is bound. Old code use hard coded
+    // "127.0.0.1" to bind to the stop socket. I need to use low level system
+    // calls to test the results because new code does not support IPv4
+    // addresses.
+    UPnPsdk::sockaddr_t local_saddr;
+    socklen_t addrlen = sizeof(sockaddr_storage); // May be modified on return
+    ASSERT_EQ(::getsockname(out.miniServerStopSock, &local_saddr.sa, &addrlen),
+              0);
 
-    // and verify its settings
-    SSockaddr sa;
-    sockObj.local_saddr(&sa);
-    EXPECT_EQ(sa.port(), miniStopSockPort);
-    EXPECT_EQ(sa.netaddr(), "127.0.0.1");
-
-    // Close socket
+    // Close socket, does not touch local_saddr. It is still available.
     EXPECT_EQ(sock_close(out.miniServerStopSock), 0);
+
+    // integer of "127.0.0.1" in host byte order is 2130706433.
+    ASSERT_EQ(local_saddr.sin.sin_addr.s_addr, htonl(2130706433));
+    ASSERT_EQ(local_saddr.sin.sin_port, ::htons(out.stopPort));
 }
+#else
+TEST(StartMiniServerTestSuite, get_miniserver_stopsock) {
+    // Here we test a real connection to the loopback device. This needs
+    // initialization of sockets on MS Windows. We also have to close the
+    // socket.
+    MiniServerSockArray out;
+    ::InitMiniServerSockArray(&out);
+
+    UPnPsdk::CSocket sockStpObj;
+    out.pSockStpObj = &sockStpObj;
+
+    CPupnplog logObj; // Output only with build type DEBUG.
+    if (g_dbug)
+        logObj.enable(UPNP_ALL);
+
+    // Test Unit
+    int ret_get_miniserver_stopsock = ::get_miniserver_stopsock(&out);
+    EXPECT_EQ(ret_get_miniserver_stopsock, UPNP_E_SUCCESS)
+        << errStrEx(ret_get_miniserver_stopsock, UPNP_E_SUCCESS);
+
+    ASSERT_GT(out.miniServerStopSock, 0u);
+    ASSERT_EQ(out.stopPort, 0);
+    ASSERT_EQ(out.stopPort, /*global var*/ miniStopSockPort);
+
+    // Get local and remote address the socket is bound. Port doesn't matter.
+    UPnPsdk::SSockaddr saObj;
+    EXPECT_TRUE(out.pSockStpObj->local_saddr(&saObj));
+    EXPECT_EQ(saObj.netaddr(), "[::1]");
+    EXPECT_FALSE(out.pSockStpObj->remote_saddr(&saObj));
+}
+#endif
 
 TEST_F(StartMiniServerMockFTestSuite, get_miniserver_stopsock_fails) {
     // Configure expected system calls:

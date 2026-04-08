@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-04
+// Redistribution only with this Copyright remark. Last modified: 2026-04-07
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -235,6 +235,9 @@ class UPnPsdk_API CSocket_basic {
     operator SOCKET() const;
 
 
+    SOCKET socket() const;
+
+
     /*! \brief Get the local socket address the socket is bound to
      * \code
 // Usage e.g.:
@@ -363,6 +366,9 @@ class UPnPsdk_API CSocket : public CSocket_basic {
     /*! \brief Default constructor for an
      * [empty socket object](\ref empty_socket) */
     CSocket();
+
+    /// \brief Constructor with defining the socket type
+    CSocket(const int a_socktype);
 
     /*! \brief Move constructor
      *

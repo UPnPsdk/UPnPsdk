@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-06
+// Redistribution only with this Copyright remark. Last modified: 2026-04-08
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -205,6 +205,9 @@ void CSocket_basic::load() {
     ::pthread_mutex_unlock(&m_socket_mutex);
 }
 
+
+// Getter
+// ------
 // Get the raw socket file descriptor
 CSocket_basic::operator SOCKET() const {
     TRACE2(this, " Executing CSocket_basic::operator SOCKET() (get "
@@ -215,8 +218,17 @@ CSocket_basic::operator SOCKET() const {
     return sfd;
 }
 
-// Getter
-// ------
+
+SOCKET CSocket_basic::socket() const {
+    TRACE2(this, " Executing CSocket_basic::socket() (get "
+                 "raw socket fd)")
+    ::pthread_mutex_lock(&m_socket_mutex);
+    const auto sfd{m_sfd};
+    ::pthread_mutex_unlock(&m_socket_mutex);
+    return sfd;
+}
+
+
 bool CSocket_basic::local_saddr(SSockaddr* a_saddr) const {
     TRACE2(this, " Executing CSocket_basic::local_saddr()")
     CPthread_scoped_lock lock(m_socket_mutex);
@@ -271,6 +283,7 @@ bool CSocket_basic::local_saddr_protected(SSockaddr* a_saddr) const {
     return true;
 }
 /// \endcond
+
 
 bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
     TRACE2(this, " Executing CSocket_basic::remote_saddr()")
@@ -387,8 +400,25 @@ bool CSocket_basic::is_reuse_addr() const {
 
 // CSocket class
 // =============
-// Default constructor for an empty socket object
+// Default constructor for an empty socket object.
 CSocket::CSocket(){TRACE2(this, " Construct default CSocket()")}
+
+
+// Constructor with defining the socket type.
+CSocket::CSocket(const int a_socktype) {
+    TRACE2(this, " Construct CSocket() with socket type")
+
+    ::pthread_mutex_lock(&m_socket_mutex);
+    // Get a socket file descriptor with ignoring exceptions here in the
+    // constructor. New try is made in member functions.
+    try {
+        SOCKET sockfd = UPnPsdk::socket(a_socktype);
+        if (sockfd >= 3)
+            m_sfd = sockfd;
+    } catch (...) {
+    }
+    ::pthread_mutex_unlock(&m_socket_mutex);
+}
 
 // Move constructor
 CSocket::CSocket(CSocket&& that) {

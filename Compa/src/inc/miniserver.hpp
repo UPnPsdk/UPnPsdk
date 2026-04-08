@@ -92,6 +92,7 @@ struct MiniServerSockArray {
     UPnPsdk::CSocket* pSockLlaObj;
     UPnPsdk::CSocket* pSockGuaObj;
     UPnPsdk::CSocket* pSockIp4Obj;
+    UPnPsdk::CSocket* pSockStpObj;
 #endif
 #ifdef COMPA_HAVE_CTRLPT_SSDP
     /*! \name Only with Client (control point) Module.
