@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-08
+// Redistribution only with this Copyright remark. Last modified: 2026-04-11
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -78,6 +78,7 @@ int getsockname(SOCKET a_sockfd, sockaddr* a_addr, socklen_t* a_addrlen) {
 // Socket free function
 // ====================
 SOCKET socket(int a_socktype) {
+    // Strong exception guarantee.
     TRACE(" Executing get_sockfd()")
 
     // Do some general checks that must always be done according to the
@@ -93,7 +94,10 @@ SOCKET socket(int a_socktype) {
     // Syscall socket(): get new socket file descriptor.
     SOCKET sfd = umock::sys_socket_h.socket(AF_INET6, a_socktype, 0);
     UPnPsdk_LOGINFO("MSG1135") "syscall ::socket(AF_INET6, "
-        << a_socktype << ", 0). Get socket fd " << sfd << '\n';
+        << (a_socktype == 1   ? "SOCK_STREAM"
+            : a_socktype == 2 ? "SOCK_DGRAM"
+                              : std::to_string(a_socktype))
+        << ", 0). Get socket fd " << sfd << '\n';
     if (sfd == INVALID_SOCKET) {
         serrObj.catch_error();
         throw std::runtime_error(
@@ -260,7 +264,7 @@ bool CSocket_basic::local_saddr_protected(SSockaddr* a_saddr) const {
     if (af != AF_INET6)
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1091") "Unsupported address family " +
-            std::to_string(saObj.ss.ss_family));
+            std::to_string(saObj.ss.ss_family) + '\n');
 
     // Check if there is a complete address structure returned from
     // UPnPsdk::getsockname(). On macOS the function returns only part of the
@@ -432,7 +436,7 @@ CSocket::CSocket(CSocket&& that) {
     ::pthread_mutex_unlock(&m_socket_mutex);
 }
 
-// Assignment operator (parameter as value)
+// Copy assignment operator (parameter as value)
 CSocket& CSocket::operator=(CSocket that) {
     TRACE2(this, " Executing CSocket::operator=()")
     // This is thread safe because the swap is from the stack.
@@ -441,6 +445,13 @@ CSocket& CSocket::operator=(CSocket that) {
 
     return *this;
 }
+
+// Assignment operator to set the socket type
+// void CSocket::operator=(const int a_socktype) {
+//     TRACE2(this, " Executing CSocket::operator=() (set socket type)")
+//     CPthread_scoped_lock lock(m_socket_mutex);
+//     m_sfd = UPnPsdk::socket(a_socktype);
+// }
 
 // Destructor
 CSocket::~CSocket() {
@@ -583,7 +594,7 @@ void CSocket::bind(const int a_socktype, const SSockaddr* const a_saddr,
             std::to_string(sockfd) + ". Failed to bind socket " +
             std::to_string(count) + " times to address=\"" +
             saddrObj.netaddrp() + "\": (errid " + std::to_string(serrObj) +
-            ") " + serrObj.error_str());
+            ") " + serrObj.error_str() + "\n");
     }
 }
 

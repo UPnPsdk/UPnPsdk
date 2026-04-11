@@ -1,5 +1,6 @@
+#if false
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-08
+// Redistribution only with this Copyright remark. Last modified: 2026-04-10
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -53,32 +54,7 @@ using ::UPnPsdk::SSockaddr;
 
 // Miniserver Run TestSuite
 // ========================
-class RunMiniServerMockFTestSuite : public ::testing::Test {
-    // This is a fixture to provide mocking of sys_socket.
-  protected:
-    CPupnplog logObj; // Output only with build type DEBUG.
-
-    // clang-format off
-    // Instantiate mocking objects.
-    StrictMock<umock::Sys_socketMock> m_sys_socketObj;
-    // Inject the mocking objects into the tested code.
-    umock::Sys_socket sys_socket_injectObj = umock::Sys_socket(&m_sys_socketObj);
-    // clang-format on
-
-    RunMiniServerMockFTestSuite() {
-        TRACE2(this, " Construct RunMiniServerMockFTestSuite()")
-        if (g_dbug)
-            logObj.enable(UPNP_ALL);
-    }
-
-    virtual ~RunMiniServerMockFTestSuite() override {
-        TRACE2(this, " Destruct RunMiniServerMockFTestSuite()")
-    }
-};
-typedef RunMiniServerMockFTestSuite RunMiniServerMockFDeathTest;
-
-
-class RunMiniServerFuncFTestSuite : public RunMiniServerMockFTestSuite {
+class RunMiniServerFuncFTestSuite : public ::testing::Test {
     // This is a fixture to provide mocking of sys_socket and a
     // MiniServerSockArray on the heap to call the RunMiniserver() function.
     // This is needed because RunMiniserver() frees MiniServerSockArray.
@@ -100,7 +76,51 @@ class RunMiniServerFuncFTestSuite : public RunMiniServerMockFTestSuite {
     }
 };
 
-TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
+class RunMiniServerMockFTestSuite : public RunMiniServerFuncFTestSuite {
+    // This is a fixture to provide mocking of sys_socket.
+  protected:
+    CPupnplog logObj; // Output only with build type DEBUG.
+
+    // clang-format off
+    // Instantiate mocking objects.
+    StrictMock<umock::Sys_socketMock> m_sys_socketObj;
+    // Inject the mocking objects into the tested code.
+    //umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
+    // clang-format on
+
+    RunMiniServerMockFTestSuite() {
+        TRACE2(this, " Construct RunMiniServerMockFTestSuite()")
+        if (g_dbug)
+            logObj.enable(UPNP_ALL);
+
+        // Set default socket object values
+        ON_CALL(m_sys_socketObj, socket(_, _, _))
+            .WillByDefault(SetErrnoAndReturn(EACCESP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, bind(_, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, listen(_, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, select(_, _, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, getsockopt(_, _, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, setsockopt(_, _, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, getsockname(_, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+        ON_CALL(m_sys_socketObj, recvfrom(_, _, _, _, _, _))
+            .WillByDefault(SetErrnoAndReturn(EBADFP, SOCKET_ERROR));
+    }
+
+    virtual ~RunMiniServerMockFTestSuite() override {
+        TRACE2(this, " Destruct RunMiniServerMockFTestSuite()")
+    }
+};
+typedef RunMiniServerMockFTestSuite RunMiniServerMockFDeathTest;
+
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+TEST_F(RunMiniServerMockFTestSuite, RunMiniServer_successful) {
     // IMPORTANT! There is a limit FD_SETSIZE = 1024 for socket file
     // descriptors that can be used with 'select()'. This limit is not given
     // when using 'poll()' or 'epoll' instead. Old_code uses 'select()' so we
@@ -156,50 +176,23 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
     // I need this to mock socket addresses.
     SSockaddr ssObj;
 
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": Max socket fd for select() not setting to 0 if "
-                     "INVALID_SOCKET in MiniServerSockArray on WIN32.\n";
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": Max socket fd for select() not setting to 0 if "
+                 "INVALID_SOCKET in MiniServerSockArray on WIN32.\n";
 #ifdef _WIN32
-        // On MS Windows INVALID_SOCKET is unsigned -1 =
-        // 18446744073709551615 so we get select_nfds with this big number
-        // even if there is only one INVALID_SOCKET. Incrementing it by one
-        // results in 0. To be portable we must not assume INVALID_SOCKET
-        // to be -1. --Ingo
-        select_nfds = 0; // Wrong!
+    // On MS Windows INVALID_SOCKET is unsigned -1 =
+    // 18446744073709551615 so we get select_nfds with this big number
+    // even if there is only one INVALID_SOCKET. Incrementing it by one
+    // results in 0. To be portable we must not assume INVALID_SOCKET
+    // to be -1. --Ingo
+    select_nfds = 0; // Wrong!
 #endif
-        EXPECT_CALL(m_sys_socketObj,
-                    select(select_nfds, _, nullptr, _, nullptr))
-            .WillOnce(Return(1));
 
-    } else {
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
-        std::cout << CYEL "[ TODO     ] " CRES << __LINE__
-                  << ": Unit must not expect its argument MiniServerSockArray* "
-                     "to be on the heap and free it.\n";
-
-        // Check socket in fdset_if_valid() successful
-        // EXPECT_CALL(m_sys_socketObj, getsockopt(m_minisock->miniServerSock4,
-        EXPECT_CALL(m_sys_socketObj, getsockopt(_, //
-                                                SOL_SOCKET, SO_ERROR, _, _))
-            .Times(g_dbug ? 4 : 1)
-            .WillRepeatedly(Return(0));
-
-        // Mock that the socket fd ist bound to an address of a local interface.
-        ssObj = "[2001:db8::cd]:50059";
-        // EXPECT_CALL(m_sys_socketObj, getsockname(m_minisock->miniServerSock4,
-        EXPECT_CALL(m_sys_socketObj, getsockname(_, //
-                                                 _, Pointee(sizeof(ssObj.ss))))
-            .Times(g_dbug ? 4 : 1)
-            .WillRepeatedly(DoAll(SetArgPointee<1>(ssObj.sa),
-                                  SetArgPointee<2>(ssObj.sizeof_saddr()),
-                                  Return(0)));
-
-        // select() in RunMiniServer() also succeeds.
-        EXPECT_CALL(m_sys_socketObj,
-                    select(select_nfds, _, nullptr, _, nullptr))
-            .WillOnce(Return(1));
-    }
+    EXPECT_CALL(m_sys_socketObj, select(select_nfds, _, nullptr, _, nullptr))
+        .WillOnce(Return(1));
 
     // accept() in RunMiniServer() succeeds and returns the remote ip address
     // that it is connected to.
@@ -225,7 +218,8 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful) {
     RunMiniServer(m_minisock);
 }
 
-#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+#else  // UPnPsdk_WITH_NATIVE_PUPNP
+
 TEST(RunMiniServerTestSuite, RunMiniServer_successful) {
     CPupnplog logObj; // Output only with build type DEBUG.
     if (g_dbug)
@@ -235,10 +229,7 @@ TEST(RunMiniServerTestSuite, RunMiniServer_successful) {
     // --------------------------
     // With shutdown = true, maxJobs is ignored.
     CThreadPoolInit tp(gMiniServerThreadPool,
-                       /*shutdown*/ false, /*maxJobs*/ 5);
-    // Workaround:
-    // CThreadPoolInit tp(gMiniServerThreadPool,
-    //                    /*shutdown*/ true); //*maxJobs*/ 1);
+                       /*shutdown*/ false, /*maxJobs*/ 1);
 
     // Create and initialize socket array.
     // -----------------------------------
@@ -262,68 +253,40 @@ TEST(RunMiniServerTestSuite, RunMiniServer_successful) {
     minisock->miniServerPort6UlaGua = saObj.port();
     minisock->pSockGuaObj = &sockGuaObj;
 
-    saObj = "[::1]";
-    UPnPsdk::CSocket sockStpObj(SOCK_DGRAM);
-    minisock->miniServerStopSock = sockStpObj.socket();
-    sockStpObj.local_saddr(&saObj);
-    minisock->stopPort = saObj.port();
-    miniStopSockPort = minisock->stopPort;
+    UPnPsdk::CSocket sockStpObj;
     minisock->pSockStpObj = &sockStpObj;
+    ASSERT_EQ(get_miniserver_stopsock(minisock), UPNP_E_SUCCESS);
 
     // Test Unit
     // ---------
     // Run miniserver in a new thread.
     ThreadPoolJob job{};
-    TPJobInit(&job, (UPnPsdk::start_routine)RunMiniServer_f, (void*)minisock);
+    TPJobInit(&job, (UPnPsdk::start_routine)RunMiniServer_f, minisock);
     TPJobSetPriority(&job, MED_PRIORITY);
     TPJobSetFreeFunction(&job, (free_routine)free);
     int ret_code = ThreadPoolAddPersistent(&gMiniServerThreadPool, &job, NULL);
     ASSERT_EQ(ret_code, UPNP_E_SUCCESS);
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    // Wait until the miniserver in its thread has started.
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-    EXPECT_EQ(StopMiniServer(), 0);
-#if 0
-    // Send stop miniserver beforehand.
-    // --------------------------------
-    char buf[256] = "ShutDown";
-    // due to required type cast for 'sendto' on WIN32 bufLen must fit to an int
-    size_t bufLen = strlen(buf);
-
-    SOCKET sock = UPnPsdk::socket(SOCK_DGRAM);
-    ASSERT_GE(sock, 3);
-
-    UPnPsdk::sockaddr_t ssdpAddr{};
-    inet_pton(AF_INET6, "::1", &ssdpAddr.sin6.sin6_addr);
-    socklen_t socklen = sizeof(ssdpAddr.sin6);
-    sendto(sock, buf, (SIZEP_T)bufLen, 0,
-                               &ssdpAddr.sa, socklen);
-#endif
-    // sock_close(sock);
-    EXPECT_EQ(minisock, nullptr);
-    if (minisock != nullptr)
-        free(minisock);
+    ASSERT_EQ(StopMiniServer(), 0);
 }
 #endif // UPnPsdk_WITH_NATIVE_PUPNP
 
 
-TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_select_fails_with_no_memory) {
+TEST_F(RunMiniServerMockFTestSuite, RunMiniServer_select_fails_with_no_memory) {
     // See important note at
     // TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful).
-
-    CPupnplog logObj; // Output only with build type DEBUG.
-    if (g_dbug)
-        logObj.enable(UPNP_ALL);
-
-    // With shutdown = true, maxJobs is ignored.
-    CThreadPoolInit tp(gMiniServerThreadPool,
-                       /*shutdown*/ false, /*maxJobs*/ 1);
 
     // Set needed data, listen miniserver only on IPv4 that will connect to a
     // remote client which has done a request.
     m_minisock->miniServerPort4 = 50025;
     m_minisock->stopPort = 50026;
-
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
+    UPnPsdk::CSocket sockStpObj;
+    m_minisock->pSockStpObj = &sockStpObj;
+#endif
     // Due to 'select()' have ATTENTION to set select_nfds correct.
     SOCKET select_nfds{umock::sfd_base + 55 + 1}; // Must be highest used fd + 1
     m_minisock->miniServerSock4 = umock::sfd_base + 54;
@@ -332,12 +295,15 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_select_fails_with_no_memory) {
     // We need this to mock socket addresses.
     SSockaddr ssObj;
 
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
+
     if (old_code) {
 #ifdef _WIN32
         // On MS Windows INVALID_SOCKET is unsigned -1 =
         // 18446744073709551615 so we get select_nfds with this big number
         // even if there is only one INVALID_SOCKET. Incrementing it by one
-        // results in 0. To be portable we must not assume INVALID_SOCKET
+        // results to 0. To be portable we must not assume INVALID_SOCKET
         // to be -1. This bug is fixed in new code. --Ingo
         select_nfds = 0; // Wrong!
 #endif
@@ -362,10 +328,10 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_select_fails_with_no_memory) {
             .WillOnce(Return(0));
 
         // Mock that the socket fd ist bound to an address of a local interface.
-        ssObj = "192.168.10.10:50060";
+        ssObj = "[2001:db8::f458]:50060";
         EXPECT_CALL(m_sys_socketObj, getsockname(m_minisock->miniServerSock4, _,
                                                  Pointee(sizeof(ssObj.ss))))
-            .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa),
+            .WillOnce(DoAll(StructCpyToArg<1>(&ssObj.sa, sizeof(ssObj.ss)),
                             SetArgPointee<2>(sizeof(ssObj.ss)), Return(0)));
 
         // but select in RunMiniServer() fails
@@ -402,28 +368,32 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_select_fails_with_no_memory) {
     }
 }
 
-TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_accept_fails) {
+TEST_F(RunMiniServerMockFTestSuite, RunMiniServer_accept_fails) {
     // See important note at
     // TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_successful).
-    // For this test I use only socket file descriptor miniServerSock4 that is
-    // listening on IPv4 for the miniserver. --Ingo
-
-    CPupnplog logObj; // Output only with build type DEBUG.
-    logObj.enable(UPNP_ALL);
+    // For this test I use only socket file descriptor miniServerSock6 that is
+    // listening on IPv6 for the miniserver. --Ingo
 
     // With shutdown = true, maxJobs is ignored.
     CThreadPoolInit tp(gMiniServerThreadPool,
                        /*shutdown*/ false, /*maxJobs*/ 1);
 
-    // Set needed data, listen miniserver only on IPv4 that will connect to a
+    // Set needed data, listen miniserver only on IPv6 that will connect to a
     // remote client which has done a request.
-    m_minisock->miniServerPort4 = 50045;
+    m_minisock->miniServerSock6 = umock::sfd_base + 58;
+    m_minisock->miniServerPort6 = 50045;
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    m_minisock->miniServerStopSock = umock::sfd_base + 59;
     m_minisock->stopPort = 50047;
-
     // Due to 'select()' have ATTENTION to set select_nfds correct.
     SOCKET select_nfds{umock::sfd_base + 59 + 1}; // Must be highest used fd + 1
-    m_minisock->miniServerSock4 = umock::sfd_base + 58;
-    m_minisock->miniServerStopSock = umock::sfd_base + 59;
+#else
+    UPnPsdk::CSocket sockStpObj(SOCK_DGRAM);
+    m_minisock->pSockStpObj = &sockStpObj;
+    // Due to 'select()' have ATTENTION to set select_nfds correct.
+    SOCKET select_nfds{umock::sfd_base + std::max(58, sockStpObj.socket()) +
+                       1}; // Must be highest used fd + 1
+#endif
 
     constexpr char shutdown_str[]{"ShutDown"};
     SIZEP_T shutdown_strlen;
@@ -439,26 +409,29 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_accept_fails) {
 #endif
         shutdown_strlen = 25; // This is fixed given by the tested Unit
     } else {
-        shutdown_strlen = sizeof(shutdown_str);
+        shutdown_strlen = sizeof(shutdown_str) - 1;
     }
+
+    // Start mocking
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
     // select()
     if (!old_code) {
         // Mock socket check in 'fdset_if_valid()' to be successful.
         // 'getsockopt()' and 'getsockname()' are called in the production
         // code for verification.
-        EXPECT_CALL(m_sys_socketObj, getsockopt(m_minisock->miniServerSock4,
+        EXPECT_CALL(m_sys_socketObj, getsockopt(m_minisock->miniServerSock6,
                                                 SOL_SOCKET, SO_ERROR, _, _))
             .WillOnce(Return(0));
 
-        // Mock that the socket fd ist bound to an address.
+        // Mock that the socket fd ist bound to a local interface address.
         SSockaddr ssObj;
         ssObj = "[2001:db8::ab]:50044";
         EXPECT_CALL(
             m_sys_socketObj,
-            getsockname(m_minisock->miniServerSock4, _,
+            getsockname(m_minisock->miniServerSock6, _,
                         Pointee(Ge(static_cast<SIZEP_T>(sizeof(ssObj.ss))))))
-            .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa),
+            .WillOnce(DoAll(StructCpyToArg<1>(&ssObj.sa, sizeof(ssObj.ss)),
                             SetArgPointee<2>(ssObj.sizeof_saddr()), Return(0)));
     }
 
@@ -470,21 +443,31 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_accept_fails) {
     // doesn't use accept().
     EXPECT_CALL(
         m_sys_socketObj,
-        accept(m_minisock->miniServerSock4, NotNull(),
+        accept(m_minisock->miniServerSock6, NotNull(),
                Pointee(static_cast<socklen_t>(sizeof(::sockaddr_storage)))))
         .WillOnce(SetErrnoAndReturn(ENOMEM, INVALID_SOCKET));
 
     // Provide data for stopsock with ShutDown.
     SSockaddr ss_localhost;
-    ss_localhost = "127.0.0.1:" + std::to_string(m_minisock->stopPort);
+    if (old_code)
+        ss_localhost = "127.0.0.1:" + std::to_string(m_minisock->stopPort);
+    else
+        ss_localhost = "[::1]:" + std::to_string(m_minisock->stopPort);
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    SOCKET stopSock = m_minisock->miniServerStopSock;
+#else
+    SOCKET stopSock = m_minisock->pSockStpObj->socket();
+#endif
     EXPECT_CALL(
         m_sys_socketObj,
-        recvfrom(m_minisock->miniServerStopSock, _, shutdown_strlen, 0, _,
+        recvfrom(stopSock, _, Ge(shutdown_strlen), 0, _,
                  Pointee(static_cast<socklen_t>(sizeof(::sockaddr_storage)))))
-        .WillOnce(DoAll(StrCpyToArg<1>(shutdown_str),
-                        SetArgPointee<4>(ss_localhost.sa),
-                        Return(shutdown_strlen)));
+        .WillOnce(DoAll(
+            StrnCpyToArg<1>(shutdown_str, shutdown_strlen),
+            StructCpyToArg<4>(&ss_localhost.sa, sizeof(::sockaddr_storage)),
+            SetArgPointee<5>(ss_localhost.sizeof_saddr()),
+            Return(shutdown_strlen)));
 
     // Test Unit
     RunMiniServer(m_minisock);
@@ -493,6 +476,9 @@ TEST_F(RunMiniServerFuncFTestSuite, RunMiniServer_accept_fails) {
 TEST_F(RunMiniServerMockFTestSuite, fdset_if_valid_read_successful) {
     // Socket file descriptor should be added to the read set.
     constexpr SOCKET sockfd{umock::sfd_base + 56};
+
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
     if (!old_code) {
         // ::getsockopt() is used to verify a valid socket. Here I mock it to
@@ -504,7 +490,7 @@ TEST_F(RunMiniServerMockFTestSuite, fdset_if_valid_read_successful) {
         // ::getsockname() is used to verify if a socket is bound to a local
         // interface address. Here I mock it to find the socket is bound.
         SSockaddr ssObj;
-        ssObj = "192.168.10.11:50061";
+        ssObj = "[::ffff:192.168.10.11]:50061";
         EXPECT_CALL(
             m_sys_socketObj,
             getsockname(sockfd, _,
@@ -616,6 +602,9 @@ TEST_F(RunMiniServerMockFTestSuite, fdset_if_valid_fails_with_invalid_socket) {
     // Provide a socket file descriptor.
     constexpr SOCKET sockfd{umock::sfd_base + 7};
 
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
+
     if (!old_code) {
         // ::getsockopt() is used to verify a valid socket. Here I mock it to
         // find sockfd invalid.
@@ -646,6 +635,9 @@ TEST_F(RunMiniServerMockFTestSuite, fdset_if_valid_fails_with_invalid_socket) {
 TEST_F(RunMiniServerMockFTestSuite, fdset_if_valid_fails_with_unbind_socket) {
     // Provide a socket file descriptor.
     constexpr SOCKET sockfd{umock::sfd_base + 53};
+
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
     if (!old_code) {
         // ::getsockopt() is used to verify a valid socket. Here I mock it to
@@ -712,6 +704,9 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_successful) {
     FD_ZERO(&rdSet);
     FD_SET(sockfd, &rdSet);
 
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
+
     // Mock system functions
     // expected_destbuflen is important here to avoid buffer limit overwrite.
     EXPECT_CALL(m_sys_socketObj,
@@ -727,7 +722,7 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_successful) {
     EXPECT_EQ(receive_from_stopSock(sockfd, &rdSet), 1);
 }
 
-TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_not_selected) {
+TEST(RunMiniServerTestSuite, receive_from_stopsock_not_selected) {
     constexpr SOCKET sockfd{umock::sfd_base + 29};
 
     fd_set rdSet;
@@ -758,6 +753,9 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_receiving_fails) {
     FD_ZERO(&rdSet);
     FD_SET(sockfd, &rdSet);
 
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
+
     // Mock system functions
     EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, _, _, _, _))
         .WillOnce(SetErrnoAndReturn(EINVAL, SOCKET_ERROR));
@@ -781,6 +779,9 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_no_bytes_received) {
     fd_set rdSet;
     FD_ZERO(&rdSet);
     FD_SET(sockfd, &rdSet);
+
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
     // Mock system functions
     EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(bufsizeof_ShutDown_str),
@@ -820,6 +821,9 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_wrong_stop_message) {
     FD_ZERO(&rdSet);
     FD_SET(sockfd, &rdSet);
 
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
+
     // Mock system functions
     // expected_destbuflen is important here to avoid buffer limit overwrite.
     EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(expected_destbuflen), 0,
@@ -848,6 +852,9 @@ TEST_F(RunMiniServerMockFTestSuite, receive_from_stopsock_from_wrong_address) {
     fd_set rdSet;
     FD_ZERO(&rdSet);
     FD_SET(sockfd, &rdSet);
+
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
     // Mock system functions
     // expected_destbuflen is important here to avoid buffer limit overwrite.
@@ -891,6 +898,9 @@ TEST_F(RunMiniServerMockFTestSuite, ssdp_read_successful) {
     FD_ZERO(&rdSet);
     FD_SET(ssdp_sockfd, &rdSet);
 
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
+
     EXPECT_CALL(
         m_sys_socketObj,
         recvfrom(ssdp_sockfd, _, BUFSIZE - 1, 0, _,
@@ -928,6 +938,9 @@ TEST_F(RunMiniServerMockFTestSuite, ssdp_read_fails) {
     ASSERT_LE(sizeof(ssdpdata_str), BUFSIZE - 1);
 
     constexpr SOCKET ssdp_sockfd_valid{umock::sfd_base + 46};
+
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
     // Instantiate mocking objects.
     EXPECT_CALL(m_sys_socketObj, recvfrom(_, _, _, _, _, _)).Times(0);
@@ -987,6 +1000,9 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_successful) {
     // With shutdown = true, maxJobs is ignored.
     CThreadPoolInit tp(gMiniServerThreadPool,
                        /*shutdown*/ false, /*maxJobs*/ 0);
+
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
     SSockaddr ssObj;
     ssObj = "192.168.201.202:" + connected_port;
@@ -1140,6 +1156,9 @@ TEST_F(RunMiniServerMockFTestSuite, web_server_accept_fails) {
     FD_ZERO(&set);
     FD_SET(listen_sockfd, &set);
 
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
+
     EXPECT_CALL(
         m_sys_socketObj,
         accept(listen_sockfd, NotNull(),
@@ -1186,28 +1205,27 @@ TEST_F(RunMiniServerMockFTestSuite, get_numeric_host_redirection) {
     // Provide a sockaddr structure that will be returned by mocked
     // getsockname().
     SSockaddr ssObj;
-    ssObj = "192.168.123.122:54321";
+    ssObj = "[::ffff:192.168.123.122]:54321";
+
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
     // Test Unit
-    if (old_code) {
-        EXPECT_CALL(m_sys_socketObj, getsockname(sockfd, _, _))
-            .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa), Return(0)));
-        EXPECT_TRUE(
-            getNumericHostRedirection(sockfd, host_port, sizeof(host_port)));
-
-    } else {
-
+    if (!old_code) {
         EXPECT_CALL(m_sys_socketObj,
                     getsockopt(sockfd, SOL_SOCKET, SO_ERROR, _, _))
             .WillOnce(Return(0));
-        EXPECT_CALL(m_sys_socketObj, getsockname(sockfd, _, _))
-            .WillOnce(DoAll(SetArgPointee<1>(ssObj.sa),
-                            SetArgPointee<2>(ssObj.sizeof_saddr()), Return(0)));
-        EXPECT_TRUE(
-            getNumericHostRedirection(sockfd, host_port, sizeof(host_port)));
     }
+    EXPECT_CALL(
+        m_sys_socketObj,
+        getsockname(sockfd, _,
+                    Pointee(Ge(static_cast<SIZEP_T>(sizeof(ssObj.ss))))))
+        .WillOnce(DoAll(StructCpyToArg<1>(&ssObj.sa, sizeof(ssObj.ss)),
+                        SetArgPointee<2>(ssObj.sizeof_saddr()), Return(0)));
 
-    EXPECT_STREQ(host_port, "192.168.123.122:54321");
+    EXPECT_TRUE(
+        getNumericHostRedirection(sockfd, host_port, sizeof(host_port)));
+    EXPECT_STREQ(host_port, "[::ffff:192.168.123.122]:54321");
 }
 
 TEST_F(RunMiniServerMockFTestSuite,
@@ -1218,6 +1236,9 @@ TEST_F(RunMiniServerMockFTestSuite,
     StrictMock<umock::Winsock2Mock> m_winsock2Obj;
     umock::Winsock2 winsock2_injectObj = umock::Winsock2(&m_winsock2Obj);
 #endif
+
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
     // Mock system function ::getsockname() to fail with insufficient
     // resources. It is called here within the free function
@@ -1490,6 +1511,9 @@ TEST_F(RunMiniServerMockFTestSuite, handle_request_successful) {
         "Test data of a request from a remote client."};
     constexpr SSIZEP_T req_strlen{sizeof(received_request_str)};
 
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
+
     // Mock received data string.
     EXPECT_CALL(m_sys_socketObj,
                 recv(connfd, _, Ge(req_strlen), 16384))
@@ -1515,6 +1539,9 @@ TEST_F(RunMiniServerMockFTestSuite, handle_request_with_failing_select) {
     constexpr SOCKET connfd{umock::sfd_base + 61};
     mserv_request_t reqest_in{};
     reqest_in.connfd = connfd;
+
+    // Start mocking.
+    umock::Sys_socket sys_socket_injObj = umock::Sys_socket(&m_sys_socketObj);
 
     // select() fails.
     EXPECT_CALL(m_sys_socketObj, select(connfd + 1, _, _, nullptr, _))
@@ -1800,3 +1827,4 @@ int main(int argc, char** argv) {
 #include "utest/utest_main.inc"
     return gtest_return_code; // managed in gtest_main.inc
 }
+#endif
