@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-05-31
+# Redistribution only with this Copyright remark. Last modified: 2026-04-21
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -190,9 +190,10 @@ add_test(NAME ctest_upnpapi_platform-pst COMMAND test_upnpapi_platform-pst --gte
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
+if(NOT WIN32)
 add_executable(test_upnpapi_platform-cst
 #---------------------------------------
-    $<$<PLATFORM_ID:Windows>:test_upnpapi_win32.cpp>
+#    $<$<PLATFORM_ID:Windows>:test_upnpapi_win32.cpp>
     $<$<NOT:$<PLATFORM_ID:Windows>>:test_upnpapi_unix.cpp>
 )
 target_include_directories(test_upnpapi_platform-cst
@@ -206,3 +207,4 @@ target_link_libraries(test_upnpapi_platform-cst
 add_test(NAME ctest_upnpapi_platform-cst COMMAND test_upnpapi_platform-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
+endif()

@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-15
+// Redistribution only with this Copyright remark. Last modified: 2026-04-17
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -29,7 +29,7 @@ ADDRS operator&(ADDRS lhs, ADDRS rhs) {
     return static_cast<ADDRS>(static_cast<Underlying>(lhs) &
                               static_cast<Underlying>(rhs));
 }
-#if 0
+#if 0 // Enable when it shall be used in statements.
 LogDestination operator~(LogDestination rhs) {
     using Underlying = std::underlying_type_t<LogDestination>;
     return static_cast<LogDestination>(~static_cast<Underlying>(rhs));
@@ -262,7 +262,7 @@ void CNetadapter::sockaddr(SSockaddr& a_saddr) const {
         in6_addr& sa6{saddr4to6.sin6.sin6_addr};
         sa6.s6_addr[10] = 0xff; // prefix id for ipv4 mapping.
         sa6.s6_addr[11] = 0xff; //          ./.
-        // Copy ipv4 addr into ipv6 addr behind prefix.
+        // Copy netorder binary ipv4 addr into ipv6 addr behind prefix.
         ::memcpy(&sa6.s6_addr[12], &saddr.sin.sin_addr,
                  sizeof(saddr.sin.sin_addr));
 
@@ -290,9 +290,9 @@ unsigned int CNetadapter::bitmask() const {
 
 /// \cond
 void CNetadapter::reset() noexcept {
-    m_find_index = 0;
     m_find_flags = ADDRS::none;
     m_na_platformPtr->reset();
+    m_find_index = m_na_platformPtr->index();
 }
 /// \endcond
 
@@ -312,7 +312,8 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
 
         do {
             this->sockaddr(nad_saObj);
-            if (!nad_saObj.is_loopback()) {
+            if (!IN6_IS_ADDR_LOOPBACK(&nad_saObj.sin6.sin6_addr) &&
+                !IN6_IS_ADDR_V4MAPPED(&nad_saObj.sin6.sin6_addr)) {
                 m_find_flags = ADDRS::best;
                 return true;
             }
@@ -329,7 +330,8 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
     do {
         if (this->name() == a_name_or_addr) {
             this->sockaddr(nad_saObj);
-            if (!nad_saObj.is_loopback()) {
+            if (!IN6_IS_ADDR_LOOPBACK(&nad_saObj.sin6.sin6_addr) &&
+                !IN6_IS_ADDR_V4MAPPED(&nad_saObj.sin6.sin6_addr)) {
                 m_find_index = this->index();
                 m_find_flags = ADDRS::index;
                 return true;
@@ -368,15 +370,11 @@ bool CNetadapter::find_first(unsigned int a_index) {
     if (this->index() == 0)
         return false; // There isn't any adapter.
 
-    SSockaddr nad_saObj;
     do {
         if (this->index() == a_index) {
-            this->sockaddr(nad_saObj);
-            if (!nad_saObj.is_loopback()) {
-                m_find_index = a_index;
-                m_find_flags = ADDRS::index;
-                return true;
-            }
+            m_find_index = a_index;
+            m_find_flags = ADDRS::index;
+            return true;
         }
     } while (this->get_next());
 
@@ -426,12 +424,12 @@ bool CNetadapter::find_next() {
         this->sockaddr(saObj);
 
         if ((m_find_flags & ADDRS::index) != ADDRS::none &&
-            !IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr) &&
             this->index() == m_find_index) {
             return true;
         }
         if ((m_find_flags & ADDRS::best) != ADDRS::none &&
-            !IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
+            !IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr) &&
+            !IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
             return true;
         }
         if ((m_find_flags & ADDRS::lo) != ADDRS::none &&

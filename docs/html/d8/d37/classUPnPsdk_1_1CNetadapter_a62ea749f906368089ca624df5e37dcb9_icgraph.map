@@ -1,15 +1,18 @@
 <map id="UPnPsdk::CNetadapter::index" name="UPnPsdk::CNetadapter::index">
-<area shape="rect" id="Node000001" title="Get index number from current selected list entry." alt="" coords="491,101,660,141"/>
+<area shape="rect" id="Node000001" title="Get index number from current selected list entry." alt="" coords="491,133,660,173"/>
 <area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a8fee0946dc4813cbba76393ef8be2c67" title="Find first ip address on a local network adapter belonging to the specified address group ADDRS (lla,..." alt="" coords="273,5,443,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="522,97,442,60,413,48,415,43,444,55,524,93"/>
-<area shape="rect" id="Node000003" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ac15f127ad89cf573a0a1306d7e7ad66e" title="Find first ip address on the local network adapter with given index number." alt="" coords="273,69,443,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="477,110,442,104,443,99,477,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="538,127,493,93,441,60,416,48,419,43,444,55,496,88,542,122"/>
+<area shape="rect" id="Node000003" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ac15f127ad89cf573a0a1306d7e7ad66e" title="Find first local network adapter with given index number." alt="" coords="273,69,443,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="493,132,426,112,427,107,495,127"/>
 <area shape="rect" id="Node000004" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="273,133,443,173"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="477,138,443,144,442,138,477,133"/>
-<area shape="rect" id="Node000035" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,191,225,231"/>
-<area shape="poly" id="edge7_Node000001_Node000035" title=" " alt="" coords="531,151,489,171,443,188,388,200,332,208,226,215,225,210,331,203,387,195,442,183,487,166,528,146"/>
-<area shape="rect" id="Node000005" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="28,117,203,142"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="259,146,203,141,203,135,260,141"/>
-<area shape="poly" id="edge5_Node000004_Node000035" title=" " alt="" coords="260,179,201,193,200,188,259,174"/>
-<area shape="poly" id="edge6_Node000035_Node000035" title=" " alt="" coords="157,179,142,172,115,169,92,171,78,176,73,182,75,190,70,191,67,181,75,172,91,166,115,164,144,167,159,174"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="477,156,443,156,443,151,477,151"/>
+<area shape="rect" id="Node000035" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,203,225,243"/>
+<area shape="poly" id="edge9_Node000001_Node000035" title=" " alt="" coords="486,179,443,188,331,205,226,216,225,211,331,199,442,183,485,174"/>
+<area shape="rect" id="Node000036" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters." alt="" coords="273,248,443,288"/>
+<area shape="poly" id="edge7_Node000001_Node000036" title=" " alt="" coords="531,183,444,232,406,250,404,245,441,227,528,178"/>
+<area shape="rect" id="Node000005" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="28,129,203,154"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="259,151,203,148,203,143,260,146"/>
+<area shape="poly" id="edge5_Node000004_Node000035" title=" " alt="" coords="275,180,187,205,185,200,274,175"/>
+<area shape="poly" id="edge6_Node000035_Node000035" title=" " alt="" coords="157,191,142,184,115,181,92,183,78,188,73,194,75,202,70,203,67,193,75,184,91,178,115,176,144,179,159,186"/>
+<area shape="poly" id="edge8_Node000036_Node000035" title=" " alt="" coords="259,252,222,245,223,240,260,247"/>
 </map>

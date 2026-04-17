@@ -1,7 +1,9 @@
 <map id="UPnPsdk::CNetadapter::find_next" name="UPnPsdk::CNetadapter::find_next">
-<area shape="rect" id="Node000001" title="Find next ip address from local network adapters." alt="" coords="5,37,175,77"/>
+<area shape="rect" id="Node000001" title="Find next ip address from local network adapters." alt="" coords="5,69,175,109"/>
 <area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="223,5,392,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,42,209,37,210,42,175,48"/>
-<area shape="rect" id="Node000003" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="223,69,392,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,67,210,72,209,78,175,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,67,225,47,227,52,159,72"/>
+<area shape="rect" id="Node000003" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="223,69,392,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,87,209,87,209,92,175,92"/>
+<area shape="rect" id="Node000004" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="223,133,392,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="159,107,227,127,225,132,158,112"/>
 </map>

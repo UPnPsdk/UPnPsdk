@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-15
+// Redistribution only with this Copyright remark. Last modified: 2026-04-17
 
 // There are additional Unit Tests at
 // git commit a18cff7d3dfd3266ad63a9efacba672ab1bd88b2.
@@ -58,6 +58,52 @@ TEST(NetadapterTestSuite, get_netadapter_list) {
     // } while (nadapObj.find_next());
 }
 #endif
+
+TEST(NetadapterTestSuite, find) {
+    // There should always be a loopback and an lla interface. I check that the
+    // loopback and any v4mapped interface, if available, is suppressed.
+    SSockaddr saObj;
+    CNetadapter nadObj;
+    ASSERT_NO_THROW(nadObj.get_first());
+
+    // Must always have a loopback address.
+    ASSERT_TRUE(nadObj.find_first(ADDRS::lo));
+    ASSERT_GT(nadObj.index(), 0);
+    nadObj.sockaddr(saObj);
+    ASSERT_TRUE(IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr));
+
+    // Must always have a link-local address.
+    ASSERT_TRUE(nadObj.find_first(ADDRS::lla));
+    ASSERT_GT(nadObj.index(), 0);
+    nadObj.sockaddr(saObj);
+    ASSERT_TRUE(IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr));
+
+    // Default lookup must not have loopback and v4mapped addresses.
+    ASSERT_TRUE(nadObj.find_first());
+    do {
+        nadObj.sockaddr(saObj);
+        ASSERT_FALSE(nadObj.index() == 0 ||
+                     IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr) ||
+                     IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr));
+    } while (nadObj.find_next());
+
+    // On the loopback interface must be at least one loopback address.
+    // There may be also other addresses, e.g. "[::ffff:127.0.0.1]:0", or on
+    // MacOS "[fe80::1%lo0]:0".
+    ASSERT_TRUE(nadObj.find_first(ADDRS::lo));
+    nadObj.sockaddr(saObj);
+    // Find this to stay only on this netadapter.
+    ASSERT_TRUE(nadObj.find_first(nadObj.index()));
+    bool loopback_addr_found{false};
+    do { // Look for at least one loopback address.
+        nadObj.sockaddr(saObj);
+        if (IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
+            loopback_addr_found = true;
+            break;
+        }
+    } while (nadObj.find_next());
+    EXPECT_TRUE(loopback_addr_found);
+}
 
 TEST(NetadapterTestSuite, get_adapters_info_successful) {
     // The index of the loopback interface is usually 1, but you cannot rely on
@@ -567,6 +613,7 @@ TEST(NetadapterTestSuite, mock_netadapter_find_default_with_1_addr) {
 
     EXPECT_CALL(*nadap_mockPtr, index())
         .WillOnce(Return(1))  // Used in Unit.
+        .WillOnce(Return(1))  // Used for reset().
         .WillOnce(Return(1)); // Repeat for EXPECT below.
 
     EXPECT_CALL(*nadap_mockPtr, name()).WillOnce(Return(name1));
@@ -608,6 +655,7 @@ TEST(NetadapterTestSuite, mock_netadapter_find_name_with_1_addr) {
 
     EXPECT_CALL(*nadap_mockPtr, index())
         .WillOnce(Return(1))  // Used in Unit.
+        .WillOnce(Return(1))  // Used for reset().
         .WillOnce(Return(1)); // Repeat for EXPECT below.
 
     EXPECT_CALL(*nadap_mockPtr, name())
@@ -652,12 +700,12 @@ TEST(NetadapterTestSuite, mock_netadapter_find_index_with_1_addr) {
     EXPECT_CALL(*nadap_mockPtr, index())
         .WillOnce(Return(1))  // Used in Unit.
         .WillOnce(Return(1))  // Used in Unit.
+        .WillOnce(Return(1))  // Used for reset().
         .WillOnce(Return(1)); // Repeat for EXPECT below.
 
     EXPECT_CALL(*nadap_mockPtr, name()).WillOnce(Return(name1));
 
     EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
-        .WillOnce(SaddrCpyToArg<0>(sa1a_mockObj))  // Used in Unit.
         .WillOnce(SaddrCpyToArg<0>(sa1a_mockObj))  // Used in Unit.
         .WillOnce(SaddrCpyToArg<0>(sa1a_mockObj)); // Repeat for EXPECT below.
 

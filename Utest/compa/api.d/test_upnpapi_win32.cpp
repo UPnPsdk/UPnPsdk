@@ -1,5 +1,11 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-09-14
+// Redistribution only with this Copyright remark. Last modified: 2026-04-21
+
+// Theese Unit Tests are focused on low level IPv4 that isn't supported by
+// reengeneered code anymore. There I use only IPv6 with IPv4-mapped-IPv6
+// addresses to connect to remote hosts that only support iPv4. Therefore
+// theese tests are disabled on Microsoft Windows for new_code with CMake and
+// only still running for old UPnPsdk_WITH_NATIVE_PUPNP build.
 
 // Mock network interfaces
 // For further information look at https://stackoverflow.com/a/66498073/5014688
