@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-18
+// Redistribution only with this Copyright remark. Last modified: 2026-04-28
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -67,24 +67,7 @@ void bitmask_to_netmask(
 /*!
  * \brief Get information from local network adapters
  * \ingroup upnplib-addrmodul
- * \code
-// Example to get a link local address from a network adapter:
-SSockaddr saObj;
-CNetadapter nadaptObj;
-try {
-    nadaptObj.get_first();
-    do {
-        nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
-            break;
-    } while (nadaptObj.get_next());
-} catch (const std::exception& ex) { handle_error() }
-
-if (!IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
-    std::cout << "No local network adapter with link local address found.\n";
-else
-    std::cout << "Adapter " << nadaptObj.name() << " has lla " << saObj << '\n';
- * \endcode
+ *
  * The operating system manages an internal list of the local network adapters.
  * With this class you can get information about them. <i>"Typically, nodes, not
  * applications, automatically solve the source address selection. A node will
@@ -92,6 +75,69 @@ else
  * choice, per [RFC3484]."</i> (REF: <a
  * href=https://datatracker.ietf.org/doc/html/rfc4038#section-5.4.1>RFC4038 -
  * IP Address Selection</a>).
+ *
+ * The class provides two ways to access information:
+ *
+ * With get_first() and get_next() you can address all
+ * [netadapter](\ref glossary_netadapt) and its IP addresses on a lower level.
+ * You have to filter the information by yourself, also IPv4-mapped-IPv6
+ * addresses (other form is not available, but can easily converted).
+ * get_first() loads the internal netadapter list from the operating system, so
+ * you have to call it always at least one time. This function call allocates
+ * memory and is relatively expensive. You should try to use it infrequently as
+ * possible. Using it in a busy loop is not a good idea. Once loaded it is no
+ * problem to use find_first() multiple times.
+ *
+ * With find_first() and find_next() you can get more practical filtered
+ * information. So all IPv4 addresses of a netadapter are suppressed. This SDK
+ * doesn't know them. The loopback interface is also suppressed when selecting
+ * a netadapter, other than the loopback interface.
+ *
+ * \anchor sample_netadapt
+ * You can use for example\n
+ * find_first(), [find_first("[2001:db8::abc]")](\ref find_first()),
+ * [find_first(ADDRS::lla | ADDRS::gua)](\ref find_first(ADDRS)),\n
+ * [find_first("name")](\ref find_first(std::string_view)),
+ * [find_first(1)](\ref find_first(uint32_t)).\n
+ * I think the prefered example is the first one. You don't have to worry about
+ * [netinterfaces](\ref glossary_netif) and IP addresses. The first three
+ * examples select an IP address, no matter what netinterface it belongs to. The
+ * last two examples select a netinterface and point to the first IP address on
+ * it. Following find_next() calls only select IP addresses of this
+ * netinterface.
+ *
+ * \code
+ * // Usage e.g.:
+ * CNetadapter nadObj;
+ * try {
+ *     nadObj.get_first();
+ * } catch(const std::exception& ex) { handle_error(); };
+ *
+ * if (nadObj.find_first()) {
+ * // if (nadObj.find_first("name")) {
+ * // if (nadObj.find_first(1)) {
+ *     SSockaddr saObj;
+ *     do {
+ *         nadObj.sockaddr(saObj);
+ *         std::cout << "\"" << nadObj.name() << "\" has \"" << saObj << "\"\n";
+ *     } while (nadObj.find_next();
+ *  }
+ *
+ * if (nadObj.find_first("[2001.db8::abc]")) {
+ *     SSockaddr saObj;
+ *     nadObj.sockaddr(saObj);
+ *     std::cout << "\"" << nadObj.name() << "\" has \"" << saObj << "\"\n";
+ * }
+ *
+ * using ADDRS = UPnPsdk::CNetadapter::ADDRS;
+ * if (nadObj.find_first(ADDRS::lla | ADDRS::gua)) {
+ *     SSockaddr saObj;
+ *     do {
+ *         nadObj.sockaddr(saObj);
+ *         std::cout << "\"" << nadObj.name() << "\" has \"" << saObj << "\"\n";
+ *     } while (nadObj.find_next();
+ *  }
+ * \endcode
  */
 class CNetadapter {
     // Due to warning C4251 "'type' : class 'type1' needs to have dll-interface
@@ -100,7 +146,8 @@ class CNetadapter {
     // class. The reason is 'm_na_platformPtr'.
   public:
     /*! \brief Bit flags to select different address groups.
-     * \details Helpful link: <a
+     * \details First 16 bits are used to cache the netadapter index if needed.
+     * Helpful link: <a
      * href="https://www.codestudy.net/blog/how-to-use-c-11-enum-class-for-flags/">enum
      * class for flags</a> */
     enum struct ADDRS : uint16_t {
@@ -109,9 +156,12 @@ class CNetadapter {
         lla = 2, ///< select link local address
         gua = 4, ///< select global unicast address
         map4 = 8, ///< select IPv4 mapped IPv6 address
-        best = 16, /*!< select best address choise from operating system due to
-                      its internal routing table */
-        index = 32 ///< select address by adapter index/scope_id
+        /// \cond
+        // Following is for internal use only:
+        best = 16, /* select best address choise from operating system */
+        index = 32 /* select address by adapter index/scope_id. Used together
+                    * with variable m_index_find. */
+        /// \endcond
     };
 
     /*! \brief Constructor */
@@ -157,20 +207,8 @@ class CNetadapter {
 
     // Own methods
     /*! \brief Find local network adapter with given name or ip address
-     * \code
-     * // Usage e.g.:
-     * CNetadapter nadaptObj;
-     * try {
-     *     nadaptObj.get_first();
-     * } catch(const exception& ex) { handle_error(); };
-     * if (nadaptObj.find_first()) {
-     *     SSockaddr saObj;
-     *     nadaptObj.sockaddr(saObj);
-     *     std::cout << "used local address is " << saObj << '\n';
-     *  }
-     * if (nadaptObj.find_first("[2001.db8::1:0:2]"))
-     *     std::cout << "adapter name is " << nadaptObj.name() << '\n';
-     * \endcode
+     *
+     * Examples at [CNetadapter overview](\ref sample_netadapt).
      *
      * You have to get_first() entry from the internal network adapter list to
      * load it. Then you can try to \b %find_first() a local ip address from
@@ -189,14 +227,11 @@ class CNetadapter {
      * the current context. You should not expect empty values.
      *
      * \b %find_first() and \b find_next() ignore loopback and IPv4-mapped-IPv6
-     * addresses when finding network interface names, or IP-addresses. If you
-     * want loopback or IPv4-mapped-IPv6 addresses you can select them with
-     * address-group filter, or use the netadapter index. Look at
-     * find_first(ADDRS), or find_first(index). It is possible that you don't
-     * find the loopback adapter when using adapter name, or IP-address, e.g.
-     * %find_first("lo"), or %find_first(1), if it only has loopback addresses.
-     * You can use %find_first("[::1]") to also get the associated adapter
-     * info.
+     * addresses. If you want loopback addresses you can select them with
+     * loopback [netinterface](\ref glossary_netif)-name, -index, or
+     * address-group filter. Look at find_first(ADDRS), or
+     * [find_first(index)](\ref find_first(uint32_t)). You can also use
+     * %find_first("[::1]") to also get the associated adapter info.
      *
      * \returns
      *  - \b true if adapter with given name or ip address was found
@@ -213,8 +248,7 @@ class CNetadapter {
 
     /*! \brief Find first local network adapter with given index number.
      *
-     * Example at find_first(std::string_view). Of course you have to
-     * use an index number.
+     * Examples at [CNetadapter overview](\ref sample_netadapt).
      *
      * This has the fastest finding algorithm. If possible, you should prefer
      * this method.
@@ -229,15 +263,16 @@ class CNetadapter {
      *  - \b false otherwise */
     UPnPsdk_API bool find_first(
         /*! [in] Index number of the local network adapter. */
-        const unsigned int a_index);
+        const uint32_t a_index);
 
     /*! \brief Find first ip address on a local network adapter belonging to
      * the specified address group #ADDRS (lla, gua, lo, etc).
      *
-     * Example at find_first(std::string_view). Of course you have to use an
-     * address group. You can combine the flags with logical \b OR ('|'). You
-     * have to get_first() entry of the internal network adapter list to load
-     * it. Then you can try
+     * Examples at [CNetadapter overview](\ref sample_netadapt).
+     *
+     * You can combine the flags with logical \b OR ('|'). You have to
+     * get_first() entry of the internal network adapter list to load it. Then
+     * you can try
      * \code
      * // Usage e.g.:
      * using ADDRS = UPnPsdk::CNetadapter::ADDRS;
@@ -255,13 +290,15 @@ class CNetadapter {
 
     /*! \brief Find next ip address from local network adapters.
      *
-     * Before using this method you have to use get_first() to load
-     * the internal network adapter list from the operating system and then use
-     * find_first() to specify and select the first wanted ip address. With
-     * this method you can find following ip addresses. When pre-selecting an
-     * adapter, e.g. find_first("eth0"), or find_first(index), \b find_next()
-     * will only select following ip addresses on this adapter. For more
-     * details have a look at find_first(std::string_view).
+     * Examples at [CNetadapter overview](\ref sample_netadapt).
+     *
+     * Before using this method you have to use get_first() to load the internal
+     * network adapter list from the operating system and then use find_first()
+     * to specify and select the first wanted ip address. With this method you
+     * can find next ip addresses if available. When pre-selecting a
+     * [netadapter](\ref glossary_netadapt), e.g. find_first("ens1"), or
+     * find_first(index), \b %find_next() will only select next ip addresses on
+     * this adapter.
      * \returns
      *  - \b true if the next item (ip address) was found
      *  - \b false otherwise, or if you haven't used get_first() and
@@ -279,9 +316,12 @@ class CNetadapter {
     // to continue with next() search step.
     ADDRS m_find_flags{};
 
-    // Index of the first found network adapter.
-    // Only used with finding ADDRS::index.
-    unsigned int m_find_index{};
+    // Index of the loopback device.
+    uint32_t m_index_loop{};
+
+    // Index of the netadapter that is selected to be found.
+    // Used together with ADDRS::index.
+    uint32_t m_index_find{};
 
     // Private helper methods.
     void reset() noexcept;
@@ -292,6 +332,9 @@ class CNetadapter {
 // Overload |, &, ~, |=, &= for bit flags UPnPsdk::CNetadapter::ADDRS
 CNetadapter::ADDRS operator|(CNetadapter::ADDRS lhs, CNetadapter::ADDRS rhs);
 CNetadapter::ADDRS operator&(CNetadapter::ADDRS lhs, CNetadapter::ADDRS rhs);
+CNetadapter::ADDRS operator~(CNetadapter::ADDRS rhs);
+CNetadapter::ADDRS& operator|=(CNetadapter::ADDRS& lhs, CNetadapter::ADDRS rhs);
+CNetadapter::ADDRS& operator&=(CNetadapter::ADDRS& lhs, CNetadapter::ADDRS rhs);
 // \endcond
 
 } // namespace UPnPsdk

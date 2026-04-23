@@ -44,10 +44,15 @@
  * - Move pupnp/upnp/src/inc/sock.hpp:79:static UPNP_INLINE int sock_close() to miniserver.cpp and rework.
  * - Replace ThreadPool and multithreading with C++ standard library functions.
  */
+/// \cond
+
+Known applications that use the pUPnP library:
+gmediarender-resurrect, Gerbera, VLC, aMule, Music Player Daemon (MPD)
+
 
 // * [set EXPECT_CALL to redirect the call to the original method](https://stackoverflow.com/questions/25556601/set-expect-call-to-redirect-the-call-to-the-original-method)
 
-/// \cond
+
 Test w/ VS (Debug, windows-2022
 21/58 Test #21: ctest_miniserver_run-cst .........***Failed    0.04 sec
 unknown file: error: SEH exception with code 0xc0000005 thrown in the test body.

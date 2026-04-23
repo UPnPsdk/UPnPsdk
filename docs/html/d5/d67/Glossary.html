@@ -131,6 +131,8 @@ $(document).ready(function(){initNavTree('d5/d67/Glossary.html','../../'); initR
 </ul>
 <p><a class="anchor" id="glossary_mlink"></a><em><b>multicast link</b></em></p>
 <p>This is a <a class="el" href="../../d5/d67/Glossary.html#glossary_conn">connection</a> that follows the network multicast specification. It has one local <a class="el" href="../../d5/d67/Glossary.html#glossary_sock">socket</a> and a number of remote sockets that are interested to receive UPnP™ messages. It uses stateless UDP datagrams as given by its sockets of type <code>SOCK_DGRAM</code>.</p>
+<p><a class="anchor" id="glossary_netadapt"></a><em><b>netadapter</b></em></p>
+<p>It is the same as a <a class="el" href="../../d5/d67/Glossary.html#glossary_netif">netinterface</a>. It is more used for physical network cards.</p>
 <p><a class="anchor" id="glossary_netaddr"></a><em><b>netaddress, netaddr</b></em></p>
 <p>This is a string of an IPv4 or IPv6 internet network address as described at <a href="https://en.wikipedia.org/wiki/IP_address">Wikipedia IP address</a>. A complete netaddress consists of ip address and <a class="el" href="../../d5/d67/Glossary.html#glossary_port">port</a> number. A netaddress without port has the port number 0. Examples are </p><pre class="fragment">"[2001:db8:1234:5678:9abc:def0:1234:5678]:56789"
 "[2001:db8::1]:59877"
@@ -143,6 +145,8 @@ $(document).ready(function(){initNavTree('d5/d67/Glossary.html','../../'); initR
 <li><b>""</b> - This is an unspecified (AF_UNSPEC) network address with all attributes unspecified. It may be <b>"[::]:0"</b> or <b>"0.0.0.0:0"</b>.</li>
 </ul>
 <p>A netaddress and a <a class="el" href="../../d5/d67/Glossary.html#glossary_saddr">socket address</a> are equivalent, contain the same information and can be converted into one another.</p>
+<p><a class="anchor" id="glossary_netif"></a><em><b>netinterface</b></em></p>
+<p>It is a connection to the systems IP program stack. Typical netinterfaces are a physical connection with a network card and plug to the network infrastructure, the loopback interface, connections to a VPN (virtual private network), and like that. A netinterface has a unique index number that is also used as scope id for link-local addresses and can have multiple IP addresses.</p>
 <p><a class="anchor" id="glossary_port"></a><em><b>port</b></em></p>
 <p>The port number is part of the <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a>. It specifies a specific service provided by a host with the ip address as defined by the POSIX standard. Port 0 has a special meaning and represents the <b>unknown port</b>. A not given port number is coded with the zero port number.</p>
 <p><a class="anchor" id="glossary_pthreads"></a><em><b>POSIX threads, pthreads</b></em></p>

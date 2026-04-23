@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-02-23
+// Redistribution only with this Copyright remark. Last modified: 2026-04-28
 
 /*!
 \page Glossary
@@ -47,6 +47,10 @@ The services that a client requires are the client's **dependencies**.
 
 This is a [connection](\ref glossary_conn) that follows the network multicast specification. It has one local [socket](\ref glossary_sock) and a number of remote sockets that are interested to receive UPnP™ messages. It uses stateless UDP datagrams as given by its sockets of type `SOCK_DGRAM`.
 
+\anchor glossary_netadapt ***netadapter***
+
+It is the same as a [netinterface](\ref glossary_netif). It is more used for physical network cards.
+
 \anchor glossary_netaddr ***netaddress, netaddr***
 
 This is a string of an IPv4 or IPv6 internet network address as described at [Wikipedia IP address](https://en.wikipedia.org/wiki/IP_address). A complete netaddress consists of ip address and [port](\ref glossary_port) number. A netaddress without port has the port number 0. Examples are
@@ -64,6 +68,10 @@ Special cases are:
     - \b "" - This is an unspecified (AF_UNSPEC) network address with all attributes unspecified. It may be \b "[::]:0" or \b "0.0.0.0:0".
 
 A netaddress and a [socket address](\ref glossary_saddr) are equivalent, contain the same information and can be converted into one another.
+
+\anchor glossary_netif ***netinterface***
+
+It is a connection to the systems IP program stack. Typical netinterfaces are a physical connection with a network card and plug to the network infrastructure, the loopback interface, connections to a VPN (virtual private network), and like that. A netinterface has a unique index number that is also used as scope id for link-local addresses and can have multiple IP addresses.
 
 \anchor glossary_port ***port***
 

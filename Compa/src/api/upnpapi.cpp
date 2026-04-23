@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-04-21
+ * Redistribution only with this Copyright remark. Last modified: 2026-05-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -234,9 +234,14 @@ namespace { // anonymous namespace for file scoped old upnpapi items.
  * If no or empty argument given, the operating system should find the best
  * suitable local network adapter for operation as specified by <a
  * href=https://www.rfc-editor.org/rfc/rfc3484>RFC3484 - Default Address
- * Selection</a>. If a network adapter has a global unicast address, then its
- * link-local address is still provided. A given loopback address ("[::1]") can
- * be found in gIF_IPV6_ULA_GUA.
+ * Selection</a>. If an IP address is selected as argument, then only its
+ * associated gIF_IPV6_* (link-local, or network global) variables are set. If
+ * a network adapter is selected with empty argument, or as argument with name,
+ * or with index, then it can have multiple IP addresses. gIF_IPV6 and
+ * gIF_IPV6_PREFIX_LENGTH are set, and also gIF_IPV6_ULA_GUA and
+ * gIF_IPV6_ULA_GUA_PREFIX_LENGTH are set, if it is given. A loopback address
+ * ("[::1]") as argument can be found in gIF_IPV6_ULA_GUA and
+ *- gIF_IPV6_ULA_GUA_PREFIX_LENGTH.
  *
  * The local network adapter must fulfill these requirements:
  * \li Be UP.
@@ -262,6 +267,56 @@ int UpnpGetIfInfo(
     const std::string& a_iface = "") {
     TRACE("Executing ::UpnpGetIfInfo()")
 
+    // Get the internal local netadapter list.
+    UPnPsdk::CNetadapter nadaptObj;
+    try {
+        nadaptObj.get_first(); // May throw exception
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGCATCH("MSG1006") "catched next line...\n" << ex.what();
+        return UPNP_E_INVALID_INTERFACE;
+    }
+
+    // Process single IP address, that sets only the associated global variables
+    // -------------------------------------------------------------------------
+    if (!a_iface.empty() && a_iface.front() == '[') {
+        if (!nadaptObj.find_first(a_iface))
+            return UPNP_E_INVALID_INTERFACE;
+
+        UPnPsdk::SSockaddr saObj;
+        nadaptObj.sockaddr(saObj);
+        if (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            // Copy netaddress without surounding brackets.
+            ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6,
+                        sizeof(gIF_IPV6));
+            gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
+            // Clear unused Global Unicast Address.
+            ::memset(gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
+            gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+
+        } else if (IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+            // Copy netaddress without surounding brackets.
+            ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6_ULA_GUA,
+                        sizeof(gIF_IPV6_ULA_GUA));
+            gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadaptObj.bitmask();
+            // Clear unused link-local address.
+            ::memset(gIF_IPV6, 0, sizeof(gIF_IPV6));
+            gIF_IPV6_PREFIX_LENGTH = 0;
+
+        } else {
+            return UPNP_E_INVALID_INTERFACE;
+        }
+
+        // Copy netinterface name and index.
+        ::strncpy(gIF_NAME, nadaptObj.name().c_str(), sizeof(gIF_NAME) - 1);
+        gIF_INDEX = nadaptObj.index();
+
+        return UPNP_E_SUCCESS;
+    }
+
+    // Process a network interface with empty argument, or with name, or with
+    // index, that has a link-local address and may have a global unicast
+    // address. If the latter is available, its global variables are also set.
+    // -----------------------------------------------------------------------
     // Check if to use an index integer 1 to 99 to select the network adapter.
     uint32_t index{0};
 
@@ -276,23 +331,12 @@ int UpnpGetIfInfo(
     } break;
     } // switch
 
-    // Get the internal local netadapter list.
-    UPnPsdk::CNetadapter nadaptObj;
-    try {
-        nadaptObj.get_first(); // May throw exception
-    } catch (const std::exception& ex) {
-        UPnPsdk_LOGCATCH("MSG1006") "catched next line...\n" << ex.what();
-        return UPNP_E_INVALID_INTERFACE;
-    }
-
     // Resolve the netadapter index given with the input string.
     if (!index && nadaptObj.find_first(a_iface))
         index = nadaptObj.index();
 
     // Check if the current index is valid and point to its local netadapter.
     if (!index || !nadaptObj.find_first(index)) {
-        UPnPsdk_LOGERR("MSG1033") "Local network interface with \""
-            << a_iface << "\" not valid for operation or not found.\n";
         return UPNP_E_INVALID_INTERFACE;
     }
 
@@ -310,33 +354,21 @@ int UpnpGetIfInfo(
         nadaptObj.sockaddr(saObj);
         if (gIF_IPV6[0] == '\0' &&
             IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
-            // Get gIF_NAME and gIF_INDEX. Only copiied for the link-local
+            // Get gIF_NAME and gIF_INDEX. Only copied for the link-local
             // address because the index is essential for its scope_id.
             ::strncpy(gIF_NAME, nadaptObj.name().c_str(), sizeof(gIF_NAME) - 1);
             gIF_INDEX = nadaptObj.index();
 
-            // Copy netaddress, strip leading bracket on copying.
-            ::strncpy(gIF_IPV6, saObj.netaddr().c_str() + 1,
-                      sizeof(gIF_IPV6) - 1);
-            // Strip trailing scope id if any.
-            if (char* chptr{::strchr(gIF_IPV6, '%')})
-                *chptr = '\0';
-            // Strip trailing bracket if any.
-            else if (char* chptr{::strchr(gIF_IPV6, ']')})
-                *chptr = '\0';
+            // Copy netaddress without surounding brackets.
+            ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6,
+                        sizeof(gIF_IPV6));
             gIF_IPV6_PREFIX_LENGTH = nadaptObj.bitmask();
         }
         if (gIF_IPV6_ULA_GUA[0] == '\0' &&
             IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
-            // Copy netaddress, strip leading bracket on copying.
-            ::strncpy(gIF_IPV6_ULA_GUA, saObj.netaddr().c_str() + 1,
-                      sizeof(gIF_IPV6_ULA_GUA) - 1);
-            // Strip trailing scope id if any.
-            if (char* chptr{::strchr(gIF_IPV6, '%')})
-                *chptr = '\0';
-            // Strip trailing bracket if any.
-            else if (char* chptr{::strchr(gIF_IPV6_ULA_GUA, ']')})
-                *chptr = '\0';
+            // Copy netaddress without surounding brackets.
+            ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6_ULA_GUA,
+                        sizeof(gIF_IPV6_ULA_GUA));
             gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadaptObj.bitmask();
         }
     } while (nadaptObj.find_next() &&

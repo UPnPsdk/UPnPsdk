@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-17
+// Redistribution only with this Copyright remark. Last modified: 2026-05-01
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -23,28 +23,23 @@ ADDRS operator|(ADDRS lhs, ADDRS rhs) {
     return static_cast<ADDRS>(static_cast<Underlying>(lhs) |
                               static_cast<Underlying>(rhs));
 }
-
 ADDRS operator&(ADDRS lhs, ADDRS rhs) {
     using Underlying = std::underlying_type_t<ADDRS>;
     return static_cast<ADDRS>(static_cast<Underlying>(lhs) &
                               static_cast<Underlying>(rhs));
 }
-#if 0 // Enable when it shall be used in statements.
-LogDestination operator~(LogDestination rhs) {
-    using Underlying = std::underlying_type_t<LogDestination>;
-    return static_cast<LogDestination>(~static_cast<Underlying>(rhs));
+ADDRS operator~(ADDRS rhs) {
+    using Underlying = std::underlying_type_t<ADDRS>;
+    return static_cast<ADDRS>(~static_cast<Underlying>(rhs));
 }
-
-LogDestination& operator|=(LogDestination& lhs, LogDestination rhs) {
+ADDRS& operator|=(ADDRS& lhs, ADDRS rhs) {
     lhs = lhs | rhs;
     return lhs;
 }
-
-LogDestination& operator&=(LogDestination& lhs, LogDestination rhs) {
+ADDRS& operator&=(ADDRS& lhs, ADDRS rhs) {
     lhs = lhs & rhs;
     return lhs;
 }
-#endif
 // \endcond
 
 
@@ -241,7 +236,22 @@ CNetadapter::~CNetadapter() {
     TRACE2(this, " Destruct CNetadapter()")
 }
 
-void CNetadapter::get_first() { m_na_platformPtr->get_first(); }
+void CNetadapter::get_first() {
+    m_na_platformPtr->get_first();
+
+    // Get index of the loopback interface and cache it for later use. That is
+    // the interface containing the IPv6 Loopback address.
+    SSockaddr saObj;
+    do {
+        m_na_platformPtr->sockaddr(saObj);
+        if (IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
+            m_index_loop = m_na_platformPtr->index();
+            break;
+        }
+    } while (m_na_platformPtr->get_next());
+
+    this->reset();
+}
 
 bool CNetadapter::get_next() { return m_na_platformPtr->get_next(); }
 
@@ -289,30 +299,32 @@ unsigned int CNetadapter::bitmask() const {
 }
 
 /// \cond
-void CNetadapter::reset() noexcept {
-    m_find_flags = ADDRS::none;
-    m_na_platformPtr->reset();
-    m_find_index = m_na_platformPtr->index();
-}
+void CNetadapter::reset() noexcept { m_na_platformPtr->reset(); }
 /// \endcond
 
 
 bool CNetadapter::find_first(std::string_view a_name_or_addr) {
     TRACE2(this, " Executing CNetadapter::find_first()")
+
     SSockaddr nad_saObj;
+    this->reset(); // noexcept
 
     // By default look for a valid ip address without loopback, no matter what
     // local network adapter.
     // -----------------------------------------------------------------------
     // The operating system presents one as best choise.
     if (a_name_or_addr.empty()) {
-        this->reset(); // noexcept
         if (this->index() == 0)
             return false; // There isn't any adapter.
 
+        uint32_t index;
         do {
             this->sockaddr(nad_saObj);
-            if (!IN6_IS_ADDR_LOOPBACK(&nad_saObj.sin6.sin6_addr) &&
+            index = this->index();
+            // To verify mocked expectations for Unit Test next cout is needed.
+            /* std::cout << "DEBUG: find_first() index=" << index
+                      << ", netaddrp()=\"" << nad_saObj.netaddrp() << "\"\n"; */
+            if (index != m_index_loop &&
                 !IN6_IS_ADDR_V4MAPPED(&nad_saObj.sin6.sin6_addr)) {
                 m_find_flags = ADDRS::best;
                 return true;
@@ -323,58 +335,77 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
         return false;
     }
 
-    // Look for a local network adapter name that has at least one ip address
-    // that isn't a loopback address.
-    // ----------------------------------------------------------------------
-    this->reset(); // noexcept
-    do {
-        if (this->name() == a_name_or_addr) {
+    // Look for the ip address of a local network adapter.
+    // ---------------------------------------------------
+    // Last attempt to get a socket address from the input argument.
+    if (a_name_or_addr.front() == '[') {
+        SSockaddr input_saObj;
+        try { // Throws exception if invalid.
+            input_saObj = std::string_view(a_name_or_addr);
+        } catch (std::exception&) {
+            return false;
+        }
+        // Parse network adapter list for the given input ip address.
+        do {
             this->sockaddr(nad_saObj);
-            if (!IN6_IS_ADDR_LOOPBACK(&nad_saObj.sin6.sin6_addr) &&
-                !IN6_IS_ADDR_V4MAPPED(&nad_saObj.sin6.sin6_addr)) {
-                m_find_index = this->index();
+            // To verify mocked expectations for Unit Test next cout is needed.
+            /* std::cout << "DEBUG: find_first() a_name_or_addr=\"" //
+                      << a_name_or_addr << "\", adapter_addr=\""
+                      << nad_saObj.netaddrp() << "\"\n"; */
+            if (nad_saObj == input_saObj) {
+                // With a unique ip address given, there cannot be another.
+                m_find_flags = ADDRS::none;
+                return true;
+            }
+        } while (this->get_next());
+
+        // No usable address found, nothing more to do.
+        return false;
+    }
+
+    // Look for a local network adapter name that has at least one ip address.
+    // Also the loopback interface is accepted.
+    // ----------------------------------------------------------------------
+    do {
+        auto name = this->name();
+        // To verify mocked expectations for Unit Test next cout is needed.
+        /* std::cout << "DEBUG: find_first() a_name_or_addr=\"" //
+                  << a_name_or_addr << "\", name=\"" << name << "\"\n"; */
+        if (name == a_name_or_addr) {
+            this->sockaddr(nad_saObj);
+            if (!IN6_IS_ADDR_V4MAPPED(&nad_saObj.sin6.sin6_addr)) {
+                m_index_find = this->index();
                 m_find_flags = ADDRS::index;
                 return true;
             }
         }
     } while (this->get_next());
-    // Nothing found, reset pointer.
-    this->reset(); // noexcept
 
-    // No name found, look for the ip address of a local network adapter.
-    // ------------------------------------------------------------------
-    // Last attempt to get a socket address from the input argument.
-    SSockaddr input_saObj;
-    try { // Throws exception if invalid.
-        input_saObj = std::string(a_name_or_addr);
-    } catch (std::exception&) {
-        return false;
-    }
-    // Parse network adapter list for the given input ip address.
-    do {
-        this->sockaddr(nad_saObj);
-        if (nad_saObj == input_saObj) {
-            // With a unique ip address given, there cannot be another.
-            m_find_flags = ADDRS::none;
-            return true;
-        }
-    } while (this->get_next());
-
+    // No usable address found.
     return false;
 }
 
-bool CNetadapter::find_first(unsigned int a_index) {
+bool CNetadapter::find_first(const uint32_t a_index) {
     TRACE2(this, " Executing CNetadapter::find_first(" +
                      std::to_string(a_index) + ")")
     this->reset(); // noexcept
     if (this->index() == 0)
         return false; // There isn't any adapter.
 
+    SSockaddr saObj;
+    uint32_t index;
     do {
-        if (this->index() == a_index) {
-            m_find_index = a_index;
-            m_find_flags = ADDRS::index;
-            return true;
+        index = this->index();
+        // To verify mocked expectations for Unit Test next cout is needed.
+        /* std::cout << "DEBUG: find_first() index(" << index << ") == a_index("
+                  << a_index << ")\n"; */
+        if (index == a_index) {
+            this->sockaddr(saObj);
+            if (!IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
+                m_index_find = a_index;
+                m_find_flags = ADDRS::index;
+                return true;
+            }
         }
     } while (this->get_next());
 
@@ -393,21 +424,26 @@ bool CNetadapter::find_first(ADDRS a_flags) {
     SSockaddr saObj;
     do {
         this->sockaddr(saObj);
-
+        // To verify mocked expectations for Unit Test next cout is needed.
+        /* std::cout << "DEBUG: find_first(ADDRS) netaddrp()=\"" << saObj
+                  << "\"\n"; */
         if ((m_find_flags & ADDRS::lo) != ADDRS::none &&
             IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
             return true;
         }
         if ((m_find_flags & ADDRS::lla) != ADDRS::none &&
-            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) &&
+            this->index() != m_index_loop) {
             return true;
         }
         if ((m_find_flags & ADDRS::gua) != ADDRS::none &&
-            IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+            IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr) &&
+            this->index() != m_index_loop) {
             return true;
         }
         if ((m_find_flags & ADDRS::map4) != ADDRS::none &&
-            IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
+            IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr) &&
+            this->index() != m_index_loop) {
             return true;
         }
     } while (this->get_next());
@@ -418,17 +454,22 @@ bool CNetadapter::find_first(ADDRS a_flags) {
 
 bool CNetadapter::find_next() {
     TRACE2(this, " Executing CNetadapter::find_next()")
+    if (m_find_flags == ADDRS::none)
+        return false;
 
     SSockaddr saObj;
     while (this->get_next()) {
         this->sockaddr(saObj);
-
-        if ((m_find_flags & ADDRS::index) != ADDRS::none &&
-            this->index() == m_find_index) {
+        // To verify mocked expectations for Unit Test next cout is needed.
+        /* std::cout << "DEBUG: find_next() netaddrp()=\"" << saObj.netaddrp()
+                  << "\"\n"; */
+        if ((m_find_flags & ADDRS::best) != ADDRS::none &&
+            !IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr) &&
+            this->index() != m_index_loop) {
             return true;
         }
-        if ((m_find_flags & ADDRS::best) != ADDRS::none &&
-            !IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr) &&
+        if ((m_find_flags & ADDRS::index) != ADDRS::none &&
+            this->index() == m_index_find &&
             !IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
             return true;
         }
@@ -437,15 +478,18 @@ bool CNetadapter::find_next() {
             return true;
         }
         if ((m_find_flags & ADDRS::lla) != ADDRS::none &&
-            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) &&
+            this->index() != m_index_loop) {
             return true;
         }
         if ((m_find_flags & ADDRS::gua) != ADDRS::none &&
-            IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+            IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr) &&
+            this->index() != m_index_loop) {
             return true;
         }
         if ((m_find_flags & ADDRS::map4) != ADDRS::none &&
-            IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
+            IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr) &&
+            this->index() != m_index_loop) {
             return true;
         }
     }

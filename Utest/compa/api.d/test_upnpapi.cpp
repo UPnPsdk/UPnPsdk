@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-21
+// Redistribution only with this Copyright remark. Last modified: 2026-04-30
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -559,8 +559,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_address_fails) {
 
 #ifdef __APPLE__
     // On MacOS we may find a link-local address "[fe80::1]" on the loopback
-    // interface. This is out of any specification. This should be fixed by
-    // Apple, or by the user.
+    // interface.
     if (ret_UpnpGetIfInfo == UPNP_E_SUCCESS) {
         EXPECT_THAT(gIF_NAME, StartsWith("lo"));
         EXPECT_EQ(gIF_INDEX, 1);
@@ -585,7 +584,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_address_fails) {
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla) {
     // pUPnP does not support initialisation with IP addresses, but the UPnPsdk
-    // do. Ports not set with this Unit so they doesn't matter here.
+    // do. Ports not set with this Unit so they don't matter here.
 
     // Initialize needed global variables.
     if (old_code) {
@@ -593,10 +592,10 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla) {
         gIF_IPV6[0] = '\0';
         gIF_IPV6_PREFIX_LENGTH = 0;
         gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV4[0] = '\0';
-        gIF_IPV4_NETMASK[0] = '\0';
     }
     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+    gIF_IPV4[0] = '\0';
+    gIF_IPV4_NETMASK[0] = '\0';
 
     ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
     nadaptObj.sockaddr(saObj);
@@ -623,22 +622,18 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla) {
         EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
             << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
 
-        char ip6[INET6_ADDRSTRLEN + 1];
-        // Strip leading character on copying.
-        std::strncpy(ip6, saObj.netaddr().c_str() + 1, sizeof(ip6) - 1);
-        // Strip trailing bracket.
-        if (char* chptr{::strchr(ip6, ']')})
-            *chptr = '\0';
+        // Normalize gIF_IPV6.
+        SSockaddr if_ipv6Obj;
+        if_ipv6Obj = gIF_IPV6;
 
         EXPECT_EQ(gIF_NAME, nadaptObj.name());
         EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-        EXPECT_STREQ(gIF_IPV6, ip6);
+        EXPECT_EQ(saObj, if_ipv6Obj);
         EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
-        // Maybe, but doesn't matter.
-        // EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-        // EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-        // EXPECT_STREQ(gIF_IPV4, "");
-        // EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
     }
 }
 
@@ -695,9 +690,11 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua) {
         EXPECT_EQ(gIF_INDEX, nadaptObj.index());
         EXPECT_STREQ(gIF_IPV6_ULA_GUA, ip6);
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 64);
-        // Maybe, but doesn't matter.
-        // EXPECT_STREQ(gIF_IPV6, "");
-        // EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        if (!github_actions) {
+            EXPECT_STREQ(gIF_IPV6, "");
+            EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        }
+        // Unspecified, doesn't matter.
         // EXPECT_STREQ(gIF_IPV4, "");
         // EXPECT_STREQ(gIF_IPV4_NETMASK, "");
     }
@@ -973,6 +970,77 @@ TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
     [[maybe_unused]] int ret_GetFreeHandle = ::GetFreeHandle();
 }
 
+TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_lla) {
+    // Initialize needed global variables.
+    if (!old_code) {
+        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+        gIF_IPV4[0] = '\0';
+        gIF_IPV4_NETMASK[0] = '\0';
+    }
+
+    ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
+    nadaptObj.sockaddr(saObj);
+
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+    // Test Unit
+    int ret_UpnpInit2 = ::UpnpInit2(saObj.netaddr().c_str(), 0);
+
+    if (old_code) {
+        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        UpnpFinish();
+        GTEST_SKIP()
+            << "Specify an ipv6 link local address is not supported by pUPnP.";
+    }
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
+    EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+    // Create bare link local address.
+    char lla[INET6_ADDRSTRLEN + 32];
+    // Strip leading bracket on copying.
+    std::strncpy(lla, saObj.netaddr().c_str() + 1, sizeof(lla) - 1);
+    // Strip trailing scope id if any.
+    if (char* chptr{::strchr(lla, '%')})
+        *chptr = '\0';
+    // Strip trailing bracket.
+    if (char* chptr{::strchr(lla, ']')})
+        *chptr = '\0';
+    EXPECT_STREQ(gIF_IPV6, lla);
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
+    EXPECT_NE(LOCAL_PORT_V6, 0);
+    if (!github_actions) {
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
+    }
+    // Test Unit second time without UpnpFinish()
+    ret_UpnpInit2 = ::UpnpInit2(saObj.netaddr().c_str(), 0);
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_INIT)
+        << errStrEx(ret_UpnpInit2, UPNP_E_INIT);
+
+    // Nothing has changed.
+    EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
+    EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+    EXPECT_STREQ(gIF_IPV6, lla);
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
+    EXPECT_NE(LOCAL_PORT_V6, 0);
+    if (!github_actions) {
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
+    }
+
+    UpnpFinish();
+}
+
 #if 0 // DEBUG!
 TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv6_loopback_address_fails) {
     if (!nadaptObj.find_first("[::1]"))
@@ -1027,90 +1095,6 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface_fails) {
 
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
         << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
-
-    UpnpFinish();
-}
-
-TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_lla) {
-    // Initialize needed global variables.
-    if (!old_code)
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-
-    if (!nadaptObj.find_first())
-        GTEST_SKIP()
-            << "No local network adapter with usable IP address found.";
-
-    bool found{false};
-    do {
-        nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
-            found = true;
-            break;
-        }
-    } while (nadaptObj.find_next());
-    if (!found)
-        GTEST_SKIP()
-            << "No local network adapter with link local address found.";
-
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-    // Test Unit
-    int ret_UpnpInit2 = ::UpnpInit2(saObj.netaddr().c_str(), 0);
-
-    if (old_code) {
-        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
-            << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
-        UpnpFinish();
-        GTEST_SKIP()
-            << "Specify an ipv6 link local address is not supported by pupnp.";
-    }
-
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
-
-    EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
-    EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-    // Create bare link local address.
-    char lla[INET6_ADDRSTRLEN + 32];
-    // Strip leading bracket on copying.
-    std::strncpy(lla, saObj.netaddr().c_str() + 1, sizeof(lla) - 1);
-    // Strip trailing scope id if any.
-    if (char* chptr{::strchr(lla, '%')})
-        *chptr = '\0';
-    // Strip trailing bracket.
-    if (char* chptr{::strchr(lla, ']')})
-        *chptr = '\0';
-    EXPECT_STREQ(gIF_IPV6, lla);
-    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
-    EXPECT_NE(LOCAL_PORT_V6, 0);
-    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-    EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
-    EXPECT_STREQ(gIF_IPV4, "");
-    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
-    EXPECT_EQ(LOCAL_PORT_V4, 0);
-
-    // Test Unit second time without UpnpFinish()
-    ret_UpnpInit2 = ::UpnpInit2(saObj.netaddr().c_str(), 0);
-
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_INIT)
-        << errStrEx(ret_UpnpInit2, UPNP_E_INIT);
-
-    // Nothing has changed.
-    EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
-    EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-    EXPECT_STREQ(gIF_IPV6, lla);
-    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
-    EXPECT_NE(LOCAL_PORT_V6, 0);
-    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-    EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
-    EXPECT_STREQ(gIF_IPV4, "");
-    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
-    EXPECT_EQ(LOCAL_PORT_V4, 0);
 
     UpnpFinish();
 }
