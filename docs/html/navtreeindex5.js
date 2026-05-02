@@ -1,7 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"d7/d07/UpnpExtraHeaders_8hpp.html#a03661e2295ad322f057c7f1bc3f47698":[7,0,0,0,10,8],
-"d7/d07/UpnpExtraHeaders_8hpp.html#a08be5070a8a01353c970bf08aa520d1a":[7,0,0,0,10,15],
 "d7/d07/UpnpExtraHeaders_8hpp.html#a09c15f43e6b5cd4f0baf8a0e5a464df2":[7,0,0,0,10,21],
 "d7/d07/UpnpExtraHeaders_8hpp.html#a0bf86b44fbb44825c2d59e51ee89dfbd":[7,0,0,0,10,1],
 "d7/d07/UpnpExtraHeaders_8hpp.html#a1ef8aeffe378b6c01c5c5b485f13eac3":[7,0,0,0,10,17],
@@ -249,5 +247,7 @@ var NAVTREEINDEX5 =
 "d8/da2/UpnpIntTypes_8hpp.html":[7,0,0,0,14],
 "d8/da2/UpnpIntTypes_8hpp_source.html":[7,0,0,0,14],
 "d8/db3/classUPnPsdk_1_1CPath.html":[4,3,0,2,6],
-"d8/db3/classUPnPsdk_1_1CPath.html#a957dd38d307abf572acead1f17e87e41":[4,3,0,2,6,0]
+"d8/db3/classUPnPsdk_1_1CPath.html#a957dd38d307abf572acead1f17e87e41":[4,3,0,2,6,0],
+"d8/db3/classUPnPsdk_1_1CPath.html#afb7451b64345adb34b3e01e19fbc34c8":[4,3,0,2,6,1],
+"d8/db8/UpnpDiscovery_8cpp.html":[7,0,0,1,0,4]
 };

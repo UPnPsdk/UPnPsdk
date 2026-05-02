@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-30
+// Redistribution only with this Copyright remark. Last modified: 2026-05-04
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -521,8 +521,10 @@ void chk_empty_gifaddr() {
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
     EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
     EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-    EXPECT_STREQ(gIF_IPV4, "");
-    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    if (old_code) {
+        EXPECT_STREQ(gIF_IPV4, "");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    }
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_address_fails) {
@@ -569,17 +571,15 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_address_fails) {
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
         EXPECT_STREQ(gIF_IPV4, "");
         EXPECT_STREQ(gIF_IPV4_NETMASK, "");
-    } else {
-#else
-    {
-        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
-            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
-        {
-            SCOPED_TRACE("");
-            chk_empty_gifaddr();
-        }
-#endif
     }
+#else
+    EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+    {
+        SCOPED_TRACE("");
+        chk_empty_gifaddr();
+    }
+#endif
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla) {
@@ -965,12 +965,28 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_successful) {
 }
 
 TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
-    GTEST_SKIP() << "Has to be done.";
+    if (!github_actions)
+        GTEST_FAIL() << "Still needs to be done.";
 
     [[maybe_unused]] int ret_GetFreeHandle = ::GetFreeHandle();
 }
 
-TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_lla) {
+TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_address_fails) {
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+    // Test Unit
+    int ret_UpnpInit2 = ::UpnpInit2("[::1]", 61234);
+
+    EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+        << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+
+    UpnpFinish();
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpInit2_lla_with_brackets_and_scope_id_successful) {
     // Initialize needed global variables.
     if (!old_code) {
         gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
@@ -1041,97 +1057,27 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_lla) {
     UpnpFinish();
 }
 
-#if 0 // DEBUG!
-TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv6_loopback_address_fails) {
-    if (!nadaptObj.find_first("[::1]"))
-        GTEST_SKIP() << "No local network adapter with usable loopback ip "
-                        "address found.";
-
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-    // Test Unit
-    int ret_UpnpInit2 = ::UpnpInit2("::1", 61234);
-
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
-        << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
-
-    UpnpFinish();
-}
-
-TEST_F(UpnpapiFTestSuite, UpnpInit2_ipv4_loopback_address_fails) {
-    if (!nadaptObj.find_first("[::ffff:127.0.0.1]"))
-        GTEST_SKIP() << "No local network adapter with usable loopback ip "
-                        "address found.";
-
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-    // Test Unit
-    int ret_UpnpInit2 = ::UpnpInit2("127.0.0.1", 49234);
-
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
-        << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
-
-    UpnpFinish();
-}
-
-TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_interface_fails) {
-    if (!nadaptObj.find_first("loopback"))
-        GTEST_SKIP() << "No local network adapter with usable loopback ip "
-                        "address found.";
-
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-    // Test Unit
-    int ret_UpnpInit2 = ::UpnpInit2("loopback", 0);
-
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
-        << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
-
-    UpnpFinish();
-}
-
-TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_brackets_successful) {
+TEST_F(UpnpapiFTestSuite, UpnpInit2_lla_no_brackets_with_scope_id) {
     // Initialize needed global variables.
     if (!old_code)
         gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
 
-    if (!nadaptObj.find_first())
-        GTEST_SKIP()
-            << "No local network adapter with usable IP address found.";
-
-    bool found{false};
-    do {
-        nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
-            found = true;
-            break;
-        }
-    } while (nadaptObj.find_next());
-    if (!found)
-        GTEST_SKIP()
-            << "No local network adapter with link local address found.";
+    ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
+    nadaptObj.sockaddr(saObj);
 
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
     sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-    // Create bare link local address.
-    char lla[INET6_ADDRSTRLEN + 32];
-    // Strip leading bracket on copying.
-    std::strncpy(lla, saObj.netaddr().c_str() + 1, sizeof(lla) - 1);
-    // Strip trailing bracket.
-    if (char* chptr{::strchr(lla, ']')})
-        *chptr = '\0';
+    // Create link-local address whithout brackets, with scope_id.
+    char lla[INET6_ADDRSTRLEN + 1 + 10]{}; // + '%' + UINT_32_MAX with 10 digits
+    ASSERT_NE(::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, lla, sizeof(lla)),
+              nullptr);
+    auto str_len = strlen(lla);
+    ASSERT_GE(::snprintf(lla + str_len, sizeof(lla) - str_len, "%%%d",
+                         nadaptObj.index()),
+              0);
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(lla, 0);
@@ -1141,10 +1087,10 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_brackets_successful) {
             << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
         UpnpFinish();
         GTEST_SKIP()
-            << "Specify an ipv6 link local address is not supported by pupnp.";
+            << "Specify an ipv6 link-local address is not supported by pupnp.";
     }
 
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+    ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
     EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
@@ -1158,38 +1104,15 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_brackets_successful) {
     EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
     EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
     EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
-    EXPECT_STREQ(gIF_IPV4, "");
-    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
-    EXPECT_EQ(LOCAL_PORT_V4, 0);
 
     UpnpFinish();
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_scope_id_fails) {
-    // Initialize needed global variables.
-    gIF_INDEX = 0;
-    gIF_IPV6[0] = '\0';
-    gIF_IPV6_PREFIX_LENGTH = 0;
-    gIF_IPV6_ULA_GUA[0] = '\0';
-    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-    gIF_IPV4[0] = '\0';
-    gIF_IPV4_NETMASK[0] = '\0';
-
-    if (!nadaptObj.find_first())
-        GTEST_SKIP()
-            << "No local network adapter with usable IP address found.";
-
-    bool found{false};
-    do {
-        nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
-            found = true;
-            break;
-        }
-    } while (nadaptObj.find_next());
-    if (!found)
-        GTEST_SKIP()
-            << "No local network adapter with link local address found.";
+    ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
+    nadaptObj.sockaddr(saObj);
+    // Remove scope_id.
+    saObj.sin6.sin6_scope_id = 0;
 
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
@@ -1199,12 +1122,6 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_scope_id_fails) {
     // Create link local address without scope id.
     char lla[INET6_ADDRSTRLEN + 32];
     std::strncpy(lla, saObj.netaddr().c_str(), sizeof(lla) - 1);
-    // Strip trailing scope id if any.
-    if (char* chptr{::strchr(lla, '%')}) {
-        *chptr = ']';
-        chptr++;
-        *chptr = '\0';
-    }
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(lla, 0);
@@ -1212,10 +1129,6 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_scope_id_fails) {
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
         << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
 
-    { // All interface globals should be untouched.
-        SCOPED_TRACE("");
-        chk_empty_gifaddr();
-    }
     UpnpFinish();
 }
 
@@ -1224,19 +1137,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_gua_successful) {
     if (!old_code)
         gIF_IPV6_PREFIX_LENGTH = 0;
 
-    if (!nadaptObj.find_first())
-        GTEST_SKIP()
-            << "No local network adapter with usable IP address found.";
-
-    bool found{false};
-    do {
-        nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
-            found = true;
-            break;
-        }
-    } while (nadaptObj.find_next());
-    if (!found)
+    if (!nadaptObj.find_first(ADDRS::gua))
         GTEST_SKIP()
             << "No local network adapter with global unicast address found.";
 
@@ -1246,6 +1147,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_gua_successful) {
     sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
+    nadaptObj.sockaddr(saObj);
     int ret_UpnpInit2 = ::UpnpInit2(saObj.netaddr().c_str(), 0);
 
     if (old_code) {
@@ -1260,7 +1162,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_gua_successful) {
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
-    EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
+    EXPECT_EQ(gIF_NAME, nadaptObj.name());
     EXPECT_EQ(gIF_INDEX, nadaptObj.index());
     // Create bare link local address.
     char gua[INET6_ADDRSTRLEN + 32];
@@ -1275,9 +1177,6 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_gua_successful) {
     EXPECT_EQ(gIF_IPV6[0], '\0');
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
     EXPECT_EQ(LOCAL_PORT_V6, 0);
-    EXPECT_EQ(gIF_IPV4[0], '\0');
-    EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
-    EXPECT_EQ(LOCAL_PORT_V4, 0);
 
     UpnpFinish();
 }
@@ -1289,9 +1188,25 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
         gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
     }
 
-    if (!nadaptObj.find_first())
-        GTEST_SKIP()
-            << "No local network adapter with usable IP address found.";
+    // Find a usable adapter.
+    ASSERT_TRUE(nadaptObj.find_first())
+        << "No local network adapter with usable IP address found.";
+    uint32_t index = nadaptObj.index();
+
+    // Get socket addresses from the found netadapter. Must have an lla, may
+    // have a gua.
+    SSockaddr lla_saObj, gua_saObj;
+    nadaptObj.find_first(index);
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (lla_saObj.ss.ss_family != AF_INET6 &&
+            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+            lla_saObj = saObj;
+        else if (gua_saObj.ss.ss_family != AF_INET6 &&
+                 IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr))
+            gua_saObj = saObj;
+    } while (nadaptObj.find_next());
+    ASSERT_EQ(lla_saObj.ss.ss_family, AF_INET6);
 
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
@@ -1299,8 +1214,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
     sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Test Unit
-    int ret_UpnpInit2 =
-        ::UpnpInit2(std::to_string(nadaptObj.index()).c_str(), 0);
+    int ret_UpnpInit2 = ::UpnpInit2(std::to_string(index).c_str(), 0);
 
     if (old_code) {
         EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
@@ -1312,312 +1226,187 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
-    nadaptObj.sockaddr(saObj);
-    // Create bare IPv6 address.
-    char ip6[INET6_ADDRSTRLEN + 32];
-    // Strip leading bracket on copying.
-    std::strncpy(ip6, saObj.netaddr().c_str() + 1, sizeof(ip6) - 1);
-    // Strip trailing scope id if any.
-    if (char* chptr{::strchr(ip6, '%')})
-        *chptr = '\0';
-    // Strip trailing bracket.
-    if (char* chptr{::strchr(ip6, ']')})
-        *chptr = '\0';
-
-    EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
+    nadaptObj.find_first(index);
+    EXPECT_EQ(gIF_NAME, nadaptObj.name());
     EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-    EXPECT_FALSE(gIF_IPV6[0] == '\0' && gIF_IPV6_ULA_GUA[0] == '\0');
-    EXPECT_STREQ(gIF_IPV4, "");
-    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
-    EXPECT_EQ(LOCAL_PORT_V4, 0);
-    if (gIF_IPV6[0] != '\0') {
-        EXPECT_STREQ(gIF_IPV6, ip6);
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
-        EXPECT_NE(LOCAL_PORT_V6, 0);
-    } else {
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
-        EXPECT_EQ(LOCAL_PORT_V6, 0);
-    }
-    if (gIF_IPV6_ULA_GUA[0] != '\0') {
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, ip6);
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
-        EXPECT_NE(LOCAL_PORT_V6_ULA_GUA, 0);
-    } else {
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-        EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
-    }
+    saObj = gIF_IPV6;
+    lla_saObj.sin6.sin6_scope_id = 0;
+    EXPECT_EQ(saObj, lla_saObj);
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
+    saObj = gIF_IPV6_ULA_GUA;
+    EXPECT_EQ(saObj, gua_saObj);
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH,
+              gua_saObj.ss.ss_family == AF_INET6 ? 64 : 0);
 
     UpnpFinish();
 }
 
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
-TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_name_successful) {
+#if 0
+On dynamic change of the IPv6 address I have temporary seen the following two
+IP address configurations. This is done by protocol when the remote server
+changes its global unicast address. It is no problem when following the
+protocol and just select the first offered IP address, that is the prefered
+address and not deprecated. Older IP addresses marked as "deprecated" and
+should not be used anymore for new connections.
+
+Old code does not follow the protocol and selects the last GUA first, that is in
+this example:
+    inet6 2003:d5:274d:2a00:5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
+    or
+    inet6 fd00::5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
+Both are marked as deprecated and could cause problems.
+
+2: ens1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 52:54:00:7f:c0:21 brd ff:ff:ff:ff:ff:ff
+    altname enp2s1
+    altname enx5254007fc021
+    inet6 2003:d5:271c:b00:5054:ff:fe7f:c021/64 scope global dynamic mngtmpaddr noprefixroute
+       valid_lft 6855sec preferred_lft 942sec
+    inet6 2003:d5:2725:7400:5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
+       valid_lft 49sec preferred_lft 0sec
+    inet6 fd00::5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
+       valid_lft 70sec preferred_lft 0sec
+    inet6 fe80::5054:ff:fe7f:c021/64 scope link proto kernel_ll
+       valid_lft forever preferred_lft forever
+
+2: ens1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 52:54:00:7f:c0:21 brd ff:ff:ff:ff:ff:ff
+    altname enp2s1
+    altname enx5254007fc021
+    inet6 2003:d5:271c:b00:5054:ff:fe7f:c021/64 scope global dynamic mngtmpaddr noprefixroute
+       valid_lft 7136sec preferred_lft 1212sec
+    inet6 2003:d5:2725:7400:5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
+       valid_lft 1220sec preferred_lft 0sec
+    inet6 fd00::5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
+       valid_lft 1241sec preferred_lft 0sec
+    inet6 2003:d5:274d:2a00:5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
+       valid_lft 571sec preferred_lft 0sec
+    inet6 fe80::5054:ff:fe7f:c021/64 scope link proto kernel_ll
+       valid_lft forever preferred_lft forever
+#endif
+TEST_F(UpnpapiFTestSuite,
+       UpnpInit2_with_netadapter_name_and_default_successful) {
     // For Microsoft Windows there are some TODOs in the old code:
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
     // link-local addresses.
     // TODO: Retrieve IPv6 LLA prefix?
 
-    // Initialize needed global variables.
-    gIF_IPV6[0] = '\0';
-    gIF_IPV6_PREFIX_LENGTH = 0;
-    gIF_IPV6_ULA_GUA[0] = '\0';
-    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-
-    // Find a usable adapter.
-    if (!nadaptObj.find_first())
-        GTEST_SKIP()
-            << "No local network adapter with usable IP address found.";
-#ifdef __APPLE__
-    // Only for macOS special check for "lo" due to buggy handling of
-    // "[fe80::1]" on loopback adapter.
-    if (nadaptObj.name().starts_with("lo") && !nadaptObj.find_next())
-        GTEST_SKIP()
-            << "No local network adapter with usable IP address found.";
-#endif
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-    // Test Unit
-    int ret_UpnpInit2 = ::UpnpInit2(nadaptObj.name().c_str(), 0);
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
-
-    EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
-    EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-    EXPECT_FALSE(gIF_IPV4[0] == '\0' && gIF_IPV6[0] == '\0' &&
-                 gIF_IPV6_ULA_GUA[0] == '\0');
-
-    std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-              << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
-                 "retrieved on wih32.\n";
-#ifdef _MSC_VER
-    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
-    EXPECT_NE(LOCAL_PORT_V6, 0);
-    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-#else
-    nadaptObj.sockaddr(saObj);
-
-    // Get IPv4 address string from mapped IPv6 for testing.
-    char ip4[INET_ADDRSTRLEN]{'\0'};
-    if (IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
-        in_addr* saddr{
-            reinterpret_cast<in_addr*>(&saObj.sin6.sin6_addr.s6_addr[12])};
-        ASSERT_NE(::inet_ntop(AF_INET, saddr, ip4, sizeof(ip4)), nullptr);
-    }
-
-    // Create bare IPv6 address.
-    char ip6[INET6_ADDRSTRLEN + 32];
-    // Strip leading bracket on copying.
-    std::strncpy(ip6, saObj.netaddr().c_str() + 1, sizeof(ip6) - 1);
-    // Strip trailing scope id if any.
-    if (char* chptr{::strchr(ip6, '%')})
-        *chptr = '\0';
-    // Strip trailing bracket.
-    if (char* chptr{::strchr(ip6, ']')})
-        *chptr = '\0';
-
-    if (gIF_IPV6[0] != '\0') {
-        if (!old_code) // On old code we can have two ip addresses selected.
-            EXPECT_STREQ(gIF_IPV6, ip6);
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
-        EXPECT_NE(LOCAL_PORT_V6, 0);
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-        if (!old_code) // On old code we can have two ip addresses selected.
-            EXPECT_STREQ(gIF_IPV4, "");
-    } else {
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
-        EXPECT_EQ(LOCAL_PORT_V6, 0);
-    }
-    if (gIF_IPV6_ULA_GUA[0] != '\0') {
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, ip6);
-        EXPECT_THAT(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, AnyOf(64, 96));
-        EXPECT_NE(LOCAL_PORT_V6_ULA_GUA, 0);
-        EXPECT_STREQ(gIF_IPV6, "");
-        EXPECT_STREQ(gIF_IPV4, "");
-    } else {
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-        EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
-    }
-    if (gIF_IPV4[0] != '\0') {
-        if (!old_code) // On old code IPv4 is selected but not detected with ip4
-            EXPECT_STREQ(gIF_IPV4, ip4);
-        nadaptObj.socknetmask(saObj);
-        EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
-        EXPECT_NE(LOCAL_PORT_V4, 0);
-        if (!old_code) // On old code we can have two ip addresses selected.
-            EXPECT_STREQ(gIF_IPV6, "");
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-    } else {
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
-        EXPECT_EQ(LOCAL_PORT_V4, 0);
-    }
-#endif
-    UpnpFinish();
-}
-
-#else  // UPnPsdk_WITH_NATIVE_PUPNP
-
-TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_name_successful) {
-    // Initialize needed global variables.
-    gIF_IPV6_PREFIX_LENGTH = 0;
-    if (!old_code)
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-
-    // Find a usable adapter.
-    if (!nadaptObj.find_first())
-        GTEST_SKIP()
-            << "No local network adapter with usable IP address found.";
-
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
-
-    // Test Unit
-    int ret_UpnpInit2 = ::UpnpInit2(nadaptObj.name().c_str(), 0);
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
-
-    EXPECT_STREQ(gIF_NAME, nadaptObj.name().c_str());
-    EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-    EXPECT_STREQ(gIF_IPV4, "");
-    EXPECT_STREQ(gIF_IPV4_NETMASK, "");
-    EXPECT_EQ(LOCAL_PORT_V4, 0);
-    EXPECT_FALSE(gIF_IPV6[0] == '\0' && gIF_IPV6_ULA_GUA[0] == '\0');
-
-    nadaptObj.sockaddr(saObj);
-    // Create bare IPv6 address.
-    char ip6[INET6_ADDRSTRLEN + 32];
-    // Strip leading bracket on copying.
-    std::strncpy(ip6, saObj.netaddr().c_str() + 1, sizeof(ip6) - 1);
-    // Strip trailing scope id if any.
-    if (char* chptr{::strchr(ip6, '%')})
-        *chptr = '\0';
-    // Strip trailing bracket.
-    if (char* chptr{::strchr(ip6, ']')})
-        *chptr = '\0';
-
-    if (gIF_IPV6[0] != '\0') {
-        EXPECT_STREQ(gIF_IPV6, ip6);
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
-        EXPECT_NE(LOCAL_PORT_V6, 0);
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-    } else {
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
-        EXPECT_EQ(LOCAL_PORT_V6, 0);
-    }
-    if (gIF_IPV6_ULA_GUA[0] != '\0') {
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, ip6);
-        EXPECT_THAT(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, AnyOf(64, 96));
-        EXPECT_NE(LOCAL_PORT_V6_ULA_GUA, 0);
-        EXPECT_STREQ(gIF_IPV6, "");
-    } else {
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-        EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
-    }
-
-    UpnpFinish();
-}
-#endif // UPnPsdk_WITH_NATIVE_PUPNP
-
-TEST_F(UpnpapiFTestSuite, UpnpInit2_default_successful) {
-    // For Microsoft Windows there are some TODOs in the old code:
-    // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
-    // link-local addresses.
-    // TODO: Retrieve IPv6 LLA prefix?
+    if (old_code)
+        std::cout
+            << CYEL "[ BUGFIX   ] " CRES << __LINE__
+            << ": Unit must not select oldest deprecated IPv6 address, when "
+               "multiple local addresses on netadapter are available.\n";
 
     // Initialize needed global variables.
     if (old_code) {
-        gIF_IPV6[0] = '\0';
         gIF_IPV6_ULA_GUA[0] = '\0';
+        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+        gIF_IPV4[0] = '\0';
+        gIF_IPV4_NETMASK[0] = '\0';
     }
-    gIF_IPV6_PREFIX_LENGTH = 0;
-    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
 
-    if (old_code)
-        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << ": Unit should not select IPv4 and IPv6 address, but only "
-                     "one.\n";
+    // Find a usable adapter.
+    ASSERT_TRUE(nadaptObj.find_first())
+        << "No local network adapter with usable IP address found.";
+    uint32_t index = nadaptObj.index(); // That's the netadapter I'm using.
+
+    // Get socket addresses from the found netadapter. Must have an lla, may
+    // have a gua.
+    SSockaddr lla_saObj, gua_saObj;
+    nadaptObj.find_first(index);
+    const auto& lla_af = lla_saObj.ss.ss_family;
+    const auto& gua_af = gua_saObj.ss.ss_family;
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (lla_af != AF_INET6 && IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+            lla_saObj = saObj;
+        else if (gua_af != AF_INET6 &&
+                 IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr))
+            gua_saObj = saObj;
+    } while (nadaptObj.find_next() &&
+             (lla_af != AF_INET6 || gua_af != AF_INET6));
+    ASSERT_EQ(lla_saObj.ss.ss_family, AF_INET6);
 
     // The Unit needs a defined state, otherwise it will fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
     sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-    // Test Unit
-    int ret_UpnpInit2 = ::UpnpInit2(nullptr, 0);
+
+    // Test Unit call with adapter name
+    // --------------------------------
+    nadaptObj.find_first(index);
+    int ret_UpnpInit2 = ::UpnpInit2(nadaptObj.name().c_str(), 0);
+
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
-    // clang-format off
-    // std::cerr << "DEBUG: gIF_IPV4=\"" << ::gIF_IPV4
-    //           << "\", LOCAL_PORT_V4=" << ::LOCAL_PORT_V4
-    //           << ", gIF_IPV6=\"" << ::gIF_IPV6
-    //           << "\", LOCAL_PORT_V6=" << LOCAL_PORT_V6
-    //           << ", gIF_IPV6_ULA_GUA=\"" << ::gIF_IPV6_ULA_GUA
-    //           << "\", LOCAL_PORT_V6_ULA_GUA=" << LOCAL_PORT_V6_ULA_GUA
-    //           << ".\n";
-    // clang-format on
+    EXPECT_EQ(gIF_NAME, nadaptObj.name());
+    EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+    saObj = gIF_IPV6;                 // Has no scope_id.
+    lla_saObj.sin6.sin6_scope_id = 0; // Remove scope_id to verify.
+    if (old_code) {
+        if (saObj != lla_saObj) {
+            std::cout << "Wrong (deprecated?) local IP address selected:\n"
+                      << "gIF_IPV6 netaddrp()=\"" << saObj.netaddrp()
+                      << "\", netadapter netaddrp()=\"" << lla_saObj.netaddrp()
+                      << "\"";
+        }
+    } else {
+        EXPECT_EQ(saObj, lla_saObj)
+            << "gIF_IPV6 netaddrp()=\"" << saObj.netaddrp()
+            << "\", netadapter netaddrp()=\"" << lla_saObj.netaddrp() << "\"";
+    }
+#ifndef _MSC_VER
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
+#endif
+    saObj = gIF_IPV6_ULA_GUA;
+    if (old_code) {
+        if (saObj != gua_saObj) {
+            std::cout << "Wrong (deprecated?) local IP address selected:\n"
+                      << "gIF_IPV6_ULA_GUA netaddrp()=\"" << saObj.netaddrp()
+                      << "\", netadapter netaddrp()=\"" << gua_saObj.netaddrp()
+                      << "\"";
+        }
+    } else {
+        EXPECT_EQ(saObj, gua_saObj)
+            << "gIF_IPV6_ULA_GUA netaddrp()=\"" << saObj.netaddrp()
+            << "\", netadapter netaddrp()=\"" << gua_saObj.netaddrp() << "\"";
+    }
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, gua_af == AF_INET6 ? 64 : 0);
 
-    EXPECT_STRNE(gIF_NAME, "");
-    EXPECT_NE(gIF_INDEX, 0);
-    EXPECT_FALSE(gIF_IPV4[0] == '\0' && gIF_IPV6[0] == '\0' &&
-                 gIF_IPV6_ULA_GUA[0] == '\0');
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
-    std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-              << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
-                 "retrieved on wih32.\n";
+
+    // Test Unit call default setting
+    // ------------------------------
+    // Cannot be used with old_code because it uses IPv4 by default.
+    if (!old_code) {
+        nadaptObj.find_first(index);
+        ret_UpnpInit2 = ::UpnpInit2(nullptr, 0);
+
+        EXPECT_EQ(gIF_NAME, nadaptObj.name());
+        EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+        saObj = gIF_IPV6;                 // Has no scope_id.
+        lla_saObj.sin6.sin6_scope_id = 0; // Remove scope_id to verify.
+        EXPECT_EQ(saObj, lla_saObj)
+            << "gIF_IPV6 netaddrp()=\"" << saObj.netaddrp()
+            << "\", netadapter netaddrp()=\"" << lla_saObj.netaddrp() << "\"";
+#ifndef _MSC_VER
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
 #endif
-#if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(_MSC_VER)
-    EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
-    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
-    EXPECT_NE(LOCAL_PORT_V6, 0);
-    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-#else
-    if (gIF_IPV6[0] != '\0') {
-        EXPECT_NE(gIF_IPV6_PREFIX_LENGTH, 0);
-        EXPECT_NE(LOCAL_PORT_V6, 0);
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-        if (!old_code) // On old code we can have two ip addresses selected.
-            EXPECT_STREQ(gIF_IPV4, "");
-    } else {
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
-        EXPECT_EQ(LOCAL_PORT_V6, 0);
+        saObj = gIF_IPV6_ULA_GUA;
+        EXPECT_EQ(saObj, gua_saObj)
+            << "gIF_IPV6_ULA_GUA netaddrp()=\"" << saObj.netaddrp()
+            << "\", netadapter netaddrp()=\"" << gua_saObj.netaddrp() << "\"";
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, gua_af == AF_INET6 ? 64 : 0);
     }
-    if (gIF_IPV6_ULA_GUA[0] != '\0') {
-        EXPECT_NE(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-        EXPECT_NE(LOCAL_PORT_V6_ULA_GUA, 0);
-        EXPECT_STREQ(gIF_IPV6, "");
-        EXPECT_STREQ(gIF_IPV4, "");
-    } else {
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-        EXPECT_EQ(LOCAL_PORT_V6_ULA_GUA, 0);
-    }
-    if (gIF_IPV4[0] != '\0') {
-        EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
-        EXPECT_NE(LOCAL_PORT_V4, 0);
-        if (!old_code) // On old code we can have two ip addresses selected.
-            EXPECT_STREQ(gIF_IPV6, "");
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-    } else {
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
-        EXPECT_EQ(LOCAL_PORT_V4, 0);
-    }
-#endif
+
     UpnpFinish();
 }
 
-TEST_F(UpnpapiFTestSuite, download_xml_successful) {
-    if (!github_actions && !old_code)
-        GTEST_FAIL()
-            << "Test fails on Github Actions with UPNP_E_INVALID_URL. Fixit.";
-    else
-        GTEST_SKIP()
-            << "Test fails on Github Actions with UPNP_E_INVALID_URL. Fixit.";
+TEST_F(UpnpapiFTestSuite, download_xml_with_gua_successful) {
+    if (!nadaptObj.find_first(ADDRS::gua))
+        GTEST_SKIP() << "No Global Unicast Address on a local netadapter "
+                        "found. Works only with it at time.";
 
     if (github_actions) // Always disable extended debug messages.
         g_dbug = false; // Will be restored by the tests destructor.
@@ -1630,38 +1419,27 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
     sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
-    gIF_IPV6[0] = '\0';
-    gIF_IPV6_PREFIX_LENGTH = 0;
-    gIF_IPV6_ULA_GUA[0] = '\0';
-    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-    gIF_IPV4[0] = '\0';
-    gIF_IPV4_NETMASK[0] = '\0';
+    if (old_code) {
+        // gIF_IPV6[0] = '\0';
+        // gIF_IPV6_PREFIX_LENGTH = 0;
+        gIF_IPV6_ULA_GUA[0] = '\0';
+        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+    }
 
-    int ret_UpnpInit2 = ::UpnpInit2(nullptr, 0);
+    int ret_UpnpInit2 = ::UpnpInit2(nadaptObj.name().c_str(), 0);
     ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
-    EXPECT_EQ(::UpnpSetWebServerRootDir(SAMPLE_SOURCE_DIR "/web"), 0);
+    ASSERT_EQ(::UpnpSetWebServerRootDir(SAMPLE_SOURCE_DIR "/web"), 0);
 
     // Create an url.
-    // Example url maybe "http://[fe80::1]:50001/tvdevicedesc.xml".
-    std::string url;
-    if (gIF_IPV6_ULA_GUA[0] != '\0')
-        url = "http://[" + std::string(gIF_IPV6_ULA_GUA) +
-              "]:" + std::to_string(LOCAL_PORT_V6_ULA_GUA) +
-              "/tvdevicedesc.xml";
-    else if (gIF_IPV6[0] != '\0')
-        // url = "http://[" + std::string(gIF_IPV6) + "%" +
-        // std::to_string(gIF_INDEX) + "]:" + std::to_string(LOCAL_PORT_V6) +
-        // "/tvdevicedesc.xml";
-        url = "http://" + std::string(gIF_IPV6) + "%" +
-              std::to_string(gIF_INDEX) + ":" + std::to_string(LOCAL_PORT_V6) +
-              "/tvdevicedesc.xml";
-    // url = "http://" + std::string(gIF_IPV6) + ":" +
-    // std::to_string(LOCAL_PORT_V6) + "/tvdevicedesc.xml";
-    else if (gIF_IPV4[0] != '\0')
-        url = "http://" + std::string(gIF_IPV4) + ":" +
-              std::to_string(LOCAL_PORT_V4) + "/tvdevicedesc.xml";
+    // std::string url = "http://[::1]:50001/tvdevicedesc.xml";
+    // std::string url =
+    //    "http://[" + std::string(gIF_IPV6) + "%" + std::to_string(gIF_INDEX) +
+    //    "]:" + std::to_string(LOCAL_PORT_V6) + "/tvdevicedesc.xml";
+    std::string url = "http://[" + std::string(gIF_IPV6_ULA_GUA) +
+                      "]:" + std::to_string(LOCAL_PORT_V6_ULA_GUA) +
+                      "/tvdevicedesc.xml";
 
     IXML_Document* xmldocbuf_ptr{nullptr};
 
@@ -1679,6 +1457,16 @@ TEST_F(UpnpapiFTestSuite, download_xml_successful) {
     UpnpFinish();
 }
 
+TEST_F(UpnpapiFTestSuite, download_xml_with_lla_successful) {
+    if (!github_actions)
+        GTEST_FAIL() << "Still needs to be done.";
+}
+
+TEST_F(UpnpapiFTestSuite, download_xml_with_loopback_successful) {
+    if (!github_actions)
+        GTEST_FAIL() << "Still needs to be done.";
+}
+
 int CallbackEventHandler(Upnp_EventType EventType, const void* Event,
                          [[maybe_unused]] void* Cookie) {
 
@@ -1688,20 +1476,15 @@ int CallbackEventHandler(Upnp_EventType EventType, const void* Event,
     return 0;
 }
 
-TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_successful) {
-    if (!github_actions && !old_code)
-        GTEST_FAIL()
-            << "Test fails on Github Actions with UPNP_E_INVALID_URL. Fixit.";
-    else
-        GTEST_SKIP()
-            << "Test fails on Github Actions with UPNP_E_INVALID_URL. Fixit.";
+TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_with_gua_successful) {
+    if (!nadaptObj.find_first(ADDRS::gua))
+        GTEST_SKIP() << "No Global Unicast Address on a local netadapter "
+                        "found. Works only with it at time.";
 
-    if (github_actions) {
-        // Always disable extended debug messages.
+    if (github_actions) // Always disable extended debug messages.
         g_dbug = false; // Will be restored by the tests destructor.
-    }
 
-    CPupnplog logObj; // Output only with build type DEBUG.
+    CPupnplog logObj;   // Output only with build type DEBUG.
     if (g_dbug)
         logObj.enable(UPNP_INFO);
 
@@ -1709,14 +1492,12 @@ TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_successful) {
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
     sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
-    gIF_IPV6[0] = '\0';
-    gIF_IPV6_PREFIX_LENGTH = 0;
+    // gIF_IPV6[0] = '\0';
+    // gIF_IPV6_PREFIX_LENGTH = 0;
     gIF_IPV6_ULA_GUA[0] = '\0';
     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-    gIF_IPV4[0] = '\0';
-    gIF_IPV4_NETMASK[0] = '\0';
 
-    int ret_UpnpInit2 = ::UpnpInit2(nullptr, 0);
+    int ret_UpnpInit2 = ::UpnpInit2(nadaptObj.name().c_str(), 0);
     ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
@@ -1724,31 +1505,16 @@ TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_successful) {
 
     // Prepare used local ip address.
     // Example: "http://192.168.24.88:49153/tvdevicedesc.xml"
-    std::string desc_doc_url;
-    int addr_family{AF_UNSPEC};
-    if (gIF_IPV4[0] != '\0') {
-        desc_doc_url = "http://" + std::string(gIF_IPV4) + ":" +
-                       std::to_string(LOCAL_PORT_V4) + "/tvdevicedesc.xml";
-        addr_family = AF_INET;
-    } else if (gIF_IPV6_ULA_GUA[0] != '\0') {
-        desc_doc_url = "http://[" + std::string(gIF_IPV6_ULA_GUA) +
-                       "]:" + std::to_string(LOCAL_PORT_V6_ULA_GUA) +
-                       "/tvdevicedesc.xml";
-        addr_family = AF_INET6;
-    } else if (gIF_IPV6[0] != '\0') {
-        desc_doc_url = "http://[" + std::string(gIF_IPV6) + "%" +
-                       std::to_string(gIF_INDEX) +
-                       "]:" + std::to_string(LOCAL_PORT_V6) +
-                       "/tvdevicedesc.xml";
-        addr_family = AF_INET6;
-    }
+    std::string desc_doc_url = "http://[" + std::string(gIF_IPV6_ULA_GUA) +
+                               "]:" + std::to_string(LOCAL_PORT_V6_ULA_GUA) +
+                               "/tvdevicedesc.xml";
 
     UpnpDevice_Handle device_handle = -1;
 
     // Test Unit
     int ret_UpnpRegisterRootDevice3 =
         ::UpnpRegisterRootDevice3(desc_doc_url.c_str(), CallbackEventHandler,
-                                  &device_handle, &device_handle, addr_family);
+                                  &device_handle, &device_handle, AF_INET6);
     EXPECT_EQ(ret_UpnpRegisterRootDevice3, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpRegisterRootDevice3, UPNP_E_SUCCESS);
 
@@ -1757,7 +1523,6 @@ TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_successful) {
     UpnpUnRegisterRootDevice(device_handle);
     UpnpFinish();
 }
-#endif // DEBUG!
 
 } // namespace utest
 

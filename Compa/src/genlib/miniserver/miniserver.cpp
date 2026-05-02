@@ -1040,6 +1040,12 @@ int get_miniserver_sockets(
         }
     }
 
+#if 0 // Only IPv6 is supported.
+    // gIF_IPV4 isn't initialized anymore and gIF_IPV4[0] may have a random
+    // number != '\0' that is invisible as character. This will try to
+    // std::string(gIF_IPV4) but segfaults. Can be verified with:
+    // gIF_IPV4[0] = '\0';
+
     if (out->pSockIp4Obj != nullptr && gIF_IPV4[0] != '\0') {
         try {
             UPnPsdk::SSockaddr saObj;
@@ -1057,6 +1063,7 @@ int get_miniserver_sockets(
                 << ex.what();
         }
     }
+#endif
 
     if (retval != UPNP_E_SUCCESS)
         UPnPsdk_LOGERR("MSG1065") "No valid IP address on a local network "

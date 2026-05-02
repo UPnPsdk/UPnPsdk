@@ -1,7 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"da/dcf/classUPnPsdk_1_1CUri.html#a4e448684e171cc9f1de1373cad68214d":[4,3,0,2,11,4],
-"da/dcf/classUPnPsdk_1_1CUri.html#a75a226e8cc621f9d288d0befb0e7650e":[4,3,0,2,11,0],
 "da/dcf/classUPnPsdk_1_1CUri.html#ab90b7e985ba8a6653497f1d820729da0":[4,3,0,2,11,2],
 "da/dcf/classUPnPsdk_1_1CUri.html#af8ac1698d099c51170f6ddae2bfa6ca9":[4,3,0,2,11,3],
 "da/dd9/membuffer_8cpp.html":[7,0,0,1,2,4,1],
@@ -249,5 +247,7 @@ var NAVTREEINDEX8 =
 "dc/d2f/GenlibClientSubscription_8cpp.html#a34c75b27e59137c8e13959020967149f":[7,0,0,1,2,0,1,10],
 "dc/d2f/GenlibClientSubscription_8cpp.html#a40eb3122f64bdb5bb8dc15437be1562d":[7,0,0,1,2,0,1,14],
 "dc/d2f/GenlibClientSubscription_8cpp.html#a480a2a51159d6aa40b7af16bcae9da39":[7,0,0,1,2,0,1,19],
-"dc/d2f/GenlibClientSubscription_8cpp.html#a49ee4ea642d0133e084a87e2caba01f0":[7,0,0,1,2,0,1,1]
+"dc/d2f/GenlibClientSubscription_8cpp.html#a49ee4ea642d0133e084a87e2caba01f0":[7,0,0,1,2,0,1,1],
+"dc/d2f/GenlibClientSubscription_8cpp.html#a586b1ddc4d1c5d8ccd1d67f60626cb4b":[7,0,0,1,2,0,1,0,3],
+"dc/d2f/GenlibClientSubscription_8cpp.html#a5da909b119c685cd28157e341ca64964":[7,0,0,1,2,0,1,8]
 };

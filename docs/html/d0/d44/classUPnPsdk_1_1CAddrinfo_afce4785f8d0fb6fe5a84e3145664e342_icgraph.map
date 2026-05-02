@@ -1,11 +1,16 @@
 <map id="UPnPsdk::CAddrinfo::sockaddr" name="UPnPsdk::CAddrinfo::sockaddr">
-<area shape="rect" id="Node000001" title="Get the socket address from current selcted address information." alt="" coords="456,91,607,131"/>
-<area shape="rect" id="Node000002" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="233,99,408,124"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="442,114,408,114,408,109,442,109"/>
+<area shape="rect" id="Node000001" title="Get the socket address from current selcted address information." alt="" coords="501,163,652,203"/>
+<area shape="rect" id="Node000002" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="256,115,431,140"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="487,165,396,143,397,137,489,160"/>
+<area shape="rect" id="Node000032" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="233,203,453,243"/>
+<area shape="poly" id="edge5_Node000001_Node000032" title=" " alt="" coords="488,201,454,207,453,202,487,196"/>
 <area shape="rect" id="Node000003" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="5,5,185,60"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="269,97,174,63,175,58,271,92"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="295,112,167,63,169,58,297,107"/>
 <area shape="rect" id="Node000007" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="5,84,185,139"/>
-<area shape="poly" id="edge3_Node000002_Node000007" title=" " alt="" coords="220,114,185,114,185,109,220,109"/>
+<area shape="poly" id="edge3_Node000002_Node000007" title=" " alt="" coords="242,123,185,120,186,114,242,118"/>
 <area shape="rect" id="Node000008" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="5,163,185,217"/>
-<area shape="poly" id="edge4_Node000002_Node000008" title=" " alt="" coords="271,131,175,165,174,160,269,126"/>
+<area shape="poly" id="edge4_Node000002_Node000008" title=" " alt="" coords="280,146,186,170,185,165,279,141"/>
+<area shape="poly" id="edge6_Node000032_Node000032" title=" " alt="" coords="383,192,369,185,343,182,321,184,308,189,303,195,305,202,300,204,297,194,304,184,320,179,343,177,370,180,385,187"/>
+<area shape="rect" id="Node000006" href="$d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="53,241,138,267"/>
+<area shape="poly" id="edge7_Node000032_Node000006" title=" " alt="" coords="220,241,139,251,138,246,220,236"/>
 </map>
