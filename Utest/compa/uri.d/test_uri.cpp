@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// redistribution only with this copyright remark. last modified: 2026-03-15
+// redistribution only with this copyright remark. last modified: 2026-05-14
 
 // This Unit Tests are used to verify pUPnP software with new compatible code.
 // These tests compile with pUPnP code and with compatible code. Unit Tests for
@@ -18,6 +18,7 @@
 #include <Compa/src/genlib/net/uri/uri.cpp>
 #endif
 
+#include <UPnPsdk/upnptools.hpp>
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/socket.hpp>
 #include <umock/netdb_mock.hpp>
@@ -33,6 +34,7 @@ using ::testing::SetErrnoAndReturn;
 using ::testing::StartsWith;
 using ::testing::StrictMock;
 
+using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::SSockaddr;
 
 
@@ -516,30 +518,34 @@ TEST(UriTestSuite, create_url_list_from_loopback_if) {
     EXPECT_EQ(url_list.parsedURLs[0].fragment.size, 0);
     SSockaddr saObj;
     saObj = url_list.parsedURLs[0].hostport.IPaddress;
-#ifndef __APPLE__
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": The resolved socket address must not have a garbage "
-                     "scope id.\n";
-        EXPECT_THAT(saObj.netaddrp(), StartsWith("[::1%")); // Wrong!
-    } else
-#else
     EXPECT_EQ(saObj.netaddrp(), "[::1]:443");
-#endif
-        free_URL_list(&url_list);
+
+    free_URL_list(&url_list);
 }
 
 TEST(UriTestSuite, create_url_list_from_lla) {
     URL_list url_list;
     memset(&url_list, 0xAA, sizeof(url_list));
 
-    char urls[]{"<https://[fe80::5054]:58138/path/query#fragment>"};
+    char urls[]{"<https://[fe80::5054%252]:58138/path/query#fragment>"};
+
     memptr base_urls; // "<url><url>"
     base_urls.buf = urls;
     base_urls.length = strlen(urls);
 
     // Test Unit
-    ASSERT_EQ(::create_url_list(&base_urls, &url_list), 1);
+    int ret_create_url_list = ::create_url_list(&base_urls, &url_list);
+
+    if (old_code) {
+        // Apple returns 1 list entry but has the scope_id set to
+        // UINT32_MAX.
+        ASSERT_EQ(ret_create_url_list, compiler == CO::clang ? 1 : 0)
+            << "Wrong number of list entries.";
+        GTEST_SKIP() << CYEL "[  BUGFIX  ] " CRES
+                     << ": Unit must support a scope_id on an IPv6 link-local "
+                        "address.";
+    }
+
     // Destroy the input string to detect wrong pointer. It should be coppied to
     // url_list.
     ASSERT_STREQ(base_urls.buf, url_list.URLs);
@@ -557,22 +563,12 @@ TEST(UriTestSuite, create_url_list_from_lla) {
     EXPECT_THAT(url_list.parsedURLs[0].fragment.buff, StartsWith("fragment"));
     EXPECT_EQ(url_list.parsedURLs[0].fragment.size, 8);
     EXPECT_THAT(url_list.parsedURLs[0].hostport.text.buff,
-                StartsWith("[fe80::5054]:58138"));
-    EXPECT_EQ(url_list.parsedURLs[0].hostport.text.size, 18);
+                StartsWith("[fe80::5054%252]:58138"));
+    EXPECT_EQ(url_list.parsedURLs[0].hostport.text.size, old_code ? 18 : 22);
     SSockaddr saObj;
     saObj = url_list.parsedURLs[0].hostport.IPaddress;
-    if (old_code) {
-        std::cout
-            << CYEL "[ BUGFIX   ] " CRES << __LINE__
-            << ": IPv6 link-local address must not have a garbage scope id.\n";
-#ifdef __APPLE__
-        EXPECT_EQ(saObj.netaddrp(), ":58138"); // Wrong!
-#else
-        EXPECT_THAT(saObj.netaddrp(), StartsWith("[fe80::5054%")); // Wrong!
-#endif
-    } else {
-        EXPECT_EQ(saObj.netaddrp(), "[fe80::5054]:58138");
-    }
+    EXPECT_EQ(saObj.netaddrp(), "[fe80::5054%252]:58138");
+
     free_URL_list(&url_list);
 }
 
@@ -606,23 +602,10 @@ TEST(UriTestSuite, create_url_list_from_three_ip_addresses) {
                 StartsWith("[2001:db8::e]"));
     EXPECT_EQ(url_list.parsedURLs[1].hostport.text.size, 13);
     SSockaddr saObj;
-#ifndef __APPLE__
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": IPv6 addresses must not have garbage scope_ids.\n";
-        saObj = url_list.parsedURLs[0].hostport.IPaddress;
-        EXPECT_THAT(saObj.netaddrp(),
-                    StartsWith("[::ffff:192.168.1.2%"));            // Wrong!
-        saObj = url_list.parsedURLs[1].hostport.IPaddress;
-        EXPECT_THAT(saObj.netaddrp(), StartsWith("[2001:db8::e%")); // Wrong!
-    } else
-#endif
-    {
-        saObj = url_list.parsedURLs[0].hostport.IPaddress;
-        EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.1.2]:443");
-        saObj = url_list.parsedURLs[1].hostport.IPaddress;
-        EXPECT_EQ(saObj.netaddrp(), "[2001:db8::e]:80");
-    }
+    saObj = url_list.parsedURLs[0].hostport.IPaddress;
+    EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.1.2]:443");
+    saObj = url_list.parsedURLs[1].hostport.IPaddress;
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::e]:80");
 
     free_URL_list(&url_list);
 }
@@ -782,11 +765,12 @@ TEST(UriTestSuite, copy_url_list_successful) {
     if (old_code)
         // For details look for symbol UPNPLIB_PUPNP_BUG at the source code in
         // Pupnp/upnp/src/genlib/net/uri/uri.cpp: copy_url_list().
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+        std::cout << CYEL "[  BUGFIX  ] " CRES << __LINE__
                   << ": Possible leak with allocating memory for base_url and "
                      "url_list.\n";
     // Test Unit
     EXPECT_EQ(::copy_URL_list(&src_urlist, &dst_urlist), HTTP_SUCCESS);
+
     // Destroy source list to ensure there is a real copy with all its dynamic
     // allocations.
     memset(src_urlist.URLs, 0xAA, strlen(src_urlist.URLs + 1));
@@ -812,15 +796,7 @@ TEST(UriTestSuite, copy_url_list_successful) {
     EXPECT_EQ(dst_urlist.parsedURLs[0].hostport.text.size, 22);
     SSockaddr saObj;
     saObj = dst_urlist.parsedURLs[0].hostport.IPaddress;
-#ifndef __APPLE__
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": The resolved socket address must not have a garbage "
-                     "scope id.\n";
-        EXPECT_THAT(saObj.netaddrp(), StartsWith("[2001:db8::ac15%")); // Wrong!
-    } else
-#endif
-        EXPECT_EQ(saObj.netaddrp(), "[2001:db8::ac15]:58140");
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::ac15]:58140");
 
     free_URL_list(&dst_urlist);
 }

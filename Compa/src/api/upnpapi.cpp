@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-05-02
+ * Redistribution only with this Copyright remark. Last modified: 2026-05-10
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -248,7 +248,7 @@ namespace { // anonymous namespace for file scoped old upnpapi items.
  * \li Support MULTICAST.
  * \li Have a valid IPv6 link-local address.
  *
- * We'll retrieve the following information from the adapter:
+ * We'll retrieve the following information from the adapter list:
  * \li gIF_NAME -> adapter name (by input or found).
  * \li gIF_INDEX -> Unique local network adapter index number, rsp. LLA scope id
  * \li gIF_IPV4 -> not supported, always empty.

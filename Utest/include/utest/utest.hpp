@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_UTEST_HPP
 #define UPnPsdk_UTEST_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-28
+// Redistribution only with this Copyright remark. Last modified: 2026-05-14
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/port.hpp>
@@ -28,6 +28,25 @@ constexpr bool old_code{false};
 #endif
 const bool github_actions{static_cast<bool>(std::getenv("GITHUB_ACTIONS"))};
 
+
+// Alternative proof of runtime select of the platform instead of conditional
+// compiling.
+enum class CO { // Possible compiler
+    unknown,
+    gnuc,
+    clang,
+    msc
+};
+// Current used compiler
+#if defined(__GNUC__) && !defined(__clang__)
+CO compiler = CO::gnuc;
+#elif defined(__clang__)
+CO compiler = CO::clang;
+#elif defined(_MSC_VER)
+CO compiler = CO::msc;
+#else
+CO compiler = CO::unknown;
+#endif
 
 // ###############################
 //            Helper             #

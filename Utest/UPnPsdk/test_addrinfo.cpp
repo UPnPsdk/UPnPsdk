@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-09
+// Redistribution only with this Copyright remark. Last modified: 2026-05-14
 
 // I test different address infos that we get from system function
 // ::getaddrinfo().
@@ -37,25 +37,6 @@ namespace {
 SSockaddr saddr;
 
 constexpr int suppress_dns_lookup{AI_NUMERICHOST};
-
-// Alternative proof of runtime select of the platform instead of conditional
-// compiling.
-enum class Co { // Possible compiler
-    unknown,
-    gnuc,
-    clang,
-    msc
-};
-// Current used compiler
-#if defined(__GNUC__) && !defined(__clang__)
-Co co = Co::gnuc;
-#elif defined(__clang__)
-Co co = Co::clang;
-#elif defined(_MSC_VER)
-Co co = Co::msc;
-#else
-Co co = Co::unknown;
-#endif
 
 } // anonymous namespace
 
@@ -138,8 +119,10 @@ INSTANTIATE_TEST_SUITE_P(
         // This Test checks the netaddress with port.
         // With an invalid address part the whole netaddress is unspecified,
         // except with the first following well defined unspecified addresses.
-        // A valid addreess with an invalid port results to port 0.
- /*00*/ std::make_tuple("[::]", "[::]:0", Entry::one, Error::no),
+        // A valid address with an invalid port results to port 0.
+ /*00*/ std::make_tuple(":", "[::1]:0", Entry::one, Error::no), // default addr=nullptr, set port=0, result=localhost
+        std::make_tuple("::", "[::]:0", Entry::one, Error::no),
+        std::make_tuple("[::]", "[::]:0", Entry::one, Error::no),
         std::make_tuple("[::]:", "[::]:0", Entry::one, Error::no),
         std::make_tuple("[::]:0", "[::]:0", Entry::one, Error::no),
         std::make_tuple("[::]:65535", "[::]:65535", Entry::one, Error::no), // port 0 to 65535
@@ -148,11 +131,9 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_tuple("[", "", Entry::no, Error::yes),
         std::make_tuple("]", "", Entry::no, Error::yes),
         std::make_tuple("[]", "", Entry::no, Error::yes),
-        std::make_tuple(":", "", Entry::no, Error::yes),
         std::make_tuple(".", "", Entry::no, Error::yes),
-        std::make_tuple(".:", "", Entry::no, Error::yes),
- /*10*/ std::make_tuple(":.", "", Entry::no, Error::yes),
-        std::make_tuple("::", "[::]:0", Entry::one, Error::no),
+ /*10*/ std::make_tuple(".:", "", Entry::no, Error::yes),
+        std::make_tuple(":.", "", Entry::no, Error::yes),
         std::make_tuple(":::", "", Entry::no, Error::yes),
         std::make_tuple("[::", "", Entry::no, Error::yes),
         std::make_tuple("::]", "", Entry::no, Error::yes),
@@ -167,8 +148,8 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_tuple("[::1]:0", "[::1]:0", Entry::one, Error::no),
         // std::make_tuple("[::1].4", "", Entry::one, Error::no), // dot for colon, takes long time, mocked later
         std::make_tuple("127.0.0.1", "[::ffff:127.0.0.1]:0", Entry::one, Error::no),
- /*20*/ std::make_tuple("127.0.0.1:", "[::ffff:127.0.0.1]:0", Entry::one, Error::no),
-        std::make_tuple("127.0.0.1:0", "[::ffff:127.0.0.1]:0", Entry::one, Error::no),
+        std::make_tuple("127.0.0.1:", "[::ffff:127.0.0.1]:0", Entry::one, Error::no),
+ /*20*/ std::make_tuple("127.0.0.1:0", "[::ffff:127.0.0.1]:0", Entry::one, Error::no),
         // std::make_tuple("127.0.0.1.5", "", Entry::one, Error::no), // dot for colon, takes long time, mocked later
         std::make_tuple("[2001:db8::43]:", "[2001:db8::43]:0", Entry::one, Error::no),
         std::make_tuple("2001:db8::41:59897", "", Entry::no, Error::yes), // no brackets and wrong quad
@@ -179,8 +160,8 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_tuple("[2001:db8::52]:9999999999", "", Entry::no, Error::yes), // invalid port
         std::make_tuple("[2001:db8::52::53]", "", Entry::no, Error::yes), // double double colon
         std::make_tuple("[2001:db8::52::54]:65535", "", Entry::no, Error::yes), // double double colon
- /*30*/ std::make_tuple("[12.168.88.95]", "", Entry::no, Error::yes), // IPv4 address with brackets
-        std::make_tuple("[12.168.88.96]:", "", Entry::no, Error::yes),
+        std::make_tuple("[12.168.88.95]", "", Entry::no, Error::yes), // IPv4 address with brackets
+ /*30*/ std::make_tuple("[12.168.88.96]:", "", Entry::no, Error::yes),
         std::make_tuple("[12.168.88.97]:9876", "", Entry::no, Error::yes),
         // std::make_tuple("192.168.88.98:59876", "192.168.88.98:59876", Entry::one, Error::no), // tested later
         std::make_tuple("192.168.88.99:65537", "", Entry::no, Error::yes), // invalid port
@@ -487,7 +468,7 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
 // Other tests
 // -----------
 TEST(AddrinfoTestSuite, query_ipv6_addrinfo_successful) {
-    CAddrinfo ai1("[fe80:db8::8%1]:50001");
+    CAddrinfo ai1("[2001:db8::8%1]:50001");
 
     // Check the initialized object. This is what we have given with the
     // constructor. We get just the initialized hints.
@@ -512,11 +493,8 @@ TEST(AddrinfoTestSuite, query_ipv6_addrinfo_successful) {
     EXPECT_EQ(ai1->ai_addrlen, 28);
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
-    // I don't know why macOS cripples address to "[fe80::8%lo0]:50001"
     ai1.sockaddr(saddr);
-    EXPECT_THAT(saddr.netaddrp(),
-                AnyOf("[fe80:db8::8%lo]:50001", "[fe80::8%lo0]:50001",
-                      "[fe80:db8::8%1]:50001"));
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::8]:50001");
     EXPECT_EQ(ai1->ai_next, nullptr);
     EXPECT_EQ(ai1.what(), "Success.");
 }
@@ -1224,7 +1202,8 @@ TEST(AddrinfoTestSuite, service_out_of_range) {
     EXPECT_EQ(ai1->ai_flags, AI_V4MAPPED | AI_NUMERICHOST);
     ai1.sockaddr(saddr);
     EXPECT_EQ(saddr.netaddrp(), ":0");
-    EXPECT_THAT(ai1.what(), HasSubstr("] WHAT MSG1128: catched next line"));
+    EXPECT_THAT(ai1.what(),
+                HasSubstr("] WHAT MSG1128: Port number 65536 out of range"));
     // std::cout << ai1.what() << '\n';
 }
 
@@ -1240,8 +1219,7 @@ TEST(AddrinfoTestSuite, load_loopback_addr_with_scope_id) {
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     ai1.sockaddr(saddr);
-    EXPECT_THAT(saddr.netaddrp(),
-                Conditional(co == Co::clang, "[::1]:0", "[::1%1]:0"));
+    EXPECT_EQ(saddr.netaddrp(), "[::1]:0");
     EXPECT_EQ(ai1->ai_next, nullptr);
 
     CAddrinfo ai2("[::1%lo]");
@@ -1275,9 +1253,7 @@ TEST(AddrinfoTestSuite, load_lla_with_scope_id) {
     EXPECT_NE(ai1->ai_addr, nullptr);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     ai1.sockaddr(saddr);
-    EXPECT_THAT(
-        saddr.netaddrp(),
-        AnyOf("[fe80::acd%lo]:22", "[fe80::acd%lo0]:22", "[fe80::acd%1]:22"));
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::acd%1]:22");
     EXPECT_EQ(ai1->ai_next, nullptr);
 
     CAddrinfo ai2("[fe80::acd%lo]:ssh");
@@ -1294,8 +1270,8 @@ TEST(AddrinfoTestSuite, load_lla_with_scope_id) {
     EXPECT_NE(ai2->ai_addr, nullptr);
     EXPECT_EQ(ai2->ai_canonname, nullptr);
     ai2.sockaddr(saddr);
-    EXPECT_THAT(saddr.netaddrp(), Conditional(co == Co::clang, "[fe80::acd]:22",
-                                              "[fe80::acd%lo]:22"));
+    EXPECT_EQ(saddr.netaddrp(),
+              compiler == CO::clang ? "[fe80::acd]:22" : "[fe80::acd%1]:22");
     EXPECT_EQ(ai2->ai_next, nullptr);
 #endif // _MSC_VER
 }
@@ -1315,9 +1291,7 @@ TEST(AddrinfoTestSuite, load_gua_with_scope_id) {
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     // AppleClang accepts scope id (%1) only from link local addresses [fe80::]
     ai1.sockaddr(saddr);
-    EXPECT_THAT(saddr.netaddrp(),
-                Conditional(co == Co::clang, "[2001:db8::55]:443",
-                            "[2001:db8::55%1]:443"));
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::55]:443");
     EXPECT_EQ(ai1->ai_next, nullptr);
 
     CAddrinfo ai2("[2001:db8::55%lo]:https");
@@ -1333,9 +1307,7 @@ TEST(AddrinfoTestSuite, load_gua_with_scope_id) {
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     // AppleClang accepts scope id (%1) only from link local addresses [fe80::]
     ai1.sockaddr(saddr);
-    EXPECT_THAT(saddr.netaddrp(),
-                Conditional(co == Co::clang, "[2001:db8::55]:443",
-                            "[2001:db8::55%1]:433"));
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::55]:443");
     EXPECT_EQ(ai1->ai_next, nullptr);
 #else
     EXPECT_FALSE(ai2.get_first());

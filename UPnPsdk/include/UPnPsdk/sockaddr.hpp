@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-02-22
+// Redistribution only with this Copyright remark. Last modified: 2026-05-12
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -80,38 +80,44 @@ int to_port( //
 
 
 /*!
- * \brief Free function to split inet address and port(service)
- * <!-- --------------------------------------------------- -->
+ * \brief Free function to split inet address, scope_id, and port(service)
+ * <!-- -------------------------------------------------------------- -->
  * \ingroup upnplib-addrmodul
  * \code
  * // Usage e.g., not a complete list:
- * std::string addr, serv;
- * split_addr_port("[2001:db8::1]:50001", addr, serv);
- * split_addr_port("2001:DB8::1", addr, serv);
- * split_addr_port("127.0.0.1:0", addr, serv);
- * split_addr_port("127.0.0.1", addr, serv);
- * split_addr_port(":50002", addr, serv);
- * split_addr_port("example.COM:50003", addr, serv);
- * split_addr_port("example.com:HTTPS", addr, serv);
- * split_addr_port("[::FFff:142.250.185.99]:ssh", addr, serv);
+ * std::string addr, scope, serv;
+ * split_addr_port("[2001:db8::1]:50001", addr, scope, serv);
+ * split_addr_port("2001:DB8::1", addr, scope, serv);
+ * split_addr_port("[fe80::2%3]:50002", addr, scope, serv);
+ * split_addr_port("127.0.0.1:0", addr, scope, serv);
+ * split_addr_port("127.0.0.1", addr, scope, serv);
+ * split_addr_port(":50002", addr, scope, serv);
+ * split_addr_port("example.COM:50003", addr, scope, serv);
+ * split_addr_port("example.com:HTTPS", addr, scope, serv);
+ * split_addr_port("[::FFff:142.250.185.99]:ssh", addr, scope, serv);
  * \endcode
  *
- * This is a function for special use to prepare input for system call
- * ::%getaddrinfo(). Its results returned in \b a_addr and \b a_serv are only
- * useful for ::%getaddrinfo() and are not meant for general usage. For example
- * returned IPv6 addresses never have brackets because ::%getaddrinfo() does not
- * accept them, port numbers are limited to 65535 because ::%getaddrinfo()
- * accepts also greater numbers with overrun to 65535 + 1 = 0.
+ * This is a function for special use to prepare input for system calls
+ * without brackets. Its results returned in \b a_addr, \b a_scope, and \b
+ * a_serv are only useful for this purpose and not meant for general usage. The
+ * function only syntactical split the components on its separator '\%' and ':'.
+ * No syntactical tests are made. For example a scope_id on a global unicast
+ * address, or a port number greater 65535 is not valid but also provided in \b
+ * a_scope, resp. \b a_serv. These tests must be made on a higher abstraction
+ * layer.
  * */
 void split_addr_port( //
-    /*! [in] Any string. If it can be interpreted as an ip-address or -name
-     * with or without port number or name, its parts will be retured. */
-    std::string_view a_addr_str,
-    /*! [in,out] Reference of a string that will be filled with the ip address
+    /*! [in] Any string. If it can be interpreted as an ip-address or -name with
+       or without port number or name, its parts will be returned. */
+    const std::string_view a_addr_sv,
+    /*! [out] Reference of a string that will be filled with the ip address
        part. This can also be a alphanumeric name like "example.com" */
     std::string& a_addr,
-    /// [in,out] Reference of a string that will be filled with the port part.
-    std::string& a_serv);
+    /*! [out] Reference of a string that will be filled with the scope_id of a
+       link-local address. */
+    std::string& a_scope,
+    /// [out] Reference of a string that will be filled with the port part.
+    std::string& a_serv) noexcept;
 
 
 /*!
@@ -129,6 +135,11 @@ std::cout << "netaddress of saObj is " << saObj << "\n";
  * This structure should be usable on a low level like the trival C `struct
  * ::%sockaddr_storage` but provides additional methods to manage its data.
  * When ever this SDK manage a network address it uses an object of this class.
+ *
+ * \note This class is frequently used so performance has to taken into
+ * account. This is why the destructor isn't virtual and **you should not
+ * derive from this class as base class. Also runtime polymorphism should not
+ * be used** (deleting through a base class pointer).
  */
 struct UPnPsdk_API SSockaddr {
     /// Reference to sockaddr_storage struct
@@ -148,7 +159,7 @@ struct UPnPsdk_API SSockaddr {
 
     // Destructor
     // ----------
-    virtual ~SSockaddr();
+    ~SSockaddr();
 
     // Get reference to the sockaddr_storage structure.
     // Only as example, I don't use it because it may be confusing. I only use
@@ -225,12 +236,16 @@ struct UPnPsdk_API SSockaddr {
               ":55555" results to "[2001:db8::52]:55555" (address prev setting)
                "55556" same as before with leading colon.
 \endverbatim
-     * \exception std::invalid_argument
-     *            Invalid [netaddress](\ref glossary_netaddr).
+    * **On error**\n
+    * The socket-address Object is reset, means it is empty. Check with
+    * `saObj.ss.ss_family == AF_UNSPEC`. Typical errors are:
+    * - link-local address without scope_id
+    * - other IPv6 address with scope_id
+    * - port number greater than 65535
     */
     void operator=(
         /// [in] String with a possible netaddress
-        std::string_view a_addr_str); // noexept?
+        const std::string_view a_addr_str) noexcept;
 
 
     // Assignment operator= to set socket port from an integer
@@ -281,8 +296,10 @@ struct UPnPsdk_API SSockaddr {
      * // Usage e.g.:
      * SSockaddr saObj;
      * if (saObj.netaddr() == "[::1]") { manage_localhost(); }
-     * \endcode */
-    const std::string netaddr() noexcept;
+     * \endcode
+     * \returns
+     *   Netaddress from socket address. */
+    std::string netaddr() noexcept;
 
 
     // Getter for a netaddress with port
@@ -292,8 +309,10 @@ struct UPnPsdk_API SSockaddr {
      * // Usage e.g.:
      * SSockaddr saObj;
      * if (saObj.netaddrp() == "[::1]:49494") { manage_localhost(); }
-     * \endcode */
-    const std::string netaddrp() noexcept;
+     * \endcode
+     * \returns
+     *   Netaddress with port from socket address. */
+    std::string netaddrp() noexcept;
 
 
     /// \brief Get the numeric port

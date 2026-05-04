@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2026-04-21
+# Redistribution only with this Copyright remark. Last modified: 2026-05-14
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -167,44 +167,27 @@ add_test(NAME ctest_upnpapi-cst COMMAND test_upnpapi-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
-add_executable(test_upnpapi_platform-pst
-#---------------------------------------
-    $<$<PLATFORM_ID:Windows>:test_upnpapi_win32.cpp>
-    $<$<NOT:$<PLATFORM_ID:Windows>>:test_upnpapi_unix.cpp>
+if(WIN32)
+add_executable(test_upnpapi_win32-pst
+#------------------------------------
+    test_upnpapi_win32.cpp
 )
-target_include_directories(test_upnpapi_platform-pst
+target_include_directories(test_upnpapi_win32-pst
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
-target_compile_options(test_upnpapi_platform-pst
+target_compile_options(test_upnpapi_win32-pst
         # disable warning C4505: 'GetFreeHandle': unreferenced local function
         # has been removed This isn't used with WIN32 but on other platforms. I
         # won't modify pupnp code. --Ingo
         PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/wd4505>
 )
-target_link_libraries(test_upnpapi_platform-pst
+target_link_libraries(test_upnpapi_win32-pst
     PRIVATE
         pupnp_static
-        utest_static
+        UPnPsdk_static # must be static for win32
+        utest_static   # must be static for win32
 )
-add_test(NAME ctest_upnpapi_platform-pst COMMAND test_upnpapi_platform-pst --gtest_shuffle
-    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
-)
-
-if(NOT WIN32)
-add_executable(test_upnpapi_platform-cst
-#---------------------------------------
-#    $<$<PLATFORM_ID:Windows>:test_upnpapi_win32.cpp>
-    $<$<NOT:$<PLATFORM_ID:Windows>>:test_upnpapi_unix.cpp>
-)
-target_include_directories(test_upnpapi_platform-cst
-    PRIVATE ${CMAKE_SOURCE_DIR}
-)
-target_link_libraries(test_upnpapi_platform-cst
-    PRIVATE
-        compa_static
-        utest_static
-)
-add_test(NAME ctest_upnpapi_platform-cst COMMAND test_upnpapi_platform-cst --gtest_shuffle
+add_test(NAME ctest_upnpapi_win32-pst COMMAND test_upnpapi_win32-pst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 endif()

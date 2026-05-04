@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-09
+// Redistribution only with this Copyright remark. Last modified: 2026-05-14
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 #include <utest/utest.hpp>
@@ -20,59 +20,80 @@ using ::UPnPsdk::to_port;
 
 // SSockaddr TestSuite
 // ===========================
-class SetAddrPortTest
-    : public ::testing::TestWithParam<std::tuple<
-          const std::string, const int, const std::string, const int>> {};
+class SetAddrPortTest : public ::testing::TestWithParam<
+                            std::tuple<const std::string_view, const int,
+                                       const std::string_view, const int>> {};
+
+SSockaddr saObj;
 
 TEST_P(SetAddrPortTest, set_address_and_port) {
     // Get parameter
     const std::tuple params = GetParam();
-    const std::string netaddr = std::get<0>(params);
+    const std::string_view netaddr_sv = std::get<0>(params);
     const int family = std::get<1>(params);
-    const std::string addr_str = std::get<2>(params);
     const int port = std::get<3>(params);
+    const std::string_view addr_sv = std::get<2>(params);
+    std::string addrp_st;
+    addrp_st.reserve(addr_sv.size() + 1 + 10); // UINT16_MAX has 10 digits.
+    addrp_st.append(addr_sv).append(":").append(std::to_string(port));
 
-    SSockaddr saddr;
-    saddr = netaddr;
-    EXPECT_EQ(saddr.ss.ss_family, family);
-    EXPECT_EQ(saddr.netaddr(), addr_str);
-    EXPECT_EQ(saddr.netaddrp(), addr_str + ":" + std::to_string(port));
-    EXPECT_EQ(saddr.port(), port);
+    saObj = netaddr_sv;
+    EXPECT_EQ(saObj.ss.ss_family, family);
+    EXPECT_EQ(saObj.netaddr(), addr_sv);
+    // 99999 means, port is untouched and varies from previous entry.
+    if (port != 99999) {
+        EXPECT_EQ(saObj.netaddrp(), addrp_st);
+        EXPECT_EQ(saObj.port(), port);
+    }
 }
 
 // clang-format off
 INSTANTIATE_TEST_SUITE_P(SetAddrPort, SetAddrPortTest, ::testing::Values(
-    // std::make_tuple("", AF_UNSPEC, "", 0), // special, single tested
-    // --- Essential for checking bind, see note next test
-    std::make_tuple("", AF_UNSPEC, "", 0),
-    std::make_tuple(":0", AF_UNSPEC, "", 0),
-    std::make_tuple("::", AF_INET6, "[::]", 0),
-    std::make_tuple("[::]", AF_INET6, "[::]", 0),
-    std::make_tuple("[::]:", AF_INET6, "[::]", 0),
-    std::make_tuple("[::]:0", AF_INET6, "[::]", 0),
-    // ---
-    std::make_tuple("[::]:50064", AF_INET6, "[::]", 50064),
-    std::make_tuple("::1", AF_INET6, "[::1]", 0),
-    std::make_tuple("[::1]", AF_INET6, "[::1]", 0),
-    std::make_tuple("[::1]:", AF_INET6, "[::1]", 0),
-    std::make_tuple("[::1]:0", AF_INET6, "[::1]", 0),
-    std::make_tuple("[::1]:50065", AF_INET6, "[::1]", 50065),
-    std::make_tuple("2001:db8::70", AF_INET6, "[2001:db8::70]", 0),
-    std::make_tuple("[2001:db8::68]", AF_INET6, "[2001:db8::68]", 0),
-    std::make_tuple("[2001:db8::67]:", AF_INET6, "[2001:db8::67]", 0),
-    // --- Essential for checking bind, see note next test
-    std::make_tuple("0.0.0.0", AF_INET, "0.0.0.0", 0),
-    std::make_tuple("0.0.0.0:", AF_INET, "0.0.0.0", 0),
-    std::make_tuple("0.0.0.0:0", AF_INET, "0.0.0.0", 0),
-    // ---
-    std::make_tuple("0.0.0.0:50068", AF_INET, "0.0.0.0", 50068),
-    std::make_tuple("127.0.0.1", AF_INET, "127.0.0.1", 0),
-    std::make_tuple("127.0.0.1:", AF_INET, "127.0.0.1", 0),
-    std::make_tuple("127.0.0.1:50069", AF_INET, "127.0.0.1", 50069),
-    std::make_tuple("192.168.33.34", AF_INET, "192.168.33.34", 0),
-    std::make_tuple("192.168.33.35:", AF_INET, "192.168.33.35", 0),
-    std::make_tuple("192.168.33.35:0", AF_INET, "192.168.33.35", 0),
-    std::make_tuple("192.168.33.36:50067", AF_INET, "192.168.33.36", 50067)
+        // std::make_tuple("", AF_UNSPEC, "", 0), // special, single tested
+        // --- Essential for checking bind, see note next test
+ /*00*/ std::make_tuple("", AF_UNSPEC, "", 0),
+        std::make_tuple("::", AF_INET6, "[::]", 99999), // means port from previous entry.
+        std::make_tuple("[::]", AF_INET6, "[::]", 99999), // means port from previous entry.
+        std::make_tuple("[::]:", AF_INET6, "[::]", 0),
+        std::make_tuple("[::]:0", AF_INET6, "[::]", 0),
+        // ---
+        std::make_tuple("[::]:50064", AF_INET6, "[::]", 50064),
+        std::make_tuple("::1", AF_INET6, "[::1]", 99999), // means port from previous entry.
+        std::make_tuple("[::1]", AF_INET6, "[::1]", 99999), // means port from previous entry.
+        std::make_tuple("[::1]:", AF_INET6, "[::1]", 0),
+ /*10*/ std::make_tuple("[::1]:0", AF_INET6, "[::1]", 0),
+        std::make_tuple("[::1]:50065", AF_INET6, "[::1]", 50065),
+        std::make_tuple("2001:db8::70", AF_INET6, "[2001:db8::70]", 99999), // means port from previous entry.
+        std::make_tuple("[2001:db8::68]", AF_INET6, "[2001:db8::68]", 99999), // means port from previous entry.
+        std::make_tuple("[2001:db8::67]:", AF_INET6, "[2001:db8::67]", 0),
+        // --- Essential for checking bind, see note next test
+        std::make_tuple("0.0.0.0", AF_INET, "0.0.0.0", 99999), // means port from previous entry.
+        std::make_tuple("0.0.0.0:", AF_INET, "0.0.0.0", 0),
+        std::make_tuple("0.0.0.0:0", AF_INET, "0.0.0.0", 0),
+        // ---
+        std::make_tuple("0.0.0.0:50068", AF_INET, "0.0.0.0", 50068),
+        std::make_tuple("127.0.0.1", AF_INET, "127.0.0.1", 99999), // means port from previous entry.
+ /*20*/ std::make_tuple("127.0.0.1:", AF_INET, "127.0.0.1", 0),
+        std::make_tuple("127.0.0.1:50069", AF_INET, "127.0.0.1", 50069),
+        std::make_tuple("192.168.33.34", AF_INET, "192.168.33.34", 99999), // means port from previous entry.
+        std::make_tuple("192.168.33.35:", AF_INET, "192.168.33.35", 0),
+        std::make_tuple("192.168.33.35:0", AF_INET, "192.168.33.35", 0),
+        std::make_tuple("192.168.33.36:50067", AF_INET, "192.168.33.36", 50067),
+        // --- Failing calls
+        std::make_tuple(":65536", AF_UNSPEC, "", 0), // Number string with colon not in range 0..65535.
+        std::make_tuple("65536", AF_UNSPEC, "", 0), // Number string not in range 0..65535.
+        std::make_tuple("127.0.0.1:65536", AF_UNSPEC, "", 0), // Number string with port not in range 0..65535.
+ /*30*/ std::make_tuple("garbage", AF_UNSPEC, "", 0), // Invalid netaddress.
+        std::make_tuple("[2001::db8::1]", AF_UNSPEC, "", 0), // Invalid netaddress.
+        std::make_tuple("2001:db8::2]", AF_UNSPEC, "", 0), // Invalid netaddress.
+        std::make_tuple("[2001:db8::3", AF_UNSPEC, "", 0), // Invalid netaddress.
+        std::make_tuple("[2001:db8::5]50003", AF_UNSPEC, "", 0), // Missing port separator ':'.
+        std::make_tuple("[2001:db8::35003]", AF_UNSPEC, "", 0), // Invalid netaddress.
+        std::make_tuple("192.168.66.67.", AF_UNSPEC, "", 0), // Invalid netaddress, postpended dot.
+        std::make_tuple("192.168.66.67z", AF_UNSPEC, "", 0), // Invalid netaddress.
+        std::make_tuple("[192.168.66.67]", AF_UNSPEC, "", 0), // Invalid IPv4 address with brackets.
+        std::make_tuple("[192.168.66.68]:", AF_UNSPEC, "", 0), // Invalid IPv4 address with brackets.
+ /*40*/ std::make_tuple("[192.168.66.68]:50044", AF_UNSPEC, "", 0) // Invalid IPv4 address with brackets.
 ));
 // clang-format on
 //
@@ -98,93 +119,103 @@ TEST(SockaddrStorageTestSuite, pattern_for_checking_bind) {
     EXPECT_EQ(saddr.port(), 0);
 }
 
-TEST(SockaddrStorageTestSuite, modify_address_and_port_successful) {
-    SSockaddr saddr;
+TEST(SockaddrStorageTestSuite, modify_ipv6_address_and_port_special_cases) {
+    SSockaddr sa1Obj;
 
-    saddr = 50010;
-    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
-    EXPECT_EQ(saddr.netaddr(), "");
-    EXPECT_EQ(saddr.netaddrp(), ":50010");
-    EXPECT_EQ(saddr.port(), 50010);
+    // Setting port integer on empty sockaddr.
+    sa1Obj = 50010;
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(sa1Obj.netaddr(), "");
+    EXPECT_EQ(sa1Obj.netaddrp(), ":50010");
+    EXPECT_EQ(sa1Obj.port(), 50010);
 
-    saddr = "50022";
-    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
-    EXPECT_EQ(saddr.netaddr(), "");
-    EXPECT_EQ(saddr.netaddrp(), ":50022");
-    EXPECT_EQ(saddr.port(), 50022);
+    // Set ip address and port.
+    sa1Obj = "[fe80::aaa%432]:51234";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(sa1Obj.netaddr(), "[fe80::aaa%432]");
+    EXPECT_EQ(sa1Obj.netaddrp(), "[fe80::aaa%432]:51234");
+    EXPECT_EQ(sa1Obj.port(), 51234);
 
-    // Setting address and port in two steps
-    saddr.ss.ss_family = AF_INET;
-    saddr = "[2001:db8::3]:";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
-    EXPECT_EQ(saddr.netaddr(), "[2001:db8::3]");
-    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::3]:0");
-    EXPECT_EQ(saddr.port(), 0);
-    EXPECT_EQ(saddr.port(), 0);
+    // Modify only ip address.
+    sa1Obj = "[fe80::bbb%432]";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(sa1Obj.netaddr(), "[fe80::bbb%432]");
+    EXPECT_EQ(sa1Obj.netaddrp(), "[fe80::bbb%432]:51234");
+    EXPECT_EQ(sa1Obj.port(), 51234);
 
-    saddr = "[2001:db8::1]:50001";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
-    EXPECT_EQ(saddr.netaddr(), "[2001:db8::1]");
-    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:50001");
-    EXPECT_EQ(saddr.port(), 50001);
+    // Modify only port.
+    sa1Obj = "61666";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(sa1Obj.netaddr(), "[fe80::bbb%432]");
+    EXPECT_EQ(sa1Obj.netaddrp(), "[fe80::bbb%432]:61666");
+    EXPECT_EQ(sa1Obj.port(), 61666);
 
-    saddr = 0;
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
-    EXPECT_EQ(saddr.netaddr(), "[2001:db8::1]");
-    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:0");
-    EXPECT_EQ(saddr.port(), 0);
+    // Reset only port.
+    sa1Obj = ":";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(sa1Obj.netaddr(), "[fe80::bbb%432]");
+    EXPECT_EQ(sa1Obj.netaddrp(), "[fe80::bbb%432]:0");
+    EXPECT_EQ(sa1Obj.port(), 0);
 
-    saddr = 65535;
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
-    EXPECT_EQ(saddr.netaddr(), "[2001:db8::1]");
-    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:65535");
-    EXPECT_EQ(saddr.port(), 65535);
+    // Modify only port also with port separator.
+    sa1Obj = ":49999";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(sa1Obj.netaddr(), "[fe80::bbb%432]");
+    EXPECT_EQ(sa1Obj.netaddrp(), "[fe80::bbb%432]:49999");
+    EXPECT_EQ(sa1Obj.port(), 49999);
 
-    saddr = ":65535";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
-    EXPECT_EQ(saddr.netaddr(), "[2001:db8::1]");
-    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:65535");
-    EXPECT_EQ(saddr.port(), 65535);
+    // and reset only port with port separator.
+    sa1Obj = ":0";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(sa1Obj.netaddr(), "[fe80::bbb%432]");
+    EXPECT_EQ(sa1Obj.netaddrp(), "[fe80::bbb%432]:0");
+    EXPECT_EQ(sa1Obj.port(), 0);
+}
 
-    // This will not modify the port
-    saddr = "192.168.47.48";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET);
-    EXPECT_EQ(saddr.netaddr(), "192.168.47.48");
-    EXPECT_EQ(saddr.netaddrp(), "192.168.47.48:65535");
-    EXPECT_EQ(saddr.port(), 65535);
+TEST(SockaddrStorageTestSuite, modify_ipv4_address_and_port_special_cases) {
+    SSockaddr sa1Obj;
 
-    // Check that a failing call does not modify old settings.
-    EXPECT_THAT(
-        [&saddr]() { saddr = "65536"; },
-        ThrowsMessage<std::range_error>(HasSubstr("UPnPsdk MSG1127 EXCEPT[")));
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET);
-    EXPECT_EQ(saddr.netaddr(), "192.168.47.48");
-    EXPECT_EQ(saddr.netaddrp(), "192.168.47.48:65535");
-    EXPECT_EQ(saddr.port(), 65535);
+    // Set ip address and port.
+    sa1Obj = "192.168.11.47:51234";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET);
+    EXPECT_EQ(sa1Obj.netaddr(), "192.168.11.47");
+    EXPECT_EQ(sa1Obj.netaddrp(), "192.168.11.47:51234");
+    EXPECT_EQ(sa1Obj.port(), 51234);
 
-    saddr = "[2001:db8::2]";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
-    EXPECT_EQ(saddr.netaddr(), "[2001:db8::2]");
-    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::2]:65535");
-    EXPECT_EQ(saddr.port(), 65535);
+    // Modify only ip address.
+    sa1Obj = "192.168.47.11";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET);
+    EXPECT_EQ(sa1Obj.netaddr(), "192.168.47.11");
+    EXPECT_EQ(sa1Obj.netaddrp(), "192.168.47.11:51234");
+    EXPECT_EQ(sa1Obj.port(), 51234);
 
-    saddr = "127.0.0.4:50004";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET);
-    EXPECT_EQ(saddr.netaddr(), "127.0.0.4");
-    EXPECT_EQ(saddr.netaddrp(), "127.0.0.4:50004");
-    EXPECT_EQ(saddr.port(), 50004);
+    // Modify only port.
+    sa1Obj = "61666";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET);
+    EXPECT_EQ(sa1Obj.netaddr(), "192.168.47.11");
+    EXPECT_EQ(sa1Obj.netaddrp(), "192.168.47.11:61666");
+    EXPECT_EQ(sa1Obj.port(), 61666);
 
-    saddr = "2001:db8::7";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
-    EXPECT_EQ(saddr.netaddr(), "[2001:db8::7]");
-    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::7]:50004");
-    EXPECT_EQ(saddr.port(), 50004);
+    // Reset only port.
+    sa1Obj = ":";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET);
+    EXPECT_EQ(sa1Obj.netaddr(), "192.168.47.11");
+    EXPECT_EQ(sa1Obj.netaddrp(), "192.168.47.11:0");
+    EXPECT_EQ(sa1Obj.port(), 0);
 
-    saddr = "127.0.0.6:";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET);
-    EXPECT_EQ(saddr.netaddr(), "127.0.0.6");
-    EXPECT_EQ(saddr.netaddrp(), "127.0.0.6:0");
-    EXPECT_EQ(saddr.port(), 0);
+    // Modify only port also with port separator.
+    sa1Obj = ":49999";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET);
+    EXPECT_EQ(sa1Obj.netaddr(), "192.168.47.11");
+    EXPECT_EQ(sa1Obj.netaddrp(), "192.168.47.11:49999");
+    EXPECT_EQ(sa1Obj.port(), 49999);
+
+    // and reset only port with port separator.
+    sa1Obj = ":0";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_INET);
+    EXPECT_EQ(sa1Obj.netaddr(), "192.168.47.11");
+    EXPECT_EQ(sa1Obj.netaddrp(), "192.168.47.11:0");
+    EXPECT_EQ(sa1Obj.port(), 0);
 }
 
 TEST(SockaddrStorageTestSuite, set_link_local_address) {
@@ -196,40 +227,50 @@ TEST(SockaddrStorageTestSuite, set_link_local_address) {
     // Different platforms behave different for accepting a valid LLA.
     SSockaddr saddr;
 
-    saddr = "[fe80::]";
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::]:0");
+    saddr = "[fe80::%]";
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
-    saddr = "[fe80::1]:50001";
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::1]:50001");
+    saddr = "[fe80::%0]";
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
-    saddr = "[fe80::1111:2222:3333:4444]:50002";
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::1111:2222:3333:4444]:50002");
+    saddr = "[fe80::%321]";
+    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::%321]:0");
 
-    // Invalid LLA?
-    saddr = "[fe80::1:2222:3333:4444:5555]:50003";
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::1:2222:3333:4444:5555]:50003");
+    // Previous scope_id %321 should be deleted. That wasn't the case.
+    saddr = "[2001:db8::1]";
+    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:0");
 
-    // Invalid LLA?
-    saddr = "[fe80:1::2222:3333:4444:5555]:50004";
-#ifdef __APPLE__
-    // Huu? Seems macOS modifies to a different ip address.
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::2222:3333:4444:5555%lo0]:50004");
-#else
-    EXPECT_EQ(saddr.netaddrp(), "[fe80:1::2222:3333:4444:5555]:50004");
-#endif
+    // No link-local address with scope_id must fail.
+    saddr = "[2001:db8::1%321]";
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
-    // Invalid LLA?
-    saddr = "[fe80::5678:9abc:def1:2345:6789:abcd]:50005";
-    EXPECT_EQ(saddr.netaddrp(), "[fe80:0:5678:9abc:def1:2345:6789:abcd]:50005");
+    saddr = "[fe80::1%1234567890]:50001";
+    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::1%1234567890]:50001");
 
-    // Invalid LLA?
-    saddr = "[fe80:1234:5678:9abc:def1:2345:6789:abcd]:50006";
-#ifdef __APPLE__
-    EXPECT_EQ(saddr.netaddrp(), ":50006");
-#else
+    // Too big scope_id must fail.
+    saddr = "[fe80::1%12345678901]:50001";
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
+
+    // Alphanumeric scope_id must fail.
+    saddr = "[fe80::1%321Y0]:50001";
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
+
+    saddr = "[fe80:1::2222:3333:4444:5555%321]:50004";
+    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.netaddrp(), "[fe80:1::2222:3333:4444:5555%321]:50004");
+
+    saddr = "[fe80:1234:5678:9abc:def1:2345:6789:abcd%321]:50006";
+    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr.netaddrp(),
-              "[fe80:1234:5678:9abc:def1:2345:6789:abcd]:50006");
-#endif
+              "[fe80:1234:5678:9abc:def1:2345:6789:abcd%321]:50006");
 
     // If the scope id on Unix like platforms matches a real interface then its
     // name is returned instead of the number, e.g. "%lo" instead of "%1".
@@ -249,77 +290,6 @@ TEST(SockaddrStorageTestSuite, set_link_local_address) {
     saddr = "[fe80::9%1]:";
     EXPECT_THAT(saddr.netaddrp(),
                 AnyOf("[fe80::9%1]:0", "[fe80::9%lo]:0", "[fe80::9%lo0]:0"));
-}
-
-TEST(SockaddrStorageTestSuite, set_address_and_port_fail) {
-    SSockaddr saddr;
-
-    EXPECT_THAT([&saddr]() { saddr = ":65536"; },
-                ThrowsMessage<std::range_error>(
-                    EndsWith("] Number string from "
-                             "\":65536\" for port is out of range 0..65535.")));
-
-    EXPECT_THAT([&saddr]() { saddr = "65536"; },
-                ThrowsMessage<std::range_error>(
-                    EndsWith("] Number string from "
-                             "\"65536\" for port is out of range 0..65535.")));
-
-    EXPECT_THAT([&saddr]() { saddr = "127.0.0.1:65536"; },
-                ThrowsMessage<std::range_error>(EndsWith(
-                    "] Number string from "
-                    "\"127.0.0.1:65536\" for port is out of range 0..65535.")));
-
-    EXPECT_THAT([&saddr]() { saddr = ":"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress \":\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "garbage"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress \"garbage\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "[2001::db8::1]"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress \"[2001::db8::1]\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "2001:db8::2]"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress \"2001:db8::2]\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "[2001:db8::3"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress \"[2001:db8::3\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "[2001:db8::5]50003"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress "
-                             "\"[2001:db8::5]50003\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "[2001:db8::35003]"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress "
-                             "\"[2001:db8::35003]\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "192.168.66.67."; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress \"192.168.66.67.\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "192.168.66.67z"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress \"192.168.66.67z\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "[192.168.66.67]"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress \"[192.168.66.67]\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "[192.168.66.68]:"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress "
-                             "\"[192.168.66.68]:\".\n")));
-
-    EXPECT_THAT([&saddr]() { saddr = "[192.168.66.68]:50044"; },
-                ThrowsMessage<std::invalid_argument>(
-                    EndsWith("] Invalid netaddress "
-                             "\"[192.168.66.68]:50044\".\n")));
 }
 
 TEST(SockaddrCmpTestSuite, compare_equal_ipv6_sockaddrs_successful) {
@@ -513,56 +483,56 @@ TEST(SockaddrStorageTestSuite, sizeof_saddr_get_successful) {
 }
 
 TEST(SockaddrStorageTestSuite, is_loopback) {
-    SSockaddr saObj;
-    saObj = "[::]";
-    EXPECT_FALSE(saObj.is_loopback());
-    saObj = "[::1]";
-    EXPECT_TRUE(saObj.is_loopback());
-    saObj = "[::2]";
-    EXPECT_FALSE(saObj.is_loopback());
-    saObj = "126.255.255.255";
-    EXPECT_FALSE(saObj.is_loopback());
-    saObj = "127.0.0.0"; // IPv4 never supported.
-    EXPECT_FALSE(saObj.is_loopback());
-    saObj = "[::ffff:127.0.0.0]";
-    EXPECT_TRUE(saObj.is_loopback());
-    saObj = "127.0.0.1"; // IPv4 never supported.
-    EXPECT_FALSE(saObj.is_loopback());
-    saObj = "[::ffff:127.0.0.1]";
-    EXPECT_TRUE(saObj.is_loopback());
-    saObj = "127.255.255.255"; // IPv4 never supported.
-    EXPECT_FALSE(saObj.is_loopback());
-    saObj = "[::ffff:127.255.255.255]";
-    EXPECT_TRUE(saObj.is_loopback());
-    saObj = "128.0.0.0";
-    EXPECT_FALSE(saObj.is_loopback());
+    SSockaddr sa1Obj;
+    sa1Obj = "[::]";
+    EXPECT_FALSE(sa1Obj.is_loopback());
+    sa1Obj = "[::1]";
+    EXPECT_TRUE(sa1Obj.is_loopback());
+    sa1Obj = "[::2]";
+    EXPECT_FALSE(sa1Obj.is_loopback());
+    sa1Obj = "126.255.255.255";
+    EXPECT_FALSE(sa1Obj.is_loopback());
+    sa1Obj = "127.0.0.0"; // IPv4 never supported.
+    EXPECT_FALSE(sa1Obj.is_loopback());
+    sa1Obj = "[::ffff:127.0.0.0]";
+    EXPECT_TRUE(sa1Obj.is_loopback());
+    sa1Obj = "127.0.0.1"; // IPv4 never supported.
+    EXPECT_FALSE(sa1Obj.is_loopback());
+    sa1Obj = "[::ffff:127.0.0.1]";
+    EXPECT_TRUE(sa1Obj.is_loopback());
+    sa1Obj = "127.255.255.255"; // IPv4 never supported.
+    EXPECT_FALSE(sa1Obj.is_loopback());
+    sa1Obj = "[::ffff:127.255.255.255]";
+    EXPECT_TRUE(sa1Obj.is_loopback());
+    sa1Obj = "128.0.0.0";
+    EXPECT_FALSE(sa1Obj.is_loopback());
 }
 
 TEST(SockaddrStorageTestSuite, output_netaddr_to_ostream) {
-    SSockaddr saObj;
+    SSockaddr sa1Obj;
     CaptureStdOutErr captoutObj(STDOUT_FILENO);
 
     // Test Unit output stream
-    saObj = "[2001:db8::1]:61234";
+    sa1Obj = "[2001:db8::1]:61234";
     captoutObj.start();
-    std::cout << std::flush << saObj << std::endl;
+    std::cout << std::flush << sa1Obj << std::endl;
     EXPECT_THAT(captoutObj.str(), EndsWith("[2001:db8::1]:61234\n"));
 
-    saObj = "[2001:db8::2]";
+    sa1Obj = "[2001:db8::2]";
     captoutObj.start();
-    std::cout << std::flush << saObj << std::endl;
+    std::cout << std::flush << sa1Obj << std::endl;
     EXPECT_THAT(captoutObj.str(), EndsWith("[2001:db8::2]:61234\n"));
 
     CaptureStdOutErr capterrObj(STDERR_FILENO);
 
-    saObj = "[2001:db8::3]:49999";
+    sa1Obj = "[2001:db8::3]:49999";
     capterrObj.start();
-    std::cerr << saObj << std::endl;
+    std::cerr << sa1Obj << std::endl;
     EXPECT_THAT(capterrObj.str(), EndsWith("[2001:db8::3]:49999\n"));
 
-    saObj = "[2001:db8::4]";
+    sa1Obj = "[2001:db8::4]";
     capterrObj.start();
-    std::cerr << saObj << std::endl;
+    std::cerr << sa1Obj << std::endl;
     EXPECT_THAT(capterrObj.str(), EndsWith("[2001:db8::4]:49999\n"));
 }
 
@@ -580,18 +550,15 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
     saddr.ss.ss_family = AF_INET;
     EXPECT_EQ(saddr.netaddr(), "0.0.0.0");
 
-    saddr = "[fe80:db8::5%21]";
-#ifdef __APPLE__
-    EXPECT_EQ(saddr.netaddr(), "");
-#else
-    EXPECT_EQ(saddr.netaddr(), "[fe80:db8::5%21]");
-#endif
+    saddr = "[fe80::db8:5%21]";
+    EXPECT_EQ(saddr.netaddr(), "[fe80::db8:5%21]");
 
     saddr = "[2001:db8::4]";
     EXPECT_EQ(saddr.netaddr(), "[2001:db8::4]");
 
     saddr = "192.168.88.99";
     EXPECT_EQ(saddr.netaddr(), "192.168.88.99");
+    EXPECT_EQ(saddr.ss.ss_family, AF_INET);
 
     bool g_dbug_old = g_dbug;
     CaptureStdOutErr captureObj(UPnPsdk::log_fileno);
@@ -603,10 +570,9 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
     g_dbug = true;
     captureObj.start();
     EXPECT_EQ(saddr.netaddr(), "");
-    EXPECT_THAT(
-        captureObj.str(),
-        ContainsStdRegex(
-            "UPnPsdk MSG1129 ERROR \\[.* Unsupported address family 1"));
+    EXPECT_THAT(captureObj.str(),
+                ContainsStdRegex("UPnPsdk MSG1036 ERROR \\[.* Failed to get "
+                                 "netaddress for address family .*\\."));
 
     saddr.ss.ss_family = 255;
     g_dbug = false;
@@ -616,10 +582,9 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_string) {
     g_dbug = true;
     captureObj.start();
     EXPECT_EQ(saddr.netaddr(), "");
-    EXPECT_THAT(
-        captureObj.str(),
-        ContainsStdRegex(
-            "UPnPsdk MSG1129 ERROR \\[.* Unsupported address family 255"));
+    EXPECT_THAT(captureObj.str(),
+                ContainsStdRegex("UPnPsdk MSG1036 ERROR \\[.* Failed to get "
+                                 "netaddress for address family .*\\."));
     g_dbug = g_dbug_old;
 }
 
@@ -661,8 +626,8 @@ TEST(ToAddrStrTestSuite, sockaddr_to_address_port_string) {
     EXPECT_EQ(saddr.netaddrp(), ":0");
     EXPECT_THAT(
         captureObj.str(),
-        ContainsStdRegex(
-            "UPnPsdk MSG1129 ERROR \\[.* Unsupported address family 1"));
+        ContainsStdRegex("UPnPsdk MSG1015 ERROR \\[.* Failed to get netaddress "
+                         "with port for address family ."));
     g_dbug = g_dbug_old;
 }
 
@@ -783,71 +748,113 @@ TEST(SockaddrStorageTestSuite, string_to_port_test_only) {
 
 
 std::string m_addr_str;
+std::string m_scope_str;
 std::string m_port_str;
 
+// clang-format off
 class SplitAddrPortTest
     : public ::testing::TestWithParam<std::tuple<
-          // IP address to split   IP address only    port
-          const std::string, const std::string, const std::string>> {};
+    // IP address to split  IP address only   scope_id          port
+          std::string_view, std::string_view, std::string_view, std::string_view>> {};
 
 TEST_P(SplitAddrPortTest, split_address_and_port) {
     // Get parameter
     const std::tuple params = GetParam();
 
-    split_addr_port(std::get<0>(params), m_addr_str, m_port_str);
+    split_addr_port(std::get<0>(params), m_addr_str, m_scope_str, m_port_str);
     EXPECT_EQ(m_addr_str, std::get<1>(params));
-    EXPECT_EQ(m_port_str, std::get<2>(params));
+    EXPECT_EQ(m_scope_str, std::get<2>(params));
+    EXPECT_EQ(m_port_str, std::get<3>(params));
 }
 
-// clang-format off
 INSTANTIATE_TEST_SUITE_P(SplitAddrPort, SplitAddrPortTest, ::testing::Values(
-    std::make_tuple("[2001:db8::1]:50001", "2001:db8::1", "50001"),
-    std::make_tuple("[2001:dB8::2]:", "2001:dB8::2", "0"),
-    std::make_tuple("[2001:db8::2]", "2001:db8::2", ""),
-    std::make_tuple(":50002", "", "50002"),
-    std::make_tuple("127.0.0.4:50003", "127.0.0.4", "50003"),
-    std::make_tuple("127.0.0.5:", "127.0.0.5", "0"),
-    std::make_tuple("127.0.0.6", "127.0.0.6", ""),
-    std::make_tuple("50004", "", "50004"),
-    std::make_tuple("2001:db8::7", "2001:db8::7", ""),
-    std::make_tuple("example.COM:50005", "example.COM", "50005"),
-    std::make_tuple("example.com:httPS", "example.com", "httPS"),
-    std::make_tuple("example.com:", "example.com", "0"),
-    std::make_tuple("example.com", "example.com", ""),
-    std::make_tuple("localhost:50006", "localhost", "50006"),
-    std::make_tuple("localhost:https", "localhost", "https"),
-    std::make_tuple("localhost:", "localhost", "0"),
-    std::make_tuple("localhost", "localhost", ""),
-    std::make_tuple("[localhost]", "[localhost]", ""),
-    std::make_tuple("[localhost]:", "[localhost]", "0"),
-    std::make_tuple("[localhost]:50007", "[localhost]", "50007"),
-    std::make_tuple(":https", "", "https"),
-    std::make_tuple("https", "https", ""),
-    std::make_tuple("", "", ""),
-    std::make_tuple("   ", "   ", ""),
-    std::make_tuple("::", "::", ""),
-    std::make_tuple("[::]", "::", ""),
-    std::make_tuple("[::]:", "::", "0"),
-    std::make_tuple("[::]:0", "::", "0"),
-    std::make_tuple("::1", "::1", ""),
-    std::make_tuple("[::1]", "::1", ""),
-    std::make_tuple("[::1]:", "::1", "0"),
-    std::make_tuple("[::1]:0", "::1", "0"),
-    std::make_tuple("[::1].4", "[::1].4", ""),
-    std::make_tuple("[::127.0.0.9]:50009", "::127.0.0.9", "50009"),
-    std::make_tuple("[::127.0.0.10]:", "::127.0.0.10", "0"),
-    std::make_tuple("[::127.0.0.11]", "::127.0.0.11", ""),
-    std::make_tuple("[::FFff:142.250.185.99]:50008", "::FFff:142.250.185.99", "50008")
+ /*00*/ std::make_tuple("[2001:db8::1]:50001", "2001:db8::1", "", "50001"),
+        std::make_tuple("[2001:dB8::2]:", "2001:dB8::2", "", "0"),
+        std::make_tuple("[2001:db8::2]", "2001:db8::2", "", ""),
+        std::make_tuple(":0", "", "", "0"),
+        std::make_tuple(":50002", "", "", "50002"),
+        std::make_tuple("127.0.0.4:50003", "127.0.0.4", "", "50003"),
+        std::make_tuple("127.0.0.5:", "127.0.0.5", "", "0"),
+        std::make_tuple("127.0.0.6", "127.0.0.6", "", ""),
+        std::make_tuple("0", "", "", "0"),
+        std::make_tuple("50004", "", "", "50004"),
+ /*10*/ std::make_tuple("500044", "500044", "", ""),
+        std::make_tuple("2001:db8::7", "2001:db8::7", "", ""),
+        std::make_tuple("example.COM:50005", "example.COM", "", "50005"),
+        std::make_tuple("example.com:httPS", "example.com", "", "httPS"),
+        std::make_tuple("example.com:", "example.com", "", "0"),
+        std::make_tuple("example.com", "example.com", "", ""),
+        std::make_tuple("example.com%123", "example.com", "123", ""),
+        std::make_tuple("localhost:50006", "localhost", "", "50006"),
+        std::make_tuple("localhost:https", "localhost", "", "https"),
+        std::make_tuple("localhost:", "localhost", "", "0"),
+ /*20*/ std::make_tuple("localhost", "localhost", "", ""),
+        std::make_tuple("[localhost]", "[localhost]", "", ""),
+        std::make_tuple("[localhost]:", "[localhost]", "", "0"),
+        std::make_tuple("[localhost]:50007", "[localhost]", "", "50007"),
+        std::make_tuple(":https", "", "", "https"),
+        std::make_tuple("https", "https", "", ""),
+        std::make_tuple("", "", "", ""),
+        std::make_tuple("   ", "   ", "", ""),
+        std::make_tuple("::", "::", "", ""),
+        std::make_tuple("[::]", "::", "", ""),
+ /*30*/ std::make_tuple("[::]:", "::", "", "0"),
+        std::make_tuple("[::]:0", "::", "", "0"),
+        std::make_tuple("::1", "::1", "", ""),
+        std::make_tuple("[::1]", "::1", "", ""),
+        std::make_tuple("[::1]:", "::1", "", "0"),
+        std::make_tuple("[::1]:0", "::1", "", "0"),
+        std::make_tuple("[::1].4", "[::1].4", "", ""),
+        std::make_tuple("[::127.0.0.9]:50009", "::127.0.0.9", "", "50009"), // deprecated, not supported
+        std::make_tuple("[::127.0.0.10]:", "::127.0.0.10", "", "0"), // deprecated, not supported
+        std::make_tuple("[::127.0.0.11%47]", "::127.0.0.11", "47", ""), // deprecated, not supported
+ /*40*/ std::make_tuple("[::FFff:142.250.185.99]:50008", "::FFff:142.250.185.99", "", "50008"),
+        std::make_tuple("[fe80::5053%]:50010", "fe80::5053", "0", "50010"),
+        std::make_tuple("[2001:db8::5054%513]:50011", "2001:db8::5054", "513", "50011"),
+        std::make_tuple("[fe80::5055%2]:50012", "fe80::5055", "2", "50012"),
+        std::make_tuple("[fe80::5056%scope]:50013", "fe80::5056", "scope", "50013"),
+        std::make_tuple("example.com", "example.com", "", ""),
+        std::make_tuple("example.com%", "example.com", "0", ""),
+        std::make_tuple("example.com%:", "example.com", "0", "0"),
+        std::make_tuple("example.com%ens2", "example.com", "ens2", ""),
+        std::make_tuple("example.com%382:", "example.com", "382", "0"),
+ /*50*/ std::make_tuple("example.com%:https", "example.com", "0", "https"),
+        std::make_tuple("example.com%Ethernet:50013", "example.com", "Ethernet", "50013"),
+        std::make_tuple("example.com:50014", "example.com", "", "50014")
 ));
 // clang-format on
 
 TEST(SockaddrStorageTestSuite, sockaddr_clear) {
-    SSockaddr saObj;
-    saObj = "[2001:db8::1]:50001";
-    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::1]:50001");
-    saObj = "";
-    EXPECT_EQ(saObj.netaddr(), "");
-    EXPECT_EQ(saObj.netaddrp(), ":0");
+    SSockaddr sa1Obj;
+    sa1Obj = "[2001:db8::1]:50001";
+    EXPECT_EQ(sa1Obj.netaddrp(), "[2001:db8::1]:50001");
+    sa1Obj = "";
+    EXPECT_EQ(sa1Obj.netaddr(), "");
+    EXPECT_EQ(sa1Obj.netaddrp(), ":0");
+}
+
+TEST(SockaddrStorageTestSuite, set_from_sockaddr_storage) {
+    // There was a problem with the scope_id that wasn't ignored on IPv6
+    // addresses that doesn't use it. Here is the bugfix test.
+    UPnPsdk::sockaddr_t gua_sa;
+    gua_sa.ss.ss_family = AF_INET6;
+    gua_sa.sin6.sin6_port = htons(56789);
+    gua_sa.sin6.sin6_scope_id = UINT32_MAX;
+
+    SSockaddr saddrObj;
+
+    // Link-local address has the scope_id.
+    ::inet_pton(AF_INET6, "fe80::db8:50:c6f8", &gua_sa.sin6.sin6_addr);
+    saddrObj = gua_sa.ss;
+    EXPECT_EQ(saddrObj.netaddrp(), "[fe80::db8:50:c6f8%4294967295]:56789");
+
+    // Global-unicast address must correct the scope_id.
+    ::inet_pton(AF_INET6, "2001:db8::50:c6f8", &gua_sa.sin6.sin6_addr);
+    saddrObj = gua_sa.ss;
+    // Manual modifing this, will give a scope_id to a gua. This is out of
+    // specification and not handled. You really must know what you are doing!
+    // saddrObj.sin6.sin6_scope_id = UINT32_MAX;
+    EXPECT_EQ(saddrObj.netaddrp(), "[2001:db8::50:c6f8]:56789");
 }
 
 } // namespace utest

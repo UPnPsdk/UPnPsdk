@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-14
+// Redistribution only with this Copyright remark. Last modified: 2026-05-10
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -458,11 +458,9 @@ get_host(std::string_view a_uriref_sv ///< [in] URI reference to parse
     // Check IPv6 address.
     if (authority_sv.front() == '[') {
         SSockaddr saObj;
-        try {
-            saObj = authority_sv;
-        } catch (const std::exception&) {
+        saObj = authority_sv;
+        if (saObj.ss.ss_family != AF_INET6)
             goto exception;
-        }
     }
     // Check IPv4 address and DNS name. No DNS name resolution is performed.
     // The syntax rule for host is ambiguous because it does not completely

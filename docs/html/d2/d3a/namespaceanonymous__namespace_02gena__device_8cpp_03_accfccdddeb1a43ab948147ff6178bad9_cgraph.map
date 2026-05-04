@@ -12,8 +12,8 @@
 <area shape="poly" id="edge40_Node000001_Node000022" title=" " alt="" coords="97,757,111,628,137,445,156,351,177,264,202,192,216,164,231,142,276,94,323,55,371,26,422,9,473,3,527,9,582,28,638,60,673,92,702,131,723,174,739,220,758,307,764,373,758,373,752,307,734,221,718,176,697,134,669,96,634,65,579,33,526,14,474,8,423,14,374,31,326,59,280,98,235,145,221,167,207,194,182,266,161,352,143,446,116,629,102,758"/>
 <area shape="rect" id="Node000030" href="$d1/db3/httpreadwrite_8cpp.html#ac4f5f24f4aa10cc725b96ac5c29a88f7" title="Get the data on the socket and take actions based on the read data to modify the parser objects buffe..." alt="" coords="235,896,380,922"/>
 <area shape="poly" id="edge23_Node000001_Node000030" title=" " alt="" coords="144,810,274,887,271,892,142,815"/>
-<area shape="rect" id="Node000090" href="$d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="235,1084,380,1110"/>
-<area shape="poly" id="edge29_Node000001_Node000090" title=" " alt="" coords="117,811,292,1071,287,1074,113,814"/>
+<area shape="rect" id="Node000092" href="$d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="235,1084,380,1110"/>
+<area shape="poly" id="edge29_Node000001_Node000092" title=" " alt="" coords="117,811,292,1071,287,1074,113,814"/>
 <area shape="rect" id="Node000098" href="$dd/d1d/httpparser_8cpp.html#aae19f051c772e39575e48ddb2615f6b5" title="Free memory allocated for the http message." alt="" coords="241,798,373,823"/>
 <area shape="poly" id="edge36_Node000001_Node000098" title=" " alt="" coords="186,793,228,798,227,804,185,798"/>
 <area shape="rect" id="Node000104" href="$d5/d78/sock_8cpp.html#a90f3d17250e4a8df679a4b88a8abd4da" title="Shutsdown the socket using the ShutdownMethod to indicate whether sends and receives on the socket wi..." alt="" coords="479,1288,587,1314"/>
@@ -56,23 +56,23 @@
 <area shape="poly" id="edge16_Node000021_Node000022" title=" " alt="" coords="607,749,634,734,666,699,692,660,713,617,728,573,748,489,757,426,762,427,754,490,733,574,717,619,697,662,670,703,638,738,610,754"/>
 <area shape="rect" id="Node000031" href="$dd/d1d/httpparser_8cpp.html#ad81b8bf2917f89c5f09ed3005c6869a5" title="Append date to HTTP parser, and do the parsing." alt="" coords="473,896,592,922"/>
 <area shape="poly" id="edge24_Node000030_Node000031" title=" " alt="" coords="380,906,460,906,460,912,380,912"/>
-<area shape="rect" id="Node000078" href="$dd/d1d/httpparser_8cpp.html#a5afd7501a14bb89fb3a4fc24cc23c86a" title="Initializes parser object for a request." alt="" coords="459,995,606,1020"/>
-<area shape="poly" id="edge26_Node000030_Node000078" title=" " alt="" coords="327,920,373,950,430,980,455,989,453,994,428,985,370,954,324,924"/>
-<area shape="rect" id="Node000086" href="$dd/d1d/httpparser_8cpp.html#a95aa14b5e06a3b635c73810fdbcb9de5" title="Initializes parser object for a response." alt="" coords="454,847,611,872"/>
-<area shape="poly" id="edge27_Node000030_Node000086" title=" " alt="" coords="365,894,460,873,461,878,367,899"/>
-<area shape="rect" id="Node000087" href="$d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="489,946,577,971"/>
-<area shape="poly" id="edge28_Node000030_Node000087" title=" " alt="" coords="367,919,476,943,475,949,365,924"/>
+<area shape="rect" id="Node000080" href="$dd/d1d/httpparser_8cpp.html#a5afd7501a14bb89fb3a4fc24cc23c86a" title="Initializes parser object for a request." alt="" coords="459,995,606,1020"/>
+<area shape="poly" id="edge26_Node000030_Node000080" title=" " alt="" coords="327,920,373,950,430,980,455,989,453,994,428,985,370,954,324,924"/>
+<area shape="rect" id="Node000088" href="$dd/d1d/httpparser_8cpp.html#a95aa14b5e06a3b635c73810fdbcb9de5" title="Initializes parser object for a response." alt="" coords="454,847,611,872"/>
+<area shape="poly" id="edge27_Node000030_Node000088" title=" " alt="" coords="365,894,460,873,461,878,367,899"/>
+<area shape="rect" id="Node000089" href="$d5/d78/sock_8cpp.html#ab733aa6edb595cdca40bf10b12bb9c11" title="Reads data on socket in sockinfo." alt="" coords="489,946,577,971"/>
+<area shape="poly" id="edge28_Node000030_Node000089" title=" " alt="" coords="367,919,476,943,475,949,365,924"/>
 <area shape="poly" id="edge25_Node000031_Node000017" title=" " alt="" coords="592,894,689,873,690,878,593,899"/>
-<area shape="rect" id="Node000091" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="443,1109,623,1149"/>
-<area shape="poly" id="edge30_Node000090_Node000091" title=" " alt="" coords="381,1105,430,1112,429,1117,380,1110"/>
-<area shape="rect" id="Node000092" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a3fa77060ec104f1300521d00b9ca50e9" title="Get the local socket address the socket is bound to." alt="" coords="443,1224,623,1264"/>
-<area shape="poly" id="edge33_Node000090_Node000092" title=" " alt="" coords="351,1108,383,1127,400,1149,407,1170,415,1190,431,1210,438,1215,435,1219,428,1214,410,1193,402,1172,395,1152,380,1131,348,1112"/>
-<area shape="rect" id="Node000093" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a1ff01ca7e212722ca4ef22ed0eaad4c5" title="Get the assosiated netaddress with port." alt="" coords="455,1045,610,1085"/>
-<area shape="poly" id="edge34_Node000090_Node000093" title=" " alt="" coords="380,1084,442,1075,442,1081,381,1089"/>
+<area shape="rect" id="Node000093" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a" title="Load the raw socket file descriptor specified with the constructor into the object." alt="" coords="443,1109,623,1149"/>
+<area shape="poly" id="edge30_Node000092_Node000093" title=" " alt="" coords="381,1105,430,1112,429,1117,380,1110"/>
+<area shape="rect" id="Node000094" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#a3fa77060ec104f1300521d00b9ca50e9" title="Get the local socket address the socket is bound to." alt="" coords="443,1224,623,1264"/>
+<area shape="poly" id="edge33_Node000092_Node000094" title=" " alt="" coords="351,1108,383,1127,400,1149,407,1170,415,1190,431,1210,438,1215,435,1219,428,1214,410,1193,402,1172,395,1152,380,1131,348,1112"/>
+<area shape="rect" id="Node000054" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="455,1045,610,1085"/>
+<area shape="poly" id="edge34_Node000092_Node000054" title=" " alt="" coords="380,1084,442,1075,442,1081,381,1089"/>
 <area shape="rect" id="Node000095" href="$d5/d78/sock_8cpp.html#ad1241b973fa76980eef882848fb535c3" title="Writes data on the socket in sockinfo." alt="" coords="487,1174,579,1199"/>
-<area shape="poly" id="edge35_Node000090_Node000095" title=" " alt="" coords="342,1107,383,1127,406,1144,430,1159,474,1173,473,1178,428,1164,403,1148,380,1131,340,1112"/>
-<area shape="poly" id="edge31_Node000091_Node000006" title=" " alt="" coords="623,1114,670,1107,671,1113,624,1119"/>
-<area shape="poly" id="edge32_Node000091_Node000007" title=" " alt="" coords="624,1139,671,1146,670,1151,623,1144"/>
+<area shape="poly" id="edge35_Node000092_Node000095" title=" " alt="" coords="342,1107,383,1127,406,1144,430,1159,474,1173,473,1178,428,1164,403,1148,380,1131,340,1112"/>
+<area shape="poly" id="edge31_Node000093_Node000006" title=" " alt="" coords="623,1114,670,1107,671,1113,624,1119"/>
+<area shape="poly" id="edge32_Node000093_Node000007" title=" " alt="" coords="624,1139,671,1146,670,1151,623,1144"/>
 <area shape="poly" id="edge38_Node000098_Node000021" title=" " alt="" coords="365,795,460,774,461,779,367,800"/>
 <area shape="rect" id="Node000099" href="$df/db8/LinkedList_8cpp.html#a28e5dc6ff4a189982c97ae5780d360fd" title="Removes all memory associated with list nodes. Does not free LinkedList *list." alt="" coords="485,798,581,823"/>
 <area shape="poly" id="edge37_Node000098_Node000099" title=" " alt="" coords="374,808,471,808,471,813,374,813"/>

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-15
+// Redistribution only with this Copyright remark. Last modified: 2026-05-10
 
 // Due to Microsoft Windows socket error 10013 I use port numbers not in
 // range 49152 to 65535 if needed. For details have a look at
@@ -498,7 +498,7 @@ TEST(SocketTestSuite, bind_ipv6only) {
     CSocket sock1Obj = SOCK_STREAM;
     EXPECT_NO_THROW(sock1Obj.bind(&saddr));
     EXPECT_TRUE(sock1Obj.local_saddr());
-    EXPECT_FALSE(is_v6only(sock1Obj)); // resetted
+    EXPECT_FALSE(is_v6only(sock1Obj)); // reset
 
     // Unicast IPv6 address.
     saddr = "[::1]:50003";
@@ -508,7 +508,7 @@ TEST(SocketTestSuite, bind_ipv6only) {
 #ifdef __unix__
     // Seems ipv6only is always set with an unicast address and cannot be reset,
     // but without error.
-    EXPECT_TRUE(is_v6only(sock2Obj)); // Not resetted
+    EXPECT_TRUE(is_v6only(sock2Obj)); // Not reset
 #else
     EXPECT_FALSE(is_v6only(sock2Obj));
 #endif
@@ -808,7 +808,7 @@ TEST(SocketTestSuite, bind_with_invalid_argument_fails) {
 
 TEST_F(SocketMockFTestSuite, bind_ipv6_lla_successful) {
     constexpr SOCKET sockfd{umock::sfd_base + 10};
-    saddr = "[fe80::fedc:cdef:0:3]";
+    saddr = "[fe80::fedc:cdef:0:3%300]";
 
     // --- Mock get_sockfd() ---
     // Provide a socket file descriptor
@@ -1277,7 +1277,8 @@ TEST_F(SocketMockFTestSuite, remote_saddr_successful) {
     saddr1Obj = "[::]"; // Empty IPv6 addr will internally be returned from
                         // system as valid but not connected.
     SSockaddr saddr2Obj;
-    saddr2Obj = "[fe80::fedc:1:1]"; // Valid connected ip address.
+    saddr2Obj = "[fe80::fedc:1:1%100]"; // Valid connected ip address.
+
     EXPECT_CALL(m_sys_socketObj, getpeername(sockfd, _, _))
         // First expectation to be valid but with no socket address part (macOS)
         .WillOnce(DoAll(StructCpyToArg<1>(&saddr1Obj.ss, sizeof(saddr1Obj.ss)),
@@ -1302,22 +1303,22 @@ TEST_F(SocketMockFTestSuite, remote_saddr_successful) {
 
     // Test Unit
     // First expectation with valid but not connected net address.
-    saddr = "[fe80::fedc:0:4]"; // Will not be modified.
+    saddr = "[fe80::fedc:0:4%400]"; // Will not be modified.
     EXPECT_THROW(sockObj.remote_saddr(), std::invalid_argument);
     EXPECT_THROW(sockObj.remote_saddr(&saddr), std::invalid_argument);
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:0:4]:0");
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:0:4%400]:0");
 
     // Second expectation with other system error does not modify result.
-    saddr = "[fe80::fedc:0:5]"; // Will not be modified.
+    saddr = "[fe80::fedc:0:5%500]"; // Will not be modified.
     EXPECT_THROW(sockObj.remote_saddr(), std::runtime_error);
     EXPECT_THROW(sockObj.remote_saddr(&saddr), std::runtime_error);
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:0:5]:0");
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:0:5%500]:0");
 
     // Third expectation with valid connected ip address.
     saddr = ""; // Will be filled with the connected socket address.
     EXPECT_TRUE(sockObj.remote_saddr());
     EXPECT_TRUE(sockObj.remote_saddr(&saddr));
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:1:1]:0");
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:1:1%100]:0");
 }
 
 

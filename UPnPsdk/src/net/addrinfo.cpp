@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-20
+// Redistribution only with this Copyright remark. Last modified: 2026-05-14
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -157,18 +157,20 @@ bool CAddrinfo::get_first() {
     TRACE2(this, " Executing CAddrinfo::get_first()")
 
     // Prepare input for ::getaddrinfo()
-    std::string node, service;
-    try {
-        if (m_service.empty())
-            split_addr_port(m_node, node, service);
-        else
-            split_addr_port(m_node + ":" + m_service, node, service);
-    } catch (const std::range_error& ex) {
-        m_error_msg =
-            UPnPsdk_LOGWHAT "MSG1128: catched next line ...\n" + ex.what();
+    std::string node, scope, service;
 
+    if (m_service.empty())
+        split_addr_port(m_node, node, scope, service);
+    else
+        split_addr_port(m_node + ":" + m_service, node, scope, service);
+
+    if (to_port(service) == 1) { // Valid number but out of scope 0..65535.
+        m_error_msg = UPnPsdk_LOGWHAT "MSG1128: Port number " + service +
+                      " out of range 0..65535.\n";
         return false;
     }
+    if (!scope.empty())
+        node += '%' + scope;
 
     // syscall ::getaddrinfo() with prepared arguments
     // -----------------------------------------------
@@ -182,13 +184,9 @@ bool CAddrinfo::get_first() {
 #endif
     if (g_dbug) {
         // Very helpful for debugging to see what is given to ::getaddrinfo()
-        char addrStr[INET6_ADDRSTRLEN]{};
-        char servStr[NI_MAXSERV]{};
+        SSockaddr saObj;
         if (ret == 0)
-            ::getnameinfo(new_res->ai_addr,
-                          static_cast<socklen_t>(new_res->ai_addrlen), addrStr,
-                          sizeof(addrStr), servStr, sizeof(servStr),
-                          NI_NUMERICHOST | NI_NUMERICSERV);
+            saObj = *reinterpret_cast<sockaddr_storage*>(new_res->ai_addr);
         // clang-format off
         UPnPsdk_LOGINFO("MSG1111") "syscall ::getaddrinfo("
             << (node.empty() ? "nullptr, " : "\"" + node + "\", ")
@@ -210,8 +208,7 @@ bool CAddrinfo::get_first() {
                             "socktype=" + std::to_string(m_hints.ai_socktype))))
             << (ret != 0
                 ? ". Get EAI_ERROR(" + std::to_string(ret) + ")"
-                : ". Get first \"" + std::string(addrStr) + "\" port "
-                  + std::string(servStr)
+                : ". Get first \"" + saObj.netaddrp()
                   + (new_res->ai_next == nullptr ? ", no more entries." : ", more entries..."))
             << '\n';
     }

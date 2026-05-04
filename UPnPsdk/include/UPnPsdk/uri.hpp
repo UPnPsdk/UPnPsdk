@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_URI_HPP
 #define UPnPsdk_URI_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-15
+// Redistribution only with this Copyright remark. Last modified: 2026-05-13
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -502,7 +502,7 @@ class UPnPsdk_VIS CUri {
  *
  * \returns
  *  On success: HTTP_SUCCESS\n
- *  On error: UPNP_E_INVALID_URL, accessing \b out (arg3) then, is undefined
+ *  On error: UPNP_E_INVALID_URL. Accessing \b out (arg3) then, is undefined
  *            behavior.
  */
 UPnPsdk_VIS int parse_uri(

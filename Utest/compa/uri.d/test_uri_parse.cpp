@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-13
+// Redistribution only with this Copyright remark. Last modified: 2026-05-14
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -83,9 +83,8 @@ TEST(ParseUriTestSuite, loopback_uri) {
               HTTP_SUCCESS)
         << errStr(returned);
 
-    // Check the uri-parts scheme, hostport, pathquery and fragment. Please
-    // note that the last part of the buffer content is garbage. The valid
-    // character chain is determined by its size. But with std::string_view() I
+    // Check the uri-parts scheme, hostport, pathquery and fragment. The valid
+    // character chain is determined by its size. With std::string_view() I
     // have an exact view to the components.
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, ABS_PATH);
@@ -100,15 +99,7 @@ TEST(ParseUriTestSuite, loopback_uri) {
     saObj = out.hostport.IPaddress;
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
     EXPECT_EQ(saObj.port(), 443);
-#ifndef __APPLE__
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": The resolved socket address must not have a garbage "
-                     "scope id.\n";
-        EXPECT_THAT(saObj.netaddrp(), StartsWith("[::1%")); // Wrong!
-    } else
-#endif
-        EXPECT_EQ(saObj.netaddrp(), "[::1]:443");
+    EXPECT_EQ(saObj.netaddrp(), "[::1]:443");
 }
 
 TEST(ParseUriTestSuite, absolute_uri_successful) {
@@ -158,16 +149,64 @@ TEST(ParseUriTestSuite, absolute_uri_successful) {
     saObj = out.hostport.IPaddress;
     EXPECT_EQ(saObj.port(), 443);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
-#ifndef __APPLE__
+    EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.234.132]:443");
+}
+
+TEST(ParseUriTestSuite, uri_with_lla_host) {
+    uri_type out;
+    memset(&out, 0xAA, sizeof(out));
+
+    constexpr char url_str[]{
+        "https://[fe80::6acd:0:7af2%252]:53490/uri/path?query#fragment"};
+
+    // Test Unit
+    int ret_parse_uri = ::parse_uri(url_str, sizeof(url_str) - 1, &out);
+
     if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": The resolved socket address must not have a garbage "
-                     "scope id.\n";
-        EXPECT_THAT(saObj.netaddrp(),
-                    StartsWith("[::ffff:192.168.234.132%")); // Wrong!
-    } else
-#endif
-        EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.234.132]:443");
+        if (compiler == CO::clang)
+            // Apple returns HTTP_SUCCESS but has the scope_id set to
+            // UINT32_MAX.
+            ASSERT_EQ(ret_parse_uri, HTTP_SUCCESS)
+                << errStrEx(ret_parse_uri, HTTP_SUCCESS);
+        else
+            ASSERT_EQ(ret_parse_uri, UPNP_E_INVALID_URL)
+                << errStrEx(ret_parse_uri, UPNP_E_INVALID_URL); // Wrong!
+        GTEST_SKIP() << CYEL "[  BUGFIX  ] " CRES
+                     << ": Unit must support a scope_id on an IPv6 link-local "
+                        "address.";
+    }
+
+    // Must be ASSERT. As documented, accessing 'out' on error is undefined
+    // behavior. We may get segfaults due to dangling pointer.
+    ASSERT_EQ(ret_parse_uri, HTTP_SUCCESS)
+        << errStrEx(ret_parse_uri, HTTP_SUCCESS);
+
+    // Check the uri-parts scheme, hostport, pathquery and fragment. The
+    // valid character chain is determined by its size. The token.buff
+    // pointer just only point into the original url_str:
+    EXPECT_STREQ(
+        out.scheme.buff,
+        "https://[fe80::6acd:0:7af2%252]:53490/uri/path?query#fragment");
+
+    // scheme: out.scheme.buff is delimted by its size
+    EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "https");
+    // hostport
+    EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
+              "[fe80::6acd:0:7af2%252]:53490");
+    // pathquery
+    EXPECT_EQ(std::string_view(out.pathquery.buff, out.pathquery.size),
+              "/uri/path?query");
+    // fragment
+    EXPECT_EQ(std::string_view(out.fragment.buff, out.fragment.size),
+              "fragment");
+
+    EXPECT_EQ(out.type, Absolute);
+    EXPECT_EQ(out.path_type, ABS_PATH);
+    SSockaddr saObj;
+    saObj = out.hostport.IPaddress;
+    EXPECT_EQ(saObj.port(), 53490);
+    EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saObj.netaddrp(), "[fe80::6acd:0:7af2%252]:53490");
 }
 
 TEST(ParseUriTestSuite, absolute_uri_with_shorter_max_size) {
@@ -212,16 +251,7 @@ TEST(ParseUriTestSuite, absolute_uri_with_shorter_max_size) {
     saObj = out.hostport.IPaddress;
     EXPECT_EQ(saObj.port(), 443);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
-#ifndef __APPLE__
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": The resolved socket address must not have a garbage "
-                     "scope id.\n";
-        EXPECT_THAT(saObj.netaddrp(),
-                    StartsWith("[::ffff:192.168.88.77%")); // Wrong!
-    } else
-#endif
-        EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.88.77]:443");
+    EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.88.77]:443");
 }
 
 TEST(ParseUriTestSuite, sized_url_string_not_null_terminated) {
@@ -282,19 +312,21 @@ TEST(ParseUriTestSuite, ip_address_without_pathquery) {
     uri_type out;
     memset(&out, 0xAA, sizeof(out));
 
-    // Test Unit
-    constexpr char url_str[]{"http://[fe80::7df]#urifragment"};
+    constexpr char url_str[]{"http://[2001:db8::7df]#urifragment"};
 
-    int returned{UPNP_E_INTERNAL_ERROR};
-    EXPECT_EQ(returned = ::parse_uri(url_str, sizeof(url_str) - 1, &out),
-              HTTP_SUCCESS)
-        << errStr(returned);
+    // Test Unit
+    int ret_parse_uri = ::parse_uri(url_str, sizeof(url_str) - 1, &out);
+
+    // Must be ASSERT. As documented, accessing 'out' on error is undefined
+    // behavior. We may get segfaults due to dangling pointer.
+    ASSERT_EQ(ret_parse_uri, HTTP_SUCCESS)
+        << errStrEx(ret_parse_uri, HTTP_SUCCESS);
 
     EXPECT_EQ(out.type, Absolute);
     EXPECT_EQ(out.path_type, OPAQUE_PART);
     EXPECT_EQ(std::string_view(out.scheme.buff, out.scheme.size), "http");
     EXPECT_EQ(std::string_view(out.hostport.text.buff, out.hostport.text.size),
-              "[fe80::7df]");
+              "[2001:db8::7df]");
     EXPECT_EQ(out.pathquery.size, 0u);
     // buff is undefined, may contain garbage.
     // EXPECT_STREQ(out.pathquery.buff, "#urifragment");
@@ -304,16 +336,7 @@ TEST(ParseUriTestSuite, ip_address_without_pathquery) {
     saObj = out.hostport.IPaddress;
     EXPECT_EQ(saObj.port(), 80);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
-#ifndef __APPLE__
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": The resolved socket address must not have a garbage "
-                     "scope id.\n";
-        EXPECT_THAT(saObj.netaddrp(), StartsWith("[fe80::7df%")); // Wrong!
-    } else
-        // lla not from a local netadapter does not has a scope id.
-        EXPECT_EQ(saObj.netaddrp(), "[fe80::7df]:80");
-#endif
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::7df]:80");
 }
 
 TEST(ParseUriTestSuite, ip_address_without_fragment) {
@@ -342,16 +365,7 @@ TEST(ParseUriTestSuite, ip_address_without_fragment) {
     saObj = out.hostport.IPaddress;
     EXPECT_EQ(saObj.port(), 80);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
-#ifndef __APPLE__
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": The resolved socket address must not have a garbage "
-                     "scope id.\n";
-        EXPECT_THAT(saObj.netaddrp(),
-                    StartsWith("[::ffff:192.168.167.166%")); // Wrong!
-    } else
-#endif
-        EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.167.166]:80");
+    EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.167.166]:80");
 }
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
@@ -413,15 +427,7 @@ TEST(ParseUriTestSuite, relative_uri_with_authority_and_absolute_path) {
     saObj = out.hostport.IPaddress;
     EXPECT_EQ(saObj.port(), 80);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
-#ifndef __APPLE__
-    if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                  << ": The resolved socket address must not have a garbage "
-                     "scope id.\n";
-        EXPECT_THAT(saObj.netaddrp(), StartsWith("[2001:db8::40ec%")); // Wrong!
-    } else
-#endif
-        EXPECT_EQ(saObj.netaddrp(), "[2001:db8::40ec]:80");
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::40ec]:80");
 }
 
 TEST(ParseUriTestSuite, relative_uri_with_absolute_path) {

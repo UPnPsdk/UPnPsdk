@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-26
+// Redistribution only with this Copyright remark. Last modified: 2026-05-10
 
 // This tests network communication. The usual way to do it is to use mocking to
 // be independent from current hardware. But with mocking you can only test what
@@ -440,9 +440,9 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[2001:db8:2747::c022]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
     // std::make_tuple("[2001:db8:2747::c023]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
     // std::make_tuple("[2001:db8:2747::c024]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c022]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c023]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[fe80::20c:fe7f:c021%100]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[fe80::20c:fe7f:c022%200]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[fe80::20c:fe7f:c023%300]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
     // std::make_tuple("[fe80::20c:fe7f:c024]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
     // std::make_tuple("[fe80::20c:fe7f:c025]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
     // std::make_tuple("[fe80::20c:fe7f:c026]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
@@ -484,10 +484,10 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[2001:db8:2747::c022]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
     // std::make_tuple("[2001:db8:2747::c023]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
     // std::make_tuple("[2001:db8:2747::c024]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c022]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c023]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c024]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // macOS always wants a scope_id on lla
+    std::make_tuple("[fe80::20c:fe7f:c021%100]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[fe80::20c:fe7f:c022%200]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[fe80::20c:fe7f:c023%300]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+    std::make_tuple("[fe80::20c:fe7f:c024%400]:1900", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // macOS always wants a scope_id on lla
     // std::make_tuple("[fe80::20c:fe7f:c025]:1900", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument, new code: spam to user network with ICMP6, neighbor solicitation
     // /*20*/ std::make_tuple("[fe80::20c:fe7f:c026]:1900", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SUCCESS), // old_code bug: sendto() fails with errno=22 - Invalid argument, new code: spam to user network with ICMP6, neighbor solicitation
     // Multicast interface-local
@@ -530,12 +530,12 @@ INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
     std::make_tuple("[2001:db8:2747::c021]", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[2001:db8:2747::c021]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[2001:db8:2747::c021]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[fe80::20c:fe7f:c021]", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    /*20*/ std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[fe80::20c:fe7f:c021]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[fe80::20c:fe7f:c021%100]", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[fe80::20c:fe7f:c021%200]", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[fe80::20c:fe7f:c021%300]", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    /*20*/ std::make_tuple("[fe80::20c:fe7f:c021%400]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[fe80::20c:fe7f:c021%500]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+    std::make_tuple("[fe80::20c:fe7f:c021%600]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     // Multicast interface-local
     std::make_tuple("[ff01::c]", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
     std::make_tuple("[ff01::c]", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-15
+// Redistribution only with this Copyright remark. Last modified: 2026-05-10
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -525,28 +525,25 @@ TEST(StartMiniServerTestSuite, get_miniserver_sockets_with_no_ip_addr) {
 //        get_miniserver_sockets_with_one_ipv4_addr) {}
 // can be found at Github commit a18cff7d3dfd3266ad63a9efacba672ab1bd88b2
 
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(StartMiniServerMockFTestSuite,
        get_miniserver_sockets_with_one_ipv6_lla_addr) {
     // Initialize needed structure
     constexpr int socktype = SOCK_STREAM;
     constexpr SOCKET sockfd{umock::sfd_base + 10};
     SSockaddr saddrObj;
-    saddrObj = "[fe80::fedc:cdef:0:3]:50079";
+    saddrObj = "[fe80::fedc:cdef:0:3%300]:50079";
+    saddrObj.sin6.sin6_scope_id = 0; // Wrong! Correction for old_code.
     // Set gIF_IPV6 and strip surounding brackets
     std::strcpy(gIF_IPV6, saddrObj.netaddr().c_str() + 1);
     gIF_IPV6[strlen(gIF_IPV6) - 1] = '\0';
     LOCAL_PORT_V6 = saddrObj.port();
     MiniServerSockArray miniSocket{};
     InitMiniServerSockArray(&miniSocket);
-#ifndef UPnPsdk_WITH_NATIVE_PUPNP
-    CSocket sockLlaObj;
-    miniSocket.pSockLlaObj = &sockLlaObj;
-#endif
+
     // Provide a socket file descriptor
     EXPECT_CALL(m_sys_socketObj, socket(saddrObj.ss.ss_family, socktype, 0))
         .WillOnce(Return(sockfd));
-
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
 
     // Mock setsockopt()
     EXPECT_CALL(m_sys_socketObj, setsockopt(sockfd, _, _, _, _))
@@ -566,6 +563,26 @@ TEST_F(StartMiniServerMockFTestSuite,
 }
 
 #else // new_code
+
+TEST_F(StartMiniServerMockFTestSuite,
+       get_miniserver_sockets_with_one_ipv6_lla_addr) {
+    // Initialize needed structure
+    constexpr int socktype = SOCK_STREAM;
+    constexpr SOCKET sockfd{umock::sfd_base + 10};
+    SSockaddr saddrObj;
+    saddrObj = "[fe80::fedc:cdef:0:3%300]:50079";
+    // Set gIF_IPV6 and strip surounding brackets
+    std::strcpy(gIF_IPV6, saddrObj.netaddr().c_str() + 1);
+    gIF_IPV6[strlen(gIF_IPV6) - 1] = '\0';
+    LOCAL_PORT_V6 = saddrObj.port();
+    MiniServerSockArray miniSocket{};
+    InitMiniServerSockArray(&miniSocket);
+    CSocket sockLlaObj;
+    miniSocket.pSockLlaObj = &sockLlaObj;
+
+    // Provide a socket file descriptor
+    EXPECT_CALL(m_sys_socketObj, socket(saddrObj.ss.ss_family, socktype, 0))
+        .WillOnce(Return(sockfd));
 
     // Expect resetting SO_REUSEADDR.
     EXPECT_CALL(m_sys_socketObj,

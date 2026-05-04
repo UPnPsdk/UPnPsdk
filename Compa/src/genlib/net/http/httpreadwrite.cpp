@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-04-06
+ * Redistribution only with this Copyright remark. Last modified: 2026-05-09
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -1000,7 +1000,7 @@ int http_RequestAndResponse(uri_type* destination, const char* request,
     UPnPsdk::CSocketErr serrObj;
     if (ret_code != 0) {
         serrObj.catch_error();
-        UPnPsdk_LOGERR("MSG1020") "failed to connect() socket("
+        UPnPsdk_LOGERR("MSG1029") "failed to connect() socket("
             << info.socket << "): " << serrObj.error_str() << "\n";
         ret_code = UPNP_E_SOCKET_CONNECT;
         goto end_function;
