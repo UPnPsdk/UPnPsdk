@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-14
+// Redistribution only with this Copyright remark. Last modified: 2026-05-15
 
 // I test different address infos that we get from system function
 // ::getaddrinfo().
@@ -28,6 +28,7 @@ using ::testing::SetArgPointee;
 using ::testing::StrictMock;
 
 using ::UPnPsdk::CAddrinfo;
+using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
 
 
@@ -1242,7 +1243,13 @@ TEST(AddrinfoTestSuite, load_loopback_addr_with_scope_id) {
 }
 
 TEST(AddrinfoTestSuite, load_lla_with_scope_id) {
-    CAddrinfo ai1("[fe80::acd%1]:ssh");
+    // With this test I verify that a numeric scope_id is always accepted on all
+    // supported platforms. An unknown interface name like "loxyz" is on:
+    // POSIX fails with error "Name or service not known"
+    // MacOS ignored and an invalid LLA without scope_id is returned
+    // Win32 fails with error
+
+    CAddrinfo ai1("[fe80::acd%252]:ssh");
     ASSERT_TRUE(ai1.get_first());
 
     EXPECT_EQ(ai1->ai_family, AF_INET6);
@@ -1250,30 +1257,30 @@ TEST(AddrinfoTestSuite, load_lla_with_scope_id) {
     EXPECT_EQ(ai1->ai_protocol, 0);
     EXPECT_EQ(ai1->ai_flags, AI_V4MAPPED);
     EXPECT_EQ(ai1->ai_addrlen, 28);
-    EXPECT_NE(ai1->ai_addr, nullptr);
+    ASSERT_NE(ai1->ai_addr, nullptr);
+    EXPECT_EQ(reinterpret_cast<sockaddr_in6*>(ai1->ai_addr)->sin6_scope_id,
+              252);
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     ai1.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::acd%1]:22");
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::acd%252]:22");
     EXPECT_EQ(ai1->ai_next, nullptr);
 
-    CAddrinfo ai2("[fe80::acd%lo]:ssh");
-#ifdef _MSC_VER
+    auto g_dbug_old = g_dbug;
+    g_dbug = true;
+    CAddrinfo ai2("[fe80::dca%loxyz]:ssh");
     EXPECT_FALSE(ai2.get_first());
-#else
-    ASSERT_TRUE(ai2.get_first());
+    g_dbug = g_dbug_old;
 
     EXPECT_EQ(ai2->ai_family, AF_INET6);
     EXPECT_EQ(ai2->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(ai2->ai_protocol, 0);
     EXPECT_EQ(ai2->ai_flags, AI_V4MAPPED);
-    EXPECT_EQ(ai2->ai_addrlen, 28);
-    EXPECT_NE(ai2->ai_addr, nullptr);
+    EXPECT_EQ(ai2->ai_addrlen, 0);
+    EXPECT_EQ(ai2->ai_addr, nullptr);
     EXPECT_EQ(ai2->ai_canonname, nullptr);
     ai2.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(),
-              compiler == CO::clang ? "[fe80::acd]:22" : "[fe80::acd%1]:22");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
     EXPECT_EQ(ai2->ai_next, nullptr);
-#endif // _MSC_VER
 }
 
 TEST(AddrinfoTestSuite, load_gua_with_scope_id) {
