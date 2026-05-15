@@ -133,9 +133,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6756252cf07c4f4d74f51fedc2fecce5" id="r_ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a> (std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</td></tr>
 <tr class="memdesc:ga6756252cf07c4f4d74f51fedc2fecce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to check if a string represents a valid port number.  <br /></td></tr>
 <tr class="separator:ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga866b85de61d05c31bf4e900eb653b7a8" id="r_ga866b85de61d05c31bf4e900eb653b7a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">UPnPsdk::split_addr_port</a> (const std::string_view a_addr_sv, std::string &amp;a_addr, std::string &amp;a_scope, std::string &amp;a_serv) noexcept</td></tr>
-<tr class="memdesc:ga866b85de61d05c31bf4e900eb653b7a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to split inet address, scope_id, and port(service)  <br /></td></tr>
-<tr class="separator:ga866b85de61d05c31bf4e900eb653b7a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga42198e87ed3cbc400d4bfd7c8155df27" id="r_ga42198e87ed3cbc400d4bfd7c8155df27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">UPnPsdk::split_inaddr</a> (const std::string_view a_addr_sv, <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">inaddr_t</a> &amp;a_spl_inaddr) noexcept</td></tr>
+<tr class="memdesc:ga42198e87ed3cbc400d4bfd7c8155df27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to split inet address, scope_id, and port(service)  <br /></td></tr>
+<tr class="separator:ga42198e87ed3cbc400d4bfd7c8155df27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7214f121f69c12bc1ddccce1297c12a9" id="r_ga7214f121f69c12bc1ddccce1297c12a9"><td class="memItemLeft" align="right" valign="top">UPnPsdk_API::std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">UPnPsdk::operator&lt;&lt;</a> (::std::ostream &amp;os, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;saddr)</td></tr>
 <tr class="memdesc:ga7214f121f69c12bc1ddccce1297c12a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">output the <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a>  <br /></td></tr>
 <tr class="separator:ga7214f121f69c12bc1ddccce1297c12a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -421,8 +421,8 @@ sa</td>
 
 </div>
 </div>
-<a id="ga866b85de61d05c31bf4e900eb653b7a8" name="ga866b85de61d05c31bf4e900eb653b7a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga866b85de61d05c31bf4e900eb653b7a8">&#9670;&#160;</a></span>split_addr_port()</h2>
+<a id="ga42198e87ed3cbc400d4bfd7c8155df27" name="ga42198e87ed3cbc400d4bfd7c8155df27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga42198e87ed3cbc400d4bfd7c8155df27">&#9670;&#160;</a></span>split_inaddr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -431,7 +431,7 @@ sa</td>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void UPnPsdk::split_addr_port </td>
+          <td class="memname">void UPnPsdk::split_inaddr </td>
           <td>(</td>
           <td class="paramtype">const std::string_view&#160;</td>
           <td class="paramname"><em>a_addr_sv</em>, </td>
@@ -439,20 +439,8 @@ sa</td>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>a_addr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>a_scope</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>a_serv</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">inaddr_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>a_spl_inaddr</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -469,24 +457,23 @@ sa</td>
 
 <p>Free function to split inet address, scope_id, and port(service) </p>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g., not a complete list:</span></div>
-<div class="line">std::string addr, scope, serv;</div>
-<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">split_addr_port</a>(<span class="stringliteral">&quot;[2001:db8::1]:50001&quot;</span>, addr, scope, serv);</div>
-<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">split_addr_port</a>(<span class="stringliteral">&quot;2001:DB8::1&quot;</span>, addr, scope, serv);</div>
-<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">split_addr_port</a>(<span class="stringliteral">&quot;[fe80::2%3]:50002&quot;</span>, addr, scope, serv);</div>
-<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">split_addr_port</a>(<span class="stringliteral">&quot;127.0.0.1:0&quot;</span>, addr, scope, serv);</div>
-<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">split_addr_port</a>(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, addr, scope, serv);</div>
-<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">split_addr_port</a>(<span class="stringliteral">&quot;:50002&quot;</span>, addr, scope, serv);</div>
-<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">split_addr_port</a>(<span class="stringliteral">&quot;example.COM:50003&quot;</span>, addr, scope, serv);</div>
-<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">split_addr_port</a>(<span class="stringliteral">&quot;example.com:HTTPS&quot;</span>, addr, scope, serv);</div>
-<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">split_addr_port</a>(<span class="stringliteral">&quot;[::FFff:142.250.185.99]:ssh&quot;</span>, addr, scope, serv);</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga866b85de61d05c31bf4e900eb653b7a8"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga866b85de61d05c31bf4e900eb653b7a8">UPnPsdk::split_addr_port</a></div><div class="ttdeci">void split_addr_port(const std::string_view a_addr_sv, std::string &amp;a_addr, std::string &amp;a_scope, std::string &amp;a_serv) noexcept</div><div class="ttdoc">Free function to split inet address, scope_id, and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00186">sockaddr.cpp:186</a></div></div>
+<div class="line"><a class="code hl_struct" href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">inaddr_t</a> inaddr;</div>
+<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>(<span class="stringliteral">&quot;[2001:db8::1]:50001&quot;</span>, inaddr);</div>
+<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>(<span class="stringliteral">&quot;2001:DB8::1&quot;</span>, inaddr);</div>
+<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>(<span class="stringliteral">&quot;[fe80::2%3]:50002&quot;</span>, inaddr);</div>
+<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>(<span class="stringliteral">&quot;127.0.0.1:0&quot;</span>, inaddr);</div>
+<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, inaddr);</div>
+<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>(<span class="stringliteral">&quot;:50002&quot;</span>, inaddr);</div>
+<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>(<span class="stringliteral">&quot;example.COM:50003&quot;</span>, inaddr);</div>
+<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>(<span class="stringliteral">&quot;example.com:HTTPS&quot;</span>, inaddr);</div>
+<div class="line"><a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>(<span class="stringliteral">&quot;[::FFff:142.250.185.99]:ssh&quot;</span>, inaddr);</div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga42198e87ed3cbc400d4bfd7c8155df27"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">UPnPsdk::split_inaddr</a></div><div class="ttdeci">void split_inaddr(const std::string_view a_addr_sv, inaddr_t &amp;a_spl_inaddr) noexcept</div><div class="ttdoc">Free function to split inet address, scope_id, and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00186">sockaddr.cpp:186</a></div></div>
+<div class="ttc" id="anamespaceUPnPsdk_html_d8/ddb/structUPnPsdk_1_1inaddr__t"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">UPnPsdk::inaddr_t</a></div><div class="ttdoc">Components of an internet address.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00087">sockaddr.hpp:87</a></div></div>
 </div><!-- fragment --><p>This is a function for special use to prepare input for system calls without brackets. Its results returned in <b>a_addr</b>, <b>a_scope</b>, and <b>a_serv</b> are only useful for this purpose and not meant for general usage. The function only syntactical split the components on its separator '%' and ':'. No syntactical tests are made. For example a scope_id on a global unicast address, or a port number greater 65535 is not valid but also provided in <b>a_scope</b>, resp. <b>a_serv</b>. These tests must be made on a higher abstraction layer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_addr_sv</td><td>Any string. If it can be interpreted as an ip-address or -name with or without port number or name, its parts will be returned.  </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">a_addr</td><td>Reference of a string that will be filled with the ip address part. This can also be a alphanumeric name like "example.com"  </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">a_scope</td><td>Reference of a string that will be filled with the scope_id of a link-local address.  </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">a_serv</td><td>Reference of a string that will be filled with the port part. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_addr_sv</td><td>Any string. If it can be interpreted as an ip-address or -name with or without scope_id and/or service (port), its components will be returned.  </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">a_spl_inaddr</td><td>Reference of an internet address structure that will be filled with node, scope_id, and service (port). </td></tr>
   </table>
   </dd>
 </dl>
@@ -497,13 +484,13 @@ sa</td>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga866b85de61d05c31bf4e900eb653b7a8_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga866b85de61d05c31bf4e900eb653b7a8_icgraph" alt=""/></div>
-<map name="ad0/dd8/group__upnplib-addrmodul_ga866b85de61d05c31bf4e900eb653b7a8_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga866b85de61d05c31bf4e900eb653b7a8_icgraph">
-<area shape="rect" title="Free function to split inet address, scope_id, and port(service)" alt="" coords="476,112,660,137"/>
+<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga42198e87ed3cbc400d4bfd7c8155df27_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga42198e87ed3cbc400d4bfd7c8155df27_icgraph" alt=""/></div>
+<map name="ad0/dd8/group__upnplib-addrmodul_ga42198e87ed3cbc400d4bfd7c8155df27_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga42198e87ed3cbc400d4bfd7c8155df27_icgraph">
+<area shape="rect" title="Free function to split inet address, scope_id, and port(service)" alt="" coords="476,112,639,137"/>
 <area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="275,73,426,113"/>
-<area shape="poly" title=" " alt="" coords="467,113,426,106,426,101,468,107"/>
+<area shape="poly" title=" " alt="" coords="462,113,426,107,427,102,463,107"/>
 <area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a737a4bbb331538052850781c98a69005" title="Set socket address from a netaddress." alt="" coords="273,137,428,177"/>
-<area shape="poly" title=" " alt="" coords="468,142,429,148,428,143,468,137"/>
+<area shape="poly" title=" " alt="" coords="463,142,429,147,428,142,462,137"/>
 <area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="28,5,203,31"/>
 <area shape="poly" title=" " alt="" coords="292,70,225,45,182,33,183,28,226,39,294,65"/>
 <area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="74,55,157,80"/>
@@ -549,7 +536,7 @@ sa</td>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
 <div class="line">saObj = <span class="stringliteral">&quot;[2001:db8::1]:56789&quot;</span>;</div>
 <div class="line">std::cout &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; <span class="comment">// output &quot;[2001:db8::1]:56789&quot;</span></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00144">sockaddr.hpp:144</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00154">sockaddr.hpp:154</a></div></div>
 </div><!-- fragment --> 
 </div>
 </div>

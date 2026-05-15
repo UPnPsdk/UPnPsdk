@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-14
+// Redistribution only with this Copyright remark. Last modified: 2026-05-18
 
 // I test different address infos that we get from system function
 // ::getaddrinfo().
@@ -9,6 +9,8 @@
 #include <UPnPsdk/src/net/addrinfo.cpp>
 
 #include <UPnPsdk/socket.hpp>
+#include <UPnPsdk/netadapter.hpp>
+
 #include <utest/utest.hpp>
 #include <umock/netdb_mock.hpp>
 
@@ -28,6 +30,8 @@ using ::testing::SetArgPointee;
 using ::testing::StrictMock;
 
 using ::UPnPsdk::CAddrinfo;
+using ::UPnPsdk::CNetadapter;
+using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
 
 
@@ -462,6 +466,545 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
     ASSERT_EQ(ai2->ai_family, AF_INET6);
     ASSERT_NE(ai2->ai_addr, nullptr);
     EXPECT_EQ(reinterpret_cast<sockaddr_in6*>(ai2->ai_addr)->sin6_scope_id, 0);
+}
+
+
+// Tests for IPv6 scope_id
+// -----------------------
+// Summary:
+// Using only direct system calls.
+// Same result: ai_family, ai_socktype, ai_addrlen, ai_canonname, ai_addr.port.
+// All platforms return the socket address that was queried as input.
+
+class AddrinfoFTestSuite : public ::testing::Test {
+  protected:
+    ::addrinfo m_hints{}, *m_res{nullptr};
+
+    static constexpr char m_lla[]{"fe80::111"};
+    static constexpr char m_gua[]{"2001:db8::1"};
+    static constexpr char m_lbk[]{"::1"};
+    char m_addrbuf[INET6_ADDRSTRLEN];
+
+    AddrinfoFTestSuite() {
+        m_hints.ai_flags = AI_V4MAPPED | AI_NUMERICHOST;
+        m_hints.ai_family = AF_INET6;
+        m_hints.ai_socktype = SOCK_STREAM;
+    }
+
+    ~AddrinfoFTestSuite() {
+        if (m_res != nullptr) {
+            freeaddrinfo(m_res);
+            m_res = nullptr;
+            std::cerr << "DEBUG! freeaddrinfo() called.\n";
+        }
+    }
+};
+
+#if false
+// Following tests are to verify the results from system function
+// 'getaddrinfo()' by direct calling it. This will not change and do not need to
+// be executed every time.
+
+TEST_F(AddrinfoFTestSuite, verify_lla_with_valid_numeric_id) {
+    // All platforms succeed getaddrinfo().
+    // Each platform returns different ai_flags.
+    // Win32 returns ai_protocol given by hint, other return specific number.
+    // All platforms return ai_addr.scope_id that was given with input address.
+
+    constexpr char llascp[]{"fe80::111%252"};
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    ASSERT_EQ(::getaddrinfo(llascp, "https", &m_hints, &m_res), 0);
+
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang
+                  ? 0
+                  : (compiler == CO::msc ? AI_NUMERICHOST
+                                         : AI_V4MAPPED | AI_NUMERICHOST));
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 252);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_lla, m_addrbuf);
+}
+
+TEST_F(AddrinfoFTestSuite, verify_lla_with_invalid_numeric_id) {
+    // Only macOS succeeds getaddrinfo() call, other fail.
+    // MacOS returns ai_flags set to 0.
+    // MacOS returns specific ai_protocol number.
+    // MacOS returns ai_addr.scope_id set to 0.
+
+    constexpr char llascp[]{"fe80::111%-252"};
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    auto ret = ::getaddrinfo(llascp, "https", &m_hints, &m_res);
+
+#ifdef __APPLE__
+    ASSERT_EQ(ret, 0) << gai_strerror(ret);
+
+    EXPECT_EQ(m_res->ai_flags, 0);
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_lla, m_addrbuf);
+#else
+    EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+#endif
+}
+
+TEST_F(AddrinfoFTestSuite, verify_lla_with_valid_alphanum_id) {
+    // Win32 fails call getaddrinfo(), other succeed.
+    // Other platforms return different ai_flags.
+    // Other platforms return ai_protocol other as default by hint.
+    // Other platforms return ai_addr.scope_id thats given with input address.
+
+    // Get valid alpha-numeric scope_id
+    CNetadapter naObj;
+    ASSERT_NO_THROW(naObj.get_first());
+    ASSERT_TRUE(naObj.find_first(UPnPsdk::CNetadapter::ADDRS::lla));
+
+    std::string llascp("fe80::111%" + naObj.name());
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    auto ret = ::getaddrinfo(llascp.c_str(), "https", &m_hints, &m_res);
+
+#ifdef _MSC_VER
+    ASSERT_EQ(ret, WSAHOST_NOT_FOUND) << gai_strerror(ret);
+
+#else
+    ASSERT_EQ(ret, 0) << gai_strerror(ret);
+
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang ? 0 : AI_V4MAPPED | AI_NUMERICHOST);
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, naObj.index());
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_lla, m_addrbuf);
+#endif
+}
+
+TEST_F(AddrinfoFTestSuite, verify_lla_with_invalid_alphanum_id) {
+    // Only macOS succeeds getaddrinfo() call, other fail.
+    // MacOS returns ai_flag set to 0.
+    // MacOS returns specific ai_protocol number.
+    // MacOS returns ai_addr.scope_id set to 0.
+
+    constexpr char llascp[]{"fe80::111%lozyx"};
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    auto ret = ::getaddrinfo(llascp, "https", &m_hints, &m_res);
+
+#ifdef __APPLE__
+    ASSERT_EQ(ret, 0) << gai_strerror(ret);
+
+    EXPECT_EQ(m_res->ai_flags, 0);
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_lla, m_addrbuf);
+#else
+    EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+#endif
+}
+
+TEST_F(AddrinfoFTestSuite, verify_lla_with_no_id) {
+    // All platforms succeed getaddrinfo().
+    // Each platform returns different ai_flags.
+    // Win32 returns ai_protocol given by hint, other return specific number.
+    // All platforms return no ai_addr.scope_id (set to 0).
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    ASSERT_EQ(::getaddrinfo(m_lla, "https", &m_hints, &m_res), 0);
+
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang
+                  ? 0
+                  : (compiler == CO::msc ? AI_NUMERICHOST
+                                         : AI_V4MAPPED | AI_NUMERICHOST));
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_lla, m_addrbuf);
+}
+
+TEST_F(AddrinfoFTestSuite, verify_gua_with_valid_numeric_id) {
+    // Result same as verify_lla_with_valid_numeric_id.
+
+    // Using only direct system calls.
+    constexpr char guascp[]{"2001:db8::1%252"};
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    ASSERT_EQ(::getaddrinfo(guascp, "https", &m_hints, &m_res), 0);
+
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang
+                  ? 0
+                  : (compiler == CO::msc ? AI_NUMERICHOST
+                                         : AI_V4MAPPED | AI_NUMERICHOST));
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 252);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_gua, m_addrbuf);
+}
+
+TEST_F(AddrinfoFTestSuite, verify_gua_with_invalid_numeric_id) {
+    // Result same as verify_lla_with_invalid_numeric_id.
+
+    constexpr char guascp[]{"2001:db8::1%-252"};
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    auto ret = ::getaddrinfo(guascp, "https", &m_hints, &m_res);
+
+#ifdef __APPLE__
+    ASSERT_EQ(ret, 0) << gai_strerror(ret);
+
+    EXPECT_EQ(m_res->ai_flags, 0);
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_gua, m_addrbuf);
+#else
+    EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+#endif
+}
+
+TEST_F(AddrinfoFTestSuite, verify_gua_with_valid_alphanum_id) {
+    // All supported platforms fail call getaddrinfo().
+
+    // Get valid alpha-numeric scope_id
+    CNetadapter naObj;
+    ASSERT_NO_THROW(naObj.get_first());
+    if (!naObj.find_first(UPnPsdk::CNetadapter::ADDRS::gua))
+        GTEST_SKIP() << "No usable global unicast address found on any local "
+                        "network adapter.";
+
+    std::string guascp("2001:db8::1%" + naObj.name());
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    auto ret = ::getaddrinfo(guascp.c_str(), "https", &m_hints, &m_res);
+
+    EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+}
+
+TEST_F(AddrinfoFTestSuite, verify_gua_with_invalid_alphanum_id) {
+    // Result same as verify_lla_with_invalid_alphanum_id.
+
+    constexpr char guascp[]{"2001:db8::1%lozyx"};
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    auto ret = ::getaddrinfo(guascp, "https", &m_hints, &m_res);
+
+#ifdef __APPLE__
+    ASSERT_EQ(ret, 0) << gai_strerror(ret);
+
+    EXPECT_EQ(m_res->ai_flags, 0);
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_gua, m_addrbuf);
+#else
+    EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+#endif
+}
+
+TEST_F(AddrinfoFTestSuite, verify_gua_with_no_id) {
+    // Result same as verify_lla_with_no_id.
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    ASSERT_EQ(::getaddrinfo(m_gua, "https", &m_hints, &m_res), 0);
+
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang
+                  ? 0
+                  : (compiler == CO::msc ? AI_NUMERICHOST
+                                         : AI_V4MAPPED | AI_NUMERICHOST));
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_gua, m_addrbuf);
+}
+
+TEST_F(AddrinfoFTestSuite, verify_loopback_with_valid_numeric_id) {
+    // Result same as verify_lla_with_valid_numeric_id.
+
+    // Using only direct system calls.
+    constexpr char lbkscp[]{"::1%252"};
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    ASSERT_EQ(::getaddrinfo(lbkscp, "https", &m_hints, &m_res), 0);
+
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang
+                  ? 0
+                  : (compiler == CO::msc ? AI_NUMERICHOST
+                                         : AI_V4MAPPED | AI_NUMERICHOST));
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 252);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_lbk, m_addrbuf);
+}
+
+TEST_F(AddrinfoFTestSuite, verify_loopback_with_invalid_numeric_id) {
+    // Result same as verify_lla_with_invalid_numeric_id.
+
+    constexpr char lbkscp[]{"::1%-252"};
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    auto ret = ::getaddrinfo(lbkscp, "https", &m_hints, &m_res);
+
+#ifdef __APPLE__
+    ASSERT_EQ(ret, 0) << gai_strerror(ret);
+
+    EXPECT_EQ(m_res->ai_flags, 0);
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    // Scope_id is 0.
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_lbk, m_addrbuf);
+#else
+    EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+#endif
+}
+
+TEST_F(AddrinfoFTestSuite, verify_loopback_with_valid_alphanum_id) {
+    // Only macOS succeeds getaddrinfo() call, other fail.
+    // MacOS returns ai_flags set to 0.
+    // MacOS returns specific ai_protocol number.
+    // MacOS returns ai_addr.scope_id thats given with input address.
+
+    // Get valid alpha-numeric scope_id
+    CNetadapter naObj;
+    ASSERT_NO_THROW(naObj.get_first());
+    ASSERT_TRUE(naObj.find_first(UPnPsdk::CNetadapter::ADDRS::lo));
+
+    std::string lbkscp("::1%" + naObj.name());
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    auto ret = ::getaddrinfo(lbkscp.c_str(), "https", &m_hints, &m_res);
+
+#ifdef __APPLE__
+    ASSERT_EQ(ret, 0) << gai_strerror(ret);
+
+    EXPECT_EQ(m_res->ai_flags, 0);
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, naObj.index());
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_lbk, m_addrbuf);
+#else
+    EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+#endif
+}
+
+TEST_F(AddrinfoFTestSuite, verify_loopback_with_invalid_alphanum_id) {
+    // Result same as verify_lla_with_invalid_alphanum_id.
+
+    constexpr char lbkscp[]{"::1%lozyx"};
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    auto ret = ::getaddrinfo(lbkscp, "https", &m_hints, &m_res);
+
+#ifdef __APPLE__
+    ASSERT_EQ(ret, 0) << gai_strerror(ret);
+
+    EXPECT_EQ(m_res->ai_flags, 0);
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    // Scope_id is 0.
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_lbk, m_addrbuf);
+#else
+    EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+#endif
+}
+
+TEST_F(AddrinfoFTestSuite, verify_loopback_with_no_id) {
+    // Result same as verify_lla_with_no_id.
+
+    // Test Unit
+    m_hints.ai_protocol = 6;
+    ASSERT_EQ(::getaddrinfo(m_lbk, "https", &m_hints, &m_res), 0);
+
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang
+                  ? 0
+                  : (compiler == CO::msc ? AI_NUMERICHOST
+                                         : AI_V4MAPPED | AI_NUMERICHOST));
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_lbk, m_addrbuf);
+}
+#endif
+
+TEST_F(AddrinfoFTestSuite, lla_with_valid_numeric_id_successful) {
+
+    CAddrinfo ai("[fe80::acd%252]:https");
+    ASSERT_TRUE(ai.get_first());
+
+    EXPECT_EQ(ai->ai_protocol, 0);
+    EXPECT_EQ(ai->ai_flags, AI_V4MAPPED);
+    // Should be
+    // EXPECT_EQ(ai->ai_flags, AI_V4MAPPED | AI_NUMERICHOST);
+    EXPECT_EQ(ai->ai_addrlen, 28);
+    ASSERT_NE(ai->ai_addr, nullptr);
+    ai.sockaddr(saddr);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 252);
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::acd%252]:443");
+    EXPECT_EQ(ai->ai_canonname, nullptr);
+    EXPECT_EQ(ai->ai_next, nullptr);
 }
 
 
@@ -1241,41 +1784,6 @@ TEST(AddrinfoTestSuite, load_loopback_addr_with_scope_id) {
 #endif
 }
 
-TEST(AddrinfoTestSuite, load_lla_with_scope_id) {
-    CAddrinfo ai1("[fe80::acd%1]:ssh");
-    ASSERT_TRUE(ai1.get_first());
-
-    EXPECT_EQ(ai1->ai_family, AF_INET6);
-    EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
-    EXPECT_EQ(ai1->ai_protocol, 0);
-    EXPECT_EQ(ai1->ai_flags, AI_V4MAPPED);
-    EXPECT_EQ(ai1->ai_addrlen, 28);
-    EXPECT_NE(ai1->ai_addr, nullptr);
-    EXPECT_EQ(ai1->ai_canonname, nullptr);
-    ai1.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::acd%1]:22");
-    EXPECT_EQ(ai1->ai_next, nullptr);
-
-    CAddrinfo ai2("[fe80::acd%lo]:ssh");
-#ifdef _MSC_VER
-    EXPECT_FALSE(ai2.get_first());
-#else
-    ASSERT_TRUE(ai2.get_first());
-
-    EXPECT_EQ(ai2->ai_family, AF_INET6);
-    EXPECT_EQ(ai2->ai_socktype, SOCK_STREAM);
-    EXPECT_EQ(ai2->ai_protocol, 0);
-    EXPECT_EQ(ai2->ai_flags, AI_V4MAPPED);
-    EXPECT_EQ(ai2->ai_addrlen, 28);
-    EXPECT_NE(ai2->ai_addr, nullptr);
-    EXPECT_EQ(ai2->ai_canonname, nullptr);
-    ai2.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(),
-              compiler == CO::clang ? "[fe80::acd]:22" : "[fe80::acd%1]:22");
-    EXPECT_EQ(ai2->ai_next, nullptr);
-#endif // _MSC_VER
-}
-
 TEST(AddrinfoTestSuite, load_gua_with_scope_id) {
     // Unicast addresses are unique worldwide so using a scope id makes no much
     // sense but it is partly possible, except for AppleClang.
@@ -1522,19 +2030,19 @@ TEST_P(GetaddrinfoWin32Test, how_it_works) {
 INSTANTIATE_TEST_SUITE_P(GetaddrinfoWin32, GetaddrinfoWin32Test, ::testing::Values(
     // All tests are done with an IPv4 address (AF_INET) that should be
     // converted to an IPv4 mapped IPv6 with using different flags.
-    // hints.ai_flags, hints.ai_family, res.ai_flags, res.ai_family, success, v4mapped
-/*00*/ std::make_tuple(0, AF_INET6, -1, -1, false, false), // No such host is known.
-       std::make_tuple(0, AF_INET, AI_NUMERICHOST, AF_INET, true, false),
-       std::make_tuple(0, AF_UNSPEC, AI_NUMERICHOST, AF_INET, true, false),
-       std::make_tuple(AI_NUMERICHOST, AF_INET6, -1, -1, false, false),
-       std::make_tuple(AI_NUMERICHOST, AF_INET, AI_NUMERICHOST, AF_INET, true, false),
-       std::make_tuple(AI_NUMERICHOST, AF_UNSPEC, AI_NUMERICHOST, AF_INET, true, false),
-       std::make_tuple(AI_V4MAPPED, AF_INET6, 0, AF_INET6, true, true),
-       std::make_tuple(AI_V4MAPPED, AF_INET, AI_NUMERICHOST, AF_INET, true, false),
-       std::make_tuple(AI_V4MAPPED, AF_UNSPEC, AI_NUMERICHOST, AF_INET, true, false),
-       std::make_tuple(AI_V4MAPPED | AI_NUMERICHOST, AF_INET6, -1, -1, false, false), // No such host is known.
-/*10*/ std::make_tuple(AI_V4MAPPED | AI_NUMERICHOST, AF_INET, AI_NUMERICHOST, AF_INET, true, false),
-       std::make_tuple(AI_V4MAPPED | AI_NUMERICHOST, AF_UNSPEC, AI_NUMERICHOST, AF_INET, true, false)
+    //                 hints.ai_flags,        lhints.ai_family, res.ai_flags, res.ai_family, success, v4mapped
+/*00*/ std::make_tuple(0,                            AF_INET6,  -1,             -1,       false, false), // No such host is known.
+       std::make_tuple(0,                            AF_INET,   AI_NUMERICHOST, AF_INET,  true,  false),
+       std::make_tuple(0,                            AF_UNSPEC, AI_NUMERICHOST, AF_INET,  true,  false),
+       std::make_tuple(AI_NUMERICHOST,               AF_INET6,  -1,             -1,       false, false),
+       std::make_tuple(AI_NUMERICHOST,               AF_INET,   AI_NUMERICHOST, AF_INET,  true,  false),
+       std::make_tuple(AI_NUMERICHOST,               AF_UNSPEC, AI_NUMERICHOST, AF_INET,  true,  false),
+       std::make_tuple(AI_V4MAPPED,                  AF_INET6,  0,              AF_INET6, true,  true),
+       std::make_tuple(AI_V4MAPPED,                  AF_INET,   AI_NUMERICHOST, AF_INET,  true,  false),
+       std::make_tuple(AI_V4MAPPED,                  AF_UNSPEC, AI_NUMERICHOST, AF_INET,  true,  false),
+       std::make_tuple(AI_V4MAPPED | AI_NUMERICHOST, AF_INET6,  -1,             -1,       false, false), // No such host is known.
+/*10*/ std::make_tuple(AI_V4MAPPED | AI_NUMERICHOST, AF_INET,   AI_NUMERICHOST, AF_INET,  true,  false),
+       std::make_tuple(AI_V4MAPPED | AI_NUMERICHOST, AF_UNSPEC, AI_NUMERICHOST, AF_INET,  true,  false)
 ));
 // clang-format on
 #endif

@@ -51,6 +51,7 @@ var annotated_dup =
       [ "CUriRef", "dc/d76/classUPnPsdk_1_1CUriRef.html", "dc/d76/classUPnPsdk_1_1CUriRef" ],
       [ "CUserinfo", "d9/dba/classUPnPsdk_1_1CUserinfo.html", "d9/dba/classUPnPsdk_1_1CUserinfo" ],
       [ "Document_meta", "dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta", "dd/d67/namespaceUPnPsdk_db/dfe/structUPnPsdk_1_1Document__meta_dup" ],
+      [ "inaddr_t", "dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t", "dd/d67/namespaceUPnPsdk_d8/ddb/structUPnPsdk_1_1inaddr__t_dup" ],
       [ "INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", "d6/d3e/classUPnPsdk_1_1INetadapter" ],
       [ "sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
       [ "SSockaddr", "dc/df7/structUPnPsdk_1_1SSockaddr.html", "dc/df7/structUPnPsdk_1_1SSockaddr" ],

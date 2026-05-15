@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-12
+// Redistribution only with this Copyright remark. Last modified: 2026-05-15
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -79,22 +79,36 @@ int to_port( //
     in_port_t* const a_port_num = nullptr) noexcept;
 
 
+/*! \brief Components of an internet address
+ * \details Typical LLA example with all [netaddress](\ref glossary_netaddr)
+ * components:\n
+ * "[fe80::1%2]:443" with node "fe80::1", scope "2", service "443"\n
+ * "[fe80::2%eth0]:https" with node "fe80::2", scope "eth0", service "https" */
+struct inaddr_t {
+    std::string node; /*!< IP address without brackets. This can also be a
+                         alphanumeric name like "example.com". */
+    std::string scope; /*!< scope_id is the index number or name  of a
+                         [netadapter](\ref glossary_netadapt). Only available
+                         on a link-local address. */
+    std::string service; /*!< Port number, or service name (e.g. "https"). */
+};
+
 /*!
  * \brief Free function to split inet address, scope_id, and port(service)
  * <!-- -------------------------------------------------------------- -->
  * \ingroup upnplib-addrmodul
  * \code
  * // Usage e.g., not a complete list:
- * std::string addr, scope, serv;
- * split_addr_port("[2001:db8::1]:50001", addr, scope, serv);
- * split_addr_port("2001:DB8::1", addr, scope, serv);
- * split_addr_port("[fe80::2%3]:50002", addr, scope, serv);
- * split_addr_port("127.0.0.1:0", addr, scope, serv);
- * split_addr_port("127.0.0.1", addr, scope, serv);
- * split_addr_port(":50002", addr, scope, serv);
- * split_addr_port("example.COM:50003", addr, scope, serv);
- * split_addr_port("example.com:HTTPS", addr, scope, serv);
- * split_addr_port("[::FFff:142.250.185.99]:ssh", addr, scope, serv);
+ * inaddr_t inaddr;
+ * split_inaddr("[2001:db8::1]:50001", inaddr);
+ * split_inaddr("2001:DB8::1", inaddr);
+ * split_inaddr("[fe80::2%3]:50002", inaddr);
+ * split_inaddr("127.0.0.1:0", inaddr);
+ * split_inaddr("127.0.0.1", inaddr);
+ * split_inaddr(":50002", inaddr);
+ * split_inaddr("example.COM:50003", inaddr);
+ * split_inaddr("example.com:HTTPS", inaddr);
+ * split_inaddr("[::FFff:142.250.185.99]:ssh", inaddr);
  * \endcode
  *
  * This is a function for special use to prepare input for system calls
@@ -106,18 +120,14 @@ int to_port( //
  * a_scope, resp. \b a_serv. These tests must be made on a higher abstraction
  * layer.
  * */
-void split_addr_port( //
+void split_inaddr( //
     /*! [in] Any string. If it can be interpreted as an ip-address or -name with
-       or without port number or name, its parts will be returned. */
+       or without scope_id and/or service (port), its components will be
+       returned. */
     const std::string_view a_addr_sv,
-    /*! [out] Reference of a string that will be filled with the ip address
-       part. This can also be a alphanumeric name like "example.com" */
-    std::string& a_addr,
-    /*! [out] Reference of a string that will be filled with the scope_id of a
-       link-local address. */
-    std::string& a_scope,
-    /// [out] Reference of a string that will be filled with the port part.
-    std::string& a_serv) noexcept;
+    /*! [out] Reference of an internet address structure that will be filled
+       with node, scope_id, and service (port). */
+    inaddr_t& a_spl_inaddr) noexcept;
 
 
 /*!

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-14
+// Redistribution only with this Copyright remark. Last modified: 2026-05-15
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 #include <utest/utest.hpp>
@@ -13,7 +13,7 @@ using ::testing::ThrowsMessage;
 
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::sockaddrcmp;
-using ::UPnPsdk::split_addr_port;
+using ::UPnPsdk::split_inaddr;
 using ::UPnPsdk::SSockaddr;
 using ::UPnPsdk::to_port;
 
@@ -747,9 +747,7 @@ TEST(SockaddrStorageTestSuite, string_to_port_test_only) {
 }
 
 
-std::string m_addr_str;
-std::string m_scope_str;
-std::string m_port_str;
+UPnPsdk::inaddr_t inaddr;
 
 // clang-format off
 class SplitAddrPortTest
@@ -761,10 +759,10 @@ TEST_P(SplitAddrPortTest, split_address_and_port) {
     // Get parameter
     const std::tuple params = GetParam();
 
-    split_addr_port(std::get<0>(params), m_addr_str, m_scope_str, m_port_str);
-    EXPECT_EQ(m_addr_str, std::get<1>(params));
-    EXPECT_EQ(m_scope_str, std::get<2>(params));
-    EXPECT_EQ(m_port_str, std::get<3>(params));
+    split_inaddr(std::get<0>(params), inaddr);
+    EXPECT_EQ(inaddr.node, std::get<1>(params));
+    EXPECT_EQ(inaddr.scope, std::get<2>(params));
+    EXPECT_EQ(inaddr.service, std::get<3>(params));
 }
 
 INSTANTIATE_TEST_SUITE_P(SplitAddrPort, SplitAddrPortTest, ::testing::Values(

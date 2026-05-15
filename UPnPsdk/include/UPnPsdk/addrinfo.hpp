@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_INCLUDE_ADDRINFO_HPP
 #define UPnPsdk_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-11
+// Redistribution only with this Copyright remark. Last modified: 2025-06-18
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
@@ -15,6 +15,34 @@ namespace UPnPsdk {
  * \brief Get information from the operating system about an internet address
 <!-- ==================================================================== -->
  * \ingroup upnplib-addrmodul
+ *
+ * The results from getting system information using `::getaddrinfo()` are
+ * somewhat confusing and lack a clear systematic pattern over all supported
+ * platforms. For example a scope_id of an IPv6 link-local address can be
+ * speicfied with the local network interface index number, or by its name,
+ * maybe "[fe80::1%2]" or "[fe80::1%eth0]". Microsoft Windows accepts only
+ * numeric scope_ids. MacOs accepts link-local addresses with wrong or missing
+ * scope_id, and returns the resulting socket address with no scope_Id (set to
+ * 0). This is out of specification. Due to <a
+ * href="https://www.rfc-editor.org/rfc/rfc4007.html">RFC 4007</a> an IPv6
+ * link-local address must include a scope_id to be valid for routing purposes.
+ * All supported platforms accept a valid scope_id on an IPv6 global-unicast
+ * address that cannot use it. Different platforms return different values for
+ * other properties. Exact details and verification are internally made with
+ * `AddrinfoScopeIdFTestSuite`. All of this makes it necessary for the SDK to
+ * define the properties of this class as follows:
+ * - Getting information for an IPv6 link-local address with a numeric scope_id
+ *   always succeeds.
+ * - Getting information for an IPv6 link-local address without a scope_id
+ *   always fails.
+ * - Getting information for an IPv6 link-local address with a name of a local
+ *   network interface that doesn't exist, fails.
+ * - A scope_id on an IPv6 global-unicast address or on the loopback address is
+ *   silently ignored. The resulting socket address does not have a scope_id
+ *   (set to 0).
+ * - The resulting ai_flags are the same as given by the hints.
+ * - The resulting ai_protocol is set to the same as given by the hints.
+ * - All other resulting information are that from the operating system.
  *
  * An empty node returns information of the loopback interface, but either node
  * or service, but not both, may be empty. With setting everything unspecified,

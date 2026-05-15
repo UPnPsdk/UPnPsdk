@@ -246,8 +246,8 @@ var NAVTREEINDEX6 =
 "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#aebfc082fb3dc901a9f889d935ff07755":[5,0,6,3],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html":[4,3,0,1,0],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html":[4,2,0,0],
-"d9/da5/classUPnPsdk_1_1CSocket__basic.html#a03d5f6960eee00a3d0a987df326aaf2b":[4,3,0,1,0,8],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a03d5f6960eee00a3d0a987df326aaf2b":[4,2,0,0,8],
-"d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2899231a1217983bb210efe731a17343":[4,3,0,1,0,0],
-"d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2899231a1217983bb210efe731a17343":[4,2,0,0,0]
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html#a03d5f6960eee00a3d0a987df326aaf2b":[4,3,0,1,0,8],
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2899231a1217983bb210efe731a17343":[4,2,0,0,0],
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html#a2899231a1217983bb210efe731a17343":[4,3,0,1,0,0]
 };

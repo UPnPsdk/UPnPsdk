@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-14
+// Redistribution only with this Copyright remark. Last modified: 2026-05-15
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -183,16 +183,16 @@ int to_port(std::string_view a_port_str, in_port_t* const a_port_num) noexcept {
 //               50006
 //                  Remaining
 //               2001:db8::7
-void split_addr_port(const std::string_view a_addr_sv, std::string& a_addr_st,
-                     std::string& a_scope_st, std::string& a_serv_st) noexcept {
-    TRACE("Executing split_addr_port()")
+void split_inaddr(const std::string_view a_addr_sv,
+                  inaddr_t& a_inaddr) noexcept {
+    TRACE("Executing split_inaddr()")
 
     // Special cases
     if (a_addr_sv.empty()) {
         // An empty address string clears address/scope_id/port.
-        a_addr_st.clear();
-        a_scope_st.clear();
-        a_serv_st.clear();
+        a_inaddr.node.clear();
+        a_inaddr.scope.clear();
+        a_inaddr.service.clear();
         return;
     }
 
@@ -271,7 +271,7 @@ void split_addr_port(const std::string_view a_addr_sv, std::string& a_addr_st,
             serv_sv = a_addr_sv; // Numeric value <= MAX_UINT16 not checked.
     }
 
-    // Return result for a_addr_st.
+    // Return result for a_inaddr.node.
     // Remove surounding brackets if any, shortest possible netaddress is
     // "[::]".
     if (addr_sv.length() >= 4 && addr_sv.front() == '[' &&
@@ -283,23 +283,23 @@ void split_addr_port(const std::string_view a_addr_sv, std::string& a_addr_st,
         addr_sv.remove_suffix(1);
     }
 
-    // Return result for a_addr_st and a_scope_st.
+    // Return result for a_inaddr.node and a_inaddr.scope.
     if ((pos = addr_sv.find_first_of('%')) != npos) {
-        a_addr_st = addr_sv.substr(0, pos);
-        a_scope_st = addr_sv.substr(pos + 1);
-        if (a_scope_st.empty())
-            a_scope_st = zero_sv;
+        a_inaddr.node = addr_sv.substr(0, pos);
+        a_inaddr.scope = addr_sv.substr(pos + 1);
+        if (a_inaddr.scope.empty())
+            a_inaddr.scope = zero_sv;
     } else {
-        a_addr_st = addr_sv;
-        a_scope_st.clear();
+        a_inaddr.node = addr_sv;
+        a_inaddr.scope.clear();
     }
 
-    // Return result for a_serv_st.
+    // Return result for a_inaddr.service.
     // Check for valid port. ::getaddrinfo accepts invalid ports > 65535.
-    a_serv_st = serv_sv;
+    a_inaddr.service = serv_sv;
     UPnPsdk_LOGINFO("MSG1043")
-        << a_addr_sv << "\" into addr=\"" << a_addr_st << "\", scope_id=\""
-        << a_scope_st << "\", port=\"" << a_serv_st << "\"\n";
+        << a_addr_sv << "\" into addr=\"" << a_inaddr.node << "\", scope_id=\""
+        << a_inaddr.scope << "\", port=\"" << a_inaddr.service << "\"\n";
 }
 
 
@@ -351,33 +351,30 @@ void SSockaddr::operator=(const std::string_view a_addr_sv) noexcept {
     do {
         // Split address, scope_id, port
         // -----------------------------
-        std::string addr_st;
-        std::string scope_st; // Has "", or up to 10 digits, or netadapter name.
-        std::string port_st; // Has "", or up to 5 digits, or service name.
-
-        split_addr_port(a_addr_sv, addr_st, scope_st, port_st);
+        inaddr_t inaddr;
+        split_inaddr(a_addr_sv, inaddr);
 
 
         // Manage IP address.
         // ------------------
-        if (!addr_st.empty()) {
+        if (!inaddr.node.empty()) {
 
             // Look for IPv6 address.
             auto& s6 = m_sa_union.sin6;
-            if (inet_pton(AF_INET6, addr_st.c_str(), &s6.sin6_addr) == 1) {
+            if (inet_pton(AF_INET6, inaddr.node.c_str(), &s6.sin6_addr) == 1) {
                 m_sa_union.ss.ss_family = AF_INET6;
                 s6.sin6_scope_id = 0;
 
                 // Check scope_id only valid for link-local addresses.
-                if (!scope_st.empty() && scope_st != "0") {
+                if (!inaddr.scope.empty() && inaddr.scope != "0") {
                     if (IN6_IS_ADDR_LINKLOCAL(&s6.sin6_addr)) {
                         // scope_id and link-local address: store scope_id?
 
                         // Check if there are all digits for scope_id.
                         // UINT32_MAX (4,294,967,295) has 10 digits.
                         size_t i{};
-                        for (; i < scope_st.size() && i < 11; i++)
-                            if (!std::isdigit(scope_st[i]))
+                        for (; i < inaddr.scope.size() && i < 11; i++)
+                            if (!std::isdigit(inaddr.scope[i]))
                                 i = 11;
                         if (i > 10) {
                             // An alphanumeric string.
@@ -389,7 +386,7 @@ void SSockaddr::operator=(const std::string_view a_addr_sv) noexcept {
                             // stoi() may throw exception, but not possible due
                             // to guarded value above.
                             s6.sin6_scope_id =
-                                static_cast<uint32_t>(std::stoi(scope_st));
+                                static_cast<uint32_t>(std::stoi(inaddr.scope));
 
                     } else {
                         // scope_id but no link-local address.
@@ -405,7 +402,7 @@ void SSockaddr::operator=(const std::string_view a_addr_sv) noexcept {
                 }
 
                 // Look for IPv4 address.
-            } else if (inet_pton(AF_INET, addr_st.c_str(),
+            } else if (inet_pton(AF_INET, inaddr.node.c_str(),
                                  &m_sa_union.sin.sin_addr) == 1) {
                 m_sa_union.ss.ss_family = AF_INET;
 
@@ -418,17 +415,17 @@ void SSockaddr::operator=(const std::string_view a_addr_sv) noexcept {
 
         // Manage port. Also valid for AF_INET.
         // ------------------------------------
-        if (!port_st.empty()) {
+        if (!inaddr.service.empty()) {
             // Check if port string is numeric. UINT16_MAX (65535) has 5 digits.
             size_t i{};
-            for (; i < port_st.size() && i < 6; i++)
-                if (!std::isdigit(port_st[i]))
+            for (; i < inaddr.service.size() && i < 6; i++)
+                if (!std::isdigit(inaddr.service[i]))
                     i = 6;
             if (i > 5)
                 break; // Error
 
             // Valid uint16_t value, but limited to UINT16_MAX?
-            int iport = std::stoi(port_st);
+            int iport = std::stoi(inaddr.service);
             if (iport > UINT16_MAX)
                 break; // Error
 

@@ -49,6 +49,7 @@ var hierarchy =
     [ "http_header_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#df/d1d/structhttp__header__t", null ],
     [ "http_message_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t", null ],
     [ "http_parser_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t", null ],
+    [ "UPnPsdk::inaddr_t", "dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t", null ],
     [ "UPnPsdk::INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", [
       [ "UPnPsdk::CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", null ],
       [ "UPnPsdk::CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", null ]
