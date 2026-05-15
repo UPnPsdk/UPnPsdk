@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-14
+// Redistribution only with this Copyright remark. Last modified: 2026-05-15
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -157,29 +157,31 @@ bool CAddrinfo::get_first() {
     TRACE2(this, " Executing CAddrinfo::get_first()")
 
     // Prepare input for ::getaddrinfo()
-    std::string node, scope, service;
+    inaddr_t inaddr;
 
     if (m_service.empty())
-        split_addr_port(m_node, node, scope, service);
+        split_inaddr(m_node, inaddr);
     else
-        split_addr_port(m_node + ":" + m_service, node, scope, service);
+        split_inaddr(m_node + ":" + m_service, inaddr);
 
-    if (to_port(service) == 1) { // Valid number but out of scope 0..65535.
-        m_error_msg = UPnPsdk_LOGWHAT "MSG1128: Port number " + service +
+    if (to_port(inaddr.service) == 1) {
+        // Valid number but out of scope 0..65535.
+        m_error_msg = UPnPsdk_LOGWHAT "MSG1128: Port number " + inaddr.service +
                       " out of range 0..65535.\n";
         return false;
     }
-    if (!scope.empty())
-        node += '%' + scope;
+    if (!inaddr.scope.empty())
+        inaddr.node += '%' + inaddr.scope;
 
     // syscall ::getaddrinfo() with prepared arguments
     // -----------------------------------------------
     ::addrinfo* new_res{nullptr}; // Result from ::getaddrinfo()
-    const int ret = UPnPsdk::getaddrinfo(node, service, m_hints, new_res);
+    const int ret =
+        UPnPsdk::getaddrinfo(inaddr.node, inaddr.service, m_hints, new_res);
 #ifndef __APPLE__
     // std::format() since c++20 isn't supported on AppleClang 15, even on c++23
-    TRACE2(this, " syscall ::getaddrinfo(" + node + ", " + service +
-                     ") with new_res = " +
+    TRACE2(this, " syscall ::getaddrinfo(" + inaddr.node + ", " +
+                     inaddr.service + ") with new_res = " +
                      std::format("{:#x}", reinterpret_cast<uintptr_t>(new_res)))
 #endif
     if (g_dbug) {
@@ -189,8 +191,8 @@ bool CAddrinfo::get_first() {
             saObj = *reinterpret_cast<sockaddr_storage*>(new_res->ai_addr);
         // clang-format off
         UPnPsdk_LOGINFO("MSG1111") "syscall ::getaddrinfo("
-            << (node.empty() ? "nullptr, " : "\"" + node + "\", ")
-            << (service.empty() ? "nullptr, " : "\"" + service + "\", ")
+            << (inaddr.node.empty() ? "nullptr, " : "\"" + inaddr.node + "\", ")
+            << (inaddr.service.empty() ? "nullptr, " : "\"" + inaddr.service + "\", ")
             << &m_hints << ", " << &new_res
             << ") node=\"" << m_node << "\", "
             << (m_hints.ai_flags & AI_V4MAPPED ? "AI_V4MAPPED, " : "")
