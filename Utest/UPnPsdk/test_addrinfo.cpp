@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-15
+// Redistribution only with this Copyright remark. Last modified: 2026-05-16
 
 // I test different address infos that we get from system function
 // ::getaddrinfo().
@@ -9,6 +9,8 @@
 #include <UPnPsdk/src/net/addrinfo.cpp>
 
 #include <UPnPsdk/socket.hpp>
+#include <UPnPsdk/netadapter.hpp>
+
 #include <utest/utest.hpp>
 #include <umock/netdb_mock.hpp>
 
@@ -28,6 +30,7 @@ using ::testing::SetArgPointee;
 using ::testing::StrictMock;
 
 using ::UPnPsdk::CAddrinfo;
+using ::UPnPsdk::CNetadapter;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
 
@@ -463,6 +466,128 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
     ASSERT_EQ(ai2->ai_family, AF_INET6);
     ASSERT_NE(ai2->ai_addr, nullptr);
     EXPECT_EQ(reinterpret_cast<sockaddr_in6*>(ai2->ai_addr)->sin6_scope_id, 0);
+}
+
+
+// Tests for IPv6 scope_id
+// -----------------------
+#if 0 // DEBUG!
+TEST(AddrinfoTestSuite, load_lla_with_scope_id) {
+    // With this test I verify that a numeric scope_id is always accepted on all
+    // supported platforms. An unknown interface name like "loxyz" will on:
+    // POSIX fail with error "Name or service not known"
+    // MacOS ignore it and an invalid LLA without scope_id is returned
+    // Win32 fail with error
+
+    CAddrinfo ai1("[fe80::acd%252]:ssh");
+    ASSERT_TRUE(ai1.get_first());
+
+    EXPECT_EQ(ai1->ai_family, AF_INET6);
+    EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(ai1->ai_protocol, 0);
+    EXPECT_EQ(ai1->ai_flags, AI_V4MAPPED);
+    EXPECT_EQ(ai1->ai_addrlen, 28);
+    ASSERT_NE(ai1->ai_addr, nullptr);
+    EXPECT_EQ(reinterpret_cast<sockaddr_in6*>(ai1->ai_addr)->sin6_scope_id,
+              252);
+    EXPECT_EQ(ai1->ai_canonname, nullptr);
+    ai1.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::acd%252]:22");
+    EXPECT_EQ(ai1->ai_next, nullptr);
+
+    auto g_dbug_old = g_dbug;
+    g_dbug = true;
+    CAddrinfo ai2("[fe80::dca%loxyz]:ssh");
+    EXPECT_FALSE(ai2.get_first());
+    g_dbug = g_dbug_old;
+
+    EXPECT_EQ(ai2->ai_family, AF_INET6);
+    EXPECT_EQ(ai2->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(ai2->ai_protocol, 0);
+    EXPECT_EQ(ai2->ai_flags, AI_V4MAPPED);
+    EXPECT_EQ(ai2->ai_addrlen, 0);
+    EXPECT_EQ(ai2->ai_addr, nullptr);
+    EXPECT_EQ(ai2->ai_canonname, nullptr);
+    ai2.sockaddr(saddr);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
+    EXPECT_EQ(ai2->ai_next, nullptr);
+}
+#endif
+
+TEST(AddrinfoTestSuite, scope_id_verify_system_call_with_lla) {
+    // Using only direct system calls.
+    ::addrinfo hints{}, *res;
+    hints.ai_flags = AI_V4MAPPED;
+    hints.ai_family = AF_INET6;
+    hints.ai_socktype = SOCK_STREAM;
+
+    constexpr char addr[]{"fe80::111"};
+    char addrbuf[INET6_ADDRSTRLEN];
+    {
+        // Valid numeric scope_id
+        constexpr char addrscp[]{"fe80::111%252"};
+
+        // Test system call
+        ASSERT_EQ(::getaddrinfo(addrscp, "https", &hints, &res), 0);
+
+        EXPECT_EQ(res->ai_flags, AI_V4MAPPED);
+        EXPECT_EQ(res->ai_family, AF_INET6);
+        EXPECT_EQ(res->ai_socktype, SOCK_STREAM);
+        EXPECT_EQ(res->ai_protocol, 6);
+        EXPECT_EQ(res->ai_addrlen, 28);
+        EXPECT_EQ(res->ai_canonname, nullptr);
+        EXPECT_EQ(res->ai_next, nullptr);
+        ASSERT_NE(res->ai_addr, nullptr);
+        auto sin6 = reinterpret_cast<sockaddr_in6*>(res->ai_addr);
+        EXPECT_EQ(sin6->sin6_scope_id, 252);
+        EXPECT_EQ(sin6->sin6_port, htons(443));
+        ASSERT_NE(::inet_ntop(res->ai_family, &sin6->sin6_addr, addrbuf,
+                              sizeof(addrbuf)),
+                  nullptr);
+        EXPECT_STREQ(addr, addrbuf);
+
+        freeaddrinfo(res);
+    }
+    {
+        // Invalid numeric scope_id
+        constexpr char addrscp[]{"fe80::111%-252"};
+
+        // Test system call
+        auto ret = ::getaddrinfo(addrscp, "https", &hints, &res);
+        EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+
+        if (ret == 0)
+            freeaddrinfo(res);
+    }
+    {
+        // Valid alpha-numeric scope_id
+        CNetadapter naObj;
+        ASSERT_NO_THROW(naObj.get_first());
+        ASSERT_TRUE(naObj.find_first(UPnPsdk::CNetadapter::ADDRS::lla));
+
+        std::string addrscp("fe80::111%" + naObj.name());
+
+        // Test system call
+        ASSERT_EQ(::getaddrinfo(addrscp.c_str(), "https", &hints, &res), 0);
+
+        EXPECT_EQ(res->ai_flags, AI_V4MAPPED);
+        EXPECT_EQ(res->ai_family, AF_INET6);
+        EXPECT_EQ(res->ai_socktype, SOCK_STREAM);
+        EXPECT_EQ(res->ai_protocol, 6);
+        EXPECT_EQ(res->ai_addrlen, 28);
+        EXPECT_EQ(res->ai_canonname, nullptr);
+        EXPECT_EQ(res->ai_next, nullptr);
+        ASSERT_NE(res->ai_addr, nullptr);
+        auto sin6 = reinterpret_cast<sockaddr_in6*>(res->ai_addr);
+        EXPECT_EQ(sin6->sin6_scope_id, naObj.index());
+        EXPECT_EQ(sin6->sin6_port, htons(443));
+        ASSERT_NE(::inet_ntop(res->ai_family, &sin6->sin6_addr, addrbuf,
+                              sizeof(addrbuf)),
+                  nullptr);
+        EXPECT_STREQ(addr, addrbuf);
+
+        ::freeaddrinfo(res);
+    }
 }
 
 
@@ -1240,47 +1365,6 @@ TEST(AddrinfoTestSuite, load_loopback_addr_with_scope_id) {
 #else
     EXPECT_FALSE(ai2.get_first());
 #endif
-}
-
-TEST(AddrinfoTestSuite, load_lla_with_scope_id) {
-    // With this test I verify that a numeric scope_id is always accepted on all
-    // supported platforms. An unknown interface name like "loxyz" is on:
-    // POSIX fails with error "Name or service not known"
-    // MacOS ignored and an invalid LLA without scope_id is returned
-    // Win32 fails with error
-
-    CAddrinfo ai1("[fe80::acd%252]:ssh");
-    ASSERT_TRUE(ai1.get_first());
-
-    EXPECT_EQ(ai1->ai_family, AF_INET6);
-    EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
-    EXPECT_EQ(ai1->ai_protocol, 0);
-    EXPECT_EQ(ai1->ai_flags, AI_V4MAPPED);
-    EXPECT_EQ(ai1->ai_addrlen, 28);
-    ASSERT_NE(ai1->ai_addr, nullptr);
-    EXPECT_EQ(reinterpret_cast<sockaddr_in6*>(ai1->ai_addr)->sin6_scope_id,
-              252);
-    EXPECT_EQ(ai1->ai_canonname, nullptr);
-    ai1.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), "[fe80::acd%252]:22");
-    EXPECT_EQ(ai1->ai_next, nullptr);
-
-    auto g_dbug_old = g_dbug;
-    g_dbug = true;
-    CAddrinfo ai2("[fe80::dca%loxyz]:ssh");
-    EXPECT_FALSE(ai2.get_first());
-    g_dbug = g_dbug_old;
-
-    EXPECT_EQ(ai2->ai_family, AF_INET6);
-    EXPECT_EQ(ai2->ai_socktype, SOCK_STREAM);
-    EXPECT_EQ(ai2->ai_protocol, 0);
-    EXPECT_EQ(ai2->ai_flags, AI_V4MAPPED);
-    EXPECT_EQ(ai2->ai_addrlen, 0);
-    EXPECT_EQ(ai2->ai_addr, nullptr);
-    EXPECT_EQ(ai2->ai_canonname, nullptr);
-    ai2.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
-    EXPECT_EQ(ai2->ai_next, nullptr);
 }
 
 TEST(AddrinfoTestSuite, load_gua_with_scope_id) {
