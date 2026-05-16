@@ -594,7 +594,9 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_lla_with_valid_alphanum_id) {
     // Get valid alpha-numeric scope_id
     CNetadapter naObj;
     ASSERT_NO_THROW(naObj.get_first());
-    ASSERT_TRUE(naObj.find_first(UPnPsdk::CNetadapter::ADDRS::lla));
+    if (!naObj.find_first(UPnPsdk::CNetadapter::ADDRS::lla))
+        GTEST_SKIP() << "No usable global unicast address found on any local "
+                        "network adapter.";
 
     std::string llascp("fe80::111%" + naObj.name());
 
@@ -704,7 +706,9 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_gua_with_valid_alphanum_id) {
     // Get valid alpha-numeric scope_id
     CNetadapter naObj;
     ASSERT_NO_THROW(naObj.get_first());
-    ASSERT_TRUE(naObj.find_first(UPnPsdk::CNetadapter::ADDRS::gua));
+    if (!naObj.find_first(UPnPsdk::CNetadapter::ADDRS::gua))
+        GTEST_SKIP() << "No usable global unicast address found on any local "
+                        "network adapter.";
 
     std::string guascp("2001:db8::1%" + naObj.name());
 
