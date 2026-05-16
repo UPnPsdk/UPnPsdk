@@ -514,80 +514,86 @@ TEST(AddrinfoTestSuite, load_lla_with_scope_id) {
 }
 #endif
 
-TEST(AddrinfoTestSuite, scope_id_verify_system_call_with_lla) {
+class AddrinfoScopeIdFTestSuite : public ::testing::Test {
+  protected:
+    ::addrinfo m_hints{}, *m_res{nullptr};
+
+    static constexpr char m_addr[]{"fe80::111"};
+    char m_addrbuf[INET6_ADDRSTRLEN];
+
+    AddrinfoScopeIdFTestSuite() {
+        m_hints.ai_flags = AI_V4MAPPED;
+        m_hints.ai_family = AF_INET6;
+        m_hints.ai_socktype = SOCK_STREAM;
+    }
+
+    ~AddrinfoScopeIdFTestSuite() {
+        if (m_res != nullptr) {
+            freeaddrinfo(m_res);
+            m_res = nullptr;
+            std::cerr << "DEBUG! freeaddrinfo() called.\n";
+        }
+    }
+};
+
+TEST_F(AddrinfoScopeIdFTestSuite, verify_with_valid_numeric_id) {
     // Using only direct system calls.
-    ::addrinfo hints{}, *res;
-    hints.ai_flags = AI_V4MAPPED;
-    hints.ai_family = AF_INET6;
-    hints.ai_socktype = SOCK_STREAM;
+    constexpr char addrscp[]{"fe80::111%252"};
 
-    constexpr char addr[]{"fe80::111"};
-    char addrbuf[INET6_ADDRSTRLEN];
-    {
-        // Valid numeric scope_id
-        constexpr char addrscp[]{"fe80::111%252"};
+    // Test system call
+    ASSERT_EQ(::getaddrinfo(addrscp, "https", &m_hints, &m_res), 0);
 
-        // Test system call
-        ASSERT_EQ(::getaddrinfo(addrscp, "https", &hints, &res), 0);
+    EXPECT_EQ(m_res->ai_flags, AI_V4MAPPED);
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, 252);
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_addr, m_addrbuf);
+}
 
-        EXPECT_EQ(res->ai_flags, AI_V4MAPPED);
-        EXPECT_EQ(res->ai_family, AF_INET6);
-        EXPECT_EQ(res->ai_socktype, SOCK_STREAM);
-        EXPECT_EQ(res->ai_protocol, 6);
-        EXPECT_EQ(res->ai_addrlen, 28);
-        EXPECT_EQ(res->ai_canonname, nullptr);
-        EXPECT_EQ(res->ai_next, nullptr);
-        ASSERT_NE(res->ai_addr, nullptr);
-        auto sin6 = reinterpret_cast<sockaddr_in6*>(res->ai_addr);
-        EXPECT_EQ(sin6->sin6_scope_id, 252);
-        EXPECT_EQ(sin6->sin6_port, htons(443));
-        ASSERT_NE(::inet_ntop(res->ai_family, &sin6->sin6_addr, addrbuf,
-                              sizeof(addrbuf)),
-                  nullptr);
-        EXPECT_STREQ(addr, addrbuf);
+TEST_F(AddrinfoScopeIdFTestSuite, verify_with_invalid_numeric_id) {
+    constexpr char addrscp[]{"fe80::111%-252"};
 
-        freeaddrinfo(res);
-    }
-    {
-        // Invalid numeric scope_id
-        constexpr char addrscp[]{"fe80::111%-252"};
+    // Test system call
+    auto ret = ::getaddrinfo(addrscp, "https", &m_hints, &m_res);
+    EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+}
 
-        // Test system call
-        auto ret = ::getaddrinfo(addrscp, "https", &hints, &res);
-        EXPECT_EQ(ret, EAI_NONAME) << gai_strerror(ret);
+TEST_F(AddrinfoScopeIdFTestSuite, verify_with_valid_alphanum_id) {
+    // Get valid alpha-numeric scope_id
+    CNetadapter naObj;
+    ASSERT_NO_THROW(naObj.get_first());
+    ASSERT_TRUE(naObj.find_first(UPnPsdk::CNetadapter::ADDRS::lla));
 
-        if (ret == 0)
-            freeaddrinfo(res);
-    }
-    {
-        // Valid alpha-numeric scope_id
-        CNetadapter naObj;
-        ASSERT_NO_THROW(naObj.get_first());
-        ASSERT_TRUE(naObj.find_first(UPnPsdk::CNetadapter::ADDRS::lla));
+    std::string addrscp("fe80::111%" + naObj.name());
 
-        std::string addrscp("fe80::111%" + naObj.name());
+    // Test system call
+    ASSERT_EQ(::getaddrinfo(addrscp.c_str(), "https", &m_hints, &m_res), 0);
 
-        // Test system call
-        ASSERT_EQ(::getaddrinfo(addrscp.c_str(), "https", &hints, &res), 0);
-
-        EXPECT_EQ(res->ai_flags, AI_V4MAPPED);
-        EXPECT_EQ(res->ai_family, AF_INET6);
-        EXPECT_EQ(res->ai_socktype, SOCK_STREAM);
-        EXPECT_EQ(res->ai_protocol, 6);
-        EXPECT_EQ(res->ai_addrlen, 28);
-        EXPECT_EQ(res->ai_canonname, nullptr);
-        EXPECT_EQ(res->ai_next, nullptr);
-        ASSERT_NE(res->ai_addr, nullptr);
-        auto sin6 = reinterpret_cast<sockaddr_in6*>(res->ai_addr);
-        EXPECT_EQ(sin6->sin6_scope_id, naObj.index());
-        EXPECT_EQ(sin6->sin6_port, htons(443));
-        ASSERT_NE(::inet_ntop(res->ai_family, &sin6->sin6_addr, addrbuf,
-                              sizeof(addrbuf)),
-                  nullptr);
-        EXPECT_STREQ(addr, addrbuf);
-
-        ::freeaddrinfo(res);
-    }
+    EXPECT_EQ(m_res->ai_flags, AI_V4MAPPED);
+    EXPECT_EQ(m_res->ai_family, AF_INET6);
+    EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_addrlen, 28);
+    EXPECT_EQ(m_res->ai_canonname, nullptr);
+    EXPECT_EQ(m_res->ai_next, nullptr);
+    ASSERT_NE(m_res->ai_addr, nullptr);
+    auto sin6 = reinterpret_cast<sockaddr_in6*>(m_res->ai_addr);
+    EXPECT_EQ(sin6->sin6_scope_id, naObj.index());
+    EXPECT_EQ(sin6->sin6_port, htons(443));
+    ASSERT_NE(::inet_ntop(m_res->ai_family, &sin6->sin6_addr, m_addrbuf,
+                          sizeof(m_addrbuf)),
+              nullptr);
+    EXPECT_STREQ(m_addr, m_addrbuf);
 }
 
 
