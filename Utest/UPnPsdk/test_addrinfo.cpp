@@ -547,7 +547,8 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_lla_with_valid_numeric_id) {
     EXPECT_EQ(m_res->ai_flags,
               compiler == CO::clang
                   ? 0
-                  : (compiler == CO::msc ? AI_NUMERICHOST : AI_V4MAPPED));
+                  : (compiler == CO::msc ? AI_NUMERICHOST
+                                         : AI_V4MAPPED | AI_NUMERICHOST));
     EXPECT_EQ(m_res->ai_family, AF_INET6);
     EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(m_res->ai_protocol, compiler == CO::msc ? 0 : 6);
@@ -610,7 +611,8 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_lla_with_valid_alphanum_id) {
 #else
     ASSERT_EQ(ret, 0) << gai_strerror(ret);
 
-    EXPECT_EQ(m_res->ai_flags, compiler == CO::clang ? 0 : AI_V4MAPPED);
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang ? 0 : AI_V4MAPPED | AI_NUMERICHOST);
     EXPECT_EQ(m_res->ai_family, AF_INET6);
     EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(m_res->ai_protocol, 6);
@@ -664,7 +666,8 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_lla_with_no_id) {
     EXPECT_EQ(m_res->ai_flags,
               compiler == CO::clang
                   ? 0
-                  : (compiler == CO::msc ? AI_NUMERICHOST : AI_V4MAPPED));
+                  : (compiler == CO::msc ? AI_NUMERICHOST
+                                         : AI_V4MAPPED | AI_NUMERICHOST));
     EXPECT_EQ(m_res->ai_family, AF_INET6);
     EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(m_res->ai_protocol, compiler == CO::msc ? 0 : 6);
@@ -691,7 +694,8 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_gua_with_valid_numeric_id) {
     EXPECT_EQ(m_res->ai_flags,
               compiler == CO::clang
                   ? 0
-                  : (compiler == CO::msc ? AI_NUMERICHOST : AI_V4MAPPED));
+                  : (compiler == CO::msc ? AI_NUMERICHOST
+                                         : AI_V4MAPPED | AI_NUMERICHOST));
     EXPECT_EQ(m_res->ai_family, AF_INET6);
     EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(m_res->ai_protocol, compiler == CO::msc ? 0 : 6);
@@ -789,7 +793,8 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_gua_with_no_id) {
     EXPECT_EQ(m_res->ai_flags,
               compiler == CO::clang
                   ? 0
-                  : (compiler == CO::msc ? AI_NUMERICHOST : AI_V4MAPPED));
+                  : (compiler == CO::msc ? AI_NUMERICHOST
+                                         : AI_V4MAPPED | AI_NUMERICHOST));
     EXPECT_EQ(m_res->ai_family, AF_INET6);
     EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
     EXPECT_EQ(m_res->ai_protocol, compiler == CO::msc ? 0 : 6);
