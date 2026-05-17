@@ -523,7 +523,7 @@ class AddrinfoScopeIdFTestSuite : public ::testing::Test {
     char m_addrbuf[INET6_ADDRSTRLEN];
 
     AddrinfoScopeIdFTestSuite() {
-        m_hints.ai_flags = AI_V4MAPPED;
+        m_hints.ai_flags = AI_V4MAPPED | AI_NUMERICHOST;
         m_hints.ai_family = AF_INET6;
         m_hints.ai_socktype = SOCK_STREAM;
     }
