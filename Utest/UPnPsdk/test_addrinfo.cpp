@@ -544,10 +544,13 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_lla_with_valid_numeric_id) {
     // Test system call
     ASSERT_EQ(::getaddrinfo(llascp, "https", &m_hints, &m_res), 0);
 
-    EXPECT_EQ(m_res->ai_flags, compiler == CO::clang ? 0 : AI_V4MAPPED);
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang
+                  ? 0
+                  : (compiler == CO::msc ? AI_NUMERICHOST : AI_V4MAPPED));
     EXPECT_EQ(m_res->ai_family, AF_INET6);
     EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
-    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_protocol, compiler == CO::msc ? 0 : 6);
     EXPECT_EQ(m_res->ai_addrlen, 28);
     EXPECT_EQ(m_res->ai_canonname, nullptr);
     EXPECT_EQ(m_res->ai_next, nullptr);
@@ -599,7 +602,13 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_lla_with_valid_alphanum_id) {
     std::string llascp("fe80::111%" + naObj.name());
 
     // Test system call
-    ASSERT_EQ(::getaddrinfo(llascp.c_str(), "https", &m_hints, &m_res), 0);
+    auto ret = ::getaddrinfo(llascp.c_str(), "https", &m_hints, &m_res);
+
+#ifdef _MSC_VER
+    ASSERT_EQ(ret, WSAHOST_NOT_FOUND) << gai_strerror(ret);
+
+#else
+    ASSERT_EQ(ret, 0) << gai_strerror(ret);
 
     EXPECT_EQ(m_res->ai_flags, compiler == CO::clang ? 0 : AI_V4MAPPED);
     EXPECT_EQ(m_res->ai_family, AF_INET6);
@@ -616,6 +625,7 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_lla_with_valid_alphanum_id) {
                           sizeof(m_addrbuf)),
               nullptr);
     EXPECT_STREQ(m_lla, m_addrbuf);
+#endif
 }
 
 TEST_F(AddrinfoScopeIdFTestSuite, verify_lla_with_invalid_alphanum_id) {
@@ -651,10 +661,13 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_lla_with_no_id) {
     // Test system call
     ASSERT_EQ(::getaddrinfo(m_lla, "https", &m_hints, &m_res), 0);
 
-    EXPECT_EQ(m_res->ai_flags, compiler == CO::clang ? 0 : AI_V4MAPPED);
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang
+                  ? 0
+                  : (compiler == CO::msc ? AI_NUMERICHOST : AI_V4MAPPED));
     EXPECT_EQ(m_res->ai_family, AF_INET6);
     EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
-    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_protocol, compiler == CO::msc ? 0 : 6);
     EXPECT_EQ(m_res->ai_addrlen, 28);
     EXPECT_EQ(m_res->ai_canonname, nullptr);
     EXPECT_EQ(m_res->ai_next, nullptr);
@@ -675,10 +688,13 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_gua_with_valid_numeric_id) {
     // Test system call
     ASSERT_EQ(::getaddrinfo(guascp, "https", &m_hints, &m_res), 0);
 
-    EXPECT_EQ(m_res->ai_flags, compiler == CO::clang ? 0 : AI_V4MAPPED);
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang
+                  ? 0
+                  : (compiler == CO::msc ? AI_NUMERICHOST : AI_V4MAPPED));
     EXPECT_EQ(m_res->ai_family, AF_INET6);
     EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
-    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_protocol, compiler == CO::msc ? 0 : 6);
     EXPECT_EQ(m_res->ai_addrlen, 28);
     EXPECT_EQ(m_res->ai_canonname, nullptr);
     EXPECT_EQ(m_res->ai_next, nullptr);
@@ -770,10 +786,13 @@ TEST_F(AddrinfoScopeIdFTestSuite, verify_gua_with_no_id) {
     // Test system call
     ASSERT_EQ(::getaddrinfo(m_gua, "https", &m_hints, &m_res), 0);
 
-    EXPECT_EQ(m_res->ai_flags, compiler == CO::clang ? 0 : AI_V4MAPPED);
+    EXPECT_EQ(m_res->ai_flags,
+              compiler == CO::clang
+                  ? 0
+                  : (compiler == CO::msc ? AI_NUMERICHOST : AI_V4MAPPED));
     EXPECT_EQ(m_res->ai_family, AF_INET6);
     EXPECT_EQ(m_res->ai_socktype, SOCK_STREAM);
-    EXPECT_EQ(m_res->ai_protocol, 6);
+    EXPECT_EQ(m_res->ai_protocol, compiler == CO::msc ? 0 : 6);
     EXPECT_EQ(m_res->ai_addrlen, 28);
     EXPECT_EQ(m_res->ai_canonname, nullptr);
     EXPECT_EQ(m_res->ai_next, nullptr);
