@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('d7/d1b/sockaddr_8hpp_source.html','../
 <a href="../../d7/d1b/sockaddr_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef UPnPsdk_NET_SOCKADDR_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define UPnPsdk_NET_SOCKADDR_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2026-05-15</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2026-06-03</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/d21/visibility_8hpp.html">UPnPsdk/visibility.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d42/port_8hpp.html">UPnPsdk/port.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="../../d8/d43/port__sock_8hpp.html">UPnPsdk/port_sock.hpp</a>&gt;</span></div>
@@ -115,139 +115,174 @@ $(document).ready(function(){initNavTree('d7/d1b/sockaddr_8hpp_source.html','../
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d0/dd8/group__upnplib-addrmodul.html">   34</a></span><span class="keyword">union </span><a class="code hl_union" href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">sockaddr_t</a> {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    ::sockaddr_storage ss;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    ::sockaddr_un sun;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    ::sockaddr_in6 sin6;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    ::sockaddr_in sin;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    ::sockaddr sa;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd">   37</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd">IN6_IS_ADDR_GLOBAL2</a>(</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">const</span> in6_addr* a_addr) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> uint32_t* sin6_32 = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>uint32_t*<span class="keyword">&gt;</span>(a_addr);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> ((sin6_32[0] &amp; htonl(0xe0000000)) == htonl(0x20000000));</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
 </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">to_port</a>( <span class="comment">//</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    std::string_view a_port_str,</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    in_port_t* <span class="keyword">const</span> a_port_num = <span class="keyword">nullptr</span>) noexcept;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="../../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25">   54</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25">IN6_IS_ADDR_LINKLOCAL2</a>(</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">const</span> in6_addr* a_addr) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">const</span> uint32_t* sin6_32 = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>uint32_t*<span class="keyword">&gt;</span>(a_addr);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">return</span> (sin6_32[0] == htonl(0xfe800000) &amp;&amp; sin6_32[1] == 0x00000000);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="};">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="../../d0/dd8/group__upnplib-addrmodul.html">   72</a></span><span class="keyword">union </span><a class="code hl_union" href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">sockaddr_t</a> {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    ::sockaddr_storage ss;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    ::sockaddr_un sun;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    ::sockaddr_in6 sin6;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    ::sockaddr_in sin;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    ::sockaddr sa;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>};</div>
+</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="foldopen" id="foldopen00087" data-start="{" data-end="};">
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="../../dd/d67/namespaceUPnPsdk.html">   87</a></span>struct <a class="code hl_struct" href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">inaddr_t</a> {</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="../../dd/d67/namespaceUPnPsdk.html#ad061609e578badb46b8253657aa3e03f">   88</a></span>    std::string <a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#ad061609e578badb46b8253657aa3e03f">node</a>; </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="../../dd/d67/namespaceUPnPsdk.html#a0c7ae29e59a978ecbba3783b42ae1542">   90</a></span>    std::string <a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#a0c7ae29e59a978ecbba3783b42ae1542">scope</a>; </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="../../dd/d67/namespaceUPnPsdk.html#a7fca37fba9f6a7669f913597b4a4a54a">   93</a></span>    std::string <a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#a7fca37fba9f6a7669f913597b4a4a54a">service</a>; </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>};</div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0">   97</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0">is_unum_str</a>( <span class="comment">//</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    std::string_view a_num_sv, </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">size_t</span> a_digits </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordtype">size_t</span> i;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">for</span> (i = 0; i &lt; a_num_sv.size() &amp;&amp; i &lt; a_digits + 1; i++)</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">if</span> (!std::isdigit(<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(a_num_sv[i])))</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            i = a_digits + 1;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">return</span> (i &gt; a_digits) ? false : <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
 </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>( <span class="comment">//</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keyword">const</span> std::string_view a_addr_sv,</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <a class="code hl_struct" href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">inaddr_t</a>&amp; a_spl_inaddr) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="foldopen" id="foldopen00154" data-start="{" data-end="};">
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">  154</a></span><span class="keyword">struct </span>UPnPsdk_API <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> {</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">  156</a></span>    sockaddr_storage&amp; ss = m_sa_union.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a6e0b9e33fdd62f45a1374e399e0bc082">  158</a></span>    sockaddr_un&amp; sun = m_sa_union.sun;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8">  160</a></span>    sockaddr_in6&amp; sin6 = m_sa_union.sin6;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a12a001f2043f8c4ef1d45ec0f402e566">  162</a></span>    sockaddr_in&amp; sin = m_sa_union.sin;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7fb20663e898118cf58c34e3ad4bbf09">  164</a></span>    sockaddr&amp; sa = m_sa_union.sa;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="comment">// Constructor</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="comment">// -----------</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>();</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="comment">// Destructor</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="comment">// ----------</span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">~SSockaddr</a>();</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="comment">// Get reference to the sockaddr_storage structure.</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="comment">// Only as example, I don&#39;t use it because it may be confusing. I only use</span></div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="comment">// SSockaddr::ss (instantiated e.g. ssObj.ss) to access the trivial</span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="comment">// member structure.</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="comment">// operator const ::sockaddr_storage&amp;() const;</span></div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="comment">// Copy constructor</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>(<span class="keyword">const</span> <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>&amp;);</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="comment">// Copy assignment operator</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="comment">// Strong exception guarantee with value argument as given.</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>&amp; operator=(<a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>); <span class="comment">// value argument</span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="comment">// Assignment operator to set a netaddress</span></div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="comment">// ---------------------------------------</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordtype">void</span> operator=(</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keyword">const</span> std::string_view a_addr_str) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="comment">// Assignment operator= to set socket port from an integer</span></div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="comment">// -------------------------------------------------------</span></div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> in_port_t a_port);</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="comment">// Assignment operator= to set socket address from a trivial socket address</span></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="comment">// structure</span></div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="comment">// ------------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordtype">void</span> operator=(const ::sockaddr_storage&amp; a_ss);</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <span class="comment">// Compare operator</span></div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="comment">// ----------------</span></div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>&amp;) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="comment">// Getter for a netaddress</span></div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="comment">// -----------------------</span></div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    std::string netaddr() noexcept;</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    <span class="comment">// Getter for a netaddress with port</span></div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="comment">// ---------------------------------</span></div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    std::<span class="keywordtype">string</span> netaddrp() noexcept;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">to_port</a>( <span class="comment">//</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    std::string_view a_port_str,</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    in_port_t* <span class="keyword">const</span> a_port_num = <span class="keyword">nullptr</span>) noexcept;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="foldopen" id="foldopen00153" data-start="{" data-end="};">
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="../../dd/d67/namespaceUPnPsdk.html">  153</a></span>struct <a class="code hl_struct" href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">inaddr_t</a> {</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="../../dd/d67/namespaceUPnPsdk.html#ad061609e578badb46b8253657aa3e03f">  154</a></span>    std::string <a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#ad061609e578badb46b8253657aa3e03f">node</a>; </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="../../dd/d67/namespaceUPnPsdk.html#a0c7ae29e59a978ecbba3783b42ae1542">  156</a></span>    std::string <a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#a0c7ae29e59a978ecbba3783b42ae1542">scope</a>; </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="../../dd/d67/namespaceUPnPsdk.html#a7fca37fba9f6a7669f913597b4a4a54a">  159</a></span>    std::string <a class="code hl_variable" href="../../dd/d67/namespaceUPnPsdk.html#a7fca37fba9f6a7669f913597b4a4a54a">service</a>; </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>};</div>
+</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">split_inaddr</a>( <span class="comment">//</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="keyword">const</span> std::string_view a_addr_sv,</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <a class="code hl_struct" href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">inaddr_t</a>&amp; a_spl_inaddr) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="foldopen" id="foldopen00220" data-start="{" data-end="};">
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">  220</a></span><span class="keyword">struct </span>UPnPsdk_API <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">  222</a></span>    sockaddr_storage&amp; ss = m_sa_union.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a6e0b9e33fdd62f45a1374e399e0bc082">  224</a></span>    sockaddr_un&amp; sun = m_sa_union.sun;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8">  226</a></span>    sockaddr_in6&amp; sin6 = m_sa_union.sin6;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a12a001f2043f8c4ef1d45ec0f402e566">  228</a></span>    sockaddr_in&amp; sin = m_sa_union.sin;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno"><a class="line" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7fb20663e898118cf58c34e3ad4bbf09">  230</a></span>    sockaddr&amp; sa = m_sa_union.sa;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="comment">// Constructor</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="comment">// -----------</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>();</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="comment">// Destructor</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="comment">// ----------</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">~SSockaddr</a>();</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="comment">// Get reference to the sockaddr_storage structure.</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="comment">// Only as example, I don&#39;t use it because it may be confusing. I only use</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="comment">// SSockaddr::ss (instantiated e.g. ssObj.ss) to access the trivial</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="comment">// member structure.</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="comment">// operator const ::sockaddr_storage&amp;() const;</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="comment">// Copy constructor</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>(<span class="keyword">const</span> <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>&amp;);</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="comment">// Copy assignment operator</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="comment">// Strong exception guarantee with value argument as given.</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>&amp; operator=(<a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>); <span class="comment">// value argument</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="comment">// Assignment operator to set a netaddress</span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="comment">// ---------------------------------------</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keywordtype">void</span> operator=(</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        <span class="keyword">const</span> std::string_view a_addr_str) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    <span class="comment">// ----------------------------</span></div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    in_port_t port() const;</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    <span class="comment">// ----------------------------------------------------------------------</span></div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    socklen_t sizeof_saddr() const;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    <span class="comment">// Assignment operator= to set socket port from an integer</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    <span class="comment">// -------------------------------------------------------</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> in_port_t a_port);</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
 <div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="comment">// -------------------------------------------------------</span></div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keywordtype">bool</span> is_loopback() const;</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span> </div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>  private:</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    <a class="code hl_union" href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">sockaddr_t</a> m_sa_union{}; <span class="comment">// this is the union of trivial sockaddr structures</span></div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>                             <span class="comment">// that is managed.</span></div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>};</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="comment">// Assignment operator= to set socket address from a trivial socket address</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="comment">// structure</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="comment">// ------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <span class="keywordtype">void</span> operator=(const ::sockaddr_storage&amp; a_ss) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="comment">// Compare operator</span></div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    <span class="comment">// ----------------</span></div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>&amp;) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    <span class="comment">// Getter for a netaddress</span></div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    <span class="comment">// -----------------------</span></div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    std::string netaddr() noexcept;</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span> </div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="comment">// Getter for a netaddress with port</span></div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="comment">// ---------------------------------</span></div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    std::<span class="keywordtype">string</span> netaddrp() noexcept;</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span> </div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span> </div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    <span class="comment">// ----------------------------</span></div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    in_port_t port() const;</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span> </div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>    <span class="comment">// ----------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    socklen_t sizeof_saddr() const;</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span> </div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span> </div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>    <span class="comment">// -------------------------------------------------------</span></div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    <span class="keywordtype">bool</span> is_loopback() const;</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span> </div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span> </div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>  private:</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>    <a class="code hl_union" href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">sockaddr_t</a> m_sa_union{}; <span class="comment">// this is the union of trivial sockaddr structures</span></div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>                             <span class="comment">// that is managed.</span></div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>};</div>
 </div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span> </div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="comment">// Getter of the netaddress to output stream</span></div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span><span class="comment">// -----------------------------------------</span></div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno"><a class="line" href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">  361</a></span>UPnPsdk_API ::std::ostream&amp; <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">operator&lt;&lt;</a>(::std::ostream&amp; os, <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>&amp; saddr);</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>} <span class="comment">// namespace UPnPsdk</span></div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span><span class="preprocessor">#endif </span><span class="comment">// UPnPsdk_NET_SOCKADDR_HPP</span></div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_d2/d11/unionUPnPsdk_1_1sockaddr__t"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">UPnPsdk::sockaddr_t</a></div><div class="ttdoc">Helpful union of the different socket address structures.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00034">sockaddr.hpp:34</a></div></div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga42198e87ed3cbc400d4bfd7c8155df27"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">UPnPsdk::split_inaddr</a></div><div class="ttdeci">void split_inaddr(const std::string_view a_addr_sv, inaddr_t &amp;a_spl_inaddr) noexcept</div><div class="ttdoc">Free function to split inet address, scope_id, and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00186">sockaddr.cpp:186</a></div></div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga6756252cf07c4f4d74f51fedc2fecce5"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a></div><div class="ttdeci">int to_port(std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string represents a valid port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00089">sockaddr.cpp:89</a></div></div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span> </div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span> </div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span><span class="comment">// Getter of the netaddress to output stream</span></div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span><span class="comment">// -----------------------------------------</span></div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno"><a class="line" href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">  427</a></span>UPnPsdk_API ::std::ostream&amp; <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">operator&lt;&lt;</a>(::std::ostream&amp; os, <a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a>&amp; saddr);</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span> </div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>} <span class="comment">// namespace UPnPsdk</span></div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span> </div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span><span class="preprocessor">#endif </span><span class="comment">// UPnPsdk_NET_SOCKADDR_HPP</span></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_d2/d11/unionUPnPsdk_1_1sockaddr__t"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">UPnPsdk::sockaddr_t</a></div><div class="ttdoc">Helpful union of the different socket address structures.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00072">sockaddr.hpp:72</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga36799e18488f13fb91c265008e84b1f0"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0">UPnPsdk::is_unum_str</a></div><div class="ttdeci">bool is_unum_str(std::string_view a_num_sv, size_t a_digits)</div><div class="ttdoc">Free function to check if a string represents an unsigned number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00097">sockaddr.hpp:97</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga379fe8164fb7cdc0105e947a321ed4dd"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd">UPnPsdk::IN6_IS_ADDR_GLOBAL2</a></div><div class="ttdeci">bool IN6_IS_ADDR_GLOBAL2(const in6_addr *a_addr)</div><div class="ttdoc">Test if a socket address is a global unicast address.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00037">sockaddr.hpp:37</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga42198e87ed3cbc400d4bfd7c8155df27"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">UPnPsdk::split_inaddr</a></div><div class="ttdeci">void split_inaddr(const std::string_view a_addr_sv, inaddr_t &amp;a_spl_inaddr) noexcept</div><div class="ttdoc">Free function to split inet address, scope_id, and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00185">sockaddr.cpp:185</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga4b4e46cd2ae1af5ab49c71a1eca7cf25"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25">UPnPsdk::IN6_IS_ADDR_LINKLOCAL2</a></div><div class="ttdeci">bool IN6_IS_ADDR_LINKLOCAL2(const in6_addr *a_addr)</div><div class="ttdoc">Test if a socket address is a link-local address.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00054">sockaddr.hpp:54</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga6756252cf07c4f4d74f51fedc2fecce5"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a></div><div class="ttdeci">int to_port(std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string represents a valid port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00088">sockaddr.cpp:88</a></div></div>
 <div class="ttc" id="agroup__upnplib-addrmodul_html_ga7214f121f69c12bc1ddccce1297c12a9"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">UPnPsdk::operator&lt;&lt;</a></div><div class="ttdeci">UPnPsdk_API::std::ostream &amp; operator&lt;&lt;(::std::ostream &amp;os, SSockaddr &amp;saddr)</div><div class="ttdoc">output the netaddress</div></div>
 <div class="ttc" id="anamespaceUPnPsdk_html"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html">UPnPsdk</a></div><div class="ttdoc">Reengineered Object Oriented UPnP+ program code.</div></div>
-<div class="ttc" id="anamespaceUPnPsdk_html_a0c7ae29e59a978ecbba3783b42ae1542"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a0c7ae29e59a978ecbba3783b42ae1542">UPnPsdk::inaddr_t::scope</a></div><div class="ttdeci">std::string scope</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00090">sockaddr.hpp:90</a></div></div>
-<div class="ttc" id="anamespaceUPnPsdk_html_a7fca37fba9f6a7669f913597b4a4a54a"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a7fca37fba9f6a7669f913597b4a4a54a">UPnPsdk::inaddr_t::service</a></div><div class="ttdeci">std::string service</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00093">sockaddr.hpp:93</a></div></div>
-<div class="ttc" id="anamespaceUPnPsdk_html_ad061609e578badb46b8253657aa3e03f"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#ad061609e578badb46b8253657aa3e03f">UPnPsdk::inaddr_t::node</a></div><div class="ttdeci">std::string node</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00088">sockaddr.hpp:88</a></div></div>
-<div class="ttc" id="anamespaceUPnPsdk_html_d8/ddb/structUPnPsdk_1_1inaddr__t"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">UPnPsdk::inaddr_t</a></div><div class="ttdoc">Components of an internet address.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00087">sockaddr.hpp:87</a></div></div>
+<div class="ttc" id="anamespaceUPnPsdk_html_a0c7ae29e59a978ecbba3783b42ae1542"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a0c7ae29e59a978ecbba3783b42ae1542">UPnPsdk::inaddr_t::scope</a></div><div class="ttdeci">std::string scope</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00156">sockaddr.hpp:156</a></div></div>
+<div class="ttc" id="anamespaceUPnPsdk_html_a7fca37fba9f6a7669f913597b4a4a54a"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#a7fca37fba9f6a7669f913597b4a4a54a">UPnPsdk::inaddr_t::service</a></div><div class="ttdeci">std::string service</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00159">sockaddr.hpp:159</a></div></div>
+<div class="ttc" id="anamespaceUPnPsdk_html_ad061609e578badb46b8253657aa3e03f"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#ad061609e578badb46b8253657aa3e03f">UPnPsdk::inaddr_t::node</a></div><div class="ttdeci">std::string node</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00154">sockaddr.hpp:154</a></div></div>
+<div class="ttc" id="anamespaceUPnPsdk_html_d8/ddb/structUPnPsdk_1_1inaddr__t"><div class="ttname"><a href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">UPnPsdk::inaddr_t</a></div><div class="ttdoc">Components of an internet address.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00153">sockaddr.hpp:153</a></div></div>
 <div class="ttc" id="aport_8hpp_html"><div class="ttname"><a href="../../d1/d42/port_8hpp.html">port.hpp</a></div><div class="ttdoc">Specifications to be portable between different platforms.</div></div>
 <div class="ttc" id="aport__sock_8hpp_html"><div class="ttname"><a href="../../d8/d43/port__sock_8hpp.html">port_sock.hpp</a></div><div class="ttdoc">Specifications to be portable with sockets between different platforms.</div></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00154">sockaddr.hpp:154</a></div></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_adb56d3ae5d02f98c98a473657fda8176"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">UPnPsdk::SSockaddr::ss</a></div><div class="ttdeci">sockaddr_storage &amp; ss</div><div class="ttdoc">Reference to sockaddr_storage struct.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00156">sockaddr.hpp:156</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00220">sockaddr.hpp:220</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_adb56d3ae5d02f98c98a473657fda8176"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">UPnPsdk::SSockaddr::ss</a></div><div class="ttdeci">sockaddr_storage &amp; ss</div><div class="ttdoc">Reference to sockaddr_storage struct.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00222">sockaddr.hpp:222</a></div></div>
 <div class="ttc" id="avisibility_8hpp_html"><div class="ttname"><a href="../../d0/d21/visibility_8hpp.html">visibility.hpp</a></div><div class="ttdoc">Macros to support visibility of external symbols.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-01
+// Redistribution only with this Copyright remark. Last modified: 2026-06-03
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -432,12 +432,12 @@ bool CNetadapter::find_first(ADDRS a_flags) {
             return true;
         }
         if ((m_find_flags & ADDRS::lla) != ADDRS::none &&
-            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) &&
+            IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr) &&
             this->index() != m_index_loop) {
             return true;
         }
         if ((m_find_flags & ADDRS::gua) != ADDRS::none &&
-            IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr) &&
+            IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr) &&
             this->index() != m_index_loop) {
             return true;
         }
@@ -478,12 +478,12 @@ bool CNetadapter::find_next() {
             return true;
         }
         if ((m_find_flags & ADDRS::lla) != ADDRS::none &&
-            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) &&
+            IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr) &&
             this->index() != m_index_loop) {
             return true;
         }
         if ((m_find_flags & ADDRS::gua) != ADDRS::none &&
-            IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr) &&
+            IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr) &&
             this->index() != m_index_loop) {
             return true;
         }

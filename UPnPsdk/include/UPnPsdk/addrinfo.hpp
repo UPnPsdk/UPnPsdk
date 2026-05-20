@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_INCLUDE_ADDRINFO_HPP
 #define UPnPsdk_INCLUDE_ADDRINFO_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-18
+// Redistribution only with this Copyright remark. Last modified: 2026-05-26
 /*!
  * \file
  * \brief Declaration of the Addrinfo class.
@@ -16,10 +16,10 @@ namespace UPnPsdk {
 <!-- ==================================================================== -->
  * \ingroup upnplib-addrmodul
  *
- * The results from getting system information using `::getaddrinfo()` are
+ * The results from getting system information using `::%getaddrinfo()` are
  * somewhat confusing and lack a clear systematic pattern over all supported
  * platforms. For example a scope_id of an IPv6 link-local address can be
- * speicfied with the local network interface index number, or by its name,
+ * specified with the local network interface index number, or by its name,
  * maybe "[fe80::1%2]" or "[fe80::1%eth0]". Microsoft Windows accepts only
  * numeric scope_ids. MacOs accepts link-local addresses with wrong or missing
  * scope_id, and returns the resulting socket address with no scope_Id (set to
@@ -31,17 +31,19 @@ namespace UPnPsdk {
  * other properties. Exact details and verification are internally made with
  * `AddrinfoScopeIdFTestSuite`. All of this makes it necessary for the SDK to
  * define the properties of this class as follows:
+ * - Default ai_socktype is SOCK_STREAM. ai_socktype \b 0 is not accepted. The
+ *   resulting socket type is considered to be the same as given by argument.
+ * - ai_protocol is hard coded set to \b 0, and considered to be always \b 0,
+ *   that uses the default protocol for the current socket type.
  * - Getting information for an IPv6 link-local address with a numeric scope_id
- *   always succeeds.
- * - Getting information for an IPv6 link-local address without a scope_id
- *   always fails.
+ *   always succeeds, no matter if the scope_id really exist.
+ * - Getting information for an IPv6 link-local address without a valid
+ *   scope_id always fails.
  * - Getting information for an IPv6 link-local address with a name of a local
  *   network interface that doesn't exist, fails.
- * - A scope_id on an IPv6 global-unicast address or on the loopback address is
- *   silently ignored. The resulting socket address does not have a scope_id
- *   (set to 0).
- * - The resulting ai_flags are the same as given by the hints.
- * - The resulting ai_protocol is set to the same as given by the hints.
+ * - A scope_id on any other IPv6 address that isn't a link-local address,
+ *   fails.
+ * - The resulting ai_flags are considered to be the same as given by argument.
  * - All other resulting information are that from the operating system.
  *
  * An empty node returns information of the loopback interface, but either node

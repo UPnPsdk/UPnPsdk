@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-15
+// Redistribution only with this Copyright remark. Last modified: 2026-06-03
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -20,7 +20,45 @@
 #include <string>
 /// \endcond
 
+
 namespace UPnPsdk {
+
+/*!
+ * \brief Test if a socket address is a global unicast address
+ * \ingroup upnplib-addrmodul
+ *
+ * This function isn't provided by the system on Unix/Linux platforms as member
+ * of the IN6_IS_ADDR test macros. On Microsoft Windows it replaces the
+ * imprecise corresponding system function. There it does not check the current
+ * specified range for global unicast addresses but only the wide range
+ * reservation for future use. For details have a look at Unit Tests
+ * 'SockaddrTestSuite.verify_in6_is_addr_*'.
+ */
+inline bool IN6_IS_ADDR_GLOBAL2(
+    /*! [in] Pointer to the address structure of a socket address that shall be
+       checked. */
+    const in6_addr* a_addr) {
+    const uint32_t* sin6_32 = reinterpret_cast<const uint32_t*>(a_addr);
+    return ((sin6_32[0] & htonl(0xe0000000)) == htonl(0x20000000));
+}
+
+/*!
+ * \brief Test if a socket address is a link-local address
+ * \ingroup upnplib-addrmodul
+ *
+ * The corresponding system functions on all supported platforms are buggy.
+ * They do not check that no subnet is specified. For example they accept
+ * "[fe80:1::]" as valid, but a link-local address can never have a subnet. For
+ * details have a look at Unit Tests 'SockaddrTestSuite.verify_in6_is_addr_*'.
+ */
+inline bool IN6_IS_ADDR_LINKLOCAL2(
+    /*! [in] Pointer to the address structure of a socket address that shall be
+       checked. */
+    const in6_addr* a_addr) {
+    const uint32_t* sin6_32 = reinterpret_cast<const uint32_t*>(a_addr);
+    return (sin6_32[0] == htonl(0xfe800000) && sin6_32[1] == 0x00000000);
+}
+
 
 /*!
  * \brief Helpful union of the different socket address structures
@@ -38,6 +76,34 @@ union sockaddr_t {
     ::sockaddr_in sin;
     ::sockaddr sa;
 };
+
+
+/*! \brief Free function to check if a string represents an unsigned number
+<!-- ------------------------------------------------------------------ -->
+ * \ingroup upnplib-addrmodul
+ *
+ * For example a number string that should fit into an uint32_t variable after
+ * converting:
+ * \code
+ * // Usage e.g.:
+ * std::string uint32_max = "4294967295"; // has 10 digits
+ * if (is_num_str(uint32_max, 10))
+ *     uint32_t num = static_cast<uint32_t>(std::stoi(uint32_max));
+ * \endcode
+ * \returns
+ *  \b true if the string represents an all digit number\n
+ *  \b false otherwise
+*/
+inline bool is_unum_str( //
+    std::string_view a_num_sv, ///< [in] String to check.
+    size_t a_digits ///< [in] Max. amount of digits the number has.
+) {
+    size_t i;
+    for (i = 0; i < a_num_sv.size() && i < a_digits + 1; i++)
+        if (!std::isdigit(static_cast<unsigned char>(a_num_sv[i])))
+            i = a_digits + 1;
+    return (i > a_digits) ? false : true;
+}
 
 
 /*! \brief Free function to check if a string represents a valid port number
@@ -279,7 +345,7 @@ struct UPnPsdk_API SSockaddr {
      * SSockaddr saObj;
      * saObj = ss;
      * \endcode */
-    void operator=(const ::sockaddr_storage& a_ss);
+    void operator=(const ::sockaddr_storage& a_ss) noexcept;
     /// @} Setter
 
 

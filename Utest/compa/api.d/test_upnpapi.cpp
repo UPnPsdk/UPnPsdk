@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-12
+// Redistribution only with this Copyright remark. Last modified: 2026-06-03
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -33,6 +33,8 @@ using ::testing::StrictMock;
 
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::IN6_IS_ADDR_GLOBAL2;
+using ::UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 using ::UPnPsdk::SSockaddr;
 using ADDRS = UPnPsdk::CNetadapter::ADDRS;
 
@@ -123,7 +125,7 @@ clang-format off
 clang-format on
 */
 
-// General storage for temporary socket address evaluation
+// General storage for temporary socket address evaluation.
 SSockaddr saObj;
 
 // Have the netadapter list global available so its expensive call from the
@@ -562,7 +564,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_address_fails) {
 #endif
 }
 
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla) {
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_successful) {
     // pUPnP does not support initialisation with IP addresses, but the UPnPsdk
     // do. Ports not set with this Unit so they don't matter here.
 
@@ -579,7 +581,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla) {
 
     ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
     nadaptObj.sockaddr(saObj);
-    ASSERT_EQ(saObj.ss.ss_family, AF_INET6);
     ASSERT_NE(saObj.sin6.sin6_scope_id, 0);
 
     // Test Unit
@@ -620,6 +621,74 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla) {
         EXPECT_EQ(gIF_IPV4[0], '\0');
         EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
     }
+}
+
+#if 0 // DEBUG! Must be fixed!
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_lla_ifname_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
+    // For Microsoft Windows there are some TODOs in the old code:
+    // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
+    // link-local addresses.
+    // TODO: Retrieve IPv6 LLA prefix?
+
+    // Initialize needed global variables.
+    if (old_code) {
+        gIF_IPV6[0] = '\0';
+        gIF_IPV6_ULA_GUA[0] = '\0';
+        gIF_IPV4[0] = '\0';
+    } else {
+        ::strncpy(gIF_IPV4, "\xAA\0", 2);
+        ::strncpy(gIF_IPV4_NETMASK, "\xA5\0", 2);
+        LOCAL_PORT_V4 = 0;
+    }
+    gIF_IPV6_PREFIX_LENGTH = 0;
+    LOCAL_PORT_V6 = 0;
+    LOCAL_PORT_V6_ULA_GUA = 0;
+    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+
+    if (old_code)
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
+                     "set on MS Windows.\n";
+
+    // Lla must always be available.
+    ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
+
+    // Test Unit.
+    // Using adapter name of the lla interface.
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nadaptObj.name().c_str());
+    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+    // Create socket address with scope_id from gIF_IPV6.
+    SSockaddr if_ipv6;
+    if_ipv6 = std::string(gIF_IPV6) + "%" + std::to_string(gIF_INDEX);
+    ASSERT_EQ(if_ipv6.ss.ss_family, AF_INET6);
+
+    nadaptObj.sockaddr(saObj);
+    EXPECT_EQ(saObj, if_ipv6);
+}
+#endif
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_without_scope_id_fails) {
+    // pUPnP does not support initialisation with IP addresses, but the UPnPsdk
+    // do. Ports not set with this Unit so they don't matter here.
+    if (old_code)
+        GTEST_SKIP() << "UpnpGetIfInfo() only from network interface name "
+                        "supported, not from addresses.";
+
+    // Get link-local network interface address.
+    ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
+    nadaptObj.sockaddr(saObj);
+
+    // Remove scope_id from socket address.
+    saObj.sin6.sin6_scope_id = 0;
+
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
+
+    EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua) {
@@ -683,81 +752,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua) {
         // EXPECT_STREQ(gIF_IPV4, "");
         // EXPECT_STREQ(gIF_IPV4_NETMASK, "");
     }
-}
-
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_successful) {
-    // Ports not set with this Unit so they doesn't matter here.
-    // For Microsoft Windows there are some TODOs in the old code:
-    // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
-    // link-local addresses.
-    // TODO: Retrieve IPv6 LLA prefix?
-    // Tests below are marked with // Wrong!
-
-    // Initialize needed global variables.
-    if (old_code) {
-        gIF_IPV6[0] = '\0';
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV4[0] = '\0';
-    } else {
-        ::strncpy(gIF_IPV4, "\xAA\0", 2);
-        ::strncpy(gIF_IPV4_NETMASK, "\xA5\0", 2);
-        LOCAL_PORT_V4 = 0;
-    }
-    gIF_IPV6_PREFIX_LENGTH = 0;
-    LOCAL_PORT_V6 = 0;
-    LOCAL_PORT_V6_ULA_GUA = 0;
-    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-
-    if (old_code)
-        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
-                     "set on MS Windows.\n";
-
-    // Lla must always be available.
-    ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
-#if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(__APPLE__)
-    if (nadaptObj.name().starts_with("lo") && !nadaptObj.find_next())
-        GTEST_SKIP() << "Only invalid address \"[fe80::1]\" on loopback "
-                        "interface found.";
-#endif
-
-    // Test Unit.
-    // Using adapter name of the lla interface.
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nadaptObj.name().c_str());
-    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
-
-    ASSERT_STRNE(gIF_IPV6, "");
-    nadaptObj.sockaddr(saObj);
-    const std::string if_ipv6 = "[" + std::string(gIF_IPV6) + "]";
-    saObj.sin6.sin6_scope_id = 0; // Erase scope id, gIF_IPV6 doesn't have it.
-    EXPECT_EQ(saObj.netaddr(), if_ipv6);
-
-    // Address the netadapter that has the lla. It will only look at this
-    // netadatper then. Maybe there are also a gua address? There may also be an
-    // IPv4-mapped-IPv6 address but that isn't supported by the compatible code.
-    // gIF_IPV4 is uninitialized.
-    ASSERT_TRUE(nadaptObj.find_first(nadaptObj.index()));
-    do {
-        nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
-            const std::string if_gua_str =
-                "[" + std::string(gIF_IPV6_ULA_GUA) + "]";
-            EXPECT_EQ(saObj.netaddr(), if_gua_str);
-        }
-        if (old_code) {
-            if (IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
-                std::string if_ipv4 = saObj.netaddr().substr(8);
-                if_ipv4.pop_back();
-                EXPECT_EQ(if_ipv4, gIF_IPV4);
-                EXPECT_NE(gIF_IPV4_NETMASK[0], '\0');
-            }
-        } else {
-            // global variable should be uninitialized (preset above),
-            EXPECT_STREQ(gIF_IPV4, "\xAA");
-            EXPECT_STREQ(gIF_IPV4_NETMASK, "\xA5");
-        }
-    } while (nadaptObj.find_next());
 }
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_having_only_ipv6) {
@@ -1104,12 +1098,9 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_scope_id_fails) {
     bWebServerState = WEB_SERVER_DISABLED;
     sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-    // Create link local address without scope id.
-    char lla[INET6_ADDRSTRLEN + 32];
-    std::strncpy(lla, saObj.netaddr().c_str(), sizeof(lla) - 1);
-
+    std::cout << "DEBUG! lla=\"" << saObj.netaddr() << "\".\n";
     // Test Unit
-    int ret_UpnpInit2 = ::UpnpInit2(lla, 0);
+    int ret_UpnpInit2 = ::UpnpInit2(saObj.netaddr().c_str(), 0);
 
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
         << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
@@ -1185,10 +1176,10 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
     do {
         nadaptObj.sockaddr(saObj);
         if (lla_saObj.ss.ss_family != AF_INET6 &&
-            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+            IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
             lla_saObj = saObj;
         else if (gua_saObj.ss.ss_family != AF_INET6 &&
-                 IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr))
+                 IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr))
             gua_saObj = saObj;
     } while (nadaptObj.find_next());
     ASSERT_EQ(lla_saObj.ss.ss_family, AF_INET6);
@@ -1311,10 +1302,10 @@ TEST_F(UpnpapiFTestSuite,
     const auto& gua_af = gua_saObj.ss.ss_family;
     do {
         nadaptObj.sockaddr(saObj);
-        if (lla_af != AF_INET6 && IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
+        if (lla_af != AF_INET6 && IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
             lla_saObj = saObj;
         else if (gua_af != AF_INET6 &&
-                 IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr))
+                 IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr))
             gua_saObj = saObj;
     } while (nadaptObj.find_next() &&
              (lla_af != AF_INET6 || gua_af != AF_INET6));

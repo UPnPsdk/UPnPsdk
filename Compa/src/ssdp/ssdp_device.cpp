@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-03-19
+ * Redistribution only with this Copyright remark. Last modified: 2026-06-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -65,6 +65,8 @@
 #include <net/if.h>
 #endif
 /// \endcond
+
+using UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 
 
 namespace {
@@ -225,7 +227,7 @@ int isUrlV6UlaGua(   //
 
     if (extractIPv6address(descdocUrl, address)) {
         inet_pton(AF_INET6, address, &v6_addr);
-        return !IN6_IS_ADDR_LINKLOCAL(&v6_addr);
+        return !IN6_IS_ADDR_LINKLOCAL2(&v6_addr);
     }
 
     return 0;

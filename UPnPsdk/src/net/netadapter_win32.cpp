@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-31
+// Redistribution only with this Copyright remark. Last modified: 2025-05-24
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -62,6 +62,8 @@ void CNetadapter_platform::get_first() {
 
     m_adapt_current = m_adapt_first;
     m_unicastaddr_current = m_adapt_current->FirstUnicastAddress;
+    UPnPsdk_LOGINFO("MSG1182") "syscall ::GetAdaptersAddresses() gets "
+        << m_adapt_first << "\n";
 }
 
 bool CNetadapter_platform::get_next() {
@@ -184,7 +186,8 @@ unsigned int CNetadapter_platform::index() const {
 void CNetadapter_platform::free_adaptaddrs() noexcept {
     TRACE2(this, " Executing CNetadapter_platform::free_adaptaddrs()")
     if (m_adapt_first != nullptr) {
-        free(m_adapt_first);
+        UPnPsdk_LOGINFO("MSG1183") "syscall ::free(" << m_adapt_first << ")\n";
+        ::free(m_adapt_first);
         m_adapt_first = nullptr;
     }
     m_adapt_current = nullptr;

@@ -24,6 +24,7 @@ var namespaceUPnPsdk =
       [ "merge_paths", "de/dc7/group__upnpsdk-uri.html#gadd04cb26d55f7dbab615dc79abc29557", null ]
     ] ],
     [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", "d0/d44/classUPnPsdk_1_1CAddrinfo" ],
+    [ "CAddrinfo2", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html", "d7/dc5/classUPnPsdk_1_1CAddrinfo2" ],
     [ "CAuthority", "dd/d90/classUPnPsdk_1_1CAuthority.html", "dd/d90/classUPnPsdk_1_1CAuthority" ],
     [ "CComponent", "d3/da4/classUPnPsdk_1_1CComponent.html", "d3/da4/classUPnPsdk_1_1CComponent" ],
     [ "CFragment", "dd/d7c/classUPnPsdk_1_1CFragment.html", "dd/d7c/classUPnPsdk_1_1CFragment" ],
@@ -77,6 +78,9 @@ var namespaceUPnPsdk =
     [ "netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71", null ],
     [ "bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb", null ],
     [ "pthread_self", "dd/d67/namespaceUPnPsdk.html#a2a68659cc5b319d1eeda06f219c64c59", null ],
+    [ "IN6_IS_ADDR_GLOBAL2", "d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd", null ],
+    [ "IN6_IS_ADDR_LINKLOCAL2", "d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25", null ],
+    [ "is_unum_str", "d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0", null ],
     [ "to_port", "d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5", null ],
     [ "split_inaddr", "d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27", null ],
     [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9", null ],

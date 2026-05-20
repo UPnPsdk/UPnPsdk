@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-25
+// Redistribution only with this Copyright remark. Last modified: 2026-05-23
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -35,7 +35,7 @@ void CNetadapter_platform::get_first() {
                                          "the network adapters: " +
             std::string(std::strerror(errno)) + '\n');
     }
-    UPnPsdk_LOGINFO("MSG1132") "syscall ::getifaddrs() gets " << m_ifa_first
+    UPnPsdk_LOGINFO("MSG1180") "syscall ::getifaddrs() gets " << m_ifa_first
                                                               << "\n";
     this->reset();
 }
@@ -114,7 +114,7 @@ unsigned int CNetadapter_platform::bitmask() const {
 void CNetadapter_platform::free_ifaddrs() noexcept {
     TRACE2(this, " Executing CNetadapter::free_ifaddrs()")
     if (m_ifa_first != nullptr) {
-        UPnPsdk_LOGINFO("MSG1116") "syscall ::freeifaddrs(" << m_ifa_first
+        UPnPsdk_LOGINFO("MSG1181") "syscall ::freeifaddrs(" << m_ifa_first
                                                             << ")\n";
         freeifaddrs(m_ifa_first);
         m_ifa_first = nullptr;

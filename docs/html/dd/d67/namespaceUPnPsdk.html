@@ -115,6 +115,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get information from the operating system about an internet address.  <a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get information from the operating system about an internet address.  <a href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d90/classUPnPsdk_1_1CAuthority.html">CAuthority</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Authority component of a <a class="el" href="../../d5/d67/Glossary.html#glossary_URIref">URI reference</a>.  <a href="../../dd/d90/classUPnPsdk_1_1CAuthority.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -249,6 +252,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a2a68659cc5b319d1eeda06f219c64c59" id="r_a2a68659cc5b319d1eeda06f219c64c59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a2a68659cc5b319d1eeda06f219c64c59">pthread_self</a> ()</td></tr>
 <tr class="memdesc:a2a68659cc5b319d1eeda06f219c64c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pthread thread id as unsigned integer.  <br /></td></tr>
 <tr class="separator:a2a68659cc5b319d1eeda06f219c64c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga379fe8164fb7cdc0105e947a321ed4dd" id="r_ga379fe8164fb7cdc0105e947a321ed4dd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd">IN6_IS_ADDR_GLOBAL2</a> (const in6_addr *a_addr)</td></tr>
+<tr class="memdesc:ga379fe8164fb7cdc0105e947a321ed4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a socket address is a global unicast address.  <br /></td></tr>
+<tr class="separator:ga379fe8164fb7cdc0105e947a321ed4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4b4e46cd2ae1af5ab49c71a1eca7cf25" id="r_ga4b4e46cd2ae1af5ab49c71a1eca7cf25"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25">IN6_IS_ADDR_LINKLOCAL2</a> (const in6_addr *a_addr)</td></tr>
+<tr class="memdesc:ga4b4e46cd2ae1af5ab49c71a1eca7cf25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a socket address is a link-local address.  <br /></td></tr>
+<tr class="separator:ga4b4e46cd2ae1af5ab49c71a1eca7cf25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga36799e18488f13fb91c265008e84b1f0" id="r_ga36799e18488f13fb91c265008e84b1f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0">is_unum_str</a> (std::string_view a_num_sv, size_t a_digits)</td></tr>
+<tr class="memdesc:ga36799e18488f13fb91c265008e84b1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to check if a string represents an unsigned number.  <br /></td></tr>
+<tr class="separator:ga36799e18488f13fb91c265008e84b1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6756252cf07c4f4d74f51fedc2fecce5" id="r_ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">to_port</a> (std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</td></tr>
 <tr class="memdesc:ga6756252cf07c4f4d74f51fedc2fecce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to check if a string represents a valid port number.  <br /></td></tr>
 <tr class="separator:ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -342,7 +354,7 @@ file subtype </td></tr>
 "[fe80::1%2]:443" with node "fe80::1", scope "2", service "443"<br  />
 "[fe80::2%eth0]:https" with node "fe80::2", scope "eth0", service "https" </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00087">87</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00153">153</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">
@@ -670,7 +682,7 @@ Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a
 <li><code>nullptr</code> if file extension was not known</li>
 </ul>
 </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo:</a></b></dt><dd>Rework to use reference instead of pointer and use exception. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Rework to use reference instead of pointer and use exception. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_extension</td><td>file extension </td></tr>

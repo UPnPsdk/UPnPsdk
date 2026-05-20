@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-04
+// Redistribution only with this Copyright remark. Last modified: 2025-05-30
 
 // There is no include guard '#ifndef ...' because this file shouln't be
 // included more than two times as given.
@@ -21,6 +21,33 @@
 #ifndef HAVE_STRNDUP
 UPnPsdk_API char* strndup(const char* __string, size_t __n);
 #endif
+
+
+// Define missing and redefine buggy macros from system header 'netinet/in.h'.
+// ---------------------------------------------------------------------------
+#if 0
+#ifndef _MSC_VER
+// On win32 this is a function and will not be detected by macro conditional
+// "if defined". For detailed information look at Unit Tests
+// 'SockaddrTestSuite.check_in6_is_addr_*'.
+#ifdef IN6_IS_ADDR_GLOBAL
+#undef IN6_IS_ADDR_GLOBAL
+#endif
+#define IN6_IS_ADDR_GLOBAL(a)                                                  \
+    ((((__const uint32_t*)(a))[0] & htonl((uint32_t)0xe0000000)) ==            \
+     htonl((uint32_t)0x20000000))
+#endif
+
+// Redefine buggy macro: original accepts link-local address with subnet,
+// e.g. "[fe80:1::]". This is out of specification.
+#ifdef IN6_IS_ADDR_LINKLOCAL
+#undef IN6_IS_ADDR_LINKLOCAL
+#endif
+#define IN6_IS_ADDR_LINKLOCAL(a)                                               \
+    ((((__const uint32_t*)(a))[0] == htonl((uint32_t)0xfe800000)) &&           \
+     (((__const uint32_t*)(a))[1] == htonl((uint32_t)0x00000000)))
+#endif
+
 
 namespace UPnPsdk {
 

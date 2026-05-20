@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-10
+// Redistribution only with this Copyright remark. Last modified: 2026-06-03
 
 // This tests network communication. The usual way to do it is to use mocking to
 // be independent from current hardware. But with mocking you can only test what
@@ -41,6 +41,8 @@ using ::testing::StrictMock;
 using ::UPnPsdk::CNetadapter;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::IN6_IS_ADDR_GLOBAL2;
+using ::UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 using ::UPnPsdk::SSockaddr;
 
 
@@ -103,7 +105,7 @@ void get_netadapter() {
             lo4Obj.name = nadaptObj.name();
         } else if (llaObj.sa.ss.ss_family == AF_UNSPEC &&
                    saObj.ss.ss_family == AF_INET6 &&
-                   IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) &&
+                   IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr) &&
                    nadaptObj.index() != 1) {
             // Found first LLA address without lla ("[fe80::1]" MacOS special)
             // on loopback interface.
@@ -113,7 +115,7 @@ void get_netadapter() {
             llaObj.name = nadaptObj.name();
         } else if (guaObj.sa.ss.ss_family == AF_UNSPEC &&
                    saObj.ss.ss_family == AF_INET6 &&
-                   IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+                   IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr)) {
             // Found first GUA address.
             guaObj.sa = saObj;
             guaObj.index = nadaptObj.index();
@@ -295,7 +297,7 @@ TEST_P(SendStatelessTest, send_stateless) {
         // If we want to test a GUA but there is no adapter with a global
         // unicast address I flag to skip the test.
         if (destsaObj.ss.ss_family == AF_INET6 &&
-            IN6_IS_ADDR_GLOBAL(&destsaObj.sin6.sin6_addr) && guaObj.index == 0)
+            IN6_IS_ADDR_GLOBAL2(&destsaObj.sin6.sin6_addr) && guaObj.index == 0)
             // Flag to skip test.
             na_idx = 0u;
         else

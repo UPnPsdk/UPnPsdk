@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-08
+ * Redistribution only with this Copyright remark. Last modified: 2026-05-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -527,6 +527,15 @@ extern "C" {
  *     \li \c UPNP_E_INVALID_INTERFACE: IfName is invalid or does not
  *             have a valid IPv4 or IPv6 addresss configured.
  */
+// What the memory growth actually is.
+// The growth from 3% to 13.3% that stabilises is consistent with thread pool
+// initialisation. UpnpInit2 starts three thread pools (gSendThreadPool,
+// gRecvThreadPool, gMiniServerThreadPool) plus a timer thread. As SSDP traffic
+// arrives from the local network, worker threads are created up to the pool
+// maximum. Each thread allocates its stack. Once the pool reaches steady state
+// the growth stops — which is exactly what you observe.
+// REF: https://github.com/pupnp/pupnp/issues/469#event-25780589401
+//
 PUPNP_Api int UpnpInit2(
     /*! [in] Argument to select the local interface to connect to the network,
      * that can be:

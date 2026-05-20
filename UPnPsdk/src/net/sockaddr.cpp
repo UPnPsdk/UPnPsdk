@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-15
+// Redistribution only with this Copyright remark. Last modified: 2026-06-02
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -80,7 +80,6 @@ bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
 }
 
 } // anonymous namespace
-
 
 // Free function to check if a string represents a valid port number
 // -----------------------------------------------------------------
@@ -261,14 +260,10 @@ void split_inaddr(const std::string_view a_addr_sv,
         // fit, it is either an only numeric address, or any alphanumeric
         // identifier without port. Check for numeric port with type 'in_port_t'
         // (uint16_t). UINT16_MAX (65535) has 5 digits.
-        size_t i{};
-        for (; i < a_addr_sv.size() && i < 6; i++)
-            if (!std::isdigit(a_addr_sv[i]))
-                i = 6;
-        if (i > 5)
-            addr_sv = a_addr_sv; // Any alphanumeric string.
-        else
+        if (is_unum_str(a_addr_sv, 5))
             serv_sv = a_addr_sv; // Numeric value <= MAX_UINT16 not checked.
+        else
+            addr_sv = a_addr_sv; // Any alphanumeric string.
     }
 
     // Return result for a_inaddr.node.
@@ -298,8 +293,9 @@ void split_inaddr(const std::string_view a_addr_sv,
     // Check for valid port. ::getaddrinfo accepts invalid ports > 65535.
     a_inaddr.service = serv_sv;
     UPnPsdk_LOGINFO("MSG1043")
-        << a_addr_sv << "\" into addr=\"" << a_inaddr.node << "\", scope_id=\""
-        << a_inaddr.scope << "\", port=\"" << a_inaddr.service << "\"\n";
+        << "\"" << a_addr_sv << "\" into addr=\"" << a_inaddr.node
+        << "\", scope_id=\"" << a_inaddr.scope << "\", port=\""
+        << a_inaddr.service << "\"\n";
 }
 
 
@@ -367,35 +363,26 @@ void SSockaddr::operator=(const std::string_view a_addr_sv) noexcept {
 
                 // Check scope_id only valid for link-local addresses.
                 if (!inaddr.scope.empty() && inaddr.scope != "0") {
-                    if (IN6_IS_ADDR_LINKLOCAL(&s6.sin6_addr)) {
+                    if (IN6_IS_ADDR_LINKLOCAL2(&s6.sin6_addr)) {
                         // scope_id and link-local address: store scope_id?
 
                         // Check if there are all digits for scope_id.
                         // UINT32_MAX (4,294,967,295) has 10 digits.
-                        size_t i{};
-                        for (; i < inaddr.scope.size() && i < 11; i++)
-                            if (!std::isdigit(inaddr.scope[i]))
-                                i = 11;
-                        if (i > 10) {
+                        if (!is_unum_str(inaddr.scope, 10))
                             // An alphanumeric string.
                             break; // Error
-                        } else
-
+                        else
                             // Numeric value, store scope_id.
                             // ------------------------------
                             // stoi() may throw exception, but not possible due
                             // to guarded value above.
                             s6.sin6_scope_id =
                                 static_cast<uint32_t>(std::stoi(inaddr.scope));
-
-                    } else {
-                        // scope_id but no link-local address.
-                        break; // Error
                     }
 
                 } else { // No scope_id.
 
-                    if (IN6_IS_ADDR_LINKLOCAL(&s6.sin6_addr)) {
+                    if (IN6_IS_ADDR_LINKLOCAL2(&s6.sin6_addr)) {
                         // No scope_id but link-local address.
                         break; // Error
                     }
@@ -417,11 +404,7 @@ void SSockaddr::operator=(const std::string_view a_addr_sv) noexcept {
         // ------------------------------------
         if (!inaddr.service.empty()) {
             // Check if port string is numeric. UINT16_MAX (65535) has 5 digits.
-            size_t i{};
-            for (; i < inaddr.service.size() && i < 6; i++)
-                if (!std::isdigit(inaddr.service[i]))
-                    i = 6;
-            if (i > 5)
+            if (!is_unum_str(inaddr.service, 5))
                 break; // Error
 
             // Valid uint16_t value, but limited to UINT16_MAX?
@@ -460,12 +443,33 @@ void SSockaddr::operator=(const in_port_t a_port) {
 // Assignment operator= to set socket address from a trivial socket address
 // storage
 // ------------------------------------------------------------------------
-void SSockaddr::operator=(const ::sockaddr_storage& a_ss) {
-    m_sa_union.ss = a_ss;
-    // Correct possible wrong setting.
-    if (m_sa_union.ss.ss_family == AF_INET6 &&
-        !IN6_IS_ADDR_LINKLOCAL(&m_sa_union.sin6.sin6_addr))
+void SSockaddr::operator=(const ::sockaddr_storage& a_ss) noexcept {
+    if (a_ss.ss_family != AF_INET6) {
+        // Any address that is not an IPv6 address will be set.
+        m_sa_union.ss = a_ss;
+        return;
+    }
+
+    // Correct possible wrong settings for an IPv6 address.
+    auto* sinv6 = reinterpret_cast<const sockaddr_in6*>(&a_ss);
+    if (IN6_IS_ADDR_LINKLOCAL2(&sinv6->sin6_addr)) {
+        // A link-local address must have a scope_id.
+        if (sinv6->sin6_scope_id > 0) {
+            m_sa_union.ss = a_ss;
+        } else {
+            // Otherwise an empty socket address is set. This error can be
+            // tested if address family is AF_UNSPEC.
+            m_sa_union = {};
+            m_sa_union.ss.ss_family = AF_UNSPEC;
+            UPnPsdk_LOGERR(
+                "MSG1127") "IPv6 Link-local address without scope_id.\n";
+        }
+
+    } else { // An IPv6 address but not a link-local address.
+        // A scope_id is silently discarded.
+        m_sa_union.ss = a_ss;
         m_sa_union.sin6.sin6_scope_id = 0;
+    }
 }
 
 // Compare operator== to test if another trivial socket address is equal to this
@@ -478,14 +482,11 @@ bool SSockaddr::operator==(const SSockaddr& a_saddr) const {
 // -------------------------------------------------
 // e.g. "[fe80::3%2]:51000" or "192.168.254.253:51001".
 std::string SSockaddr::netaddr() noexcept {
-    // TRACE not usable with chained output.
-    // TRACE2(this, " Executing SSockaddr::netaddr()")
-    //
     // Some more statements, but due to frequently usage, it's optimized to
     // reduce expensive memory allocation. I don't use ::getnameinfo() because
     // it doesn't return the scope_id numeric on Unix like platforms. This
-    // would confuse the internal program structure and it is simpler to handle
-    // it only here.
+    // would confuse the internal program logik and it is simpler to handle it
+    // only here.
 
     std::string netaddr_st;
 
@@ -493,11 +494,25 @@ std::string SSockaddr::netaddr() noexcept {
     case AF_INET6: {
         // Get IPv6 address string.
         char addr_buf[INET6_ADDRSTRLEN];
-        auto ret = ::inet_ntop(AF_INET6, &m_sa_union.sin6.sin6_addr, addr_buf,
-                               sizeof(addr_buf));
-        if (ret == nullptr)
-            break; // Error
-
+#ifdef _MSC_VER
+        // Yet another annoing quirk from Microsoft Windows: only for the
+        // unknown netaddress "[0.0.0.0]" it returns (the correct)
+        // "[::ffff:0:0]" instead of expected "[::ffff:0.0.0.0]". If I binary
+        // detect this address I convert it "by hand". Other platforms do it as
+        // expected.
+        const uint32_t* sin6_32 =
+            reinterpret_cast<uint32_t*>(&m_sa_union.sin6.sin6_addr);
+        if (*sin6_32 == 0 && *(sin6_32 + 1) == 0 &&
+            *(sin6_32 + 2) == htonl(0x0000ffff) && *(sin6_32 + 3) == 0) {
+            strcpy(addr_buf, "::ffff:0.0.0.0");
+        } else
+#endif
+        {
+            auto ret = ::inet_ntop(AF_INET6, &m_sa_union.sin6.sin6_addr,
+                                   addr_buf, sizeof(addr_buf));
+            if (ret == nullptr)
+                break; // Error
+        }
         // Build IPv6 netaddress string with IP address, and scope_id, if
         // available.
         size_t str_len =
@@ -512,7 +527,7 @@ std::string SSockaddr::netaddr() noexcept {
                 // ret is an integer so this can fail on a huge amount of
                 // available local netadapter ((4,294,967,295 / 2) index number
                 // = scope_id). Only to mention it, but not really a problem,
-                // is it? Anyway, it's controled reported as error.
+                // is it? Anyway, it's controlled reported as error.
                 break; // Error
 
             // Separator '%' and UINT32_MAX digits (without null terminator).

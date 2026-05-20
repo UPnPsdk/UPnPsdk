@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-05-10
+ * Redistribution only with this Copyright remark. Last modified: 2026-06-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,7 @@
 #include <soap_device.hpp>
 #include <soap_ctrlpt.hpp>
 
-#include <UPnPsdk/addrinfo.hpp>
+#include <UPnPsdk/addrinfo2.hpp>
 #include <UPnPsdk/netadapter.hpp>
 
 #ifdef _WIN32
@@ -80,6 +80,9 @@
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #endif
+
+using UPnPsdk::IN6_IS_ADDR_GLOBAL2;
+using UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 
 
 #if !defined(ifr_netmask) || defined(DOXYGEN_RUN) // it's a define if exists
@@ -294,8 +297,8 @@ int UpnpGetIfInfo(
     // Process single IP address, that sets only the associated global variables
     // -------------------------------------------------------------------------
     if (!a_iface.empty() && !index) {
-        UPnPsdk::CAddrinfo ai(a_iface,
-                              AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV);
+        UPnPsdk::CAddrinfo2 ai(a_iface,
+                               AI_PASSIVE | AI_NUMERICHOST | AI_NUMERICSERV);
         if (ai.get_first()) { // If not found, continue with netadapter name.
 
             UPnPsdk::SSockaddr saObj;
@@ -305,7 +308,7 @@ int UpnpGetIfInfo(
                 return UPNP_E_INVALID_INTERFACE;
 
             nadObj.sockaddr(saObj);
-            if (IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            if (IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr)) {
                 // Copy netaddress without surounding brackets.
                 ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6,
                             sizeof(gIF_IPV6));
@@ -314,7 +317,7 @@ int UpnpGetIfInfo(
                 ::memset(gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
                 gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
 
-            } else if (IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+            } else if (IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr)) {
                 // Copy netaddress without surounding brackets.
                 ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6_ULA_GUA,
                             sizeof(gIF_IPV6_ULA_GUA));
@@ -362,7 +365,7 @@ int UpnpGetIfInfo(
     do {
         nadObj.sockaddr(saObj);
         if (gIF_IPV6[0] == '\0' &&
-            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr)) {
             // Get gIF_NAME and gIF_INDEX. Only copied for the link-local
             // address because the index is essential for its scope_id.
             ::strncpy(gIF_NAME, nadObj.name().c_str(), sizeof(gIF_NAME) - 1);
@@ -374,7 +377,7 @@ int UpnpGetIfInfo(
             gIF_IPV6_PREFIX_LENGTH = nadObj.bitmask();
         }
         if (gIF_IPV6_ULA_GUA[0] == '\0' &&
-            IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+            IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr)) {
             // Copy netaddress without surounding brackets.
             ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6_ULA_GUA,
                         sizeof(gIF_IPV6_ULA_GUA));

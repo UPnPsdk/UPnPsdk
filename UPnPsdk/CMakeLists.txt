@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-10-13
+# Redistribution only with this Copyright remark. Last modified: 2026-05-25
 
 cmake_minimum_required(VERSION 3.23) # for FILE_SET
 include(UPnPsdk-ProjectHeader)
@@ -15,6 +15,7 @@ set(UPnPsdk_SOURCE_FILES
     src/api/upnptools.cpp
     src/net/sockaddr.cpp
     src/net/addrinfo.cpp
+    src/net/addrinfo2.cpp
     src/net/socket.cpp
     src/net/connection_common.cpp
     src/net/upnp_device.cpp
@@ -29,7 +30,7 @@ set(UPnPsdk_SOURCE_FILES
     # Umock source files
     ${UMOCK_SOURCE_DIR}/src/arpa_inet.cpp
     $<$<NOT:$<PLATFORM_ID:Windows>>:${UMOCK_SOURCE_DIR}/src/ifaddrs.cpp>
-    $<$<PLATFORM_ID:Windows>:${UMOCK_SOURCE_DIR}/src/iphlpapi.cpp>
+    $<$<PLATFORM_ID:Windows>:${UMOCK_SOURCE_DIR}/src/Iphlpapi.cpp>
     $<$<NOT:$<PLATFORM_ID:Windows>>:${UMOCK_SOURCE_DIR}/src/net_if.cpp>
     ${UMOCK_SOURCE_DIR}/src/netdb.cpp
     ${UMOCK_SOURCE_DIR}/src/pthread.cpp
@@ -97,7 +98,7 @@ target_link_libraries(UPnPsdk_shared
     PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:OpenSSL::SSL>
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
-    PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
+    PUBLIC $<$<PLATFORM_ID:Windows>:Iphlpapi> # ip helper interface to get network
                                               # management tools
     # On MS Windows we link with the static pthreads4w library to avoid error
     # prone managing access to its .dll file.
@@ -138,7 +139,7 @@ target_link_libraries(UPnPsdk_static
     PUBLIC $<$<BOOL:${UPnPsdk_WITH_OPENSSL}>:OpenSSL::SSL>
     # In addition to pthreads we need some more system libraries on WIN32
     PUBLIC $<$<PLATFORM_ID:Windows>:ws2_32>   # winsock to support sockets
-    PUBLIC $<$<PLATFORM_ID:Windows>:iphlpapi> # ip helper interface to get network
+    PUBLIC $<$<PLATFORM_ID:Windows>:Iphlpapi> # ip helper interface to get network
                                               # management tools
     # On MS Windows we link with the static pthreads4w library to avoid error
     # prone managing access to its .dll file.

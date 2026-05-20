@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-15
+// Redistribution only with this Copyright remark. Last modified: 2026-06-03
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 #include <utest/utest.hpp>
@@ -12,6 +12,7 @@ using ::testing::HasSubstr;
 using ::testing::ThrowsMessage;
 
 using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::is_unum_str;
 using ::UPnPsdk::sockaddrcmp;
 using ::UPnPsdk::split_inaddr;
 using ::UPnPsdk::SSockaddr;
@@ -237,40 +238,62 @@ TEST(SockaddrStorageTestSuite, set_link_local_address) {
 
     saddr = "[fe80::%321]";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 321);
     EXPECT_EQ(saddr.netaddrp(), "[fe80::%321]:0");
 
     // Previous scope_id %321 should be deleted. That wasn't the case.
     saddr = "[2001:db8::1]";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:0");
 
-    // No link-local address with scope_id must fail.
+    // No link-local address with scope_id is suppressed.
     saddr = "[2001:db8::1%321]";
-    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
-
-    saddr = "[fe80::1%1234567890]:50001";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:0");
+
+    // Other valid link-local address.
+    saddr = "[fe80:0::1%1234567890]:50001";
+    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 1234567890);
     EXPECT_EQ(saddr.netaddrp(), "[fe80::1%1234567890]:50001");
 
     // Too big scope_id must fail.
     saddr = "[fe80::1%12345678901]:50001";
     EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
     EXPECT_EQ(saddr.netaddrp(), ":0");
+
+    // Other valid link-local address.
+    saddr = "[fe80::0:1%252]:50001";
+    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 252);
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::1%252]:50001");
 
     // Alphanumeric scope_id must fail.
     saddr = "[fe80::1%321Y0]:50001";
     EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
     EXPECT_EQ(saddr.netaddrp(), ":0");
 
-    saddr = "[fe80:1::2222:3333:4444:5555%321]:50004";
+    // Other valid link-local address.
+    saddr = "[fe80:0:0:0:ffff:ffff:ffff:ffff%253]:50001";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
-    EXPECT_EQ(saddr.netaddrp(), "[fe80:1::2222:3333:4444:5555%321]:50004");
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 253);
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::ffff:ffff:ffff:ffff%253]:50001");
+
+    // Not a link-local address must suppress scope_id.
+    saddr = "[fe80:1::1%321]:50004";
+    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saddr.netaddrp(), "[fe80:1::1]:50004");
 
     saddr = "[fe80:1234:5678:9abc:def1:2345:6789:abcd%321]:50006";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    // Scope_id removed: no lla because subnet-mask is not 0.
     EXPECT_EQ(saddr.netaddrp(),
-              "[fe80:1234:5678:9abc:def1:2345:6789:abcd%321]:50006");
+              "[fe80:1234:5678:9abc:def1:2345:6789:abcd]:50006");
 
     // If the scope id on Unix like platforms matches a real interface then its
     // name is returned instead of the number, e.g. "%lo" instead of "%1".
@@ -691,6 +714,18 @@ TEST(UpnpapiTestSuite, get_binary_ip) {
 }
 #endif
 
+TEST(SockaddrStorageTestSuite, is_unum_str) {
+    EXPECT_TRUE(is_unum_str("65535", 5));
+    EXPECT_TRUE(is_unum_str("65535", 6));
+    EXPECT_FALSE(is_unum_str("65535", 4));
+    EXPECT_FALSE(is_unum_str("65535", 0));
+    EXPECT_FALSE(is_unum_str("0x65535", 7));
+    EXPECT_FALSE(is_unum_str("65535x", 6));
+    EXPECT_FALSE(is_unum_str("-65535", 6));
+    EXPECT_TRUE(is_unum_str("0", 1));
+    EXPECT_FALSE(is_unum_str("0", 0));
+}
+
 TEST(SockaddrStorageTestSuite, string_to_port) {
     in_port_t port{50000};
 
@@ -827,6 +862,7 @@ TEST(SockaddrStorageTestSuite, sockaddr_clear) {
     sa1Obj = "[2001:db8::1]:50001";
     EXPECT_EQ(sa1Obj.netaddrp(), "[2001:db8::1]:50001");
     sa1Obj = "";
+    EXPECT_EQ(sa1Obj.ss.ss_family, AF_UNSPEC);
     EXPECT_EQ(sa1Obj.netaddr(), "");
     EXPECT_EQ(sa1Obj.netaddrp(), ":0");
 }
@@ -841,18 +877,211 @@ TEST(SockaddrStorageTestSuite, set_from_sockaddr_storage) {
 
     SSockaddr saddrObj;
 
-    // Link-local address has the scope_id.
-    ::inet_pton(AF_INET6, "fe80::db8:50:c6f8", &gua_sa.sin6.sin6_addr);
+    // Test Unit, link-local address has the scope_id.
+    ASSERT_EQ(
+        ::inet_pton(AF_INET6, "fe80::db8:50:c6f8", &gua_sa.sin6.sin6_addr), 1);
     saddrObj = gua_sa.ss;
+
+    ASSERT_EQ(saddrObj.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddrObj.netaddrp(), "[fe80::db8:50:c6f8%4294967295]:56789");
 
-    // Global-unicast address must correct the scope_id.
-    ::inet_pton(AF_INET6, "2001:db8::50:c6f8", &gua_sa.sin6.sin6_addr);
+    // Test Unit, not link-local address must correct the scope_id.
+    ASSERT_EQ(
+        ::inet_pton(AF_INET6, "fe80:db8::50:c6f8", &gua_sa.sin6.sin6_addr), 1);
     saddrObj = gua_sa.ss;
+
     // Manual modifing this, will give a scope_id to a gua. This is out of
-    // specification and not handled. You really must know what you are doing!
-    // saddrObj.sin6.sin6_scope_id = UINT32_MAX;
-    EXPECT_EQ(saddrObj.netaddrp(), "[2001:db8::50:c6f8]:56789");
+    // specification and not handled. If you really do it you must know what
+    // you are doing!
+    // saddrObj.sin6.sin6_scope_id = UINT32_MAX; // Undefined behavior.
+    EXPECT_EQ(saddrObj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddrObj.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saddrObj.netaddrp(), "[fe80:db8::50:c6f8]:56789");
+
+    // Test Unit, link-local address without scope_id must fail.
+    ASSERT_EQ(
+        ::inet_pton(AF_INET6, "fe80::db8:50:c6f8", &gua_sa.sin6.sin6_addr), 1);
+    gua_sa.sin6.sin6_scope_id = 0;
+    saddrObj = gua_sa.ss;
+
+    EXPECT_EQ(saddrObj.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddrObj.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saddrObj.netaddrp(), ":0");
+
+    // Test with IPv4 address.
+    gua_sa = {};
+    gua_sa.ss.ss_family = AF_INET;
+    gua_sa.sin.sin_port = htons(50001);
+
+    // Test Unit
+    ASSERT_EQ(::inet_pton(AF_INET, "192.168.5.6", &gua_sa.sin.sin_addr), 1);
+    saddrObj = gua_sa.ss;
+
+    EXPECT_EQ(saddrObj.ss.ss_family, AF_INET);
+    EXPECT_EQ(saddrObj.netaddrp(), "192.168.5.6:50001");
+}
+
+
+// Veify macro/function IN6_IS_ADDR_GLOBAL
+// ---------------------------------------
+// For GCC compiler the macros can be found in 'netinet/in.h'.
+// For MSVC compiler the inline functions can be found in 'ws2ipdef.h'.
+//
+// Global addressing is all in the [2000::]/3 range
+//     current range is [2000::] to [3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff],
+//     that could be expanded in the future
+// link-local addressing is all in the [fe80::]/64 range from [fe80::]/10.
+// (Deprecated ULA is in the [fc00::]/7 range)
+// Multicast is in the [ff00::]/8 range
+// REF:_[How_to_detect_global_vs._link_local_IPv6_address](https://stackoverflow.com/questions/66324779/how-to-detect-global-vs-link-local-ipv6-address#comment117257243_66324779)
+//
+// Microsoft specifies it more relax with function (not macro) in 'ws2ipdef.h'
+// as follows:
+#if 0
+IN6_IS_ADDR_GLOBAL(CONST IN6_ADDR* a) {
+    // Check the format prefix and exclude addresses whose high 4 bits are all
+    // zero or all one. This is a cheap way of excluding v4-compatible,
+    // v4-mapped, loopback, multicast, link-local, site-local.
+    ULONG High = (a->s6_bytes[0] & 0xf0);
+    return (BOOLEAN)((High != 0) && (High != 0xf0));
+}
+#endif
+// If IN6_IS_ADDR_GLOBAL is not defined I use the more restricted macro.
+TEST(SockaddrTestSuite, verify_in6_is_addr_global) {
+    in6_addr sin6_addr;
+
+    // clang-format off
+    // No Global Unicast Address (different on win32)
+    ASSERT_EQ(inet_pton(AF_INET6, "1fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+                        &sin6_addr), 1);
+#ifdef _MSC_VER
+    EXPECT_TRUE(::IN6_IS_ADDR_GLOBAL(&sin6_addr)); // System function
+    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+#else
+    // System function not available.
+    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+#endif
+
+    // First Global Unicast Address (not first on win32)
+    ASSERT_EQ(inet_pton(AF_INET6, "2000::", //
+                        &sin6_addr), 1);
+#ifdef _MSC_VER
+    EXPECT_TRUE(::IN6_IS_ADDR_GLOBAL(&sin6_addr)); // System function
+    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+#else
+    // System function not available.
+    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+#endif
+
+    // Documentation- and test-address
+    ASSERT_EQ(inet_pton(AF_INET6, "2001:db8::1", //
+                        &sin6_addr), 1);
+#ifdef _MSC_VER
+    EXPECT_TRUE(::IN6_IS_ADDR_GLOBAL(&sin6_addr)); // System function
+    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+#else
+    // System function not available.
+    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+#endif
+
+    // Last Global Unicast Address (not last on win32)
+    ASSERT_EQ(inet_pton(AF_INET6, "3fff:ffff:ffff:ffff:ffff:ffff:ffff:ffff", //
+                        &sin6_addr), 1);
+#ifdef _MSC_VER
+    EXPECT_TRUE(::IN6_IS_ADDR_GLOBAL(&sin6_addr)); // System function
+    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+#else
+    // System function not available.
+    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+#endif
+
+    // No Global Unicast Address (different on win32)
+    ASSERT_EQ(inet_pton(AF_INET6, "4000::", //
+                        &sin6_addr), 1);
+#ifdef _MSC_VER
+    EXPECT_TRUE(::IN6_IS_ADDR_GLOBAL(&sin6_addr)); // System function
+    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+#else
+    // System function not available.
+    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+#endif
+}
+
+TEST(SockaddrTestSuite, verify_in6_is_addr_other_addresses) {
+    in6_addr sin6_addr;
+
+    // clang-format off
+    // starting with 00 is the reserved address block
+
+    // Unspecified Address, belongs to the reserved address block
+    ASSERT_EQ(inet_pton(AF_INET6, "::", //
+                        &sin6_addr), 1);
+    EXPECT_TRUE(IN6_IS_ADDR_UNSPECIFIED(&sin6_addr));
+
+    // loopback address, belongs to the reserved address block
+    ASSERT_EQ(inet_pton(AF_INET6, "::1", //
+                        &sin6_addr), 1);
+    EXPECT_TRUE(IN6_IS_ADDR_LOOPBACK(&sin6_addr));
+
+    // v4-mapped address, does it belong to the reserved address block?
+    // v4-mapped address min
+    ASSERT_EQ(inet_pton(AF_INET6, "::ffff:0.0.0.0", //
+                        &sin6_addr), 1);
+    EXPECT_TRUE(IN6_IS_ADDR_V4MAPPED(&sin6_addr));
+
+    // Not v4-mapped address
+    ASSERT_EQ(inet_pton(AF_INET6, "::1:ffff:0.0.0.0", //
+                        &sin6_addr), 1);
+    EXPECT_FALSE(IN6_IS_ADDR_V4MAPPED(&sin6_addr));
+
+    // v4-mapped address max
+    ASSERT_EQ(inet_pton(AF_INET6, "::ffff:255.255.255.255", //
+                        &sin6_addr), 1);
+    EXPECT_TRUE(IN6_IS_ADDR_V4MAPPED(&sin6_addr));
+
+    // IPv4-compatible embedded IPv6 address, belongs to the reserved
+    // address block. Deprecated since february 2006 and not supported by
+    // this SDK.
+    ASSERT_EQ(inet_pton(AF_INET6, "::101.45.75.219", //
+                        &sin6_addr), 1);
+    // clang-format on
+}
+
+TEST(SockaddrTestSuite, verify_in6_is_addr_linklocal) {
+    in6_addr sin6_addr;
+
+    // clang-format off
+    // Link-local address with subnet is not valid, but accepted by default
+    // system macro on linux platforms.
+    ASSERT_EQ(inet_pton(AF_INET6, "fe80:1::", //
+                        &sin6_addr), 1);
+    EXPECT_TRUE(IN6_IS_ADDR_LINKLOCAL(&sin6_addr)); // System function Wrong!
+    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&sin6_addr)); // Fixed version
+
+    // Only left most bit of network prefix set.
+    ASSERT_EQ(inet_pton(AF_INET6, "fea0::", //
+                        &sin6_addr), 1);
+    EXPECT_TRUE(IN6_IS_ADDR_LINKLOCAL(&sin6_addr)); // System function Wrong!
+    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&sin6_addr)); // Fixed version
+
+    // Only right most bit of network prefix set.
+    ASSERT_EQ(inet_pton(AF_INET6, "fe80:0:0:1::", //
+                        &sin6_addr), 1);
+    EXPECT_TRUE(IN6_IS_ADDR_LINKLOCAL(&sin6_addr)); // System function Wrong!
+    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&sin6_addr)); // Fixed version
+
+    // First link-local address
+    ASSERT_EQ(inet_pton(AF_INET6, "fe80::", //
+                        &sin6_addr), 1);
+    EXPECT_TRUE(IN6_IS_ADDR_LINKLOCAL(&sin6_addr));
+    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&sin6_addr));
+
+    // Last link-local address
+    ASSERT_EQ(inet_pton(AF_INET6, "fe80::ffff:ffff:ffff:ffff", //
+                        &sin6_addr), 1);
+    EXPECT_TRUE(IN6_IS_ADDR_LINKLOCAL(&sin6_addr));
+    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&sin6_addr));
+    // clang-format on
 }
 
 } // namespace utest

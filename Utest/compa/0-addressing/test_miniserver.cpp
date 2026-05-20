@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-10
+// Redistribution only with this Copyright remark. Last modified: 2026-06-03
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -50,6 +50,7 @@ using ::UPnPsdk::CSocket;
 using ::UPnPsdk::CSocket_basic;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 using ::UPnPsdk::SSockaddr;
 
 
@@ -151,7 +152,7 @@ void get_netadapter() {
         nadaptObj.sockaddr(saObj);
         if (llaObj.sa.ss.ss_family == AF_UNSPEC &&
             saObj.ss.ss_family == AF_INET6 &&
-            IN6_IS_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
+            IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr)) {
             // Found first LLA address.
             llaObj.sa = saObj;
             llaObj.idx = nadaptObj.index();
@@ -159,7 +160,7 @@ void get_netadapter() {
             llaObj.name = nadaptObj.name();
         } else if (guaObj.sa.ss.ss_family == AF_UNSPEC &&
                    saObj.ss.ss_family == AF_INET6 &&
-                   IN6_IS_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
+                   UPnPsdk::IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr)) {
             // Found first GUA address.
             guaObj.sa = saObj;
             guaObj.idx = nadaptObj.index();
