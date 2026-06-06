@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-29
+// Redistribution only with this Copyright remark. Last modified: 2026-06-06
 
 // I test different address infos that we get from system function
 // ::getaddrinfo().
@@ -72,7 +72,7 @@ TEST(AddrinfoTestSuite, getaddrinfo_raw) {
 // Following tests are to verify the results from system function
 // 'getaddrinfo()' by direct calling it. This will not change and do not need to
 // be executed every time.
-#if false
+#if 0
 // Summary:
 // Using only direct system calls.
 // Same result: ai_family, ai_socktype, ai_addrlen, ai_canonname, ai_addr.port.
@@ -744,10 +744,10 @@ TEST_P(NetaddrAssignTest, netaddress_assign) {
     // Test Unit
     CAddrinfo2 aiObj(std::get<0>(params), AI_NUMERICHOST);
     if (std::get<3>(params) == Error::yes) {
-        EXPECT_FALSE(aiObj.get_first());
+        EXPECT_NE(aiObj.get_first(), 0);
         EXPECT_EQ(std::get<2>(params), Entry::no);
     } else {
-        EXPECT_TRUE(aiObj.get_first());
+        EXPECT_EQ(aiObj.get_first(), 0);
         aiObj.sockaddr(saObj);
         EXPECT_EQ(saObj.netaddrp(), std::get<1>(params));
         if (std::get<2>(params) == Entry::one)
@@ -942,7 +942,7 @@ TEST(AddrinfoTestSuite, lla_with_valid_numeric_scope_id) {
 
     // Test Unit
     CAddrinfo2 aiObj(llascp, AI_NUMERICHOST, SOCK_DGRAM);
-    ASSERT_TRUE(aiObj.get_first());
+    ASSERT_EQ(aiObj.get_first(), 0);
 
     aiObj.sockaddr(saObj);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
@@ -953,17 +953,17 @@ TEST(AddrinfoTestSuite, lla_with_valid_numeric_scope_id) {
 
 TEST(AddrinfoTestSuite, invalid_netaddress_fails) {
     CAddrinfo2 aiObj("[fg80::1%252]:50001", AI_NUMERICHOST);
-    EXPECT_FALSE(aiObj.get_first());
+    EXPECT_NE(aiObj.get_first(), 0);
 }
 
 TEST(AddrinfoTestSuite, lla_without_scope_id_fails) {
     CAddrinfo2 aiObj("[fe80::1]:50001", AI_NUMERICHOST);
-    EXPECT_FALSE(aiObj.get_first());
+    EXPECT_NE(aiObj.get_first(), 0);
 }
 
 TEST(AddrinfoTestSuite, lla_with_0_scope_id_fails) {
     CAddrinfo2 aiObj("[fe80::1%0]:50001", AI_NUMERICHOST);
-    EXPECT_FALSE(aiObj.get_first());
+    EXPECT_NE(aiObj.get_first(), 0);
 }
 
 TEST(AddrinfoTestSuite, lla_with_known_netinterface_name_succeeds) {
@@ -974,37 +974,36 @@ TEST(AddrinfoTestSuite, lla_with_known_netinterface_name_succeeds) {
     std::string llascp("[fe80::1%" + naObj.name() + "]:50001");
 
     CAddrinfo2 aiObj(llascp, AI_NUMERICHOST);
-    ASSERT_TRUE(aiObj.get_first());
+    ASSERT_EQ(aiObj.get_first(), 0);
     aiObj.sockaddr(saObj);
     EXPECT_EQ(saObj.sin6.sin6_scope_id, naObj.index());
 }
 
 TEST(AddrinfoTestSuite, lla_with_unknown_netinterface_name_fails) {
     CAddrinfo2 aiObj("[fe80::1%zyx0]:50001", AI_NUMERICHOST);
-    EXPECT_FALSE(aiObj.get_first());
+    EXPECT_NE(aiObj.get_first(), 0);
 }
 
 TEST(AddrinfoTestSuite, gua_with_scope_id_fails) {
     CAddrinfo2 aiObj("[2001:db8::1%252]:50001", AI_NUMERICHOST);
-    EXPECT_FALSE(aiObj.get_first());
+    EXPECT_NE(aiObj.get_first(), 0);
 }
 
 TEST(AddrinfoTestSuite, gua_with_socktype_0_fails) {
     CAddrinfo2 aiObj("[2001:db8::1%252]:50001", AI_NUMERICHOST, 0);
-    EXPECT_FALSE(aiObj.get_first());
+    EXPECT_NE(aiObj.get_first(), 0);
 }
 
 TEST(AddrinfoTestSuite, loopback_with_scope_id_fails) {
     CAddrinfo2 aiObj("[::1%252]:50001", AI_NUMERICHOST);
-    EXPECT_FALSE(aiObj.get_first());
+    EXPECT_NE(aiObj.get_first(), 0);
 }
-
 
 TEST(AddrinfoTestSuite, get_info_loopback_interface) {
     // If node is not empty AI_PASSIVE is ignored.
 
     CAddrinfo2 ai1("[::1]:50001", AI_PASSIVE | AI_NUMERICHOST);
-    EXPECT_TRUE(ai1.get_first());
+    EXPECT_EQ(ai1.get_first(), 0);
     ai1.sockaddr(saObj);
     EXPECT_EQ(saObj.netaddr(), "[::1]");
     EXPECT_EQ(saObj.sin6.sin6_scope_id, 0);
@@ -1012,13 +1011,13 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
     EXPECT_FALSE(ai1.get_next());
 #if 0
     CAddrinfo2 ai5("[::1]:50085");
-    EXPECT_TRUE(ai5.get_first());
+    EXPECT_EQ(ai5.get_first(), 0);
     ai5.sockaddr(saObj);
     EXPECT_EQ(saddr.netaddrp(), "[::1]:50085");
 
     // Test Unit
     CAddrinfo2 ai3("[::1]", "50087");
-    EXPECT_TRUE(ai3.get_first());
+    EXPECT_EQ(ai3.get_first(), 0);
 
     EXPECT_EQ(ai3->ai_family, AF_INET6);
     EXPECT_EQ(ai3->ai_socktype, SOCK_STREAM);
@@ -1029,7 +1028,7 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
 
     // Test Unit, does not trigger a DNS query
     CAddrinfo2 ai4("localhost:50088");
-    EXPECT_TRUE(ai4.get_first());
+    EXPECT_EQ(ai4.get_first(), 0);
 
     EXPECT_THAT(ai4->ai_family, AnyOf(AF_INET6, AF_INET));
     EXPECT_EQ(ai4->ai_socktype, SOCK_STREAM);
@@ -1040,7 +1039,7 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
 
     // Test Unit
     CAddrinfo2 ai2("127.0.0.1", "50086", 0, SOCK_DGRAM);
-    EXPECT_TRUE(ai2.get_first());
+    ASSERT_EQ(ai2.get_first(), 0);
 
     EXPECT_EQ(ai2->ai_socktype, SOCK_DGRAM);
     EXPECT_EQ(ai2->ai_protocol, 0);
@@ -1056,7 +1055,7 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
 TEST(AddrinfoTestSuite, temporary_tests) {
     // Test Unit
     CAddrinfo2 aiObj("0.0.0.0");
-    ASSERT_TRUE(aiObj.get_first());
+    ASSERT_EQ(aiObj.get_first(), 0);
 
     do {
         aiObj.sockaddr(saObj);

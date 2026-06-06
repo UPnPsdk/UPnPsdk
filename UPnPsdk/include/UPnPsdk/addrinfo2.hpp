@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_ADDRINFO_HPP
 #define UPnPsdk_ADDRINFO_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-31
+// Redistribution only with this Copyright remark. Last modified: 2026-06-06
 /*!
  * \file
  * \brief Manage information about internet addresses
@@ -23,17 +23,18 @@ namespace UPnPsdk {
  * maybe "[fe80::1%2]" or "[fe80::1%eth0]". Microsoft Windows accepts only
  * numeric scope_ids. MacOs accepts link-local addresses with wrong or missing
  * scope_id, and returns the resulting socket address with no scope_Id (set to
- * 0). This is out of specification. Due to <a
+ * 0). This is out of official specification. Due to <a
  * href="https://www.rfc-editor.org/rfc/rfc4007.html">RFC 4007</a> an IPv6
  * link-local address must include a scope_id to be valid for routing purposes.
  * All supported platforms accept a valid scope_id on an IPv6 global-unicast
  * address that cannot use it. Different platforms return different values for
- * other properties. Exact details and verification are internally made with
- * `AddrinfoScopeIdFTestSuite`. All of this makes it necessary for the SDK to
- * define the properties of this class as follows:
+ * other properties. Exact details and verification of this class are
+ * internally made with `AddrinfoScopeIdFTestSuite`. All of this makes it
+ * necessary for the SDK to define the properties of this class as follows:
  * - Address family is AF_INET6. There is no other address family.
- * - Default ai_socktype is SOCK_STREAM. ai_socktype \b 0 is not supported. The
- *   resulting socket type is considered to be the same as given by argument.
+ * - `ai_socktype` is SOCK_STREAM (default), or SOCK_DGRAM. ai_socktype \b 0 is
+ *   not supported. The resulting socket type is considered to be the same as
+ *   given by argument.
  * - ai_protocol is hard coded set to \b 0, and considered to be always \b 0,
  *   that uses the default protocol for the current socket type.
  * - Getting information for an IPv6 link-local address with a numeric scope_id
@@ -56,9 +57,7 @@ namespace UPnPsdk {
  * Microsoft Windows with CAddrinfo2. Other platforms are not effected.
  *
  * An empty node returns information of the loopback interface, but either node
- * or service, but not both, may be empty. \b a_socktype specifies the socket
- * type SOCK_STREAM (default) or SOCK_DGRAM. Specifying \b 0 for this argument
- * is not supported.
+ * or service, but not both, may be empty.
  *
  * To get default SOCK_STREAM loopback interface just use:
  * \code
@@ -86,10 +85,9 @@ namespace UPnPsdk {
  *
  * Of course you can set a specific port (a_service) other than default \b 0.
  */
-// A more featured but maybe outdated version of CAddrinfo2 with copy
-// constructor, copy asignment operator, compare operator, additional getter
-// and its unit tests can be found at Github commit
-// e2ffc0c46a2d8f15390f2816e1a18782e500fd09
+// A more featured but outdated version of CAddrinfo with copy constructor,
+// copy asignment operator, compare operator, additional getter and its unit
+// tests can be found at Github commit e2ffc0c46a2d8f15390f2816e1a18782e500fd09
 class UPnPsdk_VIS CAddrinfo2 {
   public:
     /// \brief Constructor for getting an address information with service name
@@ -163,9 +161,10 @@ std::cout << "netaddress=\"" << saObj << "\"\n";
      * because always memory is freed and new allocated for the information
      * list so doing this in a busy loop is not very useful.
      * \returns
-     *  \b true if address information is available\n
-     *  \b false otherwise */
-    bool get_first();
+     *  - On success: **0**\n
+     *  - On error: EAI error number that can be translated to clear text with
+     *              system function `::%gai_strerror()`. */
+    int get_first();
 
     /*! \brief Reset the internal list pointer to the first entry
      */

@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-03
+// Redistribution only with this Copyright remark. Last modified: 2026-06-06
 /*!
  * \file
  * \brief Manage information from Unix like platforms about internet addresses.
@@ -71,13 +71,13 @@ void CAddrinfo2::free_addrinfo() noexcept {
 // =======================================================================
 // Get address information with cached hints.
 //
-bool CAddrinfo2::get_first() {
+int CAddrinfo2::get_first() {
 
     // Prepare input for ::getaddrinfo()
     // ---------------------------------
     if (m_hints.ai_socktype == 0) {
         UPnPsdk_LOGERR("MSG1063") "Socket type 0 is not supported.\n";
-        return false;
+        return EAI_SOCKTYPE;
     }
 
     inaddr_t inaddr; // node, scope, port for ::getaddrinfo(), may be modified.
@@ -92,7 +92,7 @@ bool CAddrinfo2::get_first() {
         // Valid number but out of scope 0..65535.
         UPnPsdk_LOGERR("MSG1128") "Port number " << inaddr.service
                                                  << " out of range 0..65535.\n";
-        return false;
+        return EAI_SERVICE;
     }
 
 #if defined(_MSC_VER) || defined(__APPLE__)
@@ -119,12 +119,12 @@ bool CAddrinfo2::get_first() {
             naObj.get_first();
         } catch (const std::exception& ex) {
             UPnPsdk_LOGERR("MSG1095") << ex.what() << "\n";
-            return false;
+            return EAI_MEMORY;
         }
         if (!naObj.find_first(inaddr.scope)) {
             UPnPsdk_LOGERR("MSG1116") "Local network interface name=\""
                 << inaddr.scope << "\" not found.\n";
-            return false;
+            return EAI_NONAME;
         }
         // Note for later use: 'inaddr.scope' is modified.
         inaddr.scope = std::to_string(naObj.index());
@@ -207,7 +207,7 @@ bool CAddrinfo2::get_first() {
         // depends on extern available DNS server the error can occur
         // unexpectedly at any time. We have no influence on it but I will give
         // an extended error message.
-        return false;
+        return ret;
     }
 
     // Here we have a valid resoure response from ::getaddrinfo() that must be
@@ -242,14 +242,14 @@ bool CAddrinfo2::get_first() {
                     umock::netdb_h.freeaddrinfo(new_res);
                     UPnPsdk_LOGERR("MSG1129") "Link-local address=\""
                         << m_node << "\" must have a valid scope_id.\n";
-                    return false;
+                    return EAI_NONAME;
                 }
             } else {
                 if (sin6->sin6_scope_id != 0) {
                     umock::netdb_h.freeaddrinfo(new_res);
                     UPnPsdk_LOGERR("MSG1132") "Address=\""
                         << m_node << "\" must not have a scope_id.\n";
-                    return false;
+                    return EAI_NONAME;
                 }
             }
         }
@@ -264,7 +264,7 @@ bool CAddrinfo2::get_first() {
     m_res = new_res;
     m_res_current = new_res;
 
-    return true;
+    return 0;
 }
 
 

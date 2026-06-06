@@ -141,9 +141,8 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieve local network adapter information and keep it in global variables. </p>
-<p>If no or empty argument given, the operating system should find the best suitable local network adapter for operation as specified by <a href="https://www.rfc-editor.org/rfc/rfc3484">RFC3484 - Default Address Selection</a>. If an IP address is selected as argument, then only its associated gIF_IPV6_* (link-local, or network global) variables are set. If a network adapter is selected with empty argument, or as argument with name, or with index, then it can have multiple IP addresses. gIF_IPV6 and gIF_IPV6_PREFIX_LENGTH are set, and also gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH are set, if it is given. A loopback address ("[::1]") as argument can be found in gIF_IPV6_ULA_GUA and</p><ul>
-<li><p class="startli">gIF_IPV6_ULA_GUA_PREFIX_LENGTH.</p>
-<p class="startli">The local network adapter must fulfill these requirements: </p><ul>
+<p>If no or empty argument given, the operating system should find the best suitable local network adapter for operation as specified by <a href="https://www.rfc-editor.org/rfc/rfc3484">RFC3484 - Default Address Selection</a>. If an IP address is selected as argument, then only its associated gIF_IPV6_* (link-local, or network global) variables are set. If a network adapter is selected with empty argument, or as argument with name, or with index, then it can have multiple IP addresses. gIF_IPV6 and gIF_IPV6_PREFIX_LENGTH is always set, and also gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH are set, if available on the same netadaper. A loopback address ("[::1]") as argument can be found in gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH.</p>
+<p>The local network adapter must fulfill these requirements: </p><ul>
 <li>Be UP. </li>
 <li>Support MULTICAST. </li>
 <li>Have a valid IPv6 link-local address.</li>
@@ -159,8 +158,6 @@ Variables</h2></td></tr>
 <li>gIF_IPV6_ULA_GUA_PREFIX_LENGTH -&gt; Prefix length of gIF_IPV6_ULA_GUA.</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>UPNP_E_SUCCESS or UPNP_E_INVALID_INTERFACE. </dd></dl>
-</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_iface</td><td>Adapter name, netaddress, or netadapter index. If no or empty argument ("") given, we'll find the best suitable local network adapter for operation. </td></tr>
@@ -190,7 +187,7 @@ Variables</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="149,252,206,222,272,195,327,179,384,168,498,153,605,149,696,150,696,156,605,154,498,159,385,173,328,184,274,200,208,227,152,257"/>
 <area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters." alt="" coords="491,349,660,389"/>
 <area shape="poly" title=" " alt="" coords="214,292,478,347,477,352,213,297"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ac53bbffc81ad57a61f35e8748567c0b8" title="Get the first entry of an address info from the operating system." alt="" coords="279,457,437,497"/>
+<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="279,457,437,497"/>
 <area shape="poly" title=" " alt="" coords="142,293,324,446,321,450,139,297"/>
 <area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="491,285,660,325"/>
 <area shape="poly" title=" " alt="" coords="226,279,477,296,477,301,225,285"/>

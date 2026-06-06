@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-06-03
+ * Redistribution only with this Copyright remark. Last modified: 2026-06-06
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -241,10 +241,10 @@ namespace { // anonymous namespace for file scoped old upnpapi items.
  * associated gIF_IPV6_* (link-local, or network global) variables are set. If
  * a network adapter is selected with empty argument, or as argument with name,
  * or with index, then it can have multiple IP addresses. gIF_IPV6 and
- * gIF_IPV6_PREFIX_LENGTH are set, and also gIF_IPV6_ULA_GUA and
- * gIF_IPV6_ULA_GUA_PREFIX_LENGTH are set, if it is given. A loopback address
- * ("[::1]") as argument can be found in gIF_IPV6_ULA_GUA and
- *- gIF_IPV6_ULA_GUA_PREFIX_LENGTH.
+ * gIF_IPV6_PREFIX_LENGTH is always set, and also gIF_IPV6_ULA_GUA and
+ * gIF_IPV6_ULA_GUA_PREFIX_LENGTH are set, if available on the same netadapter.
+ * A loopback address ("[::1]") as argument can be found in gIF_IPV6_ULA_GUA
+ * and gIF_IPV6_ULA_GUA_PREFIX_LENGTH.
  *
  * The local network adapter must fulfill these requirements:
  * \li Be UP.
