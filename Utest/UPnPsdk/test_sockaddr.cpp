@@ -1,8 +1,9 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-03
+// Redistribution only with this Copyright remark. Last modified: 2026-06-23
 
 #include <UPnPsdk/src/net/sockaddr.cpp>
 #include <utest/utest.hpp>
+#include <algorithm>
 
 namespace utest {
 
@@ -12,20 +13,66 @@ using ::testing::HasSubstr;
 using ::testing::ThrowsMessage;
 
 using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::inaddr_token_t;
 using ::UPnPsdk::is_unum_str;
 using ::UPnPsdk::sockaddrcmp;
-using ::UPnPsdk::split_inaddr;
 using ::UPnPsdk::SSockaddr;
 using ::UPnPsdk::to_port;
 
 
+/* Complete state table
+=======================
+unspec means not empty, but not numeric; may be alpha-numeric and can be tested
+with CAddrinfo.
+
+           INPUT             []         STATE
+node    | service | sockaddr [] sockaddr  | returns
+--------+---------+----------[]-----------+---------
+empty   | empty   | empty    [] clear     | success
+empty   | empty   | numeric  [] clear     | success
+empty   | numeric | empty    [] -----     | unspec
+empty   | numeric | numeric  [] set port  | success
+empty   | unspec  | empty    [] clear     | unsepec
+empty   | unspec  | numeric  [] clear     | unsepec
+empty   | invalid | empty    [] clear     | invalid
+empty   | invalid | numeric  [] clear     | invalid
+numeric | empty   | empty    [] set saddr | success
+numeric | empty   | numeric  [] set saddr | success
+numeric | numeric | empty    [] set saddr | success
+numeric | numeric | numeric  [] set saddr | success
+numeric | unspec  | empty    [] clear     | unspec
+numeric | unspec  | numeric  [] clear     | unspec
+numeric | invalid | empty    [] clear     | invalid
+numeric | invalid | numeric  [] clear     | invalid
+unspec  | empty   | empty    [] clear     | unspec
+unspec  | empty   | numeric  [] clear     | unspec
+unspec  | numeric | empty    [] clear     | unspec
+unspec  | numeric | numeric  [] clear     | unspec
+unspec  | unspec  | empty    [] clear     | unspec
+unspec  | unspec  | numeric  [] clear     | unspec
+unspec  | invalid | empty    [] clear     | invalid
+unspec  | invalid | numeric  [] clear     | invalid
+invalid | empty   | empty    [] clear     | invalid
+invalid | empty   | numeric  [] clear     | invalid
+invalid | numeric | empty    [] clear     | invalid
+invalid | numeric | numeric  [] clear     | invalid
+invalid | unspec  | empty    [] clear     | invalid
+invalid | unspec  | numeric  [] clear     | invalid
+invalid | invalid | empty    [] clear     | invalid
+invalid | invalid | numeric  [] clear     | invalid
+*/
+
 // SSockaddr TestSuite
 // ===========================
+
+// General storage for temporary socket address evaluation.
+SSockaddr saObj;
+using E = UPnPsdk::SSockaddr::STATE;
+
+
 class SetAddrPortTest : public ::testing::TestWithParam<
                             std::tuple<const std::string_view, const int,
                                        const std::string_view, const int>> {};
-
-SSockaddr saObj;
 
 TEST_P(SetAddrPortTest, set_address_and_port) {
     // Get parameter
@@ -228,14 +275,23 @@ TEST(SockaddrStorageTestSuite, set_link_local_address) {
     // Different platforms behave different for accepting a valid LLA.
     SSockaddr saddr;
 
+    // Link-local address without scope_id must fail.
+    saddr = "[fe80::]";
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
+
     saddr = "[fe80::%]";
     EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
     EXPECT_EQ(saddr.netaddrp(), ":0");
 
     saddr = "[fe80::%0]";
     EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
     EXPECT_EQ(saddr.netaddrp(), ":0");
 
+    // Link-local address with scope_id succeeds.
     saddr = "[fe80::%321]";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr.sin6.sin6_scope_id, 321);
@@ -247,7 +303,7 @@ TEST(SockaddrStorageTestSuite, set_link_local_address) {
     EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::1]:0");
 
-    // No link-local address with scope_id is suppressed.
+    // No link-local address with scope_id. Scope_id is silently deleted.
     saddr = "[2001:db8::1%321]";
     EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
@@ -272,6 +328,12 @@ TEST(SockaddrStorageTestSuite, set_link_local_address) {
     EXPECT_EQ(saddr.netaddrp(), "[fe80::1%252]:50001");
 
     // Alphanumeric scope_id must fail.
+    saddr = "[fe80::1%lo]:50001";
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
+
+    // Alphanumeric scope_id must fail.
     saddr = "[fe80::1%321Y0]:50001";
     EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
     EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
@@ -283,36 +345,28 @@ TEST(SockaddrStorageTestSuite, set_link_local_address) {
     EXPECT_EQ(saddr.sin6.sin6_scope_id, 253);
     EXPECT_EQ(saddr.netaddrp(), "[fe80::ffff:ffff:ffff:ffff%253]:50001");
 
-    // Not a link-local address must suppress scope_id.
+    // Link-local address with subnet prefix is invalid.
     saddr = "[fe80:1::1%321]:50004";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
     EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
-    EXPECT_EQ(saddr.netaddrp(), "[fe80:1::1]:50004");
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
+    // Link-local address with garbage subnet prefix is invalid.
     saddr = "[fe80:1234:5678:9abc:def1:2345:6789:abcd%321]:50006";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET6);
-    // Scope_id removed: no lla because subnet-mask is not 0.
-    EXPECT_EQ(saddr.netaddrp(),
-              "[fe80:1234:5678:9abc:def1:2345:6789:abcd]:50006");
+    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_EQ(saddr.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saddr.netaddrp(), ":0");
 
-    // If the scope id on Unix like platforms matches a real interface then its
-    // name is returned instead of the number, e.g. "%lo" instead of "%1".
-    // Microsoft Windows always returns the number.
+    // The Unit always returns the numeric scope_id even if it maches the real
+    // interface with its name.
     saddr = "[fe80::8%1]:50008";
-    EXPECT_THAT(saddr.netaddrp(),
-                AnyOf("[fe80::8%1]:50008", "[fe80::8%lo]:50008",
-                      "[fe80::8%lo0]:50008"));
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::8%1]:50008");
     saddr = "[fe80::a%1]";
-    EXPECT_THAT(saddr.netaddrp(),
-                AnyOf("[fe80::a%1]:50008", "[fe80::a%lo]:50008",
-                      "[fe80::a%lo0]:50008"));
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::a%1]:50008");
     saddr = "fe80::b%1";
-    EXPECT_THAT(saddr.netaddrp(),
-                AnyOf("[fe80::b%1]:50008", "[fe80::b%lo]:50008",
-                      "[fe80::b%lo0]:50008"));
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::b%1]:50008");
     saddr = "[fe80::9%1]:";
-    EXPECT_THAT(saddr.netaddrp(),
-                AnyOf("[fe80::9%1]:0", "[fe80::9%lo]:0", "[fe80::9%lo0]:0"));
+    EXPECT_EQ(saddr.netaddrp(), "[fe80::9%1]:0");
 }
 
 TEST(SockaddrCmpTestSuite, compare_equal_ipv6_sockaddrs_successful) {
@@ -782,80 +836,166 @@ TEST(SockaddrStorageTestSuite, string_to_port_test_only) {
 }
 
 
-UPnPsdk::inaddr_t inaddr;
-
 // clang-format off
 class SplitAddrPortTest
     : public ::testing::TestWithParam<std::tuple<
-    // IP address to split  IP address only   scope_id          port
-          std::string_view, std::string_view, std::string_view, std::string_view>> {};
+    // IP address to split  IP address only   scope_id         port    return value   netaddrp
+    std::string_view, std::string_view, std::string_view, std::string_view, E, std::string_view>> {
+      protected:
+        UPnPsdk::inaddr_token_t inaddr;
+};
 
 TEST_P(SplitAddrPortTest, split_address_and_port) {
     // Get parameter
     const std::tuple params = GetParam();
 
-    split_inaddr(std::get<0>(params), inaddr);
+    auto retval = saObj.tokenize(std::get<0>(params), inaddr);
+    EXPECT_EQ(retval, std::get<4>(params));
     EXPECT_EQ(inaddr.node, std::get<1>(params));
     EXPECT_EQ(inaddr.scope, std::get<2>(params));
     EXPECT_EQ(inaddr.service, std::get<3>(params));
+    EXPECT_EQ(saObj.netaddrp(), std::get<5>(params));
 }
 
 INSTANTIATE_TEST_SUITE_P(SplitAddrPort, SplitAddrPortTest, ::testing::Values(
- /*00*/ std::make_tuple("[2001:db8::1]:50001", "2001:db8::1", "", "50001"),
-        std::make_tuple("[2001:dB8::2]:", "2001:dB8::2", "", "0"),
-        std::make_tuple("[2001:db8::2]", "2001:db8::2", "", ""),
-        std::make_tuple(":0", "", "", "0"),
-        std::make_tuple(":50002", "", "", "50002"),
-        std::make_tuple("127.0.0.4:50003", "127.0.0.4", "", "50003"),
-        std::make_tuple("127.0.0.5:", "127.0.0.5", "", "0"),
-        std::make_tuple("127.0.0.6", "127.0.0.6", "", ""),
-        std::make_tuple("0", "", "", "0"),
-        std::make_tuple("50004", "", "", "50004"),
- /*10*/ std::make_tuple("500044", "500044", "", ""),
-        std::make_tuple("2001:db8::7", "2001:db8::7", "", ""),
-        std::make_tuple("example.COM:50005", "example.COM", "", "50005"),
-        std::make_tuple("example.com:httPS", "example.com", "", "httPS"),
-        std::make_tuple("example.com:", "example.com", "", "0"),
-        std::make_tuple("example.com", "example.com", "", ""),
-        std::make_tuple("example.com%123", "example.com", "123", ""),
-        std::make_tuple("localhost:50006", "localhost", "", "50006"),
-        std::make_tuple("localhost:https", "localhost", "", "https"),
-        std::make_tuple("localhost:", "localhost", "", "0"),
- /*20*/ std::make_tuple("localhost", "localhost", "", ""),
-        std::make_tuple("[localhost]", "[localhost]", "", ""),
-        std::make_tuple("[localhost]:", "[localhost]", "", "0"),
-        std::make_tuple("[localhost]:50007", "[localhost]", "", "50007"),
-        std::make_tuple(":https", "", "", "https"),
-        std::make_tuple("https", "https", "", ""),
-        std::make_tuple("", "", "", ""),
-        std::make_tuple("   ", "   ", "", ""),
-        std::make_tuple("::", "::", "", ""),
-        std::make_tuple("[::]", "::", "", ""),
- /*30*/ std::make_tuple("[::]:", "::", "", "0"),
-        std::make_tuple("[::]:0", "::", "", "0"),
-        std::make_tuple("::1", "::1", "", ""),
-        std::make_tuple("[::1]", "::1", "", ""),
-        std::make_tuple("[::1]:", "::1", "", "0"),
-        std::make_tuple("[::1]:0", "::1", "", "0"),
-        std::make_tuple("[::1].4", "[::1].4", "", ""),
-        std::make_tuple("[::127.0.0.9]:50009", "::127.0.0.9", "", "50009"), // deprecated, not supported
-        std::make_tuple("[::127.0.0.10]:", "::127.0.0.10", "", "0"), // deprecated, not supported
-        std::make_tuple("[::127.0.0.11%47]", "::127.0.0.11", "47", ""), // deprecated, not supported
- /*40*/ std::make_tuple("[::FFff:142.250.185.99]:50008", "::FFff:142.250.185.99", "", "50008"),
-        std::make_tuple("[fe80::5053%]:50010", "fe80::5053", "0", "50010"),
-        std::make_tuple("[2001:db8::5054%513]:50011", "2001:db8::5054", "513", "50011"),
-        std::make_tuple("[fe80::5055%2]:50012", "fe80::5055", "2", "50012"),
-        std::make_tuple("[fe80::5056%scope]:50013", "fe80::5056", "scope", "50013"),
-        std::make_tuple("example.com", "example.com", "", ""),
-        std::make_tuple("example.com%", "example.com", "0", ""),
-        std::make_tuple("example.com%:", "example.com", "0", "0"),
-        std::make_tuple("example.com%ens2", "example.com", "ens2", ""),
-        std::make_tuple("example.com%382:", "example.com", "382", "0"),
- /*50*/ std::make_tuple("example.com%:https", "example.com", "0", "https"),
-        std::make_tuple("example.com%Ethernet:50013", "example.com", "Ethernet", "50013"),
-        std::make_tuple("example.com:50014", "example.com", "", "50014")
+ /*00*/ std::make_tuple("[2001:db8::1]:50001", "2001:db8::1", "", "50001", E::SUCCESS, "[2001:db8::1]:50001"),
+        std::make_tuple("[2001:DB8::2]:", "2001:DB8::2", "", "0", E::SUCCESS, "[2001:db8::2]:0"),
+        // std::make_tuple("[2001:DB8::2]", "2001:DB8::2", "", "", E::SUCCESS, "[2001:db8::2]:0"), // Test sockaddr from previous setting
+        // std::make_tuple(":0", "", "", "0", E::SUCCESS, "[2001:db8::2]:0"), // Test sockaddr from previous setting
+        // std::make_tuple(":50002", "", "", "50002", E::SUCCESS, "[2001:db8::2]:50002"), // Test sockaddr from previous setting
+        std::make_tuple("127.0.0.4:50003", "127.0.0.4", "", "50003", E::SUCCESS, "127.0.0.4:50003"),
+        std::make_tuple("127.0.0.5:", "127.0.0.5", "", "0", E::SUCCESS, "127.0.0.5:0"),
+        // std::make_tuple("127.0.0.6", "127.0.0.6", "", "", E::SUCCESS, "127.0.0.6:0"),
+        // std::make_tuple("0", "", "", "0", E::SUCCESS, "127.0.0.6:0"), // Test sockaddr from previous setting
+        // std::make_tuple("50004", "", "", "50004",  E::SUCCESS, "127.0.0.6:50004"), // Test sockaddr from previous setting
+ /*10*/ std::make_tuple("500044", "500044", "", "",  E::UNKNOWN, ":0"),
+        std::make_tuple("2001:db8::7", "2001:db8::7", "", "",  E::SUCCESS, "[2001:db8::7]:0"),
+        std::make_tuple("example.COM:50005", "example.COM", "", "50005",  E::UNKNOWN, ":0"),
+        std::make_tuple("example.com:httPS", "example.com", "", "httPS",  E::UNKNOWN, ":0"),
+        std::make_tuple("example.com:", "example.com", "", "0", E::UNKNOWN, ":0"),
+        std::make_tuple("example.com", "example.com", "", "", E::UNKNOWN, ":0"),
+        std::make_tuple("example.com%123", "example.com", "123", "", E::UNKNOWN, ":0"),
+        std::make_tuple("localhost:50006", "localhost", "", "50006", E::UNKNOWN, ":0"),
+        std::make_tuple("localhost:https", "localhost", "", "https", E::UNKNOWN, ":0"),
+        std::make_tuple("localhost:", "localhost", "", "0", E::UNKNOWN, ":0"),
+ /*20*/ std::make_tuple("localhost", "localhost", "", "", E::UNKNOWN, ":0"),
+        std::make_tuple("[localhost]", "[localhost]", "", "", E::UNKNOWN, ":0"),
+        std::make_tuple("[localhost]:", "[localhost]", "", "0", E::UNKNOWN, ":0"),
+        std::make_tuple("[localhost]:50007", "[localhost]", "", "50007", E::UNKNOWN, ":0"),
+        std::make_tuple(":https", "", "", "https", E::UNKNOWN, ":0"),
+        std::make_tuple("https", "https", "", "", E::UNKNOWN, ":0"),
+        std::make_tuple("", "", "", "", E::SUCCESS, ":0"),
+        std::make_tuple(" ", "", "", "", E::SUCCESS, ":0"),
+        std::make_tuple("   ", "", "", "", E::SUCCESS, ":0"),
+        std::make_tuple("::", "::", "", "", E::SUCCESS, "[::]:0"),
+ /*30*/ std::make_tuple("[::]", "::", "", "", E::SUCCESS, "[::]:0"),
+        std::make_tuple("[::]:", "::", "", "0", E::SUCCESS, "[::]:0"),
+        std::make_tuple("[::]:0", "::", "", "0", E::SUCCESS, "[::]:0"),
+        std::make_tuple("::1", "::1", "", "", E::SUCCESS, "[::1]:0"),
+        std::make_tuple("[::1]", "::1", "", "", E::SUCCESS, "[::1]:0"),
+        std::make_tuple("[::1]:", "::1", "", "0", E::SUCCESS, "[::1]:0"),
+        std::make_tuple("[::1]:0", "::1", "", "0", E::SUCCESS, "[::1]:0"),
+        std::make_tuple("[::1].4", "[::1].4", "", "", E::UNKNOWN, ":0"), // Wrong port delimiter
+        std::make_tuple("[::127.0.0.9]:50009", "::127.0.0.9", "", "50009", E::DEPR_V4COMPAT, ":0"), // deprecated, not supported
+        std::make_tuple("[::127.0.0.10]:", "::127.0.0.10", "", "0", E::DEPR_V4COMPAT, ":0"), // deprecated, not supported
+ /*40*/ std::make_tuple("[::127.0.0.11%47]", "::127.0.0.11", "47", "", E::DEPR_V4COMPAT, ":0"), // deprecated, not supported
+        std::make_tuple("[::FFff:142.250.185.99]:50008", "::FFff:142.250.185.99", "", "50008", E::SUCCESS, "[::ffff:142.250.185.99]:50008"),
+        std::make_tuple("[fe80::%2]:50012", "fe80::", "2", "50012", E::SUCCESS, "[fe80::%2]:50012"),
+        std::make_tuple("[fe80:1::%252]:50002", "fe80:1::", "252", "50002", E::LLA_WITH_SUBNET, ":0"), // lla with subnet is invalid.
+        std::make_tuple("[ fe80::%2]:50012", " fe80::", "2", "50012", E::UNKNOWN, ":0"),
+        std::make_tuple("[fe80::5053]:50015", "fe80::5053", "", "50015", E::LLA_NO_SCOPE_ID, ":0"), // Must have a scope_id
+        std::make_tuple("[fe80::5053%]:50010", "fe80::5053", "0", "50010", E::LLA_NO_SCOPE_ID, ":0"), // Must have a scope_id
+        std::make_tuple("[fe80::5053% ]:50010", "fe80::5053", " ", "50010", E::UNKNOWN, ":0"), // Must have a scope_id
+        std::make_tuple("[fe80::5056%scope]:50013", "fe80::5056", "scope", "50013", E::UNKNOWN, ":0"),
+        std::make_tuple("[2001:db8::5054%513]:50011", "2001:db8::5054", "513", "50011", E::SUCCESS, "[2001:db8::5054]:50011"),
+ /*50*/ std::make_tuple("example.com", "example.com", "", "", E::UNKNOWN, ":0"),
+        std::make_tuple("example.com%", "example.com", "0", "", E::UNKNOWN, ":0"),
+        std::make_tuple("example.com%:", "example.com", "0", "0", E::UNKNOWN, ":0"),
+        std::make_tuple("example.com%ens2", "example.com", "ens2", "", E::UNKNOWN, ":0"),
+        std::make_tuple("example.com%382:", "example.com", "382", "0", E::UNKNOWN, ":0"),
+        std::make_tuple("example.com%:https", "example.com", "0", "https", E::UNKNOWN, ":0"),
+        std::make_tuple("example.com%Ethernet:50013", "example.com", "Ethernet", "50013", E::UNKNOWN, ":0"),
+        std::make_tuple("example.com%Loopback Adapter:50013", "example.com", "Loopback Adapter", "50013", E::UNKNOWN, ":0"),
+        std::make_tuple("example.com:50014", "example.com", "", "50014",  E::UNKNOWN, ":0")
 ));
 // clang-format on
+
+TEST(SockaddrTestSuite, sockaddr_from_previous_setting) {
+    inaddr_token_t inaddr;
+
+    // Set sockaddr.
+    EXPECT_EQ(saObj.tokenize("[2001:DB8::2]", inaddr), E::SUCCESS);
+    EXPECT_EQ(inaddr.node, "2001:DB8::2");
+    EXPECT_EQ(inaddr.scope, "");
+    EXPECT_EQ(inaddr.service, "");
+    EXPECT_EQ(saObj.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saObj.sin6.sin6_port, 0);
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::2]:0");
+
+    // Get some undone setting from previous setting.
+    EXPECT_EQ(saObj.tokenize(":0", inaddr), E::SUCCESS);
+    EXPECT_EQ(inaddr.node, "");
+    EXPECT_EQ(inaddr.scope, "");
+    EXPECT_EQ(inaddr.service, "0");
+    EXPECT_EQ(saObj.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saObj.sin6.sin6_port, 0);
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::2]:0");
+
+    // Get some undone setting from previous setting.
+    EXPECT_EQ(saObj.tokenize(":50002", inaddr), E::SUCCESS);
+    EXPECT_EQ(inaddr.node, "");
+    EXPECT_EQ(inaddr.scope, "");
+    EXPECT_EQ(inaddr.service, "50002");
+    EXPECT_EQ(saObj.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saObj.sin6.sin6_port, htons(50002));
+    EXPECT_EQ(saObj.netaddrp(), "[2001:db8::2]:50002");
+
+    // Set sockaddr.
+    EXPECT_EQ(saObj.tokenize("127.0.0.6", inaddr), E::SUCCESS);
+    EXPECT_EQ(inaddr.node, "127.0.0.6");
+    EXPECT_EQ(inaddr.scope, "");
+    EXPECT_EQ(inaddr.service, "");
+    EXPECT_EQ(saObj.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saObj.sin6.sin6_port, 0);
+    EXPECT_EQ(saObj.netaddrp(), "127.0.0.6:0");
+
+    // Get some undone setting from previous setting.
+    EXPECT_EQ(saObj.tokenize("0", inaddr), E::SUCCESS);
+    EXPECT_EQ(inaddr.node, "");
+    EXPECT_EQ(inaddr.scope, "");
+    EXPECT_EQ(inaddr.service, "0");
+    EXPECT_EQ(saObj.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saObj.sin6.sin6_port, 0);
+    EXPECT_EQ(saObj.netaddrp(), "127.0.0.6:0");
+
+    // Get some undone setting from previous setting.
+    EXPECT_EQ(saObj.tokenize("50004", inaddr), E::SUCCESS);
+    EXPECT_EQ(inaddr.node, "");
+    EXPECT_EQ(inaddr.scope, "");
+    EXPECT_EQ(inaddr.service, "50004");
+    EXPECT_EQ(saObj.sin6.sin6_scope_id, 0);
+    EXPECT_EQ(saObj.sin6.sin6_port, htons(50004));
+    EXPECT_EQ(saObj.netaddrp(), "127.0.0.6:50004");
+}
+
+TEST(SockaddrTestSuite, obj_tokenize_inaddr_empty) {
+    inaddr_token_t inaddr;
+    EXPECT_EQ(saObj.tokenize("", inaddr), E::SUCCESS);
+    EXPECT_EQ(inaddr.node, "");
+    EXPECT_EQ(inaddr.scope, "");
+    EXPECT_EQ(inaddr.service, "");
+    EXPECT_EQ(saObj.netaddrp(), ":0");
+}
+
+TEST(SockaddrTestSuite, obj_tokenize_lla_successful) {
+    inaddr_token_t inaddr;
+    EXPECT_EQ(saObj.tokenize("[fe80::%251]:50001", inaddr), E::SUCCESS);
+    EXPECT_EQ(inaddr.node, "fe80::");
+    EXPECT_EQ(inaddr.scope, "251");
+    EXPECT_EQ(inaddr.service, "50001");
+    EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saObj.netaddrp(), "[fe80::%251]:50001");
+}
 
 TEST(SockaddrStorageTestSuite, sockaddr_clear) {
     SSockaddr sa1Obj;
@@ -870,55 +1010,68 @@ TEST(SockaddrStorageTestSuite, sockaddr_clear) {
 TEST(SockaddrStorageTestSuite, set_from_sockaddr_storage) {
     // There was a problem with the scope_id that wasn't ignored on IPv6
     // addresses that doesn't use it. Here is the bugfix test.
-    UPnPsdk::sockaddr_t gua_sa;
-    gua_sa.ss.ss_family = AF_INET6;
-    gua_sa.sin6.sin6_port = htons(56789);
-    gua_sa.sin6.sin6_scope_id = UINT32_MAX;
+    UPnPsdk::sockaddr_t saddr;
+    saddr.ss.ss_family = AF_INET6;
+    saddr.sin6.sin6_port = htons(56789);
+    saddr.sin6.sin6_scope_id = UINT32_MAX;
 
     SSockaddr saddrObj;
 
     // Test Unit, link-local address has the scope_id.
-    ASSERT_EQ(
-        ::inet_pton(AF_INET6, "fe80::db8:50:c6f8", &gua_sa.sin6.sin6_addr), 1);
-    saddrObj = gua_sa.ss;
-
+    ASSERT_EQ(::inet_pton(AF_INET6, "fe80::db8:50:c6f8", &saddr.sin6.sin6_addr),
+              1);
+    saddrObj = saddr.ss;
     ASSERT_EQ(saddrObj.ss.ss_family, AF_INET6);
     EXPECT_EQ(saddrObj.netaddrp(), "[fe80::db8:50:c6f8%4294967295]:56789");
 
-    // Test Unit, not link-local address must correct the scope_id.
-    ASSERT_EQ(
-        ::inet_pton(AF_INET6, "fe80:db8::50:c6f8", &gua_sa.sin6.sin6_addr), 1);
-    saddrObj = gua_sa.ss;
-
-    // Manual modifing this, will give a scope_id to a gua. This is out of
-    // specification and not handled. If you really do it you must know what
-    // you are doing!
-    // saddrObj.sin6.sin6_scope_id = UINT32_MAX; // Undefined behavior.
-    EXPECT_EQ(saddrObj.ss.ss_family, AF_INET6);
+    // Test Unit, invalid link-local address with subnet prefix must fail.
+    ASSERT_EQ(::inet_pton(AF_INET6, "fe80:db8::50:c6f8", &saddr.sin6.sin6_addr),
+              1);
+    saddrObj = saddr.ss;
+    EXPECT_EQ(saddrObj.ss.ss_family, AF_UNSPEC);
     EXPECT_EQ(saddrObj.sin6.sin6_scope_id, 0);
-    EXPECT_EQ(saddrObj.netaddrp(), "[fe80:db8::50:c6f8]:56789");
+    EXPECT_EQ(saddrObj.netaddrp(), ":0");
+
+    // Test Unit, not link-local address must correct the scope_id.
+    ASSERT_EQ(saddr.sin6.sin6_scope_id, UINT32_MAX); // Verfiy if scope_id
+    ASSERT_EQ(::inet_pton(AF_INET6, "2001:db8::50:c6f8", &saddr.sin6.sin6_addr),
+              1);
+    saddrObj = saddr.ss;
+    EXPECT_EQ(saddrObj.ss.ss_family, AF_INET6);
+    EXPECT_EQ(saddrObj.sin6.sin6_scope_id, 0); // scope_id silently removed.
+    EXPECT_EQ(saddrObj.netaddrp(), "[2001:db8::50:c6f8]:56789");
 
     // Test Unit, link-local address without scope_id must fail.
-    ASSERT_EQ(
-        ::inet_pton(AF_INET6, "fe80::db8:50:c6f8", &gua_sa.sin6.sin6_addr), 1);
-    gua_sa.sin6.sin6_scope_id = 0;
-    saddrObj = gua_sa.ss;
-
+    ASSERT_EQ(::inet_pton(AF_INET6, "fe80::db8:50:c6f8", &saddr.sin6.sin6_addr),
+              1);
+    saddr.sin6.sin6_scope_id = 0;
+    saddrObj = saddr.ss;
     EXPECT_EQ(saddrObj.ss.ss_family, AF_UNSPEC);
     EXPECT_EQ(saddrObj.sin6.sin6_scope_id, 0);
     EXPECT_EQ(saddrObj.netaddrp(), ":0");
 
     // Test with IPv4 address.
-    gua_sa = {};
-    gua_sa.ss.ss_family = AF_INET;
-    gua_sa.sin.sin_port = htons(50001);
+    saddr = {};
+    saddr.ss.ss_family = AF_INET;
+    saddr.sin.sin_port = htons(50001);
 
     // Test Unit
-    ASSERT_EQ(::inet_pton(AF_INET, "192.168.5.6", &gua_sa.sin.sin_addr), 1);
-    saddrObj = gua_sa.ss;
-
+    ASSERT_EQ(::inet_pton(AF_INET, "192.168.5.6", &saddr.sin.sin_addr), 1);
+    saddrObj = saddr.ss;
     EXPECT_EQ(saddrObj.ss.ss_family, AF_INET);
     EXPECT_EQ(saddrObj.netaddrp(), "192.168.5.6:50001");
+
+    // Test with unsupported address family.
+    saddr = {};
+    saddr.ss.ss_family = AF_UNIX;
+
+    // Test Unit
+    saddrObj = saddr.ss;
+    EXPECT_EQ(saddrObj.ss.ss_family, AF_UNSPEC);
+
+    // Test with empty socket address.
+    saddrObj = saddr.ss;
+    EXPECT_EQ(saddrObj.ss.ss_family, AF_UNSPEC);
 }
 
 
@@ -1039,9 +1192,9 @@ TEST(SockaddrTestSuite, verify_in6_is_addr_other_addresses) {
                         &sin6_addr), 1);
     EXPECT_TRUE(IN6_IS_ADDR_V4MAPPED(&sin6_addr));
 
-    // IPv4-compatible embedded IPv6 address, belongs to the reserved
-    // address block. Deprecated since february 2006 and not supported by
-    // this SDK.
+    // IPv4-compatible embedded IPv6 address (IN6_IS_ADDR_V4COMPAT), belongs to
+    // the reserved address block. Deprecated since february 2006 and not
+    // supported by this SDK.
     ASSERT_EQ(inet_pton(AF_INET6, "::101.45.75.219", //
                         &sin6_addr), 1);
     // clang-format on

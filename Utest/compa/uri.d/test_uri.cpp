@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// redistribution only with this copyright remark. last modified: 2026-05-14
+// redistribution only with this copyright remark. last modified: 2026-06-21
 
 // This Unit Tests are used to verify pUPnP software with new compatible code.
 // These tests compile with pUPnP code and with compatible code. Unit Tests for
@@ -368,7 +368,7 @@ TEST(UriTestSuite, resolve_rel_url_arg1_abs_url_arg2_abs_url) {
     // rel_url is passed back.
 
     SSockaddr saObj;
-    saObj = "[fe80:db8::8%1]:50001";
+    saObj = "[fe80::db8:8%1]:50001";
 
     ::addrinfo res{};
     res.ai_family = saObj.ss.ss_family;

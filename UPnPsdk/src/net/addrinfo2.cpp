@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-06
+// Redistribution only with this Copyright remark. Last modified: 2026-06-21
 /*!
  * \file
  * \brief Manage information from Unix like platforms about internet addresses.
@@ -80,13 +80,14 @@ int CAddrinfo2::get_first() {
         return EAI_SOCKTYPE;
     }
 
-    inaddr_t inaddr; // node, scope, port for ::getaddrinfo(), may be modified.
+    inaddr_token_t
+        inaddr; // node, scope, port for ::getaddrinfo(), may be modified.
 
     // Prepare input for ::getaddrinfo().
     if (m_service.empty())
-        split_inaddr(m_node, inaddr);
+        inaddr_tokenize(m_node, inaddr);
     else
-        split_inaddr(m_node + ":" + m_service, inaddr);
+        inaddr_tokenize(m_node + ":" + m_service, inaddr);
 
     if (to_port(inaddr.service) == 1) {
         // Valid number but out of scope 0..65535.

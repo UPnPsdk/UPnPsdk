@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2023-10-20
+// Redistribution only with this Copyright remark. Last modified: 2026-06-22
 
 #include <utest/utest_win32.hpp>
 #include <ws2tcpip.h>
@@ -96,7 +96,7 @@ TEST(Ifaddr4TestSuite, show_real_loopback_interface) {
                 // ip_addr->sa_family = 1;
                 std::string af_str = std::to_string(ip_addr->sa_family);
                 switch (ip_addr->sa_family) {
-                case 2:
+                case 2: {
                     af_str = "AF_INET";
                     in_addr sin_addr = ((::sockaddr_in*)ip_addr)->sin_addr;
                     EXPECT_NE(
@@ -106,8 +106,8 @@ TEST(Ifaddr4TestSuite, show_real_loopback_interface) {
                               << ",  ip address = " << ipstr << "/";
                     std::wcout << uni_addr->OnLinkPrefixLength << '\n';
                     // std::cout << sin_addr.s_addr << "\n";
-                    break;
-                case 23:
+                } break;
+                case 23: {
                     af_str = "AF_INET6";
                     in6_addr sin6_addr = ((::sockaddr_in6*)ip_addr)->sin6_addr;
                     EXPECT_NE(
@@ -116,16 +116,16 @@ TEST(Ifaddr4TestSuite, show_real_loopback_interface) {
                     std::cout << "sin_family = " << af_str
                               << ", ip address = " << ipstr << "/";
                     std::wcout << uni_addr->OnLinkPrefixLength << '\n';
-                    break;
+                } break;
                 case 0:
                     af_str = "AF_UNSPEC(0)";
                     // no break, continue with default
-                default:
+                default: {
                     GTEST_FAIL() << "ip_addr->sin_family = " << af_str
                                  << "\n   ERROR     Undefined sin_family. Only "
                                     "AF_INET(2) or AF_INET6(23) valid.";
-                    break;
-                }
+                } break;
+                } // switch
 
                 // Next address on the interface.
                 uni_addr = uni_addr->Next;

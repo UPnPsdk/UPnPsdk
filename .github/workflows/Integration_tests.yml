@@ -2,7 +2,7 @@ name: Integration tests
 
 on:
   push:
-    branches: [ provide_socket_function, main ]
+    branches: [ ssockaddr_tokenize, main ]
   pull_request:
     branches: [ main ]
 

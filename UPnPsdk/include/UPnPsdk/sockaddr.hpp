@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-03
+// Redistribution only with this Copyright remark. Last modified: 2026-06-22
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -150,7 +150,7 @@ int to_port( //
  * components:\n
  * "[fe80::1%2]:443" with node "fe80::1", scope "2", service "443"\n
  * "[fe80::2%eth0]:https" with node "fe80::2", scope "eth0", service "https" */
-struct inaddr_t {
+struct inaddr_token_t {
     std::string node; /*!< IP address without brackets. This can also be a
                          alphanumeric name like "example.com". */
     std::string scope; /*!< scope_id is the index number or name  of a
@@ -165,35 +165,35 @@ struct inaddr_t {
  * \ingroup upnplib-addrmodul
  * \code
  * // Usage e.g., not a complete list:
- * inaddr_t inaddr;
- * split_inaddr("[2001:db8::1]:50001", inaddr);
- * split_inaddr("2001:DB8::1", inaddr);
- * split_inaddr("[fe80::2%3]:50002", inaddr);
- * split_inaddr("127.0.0.1:0", inaddr);
- * split_inaddr("127.0.0.1", inaddr);
- * split_inaddr(":50002", inaddr);
- * split_inaddr("example.COM:50003", inaddr);
- * split_inaddr("example.com:HTTPS", inaddr);
- * split_inaddr("[::FFff:142.250.185.99]:ssh", inaddr);
+ * inaddr_token_t inaddr;
+ * inaddr_tokenize("[2001:db8::1]:50001", inaddr);
+ * inaddr_tokenize("2001:DB8::1", inaddr);
+ * inaddr_tokenize("[fe80::2%3]:50002", inaddr);
+ * inaddr_tokenize("127.0.0.1:0", inaddr);
+ * inaddr_tokenize("127.0.0.1", inaddr);
+ * inaddr_tokenize(":50002", inaddr);
+ * inaddr_tokenize("example.COM:50003", inaddr);
+ * inaddr_tokenize("example.com:HTTPS", inaddr);
+ * inaddr_tokenize("[::FFff:142.250.185.99]:ssh", inaddr);
  * \endcode
  *
- * This is a function for special use to prepare input for system calls
- * without brackets. Its results returned in \b a_addr, \b a_scope, and \b
- * a_serv are only useful for this purpose and not meant for general usage. The
- * function only syntactical split the components on its separator '\%' and ':'.
- * No syntactical tests are made. For example a scope_id on a global unicast
- * address, or a port number greater 65535 is not valid but also provided in \b
- * a_scope, resp. \b a_serv. These tests must be made on a higher abstraction
- * layer.
+ * This is a function for special use to prepare input for system calls without
+ * brackets. Its results returned in structue inaddr_token_t with member \b
+ * node, \b scope, and **service (port)** are only useful for this purpose and
+ * not meant for general usage. The function only syntactical split the
+ * components on its separator '\%' and ':'. No syntactical tests are made. For
+ * example a scope_id on a global unicast address, or a port number greater
+ * 65535 is not valid but also provided in \b a_scope, resp. \b a_serv. These
+ * tests must be made on a higher abstraction layer.
  * */
-void split_inaddr( //
+void inaddr_tokenize( //
     /*! [in] Any string. If it can be interpreted as an ip-address or -name with
        or without scope_id and/or service (port), its components will be
        returned. */
     const std::string_view a_addr_sv,
     /*! [out] Reference of an internet address structure that will be filled
        with node, scope_id, and service (port). */
-    inaddr_t& a_spl_inaddr) noexcept;
+    inaddr_token_t& a_inaddr) noexcept;
 
 
 /*!
@@ -204,13 +204,29 @@ void split_inaddr( //
 // Usage e.g.:
 ::sockaddr_storage saddr{};
 SSockaddr saObj;
-::memcpy(&saObj.ss, &saddr, sizeof(saObj.ss));
-std::cout << "netaddress of saObj is " << saObj << "\n";
+::memcpy(&saObj.ss, &saddr, sizeof(saObj.ss)); // possible, but error prone
+// better with verification by the object:
+saObj = saddr;
+if (saObj.ss.ss_family != AF_UNSPEC) // Will fail, saddr is empty.
+    std::cout << "netaddress of saObj is " << saObj << "\n";
 \endcode
  *
  * This structure should be usable on a low level like the trival C `struct
  * ::%sockaddr_storage` but provides additional methods to manage its data.
  * When ever this SDK manage a network address it uses an object of this class.
+ *
+ * Design specification:
+ *  - Detected errors (e.g. invalid entries) result in an empty socket address
+ *  object. A valid socket address can be tested with `saObj.ss.ss_family !=
+ *  AF_UNSPEC`, or more specific `saObj.ss.ss_family == AF_INET6`.
+ *  - A link-local address ("[fe80::%2") must always have a scope_id. An lla
+ *  without scope_id is rejected as an error. If in doubt you should test the
+ *  address family.
+ *  - If an IPv6 address, that isn't a link-local address, has a scope_id
+ *  ("[2001:db8::1%2]") then the scope_id is silently removed.
+ *  - SSockaddr can also hold IPv4 addresses but these are only provided for
+ *  the user. The SDK itself does not understand them and cannot work with
+ *  them.
  *
  * \note This class is frequently used so performance has to taken into
  * account. This is why the destructor isn't virtual and **you should not
@@ -228,6 +244,25 @@ struct UPnPsdk_API SSockaddr {
     sockaddr_in& sin = m_sa_union.sin;
     /// Reference to sockaddr struct
     sockaddr& sa = m_sa_union.sa;
+
+// I need the ERROR symbol to be portable. Win32 has it defined, for what ever.
+#if defined(_MSC_VER) && defined(ERROR)
+#undef ERROR
+#endif
+    /*! State return values of this class */
+    enum struct STATE : uint8_t {
+        UNKNOWN, /*!< Unknown item, also given for alphanumeric input that needs
+                    name resolution. */
+        SUCCESS, /*!< A valid item to continue. */
+        EMPTY, /*!< What it says, an empty item. */
+        ERROR, /*!< General check with `if(retval >= ERROR)`. All other
+                   detailed error states must follow this label in the enum. */
+        LLA_WITH_SUBNET, /*!< Detailed error state. */
+        LLA_NO_SCOPE_ID, /*!< Detailed error state. */
+        INVALID_ADDR, /*!< Detailed error state. */
+        INVALID_PORT, /*!< Detailed error state. */
+        DEPR_V4COMPAT /*!< Detailed error state. */
+    };
 
     // Constructor
     // -----------
@@ -278,6 +313,7 @@ struct UPnPsdk_API SSockaddr {
      * saObj = ""; // Clears the address storage.
      * saObj = "[2001:db8::1]";
      * saObj = "[2001:db8::1]:50001";
+     * saObj = "[fe80::1%2]:50001"; // Link-local address must have scope_id
      * saObj = "192.168.1.1";
      * saObj = "192.168.1.1:50001";
      *  \endcode
@@ -310,13 +346,12 @@ struct UPnPsdk_API SSockaddr {
 \verbatim
 "[2001:db8::52]:50001" results to "[2001:db8::52]:50001"
               ":55555" results to "[2001:db8::52]:55555" (address prev setting)
-               "55556" same as before with leading colon.
+              "55556" same as before with leading colon.
 \endverbatim
     * **On error**\n
     * The socket-address Object is reset, means it is empty. Check with
     * `saObj.ss.ss_family == AF_UNSPEC`. Typical errors are:
     * - link-local address without scope_id
-    * - other IPv6 address with scope_id
     * - port number greater than 65535
     */
     void operator=(
@@ -335,9 +370,9 @@ struct UPnPsdk_API SSockaddr {
     void operator=(const in_port_t a_port);
 
 
-    // Assignment operator= to set socket address from a trivial socket address
-    // structure
-    // ------------------------------------------------------------------------
+    // Assignment operator= to set socket address from a trivial socket
+    // address structure
+    // ----------------------------------------------------------------
     /*! \brief Set socket address from a trivial socket address structure
      * \code
      * // Usage e.g.:
@@ -359,15 +394,15 @@ struct UPnPsdk_API SSockaddr {
      *  \b true&nbsp; if socket addresses are logical equal\n
      *  \b false otherwise
      *
-     * It only supports AF_INET6 and AF_INET. For all other address families \b
-     * false is returned. */
+     * It only supports AF_INET6 and AF_INET. For all other address families
+     * \b false is returned. */
     bool operator==(const SSockaddr&) const;
 
 
     // Getter for a netaddress
     // -----------------------
-    /*! \brief Get the assosiated [netaddress](\ref glossary_netaddr) without
-     * port
+    /*! \brief Get the assosiated [netaddress](\ref glossary_netaddr)
+     * without port
      * \code
      * // Usage e.g.:
      * SSockaddr saObj;
@@ -380,7 +415,8 @@ struct UPnPsdk_API SSockaddr {
 
     // Getter for a netaddress with port
     // ---------------------------------
-    /*! \brief Get the assosiated [netaddress](\ref glossary_netaddr) with port
+    /*! \brief Get the assosiated [netaddress](\ref glossary_netaddr) with
+     * port
      * \code
      * // Usage e.g.:
      * SSockaddr saObj;
@@ -396,10 +432,10 @@ struct UPnPsdk_API SSockaddr {
     in_port_t port() const;
 
 
-    /// \brief Get sizeof the current filled (sin6 or sin) Sockaddr Structure
-    // ----------------------------------------------------------------------
+    /// \brief Get sizeof the current filled (sin6 or sin) Sockaddr
+    /// Structure
+    // ------------------------------------------------------------
     socklen_t sizeof_saddr() const;
-    /// @} Getter
 
 
     /// \brief Get if the socket address is a loopback address
@@ -407,9 +443,16 @@ struct UPnPsdk_API SSockaddr {
     bool is_loopback() const;
 
 
+    // Method to get a tokenized internet address as strings.
+    // ------------------------------------------------------
+    /*! \brief Get a tokenized internet address */
+    STATE tokenize(std::string_view a_inaddr_sv, inaddr_token_t& a_inaddr);
+    /// @} Getter
+
+
   private:
-    sockaddr_t m_sa_union{}; // this is the union of trivial sockaddr structures
-                             // that is managed.
+    sockaddr_t m_sa_union{}; // this is the union of trivial sockaddr
+                             // structures that is managed.
 };
 
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-15
+// Redistribution only with this Copyright remark. Last modified: 2026-06-12
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -158,12 +158,12 @@ bool CAddrinfo::get_first() {
 
     // Prepare input for ::getaddrinfo()
     // ---------------------------------
-    inaddr_t inaddr;
+    inaddr_token_t inaddr;
 
     if (m_service.empty())
-        split_inaddr(m_node, inaddr);
+        inaddr_tokenize(m_node, inaddr);
     else
-        split_inaddr(m_node + ":" + m_service, inaddr);
+        inaddr_tokenize(m_node + ":" + m_service, inaddr);
 
     if (to_port(inaddr.service) == 1) {
         // Valid number but out of scope 0..65535.

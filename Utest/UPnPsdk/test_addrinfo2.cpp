@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-06
+// Redistribution only with this Copyright remark. Last modified: 2026-06-23
 
 // I test different address infos that we get from system function
 // ::getaddrinfo().
@@ -1050,17 +1050,6 @@ TEST(AddrinfoTestSuite, get_info_loopback_interface) {
     ASSERT_NE(ai2->ai_addr, nullptr);
     EXPECT_EQ(reinterpret_cast<sockaddr_in6*>(ai2->ai_addr)->sin6_scope_id, 0);
 #endif
-}
-
-TEST(AddrinfoTestSuite, temporary_tests) {
-    // Test Unit
-    CAddrinfo2 aiObj("0.0.0.0");
-    ASSERT_EQ(aiObj.get_first(), 0);
-
-    do {
-        aiObj.sockaddr(saObj);
-        std::cout << "DEBUG! netaddrp=\"" << saObj << "\"\n";
-    } while (aiObj.get_next());
 }
 
 } // namespace utest
