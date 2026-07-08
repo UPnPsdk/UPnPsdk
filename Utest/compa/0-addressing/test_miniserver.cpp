@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-03
+// Redistribution only with this Copyright remark. Last modified: 2026-07-13
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -167,7 +167,8 @@ void get_netadapter() {
             guaObj.bitmask = nadaptObj.bitmask();
             guaObj.name = nadaptObj.name();
         } else if (ip4Obj.sa.ss.ss_family == AF_UNSPEC &&
-                   saObj.ss.ss_family == AF_INET && !saObj.is_loopback()) {
+                   saObj.ss.ss_family ==
+                       AF_INET) { // && !saObj.is_loopback()) {
             // Found first IPv4 address.
             ip4Obj.sa = saObj;
             ip4Obj.idx = nadaptObj.index();
@@ -331,7 +332,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv4_addr) {
     std::strcpy(gIF_NAME, ip4Obj.name.c_str());
     // Netadapter variables are never empty because we have found a valid item.
     std::strcpy(gIF_IPV4, ip4Obj.sa.netaddr().c_str());
-    LOCAL_PORT_V4 = ip4Obj.sa.port();
+    LOCAL_PORT_V4 = ip4Obj.sa.sin.sin_port;
     bitmask_to_netmask(&ip4Obj.sa.ss, static_cast<uint8_t>(ip4Obj.bitmask),
                        saObj);
     std::strcpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
@@ -371,7 +372,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
         *chptr = '\0';
     std::strcpy(gIF_IPV6, buf);
     gIF_IPV6_PREFIX_LENGTH = llaObj.idx;
-    LOCAL_PORT_V6 = llaObj.sa.port();
+    LOCAL_PORT_V6 = llaObj.sa.sin6.sin6_port;
 
     // We need the threadpool to RunMiniServer().
     CThreadPoolInit tp(gMiniServerThreadPool);
@@ -413,7 +414,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_gua_addr) {
     std::strcpy(gIF_IPV6_ULA_GUA, guaObj.sa.netaddr().c_str() + 1);
     gIF_IPV6_ULA_GUA[std::strlen(gIF_IPV6_ULA_GUA) - 1] = '\0';
     gIF_IPV6_ULA_GUA_PREFIX_LENGTH = guaObj.idx;
-    LOCAL_PORT_V6_ULA_GUA = guaObj.sa.port();
+    LOCAL_PORT_V6_ULA_GUA = guaObj.sa.sin6.sin6_port;
 
     // We need the threadpool to RunMiniServer().
     CThreadPoolInit tp(gMiniServerThreadPool);
@@ -533,12 +534,17 @@ TEST_F(StartMiniServerMockFTestSuite,
     constexpr int socktype = SOCK_STREAM;
     constexpr SOCKET sockfd{umock::sfd_base + 10};
     SSockaddr saddrObj;
-    saddrObj = "[fe80::fedc:cdef:0:3%300]:50079";
+    // saddrObj = "[fe80::fedc:cdef:0:3%300]:50079";
+    saddrObj.ss.ss_family = AF_INET6;
+    ::inet_pton(saddrObj.ss.ss_family, "fe80::fedc:cdef:0:3",
+                &saddrObj.sin6.sin6_addr);
     saddrObj.sin6.sin6_scope_id = 0; // Wrong! Correction for old_code.
+    saddrObj.sin6.sin6_port = 50079;
+
     // Set gIF_IPV6 and strip surounding brackets
     std::strcpy(gIF_IPV6, saddrObj.netaddr().c_str() + 1);
     gIF_IPV6[strlen(gIF_IPV6) - 1] = '\0';
-    LOCAL_PORT_V6 = saddrObj.port();
+    LOCAL_PORT_V6 = saddrObj.sin6.sin6_port;
     MiniServerSockArray miniSocket{};
     InitMiniServerSockArray(&miniSocket);
 
@@ -571,11 +577,17 @@ TEST_F(StartMiniServerMockFTestSuite,
     constexpr int socktype = SOCK_STREAM;
     constexpr SOCKET sockfd{umock::sfd_base + 10};
     SSockaddr saddrObj;
-    saddrObj = "[fe80::fedc:cdef:0:3%300]:50079";
+    // saddrObj = "[fe80::fedc:cdef:0:3%300]:50079";
+    saddrObj.ss.ss_family = AF_INET6;
+    ::inet_pton(saddrObj.ss.ss_family, "fe80::fedc:cdef:0:3",
+                &saddrObj.sin6.sin6_addr);
+    saddrObj.sin6.sin6_scope_id = 300;
+    saddrObj.sin6.sin6_port = 50079;
+
     // Set gIF_IPV6 and strip surounding brackets
     std::strcpy(gIF_IPV6, saddrObj.netaddr().c_str() + 1);
     gIF_IPV6[strlen(gIF_IPV6) - 1] = '\0';
-    LOCAL_PORT_V6 = saddrObj.port();
+    LOCAL_PORT_V6 = saddrObj.sin6.sin6_port;
     MiniServerSockArray miniSocket{};
     InitMiniServerSockArray(&miniSocket);
     CSocket sockLlaObj;
@@ -633,7 +645,7 @@ TEST_F(StartMiniServerMockFTestSuite,
     EXPECT_EQ(miniSocket.ssdpSock6UlaGua, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.stopPort, 0u);
     // EXPECT_EQ(miniSocket.miniServerPort6, 0u);
-    EXPECT_EQ(miniSocket.miniServerPort6, saddrObj.port());
+    EXPECT_EQ(miniSocket.miniServerPort6, ntohs(saddrObj.sin6.sin6_port));
     EXPECT_EQ(miniSocket.miniServerPort6UlaGua, 0u);
     EXPECT_EQ(miniSocket.ssdpReqSock4, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.ssdpReqSock6, INVALID_SOCKET);
@@ -871,8 +883,9 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_successful) {
     //   port
     SSockaddr saddrObj;
     constexpr char text_addr[]{"192.168.54.188"};
-    saddrObj = text_addr;
-    saddrObj = 50020;
+    saddrObj.ss.ss_family = AF_INET;
+    ::inet_pton(saddrObj.ss.ss_family, text_addr, &saddrObj.sin.sin_addr);
+    saddrObj.sin.sin_port = 50020;
     char addrbuf[INET_ADDRSTRLEN];
     constexpr SOCKET sockfd{umock::sfd_base + 11};
 
@@ -881,7 +894,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_successful) {
     s.serverAddr = reinterpret_cast<sockaddr*>(&s.ss);
     s.ip_version = 4;
     s.text_addr = text_addr;
-    s.actual_port = saddrObj.port();
+    s.actual_port = saddrObj.sin.sin_port;
     s.serverAddr4 = &saddrObj.sin;
     s.fd = sockfd;
     s.try_port = APPLICATION_LISTENING_PORT;
@@ -893,7 +906,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_successful) {
 
     // Provide a sockaddr structure that will be returned by mocked
     // getsockname(). It is the same address saddrObj with different port.
-    saddrObj = APPLICATION_LISTENING_PORT;
+    saddrObj.sin.sin_port = APPLICATION_LISTENING_PORT;
 
     // Mock system functions
     EXPECT_CALL(m_sys_socketObj, bind(sockfd, _, _)).WillOnce(Return(0));
@@ -952,7 +965,9 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_with_failed_listen) {
 
     SSockaddr saddrObj;
     const char text_addr[]{"192.168.54.188"};
-    saddrObj = text_addr;
+    // saddrObj = text_addr;
+    saddrObj.ss.ss_family = AF_INET;
+    ::inet_pton(saddrObj.ss.ss_family, text_addr, &saddrObj.sin.sin_addr);
     constexpr SOCKET sockfd{umock::sfd_base + 12};
 
     s_SocketStuff s;
@@ -960,7 +975,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_with_failed_listen) {
     s.serverAddr = (sockaddr*)&s.ss;
     s.ip_version = 4;
     s.text_addr = text_addr;
-    s.actual_port = saddrObj.port();
+    s.actual_port = saddrObj.sin.sin_port;
     s.serverAddr4 = &saddrObj.sin;
     s.fd = sockfd;
     s.try_port = APPLICATION_LISTENING_PORT;
@@ -1003,9 +1018,13 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_address_in_use) {
 
         SSockaddr saddrObj;
         const char text_addr[]{"192.168.54.188"};
-        saddrObj = text_addr;
-        saddrObj = 50024;
-        const in_port_t actual_port(saddrObj.port());
+        // saddrObj = text_addr;
+        // saddrObj = 50024;
+        saddrObj.ss.ss_family = AF_INET;
+        ::inet_pton(saddrObj.ss.ss_family, text_addr, &saddrObj.sin.sin_addr);
+        saddrObj.sin.sin_port = 50024;
+
+        const in_port_t actual_port(saddrObj.sin.sin_port);
         char addrbuf[INET_ADDRSTRLEN];
         constexpr SOCKET sockfd_inuse{umock::sfd_base + 13};
         constexpr SOCKET sockfd_free{umock::sfd_base + 14};
@@ -1023,7 +1042,8 @@ TEST_F(StartMiniServerMockFTestSuite, do_bind_listen_address_in_use) {
         s.try_port = actual_port + 1;
         s.address_len = saddrObj.sizeof_saddr();
 
-        saddrObj = actual_port + 1; // To return by mock getsockname()
+        saddrObj.sin.sin_port =
+            actual_port + 1; // To return by mock getsockname()
 
         // Mock system functions
         // A successful bind is expected but listen should fail with "address in
@@ -1092,7 +1112,7 @@ TEST_F(StartMiniServerMockFTestSuite, bind_successful) {
     s.text_addr = text_addr;
     s.serverAddr4->sin_family = AF_INET;
     s.serverAddr4->sin_port = htons(actual_port);
-    inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
+    ::inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
     s.fd = sockfd;
     s.try_port = try_port;
     s.actual_port = actual_port;
@@ -1154,7 +1174,7 @@ TEST_F(StartMiniServerMockFTestSuite, bind_with_invalid_argument) {
     s.text_addr = text_addr;
     s.serverAddr4->sin_family = AF_INET;
     s.serverAddr4->sin_port = htons(actual_port);
-    inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
+    ::inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
     s.fd = sockfd;
     s.try_port = try_port;
     s.actual_port = actual_port;
@@ -1251,7 +1271,7 @@ TEST_F(StartMiniServerMockFTestSuite, bind_with_try_port_number_overrun) {
     s.text_addr = text_addr;
     s.serverAddr4->sin_family = AF_INET;
     s.serverAddr4->sin_port = htons(56789);
-    inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
+    ::inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
     s.fd = sockfd;
     s.try_port = 65533;
     s.actual_port = 56789;
@@ -1325,7 +1345,7 @@ TEST_F(StartMiniServerMockFTestSuite, bind_successful_with_two_tries) {
     s.text_addr = text_addr;
     s.serverAddr4->sin_family = AF_INET;
     s.serverAddr4->sin_port = htons(56789);
-    inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
+    ::inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
     s.fd = sockfd;
     s.try_port = 65533;
     s.actual_port = 56789;
@@ -1428,7 +1448,7 @@ TEST(StartMiniServerTestSuite, bind_with_wrong_ip_version_assignment) {
     s.serverAddr4->sin_family = AF_INET;
     s.actual_port = 56789;
     s.serverAddr4->sin_port = htons(s.actual_port);
-    inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
+    ::inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
     s.fd = sockfd;
     s.try_port = try_port;
     s.address_len = sizeof(*s.serverAddr4);
@@ -1469,8 +1489,12 @@ TEST_F(StartMiniServerMockFTestSuite, do_listen_successful) {
     // Provide needed data for the Unit
     SSockaddr saddrObj;
     constexpr char text_addr[]{"192.168.202.233"};
-    saddrObj = text_addr;
-    saddrObj = 50083;
+    // saddrObj = text_addr;
+    // saddrObj = 50083;
+    saddrObj.ss.ss_family = AF_INET;
+    ::inet_pton(saddrObj.ss.ss_family, text_addr, &saddrObj.sin.sin_addr);
+    saddrObj.sin.sin_port = htons(50083);
+
     constexpr SOCKET sockfd{umock::sfd_base + 20};
     char addrbuf[INET_ADDRSTRLEN];
     constexpr in_port_t try_port{0}; // not used
@@ -1503,12 +1527,12 @@ TEST_F(StartMiniServerMockFTestSuite, do_listen_successful) {
     EXPECT_EQ(s.ip_version, 4);
     EXPECT_STREQ(s.text_addr, text_addr);
     EXPECT_EQ(s.serverAddr4->sin_family, AF_INET);
-    EXPECT_EQ(ntohs(s.serverAddr4->sin_port), 0); // not used
+    EXPECT_EQ(s.serverAddr4->sin_port, 0); // not used
     EXPECT_STREQ(
         inet_ntop(AF_INET, &s.serverAddr4->sin_addr, addrbuf, sizeof(addrbuf)),
         text_addr);
     EXPECT_EQ(s.fd, sockfd);
-    EXPECT_EQ(s.actual_port, saddrObj.port());
+    EXPECT_EQ(s.actual_port, ntohs(saddrObj.sin.sin_port));
     EXPECT_EQ(s.try_port, try_port); // not used
     EXPECT_EQ(s.address_len, (socklen_t)sizeof(*s.serverAddr4));
 }
@@ -1533,7 +1557,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_listen_not_supported) {
     s.text_addr = text_addr;
     s.serverAddr4->sin_family = AF_INET;
     s.serverAddr4->sin_port = 0; // not used
-    inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
+    ::inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
     s.fd = sockfd;
     s.try_port = 0; // not used
     s.actual_port = 0;
@@ -1587,7 +1611,7 @@ TEST_F(StartMiniServerMockFTestSuite, do_listen_insufficient_resources) {
     s.text_addr = text_addr;
     s.serverAddr4->sin_family = AF_INET;
     s.serverAddr4->sin_port = 0; // not used
-    inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
+    ::inet_pton(AF_INET, text_addr, &s.serverAddr4->sin_addr);
     s.fd = sockfd;
     s.try_port = 0; // not used
     s.actual_port = 0;
@@ -1636,7 +1660,10 @@ TEST_F(StartMiniServerMockFTestSuite, get_port_successful) {
 
     // Provide a sockaddr structure that will be returned by mocked
     // getsockname().
-    saObj = "192.168.154.188:" + std::to_string(actual_port);
+    // saObj = "192.168.154.188:" + std::to_string(actual_port);
+    saObj.ss.ss_family = AF_INET;
+    ::inet_pton(saObj.ss.ss_family, "192.168.154.188", &saObj.sin.sin_addr);
+    saObj.sin.sin_port = htons(actual_port);
 
     // Mock system functions, static_cast needed for _MSC_VER
     EXPECT_CALL(
@@ -1775,7 +1802,7 @@ TEST(StartMiniServerTestSuite, get_miniserver_stopsock) {
     ASSERT_EQ(out.miniServerStopSock, out.pSockStpObj->socket());
     UPnPsdk::SSockaddr saddrObj;
     ASSERT_TRUE(out.pSockStpObj->local_saddr(&saddrObj));
-    ASSERT_EQ(out.stopPort, saddrObj.port());
+    ASSERT_EQ(out.stopPort, ntohs(saddrObj.sin6.sin6_port));
     ASSERT_EQ(out.stopPort, /*global var*/ miniStopSockPort);
 
     // Get local and remote address the socket is bound.

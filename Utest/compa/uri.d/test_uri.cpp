@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// redistribution only with this copyright remark. last modified: 2026-06-21
+// redistribution only with this copyright remark. last modified: 2026-07-11
 
 // This Unit Tests are used to verify pUPnP software with new compatible code.
 // These tests compile with pUPnP code and with compatible code. Unit Tests for
@@ -138,7 +138,11 @@ TEST(UriDeathTest, token_string_casecmp) {
 
 TEST(UriTestSuite, resolve_rel_url_successful) {
     SSockaddr saObj;
-    saObj = "[::ffff:192.168.186.186]:443";
+    // saObj = "[::ffff:192.168.186.186]:443";
+    saObj.ss.ss_family = AF_INET6;
+    ::inet_pton(saObj.ss.ss_family, "::ffff:192.168.186.186",
+                &saObj.sin6.sin6_addr);
+    saObj.sin6.sin6_port = 443;
 
     ::addrinfo res{};
     res.ai_family = saObj.ss.ss_family;
@@ -222,7 +226,10 @@ TEST(UriDeathTest, resolve_rel_url_arg1_base_url_arg2_nullptr) {
             << "  nullptr rel_url must not segfault.";
 
         SSockaddr saObj;
-        saObj = "[2001:db8::9474]";
+        // saObj = "[2001:db8::9474]";
+        saObj.ss.ss_family = AF_INET6;
+        ::inet_pton(saObj.ss.ss_family, "2001:db8::9474",
+                    &saObj.sin6.sin6_addr);
 
         ::addrinfo res{};
         res.ai_family = saObj.ss.ss_family;
@@ -304,7 +311,11 @@ TEST(UriTestSuite, resolve_rel_url_arg1_abs_url_arg2_empty) {
     // If the rel_url is empty (""), then a copy of the base_url is passed back.
 
     SSockaddr saObj;
-    saObj = "[::ffff:192.168.168.168]:8080";
+    // saObj = "[::ffff:192.168.168.168]:8080";
+    saObj.ss.ss_family = AF_INET6;
+    ::inet_pton(saObj.ss.ss_family, "::ffff:192.168.168.168",
+                &saObj.sin6.sin6_addr);
+    saObj.sin6.sin6_port = 8080;
 
     ::addrinfo res{};
     res.ai_family = saObj.ss.ss_family;
@@ -368,7 +379,11 @@ TEST(UriTestSuite, resolve_rel_url_arg1_abs_url_arg2_abs_url) {
     // rel_url is passed back.
 
     SSockaddr saObj;
-    saObj = "[fe80::db8:8%1]:50001";
+    // saObj = "[fe80::db8:8%1]:50001";
+    saObj.ss.ss_family = AF_INET6;
+    ::inet_pton(saObj.ss.ss_family, "fe80::db8:8", &saObj.sin6.sin6_addr);
+    saObj.sin6.sin6_scope_id = 1;
+    saObj.sin6.sin6_port = 50001;
 
     ::addrinfo res{};
     res.ai_family = saObj.ss.ss_family;

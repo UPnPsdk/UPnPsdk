@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-03
+// Redistribution only with this Copyright remark. Last modified: 2026-07-13
 
 // This tests network communication. The usual way to do it is to use mocking to
 // be independent from current hardware. But with mocking you can only test what
@@ -43,13 +43,17 @@ using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::IN6_IS_ADDR_GLOBAL2;
 using ::UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
+using ::UPnPsdk::inaddr_token_t;
+using ::UPnPsdk::inaddr_tokenize;
+using ::UPnPsdk::is_unum_str;
 using ::UPnPsdk::SSockaddr;
+using ::UPnPsdk::to_port;
 
 
 // Interface-local multicast adress is not official defined for SSDP but
 // setting its scope for testing works. I use it instead of the only
 // specified link-local multicast address to not spam the users network.
-constexpr char SSDP_MCAST_IFACE_LOCAL[]{"[ff01::c]:1900"};
+constexpr char SSDP_MCAST_IFACE_LOCAL[]{"ff01::c"};
 [[maybe_unused]] constexpr char SSDP_MCAST_LINK_LOCAL[]{"[ff02::c]:1900"};
 
 enum struct Idx {
@@ -89,14 +93,15 @@ void get_netadapter() {
     nadaptObj.get_first();
     do {
         nadaptObj.sockaddr(saObj);
-        if (lo6Obj.sa.ss.ss_family == AF_UNSPEC && saObj.is_loopback() &&
+        if (lo6Obj.sa.ss.ss_family == AF_UNSPEC &&
+            IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr) &&
             saObj.ss.ss_family == AF_INET6) {
             // Found first ipv6 loopback address.
             lo6Obj.sa = saObj;
             lo6Obj.index = nadaptObj.index();
             lo6Obj.bitmask = nadaptObj.bitmask();
             lo6Obj.name = nadaptObj.name();
-        } else if (lo4Obj.sa.ss.ss_family == AF_UNSPEC && saObj.is_loopback() &&
+        } else if (lo4Obj.sa.ss.ss_family == AF_UNSPEC &&
                    saObj.ss.ss_family == AF_INET) {
             // Found first ipv4 loopback address.
             lo4Obj.sa = saObj;
@@ -122,7 +127,7 @@ void get_netadapter() {
             guaObj.bitmask = nadaptObj.bitmask();
             guaObj.name = nadaptObj.name();
         } else if (ip4Obj.sa.ss.ss_family == AF_UNSPEC &&
-                   saObj.ss.ss_family == AF_INET && !saObj.is_loopback()) {
+                   saObj.ss.ss_family == AF_INET) {
             // Found first IPv4 address.
             ip4Obj.sa = saObj;
             ip4Obj.index = nadaptObj.index();
@@ -202,7 +207,11 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_successful) {
 
     // Prepare other used parameter.
     SSockaddr destsaObj;
-    destsaObj = SSDP_MCAST_IFACE_LOCAL;
+    destsaObj.ss.ss_family = AF_INET6;
+    ASSERT_EQ(::inet_pton(destsaObj.ss.ss_family, SSDP_MCAST_IFACE_LOCAL,
+                          &destsaObj.sin6.sin6_addr),
+              1);
+    destsaObj.sin6.sin6_port = 1900;
     if (old_code) {
         gIF_INDEX = llaObj.index;
         strcpy(gIF_IPV4, "0.0.0.0");
@@ -234,7 +243,11 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_mock_successful) {
 
     // Prepare other used parameter.
     SSockaddr destsaObj;
-    destsaObj = SSDP_MCAST_IFACE_LOCAL;
+    destsaObj.ss.ss_family = AF_INET6;
+    ASSERT_EQ(::inet_pton(destsaObj.ss.ss_family, SSDP_MCAST_IFACE_LOCAL,
+                          &destsaObj.sin6.sin6_addr),
+              1);
+    destsaObj.sin6.sin6_port = 1900;
     gIF_INDEX = llaObj.index;
     strcpy(gIF_IPV4, "0.0.0.0");
 
@@ -289,7 +302,18 @@ TEST_P(SendStatelessTest, send_stateless) {
     const std::tuple params = GetParam();
 
     SSockaddr destsaObj;
-    destsaObj = std::get<0>(params);
+    inaddr_token_t inaddr;
+    inaddr_tokenize(std::get<0>(params), inaddr);
+    destsaObj.ss.ss_family = AF_INET6;
+    ASSERT_EQ(::inet_pton(destsaObj.ss.ss_family, inaddr.node.c_str(),
+                          &destsaObj.sin6.sin6_addr),
+              1);
+    if (is_unum_str(inaddr.scope, 10))
+        destsaObj.sin6.sin6_scope_id =
+            static_cast<uint32_t>(std::stoul(inaddr.scope));
+    in_port_t port{};
+    to_port(inaddr.service, &port);
+    destsaObj.sin6.sin6_port = htons(port);
 
     uint32_t na_idx;
     switch (std::get<1>(params)) {
@@ -599,7 +623,11 @@ TEST_F(SsdpDeviceFTestSuite,
     // char* msgs[num_msg]{msg1, msg2};
 
     SSockaddr destaddr_ip6;
-    destaddr_ip6 = SSDP_MCAST_IFACE_LOCAL; // interface-local
+    destaddr_ip6.ss.ss_family = AF_INET6;
+    ASSERT_EQ(::inet_pton(destaddr_ip6.ss.ss_family, SSDP_MCAST_IFACE_LOCAL,
+                          &destaddr_ip6.sin6.sin6_addr),
+              1);
+    destaddr_ip6.sin6.sin6_port = 1900;
 
     if (old_code) {
         strcpy(gIF_IPV4, "0.0.0.0"); // INADDR_ANY
@@ -640,7 +668,11 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_send_zero_messages_succeeds) {
     char* msgs[1]{msg1};
 
     SSockaddr destaddr_ip6;
-    destaddr_ip6 = SSDP_MCAST_IFACE_LOCAL; // interface-local
+    destaddr_ip6.ss.ss_family = AF_INET6;
+    ASSERT_EQ(::inet_pton(destaddr_ip6.ss.ss_family, SSDP_MCAST_IFACE_LOCAL,
+                          &destaddr_ip6.sin6.sin6_addr),
+              1);
+    destaddr_ip6.sin6.sin6_port = 1900;
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
     strcpy(gIF_IPV4, "0.0.0.0"); // INADDR_ANY
@@ -666,7 +698,11 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_no_messages_addressed_fails) {
     // char* msgs[1]{msg1};
 
     SSockaddr destaddr;
-    destaddr = SSDP_MCAST_IFACE_LOCAL;
+    destaddr.ss.ss_family = AF_INET6;
+    ASSERT_EQ(::inet_pton(destaddr.ss.ss_family, SSDP_MCAST_IFACE_LOCAL,
+                          &destaddr.sin6.sin6_addr),
+              1);
+    destaddr.sin6.sin6_port = 1900;
 
     if (old_code) {
         strcpy(gIF_IPV4, "0.0.0.0"); // INADDR_ANY
@@ -702,7 +738,11 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_send_no_message_succeeds) {
     char* msgs[num_msg]{nullptr};
 
     SSockaddr destaddr_ip6;
-    destaddr_ip6 = SSDP_MCAST_IFACE_LOCAL; // interface-local
+    destaddr_ip6.ss.ss_family = AF_INET6;
+    ASSERT_EQ(::inet_pton(destaddr_ip6.ss.ss_family, SSDP_MCAST_IFACE_LOCAL,
+                          &destaddr_ip6.sin6.sin6_addr),
+              1);
+    destaddr_ip6.sin6.sin6_port = 1900;
 
     if (old_code) {
         strcpy(gIF_IPV4, "0.0.0.0"); // INADDR_ANY
@@ -733,7 +773,9 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_error_message_as_garbage) {
     SSockaddr destaddr_ip6;
     // Without port, and with invalid scope_id triggers an error on all
     // platforms.
-    destaddr_ip6 = "[::1]";
+    // destaddr_ip6 = "[::1]";
+    destaddr_ip6.ss.ss_family = AF_INET6;
+    destaddr_ip6.sin6.sin6_addr.s6_addr[15] = 1;
 
     int error_id;
     if (old_code) {
@@ -770,7 +812,12 @@ TEST_F(SsdpDeviceFTestSuite,
     char* msgs[num_msg]{msg1};
 
     SSockaddr destaddr_ip4;
-    destaddr_ip4 = "[::ffff:10.178.1.2]:1900";
+    // destaddr_ip4 = "[::ffff:10.178.1.2]:1900";
+    destaddr_ip4.ss.ss_family = AF_INET6;
+    ASSERT_EQ(::inet_pton(destaddr_ip4.ss.ss_family, "::ffff:10.178.1.2",
+                          &destaddr_ip4.sin6.sin6_addr),
+              1);
+    destaddr_ip4.sin6.sin6_port = 1900;
 
     // strcpy(gIF_IPV4, "0.0.0.0"); // Not initialized.
 
@@ -818,12 +865,19 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_with_multible_netadapter) {
 
     // Prepare other used parameter.
     SSockaddr destsaObj;
-    destsaObj = "[ff02::c]:1900";
+    // destsaObj = "[ff02::c]:1900";
+    destsaObj.ss.ss_family = AF_INET6;
+    ASSERT_EQ(::inet_pton(destsaObj.ss.ss_family, "ff02::c",
+                          &destsaObj.sin6.sin6_addr),
+              1);
+    destsaObj.sin6.sin6_port = 1900;
+
     gIF_INDEX = llaObj.index;
     strcpy(gIF_IPV4, "0.0.0.0");
 
     SSockaddr sa0Obj;
-    sa0Obj = "0.0.0.0"; // With AF_INET6, this should trigger an error.
+    // sa0Obj = "0.0.0.0"; // With AF_INET6, this should trigger an error.
+    sa0Obj.ss.ss_family = AF_INET;
 
     // Three possible local source addresses
     ::addrinfo res3{};

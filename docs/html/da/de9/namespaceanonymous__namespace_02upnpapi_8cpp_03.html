@@ -141,7 +141,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieve local network adapter information and keep it in global variables. </p>
-<p>If no or empty argument given, the operating system should find the best suitable local network adapter for operation as specified by <a href="https://www.rfc-editor.org/rfc/rfc3484">RFC3484 - Default Address Selection</a>. If an IP address is selected as argument, then only its associated gIF_IPV6_* (link-local, or network global) variables are set. If a network adapter is selected with empty argument, or as argument with name, or with index, then it can have multiple IP addresses. gIF_IPV6 and gIF_IPV6_PREFIX_LENGTH is always set, and also gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH are set, if available on the same netadaper. A loopback address ("[::1]") as argument can be found in gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH.</p>
+<p>If no or empty argument given, the operating system should find the best suitable local network adapter for operation as specified by <a href="https://www.rfc-editor.org/rfc/rfc3484">RFC3484 - Default Address Selection</a>. If an IP address is selected as argument, then only its associated gIF_IPV6_* (link-local, or network global) variables are set. If a network adapter is selected with empty argument, or as argument with name, or with index, then it can have multiple IP addresses. gIF_IPV6 and gIF_IPV6_PREFIX_LENGTH is always set, and also gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH are set, if available on the same netadapter. A loopback address ("[::1]") as argument can be found in gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH.</p>
 <p>The local network adapter must fulfill these requirements: </p><ul>
 <li>Be UP. </li>
 <li>Support MULTICAST. </li>
@@ -173,56 +173,58 @@ Variables</h2></td></tr>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_cgraph.png" border="0" usemap="#ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_cgraph" alt=""/></div>
 <map name="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_cgraph" id="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_cgraph">
-<area shape="rect" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,255,225,295"/>
-<area shape="poly" title=" " alt="" coords="70,255,67,245,75,236,91,230,115,228,144,231,159,238,157,243,142,236,115,233,92,235,78,240,73,246,75,254"/>
+<area shape="rect" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,315,225,355"/>
+<area shape="poly" title=" " alt="" coords="70,315,67,305,75,296,91,290,115,288,144,291,159,298,157,303,142,296,115,293,92,295,78,300,73,306,75,314"/>
 <area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5e132073814aad1879bb333d8bf9686" title="Get prefix length from the ip address of the current selected local network adapter." alt="" coords="273,5,443,45"/>
-<area shape="poly" title=" " alt="" coords="125,253,147,214,180,164,222,110,272,62,289,50,292,54,275,66,226,114,185,167,152,217,129,256"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="491,171,660,211"/>
-<area shape="poly" title=" " alt="" coords="177,252,273,227,378,209,477,197,477,202,379,214,274,232,179,257"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="710,268,879,308"/>
-<area shape="poly" title=" " alt="" coords="225,268,428,265,660,271,696,273,696,279,660,276,428,270,226,273"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995" title="Get network adapter name from current selected list entry." alt="" coords="710,68,879,108"/>
-<area shape="poly" title=" " alt="" coords="135,253,193,204,231,178,272,158,326,138,383,123,497,101,605,89,696,85,697,90,605,95,498,106,384,128,328,143,274,162,234,183,197,208,139,257"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="710,140,879,180"/>
-<area shape="poly" title=" " alt="" coords="149,252,206,222,272,195,327,179,384,168,498,153,605,149,696,150,696,156,605,154,498,159,385,173,328,184,274,200,208,227,152,257"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters." alt="" coords="491,349,660,389"/>
-<area shape="poly" title=" " alt="" coords="214,292,478,347,477,352,213,297"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="279,457,437,497"/>
-<area shape="poly" title=" " alt="" coords="142,293,324,446,321,450,139,297"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="491,285,660,325"/>
-<area shape="poly" title=" " alt="" coords="226,279,477,296,477,301,225,285"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a8a8cc96fde129cc987147c49db173778" title="Get the assosiated netaddress without port." alt="" coords="717,693,872,733"/>
-<area shape="poly" title=" " alt="" coords="128,294,170,380,204,439,246,502,296,566,354,625,419,677,455,698,492,715,544,730,599,736,654,735,703,730,704,735,654,740,599,741,543,735,490,720,452,702,416,681,350,629,292,569,242,505,199,442,165,383,123,296"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a3d150df1d5cb6cc8b7977af6aba60c3c" title="Get the socket address from current selcted address information." alt="" coords="279,780,437,820"/>
-<area shape="poly" title=" " alt="" coords="120,295,128,378,152,501,172,569,198,637,232,701,275,760,287,770,284,774,271,763,228,704,193,639,167,570,147,502,123,379,115,295"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="710,204,879,244"/>
-<area shape="poly" title=" " alt="" coords="661,201,697,206,696,212,660,206"/>
-<area shape="poly" title=" " alt="" coords="623,208,661,227,709,254,725,260,723,265,707,258,659,232,620,213"/>
-<area shape="poly" title=" " alt="" coords="617,168,707,126,737,111,739,116,709,130,620,173"/>
-<area shape="poly" title=" " alt="" coords="660,176,696,171,697,176,661,181"/>
-<area shape="poly" title=" " alt="" coords="641,347,658,335,674,316,681,296,689,275,706,254,713,249,716,253,710,258,694,278,686,298,679,318,662,339,644,351"/>
-<area shape="poly" title=" " alt="" coords="629,347,707,318,726,310,728,315,709,322,631,352"/>
-<area shape="poly" title=" " alt="" coords="643,347,658,335,671,318,678,300,681,264,685,228,692,209,706,190,710,186,714,190,710,194,697,212,690,229,687,265,683,301,676,320,662,339,647,351"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd" title="Test if a socket address is a global unicast address." alt="" coords="708,356,881,396"/>
-<area shape="poly" title=" " alt="" coords="661,369,695,370,695,376,660,375"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25" title="Test if a socket address is a link&#45;local address." alt="" coords="708,453,881,493"/>
-<area shape="poly" title=" " alt="" coords="620,387,740,445,738,450,617,392"/>
-<area shape="poly" title=" " alt="" coords="754,356,751,346,758,337,772,331,795,329,820,332,834,340,832,344,819,337,795,335,774,337,761,341,756,347,759,355"/>
-<area shape="poly" title=" " alt="" coords="754,454,751,444,758,434,772,429,795,427,820,430,834,437,832,442,819,435,795,432,774,434,761,439,756,445,759,452"/>
-<area shape="poly" title=" " alt="" coords="368,456,417,373,451,322,489,272,539,218,543,222,493,275,456,325,422,376,373,459"/>
-<area shape="poly" title=" " alt="" coords="437,462,564,435,620,418,658,399,675,380,682,360,689,339,706,318,713,313,716,317,710,322,694,342,687,362,679,383,662,403,622,423,565,440,438,467"/>
-<area shape="poly" title=" " alt="" coords="437,474,694,472,694,477,437,479"/>
-<area shape="poly" title=" " alt="" coords="372,455,420,397,453,364,489,335,499,329,502,334,492,340,456,368,424,400,376,459"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0" title="Free function to check if a string represents an unsigned number." alt="" coords="711,567,878,593"/>
-<area shape="poly" title=" " alt="" coords="375,496,421,551,454,579,492,600,524,610,557,616,626,616,690,607,743,594,745,599,691,613,626,622,557,621,523,615,490,605,451,584,418,555,371,499"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="498,665,653,705"/>
-<area shape="poly" title=" " alt="" coords="373,496,420,567,454,608,492,645,510,656,507,661,489,649,450,612,416,570,368,499"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27" title="Free function to split inet address, scope_id, and port(service)" alt="" coords="494,515,657,541"/>
-<area shape="poly" title=" " alt="" coords="438,493,507,509,506,515,437,498"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5" title="Free function to check if a string represents a valid port number." alt="" coords="509,565,642,590"/>
-<area shape="poly" title=" " alt="" coords="390,495,437,523,492,551,510,558,508,563,490,556,435,528,388,500"/>
-<area shape="poly" title=" " alt="" coords="653,693,704,699,704,704,653,698"/>
-<area shape="poly" title=" " alt="" coords="630,538,728,562,727,567,629,543"/>
+<area shape="poly" title=" " alt="" coords="121,314,140,264,172,198,216,126,242,92,272,62,287,50,291,54,275,66,246,96,220,129,177,200,145,266,126,316"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="491,285,660,325"/>
+<area shape="poly" title=" " alt="" coords="225,325,477,309,477,314,226,330"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="719,19,888,59"/>
+<area shape="poly" title=" " alt="" coords="133,312,191,253,230,220,272,191,325,162,382,136,498,96,609,67,704,49,705,54,610,72,499,101,384,141,328,167,275,196,233,225,195,257,136,316"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995" title="Get network adapter name from current selected list entry." alt="" coords="719,349,888,389"/>
+<area shape="poly" title=" " alt="" coords="226,338,705,362,705,367,226,343"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="719,235,888,275"/>
+<area shape="poly" title=" " alt="" coords="200,312,273,297,388,281,505,269,704,255,705,261,505,274,389,286,274,303,201,317"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters." alt="" coords="491,171,660,211"/>
+<area shape="poly" title=" " alt="" coords="138,312,196,268,233,245,272,227,324,211,377,200,477,189,477,194,378,205,325,216,274,232,235,250,199,272,141,317"/>
+<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="279,444,437,484"/>
+<area shape="poly" title=" " alt="" coords="155,353,308,435,306,440,153,357"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="491,667,660,707"/>
+<area shape="poly" title=" " alt="" coords="136,353,196,418,275,494,378,581,427,615,492,652,505,659,502,663,489,657,424,619,375,585,272,498,192,422,133,357"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a8a8cc96fde129cc987147c49db173778" title="Get the assosiated netaddress without port." alt="" coords="726,663,881,703"/>
+<area shape="poly" title=" " alt="" coords="125,354,142,408,172,481,217,560,244,596,275,629,322,667,366,695,408,714,451,725,495,729,544,728,660,716,723,704,725,709,660,721,544,733,495,734,450,730,406,719,363,700,319,671,272,633,240,600,212,563,168,484,137,410,120,356"/>
+<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a3d150df1d5cb6cc8b7977af6aba60c3c" title="Get the socket address from current selcted address information." alt="" coords="279,781,437,821"/>
+<area shape="poly" title=" " alt="" coords="121,355,132,429,158,536,178,595,204,654,236,711,275,761,288,772,284,776,271,764,232,714,199,657,173,597,153,538,127,430,116,355"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="719,171,888,211"/>
+<area shape="poly" title=" " alt="" coords="603,283,650,252,707,220,723,213,725,218,709,225,653,256,606,288"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga87f12f31c0044a441c8a088d4155da09" title="Free function to split inet address, scope_id, and port(service)" alt="" coords="708,502,899,527"/>
+<area shape="poly" title=" " alt="" coords="603,324,633,353,662,388,677,417,683,442,691,465,710,487,718,493,715,498,706,491,686,467,678,443,672,418,658,391,629,356,599,328"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0" title="Free function to check if a string represents an unsigned integer." alt="" coords="947,502,1113,527"/>
+<area shape="poly" title=" " alt="" coords="660,293,716,292,778,297,841,310,900,335,943,368,977,410,1003,452,1021,488,1016,491,999,455,973,413,939,372,897,340,840,315,778,302,716,297,660,298"/>
+<area shape="poly" title=" " alt="" coords="601,283,631,256,658,221,668,200,673,180,677,143,682,107,691,88,706,69,710,65,714,69,710,72,695,91,687,108,682,143,679,181,673,202,662,224,635,259,605,287"/>
+<area shape="poly" title=" " alt="" coords="648,323,719,343,717,348,647,328"/>
+<area shape="poly" title=" " alt="" coords="660,284,704,274,706,279,661,289"/>
+<area shape="poly" title=" " alt="" coords="899,512,933,512,933,517,899,517"/>
+<area shape="poly" title=" " alt="" coords="661,188,705,188,705,193,661,193"/>
+<area shape="poly" title=" " alt="" coords="631,168,658,150,674,130,681,110,689,89,706,69,713,64,716,68,710,73,693,92,686,112,678,132,662,154,634,173"/>
+<area shape="poly" title=" " alt="" coords="648,208,719,228,717,233,647,213"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd" title="Test if a socket address is a global unicast address." alt="" coords="717,107,890,147"/>
+<area shape="poly" title=" " alt="" coords="647,168,717,148,719,153,648,173"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25" title="Test if a socket address is a link&#45;local address." alt="" coords="717,437,890,477"/>
+<area shape="poly" title=" " alt="" coords="604,209,634,237,662,272,678,307,684,338,691,368,710,400,726,415,745,428,742,433,723,419,706,403,686,370,679,340,673,309,658,275,630,241,600,213"/>
+<area shape="poly" title=" " alt="" coords="761,107,758,97,765,88,780,82,803,80,830,83,844,90,842,95,828,88,803,85,782,87,768,92,764,98,766,106"/>
+<area shape="poly" title=" " alt="" coords="761,438,758,428,765,418,780,413,803,411,830,414,844,421,842,426,828,419,803,416,782,418,768,423,764,429,766,436"/>
+<area shape="poly" title=" " alt="" coords="385,442,534,331,537,336,388,446"/>
+<area shape="poly" title=" " alt="" coords="438,470,695,500,694,505,437,476"/>
+<area shape="poly" title=" " alt="" coords="423,482,491,500,604,526,693,541,783,545,898,537,962,527,963,533,899,543,783,550,693,546,603,531,490,505,422,487"/>
+<area shape="poly" title=" " alt="" coords="360,443,371,387,394,310,411,269,433,228,458,190,489,157,510,140,531,129,570,120,611,115,659,99,683,84,707,68,723,61,725,66,709,73,685,88,661,104,612,120,571,125,533,134,513,144,492,161,462,194,437,231,416,271,399,312,376,388,365,444"/>
+<area shape="poly" title=" " alt="" coords="437,460,703,456,703,461,437,465"/>
+<area shape="poly" title=" " alt="" coords="375,483,493,653,499,657,496,662,489,657,371,486"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="498,603,653,643"/>
+<area shape="poly" title=" " alt="" coords="380,482,428,531,492,582,513,594,510,599,489,586,425,535,376,486"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5" title="Free function to check if a string represents a valid port number." alt="" coords="509,401,642,426"/>
+<area shape="poly" title=" " alt="" coords="437,443,506,427,507,432,438,448"/>
+<area shape="poly" title=" " alt="" coords="653,640,714,657,713,662,652,645"/>
 </map>
 </div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">

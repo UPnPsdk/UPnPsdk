@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-10
+// Redistribution only with this Copyright remark. Last modified: 2026-07-15
 
 // Due to Microsoft Windows socket error 10013 I use port numbers not in
 // range 49152 to 65535 if needed. For details have a look at
@@ -338,8 +338,12 @@ TEST(SocketTestSuite, instantiate_unbind_socket) {
 }
 
 TEST(SocketBasicTestSuite, instantiate_with_bound_raw_socket_fd) {
-    // saddr = "127.0.0.1:50001";
-    saddr = "[::1]:50001";
+    // saddr = "[::1]:50001";
+    saddr.clear();
+    saddr.ss.ss_family = AF_INET6;
+    saddr.sin6.sin6_addr.s6_addr[15] = 1; // "[::1]"
+    saddr.sin6.sin6_scope_id = 0;
+    saddr.sin6.sin6_port = htons(50001);
     CSocket bound_sockObj = SOCK_STREAM;
     // Default IPV6_V6ONLY setting is different on different platforms but
     // doesn't matter. It will be reset before binding a socket address.
@@ -366,8 +370,8 @@ TEST(SocketTestSuite, move_socket_successful) {
     CSocket sock1 = SOCK_STREAM;
 
     // Get local interface address when node is empty with flag AI_PASSIVE.
-    saddr = "";
-    saddr = 8080;
+    saddr.ss = {};
+    saddr.sin6.sin6_port = htons(8080);
     ASSERT_NO_THROW(sock1.bind(&saddr, AI_PASSIVE));
     ASSERT_TRUE(sock1.local_saddr(&saddr)); // is bound?
     EXPECT_FALSE(sock1.is_listen());
@@ -404,8 +408,8 @@ TEST(SocketTestSuite, move_socket_successful) {
 TEST(SocketTestSuite, assign_socket_successful) {
     // Provide first of two socket objects.
     // Get local interface address when node is empty with flag AI_PASSIVE.
-    saddr = "";
-    saddr = 8080;
+    saddr.ss = {};
+    saddr.sin6.sin6_port = htons(8080);
     CSocket sock1 = SOCK_STREAM;
     ASSERT_NO_THROW(sock1.bind(&saddr, AI_PASSIVE));
     ASSERT_TRUE(sock1.local_saddr(&saddr)); // is bound?
@@ -450,8 +454,8 @@ TEST(SocketTestSuite, move_socket_via_allocated_list) {
         static_cast<SSocketList*>(malloc(sizeof(SSocketList)));
     ASSERT_NE(socket_list, nullptr);
 
-    saddr = "";
-    saddr = 8080;
+    saddr.ss = {};
+    saddr.sin6.sin6_port = htons(8080);
     CSocket sock1Obj = SOCK_STREAM;
     ASSERT_NO_THROW(sock1Obj.bind(&saddr, AI_PASSIVE));
     // sock1Obj.local_saddr(&saddr);
@@ -494,14 +498,23 @@ TEST(SocketTestSuite, bind_ipv6only) {
     // (https://stackoverflow.com/a/1618259/5014688)
 
     // "any" IPv6 address, unspec. address will accept resetting IPV6_V6ONLY.
-    saddr = "[::]:50002";
+    // "[::]:50002;
+    saddr.ss = {};
+    saddr.ss.ss_family = AF_INET6;
+    saddr.sin6.sin6_port = htons(50002);
+
     CSocket sock1Obj = SOCK_STREAM;
     EXPECT_NO_THROW(sock1Obj.bind(&saddr));
     EXPECT_TRUE(sock1Obj.local_saddr());
     EXPECT_FALSE(is_v6only(sock1Obj)); // reset
 
     // Unicast IPv6 address.
-    saddr = "[::1]:50003";
+    // "[::1]:50003";
+    saddr.ss = {};
+    saddr.ss.ss_family = AF_INET6;
+    saddr.sin6.sin6_addr.s6_addr[15] = 1;
+    saddr.sin6.sin6_port = htons(50003);
+
     CSocket sock2Obj = SOCK_STREAM;
     EXPECT_NO_THROW(sock2Obj.bind(&saddr));
     EXPECT_TRUE(sock2Obj.local_saddr());
@@ -516,7 +529,11 @@ TEST(SocketTestSuite, bind_ipv6only) {
     // "any" IPv4 address, will normaly fail because an IPv4 socket cannot
     // specified to use ipv6only. but the IPv4 address is mapped to IPv6, so
     // setting IPv6only is accepted.
-    saddr = "0.0.0.0:50004";
+    // "0.0.0.0:50004"
+    saddr.ss = {};
+    saddr.ss.ss_family = AF_INET;
+    saddr.sin.sin_port = htons(50004);
+
     CSocket sock3Obj = SOCK_STREAM;
     EXPECT_NO_THROW(sock3Obj.bind(&saddr));
     EXPECT_TRUE(sock3Obj.local_saddr());
@@ -525,7 +542,12 @@ TEST(SocketTestSuite, bind_ipv6only) {
     // Unicast IPv4 address, will normaly fail because an IPv4 socket cannot
     // specified tu use ipv6only. but the IPv4 address is mapped to IPv6, so
     // setting IPv6only is accepted.
-    saddr = "127.0.0.1:50005";
+    // "127.0.0.1:50005"
+    saddr.ss = {};
+    saddr.ss.ss_family = AF_INET;
+    ::inet_pton(saddr.ss.ss_family, "127.0.0.1", &saddr.sin.sin_addr);
+    saddr.sin.sin_port = htons(50005);
+
     CSocket sock4Obj = SOCK_STREAM;
     EXPECT_NO_THROW(sock4Obj.bind(&saddr));
     EXPECT_TRUE(sock4Obj.local_saddr());
@@ -533,7 +555,12 @@ TEST(SocketTestSuite, bind_ipv6only) {
 }
 
 TEST(SocketTestSuite, bind_ipv6_successful) {
-    saddr = "[::1]:50006";
+    // "[::1]:50006"
+    saddr.ss = {};
+    saddr.ss.ss_family = AF_INET6;
+    saddr.sin6.sin6_addr.s6_addr[15] = 1;
+    saddr.sin6.sin6_port = htons(50006);
+
     CSocket sockObj = SOCK_STREAM;
     ASSERT_NO_THROW(sockObj.bind(&saddr));
     EXPECT_TRUE(sockObj.local_saddr());
@@ -550,9 +577,18 @@ TEST(SocketTestSuite, bind_ipv6_successful) {
 }
 
 TEST(SocketTestSuite, bind_ipv6_rapid_same_port_two_times) {
-    saddr = "[::1]:50007";
+    // "[::1]:50007"
+    saddr.ss = {};
+    saddr.ss.ss_family = AF_INET6;
+    saddr.sin6.sin6_addr.s6_addr[15] = 1;
+    saddr.sin6.sin6_port = htons(50007);
+
     SSockaddr saddr2;
-    saddr2 = "[::1]:50007"; // Can be modified to different saddr.
+    // saddr2 = "[::1]:50007"; // Can be modified to different saddr.
+    saddr2.ss.ss_family = AF_INET6;
+    saddr2.sin6.sin6_addr.s6_addr[15] = 1;
+    saddr2.sin6.sin6_port = 50007;
+
     CSocket sock2Obj = SOCK_STREAM;
 
     // Test Unit
@@ -576,7 +612,12 @@ TEST(SocketTestSuite, bind_ipv6_rapid_same_port_two_times) {
 }
 
 TEST(SocketTestSuite, bind_ipv4_successful) {
-    saddr = "127.0.0.1:50008";
+    // "127.0.0.1:50008;
+    saddr.ss = {};
+    saddr.ss.ss_family = AF_INET;
+    ::inet_pton(saddr.ss.ss_family, "127.0.0.1", &saddr.sin.sin_addr);
+    saddr.sin.sin_port = htons(50008);
+
     CSocket sockObj = SOCK_DGRAM;
     EXPECT_NO_THROW(sockObj.bind(&saddr));
 
@@ -593,7 +634,12 @@ TEST(SocketTestSuite, bind_ipv4_successful) {
 
 TEST(SocketBasicTestSuite, bind_socket_two_times_successful) {
     // Get a raw socket file descriptor
-    saddr = "[::1]:50009";
+    // "[::1]:50009"
+    saddr.ss = {};
+    saddr.ss.ss_family = AF_INET6;
+    saddr.sin6.sin6_addr.s6_addr[15] = 1;
+    saddr.sin6.sin6_port = htons(50009);
+
     CSocket bound_sockObj = SOCK_DGRAM;
     ASSERT_NO_THROW(bound_sockObj.bind(&saddr));
     SOCKET bound_sock = bound_sockObj;
@@ -626,15 +672,16 @@ TEST(SocketTestSuite, bind_default_passive_successful) {
     // local network interfaces.
     EXPECT_THAT(saddr.netaddr(), AnyOf("[::]", "0.0.0.0"));
     // A port number was given by ::bind().
-    EXPECT_NE(saddr.port(), 0);
+    EXPECT_NE(saddr.sin6.sin6_port, 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());
 }
 
 TEST(SocketTestSuite, bind_only_service_passive_successful) {
-    saddr = "";
-    saddr = 8080;
+    saddr.ss = {};
+    saddr.sin6.sin6_port = htons(8080);
+
     CSocket sockObj = SOCK_STREAM;
     ASSERT_NO_THROW(sockObj.bind(&saddr, AI_PASSIVE));
     ASSERT_TRUE(sockObj.local_saddr(&saddr)); // is bound?
@@ -659,7 +706,7 @@ TEST(SocketTestSuite, bind_default_not_passive_successful) {
     sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.ss.ss_family, AnyOf(AF_INET6, AF_INET));
     // A port number was given by ::bind().
-    EXPECT_NE(saddr.port(), 0);
+    EXPECT_NE(saddr.sin6.sin6_port, 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());
@@ -675,15 +722,15 @@ TEST(SocketTestSuite, bind_without_node_not_passive_successful) {
     sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.ss.ss_family, AnyOf(AF_INET6, AF_INET));
     // A port number was given by ::bind().
-    EXPECT_NE(saddr.port(), 0);
+    EXPECT_NE(saddr.sin6.sin6_port, 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());
 }
 
 TEST(SocketTestSuite, bind_only_service_not_passive_successful) {
-    saddr = "";
-    saddr = 8080;
+    saddr.ss = {};
+    saddr.sin6.sin6_port = htons(8080);
 
     // Test Unit
     CSocket sockObj = SOCK_STREAM;
@@ -700,7 +747,8 @@ TEST(SocketTestSuite, bind_only_service_not_passive_successful) {
 }
 
 TEST(SocketTestSuite, bind_to_loopback_interface_successful) {
-    saddr = ""; // Unspecified socket address
+    saddr.ss = {}; // Unspecified socket address
+
     CSocket sockObj = SOCK_STREAM;
     ASSERT_NO_THROW(sockObj.bind(&saddr));
     EXPECT_TRUE(sockObj.local_saddr());
@@ -710,7 +758,7 @@ TEST(SocketTestSuite, bind_to_loopback_interface_successful) {
     sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.netaddr(), AnyOf("[::1]", "127.0.0.1"));
     // A port number was given by ::bind().
-    EXPECT_NE(saddr.port(), 0);
+    EXPECT_NE(saddr.sin6.sin6_port, 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());
@@ -729,7 +777,7 @@ TEST(SocketTestSuite, bind_to_localhost_successful) {
     sockObj.local_saddr(&saddr);
     EXPECT_THAT(saddr.netaddr(), AnyOf("[::1]", "127.0.0.1"));
     // A port number was given by ::bind().
-    EXPECT_NE(saddr.port(), 0);
+    EXPECT_NE(saddr.sin6.sin6_port, 0);
     EXPECT_EQ(sockObj.sockerr(), 0);
     EXPECT_FALSE(sockObj.is_reuse_addr());
     EXPECT_FALSE(sockObj.is_listen());
@@ -770,15 +818,17 @@ TEST(SocketTestSuite, bind_two_times_different_addresses_fail) {
     // Binding a socket two times isn't possible. The socket must be
     // shutdown/closed before bind it again.
     // Provide a socket object
-    saddr = "";
-    saddr = ":50010"; // Modifies only port
+    saddr.ss = {};
+    saddr.sin6.sin6_port = htons(50010); // Modifies only port
+
     CSocket sockObj = SOCK_STREAM;
     ASSERT_NO_THROW(sockObj.bind(&saddr));
     EXPECT_TRUE(sockObj.local_saddr());
 
     // Try to bind the socket a second time to another address.
     SSockaddr saddr2;
-    saddr2 = ":50011"; // Modifies only port
+    // saddr2 = ":50011"; // Modifies only port
+    saddr2.sin6.sin6_port = htons(50011);
     EXPECT_THAT(([&sockObj, &saddr2]() { sockObj.bind(&saddr2); }),
                 ThrowsMessage<std::runtime_error>(ContainsStdRegex(
                     "UPnPsdk MSG1008 EXCEPT\\[.* Failed to bind socket .*to "
@@ -808,7 +858,12 @@ TEST(SocketTestSuite, bind_with_invalid_argument_fails) {
 
 TEST_F(SocketMockFTestSuite, bind_ipv6_lla_successful) {
     constexpr SOCKET sockfd{umock::sfd_base + 10};
-    saddr = "[fe80::fedc:cdef:0:3%300]";
+    // "[fe80::fedc:cdef:0:3%300]"
+    saddr.ss = {};
+    saddr.ss.ss_family = AF_INET6;
+    ::inet_pton(saddr.ss.ss_family, "fe80::fedc:cdef:0:3",
+                &saddr.sin6.sin6_addr);
+    saddr.sin6.sin6_scope_id = 300;
 
     // --- Mock get_sockfd() ---
     // Provide a socket file descriptor
@@ -924,7 +979,9 @@ TEST_F(SocketMockFTestSuite, bind_fails_to_set_ipv6_only) {
     EXPECT_THAT(
         [&sockObj]() {
             SSockaddr saObj;
-            saObj = "[::1]";
+            // saObj = "[::1]";
+            saObj.ss.ss_family = AF_INET6;
+            saObj.sin6.sin6_addr.s6_addr[15] = 1;
             sockObj.bind(&saObj);
         },
         ThrowsMessage<std::runtime_error>(
@@ -937,7 +994,10 @@ TEST_F(SocketMockFTestSuite, bind_syscall_fails) {
     const SOCKET sfd = sockObj.socket();
 
     SSockaddr saddrObj;
-    saddrObj = "[2001:db8::fedc:cdef:0:4]";
+    // saddrObj = "[2001:db8::fedc:cdef:0:4]";
+    saddrObj.ss.ss_family = AF_INET6;
+    ::inet_pton(saddrObj.ss.ss_family, "2001:db8::fedc:cdef:0:4",
+                &saddrObj.sin6.sin6_addr);
 
 #if 0
     // --- Mock get_sockfd() ---
@@ -1073,7 +1133,11 @@ TEST(SocketTestSuite, check_binding_passive_all_free_ports) {
 TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_successful) {
     constexpr auto socktype = SOCK_DGRAM;
     SSockaddr saddrObj;
-    saddrObj = "[2001:db8::fedc:cdef:0:5]";
+    // saddrObj = "[2001:db8::fedc:cdef:0:5]";
+    saddrObj.ss.ss_family = AF_INET6;
+    ::inet_pton(saddrObj.ss.ss_family, "2001:db8::fedc:cdef:0:5",
+                &saddrObj.sin6.sin6_addr);
+
     // sfd is given to the Unit and it will close it.
     SOCKET sfd = ::socket(PF_INET6, socktype, 0);
     ASSERT_NE(sfd, INVALID_SOCKET);
@@ -1126,7 +1190,11 @@ TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_successful) {
 
 TEST_F(SocketMockFTestSuite, bind_syscall_win32_exclusive_addr_use_fails) {
     SSockaddr saddrObj;
-    saddrObj = "[2001:db8::fedc:cdef:0:6]";
+    // saddrObj = "[2001:db8::fedc:cdef:0:6]";
+    saddrObj.ss.ss_family = AF_INET6;
+    ::inet_pton(saddrObj.ss.ss_family, "2001:db8::fedc:cdef:0:6",
+                &saddrObj.sin6.sin6_addr);
+
     constexpr auto socktype = SOCK_DGRAM;
     // sfd is given to the Unit and it will close it.
     SOCKET sfd = ::socket(PF_INET6, socktype, 0);
@@ -1274,10 +1342,15 @@ TEST_F(SocketMockFTestSuite, remote_saddr_successful) {
     // Set mocked expectations, always without and with pointer to result addr.
     SOCKET sockfd = sockObj;
     SSockaddr saddr1Obj;
-    saddr1Obj = "[::]"; // Empty IPv6 addr will internally be returned from
-                        // system as valid but not connected.
+    // saddr1Obj = "[::]"; // Empty IPv6 addr will internally be returned from
+    // system as valid but not connected.
+    saddr1Obj.ss.ss_family = AF_INET6;
     SSockaddr saddr2Obj;
-    saddr2Obj = "[fe80::fedc:1:1%100]"; // Valid connected ip address.
+    // saddr2Obj = "[fe80::fedc:1:1%100]"; // Valid connected ip address.
+    saddr2Obj.ss.ss_family = AF_INET6;
+    ::inet_pton(saddr2Obj.ss.ss_family, "fe80::fedc:1:1",
+                &saddr2Obj.sin6.sin6_addr);
+    saddr2Obj.sin6.sin6_scope_id = 100;
 
     EXPECT_CALL(m_sys_socketObj, getpeername(sockfd, _, _))
         // First expectation to be valid but with no socket address part (macOS)
@@ -1303,19 +1376,25 @@ TEST_F(SocketMockFTestSuite, remote_saddr_successful) {
 
     // Test Unit
     // First expectation with valid but not connected net address.
-    saddr = "[fe80::fedc:0:4%400]"; // Will not be modified.
+    // saddr = "[fe80::fedc:0:4%400]"; // Will not be modified.
+    saddr.ss.ss_family = AF_INET6;
+    ::inet_pton(saddr.ss.ss_family, "fe80::fedc:0:4", &saddr.sin6.sin6_addr);
+    saddr.sin6.sin6_scope_id = 400;
     EXPECT_THROW(sockObj.remote_saddr(), std::invalid_argument);
     EXPECT_THROW(sockObj.remote_saddr(&saddr), std::invalid_argument);
     EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:0:4%400]:0");
 
     // Second expectation with other system error does not modify result.
-    saddr = "[fe80::fedc:0:5%500]"; // Will not be modified.
+    // saddr = "[fe80::fedc:0:5%500]"; // Will not be modified.
+    saddr.ss.ss_family = AF_INET6;
+    ::inet_pton(saddr.ss.ss_family, "fe80::fedc:0:5", &saddr.sin6.sin6_addr);
+    saddr.sin6.sin6_scope_id = 500;
     EXPECT_THROW(sockObj.remote_saddr(), std::runtime_error);
     EXPECT_THROW(sockObj.remote_saddr(&saddr), std::runtime_error);
     EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:0:5%500]:0");
 
     // Third expectation with valid connected ip address.
-    saddr = ""; // Will be filled with the connected socket address.
+    saddr.ss = {}; // Will be filled with the connected socket address.
     EXPECT_TRUE(sockObj.remote_saddr());
     EXPECT_TRUE(sockObj.remote_saddr(&saddr));
     EXPECT_EQ(saddr.netaddrp(), "[fe80::fedc:1:1%100]:0");

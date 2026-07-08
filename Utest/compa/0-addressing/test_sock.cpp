@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-30
+// Redistribution only with this Copyright remark. Last modified: 2025-07-13
 
 // Helpful link for ip address structures:
 // https://stackoverflow.com/q/76548580/5014688
@@ -157,7 +157,11 @@ TEST(SockTestSuite, sock_init_with_ip_successful) {
 
     // Provide a sockaddr_in structure
     SSockaddr saddrObj;
-    saddrObj = "192.168.192.168:80";
+    // saddrObj = "192.168.192.168:80";
+    saddrObj.ss.ss_family = AF_INET;
+    ::inet_pton(saddrObj.ss.ss_family, "192.168.192.168",
+                &saddrObj.sin.sin_addr);
+    saddrObj.sin.sin_port = htons(80);
 
     // Test Unit
     int ret_sock_init_with_ip =
@@ -167,7 +171,7 @@ TEST(SockTestSuite, sock_init_with_ip_successful) {
 
     EXPECT_EQ(sockinfo.socket, sockfd);
     EXPECT_EQ(sockinfo.foreign_sockaddr.sin.sin_family, AF_INET);
-    EXPECT_EQ(sockinfo.foreign_sockaddr.sin.sin_port, htons(80));
+    EXPECT_EQ(ntohs(sockinfo.foreign_sockaddr.sin.sin_port), 80);
     EXPECT_EQ(sockinfo.foreign_sockaddr.sin.sin_addr.s_addr,
               saddrObj.sin.sin_addr.s_addr);
 }

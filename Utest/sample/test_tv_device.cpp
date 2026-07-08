@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-30
+// Redistribution only with this Copyright remark. Last modified: 2025-07-12
 
 // -----------------------------------------------------------------------------
 // This testsuite starts the sample TV Device with general command line
@@ -310,9 +310,12 @@ TEST_F(SampleTvDeviceFTestSuite, TvDeviceStart_successful) {
         // Mock V4 and V6 http listeners: get socket, bind it, listen on it and
         // get port with getsockname().
         constexpr SOCKET listen_sockfd{umock::sfd_base + 41};
-        const std::string listen_port_str{"50010"};
         SSockaddr listen_ssObj; // for getsockname() return sockaddr & port
-        listen_ssObj = local_addr_str + ":" + listen_port_str;
+        // listen_ssObj = local_addr_str + ":" + listen_port_str;
+        listen_ssObj.ss.ss_family = AF_INET;
+        ::inet_pton(listen_ssObj.ss.ss_family, local_addr_str.c_str(),
+                    &listen_ssObj.sin.sin_addr);
+        listen_ssObj.sin.sin_port = 50010;
 
         EXPECT_CALL(sys_socketObj, socket(AF_INET, SOCK_STREAM, 0))
             .WillOnce(Return(listen_sockfd));
@@ -331,9 +334,12 @@ TEST_F(SampleTvDeviceFTestSuite, TvDeviceStart_successful) {
         constexpr SOCKET stop_sockfd{umock::sfd_base + 42};
         constexpr SOCKET ssdpReqSock{umock::sfd_base + 43};
         constexpr SOCKET ssdpSock{umock::sfd_base + 44};
-        const std::string stop_port{"50011"};
         SSockaddr stop_ssObj; // for getsockname() return sockaddr & port
-        stop_ssObj = local_addr_str + ":" + stop_port;
+        // stop_ssObj = local_addr_str + ":" + stop_port;
+        stop_ssObj.ss.ss_family = AF_INET;
+        ::inet_pton(stop_ssObj.ss.ss_family, local_addr_str.c_str(),
+                    &stop_ssObj.sin.sin_addr);
+        stop_ssObj.sin.sin_port = 50011;
 
         EXPECT_CALL(sys_socketObj, socket(AF_INET, SOCK_DGRAM, 0))
             .WillOnce(Return(stop_sockfd));

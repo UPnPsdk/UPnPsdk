@@ -2,7 +2,7 @@ name: Integration tests
 
 on:
   push:
-    branches: [ ssockaddr_tokenize, main ]
+    branches: [ simplify_ssockaddr, main ]
   pull_request:
     branches: [ main ]
 

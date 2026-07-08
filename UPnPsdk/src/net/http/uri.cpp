@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-10
+// Redistribution only with this Copyright remark. Last modified: 2026-05-14
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -9,7 +9,6 @@
 #include <UPnPsdk/uri.hpp>
 
 #include <UPnPsdk/synclog.hpp>
-#include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/messages.hpp>
 #include <UPnPsdk/addrinfo.hpp>
 
@@ -457,10 +456,22 @@ get_host(std::string_view a_uriref_sv ///< [in] URI reference to parse
     // Check if the host_name is valid.
     // Check IPv6 address.
     if (authority_sv.front() == '[') {
-        SSockaddr saObj;
-        saObj = authority_sv;
-        if (saObj.ss.ss_family != AF_INET6)
+        inaddr_token_t inaddr;
+        inaddr_tokenize(authority_sv, inaddr);
+        UPnPsdk::sockaddr_t saddr{};
+        if (::inet_pton(AF_INET6, inaddr.node.c_str(), &saddr.sin6.sin6_addr) !=
+            1) {
             goto exception;
+        }
+        saddr.ss.ss_family = AF_INET6;
+        if (is_unum_str(inaddr.scope, 10))
+            saddr.sin6.sin6_scope_id =
+                static_cast<uint32_t>(std::stoul(inaddr.scope));
+        SSockaddr saObj;
+        saObj = saddr.ss;
+        if (saObj.ss.ss_family == AF_UNSPEC) {
+            goto exception;
+        }
     }
     // Check IPv4 address and DNS name. No DNS name resolution is performed.
     // The syntax rule for host is ambiguous because it does not completely

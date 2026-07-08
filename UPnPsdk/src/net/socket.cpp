@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-12
+// Redistribution only with this Copyright remark. Last modified: 2026-07-09
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -244,7 +244,7 @@ bool CSocket_basic::local_saddr_intern(SSockaddr* a_saddr) const {
     TRACE2(this, " Executing CSocket_basic::local_saddr_intern()")
     if (m_sfd == INVALID_SOCKET) {
         if (a_saddr)
-            *a_saddr = "";
+            a_saddr->clear();
         return false;
     }
 
@@ -276,7 +276,7 @@ bool CSocket_basic::local_saddr_intern(SSockaddr* a_saddr) const {
         // unbound. I return here an empty socket address with preserved
         // address family.
         if (a_saddr) {
-            *a_saddr = "";
+            a_saddr->clear();
             a_saddr->ss.ss_family = af;
         }
         return false;
@@ -296,7 +296,7 @@ bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
 
     if (m_sfd == INVALID_SOCKET) {
         if (a_saddr)
-            *a_saddr = "";
+            a_saddr->clear();
         return false;
     }
 
@@ -311,7 +311,7 @@ bool CSocket_basic::remote_saddr(SSockaddr* a_saddr) const {
         if (serrObj == ENOTCONNP) {
             // Return with empty socket address if not connected.
             if (a_saddr)
-                *a_saddr = "";
+                a_saddr->clear();
             return false;
         }
         throw std::runtime_error(

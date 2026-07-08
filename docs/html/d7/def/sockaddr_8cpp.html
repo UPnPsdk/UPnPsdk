@@ -108,7 +108,6 @@ $(document).ready(function(){initNavTree('d7/def/sockaddr_8cpp.html','../../'); 
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">UPnPsdk/sockaddr.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="../../d1/d3b/synclog_8hpp_source.html">UPnPsdk/synclog.hpp</a>&gt;</code><br />
-<code>#include &lt;umock/netdb.hpp&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Include dependency graph for sockaddr.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -116,13 +115,11 @@ $(document).ready(function(){initNavTree('d7/def/sockaddr_8cpp.html','../../'); 
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d4/d5d/sockaddr_8cpp__incl.png" border="0" usemap="#aUPnPsdk_2src_2net_2sockaddr_8cpp" alt=""/></div>
 <map name="aUPnPsdk_2src_2net_2sockaddr_8cpp" id="aUPnPsdk_2src_2net_2sockaddr_8cpp">
-<area shape="rect" title="Definition of the Sockaddr class and some free helper functions." alt="" coords="394,5,609,31"/>
+<area shape="rect" title="Definition of the Sockaddr class and some free helper functions." alt="" coords="217,5,431,31"/>
 <area shape="rect" href="../../d7/d1b/sockaddr_8hpp.html" title="Declaration of the Sockaddr class and some free helper functions." alt="" coords="145,79,313,104"/>
-<area shape="poly" title=" " alt="" coords="458,33,287,78,286,73,457,28"/>
+<area shape="poly" title=" " alt="" coords="310,33,257,72,254,68,307,29"/>
 <area shape="rect" href="../../d1/d3b/synclog_8hpp.html" title="Define macro for synced logging to the console for detailed info and debug." alt="" coords="421,79,582,104"/>
-<area shape="poly" title=" " alt="" coords="504,31,504,65,499,65,499,31"/>
-<area shape="rect" title=" " alt="" coords="606,79,741,104"/>
-<area shape="poly" title=" " alt="" coords="530,28,634,71,632,76,528,33"/>
+<area shape="poly" title=" " alt="" coords="354,28,461,71,459,76,352,33"/>
 <area shape="rect" href="../../d0/d21/visibility_8hpp.html" title="Macros to support visibility of external symbols." alt="" coords="311,225,476,251"/>
 <area shape="poly" title=" " alt="" coords="146,102,88,111,38,126,20,136,10,147,9,160,18,176,36,189,62,201,133,218,216,228,297,233,297,238,216,233,132,223,60,206,33,194,14,179,4,161,6,145,17,131,35,121,86,105,145,96"/>
 <area shape="rect" href="../../d1/d42/port_8hpp.html" title="Specifications to be portable between different platforms." alt="" coords="29,152,166,177"/>
@@ -152,12 +149,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga5ca5d93535c8e9a3ff87df387bfe0d07" id="r_ga5ca5d93535c8e9a3ff87df387bfe0d07"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga5ca5d93535c8e9a3ff87df387bfe0d07">UPnPsdk::anonymous_namespace{sockaddr.cpp}::sockaddrcmp</a> (const ::sockaddr_storage *a_ss1, const ::sockaddr_storage *a_ss2) noexcept</td></tr>
 <tr class="memdesc:ga5ca5d93535c8e9a3ff87df387bfe0d07"><td class="mdescLeft">&#160;</td><td class="mdescRight">logical compare two sockaddr structures  <br /></td></tr>
 <tr class="separator:ga5ca5d93535c8e9a3ff87df387bfe0d07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6756252cf07c4f4d74f51fedc2fecce5" id="r_ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a> (std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</td></tr>
+<tr class="memitem:ga6756252cf07c4f4d74f51fedc2fecce5" id="r_ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a> (std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</td></tr>
 <tr class="memdesc:ga6756252cf07c4f4d74f51fedc2fecce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to check if a string represents a valid port number.  <br /></td></tr>
 <tr class="separator:ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga42198e87ed3cbc400d4bfd7c8155df27" id="r_ga42198e87ed3cbc400d4bfd7c8155df27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27">UPnPsdk::split_inaddr</a> (const std::string_view a_addr_sv, <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#d8/ddb/structUPnPsdk_1_1inaddr__t">inaddr_t</a> &amp;a_spl_inaddr) noexcept</td></tr>
-<tr class="memdesc:ga42198e87ed3cbc400d4bfd7c8155df27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to split inet address, scope_id, and port(service)  <br /></td></tr>
-<tr class="separator:ga42198e87ed3cbc400d4bfd7c8155df27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga87f12f31c0044a441c8a088d4155da09" id="r_ga87f12f31c0044a441c8a088d4155da09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga87f12f31c0044a441c8a088d4155da09">UPnPsdk::inaddr_tokenize</a> (const std::string_view a_addr_sv, <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#d2/dae/structUPnPsdk_1_1inaddr__token__t">inaddr_token_t</a> &amp;a_inaddr) noexcept</td></tr>
+<tr class="memdesc:ga87f12f31c0044a441c8a088d4155da09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to split inet address, scope_id, and port(service)  <br /></td></tr>
+<tr class="separator:ga87f12f31c0044a441c8a088d4155da09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Definition of the Sockaddr class and some free helper functions. </p>

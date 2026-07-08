@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-12
+// Redistribution only with this Copyright remark. Last modified: 2026-07-14
 /*!
  * \file
  * \brief Definition of the Addrinfo class and free helper functions.
@@ -7,7 +7,6 @@
 
 #include <UPnPsdk/addrinfo.hpp>
 #include <UPnPsdk/synclog.hpp>
-#include <UPnPsdk/sockaddr.hpp>
 
 #include <umock/netdb.hpp>
 /// cond
@@ -276,7 +275,7 @@ bool CAddrinfo::get_next() noexcept {
 // ---------------------------------------------------------------
 void CAddrinfo::sockaddr(SSockaddr& a_saddr) {
     if (m_res == &m_hints)
-        a_saddr = "";
+        a_saddr.clear();
     else
         a_saddr = reinterpret_cast<sockaddr_storage&>(*m_res_current->ai_addr);
 }

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-03-16
+ * Redistribution only with this Copyright remark. Last modified: 2026-07-11
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -145,7 +145,7 @@ struct s_SocketStuff {
     };
     SOCKET fd;
     uint16_t try_port;
-    uint16_t actual_port;
+    uint16_t actual_port; // in host byte-order
     socklen_t address_len;
 };
 

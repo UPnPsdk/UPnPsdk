@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-05-24
+// Redistribution only with this Copyright remark. Last modified: 2026-07-13
 
 #include <UpnpFileInfo.hpp>
 #include <UPnPsdk/sockaddr.hpp>
@@ -532,8 +532,11 @@ TEST(UpnpFileInfoTestSuite, UpnpFileInfo_set_get_CtrlPtIPAddr) {
     info->m_CtrlPtIPAddr.ss_family = AF_INET6;
 
     ::UPnPsdk::SSockaddr saddr{};
-    saddr = "192.168.11.12:52345";
-    EXPECT_EQ(saddr.ss.ss_family, AF_INET);
+    // saddr = "192.168.11.12:52345";
+    saddr.ss.ss_family = AF_INET;
+    ::inet_pton(saddr.ss.ss_family, "192.168.11.12", &saddr.sin.sin_addr);
+    saddr.sin.sin_port = htons(52345);
+
     EXPECT_EQ(info->m_CtrlPtIPAddr.ss_family, AF_INET6);
 
     // Test Unit

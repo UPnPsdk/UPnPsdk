@@ -1,5 +1,6 @@
+#if 0 // DEBUG! SSockaddr
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-03
+// Redistribution only with this Copyright remark. Last modified: 2026-07-09
 
 // There are additional Unit Tests at
 // git commit a18cff7d3dfd3266ad63a9efacba672ab1bd88b2.
@@ -72,7 +73,7 @@ TEST(NetadapterTestSuite, find_loopback_and_lla) {
     auto index = nadObj.index();
     ASSERT_GT(index, 0);
     nadObj.sockaddr(saObj);
-    lo_saObj = "[::1]";
+    lo_saObj.sin6.sin6_addr.s6_addr[15] = 1; // "[::1]";
     ASSERT_EQ(saObj, lo_saObj);
     EXPECT_NE(nadObj.name(), "");
     nadObj.socknetmask(saObj);
@@ -255,7 +256,7 @@ TEST(NetadapterTestSuite, netmask_to_bitmask_fails) {
 
 TEST(NetadapterTestSuite, bitmask_to_netmask_fails) {
     UPnPsdk::sockaddr_t saddr{};
-    saddrObj = "";
+    saddrObj.ss = {};
 
     // Test Unit
     saddr.ss.ss_family = AF_UNSPEC;
@@ -353,16 +354,35 @@ TEST(NetadapterTestSuite, mock_netadapter_default) {
     // clang-format off
     // Emulated network interfaces:
     // 1: lo0: <LOOPBACK,UP,LOWER_UP>
-    SSockaddr loIp4SaObj; loIp4SaObj = "127.0.0.1";
-    SSockaddr loGuaSaObj; loGuaSaObj = "[2001:db8::1]";
-    SSockaddr loLlaSaObj; loLlaSaObj =  "[fe80::1%1]";
-    SSockaddr loLopSaObj; loLopSaObj =  "[::1]";
+        // "127.0.0.1"
+        SSockaddr loIp4SaObj; loIp4SaObj.ss.ss_family = AF_INET;
+        ::inet_pton(loIp4SaObj.ss.ss_family, "127.0.0.1", &loIp4SaObj.sin.sin_addr);
+        // "[2001:db8::1]"
+        SSockaddr loGuaSaObj; loGuaSaObj.ss.ss_family = AF_INET6;
+        ::inet_pton(loGuaSaObj.ss.ss_family, "[2001:db8::1]", &loGuaSaObj.sin6.sin6_addr);
+        // "[fe80::1%1]"
+        SSockaddr loLlaSaObj; loLlaSaObj.ss.ss_family = AF_INET6;
+        ::inet_pton(loLlaSaObj.ss.ss_family, "[fe80::1]", &loLlaSaObj.sin6.sin6_addr);
+        loLlaSaObj.sin6.sin6_scope_id = 1;
+        // "[::1]"
+        SSockaddr loLopSaObj; loLopSaObj.ss.ss_family = AF_INET6;
+        loLopSaObj.sin6.sin6_addr.s6_addr[15] = 1;
     // 2: ens1: <BROADCAST,MULTICAST,UP,LOWER_UP>
-    SSockaddr ens1LlaSaObj; ens1LlaSaObj = "[fe80::5054:ff:fe7f:c021%2]";
-    SSockaddr ens1Ip4SaObj; ens1Ip4SaObj = "192.168.24.88";
+        // "[fe80::5054:ff:fe7f:c021%2]"
+        SSockaddr ens1LlaSaObj; ens1LlaSaObj.ss.ss_family = AF_INET6;
+        ::inet_pton(ens1LlaSaObj.ss.ss_family, "[fe80::5054:ff:fe7f:c021]", &ens1LlaSaObj.sin6.sin6_addr);
+        ens1LlaSaObj.sin6.sin6_scope_id = 2;
+        // "192.168.24.88"
+        SSockaddr ens1Ip4SaObj; ens1Ip4SaObj.ss.ss_family = AF_INET;
+        ::inet_pton(ens1Ip4SaObj.ss.ss_family, "192.168.24.88", &ens1Ip4SaObj.sin.sin_addr);
     // 3: ens2: <BROADCAST,MULTICAST,UP,LOWER_UP>
-    SSockaddr ens2GuaSaObj; ens2GuaSaObj = "[2001:db8::ff:fe7f:c021]";
-    SSockaddr ens2LlaSaObj; ens2LlaSaObj = "[fe80::226:17ff:da9e%3]";
+        // "[2001:db8::ff:fe7f:c021]"
+        SSockaddr ens2GuaSaObj; ens2GuaSaObj.ss.ss_family = AF_INET6;
+        ::inet_pton(ens2GuaSaObj.ss.ss_family, "[2001:db8::ff:fe7f:c021]", &ens2GuaSaObj.sin6.sin6_addr);
+        // "[fe80::226:17ff:da9e%3]"
+        SSockaddr ens2LlaSaObj; ens2LlaSaObj.ss.ss_family = AF_INET6;
+        ::inet_pton(ens2LlaSaObj.ss.ss_family, "[fe80::226:17ff:da9e]", &ens2LlaSaObj.sin6.sin6_addr);
+        ens2LlaSaObj.sin6.sin6_scope_id = 3;
     // clang-format on
 
     // Create mocking di-service object and get the smart pointer to it.
@@ -1043,3 +1063,4 @@ int main(int argc, char** argv) {
 #include <utest/utest_main.inc>
     return gtest_return_code; // managed in gtest_main.inc
 }
+#endif

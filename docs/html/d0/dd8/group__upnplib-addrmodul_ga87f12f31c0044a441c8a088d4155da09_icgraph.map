@@ -1,0 +1,28 @@
+<map id="UPnPsdk::inaddr_tokenize" name="UPnPsdk::inaddr_tokenize">
+<area shape="rect" id="Node000001" title="Free function to split inet address, scope_id, and port(service)" alt="" coords="752,134,943,159"/>
+<area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="529,63,699,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="786,133,687,105,688,100,788,128"/>
+<area shape="rect" id="Node000033" href="$d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="295,5,454,45"/>
+<area shape="poly" id="edge11_Node000001_Node000033" title=" " alt="" coords="821,127,769,87,737,68,703,53,639,36,574,27,510,23,454,23,454,18,510,18,574,21,641,31,705,48,739,63,772,83,824,123"/>
+<area shape="rect" id="Node000035" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="539,127,689,167"/>
+<area shape="poly" id="edge7_Node000001_Node000035" title=" " alt="" coords="738,149,690,149,690,144,738,144"/>
+<area shape="rect" id="Node000150" href="$de/dc7/group__upnpsdk-uri.html#gad126cc10cafbe0a958dc11ad8fb8c9ee" title="Separates the authority host subcomponent from a URI reference." alt="" coords="530,215,698,270"/>
+<area shape="poly" id="edge12_Node000001_Node000150" title=" " alt="" coords="804,167,682,218,680,213,802,162"/>
+<area shape="rect" id="Node000151" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b" title="Check if a network address is numeric." alt="" coords="524,294,704,349"/>
+<area shape="poly" id="edge14_Node000001_Node000151" title=" " alt="" coords="828,172,776,227,742,257,705,285,686,296,684,292,703,280,739,253,772,223,824,168"/>
+<area shape="rect" id="Node000003" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="287,121,462,146"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="517,106,436,123,435,118,515,101"/>
+<area shape="poly" id="edge3_Node000002_Node000033" title=" " alt="" coords="516,62,454,47,455,42,517,57"/>
+<area shape="rect" id="Node000034" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,35,225,75"/>
+<area shape="poly" id="edge6_Node000002_Node000034" title=" " alt="" coords="515,80,225,63,226,58,516,75"/>
+<area shape="poly" id="edge4_Node000033_Node000034" title=" " alt="" coords="282,38,226,45,225,40,281,33"/>
+<area shape="poly" id="edge5_Node000034_Node000034" title=" " alt="" coords="160,23,144,16,115,13,90,15,75,20,70,26,72,33,67,35,64,25,72,16,89,10,115,8,145,11,162,18"/>
+<area shape="poly" id="edge8_Node000035_Node000003" title=" " alt="" coords="524,144,462,141,463,136,525,139"/>
+<area shape="rect" id="Node000036" href="$de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="333,170,416,195"/>
+<area shape="poly" id="edge9_Node000035_Node000036" title=" " alt="" coords="525,163,417,179,416,174,525,157"/>
+<area shape="rect" id="Node000143" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="315,219,434,245"/>
+<area shape="poly" id="edge10_Node000035_Node000143" title=" " alt="" coords="543,174,525,182,502,197,477,210,435,224,433,219,475,206,499,192,523,178,541,170"/>
+<area shape="poly" id="edge13_Node000150_Node000150" title=" " alt="" coords="653,204,639,197,614,194,593,196,580,201,574,207,574,215,569,215,569,205,577,196,592,191,614,189,640,192,655,200"/>
+<area shape="rect" id="Node000152" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="273,294,476,349"/>
+<area shape="poly" id="edge15_Node000151_Node000152" title=" " alt="" coords="510,324,476,324,476,319,510,319"/>
+</map>

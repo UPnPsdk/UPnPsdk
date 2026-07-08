@@ -1,19 +1,23 @@
 <map id="UPnPsdk::to_port" name="UPnPsdk::to_port">
-<area shape="rect" id="Node000001" title="Free function to check if a string represents a valid port number." alt="" coords="489,152,623,177"/>
-<area shape="rect" id="Node000002" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="282,73,433,113"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="506,150,412,115,414,110,508,145"/>
-<area shape="rect" id="Node000147" href="$d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="278,145,437,185"/>
-<area shape="poly" id="edge5_Node000001_Node000147" title=" " alt="" coords="475,167,437,167,437,162,475,162"/>
-<area shape="rect" id="Node000149" href="$de/dc7/group__upnpsdk-uri.html#ga6d571ed2cf31b8c6bf670a46b24f350f" title="Separates the authority port subcomponent from a URI reference." alt="" coords="273,233,441,288"/>
-<area shape="poly" id="edge8_Node000001_Node000149" title=" " alt="" coords="518,186,416,236,413,231,515,181"/>
+<area shape="rect" id="Node000001" title="Free function to check if a string represents a valid port number." alt="" coords="501,216,635,241"/>
+<area shape="rect" id="Node000002" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="288,63,439,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="536,210,391,106,394,101,539,206"/>
+<area shape="rect" id="Node000147" href="$d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="284,161,443,201"/>
+<area shape="poly" id="edge5_Node000001_Node000147" title=" " alt="" coords="499,215,442,202,443,197,501,210"/>
+<area shape="rect" id="Node000149" href="$de/dc7/group__upnpsdk-uri.html#ga6d571ed2cf31b8c6bf670a46b24f350f" title="Separates the authority port subcomponent from a URI reference." alt="" coords="279,249,447,304"/>
+<area shape="poly" id="edge8_Node000001_Node000149" title=" " alt="" coords="501,247,448,260,447,254,499,242"/>
+<area shape="rect" id="Node000150" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b" title="Check if a network address is numeric." alt="" coords="273,328,453,383"/>
+<area shape="poly" id="edge10_Node000001_Node000150" title=" " alt="" coords="544,253,503,286,455,319,434,330,431,326,452,314,500,281,540,249"/>
 <area shape="rect" id="Node000003" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="28,5,203,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="296,70,225,45,181,33,183,28,226,39,298,65"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="286,62,225,45,178,33,179,28,226,39,287,57"/>
 <area shape="rect" id="Node000033" href="$de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="74,55,157,80"/>
-<area shape="poly" id="edge3_Node000002_Node000033" title=" " alt="" coords="268,86,157,74,157,69,269,81"/>
+<area shape="poly" id="edge3_Node000002_Node000033" title=" " alt="" coords="274,80,157,73,157,67,275,75"/>
 <area shape="rect" id="Node000140" href="$df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="56,104,175,129"/>
-<area shape="poly" id="edge4_Node000002_Node000140" title=" " alt="" coords="268,104,175,114,174,108,268,99"/>
+<area shape="poly" id="edge4_Node000002_Node000140" title=" " alt="" coords="275,98,175,111,174,106,274,93"/>
 <area shape="rect" id="Node000148" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,178,225,218"/>
-<area shape="poly" id="edge6_Node000147_Node000148" title=" " alt="" coords="265,180,226,185,225,180,264,175"/>
-<area shape="poly" id="edge7_Node000148_Node000148" title=" " alt="" coords="156,166,142,159,115,157,92,159,78,163,73,169,76,177,71,178,68,168,75,159,91,153,115,151,143,154,158,161"/>
-<area shape="poly" id="edge9_Node000149_Node000149" title=" " alt="" coords="390,222,378,215,357,212,340,214,329,219,324,225,324,233,318,233,319,223,326,214,339,209,357,207,380,210,393,218"/>
+<area shape="poly" id="edge6_Node000147_Node000148" title=" " alt="" coords="270,190,226,193,225,188,270,185"/>
+<area shape="poly" id="edge7_Node000148_Node000148" title=" " alt="" coords="158,166,143,159,115,157,91,159,77,163,72,169,74,177,69,178,66,168,74,159,90,153,115,151,144,154,160,161"/>
+<area shape="poly" id="edge9_Node000149_Node000149" title=" " alt="" coords="397,238,385,231,363,228,345,230,334,235,329,241,329,249,323,249,324,239,331,230,344,225,363,223,386,226,400,234"/>
+<area shape="rect" id="Node000151" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="14,328,217,383"/>
+<area shape="poly" id="edge11_Node000150_Node000151" title=" " alt="" coords="260,358,217,358,217,353,260,353"/>
 </map>

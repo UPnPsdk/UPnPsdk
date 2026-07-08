@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-28
+// Redistribution only with this Copyright remark. Last modified: 2026-07-09
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -166,7 +166,10 @@ TEST_F(SsdpMockFTestSuite, read_from_ssdp_socket_successful) {
     constexpr char recv_msg[]("This is a test message.");
     constexpr SIZEP_T strlen{sizeof(recv_msg) - 1};
     SSockaddr saObj;
-    saObj = "[::1]:50123";
+    // saObj = "[::1]:50123";
+    saObj.ss.ss_family = AF_INET6;
+    saObj.sin6.sin6_addr.s6_addr[15] = 1;
+    saObj.sin6.sin6_port = 50123;
     const socklen_t saddrlen{saObj.sizeof_saddr()};
     // It is important to expect strlen.
     EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(strlen), 0, _,
@@ -187,7 +190,10 @@ TEST_F(SsdpMockFTestSuite, read_from_ssdp_socket_empty_message) {
     constexpr char recv_msg[]("");
     constexpr SIZEP_T strlen{sizeof(recv_msg) - 1};
     SSockaddr saObj;
-    saObj = "[::1]:50124";
+    // saObj = "[::1]:50124";
+    saObj.ss.ss_family = AF_INET6;
+    saObj.sin6.sin6_addr.s6_addr[15] = 1;
+    saObj.sin6.sin6_port = 50124;
     const socklen_t saddrlen{saObj.sizeof_saddr()};
     // It is important to expect strlen.
     EXPECT_CALL(m_sys_socketObj, recvfrom(sockfd, _, Ge(strlen), 0, _,

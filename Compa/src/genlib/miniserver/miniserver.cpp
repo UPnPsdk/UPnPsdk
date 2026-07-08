@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-04-09
+ * Redistribution only with this Copyright remark. Last modified: 2026-07-09
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -225,19 +225,26 @@ int host_header_is_numeric(
     char* a_host_port,     ///< network address
     size_t a_host_port_len ///< length of a_host_port excl. terminating '\0'.
 ) {
-    TRACE("Executing host_header_is_numeric()");
-    if (a_host_port_len == 0 || strncmp(a_host_port, "[::]", 4) == 0 ||
-        strncmp(a_host_port, "0.0.0.0", 7) == 0)
+    if (a_host_port_len == 0 || ::strncmp(a_host_port, "[::]", 4) == 0 ||
+        ::strncmp(a_host_port, "0.0.0.0", 7) == 0)
         return 0;
 
-    UPnPsdk::SSockaddr saddrObj;
-    try {
-        saddrObj = std::string(a_host_port, a_host_port_len);
-    } catch (const std::exception& e) {
-        UPnPsdk_LOGCATCH("MSG1049") << e.what() << "\n";
-        return 0;
+    UPnPsdk::inaddr_token_t inaddr;
+    UPnPsdk::inaddr_tokenize(std::string_view(a_host_port, a_host_port_len),
+                             inaddr);
+    ::in6_addr sin6_addr;
+    if (::inet_pton(AF_INET6, inaddr.node.c_str(), &sin6_addr) == 1 &&
+        UPnPsdk::is_unum_str(inaddr.scope, 10) &&
+        UPnPsdk::to_port(inaddr.service) == 0) {
+        return 1;
     }
-    return 1;
+    ::in_addr sin_addr;
+    if (::inet_pton(AF_INET, inaddr.node.c_str(), &sin_addr) == 1 &&
+        UPnPsdk::to_port(inaddr.service) == 0) {
+        return 1;
+    }
+
+    return 0;
 }
 
 /*! \brief Returns the ip address with port as text that is bound to a socket.
@@ -994,6 +1001,7 @@ int get_miniserver_sockets(
     if (out->pSockLlaObj != nullptr && gIF_IPV6[0] != '\0') {
         try {
             UPnPsdk::SSockaddr saObj;
+#if 0 // DEBUG! SSockaddr
             if (::strncmp(gIF_IPV6, "::1", 3) == 0)
                 // The loopback address belongs to a lla but 'bind()' on win32
                 // does not accept it with scope id.
@@ -1003,12 +1011,13 @@ int get_miniserver_sockets(
                 saObj = '[' + std::string(gIF_IPV6) + '%' +
                         std::to_string(gIF_INDEX) +
                         "]:" + std::to_string(listen_port6);
+#endif
             *out->pSockLlaObj = SOCK_STREAM;
             out->pSockLlaObj->bind(&saObj, AI_PASSIVE);
             out->pSockLlaObj->listen();
             out->miniServerSock6 = *out->pSockLlaObj;
             out->pSockLlaObj->local_saddr(&saObj);
-            out->miniServerPort6 = saObj.port();
+            out->miniServerPort6 = ntohs(saObj.sin6.sin6_port);
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& ex) {
             UPnPsdk_LOGCATCH("MSG1110") "gIF_IPV6=\""
@@ -1024,14 +1033,16 @@ int get_miniserver_sockets(
     if (out->pSockGuaObj != nullptr && gIF_IPV6_ULA_GUA[0] != '\0') {
         try {
             UPnPsdk::SSockaddr saObj;
+#if 0 // DEBUG! SSockaddr
             saObj = '[' + std::string(gIF_IPV6_ULA_GUA) +
                     "]:" + std::to_string(listen_port6UlaGua);
+#endif
             *out->pSockGuaObj = SOCK_STREAM;
             out->pSockGuaObj->bind(&saObj, AI_PASSIVE);
             out->pSockGuaObj->listen();
             out->miniServerSock6UlaGua = *out->pSockGuaObj;
             out->pSockGuaObj->local_saddr(&saObj);
-            out->miniServerPort6UlaGua = saObj.port();
+            out->miniServerPort6UlaGua = ntohs(saObj.sin6.sin6_port);
             retval = UPNP_E_SUCCESS;
         } catch (const std::exception& ex) {
             UPnPsdk_LOGCATCH("MSG1117") "gIF_IPV6_ULA_GUA=\""
@@ -1093,7 +1104,8 @@ int get_miniserver_stopsock(
 
     // Bind stop socket to loopback interface
     UPnPsdk::SSockaddr sa1Obj;
-    sa1Obj = "[::1]";
+    sa1Obj.ss.ss_family = AF_INET6;
+    sa1Obj.sin6.sin6_addr.s6_addr[15] = 1; // "[::1]"
     try {
         *out->pSockStpObj = SOCK_DGRAM;
         out->pSockStpObj->bind(&sa1Obj);
@@ -1104,7 +1116,7 @@ int get_miniserver_stopsock(
 
     out->miniServerStopSock = out->pSockStpObj->socket();
     out->pSockStpObj->local_saddr(&sa1Obj);
-    out->stopPort = sa1Obj.port();
+    out->stopPort = ntohs(sa1Obj.sin6.sin6_port);
     /*global var*/ miniStopSockPort = out->stopPort;
 
     UPnPsdk::SSockaddr sa2Obj;

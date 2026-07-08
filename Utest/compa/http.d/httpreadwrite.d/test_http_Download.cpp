@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-15
+// Redistribution only with this Copyright remark. Last modified: 2026-07-11
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -571,7 +571,10 @@ TEST_F(HttpMockFTestSuite, http_send_message_from_buffer_successful) {
     constexpr char request_out[]{"Test content from buffer."};
     constexpr size_t request_length{sizeof(request_out) - 1};
     SSockaddr saObj;
-    saObj = "[::1]:50077";
+    // saObj = "[::1]:50077";
+    saObj.ss.ss_family = AF_INET6;
+    saObj.sin6.sin6_addr.s6_addr[15] = 1;
+    saObj.sin6.sin6_port = 50077;
 
     // Mock select()
     EXPECT_CALL(m_sys_socketObj,
@@ -674,7 +677,10 @@ TEST_F(HttpMockFTestSuite, http_send_message_from_file_successful) {
     SendInstruction instr{};
     instr.ReadSendSize = sizeof(file_content);
     SSockaddr saObj;
-    saObj = "[::1]:50079";
+    // saObj = "[::1]:50079";
+    saObj.ss.ss_family = AF_INET6;
+    saObj.sin6.sin6_addr.s6_addr[15] = 1;
+    saObj.sin6.sin6_port = 50079;
 
     // Mock select()
     EXPECT_CALL(m_sys_socketObj,
@@ -838,7 +844,11 @@ TEST_F(HttpMockFTestSuite, request_and_response_successful) {
     http_parser_t response;
 
     SSockaddr saObj;
-    saObj = "[::1]:61084";
+    // saObj = "[::1]:61084";
+    saObj.ss.ss_family = AF_INET6;
+    saObj.sin6.sin6_addr.s6_addr[15] = 1;
+    saObj.sin6.sin6_port = 61084;
+
     std::string url_str{"https://" + saObj.netaddrp() +
                         "/uri/path?query#fragment"};
 

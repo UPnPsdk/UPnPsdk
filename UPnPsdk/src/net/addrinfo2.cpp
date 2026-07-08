@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-21
+// Redistribution only with this Copyright remark. Last modified: 2026-07-09
 /*!
  * \file
  * \brief Manage information from Unix like platforms about internet addresses.
@@ -292,7 +292,7 @@ bool CAddrinfo2::get_next() noexcept {
 // ---------------------------------------------------------------
 void CAddrinfo2::sockaddr(SSockaddr& a_saddr) const noexcept {
     if (m_res == &m_hints)
-        a_saddr = "";
+        a_saddr.clear();
     else
         a_saddr = reinterpret_cast<sockaddr_storage&>(*m_res_current->ai_addr);
 }

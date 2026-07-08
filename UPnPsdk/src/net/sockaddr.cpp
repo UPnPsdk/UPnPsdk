@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 And higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-23
+// Redistribution only with this Copyright remark. Last modified: 2026-07-15
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -7,10 +7,8 @@
 
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/synclog.hpp>
-#include <umock/netdb.hpp>
 /// \cond
 #include <algorithm>
-#include <regex>
 /// \endcond
 
 namespace UPnPsdk {
@@ -84,10 +82,8 @@ bool sockaddrcmp(const ::sockaddr_storage* a_ss1,
 // Free function to check if a string represents a valid port number
 // -----------------------------------------------------------------
 /// \todo Update on MacOS to Clang compiler that supports std::from_chars().
-///       See below TODO.
+//        See below TODO.
 int to_port(std::string_view a_port_str, in_port_t* const a_port_num) noexcept {
-    TRACE("Executing to_port() with port=\"a_port_str\"")
-
     // // Trim input string.
     // std::string port_str;
     // auto start = a_port_str.find_first_not_of(" \t");
@@ -184,8 +180,6 @@ int to_port(std::string_view a_port_str, in_port_t* const a_port_num) noexcept {
 //               2001:db8::7
 void inaddr_tokenize(const std::string_view a_addr_sv,
                      inaddr_token_t& a_inaddr) noexcept {
-    TRACE("Executing inaddr_tokenize()")
-
     // Special cases
     if (a_addr_sv.empty()) {
         // An empty address string clears address/scope_id/port.
@@ -313,165 +307,37 @@ void inaddr_tokenize(const std::string_view a_addr_sv,
 
 // Specialized sockaddr_structure
 // ==============================
+
+/// \cond
 // Constructor
-SSockaddr::SSockaddr(){
-    TRACE2(this, " Construct SSockaddr()") //
-}
+// -----------
+SSockaddr::SSockaddr() = default;
 
 // Destructor
-SSockaddr::~SSockaddr(){TRACE2(this, " Destruct SSockaddr()")}
+// ----------
+SSockaddr::~SSockaddr() = default;
+/// \endcond
 
-// Get reference to the sockaddr_storage structure.
-// Only as example, I don't use it.
-// SSockaddr::operator const ::sockaddr_storage&() const {
-//     return this->ss;
-// }
-
-// Copy constructor
-// ----------------
-SSockaddr::SSockaddr(const SSockaddr& that) {
-    TRACE2(this, " Construct copy SSockaddr()")
-    m_sa_union = that.m_sa_union;
-}
-
-// Copy assignment operator
-// ------------------------
-SSockaddr& SSockaddr::operator=(SSockaddr that) {
-    TRACE2(this,
-           " Executing SSockaddr::operator=(SSockaddr) (struct assign op).")
-    std::swap(m_sa_union, that.m_sa_union);
-
-    return *this;
-}
-
-// Assignment operator= to set socket address from string.
-// =======================================================
-void SSockaddr::operator=(const std::string_view a_addr_sv) noexcept {
-    TRACE2(this, " Executing SSockaddr::operator=(a_addr_sv)")
-
-    if (a_addr_sv.empty()) {
-        // This clears the complete socket address.
-        m_sa_union = {};
-        m_sa_union.ss.ss_family = AF_UNSPEC;
-        return;
-    }
-
-    do {
-        // Split address, scope_id, port
-        // -----------------------------
-        inaddr_token_t inaddr;
-        inaddr_tokenize(a_addr_sv, inaddr);
-
-        // Manage IP address.
-        // ------------------
-        if (!inaddr.node.empty()) {
-
-            // Look for IPv6 address.
-            auto& sin_6 = m_sa_union.sin6;
-            if (inet_pton(AF_INET6, inaddr.node.c_str(), &sin_6.sin6_addr) ==
-                1) {
-                sin_6.sin6_family = AF_INET6;
-                sin_6.sin6_scope_id = 0;
-
-                // This is an IPv6 address. Check if we are looking for an lla.
-                if (IN6_IS_ADDR_LINKLOCAL(&sin_6.sin6_addr)) {
-                    // This ignores the subnet prefix of the address and may
-                    // not detect an invalid lla with subnet. Anyway we can
-                    // detect that there is not an lla. Check with a full
-                    // featured version 2 if the lla here is valid.
-                    if (!IN6_IS_ADDR_LINKLOCAL2(&sin_6.sin6_addr))
-                        // The lla is not valid.
-                        break; // Error
-                    // Check if there is a scope_id given. An lla must have one.
-                    if (inaddr.scope.empty() || inaddr.scope == "0")
-                        break; // Error
-                    // Check if there are all digits for scope_id. UINT32_MAX
-                    // (4,294,967,295) has 10 digits.
-                    if (!is_unum_str(inaddr.scope, 10))
-                        // An alphanumeric string.
-                        break; // Error
-
-                    // Numeric value, store scope_id.
-                    // ------------------------------
-                    // stoi() may throw exception, but not possible due
-                    // to guarded value above.
-                    sin_6.sin6_scope_id =
-                        static_cast<uint32_t>(std::stoi(inaddr.scope));
-                }
-                // For any IPv6 address other than an LLa is nothing to do. A
-                // scope_id is already silently removed above.
-
-
-                // Look for IPv4 address.
-            } else if (inet_pton(AF_INET, inaddr.node.c_str(),
-                                 &m_sa_union.sin.sin_addr) == 1) {
-                m_sa_union.ss.ss_family = AF_INET;
-
-            } else {
-                // No valid IP address found.
-                break; // Error
-            }
-        }
-
-
-        // Manage port. Also valid for AF_INET.
-        // ------------------------------------
-        if (!inaddr.service.empty()) {
-            // Check if port string is numeric. UINT16_MAX (65535) has 5 digits.
-            if (!is_unum_str(inaddr.service, 5))
-                break; // Error
-
-            // Valid uint16_t value, but limited to UINT16_MAX?
-            int iport = std::stoi(inaddr.service);
-            if (iport > UINT16_MAX)
-                break; // Error
-
-            // Store valid port number.
-            m_sa_union.sin6.sin6_port = htons(static_cast<in_port_t>(iport));
-        }
-
-        return; // OK, finished.
-
-    } while (false);
-    // Here we are from all the breaks.
-
-    // This clears the complete socket address.
-    m_sa_union = {};
-    m_sa_union.ss.ss_family = AF_UNSPEC;
-    UPnPsdk_LOGERR("MSG1033") "SSockaddr::=\""
-        << a_addr_sv
-        << "\" is invalid. Look at netaddress, port value, or scope_id MUST "
-           "only on lla. Hint: only numeric values accepted. For name "
-           "resolution use CAddrinfo.\n";
-}
-
-
-// Assignment operator= to set socket port from an integer
-// -------------------------------------------------------
-void SSockaddr::operator=(const in_port_t a_port) {
-    // Don't use ::htons, MacOS don't like it.
-    // sin6_port is also sin_port due to union.
-    m_sa_union.sin6.sin6_port = htons(a_port);
-}
 
 // Assignment operator= to set socket address from a trivial socket address
 // storage
 // ------------------------------------------------------------------------
 void SSockaddr::operator=(const ::sockaddr_storage& a_ss) noexcept {
     switch (a_ss.ss_family) {
-    case AF_INET:
-        m_sa_union.ss = a_ss;
-        return;
-
     case AF_INET6: {
-        // Correct possible wrong settings for an IPv6 address.
         auto* a_sin6 = reinterpret_cast<const sockaddr_in6*>(&a_ss);
         if (IN6_IS_ADDR_LINKLOCAL(&a_sin6->sin6_addr)) { // Is it "[fe80]"?
             // An lla, but is it valid and has no subnet prefix "[fe80::"?
             if (!IN6_IS_ADDR_LINKLOCAL2(&a_sin6->sin6_addr) ||
-                a_sin6->sin6_scope_id == 0)
+                a_sin6->sin6_scope_id == 0) {
                 // A valid link-local address must have a scope_id.
+                char addr_buf[INET6_ADDRSTRLEN];
+                ::inet_ntop(AF_INET6, &a_sin6->sin6_addr, addr_buf,
+                            sizeof(addr_buf));
+                UPnPsdk_LOGERR("MSG1127") "lla=\"["
+                    << addr_buf << "]\" with subnet, or without scope_id.";
                 break; // Error
+            }
 
             // Valid lla.
             m_sa_union.ss = a_ss;
@@ -484,17 +350,29 @@ void SSockaddr::operator=(const ::sockaddr_storage& a_ss) noexcept {
         m_sa_union.sin6.sin6_scope_id = 0;
         return;
     }
+
+    case AF_INET:
+        m_sa_union.ss = a_ss;
+        return;
+
+    case AF_UNSPEC:
+        m_sa_union = {};
+        m_sa_union.ss.ss_family = AF_UNSPEC;
+        return;
+
+    default:
+        UPnPsdk_LOGERR("MSG1179") "Unsupported address family "
+            << a_ss.ss_family << ".";
+
     } // switch
 
-    // An empty socket address is set. This error can be tested if address
-    // family is AF_UNSPEC.
+    // Finish error message.
+    if (g_dbug)
+        std::cerr << " Continue with unspecified socket address.\n";
     m_sa_union = {};
     m_sa_union.ss.ss_family = AF_UNSPEC;
-    UPnPsdk_LOGERR(
-        "MSG1127") "Socket address from 'struct ::sockaddr_storrage' "
-                   "is invalid. Look at address family, valid lla, "
-                   "lla with scope_id.\n";
 }
+
 
 // Compare operator== to test if another trivial socket address is equal to this
 // -----------------------------------------------------------------------------
@@ -502,9 +380,10 @@ bool SSockaddr::operator==(const SSockaddr& a_saddr) const {
     return sockaddrcmp(&a_saddr.ss, &ss);
 }
 
+
 // Getter for the assosiated ip address without port
 // -------------------------------------------------
-// e.g. "[fe80::3%2]:51000" or "192.168.254.253:51001".
+// e.g. "[fe80::3%2]:51000".
 std::string SSockaddr::netaddr() noexcept {
     // Some more statements, but due to frequently usage, it's optimized to
     // reduce expensive memory allocation. I don't use ::getnameinfo() because
@@ -594,13 +473,11 @@ std::string SSockaddr::netaddr() noexcept {
     return "";
 }
 
+
 // Getter for the assosiated ip address with port
 // ----------------------------------------------
-// e.g. "[2001:db8::2]:50001" or "192.168.254.253:50001".
+// e.g. "[2001:db8::2]:50001".
 std::string SSockaddr::netaddrp() noexcept {
-    // TRACE not usable with chained output.
-    // TRACE2(this, " Executing SSockaddr::netaddrp()")
-    //
     // sin_port and sin6_port are on the same memory location (union of the
     // structures) so I can use it for AF_INET and AF_INET6. 'std::to_string()'
     // may throw 'std::bad_alloc' from the std::string constructor. It is a
@@ -610,7 +487,7 @@ std::string SSockaddr::netaddrp() noexcept {
     switch (m_sa_union.ss.ss_family) {
     case AF_INET6:
     case AF_INET:
-    case AF_UNSPEC: { // Setting port on an empty sockaddr should be possible.
+    case AF_UNSPEC: {
         // UINT16_MAX (65535) for port has 5 digits.
         char port_buf[5 + 1]; // Incl. null terminator.
         int ret = ::snprintf(port_buf, sizeof(port_buf), "%u",
@@ -623,7 +500,6 @@ std::string SSockaddr::netaddrp() noexcept {
 
         return this->netaddr().append(":").append(port_buf);
     }
-
     } // switch
 
     UPnPsdk_LOGERR(
@@ -633,20 +509,10 @@ std::string SSockaddr::netaddrp() noexcept {
     return ":0";
 }
 
-// Getter for the assosiated port number
-// -------------------------------------
-in_port_t SSockaddr::port() const {
-    TRACE2(this, " Executing SSockaddr::port()")
-    // sin_port and sin6_port are on the same memory location (union of the
-    // structures) so we can use it for AF_INET and AF_INET6.
-    // Don't use ::ntohs, MacOS don't like it.
-    return ntohs(m_sa_union.sin6.sin6_port);
-}
 
 // Getter for sizeof the current (sin6 or sin) Sockaddr Structure.
 // ---------------------------------------------------------------
-socklen_t SSockaddr::sizeof_saddr() const {
-    TRACE2(this, " Executing SSockaddr::sizeof_saddr()")
+socklen_t SSockaddr::sizeof_saddr() const noexcept {
     switch (m_sa_union.ss.ss_family) {
     case AF_INET6:
         return sizeof(m_sa_union.sin6);
@@ -659,183 +525,6 @@ socklen_t SSockaddr::sizeof_saddr() const {
     }
 }
 
-// Get if the socket address is a loopback address
-//  ----------------------------------------------
-bool SSockaddr::is_loopback() const {
-    // I handle only IPv6 addresses and check if I have either the IPv6
-    // loopback address or any IPv4 mapped IPv6 address between
-    // "[::ffff:127.0.0.0]" and "[::ffff:127.255.255.255]".
-    return (
-        m_sa_union.ss.ss_family == AF_INET6 &&
-        (IN6_IS_ADDR_LOOPBACK(&m_sa_union.sin6.sin6_addr) ||
-         (ntohl(static_cast<uint32_t>(m_sa_union.sin6.sin6_addr.s6_addr[12])) >=
-              2130706432 &&
-          ntohl(static_cast<uint32_t>(m_sa_union.sin6.sin6_addr.s6_addr[12])) <=
-              2147483647)));
-#if 0
-            (m_sa_union.ss.ss_family == AF_INET &&
-             // address between "127.0.0.0" and "127.255.255.255"
-             ntohl(m_sa_union.sin.sin_addr.s_addr) >= 2130706432 &&
-             ntohl(m_sa_union.sin.sin_addr.s_addr) <= 2147483647));
-#endif
-}
-
-// Method to get a tokenized internet address as strings.
-// ======================================================
-SSockaddr::STATE SSockaddr::tokenize(std::string_view a_inaddr_sv,
-                                     inaddr_token_t& a_inaddr) {
-    // Split address, scope_id, port
-    // -----------------------------
-    inaddr_tokenize(a_inaddr_sv, a_inaddr);
-
-    if (a_inaddr.node.empty() && a_inaddr.scope.empty() &&
-        a_inaddr.service.empty()) {
-        // This clears the complete socket address.
-        m_sa_union = {};
-        m_sa_union.ss.ss_family = AF_UNSPEC;
-        return STATE::SUCCESS;
-    }
-
-    // Flags for status of inaddr.node, inaddr.service, and m_union (sockaddr).
-    STATE state_node{STATE::ERROR};
-    STATE state_serv{STATE::ERROR};
-    STATE state_sadr{STATE::ERROR};
-
-    UPnPsdk::sockaddr_t saddr{}; // Local working variable.
-
-    // Calculate status of a_inaddr.node.
-    // ----------------------------------
-    if (a_inaddr.node.empty()) {
-        state_node = STATE::EMPTY;
-
-    } else {
-        // Look for IPv6 address
-        // ´´´´´´´´´´´´´´´´´´´´´
-        if (inet_pton(AF_INET6, a_inaddr.node.c_str(), &saddr.sin6.sin6_addr) ==
-            1) {
-            saddr.ss.ss_family = AF_INET6;
-
-            // Check if we are looking for an LLA.
-            auto& sin_6 = saddr.sin6;
-            if (IN6_IS_ADDR_LINKLOCAL(&sin_6.sin6_addr)) {
-                // This ignores the subnet prefix of the address and may
-                // not detect an invalid LLA with subnet. Anyway we can
-                // detect that there is not an LLA. Check with a full
-                // featured version 2 if the LLA here is valid.
-                if (!IN6_IS_ADDR_LINKLOCAL2(&sin_6.sin6_addr)) {
-                    // An LLA with a subnet is not valid.
-                    state_node = STATE::LLA_WITH_SUBNET;
-                }
-                // Check if there is a scope_id given. An LLA must have one.
-                else if (a_inaddr.scope.empty() || a_inaddr.scope == "0") {
-                    state_node = STATE::LLA_NO_SCOPE_ID;
-                }
-                // Check if there are all digits for scope_id. UINT32_MAX
-                // (4,294,967,295) has 10 digits.
-                else if (!is_unum_str(a_inaddr.scope, 10)) {
-                    // An alpha-numeric string.
-                    state_node = STATE::UNKNOWN;
-                } //
-                else {
-                    // Numeric value for scope_id given.
-                    // .................................
-                    // stoi() may throw exception, but not possible due
-                    // to guarded value above.
-                    sin_6.sin6_scope_id =
-                        static_cast<uint32_t>(std::stoi(a_inaddr.scope));
-                    state_node = STATE::SUCCESS;
-                }
-            } else if (IN6_IS_ADDR_V4COMPAT(&sin_6.sin6_addr)) {
-                // Deprecated since 2006 and not supported by this SDK.
-                state_node = STATE::DEPR_V4COMPAT;
-            } else {
-                // For any IPv6 address other than an LLA nothing is to do. A
-                // scope_id is silently removed.
-                sin_6.sin6_scope_id = 0;
-                state_node = STATE::SUCCESS;
-            }
-        }
-
-        // Look for IPv4 address
-        // ´´´´´´´´´´´´´´´´´´´´´
-        else if (inet_pton(AF_INET, a_inaddr.node.c_str(),
-                           &saddr.sin.sin_addr) == 1) {
-            saddr.ss.ss_family = AF_INET;
-            state_node = STATE::SUCCESS;
-
-        } else {
-            // No valid IP address found. Could be an alpha-numeric name. Must
-            // be checked with name resolution, but not by this class.
-            state_node = STATE::UNKNOWN;
-        }
-    }
-
-    // Calculate status of a_inaddr.service. Valid for AF_INET6 and AF_INET.
-    // ---------------------------------------------------------------------
-    if (a_inaddr.service.empty()) {
-        state_serv = STATE::EMPTY;
-
-    } else {
-        // Check if port string is numeric. UINT16_MAX (65535) has 5 digits.
-        if (is_unum_str(a_inaddr.service, 5)) {
-            // Valid uint16_t value, but limited to UINT16_MAX?
-            if (int iport = std::stoi(a_inaddr.service); iport <= UINT16_MAX) {
-                // Valid port number is given.
-                // ...........................
-                saddr.sin6.sin6_port = htons(static_cast<in_port_t>(iport));
-                state_serv = STATE::SUCCESS;
-            } else {
-                state_serv = STATE::INVALID_PORT; // Error
-            }
-        } else {
-            // Could be an alpha-numeric port name. Must be checked with
-            // name resolution, but not by this class.
-            state_serv = STATE::UNKNOWN;
-        }
-    }
-
-    // Calculate status of m_sa_union.
-    // -------------------------------
-    state_sadr =
-        (m_sa_union.ss.ss_family == AF_UNSPEC) ? STATE::EMPTY : STATE::SUCCESS;
-
-
-    // Check conditions due to state table.
-    // ------------------------------------
-    // The complete state table for this pattern is given by the Unit Test.
-    if (state_node < STATE::ERROR && state_serv < STATE::ERROR) {
-
-        if (state_node == STATE::UNKNOWN || state_serv == STATE::UNKNOWN) {
-            m_sa_union = {};
-            m_sa_union.ss.ss_family = AF_UNSPEC;
-            return STATE::UNKNOWN;
-        }
-
-        if (state_node == STATE::SUCCESS) {
-            m_sa_union = saddr;
-            return STATE::SUCCESS;
-        }
-
-        if (state_node == STATE::EMPTY && state_serv == STATE::SUCCESS) {
-            if (state_sadr == STATE::EMPTY) {
-                return STATE::UNKNOWN;
-            } else if (state_sadr == STATE::SUCCESS) {
-                m_sa_union.sin6.sin6_port = saddr.sin6.sin6_port;
-                return STATE::SUCCESS;
-            }
-        }
-    }
-
-    m_sa_union = {};
-    m_sa_union.ss.ss_family = AF_UNSPEC;
-    if (state_node >= STATE::ERROR)
-        return state_node;
-    if (state_serv >= STATE::ERROR)
-        return state_serv;
-    if (state_sadr >= STATE::ERROR)
-        return state_sadr;
-    return STATE::ERROR;
-}
 
 /// \cond
 // Getter of the netaddress to output stream

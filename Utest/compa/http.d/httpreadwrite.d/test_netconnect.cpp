@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-12-19
+// Redistribution only with this Copyright remark. Last modified: 2026-07-11
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -102,7 +102,13 @@ class PrivateConnectFTestSuite : public ::testing::Test {
     umock::Winsock2Mock m_winsock2Obj;
 #endif
 
-    PrivateConnectFTestSuite() { m_saddr = "[2001:db8::a]:443"; }
+    PrivateConnectFTestSuite() {
+        // m_saddr = "[2001:db8::a]:443";
+        m_saddr.ss.ss_family = AF_INET6;
+        ::inet_pton(m_saddr.ss.ss_family, "2001:db8::a",
+                    &m_saddr.sin6.sin6_addr);
+        m_saddr.sin6.sin6_port = 443;
+    }
 };
 
 

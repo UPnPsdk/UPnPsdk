@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-14
+// Redistribution only with this Copyright remark. Last modified: 2026-07-11
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -98,7 +98,7 @@ TEST(ParseUriTestSuite, loopback_uri) {
     SSockaddr saObj;
     saObj = out.hostport.IPaddress;
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
-    EXPECT_EQ(saObj.port(), 443);
+    EXPECT_EQ(ntohs(saObj.sin6.sin6_port), 443);
     EXPECT_EQ(saObj.netaddrp(), "[::1]:443");
 }
 
@@ -147,7 +147,7 @@ TEST(ParseUriTestSuite, absolute_uri_successful) {
     EXPECT_EQ(out.path_type, ABS_PATH);
     SSockaddr saObj;
     saObj = out.hostport.IPaddress;
-    EXPECT_EQ(saObj.port(), 443);
+    EXPECT_EQ(ntohs(saObj.sin6.sin6_port), 443);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
     EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.234.132]:443");
 }
@@ -204,7 +204,7 @@ TEST(ParseUriTestSuite, uri_with_lla_host) {
     EXPECT_EQ(out.path_type, ABS_PATH);
     SSockaddr saObj;
     saObj = out.hostport.IPaddress;
-    EXPECT_EQ(saObj.port(), 53490);
+    EXPECT_EQ(ntohs(saObj.sin6.sin6_port), 53490);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
     EXPECT_EQ(saObj.netaddrp(), "[fe80::6acd:0:7af2%252]:53490");
 }
@@ -249,7 +249,7 @@ TEST(ParseUriTestSuite, absolute_uri_with_shorter_max_size) {
     EXPECT_EQ(out.path_type, ABS_PATH);
     SSockaddr saObj;
     saObj = out.hostport.IPaddress;
-    EXPECT_EQ(saObj.port(), 443);
+    EXPECT_EQ(ntohs(saObj.sin6.sin6_port), 443);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
     EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.88.77]:443");
 }
@@ -334,7 +334,7 @@ TEST(ParseUriTestSuite, ip_address_without_pathquery) {
               "urifragment");
     SSockaddr saObj;
     saObj = out.hostport.IPaddress;
-    EXPECT_EQ(saObj.port(), 80);
+    EXPECT_EQ(ntohs(saObj.sin6.sin6_port), 80);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
     EXPECT_EQ(saObj.netaddrp(), "[2001:db8::7df]:80");
 }
@@ -363,7 +363,7 @@ TEST(ParseUriTestSuite, ip_address_without_fragment) {
     EXPECT_EQ(out.fragment.size, 0u);
     SSockaddr saObj;
     saObj = out.hostport.IPaddress;
-    EXPECT_EQ(saObj.port(), 80);
+    EXPECT_EQ(ntohs(saObj.sin6.sin6_port), 80);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
     EXPECT_EQ(saObj.netaddrp(), "[::ffff:192.168.167.166]:80");
 }
@@ -425,7 +425,7 @@ TEST(ParseUriTestSuite, relative_uri_with_authority_and_absolute_path) {
               "urifragment");
     SSockaddr saObj;
     saObj = out.hostport.IPaddress;
-    EXPECT_EQ(saObj.port(), 80);
+    EXPECT_EQ(ntohs(saObj.sin6.sin6_port), 80);
     EXPECT_EQ(saObj.ss.ss_family, AF_INET6);
     EXPECT_EQ(saObj.netaddrp(), "[2001:db8::40ec]:80");
 }
@@ -452,7 +452,7 @@ TEST(ParseUriTestSuite, relative_uri_with_absolute_path) {
     SSockaddr saObj;
     saObj = out.hostport.IPaddress;
     EXPECT_EQ(saObj.ss.ss_family, AF_UNSPEC);
-    EXPECT_EQ(saObj.port(), 0);
+    EXPECT_EQ(saObj.sin6.sin6_port, 0);
     EXPECT_EQ(saObj.netaddrp(), ":0");
 }
 
@@ -478,7 +478,7 @@ TEST(ParseUriTestSuite, relative_uri_with_relative_path) {
     SSockaddr saObj;
     saObj = out.hostport.IPaddress;
     EXPECT_EQ(saObj.ss.ss_family, AF_UNSPEC);
-    EXPECT_EQ(saObj.port(), 0);
+    EXPECT_EQ(saObj.sin6.sin6_port, 0);
     EXPECT_EQ(saObj.netaddrp(), ":0");
 }
 
@@ -508,7 +508,7 @@ TEST(ParseUriTestSuite, uri_with_opaque_part) {
     SSockaddr saObj;
     saObj = out.hostport.IPaddress;
     EXPECT_EQ(saObj.ss.ss_family, AF_UNSPEC);
-    EXPECT_EQ(saObj.port(), 0);
+    EXPECT_EQ(saObj.sin6.sin6_port, 0);
     EXPECT_EQ(saObj.netaddrp(), ":0");
 }
 

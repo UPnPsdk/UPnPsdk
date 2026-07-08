@@ -1,16 +1,30 @@
 <map id="UPnPsdk::is_unum_str" name="UPnPsdk::is_unum_str">
-<area shape="rect" id="Node000001" title="Free function to check if a string represents an unsigned number." alt="" coords="691,101,857,126"/>
-<area shape="rect" id="Node000002" href="$d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="273,29,432,69"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="697,101,642,91,432,61,433,56,643,85,698,95"/>
-<area shape="rect" id="Node000005" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a737a4bbb331538052850781c98a69005" title="Set socket address from a netaddress." alt="" coords="275,157,430,197"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="698,131,643,141,431,171,430,166,642,136,697,126"/>
-<area shape="rect" id="Node000006" href="$d0/dd8/group__upnplib-addrmodul.html#ga42198e87ed3cbc400d4bfd7c8155df27" title="Free function to split inet address, scope_id, and port(service)" alt="" coords="480,101,643,126"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="677,116,643,116,643,111,677,111"/>
-<area shape="rect" id="Node000003" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,29,225,69"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="260,52,225,52,225,47,260,47"/>
-<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="156,18,142,11,115,8,92,10,79,15,74,21,76,28,71,30,68,20,76,10,91,5,115,3,143,6,158,13"/>
-<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="505,99,418,72,419,67,507,94"/>
-<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="507,133,419,160,418,155,505,128"/>
-<area shape="rect" id="Node000007" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="277,93,428,133"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="466,116,428,116,428,111,466,111"/>
+<area shape="rect" id="Node000001" title="Free function to check if a string represents an unsigned integer." alt="" coords="991,134,1157,159"/>
+<area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="529,63,699,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="999,134,942,124,699,93,699,88,943,119,1000,129"/>
+<area shape="rect" id="Node000033" href="$d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="295,5,454,45"/>
+<area shape="poly" id="edge7_Node000001_Node000033" title=" " alt="" coords="1032,131,942,93,825,48,772,33,704,20,654,15,614,15,524,20,454,23,454,18,524,15,614,9,654,9,704,15,774,28,826,43,944,88,1034,126"/>
+<area shape="rect" id="Node000035" href="$de/dc7/group__upnpsdk-uri.html#gad126cc10cafbe0a958dc11ad8fb8c9ee" title="Separates the authority host subcomponent from a URI reference." alt="" coords="530,215,698,270"/>
+<area shape="poly" id="edge8_Node000001_Node000035" title=" " alt="" coords="999,165,699,228,697,223,998,160"/>
+<area shape="rect" id="Node000036" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b" title="Check if a network address is numeric." alt="" coords="524,294,704,349"/>
+<area shape="poly" id="edge10_Node000001_Node000036" title=" " alt="" coords="1042,169,996,194,944,220,820,266,705,301,703,296,818,261,942,215,994,190,1039,164"/>
+<area shape="rect" id="Node000041" href="$d0/dd8/group__upnplib-addrmodul.html#ga87f12f31c0044a441c8a088d4155da09" title="Free function to split inet address, scope_id, and port(service)" alt="" coords="752,134,943,159"/>
+<area shape="poly" id="edge12_Node000001_Node000041" title=" " alt="" coords="977,149,943,149,943,144,977,144"/>
+<area shape="rect" id="Node000003" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="287,127,462,153"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="517,109,429,130,428,125,516,103"/>
+<area shape="poly" id="edge3_Node000002_Node000033" title=" " alt="" coords="516,62,454,47,455,42,517,57"/>
+<area shape="rect" id="Node000034" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,35,225,75"/>
+<area shape="poly" id="edge6_Node000002_Node000034" title=" " alt="" coords="515,80,225,63,226,58,516,75"/>
+<area shape="poly" id="edge4_Node000033_Node000034" title=" " alt="" coords="282,38,226,45,225,40,281,33"/>
+<area shape="poly" id="edge5_Node000034_Node000034" title=" " alt="" coords="160,23,144,16,115,13,90,15,75,20,70,26,72,33,67,35,64,25,72,16,89,10,115,8,145,11,162,18"/>
+<area shape="poly" id="edge9_Node000035_Node000035" title=" " alt="" coords="653,204,639,197,614,194,593,196,580,201,574,207,574,215,569,215,569,205,577,196,592,191,614,189,640,192,655,200"/>
+<area shape="rect" id="Node000037" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="273,294,476,349"/>
+<area shape="poly" id="edge11_Node000036_Node000037" title=" " alt="" coords="510,324,476,324,476,319,510,319"/>
+<area shape="poly" id="edge13_Node000041_Node000002" title=" " alt="" coords="786,133,687,105,688,100,788,128"/>
+<area shape="poly" id="edge16_Node000041_Node000033" title=" " alt="" coords="821,127,769,87,737,68,703,53,639,36,574,27,510,23,454,23,454,18,510,18,574,21,641,31,705,48,739,63,772,83,824,123"/>
+<area shape="poly" id="edge17_Node000041_Node000035" title=" " alt="" coords="804,167,682,218,680,213,802,162"/>
+<area shape="poly" id="edge18_Node000041_Node000036" title=" " alt="" coords="828,172,776,227,742,257,705,285,686,296,684,292,703,280,739,253,772,223,824,168"/>
+<area shape="rect" id="Node000042" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="539,127,689,167"/>
+<area shape="poly" id="edge14_Node000041_Node000042" title=" " alt="" coords="738,149,690,149,690,144,738,144"/>
+<area shape="poly" id="edge15_Node000042_Node000003" title=" " alt="" coords="525,147,462,145,462,140,525,142"/>
 </map>
