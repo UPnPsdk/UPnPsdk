@@ -184,11 +184,11 @@ Classes</h2></td></tr>
 <tr class="memitem:db/dfe/structUPnPsdk_1_1Document__meta" id="r_db/dfe/structUPnPsdk_1_1Document__meta"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta">Document_meta</a></td></tr>
 <tr class="memdesc:db/dfe/structUPnPsdk_1_1Document__meta"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mapping of file extension to content-type of document.  <a href="../../dd/d67/namespaceUPnPsdk.html#db/dfe/structUPnPsdk_1_1Document__meta">More...</a><br /></td></tr>
 <tr class="separator:db/dfe/structUPnPsdk_1_1Document__meta"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:d2/dae/structUPnPsdk_1_1inaddr__token__t" id="r_d2/dae/structUPnPsdk_1_1inaddr__token__t"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#d2/dae/structUPnPsdk_1_1inaddr__token__t">inaddr_token_t</a></td></tr>
-<tr class="memdesc:d2/dae/structUPnPsdk_1_1inaddr__token__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Components of an internet address.  <a href="../../dd/d67/namespaceUPnPsdk.html#d2/dae/structUPnPsdk_1_1inaddr__token__t">More...</a><br /></td></tr>
-<tr class="separator:d2/dae/structUPnPsdk_1_1inaddr__token__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d3e/classUPnPsdk_1_1INetadapter.html">INetadapter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manage information from different platforms about network adapters.  <a href="../../d6/d3e/classUPnPsdk_1_1INetadapter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to provide splited inet address, scope_id, and port(service)  <a href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:d2/d11/unionUPnPsdk_1_1sockaddr__t" id="r_d2/d11/unionUPnPsdk_1_1sockaddr__t"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">sockaddr_t</a></td></tr>
 <tr class="memdesc:d2/d11/unionUPnPsdk_1_1sockaddr__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helpful union of the different socket address structures.  <a href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">More...</a><br /></td></tr>
@@ -264,12 +264,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6756252cf07c4f4d74f51fedc2fecce5" id="r_ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">to_port</a> (std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</td></tr>
 <tr class="memdesc:ga6756252cf07c4f4d74f51fedc2fecce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to check if a string represents a valid port number.  <br /></td></tr>
 <tr class="separator:ga6756252cf07c4f4d74f51fedc2fecce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga87f12f31c0044a441c8a088d4155da09" id="r_ga87f12f31c0044a441c8a088d4155da09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga87f12f31c0044a441c8a088d4155da09">inaddr_tokenize</a> (const std::string_view a_addr_sv, <a class="el" href="../../dd/d67/namespaceUPnPsdk.html#d2/dae/structUPnPsdk_1_1inaddr__token__t">inaddr_token_t</a> &amp;a_inaddr) noexcept</td></tr>
-<tr class="memdesc:ga87f12f31c0044a441c8a088d4155da09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free function to split inet address, scope_id, and port(service)  <br /></td></tr>
-<tr class="separator:ga87f12f31c0044a441c8a088d4155da09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7214f121f69c12bc1ddccce1297c12a9" id="r_ga7214f121f69c12bc1ddccce1297c12a9"><td class="memItemLeft" align="right" valign="top">UPnPsdk_API::std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga7214f121f69c12bc1ddccce1297c12a9">operator&lt;&lt;</a> (::std::ostream &amp;os, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;saddr)</td></tr>
-<tr class="memdesc:ga7214f121f69c12bc1ddccce1297c12a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">output the <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a> to a stream.  <br /></td></tr>
-<tr class="separator:ga7214f121f69c12bc1ddccce1297c12a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9075bce23f29654c256e20e08fd8d144" id="r_ga9075bce23f29654c256e20e08fd8d144"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga9075bce23f29654c256e20e08fd8d144">operator&lt;&lt;</a> (std::ostream &amp;os, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;saddr)</td></tr>
+<tr class="memdesc:ga9075bce23f29654c256e20e08fd8d144"><td class="mdescLeft">&#160;</td><td class="mdescRight">output the <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a> to a stream.  <br /></td></tr>
+<tr class="separator:ga9075bce23f29654c256e20e08fd8d144"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadbc969f806b019f3a67c7be8cd76b1a7" id="r_gadbc969f806b019f3a67c7be8cd76b1a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d21/visibility_8hpp.html#aff597b5289a5097857287a2a3fd3a171">UPnPsdk_VIS</a> SOCKET&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de4/group__upnpsdk-socket.html#gadbc969f806b019f3a67c7be8cd76b1a7">socket</a> (int a_socktype)</td></tr>
 <tr class="memdesc:gadbc969f806b019f3a67c7be8cd76b1a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a socket file descriptor from the operating system.  <br /></td></tr>
 <tr class="separator:gadbc969f806b019f3a67c7be8cd76b1a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -334,50 +331,6 @@ file type </td></tr>
 subtype</td>
 <td class="fielddoc">
 file subtype </td></tr>
-</table>
-
-</div>
-</div>
-<a name="d2/dae/structUPnPsdk_1_1inaddr__token__t" id="d2/dae/structUPnPsdk_1_1inaddr__token__t"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#d2/dae/structUPnPsdk_1_1inaddr__token__t">&#9670;&#160;</a></span>UPnPsdk::inaddr_token_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct UPnPsdk::inaddr_token_t</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"><p>Components of an internet address. </p>
-<p>Typical LLA example with all <a class="el" href="../../d5/d67/Glossary.html#glossary_netaddr">netaddress</a> components:<br  />
-"[fe80::1%2]:443" with node "fe80::1", scope "2", service "443"<br  />
-"[fe80::2%eth0]:https" with node "fe80::2", scope "eth0", service "https" </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00165">165</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
-</div><table class="fieldtable">
-<tr><th colspan="3">Class Members</th></tr>
-<tr><td class="fieldtype">
-<a id="a14a8aa4ffb05216c88ba6c14d4e2e1ec" name="a14a8aa4ffb05216c88ba6c14d4e2e1ec"></a>string</td>
-<td class="fieldname">
-node</td>
-<td class="fielddoc">
-<p>IP address without brackets. This can also be an alphanumeric name like "example.com". </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="a4c668afd965919aa44cfe9e3ff4ac70c" name="a4c668afd965919aa44cfe9e3ff4ac70c"></a>string</td>
-<td class="fieldname">
-scope</td>
-<td class="fielddoc">
-<p>scope_id is the index number or name of a <a class="el" href="../../d5/d67/Glossary.html#glossary_netadapt">netadapter</a>. Only valid on a link-local address. </p>
-</td></tr>
-<tr><td class="fieldtype">
-<a id="aeacac50a789cb05fc06928a170475fb8" name="aeacac50a789cb05fc06928a170475fb8"></a>string</td>
-<td class="fieldname">
-service</td>
-<td class="fielddoc">
-<p>Port number, or service name (e.g. "https"). </p>
-</td></tr>
 </table>
 
 </div>

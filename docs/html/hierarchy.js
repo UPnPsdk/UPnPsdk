@@ -50,7 +50,6 @@ var hierarchy =
     [ "http_header_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#df/d1d/structhttp__header__t", null ],
     [ "http_message_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#de/d66/structhttp__message__t", null ],
     [ "http_parser_t", "df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#d7/ddd/structhttp__parser__t", null ],
-    [ "UPnPsdk::inaddr_token_t", "dd/d67/namespaceUPnPsdk.html#d2/dae/structUPnPsdk_1_1inaddr__token__t", null ],
     [ "UPnPsdk::INetadapter", "d6/d3e/classUPnPsdk_1_1INetadapter.html", [
       [ "UPnPsdk::CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", null ],
       [ "UPnPsdk::CNetadapter_platform", "d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html", null ]
@@ -83,6 +82,7 @@ var hierarchy =
     [ "SendInstruction", "d9/d36/Compa_2src_2inc_2webserver_8hpp.html#d0/d20/structSendInstruction", null ],
     [ "service_info", "db/d74/service__table_8hpp.html#df/db2/structservice__info", null ],
     [ "service_table", "db/d74/service__table_8hpp.html#df/d30/structservice__table", null ],
+    [ "UPnPsdk::SInaddr", "df/d9e/structUPnPsdk_1_1SInaddr.html", null ],
     [ "anonymous_namespace{soap_device.cpp}::soap_devserv_t", "d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#d5/d88/structanonymous__namespace_02soap__device_8cpp_03_1_1soap__devserv__t", null ],
     [ "UPnPsdk::sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
     [ "SOCKINFO", "d6/df0/sock_8hpp.html#d9/d4f/structSOCKINFO", null ],

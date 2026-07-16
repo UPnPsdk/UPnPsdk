@@ -1,4 +1,3 @@
-#if false
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
 // Redistribution only with this Copyright remark. Last modified: 2026-04-10
 
@@ -51,6 +50,8 @@ using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
 
+
+#if 0 // DEBUG! Must be enabled soon.
 
 // Miniserver Run TestSuite
 // ========================
@@ -1620,6 +1621,7 @@ TEST(RunMiniServerTestSuite, active_connections_successful) {
     CLOSE_SOCKET_P(sock2);
     CLOSE_SOCKET_P(sock1);
 }
+#endif
 
 TEST(RunMiniServerTestSuite, host_header_is_numeric_modifies_argument) {
     // This test is to show that the Unit is modifying its C string argument. It
@@ -1702,7 +1704,7 @@ INSTANTIATE_TEST_SUITE_P(
     HeaderIsNumNewCode, HeaderIsNumTest,
     ::testing::Values(
                       std::make_tuple("", false), // segfaults fixed.
-                      std::make_tuple("::", true),
+                      std::make_tuple("::", false),
                       std::make_tuple("[::]", false),
                       std::make_tuple("[::]:0", false),
                       std::make_tuple("[::]:50016", false),
@@ -1747,6 +1749,8 @@ INSTANTIATE_TEST_SUITE_P(
                       std::make_tuple("garbage", false)
                       ));
 // clang-format on
+
+#if 0 // DEBUG! Must be enabled soon.
 
 TEST(RunMiniServerTestSuite, set_http_get_callback) {
     memset(&gGetCallback, 0xAA, sizeof(gGetCallback));
@@ -1819,6 +1823,7 @@ TEST(StopMiniServerTestSuite, sock_close) {
     // Close a valid socket.
     EXPECT_EQ(sock_close(sockfd), 0);
 }
+#endif
 
 } // namespace utest
 
@@ -1827,4 +1832,3 @@ int main(int argc, char** argv) {
 #include "utest/utest_main.inc"
     return gtest_return_code; // managed in gtest_main.inc
 }
-#endif

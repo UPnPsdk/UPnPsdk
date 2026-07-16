@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-15
+// Redistribution only with this Copyright remark. Last modified: 2026-07-21
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -150,64 +150,59 @@ UPnPsdk_VIS int to_port( //
     /*! [in] String that may represent a port number. */
     std::string_view a_port_str,
     /*! [out] Optional: if given, pointer to a variable that will be filled with
-              the binary port number in host byte order. */
+       the binary port number in host byte order. Not modified on error. */
     in_port_t* const a_port_num = nullptr) noexcept;
 
-
 /*!
- * \brief Components of an internet address
+ * \brief Structure to provide splited inet address, scope_id, and port(service)
+ * <!-- -------------------------------------------------------------------- -->
+ * \ingroup upnplib-addrmodul
  *
- * Typical LLA example with all [netaddress](\ref glossary_netaddr)
- * components:\n
- * "[fe80::1%2]:443" with node "fe80::1", scope "2", service "443"\n
- * "[fe80::2%eth0]:https" with node "fe80::2", scope "eth0", service "https"
+ * This is a structure to split different internet addresses into structured
+ * token mainly to use as input for system calls without brackets. The
+ * structure has the members (properties) \b node, \b scope, and **service
+ * (port)**. The constructor only syntactical split the components on its
+ * separator '\%' for scope_id, and last ':' for port. No symantical tests are
+ * made. For example a scope_id on a global unicast address, or a port number
+ * greater 65535 is not valid but also provided in property \b scope, resp. in
+ * property \b service. These tests must be made on a higher abstraction layer
+ * by the calling program.
+ * \code
+ * // Usage e.g.:
+ * SInaddr inaObj("[fe80::45%3]:50010");
+ * std::cout << "node=\"" << inaObj.node << "\", scope=\"" << inaObj.scope
+ *           << "\", service=\"" << inaObj.service << "\"\n";
+ * // Result: node="fe80::45", scope="3", service="50010"
+ * \endcode
  */
-struct inaddr_token_t {
+struct UPnPsdk_API SInaddr {
+    DISABLE_MSVC_WARN_4251
     std::string node; /*!< IP address without brackets. This can also be an
                          alphanumeric name like "example.com". */
     std::string scope; /*!< scope_id is the index number or name of a
-                         [netadapter](\ref glossary_netadapt). Only valid on a
-                         link-local address. */
-    std::string service; /*!< Port number, or service name (e.g. "https"). */
+                          [netadapter](\ref glossary_netadapt). */
+    std::string service; /*!< Port number string, or service name (e.g.
+                           "https"). */
+    ENABLE_MSVC_WARN
+
+    // Constructor
+    /*! \brief Set an internet address to the structure
+     * \code
+     * // Usage e.g., not a complete list:
+     * SInaddr inaObj;
+     * inaObj("[2001:db8::1]:50001");
+     * inaObj("2001:DB8::1");
+     * inaObj("[fe80::2%3]:50002");
+     * inaObj("127.0.0.1:0");
+     * inaObj("127.0.0.1");
+     * inaObj("example.COM:50003");
+     * inaObj("example.com:HTTPS");
+     * inaObj("[::FFff:142.250.185.99]:ssh");
+     * \endcode */
+    SInaddr(
+        /// [in] Internet address.
+        const std::string_view a_addr_sv = "") noexcept;
 };
-
-
-/*!
- * \brief Free function to split inet address, scope_id, and port(service)
- * <!-- -------------------------------------------------------------- -->
- * \ingroup upnplib-addrmodul
- * \code
- * // Usage e.g., not a complete list:
- * inaddr_token_t inaddr;
- * inaddr_tokenize("[2001:db8::1]:50001", inaddr);
- * inaddr_tokenize("2001:DB8::1", inaddr);
- * inaddr_tokenize("[fe80::2%3]:50002", inaddr);
- * inaddr_tokenize("127.0.0.1:0", inaddr);
- * inaddr_tokenize("127.0.0.1", inaddr);
- * inaddr_tokenize(":50002", inaddr);
- * inaddr_tokenize("example.COM:50003", inaddr);
- * inaddr_tokenize("example.com:HTTPS", inaddr);
- * inaddr_tokenize("[::FFff:142.250.185.99]:ssh", inaddr);
- * \endcode
- *
- * This is a function for special use to prepare input for system calls without
- * brackets. Its results returned in structue inaddr_token_t with member \b
- * node, \b scope, and **service (port)** are only useful for this purpose and
- * not meant for general usage. The function only syntactical split the
- * components on its separator '\%' for scope_id, and last ':' for port. No
- * symantical tests are made. For example a scope_id on a global unicast
- * address, or a port number greater 65535 is not valid but also returned in \b
- * a_inaddr for scope, resp. for service. These tests must be made on a higher
- * abstraction layer.
- * */
-UPnPsdk_VIS void inaddr_tokenize( //
-    /*! [in] Any string. If it can be interpreted as an ip-address or -name with
-       or without scope_id and/or service (port), its components will be
-       returned. */
-    const std::string_view a_addr_sv,
-    /*! [out] Reference of an internet address structure that will be filled
-       with node, scope_id, and service (port). */
-    inaddr_token_t& a_inaddr) noexcept;
 
 
 /*!
@@ -231,19 +226,25 @@ if (saObj.ss.ss_family == AF_INET6)
  *
  * Design specification:
  *
+ * - SSockaddr accepts only numeric input. Any alphanumeric node (e.g.
+ *   "example.com"), or scope_id (e.g. "eth0"), or port (e.g. "https") results
+ *   in an unspecified socket address (AF_UNSPEC). It is intended to give this
+ *   in a following step to CAddrinfo for name resolution.
+ * - Detected errors (e.g. invalid or alphanumeric entries) result in an
+ *   unspecified socket address object and can be tested with `saObj.family ==
+ *   AF_UNSPEC`. netaddrp() returns then `":0"`.
  * - An empty socket address object has the address family AF_INET6 by default
  *   and returns netaddrp() `"[::]:0"`.
- * - Detected errors (e.g. invalid entries) result in an unspecified socket
- *   address object and can be tested with `saObj.ss.ss_family == AF_UNSPEC`.
- *   netaddrp() returns then `":0"`.
  * - A link-local address (e.g. "[fe80::1%2]") must always have a scope_id. An
  *   LLA without scope_id is rejected as error. If in doubt you should test the
- *   address family not to be AF_UNSPEC.
+ *   address family not to be AF_UNSPEC (by default AF_INET6).
  * - If an IPv6 address, that isn't a link-local address, has a scope_id (e.g.
  *   "[2001:db8::1%2]") then the scope_id is silently removed.
  * - SSockaddr can also hold IPv4 addresses but these are only provided for
- *   special use of the user. The SDK itself does not understand them and
- *   cannot work with them.
+ *   special use by the user. It is not direct supported but you can preset a
+ *   trivial `::%sockadr_storage` structure amd set it to an object (e.g. `saObj
+ *   = ss`). The SDK itself does not understand IPv4 addresses and cannot work
+ *   with them.
  *
  * \note This class is frequently used so performance has to taken into
  * account. This is why the destructor isn't virtual and **you should not
@@ -251,6 +252,8 @@ if (saObj.ss.ss_family == AF_INET6)
  * be used** (deleting through a base class pointer).
  */
 struct UPnPsdk_API SSockaddr {
+    /// Reference to the socket address family
+    sa_family_t& family = m_sa_union.ss.ss_family;
     /// Reference to sockaddr_storage struct
     sockaddr_storage& ss = m_sa_union.ss;
     /// Reference to sockaddr_un struct
@@ -314,11 +317,38 @@ struct UPnPsdk_API SSockaddr {
     void operator=(const ::sockaddr_storage& a_ss) noexcept;
 
 
+    /*! \brief Set socket address from an internet address
+     * <!-- ------------------------------------------ -->
+     * \code
+     * // Usage e.g.:
+     * SSockaddr saObj;
+     * saObj = SInaddr("[fe80::12ab%2]:50001");
+     * assert(!saObj.empty());
+     *
+     * SInaddr inaObj("example.com:https");
+     * saObj = inaObj;
+     * if(saObj.empty())
+     *     CAddrinfo = inaObj; // Perform name resolution.
+     *
+     * saObj = SInaddr("[fe80::12ab]"); // Without scope_id.
+     * if (saObj.family == AF_UNSPEC) // That is true.
+     *     handle_error();
+     * \endcode
+     * This method only detect numeric internet address pattern. If it cannot
+     * convert the given input, parts of it (node, scope, service) may be
+     * alphanumeric and the resulting socket address is set to an empty IPv6.
+     * It is expected to test the input pattern with name resolution by the
+     * calling program. Unspecified input pattern results to address family
+     * AF_UNSPEC and flags an unresolvable error.
+     */
+    void operator=(const SInaddr& a_inaddr) noexcept;
+
+
     /*! \brief clear socket address */
     // -------------------------------
     void clear() noexcept {
         m_sa_union = {};
-        m_sa_union.ss.ss_family = AF_UNSPEC;
+        m_sa_union.ss.ss_family = AF_INET6;
     }
     /// @} Setter
 
@@ -370,13 +400,25 @@ struct UPnPsdk_API SSockaddr {
     std::string netaddrp() noexcept;
 
 
-    /// \brief Get sizeof the current filled (sin6 or sin) Sockaddr
-    /// Structure
-    // ------------------------------------------------------------
+    // Getter for the size of the current socket address
+    // -------------------------------------------------
+    /// \brief Get sizeof the current filled (sin6 or sin) Sockaddr Structure
     socklen_t sizeof_saddr() const noexcept;
 
-    /// @} Getter
 
+    /*! \brief Test if the socket address object is empty
+     * <!-- ----------------------------------------- -->
+     * \details An empty socket address object has the unspecified IPv6 address
+     * with port 0, that is `"[::]:0"`, and of course address family AF_INET6.
+     * */
+    bool empty() const noexcept {
+        const uint64_t* s6addr = reinterpret_cast<const uint64_t*>(
+            m_sa_union.sin6.sin6_addr.s6_addr);
+        return (m_sa_union.ss.ss_family == AF_INET6 && s6addr[0] == 0 &&
+                s6addr[1] == 0 && m_sa_union.sin6.sin6_scope_id == 0 &&
+                m_sa_union.sin6.sin6_port == 0);
+    }
+    /// @} Getter
 
   private:
     sockaddr_t m_sa_union{}; // this is the union of trivial sockaddr
@@ -394,7 +436,10 @@ struct UPnPsdk_API SSockaddr {
  * std::cout << saObj << "\n"; // output "[::]:0", saObj wasn't set.
  * \endcode
  */
-UPnPsdk_API ::std::ostream& operator<<(::std::ostream& os, SSockaddr& saddr);
+inline std::ostream& operator<<(std::ostream& os, SSockaddr& saddr) {
+    os << saddr.netaddrp();
+    return os;
+}
 
 } // namespace UPnPsdk
 

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-15
+// Redistribution only with this Copyright remark. Last modified: 2026-07-20
 
 // Due to Microsoft Windows socket error 10013 I use port numbers not in
 // range 49152 to 65535 if needed. For details have a look at
@@ -302,7 +302,7 @@ TEST(SocketBasicTestSuite, instantiate_empty_socket) {
     ASSERT_FALSE(sockObj.local_saddr());
 
     sockObj.local_saddr(&saddr);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
+    EXPECT_TRUE(saddr.empty());
 
     EXPECT_THAT([&sockObj]() { sockObj.socktype(); },
                 ThrowsMessage<std::runtime_error>(
@@ -321,7 +321,7 @@ TEST(SocketTestSuite, instantiate_unbind_socket) {
     ASSERT_FALSE(sockObj.local_saddr());
 
     sockObj.local_saddr(&saddr);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
+    EXPECT_TRUE(saddr.empty());
 
     EXPECT_THAT([&sockObj]() { sockObj.socktype(); },
                 ThrowsMessage<std::runtime_error>(
@@ -818,7 +818,7 @@ TEST(SocketTestSuite, bind_two_times_different_addresses_fail) {
     // Binding a socket two times isn't possible. The socket must be
     // shutdown/closed before bind it again.
     // Provide a socket object
-    saddr.ss = {};
+    saddr.clear();
     saddr.sin6.sin6_port = htons(50010); // Modifies only port
 
     CSocket sockObj = SOCK_STREAM;
@@ -827,8 +827,8 @@ TEST(SocketTestSuite, bind_two_times_different_addresses_fail) {
 
     // Try to bind the socket a second time to another address.
     SSockaddr saddr2;
-    // saddr2 = ":50011"; // Modifies only port
-    saddr2.sin6.sin6_port = htons(50011);
+    saddr2.family = AF_UNSPEC; // DEBUG! w.i.p. must be fixed next step.
+    saddr2.sin6.sin6_port = htons(50011); // Modifies only port
     EXPECT_THAT(([&sockObj, &saddr2]() { sockObj.bind(&saddr2); }),
                 ThrowsMessage<std::runtime_error>(ContainsStdRegex(
                     "UPnPsdk MSG1008 EXCEPT\\[.* Failed to bind socket .*to "
@@ -1325,7 +1325,7 @@ TEST_F(SocketMockFTestSuite, remote_saddr_successful) {
     EXPECT_FALSE(sockbasObj.remote_saddr());
     EXPECT_FALSE(sockbasObj.remote_saddr(&saddr));
 
-    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_TRUE(saddr.empty());
 
     CSocket sockObj = SOCK_STREAM;
     ASSERT_NO_THROW(sockObj.bind(&saddr));
@@ -1335,7 +1335,7 @@ TEST_F(SocketMockFTestSuite, remote_saddr_successful) {
     EXPECT_FALSE(sockObj.remote_saddr(&saddr));
 
     // An empty socket address indicates that the socket is not connected.
-    EXPECT_EQ(saddr.ss.ss_family, AF_UNSPEC);
+    EXPECT_TRUE(saddr.empty());
     // But it is still bound to a local address.
     EXPECT_TRUE(sockObj.local_saddr());
 

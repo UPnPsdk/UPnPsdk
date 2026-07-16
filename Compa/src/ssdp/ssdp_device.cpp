@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-06-03
+ * Redistribution only with this Copyright remark. Last modified: 2026-06-22
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -152,6 +152,8 @@ int NewRequestHandler(
     char** a_rq_packet) {
     if (a_dest_saddr == nullptr)
         return UPNP_E_INVALID_PARAM;
+    if (a_rq_packet == nullptr || a_rq_packet[0] == nullptr)
+        return UPNP_E_SOCKET_ERROR;
 
     switch (a_dest_saddr->sa_family) {
     case AF_INET6:

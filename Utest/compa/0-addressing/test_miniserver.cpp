@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-13
+// Redistribution only with this Copyright remark. Last modified: 2026-07-24
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -50,7 +50,6 @@ using ::UPnPsdk::CSocket;
 using ::UPnPsdk::CSocket_basic;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
-using ::UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 using ::UPnPsdk::SSockaddr;
 
 
@@ -150,34 +149,22 @@ void get_netadapter() {
     nadaptObj.get_first();
     do {
         nadaptObj.sockaddr(saObj);
-        if (llaObj.sa.ss.ss_family == AF_UNSPEC &&
-            saObj.ss.ss_family == AF_INET6 &&
-            IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr)) {
+        if (llaObj.sa.empty() &&
+            UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr)) {
             // Found first LLA address.
             llaObj.sa = saObj;
             llaObj.idx = nadaptObj.index();
             llaObj.bitmask = nadaptObj.bitmask();
             llaObj.name = nadaptObj.name();
-        } else if (guaObj.sa.ss.ss_family == AF_UNSPEC &&
-                   saObj.ss.ss_family == AF_INET6 &&
+        } else if (guaObj.sa.empty() &&
                    UPnPsdk::IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr)) {
             // Found first GUA address.
             guaObj.sa = saObj;
             guaObj.idx = nadaptObj.index();
             guaObj.bitmask = nadaptObj.bitmask();
             guaObj.name = nadaptObj.name();
-        } else if (ip4Obj.sa.ss.ss_family == AF_UNSPEC &&
-                   saObj.ss.ss_family ==
-                       AF_INET) { // && !saObj.is_loopback()) {
-            // Found first IPv4 address.
-            ip4Obj.sa = saObj;
-            ip4Obj.idx = nadaptObj.index();
-            ip4Obj.bitmask = nadaptObj.bitmask();
-            ip4Obj.name = nadaptObj.name();
         }
-    } while (nadaptObj.get_next() && (llaObj.sa.ss.ss_family == AF_UNSPEC ||
-                                      guaObj.sa.ss.ss_family == AF_UNSPEC ||
-                                      ip4Obj.sa.ss.ss_family == AF_UNSPEC));
+    } while (nadaptObj.get_next() && (llaObj.sa.empty() || guaObj.sa.empty()));
 }
 
 
@@ -321,21 +308,12 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_no_ip_addr) {
 }
 
 TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv4_addr) {
-    // There is also a mocking Unit Test available until
-    // commit 27bd93b2f6f742501b7c887b4f4fd856742829c7.
-
-    if (ip4Obj.sa.ss.ss_family != AF_INET)
-        GTEST_SKIP() << "No local network adapter with IPv4 address found.";
-
-    // Set global variables belonging to the local inet address.
-    gIF_INDEX = ip4Obj.idx;
-    std::strcpy(gIF_NAME, ip4Obj.name.c_str());
-    // Netadapter variables are never empty because we have found a valid item.
-    std::strcpy(gIF_IPV4, ip4Obj.sa.netaddr().c_str());
-    LOCAL_PORT_V4 = ip4Obj.sa.sin.sin_port;
-    bitmask_to_netmask(&ip4Obj.sa.ss, static_cast<uint8_t>(ip4Obj.bitmask),
-                       saObj);
-    std::strcpy(gIF_IPV4_NETMASK, saObj.netaddr().c_str());
+    // Set global variables belonging to the local inet address. The fixture has
+    // cleared all.
+    gIF_INDEX = 1;
+    std::strcpy(gIF_NAME, "lo");
+    std::strcpy(gIF_IPV4, "127.0.0.1");
+    std::strcpy(gIF_IPV4_NETMASK, "255.0.0.0");
 
     // We need the threadpool to RunMiniServer().
     CThreadPoolInit tp(gMiniServerThreadPool);
@@ -345,22 +323,26 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv4_addr) {
     int ret_StartMiniServer =
         StartMiniServer(&LOCAL_PORT_V4, &LOCAL_PORT_V6, &LOCAL_PORT_V6_ULA_GUA);
 
-    EXPECT_EQ(ret_StartMiniServer, UPNP_E_SUCCESS)
-        << errStrEx(ret_StartMiniServer, UPNP_E_SUCCESS);
+    if (old_code)
+        EXPECT_EQ(ret_StartMiniServer, UPNP_E_SUCCESS)
+            << errStrEx(ret_StartMiniServer, UPNP_E_SUCCESS);
+    else
+        // Of course, it doesn't run with UPnPsdk.
+        EXPECT_EQ(ret_StartMiniServer, UPNP_E_OUTOF_SOCKET)
+            << errStrEx(ret_StartMiniServer, UPNP_E_OUTOF_SOCKET);
 
     EXPECT_EQ(StopMiniServer(), 0);
 }
 
-TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
+TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_lla_addr) {
     // There is also a mocking Unit Test available until
     // commit 27bd93b2f6f742501b7c887b4f4fd856742829c7.
-
-    if (llaObj.sa.ss.ss_family != AF_INET6)
+    if (llaObj.sa.empty())
         GTEST_SKIP()
             << "No local network adapter with Link Local Address (LLA) found.";
 
     // Set global variables belonging to the local inet address.
-    gIF_INDEX = llaObj.idx;
+    gIF_INDEX = llaObj.idx; // Important for macOS multicast.
     std::strcpy(gIF_NAME, llaObj.name.c_str());
     // Copy with removing surrounding brackets. Netadapter variables are never
     // empty because we have found a valid item.
@@ -371,7 +353,7 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
     if (char* chptr{::strchr(buf, '%')})
         *chptr = '\0';
     std::strcpy(gIF_IPV6, buf);
-    gIF_IPV6_PREFIX_LENGTH = llaObj.idx;
+    gIF_IPV6_PREFIX_LENGTH = llaObj.bitmask;
     LOCAL_PORT_V6 = llaObj.sa.sin6.sin6_port;
 
     // We need the threadpool to RunMiniServer().
@@ -393,27 +375,27 @@ TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_lla_addr) {
 
         EXPECT_EQ(ret_StartMiniServer, UPNP_E_SUCCESS)
             << errStrEx(ret_StartMiniServer, UPNP_E_SUCCESS);
-
-        EXPECT_EQ(StopMiniServer(), 0);
     }
+
+    EXPECT_EQ(StopMiniServer(), 0);
 }
 
-TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_ipv6_gua_addr) {
+TEST_F(StartMiniServerFTestSuite, start_miniserver_with_one_gua_addr) {
     // There is also a mocking Unit Test available until
     // commit 27bd93b2f6f742501b7c887b4f4fd856742829c7.
-
-    if (guaObj.sa.ss.ss_family != AF_INET6)
+    if (guaObj.sa.empty())
         GTEST_SKIP() << "No local network adapter with Global Unicast Address "
-                        "(GUA) found.\n";
+                        "(GUA) found.";
 
     // Set global variables belonging to the local inet address.
-    gIF_INDEX = guaObj.idx;
-    std::strcpy(gIF_NAME, guaObj.name.c_str());
+    gIF_INDEX = guaObj.idx; // Important for macOS multicast.
+    memset(&gIF_NAME, 0, sizeof(gIF_NAME));
+    guaObj.name.copy(gIF_NAME, sizeof(gIF_NAME) - 1);
     // Copy with removing surrounding brackets. Netadapter variables are never
     // empty because we have found a valid item.
     std::strcpy(gIF_IPV6_ULA_GUA, guaObj.sa.netaddr().c_str() + 1);
     gIF_IPV6_ULA_GUA[std::strlen(gIF_IPV6_ULA_GUA) - 1] = '\0';
-    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = guaObj.idx;
+    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = guaObj.bitmask;
     LOCAL_PORT_V6_ULA_GUA = guaObj.sa.sin6.sin6_port;
 
     // We need the threadpool to RunMiniServer().

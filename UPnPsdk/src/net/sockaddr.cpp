@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 And higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-15
+// Redistribution only with this Copyright remark. Last modified: 2026-07-23
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -143,8 +143,8 @@ int to_port(std::string_view a_port_str, in_port_t* const a_port_num) noexcept {
 }
 
 
-// Free function to split inet address and port(service)
-// -----------------------------------------------------
+// Structure for a tokenized internet address
+// ==========================================
 // For port conversion:
 // Don't use '::htons' (with colons) instead of 'htons', MacOS don't like it.
 // 'sin6_port' is also 'sin_port' due to union.
@@ -178,16 +178,13 @@ int to_port(std::string_view a_port_str, in_port_t* const a_port_num) noexcept {
 //               50006
 //                  Remaining
 //               2001:db8::7
-void inaddr_tokenize(const std::string_view a_addr_sv,
-                     inaddr_token_t& a_inaddr) noexcept {
-    // Special cases
-    if (a_addr_sv.empty()) {
-        // An empty address string clears address/scope_id/port.
-        a_inaddr.node.clear();
-        a_inaddr.scope.clear();
-        a_inaddr.service.clear();
+// -----------------------------------------------------
+// Constructor
+SInaddr::SInaddr(const std::string_view a_addr_sv) noexcept {
+    if (a_addr_sv.empty())
         return;
-    }
+
+    this->node.reserve(INET6_ADDRSTRLEN);
 
     std::string_view addr_sv;
     std::string_view serv_sv;
@@ -260,7 +257,7 @@ void inaddr_tokenize(const std::string_view a_addr_sv,
             addr_sv = a_addr_sv; // Any alphanumeric string.
     }
 
-    // Return result for a_inaddr.node.
+    // Prepare result for a_inaddr.node.
     // Remove surounding brackets if any, shortest possible netaddress is
     // "[::]".
     if (addr_sv.length() >= 4 && addr_sv.front() == '[' &&
@@ -272,36 +269,35 @@ void inaddr_tokenize(const std::string_view a_addr_sv,
         addr_sv.remove_suffix(1);
     }
 
-    // Return result for a_inaddr.node and a_inaddr.scope.
+    // Store result to this->node and this->scope.
     if ((pos = addr_sv.find_first_of('%')) != npos) {
-        a_inaddr.node = addr_sv.substr(0, pos);
-        a_inaddr.scope = addr_sv.substr(pos + 1);
-        if (a_inaddr.scope.empty())
-            a_inaddr.scope = zero_sv;
+        this->node = addr_sv.substr(0, pos);
+        this->scope = addr_sv.substr(pos + 1);
+        if (this->scope.empty())
+            this->scope = zero_sv;
     } else {
-        a_inaddr.node = addr_sv;
-        a_inaddr.scope.clear();
+        this->node = addr_sv;
+        this->scope.clear();
     }
 
-    // Return result for a_inaddr.service.
+    // Store result to this->service.
     // Check for valid port. ::getaddrinfo accepts invalid ports > 65535.
-    a_inaddr.service = serv_sv;
+    this->service = serv_sv;
 
-    /* Normalize inaddr.node to lower case.
-    for (auto it{a_inaddr.node.begin()}; it < a_inaddr.node.end(); it++)
+    /* Normalize this->node to lower case.
+    for (auto it{this->node.begin()}; it < this->node.end(); it++)
         *it = static_cast<char>(std::tolower(static_cast<unsigned char>(*it)));
     */
-    // Trim empty inaddr.node.
+    // Trim empty this->node.
     size_t idx{};
-    for (; a_inaddr.node[idx] == ' ' && idx < a_inaddr.node.size(); idx++)
+    for (; this->node[idx] == ' ' && idx < this->node.size(); idx++)
         ;
-    if (idx == a_inaddr.node.size())
-        a_inaddr.node.clear();
+    if (idx == this->node.size())
+        this->node.clear();
 
-    UPnPsdk_LOGINFO("MSG1043")
-        << "\"" << a_addr_sv << "\" into addr=\"" << a_inaddr.node
-        << "\", scope_id=\"" << a_inaddr.scope << "\", port=\""
-        << a_inaddr.service << "\"\n";
+    UPnPsdk_LOGINFO("MSG1043") << "split \"" << a_addr_sv << "\" into node=\""
+                               << this->node << "\", scope=\"" << this->scope
+                               << "\", service=\"" << this->service << "\"\n";
 }
 
 
@@ -311,7 +307,7 @@ void inaddr_tokenize(const std::string_view a_addr_sv,
 /// \cond
 // Constructor
 // -----------
-SSockaddr::SSockaddr() = default;
+SSockaddr::SSockaddr() { m_sa_union.ss.ss_family = AF_INET6; }
 
 // Destructor
 // ----------
@@ -325,26 +321,39 @@ SSockaddr::~SSockaddr() = default;
 void SSockaddr::operator=(const ::sockaddr_storage& a_ss) noexcept {
     switch (a_ss.ss_family) {
     case AF_INET6: {
+        char addr_buf[INET6_ADDRSTRLEN];
         auto* a_sin6 = reinterpret_cast<const sockaddr_in6*>(&a_ss);
+
         if (IN6_IS_ADDR_LINKLOCAL(&a_sin6->sin6_addr)) { // Is it "[fe80]"?
             // An lla, but is it valid and has no subnet prefix "[fe80::"?
             if (!IN6_IS_ADDR_LINKLOCAL2(&a_sin6->sin6_addr) ||
                 a_sin6->sin6_scope_id == 0) {
                 // A valid link-local address must have a scope_id.
-                char addr_buf[INET6_ADDRSTRLEN];
                 ::inet_ntop(AF_INET6, &a_sin6->sin6_addr, addr_buf,
                             sizeof(addr_buf));
                 UPnPsdk_LOGERR("MSG1127") "lla=\"["
                     << addr_buf << "]\" with subnet, or without scope_id.";
                 break; // Error
             }
-
             // Valid lla.
+            m_sa_union.ss = a_ss;
+            return;
+
+        } else if (IN6_IS_ADDR_MULTICAST(&a_sin6->sin6_addr)) {
+            if (a_sin6->sin6_scope_id == 0) {
+                // A valid multicast address must have a scope_id.
+                ::inet_ntop(AF_INET6, &a_sin6->sin6_addr, addr_buf,
+                            sizeof(addr_buf));
+                UPnPsdk_LOGERR("MSG1045") "mcast=\"["
+                    << addr_buf << "]\" without scope_id.";
+                break; // Error
+            }
+            // Valid mcast.
             m_sa_union.ss = a_ss;
             return;
         }
 
-        // An IPv6 address but not a link-local address.
+        // An IPv6 address but not a link-local address, or multicast address.
         // A scope_id is silently discarded.
         m_sa_union.ss = a_ss;
         m_sa_union.sin6.sin6_scope_id = 0;
@@ -363,6 +372,7 @@ void SSockaddr::operator=(const ::sockaddr_storage& a_ss) noexcept {
     default:
         UPnPsdk_LOGERR("MSG1179") "Unsupported address family "
             << a_ss.ss_family << ".";
+        break; // Error
 
     } // switch
 
@@ -371,6 +381,90 @@ void SSockaddr::operator=(const ::sockaddr_storage& a_ss) noexcept {
         std::cerr << " Continue with unspecified socket address.\n";
     m_sa_union = {};
     m_sa_union.ss.ss_family = AF_UNSPEC;
+}
+
+
+// Assignment operator= to set socket address from an internet address
+// -------------------------------------------------------------------
+void SSockaddr::operator=(const SInaddr& a_inaddr) noexcept {
+    // Please note that inet_pton() on Microsoft Windows modifies its
+    // destination (here 'saddr') even if it fails.
+    ::UPnPsdk::sockaddr_t saddr{};
+    saddr.ss.ss_family = AF_UNSPEC;
+
+    if (a_inaddr.node.empty()) {
+        m_sa_union = saddr;
+        return;
+    }
+
+    // Get status of the service/port.
+    ::in_port_t port;
+    int is_to_port = to_port(a_inaddr.service, &port);
+    if (is_to_port == 1) { // Valid number, but not in range.
+        UPnPsdk_LOGERR("MSG1184") "port number=\""
+            << a_inaddr.service
+            << "\" not in range 0..65535. Continue with unspecified socket "
+               "address.\n";
+        m_sa_union = saddr;
+        return;
+    }
+
+    saddr.ss.ss_family = AF_INET6;
+    // If port or scope pattern not numeric, then return an IPv6 empty sockaddr
+    // to indicate the calling program to look with name resolution.
+    if ((!a_inaddr.service.empty() && is_to_port == -1) || // No number.
+        (!a_inaddr.scope.empty() && !is_unum_str(a_inaddr.scope, 10))) {
+        m_sa_union = saddr;
+        return;
+    }
+
+    // Check if IPv6 address
+    if ((is_to_port == 0) && (::inet_pton(AF_INET6, a_inaddr.node.c_str(),
+                                          &saddr.sin6.sin6_addr) == 1)) //
+    {
+        if (is_unum_str(a_inaddr.scope, 10))
+            saddr.sin6.sin6_scope_id =
+                static_cast<uint32_t>(std::stoul(a_inaddr.scope));
+        saddr.sin6.sin6_port = htons(port);
+    }
+
+    // Check if IPv4 address and map it to IPv6.
+    else if (in_addr sin_addr;
+             (is_to_port == 0) && (::inet_pton(AF_INET, a_inaddr.node.c_str(),
+                                               &sin_addr) == 1)) //
+    {
+        uint32_t* sin6_32 = reinterpret_cast<uint32_t*>(&saddr.sin6.sin6_addr);
+        sin6_32[0] = 0;
+        sin6_32[1] = 0;
+        sin6_32[2] = htonl(0x0000ffff);
+        sin6_32[3] = sin_addr.s_addr;
+        saddr.sin6.sin6_port = htons(port);
+    }
+
+    // Check possible DNS host name for valid characters.
+    else {
+        unsigned char ch;
+        size_t i;
+        for (i = 0; i < a_inaddr.node.size(); i++) {
+            ch = static_cast<unsigned char>(a_inaddr.node[i]);
+            if (!std::isalnum(ch) && ch != '.' && ch != '-')
+                break;
+        }
+        if (i < a_inaddr.node.size()) {
+            // Invalid character for a DNS host name found. Indicate invalid
+            // node entry.
+            m_sa_union = {};
+            m_sa_union.ss.ss_family = AF_UNSPEC;
+            return;
+        }
+        // Seems there is an alphanumeric node. I indicate that with an empty
+        // (numeric) socket address.
+        saddr = {}; // May be already modified before with garbage on win32.
+        saddr.ss.ss_family = AF_INET6;
+    }
+
+    // Attention! saddr must still be valid till returning from following method
+    *this = saddr.ss;
 }
 
 
@@ -524,15 +618,5 @@ socklen_t SSockaddr::sizeof_saddr() const noexcept {
         return 0;
     }
 }
-
-
-/// \cond
-// Getter of the netaddress to output stream
-// -----------------------------------------
-std::ostream& operator<<(std::ostream& os, SSockaddr& saddr) {
-    os << saddr.netaddrp();
-    return os;
-}
-/// \endcond
 
 } // namespace UPnPsdk

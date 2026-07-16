@@ -1,6 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"d8/d61/ThreadPool_8cpp.html":[4,1,6,0,4],
 "d8/d64/group__compaAPI-Presentation.html":[4,0,5],
 "d8/d74/gena__ctrlpt_8hpp.html":[7,0,0,1,3,4],
 "d8/d74/gena__ctrlpt_8hpp.html#a2eb03f67113de1b037f592d6e49cdf3c":[7,0,0,1,3,4,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX6 =
 "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a937a0eae18a69c7e034aa982345d9a50":[5,0,6,13],
 "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afff":[5,0,6,2],
 "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa23b6f8b180edd0e4c6259a63f610bb71":[5,0,6,2,1],
-"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa5c1b6c12e057bcaf7187b7a3d9765b15":[5,0,6,2,0]
+"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa5c1b6c12e057bcaf7187b7a3d9765b15":[5,0,6,2,0],
+"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa664303d9a0b13054c9c77545d2ce53f5":[5,0,6,2,2]
 };

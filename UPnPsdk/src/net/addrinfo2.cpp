@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-09
+// Redistribution only with this Copyright remark. Last modified: 2026-07-21
 /*!
  * \file
  * \brief Manage information from Unix like platforms about internet addresses.
@@ -80,14 +80,9 @@ int CAddrinfo2::get_first() {
         return EAI_SOCKTYPE;
     }
 
-    inaddr_token_t
-        inaddr; // node, scope, port for ::getaddrinfo(), may be modified.
-
     // Prepare input for ::getaddrinfo().
-    if (m_service.empty())
-        inaddr_tokenize(m_node, inaddr);
-    else
-        inaddr_tokenize(m_node + ":" + m_service, inaddr);
+    // node, scope, port for ::getaddrinfo(), may be modified.
+    SInaddr inaddr(m_node + (m_service.empty() ? "" : (":" + m_service)));
 
     if (to_port(inaddr.service) == 1) {
         // Valid number but out of scope 0..65535.
@@ -223,9 +218,9 @@ int CAddrinfo2::get_first() {
             // Huh.. double pointer cast :-(
             sockaddr_in6* sin6 = reinterpret_cast<sockaddr_in6*>(ptr->ai_addr);
             uint32_t* sin6_32 = reinterpret_cast<uint32_t*>(&sin6->sin6_addr);
-            if (*sin6_32 == 0 && *(sin6_32 + 1) == 0 &&
-                *(sin6_32 + 2) == htonl(0x0000ffff) && *(sin6_32 + 3) == 127) {
-                *(sin6_32 + 3) = 0; // Clear bytes containing 127.
+            if (sin6_32[0] == 0 && sin6_32[1] == 0 &&
+                sin6_32[2] == htonl(0x0000ffff) && sin6_32[3] == 127) {
+                sin6_32[3] = 0; // Clear bytes containing 127.
             }
         } // for
     }

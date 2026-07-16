@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-13
+// Redistribution only with this Copyright remark. Last modified: 2026-07-23
 
 // This tests network communication. The usual way to do it is to use mocking to
 // be independent from current hardware. But with mocking you can only test what
@@ -43,9 +43,8 @@ using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::IN6_IS_ADDR_GLOBAL2;
 using ::UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
-using ::UPnPsdk::inaddr_token_t;
-using ::UPnPsdk::inaddr_tokenize;
 using ::UPnPsdk::is_unum_str;
+using ::UPnPsdk::SInaddr;
 using ::UPnPsdk::SSockaddr;
 using ::UPnPsdk::to_port;
 
@@ -93,14 +92,13 @@ void get_netadapter() {
     nadaptObj.get_first();
     do {
         nadaptObj.sockaddr(saObj);
-        if (lo6Obj.sa.ss.ss_family == AF_UNSPEC &&
-            IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr) &&
-            saObj.ss.ss_family == AF_INET6) {
+        if (lo6Obj.sa.empty() && IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
             // Found first ipv6 loopback address.
             lo6Obj.sa = saObj;
             lo6Obj.index = nadaptObj.index();
             lo6Obj.bitmask = nadaptObj.bitmask();
             lo6Obj.name = nadaptObj.name();
+#if 0
         } else if (lo4Obj.sa.ss.ss_family == AF_UNSPEC &&
                    saObj.ss.ss_family == AF_INET) {
             // Found first ipv4 loopback address.
@@ -108,8 +106,8 @@ void get_netadapter() {
             lo4Obj.index = nadaptObj.index();
             lo4Obj.bitmask = nadaptObj.bitmask();
             lo4Obj.name = nadaptObj.name();
-        } else if (llaObj.sa.ss.ss_family == AF_UNSPEC &&
-                   saObj.ss.ss_family == AF_INET6 &&
+#endif
+        } else if (llaObj.sa.empty() &&
                    IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr) &&
                    nadaptObj.index() != 1) {
             // Found first LLA address without lla ("[fe80::1]" MacOS special)
@@ -118,14 +116,14 @@ void get_netadapter() {
             llaObj.index = nadaptObj.index();
             llaObj.bitmask = nadaptObj.bitmask();
             llaObj.name = nadaptObj.name();
-        } else if (guaObj.sa.ss.ss_family == AF_UNSPEC &&
-                   saObj.ss.ss_family == AF_INET6 &&
+        } else if (guaObj.sa.empty() &&
                    IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr)) {
             // Found first GUA address.
             guaObj.sa = saObj;
             guaObj.index = nadaptObj.index();
             guaObj.bitmask = nadaptObj.bitmask();
             guaObj.name = nadaptObj.name();
+#if 0
         } else if (ip4Obj.sa.ss.ss_family == AF_UNSPEC &&
                    saObj.ss.ss_family == AF_INET) {
             // Found first IPv4 address.
@@ -133,13 +131,12 @@ void get_netadapter() {
             ip4Obj.index = nadaptObj.index();
             ip4Obj.bitmask = nadaptObj.bitmask();
             ip4Obj.name = nadaptObj.name();
+#endif
         }
         // Repeat only as long as an adapter type is unspecified.
-    } while (nadaptObj.get_next() && (lo6Obj.sa.ss.ss_family == AF_UNSPEC ||
-                                      lo4Obj.sa.ss.ss_family == AF_UNSPEC ||
-                                      llaObj.sa.ss.ss_family == AF_UNSPEC ||
-                                      guaObj.sa.ss.ss_family == AF_UNSPEC ||
-                                      ip4Obj.sa.ss.ss_family == AF_UNSPEC));
+    } while (nadaptObj.get_next() &&
+             (lo6Obj.sa.empty() || lo4Obj.sa.empty() || llaObj.sa.empty() ||
+              guaObj.sa.empty() || ip4Obj.sa.empty()));
 }
 
 
@@ -191,7 +188,7 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_successful) {
     //   system call '::sendto()' send with an oversized socket-address size
     //   'sockaddr_storage' instead of exactly 'sockaddr_in6'. This works
     //   except on MacOS. That platform expects 'sockaddr_in6" for sending to
-    //   an IPv6 destination address. Sending an IPv6 on NacOs always fails.
+    //   an IPv6 destination address. Sending an IPv6 on macOS always fails.
     // * It is unclear what local network interface should be used. All
     //   possible local interfaces are got with system call '::getaddrinfo()'
     //   and in a loop they are '::bind()' and tried to send. But after binding
@@ -207,31 +204,27 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_successful) {
 
     // Prepare other used parameter.
     SSockaddr destsaObj;
-    destsaObj.ss.ss_family = AF_INET6;
-    ASSERT_EQ(::inet_pton(destsaObj.ss.ss_family, SSDP_MCAST_IFACE_LOCAL,
+    ASSERT_EQ(::inet_pton(destsaObj.family, SSDP_MCAST_IFACE_LOCAL,
                           &destsaObj.sin6.sin6_addr),
               1);
     destsaObj.sin6.sin6_port = 1900;
+    // Apple '::sendto()' fails if it uses a multicast address without scope_id.
+    ASSERT_NE(destsaObj.sin6.sin6_scope_id = llaObj.index, 0);
     if (old_code) {
         gIF_INDEX = llaObj.index;
         strcpy(gIF_IPV4, "0.0.0.0");
-    } else {
-#ifdef __APPLE__
-        // Apple needs to know what local network interface to use.
-        destsaObj.sin6.sin6_scope_id = llaObj.index;
-#endif
     }
 
     // Test Unit
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
-#if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(__APPLE__)
-    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
-        << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
-#else
-    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
-        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
-#endif
+    if (old_code)
+        if (compiler == CO::clang)
+            EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+                << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+        else
+            EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+                << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
 }
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
@@ -277,14 +270,13 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_mock_successful) {
     // Test Unit
     int ret_NewRequestHandler =
         ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
-#ifdef __APPLE__
-    // Due to bug with wrong socket address length on sendto().
-    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
-        << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
-#else
-    EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
-        << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
-#endif
+    if (compiler == CO::clang)
+        // Due to bug with wrong socket address length on sendto().
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+    else
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
 }
 #endif
 
@@ -292,7 +284,7 @@ TEST_F(SsdpDeviceFTestSuite, NewRequestHandler_mock_successful) {
 class SendStatelessTest
     : public ::testing::TestWithParam<std::tuple<
           // netaddr, netadapter index, retval old_code, retval new_code
-          const std::string, const Idx, const int, const int>> {
+          const std::string_view, const Idx, const int, const int>> {
   protected:
     CPupnplog m_logObj; // Output only with build type DEBUG.
 };
@@ -301,27 +293,33 @@ TEST_P(SendStatelessTest, send_stateless) {
     // Get parameter
     const std::tuple params = GetParam();
 
-    SSockaddr destsaObj;
-    inaddr_token_t inaddr;
-    inaddr_tokenize(std::get<0>(params), inaddr);
-    destsaObj.ss.ss_family = AF_INET6;
-    ASSERT_EQ(::inet_pton(destsaObj.ss.ss_family, inaddr.node.c_str(),
-                          &destsaObj.sin6.sin6_addr),
-              1);
-    if (is_unum_str(inaddr.scope, 10))
-        destsaObj.sin6.sin6_scope_id =
-            static_cast<uint32_t>(std::stoul(inaddr.scope));
-    in_port_t port{};
-    to_port(inaddr.service, &port);
-    destsaObj.sin6.sin6_port = htons(port);
+    // SSockaddr destsaObj;
+    // destsaObj = SInaddr(std::get<0>(params));
+    // ASSERT_NE(destsaObj.family, AF_UNSPEC);
+    // I cannot use SSockaddr because it ecapsulates the real behavior of the
+    // platform. The following low level expect valid entries from the test
+    // settings and does not perform error checking.
+
+    UPnPsdk::sockaddr_t destsa;
+    destsa.ss.ss_family = AF_INET6;
+    SInaddr inaddr(std::get<0>(params));
+    ::inet_pton(destsa.ss.ss_family, inaddr.node.c_str(),
+                &destsa.sin6.sin6_addr);
+    destsa.sin6.sin6_scope_id =
+        inaddr.scope.empty() ? 0
+                             : static_cast<uint32_t>(std::stoi(inaddr.scope));
+    destsa.sin6.sin6_port =
+        inaddr.service.empty()
+            ? 0
+            : static_cast<uint16_t>(std::stoi(inaddr.service));
 
     uint32_t na_idx;
     switch (std::get<1>(params)) {
     case Idx::no:
         // If we want to test a GUA but there is no adapter with a global
         // unicast address I flag to skip the test.
-        if (destsaObj.ss.ss_family == AF_INET6 &&
-            IN6_IS_ADDR_GLOBAL2(&destsaObj.sin6.sin6_addr) && guaObj.index == 0)
+        if (destsa.ss.ss_family == AF_INET6 &&
+            IN6_IS_ADDR_GLOBAL2(&destsa.sin6.sin6_addr) && guaObj.index == 0)
             // Flag to skip test.
             na_idx = 0u;
         else
@@ -349,7 +347,7 @@ TEST_P(SendStatelessTest, send_stateless) {
     if (na_idx == 0)
         GTEST_SKIP() << "No local network adapter found with usable source "
                         "address to connect to remote \""
-                     << destsaObj.netaddrp() << "\".";
+                     << std::get<0>(params) << "\".";
 
     const int ret_old = std::get<2>(params);
     const int ret_new = std::get<3>(params);
@@ -366,23 +364,23 @@ TEST_P(SendStatelessTest, send_stateless) {
     // valid.
     strcpy(gIF_IPV4, "0.0.0.0"); // INADDR_ANY
 
-    switch (destsaObj.ss.ss_family) {
+    switch (destsa.ss.ss_family) {
     case AF_INET6:
         gIF_INDEX = (na_idx == ~0u ? 0u : na_idx);
-        destsaObj.sin6.sin6_scope_id = gIF_INDEX;
+        destsa.sin6.sin6_scope_id = gIF_INDEX;
         break;
     case AF_INET:
         break;
     default:
         GTEST_FAIL();
     }
-    std::cout << "             destsaObj=" << destsaObj << '\n';
+    std::cout << "             destsa=" << std::get<0>(params) << '\n';
     if (g_dbug)
         m_logObj.enable(UPNP_ALL);
 
     // Test Unit
     int ret_NewRequestHandler =
-        ::NewRequestHandler(&destsaObj.sa, num_msg, &msgs[0]);
+        ::NewRequestHandler(&destsa.sa, num_msg, &msgs[0]);
 
     if (old_code)
         EXPECT_EQ(ret_NewRequestHandler, ret_old)
@@ -450,46 +448,46 @@ TEST_P(SendStatelessTest, send_stateless) {
 // clang-format off
 #if !defined(__APPLE__) && !defined(_MSC_VER)
 INSTANTIATE_TEST_SUITE_P(SendStateless, SendStatelessTest, ::testing::Values(
-    //     netaddr, local netadapter index, result old_code,     result new_code
-    /*0*/ std::make_tuple("[::1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::1]", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::1]:1901", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::1]:1902", Idx::lo6, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::1]:1903", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::1]:1904", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::ffff:127.0.0.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:127.0.0.1]:1901", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[::ffff:127.0.0.1]:1902", Idx::lo6, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    /*10*/ std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[2001:db8:2747::c022]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    // std::make_tuple("[2001:db8:2747::c023]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
-    // std::make_tuple("[2001:db8:2747::c024]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
-    std::make_tuple("[fe80::20c:fe7f:c021%100]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c022%200]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[fe80::20c:fe7f:c023%300]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    // std::make_tuple("[fe80::20c:fe7f:c024]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
-    // std::make_tuple("[fe80::20c:fe7f:c025]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
-    // std::make_tuple("[fe80::20c:fe7f:c026]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
-    // Multicast interface-local
-    std::make_tuple("[ff01::c]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[ff01::c]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[ff01::c]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[ff01::c]:1901", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[ff01::c]:1902", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
-    std::make_tuple("[ff01::c]:1903", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+//     netaddr, local netadapter index, result old_code,     result new_code
+/*0*/  std::make_tuple("[::1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[::1]", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[::1]:1901", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+       std::make_tuple("[::1]:1902", Idx::lo6, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+       std::make_tuple("[::1]:1903", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+       std::make_tuple("[::1]:1904", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+       std::make_tuple("[::ffff:127.0.0.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[::ffff:127.0.0.1]", Idx::lo6, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[::ffff:127.0.0.1]:1901", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+       std::make_tuple("[::ffff:127.0.0.1]:1902", Idx::lo6, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+/*10*/ std::make_tuple("[2001:db8:2747::c021]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[2001:db8:2747::c021]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[2001:db8:2747::c022]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       // std::make_tuple("[2001:db8:2747::c023]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
+       // std::make_tuple("[2001:db8:2747::c024]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
+       std::make_tuple("[fe80::20c:fe7f:c021%100]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[fe80::20c:fe7f:c022%200]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[fe80::20c:fe7f:c023%300]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       // std::make_tuple("[fe80::20c:fe7f:c024]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
+       // std::make_tuple("[fe80::20c:fe7f:c025]:1900", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
+       // std::make_tuple("[fe80::20c:fe7f:c026]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network with ICMP6, neighbor solicitation
+       // Multicast interface-local
+       std::make_tuple("[ff01::c]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[ff01::c]", Idx::lla, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[ff01::c]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[ff01::c]:1901", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+/*20*/ std::make_tuple("[ff01::c]:1902", Idx::lla, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
+       std::make_tuple("[ff01::c]:1903", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS),
 
-    std::make_tuple("[::ffff:10.178.1.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:10.178.1.2]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:10.178.1.3]", Idx::ip4, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    // std::make_tuple("[::ffff:10.178.1.4]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
-    // std::make_tuple("[::ffff:10.178.1.5]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
-    std::make_tuple("[::ffff:10.178.1.6]:1900", Idx::ip4, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // Due to IPV4_MAPPED_IPV6 never found on an adapter
-    std::make_tuple("[::ffff:239.132.38.181]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
-    std::make_tuple("[::ffff:239.132.38.182]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE)
-    // std::make_tuple("[::ffff:239.132.38.183]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS) // Spam to user network
-    // std::make_tuple("[::ffff:239.132.38.184]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS) // Spam to user network
+       std::make_tuple("[::ffff:10.178.1.1]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[::ffff:10.178.1.2]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[::ffff:10.178.1.3]", Idx::ip4, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       // std::make_tuple("[::ffff:10.178.1.4]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
+       // std::make_tuple("[::ffff:10.178.1.5]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS), // Spam to user network
+       std::make_tuple("[::ffff:10.178.1.6]:1900", Idx::ip4, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE), // Due to IPV4_MAPPED_IPV6 never found on an adapter
+       std::make_tuple("[::ffff:239.132.38.181]", Idx::no, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE),
+       std::make_tuple("[::ffff:239.132.38.182]", Idx::gua, UPNP_E_SOCKET_ERROR, UPNP_E_SOCKET_WRITE)
+       // std::make_tuple("[::ffff:239.132.38.183]:1900", Idx::no, UPNP_E_SUCCESS, UPNP_E_SUCCESS) // Spam to user network
+       // std::make_tuple("[::ffff:239.132.38.184]:1900", Idx::gua, UPNP_E_SUCCESS, UPNP_E_SUCCESS) // Spam to user network
 ));
 #endif
 #ifdef __APPLE__
@@ -698,8 +696,7 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_no_messages_addressed_fails) {
     // char* msgs[1]{msg1};
 
     SSockaddr destaddr;
-    destaddr.ss.ss_family = AF_INET6;
-    ASSERT_EQ(::inet_pton(destaddr.ss.ss_family, SSDP_MCAST_IFACE_LOCAL,
+    ASSERT_EQ(::inet_pton(destaddr.family, SSDP_MCAST_IFACE_LOCAL,
                           &destaddr.sin6.sin6_addr),
               1);
     destaddr.sin6.sin6_port = 1900;
@@ -717,10 +714,15 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_no_messages_addressed_fails) {
         std::cout
             << CYEL "[ BUGFIX   ]" CRES
             << " Pointing to no message array (nullptr) must not segfault.\n";
-
+#ifdef __APPLE__
+        ret_NewRequestHandler =
+            ::NewRequestHandler(&destaddr.sa, num_msg, nullptr);
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
+#else
         gIF_INDEX = llaObj.index; // Trigger segfault with valid IPv6 interace.
-        EXPECT_DEATH(::NewRequestHandler(&destaddr.sa, num_msg, nullptr), ".*");
-
+        ASSERT_DEATH(::NewRequestHandler(&destaddr.sa, num_msg, nullptr), ".*");
+#endif
     } else {
 
         ASSERT_EXIT(
@@ -728,8 +730,8 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_no_messages_addressed_fails) {
             ExitedWithCode(0), ".*");
         int ret_NewRequestHandler =
             ::NewRequestHandler(&destaddr.sa, num_msg, nullptr);
-        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_INVALID_PARAM)
-            << errStrEx(ret_NewRequestHandler, UPNP_E_INVALID_PARAM);
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
     }
 }
 
@@ -738,8 +740,7 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_send_no_message_succeeds) {
     char* msgs[num_msg]{nullptr};
 
     SSockaddr destaddr_ip6;
-    destaddr_ip6.ss.ss_family = AF_INET6;
-    ASSERT_EQ(::inet_pton(destaddr_ip6.ss.ss_family, SSDP_MCAST_IFACE_LOCAL,
+    ASSERT_EQ(::inet_pton(destaddr_ip6.family, SSDP_MCAST_IFACE_LOCAL,
                           &destaddr_ip6.sin6.sin6_addr),
               1);
     destaddr_ip6.sin6.sin6_port = 1900;
@@ -760,8 +761,8 @@ TEST_F(SsdpDeviceFDeathTest, NewRequestHandler_send_no_message_succeeds) {
             ExitedWithCode(0), ".*");
         int ret_NewRequestHandler =
             ::NewRequestHandler(&destaddr_ip6.sa, num_msg, &msgs[0]);
-        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SUCCESS)
-            << errStrEx(ret_NewRequestHandler, UPNP_E_SUCCESS);
+        EXPECT_EQ(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR)
+            << errStrEx(ret_NewRequestHandler, UPNP_E_SOCKET_ERROR);
     }
 }
 

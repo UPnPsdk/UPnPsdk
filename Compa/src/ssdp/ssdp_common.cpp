@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-03-29
+ * Redistribution only with this Copyright remark. Last modified: 2026-07-23
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -550,26 +550,20 @@ inline int create_ssdp_sock_v6_ula_gua(
     /*! [out] SSDP IPv6 socket to be created. */
     SOCKET* ssdpSock) {
     UPnPsdk_LOGINFO("MSG1084") "Executing...\n";
-    char errorBuffer[ERROR_BUFFER_LEN];
-    ipv6_mreq ssdpMcastAddr;
-    int onOff;
-    int ret = 0;
+    ipv6_mreq ssdpMcastAddr{};
 
     *ssdpSock = umock::sys_socket_h.socket(AF_INET6, SOCK_DGRAM, 0);
     if (*ssdpSock == INVALID_SOCKET) {
-        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
-        UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in socket(): %s\n", errorBuffer);
-
+        UPnPsdk_LOGCRIT("MSG1049") "Error in socket(): " << strerror(errno)
+                                                         << "\n";
         return UPNP_E_OUTOF_SOCKET;
     }
-    onOff = 1;
-    ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_REUSEADDR,
-                                         (char*)&onOff, sizeof(onOff));
+    int onOff = 1;
+    int ret = umock::sys_socket_h.setsockopt(
+        *ssdpSock, SOL_SOCKET, SO_REUSEADDR, (char*)&onOff, sizeof(onOff));
     if (ret == -1) {
-        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
-        UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in setsockopt() SO_REUSEADDR: %s\n", errorBuffer);
+        UPnPsdk_LOGCRIT("MSG1156") "Error in setsockopt() SO_REUSEADDR: "
+            << strerror(errno) << "\n";
         ret = UPNP_E_SOCKET_ERROR;
         goto error_handler;
     }
@@ -578,9 +572,8 @@ inline int create_ssdp_sock_v6_ula_gua(
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_REUSEPORT,
                                          (char*)&onOff, sizeof(onOff));
     if (ret == -1) {
-        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
-        UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in setsockopt() SO_REUSEPORT: %s\n", errorBuffer);
+        UPnPsdk_LOGCRIT("MSG1185") "Error in setsockopt() SO_REUSEPORT: "
+            << strerror(errno) << "\n";
         ret = UPNP_E_SOCKET_ERROR;
         goto error_handler;
     }
@@ -589,9 +582,8 @@ inline int create_ssdp_sock_v6_ula_gua(
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, IPPROTO_IPV6, IPV6_V6ONLY,
                                          (char*)&onOff, sizeof(onOff));
     if (ret == -1) {
-        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
-        UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in setsockopt() IPV6_V6ONLY: %s\n", errorBuffer);
+        UPnPsdk_LOGCRIT("MSG1186") "Error in setsockopt() IPV6_V6ONLY: "
+            << strerror(errno) << "\n";
         ret = UPNP_E_SOCKET_ERROR;
         goto error_handler;
     }
@@ -600,7 +592,7 @@ inline int create_ssdp_sock_v6_ula_gua(
         UPnPsdk::sockaddr_t saddr{};
         saddr.sin6.sin6_family = AF_INET6;
         saddr.sin6.sin6_addr = in6addr_any;
-        // saddr.sin6.sin6_scope_id = gIF_INDEX; // Not valid on a GUA
+        saddr.sin6.sin6_scope_id = gIF_INDEX;
         saddr.sin6.sin6_port = htons(SSDP_PORT);
         UPnPsdk::CSocketErr serrObj;
         ret =
@@ -614,19 +606,16 @@ inline int create_ssdp_sock_v6_ula_gua(
             goto error_handler;
         }
     }
-    memset((void*)&ssdpMcastAddr, 0, sizeof(ssdpMcastAddr));
     ssdpMcastAddr.ipv6mr_interface = gIF_INDEX;
-    /* SITE LOCAL */
-    inet_pton(AF_INET6, SSDP_IPV6_SITELOCAL, &ssdpMcastAddr.ipv6mr_multiaddr);
+    /* LINK LOCAL */
+    inet_pton(AF_INET6, SSDP_IPV6_LINKLOCAL, &ssdpMcastAddr.ipv6mr_multiaddr);
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, IPPROTO_IPV6,
                                          IPV6_JOIN_GROUP, (char*)&ssdpMcastAddr,
                                          sizeof(ssdpMcastAddr));
     if (ret == -1) {
-        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
-        UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in setsockopt() IPV6_JOIN_GROUP (join multicast "
-                   "group): %s\n",
-                   errorBuffer);
+        UPnPsdk_LOGCRIT("MSG1187") "Error in setsockopt() IPV6_JOIN_GROUP "
+                                   "(join multicast group): "
+            << strerror(errno) << "\n";
         ret = UPNP_E_SOCKET_ERROR;
         goto error_handler;
     }
@@ -634,11 +623,9 @@ inline int create_ssdp_sock_v6_ula_gua(
     ret = umock::sys_socket_h.setsockopt(*ssdpSock, SOL_SOCKET, SO_BROADCAST,
                                          (char*)&onOff, sizeof(onOff));
     if (ret == -1) {
-        strerror_r(errno, errorBuffer, ERROR_BUFFER_LEN);
-        UpnpPrintf(UPNP_CRITICAL, SSDP, __FILE__, __LINE__,
-                   "Error in setsockopt() SO_BROADCAST (set broadcast): "
-                   "%s\n",
-                   errorBuffer);
+        UPnPsdk_LOGCRIT(
+            "MSG1188") "Error in setsockopt() SO_BROADCAST (set broadcast): "
+            << strerror(errno) << "\n";
         ret = UPNP_E_NETWORK_ERROR;
         goto error_handler;
     }

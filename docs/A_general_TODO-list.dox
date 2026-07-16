@@ -1,20 +1,30 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-04
+// Redistribution only with this Copyright remark. Last modified: 2026-07-24
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Check if tunnel connections and VPN should not supported as documented with https://github.com/pupnp/pupnp/pull/500.
- * - Rework CSocket.bind() due to RFC 4038 6.3.1 (try bind to all possible net if).
- * - CAddrinfo MUST return error codes!
+ * - Rework SSockaddr.
+ *   - Store loopback interface not in gIF_IPV6, but in gIF_IPV6_ULA_GUA.
+ *   - Get CNetadapter.netmask as string, not as SSockaddr.
+ * - Rework CAddrinfo.
+ *   - CAddrinfo MUST return error codes!
+ *   - Rework Unit Tests for the CAddrinfo2 class.
+ *   - Make CAddrinfo thread safe?
  * - Rework Unit Tests in Utest/compa/api.d/test_upnpapi.cpp.
  *   - Remove Utest/compa/api.d/test_upnpapi_win32.cpp.
  *   - Remove Utest/compa/api.d/test_upnpapi_unix.cpp.
+ * - Rework CSocket class.
+ *   - Rework 'get_ssdp_sockets()' and Utest/compa/1-discovery/test_ssdp.cpp.
+ *   - Rework CSocket.bind() due to RFC 4038 6.3.1 (try bind to all possible net if).
+   - Modify miniserver module, with work in progress.
+     - change 'test_miniserver.cpp' to use IPv6 addresses.
+     - change 'test_miniserver_run.cpp' to use IPv6 addresses.
+ * - Check if tunnel connections and VPN should not supported as documented with https://github.com/pupnp/pupnp/pull/500.
  * - Rework UPnPsdk_info application
  *   - Update printed options
  *   - Create info function in the library to avoid exporting private symbols, callable on the API.
- * - Make CAddrinfo thread safe.
  * - Implement API of the SDK.
      - Check installation of binaries and header files in /usr/local.
      - Add ixml interface calls to api_calls.c.
@@ -26,7 +36,6 @@
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
  * - Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.
  * - Enable OpenSSL, improve its tests (test_sock.cpp, sock read_ssl, sock write_ssl).
- * - Rework 'get_ssdp_sockets()' and Utest/compa/1-discovery/test_ssdp.cpp.
  * - Extract simple inet_server from test_openssl_threaded.cpp to a UPnP-Device.
  * - Use new fix in openssl https://github.com/openssl/openssl/issues/16399#event-22993335537
  * - Obsolete, see above. (Create no mocked tests for CSigpipe@sock.cpp, read and write data using UPnP-Device.)

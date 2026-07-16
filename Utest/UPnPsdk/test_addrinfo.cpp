@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-06-03
+// Redistribution only with this Copyright remark. Last modified: 2026-07-20
 
 // I test different address infos that we get from system function
 // ::getaddrinfo().
@@ -476,7 +476,7 @@ TEST(AddrinfoTestSuite, lla_with_valid_numeric_id_successful) {
 TEST(AddrinfoTestSuite, query_ipv6_addrinfo_successful) {
     CAddrinfo ai1("[2001:db8::8%1]:50001");
 
-    // Check the initialized object. This is what we have given with the
+    // Check the initialized object. This is what I have given with the
     // constructor. We get just the initialized hints.
     EXPECT_EQ(ai1->ai_family, AF_INET6);
     EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
@@ -487,7 +487,7 @@ TEST(AddrinfoTestSuite, query_ipv6_addrinfo_successful) {
     EXPECT_EQ(ai1->ai_canonname, nullptr);
     // There is no address information
     ai1.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
+    EXPECT_TRUE(saddr.empty());
     EXPECT_EQ(ai1->ai_next, nullptr);
 
     ASSERT_TRUE(ai1.get_first());
@@ -624,7 +624,7 @@ TEST(AddrinfoTestSuite, query_ipv4_addrinfo_fails) {
     EXPECT_EQ(ai1->ai_next, nullptr);
     // There is no address information
     ai1.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
+    EXPECT_TRUE(saddr.empty());
 
     ASSERT_TRUE(ai1.get_first());
 
@@ -739,7 +739,7 @@ TEST(AddrinfoTestSuite, instantiate_not_load_numeric_host_successful) {
     EXPECT_EQ(ai1->ai_next, nullptr);
     // There is no address information
     ai1.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
+    EXPECT_TRUE(saddr.empty());
     EXPECT_EQ(ai1.what(), "Success.");
 }
 
@@ -925,7 +925,7 @@ TEST(AddrinfoTestSuite, get_unknown_ipv6_node_address) {
     EXPECT_EQ(ai3->ai_canonname, nullptr);
     EXPECT_EQ(ai3->ai_next, nullptr);
     ai3.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
+    EXPECT_TRUE(saddr.empty());
 
     ASSERT_TRUE(ai3.get_first());
 
@@ -991,7 +991,7 @@ TEST(AddrinfoTestSuite, get_unknown_ipv4_node_address) {
     EXPECT_EQ(ai4->ai_canonname, nullptr);
     EXPECT_EQ(ai4->ai_next, nullptr);
     ai4.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
+    EXPECT_TRUE(saddr.empty());
 
     ASSERT_TRUE(ai4.get_first());
 
@@ -1201,7 +1201,7 @@ TEST(AddrinfoTestSuite, service_out_of_range) {
     EXPECT_EQ(ai1->ai_protocol, 0);
     EXPECT_EQ(ai1->ai_flags, AI_V4MAPPED | AI_NUMERICHOST);
     ai1.sockaddr(saddr);
-    EXPECT_EQ(saddr.netaddrp(), ":0");
+    EXPECT_TRUE(saddr.empty());
     EXPECT_THAT(ai1.what(),
                 HasSubstr("] WHAT MSG1128: Port number 65536 out of range"));
     // std::cout << ai1.what() << '\n';

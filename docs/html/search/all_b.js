@@ -8,7 +8,7 @@ var searchData=
   ['e_5fsocket_5',['E_SOCKET',['../d0/d19/ssdp__common_8hpp.html#a2c90eb0f386a8342368017c06ceea768',1,'ssdp_common.hpp']]],
   ['element_2ecpp_6',['element.cpp',['../d3/d1c/element_8cpp.html',1,'']]],
   ['emaxthreads_7',['EMAXTHREADS',['../d8/d61/ThreadPool_8cpp.html#a1c697a86fd931bc30d36a12b9f959c66',1,'ThreadPool.cpp']]],
-  ['empty_8',['empty',['../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00aa2e4822a98337283e39f7b60acf85ec9',1,'UPnPsdk::CComponent']]],
+  ['empty_8',['empty',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50',1,'UPnPsdk::SSockaddr::empty()'],['../d3/da4/classUPnPsdk_1_1CComponent.html#aa9ac2dae4e47034b6c4504b2dc23dc00aa2e4822a98337283e39f7b60acf85ec9',1,'UPnPsdk::CComponent::empty']]],
   ['empty_20socket_20object_9',['empty socket object',['../da/de4/group__upnpsdk-socket.html#autotoc_md5',1,'']]],
   ['endservicelist_10',['endServiceList',['../db/d74/service__table_8hpp.html#a66f71568a80bd65f8f386ee1af44288d',1,'service_table']]],
   ['ent_5fposition_11',['ent_position',['../df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#acf9cc63cdca9cfdd71704d35750cd21f',1,'http_parser_t']]],

@@ -204,7 +204,7 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Manage all aspects of a network socket. </p>
 <p>For general information have a look at <a class="el" href="../../da/de4/group__upnpsdk-socket.html#socket_module">socket_module</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../da/dfc/socket_8hpp_source.html#l00368">368</a> of file <a class="el" href="../../da/dfc/socket_8hpp_source.html">socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dfc/socket_8hpp_source.html#l00365">365</a> of file <a class="el" href="../../da/dfc/socket_8hpp_source.html">socket.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a344fe194de361248e4add998b298a225" name="a344fe194de361248e4add998b298a225"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a344fe194de361248e4add998b298a225">&#9670;&#160;</a></span>CSocket() <span class="overload">[1/3]</span></h2>
@@ -288,7 +288,7 @@ Public Member Functions</h2></td></tr>
 <div class="line">    sock1Obj.<a class="code hl_function" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c">bind</a>(SOCK_STREAM);</div>
 <div class="line">} <span class="keywordflow">catch</span>(xcp) { <span class="comment">// handle error }</span></div>
 <div class="line"><a class="code hl_class" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html">CSocket</a> sock2Obj{std::move(sock1Obj)};</div>
-<div class="ttc" id="aclassUPnPsdk_1_1CSocket_html"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html">UPnPsdk::CSocket</a></div><div class="ttdoc">Manage all aspects of a network socket.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00368">socket.hpp:368</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CSocket_html"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html">UPnPsdk::CSocket</a></div><div class="ttdoc">Manage all aspects of a network socket.</div><div class="ttdef"><b>Definition</b> <a href="../../da/dfc/socket_8hpp_source.html#l00365">socket.hpp:365</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CSocket_html_a699c76b0626316bf4ce8d6fc68c2c32c"><div class="ttname"><a href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c">UPnPsdk::CSocket::bind</a></div><div class="ttdeci">void bind(const SSockaddr *const a_saddr=nullptr, const int a_flags=0)</div><div class="ttdoc">Bind socket to an ip address of a local network adapter.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00509">socket.cpp:509</a></div></div>
 </div><!-- fragment --> 
 <p class="definition">Definition at line <a class="el" href="../../d8/d81/socket_8cpp_source.html#l00434">434</a> of file <a class="el" href="../../d8/d81/socket_8cpp_source.html">socket.cpp</a>.</p>
@@ -439,7 +439,7 @@ Public Member Functions</h2></td></tr>
 <div class="line"><span class="keywordflow">try</span> {</div>
 <div class="line">    sock3Obj.<a class="code hl_function" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c">bind</a>(SOCK_STREAM, &amp;saddr3, AI_PASSIVE);</div>
 <div class="line">} <span class="keywordflow">catch</span>(<span class="keyword">const</span> std::exception&amp; ex) { handle_error(); }</div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00253">sockaddr.hpp:253</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00254">sockaddr.hpp:254</a></div></div>
 </div><!-- fragment --><p>Usage e.g. to bind to a global unicast address for use with <b>connect</b>, <b>sendto</b>, or <b>sendmsg</b>. </p><div class="fragment"><div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saddr4;</div>
 <div class="line">saddr4 = <span class="stringliteral">&quot;[2001:db8::abc]:50001&quot;</span>;</div>
 <div class="line"><a class="code hl_class" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html">CSocket</a> sock4Obj;</div>
@@ -479,45 +479,41 @@ Public Member Functions</h2></td></tr>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d3/d5d/classUPnPsdk_1_1CSocket_a699c76b0626316bf4ce8d6fc68c2c32c_cgraph.png" border="0" usemap="#ad3/d5d/classUPnPsdk_1_1CSocket_a699c76b0626316bf4ce8d6fc68c2c32c_cgraph" alt=""/></div>
 <map name="ad3/d5d/classUPnPsdk_1_1CSocket_a699c76b0626316bf4ce8d6fc68c2c32c_cgraph" id="ad3/d5d/classUPnPsdk_1_1CSocket_a699c76b0626316bf4ce8d6fc68c2c32c_cgraph">
-<area shape="rect" title="Bind socket to an ip address of a local network adapter." alt="" coords="5,306,180,331"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="234,5,391,45"/>
-<area shape="poly" title=" " alt="" coords="95,305,108,259,134,192,173,120,197,86,226,55,232,51,235,55,230,59,202,89,177,122,139,194,113,260,100,307"/>
-<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="234,69,391,109"/>
-<area shape="poly" title=" " alt="" coords="98,304,144,223,181,172,226,126,244,114,247,118,230,130,185,175,148,226,102,307"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="228,269,397,309"/>
-<area shape="poly" title=" " alt="" coords="180,304,214,300,215,305,181,310"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="456,472,625,512"/>
-<area shape="poly" title=" " alt="" coords="180,323,305,340,361,353,399,370,418,391,425,414,431,437,447,458,453,463,450,467,443,462,426,439,420,416,413,394,396,374,359,358,304,345,180,328"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="237,184,388,224"/>
-<area shape="poly" title=" " alt="" coords="117,304,260,228,262,233,119,308"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="463,65,618,105"/>
-<area shape="poly" title=" " alt="" coords="100,304,148,240,184,202,227,170,309,144,449,106,451,111,310,150,229,174,188,206,152,243,104,307"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="228,384,397,424"/>
-<area shape="poly" title=" " alt="" coords="128,329,249,377,247,382,126,334"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a9d38296d3f30b43e1b18fee867fd306d" title="Get sizeof the current filled (sin6 or sin) Sockaddr Structure." alt="" coords="235,448,390,488"/>
-<area shape="poly" title=" " alt="" coords="108,330,158,379,192,408,229,434,240,440,238,444,227,438,189,412,154,383,104,334"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342" title="Get the socket address from current selcted address information." alt="" coords="237,512,388,552"/>
-<area shape="poly" title=" " alt="" coords="103,330,120,364,149,408,185,456,230,498,237,503,234,507,226,502,181,460,144,411,116,366,98,333"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598" title="Get cached error message." alt="" coords="237,576,388,616"/>
-<area shape="poly" title=" " alt="" coords="100,331,114,374,140,436,179,503,203,534,230,562,236,567,233,571,226,566,199,538,174,506,136,438,109,376,95,332"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="456,408,625,448"/>
-<area shape="poly" title=" " alt="" coords="369,307,399,326,415,344,423,361,432,378,447,394,455,399,452,403,444,398,427,381,418,364,410,347,396,330,367,312"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga87f12f31c0044a441c8a088d4155da09" title="Free function to split inet address, scope_id, and port(service)" alt="" coords="445,179,636,205"/>
-<area shape="poly" title=" " alt="" coords="350,267,444,222,484,207,486,212,446,226,352,272"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0" title="Free function to check if a string represents an unsigned integer." alt="" coords="684,205,851,230"/>
-<area shape="poly" title=" " alt="" coords="397,273,445,265,671,229,672,235,446,271,398,278"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="456,280,625,320"/>
-<area shape="poly" title=" " alt="" coords="398,291,442,293,442,298,398,296"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995" title="Get network adapter name from current selected list entry." alt="" coords="456,344,625,384"/>
-<area shape="poly" title=" " alt="" coords="375,307,467,337,465,342,374,312"/>
-<area shape="poly" title=" " alt="" coords="375,307,399,326,412,344,419,361,423,395,428,427,434,442,447,458,452,462,448,466,443,462,430,445,422,428,418,395,414,363,407,346,395,330,371,312"/>
-<area shape="poly" title=" " alt="" coords="637,200,671,204,670,209,636,205"/>
-<area shape="poly" title=" " alt="" coords="388,197,432,195,432,200,389,203"/>
-<area shape="poly" title=" " alt="" coords="364,182,396,163,410,151,419,139,429,127,444,115,455,109,457,114,447,120,432,131,423,142,414,155,399,168,366,186"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5" title="Free function to check if a string represents a valid port number." alt="" coords="474,130,607,155"/>
-<area shape="poly" title=" " alt="" coords="382,181,445,164,475,156,476,161,446,169,384,187"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a66e9bf5ef761fd7675a87397a54b05b5" title="clear socket address" alt="" coords="463,536,618,576"/>
-<area shape="poly" title=" " alt="" coords="389,537,450,544,449,549,388,543"/>
+<area shape="rect" title="Bind socket to an ip address of a local network adapter." alt="" coords="5,342,180,367"/>
+<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#a91bdee1763e001634a3b49e7a346a603" title="Catch error for later use." alt="" coords="234,69,391,109"/>
+<area shape="poly" title=" " alt="" coords="96,341,111,299,137,240,176,176,199,146,226,119,233,114,236,119,230,123,203,149,180,179,142,242,116,301,101,342"/>
+<area shape="rect" href="../../dd/d3a/classUPnPsdk_1_1CSocketErr.html#ac33bc7561a105383c0e9d951b3b5e3f6" title="Get human readable error description of the catched error." alt="" coords="234,133,391,173"/>
+<area shape="poly" title=" " alt="" coords="99,340,146,267,183,223,226,183,234,178,237,182,230,187,187,226,150,270,103,343"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="228,197,397,237"/>
+<area shape="poly" title=" " alt="" coords="108,340,159,299,227,254,250,241,253,246,229,258,162,304,111,344"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="445,261,615,301"/>
+<area shape="poly" title=" " alt="" coords="163,339,228,328,431,294,432,300,228,333,164,345"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="237,363,388,403"/>
+<area shape="poly" title=" " alt="" coords="181,363,224,369,223,374,180,368"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="453,325,607,365"/>
+<area shape="poly" title=" " alt="" coords="180,349,228,348,439,344,439,349,228,353,180,355"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="228,427,397,467"/>
+<area shape="poly" title=" " alt="" coords="123,365,229,412,246,419,244,424,227,417,120,370"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a9d38296d3f30b43e1b18fee867fd306d" title="Get sizeof the current filled (sin6 or sin) Sockaddr Structure." alt="" coords="235,491,390,531"/>
+<area shape="poly" title=" " alt="" coords="107,366,157,418,192,449,229,476,240,482,237,487,227,481,188,453,153,422,103,369"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342" title="Get the socket address from current selcted address information." alt="" coords="237,555,388,595"/>
+<area shape="poly" title=" " alt="" coords="102,366,120,401,148,447,185,497,230,541,237,546,234,550,226,545,181,500,143,450,115,403,97,369"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598" title="Get cached error message." alt="" coords="237,619,388,659"/>
+<area shape="poly" title=" " alt="" coords="100,367,114,412,140,475,178,544,202,576,230,605,235,609,232,613,226,609,198,580,174,547,135,477,109,413,95,368"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50" title="Test if the socket address object is empty." alt="" coords="453,5,607,45"/>
+<area shape="poly" title=" " alt="" coords="380,195,395,183,408,168,414,152,419,121,423,89,430,72,443,56,448,51,452,55,447,59,435,75,428,90,424,122,419,154,412,171,399,187,383,199"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="445,69,615,109"/>
+<area shape="poly" title=" " alt="" coords="377,195,396,183,411,168,419,152,428,136,444,119,451,114,454,118,447,123,432,139,424,155,415,171,399,187,379,199"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="445,133,615,173"/>
+<area shape="poly" title=" " alt="" coords="381,195,448,175,450,180,382,200"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995" title="Get network adapter name from current selected list entry." alt="" coords="445,197,615,237"/>
+<area shape="poly" title=" " alt="" coords="398,215,432,215,432,220,398,220"/>
+<area shape="poly" title=" " alt="" coords="382,235,450,255,448,260,381,240"/>
+<area shape="poly" title=" " alt="" coords="388,367,439,358,440,364,389,372"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5" title="Free function to check if a string represents a valid port number." alt="" coords="463,390,597,415"/>
+<area shape="poly" title=" " alt="" coords="389,387,450,393,449,398,388,392"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a66e9bf5ef761fd7675a87397a54b05b5" title="clear socket address" alt="" coords="453,555,607,595"/>
+<area shape="poly" title=" " alt="" coords="388,572,439,572,439,577,388,577"/>
 </map>
 </div>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">

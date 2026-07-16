@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-11
+// Redistribution only with this Copyright remark. Last modified: 2026-07-20
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -284,9 +284,8 @@ try {
          * filled with the address information of a local network adapter that
          * the socket is bound to. If an error is thrown, this socket address
          * object is not modified. If no information is available (the socket
-         * is not bound to a local network adapter) an unspecified socket
-         * address (":0") is returned, possibly with address family ("[::]:0"
-         * or 0.0.0.0:0"). But working with IP-version is not intended. */
+         * is not bound to a local network adapter) a SSockaddr.empty() is
+         * returned. */
         SSockaddr* a_saddr = nullptr) const;
 
 
@@ -303,10 +302,8 @@ try {
         /*! [out] Optional: pointer to a socket address object that will be
          * filled with the remote address information. If an error is thrown,
          * this socket address object is not modified. If no information is
-         * available (the socket is not connected to a remote peer) an
-         * unspecified socket address (":0") is returned, possibly with address
-         * family ("[::]:0" or 0.0.0.0:0"). But working with IP-version is not
-         * intended.*/
+         * available (the socket is not connected to a remote peer) a
+         * SSockaddr.empty() is returned */
         SSockaddr* a_saddr = nullptr) const;
 
 

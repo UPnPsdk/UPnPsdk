@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-07-09
+ * Redistribution only with this Copyright remark. Last modified: 2026-07-20
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -225,26 +225,14 @@ int host_header_is_numeric(
     char* a_host_port,     ///< network address
     size_t a_host_port_len ///< length of a_host_port excl. terminating '\0'.
 ) {
-    if (a_host_port_len == 0 || ::strncmp(a_host_port, "[::]", 4) == 0 ||
-        ::strncmp(a_host_port, "0.0.0.0", 7) == 0)
+    UPnPsdk::SSockaddr saObj;
+    saObj = UPnPsdk::SInaddr(std::string_view(a_host_port, a_host_port_len));
+    if (saObj.family == AF_UNSPEC || saObj.empty() ||
+        ::strncmp(a_host_port, "[::]", 4) == 0 ||
+        ::strncmp(a_host_port, "0.0.0.0", 7) == 0) {
         return 0;
-
-    UPnPsdk::inaddr_token_t inaddr;
-    UPnPsdk::inaddr_tokenize(std::string_view(a_host_port, a_host_port_len),
-                             inaddr);
-    ::in6_addr sin6_addr;
-    if (::inet_pton(AF_INET6, inaddr.node.c_str(), &sin6_addr) == 1 &&
-        UPnPsdk::is_unum_str(inaddr.scope, 10) &&
-        UPnPsdk::to_port(inaddr.service) == 0) {
-        return 1;
     }
-    ::in_addr sin_addr;
-    if (::inet_pton(AF_INET, inaddr.node.c_str(), &sin_addr) == 1 &&
-        UPnPsdk::to_port(inaddr.service) == 0) {
-        return 1;
-    }
-
-    return 0;
+    return 1;
 }
 
 /*! \brief Returns the ip address with port as text that is bound to a socket.
@@ -1001,17 +989,14 @@ int get_miniserver_sockets(
     if (out->pSockLlaObj != nullptr && gIF_IPV6[0] != '\0') {
         try {
             UPnPsdk::SSockaddr saObj;
-#if 0 // DEBUG! SSockaddr
-            if (::strncmp(gIF_IPV6, "::1", 3) == 0)
-                // The loopback address belongs to a lla but 'bind()' on win32
-                // does not accept it with scope id.
-                saObj = '[' + std::string(gIF_IPV6) +
-                        "]:" + std::to_string(listen_port6);
-            else
-                saObj = '[' + std::string(gIF_IPV6) + '%' +
-                        std::to_string(gIF_INDEX) +
-                        "]:" + std::to_string(listen_port6);
-#endif
+            ::inet_pton(saObj.family, gIF_IPV6, &saObj.sin6.sin6_addr);
+            saObj.sin6.sin6_port = listen_port6;
+            // DEBUG! Remove this with moving loopback addr to gIF_IPV6_ULA_GUA.
+            if (::strncmp(gIF_IPV6, "::1", 3) != 0)
+                // The loopback address may also given in gIF_IPV6. An LLA must
+                // have a scope id but 'bind()' on win32 does not accept
+                // loopback with scope id.
+                saObj.sin6.sin6_scope_id = gIF_INDEX;
             *out->pSockLlaObj = SOCK_STREAM;
             out->pSockLlaObj->bind(&saObj, AI_PASSIVE);
             out->pSockLlaObj->listen();
@@ -1033,10 +1018,8 @@ int get_miniserver_sockets(
     if (out->pSockGuaObj != nullptr && gIF_IPV6_ULA_GUA[0] != '\0') {
         try {
             UPnPsdk::SSockaddr saObj;
-#if 0 // DEBUG! SSockaddr
-            saObj = '[' + std::string(gIF_IPV6_ULA_GUA) +
-                    "]:" + std::to_string(listen_port6UlaGua);
-#endif
+            ::inet_pton(saObj.family, gIF_IPV6_ULA_GUA, &saObj.sin6.sin6_addr);
+            saObj.sin6.sin6_port = listen_port6UlaGua;
             *out->pSockGuaObj = SOCK_STREAM;
             out->pSockGuaObj->bind(&saObj, AI_PASSIVE);
             out->pSockGuaObj->listen();

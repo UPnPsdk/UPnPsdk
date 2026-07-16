@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-13
+// Redistribution only with this Copyright remark. Last modified: 2026-07-21
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -267,14 +267,13 @@ void CNetadapter::sockaddr(SSockaddr& a_saddr) const {
     if (saddr.ss.ss_family == AF_INET) {
         // We will get something like "[::ffff:192.168.1.2]:49494".
         SSockaddr saddr4to6;
-        saddr4to6.sin6.sin6_family = AF_INET6;
         saddr4to6.sin6.sin6_port = saddr.sin.sin_port;
-        in6_addr& sa6{saddr4to6.sin6.sin6_addr};
-        sa6.s6_addr[10] = 0xff; // prefix id for ipv4 mapping.
-        sa6.s6_addr[11] = 0xff; //          ./.
-        // Copy netorder binary ipv4 addr into ipv6 addr behind prefix.
-        ::memcpy(&sa6.s6_addr[12], &saddr.sin.sin_addr,
-                 sizeof(saddr.sin.sin_addr));
+        uint32_t* sin6_32 =
+            reinterpret_cast<uint32_t*>(&saddr4to6.sin6.sin6_addr);
+        sin6_32[0] = 0;
+        sin6_32[1] = 0;
+        sin6_32[2] = htonl(0x0000ffff);
+        sin6_32[3] = saddr.sin.sin_addr.s_addr;
 
         a_saddr = saddr4to6;
     } else {
@@ -341,40 +340,28 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
     // ---------------------------------------------------
     // Last attempt to get a socket address from the input argument.
     if (a_name_or_addr.front() == '[') {
-        inaddr_token_t inaddr_token;
-        inaddr_tokenize(a_name_or_addr, inaddr_token);
-        UPnPsdk::sockaddr_t saddr{};
-        saddr.ss.ss_family = AF_INET6;
-        if (is_unum_str(inaddr_token.scope, 10) &&
-            is_unum_str(inaddr_token.service, 5) &&
-            ::inet_pton(saddr.ss.ss_family, inaddr_token.node.c_str(),
-                        &saddr.sin6.sin6_addr) == 1) {
-
-            saddr.sin6.sin6_scope_id =
-                static_cast<uint32_t>(std::stoul(inaddr_token.scope));
-            saddr.sin6.sin6_port =
-                static_cast<uint16_t>(std::stoi(inaddr_token.service));
-            SSockaddr input_saObj;
-            input_saObj = saddr.ss;
-
-            // Parse network adapter list for the given input ip address.
-            do {
-                this->sockaddr(nad_saObj);
-                // To verify mocked expectations for Unit Test next cout is
-                // needed.
-                /* std::cout << "DEBUG: find_first() a_name_or_addr=\"" //
-                          << a_name_or_addr << "\", adapter_addr=\""
-                          << nad_saObj.netaddrp() << "\"\n"; */
-                if (nad_saObj == input_saObj) {
-                    // With a unique ip address given, there cannot be another.
-                    m_find_flags = ADDRS::none;
-                    return true;
-                }
-            } while (this->get_next());
-
-            // No usable address found, nothing more to do.
+        SSockaddr input_saObj;
+        input_saObj = SInaddr(a_name_or_addr);
+        if (input_saObj.family == AF_UNSPEC || input_saObj.empty()) {
             return false;
         }
+        // Parse network adapter list for the given input ip address.
+        do {
+            this->sockaddr(nad_saObj);
+            // To verify mocked expectations for Unit Test next cout is
+            // needed.
+            /* std::cout << "DEBUG: find_first() a_name_or_addr=\"" //
+                      << a_name_or_addr << "\", adapter_addr=\""
+                      << nad_saObj.netaddrp() << "\"\n"; */
+            if (nad_saObj == input_saObj) {
+                // With a unique ip address given, there cannot be another.
+                m_find_flags = ADDRS::none;
+                return true;
+            }
+        } while (this->get_next());
+
+        // No usable address found, nothing more to do.
+        return false;
     }
 
     // Look for a local network adapter name that has at least one ip address.

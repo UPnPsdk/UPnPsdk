@@ -1,13 +1,11 @@
 <map id="parse_uri" name="parse_uri">
-<area shape="rect" id="Node000001" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="5,92,88,117"/>
-<area shape="rect" id="Node000002" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="159,55,309,95"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,96,144,87,145,92,88,101"/>
-<area shape="rect" id="Node000008" href="$d3/da4/classUPnPsdk_1_1CComponent.html#ad7ee59853f1492e7aa85aa3f80e30901" title="Get the string of the component." alt="" coords="136,120,332,145"/>
-<area shape="poly" id="edge5_Node000001_Node000008" title=" " alt="" coords="88,108,136,115,135,121,88,113"/>
-<area shape="rect" id="Node000003" href="$d0/dd8/group__upnplib-addrmodul.html#ga87f12f31c0044a441c8a088d4155da09" title="Free function to split inet address, scope_id, and port(service)" alt="" coords="380,5,571,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="309,55,407,31,409,36,310,60"/>
-<area shape="rect" id="Node000005" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="398,55,553,95"/>
-<area shape="poly" id="edge3_Node000002_Node000005" title=" " alt="" coords="310,73,384,73,384,78,310,78"/>
-<area shape="rect" id="Node000007" href="$d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5" title="Free function to check if a string represents a valid port number." alt="" coords="409,120,542,145"/>
-<area shape="poly" id="edge4_Node000002_Node000007" title=" " alt="" coords="310,91,409,114,407,119,309,96"/>
+<area shape="rect" id="Node000001" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="5,71,88,97"/>
+<area shape="rect" id="Node000002" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="159,35,309,75"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,75,144,66,145,71,88,80"/>
+<area shape="rect" id="Node000006" href="$d3/da4/classUPnPsdk_1_1CComponent.html#ad7ee59853f1492e7aa85aa3f80e30901" title="Get the string of the component." alt="" coords="136,99,332,125"/>
+<area shape="poly" id="edge4_Node000001_Node000006" title=" " alt="" coords="88,87,136,95,135,100,88,93"/>
+<area shape="rect" id="Node000003" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="380,5,535,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="309,42,366,35,367,40,310,47"/>
+<area shape="rect" id="Node000005" href="$d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5" title="Free function to check if a string represents a valid port number." alt="" coords="391,70,524,95"/>
+<area shape="poly" id="edge3_Node000002_Node000005" title=" " alt="" coords="310,61,377,70,377,75,309,67"/>
 </map>
