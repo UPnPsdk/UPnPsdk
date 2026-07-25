@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-28
+// Redistribution only with this Copyright remark. Last modified: 2026-07-26
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -12,57 +12,60 @@
 namespace UPnPsdk {
 
 /*!
- * \brief Get prefix bit number from a network address mask.
+ * \brief Get prefix bit number from a binary network address-mask.
  * \ingroup upnplib-addrmodul
  * \code
 // Usage e.g.:
-::sockaddr_storage saddr{};
-try {
-    std::cout << "bitmask is " << netmask_to_bitmask(&saddr) << '\n';
-} catch (const std::runtime_error& ex) { handle_error() }
+in6_addr sin6_addr{};
+uint8_t bitmask = netmask_to_bitmask(sin6_addr);
  * \endcode
  * Returns the length, in bits, of the prefix or network part of the IP
  * address, e.g. 64 from "[2001:db8::1]/64". A value of 255 is commonly used to
- * represent an illegal value but this function throws an exception instead.
+ * represent an illegal value.
  *
- * \returns The length, in bits, of the prefix or network part of the IP
- * address, 0..32 for IPv4, 0..128 for IPv6.
- * \exception std::runtime_error
- *  - with an invalid netmask
- *  - with an invalid \glos{af,address family}.
+ * \returns
+ *  - On success: The length, in bits, of the prefix or network part of the IP
+ *    address, that is 0..128 for IPv6.\n
+ *  - On error: \b 255
  */
 uint8_t netmask_to_bitmask(
-    /// [in] Pointer to a socket address structure containing the netmask.
-    const ::sockaddr_storage* a_netmask);
+    /// [in] Reference to a socket address structure containing the netmask.
+    const in6_addr& a_sin6_addr) noexcept;
 
+/*!
+ * \brief Get prefix bit number from a network address-mask string.
+ * \ingroup upnplib-addrmodul
+ * \code
+// Usage e.g.:
+uint8_t bitmask = netmask_to_bitmask("[ffff:ffff:ffff:ffff::]");
+ * \endcode
+ * Returns the length, in bits, of the prefix or network part of the IP
+ * address, e.g. 64 from "[2001:db8::1]/64". A value of 255 is commonly used to
+ * represent an illegal value.
+ *
+ * \returns
+ *  - On success: The length, in bits, of the prefix or network part of the IP
+ *    address, that is 0..128 for IPv6.\n
+ *  - On error: \b 255
+ */
+uint8_t netmask_to_bitmask(
+    /// [in] Reference to netmask string.
+    const std::string& a_netmask);
 
 /*!
  * \brief Get network address mask from address prefix bit number.
  * \ingroup upnplib-addrmodul
  * \code
 // Usage e.g.:
-::sockaddr_storage saddr{};
-SSockaddr saObj;
-try {
-    bitmask_to_netmask(&saddr, 64, saObj);
-} catch (const std::runtime_error& ex) { handle_error() }
-std::cout << "netmask is " << saObj.netaddr() << '\n';
+std::cout << bitmask_to_netmask(64); // Output: "[ffff:ffff:ffff:ffff::]"
  * \endcode
- * \exception std::runtime_error
- *  - if the associated socket address **a_saddr** is not given.
- *  - if the prefix length exceeds its maximum size (128 for IPv6, 32 for IPv4),
- *  - with an invalid \glos{af,address family}.
+ *
+ * A bit number greater than 128 is truncated to 128.
  */
-void bitmask_to_netmask(
-    /*! [in] Pointer to a structure containing the socket address the netmask
-     * is associated. */
-    const ::sockaddr_storage* a_saddr,
-    /*! [in] IPv6 or IPv4 address prefix length as number of set bits as given
-     * e.g. with 64 in [2001:db8::1]/64. */
-    const unsigned int a_prefixlength,
-    /*! [out] Reference to a socket address object that will be filled with the
-     * netmask. */
-    SSockaddr& a_saddrObj);
+std::string bitmask_to_netmask(
+    /*! [in] IPv6 address prefix length as number of set bits as given e.g.
+     * with 64 in [2001:db8::1]/64. */
+    const unsigned int a_prefixlength) noexcept;
 
 /*!
  * \brief Get information from local network adapters
@@ -200,8 +203,6 @@ class CNetadapter {
     UPnPsdk_API std::string name() const;
     /// \copydoc INetadapter::sockaddr()
     UPnPsdk_API void sockaddr(SSockaddr& a_saddr) const;
-    /// \copydoc INetadapter::socknetmask()
-    UPnPsdk_API void socknetmask(SSockaddr& a_snetmask) const;
     /// \copydoc INetadapter::bitmask()
     UPnPsdk_API unsigned int bitmask() const;
 

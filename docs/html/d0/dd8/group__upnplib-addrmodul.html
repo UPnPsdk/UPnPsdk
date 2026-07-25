@@ -130,12 +130,15 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga539a669f96c0c642b2ed25b1c4dd1f71" id="r_ga539a669f96c0c642b2ed25b1c4dd1f71"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71">UPnPsdk::netmask_to_bitmask</a> (const ::sockaddr_storage *a_netmask)</td></tr>
-<tr class="memdesc:ga539a669f96c0c642b2ed25b1c4dd1f71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get prefix bit number from a network address mask.  <br /></td></tr>
-<tr class="separator:ga539a669f96c0c642b2ed25b1c4dd1f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadd67f7b346d4017d3cb45e45e0be77fb" id="r_gadd67f7b346d4017d3cb45e45e0be77fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">UPnPsdk::bitmask_to_netmask</a> (const ::sockaddr_storage *a_saddr, const unsigned int a_prefixlength, <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddrObj)</td></tr>
-<tr class="memdesc:gadd67f7b346d4017d3cb45e45e0be77fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network address mask from address prefix bit number.  <br /></td></tr>
-<tr class="separator:gadd67f7b346d4017d3cb45e45e0be77fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga890f7e797a37b355bacfbfc84b2c587f" id="r_ga890f7e797a37b355bacfbfc84b2c587f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga890f7e797a37b355bacfbfc84b2c587f">UPnPsdk::netmask_to_bitmask</a> (const in6_addr &amp;a_sin6_addr) noexcept</td></tr>
+<tr class="memdesc:ga890f7e797a37b355bacfbfc84b2c587f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get prefix bit number from a binary network address-mask.  <br /></td></tr>
+<tr class="separator:ga890f7e797a37b355bacfbfc84b2c587f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ceb75383fa176bdd102782cad9a97ee" id="r_ga3ceb75383fa176bdd102782cad9a97ee"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga3ceb75383fa176bdd102782cad9a97ee">UPnPsdk::netmask_to_bitmask</a> (const std::string &amp;a_netmask)</td></tr>
+<tr class="memdesc:ga3ceb75383fa176bdd102782cad9a97ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get prefix bit number from a network address-mask string.  <br /></td></tr>
+<tr class="separator:ga3ceb75383fa176bdd102782cad9a97ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga240ecb84930f9811a540c7488f4474c5" id="r_ga240ecb84930f9811a540c7488f4474c5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga240ecb84930f9811a540c7488f4474c5">UPnPsdk::bitmask_to_netmask</a> (const unsigned int a_prefixlength) noexcept</td></tr>
+<tr class="memdesc:ga240ecb84930f9811a540c7488f4474c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network address mask from address prefix bit number.  <br /></td></tr>
+<tr class="separator:ga240ecb84930f9811a540c7488f4474c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga379fe8164fb7cdc0105e947a321ed4dd" id="r_ga379fe8164fb7cdc0105e947a321ed4dd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd">UPnPsdk::IN6_IS_ADDR_GLOBAL2</a> (const in6_addr *a_addr)</td></tr>
 <tr class="memdesc:ga379fe8164fb7cdc0105e947a321ed4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a socket address is a global unicast address.  <br /></td></tr>
 <tr class="separator:ga379fe8164fb7cdc0105e947a321ed4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -215,44 +218,45 @@ sa</td>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga539a669f96c0c642b2ed25b1c4dd1f71" name="ga539a669f96c0c642b2ed25b1c4dd1f71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga539a669f96c0c642b2ed25b1c4dd1f71">&#9670;&#160;</a></span>netmask_to_bitmask()</h2>
+<a id="ga890f7e797a37b355bacfbfc84b2c587f" name="ga890f7e797a37b355bacfbfc84b2c587f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga890f7e797a37b355bacfbfc84b2c587f">&#9670;&#160;</a></span>netmask_to_bitmask() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint8_t UPnPsdk::netmask_to_bitmask </td>
           <td>(</td>
-          <td class="paramtype">const ::sockaddr_storage *&#160;</td>
-          <td class="paramname"><em>a_netmask</em></td><td>)</td>
+          <td class="paramtype">const in6_addr &amp;&#160;</td>
+          <td class="paramname"><em>a_sin6_addr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Get prefix bit number from a network address mask. </p>
+<p>Get prefix bit number from a binary network address-mask. </p>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
-<div class="line">::sockaddr_storage saddr{};</div>
-<div class="line"><span class="keywordflow">try</span> {</div>
-<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;bitmask is &quot;</span> &lt;&lt; <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71">netmask_to_bitmask</a>(&amp;saddr) &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::runtime_error&amp; ex) { handle_error() }</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga539a669f96c0c642b2ed25b1c4dd1f71"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71">UPnPsdk::netmask_to_bitmask</a></div><div class="ttdeci">uint8_t netmask_to_bitmask(const ::sockaddr_storage *a_netmask)</div><div class="ttdoc">Get prefix bit number from a network address mask.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00046">netadapter.cpp:46</a></div></div>
-</div><!-- fragment --><p> Returns the length, in bits, of the prefix or network part of the IP address, e.g. 64 from "[2001:db8::1]/64". A value of 255 is commonly used to represent an illegal value but this function throws an exception instead.</p>
-<dl class="section return"><dt>Returns</dt><dd>The length, in bits, of the prefix or network part of the IP address, 0..32 for IPv4, 0..128 for IPv6. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td><ul>
-<li>with an invalid netmask</li>
-<li>with an invalid <a class="el" href="../../d5/d67/Glossary.html#glossary_af">address family</a>. </li>
+<div class="line">in6_addr sin6_addr{};</div>
+<div class="line">uint8_t bitmask = <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga890f7e797a37b355bacfbfc84b2c587f">netmask_to_bitmask</a>(sin6_addr);</div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga890f7e797a37b355bacfbfc84b2c587f"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga890f7e797a37b355bacfbfc84b2c587f">UPnPsdk::netmask_to_bitmask</a></div><div class="ttdeci">uint8_t netmask_to_bitmask(const in6_addr &amp;a_sin6_addr) noexcept</div><div class="ttdoc">Get prefix bit number from a binary network address-mask.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00046">netadapter.cpp:46</a></div></div>
+</div><!-- fragment --><p> Returns the length, in bits, of the prefix or network part of the IP address, e.g. 64 from "[2001:db8::1]/64". A value of 255 is commonly used to represent an illegal value.</p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>On success: The length, in bits, of the prefix or network part of the IP address, that is 0..128 for IPv6.<br  />
+</li>
+<li>On error: <b>255</b> </li>
 </ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
+</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_netmask</td><td>Pointer to a socket address structure containing the netmask. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_sin6_addr</td><td>Reference to a socket address structure containing the netmask. </td></tr>
   </table>
   </dd>
 </dl>
@@ -263,90 +267,104 @@ sa</td>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga539a669f96c0c642b2ed25b1c4dd1f71_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga539a669f96c0c642b2ed25b1c4dd1f71_icgraph" alt=""/></div>
-<map name="ad0/dd8/group__upnplib-addrmodul_ga539a669f96c0c642b2ed25b1c4dd1f71_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga539a669f96c0c642b2ed25b1c4dd1f71_icgraph">
-<area shape="rect" title="Get prefix bit number from a network address mask." alt="" coords="223,5,387,45"/>
+<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga890f7e797a37b355bacfbfc84b2c587f_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga890f7e797a37b355bacfbfc84b2c587f_icgraph" alt=""/></div>
+<map name="ad0/dd8/group__upnplib-addrmodul_ga890f7e797a37b355bacfbfc84b2c587f_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga890f7e797a37b355bacfbfc84b2c587f_icgraph">
+<area shape="rect" title="Get prefix bit number from a binary network address&#45;mask." alt="" coords="223,37,387,77"/>
 <area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aa0cd4b5fb12fc8c4e66d8ba47a4938b3" title="Get prefix length from the ip address of the current selected local network adapter." alt="" coords="5,5,175,45"/>
-<area shape="poly" title=" " alt="" coords="209,28,175,28,175,23,209,23"/>
+<area shape="poly" title=" " alt="" coords="209,46,174,41,175,35,210,40"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga3ceb75383fa176bdd102782cad9a97ee" title="Get prefix bit number from a network address&#45;mask string." alt="" coords="8,69,172,109"/>
+<area shape="poly" title=" " alt="" coords="210,74,173,80,172,74,209,69"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="gadd67f7b346d4017d3cb45e45e0be77fb" name="gadd67f7b346d4017d3cb45e45e0be77fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadd67f7b346d4017d3cb45e45e0be77fb">&#9670;&#160;</a></span>bitmask_to_netmask()</h2>
+<a id="ga3ceb75383fa176bdd102782cad9a97ee" name="ga3ceb75383fa176bdd102782cad9a97ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3ceb75383fa176bdd102782cad9a97ee">&#9670;&#160;</a></span>netmask_to_bitmask() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UPnPsdk::bitmask_to_netmask </td>
+          <td class="memname">uint8_t UPnPsdk::netmask_to_bitmask </td>
           <td>(</td>
-          <td class="paramtype">const ::sockaddr_storage *&#160;</td>
-          <td class="paramname"><em>a_saddr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>a_netmask</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const unsigned int&#160;</td>
-          <td class="paramname"><em>a_prefixlength</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;&#160;</td>
-          <td class="paramname"><em>a_saddrObj</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get network address mask from address prefix bit number. </p>
+<p>Get prefix bit number from a network address-mask string. </p>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
-<div class="line">::sockaddr_storage saddr{};</div>
-<div class="line">SSockaddr saObj;</div>
-<div class="line"><span class="keywordflow">try</span> {</div>
-<div class="line">    <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">bitmask_to_netmask</a>(&amp;saddr, 64, saObj);</div>
-<div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::runtime_error&amp; ex) { handle_error() }</div>
-<div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;netmask is &quot;</span> &lt;&lt; saObj.netaddr() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_gadd67f7b346d4017d3cb45e45e0be77fb"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb">UPnPsdk::bitmask_to_netmask</a></div><div class="ttdeci">void bitmask_to_netmask(const ::sockaddr_storage *a_saddr, const unsigned int a_prefixlength, SSockaddr &amp;a_saddrObj)</div><div class="ttdoc">Get network address mask from address prefix bit number.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00140">netadapter.cpp:140</a></div></div>
-</div><!-- fragment --> <dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td><ul>
-<li>if the associated socket address <b>a_saddr</b> is not given.</li>
-<li>if the prefix length exceeds its maximum size (128 for IPv6, 32 for IPv4),</li>
-<li>with an invalid <a class="el" href="../../d5/d67/Glossary.html#glossary_af">address family</a>. </li>
+<div class="line">uint8_t bitmask = <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga890f7e797a37b355bacfbfc84b2c587f">netmask_to_bitmask</a>(<span class="stringliteral">&quot;[ffff:ffff:ffff:ffff::]&quot;</span>);</div>
+</div><!-- fragment --><p> Returns the length, in bits, of the prefix or network part of the IP address, e.g. 64 from "[2001:db8::1]/64". A value of 255 is commonly used to represent an illegal value.</p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>On success: The length, in bits, of the prefix or network part of the IP address, that is 0..128 for IPv6.<br  />
+</li>
+<li>On error: <b>255</b> </li>
 </ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
+</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_saddr</td><td>Pointer to a structure containing the socket address the netmask is associated.  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_prefixlength</td><td>IPv6 or IPv4 address prefix length as number of set bits as given e.g. with 64 in [2001:db8::1]/64.  </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">a_saddrObj</td><td>Reference to a socket address object that will be filled with the netmask. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_netmask</td><td>Reference to netmask string. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d05/netadapter_8cpp_source.html#l00140">140</a> of file <a class="el" href="../../df/d05/netadapter_8cpp_source.html">netadapter.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d05/netadapter_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../df/d05/netadapter_8cpp_source.html">netadapter.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_gadd67f7b346d4017d3cb45e45e0be77fb_cgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_gadd67f7b346d4017d3cb45e45e0be77fb_cgraph" alt=""/></div>
-<map name="ad0/dd8/group__upnplib-addrmodul_gadd67f7b346d4017d3cb45e45e0be77fb_cgraph" id="ad0/dd8/group__upnplib-addrmodul_gadd67f7b346d4017d3cb45e45e0be77fb_cgraph">
-<area shape="rect" title="Get network address mask from address prefix bit number." alt="" coords="5,5,165,45"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a66e9bf5ef761fd7675a87397a54b05b5" title="clear socket address" alt="" coords="213,5,368,45"/>
-<area shape="poly" title=" " alt="" coords="166,23,199,23,199,28,166,28"/>
+<div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga3ceb75383fa176bdd102782cad9a97ee_cgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga3ceb75383fa176bdd102782cad9a97ee_cgraph" alt=""/></div>
+<map name="ad0/dd8/group__upnplib-addrmodul_ga3ceb75383fa176bdd102782cad9a97ee_cgraph" id="ad0/dd8/group__upnplib-addrmodul_ga3ceb75383fa176bdd102782cad9a97ee_cgraph">
+<area shape="rect" title="Get prefix bit number from a network address&#45;mask string." alt="" coords="5,5,169,45"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga890f7e797a37b355bacfbfc84b2c587f" title="Get prefix bit number from a binary network address&#45;mask." alt="" coords="217,5,381,45"/>
+<area shape="poly" title=" " alt="" coords="170,23,204,23,204,28,170,28"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="ga240ecb84930f9811a540c7488f4474c5" name="ga240ecb84930f9811a540c7488f4474c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga240ecb84930f9811a540c7488f4474c5">&#9670;&#160;</a></span>bitmask_to_netmask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string UPnPsdk::bitmask_to_netmask </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>a_prefixlength</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get network address mask from address prefix bit number. </p>
+<div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
+<div class="line">std::cout &lt;&lt; <a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga240ecb84930f9811a540c7488f4474c5">bitmask_to_netmask</a>(64); <span class="comment">// Output: &quot;[ffff:ffff:ffff:ffff::]&quot;</span></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga240ecb84930f9811a540c7488f4474c5"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga240ecb84930f9811a540c7488f4474c5">UPnPsdk::bitmask_to_netmask</a></div><div class="ttdeci">std::string bitmask_to_netmask(const unsigned int a_prefixlength) noexcept</div><div class="ttdoc">Get network address mask from address prefix bit number.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00100">netadapter.cpp:100</a></div></div>
+</div><!-- fragment --><p>A bit number greater than 128 is truncated to 128. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_prefixlength</td><td>IPv6 address prefix length as number of set bits as given e.g. with 64 in [2001:db8::1]/64. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d05/netadapter_8cpp_source.html#l00100">100</a> of file <a class="el" href="../../df/d05/netadapter_8cpp_source.html">netadapter.cpp</a>.</p>
 
 </div>
 </div>
@@ -478,10 +496,9 @@ sa</td>
 <area shape="poly" title=" " alt="" coords="477,139,438,144,437,139,476,133"/>
 <area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#afe899a9da3bb203836d0beaf9bd79c22" title="Set socket address from a trivial socket address structure." alt="" coords="281,197,435,237"/>
 <area shape="poly" title=" " alt="" coords="525,150,444,188,414,200,412,195,442,183,523,145"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,101,225,141"/>
-<area shape="poly" title=" " alt="" coords="260,105,226,109,225,104,259,100"/>
-<area shape="poly" title=" " alt="" coords="157,90,142,83,115,80,92,82,78,87,73,93,75,100,70,102,67,92,75,82,91,77,115,75,144,78,159,85"/>
-<area shape="poly" title=" " alt="" coords="265,144,225,138,226,133,265,138"/>
+<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,69,225,109"/>
+<area shape="poly" title=" " alt="" coords="260,92,226,92,226,87,260,87"/>
+<area shape="poly" title=" " alt="" coords="157,58,142,51,115,48,92,50,78,55,73,61,75,68,70,70,67,60,75,50,91,45,115,43,144,46,159,53"/>
 </map>
 </div>
 
@@ -545,16 +562,13 @@ sa</td>
 <div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga36799e18488f13fb91c265008e84b1f0_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga36799e18488f13fb91c265008e84b1f0_icgraph" alt=""/></div>
 <map name="ad0/dd8/group__upnplib-addrmodul_ga36799e18488f13fb91c265008e84b1f0_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga36799e18488f13fb91c265008e84b1f0_icgraph">
-<area shape="rect" title="Free function to check if a string represents an unsigned integer." alt="" coords="515,63,681,88"/>
-<area shape="rect" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#a48356f1c1232d7f9dda9599c7d73c960" title="Set an internet address to the structure." alt="" coords="273,5,467,31"/>
-<area shape="poly" title=" " alt="" coords="533,62,421,33,422,28,534,57"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="291,55,449,95"/>
-<area shape="poly" title=" " alt="" coords="501,78,449,78,449,73,501,73"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7881e8eda48962be8b4a999b5e226ff7" title="Set socket address from an internet address." alt="" coords="293,119,447,159"/>
-<area shape="poly" title=" " alt="" coords="539,94,443,122,441,117,538,89"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,55,225,95"/>
-<area shape="poly" title=" " alt="" coords="277,78,226,78,226,73,277,73"/>
-<area shape="poly" title=" " alt="" coords="159,44,143,37,115,34,91,36,76,41,71,47,73,54,68,56,65,46,73,36,90,31,115,29,145,32,161,39"/>
+<area shape="rect" title="Free function to check if a string represents an unsigned integer." alt="" coords="247,63,413,88"/>
+<area shape="rect" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#a48356f1c1232d7f9dda9599c7d73c960" title="Set an internet address to the structure." alt="" coords="5,5,199,31"/>
+<area shape="poly" title=" " alt="" coords="265,62,153,33,154,28,266,57"/>
+<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="23,55,181,95"/>
+<area shape="poly" title=" " alt="" coords="233,78,181,78,181,73,233,73"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7881e8eda48962be8b4a999b5e226ff7" title="Set socket address from an internet address." alt="" coords="25,119,179,159"/>
+<area shape="poly" title=" " alt="" coords="271,94,175,122,173,117,270,89"/>
 </map>
 </div>
 
@@ -635,25 +649,22 @@ sa</td>
 <div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph" alt=""/></div>
 <map name="ad0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph">
-<area shape="rect" title="Free function to check if a string represents a valid port number." alt="" coords="489,200,623,225"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="282,73,433,113"/>
-<area shape="poly" title=" " alt="" coords="526,194,440,135,402,115,405,110,443,130,529,189"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="278,145,437,185"/>
-<area shape="poly" title=" " alt="" coords="489,199,436,186,437,181,490,194"/>
-<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga6d571ed2cf31b8c6bf670a46b24f350f" title="Separates the authority port subcomponent from a URI reference." alt="" coords="273,233,441,288"/>
-<area shape="poly" title=" " alt="" coords="490,231,442,243,441,238,489,226"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7881e8eda48962be8b4a999b5e226ff7" title="Set socket address from an internet address." alt="" coords="280,313,435,353"/>
-<area shape="poly" title=" " alt="" coords="532,237,492,270,443,303,418,315,416,310,440,298,489,266,529,233"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="28,5,203,31"/>
-<area shape="poly" title=" " alt="" coords="296,70,225,45,181,33,183,28,226,39,298,65"/>
-<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="74,55,157,80"/>
-<area shape="poly" title=" " alt="" coords="268,86,157,74,157,69,269,81"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="56,104,175,129"/>
-<area shape="poly" title=" " alt="" coords="268,104,175,114,174,108,268,99"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,178,225,218"/>
-<area shape="poly" title=" " alt="" coords="265,180,226,185,225,180,264,175"/>
-<area shape="poly" title=" " alt="" coords="156,166,142,159,115,157,92,159,78,163,73,169,76,177,71,178,68,168,75,159,91,153,115,151,143,154,158,161"/>
-<area shape="poly" title=" " alt="" coords="390,222,378,215,357,212,340,214,329,219,324,225,324,233,318,233,319,223,326,214,339,209,357,207,380,210,393,218"/>
+<area shape="rect" title="Free function to check if a string represents a valid port number." alt="" coords="444,167,577,192"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="237,47,387,87"/>
+<area shape="poly" title=" " alt="" coords="482,160,442,131,395,102,369,90,372,85,397,97,445,126,485,156"/>
+<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="233,111,391,151"/>
+<area shape="poly" title=" " alt="" coords="444,166,391,153,392,148,445,161"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga6d571ed2cf31b8c6bf670a46b24f350f" title="Separates the authority port subcomponent from a URI reference." alt="" coords="228,200,396,255"/>
+<area shape="poly" title=" " alt="" coords="445,198,397,210,396,204,444,193"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7881e8eda48962be8b4a999b5e226ff7" title="Set socket address from an internet address." alt="" coords="235,279,389,319"/>
+<area shape="poly" title=" " alt="" coords="487,203,446,237,397,270,373,282,371,277,395,265,443,232,484,199"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="5,5,180,31"/>
+<area shape="poly" title=" " alt="" coords="222,50,149,33,150,28,224,45"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="51,55,134,80"/>
+<area shape="poly" title=" " alt="" coords="223,70,135,70,135,65,223,65"/>
+<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="33,104,152,129"/>
+<area shape="poly" title=" " alt="" coords="224,90,150,107,149,101,222,85"/>
+<area shape="poly" title=" " alt="" coords="345,189,333,181,312,179,295,181,283,185,278,192,278,200,273,200,273,190,280,181,293,175,312,173,335,176,347,184"/>
 </map>
 </div>
 
@@ -697,9 +708,9 @@ sa</td>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
 <div class="line">std::cout &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; <span class="comment">// output &quot;[::]:0&quot;, saObj wasn&#39;t set.</span></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00254">sockaddr.hpp:254</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00262">sockaddr.hpp:262</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00439">439</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00457">457</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">

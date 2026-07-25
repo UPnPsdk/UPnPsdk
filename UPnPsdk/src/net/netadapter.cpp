@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-21
+// Redistribution only with this Copyright remark. Last modified: 2026-07-26
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -43,185 +43,99 @@ ADDRS& operator&=(ADDRS& lhs, ADDRS rhs) {
 // \endcond
 
 
-uint8_t netmask_to_bitmask(const ::sockaddr_storage* a_netmask) {
-    TRACE("Executing netmask_to_bitmask()")
-    if (a_netmask == nullptr)
-        throw std::runtime_error(UPnPsdk_LOGEXCEPT(
-            "MSG1059") "No network socket address information given.\n");
-
+uint8_t netmask_to_bitmask(const in6_addr& a_sin6_addr) noexcept {
     uint8_t bitmask{};
     uint8_t nullbits{};
-    switch (a_netmask->ss_family) {
-    case AF_INET6: {
-        // Count set bits.
-        for (size_t i{}; i < sizeof(in6_addr); i++) {
-            uint8_t s6addr = reinterpret_cast<const ::sockaddr_in6*>(a_netmask)
-                                 ->sin6_addr.s6_addr[i];
-            if (s6addr == 255) {
-                bitmask += 8;
-            } else {
-                while (s6addr) {
-                    bitmask++;
-                    s6addr <<= 1;
-                }
-                break; // for() loop
+
+    // Count set bits.
+    for (size_t i{}; i < sizeof(a_sin6_addr); i++) {
+        uint8_t s6addr = a_sin6_addr.s6_addr[i];
+        if (s6addr == 255) {
+            bitmask += 8;
+        } else {
+            while (s6addr) {
+                bitmask++;
+                s6addr <<= 1;
             }
+            break;
         }
-        // Check if all remaining bits are zero.
-        for (int i{sizeof(in6_addr) - 1}; i >= 0; i--) {
-            uint8_t s6addr = reinterpret_cast<const ::sockaddr_in6*>(a_netmask)
-                                 ->sin6_addr.s6_addr[i];
-            if (s6addr == 0) {
-                nullbits += 8;
-            } else {
-                while ((s6addr & 1) == 0) {
-                    nullbits++;
-                    s6addr >>= 1;
-                }
-                break; // for() loop
+    }
+    // Check if all remaining bits are zero.
+    for (int i{sizeof(a_sin6_addr) - 1}; i >= 0; i--) {
+        uint8_t s6addr = a_sin6_addr.s6_addr[i];
+        if (s6addr == 0) {
+            nullbits += 8;
+        } else {
+            while ((s6addr & 1) == 0) {
+                nullbits++;
+                s6addr >>= 1;
             }
+            break;
         }
-        // Check valid netmask.
-        if (bitmask + nullbits != 128) {
-            char ip_str[INET6_ADDRSTRLEN]{};
-            ::inet_ntop(
-                AF_INET6,
-                &reinterpret_cast<const ::sockaddr_in6*>(a_netmask)->sin6_addr,
-                ip_str, sizeof(ip_str));
-            throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT(
-                    "MSG1067") "Invalid ip-address prefix bitmask \"[" +
-                std::string(ip_str) + "]\".\n");
-        }
-    } break; // switch()
-
-    case AF_INET: {
-        in_addr_t saddr = ntohl(
-            reinterpret_cast<const ::sockaddr_in*>(a_netmask)->sin_addr.s_addr);
-        in_addr_t saddr0 = saddr;
-        // Count set bits.
-        while (saddr) {
-            bitmask++;
-            saddr <<= 1;
-        }
-        // Check if all remaining bits are zero.
-        for (int i{}; (saddr0 & 1) == 0 && i < 32; i++) {
-            nullbits++;
-            saddr0 >>= 1;
-        }
-        // Check valid netmask.
-        if (bitmask + nullbits != 32) {
-            char ip_str[INET_ADDRSTRLEN]{};
-            ::inet_ntop(
-                AF_INET,
-                &reinterpret_cast<const ::sockaddr_in*>(a_netmask)->sin_addr,
-                ip_str, sizeof(ip_str));
-            throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT("MSG1069") "Invalid ip-address netmask \"" +
-                std::string(ip_str) + "\".\n");
-        }
-    } break;
-
-    case AF_UNSPEC:
-        return 0;
-
-    default:
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG1028") "Unsupported address family(" +
-            std::to_string(a_netmask->ss_family) + "), only AF_INET6(" +
-            std::to_string(AF_INET6) + "), AF_INET(" + std::to_string(AF_INET) +
-            "), or AF_UNSPEC(" + std::to_string(AF_UNSPEC) + ") are valid.\n");
-    } // switch()
+    }
+    // Check valid netmask.
+    if (bitmask + nullbits != 128) {
+        UPnPsdk_LOGERR("MSG1067") "Cannot convert netmask to bitmask.\n";
+        return 255;
+    }
 
     return bitmask;
 }
 
+uint8_t netmask_to_bitmask(const std::string& a_netmask) {
+    auto netmask_size = a_netmask.size();
+    if (netmask_size < 4 || // The smalest netaddr is "[::]".
+        a_netmask.front() != '[' || a_netmask.back() != ']')
+        return 255;
 
-void bitmask_to_netmask(const ::sockaddr_storage* a_saddr,
-                        const unsigned int a_prefixlength,
-                        SSockaddr& a_saddrObj) {
-    TRACE("Executing bitmask_to_netmask()")
-    if (a_saddr == nullptr)
-        throw std::runtime_error(UPnPsdk_LOGEXCEPT(
-            "MSG1070") "No associated socket address for the netmask given.\n");
+    in6_addr sin6_addr;
+    if (::inet_pton(AF_INET6, a_netmask.substr(1, netmask_size - 2).c_str(),
+                    &sin6_addr) != 1)
+        return 255;
 
-    switch (a_saddr->ss_family) {
-    case AF_INET6: {
-        // I have to manage 16 bytes from the binary IPv6 address to set its
-        // bits. 15 bytes are all ones or all zero bits. Only one byte may have
-        // partly ones and zero bits. First I calculate how many leading bytes
-        // have full one bits. Following is the partial set byte. The rest are
-        // bytes with full zero bits set.
-        in6_addr netmask6{};
+    return netmask_to_bitmask(sin6_addr);
+}
 
-        // All prefix lengths > 128 will throw this exception.
-        if (a_prefixlength > 128)
-            throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT(
-                    "MSG1124") "Invalid IPv6 address prefix bitmask(" +
-                std::to_string(a_prefixlength) + ") exceeds 128.\n");
 
-        // Calculate number of leading bytes with full one bits.
-        unsigned int ones_bytes{a_prefixlength / 8};
+std::string bitmask_to_netmask(unsigned int a_prefixlength) noexcept {
+    // I have to manage 16 bytes from the binary IPv6 address to set its
+    // bits. 15 bytes are all ones or all zero bits. Only one byte may have
+    // partly ones and zero bits. First I calculate how many leading bytes
+    // have full one bits. Following is the partial set byte. The rest are
+    // bytes with full zero bits set.
+    in6_addr netmask6;
 
-        // Fill leading bytes with all bit ones.
-        unsigned int i{};
-        for (; i < ones_bytes; i++)
-            netmask6.s6_addr[i] = static_cast<uint8_t>(~0);
+    // All prefix lengths > 128 will be limited to 128.
+    if (a_prefixlength > 128)
+        a_prefixlength = 128;
 
-        // Handle the one partly bit-set byte.
-        if (i < 16 /*bytes*/) {
-            // Preset byte with all bit ones.
-            netmask6.s6_addr[i] = static_cast<uint8_t>(~0);
-            // Shift remaining zero bits from right into byte with using the
-            // reminder from the byte devision.
-            netmask6.s6_addr[i] <<= (8 - (a_prefixlength % 8));
-            i++;
+    // Calculate number of leading bytes with full one bits.
+    size_t ones_bytes{a_prefixlength / 8};
 
-            // Fill remaining bytes with zero bits.
-            for (; i < 16 /*bytes*/; i++)
-                netmask6.s6_addr[i] = 0;
-        }
+    // Fill leading bytes with all bit ones.
+    size_t i;
+    for (i = 0; i < ones_bytes; i++)
+        netmask6.s6_addr[i] = 0xff;
 
-        // Return the result.
-        a_saddrObj.clear();
-        a_saddrObj.sin6.sin6_family = AF_INET6;
-        memcpy(&a_saddrObj.sin6.sin6_addr, &netmask6,
-               sizeof(a_saddrObj.sin6.sin6_addr));
-    } break;
+    // Handle the one partly bit-set byte.
+    if (i < 16 /*bytes*/) {
+        // Preset byte with all bit ones.
+        netmask6.s6_addr[i] = 0xff;
+        // Shift remaining zero bits from right into byte with using the
+        // reminder from the byte devision.
+        netmask6.s6_addr[i] <<= (8 - (a_prefixlength % 8));
+        i++;
 
-    case AF_INET: {
-        // All prefix lengths > 32 will throw this exception.
-        if (a_prefixlength > 32) {
-            throw std::runtime_error(
-                UPnPsdk_LOGEXCEPT(
-                    "MSG1125") "Invalid IPv4 address prefix bitmask(" +
-                std::to_string(a_prefixlength) + ") exceeds 32.\n");
-        }
-        // Prepare socket address and shift zero bits from right into the mask.
-        ::sockaddr_in saddr{};
-        saddr.sin_family = AF_INET;
-        if (a_prefixlength) {
-            in_addr_t bitshift{~0u}; // all one bits
-            bitshift <<= (32 - a_prefixlength); // shift zero bits from right
-            saddr.sin_addr.s_addr = htonl(bitshift);
-        }
-        // Return the result.
-        a_saddrObj.sin = saddr;
-    } break;
-
-    case AF_UNSPEC: {
-        a_saddrObj.clear();
-    } break;
-
-    default: {
-        throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG1126") "Unsupported address family(" +
-            std::to_string(a_saddr->ss_family) + "), only AF_INET6(" +
-            std::to_string(AF_INET6) + "), AF_INET(" + std::to_string(AF_INET) +
-            "), or AF_UNSPEC(" + std::to_string(AF_UNSPEC) + ") are valid.\n");
+        // Fill remaining bytes with zero bits.
+        for (; i < 16 /*bytes*/; i++)
+            netmask6.s6_addr[i] = 0;
     }
-    } // switch
+
+    // Return the result.
+    char addr_buf[INET6_ADDRSTRLEN];
+    if (::inet_ntop(AF_INET6, &netmask6, addr_buf, sizeof(addr_buf)) == nullptr)
+        addr_buf[0] = '\0';
+    return "[" + std::string(addr_buf).append("]");
 }
 
 
@@ -281,22 +195,10 @@ void CNetadapter::sockaddr(SSockaddr& a_saddr) const {
     }
 }
 
-void CNetadapter::socknetmask(SSockaddr& a_snetmask) const {
-    SSockaddr saObj;
-    m_na_platformPtr->socknetmask(saObj);
-    if (saObj.ss.ss_family == AF_INET) { // This will be V4MAPPED
-        // V4MAPPED has bitmask 96
-        saObj.ss.ss_family = AF_INET6;
-        ::inet_pton(saObj.ss.ss_family,
-                    "ffff:ffff:ffff:ffff:ffff:ffff::", &saObj.sin6.sin6_addr);
-    }
-    a_snetmask = saObj;
-}
-
 unsigned int CNetadapter::bitmask() const {
     SSockaddr saObj;
     m_na_platformPtr->sockaddr(saObj);
-    if (saObj.ss.ss_family == AF_INET) // This will be V4MAPPED
+    if (saObj.family == AF_INET) // This will be V4MAPPED
         return 96; // V4MAPPED has bitmask 96
     return m_na_platformPtr->bitmask();
 }

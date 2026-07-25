@@ -178,23 +178,29 @@ Public Attributes</h2></td></tr>
 <div class="line">::memcpy(&amp;saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>, &amp;saddr, <span class="keyword">sizeof</span>(saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>)); <span class="comment">// possible, but error prone</span></div>
 <div class="line"><span class="comment">// better with verification by the object:</span></div>
 <div class="line">saObj = saddr;</div>
-<div class="line"><span class="keywordflow">if</span> (saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">ss</a>.ss_family == AF_INET6)</div>
-<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;netaddress of saObj is &quot;</span> &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00254">sockaddr.hpp:254</a></div></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_adb56d3ae5d02f98c98a473657fda8176"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">UPnPsdk::SSockaddr::ss</a></div><div class="ttdeci">sockaddr_storage &amp; ss</div><div class="ttdoc">Reference to sockaddr_storage struct.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00258">sockaddr.hpp:258</a></div></div>
-</div><!-- fragment --><p>This structure should be usable on a low level like the trival C <code>struct ::sockaddr_storage</code> but provides additional methods to manage its data. When ever this SDK manage a network address it uses an object of this class.</p>
+<div class="line"><span class="keywordflow">if</span> (saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">family</a> == AF_UNSPEC)</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Unspecified input detected. Check error of input.\n&quot;</span>;</div>
+<div class="line"><span class="keywordflow">else</span> <span class="keywordflow">if</span> (saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">empty</a>())</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Input may be alphanumeric. Check with name resolution.\n&quot;</span>;</div>
+<div class="line"><span class="keywordflow">else</span></div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Netaddress of saObj is &quot;</span> &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00262">sockaddr.hpp:262</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a192e9af7b5bb170ddee6355a5e8b2a50"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">UPnPsdk::SSockaddr::empty</a></div><div class="ttdeci">bool empty() const noexcept</div><div class="ttdoc">Test if the socket address object is empty.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00432">sockaddr.hpp:432</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a7e321201ddc4e0260140a83f847f3c94"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">UPnPsdk::SSockaddr::family</a></div><div class="ttdeci">sa_family_t &amp; family</div><div class="ttdoc">Reference to the socket address family.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00264">sockaddr.hpp:264</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_adb56d3ae5d02f98c98a473657fda8176"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">UPnPsdk::SSockaddr::ss</a></div><div class="ttdeci">sockaddr_storage &amp; ss</div><div class="ttdoc">Reference to sockaddr_storage struct.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00266">sockaddr.hpp:266</a></div></div>
+</div><!-- fragment --><p>This structure should be usable on a low level, like the trival C <code>struct ::sockaddr_storage</code> but provides additional methods to manage its data. When ever this SDK manage a network address it uses an object of this class.</p>
 <p>Design specification:</p>
 <ul>
-<li><a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html" title="Trivial ::sockaddr structures enhanced with methods.">SSockaddr</a> accepts only numeric input. Any alphanumeric node (e.g. "example.com"), or scope_id (e.g. "eth0"), or port (e.g. "https") results in an unspecified socket address (AF_UNSPEC). It is intended to give this in a following step to <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html" title="Get information from the operating system about an internet address.">CAddrinfo</a> for name resolution.</li>
-<li>Detected errors (e.g. invalid or alphanumeric entries) result in an unspecified socket address object and can be tested with <code>saObj.family == AF_UNSPEC</code>. <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port.">netaddrp()</a> returns then <code>":0"</code>.</li>
-<li>An empty socket address object has the address family AF_INET6 by default and returns <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port.">netaddrp()</a> <code>"[::]:0"</code>.</li>
-<li>A link-local address (e.g. "[fe80::1%2]") must always have a scope_id. An LLA without scope_id is rejected as error. If in doubt you should test the address family not to be AF_UNSPEC (by default AF_INET6).</li>
-<li>If an IPv6 address, that isn't a link-local address, has a scope_id (e.g. "[2001:db8::1%2]") then the scope_id is silently removed.</li>
-<li><a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html" title="Trivial ::sockaddr structures enhanced with methods.">SSockaddr</a> can also hold IPv4 addresses but these are only provided for special use by the user. It is not direct supported but you can preset a trivial <code>::sockadr_storage</code> structure amd set it to an object (e.g. <code>saObj = ss</code>). The SDK itself does not understand IPv4 addresses and cannot work with them.</li>
+<li><a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html" title="Trivial ::sockaddr structures enhanced with methods.">SSockaddr</a> accepts only numeric input. Any alphanumeric node (e.g. "example.com"), or scope_id (e.g. "eth0"), or port (e.g. "https") results in an <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50" title="Test if the socket address object is empty.">empty()</a> socket address. It is intended to give this in a following step to <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html" title="Get information from the operating system about an internet address.">CAddrinfo</a> for name resolution.</li>
+<li>Detected errors (e.g. invalid numeric address pattern input) result in an unspecified socket address object and can be tested with <code>saObj.family == AF_UNSPEC</code>. Then it is never <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50" title="Test if the socket address object is empty.">empty()</a>. It's unspecified, even if it has no content. <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port.">netaddrp()</a> returns <code>":0"</code>.</li>
+<li>By default an initial instantiated <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html" title="Trivial ::sockaddr structures enhanced with methods.">SSockaddr</a> object, or an empty socket address object, has the address family AF_INET6 but no other content and returns <a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port.">netaddrp()</a> <code>"[::]:0"</code>.</li>
+<li>A link-local address (e.g. "[fe80::1%2]"), or a multicast address (e.g. "[ff00::1%3]") must always have a scope_id. An LLA or MCA without scope_id is rejected as error. If in doubt you should test the address family not to be AF_UNSPEC (by default AF_INET6).</li>
+<li>If an IPv6 address, that isn't a link-local address, or multicast address, has a scope_id (e.g. "[2001:db8::1%2]"), then the scope_id is silently removed.</li>
+<li><a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html" title="Trivial ::sockaddr structures enhanced with methods.">SSockaddr</a> can also hold IPv4 addresses but these are only provided for special use by the user. It is not direct supported but you can preset a trivial <code>::sockadr_storage ss</code> structure and set it to an object (e.g. <code>saObj = ss</code>). The SDK itself does not understand IPv4 addresses and cannot work with them. You must map it to an IPv6 address.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>This class is frequently used so performance has to taken into account. This is why the destructor isn't virtual and <b>you should not derive from this class as base class. Also runtime polymorphism should not be used</b> (deleting through a base class pointer). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00254">254</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00262">262</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3d54840d80b035c9e7bf6bcb7c05142a" name="a3d54840d80b035c9e7bf6bcb7c05142a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3d54840d80b035c9e7bf6bcb7c05142a">&#9670;&#160;</a></span>SSockaddr()</h2>
@@ -226,7 +232,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><span class="comment">// or</span></div>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> sa2Obj{sa1Obj};</div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00288">288</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00296">296</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -259,7 +265,7 @@ Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
 <div class="line">sa2Obj = sa1Obj; <span class="comment">// sa?Obj are two instantiated valid objects.</span></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00299">299</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00307">307</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -338,20 +344,19 @@ Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
 <div class="line">saObj = <a class="code hl_struct" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a>(<span class="stringliteral">&quot;[fe80::12ab%2]:50001&quot;</span>);</div>
-<div class="line">assert(!saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">empty</a>());</div>
+<div class="line">assert(saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">family</a> != AF_UNSPEC &amp;&amp; !saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">empty</a>());</div>
 <div class="line"> </div>
 <div class="line"><a class="code hl_struct" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a> inaObj(<span class="stringliteral">&quot;example.com:https&quot;</span>);</div>
 <div class="line">saObj = inaObj;</div>
+<div class="line">assert(saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">family</a> != AF_UNSPEC);</div>
 <div class="line"><span class="keywordflow">if</span>(saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">empty</a>())</div>
 <div class="line">    <a class="code hl_class" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">CAddrinfo</a> = inaObj; <span class="comment">// Perform name resolution.</span></div>
 <div class="line"> </div>
-<div class="line">saObj = <a class="code hl_struct" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a>(<span class="stringliteral">&quot;[fe80::12ab]&quot;</span>); <span class="comment">// Without scope_id.</span></div>
+<div class="line">saObj = <a class="code hl_struct" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a>(<span class="stringliteral">&quot;[fe80::12ab]&quot;</span>); <span class="comment">// LLA without scope_id.</span></div>
 <div class="line"><span class="keywordflow">if</span> (saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">family</a> == AF_UNSPEC) <span class="comment">// That is true.</span></div>
 <div class="line">    handle_error();</div>
 <div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">UPnPsdk::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about an internet address.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00085">addrinfo.hpp:85</a></div></div>
 <div class="ttc" id="astructUPnPsdk_1_1SInaddr_html"><div class="ttname"><a href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">UPnPsdk::SInaddr</a></div><div class="ttdoc">Structure to provide splited inet address, scope_id, and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00178">sockaddr.hpp:178</a></div></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a192e9af7b5bb170ddee6355a5e8b2a50"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">UPnPsdk::SSockaddr::empty</a></div><div class="ttdeci">bool empty() const noexcept</div><div class="ttdoc">Test if the socket address object is empty.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00414">sockaddr.hpp:414</a></div></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a7e321201ddc4e0260140a83f847f3c94"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">UPnPsdk::SSockaddr::family</a></div><div class="ttdeci">sa_family_t &amp; family</div><div class="ttdoc">Reference to the socket address family.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00256">sockaddr.hpp:256</a></div></div>
 </div><!-- fragment --><p> This method only detect numeric internet address pattern. If it cannot convert the given input, parts of it (node, scope, service) may be alphanumeric and the resulting socket address is set to an empty IPv6. It is expected to test the input pattern with name resolution by the calling program. Unspecified input pattern results to address family AF_UNSPEC and flags an unresolvable error. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00389">389</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
@@ -396,8 +401,16 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>clear socket address </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00349">349</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
+<div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
+<div class="line">saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8">sin6</a>.sin6_addr.s6_addr[15] = 1; <span class="comment">// Performant way to set &quot;[::1]&quot;.</span></div>
+<div class="line">assert(saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">empty</a>() == <span class="keyword">false</span>);</div>
+<div class="line">saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a66e9bf5ef761fd7675a87397a54b05b5">clear</a>();</div>
+<div class="line">assert(saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">empty</a>() == <span class="keyword">true</span> &amp;&amp; saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">family</a> == AF_INET6);</div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a3cff3945c37e02d4404db3cd5a697db8"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8">UPnPsdk::SSockaddr::sin6</a></div><div class="ttdeci">sockaddr_in6 &amp; sin6</div><div class="ttdoc">Reference to sockaddr_in6 struct.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00270">sockaddr.hpp:270</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a66e9bf5ef761fd7675a87397a54b05b5"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a66e9bf5ef761fd7675a87397a54b05b5">UPnPsdk::SSockaddr::clear</a></div><div class="ttdeci">void clear() noexcept</div><div class="ttdoc">clear socket address</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00367">sockaddr.hpp:367</a></div></div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00367">367</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -405,20 +418,18 @@ Public Attributes</h2></td></tr>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dc/df7/structUPnPsdk_1_1SSockaddr_a66e9bf5ef761fd7675a87397a54b05b5_icgraph.png" border="0" usemap="#adc/df7/structUPnPsdk_1_1SSockaddr_a66e9bf5ef761fd7675a87397a54b05b5_icgraph" alt=""/></div>
 <map name="adc/df7/structUPnPsdk_1_1SSockaddr_a66e9bf5ef761fd7675a87397a54b05b5_icgraph" id="adc/df7/structUPnPsdk_1_1SSockaddr_a66e9bf5ef761fd7675a87397a54b05b5_icgraph">
-<area shape="rect" title="clear socket address" alt="" coords="679,92,833,132"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb" title="Get network address mask from address prefix bit number." alt="" coords="466,5,626,45"/>
-<area shape="poly" title=" " alt="" coords="693,89,594,48,597,43,695,84"/>
-<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab" title="Get the remote socket address the socket is connected to." alt="" coords="233,63,413,103"/>
-<area shape="poly" title=" " alt="" coords="665,109,414,91,414,86,665,103"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342" title="Get the socket address from current selcted address information." alt="" coords="471,120,621,160"/>
-<area shape="poly" title=" " alt="" coords="666,127,622,133,621,127,665,121"/>
-<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a112fd1ee7d1d3a43f7504bd57da6303b" title="Get socket address from current selected list entry." alt="" coords="461,184,631,224"/>
-<area shape="poly" title=" " alt="" coords="704,141,632,174,603,186,601,181,630,170,702,136"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="5,85,185,139"/>
-<area shape="poly" title=" " alt="" coords="220,99,186,103,185,98,219,93"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="236,127,411,153"/>
-<area shape="poly" title=" " alt="" coords="457,143,411,143,411,137,457,137"/>
-<area shape="poly" title=" " alt="" coords="222,130,185,126,186,120,222,125"/>
+<area shape="rect" title="clear socket address" alt="" coords="679,63,833,103"/>
+<area shape="rect" href="../../d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab" title="Get the remote socket address the socket is connected to." alt="" coords="233,5,413,45"/>
+<area shape="poly" title=" " alt="" coords="672,62,630,53,518,39,413,31,414,26,518,34,631,48,673,57"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342" title="Get the socket address from current selcted address information." alt="" coords="471,63,621,103"/>
+<area shape="poly" title=" " alt="" coords="665,85,622,85,622,80,665,80"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a112fd1ee7d1d3a43f7504bd57da6303b" title="Get socket address from current selected list entry." alt="" coords="461,127,631,167"/>
+<area shape="poly" title=" " alt="" coords="677,109,613,129,611,124,676,104"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="5,27,185,82"/>
+<area shape="poly" title=" " alt="" coords="220,41,186,46,185,40,219,36"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="236,70,411,95"/>
+<area shape="poly" title=" " alt="" coords="457,85,411,85,411,80,457,80"/>
+<area shape="poly" title=" " alt="" coords="222,73,185,68,186,63,222,68"/>
 </map>
 </div>
 
@@ -489,40 +500,41 @@ Public Attributes</h2></td></tr>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dc/df7/structUPnPsdk_1_1SSockaddr_a8a8cc96fde129cc987147c49db173778_icgraph.png" border="0" usemap="#adc/df7/structUPnPsdk_1_1SSockaddr_a8a8cc96fde129cc987147c49db173778_icgraph" alt=""/></div>
 <map name="adc/df7/structUPnPsdk_1_1SSockaddr_a8a8cc96fde129cc987147c49db173778_icgraph" id="adc/df7/structUPnPsdk_1_1SSockaddr_a8a8cc96fde129cc987147c49db173778_icgraph">
-<area shape="rect" title="Get the assosiated netaddress without port." alt="" coords="975,165,1129,205"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="772,305,927,345"/>
-<area shape="poly" title=" " alt="" coords="1012,216,881,307,878,303,1009,211"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="233,29,453,69"/>
-<area shape="poly" title=" " alt="" coords="1003,161,948,132,880,100,803,70,723,48,662,39,614,40,564,45,501,48,453,49,453,44,501,43,564,39,613,35,662,34,725,43,804,65,882,95,951,127,1006,156"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="256,203,431,229"/>
-<area shape="poly" title=" " alt="" coords="824,296,781,250,753,229,723,213,681,200,637,192,547,188,464,194,397,206,396,201,464,189,547,182,637,186,682,195,725,208,756,225,784,246,828,293"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="5,135,185,190"/>
-<area shape="poly" title=" " alt="" coords="829,295,811,266,787,234,757,205,723,182,655,156,583,138,510,128,436,124,365,126,299,130,186,146,185,141,298,125,365,120,436,119,510,123,584,133,656,151,725,178,761,201,791,231,815,263,834,292"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="5,282,185,337"/>
-<area shape="poly" title=" " alt="" coords="758,328,501,327,185,316,186,311,501,321,758,323"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="537,223,688,263"/>
-<area shape="poly" title=" " alt="" coords="789,302,723,277,686,265,688,260,725,272,790,297"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="533,57,692,97"/>
-<area shape="poly" title=" " alt="" coords="834,293,817,253,793,206,762,159,722,118,691,99,694,95,726,114,766,155,798,203,822,251,839,291"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="501,389,724,443"/>
-<area shape="poly" title=" " alt="" coords="784,353,686,391,684,386,782,348"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="517,570,708,625"/>
-<area shape="poly" title=" " alt="" coords="840,360,824,403,799,454,767,506,726,553,698,572,695,568,722,549,762,503,795,451,819,400,835,358"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="241,519,446,574"/>
-<area shape="poly" title=" " alt="" coords="837,360,820,394,795,434,764,472,725,502,692,519,657,533,584,550,512,558,446,558,446,553,512,552,583,545,656,528,690,514,723,498,760,468,791,431,815,392,832,357"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="5,486,185,541"/>
-<area shape="poly" title=" " alt="" coords="830,358,787,411,758,437,725,457,695,466,643,474,498,489,186,511,186,506,498,484,642,469,693,461,723,452,755,432,783,407,826,355"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="540,649,685,674"/>
-<area shape="poly" title=" " alt="" coords="847,360,837,420,816,496,800,535,780,574,756,609,726,639,707,651,686,659,685,654,705,646,722,635,751,605,776,571,795,533,811,494,832,419,842,359"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga9075bce23f29654c256e20e08fd8d144" title="output the netaddress to a stream." alt="" coords="531,287,695,313"/>
-<area shape="poly" title=" " alt="" coords="758,318,695,311,695,306,758,313"/>
-<area shape="poly" title=" " alt="" coords="270,203,185,185,186,179,271,198"/>
-<area shape="poly" title=" " alt="" coords="297,236,170,284,168,279,295,231"/>
-<area shape="poly" title=" " alt="" coords="523,237,431,227,431,222,524,231"/>
-<area shape="poly" title=" " alt="" coords="519,70,453,63,454,58,520,65"/>
-<area shape="poly" title=" " alt="" coords="386,18,371,11,343,8,319,10,305,15,300,21,302,28,297,30,294,20,302,10,318,5,343,3,372,6,388,13"/>
-<area shape="poly" title=" " alt="" coords="503,580,446,569,447,563,504,574"/>
-<area shape="poly" title=" " alt="" coords="227,534,185,528,186,523,227,528"/>
+<area shape="rect" title="Get the assosiated netaddress without port." alt="" coords="1025,454,1180,494"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="790,307,945,347"/>
+<area shape="poly" title=" " alt="" coords="1056,449,899,350,902,345,1059,444"/>
+<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="757,498,977,538"/>
+<area shape="poly" title=" " alt="" coords="1013,494,975,501,974,495,1012,488"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="249,128,423,153"/>
+<area shape="poly" title=" " alt="" coords="832,300,776,257,743,236,708,218,655,201,581,184,421,156,422,151,582,179,657,196,710,213,746,231,780,253,835,296"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="5,77,185,132"/>
+<area shape="poly" title=" " alt="" coords="853,295,833,248,803,192,761,138,736,115,708,96,667,82,611,74,544,71,470,72,318,81,186,95,186,90,317,76,470,66,544,66,611,69,668,77,711,92,739,111,765,134,807,189,838,245,858,293"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="5,181,185,236"/>
+<area shape="poly" title=" " alt="" coords="816,304,765,281,709,262,567,234,424,219,292,211,185,210,185,204,293,206,424,213,568,229,710,257,767,276,818,299"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="523,106,673,146"/>
+<area shape="poly" title=" " alt="" coords="841,298,785,232,748,197,708,167,671,149,673,144,711,162,752,193,789,228,845,294"/>
+<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="519,271,677,311"/>
+<area shape="poly" title=" " alt="" coords="776,318,677,305,678,299,777,313"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="487,336,709,391"/>
+<area shape="poly" title=" " alt="" coords="777,342,710,351,709,346,776,337"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="503,517,693,572"/>
+<area shape="poly" title=" " alt="" coords="846,361,789,430,752,467,711,500,677,519,675,515,708,496,748,463,785,426,842,357"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="233,467,439,521"/>
+<area shape="poly" title=" " alt="" coords="839,359,783,407,748,431,710,450,642,472,571,487,502,495,439,498,439,493,501,489,570,481,641,467,708,445,745,426,780,403,836,355"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="5,433,185,488"/>
+<area shape="poly" title=" " alt="" coords="822,357,769,383,710,405,608,423,466,438,186,459,186,453,466,433,607,418,709,399,767,378,819,352"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="525,596,671,621"/>
+<area shape="poly" title=" " alt="" coords="839,359,799,407,760,463,746,498,742,529,734,558,725,572,711,587,692,599,672,606,670,601,690,594,708,583,721,569,729,556,736,528,741,496,755,461,795,403,835,356"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga9075bce23f29654c256e20e08fd8d144" title="output the netaddress to a stream." alt="" coords="516,5,680,31"/>
+<area shape="poly" title=" " alt="" coords="854,295,835,241,804,176,762,109,737,79,708,52,672,33,674,28,711,48,740,75,766,106,809,173,840,239,859,293"/>
+<area shape="poly" title=" " alt="" coords="237,129,185,121,186,115,238,123"/>
+<area shape="poly" title=" " alt="" coords="278,160,186,186,185,181,276,155"/>
+<area shape="poly" title=" " alt="" coords="509,134,424,138,423,133,509,128"/>
+<area shape="poly" title=" " alt="" coords="489,526,439,516,440,511,490,521"/>
+<area shape="poly" title=" " alt="" coords="219,481,185,476,186,470,220,475"/>
+<area shape="poly" title=" " alt="" coords="907,486,893,479,867,477,845,479,831,483,826,489,829,497,824,498,821,488,828,479,844,473,867,471,895,474,910,481"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="555,645,641,671"/>
+<area shape="poly" title=" " alt="" coords="837,549,780,595,746,617,710,636,676,649,641,656,640,651,674,643,708,632,744,613,777,590,833,545"/>
 </map>
 </div>
 
@@ -578,70 +590,67 @@ Public Attributes</h2></td></tr>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dc/df7/structUPnPsdk_1_1SSockaddr_a44aeb8785a469618b74ee700c080451b_icgraph.png" border="0" usemap="#adc/df7/structUPnPsdk_1_1SSockaddr_a44aeb8785a469618b74ee700c080451b_icgraph" alt=""/></div>
 <map name="adc/df7/structUPnPsdk_1_1SSockaddr_a44aeb8785a469618b74ee700c080451b_icgraph" id="adc/df7/structUPnPsdk_1_1SSockaddr_a44aeb8785a469618b74ee700c080451b_icgraph">
-<area shape="rect" title="Get the assosiated netaddress with port." alt="" coords="1264,362,1419,402"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="748,81,923,107"/>
-<area shape="poly" title=" " alt="" coords="1330,349,1317,302,1294,247,1260,191,1239,167,1214,147,1181,127,1145,111,1068,92,991,86,923,87,923,81,991,80,1068,87,1146,106,1183,122,1218,142,1243,163,1264,188,1298,244,1322,301,1335,348"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="492,16,672,71"/>
-<area shape="poly" title=" " alt="" coords="1334,349,1323,292,1302,223,1286,188,1267,155,1243,124,1214,99,1151,61,1081,35,1008,18,933,10,860,8,791,12,673,27,672,21,790,6,860,3,934,5,1008,13,1082,30,1153,56,1218,94,1247,121,1271,152,1291,186,1307,222,1328,291,1339,348"/>
-<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="492,195,672,249"/>
-<area shape="poly" title=" " alt="" coords="1308,355,1265,322,1215,295,1144,271,1071,253,996,240,922,230,784,221,672,221,672,215,784,216,922,225,997,234,1072,248,1146,266,1217,290,1268,318,1311,351"/>
-<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="1029,157,1180,197"/>
-<area shape="poly" title=" " alt="" coords="1319,351,1275,289,1247,256,1214,227,1165,199,1168,194,1218,222,1250,252,1280,285,1323,348"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="1025,305,1184,345"/>
-<area shape="poly" title=" " alt="" coords="1249,362,1184,346,1185,341,1251,357"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="993,521,1216,576"/>
-<area shape="poly" title=" " alt="" coords="1316,414,1273,459,1217,504,1183,523,1180,519,1215,500,1269,456,1313,410"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="487,496,677,551"/>
-<area shape="poly" title=" " alt="" coords="1301,412,1262,435,1217,454,1001,481,678,516,677,511,1001,476,1215,449,1259,430,1299,407"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="233,420,439,475"/>
-<area shape="poly" title=" " alt="" coords="1250,399,1216,403,1000,422,784,435,439,448,439,442,784,429,999,416,1216,398,1250,394"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="5,388,185,443"/>
-<area shape="poly" title=" " alt="" coords="1250,385,837,385,581,385,368,393,186,408,186,403,368,387,581,379,837,379,1250,379"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="1032,751,1177,776"/>
-<area shape="poly" title=" " alt="" coords="1323,415,1218,589,1116,752,1112,749,1214,586,1319,412"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga9075bce23f29654c256e20e08fd8d144" title="output the netaddress to a stream." alt="" coords="1023,800,1187,825"/>
-<area shape="poly" title=" " alt="" coords="1343,416,1338,492,1321,593,1305,647,1283,699,1255,747,1218,789,1188,807,1185,802,1214,785,1250,744,1279,696,1300,645,1316,592,1333,492,1338,415"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="492,95,672,149"/>
-<area shape="poly" title=" " alt="" coords="735,108,673,115,672,109,734,102"/>
-<area shape="poly" title=" " alt="" coords="757,81,672,64,673,59,758,76"/>
-<area shape="poly" title=" " alt="" coords="742,113,727,120,712,130,702,139,679,163,630,197,627,192,676,159,698,136,709,126,724,116,740,109"/>
-<area shape="poly" title=" " alt="" coords="1041,154,945,120,901,109,902,104,946,115,1043,149"/>
-<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="794,131,877,156"/>
-<area shape="poly" title=" " alt="" coords="1015,168,876,151,877,146,1016,163"/>
-<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="776,180,895,205"/>
-<area shape="poly" title=" " alt="" coords="1015,185,895,192,895,186,1015,179"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="725,305,945,345"/>
-<area shape="poly" title=" " alt="" coords="1011,327,946,327,946,322,1011,322"/>
-<area shape="poly" title=" " alt="" coords="879,293,863,286,835,283,811,285,796,290,791,296,793,303,788,305,785,295,793,286,810,280,835,278,865,281,881,288"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="734,521,937,576"/>
-<area shape="poly" title=" " alt="" coords="980,551,937,551,937,546,980,546"/>
-<area shape="poly" title=" " alt="" coords="720,540,677,535,678,530,721,534"/>
-<area shape="poly" title=" " alt="" coords="479,494,424,477,426,472,481,489"/>
-<area shape="poly" title=" " alt="" coords="219,434,185,430,186,425,220,429"/>
-<area shape="poly" title=" " alt="" coords="1085,740,1028,666,989,625,944,589,924,578,927,574,947,585,992,621,1032,663,1090,737"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#ab8610e8aea3346f682ca91fe37b21bf8" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="750,701,921,727"/>
-<area shape="poly" title=" " alt="" coords="1021,751,905,729,906,724,1022,745"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="757,751,913,776"/>
-<area shape="poly" title=" " alt="" coords="1018,766,913,766,913,761,1018,761"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="737,800,933,825"/>
-<area shape="poly" title=" " alt="" coords="1022,781,906,802,905,797,1021,776"/>
-<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="740,600,931,625"/>
-<area shape="poly" title=" " alt="" coords="1078,743,1019,695,983,669,944,647,893,628,895,623,946,642,986,665,1023,691,1081,739"/>
-<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="503,625,661,651"/>
-<area shape="poly" title=" " alt="" coords="1069,746,1012,717,945,691,871,673,795,659,661,645,662,639,796,654,872,667,946,686,1014,712,1071,741"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9" title="Sends the notify message and returns a reply." alt="" coords="745,849,925,904"/>
-<area shape="poly" title=" " alt="" coords="1020,779,995,790,980,801,971,813,962,826,947,839,924,851,921,847,944,834,958,822,967,810,976,797,992,785,1018,774"/>
-<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a11f6b8370b141ab90b844dbf1092265c" title="Returns OK message in the case of a subscription request." alt="" coords="745,928,925,983"/>
-<area shape="poly" title=" " alt="" coords="1020,775,995,789,982,804,975,819,971,850,967,883,960,900,947,917,927,932,924,928,943,913,956,898,962,882,966,850,970,817,978,801,992,785,1017,770"/>
-<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a06c8e12369d9db67a834d961dc914563" title="Sends the SOAP action response." alt="" coords="492,1025,672,1080"/>
-<area shape="poly" title=" " alt="" coords="1020,773,995,789,977,814,970,839,969,865,973,891,976,918,975,944,967,970,947,996,928,1009,900,1020,830,1036,749,1046,672,1052,672,1047,749,1041,829,1030,899,1014,925,1004,944,992,962,968,970,943,970,918,967,892,964,865,965,838,972,811,992,785,1017,769"/>
-<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#af2aff493a97adf72193dc9ff26413171" title="Sends SOAP error response." alt="" coords="745,1059,925,1113"/>
-<area shape="poly" title=" " alt="" coords="1020,773,995,789,974,819,965,849,965,879,969,910,974,942,974,974,967,1007,947,1041,925,1060,922,1056,943,1038,962,1005,969,974,968,942,964,911,959,880,960,848,969,817,991,785,1017,769"/>
-<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#ac97fc275f79e926d35c691d839489b07" title="Sends response of get var status." alt="" coords="740,1137,931,1192"/>
-<area shape="poly" title=" " alt="" coords="1020,773,995,789,979,809,968,830,958,870,961,911,969,953,978,995,981,1038,973,1082,963,1104,947,1126,933,1140,929,1136,943,1123,958,1101,968,1080,976,1038,973,996,964,954,955,912,953,870,963,828,975,807,992,785,1017,768"/>
-<area shape="poly" title=" " alt="" coords="756,599,724,590,637,553,639,548,726,585,758,594"/>
-<area shape="poly" title=" " alt="" coords="727,626,662,633,661,627,726,621"/>
-<area shape="poly" title=" " alt="" coords="731,1075,672,1067,673,1062,732,1070"/>
+<area shape="rect" title="Get the assosiated netaddress with port." alt="" coords="1247,334,1401,374"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="739,78,914,103"/>
+<area shape="poly" title=" " alt="" coords="1311,322,1296,279,1272,230,1239,182,1220,161,1197,143,1164,124,1129,110,1054,91,981,84,914,84,914,79,981,79,1055,86,1131,105,1167,120,1200,139,1223,157,1244,179,1277,227,1300,277,1316,320"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="492,12,672,67"/>
+<area shape="poly" title=" " alt="" coords="1315,321,1303,270,1281,207,1265,175,1246,145,1224,118,1197,95,1135,59,1067,34,996,18,924,10,854,8,787,11,672,24,672,19,786,5,854,3,925,5,997,13,1069,29,1137,55,1200,91,1227,114,1250,142,1270,173,1285,205,1308,268,1320,320"/>
+<area shape="rect" href="../../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#a0b461f873d52467052adeb50067f7724" title="Works as a request handler which passes the HTTP request string to multicast channel." alt="" coords="492,191,672,246"/>
+<area shape="poly" title=" " alt="" coords="1291,327,1249,294,1198,267,1154,256,1097,246,955,233,803,225,672,222,672,217,803,220,955,227,1098,241,1156,251,1200,263,1252,290,1294,323"/>
+<area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="1012,153,1163,193"/>
+<area shape="poly" title=" " alt="" coords="1298,325,1254,274,1227,247,1197,223,1146,196,1148,191,1200,219,1230,243,1258,270,1302,322"/>
+<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="1008,277,1167,317"/>
+<area shape="poly" title=" " alt="" coords="1232,335,1166,319,1168,314,1233,330"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a6f40d51e41632f61e7147d7a42dea58e" title="Returns the ip address with port as text that is bound to a socket." alt="" coords="976,494,1199,548"/>
+<area shape="poly" title=" " alt="" coords="1299,387,1255,432,1200,477,1165,496,1163,491,1197,472,1252,428,1295,383"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872" title="Receive the request and dispatch it for handling." alt="" coords="487,468,677,523"/>
+<area shape="poly" title=" " alt="" coords="1284,384,1244,407,1199,426,992,454,678,488,677,483,991,448,1198,421,1242,402,1281,380"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a152f98f4e525591c17b95de35da9773e" title="Initilize the thread pool to handle an incomming request, sets priority for the job and adds the job ..." alt="" coords="233,392,439,447"/>
+<area shape="poly" title=" " alt="" coords="1233,372,1199,376,987,394,777,407,439,420,439,415,777,401,987,388,1198,370,1232,366"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7" title="Accept requested connection from a remote control point and run it in a new thread." alt="" coords="5,360,185,415"/>
+<area shape="poly" title=" " alt="" coords="1233,357,828,357,581,357,368,365,186,381,186,375,368,360,581,352,828,352,1233,352"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a333b21037bc6fd869e0b0b91cc073bbe" title="Sends a message to the destination based on the format parameter." alt="" coords="1015,720,1160,746"/>
+<area shape="poly" title=" " alt="" coords="1306,388,1201,561,1099,721,1095,719,1196,558,1301,385"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga9075bce23f29654c256e20e08fd8d144" title="output the netaddress to a stream." alt="" coords="1005,770,1169,795"/>
+<area shape="poly" title=" " alt="" coords="1326,388,1321,465,1303,565,1287,618,1266,669,1237,717,1200,759,1171,777,1168,772,1197,755,1233,714,1261,667,1282,616,1298,563,1315,464,1320,388"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a7edcadd0e5ba55588d4794730343772e" title="Create STREAM sockets, binds to local network interfaces and listens for incoming connections." alt="" coords="492,91,672,146"/>
+<area shape="poly" title=" " alt="" coords="726,104,673,111,672,105,726,99"/>
+<area shape="poly" title=" " alt="" coords="751,77,672,61,673,56,752,72"/>
+<area shape="poly" title=" " alt="" coords="741,110,727,117,712,126,702,136,679,159,630,193,627,189,676,155,698,132,709,122,724,112,739,105"/>
+<area shape="poly" title=" " alt="" coords="1023,150,927,117,886,106,887,101,929,112,1025,145"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="785,176,868,202"/>
+<area shape="poly" title=" " alt="" coords="998,181,868,189,868,184,998,176"/>
+<area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="767,127,886,152"/>
+<area shape="poly" title=" " alt="" coords="998,164,886,150,887,145,999,159"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="725,494,928,548"/>
+<area shape="poly" title=" " alt="" coords="962,524,928,524,928,518,962,518"/>
+<area shape="poly" title=" " alt="" coords="712,512,677,508,678,503,712,506"/>
+<area shape="poly" title=" " alt="" coords="479,467,424,450,426,445,481,462"/>
+<area shape="poly" title=" " alt="" coords="219,407,185,402,186,397,220,402"/>
+<area shape="poly" title=" " alt="" coords="1068,711,1010,638,971,598,926,562,907,551,910,546,930,557,974,594,1014,635,1072,708"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#ab8610e8aea3346f682ca91fe37b21bf8" title="Makes a HTTP request using a connection previously created by UpnpOpenHttpConnection()." alt="" coords="741,622,912,647"/>
+<area shape="poly" title=" " alt="" coords="1050,716,993,688,927,661,889,650,891,645,929,656,995,683,1052,712"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#aa6e8ca5e4a342e562769c5670475fe3f" title="Makes the HTTP GET message, connects to the peer, sends the HTTP GET request, gets the response and p..." alt="" coords="749,671,905,696"/>
+<area shape="poly" title=" " alt="" coords="1006,720,894,699,895,694,1007,715"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a1ef899831c9f04897982b56dfcbfff1a" title="Initiates socket, connects to the remote host, sends a request and waits for the response from the re..." alt="" coords="729,720,925,746"/>
+<area shape="poly" title=" " alt="" coords="1001,736,925,736,925,730,1001,730"/>
+<area shape="rect" href="../../d1/db3/httpreadwrite_8cpp.html#a992c9ac44a3720d238e012d0fe0a0707" title="Generate a response message for the status query and send the status response." alt="" coords="731,572,922,598"/>
+<area shape="poly" title=" " alt="" coords="1062,713,1004,661,967,634,927,611,897,600,899,595,929,607,970,630,1007,657,1066,709"/>
+<area shape="rect" href="../../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1" title="Main entry point into web server." alt="" coords="503,890,661,915"/>
+<area shape="poly" title=" " alt="" coords="1003,744,978,759,963,777,957,797,957,838,958,859,955,879,947,899,930,916,891,938,849,950,805,955,760,953,677,938,614,918,616,913,679,933,761,948,804,949,848,945,889,933,926,912,943,896,950,878,952,858,951,838,951,796,959,775,974,755,1000,739"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9" title="Sends the notify message and returns a reply." alt="" coords="737,770,917,824"/>
+<area shape="poly" title=" " alt="" coords="1013,751,977,760,918,775,916,770,975,754,1012,746"/>
+<area shape="rect" href="../../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#a11f6b8370b141ab90b844dbf1092265c" title="Returns OK message in the case of a subscription request." alt="" coords="737,848,917,903"/>
+<area shape="poly" title=" " alt="" coords="1002,746,978,759,961,777,954,796,946,817,930,838,911,851,908,846,926,834,942,814,949,794,957,774,974,755,1000,742"/>
+<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#a06c8e12369d9db67a834d961dc914563" title="Sends the SOAP action response." alt="" coords="492,1004,672,1059"/>
+<area shape="poly" title=" " alt="" coords="1003,743,978,759,960,783,953,807,952,832,955,857,957,883,957,909,949,935,930,960,912,973,886,984,821,1003,745,1017,673,1026,672,1021,745,1011,820,998,885,979,909,968,926,956,944,933,951,908,952,883,949,858,947,832,947,806,955,780,974,755,1000,739"/>
+<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#af2aff493a97adf72193dc9ff26413171" title="Sends SOAP error response." alt="" coords="737,1108,917,1163"/>
+<area shape="poly" title=" " alt="" coords="1003,742,978,759,962,779,951,800,941,840,943,881,951,923,960,965,963,1008,955,1052,945,1075,930,1097,917,1110,913,1106,926,1094,941,1072,950,1051,958,1008,955,966,946,924,937,882,935,840,946,798,957,776,974,755,1000,738"/>
+<area shape="rect" href="../../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#ac97fc275f79e926d35c691d839489b07" title="Sends response of get var status." alt="" coords="731,1030,922,1084"/>
+<area shape="poly" title=" " alt="" coords="1002,743,978,759,956,789,947,819,947,849,951,880,956,912,957,944,949,978,930,1012,909,1031,905,1027,926,1009,944,976,951,944,950,912,946,881,942,850,942,818,951,787,974,755,1000,738"/>
+<area shape="poly" title=" " alt="" coords="754,571,724,562,637,526,639,521,726,557,756,566"/>
+<area shape="poly" title=" " alt="" coords="733,606,727,611,694,643,667,680,644,721,625,762,600,838,588,890,583,889,595,836,620,760,639,718,662,677,690,640,724,607,730,602"/>
+<area shape="poly" title=" " alt="" coords="742,1106,724,1098,641,1061,644,1057,726,1093,744,1101"/>
 </map>
 </div>
 
@@ -720,7 +729,7 @@ Public Attributes</h2></td></tr>
 <p>Test if the socket address object is empty. </p>
 <p>An empty socket address object has the unspecified IPv6 address with port 0, that is <code>"[::]:0"</code>, and of course address family AF_INET6. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00414">414</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00432">432</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -728,24 +737,23 @@ Public Attributes</h2></td></tr>
 <div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dc/df7/structUPnPsdk_1_1SSockaddr_a192e9af7b5bb170ddee6355a5e8b2a50_icgraph.png" border="0" usemap="#adc/df7/structUPnPsdk_1_1SSockaddr_a192e9af7b5bb170ddee6355a5e8b2a50_icgraph" alt=""/></div>
 <map name="adc/df7/structUPnPsdk_1_1SSockaddr_a192e9af7b5bb170ddee6355a5e8b2a50_icgraph" id="adc/df7/structUPnPsdk_1_1SSockaddr_a192e9af7b5bb170ddee6355a5e8b2a50_icgraph">
-<area shape="rect" title="Test if the socket address object is empty." alt="" coords="752,151,907,191"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="529,55,699,95"/>
-<area shape="poly" title=" " alt="" coords="779,147,703,110,673,98,675,93,705,105,781,142"/>
-<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#gad126cc10cafbe0a958dc11ad8fb8c9ee" title="Separates the authority host subcomponent from a URI reference." alt="" coords="530,144,698,199"/>
-<area shape="poly" title=" " alt="" coords="738,174,698,174,698,169,738,169"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b" title="Check if a network address is numeric." alt="" coords="524,223,704,277"/>
-<area shape="poly" title=" " alt="" coords="762,199,690,225,689,220,760,194"/>
-<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="287,5,462,31"/>
-<area shape="poly" title=" " alt="" coords="516,55,428,33,429,28,517,49"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="295,55,454,95"/>
-<area shape="poly" title=" " alt="" coords="515,78,454,78,454,73,515,73"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,85,225,125"/>
-<area shape="poly" title=" " alt="" coords="528,101,476,110,346,117,225,115,226,110,346,112,476,105,527,96"/>
-<area shape="poly" title=" " alt="" coords="282,88,226,95,225,90,281,83"/>
-<area shape="poly" title=" " alt="" coords="160,73,144,66,115,63,90,65,75,70,70,76,72,83,67,85,64,75,72,66,89,60,115,58,145,61,162,68"/>
-<area shape="poly" title=" " alt="" coords="649,133,637,125,614,123,595,125,583,129,577,136,577,144,572,144,572,134,580,125,594,119,614,117,638,120,652,128"/>
-<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="273,223,476,277"/>
-<area shape="poly" title=" " alt="" coords="510,253,476,253,476,247,510,247"/>
+<area shape="rect" title="Test if the socket address object is empty." alt="" coords="501,151,656,191"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="279,55,448,95"/>
+<area shape="poly" title=" " alt="" coords="528,147,452,110,423,98,425,93,454,105,531,142"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#gad126cc10cafbe0a958dc11ad8fb8c9ee" title="Separates the authority host subcomponent from a URI reference." alt="" coords="279,144,447,199"/>
+<area shape="poly" title=" " alt="" coords="487,174,448,174,448,169,487,169"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b" title="Check if a network address is numeric." alt="" coords="273,223,453,277"/>
+<area shape="poly" title=" " alt="" coords="511,199,440,225,438,220,509,194"/>
+<area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="28,5,203,31"/>
+<area shape="poly" title=" " alt="" coords="265,55,225,46,171,33,172,28,226,41,266,50"/>
+<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="36,55,195,95"/>
+<area shape="poly" title=" " alt="" coords="265,78,195,78,195,73,265,73"/>
+<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,143,225,183"/>
+<area shape="poly" title=" " alt="" coords="294,103,174,146,172,141,292,98"/>
+<area shape="poly" title=" " alt="" coords="158,132,143,125,115,122,91,124,77,129,72,135,74,142,69,144,66,134,74,124,90,119,115,117,144,120,160,127"/>
+<area shape="poly" title=" " alt="" coords="399,133,386,125,363,123,344,125,332,129,327,136,327,144,321,144,322,134,329,125,343,119,363,117,388,120,401,128"/>
+<area shape="rect" href="../../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="14,223,217,277"/>
+<area shape="poly" title=" " alt="" coords="260,253,217,253,217,247,260,247"/>
 </map>
 </div>
 
@@ -766,7 +774,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to the socket address family. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00256">256</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00264">264</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -784,7 +792,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to sockaddr_storage struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00258">258</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00266">266</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -802,7 +810,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to sockaddr_un struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00260">260</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00268">268</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -820,7 +828,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to sockaddr_in6 struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00262">262</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00270">270</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -838,7 +846,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to sockaddr_in struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00264">264</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00272">272</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -856,7 +864,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to sockaddr struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00266">266</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00274">274</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-21
+// Redistribution only with this Copyright remark. Last modified: 2026-07-25
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -216,11 +216,15 @@ SSockaddr saObj;
 ::memcpy(&saObj.ss, &saddr, sizeof(saObj.ss)); // possible, but error prone
 // better with verification by the object:
 saObj = saddr;
-if (saObj.ss.ss_family == AF_INET6)
-    std::cout << "netaddress of saObj is " << saObj << "\n";
+if (saObj.family == AF_UNSPEC)
+    std::cout << "Unspecified input detected. Check error of input.\n";
+else if (saObj.empty())
+    std::cout << "Input may be alphanumeric. Check with name resolution.\n";
+else
+    std::cout << "Netaddress of saObj is " << saObj << "\n";
 \endcode
  *
- * This structure should be usable on a low level like the trival C `struct
+ * This structure should be usable on a low level, like the trival C `struct
  * ::%sockaddr_storage` but provides additional methods to manage its data.
  * When ever this SDK manage a network address it uses an object of this class.
  *
@@ -228,23 +232,27 @@ if (saObj.ss.ss_family == AF_INET6)
  *
  * - SSockaddr accepts only numeric input. Any alphanumeric node (e.g.
  *   "example.com"), or scope_id (e.g. "eth0"), or port (e.g. "https") results
- *   in an unspecified socket address (AF_UNSPEC). It is intended to give this
- *   in a following step to CAddrinfo for name resolution.
- * - Detected errors (e.g. invalid or alphanumeric entries) result in an
+ *   in an empty() socket address. It is intended to give this in a following
+ *   step to CAddrinfo for name resolution.
+ * - Detected errors (e.g. invalid numeric address pattern input) result in an
  *   unspecified socket address object and can be tested with `saObj.family ==
- *   AF_UNSPEC`. netaddrp() returns then `":0"`.
- * - An empty socket address object has the address family AF_INET6 by default
- *   and returns netaddrp() `"[::]:0"`.
- * - A link-local address (e.g. "[fe80::1%2]") must always have a scope_id. An
- *   LLA without scope_id is rejected as error. If in doubt you should test the
- *   address family not to be AF_UNSPEC (by default AF_INET6).
- * - If an IPv6 address, that isn't a link-local address, has a scope_id (e.g.
- *   "[2001:db8::1%2]") then the scope_id is silently removed.
+ *   AF_UNSPEC`. Then it is never empty(). It's unspecified, even if it has no
+ *   content. netaddrp() returns `":0"`.
+ * - By default an initial instantiated SSockaddr object, or an empty socket
+ *   address object, has the address family AF_INET6 but no other content and
+ *   returns netaddrp() `"[::]:0"`.
+ * - A link-local address (e.g. "[fe80::1%2]"), or a multicast address (e.g.
+ *   "[ff00::1%3]") must always have a scope_id. An LLA or MCA without
+ *   scope_id is rejected as error. If in doubt you should test the address
+ *   family not to be AF_UNSPEC (by default AF_INET6).
+ * - If an IPv6 address, that isn't a link-local address, or multicast address,
+ *   has a scope_id (e.g. "[2001:db8::1%2]"), then the scope_id is silently
+ *   removed.
  * - SSockaddr can also hold IPv4 addresses but these are only provided for
  *   special use by the user. It is not direct supported but you can preset a
- *   trivial `::%sockadr_storage` structure amd set it to an object (e.g. `saObj
- *   = ss`). The SDK itself does not understand IPv4 addresses and cannot work
- *   with them.
+ *   trivial `::%sockadr_storage ss` structure and set it to an object (e.g.
+ *   `saObj = ss`). The SDK itself does not understand IPv4 addresses and
+ *   cannot work with them. You must map it to an IPv6 address.
  *
  * \note This class is frequently used so performance has to taken into
  * account. This is why the destructor isn't virtual and **you should not
@@ -323,14 +331,15 @@ struct UPnPsdk_API SSockaddr {
      * // Usage e.g.:
      * SSockaddr saObj;
      * saObj = SInaddr("[fe80::12ab%2]:50001");
-     * assert(!saObj.empty());
+     * assert(saObj.family != AF_UNSPEC && !saObj.empty());
      *
      * SInaddr inaObj("example.com:https");
      * saObj = inaObj;
+     * assert(saObj.family != AF_UNSPEC);
      * if(saObj.empty())
      *     CAddrinfo = inaObj; // Perform name resolution.
      *
-     * saObj = SInaddr("[fe80::12ab]"); // Without scope_id.
+     * saObj = SInaddr("[fe80::12ab]"); // LLA without scope_id.
      * if (saObj.family == AF_UNSPEC) // That is true.
      *     handle_error();
      * \endcode
@@ -344,8 +353,17 @@ struct UPnPsdk_API SSockaddr {
     void operator=(const SInaddr& a_inaddr) noexcept;
 
 
-    /*! \brief clear socket address */
-    // -------------------------------
+    /*! \brief clear socket address
+     * <!-- ------------------- -->
+     * \code
+     * // Usage e.g.:
+     * SSockaddr saObj;
+     * saObj.sin6.sin6_addr.s6_addr[15] = 1; // Performant way to set "[::1]".
+     * assert(saObj.empty() == false);
+     * saObj.clear();
+     * assert(saObj.empty() == true && saObj.family == AF_INET6);
+     * \endcode
+     */
     void clear() noexcept {
         m_sa_union = {};
         m_sa_union.ss.ss_family = AF_INET6;

@@ -1,11 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"d8/d64/group__compaAPI-Presentation.html":[4,0,5],
-"d8/d74/gena__ctrlpt_8hpp.html":[7,0,0,1,3,4],
-"d8/d74/gena__ctrlpt_8hpp.html#a2eb03f67113de1b037f592d6e49cdf3c":[7,0,0,1,3,4,0],
-"d8/d74/gena__ctrlpt_8hpp_source.html":[7,0,0,1,3,4],
-"d8/d81/socket_8cpp.html":[7,0,2,1,1,12],
-"d8/d81/socket_8cpp_source.html":[7,0,2,1,1,12],
 "d8/da2/UpnpIntTypes_8hpp.html":[7,0,0,0,14],
 "d8/da2/UpnpIntTypes_8hpp_source.html":[7,0,0,0,14],
 "d8/db3/classUPnPsdk_1_1CPath.html":[4,3,0,2,6],
@@ -249,5 +243,11 @@ var NAVTREEINDEX6 =
 "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afff":[5,0,6,2],
 "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa23b6f8b180edd0e4c6259a63f610bb71":[5,0,6,2,1],
 "d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa5c1b6c12e057bcaf7187b7a3d9765b15":[5,0,6,2,0],
-"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa664303d9a0b13054c9c77545d2ce53f5":[5,0,6,2,2]
+"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b0e6da1017a752fb8bc9546a048afffa664303d9a0b13054c9c77545d2ce53f5":[5,0,6,2,2],
+"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a9b4b32cfbe825a3f7cc9906b33d50872":[5,0,6,11],
+"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#aa9e79e71052b908f2243b8eb01619158":[5,0,6,4],
+"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ab6c5d6f5d8205b319e1e0abd8242304f":[5,0,6,26],
+"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88":[5,0,6,9],
+"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ae413745d69678061574e39ce1949af43":[5,0,6,23],
+"d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#aebfc082fb3dc901a9f889d935ff07755":[5,0,6,3]
 };

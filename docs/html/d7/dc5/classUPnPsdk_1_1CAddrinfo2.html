@@ -234,7 +234,7 @@ Public Member Functions</h2></td></tr>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
 <div class="line">aiObj.sockaddr(saObj);</div>
 <div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;netaddress=\&quot;&quot;</span> &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00254">sockaddr.hpp:254</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00262">sockaddr.hpp:262</a></div></div>
 </div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>It is important to careful check the error situation because loading information depends on the real environment that we cannot control. Name resolution may fail because to be unspecified, remote DNS server may be temporary down, etc.</dd></dl>
 <p>Usually this getter is called one time after constructing the object. This gets address information from the operating system that may also use its internal name resolver inclusive contacting external DNS server. If you use the flag <b>AI_NUMERICHOST</b> with the constructor then a possible expensive name resolution to DNS server is suppressed.</p>
 <p>If you have iterated address information entries with <a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ab9b4e9c8e9395f007240a9ae321b9082" title="Point to next available address information.">CAddrinfo2::get_next()</a> and want to start a new lockup you can do it with call <a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#af4a24464b137c54af617e5129f072e8d" title="Reset the internal list pointer to the first entry.">CAddrinfo2::set_first()</a>. It only reset the internal pointer, what's very effective if you only want to examine the same information a second time. If you use <a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system.">CAddrinfo2::get_first()</a> again it will read the information from the operating system again and can be used to monitor changes of address information. But note that this is quite expensive because always memory is freed and new allocated for the information list so doing this in a busy loop is not very useful. </p><dl class="section return"><dt>Returns</dt><dd><ul>
@@ -280,21 +280,6 @@ Public Member Functions</h2></td></tr>
 <area shape="poly" title=" " alt="" coords="259,388,256,378,263,369,277,363,299,361,324,364,337,372,335,376,322,369,299,367,278,369,266,373,261,379,264,387"/>
 <area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a8a8cc96fde129cc987147c49db173778" title="Get the assosiated netaddress without port." alt="" coords="441,503,595,543"/>
 <area shape="poly" title=" " alt="" coords="376,520,427,520,427,525,376,525"/>
-</map>
-</div>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2_a5aef6f74d64eab2b5fbf34bc612a2e7c_icgraph.png" border="0" usemap="#ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a5aef6f74d64eab2b5fbf34bc612a2e7c_icgraph" alt=""/></div>
-<map name="ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a5aef6f74d64eab2b5fbf34bc612a2e7c_icgraph" id="ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a5aef6f74d64eab2b5fbf34bc612a2e7c_icgraph">
-<area shape="rect" title="Get the first entry of an address info from the operating system." alt="" coords="407,29,565,69"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="139,29,359,69"/>
-<area shape="poly" title=" " alt="" coords="393,52,359,52,359,47,393,47"/>
-<area shape="poly" title=" " alt="" coords="282,18,270,11,249,8,230,10,218,15,214,21,216,28,211,30,209,20,215,11,228,5,249,3,272,6,285,13"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,37,91,62"/>
-<area shape="poly" title=" " alt="" coords="125,52,91,52,91,47,125,47"/>
 </map>
 </div>
 
@@ -385,21 +370,6 @@ Public Member Functions</h2></td></tr>
 <p>Get the socket address from current selcted address information. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00288">288</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2_a3d150df1d5cb6cc8b7977af6aba60c3c_icgraph.png" border="0" usemap="#ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a3d150df1d5cb6cc8b7977af6aba60c3c_icgraph" alt=""/></div>
-<map name="ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a3d150df1d5cb6cc8b7977af6aba60c3c_icgraph" id="ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a3d150df1d5cb6cc8b7977af6aba60c3c_icgraph">
-<area shape="rect" title="Get the socket address from current selcted address information." alt="" coords="407,29,565,69"/>
-<area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="139,29,359,69"/>
-<area shape="poly" title=" " alt="" coords="393,52,359,52,359,47,393,47"/>
-<area shape="poly" title=" " alt="" coords="282,18,270,11,249,8,230,10,218,15,214,21,216,28,211,30,209,20,215,11,228,5,249,3,272,6,285,13"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,37,91,62"/>
-<area shape="poly" title=" " alt="" coords="125,52,91,52,91,47,125,47"/>
-</map>
-</div>
 
 </div>
 </div>

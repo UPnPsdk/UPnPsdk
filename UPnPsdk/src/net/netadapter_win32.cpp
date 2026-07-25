@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-21
+// Redistribution only with this Copyright remark. Last modified: 2026-07-26
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -145,16 +145,6 @@ void CNetadapter_platform::sockaddr(SSockaddr& a_saddr) const {
                reinterpret_cast<sockaddr_storage*>(
                    m_unicastaddr_current->Address.lpSockaddr),
                sizeof(a_saddr.ss));
-    }
-}
-
-void CNetadapter_platform::socknetmask(SSockaddr& a_snetmask) const {
-    TRACE2(this, " Executing CNetadapter_platform::socknetmask()")
-    if (m_adapt_current != nullptr) {
-        bitmask_to_netmask(reinterpret_cast<sockaddr_storage*>(
-                               m_unicastaddr_current->Address.lpSockaddr),
-                           m_unicastaddr_current->OnLinkPrefixLength,
-                           a_snetmask);
     }
 }
 

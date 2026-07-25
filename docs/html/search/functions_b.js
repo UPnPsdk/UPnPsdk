@@ -4,7 +4,7 @@ var searchData=
   ['namecopy_1',['namecopy',['../d5/d0d/namespaceanonymous__namespace_02soap__device_8cpp_03.html#aaff3151949d24586b6cd210fec3890b2',1,'anonymous_namespace{soap_device.cpp}']]],
   ['netaddr_2',['netaddr',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a8a8cc96fde129cc987147c49db173778',1,'UPnPsdk::SSockaddr']]],
   ['netaddrp_3',['netaddrp',['../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b',1,'UPnPsdk::SSockaddr']]],
-  ['netmask_5fto_5fbitmask_4',['netmask_to_bitmask',['../d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71',1,'UPnPsdk']]],
+  ['netmask_5fto_5fbitmask_4',['netmask_to_bitmask',['../d0/dd8/group__upnplib-addrmodul.html#ga890f7e797a37b355bacfbfc84b2c587f',1,'UPnPsdk::netmask_to_bitmask(const in6_addr &amp;a_sin6_addr) noexcept'],['../d0/dd8/group__upnplib-addrmodul.html#ga3ceb75383fa176bdd102782cad9a97ee',1,'UPnPsdk::netmask_to_bitmask(const std::string &amp;a_netmask)']]],
   ['newrequesthandler_5',['NewRequestHandler',['../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aa40b74aaef0112808e61640e0bad53cd',1,'anonymous_namespace{ssdp_device.cpp}']]],
   ['notify_5fsend_5fand_5frecv_6',['notify_send_and_recv',['../d2/d3a/namespaceanonymous__namespace_02gena__device_8cpp_03.html#accfccdddeb1a43ab948147ff6178bad9',1,'anonymous_namespace{gena_device.cpp}']]]
 ];

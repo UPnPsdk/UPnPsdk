@@ -107,8 +107,8 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <div class="textblock"><p>A general TODO-list. </p>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd><ul>
 <li>Rework SSockaddr.<ul>
-<li>Get CNetadapter.netmask as string, not as SSockaddr.</li>
 <li>Store loopback interface not in gIF_IPV6, but in gIF_IPV6_ULA_GUA.</li>
+<li>Get CNetadapter.netmask as string, not as SSockaddr.</li>
 </ul>
 </li>
 <li>Rework CAddrinfo.<ul>
@@ -125,6 +125,7 @@ $(document).ready(function(){initNavTree('de/d2c/A__general__TODO-list_8dox.html
 <li>Rework CSocket class.<ul>
 <li>Rework '<a class="el" href="../../de/d27/group__SSDP-common__functions.html#ga60739b2f340e6bdeedcf8f282d9578c8" title="Creates the IPv4 and IPv6 ssdp sockets required by the control point and device operation.">get_ssdp_sockets()</a>' and Utest/compa/1-discovery/test_ssdp.cpp.</li>
 <li>Rework CSocket.bind() due to RFC 4038 6.3.1 (try bind to all possible net if).</li>
+<li>Provide default netadapter index (scope id) for macOS multicast.</li>
 </ul>
 </li>
 <li>Modify miniserver module, with work in progress.<ul>

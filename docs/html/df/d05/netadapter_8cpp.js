@@ -1,5 +1,6 @@
 var netadapter_8cpp =
 [
-    [ "netmask_to_bitmask", "df/d05/netadapter_8cpp.html#ga539a669f96c0c642b2ed25b1c4dd1f71", null ],
-    [ "bitmask_to_netmask", "df/d05/netadapter_8cpp.html#gadd67f7b346d4017d3cb45e45e0be77fb", null ]
+    [ "netmask_to_bitmask", "df/d05/netadapter_8cpp.html#ga890f7e797a37b355bacfbfc84b2c587f", null ],
+    [ "netmask_to_bitmask", "df/d05/netadapter_8cpp.html#ga3ceb75383fa176bdd102782cad9a97ee", null ],
+    [ "bitmask_to_netmask", "df/d05/netadapter_8cpp.html#ga240ecb84930f9811a540c7488f4474c5", null ]
 ];

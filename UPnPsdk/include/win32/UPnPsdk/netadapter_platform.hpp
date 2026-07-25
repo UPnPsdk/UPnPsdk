@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_WIN32_NETADAPTER_HPP
 #define UPnPsdk_WIN32_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-11
+// Redistribution only with this Copyright remark. Last modified: 2026-07-26
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -29,7 +29,6 @@ class UPnPsdk_VIS CNetadapter_platform : public INetadapter {
     unsigned int index() const override;
     std::string name() const override;
     void sockaddr(SSockaddr& a_saddr) const override;
-    void socknetmask(SSockaddr& a_snetmask) const override;
     unsigned int bitmask() const override;
 
   private:

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-07-20
+ * Redistribution only with this Copyright remark. Last modified: 2026-07-25
  * Cloned from pupnp ver 1.14.15.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -991,12 +991,8 @@ int get_miniserver_sockets(
             UPnPsdk::SSockaddr saObj;
             ::inet_pton(saObj.family, gIF_IPV6, &saObj.sin6.sin6_addr);
             saObj.sin6.sin6_port = listen_port6;
-            // DEBUG! Remove this with moving loopback addr to gIF_IPV6_ULA_GUA.
-            if (::strncmp(gIF_IPV6, "::1", 3) != 0)
-                // The loopback address may also given in gIF_IPV6. An LLA must
-                // have a scope id but 'bind()' on win32 does not accept
-                // loopback with scope id.
-                saObj.sin6.sin6_scope_id = gIF_INDEX;
+            // An LLA must have a scope id.
+            saObj.sin6.sin6_scope_id = gIF_INDEX;
             *out->pSockLlaObj = SOCK_STREAM;
             out->pSockLlaObj->bind(&saObj, AI_PASSIVE);
             out->pSockLlaObj->listen();

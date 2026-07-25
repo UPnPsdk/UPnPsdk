@@ -75,8 +75,9 @@ var namespaceUPnPsdk =
       [ "SOAPMETHOD_POST", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60af36f6651a84f4a8ff85fa2cecc25505c", null ],
       [ "HTTPMETHOD_SIMPLEGET", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60ad9d286da9f9dc214d6ec88ab465d42f2", null ]
     ] ],
-    [ "netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga539a669f96c0c642b2ed25b1c4dd1f71", null ],
-    [ "bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#gadd67f7b346d4017d3cb45e45e0be77fb", null ],
+    [ "netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga890f7e797a37b355bacfbfc84b2c587f", null ],
+    [ "netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga3ceb75383fa176bdd102782cad9a97ee", null ],
+    [ "bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#ga240ecb84930f9811a540c7488f4474c5", null ],
     [ "pthread_self", "dd/d67/namespaceUPnPsdk.html#a2a68659cc5b319d1eeda06f219c64c59", null ],
     [ "IN6_IS_ADDR_GLOBAL2", "d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd", null ],
     [ "IN6_IS_ADDR_LINKLOCAL2", "d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25", null ],

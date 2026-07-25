@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_IF_HPP
 #define UPnPsdk_NETADAPTER_IF_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-03-16
+// Redistribution only with this Copyright remark. Last modified: 2026-07-26
 /*!
  * \file
  * \brief C++ interface to manage information from different platforms about
@@ -23,18 +23,20 @@ namespace UPnPsdk {
  * \brief Manage information from different platforms about network adapters.
  * \code
  * // Usage e.g.:
- * CNetadapter nadaptObj;
- * try {
- *     nadaptObj.get_first();
- * } catch(xcp) { handle_error(); };
- * SSockaddr saddrObj;
- * do {
- *     std::cout << "adapter name is " << nadaptObj.name() << '\n';
- *     nadaptObj.sockaddr(saddrObj);
- *     std::cout << "adapter address is " << saddrObj.netaddrp() << '\n';
- *     nadaptObj.socknetmask(saddrObj);
- *     std::cout << "with netmask " << saddrObj.netaddr() << '\n';
- * } while (nadaptObj.get_next());
+CNetadapter nadaptObj;
+try {
+    nadaptObj.get_first();
+} catch (const std::exception& ex) {
+    handle_error();
+}
+SSockaddr saObj;
+do {
+    std::cout << "adapter name is \"" << nadaptObj.name() << "\"\n";
+    nadaptObj.sockaddr(saObj);
+    std::cout << "adapter address is \"" << saObj << "\"\n";
+    std::cout << "with netmask \""
+              << bitmask_to_netmask(nadaptObj.bitmask()) << "\"\n";
+} while (nadaptObj.get_next());
  * \endcode
  * Used to get information from the local network adapters. Encapsulate it
  * in a class to get a common C++ interface to the program for different
@@ -92,17 +94,6 @@ class UPnPsdk_API INetadapter {
          * with the socket address from the current selected network adapter
          * list entry. */
         SSockaddr& a_saddr) const = 0;
-
-    /*! \brief Get socket address netmask from current selected list
-     * entry.
-     *
-     * This netmask belongs to the adapters network address that is current
-     * selected. */
-    virtual void socknetmask(
-        /*! [in,out] Reference to a socket address object that will be filled
-         * with the socket address netmask from the current selected network
-         * adapter list entry. */
-        SSockaddr& a_snetmask) const = 0;
 
     /*! \brief Get prefix length from the ip address of the current selected
      * local network adapter.

@@ -1,6 +1,5 @@
-#if 0 // DEBUG! Needs rework of CAddrinfo class.
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-13
+// Redistribution only with this Copyright remark. Last modified: 2026-07-26
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -176,6 +175,7 @@ class UpnpapiFTestSuite : public ::testing::Test {
 };
 
 
+#if 0 // DEBUG! Needs rework of CAddrinfo class.
 TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
     // Test Unit
     // ---------
@@ -488,6 +488,7 @@ TEST_F(UpnpapiFTestSuite, webserver_sdk_not_initialized) {
 
     EXPECT_EQ(bWebServerState, WEB_SERVER_DISABLED);
 }
+#endif
 
 // Subroutine for multiple check of empty global addresses.
 void chk_empty_gifaddr() {
@@ -510,7 +511,8 @@ void chk_empty_gifaddr() {
     }
 }
 
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_address_fails) {
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv4_loopback_address_fails) {
     // Initializing with IP addresses isn't supported by pUPnP, but with
     // UPnPsdk. But the Unit isn't able to support the loopback address due to
     // lack of fitting data structures.
@@ -525,46 +527,60 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_loopback_address_fails) {
     gIF_IPV4[0] = '\0';
     gIF_IPV4_NETMASK[0] = '\0';
 
-    if (old_code) {
-        // Test Unit with IPv4 loopback address.
-        // The real used loopback address can be "127.0.0.1" to
-        // "127.255.255.254". But anyway, Loopback addresses are not supported
-        // by UpnpGetIfInfo().
-        int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("127.0.0.1");
-        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
-            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
-        {
-            SCOPED_TRACE("");
-            chk_empty_gifaddr();
-        }
-    }
-
-    // Test Unit with IPv6 loopback address.
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("[::1]");
-
-#ifdef __APPLE__
-    // On MacOS we may find a link-local address "[fe80::1]" on the loopback
-    // interface.
-    if (ret_UpnpGetIfInfo == UPNP_E_SUCCESS) {
-        EXPECT_THAT(gIF_NAME, StartsWith("lo"));
-        EXPECT_EQ(gIF_INDEX, 1);
-        EXPECT_STREQ(gIF_IPV6, "fe80::1");
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-        EXPECT_STREQ(gIF_IPV4, "");
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
-    }
-#else
+    // Test Unit with IPv4 loopback address.
+    // The real used loopback address can be "127.0.0.1" to
+    // "127.255.255.254". But anyway, Loopback addresses are not supported
+    // by UpnpGetIfInfo().
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("127.0.0.1");
     EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
         << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
     {
         SCOPED_TRACE("");
         chk_empty_gifaddr();
     }
-#endif
+}
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv6_loopback_address) {
+    // Initializing with IP addresses isn't supported by pUPnP, but with
+    // UPnPsdk. But the Unit isn't able to support the loopback address due to
+    // lack of fitting data structures.
+    // Ports not set with this Unit so they doesn't matter here.
+
+    // Initialize needed global variables.
+    gIF_INDEX = 0;
+    gIF_IPV6[0] = '\0';
+    gIF_IPV6_PREFIX_LENGTH = 0;
+    gIF_IPV6_ULA_GUA[0] = '\0';
+    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+    gIF_IPV4[0] = '\0';
+    gIF_IPV4_NETMASK[0] = '\0';
+
+    // Test Unit with IPv6 loopback address.
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo("[::1]");
+
+    if (old_code) {
+        // pUPnP does not support the loopback interface.
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+
+    } else {
+
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+        EXPECT_THAT(gIF_NAME, AnyOf(StartsWith("lo"), StartsWith("Lo")));
+        EXPECT_EQ(gIF_INDEX, 1);
+        EXPECT_STREQ(gIF_IPV6, "");
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "::1");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 128);
+        EXPECT_STREQ(gIF_IPV4, "");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "");
+    }
 }
 
+#if 0 // DEBUG! Needs rework of CAddrinfo class.
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_successful) {
     // pUPnP does not support initialisation with IP addresses, but the UPnPsdk
     // do. Ports not set with this Unit so they don't matter here.
@@ -1543,6 +1559,7 @@ TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_with_gua_successful) {
     UpnpUnRegisterRootDevice(device_handle);
     UpnpFinish();
 }
+#endif
 
 } // namespace utest
 
@@ -1552,4 +1569,3 @@ int main(int argc, char** argv) {
 #include <utest/utest_main.inc>
     return gtest_return_code; // managed in gtest_main.inc
 }
-#endif

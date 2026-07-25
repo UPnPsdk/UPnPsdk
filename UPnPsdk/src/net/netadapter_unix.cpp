@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-09
+// Redistribution only with this Copyright remark. Last modified: 2026-07-26
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -88,23 +88,15 @@ void CNetadapter_platform::sockaddr(SSockaddr& a_saddr) const {
     }
 }
 
-void CNetadapter_platform::socknetmask(SSockaddr& a_snetmask) const {
-    TRACE2(this, " Executing CNetadapter_platform::socknetmask()")
-    if (m_ifa_current != nullptr) {
-        // Copy netmask of the network adapter
-        a_snetmask =
-            reinterpret_cast<sockaddr_storage&>(*m_ifa_current->ifa_netmask);
-    }
-}
-
 
 unsigned int CNetadapter_platform::bitmask() const {
     TRACE2(this, " Executing CNetadapter_platform::bitmask()")
     if (m_ifa_current == nullptr)
         return 0;
 
-    return netmask_to_bitmask(reinterpret_cast<const ::sockaddr_storage*>(
-        m_ifa_current->ifa_netmask));
+    return netmask_to_bitmask(
+        reinterpret_cast<const ::sockaddr_in6*>(m_ifa_current->ifa_netmask)
+            ->sin6_addr);
 }
 
 
