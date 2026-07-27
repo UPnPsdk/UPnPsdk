@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// redistribution only with this copyright remark. last modified: 2026-07-11
+// redistribution only with this copyright remark. last modified: 2026-08-04
 
 // This Unit Tests are used to verify pUPnP software with new compatible code.
 // These tests compile with pUPnP code and with compatible code. Unit Tests for
@@ -35,6 +35,7 @@ using ::testing::StartsWith;
 using ::testing::StrictMock;
 
 using ::UPnPsdk::errStrEx;
+using ::UPnPsdk::g_dbug;
 using ::UPnPsdk::SSockaddr;
 
 
@@ -219,7 +220,8 @@ TEST(UriDeathTest, resolve_rel_url_arg1_base_url_arg2_nullptr) {
 
         ASSERT_EXIT(
             {
-                free(::resolve_rel_url(base_url, nullptr));
+                char loopback[]{"[::1]"}; // Use this to not trigger DNS lookup.
+                free(::resolve_rel_url(loopback, nullptr));
                 exit(0);
             },
             ::testing::ExitedWithCode(0), ".*")
@@ -227,12 +229,11 @@ TEST(UriDeathTest, resolve_rel_url_arg1_base_url_arg2_nullptr) {
 
         SSockaddr saObj;
         // saObj = "[2001:db8::9474]";
-        saObj.ss.ss_family = AF_INET6;
-        ::inet_pton(saObj.ss.ss_family, "2001:db8::9474",
-                    &saObj.sin6.sin6_addr);
+        ::inet_pton(saObj.family, "2001:db8::9474", &saObj.sin6.sin6_addr);
 
+        // Mock ::getaddrinfo() to suppress DNS lookup.
         ::addrinfo res{};
-        res.ai_family = saObj.ss.ss_family;
+        res.ai_family = saObj.family;
         res.ai_socktype = SOCK_STREAM;
         res.ai_addrlen = saObj.sizeof_saddr();
         res.ai_addr = &saObj.sa;
@@ -681,6 +682,12 @@ TEST(UriTestSuite, create_url_list_fails) {
     EXPECT_EQ(::create_url_list(&url_chain, &url_list), 0);
     free_URL_list(&url_list);
 
+    if (!g_dbug)
+        GTEST_SKIP()
+            << "due to trigger DNS lookup. Enable with '--UPnPsdk_debug'.";
+
+    // Valid "<http://example.com:49486" triggers DNS lookup with
+    // '::create_url_list'.
     char urls3[]{
         "<http://example.com:49486><example.com><https://[2001:db8::1]:49487>"};
     // --------------------------------
@@ -688,7 +695,11 @@ TEST(UriTestSuite, create_url_list_fails) {
     url_chain.length = strlen(urls3);
 
     // Test Unit
+    // Find two URLs. "<example.com>" without port is ignored.
     ASSERT_EQ(::create_url_list(&url_chain, &url_list), 2);
+    EXPECT_EQ(std::string(url_list.parsedURLs[0].hostport.text.buff,
+                          url_list.parsedURLs[0].hostport.text.size),
+              "example.com:49486");
     EXPECT_EQ(std::string(url_list.parsedURLs[1].hostport.text.buff,
                           url_list.parsedURLs[1].hostport.text.size),
               "[2001:db8::1]:49487");

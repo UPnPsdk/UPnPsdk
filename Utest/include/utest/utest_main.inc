@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-11-28
+// Redistribution only with this Copyright remark. Last modified: 2026-07-31
 
 // Because this part of the main entry function uses gtest macros we have to
 // include it directly into the source of the test. These macros need to have
@@ -36,7 +36,8 @@ if (argc == 2) {
 // If the debug flag wasn't set with the commandline option then check if it
 // shall be set with the environment variable.
 if (!UPnPsdk::g_dbug)
-    UPnPsdk::g_dbug = static_cast<bool>(std::getenv("UPnPsdk_DEBUG"));
+    if (const char* env_p = std::getenv("UPnPsdk_DEBUG"))
+        UPnPsdk::g_dbug = (*env_p == '1' ? true : false);
 
 gtest_return_code = RUN_ALL_TESTS();
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP

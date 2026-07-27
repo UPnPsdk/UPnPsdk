@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-06-22
+ * Redistribution only with this Copyright remark. Last modified: 2026-08-07
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,6 @@
 #include <webserver.hpp>
 
 #include <UPnPsdk/socket.hpp>
-#include <UPnPsdk/sockaddr.hpp>
 
 #include <umock/sys_socket.hpp>
 #include <umock/netdb.hpp>

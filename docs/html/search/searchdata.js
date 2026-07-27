@@ -1,6 +1,6 @@
 var indexSectionsWithContent =
 {
-  0: "012345_abcdefghijlmnopqrstuvwx~",
+  0: "012345:_abcdefghijlmnopqrstuvwx~",
   1: "_acdefhijlmnstuv",
   2: "acpu",
   3: "acdefghilmnpstuvw",

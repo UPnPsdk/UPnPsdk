@@ -223,7 +223,7 @@ Variables</h2></td></tr>
 <p>Function to parse the Callback header value in subscription requests. </p>
 <p>Takes in a buffer containing serialized URLs delimited by '&lt;' and '&gt;'. The entire buffer is copied into dynamic memory and stored in the <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list" title="Represents a list of URLs as in the &quot;callback&quot; header of SUBSCRIBE message in GENA.">URL_list</a>. Pointers to the individual urls within this buffer are allocated and stored in the <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#d2/d70/structURL__list" title="Represents a list of URLs as in the &quot;callback&quot; header of SUBSCRIBE message in GENA.">URL_list</a>. Only URLs with network addresses are considered (i.e. host:port or domain name). Because the function expects a serialized list with delimiters, even one url must be surrounded by '&lt;' and '&gt;'.</p>
 <dl class="section note"><dt>Note</dt><dd>The result <b>a_out</b> must be freed by the caller with <a class="el" href="../../de/dd0/Compa_2src_2inc_2uri_8hpp.html#afb7b37727ebf22a77a8edac2b15108ed" title="Frees the memory associated with a URL_list.">free_URL_list()</a> to avoid memory leaks.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>On success: the number of URLs parsed<br  />
+<dl class="section return"><dt>Returns</dt><dd>On success: the number of URLs parsed. May be <b>0</b> if no valid URL is available (that's no error).<br  />
  On error:<ul>
 <li>UPNP_E_OUTOF_MEMORY</li>
 <li>UPNP_E_INVALID_URL </li>

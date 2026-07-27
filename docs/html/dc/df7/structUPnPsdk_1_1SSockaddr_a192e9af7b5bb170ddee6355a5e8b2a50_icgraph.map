@@ -1,19 +1,19 @@
 <map id="UPnPsdk::SSockaddr::empty" name="UPnPsdk::SSockaddr::empty">
-<area shape="rect" id="Node000001" title="Test if the socket address object is empty." alt="" coords="501,151,656,191"/>
-<area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="279,55,448,95"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="528,147,452,110,423,98,425,93,454,105,531,142"/>
-<area shape="rect" id="Node000035" href="$de/dc7/group__upnpsdk-uri.html#gad126cc10cafbe0a958dc11ad8fb8c9ee" title="Separates the authority host subcomponent from a URI reference." alt="" coords="279,144,447,199"/>
-<area shape="poly" id="edge6_Node000001_Node000035" title=" " alt="" coords="487,174,448,174,448,169,487,169"/>
-<area shape="rect" id="Node000036" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b" title="Check if a network address is numeric." alt="" coords="273,223,453,277"/>
-<area shape="poly" id="edge8_Node000001_Node000036" title=" " alt="" coords="511,199,440,225,438,220,509,194"/>
-<area shape="rect" id="Node000003" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="28,5,203,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,55,225,46,171,33,172,28,226,41,266,50"/>
-<area shape="rect" id="Node000033" href="$d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="36,55,195,95"/>
-<area shape="poly" id="edge3_Node000002_Node000033" title=" " alt="" coords="265,78,195,78,195,73,265,73"/>
-<area shape="rect" id="Node000034" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,143,225,183"/>
-<area shape="poly" id="edge4_Node000002_Node000034" title=" " alt="" coords="294,103,174,146,172,141,292,98"/>
-<area shape="poly" id="edge5_Node000034_Node000034" title=" " alt="" coords="158,132,143,125,115,122,91,124,77,129,72,135,74,142,69,144,66,134,74,124,90,119,115,117,144,120,160,127"/>
-<area shape="poly" id="edge7_Node000035_Node000035" title=" " alt="" coords="399,133,386,125,363,123,344,125,332,129,327,136,327,144,321,144,322,134,329,125,343,119,363,117,388,120,401,128"/>
-<area shape="rect" id="Node000037" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="14,223,217,277"/>
-<area shape="poly" id="edge9_Node000036_Node000037" title=" " alt="" coords="260,253,217,253,217,247,260,247"/>
+<area shape="rect" id="Node000001" title="Test if the socket address object is empty." alt="" coords="501,143,656,183"/>
+<area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="279,47,448,87"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="528,139,452,102,423,90,425,85,454,97,531,134"/>
+<area shape="rect" id="Node000035" href="$de/dc7/group__upnpsdk-uri.html#gad126cc10cafbe0a958dc11ad8fb8c9ee" title="Separates the authority host subcomponent from a URI reference." alt="" coords="279,136,447,191"/>
+<area shape="poly" id="edge6_Node000001_Node000035" title=" " alt="" coords="487,166,448,166,448,161,487,161"/>
+<area shape="rect" id="Node000036" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a0c7d26fd8adfd7e704e8502a65efae5b" title="Check if a network address is numeric." alt="" coords="273,215,453,269"/>
+<area shape="poly" id="edge8_Node000001_Node000036" title=" " alt="" coords="511,191,440,217,438,212,509,186"/>
+<area shape="rect" id="Node000003" href="$df/d9e/structUPnPsdk_1_1SInaddr.html#a48356f1c1232d7f9dda9599c7d73c960" title="Set an internet address to the structure." alt="" coords="19,5,212,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,51,179,33,180,28,266,45"/>
+<area shape="rect" id="Node000004" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="28,55,203,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="265,70,203,70,203,65,265,65"/>
+<area shape="rect" id="Node000034" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,129,225,169"/>
+<area shape="poly" id="edge4_Node000002_Node000034" title=" " alt="" coords="289,94,178,131,176,126,288,89"/>
+<area shape="poly" id="edge5_Node000034_Node000034" title=" " alt="" coords="158,117,143,110,115,107,91,109,77,114,72,120,74,128,69,129,66,119,74,110,90,104,115,102,144,105,160,112"/>
+<area shape="poly" id="edge7_Node000035_Node000035" title=" " alt="" coords="399,125,386,117,363,115,344,117,332,121,327,128,327,136,321,136,322,126,329,117,343,111,363,109,388,112,401,120"/>
+<area shape="rect" id="Node000037" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#ad173085b190ca23875c545c0684a5b88" title="Based on the type of message, appropriate callback is issued." alt="" coords="14,215,217,269"/>
+<area shape="poly" id="edge9_Node000036_Node000037" title=" " alt="" coords="260,245,217,245,217,239,260,239"/>
 </map>

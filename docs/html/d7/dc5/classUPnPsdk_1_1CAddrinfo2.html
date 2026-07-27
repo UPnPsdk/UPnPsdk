@@ -111,71 +111,108 @@ $(document).ready(function(){initNavTree('d7/dc5/classUPnPsdk_1_1CAddrinfo2.html
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac353efd3a2444cd2bd53e0fbf11bc079" id="r_ac353efd3a2444cd2bd53e0fbf11bc079"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ac353efd3a2444cd2bd53e0fbf11bc079">CAddrinfo2</a> (std::string_view a_node, const int a_flags=0, const int a_socktype=SOCK_STREAM)</td></tr>
-<tr class="memdesc:ac353efd3a2444cd2bd53e0fbf11bc079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for getting an address information with service name.  <br /></td></tr>
-<tr class="separator:ac353efd3a2444cd2bd53e0fbf11bc079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a643e6de062d6be28f4e5665bdc0be40b" id="r_a643e6de062d6be28f4e5665bdc0be40b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a643e6de062d6be28f4e5665bdc0be40b">CAddrinfo2</a> (const int a_flags=0, const int a_socktype=SOCK_STREAM) noexcept</td></tr>
+<tr class="memdesc:a643e6de062d6be28f4e5665bdc0be40b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for getting an address information.  <br /></td></tr>
+<tr class="separator:a643e6de062d6be28f4e5665bdc0be40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Getter</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><hr  />
  </div></td></tr>
-<tr class="memitem:a5aef6f74d64eab2b5fbf34bc612a2e7c" id="r_a5aef6f74d64eab2b5fbf34bc612a2e7c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c">get_first</a> ()</td></tr>
-<tr class="memdesc:a5aef6f74d64eab2b5fbf34bc612a2e7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first entry of an address info from the operating system.  <br /></td></tr>
-<tr class="separator:a5aef6f74d64eab2b5fbf34bc612a2e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4a24464b137c54af617e5129f072e8d" id="r_af4a24464b137c54af617e5129f072e8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#af4a24464b137c54af617e5129f072e8d">set_first</a> () noexcept</td></tr>
-<tr class="memdesc:af4a24464b137c54af617e5129f072e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the internal list pointer to the first entry.  <br /></td></tr>
-<tr class="separator:af4a24464b137c54af617e5129f072e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91eb1d8f01520c1616e3423d39a3473e" id="r_a91eb1d8f01520c1616e3423d39a3473e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a91eb1d8f01520c1616e3423d39a3473e">get_first</a> (<a class="el" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a> a_inaddr)</td></tr>
+<tr class="memdesc:a91eb1d8f01520c1616e3423d39a3473e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the first entry of an address information list from the operating system.  <br /></td></tr>
+<tr class="separator:a91eb1d8f01520c1616e3423d39a3473e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5721abec2dae2bc54c21a91be09f8d93" id="r_a5721abec2dae2bc54c21a91be09f8d93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5721abec2dae2bc54c21a91be09f8d93">get_first</a> () noexcept</td></tr>
+<tr class="memdesc:a5721abec2dae2bc54c21a91be09f8d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point to first entry again of an already loaded address info.  <br /></td></tr>
+<tr class="separator:a5721abec2dae2bc54c21a91be09f8d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9b4e9c8e9395f007240a9ae321b9082" id="r_ab9b4e9c8e9395f007240a9ae321b9082"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ab9b4e9c8e9395f007240a9ae321b9082">get_next</a> () noexcept</td></tr>
 <tr class="memdesc:ab9b4e9c8e9395f007240a9ae321b9082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point to next available address information.  <br /></td></tr>
 <tr class="separator:ab9b4e9c8e9395f007240a9ae321b9082"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d150df1d5cb6cc8b7977af6aba60c3c" id="r_a3d150df1d5cb6cc8b7977af6aba60c3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a3d150df1d5cb6cc8b7977af6aba60c3c">sockaddr</a> (<a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saddr) const noexcept</td></tr>
-<tr class="memdesc:a3d150df1d5cb6cc8b7977af6aba60c3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the socket address from current selcted address information.  <br /></td></tr>
-<tr class="separator:a3d150df1d5cb6cc8b7977af6aba60c3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad531b9f43f43db18e8d775f6c3c1502c" id="r_ad531b9f43f43db18e8d775f6c3c1502c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ad531b9f43f43db18e8d775f6c3c1502c">sockaddr</a> (<a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;a_saObj) const noexcept</td></tr>
+<tr class="memdesc:ad531b9f43f43db18e8d775f6c3c1502c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the socket address from current selcted address information.  <br /></td></tr>
+<tr class="separator:ad531b9f43f43db18e8d775f6c3c1502c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Get information from the operating system about an internet address. </p>
-<p>The results from getting system information using <code>::getaddrinfo()</code> are somewhat confusing and lack a clear systematic pattern over all supported platforms. For example a scope_id of an IPv6 link-local address can be specified with the local network interface index number, or by its name, maybe "[fe80::1%2]" or "[fe80::1%eth0]". Microsoft Windows accepts only numeric scope_ids. MacOs accepts link-local addresses with wrong or missing scope_id, and returns the resulting socket address with no scope_Id (set to 0). This is out of official specification. Due to <a href="https://www.rfc-editor.org/rfc/rfc4007.html">RFC 4007</a> an IPv6 link-local address must include a scope_id to be valid for routing purposes. All supported platforms accept a valid scope_id on an IPv6 global-unicast address that cannot use it. Different platforms return different values for other properties. Exact details and verification of this class are internally made with <code>AddrinfoScopeIdFTestSuite</code>. All of this makes it necessary for the SDK to define the properties of this class as follows:</p><ul>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Design specification</h2>
+<p>The results from getting system information using <a href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html"><b>::getaddrinfo</b>()</a> are somewhat confusing and lack a clear systematic pattern over all supported platforms. The goal is to have the same behavior across all platforms. In respect to the issues belonging to <a href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html"><b>::getaddrinfo</b>()</a> as noted next section, following is specified:</p><ul>
 <li>Address family is AF_INET6. There is no other address family.</li>
 <li><code>ai_socktype</code> is SOCK_STREAM (default), or SOCK_DGRAM. ai_socktype <b>0</b> is not supported. The resulting socket type is considered to be the same as given by argument.</li>
 <li>ai_protocol is hard coded set to <b>0</b>, and considered to be always <b>0</b>, that uses the default protocol for the current socket type.</li>
-<li>Getting information for an IPv6 link-local address with a numeric scope_id always succeeds, no matter if the scope_id really exist.</li>
-<li>Getting information for an IPv6 link-local address without a valid scope_id always fails.</li>
-<li>Getting information for an IPv6 link-local address with a name of a local network interface that doesn't exist, fails.</li>
-<li>A scope_id on any other IPv6 address that isn't a link-local address, fails.</li>
-<li>The resulting ai_flags are considered to be the same as given by argument in addition to AI_V4MAPPED, which is always set.</li>
+<li>Getting information for an IPv6 link-local address, or a mulitcast address with a numeric scope_id always succeeds, no matter if the <a class="el" href="../../d5/d67/Glossary.html#glossary_netadapt">netadapter</a> index, used as scope_id, really exist.</li>
+<li>Getting information for an IPv6 link-local address, or mulitcast address with a <a class="el" href="../../d5/d67/Glossary.html#glossary_netadapt">netadapter</a> name as scope, that doesn't exist, fails.</li>
+<li>A scope_id on any other IPv6 address that isn't a link-local address, or multicast address is silently removed.</li>
+<li>The resulting ai_flags are considered to be the same as given by argument in addition to AI_V4MAPPED, which is always hard coded set.</li>
+<li>'<a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html" title="Get information from the operating system about an internet address.">CAddrinfo</a>' performs a time-consuming DNS name resolution when necessary. It is not possible to suppress this (see Note 1 below). This means you cannot suppress DNS-lookups with AI_NUMERICHOST. This ai_flag is silently ignored. If you want to get information only from a numeric address without an unnecessary expensive DNS lookup in an error condition, then use the '<a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html" title="Trivial ::sockaddr structures enhanced with methods.">SSockaddr</a>' class.</li>
 <li>All other resulting information are that from the operating system.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>The SDK uses IPv4-mapped IPv6 addresses. To get the right address information the flag AI_V4MAPPED must always be used. This is hard coded. An issue is that <b>Microsoft Windows</b> supports IPv4 mapping only without AI_NUMERICHOST flag set. This means that the flag must be ignored. You can set it but without any effect. You cannot suppress unwanted DNS lookups on Microsoft Windows with <a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html" title="Get information from the operating system about an internet address.">CAddrinfo2</a>. Other platforms are not effected.</dd></dl>
-<p>An empty node returns information of the loopback interface, but either node or service, but not both, may be empty.</p>
-<p>To get default SOCK_STREAM loopback interface just use: </p><div class="fragment"><div class="line"><a class="code hl_class" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a> aiObj(<span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo2_html"><div class="ttname"><a href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">UPnPsdk::CAddrinfo2</a></div><div class="ttdoc">Get information from the operating system about an internet address.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d31/addrinfo2_8hpp_source.html#l00091">addrinfo2.hpp:91</a></div></div>
-</div><!-- fragment --><p> Will get:<br  />
- aiObj.get_first() -&gt; "[::1]"<br  />
- aiObj.get_next() -&gt; false </p><div class="fragment"><div class="line"><a class="code hl_class" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a> aiObj(<span class="stringliteral">&quot;127.0.0.1&quot;</span>);</div>
-</div><!-- fragment --><p> Will get:<br  />
- aiObj.get_first() -&gt; "[::ffff:127.0.0.1]"<br  />
- aiObj.get_next() -&gt; false</p>
-<p>To get address information for <b>passive listening</b> on all local network adapters with default SOCK_STREAM, <b>a_node</b> must be empty, but not <b>a_service</b> and <b>a_flags</b> must be set at least to AI_PASSIVE, for example: </p><div class="fragment"><div class="line"><a class="code hl_class" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a> ai(<span class="stringliteral">&quot;&quot;</span>, AI_PASSIVE | AI_NUMERICHOST);</div>
-</div><!-- fragment --><p> Will get:<br  />
- aiObj.get_first() -&gt; "[::]"<br  />
- aiObj.get_next() -&gt; false</p>
-<p>Of course you can set a specific port (a_service) other than default <b>0</b>. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../d7/d31/addrinfo2_8hpp_source.html#l00091">91</a> of file <a class="el" href="../../d7/d31/addrinfo2_8hpp_source.html">addrinfo2.hpp</a>.</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Issues belonging to '::getaddrinfo()'</h2>
+<p>Note 1:<br  />
+ Only on Microsoft Windows ::getaddrinfo() does not create AI_V4MAPPED addresses with AI_NUMERICHOST set. The <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> only uses IPv6 addresses. All IPv4 addresses are mapped to IPv6. There is only one combination with AF_INET6 set and AI_NUMERICHOST unset, where win32 do AI_V4MAPPED. All others fail. Details with Unit Test 'GetaddrinfoWin32Test'.</p>
+<p>Note 2:<br  />
+ In contrast to other supported platforms, ::getaddrinfo() on Microsoft Windows accepts only a numeric scope_id and fails with interface names (e.g. "Ethernet"). I need a precheck and have to convert it into its index number (scope_id). <a href="https://www.man7.org/linux/man-pages/man3/if_nametoindex.3.html"><b>::if_nametoindex</b>()</a> and <a href="https://learn.microsoft.com/en-us/windows/win32/api/netioapi/nf-netioapi-convertinterfacenametoluida"><b>::ConvertInterfaceNameToLuidA</b>()</a> with <a href="https://learn.microsoft.com/en-us/windows/win32/api/netioapi/nf-netioapi-convertinterfaceluidtoindex"><b>::ConvertInterfaceLuidToIndex</b>()</a> does not work on Win32. I always get system "Error 123" that means "The filename, directory name, or volume
+     label syntax is incorrect", no matter what I tried. I use a workaround with <a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html" title="Get information from local network adapters.">UPnPsdk::CNetadapter</a>.</p>
+<p><a href="https://www.man7.org/linux/man-pages/man3/if_nametoindex.3.html"><b>::if_nametoindex</b>()</a> on macOS, and Linux/GNU works.</p>
+<p>Note 3:<br  />
+ MacOS does not fail ::getaddrinfo() with an unknown netinterface name and instead ignores it and returns an LLA addrinfo structure without scope_id. But that is not specified. Due to <a href="https://www.rfc-editor.org/rfc/rfc4007.html">RFC 4007</a> an IPv6 link-local address must include a scope_id to be valid for routing purposes.</p>
+<p>Linux platforms ::getaddrinfo() accept netinterface names but fails if they don't exist. That is what <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> use. Details with Unit Test <code>AddrinfoScopeIdFTestSuite</code>.</p>
+<p>Note 4:<br  />
+ ::getaddrinfo() on macOS accepts link-local addresses with subnet, for example "[fe80:1::2]". BSD-based operating systems (including macOS) support an alternative, non-standard syntax, where a numeric zone index is encoded in the second 16-bit word of the address, as shown in the example before. But macOS also accepts all other subnets on an LLA with IN6_IS_ADDR_LINKLOCAL() like e.g. "[fe80:0:1::1]". <a class="el" href="../../dd/d67/namespaceUPnPsdk.html" title="Reengineered Object Oriented UPnP+ program code.">UPnPsdk</a> does not support this like Linux platforms, and rejects an LLA with subnet as unspecified.</p>
+<p>Please note that either node or service, but not both, may be empty.</p>
+<p><a class="anchor" id="caddrinfo_example"></a> To get default SOCK_STREAM loopback interface just use: </p><div class="fragment"><div class="line">SSocaddr saObj;</div>
+<div class="line"> </div>
+<div class="line"><a class="code hl_class" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a> ai1Obj;</div>
+<div class="line">assert(ai1Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a91eb1d8f01520c1616e3423d39a3473e">get_first</a>(<a class="code hl_struct" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a>(<span class="stringliteral">&quot;:0&quot;</span>)) == 0);</div>
+<div class="line"><span class="comment">// or assert(ai1Obj.get_first(SInaddr(&quot;[::1]&quot;)) == 0);</span></div>
+<div class="line">ai1Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ad531b9f43f43db18e8d775f6c3c1502c">sockaddr</a>(saObj);</div>
+<div class="line">assert(saObj.netaddrp() == <span class="stringliteral">&quot;[::1]:0&quot;</span>);</div>
+<div class="line">assert(ai1Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ab9b4e9c8e9395f007240a9ae321b9082">get_next</a>() == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line"><a class="code hl_class" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a> ai2Obj;</div>
+<div class="line">assert(ai2Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a91eb1d8f01520c1616e3423d39a3473e">get_first</a>(<a class="code hl_struct" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a>(<span class="stringliteral">&quot;127.0.0.1&quot;</span>)) == 0);</div>
+<div class="line">ai2Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ad531b9f43f43db18e8d775f6c3c1502c">sockaddr</a>(saObj);</div>
+<div class="line">assert(saObj.netaddrp() == <span class="stringliteral">&quot;[::ffff:127.0.0.1]:0&quot;</span>);</div>
+<div class="line">assert(ai2Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ab9b4e9c8e9395f007240a9ae321b9082">get_next</a>() == <span class="keyword">false</span>);</div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo2_html"><div class="ttname"><a href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">UPnPsdk::CAddrinfo2</a></div><div class="ttdoc">Get information from the operating system about an internet address.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d31/addrinfo2_8hpp_source.html#l00159">addrinfo2.hpp:159</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo2_html_a91eb1d8f01520c1616e3423d39a3473e"><div class="ttname"><a href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a91eb1d8f01520c1616e3423d39a3473e">UPnPsdk::CAddrinfo2::get_first</a></div><div class="ttdeci">int get_first(SInaddr a_inaddr)</div><div class="ttdoc">Get the first entry of an address information list from the operating system.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d63/addrinfo2_8cpp_source.html#l00061">addrinfo2.cpp:61</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo2_html_ab9b4e9c8e9395f007240a9ae321b9082"><div class="ttname"><a href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ab9b4e9c8e9395f007240a9ae321b9082">UPnPsdk::CAddrinfo2::get_next</a></div><div class="ttdeci">bool get_next() noexcept</div><div class="ttdoc">Point to next available address information.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d31/addrinfo2_8hpp_source.html#l00229">addrinfo2.hpp:229</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo2_html_ad531b9f43f43db18e8d775f6c3c1502c"><div class="ttname"><a href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ad531b9f43f43db18e8d775f6c3c1502c">UPnPsdk::CAddrinfo2::sockaddr</a></div><div class="ttdeci">void sockaddr(SSockaddr &amp;a_saObj) const noexcept</div><div class="ttdoc">Get the socket address from current selcted address information.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d31/addrinfo2_8hpp_source.html#l00238">addrinfo2.hpp:238</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SInaddr_html"><div class="ttname"><a href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">UPnPsdk::SInaddr</a></div><div class="ttdoc">Structure to provide splitted inet address, scope_id, and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00183">sockaddr.hpp:183</a></div></div>
+</div><!-- fragment --><p>To get address information for <b>passive listening</b> on all local network adapters with default SOCK_STREAM, the node internet address must be empty, but not the port and flags must be set at least to AI_PASSIVE, for example: </p><div class="fragment"><div class="line">SSocaddr saObj;</div>
+<div class="line"> </div>
+<div class="line"><a class="code hl_class" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a> ai1Obj(AI_PASSIVE);</div>
+<div class="line">assert(ai1Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a91eb1d8f01520c1616e3423d39a3473e">get_first</a>(<a class="code hl_struct" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a>(<span class="stringliteral">&quot;:0&quot;</span>)) == 0);</div>
+<div class="line">ai1Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ad531b9f43f43db18e8d775f6c3c1502c">sockaddr</a>(saObj);</div>
+<div class="line">assert(saObj.netaddrp() == <span class="stringliteral">&quot;[::]:0&quot;</span>); <span class="comment">// Unspec addr</span></div>
+<div class="line">assert(ai1Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ab9b4e9c8e9395f007240a9ae321b9082">get_next</a>() == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Prepare to listen on all local [netadapter](\ref glossary_netadapt) for</span></div>
+<div class="line"><span class="comment">// datagrams on port 50001. If internet address token needed for later use:</span></div>
+<div class="line"><a class="code hl_struct" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a> inaObj(<span class="stringliteral">&quot;[::]:https&quot;</span>); <span class="comment">// saObj doesn&#39;t manage empty node addresses.</span></div>
+<div class="line">saObj = inaObj;</div>
+<div class="line">assert(saObj.empty() == <span class="keyword">true</span>); <span class="comment">// saObj can only manage numeric entries.</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Look with name resolution</span></div>
+<div class="line"><a class="code hl_class" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a> ai2Obj(AI_PASSIVE, SOCK_DGRAM);</div>
+<div class="line">assert(ai2Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a91eb1d8f01520c1616e3423d39a3473e">get_first</a>(inaObj) == 0);</div>
+<div class="line">ai2Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ad531b9f43f43db18e8d775f6c3c1502c">sockaddr</a>(saObj);</div>
+<div class="line">assert(saObj.netaddrp() == <span class="stringliteral">&quot;[::]:443&quot;</span>); <span class="comment">// &quot;https&quot; is resolved.</span></div>
+<div class="line">assert(ai2Obj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ab9b4e9c8e9395f007240a9ae321b9082">get_next</a>() == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="../../d7/d31/addrinfo2_8hpp_source.html#l00159">159</a> of file <a class="el" href="../../d7/d31/addrinfo2_8hpp_source.html">addrinfo2.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac353efd3a2444cd2bd53e0fbf11bc079" name="ac353efd3a2444cd2bd53e0fbf11bc079"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac353efd3a2444cd2bd53e0fbf11bc079">&#9670;&#160;</a></span>CAddrinfo2()</h2>
+<a id="a643e6de062d6be28f4e5665bdc0be40b" name="a643e6de062d6be28f4e5665bdc0be40b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a643e6de062d6be28f4e5665bdc0be40b">&#9670;&#160;</a></span>CAddrinfo2()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">UPnPsdk::CAddrinfo2::CAddrinfo2 </td>
           <td>(</td>
-          <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>a_node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>a_flags</em> = <code>0</code>, </td>
         </tr>
@@ -191,25 +228,43 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Constructor for getting an address information with service name. </p>
+<p>Constructor for getting an address information. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_node</td><td>Name or address string of a node, e.g. "example.com:50001" or "[fe80::1%eth0]:50002" or "2001.db8::2".  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_flags</td><td>Optional: flags that can be "or-ed", e.g. AI_PASSIVE | AI_NUMERICHOST. Details at <a href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">getaddrinfo — Linux manual page</a> or <a href="https://learn.microsoft.com/en-us/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfo#use-of-ai-flags-in-the-phints-parameter">getaddrinfo — Microsoft Learn</a>  </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">a_socktype</td><td>Optional: can be SOCK_STREAM, or SOCK_DGRAM </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_flags</td><td>Optional: flags that can be "or-ed", e.g. AI_PASSIVE | AI_NUMERICSERV. Details at <a href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">getaddrinfo — Linux manual page</a> or <a href="https://learn.microsoft.com/en-us/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfo#use-of-ai-flags-in-the-phints-parameter">getaddrinfo — Microsoft Learn</a><ul>
+<li>Usable flags are:<ul>
+<li>AI_PASSIVE</li>
+<li>AI_NUMERICSERV</li>
+<li>AI_ALL</li>
+</ul>
+</li>
+<li>Silently ignored flags are:<ul>
+<li>AI_V4MAPPED - hard coded set</li>
+<li>AI_NUMERICHOST - hard coded reset</li>
+<li>all other  </li>
+</ul>
+</li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_socktype</td><td>Optional: can be SOCK_STREAM (is default), or SOCK_DGRAM. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00027">27</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00023">23</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5aef6f74d64eab2b5fbf34bc612a2e7c" name="a5aef6f74d64eab2b5fbf34bc612a2e7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5aef6f74d64eab2b5fbf34bc612a2e7c">&#9670;&#160;</a></span>get_first()</h2>
+<a id="a91eb1d8f01520c1616e3423d39a3473e" name="a91eb1d8f01520c1616e3423d39a3473e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91eb1d8f01520c1616e3423d39a3473e">&#9670;&#160;</a></span>get_first() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,76 +272,52 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">int UPnPsdk::CAddrinfo2::get_first </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a>&#160;</td>
+          <td class="paramname"><em>a_inaddr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get the first entry of an address info from the operating system. </p>
-<p>No need to use <a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#af4a24464b137c54af617e5129f072e8d" title="Reset the internal list pointer to the first entry.">set_first()</a>; </p><div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
-<div class="line"><a class="code hl_class" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a> aiObj(<span class="stringliteral">&quot;example.com:50050&quot;</span>); <span class="comment">// Would trigger a DNS lookup.</span></div>
-<div class="line"><span class="comment">// same as</span></div>
-<div class="line"><a class="code hl_class" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a> aiObj(<span class="stringliteral">&quot;example.com:50050&quot;</span>, 0, SOCK_STREAM);</div>
-<div class="line"><span class="keywordflow">if</span> (!aiObj.get_first()) {</div>
+<p>Get the first entry of an address information list from the operating system. </p>
+<div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
+<div class="line"><a class="code hl_class" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html">CAddrinfo2</a> aiObj;</div>
+<div class="line"><span class="comment">// Triggers a DNS lookup</span></div>
+<div class="line"><span class="keywordflow">if</span> (aiObj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a91eb1d8f01520c1616e3423d39a3473e">get_first</a>(<a class="code hl_struct" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a>(<span class="stringliteral">&quot;example.com:50050&quot;</span>) != 0) {</div>
 <div class="line">    handle_failed_address_info();</div>
 <div class="line">}</div>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
-<div class="line">aiObj.sockaddr(saObj);</div>
+<div class="line">aiObj.<a class="code hl_function" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ad531b9f43f43db18e8d775f6c3c1502c">sockaddr</a>(saObj);</div>
 <div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;netaddress=\&quot;&quot;</span> &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00262">sockaddr.hpp:262</a></div></div>
-</div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>It is important to careful check the error situation because loading information depends on the real environment that we cannot control. Name resolution may fail because to be unspecified, remote DNS server may be temporary down, etc.</dd></dl>
-<p>Usually this getter is called one time after constructing the object. This gets address information from the operating system that may also use its internal name resolver inclusive contacting external DNS server. If you use the flag <b>AI_NUMERICHOST</b> with the constructor then a possible expensive name resolution to DNS server is suppressed.</p>
-<p>If you have iterated address information entries with <a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ab9b4e9c8e9395f007240a9ae321b9082" title="Point to next available address information.">CAddrinfo2::get_next()</a> and want to start a new lockup you can do it with call <a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#af4a24464b137c54af617e5129f072e8d" title="Reset the internal list pointer to the first entry.">CAddrinfo2::set_first()</a>. It only reset the internal pointer, what's very effective if you only want to examine the same information a second time. If you use <a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system.">CAddrinfo2::get_first()</a> again it will read the information from the operating system again and can be used to monitor changes of address information. But note that this is quite expensive because always memory is freed and new allocated for the information list so doing this in a busy loop is not very useful. </p><dl class="section return"><dt>Returns</dt><dd><ul>
-<li>On success: <b>0</b><br  />
-</li>
-<li>On error: EAI error number that can be translated to clear text with system function <code>::gai_strerror()</code>. </li>
-</ul>
-</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo:</a></b></dt><dd>Manage to use WSAEAFNOSUPPORT for EAI_ADDRFAMILY that isn't defined on win32. </dd></dl>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00272">sockaddr.hpp:272</a></div></div>
+</div><!-- fragment --><p> For more examples have a look at <a class="el" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#caddrinfo_example">CAddrinfo</a>.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>Trying to call <b>get_first</b>() a second time. Information can be loaded only one time. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00074">74</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00061">61</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2_a5aef6f74d64eab2b5fbf34bc612a2e7c_cgraph.png" border="0" usemap="#ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a5aef6f74d64eab2b5fbf34bc612a2e7c_cgraph" alt=""/></div>
-<map name="ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a5aef6f74d64eab2b5fbf34bc612a2e7c_cgraph" id="ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a5aef6f74d64eab2b5fbf34bc612a2e7c_cgraph">
-<area shape="rect" title="Get the first entry of an address info from the operating system." alt="" coords="5,388,164,428"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="214,151,383,191"/>
-<area shape="poly" title=" " alt="" coords="97,386,145,320,210,242,259,197,262,201,214,246,149,323,102,389"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="433,261,603,301"/>
-<area shape="poly" title=" " alt="" coords="98,386,143,333,175,306,211,286,263,270,317,262,371,261,420,263,420,269,371,266,318,267,264,275,213,290,178,310,147,337,102,389"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="214,300,383,340"/>
-<area shape="poly" title=" " alt="" coords="128,385,211,350,229,342,231,347,213,354,131,390"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25" title="Test if a socket address is a link&#45;local address." alt="" coords="212,388,385,428"/>
-<area shape="poly" title=" " alt="" coords="164,405,198,405,198,411,164,411"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0" title="Free function to check if a string represents an unsigned integer." alt="" coords="215,453,382,478"/>
-<area shape="poly" title=" " alt="" coords="161,425,238,446,237,452,159,431"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="221,503,376,543"/>
-<area shape="poly" title=" " alt="" coords="114,426,160,457,213,488,227,495,225,500,211,493,157,462,111,430"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5" title="Free function to check if a string represents a valid port number." alt="" coords="232,567,365,593"/>
-<area shape="poly" title=" " alt="" coords="100,427,145,489,177,523,213,552,227,560,224,564,211,557,173,527,141,492,96,430"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50" title="Test if the socket address object is empty." alt="" coords="441,5,595,45"/>
-<area shape="poly" title=" " alt="" coords="318,148,367,102,432,55,443,49,446,54,435,60,371,107,321,152"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="433,69,603,109"/>
-<area shape="poly" title=" " alt="" coords="353,148,450,112,452,117,354,153"/>
-<area shape="poly" title=" " alt="" coords="332,189,380,218,435,247,449,254,447,258,432,252,377,222,330,193"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995" title="Get network adapter name from current selected list entry." alt="" coords="433,133,603,173"/>
-<area shape="poly" title=" " alt="" coords="384,161,419,158,420,164,384,167"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="433,197,603,237"/>
-<area shape="poly" title=" " alt="" coords="384,186,421,194,420,199,383,191"/>
-<area shape="poly" title=" " alt="" coords="259,388,256,378,263,369,277,363,299,361,324,364,337,372,335,376,322,369,299,367,278,369,266,373,261,379,264,387"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a8a8cc96fde129cc987147c49db173778" title="Get the assosiated netaddress without port." alt="" coords="441,503,595,543"/>
-<area shape="poly" title=" " alt="" coords="376,520,427,520,427,525,376,525"/>
+<div class="center"><img src="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2_a91eb1d8f01520c1616e3423d39a3473e_cgraph.png" border="0" usemap="#ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a91eb1d8f01520c1616e3423d39a3473e_cgraph" alt=""/></div>
+<map name="ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a91eb1d8f01520c1616e3423d39a3473e_cgraph" id="ad7/dc5/classUPnPsdk_1_1CAddrinfo2_a91eb1d8f01520c1616e3423d39a3473e_cgraph">
+<area shape="rect" title="Get the first entry of an address information list from the operating system." alt="" coords="5,5,164,45"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a44aeb8785a469618b74ee700c080451b" title="Get the assosiated netaddress with port." alt="" coords="212,5,367,45"/>
+<area shape="poly" title=" " alt="" coords="164,23,198,23,198,28,164,28"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a8a8cc96fde129cc987147c49db173778" title="Get the assosiated netaddress without port." alt="" coords="415,5,569,45"/>
+<area shape="poly" title=" " alt="" coords="367,23,400,23,400,28,367,28"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="af4a24464b137c54af617e5129f072e8d" name="af4a24464b137c54af617e5129f072e8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4a24464b137c54af617e5129f072e8d">&#9670;&#160;</a></span>set_first()</h2>
+<a id="a5721abec2dae2bc54c21a91be09f8d93" name="a5721abec2dae2bc54c21a91be09f8d93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5721abec2dae2bc54c21a91be09f8d93">&#9670;&#160;</a></span>get_first() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,7 +326,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void UPnPsdk::CAddrinfo2::set_first </td>
+          <td class="memname">void UPnPsdk::CAddrinfo2::get_first </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -303,14 +334,14 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reset the internal list pointer to the first entry. </p>
+<p>Point to first entry again of an already loaded address info. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00269">269</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d31/addrinfo2_8hpp_source.html#l00226">226</a> of file <a class="el" href="../../d7/d31/addrinfo2_8hpp_source.html">addrinfo2.hpp</a>.</p>
 
 </div>
 </div>
@@ -332,19 +363,19 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Point to next available address information. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00274">274</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d31/addrinfo2_8hpp_source.html#l00229">229</a> of file <a class="el" href="../../d7/d31/addrinfo2_8hpp_source.html">addrinfo2.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3d150df1d5cb6cc8b7977af6aba60c3c" name="a3d150df1d5cb6cc8b7977af6aba60c3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d150df1d5cb6cc8b7977af6aba60c3c">&#9670;&#160;</a></span>sockaddr()</h2>
+<a id="ad531b9f43f43db18e8d775f6c3c1502c" name="ad531b9f43f43db18e8d775f6c3c1502c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad531b9f43f43db18e8d775f6c3c1502c">&#9670;&#160;</a></span>sockaddr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -356,20 +387,26 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void UPnPsdk::CAddrinfo2::sockaddr </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> &amp;&#160;</td>
-          <td class="paramname"><em>a_saddr</em></td><td>)</td>
+          <td class="paramname"><em>a_saObj</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Get the socket address from current selcted address information. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">a_saObj</td><td>Reference to a socket address structure that will be filled with the address information. If no information is available (e.g. <a class="el" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system.">CAddrinfo::get_first()</a> wasn't called) an unspecified socket address is returned (netaddr "", netaddrp ":0"). </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html#l00288">288</a> of file <a class="el" href="../../d5/d63/addrinfo2_8cpp_source.html">addrinfo2.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d31/addrinfo2_8hpp_source.html#l00238">238</a> of file <a class="el" href="../../d7/d31/addrinfo2_8hpp_source.html">addrinfo2.hpp</a>.</p>
 
 </div>
 </div>

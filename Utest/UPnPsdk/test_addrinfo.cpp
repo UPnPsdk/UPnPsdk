@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-20
+// Redistribution only with this Copyright remark. Last modified: 2026-08-06
 
 // I test different address infos that we get from system function
 // ::getaddrinfo().
@@ -1223,7 +1223,6 @@ TEST(AddrinfoTestSuite, load_loopback_addr_with_scope_id) {
     EXPECT_EQ(ai1->ai_next, nullptr);
 
     CAddrinfo ai2("[::1%lo]");
-#ifdef __APPLE__
     ASSERT_TRUE(ai2.get_first());
 
     EXPECT_EQ(ai2->ai_family, AF_INET6);
@@ -1236,9 +1235,6 @@ TEST(AddrinfoTestSuite, load_loopback_addr_with_scope_id) {
     ai2.sockaddr(saddr);
     EXPECT_EQ(saddr.netaddrp(), "[::1]:0");
     EXPECT_EQ(ai2->ai_next, nullptr);
-#else
-    EXPECT_FALSE(ai2.get_first());
-#endif
 }
 
 TEST(AddrinfoTestSuite, load_gua_with_scope_id) {
@@ -1260,23 +1256,19 @@ TEST(AddrinfoTestSuite, load_gua_with_scope_id) {
     EXPECT_EQ(ai1->ai_next, nullptr);
 
     CAddrinfo ai2("[2001:db8::55%lo]:https");
-#if __APPLE__
-    ASSERT_TRUE(ai1.get_first());
+    ASSERT_TRUE(ai2.get_first());
 
-    EXPECT_EQ(ai1->ai_family, AF_INET6);
-    EXPECT_EQ(ai1->ai_socktype, SOCK_STREAM);
-    EXPECT_EQ(ai1->ai_protocol, 0);
-    EXPECT_EQ(ai1->ai_flags, AI_V4MAPPED);
-    EXPECT_EQ(ai1->ai_addrlen, 28);
-    EXPECT_NE(ai1->ai_addr, nullptr);
-    EXPECT_EQ(ai1->ai_canonname, nullptr);
+    EXPECT_EQ(ai2->ai_family, AF_INET6);
+    EXPECT_EQ(ai2->ai_socktype, SOCK_STREAM);
+    EXPECT_EQ(ai2->ai_protocol, 0);
+    EXPECT_EQ(ai2->ai_flags, AI_V4MAPPED);
+    EXPECT_EQ(ai2->ai_addrlen, 28);
+    EXPECT_NE(ai2->ai_addr, nullptr);
+    EXPECT_EQ(ai2->ai_canonname, nullptr);
     // AppleClang accepts scope id (%1) only from link local addresses [fe80::]
-    ai1.sockaddr(saddr);
+    ai2.sockaddr(saddr);
     EXPECT_EQ(saddr.netaddrp(), "[2001:db8::55]:443");
-    EXPECT_EQ(ai1->ai_next, nullptr);
-#else
-    EXPECT_FALSE(ai2.get_first());
-#endif
+    EXPECT_EQ(ai2->ai_next, nullptr);
 }
 
 TEST(AddrinfoTestSuite, check_netaddrp) {

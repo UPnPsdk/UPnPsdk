@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-04-06
+ * Redistribution only with this Copyright remark. Last modified: 2026-08-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -151,7 +151,7 @@ int create_url_list(memptr* a_url_list, URL_list* a_out) {
 
         // parse_uri
         int return_code =
-            parse_uri(base_url_sv.data(), base_url_sv.size(), &splitted_url);
+            ::parse_uri(base_url_sv.data(), base_url_sv.size(), &splitted_url);
 
         if (return_code == HTTP_SUCCESS &&
             splitted_url.hostport.text.size != 0) {

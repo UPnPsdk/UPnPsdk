@@ -5,7 +5,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-04-01
+ * Redistribution only with this Copyright remark. Last modified: 2026-08-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -72,7 +72,8 @@ struct URL_list {
  * to avoid memory leaks.
  *
  * \returns
- *  On success: the number of URLs parsed\n
+ *  On success: the number of URLs parsed. May be \b 0 if no valid URL is
+ *  available (that's no error).\n
  *  On error:
  *  - UPNP_E_OUTOF_MEMORY
  *  - UPNP_E_INVALID_URL

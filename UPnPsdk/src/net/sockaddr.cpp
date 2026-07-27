@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 And higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-23
+// Redistribution only with this Copyright remark. Last modified: 2026-08-09
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -7,8 +7,17 @@
 
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/synclog.hpp>
+#ifdef _MSC_VER
+#include <UPnPsdk/netadapter.hpp>
+#endif
+
 /// \cond
 #include <algorithm>
+#ifdef _MSC_VER
+#include <netioapi.h> // for ::if_nametoindex()
+#else
+#include <net/if.h>
+#endif
 /// \endcond
 
 namespace UPnPsdk {
@@ -181,119 +190,177 @@ int to_port(std::string_view a_port_str, in_port_t* const a_port_num) noexcept {
 // -----------------------------------------------------
 // Constructor
 SInaddr::SInaddr(const std::string_view a_addr_sv) noexcept {
-    if (a_addr_sv.empty())
-        return;
+    if (!a_addr_sv.empty()) {
 
-    this->node.reserve(INET6_ADDRSTRLEN);
+        this->node.reserve(INET6_ADDRSTRLEN);
 
-    std::string_view addr_sv;
-    std::string_view serv_sv;
-    static constexpr std::string_view zero_sv("0");
+        std::string_view addr_sv;
+        std::string_view serv_sv;
+        static constexpr std::string_view zero_sv("0");
 
-    auto& npos = std::string_view::npos;
-    size_t pos{};
-    if (a_addr_sv.size() == 1) {
-        // Only one digit belongs to a port number. Port numbers with more
-        // digits are tested later.
-        if (std::isdigit(a_addr_sv.front())) {
-            // If it is a digit, then it's a port number.
-            serv_sv = a_addr_sv;
+        auto& npos = std::string_view::npos;
+        size_t pos{};
+        if (a_addr_sv.size() == 1) {
+            // Only one digit belongs to a port number. Port numbers with more
+            // digits are tested later.
+            if (std::isdigit(a_addr_sv.front())) {
+                // If it is a digit, then it's a port number.
+                serv_sv = a_addr_sv;
+            } else if (a_addr_sv.front() == ':') {
+                // Having only the port separator, then the port is reset.
+                serv_sv = zero_sv;
+            }
+        } else if (a_addr_sv.size() < 2) {
+            // The shortest possible ip address is "::". This helps to avoid
+            // string exceptions 'out_of_range'.
+            addr_sv = a_addr_sv; // Give it back as (possible) address.
+
+        } else if (a_addr_sv.front() == '[') {
+            // Starting with '[', split address if required
+            if ((pos = a_addr_sv.find("]:")) != npos) {
+                addr_sv = a_addr_sv.substr(0, pos + 1); // Get IP address
+                serv_sv = a_addr_sv.substr(pos + 2); // Get port string
+                if (serv_sv.empty())
+                    serv_sv = zero_sv;
+            } else {
+                addr_sv = a_addr_sv; // Get IP address
+            }
+
+        } else if (a_addr_sv.front() == ':' && a_addr_sv[1] == ':') {
+            // Starting with "::", this cannot have a port.
+            addr_sv = a_addr_sv;
+
         } else if (a_addr_sv.front() == ':') {
-            // Having only the port separator, then the port is reset.
-            serv_sv = zero_sv;
-        }
-    } else if (a_addr_sv.size() < 2) {
-        // The shortest possible ip address is "::". This helps to avoid string
-        // exceptions 'out_of_range'.
-        addr_sv = a_addr_sv; // Give it back as (possible) address.
-
-    } else if (a_addr_sv.front() == '[') {
-        // Starting with '[', split address if required
-        if ((pos = a_addr_sv.find("]:")) != npos) {
-            addr_sv = a_addr_sv.substr(0, pos + 1); // Get IP address
-            serv_sv = a_addr_sv.substr(pos + 2); // Get port string
+            // Starting with ':'
+            // Only port given, set only port, may be alphanum.
+            serv_sv = a_addr_sv.substr(1);
             if (serv_sv.empty())
                 serv_sv = zero_sv;
-        } else {
-            addr_sv = a_addr_sv; // Get IP address
-        }
-
-    } else if (a_addr_sv.front() == ':' && a_addr_sv[1] == ':') {
-        // Starting with "::", this cannot have a port.
-        addr_sv = a_addr_sv;
-
-    } else if (a_addr_sv.front() == ':') {
-        // Starting with ':'
-        // Only port given, set only port, may be alphanum.
-        serv_sv = a_addr_sv.substr(1);
-        if (serv_sv.empty())
-            serv_sv = zero_sv;
-    } else if (a_addr_sv.find_first_of('.') != npos) {
-        // Containing '.'
-        if ((pos = a_addr_sv.find_last_of(':')) != npos) {
+        } else if (a_addr_sv.find_first_of('.') != npos) {
+            // Containing '.'
+            if ((pos = a_addr_sv.find_last_of(':')) != npos) {
+                addr_sv = a_addr_sv.substr(0, pos); // Get IP address
+                serv_sv = a_addr_sv.substr(pos + 1); // Get port string
+                if (serv_sv.empty())
+                    serv_sv = zero_sv;
+            } else {
+                // No port, set only address.
+                addr_sv = a_addr_sv;
+            }
+        } else if (std::ranges::count(a_addr_sv, ':') == 1) {
+            // Containing one ':'
+            pos = a_addr_sv.find_last_of(':');
             addr_sv = a_addr_sv.substr(0, pos); // Get IP address
             serv_sv = a_addr_sv.substr(pos + 1); // Get port string
             if (serv_sv.empty())
                 serv_sv = zero_sv;
         } else {
-            // No port, set only address.
-            addr_sv = a_addr_sv;
+            // Remaining: here we have a numeric port. If a numeric port doesn't
+            // fit, it is either an only numeric address, or any alphanumeric
+            // identifier without port. Check for numeric port with type
+            // 'in_port_t' (uint16_t). UINT16_MAX (65535) has 5 digits.
+            if (is_unum_str(a_addr_sv, 5))
+                serv_sv = a_addr_sv; // Numeric value <= MAX_UINT16 not checked.
+            else
+                addr_sv = a_addr_sv; // Any alphanumeric string.
         }
-    } else if (std::ranges::count(a_addr_sv, ':') == 1) {
-        // Containing one ':'
-        pos = a_addr_sv.find_last_of(':');
-        addr_sv = a_addr_sv.substr(0, pos); // Get IP address
-        serv_sv = a_addr_sv.substr(pos + 1); // Get port string
-        if (serv_sv.empty())
-            serv_sv = zero_sv;
-    } else {
-        // Remaining: here we have a numeric port. If a numeric port doesn't
-        // fit, it is either an only numeric address, or any alphanumeric
-        // identifier without port. Check for numeric port with type 'in_port_t'
-        // (uint16_t). UINT16_MAX (65535) has 5 digits.
-        if (is_unum_str(a_addr_sv, 5))
-            serv_sv = a_addr_sv; // Numeric value <= MAX_UINT16 not checked.
-        else
-            addr_sv = a_addr_sv; // Any alphanumeric string.
-    }
 
-    // Prepare result for a_inaddr.node.
-    // Remove surounding brackets if any, shortest possible netaddress is
-    // "[::]".
-    if (addr_sv.length() >= 4 && addr_sv.front() == '[' &&
-        addr_sv.back() == ']' && std::ranges::count(addr_sv, ':') >= 2) {
-        // Here it can be an IPv6 address without '.', or an IPv4 mapped IPv6
-        // address with '.' and prefix "::ffff:".
-        // Remove surounding brackets.
-        addr_sv.remove_prefix(1);
-        addr_sv.remove_suffix(1);
-    }
+        // Prepare result for a_inaddr.node.
+        // Remove surounding brackets if any, shortest possible netaddress is
+        // "[::]".
+        if (addr_sv.length() >= 4 && addr_sv.front() == '[' &&
+            addr_sv.back() == ']' && std::ranges::count(addr_sv, ':') >= 2) {
+            // Here it can be an IPv6 address without '.', or an IPv4 mapped
+            // IPv6 address with '.' and prefix "::ffff:". Remove surounding
+            // brackets.
+            addr_sv.remove_prefix(1);
+            addr_sv.remove_suffix(1);
+        }
 
-    // Store result to this->node and this->scope.
-    if ((pos = addr_sv.find_first_of('%')) != npos) {
-        this->node = addr_sv.substr(0, pos);
-        this->scope = addr_sv.substr(pos + 1);
-        if (this->scope.empty())
-            this->scope = zero_sv;
-    } else {
-        this->node = addr_sv;
-        this->scope.clear();
-    }
+        // Store result to this->node and this->scope.
+        if ((pos = addr_sv.find_first_of('%')) != npos) {
+            this->node = addr_sv.substr(0, pos);
+            this->scope = addr_sv.substr(pos + 1);
+            if (this->scope.empty())
+                this->scope = zero_sv;
+        } else {
+            this->node = addr_sv;
+            this->scope.clear();
+        }
 
-    // Store result to this->service.
-    // Check for valid port. ::getaddrinfo accepts invalid ports > 65535.
-    this->service = serv_sv;
+        // Store result to this->service.
+        // Check for valid port. ::getaddrinfo accepts invalid ports > 65535.
+        this->service = serv_sv;
 
-    /* Normalize this->node to lower case.
-    for (auto it{this->node.begin()}; it < this->node.end(); it++)
-        *it = static_cast<char>(std::tolower(static_cast<unsigned char>(*it)));
-    */
-    // Trim empty this->node.
-    size_t idx{};
-    for (; this->node[idx] == ' ' && idx < this->node.size(); idx++)
-        ;
-    if (idx == this->node.size())
-        this->node.clear();
+        /* Normalize this->node to lower case.
+        for (auto it{this->node.begin()}; it < this->node.end(); it++)
+            *it = static_cast<char>(std::tolower(static_cast<unsigned
+        char>(*it)));
+        */
+        // Trim empty this->node.
+        size_t idx{};
+        for (; this->node[idx] == ' ' && idx < this->node.size(); idx++)
+            ;
+        if (idx == this->node.size())
+            this->node.clear();
+
+        // Clear this->scope if it results to 0 in any way.
+        uint32_t scope_id = is_unum_str(this->scope, 10)
+                                ? static_cast<uint32_t>(std::stoul(this->scope))
+                                : ~0u;
+        if (scope_id == 0)
+            this->scope.clear();
+
+        // Convert scope_id to its numeric value string if possible.
+        // ---------------------------------------------------------
+        // Win32 ::getaddrinfo() only accepts numeric scope_ids and I have to
+        // convert netinterface names into its index number (scope_id).
+        // ::if_nametoindex() and ::ConvertInterfaceNameToLuidA() with
+        // ::ConvertInterfaceLuidToIndex() does not work on Win32. I always get
+        // system "Error 123" that means "The filename, directory name, or
+        // volume label syntax is incorrect", no matter what I tried.
+        // I use my own code. That works.
+        //
+        // MacOS does not fail ::getaddrinfo() with an unknown netinterface name
+        // and instead ignores it and returns an lla addrinfo structure without
+        // scope_id. But that is not specified. ::if_nametoindex() on macOS
+        // works.
+        //
+        // Linux platforms ::getaddrinfo() accept netinterface names but fails
+        // if they don't exist. That is what the SDK specifies.
+        //
+        // This all makes it useful to always normalize the scope_id to its
+        // numeric value if possible. That's specified by the internet standard
+        // and must be supported on all platforms.
+
+        if (!this->scope.empty() && !is_unum_str(this->scope, 10) &&
+            this->scope.find_first_of(":") == npos) {
+#ifdef _MSC_VER
+            CNetadapter nadObj;
+            try {
+                nadObj.get_first(); // Throws exception if the system cannot
+                                    // provide information.
+            } catch (const std::exception&) {
+                this->scope = "0";
+            }
+            if (nadObj.find_first(this->scope))
+                this->scope = std::to_string(nadObj.index());
+#else
+            uint32_t scope_id = ::if_nametoindex(this->scope.c_str());
+            if (scope_id != 0)
+                this->scope = std::to_string(scope_id);
+#endif
+            else {
+                // If no index found, then clear scope_id silently only for IPv6
+                // addresses. An IPv4 address with scope_id is an error and
+                // should be rejected in follow up functions.
+                in6_addr sin6_addr;
+                if (::inet_pton(AF_INET6, this->node.c_str(), &sin6_addr) == 1)
+                    this->scope.clear();
+            }
+        }
+
+    } /* if (!a_addr_sv.empty()) // from start */
 
     UPnPsdk_LOGINFO("MSG1043") << "split \"" << a_addr_sv << "\" into node=\""
                                << this->node << "\", scope=\"" << this->scope
@@ -332,7 +399,11 @@ void SSockaddr::operator=(const ::sockaddr_storage& a_ss) noexcept {
                 ::inet_ntop(AF_INET6, &a_sin6->sin6_addr, addr_buf,
                             sizeof(addr_buf));
                 UPnPsdk_LOGERR("MSG1127") "lla=\"["
-                    << addr_buf << "]\" with subnet, or without scope_id.";
+                    << addr_buf
+                    << (a_sin6->sin6_scope_id == 0
+                            ? ""
+                            : "%" + std::to_string(a_sin6->sin6_scope_id))
+                    << "]\" with subnet, or without scope_id.";
                 break; // Error
             }
             // Valid lla.
@@ -378,7 +449,7 @@ void SSockaddr::operator=(const ::sockaddr_storage& a_ss) noexcept {
 
     // Finish error message.
     if (g_dbug)
-        std::cerr << " Continue with unspecified socket address.\n";
+        std::cerr << " Set unspecified socket address.\n";
     m_sa_union = {};
     m_sa_union.ss.ss_family = AF_UNSPEC;
 }
@@ -391,58 +462,66 @@ void SSockaddr::operator=(const SInaddr& a_inaddr) noexcept {
     // destination (here 'saddr') even if it fails.
     ::UPnPsdk::sockaddr_t saddr{};
     saddr.ss.ss_family = AF_UNSPEC;
+    bool saddr_empty{false};
 
     if (a_inaddr.node.empty()) {
         m_sa_union = saddr;
         return;
     }
 
-    // Get status of the service/port.
-    ::in_port_t port;
-    int is_to_port = to_port(a_inaddr.service, &port);
-    if (is_to_port == 1) { // Valid number, but not in range.
-        UPnPsdk_LOGERR("MSG1184") "port number=\""
-            << a_inaddr.service
-            << "\" not in range 0..65535. Continue with unspecified socket "
-               "address.\n";
-        m_sa_union = saddr;
-        return;
-    }
-
-    saddr.ss.ss_family = AF_INET6;
-    // If port or scope pattern not numeric, then return an IPv6 empty sockaddr
-    // to indicate the calling program to look with name resolution.
-    if ((!a_inaddr.service.empty() && is_to_port == -1) || // No number.
-        (!a_inaddr.scope.empty() && !is_unum_str(a_inaddr.scope, 10))) {
-        m_sa_union = saddr;
-        return;
-    }
-
-    // Check if IPv6 address
-    if ((is_to_port == 0) && (::inet_pton(AF_INET6, a_inaddr.node.c_str(),
-                                          &saddr.sin6.sin6_addr) == 1)) //
+    // Check if IPv6 address.
+    // ----------------------
+    if (::inet_pton(AF_INET6, a_inaddr.node.c_str(),
+                    &saddr.sin6.sin6_addr) == 1) //
     {
-        if (is_unum_str(a_inaddr.scope, 10))
-            saddr.sin6.sin6_scope_id =
-                static_cast<uint32_t>(std::stoul(a_inaddr.scope));
-        saddr.sin6.sin6_port = htons(port);
+        if (!a_inaddr.scope.empty()) {
+            // Here are only numeric scope_ids valid.
+            if (!is_unum_str(a_inaddr.scope, 10)) {
+                m_sa_union = {};
+                m_sa_union.ss.ss_family = AF_UNSPEC;
+                return;
+            }
+            if (!saddr_empty) {
+                saddr.sin6.sin6_scope_id =
+                    static_cast<uint32_t>(std::stoul(a_inaddr.scope));
+                saddr.ss.ss_family = AF_INET6;
+            }
+        }
     }
 
     // Check if IPv4 address and map it to IPv6.
+    // -----------------------------------------
     else if (in_addr sin_addr;
-             (is_to_port == 0) && (::inet_pton(AF_INET, a_inaddr.node.c_str(),
-                                               &sin_addr) == 1)) //
+             ::inet_pton(AF_INET, a_inaddr.node.c_str(), &sin_addr) == 1) //
     {
-        uint32_t* sin6_32 = reinterpret_cast<uint32_t*>(&saddr.sin6.sin6_addr);
-        sin6_32[0] = 0;
-        sin6_32[1] = 0;
-        sin6_32[2] = htonl(0x0000ffff);
-        sin6_32[3] = sin_addr.s_addr;
-        saddr.sin6.sin6_port = htons(port);
+        // Check if no scope_id set.
+        uint32_t scope_id =
+            is_unum_str(a_inaddr.scope, 10)
+                ? static_cast<uint32_t>(std::stoul(a_inaddr.scope))
+                : ~0u;
+        if (!a_inaddr.scope.empty() && scope_id != 0) {
+            // If we have a scope_id with IPv4, then that's an error.
+            m_sa_union = {};
+            m_sa_union.ss.ss_family = AF_UNSPEC;
+            return;
+        }
+
+        // Map IPv4 to IPv6.
+        if (!saddr_empty) {
+            uint32_t* sin6_32 =
+                reinterpret_cast<uint32_t*>(&saddr.sin6.sin6_addr);
+            sin6_32[0] = 0;
+            sin6_32[1] = 0;
+            sin6_32[2] = htonl(0x0000ffff);
+            sin6_32[3] = sin_addr.s_addr;
+            saddr.ss.ss_family = AF_INET6;
+        }
     }
 
     // Check possible DNS host name for valid characters.
+    // --------------------------------------------------
     else {
+        // Check for valid host name characters.
         unsigned char ch;
         size_t i;
         for (i = 0; i < a_inaddr.node.size(); i++) {
@@ -458,12 +537,57 @@ void SSockaddr::operator=(const SInaddr& a_inaddr) noexcept {
             return;
         }
         // Seems there is an alphanumeric node. I indicate that with an empty
-        // (numeric) socket address.
-        saddr = {}; // May be already modified before with garbage on win32.
+        // (numeric) socket-address.
+        saddr = {};
         saddr.ss.ss_family = AF_INET6;
+        saddr_empty = true;
+    }
+
+    // Manage service/port.
+    // --------------------
+    ::in_port_t port;
+    switch (to_port(a_inaddr.service, &port)) {
+    case -1: // Not a valid port number string.
+        // May be an alpha-numeric port name (e.g. "https"). I indicate this
+        // with an empty socket-address for possible name resolution by the
+        // calling function.
+        saddr = {};
+        saddr.ss.ss_family = AF_INET6;
+        saddr_empty = true;
+        break;
+
+    case 0: // Valid numeric port number.
+        // Store the port number.
+        if (!saddr_empty) {
+            saddr.sin6.sin6_port = htons(port);
+            saddr.ss.ss_family = AF_INET6;
+        }
+        break;
+
+    case 1: // Valid numeric number, but not in range 0..65535.
+        UPnPsdk_LOGERR("MSG1184") "port number=\""
+            << a_inaddr.service
+            << "\" not in range 0..65535. Set unspecified socket address.\n";
+        [[fallthrough]];
+
+    default:
+        // When default comes up, it is a bug.
+        m_sa_union = {};
+        m_sa_union.ss.ss_family = AF_UNSPEC;
+        return;
+    }
+
+    if (saddr_empty) {
+        // Seems there is any alphanumeric component. I indicate that with an
+        // empty (numeric) socket-address for the calling function to use name
+        // resolution.
+        m_sa_union = {};
+        m_sa_union.ss.ss_family = AF_INET6;
+        return;
     }
 
     // Attention! saddr must still be valid till returning from following method
+    // to check valid dependencies.
     *this = saddr.ss;
 }
 

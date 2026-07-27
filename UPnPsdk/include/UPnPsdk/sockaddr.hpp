@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-25
+// Redistribution only with this Copyright remark. Last modified: 2026-08-07
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -70,10 +70,10 @@ inline bool IN6_IS_ADDR_GLOBAL2(
  * specified. BSD-based operating systems (including macOS) also support an
  * alternative, **non-standard syntax**, where a numeric zone index is encoded
  * in the second 16-bit word of the address. E.g.:
- * `[e80:3::1ff:fe23:4567:890a]`. Following the link-local address standard, it
- * is an lla with subnet. That is a contradiction. I do not support this
- * non-standard and use IN6_IS_ADDR_LINKLOCAL2 for tests, that fails on lla with
- * subnet.
+ * `[fe80:3::1ff:fe23:4567:890a]`. Following the link-local address standard,
+ * it is an lla with subnet. That is a contradiction. I do not support this
+ * non-standard and use IN6_IS_ADDR_LINKLOCAL2 for tests, that fails on lla
+ * with subnet.
  */
 // For GCC compiler the macros can be found in 'netinet/in.h'.
 // For MSVC compiler the inline functions can be found in 'ws2ipdef.h'.
@@ -115,8 +115,9 @@ inline bool is_unum_str( //
 }
 
 
-/*! \brief Free function to check if a string represents a valid port number
-<!-- ------------------------------------------------------------------- -->
+/*!
+ * \brief Free function to check if a string represents a valid port number
+<!-- ------------------------------------------------------------------ -->
  * \ingroup upnplib-addrmodul
  * \code
  * // Usage e.g.:
@@ -153,20 +154,24 @@ UPnPsdk_VIS int to_port( //
        the binary port number in host byte order. Not modified on error. */
     in_port_t* const a_port_num = nullptr) noexcept;
 
+
 /*!
- * \brief Structure to provide splited inet address, scope_id, and port(service)
- * <!-- -------------------------------------------------------------------- -->
+ * \brief Structure to provide splitted inet address, scope_id, and
+ * port(service)
+ * <!-- ---------------------------------------------------------------------
+ * -->
  * \ingroup upnplib-addrmodul
  *
- * This is a structure to split different internet addresses into structured
- * token mainly to use as input for system calls without brackets. The
- * structure has the members (properties) \b node, \b scope, and **service
- * (port)**. The constructor only syntactical split the components on its
- * separator '\%' for scope_id, and last ':' for port. No symantical tests are
- * made. For example a scope_id on a global unicast address, or a port number
- * greater 65535 is not valid but also provided in property \b scope, resp. in
- * property \b service. These tests must be made on a higher abstraction layer
- * by the calling program.
+ * This is a structure to split different
+ * [internet addresses](\ref glossary_inaddr) into structured token mainly to
+ * use as input for system calls without brackets. The structure has the
+ * members (properties) \b node, \b scope, and **service (port)**. The
+ * constructor only syntactical split the components on its separator '\%' for
+ * scope_id, and last ':' for port. No symantical tests are made. For example a
+ * missing scope_id on a link-local address, or a port number greater 65535 is
+ * not valid but also reflected in property \b scope (empty), resp. in property
+ * \b service. These tests must be made on a higher abstraction layer by the
+ * calling program.
  * \code
  * // Usage e.g.:
  * SInaddr inaObj("[fe80::45%3]:50010");
@@ -176,14 +181,19 @@ UPnPsdk_VIS int to_port( //
  * \endcode
  */
 struct UPnPsdk_API SInaddr {
+    /// \cond
     DISABLE_MSVC_WARN_4251
+    /// \endcond
     std::string node; /*!< IP address without brackets. This can also be an
                          alphanumeric name like "example.com". */
     std::string scope; /*!< scope_id is the index number or name of a
-                          [netadapter](\ref glossary_netadapt). */
+                          [netadapter](\ref glossary_netadapt). An unspecified
+                          scope is always empty. It never contains "0". */
     std::string service; /*!< Port number string, or service name (e.g.
                            "https"). */
+    /// \cond
     ENABLE_MSVC_WARN
+    /// \endcond
 
     // Constructor
     /*! \brief Set an internet address to the structure
@@ -335,7 +345,7 @@ struct UPnPsdk_API SSockaddr {
      *
      * SInaddr inaObj("example.com:https");
      * saObj = inaObj;
-     * assert(saObj.family != AF_UNSPEC);
+     * assert(saObj.family == AF_INET6);
      * if(saObj.empty())
      *     CAddrinfo = inaObj; // Perform name resolution.
      *
@@ -343,12 +353,14 @@ struct UPnPsdk_API SSockaddr {
      * if (saObj.family == AF_UNSPEC) // That is true.
      *     handle_error();
      * \endcode
-     * This method only detect numeric internet address pattern. If it cannot
+     * This method only detects numeric internet address pattern. If it cannot
      * convert the given input, parts of it (node, scope, service) may be
-     * alphanumeric and the resulting socket address is set to an empty IPv6.
+     * alphanumeric, then the resulting socket address is set to an empty IPv6.
      * It is expected to test the input pattern with name resolution by the
      * calling program. Unspecified input pattern results to address family
-     * AF_UNSPEC and flags an unresolvable error.
+     * AF_UNSPEC and flags an unresolvable error, for example an LLA without
+     * scope_id, an LLA with subnet (e.g. "[fe80:1::2]"), DNS-name with
+     * unspecified character, and others.
      */
     void operator=(const SInaddr& a_inaddr) noexcept;
 

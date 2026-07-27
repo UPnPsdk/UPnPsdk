@@ -10,11 +10,11 @@ var group__upnplib_addrmodul =
       [ "what", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598", null ]
     ] ],
     [ "UPnPsdk::CAddrinfo2", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html", [
-      [ "CAddrinfo2", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ac353efd3a2444cd2bd53e0fbf11bc079", null ],
-      [ "get_first", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c", null ],
-      [ "set_first", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#af4a24464b137c54af617e5129f072e8d", null ],
+      [ "CAddrinfo2", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a643e6de062d6be28f4e5665bdc0be40b", null ],
+      [ "get_first", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a91eb1d8f01520c1616e3423d39a3473e", null ],
+      [ "get_first", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5721abec2dae2bc54c21a91be09f8d93", null ],
       [ "get_next", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ab9b4e9c8e9395f007240a9ae321b9082", null ],
-      [ "sockaddr", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a3d150df1d5cb6cc8b7977af6aba60c3c", null ]
+      [ "sockaddr", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ad531b9f43f43db18e8d775f6c3c1502c", null ]
     ] ],
     [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", [
       [ "ADDRS", "d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8", [
@@ -39,7 +39,7 @@ var group__upnplib_addrmodul =
     [ "UPnPsdk::sockaddr_t", "d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t", null ],
     [ "UPnPsdk::SInaddr", "df/d9e/structUPnPsdk_1_1SInaddr.html", [
       [ "SInaddr", "df/d9e/structUPnPsdk_1_1SInaddr.html#a48356f1c1232d7f9dda9599c7d73c960", null ],
-      [ "node", "df/d9e/structUPnPsdk_1_1SInaddr.html#a03850bf5313aa20be6c725cba41cf666", null ],
+      [ "node", "df/d9e/structUPnPsdk_1_1SInaddr.html#aefba83d0c628a804b6892346f0a3c8d8", null ],
       [ "scope", "df/d9e/structUPnPsdk_1_1SInaddr.html#ab8de8c9b226ba850c50b1cf822986f9a", null ],
       [ "service", "df/d9e/structUPnPsdk_1_1SInaddr.html#aff069a53e40d0b7527117c669d743df1", null ]
     ] ],

@@ -1,9 +1,22 @@
 var searchData=
 [
-  ['x_5fuser_5fagent_0',['X_USER_AGENT',['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a29964a19653349235df7d05368523833',1,'webserver.hpp']]],
-  ['xml_20api_1',['XML API',['../da/d8a/group__XMLAPI.html',1,'']]],
-  ['xml_5ferror_2',['XML_ERROR',['../d9/dd2/gena_8hpp.html#a6229b2d69723044410301be725b88bad',1,'gena.hpp']]],
-  ['xml_5fpropertyset_5fheader_3',['XML_PROPERTYSET_HEADER',['../d9/dd2/gena_8hpp.html#a51ceffd1bc4688e499de046b4575c914',1,'gena.hpp']]],
-  ['xml_5fsuccess_4',['XML_SUCCESS',['../d9/dd2/gena_8hpp.html#a5fa2a8fac4dd6f55be672d47a65635ec',1,'gena.hpp']]],
-  ['xml_5fversion_5',['XML_VERSION',['../d9/dd2/gena_8hpp.html#a32181f1cbd2b36ff63b31c33cf70e118',1,'gena.hpp']]]
+  ['web_20server_20api_0',['Web Server API',['../d6/d8a/group__compaAPI-WebServer.html',1,'']]],
+  ['web_5fserver_5faccept_1',['web_server_accept',['../d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a53d1fc0751489b766ddd900c54415df7',1,'anonymous_namespace{miniserver.cpp}']]],
+  ['web_5fserver_5fasctime_5fr_2',['web_server_asctime_r',['../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a13ddeb127ff0714ca06af65a17b96d0d',1,'compa::anonymous_namespace{webserver.cpp}']]],
+  ['web_5fserver_5fbuf_5fsize_3',['WEB_SERVER_BUF_SIZE',['../d8/dfd/config_8hpp.html#acdcc2658def159e8592746c7ded54778',1,'config.hpp']]],
+  ['web_5fserver_5fcallback_4',['web_server_callback',['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a4ed108475978c5f7f969ce80ba6e31f1',1,'web_server_callback(http_parser_t *a_parser, http_message_t *a_req, SOCKINFO *a_info):&#160;webserver.cpp'],['../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a4ed108475978c5f7f969ce80ba6e31f1',1,'web_server_callback(http_parser_t *a_parser, http_message_t *a_req, SOCKINFO *a_info):&#160;webserver.cpp']]],
+  ['web_5fserver_5fcontent_5flanguage_5',['WEB_SERVER_CONTENT_LANGUAGE',['../d8/dfd/config_8hpp.html#a1defef8cd8b6897629cbdd098d294dd1',1,'config.hpp']]],
+  ['web_5fserver_5fdestroy_6',['web_server_destroy',['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#aba5685f22e83826b14771e59d0edbc05',1,'web_server_destroy():&#160;webserver.cpp'],['../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aba5685f22e83826b14771e59d0edbc05',1,'web_server_destroy():&#160;webserver.cpp']]],
+  ['web_5fserver_5finit_7',['web_server_init',['../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#ad4a3fad2948ceb68d8deb1b268ea0c0a',1,'web_server_init():&#160;webserver.cpp'],['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#ad4a3fad2948ceb68d8deb1b268ea0c0a',1,'web_server_init():&#160;webserver.cpp']]],
+  ['web_5fserver_5fset_5falias_8',['web_server_set_alias',['../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#aa99b39086487b3c85d45663326dede30',1,'web_server_set_alias(const char *a_alias_name, const char *a_alias_content, size_t a_alias_content_length, time_t a_last_modified):&#160;webserver.cpp'],['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#aa99b39086487b3c85d45663326dede30',1,'web_server_set_alias(const char *a_alias_name, const char *a_alias_content, size_t a_alias_content_length, time_t a_last_modified):&#160;webserver.cpp']]],
+  ['web_5fserver_5fset_5fcors_9',['web_server_set_cors',['../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24',1,'web_server_set_cors(const char *cors_string):&#160;webserver.cpp'],['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a83e87cb5abaea1b14b5bbeb67d7adf24',1,'web_server_set_cors(const char *cors_string):&#160;webserver.cpp']]],
+  ['web_5fserver_5fset_5froot_5fdir_10',['web_server_set_root_dir',['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a6d275509109519a4ab1be27105d7434b',1,'web_server_set_root_dir(const char *root_dir):&#160;webserver.cpp'],['../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html#a6d275509109519a4ab1be27105d7434b',1,'web_server_set_root_dir(const char *root_dir):&#160;webserver.cpp']]],
+  ['webcallback_5fhostvalidate_11',['WebCallback_HostValidate',['../d6/d8a/group__compaAPI-WebServer.html#ga85af9917367cc7cd316d6ca0a3b806c8',1,'API.hpp']]],
+  ['webserver_2ecpp_12',['webserver.cpp',['../db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp.html',1,'(Global Namespace)'],['../d1/d28/Compa_2src_2genlib_2net_2http_2webserver_8cpp.html',1,'(Global Namespace)']]],
+  ['webserver_2ehpp_13',['webserver.hpp',['../d5/d8e/UPnPsdk_2include_2UPnPsdk_2webserver_8hpp.html',1,'(Global Namespace)'],['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html',1,'(Global Namespace)']]],
+  ['webserverstate_14',['WebServerState',['../d3/da9/upnpapi_8hpp.html#ab99d7af73b3898a672966e7f986abe5d',1,'upnpapi.hpp']]],
+  ['what_15',['what',['../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598',1,'UPnPsdk::CAddrinfo']]],
+  ['workerthread_16',['WorkerThread',['../dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#acb1e63ee2190ce68f1e523af9f27a831',1,'anonymous_namespace{ThreadPool.cpp}']]],
+  ['write_17',['write',['../d6/d92/VirtualDir_8hpp.html#a8deb56db69743da06dd9603aa2285b71',1,'VirtualDirCallbacks']]],
+  ['write_5fstate_18',['write_state',['../db/dcb/namespaceanonymous__namespace_02uuid_8cpp_03.html#a5856485880e62a9196cb264231c67bf8',1,'anonymous_namespace{uuid.cpp}']]]
 ];

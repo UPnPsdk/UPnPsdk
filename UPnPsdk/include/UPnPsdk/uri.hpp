@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_URI_HPP
 #define UPnPsdk_URI_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-13
+// Redistribution only with this Copyright remark. Last modified: 2026-08-01
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -499,6 +499,8 @@ class UPnPsdk_VIS CUri {
  * token with character chain and size. They are not null ('\0') terminated.
  *
  * Caller should check for the pieces they require.
+ *
+ * \note If necessary a DNS lookup is performed.
  *
  * \returns
  *  On success: HTTP_SUCCESS\n

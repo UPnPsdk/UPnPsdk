@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-04-28
+// Redistribution only with this Copyright remark. Last modified: 2026-08-07
 
 /*!
 \page Glossary
@@ -37,11 +37,21 @@ Because Dependency Injection is used by GoogleMock for the Unit Tests I will not
 
 The services that a client requires are the client's **dependencies**.
 
-\anchor glossary_ipv6addr ***IPv6 addresses***
+\anchor glossary_inaddr ***internet address, inaddr***
 
-- LLA: Link-Local Addresses may have a scope id "%n" appended, e.g. "[fe80::1%1]", that usually is the local network interface index number.
-- ULA: Unicast Local Addresses, Unique Local Addresses or Site-Local Unicast Addresses are deprecated due to [RFC 4291 - section 2.5.7.](https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.7) and not supported by this SDK. New implementations must treat this prefix as Global Unicast.
-- GUA: Global Unicast Addresses or Global Unique Addresses.
+This is any kind of valid IP internet address notation. This include IPv6 addresses with and without brackets, alphanumeric DNS names, addresses with mixed numeric and alpha-numeric components (node, scope_id, port), and so on. To use them, they are typically converted into [socket addresses](\ref glossary_saddr) as early as possible.
+
+\anchor glossary_ipv6addr ***IPv6 unicast addresses***
+
+There are five main types of unicast addresses supported:
+- Unspecified Address: ("[::]") represents an interface that does not have an address. In other words, if an interface that is not configured with a valid IP address wants to send a data packet, it can use the unspecified address in the source address field of the packet.
+- Loopback Address: ("[::1]")is assigned to a loopback interface. A loopback interface is a virtual interface. It is commonly used for testing and debugging purposes. It allows the host device to send packets to itself. Routers never forward packets sent on the loopback address.
+- LLA: Link-Local Addresses (e.g. "[fe80::1%1]") must have a scope_id "%n" appended, that is the local network interface index number. An LLA without scope_id is rejected as error.
+- SLA: Site-Local Addresses are deprecated due to [RFC 4291 - section 2.5.7.](https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.7) and not supported by this SDK. New implementations as this one must treat this prefix as Global Unicast.
+- ULA: Unique Local Addresses (e.g. "[fd00::1]") scope is the site. Routers of the site must not forward site-local traffic outside the site. unique local addresses must not be reachable from outside the site. A site is often the private scope of an organisation.
+- GUA: Global Unicast Addresses (e.g. "[2001:db8::1]") provide a unique identity to the interface in the global IPv6 Internet all over the world.
+
+Source: <a href="https://www.computernetworkingnotes.com/networking-tutorials/ipv6-unicast-addresses-explained.html">ComputerNetworkingNotes</a>
 
 \anchor glossary_mlink ***multicast link***
 

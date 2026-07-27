@@ -1,14 +1,12 @@
 <map id="UPnPsdk::IN6_IS_ADDR_LINKLOCAL2" name="UPnPsdk::IN6_IS_ADDR_LINKLOCAL2">
-<area shape="rect" id="Node000001" title="Test if a socket address is a link&#45;local address." alt="" coords="491,101,664,141"/>
-<area shape="poly" id="edge6_Node000001_Node000001" title=" " alt="" coords="614,90,601,83,577,80,556,82,544,87,539,93,541,100,536,102,534,92,540,82,555,77,577,75,603,78,617,85"/>
+<area shape="rect" id="Node000001" title="Test if a socket address is a link&#45;local address." alt="" coords="491,69,664,109"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="614,58,601,51,577,48,556,50,544,55,539,61,541,68,536,70,534,60,540,50,555,45,577,43,603,46,617,53"/>
 <area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a8fee0946dc4813cbba76393ef8be2c67" title="Find first ip address on a local network adapter belonging to the specified address group ADDRS (lla,..." alt="" coords="273,5,443,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="523,98,442,60,412,48,414,43,444,55,525,93"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="494,68,426,48,428,43,496,63"/>
 <area shape="rect" id="Node000003" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters." alt="" coords="273,69,443,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="477,109,443,104,443,99,477,104"/>
-<area shape="rect" id="Node000006" href="$d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="279,133,437,173"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="477,139,438,144,437,139,476,133"/>
-<area shape="rect" id="Node000007" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#afe899a9da3bb203836d0beaf9bd79c22" title="Set socket address from a trivial socket address structure." alt="" coords="281,197,435,237"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="525,150,444,188,414,200,412,195,442,183,523,145"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="477,92,443,92,443,87,477,87"/>
+<area shape="rect" id="Node000006" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#afe899a9da3bb203836d0beaf9bd79c22" title="Set socket address from a trivial socket address structure." alt="" coords="281,133,435,173"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="496,116,428,136,426,131,494,111"/>
 <area shape="rect" id="Node000004" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,69,225,109"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="260,92,226,92,226,87,260,87"/>
 <area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="157,58,142,51,115,48,92,50,78,55,73,61,75,68,70,70,67,60,75,50,91,45,115,43,144,46,159,53"/>

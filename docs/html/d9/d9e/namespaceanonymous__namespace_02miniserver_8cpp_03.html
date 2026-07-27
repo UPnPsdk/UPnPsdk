@@ -1462,7 +1462,7 @@ You can check if <b>a_sock</b> was added to <b>a_set</b>. There are messages to 
 <p>Run the miniserver. </p>
 <p>The MiniServer accepts a new request and schedules a thread to handle the new request. It checks for socket state and invokes appropriate read and shutdown actions for the Miniserver and SSDP sockets. This function itself runs in its own thread.</p>
 <dl class="section attention"><dt>Attention</dt><dd>The miniSock parameter must be allocated on the heap before calling the function because it is freed by it.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000009">Todo:</a></b></dt><dd>Protect parts of the function with a mutex. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000008">Todo:</a></b></dt><dd>Protect parts of the function with a mutex. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">miniSock</td><td>Pointer to an Array containing valid sockets associated with different tasks like listen on a local interface for requests from control points or handle ssdp communication to a remote UPnP node. </td></tr>

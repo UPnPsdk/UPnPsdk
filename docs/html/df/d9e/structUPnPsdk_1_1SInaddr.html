@@ -105,36 +105,36 @@ $(document).ready(function(){initNavTree('df/d9e/structUPnPsdk_1_1SInaddr.html',
 </div><!--header-->
 <div class="contents">
 
-<p>Structure to provide splited inet address, scope_id, and port(service)  
+<p>Structure to provide splitted inet address, scope_id, and port(service)  
  <a href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a48356f1c1232d7f9dda9599c7d73c960" id="r_a48356f1c1232d7f9dda9599c7d73c960"><td class="memItemLeft" align="right" valign="top">ENABLE_MSVC_WARN&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#a48356f1c1232d7f9dda9599c7d73c960">SInaddr</a> (const std::string_view a_addr_sv=&quot;&quot;) noexcept</td></tr>
+<tr class="memitem:a48356f1c1232d7f9dda9599c7d73c960" id="r_a48356f1c1232d7f9dda9599c7d73c960"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#a48356f1c1232d7f9dda9599c7d73c960">SInaddr</a> (const std::string_view a_addr_sv=&quot;&quot;) noexcept</td></tr>
 <tr class="memdesc:a48356f1c1232d7f9dda9599c7d73c960"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an internet address to the structure.  <br /></td></tr>
 <tr class="separator:a48356f1c1232d7f9dda9599c7d73c960"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a03850bf5313aa20be6c725cba41cf666" id="r_a03850bf5313aa20be6c725cba41cf666"><td class="memItemLeft" align="right" valign="top">DISABLE_MSVC_WARN_4251 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#a03850bf5313aa20be6c725cba41cf666">node</a></td></tr>
-<tr class="separator:a03850bf5313aa20be6c725cba41cf666"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefba83d0c628a804b6892346f0a3c8d8" id="r_aefba83d0c628a804b6892346f0a3c8d8"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#aefba83d0c628a804b6892346f0a3c8d8">node</a></td></tr>
+<tr class="separator:aefba83d0c628a804b6892346f0a3c8d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8de8c9b226ba850c50b1cf822986f9a" id="r_ab8de8c9b226ba850c50b1cf822986f9a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#ab8de8c9b226ba850c50b1cf822986f9a">scope</a></td></tr>
 <tr class="separator:ab8de8c9b226ba850c50b1cf822986f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff069a53e40d0b7527117c669d743df1" id="r_aff069a53e40d0b7527117c669d743df1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#aff069a53e40d0b7527117c669d743df1">service</a></td></tr>
 <tr class="separator:aff069a53e40d0b7527117c669d743df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Structure to provide splited inet address, scope_id, and port(service) </p>
-<p>This is a structure to split different internet addresses into structured token mainly to use as input for system calls without brackets. The structure has the members (properties) <b>node</b>, <b>scope</b>, and <b>service (port)</b>. The constructor only syntactical split the components on its separator '%' for scope_id, and last ':' for port. No symantical tests are made. For example a scope_id on a global unicast address, or a port number greater 65535 is not valid but also provided in property <b>scope</b>, resp. in property <b>service</b>. These tests must be made on a higher abstraction layer by the calling program. </p><div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
+<div class="textblock"><p>Structure to provide splitted inet address, scope_id, and port(service) </p>
+<p>This is a structure to split different <a class="el" href="../../d5/d67/Glossary.html#glossary_inaddr">internet addresses</a> into structured token mainly to use as input for system calls without brackets. The structure has the members (properties) <b>node</b>, <b>scope</b>, and <b>service (port)</b>. The constructor only syntactical split the components on its separator '%' for scope_id, and last ':' for port. No symantical tests are made. For example a missing scope_id on a link-local address, or a port number greater 65535 is not valid but also reflected in property <b>scope</b> (empty), resp. in property <b>service</b>. These tests must be made on a higher abstraction layer by the calling program. </p><div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
 <div class="line"><a class="code hl_struct" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">SInaddr</a> inaObj(<span class="stringliteral">&quot;[fe80::45%3]:50010&quot;</span>);</div>
 <div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;node=\&quot;&quot;</span> &lt;&lt; inaObj.node &lt;&lt; <span class="stringliteral">&quot;\&quot;, scope=\&quot;&quot;</span> &lt;&lt; inaObj.scope</div>
 <div class="line">          &lt;&lt; <span class="stringliteral">&quot;\&quot;, service=\&quot;&quot;</span> &lt;&lt; inaObj.service &lt;&lt; <span class="stringliteral">&quot;\&quot;\n&quot;</span>;</div>
 <div class="line"><span class="comment">// Result: node=&quot;fe80::45&quot;, scope=&quot;3&quot;, service=&quot;50010&quot;</span></div>
-<div class="ttc" id="astructUPnPsdk_1_1SInaddr_html"><div class="ttname"><a href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">UPnPsdk::SInaddr</a></div><div class="ttdoc">Structure to provide splited inet address, scope_id, and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00178">sockaddr.hpp:178</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SInaddr_html"><div class="ttname"><a href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">UPnPsdk::SInaddr</a></div><div class="ttdoc">Structure to provide splitted inet address, scope_id, and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00183">sockaddr.hpp:183</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00178">178</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00183">183</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a48356f1c1232d7f9dda9599c7d73c960" name="a48356f1c1232d7f9dda9599c7d73c960"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48356f1c1232d7f9dda9599c7d73c960">&#9670;&#160;</a></span>SInaddr()</h2>
@@ -178,7 +178,7 @@ Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00183">183</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00192">192</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -186,29 +186,44 @@ Public Attributes</h2></td></tr>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../df/d9e/structUPnPsdk_1_1SInaddr_a48356f1c1232d7f9dda9599c7d73c960_cgraph.png" border="0" usemap="#adf/d9e/structUPnPsdk_1_1SInaddr_a48356f1c1232d7f9dda9599c7d73c960_cgraph" alt=""/></div>
 <map name="adf/d9e/structUPnPsdk_1_1SInaddr_a48356f1c1232d7f9dda9599c7d73c960_cgraph" id="adf/d9e/structUPnPsdk_1_1SInaddr_a48356f1c1232d7f9dda9599c7d73c960_cgraph">
-<area shape="rect" title="Set an internet address to the structure." alt="" coords="5,5,199,31"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0" title="Free function to check if a string represents an unsigned integer." alt="" coords="247,5,413,31"/>
-<area shape="poly" title=" " alt="" coords="199,15,233,15,233,21,199,21"/>
+<area shape="rect" title="Set an internet address to the structure." alt="" coords="5,262,199,287"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="247,165,416,205"/>
+<area shape="poly" title=" " alt="" coords="135,259,265,208,267,213,137,264"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="464,261,633,301"/>
+<area shape="poly" title=" " alt="" coords="199,268,303,266,416,268,450,270,450,275,416,273,303,272,199,273"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="247,283,416,323"/>
+<area shape="poly" title=" " alt="" coords="199,284,234,288,233,293,198,289"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0" title="Free function to check if a string represents an unsigned integer." alt="" coords="248,347,415,373"/>
+<area shape="poly" title=" " alt="" coords="133,285,248,332,273,341,271,346,246,337,131,290"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50" title="Test if the socket address object is empty." alt="" coords="471,5,626,45"/>
+<area shape="poly" title=" " alt="" coords="347,163,395,110,428,81,463,55,473,49,475,54,465,60,431,85,399,114,351,167"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="464,69,633,109"/>
+<area shape="poly" title=" " alt="" coords="371,163,463,119,479,112,481,117,465,124,373,168"/>
+<area shape="poly" title=" " alt="" coords="374,203,465,247,481,254,479,259,463,252,372,208"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995" title="Get network adapter name from current selected list entry." alt="" coords="464,133,633,173"/>
+<area shape="poly" title=" " alt="" coords="416,170,450,165,451,170,417,176"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="464,197,633,237"/>
+<area shape="poly" title=" " alt="" coords="417,195,451,200,450,206,416,200"/>
 </map>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a03850bf5313aa20be6c725cba41cf666" name="a03850bf5313aa20be6c725cba41cf666"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03850bf5313aa20be6c725cba41cf666">&#9670;&#160;</a></span>node</h2>
+<a id="aefba83d0c628a804b6892346f0a3c8d8" name="aefba83d0c628a804b6892346f0a3c8d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefba83d0c628a804b6892346f0a3c8d8">&#9670;&#160;</a></span>node</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">DISABLE_MSVC_WARN_4251 std::string UPnPsdk::SInaddr::node</td>
+          <td class="memname">std::string UPnPsdk::SInaddr::node</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>IP address without brackets. This can also be an alphanumeric name like "example.com". </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00180">180</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00187">187</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -223,9 +238,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>scope_id is the index number or name of a <a class="el" href="../../d5/d67/Glossary.html#glossary_netadapt">netadapter</a>. </p>
+<p>scope_id is the index number or name of a <a class="el" href="../../d5/d67/Glossary.html#glossary_netadapt">netadapter</a>. An unspecified scope is always empty. It never contains "0". </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00182">182</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00189">189</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -242,7 +257,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Port number string, or service name (e.g. "https"). </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00184">184</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00192">192</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>

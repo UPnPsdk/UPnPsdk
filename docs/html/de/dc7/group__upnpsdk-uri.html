@@ -335,6 +335,7 @@ Abstraction layer 2</h3>
 <p>Parses a uri as defined in <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986 (Uniform Resource Identifier)</a>. </p>
 <p>Handles absolute, relative, and opaque uris. Parses into the following pieces: scheme, hostport, pathquery, fragment (host with port and path with query are treated as one token). Strings in output <a class="el" href="../../d2/da3/UPnPsdk_2include_2UPnPsdk_2uri_8hpp.html#d4/d48/structuri__type" title="Represents a URI used in parse_uri and elsewhere.">uri_type</a> are treated as token with character chain and size. They are not null ('\0') terminated.</p>
 <p>Caller should check for the pieces they require.</p>
+<dl class="section note"><dt>Note</dt><dd>If necessary a DNS lookup is performed.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>On success: HTTP_SUCCESS<br  />
  On error: UPNP_E_INVALID_URL. Accessing <b>out</b> (arg3) then, is undefined behavior. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>

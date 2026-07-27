@@ -123,12 +123,18 @@ $(document).ready(function(){initNavTree('d5/d67/Glossary.html','../../'); initR
 <li>The <b>di-injector</b> which injects the service(s) into the client.</li>
 </ul>
 <p>The services that a client requires are the client's <b>dependencies</b>.</p>
-<p><a class="anchor" id="glossary_ipv6addr"></a><em><b>IPv6 addresses</b></em></p>
-<ul>
-<li>LLA: Link-Local Addresses may have a scope id "%n" appended, e.g. "[fe80::1%1]", that usually is the local network interface index number.</li>
-<li>ULA: Unicast Local Addresses, Unique Local Addresses or Site-Local Unicast Addresses are deprecated due to <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.7">RFC 4291 - section 2.5.7.</a> and not supported by this SDK. New implementations must treat this prefix as Global Unicast.</li>
-<li>GUA: Global Unicast Addresses or Global Unique Addresses.</li>
+<p><a class="anchor" id="glossary_inaddr"></a><em><b>internet address, inaddr</b></em></p>
+<p>This is any kind of valid IP internet address notation. This include IPv6 addresses with and without brackets, alphanumeric DNS names, addresses with mixed numeric and alpha-numeric components (node, scope_id, port), and so on. To use them, they are typically converted into <a class="el" href="../../d5/d67/Glossary.html#glossary_saddr">socket addresses</a> as early as possible.</p>
+<p><a class="anchor" id="glossary_ipv6addr"></a><em><b>IPv6 unicast addresses</b></em></p>
+<p>There are five main types of unicast addresses supported:</p><ul>
+<li>Unspecified Address: ("[::]") represents an interface that does not have an address. In other words, if an interface that is not configured with a valid IP address wants to send a data packet, it can use the unspecified address in the source address field of the packet.</li>
+<li>Loopback Address: ("[::1]")is assigned to a loopback interface. A loopback interface is a virtual interface. It is commonly used for testing and debugging purposes. It allows the host device to send packets to itself. Routers never forward packets sent on the loopback address.</li>
+<li>LLA: Link-Local Addresses (e.g. "[fe80::1%1]") must have a scope_id "%n" appended, that is the local network interface index number. An LLA without scope_id is rejected as error.</li>
+<li>SLA: Site-Local Addresses are deprecated due to <a href="https://datatracker.ietf.org/doc/html/rfc4291#section-2.5.7">RFC 4291 - section 2.5.7.</a> and not supported by this SDK. New implementations as this one must treat this prefix as Global Unicast.</li>
+<li>ULA: Unique Local Addresses (e.g. "[fd00::1]") scope is the site. Routers of the site must not forward site-local traffic outside the site. unique local addresses must not be reachable from outside the site. A site is often the private scope of an organisation.</li>
+<li>GUA: Global Unicast Addresses (e.g. "[2001:db8::1]") provide a unique identity to the interface in the global IPv6 Internet all over the world.</li>
 </ul>
+<p>Source: <a href="https://www.computernetworkingnotes.com/networking-tutorials/ipv6-unicast-addresses-explained.html">ComputerNetworkingNotes</a></p>
 <p><a class="anchor" id="glossary_mlink"></a><em><b>multicast link</b></em></p>
 <p>This is a <a class="el" href="../../d5/d67/Glossary.html#glossary_conn">connection</a> that follows the network multicast specification. It has one local <a class="el" href="../../d5/d67/Glossary.html#glossary_sock">socket</a> and a number of remote sockets that are interested to receive UPnP™ messages. It uses stateless UDP datagrams as given by its sockets of type <code>SOCK_DGRAM</code>.</p>
 <p><a class="anchor" id="glossary_netadapt"></a><em><b>netadapter</b></em></p>

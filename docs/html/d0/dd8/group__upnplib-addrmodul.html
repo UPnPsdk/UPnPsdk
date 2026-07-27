@@ -122,7 +122,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:d2/d11/unionUPnPsdk_1_1sockaddr__t"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helpful union of the different socket address structures.  <a href="../../d0/dd8/group__upnplib-addrmodul.html#d2/d11/unionUPnPsdk_1_1sockaddr__t">More...</a><br /></td></tr>
 <tr class="separator:d2/d11/unionUPnPsdk_1_1sockaddr__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">UPnPsdk::SInaddr</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to provide splited inet address, scope_id, and port(service)  <a href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to provide splitted inet address, scope_id, and port(service)  <a href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trivial ::sockaddr structures enhanced with methods.  <a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#details">More...</a><br /></td></tr>
@@ -459,7 +459,7 @@ sa</td>
 </div><div class="memdoc">
 
 <p>Test if a socket address is a link-local address. </p>
-<p>The IN6_IS_ADDR_LINKLOCAL test as member of the IN6_IS_ADDR test macros on all supported platforms is weak. They do not check that no subnet is specified. BSD-based operating systems (including macOS) also support an alternative, <b>non-standard syntax</b>, where a numeric zone index is encoded in the second 16-bit word of the address. E.g.: <code>[e80:3::1ff:fe23:4567:890a]</code>. Following the link-local address standard, it is an lla with subnet. That is a contradiction. I do not support this non-standard and use IN6_IS_ADDR_LINKLOCAL2 for tests, that fails on lla with subnet. </p>
+<p>The IN6_IS_ADDR_LINKLOCAL test as member of the IN6_IS_ADDR test macros on all supported platforms is weak. They do not check that no subnet is specified. BSD-based operating systems (including macOS) also support an alternative, <b>non-standard syntax</b>, where a numeric zone index is encoded in the second 16-bit word of the address. E.g.: <code>[fe80:3::1ff:fe23:4567:890a]</code>. Following the link-local address standard, it is an lla with subnet. That is a contradiction. I do not support this non-standard and use IN6_IS_ADDR_LINKLOCAL2 for tests, that fails on lla with subnet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_addr</td><td>Pointer to the address structure of a socket address that shall be checked. </td></tr>
@@ -486,16 +486,14 @@ sa</td>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga4b4e46cd2ae1af5ab49c71a1eca7cf25_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga4b4e46cd2ae1af5ab49c71a1eca7cf25_icgraph" alt=""/></div>
 <map name="ad0/dd8/group__upnplib-addrmodul_ga4b4e46cd2ae1af5ab49c71a1eca7cf25_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga4b4e46cd2ae1af5ab49c71a1eca7cf25_icgraph">
-<area shape="rect" title="Test if a socket address is a link&#45;local address." alt="" coords="491,101,664,141"/>
-<area shape="poly" title=" " alt="" coords="614,90,601,83,577,80,556,82,544,87,539,93,541,100,536,102,534,92,540,82,555,77,577,75,603,78,617,85"/>
+<area shape="rect" title="Test if a socket address is a link&#45;local address." alt="" coords="491,69,664,109"/>
+<area shape="poly" title=" " alt="" coords="614,58,601,51,577,48,556,50,544,55,539,61,541,68,536,70,534,60,540,50,555,45,577,43,603,46,617,53"/>
 <area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a8fee0946dc4813cbba76393ef8be2c67" title="Find first ip address on a local network adapter belonging to the specified address group ADDRS (lla,..." alt="" coords="273,5,443,45"/>
-<area shape="poly" title=" " alt="" coords="523,98,442,60,412,48,414,43,444,55,525,93"/>
+<area shape="poly" title=" " alt="" coords="494,68,426,48,428,43,496,63"/>
 <area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters." alt="" coords="273,69,443,109"/>
-<area shape="poly" title=" " alt="" coords="477,109,443,104,443,99,477,104"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="279,133,437,173"/>
-<area shape="poly" title=" " alt="" coords="477,139,438,144,437,139,476,133"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#afe899a9da3bb203836d0beaf9bd79c22" title="Set socket address from a trivial socket address structure." alt="" coords="281,197,435,237"/>
-<area shape="poly" title=" " alt="" coords="525,150,444,188,414,200,412,195,442,183,523,145"/>
+<area shape="poly" title=" " alt="" coords="477,92,443,92,443,87,477,87"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#afe899a9da3bb203836d0beaf9bd79c22" title="Set socket address from a trivial socket address structure." alt="" coords="281,133,435,173"/>
+<area shape="poly" title=" " alt="" coords="496,116,428,136,426,131,494,111"/>
 <area shape="rect" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,69,225,109"/>
 <area shape="poly" title=" " alt="" coords="260,92,226,92,226,87,260,87"/>
 <area shape="poly" title=" " alt="" coords="157,58,142,51,115,48,92,50,78,55,73,61,75,68,70,70,67,60,75,50,91,45,115,43,144,46,159,53"/>
@@ -562,13 +560,11 @@ sa</td>
 <div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga36799e18488f13fb91c265008e84b1f0_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga36799e18488f13fb91c265008e84b1f0_icgraph" alt=""/></div>
 <map name="ad0/dd8/group__upnplib-addrmodul_ga36799e18488f13fb91c265008e84b1f0_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga36799e18488f13fb91c265008e84b1f0_icgraph">
-<area shape="rect" title="Free function to check if a string represents an unsigned integer." alt="" coords="247,63,413,88"/>
+<area shape="rect" title="Free function to check if a string represents an unsigned integer." alt="" coords="247,35,413,60"/>
 <area shape="rect" href="../../df/d9e/structUPnPsdk_1_1SInaddr.html#a48356f1c1232d7f9dda9599c7d73c960" title="Set an internet address to the structure." alt="" coords="5,5,199,31"/>
-<area shape="poly" title=" " alt="" coords="265,62,153,33,154,28,266,57"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="23,55,181,95"/>
-<area shape="poly" title=" " alt="" coords="233,78,181,78,181,73,233,73"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7881e8eda48962be8b4a999b5e226ff7" title="Set socket address from an internet address." alt="" coords="25,119,179,159"/>
-<area shape="poly" title=" " alt="" coords="271,94,175,122,173,117,270,89"/>
+<area shape="poly" title=" " alt="" coords="232,37,199,33,199,28,233,32"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7881e8eda48962be8b4a999b5e226ff7" title="Set socket address from an internet address." alt="" coords="25,55,179,95"/>
+<area shape="poly" title=" " alt="" coords="233,62,180,69,179,63,232,57"/>
 </map>
 </div>
 
@@ -624,7 +620,7 @@ sa</td>
 <div class="line"><span class="stringliteral">}</span></div>
 <div class="line"><span class="stringliteral"></span> </div>
 <div class="line"><span class="stringliteral">if (to_port(&quot;</span>65536<span class="stringliteral">&quot;) != 0) { // do nothing with port }</span></div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga6756252cf07c4f4d74f51fedc2fecce5"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a></div><div class="ttdeci">UPnPsdk_VIS int to_port(std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string represents a valid port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00086">sockaddr.cpp:86</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga6756252cf07c4f4d74f51fedc2fecce5"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5">UPnPsdk::to_port</a></div><div class="ttdeci">UPnPsdk_VIS int to_port(std::string_view a_port_str, in_port_t *const a_port_num=nullptr) noexcept</div><div class="ttdoc">Free function to check if a string represents a valid port number.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/def/sockaddr_8cpp_source.html#l00095">sockaddr.cpp:95</a></div></div>
 </div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>On success: <b>0</b><br  />
  A binary port number in host byte order is returned in <b>a_port_num</b>, so you can use it in your application without conversion. If you want to store it in a netaddr structure you must use <b>htons()</b>. An empty input string returns 0.<br  />
  On error:<ul>
@@ -632,7 +628,7 @@ sa</td>
 <li>&#160;<b>1</b> Valid numeric value found but not in range 0..65535 for ports.</li>
 </ul>
 </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000005">Todo:</a></b></dt><dd>Update on MacOS to Clang compiler that supports std::from_chars(). </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Update on MacOS to Clang compiler that supports std::from_chars(). </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_port_str</td><td>String that may represent a port number.  </td></tr>
@@ -641,7 +637,7 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00086">86</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00095">95</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -649,22 +645,20 @@ sa</td>
 <div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph" alt=""/></div>
 <map name="ad0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga6756252cf07c4f4d74f51fedc2fecce5_icgraph">
-<area shape="rect" title="Free function to check if a string represents a valid port number." alt="" coords="444,167,577,192"/>
+<area shape="rect" title="Free function to check if a string represents a valid port number." alt="" coords="444,151,577,176"/>
 <area shape="rect" href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d" title="Get the first entry of an address info from the operating system." alt="" coords="237,47,387,87"/>
-<area shape="poly" title=" " alt="" coords="482,160,442,131,395,102,369,90,372,85,397,97,445,126,485,156"/>
-<area shape="rect" href="../../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5aef6f74d64eab2b5fbf34bc612a2e7c" title="Get the first entry of an address info from the operating system." alt="" coords="233,111,391,151"/>
-<area shape="poly" title=" " alt="" coords="444,166,391,153,392,148,445,161"/>
-<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga6d571ed2cf31b8c6bf670a46b24f350f" title="Separates the authority port subcomponent from a URI reference." alt="" coords="228,200,396,255"/>
-<area shape="poly" title=" " alt="" coords="445,198,397,210,396,204,444,193"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7881e8eda48962be8b4a999b5e226ff7" title="Set socket address from an internet address." alt="" coords="235,279,389,319"/>
-<area shape="poly" title=" " alt="" coords="487,203,446,237,397,270,373,282,371,277,395,265,443,232,484,199"/>
+<area shape="poly" title=" " alt="" coords="475,146,395,103,365,90,367,85,397,98,477,141"/>
+<area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga6d571ed2cf31b8c6bf670a46b24f350f" title="Separates the authority port subcomponent from a URI reference." alt="" coords="228,136,396,191"/>
+<area shape="poly" title=" " alt="" coords="430,166,396,166,396,161,430,161"/>
+<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7881e8eda48962be8b4a999b5e226ff7" title="Set socket address from an internet address." alt="" coords="235,215,389,255"/>
+<area shape="poly" title=" " alt="" coords="463,183,369,218,367,213,461,178"/>
 <area shape="rect" href="../../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="5,5,180,31"/>
 <area shape="poly" title=" " alt="" coords="222,50,149,33,150,28,224,45"/>
 <area shape="rect" href="../../de/dc7/group__upnpsdk-uri.html#ga0755284585db857fd2d239caf34c7c6b" title="Parses a uri as defined in RFC 3986 (Uniform Resource Identifier)." alt="" coords="51,55,134,80"/>
 <area shape="poly" title=" " alt="" coords="223,70,135,70,135,65,223,65"/>
 <area shape="rect" href="../../df/dcf/Compa_2src_2genlib_2net_2uri_2uri_8cpp.html#ab23ce7a1c82c7d5a4fd1634e6ff3e1e8" title="Resolves a relative url with a base url." alt="" coords="33,104,152,129"/>
 <area shape="poly" title=" " alt="" coords="224,90,150,107,149,101,222,85"/>
-<area shape="poly" title=" " alt="" coords="345,189,333,181,312,179,295,181,283,185,278,192,278,200,273,200,273,190,280,181,293,175,312,173,335,176,347,184"/>
+<area shape="poly" title=" " alt="" coords="345,125,333,117,312,115,295,117,283,121,278,128,278,136,273,136,273,126,280,117,293,111,312,109,335,112,347,120"/>
 </map>
 </div>
 
@@ -708,9 +702,9 @@ sa</td>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
 <div class="line">std::cout &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; <span class="comment">// output &quot;[::]:0&quot;, saObj wasn&#39;t set.</span></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00262">sockaddr.hpp:262</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00272">sockaddr.hpp:272</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00457">457</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00469">469</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -767,7 +761,7 @@ sa</td>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> if socket addresses are logical equal<br  />
  <b>false</b> otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00030">30</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00039">39</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-9-summary" class="dynsummary" style="display:block;">

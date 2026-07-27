@@ -1,13 +1,17 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-23
+// Redistribution only with this Copyright remark. Last modified: 2026-08-09
 
 #include <UPnPsdk/sockaddr.hpp>
+#include <UPnPsdk/netadapter.hpp>
+
 #include <utest/utest.hpp>
 
 namespace utest {
 
 using testing::EndsWith;
 
+using ADDRS = UPnPsdk::CNetadapter::ADDRS;
+using UPnPsdk::CNetadapter;
 using UPnPsdk::is_unum_str;
 using UPnPsdk::SInaddr;
 using UPnPsdk::sockaddr_t;
@@ -327,6 +331,7 @@ TEST_P(SplitAddrPortTest, split_address_and_port) {
     // Get parameter
     const std::tuple params = GetParam();
 
+    // Test Unit
     SInaddr iaObj(std::get<0>(params));
     EXPECT_EQ(iaObj.node, std::get<1>(params));
     EXPECT_EQ(iaObj.scope, std::get<2>(params));
@@ -375,20 +380,30 @@ INSTANTIATE_TEST_SUITE_P(SplitAddrPort, SplitAddrPortTest, ::testing::Values(
         std::make_tuple("[::127.0.0.10]:", "::127.0.0.10", "", "0"), // deprecated, not supported
         std::make_tuple("[::127.0.0.11%47]", "::127.0.0.11", "47", ""), // deprecated, not supported
  /*40*/ std::make_tuple("[::FFff:142.250.185.99]:50008", "::FFff:142.250.185.99", "", "50008"),
-        std::make_tuple("[fe80::5053%]:50010", "fe80::5053", "0", "50010"),
+        std::make_tuple("[fe80::5053%]:50010", "fe80::5053", "", "50010"),
         std::make_tuple("[2001:db8::5054%513]:50011", "2001:db8::5054", "513", "50011"),
         std::make_tuple("[fe80::5055%2]:50012", "fe80::5055", "2", "50012"),
-        std::make_tuple("[fe80::5056%scope]:50013", "fe80::5056", "scope", "50013"),
+        std::make_tuple("[fe80::5056%scope]:50013", "fe80::5056", "", "50013"), // scope_id cannot be resolved to number
         std::make_tuple("example.com", "example.com", "", ""),
-        std::make_tuple("example.com%", "example.com", "0", ""),
-        std::make_tuple("example.com%:", "example.com", "0", "0"),
-        std::make_tuple("example.com%ens2", "example.com", "ens2", ""),
+        std::make_tuple("example.com%", "example.com", "", ""),
+        std::make_tuple("example.com%:", "example.com", "", "0"),
         std::make_tuple("example.com%382:", "example.com", "382", "0"),
- /*50*/ std::make_tuple("example.com%:https", "example.com", "0", "https"),
-        std::make_tuple("example.com%Ethernet:50013", "example.com", "Ethernet", "50013"),
+        std::make_tuple("example.com%:https", "example.com", "", "https"),
         std::make_tuple("example.com:50014", "example.com", "", "50014")
 ));
 // clang-format on
+
+
+TEST(SockaddrTestSuite, inaddr_with_valid_scope_id) {
+    CNetadapter nadObj;
+    ASSERT_NO_THROW(nadObj.get_first());
+    ASSERT_TRUE(nadObj.find_first(ADDRS::lla));
+
+    SInaddr inaddr("[fe80::1%" + nadObj.name() + "]:50007");
+    EXPECT_EQ(inaddr.node, "fe80::1");
+    EXPECT_EQ(inaddr.scope, std::to_string(nadObj.index()));
+    EXPECT_EQ(inaddr.service, "50007");
+}
 
 
 TEST(SockaddrTestSuite, sockaddr_empty) {
@@ -675,9 +690,9 @@ TEST(SockaddrTestSuite, inaddr_lla_successful) {
     ASSERT_EQ(saddrObj.family, AF_INET6);
     EXPECT_EQ(saddrObj.netaddrp(), "[fe80::2%2]:50002");
 
-    saddrObj = SInaddr("[fe80::3%3]:50003");
+    saddrObj = SInaddr("[fe80::3%333]:50003");
     ASSERT_EQ(saddrObj.family, AF_INET6);
-    EXPECT_EQ(saddrObj.netaddrp(), "[fe80::3%3]:50003");
+    EXPECT_EQ(saddrObj.netaddrp(), "[fe80::3%333]:50003");
 }
 
 TEST(SockaddrTestSuite, inaddr_gua_successful) {
@@ -819,7 +834,6 @@ INSTANTIATE_TEST_SUITE_P(SetAddrPort, SetAddrPortTest, ::testing::Values(
         std::make_tuple("[2001:db8::6%6]", AF_INET6, false, "[2001:db8::6]", 0), // Scope_id silently removed.
         // -- Some alphanumeric pattern
         std::make_tuple("example.com", AF_INET6, true, "[::]", 0), // Empty sockaddr to indicate name resolution.
-        std::make_tuple("fe80::6%eth0", AF_INET6, true, "[::]", 0), // Empty sockaddr to indicate name resolution.
         std::make_tuple("[2001:db8::2]:https", AF_INET6, true, "[::]", 0) // Empty sockaddr to indicate name resolution.
 ));
 // clang-format on
