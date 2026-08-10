@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-21
+// Redistribution only with this Copyright remark. Last modified: 2026-06-12
 /*!
  * \file
  * \brief Manage information from Unix like platforms about internet addresses.
@@ -44,7 +44,7 @@ CAddrinfo2::CAddrinfo2(std::string_view a_node, //
     // AI_V4MAPPED. All others fail. See Unit Test 'GetaddrinfoWin32Test'.
     // if (!inaddr.node.empty() &&
     //     !std::isalpha(inaddr.node.front())) // No alpha-num name
-    m_hints.ai_flags = m_hints.ai_flags & ~AI_NUMERICHOST; // Reset flag.
+    m_hints.ai_flags &= ~AI_NUMERICHOST; // Reset possibile set flag by user.
 #endif
 }
 
@@ -62,7 +62,8 @@ void CAddrinfo2::free_addrinfo() noexcept {
         UPnPsdk_LOGINFO("MSG1112") "syscall ::freeaddrinfo(" << m_res << ").\n";
         umock::netdb_h.freeaddrinfo(m_res);
         m_res = &m_hints;
-        m_res_current = &m_hints;
+        m_prio = 0;
+        m_valid_addrs.clear();
     }
 }
 
@@ -80,9 +81,14 @@ int CAddrinfo2::get_first() {
         return EAI_SOCKTYPE;
     }
 
+    inaddr_token_t inaddr; // node, scope, service for getaddrinfo(), may be
+                           // modified.
+
     // Prepare input for ::getaddrinfo().
-    // node, scope, port for ::getaddrinfo(), may be modified.
-    SInaddr inaddr(m_node + (m_service.empty() ? "" : (":" + m_service)));
+    if (m_service.empty())
+        inaddr_tokenize(m_node, inaddr);
+    else
+        inaddr_tokenize(m_node + ":" + m_service, inaddr);
 
     if (to_port(inaddr.service) == 1) {
         // Valid number but out of scope 0..65535.
@@ -163,11 +169,7 @@ int CAddrinfo2::get_first() {
             << (inaddr.node.empty() ? "nullptr, " : "\"" + inaddr.node + "\", ")
             << (inaddr.service.empty() ? "nullptr, " : "\"" + inaddr.service + "\", ")
             << "/*hints*/" << &m_hints << ", /*res*/" << *&new_res << ") "
-            << (m_hints.ai_flags & AI_V4MAPPED ? "AI_V4MAPPED, " : "")
-            << (m_hints.ai_flags & AI_ALL ? "AI_ALL, " : "")
-            << (m_hints.ai_flags & AI_NUMERICHOST ? "AI_NUMERICHOST, " : "")
-            << (m_hints.ai_flags & AI_NUMERICSERV ? "AI_NUMERICSERV, " : "")
-            << (m_hints.ai_flags & AI_PASSIVE ? "AI_PASSIVE, " : "")
+            << this->flags_str() << ", "
             << (m_hints.ai_family == AF_INET6 ? "AF_INET6" :
                     (m_hints.ai_family == AF_INET ? "AF_INET" :
                         (m_hints.ai_family == AF_UNSPEC ? "AF_UNSPEC" :
@@ -180,11 +182,19 @@ int CAddrinfo2::get_first() {
         // clang-format on
 
         if (ret == 0) {
-            SSockaddr saObj;
-            saObj = *reinterpret_cast<sockaddr_storage*>(new_res->ai_addr);
-            oss << ". Get first \"" << saObj.netaddrp()
-                << (new_res->ai_next == nullptr ? "\", no more entries."
-                                                : "\", more entries...");
+            // Output all list entries.
+            char addr_buf[INET6_ADDRSTRLEN];
+            for (::addrinfo* ptr{new_res}; ptr != nullptr; ptr = ptr->ai_next) {
+                if (ptr->ai_family == AF_INET6) {
+                    const auto& sin6 =
+                        reinterpret_cast<sockaddr_in6*>(ptr->ai_addr);
+                    ::inet_ntop(AF_INET6, &sin6->sin6_addr, addr_buf,
+                                sizeof(addr_buf));
+                    oss << ", List entry=\"[" << addr_buf << "%"
+                        << sin6->sin6_scope_id << "]:" << ntohs(sin6->sin6_port)
+                        << "\"";
+                }
+            } // for
             UPnPsdk_LOGINFO("MSG1111") << oss.str() << "\n";
 
         } else {
@@ -218,9 +228,9 @@ int CAddrinfo2::get_first() {
             // Huh.. double pointer cast :-(
             sockaddr_in6* sin6 = reinterpret_cast<sockaddr_in6*>(ptr->ai_addr);
             uint32_t* sin6_32 = reinterpret_cast<uint32_t*>(&sin6->sin6_addr);
-            if (sin6_32[0] == 0 && sin6_32[1] == 0 &&
-                sin6_32[2] == htonl(0x0000ffff) && sin6_32[3] == 127) {
-                sin6_32[3] = 0; // Clear bytes containing 127.
+            if (*sin6_32 == 0 && *(sin6_32 + 1) == 0 &&
+                *(sin6_32 + 2) == htonl(0x0000ffff) && *(sin6_32 + 3) == 127) {
+                *(sin6_32 + 3) = 0; // Clear bytes containing 127.
             }
         } // for
     }
@@ -228,28 +238,51 @@ int CAddrinfo2::get_first() {
 
     // Now I check on address binary level if it fulfills the common
     // specifications of the SDK, that is here: link-local address only with
-    // scope_id, and other IPv6 addresses without scope_id. All entries from
-    // the address info are checked.
-    for (::addrinfo* ptr{new_res}; ptr != nullptr; ptr = ptr->ai_next) {
-        if (ptr->ai_family == AF_INET6) {
-            const auto& sin6 = reinterpret_cast<sockaddr_in6*>(ptr->ai_addr);
-            if (IN6_IS_ADDR_LINKLOCAL2(&sin6->sin6_addr)) {
-                if (sin6->sin6_scope_id == 0) {
-                    umock::netdb_h.freeaddrinfo(new_res);
+    // scope_id, and other IPv6 addresses discard a scope_id silently. All
+    // entries from the address info are checked, and pointer of valid entries
+    // are cached in a vector for later use.
+
+    // calculate size of the vector to store pointer to valid internet addr.
+    size_t vector_size{1}; // One additional for the first prio 0 entry.
+    for (::addrinfo* p{new_res}; p != nullptr; p = p->ai_next) {
+        vector_size++;
+    }
+    m_valid_addrs.reserve(vector_size); // Optimized allocate vector size.
+    // The first entry with prio 0 points to the hints and is not a list entry.
+    m_valid_addrs.push_back(&m_hints);
+
+    // Parse the list from ::getaddrinfo() and cache only valid entries to
+    // m_valid_addrs.
+    int gai_error{EAI_NONAME};
+    for (::addrinfo* p{new_res}; p != nullptr; p = p->ai_next) {
+        if (p->ai_family == AF_INET6) {
+            const auto& sin6 = reinterpret_cast<sockaddr_in6*>(p->ai_addr);
+            // Check only if "[fe80]".
+            if (IN6_IS_ADDR_LINKLOCAL(&sin6->sin6_addr)) {
+                // Check with prefix "[fe80::]".
+                if (!IN6_IS_ADDR_LINKLOCAL2(&sin6->sin6_addr) ||
+                    sin6->sin6_scope_id == 0) {
                     UPnPsdk_LOGERR("MSG1129") "Link-local address=\""
-                        << m_node << "\" must have a valid scope_id.\n";
-                    return EAI_NONAME;
+                        << m_node
+                        << "\" not valid, or doesn't have a scope_id.\n";
+                    continue;
                 }
+
             } else {
-                if (sin6->sin6_scope_id != 0) {
-                    umock::netdb_h.freeaddrinfo(new_res);
-                    UPnPsdk_LOGERR("MSG1132") "Address=\""
-                        << m_node << "\" must not have a scope_id.\n";
-                    return EAI_NONAME;
-                }
+                // Any other socket address cannot use a scope_id and it is
+                // silently removed.
+                sin6->sin6_scope_id = 0;
             }
+
+            m_valid_addrs.push_back(p);
         }
     } // for
+
+    if (m_valid_addrs.size() <= 1) {
+        // No valid socket address found.
+        umock::netdb_h.freeaddrinfo(new_res);
+        return gai_error;
+    }
 
     // If get_first() is called the second time then m_res still points to
     // the previous allocated memory. To avoid a memory leak it must be
@@ -258,38 +291,27 @@ int CAddrinfo2::get_first() {
     // finaly point to the new address information from the operating
     // system.
     m_res = new_res;
-    m_res_current = new_res;
-
+    m_prio = 1;
     return 0;
 }
 
 
-// Reset the internal list pointer to the first entry
-// --------------------------------------------------
-void CAddrinfo2::set_first() noexcept { m_res_current = m_res; }
-
-
-// Getter for the next available address information
-// -------------------------------------------------
-bool CAddrinfo2::get_next() noexcept {
-    if (m_res_current->ai_next == nullptr) {
-        // It doesn't matter if already pointing to m_hints. m_hints->ai_next is
-        // also nullptr.
-        m_res_current = &m_hints;
-        return false;
-    }
-    m_res_current = m_res_current->ai_next;
-    return true;
-}
-
-
-// Get the socket address from current selcted address information
-// ---------------------------------------------------------------
-void CAddrinfo2::sockaddr(SSockaddr& a_saddr) const noexcept {
-    if (m_res == &m_hints)
-        a_saddr.clear();
-    else
-        a_saddr = reinterpret_cast<sockaddr_storage&>(*m_res_current->ai_addr);
+// Get the used flags as string
+// ----------------------------
+std::string CAddrinfo2::flags_str() const noexcept {
+    std::string st;
+    st.reserve(13 + 8 + 16 + 16 + 12); // Can hold all names.
+    if (m_hints.ai_flags & AI_V4MAPPED)
+        st.append("AI_V4MAPPED, ");
+    if (m_hints.ai_flags & AI_ALL)
+        st.append("AI_ALL, ");
+    if (m_hints.ai_flags & AI_NUMERICHOST)
+        st.append("AI_NUMERICHOST, ");
+    if (m_hints.ai_flags & AI_NUMERICSERV)
+        st.append("AI_NUMERICSERV, ");
+    if (m_hints.ai_flags & AI_PASSIVE)
+        st.append("AI_PASSIVE, ");
+    return st.substr(0, st.size() - 2);
 }
 
 } // namespace UPnPsdk

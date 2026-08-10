@@ -1,14 +1,10 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-31
+// Redistribution only with this Copyright remark. Last modified: 2026-08-10
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Rework CAddrinfo.
- *   - CAddrinfo MUST return error codes!
- *   - Rework Unit Tests for the CAddrinfo2 class.
- *   - Make CAddrinfo thread safe?
  * - Create UPnPsdk::IN6_IS_ADDR_UNIQUELOCAL() and support it.
  * - Rework Unit Tests in Utest/compa/api.d/test_upnpapi.cpp.
  *   - Remove Utest/compa/api.d/test_upnpapi_win32.cpp.

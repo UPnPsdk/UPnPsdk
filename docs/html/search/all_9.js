@@ -3,7 +3,7 @@ var searchData=
   ['bad_5fcallback_0',['BAD_CALLBACK',['../d9/dd2/gena_8hpp.html#adb0ab1df3b872ebad7f8af33d1c8be5d',1,'gena.hpp']]],
   ['bad_5frequest_1',['BAD_REQUEST',['../d9/dd2/gena_8hpp.html#ad037b25feaa1b40af8a97d63526c82b0',1,'gena.hpp']]],
   ['base_2',['base',['../da/dcf/classUPnPsdk_1_1CUri.html#a4e448684e171cc9f1de1373cad68214d',1,'UPnPsdk::CUri']]],
-  ['belonging_20to_20_3a_3agetaddrinfo_3',['Issues belonging to &apos;::getaddrinfo()&apos;',['../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#autotoc_md5',1,'']]],
+  ['belonging_20to_20_3a_3agetaddrinfo_3',['Issues belonging to &apos;::getaddrinfo()&apos;',['../d0/d44/classUPnPsdk_1_1CAddrinfo.html#autotoc_md5',1,'']]],
   ['bind_4',['bind',['../d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c',1,'UPnPsdk::CSocket::bind()'],['../dd/d06/classUPnPsdk_1_1CRootdevice.html#a97d863e9d980ef662447c132fe0a7e53',1,'UPnPsdk::CRootdevice::bind()']]],
   ['bitmask_5',['bitmask',['../d6/d3e/classUPnPsdk_1_1INetadapter.html#a6a01e506ac931b8ebcbc72f44c8878d0',1,'UPnPsdk::INetadapter::bitmask()'],['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aa0cd4b5fb12fc8c4e66d8ba47a4938b3',1,'UPnPsdk::CNetadapter_platform::bitmask()'],['../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5e132073814aad1879bb333d8bf9686',1,'UPnPsdk::CNetadapter::bitmask()'],['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aa0cd4b5fb12fc8c4e66d8ba47a4938b3',1,'UPnPsdk::CNetadapter_platform::bitmask()']]],
   ['bitmask_5fto_5fnetmask_6',['bitmask_to_netmask',['../d0/dd8/group__upnplib-addrmodul.html#ga240ecb84930f9811a540c7488f4474c5',1,'UPnPsdk']]],

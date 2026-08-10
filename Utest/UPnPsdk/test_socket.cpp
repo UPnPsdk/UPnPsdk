@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-20
+// Redistribution only with this Copyright remark. Last modified: 2026-08-11
 
 // Due to Microsoft Windows socket error 10013 I use port numbers not in
 // range 49152 to 65535 if needed. For details have a look at
@@ -34,6 +34,7 @@ using ::UPnPsdk::CSocket;
 using ::UPnPsdk::CSocket_basic;
 using ::UPnPsdk::CSocketErr;
 using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::SInaddr;
 using ::UPnPsdk::SSockaddr;
 
 namespace {
@@ -47,7 +48,7 @@ SSockaddr saddr;
 bool is_v6only(SOCKET a_sfd) {
     if (a_sfd == INVALID_SOCKET)
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG????") "Failed to get socket option "
+            UPnPsdk_LOGEXCEPT("MSG1192") "Failed to get socket option "
                                          "IPV6_V6ONLY: Bad file descriptor");
     CSocketErr serrObj;
 
@@ -60,7 +61,7 @@ bool is_v6only(SOCKET a_sfd) {
     if (err) {
         serrObj.catch_error();
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG????") "Failed to get socket option: " +
+            UPnPsdk_LOGEXCEPT("MSG1193") "Failed to get socket option: " +
             serrObj.error_str());
     }
     return so_option;
@@ -499,8 +500,7 @@ TEST(SocketTestSuite, bind_ipv6only) {
 
     // "any" IPv6 address, unspec. address will accept resetting IPV6_V6ONLY.
     // "[::]:50002;
-    saddr.ss = {};
-    saddr.ss.ss_family = AF_INET6;
+    saddr.clear();
     saddr.sin6.sin6_port = htons(50002);
 
     CSocket sock1Obj = SOCK_STREAM;
@@ -510,8 +510,7 @@ TEST(SocketTestSuite, bind_ipv6only) {
 
     // Unicast IPv6 address.
     // "[::1]:50003";
-    saddr.ss = {};
-    saddr.ss.ss_family = AF_INET6;
+    saddr.clear();
     saddr.sin6.sin6_addr.s6_addr[15] = 1;
     saddr.sin6.sin6_port = htons(50003);
 
@@ -530,12 +529,11 @@ TEST(SocketTestSuite, bind_ipv6only) {
     // specified to use ipv6only. but the IPv4 address is mapped to IPv6, so
     // setting IPv6only is accepted.
     // "0.0.0.0:50004"
-    saddr.ss = {};
-    saddr.ss.ss_family = AF_INET;
-    saddr.sin.sin_port = htons(50004);
+    SSockaddr sa3Obj;
+    sa3Obj = SInaddr("0.0.0.0:50004");
 
-    CSocket sock3Obj = SOCK_STREAM;
-    EXPECT_NO_THROW(sock3Obj.bind(&saddr));
+    CSocket sock3Obj(SOCK_STREAM);
+    EXPECT_NO_THROW(sock3Obj.bind(&sa3Obj));
     EXPECT_TRUE(sock3Obj.local_saddr());
     EXPECT_FALSE(is_v6only(sock3Obj));
 
@@ -765,8 +763,8 @@ TEST(SocketTestSuite, bind_to_loopback_interface_successful) {
 }
 
 TEST(SocketTestSuite, bind_to_localhost_successful) {
-    CAddrinfo ai("localhost");
-    ASSERT_NO_THROW(ai.get_first());
+    CAddrinfo ai;
+    ASSERT_EQ(ai.get_first(SInaddr("localhost")), 0);
     ai.sockaddr(saddr);
     CSocket sockObj = SOCK_STREAM;
     ASSERT_NO_THROW(sockObj.bind(&saddr));
@@ -852,8 +850,7 @@ TEST(SocketTestSuite, bind_with_invalid_argument_fails) {
             CSocket sockObj = SOCK_STREAM;
             sockObj.bind(nullptr, -1);
         },
-        ThrowsMessage<std::runtime_error>(ContainsStdRegex(
-            "UPnPsdk MSG1092 EXCEPT\\[.*\n.* WHAT MSG1112: errid\\(")));
+        ThrowsMessage<std::runtime_error>(HasSubstr("CAddrinfo failed. ")));
 }
 
 TEST_F(SocketMockFTestSuite, bind_ipv6_lla_successful) {

@@ -1,5 +1,5 @@
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-21
+// Redistribution only with this Copyright remark. Last modified: 2026-08-10
 /*!
  * \file
  * \brief Manage Uniform Resource Identifier (URI) as specified with <a
@@ -1180,15 +1180,18 @@ int parse_uri(const char* in, size_t max, uri_type* out) {
                 }
             }
             // Get the network address. If necessary with DNS lookup.
-            UPnPsdk::CAddrinfo ai(uriObj.authority.host.str(), port_str);
-            if (!ai.get_first())
+            UPnPsdk::CAddrinfo aiObj;
+            if (aiObj.get_first(UPnPsdk::SInaddr(uriObj.authority.host.str() +
+                                                 ":" + port_str)) != 0) {
                 throw std::invalid_argument(
                     UPnPsdk_LOGEXCEPT(
                         "MSG1155") "Host not found. Failed URI=\"" +
                     std::string(uriref_sv) + "\"\n");
+            }
             // Store the address to 'out'.
-            out->hostport.IPaddress =
-                *reinterpret_cast<sockaddr_storage*>(ai->ai_addr);
+            UPnPsdk::SSockaddr saObj;
+            aiObj.sockaddr(saObj);
+            out->hostport.IPaddress = saObj.ss;
         }
 
         // out->pathquery

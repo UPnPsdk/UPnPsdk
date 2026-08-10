@@ -191,7 +191,7 @@ References</h2>
 <div class="line">     std::cerr &lt;&lt; <span class="stringliteral">&quot;Error get socket: &quot;</span> &lt;&lt; ex.what() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">     handle_error(); }</div>
 <div class="ttc" id="agroup__upnpsdk-socket_html_gadbc969f806b019f3a67c7be8cd76b1a7"><div class="ttname"><a href="../../da/de4/group__upnpsdk-socket.html#gadbc969f806b019f3a67c7be8cd76b1a7">UPnPsdk::socket</a></div><div class="ttdeci">UPnPsdk_VIS SOCKET socket(int a_socktype)</div><div class="ttdoc">Get a socket file descriptor from the operating system.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d81/socket_8cpp_source.html#l00080">socket.cpp:80</a></div></div>
-</div><!-- fragment --><p>Get a socket file descriptor with default settings as specified:</p><ul>
+</div><!-- fragment --><p>Design specification:</p><ul>
 <li><b>AF_INET6</b> - the SDK internal network management is based only on IPv6 and uses IPv4 mapped IPv6 addresses. For this and for IPV6_V6ONLY the socket must always be an IPv6 socket. There is no way to select another address family.</li>
 <li><b>IPV6_V6ONLY</b> - this option is always disabled. This is needed because network interfaces (local network adapter) must also receive and send IPv4 addresses together with IPv6 addresses to support IPv4 networking.</li>
 <li><a class="el" href="../../index.html#reuseAddr">SO_REUSEADDR</a> - for security reasons "immediately reuse

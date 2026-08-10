@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-09
+// Redistribution only with this Copyright remark. Last modified: 2026-08-10
 /*!
  * \file
  * \brief Definition of the 'class Socket'.
@@ -91,7 +91,7 @@ SOCKET socket(int a_socktype) {
 
     CSocketErr serrObj;
 
-    // Syscall socket(): get new socket file descriptor.
+    // Syscall ::socket(): get new socket file descriptor.
     SOCKET sfd = umock::sys_socket_h.socket(AF_INET6, a_socktype, 0);
     UPnPsdk_LOGINFO("MSG1135") "syscall ::socket(AF_INET6, "
         << (a_socktype == 1   ? "SOCK_STREAM"
@@ -537,12 +537,12 @@ void CSocket::bind(const SSockaddr* const a_saddr, const int a_flags) {
     }
 
     // Get the address info for binding.
-    CAddrinfo ai(saddrObj.netaddrp(), AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
-                 this->socktype_intern());
-    if (!ai.get_first())
+    CAddrinfo aiObj(AI_NUMERICHOST | AI_NUMERICSERV | a_flags,
+                    this->socktype_intern());
+    if (int ret{}; (ret = aiObj.get_first(SInaddr(saddrObj.netaddrp()))) != 0)
         throw std::runtime_error(
-            UPnPsdk_LOGEXCEPT("MSG1092") "detect error next line ...\n" +
-            ai.what());
+            UPnPsdk_LOGEXCEPT("MSG1092") "CAddrinfo failed. " +
+            ::gai_strerror(ret));
 
     // Try to bind the socket.
     int ret_code{SOCKET_ERROR};
@@ -550,13 +550,13 @@ void CSocket::bind(const SSockaddr* const a_saddr, const int a_flags) {
 #if 0 // #ifdef _MSC_VER // DEBUG! Remove this.
     for (count = 0; count < 5; count++) {
         ret_code = umock::sys_socket_h.bind(
-            m_sfd, ai->ai_addr, static_cast<socklen_t>(ai->ai_addrlen));
+            m_sfd, aiObj->ai_addr, static_cast<socklen_t>(aiObj->ai_addrlen));
         if (ret_code == 0) {
             break;
         } else {
             // Try with a random port number
             in_port_t& port =
-                reinterpret_cast<sockaddr_in6*>(ai->ai_addr)->sin6_port;
+                reinterpret_cast<sockaddr_in6*>(aiObj->ai_addr)->sin6_port;
             std::cout << "DEBUG! " << count
                       << ". try to bind with port=" << port
                       << " failed. Try again with random port.\n";
@@ -564,17 +564,17 @@ void CSocket::bind(const SSockaddr* const a_saddr, const int a_flags) {
         }
     }
 #else
+    SSockaddr saObj;
+    aiObj.sockaddr(saObj);
     count = 1;
     CSocketErr serrObj;
-    ret_code = umock::sys_socket_h.bind(m_sfd, ai->ai_addr,
-                                        static_cast<socklen_t>(ai->ai_addrlen));
+    ret_code = umock::sys_socket_h.bind(m_sfd, &saObj.sa, saObj.sizeof_saddr());
 #endif
     if (ret_code != 0)
         serrObj.catch_error();
 
     if (g_dbug) {
-        ai.sockaddr(saddrObj);
-        SSockaddr saObj;
+        aiObj.sockaddr(saddrObj);
         this->local_saddr_intern(&saObj); // Get new bound socket address.
         UPnPsdk_LOGINFO("MSG1115") "syscall ::bind("
             << m_sfd << ", " << &saObj.sa << ", " << saObj.sizeof_saddr()
@@ -585,7 +585,7 @@ void CSocket::bind(const SSockaddr* const a_saddr, const int a_flags) {
     }
 
     if (ret_code != 0) {
-        ai.sockaddr(saddrObj);
+        aiObj.sockaddr(saddrObj);
         throw std::runtime_error(
             UPnPsdk_LOGEXCEPT("MSG1008") "Close socket fd " +
             std::to_string(m_sfd) + ". Failed to bind socket " +

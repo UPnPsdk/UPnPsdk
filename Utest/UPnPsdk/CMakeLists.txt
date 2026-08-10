@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2026-07-09
+# Redistribution only with this Copyright remark. Last modified: 2026-08-10
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -50,30 +50,13 @@ add_test(NAME ctest_sockaddr-ush COMMAND test_sockaddr-ush --gtest_shuffle
 
 # CAddrinfo
 # =========
-add_executable(test_addrinfo-ust
+add_executable(test_addrinfo-ush
     test_addrinfo.cpp
 )
-target_include_directories(test_addrinfo-ust
-    PRIVATE ${CMAKE_SOURCE_DIR}
-)
-target_link_libraries(test_addrinfo-ust
-    PRIVATE UPnPsdk_static
-    PRIVATE utest_shared
-)
-add_test(NAME ctest_addrinfo-ust COMMAND test_addrinfo-ust --gtest_shuffle
-        WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
-)
-
-
-# CAddrinfo2
-# ==========
-add_executable(test_addrinfo2-ush
-    test_addrinfo2.cpp
-)
-target_link_libraries(test_addrinfo2-ush
+target_link_libraries(test_addrinfo-ush
     PRIVATE UPnPsdk_shared
 )
-add_test(NAME ctest_addrinfo2-ush COMMAND test_addrinfo2-ush --gtest_shuffle
+add_test(NAME ctest_addrinfo-ush COMMAND test_addrinfo-ush --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 

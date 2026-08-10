@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-24
+// Redistribution only with this Copyright remark. Last modified: 2026-08-11
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -50,6 +50,7 @@ using ::UPnPsdk::CSocket;
 using ::UPnPsdk::CSocket_basic;
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
+using ::UPnPsdk::SInaddr;
 using ::UPnPsdk::SSockaddr;
 
 
@@ -169,9 +170,11 @@ void get_netadapter() {
 
 
 class StartMiniServerFTestSuite : public ::testing::Test {
-  protected:
+  private:
+    bool m_dbug_flag{UPnPsdk::g_dbug};
     CPupnplog logObj; // Output only with build type DEBUG.
 
+  protected:
     // Constructor
     StartMiniServerFTestSuite() {
         if (g_dbug)
@@ -189,6 +192,9 @@ class StartMiniServerFTestSuite : public ::testing::Test {
         memset(&errno, 0xAA, sizeof(errno));
         gMServState = MSERV_IDLE;
     }
+
+    // Destructor
+    ~StartMiniServerFTestSuite() { UPnPsdk::g_dbug = m_dbug_flag; }
 };
 
 class StartMiniServerMockBaseFTestSuite : public StartMiniServerFTestSuite {
@@ -558,25 +564,20 @@ TEST_F(StartMiniServerMockFTestSuite,
     // Initialize needed structure
     constexpr int socktype = SOCK_STREAM;
     constexpr SOCKET sockfd{umock::sfd_base + 10};
+    SInaddr inaddr("[fe80::fedc:cdef:0:3%300]:50079");
+    std::strcpy(gIF_IPV6, inaddr.node.c_str());
+    gIF_INDEX = static_cast<unsigned int>(std::stoi(inaddr.scope));
+    LOCAL_PORT_V6 = static_cast<in_port_t>(std::stoi(inaddr.service));
     SSockaddr saddrObj;
-    // saddrObj = "[fe80::fedc:cdef:0:3%300]:50079";
-    saddrObj.ss.ss_family = AF_INET6;
-    ::inet_pton(saddrObj.ss.ss_family, "fe80::fedc:cdef:0:3",
-                &saddrObj.sin6.sin6_addr);
-    saddrObj.sin6.sin6_scope_id = 300;
-    saddrObj.sin6.sin6_port = 50079;
+    saddrObj = inaddr;
 
-    // Set gIF_IPV6 and strip surounding brackets
-    std::strcpy(gIF_IPV6, saddrObj.netaddr().c_str() + 1);
-    gIF_IPV6[strlen(gIF_IPV6) - 1] = '\0';
-    LOCAL_PORT_V6 = saddrObj.sin6.sin6_port;
     MiniServerSockArray miniSocket{};
     InitMiniServerSockArray(&miniSocket);
     CSocket sockLlaObj;
     miniSocket.pSockLlaObj = &sockLlaObj;
 
     // Provide a socket file descriptor
-    EXPECT_CALL(m_sys_socketObj, socket(saddrObj.ss.ss_family, socktype, 0))
+    EXPECT_CALL(m_sys_socketObj, socket(AF_INET6, socktype, 0))
         .WillOnce(Return(sockfd));
 
     // Expect resetting SO_REUSEADDR.
@@ -598,10 +599,9 @@ TEST_F(StartMiniServerMockFTestSuite,
     // Provide socket address from the socket file descriptor
     EXPECT_CALL(m_sys_socketObj, getsockopt(sockfd, SOL_SOCKET, SO_TYPE, _, _))
         .WillOnce(DoAll(SetArgPtrIntValue<3>(socktype), Return(0)));
-    EXPECT_CALL(
-        m_sys_socketObj,
-        getsockname(sockfd, _,
-                    Pointee(Ge(static_cast<socklen_t>(sizeof(saddrObj.ss))))))
+    EXPECT_CALL(m_sys_socketObj, getsockname(sockfd, _,
+                                             Pointee(Ge(static_cast<socklen_t>(
+                                                 sizeof(::sockaddr_storage))))))
         .Times(g_dbug ? 2 : 1) // additional call with debug output
         .WillRepeatedly(
             DoAll(StructCpyToArg<1>(&saddrObj.ss, sizeof(saddrObj.ss)),
@@ -612,10 +612,10 @@ TEST_F(StartMiniServerMockFTestSuite,
     // Test Unit, needs initialized sockets on MS Windows
     int ret_get_miniserver_sockets =
         get_miniserver_sockets(&miniSocket, 0, 0, 0);
+    ASSERT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
+        << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS);
 
     // ===== result with fixes =====
-    EXPECT_EQ(ret_get_miniserver_sockets, UPNP_E_SUCCESS)
-        << errStrEx(ret_get_miniserver_sockets, UPNP_E_SUCCESS);
     EXPECT_EQ(miniSocket.miniServerSock4, INVALID_SOCKET);
     EXPECT_EQ(miniSocket.miniServerPort4, 0u);
     // EXPECT_EQ(miniSocket.miniServerSock6, INVALID_SOCKET);

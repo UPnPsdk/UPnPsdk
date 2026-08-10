@@ -1,10 +1,8 @@
 var classUPnPsdk_1_1CAddrinfo =
 [
-    [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a8778e5e82a074f24059c0690d71332d0", null ],
-    [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#abf66d7c05573096b2dce195b17d49440", null ],
-    [ "operator->", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a210f2098b84967345c5d9d80f3be2e99", null ],
-    [ "get_first", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d", null ],
+    [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#aaf30b9aa40ca6a8fc0e2b7c7ddbe32ae", null ],
+    [ "get_first", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5f59b6cf97c14b89c73064f63e63b9e4", null ],
+    [ "get_first", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#aa1237b29db5e0c4d190eb6749ddfb186", null ],
     [ "get_next", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a", null ],
-    [ "sockaddr", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342", null ],
-    [ "what", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598", null ]
+    [ "sockaddr", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#ae2161bdf43f718b17b60cc00a6c36388", null ]
 ];

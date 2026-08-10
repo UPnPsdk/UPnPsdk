@@ -38,7 +38,7 @@ var searchData=
   ['isduplicateattribute_35',['isDuplicateAttribute',['../da/dff/ixmlparser_8cpp.html#a3bddddfb77b025f8886865a981c47c4a',1,'ixmlparser.cpp']]],
   ['isfileinvirtualdir_36',['isFileInVirtualDir',['../d3/d33/namespacecompa_1_1anonymous__namespace_02webserver_8cpp_03.html#a865c46f4a9955c4afe528d31a128aa37',1,'compa::anonymous_namespace{webserver.cpp}']]],
   ['israngeactive_37',['IsRangeActive',['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#a8b6eaf12d65fb66c71d4212d1f59de58',1,'SendInstruction']]],
-  ['issues_20belonging_20to_20_3a_3agetaddrinfo_38',['Issues belonging to &apos;::getaddrinfo()&apos;',['../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#autotoc_md5',1,'']]],
+  ['issues_20belonging_20to_20_3a_3agetaddrinfo_38',['Issues belonging to &apos;::getaddrinfo()&apos;',['../d0/d44/classUPnPsdk_1_1CAddrinfo.html#autotoc_md5',1,'']]],
   ['istoplevelelement_39',['isTopLevelElement',['../da/dff/ixmlparser_8cpp.html#af56a7f0cf00c39711e075b532c6cf890',1,'ixmlparser.cpp']]],
   ['istrailers_40',['IsTrailers',['../d9/d36/Compa_2src_2inc_2webserver_8hpp.html#acca65587dff5b8580cab8c8e50219316',1,'SendInstruction']]],
   ['isurlv6ulagua_41',['isUrlV6UlaGua',['../d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699',1,'anonymous_namespace{ssdp_device.cpp}']]],

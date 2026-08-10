@@ -1,10 +1,10 @@
-#ifndef UPnPsdk_INCLUDE_ADDRINFO_HPP
-#define UPnPsdk_INCLUDE_ADDRINFO_HPP
-// Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-05-26
+#ifndef UPnPsdk_ADDRINFO_HPP
+#define UPnPsdk_ADDRINFO_HPP
+// Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
+// Redistribution only with this Copyright remark. Last modified: 2026-08-10
 /*!
  * \file
- * \brief Declaration of the Addrinfo class.
+ * \brief Manage information about internet addresses
  */
 
 #include <UPnPsdk/sockaddr.hpp>
@@ -16,121 +16,178 @@ namespace UPnPsdk {
 <!-- ==================================================================== -->
  * \ingroup upnplib-addrmodul
  *
- * The results from getting system information using `::%getaddrinfo()` are
- * somewhat confusing and lack a clear systematic pattern over all supported
- * platforms. For example a scope_id of an IPv6 link-local address can be
- * specified with the local network interface index number, or by its name,
- * maybe "[fe80::1%2]" or "[fe80::1%eth0]". Microsoft Windows accepts only
- * numeric scope_ids. MacOs accepts link-local addresses with wrong or missing
- * scope_id, and returns the resulting socket address with no scope_Id (set to
- * 0). This is out of specification. Due to <a
- * href="https://www.rfc-editor.org/rfc/rfc4007.html">RFC 4007</a> an IPv6
- * link-local address must include a scope_id to be valid for routing purposes.
- * All supported platforms accept a valid scope_id on an IPv6 global-unicast
- * address that cannot use it. Different platforms return different values for
- * other properties. Exact details and verification are internally made with
- * `AddrinfoScopeIdFTestSuite`. All of this makes it necessary for the SDK to
- * define the properties of this class as follows:
- * - Default ai_socktype is SOCK_STREAM. ai_socktype \b 0 is not accepted. The
- *   resulting socket type is considered to be the same as given by argument.
+ * Design specification
+ * --------------------
+ * The results from getting system information using <a
+ * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">\b
+::%getaddrinfo()</a>
+ * are somewhat confusing and lack a clear systematic pattern over all
+ * supported platforms. The goal is to have the same behavior across all
+ * platforms. In respect to the issues belonging to <a
+ * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">\b
+::%getaddrinfo()</a>
+ * as noted next section, following is specified:
+ * - Address family is AF_INET6. There is no other address family.
+ * - `ai_socktype` is SOCK_STREAM (default), or SOCK_DGRAM. ai_socktype \b 0 is
+ *   not supported. The resulting socket type is considered to be the same as
+ *   given by argument.
  * - ai_protocol is hard coded set to \b 0, and considered to be always \b 0,
  *   that uses the default protocol for the current socket type.
- * - Getting information for an IPv6 link-local address with a numeric scope_id
- *   always succeeds, no matter if the scope_id really exist.
- * - Getting information for an IPv6 link-local address without a valid
- *   scope_id always fails.
- * - Getting information for an IPv6 link-local address with a name of a local
- *   network interface that doesn't exist, fails.
- * - A scope_id on any other IPv6 address that isn't a link-local address,
+ * - Getting information for an IPv6 link-local address, or a mulitcast address
+ *   with a numeric scope_id always succeeds, no matter if the
+ *   [netadapter](\ref glossary_netadapt) index, used as scope_id, really
+ *   exist.
+ * - Getting information for an IPv6 link-local address, or mulitcast address
+with a
+ *   [netadapter](\ref glossary_netadapt) name as scope, that doesn't exist,
  *   fails.
- * - The resulting ai_flags are considered to be the same as given by argument.
+ * - A scope_id on any other IPv6 address that isn't a link-local address, or
+ *   multicast address is silently removed.
+ * - The resulting ai_flags are considered to be the same as given by argument
+ *   in addition to AI_V4MAPPED, which is always hard coded set.
+ * - 'CAddrinfo' performs a time-consuming DNS name resolution when necessary.
+ *   It is not possible to suppress this (see Note 1 below). This means you
+ *   cannot suppress DNS-lookups with AI_NUMERICHOST. This ai_flag is silently
+ *   ignored. If you want to get information only from a numeric address
+ *   without an unnecessary expensive DNS lookup in an error condition, then
+ *   use the 'SSockaddr' class.
  * - All other resulting information are that from the operating system.
  *
- * An empty node returns information of the loopback interface, but either node
- * or service, but not both, may be empty. With setting everything unspecified,
- * except service, we get all available combinations with loopback interfaces
- * but different on platforms. \b a_socktype specifies the preferred socket
- * type SOCK_STREAM or SOCK_DGRAM. Specifying \b 0 for this argument indicates
- * that socket addresses of any socket type can be returned. For example:
- * \code
- * CAddrinfo ai("", 0, 0); // same as
- * CAddrinfo ai("", "0", 0, 0);
- * \endcode
- * may find\n
- * "[::1]" (SOCK_STREAM), "[::1]" (SOCK_DGRAM),\n
- * "127.0.0.1" (SOCK_STREAM), "127.0.0.1" (SOCK_DGRAM).
  *
- * To get default SOCK_STREAM loopback interfaces just use:
+ * Issues belonging to '::getaddrinfo()'
+ * -------------------------------------
+ * Note 1:\n
+ *   Only on Microsoft Windows ::%getaddrinfo() does not create AI_V4MAPPED
+ *   addresses with AI_NUMERICHOST set. The UPnPsdk only uses IPv6 addresses.
+ *   All IPv4 addresses are mapped to IPv6. There is only one combination with
+ *   AF_INET6 set and AI_NUMERICHOST unset, where win32 do AI_V4MAPPED. All
+ *   others fail. Details with Unit Test 'GetaddrinfoWin32Test'.
+ *
+ * Note 2:\n
+ *   In contrast to other supported platforms, ::%getaddrinfo() on Microsoft
+ *   Windows accepts only a numeric scope_id and fails with interface names
+ *   (e.g. "Ethernet"). I need a precheck and have to convert it into its index
+ *   number (scope_id). <a
+ *   href="https://www.man7.org/linux/man-pages/man3/if_nametoindex.3.html">\b
+ *   ::%if_nametoindex()</a> and <a
+ *
+href="https://learn.microsoft.com/en-us/windows/win32/api/netioapi/nf-netioapi-convertinterfacenametoluida">\b
+ *   ::%ConvertInterfaceNameToLuidA()</a> with <a
+ *
+href="https://learn.microsoft.com/en-us/windows/win32/api/netioapi/nf-netioapi-convertinterfaceluidtoindex">\b
+ *   ::%ConvertInterfaceLuidToIndex()</a> does not work on Win32. I always get
+ *   system "Error 123" that means "The filename, directory name, or volume
+ *   label syntax is incorrect", no matter what I tried. I use a workaround
+ *   with UPnPsdk::CNetadapter.
+ *
+ *   <a href="https://www.man7.org/linux/man-pages/man3/if_nametoindex.3.html">
+ *   \b ::%if_nametoindex()</a> on macOS, and Linux/GNU works.
+ *
+ * Note 3:\n
+ *   MacOS does not fail ::%getaddrinfo() with an unknown netinterface name and
+ *   instead ignores it and returns an LLA addrinfo structure without scope_id.
+ *   But that is not specified. Due to <a
+ *   href="https://www.rfc-editor.org/rfc/rfc4007.html">RFC 4007</a> an IPv6
+ *   link-local address must include a scope_id to be valid for routing
+ *   purposes.
+ *
+ *   Linux platforms ::%getaddrinfo() accept netinterface names but fails if
+ *   they don't exist. That is what UPnPsdk use. Details with Unit Test
+ *   `AddrinfoScopeIdFTestSuite`.
+ *
+ * Note 4:\n
+ *   ::%getaddrinfo() on macOS accepts link-local addresses with subnet, for
+ *   example "[fe80:1::2]". BSD-based operating systems (including macOS)
+ *   support an alternative, non-standard syntax, where a numeric zone index is
+ *   encoded in the second 16-bit word of the address, as shown in the example
+ *   before. But macOS also accepts all other subnets on an LLA with
+ *   IN6_IS_ADDR_LINKLOCAL() like e.g. "[fe80:0:1::1]". UPnPsdk does not
+ *   support this like Linux platforms, and rejects an LLA with subnet as
+ *   unspecified.
+ *
+ * Please note that either node or service, but not both, may be empty.
+ *
+ * \anchor caddrinfo_example
+ * To get default SOCK_STREAM loopback interface just use:
  * \code
- * CAddrinfo ai("");
+ * SSocaddr saObj;
+ *
+ * CAddrinfo ai1Obj;
+ * assert(ai1Obj.get_first(SInaddr(":0")) == 0);
+ * // or assert(ai1Obj.get_first(SInaddr("[::1]")) == 0);
+ * ai1Obj.sockaddr(saObj);
+ * assert(saObj.netaddrp() == "[::1]:0");
+ * assert(ai1Obj.get_next() == false);
+ *
+ * CAddrinfo ai2Obj;
+ * assert(ai2Obj.get_first(SInaddr("127.0.0.1")) == 0);
+ * ai2Obj.sockaddr(saObj);
+ * assert(saObj.netaddrp() == "[::ffff:127.0.0.1]:0");
+ * assert(ai2Obj.get_next() == false);
  * \endcode
- * May find, where find_first() should be preferred what ever it finds:\n
- * find_first() -> "[::1]"\n
- * find_next()  -> "127.0.0.1"
  *
  * To get address information for **passive listening** on all local network
- * adapters with default SOCK_STREAM, \b a_node must be empty, but not \b
- * a_service and \b a_flags must be set at least to AI_PASSIVE, for example:
+ * adapters with default SOCK_STREAM, the node internet address must be empty,
+ * but not the port and flags must be set at least to AI_PASSIVE, for example:
  * \code
- * CAddrinfo ai("", AI_PASSIVE | AI_NUMERICHOST); // same as
- * CAddrinfo ai("", "0", AI_PASSIVE | AI_NUMERICHOST);
+ * SSocaddr saObj;
+ *
+ * CAddrinfo ai1Obj(AI_PASSIVE);
+ * assert(ai1Obj.get_first(SInaddr(":0")) == 0);
+ * ai1Obj.sockaddr(saObj);
+ * assert(saObj.netaddrp() == "[::]:0"); // Unspec addr
+ * assert(ai1Obj.get_next() == false);
+ *
+ * // Prepare to listen on all local [netadapter](\ref glossary_netadapt) for
+ * // datagrams on port 50001. If internet address token needed for later use:
+ * SInaddr inaObj("[::]:https"); // saObj doesn't manage empty node addresses.
+ * saObj = inaObj;
+ * assert(saObj.empty() == true); // saObj can only manage numeric entries.
+ *
+ * // Look with name resolution
+ * CAddrinfo ai2Obj(AI_PASSIVE, SOCK_DGRAM);
+ * assert(ai2Obj.get_first(inaObj) == 0);
+ * ai2Obj.sockaddr(saObj);
+ * assert(saObj.netaddrp() == "[::]:443"); // "https" is resolved.
+ * assert(ai2Obj.get_next() == false);
  * \endcode
- * Of course you can set a specific port (a_service) other than \b 0.
  */
-// This is a stripped version. It is only as snapshot to get information about
-// a netaddress. There is no need to copy the object. The last full featured
-// version with copy constructor, copy asignment operator, compare operator,
-// additional getter and its unit tests can be found at Github commit
-// e2ffc0c46a2d8f15390f2816e1a18782e500fd09
-class UPnPsdk_VIS CAddrinfo {
+// A more featured but outdated version of CAddrinfo with copy constructor,
+// copy asignment operator, compare operator, additional getter and its unit
+// tests can be found at Github commit e2ffc0c46a2d8f15390f2816e1a18782e500fd09
+class UPnPsdk_API CAddrinfo {
   public:
-    /// \brief Constructor for getting an address information with service name
-    //  -----------------------------------------------------------------------
+    /// \brief Constructor for getting an address information
+    //  -----------------------------------------------------
     CAddrinfo(
-        /*! [in] Name or address string of a node, e.g. "example.com" or
-           "[2001.db8::1]". */
-        std::string_view a_node,
-        /*! [in] Service name resp. port can also be a port number string, e.g.
-         * "https" or "443". */
-        std::string_view a_service,
         /*! [in] Optional: flags that can be "or-ed", e.g. AI_PASSIVE |
-         * AI_NUMERICHOST. Details at <a
+         * AI_NUMERICSERV. Details at <a
          * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">getaddrinfo
          * — Linux manual page</a> or <a
          * href="https://learn.microsoft.com/en-us/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfo#use-of-ai-flags-in-the-phints-parameter">getaddrinfo
-         * — Microsoft Learn</a> */
+         * — Microsoft Learn</a>
+         * - Usable flags are:
+         *   - AI_PASSIVE
+         *   - AI_NUMERICSERV
+         *   - AI_ALL
+         *   .
+         * - Silently ignored flags are:
+         *   - AI_V4MAPPED - hard coded set
+         *   - AI_NUMERICHOST - hard coded reset
+         *   - all other */
         const int a_flags = 0,
-        /*! [in] Optional: can be SOCK_STREAM, SOCK_DGRAM, or \b 0 (any
-         * possible socket type). */
-        const int a_socktype = SOCK_STREAM);
-
-
-    /*! \brief Constructor for getting an address information from only an
-     * internet address */
-    // -------------------------------------------------------------------
-    CAddrinfo(
-        /*! [in] Name or address string of a node, e.g. "example.com:50001" or
-         * "[2001.db8::1]:50002" or "2001.db8::2". */
-        std::string_view a_node,
-        /*! [in] Optional: flags that can be "or-ed", e.g. AI_PASSIVE |
-         * AI_NUMERICHOST. Details at <a
-         * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html">getaddrinfo
-         * — Linux manual page</a> or <a
-         * href="https://learn.microsoft.com/en-us/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfo#use-of-ai-flags-in-the-phints-parameter">getaddrinfo
-         * — Microsoft Learn</a> */
-        const int a_flags = 0,
-        /*! [in] Optional: can be SOCK_STREAM, SOCK_DGRAM, or \b 0 (any
-         * possible socket type). */
-        const int a_socktype = SOCK_STREAM);
+        /*! [in] Optional: can be SOCK_STREAM (is default), or SOCK_DGRAM. */
+        const int a_socktype = SOCK_STREAM) noexcept;
 
     /// \cond
     // Destructor
-    virtual ~CAddrinfo();
+    ~CAddrinfo() noexcept;
 
     // Copy constructor
-    // We cannot use the default copy constructor because there is also
-    // allocated memory for the addrinfo structure to copy. We get segfaults
-    // and program aborts. This class is not usable for copying the object.
+    // I cannot use the default copy constructor because there is also allocated
+    // memory for the addrinfo structure to copy. We get segfaults and program
+    // aborts. I need a deep copy to resolve this but that isn't worth the
+    // effort. This class is not usable to copy the object.
     CAddrinfo(const CAddrinfo&) = delete;
 
     // Copy assignment operator
@@ -138,134 +195,73 @@ class UPnPsdk_VIS CAddrinfo {
     CAddrinfo& operator=(CAddrinfo) = delete;
     /// \endcond
 
-
     /*! \name Getter
      * *************
      * @{ */
-    /*! \brief Read access to members of the <a
-     * href="https://www.man7.org/linux/man-pages/man3/getaddrinfo.3.html#DESCRIPTION">addrinfo
-     * structure</a>
+
+    /*! \brief Get the first entry of an address information list from the
+     * operating system
+     * <!-- ---------------------------------------------------------- -->
      * \code
      * // Usage e.g.:
-     * CAddrinfo aiObj("localhost", "50001", AF_UNSPEC, SOCK_STREAM);
-     * if (!aiObj.get_first())
-     *     handle_error();
-     * if (aiObj->ai_socktype == SOCK_DGRAM) {} // is SOCK_STREAM here
-     * if (aiObj->ai_family == AF_INET6) { handle_ipv6(); };
+     * CAddrinfo aiObj;
+     * // Triggers a DNS lookup
+     * if (aiObj.get_first(SInaddr("example.com:50050") != 0) {
+     *     handle_failed_address_info();
+     * }
+     * SSockaddr saObj;
+     * aiObj.sockaddr(saObj);
+     * std::cout << "netaddress=\"" << saObj << "\"\n";
      * \endcode
+     * For more examples have a look at [CAddrinfo](\ref caddrinfo_example).
      *
-     * The operating system returns the information in a structure that you can
-     * read to get all details. */
-    // REF:_<a_href="https://stackoverflow.com/a/8782794/5014688">Overloading_member_access_operators_->,_.*</a>
-    const ::addrinfo* operator->() const noexcept;
+     * \exception std::runtime_error Trying to call \b %get_first() a second
+     *            time. Information can be loaded only one time.
+     */
+    // Argument is modified internal. It must not be declared by reference.
+    int get_first(SInaddr a_inaddr);
 
+    /// \brief Point to first entry again of an already loaded address info
+    void get_first() noexcept { m_res_current = m_res; }
 
-    /*! \brief Get the first entry of an address info from the operating system
-     * \code
-// Usage e.g.:
-CAddrinfo ai("[2001:db8::1]", "50050", AF_UNSPEC, SOCK_STREAM, AI_NUMERICHOST);
-// or
-CAddrinfo ai("[2001:db8::1]:50050");
-if (!ai.get_first()) {
-    std::cerr << ai.what() << '\n';
-    handle_failed_address_info();
-}
-normal_execution();
-     * \endcode
-     * \note It is important to careful check the error situation because
-     * loading information depends on the real environment that we cannot
-     * control. Name resolution may fail because to be unspecified, DNS server
-     * may be temporary down, etc.
-     *
-     * Usually this getter is called one time after constructing the object.
-     * This gets an address information from the operating system that may also
-     * use its internal name resolver inclusive contacting external DNS server.
-     * If you use the flag **AI_NUMERICHOST** with the constructor then a
-     * possible expensive name resolution to DNS server is suppressed.
-     *
-     * If you have iterated address information entries with
-     * CAddrinfo::get_next() and want to restart you can do it with call
-     * CAddrinfo::get_first() again. It will read the information from the
-     * operating system again and could be used to monitor changes of address
-     * information. But note that this is quite expensive because always memory
-     * is freed and new allocated for the information list so doing this in a
-     * busy loop is not very useful.
-     * \returns
-     *  \b true if address information is available\n
-     *  \b false otherwise */
-    bool get_first();
+    /// \brief Point to next available address information
+    bool get_next() noexcept {
+        if (m_res_current == nullptr)
+            return false;
+        return (m_res_current = m_res_current->ai_next) == nullptr ? false
+                                                                   : true;
+    }
 
-
-    /*! \brief Get next available address information
-     * \code
-     * // Usage e.g.:
-     * CAddrinfo aiObj("localhost");
-     * if (!aiObj.get_first())
-     *     handle_error();
-     * do {
-     *     int af = aiObj->ai_family;
-     *     std::cout << "AF=" << af << "\n";
-     * } while (aiObj.get_next()); // handle next addrinfo
-     * \endcode
-     * If more than one address information is available this is used to switch
-     * to the next addrinfo.
-     * \returns
-     *  \b true if address information is available\n
-     *  \b false otherwise */
-    bool get_next() noexcept;
-
-
-    /// \brief Get the socket address from current selcted address information
+    /*! \brief Get the socket address from current selcted address information
+     * <!-- ----------------------------------------------------------- --> */
     void sockaddr( //
         /*! [out] Reference to a socket address structure that will be filled
          * with the address information. If no information is available (e.g.
          * CAddrinfo::get_first() wasn't called) an unspecified socket address
          * is returned (netaddr "", netaddrp ":0"). */
-        SSockaddr& a_saddr);
-
-    /*! \brief Get cached error message
-     * \code
-     * // Usage e.g.:
-     * CAddrinfo ai("[2001:db8::1]:50050");
-     * if (!ai.get_first()) {
-     *     std::cerr << ai.what() << '\n';
-     *     handle_failed_address_info();
-     * }
-     * \endcode
-     * It should be noted that are different error messages returned by
-     * different platforms. */
-    const std::string& what() const;
+        SSockaddr& a_saObj) const noexcept {
+        if (m_res == nullptr)
+            a_saObj.clear();
+        else if (m_res_current != nullptr)
+            a_saObj =
+                *reinterpret_cast<sockaddr_storage*>(m_res_current->ai_addr);
+    }
     /// @} Getter
 
   private:
-    // Cache the hints that are given with the constructor by the user, so we
-    // can always get identical address information from the operating system.
-    DISABLE_MSVC_WARN_4251
-    const std::string m_node;
-    const std::string m_service;
-    ENABLE_MSVC_WARN
+    // Cache the hints that are given with the constructor by the user.
     addrinfo m_hints{};
 
     // Pointer to the address information returned from systemcall
     // ::getaddrinfo(). This pointer must be freed. That is done with the
-    // destructor. It is initialized to point to the hints so there is never a
-    // dangling pointer that may segfault. Pointing to the hints means there is
-    // no information available, e.g.
-    // if (m_res == &m_hints) { // do nothing }
-    ::addrinfo* m_res{&m_hints};
-    // This points to the current used address info. If more than one address
-    // info is available it is modified with CAddrinfo::get_next() or
-    // CAddrinfo::find().
-    ::addrinfo* m_res_current{&m_hints};
+    // destructor.
+    ::addrinfo* m_res{nullptr};
 
-    // Storage for a message in case of an error, that can be called afterwards.
-    SUPPRESS_MSVC_WARN_4251_NEXT_LINE
-    std::string m_error_msg{"Success."};
-
-    // Private method to free allocated memory for address information.
-    void free_addrinfo() noexcept;
+    // This points to the current used address info. It is modified with
+    // get_first(), and get_next().
+    ::addrinfo* m_res_current{nullptr};
 };
 
 } // namespace UPnPsdk
 
-#endif // UPnPsdk_INCLUDE_ADDRINFO_HPP
+#endif // UPnPsdk_ADDRINFO_HPP

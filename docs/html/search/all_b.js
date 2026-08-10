@@ -38,7 +38,7 @@ var searchData=
   ['description_20from_20device_35',['Description from device',['../d9/dba/group__Description-device.html',1,'']]],
   ['descurl_36',['DescURL',['../d3/da9/upnpapi_8hpp.html#a8a9c62ae413bbc35649e138a324dff9f',1,'Handle_Info']]],
   ['descxml_37',['DescXML',['../d3/da9/upnpapi_8hpp.html#a43c004240513523ff5261d1446ab8fed',1,'Handle_Info']]],
-  ['design_20specification_38',['Design specification',['../d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#autotoc_md4',1,'']]],
+  ['design_20specification_38',['Design specification',['../d0/d44/classUPnPsdk_1_1CAddrinfo.html#autotoc_md4',1,'']]],
   ['dest_5faddr_39',['dest_addr',['../d0/d19/ssdp__common_8hpp.html#a341c4bb02473288a98b376aab8e8ff7d',1,'SsdpSearchReply::dest_addr'],['../d0/d19/ssdp__common_8hpp.html#a3234b6997421670793db7d2460a98a44',1,'ssdp_thread_data::dest_addr']]],
   ['destaddr_40',['destaddr',['../d0/d19/ssdp__common_8hpp.html#a0b18a6f19b435b316d8612a4b47f7dc0',1,'SsdpEvent::DestAddr'],['../d0/d19/ssdp__common_8hpp.html#a1fbf65a838e3ff67ca6cbe5f6b09419f',1,'ThreadData::DestAddr']]],
   ['dev_5flimit_41',['DEV_LIMIT',['../d3/da9/upnpapi_8hpp.html#a0974c3ecfdafd647a33e70cdd084cf37',1,'upnpapi.hpp']]],

@@ -1,20 +1,11 @@
 var group__upnplib_addrmodul =
 [
     [ "UPnPsdk::CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html", [
-      [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a8778e5e82a074f24059c0690d71332d0", null ],
-      [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#abf66d7c05573096b2dce195b17d49440", null ],
-      [ "operator->", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a210f2098b84967345c5d9d80f3be2e99", null ],
-      [ "get_first", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a51afe8a1c3b65109b9cf3340f8e5186d", null ],
+      [ "CAddrinfo", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#aaf30b9aa40ca6a8fc0e2b7c7ddbe32ae", null ],
+      [ "get_first", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5f59b6cf97c14b89c73064f63e63b9e4", null ],
+      [ "get_first", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#aa1237b29db5e0c4d190eb6749ddfb186", null ],
       [ "get_next", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a4ef20d60145718451d128aeea321903a", null ],
-      [ "sockaddr", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342", null ],
-      [ "what", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#a5d5295decc4e6797b3e8c35c4f1b0598", null ]
-    ] ],
-    [ "UPnPsdk::CAddrinfo2", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html", [
-      [ "CAddrinfo2", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a643e6de062d6be28f4e5665bdc0be40b", null ],
-      [ "get_first", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a91eb1d8f01520c1616e3423d39a3473e", null ],
-      [ "get_first", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#a5721abec2dae2bc54c21a91be09f8d93", null ],
-      [ "get_next", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ab9b4e9c8e9395f007240a9ae321b9082", null ],
-      [ "sockaddr", "d7/dc5/classUPnPsdk_1_1CAddrinfo2.html#ad531b9f43f43db18e8d775f6c3c1502c", null ]
+      [ "sockaddr", "d0/d44/classUPnPsdk_1_1CAddrinfo.html#ae2161bdf43f718b17b60cc00a6c36388", null ]
     ] ],
     [ "UPnPsdk::CNetadapter", "d8/d37/classUPnPsdk_1_1CNetadapter.html", [
       [ "ADDRS", "d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8", [

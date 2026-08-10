@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-20
+// Redistribution only with this Copyright remark. Last modified: 2026-08-11
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -120,7 +120,7 @@ namespace UPnPsdk {
  *      handle_error(); }
  * \endcode
  *
- * Get a socket file descriptor with default settings as specified:
+ * Design specification:
  *  - \b AF_INET6 - the SDK internal network management is based only on IPv6
  *  and uses IPv4 mapped IPv6 addresses. For this and for IPV6_V6ONLY the
  *  socket must always be an IPv6 socket. There is no  way to select another

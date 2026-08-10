@@ -70,18 +70,18 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d1/d03/group__UpnpString.html#ab0ae2d6e9f981c064cfe0f2a51aea37d",
-"d2/dad/GenlibClientSubscription_8hpp.html#ae7bf9e395bd62bafe6e4bdf3e163b2a8",
-"d4/d32/group__upnplib.html",
-"d5/dfa/namespaceanonymous__namespace_02webserver_8cpp_03.html",
-"d7/d07/UpnpExtraHeaders_8hpp.html#a0bf86b44fbb44825c2d59e51ee89dfbd",
-"d8/da2/UpnpIntTypes_8hpp.html",
-"d9/da5/classUPnPsdk_1_1CSocket__basic.html",
-"da/dc0/UpnpInet_8hpp_source.html",
-"dc/d2f/GenlibClientSubscription_8cpp.html#a34c75b27e59137c8e13959020967149f",
-"dd/d74/connection__common_8hpp.html",
-"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a698500b7b207ca90f8b0fb4788c7a1a0",
-"functions_vars_m.html"
+"d1/d03/group__UpnpString.html#d8/dbb/structs__UpnpString",
+"d2/dad/GenlibClientSubscription_8hpp.html#affbfb9bd0ba78c48c023825b8f30f13f",
+"d4/d64/messages_8hpp.html#a01908abe1b6ae0541eaa18ef67550432",
+"d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d",
+"d7/d07/UpnpExtraHeaders_8hpp.html#a46c6dccb29ff0bcbf1031f607a5c6152",
+"d8/db8/UpnpDiscovery_8cpp.html#a3fed8920fad02002d8c283eb434e8ced",
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab",
+"da/dd9/membuffer_8cpp.html#a53d54a6586b380b385d18ae7dcd37e80",
+"dc/d2f/GenlibClientSubscription_8cpp.html#acdc433fd326f354773aad5eb95a255c3",
+"dd/d7e/UpnpEvent_8hpp.html#ab07693408000c4add2cff090e41fbe87",
+"df/d6f/Compa_2src_2inc_2httpparser_8hpp.html#a8bbe82a9d27ea9e63f8842262501e14f",
+"globals_b.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

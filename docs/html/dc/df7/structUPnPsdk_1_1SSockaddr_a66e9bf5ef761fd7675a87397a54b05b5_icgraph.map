@@ -1,14 +1,9 @@
 <map id="UPnPsdk::SSockaddr::clear" name="UPnPsdk::SSockaddr::clear">
-<area shape="rect" id="Node000001" title="clear socket address" alt="" coords="679,63,833,103"/>
-<area shape="rect" id="Node000002" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab" title="Get the remote socket address the socket is connected to." alt="" coords="233,5,413,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="672,62,630,53,518,39,413,31,414,26,518,34,631,48,673,57"/>
-<area shape="rect" id="Node000007" href="$d0/d44/classUPnPsdk_1_1CAddrinfo.html#afce4785f8d0fb6fe5a84e3145664e342" title="Get the socket address from current selcted address information." alt="" coords="471,63,621,103"/>
-<area shape="poly" id="edge3_Node000001_Node000007" title=" " alt="" coords="665,85,622,85,622,80,665,80"/>
-<area shape="rect" id="Node000034" href="$d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a112fd1ee7d1d3a43f7504bd57da6303b" title="Get socket address from current selected list entry." alt="" coords="461,127,631,167"/>
-<area shape="poly" id="edge6_Node000001_Node000034" title=" " alt="" coords="677,109,613,129,611,124,676,104"/>
-<area shape="rect" id="Node000003" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="5,27,185,82"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="220,41,186,46,185,40,219,36"/>
-<area shape="rect" id="Node000008" href="$d3/d5d/classUPnPsdk_1_1CSocket.html#a699c76b0626316bf4ce8d6fc68c2c32c" title="Bind socket to an ip address of a local network adapter." alt="" coords="236,70,411,95"/>
-<area shape="poly" id="edge4_Node000007_Node000008" title=" " alt="" coords="457,85,411,85,411,80,457,80"/>
-<area shape="poly" id="edge5_Node000008_Node000003" title=" " alt="" coords="222,73,185,68,186,63,222,68"/>
+<area shape="rect" id="Node000001" title="clear socket address" alt="" coords="461,45,616,85"/>
+<area shape="rect" id="Node000002" href="$d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab" title="Get the remote socket address the socket is connected to." alt="" coords="233,13,413,53"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="447,54,413,49,414,43,448,49"/>
+<area shape="rect" id="Node000007" href="$d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a112fd1ee7d1d3a43f7504bd57da6303b" title="Get socket address from current selected list entry." alt="" coords="239,77,408,117"/>
+<area shape="poly" id="edge3_Node000001_Node000007" title=" " alt="" coords="448,81,409,87,408,81,447,76"/>
+<area shape="rect" id="Node000003" href="$d9/d9e/namespaceanonymous__namespace_02miniserver_8cpp_03.html#a1eecc466ef68bcf35458b9b5c5ff4d63" title="Creates the miniserver STOP socket, usable to listen for stopping the miniserver." alt="" coords="5,5,185,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="219,35,185,35,185,30,219,30"/>
 </map>

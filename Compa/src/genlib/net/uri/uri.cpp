@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2021 GPL 3 and higher by Ingo Höft,  <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-08-01
+ * Redistribution only with this Copyright remark. Last modified: 2026-08-10
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -288,8 +288,9 @@ char* resolve_rel_url(char* a_base_url, char* a_rel_url) {
                     // An absolute URI is checked against DNS.
                     auto& host = uri_refObj.authority.host;
                     auto& port = uri_refObj.authority.port;
-                    UPnPsdk::CAddrinfo aiObj(host.str(), port.str());
-                    if (!aiObj.get_first())
+                    UPnPsdk::CAddrinfo aiObj;
+                    if (aiObj.get_first(UPnPsdk::SInaddr(host.str() + ":" +
+                                                         port.str())) != 0)
                         return nullptr;
                 }
 
@@ -310,8 +311,9 @@ char* resolve_rel_url(char* a_base_url, char* a_rel_url) {
                         // only if it is registered on DNS.
                         auto& host = uri_relObj.authority.host;
                         auto& port = uri_relObj.authority.port;
-                        UPnPsdk::CAddrinfo aiObj(host.str(), port.str());
-                        if (!aiObj.get_first())
+                        UPnPsdk::CAddrinfo aiObj;
+                        if (aiObj.get_first(UPnPsdk::SInaddr(host.str() + ":" +
+                                                             port.str())) != 0)
                             return nullptr;
 
                         out_str = uri_relObj.str();
@@ -328,8 +330,9 @@ char* resolve_rel_url(char* a_base_url, char* a_rel_url) {
             // Accept a merged target URI only if it is registered on DNS.
             auto& host = uriObj.target.authority.host;
             auto& port = uriObj.target.authority.port;
-            UPnPsdk::CAddrinfo aiObj(host.str(), port.str());
-            if (!aiObj.get_first())
+            UPnPsdk::CAddrinfo aiObj;
+            if (aiObj.get_first(
+                    UPnPsdk::SInaddr(host.str() + ":" + port.str())) != 0)
                 return nullptr;
 
             out_str = uriObj.str();
