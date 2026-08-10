@@ -1,14 +1,13 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-10
+// Redistribution only with this Copyright remark. Last modified: 2026-08-18
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Create UPnPsdk::IN6_IS_ADDR_UNIQUELOCAL() and support it.
  * - Rework Unit Tests in Utest/compa/api.d/test_upnpapi.cpp.
- *   - Remove Utest/compa/api.d/test_upnpapi_win32.cpp.
- *   - Remove Utest/compa/api.d/test_upnpapi_unix.cpp.
+ *   - Remove Utest/compa/api.d/test_upnpapi_win32.cpp?
+ * - Optimize CNetadapter::find_first() to use argument SSockaddr instead of string().
  * - Rework CSocket class.
  *   - Rework 'get_ssdp_sockets()' and Utest/compa/1-discovery/test_ssdp.cpp.
  *   - Rework CSocket.bind() due to RFC 4038 6.3.1 (try bind to all possible net if).
@@ -16,6 +15,7 @@
    - Modify miniserver module, with work in progress.
      - change 'test_miniserver.cpp' to use IPv6 addresses.
      - change 'test_miniserver_run.cpp' to use IPv6 addresses.
+ * - Create UPnPsdk::IN6_IS_ADDR_UNIQUELOCAL(), or maybe add it to IN6_IS_ADDR_GLOBAL2().
  * - Check if tunnel connections and VPN should not supported as documented with https://github.com/pupnp/pupnp/pull/500.
  * - Rework UPnPsdk_info application
  *   - Update printed options

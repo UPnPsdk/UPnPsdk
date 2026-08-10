@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-09
+// Redistribution only with this Copyright remark. Last modified: 2026-08-11
 
 // Include source code for testing. So we have also direct access to static
 // functions which need to be tested.
@@ -67,7 +67,6 @@ class SsdpFTestSuite : public ::testing::Test {
         // memset(&GlobalClientSubscribeMutex, 0xAA,
         //        sizeof(GlobalClientSubscribeMutex));
         memset(&gUpnpSdkNLSuuid, 0, sizeof(gUpnpSdkNLSuuid));
-        // memset(&HandleTable, 0xAA, sizeof(HandleTable));
         memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
         memset(&gRecvThreadPool, 0xAA, sizeof(gRecvThreadPool));
         memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));

@@ -1,5 +1,5 @@
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-23
+// Redistribution only with this Copyright remark. Last modified: 2026-08-11
 
 // This tests network communication. The usual way to do it is to use mocking to
 // be independent from current hardware. But with mocking you can only test what
@@ -167,7 +167,6 @@ class SsdpDeviceFTestSuite : public ::testing::Test {
         memset(&errno, 0xAA, sizeof(errno));
         memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
         memset(&gUpnpSdkNLSuuid, 0xAA, sizeof(gUpnpSdkNLSuuid));
-        // memset(&HandleTable, 0xAA, sizeof(HandleTable));
         memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
         memset(&gRecvThreadPool, 0xAA, sizeof(gRecvThreadPool));
         memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));

@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-08-10
+ * Redistribution only with this Copyright remark. Last modified: 2026-08-21
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -227,6 +227,14 @@ typedef union {
 } job_arg;
 
 
+namespace compa {
+namespace {
+// Declarations for forward used functions.
+int GetIfInfo(const uint32_t a_index);
+int GetIfInfo(UPnPsdk::SSockaddr& a_saObj);
+} // namespace
+} // namespace compa
+
 namespace { // anonymous namespace for file scoped old upnpapi items.
 
 /*!
@@ -236,7 +244,7 @@ namespace { // anonymous namespace for file scoped old upnpapi items.
  * If no or empty argument given, the operating system should find the best
  * suitable local network adapter for operation as specified by <a
  * href=https://www.rfc-editor.org/rfc/rfc3484>RFC3484 - Default Address
- * Selection</a>. If an IP address is selected as argument, then only its
+ * Selection</a>. If an IP address is used as argument, then only its
  * associated gIF_IPV6_* (link-local, or network global) variables are set. If
  * a network adapter is selected with empty argument, or as argument with name,
  * or with index, then it can have multiple IP addresses. gIF_IPV6 and
@@ -267,125 +275,45 @@ int UpnpGetIfInfo(
      * argument ("") given, we'll find the best suitable local network adapter
      * for operation. */
     const std::string& a_iface = "") {
-    TRACE("Executing ::UpnpGetIfInfo()")
 
-    // Check if to use an index integer to select the network adapter.
-    uint32_t index{};
-    size_t i{}; // UINT32_MAX (4,294,967,295) has 10 digits.
-    for (; i < a_iface.size() && std::isdigit(a_iface[i]); i++)
-        ;
-    if (i == a_iface.size() && i > 0 && i <= 10) {
-        // All input character are digits and they do not exeed amount of
-        // digits for UINT32_MAX.
-        if (auto idx = std::stoul(a_iface); idx > 0 && idx <= UINT32_MAX) {
-            // Converted index value is in the range 1 t0 UINT32_MAX so I can
-            // cast it.
-            index = static_cast<uint32_t>(idx);
-        }
-    }
+    // Empty argument, use best choise from operating system.
+    if (a_iface.empty())
+        return compa::GetIfInfo(0); // Index 0 selects default from OS.
 
-    // Get the internal local netadapter list.
-    UPnPsdk::CNetadapter nadObj;
-    try {
-        nadObj.get_first(); // May throw exception
-    } catch (const std::exception& ex) {
-        UPnPsdk_LOGCATCH("MSG1006") "catched next line...\n" << ex.what();
-        return UPNP_E_INVALID_INTERFACE;
-    }
+    // Netadapter index, use addresses from netadapter with that index.
+    if (UPnPsdk::is_unum_str(a_iface, 10))
+        return compa::GetIfInfo(static_cast<uint32_t>(std::stoul(a_iface)));
 
-    // Process single IP address, that sets only the associated global variables
-    // -------------------------------------------------------------------------
-    if (!a_iface.empty() && !index) {
-        UPnPsdk::SSockaddr saObj;
-        saObj = UPnPsdk::SInaddr(a_iface);
-        if (saObj.family == AF_UNSPEC || !nadObj.find_first(saObj.netaddr())) {
-            return UPNP_E_INVALID_INTERFACE;
-        }
-        nadObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr)) {
-            // Copy netaddress without surounding brackets.
-            ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6,
-                        sizeof(gIF_IPV6));
-            gIF_IPV6_PREFIX_LENGTH = nadObj.bitmask();
-            // Clear unused Global Unicast Address.
-            ::memset(gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
-            gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+    // Adapter name, use netadapter with index of its name.
+    UPnPsdk::SInaddr inaObj("%" + a_iface); // Try to get index from name.
+    if (inaObj.node.empty() && UPnPsdk::is_unum_str(inaObj.scope, 10))
+        return compa::GetIfInfo(
+            static_cast<uint32_t>(std::stoul(inaObj.scope)));
 
-        } else if (IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr) ||
-                   IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
-            // Copy netaddress without surounding brackets.
-            ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6_ULA_GUA,
-                        sizeof(gIF_IPV6_ULA_GUA));
-            gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadObj.bitmask();
-            // Clear unused link-local address.
-            ::memset(gIF_IPV6, 0, sizeof(gIF_IPV6));
-            gIF_IPV6_PREFIX_LENGTH = 0;
-        } else {
-            return UPNP_E_INVALID_INTERFACE;
-        }
-
-        // Copy netinterface name and index.
-        ::strncpy(gIF_NAME, nadObj.name().c_str(), sizeof(gIF_NAME) - 1);
-        gIF_INDEX = nadObj.index();
-
-        return UPNP_E_SUCCESS;
-    }
-
-    // Process a network interface with empty argument, or with name, or with
-    // index, that has a link-local address and may have a global unicast
-    // address. If the latter is available, its global variables are also set.
-    // -----------------------------------------------------------------------
-    // If there is no index given with the input string, try to resolve the
-    // index with the possible netadapter name given with the input string.
-    if (!index && nadObj.find_first(a_iface))
-        index = nadObj.index();
-
-    // Check if the current index is valid and point to its local netadapter.
-    if (!index || !nadObj.find_first(index)) {
-        return UPNP_E_INVALID_INTERFACE;
-    }
-    // Clear needed global variable.
-    ::memset(gIF_NAME, 0, sizeof(gIF_NAME));
-    gIF_INDEX = 0;
-    ::memset(gIF_IPV6, 0, sizeof(gIF_IPV6));
-    gIF_IPV6_PREFIX_LENGTH = 0;
-    ::memset(gIF_IPV6_ULA_GUA, 0, sizeof(gIF_IPV6_ULA_GUA));
-    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-
-    // Scan selected netadapter for its IPv6 addresses and store them as needed.
+    // internet address, use that address.
     UPnPsdk::SSockaddr saObj;
-    do {
-        nadObj.sockaddr(saObj);
-        if (gIF_IPV6[0] == '\0' &&
-            IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr)) {
-            // Get gIF_NAME and gIF_INDEX. Only copied for the link-local
-            // address because the index is essential for its scope_id.
-            ::strncpy(gIF_NAME, nadObj.name().c_str(), sizeof(gIF_NAME) - 1);
-            gIF_INDEX = nadObj.index();
-
-            // Copy netaddress without surounding brackets.
-            ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6,
-                        sizeof(gIF_IPV6));
-            gIF_IPV6_PREFIX_LENGTH = nadObj.bitmask();
-        }
-        if (gIF_IPV6_ULA_GUA[0] == '\0' &&
-            IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr)) {
-            // Copy netaddress without surounding brackets.
-            ::inet_ntop(AF_INET6, &saObj.sin6.sin6_addr, gIF_IPV6_ULA_GUA,
-                        sizeof(gIF_IPV6_ULA_GUA));
-            gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadObj.bitmask();
-        }
-    } while (nadObj.find_next() &&
-             (gIF_IPV6[0] == '\0' || gIF_IPV6_ULA_GUA[0] == '\0'));
-
-    if (gIF_IPV6[0] == '\0') {
+    saObj = UPnPsdk::SInaddr(a_iface);
+    if (saObj.family == AF_UNSPEC) {
         return UPNP_E_INVALID_INTERFACE;
     }
-    return UPNP_E_SUCCESS;
+    return compa::GetIfInfo(saObj);
+}
+
+/*!
+ * \brief Compatible function call to set default settings
+ */
+[[maybe_unused]] int UpnpGetIfInfo(const nullptr_t) {
+    // With an empty socket address GetIfInfo() will look for the first
+    // IPv4 mapped IPv6 address and returns it to saObj, but doesn't modify it
+    // on error.
+    UPnPsdk::SSockaddr saObj;
+    return compa::GetIfInfo(saObj);
 }
 
 
-/*! \brief UPnP Device and Control Point handle table  */
+/*! \brief UPnP Device and Control Point handle table
+ * <!-- ====================================== --> */
+// HandleTable with two functions GetFreeHandle(), and FreeHandle().
 Handle_Info* HandleTable[NUM_HANDLE];
 
 #if defined(COMPA_HAVE_DEVICE_DESCRIPTION) ||                                  \
@@ -453,6 +381,160 @@ namespace {
 
 /*! \brief Initialization mutex. */
 pthread_mutex_t sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+
+/*!
+ * \brief Process single IP address, that sets only the associated global
+ * variable
+ * <!-- ------------------------------------------------------------- -->
+ */
+int GetIfInfo(
+    /*! [in] Socket address from a local network adapter to get information
+       from. */
+    UPnPsdk::SSockaddr& a_saObj) {
+
+    // Get the internal local netadapter list.
+    UPnPsdk::CNetadapter nadObj;
+    try {
+        nadObj.get_first();
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGCATCH("MSG1194") "catched next line...\n" << ex.what();
+        return UPNP_E_INVALID_INTERFACE;
+    }
+
+    do {
+        if (a_saObj.empty()) {
+            using ADDRS = UPnPsdk::CNetadapter::ADDRS;
+            if (nadObj.find_first(ADDRS::map4)) {
+                nadObj.sockaddr(a_saObj);
+            } else {
+                UPnPsdk_LOGERR("MSG1199") "No local network adapter with IPv4 "
+                                          "address found.\n";
+                return UPNP_E_INVALID_INTERFACE;
+            }
+        } else {
+            if (!nadObj.find_first(a_saObj.netaddr()))
+                break; // Error
+        }
+        if (IN6_IS_ADDR_LINKLOCAL2(&a_saObj.sin6.sin6_addr)) {
+            // Copy netaddress without surounding brackets.
+            ::inet_ntop(AF_INET6, &a_saObj.sin6.sin6_addr, gIF_IPV6,
+                        sizeof(gIF_IPV6));
+            gIF_IPV6_PREFIX_LENGTH = nadObj.bitmask();
+            // Clear unused Global Unicast Address.
+            gIF_IPV6_ULA_GUA[0] = '\0';
+            gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+
+        } else if (IN6_IS_ADDR_GLOBAL2(&a_saObj.sin6.sin6_addr) ||
+                   IN6_IS_ADDR_LOOPBACK(&a_saObj.sin6.sin6_addr) ||
+                   IN6_IS_ADDR_V4MAPPED(&a_saObj.sin6.sin6_addr)) {
+            // Copy netaddress without surounding brackets.
+            ::inet_ntop(AF_INET6, &a_saObj.sin6.sin6_addr, gIF_IPV6_ULA_GUA,
+                        sizeof(gIF_IPV6_ULA_GUA));
+            gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadObj.bitmask();
+            // Clear unused link-local address.
+            gIF_IPV6[0] = '\0';
+            gIF_IPV6_PREFIX_LENGTH = 0;
+        } else {
+            break; // Error
+        }
+
+        // Copy netinterface name and index.
+        ::strncpy(gIF_NAME, nadObj.name().c_str(), sizeof(gIF_NAME) - 1);
+        gIF_NAME[sizeof(gIF_NAME) - 1] = '\0';
+        gIF_INDEX = nadObj.index();
+
+        return UPNP_E_SUCCESS;
+
+    } while (false);
+
+    UPnPsdk_LOGERR("MSG1195") "local network adapter with addr=\""
+        << a_saObj << "\" not found.\n";
+    return UPNP_E_INVALID_INTERFACE;
+}
+
+
+/*!
+ * \brief Process ip-addresses of a local network adapter
+ *
+ * Select first link-local address and first global unicast address if available
+ * and fill the associated software global variable.
+ * <!-- -------------------------------------------------------------------- -->
+ */
+int GetIfInfo(
+    /// [in] Index number from a local network adapter to get information from.
+    const uint32_t a_index) {
+    // Get the internal local netadapter list.
+    UPnPsdk::CNetadapter nadObj;
+    try {
+        nadObj.get_first();
+    } catch (const std::exception& ex) {
+        UPnPsdk_LOGCATCH("MSG1198") "catched next line...\n" << ex.what();
+        return UPNP_E_INVALID_INTERFACE;
+    }
+
+    if (a_index == 0) {
+        // With a_index == 0 get the best choise from the operating system.
+        if (!nadObj.find_first()) {
+            UPnPsdk_LOGERR(
+                "MSG1196") "Cannot find any usable network interface by "
+                           "default (used when index=0).\n";
+            return UPNP_E_INVALID_INTERFACE;
+        }
+    } else {
+        // Check if the current index is valid and point to its local
+        // netadapter.
+        if (!nadObj.find_first(a_index)) {
+            UPnPsdk_LOGERR("MSG1200") "local network adapter with index="
+                << a_index << " not found.\n";
+            return UPNP_E_INVALID_INTERFACE;
+        }
+    }
+    // Clear needed global variable.
+    gIF_NAME[0] = '\0';
+    gIF_INDEX = 0;
+    gIF_IPV6[0] = '\0';
+    gIF_IPV6_PREFIX_LENGTH = 0;
+    gIF_IPV6_ULA_GUA[0] = '\0';
+    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+
+    // Scan selected netadapter for its IPv6 addresses and store them as needed.
+    UPnPsdk::SSockaddr nad_saObj;
+    do {
+        nadObj.sockaddr(nad_saObj);
+        if (gIF_IPV6[0] == '\0' &&
+            IN6_IS_ADDR_LINKLOCAL2(&nad_saObj.sin6.sin6_addr)) {
+            // Get gIF_NAME and gIF_INDEX. Only copied for the link-local
+            // address because the index is essential for its scope_id.
+            ::strncpy(gIF_NAME, nadObj.name().c_str(), sizeof(gIF_NAME) - 1);
+            gIF_INDEX = nadObj.index();
+
+            // Copy netaddress without surounding brackets.
+            ::inet_ntop(AF_INET6, &nad_saObj.sin6.sin6_addr, gIF_IPV6,
+                        sizeof(gIF_IPV6));
+            gIF_IPV6_PREFIX_LENGTH = nadObj.bitmask();
+        }
+        if (gIF_IPV6_ULA_GUA[0] == '\0' &&
+            (IN6_IS_ADDR_GLOBAL2(&nad_saObj.sin6.sin6_addr) ||
+             IN6_IS_ADDR_V4MAPPED(&nad_saObj.sin6.sin6_addr))) {
+            // Copy netaddress without surounding brackets.
+            ::inet_ntop(AF_INET6, &nad_saObj.sin6.sin6_addr, gIF_IPV6_ULA_GUA,
+                        sizeof(gIF_IPV6_ULA_GUA));
+            gIF_IPV6_ULA_GUA_PREFIX_LENGTH = nadObj.bitmask();
+        }
+    } while (nadObj.find_next() &&
+             (gIF_IPV6[0] == '\0' || gIF_IPV6_ULA_GUA[0] == '\0'));
+
+    if (gIF_IPV6[0] == '\0' && gIF_IPV6_ULA_GUA[0] == '\0') {
+        UPnPsdk_LOGERR(
+            "MSG1197") "No usable ip-address on local network adapter "
+            << a_index << " found.\n";
+        return UPNP_E_INVALID_INTERFACE;
+    }
+
+    return UPNP_E_SUCCESS;
+}
+
 
 /// \todo Check DEVICE_SSDP vs. CTRLPT_SSDP against struct Handle_Info
 #if defined(COMPA_HAVE_DEVICE_DESCRIPTION)
@@ -834,7 +916,7 @@ int UpnpInit2(const char* IfName, unsigned short DestPort) {
     }
 
     /* Retrieve interface information (Addresses, index, etc). */
-    retVal = ::UpnpGetIfInfo(IfName == nullptr ? "" : IfName);
+    retVal = ::UpnpGetIfInfo(IfName);
     if (retVal != UPNP_E_SUCCESS) {
         goto exit_function;
     }

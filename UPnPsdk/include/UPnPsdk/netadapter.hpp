@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-26
+// Redistribution only with this Copyright remark. Last modified: 2026-08-19
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -263,7 +263,9 @@ class CNetadapter {
      *  - \b true if adapter with given index number was found
      *  - \b false otherwise */
     UPnPsdk_API bool find_first(
-        /*! [in] Index number of the local network adapter. */
+        /*! [in] Index number of the local network adapter. This restricts
+         * find_next() to point only to next ip addresses of the selected
+         * adapter. */
         const uint32_t a_index);
 
     /*! \brief Find first ip address on a local network adapter belonging to

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-09
+// Redistribution only with this Copyright remark. Last modified: 2026-08-14
 
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/netadapter.hpp>
@@ -379,6 +379,9 @@ INSTANTIATE_TEST_SUITE_P(SplitAddrPort, SplitAddrPortTest, ::testing::Values(
         std::make_tuple("[::127.0.0.9]:50009", "::127.0.0.9", "", "50009"), // deprecated, not supported
         std::make_tuple("[::127.0.0.10]:", "::127.0.0.10", "", "0"), // deprecated, not supported
         std::make_tuple("[::127.0.0.11%47]", "::127.0.0.11", "47", ""), // deprecated, not supported
+        std::make_tuple("[127.0.0.1]", "[127.0.0.1]", "", ""), // invalid ip-addr, interpreted as alpha-num
+        std::make_tuple("[127.0.0.1%2]", "[127.0.0.1", "2]", ""), // invalid ip-addr, interpreted as alpha-num with scope_id
+        std::make_tuple("[127.0.0.1%2]:50015", "[127.0.0.1", "2]", "50015"), // invalid ip-addr, interpreted as alpha-num with scope_id
  /*40*/ std::make_tuple("[::FFff:142.250.185.99]:50008", "::FFff:142.250.185.99", "", "50008"),
         std::make_tuple("[fe80::5053%]:50010", "fe80::5053", "", "50010"),
         std::make_tuple("[2001:db8::5054%513]:50011", "2001:db8::5054", "513", "50011"),
@@ -806,6 +809,9 @@ INSTANTIATE_TEST_SUITE_P(SetAddrPort, SetAddrPortTest, ::testing::Values(
         std::make_tuple("127.0.0.1", AF_INET6, false, "[::ffff:127.0.0.1]", 0),
         std::make_tuple("127.0.0.1:", AF_INET6, false, "[::ffff:127.0.0.1]", 0),
  /*20*/ std::make_tuple("127.0.0.1:50069", AF_INET6, false, "[::ffff:127.0.0.1]", 50069),
+        std::make_tuple("[127.0.0.1]", AF_UNSPEC, false, "", 0),
+        std::make_tuple("[127.0.0.1%2]", AF_UNSPEC, false, "", 0),
+        std::make_tuple("[127.0.0.1%252]:50016", AF_UNSPEC, false, "", 0),
         std::make_tuple("192.168.33.34", AF_INET6, false, "[::ffff:192.168.33.34]", 0),
         std::make_tuple("192.168.33.35:", AF_INET6, false, "[::ffff:192.168.33.35]", 0),
         std::make_tuple("192.168.33.35:0", AF_INET6, false, "[::ffff:192.168.33.35]", 0),
@@ -813,28 +819,29 @@ INSTANTIATE_TEST_SUITE_P(SetAddrPort, SetAddrPortTest, ::testing::Values(
         // --- Failing calls
         std::make_tuple(":65536", AF_UNSPEC, false, "", 0), // Number string with colon not in range 0..65535.
         std::make_tuple("65536", AF_UNSPEC, false, "", 0), // Number string not in range 0..65535.
-        std::make_tuple("127.0.0.1:65536", AF_UNSPEC, false, "", 0), // Number string with port not in range 0..65535.
+ /*30*/ std::make_tuple("127.0.0.1:65536", AF_UNSPEC, false, "", 0), // Number string with port not in range 0..65535.
         std::make_tuple("[2001::db8::1]", AF_UNSPEC, false, "", 0), // Invalid address pattern.
         std::make_tuple("2001:db8::2]", AF_UNSPEC, false, "", 0), // Invalid address pattern.
- /*30*/ std::make_tuple("[2001:db8::3", AF_UNSPEC, false, "", 0), // Invalid address pattern.
+        std::make_tuple("[2001:db8::3", AF_UNSPEC, false, "", 0), // Invalid address pattern.
         std::make_tuple("[2001:db8::5]50003", AF_UNSPEC, false, "", 0), // Missing port separator ':'.
         std::make_tuple("[2001:db8::35003]", AF_UNSPEC, false, "", 0), // Invalid netaddress.
         std::make_tuple("192.168.66.67.", AF_INET6, true, "[::]", 0), // Invalid netaddress, but ambiguous with DNS host name paatern.
         std::make_tuple("192.168.66.67z", AF_INET6, true, "[::]", 0), // Invalid netaddress, but ambiguous with DNS host name paatern.
+        std::make_tuple("[192.168.66.68]", AF_UNSPEC, false, "", 0), // Invalid IPv4 address with brackets.
         std::make_tuple("[192.168.66.68]:50044", AF_UNSPEC, false, "", 0), // Invalid IPv4 address with brackets.
-        std::make_tuple("garbage", AF_INET6, true, "[::]", 0), // Invalid netaddress but may be a DNS host name.
+ /*40*/ std::make_tuple("garbage", AF_INET6, true, "[::]", 0), // Invalid netaddress but may be a DNS host name.
         std::make_tuple("example.com", AF_INET6, true, "[::]", 0), // Invalid netaddress but may be a DNS host name.
         std::make_tuple("other_example.com", AF_UNSPEC, false, "", 0), // Invalid underscore in DNS host name.
         std::make_tuple("example(invalid).com", AF_UNSPEC, false, "", 0), // Invalid char in DNS host name.
         // -- LLA addresses
- /*40*/ std::make_tuple("[fe80::2%2]:50045", AF_INET6, false, "[fe80::2%2]", 50045),
+        std::make_tuple("[fe80::2%2]:50045", AF_INET6, false, "[fe80::2%2]", 50045),
         std::make_tuple("[fe80::3%253]", AF_INET6, false, "[fe80::3%253]", 0),
         std::make_tuple("[fe80::4]", AF_UNSPEC, false, "", 0), // LLA without scope_id is invalid.
         std::make_tuple("[fe80:2::5%5]", AF_UNSPEC, false, "", 0), // LLA with subnet is invalid.
         std::make_tuple("[2001:db8::6%6]", AF_INET6, false, "[2001:db8::6]", 0), // Scope_id silently removed.
         // -- Some alphanumeric pattern
         std::make_tuple("example.com", AF_INET6, true, "[::]", 0), // Empty sockaddr to indicate name resolution.
-        std::make_tuple("[2001:db8::2]:https", AF_INET6, true, "[::]", 0) // Empty sockaddr to indicate name resolution.
+ /*50*/ std::make_tuple("[2001:db8::2]:https", AF_INET6, true, "[::]", 0) // Empty sockaddr to indicate name resolution.
 ));
 // clang-format on
 TEST(SockaddrTestSuite, pattern_for_checking_bind) {

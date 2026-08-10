@@ -1,5 +1,5 @@
 // Copyright (C) 2026+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-10
+// Redistribution only with this Copyright remark. Last modified: 2026-08-16
 /*!
  * \file
  * \brief Manage information about internet addresses
@@ -145,7 +145,7 @@ int CAddrinfo::get_first(SInaddr a_inaddr) {
         // Must be set to 'saObj' to get checked data.
         saObj = *reinterpret_cast<sockaddr_storage*>(new_res->ai_addr);
         if (saObj.family == AF_UNSPEC) {
-            UPnPsdk_LOGINFO("MSG1190") "syscall ::freeaddrinfo(" << new_res
+            UPnPsdk_LOGINFO("MSG1191") "syscall ::freeaddrinfo(" << new_res
                                                                  << ").\n";
             umock::netdb_h.freeaddrinfo(new_res);
             ret = EAI_NONAME;

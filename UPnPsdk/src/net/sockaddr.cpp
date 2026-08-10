@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 And higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-09
+// Redistribution only with this Copyright remark. Last modified: 2026-08-19
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -602,7 +602,7 @@ bool SSockaddr::operator==(const SSockaddr& a_saddr) const {
 // Getter for the assosiated ip address without port
 // -------------------------------------------------
 // e.g. "[fe80::3%2]:51000".
-std::string SSockaddr::netaddr() noexcept {
+std::string SSockaddr::netaddr() const noexcept {
     // Some more statements, but due to frequently usage, it's optimized to
     // reduce expensive memory allocation. I don't use ::getnameinfo() because
     // it doesn't return the scope_id numeric on Unix like platforms. This
@@ -622,7 +622,7 @@ std::string SSockaddr::netaddr() noexcept {
         // detect this address I convert it "by hand". Other platforms do it as
         // expected.
         const uint32_t* sin6_32 =
-            reinterpret_cast<uint32_t*>(&m_sa_union.sin6.sin6_addr);
+            reinterpret_cast<const uint32_t*>(&m_sa_union.sin6.sin6_addr);
         if (*sin6_32 == 0 && *(sin6_32 + 1) == 0 &&
             *(sin6_32 + 2) == htonl(0x0000ffff) && *(sin6_32 + 3) == 0) {
             strcpy(addr_buf, "::ffff:0.0.0.0");
@@ -695,7 +695,7 @@ std::string SSockaddr::netaddr() noexcept {
 // Getter for the assosiated ip address with port
 // ----------------------------------------------
 // e.g. "[2001:db8::2]:50001".
-std::string SSockaddr::netaddrp() noexcept {
+std::string SSockaddr::netaddrp() const noexcept {
     // sin_port and sin6_port are on the same memory location (union of the
     // structures) so I can use it for AF_INET and AF_INET6. 'std::to_string()'
     // may throw 'std::bad_alloc' from the std::string constructor. It is a

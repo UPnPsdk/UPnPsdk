@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-26
+// Redistribution only with this Copyright remark. Last modified: 2026-08-15
 /*!
  * \file
  * \brief Manage information from Microsoft Windows about network adapters.
@@ -141,10 +141,8 @@ void CNetadapter_platform::sockaddr(SSockaddr& a_saddr) const {
         a_saddr.clear();
     } else {
         // Copy address of the network adapter
-        memcpy(&a_saddr.ss,
-               reinterpret_cast<sockaddr_storage*>(
-                   m_unicastaddr_current->Address.lpSockaddr),
-               sizeof(a_saddr.ss));
+        a_saddr = *reinterpret_cast<sockaddr_storage*>(
+            m_unicastaddr_current->Address.lpSockaddr);
     }
 }
 

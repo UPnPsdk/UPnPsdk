@@ -109,6 +109,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ab1dc11ff68ac2c322840d378ebde4f84" id="r_ab1dc11ff68ac2c322840d378ebde4f84"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ab1dc11ff68ac2c322840d378ebde4f84">UpnpGetIfInfo</a> (const std::string &amp;a_iface=&quot;&quot;)</td></tr>
 <tr class="memdesc:ab1dc11ff68ac2c322840d378ebde4f84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve local network adapter information and keep it in global variables.  <br /></td></tr>
 <tr class="separator:ab1dc11ff68ac2c322840d378ebde4f84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fdcdfebc963e7875981390aa4b49620" id="r_a4fdcdfebc963e7875981390aa4b49620"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a4fdcdfebc963e7875981390aa4b49620">UpnpGetIfInfo</a> (const nullptr_t)</td></tr>
+<tr class="memdesc:a4fdcdfebc963e7875981390aa4b49620"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compatible function call to set default settings.  <br /></td></tr>
+<tr class="separator:a4fdcdfebc963e7875981390aa4b49620"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0df8015084a465bb2d7f9e5ea5efa3d7" id="r_a0df8015084a465bb2d7f9e5ea5efa3d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a0df8015084a465bb2d7f9e5ea5efa3d7">GetFreeHandle</a> ()</td></tr>
 <tr class="memdesc:a0df8015084a465bb2d7f9e5ea5efa3d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a free <a class="el" href="../../d5/d67/Glossary.html#glossary_unit">UPnP Unit</a> handle.  <br /></td></tr>
 <tr class="separator:a0df8015084a465bb2d7f9e5ea5efa3d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,13 +122,12 @@ Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ae1780789dd87fdff01750646dfdcb8a8" id="r_ae1780789dd87fdff01750646dfdcb8a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/da9/upnpapi_8hpp.html#d3/d84/structHandle__Info">Handle_Info</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ae1780789dd87fdff01750646dfdcb8a8">HandleTable</a> [<a class="el" href="../../d3/da9/upnpapi_8hpp.html#ac4d94c3e0ec4dfa5640f42fda313c5f4">NUM_HANDLE</a>]</td></tr>
-<tr class="memdesc:ae1780789dd87fdff01750646dfdcb8a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">UPnP Device and Control Point handle table <br  />
-  <br /></td></tr>
+<tr class="memdesc:ae1780789dd87fdff01750646dfdcb8a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">UPnP Device and Control Point handle table.  <br /></td></tr>
 <tr class="separator:ae1780789dd87fdff01750646dfdcb8a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ab1dc11ff68ac2c322840d378ebde4f84" name="ab1dc11ff68ac2c322840d378ebde4f84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1dc11ff68ac2c322840d378ebde4f84">&#9670;&#160;</a></span>UpnpGetIfInfo()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1dc11ff68ac2c322840d378ebde4f84">&#9670;&#160;</a></span>UpnpGetIfInfo() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,7 +143,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieve local network adapter information and keep it in global variables. </p>
-<p>If no or empty argument given, the operating system should find the best suitable local network adapter for operation as specified by <a href="https://www.rfc-editor.org/rfc/rfc3484">RFC3484 - Default Address Selection</a>. If an IP address is selected as argument, then only its associated gIF_IPV6_* (link-local, or network global) variables are set. If a network adapter is selected with empty argument, or as argument with name, or with index, then it can have multiple IP addresses. gIF_IPV6 and gIF_IPV6_PREFIX_LENGTH is always set, and also gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH are set, if available on the same netadapter. A loopback address ("[::1]") as argument can be found in gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH.</p>
+<p>If no or empty argument given, the operating system should find the best suitable local network adapter for operation as specified by <a href="https://www.rfc-editor.org/rfc/rfc3484">RFC3484 - Default Address Selection</a>. If an IP address is used as argument, then only its associated gIF_IPV6_* (link-local, or network global) variables are set. If a network adapter is selected with empty argument, or as argument with name, or with index, then it can have multiple IP addresses. gIF_IPV6 and gIF_IPV6_PREFIX_LENGTH is always set, and also gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH are set, if available on the same netadapter. A loopback address ("[::1]") as argument can be found in gIF_IPV6_ULA_GUA and gIF_IPV6_ULA_GUA_PREFIX_LENGTH.</p>
 <p>The local network adapter must fulfill these requirements: </p><ul>
 <li>Be UP. </li>
 <li>Support MULTICAST. </li>
@@ -165,7 +167,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00265">265</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00273">273</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -173,40 +175,9 @@ Variables</h2></td></tr>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_cgraph.png" border="0" usemap="#ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_cgraph" alt=""/></div>
 <map name="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_cgraph" id="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_cgraph">
-<area shape="rect" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,223,225,263"/>
-<area shape="poly" title=" " alt="" coords="70,223,67,213,75,204,91,198,115,196,144,199,159,206,157,211,142,204,115,201,92,203,78,208,73,214,75,222"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5e132073814aad1879bb333d8bf9686" title="Get prefix length from the ip address of the current selected local network adapter." alt="" coords="273,25,443,65"/>
-<area shape="poly" title=" " alt="" coords="131,221,189,155,229,116,272,82,292,69,295,74,275,86,232,120,193,158,135,224"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="273,191,443,231"/>
-<area shape="poly" title=" " alt="" coords="225,226,259,221,260,226,226,231"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="493,133,662,173"/>
-<area shape="poly" title=" " alt="" coords="155,220,210,196,273,176,378,158,478,151,479,157,379,164,274,181,212,201,157,225"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995" title="Get network adapter name from current selected list entry." alt="" coords="493,5,662,45"/>
-<area shape="poly" title=" " alt="" coords="146,220,204,185,272,147,490,55,508,48,510,53,492,60,275,152,207,189,149,225"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="493,437,662,477"/>
-<area shape="poly" title=" " alt="" coords="163,260,274,304,323,317,362,322,401,331,444,355,461,372,469,390,477,407,492,423,500,428,497,433,489,427,473,410,465,392,457,375,441,359,399,336,361,327,322,322,273,309,162,265"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters." alt="" coords="273,255,443,295"/>
-<area shape="poly" title=" " alt="" coords="226,255,260,259,259,264,225,260"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="273,369,443,409"/>
-<area shape="poly" title=" " alt="" coords="144,261,203,303,275,348,299,361,296,366,272,353,200,307,141,265"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a8a8cc96fde129cc987147c49db173778" title="Get the assosiated netaddress without port." alt="" coords="281,433,435,473"/>
-<area shape="poly" title=" " alt="" coords="132,262,189,337,229,381,275,419,284,425,281,429,272,423,225,385,184,341,128,265"/>
-<area shape="rect" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50" title="Test if the socket address object is empty." alt="" coords="500,69,655,109"/>
-<area shape="poly" title=" " alt="" coords="383,188,431,154,489,119,503,112,506,117,492,124,434,158,386,193"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="493,197,662,237"/>
-<area shape="poly" title=" " alt="" coords="443,211,479,212,479,217,443,216"/>
-<area shape="poly" title=" " alt="" coords="434,188,487,174,488,179,436,193"/>
-<area shape="poly" title=" " alt="" coords="377,189,441,120,462,86,472,71,489,55,497,50,500,54,492,59,476,74,467,89,445,123,381,192"/>
-<area shape="poly" title=" " alt="" coords="430,229,445,241,461,265,469,288,469,334,470,379,477,401,493,424,496,427,492,431,489,427,472,403,465,380,464,334,463,289,456,267,441,244,427,233"/>
-<area shape="poly" title=" " alt="" coords="434,252,487,238,488,243,436,257"/>
-<area shape="poly" title=" " alt="" coords="421,252,441,241,456,227,464,213,473,198,489,183,498,178,501,182,492,187,478,201,469,215,460,230,444,245,423,257"/>
-<area shape="poly" title=" " alt="" coords="419,293,445,311,456,326,463,341,469,369,474,397,481,410,493,423,497,427,494,431,489,427,477,413,469,398,464,370,458,343,452,329,441,315,416,297"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd" title="Test if a socket address is a global unicast address." alt="" coords="491,285,664,325"/>
-<area shape="poly" title=" " alt="" coords="443,284,478,289,477,294,443,289"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25" title="Test if a socket address is a link&#45;local address." alt="" coords="491,373,664,413"/>
-<area shape="poly" title=" " alt="" coords="406,292,444,311,534,364,532,368,441,316,404,297"/>
-<area shape="poly" title=" " alt="" coords="536,286,534,276,540,266,555,261,577,259,603,262,617,269,614,274,601,267,577,264,556,266,544,271,539,277,541,284"/>
-<area shape="poly" title=" " alt="" coords="536,374,534,364,540,354,555,349,577,347,603,350,617,357,614,362,601,355,577,352,556,354,544,359,539,365,541,372"/>
+<area shape="rect" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="5,5,225,45"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0" title="Free function to check if a string represents an unsigned integer." alt="" coords="273,13,440,38"/>
+<area shape="poly" title=" " alt="" coords="226,23,260,23,260,28,226,28"/>
 </map>
 </div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -216,12 +187,33 @@ Variables</h2></td></tr>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_icgraph.png" border="0" usemap="#ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_icgraph" alt=""/></div>
 <map name="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_icgraph" id="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_ab1dc11ff68ac2c322840d378ebde4f84_icgraph">
-<area shape="rect" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="139,29,359,69"/>
-<area shape="poly" title=" " alt="" coords="282,18,270,11,249,8,230,10,218,15,214,21,216,28,211,30,209,20,215,11,228,5,249,3,272,6,285,13"/>
-<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,37,91,62"/>
-<area shape="poly" title=" " alt="" coords="125,52,91,52,91,47,125,47"/>
+<area shape="rect" title="Retrieve local network adapter information and keep it in global variables." alt="" coords="139,5,359,45"/>
+<area shape="rect" href="../../d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,13,91,38"/>
+<area shape="poly" title=" " alt="" coords="125,28,91,28,91,23,125,23"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="a4fdcdfebc963e7875981390aa4b49620" name="a4fdcdfebc963e7875981390aa4b49620"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fdcdfebc963e7875981390aa4b49620">&#9670;&#160;</a></span>UpnpGetIfInfo() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anonymous_namespace{upnpapi.cpp}::UpnpGetIfInfo </td>
+          <td>(</td>
+          <td class="paramtype">const nullptr_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compatible function call to set default settings. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00305">305</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -244,31 +236,19 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>On success: an integer greater than zero<br  />
  On error: UPNP_E_OUTOF_HANDLE </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00400">400</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00328">328</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a0df8015084a465bb2d7f9e5ea5efa3d7_cgraph.png" border="0" usemap="#ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a0df8015084a465bb2d7f9e5ea5efa3d7_cgraph" alt=""/></div>
-<map name="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a0df8015084a465bb2d7f9e5ea5efa3d7_cgraph" id="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a0df8015084a465bb2d7f9e5ea5efa3d7_cgraph">
-<area shape="rect" title="Get a free UPnP Unit handle." alt="" coords="5,29,232,69"/>
-<area shape="poly" title=" " alt="" coords="76,30,74,20,81,10,96,5,119,3,145,6,160,13,157,18,144,11,119,8,97,10,84,15,79,21,81,28"/>
-</map>
-</div>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a0df8015084a465bb2d7f9e5ea5efa3d7_icgraph.png" border="0" usemap="#ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a0df8015084a465bb2d7f9e5ea5efa3d7_icgraph" alt=""/></div>
 <map name="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a0df8015084a465bb2d7f9e5ea5efa3d7_icgraph" id="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a0df8015084a465bb2d7f9e5ea5efa3d7_icgraph">
-<area shape="rect" title="Get a free UPnP Unit handle." alt="" coords="247,29,473,69"/>
-<area shape="poly" title=" " alt="" coords="404,18,388,11,360,8,335,10,320,15,315,21,318,28,312,30,310,20,317,10,334,5,360,3,390,6,406,13"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="9,11,195,37"/>
-<area shape="poly" title=" " alt="" coords="233,40,194,36,195,30,233,34"/>
-<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="5,61,199,86"/>
-<area shape="poly" title=" " alt="" coords="233,64,199,67,199,62,233,58"/>
+<area shape="rect" title="Get a free UPnP Unit handle." alt="" coords="247,23,473,63"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="9,5,195,31"/>
+<area shape="poly" title=" " alt="" coords="233,34,194,30,195,24,233,28"/>
+<area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="5,55,199,80"/>
+<area shape="poly" title=" " alt="" coords="233,58,199,61,199,56,233,52"/>
 </map>
 </div>
 
@@ -299,33 +279,31 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00421">421</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00349">349</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_cgraph.png" border="0" usemap="#ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_cgraph" alt=""/></div>
+<map name="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_cgraph" id="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_cgraph">
+<area shape="rect" title="Free handle." alt="" coords="5,23,208,63"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="256,31,347,56"/>
+<area shape="poly" title=" " alt="" coords="208,41,242,41,242,46,208,46"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="415,5,555,31"/>
+<area shape="poly" title=" " alt="" coords="346,34,401,27,401,32,347,40"/>
+<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="395,55,575,80"/>
+<area shape="poly" title=" " alt="" coords="347,47,381,51,380,56,347,52"/>
+</map>
+</div>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_cgraph.png" border="0" usemap="#ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_cgraph" alt=""/></div>
-<map name="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_cgraph" id="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_cgraph">
-<area shape="rect" title="Free handle." alt="" coords="5,29,208,69"/>
-<area shape="poly" title=" " alt="" coords="70,30,68,20,74,11,87,5,107,3,130,6,142,13,139,17,128,11,107,8,88,10,77,15,73,21,75,28"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#afe489651d95ecf91dd452cdb2d5497c3" title="Prints the debug statement." alt="" coords="256,37,347,62"/>
-<area shape="poly" title=" " alt="" coords="208,47,242,47,242,52,208,52"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#adee8b149b1dca33417740b21a862ad00" title="Check Debug level." alt="" coords="415,11,555,37"/>
-<area shape="poly" title=" " alt="" coords="346,40,401,33,401,38,347,46"/>
-<area shape="rect" href="../../d5/dfa/upnpdebug_8cpp.html#a4190a252f156f35bad0781b542cea98d" title="Display File and Line." alt="" coords="395,61,575,86"/>
-<area shape="poly" title=" " alt="" coords="347,53,381,57,380,62,347,58"/>
-</map>
-</div>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_icgraph.png" border="0" usemap="#ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_icgraph" alt=""/></div>
 <map name="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_icgraph" id="ada/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03_a07653875141e0fbfd8429f44496dd448_icgraph">
 <area shape="rect" title="Free handle." alt="" coords="507,47,709,87"/>
-<area shape="poly" title=" " alt="" coords="651,36,636,29,608,26,584,28,569,33,564,39,566,46,561,48,559,38,566,28,583,23,608,21,637,24,653,31"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a9ab7cff61eb3a2dcff3219d5105ce8f7" title="Registers one root&#45; or logical&#45;device object with the UPnP Library to get a handle for it." alt="" coords="265,5,450,31"/>
 <area shape="poly" title=" " alt="" coords="493,47,422,33,423,28,494,42"/>
 <area shape="rect" href="../../d4/d99/upnpapi_8cpp.html#a6294280d1c16b827b29625bdf2084fa4" title="Registers one root&#45; or logical&#45;device object with the UPnP Library with additional description and ge..." alt="" coords="261,55,454,80"/>
@@ -352,10 +330,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>UPnP Device and Control Point handle table <br  />
- </p>
+<p>UPnP Device and Control Point handle table. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00389">389</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html#l00317">317</a> of file <a class="el" href="../../d4/d99/upnpapi_8cpp_source.html">upnpapi.cpp</a>.</p>
 
 </div>
 </div>

@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('dc/db4/netadapter__unix_8cpp_source.ht
 </div><!--header-->
 <div class="contents">
 <a href="../../dc/db4/netadapter__unix_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, &lt;Ingo@Hoeft-online.de&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2026-07-26</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Redistribution only with this Copyright remark. Last modified: 2026-08-15</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="../../d9/dff/netadapter_8hpp.html">UPnPsdk/netadapter.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d3b/synclog_8hpp.html">UPnPsdk/synclog.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;umock/ifaddrs.hpp&gt;</span></div>
@@ -188,7 +188,7 @@ $(document).ready(function(){initNavTree('dc/db4/netadapter__unix_8cpp_source.ht
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        a_saddr.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a66e9bf5ef761fd7675a87397a54b05b5">clear</a>();</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="comment">// Copy address of the network adapter.</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        a_saddr = <span class="keyword">reinterpret_cast&lt;</span>sockaddr_storage&amp;<span class="keyword">&gt;</span>(*m_ifa_current-&gt;ifa_addr);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        a_saddr = *<span class="keyword">reinterpret_cast&lt;</span>sockaddr_storage*<span class="keyword">&gt;</span>(m_ifa_current-&gt;ifa_addr);</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
 </div>

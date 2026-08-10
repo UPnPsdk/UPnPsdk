@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-07
+// Redistribution only with this Copyright remark. Last modified: 2026-08-16
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -413,7 +413,7 @@ struct UPnPsdk_API SSockaddr {
      * \endcode
      * \returns
      *   Netaddress from socket address. */
-    std::string netaddr() noexcept;
+    std::string netaddr() const noexcept;
 
 
     // Getter for a netaddress with port
@@ -427,7 +427,7 @@ struct UPnPsdk_API SSockaddr {
      * \endcode
      * \returns
      *   Netaddress with port from socket address. */
-    std::string netaddrp() noexcept;
+    std::string netaddrp() const noexcept;
 
 
     // Getter for the size of the current socket address
@@ -466,7 +466,7 @@ struct UPnPsdk_API SSockaddr {
  * std::cout << saObj << "\n"; // output "[::]:0", saObj wasn't set.
  * \endcode
  */
-inline std::ostream& operator<<(std::ostream& os, SSockaddr& saddr) {
+inline std::ostream& operator<<(std::ostream& os, const SSockaddr& saddr) {
     os << saddr.netaddrp();
     return os;
 }

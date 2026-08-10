@@ -79,7 +79,7 @@ var namespaceUPnPsdk =
     [ "IN6_IS_ADDR_LINKLOCAL2", "d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25", null ],
     [ "is_unum_str", "d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0", null ],
     [ "to_port", "d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5", null ],
-    [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#ga9075bce23f29654c256e20e08fd8d144", null ],
+    [ "operator<<", "d0/dd8/group__upnplib-addrmodul.html#gad3d608513f2d2b038809a0e0d62ebc31", null ],
     [ "socket", "da/de4/group__upnpsdk-socket.html#gadbc969f806b019f3a67c7be8cd76b1a7", null ],
     [ "errStr", "dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588", null ],
     [ "errStrEx", "dd/d67/namespaceUPnPsdk.html#a6fe628907cafd576019aa9d1e3d88b87", null ],
