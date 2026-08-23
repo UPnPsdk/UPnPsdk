@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2026-05-14
+# Redistribution only with this Copyright remark. Last modified: 2026-09-02
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -127,43 +127,36 @@ add_test(NAME ctest_UpnpFileInfo-csh COMMAND test_UpnpFileInfo-csh --gtest_shuff
 # functions, we cannot use shared libraries due to symbol import/export
 # conflicts on Microsoft Windows (warning C4273: inconsistent dll linkage). I
 # must use static libraries.
-add_executable(test_upnpapi-pst
-#------------------------------
-    test_upnpapi.cpp
+add_executable(test_upnpapi2-pst
+#-------------------------------
+    test_upnpapi2.cpp
 )
-target_include_directories(test_upnpapi-pst
+target_include_directories(test_upnpapi2-pst
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
-target_compile_options(test_upnpapi-pst
-    # disable warning C4701: potentially uninitialized local variable
-    # '<variable>' used
-    PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/wd4701>
-    # disable warning C4706: assignment within conditional expression
-    $<$<CXX_COMPILER_ID:MSVC>:/wd4706>
-)
-target_link_libraries(test_upnpapi-pst
+target_link_libraries(test_upnpapi2-pst
     PRIVATE
         pupnp_static
         UPnPsdk_static # must be static for win32
         utest_shared
 )
-add_test(NAME ctest_upnpapi-pst COMMAND test_upnpapi-pst --gtest_shuffle
+add_test(NAME ctest_upnpapi2-pst COMMAND test_upnpapi2-pst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
-add_executable(test_upnpapi-cst
-#------------------------------
-    test_upnpapi.cpp
+add_executable(test_upnpapi2-cst
+#-------------------------------
+    test_upnpapi2.cpp
 )
-target_include_directories(test_upnpapi-cst
+target_include_directories(test_upnpapi2-cst
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
-target_link_libraries(test_upnpapi-cst
+target_link_libraries(test_upnpapi2-cst
     PRIVATE
         compa_static
         utest_shared
 )
-add_test(NAME ctest_upnpapi-cst COMMAND test_upnpapi-cst --gtest_shuffle
+add_test(NAME ctest_upnpapi2-cst COMMAND test_upnpapi2-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 

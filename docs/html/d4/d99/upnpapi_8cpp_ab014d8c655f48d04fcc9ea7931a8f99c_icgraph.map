@@ -1,20 +1,20 @@
 <map id="GetDeviceHandleInfo" name="GetDeviceHandleInfo">
-<area shape="rect" id="Node000001" title="Retrieves the device handle and information of the first device of the address family specified...." alt="" coords="795,108,956,133"/>
-<area shape="rect" id="Node000002" href="$db/db9/ssdp__device_8cpp.html#a71cabcefa14fea2869b65b9d2ba7712d" title="Handles the search request." alt="" coords="593,42,747,82"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="816,107,740,85,741,80,817,101"/>
-<area shape="rect" id="Node000007" href="$d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="623,136,717,161"/>
-<area shape="poly" id="edge3_Node000001_Node000007" title=" " alt="" coords="781,136,718,145,718,140,781,131"/>
-<area shape="rect" id="Node000003" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a" title="This function is a thread that handles SSDP requests." alt="" coords="344,5,545,60"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="579,53,545,48,546,43,580,48"/>
-<area shape="rect" id="Node000008" href="$d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,161,91,187"/>
-<area shape="poly" id="edge4_Node000007_Node000008" title=" " alt="" coords="609,148,545,146,341,137,252,138,139,151,87,164,86,159,138,146,252,133,341,132,545,141,609,143"/>
-<area shape="rect" id="Node000009" href="$d4/d99/upnpapi_8cpp.html#a4c19962b251af8c60bf7f40309e79ba0" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="148,161,287,187"/>
-<area shape="poly" id="edge5_Node000007_Node000009" title=" " alt="" coords="609,155,287,173,287,167,609,149"/>
-<area shape="rect" id="Node000010" href="$d4/d99/upnpapi_8cpp.html#a353a56c4dd0685acd7a8d2bb9cb8dddd" title="Finishes initializing the UPnP SDK." alt="" coords="139,211,296,236"/>
-<area shape="poly" id="edge7_Node000007_Node000010" title=" " alt="" coords="645,172,601,203,574,217,546,227,481,240,415,244,352,243,296,238,296,233,352,238,415,239,481,235,545,222,572,212,598,198,642,168"/>
-<area shape="rect" id="Node000011" href="$d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="366,187,523,212"/>
-<area shape="poly" id="edge9_Node000007_Node000011" title=" " alt="" coords="610,165,503,189,501,184,609,160"/>
-<area shape="poly" id="edge6_Node000009_Node000008" title=" " alt="" coords="134,177,91,177,91,171,134,171"/>
-<area shape="poly" id="edge8_Node000010_Node000008" title=" " alt="" coords="159,209,90,189,92,184,161,204"/>
-<area shape="poly" id="edge10_Node000011_Node000009" title=" " alt="" coords="352,192,286,184,287,179,352,186"/>
+<area shape="rect" id="Node000001" title="Retrieves the device handle and information of the first device of the address family specified...." alt="" coords="912,108,1073,133"/>
+<area shape="rect" id="Node000002" href="$db/db9/ssdp__device_8cpp.html#a71cabcefa14fea2869b65b9d2ba7712d" title="Handles the search request." alt="" coords="711,42,864,82"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="933,107,857,85,859,80,935,101"/>
+<area shape="rect" id="Node000007" href="$d4/d99/upnpapi_8cpp.html#a75a3c9f9180bc908e17d49c3e2218e99" title="Terminates the Linux SDK for UPnP Devices." alt="" coords="740,136,835,161"/>
+<area shape="poly" id="edge3_Node000001_Node000007" title=" " alt="" coords="899,136,836,145,835,140,898,131"/>
+<area shape="rect" id="Node000003" href="$db/daf/namespaceanonymous__namespace_02ssdp__common_8cpp_03.html#a73ff71f907e2bf442c51b304f877d07a" title="This function is a thread that handles SSDP requests." alt="" coords="447,5,649,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="697,54,648,48,649,42,697,48"/>
+<area shape="rect" id="Node000008" href="$d7/df3/group__compaAPI-Addressing.html#gad1de9ac9a9d1233809a8846a97fccd9b" title="Initializes the Linux SDK for UPnP Devices." alt="" coords="5,156,91,181"/>
+<area shape="poly" id="edge4_Node000007_Node000008" title=" " alt="" coords="726,146,662,142,515,132,399,122,285,122,218,128,139,139,107,147,78,158,76,153,106,142,138,134,217,122,285,116,400,117,515,126,663,137,726,141"/>
+<area shape="rect" id="Node000009" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a3295cabaa951a9374ef91e9bd35d5eea" title="Performs the initial steps in initializing the UPnP SDK." alt="" coords="139,149,385,189"/>
+<area shape="poly" id="edge5_Node000007_Node000009" title=" " alt="" coords="726,154,386,167,386,161,726,148"/>
+<area shape="rect" id="Node000010" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#abeea40169f11b35e3f0bb269ac1de5f8" title="Finishes initializing the UPnP SDK." alt="" coords="155,239,369,293"/>
+<area shape="poly" id="edge7_Node000007_Node000010" title=" " alt="" coords="770,174,725,218,696,240,664,256,589,277,512,287,437,288,370,284,370,279,437,283,512,282,588,272,662,252,693,235,722,214,766,170"/>
+<area shape="rect" id="Node000011" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a671193436a7910a783ae84dec45c9202" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="433,187,663,241"/>
+<area shape="poly" id="edge9_Node000007_Node000011" title=" " alt="" coords="727,168,649,189,648,184,726,163"/>
+<area shape="poly" id="edge6_Node000009_Node000008" title=" " alt="" coords="125,171,91,171,91,166,125,166"/>
+<area shape="poly" id="edge8_Node000010_Node000008" title=" " alt="" coords="188,235,76,184,78,179,190,231"/>
+<area shape="poly" id="edge10_Node000011_Node000009" title=" " alt="" coords="419,196,385,191,386,186,420,191"/>
 </map>

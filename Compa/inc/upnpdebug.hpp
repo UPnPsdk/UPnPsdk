@@ -6,7 +6,7 @@
  * Copyright (c) 2006 Rémi Turboult <r3mi@users.sourceforge.net>
  * All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-31
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -51,49 +51,40 @@ extern "C" {
 /* ! \name Other debugging features
  *
  * The UPnP SDK contains other features to aid in debugging.
- * @{
  */
 
-/// @{
 /// \brief Only debug messages from this program module
-typedef enum Upnp_Module {
-    SSDP,
-    SOAP,
-    GENA,
-    TPOOL,
-    MSERV,
-    DOM,
-    API,
-    HTTP
+typedef enum {
+    SSDP,  //!< Select messages from SSDP-module.
+    SOAP,  //!< Select messages from SOAP-module.
+    GENA,  //!< Select messages from GENA-module.
+    TPOOL, //!< Select messages from Threadpool-module.
+    MSERV, //!< Select messages from Miniserver-module.
+    DOM,   //!< Select messages from DOM-module.
+    API,   //!< Select messages from API-module.
+    HTTP   //!< Select messages from HTTP-module.
 } Dbg_Module;
-/// @}
 
-/// @{
 /*! \brief Upnp_LogLevel
  *
  *  The user has the option to select 4 different types of debugging levels,
- *  see \c UpnpSetLogLevel.
- *  The critical level will show only those messages
- *  which can halt the normal processing of the library, like memory
- *  allocation errors. The remaining three levels are just for debugging
- *  purposes. Error will show recoverable errors.
- *  Info Level displays the other important operational information
- *  regarding the working of the library. If the user selects All,
- *  then the library displays all the debugging information that it has.
- *    \li \c UPNP_CRITICAL [0]
- *    \li \c UPNP_ERROR [1]
- *    \li \c UPNP_INFO [2]
- *    \li \c UPNP_ALL [3]
+ *  see UpnpSetLogLevel(),
  */
-typedef enum Upnp_LogLevel_e {
+typedef enum {
+    /*! This level will show only those messages which can halt the normal
+       processing of the library, like memory allocation errors. */
     UPNP_CRITICAL,
+    /*! In addition to the previous errors, this will also show recoverable
+       errors. */
     UPNP_ERROR,
+    /*! In addition to all previous errors, this also displays the other
+       important operational information regarding the working of the library.
+     */
     UPNP_INFO,
-    UPNP_ALL,
-    /* Always the last, please. */
-    UPNP_NEVER
+    /*! If the user selects All, then the library displays all the debugging
+       information that it has. */
+    UPNP_ALL
 } Upnp_LogLevel;
-/// @}
 
 /*! UPNP_PACKET probably resulted from a confusion between module and level and
  * was only used by a few messages in ssdp_device.c (they have been moved to
@@ -104,18 +95,32 @@ typedef enum Upnp_LogLevel_e {
 #define UPNP_DEFAULT_LOG_LEVEL UPNP_ALL
 
 /*!
- * \brief Initialize the log files.
- *
- * \return -1 if fails or UPNP_E_SUCCESS if succeeds.
+ * \brief Set the name for the log file.
+ * \note You must call at least this function or UpnpSetLogLevel() before you
+ * can use UpnpInitLog(). It's no problem to call both before if you need that.
  */
-UPnPsdk_VIS int UpnpInitLog(void);
+UPnPsdk_VIS void UpnpSetLogFileNames(
+    /*! [in] Name of the log file. Use a nullptr for logging to stderr. */
+    const char* a_filename,
+    /*! [in] This has been kept for compatibility. Usual set to nullptr, but you
+       can set what you like. It is ignored. */
+    const char* a_ignored);
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
-#define UpnpInitLog UpnpInitLog_Inlined
-static inline int UpnpInitLog_Inlined(void) { return UPNP_E_SUCCESS; }
+#define UpnpSetLogFileNames UpnpSetLogFileNames_Inlined
+static inline void UpnpSetLogFileNames_Inlined(const char* ErrFileName,
+                                               const char* a_ignored) {
+    (void)ErrFileName;
+    (void)a_ignored;
+    return;
+}
 #endif
+
 /*!
  * \brief Set the log level (see \c Upnp_LogLevel).
+ * \note You must call at least this function or UpnpSetLogFileNames() before
+ * you can use UpnpInitLog(). It's no problem to call both before if you need
+ * that.
  */
 UPnPsdk_VIS void UpnpSetLogLevel(
     /*! [in] Log level. */
@@ -130,34 +135,25 @@ static inline void UpnpSetLogLevel_Inlined(Upnp_LogLevel log_level) {
 #endif
 
 /*!
- * \brief Closes the log files.
+ * \brief Initialize the log files.
+ * \note You must call UpnpSetLogFileNames() or UpnpSetLogLevel) before using
+ * this function. It's no problem to call both before if you need that.
+ *
+ * \code
+ * // Typical usage:
+ * UpnpSetLogFileNames(nullptr, nullptr); // This example logs to stderr that
+ *                                        // is also default.
+ * UpnpSetLogLevel(UPNP_ERROR); // If not comfortable with
+ *                              // UPNP_DEFAULT_LOG_LEVEL.
+ * assert(UpnpInitLog() == UPNP_E_SUCCESS);
+ * \endcode
+ * \return -1 if fails or UPNP_E_SUCCESS if succeeds.
  */
-UPnPsdk_VIS void UpnpCloseLog(void);
+UPnPsdk_VIS int UpnpInitLog(void);
 
 #if defined NDEBUG && !defined UPNP_DEBUG_C
-#define UpnpCloseLog UpnpCloseLog_Inlined
-static inline void UpnpCloseLog_Inlined(void) {}
-#endif
-
-/*!
- * \brief Set the name for the log file. There used to be 2 separate files. The
- * second parameter has been kept for compatibility but is ignored.
- * Use a NULL file name for logging to stderr.
- */
-UPnPsdk_VIS void UpnpSetLogFileNames(
-    /*! [in] Name of the log file. */
-    const char* fileName,
-    /*! [in] Ignored. */
-    const char* Ignored);
-
-#if defined NDEBUG && !defined UPNP_DEBUG_C
-#define UpnpSetLogFileNames UpnpSetLogFileNames_Inlined
-static inline void UpnpSetLogFileNames_Inlined(const char* ErrFileName,
-                                               const char* ignored) {
-    (void)ErrFileName;
-    (void)ignored;
-    return;
-}
+#define UpnpInitLog UpnpInitLog_Inlined
+static inline int UpnpInitLog_Inlined(void) { return UPNP_E_SUCCESS; }
 #endif
 
 /*!
@@ -165,8 +161,15 @@ static inline void UpnpSetLogFileNames_Inlined(const char* ErrFileName,
  * descriptor corresponding to the debug level.
  * \anchor UpnpGetDebugFile_dbg
  *
- * \return nullptr if the module is turn off for debug otherwise returns the
- * right FILE pointer.
+ * \return nullptr if the module is turned off for debug otherwise returns the
+ * right FILE pointer. To just ask if turned on/off you can use:
+ * \code
+ * FILE* ret = UpnpGetDebugFile(static_cast<Upnp_LogLevel>(NULL),
+ *                              static_cast<Dbg_Module>(NULL));
+ * // (ret == nullptr) -> logging is disabled.
+ * // (ret != nullptr) -> logging is enabled.
+ * // (ret == stderr)  -> logging to stderr is enabled.
+ * \endcode
  */
 UPnPsdk_VIS FILE* UpnpGetDebugFile(
     /*! [in] The level of the debug logging. It will decide whether debug
@@ -240,6 +243,16 @@ static inline void UpnpPrintf_Inlined(Upnp_LogLevel DLevel, Dbg_Module Module,
     return;
 }
 #endif /* DEBUG */
+
+/*!
+ * \brief Closes the log files.
+ */
+UPnPsdk_VIS void UpnpCloseLog(void);
+
+#if defined NDEBUG && !defined UPNP_DEBUG_C
+#define UpnpCloseLog UpnpCloseLog_Inlined
+static inline void UpnpCloseLog_Inlined(void) {}
+#endif
 
 #ifdef __cplusplus
 }

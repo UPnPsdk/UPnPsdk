@@ -1,9 +1,9 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2024-08-18
+// Redistribution only with this Copyright remark. Last modified: 2026-09-01
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpdebug.cpp>
-FILE*& filed{fp}; // Other alias for variable fp
+auto& filed = fp; // alias for variable fp
 #else
 #include <Compa/src/api/upnpdebug.cpp>
 #endif
@@ -18,6 +18,7 @@ FILE*& filed{fp}; // Other alias for variable fp
 namespace utest {
 
 using ::testing::_;
+using ::testing::ExitedWithCode;
 using ::testing::Return;
 using ::testing::SetErrnoAndReturn;
 using ::testing::StrEq;
@@ -626,56 +627,39 @@ TEST_F(UpnpdebugMockFTestSuite, log_stderr_and_using_file) {
     upnpdebugObj.UpnpCloseLog();
 }
 
-TEST_F(UpnpdebugMockFTestSuite, log_stderr_and_to_file_with_wrong_filename) {
+TEST_F(UpnpdebugFTestSuite, log_stderr_and_to_file_with_wrong_filename) {
     // This should enable logging
-    upnpdebugObj.UpnpSetLogLevel(UPNP_ALL);
-    EXPECT_EQ(
-        upnpdebugObj.UpnpGetDebugFile((Upnp_LogLevel)NULL, (Dbg_Module)NULL),
-        nullptr);
-
-    EXPECT_CALL(m_pthreadObj, pthread_mutex_init(_, _)).Times(1);
-    EXPECT_CALL(m_stdioObj, fopen(_, _)).Times(0);
-    EXPECT_CALL(m_stdioObj, fclose(_)).Times(0);
+    UpnpSetLogFileNames(nullptr, nullptr); // Logs to stderr
+    EXPECT_EQ(::UpnpGetDebugFile(static_cast<Upnp_LogLevel>(NULL),
+                                 static_cast<Dbg_Module>(NULL)),
+              nullptr);
 
     // Test Unit
-    // No filename set, this should log to stderr
-    int returned = upnpdebugObj.UpnpInitLog();
+    int returned = ::UpnpInitLog();
     EXPECT_EQ(returned, UPNP_E_SUCCESS) << errStrEx(returned, UPNP_E_SUCCESS);
     // Log to stderr
-    EXPECT_EQ(
-        upnpdebugObj.UpnpGetDebugFile((Upnp_LogLevel)NULL, (Dbg_Module)NULL),
-        stderr);
+    EXPECT_EQ(::UpnpGetDebugFile(static_cast<Upnp_LogLevel>(NULL),
+                                 static_cast<Dbg_Module>(NULL)),
+              stderr);
 
     // Now we set a wrong filename, second parameter is unused but defined
-    upnpdebugObj.UpnpSetLogFileNames("", nullptr);
-
-    EXPECT_CALL(m_pthreadObj, pthread_mutex_init(_, _)).Times(0);
-    EXPECT_CALL(m_stdioObj, fopen(_, _)).Times(0);
-    EXPECT_CALL(m_stdioObj, fclose(_)).Times(0);
+    ::UpnpSetLogFileNames("", nullptr);
 
     // Test Unit
-    returned = upnpdebugObj.UpnpInitLog();
+    returned = ::UpnpInitLog();
     EXPECT_EQ(returned, UPNP_E_SUCCESS) << errStrEx(returned, UPNP_E_SUCCESS);
     // Filepointer is still set to stderr, that seems to be ok so far ...
-    EXPECT_EQ(
-        upnpdebugObj.UpnpGetDebugFile((Upnp_LogLevel)NULL, (Dbg_Module)NULL),
-        stderr);
+    EXPECT_EQ(::UpnpGetDebugFile(static_cast<Upnp_LogLevel>(NULL),
+                                 static_cast<Dbg_Module>(NULL)),
+              stderr);
 
     // ... but it should not try to close stderr.
     if (old_code) {
-        std::cout << CYEL "[ BUGFIX   ]" CRES
-                  << " UpnpCloseLog() must not try to close stderr.\n";
-        EXPECT_CALL(m_stdioObj, fclose(stderr)).Times(1);
-
+        ASSERT_EXIT(UpnpCloseLog(),
+                    ExitedWithCode(EBADF /*"Bad file descriptor"*/), ".*");
     } else {
-
-        EXPECT_CALL(m_stdioObj, fclose(stderr)).Times(0);
+        UpnpCloseLog();
     }
-
-    EXPECT_CALL(m_pthreadObj, pthread_mutex_lock(_)).Times(1);
-    EXPECT_CALL(m_pthreadObj, pthread_mutex_unlock(_)).Times(1);
-    EXPECT_CALL(m_pthreadObj, pthread_mutex_destroy(_)).Times(1);
-    upnpdebugObj.UpnpCloseLog();
 }
 
 TEST_F(UpnpdebugMockFTestSuite, close_log_without_init_log) {

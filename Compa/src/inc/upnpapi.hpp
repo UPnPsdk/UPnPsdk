@@ -6,7 +6,7 @@
  * All rights reserved.
  * Copyright (C) 2011-2012 France Telecom All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
+ * Redistribution only with this Copyright remark. Last modified: 2025-08-28
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -75,10 +75,9 @@ extern int g_UpnpSdkEQMaxAge;
 /*! Specifies if a UPnP Device, or a control point has to be handled for a
  * connection. */
 enum Upnp_Handle_Type {
-    HND_TABLE_INVALID = -2,
-    HND_INVALID,
-    HND_CLIENT,
-    HND_DEVICE
+    HND_INVALID = -1, ///< -1
+    HND_CLIENT,       ///<  0
+    HND_DEVICE        ///<  1
 };
 
 
@@ -127,8 +126,6 @@ extern pthread_rwlock_t GlobalHndRWLock;
 
 /*!
  * \brief Get handle information.
- *
- * \return HND_DEVICE, HND_CLIENT, HND_INVALID, HND_TABLE_INVALID
  */
 Upnp_Handle_Type GetHandleInfo(
     /*! [in] handle number (table index for the handle structure table). */

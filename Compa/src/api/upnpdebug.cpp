@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-05-06
+ * Redistribution only with this Copyright remark. Last modified: 2026-08-24
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -135,16 +135,16 @@ void UpnpCloseLog() {
     }
 }
 
-void UpnpSetLogFileNames(const char* newFileName,
-                         [[maybe_unused]] const char* ignored) {
+void UpnpSetLogFileNames(const char* a_filename,
+                         [[maybe_unused]] const char* a_ignored) {
     TRACE("Executing UpnpSetLogFileNames()")
 
     if (fileName) {
         free(fileName);
         fileName = nullptr;
     }
-    if (newFileName && *newFileName != '\0') {
-        fileName = strdup(newFileName);
+    if (a_filename && *a_filename != '\0') {
+        fileName = strdup(a_filename);
     }
     setlogwascalled = 1;
 }

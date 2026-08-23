@@ -3,7 +3,7 @@
  * Copyright (c) 2000-2003 Intel Corporation
  * All rights reserved.
  * Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2025-07-16
+ * Redistribution only with this Copyright remark. Last modified: 2026-09-01
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -145,6 +145,17 @@ void UpnpCloseLog(void) {
     umock::pthread_h.pthread_mutex_lock(&GlobalDebugMutex);
 
     if (fp != NULL && is_stderr == 0) {
+        // There is a bug that needs the exit. Otherwise it is very difficult
+        // to find the error, (took me a long time) because stderr will be
+        // closed, and next writing to stderr anywhere in the program may
+        // segfault. 'is_stderr' should be removed but won't fix it due to
+        // original behaviour. Just could be used:
+        // if (fp != stderr) ( --Ingo
+        if (fp == stderr) {
+            fprintf(stderr, "pUPnP UpnpCloseLog() Exit: avoid to close stderr "
+                            "unexpected.\n");
+            exit(EBADF); // "Bad file descriptor"
+        }
         umock::stdio_h.fclose(fp);
     }
     fp = NULL;

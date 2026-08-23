@@ -150,6 +150,17 @@ var namespaces_dup =
       [ "UpnpGetIfInfo", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a4fdcdfebc963e7875981390aa4b49620", null ],
       [ "GetFreeHandle", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a0df8015084a465bb2d7f9e5ea5efa3d7", null ],
       [ "FreeHandle", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a07653875141e0fbfd8429f44496dd448", null ],
+      [ "UpnpInitRwLocks", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a7abfbe791bff46419de982944f542008", null ],
+      [ "free_advertise_arg", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a5d4a5757152cb2589f96e954acd75c8d", null ],
+      [ "free_action_arg", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#afb0107f80cfce82ac8eb32fb1a6951be", null ],
+      [ "UpnpInitThreadPools", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a671193436a7910a783ae84dec45c9202", null ],
+      [ "UpnpInitPreamble", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a3295cabaa951a9374ef91e9bd35d5eea", null ],
+      [ "UpnpInitStartServers", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#abeea40169f11b35e3f0bb269ac1de5f8", null ],
+      [ "GetNameForAlias", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#adaedd3ab63bb2faabed772773766b01b", null ],
+      [ "get_server_addr", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#af146dde2648fe8eb3d95a77ccd507280", null ],
+      [ "get_server_addr6", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a7f203510e6e031535c8ec5cdbd8a447d", null ],
+      [ "GetDescDocumentAndURL", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#af968a2c24f80d3ae7f7d4a5cd30ddaa3", null ],
+      [ "sdkInit_mutex", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a1147955f6e8f53dc36f72c8602336cc3", null ],
       [ "HandleTable", "da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#ae1780789dd87fdff01750646dfdcb8a8", null ]
     ] ],
     [ "anonymous_namespace{upnpdebug.cpp}", "d0/d23/namespaceanonymous__namespace_02upnpdebug_8cpp_03.html", [

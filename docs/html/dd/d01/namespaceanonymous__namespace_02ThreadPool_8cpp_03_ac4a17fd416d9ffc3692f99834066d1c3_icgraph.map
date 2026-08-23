@@ -1,23 +1,23 @@
 <map id="anonymous_namespace{ThreadPool::cpp}::CreateWorker" name="anonymous_namespace{ThreadPool::cpp}::CreateWorker">
-<area shape="rect" id="Node000001" title="Creates a worker thread, if the thread pool does not already have max threads." alt="" coords="909,102,1148,142"/>
-<area shape="rect" id="Node000002" href="$dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#af2c5c202798ffef6d50277b0ee80c155" title="Determines whether or not a thread should be added based on the jobsPerThread ratio." alt="" coords="641,15,861,55"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="950,100,816,58,817,53,952,95"/>
-<area shape="rect" id="Node000032" href="$d8/d61/ThreadPool_8cpp.html#aea9809ed39a504aecbbdc574b6998604" title="Adds a persistent job to the thread pool." alt="" coords="408,84,593,109"/>
-<area shape="poly" id="edge5_Node000001_Node000032" title=" " alt="" coords="895,118,593,104,594,98,895,113"/>
-<area shape="rect" id="Node000035" href="$d8/d61/ThreadPool_8cpp.html#a03dbe83dda6a8fbe38a4a6c2f14edc7f" title="Initializes and starts ThreadPool." alt="" coords="693,135,809,160"/>
-<area shape="poly" id="edge9_Node000001_Node000035" title=" " alt="" coords="896,137,810,145,809,139,896,131"/>
-<area shape="rect" id="Node000037" href="$d8/d61/ThreadPool_8cpp.html#a7c0e9ebe393a89c04d80e6a40c7affa6" title="Sets the attributes for the thread pool." alt="" coords="681,184,821,209"/>
-<area shape="poly" id="edge11_Node000001_Node000037" title=" " alt="" coords="954,149,862,175,815,187,814,181,861,170,952,143"/>
-<area shape="rect" id="Node000003" href="$d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="441,21,561,47"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="628,37,561,37,561,32,628,32"/>
+<area shape="rect" id="Node000001" title="Creates a worker thread, if the thread pool does not already have max threads." alt="" coords="953,102,1192,142"/>
+<area shape="rect" id="Node000002" href="$dd/d01/namespaceanonymous__namespace_02ThreadPool_8cpp_03.html#af2c5c202798ffef6d50277b0ee80c155" title="Determines whether or not a thread should be added based on the jobsPerThread ratio." alt="" coords="685,15,905,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="994,100,860,58,861,53,996,95"/>
+<area shape="rect" id="Node000032" href="$d8/d61/ThreadPool_8cpp.html#aea9809ed39a504aecbbdc574b6998604" title="Adds a persistent job to the thread pool." alt="" coords="430,84,615,109"/>
+<area shape="poly" id="edge5_Node000001_Node000032" title=" " alt="" coords="939,119,616,104,616,98,939,113"/>
+<area shape="rect" id="Node000035" href="$d8/d61/ThreadPool_8cpp.html#a03dbe83dda6a8fbe38a4a6c2f14edc7f" title="Initializes and starts ThreadPool." alt="" coords="737,135,853,160"/>
+<area shape="poly" id="edge9_Node000001_Node000035" title=" " alt="" coords="940,137,854,145,853,139,940,131"/>
+<area shape="rect" id="Node000037" href="$d8/d61/ThreadPool_8cpp.html#a7c0e9ebe393a89c04d80e6a40c7affa6" title="Sets the attributes for the thread pool." alt="" coords="725,184,865,209"/>
+<area shape="poly" id="edge11_Node000001_Node000037" title=" " alt="" coords="998,149,906,175,859,187,858,181,905,170,996,143"/>
+<area shape="rect" id="Node000003" href="$d8/d61/ThreadPool_8cpp.html#a088cce76603a00ba4755257ff96d60c3" title="Adds a job to the thread pool." alt="" coords="463,21,583,47"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="671,37,583,37,583,32,671,32"/>
 <area shape="rect" id="Node000022" href="$da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html#a0b3ea1eb15ec9b4f1ddeb57d157b7e92" title="Implements timer thread." alt="" coords="180,5,360,60"/>
-<area shape="poly" id="edge3_Node000003_Node000022" title=" " alt="" coords="427,36,360,36,360,31,427,31"/>
+<area shape="poly" id="edge3_Node000003_Node000022" title=" " alt="" coords="448,36,360,36,360,30,448,31"/>
 <area shape="rect" id="Node000023" href="$dd/d9f/TimerThread_8cpp.html#a88b075dce04bff1935ef802ff6df4621" title="Initializes and starts timer thread." alt="" coords="5,53,132,79"/>
 <area shape="poly" id="edge4_Node000022_Node000023" title=" " alt="" coords="167,52,132,58,132,53,166,47"/>
-<area shape="poly" id="edge8_Node000032_Node000022" title=" " alt="" coords="440,83,360,60,361,55,441,78"/>
-<area shape="poly" id="edge7_Node000032_Node000023" title=" " alt="" coords="394,92,132,73,133,68,395,87"/>
+<area shape="poly" id="edge8_Node000032_Node000022" title=" " alt="" coords="458,83,360,58,361,53,459,78"/>
+<area shape="poly" id="edge7_Node000032_Node000023" title=" " alt="" coords="416,92,132,73,132,68,416,87"/>
 <area shape="rect" id="Node000033" href="$d5/db2/miniserver_8cpp.html#a85c0b17d965bdb9430a9ce2e6931770a" title="Initialize the sockets functionality for the Miniserver." alt="" coords="209,136,331,161"/>
-<area shape="poly" id="edge6_Node000032_Node000033" title=" " alt="" coords="431,115,328,139,326,133,430,110"/>
-<area shape="rect" id="Node000036" href="$d4/d99/upnpapi_8cpp.html#aabf66e54504de499079a21f1d01b91ca" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="422,135,579,160"/>
-<area shape="poly" id="edge10_Node000035_Node000036" title=" " alt="" coords="680,150,580,150,580,145,680,145"/>
+<area shape="poly" id="edge6_Node000032_Node000033" title=" " alt="" coords="447,115,332,139,331,134,446,110"/>
+<area shape="rect" id="Node000036" href="$da/de9/namespaceanonymous__namespace_02upnpapi_8cpp_03.html#a671193436a7910a783ae84dec45c9202" title="Initializes the global threadm pools used by the UPnP SDK." alt="" coords="408,133,637,188"/>
+<area shape="poly" id="edge10_Node000035_Node000036" title=" " alt="" coords="724,153,637,158,637,152,723,148"/>
 </map>

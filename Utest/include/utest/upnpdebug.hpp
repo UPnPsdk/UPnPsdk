@@ -1,7 +1,7 @@
 #ifndef UTEST_PUPNPDEBUG_HPP
 #define UTEST_PUPNPDEBUG_HPP
 // Copyright (C) 2025+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-03-26
+// Redistribution only with this Copyright remark. Last modified: 2026-08-31
 
 #include <upnpdebug.hpp>
 #include <UPnPsdk/synclog.hpp>
@@ -36,6 +36,7 @@ void CPupnplog::enable(Upnp_LogLevel a_loglevel) {
     // Guard if already enabled. I then have randomly seen a critical exception
     // "stack overflow".
     if (!m_enabled) {
+        UpnpSetLogFileNames(nullptr, nullptr); // logs to stderr
         UpnpSetLogLevel(a_loglevel);
         if (UpnpInitLog() != UPNP_E_SUCCESS) {
             throw std::runtime_error(UPnPsdk_LOGEXCEPT(
