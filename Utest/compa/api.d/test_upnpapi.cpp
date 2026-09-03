@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-09-01
+// Redistribution only with this Copyright remark. Last modified: 2026-09-03
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -14,22 +14,14 @@
 #include <UPnPsdk/upnptools.hpp>
 #include <UPnPsdk/netadapter.hpp>
 
-#include <utest/utest.hpp>
 #include <utest/upnpdebug.hpp>
-#include <umock/sys_socket_mock.hpp>
-#include <umock/pupnp_sock_mock.hpp>
-#include <umock/winsock2_mock.hpp>
+#include <utest/utest.hpp>
 
 
 namespace utest {
 
-using ::testing::_;
 using ::testing::AnyOf;
-using ::testing::NotNull;
-using ::testing::Return;
-using ::testing::SetErrnoAndReturn;
 using ::testing::StartsWith;
-using ::testing::StrictMock;
 
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
@@ -39,12 +31,26 @@ using ::UPnPsdk::SInaddr;
 using ::UPnPsdk::SSockaddr;
 using ADDRS = UPnPsdk::CNetadapter::ADDRS;
 
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
-auto& sdkInit_mutex = gSDKInitMutex;
-#else
-using ::HandleTable;
-using ::sdkInit_mutex;
+#ifndef UPnPsdk_WITH_NATIVE_PUPNP
 using ::compa::GetIfInfo;
+#endif
+
+// General storage for temporary socket address evaluation.
+SSockaddr saObj;
+
+// Have the netadapter list global available so its expensive call from the
+// operating system is only one time necessary. Initialisation with
+// nadaptObj.get_first() is called in the main() function at the end.
+UPnPsdk::CNetadapter nadaptObj;
+
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+// Some aliases for the old code.
+auto& pthread_rwlock_trywrlock = ::ithread_rwlock_wrlock;
+auto& pthread_rwlock_rdlock = ::ithread_rwlock_rdlock;
+auto& pthread_rwlock_unlock = ::ithread_rwlock_unlock;
+auto& pthread_rwlock_destroy = ::ithread_rwlock_destroy;
+auto& sdkInit_mutex = ::gSDKInitMutex;
 #endif
 
 
@@ -127,21 +133,61 @@ clang-format off
 clang-format on
 */
 
-// General storage for temporary socket address evaluation.
-SSockaddr saObj;
-
-// Have the netadapter list global available so its expensive call from the
-// operating system is only one time necessary. Initialisation with
-// nadaptObj.get_first() is called in the main() function at the end.
-UPnPsdk::CNetadapter nadaptObj;
-
-
-// upnpapi TestSuites
-// ==================
-class UpnpapiFTestSuite : public ::testing::Test {
+class UpnpapiClearFTestSuite : public ::testing::Test {
   private:
     bool m_dbug_flag{UPnPsdk::g_dbug};
 
+  protected:
+    // Constructor
+    UpnpapiClearFTestSuite() {
+        // Set or destroy global variables to detect side effects.
+        if (old_code) {
+            // Initializing used global variable is important! Otherwise I get
+            // wrong initialisation with old code.
+            gIF_NAME[0] = '\0';
+            gIF_IPV6[0] = '\0';
+            gIF_IPV6_PREFIX_LENGTH = 0;
+            gIF_IPV6_ULA_GUA[0] = '\0';
+            gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+            gIF_IPV4[0] = '\0';
+            gIF_IPV4_NETMASK[0] = '\0';
+            UpnpSdkInit = 0;
+            bWebServerState = WEB_SERVER_DISABLED;
+        } else {
+            ::strcpy(gIF_NAME, "<untouched>");
+            ::strcpy(gIF_IPV6, "<untouched>");
+            gIF_IPV6_PREFIX_LENGTH = ~0u;
+            ::strcpy(gIF_IPV6_ULA_GUA, "<untouched>");
+            gIF_IPV6_ULA_GUA_PREFIX_LENGTH = ~0u;
+            ::strcpy(gIF_IPV4, "<untouched>");
+            ::strcpy(gIF_IPV4_NETMASK, "<untouched>");
+            UpnpSdkInit = 0x55555555;
+            memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
+            memset(&sdkInit_mutex, 0xAA, sizeof(sdkInit_mutex));
+        }
+        sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER; // Must be initialized.
+        // On table of pointer is no way to detect invalid one; must set to 0.
+        memset(&HandleTable, 0, sizeof(HandleTable));
+        gIF_INDEX = ~0u;
+        LOCAL_PORT_V6 = static_cast<in_port_t>(~0);
+        LOCAL_PORT_V6_ULA_GUA = static_cast<in_port_t>(~0);
+        LOCAL_PORT_V4 = static_cast<in_port_t>(~0);
+        memset(&errno, 0xAA, sizeof(errno));
+        memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
+        memset(&gUpnpSdkNLSuuid, 0xAA, sizeof(gUpnpSdkNLSuuid));
+        memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
+        memset(&gRecvThreadPool, 0xAA, sizeof(gRecvThreadPool));
+        memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
+        memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
+        // memset(&GlobalClientSubscribeMutex, 0xAA,
+        //        sizeof(GlobalClientSubscribeMutex));
+    }
+
+    // Destructor
+    ~UpnpapiClearFTestSuite() { UPnPsdk::g_dbug = m_dbug_flag; }
+};
+
+class UpnpapiFTestSuite : public UpnpapiClearFTestSuite {
   protected:
     CPupnplog m_logObj; // Output only with build type DEBUG.
 
@@ -149,82 +195,76 @@ class UpnpapiFTestSuite : public ::testing::Test {
     UpnpapiFTestSuite() {
         if (g_dbug)
             m_logObj.enable(UPNP_ALL);
-#if 0
-        // Initializing used global variable is important! Otherwise I get wrong
-        // initialisation with old code.
-        gIF_NAME[0] = '\0';
-        gIF_INDEX = ~0u;
-        gIF_IPV6[0] = '\0';
-        gIF_IPV6_PREFIX_LENGTH = 0;
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_IPV4[0] = '\0';
-        gIF_IPV4_NETMASK[0] = '\0';
-
-        // Destroy global variables to detect side effects.
-#else
-        ::strcpy(gIF_NAME, "<untouched>");
-        gIF_INDEX = ~0u;
-        ::strcpy(gIF_IPV6, "<untouched>");
-        gIF_IPV6_PREFIX_LENGTH = ~0u;
-        ::strcpy(gIF_IPV6_ULA_GUA, "<untouched>");
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = ~0u;
-        ::strcpy(gIF_IPV4, "<untouched>");
-        ::strcpy(gIF_IPV4_NETMASK, "<untouched>");
-#endif
-        LOCAL_PORT_V6 = static_cast<in_port_t>(~0);
-        LOCAL_PORT_V6_ULA_GUA = static_cast<in_port_t>(~0);
-        LOCAL_PORT_V4 = static_cast<in_port_t>(~0);
-        UpnpSdkInit = 0x55555555;
-        memset(&errno, 0xAA, sizeof(errno));
-        memset(&GlobalHndRWLock, 0xAA, sizeof(GlobalHndRWLock));
-        memset(&gUpnpSdkNLSuuid, 0xAA, sizeof(gUpnpSdkNLSuuid));
-        memset(&HandleTable, 0xAA, sizeof(HandleTable));
-        memset(&gSendThreadPool, 0xAA, sizeof(gSendThreadPool));
-        memset(&gRecvThreadPool, 0xAA, sizeof(gRecvThreadPool));
-        memset(&gMiniServerThreadPool, 0xAA, sizeof(gMiniServerThreadPool));
-        memset(&gTimerThread, 0xAA, sizeof(gTimerThread));
-        memset(&bWebServerState, 0xAA, sizeof(bWebServerState));
-        memset(&sdkInit_mutex, 0xAA, sizeof(sdkInit_mutex));
-        // memset(&GlobalClientSubscribeMutex, 0xAA,
-        //        sizeof(GlobalClientSubscribeMutex));
     }
-
-    // Destructor
-    ~UpnpapiFTestSuite() { UPnPsdk::g_dbug = m_dbug_flag; }
 };
 
 
-#if !(defined(_MSC_VER) && defined(UPnPsdk_WITH_NATIVE_PUPNP)) // throws exceptn
-TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
+// Subroutine for multiple check of empty global addresses.
+void chk_empty_gifaddr() {
     if (old_code) {
-        // Initializing used global variable is important! Otherwise I get wrong
-        // initialisation with old code.
-        gIF_NAME[0] = '\0';
-        gIF_INDEX = ~0u;
-        gIF_IPV6[0] = '\0';
-        gIF_IPV6_PREFIX_LENGTH = 0;
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_IPV4[0] = '\0';
-        gIF_IPV4_NETMASK[0] = '\0';
+        if (gIF_NAME[0] != '\0')
+            std::cout
+                << CYEL "[ BUGFIX   ] " CRES << __LINE__
+                << ": An invalid netadapter name must not modify gIF_NAME to \""
+                << gIF_NAME << "\".\n";
+        EXPECT_EQ(gIF_INDEX, ~0u);
+        EXPECT_EQ(gIF_IPV6[0], '\0');
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+
+    } else {
+
+        EXPECT_STREQ(gIF_NAME, "<untouched>");
+        EXPECT_EQ(gIF_INDEX, ~0u);
+        EXPECT_STREQ(gIF_IPV6, "<untouched>");
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, ~0u);
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, "<untouched>");
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, ~0u);
+        EXPECT_STREQ(gIF_IPV4, "<untouched>");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
     }
+}
+
+TEST_F(UpnpapiClearFTestSuite, UpnpInitPreamble_successful) {
+    // Initialize needed global variable.
+    UpnpSdkInit = 0;
+
+    // Check if sockets are available. This is mainly of interest for Winsock on
+    // Microsoft Windows.
+    SOCKET sfd = ::socket(AF_INET6, SOCK_STREAM, 0);
+    ASSERT_NE(sfd, INVALID_SOCKET);
+    CLOSE_SOCKET_P(sfd);
+
+    if (g_dbug)
+        // In 'UpnpInitPreamble()' is only 'UpnpInitLog()' called that does not
+        // enable old_code debug logging. Next line is needed before to enable
+        // logging.
+        UpnpSetLogFileNames(nullptr, nullptr); // logs to stderr
 
     // Test Unit
     // ---------
     // UpnpInitPreamble() should not use and modify the UpnpSdkInit flag.
     int ret_UpnpInitPreamble = UpnpInitPreamble();
-    ASSERT_EQ(ret_UpnpInitPreamble, UPNP_E_SUCCESS)
+    ASSERT_EQ(ret_UpnpInitPreamble, UPNP_E_SUCCESS) // ASSERT needed.
         << errStrEx(ret_UpnpInitPreamble, UPNP_E_SUCCESS);
 
     // Check initialization of debug output.
-    int ret_UpnpInitLog = UpnpInitLog();
-    ASSERT_EQ(ret_UpnpInitLog, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpInitLog, UPNP_E_SUCCESS);
+#ifdef DEBUG
+    EXPECT_EQ(UpnpGetDebugFile(static_cast<Upnp_LogLevel>(NULL),
+                               static_cast<Dbg_Module>(NULL)),
+              g_dbug ? stderr : nullptr);
+#else
+    EXPECT_EQ(UpnpGetDebugFile(static_cast<Upnp_LogLevel>(NULL),
+                               static_cast<Dbg_Module>(NULL)),
+              nullptr);
+#endif
 
-    // Check if global mutexe are initialized
-    // ASSERT_EQ(pthread_mutex_trylock(&GlobalHndRWLock), 0); // must be rwlock
-    // EXPECT_EQ(pthread_mutex_unlock(&GlobalHndRWLock), 0);  // must be rwlock
+    // Check if global read-write locks are initialized
+    ASSERT_EQ(pthread_rwlock_trywrlock(&GlobalHndRWLock), 0);
+    ASSERT_EQ(pthread_rwlock_unlock(&GlobalHndRWLock), 0);
 
     // Check creation of a uuid
     EXPECT_THAT(gUpnpSdkNLSuuid,
@@ -233,6 +273,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
 
     // Check initialization of the UPnP device and client (control point) handle
     // table
+    ASSERT_EQ(pthread_rwlock_rdlock(&GlobalHndRWLock), 0);
     bool handleTable_initialized{true};
     for (int i = 0; i < NUM_HANDLE; ++i) {
         if (HandleTable[i] != nullptr) {
@@ -240,6 +281,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
             break;
         }
     }
+    ASSERT_EQ(pthread_rwlock_unlock(&GlobalHndRWLock), 0);
     EXPECT_TRUE(handleTable_initialized);
 
     // Check threadpool initialization
@@ -266,7 +308,7 @@ TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
     EXPECT_EQ(gTimerThread.tp, &gSendThreadPool);
 
     // Check if UpnpSdkInit has been modified
-    EXPECT_EQ(UpnpSdkInit, 0x55555555);
+    EXPECT_EQ(UpnpSdkInit, 0);
 
     UpnpSdkInit = 1;
     int ret_UpnpFinish = UpnpFinish();
@@ -274,28 +316,24 @@ TEST_F(UpnpapiFTestSuite, UpnpInitPreamble_successful) {
         << errStrEx(ret_UpnpFinish, UPNP_E_SUCCESS);
 
     EXPECT_EQ(UpnpSdkInit, 0);
+
+    // Needed Deinitialisations
+    pthread_rwlock_destroy(&GlobalHndRWLock);
 }
-#endif
 
 TEST_F(UpnpapiFTestSuite, get_error_message) {
 #ifndef UPNP_HAVE_TOOLS
     GTEST_SKIP() << "Option UPnPsdk_WITH_TOOLS not available.";
-#else
+#endif
     EXPECT_STREQ(UpnpGetErrorMessage(0), "UPNP_E_SUCCESS");
     EXPECT_STREQ(UpnpGetErrorMessage(-121), "UPNP_E_INVALID_INTERFACE");
     EXPECT_STREQ(UpnpGetErrorMessage(1), "Unknown error code");
-#endif
 }
 
 TEST_F(UpnpapiFTestSuite, GetHandleInfo_successful) {
     // Will be filled with a pointer to the requested client info.
-    Handle_Info dummy;
-    Handle_Info* hinfo_p{&dummy};
+    Handle_Info* hinfo_p{nullptr};
 
-    // Initialize the handle table.
-    for (int i = 0; i < NUM_HANDLE; ++i) {
-        HandleTable[i] = nullptr;
-    }
     Handle_Info hinfo0{};
     hinfo0.HType = HND_INVALID;
     HandleTable[0] = &hinfo0;
@@ -313,15 +351,15 @@ TEST_F(UpnpapiFTestSuite, GetHandleInfo_successful) {
     // Test Unit
     EXPECT_EQ(GetHandleInfo(0, &hinfo_p), HND_INVALID);
     // Out of range, nothing returned.
-    EXPECT_EQ(hinfo_p, &dummy);
+    EXPECT_EQ(hinfo_p, nullptr);
     EXPECT_EQ(GetHandleInfo(NUM_HANDLE, &hinfo_p), HND_INVALID);
-    EXPECT_EQ(hinfo_p, &dummy);
+    EXPECT_EQ(hinfo_p, nullptr);
     EXPECT_EQ(GetHandleInfo(NUM_HANDLE + 1, &hinfo_p), HND_INVALID);
-    EXPECT_EQ(hinfo_p, &dummy);
+    EXPECT_EQ(hinfo_p, nullptr);
 
     EXPECT_EQ(GetHandleInfo(1, &hinfo_p), HND_INVALID);
     // Nothing returned.
-    EXPECT_EQ(hinfo_p, &dummy);
+    EXPECT_EQ(hinfo_p, nullptr);
 
     EXPECT_EQ(GetHandleInfo(3, &hinfo_p), HND_DEVICE);
     // Pointer to handle info is returned.
@@ -332,224 +370,45 @@ TEST_F(UpnpapiFTestSuite, GetHandleInfo_successful) {
     EXPECT_EQ(hinfo_p, &hinfo4);
 }
 
-TEST(UpnpapiDeathTest, GetHandleInfo_with_nullptr_to_handle_table) {
-    // Initialize HandleTable bcause it only contains pointer.
-    Handle_Info dummy{};
-    HandleTable[1] = &dummy;
+TEST_F(UpnpapiFTestSuite, GetHandleInfo_with_nullptr_to_handle_table) {
+    // Unit needs a nullptr initialized HandleTable because there is no way to
+    // detect an invalid pointer. This is done with the test fixture. Otherweise
+    // it will segfault.
 
     // Test Unit with nullptr to result variable
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
-    std::cout << CYEL "[ BUGFIX   ]" CRES
-              << " nullptr to handle table must not segfault.\n";
-#if !defined(__APPLE__) || defined(DEBUG)
-    // This expects segfault.
-    EXPECT_DEATH(GetHandleInfo(1, nullptr), ".*");
-#endif
-#else
     EXPECT_EQ(GetHandleInfo(1, nullptr), HND_INVALID);
-#endif
-    // This will be filled with a pointer to the requested client info.
+
+    // This would be filled with a pointer to the requested client info.
     Handle_Info* hinfo_p{nullptr};
-
     // Test Unit
-    // This returns the value from dummy, that is 0 initialized and 0 is handle
-    // type HND_CLIENT.
-    EXPECT_EQ(GetHandleInfo(1, &hinfo_p), HND_CLIENT);
+    EXPECT_EQ(GetHandleInfo(1, &hinfo_p), HND_INVALID);
 }
 
-TEST_F(UpnpapiFTestSuite, UpnpFinish_successful) {
-    // Doing needed initializations. Otherwise we get segfaults with
-    // UpnpFinish() due to uninitialized pointers.
-    // Initialize SDK global mutexes.
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
-    ASSERT_EQ(UpnpInitMutexes(), UPNP_E_SUCCESS);
-#else
-    ASSERT_EQ(UpnpInitRwLocks(), UPNP_E_SUCCESS);
-#endif
+TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
+    Handle_Info hinfo;
+    HandleTable[0] = nullptr; // Not used.
+    HandleTable[1] = &hinfo;
+    HandleTable[2] = nullptr;
+    HandleTable[3] = &hinfo;
+    HandleTable[4] = nullptr;
 
-    // Initialize the handle list.
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
-    HandleLock(__FILE__, __LINE__);
-#else
-    HandleLock();
-#endif
-    for (int i = 0; i < NUM_HANDLE; ++i)
-        HandleTable[i] = nullptr;
-#ifdef UPnPsdk_WITH_NATIVE_PUPNP
-    HandleUnlock(__FILE__, __LINE__);
-#else
-    HandleUnlock();
-#endif
-
-    // Initialize SDK global thread pools.
-    ASSERT_EQ(UpnpInitThreadPools(), UPNP_E_SUCCESS);
-
-    // Initialize the SDK timer thread.
-    ASSERT_EQ(TimerThreadInit(&gTimerThread, &gSendThreadPool), UPNP_E_SUCCESS);
-
-    UpnpSdkInit = 1;
-
-    // Test Unit
-    int ret_UpnpFinish{UPNP_E_INTERNAL_ERROR};
-    ret_UpnpFinish = UpnpFinish();
-    EXPECT_EQ(ret_UpnpFinish, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpFinish, UPNP_E_SUCCESS);
-
-    EXPECT_EQ(UpnpSdkInit, 0);
-}
-
-TEST_F(UpnpapiFTestSuite, UpnpFinish_without_initialization) {
-    UpnpSdkInit = 0;
-
-    // Test Unit
-    int ret_UpnpFinish{UPNP_E_INTERNAL_ERROR};
-    ret_UpnpFinish = UpnpFinish();
-    EXPECT_EQ(ret_UpnpFinish, UPNP_E_FINISH)
-        << errStrEx(ret_UpnpFinish, UPNP_E_FINISH);
-
-    EXPECT_EQ(UpnpSdkInit, 0);
-}
-
-TEST_F(UpnpapiFTestSuite, webserver_enable_and_disable) {
-    // Note that UpnpSetWebServerRootDir(<rootDir>) also enables the webserver,
-    //  and that UpnpSetWebServerRootDir(nullptr) also disables the webserver.
-
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    UpnpSdkInit = 1;
-
-    // Test Unit enable
-    int ret_UpnpEnableWebserver = UpnpEnableWebserver(WEB_SERVER_ENABLED);
-    EXPECT_EQ(ret_UpnpEnableWebserver, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpEnableWebserver, UPNP_E_SUCCESS);
-
-    EXPECT_EQ(bWebServerState, WEB_SERVER_ENABLED);
-
-    // Test Unit enable it again should not do any harm.
-    ret_UpnpEnableWebserver = UpnpEnableWebserver(WEB_SERVER_ENABLED);
-    EXPECT_EQ(ret_UpnpEnableWebserver, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpEnableWebserver, UPNP_E_SUCCESS);
-
-    EXPECT_EQ(bWebServerState, WEB_SERVER_ENABLED);
-
-    // Test Unit disable
-    ret_UpnpEnableWebserver = UpnpEnableWebserver(WEB_SERVER_DISABLED);
-    EXPECT_EQ(ret_UpnpEnableWebserver, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpEnableWebserver, UPNP_E_SUCCESS);
-
-    EXPECT_EQ(bWebServerState, WEB_SERVER_DISABLED);
-
-    // Test Unit disable again should not do any harm.
-    ret_UpnpEnableWebserver = UpnpEnableWebserver(WEB_SERVER_DISABLED);
-    EXPECT_EQ(ret_UpnpEnableWebserver, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpEnableWebserver, UPNP_E_SUCCESS);
-
-    EXPECT_EQ(bWebServerState, WEB_SERVER_DISABLED);
-}
-
-TEST_F(UpnpapiFTestSuite, webserver_set_rootdir_successful) {
-    UpnpSdkInit = 1;
-
-    // Test Unit
-    int ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("sample/web/");
-    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
-
-    EXPECT_STREQ(gDocumentRootDir.buf, "sample/web");
-
-    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("/");
-    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
-
-    EXPECT_STREQ(gDocumentRootDir.buf, "");
-
-    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("//");
-    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
-
-    EXPECT_STREQ(gDocumentRootDir.buf, "/");
-
-    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir(".");
-    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
-
-    EXPECT_STREQ(gDocumentRootDir.buf, ".");
-
-    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("./");
-    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
-
-    EXPECT_STREQ(gDocumentRootDir.buf, ".");
-
-    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("..");
-    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
-
-    EXPECT_STREQ(gDocumentRootDir.buf, "..");
-
-    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("../");
-    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
-
-    EXPECT_STREQ(gDocumentRootDir.buf, "..");
-}
-
-TEST_F(UpnpapiFTestSuite, webserver_set_rootdir_fails) {
-    // Test Unit
-    UpnpSdkInit = 0;
-    int ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("sample/web");
-    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_FINISH)
-        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_FINISH);
-
-    UpnpSdkInit = 1;
-    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir(nullptr);
-    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_INVALID_PARAM)
-        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_INVALID_PARAM);
-
-    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("");
-    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_INVALID_PARAM)
-        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_INVALID_PARAM);
-}
-
-TEST_F(UpnpapiFTestSuite, webserver_sdk_not_initialized) {
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    UpnpSdkInit = 0;
-
-    // Test Unit
-    int ret_UpnpEnableWebserver = UpnpEnableWebserver(WEB_SERVER_ENABLED);
-    EXPECT_EQ(ret_UpnpEnableWebserver, UPNP_E_FINISH)
-        << errStrEx(ret_UpnpEnableWebserver, UPNP_E_FINISH);
-
-    EXPECT_EQ(bWebServerState, WEB_SERVER_DISABLED);
-}
-
-// Subroutine for multiple check of empty global addresses.
-void chk_empty_gifaddr2() {} // DEBUG! dummy function must be coded.
-void chk_empty_gifaddr() {
-    if (old_code)
-        if (::strncmp(gIF_NAME, "<untouched>", 11))
-            std::cout
-                << CYEL "[ BUGFIX   ] " CRES << __LINE__
-                << ": An invalid netadapter name must not modify gIF_NAME to \""
-                << gIF_NAME << "\".\n";
-        else
-            EXPECT_STREQ(gIF_NAME, "<untouched>");
-    EXPECT_EQ(gIF_INDEX, ~0u);
-    EXPECT_STREQ(gIF_IPV6, "<untouched>");
-    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, ~0u);
-    EXPECT_STREQ(gIF_IPV6_ULA_GUA, "<untouched>");
-    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, ~0u);
-    EXPECT_STREQ(gIF_IPV4, "<untouched>");
-    EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
+    EXPECT_EQ(::GetFreeHandle(), 2);
 }
 
 #ifndef UPnPsdk_WITH_NATIVE_PUPNP
+TEST_F(UpnpapiFTestSuite, GetIfInfo_with_unspec_address) {
+    saObj = SInaddr("[::1]");
+    saObj.family = AF_UNSPEC;
+
+    // Test Unit.
+    int ret_GetIfInfo = GetIfInfo(saObj);
+
+    ASSERT_EQ(ret_GetIfInfo, UPNP_E_INVALID_INTERFACE)
+        << errStrEx(ret_GetIfInfo, UPNP_E_INVALID_INTERFACE);
+}
+
 TEST_F(UpnpapiFTestSuite, GetIfInfo_with_ipv6_unspec_address) {
     saObj.clear();
-    saObj.family = AF_UNSPEC;
 
     // Test Unit.
     int ret_GetIfInfo = GetIfInfo(saObj);
@@ -699,7 +558,7 @@ TEST_F(UpnpapiFTestSuite, GetIfInfo_with_netadapter_index) {
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
     }
 }
-#endif
+#endif // UPnPsdk_WITH_NATIVE_PUPNP
 
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv6_loopback_address) {
     // Initializing with IP addresses isn't supported by pUPnP, but with
@@ -711,7 +570,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv6_loopback_address) {
     if (old_code) {
         // pUPnP does not support the loopback interface.
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << "UpnpGetIfInfo() only from network interface name "
+                  << ": UpnpGetIfInfo() only from network interface name "
                      "supported, not from IP-addresses.\n";
         ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
             << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
@@ -719,6 +578,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv6_loopback_address) {
             SCOPED_TRACE("");
             chk_empty_gifaddr();
         }
+
     } else {
 
         ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
@@ -735,7 +595,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv6_loopback_address) {
     }
 }
 
-#if !(defined(_MSC_VER) && defined(UPnPsdk_WITH_NATIVE_PUPNP)) // throws exceptn
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv4_loopback_address) {
     // Initializing with IP addresses isn't supported by pUPnP, but with
     // UPnPsdk. Ports not set with this Unit so they doesn't matter here.
@@ -747,7 +606,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv4_loopback_address) {
 
     if (old_code) {
         std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << "UpnpGetIfInfo() only from network interface name "
+                  << ": UpnpGetIfInfo() only from network interface name "
                      "supported, not from IP-addresses.\n";
         EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
             << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
@@ -767,362 +626,6 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv4_loopback_address) {
         EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
         EXPECT_STREQ(gIF_IPV6_ULA_GUA, "::ffff:127.0.0.1");
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 96);
-        EXPECT_STREQ(gIF_IPV4, "<untouched>");
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
-    }
-}
-#endif
-
-#if !(defined(_MSC_VER) && defined(UPnPsdk_WITH_NATIVE_PUPNP)) // throws exceptn
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla) {
-    // pUPnP does not support initialisation with IP addresses, but the UPnPsdk
-    // do. Ports not set with this Unit so they don't matter here.
-
-    ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
-    nadaptObj.sockaddr(saObj);
-
-    if (old_code) {
-        // Initializing used global variable is important! Otherwise I get wrong
-        // initialisation with old code.
-        gIF_NAME[0] = '\0';
-        gIF_INDEX = ~0u;
-        gIF_IPV6[0] = '\0';
-        gIF_IPV6_PREFIX_LENGTH = 0;
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_IPV4[0] = '\0';
-        gIF_IPV4_NETMASK[0] = '\0';
-    }
-
-    // Test Unit
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
-
-    if (old_code) {
-        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << " UpnpGetIfInfo() only from network interface name "
-                     "supported, not from IP-addresses.\n";
-        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
-            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
-        {
-            SCOPED_TRACE("");
-            chk_empty_gifaddr2();
-        }
-
-    } else {
-
-        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
-            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
-
-        in6_addr sin6_addr;
-        ASSERT_EQ(::inet_pton(AF_INET6, gIF_IPV6, &sin6_addr), 1);
-        EXPECT_EQ(memcmp(&sin6_addr, &saObj.sin6.sin6_addr, sizeof(in6_addr)),
-                  0);
-        EXPECT_EQ(gIF_NAME, nadaptObj.name());
-        EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
-        // I test against real network interfaces. So a gua may be set on the
-        // same network interface, or not, depending on the current
-        // environment. Will be tested in its own Unit Test.
-        // EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
-        // EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-        EXPECT_STREQ(gIF_IPV4, "<untouched>");
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
-    }
-}
-#endif
-
-#if 1 // Is fixed in test_upnpapi2.cpp
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_lla_ifname_successful) {
-    // Ports not set with this Unit so they doesn't matter here.
-    // For Microsoft Windows there are some TODOs in the old code:
-    // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
-    // link-local addresses.
-    // TODO: Retrieve IPv6 LLA prefix?
-
-    if (old_code)
-        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
-                     "set on MS Windows.\n";
-
-    if (!nadaptObj.find_first(ADDRS::lla))
-        GTEST_SKIP() << "No usable link-local Address found for testing.";
-
-    if (old_code) {
-        // Initializing used global variable is important! Otherwise I get wrong
-        // initialisation with old code.
-        gIF_NAME[0] = '\0';
-        gIF_INDEX = ~0u;
-        gIF_IPV6[0] = '\0';
-        gIF_IPV6_PREFIX_LENGTH = 0;
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_IPV4[0] = '\0';
-        gIF_IPV4_NETMASK[0] = '\0';
-    }
-
-    // Test Unit.
-    // Using adapter name of the lla interface.
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nadaptObj.name().c_str());
-    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
-
-    EXPECT_EQ(gIF_NAME, nadaptObj.name());
-    nadaptObj.sockaddr(saObj);
-    EXPECT_EQ("[" + std::string(gIF_IPV6) + "%" + std::to_string(gIF_INDEX) +
-                  "]",
-              saObj.netaddr());
-    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
-
-    // Look for additional GUA and friends on current selected netadapter.
-    nadaptObj.find_first(nadaptObj.index()); // Restricts find_next() to
-                                             // netadapter scope.
-    bool gua(false), map4(false);
-    do {
-        nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr) ||
-            IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr))
-            gua = true;
-        else if (IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr))
-            map4 = true;
-    } while (!gua && !map4 && nadaptObj.find_next());
-
-    if (gua) {
-        EXPECT_EQ("[" + std::string(gIF_IPV6_ULA_GUA) + "]", saObj.netaddr());
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
-    } else if (map4) {
-        if (old_code) {
-            EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
-            EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-            EXPECT_EQ("[::ffff:" + std::string(gIF_IPV4) + "]",
-                      saObj.netaddr());
-            EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
-        } else {
-            EXPECT_EQ("[::ffff:" + std::string(gIF_IPV6_ULA_GUA) + "]",
-                      saObj.netaddr());
-            EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
-            EXPECT_STREQ(gIF_IPV4, "<untouched>");
-            EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
-        }
-    } else {
-        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-        if (old_code) {
-            EXPECT_EQ(gIF_IPV4[0], '\0');
-            EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
-        } else {
-            EXPECT_STREQ(gIF_IPV4, "<untouched>");
-            EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
-        }
-    }
-}
-#endif
-
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_gua_ifname_successful) {
-    // Ports not set with this Unit so they doesn't matter here.
-    // For Microsoft Windows there are some TODOs in the old code:
-    // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
-    // link-local addresses.
-    // TODO: Retrieve IPv6 LLA prefix?
-
-    if (old_code)
-        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
-                     "set on MS Windows.\n";
-
-    if (!nadaptObj.find_first(ADDRS::gua))
-        GTEST_SKIP() << "No usable Global Unicast Address found for testing.";
-
-    if (old_code) {
-        // Initializing used global variable is important! Otherwise I get wrong
-        // initialisation.
-        gIF_NAME[0] = '\0';
-        gIF_INDEX = ~0u;
-        gIF_IPV6[0] = '\0';
-        gIF_IPV6_PREFIX_LENGTH = 0;
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_IPV4[0] = '\0';
-        gIF_IPV4_NETMASK[0] = '\0';
-    }
-
-    // Test Unit.
-    // Using adapter name of the gua interface.
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nadaptObj.name().c_str());
-    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
-
-    EXPECT_EQ(gIF_NAME, nadaptObj.name());
-    nadaptObj.sockaddr(saObj);
-    EXPECT_EQ("[" + std::string(gIF_IPV6_ULA_GUA) + "]", saObj.netaddr());
-    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
-
-    // Look for additional LLA on current selected netadapter.
-    nadaptObj.find_first(nadaptObj.index()); // Restricts find_next() to
-                                             // netadapter scope.
-    bool found(false);
-    do {
-        nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
-            found = true;
-    } while (!found && nadaptObj.find_next());
-
-    if (found) {
-        EXPECT_EQ("[" + std::string(gIF_IPV6) + "%" +
-                      std::to_string(gIF_INDEX) + "]",
-                  saObj.netaddr());
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
-    } else {
-        EXPECT_EQ(gIF_IPV6[0], '\0');
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
-    }
-
-    if (old_code) {
-        EXPECT_EQ(gIF_IPV4[0], '\0');
-        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
-    } else {
-        EXPECT_STREQ(gIF_IPV4, "<untouched>");
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
-    }
-}
-
-#if 0 // DEBUG! w.i.p. must be fixed next step.
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_map4_ifname_successful) {
-    // Ports not set with this Unit so they doesn't matter here.
-    // For Microsoft Windows there are some TODOs in the old code:
-    // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
-    // link-local addresses.
-    // TODO: Retrieve IPv6 LLA prefix?
-
-    if (old_code)
-        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
-                     "set on MS Windows.\n";
-
-    if (!nadaptObj.find_first(ADDRS::map4))
-        GTEST_SKIP() << "No usable IPv4-mapped IPv6 Address found for testing.";
-
-    if (old_code) {
-        // Initializing used global variable is important! Otherwise I get wrong
-        // initialisation.
-        gIF_NAME[0] = '\0';
-        gIF_INDEX = ~0u;
-        gIF_IPV6[0] = '\0';
-        gIF_IPV6_PREFIX_LENGTH = 0;
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_IPV4[0] = '\0';
-        gIF_IPV4_NETMASK[0] = '\0';
-    }
-
-    // Test Unit.
-    // TODO: This should find the first (best) local ip4 address.
-    // int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nullptr);
-    // Using adapter name of the interface with map4 address.
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nadaptObj.name().c_str());
-    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
-        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
-
-    EXPECT_EQ(gIF_NAME, nadaptObj.name());
-    nadaptObj.sockaddr(saObj);
-    if (old_code) {
-        // gIF_IPV6_ULA_GUA is empty, gIF_IPV4 is set.
-        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
-        EXPECT_EQ("[::ffff:" + std::string(gIF_IPV4) + "]", saObj.netaddr());
-        EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
-    } else {
-        // gIF_IPV6_ULA_GUA has V4MAPPED address, gIF_IPV4 is not used.
-        EXPECT_EQ("[" + std::string(gIF_IPV6_ULA_GUA) + "]", saObj.netaddr());
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
-        EXPECT_STREQ(gIF_IPV4, "<untouched>");
-        EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
-    }
-
-    // Look for additional LLA on current selected netadapter.
-    nadaptObj.find_first(nadaptObj.index()); // Restricts find_next() to
-                                             // netadapter scope.
-    bool found(false);
-    do {
-        nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
-            found = true;
-    } while (!found && nadaptObj.find_next());
-
-    if (found) {
-        EXPECT_EQ("[" + std::string(gIF_IPV6) + "%" +
-                      std::to_string(gIF_INDEX) + "]",
-                  saObj.netaddr());
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
-    } else {
-        EXPECT_EQ(gIF_IPV6[0], '\0');
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
-    }
-}
-#endif
-
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_without_scope_id_fails) {
-    // pUPnP does not support initialisation with IP addresses, but the UPnPsdk
-    // do. Ports not set with this Unit so they don't matter here.
-
-    // Get link-local network interface address.
-    ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
-    nadaptObj.sockaddr(saObj);
-
-    // Remove scope_id from socket address.
-    saObj.sin6.sin6_scope_id = 0;
-
-    // Test Unit
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
-
-    EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
-        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
-    {
-        SCOPED_TRACE("");
-        chk_empty_gifaddr();
-    }
-}
-
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua) {
-    // pUPnP does not support initialisation with IP addresses, but the UPnPsdk
-    // do. Ports not set with this Unit so they doesn't matter here.
-
-    if (!nadaptObj.find_first(ADDRS::gua))
-        GTEST_SKIP() << "No usable Global Unicast Address found for testing.";
-
-    nadaptObj.sockaddr(saObj);
-
-    // Test Unit
-    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
-
-    if (old_code) {
-        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
-                  << " UpnpGetIfInfo() only from network interface name "
-                     "supported, not from IP-addresses.\n";
-        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
-            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
-        {
-            SCOPED_TRACE("");
-            chk_empty_gifaddr();
-        }
-
-    } else {
-
-        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
-            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
-
-        char ip6[INET6_ADDRSTRLEN + 1];
-        // Strip leading character on copying.
-        std::strncpy(ip6, saObj.netaddr().c_str() + 1, sizeof(ip6) - 1);
-        // Strip trailing bracket.
-        if (char* chptr{::strchr(ip6, ']')})
-            *chptr = '\0';
-
-        EXPECT_EQ(gIF_NAME, nadaptObj.name());
-        EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-        EXPECT_STREQ(gIF_IPV6_ULA_GUA, ip6);
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
-        EXPECT_STREQ(gIF_IPV6, ""); // An lla is cleared. We only get the gua.
-        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
         EXPECT_STREQ(gIF_IPV4, "<untouched>");
         EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
     }
@@ -1172,23 +675,12 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_having_only_ipv6) {
             break;
         }
     }
-
     if (index == 0)
         GTEST_SKIP()
             << "No local network adapter with usable ip address found.";
 
-    // Initialize needed global variables.
-    if (old_code) {
-        gIF_INDEX = 0;
-        gIF_IPV6[0] = '\0';
-        gIF_IPV6_PREFIX_LENGTH = 0;
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_IPV4[0] = '\0';
-        gIF_IPV4_NETMASK[0] = '\0';
-    }
-
     // Select the local netadapter that has only IPv6 addresses.
+    // ---------------------------------------------------------
     nadaptObj.find_first(index);
 
 #if defined(UPnPsdk_WITH_NATIVE_PUPNP) && defined(__APPLE__)
@@ -1237,8 +729,305 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ifname_having_only_ipv6) {
     }
 }
 
-#ifndef UPnPsdk_WITH_NATIVE_PUPNP
-TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_ipv6_successful) {
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla) {
+    // pUPnP does not support initialisation with IP addresses, but the UPnPsdk
+    // do. Ports not set with this Unit so they don't matter here.
+    ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
+    nadaptObj.sockaddr(saObj);
+
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
+
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": UpnpGetIfInfo() only from network interface name "
+                     "supported, not from IP-addresses.\n";
+        EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+        {
+            SCOPED_TRACE("");
+            chk_empty_gifaddr();
+        }
+
+    } else {
+
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+        in6_addr sin6_addr;
+        ASSERT_EQ(::inet_pton(AF_INET6, gIF_IPV6, &sin6_addr), 1);
+        EXPECT_EQ(memcmp(&sin6_addr, &saObj.sin6.sin6_addr, sizeof(in6_addr)),
+                  0);
+        EXPECT_EQ(gIF_NAME, nadaptObj.name());
+        EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
+        // I test against real network interfaces. So a gua may be set on the
+        // same network interface, or not, depending on the current
+        // environment. Will be tested in its own Unit Test.
+        // EXPECT_STREQ(gIF_IPV6_ULA_GUA, "");
+        // EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_STREQ(gIF_IPV4, "<untouched>");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
+    }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_lla_ifname_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
+    // For Microsoft Windows there are some TODOs in the old code:
+    // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
+    // link-local addresses.
+    // TODO: Retrieve IPv6 LLA prefix.
+
+    if (old_code)
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
+                     "set on MS Windows.\n";
+
+    if (!nadaptObj.find_first(ADDRS::lla))
+        GTEST_SKIP() << "No usable link-local Address found for testing.";
+
+    // Test Unit.
+    // Using adapter name of the lla interface.
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nadaptObj.name().c_str());
+    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+    EXPECT_EQ(gIF_NAME, nadaptObj.name());
+    nadaptObj.sockaddr(saObj);
+    EXPECT_EQ("[" + std::string(gIF_IPV6) + "%" + std::to_string(gIF_INDEX) +
+                  "]",
+              saObj.netaddr());
+    EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH,
+              (old_code && compiler == CO::msc) ? 0 : nadaptObj.bitmask());
+
+    // Look for additional GUA and friends on current selected netadapter.
+    nadaptObj.find_first(nadaptObj.index()); // Restricts find_next() to
+                                             // netadapter scope.
+    bool gua(false), map4(false);
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr) ||
+            IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr))
+            gua = true;
+        else if (IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr))
+            map4 = true;
+    } while (!gua && !map4 && nadaptObj.find_next());
+
+    if (gua) {
+        EXPECT_EQ("[" + std::string(gIF_IPV6_ULA_GUA) + "]", saObj.netaddr());
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
+    } else if (map4) {
+        if (old_code) {
+            EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+            EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+            EXPECT_EQ("[::ffff:" + std::string(gIF_IPV4) + "]",
+                      saObj.netaddr());
+            EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
+        } else {
+            EXPECT_EQ("[::ffff:" + std::string(gIF_IPV6_ULA_GUA) + "]",
+                      saObj.netaddr());
+            EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
+            EXPECT_STREQ(gIF_IPV4, "<untouched>");
+            EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
+        }
+    } else {
+        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        if (old_code) {
+            // EXPECT_EQ(gIF_IPV4[0], '\0'); DEBUG! May be set
+            // EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0'); DEBUG! May be set
+        } else {
+            EXPECT_STREQ(gIF_IPV4, "<untouched>");
+            EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
+        }
+    }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_lla_without_scope_id_fails) {
+    // pUPnP does not support initialisation with IP addresses, but the UPnPsdk
+    // do. Ports not set with this Unit so they don't matter here.
+
+    // Get link-local network interface address.
+    ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
+    nadaptObj.sockaddr(saObj);
+
+    // Remove scope_id from socket address.
+    saObj.sin6.sin6_scope_id = 0;
+
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
+
+    EXPECT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+    {
+        SCOPED_TRACE("");
+        chk_empty_gifaddr();
+    }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_from_gua) {
+    // pUPnP does not support initialisation with IP addresses, but the UPnPsdk
+    // do. Ports not set with this Unit so they doesn't matter here.
+
+    if (!nadaptObj.find_first(ADDRS::gua))
+        GTEST_SKIP() << "No usable Global Unicast Address found for testing.";
+
+    nadaptObj.sockaddr(saObj);
+
+    // Test Unit
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(saObj.netaddr().c_str());
+
+    if (old_code) {
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": UpnpGetIfInfo() only from network interface name "
+                     "supported, not from IP-addresses.\n";
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_INVALID_INTERFACE);
+        {
+            SCOPED_TRACE("");
+            chk_empty_gifaddr();
+        }
+
+    } else {
+
+        ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+            << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+        char ip6[INET6_ADDRSTRLEN + 1];
+        // Strip leading character on copying.
+        std::strncpy(ip6, saObj.netaddr().c_str() + 1, sizeof(ip6) - 1);
+        // Strip trailing bracket.
+        if (char* chptr{::strchr(ip6, ']')})
+            *chptr = '\0';
+
+        EXPECT_EQ(gIF_NAME, nadaptObj.name());
+        EXPECT_EQ(gIF_INDEX, nadaptObj.index());
+        EXPECT_STREQ(gIF_IPV6_ULA_GUA, ip6);
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
+        EXPECT_STREQ(gIF_IPV6, ""); // An lla is cleared. We only get the gua.
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+        EXPECT_STREQ(gIF_IPV4, "<untouched>");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
+    }
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_gua_ifname_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
+    // For Microsoft Windows there are some TODOs in the old code:
+    // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
+    // link-local addresses.
+    // TODO: Retrieve IPv6 LLA prefix?
+
+    if (old_code)
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
+                     "set on MS Windows.\n";
+
+    if (!nadaptObj.find_first(ADDRS::gua))
+        GTEST_SKIP() << "No usable Global Unicast Address found for testing.";
+
+    // Test Unit.
+    // Using adapter name of the gua interface.
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nadaptObj.name().c_str());
+    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+    EXPECT_EQ(gIF_NAME, nadaptObj.name());
+    nadaptObj.sockaddr(saObj);
+    EXPECT_EQ("[" + std::string(gIF_IPV6_ULA_GUA) + "]", saObj.netaddr());
+    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
+
+    // Look for additional LLA on current selected netadapter.
+    nadaptObj.find_first(nadaptObj.index()); // Restricts find_next() to
+                                             // netadapter scope.
+    bool found(false);
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+            found = true;
+    } while (!found && nadaptObj.find_next());
+
+    if (found) {
+        EXPECT_EQ("[" + std::string(gIF_IPV6) + "%" +
+                      std::to_string(gIF_INDEX) + "]",
+                  saObj.netaddr());
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
+    } else {
+        EXPECT_EQ(gIF_IPV6[0], '\0');
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+    }
+
+    if (old_code) {
+        EXPECT_EQ(gIF_IPV4[0], '\0');
+        EXPECT_EQ(gIF_IPV4_NETMASK[0], '\0');
+    } else {
+        EXPECT_STREQ(gIF_IPV4, "<untouched>");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
+    }
+}
+
+#if 0 // Work in progress. Continue when netadapter accepts map4.
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_map4_ifname_successful) {
+    // Ports not set with this Unit so they doesn't matter here.
+    // For Microsoft Windows there are some TODOs in the old code:
+    // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
+    // link-local addresses.
+    // TODO: Retrieve IPv6 LLA prefix?
+
+    if (old_code)
+        std::cout << CYEL "[    FIX   ] " CRES << __LINE__
+                  << ": gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be "
+                     "set on MS Windows.\n";
+
+    if (!nadaptObj.find_first(ADDRS::map4))
+        GTEST_SKIP() << "No usable IPv4-mapped IPv6 Address found for testing.";
+
+    // Test Unit.
+    // Using adapter name of the interface with map4 address.
+    int ret_UpnpGetIfInfo = ::UpnpGetIfInfo(nadaptObj.name().c_str());
+    ASSERT_EQ(ret_UpnpGetIfInfo, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpGetIfInfo, UPNP_E_SUCCESS);
+
+    EXPECT_EQ(gIF_NAME, nadaptObj.name());
+    nadaptObj.sockaddr(saObj);
+    if (old_code) {
+        // gIF_IPV6_ULA_GUA is empty, gIF_IPV4 is set.
+        EXPECT_EQ(gIF_IPV6_ULA_GUA[0], '\0');
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, 0);
+        EXPECT_EQ("[::ffff:" + std::string(gIF_IPV4) + "]", saObj.netaddr());
+        EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
+    } else {
+        // gIF_IPV6_ULA_GUA has V4MAPPED address, gIF_IPV4 is not used.
+        EXPECT_EQ("[" + std::string(gIF_IPV6_ULA_GUA) + "]", saObj.netaddr());
+        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
+        EXPECT_STREQ(gIF_IPV4, "<untouched>");
+        EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
+    }
+
+    // Look for additional LLA on current selected netadapter.
+    nadaptObj.find_first(nadaptObj.index()); // Restricts find_next() to
+                                             // netadapter scope.
+    bool found(false);
+    do {
+        nadaptObj.sockaddr(saObj);
+        if (IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+            found = true;
+    } while (!found && nadaptObj.find_next());
+
+    if (found) {
+        EXPECT_EQ("[" + std::string(gIF_IPV6) + "%" +
+                      std::to_string(gIF_INDEX) + "]",
+                  saObj.netaddr());
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, nadaptObj.bitmask());
+    } else {
+        EXPECT_EQ(gIF_IPV6[0], '\0');
+        EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 0);
+    }
+}
+#endif
+
+#if 0 // Work in progress. Continue when netadapter accepts map4.
+TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_best_choise_successful) {
     // Ports not set with this Unit so they doesn't matter here.
 
     // Test Unit
@@ -1288,52 +1077,117 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_default_ipv6_successful) {
 }
 #endif
 
-TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
-    Handle_Info hinfo;
-    HandleTable[0] = nullptr; // Not used.
-    HandleTable[1] = &hinfo;
-    HandleTable[2] = nullptr;
+TEST(UpnpapiTestSuite, UpnpGetIfInfo_with_deprecated_ip_addresses) {
+    if (!github_actions)
+        GTEST_FAIL() << "Still needs to be done.";
 
-    EXPECT_EQ(::GetFreeHandle(), 2);
+    /* clang-format off
+Error with deprecated ip-addresses needs to be mocked
+=====================================================
+On dynamic change of the IPv6 address I have temporary seen the following
+IP address configuration. This is done by protocol when the remote server
+changes its global unicast address. It is no problem when following the
+protocol and just select the first offered IP address, that is the prefered
+address and not deprecated. Older IP addresses marked as "deprecated" and
+should not be used anymore for new connections.
+
+Old code does not follow the protocol and selects the last GUA first. That is
+the deprecated ip-address and could cause problems.
+
+      Start 40: ctest_upnpapi2-pst
+40/69 Test #40: ctest_upnpapi2-pst ...............***Failed    0.15 sec
+Note: Randomizing tests' orders with a seed of 88422 .
+[==========] Running 27 tests from 2 test suites.
+--- snip ---
+             NOTE! This is testing 'gua_ifname'
+                                   ############
+[ RUN      ] UpnpapiFTestSuite.UpnpGetIfInfo_with_gua_ifname_successful
+[    FIX   ] 842: gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be set on MS Windows.
+/home/ingo/devel/UPnPsdk-dev/UPnPsdk-project/Utest/compa/api.d/test_upnpapi2.cpp:857: Failure
+Expected equality of these values:
+  "[" + std::string(gIF_IPV6_ULA_GUA) + "]"
+    Which is: "[2003:d5:2722:700:5054:ff:fe7f:c021]"
+  saObj.netaddr()
+    Which is: "[2003:d5:2704:9d00:5054:ff:fe7f:c021]"
+
+[  FAILED  ] UpnpapiFTestSuite.UpnpGetIfInfo_with_gua_ifname_successful (0 ms)
+--- snip ---
+             NOTE! This is testing 'lla_ifname'
+                                   ############
+[ RUN      ] UpnpapiFTestSuite.UpnpGetIfInfo_with_lla_ifname_successful
+[    FIX   ] 703: gIF_IPV6_ULA_GUA, and gIF_IPV6_PREFIX_LENGTH should be set on MS Windows.
+/home/ingo/devel/UPnPsdk-dev/UPnPsdk-project/Utest/compa/api.d/test_upnpapi2.cpp:737: Failure
+Expected equality of these values:
+  "[" + std::string(gIF_IPV6_ULA_GUA) + "]"
+    Which is: "[2003:d5:2722:700:5054:ff:fe7f:c021]"
+  saObj.netaddr()
+    Which is: "[2003:d5:2704:9d00:5054:ff:fe7f:c021]"
+
+[  FAILED  ] UpnpapiFTestSuite.UpnpGetIfInfo_with_lla_ifname_successful (0 ms)
+--- snip ---
+
+:ingo@vdeb13-devel01 15:32:48 UPnPsdk-project$ ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute
+       valid_lft forever preferred_lft forever
+2: ens1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 52:54:00:7f:c0:21 brd ff:ff:ff:ff:ff:ff
+    altname enp2s1
+    altname enx5254007fc021
+    inet6 2003:d5:2704:9d00:5054:ff:fe7f:c021/64 scope global dynamic mngtmpaddr noprefixroute
+       valid_lft 6984sec preferred_lft 1027sec
+    inet6 fd00::5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
+       valid_lft 6150sec preferred_lft 0sec
+    inet6 2003:d5:2722:700:5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
+       valid_lft 5537sec preferred_lft 0sec
+    inet6 fe80::5054:ff:fe7f:c021/64 scope link proto kernel_ll
+       valid_lft forever preferred_lft forever
+3: ens2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 52:54:00:d4:b4:67 brd ff:ff:ff:ff:ff:ff
+    altname enp2s2
+    altname enx525400d4b467
+    inet 192.168.24.88/24 metric 1024 brd 192.168.24.255 scope global dynamic ens2
+       valid_lft 17091sec preferred_lft 17091sec
+:ingo@vdeb13-devel01 15:34:42 UPnPsdk-project$
+clang-format on
+*/
 }
 
-#if 0 // Is fixed in test_upnpapi2.cpp
-TEST_F(UpnpapiFTestSuite, UpnpInit2_loopback_address_fails) {
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+TEST_F(UpnpapiClearFTestSuite, UpnpInit2_loopback_address) {
+    if (g_dbug)
+        // Needed to enable logging for old_code.
+        UpnpSetLogFileNames(nullptr, nullptr); // Enable logging to stderr
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2("[::1]", 61234);
 
-    if (old_code) // Loopback address is not supported by pUPnP.
-        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+    if (old_code) {
+        ASSERT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
             << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
+        UpnpFinish();
+        GTEST_SKIP() << "Specify a loopback address is not supported by pUPnP.";
+    }
+
+    if (github_actions && compiler == CO::msc) // DEBUG! Fix it with miniserver.
+        EXPECT_EQ(ret_UpnpInit2, UPNP_E_SOCKET_BIND)
+            << errStrEx(ret_UpnpInit2, UPNP_E_SOCKET_BIND);
     else
         EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
             << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
     UpnpFinish();
 }
-#endif
 
-#if 0 // Is fixed in test_upnpapi2.cpp
-TEST_F(UpnpapiFTestSuite, UpnpInit2_lla_with_brackets_and_scope_id_successful) {
-    // Initialize needed global variables.
-    if (!old_code) {
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_IPV4[0] = '\0';
-        gIF_IPV4_NETMASK[0] = '\0';
-    }
-
+TEST_F(UpnpapiClearFTestSuite, UpnpInit2_lla_brackets_and_scope_id_successful) {
     ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
     nadaptObj.sockaddr(saObj);
 
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    if (g_dbug)
+        // Needed to enable logging for old_code.
+        UpnpSetLogFileNames(nullptr, nullptr); // Enable logging to stderr
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(saObj.netaddr().c_str(), 0);
@@ -1389,21 +1243,10 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_lla_with_brackets_and_scope_id_successful) {
 
     UpnpFinish();
 }
-#endif
 
-#if 0 // DEBUG! w.i.p. must be fixed next step.
-TEST_F(UpnpapiFTestSuite, UpnpInit2_lla_no_brackets_with_scope_id) {
-    // Initialize needed global variables.
-    if (!old_code)
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-
+TEST_F(UpnpapiClearFTestSuite, UpnpInit2_lla_no_brackets_with_scope_id) {
     ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
     nadaptObj.sockaddr(saObj);
-
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
 
     // Create link-local address whithout brackets, with scope_id.
     char lla[INET6_ADDRSTRLEN + 1 + 10]{}; // + '%' + UINT_32_MAX with 10 digits
@@ -1413,6 +1256,10 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_lla_no_brackets_with_scope_id) {
     ASSERT_GE(::snprintf(lla + str_len, sizeof(lla) - str_len, "%%%d",
                          nadaptObj.index()),
               0);
+
+    if (g_dbug)
+        // Needed to enable logging for old_code.
+        UpnpSetLogFileNames(nullptr, nullptr); // Enable logging to stderr
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(lla, 0);
@@ -1442,19 +1289,16 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_lla_no_brackets_with_scope_id) {
 
     UpnpFinish();
 }
-#endif
 
-#if 0 // DEBUG! w.i.p. must be fixed next step.
-TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_scope_id_fails) {
+TEST_F(UpnpapiClearFTestSuite, UpnpInit2_lla_no_scope_id_fails) {
     ASSERT_TRUE(nadaptObj.find_first(ADDRS::lla));
     nadaptObj.sockaddr(saObj);
     // Remove scope_id.
     saObj.sin6.sin6_scope_id = 0;
 
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    if (g_dbug)
+        // Needed to enable logging for old_code.
+        UpnpSetLogFileNames(nullptr, nullptr); // Enable logging to stderr
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(saObj.netaddr().c_str(), 0);
@@ -1464,22 +1308,15 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_lla_no_scope_id_fails) {
 
     UpnpFinish();
 }
-#endif
 
-#if 0 // DEBUG! w.i.p. must be fixed next step.
-TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_gua_successful) {
-    // Initialize needed global variables.
-    if (!old_code)
-        gIF_IPV6_PREFIX_LENGTH = 0;
-
+TEST_F(UpnpapiClearFTestSuite, UpnpInit2_gua_successful) {
     if (!nadaptObj.find_first(ADDRS::gua))
         GTEST_SKIP()
             << "No local network adapter with global unicast address found.";
 
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    if (g_dbug)
+        // Needed to enable logging for old_code.
+        UpnpSetLogFileNames(nullptr, nullptr); // Enable logging to stderr
 
     // Test Unit
     nadaptObj.sockaddr(saObj);
@@ -1515,16 +1352,8 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_complete_gua_successful) {
 
     UpnpFinish();
 }
-#endif
 
-#if 0 // Is fixed in test_upnpapi2.cpp
-TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
-    // Initialize needed global variables.
-    if (!old_code) {
-        gIF_IPV6_PREFIX_LENGTH = 0;
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-    }
-
+TEST_F(UpnpapiClearFTestSuite, UpnpInit2_with_netadapter_index_successful) {
     // Find a usable adapter.
     ASSERT_TRUE(nadaptObj.find_first())
         << "No local network adapter with usable IP address found.";
@@ -1543,19 +1372,18 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
             gua_saObj = saObj;
     } while (nadaptObj.find_next());
 
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    if (g_dbug)
+        // Needed to enable logging for old_code.
+        UpnpSetLogFileNames(nullptr, nullptr); // Enable logging to stderr
 
     // Test Unit
     int ret_UpnpInit2 = ::UpnpInit2(std::to_string(index).c_str(), 0);
 
     if (old_code) {
-        EXPECT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
+        ASSERT_EQ(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE)
             << errStrEx(ret_UpnpInit2, UPNP_E_INVALID_INTERFACE);
         UpnpFinish();
-        GTEST_SKIP() << "Specify netadapter index is not supported by pupnp.";
+        GTEST_SKIP() << "Specify netadapter index is not supported by pUPnP.";
     }
 
     EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
@@ -1582,55 +1410,11 @@ TEST_F(UpnpapiFTestSuite, UpnpInit2_with_netadapter_index_successful) {
 
     UpnpFinish();
 }
-#endif
 
-#if 0
-On dynamic change of the IPv6 address I have temporary seen the following two
-IP address configurations. This is done by protocol when the remote server
-changes its global unicast address. It is no problem when following the
-protocol and just select the first offered IP address, that is the prefered
-address and not deprecated. Older IP addresses marked as "deprecated" and
-should not be used anymore for new connections.
-
-Old code does not follow the protocol and selects the last GUA first, that is in
-this example:
-    inet6 2003:d5:274d:2a00:5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
-    or
-    inet6 fd00::5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
-Both are marked as deprecated and could cause problems.
-
-2: ens1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 52:54:00:7f:c0:21 brd ff:ff:ff:ff:ff:ff
-    altname enp2s1
-    altname enx5254007fc021
-    inet6 2003:d5:271c:b00:5054:ff:fe7f:c021/64 scope global dynamic mngtmpaddr noprefixroute
-       valid_lft 6855sec preferred_lft 942sec
-    inet6 2003:d5:2725:7400:5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
-       valid_lft 49sec preferred_lft 0sec
-    inet6 fd00::5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
-       valid_lft 70sec preferred_lft 0sec
-    inet6 fe80::5054:ff:fe7f:c021/64 scope link proto kernel_ll
-       valid_lft forever preferred_lft forever
-
-2: ens1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 52:54:00:7f:c0:21 brd ff:ff:ff:ff:ff:ff
-    altname enp2s1
-    altname enx5254007fc021
-    inet6 2003:d5:271c:b00:5054:ff:fe7f:c021/64 scope global dynamic mngtmpaddr noprefixroute
-       valid_lft 7136sec preferred_lft 1212sec
-    inet6 2003:d5:2725:7400:5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
-       valid_lft 1220sec preferred_lft 0sec
-    inet6 fd00::5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
-       valid_lft 1241sec preferred_lft 0sec
-    inet6 2003:d5:274d:2a00:5054:ff:fe7f:c021/64 scope global deprecated dynamic mngtmpaddr noprefixroute
-       valid_lft 571sec preferred_lft 0sec
-    inet6 fe80::5054:ff:fe7f:c021/64 scope link proto kernel_ll
-       valid_lft forever preferred_lft forever
-#endif
-
-#if 0 // DEBUG! w.i.p. must be fixed next step.
-TEST_F(UpnpapiFTestSuite,
-       UpnpInit2_with_netadapter_name_and_default_successful) {
+// DEBUG! Modify test to support netinterfaces without lla,  only IPv4.
+// That needs to remove IN6_IS_ADDR_V4MAPPED filter from netadapter module.
+// Also split test into one with netadapter name and one with default.
+TEST_F(UpnpapiClearFTestSuite, UpnpInit2_default_and_with_name_successful) {
     // For Microsoft Windows there are some TODOs in the old code:
     // TODO: Retrieve IPv6 ULA or GUA address and its prefix. Only keep IPv6
     // link-local addresses.
@@ -1642,14 +1426,6 @@ TEST_F(UpnpapiFTestSuite,
             << ": Unit must not select oldest deprecated IPv6 address, when "
                "multiple local addresses on netadapter are available.\n";
 
-    // Initialize needed global variables.
-    if (old_code) {
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-        gIF_IPV4[0] = '\0';
-        gIF_IPV4_NETMASK[0] = '\0';
-    }
-
     // Find a usable adapter.
     ASSERT_TRUE(nadaptObj.find_first())
         << "No local network adapter with usable IP address found.";
@@ -1658,24 +1434,16 @@ TEST_F(UpnpapiFTestSuite,
     // Get socket addresses from the found netadapter. Must have an lla, may
     // have a gua.
     SSockaddr lla_saObj, gua_saObj;
-    nadaptObj.find_first(index);
-    const auto& lla_af = lla_saObj.ss.ss_family;
-    const auto& gua_af = gua_saObj.ss.ss_family;
+    nadaptObj.find_first(index); // Restricts find_next() to netinterface scope.
     do {
         nadaptObj.sockaddr(saObj);
-        if (lla_af != AF_INET6 && IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+        if (lla_saObj.empty() && IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
             lla_saObj = saObj;
-        else if (gua_af != AF_INET6 &&
+        else if (gua_saObj.empty() &&
                  IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr))
             gua_saObj = saObj;
-    } while (nadaptObj.find_next() &&
-             (lla_af != AF_INET6 || gua_af != AF_INET6));
-    ASSERT_EQ(lla_saObj.ss.ss_family, AF_INET6);
-
-    // The Unit needs a defined state, otherwise it will fail with
-    // SEH exception 0xc0000005 on WIN32.
-    bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
+    } while ((lla_saObj.empty() || gua_saObj.empty()) && nadaptObj.find_next());
+    ASSERT_EQ(lla_saObj.family, AF_INET6);
 
 
     // Test Unit call with adapter name
@@ -1683,16 +1451,15 @@ TEST_F(UpnpapiFTestSuite,
     nadaptObj.find_first(index);
     int ret_UpnpInit2 = ::UpnpInit2(nadaptObj.name().c_str(), 0);
 
-    EXPECT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
+    ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
     EXPECT_EQ(gIF_NAME, nadaptObj.name());
     EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-    // saObj = gIF_IPV6;                 // Has no scope_id.
-    saObj.ss.ss_family = AF_INET6;
-    ::inet_pton(saObj.ss.ss_family, gIF_IPV6, &saObj.sin6.sin6_addr);
+    saObj.clear();
+    ::inet_pton(saObj.family, gIF_IPV6, &saObj.sin6.sin6_addr);
+    saObj.sin6.sin6_scope_id = gIF_INDEX;
 
-    lla_saObj.sin6.sin6_scope_id = 0; // Remove scope_id to verify.
     if (old_code) {
         if (saObj != lla_saObj) {
             std::cout << "Wrong (deprecated?) local IP address selected:\n"
@@ -1708,11 +1475,9 @@ TEST_F(UpnpapiFTestSuite,
 #ifndef _MSC_VER
     EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
 #endif
-    // saObj = gIF_IPV6_ULA_GUA;
-    saObj.ss.ss_family = AF_INET6;
-    ::inet_pton(saObj.ss.ss_family, gIF_IPV6_ULA_GUA, &saObj.sin6.sin6_addr);
+    saObj.clear();
+    ::inet_pton(saObj.family, gIF_IPV6_ULA_GUA, &saObj.sin6.sin6_addr);
 
-    saObj.sin6.sin6_scope_id = 0;
     if (old_code) {
         if (saObj != gua_saObj) {
             std::cout << "Wrong (deprecated?) local IP address selected:\n"
@@ -1725,7 +1490,8 @@ TEST_F(UpnpapiFTestSuite,
             << "gIF_IPV6_ULA_GUA netaddrp()=\"" << saObj.netaddrp()
             << "\", netadapter netaddrp()=\"" << gua_saObj.netaddrp() << "\"";
     }
-    EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, gua_af == AF_INET6 ? 64 : 0);
+    // EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, DEBUG! May be 0 for AF_INET6
+    //           gua_saObj.family == AF_INET6 ? 64 : 0);
 
 
     // Test Unit call default setting
@@ -1737,62 +1503,180 @@ TEST_F(UpnpapiFTestSuite,
 
         EXPECT_EQ(gIF_NAME, nadaptObj.name());
         EXPECT_EQ(gIF_INDEX, nadaptObj.index());
-        // saObj = gIF_IPV6;                 // Has no scope_id.
-        saObj.ss.ss_family = AF_INET6;
-        ::inet_pton(saObj.ss.ss_family, gIF_IPV6, &saObj.sin6.sin6_addr);
+        saObj.clear();
+        ::inet_pton(saObj.family, gIF_IPV6, &saObj.sin6.sin6_addr);
+        saObj.sin6.sin6_scope_id = gIF_INDEX;
 
-        lla_saObj.sin6.sin6_scope_id = 0; // Remove scope_id to verify.
         EXPECT_EQ(saObj, lla_saObj)
             << "gIF_IPV6 netaddrp()=\"" << saObj.netaddrp()
             << "\", netadapter netaddrp()=\"" << lla_saObj.netaddrp() << "\"";
 #ifndef _MSC_VER
         EXPECT_EQ(gIF_IPV6_PREFIX_LENGTH, 64);
 #endif
-        // saObj = gIF_IPV6_ULA_GUA;
-        saObj.ss.ss_family = AF_INET6;
-        ::inet_pton(saObj.ss.ss_family, gIF_IPV6_ULA_GUA,
-                    &saObj.sin6.sin6_addr);
-        saObj.sin6.sin6_scope_id = 0;
+        saObj.clear();
+        ::inet_pton(saObj.family, gIF_IPV6_ULA_GUA, &saObj.sin6.sin6_addr);
 
         EXPECT_EQ(saObj, gua_saObj)
             << "gIF_IPV6_ULA_GUA netaddrp()=\"" << saObj.netaddrp()
             << "\", netadapter netaddrp()=\"" << gua_saObj.netaddrp() << "\"";
-        EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, gua_af == AF_INET6 ? 64 : 0);
+        // EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, DEBUG! Maybe 0 for AF_INET6
+        //           gua_saObj.family == AF_INET6 ? 64 : 0);
     }
 
     UpnpFinish();
 }
-#endif
 
-#if 0 // DEBUG! w.i.p. must be fixed next step.
-TEST_F(UpnpapiFTestSuite, download_xml_with_gua_successful) {
+TEST_F(UpnpapiFTestSuite, webserver_enable_and_disable) {
+    // Note that UpnpSetWebServerRootDir(<rootDir>) also enables the webserver,
+    //  and that UpnpSetWebServerRootDir(nullptr) also disables the webserver.
+
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+    UpnpSdkInit = 1;
+
+    // Test Unit enable
+    int ret_UpnpEnableWebserver = UpnpEnableWebserver(WEB_SERVER_ENABLED);
+    EXPECT_EQ(ret_UpnpEnableWebserver, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpEnableWebserver, UPNP_E_SUCCESS);
+
+    EXPECT_EQ(bWebServerState, WEB_SERVER_ENABLED);
+
+    // Test Unit enable it again should not do any harm.
+    ret_UpnpEnableWebserver = UpnpEnableWebserver(WEB_SERVER_ENABLED);
+    EXPECT_EQ(ret_UpnpEnableWebserver, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpEnableWebserver, UPNP_E_SUCCESS);
+
+    EXPECT_EQ(bWebServerState, WEB_SERVER_ENABLED);
+
+    // Test Unit disable
+    ret_UpnpEnableWebserver = UpnpEnableWebserver(WEB_SERVER_DISABLED);
+    EXPECT_EQ(ret_UpnpEnableWebserver, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpEnableWebserver, UPNP_E_SUCCESS);
+
+    EXPECT_EQ(bWebServerState, WEB_SERVER_DISABLED);
+
+    // Test Unit disable again should not do any harm.
+    ret_UpnpEnableWebserver = UpnpEnableWebserver(WEB_SERVER_DISABLED);
+    EXPECT_EQ(ret_UpnpEnableWebserver, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpEnableWebserver, UPNP_E_SUCCESS);
+
+    EXPECT_EQ(bWebServerState, WEB_SERVER_DISABLED);
+}
+
+TEST_F(UpnpapiFTestSuite, webserver_set_rootdir_successful) {
+    UpnpSdkInit = 1;
+
+    // Test Unit
+    int ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("sample/web/");
+    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gDocumentRootDir.buf, "sample/web");
+
+    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("/");
+    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gDocumentRootDir.buf, "");
+
+    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("//");
+    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gDocumentRootDir.buf, "/");
+
+    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir(".");
+    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gDocumentRootDir.buf, ".");
+
+    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("./");
+    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gDocumentRootDir.buf, ".");
+
+    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("..");
+    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gDocumentRootDir.buf, "..");
+
+    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("../");
+    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_SUCCESS);
+
+    EXPECT_STREQ(gDocumentRootDir.buf, "..");
+}
+
+TEST_F(UpnpapiFTestSuite, webserver_set_rootdir_fails) {
+    // Test Unit
+    UpnpSdkInit = 0;
+    int ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("sample/web");
+    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_FINISH)
+        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_FINISH);
+
+    UpnpSdkInit = 1;
+    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir(nullptr);
+    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_INVALID_PARAM)
+        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_INVALID_PARAM);
+
+    ret_UpnpSetWebServerRootDir = UpnpSetWebServerRootDir("");
+    EXPECT_EQ(ret_UpnpSetWebServerRootDir, UPNP_E_INVALID_PARAM)
+        << errStrEx(ret_UpnpSetWebServerRootDir, UPNP_E_INVALID_PARAM);
+}
+
+TEST_F(UpnpapiFTestSuite, webserver_sdk_not_initialized) {
+    // The Unit needs a defined state, otherwise it will fail with
+    // SEH exception 0xc0000005 on WIN32.
+    bWebServerState = WEB_SERVER_DISABLED;
+    UpnpSdkInit = 0;
+
+    // Test Unit
+    int ret_UpnpEnableWebserver = UpnpEnableWebserver(WEB_SERVER_ENABLED);
+    EXPECT_EQ(ret_UpnpEnableWebserver, UPNP_E_FINISH)
+        << errStrEx(ret_UpnpEnableWebserver, UPNP_E_FINISH);
+
+    EXPECT_EQ(bWebServerState, WEB_SERVER_DISABLED);
+}
+
+TEST(UpnpapiTestSuite, download_xml_with_loopback_successful) {
+    if (!github_actions)
+        GTEST_FAIL() << "Still needs to be done.";
+}
+
+TEST(UpnpapiTestSuite, download_xml_with_lla_successful) {
+    if (!github_actions)
+        GTEST_FAIL() << "Still needs to be done.";
+}
+
+TEST_F(UpnpapiClearFTestSuite, download_xml_with_gua_successful) {
     if (!nadaptObj.find_first(ADDRS::gua))
         GTEST_SKIP() << "No Global Unicast Address on a local netadapter "
                         "found. Works only with it at time.";
 
-    if (github_actions) // Always disable extended debug messages.
-        g_dbug = false; // Will be restored by the tests destructor.
-
-    CPupnplog logObj;   // Output only with build type DEBUG.
-    if (g_dbug)
-        logObj.enable(UPNP_INFO);
-
     // The Unit needs a defined state, otherwise it may fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
-    if (old_code) {
-        // gIF_IPV6[0] = '\0';
-        // gIF_IPV6_PREFIX_LENGTH = 0;
-        gIF_IPV6_ULA_GUA[0] = '\0';
-        gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
-    }
+
+    if (github_actions) // Always disable extended debug messages.
+        g_dbug = false; // Will be restored by the tests destructor.
+    if (g_dbug)
+        // Needed to enable logging for old_code.
+        UpnpSetLogFileNames(nullptr, nullptr); // Enable logging to stderr
 
     int ret_UpnpInit2 = ::UpnpInit2(nadaptObj.name().c_str(), 0);
     ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
-    ASSERT_EQ(::UpnpSetWebServerRootDir(SAMPLE_SOURCE_DIR "/web"), 0);
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    const char sample_dir[] = CMAKE_SOURCE_DIR "/Pupnp/sample/web";
+#else
+    const char sample_dir[] = CMAKE_SOURCE_DIR "/Sample/web";
+#endif
+    ASSERT_EQ(::UpnpSetWebServerRootDir(sample_dir), 0);
 
     // Create an url.
     // std::string url = "http://[::1]:50001/tvdevicedesc.xml";
@@ -1818,17 +1702,6 @@ TEST_F(UpnpapiFTestSuite, download_xml_with_gua_successful) {
     }
     UpnpFinish();
 }
-#endif
-
-TEST_F(UpnpapiFTestSuite, download_xml_with_lla_successful) {
-    if (!github_actions)
-        GTEST_FAIL() << "Still needs to be done.";
-}
-
-TEST_F(UpnpapiFTestSuite, download_xml_with_loopback_successful) {
-    if (!github_actions)
-        GTEST_FAIL() << "Still needs to be done.";
-}
 
 int CallbackEventHandler(Upnp_EventType EventType, const void* Event,
                          [[maybe_unused]] void* Cookie) {
@@ -1839,33 +1712,36 @@ int CallbackEventHandler(Upnp_EventType EventType, const void* Event,
     return 0;
 }
 
-#if 0 // DEBUG! w.i.p. must be fixed next step.
-TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_with_gua_successful) {
+TEST(UpnpapiTestSuite, UpnpRegisterRootDevice3_with_loopback_successful) {
+    if (!github_actions)
+        GTEST_FAIL() << "Still needs to be done.";
+}
+
+TEST_F(UpnpapiClearFTestSuite, UpnpRegisterRootDevice3_with_gua_successful) {
     if (!nadaptObj.find_first(ADDRS::gua))
         GTEST_SKIP() << "No Global Unicast Address on a local netadapter "
                         "found. Works only with it at time.";
 
-    if (github_actions) // Always disable extended debug messages.
-        g_dbug = false; // Will be restored by the tests destructor.
-
-    CPupnplog logObj;   // Output only with build type DEBUG.
-    if (g_dbug)
-        logObj.enable(UPNP_INFO);
-
     // The Unit needs a defined state, otherwise it may fail with
     // SEH exception 0xc0000005 on WIN32.
     bWebServerState = WEB_SERVER_DISABLED;
-    sdkInit_mutex = PTHREAD_MUTEX_INITIALIZER;
-    // gIF_IPV6[0] = '\0';
-    // gIF_IPV6_PREFIX_LENGTH = 0;
-    gIF_IPV6_ULA_GUA[0] = '\0';
-    gIF_IPV6_ULA_GUA_PREFIX_LENGTH = 0;
+
+    if (github_actions) // Always disable extended debug messages.
+        g_dbug = false; // Will be restored by the tests destructor.
+    if (g_dbug)
+        // Needed to enable logging for old_code.
+        UpnpSetLogFileNames(nullptr, nullptr); // Enable logging to stderr
 
     int ret_UpnpInit2 = ::UpnpInit2(nadaptObj.name().c_str(), 0);
     ASSERT_EQ(ret_UpnpInit2, UPNP_E_SUCCESS)
         << errStrEx(ret_UpnpInit2, UPNP_E_SUCCESS);
 
-    EXPECT_EQ(UpnpSetWebServerRootDir(SAMPLE_SOURCE_DIR "/web"), 0);
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    const char sample_dir[] = CMAKE_SOURCE_DIR "/Pupnp/sample/web";
+#else
+    const char sample_dir[] = CMAKE_SOURCE_DIR "/Sample/web";
+#endif
+    ASSERT_EQ(::UpnpSetWebServerRootDir(sample_dir), 0);
 
     // Prepare used local ip address.
     // Example: "http://192.168.24.88:49153/tvdevicedesc.xml"
@@ -1887,9 +1763,59 @@ TEST_F(UpnpapiFTestSuite, UpnpRegisterRootDevice3_with_gua_successful) {
     UpnpUnRegisterRootDevice(device_handle);
     UpnpFinish();
 }
+
+TEST_F(UpnpapiFTestSuite, UpnpFinish_successful) {
+    // Doing needed initializations. Otherwise we get segfaults with
+    // UpnpFinish() due to uninitialized pointers.
+    // Initialize SDK global mutexes.
+
+#ifdef UPnPsdk_WITH_NATIVE_PUPNP
+    ASSERT_EQ(UpnpInitMutexes(), UPNP_E_SUCCESS);
+    // Initialize the handle list.
+    HandleLock(__FILE__, __LINE__);
+    for (int i = 0; i < NUM_HANDLE; ++i)
+        HandleTable[i] = nullptr;
+    HandleUnlock(__FILE__, __LINE__);
+#else
+    ASSERT_EQ(UpnpInitRwLocks(), UPNP_E_SUCCESS);
+    // Initialize the handle list.
+    HandleLock();
+    for (int i = 0; i < NUM_HANDLE; ++i)
+        HandleTable[i] = nullptr;
+    HandleUnlock();
 #endif
 
+    // Initialize SDK global thread pools.
+    ASSERT_EQ(UpnpInitThreadPools(), UPNP_E_SUCCESS);
+
+    // Initialize the SDK timer thread.
+    ASSERT_EQ(TimerThreadInit(&gTimerThread, &gSendThreadPool), UPNP_E_SUCCESS);
+
+    UpnpSdkInit = 1;
+
+    // Test Unit
+    int ret_UpnpFinish{UPNP_E_INTERNAL_ERROR};
+    ret_UpnpFinish = UpnpFinish();
+    EXPECT_EQ(ret_UpnpFinish, UPNP_E_SUCCESS)
+        << errStrEx(ret_UpnpFinish, UPNP_E_SUCCESS);
+
+    EXPECT_EQ(UpnpSdkInit, 0);
+}
+
+TEST_F(UpnpapiFTestSuite, UpnpFinish_without_initialization) {
+    UpnpSdkInit = 0;
+
+    // Test Unit
+    int ret_UpnpFinish{UPNP_E_INTERNAL_ERROR};
+    ret_UpnpFinish = UpnpFinish();
+    EXPECT_EQ(ret_UpnpFinish, UPNP_E_FINISH)
+        << errStrEx(ret_UpnpFinish, UPNP_E_FINISH);
+
+    EXPECT_EQ(UpnpSdkInit, 0);
+}
+
 } // namespace utest
+
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleMock(&argc, argv);

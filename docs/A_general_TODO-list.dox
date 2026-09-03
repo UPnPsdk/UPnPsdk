@@ -5,8 +5,6 @@
  * \brief A general TODO-list
  *
  * \todo
- * - Rework Unit Tests in Utest/compa/api.d/test_upnpapi.cpp.
- *   - Remove Utest/compa/api.d/test_upnpapi_win32.cpp?
  * - Create UPnPsdk::IN6_IS_ADDR_UNIQUELOCAL(), or maybe add it to IN6_IS_ADDR_GLOBAL2().
  * - Optimize CNetadapter::find_first() to use argument SSockaddr instead of string().
  * - Rework CSocket class.

@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2026-09-02
+# Redistribution only with this Copyright remark. Last modified: 2026-09-03
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -127,40 +127,46 @@ add_test(NAME ctest_UpnpFileInfo-csh COMMAND test_UpnpFileInfo-csh --gtest_shuff
 # functions, we cannot use shared libraries due to symbol import/export
 # conflicts on Microsoft Windows (warning C4273: inconsistent dll linkage). I
 # must use static libraries.
-add_executable(test_upnpapi2-pst
+add_executable(test_upnpapi-pst
 #-------------------------------
-    test_upnpapi2.cpp
+    test_upnpapi.cpp
 )
-target_include_directories(test_upnpapi2-pst
+target_include_directories(test_upnpapi-pst
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
-target_link_libraries(test_upnpapi2-pst
+target_link_libraries(test_upnpapi-pst
     PRIVATE
         pupnp_static
         UPnPsdk_static # must be static for win32
         utest_shared
 )
-add_test(NAME ctest_upnpapi2-pst COMMAND test_upnpapi2-pst --gtest_shuffle
+add_test(NAME ctest_upnpapi-pst COMMAND test_upnpapi-pst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
-add_executable(test_upnpapi2-cst
+add_executable(test_upnpapi-cst
 #-------------------------------
-    test_upnpapi2.cpp
+    test_upnpapi.cpp
 )
-target_include_directories(test_upnpapi2-cst
+target_include_directories(test_upnpapi-cst
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
-target_link_libraries(test_upnpapi2-cst
+target_link_libraries(test_upnpapi-cst
     PRIVATE
         compa_static
         utest_shared
 )
-add_test(NAME ctest_upnpapi2-cst COMMAND test_upnpapi2-cst --gtest_shuffle
+add_test(NAME ctest_upnpapi-cst COMMAND test_upnpapi-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 if(WIN32)
+# Theese Unit Tests are focused on low level IPv4 that isn't supported by
+# reengeneered code anymore. There I use only IPv6 with IPv4-mapped-IPv6
+# addresses to connect to remote hosts that only support iPv4. Therefore theese
+# tests are disabled on Microsoft Windows for new_code with CMake and only
+# still running for old UPnPsdk_WITH_NATIVE_PUPNP build to detect changes on
+# old code.
 add_executable(test_upnpapi_win32-pst
 #------------------------------------
     test_upnpapi_win32.cpp
