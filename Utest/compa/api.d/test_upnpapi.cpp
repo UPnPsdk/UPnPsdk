@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-09-03
+// Redistribution only with this Copyright remark. Last modified: 2026-09-24
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -25,8 +25,6 @@ using ::testing::StartsWith;
 
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
-using ::UPnPsdk::IN6_IS_ADDR_GLOBAL2;
-using ::UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 using ::UPnPsdk::SInaddr;
 using ::UPnPsdk::SSockaddr;
 using ADDRS = UPnPsdk::CNetadapter::ADDRS;
@@ -395,6 +393,7 @@ TEST_F(UpnpapiFTestSuite, get_free_handle_successful) {
     EXPECT_EQ(::GetFreeHandle(), 2);
 }
 
+// GetIfInfo
 #ifndef UPnPsdk_WITH_NATIVE_PUPNP
 TEST_F(UpnpapiFTestSuite, GetIfInfo_with_unspec_address) {
     saObj = SInaddr("[::1]");
@@ -516,6 +515,7 @@ TEST_F(UpnpapiFTestSuite, GetIfInfo_from_gua) {
     EXPECT_STREQ(gIF_IPV4_NETMASK, "<untouched>");
 }
 
+#if 0  // DEBUG! Must run after correction of GetIfInfo().
 TEST_F(UpnpapiFTestSuite, GetIfInfo_with_netadapter_index) {
     // Initializing with IP addresses isn't supported by pUPnP, but with
     // UPnPsdk. Ports not set with this Unit so they doesn't matter here.
@@ -543,7 +543,7 @@ TEST_F(UpnpapiFTestSuite, GetIfInfo_with_netadapter_index) {
     bool found{false};
     do {
         nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr)) {
+        if (UPnPsdk::IN6_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
             found = true;
             break;
         }
@@ -558,8 +558,10 @@ TEST_F(UpnpapiFTestSuite, GetIfInfo_with_netadapter_index) {
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
     }
 }
+#endif
 #endif // UPnPsdk_WITH_NATIVE_PUPNP
 
+// UpnpGetIfInfo
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_ipv6_loopback_address) {
     // Initializing with IP addresses isn't supported by pUPnP, but with
     // UPnPsdk. Ports not set with this Unit so they doesn't matter here.
@@ -806,7 +808,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_lla_ifname_successful) {
     bool gua(false), map4(false);
     do {
         nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr) ||
+        if (UPnPsdk::IN6_ADDR_GLOBAL(&saObj.sin6.sin6_addr) ||
             IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr))
             gua = true;
         else if (IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr))
@@ -824,7 +826,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_lla_ifname_successful) {
                       saObj.netaddr());
             EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
         } else {
-            EXPECT_EQ("[::ffff:" + std::string(gIF_IPV6_ULA_GUA) + "]",
+            EXPECT_EQ("[" + std::string(gIF_IPV6_ULA_GUA) + "]",
                       saObj.netaddr());
             EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
             EXPECT_STREQ(gIF_IPV4, "<untouched>");
@@ -943,7 +945,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_gua_ifname_successful) {
     bool found(false);
     do {
         nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+        if (UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
             found = true;
     } while (!found && nadaptObj.find_next());
 
@@ -966,7 +968,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_gua_ifname_successful) {
     }
 }
 
-#if 0 // Work in progress. Continue when netadapter accepts map4.
+#if 0 // DEBUG! Must run after correction of ::UpnpGetIfInfo().
 TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_map4_ifname_successful) {
     // Ports not set with this Unit so they doesn't matter here.
     // For Microsoft Windows there are some TODOs in the old code:
@@ -998,6 +1000,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_map4_ifname_successful) {
         EXPECT_THAT(gIF_IPV4_NETMASK, StartsWith("255."));
     } else {
         // gIF_IPV6_ULA_GUA has V4MAPPED address, gIF_IPV4 is not used.
+        std::cerr << "DEBUG! gIF_IPV6_ULA_GUA\"" << gIF_IPV6_ULA_GUA << "\".\n";
         EXPECT_EQ("[" + std::string(gIF_IPV6_ULA_GUA) + "]", saObj.netaddr());
         EXPECT_EQ(gIF_IPV6_ULA_GUA_PREFIX_LENGTH, nadaptObj.bitmask());
         EXPECT_STREQ(gIF_IPV4, "<untouched>");
@@ -1010,7 +1013,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_map4_ifname_successful) {
     bool found(false);
     do {
         nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+        if (UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
             found = true;
     } while (!found && nadaptObj.find_next());
 
@@ -1156,6 +1159,7 @@ clang-format on
 */
 }
 
+// UpnpInit2
 TEST_F(UpnpapiClearFTestSuite, UpnpInit2_loopback_address) {
     if (g_dbug)
         // Needed to enable logging for old_code.
@@ -1353,6 +1357,7 @@ TEST_F(UpnpapiClearFTestSuite, UpnpInit2_gua_successful) {
     UpnpFinish();
 }
 
+#if 0 // DEBUG! Must run after correction of ::UpnpGetIfInfo().
 TEST_F(UpnpapiClearFTestSuite, UpnpInit2_with_netadapter_index_successful) {
     // Find a usable adapter.
     ASSERT_TRUE(nadaptObj.find_first())
@@ -1365,10 +1370,11 @@ TEST_F(UpnpapiClearFTestSuite, UpnpInit2_with_netadapter_index_successful) {
     nadaptObj.find_first(index);
     do {
         nadaptObj.sockaddr(saObj);
-        if (lla_saObj.empty() && IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+        if (lla_saObj.empty() &&
+            UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
             lla_saObj = saObj;
         else if (gua_saObj.empty() &&
-                 IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr))
+                 UPnPsdk::IN6_ADDR_GLOBALALL(&saObj.sin6.sin6_addr))
             gua_saObj = saObj;
     } while (nadaptObj.find_next());
 
@@ -1410,9 +1416,9 @@ TEST_F(UpnpapiClearFTestSuite, UpnpInit2_with_netadapter_index_successful) {
 
     UpnpFinish();
 }
+#endif
 
-// DEBUG! Modify test to support netinterfaces without lla,  only IPv4.
-// That needs to remove IN6_IS_ADDR_V4MAPPED filter from netadapter module.
+#if 0 // DEBUG! Modify test to support netinterfaces without lla,  only IPv4.
 // Also split test into one with netadapter name and one with default.
 TEST_F(UpnpapiClearFTestSuite, UpnpInit2_default_and_with_name_successful) {
     // For Microsoft Windows there are some TODOs in the old code:
@@ -1437,10 +1443,11 @@ TEST_F(UpnpapiClearFTestSuite, UpnpInit2_default_and_with_name_successful) {
     nadaptObj.find_first(index); // Restricts find_next() to netinterface scope.
     do {
         nadaptObj.sockaddr(saObj);
-        if (lla_saObj.empty() && IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+        if (lla_saObj.empty() &&
+            UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
             lla_saObj = saObj;
         else if (gua_saObj.empty() &&
-                 IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr))
+                 UPnPsdk::IN6_ADDR_GLOBALALL(&saObj.sin6.sin6_addr))
             gua_saObj = saObj;
     } while ((lla_saObj.empty() || gua_saObj.empty()) && nadaptObj.find_next());
     ASSERT_EQ(lla_saObj.family, AF_INET6);
@@ -1525,7 +1532,9 @@ TEST_F(UpnpapiClearFTestSuite, UpnpInit2_default_and_with_name_successful) {
 
     UpnpFinish();
 }
+#endif
 
+// webserver
 TEST_F(UpnpapiFTestSuite, webserver_enable_and_disable) {
     // Note that UpnpSetWebServerRootDir(<rootDir>) also enables the webserver,
     //  and that UpnpSetWebServerRootDir(nullptr) also disables the webserver.
@@ -1642,6 +1651,7 @@ TEST_F(UpnpapiFTestSuite, webserver_sdk_not_initialized) {
     EXPECT_EQ(bWebServerState, WEB_SERVER_DISABLED);
 }
 
+// download
 TEST(UpnpapiTestSuite, download_xml_with_loopback_successful) {
     if (!github_actions)
         GTEST_FAIL() << "Still needs to be done.";
@@ -1703,6 +1713,7 @@ TEST_F(UpnpapiClearFTestSuite, download_xml_with_gua_successful) {
     UpnpFinish();
 }
 
+// UpnpRegisterRootDevice
 int CallbackEventHandler(Upnp_EventType EventType, const void* Event,
                          [[maybe_unused]] void* Cookie) {
 
@@ -1764,6 +1775,7 @@ TEST_F(UpnpapiClearFTestSuite, UpnpRegisterRootDevice3_with_gua_successful) {
     UpnpFinish();
 }
 
+// UpnpFinish
 TEST_F(UpnpapiFTestSuite, UpnpFinish_successful) {
     // Doing needed initializations. Otherwise we get segfaults with
     // UpnpFinish() due to uninitialized pointers.

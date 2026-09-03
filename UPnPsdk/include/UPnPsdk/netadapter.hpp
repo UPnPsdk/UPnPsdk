@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NETADAPTER_HPP
 #define UPnPsdk_NETADAPTER_HPP
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-19
+// Redistribution only with this Copyright remark. Last modified: 2026-09-07
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -149,8 +149,7 @@ class CNetadapter {
     // class. The reason is 'm_na_platformPtr'.
   public:
     /*! \brief Bit flags to select different address groups.
-     * \details First 16 bits are used to cache the netadapter index if needed.
-     * Helpful link: <a
+     * \details Helpful link: <a
      * href="https://www.codestudy.net/blog/how-to-use-c-11-enum-class-for-flags/">enum
      * class for flags</a> */
     enum struct ADDRS : uint16_t {
@@ -158,11 +157,13 @@ class CNetadapter {
         lo = 1, ///< select loopback interface
         lla = 2, ///< select link local address
         gua = 4, ///< select global unicast address
-        map4 = 8, ///< select IPv4 mapped IPv6 address
+        guall = 8, /*!< select extended gua, means together with
+                      \glos{ipv6addr,ula}, and map4 */
+        map4 = 16, ///< select IPv4 mapped IPv6 address
         /// \cond
         // Following is for internal use only:
-        best = 16, /* select best address choise from operating system */
-        index = 32 /* select address by adapter index/scope_id. Used together
+        best = 32, /* select best address choise from operating system */
+        index = 64 /* select address by adapter index/scope_id. Used together
                     * with variable m_index_find. */
         /// \endcond
     };

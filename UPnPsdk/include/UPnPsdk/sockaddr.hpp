@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-16
+// Redistribution only with this Copyright remark. Last modified: 2026-09-07
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -41,24 +41,42 @@ union sockaddr_t {
 };
 
 /*!
- * \brief Test if a socket address is a global unicast address
+ * \brief Test if a socket address is a global unicast address as specified
  * \ingroup upnplib-addrmodul
  *
  * This function isn't provided by the system on Unix/Linux platforms as member
  * of the IN6_IS_ADDR test macros. On Microsoft Windows it replaces the
- * imprecise corresponding system function. There it does not check the current
- * specified range for global unicast addresses but only the wide range
- * reservation for future use.
+ * imprecise corresponding system function. There it does not only check the
+ * specified range for global unicast addresses but additional other special
+ * global addresses.
  */
 // For GCC compiler the macros can be found in 'netinet/in.h'.
 // For MSVC compiler the inline functions can be found in 'ws2ipdef.h'.
 // For details look at Unit Tests 'SockaddrTestSuite.verify_in6_is_addr_*'.
-inline bool IN6_IS_ADDR_GLOBAL2(
+inline bool IN6_ADDR_GLOBAL(
+    /*! [in] Pointer to the address structure of a socket address that shall be
+       checked. */
+    const in6_addr* a_addr) {
+    return ((a_addr->s6_addr[0] & 0xe0) == 0x20);
+}
+
+/*!
+ * \brief Test if a socket address has a global unicast scope
+ * \ingroup upnplib-addrmodul
+ *
+ * This is IN6_ADDR_GLOBAL() with additional checks for addresses having also a
+ * global unicast scope, that are Unique Local Addresses ULA, and IPv4 mapped
+ * IPv6 addresses.
+ */
+inline bool IN6_ADDR_GLOBALALL(
     /*! [in] Pointer to the address structure of a socket address that shall be
        checked. */
     const in6_addr* a_addr) {
     const uint32_t* sin6_32 = reinterpret_cast<const uint32_t*>(a_addr);
-    return ((sin6_32[0] & htonl(0xe0000000)) == htonl(0x20000000));
+    return ((a_addr->s6_addr[0] & 0xe0) == 0x20 || // Check if GUA
+            (a_addr->s6_addr[0] & 0xfe) == 0xfc || // Check if ULA
+            (sin6_32[0] == 0 && sin6_32[1] == 0 &&
+             sin6_32[2] == htonl(0xffff))); // Check if V4MAPPED
 }
 
 /*!
@@ -72,18 +90,18 @@ inline bool IN6_IS_ADDR_GLOBAL2(
  * in the second 16-bit word of the address. E.g.:
  * `[fe80:3::1ff:fe23:4567:890a]`. Following the link-local address standard,
  * it is an lla with subnet. That is a contradiction. I do not support this
- * non-standard and use IN6_IS_ADDR_LINKLOCAL2 for tests, that fails on lla
- * with subnet.
+ * non-standard and use UPnPsdk::IN6_ADDR_LINKLOCAL for tests, that fails on
+ * lla with subnet.
  */
 // For GCC compiler the macros can be found in 'netinet/in.h'.
 // For MSVC compiler the inline functions can be found in 'ws2ipdef.h'.
 // For details look at Unit Tests 'SockaddrTestSuite.verify_in6_is_addr_*'.
-inline bool IN6_IS_ADDR_LINKLOCAL2(
+inline bool IN6_ADDR_LINKLOCAL(
     /*! [in] Pointer to the address structure of a socket address that shall be
        checked. */
     const in6_addr* a_addr) {
     const uint32_t* sin6_32 = reinterpret_cast<const uint32_t*>(a_addr);
-    return (sin6_32[0] == htonl(0xfe800000) && sin6_32[1] == 0x00000000);
+    return (sin6_32[0] == htonl(0xfe800000) && sin6_32[1] == 0);
 }
 
 

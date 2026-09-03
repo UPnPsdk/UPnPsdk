@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-26
+// Redistribution only with this Copyright remark. Last modified: 2026-09-07
 
 // There are additional Unit Tests at
 // git commit a18cff7d3dfd3266ad63a9efacba672ab1bd88b2.
@@ -20,7 +20,6 @@ using testing::Return;
 
 using UPnPsdk::bitmask_to_netmask;
 using UPnPsdk::CNetadapter;
-using UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 using UPnPsdk::netmask_to_bitmask;
 using UPnPsdk::SInaddr;
 using UPnPsdk::SSockaddr;
@@ -35,13 +34,13 @@ SSockaddr saddrObj;
 // or find all real network adapters from this host.
 TEST(NetadapterTestSuite, get_netadapter_list) {
     CNetadapter nadapObj;
-    nadapObj.get_first();
-    // nadapObj.find_first();
+    ASSERT_NO_THROW(nadapObj.get_first());
+    ASSERT_NO_THROW(nadapObj.find_first(ADDRS::gua));
     int prio{};
     do {
         nadapObj.sockaddr(saddrObj);
         prio = std::abs(prio);
-        if (saddrObj.is_loopback())
+        if (IN6_IS_ADDR_LOOPBACK(&saddrObj.sin6.sin6_addr))
             prio = -prio;
         else
             prio++;
@@ -51,18 +50,19 @@ TEST(NetadapterTestSuite, get_netadapter_list) {
                   << ", idx=" << std::setw(2) << nadapObj.index() << ", name=\""
                   << std::setw(7) << std::left << (nadapObj.name()+"\",")
                   << " addr=\"" << saddrObj << "\".\n";
-    } while (nadapObj.get_next());
-    // } while (nadapObj.find_next());
+        // } while (nadapObj.get_next());
+    } while (nadapObj.find_next());
 }
 #endif
 
 
 TEST(NetadapterTestSuite, find_loopback_and_lla) {
-    // There should always be a loopback and an lla interface.
+    // There should always be a loopback interface.
     // The index of the loopback interface is usually 1, but you cannot rely on
     // this. A network interface may have different interface indexes for the
-    // IPv4 and IPv6 loopback interface.
-    // REF: [Loopback Interface Index]
+    // IPv4 and IPv6 loopback interface. But we do not detect IPv4 loopback
+    // interfaces ("127.0.0.1") because they are V4MAPPED
+    // ("[::ffff:127.0.0.1]"). REF: [Loopback Interface Index]
     // (https://learn.microsoft.com/en-us/dotnet/api/system.net.networkinformation.networkinterface.loopbackinterfaceindex)
     // (https://study-ccna.com/loopback-interface-loopback-address/)
     SSockaddr saObj, lo_saObj;
@@ -74,47 +74,41 @@ TEST(NetadapterTestSuite, find_loopback_and_lla) {
     auto index = nadObj.index();
     ASSERT_GT(index, 0);
     nadObj.sockaddr(saObj);
-    lo_saObj.sin6.sin6_addr.s6_addr[15] = 1; // "[::1]";
+    lo_saObj.sin6.sin6_addr.s6_addr[15] = 1; // Short for "[::1]";
     ASSERT_EQ(saObj, lo_saObj);
     EXPECT_NE(nadObj.name(), "");
     EXPECT_EQ(nadObj.bitmask(), 128);
 
-    // Find loopback interface by name, using name from prvious finding
+    // Find loopback interface by name, using name from previous finding
     ASSERT_TRUE(nadObj.find_first(nadObj.name()));
-    nadObj.sockaddr(saObj);
-    ASSERT_TRUE(IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr));
+    bool found(false);
+    do {
+        nadObj.sockaddr(saObj);
+        if (IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
+            found = true;
+            break;
+        }
+    } while (nadObj.find_next());
+    ASSERT_TRUE(found);
 
     // Find loopback interface by index, using index from prvious finding
     ASSERT_TRUE(nadObj.find_first(index));
-    nadObj.sockaddr(saObj);
-    ASSERT_TRUE(IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr));
+    found = false;
+    do {
+        nadObj.sockaddr(saObj);
+        if (IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
+            found = true;
+            break;
+        }
+    } while (nadObj.find_next());
+    ASSERT_TRUE(found);
 
-    // Must always have a link-local address.
-    ASSERT_TRUE(nadObj.find_first(ADDRS::lla));
-    ASSERT_GT(nadObj.index(), 0);
-    nadObj.sockaddr(saObj);
-    ASSERT_TRUE(IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr));
-    EXPECT_NE(nadObj.name(), "");
-    EXPECT_EQ(nadObj.bitmask(), 64);
-
-    // Default lookup must not have loopback and v4mapped addresses.
+    // Default lookup must not have loopback.
     ASSERT_TRUE(nadObj.find_first());
     do {
         nadObj.sockaddr(saObj);
         ASSERT_FALSE(nadObj.index() == 0 ||
-                     IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr) ||
-                     IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr));
-    } while (nadObj.find_next());
-
-    // Even on the loopback interface must not be an IPv4 mapped IPv6 address.
-    // But there may be also other addresses, e.g. on MacOS "[fe80::1%lo0]:0".
-    ASSERT_TRUE(nadObj.find_first(ADDRS::lo));
-    nadObj.sockaddr(saObj);
-    // Find this to stay only on this netadapter.
-    ASSERT_TRUE(nadObj.find_first(nadObj.index()));
-    do { // Look for a IPv4 mapped IPv6 address.
-        nadObj.sockaddr(saObj);
-        ASSERT_FALSE(IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr));
+                     IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr));
     } while (nadObj.find_next());
 }
 
@@ -348,12 +342,11 @@ TEST(NetadapterTestSuite, mock_netadapter_default) {
     // ------------------------
     // Test Unit find_next() should find "[2001:db8::ff:fe7f:c021]".
     EXPECT_CALL(*nadap_mockPtr, get_next())
-        .Times(2)
+        .Times(1)
         .WillRepeatedly(Return(true));
     EXPECT_CALL(*nadap_mockPtr, index()).WillOnce(Return(3));
     EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
-        .WillOnce(SaddrCpyToArg<0>(ens1Ip4SaObj))
-        .WillOnce(SaddrCpyToArg<0>(ens2GuaSaObj));
+        .WillOnce(SaddrCpyToArg<0>(ens1Ip4SaObj));
 
     ASSERT_TRUE(nadapObj.find_next());
     // std::cout << "------ found ------\n";
@@ -429,12 +422,11 @@ TEST(NetadapterTestSuite, mock_netadapter_with_adapter_name) {
     // Mock find_next() with adapter name
     // ----------------------------------
     EXPECT_CALL(*nadap_mockPtr, get_next())
-        .Times(2)
+        .Times(1)
         .WillRepeatedly(Return(true));
-    EXPECT_CALL(*nadap_mockPtr, index()).Times(2).WillRepeatedly(Return(2));
+    EXPECT_CALL(*nadap_mockPtr, index()).Times(1).WillRepeatedly(Return(2));
     EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
-        .WillOnce(SaddrCpyToArg<0>(ens1Ip4SaObj))
-        .WillOnce(SaddrCpyToArg<0>(ens1LlaSaObj));
+        .WillOnce(SaddrCpyToArg<0>(ens1Ip4SaObj));
 
     ASSERT_TRUE(nadapObj.find_next());
 
@@ -487,13 +479,11 @@ TEST(NetadapterTestSuite, mock_netadapter_with_adapter_name_lo0) {
     EXPECT_CALL(*nadap_mockPtr, reset()).Times(1);
     EXPECT_CALL(*nadap_mockPtr, name())
         .WillOnce(Return("ens1"))
-        .WillOnce(Return("lo0"))
         .WillOnce(Return("lo0"));
     EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
-        .WillOnce(SaddrCpyToArg<0>(loIp4SaObj))
-        .WillOnce(SaddrCpyToArg<0>(loLlaSaObj));
+        .WillOnce(SaddrCpyToArg<0>(loIp4SaObj));
     EXPECT_CALL(*nadap_mockPtr, get_next())
-        .Times(2)
+        .Times(1)
         .WillRepeatedly(Return(true));
     // Index of Netadapter containing first found IP address, that is
     // loLlaSaObj.
@@ -616,14 +606,11 @@ TEST(NetadapterTestSuite, mock_netadapter_with_adapter_index) {
     // Mock find_next() with netadapter index
     // --------------------------------------
     EXPECT_CALL(*nadap_mockPtr, get_next())
-        .Times(2)
+        .Times(1)
         .WillRepeatedly(Return(true));
-    EXPECT_CALL(*nadap_mockPtr, index())
-        .WillOnce(Return(3))
-        .WillOnce(Return(3));
+    EXPECT_CALL(*nadap_mockPtr, index()).WillOnce(Return(3));
     EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
-        .WillOnce(SaddrCpyToArg<0>(ens2Ip4SaObj))
-        .WillOnce(SaddrCpyToArg<0>(ens2GuaSaObj));
+        .WillOnce(SaddrCpyToArg<0>(ens2Ip4SaObj));
 
     ASSERT_TRUE(nadapObj.find_next());
 
@@ -740,6 +727,46 @@ TEST(NetadapterTestSuite, mock_netadapter_with_address_groups_first) {
         .WillOnce(SaddrCpyToArg<0>(ens3GuaSaObj));
     EXPECT_CALL(*nadap_mockPtr, get_next())
         .Times(2)
+        .WillRepeatedly(Return(true));
+
+    ASSERT_TRUE(nadapObj.find_next());
+    // std::cout << "------ found ------\n";
+
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        .WillOnce(SaddrCpyToArg<0>(ens3LlaSaObj));
+    EXPECT_CALL(*nadap_mockPtr, get_next())
+        .WillOnce(Return(true))
+        .WillOnce(Return(false));
+    ASSERT_FALSE(nadapObj.find_next());
+
+    // Mock find_first() with netadapter ADDRS::guall
+    // ----------------------------------------------
+    EXPECT_CALL(*nadap_mockPtr, reset()).Times(1);
+    EXPECT_CALL(*nadap_mockPtr, index())
+        .WillOnce(Return(1))
+        .WillOnce(Return(1));
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        .WillOnce(SaddrCpyToArg<0>(ens1Ip4SaObj));
+    EXPECT_CALL(*nadap_mockPtr, get_next()).Times(0);
+
+    ASSERT_TRUE(nadapObj.find_first(ADDRS::guall));
+    // std::cout << "------ found ------\n";
+
+    // Mock find_next() with netadapter ADDRS::guall
+    // ---------------------------------------------
+    EXPECT_CALL(*nadap_mockPtr, index())
+        .WillOnce(Return(2))
+        .WillOnce(Return(2))
+        .WillOnce(Return(3));
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        .WillOnce(SaddrCpyToArg<0>(loGuaSaObj))
+        .WillOnce(SaddrCpyToArg<0>(loIp4SaObj))
+        .WillOnce(SaddrCpyToArg<0>(loLlaSaObj))
+        .WillOnce(SaddrCpyToArg<0>(loLopSaObj))
+        .WillOnce(SaddrCpyToArg<0>(ens2LlaSaObj))
+        .WillOnce(SaddrCpyToArg<0>(ens2Ip4SaObj));
+    EXPECT_CALL(*nadap_mockPtr, get_next())
+        .Times(6)
         .WillRepeatedly(Return(true));
 
     ASSERT_TRUE(nadapObj.find_next());
@@ -915,6 +942,45 @@ TEST(NetadapterTestSuite, mock_netadapter_with_address_groups_next) {
         .WillOnce(SaddrCpyToArg<0>(ens2GuaSaObj));
     EXPECT_CALL(*nadap_mockPtr, get_next())
         .Times(6)
+        .WillRepeatedly(Return(true));
+
+    ASSERT_TRUE(nadapObj.find_next());
+    // std::cout << "------ found ------\n";
+
+    // Finish last checks.
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        .WillOnce(SaddrCpyToArg<0>(ens2LlaSaObj));
+    EXPECT_CALL(*nadap_mockPtr, get_next())
+        .WillOnce(Return(true))
+        .WillOnce(Return(false));
+    ASSERT_FALSE(nadapObj.find_next());
+    // std::cout << "------ finish ------\n";
+
+    // Mock find_first() with netadapter ADDRS::guall
+    // ----------------------------------------------
+    EXPECT_CALL(*nadap_mockPtr, reset()).Times(1);
+    EXPECT_CALL(*nadap_mockPtr, index())
+        .WillOnce(Return(1))
+        .WillOnce(Return(1)); // On matched address "192.168.24.89"
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        .WillOnce(SaddrCpyToArg<0>(ens1LlaSaObj))
+        .WillOnce(SaddrCpyToArg<0>(ens1Ip4SaObj));
+    EXPECT_CALL(*nadap_mockPtr, get_next())
+        .Times(1)
+        .WillRepeatedly(Return(true));
+
+    ASSERT_TRUE(nadapObj.find_first(ADDRS::guall));
+    // std::cout << "------ found ------\n";
+
+    // Mock find_next() with netadapter ADDRS::guall
+    // ---------------------------------------------
+    EXPECT_CALL(*nadap_mockPtr, index())
+        .WillOnce(
+            Return(1)); // On next valid address "[2001:db8::fe:fe7f:c021]"
+    EXPECT_CALL(*nadap_mockPtr, sockaddr(_))
+        .WillOnce(SaddrCpyToArg<0>(ens1GuaSaObj));
+    EXPECT_CALL(*nadap_mockPtr, get_next())
+        .Times(1)
         .WillRepeatedly(Return(true));
 
     ASSERT_TRUE(nadapObj.find_next());

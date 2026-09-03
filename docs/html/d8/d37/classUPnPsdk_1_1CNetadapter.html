@@ -118,7 +118,8 @@ Public Types</h2></td></tr>
 , <a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8a7f3650f4ac0901d47ca7320f070abd5b">lla</a> = 2
 , <a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8ac9c1ebed56b2efee7844b4158905d845">gua</a> = 4
 , <br />
-&#160;&#160;<a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8a9653cf52189f6f3e984ce91c961500d1">map4</a> = 8
+&#160;&#160;<a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8ac6688e6f0fd1e0331107c88c6be3e82f">guall</a> = 8
+, <a class="el" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8a9653cf52189f6f3e984ce91c961500d1">map4</a> = 16
 <br />
  }</td></tr>
 <tr class="memdesc:ad8dd965c8a9046f15baaf3e4444dc4e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bit flags to select different address groups.  <a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8">More...</a><br /></td></tr>
@@ -206,10 +207,10 @@ I think the prefered example is the first one. You don't have to worry about <a 
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html">UPnPsdk::CNetadapter</a></div><div class="ttdoc">Get information from local network adapters.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dff/netadapter_8hpp_source.html#l00145">netadapter.hpp:145</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_a14c7e6fb9ea628f5fb898a662ddbd56d"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d">UPnPsdk::CNetadapter::get_first</a></div><div class="ttdeci">UPnPsdk_API void get_first()</div><div class="ttdoc">Load a list of network adapters from the operating system and select its first entry.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00153">netadapter.cpp:153</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_a5ef6468e173a77b387526b14f647791f"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f">UPnPsdk::CNetadapter::sockaddr</a></div><div class="ttdeci">UPnPsdk_API void sockaddr(SSockaddr &amp;a_saddr) const</div><div class="ttdoc">Get socket address from current selected list entry.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00176">netadapter.cpp:176</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_a5f26762df08639def76d69c620e6b27c"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c">UPnPsdk::CNetadapter::find_next</a></div><div class="ttdeci">UPnPsdk_API bool find_next()</div><div class="ttdoc">Find next ip address from local network adapters.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00358">netadapter.cpp:358</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_a5f26762df08639def76d69c620e6b27c"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c">UPnPsdk::CNetadapter::find_next</a></div><div class="ttdeci">UPnPsdk_API bool find_next()</div><div class="ttdoc">Find next ip address from local network adapters.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00365">netadapter.cpp:365</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_ab2da6111240ac08c4cc76d88d3fc2995"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995">UPnPsdk::CNetadapter::name</a></div><div class="ttdeci">UPnPsdk_API std::string name() const</div><div class="ttdoc">Get network adapter name from current selected list entry.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00174">netadapter.cpp:174</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_ad5a02099d143890e2e09dbe520fe43dd"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd">UPnPsdk::CNetadapter::find_first</a></div><div class="ttdeci">UPnPsdk_API bool find_first(std::string_view a_name_or_addr=&quot;&quot;)</div><div class="ttdoc">Find local network adapter with given name or ip address.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d05/netadapter_8cpp_source.html#l00211">netadapter.cpp:211</a></div></div>
-<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_ad8dd965c8a9046f15baaf3e4444dc4e8"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8">UPnPsdk::CNetadapter::ADDRS</a></div><div class="ttdeci">ADDRS</div><div class="ttdoc">Bit flags to select different address groups.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dff/netadapter_8hpp_source.html#l00156">netadapter.hpp:156</a></div></div>
+<div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_ad8dd965c8a9046f15baaf3e4444dc4e8"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8">UPnPsdk::CNetadapter::ADDRS</a></div><div class="ttdeci">ADDRS</div><div class="ttdoc">Bit flags to select different address groups.</div><div class="ttdef"><b>Definition</b> <a href="../../d9/dff/netadapter_8hpp_source.html#l00155">netadapter.hpp:155</a></div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_ad8dd965c8a9046f15baaf3e4444dc4e8a7f3650f4ac0901d47ca7320f070abd5b"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8a7f3650f4ac0901d47ca7320f070abd5b">UPnPsdk::CNetadapter::ADDRS::lla</a></div><div class="ttdeci">@ lla</div><div class="ttdoc">select link local address</div></div>
 <div class="ttc" id="aclassUPnPsdk_1_1CNetadapter_html_ad8dd965c8a9046f15baaf3e4444dc4e8ac9c1ebed56b2efee7844b4158905d845"><div class="ttname"><a href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ad8dd965c8a9046f15baaf3e4444dc4e8ac9c1ebed56b2efee7844b4158905d845">UPnPsdk::CNetadapter::ADDRS::gua</a></div><div class="ttdeci">@ gua</div><div class="ttdoc">select global unicast address</div></div>
 </div><!-- fragment --> 
@@ -236,7 +237,7 @@ I think the prefered example is the first one. You don't have to worry about <a 
 </div><div class="memdoc">
 
 <p>Bit flags to select different address groups. </p>
-<p>First 16 bits are used to cache the netadapter index if needed. Helpful link: <a href="https://www.codestudy.net/blog/how-to-use-c-11-enum-class-for-flags/">enum class for flags</a> </p>
+<p>Helpful link: <a href="https://www.codestudy.net/blog/how-to-use-c-11-enum-class-for-flags/">enum class for flags</a> </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad8dd965c8a9046f15baaf3e4444dc4e8a334c4a4c42fdb79d7ebc3e73b517e6f8" name="ad8dd965c8a9046f15baaf3e4444dc4e8a334c4a4c42fdb79d7ebc3e73b517e6f8"></a>none&#160;</td><td class="fielddoc"><p>select nothing </p>
 </td></tr>
@@ -246,11 +247,13 @@ I think the prefered example is the first one. You don't have to worry about <a 
 </td></tr>
 <tr><td class="fieldname"><a id="ad8dd965c8a9046f15baaf3e4444dc4e8ac9c1ebed56b2efee7844b4158905d845" name="ad8dd965c8a9046f15baaf3e4444dc4e8ac9c1ebed56b2efee7844b4158905d845"></a>gua&#160;</td><td class="fielddoc"><p>select global unicast address </p>
 </td></tr>
+<tr><td class="fieldname"><a id="ad8dd965c8a9046f15baaf3e4444dc4e8ac6688e6f0fd1e0331107c88c6be3e82f" name="ad8dd965c8a9046f15baaf3e4444dc4e8ac6688e6f0fd1e0331107c88c6be3e82f"></a>guall&#160;</td><td class="fielddoc"><p>select extended gua, means together with <a class="el" href="../../d5/d67/Glossary.html#glossary_ipv6addr">ula</a>, and map4 </p>
+</td></tr>
 <tr><td class="fieldname"><a id="ad8dd965c8a9046f15baaf3e4444dc4e8a9653cf52189f6f3e984ce91c961500d1" name="ad8dd965c8a9046f15baaf3e4444dc4e8a9653cf52189f6f3e984ce91c961500d1"></a>map4&#160;</td><td class="fielddoc"><p>select IPv4 mapped IPv6 address </p>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="../../d9/dff/netadapter_8hpp_source.html#l00156">156</a> of file <a class="el" href="../../d9/dff/netadapter_8hpp_source.html">netadapter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d9/dff/netadapter_8hpp_source.html#l00155">155</a> of file <a class="el" href="../../d9/dff/netadapter_8hpp_source.html">netadapter.hpp</a>.</p>
 
 </div>
 </div>
@@ -811,19 +814,19 @@ I think the prefered example is the first one. You don't have to worry about <a 
 <div id="dynsection-9-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d8/d37/classUPnPsdk_1_1CNetadapter_a8fee0946dc4813cbba76393ef8be2c67_cgraph.png" border="0" usemap="#ad8/d37/classUPnPsdk_1_1CNetadapter_a8fee0946dc4813cbba76393ef8be2c67_cgraph" alt=""/></div>
 <map name="ad8/d37/classUPnPsdk_1_1CNetadapter_a8fee0946dc4813cbba76393ef8be2c67_cgraph" id="ad8/d37/classUPnPsdk_1_1CNetadapter_a8fee0946dc4813cbba76393ef8be2c67_cgraph">
-<area shape="rect" title="Find first ip address on a local network adapter belonging to the specified address group ADDRS (lla,..." alt="" coords="5,181,175,221"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="225,5,394,45"/>
-<area shape="poly" title=" " alt="" coords="103,179,151,119,184,85,221,55,230,50,233,54,224,60,188,89,155,122,107,183"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd" title="Test if a socket address is a global unicast address." alt="" coords="223,93,396,133"/>
-<area shape="poly" title=" " alt="" coords="136,179,222,143,240,136,242,141,224,148,138,184"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25" title="Test if a socket address is a link&#45;local address." alt="" coords="223,181,396,221"/>
-<area shape="poly" title=" " alt="" coords="175,199,209,199,209,204,175,204"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="225,245,394,285"/>
-<area shape="poly" title=" " alt="" coords="160,219,228,239,227,244,159,224"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="225,309,394,349"/>
-<area shape="poly" title=" " alt="" coords="116,219,165,257,224,295,237,301,234,306,221,300,161,261,113,224"/>
-<area shape="poly" title=" " alt="" coords="268,94,266,84,272,74,287,69,309,67,335,70,349,77,346,82,333,75,309,72,288,74,276,79,271,85,273,92"/>
-<area shape="poly" title=" " alt="" coords="268,182,266,172,272,162,287,157,309,155,335,158,349,165,346,170,333,163,309,160,288,162,276,167,271,173,273,180"/>
+<area shape="rect" title="Find first ip address on a local network adapter belonging to the specified address group ADDRS (lla,..." alt="" coords="5,137,175,177"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="257,5,426,45"/>
+<area shape="poly" title=" " alt="" coords="111,135,159,95,221,55,242,46,245,51,224,60,162,99,114,139"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga55affe94fa5462f62aeaab2e42ba3a6c" title="Test if a socket address is a global unicast address as specified." alt="" coords="235,70,448,95"/>
+<area shape="poly" title=" " alt="" coords="137,135,222,104,254,96,256,101,223,109,139,140"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga28fdc3584e0197ba3732e16c2db91097" title="Test if a socket address has a global unicast scope." alt="" coords="223,119,460,145"/>
+<area shape="poly" title=" " alt="" coords="175,146,208,143,209,148,175,151"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga594452452658782bc708e824c58dee93" title="Test if a socket address is a link&#45;local address." alt="" coords="225,169,458,194"/>
+<area shape="poly" title=" " alt="" coords="175,163,211,166,211,172,175,168"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="257,219,426,259"/>
+<area shape="poly" title=" " alt="" coords="144,175,224,203,254,212,252,217,222,208,143,180"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="257,283,426,323"/>
+<area shape="poly" title=" " alt="" coords="111,176,159,222,190,247,224,268,244,278,242,282,221,273,187,252,156,226,107,180"/>
 </map>
 </div>
 
@@ -852,7 +855,7 @@ I think the prefered example is the first one. You don't have to worry about <a 
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d05/netadapter_8cpp_source.html#l00358">358</a> of file <a class="el" href="../../df/d05/netadapter_8cpp_source.html">netadapter.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d05/netadapter_8cpp_source.html#l00365">365</a> of file <a class="el" href="../../df/d05/netadapter_8cpp_source.html">netadapter.cpp</a>.</p>
 <div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-10-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
@@ -860,19 +863,19 @@ I think the prefered example is the first one. You don't have to worry about <a 
 <div id="dynsection-10-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d8/d37/classUPnPsdk_1_1CNetadapter_a5f26762df08639def76d69c620e6b27c_cgraph.png" border="0" usemap="#ad8/d37/classUPnPsdk_1_1CNetadapter_a5f26762df08639def76d69c620e6b27c_cgraph" alt=""/></div>
 <map name="ad8/d37/classUPnPsdk_1_1CNetadapter_a5f26762df08639def76d69c620e6b27c_cgraph" id="ad8/d37/classUPnPsdk_1_1CNetadapter_a5f26762df08639def76d69c620e6b27c_cgraph">
-<area shape="rect" title="Find next ip address from local network adapters." alt="" coords="5,181,175,221"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="225,5,394,45"/>
-<area shape="poly" title=" " alt="" coords="103,179,151,119,184,85,221,55,230,50,233,54,224,60,188,89,155,122,107,183"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd" title="Test if a socket address is a global unicast address." alt="" coords="223,93,396,133"/>
-<area shape="poly" title=" " alt="" coords="136,179,222,143,240,136,242,141,224,148,138,184"/>
-<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25" title="Test if a socket address is a link&#45;local address." alt="" coords="223,181,396,221"/>
-<area shape="poly" title=" " alt="" coords="175,199,209,199,209,204,175,204"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="225,245,394,285"/>
-<area shape="poly" title=" " alt="" coords="160,219,228,239,227,244,159,224"/>
-<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="225,309,394,349"/>
-<area shape="poly" title=" " alt="" coords="116,219,165,257,224,295,237,301,234,306,221,300,161,261,113,224"/>
-<area shape="poly" title=" " alt="" coords="268,94,266,84,272,74,287,69,309,67,335,70,349,77,346,82,333,75,309,72,288,74,276,79,271,85,273,92"/>
-<area shape="poly" title=" " alt="" coords="268,182,266,172,272,162,287,157,309,155,335,158,349,165,346,170,333,163,309,160,288,162,276,167,271,173,273,180"/>
+<area shape="rect" title="Find next ip address from local network adapters." alt="" coords="5,137,175,177"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="257,5,426,45"/>
+<area shape="poly" title=" " alt="" coords="111,135,159,95,221,55,242,46,245,51,224,60,162,99,114,139"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga55affe94fa5462f62aeaab2e42ba3a6c" title="Test if a socket address is a global unicast address as specified." alt="" coords="235,70,448,95"/>
+<area shape="poly" title=" " alt="" coords="137,135,222,104,254,96,256,101,223,109,139,140"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga28fdc3584e0197ba3732e16c2db91097" title="Test if a socket address has a global unicast scope." alt="" coords="223,119,460,145"/>
+<area shape="poly" title=" " alt="" coords="175,146,208,143,209,148,175,151"/>
+<area shape="rect" href="../../d0/dd8/group__upnplib-addrmodul.html#ga594452452658782bc708e824c58dee93" title="Test if a socket address is a link&#45;local address." alt="" coords="225,169,458,194"/>
+<area shape="poly" title=" " alt="" coords="175,163,211,166,211,172,175,168"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="257,219,426,259"/>
+<area shape="poly" title=" " alt="" coords="144,175,224,203,254,212,252,217,222,208,143,180"/>
+<area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="257,283,426,323"/>
+<area shape="poly" title=" " alt="" coords="111,176,159,222,190,247,224,268,244,278,242,282,221,273,187,252,156,226,107,180"/>
 </map>
 </div>
 <div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">

@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-14
+// Redistribution only with this Copyright remark. Last modified: 2026-09-07
 
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/netadapter.hpp>
@@ -112,7 +112,7 @@ IN6_IS_ADDR_GLOBAL(CONST IN6_ADDR* a) {
     return (BOOLEAN)((High != 0) && (High != 0xf0));
 }
 #endif
-// If IN6_IS_ADDR_GLOBAL is not defined I use the more restricted macro.
+// Usually I use the more restricted macro.
 TEST(SockaddrTestSuite, verify_in6_is_addr_global) {
     in6_addr sin6_addr;
 
@@ -122,10 +122,12 @@ TEST(SockaddrTestSuite, verify_in6_is_addr_global) {
                         &sin6_addr), 1);
 #ifdef _MSC_VER
     EXPECT_TRUE(::IN6_IS_ADDR_GLOBAL(&sin6_addr)); // System function
-    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBAL(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 #else
     // System function not available.
-    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBAL(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 #endif
 
     // First Global Unicast Address (not first on win32)
@@ -133,10 +135,12 @@ TEST(SockaddrTestSuite, verify_in6_is_addr_global) {
                         &sin6_addr), 1);
 #ifdef _MSC_VER
     EXPECT_TRUE(::IN6_IS_ADDR_GLOBAL(&sin6_addr)); // System function
-    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBAL(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 #else
     // System function not available.
-    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBAL(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 #endif
 
     // Documentation- and test-address
@@ -144,10 +148,12 @@ TEST(SockaddrTestSuite, verify_in6_is_addr_global) {
                         &sin6_addr), 1);
 #ifdef _MSC_VER
     EXPECT_TRUE(::IN6_IS_ADDR_GLOBAL(&sin6_addr)); // System function
-    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBAL(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 #else
     // System function not available.
-    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBAL(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 #endif
 
     // Last Global Unicast Address (not last on win32)
@@ -155,10 +161,12 @@ TEST(SockaddrTestSuite, verify_in6_is_addr_global) {
                         &sin6_addr), 1);
 #ifdef _MSC_VER
     EXPECT_TRUE(::IN6_IS_ADDR_GLOBAL(&sin6_addr)); // System function
-    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBAL(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 #else
     // System function not available.
-    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBAL(&sin6_addr)); // Fixed version
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 #endif
 
     // No Global Unicast Address (different on win32)
@@ -166,11 +174,37 @@ TEST(SockaddrTestSuite, verify_in6_is_addr_global) {
                         &sin6_addr), 1);
 #ifdef _MSC_VER
     EXPECT_TRUE(::IN6_IS_ADDR_GLOBAL(&sin6_addr)); // System function
-    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBAL(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 #else
     // System function not available.
-    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_GLOBAL2(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBAL(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 #endif
+}
+
+TEST(SockaddrTestSuite, verify_in6_addr_globalall) {
+    in6_addr sin6_addr;
+
+    // clang-format off
+    // No Unique Local Address
+    ASSERT_EQ(inet_pton(AF_INET6, "fe00::", &sin6_addr), 1);
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
+
+    // Lowest Unique Local Address
+    ASSERT_EQ(inet_pton(AF_INET6, "fc00::", &sin6_addr), 1);
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
+
+    // Highest Unique Local Address
+    ASSERT_EQ(inet_pton(AF_INET6, "fdff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+                        &sin6_addr), 1);
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
+
+    // No Unique Local Address
+    ASSERT_EQ(inet_pton(AF_INET6, "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+                        &sin6_addr), 1);
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
+    // clang-format on
 }
 
 TEST(SockaddrTestSuite, verify_in6_is_addr_other_addresses) {
@@ -194,16 +228,19 @@ TEST(SockaddrTestSuite, verify_in6_is_addr_other_addresses) {
     ASSERT_EQ(inet_pton(AF_INET6, "::ffff:0.0.0.0", //
                         &sin6_addr), 1);
     EXPECT_TRUE(IN6_IS_ADDR_V4MAPPED(&sin6_addr));
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 
     // Not v4-mapped address
-    ASSERT_EQ(inet_pton(AF_INET6, "::1:ffff:0.0.0.0", //
+    ASSERT_EQ(inet_pton(AF_INET6, "::fffe:0.0.0.0", //
                         &sin6_addr), 1);
     EXPECT_FALSE(IN6_IS_ADDR_V4MAPPED(&sin6_addr));
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 
     // v4-mapped address max
     ASSERT_EQ(inet_pton(AF_INET6, "::ffff:255.255.255.255", //
                         &sin6_addr), 1);
     EXPECT_TRUE(IN6_IS_ADDR_V4MAPPED(&sin6_addr));
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 
     // IPv4-compatible embedded IPv6 address (IN6_IS_ADDR_V4COMPAT), belongs to
     // the reserved address block. Deprecated since february 2006 and not
@@ -222,31 +259,31 @@ TEST(SockaddrTestSuite, verify_in6_is_addr_linklocal) {
     ASSERT_EQ(inet_pton(AF_INET6, "fe80:1::", //
                         &sin6_addr), 1);
     EXPECT_TRUE(IN6_IS_ADDR_LINKLOCAL(&sin6_addr)); // System function Wrong!
-    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_LINKLOCAL(&sin6_addr)); // Fixed version
 
     // Only left most bit of network prefix set.
     ASSERT_EQ(inet_pton(AF_INET6, "fea0::", //
                         &sin6_addr), 1);
     EXPECT_TRUE(IN6_IS_ADDR_LINKLOCAL(&sin6_addr)); // System function Wrong!
-    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_LINKLOCAL(&sin6_addr)); // Fixed version
 
     // Only right most bit of network prefix set.
     ASSERT_EQ(inet_pton(AF_INET6, "fe80:0:0:1::", //
                         &sin6_addr), 1);
     EXPECT_TRUE(IN6_IS_ADDR_LINKLOCAL(&sin6_addr)); // System function Wrong!
-    EXPECT_FALSE(UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&sin6_addr)); // Fixed version
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_LINKLOCAL(&sin6_addr)); // Fixed version
 
     // First link-local address
     ASSERT_EQ(inet_pton(AF_INET6, "fe80::", //
                         &sin6_addr), 1);
     EXPECT_TRUE(IN6_IS_ADDR_LINKLOCAL(&sin6_addr));
-    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&sin6_addr));
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_LINKLOCAL(&sin6_addr));
 
     // Last link-local address
     ASSERT_EQ(inet_pton(AF_INET6, "fe80::ffff:ffff:ffff:ffff", //
                         &sin6_addr), 1);
     EXPECT_TRUE(IN6_IS_ADDR_LINKLOCAL(&sin6_addr));
-    EXPECT_TRUE(UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&sin6_addr));
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_LINKLOCAL(&sin6_addr));
     // clang-format on
 }
 

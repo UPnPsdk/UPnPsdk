@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"d1/d03/group__UpnpString.html#acea9de7fd993715cd9b2c99854bed2f6":[4,6,0,0],
 "d1/d03/group__UpnpString.html#d8/dbb/structs__UpnpString":[4,6,0],
 "d1/d03/group__UpnpString.html#ga04a9bde6f73e0b38ef037b0b61776d87":[4,6,4],
 "d1/d03/group__UpnpString.html#ga06963479e44d90a5de680861e2180e0b":[4,6,10],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "d2/dad/GenlibClientSubscription_8hpp.html#ad5fe2306b0555047b4ad24afa6feb0a3":[7,0,0,1,3,6,9],
 "d2/dad/GenlibClientSubscription_8hpp.html#adb11ccdcebf3e931b1cde518dd01a811":[7,0,0,1,3,6,27],
 "d2/dad/GenlibClientSubscription_8hpp.html#ae642af35d3373dd048a4a43d2941ea4a":[7,0,0,1,3,6,16],
-"d2/dad/GenlibClientSubscription_8hpp.html#ae7bf9e395bd62bafe6e4bdf3e163b2a8":[7,0,0,1,3,6,7],
-"d2/dad/GenlibClientSubscription_8hpp.html#ae9234a9ed3f11f3488f17a26f1dec161":[7,0,0,1,3,6,5]
+"d2/dad/GenlibClientSubscription_8hpp.html#ae7bf9e395bd62bafe6e4bdf3e163b2a8":[7,0,0,1,3,6,7]
 };

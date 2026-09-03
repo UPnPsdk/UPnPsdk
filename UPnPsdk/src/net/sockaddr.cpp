@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 And higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-19
+// Redistribution only with this Copyright remark. Last modified: 2026-09-03
 /*!
  * \file
  * \brief Definition of the Sockaddr class and some free helper functions.
@@ -393,7 +393,7 @@ void SSockaddr::operator=(const ::sockaddr_storage& a_ss) noexcept {
 
         if (IN6_IS_ADDR_LINKLOCAL(&a_sin6->sin6_addr)) { // Is it "[fe80]"?
             // An lla, but is it valid and has no subnet prefix "[fe80::"?
-            if (!IN6_IS_ADDR_LINKLOCAL2(&a_sin6->sin6_addr) ||
+            if (!UPnPsdk::IN6_ADDR_LINKLOCAL(&a_sin6->sin6_addr) ||
                 a_sin6->sin6_scope_id == 0) {
                 // A valid link-local address must have a scope_id.
                 ::inet_ntop(AF_INET6, &a_sin6->sin6_addr, addr_buf,

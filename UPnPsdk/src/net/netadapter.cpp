@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-26
+// Redistribution only with this Copyright remark. Last modified: 2026-09-07
 /*!
  * \file
  * \brief Manage information about network adapters.
@@ -227,8 +227,8 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
             // To verify mocked expectations for Unit Test next cout is needed.
             /* std::cout << "DEBUG: find_first() index=" << index
                       << ", netaddrp()=\"" << nad_saObj.netaddrp() << "\"\n"; */
-            if (index != m_index_loop &&
-                !IN6_IS_ADDR_V4MAPPED(&nad_saObj.sin6.sin6_addr)) {
+            if (index != m_index_loop /*&&
+                !IN6_IS_ADDR_V4MAPPED(&nad_saObj.sin6.sin6_addr)*/) {
                 m_find_flags = ADDRS::best;
                 return true;
             }
@@ -276,11 +276,11 @@ bool CNetadapter::find_first(std::string_view a_name_or_addr) {
                   << a_name_or_addr << "\", name=\"" << name << "\"\n"; */
         if (name == a_name_or_addr) {
             this->sockaddr(nad_saObj);
-            if (!IN6_IS_ADDR_V4MAPPED(&nad_saObj.sin6.sin6_addr)) {
-                m_index_find = this->index();
-                m_find_flags = ADDRS::index;
-                return true;
-            }
+            // if (!IN6_IS_ADDR_V4MAPPED(&nad_saObj.sin6.sin6_addr)) {
+            m_index_find = this->index();
+            m_find_flags = ADDRS::index;
+            return true;
+            // }
         }
     } while (this->get_next());
 
@@ -304,11 +304,11 @@ bool CNetadapter::find_first(const uint32_t a_index) {
                   << a_index << ")\n"; */
         if (index == a_index) {
             this->sockaddr(saObj);
-            if (!IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
-                m_index_find = a_index;
-                m_find_flags = ADDRS::index;
-                return true;
-            }
+            // if (!IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
+            m_index_find = a_index;
+            m_find_flags = ADDRS::index;
+            return true;
+            // }
         }
     } while (this->get_next());
 
@@ -325,22 +325,29 @@ bool CNetadapter::find_first(ADDRS a_flags) {
     // ------------------------------------------------------------------
     m_find_flags = a_flags;
     SSockaddr saObj;
+    // To verify mocked expectations for Unit Test next cout is needed.
+    /* std::cout << "DEBUG: find_first(" << static_cast<int>(m_find_flags)
+              << "), loopback_idx=" << m_index_loop << "\"\n"; */
     do {
         this->sockaddr(saObj);
-        // To verify mocked expectations for Unit Test next cout is needed.
-        /* std::cout << "DEBUG: find_first(ADDRS) netaddrp()=\"" << saObj
-                  << "\"\n"; */
+        // To verify mocked expectations for Unit Test next cout is helpful.
+        /* std::cout << "DEBUG: saObj=\"" << saObj << "\".\n"; */
         if ((m_find_flags & ADDRS::lo) != ADDRS::none &&
             IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr)) {
             return true;
         }
         if ((m_find_flags & ADDRS::lla) != ADDRS::none &&
-            IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr) &&
+            UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) &&
             this->index() != m_index_loop) {
             return true;
         }
         if ((m_find_flags & ADDRS::gua) != ADDRS::none &&
-            IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr) &&
+            UPnPsdk::IN6_ADDR_GLOBAL(&saObj.sin6.sin6_addr) &&
+            this->index() != m_index_loop) {
+            return true;
+        }
+        if ((m_find_flags & ADDRS::guall) != ADDRS::none &&
+            UPnPsdk::IN6_ADDR_GLOBALALL(&saObj.sin6.sin6_addr) &&
             this->index() != m_index_loop) {
             return true;
         }
@@ -361,19 +368,22 @@ bool CNetadapter::find_next() {
         return false;
 
     SSockaddr saObj;
+    // To verify mocked expectations for Unit Test next cout is helpful.
+    /* std::cout << "DEBUG: find_next(), ADDRS find_flag="
+              << static_cast<int>(m_find_flags)
+              << ", loopback_idx=" << m_index_loop << "\"\n"; */
     while (this->get_next()) {
         this->sockaddr(saObj);
-        // To verify mocked expectations for Unit Test next cout is needed.
-        /* std::cout << "DEBUG: find_next() netaddrp()=\"" << saObj.netaddrp()
-                  << "\"\n"; */
+        // To verify mocked expectations for Unit Test next cout is helpful.
+        /* std::cout << "DEBUG: saObj=\"" << saObj << "\".\n"; */
         if ((m_find_flags & ADDRS::best) != ADDRS::none &&
-            !IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr) &&
+            // !IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr) &&
             this->index() != m_index_loop) {
             return true;
         }
         if ((m_find_flags & ADDRS::index) != ADDRS::none &&
-            this->index() == m_index_find &&
-            !IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)) {
+            this->index() == m_index_find /*&&
+            !IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr)*/) {
             return true;
         }
         if ((m_find_flags & ADDRS::lo) != ADDRS::none &&
@@ -381,12 +391,17 @@ bool CNetadapter::find_next() {
             return true;
         }
         if ((m_find_flags & ADDRS::lla) != ADDRS::none &&
-            IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr) &&
+            UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr) &&
             this->index() != m_index_loop) {
             return true;
         }
         if ((m_find_flags & ADDRS::gua) != ADDRS::none &&
-            IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr) &&
+            UPnPsdk::IN6_ADDR_GLOBAL(&saObj.sin6.sin6_addr) &&
+            this->index() != m_index_loop) {
+            return true;
+        }
+        if ((m_find_flags & ADDRS::guall) != ADDRS::none &&
+            UPnPsdk::IN6_ADDR_GLOBALALL(&saObj.sin6.sin6_addr) &&
             this->index() != m_index_loop) {
             return true;
         }
