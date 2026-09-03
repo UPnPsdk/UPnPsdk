@@ -1,34 +1,34 @@
 <map id="compa::anonymous_namespace{upnpapi::cpp}::GetIfInfo" name="compa::anonymous_namespace{upnpapi::cpp}::GetIfInfo">
-<area shape="rect" id="Node000001" title="Process ip&#45;addresses of a local network adapter." alt="" coords="5,171,237,211"/>
-<area shape="poly" id="edge17_Node000001_Node000001" title=" " alt="" coords="75,171,72,161,80,152,96,146,121,144,150,147,166,154,164,159,149,152,121,149,97,151,83,156,78,162,80,170"/>
+<area shape="rect" id="Node000001" title="Process ip&#45;addresses of a local network adapter." alt="" coords="5,228,237,268"/>
+<area shape="poly" id="edge15_Node000001_Node000001" title=" " alt="" coords="75,228,72,218,80,209,96,203,121,201,150,204,166,211,164,216,149,209,121,207,97,209,83,213,78,219,80,227"/>
 <area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5e132073814aad1879bb333d8bf9686" title="Get prefix length from the ip address of the current selected local network adapter." alt="" coords="285,5,455,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,168,205,117,284,62,307,49,310,54,287,66,208,122,147,173"/>
-<area shape="rect" id="Node000003" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="285,171,455,211"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="237,188,272,188,272,193,237,193"/>
-<area shape="rect" id="Node000006" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="505,107,674,147"/>
-<area shape="poly" id="edge18_Node000001_Node000006" title=" " alt="" coords="217,168,285,156,490,132,491,137,286,161,217,173"/>
-<area shape="rect" id="Node000007" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995" title="Get network adapter name from current selected list entry." alt="" coords="505,43,674,83"/>
-<area shape="poly" id="edge19_Node000001_Node000007" title=" " alt="" coords="171,168,285,128,391,100,491,78,492,84,392,105,286,133,173,173"/>
-<area shape="rect" id="Node000008" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="505,299,674,339"/>
-<area shape="poly" id="edge20_Node000001_Node000008" title=" " alt="" coords="212,208,328,236,455,271,521,292,519,297,454,276,327,241,211,213"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,226,194,149,236,103,284,62,303,50,306,54,287,66,240,107,198,152,138,229"/>
+<area shape="rect" id="Node000003" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ad5a02099d143890e2e09dbe520fe43dd" title="Find local network adapter with given name or ip address." alt="" coords="285,120,455,160"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="167,225,309,163,311,168,169,230"/>
+<area shape="rect" id="Node000006" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9" title="Get index number from current selected list entry." alt="" coords="535,221,704,261"/>
+<area shape="poly" id="edge18_Node000001_Node000006" title=" " alt="" coords="237,230,285,227,370,224,455,227,521,230,521,236,455,232,370,229,285,232,238,236"/>
+<area shape="rect" id="Node000007" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ab2da6111240ac08c4cc76d88d3fc2995" title="Get network adapter name from current selected list entry." alt="" coords="535,29,704,69"/>
+<area shape="poly" id="edge19_Node000001_Node000007" title=" " alt="" coords="137,226,197,165,239,133,284,106,343,83,405,67,466,56,521,50,522,55,466,62,406,72,345,88,286,110,242,137,201,169,141,230"/>
+<area shape="rect" id="Node000008" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5ef6468e173a77b387526b14f647791f" title="Get socket address from current selected list entry." alt="" coords="535,285,704,325"/>
+<area shape="poly" id="edge20_Node000001_Node000008" title=" " alt="" coords="238,251,343,259,455,271,521,282,521,287,454,276,343,264,237,256"/>
 <area shape="rect" id="Node000009" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters." alt="" coords="285,285,455,325"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="167,208,286,264,314,277,312,282,284,269,164,213"/>
-<area shape="rect" id="Node000012" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="285,349,455,389"/>
-<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="142,209,203,270,243,304,287,335,297,341,295,346,284,340,240,309,199,274,138,213"/>
-<area shape="rect" id="Node000004" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50" title="Test if the socket address object is empty." alt="" coords="512,171,667,211"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="455,188,498,188,498,193,455,193"/>
-<area shape="rect" id="Node000005" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="505,235,674,275"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="440,208,508,228,507,233,439,213"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="439,168,507,148,508,153,440,173"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="393,168,441,131,501,92,514,86,517,91,504,97,445,135,396,173"/>
-<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="425,209,456,227,472,242,481,257,489,271,504,285,513,290,510,294,501,289,485,274,476,260,467,246,453,231,423,213"/>
-<area shape="poly" id="edge9_Node000009_Node000005" title=" " alt="" coords="454,283,491,275,492,280,456,288"/>
-<area shape="poly" id="edge14_Node000009_Node000006" title=" " alt="" coords="392,283,453,221,475,187,484,172,501,157,509,151,512,156,504,161,488,176,479,190,457,224,395,287"/>
-<area shape="poly" id="edge15_Node000009_Node000008" title=" " alt="" coords="455,308,491,310,491,315,455,313"/>
-<area shape="rect" id="Node000010" href="$d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd" title="Test if a socket address is a global unicast address." alt="" coords="503,387,676,427"/>
-<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="427,323,456,335,541,378,539,382,454,340,425,328"/>
-<area shape="rect" id="Node000011" href="$d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25" title="Test if a socket address is a link&#45;local address." alt="" coords="503,475,676,515"/>
-<area shape="poly" id="edge12_Node000009_Node000011" title=" " alt="" coords="440,323,457,335,475,361,483,386,489,411,505,437,538,465,535,469,501,440,484,413,478,387,471,363,453,339,437,328"/>
-<area shape="poly" id="edge11_Node000010_Node000010" title=" " alt="" coords="548,387,546,377,552,368,567,362,589,360,615,363,629,370,626,375,613,368,589,365,568,367,556,372,551,378,553,386"/>
-<area shape="poly" id="edge13_Node000011_Node000011" title=" " alt="" coords="548,475,546,465,552,456,567,450,589,448,615,451,629,458,626,463,613,456,589,453,568,455,556,460,551,466,553,474"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="209,265,272,280,271,285,208,271"/>
+<area shape="rect" id="Node000010" href="$d0/dd8/group__upnplib-addrmodul.html#ga55affe94fa5462f62aeaab2e42ba3a6c" title="Test if a socket address is a global unicast address." alt="" coords="513,350,726,375"/>
+<area shape="poly" id="edge16_Node000001_Node000010" title=" " alt="" coords="152,266,212,303,248,321,286,335,339,348,394,356,499,363,499,368,394,361,338,353,285,340,246,326,209,307,149,270"/>
+<area shape="rect" id="Node000011" href="$d0/dd8/group__upnplib-addrmodul.html#ga594452452658782bc708e824c58dee93" title="Test if a socket address is a link&#45;local address." alt="" coords="503,399,736,425"/>
+<area shape="poly" id="edge17_Node000001_Node000011" title=" " alt="" coords="144,266,205,318,244,345,286,367,336,384,388,395,489,408,488,413,387,401,334,389,284,372,241,350,201,323,141,270"/>
+<area shape="rect" id="Node000012" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a14c7e6fb9ea628f5fb898a662ddbd56d" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="285,451,455,491"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="138,267,198,344,240,389,287,430,306,442,303,446,284,434,236,393,194,347,134,270"/>
+<area shape="rect" id="Node000004" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50" title="Test if the socket address object is empty." alt="" coords="542,93,697,133"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="455,128,528,120,528,126,455,134"/>
+<area shape="rect" id="Node000005" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#ab7d6c39b23f4e14716c7d65899b430fd" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="535,157,704,197"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="455,150,522,160,521,165,454,155"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="419,158,456,176,480,192,504,207,523,215,521,219,501,212,477,197,453,181,417,163"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="413,117,502,79,526,71,527,76,504,84,415,122"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="392,159,456,225,504,271,523,280,520,285,501,276,452,229,388,162"/>
+<area shape="poly" id="edge9_Node000009_Node000005" title=" " alt="" coords="392,283,440,245,501,207,520,199,523,204,504,212,443,249,395,287"/>
+<area shape="poly" id="edge12_Node000009_Node000006" title=" " alt="" coords="448,283,527,262,529,267,449,288"/>
+<area shape="poly" id="edge13_Node000009_Node000008" title=" " alt="" coords="455,303,521,303,521,308,455,308"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="453,323,503,335,546,344,545,350,502,340,452,328"/>
+<area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="400,323,447,355,504,384,530,393,528,398,502,389,444,360,397,328"/>
 </map>

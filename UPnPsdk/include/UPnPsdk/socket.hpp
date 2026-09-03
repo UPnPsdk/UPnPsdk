@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_SOCKET_HPP
 #define UPnPsdk_SOCKET_HPP
 // Copyright (C) 2023+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-11
+// Redistribution only with this Copyright remark. Last modified: 2026-09-03
 /*!
  * \file
  * \brief **Socket Module:** manage properties and methods but not connections
@@ -73,6 +73,9 @@
  *   Basic Socket Interface Extensions for IPv6
  * - <!--REF:--><a href="https://www.rfc-editor.org/rfc/rfc3542">RFC 3542</a> -
  *   Advanced Sockets Application Program Interface (API) for IPv6
+ * - <!--REF:--><a
+ * href="https://www.computernetworkingnotes.com/networking-tutorials/ipv6-unicast-addresses-explained.html">IPv6
+ * Unicast Addresses Explained</a>
  */
 
 #include <UPnPsdk/sockaddr.hpp>

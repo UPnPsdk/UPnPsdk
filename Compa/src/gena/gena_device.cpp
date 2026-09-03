@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-06-03
+ * Redistribution only with this Copyright remark. Last modified: 2026-09-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -49,8 +49,6 @@
 #include <uuid.hpp>
 #include <UpnpSubscriptionRequest.hpp>
 #include <webserver.hpp>
-
-using UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 
 
 /// \brief Invalid job id
@@ -1030,7 +1028,7 @@ int gena_validate_delivery_urls(
         for (i = 0; i < url_list->size; i++) {
             deliveryAddr6 = (struct sockaddr_in6*)&url_list->parsedURLs[i]
                                 .hostport.IPaddress;
-            if (IN6_IS_ADDR_LINKLOCAL2(&deliveryAddr6->sin6_addr)) {
+            if (UPnPsdk::IN6_ADDR_LINKLOCAL(&deliveryAddr6->sin6_addr)) {
                 genaAddr6 = &genaAddr6Lla;
                 if_prefix = gIF_IPV6_PREFIX_LENGTH;
             } else {
@@ -1042,15 +1040,16 @@ int gena_validate_delivery_urls(
                        if_prefix / 8)) {
                 inet_ntop(AF_INET6, &deliveryAddr6->sin6_addr,
                           deliveryAddrString, sizeof(deliveryAddrString));
-                UpnpPrintf(UPNP_CRITICAL, GENA, __FILE__, __LINE__,
-                           "DeliveryURL %s is invalid.\n"
-                           "It is not in the expected network "
-                           "segment (IPv6: %s, prefix: %d)\n",
-                           deliveryAddrString,
-                           IN6_IS_ADDR_LINKLOCAL2(&deliveryAddr6->sin6_addr)
-                               ? gIF_IPV6
-                               : gIF_IPV6_ULA_GUA,
-                           if_prefix);
+                UpnpPrintf(
+                    UPNP_CRITICAL, GENA, __FILE__, __LINE__,
+                    "DeliveryURL %s is invalid.\n"
+                    "It is not in the expected network "
+                    "segment (IPv6: %s, prefix: %d)\n",
+                    deliveryAddrString,
+                    UPnPsdk::IN6_ADDR_LINKLOCAL(&deliveryAddr6->sin6_addr)
+                        ? gIF_IPV6
+                        : gIF_IPV6_ULA_GUA,
+                    if_prefix);
                 return -1;
             }
         }

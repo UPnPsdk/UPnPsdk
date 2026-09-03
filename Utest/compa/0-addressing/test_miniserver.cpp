@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-11
+// Redistribution only with this Copyright remark. Last modified: 2026-09-03
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -151,14 +151,14 @@ void get_netadapter() {
     do {
         nadaptObj.sockaddr(saObj);
         if (llaObj.sa.empty() &&
-            UPnPsdk::IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr)) {
+            UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr)) {
             // Found first LLA address.
             llaObj.sa = saObj;
             llaObj.idx = nadaptObj.index();
             llaObj.bitmask = nadaptObj.bitmask();
             llaObj.name = nadaptObj.name();
         } else if (guaObj.sa.empty() &&
-                   UPnPsdk::IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr)) {
+                   UPnPsdk::IN6_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
             // Found first GUA address.
             guaObj.sa = saObj;
             guaObj.idx = nadaptObj.index();

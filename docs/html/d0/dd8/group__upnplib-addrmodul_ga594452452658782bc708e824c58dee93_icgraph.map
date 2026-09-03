@@ -1,0 +1,42 @@
+<map id="UPnPsdk::IN6_ADDR_LINKLOCAL" name="UPnPsdk::IN6_ADDR_LINKLOCAL">
+<area shape="rect" id="Node000001" title="Test if a socket address is a link&#45;local address." alt="" coords="819,215,1052,241"/>
+<area shape="rect" id="Node000002" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a8fee0946dc4813cbba76393ef8be2c67" title="Find first ip address on a local network adapter belonging to the specified address group ADDRS (lla,..." alt="" coords="583,5,753,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="914,206,854,138,814,100,769,66,733,48,736,43,772,62,817,96,858,134,918,203"/>
+<area shape="rect" id="Node000003" href="$d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters." alt="" coords="583,172,753,212"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="827,216,753,206,753,201,828,211"/>
+<area shape="rect" id="Node000004" href="$d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a5f711635bfac4fa14583f23667c7531b" title="Process ip&#45;addresses of a local network adapter." alt="" coords="285,144,517,184"/>
+<area shape="poly" id="edge11_Node000001_Node000004" title=" " alt="" coords="899,211,840,184,770,163,706,153,640,150,517,153,517,148,640,144,706,148,771,157,842,179,901,207"/>
+<area shape="rect" id="Node000005" href="$d4/d29/namespacecompa_1_1anonymous__namespace_02upnpapi_8cpp_03.html#a907bcde8a130bc19df9a2b04d5ee25dc" title="Process single IP address, that sets only the associated global variable." alt="" coords="5,104,237,144"/>
+<area shape="poly" id="edge12_Node000001_Node000005" title=" " alt="" coords="904,210,844,172,808,153,770,139,701,120,630,108,558,100,487,96,352,99,238,109,237,104,351,94,487,91,558,95,631,102,702,115,772,133,810,149,847,167,907,205"/>
+<area shape="rect" id="Node000006" href="$d6/dd1/namespaceanonymous__namespace_02gena__ctrlpt_8cpp_03.html#aab6385b3da2410ba5921c203635b7e28" title="Subscribes or renew subscription." alt="" coords="578,237,758,291"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="828,245,759,255,758,249,827,240"/>
+<area shape="rect" id="Node000020" href="$dd/de6/gena__device_8cpp.html#a71890260f593c5a1f074b8094b03153f" title="Validate that the URLs passed by the user are on the same network segment than the device." alt="" coords="565,315,771,341"/>
+<area shape="poly" id="edge9_Node000001_Node000020" title=" " alt="" coords="899,249,840,278,772,305,729,318,728,313,770,300,838,273,896,245"/>
+<area shape="rect" id="Node000025" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#ae2cc6174777121e77afc77748f9ae699" title="Test if a Url contains an ULA or GUA IPv6 address." alt="" coords="578,409,758,463"/>
+<area shape="poly" id="edge13_Node000001_Node000025" title=" " alt="" coords="909,251,706,411,703,407,906,247"/>
+<area shape="rect" id="Node000049" href="$dc/df7/structUPnPsdk_1_1SSockaddr.html#afe899a9da3bb203836d0beaf9bd79c22" title="Set socket address from a trivial socket address structure." alt="" coords="591,488,745,528"/>
+<area shape="poly" id="edge23_Node000001_Node000049" title=" " alt="" coords="926,255,905,302,871,362,827,423,801,452,772,477,747,491,744,487,769,472,797,448,823,420,867,359,900,300,921,253"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="569,184,517,179,518,174,570,179"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="447,132,431,125,401,123,375,125,360,129,354,135,357,143,352,144,349,134,357,125,374,119,401,117,432,120,449,127"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="271,148,237,143,238,138,272,143"/>
+<area shape="rect" id="Node000007" href="$d6/de3/gena__ctrlpt_8cpp.html#ac18ff86dd814e974314f13e3f4b12316" title="Renews a SID." alt="" coords="312,209,491,234"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="564,250,481,237,482,231,565,245"/>
+<area shape="rect" id="Node000010" href="$d6/de3/gena__ctrlpt_8cpp.html#a8fa71879823e3dc936bac4847ca1fcc5" title="This function subscribes to a PublisherURL (also mentioned as EventURL in some places)." alt="" coords="343,258,460,283"/>
+<area shape="poly" id="edge8_Node000006_Node000010" title=" " alt="" coords="564,269,460,272,460,267,564,264"/>
+<area shape="rect" id="Node000021" href="$dd/de6/gena__device_8cpp.html#a25ad1852d4d32c6f34a87b92225202fd" title="Handles a subscription request from a ctrl point. The socket is not closed on return." alt="" coords="303,308,500,348"/>
+<area shape="poly" id="edge10_Node000020_Node000021" title=" " alt="" coords="551,331,500,331,500,325,551,325"/>
+<area shape="rect" id="Node000026" href="$d3/d1d/namespaceanonymous__namespace_02ssdp__device_8cpp_03.html#aadadf0015deb15dbbefd082436ff5b75" title="Creates a HTTP request packet." alt="" coords="311,474,491,529"/>
+<area shape="poly" id="edge14_Node000025_Node000026" title=" " alt="" coords="565,464,492,482,491,477,564,459"/>
+<area shape="rect" id="Node000027" href="$db/db9/ssdp__device_8cpp.html#a359289d0987b2a9aede8d3a426480986" title="Creates the device advertisement request." alt="" coords="40,406,203,431"/>
+<area shape="poly" id="edge19_Node000025_Node000027" title=" " alt="" coords="564,424,517,420,349,415,203,418,203,413,349,410,517,415,564,419"/>
+<area shape="rect" id="Node000044" href="$db/db9/ssdp__device_8cpp.html#a65d1171e5dcab19e9b7848773650eaf7" title="Creates a HTTP device shutdown request packet and send it to the multicast channel through RequestHan..." alt="" coords="56,473,187,498"/>
+<area shape="poly" id="edge20_Node000025_Node000044" title=" " alt="" coords="565,443,432,451,286,464,187,477,187,472,285,459,431,446,564,438"/>
+<area shape="rect" id="Node000046" href="$db/db9/ssdp__device_8cpp.html#ac90369e3ec78ce279fd45dfeb3f0f33f" title="Creates the advertisement packet and send it to the multicast channel." alt="" coords="38,538,205,563"/>
+<area shape="poly" id="edge21_Node000025_Node000046" title=" " alt="" coords="574,473,567,478,553,494,545,511,536,528,519,542,475,560,430,572,383,579,336,581,248,577,177,566,178,561,249,572,336,576,382,574,429,567,474,555,516,538,532,524,540,509,548,491,564,474,571,468"/>
+<area shape="rect" id="Node000048" href="$db/db9/ssdp__device_8cpp.html#ac92b2e78ce280abc5041ce0eda84bf2a" title="Creates a HTTP service shutdown request packet and sends it to the multicast channel through RequestH..." alt="" coords="54,587,189,613"/>
+<area shape="poly" id="edge22_Node000025_Node000048" title=" " alt="" coords="572,473,567,478,556,491,551,505,546,533,540,561,532,574,519,586,476,609,430,624,382,632,333,635,242,629,169,615,170,610,243,624,333,630,381,627,429,619,474,604,516,582,528,571,535,559,541,532,545,503,552,488,563,474,569,469"/>
+<area shape="poly" id="edge15_Node000026_Node000027" title=" " alt="" coords="297,473,165,434,166,429,299,468"/>
+<area shape="poly" id="edge16_Node000026_Node000044" title=" " alt="" coords="297,498,187,492,187,486,298,493"/>
+<area shape="poly" id="edge17_Node000026_Node000046" title=" " alt="" coords="298,522,194,541,193,535,297,517"/>
+<area shape="poly" id="edge18_Node000026_Node000048" title=" " alt="" coords="337,537,289,559,238,579,190,591,188,586,237,573,287,554,335,532"/>
+</map>

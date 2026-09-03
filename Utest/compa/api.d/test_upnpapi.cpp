@@ -25,8 +25,6 @@ using ::testing::StartsWith;
 
 using ::UPnPsdk::errStrEx;
 using ::UPnPsdk::g_dbug;
-using ::UPnPsdk::IN6_IS_ADDR_GLOBAL2;
-using ::UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 using ::UPnPsdk::SInaddr;
 using ::UPnPsdk::SSockaddr;
 using ADDRS = UPnPsdk::CNetadapter::ADDRS;
@@ -543,7 +541,7 @@ TEST_F(UpnpapiFTestSuite, GetIfInfo_with_netadapter_index) {
     bool found{false};
     do {
         nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr)) {
+        if (UPnPsdk::IN6_ADDR_GLOBAL(&saObj.sin6.sin6_addr)) {
             found = true;
             break;
         }
@@ -806,7 +804,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_lla_ifname_successful) {
     bool gua(false), map4(false);
     do {
         nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr) ||
+        if (UPnPsdk::IN6_ADDR_GLOBAL(&saObj.sin6.sin6_addr) ||
             IN6_IS_ADDR_LOOPBACK(&saObj.sin6.sin6_addr))
             gua = true;
         else if (IN6_IS_ADDR_V4MAPPED(&saObj.sin6.sin6_addr))
@@ -943,7 +941,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_gua_ifname_successful) {
     bool found(false);
     do {
         nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+        if (UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
             found = true;
     } while (!found && nadaptObj.find_next());
 
@@ -1010,7 +1008,7 @@ TEST_F(UpnpapiFTestSuite, UpnpGetIfInfo_with_map4_ifname_successful) {
     bool found(false);
     do {
         nadaptObj.sockaddr(saObj);
-        if (IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+        if (UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
             found = true;
     } while (!found && nadaptObj.find_next());
 
@@ -1365,10 +1363,11 @@ TEST_F(UpnpapiClearFTestSuite, UpnpInit2_with_netadapter_index_successful) {
     nadaptObj.find_first(index);
     do {
         nadaptObj.sockaddr(saObj);
-        if (lla_saObj.empty() && IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+        if (lla_saObj.empty() &&
+            UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
             lla_saObj = saObj;
         else if (gua_saObj.empty() &&
-                 IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr))
+                 UPnPsdk::IN6_ADDR_GLOBAL(&saObj.sin6.sin6_addr))
             gua_saObj = saObj;
     } while (nadaptObj.find_next());
 
@@ -1437,10 +1436,11 @@ TEST_F(UpnpapiClearFTestSuite, UpnpInit2_default_and_with_name_successful) {
     nadaptObj.find_first(index); // Restricts find_next() to netinterface scope.
     do {
         nadaptObj.sockaddr(saObj);
-        if (lla_saObj.empty() && IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr))
+        if (lla_saObj.empty() &&
+            UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr))
             lla_saObj = saObj;
         else if (gua_saObj.empty() &&
-                 IN6_IS_ADDR_GLOBAL2(&saObj.sin6.sin6_addr))
+                 UPnPsdk::IN6_ADDR_GLOBAL(&saObj.sin6.sin6_addr))
             gua_saObj = saObj;
     } while ((lla_saObj.empty() || gua_saObj.empty()) && nadaptObj.find_next());
     ASSERT_EQ(lla_saObj.family, AF_INET6);

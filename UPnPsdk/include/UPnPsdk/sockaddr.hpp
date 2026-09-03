@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-16
+// Redistribution only with this Copyright remark. Last modified: 2026-09-03
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -53,7 +53,7 @@ union sockaddr_t {
 // For GCC compiler the macros can be found in 'netinet/in.h'.
 // For MSVC compiler the inline functions can be found in 'ws2ipdef.h'.
 // For details look at Unit Tests 'SockaddrTestSuite.verify_in6_is_addr_*'.
-inline bool IN6_IS_ADDR_GLOBAL2(
+inline bool IN6_ADDR_GLOBAL(
     /*! [in] Pointer to the address structure of a socket address that shall be
        checked. */
     const in6_addr* a_addr) {
@@ -72,13 +72,13 @@ inline bool IN6_IS_ADDR_GLOBAL2(
  * in the second 16-bit word of the address. E.g.:
  * `[fe80:3::1ff:fe23:4567:890a]`. Following the link-local address standard,
  * it is an lla with subnet. That is a contradiction. I do not support this
- * non-standard and use IN6_IS_ADDR_LINKLOCAL2 for tests, that fails on lla
- * with subnet.
+ * non-standard and use UPnPsdk::IN6_ADDR_LINKLOCAL for tests, that fails on
+ * lla with subnet.
  */
 // For GCC compiler the macros can be found in 'netinet/in.h'.
 // For MSVC compiler the inline functions can be found in 'ws2ipdef.h'.
 // For details look at Unit Tests 'SockaddrTestSuite.verify_in6_is_addr_*'.
-inline bool IN6_IS_ADDR_LINKLOCAL2(
+inline bool IN6_ADDR_LINKLOCAL(
     /*! [in] Pointer to the address structure of a socket address that shall be
        checked. */
     const in6_addr* a_addr) {

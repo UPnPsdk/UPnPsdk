@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-07-26
+// Redistribution only with this Copyright remark. Last modified: 2026-09-03
 
 // There are additional Unit Tests at
 // git commit a18cff7d3dfd3266ad63a9efacba672ab1bd88b2.
@@ -20,7 +20,6 @@ using testing::Return;
 
 using UPnPsdk::bitmask_to_netmask;
 using UPnPsdk::CNetadapter;
-using UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 using UPnPsdk::netmask_to_bitmask;
 using UPnPsdk::SInaddr;
 using UPnPsdk::SSockaddr;
@@ -93,7 +92,7 @@ TEST(NetadapterTestSuite, find_loopback_and_lla) {
     ASSERT_TRUE(nadObj.find_first(ADDRS::lla));
     ASSERT_GT(nadObj.index(), 0);
     nadObj.sockaddr(saObj);
-    ASSERT_TRUE(IN6_IS_ADDR_LINKLOCAL2(&saObj.sin6.sin6_addr));
+    ASSERT_TRUE(UPnPsdk::IN6_ADDR_LINKLOCAL(&saObj.sin6.sin6_addr));
     EXPECT_NE(nadObj.name(), "");
     EXPECT_EQ(nadObj.bitmask(), 64);
 

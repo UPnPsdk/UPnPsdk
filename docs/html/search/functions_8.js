@@ -1,8 +1,8 @@
 var searchData=
 [
   ['ifname_0',['ifname',['../dd/d06/classUPnPsdk_1_1CRootdevice.html#a3de5d95f143629c8d1f3e3bc311ce050',1,'UPnPsdk::CRootdevice']]],
-  ['in6_5fis_5faddr_5fglobal2_1',['IN6_IS_ADDR_GLOBAL2',['../d0/dd8/group__upnplib-addrmodul.html#ga379fe8164fb7cdc0105e947a321ed4dd',1,'UPnPsdk']]],
-  ['in6_5fis_5faddr_5flinklocal2_2',['IN6_IS_ADDR_LINKLOCAL2',['../d0/dd8/group__upnplib-addrmodul.html#ga4b4e46cd2ae1af5ab49c71a1eca7cf25',1,'UPnPsdk']]],
+  ['in6_5faddr_5fglobal_1',['IN6_ADDR_GLOBAL',['../d0/dd8/group__upnplib-addrmodul.html#ga55affe94fa5462f62aeaab2e42ba3a6c',1,'UPnPsdk']]],
+  ['in6_5faddr_5flinklocal_2',['IN6_ADDR_LINKLOCAL',['../d0/dd8/group__upnplib-addrmodul.html#ga594452452658782bc708e824c58dee93',1,'UPnPsdk']]],
   ['index_3',['index',['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aef71113ff26dd525f7ff567f335b8fa7',1,'UPnPsdk::CNetadapter_platform::index() const override'],['../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#aef71113ff26dd525f7ff567f335b8fa7',1,'UPnPsdk::CNetadapter_platform::index() const override'],['../d8/d37/classUPnPsdk_1_1CNetadapter.html#a62ea749f906368089ca624df5e37dcb9',1,'UPnPsdk::CNetadapter::index()'],['../d6/d3e/classUPnPsdk_1_1INetadapter.html#a188ff8491cfc4cc03683ab557bfe3fee',1,'UPnPsdk::INetadapter::index()']]],
   ['index_5fof_4',['index_of',['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#a6c512dfcfece21875e8342ba4f3abe80',1,'UPnPsdk::CStrIntMap::index_of(const char *a_name, bool a_case_sensitive=false)'],['../d7/d1a/classUPnPsdk_1_1CStrIntMap.html#ae6bbded737bfa2e3aaadf95bee615079',1,'UPnPsdk::CStrIntMap::index_of(const int a_id)']]],
   ['init_5ftable_5',['init_table',['../df/dd2/namespaceanonymous__namespace_02statcodes_8cpp_03.html#ac8f7a76dcef2821d889b89f199f1fb50',1,'anonymous_namespace{statcodes.cpp}']]],

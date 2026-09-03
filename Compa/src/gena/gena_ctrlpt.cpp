@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2012 France Telecom All rights reserved.
  * Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
- * Redistribution only with this Copyright remark. Last modified: 2026-08-24
+ * Redistribution only with this Copyright remark. Last modified: 2026-09-03
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -45,8 +45,6 @@
 #include <uuid.hpp>
 
 #include <UPnPsdk/sockaddr.hpp>
-
-using UPnPsdk::IN6_IS_ADDR_LINKLOCAL2;
 
 
 struct job_arg {
@@ -338,12 +336,12 @@ int gena_subscribe(
                 "sc"
                 "sscc",
                 HTTPMETHOD_SUBSCRIBE, &dest_url, "CALLBACK: <http://[",
-                (IN6_IS_ADDR_LINKLOCAL2(&DestAddr6->sin6_addr) ||
+                (UPnPsdk::IN6_ADDR_LINKLOCAL(&DestAddr6->sin6_addr) ||
                  strlen(gIF_IPV6_ULA_GUA) == 0)
                     ? gIF_IPV6
                     : gIF_IPV6_ULA_GUA,
                 "]:",
-                (IN6_IS_ADDR_LINKLOCAL2(&DestAddr6->sin6_addr) ||
+                (UPnPsdk::IN6_ADDR_LINKLOCAL(&DestAddr6->sin6_addr) ||
                  strlen(gIF_IPV6_ULA_GUA) == 0)
                     ? LOCAL_PORT_V6
                     : LOCAL_PORT_V6_ULA_GUA,
