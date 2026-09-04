@@ -72,10 +72,11 @@ inline bool IN6_ADDR_GLOBALEX(
     /*! [in] Pointer to the address structure of a socket address that shall be
        checked. */
     const in6_addr* a_addr) {
+    const uint32_t* sin6_32 = reinterpret_cast<const uint32_t*>(a_addr);
     return ((a_addr->s6_addr[0] & 0xe0) == 0x20 || // Check if GUA
             (a_addr->s6_addr[0] & 0xfe) == 0xfc || // Check if ULA
-            (a_addr->s6_addr32[0] == 0 && a_addr->s6_addr32[1] == 0 &&
-             a_addr->s6_addr32[2] == htonl(0xffff))); // Check if V4MAPPED
+            (sin6_32[0] == 0 && sin6_32[1] == 0 &&
+             sin6_32[2] == htonl(0xffff))); // Check if V4MAPPED
 }
 
 /*!
@@ -99,8 +100,8 @@ inline bool IN6_ADDR_LINKLOCAL(
     /*! [in] Pointer to the address structure of a socket address that shall be
        checked. */
     const in6_addr* a_addr) {
-    return (a_addr->s6_addr32[0] == htonl(0xfe800000) &&
-            a_addr->s6_addr32[1] == 0);
+    const uint32_t* sin6_32 = reinterpret_cast<const uint32_t*>(a_addr);
+    return (sin6_32[0] == htonl(0xfe800000) && sin6_32[1] == 0);
 }
 
 
