@@ -1,5 +1,6 @@
 var NAVTREEINDEX6 =
 {
+"d8/db8/UpnpDiscovery_8cpp.html#a426f8d1264c61bb959e8334a92f21072":[7,0,0,1,0,4,0,5],
 "d8/db8/UpnpDiscovery_8cpp.html#a43df4c4955a3ac8c06efda1e5b548e80":[7,0,0,1,0,4,26],
 "d8/db8/UpnpDiscovery_8cpp.html#a487984f8fe37859c54542c7b238454f2":[7,0,0,1,0,4,14],
 "d8/db8/UpnpDiscovery_8cpp.html#a4eafd4629efd61ca4a3acdab5149555e":[7,0,0,1,0,4,11],
@@ -248,6 +249,5 @@ var NAVTREEINDEX6 =
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html#a984a1b26d7e29c517362d7c4ab18ef1a":[4,2,0,0,2],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html#aa60a708f1b03b6dd2450f3be368cfb03":[4,3,0,1,0,3],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html#aa60a708f1b03b6dd2450f3be368cfb03":[4,2,0,0,3],
-"d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab":[4,2,0,0,6],
-"d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab":[4,3,0,1,0,6]
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab":[4,2,0,0,6]
 };

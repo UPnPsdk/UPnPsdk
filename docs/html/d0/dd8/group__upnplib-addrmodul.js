@@ -56,6 +56,7 @@ var group__upnplib_addrmodul =
     [ "UPnPsdk::netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga3ceb75383fa176bdd102782cad9a97ee", null ],
     [ "UPnPsdk::bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#ga240ecb84930f9811a540c7488f4474c5", null ],
     [ "UPnPsdk::IN6_ADDR_GLOBAL", "d0/dd8/group__upnplib-addrmodul.html#ga55affe94fa5462f62aeaab2e42ba3a6c", null ],
+    [ "UPnPsdk::IN6_ADDR_GLOBALEX", "d0/dd8/group__upnplib-addrmodul.html#gad75e5e7042f8a034cae0013a02942042", null ],
     [ "UPnPsdk::IN6_ADDR_LINKLOCAL", "d0/dd8/group__upnplib-addrmodul.html#ga594452452658782bc708e824c58dee93", null ],
     [ "UPnPsdk::is_unum_str", "d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0", null ],
     [ "UPnPsdk::to_port", "d0/dd8/group__upnplib-addrmodul.html#ga6756252cf07c4f4d74f51fedc2fecce5", null ],

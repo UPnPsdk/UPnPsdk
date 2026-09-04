@@ -137,8 +137,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga240ecb84930f9811a540c7488f4474c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get network address mask from address prefix bit number.  <br /></td></tr>
 <tr class="separator:ga240ecb84930f9811a540c7488f4474c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga55affe94fa5462f62aeaab2e42ba3a6c" id="r_ga55affe94fa5462f62aeaab2e42ba3a6c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga55affe94fa5462f62aeaab2e42ba3a6c">UPnPsdk::IN6_ADDR_GLOBAL</a> (const in6_addr *a_addr)</td></tr>
-<tr class="memdesc:ga55affe94fa5462f62aeaab2e42ba3a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a socket address is a global unicast address.  <br /></td></tr>
+<tr class="memdesc:ga55affe94fa5462f62aeaab2e42ba3a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a socket address is a global unicast address as specified.  <br /></td></tr>
 <tr class="separator:ga55affe94fa5462f62aeaab2e42ba3a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad75e5e7042f8a034cae0013a02942042" id="r_gad75e5e7042f8a034cae0013a02942042"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#gad75e5e7042f8a034cae0013a02942042">UPnPsdk::IN6_ADDR_GLOBALEX</a> (const in6_addr *a_addr)</td></tr>
+<tr class="memdesc:gad75e5e7042f8a034cae0013a02942042"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a socket address has a global unicast scope.  <br /></td></tr>
+<tr class="separator:gad75e5e7042f8a034cae0013a02942042"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga594452452658782bc708e824c58dee93" id="r_ga594452452658782bc708e824c58dee93"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga594452452658782bc708e824c58dee93">UPnPsdk::IN6_ADDR_LINKLOCAL</a> (const in6_addr *a_addr)</td></tr>
 <tr class="memdesc:ga594452452658782bc708e824c58dee93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a socket address is a link-local address.  <br /></td></tr>
 <tr class="separator:ga594452452658782bc708e824c58dee93"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -389,8 +392,8 @@ sa</td>
 </table>
 </div><div class="memdoc">
 
-<p>Test if a socket address is a global unicast address. </p>
-<p>This function isn't provided by the system on Unix/Linux platforms as member of the IN6_IS_ADDR test macros. On Microsoft Windows it replaces the imprecise corresponding system function. There it does not check the current specified range for global unicast addresses but only the wide range reservation for future use. </p>
+<p>Test if a socket address is a global unicast address as specified. </p>
+<p>This function isn't provided by the system on Unix/Linux platforms as member of the IN6_IS_ADDR test macros. On Microsoft Windows it replaces the imprecise corresponding system function. There it does not only check the specified range for global unicast addresses but additional other special global addresses. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a_addr</td><td>Pointer to the address structure of a socket address that shall be checked. </td></tr>
@@ -406,7 +409,7 @@ sa</td>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../d0/dd8/group__upnplib-addrmodul_ga55affe94fa5462f62aeaab2e42ba3a6c_icgraph.png" border="0" usemap="#ad0/dd8/group__upnplib-addrmodul_ga55affe94fa5462f62aeaab2e42ba3a6c_icgraph" alt=""/></div>
 <map name="ad0/dd8/group__upnplib-addrmodul_ga55affe94fa5462f62aeaab2e42ba3a6c_icgraph" id="ad0/dd8/group__upnplib-addrmodul_ga55affe94fa5462f62aeaab2e42ba3a6c_icgraph">
-<area shape="rect" title="Test if a socket address is a global unicast address." alt="" coords="783,106,996,131"/>
+<area shape="rect" title="Test if a socket address is a global unicast address as specified." alt="" coords="783,106,996,131"/>
 <area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a8fee0946dc4813cbba76393ef8be2c67" title="Find first ip address on a local network adapter belonging to the specified address group ADDRS (lla,..." alt="" coords="565,5,735,45"/>
 <area shape="poly" title=" " alt="" coords="843,103,734,60,703,48,705,43,736,55,845,98"/>
 <area shape="rect" href="../../d8/d37/classUPnPsdk_1_1CNetadapter.html#a5f26762df08639def76d69c620e6b27c" title="Find next ip address from local network adapters." alt="" coords="565,69,735,109"/>
@@ -420,6 +423,43 @@ sa</td>
 <area shape="poly" title=" " alt="" coords="272,156,238,160,237,155,272,151"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="gad75e5e7042f8a034cae0013a02942042" name="gad75e5e7042f8a034cae0013a02942042"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad75e5e7042f8a034cae0013a02942042">&#9670;&#160;</a></span>IN6_ADDR_GLOBALEX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool UPnPsdk::IN6_ADDR_GLOBALEX </td>
+          <td>(</td>
+          <td class="paramtype">const in6_addr *&#160;</td>
+          <td class="paramname"><em>a_addr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Test if a socket address has a global unicast scope. </p>
+<p>This is <a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga55affe94fa5462f62aeaab2e42ba3a6c" title="Test if a socket address is a global unicast address as specified.">IN6_ADDR_GLOBAL()</a> with additional checks for addresses having also a global unicast scope, that are Unique Local Addresses ULA, and IPv4 mapped IPv6 addresses. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a_addr</td><td>Pointer to the address structure of a socket address that shall be checked. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00071">71</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -456,7 +496,7 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00081">81</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00098">98</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -548,7 +588,7 @@ sa</td>
 <div class="line">std::string uint32_max = <span class="stringliteral">&quot;4294967295&quot;</span>; <span class="comment">// has 10 digits</span></div>
 <div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0">is_unum_str</a>(uint32_max, 10))</div>
 <div class="line">    uint32_t num = <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(std::stoul(uint32_max));</div>
-<div class="ttc" id="agroup__upnplib-addrmodul_html_ga36799e18488f13fb91c265008e84b1f0"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0">UPnPsdk::is_unum_str</a></div><div class="ttdeci">bool is_unum_str(std::string_view a_num_sv, size_t a_digits)</div><div class="ttdoc">Free function to check if a string represents an unsigned integer.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00106">sockaddr.hpp:106</a></div></div>
+<div class="ttc" id="agroup__upnplib-addrmodul_html_ga36799e18488f13fb91c265008e84b1f0"><div class="ttname"><a href="../../d0/dd8/group__upnplib-addrmodul.html#ga36799e18488f13fb91c265008e84b1f0">UPnPsdk::is_unum_str</a></div><div class="ttdeci">bool is_unum_str(std::string_view a_num_sv, size_t a_digits)</div><div class="ttdoc">Free function to check if a string represents an unsigned integer.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00123">sockaddr.hpp:123</a></div></div>
 </div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd><b>true</b> if the string represents an all digit number<br  />
  <b>false</b> otherwise </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -559,7 +599,7 @@ sa</td>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00106">106</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00123">123</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -705,9 +745,9 @@ sa</td>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> saObj;</div>
 <div class="line">std::cout &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; <span class="comment">// output &quot;[::]:0&quot;, saObj wasn&#39;t set.</span></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00272">sockaddr.hpp:272</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00289">sockaddr.hpp:289</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00469">469</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00486">486</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">

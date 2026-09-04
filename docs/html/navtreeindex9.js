@@ -1,5 +1,6 @@
 var NAVTREEINDEX9 =
 {
+"dc/d2f/GenlibClientSubscription_8cpp.html#a49ee4ea642d0133e084a87e2caba01f0":[7,0,0,1,2,0,1,1],
 "dc/d2f/GenlibClientSubscription_8cpp.html#a586b1ddc4d1c5d8ccd1d67f60626cb4b":[7,0,0,1,2,0,1,0,3],
 "dc/d2f/GenlibClientSubscription_8cpp.html#a5da909b119c685cd28157e341ca64964":[7,0,0,1,2,0,1,8],
 "dc/d2f/GenlibClientSubscription_8cpp.html#a5fa5ba7e28950fe768e0cfcd8aacfc78":[7,0,0,1,2,0,1,11],
@@ -190,16 +191,16 @@ var NAVTREEINDEX9 =
 "dd/d67/namespaceUPnPsdk.html#a23b37912820f828d4563a8b79a05323caa908031d9a85985f606f360284aa2cff":[5,0,26,33,3],
 "dd/d67/namespaceUPnPsdk.html#a2a68659cc5b319d1eeda06f219c64c59":[5,0,26,38],
 "dd/d67/namespaceUPnPsdk.html#a2fcfb3fa67d209e9bda1924eb6a40fb7":[7,0,2,0,1,22,0,0],
-"dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588":[5,0,26,45],
+"dd/d67/namespaceUPnPsdk.html#a36a0f8484da5819dfa724a1f50b6b588":[5,0,26,46],
 "dd/d67/namespaceUPnPsdk.html#a4ffd5f528af4472829230445b57c7976":[7,0,2,0,1,16,0,1],
 "dd/d67/namespaceUPnPsdk.html#a6845b46c47d390c898d7d70571f31d74":[7,0,2,0,1,16,0,0],
-"dd/d67/namespaceUPnPsdk.html#a6fe628907cafd576019aa9d1e3d88b87":[5,0,26,46],
+"dd/d67/namespaceUPnPsdk.html#a6fe628907cafd576019aa9d1e3d88b87":[5,0,26,47],
 "dd/d67/namespaceUPnPsdk.html#a7da00f23e11db5e884ef88a8445067ea":[7,0,2,0,1,22,0,2],
 "dd/d67/namespaceUPnPsdk.html#a9681afa4b64e2afa067cea46a8026ac4":[7,0,2,0,1,22,0,1],
 "dd/d67/namespaceUPnPsdk.html#aa9f30d9a1a9776d7bf32ffd8c0e3f524":[5,0,26,32],
-"dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e":[5,0,26,50],
-"dd/d67/namespaceUPnPsdk.html#ab707d803eca469c6976bed877909c297":[5,0,26,48],
-"dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7":[5,0,26,49],
+"dd/d67/namespaceUPnPsdk.html#ab17340cd1b9cdd9d070f057f3a14ee5e":[5,0,26,51],
+"dd/d67/namespaceUPnPsdk.html#ab707d803eca469c6976bed877909c297":[5,0,26,49],
+"dd/d67/namespaceUPnPsdk.html#ab75e516bfffb3c259ea43971e3533ba7":[5,0,26,50],
 "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60":[5,0,26,34],
 "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60a14c872048d0cd302db4ae909fb68017b":[5,0,26,34,3],
 "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60a40c421472631863526768f3f8632db3f":[5,0,26,34,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX9 =
 "dd/d74/connection__common_8hpp.html":[7,0,2,0,1,2],
 "dd/d74/connection__common_8hpp_source.html":[7,0,2,0,1,2],
 "dd/d7c/classUPnPsdk_1_1CFragment.html":[4,3,0,2,8],
-"dd/d7c/classUPnPsdk_1_1CFragment.html#ad9690a499e6014cbf68aa48d154a5c85":[4,3,0,2,8,0],
-"dd/d7e/UpnpEvent_8hpp.html":[7,0,0,0,8]
+"dd/d7c/classUPnPsdk_1_1CFragment.html#ad9690a499e6014cbf68aa48d154a5c85":[4,3,0,2,8,0]
 };

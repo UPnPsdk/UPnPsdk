@@ -184,10 +184,10 @@ Public Attributes</h2></td></tr>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Input may be alphanumeric. Check with name resolution.\n&quot;</span>;</div>
 <div class="line"><span class="keywordflow">else</span></div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Netaddress of saObj is &quot;</span> &lt;&lt; saObj &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00272">sockaddr.hpp:272</a></div></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a192e9af7b5bb170ddee6355a5e8b2a50"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">UPnPsdk::SSockaddr::empty</a></div><div class="ttdeci">bool empty() const noexcept</div><div class="ttdoc">Test if the socket address object is empty.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00444">sockaddr.hpp:444</a></div></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a7e321201ddc4e0260140a83f847f3c94"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">UPnPsdk::SSockaddr::family</a></div><div class="ttdeci">sa_family_t &amp; family</div><div class="ttdoc">Reference to the socket address family.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00274">sockaddr.hpp:274</a></div></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_adb56d3ae5d02f98c98a473657fda8176"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">UPnPsdk::SSockaddr::ss</a></div><div class="ttdeci">sockaddr_storage &amp; ss</div><div class="ttdoc">Reference to sockaddr_storage struct.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00276">sockaddr.hpp:276</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">UPnPsdk::SSockaddr</a></div><div class="ttdoc">Trivial ::sockaddr structures enhanced with methods.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00289">sockaddr.hpp:289</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a192e9af7b5bb170ddee6355a5e8b2a50"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">UPnPsdk::SSockaddr::empty</a></div><div class="ttdeci">bool empty() const noexcept</div><div class="ttdoc">Test if the socket address object is empty.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00461">sockaddr.hpp:461</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a7e321201ddc4e0260140a83f847f3c94"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">UPnPsdk::SSockaddr::family</a></div><div class="ttdeci">sa_family_t &amp; family</div><div class="ttdoc">Reference to the socket address family.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00291">sockaddr.hpp:291</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_adb56d3ae5d02f98c98a473657fda8176"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#adb56d3ae5d02f98c98a473657fda8176">UPnPsdk::SSockaddr::ss</a></div><div class="ttdeci">sockaddr_storage &amp; ss</div><div class="ttdoc">Reference to sockaddr_storage struct.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00293">sockaddr.hpp:293</a></div></div>
 </div><!-- fragment --><p>This structure should be usable on a low level, like the trival C <code>struct ::sockaddr_storage</code> but provides additional methods to manage its data. When ever this SDK manage a network address it uses an object of this class.</p>
 <p>Design specification:</p>
 <ul>
@@ -200,7 +200,7 @@ Public Attributes</h2></td></tr>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>This class is frequently used so performance has to taken into account. This is why the destructor isn't virtual and <b>you should not derive from this class as base class. Also runtime polymorphism should not be used</b> (deleting through a base class pointer). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00272">272</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00289">289</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3d54840d80b035c9e7bf6bcb7c05142a" name="a3d54840d80b035c9e7bf6bcb7c05142a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3d54840d80b035c9e7bf6bcb7c05142a">&#9670;&#160;</a></span>SSockaddr()</h2>
@@ -232,7 +232,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><span class="comment">// or</span></div>
 <div class="line"><a class="code hl_struct" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html">SSockaddr</a> sa2Obj{sa1Obj};</div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00306">306</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00323">323</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -265,7 +265,7 @@ Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><span class="comment">// Usage e.g.:</span></div>
 <div class="line">sa2Obj = sa1Obj; <span class="comment">// sa?Obj are two instantiated valid objects.</span></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00317">317</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00334">334</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -355,7 +355,7 @@ Public Attributes</h2></td></tr>
 <div class="line"><span class="keywordflow">if</span> (saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">family</a> == AF_UNSPEC) <span class="comment">// That is true.</span></div>
 <div class="line">    handle_error();</div>
 <div class="ttc" id="aclassUPnPsdk_1_1CAddrinfo_html"><div class="ttname"><a href="../../d0/d44/classUPnPsdk_1_1CAddrinfo.html">UPnPsdk::CAddrinfo</a></div><div class="ttdoc">Get information from the operating system about an internet address.</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dbf/addrinfo_8hpp_source.html#l00158">addrinfo.hpp:158</a></div></div>
-<div class="ttc" id="astructUPnPsdk_1_1SInaddr_html"><div class="ttname"><a href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">UPnPsdk::SInaddr</a></div><div class="ttdoc">Structure to provide splitted inet address, scope_id, and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00183">sockaddr.hpp:183</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SInaddr_html"><div class="ttname"><a href="../../df/d9e/structUPnPsdk_1_1SInaddr.html">UPnPsdk::SInaddr</a></div><div class="ttdoc">Structure to provide splitted inet address, scope_id, and port(service)</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00200">sockaddr.hpp:200</a></div></div>
 </div><!-- fragment --><p> This method only detects numeric internet address pattern. If it cannot convert the given input, parts of it (node, scope, service) may be alphanumeric, then the resulting socket address is set to an empty IPv6. It is expected to test the input pattern with name resolution by the calling program. Unspecified input pattern results to address family AF_UNSPEC and flags an unresolvable error, for example an LLA without scope_id, an LLA with subnet (e.g. "[fe80:1::2]"), DNS-name with unspecified character, and others. </p>
 
 <p class="definition">Definition at line <a class="el" href="../../d7/def/sockaddr_8cpp_source.html#l00460">460</a> of file <a class="el" href="../../d7/def/sockaddr_8cpp_source.html">sockaddr.cpp</a>.</p>
@@ -406,10 +406,10 @@ Public Attributes</h2></td></tr>
 <div class="line">assert(saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">empty</a>() == <span class="keyword">false</span>);</div>
 <div class="line">saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a66e9bf5ef761fd7675a87397a54b05b5">clear</a>();</div>
 <div class="line">assert(saObj.<a class="code hl_function" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a192e9af7b5bb170ddee6355a5e8b2a50">empty</a>() == <span class="keyword">true</span> &amp;&amp; saObj.<a class="code hl_variable" href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a7e321201ddc4e0260140a83f847f3c94">family</a> == AF_INET6);</div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a3cff3945c37e02d4404db3cd5a697db8"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8">UPnPsdk::SSockaddr::sin6</a></div><div class="ttdeci">sockaddr_in6 &amp; sin6</div><div class="ttdoc">Reference to sockaddr_in6 struct.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00280">sockaddr.hpp:280</a></div></div>
-<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a66e9bf5ef761fd7675a87397a54b05b5"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a66e9bf5ef761fd7675a87397a54b05b5">UPnPsdk::SSockaddr::clear</a></div><div class="ttdeci">void clear() noexcept</div><div class="ttdoc">clear socket address</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00379">sockaddr.hpp:379</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a3cff3945c37e02d4404db3cd5a697db8"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a3cff3945c37e02d4404db3cd5a697db8">UPnPsdk::SSockaddr::sin6</a></div><div class="ttdeci">sockaddr_in6 &amp; sin6</div><div class="ttdoc">Reference to sockaddr_in6 struct.</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00297">sockaddr.hpp:297</a></div></div>
+<div class="ttc" id="astructUPnPsdk_1_1SSockaddr_html_a66e9bf5ef761fd7675a87397a54b05b5"><div class="ttname"><a href="../../dc/df7/structUPnPsdk_1_1SSockaddr.html#a66e9bf5ef761fd7675a87397a54b05b5">UPnPsdk::SSockaddr::clear</a></div><div class="ttdeci">void clear() noexcept</div><div class="ttdoc">clear socket address</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d1b/sockaddr_8hpp_source.html#l00396">sockaddr.hpp:396</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00379">379</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00396">396</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -716,7 +716,7 @@ Public Attributes</h2></td></tr>
 <p>Test if the socket address object is empty. </p>
 <p>An empty socket address object has the unspecified IPv6 address with port 0, that is <code>"[::]:0"</code>, and of course address family AF_INET6. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00444">444</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00461">461</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -765,7 +765,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to the socket address family. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00274">274</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00291">291</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -783,7 +783,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to sockaddr_storage struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00276">276</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00293">293</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -801,7 +801,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to sockaddr_un struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00278">278</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00295">295</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -819,7 +819,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to sockaddr_in6 struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00280">280</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00297">297</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -837,7 +837,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to sockaddr_in struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00282">282</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00299">299</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
@@ -855,7 +855,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reference to sockaddr struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00284">284</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html#l00301">301</a> of file <a class="el" href="../../d7/d1b/sockaddr_8hpp_source.html">sockaddr.hpp</a>.</p>
 
 </div>
 </div>
