@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-09-29
+// Redistribution only with this Copyright remark. Last modified: 2026-09-30
 
 #include <utest/utest_unix.hpp>
 #include <gtest/gtest.h>
@@ -147,7 +147,7 @@ TEST(ToolsTestSuite, initialize_ipv6_interface_addresses) {
 }
 #endif
 
-TEST(ToolsTestSuite, ifaddr_get_empty_netaddress) {
+TEST(ToolsTestSuite, ifaddr_set_empty_netaddress) {
     CIfaddr ifaddrObj;
     ifaddrs* ifaddr = ifaddrObj.get();
 
@@ -159,6 +159,12 @@ TEST(ToolsTestSuite, ifaddr_get_empty_netaddress) {
     EXPECT_EQ(ifaddr->ifa_netmask, nullptr);
     EXPECT_EQ(ifaddr->ifa_broadaddr, nullptr);
     EXPECT_EQ(ifaddr->ifa_data, nullptr);
+}
+
+TEST(ToolsTestSuite, ifaddr_set_loopback_if) {
+    // Test Unit
+    CIfaddr ifaddrObj("lo", "[::1]", IFF_UP | IFF_BROADCAST | IFF_MULTICAST);
+    [[maybe_unused]] ifaddrs* ifaddr = ifaddrObj.get();
 }
 
 } // namespace utest

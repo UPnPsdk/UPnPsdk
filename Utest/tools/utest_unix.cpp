@@ -198,14 +198,25 @@ void CIfaddr4::chain_next_addr(struct ifaddrs* a_ptrNextAddr) {
 #endif
 
 CIfaddr::CIfaddr()
-// With constructing the object you get an empty interface info.
+// With constructing the object you get an empty networi interface info.
 {
     // Initialize m_ifaddr structure. Point only to an empty network interface
     // name. All other values are 0 or nullptr.
     m_ifaddr.ifa_name = &m_str_empty;
 }
 
+
+CIfaddr::CIfaddr([[maybe_unused]] std::string_view a_if_name,
+                 [[maybe_unused]] std::string_view a_if_addr,
+                 [[maybe_unused]] unsigned int a_ifa_flags)
+// Construct a network interface with given arguments.
+{
+    //
+}
+
+
 CIfaddr::~CIfaddr() = default;
+
 
 ifaddrs* CIfaddr::get()
 // Return the pointer to the m_ifaddr structure

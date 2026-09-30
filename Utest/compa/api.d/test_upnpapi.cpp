@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-09-24
+// Redistribution only with this Copyright remark. Last modified: 2026-09-30
 
 #ifdef UPnPsdk_WITH_NATIVE_PUPNP
 #include <Pupnp/upnp/src/api/upnpapi.cpp>
@@ -319,14 +319,13 @@ TEST_F(UpnpapiClearFTestSuite, UpnpInitPreamble_successful) {
     pthread_rwlock_destroy(&GlobalHndRWLock);
 }
 
+#ifdef UPNP_HAVE_TOOLS
 TEST_F(UpnpapiFTestSuite, get_error_message) {
-#ifndef UPNP_HAVE_TOOLS
-    GTEST_SKIP() << "Option UPnPsdk_WITH_TOOLS not available.";
-#endif
     EXPECT_STREQ(UpnpGetErrorMessage(0), "UPNP_E_SUCCESS");
     EXPECT_STREQ(UpnpGetErrorMessage(-121), "UPNP_E_INVALID_INTERFACE");
     EXPECT_STREQ(UpnpGetErrorMessage(1), "Unknown error code");
 }
+#endif
 
 TEST_F(UpnpapiFTestSuite, GetHandleInfo_successful) {
     // Will be filled with a pointer to the requested client info.
