@@ -1,5 +1,5 @@
 # Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2026-09-03
+# Redistribution only with this Copyright remark. Last modified: 2026-10-02
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -160,33 +160,46 @@ add_test(NAME ctest_upnpapi-cst COMMAND test_upnpapi-cst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
 
-if(WIN32)
-# Theese Unit Tests are focused on low level IPv4 that isn't supported by
-# reengeneered code anymore. There I use only IPv6 with IPv4-mapped-IPv6
-# addresses to connect to remote hosts that only support iPv4. Therefore theese
-# tests are disabled on Microsoft Windows for new_code with CMake and only
-# still running for old UPnPsdk_WITH_NATIVE_PUPNP build to detect changes on
-# old code.
-add_executable(test_upnpapi_win32-pst
+
+if(NOT WIN32)
+add_executable(test_upnpapi_netif-pst
 #------------------------------------
-    test_upnpapi_win32.cpp
+    test_upnpapi_netif.cpp
 )
-target_include_directories(test_upnpapi_win32-pst
+target_include_directories(test_upnpapi_netif-pst
     PRIVATE ${CMAKE_SOURCE_DIR}
 )
-target_compile_options(test_upnpapi_win32-pst
+target_compile_options(test_upnpapi_netif-pst
         # disable warning C4505: 'GetFreeHandle': unreferenced local function
         # has been removed This isn't used with WIN32 but on other platforms. I
         # won't modify pupnp code. --Ingo
         PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/wd4505>
 )
-target_link_libraries(test_upnpapi_win32-pst
+target_link_libraries(test_upnpapi_netif-pst
     PRIVATE
         pupnp_static
-        UPnPsdk_static # must be static for win32
         utest_static   # must be static for win32
 )
-add_test(NAME ctest_upnpapi_win32-pst COMMAND test_upnpapi_win32-pst --gtest_shuffle
+add_test(NAME ctest_upnpapi_netif-pst COMMAND test_upnpapi_netif-pst --gtest_shuffle
     WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
+
+if(FALSE)
+add_executable(test_upnpapi_platform-cst
+#---------------------------------------
+#    $<$<PLATFORM_ID:Windows>:test_upnpapi_win32.cpp>
+    $<$<NOT:$<PLATFORM_ID:Windows>>:test_upnpapi_unix.cpp>
+)
+target_include_directories(test_upnpapi_platform-cst
+    PRIVATE ${CMAKE_SOURCE_DIR}
+)
+target_link_libraries(test_upnpapi_platform-cst
+    PRIVATE
+        compa_static
+        utest_static
+)
+add_test(NAME ctest_upnpapi_platform-cst COMMAND test_upnpapi_platform-cst --gtest_shuffle
+    WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
+)
+endif()
 endif()
