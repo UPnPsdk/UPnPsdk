@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-09-03
+// Redistribution only with this Copyright remark. Last modified: 2026-09-26
 
 // All functions of the miniserver module have been covered by a gtest. Some
 // tests are skipped and must be completed when missed information is
@@ -526,7 +526,10 @@ TEST_F(StartMiniServerMockFTestSuite,
     saddrObj.ss.ss_family = AF_INET6;
     ::inet_pton(saddrObj.ss.ss_family, "fe80::fedc:cdef:0:3",
                 &saddrObj.sin6.sin6_addr);
-    saddrObj.sin6.sin6_scope_id = 0; // Wrong! Correction for old_code.
+    std::cout << CYEL "[ BUGFIX   ] " CRES << __LINE__
+              << ": Link-local address must have scope_id.\n";
+    // saddrObj.sin6.sin6_scope_id = 300;
+    saddrObj.sin6.sin6_scope_id = 0; // Wrong!
     saddrObj.sin6.sin6_port = 50079;
 
     // Set gIF_IPV6 and strip surounding brackets

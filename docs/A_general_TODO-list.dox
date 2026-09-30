@@ -1,18 +1,21 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-09-02
+// Redistribution only with this Copyright remark. Last modified: 2026-09-26
 /*!
  * \file
  * \brief A general TODO-list
  *
  * \todo
- * - Create UPnPsdk::IN6_IS_ADDR_UNIQUELOCAL(), or maybe add it to IN6_IS_ADDR_GLOBAL2().
+ * - Manage timeout for connect?
  * - Optimize CNetadapter::find_first() to use argument SSockaddr instead of string().
  * - Rework CSocket class.
+ *   - Remove SO_REUSEADDR.
  *   - Rework 'get_ssdp_sockets()' and Utest/compa/1-discovery/test_ssdp.cpp.
  *   - Rework CSocket.bind() due to RFC 4038 6.3.1 (try bind to all possible net if).
  *   - Provide default netadapter index (scope id) for macOS multicast.
+ *   - Fix "time used" on sock_read and sock_write.
    - Modify miniserver module, with work in progress.
      - change 'test_miniserver.cpp' to use IPv6 addresses.
+     - Use poll() and WSAPoll() instead of select().
      - change 'test_miniserver_run.cpp' to use IPv6 addresses.
  * - Check and code GlobalClientSubscribeMutex in new code.
  * - Check if tunnel connections and VPN should not supported as documented with https://github.com/pupnp/pupnp/pull/500.
@@ -26,7 +29,7 @@
      - Remove Compa/inc/UpnpGlobal.hpp.
      - Remove Compa/inc/UpnpUniStd.hpp from pUPnP API.
      - Remove Compa/src/inc/unixutil.hpp?
- * - Enable and improve tests in Utest/compa/threadutil.d.
+ * - Remove tests for Utest/compa/threadutil.d.
  * - Improve test_http_Download.cpp, start with error conditions for http_MakeMessage().
  * - Parse_uri should accept "http://127.000.000.001:50001/tvdevicedesc.xml" as valid.
  * - Enable OpenSSL, improve its tests (test_sock.cpp, sock read_ssl, sock write_ssl).
@@ -34,12 +37,9 @@
  * - Use new fix in openssl https://github.com/openssl/openssl/issues/16399#event-22993335537
  * - Obsolete, see above. (Create no mocked tests for CSigpipe@sock.cpp, read and write data using UPnP-Device.)
  * - Test and document ixml script support.
- * - Build for ARM platforms.
  * - Create Unit Test large-file support (https://gist.github.com/mortenpi/9745042)
- * - Fix "time used" on sock_read and sock_write.
  * - Rework test_httpreadwrite.cpp.
  * - Add AI_IDN and AI_CANONIDN support to CAddrinfo.
- * - Use poll() and WSAPoll() instead of select().
  * - Create gtests for web_server_callback.
  * - Check bugfix in pupnp/upnp/src/urlconfig/urlconfig.cpp with a gtest.
  * - Move pupnp/upnp/src/inc/sock.hpp:79:static UPNP_INLINE int sock_close() to miniserver.cpp and rework.

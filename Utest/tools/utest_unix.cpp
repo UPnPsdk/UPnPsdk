@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-16
+// Redistribution only with this Copyright remark. Last modified: 2026-09-29
 
 // Tools and helper classes to manage gtests
 // =========================================
@@ -13,9 +13,11 @@
 namespace utest {
 
 //
-// CIfaddr4
-// --------
+// CIfaddr
+// -------
 
+#if false
+#if 0
 CIfaddr4::CIfaddr4()
 // With constructing the object you get a loopback device by default.
 {
@@ -45,6 +47,23 @@ CIfaddr4::CIfaddr4()
     m_ifaddr.ifa_broadaddr = (struct sockaddr*)&m_ifa_ifu;
     m_ifaddr.ifa_data = nullptr;
 }
+#else
+CIfaddr4::CIfaddr4()
+// With constructing the object you get an empty interface info.
+{
+    // Initialize network address
+    m_ifa_addr.sin_family = AF_INET;
+    // Initialize netmask
+    m_ifa_netmask.sin_family = AF_INET;
+    // Initialize broadcast address or Point-to-point destination address
+    m_ifa_ifu.sin_family = AF_INET;
+
+    // Initialize m_ifaddr structure.
+    m_ifaddr.ifa_name = &m_str_empty;
+    // v-- Flags from SIOCGIFFLAGS, man 7 netdevice
+    // m_ifaddr.ifa_flags = 0 | IFF_LOOPBACK | IFF_UP; // DEBUG! check what set.
+}
+#endif
 
 ifaddrs* CIfaddr4::get()
 // Return the pointer to the m_ifaddr structure
@@ -176,5 +195,22 @@ void CIfaddr4::chain_next_addr(struct ifaddrs* a_ptrNextAddr) {
     m_ifaddr.ifa_next = a_ptrNextAddr;
 }
 #endif
+#endif
+
+CIfaddr::CIfaddr()
+// With constructing the object you get an empty interface info.
+{
+    // Initialize m_ifaddr structure. Point only to an empty network interface
+    // name. All other values are 0 or nullptr.
+    m_ifaddr.ifa_name = &m_str_empty;
+}
+
+CIfaddr::~CIfaddr() = default;
+
+ifaddrs* CIfaddr::get()
+// Return the pointer to the m_ifaddr structure
+{
+    return &m_ifaddr;
+}
 
 } // namespace utest

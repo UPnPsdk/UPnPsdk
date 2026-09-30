@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2025-07-25
+# Redistribution only with this Copyright remark. Last modified: 2026-09-30
 
 cmake_minimum_required(VERSION 3.18)
 include(UPnPsdk-ProjectHeader)
@@ -9,7 +9,6 @@ project(GTESTS_SAMPLE VERSION 0007
         HOMEPAGE_URL "https://github.com/UPnPsdk")
 
 
-if(NOT WIN32)
 # test tv_device build with pupnp shared library
 #-----------------------------------------------
 add_executable(test_tv_device-pst
@@ -51,4 +50,3 @@ target_link_libraries(test_tv_device-csh
 add_test(NAME ctest_tv_device-csh COMMAND test_tv_device-csh --gtest_shuffle
         WORKING_DIRECTORY ${UPnPsdk_RUNTIME_OUTPUT_DIRECTORY}
 )
-endif()

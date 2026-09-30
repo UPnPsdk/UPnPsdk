@@ -1,5 +1,5 @@
 # Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-# Redistribution only with this Copyright remark. Last modified: 2026-04-01
+# Redistribution only with this Copyright remark. Last modified: 2026-09-30
 
 cmake_minimum_required(VERSION 3.29) # For FetchContent_MakeAvailable()
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake CACHE INTERNAL "Path to custom UPnPsdk modules to be used with include() and find_package()." FORCE)
@@ -330,8 +330,6 @@ if(UPnPsdk_WITH_GOOGLETEST)
     # the new code is compared with it.
     set (UPnPsdk_WITH_NATIVE_PUPNP ON CACHE BOOL
         "Build the library with old native PUPNP code." FORCE)
-    set (UPnPsdk_WITH_SAMPLES ON CACHE BOOL
-         "Provide sample programs UPnP device and control point." FORCE)
 
     if(GTESTS_WITH_SHARED_LIBS)
         set (BUILD_SHARED_LIBS ON CACHE INTERNAL
@@ -451,9 +449,7 @@ endif(UPnPsdk_WITH_GOOGLETEST)
 add_subdirectory(${PROJECT_SOURCE_DIR}/UPnPsdk)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Pupnp)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Compa)
-if (UPnPsdk_WITH_SAMPLES)
-    add_subdirectory(${PROJECT_SOURCE_DIR}/Sample)
-endif()
+add_subdirectory(${PROJECT_SOURCE_DIR}/Sample)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Apps)
 if(googletest_POPULATED)
     add_subdirectory(${PROJECT_SOURCE_DIR}/Utest)

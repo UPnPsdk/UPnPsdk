@@ -3,7 +3,7 @@ name: Integration tests
 on:
   workflow_dispatch:
   push:
-    branches: [ modify_netadapter, main ]
+    branches: [ rework_get_if_info, main ]
   pull_request:
     branches: [ main ]
 

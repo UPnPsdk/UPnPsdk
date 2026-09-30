@@ -1,16 +1,17 @@
 #ifndef UTEST_TOOLS_UNIX_HPP
 #define UTEST_TOOLS_UNIX_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-06-12
+// Redistribution only with this Copyright remark. Last modified: 2026-09-29
 
 #include <UPnPsdk/visibility.hpp>
 #include <ifaddrs.h>
 #include <netinet/in.h> // for sockaddr_in
 #include <string>
-#include <vector>
+// #include <vector>
 
 namespace utest {
 
+#if 0
 class UPnPsdk_VIS CIfaddr4
 // Tool to manage and fill an IPv4 socket address structure. This is needed for
 // mocked network interfaces.
@@ -22,14 +23,16 @@ class UPnPsdk_VIS CIfaddr4
     void chain_next_addr(struct ifaddrs* a_ptrNextAddr);
 
   private:
-    struct ifaddrs m_ifaddr;
+    // Provide storrage for emulated values.
+    char m_str_empty{'\0'};
+    std::string m_Ifname;        // interface name
+    std::string m_Ifaddress;     // interface ip address
+    ::sockaddr_in m_ifa_addr;    // network address
+    ::sockaddr_in m_ifa_netmask; // netmask
+    ::sockaddr_in m_ifa_ifu;     // broadcast addr or point-to-point dest addr
 
-    struct sockaddr_in m_ifa_addr;    // network address
-    struct sockaddr_in m_ifa_netmask; // netmask
-    struct sockaddr_in m_ifa_ifu; // broadcast addr or point-to-point dest addr
-
-    std::string m_Ifname;         // interface name
-    std::string m_Ifaddress;      // interface ip address
+    // Storage for emulated pointer and values.
+    ::ifaddrs m_ifaddr{};
 
     // clang-format off
     // the bitmask is the offset in the netmasks array.
@@ -61,6 +64,30 @@ class CIfaddr6 {
     std::string m_ifa_name{};     // name of the adapter/interface
     sockaddr_in6 m_ifa_addr{};    // network address
     sockaddr_in6 m_ifa_netmask{}; // netmask
+};
+#endif
+
+class UPnPsdk_VIS CIfaddr
+// Tool to provide an network interface address for emulation and mocking.
+{
+  public:
+    CIfaddr();
+    CIfaddr(std::string_view a_if_name, std::string_view a_if_addr,
+            unsigned int a_ifa_flags);
+    ~CIfaddr();
+    ifaddrs* get();
+    void chain_next_addr(ifaddrs* a_next_addr);
+
+  private:
+    // Provide storrage for emulated values.
+    char m_str_empty{'\0'};
+    std::string m_if_name;       // interface name
+    ::sockaddr_in m_ifa_addr;    // network address
+    ::sockaddr_in m_ifa_netmask; // netmask
+    ::sockaddr_in m_ifa_ifu;     // broadcast addr or point-to-point dest addr
+
+    // Storage for emulated pointer and values.
+    ::ifaddrs m_ifaddr{};
 };
 
 } // namespace utest

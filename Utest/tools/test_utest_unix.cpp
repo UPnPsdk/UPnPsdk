@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2025-02-15
+// Redistribution only with this Copyright remark. Last modified: 2026-09-29
 
 #include <utest/utest_unix.hpp>
 #include <gtest/gtest.h>
@@ -9,31 +9,38 @@
 
 namespace utest {
 
+#if 0
 TEST(ToolsTestSuite, initialize_ipv4_interface_addresses) {
-    struct ifaddrs* ifaddr{};
-    struct sockaddr_in* ifa_addr_in{};
-    struct sockaddr_in* ifa_netmask_in{};
-    struct sockaddr_in* ifa_ifu_in{};
-    char addr4buf[INET_ADDRSTRLEN]{};
-
     CIfaddr4 ifaddr4Obj;
-    ifaddr = ifaddr4Obj.get();
-    ifa_addr_in = (sockaddr_in*)ifaddr->ifa_addr;
-    ifa_netmask_in = (sockaddr_in*)ifaddr->ifa_netmask;
-    ifa_ifu_in = (sockaddr_in*)ifaddr->ifa_broadaddr;
+    ifaddrs* ifaddr = ifaddr4Obj.get();
 
-    // should be constructed with a loopback interface
+    // should be constructed as empty netinterface address.
     EXPECT_EQ(ifaddr->ifa_next, nullptr);
-    EXPECT_STREQ(ifaddr->ifa_name, "lo");
-    EXPECT_EQ(ifaddr->ifa_flags, (unsigned int)0 | IFF_LOOPBACK | IFF_UP);
-    EXPECT_EQ(ifa_addr_in->sin_family, AF_INET);
-    EXPECT_EQ(ifa_addr_in->sin_addr.s_addr, (unsigned int)16777343);
-    EXPECT_EQ(ifa_netmask_in->sin_family, AF_INET);
-    EXPECT_EQ(ifa_netmask_in->sin_addr.s_addr, (unsigned int)255);
-    EXPECT_EQ(ifa_ifu_in->sin_family, AF_INET);
-    EXPECT_EQ(ifa_ifu_in->sin_addr.s_addr, (unsigned int)0);
+    EXPECT_STREQ(ifaddr->ifa_name, "");
+    EXPECT_EQ(ifaddr->ifa_flags, 0);
+    EXPECT_EQ(ifaddr->ifa_addr, nullptr);
+    EXPECT_EQ(ifaddr->ifa_netmask, nullptr);
+    EXPECT_EQ(ifaddr->ifa_broadaddr, nullptr);
     EXPECT_EQ(ifaddr->ifa_data, nullptr);
 
+    EXPECT_FALSE(ifaddr4Obj.set("", "192.168.168.3/24"));
+    EXPECT_FALSE(ifaddr4Obj.set("if0v4", ""));
+
+    // Set a loopback interface
+    EXPECT_TRUE(ifaddr4Obj.set("lo", "127.0.0.1"));
+#if 0
+    [[maybe_unused]] sockaddr_in* ifa_addr_in(reinterpret_cast<sockaddr_in*>(ifaddr->ifa_addr));
+    [[maybe_unused]] sockaddr_in* ifa_netmask_in(reinterpret_cast<sockaddr_in*>(ifaddr->ifa_netmask));
+    [[maybe_unused]] sockaddr_in* ifa_ifu_in(reinterpret_cast<sockaddr_in*>(ifaddr->ifa_broadaddr));
+
+    // should be constructed as empty netinterface address.
+    EXPECT_EQ(ifaddr->ifa_next, nullptr);
+    EXPECT_STREQ(ifaddr->ifa_name, "");
+    EXPECT_EQ(ifaddr->ifa_flags, 0);
+    EXPECT_EQ(ifa_addr_in, nullptr);
+    EXPECT_EQ(ifa_netmask_in, nullptr);
+    EXPECT_EQ(ifa_ifu_in, nullptr);
+    EXPECT_EQ(ifaddr->ifa_data, nullptr);
     // This throws a segfault by C++ and does not need to be tested
     // EXPECT_ANY_THROW(ifaddr4Obj.set(NULL, "192.168.168.3/24"));
     // EXPECT_ANY_THROW(ifaddr4Obj.set("if0v4", NULL));
@@ -42,6 +49,8 @@ TEST(ToolsTestSuite, initialize_ipv4_interface_addresses) {
 
     EXPECT_TRUE(ifaddr4Obj.set("if0v4", "192.168.168.168/20"));
     EXPECT_STREQ(ifaddr->ifa_name, "if0v4");
+
+    char addr4buf[INET_ADDRSTRLEN]{};
     inet_ntop(AF_INET, &ifa_addr_in->sin_addr.s_addr, addr4buf,
               INET_ADDRSTRLEN);
     EXPECT_STREQ(addr4buf, "192.168.168.168")
@@ -72,6 +81,7 @@ TEST(ToolsTestSuite, initialize_ipv4_interface_addresses) {
         << "    addr4buf contains the broadcast address";
 
     EXPECT_ANY_THROW(ifaddr4Obj.set("if2v4", "10.168.168.47/"));
+#endif
 }
 
 TEST(ToolsTestSuite, initialize_ipv6_interface_addresses) {
@@ -134,6 +144,21 @@ TEST(ToolsTestSuite, initialize_ipv6_interface_addresses) {
 
     EXPECT_ANY_THROW(ifaddr6Obj.set("if2v4", "10.168.168.47/"));
 #endif
+}
+#endif
+
+TEST(ToolsTestSuite, ifaddr_get_empty_netaddress) {
+    CIfaddr ifaddrObj;
+    ifaddrs* ifaddr = ifaddrObj.get();
+
+    // should be constructed as empty netinterface address.
+    EXPECT_EQ(ifaddr->ifa_next, nullptr);
+    EXPECT_STREQ(ifaddr->ifa_name, "");
+    EXPECT_EQ(ifaddr->ifa_flags, 0);
+    EXPECT_EQ(ifaddr->ifa_addr, nullptr);
+    EXPECT_EQ(ifaddr->ifa_netmask, nullptr);
+    EXPECT_EQ(ifaddr->ifa_broadaddr, nullptr);
+    EXPECT_EQ(ifaddr->ifa_data, nullptr);
 }
 
 } // namespace utest
