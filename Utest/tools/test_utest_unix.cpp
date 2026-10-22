@@ -199,10 +199,21 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_loopback_netaddress) {
         << "This SDK expects an IPv6 loopback adress, but no one found.";
 
     EXPECT_STRNE(ifa->ifa_name, "");
+    // IFF_LOWER_UP is a special Linux flag with header 'linux/if.h' instead of
+    // 'net/if.h'. This flag isn't set on MacOS. Instead the previous flag
+    // 0x8000 is set and on linux it is named IFF_DYNAMIC but this name isn't
+    // available on MacOS. MacOS has only a portable 'net/if.h' header. Don't
+    // know what this bit on MacOS means and what it's name.
+#ifdef __APPLE__
+    EXPECT_EQ(ifa->ifa_flags,
+              0 | 0x8000 /*IFF_DYNAMIC?*/ | IFF_RUNNING | IFF_LOOPBACK | IFF_UP)
+    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000001000000001001001);
+#else
     // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010000000001001001);
     EXPECT_EQ((ifa->ifa_flags &
                0x0000ffff), // Ignore special linux only flags from linux/if.h.
               0 | IFF_RUNNING | IFF_LOOPBACK | IFF_UP)
+#endif
         << "Wrong flags " << ifa->ifa_flags << " = 0b"
         << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
 
