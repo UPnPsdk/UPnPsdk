@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-10-05
+// Redistribution only with this Copyright remark. Last modified: 2026-10-22
 
 // Tools and helper classes to manage gtests
 // =========================================
@@ -225,9 +225,9 @@ CIfaddr::CIfaddr(uint32_t a_if_index, std::string_view a_if_name,
         if (inet_pton(AF_INET6, if_addr_raw, &m_ifa_addr.sin6.sin6_addr) != 1)
             throw std::invalid_argument(
                 UPnPsdk_LOGEXCEPT(
-                    "MSG0088") "Invalid plain netaddress (without scope_id, "
-                               "port, prefix bitmask) specified. Wrong "
-                               "address is \"" +
+                    "MSG0088") "Only netaddress without scope_id, port, prefix "
+                               "bitmask accepted. Use additional arguments for "
+                               "this. Wrong address is \"" +
                 std::string(a_if_addr) + "\".");
 
         // Set netmask to the IPv6 interface address. a_prefixbits count is
@@ -261,8 +261,9 @@ CIfaddr::CIfaddr(uint32_t a_if_index, std::string_view a_if_name,
                       &m_ifa_addr.sin.sin_addr) != 1)
             throw std::invalid_argument(
                 UPnPsdk_LOGEXCEPT(
-                    "MSG0087") "Invalid plain netaddress (without port, prefix "
-                               "bitmask) specified. Wrong address is \"" +
+                    "MSG0088") "Only netaddress without scope_id, port, prefix "
+                               "bitmask accepted. Use additional arguments for "
+                               "this. Wrong address is \"" +
                 std::string(a_if_addr) + "\".");
 
         // Set netmask for IPv4 interface address.
@@ -275,14 +276,27 @@ CIfaddr::CIfaddr(uint32_t a_if_index, std::string_view a_if_name,
         // done with bits count 0 (edge condition).
         netmask <<= (32 - a_prefixbits);
         m_ifa_netmask.sin.sin_addr.s_addr = htonl(netmask);
+
+        // Set IPv4 broadcast address.
+        if (a_ifa_flags & IFF_LOOPBACK) {
+            m_ifa_ifu = m_ifa_addr;
+        } else {
+            m_ifa_ifu.sa.sa_family = AF_INET;
+            // That is a bitwise OR between the network address and the inverted
+            // subnet mask.
+            m_ifa_ifu.sin.sin_addr.s_addr =
+                (m_ifa_addr.sin.sin_addr.s_addr &
+                 m_ifa_netmask.sin.sin_addr.s_addr) |
+                ~m_ifa_netmask.sin.sin_addr.s_addr;
+        }
+        m_ifaddr.ifa_broadaddr = &m_ifa_ifu.sa;
+        m_ifaddr.ifa_dstaddr = &m_ifa_ifu.sa;
     }
 
     m_ifaddr.ifa_name = const_cast<char*>(m_if_name.c_str());
     m_ifaddr.ifa_flags |= a_ifa_flags;
     m_ifaddr.ifa_addr = &m_ifa_addr.sa;
     m_ifaddr.ifa_netmask = &m_ifa_netmask.sa;
-    m_ifaddr.ifa_broadaddr = &m_ifa_ifu.sa;
-    m_ifaddr.ifa_dstaddr = &m_ifa_ifu.sa;
 }
 
 

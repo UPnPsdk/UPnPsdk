@@ -1,7 +1,7 @@
 #ifndef UTEST_TOOLS_UNIX_HPP
 #define UTEST_TOOLS_UNIX_HPP
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-10-02
+// Redistribution only with this Copyright remark. Last modified: 2026-10-22
 
 #include <UPnPsdk/visibility.hpp>
 #include <UPnPsdk/sockaddr.hpp>
@@ -69,7 +69,10 @@ class CIfaddr6 {
 #endif
 
 class UPnPsdk_VIS CIfaddr
-// Tool to provide an network interface address for emulation and mocking.
+// Tool to provide an network interface address for emulation and mocking. This
+// class provides private storrage for the values of an ::ifaddrs structure,
+// fills the values with the wanted content, and set pointer in an ifaddrs
+// structure that can be queried.
 {
   public:
     // Default Constructor for empty netinterface address.
