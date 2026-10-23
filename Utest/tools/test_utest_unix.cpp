@@ -230,10 +230,10 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_loopback_netaddress) {
     EXPECT_EQ(sin6->sin6_scope_id, 0);
     EXPECT_EQ(sin6->sin6_port, 0);
 
-#ifdef __APPLE__
-    ASSERT_NE(ifa->ifa_broadaddr, nullptr);
-    EXPECT_EQ(ifa->ifa_broadaddr->sa_family, AF_LINK);
-#else
+#ifndef __APPLE__
+    // The ifa_broadaddr field is effectively unused in macOS for IPv6
+    // configurations and has uspecified content.
+    // On other platforms there is no pointer to an address structure.
     EXPECT_EQ(ifa->ifa_broadaddr, nullptr); // IPv6 does not use broadcasts.
 #endif
     EXPECT_EQ(ifa->ifa_data, nullptr);
