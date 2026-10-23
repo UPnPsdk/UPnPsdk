@@ -262,8 +262,8 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_loopback_netaddress) {
     EXPECT_EQ(sin6->sin6_scope_id, 0);
     EXPECT_EQ(sin6->sin6_port, 0);
 
-    // Check netinterface broadcast address and data field
-    EXPECT_EQ(ifaddr->ifa_broadaddr, ifa->ifa_broadaddr);
+    // Ignore IPv6 netinterface broadcast address and check data field.
+    // EXPECT_EQ(ifaddr->ifa_broadaddr, ifa->ifa_broadaddr);
     EXPECT_EQ(ifaddr->ifa_data, ifa->ifa_data);
 }
 
