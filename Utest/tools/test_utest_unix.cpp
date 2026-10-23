@@ -1,8 +1,8 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-10-22
+// Redistribution only with this Copyright remark. Last modified: 2026-10-23
 
 #include <utest/utest_unix.hpp>
-#include <gtest/gtest.h>
+#include <utest/utest.hpp>
 
 #include <arpa/inet.h>
 #include <bitset>
@@ -230,7 +230,12 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_loopback_netaddress) {
     EXPECT_EQ(sin6->sin6_scope_id, 0);
     EXPECT_EQ(sin6->sin6_port, 0);
 
-    EXPECT_EQ(ifa->ifa_broadaddr, nullptr); // IPv6 does not use broadcasts.
+    if (compiler == CO::clang) {
+        ASSERT_NE(ifa->ifa_broadaddr, nullptr);
+        EXPECT_EQ(ifa->ifa_broadaddr->sa_family, AF_UNSPEC);
+    } else {
+        EXPECT_EQ(ifa->ifa_broadaddr, nullptr); // IPv6 does not use broadcasts.
+    }
     EXPECT_EQ(ifa->ifa_data, nullptr);
 
     // Test Unit
