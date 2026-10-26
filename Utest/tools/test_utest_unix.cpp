@@ -503,12 +503,12 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_gua) {
         // Check if IPv6 is a global unicast address.
         if (ifa->ifa_addr->sa_family == AF_INET6) {
             sin6 = reinterpret_cast<::sockaddr_in6*>(ifa->ifa_addr);
-            if (UPnPsdk::IN6_ADDR_GLOBALALL(&sin6->sin6_addr))
+            if (UPnPsdk::IN6_ADDR_GLOBAL(&sin6->sin6_addr))
                 break;
         }
     }
-    ASSERT_NE(ifa, nullptr)
-        << "This SDK expects an IPv6 global unicast adress, but no one found.";
+    if (ifa == nullptr)
+        GTEST_SKIP() << "No IPv6 Global Unicast Address found for testing.";
 
     EXPECT_STRNE(ifa->ifa_name, "");
     std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
