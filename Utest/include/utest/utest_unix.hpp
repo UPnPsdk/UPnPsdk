@@ -73,6 +73,9 @@ class UPnPsdk_VIS CIfaddr
 // class provides private storrage for the values of an ::ifaddrs structure,
 // fills the values with the wanted content, and set pointer in an ifaddrs
 // structure that can be queried.
+// Note: The ifa_broadaddr field is effectively unused for IPv6 configurations
+// and has uspecified content. You should not expect any valid content there
+// with IPv6 and just ignore the field.
 {
   public:
     // Default Constructor for empty netinterface address.

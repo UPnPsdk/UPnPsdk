@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-10-22
+// Redistribution only with this Copyright remark. Last modified: 2026-10-26
 
 // Tools and helper classes to manage gtests
 // =========================================
@@ -199,7 +199,7 @@ void CIfaddr4::chain_next_addr(struct ifaddrs* a_ptrNextAddr) {
 #endif
 
 CIfaddr::CIfaddr()
-// With constructing the object you get an empty networi interface info.
+// With constructing the object you get an empty network interface info.
 {
     // Initialize m_ifaddr structure. Point only to an empty network interface
     // name. All other values are 0 or nullptr.
@@ -225,9 +225,9 @@ CIfaddr::CIfaddr(uint32_t a_if_index, std::string_view a_if_name,
         if (inet_pton(AF_INET6, if_addr_raw, &m_ifa_addr.sin6.sin6_addr) != 1)
             throw std::invalid_argument(
                 UPnPsdk_LOGEXCEPT(
-                    "MSG0088") "Only netaddress without scope_id, port, prefix "
-                               "bitmask accepted. Use additional arguments for "
-                               "this. Wrong address is \"" +
+                    "MSG0088") "Only IPv6 netaddress without scope_id, port, "
+                               "prefix bitmask accepted. Use additional "
+                               "arguments for this. Wrong IPv6 address is \"" +
                 std::string(a_if_addr) + "\".");
 
         // Set netmask to the IPv6 interface address. a_prefixbits count is
@@ -261,9 +261,9 @@ CIfaddr::CIfaddr(uint32_t a_if_index, std::string_view a_if_name,
                       &m_ifa_addr.sin.sin_addr) != 1)
             throw std::invalid_argument(
                 UPnPsdk_LOGEXCEPT(
-                    "MSG0088") "Only netaddress without scope_id, port, prefix "
+                    "MSG0087") "Only IPv4 netaddress without port, prefix "
                                "bitmask accepted. Use additional arguments for "
-                               "this. Wrong address is \"" +
+                               "this. Wrong IPv4 address is \"" +
                 std::string(a_if_addr) + "\".");
 
         // Set netmask for IPv4 interface address.

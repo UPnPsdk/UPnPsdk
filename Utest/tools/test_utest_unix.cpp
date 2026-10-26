@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-10-23
+// Redistribution only with this Copyright remark. Last modified: 2026-10-25
 
 #include <utest/utest_unix.hpp>
 #include <utest/utest.hpp>
@@ -189,11 +189,12 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_loopback_netaddress) {
     for (ifa = m_ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
         if (ifa->ifa_addr == nullptr)
             continue;
-        sin6 = reinterpret_cast<sockaddr_in6*>(ifa->ifa_addr);
         // Check if IPv6 is_loopback address.
         if (ifa->ifa_addr->sa_family == AF_INET6 &&
-            (ifa->ifa_flags & IFF_LOOPBACK))
+            (ifa->ifa_flags & IFF_LOOPBACK)) {
+            sin6 = reinterpret_cast<sockaddr_in6*>(ifa->ifa_addr);
             break;
+        }
     }
     ASSERT_NE(ifa, nullptr)
         << "This SDK expects an IPv6 loopback adress, but no one found.";
@@ -214,19 +215,18 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_loopback_netaddress) {
                0x0000ffff), // Ignore special linux only flags from linux/if.h.
               0 | IFF_RUNNING | IFF_LOOPBACK | IFF_UP)
 #endif
-        << "Wrong flags " << ifa->ifa_flags << " = 0b"
+        << "Unexpected flags " << ifa->ifa_flags << " = 0b"
         << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
 
-    // Check netinterface address
-    EXPECT_TRUE(IN6_IS_ADDR_LOOPBACK(&sin6->sin6_addr));
+    // Check additional items of the netinterface address.
     EXPECT_EQ(sin6->sin6_scope_id, 0);
     EXPECT_EQ(sin6->sin6_port, 0);
 
     // Check netinterface netmask
     sin6 = reinterpret_cast<::sockaddr_in6*>(ifa->ifa_netmask);
     uint64_t* sin6_64 = reinterpret_cast<uint64_t*>(&sin6->sin6_addr);
-    EXPECT_EQ(sin6_64[0], 0xffffffffffffffff);
-    EXPECT_EQ(sin6_64[1], 0xffffffffffffffff);
+    EXPECT_EQ(sin6_64[0], ~0);
+    EXPECT_EQ(sin6_64[1], ~0);
     EXPECT_EQ(sin6->sin6_scope_id, 0);
     EXPECT_EQ(sin6->sin6_port, 0);
 
@@ -257,8 +257,8 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_loopback_netaddress) {
 
     // Check netinterface netmask
     sin6 = reinterpret_cast<::sockaddr_in6*>(ifaddr->ifa_netmask);
-    EXPECT_EQ(sin6_64[0], 0xffffffffffffffff);
-    EXPECT_EQ(sin6_64[1], 0xffffffffffffffff);
+    EXPECT_EQ(sin6_64[0], ~0);
+    EXPECT_EQ(sin6_64[1], ~0);
     EXPECT_EQ(sin6->sin6_scope_id, 0);
     EXPECT_EQ(sin6->sin6_port, 0);
 
@@ -320,13 +320,12 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4_loopback_netaddress) {
                0x0000ffff), // Ignore special linux only flags from linux/if.h.
               0 | IFF_RUNNING | IFF_LOOPBACK | IFF_UP)
 #endif
-        << "Wrong flags " << ifa->ifa_flags << " = 0b"
+        << "Unexpected flags " << ifa->ifa_flags << " = 0b"
         << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
 
     // Check netinterface address.
     char addr4[INET_ADDRSTRLEN];
-    ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, addr4, INET_ADDRSTRLEN),
-              addr4);
+    ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, addr4, sizeof(addr4)), addr4);
     EXPECT_STREQ(addr4, "127.0.0.1");
     EXPECT_EQ(sin->sin_port, 0);
 
@@ -334,7 +333,7 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4_loopback_netaddress) {
     char netmask4[INET_ADDRSTRLEN];
     ASSERT_EQ(ifa->ifa_netmask->sa_family, AF_INET);
     sin = reinterpret_cast<sockaddr_in*>(ifa->ifa_netmask);
-    ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, netmask4, INET_ADDRSTRLEN),
+    ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, netmask4, sizeof(netmask4)),
               netmask4);
     EXPECT_STREQ(netmask4, "255.0.0.0");
     EXPECT_EQ(sin->sin_port, 0);
@@ -343,7 +342,7 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4_loopback_netaddress) {
     char broadaddr[INET_ADDRSTRLEN];
     ASSERT_EQ(ifa->ifa_broadaddr->sa_family, AF_INET);
     sin = reinterpret_cast<sockaddr_in*>(ifa->ifa_broadaddr);
-    ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, broadaddr, INET_ADDRSTRLEN),
+    ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, broadaddr, sizeof(broadaddr)),
               broadaddr);
     EXPECT_STREQ(broadaddr, "127.0.0.1");
     EXPECT_EQ(sin->sin_port, 0);
@@ -386,6 +385,101 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4_loopback_netaddress) {
     EXPECT_EQ(sin->sin_port, 0);
 
     EXPECT_EQ(ifaddr->ifa_data, nullptr);
+}
+
+TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_link_local_netaddress) {
+    // Get real network interface address information and emulate the system
+    // call with same results.
+
+    ifaddrs* ifa;
+    ASSERT_EQ(getifaddrs(&m_ifaddr), 0);
+
+    // Search a link-local address.
+    sockaddr_in6* sin6;
+    for (ifa = m_ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
+        if (ifa->ifa_addr == nullptr)
+            continue;
+        // Check if IPv6 is_link-local address.
+        if (ifa->ifa_addr->sa_family == AF_INET6) {
+            sin6 = reinterpret_cast<sockaddr_in6*>(ifa->ifa_addr);
+            if (UPnPsdk::IN6_ADDR_LINKLOCAL(&sin6->sin6_addr))
+                break;
+        }
+    }
+    ASSERT_NE(ifa, nullptr)
+        << "This SDK expects an IPv6 link-local adress, but no one found.";
+
+    EXPECT_STRNE(ifa->ifa_name, "");
+    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
+    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
+    EXPECT_EQ((ifa->ifa_flags &
+               0x0000ffff), // Ignore special linux only flags from linux/if.h.
+              0 | IFF_UP | IFF_BROADCAST | IFF_RUNNING |
+                  IFF_MULTICAST /*| IFF_LOWER_UP*/) // lower to higher
+        << "Unexpected flags " << ifa->ifa_flags << " = 0b"
+        << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
+
+    // Get netinterface address.
+    char addr6[INET6_ADDRSTRLEN + 2]{};
+    addr6[0] = '[';
+    ASSERT_EQ(
+        inet_ntop(AF_INET6, &sin6->sin6_addr, addr6 + 1, sizeof(addr6) - 1),
+        addr6 + 1);
+    addr6[strlen(addr6)] = ']';
+    EXPECT_EQ(sin6->sin6_scope_id, ::if_nametoindex(ifa->ifa_name));
+    EXPECT_EQ(sin6->sin6_port, 0);
+
+    // Get netinterface netmask.
+    char netmask6[INET6_ADDRSTRLEN];
+    ASSERT_EQ(ifa->ifa_netmask->sa_family, AF_INET6);
+    sin6 = reinterpret_cast<sockaddr_in6*>(ifa->ifa_netmask);
+    ASSERT_EQ(inet_ntop(AF_INET6, &sin6->sin6_addr, netmask6, sizeof(netmask6)),
+              netmask6);
+    uint64_t* sin6_64 = reinterpret_cast<uint64_t*>(&sin6->sin6_addr);
+    EXPECT_EQ(sin6_64[0], ~0);
+    EXPECT_EQ(sin6_64[1], 0);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, 0);
+
+#ifndef __APPLE__
+    // The ifa_broadaddr field is effectively unused in macOS for IPv6
+    // configurations and has uspecified content.
+    // On other platforms there is no pointer to an address structure.
+    EXPECT_EQ(ifa->ifa_broadaddr, nullptr); // IPv6 does not use broadcasts.
+#endif
+    EXPECT_EQ(ifa->ifa_data, nullptr);
+
+    // Test Unit
+    // ---------
+    std::cerr << "DEBUG! addr6=\"" << addr6 << "\".\n";
+    CIfaddr ifaddrObj(::if_nametoindex(ifa->ifa_name), ifa->ifa_name, addr6,
+                      (ifa->ifa_flags & 0x0000ffff), 64);
+    ifaddrs* ifaddr = ifaddrObj.get();
+
+    EXPECT_EQ(ifaddr->ifa_next, nullptr);
+    EXPECT_STREQ(ifaddr->ifa_name, ifa->ifa_name);
+    EXPECT_EQ(ifaddr->ifa_flags, (ifa->ifa_flags & 0x0000ffff));
+    ASSERT_EQ(ifaddr->ifa_addr->sa_family, AF_INET6);
+
+    // Check netinterface address
+    ::sockaddr_in6* sin6_ifa = reinterpret_cast<::sockaddr_in6*>(ifa->ifa_addr);
+    sin6 = reinterpret_cast<::sockaddr_in6*>(ifaddr->ifa_addr);
+    EXPECT_EQ(
+        ::memcmp(&sin6_ifa->sin6_addr, &sin6->sin6_addr, sizeof(::in6_addr)),
+        0);
+    EXPECT_EQ(sin6_ifa->sin6_scope_id, sin6->sin6_scope_id);
+    EXPECT_EQ(sin6_ifa->sin6_port, sin6->sin6_port);
+
+    // Check netinterface netmask
+    sin6 = reinterpret_cast<::sockaddr_in6*>(ifaddr->ifa_netmask);
+    sin6_64 = reinterpret_cast<uint64_t*>(&sin6->sin6_addr);
+    EXPECT_EQ(sin6_64[0], ~0);
+    EXPECT_EQ(sin6_64[1], 0);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, 0);
+
+    // Ignore IPv6 netinterface broadcast address and check data field.
+    EXPECT_EQ(ifaddr->ifa_data, ifa->ifa_data);
 }
 
 } // namespace utest
