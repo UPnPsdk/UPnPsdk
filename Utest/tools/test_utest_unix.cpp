@@ -1,5 +1,5 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-10-25
+// Redistribution only with this Copyright remark. Last modified: 2026-10-26
 
 #include <utest/utest_unix.hpp>
 #include <utest/utest.hpp>
@@ -185,14 +185,14 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_loopback_netaddress) {
     ASSERT_EQ(getifaddrs(&m_ifaddr), 0);
 
     // Search a loopback address.
-    sockaddr_in6* sin6;
+    ::sockaddr_in6* sin6{};
     for (ifa = m_ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
         if (ifa->ifa_addr == nullptr)
             continue;
         // Check if IPv6 is_loopback address.
         if (ifa->ifa_addr->sa_family == AF_INET6 &&
             (ifa->ifa_flags & IFF_LOOPBACK)) {
-            sin6 = reinterpret_cast<sockaddr_in6*>(ifa->ifa_addr);
+            sin6 = reinterpret_cast<::sockaddr_in6*>(ifa->ifa_addr);
             break;
         }
     }
@@ -395,13 +395,13 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_link_local_netaddress) {
     ASSERT_EQ(getifaddrs(&m_ifaddr), 0);
 
     // Search a link-local address.
-    sockaddr_in6* sin6;
+    ::sockaddr_in6* sin6{};
     for (ifa = m_ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
         if (ifa->ifa_addr == nullptr)
             continue;
         // Check if IPv6 is_link-local address.
         if (ifa->ifa_addr->sa_family == AF_INET6) {
-            sin6 = reinterpret_cast<sockaddr_in6*>(ifa->ifa_addr);
+            sin6 = reinterpret_cast<::sockaddr_in6*>(ifa->ifa_addr);
             if (UPnPsdk::IN6_ADDR_LINKLOCAL(&sin6->sin6_addr))
                 break;
         }
@@ -432,7 +432,7 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_link_local_netaddress) {
     // Get netinterface netmask.
     char netmask6[INET6_ADDRSTRLEN];
     ASSERT_EQ(ifa->ifa_netmask->sa_family, AF_INET6);
-    sin6 = reinterpret_cast<sockaddr_in6*>(ifa->ifa_netmask);
+    sin6 = reinterpret_cast<::sockaddr_in6*>(ifa->ifa_netmask);
     ASSERT_EQ(inet_ntop(AF_INET6, &sin6->sin6_addr, netmask6, sizeof(netmask6)),
               netmask6);
     uint64_t* sin6_64 = reinterpret_cast<uint64_t*>(&sin6->sin6_addr);
