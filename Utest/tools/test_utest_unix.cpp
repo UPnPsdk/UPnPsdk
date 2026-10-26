@@ -488,28 +488,27 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_lla) {
     EXPECT_EQ(ifaddr->ifa_data, ifa->ifa_data);
 }
 
-#if 0
 TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_gua) {
     // Get real network interface address information and emulate the system
     // call with same results.
 
-    ifaddrs* ifa;
+    ifaddrs* ifa; // Pointer to the current used network interface address.
     ASSERT_EQ(getifaddrs(&m_ifaddr), 0);
 
-    // Search a link-local address.
+    // Search a global unicast address.
     ::sockaddr_in6* sin6{};
     for (ifa = m_ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
         if (ifa->ifa_addr == nullptr)
             continue;
-        // Check if IPv6 is_link-local address.
+        // Check if IPv6 is a global unicast address.
         if (ifa->ifa_addr->sa_family == AF_INET6) {
             sin6 = reinterpret_cast<::sockaddr_in6*>(ifa->ifa_addr);
-            if (UPnPsdk::IN6_ADDR_LINKLOCAL(&sin6->sin6_addr))
+            if (UPnPsdk::IN6_ADDR_GLOBALALL(&sin6->sin6_addr))
                 break;
         }
     }
     ASSERT_NE(ifa, nullptr)
-        << "This SDK expects an IPv6 link-local adress, but no one found.";
+        << "This SDK expects an IPv6 global unicast adress, but no one found.";
 
     EXPECT_STRNE(ifa->ifa_name, "");
     std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
@@ -528,7 +527,7 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_gua) {
         inet_ntop(AF_INET6, &sin6->sin6_addr, addr6 + 1, sizeof(addr6) - 1),
         addr6 + 1);
     addr6[strlen(addr6)] = ']';
-    EXPECT_EQ(sin6->sin6_scope_id, ::if_nametoindex(ifa->ifa_name));
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
     EXPECT_EQ(sin6->sin6_port, 0);
 
     // Get netinterface netmask.
@@ -583,7 +582,6 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_gua) {
     // Ignore IPv6 netinterface broadcast address and check data field.
     EXPECT_EQ(ifaddr->ifa_data, ifa->ifa_data);
 }
-#endif
 
 } // namespace utest
 
