@@ -1,6 +1,7 @@
 var sockaddr_8hpp =
 [
     [ "IN6_ADDR_GLOBAL", "d7/d1b/sockaddr_8hpp.html#ga55affe94fa5462f62aeaab2e42ba3a6c", null ],
+    [ "IN6_ADDR_UNIQUELOCAL", "d7/d1b/sockaddr_8hpp.html#gaeb43bd4d82f5d9d786b9a306e9c68429", null ],
     [ "IN6_ADDR_GLOBALALL", "d7/d1b/sockaddr_8hpp.html#ga28fdc3584e0197ba3732e16c2db91097", null ],
     [ "IN6_ADDR_LINKLOCAL", "d7/d1b/sockaddr_8hpp.html#ga594452452658782bc708e824c58dee93", null ],
     [ "is_unum_str", "d7/d1b/sockaddr_8hpp.html#ga36799e18488f13fb91c265008e84b1f0", null ],

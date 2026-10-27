@@ -290,16 +290,17 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4_loopback_netaddress) {
     ifaddrs* ifa;
     ASSERT_EQ(getifaddrs(&m_ifaddr), 0);
 
-    // Search an s loopback address.
-    sockaddr_in* sin;
+    // Search an IPv4 loopback address.
+    ::sockaddr_in* sin{};
     for (ifa = m_ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
         if (ifa->ifa_addr == nullptr)
             continue;
-        sin = reinterpret_cast<sockaddr_in*>(ifa->ifa_addr);
         // Check if IPv4 is_loopback address.
         if (ifa->ifa_addr->sa_family == AF_INET &&
-            (ifa->ifa_flags & IFF_LOOPBACK))
+            (ifa->ifa_flags & IFF_LOOPBACK)) {
+            sin = reinterpret_cast<sockaddr_in*>(ifa->ifa_addr);
             break;
+        }
     }
     if (ifa == nullptr)
         GTEST_SKIP() << "No IPv4 Loopback Address found for testing.";
@@ -330,8 +331,8 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4_loopback_netaddress) {
     EXPECT_EQ(sin->sin_port, 0);
 
     // Check netinterface netmask.
-    char netmask4[INET_ADDRSTRLEN];
     ASSERT_EQ(ifa->ifa_netmask->sa_family, AF_INET);
+    char netmask4[INET_ADDRSTRLEN];
     sin = reinterpret_cast<sockaddr_in*>(ifa->ifa_netmask);
     ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, netmask4, sizeof(netmask4)),
               netmask4);
@@ -339,8 +340,8 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4_loopback_netaddress) {
     EXPECT_EQ(sin->sin_port, 0);
 
     // Check netinterface broadcast address.
-    char broadaddr[INET_ADDRSTRLEN];
     ASSERT_EQ(ifa->ifa_broadaddr->sa_family, AF_INET);
+    char broadaddr[INET_ADDRSTRLEN];
     sin = reinterpret_cast<sockaddr_in*>(ifa->ifa_broadaddr);
     ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, broadaddr, sizeof(broadaddr)),
               broadaddr);
@@ -350,6 +351,7 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4_loopback_netaddress) {
     EXPECT_EQ(ifa->ifa_data, nullptr);
 
     // Test Unit
+    // ---------
     CIfaddr ifaddrObj(::if_nametoindex(ifa->ifa_name), ifa->ifa_name, addr4,
                       (ifa->ifa_flags & 0x0000ffff), 8);
     ifaddrs* ifaddr = ifaddrObj.get();
@@ -580,6 +582,197 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_gua) {
     EXPECT_EQ(sin6->sin6_port, 0);
 
     // Ignore IPv6 netinterface broadcast address and check data field.
+    EXPECT_EQ(ifaddr->ifa_data, ifa->ifa_data);
+}
+
+TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_ula) {
+    // Get real network interface address information and emulate the system
+    // call with same results.
+
+    ifaddrs* ifa; // Pointer to the current used network interface address.
+    ASSERT_EQ(getifaddrs(&m_ifaddr), 0);
+
+    // Search a unique local address.
+    ::sockaddr_in6* sin6{};
+    for (ifa = m_ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
+        if (ifa->ifa_addr == nullptr)
+            continue;
+        // Check if IPv6 is a unique local address.
+        if (ifa->ifa_addr->sa_family == AF_INET6) {
+            sin6 = reinterpret_cast<::sockaddr_in6*>(ifa->ifa_addr);
+            if (UPnPsdk::IN6_ADDR_UNIQUELOCAL(&sin6->sin6_addr))
+                break;
+        }
+    }
+    if (ifa == nullptr)
+        GTEST_SKIP() << "No IPv6 Unique Local Address found for testing.";
+
+    EXPECT_STRNE(ifa->ifa_name, "");
+    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
+    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
+    EXPECT_EQ((ifa->ifa_flags &
+               0x0000ffff), // Ignore special linux only flags from linux/if.h.
+              0 | IFF_UP | IFF_BROADCAST | IFF_RUNNING |
+                  IFF_MULTICAST /*| IFF_LOWER_UP*/) // lower to higher
+        << "Unexpected flags " << ifa->ifa_flags << " = 0b"
+        << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
+
+    // Get netinterface address.
+    char addr6[INET6_ADDRSTRLEN + 2]{};
+    addr6[0] = '[';
+    ASSERT_EQ(
+        inet_ntop(AF_INET6, &sin6->sin6_addr, addr6 + 1, sizeof(addr6) - 1),
+        addr6 + 1);
+    addr6[strlen(addr6)] = ']';
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, 0);
+
+    // Get netinterface netmask.
+    char netmask6[INET6_ADDRSTRLEN];
+    ASSERT_EQ(ifa->ifa_netmask->sa_family, AF_INET6);
+    sin6 = reinterpret_cast<::sockaddr_in6*>(ifa->ifa_netmask);
+    ASSERT_EQ(inet_ntop(AF_INET6, &sin6->sin6_addr, netmask6, sizeof(netmask6)),
+              netmask6);
+    uint64_t* sin6_64 = reinterpret_cast<uint64_t*>(&sin6->sin6_addr);
+    EXPECT_EQ(sin6_64[0], ~0);
+    EXPECT_EQ(sin6_64[1], 0);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, 0);
+
+#ifndef __APPLE__
+    // The ifa_broadaddr field is effectively unused in macOS for IPv6
+    // configurations and has uspecified content.
+    // On other platforms there is no pointer to an address structure.
+    EXPECT_EQ(ifa->ifa_broadaddr, nullptr); // IPv6 does not use broadcasts.
+#endif
+    EXPECT_EQ(ifa->ifa_data, nullptr);
+
+    // Test Unit
+    // ---------
+    std::cerr << "DEBUG! addr6=\"" << addr6 << "\".\n";
+    CIfaddr ifaddrObj(::if_nametoindex(ifa->ifa_name), ifa->ifa_name, addr6,
+                      (ifa->ifa_flags & 0x0000ffff), 64);
+    ifaddrs* ifaddr = ifaddrObj.get();
+
+    EXPECT_EQ(ifaddr->ifa_next, nullptr);
+    EXPECT_STREQ(ifaddr->ifa_name, ifa->ifa_name);
+    EXPECT_EQ(ifaddr->ifa_flags, (ifa->ifa_flags & 0x0000ffff));
+    ASSERT_EQ(ifaddr->ifa_addr->sa_family, AF_INET6);
+
+    // Check netinterface address
+    ::sockaddr_in6* sin6_ifa = reinterpret_cast<::sockaddr_in6*>(ifa->ifa_addr);
+    sin6 = reinterpret_cast<::sockaddr_in6*>(ifaddr->ifa_addr);
+    EXPECT_EQ(
+        ::memcmp(&sin6_ifa->sin6_addr, &sin6->sin6_addr, sizeof(::in6_addr)),
+        0);
+    EXPECT_EQ(sin6_ifa->sin6_scope_id, sin6->sin6_scope_id);
+    EXPECT_EQ(sin6_ifa->sin6_port, sin6->sin6_port);
+
+    // Check netinterface netmask
+    sin6 = reinterpret_cast<::sockaddr_in6*>(ifaddr->ifa_netmask);
+    sin6_64 = reinterpret_cast<uint64_t*>(&sin6->sin6_addr);
+    EXPECT_EQ(sin6_64[0], ~0);
+    EXPECT_EQ(sin6_64[1], 0);
+    EXPECT_EQ(sin6->sin6_scope_id, 0);
+    EXPECT_EQ(sin6->sin6_port, 0);
+
+    // Ignore IPv6 netinterface broadcast address and check data field.
+    EXPECT_EQ(ifaddr->ifa_data, ifa->ifa_data);
+}
+
+TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4) {
+    // Get real network interface address information and emulate the system
+    // call with same results.
+
+    ifaddrs* ifa; // Pointer to the current used network interface address.
+    ASSERT_EQ(getifaddrs(&m_ifaddr), 0);
+
+    // Search an IPv4 address.
+    ::sockaddr_in* sin{};
+    for (ifa = m_ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
+        if (ifa->ifa_addr == nullptr)
+            continue;
+        // Check if IPv4, but not IPv4 loopback address.
+        if (ifa->ifa_addr->sa_family == AF_INET &&
+            !(ifa->ifa_flags & IFF_LOOPBACK)) {
+            sin = reinterpret_cast<sockaddr_in*>(ifa->ifa_addr);
+            break;
+        }
+    }
+    if (ifa == nullptr)
+        GTEST_SKIP() << "No IPv4 Address found for testing.";
+
+    EXPECT_STRNE(ifa->ifa_name, "");
+    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
+    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
+    EXPECT_EQ((ifa->ifa_flags &
+               0x0000ffff), // Ignore special linux only flags from linux/if.h.
+              0 | IFF_UP | IFF_BROADCAST | IFF_RUNNING |
+                  IFF_MULTICAST /*| IFF_LOWER_UP*/) // lower to higher
+        << "Unexpected flags " << ifa->ifa_flags << " = 0b"
+        << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
+
+    // Get netinterface address.
+    char addr4[INET_ADDRSTRLEN]{};
+    ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, addr4, sizeof(addr4)), addr4);
+    EXPECT_EQ(sin->sin_port, 0);
+
+    // Get netinterface netmask.
+    ASSERT_EQ(ifa->ifa_netmask->sa_family, AF_INET);
+    char netmask4[INET_ADDRSTRLEN];
+    sin = reinterpret_cast<::sockaddr_in*>(ifa->ifa_netmask);
+    ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, netmask4, sizeof(netmask4)),
+              netmask4);
+    std::bitset<32> binary(sin->sin_addr.s_addr);
+    uint8_t subnetbits = static_cast<uint8_t>(binary.count());
+    std::cerr << "DEBUG! IPv4 subnetbits=" << std::to_string(subnetbits)
+              << ".\n";
+    EXPECT_EQ(sin->sin_port, 0);
+
+    // Check netinterface broadcast address.
+    ASSERT_EQ(ifa->ifa_broadaddr->sa_family, AF_INET);
+    char broadaddr[INET_ADDRSTRLEN];
+    sin = reinterpret_cast<sockaddr_in*>(ifa->ifa_broadaddr);
+    ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, broadaddr, sizeof(broadaddr)),
+              broadaddr);
+    std::cerr << "DEBUG! IPv4 broadcast address=\"" << broadaddr << "\".\n";
+    EXPECT_EQ(sin->sin_port, 0);
+
+    EXPECT_EQ(ifa->ifa_data, nullptr);
+
+    // Test Unit
+    // ---------
+    std::cerr << "DEBUG! addr4=\"" << addr4 << "\".\n";
+    CIfaddr ifaddrObj(::if_nametoindex(ifa->ifa_name), ifa->ifa_name, addr4,
+                      (ifa->ifa_flags & 0x0000ffff), subnetbits);
+    ifaddrs* ifaddr = ifaddrObj.get();
+
+    EXPECT_EQ(ifaddr->ifa_next, nullptr);
+    EXPECT_STREQ(ifaddr->ifa_name, ifa->ifa_name);
+    EXPECT_EQ(ifaddr->ifa_flags, (ifa->ifa_flags & 0x0000ffff));
+    ASSERT_EQ(ifaddr->ifa_addr->sa_family, AF_INET);
+
+    // Check netinterface address
+    ::sockaddr_in* sin_ifa = reinterpret_cast<::sockaddr_in*>(ifa->ifa_addr);
+    sin = reinterpret_cast<::sockaddr_in*>(ifaddr->ifa_addr);
+    EXPECT_EQ(::memcmp(&sin_ifa->sin_addr, &sin->sin_addr, sizeof(::in_addr)),
+              0);
+    EXPECT_EQ(sin_ifa->sin_port, sin->sin_port);
+
+    // Check netinterface netmask
+    sin_ifa = reinterpret_cast<::sockaddr_in*>(ifa->ifa_netmask);
+    sin = reinterpret_cast<::sockaddr_in*>(ifaddr->ifa_netmask);
+    EXPECT_EQ(::memcmp(&sin_ifa->sin_addr, &sin->sin_addr, sizeof(::in_addr)),
+              0);
+    EXPECT_EQ(sin->sin_port, 0);
+
+    // Check netinterface broadcast address
+    sin_ifa = reinterpret_cast<::sockaddr_in*>(ifa->ifa_broadaddr);
+    sin = reinterpret_cast<::sockaddr_in*>(ifaddr->ifa_broadaddr);
+    EXPECT_EQ(::memcmp(&sin_ifa->sin_addr, &sin->sin_addr, sizeof(::in_addr)),
+              0);
+    EXPECT_EQ(sin->sin_port, 0);
+
     EXPECT_EQ(ifaddr->ifa_data, ifa->ifa_data);
 }
 

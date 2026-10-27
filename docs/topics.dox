@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-02-28
+// Redistribution only with this Copyright remark. Last modified: 2026-10-27
 /*!
  * \file
  * \brief Definition of the documentation topics.
@@ -283,6 +283,9 @@ root based:    path with leading '/'
  * \b References
  * - <!--REF:--><a href="https://notes.shichao.io/unp/ch5/">TCP Client/Server
  * Example</a>
+ * - <!--REF:--><a
+ * href="https://www.computernetworkingnotes.com/networking-tutorials/ipv6-unicast-addresses-explained.html">IPv6
+ * Unicast Addresses Explained</a>
  *
  * \defgroup upnplib-addrmodul Address module
  * \ingroup upnplib-Addressing

@@ -1,7 +1,7 @@
 #ifndef UPnPsdk_NET_SOCKADDR_HPP
 #define UPnPsdk_NET_SOCKADDR_HPP
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-09-07
+// Redistribution only with this Copyright remark. Last modified: 2026-10-27
 /*!
  * \file
  * \brief Declaration of the Sockaddr class and some free helper functions.
@@ -58,6 +58,20 @@ inline bool IN6_ADDR_GLOBAL(
        checked. */
     const in6_addr* a_addr) {
     return ((a_addr->s6_addr[0] & 0xe0) == 0x20);
+}
+
+/*!
+ * \brief Test if a socket address has a unique local scope
+ * \ingroup upnplib-addrmodul
+ *
+ * This function isn't provided by the system on all supported platforms as
+ * member of the IN6_IS_ADDR test macros.
+ */
+inline bool IN6_ADDR_UNIQUELOCAL(
+    /*! [in] Pointer to the address structure of a socket address that shall be
+       checked. */
+    const in6_addr* a_addr) {
+    return ((a_addr->s6_addr[0] & 0xfe) == 0xfc);
 }
 
 /*!

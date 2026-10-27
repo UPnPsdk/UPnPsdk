@@ -1,5 +1,5 @@
 // Copyright (C) 2022+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-09-07
+// Redistribution only with this Copyright remark. Last modified: 2026-10-27
 
 #include <UPnPsdk/sockaddr.hpp>
 #include <UPnPsdk/netadapter.hpp>
@@ -189,20 +189,24 @@ TEST(SockaddrTestSuite, verify_in6_addr_globalall) {
     // clang-format off
     // No Unique Local Address
     ASSERT_EQ(inet_pton(AF_INET6, "fe00::", &sin6_addr), 1);
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_UNIQUELOCAL(&sin6_addr));
     EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 
     // Lowest Unique Local Address
     ASSERT_EQ(inet_pton(AF_INET6, "fc00::", &sin6_addr), 1);
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_UNIQUELOCAL(&sin6_addr));
     EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 
     // Highest Unique Local Address
     ASSERT_EQ(inet_pton(AF_INET6, "fdff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
                         &sin6_addr), 1);
+    EXPECT_TRUE(UPnPsdk::IN6_ADDR_UNIQUELOCAL(&sin6_addr));
     EXPECT_TRUE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
 
     // No Unique Local Address
     ASSERT_EQ(inet_pton(AF_INET6, "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
                         &sin6_addr), 1);
+    EXPECT_FALSE(UPnPsdk::IN6_ADDR_UNIQUELOCAL(&sin6_addr));
     EXPECT_FALSE(UPnPsdk::IN6_ADDR_GLOBALALL(&sin6_addr));
     // clang-format on
 }
