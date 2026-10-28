@@ -706,8 +706,8 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4) {
     std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
 #ifdef __APPLE__
     EXPECT_EQ(ifa->ifa_flags, 0 | 0x8000 /*IFF_DYNAMIC?*/ | IFF_SLAVE |
-                                  IFF_RUNNING | | IFF_NOTRAILERS |
-                                  IFF_BROADCAST | IFF_UP)
+                                  IFF_RUNNING | IFF_NOTRAILERS | IFF_BROADCAST |
+                                  IFF_UP)
     // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000001000100001100011);
 #else
     // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
