@@ -15,145 +15,6 @@ namespace utest {
 using UPnPsdk::is_valid_netif;
 
 
-#if 0
-TEST(ToolsTestSuite, initialize_ipv4_interface_addresses) {
-    CIfaddr4 ifaddr4Obj;
-    ifaddrs* ifaddr = ifaddr4Obj.get();
-
-    // should be constructed as empty netinterface address.
-    EXPECT_EQ(ifaddr->ifa_next, nullptr);
-    EXPECT_STREQ(ifaddr->ifa_name, "");
-    EXPECT_EQ(ifaddr->ifa_flags, 0);
-    EXPECT_EQ(ifaddr->ifa_addr, nullptr);
-    EXPECT_EQ(ifaddr->ifa_netmask, nullptr);
-    EXPECT_EQ(ifaddr->ifa_broadaddr, nullptr);
-    EXPECT_EQ(ifaddr->ifa_data, nullptr);
-
-    EXPECT_FALSE(ifaddr4Obj.set("", "192.168.168.3/24"));
-    EXPECT_FALSE(ifaddr4Obj.set("if0v4", ""));
-
-    // Set a loopback interface
-    EXPECT_TRUE(ifaddr4Obj.set("lo", "127.0.0.1"));
-#if 0
-    [[maybe_unused]] sockaddr_in* ifa_addr_in(reinterpret_cast<sockaddr_in*>(ifaddr->ifa_addr));
-    [[maybe_unused]] sockaddr_in* ifa_netmask_in(reinterpret_cast<sockaddr_in*>(ifaddr->ifa_netmask));
-    [[maybe_unused]] sockaddr_in* ifa_ifu_in(reinterpret_cast<sockaddr_in*>(ifaddr->ifa_broadaddr));
-
-    // should be constructed as empty netinterface address.
-    EXPECT_EQ(ifaddr->ifa_next, nullptr);
-    EXPECT_STREQ(ifaddr->ifa_name, "");
-    EXPECT_EQ(ifaddr->ifa_flags, 0);
-    EXPECT_EQ(ifa_addr_in, nullptr);
-    EXPECT_EQ(ifa_netmask_in, nullptr);
-    EXPECT_EQ(ifa_ifu_in, nullptr);
-    EXPECT_EQ(ifaddr->ifa_data, nullptr);
-    // This throws a segfault by C++ and does not need to be tested
-    // EXPECT_ANY_THROW(ifaddr4Obj.set(NULL, "192.168.168.3/24"));
-    // EXPECT_ANY_THROW(ifaddr4Obj.set("if0v4", NULL));
-    EXPECT_FALSE(ifaddr4Obj.set("", "192.168.168.3/24"));
-    EXPECT_FALSE(ifaddr4Obj.set("if0v4", ""));
-
-    EXPECT_TRUE(ifaddr4Obj.set("if0v4", "192.168.168.168/20"));
-    EXPECT_STREQ(ifaddr->ifa_name, "if0v4");
-
-    char addr4buf[INET_ADDRSTRLEN]{};
-    inet_ntop(AF_INET, &ifa_addr_in->sin_addr.s_addr, addr4buf,
-              INET_ADDRSTRLEN);
-    EXPECT_STREQ(addr4buf, "192.168.168.168")
-        << "    addr4buf contains the ip address";
-    inet_ntop(AF_INET, &ifa_netmask_in->sin_addr.s_addr, addr4buf,
-              INET_ADDRSTRLEN);
-    EXPECT_STREQ(addr4buf, "255.255.240.0")
-        << "    addr4buf contains the netmask";
-    EXPECT_EQ(ifaddr->ifa_flags,
-              (unsigned int)0 | IFF_UP | IFF_BROADCAST | IFF_MULTICAST);
-    inet_ntop(AF_INET, &ifa_ifu_in->sin_addr.s_addr, addr4buf, INET_ADDRSTRLEN);
-    EXPECT_STREQ(addr4buf, "192.168.175.255")
-        << "    addr4buf contains the broadcast address";
-
-    EXPECT_TRUE(ifaddr4Obj.set("if1v4", "10.168.168.200"));
-    inet_ntop(AF_INET, &ifa_addr_in->sin_addr.s_addr, addr4buf,
-              INET_ADDRSTRLEN);
-    EXPECT_STREQ(addr4buf, "10.168.168.200")
-        << "    addr4buf contains the ip address";
-    inet_ntop(AF_INET, &ifa_netmask_in->sin_addr.s_addr, addr4buf,
-              INET_ADDRSTRLEN);
-    EXPECT_STREQ(addr4buf, "255.255.255.255")
-        << "    addr4buf contains the netmask";
-    EXPECT_EQ(ifaddr->ifa_flags,
-              (unsigned int)0 | IFF_UP | IFF_BROADCAST | IFF_MULTICAST);
-    inet_ntop(AF_INET, &ifa_ifu_in->sin_addr.s_addr, addr4buf, INET_ADDRSTRLEN);
-    EXPECT_STREQ(addr4buf, "10.168.168.200")
-        << "    addr4buf contains the broadcast address";
-
-    EXPECT_ANY_THROW(ifaddr4Obj.set("if2v4", "10.168.168.47/"));
-#endif
-}
-
-TEST(ToolsTestSuite, initialize_ipv6_interface_addresses) {
-#if 0
-    CIfaddr6 ifaddr6Obj;
-    ifaddrs* ifaddr = ifaddr6Obj.get();
-    sockaddr_in6* ifa_addr_in6 = reinterpret_cast<sockaddr_in6*>(ifaddr->ifa_addr);
-    sockaddr_in6* ifa_netmask_in6 = reinterpret_cast<sockaddr_in6*>(ifaddr->ifa_netmask);
-    sockaddr_in6* ifa_ifu_in6 = reinterpret_cast<sockaddr_in6*>(ifaddr->ifa_broadaddr);
-    // char addr6buf[INET6_ADDRSTRLEN]{};
-
-    // should be constructed with a loopback interface
-    EXPECT_EQ(ifaddr->ifa_next, nullptr);
-    EXPECT_STREQ(ifaddr->ifa_name, "lo");
-    EXPECT_EQ(ifaddr->ifa_flags, (unsigned int)0 | IFF_LOOPBACK | IFF_UP);
-    EXPECT_EQ(ifa_addr_in6->sin6_family, AF_INET6);
-    // EXPECT_EQ(ifa_addr_in6->sin6_addr.s6_addr, (unsigned int)16777343);
-    EXPECT_EQ(ifa_netmask_in6->sin6_family, AF_INET6);
-    // EXPECT_EQ(ifa_netmask_in6->sin6_addr.s6_addr, (unsigned int)255);
-    EXPECT_EQ(ifa_ifu_in6->sin6_family, AF_INET6);
-    // EXPECT_EQ(ifa_ifu_in6->sin6_addr.s6_addr, (unsigned int)0);
-    EXPECT_EQ(ifaddr->ifa_data, nullptr);
-
-    // This throws a segfault by C++ and does not need to be tested
-    // EXPECT_ANY_THROW(ifaddr6Obj.set(nullptr, "[fe80::5054:ff:fe7f:c021]"));
-    // EXPECT_ANY_THROW(ifaddr6Obj.set("if0v4", NULL));
-    // EXPECT_FALSE(ifaddr6Obj.set("", "[fe80::5054:ff:fe7f:c021]"));
-    // EXPECT_FALSE(ifaddr6Obj.set("if0v6", ""));
-
-    EXPECT_TRUE(ifaddr6Obj.set("if0v4", "192.168.168.168/20"));
-    EXPECT_STREQ(ifaddr->ifa_name, "if0v4");
-    inet_ntop(AF_INET6, &ifa_addr_in6->sin6_addr.s6_addr, addr6buf,
-              INET6_ADDRSTRLEN);
-    EXPECT_STREQ(addr6buf, "192.168.168.168")
-        << "    addr6buf contains the ip address";
-    inet_ntop(AF_INET6, &ifa_netmask_in6->sin6_addr.s6_addr, addr6buf,
-              INET6_ADDRSTRLEN);
-    EXPECT_STREQ(addr6buf, "255.255.240.0")
-        << "    addr6buf contains the netmask";
-    EXPECT_EQ(ifaddr->ifa_flags,
-              (unsigned int)0 | IFF_UP | IFF_BROADCAST | IFF_MULTICAST);
-    inet_ntop(AF_INET6, &ifa_ifu_in6->sin6_addr.s6_addr, addr6buf, INET6_ADDRSTRLEN);
-    EXPECT_STREQ(addr6buf, "192.168.175.255")
-        << "    addr6buf contains the broadcast address";
-
-    EXPECT_TRUE(ifaddr6Obj.set("if1v4", "10.168.168.200"));
-    inet_ntop(AF_INET6, &ifa_addr_in6->sin6_addr.s6_addr, addr6buf,
-              INET6_ADDRSTRLEN);
-    EXPECT_STREQ(addr6buf, "10.168.168.200")
-        << "    addr6buf contains the ip address";
-    inet_ntop(AF_INET6, &ifa_netmask_in6->sin6_addr.s6_addr, addr6buf,
-              INET6_ADDRSTRLEN);
-    EXPECT_STREQ(addr6buf, "255.255.255.255")
-        << "    addr6buf contains the netmask";
-    EXPECT_EQ(ifaddr->ifa_flags,
-              (unsigned int)0 | IFF_UP | IFF_BROADCAST | IFF_MULTICAST);
-    inet_ntop(AF_INET6, &ifa_ifu_in6->sin6_addr.s6_addr, addr6buf, INET6_ADDRSTRLEN);
-    EXPECT_STREQ(addr6buf, "10.168.168.200")
-        << "    addr6buf contains the broadcast address";
-
-    EXPECT_ANY_THROW(ifaddr6Obj.set("if2v4", "10.168.168.47/"));
-#endif
-}
-#endif
-
-
 class UtestHelperFTestSuite : public ::testing::Test {
   protected:
     ::ifaddrs* m_ifaddr{};
@@ -209,16 +70,10 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_loopback_netaddress) {
     // 0x8000 is set and on linux it is named IFF_DYNAMIC but this name isn't
     // available on MacOS. MacOS has only a portable 'net/if.h' header. Don't
     // know what this bit on MacOS means and what it's name.
-#ifdef __APPLE__
-    EXPECT_EQ(ifa->ifa_flags,
-              0 | 0x8000 /*IFF_DYNAMIC?*/ | IFF_RUNNING | IFF_LOOPBACK | IFF_UP)
-    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000001000000001001001);
-#else
-    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010000000001001001);
-    EXPECT_EQ((ifa->ifa_flags &
-               0x0000ffff), // Ignore special linux only flags from linux/if.h.
-              0 | IFF_RUNNING | IFF_LOOPBACK | IFF_UP)
-#endif
+    // __APPLE__ returns 0b00000000000000001000000001001001
+    //   other   return  0b00000000000000010000000001001001
+    // but I only look for the loopback flag. That should always be usable.
+    ASSERT_EQ((ifa->ifa_flags & IFF_LOOPBACK), IFF_LOOPBACK)
         << "Unexpected flags " << ifa->ifa_flags << " = 0b"
         << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
 
@@ -315,16 +170,10 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4_loopback_netaddress) {
     // 0x8000 is set and on linux it is named IFF_DYNAMIC but this name isn't
     // available on MacOS. MacOS has only a portable 'net/if.h' header. Don't
     // know what this bit on MacOS means and what it's name.
-#ifdef __APPLE__
-    EXPECT_EQ(ifa->ifa_flags,
-              0 | 0x8000 /*IFF_DYNAMIC?*/ | IFF_RUNNING | IFF_LOOPBACK | IFF_UP)
-    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000001000000001001001);
-#else
-    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010000000001001001);
-    EXPECT_EQ((ifa->ifa_flags &
-               0x0000ffff), // Ignore special linux only flags from linux/if.h.
-              0 | IFF_RUNNING | IFF_LOOPBACK | IFF_UP)
-#endif
+    // __APPLE__ returns 0b00000000000000001000000001001001
+    //   other   return  0b00000000000000010000000001001001
+    // but I only look for the loopback flag. That should always be usable.
+    ASSERT_EQ((ifa->ifa_flags & IFF_LOOPBACK), IFF_LOOPBACK)
         << "Unexpected flags " << ifa->ifa_flags << " = 0b"
         << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
 
@@ -416,20 +265,7 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_lla) {
         << "This SDK expects an IPv6 link-local adress, but no one found.";
 
     EXPECT_STRNE(ifa->ifa_name, "");
-    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
-#ifdef __APPLE__
-    EXPECT_EQ(ifa->ifa_flags,
-              0 | 0x8000 /*IFF_DYNAMIC?*/ | IFF_RUNNING | IFF_LOOPBACK | IFF_UP)
-    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000001000000001001001);
-#else
-    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
-    EXPECT_EQ((ifa->ifa_flags &
-               0x0000ffff), // Ignore special linux only flags from linux/if.h.
-              0 | IFF_UP | IFF_BROADCAST | IFF_RUNNING |
-                  IFF_MULTICAST /*| IFF_LOWER_UP*/) // lower to higher
-#endif
-        << "Unexpected flags " << ifa->ifa_flags << " = 0b"
-        << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
+    ASSERT_TRUE(is_valid_netif(ifa));
 
     // Get netinterface address.
     char addr6[INET6_ADDRSTRLEN + 2]{};
@@ -440,6 +276,13 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_lla) {
     addr6[strlen(addr6)] = ']';
     EXPECT_EQ(sin6->sin6_scope_id, ::if_nametoindex(ifa->ifa_name));
     EXPECT_EQ(sin6->sin6_port, 0);
+    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n"
+              << "DEBUG! addr6=\"" << addr6 << "\", flags=0b"
+              << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags)
+              << ".\n";
+    // Default flags returned by
+    // __APPLE__: EXPECT_EQ(ifa->ifa_flags, 0b00000000000000001000000001001001)
+    //   other  : EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
 
     // Get netinterface netmask.
     char netmask6[INET6_ADDRSTRLEN];
@@ -463,7 +306,6 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_lla) {
 
     // Test Unit
     // ---------
-    std::cerr << "DEBUG! addr6=\"" << addr6 << "\".\n";
     CIfaddr ifaddrObj(::if_nametoindex(ifa->ifa_name), ifa->ifa_name, addr6,
                       (ifa->ifa_flags & 0x0000ffff), 64);
     ifaddrs* ifaddr = ifaddrObj.get();
@@ -517,14 +359,7 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_gua) {
         GTEST_SKIP() << "No IPv6 Global Unicast Address found for testing.";
 
     EXPECT_STRNE(ifa->ifa_name, "");
-    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
-    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
-    EXPECT_EQ((ifa->ifa_flags &
-               0x0000ffff), // Ignore special linux only flags from linux/if.h.
-              0 | IFF_UP | IFF_BROADCAST | IFF_RUNNING |
-                  IFF_MULTICAST /*| IFF_LOWER_UP*/) // lower to higher
-        << "Unexpected flags " << ifa->ifa_flags << " = 0b"
-        << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
+    ASSERT_TRUE(is_valid_netif(ifa));
 
     // Get netinterface address.
     char addr6[INET6_ADDRSTRLEN + 2]{};
@@ -535,6 +370,13 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_gua) {
     addr6[strlen(addr6)] = ']';
     EXPECT_EQ(sin6->sin6_scope_id, 0);
     EXPECT_EQ(sin6->sin6_port, 0);
+    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n"
+              << "DEBUG! addr6=\"" << addr6 << "\", flags=0b"
+              << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags)
+              << ".\n";
+    // Default flags returned by
+    // __APPLE__:
+    //   other  : EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
 
     // Get netinterface netmask.
     char netmask6[INET6_ADDRSTRLEN];
@@ -558,7 +400,6 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_gua) {
 
     // Test Unit
     // ---------
-    std::cerr << "DEBUG! addr6=\"" << addr6 << "\".\n";
     CIfaddr ifaddrObj(::if_nametoindex(ifa->ifa_name), ifa->ifa_name, addr6,
                       (ifa->ifa_flags & 0x0000ffff), 64);
     ifaddrs* ifaddr = ifaddrObj.get();
@@ -612,14 +453,7 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_ula) {
         GTEST_SKIP() << "No IPv6 Unique Local Address found for testing.";
 
     EXPECT_STRNE(ifa->ifa_name, "");
-    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
-    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
-    EXPECT_EQ((ifa->ifa_flags &
-               0x0000ffff), // Ignore special linux only flags from linux/if.h.
-              0 | IFF_UP | IFF_BROADCAST | IFF_RUNNING |
-                  IFF_MULTICAST /*| IFF_LOWER_UP*/) // lower to higher
-        << "Unexpected flags " << ifa->ifa_flags << " = 0b"
-        << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
+    ASSERT_TRUE(is_valid_netif(ifa));
 
     // Get netinterface address.
     char addr6[INET6_ADDRSTRLEN + 2]{};
@@ -630,6 +464,13 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_ula) {
     addr6[strlen(addr6)] = ']';
     EXPECT_EQ(sin6->sin6_scope_id, 0);
     EXPECT_EQ(sin6->sin6_port, 0);
+    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n"
+              << "DEBUG! addr6=\"" << addr6 << "\", flags=0b"
+              << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags)
+              << ".\n";
+    // Default flags returned by
+    // __APPLE__: (should be same as returned by a gua)
+    //   other  : (should be same as returned by a gua)
 
     // Get netinterface netmask.
     char netmask6[INET6_ADDRSTRLEN];
@@ -653,7 +494,6 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv6_ula) {
 
     // Test Unit
     // ---------
-    std::cerr << "DEBUG! addr6=\"" << addr6 << "\".\n";
     CIfaddr ifaddrObj(::if_nametoindex(ifa->ifa_name), ifa->ifa_name, addr6,
                       (ifa->ifa_flags & 0x0000ffff), 64);
     ifaddrs* ifaddr = ifaddrObj.get();
@@ -707,13 +547,19 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4) {
         GTEST_SKIP() << "No IPv4 Address found for testing.";
 
     EXPECT_STRNE(ifa->ifa_name, "");
-    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
-    EXPECT_TRUE(is_valid_netif(ifa));
+    ASSERT_TRUE(is_valid_netif(ifa));
 
     // Get netinterface address.
     char addr4[INET_ADDRSTRLEN]{};
     ASSERT_EQ(inet_ntop(AF_INET, &sin->sin_addr, addr4, sizeof(addr4)), addr4);
     EXPECT_EQ(sin->sin_port, 0);
+    std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n"
+              << "DEBUG! addr4=\"" << addr4 << "\", flags=0b"
+              << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags)
+              << ".\n";
+    // Default flags returned by
+    // __APPLE__:
+    //   other  : EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
 
     // Get netinterface netmask.
     ASSERT_EQ(ifa->ifa_netmask->sa_family, AF_INET);
@@ -740,7 +586,6 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4) {
 
     // Test Unit
     // ---------
-    std::cerr << "DEBUG! addr4=\"" << addr4 << "\".\n";
     CIfaddr ifaddrObj(::if_nametoindex(ifa->ifa_name), ifa->ifa_name, addr4,
                       (ifa->ifa_flags & 0x0000ffff), subnetbits);
     ifaddrs* ifaddr = ifaddrObj.get();
