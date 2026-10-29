@@ -20,7 +20,6 @@ using testing::Return;
 
 using UPnPsdk::bitmask_to_netmask;
 using UPnPsdk::CNetadapter;
-using UPnPsdk::is_valid_netif;
 using UPnPsdk::netmask_to_bitmask;
 using UPnPsdk::SInaddr;
 using UPnPsdk::SSockaddr;
@@ -56,6 +55,9 @@ TEST(NetadapterTestSuite, get_netadapter_list) {
 }
 #endif
 
+
+#ifndef _MSC_VER
+using UPnPsdk::is_valid_netif;
 
 TEST(NetadapterTestSuite, is_valid_netif) {
     ::ifaddrs ifa;
@@ -100,6 +102,7 @@ TEST(NetadapterTestSuite, is_valid_netif) {
     ifa.ifa_addr = nullptr;
     EXPECT_FALSE(is_valid_netif(&ifa));
 }
+#endif
 
 TEST(NetadapterTestSuite, find_loopback_and_lla) {
     // There should always be a loopback interface.
