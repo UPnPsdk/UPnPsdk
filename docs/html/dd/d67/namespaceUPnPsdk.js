@@ -71,6 +71,7 @@ var namespaceUPnPsdk =
       [ "SOAPMETHOD_POST", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60af36f6651a84f4a8ff85fa2cecc25505c", null ],
       [ "HTTPMETHOD_SIMPLEGET", "dd/d67/namespaceUPnPsdk.html#ae6e466635b99f8cfef274faaf8584f60ad9d286da9f9dc214d6ec88ab465d42f2", null ]
     ] ],
+    [ "is_valid_netif", "dd/d67/namespaceUPnPsdk.html#a2b7988cb4de59d08bb5bae5d6c54e225", null ],
     [ "netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga890f7e797a37b355bacfbfc84b2c587f", null ],
     [ "netmask_to_bitmask", "d0/dd8/group__upnplib-addrmodul.html#ga3ceb75383fa176bdd102782cad9a97ee", null ],
     [ "bitmask_to_netmask", "d0/dd8/group__upnplib-addrmodul.html#ga240ecb84930f9811a540c7488f4474c5", null ],

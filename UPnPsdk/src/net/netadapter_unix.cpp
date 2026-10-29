@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-08-15
+// Redistribution only with this Copyright remark. Last modified: 2026-10-28
 /*!
  * \file
  * \brief Manage information from Unix like platforms about network adapters.
@@ -48,7 +48,7 @@ bool CNetadapter_platform::get_next() {
     m_ifa_current = m_ifa_current->ifa_next;
 
     for (; m_ifa_current != nullptr; m_ifa_current = m_ifa_current->ifa_next) {
-        if (is_valid_if(m_ifa_current))
+        if (is_valid_netif(m_ifa_current))
             return true; // Does not increment m_ifa_current
     }
     return false;
@@ -114,26 +114,6 @@ void CNetadapter_platform::free_ifaddrs() noexcept {
     m_ifa_current = nullptr;
 }
 
-inline bool
-CNetadapter_platform::is_valid_if(const ifaddrs* a_ifa) const noexcept {
-    // Accept IFF_LOOPBACK or up AF_INET6/AF_INET interfaces with address
-    // (e.g. not bonded) and that support MULTICAST.
-    if (a_ifa == nullptr || a_ifa->ifa_addr == nullptr)
-        return false;
-
-    if (a_ifa->ifa_flags & IFF_LOOPBACK &&
-        (a_ifa->ifa_addr->sa_family == AF_INET6 ||
-         a_ifa->ifa_addr->sa_family == AF_INET))
-        return true;
-
-    if ((a_ifa->ifa_addr->sa_family == AF_INET6 ||
-         a_ifa->ifa_addr->sa_family == AF_INET) &&
-        a_ifa->ifa_flags & IFF_UP && a_ifa->ifa_flags & IFF_MULTICAST)
-        return true;
-
-    return false;
-}
-
 void CNetadapter_platform::reset() noexcept {
     TRACE2(this, " Executing CNetadapter_platform::reset()")
     m_ifa_current = nullptr;
@@ -141,7 +121,7 @@ void CNetadapter_platform::reset() noexcept {
     // valid entry.
     for (ifaddrs* ifa_current = m_ifa_first; ifa_current != nullptr;
          ifa_current = ifa_current->ifa_next) {
-        if (is_valid_if(ifa_current)) {
+        if (is_valid_netif(ifa_current)) {
             m_ifa_current = ifa_current;
             break; // Does not increment ifa_current
         }

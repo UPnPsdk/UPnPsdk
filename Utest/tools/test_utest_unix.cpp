@@ -1,6 +1,7 @@
 // Copyright (C) 2021+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-10-28
+// Redistribution only with this Copyright remark. Last modified: 2026-10-29
 
+#include <UPnPsdk/netadapter_platform.hpp>
 #include <utest/utest_unix.hpp>
 #include <utest/utest.hpp>
 
@@ -10,6 +11,9 @@
                     // and not linux/if.h.
 
 namespace utest {
+
+using UPnPsdk::is_valid_netif;
+
 
 #if 0
 TEST(ToolsTestSuite, initialize_ipv4_interface_addresses) {
@@ -704,20 +708,7 @@ TEST_F(UtestHelperFTestSuite, ifaddr_set_ipv4) {
 
     EXPECT_STRNE(ifa->ifa_name, "");
     std::cerr << "DEBUG! ifa_name=\"" << ifa->ifa_name << "\".\n";
-#ifdef __APPLE__
-    EXPECT_EQ(ifa->ifa_flags, 0 | 0x8000 /*IFF_DYNAMIC?*/ | IFF_SLAVE |
-                                  IFF_RUNNING | IFF_NOTRAILERS | IFF_BROADCAST |
-                                  IFF_UP)
-    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000001000100001100011);
-#else
-    // EXPECT_EQ(ifa->ifa_flags, 0b00000000000000010001000001000011)
-    EXPECT_EQ((ifa->ifa_flags &
-               0x0000ffff), // Ignore special linux only flags from linux/if.h.
-              0 | IFF_UP | IFF_BROADCAST | IFF_RUNNING |
-                  IFF_MULTICAST /*| IFF_LOWER_UP*/) // lower to higher
-#endif
-        << "Unexpected flags " << ifa->ifa_flags << " = 0b"
-        << std::bitset<8 * sizeof(ifa->ifa_flags)>(ifa->ifa_flags) << ".\n";
+    EXPECT_TRUE(is_valid_netif(ifa));
 
     // Get netinterface address.
     char addr4[INET_ADDRSTRLEN]{};

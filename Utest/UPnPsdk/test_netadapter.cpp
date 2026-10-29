@@ -1,5 +1,5 @@
 // Copyright (C) 2024+ GPL 3 and higher by Ingo Höft, <Ingo@Hoeft-online.de>
-// Redistribution only with this Copyright remark. Last modified: 2026-09-07
+// Redistribution only with this Copyright remark. Last modified: 2026-10-29
 
 // There are additional Unit Tests at
 // git commit a18cff7d3dfd3266ad63a9efacba672ab1bd88b2.
@@ -20,6 +20,7 @@ using testing::Return;
 
 using UPnPsdk::bitmask_to_netmask;
 using UPnPsdk::CNetadapter;
+using UPnPsdk::is_valid_netif;
 using UPnPsdk::netmask_to_bitmask;
 using UPnPsdk::SInaddr;
 using UPnPsdk::SSockaddr;
@@ -55,6 +56,50 @@ TEST(NetadapterTestSuite, get_netadapter_list) {
 }
 #endif
 
+
+TEST(NetadapterTestSuite, is_valid_netif) {
+    ::ifaddrs ifa;
+    UPnPsdk::sockaddr_t saddr;
+    ifa.ifa_addr = &saddr.sa;
+
+    ifa.ifa_flags = 0 | IFF_UP | IFF_MULTICAST | IFF_BROADCAST;
+    saddr.sa.sa_family = AF_INET;
+    EXPECT_TRUE(is_valid_netif(&ifa));
+
+    ifa.ifa_flags = 0 | IFF_UP | IFF_MULTICAST;
+    EXPECT_FALSE(is_valid_netif(&ifa));
+
+    saddr.sa.sa_family = AF_INET6;
+    EXPECT_TRUE(is_valid_netif(&ifa));
+
+    ifa.ifa_flags = 0 | IFF_UP | IFF_MULTICAST | IFF_BROADCAST;
+    EXPECT_TRUE(is_valid_netif(&ifa));
+
+    ifa.ifa_flags = 0 | IFF_UP | IFF_BROADCAST;
+    EXPECT_FALSE(is_valid_netif(&ifa));
+
+    ifa.ifa_flags = 0 | IFF_LOOPBACK;
+    EXPECT_TRUE(is_valid_netif(&ifa));
+
+    saddr.sa.sa_family = AF_INET;
+    EXPECT_TRUE(is_valid_netif(&ifa));
+
+    ifa.ifa_flags = 0;
+    saddr.sa.sa_family = AF_INET6;
+    EXPECT_FALSE(is_valid_netif(&ifa));
+
+    ifa.ifa_flags = 0 | IFF_UP;
+    EXPECT_FALSE(is_valid_netif(&ifa));
+
+    saddr.sa.sa_family = AF_UNIX;
+    ifa.ifa_flags = 0 | IFF_UP | IFF_MULTICAST | IFF_BROADCAST;
+    EXPECT_FALSE(is_valid_netif(&ifa));
+
+    EXPECT_FALSE(is_valid_netif(nullptr));
+
+    ifa.ifa_addr = nullptr;
+    EXPECT_FALSE(is_valid_netif(&ifa));
+}
 
 TEST(NetadapterTestSuite, find_loopback_and_lla) {
     // There should always be a loopback interface.

@@ -1,12 +1,12 @@
 var NAVTREEINDEX7 =
 {
-"d9/da5/classUPnPsdk_1_1CSocket__basic.html#aa60a708f1b03b6dd2450f3be368cfb03":[4,2,0,0,3],
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html#aa60a708f1b03b6dd2450f3be368cfb03":[4,3,0,1,0,3],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab":[4,2,0,0,6],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac39ca8c143781c52f049fa2d10d889ab":[4,3,0,1,0,6],
-"d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac866a7e2ee68d5be6e62f997b26454a5":[4,3,0,1,0,9],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac866a7e2ee68d5be6e62f997b26454a5":[4,2,0,0,9],
-"d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad041272f04b0147168ec8b89f179e39b":[4,3,0,1,0,7],
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html#ac866a7e2ee68d5be6e62f997b26454a5":[4,3,0,1,0,9],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad041272f04b0147168ec8b89f179e39b":[4,2,0,0,7],
+"d9/da5/classUPnPsdk_1_1CSocket__basic.html#ad041272f04b0147168ec8b89f179e39b":[4,3,0,1,0,7],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html#afbc7a7d14f99a1cb26e32d90fce75fcc":[4,3,0,1,0,4],
 "d9/da5/classUPnPsdk_1_1CSocket__basic.html#afbc7a7d14f99a1cb26e32d90fce75fcc":[4,2,0,0,4],
 "d9/da9/namespaceanonymous__namespace_02service__table_8cpp_03.html":[5,0,7],
@@ -109,6 +109,7 @@ var NAVTREEINDEX7 =
 "da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html#ab40f4f1217f62d380736126fec2ae82e":[5,0,16,2],
 "da/d04/namespaceanonymous__namespace_02TimerThread_8cpp_03.html#abe6357a7e5da57a153a5110fa4a94411":[5,0,16,4],
 "da/d0d/unix_2UPnPsdk_2netadapter__platform_8hpp.html":[7,0,2,0,0,0,0],
+"da/d0d/unix_2UPnPsdk_2netadapter__platform_8hpp.html#a2b7988cb4de59d08bb5bae5d6c54e225":[7,0,2,0,0,0,0,1],
 "da/d0d/unix_2UPnPsdk_2netadapter__platform_8hpp_source.html":[7,0,2,0,0,0,0],
 "da/d58/deprecated.html":[3],
 "da/d8a/SSDPResultDataCallback_8cpp.html":[4,1,1,12],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "da/dd9/membuffer_8cpp.html":[7,0,0,1,2,4,1],
 "da/dd9/membuffer_8cpp.html#a0ebdc3494e3cb774b96ee021f7ae6c3b":[7,0,0,1,2,4,1,1],
 "da/dd9/membuffer_8cpp.html#a132a367b6d8baf0d9de4b6e1f0fffe14":[7,0,0,1,2,4,1,6],
-"da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b":[7,0,0,1,2,4,1,4],
-"da/dd9/membuffer_8cpp.html#a37962f857cb3a490e8f21ca923352983":[7,0,0,1,2,4,1,0]
+"da/dd9/membuffer_8cpp.html#a353b8c4e33ef3f9b64dbe56b7866746b":[7,0,0,1,2,4,1,4]
 };

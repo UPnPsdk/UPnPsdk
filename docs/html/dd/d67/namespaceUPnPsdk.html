@@ -240,6 +240,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a2b7988cb4de59d08bb5bae5d6c54e225" id="r_a2b7988cb4de59d08bb5bae5d6c54e225"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d67/namespaceUPnPsdk.html#a2b7988cb4de59d08bb5bae5d6c54e225">is_valid_netif</a> (const ifaddrs *a_ifa)</td></tr>
+<tr class="memdesc:a2b7988cb4de59d08bb5bae5d6c54e225"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test if a local network interface is valid and usable.  <br /></td></tr>
+<tr class="separator:a2b7988cb4de59d08bb5bae5d6c54e225"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga890f7e797a37b355bacfbfc84b2c587f" id="r_ga890f7e797a37b355bacfbfc84b2c587f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dd8/group__upnplib-addrmodul.html#ga890f7e797a37b355bacfbfc84b2c587f">netmask_to_bitmask</a> (const in6_addr &amp;a_sin6_addr) noexcept</td></tr>
 <tr class="memdesc:ga890f7e797a37b355bacfbfc84b2c587f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get prefix bit number from a binary network address-mask.  <br /></td></tr>
 <tr class="separator:ga890f7e797a37b355bacfbfc84b2c587f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -441,6 +444,53 @@ Same value in integer form. </td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a2b7988cb4de59d08bb5bae5d6c54e225" name="a2b7988cb4de59d08bb5bae5d6c54e225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b7988cb4de59d08bb5bae5d6c54e225">&#9670;&#160;</a></span>is_valid_netif()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool UPnPsdk::is_valid_netif </td>
+          <td>(</td>
+          <td class="paramtype">const ifaddrs *&#160;</td>
+          <td class="paramname"><em>a_ifa</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Test if a local network interface is valid and usable. </p>
+<p>Accept IFF_LOOPBACK or up AF_INET6/AF_INET interfaces with address (e.g. not bonded) and that support always MULTICAST and additional BROADCAST for AF_INET. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../da/d0d/unix_2UPnPsdk_2netadapter__platform_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../da/d0d/unix_2UPnPsdk_2netadapter__platform_8hpp_source.html">netadapter_platform.hpp</a>.</p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a2b7988cb4de59d08bb5bae5d6c54e225_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a2b7988cb4de59d08bb5bae5d6c54e225_icgraph" alt=""/></div>
+<map name="add/d67/namespaceUPnPsdk_a2b7988cb4de59d08bb5bae5d6c54e225_icgraph" id="add/d67/namespaceUPnPsdk_a2b7988cb4de59d08bb5bae5d6c54e225_icgraph">
+<area shape="rect" title="Test if a local network interface is valid and usable." alt="" coords="440,45,615,70"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a7be49c7e7d38b541a24b47285ed1d357" title="Select next entry from the network adapter list that was initial loaded with get_first()." alt="" coords="223,5,392,45"/>
+<area shape="poly" title=" " alt="" coords="426,45,392,40,392,35,427,40"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#a6adc7ce0b610f9cf08d0acb6bd8f7493" title="Reset pointer and point to the first entry of the local network adapter list if available." alt="" coords="223,69,392,109"/>
+<area shape="poly" title=" " alt="" coords="427,75,392,80,392,74,426,69"/>
+<area shape="rect" href="../../d1/d0f/classUPnPsdk_1_1CNetadapter__platform.html#acc039aa39f69f82aa26906287de8996e" title="Load a list of network adapters from the operating system and select its first entry." alt="" coords="5,69,175,109"/>
+<area shape="poly" title=" " alt="" coords="209,92,175,92,175,87,209,87"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a2a68659cc5b319d1eeda06f219c64c59" name="a2a68659cc5b319d1eeda06f219c64c59"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a68659cc5b319d1eeda06f219c64c59">&#9670;&#160;</a></span>pthread_self()</h2>
 
@@ -461,22 +511,22 @@ Same value in integer form. </td></tr>
 Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a thread ID from an arbitrary pthread_t?</a> </p><dl class="section note"><dt>Note</dt><dd>This function is only available for macOS and Microsoft Windows. Unix/Linux with GCC compiler can do this authomatically. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d1/db3/pthread_8cpp_source.html#l00020">20</a> of file <a class="el" href="../../d1/db3/pthread_8cpp_source.html">pthread.cpp</a>.</p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_cgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_cgraph" alt=""/></div>
 <map name="add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_cgraph" id="add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_cgraph">
 <area shape="rect" title="Get pthread thread id as unsigned integer." alt="" coords="5,29,173,55"/>
 <area shape="poly" title=" " alt="" coords="61,31,55,21,58,11,70,5,89,3,112,6,122,15,119,19,110,11,89,8,72,10,63,15,61,20,66,28"/>
 </map>
 </div>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dd/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_icgraph" alt=""/></div>
 <map name="add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_icgraph" id="add/d67/namespaceUPnPsdk_a2a68659cc5b319d1eeda06f219c64c59_icgraph">
 <area shape="rect" title="Get pthread thread id as unsigned integer." alt="" coords="5,29,173,55"/>
@@ -589,11 +639,11 @@ Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html#l00132">132</a> of file <a class="el" href="../../d1/db5/UPnPsdk_2src_2net_2http_2uri_8cpp_source.html">uri.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dd/d67/namespaceUPnPsdk_ab707d803eca469c6976bed877909c297_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_ab707d803eca469c6976bed877909c297_icgraph" alt=""/></div>
 <map name="add/d67/namespaceUPnPsdk_ab707d803eca469c6976bed877909c297_icgraph" id="add/d67/namespaceUPnPsdk_ab707d803eca469c6976bed877909c297_icgraph">
 <area shape="rect" title="Replaces http percent encoded characters with their character representation." alt="" coords="285,37,448,77"/>
@@ -648,11 +698,11 @@ Reference: <a href="https://stackoverflow.com/a/18709692/5014688">How do I get a
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="../../db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp_source.html#l00101">101</a> of file <a class="el" href="../../db/d8e/UPnPsdk_2src_2net_2http_2webserver_8cpp_source.html">webserver.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../dd/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph.png" border="0" usemap="#add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph" alt=""/></div>
 <map name="add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph" id="add/d67/namespaceUPnPsdk_ab75e516bfffb3c259ea43971e3533ba7_icgraph">
 <area shape="rect" title="Based on the extension, returns the content type and content subtype." alt="" coords="592,44,775,69"/>
